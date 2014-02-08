@@ -19,9 +19,9 @@ headers = '''<!DOCTYPE html>
     <link rel="stylesheet" type="text/css"
           href="http://schema.org/search_files/schemaorg.css" />
 
-    <link href="search_files/prettify.css" type="text/css"
+    <link href="http://schema.org/search_files/prettify.css" type="text/css"
           rel="stylesheet" />
-    <script type="text/javascript" src="js/prettify.js">
+    <script type="text/javascript" src="http://schema.org/js/prettify.js">
     </script>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
 
@@ -65,7 +65,7 @@ headers = '''<!DOCTYPE html>
     var customSearchControl = new google.search.CustomSearchControl(\'013516846811604855281:nj5laplixaa\');
     customSearchControl.setResultSetSize(google.search.Search.FILTERED_CSE_RESULTSET);
     var options = new google.search.DrawOptions();
-    options.enableSearchboxOnly("docs/search_results.html", null, false, \'#\');
+    options.enableSearchboxOnly("http://schema.org/docs/search_results.html", null, false, \'#\');
     customSearchControl.draw(\'cse-search-form\', options);
   }, true);
 </script>

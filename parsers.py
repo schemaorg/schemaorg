@@ -18,6 +18,55 @@ def MakeParserOfType (format, webapp):
     else :
         return 0
 
+class ParseExampleFile :
+
+    def __init__ (self, webapp):
+        self.webapp = webapp
+        self.initFields()
+
+    def initFields(self):
+        self.currentStr = []
+        self.terms = []
+        self.preMarkupStr = ""
+        self.microdataStr = ""
+        self.rdfaStr = ""
+        self.jsonStr = ""
+        self.state= ""
+
+    def nextPart(self, next):
+        if (self.state == 'PRE-MARKUP:'):
+            self.preMarkupStr = "".join(self.currentStr)
+        elif (self.state ==  'MICRODATA:'):
+            self.microdataStr = "".join(self.currentStr)
+        elif (self.state == 'RDFA:'):
+            self.rdfaStr = "".join(self.currentStr)
+        elif (self.state == 'JSON:'):
+            self.jsonStr = "".join(self.currentStr)
+        self.state = next
+        self.currentStr = []
+            
+
+    def parse (self, content, tripleset):
+        lines = re.split('\n|\r', content)
+        for line in lines:
+            if ((len(line) > 6) and line[:6] == "TYPES:"):
+                self.nextPart('TYPES:')
+                tripleset.AddExample(self.terms, self.preMarkupStr, self.microdataStr, self.rdfaStr, self.jsonStr)
+                self.initFields()
+                typelist = re.split(':', line)
+                self.terms = re.sub(' ', '', typelist[1]).split(',')
+            else :
+                tokens = ["PRE-MARKUP:", "MICRODATA:", "RDFA:", "JSON:"]
+                for tk in tokens:
+                    ltk = len(tk)
+                    if (len(line) > ltk-1 and line[:ltk] == tk):
+                        self.nextPart(tk)
+                        line = line[ltk:]
+                self.currentStr.append(line + "\n")
+        tripleset.AddExample(self.terms, self.preMarkupStr, self.microdataStr, self.rdfaStr, self.jsonStr)
+
+    
+        
 
 class RDFAParser :
 
