@@ -8,7 +8,7 @@ from google.appengine.ext import blobstore
 from google.appengine.ext.webapp import blobstore_handlers
 import xml.etree.ElementTree as ET
 import logging
-
+import api
 
 def MakeParserOfType (format, webapp):
     if (format == 'mcf') :
@@ -46,24 +46,29 @@ class ParseExampleFile :
         self.currentStr = []
             
 
-    def parse (self, content, tripleset):
+    def parse (self, content):
         lines = re.split('\n|\r', content)
         for line in lines:
             if ((len(line) > 6) and line[:6] == "TYPES:"):
-                self.nextPart('TYPES:')
-                tripleset.AddExample(self.terms, self.preMarkupStr, self.microdataStr, self.rdfaStr, self.jsonStr)
+                self.nextPart('TYPES:')                
+                api.Example.AddExample(self.terms, self.preMarkupStr, self.microdataStr, self.rdfaStr, self.jsonStr)
                 self.initFields()
                 typelist = re.split(':', line)
-                self.terms = re.sub(' ', '', typelist[1]).split(',')
-            else :
+                self.terms = []
+                ttl = typelist[1].split(',')
+                for ttli in ttl:
+                    ttli = re.sub(' ', '', ttli)
+                    self.terms.append(api.Unit.GetUnit(ttli, True))
+            else:
                 tokens = ["PRE-MARKUP:", "MICRODATA:", "RDFA:", "JSON:"]
                 for tk in tokens:
                     ltk = len(tk)
                     if (len(line) > ltk-1 and line[:ltk] == tk):
                         self.nextPart(tk)
                         line = line[ltk:]
-                self.currentStr.append(line + "\n")
-        tripleset.AddExample(self.terms, self.preMarkupStr, self.microdataStr, self.rdfaStr, self.jsonStr)
+                if (len(line) > 0):
+                    self.currentStr.append(line + "\n")
+        api.Example.AddExample(self.terms, self.preMarkupStr, self.microdataStr, self.rdfaStr, self.jsonStr)
 
     
         
@@ -73,10 +78,10 @@ class RDFAParser :
     def __init__ (self, webapp):
         self.webapp = webapp
 
-    def parse (self, content, tripleSet):
+    def parse (self, content):
         root = ET.fromstring(content)
         self.items = {}
-        self.extractTriples(root, tripleSet, None)
+        self.extractTriples(root, None)
         return self.items.keys()
 
     def stripID (self, str) :
@@ -85,27 +90,27 @@ class RDFAParser :
         else:
             return str
         
-    def extractTriples(self, elem, tripleSet, currentNode):
+    def extractTriples(self, elem, currentNode):
         typeof = elem.get('typeof')
         resource = elem.get('resource')
         href = elem.get('href')
         property = elem.get('property')
         text = elem.text
         if (property != None):
-            property = self.stripID(property)
+            property = api.Unit.GetUnit(self.stripID(property), True)
             if (href != None) :
-                href = self.stripID(href)
+                href = api.Unit.GetUnit(self.stripID(href), True)
            #     self.webapp.write("<br>%s %s %s" % (currentNode, property, href))
-                tripleSet.AddTriple(currentNode, property, href)
+                api.Triple.AddTriple(currentNode, property, href)
                 self.items[currentNode] = 1
             elif (text != None):
              #   logging.info("<br>%s %s '%s'" % (currentNode, property, text))
-                tripleSet.AddTripleText(currentNode, property, text)
+                api.Triple.AddTripleText(currentNode, property, text)
                 self.items[currentNode] = 1
         if (resource != None):
-            currentNode = self.stripID(resource)
+            currentNode = api.Unit.GetUnit(self.stripID(resource), True)
         for child in elem.findall('*'):
-            self.extractTriples(child, tripleSet, currentNode)
+            self.extractTriples(child,  currentNode)
 
 
                 
@@ -139,21 +144,21 @@ class MCFParser:
             values.append(self.cleanValue(rv))
         return values
 
-    def parse (self, content, tripleSet):
+    def parse (self, content):
         self.items = {}
         lines = re.split('\n|\r', content)
         unit = None
         for l in lines:
             #   self.webapp.write("Got line" + l)
             if (len(l) > 5 and (l[:5] == "Unit:")) :
-                unit = self.extractUnitName(l)
+                unit = api.Unit.GetUnit(self.extractUnitName(l), True)
                 self.items[unit] = 1
                 #  self.webapp.write("Got unit:" + unit)
             elif (len(l) > 1 and (l.find(':') > 1)) :
-                predicate = self.extractPredicateName(l)
+                predicate = apiUnit.GetUnit(self.extractPredicateName(l), True)
                 values = self.extractValues(l)
                 #   self.webapp.write("<br>Got predicate " + predicate)
                 for v in values:
 #                    self.webapp.write("<br> %s %s %s" % (unit, predicate, v))
-                    tripleSet.AddTriple(unit, predicate, v)
+                    api.Triple.AddTriple(unit, predicate, api.Unit.GetUnit(v, True))
         return self.items.keys()
