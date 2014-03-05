@@ -22,6 +22,13 @@ NodeIDMap = {}
 
 class Unit ():
 
+    def __init__ (self, id):
+        self.id = id
+        NodeIDMap[id] = self
+        self.arcsIn = []
+        self.arcsOut = []
+        self.examples = []
+
     @staticmethod
     def GetUnit (id, createp=False):
         if (id in NodeIDMap):
@@ -30,13 +37,33 @@ class Unit ():
         if (createp != None):
             return Unit(id)
 
-    
-    def __init__ (self, id):
-        self.id = id
-        NodeIDMap[id] = self
-        self.arcsIn = []
-        self.arcsOut = []
-        self.examples = []
+    def typeOf(self, type):
+        for triple in self.arcsOut:
+            if (triple.target != None and triple.arc.id == "typeOf"):
+                val = triple.target.subClassOf(type)
+                if (val):
+                    return True
+        return False
+            
+    def subClassOf(self, type):
+        if (self.id == type.id):
+            return True
+        for triple in self.arcsOut:
+            if (triple.target != None and triple.arc.id == "rdfs:subClassOf"):
+                val = triple.target.subClassOf(type)
+                if (val):
+                    return True
+        return False
+
+    def isClass(self):
+        return self.typeOf(Unit.GetUnit("rdfs:Class"))
+
+    def isAttribute(self):
+        return self.typeOf(Unit.GetUnit("rdf:Property"))
+
+    def isEnumeration(self):
+        return self.subClassOf(Unit.GetUnit("Enumeration"))
+
 
 class Triple () :
     
@@ -160,11 +187,17 @@ class ShowUnit (webapp2.RequestHandler) :
         while (ind > 0) :
             ind = ind -1
             nn = self.parentStack[ind]
-            self.write("%s &gt; " % (self.ml(nn)))
+            self.write(self.ml(nn))
+            if (ind > 0):
+                self.write(" &gt; ")
         self.write("</h1>")
         comment = GetComment(node)
         self.write("<div>%s</div>" % (comment))
-        self.write("<table cellspacing=3 class=definition-table>        <thead><tr><th>Property</th><th>Expected Type</th><th>Description</th>               </tr></thead>")
+        if (node.isClass()):
+            self.write("<table cellspacing=3 class=definition-table>        <thead><tr><th>Property</th><th>Expected Type</th><th>Description</th>               </tr></thead>")
+        elif (node.isAttribute()):
+            self.write("<table cellspacing=3 class=definition-table><th>Property</th><th>Value</th> </tr></thead>")
+
 
 
     
@@ -172,7 +205,7 @@ class ShowUnit (webapp2.RequestHandler) :
         headerPrinted = False 
         di = Unit.GetUnit("domainIncludes")
         ri = Unit.GetUnit("rangeIncludes")
-        for prop in GetSources(di, cl):
+        for prop in sorted(GetSources(di, cl), key=lambda u: u.id):
             ranges = GetTargets(ri, prop)
             comment = GetComment(prop)
             if (not headerPrinted):
@@ -191,6 +224,31 @@ class ShowUnit (webapp2.RequestHandler) :
             self.write("</td>")
             self.write("<td class=prop-desc>%s</td> " % (comment))
             self.write("</tr>")
+
+    def AttributeProperties (self, node):
+        di = Unit.GetUnit("domainIncludes")
+        ri = Unit.GetUnit("rangeIncludes")
+        ranges = sorted(GetTargets(ri, node), key=lambda u: u.id)
+        domains = sorted(GetTargets(di, node), key=lambda u: u.id)
+        first_range = True
+        self.write("<tr><th>rangeIncludes</th><th class=prop-nam' scope=row>")
+        for r in ranges:
+            if (not first_range):
+                self.write("<br>")
+            first_range = False
+            self.write(" <code>%s</code> " % (self.ml(r)))
+            self.write("&nbsp;")
+        self.write("</th></tr>")
+        first_domain = True
+        self.write("<tr><th>domainIncludes</th><th class=prop-nam' scope=row> ")
+        for d in domains:
+            if (not first_domain):
+                self.write("<br>")
+            first_domain = False
+            self.write("<code>%s</code> " % (self.ml(d)))
+            self.write("&nbsp;")
+        self.write("</th></tr>")
+
 
     def rep(self, markup):
         m1 = re.sub("<", "&lt;", markup)
@@ -215,17 +273,27 @@ class ShowUnit (webapp2.RequestHandler) :
 
         self.UnitHeaders(node)
 
-        for p in self.parentStack:
-            #            logging.info("Doing " + p)
-            self.ClassProperties(p)
+        if (Unit.isClass(node)):
+            for p in self.parentStack:
+                self.ClassProperties(p)
+        elif (Unit.isAttribute(node)):
+            self.AttributeProperties(node)
 
         self.write("</table>")
 
-        children = GetSources(Unit.GetUnit("rdfs:subClassOf"), node)
-        if (len(children) > 0):
-            self.write("<br>More specific Types");
-            for c in children:
-                self.write("<li> %s" % (self.ml(c)))
+        if (node.isClass()):
+            children = GetSources(Unit.GetUnit("rdfs:subClassOf"), node)
+            if (len(children) > 0):
+                self.write("<br>More specific Types");
+                for c in children:
+                    self.write("<li> %s" % (self.ml(c)))
+
+        if (node.isEnumeration()):
+            children = GetSources(Unit.GetUnit("typeOf"), node)
+            if (len(children) > 0):
+                self.write("<br><br>Enumeration members");
+                for c in children:
+                    self.write("<li> %s" % (self.ml(c)))
 
         examples = GetExamples(node)
         if (len(examples) > 0):

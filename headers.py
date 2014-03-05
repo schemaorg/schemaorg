@@ -34,6 +34,12 @@ headers = '''<!DOCTYPE html>
   $('.new + .pun + .atv\').addClass(\'curl\');
 
         }, 500);
+        setTimeout(function(){
+
+  $(".atn:contains(property), .atn:contains(typeof) ").addClass(\'new\');
+  $('.new + .pun + .atv\').addClass(\'curl\');
+
+        }, 500);
       });
 </script>
 

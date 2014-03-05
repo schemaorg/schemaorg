@@ -109,6 +109,8 @@ class RDFAParser :
                 self.items[currentNode] = 1
         if (resource != None):
             currentNode = api.Unit.GetUnit(self.stripID(resource), True)
+            if (typeof != None):
+                api.Triple.AddTriple(currentNode, api.Unit.GetUnit("typeOf", True), api.Unit.GetUnit(self.stripID(typeof), True))
         for child in elem.findall('*'):
             self.extractTriples(child,  currentNode)
 
