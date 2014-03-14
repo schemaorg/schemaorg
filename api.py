@@ -64,6 +64,18 @@ class Unit ():
     def isEnumeration(self):
         return self.subClassOf(Unit.GetUnit("Enumeration"))
 
+    def superceded(self):
+        for triple in self.arcsOut:
+            if (triple.target != None and triple.arc.id == "supercededBy"):
+                return True
+        return False
+
+    def supercedes(self):
+        for triple in self.arcsIn:
+            if (triple.source != None and triple.arc.id == "supercededBy"):
+                return triple.target
+        return None
+
 
 class Triple () :
     
@@ -99,7 +111,8 @@ class Example ():
 
     @staticmethod
     def AddExample(terms, original_html, microdata, rdfa, jsonld):
-        return Example(terms, original_html, microdata, rdfa, jsonld)
+        if (len(terms) > 0 and len(original_html) > 0 and len(microdata) > 0 and len(rdfa) > 0 and len(jsonld) > 0):
+            return Example(terms, original_html, microdata, rdfa, jsonld)
     
     def __init__ (self, terms, original_html, microdata, rdfa, jsonld):
         self.terms = terms
@@ -184,12 +197,15 @@ class ShowUnit (webapp2.RequestHandler) :
     def UnitHeaders(self, node):
         self.write("<h1 class=page-title>")
         ind = len(self.parentStack)
+        thing_seen = False
         while (ind > 0) :
             ind = ind -1
             nn = self.parentStack[ind]
-            self.write(self.ml(nn))
-            if (ind > 0):
-                self.write(" &gt; ")
+            if (nn.id == "Thing" or thing_seen):
+                thing_seen = True
+                self.write(self.ml(nn))
+                if (ind > 0):
+                    self.write(" &gt; ")
         self.write("</h1>")
         comment = GetComment(node)
         self.write("<div>%s</div>" % (comment))
@@ -206,6 +222,9 @@ class ShowUnit (webapp2.RequestHandler) :
         di = Unit.GetUnit("domainIncludes")
         ri = Unit.GetUnit("rangeIncludes")
         for prop in sorted(GetSources(di, cl), key=lambda u: u.id):
+            if (prop.superceded()):
+                continue
+            supercedes = prop.supercedes()
             ranges = GetTargets(ri, prop)
             comment = GetComment(prop)
             if (not headerPrinted):
@@ -217,13 +236,51 @@ class ShowUnit (webapp2.RequestHandler) :
             first_range = True
             for r in ranges:
                 if (not first_range):
-                    self.write("<br>")
-                    first_range = False
+                    self.write(" <br>or ")
+                first_range = False
                 self.write(self.ml(r))
                 self.write("&nbsp;")
             self.write("</td>")
-            self.write("<td class=prop-desc>%s</td> " % (comment))
-            self.write("</tr>")
+            self.write("<td class=prop-desc>%s" % (comment))
+            if (supercedes != None):
+                self.write(" Supercedes %s." % (self.ml(supercedes)))
+
+            self.write("</td></tr>")
+
+
+    def ClassIncomingProperties (self, cl):
+        headerPrinted = False 
+        di = Unit.GetUnit("domainIncludes")
+        ri = Unit.GetUnit("rangeIncludes")
+        for prop in sorted(GetSources(ri, cl), key=lambda u: u.id):
+            if (prop.superceded()):
+                continue
+            supercedes = prop.supercedes()
+            ranges = GetTargets(di, prop)
+            comment = GetComment(prop)
+            if (not headerPrinted):
+                self.write("<br><br>Instances of %s may appear as values for the following properties<br>" % (self.ml(cl)))
+                self.write("<table cellspacing=3 class=definition-table>        <thead><tr><th>Property</th><th>On Types</th><th>Description</th>               </tr></thead>")
+
+                headerPrinted = True
+#            logging.info("Property found %s" % (prop.id))
+            self.write("<tr><th class=prop-nam' scope=row> <code>%s</code></th> " % (self.ml(prop)))
+            self.write("<td class=prop-ect>")
+            first_range = True
+            for r in ranges:
+                if (not first_range):
+                    self.write(" <br>or ")
+                first_range = False
+                self.write(self.ml(r))
+                self.write("&nbsp;")
+            self.write("</td>")
+            self.write("<td class=prop-desc>%s " % (comment))
+            if (supercedes != None):
+                self.write(" Supercedes %s." % (self.ml(supercedes)))                
+            self.write("</td></tr>")
+        if (headerPrinted):
+            self.write("</table>")
+
 
     def AttributeProperties (self, node):
         di = Unit.GetUnit("domainIncludes")
@@ -276,20 +333,22 @@ class ShowUnit (webapp2.RequestHandler) :
         if (Unit.isClass(node)):
             for p in self.parentStack:
                 self.ClassProperties(p)
+            self.write("</table>")
+            self.ClassIncomingProperties(node)
         elif (Unit.isAttribute(node)):
             self.AttributeProperties(node)
 
         self.write("</table>")
 
         if (node.isClass()):
-            children = GetSources(Unit.GetUnit("rdfs:subClassOf"), node)
+            children = sorted(GetSources(Unit.GetUnit("rdfs:subClassOf"), node), key=lambda u: u.id)
             if (len(children) > 0):
                 self.write("<br>More specific Types");
                 for c in children:
                     self.write("<li> %s" % (self.ml(c)))
-
+                        
         if (node.isEnumeration()):
-            children = GetSources(Unit.GetUnit("typeOf"), node)
+            children = sorted(GetSources(Unit.GetUnit("typeOf"), node), key=lambda u: u.id)
             if (len(children) > 0):
                 self.write("<br><br>Enumeration members");
                 for c in children:
@@ -300,7 +359,7 @@ class ShowUnit (webapp2.RequestHandler) :
             self.write("<br><br><b>Examples</b><br><br>")
             for ex in examples:
                 pl =  "<pre class=\"prettyprint lang-html linenums\">"
-                self.write("<b>Without Markup</b><br><br>%s %s</pre><br><br>" % (pl, self.rep(ex.original_html)))
+                self.write("<b>Without Markup</b><br>%s %s</pre><br><br>" % (pl, self.rep(ex.original_html)))
                 self.write("<b>Microdata</b><br>%s %s</pre><br><br>" % (pl, self.rep(ex.microdata)))
                 self.write("<b>RDFA</b><br>%s %s</pre><br><br>" % (pl, self.rep(ex.rdfa)))
                 self.write("<b>JSON-LD</b><br>%s %s</pre><br><br>" % (pl, self.rep(ex.jsonld)))
