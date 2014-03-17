@@ -40,6 +40,15 @@ headers = '''<!DOCTYPE html>
   $('.new + .pun + .atv\').addClass(\'curl\');
 
         }, 500);
+        setTimeout(function() {
+          $('.ds-selector-tabs .selectors a').click(function() {
+            var $this = $(this);
+            var $p = $this.parents('.ds-selector-tabs');
+            $('.selected', $p).removeClass('selected');
+            $this.addClass('selected');
+            $('pre.' + $this.data('selects'), $p).addClass('selected');
+          });
+        }, 0);
       });
 </script>
 

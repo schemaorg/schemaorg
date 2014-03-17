@@ -373,3 +373,47 @@ input.gsc-search-button {
 .gsc-clear-button {
   display: none;
 }
+
+/* example tab selection */
+.ds-selector-tabs {
+  padding-bottom: 2em;
+}
+.ds-selector-tabs .selectors {
+  padding: 0;
+  border-bottom: 1px solid #ccc;
+  height: 28px;
+}
+.ds-selector-tabs .selectors a {
+  display: inline-block;
+  min-width: 54px;
+  text-align: center;
+  font-size: 11px;
+  font-weight: bold;
+  height: 27px;
+  padding: 0 8px;
+  line-height: 27px;
+  transition: all,0.218s; 
+  border-top-right-radius: 2px;
+  border-top-left-radius: 2px;
+  color: #666;
+  border: 1px solid transparent;
+}
+.ds-selector-tabs .selectors a:first-child {
+  margin-left: 2px;
+}
+.ds-selector-tabs .selectors a.selected {
+  color: #202020 !important;
+  border: 1px solid #ccc;
+  border-bottom: 1px solid #fff !important;
+}
+#mainContent .ds-selector-tabs .selectors a:hover {
+  background-color: transparent;
+  color: #202020;
+  cursor: pointer;
+}
+.ds-selector-tabs pre {
+  display: none;
+}
+.ds-selector-tabs pre.selected {
+  display: block;
+}

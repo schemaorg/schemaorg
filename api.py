@@ -113,6 +113,16 @@ class Example ():
     def AddExample(terms, original_html, microdata, rdfa, jsonld):
         if (len(terms) > 0 and len(original_html) > 0 and len(microdata) > 0 and len(rdfa) > 0 and len(jsonld) > 0):
             return Example(terms, original_html, microdata, rdfa, jsonld)
+
+    def get(self, name) :
+        if name == 'original_html':
+           return self.original_html
+        if name == 'microdata':
+           return self.microdata
+        if name == 'rdfa':
+           return self.rdfa
+        if name == 'jsonld':
+           return self.jsonld
     
     def __init__ (self, terms, original_html, microdata, rdfa, jsonld):
         self.terms = terms
@@ -356,16 +366,27 @@ class ShowUnit (webapp2.RequestHandler) :
 
         examples = GetExamples(node)
         if (len(examples) > 0):
+            example_labels = [
+              ('Without Markup', 'original_html', 'selected'),
+              ('Microdata', 'microdata', ''),
+              ('RDFA', 'rdfa', ''),
+              ('JSON-LD', 'jsonld', ''),
+            ]
             self.write("<br><br><b>Examples</b><br><br>")
             for ex in examples:
-                pl =  "<pre class=\"prettyprint lang-html linenums\">"
-                self.write("<b>Without Markup</b><br>%s %s</pre><br><br>" % (pl, self.rep(ex.original_html)))
-                self.write("<b>Microdata</b><br>%s %s</pre><br><br>" % (pl, self.rep(ex.microdata)))
-                self.write("<b>RDFA</b><br>%s %s</pre><br><br>" % (pl, self.rep(ex.rdfa)))
-                self.write("<b>JSON-LD</b><br>%s %s</pre><br><br>" % (pl, self.rep(ex.jsonld)))
+                self.write("<div class='ds-selector-tabs ds-selector'>")
+                self.write("<div class='selectors'>")
+                for label, example_type, selected in example_labels:
+                    self.write("<a value='%s' data-selects='%s' class='%s'>%s</a>"
+                               % (example_type, example_type, selected, label))
+                self.write("</div>")
+                for label, example_type, selected in example_labels:
+                    self.write("<pre class=\"prettyprint lang-html linenums %s %s\">%s</pre>"
+                               % (example_type, selected, self.rep(ex.get(example_type))))
+                self.write("</div>")
         
         self.response.write(self.AddCachedText(node, self.outputStrings))
-                                    
+
 
 def read_file (filename):
     import os.path    
