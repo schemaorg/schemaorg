@@ -8977,7 +8977,6 @@
 
 
     <h1>Reservations</h1>
-    <p>Reservations design as of 2014-01-21.</p>
 
     <div typeof="rdfs:Class" resource="http://schema.org/Reservation">
       <span class="h" property="rdfs:label">Reservation</span>
@@ -9544,6 +9543,120 @@
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number">Number</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/QuantitativeValue">QuantitativeValue</a></span>
     </div>
+
+
+    <hr />
+
+    <h1>Questions and Answers (QA) and FAQ schema</h1>
+    <p>Enrichment of Schema.org to enable annotation of questions and answers content, as <a href="http://lists.w3.org/Archives/Public/public-vocabs/2014Jan/0200.html">discussed</a>
+on public-vocabs@w3.org.</p>
+    <p>See <a href="http://www.w3.org/wiki/WebSchemas/QASchemaResearch">wiki</a> for details.</p>
+
+    <!--  New QAPage class. -->
+    <div typeof="rdfs:Class" resource="http://schema.org/QAPage">
+      <span class="h" property="rdfs:label">QAPage</span>
+      <span property="rdfs:comment">A QAPage is a WebPage focussed on a specific Question and its Answer(s), e.g. in a question answering site or documenting Frequently Asked Questions (FAQs).</span>
+      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/WebPage">WebPage</a></span>
+    </div>
+
+    <!-- extend range of comment property to include Comment type, not just the old UserComments -->
+    <div typeof="rdf:Property" resource="http://schema.org/comment">
+      <link property="http://schema.org/rangeIncludes" href="http://schema.org/Comment" />
+    </div>
+
+    <!--  New Question class. -->
+    <div typeof="rdfs:Class" resource="http://schema.org/Question">
+      <span class="h" property="rdfs:label">Question</span>
+      <span property="rdfs:comment">A specific question - e.g. from a user seeking answers online, or collected in a Frequently Asked Questions (FAQ) document.</span>
+      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/CreativeWork">CreativeWork</a></span>
+    </div>
+    <!--  New properties for the new Question class. -->
+    <div typeof="rdf:Property" resource="http://schema.org/upvoteCount">
+      <span class="h" property="rdfs:label">upvoteCount</span>
+      <span property="rdfs:comment">The number of upvotes this question has received from the community.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Question">Question</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Answer">Answer</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Comment">Comment</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Integer">Integer</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/downvoteCount">
+      <span class="h" property="rdfs:label">downvoteCount</span>
+      <span property="rdfs:comment">The number of downvotes this question has received from the community.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Question">Question</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Answer">Answer</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Comment">Comment</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Integer">Integer</a></span>
+    </div>
+
+<!-- dropping for now, per http://lists.w3.org/Archives/Public/public-vocabs/2014Jan/0200.html
+    <div typeof="rdf:Property" resource="http://schema.org/viewCount">
+      <span class="h" property="rdfs:label">viewCount</span>
+      <span property="rdfs:comment">The number of times this question has viewed.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Question">Question</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Integer">Integer</a></span>
+    </div>
+-->
+
+<!-- dropping lastEditor, at least for now. 
+    <div typeof="rdf:Property" resource="http://schema.org/lastEditor">
+      <span class="h" property="rdfs:label">lastEditor</span>
+      <span property="rdfs:comment">The user who last edited this question or answer.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Question">Question</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Answer">Answer</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Person">Person</a></span>
+    </div>
+--> 
+
+    <div typeof="rdf:Property" resource="http://schema.org/answerCount">
+      <span class="h" property="rdfs:label">answerCount</span>
+      <span property="rdfs:comment">The number of answers this question has received.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Question">Question</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Integer">Integer</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/commentCount">
+      <span class="h" property="rdfs:label">commentCount</span>
+      <span property="rdfs:comment">The number of comments this CreativeWork (e.g. Article, Question or Answer) has received. This is most applicable to works published in Web sites with commenting system; additional comments may exist elsewhere.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CreativeWork">CreativeWork</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Integer">Integer</a></span>
+    </div>
+
+    <div typeof="rdf:Property" resource="http://schema.org/acceptedAnswer">
+      <span class="h" property="rdfs:label">acceptedAnswer</span>
+      <span property="rdfs:comment">The answer that has been accepted as best, typically on a Question/Answer site. Sites vary in their selection mechanisms, e.g. drawing on community opinion and/or the view of the Question author.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Question">Question</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Answer">Answer</a></span>
+    </div>
+
+    <!--  New Answer class. -->
+    <div typeof="rdfs:Class" resource="http://schema.org/Answer">
+      <span class="h" property="rdfs:label">Answer</span>
+      <span property="rdfs:comment">An answer offered to a question; perhaps correct, perhaps opinionated or wrong.</span>
+      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/CreativeWork">CreativeWork</a></span>
+    </div>
+    <!--  New properties for the new Answer class. -->
+    <div typeof="rdf:Property" resource="http://schema.org/parentItem">
+      <span class="h" property="rdfs:label">parentItem</span>
+      <span property="rdfs:comment">The parent of a question, answer or item in general.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Answer">Answer</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Comment">Comment</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Question">Question</a></span>
+    </div>
+
+
+
+   <!-- associations -->
+
+<div typeof="rdf:Property" resource="http://schema.org/suggestedAnswer">
+ <span class="h" property="rdfs:label">suggestedAnswer</span>
+ <span property="rdfs:comment">An answer (possibly one of several, possibly incorrect) to a Question, e.g. on a Question/Answer site, often collected in a QAPage.</span>
+ <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Question">Question</a></span>
+ <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Answer">Answer</a></span>
+ <link property="rdfs:subPropertyOf" href="http://schema.org/answer" />
+</div>
+
+
+ <hr />
+
 
   </body>
 </html>
