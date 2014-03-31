@@ -8973,5 +8973,577 @@
       <span property="rdfs:comment">This class is based on the work of the LRMI project, see lrmi.net for details.</span>
     </div>
     <hr />
+
+
+
+    <h1>Reservations</h1>
+    <p>Reservations design as of 2014-01-21.</p>
+
+    <div typeof="rdfs:Class" resource="http://schema.org/Reservation">
+      <span class="h" property="rdfs:label">Reservation</span>
+      <span property="rdfs:comment">Describes a reservation for travel, dining or an event. Some reservations require tickets.<p>Note: This type is for information about actual reservations, e.g. in confirmation emails or HTML pages with individual confirmations of reservations. For offers of tickets, restaurant reservations, flights, or rental cars, use http://schema.org/Offer.</p></span>
+      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Intangible">Intangible</a></span>
+    </div>
+    <div typeof="rdfs:Class" resource="http://schema.org/BusReservation">
+      <span class="h" property="rdfs:label">BusReservation</span>
+      <span property="rdfs:comment">A reservation for bus travel.<p>Note: This type is for information about actual reservations, e.g. in confirmation emails or HTML pages with individual confirmations of reservations. For offers of tickets, use http://schema.org/Offer.</p></span>
+      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Reservation">Reservation</a></span>
+    </div>
+    <div typeof="rdfs:Class" resource="http://schema.org/EventReservation">
+      <span class="h" property="rdfs:label">EventReservation</span>
+      <span property="rdfs:comment">A reservation for an event like a concert, sporting event, or lecture.<p>Note: This type is for information about actual reservations, e.g. in confirmation emails or HTML pages with individual confirmations of reservations. For offers of tickets, use http://schema.org/Offer.</p></span>
+      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Reservation">Reservation</a></span>
+    </div>
+    <div typeof="rdfs:Class" resource="http://schema.org/FlightReservation">
+      <span class="h" property="rdfs:label">FlightReservation</span>
+      <span property="rdfs:comment">A reservation for air travel.<p>Note: This type is for information about actual reservations, e.g. in confirmation emails or HTML pages with individual confirmations of reservations. For offers of tickets, use http://schema.org/Offer.</p></span>
+      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Reservation">Reservation</a></span>
+    </div>
+    <div typeof="rdfs:Class" resource="http://schema.org/FoodEstablishmentReservation">
+      <span class="h" property="rdfs:label">FoodEstablishmentReservation</span>
+      <span property="rdfs:comment">A reservation to dine at a food-related business.<p>Note: This type is for information about actual reservations, e.g. in confirmation emails or HTML pages with individual confirmations of reservations.</p></span>
+      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Reservation">Reservation</a></span>
+    </div>
+    <div typeof="rdfs:Class" resource="http://schema.org/LodgingReservation">
+      <span class="h" property="rdfs:label">LodgingReservation</span>
+      <span property="rdfs:comment">A reservation for lodging at a hotel, motel, inn, etc.<p>Note: This type is for information about actual reservations, e.g. in confirmation emails or HTML pages with individual confirmations of reservations.</p></span>
+      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Reservation">Reservation</a></span>
+    </div>
+    <div typeof="rdfs:Class" resource="http://schema.org/RentalCarReservation">
+      <span class="h" property="rdfs:label">RentalCarReservation</span>
+      <span property="rdfs:comment">A reservation for a rental car.<p>Note: This type is for information about actual reservations, e.g. in confirmation emails or HTML pages with individual confirmations of reservations.</p></span>
+      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Reservation">Reservation</a></span>
+    </div>
+    <div typeof="rdfs:Class" resource="http://schema.org/TaxiReservation">
+      <span class="h" property="rdfs:label"> TaxiReservation</span>
+      <span property="rdfs:comment">A reservation for a taxi.<p>Note: This type is for information about actual reservations, e.g. in confirmation emails or HTML pages with individual confirmations of reservations. For offers of tickets, use http://schema.org/Offer.</p></span>
+      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Reservation">Reservation</a></span>
+    </div>
+    <div typeof="rdfs:Class" resource="http://schema.org/TrainReservation">
+      <span class="h" property="rdfs:label"> TrainReservation</span>
+      <span property="rdfs:comment">A reservation for train travel.<p>Note: This type is for information about actual reservations, e.g. in confirmation emails or HTML pages with individual confirmations of reservations. For offers of tickets, use http://schema.org/Offer.</p></span>
+      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Reservation">Reservation</a></span>
+    </div>
+    <div typeof="rdfs:Class" resource="http://schema.org/ReservationPackage">
+      <span class="h" property="rdfs:label">ReservationPackage</span>
+      <span property="rdfs:comment">A group of multiple reservations with common values for all sub-reservations.</span>
+      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Reservation">Reservation</a></span>
+    </div>
+    <div typeof="rdfs:Class" resource="http://schema.org/ReservationStatusType">
+      <span class="h" property="rdfs:label">ReservationStatusType</span>
+      <span property="rdfs:comment">Enumerated status values for Reservation.</span>
+      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Enumeration">Enumeration</a></span>
+    </div>
+    <div typeof="http://schema.org/ReservationStatusType" resource="http://schema.org/ReservationCancelled">
+      <span class="h" property="rdfs:label">ReservationCancelled</span>
+      <span property="rdfs:comment">The status for a previously confirmed reservation that is now cancelled.</span>
+      <span>type: <a href="http://schema.org/ReservationStatusType">ReservationStatusType</a></span>
+    </div>
+    <div typeof="http://schema.org/ReservationStatusType" resource="http://schema.org/ReservationConfirmed">
+      <span class="h" property="rdfs:label">ReservationConfirmed</span>
+      <span property="rdfs:comment">The status of a confirmed reservation.</span>
+      <span>type: <a href="http://schema.org/ReservationStatusType">ReservationStatusType</a></span>
+    </div>
+    <div typeof="http://schema.org/ReservationStatusType" resource="http://schema.org/ReservationHold">
+      <span class="h" property="rdfs:label">ReservationHold</span>
+      <span property="rdfs:comment">The status of a reservation on hold pending an update like credit card number or flight changes.</span>
+      <span>type: <a href="http://schema.org/ReservationStatusType">ReservationStatusType</a></span>
+    </div>
+    <div typeof="http://schema.org/ReservationStatusType" resource="http://schema.org/ReservationPending">
+      <span class="h" property="rdfs:label">ReservationPending</span>
+      <span property="rdfs:comment">The status of a reservation when a request has been sent, but not confirmed.</span>
+      <span>type: <a href="http://schema.org/ReservationStatusType">ReservationStatusType</a></span>
+    </div>
+    <div typeof="rdfs:Class" resource="http://schema.org/BusTrip">
+      <span class="h" property="rdfs:label">Bus Trip</span>
+      <span property="rdfs:comment">A trip on a commercial bus line.</span>
+      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Intangible">Intangible</a></span>
+    </div>
+    <div typeof="rdfs:Class" resource="http://schema.org/TrainTrip">
+      <span class="h" property="rdfs:label">Train Trip</span>
+      <span property="rdfs:comment">A trip on a commercial train line.</span>
+      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Intangible">Intangible</a></span>
+    </div>
+    <div typeof="rdfs:Class" resource="http://schema.org/Flight">
+      <span class="h" property="rdfs:label">Flight</span>
+      <span property="rdfs:comment">An airline flight.</span>
+      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Intangible">Intangible</a></span>
+    </div>
+    <div typeof="rdfs:Class" resource="http://schema.org/Airline">
+      <span class="h" property="rdfs:label">Airline</span>
+      <span property="rdfs:comment">An organization that provides flights for passengers.</span>
+      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Organization">Organization</a></span>
+    </div>
+    <div typeof="rdfs:Class" resource="http://schema.org/ProgramMembership">
+      <span class="h" property="rdfs:label">Program Membership</span>
+      <span property="rdfs:comment">Used to describe membership in a loyalty programs (e.g. "StarAliance"), traveler clubs (e.g. "AAA"), purchase clubs ("Safeway Club"), etc.</span>
+      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Intangible">Intangible</a></span>
+    </div>
+    <div typeof="rdfs:Class" resource="http://schema.org/Ticket">
+      <span class="h" property="rdfs:label">Ticket</span>
+      <span property="rdfs:comment">Used to describe a ticket to an event, a flight, a bus ride, etc.</span>
+      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Intangible">Intangible</a></span>
+    </div>
+    <div typeof="rdfs:Class" resource="http://schema.org/Seat">
+      <span class="h" property="rdfs:label">Seat</span>
+      <span property="rdfs:comment">Used to describe a seat, such as a reserved seat in an event reservation.</span>
+      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Intangible">Intangible</a></span>
+    </div>
+    <div typeof="rdfs:Class" resource="http://schema.org/Taxi">
+      <span class="h" property="rdfs:label">Taxi</span>
+      <span property="rdfs:comment">A taxi.</span>
+      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Service">Service</a></span>
+    </div>
+    <div typeof="rdfs:Class" resource="http://schema.org/Vehicle">
+      <span class="h" property="rdfs:label">Vehicle</span>
+      <span property="rdfs:comment">A vehicle.</span>
+      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Product">Product</a></span>
+    </div>
+    <div typeof="rdfs:Class" resource="http://schema.org/Car">
+      <span class="h" property="rdfs:label">Car</span>
+      <span property="rdfs:comment">An automobile.</span>
+      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Vehicle">Vehicle</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/reservationId">
+      <span class="h" property="rdfs:label">reservationId</span>
+      <span property="rdfs:comment">A unique identifier for the reservation.</span>
+      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Reservation">Reservation</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/reservationStatus">
+      <span class="h" property="rdfs:label">reservationStatus</span>
+      <span property="rdfs:comment">The current status of the reservation.</span>
+      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Reservation">Reservation</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/ReservationStatusType">ReservationStatusType</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/reservationFor">
+      <span class="h" property="rdfs:label">reservationFor</span>
+      <span property="rdfs:comment">The thing -- flight, event, restaurant,etc. being reserved.</span>
+      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Reservation">Reservation</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Thing">Thing</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/underName">
+      <span class="h" property="rdfs:label">underName</span>
+      <span property="rdfs:comment">The person or organization the reservation or ticket is for.</span>
+      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Reservation">Reservation</a></span>
+      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Ticket">Ticket</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Person">Person</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Organization">Organization</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/provider">
+      <span class="h" property="rdfs:label">provider</span>
+      <span property="rdfs:comment">The person or organization providing the service, reservation, or creative work.</span>
+      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CreativeWork">CreativeWork</a></span>
+      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Service">Service</a></span>
+      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Reservation">Reservation</a></span>
+      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Flight"></a></span>
+      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/TrainTrip"></a></span>
+      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/BusTrip"></a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Person">Person</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Organization">Organization</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/bookingAgent">
+      <span class="h" property="rdfs:label">bookingAgent</span>
+      <span property="rdfs:comment">If the reservation was not booked directly through the provider, the third-party booking agent can be recorded through this property.</span>
+      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Reservation">Reservation</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Person">Person</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Organization">Organization</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/bookingTime">
+      <span class="h" property="rdfs:label">bookingTime</span>
+      <span property="rdfs:comment">The date and time the reservation was booked.</span>
+      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Reservation">Reservation</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/DateTime">DateTime</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/modifiedTime">
+      <span class="h" property="rdfs:label">modifiedTime</span>
+      <span property="rdfs:comment">The date and time the reservation was modified.</span>
+      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Reservation">Reservation</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/DateTime">DateTime</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/programMembershipUsed">
+      <span class="h" property="rdfs:label">programMembershipUsed</span>
+      <span property="rdfs:comment">Any membership in a frequent flyer, hotel loyalty program, etc. being applied to the reservation.</span>
+      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Reservation">Reservation</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/ProgramMembership">ProgramMembership</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/reservedTicket">
+      <span class="h" property="rdfs:label">reservedTicket</span>
+      <span property="rdfs:comment">A ticket associated with the reservation.</span>
+      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Reservation">Reservation</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Ticket">Ticket</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/totalPrice">
+      <span class="h" property="rdfs:label">totalPrice</span>
+      <span property="rdfs:comment">The total price for the reservation or ticket, including applicable taxes, shipping, etc.</span>
+      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Reservation">Reservation</a></span>
+      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Ticket">Ticket</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number">Number</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/PriceSpecification">PriceSpecification</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/priceCurrency">
+      <span class="h" property="rdfs:label">priceCurrency</span>
+      <span property="rdfs:comment">The currency (in 3-letter ISO 4217 format) of the price or a price component, when attached to PriceSpecification and its subtypes.</span>
+      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Reservation">Reservation</a></span>
+      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Ticket">Ticket</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+    </div>
+<div typeof="rdf:Property" resource="http://schema.org/membershipNumber">
+      <span class="h" property="rdfs:label">membershipNumber</span>
+      <span property="rdfs:comment">A unique identifier for the membership.</span>
+      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ProgramMembership">ProgramMembership</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/programName">
+      <span class="h" property="rdfs:label">programName</span>
+      <span property="rdfs:comment">The program providing the membership.</span>
+      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ProgramMembership">ProgramMembership</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/member">
+      <span class="h" property="rdfs:label">member</span>
+      <span property="rdfs:comment">The individual with the membership.</span>
+      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ProgramMembership">ProgramMembership</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Person">Person</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/hostingOrganization">
+      <span class="h" property="rdfs:label">hostingOrganization</span>
+      <span property="rdfs:comment">The organization (airline, travelers' club, etc.) the membership is made with.</span>
+      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ProgramMembership">ProgramMembership</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Organization">Organization</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/issuedBy">
+      <span class="h" property="rdfs:label">issuedBy</span>
+      <span property="rdfs:comment">The organization issuing the ticket or permit.</span>
+      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Ticket">Ticket</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Organization">Organization</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/dateIssued">
+      <span class="h" property="rdfs:label">dateIssued</span>
+      <span property="rdfs:comment">The date the ticket was issued.</span>
+      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Ticket">Ticket</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/DateTime">DateTime</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/ticketedSeat">
+      <span class="h" property="rdfs:label">ticketedSeat</span>
+      <span property="rdfs:comment">The seat associated with the ticket.</span>
+      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Ticket">Ticket</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Seat">Seat</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/ticketNumber">
+      <span class="h" property="rdfs:label">ticketNumber</span>
+      <span property="rdfs:comment">The unique identifier for the ticket.</span>
+      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Ticket">Ticket</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/ticketToken">
+      <span class="h" property="rdfs:label">ticketToken</span>
+      <span property="rdfs:comment">Reference to an asset (e.g., Barcode, QR code image or PDF) usable for entrance.</span>
+      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Ticket">Ticket</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/URL">URL</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/seatNumber">
+      <span class="h" property="rdfs:label">seatNumber</span>
+      <span property="rdfs:comment">The location of the reserved seat (e.g., 27).</span>
+      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Seat">Seat</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/seatRow">
+      <span class="h" property="rdfs:label">seatRow</span>
+      <span property="rdfs:comment">The row location of the reserved seat (e.g., B).</span>
+      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Seat">Seat</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/seatSection">
+      <span class="h" property="rdfs:label">seatSection</span>
+      <span property="rdfs:comment">The section location of the reserved seat (e.g. Orchestra).</span>
+      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Seat">Seat</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/seatingType">
+      <span class="h" property="rdfs:label">seatingType</span>
+      <span property="rdfs:comment">The type/class of the seat.</span>
+      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Seat">Seat</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/QualitativeValue">QualitativeValue</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/subReservation">
+      <span class="h" property="rdfs:label">subReservation</span>
+      <span property="rdfs:comment">The individual reservations included in the package. Typically a repeated property.</span>
+      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ReservationPackage"></a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Reservation">Reservation</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/boardingGroup">
+      <span class="h" property="rdfs:label">boardingGroup</span>
+      <span property="rdfs:comment">The airline-specific indicator of boarding order / preference.</span>
+      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/FlightReservation"></a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/flightNumber">
+      <span class="h" property="rdfs:label">flightNumber</span>
+      <span property="rdfs:comment">The unique identifier for a flight.</span>
+      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Flight"></a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/flightNumber">
+      <span class="h" property="rdfs:label">flightNumber</span>
+      <span property="rdfs:comment">The unique identifier for a flight.</span>
+      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Flight"></a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/carrier">
+      <span class="h" property="rdfs:label">carrier</span>
+      <span property="rdfs:comment">The airline designated as the carrier for the flight.</span>
+      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Flight"></a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Airline">Airline</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/departureTime">
+      <span class="h" property="rdfs:label">departureTime</span>
+      <span property="rdfs:comment">The expected departure time.</span>
+      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/BusTrip"></a></span>
+      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Flight"></a></span>
+      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/TrainTrip"></a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/DateTime">DateTime</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/arrivalTime">
+      <span class="h" property="rdfs:label">arrivalTime</span>
+      <span property="rdfs:comment">The expected arrival time.</span>
+      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/BusTrip"></a></span>
+      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Flight"></a></span>
+      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/TrainTrip"></a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/DateTime">DateTime</a></span>
+    </div>
+        <div typeof="rdf:Property" resource="http://schema.org/departureAirport">
+      <span class="h" property="rdfs:label">departureAirport</span>
+      <span property="rdfs:comment">The airport where the flight originates.</span>
+      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Flight"></a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Airport">Airport</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/arrivalAirport">
+      <span class="h" property="rdfs:label">departureAirport</span>
+      <span property="rdfs:comment">The airport where the flight terminates.</span>
+      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Flight"></a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Airport">Airport</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/departureGate">
+      <span class="h" property="rdfs:label">departureGate</span>
+      <span property="rdfs:comment">Identifier of the flight's departure gate.</span>
+      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Flight"></a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/arrivalGate">
+      <span class="h" property="rdfs:label">arrivalGate</span>
+      <span property="rdfs:comment">Identifier of the flight's arrival gate.</span>
+      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Flight"></a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/departureTerminal">
+      <span class="h" property="rdfs:label">departureTerminal</span>
+      <span property="rdfs:comment">Identifier of the flight's departure terminal.</span>
+      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Flight"></a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/arrivalTerminal">
+      <span class="h" property="rdfs:label">arrivalTerminal</span>
+      <span property="rdfs:comment">Identifier of the flight's arrival terminal.</span>
+      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Flight"></a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/aircraft">
+      <span class="h" property="rdfs:label">aircraft</span>
+      <span property="rdfs:comment">The kind of aircraft (e.g., "Boeing 747").</span>
+      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Flight"></a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Vehicle">Vehicle</a></span>
+</div>
+    <div typeof="rdf:Property" resource="http://schema.org/mealService">
+      <span class="h" property="rdfs:label">mealService</span>
+      <span property="rdfs:comment">Description of the meals that will be provided or available for purchase.</span>
+      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Flight"></a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/estimatedFlightDuration">
+      <span class="h" property="rdfs:label">estimatedFlightDuration</span>
+      <span property="rdfs:comment">The estimated time the flight will take.</span>
+      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Flight"></a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Duration">Duration</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/flightDistance">
+      <span class="h" property="rdfs:label">flightDistance</span>
+      <span property="rdfs:comment">The distance of the flight.</span>
+      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Flight"></a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Distance">Distance</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/webCheckinTime">
+      <span class="h" property="rdfs:label">webCheckinTime</span>
+      <span property="rdfs:comment">The time when a passenger can check into the flight online.</span>
+      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Flight"></a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/DateTime">DateTime</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/iataCode">
+      <span class="h" property="rdfs:label">iataCode</span>
+      <span property="rdfs:comment">IATA identifier for an airline or airport</span>
+      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Airline"></a></span>
+      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Airport"></a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/startTime">
+      <span class="h" property="rdfs:label">departTime</span>
+      <span property="rdfs:comment">The time a FoodEstablishmentReservation is required to end.</span>
+      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/FoodEstablishmentReservation"></a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/DateTime">DateTime</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/startTime">
+      <span class="h" property="rdfs:label">startTime</span>
+      <span property="rdfs:comment">When a FoodEstablishmentReservation starts or an Action was performed: start time. This is for actions that span a period of time. e.g. John wrote a book from *January* to December.</span>
+      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/FoodEstablishmentReservation"></a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/DateTime">DateTime</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/partySize">
+      <span class="h" property="rdfs:label">partySize</span>
+      <span property="rdfs:comment">Number of people the reservation should accomodate.</span>
+      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/FoodEstablishmentReservation"></a></span>
+      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/TaxiReservation"></a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number">Number</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/QuantitativeValue">QuantitativeValue</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/acceptsReservations">
+      <span class="h" property="rdfs:label">acceptsReservations</span>
+      <span property="rdfs:comment">Does the establishment accept reservations?</span>
+      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/FoodEstablishment"></a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Boolean">Boolean</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/trainNumber">
+      <span class="h" property="rdfs:label">trainNumber</span>
+      <span property="rdfs:comment">The unique identifier for the train.</span>
+      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/TrainTrip"></a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/trainName">
+      <span class="h" property="rdfs:label">trainName</span>
+      <span property="rdfs:comment">The name of the train (e.g. The Orient Express).</span>
+      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/TrainTrip"></a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/departureStation">
+      <span class="h" property="rdfs:label">departureStation</span>
+      <span property="rdfs:comment">The station from which the train departs.</span>
+      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/TrainTrip"></a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/TrainStation">TrainStation</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/arrivalStation">
+      <span class="h" property="rdfs:label">arrivalStation</span>
+      <span property="rdfs:comment">The station where the train trip ends.</span>
+      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/TrainTrip"></a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/TrainStation">TrainStation</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/departurePlatform">
+      <span class="h" property="rdfs:label">departurePlatform</span>
+      <span property="rdfs:comment">The platform from which the train departs.</span>
+      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/TrainTrip"></a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/arrivalPlatform">
+      <span class="h" property="rdfs:label">arrivalPlatform</span>
+      <span property="rdfs:comment">The platform where the train arrives.</span>
+      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/TrainTrip"></a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/busNumber">
+      <span class="h" property="rdfs:label">busNumber</span>
+      <span property="rdfs:comment">The unique identifier for the trainbus.</span>
+      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/BusTrip"></a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/busName">
+      <span class="h" property="rdfs:label">busName</span>
+      <span property="rdfs:comment">The name of the bus (e.g. Bolt Express).</span>
+      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/BusTrip"></a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/departureBusStop">
+      <span class="h" property="rdfs:label">departureBusStop</span>
+      <span property="rdfs:comment">The stop or station from which the bus departs.</span>
+      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/BusTrip"></a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/BusStation">BusStation</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/BusStop">BusStop</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/arrivalBusStop">
+      <span class="h" property="rdfs:label">arrivalBusStop</span>
+      <span property="rdfs:comment">The stop or station from which the bus arrives.</span>
+      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/BusTrip"></a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/BusStation">BusStation</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/BusStop">BusStop</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/pickupLocation">
+      <span class="h" property="rdfs:label">pickupLocation</span>
+      <span property="rdfs:comment">Where a taxi will pick up a passenger or a rental car can be picked up.</span>
+      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/RentalCarReservation"></a></span>
+      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/TaxiReservation"></a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Place">Place</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/dropoffLocation">
+      <span class="h" property="rdfs:label">dropoffLocation</span>
+      <span property="rdfs:comment">Where a rental car can be dropped off.</span>
+      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/RentalCarReservation"></a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Place">Place</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/pickupTime">
+      <span class="h" property="rdfs:label">pickupTime</span>
+      <span property="rdfs:comment">When a taxi will pickup a passegner or a rental car can be picked up.</span>
+      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/RentalCarReservation"></a></span>
+      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/TaxiReservation"></a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/DateTime">DateTime</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/dropoffTime">
+      <span class="h" property="rdfs:label">dropoffTime</span>
+      <span property="rdfs:comment">When a rental car can be dropped off.</span>
+      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/RentalCarReservation"></a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/DateTime">DateTime</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/checkinTime">
+      <span class="h" property="rdfs:label">checkinTime</span>
+      <span property="rdfs:comment">The earliest someone may check into a lodging establishment.</span>
+      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/LodgingReservation"></a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/DateTime">DateTime</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/checkoutTime">
+      <span class="h" property="rdfs:label">checkoutTime</span>
+      <span property="rdfs:comment">The latest someone may check out of a lodging establishment.</span>
+      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/LodgingReservation"></a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/DateTime">DateTime</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/lodgingUnitType">
+      <span class="h" property="rdfs:label">lodgingUnitType</span>
+      <span property="rdfs:comment">Textual description of the unit type (including suite vs. room, size of bed, etc.).</span>
+      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/LodgingReservation"></a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/QualitativeValue">QualitativeValue</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/lodgingUnitDescription">
+      <span class="h" property="rdfs:label">lodgingUnitDescription</span>
+      <span property="rdfs:comment">A full description of the lodging unit.</span>
+      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/LodgingReservation"></a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/numAdults">
+      <span class="h" property="rdfs:label">numAdults</span>
+      <span property="rdfs:comment">The number of adults staying in the unit.</span>
+      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/LodgingReservation"></a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number">Number</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/QuantitativeValue">QuantitativeValue</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/numChildren">
+      <span class="h" property="rdfs:label">numChildren</span>
+      <span property="rdfs:comment">The number of children staying in the unit.</span>
+      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/LodgingReservation"></a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number">Number</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/QuantitativeValue">QuantitativeValue</a></span>
+    </div>
+
   </body>
 </html>
