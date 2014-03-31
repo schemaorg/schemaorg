@@ -353,7 +353,7 @@ class ShowUnit (webapp2.RequestHandler) :
         if (node.isClass()):
             children = sorted(GetSources(Unit.GetUnit("rdfs:subClassOf"), node), key=lambda u: u.id)
             if (len(children) > 0):
-                self.write("<br>More specific Types");
+                self.write("<br><b>More specific Types</b>");
                 for c in children:
                     self.write("<li> %s" % (self.ml(c)))
                         
@@ -369,7 +369,7 @@ class ShowUnit (webapp2.RequestHandler) :
             example_labels = [
               ('Without Markup', 'original_html', 'selected'),
               ('Microdata', 'microdata', ''),
-              ('RDFA', 'rdfa', ''),
+              ('RDFa', 'rdfa', ''),
               ('JSON-LD', 'jsonld', ''),
             ]
             self.write("<br><br><b>Examples</b><br><br>")
