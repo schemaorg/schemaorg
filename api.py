@@ -329,7 +329,7 @@ class ShowUnit (webapp2.RequestHandler) :
 
         node = Unit.GetUnit(node)
         self.outputStrings = []
-        headers.OutputSchemaorgHeaders(self)
+        headers.OutputSchemaorgHeaders(self, entry=node.id)
         cached = self.GetCachedText(node)
         if (cached != None):
             self.response.write(cached)

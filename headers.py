@@ -13,7 +13,7 @@ headers = '''<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>Organization  - schema.org</title>
+    <title>schema.org</title>
     <meta name="description" content="Schema.org is a set of extensible schemas that enables webmasters to embed
     structured data on their web pages for use by search engines and other applications." />
     <link rel="stylesheet" type="text/css"
@@ -109,5 +109,7 @@ headers = '''<!DOCTYPE html>
   <div id="mainContent">
 '''
 
-def OutputSchemaorgHeaders (webapp) :
-    webapp.response.write(headers)
+def OutputSchemaorgHeaders(webapp, entry='') :
+    out = headers
+    out = out.replace("<title>", "<title>" + str(entry) + " - ")
+    webapp.response.write(out)
