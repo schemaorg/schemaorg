@@ -144,7 +144,7 @@ def GetTargets(arc, source):
         if (triple.arc == arc):
             if (triple.target != None):
                 targets[triple.target] = 1
-                if (triple.text != None):
+            if (triple.text != None):
                     targets[triple.text] = 1
     return targets.keys()
 
@@ -356,7 +356,15 @@ class ShowUnit (webapp2.RequestHandler) :
                 self.write("<br><b>More specific Types</b>");
                 for c in children:
                     self.write("<li> %s" % (self.ml(c)))
-                        
+
+            ackorgs =  GetTargets(Unit.GetUnit("dc:source"), node)
+            if len(ackorgs) > 0:
+              self.write("<h4 id=\"acks\">Acknowledgements</h4>")
+              for ao in ackorgs:
+                 acks = sorted(GetTargets(Unit.GetUnit("rdfs:comment"), ao))
+                 for ack in acks:
+                    self.write(str(ack+"<br/>"))
+
         if (node.isEnumeration()):
             children = sorted(GetSources(Unit.GetUnit("typeOf"), node), key=lambda u: u.id)
             if (len(children) > 0):
