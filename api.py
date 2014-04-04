@@ -32,9 +32,8 @@ class Unit ():
     @staticmethod
     def GetUnit (id, createp=False):
         if (id in NodeIDMap):
-            val =  NodeIDMap[id]
             return NodeIDMap[id]
-        if (createp != None):
+        if (createp != False):
             return Unit(id)
 
     def typeOf(self, type):
@@ -111,7 +110,8 @@ class Example ():
 
     @staticmethod
     def AddExample(terms, original_html, microdata, rdfa, jsonld):
-        if (len(terms) > 0 and len(original_html) > 0 and len(microdata) > 0 and len(rdfa) > 0 and len(jsonld) > 0):
+       # todo: fix partial examples: if (len(terms) > 0 and len(original_html) > 0 and (len(microdata) > 0 or len(rdfa) > 0 or len(jsonld) > 0)):
+       if (len(terms) > 0 and len(original_html) > 0 and len(microdata) > 0 and len(rdfa) > 0 and len(jsonld) > 0):
             return Example(terms, original_html, microdata, rdfa, jsonld)
 
     def get(self, name) :
@@ -335,7 +335,14 @@ class ShowUnit (webapp2.RequestHandler) :
             return
 
         node = Unit.GetUnit(node)
+
         self.outputStrings = []
+
+        if (node==None):
+          self.error(404)
+          self.response.out.write('<title>404 Not Found.</title><a href="/">404 Not Found.</a>')
+          return
+
         headers.OutputSchemaorgHeaders(self, entry=node.id)
         cached = self.GetCachedText(node)
         if (cached != None):
