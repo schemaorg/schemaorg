@@ -144,8 +144,8 @@ def GetTargets(arc, source):
         if (triple.arc == arc):
             if (triple.target != None):
                 targets[triple.target] = 1
-            if (triple.text != None):
-                    targets[triple.text] = 1
+            elif (triple.text != None):
+                targets[triple.text] = 1
     return targets.keys()
 
 def GetSources(arc, target):
@@ -197,6 +197,10 @@ class ShowUnit (webapp2.RequestHandler) :
     def GetParentStack(self, node):
         if (node not in self.parentStack):
             self.parentStack.append(node)
+        if (Unit.isAttribute(node)):
+            self.parentStack.append(Unit.GetUnit("Property"))
+            self.parentStack.append(Unit.GetUnit("Thing"))
+        else:
             sc = Unit.GetUnit("rdfs:subClassOf")
             for p in GetTargets(sc, node):
                 self.GetParentStack(p)
@@ -221,8 +225,8 @@ class ShowUnit (webapp2.RequestHandler) :
         self.write("<div>%s</div>" % (comment))
         if (node.isClass()):
             self.write("<table cellspacing=3 class=definition-table>        <thead><tr><th>Property</th><th>Expected Type</th><th>Description</th>               </tr></thead>")
-        elif (node.isAttribute()):
-            self.write("<table cellspacing=3 class=definition-table><th>Property</th><th>Value</th> </tr></thead>")
+			#        elif (node.isAttribute()):
+            #self.write("<table cellspacing=3 class=definition-table><th>Property</th><th>Value</th> </tr></thead>")
 
 
 
@@ -240,7 +244,7 @@ class ShowUnit (webapp2.RequestHandler) :
             if (not headerPrinted):
                 self.write("<thead class=supertype><tr><th class=supertype-name colspan=3>Properties from %s</th></tr></thead><tbody class=supertype" % (self.ml(cl)))
                 headerPrinted = True
-#            logging.info("Property found %s" % (prop.id))
+
             self.write("<tr><th class=prop-nam' scope=row> <code>%s</code></th> " % (self.ml(prop)))
             self.write("<td class=prop-ect>")
             first_range = True
@@ -298,23 +302,26 @@ class ShowUnit (webapp2.RequestHandler) :
         ranges = sorted(GetTargets(ri, node), key=lambda u: u.id)
         domains = sorted(GetTargets(di, node), key=lambda u: u.id)
         first_range = True
-        self.write("<tr><th>rangeIncludes</th><th class=prop-nam' scope=row>")
+
+        self.write("<table cellspacing=3 class=definition-table>")
+        self.write("<thead><tr><th>Values expected to be one of these types</th></tr></thead><tr><td>")
+
         for r in ranges:
             if (not first_range):
                 self.write("<br>")
             first_range = False
             self.write(" <code>%s</code> " % (self.ml(r)))
-            self.write("&nbsp;")
-        self.write("</th></tr>")
+        self.write("</td></tr></table>")
         first_domain = True
-        self.write("<tr><th>domainIncludes</th><th class=prop-nam' scope=row> ")
+
+        self.write("<table cellspacing=3 class=definition-table>")
+        self.write("<thead><tr><th>Used on these types</th></tr></thead><tr><td>")
         for d in domains:
             if (not first_domain):
                 self.write("<br>")
             first_domain = False
             self.write("<code>%s</code> " % (self.ml(d)))
-            self.write("&nbsp;")
-        self.write("</th></tr>")
+        self.write("</td></tr></table")
 
 
     def rep(self, markup):
@@ -356,21 +363,21 @@ class ShowUnit (webapp2.RequestHandler) :
                 self.write("<br><b>More specific Types</b>");
                 for c in children:
                     self.write("<li> %s" % (self.ml(c)))
-
-            ackorgs =  GetTargets(Unit.GetUnit("dc:source"), node)
-            if len(ackorgs) > 0:
-              self.write("<h4 id=\"acks\">Acknowledgements</h4>")
-              for ao in ackorgs:
-                 acks = sorted(GetTargets(Unit.GetUnit("rdfs:comment"), ao))
-                 for ack in acks:
-                    self.write(str(ack+"<br/>"))
-
+                        
         if (node.isEnumeration()):
             children = sorted(GetSources(Unit.GetUnit("typeOf"), node), key=lambda u: u.id)
             if (len(children) > 0):
                 self.write("<br><br>Enumeration members");
                 for c in children:
                     self.write("<li> %s" % (self.ml(c)))
+
+        ackorgs = GetTargets(Unit.GetUnit("dc:source"), node)
+        if (len(ackorgs) > 0):
+            self.write("<h4  id='acks'>Acknowledgements</h4>")
+            for ao in ackorgs:
+                acks = sorted(GetTargets(Unit.GetUnit("rdfs:comment"), ao))
+                for ack in acks:
+                    self.write(str(ack+"<br/>"))
 
         examples = GetExamples(node)
         if (len(examples) > 0):
@@ -392,10 +399,10 @@ class ShowUnit (webapp2.RequestHandler) :
                     self.write("<pre class=\"prettyprint lang-html linenums %s %s\">%s</pre>"
                                % (example_type, selected, self.rep(ex.get(example_type))))
                 self.write("</div>")
-        
-        self.write("<p class=\"version\"><b>Schema Version 1.1</b></p>")
-        self.write("</body></html>")
 
+        self.write("<p class='version'><b>Schema Version 1.1</b></p>")
+        self.write("</body></html>")
+        
         self.response.write(self.AddCachedText(node, self.outputStrings))
 
 
