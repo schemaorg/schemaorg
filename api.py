@@ -73,7 +73,7 @@ class Unit ():
     def supercedes(self):
         for triple in self.arcsIn:
             if (triple.source != None and triple.arc.id == "supercededBy"):
-                return triple.target
+                return triple.source
         return None
 
 
