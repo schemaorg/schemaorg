@@ -8655,3 +8655,485 @@ JSON:
 }
 </script> 
 
+
+
+
+
+TYPES: TrainReservation, TrainTrip
+
+PRE-MARKUP:
+
+Original:
+Train Reservation #AB3XY2
+Departing: Munich Central 2017-01-04T10:30:00+01:00
+Arriving: Paris Gare De Lyon 2017-01-04T03:10:00+01:00
+Passenger: Eva Green
+Seat: 27B
+Seating: 1st Class
+Ticket: 123XYZ
+Ticket Token: aztecCode:AB34
+We recommend that you arrive at the station at least 30 minutes prior to your scheduled departure. Allow additional time if you need help with baggage or tickets."
+
+
+MICRODATA:
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "TrainReservation",
+  "reservationId": "AB3XY2",
+  "reservationStatus": "http://schema.org/ReservationConfirmed",
+  "reservationFor": {
+    "@type": "TrainTrip",
+    "departureStation": {
+      "@type": "TrainStation",
+      "name": "Munich Central"
+    },
+    "departureTime": "2017-01-04T10:30:00+01:00",
+    "arrivalStation": {
+      "@type": "TrainStation",
+      "name": "Paris Gare De Lyon"
+    },
+    "arrivalTime": "2017-01-04T03:10:00+01:00"
+  },
+  "reservedTicket": {
+    "@type": "Ticket",
+    "underName": "Eva Green",
+    "ticketedSeat": {
+      "@type": "Seat",
+      "seatNumber": "27B",
+      "seatingType": "1st Class"
+    },
+    "ticketNumber": "123XYZ",
+    "ticketToken": "aztecCode:AB34",
+    "description": "We recommend that you arrive at the station at least 30 minutes prior to your scheduled departure. Allow additional time if you need help with baggage or tickets."
+  }
+}
+</script>
+
+TYPES: BusReservation, BusTrip
+
+PRE-MARKUP:
+
+Original:
+Bolt NYC #123456
+Departing: Port Authority, NYC 2017-01-04T12:30:00-05:00
+Arriving: Boston South Station 2017-01-04T17:10:00-05:00
+Passenger: John Smith
+
+
+MICRODATA:
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BusReservation",
+  "reservationId": "123456",
+  "underName": {
+    "@type": "Person",
+    "name": "John Smith"
+  },
+  "reservationStatus": "http://schema.org/ReservationConfirmed",
+  "reservationFor": {
+    "@type": "BusTrip",
+    "operatingCompany": {
+      "@type": "Organization",
+      "name": "Bolt NYC"
+    },
+    "departureBusStop": {
+      "@type": "BusStop",
+      "name": "Port Authority, NYC"
+    },
+    "departureTime": "2017-01-04T12:30:00-05:00",
+    "arrivalBusStop": {
+      "@type": "BusStop",
+      "name": "Boston South Station"
+    },
+    "arrivalTime": "2017-01-04T17:10:00-05:00"
+  }
+}
+</script>
+
+TYPES: EventReservation, Ticket, Seat
+
+PRE-MARKUP:
+
+Original:
+Reservation #E123456789
+under name: John Smith
+
+Foo Fighters Concert
+2017-03-06T19:30:00-08:00
+AT&T Park
+24 Willie Mays Plaza
+San Francisco, CA 94107
+
+Ticket #abc123
+Section: 101
+Row: A
+Seat: 12
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "EventReservation",
+  "reservationId": "E123456789",
+  "reservationStatus": "http://schema.org/ReservationConfirmed",
+  "underName": {
+    "@type": "Person",
+    "name": "John Smith"
+  },
+  "reservationFor": {
+    "@type": "Event",
+    "name": "Foo Fighters Concert",
+    "startDate": "2017-03-06T19:30:00-08:00",
+    "location": {
+      "@type": "Place",
+      "name": "AT&T Park",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "24 Willie Mays Plaza",
+        "addressLocality": "San Francisco",
+        "addressRegion": "CA",
+        "postalCode": "94107",
+        "addressCountry": "US"
+      }
+    }
+  },
+  "reservedTicket": {
+    "@type": "Ticket",
+    "ticketNumber": "abc123",
+    "ticketToken": "qrCode:AB34",
+    "ticketedSeat": {
+      "@type": "Seat",
+      "seatRow": "A",
+      "seatNumber": "12",
+      "seatSection": "101"
+    }
+  }
+}
+</script>
+
+
+TYPES: FlightReservation, Flight
+
+PRE-MARKUP:
+
+Original:
+Reservation #RXJ34P
+Passenger: Eva Green
+Flight: United Airlines flight 110
+Departing: San Francisco Airport (SFO) 2017-03-04T20:15:00-08:00
+Arriving: John F. Kennedy International Airport (JFK) 2017-03-05T06:30:00-05:00
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "FlightReservation",
+  "reservationId": "RXJ34P",
+  "reservationStatus": "http://schema.org/ReservationConfirmed",
+  "underName": {
+    "@type": "Person",
+    "name": "Eva Green"
+  },
+  "reservationFor": {
+    "@type": "Flight",
+    "flightNumber": "110",
+    "carrier": {
+      "@type": "Airline",
+      "name": "United",
+      "iataCode": "UA"
+    },
+    "departureAirport": {
+      "@type": "Airport",
+      "name": "San Francisco Airport",
+      "iataCode": "SFO"
+    },
+    "departureTime": "2017-03-04T20:15:00-08:00",
+    "arrivalAirport": {
+      "@type": "Airport",
+      "name": "John F. Kennedy International Airport",
+      "iataCode": "JFK"
+    },
+    "arrivalTime": "2017-03-05T06:30:00-05:00"
+  }
+}
+</script>
+
+TYPES: FoodEstablishmentReservation
+
+PRE-MARKUP:
+
+Original:
+Reservation #OT12345
+under name: John Smith
+seating time: 2017-04-10T08:00:00+00:00
+party size: 2
+Wagamama
+1 Tavistock Street
+London
+WC2E 7PG
+
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "FoodEstablishmentReservation",
+  "reservationId": "OT12345",
+  "reservationStatus": "http://schema.org/ReservationConfirmed",
+  "underName": {
+    "@type": "Person",
+    "name": "John Smith"
+  },
+  "reservationFor": {
+    "@type": "FoodEstablishment",
+    "name": "Wagamama",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "1 Tavistock Street",
+      "addressLocality": "London",
+      "addressRegion": "Greater London",
+      "postalCode": "WC2E 7PG",
+      "addressCountry": "United Kingdom"
+    }
+  },
+  "startTime": "2017-04-10T08:00:00+00:00",
+  "partySize": "2"
+}
+</script>
+
+TYPES: LodgingReservation
+
+PRE-MARKUP:
+
+Original:
+Hotel Reservation #abc456
+under name: John Smith
+Hilton San Francisco Union Square
+333 O'Farrell Street
+San Francisco, CA 94102
+
+check in: 2017-04-11T16:00:00-08:00
+check out: 2017-04-13T11:00:00-08:00
+
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "LodgingReservation",
+  "reservationId": "abc456",
+  "reservationStatus": "http://schema.org/ReservationConfirmed",
+  "underName": {
+    "@type": "Person",
+    "name": "John Smith"
+  },
+  "reservationFor": {
+    "@type": "LodgingBusiness",
+    "name": "Hilton San Francisco Union Square",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "333 O'Farrell St",
+      "addressLocality": "San Francisco",
+      "addressRegion": "CA",
+      "postalCode": "94102",
+      "addressCountry": "US"
+    },
+    "telephone": "415-771-1400"
+  },
+  "checkinTime": "2017-04-11T16:00:00-08:00",
+  "checkoutTime": "2017-04-13T11:00:00-08:00"
+}
+</script>
+
+TYPES: RentalCarReservation
+
+PRE-MARKUP:
+Car rental reservation #546323
+Customer: John Smith
+Car: Honda Civic (Economy Class)
+Rental company: Hertz
+Pick up location: Hertz San Diego Airport
+1500 Orange Avenue
+San Diego, CA 94043
+
+Pickup time: 2017-08-05T16:00:00-07:00
+
+Drop off location: Hertz LAX
+1234 First Street
+Los Angeles, CA 94043
+
+Drop off time: 2017-08-06T20:00:00-07:00
+
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "RentalCarReservation",
+  "reservationId": "546323",
+  "reservationStatus": "http://schema.org/ReservationConfirmed",
+  "underName": {
+    "@type": "Person",
+    "name": "John Smith"
+  },
+  "reservationFor": {
+    "@type": "Car",
+    "name": "Economy Class Car",
+    "model": "Civic",
+    "brand": {
+      "@type": "Brand",
+      "name": "Honda"
+    },
+    "operatingCompany": {
+      "@type": "Organization",
+      "name": "Hertz"
+    }
+  },
+  "pickupLocation": {
+    "@type": "Place",
+    "name": "Hertz San Diego Airport",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "1500 Orange Avenue",
+      "addressLocality": "San Diego",
+      "addressRegion": "CA",
+      "postalCode": "94043",
+      "addressCountry": "US"
+    }
+  },
+  "pickupTime": "2017-08-05T16:00:00-07:00",
+  "dropoffLocation": {
+    "@type": "Place",
+    "name": "Hertz LAX",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "1234 First Street",
+      "addressLocality": "Los Angeles",
+      "addressRegion": "CA",
+      "postalCode": "94043",
+      "addressCountry": "US"
+    }
+  },
+  "dropoffTime": "2017-08-06T20:00:00-07:00"
+}
+</script>
+
+TYPES: TaxiReservation
+
+PRE-MARKUP:
+Taxi reservation #546323
+Customer: John Smith
+Taxi service: Checker Cab
+Pickup location: Boston Marriott Cambridge
+50 Broadway
+Cambridge, MA 02142
+
+Pickup time: 2017-08-05T16:00:00-07:00
+
+
+
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "TaxiReservation",
+  "reservationId": "546323",
+  "reservationStatus": "http://schema.org/ReservationConfirmed",
+  
+  "underName": {
+    "@type": "Person",
+    "name": "John Smith"
+  },
+  "reservationFor": {
+    "@type": "Taxi",
+    "provider": {
+      "@type": "Organization"
+      "name": "Checker Cab"
+  },
+  "pickupLocation": {
+    "@type": "Place",
+    "name": "Boston Marriott Cambridge",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "50 Broadway",
+      "addressLocality": "Cambridge",
+      "addressRegion": "MA",
+      "postalCode": "02142",
+      "addressCountry": "US"
+    }
+  },
+  "pickupTime": "2017-08-05T16:00:00-07:00"
+}
+</script>
+
+TYPES: Question, Answer, QAPage
+
+PRE-MARKUP:
+
+<body>
+  <div>
+    <h1>What is attr_accessor in Ruby?</h1>
+    <div>196</div>
+    <div>I am having difficulty understanding Ruby attr_accessors, can someone explain them?</div>
+    <div>asked Nov 11 '10 at 20:07</div>
+    <div><span>someuser</span></div>
+    <div><span>4</span> answers</div>
+    <div>
+      <div>1337</div>
+      <div>
+      (The text of the accepted answer goes here...).  
+      </div>
+      <div>answered Dec 1 '10 at 22:01</div>
+      <div><span>anotheruser</span></div>
+    <div>
+    <div>
+      <div>vote count: 39</div>
+      <div>
+        (Another explanation would go here).
+      </div>
+      <div>answered Dec 6 '10 at 21:11</div>
+      <div><span>lonelyuser1234</span></div>
+    <div>
+  </div>
+</body>
+
+MICRODATA:
+
+<body itemscope itemtype="http://schema.org/QAPage">
+  <div itemscope itemtype="http://schema.org/Question">
+    <h1 itemprop="name">What is attr_accessor in Ruby?</h1>
+    <div itemprop="upvoteCount">196</div>
+    <div itemprop="text">I am having difficulty understanding Ruby attr_accessors, can someone explain them?</div>
+    <div>asked <time itemprop="dateCreated" datetime="2010-11-04T20:07Z">Nov 11 '10 at 20:07</time></div>
+    <div itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">someuser</span></div>
+    <div><span itemprop="answerCount">4</span> answers</div>
+    <div itemprop="suggestedAnswer acceptedAnswer" itemscope itemtype="http://schema.org/Answer">
+      <div itemprop="voteCount">1337</div>
+      <div itemprop="text">
+      (The text of the accepted answer goes here...).  
+      </div>
+      <div>answered <time itemprop="dateCreated" datetime="2010-12-01T22:01Z">Dec 1 '10 at 22:01</time></div>
+      <div itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">anotheruser</span></div>
+    <div>
+    <div itemprop="suggestedAnswer" itemscope itemtype="http://schema.org/Answer">
+      <div itemprop="voteCount">39</div>
+      <div itemprop="text">
+        (Another explanation would go here).
+      </div>
+      <div>answered <time itemprop="dateCreated" datetime="2010-12-06T21:11Z">Dec 6 '10 at 21:11</time></div>
+      <div itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">lonelyuser1234</span></div>
+    <div>
+  </div>
+</body>
+
