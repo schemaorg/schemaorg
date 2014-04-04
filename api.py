@@ -393,6 +393,9 @@ class ShowUnit (webapp2.RequestHandler) :
                                % (example_type, selected, self.rep(ex.get(example_type))))
                 self.write("</div>")
         
+        self.write("<p class=\"version\"><b>Schema Version 1.1</b></p>")
+        self.write("</body></html>")
+
         self.response.write(self.AddCachedText(node, self.outputStrings))
 
 
