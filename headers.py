@@ -23,7 +23,7 @@ headers = '''<!DOCTYPE html>
           rel="stylesheet" />
     <script type="text/javascript" src="/docs/prettify.js">
     </script>
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
 
 <script type="text/javascript">
       $(document).ready(function(){
@@ -73,7 +73,7 @@ headers = '''<!DOCTYPE html>
 
 <div id="cse-search-form" style="width: 400px;"></div>
 
-<script type="text/javascript" src="http://www.google.com/jsapi"></script>
+<script type="text/javascript" src="//www.google.com/jsapi"></script>
 <script type="text/javascript">
   google.load(\'search\', \'1\', {language : \'en\', style : google.loader.themes.ESPRESSO});
   google.setOnLoadCallback(function() {
