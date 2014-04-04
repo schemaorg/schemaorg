@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Data Model - schema.org</title>
+    <meta name="description" content="Schema.org is a set of extensible schemas that enables webmasters to embed
+    structured data on their web pages for use by search engines and other applications." />
+    <link rel="stylesheet" type="text/css"
+          href="../search_files/schemaorg.css" />
+
+    <link href="../search_files/prettify.css" type="text/css"
+          rel="stylesheet" />
+    <script type="text/javascript" src="../js/prettify.js">
+    </script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+      $(document).ready(function(){
+        prettyPrint();
+        setTimeout(function(){
+
+    $('.atn').each(function(i) {
+      if (($(this).text() == 'itemscope') || ($(this).text() == 'itemtype') || ($(this).text() == 'itemprop') || ($(this).text() == 'itemid') || ($(this).text() == 'time') || ($(this).text() == 'datetime') || ($(this).text() == 'vocab') || ($(this).text() == 'property') || ($(this).text() == 'typeOf') || ($(this).text() == 'rel'))
+        $(this).addClass('custom');
+    });
+
+        }, 500);
+      });
+</script>
+
+<style>
+
+  .tag    { color: #000; }    /* div, span, etc   */
+  .atn    { color: #000; }    /* href, datetime,  */
+  .custom { color: #660003; } /* itemscope, itemtype, etc,. */
+
+</style>
+
+</head>
+<body>
+    <div id="container">
+        <div id="intro">
+            <div id="pageHeader">
+              <div class="wrapper">
+                <h1>schema.org</h1>
+
+<div id="cse-search-form" style="width: 400px;"></div>
+
+<script type="text/javascript" src="http://www.google.com/jsapi"></script>
+<script type="text/javascript">
+  google.load('search', '1', {language : 'en', style : google.loader.themes.ESPRESSO});
+  google.setOnLoadCallback(function() {
+    var customSearchControl = new google.search.CustomSearchControl('013516846811604855281:nj5laplixaa');
+    customSearchControl.setResultSetSize(google.search.Search.FILTERED_CSE_RESULTSET);
+    var options = new google.search.DrawOptions();
+    options.enableSearchboxOnly("../docs/search_results.html", null, false, '#');
+    customSearchControl.draw('cse-search-form', options);
+  }, true);
+</script>
+
+
+              </div>
+            </div>
+        </div>
+    </div>
+
+            <div id="selectionbar">
+               <div class="wrapper">
+                <ul>
+                    <li class="activelink">
+                      <a href="../docs/documents.html">Documentation</a></li>
+                    <li >
+                      <a href="../docs/schemas.html">Schemas</a></li>
+                    <li >
+                      <a href="../.">Home</a></li>
+                </ul>
+                </div>
+
+            </div>
+        <div style="padding: 14px; float: right;" id="languagebox"></div>
+
+  <div id="mainContent">
+
+<h1>Data Model</h1>
+
+<p>
+ The following is a discussion about the data model used by
+ schema.org.
+</p>
+
+<p>
+The data model used is very generic and derived from RDF Schema (which in turn was
+derived from CycL, which in turn ...).
+</p>
+<ol>
+<li> We have a set of types, arranged in a multiple inheritance heirarchy
+where each type may be a sub class of multiple types.
+<li> We have a set of properties
+  <ol>
+    <li> each property may have one or more types as its domains. The property may be used
+      for instances of any of these types.
+    <li> each property may have one or more types as its ranges. The value(s) of the property should
+      be instances of at least one of these types.
+  </ol>
+</ol>
+<p>
+The decision to allow multiple domains and ranges was purely pragmatic. While the
+computational properties of systems with a single domain and range are easier to
+understand, in practice, this forces the creation of a lot of artifical types,
+which are there purely to act as the domain/range of some properties.
+</p>
+<p>
+Like many other systems, the schema presented here can be extended (with
+a few types like Type and Property and a few properties like domain and range)
+to allow for reflection, i.e., for the schema to be represented
+in terms of itself. We maintain a <a href='full_md.html'>Microdata version</a> and an
+experimental <a href='schema_org_rdfa.html'>RDFa version</a> of such a reflected system.
+There is also an <a href='schemaorg.owl'>OWL version</a>, though currently it may not always be fully up-to-date.
+</p>
+
+<p>
+ The type hierarchy presented on this site is not intended to be a
+'global ontology' of the world.  It only covers the types of entities
+for which we (Microsoft, Yahoo!, Google and Yandex), think we can
+provide some special treatment for, through our search engines, in the
+near future.
+</p>
+
+<h2>Conformance</h2>
+<p>
+ While we would like all the markup we get to follow the schema, in practice, we expect a lot
+of data that does not. We expect schema.org properties to be used with new types. We also expect
+that often, where we expect a property value of type Person, Place, Organization or some other
+subClassOf Thing, we will get a text string. In the spirit of "some data is better than none",
+we will accept this markup and do the best we can.
+</p>
+
+
+<h2>Mapping to RDFa Lite </h2>
+
+ Our use of Microdata maps easily into <a href=http://www.w3.org/TR/rdfa-lite/>RDFa Lite</a>.
+In fact, all of Schema.org can be used
+with the RDFa Lite syntax as is. The RDFa Lite version of the markup looks almost isomorphic
+to the Microdata version. Given below is an sample RDFa Lite markup, of the example
+given for the <a href=../Product>Product</a> type.
+
+
+
+<pre  class="prettyprint lang-html linenums">
+&lt;div vocab="http://schema.org/" typeof="Product"&gt;
+  &lt;img property="image" src="dell-30in-lcd.jpg" /&gt;
+  &lt;span property="name"&gt;Dell UltraSharp 30" LCD Monitor&lt;/span&gt;
+
+  &lt;div property="aggregateRating"
+    typeof="AggregateRating"&gt;
+    &lt;span property="ratingValue"&gt;87&lt;/span&gt;
+    out of &lt;span property="bestRating"&gt;100&lt;/span&gt;
+    based on &lt;span property="ratingCount"&gt;24&lt;/span&gt; user ratings
+  &lt;/div&gt;
+
+  &lt;div property="offers" typeof="AggregateOffer"&gt;
+    &lt;span property="lowPrice"&gt;$1250&lt;/span&gt;
+    to &lt;span property="highPrice"&gt;$1495&lt;/span&gt;
+    from &lt;span property="offerCount"&gt;8&lt;/span&gt; sellers
+  &lt;/div&gt;
+
+  Sellers:
+  &lt;div property="offers" typeof="Offer"&gt;
+    &lt;a property="url" href="save-a-lot-monitors.com/dell-30.html"&gt;
+     Save A Lot Monitors - $1250&lt;/a&gt;
+  &lt;/div&gt;
+  &lt;div property="offers" typeof="Offer"&gt;
+    &lt;a property="url" href="jondoe-gadgets.com/dell-30.html"&gt;
+     Jon Doe's Gadgets - $1350&lt;/a&gt;
+  &lt;/div&gt;
+  ...
+&lt;/div&gt;
+</pre>
+
+<p>
+More specifically, <code>itemprop</code> is
+replaced <code>property</code>. <code>itemscope</code> is dropped and
+<code>itemtype</code> is replaced with <code>typeof</code>. In
+addition, the attribute value
+pair <code>vocab="http://schema.org/"</code> is added to the body or
+some other enclosing tag.
+</p>
+<p class="date">Last Updated: 6 Jun 2012</p>
+
+  </div>
+
+
+<div id="footer"><p>
+  <a href="../docs/terms.html">Terms and conditions</a></p>
+</div>
+
+</body>
+</html>
