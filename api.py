@@ -206,10 +206,10 @@ class ShowUnit (webapp2.RequestHandler) :
                 self.GetParentStack(p)
 
     def ml(self, node):
-        return "<a href=%s>%s</a>" % (node.id, node.id)
+        return "<a href=\"%s\">%s</a>" % (node.id, node.id)
 
     def UnitHeaders(self, node):
-        self.write("<h1 class=page-title>")
+        self.write("<h1 class=\"page-title\">\n")
         ind = len(self.parentStack)
         thing_seen = False
         while (ind > 0) :
@@ -217,18 +217,15 @@ class ShowUnit (webapp2.RequestHandler) :
             nn = self.parentStack[ind]
             if (nn.id == "Thing" or thing_seen):
                 thing_seen = True
-                self.write(self.ml(nn))
+                self.write(self.ml(nn) )
                 if (ind > 0):
                     self.write(" &gt; ")
         self.write("</h1>")
         comment = GetComment(node)
-        self.write("<div>%s</div>" % (comment))
+        self.write(" <div>%s</div>\n\n" % (comment) + "\n")
         if (node.isClass()):
-            self.write("<table cellspacing=3 class=definition-table>        <thead><tr><th>Property</th><th>Expected Type</th><th>Description</th>               </tr></thead>")
+            self.write("<table class=\"definition-table\">\n        <thead>\n  <tr><th>Property</th><th>Expected Type</th><th>Description</th>               \n  </tr>\n  </thead>\n\n")
 			#        elif (node.isAttribute()):
-            #self.write("<table cellspacing=3 class=definition-table><th>Property</th><th>Value</th> </tr></thead>")
-
-
 
     
     def ClassProperties (self, cl):
@@ -242,15 +239,15 @@ class ShowUnit (webapp2.RequestHandler) :
             ranges = GetTargets(ri, prop)
             comment = GetComment(prop)
             if (not headerPrinted):
-                self.write("<thead class=supertype><tr><th class=supertype-name colspan=3>Properties from %s</th></tr></thead><tbody class=supertype" % (self.ml(cl)))
+                self.write("<thead class=\"supertype\">\n  <tr>\n    <th class=\"supertype-name\" colspan=\"3\">Properties from %s</th>\n  </tr>\n</thead>\n\n<tbody class=\"supertype\">\n  " % (self.ml(cl)))
                 headerPrinted = True
 
-            self.write("<tr><th class=prop-nam' scope=row> <code>%s</code></th> " % (self.ml(prop)))
-            self.write("<td class=prop-ect>")
+            self.write("<tr>\n    \n      <th class=\"prop-nam\" scope=\"row\">\n\n<code>%s</code>\n    </th>\n " % (self.ml(prop)))
+            self.write("<td class=\"prop-ect\">\n")
             first_range = True
             for r in ranges:
                 if (not first_range):
-                    self.write(" <br>or ")
+                    self.write(" <br/>or ")
                 first_range = False
                 self.write(self.ml(r))
                 self.write("&nbsp;")
@@ -273,17 +270,17 @@ class ShowUnit (webapp2.RequestHandler) :
             ranges = GetTargets(di, prop)
             comment = GetComment(prop)
             if (not headerPrinted):
-                self.write("<br><br>Instances of %s may appear as values for the following properties<br>" % (self.ml(cl)))
-                self.write("<table cellspacing=3 class=definition-table>        <thead><tr><th>Property</th><th>On Types</th><th>Description</th>               </tr></thead>")
+                self.write("<br/><br/>Instances of %s may appear as values for the following properties<br/>" % (self.ml(cl)))
+                self.write("<table class=\"definition-table\">\n        \n  \n<thead>\n  <tr><th>Property</th><th>On Types</th><th>Description</th>               \n  </tr>\n</thead>\n\n")
 
                 headerPrinted = True
 #            logging.info("Property found %s" % (prop.id))
-            self.write("<tr><th class=prop-nam' scope=row> <code>%s</code></th> " % (self.ml(prop)))
-            self.write("<td class=prop-ect>")
+            self.write("<tr>\n<th class=\"prop-nam\" scope=\"row\">\n <code>%s</code>\n</th>\n " % (self.ml(prop)) + "\n")
+            self.write("<td class=\"prop-ect\">\n")
             first_range = True
             for r in ranges:
                 if (not first_range):
-                    self.write(" <br>or ")
+                    self.write(" <br/>or ")
                 first_range = False
                 self.write(self.ml(r))
                 self.write("&nbsp;")
@@ -293,7 +290,7 @@ class ShowUnit (webapp2.RequestHandler) :
                 self.write(" Supercedes %s." % (self.ml(supercedes)))                
             self.write("</td></tr>")
         if (headerPrinted):
-            self.write("</table>")
+            self.write("</table>\n")
 
 
     def AttributeProperties (self, node):
@@ -303,25 +300,25 @@ class ShowUnit (webapp2.RequestHandler) :
         domains = sorted(GetTargets(di, node), key=lambda u: u.id)
         first_range = True
 
-        self.write("<table cellspacing=3 class=definition-table>")
-        self.write("<thead><tr><th>Values expected to be one of these types</th></tr></thead><tr><td>")
+        self.write("<table class=\"definition-table\">\n")
+        self.write("<thead>\n  <tr>\n    <th>Values expected to be one of these types</th>\n  </tr>\n</thead>\n\n  <tr>\n    <td>\n      ")
 
         for r in ranges:
             if (not first_range):
-                self.write("<br>")
+                self.write("<br/>")
             first_range = False
-            self.write(" <code>%s</code> " % (self.ml(r)))
-        self.write("</td></tr></table>")
+            self.write(" <code>%s</code> " % (self.ml(r))+"\n")
+        self.write("    </td>\n  </tr>\n</table>\n\n")
         first_domain = True
 
-        self.write("<table cellspacing=3 class=definition-table>")
-        self.write("<thead><tr><th>Used on these types</th></tr></thead><tr><td>")
+        self.write("<table class=\"definition-table\">\n")
+        self.write("  <thead>\n    <tr>\n      <th>Used on these types</th>\n    </tr>\n</thead>\n<tr>\n  <td>")
         for d in domains:
             if (not first_domain):
-                self.write("<br>")
+                self.write("<br/>")
             first_domain = False
-            self.write("<code>%s</code> " % (self.ml(d)))
-        self.write("</td></tr></table")
+            self.write("\n    <code>%s</code> " % (self.ml(d))+"\n")
+        self.write("      </td>\n    </tr>\n</table>\n\n")
 
 
     def rep(self, markup):
@@ -357,30 +354,31 @@ class ShowUnit (webapp2.RequestHandler) :
         if (Unit.isClass(node)):
             for p in self.parentStack:
                 self.ClassProperties(p)
-            self.write("</table>")
+            self.write("</table>\n")
             self.ClassIncomingProperties(node)
         elif (Unit.isAttribute(node)):
             self.AttributeProperties(node)
 
-        self.write("</table>")
+        if (not Unit.isAttribute(node)):
+            self.write("\n\n</table>\n\n") # no supertype table for properties
 
         if (node.isClass()):
             children = sorted(GetSources(Unit.GetUnit("rdfs:subClassOf"), node), key=lambda u: u.id)
             if (len(children) > 0):
-                self.write("<br><b>More specific Types</b>");
+                self.write("<br/><b>More specific Types</b>");
                 for c in children:
                     self.write("<li> %s" % (self.ml(c)))
                         
         if (node.isEnumeration()):
             children = sorted(GetSources(Unit.GetUnit("typeOf"), node), key=lambda u: u.id)
             if (len(children) > 0):
-                self.write("<br><br>Enumeration members");
+                self.write("<br/><br/>Enumeration members");
                 for c in children:
                     self.write("<li> %s" % (self.ml(c)))
 
         ackorgs = GetTargets(Unit.GetUnit("dc:source"), node)
         if (len(ackorgs) > 0):
-            self.write("<h4  id='acks'>Acknowledgements</h4>")
+            self.write("<h4  id=\"acks\">Acknowledgements</h4>\n")
             for ao in ackorgs:
                 acks = sorted(GetTargets(Unit.GetUnit("rdfs:comment"), ao))
                 for ack in acks:
@@ -394,21 +392,21 @@ class ShowUnit (webapp2.RequestHandler) :
               ('RDFa', 'rdfa', ''),
               ('JSON-LD', 'jsonld', ''),
             ]
-            self.write("<br><br><b>Examples</b><br><br>")
+            self.write("<br/><br/><b>Examples</b><br/><br/>\n\n")
             for ex in examples:
-                self.write("<div class='ds-selector-tabs ds-selector'>")
-                self.write("<div class='selectors'>")
+                self.write("<div class='ds-selector-tabs ds-selector'>\n")
+                self.write("  <div class='selectors'>\n")
                 for label, example_type, selected in example_labels:
-                    self.write("<a value='%s' data-selects='%s' class='%s'>%s</a>"
+                    self.write("    <a value='%s' data-selects='%s' class='%s'>%s</a>\n"
                                % (example_type, example_type, selected, label))
-                self.write("</div>")
+                self.write("</div>\n\n")
                 for label, example_type, selected in example_labels:
-                    self.write("<pre class=\"prettyprint lang-html linenums %s %s\">%s</pre>"
+                    self.write("<pre class=\"prettyprint lang-html linenums %s %s\">%s</pre>\n\n"
                                % (example_type, selected, self.rep(ex.get(example_type))))
-                self.write("</div>")
+                self.write("</div>\n\n")
 
-        self.write("<p class='version'><b>Schema Version 1.1</b></p>")
-        self.write("</body></html>")
+        self.write("<p class=\"version\"><b>Schema Version 1.1</b></p>\n\n")
+        self.write(" \n\n</div>\n</body>\n</html>")
         
         self.response.write(self.AddCachedText(node, self.outputStrings))
 

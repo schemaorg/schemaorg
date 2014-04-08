@@ -60,6 +60,11 @@ headers = '''<!DOCTYPE html>
   .atv    { color: #314B17; } /* href, datetime             */
   .new    { color: #660003; } /* itemscope, itemtype, etc,. */
   .curl   { color: #080;    } /* new url                    */
+  
+  table.definition-table { 
+    border-spacing: 3px;
+    border-collapse: separate;
+  }
 
 </style>
 
@@ -106,7 +111,10 @@ headers = '''<!DOCTYPE html>
             </div>
         <div style="padding: 14px; float: right;" id="languagebox"></div>
 
+
+
   <div id="mainContent">
+
 '''
 
 def OutputSchemaorgHeaders(webapp, entry='') :
