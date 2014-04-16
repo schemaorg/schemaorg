@@ -10336,6 +10336,96 @@ JSON:
 
 Coming soon
 
+TYPES: WatchAction, Movie
+
+PRE-MARKUP:
+
+A Movie named "Footloose" with a WatchAction as a
+potentialAction, with a target of http://example.com/player?id=123.
+
+MICRODATA:
+
+This example is JSON only.
+
+RDFA:
+
+This example is JSON only.
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Movie",
+  "name": "Footloose",
+  "potentialAction" : {
+    "@type": "WatchAction",
+    "target" : "http://example.com/player?id=123"
+  }
+}
+</script>
+
+TYPES: Restaurant, ViewAction, EntryPoint, SoftwareApplication
+
+PRE-MARKUP:
+
+A Restaurant named "Tartine Bakery" with a ViewAction as a
+potentialAction, with several target endpoints including 
+the simple url http://example.com/player?id=123 and 
+full EntryPoint descriptions for Windows and iOS SoftwareApplication
+apps.
+
+MICRODATA:
+
+This example is JSON only.
+
+RDFA:
+
+This example is JSON only.
+
+JSON:
+
+<script type="application/ld+json">
+
+{
+  "@context": "http://schema.org",
+  "@type": "Restaurant",
+  "name": "Tartine Bakery",
+  "potentialAction": {
+    "@type": "ViewAction",
+    "target": [
+      "http://www.urbanspoon.com/r/6/92204",
+      {
+        "@type": "EntryPoint",
+        "urlTemplate": "http://api.urbanspoon.com/r/6/92204",
+        "contentType": "application/json+ld"
+      },
+      "android-app://com.urbanspoon/http/www.urbanspoon.com/r/6/92204",
+      {
+        "@type": "EntryPoint",
+        "urlTemplate": "urbanspoon://r/6/92204",
+        "application": {
+          "@type": "SoftwareApplication",
+          "@id": "284708449",
+          "name": "Urbanspoon iPhone & iPad App",
+          "operatingSystem": "iOS"
+        }
+      },
+      {
+        "@type": "EntryPoint",
+        "urlTemplate": "urbanspoon://r/6/92204",
+        "application": {
+          "@type": "SoftwareApplication",
+          "@id": "5b23b738-bb64-4829-9296-5bcb59bb0d2d",
+          "name": "Windows Phone App",
+          "operatingSystem": "Windows Phone 8"
+        }
+      }
+    ]
+  }
+}
+</script>
+
 TYPES:  FakeEntryNeeded, FixMeSomeDay
 
 PRE-MARKUP: 

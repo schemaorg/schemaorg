@@ -9670,5 +9670,164 @@ on public-vocabs@w3.org.</p>
 
   <hr />
 
+
+ <h1>Potential Actions</h1>
+
+
+    <div typeof="rdf:Property" resource="http://schema.org/actionStatus">
+      <span class="h" property="rdfs:label">actionStatus</span>
+      <span property="rdfs:comment">Indicates the current disposition of the Action.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Action">Action</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/ActionStatusType">ActionStatusType</a></span>
+    </div>
+
+    <div typeof="rdfs:Class" resource="http://schema.org/ActionStatusType">
+      <span class="h" property="rdfs:label">ActionStatusType</span>
+      <span property="rdfs:comment">The status of an Action.</span>
+      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Enumeration">Enumeration</a></span>
+    </div>
+
+    <div typeof="http://schema.org/ActionStatusType" resource="http://schema.org/PotentialActionStatus">
+      <span class="h" property="rdfs:label">PotentialActionStatus</span>
+      <span property="rdfs:comment">A description of an action that is supported.</span>
+    </div>
+
+    <div typeof="http://schema.org/ActionStatusType" resource="http://schema.org/ActiveActionStatus">
+      <span class="h" property="rdfs:label">ActiveActionStatus</span>
+      <span property="rdfs:comment">An in-progress action (e.g, while watching the movie, or driving to a location).</span>
+    </div>
+
+    <div typeof="http://schema.org/ActionStatusType" resource="http://schema.org/CompletedActionStatus">
+      <span class="h" property="rdfs:label">CompletedActionStatus</span>
+      <span property="rdfs:comment">An action that has already taken place.</span>
+    </div>
+
+    <div typeof="rdf:Property" resource="http://schema.org/potentialAction">
+      <span class="h" property="rdfs:label">potentialAction</span>
+      <span property="rdfs:comment">Indicates a potential Action, which describes and idealized action in which this thing would play an 'object' role.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Thing">Thing</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Action">Action</a></span>
+    </div>
+
+    <div typeof="rdfs:Class" resource="http://schema.org/EntryPoint">
+      <span class="h" property="rdfs:label">EntryPoint</span>
+      <span property="rdfs:comment">An entry point, within some Web-based protocol.</span>
+      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Intangible">Intangible</a></span>
+    </div>
+
+
+    <div typeof="rdf:Property" resource="http://schema.org/target">
+      <span class="h" property="rdfs:label">target</span>
+      <span property="rdfs:comment">Indicates a target EntryPoint for an Action.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Action">Action</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/EntryPoint">EntryPoint</a></span>
+    </div>
+
+    <div typeof="rdf:Property" resource="http://schema.org/httpMethod">
+      <span class="h" property="rdfs:label">httpMethod</span>
+      <span property="rdfs:comment">An HTTP method that specifies the appropriate HTTP method for a request to an HTTP EntryPoint. Values are capitalized strings as used in HTTP.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/EntryPoint">EntryPoint</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+    </div>
+
+
+    <div typeof="rdf:Property" resource="http://schema.org/encodingType">
+      <span class="h" property="rdfs:label">encodingType</span>
+      <span property="rdfs:comment">The supported encoding type(s) for the URL request</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/EntryPoint">EntryPoint</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+    </div>
+
+    <div typeof="rdf:Property" resource="http://schema.org/contentType"> <!-- note that we have fileFormat already, re MIME. -->
+      <span class="h" property="rdfs:label">contentType</span>
+      <span property="rdfs:comment">The supported content type(s) for the URL response.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/EntryPoint">EntryPoint</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+    </div>
+
+    <div typeof="rdf:Property" resource="http://schema.org/application">
+      <span class="h" property="rdfs:label">application</span>
+      <span property="rdfs:comment">An application that can complete the request.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/EntryPoint">EntryPoint</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/SoftwareApplication">SoftwareApplication</a></span>
+    </div>
+
+    <div typeof="rdfs:Class" resource="http://schema.org/PropertyConstraint">
+      <span class="h" property="rdfs:label">PropertyConstraint</span>
+      <span property="rdfs:comment">A PropertyConstraint</span>
+      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Intangible">Intangible</a></span>
+    </div>
+
+    <div typeof="rdf:Property" resource="http://schema.org/valueRequired">
+      <span class="h" property="rdfs:label">valueRequired</span>
+      <span property="rdfs:comment">Whether the property must be filled in to complete the action.  Default is false.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/PropertyConstraint">PropertyConstraint</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Boolean">Boolean</a></span>
+    </div>
+
+    <div typeof="rdf:Property" resource="http://schema.org/defaultValue">
+      <span class="h" property="rdfs:label">defaultValue</span>
+      <span property="rdfs:comment">The default value of the input.  For properties that expect a literal, its a literal value, for properties that expect an object, it's an ID reference to one of the current values.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/PropertyConstraint">PropertyConstraint</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Thing">Thing</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Literal">Literal</a></span>
+    </div>
+
+    <div typeof="rdf:Property" resource="http://schema.org/readonlyValue">
+      <span class="h" property="rdfs:label">readonlyValue</span>
+      <span property="rdfs:comment">Whether or not a property is mutable.  Default is false. Specifying this for a property that also has a value makes it act similar to a "hidden" input in an HTML form.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/PropertyConstraint">PropertyConstraint</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Boolean">Boolean</a></span>
+    </div>
+
+    <div typeof="rdf:Property" resource="http://schema.org/multipleValues">
+      <span class="h" property="rdfs:label">multipleValues</span>
+      <span property="rdfs:comment">Whether multiple values are allowed for the property.  Default is false.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/PropertyConstraint">PropertyConstraint</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Boolean">Boolean</a></span>
+    </div>
+
+    <div typeof="rdf:Property" resource="http://schema.org/valueMinlength">
+      <span class="h" property="rdfs:label">valueMinlength</span>
+      <span property="rdfs:comment">Specifies the minimum allowed range for number of characters in a literal value.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/PropertyConstraint">PropertyConstraint</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number">Number</a></span>
+    </div>
+
+    <div typeof="rdf:Property" resource="http://schema.org/valueMaxlength">
+      <span class="h" property="rdfs:label">valueMaxlength</span>
+      <span property="rdfs:comment">Specifies the allowed range for number of characters in a literal value.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/PropertyConstraint">PropertyConstraint</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number">Number</a></span>
+    </div>
+
+    <div typeof="rdf:Property" resource="http://schema.org/valuePattern">
+      <span class="h" property="rdfs:label">valuePattern</span>
+      <span property="rdfs:comment">Specifies a regular expression for testing literal values according to the HTML spec</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/PropertyConstraint">PropertyConstraint</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number">Number</a></span>
+    </div>
+
+
+    <!-- todo, check if these really have a domain of Number or other... -->
+    <div typeof="rdf:Property" resource="http://schema.org/minValue">
+      <span class="h" property="rdfs:label">minValue</span>
+      <span property="rdfs:comment">Specifies a regular expression for testing literal values according to the HTML spec</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/PropertyConstraint">PropertyConstraint</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number">Number</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/maxValue">
+      <span class="h" property="rdfs:label">maxValue</span>
+      <span property="rdfs:comment">Specifies a regular expression for testing literal values according to the HTML spec</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/PropertyConstraint">PropertyConstraint</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number">Number</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/stepValue">
+      <span class="h" property="rdfs:label">stepValue</span>
+      <span property="rdfs:comment">Specifies a regular expression for testing literal values according to the HTML spec</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/PropertyConstraint">PropertyConstraint</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number">Number</a></span>
+    </div>
+
   </body>
 </html>
