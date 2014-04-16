@@ -4350,9 +4350,18 @@
     <div typeof="rdf:Property" resource="http://schema.org/action">
       <span class="h" property="rdfs:label">action</span>
       <span property="rdfs:comment">The movement the muscle generates.</span>
+      <span property="http://schema.org/supercededBy" href="http://schema.org/muscleAction"/>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Muscle">Muscle</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
     </div>
+
+    <div typeof="rdf:Property" resource="http://schema.org/muscleAction">
+      <span class="h" property="rdfs:label">muscleAction</span>
+      <span property="rdfs:comment">The movement the muscle generates.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Muscle">Muscle</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+    </div>
+
     <div typeof="rdf:Property" resource="http://schema.org/activeIngredient">
       <span class="h" property="rdfs:label">activeIngredient</span>
       <span property="rdfs:comment">An active ingredient, typically chemical compounds and/or biologic substances.</span>
