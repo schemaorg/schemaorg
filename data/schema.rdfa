@@ -108,13 +108,13 @@
 
     <div typeof="rdfs:Class" resource="http://schema.org/Offer">
       <span class="h" property="rdfs:label">Offer</span>
-      <span property="rdfs:comment">An offer to sell an item&amp;#x2014;for example, an offer to sell a product, the DVD of a movie, or tickets to an event.</span>
+      <span property="rdfs:comment">An offer to transfer some rights to an item or to provide a service&amp;#x2014;for example, an offer to sell tickets to an event, to rent the DVD of a movie, to stream a TV show over the internet, to repair a motorcycle, or to loan a book.</span>
        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Intangible">Intangible</a></span>
        <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsProperties">GoodRelationsProperties</a></span></div>
 
     <div typeof="rdfs:Class" resource="http://schema.org/AggregateOffer">
       <span class="h" property="rdfs:label">AggregateOffer</span>
-      <span property="rdfs:comment">When a single product that has different offers (for example, the same pair of shoes is offered by different merchants), then AggregateOffer can be used.</span>
+      <span property="rdfs:comment">When a single product is associated with multiple offers (for example, the same pair of shoes is offered by different merchants), then AggregateOffer can be used.</span>
        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Offer">Offer</a></span>
     </div>
 
@@ -1332,17 +1332,17 @@
 
     <div typeof="http://schema.org/ItemAvailability" resource="http://schema.org/Discontinued">
       <span class="h" property="rdfs:label">Discontinued</span>
-      <span property="rdfs:comment">Indicates that the item for sale has been discontinued.</span>
+      <span property="rdfs:comment">Indicates that the item has been discontinued.</span>
     </div>
 
     <div typeof="http://schema.org/ItemAvailability" resource="http://schema.org/InStock">
       <span class="h" property="rdfs:label">InStock</span>
-      <span property="rdfs:comment">Indicates that the item for sale is in stock.</span>
+      <span property="rdfs:comment">Indicates that the item is in stock.</span>
     </div>
 
     <div typeof="http://schema.org/ItemAvailability" resource="http://schema.org/InStoreOnly">
       <span class="h" property="rdfs:label">InStoreOnly</span>
-      <span property="rdfs:comment">Indicates that the item for sale is available only in brick-and-mortar stores.</span>
+      <span property="rdfs:comment">Indicates that the item is available only at physical locations.</span>
     </div>
 
     <div typeof="http://schema.org/ItemAvailability" resource="http://schema.org/LimitedAvailability">
@@ -1352,17 +1352,17 @@
 
     <div typeof="http://schema.org/ItemAvailability" resource="http://schema.org/OnlineOnly">
       <span class="h" property="rdfs:label">OnlineOnly</span>
-      <span property="rdfs:comment">Indicates that the item for sale is available only online.</span>
+      <span property="rdfs:comment">Indicates that the item is available only online.</span>
     </div>
 
     <div typeof="http://schema.org/ItemAvailability" resource="http://schema.org/OutOfStock">
       <span class="h" property="rdfs:label">OutOfStock</span>
-      <span property="rdfs:comment">Indicates that the item for sale is out of stock.</span>
+      <span property="rdfs:comment">Indicates that the item is out of stock.</span>
     </div>
 
     <div typeof="http://schema.org/ItemAvailability" resource="http://schema.org/PreOrder">
       <span class="h" property="rdfs:label">PreOrder</span>
-      <span property="rdfs:comment">Indicates that the item for sale is available for pre-order.</span>
+      <span property="rdfs:comment">Indicates that the item is available for pre-order.</span>
     </div>
 
     <div typeof="http://schema.org/ItemAvailability" resource="http://schema.org/SoldOut">
@@ -2332,28 +2332,28 @@
 
     <div typeof="rdfs:Class" resource="http://schema.org/OfferItemCondition">
       <span class="h" property="rdfs:label">OfferItemCondition</span>
-      <span property="rdfs:comment">A list of possible conditions for the item for sale.</span>
+      <span property="rdfs:comment">A list of possible conditions for the item.</span>
        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Enumeration">Enumeration</a></span>
     </div>
 
     <div typeof="http://schema.org/OfferItemCondition" resource="http://schema.org/DamagedCondition">
       <span class="h" property="rdfs:label">DamagedCondition</span>
-      <span property="rdfs:comment">Indicates that the item for sale is damaged.</span>
+      <span property="rdfs:comment">Indicates that the item is damaged.</span>
     </div>
 
     <div typeof="http://schema.org/OfferItemCondition" resource="http://schema.org/NewCondition">
       <span class="h" property="rdfs:label">NewCondition</span>
-      <span property="rdfs:comment">Indicates that the item for sale is new.</span>
+      <span property="rdfs:comment">Indicates that the item is new.</span>
     </div>
 
     <div typeof="http://schema.org/OfferItemCondition" resource="http://schema.org/RefurbishedCondition">
       <span class="h" property="rdfs:label">RefurbishedCondition</span>
-      <span property="rdfs:comment">Indicates that the item for sale is refurbished.</span>
+      <span property="rdfs:comment">Indicates that the item is refurbished.</span>
     </div>
 
     <div typeof="http://schema.org/OfferItemCondition" resource="http://schema.org/UsedCondition">
       <span class="h" property="rdfs:label">UsedCondition</span>
-      <span property="rdfs:comment">Indicates that the item for sale is used.</span>
+      <span property="rdfs:comment">Indicates that the item is used.</span>
     </div>
 
     <div typeof="rdfs:Class" resource="http://schema.org/OfficeEquipmentStore">
@@ -2627,7 +2627,7 @@
 
     <div typeof="rdfs:Class" resource="http://schema.org/Product">
       <span class="h" property="rdfs:label">Product</span>
-      <span property="rdfs:comment">A product is anything that is made available for sale—for example, a pair of shoes, a concert ticket, or a car. Commodity services, like haircuts, can also be represented using this type.</span>
+      <span property="rdfs:comment">Any offered product or service. For example: a pair of shoes; a concert ticket; the rental of a car; a haircut; or an episode of a TV show streamed online.</span>
        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Thing">Thing</a></span>
        <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsProperties">GoodRelationsProperties</a></span></div>
 
@@ -6593,7 +6593,7 @@
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/itemOffered">
       <span class="h" property="rdfs:label">itemOffered</span>
-      <span property="rdfs:comment">The item being sold.</span>
+      <span property="rdfs:comment">The item being offered.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Offer">Offer</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Demand">Demand</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Product">Product</a></span>
@@ -7034,7 +7034,7 @@
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/offers">
       <span class="h" property="rdfs:label">offers</span>
-      <span property="rdfs:comment">An offer to sell this item&amp;#x2014;for example, an offer to sell a product, the DVD of a movie, or tickets to an event.</span>
+      <span property="rdfs:comment">An offer to provide this item&amp;#x2014;for example, an offer to sell a product, rent the DVD of a movie, or give away tickets to an event.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CreativeWork">CreativeWork</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MediaObject">MediaObject</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Event">Event</a></span>
@@ -8102,7 +8102,7 @@
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/seller">
       <span class="h" property="rdfs:label">seller</span>
-      <span property="rdfs:comment">The seller.</span>
+      <span property="rdfs:comment">The organization or person making the offer.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Offer">Offer</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Demand">Demand</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Organization">Organization</a></span>
@@ -8829,7 +8829,7 @@
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/vendor">
       <span class="h" property="rdfs:label">vendor</span>
-      <span property="rdfs:comment">A sub property of participant. The seller.The participant/person/organization that sold the object.</span>
+      <span property="rdfs:comment">A sub property of participant. The seller. The participant/person/organization that sold the object.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/BuyAction">BuyAction</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Organization">Organization</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Person">Person</a></span>
