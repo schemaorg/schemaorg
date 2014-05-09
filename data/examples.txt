@@ -10426,6 +10426,233 @@ JSON:
 }
 </script>
 
+TYPES:  MusicEvent, CreativeWork, Person
+
+PRE-MARKUP: 
+
+<div>
+  <h2>Shostakovich Leningrad</h2>
+  <div>
+    <div>May<span>23</span></div>
+    <div>8:00 PM</div>
+    <div>
+      <strong>Britten, Shostakovich</strong>
+    </div>
+  </div>
+  <div>
+    <p>Jaap van Zweden conducts two World War II-era pieces showcasing the glorious sound of the CSO.</p>
+  </div>
+
+  <div>
+    <h3>Program</h3>
+    <ul>
+      <li>
+        <link href="http://en.wikipedia.org/wiki/Peter_Grimes" />
+        <span><strong>Britten</strong> Four Sea Interludes and Passacaglia from <em>Peter Grimes</em></span>
+	</li>
+      <li>
+	    <link href="http://en.wikipedia.org/wiki/Symphony_No._7_(Shostakovich)" />
+	    <span><strong>Shostakovich</strong> Symphony No. 7 <em>(Leningrad)</em></span>
+	</li>
+    </ul>
+  </div>
+
+  <div>
+    <h3>Performers</h3>
+    <div>
+      <img src="/examples/cso_c_logo_s.jpg" alt="Chicago Symphony Orchestra" />
+      <link href="http://cso.org/" />
+      <link href="http://en.wikipedia.org/wiki/Chicago_Symphony_Orchestra" />
+      <div>
+        <a href="examples/Performer?id=4434">Chicago Symphony Orchestra</a>
+      </div>
+    </div>
+
+    <div>
+      <link href="http://www.jaapvanzweden.com/" />
+      <img src="/examples/jvanzweden_s.jpg" alt="Jaap van Zweden"/>
+      <div>
+        <a href="/examples/Performer.aspx?id=11324">Jaap van Zweden</a>
+      </div>
+      <div>conductor</div>
+    </div>
+  </div>
+
+</div>
+
+
+MICRODATA: 
+
+<div itemscope="" itemtype="http://schema.org/MusicEvent">
+
+  <div itemprop="location" itemscope="" itemtype="http://schema.org/MusicVenue">
+    <span itemprop="name" content="Chicago Symphony Center"/>
+    <link itemprop="sameAs" href="http://en.wikipedia.org/wiki/Symphony_Center"/>
+    <span itemprop="address" content="220 S. Michigan Ave, Chicago, Illinois, USA."/>
+  </div>
+
+  <div itemprop="offers" itemscope="" itemtype="http://schema.org/Offer">
+    <link itemprop="url" href="/examples/ticket/12341234" />
+  </div>
+ 
+  <h2 itemprop="name">Shostakovich Leningrad</h2>
+  <div>
+    <div itemprop="startDate" content="2014-05-23T20:00">May<span>23</span></div>
+    <div>8:00 PM</div>
+    <div>
+      <strong>Britten, Shostakovich</strong>
+    </div>
+  </div>
+  <div>
+    <p>Jaap van Zweden conducts two World War II-era pieces showcasing the glorious sound of the CSO.</p>
+  </div>
+
+  <div>
+    <h3>Program</h3>
+    <ul>
+      <li itemprop="workPerformed" itemscope="" itemtype="http://schema.org/CreativeWork">
+        <link itemprop="sameAs" href="http://en.wikipedia.org/wiki/Peter_Grimes" />
+        <span itemprop="name"><strong>Britten</strong> Four Sea Interludes and Passacaglia from <em itemprop="name">Peter Grimes</em></span>
+	</li>
+      <li itemprop="workPerformed" itemscope="" itemtype="http://schema.org/CreativeWork">
+	    <link itemprop="sameAs" href="http://en.wikipedia.org/wiki/Symphony_No._7_(Shostakovich)" />
+	    <span itemprop="name"><strong>Shostakovich</strong> Symphony No. 7 <em>(Leningrad)</em></span>
+	</li>
+    </ul>
+  </div>
+
+  <div>
+    <h3>Performers</h3>
+    <div itemprop="performer" itemscope="" itemtype="http://schema.org/Organization">
+      <img src="/examples/cso_c_logo_s.jpg" alt="Chicago Symphony Orchestra" />
+      <link itemprop="sameAs" href="http://cso.org/" />
+      <link itemprop="sameAs" href="http://en.wikipedia.org/wiki/Chicago_Symphony_Orchestra" />
+      <div>
+        <a href="examples/Performer?id=4434"><span itemprop="name">Chicago Symphony Orchestra</span></a>
+      </div>
+    </div>
+
+    <div itemprop="performer" itemscope="" itemtype="http://schema.org/Person">
+      <link itemprop="sameAs" href="http://www.jaapvanzweden.com/" />
+      <img itemprop="image" src="/examples/jvanzweden_s.jpg" alt="Jaap van Zweden"/>
+      <div>
+        <a href="/examples/Performer.aspx?id=11324"><span itemprop="name">Jaap van Zweden</span></a>
+      </div>
+      <div>conductor</div>
+    </div>
+  </div>
+
+</div>
+
+
+
+RDFA: 
+
+<div vocab="http://schema.org/" typeof="MusicEvent">
+
+  <div property="location" typeof="MusicVenue">
+    <span property="name" content="Chicago Symphony Center"/>
+    <link property="sameAs" href="http://en.wikipedia.org/wiki/Symphony_Center"/>
+    <span property="address" content="220 S. Michigan Ave, Chicago, Illinois, USA."/>
+  </div>
+
+  <div typeof="Offer" property="offers">
+    <link property="url" href="/examples/ticket/12341234"/>
+  </div>
+ 
+  <h2 property="name">Shostakovich Leningrad</h2>
+  <div>
+    <div property="startDate" content="2014-05-23T20:00">May<span>23</span></div>
+    <div>8:00 PM</div>
+    <div>
+      <strong>Britten, Shostakovich</strong>
+    </div>
+  </div>
+  <div>
+    <p>Jaap van Zweden conducts two World War II-era pieces showcasing the glorious sound of the CSO.</p>
+  </div>
+
+  <div>
+    <h3>Program</h3>
+    <ul>
+      <li property="workPerformed" typeof="CreativeWork">
+        <link href="http://en.wikipedia.org/wiki/Peter_Grimes" property="sameAs"/>
+        <span property="name"><strong>Britten</strong> Four Sea Interludes and Passacaglia from <em property="name">Peter Grimes</em></span>
+	</li>
+      <li property="workPerformed" typeof="CreativeWork">
+	    <link href="http://en.wikipedia.org/wiki/Symphony_No._7_(Shostakovich)" property="sameAs"/>
+	    <span property="name"><strong>Shostakovich</strong> Symphony No. 7 <em>(Leningrad)</em></span>
+	</li>
+    </ul>
+  </div>
+
+  <div>
+    <h3>Performers</h3>
+    <div property="performer" typeof="Organization">
+      <img src="/examples/cso_c_logo_s.jpg" alt="Chicago Symphony Orchestra"/>
+      <link href="http://cso.org/" property="sameAs"/>
+      <link href="http://en.wikipedia.org/wiki/Chicago_Symphony_Orchestra" property="sameAs"/>
+      <a property="name" href="examples/Performer?id=4434">Chicago Symphony Orchestra</a>
+    </div>
+
+    <div property="performer" typeof="Person">
+      <link href="http://www.jaapvanzweden.com/" property="sameAs"/>
+      <img src="/examples/jvanzweden_s.jpg" alt="Jaap van Zweden" property="image"/>
+      <a property="name" href="/examples/Performer.aspx?id=11324">Jaap van Zweden</a>
+      <div>conductor</div>
+    </div>
+  </div>
+
+</div>
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org", 
+  "@type": "MusicEvent", 
+  "location": {
+    "@type": "MusicVenue", 
+    "name": "Chicago Symphony Center",
+    "address": "220 S. Michigan Ave, Chicago, Illinois, USA."
+  }, 
+  "name": "Shostakovich Leningrad", 
+  "offers": {
+    "@type": "Offer", 
+    "url": "/examples/ticket/12341234"
+  }, 
+  "performer": [
+    {
+      "@type": "Organization", 
+      "name": "Chicago Symphony Orchestra", 
+      "sameAs": [
+        "http://cso.org/", 
+        "http://en.wikipedia.org/wiki/Chicago_Symphony_Orchestra"
+      ]
+    }, 
+    {
+      "@type": "Person", 
+      "image": "/examples/jvanzweden_s.jpg", 
+      "name": "Jaap van Zweden", 
+      "sameAs": "http://www.jaapvanzweden.com/"
+    }
+  ], 
+  "startDate": "2014-05-23T20:00", 
+  "workPerformed": [
+    {
+      "@type": "CreativeWork", 
+      "name": "Britten Four Sea Interludes and Passacaglia from Peter Grimes", 
+      "sameAs": "http://en.wikipedia.org/wiki/Peter_Grimes"
+    }, 
+    {
+      "@type": "CreativeWork", 
+      "name": "Shostakovich Symphony No. 7 (Leningrad)", 
+      "sameAs": "http://en.wikipedia.org/wiki/Symphony_No._7_(Shostakovich)"
+    }
+  ]
+}
+</script>
+
 TYPES:  FakeEntryNeeded, FixMeSomeDay
 
 PRE-MARKUP: 
