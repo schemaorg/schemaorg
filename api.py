@@ -382,11 +382,18 @@ class ShowUnit (webapp2.RequestHandler) :
     def GetParentStack(self, node):
         if (node not in self.parentStack):
             self.parentStack.append(node)
+
         if (Unit.isAttribute(node)):
             self.parentStack.append(Unit.GetUnit("Property"))
             self.parentStack.append(Unit.GetUnit("Thing"))
+
+        sc = Unit.GetUnit("rdfs:subClassOf")
+        if GetTargets(sc, node):
+            for p in GetTargets(sc, node):
+                self.GetParentStack(p)
         else:
-            sc = Unit.GetUnit("rdfs:subClassOf")
+            # Enumerations are classes that have no declared subclasses
+            sc = Unit.GetUnit("typeOf")
             for p in GetTargets(sc, node):
                 self.GetParentStack(p)
 
@@ -421,7 +428,9 @@ class ShowUnit (webapp2.RequestHandler) :
             if (nn.id == "Thing" or thing_seen or nn.isDataType()):
                 thing_seen = True
                 self.write(self.ml(nn) )
-                if (ind > 0):
+                if ind == 1 and nn.isEnumerationValue():
+                    self.write(" :: ")
+                elif ind > 0:
                     self.write(" &gt; ")
                 if ind == 1:
                     self.write("<span property=\"rdfs:label\">")
