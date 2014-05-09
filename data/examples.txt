@@ -10426,7 +10426,7 @@ JSON:
 }
 </script>
 
-TYPES:  MusicEvent, Event, CreativeWork, Person
+TYPES:  MusicEvent, Event, CreativeWork, MusicGroup, Person
 
 PRE-MARKUP: 
 
@@ -10658,6 +10658,94 @@ JSON:
   ]
 }
 </script>
+
+TYPES:  TheaterEvent, PerformingArtsTheater, CreativeWork
+
+PRE-MARKUP: 
+
+<div>
+  <span>Julius Caesar at Shakespeare's Globe</span>
+  <span>Wed 01 October 2014 19:30</span>
+</div>
+
+MICRODATA: 
+
+<div itemscope="" itemtype="http://schema.org/TheaterEvent">
+  <span itemprop="startDate" content="2014-10-01T19:30">Wed 01 October 2014 19:30</span>
+  <span itemprop="name">Julius Caesar at Shakespeare's Globe</span>
+  <div itemprop="location" itemscope="" itemtype="http://schema.org/PerformingArtsTheater">
+    <span itemprop="name" content="Shakespeare's Globe"/>
+    <link itemprop="url sameAs" href="http://www.shakespearesglobe.com/"/>
+    <link itemprop="sameAs" href="http://en.wikipedia.org/wiki/Shakespeare%27s_Globe"/>
+    <span itemprop="address" content="21 New Globe Walk, Bankside, London SE1 9DT"/>
+  </div>
+  <div itemprop="workPerformed" itemscope="" itemtype="http://schema.org/CreativeWork">
+    <link itemprop="sameAs" href="http://en.wikipedia.org/wiki/Julius_Caesar_(play)"/>
+    <link itemprop="sameAs" href="http://worldcat.org/entity/work/id/1807288036"/>
+    <div itemprop="creator" itemscope="" itemtype="http://schema.org/Person">
+       <span itemprop="name" content="William Shakespeare"/>
+       <link itemprop="sameAs" href="http://en.wikipedia.org/wiki/William_Shakespeare"/>
+    </div>
+  </div>
+  <div itemprop="offers" itemscope="" itemtype="http://schema.org/Offer">
+    <link itemprop="url" href="/examples/ticket/0012301230123"/>
+  </div>
+</div>
+
+RDFA: 
+
+<div vocab="http://schema.org/" typeof="TheaterEvent">
+  <span content="2014-10-01T19:30" property="startDate">Wed 01 October 2014 19:30</span>
+  <span property="name">Julius Caesar at Shakespeare's Globe</span>
+  <div property="location" typeof="PerformingArtsTheater">
+    <span property="name" content="Shakespeare's Globe"/>
+    <link property="url sameAs" href="http://www.shakespearesglobe.com/"/>
+    <link property="sameAs" href="http://en.wikipedia.org/wiki/Shakespeare%27s_Globe"/>
+    <span content="21 New Globe Walk, Bankside, London SE1 9DT" property="address"/>
+  </div>
+  <div property="workPerformed" typeof="CreativeWork">
+    <link property="sameAs" href="http://en.wikipedia.org/wiki/Julius_Caesar_(play)"/>
+    <link property="sameAs" href="http://worldcat.org/entity/work/id/1807288036"/>
+    <div property="creator" typeof="Person">
+       <span property="name" content="William Shakespeare"/>
+       <link property="sameAs" href="http://en.wikipedia.org/wiki/William_Shakespeare"/>
+    </div>
+  </div>
+  <div property="offers" typeof="Offer">
+    <link property="url" href="/examples/ticket/0012301230123"/>
+  </div>
+</div>
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org", 
+  "@type": "TheaterEvent", 
+  "location": {
+    "@type": "PerformingArtsTheater", 
+    "name": "Shakespeare's Globe"
+  }, 
+  "name": "Julius Caesar at Shakespeare's Globe", 
+  "offers": {
+    "@type": "Offer", 
+    "url": "/examples/ticket/0012301230123"
+  }, 
+  "startDate": "Wed 01 October 2014 19:30", 
+  "workPerformed": {
+    "@type": "CreativeWork", 
+    "creator": {
+      "@type": "Person", 
+      "name": ""
+    }, 
+    "sameAs": [
+      "http://en.wikipedia.org/wiki/Julius_Caesar_(play)", 
+      "http://worldcat.org/entity/work/id/1807288036"
+    ]
+  }
+}
+</script>
+...
 
 TYPES:  FakeEntryNeeded, FixMeSomeDay
 
