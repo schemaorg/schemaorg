@@ -10747,6 +10747,52 @@ JSON:
 </script>
 ...
 
+TYPES:  Restaurant
+
+PRE-MARKUP: 
+
+<div>
+  <h1>Fondue for Fun and Fantasy</h1>
+  <p>Fantastic and fun for all your cheesy occasions.</p>
+  <p>Open: Daily from 11:30am till 11pm</p>
+  <p>Phone: 555-0100-3333</p>
+  <p>View <a href="http://example.com/menu">our menu</a>.</p>
+</div>
+
+MICRODATA: 
+
+<div itemscope itemtype="http://schema.org/Restaurant">
+  <h1 itemprop="name">Fondue for Fun and Fantasy</h1>
+  <p itemprop="description">Fantastic and fun for all your cheesy occasions.</p>
+  <p>Open: <time itemprop="openingHours" datetime="Mo,Tu,We,Th,Fr,Sa,Su 11:30-23:00">Daily from 11:30am till 11pm</time></p>
+  <p>Phone: <span itemprop="telephone" content="+155501003333">555-0100-3333</span></p>
+  <p>View <a itemprop="menu" href="http://example.com/menu">our menu</a>.</p>
+</div>
+
+RDFA: 
+
+<div vocab="http://schema.org/" typeof="Restaurant">
+  <h1 property="name">Fondue for Fun and Fantasy</h1>
+  <p property="description">Fantastic and fun for all your cheesy occasions.</p>
+  <p>Open: <time property="openingHours" datetime="Mo,Tu,We,Th,Fr,Sa,Su 11:30-23:00">Daily from 11:30am till 11pm</time></p>
+  <p>Phone: <span property="telephone" content="+155501003333">555-0100-3333</span></p>
+  <p>View <a property="menu" href="http://example.com/menu">our menu</a>.</p>
+</div>
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Restaurant",
+  "name": "Fondue for Fun and Fantasy",
+  "description": "Fantastic and fun for all your cheesy occasions",
+  "openingHours": "Mo,Tu,We,Th,Fr,Sa,Su 11:30-23:00",
+  "telephone": "+155501003333",
+  "menu": "http://example.com/menu"
+}
+</script>
+
 TYPES:  FakeEntryNeeded, FixMeSomeDay
 
 PRE-MARKUP: 
