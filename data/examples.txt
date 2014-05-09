@@ -10493,6 +10493,8 @@ MICRODATA:
 
   <div itemprop="offers" itemscope="" itemtype="http://schema.org/Offer">
     <link itemprop="url" href="/examples/ticket/12341234" />
+    <span itemprop="price" content="$40"/>
+    <span itemprop="availability" href="http://schema.org/InStock"/>
   </div>
  
   <h2 itemprop="name">Shostakovich Leningrad</h2>
@@ -10556,8 +10558,10 @@ RDFA:
     <span property="address" content="220 S. Michigan Ave, Chicago, Illinois, USA"/>
   </div>
 
-  <div typeof="Offer" property="offers">
+  <div property="offers" typeof="Offer">
     <link property="url" href="/examples/ticket/12341234"/>
+    <span property="price" content="$40"/>
+    <span property="availability" href="http://schema.org/InStock"/>
   </div>
  
   <h2 property="name">Shostakovich Leningrad</h2>
@@ -10619,7 +10623,9 @@ JSON:
   "name": "Shostakovich Leningrad", 
   "offers": {
     "@type": "Offer", 
-    "url": "/examples/ticket/12341234"
+    "url": "/examples/ticket/12341234",
+    "price": "$40",
+    "availability": "http://schema.org/InStock"
   }, 
   "performer": [
     {
