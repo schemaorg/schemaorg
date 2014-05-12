@@ -9856,5 +9856,215 @@ on public-vocabs@w3.org.</p>
       <span>rangeIncludes: <a property="http://schema.org/rangeIncludes" href="http://schema.org/CreativeWork">CreativeWork</a></span>
     </div>
 
+
+
+	<h1>Sports</h1>
+	<p>Sports Vocabulary design as of 2014-05-09.</p>
+	<!-- Based on https://www.w3.org/wiki/File:2014SportsVocab-v3.pdf -->
+
+	<!-- New Classes -->
+	<div typeof="rdfs:Class" resource="http://schema.org/CompetitionEvent">
+	    <span class="h" property="rdfs:label">CompetitionEvent</span>
+	    <span property="rdfs:comment">Events involving a competition between one or more competitors.</span>
+	    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Event">Event</a></span>
+	</div>
+	<div typeof="rdfs:Class" resource="http://schema.org/OrderedEvent">
+	    <span class="h" property="rdfs:label">OrderedEvent</span>
+	    <span property="rdfs:comment">An event which is part of a series of ordered events (e.g. games in a world series)</span>
+	    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Event">Event</a></span>
+	</div>
+	<div typeof="rdfs:Class" resource="http://schema.org/CompetitionResult">
+	    <span class="h" property="rdfs:label">CompetitionResult</span>
+	    <span property="rdfs:comment">The result of a competition event.  Usually associated with a specific competitor in that event.</span>
+	    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Intangible">Intangible</a></span>
+	</div>
+	<div typeof="rdfs:Class" resource="http://schema.org/CompetionDecision">
+	    <span class="h" property="rdfs:label">CompetionDecision</span>
+	    <span property="rdfs:comment">An enumerated set of potential judgments or decisions made relative to a competitor’s performance in a competition.</span>
+	    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Enumeration">Enumeration</a></span>
+	</div>
+	<div typeof="rdfs:Class" resource="http://schema.org/SportsOrganization">
+	    <span class="h" property="rdfs:label">SportsOrganization</span>
+	    <span property="rdfs:comment">Represents the collection of all sports organizations, including sports teams, governing bodies, and sports associations.</span>
+	    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Organization">Organization</a></span>
+	</div>
+	<div typeof="rdfs:Class" resource="http://schema.org/Statistic">
+	    <span class="h" property="rdfs:label">Statistic</span>
+	    <span property="rdfs:comment">Allows capturing statistics with a focus on those associated with a person or organization, scoped to a certain timeframe.  The name and value of the statistic should be described using the inherited ‘name’ and ‘description’ properties</span>
+	    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Intangible">Intangible</a></span>
+	</div>
+
+
+	<!-- Enumerations -->
+	<div typeof="rdfs:Class" resource="http://schema.org/OrganizationRole">
+	    <span class="h" property="rdfs:label">OrganizationRole</span>
+	    <span property="rdfs:comment">A subclass of Role used to describe roles within organizations.</span>
+	    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Role">Role</a></span>
+	</div>
+	<div typeof="rdfs:Class" resource="http://schema.org/EventInProgress">
+	    <span class="h" property="rdfs:label">EventInProgress</span>
+	    <span property="rdfs:comment">The status for an event that has started but is not yet completed.</span>
+	    <span>type: <a href="http://schema.org/EventStatusType">EventStatusType</a></span>
+	</div>
+	<div typeof="rdfs:Class" resource="http://schema.org/EventDelayed">
+	    <span class="h" property="rdfs:label">EventDelayed</span>
+	    <span property="rdfs:comment">The status for an event that has been delayed but not postponed or canceled.</span>
+	    <span>type: <a href="http://schema.org/EventStatusType">EventStatusType</a></span>
+	</div>
+	<div typeof="rdfs:Class" resource="http://schema.org/EventCompleted">
+	    <span class="h" property="rdfs:label">EventCompleted</span>
+	    <span property="rdfs:comment">The status for an event that has completed.</span>
+	    <span>type: <a href="http://schema.org/EventStatusType">EventStatusType</a></span>
+	</div>
+	<div typeof="rdfs:Class" resource="http://schema.org/WinDecision">
+	    <span class="h" property="rdfs:label">WinDecision</span>
+	    <span property="rdfs:comment">A result in which the competitor was the winner or placed first.</span>
+	    <span>type: <a href="http://schema.org/CompetionDecision">CompetionDecision</a></span>
+	</div>
+	<div typeof="rdfs:Class" resource="http://schema.org/LoseDecision">
+	    <span class="h" property="rdfs:label">LoseDecision</span>
+	    <span property="rdfs:comment">A result in which the competitor lost the competition.  Usually associated with competitions involving only two competitors.</span>
+	    <span>type: <a href="http://schema.org/CompetionDecision">CompetionDecision</a></span>
+	</div>
+	<div typeof="rdfs:Class" resource="http://schema.org/PlaceDecision">
+	    <span class="h" property="rdfs:label">PlaceDecision</span>
+	    <span property="rdfs:comment">A result in which the competitor finished and placed.  The actual place (rank) would be defined within the CompetitionResult.</span>
+	    <span>type: <a href="http://schema.org/CompetionDecision">CompetionDecision</a></span>
+	</div>
+	<div typeof="rdfs:Class" resource="http://schema.org/QualifyDecision">
+	    <span class="h" property="rdfs:label">QualifyDecision</span>
+	    <span property="rdfs:comment">A result in which the competitor qualified for the next competition in a series.</span>
+	    <span>type: <a href="http://schema.org/CompetionDecision">CompetionDecision</a></span>
+	</div>
+	<div typeof="rdfs:Class" resource="http://schema.org/DidNotFinishDecision">
+	    <span class="h" property="rdfs:label">DidNotFinishDecision</span>
+	    <span property="rdfs:comment">A result in which the competitor did not finish the competition event.</span>
+	    <span>type: <a href="http://schema.org/CompetionDecision">CompetionDecision</a></span>
+	</div>
+	<div typeof="rdfs:Class" resource="http://schema.org/DisqualifyDecision">
+	    <span class="h" property="rdfs:label">DisqualifyDecision</span>
+	    <span property="rdfs:comment">A result in which the competitor was disqualified.</span>
+	    <span>type: <a href="http://schema.org/CompetionDecision">CompetionDecision</a></span>
+	</div>
+
+	<!-- Properties -->
+	<div typeof="rdf:Property" resource="http://schema.org/attendance">
+	    <span class="h" property="rdfs:label">attendance</span>
+	    <span property="rdfs:comment">The number of attendees of an event.</span>
+	    <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Event">Event</a></span>        
+	    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number">Number</a></span>
+	</div>
+	<div typeof="rdf:Property" resource="http://schema.org/competitor">
+	    <span class="h" property="rdfs:label">competitor</span>
+	    <span property="rdfs:comment">A person or organization that competes in an event.</span>
+	    <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CompetitionEvent">CompetitionEvent</a></span>        
+	    <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CompetitionResult">CompetitionResult</a></span>       
+	    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Person">Person</a></span>
+	    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Organization">Organization</a></span>
+	</div>
+	<div typeof="rdf:Property" resource="http://schema.org/result">
+	    <span class="h" property="rdfs:label">result</span>
+	    <span property="rdfs:comment">An intangible entity that represents the result of a competition event.</span>
+	    <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CompetitionEvent">CompetitionEvent</a></span>        
+	    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/CompetitionResult">CompetitionResult</a></span>
+	</div>
+	<div typeof="rdf:Property" resource="http://schema.org/homeTeam">
+	    <span class="h" property="rdfs:label">homeTeam</span>
+	    <span property="rdfs:comment">A home team during a team sports competition.</span>
+	    <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/SportsEvent">SportsEvent</a></span>        
+	    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/SportsTeam">SportsTeam</a></span>
+	</div>
+	<div typeof="rdf:Property" resource="http://schema.org/awayTeam">
+	    <span class="h" property="rdfs:label">awayTeam</span>
+	    <span property="rdfs:comment">An away team during a team sports competition.</span>
+	    <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/SportsEvent">SportsEvent</a></span>        
+	    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/SportsTeam">SportsTeam</a></span>
+	</div>
+	<div typeof="rdf:Property" resource="http://schema.org/eventOrderPosition">
+	    <span class="h" property="rdfs:label">eventOrderPosition</span>
+	    <span property="rdfs:comment">In the context of a series of events, the ordered position of a specific event in that series.  For example, in the case where three events took place in a series, the second event would have a eventOrderPosition value of ‘2’.</span>
+	    <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/OrderedEvent">OrderedEvent</a></span>        
+	    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number">Number</a></span>
+	</div>   
+	<div typeof="rdf:Property" resource="http://schema.org/orderedSubEvent">
+	    <span class="h" property="rdfs:label">orderedSubEvent</span>
+	    <span property="rdfs:comment">Allows for defining a series of events that take place as part of another series of events.  For example, one might describe the innings of a Major League Baseball game as  the orderedSubEvents of the World Series (an OrderedEvent).</span>
+	    <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/OrderedEvent">OrderedEvent</a></span>        
+	    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Event">Event</a></span>
+	</div>
+	<div typeof="rdf:Property" resource="http://schema.org/previousEvent">
+	    <span class="h" property="rdfs:label">previousEvent</span>
+	    <span property="rdfs:comment">In a series of events, an event which occurs immediately before this event.</span>
+	    <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/OrderedEvent">OrderedEvent</a></span>        
+	    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Event">Event</a></span>
+	</div>
+	<div typeof="rdf:Property" resource="http://schema.org/nextEvent">
+	    <span class="h" property="rdfs:label">nextEvent</span>
+	    <span property="rdfs:comment">In a series of events, an event which occurs immediately after this event.</span>
+	    <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/OrderedEvent">OrderedEvent</a></span>        
+	    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Event">Event</a></span>
+	</div>
+	<div typeof="rdf:Property" resource="http://schema.org/rank">
+	    <span class="h" property="rdfs:label">rank</span>
+	    <span property="rdfs:comment">The rank, place, or position achieved by the competitor as a result of a competition event.</span>
+	    <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CompetitionResult">CompetitionResult</a></span>                
+	    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number">Number</a></span>
+	</div>
+	<div typeof="rdf:Property" resource="http://schema.org/hasStatistic">
+	    <span class="h" property="rdfs:label">hasStatistic</span>
+	    <span property="rdfs:comment">A numerical data point or statistic associated with a person or organization.</span>
+	    <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Person">Person</a></span>        
+	    <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/SportsTeam">SportsTeam</a></span>       
+	    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Statistic">Statistic</a></span>
+	</div>
+	<div typeof="rdf:Property" resource="http://schema.org/decision">
+	    <span class="h" property="rdfs:label">decision</span>
+	    <span property="rdfs:comment">The decision or judgment relative to a competitor's performance.</span>
+	    <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CompetitionResult">CompetitionResult</a></span>        
+	    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/CompetitionDecision">CompetitionDecision</a></span>
+	</div>
+	<div typeof="rdf:Property" resource="http://schema.org/sport">
+	    <span class="h" property="rdfs:label">sport</span>
+	    <span property="rdfs:comment">A type of sport (e.g. Baseball).</span>
+	    <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/SportsTeam">SportsOrganization</a></span>        
+	    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+	</div>
+	<div typeof="rdf:Property" resource="http://schema.org/coach">
+	    <span class="h" property="rdfs:label">coach</span>
+	    <span property="rdfs:comment">A person that acts in a coaching role for a sports team.</span>
+	    <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/SportsTeam">SportsTeam</a></span>        
+	    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Person">Person</a></span>
+	    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Role">Role</a></span>
+	</div>
+	<div typeof="rdf:Property" resource="http://schema.org/athlete">
+	    <span class="h" property="rdfs:label">athlete</span>
+	    <span property="rdfs:comment">A person that acts in performing member of a sports team; a player as opposed to a coach</span>
+	    <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/SportsTeam">SportsTeam</a></span>        
+	    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Person">Person</a></span>
+	    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Role">Role</a></span>
+	</div>
+	<div typeof="rdf:Property" resource="http://schema.org/duringEvent">
+	    <span class="h" property="rdfs:label">duringEvent</span>
+	    <span property="rdfs:comment">A timeframe represented by an event.</span>
+	    <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Statistic">Statistic</a></span>                
+	    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Event">Event</a></span>        
+	</div>
+	<div typeof="rdf:Property" resource="http://schema.org/position">
+	    <span class="h" property="rdfs:label">position</span>
+	    <span property="rdfs:comment">A position played or performed by a person, for example during a sporting event for a sports team.</span>
+	    <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/OrganizationRole">OrganizationRole</a></span>                
+	    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>        
+	</div>
+
+	<!-- extended properties -->
+
+	<div typeof="rdf:Property" resource="http://schema.org/memberOf">
+	    <span class="h" property="rdfs:label">memberOf</span>
+	    <span property="rdfs:comment">An organization to which a person or organization belongs.</span>
+	    <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Organization">Organization</a></span>        
+	    <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Person">Person</a></span>        
+	    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Organization">Organization</a></span>
+	</div>
+
   </body>
 </html>
