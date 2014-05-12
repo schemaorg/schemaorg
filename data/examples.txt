@@ -10747,6 +10747,94 @@ JSON:
 </script>
 ...
 
+TYPES:  SportsEvent, OrderedEvent
+
+PRE-MARKUP: 
+
+World Series Event in JSON.
+
+MICRODATA: 
+
+n/a
+
+RDFA: 
+
+n/a
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "SportsEvent",
+  "name": "2013 World Series",
+  "subEvent": {
+    "@type": "OrderedEvent",
+    "@id": "http://mlb.com/ws2013g1",
+    "name": "Game 1",
+    "eventOrderPosition": "1",
+    "nextEvent": "http://mlb.com/ws2013g2"
+  }
+}
+</script>
+
+TYPES:  OrderedEvent
+
+PRE-MARKUP: 
+
+World Series Event in JSON - first event.
+
+MICRODATA: 
+
+n/a
+
+RDFA: 
+
+n/a
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "OrderedEvent",
+  "superEvent": "2013 World Series",
+  "@id": "http://mlb.com/ws2013g1",
+  "name": "Game 1",
+  "eventOrderPosition": "1",
+  "nextEvent": "http://mlb.com/ws2013g2"
+}
+</script>
+
+TYPES:  OrderedEvent
+
+PRE-MARKUP: 
+
+World Series Event in JSON - second event.
+
+MICRODATA: 
+
+n/a
+
+RDFA: 
+
+n/a
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "OrderedEvent",
+  "superEvent": "2013 World Series",
+  "@id": "http://mlb.com/ws2013g2",
+  "name": "Game 2",
+  "eventOrderPosition": "2",
+  "previousEvent": "http://mlb.com/ws2013g1",
+  "nextEvent": "http://mlb.com/ws2013g3"
+}
+</script>
+
 TYPES:  FakeEntryNeeded, FixMeSomeDay
 
 PRE-MARKUP: 
