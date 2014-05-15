@@ -93,9 +93,9 @@ The data model used is very generic and derived from RDF Schema (which in turn w
 derived from CycL, which in turn ...).
 </p>
 <ol>
-<li> We have a set of types, arranged in a multiple inheritance heirarchy
+<li> We have a set of types, arranged in a multiple inheritance hierarchy
 where each type may be a sub class of multiple types.
-<li> We have a set of properties
+<li> We have a set of properties:
   <ol>
     <li> each property may have one or more types as its domains. The property may be used
       for instances of any of these types.
@@ -148,11 +148,9 @@ we will accept this markup and do the best we can.
 
  Our use of Microdata maps easily into <a href=http://www.w3.org/TR/rdfa-lite/>RDFa Lite</a>.
 In fact, all of Schema.org can be used
-with the RDFa Lite syntax as is. The RDFa Lite version of the markup looks almost isomorphic
-to the Microdata version. Given below is an sample RDFa Lite markup, of the example
-given for the <a href=../Product>Product</a> type.
-
-
+with the RDFa Lite syntax. The RDFa Lite version of the markup looks almost isomorphic
+to the Microdata version. The following sample demonstrates the use of RDFa Lite to
+mark up a <a href=../Product>Product</a> type example:
 
 <pre  class="prettyprint lang-html linenums">
 &lt;div vocab="http://schema.org/" typeof="Product"&gt;
@@ -186,14 +184,19 @@ given for the <a href=../Product>Product</a> type.
 </pre>
 
 <p>
-More specifically, <code>itemprop</code> is
-replaced <code>property</code>. <code>itemscope</code> is dropped and
-<code>itemtype</code> is replaced with <code>typeof</code>. In
-addition, the attribute value
+More specifically:
+</p>
+<ol>
+  <li><code>itemprop</code> is replaced with <code>property</code>.</li>
+  <li><code>itemscope</code> is dropped.</li>
+  <li><code>itemtype</code> is replaced with <code>typeof</code>.</li>
+</ol>
+<p>
+In addition, the attribute value
 pair <code>vocab="http://schema.org/"</code> is added to the body or
 some other enclosing tag.
 </p>
-<p class="date">Last Updated: 6 Jun 2012</p>
+<p class="date">Last Updated: 14 May 2014</p>
 
   </div>
 
