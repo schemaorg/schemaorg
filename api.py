@@ -63,6 +63,9 @@ class Unit ():
     def isEnumeration(self):
         return self.subClassOf(Unit.GetUnit("Enumeration"))
 
+    def isMedicalEnumeration(self):
+        return self.subClassOf(Unit.GetUnit("MedicalEnumeration"))
+
     def superceded(self):
         for triple in self.arcsOut:
             if (triple.target != None and triple.arc.id == "supercededBy"):
@@ -369,7 +372,7 @@ class ShowUnit (webapp2.RequestHandler) :
                 for c in children:
                     self.write("<li> %s" % (self.ml(c)))
                         
-        if (node.isEnumeration()):
+        if (node.isEnumeration() or node.isMedicalEnumeration()):
             children = sorted(GetSources(Unit.GetUnit("typeOf"), node), key=lambda u: u.id)
             if (len(children) > 0):
                 self.write("<br/><br/>Enumeration members");
