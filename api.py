@@ -205,8 +205,16 @@ class ShowUnit (webapp2.RequestHandler) :
             for p in GetTargets(sc, node):
                 self.GetParentStack(p)
 
-    def ml(self, node):
-        return "<a href=\"%s\">%s</a>" % (node.id, node.id)
+    def ml(self, node, prop=''):
+        """
+        Returns an HTML-formatted link to the class or property URL
+
+        * prop = an optional property value to apply to the A element
+        """
+
+        if prop:
+            prop = " property=\"%s\"" % (prop)
+        return "<a href=\"%s\"%s>%s</a>" % (node.id, prop, node.id)
 
     def UnitHeaders(self, node):
         self.write("<h1 class=\"page-title\">\n")
@@ -220,15 +228,19 @@ class ShowUnit (webapp2.RequestHandler) :
                 self.write(self.ml(nn) )
                 if (ind > 0):
                     self.write(" &gt; ")
+                if ind == 1:
+                    self.write("<span property=\"rdfs:label\">")
+                if ind == 0:
+                    self.write("</span>")
         self.write("</h1>")
         comment = GetComment(node)
-        self.write(" <div>%s</div>\n\n" % (comment) + "\n")
+        self.write(" <div property=\"rdfs:comment\">%s</div>\n\n" % (comment) + "\n")
         if (node.isClass()):
             self.write("<table class=\"definition-table\">\n        <thead>\n  <tr><th>Property</th><th>Expected Type</th><th>Description</th>               \n  </tr>\n  </thead>\n\n")
 			#        elif (node.isAttribute()):
 
     
-    def ClassProperties (self, cl):
+    def ClassProperties (self, cl, subclass=False):
         headerPrinted = False 
         di = Unit.GetUnit("domainIncludes")
         ri = Unit.GetUnit("rangeIncludes")
@@ -239,25 +251,31 @@ class ShowUnit (webapp2.RequestHandler) :
             ranges = GetTargets(ri, prop)
             comment = GetComment(prop)
             if (not headerPrinted):
-                self.write("<thead class=\"supertype\">\n  <tr>\n    <th class=\"supertype-name\" colspan=\"3\">Properties from %s</th>\n  </tr>\n</thead>\n\n<tbody class=\"supertype\">\n  " % (self.ml(cl)))
+                class_head = self.ml(cl)
+                if subclass:
+                    class_head = self.ml(cl, "rdfs:subClassOf")
+                self.write("<thead class=\"supertype\">\n  <tr>\n    <th class=\"supertype-name\" colspan=\"3\">Properties from %s</th>\n  </tr>\n</thead>\n\n<tbody class=\"supertype\">\n  " % (class_head))
                 headerPrinted = True
 
-            self.write("<tr>\n    \n      <th class=\"prop-nam\" scope=\"row\">\n\n<code>%s</code>\n    </th>\n " % (self.ml(prop)))
+            self.write("<tr typeof=\"rdfs:Property\" resource=\"http://schema.org/%s\">\n    \n      <th class=\"prop-nam\" scope=\"row\">\n\n<code property=\"rdfs:label\">%s</code>\n    </th>\n " % (prop.id, self.ml(prop)))
             self.write("<td class=\"prop-ect\">\n")
             first_range = True
             for r in ranges:
                 if (not first_range):
                     self.write(" <br/>or ")
                 first_range = False
-                self.write(self.ml(r))
+                self.write(self.ml(r, 'rangeIncludes'))
                 self.write("&nbsp;")
             self.write("</td>")
-            self.write("<td class=prop-desc>%s" % (comment))
+            self.write("<td class=prop-desc property=\"rdfs:comment\">%s" % (comment))
             if (supercedes != None):
                 self.write(" Supercedes %s." % (self.ml(supercedes)))
 
             self.write("</td></tr>")
+            subclass = False
 
+        if subclass: # in case the superclass has no defined attributes
+            self.write("<meta property=\"rdfs:subClassOf\" content=\"%s\">" % (cl.id)) 
 
     def ClassIncomingProperties (self, cl):
         headerPrinted = False 
@@ -317,7 +335,7 @@ class ShowUnit (webapp2.RequestHandler) :
             if (not first_domain):
                 self.write("<br/>")
             first_domain = False
-            self.write("\n    <code>%s</code> " % (self.ml(d))+"\n")
+            self.write("\n    <code>%s</code> " % (self.ml(d, "domainIncludes"))+"\n")
         self.write("      </td>\n    </tr>\n</table>\n\n")
 
 
@@ -340,7 +358,7 @@ class ShowUnit (webapp2.RequestHandler) :
           self.response.out.write('<title>404 Not Found.</title><a href="/">404 Not Found.</a>')
           return
 
-        headers.OutputSchemaorgHeaders(self, entry=node.id)
+        headers.OutputSchemaorgHeaders(self, node.id, node.isClass())
         cached = self.GetCachedText(node)
         if (cached != None):
             self.response.write(cached)
@@ -351,9 +369,14 @@ class ShowUnit (webapp2.RequestHandler) :
 
         self.UnitHeaders(node)
 
-        if (Unit.isClass(node)):
+        if (node.isClass()):
+            subclass = True
             for p in self.parentStack:
-                self.ClassProperties(p)
+                if p.id == node.id or p.id == 'Thing':
+                    self.ClassProperties(p)
+                else:
+                    self.ClassProperties(p, subclass)
+                    subclass = False
             self.write("</table>\n")
             self.ClassIncomingProperties(node)
         elif (Unit.isAttribute(node)):
