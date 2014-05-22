@@ -10958,6 +10958,12 @@ on public-vocabs@w3.org.</p>
       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/BodyMeasure">BodyMeasure</a></span>
     </div>
 
+    <div typeof="rdf:Property" resource="http://schema.org#medicalScore">
+      <span class="h" property="rdfs:label">medicalScore</span>
+      <span property="rdfs:comment">Specifying a medical score resource</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Thing">Thing</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/MedicalScore">MedicalScore</a></span>
+    </div>
     <div typeof="rdf:Property" resource="http://schema.org/abortions">
       <span class="h" property="rdfs:label">abortions</span>
       <span property="rdfs:comment">Specifying the number of abortion for a given woman</span>
@@ -11524,7 +11530,7 @@ on public-vocabs@w3.org.</p>
       <span property="rdfs:comment">specifying the location or a place where the medical encounter took place</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MedicalEncounter">MedicalEncounter</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/HealthFacility">HealthFacility</a></span>
-      <span>SubProperty of: <a property="rdfs:subPropertyOf" href="http://schema.org/medicalEncounter">medicalEncounter</a></span>
+      <span>SubProperty of: <a property="rdfs:subPropertyOf" href="http://schema.org/location">location</a></span>
     </div>
 
     <div typeof="rdf:Property" resource="http://schema.org/encounterProvider">
@@ -11534,7 +11540,7 @@ on public-vocabs@w3.org.</p>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Person">Person</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://purl.bioontology.org/ontology/SNOMEDCT/223366009">sctid:223366009</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/HealthcareProfessional">HealthcareProfessional</a></span>
-      <span>SubProperty of: <a property="rdfs:subPropertyOf" href="http://schema.org/medicalEncounter">medicalEncounter</a></span>
+      <span>SubProperty of: <a property="rdfs:subPropertyOf" href="http://schema.org/provider">provider</a></span>
     </div>
 
     <div typeof="rdf:Property" resource="http://schema.org/encounterReason">
@@ -11554,7 +11560,7 @@ on public-vocabs@w3.org.</p>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MedicalEncounter">MedicalEncounter</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Patient">Patient</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
-      <span>SubProperty of: <a property="rdfs:subPropertyOf" href="http://schema.org/medicalEncounter">medicalEncounter</a></span>
+      <span>SubProperty of: <a property="rdfs:subPropertyOf" href="http://schema.org/status">status</a></span>
     </div>
 
     <div typeof="rdf:Property" resource="http://schema.org/medicalEncounter">
@@ -11569,8 +11575,7 @@ on public-vocabs@w3.org.</p>
       <span class="h" property="rdfs:label">ethnicity</span>
       <span property="rdfs:comment">Specifying the ethnicity resource of someone. Ethnicity or ethnic group is a socially defined category of people. Race and Ethnicity as well as religious beliefs are in most cases not given in EHR, and collecting this info is often seen as illegal. Please check local regulations before using this property </span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Person">Person</a></span>
-      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Ethnicity">Ethnicity</a></span>
-      <span>SubProperty of: <a property="rdfs:subPropertyOf" href="http://schema.org/socialHistory">socialHistory</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Ethnicity">Ethnicity</a></span>      
     </div>
 
     <div typeof="rdf:Property" resource="http://schema.org/examination">
@@ -11593,7 +11598,6 @@ on public-vocabs@w3.org.</p>
       <span property="rdfs:comment">Specifying a family member for this person</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Person">Person</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Person">Person</a></span>
-      <span>SubProperty of: <a property="rdfs:subPropertyOf" href="http://schema.org/familyMedicalHistory">familyMedicalHistory</a></span>
     </div>
 
     <div typeof="rdf:Property" resource="http://schema.org/familyRelationship">
@@ -11753,7 +11757,6 @@ on public-vocabs@w3.org.</p>
       <span property="rdfs:comment">Specifying an agent having the social and/or juridical status of being married or unmarried. </span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Person">Person</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://purl.bioontology.org/ontology/SNOMEDCT/365581002">sctid:365581002</a></span>
-      <span>SubProperty of: <a property="rdfs:subPropertyOf" href="http://schema.org/socialHistory">socialHistory</a></span>
     </div>
 
     <div typeof="rdf:Property" resource="http://schema.org/maternalRelative">
@@ -12060,7 +12063,6 @@ on public-vocabs@w3.org.</p>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Person">Person</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/PhysicalActivity">PhysicalActivity</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/RecreationalHistory">RecreationalHistory</a></span>
-      <span>SubProperty of: <a property="rdfs:subPropertyOf" href="http://schema.org/socialHistory">socialHistory</a></span>
     </div>
 
     <div typeof="rdf:Property" resource="http://schema.org/physicalExamination">
@@ -12128,7 +12130,6 @@ on public-vocabs@w3.org.</p>
       <span property="rdfs:comment">Specifying a race group or anthropological family as origin of the person. Race and Ethnicity as well as religious beliefs are in most cases not given in EHR, and collecting this info is often seen as illegal. Please check local regulations before using this property </span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Person">Person</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Race">Race</a></span>
-      <span>SubProperty of: <a property="rdfs:subPropertyOf" href="http://schema.org/socialHistory">socialHistory</a></span>
     </div>
 
     <div typeof="rdf:Property" resource="http://schema.org/rankOrder">
