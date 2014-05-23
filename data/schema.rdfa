@@ -5057,8 +5057,9 @@
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/carrier">
       <span class="h" property="rdfs:label">carrier</span>
-      <span property="rdfs:comment">The party responsible for the parcel delivery.</span>
+      <span property="rdfs:comment">The party responsible for the parcel delivery. The operator property is preferred when specifying the operator of a flight.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ParcelDelivery">ParcelDelivery</a></span>
+      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Flight">Flight</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Organization">Organization</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/carrierRequirements">
@@ -7642,14 +7643,6 @@
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/NutritionInformation">NutritionInformation</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Mass">Mass</a></span>
     </div>
-    <div typeof="rdf:Property" resource="http://schema.org/provider">
-      <span class="h" property="rdfs:label">provider</span>
-      <span property="rdfs:comment">The organization or agency that is providing the service.</span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CreativeWork">CreativeWork</a></span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Service">Service</a></span>
-      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Organization">Organization</a></span>
-      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Person">Person</a></span>
-    </div>
     <div typeof="rdf:Property" resource="http://schema.org/providesService">
       <span class="h" property="rdfs:label">providesService</span>
       <span property="rdfs:comment">The service provided by this channel.</span>
@@ -9174,7 +9167,7 @@
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/provider">
       <span class="h" property="rdfs:label">provider</span>
-      <span property="rdfs:comment">The person or organization providing the service, reservation, or creative work.</span>
+      <span property="rdfs:comment">The person or organization providing the service, reservation, or creative work. The provider may subcontract out the service. The operator property can be used to specify the subcontractor.</span>
       <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CreativeWork">CreativeWork</a></span>
       <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Service">Service</a></span>
       <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Reservation">Reservation</a></span>
@@ -9335,9 +9328,9 @@
       <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Flight">Flight</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
     </div>
-    <div typeof="rdf:Property" resource="http://schema.org/carrier">
-      <span class="h" property="rdfs:label">carrier</span>
-      <span property="rdfs:comment">The airline designated as the carrier for the flight.</span>
+    <div typeof="rdf:Property" resource="http://schema.org/operator">
+      <span class="h" property="rdfs:label">operator</span>
+      <span property="rdfs:comment">The operating organization, if different from the provider. A subcontractor who provides the service or flight is listed here.</span>
       <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Flight">Flight</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Airline">Airline</a></span>
     </div>
@@ -9430,6 +9423,12 @@
       <span class="h" property="rdfs:label">iataCode</span>
       <span property="rdfs:comment">IATA identifier for an airline or airport</span>
       <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Airline">Airline</a></span>
+      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Airport">Airport</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/icaoCode">
+      <span class="h" property="rdfs:label">iacoCode</span>
+      <span property="rdfs:comment">IACO identifier for an airport</span>
       <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Airport">Airport</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
     </div>
