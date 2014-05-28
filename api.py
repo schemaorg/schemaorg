@@ -439,5 +439,3 @@ read_schemas()
 
 app = ndb.toplevel(webapp2.WSGIApplication([("/(.*)", ShowUnit)]))
 
-
-
