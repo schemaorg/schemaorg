@@ -2,11 +2,16 @@ import unittest
 import os
 import logging
 
+from headers import *
+from api import *
+from parsers import *
+
 schema_path = './data/schema.rdfa'
 examples_path = './data/examples.txt'
 
 logging.basicConfig(level=logging.INFO)
 log = logging.getLogger(__name__)
+
 
 class SDOBasicsTestCase(unittest.TestCase):
 
@@ -28,6 +33,34 @@ class SchemaWellformedTestCase(unittest.TestCase):
     self.assertEqual("html", rootElem.tag, "Expected root element of schema to be 'html'.")
 
 
+class SchemaBasicAPITestCase(unittest.TestCase):
+
+  def setUp(self):
+     read_schemas()
+     self.schemasInitialized = schemasInitialized
+
+  def test_schemasInitialized(self):
+     self.assertEqual(self.schemasInitialized,True, "Schemas should be initialized during setup.")
+
+  def test_gotThing(self):
+
+     thing = Unit.GetUnit("Thing")
+     if thing is None:
+       gotThing = False
+     else:
+       gotThing = True
+
+     self.assertEqual( gotThing, True, "Thing node should be accessible via GetUnit('Thing').")
+
+  def test_gotFooBarThing(self):
+
+     thing = Unit.GetUnit("FooBar")
+     if thing is None:
+       gotThing = False
+     else:
+       gotThing = True
+
+     self.assertEqual( gotThing, False, "Thing node should NOT be accessible via GetUnit('FooBar').")
 
 if __name__ == "__main__": 
   unittest.main()
