@@ -65,25 +65,25 @@ class SchemaBasicAPITestCase(unittest.TestCase):
   def test_NewsArticleIsClass(self):
    # node.isClass
    tNewsArticle = Unit.GetUnit("NewsArticle")
-   self.assertEqual(tNewsArticle.isClass(), True, "NewsArticle is a class.")
+   self.assertTrue(tNewsArticle.isClass(), "NewsArticle is a class.")
 
   def test_FooBarIsNotClass(self):
     tFooBar = Unit.GetUnit("FooBar")
     try:
       tFooBarIsClass = tFooBar.isClass()
-      self.assertEqual(tFooBarIsClass, False, "FooBar is not a class (should be None)")
+      self.assertFalse(tFooBarIsClass, "FooBar is not a class (should be None)")
       log.info("FooBar:" + str(tFooBar) )
     except:
       log.debug("Failed to get FooBar, as expected. So can't ask it if it isClass().")
 
   def test_QuantityisClass(self):
     tQuantity = Unit.GetUnit("Quantity")
-    self.assertEqual(tQuantity.isClass(), True, "Quantity is a class.")
+    self.assertTrue(tQuantity.isClass(), "Quantity is a class.")
     # Note that Quantity is a text type.
 
   def test_ItemAvailabilityIsEnumeration(self):
     eItemAvailability = Unit.GetUnit("ItemAvailability")
-    self.assertEqual(eItemAvailability.isEnumeration(), True, "ItemAvailability is an Enumeration.")
+    self.assertTrue(eItemAvailability.isEnumeration(), "ItemAvailability is an Enumeration.")
 
   def test_FooBarIsNotEnumeration(self):
     eFooBar = Unit.GetUnit("FooBar")
