@@ -172,19 +172,44 @@ class SchemaPropertyAPITestCase(unittest.TestCase):
     p_offers = Unit.GetUnit("offers")
     self.assertFalse(p_offers == p_actor.supercedes(), "offers property doesn't supercede actors property.")
 
+# acceptedAnswer subPropertyOf suggestedAnswer .
 class SchemaPropertyMetadataTestCase(unittest.TestCase):
 
-  # suggestedAnswer subPropertyOf answer .
-
   def test_suggestedAnswerSuperproperty(self):
-    p_answer = Unit.GetUnit("answer")
     p_suggestedAnswer = Unit.GetUnit("suggestedAnswer")
-    self.assertTrue(p_answer == p_suggestedAnswer.superproperty(), "suggestedAnswer subPropertyOf answer.")
+    p_acceptedAnswer = Unit.GetUnit("acceptedAnswer")
+    self.assertTrue(p_suggestedAnswer == p_acceptedAnswer.superproperty(), "acceptedAnswer subPropertyOf suggestedAnswer.")
+
+  def test_suggestedAnswerSuperproperties(self):
+    p_suggestedAnswer = Unit.GetUnit("suggestedAnswer")
+    p_acceptedAnswer = Unit.GetUnit("acceptedAnswer")
+    self.assertTrue(p_suggestedAnswer == p_acceptedAnswer.superproperties()[0], "acceptedAnswer superproperties(), suggestedAnswer in 0th element of array.")
+
+  def test_suggestedAnswerSuperpropertiesArrayLen(self):
+    p_suggestedAnswer = Unit.GetUnit("suggestedAnswer")
+    p_acceptedAnswer = Unit.GetUnit("acceptedAnswer")
+    #self.assertEqual(True,False,"Oops.")
+    sa_supers = p_suggestedAnswer.superproperties()
+    self.assertEqual( len(sa_supers), 1, "suggestedAnswer subproperties() gives array of len 1." )
 
   def test_answerSubproperty(self):
-    p_answer = Unit.GetUnit("answer")
     p_suggestedAnswer = Unit.GetUnit("suggestedAnswer")
-    self.assertTrue(p_suggestedAnswer == p_answer.subproperty(), "suggestedAnswer subPropertyOf answer.")
+    p_acceptedAnswer = Unit.GetUnit("acceptedAnswer")
+    self.assertTrue(p_acceptedAnswer == p_suggestedAnswer.subproperty(), "acceptedAnswer subPropertyOf suggestedAanswer.")
+
+  def test_answerSubproperties(self):
+    p_suggestedAnswer = Unit.GetUnit("suggestedAnswer")
+    p_acceptedAnswer = Unit.GetUnit("acceptedAnswer")
+    self.assertTrue(p_acceptedAnswer == p_suggestedAnswer.subproperties()[0], "suggestedAnswer subproperties(), acceptedAnswer in 0th element of array.")
+
+  def test_answerSubpropertiesArrayLen(self):
+    p_suggestedAnswer = Unit.GetUnit("suggestedAnswer")
+    log.info("suggestedAnswer array: "+ str(p_suggestedAnswer.subproperties() ))
+    self.assertEqual(p_suggestedAnswer.subproperties(), 0, "answer subproperties() gives array of len 1.")
+
+  def test_answerSubpropertiesArrayLen(self):
+    p_offers = Unit.GetUnit("offers")
+    self.assertEqual(len(p_offers.subproperties()), 0, "offers subproperties() gives array of len 0.")
 
   def test_alumniSuperproperty(self):
     p_alumni = Unit.GetUnit("alumni")
@@ -199,7 +224,7 @@ class SchemaPropertyMetadataTestCase(unittest.TestCase):
   def test_alumniInverse(self):
     p_alumni = Unit.GetUnit("alumni")
     p_alumniOf = Unit.GetUnit("alumniOf")
-    p_answer = Unit.GetUnit("answer")
+    p_suggestedAnswer = Unit.GetUnit("suggestedAnswer")
 
     log.info("alumni: " + str(p_alumniOf.inverseproperty() ))
 
@@ -208,11 +233,16 @@ class SchemaPropertyMetadataTestCase(unittest.TestCase):
 
     self.assertFalse(p_alumni == p_alumni.inverseproperty(), "Not alumni inverseOf alumni." )
     self.assertFalse(p_alumniOf == p_alumniOf.inverseproperty(), "Not alumniOf inverseOf alumniOf." )
-    self.assertFalse(p_alumni == p_answer.inverseproperty(), "Not answer inverseOf alumni." )
+    self.assertFalse(p_alumni == p_suggestedAnswer.inverseproperty(), "Not answer inverseOf alumni." )
     # Confirmed informally that the direction asserted doesn't matter currently.
     # Need to add tests that read in custom test-specific schema markup samples to verify this.
     # It is probably best to have redundant inverseOf in the RDFS so that information is visible locally.
 
+
+#TODO:
+# mistake, 'answer' doesn't exist.
+#<link property="rdfs:subPropertyOf" href="http://schema.org/suggestedAnswer" />
+#to http://schema.org/acceptedAnswer.
 
 if __name__ == "__main__":
   unittest.main()
