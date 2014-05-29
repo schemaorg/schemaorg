@@ -75,6 +75,29 @@ class Unit ():
                 return triple.source
         return None
 
+    def superproperty(self):
+        for triple in self.arcsOut:
+            if (triple.target != None and triple.arc.id == "rdfs:subPropertyOf"):
+                return triple.target
+        return None
+
+    def subproperty(self):
+        for triple in self.arcsIn:
+            if (triple.source != None and triple.arc.id == "rdfs:subPropertyOf"):
+               return triple.source
+        return None
+
+    # For property inverses, e.g. alumni inverseOf alumniOf.
+    # Assuming here that they come in simple pairs only.
+    def inverseproperty(self):
+        for triple in self.arcsOut:
+            if (triple.target != None and triple.arc.id == "inverseOf"):
+               return triple.target
+        for triple in self.arcsIn:
+            if (triple.source != None and triple.arc.id == "inverseOf"):
+               return triple.source
+        return None
+
 
 class Triple () :
 
