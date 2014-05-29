@@ -43,7 +43,7 @@ class Unit ():
                 if (val):
                     return True
         return False
-            
+
     def subClassOf(self, type):
         if (self.id == type.id):
             return True
@@ -77,7 +77,7 @@ class Unit ():
 
 
 class Triple () :
-    
+
     def __init__ (self, source, arc, target, text):
         self.source = source
         source.arcsOut.append(self)
@@ -105,7 +105,7 @@ class Triple () :
         else:
             return Triple(source, arc, None, text)
 
-        
+
 class Example ():
 
     @staticmethod
@@ -123,7 +123,7 @@ class Example ():
            return self.rdfa
         if name == 'jsonld':
            return self.jsonld
-    
+
     def __init__ (self, terms, original_html, microdata, rdfa, jsonld):
         self.terms = terms
         self.original_html = original_html
@@ -167,7 +167,7 @@ def GetArcsOut(source):
         arcs[triple.arc] = 1
     return arcs.keys()
 
-def GetComment(node) :    
+def GetComment(node) :
     for triple in node.arcsOut:
         if (triple.arc.id == 'rdfs:comment'):
             return triple.text
@@ -227,9 +227,9 @@ class ShowUnit (webapp2.RequestHandler) :
             self.write("<table class=\"definition-table\">\n        <thead>\n  <tr><th>Property</th><th>Expected Type</th><th>Description</th>               \n  </tr>\n  </thead>\n\n")
 			#        elif (node.isAttribute()):
 
-    
+
     def ClassProperties (self, cl):
-        headerPrinted = False 
+        headerPrinted = False
         di = Unit.GetUnit("domainIncludes")
         ri = Unit.GetUnit("rangeIncludes")
         for prop in sorted(GetSources(di, cl), key=lambda u: u.id):
@@ -260,7 +260,7 @@ class ShowUnit (webapp2.RequestHandler) :
 
 
     def ClassIncomingProperties (self, cl):
-        headerPrinted = False 
+        headerPrinted = False
         di = Unit.GetUnit("domainIncludes")
         ri = Unit.GetUnit("rangeIncludes")
         for prop in sorted(GetSources(ri, cl), key=lambda u: u.id):
@@ -287,7 +287,7 @@ class ShowUnit (webapp2.RequestHandler) :
             self.write("</td>")
             self.write("<td class=prop-desc>%s " % (comment))
             if (supercedes != None):
-                self.write(" Supercedes %s." % (self.ml(supercedes)))                
+                self.write(" Supercedes %s." % (self.ml(supercedes)))
             self.write("</td></tr>")
         if (headerPrinted):
             self.write("</table>\n")
@@ -368,7 +368,7 @@ class ShowUnit (webapp2.RequestHandler) :
                 self.write("<br/><b>More specific Types</b>");
                 for c in children:
                     self.write("<li> %s" % (self.ml(c)))
-                        
+
         if (node.isEnumeration()):
             children = sorted(GetSources(Unit.GetUnit("typeOf"), node), key=lambda u: u.id)
             if (len(children) > 0):
@@ -407,12 +407,12 @@ class ShowUnit (webapp2.RequestHandler) :
 
         self.write("<p class=\"version\"><b>Schema Version 1.5</b></p>\n\n")
         self.write(" \n\n</div>\n</body>\n</html>")
-        
+
         self.response.write(self.AddCachedText(node, self.outputStrings))
 
 
 def read_file (filename):
-    import os.path    
+    import os.path
     folder = os.path.dirname(os.path.realpath(__file__))
     file_path = os.path.join(folder, filename)
     strs = []
@@ -438,4 +438,3 @@ def read_schemas():
 read_schemas()
 
 app = ndb.toplevel(webapp2.WSGIApplication([("/(.*)", ShowUnit)]))
-
