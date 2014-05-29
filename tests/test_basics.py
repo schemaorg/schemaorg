@@ -172,6 +172,47 @@ class SchemaPropertyAPITestCase(unittest.TestCase):
     p_offers = Unit.GetUnit("offers")
     self.assertFalse(p_offers == p_actor.supercedes(), "offers property doesn't supercede actors property.")
 
+class SchemaPropertyMetadataTestCase(unittest.TestCase):
+
+  # suggestedAnswer subPropertyOf answer .
+
+  def test_suggestedAnswerSuperproperty(self):
+    p_answer = Unit.GetUnit("answer")
+    p_suggestedAnswer = Unit.GetUnit("suggestedAnswer")
+    self.assertTrue(p_answer == p_suggestedAnswer.superproperty(), "suggestedAnswer subPropertyOf answer.")
+
+  def test_answerSubproperty(self):
+    p_answer = Unit.GetUnit("answer")
+    p_suggestedAnswer = Unit.GetUnit("suggestedAnswer")
+    self.assertTrue(p_suggestedAnswer == p_answer.subproperty(), "suggestedAnswer subPropertyOf answer.")
+
+  def test_alumniSuperproperty(self):
+    p_alumni = Unit.GetUnit("alumni")
+    p_alumniOf = Unit.GetUnit("alumniOf")
+    p_suggestedAnswer = Unit.GetUnit("suggestedAnswer")
+    self.assertFalse(p_alumni == p_suggestedAnswer.superproperty(), "not suggestedAnswer subPropertyOf alumni.")
+    self.assertFalse(p_suggestedAnswer == p_alumni.superproperty(), "not alumni subPropertyOf suggestedAnswer.")
+    self.assertFalse(p_alumni == p_alumni.superproperty(), "not alumni subPropertyOf alumni.")
+    self.assertFalse(p_alumniOf == p_alumni.superproperty(), "not alumni subPropertyOf alumniOf.")
+    self.assertFalse(p_suggestedAnswer == p_suggestedAnswer.superproperty(), "not suggestedAnswer subPropertyOf suggestedAnswer.")
+
+  def test_alumniInverse(self):
+    p_alumni = Unit.GetUnit("alumni")
+    p_alumniOf = Unit.GetUnit("alumniOf")
+    p_answer = Unit.GetUnit("answer")
+
+    log.info("alumni: " + str(p_alumniOf.inverseproperty() ))
+
+    self.assertTrue(p_alumni == p_alumniOf.inverseproperty(), "alumniOf inverseOf alumni." )
+    self.assertTrue(p_alumniOf == p_alumni.inverseproperty(), "alumni inverseOf alumniOf." )
+
+    self.assertFalse(p_alumni == p_alumni.inverseproperty(), "Not alumni inverseOf alumni." )
+    self.assertFalse(p_alumniOf == p_alumniOf.inverseproperty(), "Not alumniOf inverseOf alumniOf." )
+    self.assertFalse(p_alumni == p_answer.inverseproperty(), "Not answer inverseOf alumni." )
+    # Confirmed informally that the direction asserted doesn't matter currently.
+    # Need to add tests that read in custom test-specific schema markup samples to verify this.
+    # It is probably best to have redundant inverseOf in the RDFS so that information is visible locally.
+
 
 if __name__ == "__main__":
   unittest.main()
