@@ -248,6 +248,12 @@ class ShowUnit (webapp2.RequestHandler) :
     def ml(self, node):
         return "<a href=\"%s\">%s</a>" % (node.id, node.id)
 
+    def makeLinksFromArray(self, nodearray):
+        hyperlinks = []
+        for f in nodearray:
+           hyperlinks.append(self.ml(f))
+        return (", ".join(hyperlinks))
+
     def UnitHeaders(self, node):
         self.write("<h1 class=\"page-title\">\n")
         ind = len(self.parentStack)
@@ -296,13 +302,19 @@ class ShowUnit (webapp2.RequestHandler) :
                 self.write("&nbsp;")
             self.write("</td>")
             self.write("<td class=prop-desc>%s" % (comment))
+
             if (supercedes != None):
                 self.write(" Supercedes %s." % (self.ml(supercedes)))
             if (inverseprop != None):
-                self.write(" (inverse property: %s)" % (self.ml(inverseprop)))
-
-            if (len(subprops) > 0):
-                self.write(" (sub-property: %s)" % (self.ml( ",".join(subprops) )))
+                self.write("<br/> Inverse property: %s." % (self.ml(inverseprop)))
+            if (len(subprops) == 1):
+                self.write("<br/> Sub-property: %s." % ( self.makeLinksFromArray(subprops) ))
+            if (len(subprops) > 1):
+                self.write("<br/> Sub-properties: %s." % ( self.makeLinksFromArray(subprops) ))
+            if (len(superprops) == 1):
+                self.write("<br/> Super-property: %s." % ( self.makeLinksFromArray(superprops) ))
+            if (len(superprops) > 1):
+                self.write("<br/> Super-properties: %s." % ( self.makeLinksFromArray(superprops) ))
 
 
             self.write("</td></tr>")
@@ -317,6 +329,8 @@ class ShowUnit (webapp2.RequestHandler) :
                 continue
             supercedes = prop.supercedes()
             inverseprop = prop.inverseproperty()
+            subprops = prop.subproperties()
+            superprops = prop.superproperties()
             ranges = GetTargets(di, prop)
             comment = GetComment(prop)
             if (not headerPrinted):
@@ -339,7 +353,13 @@ class ShowUnit (webapp2.RequestHandler) :
             if (supercedes != None):
                 self.write(" Supercedes %s." % (self.ml(supercedes)))
             if (inverseprop != None):
-                self.write(" (inverse property: %s)" % (self.ml(inverseprop)) )
+                self.write("<br/> inverse property: %s." % (self.ml(inverseprop)) )
+            if (len(subprops) == 1):
+                self.write("<br/> Sub-property: %s ." % ( self.makeLinksFromArray(subprops) ))
+            if (len(subprops) > 1):
+                self.write("<br/> Sub-properties: %s ." % ( self.makeLinksFromArray(subprops) ))
+
+
             self.write("</td></tr>")
         if (headerPrinted):
             self.write("</table>\n")
