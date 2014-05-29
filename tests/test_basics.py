@@ -114,6 +114,8 @@ class SchemaBasicAPITestCase(unittest.TestCase):
     tDataType = Unit.GetUnit("DataType")
     self.assertTrue(tDataType.subClassOf(tDataType), "DataType subClassOf DataType.")
 
+  # TODO: subClassOf() function has "if (self.id == type.id)", investigate how this is used.
+
   def test_PersonSupertypeThing(self):
     tThing = Unit.GetUnit("Thing")
     tPerson = Unit.GetUnit("Person")
@@ -239,10 +241,8 @@ class SchemaPropertyMetadataTestCase(unittest.TestCase):
     # It is probably best to have redundant inverseOf in the RDFS so that information is visible locally.
 
 
-#TODO:
-# mistake, 'answer' doesn't exist.
-#<link property="rdfs:subPropertyOf" href="http://schema.org/suggestedAnswer" />
-#to http://schema.org/acceptedAnswer.
+    # TODO: http://schema.org/ReserveAction
+    # has scheduledTime from apparently two parent types. how can we test against the html ui?
 
 if __name__ == "__main__":
   unittest.main()
