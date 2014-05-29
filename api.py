@@ -81,11 +81,28 @@ class Unit ():
                 return triple.target
         return None
 
+    # For rarer case of a property with multiple superproperties.
+    def superproperties(self):
+        superprops = []
+        for triple in self.arcsOut:
+            if (triple.target != None and triple.arc.id == "rdfs:subPropertyOf"):
+                superprops.append(triple.target)
+        return superprops
+
+    # less generally useful, as a property may have several specializations
     def subproperty(self):
         for triple in self.arcsIn:
             if (triple.source != None and triple.arc.id == "rdfs:subPropertyOf"):
                return triple.source
         return None
+
+    # all subproperties of this property
+    def subproperties(self):
+        subprops = []
+        for triple in self.arcsIn:
+            if (triple.source != None and triple.arc.id == "rdfs:subPropertyOf"):
+              subprops.append(triple.source)
+        return subprops
 
     # For property inverses, e.g. alumni inverseOf alumniOf.
     # Assuming here that they come in simple pairs only.
@@ -259,6 +276,9 @@ class ShowUnit (webapp2.RequestHandler) :
             if (prop.superceded()):
                 continue
             supercedes = prop.supercedes()
+            inverseprop = prop.inverseproperty()
+            subprops = prop.subproperties()
+            superprops = prop.superproperties()
             ranges = GetTargets(ri, prop)
             comment = GetComment(prop)
             if (not headerPrinted):
@@ -278,6 +298,12 @@ class ShowUnit (webapp2.RequestHandler) :
             self.write("<td class=prop-desc>%s" % (comment))
             if (supercedes != None):
                 self.write(" Supercedes %s." % (self.ml(supercedes)))
+            if (inverseprop != None):
+                self.write(" (inverse property: %s)" % (self.ml(inverseprop)))
+
+            if (len(subprops) > 0):
+                self.write(" (sub-property: %s)" % (self.ml( ",".join(subprops) )))
+
 
             self.write("</td></tr>")
 
@@ -290,6 +316,7 @@ class ShowUnit (webapp2.RequestHandler) :
             if (prop.superceded()):
                 continue
             supercedes = prop.supercedes()
+            inverseprop = prop.inverseproperty()
             ranges = GetTargets(di, prop)
             comment = GetComment(prop)
             if (not headerPrinted):
@@ -311,6 +338,8 @@ class ShowUnit (webapp2.RequestHandler) :
             self.write("<td class=prop-desc>%s " % (comment))
             if (supercedes != None):
                 self.write(" Supercedes %s." % (self.ml(supercedes)))
+            if (inverseprop != None):
+                self.write(" (inverse property: %s)" % (self.ml(inverseprop)) )
             self.write("</td></tr>")
         if (headerPrinted):
             self.write("</table>\n")
