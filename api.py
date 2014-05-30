@@ -245,8 +245,10 @@ class ShowUnit (webapp2.RequestHandler) :
             for p in GetTargets(sc, node):
                 self.GetParentStack(p)
 
-    def ml(self, node):
-        return "<a href=\"%s\">%s</a>" % (node.id, node.id)
+    def ml(self, node, label=''):
+        if label=='':
+          label = node.id
+        return "<a href=\"%s\">%s</a>" % (node.id, label)
 
     def makeLinksFromArray(self, nodearray):
         hyperlinks = []
@@ -274,7 +276,7 @@ class ShowUnit (webapp2.RequestHandler) :
 			#        elif (node.isAttribute()):
 
 
-    def ClassProperties (self, cl):
+    def ClassProperties (self, cl, firstSection):
         headerPrinted = False
         di = Unit.GetUnit("domainIncludes")
         ri = Unit.GetUnit("rangeIncludes")
@@ -310,7 +312,10 @@ class ShowUnit (webapp2.RequestHandler) :
             if (len(subprops) == 1):
                 self.write("<br/> Sub-property: %s." % ( self.makeLinksFromArray(subprops) ))
             if (len(subprops) > 1):
-                self.write("<br/> Sub-properties: %s." % ( self.makeLinksFromArray(subprops) ))
+                if (firstSection):
+                    self.write("<br/> Sub-properties: %s." % ( self.makeLinksFromArray(subprops) ))
+                else:
+                    self.write(" ( %s ) " % ( self.ml(prop,'...') ))
             if (len(superprops) == 1):
                 self.write("<br/> Super-property: %s." % ( self.makeLinksFromArray(superprops) ))
             if (len(superprops) > 1):
@@ -425,7 +430,7 @@ class ShowUnit (webapp2.RequestHandler) :
 
         if (Unit.isClass(node)):
             for p in self.parentStack:
-                self.ClassProperties(p)
+                self.ClassProperties(p, p==self.parentStack[0])
             self.write("</table>\n")
             self.ClassIncomingProperties(node)
         elif (Unit.isAttribute(node)):
