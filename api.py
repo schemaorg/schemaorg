@@ -245,10 +245,13 @@ class ShowUnit (webapp2.RequestHandler) :
             for p in GetTargets(sc, node):
                 self.GetParentStack(p)
 
-    def ml(self, node, label=''):
+    def ml(self, node, label='', title=''):
         if label=='':
           label = node.id
-        return "<a href=\"%s\">%s</a>" % (node.id, label)
+        if title != '':
+#          title = " title=\"" + title + "\""
+          title = " title=\"%s\"" % (title)
+        return "<a href=\"%s\"%s>%s</a>" % (node.id, title, label)
 
     def makeLinksFromArray(self, nodearray):
         hyperlinks = []
@@ -315,7 +318,8 @@ class ShowUnit (webapp2.RequestHandler) :
                 if (firstSection):
                     self.write("<br/> Sub-properties: %s." % ( self.makeLinksFromArray(subprops) ))
                 else:
-                    self.write(" ( %s ) " % ( self.ml(prop,'...') ))
+                    t = ' '.join([str(i.id) for i in subprops])
+                    self.write(" ( %s ) " % ( self.ml(prop,'...', t ) ))
             if (len(superprops) == 1):
                 self.write("<br/> Super-property: %s." % ( self.makeLinksFromArray(superprops) ))
             if (len(superprops) > 1):
