@@ -1749,16 +1749,16 @@
 
     <div typeof="rdfs:Class" resource="http://schema.org/MedicalSignOrSymptom">
       <span class="h" property="rdfs:label">MedicalSignOrSymptom</span>
-      <span property="rdfs:comment">Any indication of the existence of a medical condition or disease.</span>
-       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MedicalEntity">MedicalEntity</a></span>
+      <span property="rdfs:comment">Any feature associated or not with a medical condition. In medicine a symptom is generally subjective while a sign is objective.</span>
+       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MedicalCondition">MedicalCondition</a></span>
        <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_WikiDoc">WikiDoc</a></span></div>
 
     <div typeof="rdfs:Class" resource="http://schema.org/MedicalSign">
       <span class="h" property="rdfs:label">MedicalSign</span>
       <span property="rdfs:comment">Any physical manifestation of a person&#39;s medical condition discoverable by objective diagnostic tests or physical examination.</span>
        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MedicalSignOrSymptom">MedicalSignOrSymptom</a></span>
-       <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_WikiDoc">WikiDoc</a></span></div>
-
+       <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_WikiDoc">WikiDoc</a></span></div>   
+	   
     <div typeof="rdfs:Class" resource="http://schema.org/Specialty">
       <span class="h" property="rdfs:label">Specialty</span>
       <span property="rdfs:comment">Any branch of a field in which people typically develop specific expertise, usually after significant study, time, and effort.</span>
@@ -2042,10 +2042,10 @@
 
     <div typeof="rdfs:Class" resource="http://schema.org/MedicalSymptom">
       <span class="h" property="rdfs:label">MedicalSymptom</span>
-      <span property="rdfs:comment">Any indication of the existence of a medical condition or disease that is apparent to the patient.</span>
+      <span property="rdfs:comment">Any complain sensed and expressed by the patient (therefore defined as subjective)  like stomachache, lower-back pain, or fatigue.</span>
        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MedicalSignOrSymptom">MedicalSignOrSymptom</a></span>
        <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_WikiDoc">WikiDoc</a></span></div>
-
+	
     <div typeof="rdfs:Class" resource="http://schema.org/MedicalTestPanel">
       <span class="h" property="rdfs:label">MedicalTestPanel</span>
       <span property="rdfs:comment">Any collection of tests commonly ordered together.</span>
@@ -10846,18 +10846,6 @@ on public-vocabs@w3.org.</p>
       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/AdverseEvent">AdverseEvent</a></span>
     </div>
 
-    <div typeof="rdfs:Class" resource="http://schema.org/SignOrSymptom">
-      <span class="h" property="rdfs:label">SignOrSymptom</span>
-      <span property="rdfs:comment">Any feature associated with a medical condition. In medicine a symptom is generally subjective while a sign is objective.</span>
-      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MedicalCondition">MedicalCondition</a></span>
-    </div>
-
-    <div typeof="rdfs:Class" resource="http://schema.org/MedicalSign">
-      <span class="h" property="rdfs:label">MedicalSign</span>
-      <span property="rdfs:comment">Any objective evidence of a disease, such as blood in the stool, a skin rash, is a sign recognized by the doctor, nurse, family members and/or the patient.</span>
-      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/SignOrSymptom">SignOrSymptom</a></span>
-    </div>
-
     <div typeof="rdfs:Class" resource="http://schema.org/SkeletalSystem">
       <span class="h" property="rdfs:label">SkeletalSystem</span>
       <span property="rdfs:comment">The internal framework of the body composed of bones</span>
@@ -10894,12 +10882,6 @@ on public-vocabs@w3.org.</p>
       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MedicalProcedure">MedicalProcedure</a></span>
     </div>
 
-    <div typeof="rdfs:Class" resource="http://schema.org/MedicalSymptom">
-      <span class="h" property="rdfs:label">MedicalSymptom</span>
-      <span property="rdfs:comment">Any complain sensed and expressed by the patient (therefore defined as subjective)  like stomachache, lower-back pain, or fatigue.</span>
-      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/SignOrSymptom">SignOrSymptom</a></span>
-    </div>
-
     <div typeof="rdfs:Class" resource="http://schema.org/Syndrome">
       <span class="h" property="rdfs:label">Syndrome</span>
       <span property="rdfs:comment">A syndrome is the association of several medical signs, symptoms, and or other characteristics that often occur together.</span>
@@ -10927,7 +10909,7 @@ on public-vocabs@w3.org.</p>
     <div typeof="rdfs:Class" resource="http://schema.org/TriageComplaint">
       <span class="h" property="rdfs:label">TriageComplaint</span>
       <span property="rdfs:comment">A complaint on which patient triage is based</span>
-      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/SignOrSymptom">SignOrSymptom</a></span>
+      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MedicalSignOrSymptom">MedicalSignOrSymptom</a></span>
     </div>
 
     <div typeof="rdfs:Class" resource="http://schema.org/MedicalTriage">
@@ -11308,7 +11290,7 @@ on public-vocabs@w3.org.</p>
       <span class="h" property="rdfs:label">cause</span>
       <span property="rdfs:comment">Specifying a cause of something. when it's established. </span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MedicalCondition">MedicalCondition</a></span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/SignOrSymptom">SignOrSymptom</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MedicalSignOrSymptom">MedicalSignOrSymptom</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/MedicalCause">MedicalCause</a></span>
     </div>
 
