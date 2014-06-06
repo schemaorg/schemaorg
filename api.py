@@ -249,8 +249,7 @@ class ShowUnit (webapp2.RequestHandler) :
         if label=='':
           label = node.id
         if title != '':
-#          title = " title=\"" + title + "\""
-          title = " title=\"%s\"" % (title)
+          title = " title=\"super-properties: %s\"" % (title)
         return "<a href=\"%s\"%s>%s</a>" % (node.id, title, label)
 
     def makeLinksFromArray(self, nodearray):
@@ -301,30 +300,27 @@ class ShowUnit (webapp2.RequestHandler) :
             first_range = True
             for r in ranges:
                 if (not first_range):
-                    self.write(" <br/>or ")
+                    self.write(" or <br/> ")
                 first_range = False
                 self.write(self.ml(r))
                 self.write("&nbsp;")
             self.write("</td>")
-            self.write("<td class=prop-desc>%s" % (comment))
+            self.write("<td class=\"prop-desc\">%s" % (comment))
 
             if (supercedes != None):
                 self.write(" Supercedes %s." % (self.ml(supercedes)))
             if (inverseprop != None):
                 self.write("<br/> Inverse property: %s." % (self.ml(inverseprop)))
-            if (len(subprops) == 1):
-                self.write("<br/> Sub-property: %s." % ( self.makeLinksFromArray(subprops) ))
-            if (len(subprops) > 1):
-                if (firstSection):
-                    self.write("<br/> Sub-properties: %s." % ( self.makeLinksFromArray(subprops) ))
-                else:
-                    t = ' '.join([str(i.id) for i in subprops])
-                    self.write(" ( %s ) " % ( self.ml(prop,'...', t ) ))
-            if (len(superprops) == 1):
-                self.write("<br/> Super-property: %s." % ( self.makeLinksFromArray(superprops) ))
-            if (len(superprops) > 1):
-                self.write("<br/> Super-properties: %s." % ( self.makeLinksFromArray(superprops) ))
 
+
+#            if (firstSection and len(subprops) == 1):
+#                self.write("<br/> Sub-property: %s." % ( self.makeLinksFromArray(subprops) ))
+#            if (firstSection and len(subprops) > 1):
+#                self.write("<br/> Sub-properties: %s." % ( self.makeLinksFromArray(subprops) ))
+#            if (firstSection and len(superprops) == 1):
+#                self.write("<br/> Super-property: %s." % ( self.makeLinksFromArray(superprops) ))
+#            if (firstSection and len(superprops) > 1):
+#                self.write("<br/> Super-properties: %s." % ( self.makeLinksFromArray(superprops) ))
 
             self.write("</td></tr>")
 
@@ -353,21 +349,26 @@ class ShowUnit (webapp2.RequestHandler) :
             first_range = True
             for r in ranges:
                 if (not first_range):
-                    self.write(" <br/>or ")
+                    self.write(" or<br/> ")
                 first_range = False
                 self.write(self.ml(r))
                 self.write("&nbsp;")
             self.write("</td>")
-            self.write("<td class=prop-desc>%s " % (comment))
+            self.write("<td class=\"prop-desc\">%s " % (comment))
             if (supercedes != None):
                 self.write(" Supercedes %s." % (self.ml(supercedes)))
             if (inverseprop != None):
                 self.write("<br/> inverse property: %s." % (self.ml(inverseprop)) )
-            if (len(subprops) == 1):
-                self.write("<br/> Sub-property: %s ." % ( self.makeLinksFromArray(subprops) ))
-            if (len(subprops) > 1):
-                self.write("<br/> Sub-properties: %s ." % ( self.makeLinksFromArray(subprops) ))
 
+#            if (len(subprops) == 1):
+#                self.write("<br/> Sub-property: %s ." % ( self.makeLinksFromArray(subprops) ))
+#            if (len(subprops) > 1):
+#                self.write("<br/> Sub-properties: %s ." % ( self.makeLinksFromArray(subprops) ))
+#
+#            if (len(superprops) == 1):
+#                self.write("<br/> Super-property: %s." % ( self.makeLinksFromArray(superprops) ))
+#            if (len(superprops) > 1):
+#                self.write("<br/> Super-properties: %s." % ( self.makeLinksFromArray(superprops) ))
 
             self.write("</td></tr>")
         if (headerPrinted):
@@ -380,6 +381,11 @@ class ShowUnit (webapp2.RequestHandler) :
         ranges = sorted(GetTargets(ri, node), key=lambda u: u.id)
         domains = sorted(GetTargets(di, node), key=lambda u: u.id)
         first_range = True
+
+        supercedes = node.supercedes()
+        inverseprop = node.inverseproperty()
+        subprops = node.subproperties()
+        superprops = node.superproperties()
 
         self.write("<table class=\"definition-table\">\n")
         self.write("<thead>\n  <tr>\n    <th>Values expected to be one of these types</th>\n  </tr>\n</thead>\n\n  <tr>\n    <td>\n      ")
