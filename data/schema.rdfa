@@ -9972,12 +9972,29 @@ on public-vocabs@w3.org.</p>
 
     <div typeof="rdfs:Class" resource="http://schema.org/TheatricalPerformanceRole">
       <span class="h" property="rdfs:label">TheatricalPerformanceRole</span>
-      <span property="rdfs:comment">A TheatricalPerformanceRole is Role that some entity places with regard to a performance, e.g. in a Movie, TVSeries, TheaterEvent etc.</span>
+      <span property="rdfs:comment">A TheatricalPerformanceRole is a Role that some entity places with regard to a performance, e.g. in a Movie, TVSeries etc.</span>
       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Role">Role</a></span>
     </div>
 
+    <div typeof="rdf:Property" resource="http://schema.org/characterName">
+      <span class="h" property="rdfs:label">characterName</span>
+      <span property="rdfs:comment">The name of a character played in some acting or performing role, i.e. in a TheatricalPerformanceRole.</span>
+      <span>domainIncludes: <a property="http://schema.org/domainIncludes" href="http://schema.org/TheatricalPerformanceRole">TheatricalPerformanceRole</a></span>
+      <span>rangeIncludes: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+    </div>
 
+    <div typeof="rdfs:Class" resource="http://schema.org/OrganizationRole">
+      <span class="h" property="rdfs:label">OrganizationRole</span>
+      <span property="rdfs:comment">An OrganizationRole is a Role that some entity places with regard to an Organization, e.g. being a 'member'.</span>
+      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Role">Role</a></span>
+    </div>
 
+    <div typeof="rdf:Property" resource="http://schema.org/namedPosition">
+      <span class="h" property="rdfs:label">namedPosition</span>
+      <span property="rdfs:comment">A position played with respect to an Organization, e.g. an athlete in a SportsTeam might play in the position named 'Quarterback'.</span>
+      <span>domainIncludes: <a property="http://schema.org/domainIncludes" href="http://schema.org/OrganizationRole">OrganizationRole</a></span>
+      <span>rangeIncludes: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+    </div>
 
   </body>
 </html>
