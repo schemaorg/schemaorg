@@ -1,6 +1,6 @@
 TYPES:  Person,PostalAddress,addressRegion,postalCode,address,streetAddress,telephone,email,url,addressLocality
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
 Jane Doe
 <img src="janedoe.jpg" />
@@ -17,9 +17,9 @@ Jane's home page:
 
 Graduate students:
 <a href="http://www.xyz.edu/students/alicejones.html">Alice Jones</a>
-<a href="http://www.xyz.edu/students/bobsmith.html">Bob Smith</a> 
+<a href="http://www.xyz.edu/students/bobsmith.html">Bob Smith</a>
 
-MICRODATA: 
+MICRODATA:
 
 <div itemscope itemtype="http://schema.org/Person">
   <span itemprop="name">Jane Doe</span>
@@ -47,9 +47,9 @@ MICRODATA:
     Alice Jones</a>
   <a href="http://www.xyz.edu/students/bobsmith.html" itemprop="colleague">
     Bob Smith</a>
-</div> 
+</div>
 
-RDFA: 
+RDFA:
 
 <div vocab="http://schema.org/" typeof="Person">
   <span property="name">Jane Doe</span>
@@ -77,45 +77,45 @@ RDFA:
     Alice Jones</a>
   <a href="http://www.xyz.edu/students/bobsmith.html" property="colleague">
     Bob Smith</a>
-</div> 
+</div>
 
 JSON:
 
 <script type="application/ld+json">
 {
-  "@context": "http://schema.org", 
-  "@type": "Person", 
+  "@context": "http://schema.org",
+  "@type": "Person",
   "address": {
-    "@type": "PostalAddress", 
-    "addressLocality": "Seattle", 
-    "addressRegion": "WA", 
-    "postalCode": "98052", 
+    "@type": "PostalAddress",
+    "addressLocality": "Seattle",
+    "addressRegion": "WA",
+    "postalCode": "98052",
     "streetAddress": "20341 Whitworth Institute 405 N. Whitworth"
-  }, 
+  },
   "colleague": [
-    "http://www.xyz.edu/students/alicejones.html", 
+    "http://www.xyz.edu/students/alicejones.html",
     "http://www.xyz.edu/students/bobsmith.html"
-  ], 
-  "email": "mailto:jane-doe@xyz.edu", 
-  "image": "janedoe.jpg", 
-  "jobTitle": "Professor", 
-  "name": "Jane Doe", 
-  "telephone": "(425) 123-4567", 
+  ],
+  "email": "mailto:jane-doe@xyz.edu",
+  "image": "janedoe.jpg",
+  "jobTitle": "Professor",
+  "name": "Jane Doe",
+  "telephone": "(425) 123-4567",
   "url": "http://www.janedoe.com"
 }
-</script> 
+</script>
 
-TYPES:  Place,LocalBusiness 
+TYPES:  Place,LocalBusiness
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
 <h1>Beachwalk Beachwear & Giftware</h1>
 A superb collection of fine gifts and clothing to accent your stay in Mexico Beach.
 3102 Highway 98
 Mexico Beach, FL
-Phone: 850-648-4200 
+Phone: 850-648-4200
 
-MICRODATA: 
+MICRODATA:
 
 <div itemscope itemtype="http://schema.org/LocalBusiness">
   <h1><span itemprop="name">Beachwalk Beachwear & Giftware</span></h1>
@@ -127,9 +127,9 @@ MICRODATA:
     <span itemprop="addressRegion">FL</span>
   </div>
   Phone: <span itemprop="telephone">850-648-4200</span>
-</div> 
+</div>
 
-RDFA: 
+RDFA:
 
 <div vocab="http://schema.org/" typeof="LocalBusiness">
   <h1><span property="name">Beachwalk Beachwear & Giftware</span></h1>
@@ -141,29 +141,29 @@ RDFA:
     <span property="addressRegion">FL</span>
   </div>
   Phone: <span property="telephone">850-648-4200</span>
-</div> 
+</div>
 
 JSON:
 
 <script type="application/ld+json">
 {
-  "@context": "http://schema.org", 
-  "@type": "LocalBusiness", 
+  "@context": "http://schema.org",
+  "@type": "LocalBusiness",
   "address": {
-    "@type": "PostalAddress", 
-    "addressLocality": "Mexico Beach", 
-    "addressRegion": "FL", 
+    "@type": "PostalAddress",
+    "addressLocality": "Mexico Beach",
+    "addressRegion": "FL",
     "streetAddress": "3102 Highway 98"
-  }, 
-  "description": "A superb collection of fine gifts and clothing to accent your stay in Mexico Beach.", 
-  "name": "Beachwalk Beachwear & Giftware", 
+  },
+  "description": "A superb collection of fine gifts and clothing to accent your stay in Mexico Beach.",
+  "name": "Beachwalk Beachwear & Giftware",
   "telephone": "850-648-4200"
 }
-</script> 
+</script>
 
-TYPES:  Restaurant,AggregateRating,FoodEstablishment,LocalBusiness 
+TYPES:  Restaurant,AggregateRating,FoodEstablishment,LocalBusiness
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
 GreatFood
 4 stars - based on 250 reviews
@@ -179,9 +179,9 @@ Fri-Sat 5pm - 10pm
 
 Categories: Middle Eastern, Mediterranean
 Price Range: $$
-Takes Reservations: Yes 
+Takes Reservations: Yes
 
-MICRODATA: 
+MICRODATA:
 
 <div itemscope itemtype="http://schema.org/Restaurant">
   <span itemprop="name">GreatFood</span>
@@ -214,9 +214,9 @@ MICRODATA:
 
   Price Range: <span itemprop="priceRange">$$</span>
   Takes Reservations: Yes
-</div> 
+</div>
 
-RDFA: 
+RDFA:
 
 <div vocab="http://schema.org/" typeof="Restaurant">
   <span property="name">GreatFood</span>
@@ -249,52 +249,52 @@ RDFA:
 
   Price Range: <span property="priceRange">$$</span>
   Takes Reservations: Yes
-</div> 
+</div>
 
 JSON:
 
 <script type="application/ld+json">
 {
-  "@context": "http://schema.org", 
-  "@type": "Restaurant", 
+  "@context": "http://schema.org",
+  "@type": "Restaurant",
   "address": {
-    "@type": "PostalAddress", 
-    "addressLocality": "Sunnyvale", 
-    "addressRegion": "CA", 
-    "postalCode": "94086", 
+    "@type": "PostalAddress",
+    "addressLocality": "Sunnyvale",
+    "addressRegion": "CA",
+    "postalCode": "94086",
     "streetAddress": "1901 Lemur Ave"
-  }, 
+  },
   "aggregateRating": {
-    "@type": "AggregateRating", 
-    "ratingValue": "4", 
+    "@type": "AggregateRating",
+    "ratingValue": "4",
     "reviewCount": "250"
-  }, 
-  "name": "GreatFood", 
+  },
+  "name": "GreatFood",
   "openingHours": [
-    "Mo-Sa 11:00-14:30", 
-    "Mo-Th 17:00-21:30", 
+    "Mo-Sa 11:00-14:30",
+    "Mo-Th 17:00-21:30",
     "Fr-Sa 17:00-22:00"
-  ], 
-  "priceRange": "$$", 
+  ],
+  "priceRange": "$$",
   "servesCuisine": [
-    "Middle Eastern", 
+    "Middle Eastern",
     "Mediterranean"
-  ], 
-  "telephone": "(408) 714-1489", 
+  ],
+  "telephone": "(408) 714-1489",
   "url": "http://www.dishdash.com"
 }
-</script> 
+</script>
 
-TYPES:  Place,GeoCoordinates 
+TYPES:  Place,GeoCoordinates
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
 <h1>What is the latitude and longitude of the Empire State Building?<h1>
 Answer:
 Latitude: 40 deg 44 min 54.36 sec N
-Longitude: 73 deg 59 min 8.5 sec W 
+Longitude: 73 deg 59 min 8.5 sec W
 
-MICRODATA: 
+MICRODATA:
 
 <div itemscope itemtype="http://schema.org/Place">
   <h1>What is the latitude and longitude of the <span itemprop="name">Empire State Building</span>?</h1>
@@ -305,9 +305,9 @@ MICRODATA:
     <meta itemprop="latitude" content="40.75" />
     <meta itemprop="longitude" content="73.98" />
   </div>
-</div> 
+</div>
 
-RDFA: 
+RDFA:
 
 <div vocab="http://schema.org/" typeof="Place">
   <h1>What is the latitude and longitude of the <span property="name">Empire State Building</span>?</h1>
@@ -318,26 +318,26 @@ RDFA:
     <meta property="latitude" content="40.75" />
     <meta property="longitude" content="73.98" />
   </div>
-</div> 
+</div>
 
 JSON:
 
 <script type="application/ld+json">
 {
-  "@context": "http://schema.org", 
-  "@type": "Place", 
+  "@context": "http://schema.org",
+  "@type": "Place",
   "geo": {
-    "@type": "GeoCoordinates", 
-    "latitude": "40.75", 
+    "@type": "GeoCoordinates",
+    "latitude": "40.75",
     "longitude": "73.98"
-  }, 
+  },
   "name": "Empire State Building"
 }
-</script> 
+</script>
 
-TYPES:  MediaObject,AudioObject 
+TYPES:  MediaObject,AudioObject
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
 <b>12oclock_girona.mp3</b>
 Total Time: 0m:15s - Recorded on a terrace of Girona a sunday morning
@@ -345,9 +345,9 @@ composed by Roger
 
  <script type="text/javascript">
 var fo = new FlashObject("http://google.com/flash/preview-player.swf", "flashPlayer_719", "358", "16", "6", "#FFFFFF");fo.addVariable("url", "http://media.freesound.org/data/0/previews/719__elmomo__12oclock_girona_preview.mp3");fo.addVariable("autostart", "0");fo.write("flashcontent_719");
-</script> 
+</script>
 
-MICRODATA: 
+MICRODATA:
 
 <div itemscope itemtype="http://schema.org/AudioObject">
   <span itemprop="name"><b>12oclock_girona.mp3</b></span>
@@ -364,9 +364,9 @@ MICRODATA:
       <meta itemprop="duration" content="T0M15S" />
       <span itemprop="description">Recorded on a terrace of Girona a sunday morning</span>
 </span>
-</div> 
+</div>
 
-RDFA: 
+RDFA:
 
 <div vocab="http://schema.org/" typeof="AudioObject">
   <span property="name"><b>12oclock_girona.mp3</b></span>
@@ -383,25 +383,25 @@ RDFA:
       <meta property="duration" content="T0M15S" />
       <span property="description">Recorded on a terrace of Girona a sunday morning</span>
 </span>
-</div> 
+</div>
 
 JSON:
 
 <script type="application/ld+json">
 {
-  "@context": "http://schema.org", 
-  "@type": "AudioObject", 
-  "contentURL": "http://media.freesound.org/data/0/previews/719__elmomo__12oclock_girona_preview.mp3", 
-  "description": "Recorded on a terrace of Girona a sunday morning", 
-  "duration": "T0M15S", 
-  "encodingFormat": "mp3", 
+  "@context": "http://schema.org",
+  "@type": "AudioObject",
+  "contentURL": "http://media.freesound.org/data/0/previews/719__elmomo__12oclock_girona_preview.mp3",
+  "description": "Recorded on a terrace of Girona a sunday morning",
+  "duration": "T0M15S",
+  "encodingFormat": "mp3",
   "name": "12oclock_girona.mp3"
 }
-</script> 
+</script>
 
-TYPES:  Organization,Address 
+TYPES:  Organization,Address
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
 Google.Org
 
@@ -415,9 +415,9 @@ Members:
 - National Scientific Members in 100 countries and territories: Country1, Country2, ...
 - Scientific Union Members, 30 organizations listed in this Yearbook: Member 1, Member 2
 
-History: 
+History:
 
-MICRODATA: 
+MICRODATA:
 
 <div itemscope itemtype="http://schema.org/Organization">
   <span itemprop="name">Google.org (GOOG)</span>
@@ -445,9 +445,9 @@ Members:
   </span>,
 
 History:
-</div> 
+</div>
 
-RDFA: 
+RDFA:
 
 <div vocab="http://schema.org/" typeof="Organization">
   <span property="name">Google.org (GOOG)</span>
@@ -475,38 +475,38 @@ Members:
   </span>,
 
 History:
-</div> 
+</div>
 
 JSON:
 
 <script type="application/ld+json">
 {
-  "@context": "http://schema.org", 
-  "@type": "Organization", 
+  "@context": "http://schema.org",
+  "@type": "Organization",
   "address": {
-    "@type": "PostalAddress", 
-    "addressLocality": "Paris, France", 
-    "postalCode": "F-75002", 
+    "@type": "PostalAddress",
+    "addressLocality": "Paris, France",
+    "postalCode": "F-75002",
     "streetAddress": "38 avenue de l'Opera"
-  }, 
-  "email": "secretariat(at)google.org", 
-  "faxNumber": "( 33 1) 42 68 53 01", 
+  },
+  "email": "secretariat(at)google.org",
+  "faxNumber": "( 33 1) 42 68 53 01",
   "member": [
     {
       "@type": "Organization"
-    }, 
+    },
     {
       "@type": "Organization"
     }
-  ], 
-  "name": "Google.org (GOOG)", 
+  ],
+  "name": "Google.org (GOOG)",
   "telephone": "( 33 1) 42 68 53 00"
 }
-</script> 
+</script>
 
-TYPES:  NGO 
+TYPES:  NGO
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
 Google.Org
 
@@ -520,9 +520,9 @@ Members:
 - National Scientific Members in 100 countries and territories: Country1, Country2, ...
 - Scientific Union Members, 30 organizations listed in this Yearbook: Member 1, Member 2
 
-History: 
+History:
 
-MICRODATA: 
+MICRODATA:
 
 <div itemscope itemtype="http://schema.org/NGO">
   <span itemprop="name">Google.org (GOOG)</span>
@@ -550,9 +550,9 @@ Members:
   </span>,
 
 History:
-</div> 
+</div>
 
-RDFA: 
+RDFA:
 
 <div vocab="http://schema.org/" typeof="NGO">
   <span property="name">Google.org (GOOG)</span>
@@ -580,38 +580,38 @@ Members:
   </span>,
 
 History:
-</div> 
+</div>
 
 JSON:
 
 <script type="application/ld+json">
 {
-  "@context": "http://schema.org", 
-  "@type": "NGO", 
+  "@context": "http://schema.org",
+  "@type": "NGO",
   "address": {
-    "@type": "PostalAddress", 
-    "addressLocality": "Paris, France", 
-    "postalCode": "F-75002", 
+    "@type": "PostalAddress",
+    "addressLocality": "Paris, France",
+    "postalCode": "F-75002",
     "streetAddress": "38 avenue de l'Opera"
-  }, 
-  "email": "secretariat(at)google.org", 
-  "faxNumber": "( 33 1) 42 68 53 01", 
+  },
+  "email": "secretariat(at)google.org",
+  "faxNumber": "( 33 1) 42 68 53 01",
   "member": [
     {
       "@type": "Organization"
-    }, 
+    },
     {
       "@type": "Organization"
     }
-  ], 
-  "name": "Google.org (GOOG)", 
+  ],
+  "name": "Google.org (GOOG)",
   "telephone": "( 33 1) 42 68 53 00"
 }
-</script> 
+</script>
 
-TYPES:  Event,Place,Address,AggregateOffer 
+TYPES:  Event,Place,Address,AggregateOffer
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
 <a href="nba-miami-philidelphia-game3.html">
 NBA Eastern Conference First Round Playoff Tickets:
@@ -627,9 +627,9 @@ Wells Fargo Center
 Philadelphia, PA
 
 Priced from: $35
-1938 tickets left 
+1938 tickets left
 
-MICRODATA: 
+MICRODATA:
 
 <div itemscope itemtype="http://schema.org/Event">
   <a itemprop="url" href="nba-miami-philidelphia-game3.html">
@@ -655,9 +655,9 @@ MICRODATA:
     Priced from: <span itemprop="lowPrice">$35</span>
     <span itemprop="offerCount">1938</span> tickets left
   </div>
-</div> 
+</div>
 
-RDFA: 
+RDFA:
 
 <div vocab="http://schema.org/" typeof="Event">
   <a property="url" href="nba-miami-philidelphia-game3.html">
@@ -683,36 +683,36 @@ RDFA:
     Priced from: <span property="lowPrice">$35</span>
     <span property="offerCount">1938</span> tickets left
   </div>
-</div> 
+</div>
 
 JSON:
 
 <script type="application/ld+json">
 {
-  "@context": "http://schema.org", 
-  "@type": "Event", 
+  "@context": "http://schema.org",
+  "@type": "Event",
   "location": {
-    "@type": "Place", 
+    "@type": "Place",
     "address": {
-      "@type": "PostalAddress", 
-      "addressLocality": "Philadelphia", 
+      "@type": "PostalAddress",
+      "addressLocality": "Philadelphia",
       "addressRegion": "PA"
-    }, 
+    },
     "url": "wells-fargo-center.html"
-  }, 
+  },
   "offers": {
-    "@type": "AggregateOffer", 
-    "lowPrice": "$35", 
+    "@type": "AggregateOffer",
+    "lowPrice": "$35",
     "offerCount": "1938"
-  }, 
-  "startDate": "2016-04-21T20:00", 
+  },
+  "startDate": "2016-04-21T20:00",
   "url": "nba-miami-philidelphia-game3.html"
 }
-</script> 
+</script>
 
-TYPES:  Product,AggregateRating,Offer,Review,Rating 
+TYPES:  Product,AggregateRating,Offer,Review,Rating
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
 Kenmore White 17" Microwave
 <img src="kenmore-microwave-17in.jpg" alt='Kenmore 17" Microwave' />
@@ -734,9 +734,9 @@ The lamp burned out and now I have to replace it.
  Value purchase - by Lucas, March 25, 2011
 4/5 stars
 Great microwave for the price. It is small and fits in my apartment.
-... 
+...
 
-MICRODATA: 
+MICRODATA:
 
 <div itemscope itemtype="http://schema.org/Product">
   <span itemprop="name">Kenmore White 17" Microwave</span>
@@ -785,9 +785,9 @@ MICRODATA:
     fits in my apartment.</span>
   </div>
   ...
-</div> 
+</div>
 
-RDFA: 
+RDFA:
 
 <div vocab="http://schema.org/" typeof="Product">
   <span property="name">Kenmore White 17" Microwave</span>
@@ -836,60 +836,60 @@ RDFA:
     fits in my apartment.</span>
   </div>
   ...
-</div> 
+</div>
 
 JSON:
 
 <script type="application/ld+json">
 {
-  "@context": "http://schema.org", 
-  "@type": "Product", 
+  "@context": "http://schema.org",
+  "@type": "Product",
   "aggregateRating": {
-    "@type": "AggregateRating", 
-    "ratingValue": "3.5", 
+    "@type": "AggregateRating",
+    "ratingValue": "3.5",
     "reviewCount": "11"
-  }, 
-  "description": "0.7 cubic feet countertop microwave. Has six preset cooking categories and convenience features like Add-A-Minute and Child Lock.", 
-  "name": "Kenmore White 17\" Microwave", 
+  },
+  "description": "0.7 cubic feet countertop microwave. Has six preset cooking categories and convenience features like Add-A-Minute and Child Lock.",
+  "name": "Kenmore White 17\" Microwave",
   "offers": {
-    "@type": "Offer", 
-    "availability": "http://schema.org/InStock", 
+    "@type": "Offer",
+    "availability": "http://schema.org/InStock",
     "price": "$55.00"
-  }, 
+  },
   "review": [
     {
-      "@type": "Review", 
-      "author": "Ellie", 
-      "datePublished": "2011-04-01", 
-      "description": "The lamp burned out and now I have to replace it.", 
-      "name": "Not a happy camper", 
+      "@type": "Review",
+      "author": "Ellie",
+      "datePublished": "2011-04-01",
+      "description": "The lamp burned out and now I have to replace it.",
+      "name": "Not a happy camper",
       "reviewRating": {
-        "@type": "Rating", 
-        "bestRating": "5", 
-        "ratingValue": "1", 
+        "@type": "Rating",
+        "bestRating": "5",
+        "ratingValue": "1",
         "worstRating": "1"
       }
-    }, 
+    },
     {
-      "@type": "Review", 
-      "author": "Lucas", 
-      "datePublished": "2011-03-25", 
-      "description": "Great microwave for the price. It is small and fits in my apartment.", 
-      "name": "Value purchase", 
+      "@type": "Review",
+      "author": "Lucas",
+      "datePublished": "2011-03-25",
+      "description": "Great microwave for the price. It is small and fits in my apartment.",
+      "name": "Value purchase",
       "reviewRating": {
-        "@type": "Rating", 
-        "bestRating": "5", 
-        "ratingValue": "4", 
+        "@type": "Rating",
+        "bestRating": "5",
+        "ratingValue": "4",
         "worstRating": "1"
       }
     }
   ]
 }
-</script> 
+</script>
 
-TYPES:  Product,AggregateRating,AggregateOffer,Offer 
+TYPES:  Product,AggregateRating,AggregateOffer,Offer
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
 <img src="dell-30in-lcd.jpg" />
 Dell UltraSharp 30" LCD Monitor
@@ -903,9 +903,9 @@ Sellers:
   Save A Lot Monitors - $1250</a>
 <a href="jondoe-gadgets.com/dell-30.html">
   Jon Doe's Gadgets - $1350</a>
-... 
+...
 
-MICRODATA: 
+MICRODATA:
 
 <div itemscope itemtype="http://schema.org/Product">
   <img itemprop="image" src="dell-30in-lcd.jpg" />
@@ -933,9 +933,9 @@ MICRODATA:
      Jon Doe's Gadgets - $1350</a>
   </div>
   ...
-</div> 
+</div>
 
-RDFA: 
+RDFA:
 
 <div vocab="http://schema.org/" typeof="Product">
   <img property="image" src="dell-30in-lcd.jpg" />
@@ -963,44 +963,44 @@ RDFA:
      Jon Doe's Gadgets - $1350</a>
   </div>
   ...
-</div> 
+</div>
 
 JSON:
 
 <script type="application/ld+json">
 {
-  "@context": "http://schema.org", 
-  "@type": "Product", 
+  "@context": "http://schema.org",
+  "@type": "Product",
   "aggregateRating": {
-    "@type": "AggregateRating", 
-    "bestRating": "100", 
-    "ratingCount": "24", 
+    "@type": "AggregateRating",
+    "bestRating": "100",
+    "ratingCount": "24",
     "ratingValue": "87"
-  }, 
-  "image": "dell-30in-lcd.jpg", 
-  "name": "Dell UltraSharp 30\" LCD Monitor", 
+  },
+  "image": "dell-30in-lcd.jpg",
+  "name": "Dell UltraSharp 30\" LCD Monitor",
   "offers": {
-    "@type": "AggregateOffer", 
-    "highPrice": "$1495", 
-    "lowPrice": "$1250", 
-    "offerCount": "8", 
+    "@type": "AggregateOffer",
+    "highPrice": "$1495",
+    "lowPrice": "$1250",
+    "offerCount": "8",
     "offers": [
       {
-        "@type": "Offer", 
+        "@type": "Offer",
         "url": "save-a-lot-monitors.com/dell-30.html"
-      }, 
+      },
       {
-        "@type": "Offer", 
+        "@type": "Offer",
         "url": "jondoe-gadgets.com/dell-30.html"
       }
     ]
   }
 }
-</script> 
+</script>
 
-TYPES:  WebPage,Book,AggregateRating,Offer,Review,CreativeWork 
+TYPES:  WebPage,Book,AggregateRating,Offer,Review,CreativeWork
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
 <a href="category/books.html">Books</a> >
  <a href="category/books-literature.html">Literature & Fiction</a> >
@@ -1029,9 +1029,9 @@ as they try make sense of their lives and grow to adulthood.
 
 4 stars - <b>"love it LOLOL111!" </b>
 by Bob Smith, Written on June 15, 2006
-Catcher in the Rye is a fun book. It's a good book to read. 
+Catcher in the Rye is a fun book. It's a good book to read.
 
-MICRODATA: 
+MICRODATA:
 
 <body itemscope itemtype="http://schema.org/WebPage">
 ...
@@ -1087,9 +1087,9 @@ Reviews:
 
 </div>
 ...
-</body> 
+</body>
 
-RDFA: 
+RDFA:
 
 <body vocab="http://schema.org/" typeof="WebPage">
 ...
@@ -1145,59 +1145,59 @@ Reviews:
 
 </div>
 ...
-</body> 
+</body>
 
 JSON:
 
 <script type="application/ld+json">
 {
-  "@context": "http://schema.org", 
-  "@type": "WebPage", 
+  "@context": "http://schema.org",
+  "@type": "WebPage",
   "aggregateRating": {
-    "@type": "AggregateRating", 
-    "ratingValue": "4", 
+    "@type": "AggregateRating",
+    "ratingValue": "4",
     "reviewCount": "3077"
-  }, 
-  "author": "/author/jd_salinger.html", 
-  "bookFormat": "http://schema.org/Paperback", 
-  "breadcrumb": "Books > Literature & Fiction > Classics", 
-  "datePublished": "1991-05-01", 
-  "image": "catcher-in-the-rye-book-cover.jpg", 
-  "inLanguage": "English", 
-  "isbn": "0316769487", 
-  "name": "The Catcher in the Rye", 
-  "numberOfPages": "224", 
+  },
+  "author": "/author/jd_salinger.html",
+  "bookFormat": "http://schema.org/Paperback",
+  "breadcrumb": "Books > Literature & Fiction > Classics",
+  "datePublished": "1991-05-01",
+  "image": "catcher-in-the-rye-book-cover.jpg",
+  "inLanguage": "English",
+  "isbn": "0316769487",
+  "name": "The Catcher in the Rye",
+  "numberOfPages": "224",
   "offers": {
-    "@type": "Offer", 
-    "availability": "http://schema.org/InStock", 
-    "price": "$6.99", 
+    "@type": "Offer",
+    "availability": "http://schema.org/InStock",
+    "price": "$6.99",
     "priceCurrency": "USD"
-  }, 
-  "publisher": "Little, Brown, and Company", 
+  },
+  "publisher": "Little, Brown, and Company",
   "review": [
     {
-      "@type": "Review", 
-      "author": "John Doe", 
-      "datePublished": "2006-05-04", 
-      "name": "A masterpiece of literature", 
-      "reviewBody": "I really enjoyed this book. It captures the essential challenge people face as they try make sense of their lives and grow to adulthood.", 
+      "@type": "Review",
+      "author": "John Doe",
+      "datePublished": "2006-05-04",
+      "name": "A masterpiece of literature",
+      "reviewBody": "I really enjoyed this book. It captures the essential challenge people face as they try make sense of their lives and grow to adulthood.",
       "reviewRating": "5"
-    }, 
+    },
     {
-      "@type": "Review", 
-      "author": "Bob Smith", 
-      "datePublished": "2006-06-15", 
-      "name": "A good read.", 
-      "reviewBody": "Catcher in the Rye is a fun book. It's a good book to read.", 
+      "@type": "Review",
+      "author": "Bob Smith",
+      "datePublished": "2006-06-15",
+      "name": "A good read.",
+      "reviewBody": "Catcher in the Rye is a fun book. It's a good book to read.",
       "reviewRating": "4"
     }
   ]
 }
-</script> 
+</script>
 
-TYPES:  Recipe,NutritionInformation 
+TYPES:  Recipe,NutritionInformation
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
 Mom's World Famous Banana Bread
 By John Smith, May 8, 2009
@@ -1225,9 +1225,9 @@ Instructions:
 
 140 comments:
 From Janel, May 5 -- thank you, great recipe!
-... 
+...
 
-MICRODATA: 
+MICRODATA:
 
 <div itemscope itemtype="http://schema.org/Recipe">
   <span itemprop="name">Mom's World Famous Banana Bread</span>
@@ -1266,9 +1266,9 @@ MICRODATA:
   <meta itemprop="interactionCount" content="UserComments:140" />
   From Janel, May 5 -- thank you, great recipe!
   ...
-</div> 
+</div>
 
-RDFA: 
+RDFA:
 
 <div vocab="http://schema.org/" typeof="Recipe">
   <span property="name">Mom's World Famous Banana Bread</span>
@@ -1307,40 +1307,40 @@ RDFA:
   <meta property="interactionCount" content="UserComments:140" />
   From Janel, May 5 -- thank you, great recipe!
   ...
-</div> 
+</div>
 
 JSON:
 
 <script type="application/ld+json">
 {
-  "@context": "http://schema.org", 
-  "@type": "Recipe", 
-  "author": "John Smith", 
-  "cookTime": "PT1H", 
-  "datePublished": "2009-05-08", 
-  "description": "This classic banana bread recipe comes from my mom -- the walnuts add a nice texture and flavor to the banana bread.", 
-  "image": "bananabread.jpg", 
+  "@context": "http://schema.org",
+  "@type": "Recipe",
+  "author": "John Smith",
+  "cookTime": "PT1H",
+  "datePublished": "2009-05-08",
+  "description": "This classic banana bread recipe comes from my mom -- the walnuts add a nice texture and flavor to the banana bread.",
+  "image": "bananabread.jpg",
   "ingredients": [
-    "3 or 4 ripe bananas, smashed", 
-    "1 egg", 
+    "3 or 4 ripe bananas, smashed",
+    "1 egg",
     "3/4 cup of sugar"
-  ], 
-  "interactionCount": "UserComments:140", 
-  "name": "Mom's World Famous Banana Bread", 
+  ],
+  "interactionCount": "UserComments:140",
+  "name": "Mom's World Famous Banana Bread",
   "nutrition": {
-    "@type": "NutritionInformation", 
-    "calories": "240 calories", 
+    "@type": "NutritionInformation",
+    "calories": "240 calories",
     "fatContent": "9 grams fat"
-  }, 
-  "prepTime": "PT15M", 
-  "recipeInstructions": "Preheat the oven to 350 degrees. Mix in the ingredients in a bowl. Add the flour last. Pour the mixture into a loaf pan and bake for one hour.", 
+  },
+  "prepTime": "PT15M",
+  "recipeInstructions": "Preheat the oven to 350 degrees. Mix in the ingredients in a bowl. Add the flour last. Pour the mixture into a loaf pan and bake for one hour.",
   "recipeYield": "1 loaf"
 }
-</script> 
+</script>
 
-TYPES:  VideoObject,MusicGroup,MusicRecording,Event 
+TYPES:  VideoObject,MusicGroup,MusicRecording,Event
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
 <h1>Foo Fighters</h1>
 
@@ -1391,9 +1391,9 @@ May 23
 <h2>Comments:</h2>
 Excited about seeing them in concert next week. -Lawrence , Jan 23
 I dig their latest single. -Mary, Jan 19
-Showing 1-2 of 18 comments. <a href="foofighters-comments">More</a> 
+Showing 1-2 of 18 comments. <a href="foofighters-comments">More</a>
 
-MICRODATA: 
+MICRODATA:
 
 <div itemscope itemtype="http://schema.org/MusicGroup">
 
@@ -1470,9 +1470,9 @@ I dig their latest single. -Mary, Jan 19
 <meta itemprop="interactionCount" content="UserComments:18" />
 Showing 1-2 of 18 comments. <a href="foofighters-comments">More</a>
 
-</div> 
+</div>
 
-RDFA: 
+RDFA:
 
 <div vocab="http://schema.org/" typeof="MusicGroup">
 
@@ -1549,80 +1549,80 @@ I dig their latest single. -Mary, Jan 19
 <meta property="interactionCount" content="UserComments:18" />
 Showing 1-2 of 18 comments. <a href="foofighters-comments">More</a>
 
-</div> 
+</div>
 
 JSON:
 
 <script type="application/ld+json">
 {
-  "@context": "http://schema.org", 
-  "@type": "MusicGroup", 
+  "@context": "http://schema.org",
+  "@type": "MusicGroup",
   "event": [
     {
-      "@type": "Event", 
-      "location": "Memphis, TN, US", 
-      "offers": "ticketmaster.com/foofighters/may20-2011", 
-      "startDate": "2011-05-20", 
+      "@type": "Event",
+      "location": "Memphis, TN, US",
+      "offers": "ticketmaster.com/foofighters/may20-2011",
+      "startDate": "2011-05-20",
       "url": "foo-fighters-may20-fedexforum"
-    }, 
+    },
     {
-      "@type": "Event", 
-      "location": "Council Bluffs, IA, US", 
-      "offers": "ticketmaster.com/foofighters/may23-2011", 
-      "startDate": "2011-05-23", 
+      "@type": "Event",
+      "location": "Council Bluffs, IA, US",
+      "offers": "ticketmaster.com/foofighters/may23-2011",
+      "startDate": "2011-05-23",
       "url": "foo-fighters-may23-midamericacenter"
     }
-  ], 
+  ],
   "image": [
-    "foofighters-1.jpg", 
-    "foofighters-2.jpg", 
+    "foofighters-1.jpg",
+    "foofighters-2.jpg",
     "foofighters-3.jpg"
-  ], 
-  "interactionCount": "UserComments:18", 
-  "name": "Foo Fighters", 
+  ],
+  "interactionCount": "UserComments:18",
+  "name": "Foo Fighters",
   "track": [
     {
-      "@type": "MusicRecording", 
-      "audio": "foo-fighters-rope-play.html", 
-      "duration": "PT4M5S", 
-      "inAlbum": "foo-fighters-wasting-light.html", 
-      "interactionCount": "UserPlays:14300", 
-      "name": "Rope", 
-      "offers": "foo-fighters-rope-buy.html", 
+      "@type": "MusicRecording",
+      "audio": "foo-fighters-rope-play.html",
+      "duration": "PT4M5S",
+      "inAlbum": "foo-fighters-wasting-light.html",
+      "interactionCount": "UserPlays:14300",
+      "name": "Rope",
+      "offers": "foo-fighters-rope-buy.html",
       "url": "foo-fighters-rope.html"
-    }, 
+    },
     {
-      "@type": "MusicRecording", 
-      "audio": "foo-fighters-everlong-play.html", 
-      "duration": "PT6M33S", 
-      "inAlbum": "foo-fighters-color-and-shape.html", 
-      "name": "Everlong", 
-      "offers": "foo-fighters-everlong-buy.html", 
-      "playCount": "11700", 
+      "@type": "MusicRecording",
+      "audio": "foo-fighters-everlong-play.html",
+      "duration": "PT6M33S",
+      "inAlbum": "foo-fighters-color-and-shape.html",
+      "name": "Everlong",
+      "offers": "foo-fighters-everlong-buy.html",
+      "playCount": "11700",
       "url": "foo-fighters-everlong.html"
     }
-  ], 
+  ],
   "video": {
-    "@type": "VideoObject", 
-    "description": "Catch this exclusive interview with Dave Grohl and the Food Fighters about their new album, Rope.", 
-    "duration": "T1M33S", 
-    "name": "Interview with the Foo Fighters", 
+    "@type": "VideoObject",
+    "description": "Catch this exclusive interview with Dave Grohl and the Food Fighters about their new album, Rope.",
+    "duration": "T1M33S",
+    "name": "Interview with the Foo Fighters",
     "thumbnail": "foo-fighters-interview-thumb.jpg"
   }
 }
-</script> 
+</script>
 
-TYPES:  ItemList 
+TYPES:  ItemList
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
 <h2>Top 10 laptops</h2>
 <p>1. HP Pavilion dv6-6013cl</p>
 <p>2. Dell XPS 15 (Sandy Bridge)</p>
 <p>3. Lenovo ThinkPad X220</p>
-... 
+...
 
-MICRODATA: 
+MICRODATA:
 
 <div itemscope itemtype="http://schema.org/ItemList">
   <meta itemprop="mainContentOfPage" content="true"/>
@@ -1632,9 +1632,9 @@ MICRODATA:
   <p>2. <span itemprop="itemListElement">Dell XPS 15 (Sandy Bridge)</span></p>
   <p>3. <span itemprop="itemListElement">Lenovo ThinkPad X220</span></p>
   ...
-</div> 
+</div>
 
-RDFA: 
+RDFA:
 
 <div vocab="http://schema.org/" typeof="ItemList">
   <meta property="mainContentOfPage" content="true"/>
@@ -1644,28 +1644,28 @@ RDFA:
   <p>2. <span property="itemListElement">Dell XPS 15 (Sandy Bridge)</span></p>
   <p>3. <span property="itemListElement">Lenovo ThinkPad X220</span></p>
   ...
-</div> 
+</div>
 
 JSON:
 
 <script type="application/ld+json">
 {
-  "@context": "http://schema.org", 
-  "@type": "ItemList", 
+  "@context": "http://schema.org",
+  "@type": "ItemList",
   "itemListElement": [
-    "HP Pavilion dv6-6013cl", 
-    "Dell XPS 15 (Sandy Bridge)", 
+    "HP Pavilion dv6-6013cl",
+    "Dell XPS 15 (Sandy Bridge)",
     "Lenovo ThinkPad X220"
-  ], 
-  "itemListOrder": "Descending", 
-  "mainContentOfPage": "true", 
+  ],
+  "itemListOrder": "Descending",
+  "mainContentOfPage": "true",
   "name": "Top 10 laptops"
 }
-</script> 
+</script>
 
-TYPES:  Movie 
+TYPES:  Movie
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
 <h1>Pirates of the Carribean: On Stranger Tides (2011)</h1>
 Jack Sparrow and Barbossa embark on a quest to find the elusive fountain
@@ -1674,9 +1674,9 @@ Jack Sparrow and Barbossa embark on a quest to find the elusive fountain
 Director: Rob Marshall
 Writers: Ted Elliott, Terry Rossio, and 7 more credits
 Stars: Johnny Depp, Penelope Cruz, Ian McShane
-8/10 stars from 200 users. Reviews: 50. 
+8/10 stars from 200 users. Reviews: 50.
 
-MICRODATA: 
+MICRODATA:
 
 <div itemscope itemtype="http://schema.org/Movie">
 
@@ -1711,9 +1711,9 @@ Stars:
   <span itemprop="ratingCount">200</span> users.
   Reviews: <span itemprop="reviewCount">50</span>.
 </div>
-</div> 
+</div>
 
-RDFA: 
+RDFA:
 
 <div vocab="http://schema.org/" typeof="Movie">
 
@@ -1748,57 +1748,57 @@ Stars:
   <span property="ratingCount">200</span> users.
   Reviews: <span property="reviewCount">50</span>.
 </div>
-</div> 
+</div>
 
 JSON:
 
 <script type="application/ld+json">
 {
-  "@context": "http://schema.org", 
-  "@type": "Movie", 
+  "@context": "http://schema.org",
+  "@type": "Movie",
   "actor": [
     {
-      "@type": "Person", 
+      "@type": "Person",
       "name": "Johnny Depp"
-    }, 
+    },
     {
-      "@type": "Person", 
+      "@type": "Person",
       "name": "Penelope Cruz"
-    }, 
+    },
     {
-      "@type": "Person", 
+      "@type": "Person",
       "name": "Ian McShane"
     }
-  ], 
+  ],
   "aggregateRating": {
-    "@type": "AggregateRating", 
-    "bestRating": "10", 
-    "ratingCount": "200", 
-    "ratingValue": "8", 
+    "@type": "AggregateRating",
+    "bestRating": "10",
+    "ratingCount": "200",
+    "ratingValue": "8",
     "reviewCount": "50"
-  }, 
+  },
   "author": [
     {
-      "@type": "Person", 
+      "@type": "Person",
       "name": "Ted Elliott"
-    }, 
+    },
     {
-      "@type": "Person", 
+      "@type": "Person",
       "name": "Terry Rossio"
     }
-  ], 
-  "description": "Jack Sparrow and Barbossa embark on a quest to find the elusive fountain of youth, only to discover that Blackbeard and his daughter are after it too.", 
+  ],
+  "description": "Jack Sparrow and Barbossa embark on a quest to find the elusive fountain of youth, only to discover that Blackbeard and his daughter are after it too.",
   "director": {
-    "@type": "Person", 
+    "@type": "Person",
     "name": "Rob Marshall"
-  }, 
+  },
   "name": "Pirates of the Carribean: On Stranger Tides (2011)"
 }
-</script> 
+</script>
 
-TYPES:  Table 
+TYPES:  Table
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
 <h2>list of presidents</h2>>
 <table>
@@ -1812,9 +1812,9 @@ PRE-MARKUP:
     <td>Federalist</td>
   </tr>
   ...
-</table> 
+</table>
 
-MICRODATA: 
+MICRODATA:
 
 <div itemscope itemtype="http://schema.org/Table">
   <meta itemprop="mainContentOfPage" content="true"/>
@@ -1831,9 +1831,9 @@ MICRODATA:
     </tr>
     ...
   </table>
-</div> 
+</div>
 
-RDFA: 
+RDFA:
 
 <div vocab="http://schema.org/" typeof="Table">
   <meta property="mainContentOfPage" content="true"/>
@@ -1850,30 +1850,30 @@ RDFA:
     </tr>
     ...
   </table>
-</div> 
+</div>
 
 JSON:
 
 <script type="application/ld+json">
 {
-  "@context": "http://schema.org", 
-  "@type": "Table", 
-  "about": "list of presidents", 
+  "@context": "http://schema.org",
+  "@type": "Table",
+  "about": "list of presidents",
   "mainContentOfPage": "true"
 }
-</script> 
+</script>
 
-TYPES:  PostalAddress 
+TYPES:  PostalAddress
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
 Google Inc.
 P.O. Box 1234
 Mountain View, CA
 94043
-United States 
+United States
 
-MICRODATA: 
+MICRODATA:
 
 <div itemscope itemtype="http://schema.org/PostalAddress">
  <span itemprop="name">Google Inc.</span>
@@ -1882,9 +1882,9 @@ MICRODATA:
  <span itemprop="addressRegion">CA</span>
  <span itemprop="postalCode">94043</span>
  <span itemprop="addressCountry">United States</span>
-</div> 
+</div>
 
-RDFA: 
+RDFA:
 
 <div vocab="http://schema.org/" typeof="PostalAddress">
  <span property="name">Google Inc.</span>
@@ -1893,33 +1893,33 @@ RDFA:
  <span property="addressRegion">CA</span>
  <span property="postalCode">94043</span>
  <span property="addressCountry">United States</span>
-</div> 
+</div>
 
 JSON:
 
 <script type="application/ld+json">
 {
-  "@context": "http://schema.org", 
-  "@type": "PostalAddress", 
-  "addressCountry": "United States", 
-  "addressLocality": "Mountain View", 
-  "addressRegion": "CA", 
-  "name": "Google Inc.", 
-  "postOfficeBoxNumber": "1234", 
+  "@context": "http://schema.org",
+  "@type": "PostalAddress",
+  "addressCountry": "United States",
+  "addressLocality": "Mountain View",
+  "addressRegion": "CA",
+  "name": "Google Inc.",
+  "postOfficeBoxNumber": "1234",
   "postalCode": "94043"
 }
-</script> 
+</script>
 
-TYPES:  CreativeWork,ContentRating 
+TYPES:  CreativeWork,ContentRating
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
 Resistance 3: Fall of Man
 by Sony
 Platform: Playstation 3
-Rated: Mature 
+Rated: Mature
 
-MICRODATA: 
+MICRODATA:
 
 <div itemscope itemtype="http://schema.org/CreativeWork">
 <img itemprop="image" src="videogame.jpg" />
@@ -1927,9 +1927,9 @@ MICRODATA:
 by <span itemprop="author">Sony</span>,
 Platform: Playstation 3
 Rated:<span itemprop="contentRating">Mature</span>
-</div> 
+</div>
 
-RDFA: 
+RDFA:
 
 <div vocab="http://schema.org/" typeof="CreativeWork">
 <img property="image" src="videogame.jpg" />
@@ -1937,24 +1937,24 @@ RDFA:
 by <span property="author">Sony</span>,
 Platform: Playstation 3
 Rated:<span property="contentRating">Mature</span>
-</div> 
+</div>
 
 JSON:
 
 <script type="application/ld+json">
 {
-  "@context": "http://schema.org", 
-  "@type": "CreativeWork", 
-  "author": "Sony", 
-  "contentRating": "Mature", 
-  "image": "videogame.jpg", 
+  "@context": "http://schema.org",
+  "@type": "CreativeWork",
+  "author": "Sony",
+  "contentRating": "Mature",
+  "image": "videogame.jpg",
   "name": "Resistance 3: Fall of Man"
 }
-</script> 
+</script>
 
-TYPES:  ImageObject 
+TYPES:  ImageObject
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
 <h2>Beach in Mexico</h2>
 <img src="mexico-beach.jpg" />
@@ -1963,9 +1963,9 @@ By Jane Doe
 Photographed in Puerto Vallarta, Mexico
 Date uploaded: Jan 25, 2008
 
-I took this picture while on vacation last year. 
+I took this picture while on vacation last year.
 
-MICRODATA: 
+MICRODATA:
 
 <div itemscope itemtype="http://schema.org/ImageObject">
   <h2 itemprop="name">Beach in Mexico</h2>
@@ -1978,9 +1978,9 @@ MICRODATA:
     <meta itemprop="datePublished" content="2008-01-25">Jan 25, 2008
 
   <span itemprop="description">I took this picture while on vacation last year.</span>
-</div> 
+</div>
 
-RDFA: 
+RDFA:
 
 <div vocab="http://schema.org/" typeof="ImageObject">
   <h2 property="name">Beach in Mexico</h2>
@@ -1993,26 +1993,26 @@ RDFA:
     <meta property="datePublished" content="2008-01-25">Jan 25, 2008
 
   <span property="description">I took this picture while on vacation last year.</span>
-</div> 
+</div>
 
 JSON:
 
 <script type="application/ld+json">
 {
-  "@context": "http://schema.org", 
-  "@type": "ImageObject", 
-  "author": "Jane Doe", 
-  "contentLocation": "Puerto Vallarta, Mexico", 
-  "contentURL": "mexico-beach.jpg", 
-  "datePublished": "2008-01-25", 
-  "description": "I took this picture while on vacation last year.", 
+  "@context": "http://schema.org",
+  "@type": "ImageObject",
+  "author": "Jane Doe",
+  "contentLocation": "Puerto Vallarta, Mexico",
+  "contentURL": "mexico-beach.jpg",
+  "datePublished": "2008-01-25",
+  "description": "I took this picture while on vacation last year.",
   "name": "Beach in Mexico"
 }
-</script> 
+</script>
 
-TYPES:  MusicPlaylist 
+TYPES:  MusicPlaylist
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
 Classic Rock Playlist
 
@@ -2020,9 +2020,9 @@ Classic Rock Playlist
 2.Shook you all Night Long - AC/DC
 3.Sharp Dressed Man - ZZ Top
 4.Old Time Rock and Roll - Bob Seger
-5.Hurt So Good - John Cougar 
+5.Hurt So Good - John Cougar
 
-MICRODATA: 
+MICRODATA:
 
 <div itemscope itemtype="http://schema.org/MusicPlaylist">
   <span itemprop="name">Classic Rock Playlist</span>
@@ -2067,9 +2067,9 @@ MICRODATA:
     <meta content="PT3M39S" itemprop="duration" />
     <meta content="American Fool" itemprop="inAlbum" />
   </div>
-</div> 
+</div>
 
-RDFA: 
+RDFA:
 
 <div vocab="http://schema.org/" typeof="MusicPlaylist">
   <span property="name">Classic Rock Playlist</span>
@@ -2114,70 +2114,70 @@ RDFA:
     <meta content="PT3M39S" property="duration" />
     <meta content="American Fool" property="inAlbum" />
   </div>
-</div> 
+</div>
 
 JSON:
 
 <script type="application/ld+json">
 {
-  "@context": "http://schema.org", 
-  "@type": "MusicPlaylist", 
-  "name": "Classic Rock Playlist", 
-  "numTracks": "5", 
+  "@context": "http://schema.org",
+  "@type": "MusicPlaylist",
+  "name": "Classic Rock Playlist",
+  "numTracks": "5",
   "track": [
     {
-      "@type": "MusicRecording", 
-      "byArtist": "Lynard Skynard", 
-      "duration": "PT4M45S", 
-      "inAlbum": "Second Helping", 
-      "name": "Sweet Home Alabama", 
+      "@type": "MusicRecording",
+      "byArtist": "Lynard Skynard",
+      "duration": "PT4M45S",
+      "inAlbum": "Second Helping",
+      "name": "Sweet Home Alabama",
       "url": "sweet-home-alabama"
-    }, 
+    },
     {
-      "@type": "MusicRecording", 
-      "byArtist": "AC/DC", 
-      "duration": "PT3M32S", 
-      "inAlbum": "Back In Black", 
-      "name": "Shook you all Night Long", 
+      "@type": "MusicRecording",
+      "byArtist": "AC/DC",
+      "duration": "PT3M32S",
+      "inAlbum": "Back In Black",
+      "name": "Shook you all Night Long",
       "url": "shook-you-all-night-long"
-    }, 
+    },
     {
-      "@type": "MusicRecording", 
-      "byArtist": "ZZ Top", 
-      "duration": "PT4M13S", 
-      "inAlbum": "Eliminator", 
-      "name": "Sharp Dressed Man", 
+      "@type": "MusicRecording",
+      "byArtist": "ZZ Top",
+      "duration": "PT4M13S",
+      "inAlbum": "Eliminator",
+      "name": "Sharp Dressed Man",
       "url": "sharp-dressed-man"
-    }, 
+    },
     {
-      "@type": "MusicRecording", 
-      "byArtist": "Bob Seger", 
-      "duration": "PT3M12S", 
-      "inAlbum": "Stranger In Town", 
-      "name": "Old Time Rock and Roll", 
+      "@type": "MusicRecording",
+      "byArtist": "Bob Seger",
+      "duration": "PT3M12S",
+      "inAlbum": "Stranger In Town",
+      "name": "Old Time Rock and Roll",
       "url": "old-time-rock-and-roll"
-    }, 
+    },
     {
-      "@type": "MusicRecording", 
-      "byArtist": "John Cougar", 
-      "duration": "PT3M39S", 
-      "inAlbum": "American Fool", 
-      "name": "Hurt So Good", 
+      "@type": "MusicRecording",
+      "byArtist": "John Cougar",
+      "duration": "PT3M39S",
+      "inAlbum": "American Fool",
+      "name": "Hurt So Good",
       "url": "hurt-so-good"
     }
   ]
 }
-</script> 
+</script>
 
-TYPES:  UserInteraction,WebPage,Article 
+TYPES:  UserInteraction,WebPage,Article
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
 How to Tie a Reef Knot
 by John Doe
-This article has been tweeted 1203 times and contains 78 user comments. 
+This article has been tweeted 1203 times and contains 78 user comments.
 
-MICRODATA: 
+MICRODATA:
 
 <div itemscope itemtype="http://schema.org/Article">
   <span itemprop="name">How to Tie a Reef Knot</span>
@@ -2185,9 +2185,9 @@ MICRODATA:
   This article has been tweeted 1203 times and contains 78 user comments.
   <meta itemprop="interactionCount" content="UserTweets:1203"/>
   <meta itemprop="interactionCount" content="UserComments:78"/>
-</div> 
+</div>
 
-RDFA: 
+RDFA:
 
 <div vocab="http://schema.org/" typeof="Article">
   <span property="name">How to Tie a Reef Knot</span>
@@ -2195,34 +2195,34 @@ RDFA:
   This article has been tweeted 1203 times and contains 78 user comments.
   <meta property="interactionCount" content="UserTweets:1203"/>
   <meta property="interactionCount" content="UserComments:78"/>
-</div> 
+</div>
 
 JSON:
 
 <script type="application/ld+json">
 {
-  "@context": "http://schema.org", 
-  "@type": "Article", 
-  "author": "John Doe", 
+  "@context": "http://schema.org",
+  "@type": "Article",
+  "author": "John Doe",
   "interactionCount": [
-    "UserTweets:1203", 
+    "UserTweets:1203",
     "UserComments:78"
-  ], 
+  ],
   "name": "How to Tie a Reef Knot"
 }
-</script> 
+</script>
 
-TYPES:  CivicStructure,Place 
+TYPES:  CivicStructure,Place
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
 Springfield Town Hall
 Hours:
    Mon-Fri 9am - 5:30pm
    Sat 9am - 12pm
-   Closed Sun 
+   Closed Sun
 
-MICRODATA: 
+MICRODATA:
 
 <div itemscope itemtype="http://schema.org/CivicStructure">
   <span itemprop="name">Springfield Town Hall</span>
@@ -2230,9 +2230,9 @@ MICRODATA:
   <meta itemprop="openingHours" content="Mo-Fr 09:00-17:30">Mon-Fri 9am - 5:30pm
   <meta itemprop="openingHours" content="Sa 09:00-12:00">Sat 9am - 12pm
   Closed Sun
-</div> 
+</div>
 
-RDFA: 
+RDFA:
 
 <div vocab="http://schema.org/" typeof="CivicStructure">
   <span property="name">Springfield Town Hall</span>
@@ -2240,25 +2240,25 @@ RDFA:
   <meta property="openingHours" content="Mo-Fr 09:00-17:30">Mon-Fri 9am - 5:30pm
   <meta property="openingHours" content="Sa 09:00-12:00">Sat 9am - 12pm
   Closed Sun
-</div> 
+</div>
 
 JSON:
 
 <script type="application/ld+json">
 {
-  "@context": "http://schema.org", 
-  "@type": "CivicStructure", 
-  "name": "Springfield Town Hall", 
+  "@context": "http://schema.org",
+  "@type": "CivicStructure",
+  "name": "Springfield Town Hall",
   "openingHours": [
-    "Mo-Fr 09:00-17:30", 
+    "Mo-Fr 09:00-17:30",
     "Sa 09:00-12:00"
   ]
 }
-</script> 
+</script>
 
-TYPES:  EducationalOrganization 
+TYPES:  EducationalOrganization
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
 Palo Alto High School
 50 Embarcadero Rd
@@ -2266,9 +2266,9 @@ Pallo Alto, CA 94301
 
 List of Alumni:
 John Doe
-Sarah Glames 
+Sarah Glames
 
-MICRODATA: 
+MICRODATA:
 
 <div itemscope itemtype="http://schema.org/EducationalOrganization">
  <span itemprop="name">Palo Alto High School</span>
@@ -2284,9 +2284,9 @@ MICRODATA:
  <span itemprop="alumni" itemscope itemtype="http://schema.org/Person">
    <span itemprop="name">Sarah Glames</span>
  </span>
-</div> 
+</div>
 
-RDFA: 
+RDFA:
 
 <div vocab="http://schema.org/" typeof="EducationalOrganization">
  <span property="name">Palo Alto High School</span>
@@ -2302,38 +2302,38 @@ RDFA:
  <span property="alumni"  typeof="Person">
    <span property="name">Sarah Glames</span>
  </span>
-</div> 
+</div>
 
 JSON:
 
 <script type="application/ld+json">
 {
-  "@context": "http://schema.org", 
-  "@type": "EducationalOrganization", 
+  "@context": "http://schema.org",
+  "@type": "EducationalOrganization",
   "address": {
-    "@type": "PostalAddress", 
-    "addressLocality": "Palo Alto", 
-    "addressRegion": "CA", 
-    "postalCode": "94301", 
+    "@type": "PostalAddress",
+    "addressLocality": "Palo Alto",
+    "addressRegion": "CA",
+    "postalCode": "94301",
     "streetAddress": "50 Embarcadero Rd"
-  }, 
+  },
   "alumni": [
     {
-      "@type": "Person", 
+      "@type": "Person",
       "name": "John Doe"
-    }, 
+    },
     {
-      "@type": "Person", 
+      "@type": "Person",
       "name": "Sarah Glames"
     }
-  ], 
+  ],
   "name": "Palo Alto High School"
 }
-</script> 
+</script>
 
-TYPES:  TVSeries,TVSeason,TVEpisode 
+TYPES:  TVSeries,TVSeason,TVEpisode
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
 Grey's Anatomy is a medical drama television series created by Shonda Rimes
 Starring:
@@ -2341,9 +2341,9 @@ Justin Chambers
 Jessica Capshaw
 
 Season 1 - May 22, 2005
-Season 2 - May 14, 2006 
+Season 2 - May 14, 2006
 
-MICRODATA: 
+MICRODATA:
 
 <div itemscope itemtype="http://schema.org/TVSeries">
  <span itemprop="name">Greys Anatomy</span> is a medical drama television series created by
@@ -2371,9 +2371,9 @@ MICRODATA:
      <meta itemprop="episodeNumber" content="1"/>
    </div>
  </div>
-</div> 
+</div>
 
-RDFA: 
+RDFA:
 
 <div vocab="http://schema.org/" typeof="TVSeries">
  <span property="name">Greys Anatomy</span> is a medical drama television series created by
@@ -2401,63 +2401,63 @@ RDFA:
      <meta property="episodeNumber" content="1"/>
    </div>
  </div>
-</div> 
+</div>
 
 JSON:
 
 <script type="application/ld+json">
 {
-  "@context": "http://schema.org", 
-  "@type": "TVSeries", 
+  "@context": "http://schema.org",
+  "@type": "TVSeries",
   "actor": [
     {
-      "@type": "Person", 
+      "@type": "Person",
       "name": "Justin Chambers"
-    }, 
+    },
     {
-      "@type": "Person", 
+      "@type": "Person",
       "name": "Jessica Capshaw"
     }
-  ], 
+  ],
   "author": {
-    "@type": "Person", 
+    "@type": "Person",
     "name": "Shonda Rimes"
-  }, 
-  "name": "Greys Anatomy", 
+  },
+  "name": "Greys Anatomy",
   "season": [
     {
-      "@type": "TVSeason", 
-      "datePublished": "2005-05-22", 
-      "name": "Season 1", 
+      "@type": "TVSeason",
+      "datePublished": "2005-05-22",
+      "name": "Season 1",
       "numberOfEpisodes": "14"
-    }, 
+    },
     {
-      "@type": "TVSeason", 
-      "datePublished": "2006-05-14", 
+      "@type": "TVSeason",
+      "datePublished": "2006-05-14",
       "episode": {
-        "@type": "TVEpisode", 
-        "episodeNumber": "1", 
+        "@type": "TVEpisode",
+        "episodeNumber": "1",
         "name": "Episode 1"
-      }, 
-      "name": "Season 2", 
+      },
+      "name": "Season 2",
       "numberOfEpisodes": "27"
     }
   ]
 }
-</script> 
+</script>
 
-TYPES:  MusicAlbum 
+TYPES:  MusicAlbum
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
 <h1> King of Limbs </h1>
 <img src="king-of-limbs.jpg" />
 <h2> Radiohead </h2>
 <h3>Sample Tracks</h3>
 Bloom - 5:14<br>
-Morning Mr Magpie - 4:40<br> 
+Morning Mr Magpie - 4:40<br>
 
-MICRODATA: 
+MICRODATA:
 
 <div itemscope itemtype="http://schema.org/MusicAlbum">
   <h1 itemprop="name"> King of Limbs </h1>
@@ -2483,9 +2483,9 @@ MICRODATA:
       <meta content="PT4M40S" itemprop="duration" />4:40
     </span>
   </div>
-</div> 
+</div>
 
-RDFA: 
+RDFA:
 
 <div vocab="http://schema.org/" typeof="MusicAlbum">
   <h1 property="name"> King of Limbs </h1>
@@ -2511,43 +2511,43 @@ RDFA:
       <meta content="PT4M40S" property="duration" />4:40
     </span>
   </div>
-</div> 
+</div>
 
 JSON:
 
 <script type="application/ld+json">
 {
-  "@context": "http://schema.org", 
-  "@type": "MusicAlbum", 
+  "@context": "http://schema.org",
+  "@type": "MusicAlbum",
   "byArtist": {
-    "@type": "MusicGroup", 
+    "@type": "MusicGroup",
     "name": "Radiohead"
-  }, 
-  "genre": "Alt/Punk", 
-  "image": "king-of-limbs.jpg", 
-  "name": "King of Limbs", 
-  "numTracks": "8", 
+  },
+  "genre": "Alt/Punk",
+  "image": "king-of-limbs.jpg",
+  "name": "King of Limbs",
+  "numTracks": "8",
   "track": [
     {
-      "@type": "MusicRecording", 
-      "duration": "PT5M14S", 
-      "name": "Bloom", 
+      "@type": "MusicRecording",
+      "duration": "PT5M14S",
+      "name": "Bloom",
       "url": "/artist/radiohead/album/the-king-of-limbs/track/bloom"
-    }, 
+    },
     {
-      "@type": "MusicRecording", 
-      "duration": "PT4M40S", 
-      "name": "Morning Mr Magpie", 
+      "@type": "MusicRecording",
+      "duration": "PT4M40S",
+      "name": "Morning Mr Magpie",
       "url": "/artist/radiohead/album/the-king-of-limbs/track/morning-mr-magpie"
     }
-  ], 
+  ],
   "url": "/artist/radiohead/album/the-king-of-limbs"
 }
-</script> 
+</script>
 
-TYPES:  JobPosting 
+TYPES:  JobPosting
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
 <div>
   <h2>Software Engineer</h2>
@@ -2594,9 +2594,9 @@ PRE-MARKUP:
       </ul>
   <p>If interested in this position, please email us your resume, along with salary requirements and a cover letter to Jobs@abc.123.</p>
   <p>Date Posted: 2011-10-31</p>
-</div> 
+</div>
 
-MICRODATA: 
+MICRODATA:
 
 <div itemscope itemtype="http://schema.org/JobPosting">
   <meta itemprop="specialCommitments" content="VeteranCommit" />
@@ -2659,9 +2659,9 @@ MICRODATA:
 
   <p>If interested in this position, please email us your resume, along with salary requirements and a cover letter to Jobs@abc.123.</p>
   <p>Date Posted: <span itemprop="datePosted">2011-10-31</span></p>
-</div> 
+</div>
 
-RDFA: 
+RDFA:
 
 <div vocab="http://schema.org/" typeof="JobPosting">
   <meta property="specialCommitments" content="VeteranCommit" />
@@ -2724,45 +2724,45 @@ RDFA:
 
   <p>If interested in this position, please email us your resume, along with salary requirements and a cover letter to Jobs@abc.123.</p>
   <p>Date Posted: <span property="datePosted">2011-10-31</span></p>
-</div> 
+</div>
 
 JSON:
 
 <script type="application/ld+json">
 {
-  "@context": "http://schema.org", 
-  "@type": "JobPosting", 
-  "baseSalary": "100000", 
-  "benefits": "Medical, Life, Dental", 
-  "datePosted": "2011-10-31", 
-  "description": "Description: ABC Company Inc. seeks a full-time mid-level software engineer to develop in-house tools.", 
-  "educationRequirements": "Bachelor's Degree in Computer Science, Information Systems or related fields of study.", 
-  "employmentType": "Full-time", 
-  "experienceRequirements": "Minumum 3 years experience as a software engineer", 
-  "incentives": "Performance-based annual bonus plan, project-completion bonuses", 
-  "industry": "Computer Software", 
+  "@context": "http://schema.org",
+  "@type": "JobPosting",
+  "baseSalary": "100000",
+  "benefits": "Medical, Life, Dental",
+  "datePosted": "2011-10-31",
+  "description": "Description: ABC Company Inc. seeks a full-time mid-level software engineer to develop in-house tools.",
+  "educationRequirements": "Bachelor's Degree in Computer Science, Information Systems or related fields of study.",
+  "employmentType": "Full-time",
+  "experienceRequirements": "Minumum 3 years experience as a software engineer",
+  "incentives": "Performance-based annual bonus plan, project-completion bonuses",
+  "industry": "Computer Software",
   "jobLocation": {
-    "@type": "Place", 
+    "@type": "Place",
     "address": {
-      "@type": "PostalAddress", 
-      "addressLocality": "Kirkland", 
+      "@type": "PostalAddress",
+      "addressLocality": "Kirkland",
       "addressRegion": "WA"
     }
-  }, 
-  "occupationalCategory": "15-1132.00 Software Developers, Application", 
-  "qualifications": "Ability to work in a team environment with members of varying skill levels. Highly motivated. Learns quickly.", 
-  "responsibilities": "Design and write specifications for tools for in-house costumers Build tools according to specifications", 
-  "salaryCurrency": "USD", 
-  "skills": "Web application development using Java/J2EE Web application development using Python or familiarity with dynamic programming languages", 
-  "specialCommitments": "VeteranCommit", 
-  "title": "Software Engineer", 
+  },
+  "occupationalCategory": "15-1132.00 Software Developers, Application",
+  "qualifications": "Ability to work in a team environment with members of varying skill levels. Highly motivated. Learns quickly.",
+  "responsibilities": "Design and write specifications for tools for in-house costumers Build tools according to specifications",
+  "salaryCurrency": "USD",
+  "skills": "Web application development using Java/J2EE Web application development using Python or familiarity with dynamic programming languages",
+  "specialCommitments": "VeteranCommit",
+  "title": "Software Engineer",
   "workHours": "40 hours per week"
 }
-</script> 
+</script>
 
-TYPES:  MedicalGuideline,MedicalGuidelineRecommendation,MedicalGuidelineContraindication 
+TYPES:  MedicalGuideline,MedicalGuidelineRecommendation,MedicalGuidelineContraindication
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
 <h1>Guidelines</h1>
 <ul>
@@ -2771,9 +2771,9 @@ PRE-MARKUP:
   Class I, based on multiple randomized clinical trials)</li>
   <li>Contraindication: cardiac failure should never be treated with
   appendectomy in adults. (Class III, standard of care)</li>
-</ul> 
+</ul>
 
-MICRODATA: 
+MICRODATA:
 
 <h1>Guidelines</h1>
 <ul>
@@ -2805,9 +2805,9 @@ MICRODATA:
     (Class III, <link itemprop="evidenceLevel" href="http://schema.org/EvidenceLevelC"/>
     <span itemprop="evidenceOrigin">standard of care</span></link>)
   </span></li>
-</ul> 
+</ul>
 
-RDFA: 
+RDFA:
 
 <h1>Guidelines</h1>
 <ul>
@@ -2838,52 +2838,52 @@ RDFA:
     (Class III, <link property="evidenceLevel" href="http://schema.org/EvidenceLevelC"/>
     <span property="evidenceOrigin">standard of care</span></link>)
   </span></li>
-</ul> 
+</ul>
 
 JSON:
 
 <script type="application/ld+json">
 {
-  "@context": "http://schema.org", 
+  "@context": "http://schema.org",
   "@graph": [
     {
-      "@type": "MedicalGuidelineRecommendation", 
-      "evidenceLevel": "http://schema.org/EvidenceLevelA", 
-      "evidenceOrigin": "multiple randomized clinical trials", 
-      "recommendationStrength": "Strong recommendation", 
+      "@type": "MedicalGuidelineRecommendation",
+      "evidenceLevel": "http://schema.org/EvidenceLevelA",
+      "evidenceOrigin": "multiple randomized clinical trials",
+      "recommendationStrength": "Strong recommendation",
       "subject": [
         {
-          "@type": "Drug", 
+          "@type": "Drug",
           "name": "NewvoDrug"
-        }, 
+        },
         {
-          "@type": "MedicalCondition", 
+          "@type": "MedicalCondition",
           "name": "cardiac failure"
         }
       ]
-    }, 
+    },
     {
-      "@type": "MedicalGuidelineContraindication", 
-      "evidenceLevel": "http://schema.org/EvidenceLevelC", 
-      "evidenceOrigin": "standard of care", 
+      "@type": "MedicalGuidelineContraindication",
+      "evidenceLevel": "http://schema.org/EvidenceLevelC",
+      "evidenceOrigin": "standard of care",
       "subject": [
         {
-          "@type": "MedicalCondition", 
+          "@type": "MedicalCondition",
           "name": "cardiac failure"
-        }, 
+        },
         {
-          "@type": "TherapeuticProcedure", 
+          "@type": "TherapeuticProcedure",
           "name": "appendectomy"
         }
       ]
     }
   ]
 }
-</script> 
+</script>
 
-TYPES:  MedicalScholarlyArticle,MedicalGuideline,MedicalGuidelineRecommendation 
+TYPES:  MedicalScholarlyArticle,MedicalGuideline,MedicalGuidelineRecommendation
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
 <h1>New guidelines for metformin and diabetes mellitus</h1>
 <p>Dr. John Smith
@@ -2898,9 +2898,9 @@ recommendations.</p>
 <h3>Guidelines</h3>
 Recommendation: we recommend monotherapy with metformin as an initial
 pharmacologic therapy to treat most patients with type 2 diabetes
-(Grade: strong recommendation; high-quality evidence). 
+(Grade: strong recommendation; high-quality evidence).
 
-MICRODATA: 
+MICRODATA:
 
 <div itemscope itemtype="http://schema.org/MedicalScholarlyArticle">
   <link itemprop="audience" href="http://schema.org/Clinician"/>
@@ -2950,9 +2950,9 @@ MICRODATA:
     <link itemprop="evidenceLevel" href="http://schema.org/EvidenceLevelA">high-quality
       evidence</link>).
   </span>
-</div> 
+</div>
 
-RDFA: 
+RDFA:
 
 <div vocab="http://schema.org/" typeof="MedicalScholarlyArticle">
   <link property="audience" href="http://schema.org/Clinician"/>
@@ -3000,57 +3000,57 @@ RDFA:
     <link property="evidenceLevel" href="http://schema.org/EvidenceLevelA">high-quality
       evidence</link>).
   </span>
-</div> 
+</div>
 
 JSON:
 
 <script type="application/ld+json">
 {
-  "@context": "http://schema.org", 
-  "@type": "MedicalScholarlyArticle", 
+  "@context": "http://schema.org",
+  "@type": "MedicalScholarlyArticle",
   "about": [
     {
-      "@type": "Drug", 
+      "@type": "Drug",
       "code": {
-        "@id": "http://www.ncbi.nlm.nih.gov/mesh/D02.078.370.141.450", 
-        "@type": "MedicalCode", 
-        "code": "D02.078.370.141.450", 
+        "@id": "http://www.ncbi.nlm.nih.gov/mesh/D02.078.370.141.450",
+        "@type": "MedicalCode",
+        "code": "D02.078.370.141.450",
         "codingSystem": "MeSH"
-      }, 
+      },
       "name": "Metformin"
-    }, 
+    },
     {
-      "@type": "MedicalCondition", 
+      "@type": "MedicalCondition",
       "name": "Diabetes Mellitus, Type 2"
     }
-  ], 
-  "audience": "http://schema.org/Clinician", 
+  ],
+  "audience": "http://schema.org/Clinician",
   "author": {
-    "@type": "Person", 
-    "affiliation": "Medical University", 
+    "@type": "Person",
+    "affiliation": "Medical University",
     "name": "Dr. John Smith"
-  }, 
+  },
   "code": {
-    "@id": "http://www.ncbi.nlm.nih.gov/mesh/C18.452.394.750.149", 
-    "@type": "MedicalCode", 
-    "code": "C18.452.394.750.149", 
+    "@id": "http://www.ncbi.nlm.nih.gov/mesh/C18.452.394.750.149",
+    "@type": "MedicalCode",
+    "code": "C18.452.394.750.149",
     "codingSystem": "MeSH"
-  }, 
-  "datePublished": "2012-03-24", 
-  "evidenceLevel": "http://schema.org/EvidenceLevelA", 
-  "name": "New guidelines for metformin and diabetes mellitus", 
-  "publicationType": "Meta-Analysis", 
-  "recommendationStrength": "strong recommendation", 
+  },
+  "datePublished": "2012-03-24",
+  "evidenceLevel": "http://schema.org/EvidenceLevelA",
+  "name": "New guidelines for metformin and diabetes mellitus",
+  "publicationType": "Meta-Analysis",
+  "recommendationStrength": "strong recommendation",
   "subject": [
-    "metformin", 
+    "metformin",
     "type 2 diabetes"
   ]
 }
-</script> 
+</script>
 
-TYPES:  MedicalWebPage,DrugClass 
+TYPES:  MedicalWebPage,DrugClass
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
 <h1>About High Blood Pressure (hypertension)</h1>
 
@@ -3060,9 +3060,9 @@ High blood pressure is diagnosed by measuring ...
 <h2>Treatment</h2>
 There are many common treatments for high blood pressure,
 including beta-blocker drugs such as propanaolol (Innopran)
-and atenonlol (Tenormin) ... 
+and atenonlol (Tenormin) ...
 
-MICRODATA: 
+MICRODATA:
 
 <body itemscope itemtype="http://schema.org/MedicalWebPage">
   <link itemprop="audience" href="http://schema.org/Patient" />
@@ -3092,9 +3092,9 @@ MICRODATA:
       (<span itemprop="otherName">Tenormin</span>)
     </span> ...
   ...
-</body> 
+</body>
 
-RDFA: 
+RDFA:
 
 <body vocab="http://schema.org/" typeof="MedicalWebPage">
   <link property="audience" href="http://schema.org/Patient" />
@@ -3124,47 +3124,47 @@ RDFA:
       (<span property="otherName">Tenormin</span>)
     </span> ...
   ...
-</body> 
+</body>
 
 JSON:
 
 <script type="application/ld+json">
 {
-  "@context": "http://schema.org", 
-  "@type": "MedicalWebPage", 
+  "@context": "http://schema.org",
+  "@type": "MedicalWebPage",
   "about": {
-    "@type": "MedicalCondition", 
+    "@type": "MedicalCondition",
     "name": [
-      "High Blood Pressure", 
+      "High Blood Pressure",
       "hypertension"
     ]
-  }, 
+  },
   "aspect": [
-    "Diagnosis", 
+    "Diagnosis",
     "Treatment"
-  ], 
-  "audience": "http://schema.org/Patient", 
+  ],
+  "audience": "http://schema.org/Patient",
   "drug": [
     {
-      "@type": "Drug", 
-      "nonProprietaryName": "propanaolol", 
+      "@type": "Drug",
+      "nonProprietaryName": "propanaolol",
       "otherName": "Innopran"
-    }, 
+    },
     {
-      "@type": "Drug", 
-      "nonProprietaryName": "atenolol", 
+      "@type": "Drug",
+      "nonProprietaryName": "atenolol",
       "otherName": "Tenormin"
     }
-  ], 
-  "lastReviewed": "2011-09-14", 
-  "name": "beta-blocker", 
+  ],
+  "lastReviewed": "2011-09-14",
+  "name": "beta-blocker",
   "specialty": "http://schema.org/Cardiovascular"
 }
-</script> 
+</script>
 
-TYPES:  MedicalCondition,MedicalCause,MedicalRiskFactor,DDxElement,MedicalSymptom,MedicalSignOrSymptom 
+TYPES:  MedicalCondition,MedicalCause,MedicalRiskFactor,DDxElement,MedicalSymptom,MedicalSignOrSymptom
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
 <h1>Stable angina (angina pectoris)</h1>
 Stable angina is a medical condition that affects the heart. The
@@ -3193,9 +3193,9 @@ Risk factors for stable angina include:
 The initial treatment for stable angina is usually drug therapy
 with aspirin, beta blockers, ACE inhibitors, and/or nitroglycerine.
 Future episodes of stable angina can sometimes be prevented by
-stopping smoking, weight management, and increased physical activity. 
+stopping smoking, weight management, and increased physical activity.
 
-MICRODATA: 
+MICRODATA:
 
 <div itemscope itemtype="http://schema.org/MedicalCondition">
   <h1><span itemprop="name">Stable angina</span>
@@ -3295,9 +3295,9 @@ MICRODATA:
   <span itemprop="secondaryPrevention" itemscope itemtype="http://schema.org/LifestyleModification">
     <span itemprop="name">increased physical activity</span>
   </span>.
-</div> 
+</div>
 
-RDFA: 
+RDFA:
 
 <div vocab="http://schema.org/" typeof="MedicalCondition">
   <h1><span property="name">Stable angina</span>
@@ -3397,130 +3397,130 @@ RDFA:
   <span property="secondaryPrevention"  typeof="LifestyleModification">
     <span property="name">increased physical activity</span>
   </span>.
-</div> 
+</div>
 
 JSON:
 
 <script type="application/ld+json">
 {
-  "@context": "http://schema.org", 
-  "@type": "MedicalCondition", 
-  "alternateName": "angina pectoris", 
+  "@context": "http://schema.org",
+  "@type": "MedicalCondition",
+  "alternateName": "angina pectoris",
   "associatedAnatomy": {
-    "@type": "AnatomicalStructure", 
+    "@type": "AnatomicalStructure",
     "name": "heart"
-  }, 
+  },
   "cause": [
     {
-      "@type": "MedicalCause", 
+      "@type": "MedicalCause",
       "name": "atherosclerosis"
-    }, 
+    },
     {
-      "@type": "MedicalCause", 
+      "@type": "MedicalCause",
       "name": "spasms of the epicardial artery"
     }
-  ], 
+  ],
   "code": {
-    "@type": "MedicalCode", 
-    "code": "413", 
+    "@type": "MedicalCode",
+    "code": "413",
     "codingSystem": "ICD-9"
-  }, 
+  },
   "differentialDiagnosis": {
-    "@type": "DDxElement", 
+    "@type": "DDxElement",
     "diagnosis": {
-      "@type": "MedicalCondition", 
+      "@type": "MedicalCondition",
       "name": "heart attack"
-    }, 
+    },
     "distinguishingSign": [
       {
-        "@type": "MedicalSymptom", 
+        "@type": "MedicalSymptom",
         "name": "chest pain lasting at least 10 minutes at rest"
-      }, 
+      },
       {
-        "@type": "MedicalSymptom", 
+        "@type": "MedicalSymptom",
         "name": "repeated episodes of chest pain at rest lasting 5 or more minutes"
-      }, 
+      },
       {
-        "@type": "MedicalSymptom", 
+        "@type": "MedicalSymptom",
         "name": "an accelerating pattern of chest discomfort (episodes that are more frequent, severe, longer in duration, and precipitated by minimal exertion)"
       }
     ]
-  }, 
-  "name": "Stable angina", 
+  },
+  "name": "Stable angina",
   "possibleTreatment": [
     {
-      "@type": "Drug", 
+      "@type": "Drug",
       "name": "aspirin"
-    }, 
+    },
     {
-      "@type": "DrugClass", 
+      "@type": "DrugClass",
       "name": "beta blockers"
-    }, 
+    },
     {
-      "@type": "DrugClass", 
+      "@type": "DrugClass",
       "name": "ACE inhibitors"
-    }, 
+    },
     {
-      "@type": "Drug", 
+      "@type": "Drug",
       "name": "nitroglycerine"
     }
-  ], 
+  ],
   "riskFactor": [
     {
-      "@type": "MedicalRiskFactor", 
+      "@type": "MedicalRiskFactor",
       "name": "Age"
-    }, 
+    },
     {
-      "@type": "MedicalRiskFactor", 
+      "@type": "MedicalRiskFactor",
       "name": "Gender"
-    }, 
+    },
     {
-      "@type": "MedicalRiskFactor", 
+      "@type": "MedicalRiskFactor",
       "name": "Systolic blood pressure"
-    }, 
+    },
     {
-      "@type": "MedicalRiskFactor", 
+      "@type": "MedicalRiskFactor",
       "name": "Smoking"
-    }, 
+    },
     {
-      "@type": "MedicalRiskFactor", 
+      "@type": "MedicalRiskFactor",
       "name": "Total cholesterol and/or cholesterol:HDL ratio"
-    }, 
+    },
     {
-      "@type": "MedicalRiskFactor", 
+      "@type": "MedicalRiskFactor",
       "name": "Coronary artery disease"
     }
-  ], 
+  ],
   "secondaryPrevention": [
     {
-      "@type": "LifestyleModification", 
+      "@type": "LifestyleModification",
       "name": "stopping smoking"
-    }, 
+    },
     {
-      "@type": "LifestyleModification", 
+      "@type": "LifestyleModification",
       "name": "weight management"
-    }, 
+    },
     {
-      "@type": "LifestyleModification", 
+      "@type": "LifestyleModification",
       "name": "increased physical activity"
     }
-  ], 
+  ],
   "signOrSymptom": [
     {
-      "@type": "MedicalSymptom", 
+      "@type": "MedicalSymptom",
       "name": "chest discomfort"
-    }, 
+    },
     {
-      "@type": "MedicalSymptom", 
+      "@type": "MedicalSymptom",
       "name": "feeling of tightness, heaviness, or pain in the chest"
     }
   ]
 }
-</script> 
+</script>
 
-TYPES:  Drug,TreatmentIndication,MedicalContraindication 
+TYPES:  Drug,TreatmentIndication,MedicalContraindication
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
 <h1>Drug Info: PainAwayMax</h1>
 PainAwayMax is a brand of ibuprofen manufactured by FooCorp. It is an
@@ -3549,9 +3549,9 @@ vomiting blood, bloody stools, or stomach pain that does not get better.
 Do not use PainAwayMax if you have ever had an allergic reaction to any
 other pain reliever/fever reducer, or right before or after heart surgery.
 <br>
-<b>Warning:</b> NSAIDs may cause severe stomach bleeding. 
+<b>Warning:</b> NSAIDs may cause severe stomach bleeding.
 
-MICRODATA: 
+MICRODATA:
 
 <div itemscope itemtype="http://schema.org/Drug">
   <h1>Drug Info: <span itemprop="name">PainAwayMax</span></h1>
@@ -3644,9 +3644,9 @@ MICRODATA:
   <br>
   <b>Warning:</b>
   <span itemprop="warning">NSAIDs may cause severe stomach bleeding</span>.
-</div> 
+</div>
 
-RDFA: 
+RDFA:
 
 <div vocab="http://schema.org/" typeof="Drug">
   <h1>Drug Info: <span property="name">PainAwayMax</span></h1>
@@ -3739,135 +3739,135 @@ RDFA:
   <br>
   <b>Warning:</b>
   <span property="warning">NSAIDs may cause severe stomach bleeding</span>.
-</div> 
+</div>
 
 JSON:
 
 <script type="application/ld+json">
 {
-  "@context": "http://schema.org", 
-  "@type": "Drug", 
+  "@context": "http://schema.org",
+  "@type": "Drug",
   "adverseOutcome": [
     {
-      "@type": "MedicalSymptom", 
+      "@type": "MedicalSymptom",
       "name": "diarrhea"
-    }, 
+    },
     {
-      "@type": "MedicalSymptom", 
+      "@type": "MedicalSymptom",
       "name": "constipation"
-    }, 
+    },
     {
-      "@type": "MedicalSymptom", 
+      "@type": "MedicalSymptom",
       "name": "bloating"
-    }, 
+    },
     {
-      "@type": "MedicalSymptom", 
+      "@type": "MedicalSymptom",
       "name": "dizziness"
-    }, 
+    },
     {
-      "@type": "MedicalSymptom", 
+      "@type": "MedicalSymptom",
       "name": "nervousness"
     }
-  ], 
-  "alternateName": "ibuprofen", 
+  ],
+  "alternateName": "ibuprofen",
   "contraindication": [
     {
-      "@type": "MedicalContraindication", 
+      "@type": "MedicalContraindication",
       "name": "allergic reaction to any pain reliever"
-    }, 
+    },
     {
-      "@type": "MedicalContraindication", 
+      "@type": "MedicalContraindication",
       "name": "heart surgery"
     }
-  ], 
+  ],
   "dosageForm": [
-    "tablets", 
+    "tablets",
     "capsules"
-  ], 
+  ],
   "drugClass": [
     {
-      "@type": "DrugClass", 
+      "@type": "DrugClass",
       "name": "analgesic"
-    }, 
+    },
     {
-      "@type": "DrugClass", 
-      "alternateName": "NSAID", 
+      "@type": "DrugClass",
+      "alternateName": "NSAID",
       "name": "nonsteroidal anti-inflammatory"
     }
-  ], 
+  ],
   "indication": [
     {
-      "@type": "TreatmentIndication", 
+      "@type": "TreatmentIndication",
       "name": "headache"
-    }, 
+    },
     {
-      "@type": "TreatmentIndication", 
+      "@type": "TreatmentIndication",
       "name": "toothache"
-    }, 
+    },
     {
-      "@type": "TreatmentIndication", 
+      "@type": "TreatmentIndication",
       "name": "backache"
-    }, 
+    },
     {
-      "@type": "TreatmentIndication", 
+      "@type": "TreatmentIndication",
       "name": "menstrual cramps"
-    }, 
+    },
     {
-      "@type": "TreatmentIndication", 
+      "@type": "TreatmentIndication",
       "name": "common cold"
-    }, 
+    },
     {
-      "@type": "TreatmentIndication", 
+      "@type": "TreatmentIndication",
       "name": "muscular aches"
-    }, 
+    },
     {
-      "@type": "TreatmentIndication", 
+      "@type": "TreatmentIndication",
       "name": "minor pain of arthritis"
-    }, 
+    },
     {
-      "@type": "TreatmentIndication", 
+      "@type": "TreatmentIndication",
       "name": "fever"
     }
-  ], 
+  ],
   "legalStatus": {
-    "@type": "DrugLegalStatus", 
-    "applicableLocation": "US", 
+    "@type": "DrugLegalStatus",
+    "applicableLocation": "US",
     "name": "non-prescription drug"
-  }, 
+  },
   "manufacturer": {
-    "@type": "Organization", 
+    "@type": "Organization",
     "name": "FooCorp"
-  }, 
-  "name": "PainAwayMax", 
-  "prescriptionStatus": "http://schema.org/OTC", 
+  },
+  "name": "PainAwayMax",
+  "prescriptionStatus": "http://schema.org/OTC",
   "seriousAdverseOutcome": [
     {
-      "@type": "MedicalSymptom", 
+      "@type": "MedicalSymptom",
       "name": "vomiting blood"
-    }, 
+    },
     {
-      "@type": "MedicalSymptom", 
+      "@type": "MedicalSymptom",
       "name": "bloody stools"
-    }, 
+    },
     {
-      "@type": "MedicalSymptom", 
+      "@type": "MedicalSymptom",
       "name": "stomach pain that does not get better"
     }
-  ], 
+  ],
   "warning": "NSAIDs may cause severe stomach bleeding"
 }
-</script> 
+</script>
 
-TYPES:  IndividualProduct 
+TYPES:  IndividualProduct
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
 <div>
 ACME Racing Bike in black (2008). ACME Racing Bike, bought 8/2008, almost new, with
 a signature of Eddy Merckx on the frame.
-</div> 
+</div>
 
-MICRODATA: 
+MICRODATA:
 
 We use the IndividualProduct type when we are concerned with the specific item,
 rather than a set of indistinguishably similar items.
@@ -3877,9 +3877,9 @@ rather than a set of indistinguishably similar items.
  <span itemprop="name">ACME Racing Bike in black (2008)</span>
  <span itemprop="description">ACME Racing Bike, bought 8/2008, almost new, with a signature of
 Eddy Merckx on the frame.</span>
-</div> 
+</div>
 
-RDFA: 
+RDFA:
 
 We use the IndividualProduct type when we are concerned with the specific item,
 rather than a set of indistinguishably similar items.
@@ -3889,32 +3889,32 @@ rather than a set of indistinguishably similar items.
  <span property="name">ACME Racing Bike in black (2008)</span>
  <span property="description">ACME Racing Bike, bought 8/2008, almost new, with a signature of
 Eddy Merckx on the frame.</span>
-</div> 
+</div>
 
 JSON:
 
 <script type="application/ld+json">
 {
-  "@context": "http://schema.org", 
-  "@id": "#product", 
-  "@type": "IndividualProduct", 
-  "additionalType": "http://www.productontology.org/id/Racing_bicycle", 
-  "description": "ACME Racing Bike, bought 8/2008, almost new, with a signature of Eddy Merckx on the frame.", 
+  "@context": "http://schema.org",
+  "@id": "#product",
+  "@type": "IndividualProduct",
+  "additionalType": "http://www.productontology.org/id/Racing_bicycle",
+  "description": "ACME Racing Bike, bought 8/2008, almost new, with a signature of Eddy Merckx on the frame.",
   "name": "ACME Racing Bike in black (2008)"
 }
-</script> 
+</script>
 
-TYPES:  SomeProducts 
+TYPES:  SomeProducts
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
 <div>
 We have the Brother HL-2230 on sale! Brother HL-2230 Compact Laser
 Printer. A fast, great-looking, compact laser printer for your
 desk. GTIN13: 0012502627104
-</div> 
+</div>
 
-MICRODATA: 
+MICRODATA:
 
 The SomeProducts type is used when the product is an item drawn from a
 collection of interchangeably similar items.
@@ -3927,9 +3927,9 @@ collection of interchangeably similar items.
  <span itemprop="description">A fast, great-looking, compact laser
   printer for your desk.</span>
  GTIN13: <span itemprop="gtin13">0012502627104</span>
-</div> 
+</div>
 
-RDFA: 
+RDFA:
 
 The SomeProducts type is used when the product is an item drawn from a
 collection of interchangeably similar items.
@@ -3942,32 +3942,32 @@ collection of interchangeably similar items.
  <span property="description">A fast, great-looking, compact laser
   printer for your desk.</span>
  GTIN13: <span property="gtin13">0012502627104</span>
-</div> 
+</div>
 
 JSON:
 
 <script type="application/ld+json">
 {
-  "@context": "http://schema.org", 
-  "@id": "#product", 
-  "@type": "SomeProducts", 
-  "additionalType": "http://www.productontology.org/id/Printer_(computing)", 
-  "description": "A fast, great-looking, compact laser printer for your desk.", 
-  "gtin13": "0012502627104", 
+  "@context": "http://schema.org",
+  "@id": "#product",
+  "@type": "SomeProducts",
+  "additionalType": "http://www.productontology.org/id/Printer_(computing)",
+  "description": "A fast, great-looking, compact laser printer for your desk.",
+  "gtin13": "0012502627104",
   "name": "Brother HL-2230 Compact Laser Printer"
 }
-</script> 
+</script>
 
-TYPES:  ProductModel 
+TYPES:  ProductModel
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
 <div>
 ACME Colorvision 123. The ACME Colorvision 123 is the leading-edge color TV from
 our company. EAN/UPC: 1234567890123.
-</div> 
+</div>
 
-MICRODATA: 
+MICRODATA:
 
 A ProductModel gives a datasheet or vendor specification of a
 product (in the sense of a prototypical description).  Use this type
@@ -3988,9 +3988,9 @@ Colorvision 123 specifiation on the ACME Corp. site for that model.
 Recommendation: Try to provide identifiers (gtin13, gtin14, gtin8, mpn
 properties) and link to you as the manufacturer (manufacturer
 property) so that search engines can use your data to enrich offers of
-your products found elsewhere. 
+your products found elsewhere.
 
-RDFA: 
+RDFA:
 
 A ProductModel gives a datasheet or vendor specification of a
 product (in the sense of a prototypical description).  Use this type
@@ -4011,27 +4011,27 @@ Colorvision 123 specifiation on the ACME Corp. site for that model.
 Recommendation: Try to provide identifiers (gtin13, gtin14, gtin8, mpn
 properties) and link to you as the manufacturer (manufacturer
 property) so that search engines can use your data to enrich offers of
-your products found elsewhere. 
+your products found elsewhere.
 
 JSON:
 
 <script type="application/ld+json">
 {
-  "@context": "http://schema.org", 
-  "@id": "#model", 
-  "@type": "ProductModel", 
-  "additionalType": "http://www.productontology.org/id/Television_set", 
-  "description": "The ACME Colorvision 123 is the leading-edge color TV from our company.", 
-  "gtin13": "1234567890123", 
+  "@context": "http://schema.org",
+  "@id": "#model",
+  "@type": "ProductModel",
+  "additionalType": "http://www.productontology.org/id/Television_set",
+  "description": "The ACME Colorvision 123 is the leading-edge color TV from our company.",
+  "gtin13": "1234567890123",
   "name": "ACME Colorvision 123"
 }
-</script> 
+</script>
 
-TYPES:  Action 
+TYPES:  Action
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John listened to Pink with Steve at Anna's apartment on his iPod. 
+John listened to Pink with Steve at Anna's apartment on his iPod.
 
 MICRODATA:
 
@@ -4041,11 +4041,11 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <!--  John listened to Pink with Steve at Anna's apartment on his iPod. -->
 <script type="application/ld+json">
-
+{
   "@context": "http://schema.org",
   "@type": "ListenAction",
   "agent": {
@@ -4069,13 +4069,13 @@ JSON:
     "name": "iPod"
   }
 }
-</script> 
+</script>
 
-TYPES:  Action 
+TYPES:  Action
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John created an exercise plan with Steve. 
+John created an exercise plan with Steve.
 
 MICRODATA:
 
@@ -4085,11 +4085,11 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <!--  John created an exercise plan with Steve. -->
 <script type="application/ld+json">
-
+{
   "@context": "http://schema.org",
   "@type": "CreateAction",
   "agent": {
@@ -4105,13 +4105,13 @@ JSON:
     "name": "Steve"
   }
 }
-</script> 
+</script>
 
-TYPES:  AchieveAction 
+TYPES:  AchieveAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John achieved his exercise plan. 
+John achieved his exercise plan.
 
 MICRODATA:
 
@@ -4121,11 +4121,11 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <!--  John achieved his exercise plan. -->
 <script type="application/ld+json">
-
+{
   "@context": "http://schema.org",
   "@type": "AchieveAction",
   "agent": {
@@ -4137,13 +4137,13 @@ JSON:
     "exerciseType": "biking"
   }
 }
-</script> 
+</script>
 
-TYPES:  LoseAction 
+TYPES:  LoseAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John lost a match of angry birds to Steve. 
+John lost a match of angry birds to Steve.
 
 MICRODATA:
 
@@ -4153,11 +4153,11 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <!--  John lost a match of angry birds to Steve. -->
 <script type="application/ld+json">
-
+{
   "@context": "http://schema.org",
   "@type": "WinAction",
   "agent": {
@@ -4173,13 +4173,13 @@ JSON:
     "name": "Steve"
   }
 }
-</script> 
+</script>
 
-TYPES:  TieAction 
+TYPES:  TieAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John tied on a match of chess with Steve. 
+John tied on a match of chess with Steve.
 
 MICRODATA:
 
@@ -4189,11 +4189,11 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <!--  John tied on a match of chess with Steve. -->
 <script type="application/ld+json">
-
+{
   "@context": "http://schema.org",
   "@type": "WinAction",
   "agent": {
@@ -4209,13 +4209,13 @@ JSON:
     "name": "Steve"
   }
 }
-</script> 
+</script>
 
-TYPES:  WinAction 
+TYPES:  WinAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John won a Nobel prize. 
+John won a Nobel prize.
 
 MICRODATA:
 
@@ -4225,11 +4225,11 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <!--  John won a Nobel prize. -->
 <script type="application/ld+json">
-
+{
   "@context": "http://schema.org",
   "@type": "WinAction",
   "agent": {
@@ -4241,13 +4241,13 @@ JSON:
     "name": "Nobel prize"
   }
 }
-</script> 
+</script>
 
-TYPES:  AssessAction 
+TYPES:  AssessAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John assessed a scholar paper. 
+John assessed a scholar paper.
 
 MICRODATA:
 
@@ -4257,11 +4257,11 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <!--  John assessed a scholar paper. -->
 <script type="application/ld+json">
-
+{
   "@context": "http://schema.org",
   "@type": "AssessAction",
   "agent": {
@@ -4273,13 +4273,13 @@ JSON:
     "name": "Does P = NP?"
   }
 }
-</script> 
+</script>
 
-TYPES:  ChooseAction 
+TYPES:  ChooseAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John chose Dogfish Head between that and Russian River. 
+John chose Dogfish Head between that and Russian River.
 
 MICRODATA:
 
@@ -4289,11 +4289,11 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <!--  John chose Dogfish Head between that and Russian River. -->
 <script type="application/ld+json">
-
+{
   "@context": "http://schema.org",
   "@type": "ChooseAction",
   "agent": {
@@ -4315,13 +4315,13 @@ JSON:
     }
   ]
 }
-</script> 
+</script>
 
-TYPES:  ChooseAction 
+TYPES:  ChooseAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John chose Dogfish Head from all breweries. 
+John chose Dogfish Head from all breweries.
 
 MICRODATA:
 
@@ -4331,11 +4331,11 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <!--  John chose Dogfish Head from all breweries. -->
 <script type="application/ld+json">
-
+{
   "@context": "http://schema.org",
   "@type": "ChooseAction",
   "agent": {
@@ -4348,13 +4348,13 @@ JSON:
   },
   "option": "Brewery"
 }
-</script> 
+</script>
 
-TYPES:  VoteAction 
+TYPES:  VoteAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John voted on Steve. 
+John voted on Steve.
 
 MICRODATA:
 
@@ -4364,11 +4364,11 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <!--  John voted on Steve. -->
 <script type="application/ld+json">
-
+{
   "@context": "http://schema.org",
   "@type": "VoteAction",
   "agent": {
@@ -4380,13 +4380,13 @@ JSON:
     "name": "Steve"
   }
 }
-</script> 
+</script>
 
-TYPES:  IgnoreAction 
+TYPES:  IgnoreAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John ignored Steve. 
+John ignored Steve.
 
 MICRODATA:
 
@@ -4396,11 +4396,11 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <!--  John ignored Steve. -->
 <script type="application/ld+json">
-
+{
   "@context": "http://schema.org",
   "@type": "IgnoreAction",
   "agent": {
@@ -4412,13 +4412,13 @@ JSON:
     "name": "Steve"
   }
 }
-</script> 
+</script>
 
-TYPES:  IgnoreAction 
+TYPES:  IgnoreAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John and Steve ignored an article. 
+John and Steve ignored an article.
 
 MICRODATA:
 
@@ -4428,11 +4428,11 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <!--  John and Steve ignored an article. -->
 <script type="application/ld+json">
-
+{
   "@context": "http://schema.org",
   "@type": "IgnoreAction",
   "agent": {
@@ -4448,13 +4448,13 @@ JSON:
     "name": "Steve"
   }
 }
-</script> 
+</script>
 
-TYPES:  IgnoreAction 
+TYPES:  IgnoreAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John ignores a friend request from Steve. 
+John ignores a friend request from Steve.
 
 MICRODATA:
 
@@ -4464,11 +4464,11 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <!--  John ignores a friend request from Steve. -->
 <script type="application/ld+json">
-
+{
   "@context": "http://schema.org",
   "@type": "IgnoreAction",
   "agent": {
@@ -4487,13 +4487,13 @@ JSON:
     }
   }
 }
-</script> 
+</script>
 
-TYPES:  ReactAction 
+TYPES:  ReactAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John reacted to a scholar paper claiming that P = NP!. 
+John reacted to a scholar paper claiming that P = NP!.
 
 MICRODATA:
 
@@ -4503,11 +4503,11 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <!--  John reacted to a scholar paper claiming that P = NP!. -->
 <script type="application/ld+json">
-
+{
   "@context": "http://schema.org",
   "@type": "ReactAction",
   "agent": {
@@ -4519,13 +4519,13 @@ JSON:
     "name": "We found out that P = NP!"
   }
 }
-</script> 
+</script>
 
-TYPES:  AgreeAction 
+TYPES:  AgreeAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John and Steve agreed with a scholar paper claiming that P = NP!. 
+John and Steve agreed with a scholar paper claiming that P = NP!.
 
 MICRODATA:
 
@@ -4535,11 +4535,11 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <!--  John and Steve agreed with a scholar paper claiming that P = NP!. -->
 <script type="application/ld+json">
-
+{
   "@context": "http://schema.org",
   "@type": "AgreeAction",
   "agent": {
@@ -4555,13 +4555,13 @@ JSON:
     "name": "Steve"
   }
 }
-</script> 
+</script>
 
-TYPES:  DisagreeAction 
+TYPES:  DisagreeAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John and Steve disagreed with a scholar paper claiming that P = NP!,  resulting in another scholar paper claiming that P is in fact != NP!. 
+John and Steve disagreed with a scholar paper claiming that P = NP!,  resulting in another scholar paper claiming that P is in fact != NP!.
 
 MICRODATA:
 
@@ -4571,11 +4571,11 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <!--  John and Steve disagreed with a scholar paper claiming that P = NP!,  resulting in another scholar paper claiming that P is in fact != NP!. -->
 <script type="application/ld+json">
-
+{
   "@context": "http://schema.org",
   "@type": "DisagreeAction",
   "agent": {
@@ -4595,13 +4595,13 @@ JSON:
     "name": "No it is not! P != NP!"
   }
 }
-</script> 
+</script>
 
-TYPES:  DislikeAction 
+TYPES:  DislikeAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John and Steve dislike an article. 
+John and Steve dislike an article.
 
 MICRODATA:
 
@@ -4611,11 +4611,11 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <!--  John and Steve dislike an article. -->
 <script type="application/ld+json">
-
+{
   "@context": "http://schema.org",
   "@type": "DislikeAction",
   "agent": {
@@ -4631,13 +4631,13 @@ JSON:
     "name": "Steve"
   }
 }
-</script> 
+</script>
 
-TYPES:  EndorseAction 
+TYPES:  EndorseAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John endorsed Steve. 
+John endorsed Steve.
 
 MICRODATA:
 
@@ -4647,11 +4647,11 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <!--  John endorsed Steve. -->
 <script type="application/ld+json">
-
+{
   "@context": "http://schema.org",
   "@type": "EndorseAction",
   "agent": {
@@ -4663,13 +4663,13 @@ JSON:
     "name": "Steve"
   }
 }
-</script> 
+</script>
 
-TYPES:  LikeAction 
+TYPES:  LikeAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John and Steve like an article. 
+John and Steve like an article.
 
 MICRODATA:
 
@@ -4679,11 +4679,11 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <!--  John and Steve like an article. -->
 <script type="application/ld+json">
-
+{
   "@context": "http://schema.org",
   "@type": "LikeAction",
   "agent": {
@@ -4699,13 +4699,13 @@ JSON:
     "name": "Steve"
   }
 }
-</script> 
+</script>
 
-TYPES:  WantAction 
+TYPES:  WantAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John and Steve want an ipod. 
+John and Steve want an ipod.
 
 MICRODATA:
 
@@ -4715,11 +4715,11 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <!--  John and Steve want an ipod. -->
 <script type="application/ld+json">
-
+{
   "@context": "http://schema.org",
   "@type": "WantAction",
   "agent": {
@@ -4735,13 +4735,13 @@ JSON:
     "name": "Steve"
   }
 }
-</script> 
+</script>
 
-TYPES:  ReviewAction 
+TYPES:  ReviewAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John and Steve reviewed an article. 
+John and Steve reviewed an article.
 
 MICRODATA:
 
@@ -4751,11 +4751,11 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <!--  John and Steve reviewed an article. -->
 <script type="application/ld+json">
-
+{
   "@context": "http://schema.org",
   "@type": "ReviewAction",
   "agent": {
@@ -4775,13 +4775,13 @@ JSON:
     "name": "Steve"
   }
 }
-</script> 
+</script>
 
-TYPES:  ConsumeAction 
+TYPES:  ConsumeAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-The biceps consumed 100 calories. 
+The biceps consumed 100 calories.
 
 MICRODATA:
 
@@ -4791,11 +4791,11 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <!--  The biceps consumed 100 calories. -->
 <script type="application/ld+json">
-
+{
   "@context": "http://schema.org",
   "@type": "ConsumeAction",
   "agent": {
@@ -4807,13 +4807,13 @@ JSON:
     "name": "100 calories"
   }
 }
-</script> 
+</script>
 
-TYPES:  DrinkAction 
+TYPES:  DrinkAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John drank a coke. 
+John drank a coke.
 
 MICRODATA:
 
@@ -4823,11 +4823,11 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <!--  John drank a coke. -->
 <script type="application/ld+json">
-
+{
   "@context": "http://schema.org",
   "@type": "DrinkAction",
   "agent": {
@@ -4839,13 +4839,13 @@ JSON:
     "name": "Coke"
   }
 }
-</script> 
+</script>
 
-TYPES:  EatAction 
+TYPES:  EatAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John eat a cake. 
+John eat a cake.
 
 MICRODATA:
 
@@ -4855,11 +4855,11 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <!--  John eat a cake. -->
 <script type="application/ld+json">
-
+{
   "@context": "http://schema.org",
   "@type": "EatAction",
   "agent": {
@@ -4871,13 +4871,13 @@ JSON:
     "name": "Cake"
   }
 }
-</script> 
+</script>
 
-TYPES:  InstallAction 
+TYPES:  InstallAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John installed fitbit. 
+John installed fitbit.
 
 MICRODATA:
 
@@ -4887,11 +4887,11 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <!--  John installed fitbit. -->
 <script type="application/ld+json">
-
+{
   "@context": "http://schema.org",
   "@type": "InstallAction",
   "agent": {
@@ -4903,13 +4903,13 @@ JSON:
     "name": "Fitbit"
   }
 }
-</script> 
+</script>
 
-TYPES:  ListenAction 
+TYPES:  ListenAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John listened to Pink. 
+John listened to Pink.
 
 MICRODATA:
 
@@ -4919,11 +4919,11 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <!--  John listened to Pink. -->
 <script type="application/ld+json">
-
+{
   "@context": "http://schema.org",
   "@type": "ListenAction",
   "agent": {
@@ -4935,13 +4935,13 @@ JSON:
     "name": "Pink!"
   }
 }
-</script> 
+</script>
 
-TYPES:  ListenAction 
+TYPES:  ListenAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John listened to star 101.3. 
+John listened to star 101.3.
 
 MICRODATA:
 
@@ -4951,11 +4951,11 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <!--  John listened to star 101.3. -->
 <script type="application/ld+json">
-
+{
   "@context": "http://schema.org",
   "@type": "ListenAction",
   "agent": {
@@ -4967,13 +4967,13 @@ JSON:
     "name": "Star 101.3"
   }
 }
-</script> 
+</script>
 
-TYPES:  ListenAction 
+TYPES:  ListenAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John listened to an Elvis playlist. 
+John listened to an Elvis playlist.
 
 MICRODATA:
 
@@ -4983,11 +4983,11 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <!--  John listened to an Elvis playlist. -->
 <script type="application/ld+json">
-
+{
   "@context": "http://schema.org",
   "@type": "ListenAction",
   "agent": {
@@ -4999,13 +4999,13 @@ JSON:
     "name": "All Elvis Songs"
   }
 }
-</script> 
+</script>
 
-TYPES:  ReadAction 
+TYPES:  ReadAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John read an article. 
+John read an article.
 
 MICRODATA:
 
@@ -5015,11 +5015,11 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <!--  John read an article. -->
 <script type="application/ld+json">
-
+{
   "@context": "http://schema.org",
   "@type": "ReadAction",
   "agent": {
@@ -5031,13 +5031,13 @@ JSON:
     "name": "Article"
   }
 }
-</script> 
+</script>
 
-TYPES:  ReadAction 
+TYPES:  ReadAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John read a book. 
+John read a book.
 
 MICRODATA:
 
@@ -5047,11 +5047,11 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <!--  John read a book. -->
 <script type="application/ld+json">
-
+{
   "@context": "http://schema.org",
   "@type": "ReadAction",
   "agent": {
@@ -5063,13 +5063,13 @@ JSON:
     "name": "We found that P = NP!"
   }
 }
-</script> 
+</script>
 
-TYPES:  ReadAction 
+TYPES:  ReadAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John read a code. 
+John read a code.
 
 MICRODATA:
 
@@ -5079,11 +5079,11 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <!--  John read a code. -->
 <script type="application/ld+json">
-
+{
   "@context": "http://schema.org",
   "@type": "ReadAction",
   "agent": {
@@ -5095,13 +5095,13 @@ JSON:
     "name": "The linux kernel"
   }
 }
-</script> 
+</script>
 
-TYPES:  ReadAction 
+TYPES:  ReadAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John read a web page. 
+John read a web page.
 
 MICRODATA:
 
@@ -5111,11 +5111,11 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <!--  John read a web page. -->
 <script type="application/ld+json">
-
+{
   "@context": "http://schema.org",
   "@type": "ReadAction",
   "agent": {
@@ -5127,13 +5127,13 @@ JSON:
     "name": "CNN news!"
   }
 }
-</script> 
+</script>
 
-TYPES:  UseAction 
+TYPES:  UseAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John used an exercise plan. 
+John used an exercise plan.
 
 MICRODATA:
 
@@ -5143,7 +5143,7 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <!-- John used an exercise plan. -->
 <script type="application/ld+json">
@@ -5159,13 +5159,13 @@ JSON:
     "name": "How to lose 100 calories a day."
   }
 }
-</script> 
+</script>
 
-TYPES:  WearAction 
+TYPES:  WearAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John wore Calvin Klein. 
+John wore Calvin Klein.
 
 MICRODATA:
 
@@ -5175,7 +5175,7 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <!-- John wore Calvin Klein. -->
 <script type="application/ld+json">
@@ -5191,13 +5191,13 @@ JSON:
     "name": "Calvin Klein"
   }
 }
-</script> 
+</script>
 
-TYPES:  ViewAction 
+TYPES:  ViewAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John viewed Les demoiselles d'avignon. 
+John viewed Les demoiselles d'avignon.
 
 MICRODATA:
 
@@ -5207,7 +5207,7 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <!-- John viewed Les demoiselles d'avignon. -->
 <script type="application/ld+json">
@@ -5223,13 +5223,13 @@ JSON:
     "name": "Les demoiselles d'avignon"
   }
 }
-</script> 
+</script>
 
-TYPES:  ViewAction 
+TYPES:  ViewAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John viewed a photo of Steve. 
+John viewed a photo of Steve.
 
 MICRODATA:
 
@@ -5239,7 +5239,7 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <!-- John viewed a photo of Steve. -->
 <script type="application/ld+json">
@@ -5255,13 +5255,13 @@ JSON:
     "name": "Steve"
   }
 }
-</script> 
+</script>
 
-TYPES:  ViewAction 
+TYPES:  ViewAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John viewed The Thinker. 
+John viewed The Thinker.
 
 MICRODATA:
 
@@ -5271,7 +5271,7 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <!-- John viewed The Thinker. -->
 <script type="application/ld+json">
@@ -5287,13 +5287,13 @@ JSON:
     "name": "The Thinker"
   }
 }
-</script> 
+</script>
 
-TYPES:  WatchAction 
+TYPES:  WatchAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John watched Friends. 
+John watched Friends.
 
 MICRODATA:
 
@@ -5303,7 +5303,7 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <!-- John watched Friends. -->
 <script type="application/ld+json">
@@ -5319,13 +5319,13 @@ JSON:
     "name": "Friends!"
   }
 }
-</script> 
+</script>
 
-TYPES:  WatchAction 
+TYPES:  WatchAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John watched The Big Bang Theory 
+John watched The Big Bang Theory
 
 MICRODATA:
 
@@ -5335,7 +5335,7 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <!-- John watched The Big Bang Theory -->
 <script type="application/ld+json">
@@ -5351,13 +5351,13 @@ JSON:
     "name": "The Big Bang Theory"
   }
 }
-</script> 
+</script>
 
-TYPES:  WatchAction 
+TYPES:  WatchAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John watched The Internship 
+John watched The Internship
 
 MICRODATA:
 
@@ -5367,7 +5367,7 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <!-- John watched The Internship -->
 <script type="application/ld+json">
@@ -5383,13 +5383,13 @@ JSON:
     "name": "The Internship"
   }
 }
-</script> 
+</script>
 
-TYPES:  WatchAction 
+TYPES:  WatchAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John watched The Bolshoi Ballet group in Russia. 
+John watched The Bolshoi Ballet group in Russia.
 
 MICRODATA:
 
@@ -5399,7 +5399,7 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <!-- John watched The Bolshoi Ballet group in Russia.-->
 <script type="application/ld+json">
@@ -5419,13 +5419,13 @@ JSON:
     "name": "Chuvash State Opera and Ballet Theater"
   }
 }
-</script> 
+</script>
 
-TYPES:  CreateAction 
+TYPES:  CreateAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John created a website. 
+John created a website.
 
 MICRODATA:
 
@@ -5435,7 +5435,7 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <!-- John created a web page. -->
 <script type="application/ld+json">
@@ -5451,13 +5451,13 @@ JSON:
     "name": "John's thought about the web"
   }
 }
-</script> 
+</script>
 
-TYPES:  CookAction 
+TYPES:  CookAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John cooked a dinner. 
+John cooked a dinner.
 
 MICRODATA:
 
@@ -5467,7 +5467,7 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <!-- John cooked a dinner.-->
 <script type="application/ld+json">
@@ -5483,13 +5483,13 @@ JSON:
     "name": "dinner!"
   }
 }
-</script> 
+</script>
 
-TYPES:  DrawAction 
+TYPES:  DrawAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John drew a painting. 
+John drew a painting.
 
 MICRODATA:
 
@@ -5499,7 +5499,7 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <!-- John drew a painting.-->
 <script type="application/ld+json">
@@ -5515,13 +5515,13 @@ JSON:
     "name": "Les Demoiselles d'Avignon"
   }
 }
-</script> 
+</script>
 
-TYPES:  FilmAction 
+TYPES:  FilmAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John filmed The Internship. 
+John filmed The Internship.
 
 MICRODATA:
 
@@ -5531,7 +5531,7 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <!-- John filmed The Internship.-->
 <script type="application/ld+json">
@@ -5547,13 +5547,13 @@ JSON:
     "name": "The Internship"
   }
 }
-</script> 
+</script>
 
-TYPES:  PaintAction 
+TYPES:  PaintAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John painted Les Demoiselles d'Avignon. 
+John painted Les Demoiselles d'Avignon.
 
 MICRODATA:
 
@@ -5563,7 +5563,7 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <!-- John painted Les Demoiselles d'Avignon.-->
 <script type="application/ld+json">
@@ -5579,13 +5579,13 @@ JSON:
     "name": "Les Demoiselles d'Avignon"
   }
 }
-</script> 
+</script>
 
-TYPES:  PhotographAction 
+TYPES:  PhotographAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John took a photo of Steve. 
+John took a photo of Steve.
 
 MICRODATA:
 
@@ -5595,7 +5595,7 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <!-- John took a photo of Steve.-->
 <script type="application/ld+json">
@@ -5611,13 +5611,13 @@ JSON:
     "url": "http://john.com/steve.jpg"
   }
 }
-</script> 
+</script>
 
-TYPES:  WriteAction 
+TYPES:  WriteAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John wrote an article on algorithms. 
+John wrote an article on algorithms.
 
 MICRODATA:
 
@@ -5627,7 +5627,7 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <!-- John wrote an article on algorithms. -->
 <script type="application/ld+json">
@@ -5643,13 +5643,13 @@ JSON:
     "name": "We found that P = NP!"
   }
 }
-</script> 
+</script>
 
-TYPES:  FindAction 
+TYPES:  FindAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John found the answer to life. 
+John found the answer to life.
 
 MICRODATA:
 
@@ -5659,7 +5659,7 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <!-- John found the answer to life. -->
 <script type="application/ld+json">
@@ -5675,13 +5675,13 @@ JSON:
     "name": "42"
   }
 }
-</script> 
+</script>
 
-TYPES:  CheckAction 
+TYPES:  CheckAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John checked his flight status. 
+John checked his flight status.
 
 MICRODATA:
 
@@ -5691,7 +5691,7 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <!-- John checked his flight status.-->
 <script type="application/ld+json">
@@ -5711,13 +5711,13 @@ JSON:
     "name": "On time"
   }
 }
-</script> 
+</script>
 
-TYPES:  CheckAction 
+TYPES:  CheckAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John checked his blood test. 
+John checked his blood test.
 
 MICRODATA:
 
@@ -5727,7 +5727,7 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <!-- John checked his blood test. -->
 <script type="application/ld+json">
@@ -5743,13 +5743,13 @@ JSON:
     "name": "You are fine!"
   }
 }
-</script> 
+</script>
 
-TYPES:  DiscoverAction 
+TYPES:  DiscoverAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John discovered a Pink! 
+John discovered a Pink!
 
 MICRODATA:
 
@@ -5759,7 +5759,7 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <!-- John discovered a Pink! -->
 <script type="application/ld+json">
@@ -5775,13 +5775,13 @@ JSON:
     "name": "Pink"
   }
 }
-</script> 
+</script>
 
-TYPES:  TrackAction 
+TYPES:  TrackAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John tracked his fitbit via UPS. 
+John tracked his fitbit via UPS.
 
 MICRODATA:
 
@@ -5791,7 +5791,7 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <!-- John tracked his fitbit via UPS. -->
 <script type="application/ld+json">
@@ -5810,13 +5810,13 @@ JSON:
     "@type": "http://purl.org/goodrelations/v1#UPS"
   }
 }
-</script> 
+</script>
 
-TYPES:  InteractAction 
+TYPES:  InteractAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John interacted with Steve. 
+John interacted with Steve.
 
 MICRODATA:
 
@@ -5826,7 +5826,7 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <!-- John interacted with Steve.-->
 <script type="application/ld+json">
@@ -5842,13 +5842,13 @@ JSON:
     "name": "Steve"
   }
 }
-</script> 
+</script>
 
-TYPES:  InteractAction 
+TYPES:  InteractAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John interacted with the IEEE. 
+John interacted with the IEEE.
 
 MICRODATA:
 
@@ -5858,7 +5858,7 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <!-- John interacted with the IEEE. -->
 <script type="application/ld+json">
@@ -5874,13 +5874,13 @@ JSON:
     "name": "IEEE"
   }
 }
-</script> 
+</script>
 
-TYPES:  BefriendAction 
+TYPES:  BefriendAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John befriended Steve. 
+John befriended Steve.
 
 MICRODATA:
 
@@ -5890,7 +5890,7 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <!-- John befriended Steve. -->
 <script type="application/ld+json">
@@ -5906,13 +5906,13 @@ JSON:
     "name": "Steve"
   }
 }
-</script> 
+</script>
 
-TYPES:  CommunicateAction 
+TYPES:  CommunicateAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John communicated with Steve. 
+John communicated with Steve.
 
 MICRODATA:
 
@@ -5922,7 +5922,7 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <!-- John communicated with Steve. -->
 <script type="application/ld+json">
@@ -5938,13 +5938,13 @@ JSON:
     "name": "Steve"
   }
 }
-</script> 
+</script>
 
-TYPES:  CommunicateAction 
+TYPES:  CommunicateAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John communicated to the medical community his retirement. 
+John communicated to the medical community his retirement.
 
 MICRODATA:
 
@@ -5954,7 +5954,7 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <!-- John communicated to the medical community his retirement. -->
 <script type="application/ld+json">
@@ -5971,13 +5971,13 @@ JSON:
   },
   "object": "I'm retiring"
 }
-</script> 
+</script>
 
-TYPES:  AskAction 
+TYPES:  AskAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John asked Steve 'What is 2 + 2?'. 
+John asked Steve 'What is 2 + 2?'.
 
 MICRODATA:
 
@@ -5987,7 +5987,7 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <!-- John asked Steve 'What is 2 + 2?'. -->
 <script type="application/ld+json">
@@ -6004,13 +6004,13 @@ JSON:
   },
   "question": "What's 2 + 2?"
 }
-</script> 
+</script>
 
-TYPES:  CheckInAction 
+TYPES:  CheckInAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John checked in at Yandex. 
+John checked in at Yandex.
 
 MICRODATA:
 
@@ -6020,7 +6020,7 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <!-- John checked in at Yandex. -->
 <script type="application/ld+json">
@@ -6043,13 +6043,13 @@ JSON:
     }
   }
 }
-</script> 
+</script>
 
-TYPES:  CheckInAction 
+TYPES:  CheckInAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John checked into a flight at the airport. 
+John checked into a flight at the airport.
 
 MICRODATA:
 
@@ -6059,7 +6059,7 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <!-- John checked into a flight at the airport. -->
 <script type="application/ld+json">
@@ -6091,13 +6091,13 @@ JSON:
     }
   }
 }
-</script> 
+</script>
 
-TYPES:  CheckInAction 
+TYPES:  CheckInAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John checked into a flight online. 
+John checked into a flight online.
 
 MICRODATA:
 
@@ -6107,7 +6107,7 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <!-- John checked into a flight online. -->
 <script type="application/ld+json">
@@ -6127,13 +6127,13 @@ JSON:
     "url": "http://aa.com"
   }
 }
-</script> 
+</script>
 
-TYPES:  CheckOutAction 
+TYPES:  CheckOutAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John checked out of a flight online. 
+John checked out of a flight online.
 
 MICRODATA:
 
@@ -6143,7 +6143,7 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <!-- John checked out of a flight online. -->
 <script type="application/ld+json">
@@ -6163,13 +6163,13 @@ JSON:
     "url": "http://aa.com"
   }
 }
-</script> 
+</script>
 
-TYPES:  CommentAction 
+TYPES:  CommentAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John commented on a blog post. 
+John commented on a blog post.
 
 MICRODATA:
 
@@ -6179,7 +6179,7 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <!-- John commented on a blog post. -->
 <script type="application/ld+json">
@@ -6199,13 +6199,13 @@ JSON:
     "name": "We found that P = NP!"
   }
 }
-</script> 
+</script>
 
-TYPES:  InformAction 
+TYPES:  InformAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John informed Steve of a work party. 
+John informed Steve of a work party.
 
 MICRODATA:
 
@@ -6215,7 +6215,7 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <!-- John informed Steve of a work party. -->
 <script type="application/ld+json">
@@ -6235,13 +6235,13 @@ JSON:
     "name": "Department party"
   }
 }
-</script> 
+</script>
 
-TYPES:  ConfirmAction 
+TYPES:  ConfirmAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John confirmed the game was still on. 
+John confirmed the game was still on.
 
 MICRODATA:
 
@@ -6251,7 +6251,7 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <!-- John confirmed the game was still on. -->
 <script type="application/ld+json">
@@ -6267,13 +6267,13 @@ JSON:
     "name": "NBA finals"
   }
 }
-</script> 
+</script>
 
-TYPES:  RsvpAction 
+TYPES:  RsvpAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John confirmed his presence on the event. 
+John confirmed his presence on the event.
 
 MICRODATA:
 
@@ -6283,7 +6283,7 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <!-- John confirmed his presence on the event. -->
 <script type="application/ld+json">
@@ -6299,13 +6299,13 @@ JSON:
     "name": "NBA finals"
   }
 }
-</script> 
+</script>
 
-TYPES:  InviteAction 
+TYPES:  InviteAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John invited Steve to his party. 
+John invited Steve to his party.
 
 MICRODATA:
 
@@ -6315,7 +6315,7 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <!-- John invited Steve to his party. -->
 <script type="application/ld+json">
@@ -6335,13 +6335,13 @@ JSON:
     "name": "Steve's party"
   }
 }
-</script> 
+</script>
 
-TYPES:  ReplyAction 
+TYPES:  ReplyAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John replied '4' to Steve's question 'What's 2 + 2?'. 
+John replied '4' to Steve's question 'What's 2 + 2?'.
 
 MICRODATA:
 
@@ -6351,7 +6351,7 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <!-- John replied '4' to Steve's question 'What's 2 + 2?'. -->
 <script type="application/ld+json">
@@ -6369,13 +6369,13 @@ JSON:
   "question": "What's 2 + 2?",
   "answer": "4."
 }
-</script> 
+</script>
 
-TYPES:  ShareAction 
+TYPES:  ShareAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John shared a post with Steve. 
+John shared a post with Steve.
 
 MICRODATA:
 
@@ -6385,7 +6385,7 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <!-- John shared a post with Steve. -->
 <script type="application/ld+json">
@@ -6405,13 +6405,13 @@ JSON:
     "name": "We proved that 2 + 2 = 4!"
   }
 }
-</script> 
+</script>
 
-TYPES:  ShareAction 
+TYPES:  ShareAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John shared an image with Steve. 
+John shared an image with Steve.
 
 MICRODATA:
 
@@ -6421,7 +6421,7 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <!-- John shared an image with Steve. -->
 <script type="application/ld+json">
@@ -6442,13 +6442,13 @@ JSON:
     "url": "http://john.com/kids.jpg"
   }
 }
-</script> 
+</script>
 
-TYPES:  FollowAction 
+TYPES:  FollowAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John followed Steve on Twitter. 
+John followed Steve on Twitter.
 
 MICRODATA:
 
@@ -6458,7 +6458,7 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <!-- John followed Steve on Twitter. -->
 <script type="application/ld+json">
@@ -6478,13 +6478,13 @@ JSON:
     "name": "Twitter"
   }
 }
-</script> 
+</script>
 
-TYPES:  JoinAction 
+TYPES:  JoinAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John joined the basketball team. 
+John joined the basketball team.
 
 MICRODATA:
 
@@ -6494,7 +6494,7 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <!-- John joined the basketball team. -->
 <script type="application/ld+json">
@@ -6510,13 +6510,13 @@ JSON:
     "name": "Chicago Bulls"
   }
 }
-</script> 
+</script>
 
-TYPES:  JoinAction 
+TYPES:  JoinAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John joined the Beatles. 
+John joined the Beatles.
 
 MICRODATA:
 
@@ -6526,7 +6526,7 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <!-- John joined the Beatles. -->
 <script type="application/ld+json">
@@ -6542,13 +6542,13 @@ JSON:
     "name": "The Beatles"
   }
 }
-</script> 
+</script>
 
-TYPES:  JoinAction 
+TYPES:  JoinAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John joined the Cats cast. 
+John joined the Cats cast.
 
 MICRODATA:
 
@@ -6558,7 +6558,7 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <!-- John joined the Cats cast. -->
 <script type="application/ld+json">
@@ -6570,17 +6570,17 @@ JSON:
     "name": "John"
   },
   "object": {
-    "@type": "TheatreGroup",
+    "@type": "TheaterGroup",
     "name": "Cats"
   }
 }
-</script> 
+</script>
 
-TYPES:  JoinAction 
+TYPES:  JoinAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John joined the festival. 
+John joined the festival.
 
 MICRODATA:
 
@@ -6590,7 +6590,7 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <script type="application/ld+json">
 <!-- John joined the festival. -->
@@ -6606,13 +6606,13 @@ JSON:
     "name": "Woodstock"
   }
 }
-</script> 
+</script>
 
-TYPES:  LeaveAction 
+TYPES:  LeaveAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John left the Chicago Bulls. 
+John left the Chicago Bulls.
 
 MICRODATA:
 
@@ -6622,7 +6622,7 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <!-- John left the Chicago Bulls. -->
 <script type="application/ld+json">
@@ -6638,13 +6638,13 @@ JSON:
     "name": "Chicago Bulls"
   }
 }
-</script> 
+</script>
 
-TYPES:  MarryAction 
+TYPES:  MarryAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John married Ann. 
+John married Ann.
 
 MICRODATA:
 
@@ -6654,7 +6654,7 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <!-- John married Ann. -->
 <script type="application/ld+json">
@@ -6670,13 +6670,13 @@ JSON:
     "name": "Ann"
   }
 }
-</script> 
+</script>
 
-TYPES:  RegisterAction 
+TYPES:  RegisterAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John registered for the IEEE. 
+John registered for the IEEE.
 
 MICRODATA:
 
@@ -6686,7 +6686,7 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <!-- John registered for the IEEE. -->
 <script type="application/ld+json">
@@ -6702,13 +6702,13 @@ JSON:
     "name": "IEEE"
   }
 }
-</script> 
+</script>
 
-TYPES:  RegisterAction 
+TYPES:  RegisterAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John registered to Twitter. 
+John registered to Twitter.
 
 MICRODATA:
 
@@ -6718,7 +6718,7 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <!-- John registered to Twitter. -->
 <script type="application/ld+json">
@@ -6734,13 +6734,13 @@ JSON:
     "name": "Twitter"
   }
 }
-</script> 
+</script>
 
-TYPES:  RegisterAction 
+TYPES:  RegisterAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John registered to Comcast. 
+John registered to Comcast.
 
 MICRODATA:
 
@@ -6750,7 +6750,7 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <!-- John registered to Comcast. -->
 <script type="application/ld+json">
@@ -6766,13 +6766,13 @@ JSON:
     "name": "Comcast"
   }
 }
-</script> 
+</script>
 
-TYPES:  SubscribeAction 
+TYPES:  SubscribeAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John subscribed to mailing list. 
+John subscribed to mailing list.
 
 MICRODATA:
 
@@ -6782,7 +6782,7 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <!-- John subscribed to mailing list. -->
 <script type="application/ld+json">
@@ -6798,13 +6798,13 @@ JSON:
     "name": "IEEE Mailing List"
   }
 }
-</script> 
+</script>
 
-TYPES:  UnRegisterAction 
+TYPES:  UnRegisterAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John unregistered from Comcast. 
+John unregistered from Comcast.
 
 MICRODATA:
 
@@ -6814,7 +6814,7 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <!-- John unregistered from Comcast. -->
 <script type="application/ld+json">
@@ -6830,13 +6830,13 @@ JSON:
     "name": "Comcast"
   }
 }
-</script> 
+</script>
 
-TYPES:  MoveAction 
+TYPES:  MoveAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John moved a sculpture from one museum to another. 
+John moved a sculpture from one museum to another.
 
 MICRODATA:
 
@@ -6846,7 +6846,7 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <!-- John moved a sculpture from one museum to another. -->
 <script type="application/ld+json">
@@ -6870,13 +6870,13 @@ JSON:
     "name": "Guggenheim"
   }
 }
-</script> 
+</script>
 
-TYPES:  ArriveAction 
+TYPES:  ArriveAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John arrived at the hotel. 
+John arrived at the hotel.
 
 MICRODATA:
 
@@ -6886,7 +6886,7 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <!-- John arrived at the hotel. -->
 <script type="application/ld+json">
@@ -6902,13 +6902,13 @@ JSON:
     "name": "The Hilton"
   }
 }
-</script> 
+</script>
 
-TYPES:  DepartAction 
+TYPES:  DepartAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John departed from the hotel. 
+John departed from the hotel.
 
 MICRODATA:
 
@@ -6918,7 +6918,7 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <!-- John departed from the hotel. -->
 <script type="application/ld+json">
@@ -6934,13 +6934,13 @@ JSON:
     "name": "The Hilton"
   }
 }
-</script> 
+</script>
 
-TYPES:  TravelAction 
+TYPES:  TravelAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John travel to Brazil. 
+John travel to Brazil.
 
 MICRODATA:
 
@@ -6950,7 +6950,7 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <script type="application/ld+json">
   // John travel to Brazil.
@@ -6966,13 +6966,13 @@ JSON:
     "name": "Brazil"
   }
 }
-</script> 
+</script>
 
-TYPES:  TravelAction 
+TYPES:  TravelAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John travel from the US to Brazil with Steve. 
+John travel from the US to Brazil with Steve.
 
 MICRODATA:
 
@@ -6982,7 +6982,7 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <script type="application/ld+json">
   // John travel from the US to Brazil with Steve.
@@ -7006,13 +7006,13 @@ JSON:
     "name": "Steve"
   }
 }
-</script> 
+</script>
 
-TYPES:  OrganizeAction 
+TYPES:  OrganizeAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John organized his webpage. 
+John organized his webpage.
 
 MICRODATA:
 
@@ -7022,7 +7022,7 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <script type="application/ld+json">
   // John organized his webpage.
@@ -7038,13 +7038,13 @@ JSON:
     "name": "John's thought about the web"
   }
 }
-</script> 
+</script>
 
-TYPES:  OrganizeAction 
+TYPES:  OrganizeAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John organized his business. 
+John organized his business.
 
 MICRODATA:
 
@@ -7054,7 +7054,7 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <script type="application/ld+json">
   // John organized his business.
@@ -7070,13 +7070,13 @@ JSON:
     "name": "John's tavern"
   }
 }
-</script> 
+</script>
 
-TYPES:  AllocateAction 
+TYPES:  AllocateAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John allocated 5 hours to exercise. 
+John allocated 5 hours to exercise.
 
 MICRODATA:
 
@@ -7086,7 +7086,7 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <script type="application/ld+json">
   // John allocated 5 hours to exercise.
@@ -7106,13 +7106,13 @@ JSON:
     "name": "John's weight loss plan"
   }
 }
-</script> 
+</script>
 
-TYPES:  AcceptAction 
+TYPES:  AcceptAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John accepted a plan to exercise to help with his obesity. 
+John accepted a plan to exercise to help with his obesity.
 
 MICRODATA:
 
@@ -7122,7 +7122,7 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <script type="application/ld+json">
   // John accepted a plan to exercise to help with his obesity.
@@ -7142,13 +7142,13 @@ JSON:
     "name": "Obesity"
   }
 }
-</script> 
+</script>
 
-TYPES:  AssignAction 
+TYPES:  AssignAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-Dr. John assigned an exercise plan to Steve. 
+Dr. John assigned an exercise plan to Steve.
 
 MICRODATA:
 
@@ -7158,7 +7158,7 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <script type="application/ld+json">
   // Dr. John assigned an exercise plan to Steve.
@@ -7182,13 +7182,13 @@ JSON:
     "name": "Obesity"
   }
 }
-</script> 
+</script>
 
-TYPES:  AuthorizeAction 
+TYPES:  AuthorizeAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-Dr. John authorized Steve's diet. 
+Dr. John authorized Steve's diet.
 
 MICRODATA:
 
@@ -7198,7 +7198,7 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <script type="application/ld+json">
   // Dr. John authorized Steve's diet.
@@ -7222,13 +7222,13 @@ JSON:
     "name": "Obesity"
   }
 }
-</script> 
+</script>
 
-TYPES:  RejectAction 
+TYPES:  RejectAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John rejected a plan to exercise that helps him with his obesity. 
+John rejected a plan to exercise that helps him with his obesity.
 
 MICRODATA:
 
@@ -7238,7 +7238,7 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <script type="application/ld+json">
   // John rejected a plan to exercise that helps him with his obesity.
@@ -7258,13 +7258,13 @@ JSON:
     "name": "Obesity"
   }
 }
-</script> 
+</script>
 
-TYPES:  ApplyAction 
+TYPES:  ApplyAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John applied to Harvard. 
+John applied to Harvard.
 
 MICRODATA:
 
@@ -7274,7 +7274,7 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <script type="application/ld+json">
   // John applied to Harvard.
@@ -7290,13 +7290,13 @@ JSON:
     "name": "Harvard"
   }
 }
-</script> 
+</script>
 
-TYPES:  BookmarkAction 
+TYPES:  BookmarkAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John bookmarked a photo using instagram. 
+John bookmarked a photo using instagram.
 
 MICRODATA:
 
@@ -7306,7 +7306,7 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <script type="application/ld+json">
   // John bookmarked a photo using instagram.
@@ -7327,13 +7327,13 @@ JSON:
     "name": "Instagram"
   }
 }
-</script> 
+</script>
 
-TYPES:  PlanAction 
+TYPES:  PlanAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John planned a trip with a travel agency. 
+John planned a trip with a travel agency.
 
 MICRODATA:
 
@@ -7343,7 +7343,7 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <script type="application/ld+json">
   // John planned a trip with a travel agency.
@@ -7363,13 +7363,13 @@ JSON:
     "name": "AFS"
   }
 }
-</script> 
+</script>
 
-TYPES:  PlanAction 
+TYPES:  PlanAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John planned an exercise plan with Steve. 
+John planned an exercise plan with Steve.
 
 MICRODATA:
 
@@ -7379,7 +7379,7 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <script type="application/ld+json">
   // John planned an exercise plan with Steve.
@@ -7399,13 +7399,13 @@ JSON:
     "name": "Steve"
   }
 }
-</script> 
+</script>
 
-TYPES:  CancelAction 
+TYPES:  CancelAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John cancelled a trip with a travel agency. 
+John cancelled a trip with a travel agency.
 
 MICRODATA:
 
@@ -7415,7 +7415,7 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <script type="application/ld+json">
   // John cancelled a trip with a travel agency.
@@ -7435,13 +7435,13 @@ JSON:
     "name": "AFS"
   }
 }
-</script> 
+</script>
 
-TYPES:  EnrollAction 
+TYPES:  EnrollAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John enrolled for SXSW. 
+John enrolled for SXSW.
 
 MICRODATA:
 
@@ -7451,7 +7451,7 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <script type="application/ld+json">
   // John enrolled for SXSW.
@@ -7467,13 +7467,13 @@ JSON:
     "name": "SXSW"
   }
 }
-</script> 
+</script>
 
-TYPES:  ReserveAction 
+TYPES:  ReserveAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John reserved a table for May. 
+John reserved a table for May.
 
 MICRODATA:
 
@@ -7483,7 +7483,7 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <script type="application/ld+json">
   // John reserved a table for May.
@@ -7500,13 +7500,13 @@ JSON:
   },
   "scheduledTime": "May"
 }
-</script> 
+</script>
 
-TYPES:  ScheduleAction 
+TYPES:  ScheduleAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John scheduled an event to occur in May. 
+John scheduled an event to occur in May.
 
 MICRODATA:
 
@@ -7516,7 +7516,7 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <script type="application/ld+json">
   // John scheduled an event to occur in May.
@@ -7533,13 +7533,13 @@ JSON:
   },
   "scheduledTime": "May"
 }
-</script> 
+</script>
 
-TYPES:  SelectAction 
+TYPES:  SelectAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John selected The Internship and The Wedding Crashers from his movie queue. 
+John selected The Internship and The Wedding Crashers from his movie queue.
 
 MICRODATA:
 
@@ -7549,7 +7549,7 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <script type="application/ld+json">
   // John selected The Internship and The Wedding Crashers from his movie queue.
@@ -7576,13 +7576,13 @@ JSON:
     "url": "http://netflix.com/john/favorite"
   }
 }
-</script> 
+</script>
 
-TYPES:  PlayAction 
+TYPES:  PlayAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John played angry birds with Steve. 
+John played angry birds with Steve.
 
 MICRODATA:
 
@@ -7592,7 +7592,7 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <script type="application/ld+json">
   // John played angry birds with Steve.
@@ -7612,13 +7612,13 @@ JSON:
     "name": "Steve"
   }
 }
-</script> 
+</script>
 
-TYPES:  ExerciseAction 
+TYPES:  ExerciseAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John ran 100 miles with Steve. 
+John ran 100 miles with Steve.
 
 MICRODATA:
 
@@ -7628,7 +7628,7 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <script type="application/ld+json">
   // John ran 100 miles with Steve.
@@ -7646,13 +7646,13 @@ JSON:
     "name": "Steve"
   }
 }
-</script> 
+</script>
 
-TYPES:  ExerciseAction 
+TYPES:  ExerciseAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John played tennis against Steve. 
+John played tennis against Steve.
 
 MICRODATA:
 
@@ -7662,7 +7662,7 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <script type="application/ld+json">
   // John played tennis against Steve.
@@ -7679,13 +7679,13 @@ JSON:
     "name": "Steve"
   }
 }
-</script> 
+</script>
 
-TYPES:  PerformAction 
+TYPES:  PerformAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John performed as a DJ playing Daft Punk on his turntable at Woodstock. 
+John performed as a DJ playing Daft Punk on his turntable at Woodstock.
 
 MICRODATA:
 
@@ -7695,7 +7695,7 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <script type="application/ld+json">
   // John performed as a DJ playing Daft Punk on his turntable at Woodstock.
@@ -7719,13 +7719,13 @@ JSON:
     "name": "Woodstock"
   }
 }
-</script> 
+</script>
 
-TYPES:  SearchAction 
+TYPES:  SearchAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John searched for 'What is the answer to life the universe and everything?'. 
+John searched for 'What is the answer to life the universe and everything?'.
 
 MICRODATA:
 
@@ -7735,7 +7735,7 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <script type="application/ld+json">
   // John searched for 'What is the answer to life the universe and everything?'.
@@ -7748,13 +7748,13 @@ JSON:
   },
   "query": "What is the answer to life the universe and everything?"
 }
-</script> 
+</script>
 
-TYPES:  SearchAction 
+TYPES:  SearchAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John searched for hotels. 
+John searched for hotels.
 
 MICRODATA:
 
@@ -7764,7 +7764,7 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <script type="application/ld+json">
   // John searched for hotels.
@@ -7780,13 +7780,13 @@ JSON:
     "name": "http://schema.org/Hotel"
   }
 }
-</script> 
+</script>
 
-TYPES:  TradeAction 
+TYPES:  TradeAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John traded a Book for US$ 50. 
+John traded a Book for US$ 50.
 
 MICRODATA:
 
@@ -7796,7 +7796,7 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <script type="application/ld+json">
   // John traded a Book for US$ 50.
@@ -7813,13 +7813,13 @@ JSON:
   },
   "price": "US$ 50"
 }
-</script> 
+</script>
 
-TYPES:  BuyAction 
+TYPES:  BuyAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John bought a Book on amazon.com. 
+John bought a Book on amazon.com.
 
 MICRODATA:
 
@@ -7829,7 +7829,7 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <script type="application/ld+json">
   // John bought a Book on amazon.com.
@@ -7849,13 +7849,13 @@ JSON:
     "name": "Amazon"
   }
 }
-</script> 
+</script>
 
-TYPES:  DonateAction 
+TYPES:  DonateAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John donated $10 to Steve. 
+John donated $10 to Steve.
 
 MICRODATA:
 
@@ -7865,7 +7865,7 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <script type="application/ld+json">
   // John donated $10 to Steve.
@@ -7882,13 +7882,13 @@ JSON:
     "name": "Steve"
   }
 }
-</script> 
+</script>
 
-TYPES:  OrderAction 
+TYPES:  OrderAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John ordered a Book on amazon.com. 
+John ordered a Book on amazon.com.
 
 MICRODATA:
 
@@ -7898,7 +7898,7 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <script type="application/ld+json">
   // John ordered a Book on amazon.com.
@@ -7918,13 +7918,13 @@ JSON:
     "name": "Amazon"
   }
 }
-</script> 
+</script>
 
-TYPES:  PayAction 
+TYPES:  PayAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John paid US$ 1,500 for a flight. 
+John paid US$ 1,500 for a flight.
 
 MICRODATA:
 
@@ -7934,7 +7934,7 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <script type="application/ld+json">
   // John paid US$ 1,500 for a flight.
@@ -7951,13 +7951,13 @@ JSON:
     "name": "AA123"
   }
 }
-</script> 
+</script>
 
-TYPES:  QuoteAction 
+TYPES:  QuoteAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John quoted a flight for US$ 1,500. 
+John quoted a flight for US$ 1,500.
 
 MICRODATA:
 
@@ -7967,7 +7967,7 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <script type="application/ld+json">
   // John quoted a flight for US$ 1,500.
@@ -7984,13 +7984,13 @@ JSON:
   },
   "price": "US$ 1,500"
 }
-</script> 
+</script>
 
-TYPES:  RentAction 
+TYPES:  RentAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John rented a house from Steve. 
+John rented a house from Steve.
 
 MICRODATA:
 
@@ -8000,7 +8000,7 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <script type="application/ld+json">
   // John rented a house from Steve.
@@ -8020,13 +8020,13 @@ JSON:
     "name": "Steve"
   }
 }
-</script> 
+</script>
 
-TYPES:  SellAction 
+TYPES:  SellAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John sold a Book on amazon.com. 
+John sold a Book on amazon.com.
 
 MICRODATA:
 
@@ -8036,7 +8036,7 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <script type="application/ld+json">
   // John sold a Book on amazon.com.
@@ -8056,13 +8056,13 @@ JSON:
     "name": "Amazon"
   }
 }
-</script> 
+</script>
 
-TYPES:  TipAction 
+TYPES:  TipAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John tipped $10 to Steve. 
+John tipped $10 to Steve.
 
 MICRODATA:
 
@@ -8072,7 +8072,7 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <script type="application/ld+json">
   // John tipped $10 to Steve.
@@ -8089,13 +8089,13 @@ JSON:
     "name": "Steve"
   }
 }
-</script> 
+</script>
 
-TYPES:  TransferAction 
+TYPES:  TransferAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John transfered his store from Brazil to the USA. 
+John transfered his store from Brazil to the USA.
 
 MICRODATA:
 
@@ -8105,7 +8105,7 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <script type="application/ld+json">
   // John transfered his store from Brazil to the USA.
@@ -8129,13 +8129,13 @@ JSON:
     "name": "USA"
   }
 }
-</script> 
+</script>
 
-TYPES:  BorrowAction 
+TYPES:  BorrowAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John borrowed Steve's book. 
+John borrowed Steve's book.
 
 MICRODATA:
 
@@ -8145,7 +8145,7 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <script type="application/ld+json">
   // John borrowed Steve's book.
@@ -8165,13 +8165,13 @@ JSON:
     "name": "Steve"
   }
 }
-</script> 
+</script>
 
-TYPES:  DownloadAction 
+TYPES:  DownloadAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John downloaded the java updates. 
+John downloaded the java updates.
 
 MICRODATA:
 
@@ -8181,7 +8181,7 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <script type="application/ld+json">
   // John downloaded the java updates.
@@ -8197,13 +8197,13 @@ JSON:
     "name": "Java Updates"
   }
 }
-</script> 
+</script>
 
-TYPES:  GiveAction 
+TYPES:  GiveAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John gave a book to Steve. 
+John gave a book to Steve.
 
 MICRODATA:
 
@@ -8213,7 +8213,7 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <script type="application/ld+json">
   // John gave a book to Steve.
@@ -8233,13 +8233,13 @@ JSON:
     "name": "Steve"
   }
 }
-</script> 
+</script>
 
-TYPES:  LendAction 
+TYPES:  LendAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John lent $10 to Steve. 
+John lent $10 to Steve.
 
 MICRODATA:
 
@@ -8249,7 +8249,7 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <script type="application/ld+json">
   // John lent $10 to Steve.
@@ -8266,13 +8266,13 @@ JSON:
     "name": "Steve"
   }
 }
-</script> 
+</script>
 
-TYPES:  ReceiveAction 
+TYPES:  ReceiveAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John received a book from Steve via UPS from Brazil to the USA. 
+John received a book from Steve via UPS from Brazil to the USA.
 
 MICRODATA:
 
@@ -8282,7 +8282,7 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <script type="application/ld+json">
   // John received a book from Steve via UPS from Brazil to the USA.
@@ -8314,13 +8314,13 @@ JSON:
     "name": "USA"
   }
 }
-</script> 
+</script>
 
-TYPES:  ReturnAction 
+TYPES:  ReturnAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John returned the book to Steve. 
+John returned the book to Steve.
 
 MICRODATA:
 
@@ -8330,7 +8330,7 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <script type="application/ld+json">
   // John returned the book to Steve.
@@ -8350,13 +8350,13 @@ JSON:
     "name": "Steve"
   }
 }
-</script> 
+</script>
 
-TYPES:  SendAction 
+TYPES:  SendAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John sent a book to Steve via UPS from Brazil to the USA. 
+John sent a book to Steve via UPS from Brazil to the USA.
 
 MICRODATA:
 
@@ -8366,7 +8366,7 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <script type="application/ld+json">
   // John sent a book to Steve via UPS from Brazil to the USA.
@@ -8398,13 +8398,13 @@ JSON:
     "name": "USA"
   }
 }
-</script> 
+</script>
 
-TYPES:  TakeAction 
+TYPES:  TakeAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John took a book from Steve. 
+John took a book from Steve.
 
 MICRODATA:
 
@@ -8414,7 +8414,7 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <script type="application/ld+json">
   // John took a book from Steve.
@@ -8434,13 +8434,13 @@ JSON:
     "name": "Steve"
   }
 }
-</script> 
+</script>
 
-TYPES:  UpdateAction 
+TYPES:  UpdateAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John updated his movie collection. 
+John updated his movie collection.
 
 MICRODATA:
 
@@ -8450,7 +8450,7 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <script type="application/ld+json">
   // John updated his movie collection.
@@ -8467,13 +8467,13 @@ JSON:
     "url": "http://netflix.com/john/favorite"
   }
 }
-</script> 
+</script>
 
-TYPES:  AddAction 
+TYPES:  AddAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John add a movie to his movie queue. 
+John add a movie to his movie queue.
 
 MICRODATA:
 
@@ -8483,7 +8483,7 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <script type="application/ld+json">
   // John add a movie to his movie queue.
@@ -8504,13 +8504,13 @@ JSON:
     "url": "http://netflix.com/john/favorite"
   }
 }
-</script> 
+</script>
 
-TYPES:  AddAction 
+TYPES:  AddAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John added SAAS to his skillset. 
+John added SAAS to his skillset.
 
 MICRODATA:
 
@@ -8520,7 +8520,7 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <script type="application/ld+json">
   // John added SAAS to his skillset.
@@ -8541,13 +8541,13 @@ JSON:
     "url": "http://linkedn.com/john/skillset"
   }
 }
-</script> 
+</script>
 
-TYPES:  InsertAction 
+TYPES:  InsertAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John inserted a movie to his movie queue at the third slot. 
+John inserted a movie to his movie queue at the third slot.
 
 MICRODATA:
 
@@ -8557,7 +8557,7 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <script type="application/ld+json">
   // John inserted a movie to his movie queue at the third slot.
@@ -8579,13 +8579,13 @@ JSON:
   },
   "objectLocation": "3"
 }
-</script> 
+</script>
 
-TYPES:  AppendAction 
+TYPES:  AppendAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John appended a movie to his movie queue. 
+John appended a movie to his movie queue.
 
 MICRODATA:
 
@@ -8595,7 +8595,7 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <script type="application/ld+json">
   // John appended a movie to his movie queue.
@@ -8616,13 +8616,13 @@ JSON:
     "url": "http://netflix.com/john/favorite"
   }
 }
-</script> 
+</script>
 
-TYPES:  PrependAction 
+TYPES:  PrependAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John prepended a movie to his movie queue. 
+John prepended a movie to his movie queue.
 
 MICRODATA:
 
@@ -8632,7 +8632,7 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <script type="application/ld+json">
   // John prepended a movie to his movie queue.
@@ -8653,13 +8653,13 @@ JSON:
     "url": "http://netflix.com/john/favorite"
   }
 }
-</script> 
+</script>
 
-TYPES:  DeleteAction 
+TYPES:  DeleteAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John deleted The Internship from his movie queue. 
+John deleted The Internship from his movie queue.
 
 MICRODATA:
 
@@ -8669,7 +8669,7 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <script type="application/ld+json">
   // John deleted The Internship from his movie queue.
@@ -8690,13 +8690,13 @@ JSON:
     "url": "http://netflix.com/john/favorite"
   }
 }
-</script> 
+</script>
 
-TYPES:  ReplaceAction 
+TYPES:  ReplaceAction
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-John replaced The Internship with The Wedding Crashers from his movie queue. 
+John replaced The Internship with The Wedding Crashers from his movie queue.
 
 MICRODATA:
 
@@ -8706,7 +8706,7 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <script type="application/ld+json">
   // John replaced The Internship with The Wedding Crashers from his movie queue.
@@ -8731,11 +8731,11 @@ JSON:
     "url": "http://netflix.com/john/favorite"
   }
 }
-</script> 
+</script>
 
-TYPES:  TVSeries,TVSeason,TVEpisode,OnDemandEvent,BroadcastEvent,BroadcastService 
+TYPES:  TVSeries,TVSeason,TVEpisode,OnDemandEvent,BroadcastEvent,BroadcastService
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
 <div>
  <a href="http://www.bbc.co.uk/programmes/b006q2x0">Doctor Who</a>,
@@ -8744,9 +8744,9 @@ PRE-MARKUP:
  broadcast on BBC One at 18:15, 22nd of May 2010, available on
  <a href="http://www.bbc.co.uk/iplayer/b00sj9sq">BBC iPlayer</a> from 19:45
  on the 2nd of June until the 9th.
-</div> 
+</div>
 
-MICRODATA: 
+MICRODATA:
 
 <div itemscope itemtype="http://schema.org/TVSeries">
   <a itemprop="url" href="http://www.bbc.co.uk/programmes/b006q2x0">
@@ -8776,9 +8776,9 @@ MICRODATA:
       </div>
     </div>
   </div>
-</div> 
+</div>
 
-RDFA: 
+RDFA:
 
 <div vocab="http://schema.org/" typeof="TVSeries">
   <a property="url" href="http://www.bbc.co.uk/programmes/b006q2x0">
@@ -8808,57 +8808,57 @@ RDFA:
       </div>
     </div>
   </div>
-</div> 
+</div>
 
 JSON:
 
 <script type="application/ld+json">
 {
-  "@context": "http://schema.org", 
-  "@type": "TVSeries", 
+  "@context": "http://schema.org",
+  "@type": "TVSeries",
   "season": {
-    "@type": "TVSeason", 
+    "@type": "TVSeason",
     "episode": {
-      "@type": "TVEpisode", 
-      "position": "8", 
+      "@type": "TVEpisode",
+      "position": "8",
       "publication": [
         {
-          "@type": "BroadcastEvent", 
+          "@type": "BroadcastEvent",
           "publishedOn": {
-            "@type": "BroadcastService", 
+            "@type": "BroadcastService",
             "url": "http://www.bbc.co.uk/bbcone"
-          }, 
+          },
           "startDate": "18:15, 22nd of May 2010"
-        }, 
+        },
         {
-          "@type": "OnDemandEvent", 
-          "endDate": "9th", 
+          "@type": "OnDemandEvent",
+          "endDate": "9th",
           "startDate": "19:45 on the 2nd of June"
         }
-      ], 
-      "url": "http://www.bbc.co.uk/programmes/b00sj9sq", 
+      ],
+      "url": "http://www.bbc.co.uk/programmes/b00sj9sq",
       "video": {
-        "@type": "VideoObject", 
+        "@type": "VideoObject",
         "url": "http://www.bbc.co.uk/iplayer/episode/b00sj9sq"
       }
-    }, 
+    },
     "url": "http://www.bbc.co.uk/programmes/b00rs69w"
-  }, 
+  },
   "url": "http://www.bbc.co.uk/programmes/b006q2x0"
 }
-</script> 
+</script>
 
-TYPES:  RadioSeries,RadioSeason,RadioEpisode,OnDemandEvent,BroadcastEvent,BroadcastService 
+TYPES:  RadioSeries,RadioSeason,RadioEpisode,OnDemandEvent,BroadcastEvent,BroadcastService
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
 <div>
  <a href="http://www.bbc.co.uk/programmes/b006qykl">In Our Time</a>,
  <a href="http://www.bbc.co.uk/programmes/b03ggc19">Ordinary Language Philosophy</a>, episode 604,
  broadcast on BBC Radio 4 at 09:00, 7th of November 2013, available online from 09:45 on the same day.
-</div> 
+</div>
 
-MICRODATA: 
+MICRODATA:
 
 <div itemscope itemtype="http://schema.org/RadioSeries">
   <a itemprop="url" href="http://www.bbc.co.uk/programmes/b006qykl">
@@ -8880,9 +8880,9 @@ MICRODATA:
        content="2013-11-07T09:45:00+01:00">09:45 on the same day</span>.
     </div>
   </div>
-</div> 
+</div>
 
-RDFA: 
+RDFA:
 
 <div vocab="http://schema.org/" typeof="RadioSeries">
   <a property="url" href="http://www.bbc.co.uk/programmes/b006qykl">
@@ -8904,47 +8904,47 @@ RDFA:
        content="2013-11-07T09:45:00+01:00">09:45 on the same day</span>.
     </div>
   </div>
-</div> 
+</div>
 
 JSON:
 
 <script type="application/ld+json">
 {
-  "@context": "http://schema.org", 
-  "@type": "RadioSeries", 
+  "@context": "http://schema.org",
+  "@type": "RadioSeries",
   "episode": {
-    "@type": "RadioEpisode", 
-    "position": "604", 
+    "@type": "RadioEpisode",
+    "position": "604",
     "publication": [
       {
-        "@type": "BroadcastEvent", 
+        "@type": "BroadcastEvent",
         "publishedOn": {
-          "@type": "BroadcastService", 
+          "@type": "BroadcastService",
           "url": "http://www.bbc.co.uk/radio4"
-        }, 
+        },
         "startDate": "09:00, 7th of November 2013"
-      }, 
+      },
       {
-        "@type": "OnDemandEvent", 
+        "@type": "OnDemandEvent",
         "startDate": "09:45 on the same day"
       }
-    ], 
+    ],
     "url": "http://www.bbc.co.uk/programmes/b03ggc19"
-  }, 
+  },
   "url": "http://www.bbc.co.uk/programmes/b006qykl"
 }
-</script> 
+</script>
 
-TYPES:  GovernmentPermit,GovernmentOrganization,GovernmentService,AdministrativeArea 
+TYPES:  GovernmentPermit,GovernmentOrganization,GovernmentService,AdministrativeArea
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
 <div>
 NYC Food Service Establishment Permit, issued by Department of Health and Mental Hygiene.
 (issued through NYC Food Service Establishment Permit Service; valid in New York for 1 year).
-</div> 
+</div>
 
-MICRODATA: 
+MICRODATA:
 
 <div itemscope itemtype="http://schema.org/GovernmentPermit">
   <span itemprop="name">NYC Food Service Establishment Permit</span>
@@ -8958,9 +8958,9 @@ MICRODATA:
     <span itemprop="name">New York</span>
   </div>
   <time itemprop="validFor" content="P1Y">1 year</time>
-</div> 
+</div>
 
-RDFA: 
+RDFA:
 
 <div vocab="http://schema.org/" typeof="GovernmentPermit">
   <span property="name">NYC Food Service Establishment Permit</span>
@@ -8974,39 +8974,39 @@ RDFA:
     <span property="name">New York</span>
   </div>
   <time property="validFor" content="P1Y">1 year</time>
-</div> 
+</div>
 
 JSON:
 
 <script type="application/ld+json">
 {
-  "@context": "http://schema.org", 
-  "@type": "GovernmentPermit", 
+  "@context": "http://schema.org",
+  "@type": "GovernmentPermit",
   "issuedBy": {
-    "@type": "GovernmentOrganization", 
+    "@type": "GovernmentOrganization",
     "name": "Department of Health and Mental Hygiene\""
-  }, 
+  },
   "issuedThrough": {
-    "@type": "GovernmentService", 
+    "@type": "GovernmentService",
     "name": "NYC Food Service Establishment Permit Service"
-  }, 
-  "name": "NYC Food Service Establishment Permit", 
-  "validFor": "", 
+  },
+  "name": "NYC Food Service Establishment Permit",
+  "validFor": "",
   "validIn": {
-    "@type": "AdministrativeArea", 
+    "@type": "AdministrativeArea",
     "name": "New York"
   }
 }
-</script> 
+</script>
 
-TYPES:  GovernmentService,GovernmentOrganization,AdministrativeArea,CivicAudience,ContactPoint,Language,Hospital 
+TYPES:  GovernmentService,GovernmentOrganization,AdministrativeArea,CivicAudience,ContactPoint,Language,Hospital
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
 This example shows a JSON-LD description of services that do not necessarily have a direct
 human-oriented HTML description. It describes a GovernmentService named "Veterans Affairs Emergency Mental Health",
 its operator, service area and service details, such as its Veterans Crisis Line (including  phone contact line
-hours of operation, language and other details). 
+hours of operation, language and other details).
 
 MICRODATA:
 
@@ -9016,7 +9016,7 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <script type='application/ld+json'>
 {
@@ -9056,11 +9056,11 @@ JSON:
     }
   }
 }
-</script> 
+</script>
 
-TYPES:  Event,Place,PostalAddress,Offer 
+TYPES:  Event,Place,PostalAddress,Offer
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
 <div class="event-wrapper">
 
@@ -9080,9 +9080,9 @@ PRE-MARKUP:
   <div class="event-price">$13.00</div>
   <a href="http://www.ticketfly.com/purchase/309433">Tickets</a>
 
-</div> 
+</div>
 
-MICRODATA: 
+MICRODATA:
 
 <div class="event-wrapper" itemscope itemtype="http://schema.org/Event">
 
@@ -9105,9 +9105,9 @@ MICRODATA:
   <div class="event-price" itemprop="price">$13.00</div>
   <a itemprop="url" href="http://www.ticketfly.com/purchase/309433">Tickets</a>
  </span>
-</div> 
+</div>
 
-RDFA: 
+RDFA:
 
 <div vocab="http://schema.org/"class="event-wrapper"  typeof="Event">
 
@@ -9130,38 +9130,38 @@ RDFA:
   <div class="event-price" property="price">$13.00</div>
   <a property="url" href="http://www.ticketfly.com/purchase/309433">Tickets</a>
  </span>
-</div> 
+</div>
 
 JSON:
 
 <script type="application/ld+json">
 {
-  "@context": "http://schema.org", 
-  "@type": "Event", 
+  "@context": "http://schema.org",
+  "@type": "Event",
   "location": {
-    "@type": "Place", 
+    "@type": "Place",
     "address": {
-      "@type": "PostalAddress", 
-      "addressLocality": "Denver", 
-      "addressRegion": "CO", 
-      "postalCode": "80209", 
+      "@type": "PostalAddress",
+      "addressLocality": "Denver",
+      "addressRegion": "CO",
+      "postalCode": "80209",
       "streetAddress": "7 S. Broadway"
-    }, 
+    },
     "name": "The Hi-Dive"
-  }, 
-  "name": "Typhoon with Radiation City", 
+  },
+  "name": "Typhoon with Radiation City",
   "offers": {
-    "@type": "Offer", 
-    "price": "$13.00", 
+    "@type": "Offer",
+    "price": "$13.00",
     "url": "http://www.ticketfly.com/purchase/309433"
-  }, 
+  },
   "startDate": "Sat Sep 14"
 }
-</script> 
+</script>
 
-TYPES:  Event,Place,PostalAddress,Offer,EventCancelled 
+TYPES:  Event,Place,PostalAddress,Offer,EventCancelled
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
 <div class="event-wrapper">
 
@@ -9182,9 +9182,9 @@ PRE-MARKUP:
   <div class="event-price">$13.00</div>
   <a href="http://www.ticketfly.com/purchase/309433">Tickets</a>
 
-</div> 
+</div>
 
-MICRODATA: 
+MICRODATA:
 
 <div class="event-wrapper" itemscope itemtype="http://schema.org/Event">
 
@@ -9208,9 +9208,9 @@ MICRODATA:
   <div class="event-price" itemprop="price">$13.00</div>
   <a itemprop="url" href="http://www.ticketfly.com/purchase/309433">Tickets</a>
  </span>
-</div> 
+</div>
 
-RDFA: 
+RDFA:
 
 <div vocab="http://schema.org/"class="event-wrapper"  typeof="Event">
 
@@ -9234,39 +9234,39 @@ RDFA:
   <div class="event-price" property="price">$13.00</div>
   <a property="url" href="http://www.ticketfly.com/purchase/309433">Tickets</a>
  </span>
-</div> 
+</div>
 
 JSON:
 
 <script type="application/ld+json">
 {
-  "@context": "http://schema.org", 
-  "@type": "Event", 
-  "eventStatus": "http://schema.org/EventCancelled", 
+  "@context": "http://schema.org",
+  "@type": "Event",
+  "eventStatus": "http://schema.org/EventCancelled",
   "location": {
-    "@type": "Place", 
+    "@type": "Place",
     "address": {
-      "@type": "PostalAddress", 
-      "addressLocality": "Denver", 
-      "addressRegion": "CO", 
-      "postalCode": "80209", 
+      "@type": "PostalAddress",
+      "addressLocality": "Denver",
+      "addressRegion": "CO",
+      "postalCode": "80209",
       "streetAddress": "7 S. Broadway"
-    }, 
+    },
     "name": "The Hi-Dive"
-  }, 
-  "name": "CANCELLED - Typhoon with Radiation City", 
+  },
+  "name": "CANCELLED - Typhoon with Radiation City",
   "offers": {
-    "@type": "Offer", 
-    "price": "$13.00", 
+    "@type": "Offer",
+    "price": "$13.00",
     "url": "http://www.ticketfly.com/purchase/309433"
-  }, 
+  },
   "startDate": "Sat Sep 14"
 }
-</script> 
+</script>
 
-TYPES:  Event,Place,PostalAddress,Offer 
+TYPES:  Event,Place,PostalAddress,Offer
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
 <div class="event-wrapper">
   <div class="event-date">Sat Oct 12</div>
@@ -9284,9 +9284,9 @@ PRE-MARKUP:
   <div class="event-price">$13.00</div>
   <a href="http://www.ticketfly.com/purchase/309433">Tickets</a>
  </span>
-</div> 
+</div>
 
-MICRODATA: 
+MICRODATA:
 
 <div class="event-wrapper">
   <div class="event-date" itemprop="startDate" content="2013-10-12T22:00">Sat Oct 12</div>
@@ -9308,9 +9308,9 @@ MICRODATA:
    <div class="event-price" itemprop="price">$13.00</div>
    <a itemprop="url" href="http://www.ticketfly.com/purchase/309433">Tickets</a>
   </span>
-</div> 
+</div>
 
-RDFA: 
+RDFA:
 
 <div vocab="http://schema.org/"class="event-wrapper">
   <div class="event-date" property="startDate" content="2013-10-12T22:00">Sat Oct 12</div>
@@ -9332,37 +9332,37 @@ RDFA:
    <div class="event-price" property="price">$13.00</div>
    <a property="url" href="http://www.ticketfly.com/purchase/309433">Tickets</a>
   </span>
-</div> 
+</div>
 
 JSON:
 
 <script type="application/ld+json">
 {
-  "@context": "http://schema.org", 
+  "@context": "http://schema.org",
   "@graph": [
     {
-      "@type": "Place", 
+      "@type": "Place",
       "address": {
-        "@type": "PostalAddress", 
-        "addressLocality": "Denver", 
-        "addressRegion": "CO", 
-        "postalCode": "80209", 
+        "@type": "PostalAddress",
+        "addressLocality": "Denver",
+        "addressRegion": "CO",
+        "postalCode": "80209",
         "streetAddress": "7 S. Broadway"
-      }, 
+      },
       "name": "The Hi-Dive"
-    }, 
+    },
     {
-      "@type": "Offer", 
-      "price": "$13.00", 
+      "@type": "Offer",
+      "price": "$13.00",
       "url": "http://www.ticketfly.com/purchase/309433"
     }
   ]
 }
-</script> 
+</script>
 
-TYPES:  Event,Place,PostalAddress,Offer,SoldOut 
+TYPES:  Event,Place,PostalAddress,Offer,SoldOut
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
 <div class="event-wrapper">
   <div class="event-date">Sat Sep 14</div>
@@ -9379,9 +9379,9 @@ PRE-MARKUP:
   <div class="event-price">$13.00</div>
   <a href="http://www.ticketfly.com/purchase/309433">Tickets</a>
  </span>
-</div> 
+</div>
 
-MICRODATA: 
+MICRODATA:
 
 <div class="event-wrapper" itemscope itemtype="http://schema.org/Event">
 
@@ -9406,9 +9406,9 @@ MICRODATA:
   <div class="event-price" itemprop="price">$13.00</div>
   <a itemprop="url" href="http://www.ticketfly.com/purchase/309433">Tickets</a>
  </span>
-</div> 
+</div>
 
-RDFA: 
+RDFA:
 
 <div vocab="http://schema.org/"class="event-wrapper"  typeof="Event">
 
@@ -9433,41 +9433,41 @@ RDFA:
   <div class="event-price" property="price">$13.00</div>
   <a property="url" href="http://www.ticketfly.com/purchase/309433">Tickets</a>
  </span>
-</div> 
+</div>
 
 JSON:
 
 <script type="application/ld+json">
 {
-  "@context": "http://schema.org", 
-  "@type": "Event", 
+  "@context": "http://schema.org",
+  "@type": "Event",
   "location": {
-    "@type": "Place", 
+    "@type": "Place",
     "address": {
-      "@type": "PostalAddress", 
-      "addressLocality": "Denver", 
-      "addressRegion": "CO", 
-      "postalCode": "80209", 
+      "@type": "PostalAddress",
+      "addressLocality": "Denver",
+      "addressRegion": "CO",
+      "postalCode": "80209",
       "streetAddress": "7 S. Broadway"
-    }, 
+    },
     "name": "The Hi-Dive"
-  }, 
-  "name": "SOLD OUT! Typhoon with Radiation City", 
+  },
+  "name": "SOLD OUT! Typhoon with Radiation City",
   "offers": {
-    "@type": "Offer", 
-    "availability": "http://schema.org/SoldOut", 
-    "price": "$13.00", 
+    "@type": "Offer",
+    "availability": "http://schema.org/SoldOut",
+    "price": "$13.00",
     "url": "http://www.ticketfly.com/purchase/309433"
-  }, 
+  },
   "startDate": "Sat Sep 14"
 }
-</script> 
+</script>
 
-TYPES:  Event,Place,PostalAddress,MusicGroup,Offer,LimitedAvailability 
+TYPES:  Event,Place,PostalAddress,MusicGroup,Offer,LimitedAvailability
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
-JSON-LD description of a scheduled Event with limited ticket availability and performer details indicated using sameAs. 
+JSON-LD description of a scheduled Event with limited ticket availability and performer details indicated using sameAs.
 
 MICRODATA:
 
@@ -9477,7 +9477,7 @@ RDFA:
 
 This example is JSON only.
 
-JSON: 
+JSON:
 
 <script type="application/ld+json">
 {
@@ -9510,11 +9510,11 @@ JSON:
     "url" : "http://www.ticketfly.com/purchase/309433" },
   "typicalAgeRange" : "18+"
 }
-</script> 
+</script>
 
-TYPES:  Book,CreativeWork 
+TYPES:  Book,CreativeWork
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
 <div>
    <dl>
@@ -9563,9 +9563,9 @@ PRE-MARKUP:
          <span>0 - No Rating Yet</span>
       </div>
    </div>
-</div> 
+</div>
 
-MICRODATA: 
+MICRODATA:
 
 <p>
 This example shows the addition of Accessibility metadata. Although these properties are not
@@ -9637,9 +9637,9 @@ as suggested by www.a11ymetadata.org.
          <span><span itemprop="ratingValue>0</span> - No Rating Yet</span>
       </div>
    </div>
-</div> 
+</div>
 
-RDFA: 
+RDFA:
 
 <p>
 This example shows the addition of Accessibility metadata. Although these properties are not
@@ -9711,53 +9711,53 @@ as suggested by www.a11ymetadata.org.
          <span><span property="ratingValue>0</span> - No Rating Yet</span>
       </div>
    </div>
-</div> 
+</div>
 
 JSON:
 
 <script type="application/ld+json">
 {
-  "@context": "http://schema.org", 
-  "@type": "Book", 
-  "accessibilityAPI": "ARIA", 
+  "@context": "http://schema.org",
+  "@type": "Book",
+  "accessibilityAPI": "ARIA",
   "accessibilityControl": [
-    "fullKeyboardControl", 
+    "fullKeyboardControl",
     "fullMouseControl"
-  ], 
+  ],
   "accessibilityFeature": [
-    "largePrint/CSSEnabled", 
-    "highContrast/CSSEnabled", 
-    "resizeText/CSSEnabled", 
-    "displayTransformability", 
-    "longDescription", 
+    "largePrint/CSSEnabled",
+    "highContrast/CSSEnabled",
+    "resizeText/CSSEnabled",
+    "displayTransformability",
+    "longDescription",
     "alternativeText"
-  ], 
+  ],
   "accessibilityHazard": [
-    "noFlashing", 
-    "noMotionSimulation", 
+    "noFlashing",
+    "noMotionSimulation",
     "noSound"
-  ], 
+  ],
   "aggregateRating": {
-    "@type": "AggregateRating", 
+    "@type": "AggregateRating",
     "reviewCount": "0"
-  }, 
-  "bookFormat": "EBook/DAISY3", 
+  },
+  "bookFormat": "EBook/DAISY3",
   "copyrightHolder": {
     "@type": "Organization"
-  }, 
-  "copyrightYear": "2007", 
-  "description": "NIMAC-sourced textbook", 
-  "genre": "Educational Materials", 
-  "inLanguage": "en-US", 
-  "isFamilyFriendly": "true", 
-  "isbn": "9780030426599", 
-  "name": "Holt Physical Science", 
-  "numberOfPages": "598 Pages", 
+  },
+  "copyrightYear": "2007",
+  "description": "NIMAC-sourced textbook",
+  "genre": "Educational Materials",
+  "inLanguage": "en-US",
+  "isFamilyFriendly": "true",
+  "isbn": "9780030426599",
+  "name": "Holt Physical Science",
+  "numberOfPages": "598 Pages",
   "publisher": {
     "@type": "Organization"
   }
 }
-</script> 
+</script>
 
 
 
@@ -10216,7 +10216,7 @@ JSON:
   "@type": "TaxiReservation",
   "reservationId": "546323",
   "reservationStatus": "http://schema.org/ReservationConfirmed",
-  
+
   "underName": {
     "@type": "Person",
     "name": "John Smith"
@@ -10258,7 +10258,7 @@ PRE-MARKUP:
     <div>
       <div>1337</div>
       <div>
-      (The text of the accepted answer goes here...).  
+      (The text of the accepted answer goes here...).
       </div>
       <div>answered Dec 1 '10 at 22:01</div>
       <div><span>anotheruser</span></div>
@@ -10287,7 +10287,7 @@ MICRODATA:
     <div itemprop="suggestedAnswer acceptedAnswer" itemscope itemtype="http://schema.org/Answer">
       <div itemprop="voteCount">1337</div>
       <div itemprop="text">
-      (The text of the accepted answer goes here...).  
+      (The text of the accepted answer goes here...).
       </div>
       <div>answered <time itemprop="dateCreated" datetime="2010-12-01T22:01Z">Dec 1 '10 at 22:01</time></div>
       <div itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">anotheruser</span></div>
@@ -10316,7 +10316,7 @@ RDFA:
     <div property="suggestedAnswer acceptedAnswer"  typeof="Answer">
       <div property="voteCount">1337</div>
       <div property="text">
-      (The text of the accepted answer goes here...).  
+      (The text of the accepted answer goes here...).
       </div>
       <div>answered <time property="dateCreated" datetime="2010-12-01T22:01Z">Dec 1 '10 at 22:01</time></div>
       <div property="author"  typeof="Person"><span property="name">anotheruser</span></div>
@@ -10370,8 +10370,8 @@ TYPES: Restaurant, ViewAction, EntryPoint, SoftwareApplication
 PRE-MARKUP:
 
 A Restaurant named "Tartine Bakery" with a ViewAction as a
-potentialAction, with several target endpoints including 
-the simple url http://example.com/player?id=123 and 
+potentialAction, with several target endpoints including
+the simple url http://example.com/player?id=123 and
 full EntryPoint descriptions for Windows and iOS SoftwareApplication
 apps.
 
@@ -10428,7 +10428,7 @@ JSON:
 
 TYPES:  MusicEvent, Event, CreativeWork, MusicGroup, Person
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
 <div>
   <h2>Shostakovich Leningrad</h2>
@@ -10481,7 +10481,7 @@ PRE-MARKUP:
 </div>
 
 
-MICRODATA: 
+MICRODATA:
 
 <div itemscope="" itemtype="http://schema.org/MusicEvent">
 
@@ -10496,7 +10496,7 @@ MICRODATA:
     <span itemprop="price" content="$40"/>
     <span itemprop="availability" href="http://schema.org/InStock"/>
   </div>
- 
+
   <h2 itemprop="name">Shostakovich Leningrad</h2>
   <div>
     <div itemprop="startDate" content="2014-05-23T20:00">May<span>23</span></div>
@@ -10548,7 +10548,7 @@ MICRODATA:
 
 
 
-RDFA: 
+RDFA:
 
 <div vocab="http://schema.org/" typeof="MusicEvent">
 
@@ -10563,7 +10563,7 @@ RDFA:
     <span property="price" content="$40"/>
     <span property="availability" href="http://schema.org/InStock"/>
   </div>
- 
+
   <h2 property="name">Shostakovich Leningrad</h2>
   <div>
     <div property="startDate" content="2014-05-23T20:00">May<span>23</span></div>
@@ -10613,69 +10613,69 @@ JSON:
 
 <script type="application/ld+json">
 {
-  "@context": "http://schema.org", 
-  "@type": "MusicEvent", 
+  "@context": "http://schema.org",
+  "@type": "MusicEvent",
   "location": {
-    "@type": "MusicVenue", 
+    "@type": "MusicVenue",
     "name": "Chicago Symphony Center",
     "address": "220 S. Michigan Ave, Chicago, Illinois, USA"
-  }, 
-  "name": "Shostakovich Leningrad", 
+  },
+  "name": "Shostakovich Leningrad",
   "offers": {
-    "@type": "Offer", 
+    "@type": "Offer",
     "url": "/examples/ticket/12341234",
     "price": "$40",
     "availability": "http://schema.org/InStock"
-  }, 
+  },
   "performer": [
     {
-      "@type": "MusicGroup", 
-      "name": "Chicago Symphony Orchestra", 
+      "@type": "MusicGroup",
+      "name": "Chicago Symphony Orchestra",
       "sameAs": [
-        "http://cso.org/", 
+        "http://cso.org/",
         "http://en.wikipedia.org/wiki/Chicago_Symphony_Orchestra"
       ]
-    }, 
+    },
     {
-      "@type": "Person", 
-      "image": "/examples/jvanzweden_s.jpg", 
-      "name": "Jaap van Zweden", 
+      "@type": "Person",
+      "image": "/examples/jvanzweden_s.jpg",
+      "name": "Jaap van Zweden",
       "sameAs": "http://www.jaapvanzweden.com/"
     }
-  ], 
-  "startDate": "2014-05-23T20:00", 
+  ],
+  "startDate": "2014-05-23T20:00",
   "workPerformed": [
     {
-      "@type": "CreativeWork", 
-      "name": "Britten Four Sea Interludes and Passacaglia from Peter Grimes", 
+      "@type": "CreativeWork",
+      "name": "Britten Four Sea Interludes and Passacaglia from Peter Grimes",
       "sameAs": "http://en.wikipedia.org/wiki/Peter_Grimes"
-    }, 
+    },
     {
-      "@type": "CreativeWork", 
-      "name": "Shostakovich Symphony No. 7 (Leningrad)", 
+      "@type": "CreativeWork",
+      "name": "Shostakovich Symphony No. 7 (Leningrad)",
       "sameAs": "http://en.wikipedia.org/wiki/Symphony_No._7_(Shostakovich)"
     }
   ]
 }
 </script>
 
-TYPES:  TheaterEvent, PerformingArtsTheater, CreativeWork
+TYPES:  Event, TheaterEvent, PerformingArtsTheater, CreativeWork
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
 <div>
   <span>Julius Caesar at Shakespeare's Globe</span>
   <span>Wed 01 October 2014 19:30</span>
 </div>
 
-MICRODATA: 
+MICRODATA:
 
 <div itemscope="" itemtype="http://schema.org/TheaterEvent">
   <span itemprop="startDate" content="2014-10-01T19:30">Wed 01 October 2014 19:30</span>
   <span itemprop="name">Julius Caesar at Shakespeare's Globe</span>
   <div itemprop="location" itemscope="" itemtype="http://schema.org/PerformingArtsTheater">
     <span itemprop="name" content="Shakespeare's Globe"/>
-    <link itemprop="url sameAs" href="http://www.shakespearesglobe.com/"/>
+    <link itemprop="sameAs" href="http://www.shakespearesglobe.com/"/>
     <link itemprop="sameAs" href="http://en.wikipedia.org/wiki/Shakespeare%27s_Globe"/>
     <span itemprop="address" content="21 New Globe Walk, Bankside, London SE1 9DT"/>
   </div>
@@ -10692,14 +10692,14 @@ MICRODATA:
   </div>
 </div>
 
-RDFA: 
+RDFA:
 
 <div vocab="http://schema.org/" typeof="TheaterEvent">
   <span content="2014-10-01T19:30" property="startDate">Wed 01 October 2014 19:30</span>
   <span property="name">Julius Caesar at Shakespeare's Globe</span>
   <div property="location" typeof="PerformingArtsTheater">
     <span property="name" content="Shakespeare's Globe"/>
-    <link property="url sameAs" href="http://www.shakespearesglobe.com/"/>
+    <link property="sameAs" href="http://www.shakespearesglobe.com/"/>
     <link property="sameAs" href="http://en.wikipedia.org/wiki/Shakespeare%27s_Globe"/>
     <span content="21 New Globe Walk, Bankside, London SE1 9DT" property="address"/>
   </div>
@@ -10720,26 +10720,27 @@ JSON:
 
 <script type="application/ld+json">
 {
-  "@context": "http://schema.org", 
-  "@type": "TheaterEvent", 
+  "@context": "http://schema.org",
+  "@type": "TheaterEvent",
   "location": {
-    "@type": "PerformingArtsTheater", 
-    "name": "Shakespeare's Globe"
-  }, 
-  "name": "Julius Caesar at Shakespeare's Globe", 
+    "@type": "PerformingArtsTheater",
+    "name": "Shakespeare's Globe",
+    "sameAs": "http://www.shakespearesglobe.com/"
+  },
+  "name": "Julius Caesar at Shakespeare's Globe",
   "offers": {
-    "@type": "Offer", 
+    "@type": "Offer",
     "url": "/examples/ticket/0012301230123"
-  }, 
-  "startDate": "Wed 01 October 2014 19:30", 
+  },
+  "startDate": "Wed 01 October 2014 19:30",
   "workPerformed": {
-    "@type": "CreativeWork", 
+    "@type": "CreativeWork",
     "creator": {
-      "@type": "Person", 
+      "@type": "Person",
       "name": ""
-    }, 
+    },
     "sameAs": [
-      "http://en.wikipedia.org/wiki/Julius_Caesar_(play)", 
+      "http://en.wikipedia.org/wiki/Julius_Caesar_(play)",
       "http://worldcat.org/entity/work/id/1807288036"
     ]
   }
@@ -10835,27 +10836,839 @@ JSON:
 }
 </script>
 
+TYPES:  Restaurant
+
+PRE-MARKUP:
+
+<div>
+  <h1>Fondue for Fun and Fantasy</h1>
+  <p>Fantastic and fun for all your cheesy occasions.</p>
+  <p>Open: Daily from 11:30am till 11pm</p>
+  <p>Phone: 555-0100-3333</p>
+  <p>View <a href="http://example.com/menu">our menu</a>.</p>
+</div>
+
+MICRODATA:
+
+<div itemscope itemtype="http://schema.org/Restaurant">
+  <h1 itemprop="name">Fondue for Fun and Fantasy</h1>
+  <p itemprop="description">Fantastic and fun for all your cheesy occasions.</p>
+  <p>Open: <time itemprop="openingHours" datetime="Mo,Tu,We,Th,Fr,Sa,Su 11:30-23:00">Daily from 11:30am till 11pm</time></p>
+  <p>Phone: <span itemprop="telephone" content="+155501003333">555-0100-3333</span></p>
+  <p>View <a itemprop="menu" href="http://example.com/menu">our menu</a>.</p>
+</div>
+
+RDFA:
+
+<div vocab="http://schema.org/" typeof="Restaurant">
+  <h1 property="name">Fondue for Fun and Fantasy</h1>
+  <p property="description">Fantastic and fun for all your cheesy occasions.</p>
+  <p>Open: <time property="openingHours" datetime="Mo,Tu,We,Th,Fr,Sa,Su 11:30-23:00">Daily from 11:30am till 11pm</time></p>
+  <p>Phone: <span property="telephone" content="+155501003333">555-0100-3333</span></p>
+  <p>View <a property="menu" href="http://example.com/menu">our menu</a>.</p>
+</div>
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Restaurant",
+  "name": "Fondue for Fun and Fantasy",
+  "description": "Fantastic and fun for all your cheesy occasions",
+  "openingHours": "Mo,Tu,We,Th,Fr,Sa,Su 11:30-23:00",
+  "telephone": "+155501003333",
+  "menu": "http://example.com/menu"
+}
+</script>
+
+TYPES:  Store, OpeningHoursSpecification
+
+PRE-MARKUP:
+
+<div>
+  <h1>Middle of Nowhere Foods</h1>
+  <h2>Opening hours</h2>
+  <p>Normally open daily 9am-2pm except on:</p>
+  <ul>
+    <li>
+      <span>24 December 2013</span> and
+      <span>25 December 2013</span>:
+      <span>9am-11am</span>
+    </li>
+    <li>
+      <span>1st January 2014</span>:
+      <span>Noon-2pm</span>
+    </li>
+  </ul>
+</div>
+
+MICRODATA:
+
+<div itemscope itemtype="http://schema.org/Store">
+  <h1 itemprop="name">Middle of Nowhere Foods</h1>
+  <h2>Opening hours</h2>
+    <p>Normally open <time itemprop="openingHours" datetime="Mo,Tu,We,Th,Fr,Sa,Su 09:00-14:00">daily 9am-2pm</time> except on:</p>
+  <ul>
+    <li itemprop="openingHoursSpecification" itemscope itemtype="http://schema.org/OpeningHoursSpecification">
+      <span itemprop="validFrom" content="2013-12-24">24 December 2013</span> and
+      <span itemprop="validThrough" content="2013-12-25">25 December 2013</span>:
+      <span itemprop="opens" content="09:00">9am</span>-<span itemprop="closes" content="11:00">11am</span></li>
+    <li itemprop="openingHoursSpecification" itemscope itemtype="http://schema.org/OpeningHoursSpecification">
+      <span itemprop="validFrom" content="2014-01-01">1st January 2014</span>
+      <span itemprop="validThrough" content="2014-01-01"></span>:
+      <span itemprop="opens" content="12:00">Noon</span>-<span itemprop="closes" content="14:00">2pm</span></li>
+  </ul>
+</div>
+
+RDFA:
+
+<div vocab="http://schema.org" typeof="Store">
+  <h1 property="name">Middle of Nowhere Foods</h1>
+  <h2>Opening hours</h2>
+  <p>Normally open <time property="openingHours" datetime="Mo,Tu,We,Th,Fr,Sa,Su 09:00-14:00">daily 9am-2pm</time> except on:</p>
+  <ul>
+    <li property="openingHoursSpecification"  typeof="OpeningHoursSpecification">
+      <span property="validFrom" content="2013-12-24">24 December 2013</span> and
+      <span property="validThrough" content="2013-12-25">25 December 2013</span>:
+      <span property="opens" content="09:00">9am</span>-<span property="closes" content="11:00">11am</span>
+    </li>
+    <li property="openingHoursSpecification"  typeof="OpeningHoursSpecification">
+      <span property="validFrom" content="2014-01-01">1st January 2014</span>
+      <span property="validThrough" content="2014-01-01"></span>:
+      <span property="opens" content="12:00">Noon</span>-<span property="closes" content="14:00">2pm</span>
+    </li>
+  </ul>
+</div>
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Store",
+  "name": "Middle of Nowhere Foods",
+  "openingHours": "Mo,Tu,We,Th,Fr,Sa,Su 09:00-14:00",
+  "openingHoursSpecification":
+  {
+    "@type": "OpeningHoursSpecification",
+    "validFrom": "2013-12-24",
+    "validThrough": "2013-12-25",
+    "opens": "12:00",
+    "closes": "14:00"
+  }
+}
+</script>
+
+TYPES: Pharmacy
+
+PRE-MARKUP:
+
+<div>
+  <h1>Philippa's Pharmacy</h1>
+  <p>A superb collection of fine pharmaceuticals for your beauty and healthcare
+    convenience, a department of Delia's Drugstore.</p>
+  <p>Open: Monday-Thursday 9am-noon</p>
+  <p>Phone: (800)555-1234</p>
+</div>
+
+MICRODATA:
+
+<div itemscope itemtype="http://schema.org/Pharmacy">
+  <h1 itemprop="name">Philippa's Pharmacy</h1>
+  <p itemprop="description">A superb collection of fine pharmaceuticals for your beauty and healthcare
+    convenience, a department of Delia's Drugstore.</p>
+  <p>Open: <time itemprop="openingHours" datetime="Mo,Tu,We,Th 09:00-12:00">Monday-Thursday 9am-noon</time></p>
+  <p>Phone: <span itemprop="telephone" content="+18005551234">(800)555-1234</span></p>
+</div>
+
+RDFA:
+
+<div vocab="http://schema.org/" typeof="Pharmacy">
+  <h1 property="name">Philippa's Pharmacy</h1>
+  <p property="description">A superb collection of fine pharmaceuticals for your beauty and healthcare
+    convenience, a department of Delia's Drugstore.</p>
+  <p>Open: <time property="openingHours" datetime="Mo,Tu,We,Th 09:00-12:00">Monday-Thursday 9am-noon</time></p>
+  <p>Phone: <span property="telephone" content="+18005551234">(800)555-1234</span></p>
+</div>
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Pharmacy",
+  "name": "Philippa's Pharmacy",
+  "description": "A superb collection of fine pharmaceuticals for your beauty and healthcare
+    convenience, a department of Delia's Drugstore.",
+  "openingHours": "Mo,Tu,We,Th 09:00-12:00",
+  "telephone": "+18005551234"
+}
+</script>
+
+TYPES:  Store, Pharmacy
+
+PRE-MARKUP:
+
+<div>
+  <div>
+    <h1>Delia's Daily Supplies</h1>
+    <p>For your daily newspapers, candies, snacks and (via our in-store pharmacy)
+      drugs and healthcare products to keep you and your family happy, healthy and supplied
+       with all your daily needs.</p>
+    <p>Open: Monday-Friday 7am-11pm</p>
+    <p>Phone: 800-555-1234</p>
+  </div>
+
+  <div>
+    <h2>Philippa's Pharmacy</h2>
+    <p>A superb collection of fine pharmaceuticals for your beauty and healthcare needs,
+      a department of Delia's Drugstore. Call our desk to speak to the on-duty
+      pharmacist any morning Monday-Thursday.</p>
+    <p>Open: Monday-Thursday 9am-noon</p>
+    <p>Phone: 555-0100-1111</p>
+  </div>
+</div>
+
+MICRODATA:
+
+<div itemscope itemtype="http://schema.org/Store">
+  <div>
+    <h1 itemprop="name">Delia's Daily Supplies</h1>
+    <p itemprop="description">For your daily newspapers, candies, snacks and (via our in-store pharmacy)
+      drugs and healthcare products to keep you and your family happy, healthy and supplied with all your daily needs.</p>
+    <p>Open: <time itemprop="openingHours" datetime="Mo-Fr 07:00-23:00">Monday-Friday 7am-11pm </time></p>
+    <p>Phone: <span itemprop="telephone" content="+1 8005551234">800-555-1234</span></p>
+  </div>
+
+  <div itemprop="department" itemscope itemtype="http://schema.org/Pharmacy">
+    <h2 itemprop="name">Philippa's Pharmacy</h2>
+    <p itemprop="description">A superb collection of fine pharmaceuticals for your beauty and healthcare needs,
+      a department of Delia's Drugstore. Call our desk to speak to the on-duty pharmacist any morning Monday-Thursday.</p>
+    <p>Open: <time itemprop="openingHours" datetime="Mo-Th 09:00-12:00">Monday-Thursday 9am-noon</time></p>
+    <p>Phone: <span itemprop="telephone" content="+155501001111">555-0100-1111</span></p>
+  </div>
+</div>
+
+RDFA:
+
+<div vocab="http://schema.org/" typeof="Store">
+  <div>
+      <h1 property="name">Delia's Daily Supplies</h1>
+      <p property="description">For your daily newspapers, candies, snacks and (via our in-store pharmacy)
+          drugs and healthcare products to keep you and your family happy, healthy and supplied with all your daily needs.</p>
+      <p>Open: <time property="openingHours" datetime="Mo-Fr 07:00-23:00">Monday-Friday 7am-11pm </time></p>
+      <p>Phone: <span property="telephone" content="+1 8005551234">800-555-1234</span></p>
+  </div>
+
+  <div property="department" typeof="Pharmacy">
+      <h2 property="name">Philippa's Pharmacy</h2>
+      <p property="description">A superb collection of fine pharmaceuticals for your beauty and healthcare needs,
+          a department of Delia's Drugstore. Call our desk to speak to the on-duty pharmacist any morning Monday-Thursday.</p>
+      <p>Open: <time property="openingHours" datetime="Mo-Th 09:00-12:00">Monday-Thursday 9am-noon</time></p>
+      <p>Phone: <span property="telephone" content="+155501001111">555-0100-1111</span></p>
+  </div>
+</div>
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Store",
+  "name": "Delia's Daily Supplies",
+  "description": "For your daily newspapers, candies, snacks and (via our in-store pharmacy) drugs and healthcare products to keep you and your family happy, healthy and supplied with all your daily needs.",
+  "openingHours": "Mo-Fr 07:00-23:00",
+  "telephone": "+155501001110",
+  "department":
+  {
+    "@type": "Pharmacy",
+    "name": "Philippa's Pharmacy",
+    "description": "A superb collection of fine pharmaceuticals for your   beauty and healthcare needs, a department of Delia's Drugstore. Call our desk to speak to the on-duty pharmacist any morning Monday-Thursday.",
+    "openingHours": "Mo-Th 09:00-12:00",
+    "telephone": "+155501001111"
+  }
+}
+</script>
+
+TYPES:  Store, DryCleaningOrLaundry, Corporation, Pharmacy
+
+PRE-MARKUP:
+
+<div>
+  <div>
+    <h1>Delia's Daily Supplies</h1>
+    <p>For your daily newspapers, candies, snacks and (via our in-store pharmacy)
+      drugs and healthcare products to keep you and your family happy, healthy and
+      supplied with all your daily needs.</p>
+    <p>Open: Monday-Friday 7am-11pm</p>
+    <p>Phone: 555-0100-1110</p>
+  </div>
+
+  <div>
+    <h2>Philippa's Pharmacy</h2>
+    <p>A superb collection of fine pharmaceuticals for your beauty and healthcare needs,
+      a department of Delia's Drugstore. Call our desk to speak to the on-duty pharmacist
+      any morning Monday-Thursday.</p>
+    <p>Open: Monday-Thursday 9am-noon</p>
+    <p>Phone: 555-0100-1111</p>
+  </div>
+
+  <!-- another department -->
+  <div>
+    <h2>Larry's Laundromat</h2>
+    <p>Keep your clothes clean while you do your daily shopping!</p>
+    <p>Open: Open weekdays 1pm-5:30pm.</p>
+    <p>Phone: 555-0100-2121</p>
+    <p>A branch of
+    <a href="http://example.com/">Larry's International</a>.</p>
+  </div>
+</div>
+
+MICRODATA:
+
+<div itemscope itemtype="http://schema.org/Store">
+  <div>
+    <h1 itemprop="name">Delia's Daily Supplies</h1>
+    <p itemprop="description">For your daily newspapers, candies, snacks and (via our in-store pharmacy)
+      drugs and healthcare products to keep you and your family happy, healthy and supplied with all your daily needs.</p>
+    <p>Open: <time itemprop="openingHours" datetime="Mo-Fr 07:00-23:00">Monday-Friday 7am-11pm </time></p>
+    <p>Phone: <span itemprop="telephone" content="+155501001110">555-0100-1110</span></p>
+  </div>
+
+  <div itemprop="department" itemscope itemtype="http://schema.org/Pharmacy">
+    <h2 itemprop="name">Philippa's Pharmacy</h2>
+    <p itemprop="description">A superb collection of fine pharmaceuticals for your beauty and healthcare needs,
+      a department of Delia's Drugstore. Call our desk to speak to the on-duty pharmacist any morning Monday-Thursday.</p>
+    <p>Open: <time itemprop="openingHours" datetime="Mo-Th 09:00-12:00">Monday-Thursday 9am-noon</time></p>
+    <p>Phone: <span itemprop="telephone" content="+155501001111">555-0100-1111</span></p>
+  </div>
+
+  <!-- another department -->
+  <div itemprop="department" itemscope itemtype="http://schema.org/DryCleaningOrLaundry">
+    <h2 itemprop="name">Larry's Laundromat</h2>
+    <p itemprop="description">Keep your clothes clean while you do your daily shopping!</p>
+    <p>Open: <time itemprop="openingHours" datetime="Mo-Fr 13:00-17:30">Open weekdays 1pm-5:30pm.</time></p>
+    <p>Phone: <span itemprop="telephone" content="+155501002121">555-0100-2121</span></p>
+    <p>A branch of <span itemprop="branchOf" itemscope itemtype="http://schema.org/Corporation">
+    <a itemprop="url" href="http://example.com/"><span itemprop="name">Larry's International</span></a>.</p>
+  </div>
+</div>
+
+RDFA:
+
+<div  vocab="http://schema.org/" typeof="Store">
+  <div>
+    <h1 property="name">Delia's Daily Supplies</h1>
+    <p property="description">For your daily newspapers, candies, snacks and (via our in-store pharmacy)
+        drugs and healthcare products to keep you and your family happy, healthy and supplied with all your daily needs.</p>
+    <p>Open: <time property="openingHours" datetime="Mo-Fr 07:00-23:00">Monday-Friday 7am-11pm </time></p>
+    <p>Phone: <span property="telephone" content="+155501001110">555-0100-1110</span></p>
+  </div>
+
+  <div property="department" typeof="Pharmacy">
+    <h2 property="name">Philippa's Pharmacy</h2>
+    <p property="description">A superb collection of fine pharmaceuticals for your beauty and healthcare needs,
+        a department of Delia's Drugstore. Call our desk to speak to the on-duty pharmacist any morning Monday-Thursday.</p>
+    <p>Open: <time property="openingHours" datetime="Mo-Th 09:00-12:00">Monday-Thursday 9am-noon</time></p>
+    <p>Phone: <span property="telephone" content="+155501001111">555-0100-1111</span></p>
+  </div>
+
+  <div property="department" typeof="DryCleaningOrLaundry">
+    <h2 property="name">Larry's Laundromat</h2>
+    <p property="description">Keep your clothes clean while you do your daily shopping!</p>
+    <p>Open: <time property="openingHours" datetime="Mo-Fr 13:00-17:30">Open weekdays 1pm-5:30pm.</time></p>
+    <p>Phone: <span property="telephone" content="+155501002121">555-0100-2121</span></p>
+    <p>A branch of <span property="branchOf" typeof="Corporation">
+    <a property="url" href="http://example.com/"><span property="name">Larry's International</span></a>.</p>
+  </div>
+</div>
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Store",
+  "name": "Delia's Daily Supplies",
+  "description": "For your daily newspapers, candies, snacks and (via our in-store pharmacy) drugs and healthcare products to keep you and your family happy, healthy and supplied with all your daily needs.",
+  "openingHours": "Mo-Fr 07:00-23:00",
+  "telephone": "+155501001110",
+  "department":
+  [
+    {
+      "@type": "Pharmacy",
+      "name": "Philippa's Pharmacy",
+      "description": "A superb collection of fine pharmaceuticals for your   beauty and healthcare needs, a department of Delia's Drugstore. Call our desk to speak to the on-duty pharmacist any morning Monday-Thursday.",
+      "openingHours": "Mo-Th 09:00-12:00",
+      "telephone": "+155501001111"
+    },
+    {
+      "@type": "DryCleaningOrLaundry",
+      "name": "Larry's Laundromat",
+      "description": "Keep your clothes clean while you do your daily shopping!",
+      "openingHours": "Mo-Fr 13:00-17:30",
+      "telephone": "+155501002121",
+      "branchOf":
+      {
+        "@type": "Corporation",
+        "url": "http://example.com/",
+        "name": "Larry's International"
+      }
+    }
+  ]
+}
+</script>
+
+TYPES:  Store, PostalAddress, Pharmacy
+
+PRE-MARKUP:
+
+<div>
+  <div>
+    <h1>Delia's Daily Supplies</h1>
+    <p>For your daily newspapers, candies, snacks and (via our in-store pharmacy)
+      drugs and healthcare products to keep you and your family happy, healthy
+      and supplied with all your daily needs.</p>
+    <p>Open: Monday-Friday 7am-11pm</p>
+    <p>Phone: 555-0100-1110</p>
+  </div>
+
+  <address>
+    <span> Unit 42, Land of Bargains Shopping Paradise, 12 Highway 101</span>,
+    <span>Boston</span>,
+    <span>MA, USA</span>
+  </address>
+
+ <div>
+   <h2>Philippa's Pharmacy</h2>
+   <p>A superb collection of fine pharmaceuticals...</p>
+   <p>Open: Monday-Thursday 9am-noon</p>
+   <p>Phone: 555-0100-1111</p>
+ </div>
+</div>
+
+MICRODATA:
+
+<div itemscope itemtype="http://schema.org/Store">
+  <div>
+    <h1 itemprop="name">Delia's Daily Supplies</h1>
+    <p itemprop="description">For your daily newspapers, candies, snacks and (via our in-store pharmacy)
+      drugs and healthcare products to keep you and your family happy, healthy and supplied with all your daily needs.</p>
+    <p>Open: <time itemprop="openingHours" datetime="Mo-Fr 07:00-23:00">Monday-Friday 7am-11pm </time></p>
+    <p>Phone: <span itemprop="telephone" content="+155501001110">555-0100-1110</span></p>
+  </div>
+
+  <address itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
+    <span itemprop="streetAddress"> Unit 42, Land of Bargains Shopping Paradise, 12 Highway 101</span>,
+    <span itemprop="addressLocality">Boston</span>,
+    <span itemprop="addressRegion">MA</span>, <span itemprop="addressCountry">USA</span>
+  </address>
+
+ <div itemprop="department" itemscope itemtype="http://schema.org/Pharmacy">
+   <h2 itemprop="name">Philippa's Pharmacy</h2>
+   <p itemprop="description">A superb collection of fine pharmaceuticals...</p>
+   <p>Open: <time itemprop="openingHours" datetime="Mo-Th 09:00-12:00">Monday-Thursday 9am-noon</time></p>
+   <p>Phone: <span itemprop="telephone" content="+155501001111">555-0100-1111</span></p>
+ </div>
+</div>
+
+RDFA:
+
+<div vocab="http://schema.org/" typeof="Store">
+  <div>
+    <h1 property="name">Delia's Daily Supplies</h1>
+    <p property="description">For your daily newspapers, candies, snacks and (via our in-store pharmacy)
+    drugs and healthcare products to keep you and your family happy, healthy and supplied with all your daily needs.</p>
+    <p>Open: <time property="openingHours" datetime="Mo-Fr 07:00-23:00">Monday-Friday 7am-11pm </time></p>
+    <p>Phone: <span property="telephone" content="+155501001110">555-0100-1110</span></p>
+  </div>
+
+  <address property="address"  typeof="PostalAddress">
+    <span property="streetAddress"> Unit 42, Land of Bargains Shopping Paradise, 12 Highway 101</span>,
+    <span property="addressLocality">Boston</span>,
+    <span property="addressRegion">MA</span>, <span property="addressCountry">USA</span>
+  </address>
+
+  <div property="department"  typeof="Pharmacy">
+    <h2 property="name">Philippa's Pharmacy</h2>
+    <p property="description">A superb collection of fine pharmaceuticals...</p>
+    <p>Open: <time property="openingHours" datetime="Mo-Th 09:00-12:00">Monday-Thursday 9am-noon</time></p>
+    <p>Phone: <span property="telephone" content="+155501001111">555-0100-1111</span></p>
+  </div>
+</div>
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Store",
+  "name": "Delia's Daily Supplies",
+  "description": "For your daily newspapers, candies, snacks and (via our in-store pharmacy) drugs and healthcare products to keep you and your family happy, healthy and supplied with all your daily needs.",
+  "openingHours": "Mo-Fr 07:00-23:00",
+  "telephone": "+155501001110",
+  "address":
+  {
+  "@type": "PostalAddress",
+  "streetAddress": "Unit 42, Land of Bargains Shopping Paradise, 12 Highway 101",
+  "addressLocality": "Boston",
+  "addressRegion": "MA",
+  "addressCountry": "USA"
+  },
+  "department":
+  {
+    "@type": "Pharmacy",
+    "name": "Philippa's Pharmacy",
+    "description": "A superb collection of fine pharmaceuticals for your   beauty and healthcare needs, a department of Delia's Drugstore. Call our desk to speak to the on-duty pharmacist any morning Monday-Thursday.",
+    "openingHours": "Mo-Th 09:00-12:00",
+    "telephone": "+155501001111"
+    }
+}
+</script>
+
+TYPES:  PostalAddress, Pharmacy, Store
+
+PRE-MARKUP:
+
+<div>
+  <div>
+    <h1>Delia's Daily Supplies</h1>
+    <p>For your daily newspapers, candies, snacks and (via our in-store pharmacy)
+      drugs and healthcare products to keep you and your family happy, healthy and
+      supplied with all your daily needs.</p>
+    <p>Open: Monday-Friday 7am-11pm</p>
+    <p>Phone: 555-0100-1110</p>
+  </div>
+
+  <address>
+    <span>Unit 42, Land of Bargains Shopping Paradise, 12 Highway 101</span>,
+    <span>Boston</span>,
+    <span>MA, USA</span>
+  </address>
+
+  <div>
+    <h2>Philippa's Pharmacy</h2>
+    <p>A superb collection of fine pharmaceuticals...</p>
+    <p>Open: Monday-Thursday 9am-noon</p>
+    <p>Phone: 555-0100-1111</p>
+    <address>
+      <span>Unit 42b, Land of Bargains Shopping Paradise, 12 Highway 101</span>,
+      <span>Boston</span>,
+      <span>MA, USA</span>
+    </address>
+  </div>
+</div>
+
+MICRODATA:
+
+<div itemscope itemtype="http://schema.org/Store">
+  <div>
+    <h1 itemprop="name">Delia's Daily Supplies</h1>
+    <p itemprop="description">For your daily newspapers, candies, snacks and (via our in-store pharmacy)
+      drugs and healthcare products to keep you and your family happy, healthy and supplied with all your daily needs.</p>
+    <p>Open: <time itemprop="openingHours" datetime="Mo-Fr 07:00-23:00">Monday-Friday 7am-11pm </time></p>
+    <p>Phone: <span itemprop="telephone" content="+155501001110">555-0100-1110</span></p>
+  </div>
+
+  <address itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
+    <span itemprop="streetAddress">Unit 42, Land of Bargains Shopping Paradise, 12 Highway 101</span>,
+    <span itemprop="addressLocality">Boston</span>,
+    <span itemprop="addressRegion">MA</span>, <span itemprop="addressCountry">USA</span>
+  </address>
+
+  <div itemprop="department" itemscope itemtype="http://schema.org/Pharmacy">
+    <h2 itemprop="name">Philippa's Pharmacy</h2>
+    <p itemprop="description">A superb collection of fine pharmaceuticals...</p>
+    <p>Open: <time itemprop="openingHours" datetime="Mo-Th 09:00-12:00">Monday-Thursday 9am-noon</time></p>
+    <p>Phone: <span itemprop="telephone" content="+155501001111">555-0100-1111</span></p>
+    <address itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
+      <span itemprop="streetAddress">Unit 42b, Land of Bargains Shopping Paradise, 12 Highway 101</span>,
+      <span itemprop="addressLocality">Boston</span>,
+      <span itemprop="addressRegion">MA</span>, <span itemprop="addressCountry">USA</span>
+    </address>
+  </div>
+</div>
+
+RDFA:
+
+<div vocab="http://schema.org/" typeof="Store">
+  <div>
+    <h1 property="name">Delia's Daily Supplies</h1>
+    <p property="description">For your daily newspapers, candies, snacks and (via our in-store pharmacy)
+    drugs and healthcare products to keep you and your family happy, healthy and supplied with all your daily needs.</p>
+    <p>Open: <time property="openingHours" datetime="Mo-Fr 07:00-23:00">Monday-Friday 7am-11pm </time></p>
+    <p>Phone: <span property="telephone" content="+155501001110">555-0100-1110</span></p>
+  </div>
+
+  <address property="address"  typeof="PostalAddress">
+    <span property="streetAddress">Unit 42, Land of Bargains Shopping Paradise, 12 Highway 101</span>,
+    <span property="addressLocality">Boston</span>,
+    <span property="addressRegion">MA</span>, <span property="addressCountry">USA</span>
+  </address>
+
+  <div property="department"  typeof="Pharmacy">
+    <h2 property="name">Philippa's Pharmacy</h2>
+    <p property="description">A superb collection of fine pharmaceuticals...</p>
+    <p>Open: <time property="openingHours" datetime="Mo-Th 09:00-12:00">Monday-Thursday 9am-noon</time></p>
+    <p>Phone: <span property="telephone" content="+155501001111">555-0100-1111</span></p>
+    <address property="address"  typeof="PostalAddress">
+      <span property="streetAddress">Unit 42b, Land of Bargains Shopping Paradise, 12 Highway 101</span>,
+      <span property="addressLocality">Boston</span>,
+      <span property="addressRegion">MA</span>, <span property="addressCountry">USA</span>
+    </address>
+  </div>
+</div>
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Store",
+  "name": "Delia's Daily Supplies",
+  "description": "For your daily newspapers, candies, snacks and (via our in-store pharmacy) drugs and healthcare products to keep you and your family happy, healthy and supplied with all your daily needs.",
+  "openingHours": "Mo-Fr 07:00-23:00",
+  "telephone": "+155501001110",
+  "address":
+  {
+  "@type": "PostalAddress",
+  "streetAddress": "Unit 42, Land of Bargains Shopping Paradise, 12 Highway 101",
+  "addressLocality": "Boston",
+  "addressRegion": "MA",
+  "addressCountry": "USA"
+  },
+  "department":
+  {
+    "@type": "Pharmacy",
+    "name": "Philippa's Pharmacy",
+    "description": "A superb collection of fine pharmaceuticals for your   beauty and healthcare needs, a department of Delia's Drugstore. Call our desk to speak to the on-duty pharmacist any morning Monday-Thursday.",
+    "openingHours": "Mo-Th 09:00-12:00",
+    "telephone": "+155501001111",
+    "address":
+    {
+      "@type": "PostalAddress",
+      "streetAddress": "Unit 42b, Land of Bargains Shopping Paradise, 12 Highway 101",
+      "addressLocality": "Boston",
+      "addressRegion": "MA",
+      "addressCountry": "USA"
+    }
+  }
+}
+</script>
+
+TYPES:  Organization, ContactPoint
+
+PRE-MARKUP:
+
+Example specifying one customer service phone number.
+
+MICRODATA:
+
+This example is JSON-only.
+
+RDFA:
+
+This example is JSON-only.
+
+JSON:
+
+<script type="application/ld+json">
+{ "@context" : "http://schema.org",
+  "@type" : "Organization",
+  "url" : "http://www.your-company-site.com",
+  "contactPoint" : [
+    { "@type" : "ContactPoint",
+      "telephone" : "+1-401-555-1212",
+      "contactType" : "customer service"
+    } ] }
+</script>
+
+TYPES: HearingImpairedSupported, TollFree, ContactPoint, Organization
+
+PRE-MARKUP:
+
+A fuller example that illustrates multiple contact numbers for a company,
+including US toll-free numbers, a hearing-impaired number, and several contact categories.
+
+MICRODATA:
+
+This example is JSON-only.
+
+RDFA:
+
+This example is JSON-only.
+
+JSON:
+
+<script type="application/ld+json">
+{ "@context" : "http://schema.org",
+  "@type" : "Organization",
+  "url" : "http://www.t-mobile.com",
+  "contactPoint" : [
+    { "@type" : "ContactPoint",
+      "telephone" : "+1-877-746-0909",
+      "contactType" : "customer service",
+      "contactOption" : "TollFree",
+      "areaServed" : "US"
+    } , {
+      "@type" : "ContactPoint",
+      "telephone" : "+1-505-998-3793",
+      "contactType" : "customer service"
+    } , {
+      "@type" : "ContactPoint",
+      "telephone" : "+1-877-296-1018",
+      "contactType" : "customer service",
+      "contactOption" : ["HearingImpairedSupported","TollFree"] ,
+      "areaServed" : "US"
+    } , {
+      "@type" : "ContactPoint",
+      "telephone" : "+1-877-453-1304",
+      "contactType" : "technical support",
+      "contactOption" : "TollFree",
+      "areaServed" : ["US","CA"],
+      "availableLanguage" : ["English","French"]
+    } , {
+      "@type" : "ContactPoint",
+      "telephone" : "+1-877-453-1304",
+      "contactType" : "bill payment",
+      "contactOption" : "TollFree",
+      "areaServed" : ["US","CA"]
+    } ] }
+</script>
+
+TYPES:  MusicEvent, Place, Offer
+
+PRE-MARKUP:
+
+An example snippet of JSON-LD describing two B.B. King concerts.
+
+MICRODATA:
+
+This example is JSON-only.
+
+RDFA:
+
+This example is JSON-only.
+
+JSON:
+
+<script type="application/ld+json">
+[{
+  "@context" : "http://schema.org",
+  "@type" : "MusicEvent",
+  "name" : "B.B. King",
+  "startDate" : "2014-04-12T19:30",
+  "location" : {
+     "@type" : "Place",
+     "name" : "Lupo’s Heartbreak Hotel",
+     "address" : "79 Washington St., Providence, RI"
+  },
+  "offers" : {
+     "@type" : "Offer",
+     "url" : "https://www.etix.com/ticket/1771656"
+  }
+},
+{
+  "@context" : "http://schema.org",
+  "@type" : "MusicEvent",
+  "name" : "B.B. King",
+  "startDate" : "2014-04-13T20:00",
+  "location" : {
+     "@type" : "Place",
+     "name" : "Lynn Auditorium",
+     "address" : "Lynn, MA, 01901"
+  },
+  "offers" : {
+     "@type" : "Offer",
+     "url" : "http://frontgatetickets.com/venue.php?id=11766"
+  }
+}]
+</script>
+
+TYPES:  MusicEvent, Place, PostalAddress, Offer, MusicGroup, EventRescheduled
+
+PRE-MARKUP:
+
+An example of a more fully specified MusicEvent, including a tour image,
+full venue address, multiple performers, and multiple ticket classes.
+
+MICRODATA:
+
+This example is JSON-only.
+
+RDFA:
+
+This example is JSON-only.
+
+JSON:
+
+<script type="application/ld+json">
+[{
+    "@context" : "http://schema.org",
+    "@type" : "MusicEvent",
+    "name" : "B.B. King with Jonathon \"Boogie\" Long",
+    "image" : "http://www.bbking.com/gallery/b-b-king-live.jpg",
+    "url" : "http://www.bbking.com/events/apr12-providence.html",
+    "startDate" : "2014-04-12T19:30",
+    "doorTime" : "18:30",
+    "endDate" : "2014-04-12T22:00",
+    "location" : {
+        "@type" : "Place",
+        "name" : "Lupo's Heartbreak Hotel",
+        "sameAs" : "http://lupos.com/",
+        "address" : {
+            "@type" : "PostalAddress",
+            "streetAddress" : "79 Washington St.",
+            "addressLocality" : "Providence",
+            "addressRegion" : "RI",
+            "postalCode" : "02903",
+            "addressCountry" : "US"
+        }
+    },
+    "offers" : [ {
+        "@type" : "Offer",
+        "name" : "General Admission",
+        "price" : "$63.25",
+        "availability" : "SoldOut",
+        "url" : "http://www.ticketmaster.com/event/17004C29"
+    },{
+        "@type" : "Offer",
+        "name" : "VIP Experience",
+        "url" : "http://www.example.com/Abcde12345",
+        "price" : "$299.00",
+        "validFrom" : "2014-02-05T10:00",
+        "validThrough" : "2014-03-19T23:59"
+    } ],
+    "performer" : [ {
+        "@type" : "MusicGroup",
+        "name" : "B.B. King",
+        "sameAs" : "http://en.wikipedia.org/wiki/B.B._King"
+    },{
+        "@type" : "MusicGroup",
+        "name" : "Jonathon \"Boogie\" Long",
+        "sameAs" : "http://jonathonboogielong.com/"
+    } ],
+    "eventStatus" : "EventRescheduled",
+    "previousStartDate" : "2013-09-30T19:30",
+    "typicalAgeRange" : "18+"
+}]
+</script>
+
 TYPES:  FakeEntryNeeded, FixMeSomeDay
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
 ...
 
-MICRODATA: 
+MICRODATA:
 
 ...
 
-RDFA: 
+RDFA:
 
 ...
 
 JSON:
 
 ...
-
-
-
-
-
-
-

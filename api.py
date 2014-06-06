@@ -43,7 +43,7 @@ class Unit ():
                 if (val):
                     return True
         return False
-            
+
     def subClassOf(self, type):
         if (self.id == type.id):
             return True
@@ -75,9 +75,49 @@ class Unit ():
                 return triple.source
         return None
 
+    def superproperty(self):
+        for triple in self.arcsOut:
+            if (triple.target != None and triple.arc.id == "rdfs:subPropertyOf"):
+                return triple.target
+        return None
+
+    # For rarer case of a property with multiple superproperties.
+    def superproperties(self):
+        superprops = []
+        for triple in self.arcsOut:
+            if (triple.target != None and triple.arc.id == "rdfs:subPropertyOf"):
+                superprops.append(triple.target)
+        return superprops
+
+    # less generally useful, as a property may have several specializations
+    def subproperty(self):
+        for triple in self.arcsIn:
+            if (triple.source != None and triple.arc.id == "rdfs:subPropertyOf"):
+               return triple.source
+        return None
+
+    # all subproperties of this property
+    def subproperties(self):
+        subprops = []
+        for triple in self.arcsIn:
+            if (triple.source != None and triple.arc.id == "rdfs:subPropertyOf"):
+              subprops.append(triple.source)
+        return subprops
+
+    # For property inverses, e.g. alumni inverseOf alumniOf.
+    # Assuming here that they come in simple pairs only.
+    def inverseproperty(self):
+        for triple in self.arcsOut:
+            if (triple.target != None and triple.arc.id == "inverseOf"):
+               return triple.target
+        for triple in self.arcsIn:
+            if (triple.source != None and triple.arc.id == "inverseOf"):
+               return triple.source
+        return None
+
 
 class Triple () :
-    
+
     def __init__ (self, source, arc, target, text):
         self.source = source
         source.arcsOut.append(self)
@@ -105,7 +145,7 @@ class Triple () :
         else:
             return Triple(source, arc, None, text)
 
-        
+
 class Example ():
 
     @staticmethod
@@ -123,7 +163,7 @@ class Example ():
            return self.rdfa
         if name == 'jsonld':
            return self.jsonld
-    
+
     def __init__ (self, terms, original_html, microdata, rdfa, jsonld):
         self.terms = terms
         self.original_html = original_html
@@ -167,7 +207,7 @@ def GetArcsOut(source):
         arcs[triple.arc] = 1
     return arcs.keys()
 
-def GetComment(node) :    
+def GetComment(node) :
     for triple in node.arcsOut:
         if (triple.arc.id == 'rdfs:comment'):
             return triple.text
@@ -205,8 +245,16 @@ class ShowUnit (webapp2.RequestHandler) :
             for p in GetTargets(sc, node):
                 self.GetParentStack(p)
 
-    def ml(self, node):
-        return "<a href=\"%s\">%s</a>" % (node.id, node.id)
+    def ml(self, node, label=''):
+        if label=='':
+          label = node.id
+        return "<a href=\"%s\">%s</a>" % (node.id, label)
+
+    def makeLinksFromArray(self, nodearray):
+        hyperlinks = []
+        for f in nodearray:
+           hyperlinks.append(self.ml(f))
+        return (", ".join(hyperlinks))
 
     def UnitHeaders(self, node):
         self.write("<h1 class=\"page-title\">\n")
@@ -227,15 +275,18 @@ class ShowUnit (webapp2.RequestHandler) :
             self.write("<table class=\"definition-table\">\n        <thead>\n  <tr><th>Property</th><th>Expected Type</th><th>Description</th>               \n  </tr>\n  </thead>\n\n")
 			#        elif (node.isAttribute()):
 
-    
-    def ClassProperties (self, cl):
-        headerPrinted = False 
+
+    def ClassProperties (self, cl, firstSection):
+        headerPrinted = False
         di = Unit.GetUnit("domainIncludes")
         ri = Unit.GetUnit("rangeIncludes")
         for prop in sorted(GetSources(di, cl), key=lambda u: u.id):
             if (prop.superceded()):
                 continue
             supercedes = prop.supercedes()
+            inverseprop = prop.inverseproperty()
+            subprops = prop.subproperties()
+            superprops = prop.superproperties()
             ranges = GetTargets(ri, prop)
             comment = GetComment(prop)
             if (not headerPrinted):
@@ -253,20 +304,38 @@ class ShowUnit (webapp2.RequestHandler) :
                 self.write("&nbsp;")
             self.write("</td>")
             self.write("<td class=prop-desc>%s" % (comment))
+
             if (supercedes != None):
                 self.write(" Supercedes %s." % (self.ml(supercedes)))
+            if (inverseprop != None):
+                self.write("<br/> Inverse property: %s." % (self.ml(inverseprop)))
+            if (len(subprops) == 1):
+                self.write("<br/> Sub-property: %s." % ( self.makeLinksFromArray(subprops) ))
+            if (len(subprops) > 1):
+                if (firstSection):
+                    self.write("<br/> Sub-properties: %s." % ( self.makeLinksFromArray(subprops) ))
+                else:
+                    self.write(" ( %s ) " % ( self.ml(prop,'...') ))
+            if (len(superprops) == 1):
+                self.write("<br/> Super-property: %s." % ( self.makeLinksFromArray(superprops) ))
+            if (len(superprops) > 1):
+                self.write("<br/> Super-properties: %s." % ( self.makeLinksFromArray(superprops) ))
+
 
             self.write("</td></tr>")
 
 
     def ClassIncomingProperties (self, cl):
-        headerPrinted = False 
+        headerPrinted = False
         di = Unit.GetUnit("domainIncludes")
         ri = Unit.GetUnit("rangeIncludes")
         for prop in sorted(GetSources(ri, cl), key=lambda u: u.id):
             if (prop.superceded()):
                 continue
             supercedes = prop.supercedes()
+            inverseprop = prop.inverseproperty()
+            subprops = prop.subproperties()
+            superprops = prop.superproperties()
             ranges = GetTargets(di, prop)
             comment = GetComment(prop)
             if (not headerPrinted):
@@ -287,7 +356,15 @@ class ShowUnit (webapp2.RequestHandler) :
             self.write("</td>")
             self.write("<td class=prop-desc>%s " % (comment))
             if (supercedes != None):
-                self.write(" Supercedes %s." % (self.ml(supercedes)))                
+                self.write(" Supercedes %s." % (self.ml(supercedes)))
+            if (inverseprop != None):
+                self.write("<br/> inverse property: %s." % (self.ml(inverseprop)) )
+            if (len(subprops) == 1):
+                self.write("<br/> Sub-property: %s ." % ( self.makeLinksFromArray(subprops) ))
+            if (len(subprops) > 1):
+                self.write("<br/> Sub-properties: %s ." % ( self.makeLinksFromArray(subprops) ))
+
+
             self.write("</td></tr>")
         if (headerPrinted):
             self.write("</table>\n")
@@ -353,7 +430,7 @@ class ShowUnit (webapp2.RequestHandler) :
 
         if (Unit.isClass(node)):
             for p in self.parentStack:
-                self.ClassProperties(p)
+                self.ClassProperties(p, p==self.parentStack[0])
             self.write("</table>\n")
             self.ClassIncomingProperties(node)
         elif (Unit.isAttribute(node)):
@@ -368,7 +445,7 @@ class ShowUnit (webapp2.RequestHandler) :
                 self.write("<br/><b>More specific Types</b>");
                 for c in children:
                     self.write("<li> %s" % (self.ml(c)))
-                        
+
         if (node.isEnumeration()):
             children = sorted(GetSources(Unit.GetUnit("typeOf"), node), key=lambda u: u.id)
             if (len(children) > 0):
@@ -405,14 +482,14 @@ class ShowUnit (webapp2.RequestHandler) :
                                % (example_type, selected, self.rep(ex.get(example_type))))
                 self.write("</div>\n\n")
 
-        self.write("<p class=\"version\"><b>Schema Version 1.4</b></p>\n\n")
+        self.write("<p class=\"version\"><b>Schema Version 1.5</b></p>\n\n")
         self.write(" \n\n</div>\n</body>\n</html>")
-        
+
         self.response.write(self.AddCachedText(node, self.outputStrings))
 
 
 def read_file (filename):
-    import os.path    
+    import os.path
     folder = os.path.dirname(os.path.realpath(__file__))
     file_path = os.path.join(folder, filename)
     strs = []
@@ -438,6 +515,3 @@ def read_schemas():
 read_schemas()
 
 app = ndb.toplevel(webapp2.WSGIApplication([("/(.*)", ShowUnit)]))
-
-
-
