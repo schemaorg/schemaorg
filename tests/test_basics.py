@@ -187,12 +187,10 @@ class SchemaPropertyMetadataTestCase(unittest.TestCase):
     p_acceptedAnswer = Unit.GetUnit("acceptedAnswer")
     self.assertTrue(p_suggestedAnswer == p_acceptedAnswer.superproperties()[0], "acceptedAnswer superproperties(), suggestedAnswer in 0th element of array.")
 
-  def test_suggestedAnswerSuperpropertiesArrayLen(self):
-    p_suggestedAnswer = Unit.GetUnit("suggestedAnswer")
+  def test_acceptedAnswerSuperpropertiesArrayLen(self):
     p_acceptedAnswer = Unit.GetUnit("acceptedAnswer")
-    #self.assertEqual(True,False,"Oops.")
-    sa_supers = p_suggestedAnswer.superproperties()
-    self.assertEqual( len(sa_supers), 1, "suggestedAnswer subproperties() gives array of len 1." )
+    aa_supers = p_acceptedAnswer.superproperties()
+    self.assertEqual( len(aa_supers), 1, "acceptedAnswer subproperties() gives array of len 1." )
 
   def test_answerSubproperty(self):
     p_suggestedAnswer = Unit.GetUnit("suggestedAnswer")
