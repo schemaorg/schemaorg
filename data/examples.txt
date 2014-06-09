@@ -10479,11 +10479,11 @@ PRE-MARKUP:
       <li>
         <link href="http://en.wikipedia.org/wiki/Peter_Grimes" />
         <span><strong>Britten</strong> Four Sea Interludes and Passacaglia from <em>Peter Grimes</em></span>
-	</li>
+  </li>
       <li>
-	    <link href="http://en.wikipedia.org/wiki/Symphony_No._7_(Shostakovich)" />
-	    <span><strong>Shostakovich</strong> Symphony No. 7 <em>(Leningrad)</em></span>
-	</li>
+      <link href="http://en.wikipedia.org/wiki/Symphony_No._7_(Shostakovich)" />
+      <span><strong>Shostakovich</strong> Symphony No. 7 <em>(Leningrad)</em></span>
+  </li>
     </ul>
   </div>
 
@@ -10545,11 +10545,11 @@ MICRODATA:
       <li itemprop="workPerformed" itemscope="" itemtype="http://schema.org/CreativeWork">
         <link itemprop="sameAs" href="http://en.wikipedia.org/wiki/Peter_Grimes" />
         <span itemprop="name"><strong>Britten</strong> Four Sea Interludes and Passacaglia from <em itemprop="name">Peter Grimes</em></span>
-	</li>
+  </li>
       <li itemprop="workPerformed" itemscope="" itemtype="http://schema.org/CreativeWork">
-	    <link itemprop="sameAs" href="http://en.wikipedia.org/wiki/Symphony_No._7_(Shostakovich)" />
-	    <span itemprop="name"><strong>Shostakovich</strong> Symphony No. 7 <em>(Leningrad)</em></span>
-	</li>
+      <link itemprop="sameAs" href="http://en.wikipedia.org/wiki/Symphony_No._7_(Shostakovich)" />
+      <span itemprop="name"><strong>Shostakovich</strong> Symphony No. 7 <em>(Leningrad)</em></span>
+  </li>
     </ul>
   </div>
 
@@ -10612,11 +10612,11 @@ RDFA:
       <li property="workPerformed" typeof="CreativeWork">
         <link href="http://en.wikipedia.org/wiki/Peter_Grimes" property="sameAs"/>
         <span property="name"><strong>Britten</strong> Four Sea Interludes and Passacaglia from <em property="name">Peter Grimes</em></span>
-	</li>
+  </li>
       <li property="workPerformed" typeof="CreativeWork">
-	    <link href="http://en.wikipedia.org/wiki/Symphony_No._7_(Shostakovich)" property="sameAs"/>
-	    <span property="name"><strong>Shostakovich</strong> Symphony No. 7 <em>(Leningrad)</em></span>
-	</li>
+      <link href="http://en.wikipedia.org/wiki/Symphony_No._7_(Shostakovich)" property="sameAs"/>
+      <span property="name"><strong>Shostakovich</strong> Symphony No. 7 <em>(Leningrad)</em></span>
+  </li>
     </ul>
   </div>
 
@@ -11682,6 +11682,189 @@ JSON:
     "previousStartDate" : "2013-09-30T19:30",
     "typicalAgeRange" : "18+"
 }]
+</script>
+
+TYPES:  Role, OrganizationRole
+
+PRE-MARKUP:
+
+A basic Role example in JSON that
+shows how to qualify the 'member' property
+by adding an intermediate Role entity.
+
+MICRODATA:
+
+This example is JSON only.
+
+RDFA:
+
+This example is JSON only.
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Organization",
+  "name": "Cryptography Users",
+  "member": {
+    "@type": "OrganizationRole",
+    "member": {
+    "@type": "Person",
+    "name": "Alice"
+    },
+    "startDate": "1977"
+  }
+}
+</script>
+
+TYPES:  Role, OrganizationRole, CollegeOrUniversity, EducationalOrganization
+
+PRE-MARKUP:
+
+A JSON example of an OrganizationRole being used to qualify
+the 'alumni' property. Note that we use startDate to indicate
+when the alumni situation began, which was the date of leaving
+the organization.
+
+MICRODATA:
+
+This example is JSON only.
+
+RDFA:
+
+This example is JSON only.
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "CollegeOrUniversity",
+  "name": "University of Cambridge",
+  "sameAs": "http://en.wikipedia.org/wiki/University_of_Cambridge",
+  "alumni": {
+    "@type": "OrganizationRole",
+    "alumni": {
+      "@type": "Person",
+       "name": "Delia Derbyshire",
+      "sameAs": "http://en.wikipedia.org/wiki/Delia_Derbyshire"
+    },
+    "startDate": "1959"
+  }
+}
+</script>
+
+TYPES:  Role, OrganizationRole, CollegeOrUniversity, EducationalOrganization
+
+PRE-MARKUP:
+
+A JSON example of an OrganizationRole being used to qualify
+the 'alumniOf' property (which is inverseOf 'alumni').
+
+Note that we use startDate to indicate when the alumniOf
+situation began, which was the date of leaving the organization.
+
+MICRODATA:
+
+This example is JSON only.
+
+RDFA:
+
+This example is JSON only.
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Person",
+   "name": "Delia Derbyshire",
+   "sameAs": "http://en.wikipedia.org/wiki/Delia_Derbyshire",
+   "alumniOf": {
+     "@type": "OrganizationRole",
+     "alumniOf": {
+       "@type": "CollegeOrUniversity",
+       "name": "University of Cambridge",
+       "sameAs": "http://en.wikipedia.org/wiki/University_of_Cambridge"
+    },
+    "startDate": "1959"
+  }
+}
+</script>
+
+TYPES:  Role, PerformanceRole
+
+PRE-MARKUP:
+
+A JSON example of a PerformanceRole, in which
+the Role represents the acting contribution made by
+Bill Murray in the film Ghostbusters. The Role entity
+allows us to additional information, such as the
+character's name that he played in the film.
+
+MICRODATA:
+
+This example is JSON only.
+
+RDFA:
+
+This example is JSON only.
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Movie",
+  "name": "Ghostbusters",
+  "sameAs": "http://en.wikipedia.org/wiki/Ghostbusters",
+  "actor": {
+    "@type": "PerformanceRole",
+    "actor": {
+      "@type": "Person",
+      "name": "Bill Murray"
+    },
+    "characterName": "Dr. Peter Venkman"
+  }
+}
+</script>
+
+TYPES:  Role, OrganizationRole, Person, SportsTeam, Organization
+
+PRE-MARKUP:
+
+A JSON example of an OrganizationRole, showing information
+about a 'member' of a 'SportsTeam', including time qualfiers
+(when he began and ended that role).
+
+MICRODATA:
+
+This example is JSON only.
+
+RDFA:
+
+This example is JSON only.
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "SportsTeam",
+  "name": "San Francisco 49ers",
+  "member": {
+    "@type": "OrganizationRole",
+    "member": {
+      "@type": "Person",
+      "name": "Joe Montana"
+    },
+    "startDate": "1979",
+    "endDate": "1992",
+    "namedPosition": "Quarterback"
+  }
+}
+
 </script>
 
 TYPES:  FakeEntryNeeded, FixMeSomeDay
