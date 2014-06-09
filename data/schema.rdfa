@@ -5875,7 +5875,11 @@
     <div typeof="rdf:Property" resource="http://schema.org/endDate">
       <span class="h" property="rdfs:label">endDate</span>
       <span property="rdfs:comment">The end date and time of the role, event or item (in &lt;a href=&#39;http://en.wikipedia.org/wiki/ISO_8601&#39;&gt;ISO 8601 date format&lt;/a&gt;).</span>
+
+      <!-- not in v1.6
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Statistic">Statistic</a></span>
+      -->
+
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Role">Role</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Event">Event</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Season">Season</a></span>
@@ -8433,7 +8437,11 @@
     <div typeof="rdf:Property" resource="http://schema.org/startDate">
       <span class="h" property="rdfs:label">startDate</span>
       <span property="rdfs:comment">The start date and time of the event, role or item (in &lt;a href=&#39;http://en.wikipedia.org/wiki/ISO_8601&#39;&gt;ISO 8601 date format&lt;/a&gt;).</span>
+
+      <!-- not in v1.6
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Statistic">Statistic</a></span>
+      -->
+
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Role">Role</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Event">Event</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Season">Season</a></span>
@@ -9973,16 +9981,16 @@ on public-vocabs@w3.org.</p>
     <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Intangible">Intangible</a></span>
     </div>
 
-    <div typeof="rdfs:Class" resource="http://schema.org/TheatricalPerformanceRole">
-      <span class="h" property="rdfs:label">TheatricalPerformanceRole</span>
-      <span property="rdfs:comment">A TheatricalPerformanceRole is a Role that some entity places with regard to a performance, e.g. in a Movie, TVSeries etc.</span>
+    <div typeof="rdfs:Class" resource="http://schema.org/PerformanceRole">
+      <span class="h" property="rdfs:label">PerformanceRole</span>
+      <span property="rdfs:comment">A PerformanceRole is a Role that some entity places with regard to a theatrical performance, e.g. in a Movie, TVSeries etc.</span>
       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Role">Role</a></span>
     </div>
 
     <div typeof="rdf:Property" resource="http://schema.org/characterName">
       <span class="h" property="rdfs:label">characterName</span>
-      <span property="rdfs:comment">The name of a character played in some acting or performing role, i.e. in a TheatricalPerformanceRole.</span>
-      <span>domainIncludes: <a property="http://schema.org/domainIncludes" href="http://schema.org/TheatricalPerformanceRole">TheatricalPerformanceRole</a></span>
+      <span property="rdfs:comment">The name of a character played in some acting or performing role, i.e. in a PerformanceRole.</span>
+      <span>domainIncludes: <a property="http://schema.org/domainIncludes" href="http://schema.org/PerformanceRole">PerformanceRole</a></span>
       <span>rangeIncludes: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
     </div>
 
