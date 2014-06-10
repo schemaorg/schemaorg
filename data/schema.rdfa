@@ -6868,8 +6868,9 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/maxValue">
       <span class="h" property="rdfs:label">maxValue</span>
-      <span property="rdfs:comment">The upper of the product characteristic.</span>
+      <span property="rdfs:comment">The upper value of some characteristic or property.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/QuantitativeValue">QuantitativeValue</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/PropertyValueSpecification">PropertyValueSpecification</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number">Number</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/mechanismOfAction">
@@ -6952,8 +6953,9 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/minValue">
       <span class="h" property="rdfs:label">minValue</span>
-      <span property="rdfs:comment">The lower value of the product characteristic.</span>
+      <span property="rdfs:comment">The lower value of some characteristic or property.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/QuantitativeValue">QuantitativeValue</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/PropertyValueSpecification">PropertyValueSpecification</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number">Number</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/model">
@@ -9874,7 +9876,7 @@ on public-vocabs@w3.org.</p>
     <div typeof="rdf:Property" resource="http://schema.org/valueName">
      <span class="h" property="rdfs:label">valueName</span>
      <span property="rdfs:comment">Indicates the name of the PropertyValueSpecification to be used in URL templates and form encoding in a manner analogous to HTML's input@name.</span>
-     <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/EntryPoint">EntryPoint</a></span>
+     <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/PropertyValueSpecification">PropertyValueSpecification</a></span>
      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
     </div>
 
@@ -9928,23 +9930,11 @@ on public-vocabs@w3.org.</p>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number">Number</a></span>
     </div>
 
+    <!-- note: see also minValue, maxValue which are defined elsewhere and shared with other schema structures. -->
 
-    <!-- todo, check if these really have a domain of Number or other... -->
-    <div typeof="rdf:Property" resource="http://schema.org/minValue">
-      <span class="h" property="rdfs:label">minValue</span>
-      <span property="rdfs:comment">Specifies a regular expression for testing literal values according to the HTML spec.</span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/PropertyValueSpecification">PropertyValueSpecification</a></span>
-      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number">Number</a></span>
-    </div>
-    <div typeof="rdf:Property" resource="http://schema.org/maxValue">
-      <span class="h" property="rdfs:label">maxValue</span>
-      <span property="rdfs:comment">Specifies a regular expression for testing literal values according to the HTML spec.</span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/PropertyValueSpecification">PropertyValueSpecification</a></span>
-      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number">Number</a></span>
-    </div>
     <div typeof="rdf:Property" resource="http://schema.org/stepValue">
       <span class="h" property="rdfs:label">stepValue</span>
-      <span property="rdfs:comment">Specifies a regular expression for testing literal values according to the HTML spec.</span>
+      <span property="rdfs:comment">The stepValue attribute indicates the granularity that is expected (and required) of the value in a PropertyValueSpecification.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/PropertyValueSpecification">PropertyValueSpecification</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number">Number</a></span>
     </div>
