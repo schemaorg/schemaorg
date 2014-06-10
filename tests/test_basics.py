@@ -12,6 +12,8 @@ examples_path = './data/examples.txt'
 logging.basicConfig(level=logging.INFO)
 log = logging.getLogger(__name__)
 
+# Tests to probe the health of both schemas and code.
+# Note that known failings can be annotated with @unittest.expectedFailure or @skip("reason...")
 
 class SDOBasicsTestCase(unittest.TestCase):
 
@@ -268,7 +270,7 @@ class EnumerationValueTests(unittest.TestCase):
 
 class SimpleSchemaIntegrityTests(unittest.TestCase):
 
-    @unittest.expectedFailure # "member and acceptsReservations need work"
+    #@unittest.expectedFailure # "member and acceptsReservations need work"
     def test_propCommentCount(self):
       prop_comment_errors=[]
       andstr = "\n AND\n  "
