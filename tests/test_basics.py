@@ -242,5 +242,29 @@ class SchemaPropertyMetadataTestCase(unittest.TestCase):
     # TODO: http://schema.org/ReserveAction
     # has scheduledTime from apparently two parent types. how can we test against the html ui?
 
+# Simple checks that the schema is not mis-shapen.
+# We could do more with SPARQL, but would require rdflib, e.g. sanity check rangeIncludes/domainIncludes with inverseOf
+class SimpleSchemaIntegrityTests(unittest.TestCase):
+
+    def test_propCommentCount(self):
+      prop_comment_errors=[]
+      for p in GetSources ( Unit.GetUnit("typeOf"), Unit.GetUnit("rdf:Property") ):
+        comments = GetTargets( Unit.GetUnit("rdfs:comment"), p )
+        if len(comments) != 1:
+         prop_comment_errors.append ("property %s: Expected 1 rdfs:comment, found: %s %s" % (p.id, len(comments), " AND ".join(comments) ) )
+      log.info("property comment count: "+ str(len(prop_comment_errors)))
+      self.assertTrue(len(prop_comment_errors)==0, "Comment count errors. Aggregated: \n" + " \n".join(prop_comment_errors))
+
+    def test_typeCommentCount(self):
+      type_comment_errors=[]
+      for t in GetSources ( Unit.GetUnit("typeOf"), Unit.GetUnit("rdfs:Class") ):
+        comments = GetTargets( Unit.GetUnit("rdfs:comment"), t )
+        log.info(t.id + " " + str(len(comments)))
+        if len(comments) != 1:
+         type_comment_errors.append ("type %s: Expected 1 rdfs:comment, found: %s %s" % (t.id, len(comments), " AND ".join(comments) ) )
+      log.info("type comment count: "+ str(len(type_comment_errors)))
+      self.assertTrue(len(type_comment_errors)==0, "Comment count errors. Aggregated: \n" + " \n".join(type_comment_errors))
+
+
 if __name__ == "__main__":
   unittest.main()
