@@ -244,6 +244,28 @@ class SchemaPropertyMetadataTestCase(unittest.TestCase):
 
 # Simple checks that the schema is not mis-shapen.
 # We could do more with SPARQL, but would require rdflib, e.g. sanity check rangeIncludes/domainIncludes with inverseOf
+
+class EnumerationValueTests(unittest.TestCase):
+
+  def test_EventStatusTypeIsEnumeration(self):
+    eEventStatusType = Unit.GetUnit("EventStatusType")
+    self.assertTrue(eEventStatusType.isEnumeration(), "EventStatusType is an Enumeration.")
+
+  def test_EventStatusTypeIsntEnumerationValue(self):
+    eEventStatusType = Unit.GetUnit("EventStatusType")
+    self.assertFalse(eEventStatusType.isEnumerationValue(), "EventStatusType is not an Enumeration value.")
+
+  def test_EventCancelledIsEnumerationValue(self):
+    eEventCancelled = Unit.GetUnit("EventCancelled")
+    self.assertTrue(eEventCancelled.isEnumerationValue(), "EventCancelled is an Enumeration value.")
+
+  def test_EventTotallyFooBarIsntEnumerationValue(self):
+    eEventCancelledFB = Unit.GetUnit("EventTotallyFooBar")
+    if eEventCancelledFB is not None:
+      self.assertFalse(eEventCancelledFB.isEnumerationValue(), "EventTotallyFooBar is not an Enumeration value, not even a node.")
+    self.assertTrue(eEventCancelledFB is None, "EventTotallyFooBar should not resolve to a node.")
+
+
 class SimpleSchemaIntegrityTests(unittest.TestCase):
 
     def test_propCommentCount(self):
@@ -252,18 +274,28 @@ class SimpleSchemaIntegrityTests(unittest.TestCase):
         comments = GetTargets( Unit.GetUnit("rdfs:comment"), p )
         if len(comments) != 1:
          prop_comment_errors.append ("property %s: Expected 1 rdfs:comment, found: %s %s" % (p.id, len(comments), " AND ".join(comments) ) )
-      log.info("property comment count: "+ str(len(prop_comment_errors)))
-      self.assertTrue(len(prop_comment_errors)==0, "Comment count errors. Aggregated: \n" + " \n".join(prop_comment_errors))
+      log.debug("property comment count: "+ str(len(prop_comment_errors)))
+      self.assertTrue(len(prop_comment_errors)==0, "Comment count property errors. Aggregated: \n" + " \n".join(prop_comment_errors))
 
     def test_typeCommentCount(self):
       type_comment_errors=[]
       for t in GetSources ( Unit.GetUnit("typeOf"), Unit.GetUnit("rdfs:Class") ):
         comments = GetTargets( Unit.GetUnit("rdfs:comment"), t )
-        log.info(t.id + " " + str(len(comments)))
+        log.debug(t.id + " " + str(len(comments)))
         if len(comments) != 1:
          type_comment_errors.append ("type %s: Expected 1 rdfs:comment, found: %s %s" % (t.id, len(comments), " AND ".join(comments) ) )
-      log.info("type comment count: "+ str(len(type_comment_errors)))
-      self.assertTrue(len(type_comment_errors)==0, "Comment count errors. Aggregated: \n" + " \n".join(type_comment_errors))
+      log.debug("type comment count: "+ str(len(type_comment_errors)))
+      self.assertTrue(len(type_comment_errors)==0, "Comment count type errors. Aggregated: \n" + " \n".join(type_comment_errors))
+
+    def test_enumCommentCount(self):
+      enum_comment_errors=[]
+      for e in GetSources ( Unit.GetUnit("typeOf"), Unit.GetUnit("Enumeration") ):
+        comments = GetTargets( Unit.GetUnit("rdfs:comment"), t )
+        log.info(e.id + " " + str(len(comments)))
+        if len(comments) != 1:
+         enum_comment_errors.append ("enumeration %s: Expected 1 rdfs:comment, found: %s %s" % (e.id, len(comments), " AND ".join(comments) ) )
+      log.debug("enum comment count: "+ str(len(enum_comment_errors)))
+      self.assertTrue(len(enum_comment_errors)==0, "Comment count enumeration errors. Aggregated: \n" + " \n".join(enum_comment_errors))
 
 
 if __name__ == "__main__":
