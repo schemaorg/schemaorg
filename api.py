@@ -11,6 +11,9 @@ import logging
 import parsers
 import headers
 
+import logging
+logging.basicConfig(level=logging.INFO)
+log = logging.getLogger(__name__)
 
 # This is the triple store api.
 # We have a number of triple sets. Each is from a user / tag combination
@@ -62,6 +65,15 @@ class Unit ():
 
     def isEnumeration(self):
         return self.subClassOf(Unit.GetUnit("Enumeration"))
+
+    def isEnumerationValue(self):
+        types = GetTargets(Unit.GetUnit("typeOf"), self  )
+        log.debug("isEnumerationValue() called on %s, found %s types." % (self.id, str( len( types ) )) )
+        found_enum = False
+        for t in types:
+          if t.subClassOf(Unit.GetUnit("Enumeration")):
+            found_enum = True
+        return found_enum
 
     def superceded(self):
         for triple in self.arcsOut:
