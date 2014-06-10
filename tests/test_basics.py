@@ -298,11 +298,11 @@ class SimpleSchemaIntegrityTests(unittest.TestCase):
       log.debug("enum comment count: "+ str(len(enum_comment_errors)))
       self.assertTrue(len(enum_comment_errors)==0, "Comment count enumeration errors. Aggregated: \n" + " \n".join(enum_comment_errors))
 
-
 # TODO: Unwritten tests
 #
 # * different terms should not have identical comments
 # * if x and y are inverseOf each other, the rangeIncludes types on x should be domainIncludes on y, and vice-versa.
+# * need a few supporting functions e.g. all terms, all types, all properties, all enum values; candidates for api later but just use here first.
 
 if __name__ == "__main__":
   unittest.main()
