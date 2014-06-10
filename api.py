@@ -11,6 +11,9 @@ import logging
 import parsers
 import headers
 
+import logging
+logging.basicConfig(level=logging.INFO)
+log = logging.getLogger(__name__)
 
 # This is the triple store api.
 # We have a number of triple sets. Each is from a user / tag combination
@@ -62,6 +65,15 @@ class Unit ():
 
     def isEnumeration(self):
         return self.subClassOf(Unit.GetUnit("Enumeration"))
+
+    def isEnumerationValue(self):
+        types = GetTargets(Unit.GetUnit("typeOf"), self  )
+        log.debug("isEnumerationValue() called on %s, found %s types." % (self.id, str( len( types ) )) )
+        found_enum = False
+        for t in types:
+          if t.subClassOf(Unit.GetUnit("Enumeration")):
+            found_enum = True
+        return found_enum
 
     def superceded(self):
         for triple in self.arcsOut:
@@ -249,13 +261,13 @@ class ShowUnit (webapp2.RequestHandler) :
         if label=='':
           label = node.id
         if title != '':
-          title = " title=\"super-properties: %s\"" % (title)
+          title = " title=\"%s\"" % (title)
         return "<a href=\"%s\"%s>%s</a>" % (node.id, title, label)
 
-    def makeLinksFromArray(self, nodearray):
+    def makeLinksFromArray(self, nodearray, tooltip=''):
         hyperlinks = []
         for f in nodearray:
-           hyperlinks.append(self.ml(f))
+           hyperlinks.append(self.ml(f, f.id, tooltip))
         return (", ".join(hyperlinks))
 
     def UnitHeaders(self, node):
@@ -270,12 +282,11 @@ class ShowUnit (webapp2.RequestHandler) :
                 self.write(self.ml(nn) )
                 if (ind > 0):
                     self.write(" &gt; ")
-        self.write("</h1>")
+        self.write("</h1>\n")
         comment = GetComment(node)
-        self.write(" <div>%s</div>\n\n" % (comment) + "\n")
+        self.write(" <p>%s</p>\n\n" % (comment) + "\n")
         if (node.isClass()):
             self.write("<table class=\"definition-table\">\n        <thead>\n  <tr><th>Property</th><th>Expected Type</th><th>Description</th>               \n  </tr>\n  </thead>\n\n")
-			#        elif (node.isAttribute()):
 
 
     def ClassProperties (self, cl, firstSection):
@@ -312,16 +323,6 @@ class ShowUnit (webapp2.RequestHandler) :
             if (inverseprop != None):
                 self.write("<br/> Inverse property: %s." % (self.ml(inverseprop)))
 
-
-#            if (firstSection and len(subprops) == 1):
-#                self.write("<br/> Sub-property: %s." % ( self.makeLinksFromArray(subprops) ))
-#            if (firstSection and len(subprops) > 1):
-#                self.write("<br/> Sub-properties: %s." % ( self.makeLinksFromArray(subprops) ))
-#            if (firstSection and len(superprops) == 1):
-#                self.write("<br/> Super-property: %s." % ( self.makeLinksFromArray(superprops) ))
-#            if (firstSection and len(superprops) > 1):
-#                self.write("<br/> Super-properties: %s." % ( self.makeLinksFromArray(superprops) ))
-
             self.write("</td></tr>")
 
 
@@ -338,12 +339,13 @@ class ShowUnit (webapp2.RequestHandler) :
             superprops = prop.superproperties()
             ranges = GetTargets(di, prop)
             comment = GetComment(prop)
+
             if (not headerPrinted):
                 self.write("<br/><br/>Instances of %s may appear as values for the following properties<br/>" % (self.ml(cl)))
                 self.write("<table class=\"definition-table\">\n        \n  \n<thead>\n  <tr><th>Property</th><th>On Types</th><th>Description</th>               \n  </tr>\n</thead>\n\n")
 
                 headerPrinted = True
-#            logging.info("Property found %s" % (prop.id))
+
             self.write("<tr>\n<th class=\"prop-nam\" scope=\"row\">\n <code>%s</code>\n</th>\n " % (self.ml(prop)) + "\n")
             self.write("<td class=\"prop-ect\">\n")
             first_range = True
@@ -359,16 +361,6 @@ class ShowUnit (webapp2.RequestHandler) :
                 self.write(" Supercedes %s." % (self.ml(supercedes)))
             if (inverseprop != None):
                 self.write("<br/> inverse property: %s." % (self.ml(inverseprop)) )
-
-#            if (len(subprops) == 1):
-#                self.write("<br/> Sub-property: %s ." % ( self.makeLinksFromArray(subprops) ))
-#            if (len(subprops) > 1):
-#                self.write("<br/> Sub-properties: %s ." % ( self.makeLinksFromArray(subprops) ))
-#
-#            if (len(superprops) == 1):
-#                self.write("<br/> Super-property: %s." % ( self.makeLinksFromArray(superprops) ))
-#            if (len(superprops) > 1):
-#                self.write("<br/> Super-properties: %s." % ( self.makeLinksFromArray(superprops) ))
 
             self.write("</td></tr>")
         if (headerPrinted):
@@ -387,6 +379,10 @@ class ShowUnit (webapp2.RequestHandler) :
         subprops = node.subproperties()
         superprops = node.superproperties()
 
+        if (inverseprop != None):
+            tt = "This means the same thing, but with the relationship direction reversed."
+            self.write("<p>Inverse-property: %s.</p>" % (self.ml(inverseprop, inverseprop.id,tt)) )
+
         self.write("<table class=\"definition-table\">\n")
         self.write("<thead>\n  <tr>\n    <th>Values expected to be one of these types</th>\n  </tr>\n</thead>\n\n  <tr>\n    <td>\n      ")
 
@@ -394,7 +390,8 @@ class ShowUnit (webapp2.RequestHandler) :
             if (not first_range):
                 self.write("<br/>")
             first_range = False
-            self.write(" <code>%s</code> " % (self.ml(r))+"\n")
+            tt = "The '%s' property has values that include instances of the '%s' type." % (node.id, r.id)
+            self.write(" <code>%s</code> " % (self.ml(r, r.id, tt))+"\n")
         self.write("    </td>\n  </tr>\n</table>\n\n")
         first_domain = True
 
@@ -404,9 +401,27 @@ class ShowUnit (webapp2.RequestHandler) :
             if (not first_domain):
                 self.write("<br/>")
             first_domain = False
-            self.write("\n    <code>%s</code> " % (self.ml(d))+"\n")
+            tt = "The '%s' property is used on the '%s' type." % (node.id, d.id)
+            self.write("\n    <code>%s</code> " % (self.ml(d, d.id, tt))+"\n")
         self.write("      </td>\n    </tr>\n</table>\n\n")
 
+        if (len(subprops) > 0):
+          self.write("<table class=\"definition-table\">\n")
+          self.write("  <thead>\n    <tr>\n      <th>Sub-properties</th>\n    </tr>\n</thead>\n")
+          for sbp in subprops:
+              c = GetComment(sbp)
+              tt = "%s: ''%s''" % ( sbp.id, c)
+              self.write("\n    <tr><td><code>%s</code></td></tr>\n" % (self.ml(sbp, sbp.id, tt)))
+          self.write("\n</table>\n\n")
+
+        if (len(superprops) > 0):
+          self.write("<table class=\"definition-table\">\n")
+          self.write("  <thead>\n    <tr>\n      <th>Super-properties</th>\n    </tr>\n</thead>\n")
+          for spp in superprops:
+              c = GetComment(spp)
+              tt = "%s: ''%s''" % ( spp.id, c)
+              self.write("\n    <tr><td><code>%s</code></td></tr>\n" % (self.ml(spp, spp.id, tt)))
+          self.write("\n</table>\n\n")
 
     def rep(self, markup):
         m1 = re.sub("<", "&lt;", markup)
