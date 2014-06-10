@@ -287,16 +287,22 @@ class SimpleSchemaIntegrityTests(unittest.TestCase):
       log.debug("type comment count: "+ str(len(type_comment_errors)))
       self.assertTrue(len(type_comment_errors)==0, "Comment count type errors. Aggregated: \n" + " \n".join(type_comment_errors))
 
-    def test_enumCommentCount(self):
+    def test_enumValueCommentCount(self):
       enum_comment_errors=[]
-      for e in GetSources ( Unit.GetUnit("typeOf"), Unit.GetUnit("Enumeration") ):
-        comments = GetTargets( Unit.GetUnit("rdfs:comment"), t )
-        log.info(e.id + " " + str(len(comments)))
-        if len(comments) != 1:
-         enum_comment_errors.append ("enumeration %s: Expected 1 rdfs:comment, found: %s %s" % (e.id, len(comments), " AND ".join(comments) ) )
+      for e in GetSources ( Unit.GetUnit("rdfs:subClassOf"), Unit.GetUnit("Enumeration") ):
+        for ev in GetSources ( Unit.GetUnit("typeOf"), e ):
+          comments = GetTargets( Unit.GetUnit("rdfs:comment"), ev )
+          log.debug("'%s' is an enumerated value of enum type %s with %s rdfs:comment definitions." % ( ev.id, e.id, str(len(comments)  )) )
+          if len(comments) != 1:
+             enum_comment_errors.append ("enumerated value %s: Expected 1 rdfs:comment, found: %s %s" % (e.id, len(comments), " AND ".join(comments) ) )
       log.debug("enum comment count: "+ str(len(enum_comment_errors)))
       self.assertTrue(len(enum_comment_errors)==0, "Comment count enumeration errors. Aggregated: \n" + " \n".join(enum_comment_errors))
 
+
+# TODO: Unwritten tests
+#
+# * different terms should not have identical comments
+# * if x and y are inverseOf each other, the rangeIncludes types on x should be domainIncludes on y, and vice-versa.
 
 if __name__ == "__main__":
   unittest.main()
