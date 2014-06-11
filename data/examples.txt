@@ -11694,11 +11694,29 @@ by adding an intermediate Role entity.
 
 MICRODATA:
 
-This example is JSON only.
+<div itemscope itemtype="http://schema.org/Organization">
+  <span itemprop="name">Cryptography Users</span>
+  <div itemprop="member" itemscope
+        itemtype="http://schema.org/OrganizationRole">
+    <div itemprop="member" itemscope
+            itemtype="http://schema.org/Person">
+      <span itemprop="name">Alice</span>
+    </div>
+    <span itemprop="startDate">1977</span>
+  </div>
+</div>
 
 RDFA:
 
-This example is JSON only.
+<div vocab="http://schema.org/" typeof="Organization">
+  <span property="name">Cryptography Users</span>
+  <div property="member" typeof="OrganizationRole">
+    <div property="member" typeof="Person">
+      <span property="name">Alice</span>
+    </div>
+    <span property="startDate">1977</span>
+  </div>
+</div>
 
 JSON:
 
@@ -11729,11 +11747,31 @@ the organization.
 
 MICRODATA:
 
-This example is JSON only.
+<div itemscope itemtype="http://schema.org/CollegeOrUniversity">
+  <span itemprop="name">University of Cambridge</span>
+  <link itemprop="sameAs" href="http://en.wikipedia.org/wiki/University_of_Cambridge"/>
+  <div itemprop="alumni" itemscope
+        itemtype="http://schema.org/OrganizationRole">
+    <div itemprop="alumni" itemscope
+            itemtype="http://schema.org/Person">
+      <span itemprop="name">Delia Derbyshire</span>
+      <link itemprop="sameAs" href="http://en.wikipedia.org/wiki/Delia_Derbyshire"/>
+    </div>
+    <span itemprop="startDate">1959</span>
+</div>
 
 RDFA:
 
-This example is JSON only.
+<div vocab="http://schema.org/" typeof="CollegeOrUniversity">
+    <span property="name">University of Cambridge</span>
+  <link property="sameAs" href="http://en.wikipedia.org/wiki/University_of_Cambridge"/>
+  <div property="alumni" typeof="OrganizationRole">
+    <div property="alumni" typeof="Person">
+      <span property="name">Delia Derbyshire</span>
+      <link property="sameAs" href="http://en.wikipedia.org/wiki/Delia_Derbyshire"/>
+    </div>
+    <span property="startDate">1959</span>
+</div>
 
 JSON:
 
@@ -11767,11 +11805,31 @@ situation began, which was the date of leaving the organization.
 
 MICRODATA:
 
-This example is JSON only.
+<div itemscope itemtype="http://schema.org/Person">
+  <span itemprop="name">Delia Derbyshire</span>
+  <link itemprop="sameAs" href="http://en.wikipedia.org/wiki/Delia_Derbyshire"/>
+  <div itemprop="alumni" itemscope
+        itemtype="http://schema.org/OrganizationRole">
+    <div itemprop="alumni" itemscope
+            itemtype="http://schema.org/CollegeOrUniversity">
+      <span itemprop="name">University of Cambridge</span>
+      <link itemprop="sameAs" href="http://en.wikipedia.org/wiki/University_of_Cambridge"/>
+    </div>
+    <span itemprop="startDate">1959</span>
+</div>
 
 RDFA:
 
-This example is JSON only.
+<div vocab="http://schema.org/" typeof="Person">
+  <span property="name">Delia Derbyshire</span>
+  <link property="sameAs" href="http://en.wikipedia.org/wiki/Delia_Derbyshire"/>
+  <div property="alumni" typeof="OrganizationRole">
+    <div property="alumni" typeof="CollegeOrUniversity">
+      <span property="name">University of Cambridge</span>
+      <link property="sameAs" href="http://en.wikipedia.org/wiki/University_of_Cambridge"/>
+    </div>
+    <span property="startDate">1959</span>
+</div>
 
 JSON:
 
@@ -11805,11 +11863,29 @@ character's name that he played in the film.
 
 MICRODATA:
 
-This example is JSON only.
+<div itemscope itemtype="http://schema.org/Movie">
+  <span itemprop="name">Ghostbusters</span>
+  <link itemprop="sameAs" href="http://en.wikipedia.org/wiki/Ghostbusters"/>
+  <div itemprop="actor" itemscope
+        itemtype="http://schema.org/PerformanceRole">
+    <div itemprop="actor" itemscope
+            itemtype="http://schema.org/Person">
+      <span itemprop="name">Bill Murray</span>
+    </div>
+    <span itemprop="characterName">Dr. Peter Venkman</span>
+</div>
 
 RDFA:
 
-This example is JSON only.
+<div vocab="http://schema.org/" typeof="Movie">
+  <span property="name">Ghostbusters</span>
+  <link property="sameAs" href="http://en.wikipedia.org/wiki/Ghostbusters"/>
+  <div property="actor" typeof="PerformanceRole">
+    <div property="actor" typeof="Person">
+      <span property="name">Bill Murray</span>
+    </div>
+    <span property="characterName">Dr. Peter Venkman</span>
+</div>
 
 JSON:
 
@@ -11840,11 +11916,31 @@ about a 'member' of a 'SportsTeam', including time qualfiers
 
 MICRODATA:
 
-This example is JSON only.
+<div itemscope itemtype="http://schema.org/SportsTeam">
+  <span itemprop="name">San Francisco 49ers</span>
+  <div itemprop="member" itemscope
+        itemtype="http://schema.org/OrganizationRole">
+    <div itemprop="member" itemscope
+            itemtype="http://schema.org/Person">
+      <span itemprop="name">Joe Montana</span>
+    </div>
+    <span itemprop="startDate">1979</span>
+    <span itemprop="endDate">1992</span>
+    <span itemprop="namedPosition">Quarterback</span>
+</div>
 
 RDFA:
 
-This example is JSON only.
+<div vocab="http://schema.org/" typeof="SportsTeam">
+  <span itemprop="name">San Francisco 49ers</span>
+  <div itemprop="member" typeof="OrganizationRole">
+    <div itemprop="member" typeof="http://schema.org/Person">
+      <span itemprop="name">Joe Montana</span>
+    </div>
+    <span itemprop="startDate">1979</span>
+    <span itemprop="endDate">1992</span>
+    <span itemprop="namedPosition">Quarterback</span>
+</div>
 
 JSON:
 
@@ -11947,6 +12043,68 @@ JSON:
       "@type": "Offer",
       "price": "4399 p."
     }
+}
+</script>
+
+TYPES:  WebPage, CollegeOrUniversity
+
+PRE-MARKUP:
+
+<body>
+  <h1>Lecture 12: Graphs, networks, incidence matrices</h1>
+  <p>These video lectures of Professor Gilbert
+    Strang teaching 18.06 were  recorded in Fall 1999 and do not
+    correspond precisely to the current  edition of the textbook.</p>
+  <div>
+    <h4>About <span>MIT OpenCourseWare</span></h4>
+  </div>
+  <a
+    href="http://creativecommons.org/licenses/by-nc-sa/3.0/us/deed.en_US"><img
+    rel="license" src="/images/cc_by-nc-sa.png" alt="Creative Commons logo with terms BY-NC-SA." /></a>
+</body>
+
+MICRODATA:
+
+<body itemscope="" itemtype="http://schema.org/WebPage">
+  <h1 class="title" itemprop="name">Lecture 12: Graphs, networks, incidence matrices</h1>
+  <p itemprop="description">These video lectures of Professor Gilbert
+    Strang teaching 18.06 were  recorded in Fall 1999 and do not
+    correspond precisely to the current  edition of the textbook.</p>
+  <div itemprop="publisher" itemscope="" itemtype="http://schema.org/CollegeOrUniversity">
+    <h4 class="footer">About <span itemprop="name">MIT OpenCourseWare</span></h4>
+  </div>
+  <a itemprop="license"
+    href="http://creativecommons.org/licenses/by-nc-sa/3.0/us/deed.en_US"><img
+    rel="license" src="/images/cc_by-nc-sa.png" alt="Creative Commons logo with terms BY-NC-SA." /></a>
+</body>
+
+RDFA:
+
+<body vocab="http://schema.org/" typeof="WebPage">
+  <h1 property="name">Lecture 12: Graphs, networks, incidence matrices</h1>
+  <p property="description">These video lectures of Professor Gilbert
+    Strang teaching 18.06 were  recorded in Fall 1999 and do not
+    correspond precisely to the current  edition of the textbook.</p>
+  <div property="publisher" typeof="CollegeOrUniversity">
+    <h4 class="footer">About <span propert="name">MIT OpenCourseWare</span></h4>
+  </div>
+  <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/us/deed.en_US"><img
+    rel="license" src="/images/cc_by-nc-sa.png" alt="Creative Commons logo with terms BY-NC-SA." /></a>
+</body>
+
+JSON:
+
+<script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "WebPage",
+    "name": "Lecture 12: Graphs, networks, incidence matrices",
+    "description": "These video lectures of Professor Gilbert Strang teaching 18.06 were recorded in Fall 1999 and do not correspond precisely to the current  edition of the textbook.",
+    "publisher": {
+        "@type": "CollegeOrUniversity",
+        "name": "MIT OpenCourseWare"
+    },
+    "license": "http://creativecommons.org/licenses/by-nc-sa/3.0/us/deed.en_US"
 }
 </script>
 
