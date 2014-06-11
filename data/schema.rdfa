@@ -9975,5 +9975,61 @@ on public-vocabs@w3.org.</p>
       <span>rangeIncludes: <a property="http://schema.org/rangeIncludes" href="http://schema.org/URL">URL</a></span>
     </div>
 
+    <h1>Music</h1>
+
+    <p>Here we extend schema.org to better describe music, thanks to a collaboration with MusicBrainz.</p>
+
+    <p>We begin by extending MusicAlbum.</p>
+
+    <div typeof="rdf:Property" resource="http://schema.org/hasAlbumProductionType">
+      <span class="h" property="rdfs:label">hasAlbumProductionType</span>
+      <span property="rdfs:comment">Classification of the album by it's type of content: soundtrack, live album, studio album, etc.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MusicAlbum">MusicAlbum</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/MusicAlbumProductionType">MusicAlbumProductionType</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/hasAlbumReleaseType">
+      <span class="h" property="rdfs:label">hasAlbumReleaseType</span>
+      <span property="rdfs:comment">The kind of release which this album is: single, EP or album.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MusicAlbum">MusicAlbum</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/MusicAlbumReleaseType">MusicAlbumReleaseType</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/albumRelease">
+      <span class="h" property="rdfs:label">albumRelease</span>
+      <span property="rdfs:comment">A release of this album.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MusicAlbum">MusicAlbum</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/MusicRelease">MusicRelease</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/albumRelease">
+      <span class="h" property="rdfs:label">albumRelease</span>
+      <span property="rdfs:comment">A release of this album.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MusicAlbum">MusicAlbum</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/MusicRelease">MusicRelease</a></span>
+    </div>
+
+    <div typeof="rdf:Property" resource="http://schema.org/producer"><!-- extending existing type -->
+      <!-- TODO: update original, with this intent: The person or organization that produced the album. (we added Org to range)-->
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MusicAlbum">MusicAlbum</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Organization">Organization</a></span>
+    </div>
+
+   <p>TODO: We add an enumeration type: MusicAlbumProductionType</p>
+   <p>TODO: It has instances: CompilationAlbum
+        DemoAlbum
+        DJMixAlbum
+        LiveAlbum
+        MixtapeAlbum
+        RemixAlbum
+        SoundtrackAlbum
+        SpokenWordAlbum
+        StudioAlbum
+        </p>
+
+    <p>TODO: We add an enumeration: MusicAlbumReleaseType</p>
+    <p>TODO: It has instances: AlbumRelease, BroadcastRelease, EPRelease, SingleRelease</p>
+
+
+    <p>Thing > CreativeWork > MusicComposition is a new type describing the structure of an original piece of music.</p>
+    <p>[in progress...]</p>
+
   </body>
 </html>
