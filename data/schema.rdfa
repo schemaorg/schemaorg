@@ -10007,20 +10007,6 @@ on public-vocabs@w3.org.</p>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/MusicRelease">MusicRelease</a></span>
     </div>
 
-    <div typeof="rdf:Property" resource="http://schema.org/producer"><!-- extending existing type -->
-      <!-- TODO: update original, with this intent: The person or organization that produced the album. (we added Org to range)-->
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MusicAlbum">MusicAlbum</a></span>
-      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Organization">Organization</a></span>
-    </div>
-
-<!--
-
-
-    <div typeof="rdfs:Class" resource="http://schema.org/BookFormatType">
-      <span class="h" property="rdfs:label">BookFormatType</span>
-      <span property="rdfs:comment">The publication format of the book.</span>
-       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Enumeration">Enumeration</a></span>
-    </div> -->
    <!--TODO: get definition from doc. improve template for the indiv enums. -->
    <p>We add an enumeration type: MusicAlbumProductionType.</p>
 
@@ -10251,7 +10237,7 @@ on public-vocabs@w3.org.</p>
     <p>TODO: for discussion - here we want to merge in another notion of 'producer', The person or organization that produced the recording (Organization, Person).</p>
     <p>NOTE: also we need 'producer' to be applicable to a MusicRelease - attaching it to CreativeWork to cover everything. Adding Organization as a possible value.</p>
 
-    <div typeof="rdf:Property" resource="http://schema.org/duration">
+    <div typeof="rdf:Property" resource="http://schema.org/producer">
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CreativeWork">CreativeWork</a></span>
       <span>Range: <a property="http://schema.org/domainIncludes" href="http://schema.org/Organization">Organization</a></span>
     </div>
