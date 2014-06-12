@@ -12025,7 +12025,93 @@ JSON:
 }
 </script>
 
-TYPES:  FakeEntryNeeded, FixMeSomeDay
+TYPES:  MusicAlbum, MusicGroup, MusicRelease
+
+PRE-MARKUP:
+
+An example of possible JSON-LD for Let It Be by the Beatles.
+
+MICRODATA:
+
+Not available yet.
+
+RDFA:
+
+Not available yet.
+
+JSON:
+
+<script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "MusicAlbum",
+    "@id": "http://musicbrainz.org/release-group/bff544a7-56e0-3ed6-9e0f-3b676cca9111",
+    "name": "Let It Be",
+    "sameAs": [
+        "http://en.wikipedia.org/wiki/Let_It_Be",
+        "http://www.wikidata.org/wiki/Q199585"
+    ],
+    "image": "http://coverartarchive.org/release-group/bff544a7-56e0-3ed6-9e0f-3b676cca9111/front.jpg",
+    "hasAlbumProductionType": "http://schema.org/StudioAlbum",
+    "hasAlbumReleaseType": "http://schema.org/AlbumRelease",
+    "genre": "rock",
+    "byArtist": {
+        "@type": "MusicGroup",
+        "name": "The Beatles",
+        "@id": "http://musicbrainz.org/artist/b10bbbfc-cf9e-42e0-be17-e2c3e1d2600d"
+    },
+    "albumRelease": {
+        "@type": "MusicRelease",
+        "name": "Let It Be",
+        "@id": "http://musicbrainz.org/release/8d5347a5-9ecb-44be-a213-860aaaf5d0b8"
+    }
+}
+</script>
+
+PRE-MARKUP:
+
+A MusicComposition Example. The following JSON-LD models
+the composition A Day in the Life by Lennon and McCartney,
+regardless of who performs or records the song.
+
+MICRODATA:
+
+Not available yet.
+
+RDFA:
+
+Not available yet.
+
+JSON:
+
+<script type="application/ld+json">
+{
+	"@context": "http://schema.org",
+	"type": "MusicComposition",
+	"@id": "http://musicbrainz.org/work/fd1aa4f2-ba26-3a05-b72d-4392c35a073c",
+	"name": A Day in the Life",
+	"composer": [
+    {
+		"@type": "Person",
+		"name": "John Lennon",
+		"@id": "http://musicbrainz.org/artist/4d5447d7-c61c-4120-ba1b-d7f471d385b9"
+	},
+	{
+		"@type": "Person",
+		"name": "Paul McCartney",
+		"@id": "http://musicbrainz.org/artist/ba550d0e-adac-4864-b88b-407cab5e76af"
+	},
+  ]
+	"iswc": "T-010.140.236-1",
+	"inLanguage": "EN",
+  "publisher": {
+	"@type": "Organization",
+	"name": "Northern Songs, Ltd.",
+	@id: "http://musicbrainz.org/label/26df054d-78cf-4d83-9bb1-a41816125528"
+  },
+  "datePublished": "1967"
+}
+</script>
 
 PRE-MARKUP:
 
