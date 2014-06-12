@@ -8,6 +8,8 @@ from parsers import *
 
 schema_path = './data/schema.rdfa'
 examples_path = './data/examples.txt'
+    
+andstr = "\n AND\n  "
 
 logging.basicConfig(level=logging.INFO)
 log = logging.getLogger(__name__)
@@ -273,7 +275,6 @@ class SimpleSchemaIntegrityTests(unittest.TestCase):
     #@unittest.expectedFailure # "member and acceptsReservations need work"
     def test_propCommentCount(self):
       prop_comment_errors=[]
-      andstr = "\n AND\n  "
       for p in GetSources ( Unit.GetUnit("typeOf"), Unit.GetUnit("rdf:Property") ):
         comments = GetTargets( Unit.GetUnit("rdfs:comment"), p )
         log.debug("property %s props %s" % (p.id, str(len(comments)) ))
