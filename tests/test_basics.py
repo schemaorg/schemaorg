@@ -311,6 +311,13 @@ class DataTypeTests(unittest.TestCase):
       self.assertFalse(Unit.GetUnit("Thing").isDataType())
       self.assertFalse(Unit.GetUnit("Duration").isDataType())
 
+class UtilityAPITests(unittest.TestCase):
+    def test_alltypes(self):
+
+      # ballpark estimates.
+      self.assertTrue( len( getAllTypes() )  > 500 , "Should be > 500 types. Found %s." % len (getAllTypes()) )
+      self.assertTrue( len( getAllTypes() )  < 1000 , "Should be < 1000 types. Found %s." % len (getAllTypes()) )
+
 # TODO: Unwritten tests
 #
 # * different terms should not have identical comments

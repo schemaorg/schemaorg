@@ -11,17 +11,15 @@ import logging
 import parsers
 import headers
 
-import logging
 logging.basicConfig(level=logging.INFO)
 log = logging.getLogger(__name__)
 
 # This is the triple store api.
-# We have a number of triple sets. Each is from a user / tag combination
 
-
-# models
+ENABLE_JSONLD_CONTEXT = True
 
 NodeIDMap = {}
+DataCache = {}
 
 class Unit ():
 
@@ -136,6 +134,28 @@ class Unit ():
                return triple.source
         return None
 
+def getImmediateSubtypes(n):
+      if n==None:
+        return None
+      subs = GetSources( Unit.GetUnit("rdfs:subClassOf"), n)
+      return subs
+
+def getAllTypes():
+   if DataCache.get('AllTypes'):
+     return DataCache.get('AllTypes')
+   else:
+     mynode = Unit.GetUnit("Thing")
+     subbed = {}
+     todo = [mynode]
+     while todo:
+       current = todo.pop()
+       subs = getImmediateSubtypes(current)
+       subbed[current] = 1
+       for sc in subs:
+         if subbed.get(sc.id) == None:
+           todo.append(sc)
+     DataCache['AllTypes'] = subbed.keys()
+     return subbed.keys()
 
 class Triple () :
 
@@ -234,6 +254,40 @@ def GetComment(node) :
             return triple.text
     return "No comment"
 
+def GetJsonLdContext():
+   # todo: move to a function and cache.
+   jsonldcontext = "{\n    \"@context\":  {\n"
+   jsonldcontext += "    \"@vocab\": \"http://schema.org/\",\n"
+   valuespace = {}
+   for t in getAllTypes():
+     ic = GetSources( Unit.GetUnit("rangeIncludes"), t)
+     for p in ic:
+       if valuespace.get(p.id):
+         valuespace.get(p.id)[t.id] = 1
+       else:
+         valuespace[p.id] = { t.id: 1 }
+   # { myprop: { Date: 1, Cat: 1 } }
+   for pv in valuespace:
+       vtype = "@id"
+       skip = False
+       # print "Value space (len {3}) for property: {0} is {1} ".format(pv, valuespace[pv], len(valuespace[pv]) )
+       # this needs improving; we only started with real types that are subtyped, not Text literals.
+       for v in valuespace[pv]:
+         if v == "Date":
+           vtype = "xsd:date"
+         if v == "DateTime":
+           vtype = "xsd:dateTime"
+           if len( valuespace[pv] > 1):
+             skip = True
+       if not skip:
+           ctx = "      \""+pv+"\": {\"@type\": \""+vtype+"\" },"
+           jsonldcontext += ctx
+   jsonldcontext += "}}\n"
+
+   jsonldcontext = jsonldcontext.replace("},}}","}}}")
+   jsonldcontext = jsonldcontext.replace("},","},\n")
+   return jsonldcontext
+
 
 PageCache = {}
 
@@ -310,7 +364,7 @@ class ShowUnit (webapp2.RequestHandler) :
             self.write("<table class=\"definition-table\">\n        <thead>\n  <tr><th>Property</th><th>Expected Type</th><th>Description</th>               \n  </tr>\n  </thead>\n\n")
 
     def ClassProperties (self, cl, subclass=False):
-        headerPrinted = False 
+        headerPrinted = False
         di = Unit.GetUnit("domainIncludes")
         ri = Unit.GetUnit("rangeIncludes")
         for prop in sorted(GetSources(di, cl), key=lambda u: u.id):
@@ -349,7 +403,7 @@ class ShowUnit (webapp2.RequestHandler) :
             subclass = False
 
         if subclass: # in case the superclass has no defined attributes
-            self.write("<meta property=\"rdfs:subClassOf\" content=\"%s\">" % (cl.id)) 
+            self.write("<meta property=\"rdfs:subClassOf\" content=\"%s\">" % (cl.id))
 
     def ClassIncomingProperties (self, cl):
         headerPrinted = False
@@ -455,13 +509,44 @@ class ShowUnit (webapp2.RequestHandler) :
 
     def get(self, node):
 
+        # CORS enable, http://en.wikipedia.org/wiki/Cross-origin_resource_sharing
+        self.response.headers.add_header("Access-Control-Allow-Origin", "*") # entire site is public.
+        if (node == "" or node=="/"):
+         # Send the homepage, or if no HTML accept header received and JSON-LD was requested, send JSON-LD context file.
+         # typical browser accept list: ('Accept', 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8')
+         # e.g. curl -H "Accept: application/ld+json" http://localhost:8080//  see also http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html
+         accept_header = self.request.headers.get('Accept').split(',')
+         logging.info("accepts: %s" % self.request.headers.get('Accept'))
+         if ENABLE_JSONLD_CONTEXT:
+           jsonldcontext = GetJsonLdContext() # consider memcached?
+
+         mimereq = {}
+         for ah in accept_header:
+           ah = re.sub( r";q=\d?\.\d+", '', ah).rstrip()
+           mimereq[ah] = 1
+
+         html_score = mimereq.get('text/html', 5)
+         xhtml_score = mimereq.get('application/xhtml+xml', 5)
+         jsonld_score = mimereq.get('application/ld+json', 10)
+         # print "accept_header: " + str(accept_header) + " mimereq: "+str(mimereq) + "Scores H:{0} XH:{1} J:{2} ".format(html_score,xhtml_score,jsonld_score)
+
+         if (ENABLE_JSONLD_CONTEXT and (jsonld_score < html_score and jsonld_score < xhtml_score)):
+           self.response.headers['Content-Type'] = "application/ld+json"
+           self.response.out.write( jsonldcontext )
+           return
+         else:
+           self.response.out.write( open("static/index.html", 'r').read() )
+           return
+
         if (node == "favicon.ico"):
             return
-
         node = Unit.GetUnit(node)
 
         self.outputStrings = []
+        self.response.out.write("hello world: '"+str(node)+"'")
 
+
+# END JSON-LD
         if (node==None):
           self.error(404)
           self.response.out.write('<title>404 Not Found.</title><a href="/">404 Not Found.</a>')
