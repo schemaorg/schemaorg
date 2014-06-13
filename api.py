@@ -540,14 +540,14 @@ class ShowUnit (webapp2.RequestHandler) :
            self.response.out.write( open("static/index.html", 'r').read() )
            return
 
-        if (node=="docs/jsonldcontext.json"):
+        if (node=="docs/jsonldcontext.json.txt"):
          if ENABLE_JSONLD_CONTEXT:
-           jsonldcontext = GetJsonLdContext() 
+           jsonldcontext = GetJsonLdContext()
            self.response.headers['Content-Type'] = "text/plain"
            self.response.out.write( jsonldcontext )
            return
 
-        if (node=="docs/jsonldcontext.json.txt"):
+        if (node=="docs/jsonldcontext.json"):
          if ENABLE_JSONLD_CONTEXT:
            jsonldcontext = GetJsonLdContext()
            self.response.headers['Content-Type'] = "application/ld+json"
