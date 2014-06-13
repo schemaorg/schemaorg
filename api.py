@@ -75,6 +75,15 @@ class Unit ():
             found_enum = True
         return found_enum
 
+    def isDataType(self):
+      """
+      Check to see if this is a data type
+
+      DataType and its children do not descend from Thing, so we need to
+      treat it specially.
+      """
+      return self.subClassOf(Unit.GetUnit("DataType"))
+
     def superceded(self):
         for triple in self.arcsOut:
             if (triple.target != None and triple.arc.id == "supercededBy"):
