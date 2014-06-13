@@ -304,6 +304,13 @@ class SimpleSchemaIntegrityTests(unittest.TestCase):
       log.debug("enum comment count: "+ str(len(enum_comment_errors)))
       self.assertTrue(len(enum_comment_errors)==0, "Comment count enumeration errors. Aggregated: \n\n" + " \n".join(enum_comment_errors))
 
+class DataTypeTests(unittest.TestCase):
+    def test_booleanDataType(self):
+      self.assertTrue( Unit.GetUnit("Boolean").isDataType())
+      self.assertTrue(Unit.GetUnit("DataType").isDataType())
+      self.assertFalse(Unit.GetUnit("Thing").isDataType())
+      self.assertFalse(Unit.GetUnit("Duration").isDataType())
+
 # TODO: Unwritten tests
 #
 # * different terms should not have identical comments
