@@ -509,6 +509,8 @@ class ShowUnit (webapp2.RequestHandler) :
 
     def get(self, node):
 
+        logging.debug("json. node: %s" % node)
+
         # CORS enable, http://en.wikipedia.org/wiki/Cross-origin_resource_sharing
         self.response.headers.add_header("Access-Control-Allow-Origin", "*") # entire site is public.
         if (node == "" or node=="/"):
@@ -538,12 +540,26 @@ class ShowUnit (webapp2.RequestHandler) :
            self.response.out.write( open("static/index.html", 'r').read() )
            return
 
+        if (node=="docs/jsonldcontext.json"):
+         if ENABLE_JSONLD_CONTEXT:
+           jsonldcontext = GetJsonLdContext() 
+           self.response.headers['Content-Type'] = "text/plain"
+           self.response.out.write( jsonldcontext )
+           return
+
+        if (node=="docs/jsonldcontext.json.txt"):
+         if ENABLE_JSONLD_CONTEXT:
+           jsonldcontext = GetJsonLdContext()
+           self.response.headers['Content-Type'] = "application/ld+json"
+           self.response.out.write( jsonldcontext )
+           return
+
         if (node == "favicon.ico"):
             return
         node = Unit.GetUnit(node)
 
         self.outputStrings = []
-        self.response.out.write("hello world: '"+str(node)+"'")
+
 
 
 # END JSON-LD
