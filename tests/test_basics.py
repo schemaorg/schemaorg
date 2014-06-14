@@ -184,6 +184,15 @@ class SchemaBasicAPITestCase(unittest.TestCase):
     tPerson = Unit.GetUnit("Person")
     self.assertFalse(tPerson.isAttribute(), "Not true that Person isAttribute().")
 
+  def test_GetImmediateSubtypesOk(self):
+    tArticle = Unit.GetUnit("Article")
+    self.assertTrue(Unit.GetUnit("NewsArticle") in GetImmediateSubtypes(tArticle), "NewsArticle is in immediate subtypes of Article.")
+
+  def test_GetImmediateSubtypesWrong(self):
+    tArticle = Unit.GetUnit("CreativeWork")
+    self.assertFalse(Unit.GetUnit("NewsArticle") in GetImmediateSubtypes(tArticle), "NewsArticle is not in immediate subtypes of CreativeWork.")
+
+
 class SchemaPropertyAPITestCase(unittest.TestCase):
 
   def test_actorSupercedesActors(self):
