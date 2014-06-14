@@ -234,19 +234,22 @@ def GetAllTypes():
      DataCache['AllTypes'] = subbed.keys()
      return subbed.keys()
 
-def GetParentList(start_unit, end_unit, path=[]):
+def GetParentList(start_unit, end_unit=None, path=[]):
 
         """
         Returns one or more lists, each giving a path from a start unit to a supertype parent unit.
-        Usage
-        tRestaurant = Unit.GetUnit("Restaurant")
-        tThing = Unit.GetUnit("Thing")
-        for path in GetParentList(tRestaurant, tThing ):
+
+        example:
+
+        for path in GetParentList( Unit.GetUnit("Restaurant") ):
             pprint.pprint(', '.join([str(x.id) for x in path ]))
 
         'Restaurant, FoodEstablishment, LocalBusiness, Organization, Thing'
         'Restaurant, FoodEstablishment, LocalBusiness, Place, Thing'
         """
+
+        if not end_unit:
+          end_unit = Unit.GetUnit("Thing")
 
         arc=Unit.GetUnit("rdfs:subClassOf")
         logging.debug("from %s to %s - path length %d" % (start_unit.id, end_unit.id, len(path) ) )
