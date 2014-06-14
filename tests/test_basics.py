@@ -54,6 +54,13 @@ class SupertypePathsTestCase(unittest.TestCase):
                     )
                   ), 2, "2 supertype paths from Restaurant to Thing."  )
 
+    def test_inverseDualPath(self):
+      self.assertEqual(  len(GetParentList(
+                    Unit.GetUnit("Thing"), Unit.GetUnit("Restaurant")
+                    )
+                  ), 0, "0 supertype paths from Thing to Restaurant."  )
+
+
 class SchemaWellformedTestCase(unittest.TestCase):
 
   def test_wellformed(self):
