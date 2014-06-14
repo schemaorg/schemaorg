@@ -234,6 +234,35 @@ def GetAllTypes():
      DataCache['AllTypes'] = subbed.keys()
      return subbed.keys()
 
+def GetParentList(start_unit, end_unit, path=[]):
+
+        """
+        Returns one or more lists, each giving a path from a start unit to a supertype parent unit.
+        Usage
+        tRestaurant = Unit.GetUnit("Restaurant")
+        tThing = Unit.GetUnit("Thing")
+        for path in GetParentList(tRestaurant, tThing ):
+            pprint.pprint(', '.join([str(x.id) for x in path ]))
+
+        'Restaurant, FoodEstablishment, LocalBusiness, Organization, Thing'
+        'Restaurant, FoodEstablishment, LocalBusiness, Place, Thing'
+        """
+
+        arc=Unit.GetUnit("rdfs:subClassOf")
+        logging.debug("from %s to %s - path length %d" % (start_unit.id, end_unit.id, len(path) ) )
+        path = path + [start_unit]
+        if start_unit == end_unit:
+            return [path]
+        if not Unit.GetUnit(start_unit.id):
+            return []
+        paths = []
+        for node in GetTargets(arc, start_unit):
+            if node not in path:
+                newpaths = GetParentList(node, end_unit, path)
+                for newpath in newpaths:
+                    paths.append(newpath)
+        return paths
+
 class Example ():
 
     @staticmethod
@@ -584,9 +613,6 @@ class ShowUnit (webapp2.RequestHandler) :
 
         self.outputStrings = []
 
-
-
-# END JSON-LD
         if (node==None):
           self.error(404)
           self.response.out.write('<title>404 Not Found.</title><a href="/">404 Not Found.</a>')
