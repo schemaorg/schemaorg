@@ -14,9 +14,10 @@ import headers
 logging.basicConfig(level=logging.INFO)
 log = logging.getLogger(__name__)
 
-# This is the triple store api.
-
 ENABLE_JSONLD_CONTEXT = True
+EMIT_EXTERNAL_MAPPINGS = True
+
+# This is the triple store api.
 
 NodeIDMap = {}
 DataCache = {}
@@ -261,7 +262,7 @@ def GetExtMappingsRDFa(node):
     if len(equivs) > 0:
       markup = ''
       for c in equivs:
-        markup = markup + "<link=\"owl:equivalentClass\" href=\"%s\"/>\n" % c.id
+        markup = markup + "<link property=\"owl:equivalentClass\" href=\"%s\"/>\n" % c.id
       return markup
   if (node.isProperty()):
     equivs = GetTargets(Unit.GetUnit("owl:equivalentProperty"), node)
@@ -269,7 +270,7 @@ def GetExtMappingsRDFa(node):
     if len(equivs) > 0:
       markup = ''
       for c in equivs:
-        markup = markup + "<link=\"owl:equivalentProperty\" href=\"%s\"/>\n" % c.id
+        markup = markup + "<link property=\"owl:equivalentProperty\" href=\"%s\"/>\n" % c.id
       return markup
   return "<!-- no external mappings noted for this term. -->"
 
@@ -586,7 +587,10 @@ class ShowUnit (webapp2.RequestHandler) :
           self.response.out.write('<title>404 Not Found.</title><a href="/">404 Not Found.</a>')
           return
 
-        ext_mappings = GetExtMappingsRDFa(node)
+        if EMIT_EXTERNAL_MAPPINGS:
+          ext_mappings = GetExtMappingsRDFa(node)
+        else:
+          ext_mappings=''
 
         headers.OutputSchemaorgHeaders(self, node.id, node.isClass(), ext_mappings)
         cached = self.GetCachedText(node)
