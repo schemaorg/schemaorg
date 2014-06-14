@@ -341,6 +341,17 @@ class DataTypeTests(unittest.TestCase):
       self.assertFalse(Unit.GetUnit("Thing").isDataType())
       self.assertFalse(Unit.GetUnit("Duration").isDataType())
 
+class HasMultipleBaseTypesTests(unittest.TestCase):
+
+    def test_localbusiness2supertypes(self):
+      self.assertTrue( HasMultipleBaseTypes( Unit.GetUnit("LocalBusiness") ) , "LocalBusiness is subClassOf Place + Organization." )
+
+    def test_restaurant_non_multiple_supertypes(self):
+      self.assertFalse( HasMultipleBaseTypes( Unit.GetUnit("Restaurant") ) , "Restaurant only has one *direct* supertype.")
+
+    def test_article_non_multiple_supertypes(self):
+      self.assertFalse( HasMultipleBaseTypes( Unit.GetUnit("Article") ) , "Article only has one direct supertype.")
+
 # TODO: Unwritten tests
 #
 # * different terms should not have identical comments
