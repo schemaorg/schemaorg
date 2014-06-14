@@ -199,7 +199,7 @@ class SchemaPropertyMetadataTestCase(unittest.TestCase):
   def test_answerSubproperty(self):
     p_suggestedAnswer = Unit.GetUnit("suggestedAnswer")
     p_acceptedAnswer = Unit.GetUnit("acceptedAnswer")
-    self.assertTrue(p_acceptedAnswer == p_suggestedAnswer.subproperty(), "acceptedAnswer subPropertyOf suggestedAanswer.")
+    self.assertTrue(p_acceptedAnswer in p_suggestedAnswer.subproperties(), "acceptedAnswer is a subPropertyOf suggestedAanswer.")
 
   def test_answerSubproperties(self):
     p_suggestedAnswer = Unit.GetUnit("suggestedAnswer")

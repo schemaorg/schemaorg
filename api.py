@@ -11,7 +11,7 @@ import logging
 import parsers
 import headers
 
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(level=logging.INFO) # dev_appserver.py --log_level debug .
 log = logging.getLogger(__name__)
 
 ENABLE_JSONLD_CONTEXT = True
@@ -110,23 +110,25 @@ class Unit ():
         return superprops
 
     # less generally useful, as a property may have several specializations
-    def subproperty(self):
-        for triple in self.arcsIn:
-            if (triple.source != None and triple.arc.id == "rdfs:subPropertyOf"):
-               return triple.source
-        return None
+    #def subproperty(self):
+  #      for triple in self.arcsIn:
+  #          if (triple.source != None and triple.arc.id == "rdfs:subPropertyOf"):
+  #             return triple.source
+  #      return None
 
-    # all subproperties of this property
     def subproperties(self):
+        """All direct subproperties of this property."""
+        if not self.isAttribute:
+          logging.warn("Non-property %s won't have subproperties." % self.id)
+          return None
         subprops = []
         for triple in self.arcsIn:
             if (triple.source != None and triple.arc.id == "rdfs:subPropertyOf"):
               subprops.append(triple.source)
         return subprops
 
-    # For property inverses, e.g. alumni inverseOf alumniOf.
-    # Assuming here that they come in simple pairs only.
     def inverseproperty(self):
+        """A property that is an inverseOf this one, e.g. alumni vs alumniOf."""
         for triple in self.arcsOut:
             if (triple.target != None and triple.arc.id == "inverseOf"):
                return triple.target
@@ -136,15 +138,17 @@ class Unit ():
         return None
 
 def getImmediateSubtypes(n):
-      if n==None:
+    if n==None:
         return None
-      subs = GetSources( Unit.GetUnit("rdfs:subClassOf"), n)
-      return subs
+    subs = GetSources( Unit.GetUnit("rdfs:subClassOf"), n)
+    return subs
 
 def getAllTypes():
    if DataCache.get('AllTypes'):
-     return DataCache.get('AllTypes')
+        logging.debug("DataCache HIT: Alltypes")
+        return DataCache.get('AllTypes')
    else:
+     logging.debug("DataCache MISS: Alltypes")
      mynode = Unit.GetUnit("Thing")
      subbed = {}
      todo = [mynode]
@@ -258,15 +262,13 @@ def GetComment(node) :
 def GetExtMappingsRDFa(node):
   if (node.isClass()):
     equivs = GetTargets(Unit.GetUnit("owl:equivalentClass"), node)
-    logging.debug("Equivs: "+ str(len(equivs)))
     if len(equivs) > 0:
       markup = ''
       for c in equivs:
         markup = markup + "<link property=\"owl:equivalentClass\" href=\"%s\"/>\n" % c.id
       return markup
-  if (node.isProperty()):
+  if (node.isAttribute()):
     equivs = GetTargets(Unit.GetUnit("owl:equivalentProperty"), node)
-    logging.debug("Equivs: "+ str(len(equivs)))
     if len(equivs) > 0:
       markup = ''
       for c in equivs:
@@ -275,9 +277,8 @@ def GetExtMappingsRDFa(node):
   return "<!-- no external mappings noted for this term. -->"
 
 def GetJsonLdContext():
-   # todo: move to a function and cache.
-   jsonldcontext = "{\n    \"@context\":  {\n"
-   jsonldcontext += "    \"@vocab\": \"http://schema.org/\",\n"
+   jsonldcontext = "{\n  \"@context\":  {\n"
+   jsonldcontext += "  \"@vocab\": \"http://schema.org/\",\n"
    valuespace = {}
    for t in getAllTypes():
      ic = GetSources( Unit.GetUnit("rangeIncludes"), t)
@@ -300,10 +301,9 @@ def GetJsonLdContext():
            if len( valuespace[pv] > 1):
              skip = True
        if not skip:
-           ctx = "      \""+pv+"\": {\"@type\": \""+vtype+"\" },"
+           ctx = "    \""+pv+"\": {\"@type\": \""+vtype+"\" },"
            jsonldcontext += ctx
-   jsonldcontext += "}}\n"
-
+   jsonldcontext += "\n}}\n"
    jsonldcontext = jsonldcontext.replace("},}}","}}}")
    jsonldcontext = jsonldcontext.replace("},","},\n")
    return jsonldcontext
@@ -527,8 +527,6 @@ class ShowUnit (webapp2.RequestHandler) :
         return m2
 
     def get(self, node):
-
-        logging.debug("json. node: %s" % node)
 
         # CORS enable, http://en.wikipedia.org/wiki/Cross-origin_resource_sharing
         self.response.headers.add_header("Access-Control-Allow-Origin", "*") # entire site is public.
