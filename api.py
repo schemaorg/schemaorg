@@ -254,6 +254,25 @@ def GetComment(node) :
             return triple.text
     return "No comment"
 
+def GetExtMappingsRDFa(node):
+  if (node.isClass()):
+    equivs = GetTargets(Unit.GetUnit("owl:equivalentClass"), node)
+    logging.debug("Equivs: "+ str(len(equivs)))
+    if len(equivs) > 0:
+      markup = ''
+      for c in equivs:
+        markup = markup + "<link=\"owl:equivalentClass\" href=\"%s\"/>\n" % c.id
+      return markup
+  if (node.isProperty()):
+    equivs = GetTargets(Unit.GetUnit("owl:equivalentProperty"), node)
+    logging.debug("Equivs: "+ str(len(equivs)))
+    if len(equivs) > 0:
+      markup = ''
+      for c in equivs:
+        markup = markup + "<link=\"owl:equivalentProperty\" href=\"%s\"/>\n" % c.id
+      return markup
+  return "<!-- no external mappings noted for this term. -->"
+
 def GetJsonLdContext():
    # todo: move to a function and cache.
    jsonldcontext = "{\n    \"@context\":  {\n"
@@ -287,7 +306,6 @@ def GetJsonLdContext():
    jsonldcontext = jsonldcontext.replace("},}}","}}}")
    jsonldcontext = jsonldcontext.replace("},","},\n")
    return jsonldcontext
-
 
 PageCache = {}
 
@@ -568,7 +586,9 @@ class ShowUnit (webapp2.RequestHandler) :
           self.response.out.write('<title>404 Not Found.</title><a href="/">404 Not Found.</a>')
           return
 
-        headers.OutputSchemaorgHeaders(self, node.id, node.isClass())
+        ext_mappings = GetExtMappingsRDFa(node)
+
+        headers.OutputSchemaorgHeaders(self, node.id, node.isClass(), ext_mappings)
         cached = self.GetCachedText(node)
         if (cached != None):
             self.response.write(cached)
