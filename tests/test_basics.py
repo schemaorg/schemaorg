@@ -181,11 +181,6 @@ class SchemaPropertyAPITestCase(unittest.TestCase):
 # acceptedAnswer subPropertyOf suggestedAnswer .
 class SchemaPropertyMetadataTestCase(unittest.TestCase):
 
-  def test_suggestedAnswerSuperproperty(self):
-    p_suggestedAnswer = Unit.GetUnit("suggestedAnswer")
-    p_acceptedAnswer = Unit.GetUnit("acceptedAnswer")
-    self.assertTrue(p_suggestedAnswer == p_acceptedAnswer.superproperty(), "acceptedAnswer subPropertyOf suggestedAnswer.")
-
   def test_suggestedAnswerSuperproperties(self):
     p_suggestedAnswer = Unit.GetUnit("suggestedAnswer")
     p_acceptedAnswer = Unit.GetUnit("acceptedAnswer")
@@ -219,11 +214,11 @@ class SchemaPropertyMetadataTestCase(unittest.TestCase):
     p_alumni = Unit.GetUnit("alumni")
     p_alumniOf = Unit.GetUnit("alumniOf")
     p_suggestedAnswer = Unit.GetUnit("suggestedAnswer")
-    self.assertFalse(p_alumni == p_suggestedAnswer.superproperty(), "not suggestedAnswer subPropertyOf alumni.")
-    self.assertFalse(p_suggestedAnswer == p_alumni.superproperty(), "not alumni subPropertyOf suggestedAnswer.")
-    self.assertFalse(p_alumni == p_alumni.superproperty(), "not alumni subPropertyOf alumni.")
-    self.assertFalse(p_alumniOf == p_alumni.superproperty(), "not alumni subPropertyOf alumniOf.")
-    self.assertFalse(p_suggestedAnswer == p_suggestedAnswer.superproperty(), "not suggestedAnswer subPropertyOf suggestedAnswer.")
+    self.assertFalse(p_alumni in p_suggestedAnswer.superproperties(), "not suggestedAnswer subPropertyOf alumni.")
+    self.assertFalse(p_suggestedAnswer in p_alumni.superproperties(), "not alumni subPropertyOf suggestedAnswer.")
+    self.assertFalse(p_alumni in p_alumni.superproperties(), "not alumni subPropertyOf alumni.")
+    self.assertFalse(p_alumniOf in p_alumni.superproperties(), "not alumni subPropertyOf alumniOf.")
+    self.assertFalse(p_suggestedAnswer in p_suggestedAnswer.superproperties(), "not suggestedAnswer subPropertyOf suggestedAnswer.")
 
   def test_alumniInverse(self):
     p_alumni = Unit.GetUnit("alumni")
