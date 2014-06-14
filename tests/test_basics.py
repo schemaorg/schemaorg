@@ -190,7 +190,7 @@ class SchemaBasicAPITestCase(unittest.TestCase):
 
   def test_GetImmediateSubtypesWrong(self):
     tArticle = Unit.GetUnit("CreativeWork")
-    self.assertFalse(Unit.GetUnit("NewsArticle") in GetImmediateSubtypes(tArticle), "NewsArticle is not in immediate subtypes of CreativeWork.")
+    self.assertFalse(Unit.GetUnit("NewsArticle") in GetImmediateSubtypes(tArticle), "CreativeWork is not in immediate subtypes of Article.")
 
 
 class SchemaPropertyAPITestCase(unittest.TestCase):
