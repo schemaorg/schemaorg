@@ -17,12 +17,16 @@ log = logging.getLogger(__name__)
 ENABLE_JSONLD_CONTEXT = True
 EMIT_EXTERNAL_MAPPINGS = True
 
-# This is the triple store api.
+# Core API: we have a single schema graph built from triples and units.
 
 NodeIDMap = {}
 DataCache = {}
 
 class Unit ():
+    """
+    Unit represents a node in our schema graph. IDs are local,
+    e.g. "Person" or use simple prefixes, e.g. rdfs:Class.
+    """
 
     def __init__ (self, id):
         self.id = id
@@ -39,6 +43,7 @@ class Unit ():
             return Unit(id)
 
     def typeOf(self, type):
+        """Boolean, true if the unit has an rdf:type matching this type."""
         for triple in self.arcsOut:
             if (triple.target != None and triple.arc.id == "typeOf"):
                 val = triple.target.subClassOf(type)
@@ -47,6 +52,7 @@ class Unit ():
         return False
 
     def subClassOf(self, type):
+        """Boolean, true if the unit has an rdfs:subClassOf matching this type."""
         if (self.id == type.id):
             return True
         for triple in self.arcsOut:
@@ -57,15 +63,19 @@ class Unit ():
         return False
 
     def isClass(self):
+        """Does this unit represent a class/type?"""
         return self.typeOf(Unit.GetUnit("rdfs:Class"))
 
     def isAttribute(self):
+        """Does this unit represent an attribute/property?"""
         return self.typeOf(Unit.GetUnit("rdf:Property"))
 
     def isEnumeration(self):
+        """Does this unit represent an enumerated type?"""
         return self.subClassOf(Unit.GetUnit("Enumeration"))
 
     def isEnumerationValue(self):
+        """Does this unit represent a member of an enumerated type?"""
         types = GetTargets(Unit.GetUnit("typeOf"), self  )
         log.debug("isEnumerationValue() called on %s, found %s types." % (self.id, str( len( types ) )) )
         found_enum = False
@@ -76,7 +86,7 @@ class Unit ():
 
     def isDataType(self):
       """
-      Check to see if this is a data type
+      Does this unit represent a DataType type or sub-type?
 
       DataType and its children do not descend from Thing, so we need to
       treat it specially.
@@ -84,42 +94,33 @@ class Unit ():
       return self.subClassOf(Unit.GetUnit("DataType"))
 
     def superceded(self):
+        """Has this property been superceded? (i.e. deprecated/archaic)"""
         for triple in self.arcsOut:
             if (triple.target != None and triple.arc.id == "supercededBy"):
                 return True
         return False
 
     def supercedes(self):
+        """Returns a property that supercedes this one, or nothing."""
         for triple in self.arcsIn:
             if (triple.source != None and triple.arc.id == "supercededBy"):
                 return triple.source
         return None
 
-    def superproperty(self):
-        for triple in self.arcsOut:
-            if (triple.target != None and triple.arc.id == "rdfs:subPropertyOf"):
-                return triple.target
-        return None
-
-    # For rarer case of a property with multiple superproperties.
     def superproperties(self):
+        """Returns super-properties of this one."""
+        if not self.isAttribute():
+          logging.debug("Non-property %s won't have superproperties." % self.id)
         superprops = []
         for triple in self.arcsOut:
             if (triple.target != None and triple.arc.id == "rdfs:subPropertyOf"):
                 superprops.append(triple.target)
         return superprops
 
-    # less generally useful, as a property may have several specializations
-    #def subproperty(self):
-  #      for triple in self.arcsIn:
-  #          if (triple.source != None and triple.arc.id == "rdfs:subPropertyOf"):
-  #             return triple.source
-  #      return None
-
     def subproperties(self):
-        """All direct subproperties of this property."""
-        if not self.isAttribute:
-          logging.warn("Non-property %s won't have subproperties." % self.id)
+        """Returns direct subproperties of this property."""
+        if not self.isAttribute():
+          logging.debug("Non-property %s won't have subproperties." % self.id)
           return None
         subprops = []
         for triple in self.arcsIn:
@@ -136,31 +137,6 @@ class Unit ():
             if (triple.source != None and triple.arc.id == "inverseOf"):
                return triple.source
         return None
-
-def getImmediateSubtypes(n):
-    if n==None:
-        return None
-    subs = GetSources( Unit.GetUnit("rdfs:subClassOf"), n)
-    return subs
-
-def getAllTypes():
-   if DataCache.get('AllTypes'):
-        logging.debug("DataCache HIT: Alltypes")
-        return DataCache.get('AllTypes')
-   else:
-     logging.debug("DataCache MISS: Alltypes")
-     mynode = Unit.GetUnit("Thing")
-     subbed = {}
-     todo = [mynode]
-     while todo:
-       current = todo.pop()
-       subs = getImmediateSubtypes(current)
-       subbed[current] = 1
-       for sc in subs:
-         if subbed.get(sc.id) == None:
-           todo.append(sc)
-     DataCache['AllTypes'] = subbed.keys()
-     return subbed.keys()
 
 class Triple () :
 
@@ -191,6 +167,72 @@ class Triple () :
         else:
             return Triple(source, arc, None, text)
 
+def GetTargets(arc, source):
+    targets = {}
+    for triple in source.arcsOut:
+        if (triple.arc == arc):
+            if (triple.target != None):
+                targets[triple.target] = 1
+            elif (triple.text != None):
+                targets[triple.text] = 1
+    return targets.keys()
+
+def GetSources(arc, target):
+    sources = {}
+    for triple in target.arcsIn:
+        if (triple.arc == arc):
+            sources[triple.source] = 1
+    return sources.keys()
+
+def GetArcsIn(target):
+    arcs = {}
+    for triple in target.arcsIn:
+        arcs[triple.arc] = 1
+    return arcs.keys()
+
+def GetArcsOut(source):
+    arcs = {}
+    for triple in source.arcsOut:
+        arcs[triple.arc] = 1
+    return arcs.keys()
+
+# Utility API
+
+def GetComment(node) :
+    for triple in node.arcsOut:
+        if (triple.arc.id == 'rdfs:comment'):
+            return triple.text
+    return "No comment"
+
+def GetImmediateSubtypes(n):
+    if n==None:
+        return None
+    subs = GetSources( Unit.GetUnit("rdfs:subClassOf"), n)
+    return subs
+
+def GetImmediateSupertypes(n):
+    if n==None:
+        return None
+    return GetTargets( Unit.GetUnit("rdfs:subClassOf"), n)
+
+def GetAllTypes():
+   if DataCache.get('AllTypes'):
+        logging.debug("DataCache HIT: Alltypes")
+        return DataCache.get('AllTypes')
+   else:
+     logging.debug("DataCache MISS: Alltypes")
+     mynode = Unit.GetUnit("Thing")
+     subbed = {}
+     todo = [mynode]
+     while todo:
+       current = todo.pop()
+       subs = GetImmediateSubtypes(current)
+       subbed[current] = 1
+       for sc in subs:
+         if subbed.get(sc.id) == None:
+           todo.append(sc)
+     DataCache['AllTypes'] = subbed.keys()
+     return subbed.keys()
 
 class Example ():
 
@@ -224,41 +266,6 @@ class Example ():
 def GetExamples(node):
     return node.examples
 
-def GetTargets(arc, source):
-    targets = {}
-    for triple in source.arcsOut:
-        if (triple.arc == arc):
-            if (triple.target != None):
-                targets[triple.target] = 1
-            elif (triple.text != None):
-                targets[triple.text] = 1
-    return targets.keys()
-
-def GetSources(arc, target):
-    sources = {}
-    for triple in target.arcsIn:
-        if (triple.arc == arc):
-            sources[triple.source] = 1
-    return sources.keys()
-
-def GetArcsIn(target):
-    arcs = {}
-    for triple in target.arcsIn:
-        arcs[triple.arc] = 1
-    return arcs.keys()
-
-def GetArcsOut(source):
-    arcs = {}
-    for triple in source.arcsOut:
-        arcs[triple.arc] = 1
-    return arcs.keys()
-
-def GetComment(node) :
-    for triple in node.arcsOut:
-        if (triple.arc.id == 'rdfs:comment'):
-            return triple.text
-    return "No comment"
-
 def GetExtMappingsRDFa(node):
   if (node.isClass()):
     equivs = GetTargets(Unit.GetUnit("owl:equivalentClass"), node)
@@ -280,7 +287,7 @@ def GetJsonLdContext():
    jsonldcontext = "{\n  \"@context\":  {\n"
    jsonldcontext += "  \"@vocab\": \"http://schema.org/\",\n"
    valuespace = {}
-   for t in getAllTypes():
+   for t in GetAllTypes():
      ic = GetSources( Unit.GetUnit("rangeIncludes"), t)
      for p in ic:
        if valuespace.get(p.id):
