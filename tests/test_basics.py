@@ -8,14 +8,24 @@ from parsers import *
 
 schema_path = './data/schema.rdfa'
 examples_path = './data/examples.txt'
-    
+
 andstr = "\n AND\n  "
+TYPECOUNT_UPPERBOUND = 1000
+TYPECOUNT_LOWERBOUND = 500
 
 logging.basicConfig(level=logging.INFO)
 log = logging.getLogger(__name__)
 
 # Tests to probe the health of both schemas and code.
 # Note that known failings can be annotated with @unittest.expectedFailure or @skip("reason...")
+
+class BallparkCountTests(unittest.TestCase):
+    def test_alltypes(self):
+
+      # ballpark estimates.
+      self.assertTrue( len( GetAllTypes() )  > TYPECOUNT_LOWERBOUND , "Should be > %d types. Got %s" % (TYPECOUNT_LOWERBOUND, len (GetAllTypes()) ))
+      self.assertTrue( len( GetAllTypes() )  < TYPECOUNT_UPPERBOUND , "Should be < %d types. Got %s" % (TYPECOUNT_UPPERBOUND, len (GetAllTypes()) ))
+
 
 class SDOBasicsTestCase(unittest.TestCase):
 
@@ -24,6 +34,13 @@ class SDOBasicsTestCase(unittest.TestCase):
 
   def test_foundExamples(self):
     self.assertEqual(True, os.path.exists(examples_path), "Expected examples file: "+ examples_path )
+
+class SupertypePathsTestCase(unittest.TestCase):
+    """
+    tRestaurant = Unit.GetUnit("Restaurant")
+    tThing = Unit.GetUnit("Thing")
+for path in GetParentList(tRestaurant, tThing ):
+  pprint.pprint(', '.join([str(x.id) for x in path ]))"""
 
 
 class SchemaWellformedTestCase(unittest.TestCase):
@@ -305,13 +322,6 @@ class DataTypeTests(unittest.TestCase):
       self.assertTrue(Unit.GetUnit("DataType").isDataType())
       self.assertFalse(Unit.GetUnit("Thing").isDataType())
       self.assertFalse(Unit.GetUnit("Duration").isDataType())
-
-class UtilityAPITests(unittest.TestCase):
-    def test_alltypes(self):
-
-      # ballpark estimates.
-      self.assertTrue( len( GetAllTypes() )  > 500 , "Should be > 500 types. Found %s." % len (GetAllTypes()) )
-      self.assertTrue( len( GetAllTypes() )  < 1000 , "Should be < 1000 types. Found %s." % len (GetAllTypes()) )
 
 # TODO: Unwritten tests
 #
