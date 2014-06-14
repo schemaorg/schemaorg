@@ -39,9 +39,20 @@ class SupertypePathsTestCase(unittest.TestCase):
     """
     tRestaurant = Unit.GetUnit("Restaurant")
     tThing = Unit.GetUnit("Thing")
-for path in GetParentList(tRestaurant, tThing ):
-  pprint.pprint(', '.join([str(x.id) for x in path ]))"""
+    for path in GetParentList(tRestaurant, tThing ):
+      pprint.pprint(', '.join([str(x.id) for x in path ]))"""
 
+    def test_simplePath(self):
+      self.assertEqual(  len(GetParentList(
+                    Unit.GetUnit("CreativeWork"), Unit.GetUnit("Thing")
+                    )
+                  ), 1, "1 supertype path from CreativeWork to Thing."  )
+
+    def test_dualPath(self):
+      self.assertEqual(  len(GetParentList(
+                    Unit.GetUnit("Restaurant"), Unit.GetUnit("Thing")
+                    )
+                  ), 2, "2 supertype paths from Restaurant to Thing."  )
 
 class SchemaWellformedTestCase(unittest.TestCase):
 
