@@ -578,28 +578,6 @@ class ShowUnit (webapp2.RequestHandler) :
 
     def get(self, node):
 
-        if (node=="docs/full"):
-            topunit = Unit.GetUnit("Thing")
-            alltypes = GetAllTypes()
-            for a in alltypes:
-              log.debug("type: %s" % a.id)
-              a.subtypes = sorted(GetImmediateSubtypes(a), key=lambda k: k.id )
-              log.debug("stashing %d subtypes into %s." % (len(a.subtypes), a.id))
-            template_values = {
-                        'type': topunit,
-                        'multibase': HasMultipleBaseTypes(topunit),
-                        'fields': GetSources( Unit.GetUnit("domainIncludes"), topunit),
-                    }
-            template = JINJA_ENVIRONMENT.get_template('templates/full.tpl')
-            markup = template.render(template_values)
-
-            if logging.getLogger().getEffectiveLevel() < logging.INFO:
-              from xml.dom import minidom
-              dom = minidom.parseString(markup)
-              markup = str(dom.toprettyxml())
-            self.response.write(markup)
-            return
-
         # CORS enable, http://en.wikipedia.org/wiki/Cross-origin_resource_sharing
         self.response.headers.add_header("Access-Control-Allow-Origin", "*") # entire site is public.
         if (node == "" or node=="/"):
