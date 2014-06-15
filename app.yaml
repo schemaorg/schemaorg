@@ -16,6 +16,9 @@ handlers:
 - url: /docs/jsonldcontext.json.*
   script: api.app
 
+- url: /docs/full
+  script: api.app
+
 - url: /docs
   static_dir: docs
 
@@ -32,3 +35,8 @@ handlers:
 
 
 
+libraries:
+- name: webapp2
+  version: 2.5.2
+- name: jinja2
+  version: 2.6
