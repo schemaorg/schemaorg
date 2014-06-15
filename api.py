@@ -2,6 +2,7 @@
 #
 
 import webapp2
+import jinja2
 import re
 from google.appengine.ext import ndb
 from google.appengine.ext import blobstore
@@ -10,9 +11,14 @@ from google.appengine.ext.webapp import blobstore_handlers
 import logging
 import parsers
 import headers
+import os
 
 logging.basicConfig(level=logging.INFO) # dev_appserver.py --log_level debug .
 log = logging.getLogger(__name__)
+
+JINJA_ENVIRONMENT = jinja2.Environment(
+    loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
+    extensions=['jinja2.ext.autoescape'], autoescape=True)
 
 ENABLE_JSONLD_CONTEXT = True
 EMIT_EXTERNAL_MAPPINGS = True
@@ -34,6 +40,7 @@ class Unit ():
         self.arcsIn = []
         self.arcsOut = []
         self.examples = []
+        self.subtypes = None
 
     @staticmethod
     def GetUnit (id, createp=False):
@@ -265,6 +272,10 @@ def GetParentList(start_unit, end_unit=None, path=[]):
                 for newpath in newpaths:
                     paths.append(newpath)
         return paths
+
+def HasMultipleBaseTypes(typenode):
+    """True if this unit represents a type with more than one immediate supertype."""
+    return len( GetTargets( Unit.GetUnit("rdfs:subClassOf"), typenode ) ) > 1
 
 class Example ():
 
@@ -566,6 +577,28 @@ class ShowUnit (webapp2.RequestHandler) :
         return m2
 
     def get(self, node):
+
+        if (node=="docs/full"):
+            topunit = Unit.GetUnit("Thing")
+            alltypes = GetAllTypes()
+            for a in alltypes:
+              log.debug("type: %s" % a.id)
+              a.subtypes = sorted(GetImmediateSubtypes(a), key=lambda k: k.id )
+              log.debug("stashing %d subtypes into %s." % (len(a.subtypes), a.id))
+            template_values = {
+                        'type': topunit,
+                        'multibase': HasMultipleBaseTypes(topunit),
+                        'fields': GetSources( Unit.GetUnit("domainIncludes"), topunit),
+                    }
+            template = JINJA_ENVIRONMENT.get_template('templates/full.tpl')
+            markup = template.render(template_values)
+
+            if logging.getLogger().getEffectiveLevel() < logging.INFO:
+              from xml.dom import minidom
+              dom = minidom.parseString(markup)
+              markup = str(dom.toprettyxml())
+            self.response.write(markup)
+            return
 
         # CORS enable, http://en.wikipedia.org/wiki/Cross-origin_resource_sharing
         self.response.headers.add_header("Access-Control-Allow-Origin", "*") # entire site is public.
