@@ -17,10 +17,22 @@
 
   <body>
     <h1>Schema.org core schema</h1>
-    <p>This is an  RDFa  representation of the schema.org schema, copied here for collaboration and <a href="mailto:public-vocabs@w3.org">feedback</a>.
-       See <a href="http://schema.org/docs/datamodel.html">datamodel</a> for more details.
+
+    <p>This is the RDFa representation of the schema.org schema, the underlying representation of the schema.org vocabulary.</p>
+
+    <p>It is represented in a form based on W3C RDF/RDFS. We encourage proposals for schema.org improvements to be expressed
+      in this same style. For Discussion please use the W3C <a href="mailto:public-vocabs@w3.org">Web schemas</a> group.</p>
+    <p>
+    See <a href="http://schema.org/docs/datamodel.html">datamodel</a> for more details.
     </p>
+    <p>
+      Note: the style of RDFa used here may change in the future. To see the substantive content of the schema, view the
+      HTML source markup. We use a simple subset of RDFa for syntax, including prefixes that are declared in the
+      <a href="http://www.w3.org/2011/rdfa-context/rdfa-1.1">RDFa initial context</a>.
+    </p>
+
     <hr />
+
     <div typeof="rdfs:Class" resource="http://schema.org/Thing">
       <span class="h" property="rdfs:label">Thing</span>
       <span property="rdfs:comment">The most generic type of item.</span>
@@ -253,7 +265,8 @@
       <span class="h" property="rdfs:label">AudioObject</span>
       <span property="rdfs:comment">An audio file.</span>
        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MediaObject">MediaObject</a></span>
-       <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_rNews">rNews</a></span></div>
+       <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_rNews">rNews</a></span>
+    </div>
 
     <div typeof="rdfs:Class" resource="http://schema.org/AutomotiveBusiness">
       <span class="h" property="rdfs:label">AutomotiveBusiness</span>
@@ -526,6 +539,7 @@
       <span class="h" property="rdfs:label">Event</span>
       <span property="rdfs:comment">An event happening at a certain time and location, such as a concert, lecture, or festival. Ticketing information may be added via the &#39;offers&#39; property. Repeated events may be structured as separate Event objects.</span>
        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Thing">Thing</a></span>
+       <link property="owl:equivalentClass" href="dc:Event"/>
     </div>
 
     <div typeof="rdfs:Class" resource="http://schema.org/BusinessEvent">
@@ -1256,6 +1270,7 @@
       <span class="h" property="rdfs:label">ImageObject</span>
       <span property="rdfs:comment">An image file.</span>
        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MediaObject">MediaObject</a></span>
+       <link property="owl:equivalentClass" href="dc:Image"/>
     </div>
 
     <div typeof="rdfs:Class" resource="http://schema.org/ImagingTest">
@@ -2439,6 +2454,7 @@
       <span class="h" property="rdfs:label">Person</span>
       <span property="rdfs:comment">A person (alive, dead, undead, or fictional).</span>
        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Thing">Thing</a></span>
+       <link property="owl:equivalentClass" href="foaf:Person" />
        <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_rNews">rNews</a></span></div>
 
     <div typeof="rdfs:Class" resource="http://schema.org/PetStore">
@@ -3439,19 +3455,27 @@
       <span class="h" property="rdfs:label">DataCatalog</span>
       <span property="rdfs:comment">A collection of datasets.</span>
        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/CreativeWork">CreativeWork</a></span>
-       <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_DatasetClass">DatasetClass</a></span></div>
+       <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_DatasetClass">DatasetClass</a></span>
+       <link property="owl:equivalentClass" href="dcat:DataCatalog"/>
+    </div>
 
     <div typeof="rdfs:Class" resource="http://schema.org/DataDownload">
       <span class="h" property="rdfs:label">DataDownload</span>
       <span property="rdfs:comment">A dataset in downloadable form.</span>
        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MediaObject">MediaObject</a></span>
-       <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_DatasetClass">DatasetClass</a></span></div>
+       <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_DatasetClass">DatasetClass</a></span>
+       <link property="owl:equivalentClass" href="dcat:Distribution"/>
+    </div>
 
     <div typeof="rdfs:Class" resource="http://schema.org/Dataset">
       <span class="h" property="rdfs:label">Dataset</span>
       <span property="rdfs:comment">A body of structured information describing some topic(s) of interest.</span>
        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/CreativeWork">CreativeWork</a></span>
-       <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_DatasetClass">DatasetClass</a></span></div>
+       <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_DatasetClass">DatasetClass</a></span>
+       <link property="owl:equivalentClass" href="dcat:Dataset"/>
+       <link property="owl:equivalentClass" href="void:Dataset"/>
+       <link property="owl:equivalentClass" href="dc:Dataset"/>
+       </div>
 
     <div typeof="rdfs:Class" resource="http://schema.org/Class">
       <span class="h" property="rdfs:label">Class</span>

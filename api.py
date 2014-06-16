@@ -2,6 +2,7 @@
 #
 
 import webapp2
+import jinja2
 import re
 from google.appengine.ext import ndb
 from google.appengine.ext import blobstore
@@ -10,20 +11,28 @@ from google.appengine.ext.webapp import blobstore_handlers
 import logging
 import parsers
 import headers
+import os
 
-import logging
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(level=logging.INFO) # dev_appserver.py --log_level debug .
 log = logging.getLogger(__name__)
 
-# This is the triple store api.
-# We have a number of triple sets. Each is from a user / tag combination
+JINJA_ENVIRONMENT = jinja2.Environment(
+    loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
+    extensions=['jinja2.ext.autoescape'], autoescape=True)
 
+ENABLE_JSONLD_CONTEXT = True
+EMIT_EXTERNAL_MAPPINGS = True
 
-# models
+# Core API: we have a single schema graph built from triples and units.
 
 NodeIDMap = {}
+DataCache = {}
 
 class Unit ():
+    """
+    Unit represents a node in our schema graph. IDs are local,
+    e.g. "Person" or use simple prefixes, e.g. rdfs:Class.
+    """
 
     def __init__ (self, id):
         self.id = id
@@ -31,6 +40,7 @@ class Unit ():
         self.arcsIn = []
         self.arcsOut = []
         self.examples = []
+        self.subtypes = None
 
     @staticmethod
     def GetUnit (id, createp=False):
@@ -40,6 +50,7 @@ class Unit ():
             return Unit(id)
 
     def typeOf(self, type):
+        """Boolean, true if the unit has an rdf:type matching this type."""
         for triple in self.arcsOut:
             if (triple.target != None and triple.arc.id == "typeOf"):
                 val = triple.target.subClassOf(type)
@@ -48,6 +59,7 @@ class Unit ():
         return False
 
     def subClassOf(self, type):
+        """Boolean, true if the unit has an rdfs:subClassOf matching this type."""
         if (self.id == type.id):
             return True
         for triple in self.arcsOut:
@@ -58,15 +70,19 @@ class Unit ():
         return False
 
     def isClass(self):
+        """Does this unit represent a class/type?"""
         return self.typeOf(Unit.GetUnit("rdfs:Class"))
 
     def isAttribute(self):
+        """Does this unit represent an attribute/property?"""
         return self.typeOf(Unit.GetUnit("rdf:Property"))
 
     def isEnumeration(self):
+        """Does this unit represent an enumerated type?"""
         return self.subClassOf(Unit.GetUnit("Enumeration"))
 
     def isEnumerationValue(self):
+        """Does this unit represent a member of an enumerated type?"""
         types = GetTargets(Unit.GetUnit("typeOf"), self  )
         log.debug("isEnumerationValue() called on %s, found %s types." % (self.id, str( len( types ) )) )
         found_enum = False
@@ -77,7 +93,7 @@ class Unit ():
 
     def isDataType(self):
       """
-      Check to see if this is a data type
+      Does this unit represent a DataType type or sub-type?
 
       DataType and its children do not descend from Thing, so we need to
       treat it specially.
@@ -85,49 +101,42 @@ class Unit ():
       return self.subClassOf(Unit.GetUnit("DataType"))
 
     def superceded(self):
+        """Has this property been superceded? (i.e. deprecated/archaic)"""
         for triple in self.arcsOut:
             if (triple.target != None and triple.arc.id == "supercededBy"):
                 return True
         return False
 
     def supercedes(self):
+        """Returns a property that supercedes this one, or nothing."""
         for triple in self.arcsIn:
             if (triple.source != None and triple.arc.id == "supercededBy"):
                 return triple.source
         return None
 
-    def superproperty(self):
-        for triple in self.arcsOut:
-            if (triple.target != None and triple.arc.id == "rdfs:subPropertyOf"):
-                return triple.target
-        return None
-
-    # For rarer case of a property with multiple superproperties.
     def superproperties(self):
+        """Returns super-properties of this one."""
+        if not self.isAttribute():
+          logging.debug("Non-property %s won't have superproperties." % self.id)
         superprops = []
         for triple in self.arcsOut:
             if (triple.target != None and triple.arc.id == "rdfs:subPropertyOf"):
                 superprops.append(triple.target)
         return superprops
 
-    # less generally useful, as a property may have several specializations
-    def subproperty(self):
-        for triple in self.arcsIn:
-            if (triple.source != None and triple.arc.id == "rdfs:subPropertyOf"):
-               return triple.source
-        return None
-
-    # all subproperties of this property
     def subproperties(self):
+        """Returns direct subproperties of this property."""
+        if not self.isAttribute():
+          logging.debug("Non-property %s won't have subproperties." % self.id)
+          return None
         subprops = []
         for triple in self.arcsIn:
             if (triple.source != None and triple.arc.id == "rdfs:subPropertyOf"):
               subprops.append(triple.source)
         return subprops
 
-    # For property inverses, e.g. alumni inverseOf alumniOf.
-    # Assuming here that they come in simple pairs only.
     def inverseproperty(self):
+        """A property that is an inverseOf this one, e.g. alumni vs alumniOf."""
         for triple in self.arcsOut:
             if (triple.target != None and triple.arc.id == "inverseOf"):
                return triple.target
@@ -135,7 +144,6 @@ class Unit ():
             if (triple.source != None and triple.arc.id == "inverseOf"):
                return triple.source
         return None
-
 
 class Triple () :
 
@@ -166,6 +174,108 @@ class Triple () :
         else:
             return Triple(source, arc, None, text)
 
+def GetTargets(arc, source):
+    targets = {}
+    for triple in source.arcsOut:
+        if (triple.arc == arc):
+            if (triple.target != None):
+                targets[triple.target] = 1
+            elif (triple.text != None):
+                targets[triple.text] = 1
+    return targets.keys()
+
+def GetSources(arc, target):
+    sources = {}
+    for triple in target.arcsIn:
+        if (triple.arc == arc):
+            sources[triple.source] = 1
+    return sources.keys()
+
+def GetArcsIn(target):
+    arcs = {}
+    for triple in target.arcsIn:
+        arcs[triple.arc] = 1
+    return arcs.keys()
+
+def GetArcsOut(source):
+    arcs = {}
+    for triple in source.arcsOut:
+        arcs[triple.arc] = 1
+    return arcs.keys()
+
+# Utility API
+
+def GetComment(node) :
+    for triple in node.arcsOut:
+        if (triple.arc.id == 'rdfs:comment'):
+            return triple.text
+    return "No comment"
+
+def GetImmediateSubtypes(n):
+    if n==None:
+        return None
+    subs = GetSources( Unit.GetUnit("rdfs:subClassOf"), n)
+    return subs
+
+def GetImmediateSupertypes(n):
+    if n==None:
+        return None
+    return GetTargets( Unit.GetUnit("rdfs:subClassOf"), n)
+
+def GetAllTypes():
+   if DataCache.get('AllTypes'):
+        logging.debug("DataCache HIT: Alltypes")
+        return DataCache.get('AllTypes')
+   else:
+     logging.debug("DataCache MISS: Alltypes")
+     mynode = Unit.GetUnit("Thing")
+     subbed = {}
+     todo = [mynode]
+     while todo:
+       current = todo.pop()
+       subs = GetImmediateSubtypes(current)
+       subbed[current] = 1
+       for sc in subs:
+         if subbed.get(sc.id) == None:
+           todo.append(sc)
+     DataCache['AllTypes'] = subbed.keys()
+     return subbed.keys()
+
+def GetParentList(start_unit, end_unit=None, path=[]):
+
+        """
+        Returns one or more lists, each giving a path from a start unit to a supertype parent unit.
+
+        example:
+
+        for path in GetParentList( Unit.GetUnit("Restaurant") ):
+            pprint.pprint(', '.join([str(x.id) for x in path ]))
+
+        'Restaurant, FoodEstablishment, LocalBusiness, Organization, Thing'
+        'Restaurant, FoodEstablishment, LocalBusiness, Place, Thing'
+        """
+
+        if not end_unit:
+          end_unit = Unit.GetUnit("Thing")
+
+        arc=Unit.GetUnit("rdfs:subClassOf")
+        logging.debug("from %s to %s - path length %d" % (start_unit.id, end_unit.id, len(path) ) )
+        path = path + [start_unit]
+        if start_unit == end_unit:
+            return [path]
+        if not Unit.GetUnit(start_unit.id):
+            return []
+        paths = []
+        for node in GetTargets(arc, start_unit):
+            if node not in path:
+                newpaths = GetParentList(node, end_unit, path)
+                for newpath in newpaths:
+                    paths.append(newpath)
+        return paths
+
+def HasMultipleBaseTypes(typenode):
+    """True if this unit represents a type with more than one immediate supertype."""
+    return len( GetTargets( Unit.GetUnit("rdfs:subClassOf"), typenode ) ) > 1
 
 class Example ():
 
@@ -199,41 +309,54 @@ class Example ():
 def GetExamples(node):
     return node.examples
 
-def GetTargets(arc, source):
-    targets = {}
-    for triple in source.arcsOut:
-        if (triple.arc == arc):
-            if (triple.target != None):
-                targets[triple.target] = 1
-            elif (triple.text != None):
-                targets[triple.text] = 1
-    return targets.keys()
+def GetExtMappingsRDFa(node):
+  if (node.isClass()):
+    equivs = GetTargets(Unit.GetUnit("owl:equivalentClass"), node)
+    if len(equivs) > 0:
+      markup = ''
+      for c in equivs:
+        markup = markup + "<link property=\"owl:equivalentClass\" href=\"%s\"/>\n" % c.id
+      return markup
+  if (node.isAttribute()):
+    equivs = GetTargets(Unit.GetUnit("owl:equivalentProperty"), node)
+    if len(equivs) > 0:
+      markup = ''
+      for c in equivs:
+        markup = markup + "<link property=\"owl:equivalentProperty\" href=\"%s\"/>\n" % c.id
+      return markup
+  return "<!-- no external mappings noted for this term. -->"
 
-def GetSources(arc, target):
-    sources = {}
-    for triple in target.arcsIn:
-        if (triple.arc == arc):
-            sources[triple.source] = 1
-    return sources.keys()
-
-def GetArcsIn(target):
-    arcs = {}
-    for triple in target.arcsIn:
-        arcs[triple.arc] = 1
-    return arcs.keys()
-
-def GetArcsOut(source):
-    arcs = {}
-    for triple in source.arcsOut:
-        arcs[triple.arc] = 1
-    return arcs.keys()
-
-def GetComment(node) :
-    for triple in node.arcsOut:
-        if (triple.arc.id == 'rdfs:comment'):
-            return triple.text
-    return "No comment"
-
+def GetJsonLdContext():
+   jsonldcontext = "{\n  \"@context\":  {\n"
+   jsonldcontext += "  \"@vocab\": \"http://schema.org/\",\n"
+   valuespace = {}
+   for t in GetAllTypes():
+     ic = GetSources( Unit.GetUnit("rangeIncludes"), t)
+     for p in ic:
+       if valuespace.get(p.id):
+         valuespace.get(p.id)[t.id] = 1
+       else:
+         valuespace[p.id] = { t.id: 1 }
+   # { myprop: { Date: 1, Cat: 1 } }
+   for pv in valuespace:
+       vtype = "@id"
+       skip = False
+       # print "Value space (len {3}) for property: {0} is {1} ".format(pv, valuespace[pv], len(valuespace[pv]) )
+       # this needs improving; we only started with real types that are subtyped, not Text literals.
+       for v in valuespace[pv]:
+         if v == "Date":
+           vtype = "xsd:date"
+         if v == "DateTime":
+           vtype = "xsd:dateTime"
+           if len( valuespace[pv] > 1):
+             skip = True
+       if not skip:
+           ctx = "    \""+pv+"\": {\"@type\": \""+vtype+"\" },"
+           jsonldcontext += ctx
+   jsonldcontext += "\n}}\n"
+   jsonldcontext = jsonldcontext.replace("},}}","}}}")
+   jsonldcontext = jsonldcontext.replace("},","},\n")
+   return jsonldcontext
 
 PageCache = {}
 
@@ -310,7 +433,7 @@ class ShowUnit (webapp2.RequestHandler) :
             self.write("<table class=\"definition-table\">\n        <thead>\n  <tr><th>Property</th><th>Expected Type</th><th>Description</th>               \n  </tr>\n  </thead>\n\n")
 
     def ClassProperties (self, cl, subclass=False):
-        headerPrinted = False 
+        headerPrinted = False
         di = Unit.GetUnit("domainIncludes")
         ri = Unit.GetUnit("rangeIncludes")
         for prop in sorted(GetSources(di, cl), key=lambda u: u.id):
@@ -349,7 +472,7 @@ class ShowUnit (webapp2.RequestHandler) :
             subclass = False
 
         if subclass: # in case the superclass has no defined attributes
-            self.write("<meta property=\"rdfs:subClassOf\" content=\"%s\">" % (cl.id)) 
+            self.write("<meta property=\"rdfs:subClassOf\" content=\"%s\">" % (cl.id))
 
     def ClassIncomingProperties (self, cl):
         headerPrinted = False
@@ -455,9 +578,51 @@ class ShowUnit (webapp2.RequestHandler) :
 
     def get(self, node):
 
+        # CORS enable, http://en.wikipedia.org/wiki/Cross-origin_resource_sharing
+        self.response.headers.add_header("Access-Control-Allow-Origin", "*") # entire site is public.
+        if (node == "" or node=="/"):
+         # Send the homepage, or if no HTML accept header received and JSON-LD was requested, send JSON-LD context file.
+         # typical browser accept list: ('Accept', 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8')
+         # e.g. curl -H "Accept: application/ld+json" http://localhost:8080//  see also http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html
+         accept_header = self.request.headers.get('Accept').split(',')
+         logging.info("accepts: %s" % self.request.headers.get('Accept'))
+         if ENABLE_JSONLD_CONTEXT:
+           jsonldcontext = GetJsonLdContext() # consider memcached?
+
+         mimereq = {}
+         for ah in accept_header:
+           ah = re.sub( r";q=\d?\.\d+", '', ah).rstrip()
+           mimereq[ah] = 1
+
+         html_score = mimereq.get('text/html', 5)
+         xhtml_score = mimereq.get('application/xhtml+xml', 5)
+         jsonld_score = mimereq.get('application/ld+json', 10)
+         # print "accept_header: " + str(accept_header) + " mimereq: "+str(mimereq) + "Scores H:{0} XH:{1} J:{2} ".format(html_score,xhtml_score,jsonld_score)
+
+         if (ENABLE_JSONLD_CONTEXT and (jsonld_score < html_score and jsonld_score < xhtml_score)):
+           self.response.headers['Content-Type'] = "application/ld+json"
+           self.response.out.write( jsonldcontext )
+           return
+         else:
+           self.response.out.write( open("static/index.html", 'r').read() )
+           return
+
+        if (node=="docs/jsonldcontext.json.txt"):
+         if ENABLE_JSONLD_CONTEXT:
+           jsonldcontext = GetJsonLdContext()
+           self.response.headers['Content-Type'] = "text/plain"
+           self.response.out.write( jsonldcontext )
+           return
+
+        if (node=="docs/jsonldcontext.json"):
+         if ENABLE_JSONLD_CONTEXT:
+           jsonldcontext = GetJsonLdContext()
+           self.response.headers['Content-Type'] = "application/ld+json"
+           self.response.out.write( jsonldcontext )
+           return
+
         if (node == "favicon.ico"):
             return
-
         node = Unit.GetUnit(node)
 
         self.outputStrings = []
@@ -467,7 +632,12 @@ class ShowUnit (webapp2.RequestHandler) :
           self.response.out.write('<title>404 Not Found.</title><a href="/">404 Not Found.</a>')
           return
 
-        headers.OutputSchemaorgHeaders(self, node.id, node.isClass())
+        if EMIT_EXTERNAL_MAPPINGS:
+          ext_mappings = GetExtMappingsRDFa(node)
+        else:
+          ext_mappings=''
+
+        headers.OutputSchemaorgHeaders(self, node.id, node.isClass(), ext_mappings)
         cached = self.GetCachedText(node)
         if (cached != None):
             self.response.write(cached)
