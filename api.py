@@ -328,7 +328,7 @@ def GetExtMappingsRDFa(node):
 
 def GetJsonLdContext():
    jsonldcontext = "{\n  \"@context\":  {\n"
-   jsonldcontext += "  \"@vocab\": \"http://schema.org/\",\n"
+   jsonldcontext += "    \"@vocab\": \"http://schema.org/\",\n"
    valuespace = {}
    for t in GetAllTypes():
      ic = GetSources( Unit.GetUnit("rangeIncludes"), t)
@@ -353,8 +353,8 @@ def GetJsonLdContext():
        if not skip:
            ctx = "    \""+pv+"\": {\"@type\": \""+vtype+"\" },"
            jsonldcontext += ctx
-   jsonldcontext += "\n}}\n"
-   jsonldcontext = jsonldcontext.replace("},}}","}}}")
+   jsonldcontext += "}}\n"
+   jsonldcontext = jsonldcontext.replace("},}}","}\n  }\n}")
    jsonldcontext = jsonldcontext.replace("},","},\n")
    return jsonldcontext
 
