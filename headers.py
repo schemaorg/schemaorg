@@ -114,10 +114,11 @@ headers = '''<!DOCTYPE html>
 
 
   <div id="mainContent" vocab="http://schema.org/" typeof="%s" resource="http://schema.org/%s">
+  %s
 
 '''
 
-def OutputSchemaorgHeaders(webapp, entry='', is_class=False):
+def OutputSchemaorgHeaders(webapp, entry='', is_class=False, ext_mappings=''):
     """
     Generates the headers for class and property pages
 
@@ -127,5 +128,5 @@ def OutputSchemaorgHeaders(webapp, entry='', is_class=False):
     rdfs_type = 'rdfs:Property'
     if is_class:
         rdfs_type = 'rdfs:Class'
-    out = headers % (str(entry), rdfs_type, str(entry))
+    out = headers % (str(entry), rdfs_type, str(entry), ext_mappings)
     webapp.response.write(out)
