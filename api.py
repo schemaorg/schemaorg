@@ -327,43 +327,41 @@ def GetExtMappingsRDFa(node):
   return "<!-- no external mappings noted for this term. -->"
 
 def GetJsonLdContext():
-   jsonldcontext = "{\n  \"@context\":  {\n"
-   jsonldcontext += "    \"@vocab\": \"http://schema.org/\",\n"
-   valuespace = {}
-   for t in GetAllTypes():
-     ic = GetSources( Unit.GetUnit("rangeIncludes"), t)
-     for p in ic:
-       if valuespace.get(p.id):
-         valuespace.get(p.id)[t.id] = 1
-       else:
-         valuespace[p.id] = { t.id: 1 }
-   # { myprop: { Date: 1, Cat: 1 } }
-   for pv in valuespace:
-       vtype = "@id"
-       skip = False
-       # print "Value space (len {3}) for property: {0} is {1} ".format(pv, valuespace[pv], len(valuespace[pv]) )
-       # this needs improving; we only started with real types that are subtyped, not Text literals.
-       for v in valuespace[pv]:
-         if v == "Date":
-           vtype = "xsd:date"
-         if v == "DateTime":
-           vtype = "xsd:dateTime"
-           if len( valuespace[pv] > 1):
-             skip = True
-       if not skip:
-           ctx = "    \""+pv+"\": {\"@type\": \""+vtype+"\" },"
-           jsonldcontext += ctx
-   jsonldcontext += "}}\n"
-   jsonldcontext = jsonldcontext.replace("},}}","}\n  }\n}")
-   jsonldcontext = jsonldcontext.replace("},","},\n")
-   return jsonldcontext
+  jsonldcontext = "{\n  \"@context\":  {\n"
+  jsonldcontext += "    \"@vocab\": \"http://schema.org/\",\n"
+
+  url = Unit.GetUnit("URL")
+  date = Unit.GetUnit("Date")
+  datetime = Unit.GetUnit("DateTime")
+
+  properties = GetSources(Unit.GetUnit("typeOf"), Unit.GetUnit("rdf:Property"))
+
+  for p in properties:
+    range = GetTargets(Unit.GetUnit("rangeIncludes"), p)
+    type = None
+
+    if url in range:
+      type = "@id"
+    elif date in range:
+      type = "Date"
+    elif datetime in range:
+      type = "DateTime"
+
+    if type:
+      jsonldcontext += "    \"" + p.id + "\": { \"@type\": \"" + type + "\" },"
+
+  jsonldcontext += "}}\n"
+  jsonldcontext = jsonldcontext.replace("},}}","}\n  }\n}")
+  jsonldcontext = jsonldcontext.replace("},","},\n")
+
+  return jsonldcontext
 
 PageCache = {}
 
 class ShowUnit (webapp2.RequestHandler) :
 
     def emitCacheHeaders(self):
-        self.response.headers['Cache-Control'] = "public, max-age=43200" # 12h 
+        self.response.headers['Cache-Control'] = "public, max-age=43200" # 12h
         self.response.headers['Vary'] = "Accept, Accept-Encoding"
 
     def GetCachedText(self, node):
