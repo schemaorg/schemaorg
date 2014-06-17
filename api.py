@@ -362,6 +362,10 @@ PageCache = {}
 
 class ShowUnit (webapp2.RequestHandler) :
 
+    def emitCacheHeaders(self):
+        self.response.headers['Cache-Control'] = "public, max-age=43200" # 12h 
+        self.response.headers['Vary'] = "Accept, Accept-Encoding"
+
     def GetCachedText(self, node):
         global PageCache
         if (node.id in PageCache):
@@ -601,6 +605,7 @@ class ShowUnit (webapp2.RequestHandler) :
 
          if (ENABLE_JSONLD_CONTEXT and (jsonld_score < html_score and jsonld_score < xhtml_score)):
            self.response.headers['Content-Type'] = "application/ld+json"
+           self.emitCacheHeaders()
            self.response.out.write( jsonldcontext )
            return
          else:
@@ -611,6 +616,7 @@ class ShowUnit (webapp2.RequestHandler) :
          if ENABLE_JSONLD_CONTEXT:
            jsonldcontext = GetJsonLdContext()
            self.response.headers['Content-Type'] = "text/plain"
+           self.emitCacheHeaders()
            self.response.out.write( jsonldcontext )
            return
 
@@ -618,6 +624,7 @@ class ShowUnit (webapp2.RequestHandler) :
          if ENABLE_JSONLD_CONTEXT:
            jsonldcontext = GetJsonLdContext()
            self.response.headers['Content-Type'] = "application/ld+json"
+           self.emitCacheHeaders()
            self.response.out.write( jsonldcontext )
            return
 
