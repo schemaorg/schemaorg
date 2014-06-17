@@ -334,8 +334,7 @@ def GetJsonLdContext():
   date = Unit.GetUnit("Date")
   datetime = Unit.GetUnit("DateTime")
 
-  properties = GetSources(Unit.GetUnit("typeOf"), Unit.GetUnit("rdf:Property"))
-
+  properties = sorted(GetSources(Unit.GetUnit("typeOf"), Unit.GetUnit("rdf:Property")), key=lambda u: u.id)
   for p in properties:
     range = GetTargets(Unit.GetUnit("rangeIncludes"), p)
     type = None
