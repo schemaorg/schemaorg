@@ -363,16 +363,20 @@ class HasMultipleBaseTypesTests(unittest.TestCase):
 
 class BasicJSONLDTests(unittest.TestCase):
 
-    def test_sameAsId(self):
+    def test_jsonld_basic_jsonld_context_available(self):
        import json
        ctx = json.loads(GetJsonLdContext())
        self.assertEqual( ctx["@context"]["@vocab"], "http://schema.org/", "Context file should declare schema.org url.")
+
+    def test_issuedBy_jsonld(self):
+       import json
+       ctx = json.loads(GetJsonLdContext())
        self.assertTrue( "issuedBy" in ctx["@context"] , "issuedBy should be defined." )
 
 class AdvancedJSONLDTests(unittest.TestCase):
 
     @unittest.expectedFailure
-    def test_sameAsId(self):
+    def test_sameas_jsonld(self):
        import json
        ctx = json.loads(GetJsonLdContext())
        self.assertTrue( "sameAs" in ctx["@context"] , "sameAs should be defined." )
