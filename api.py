@@ -428,7 +428,7 @@ class ShowUnit (webapp2.RequestHandler) :
             if (nn.id == "Thing" or thing_seen or nn.isDataType()):
                 thing_seen = True
                 self.write(self.ml(nn) )
-                if ind == 1 and nn.isEnumerationValue():
+                if ind == 1 and node.isEnumerationValue():
                     self.write(" :: ")
                 elif ind > 0:
                     self.write(" &gt; ")
