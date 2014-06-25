@@ -327,40 +327,41 @@ def GetExtMappingsRDFa(node):
   return "<!-- no external mappings noted for this term. -->"
 
 def GetJsonLdContext():
-   jsonldcontext = "{\n  \"@context\":  {\n"
-   jsonldcontext += "  \"@vocab\": \"http://schema.org/\",\n"
-   valuespace = {}
-   for t in GetAllTypes():
-     ic = GetSources( Unit.GetUnit("rangeIncludes"), t)
-     for p in ic:
-       if valuespace.get(p.id):
-         valuespace.get(p.id)[t.id] = 1
-       else:
-         valuespace[p.id] = { t.id: 1 }
-   # { myprop: { Date: 1, Cat: 1 } }
-   for pv in valuespace:
-       vtype = "@id"
-       skip = False
-       # print "Value space (len {3}) for property: {0} is {1} ".format(pv, valuespace[pv], len(valuespace[pv]) )
-       # this needs improving; we only started with real types that are subtyped, not Text literals.
-       for v in valuespace[pv]:
-         if v == "Date":
-           vtype = "xsd:date"
-         if v == "DateTime":
-           vtype = "xsd:dateTime"
-           if len( valuespace[pv] > 1):
-             skip = True
-       if not skip:
-           ctx = "    \""+pv+"\": {\"@type\": \""+vtype+"\" },"
-           jsonldcontext += ctx
-   jsonldcontext += "\n}}\n"
-   jsonldcontext = jsonldcontext.replace("},}}","}}}")
-   jsonldcontext = jsonldcontext.replace("},","},\n")
-   return jsonldcontext
+  jsonldcontext = "{\n  \"@context\":  {\n"
+  jsonldcontext += "    \"@vocab\": \"http://schema.org/\",\n"
+
+  url = Unit.GetUnit("URL")
+  date = Unit.GetUnit("Date")
+  datetime = Unit.GetUnit("DateTime")
+
+  properties = sorted(GetSources(Unit.GetUnit("typeOf"), Unit.GetUnit("rdf:Property")), key=lambda u: u.id)
+  for p in properties:
+    range = GetTargets(Unit.GetUnit("rangeIncludes"), p)
+    type = None
+
+    if url in range:
+      type = "@id"
+    elif date in range:
+      type = "Date"
+    elif datetime in range:
+      type = "DateTime"
+
+    if type:
+      jsonldcontext += "    \"" + p.id + "\": { \"@type\": \"" + type + "\" },"
+
+  jsonldcontext += "}}\n"
+  jsonldcontext = jsonldcontext.replace("},}}","}\n  }\n}")
+  jsonldcontext = jsonldcontext.replace("},","},\n")
+
+  return jsonldcontext
 
 PageCache = {}
 
 class ShowUnit (webapp2.RequestHandler) :
+
+    def emitCacheHeaders(self):
+        self.response.headers['Cache-Control'] = "public, max-age=43200" # 12h
+        self.response.headers['Vary'] = "Accept, Accept-Encoding"
 
     def GetCachedText(self, node):
         global PageCache
@@ -381,11 +382,18 @@ class ShowUnit (webapp2.RequestHandler) :
     def GetParentStack(self, node):
         if (node not in self.parentStack):
             self.parentStack.append(node)
+
         if (Unit.isAttribute(node)):
             self.parentStack.append(Unit.GetUnit("Property"))
             self.parentStack.append(Unit.GetUnit("Thing"))
+
+        sc = Unit.GetUnit("rdfs:subClassOf")
+        if GetTargets(sc, node):
+            for p in GetTargets(sc, node):
+                self.GetParentStack(p)
         else:
-            sc = Unit.GetUnit("rdfs:subClassOf")
+            # Enumerations are classes that have no declared subclasses
+            sc = Unit.GetUnit("typeOf")
             for p in GetTargets(sc, node):
                 self.GetParentStack(p)
 
@@ -420,7 +428,9 @@ class ShowUnit (webapp2.RequestHandler) :
             if (nn.id == "Thing" or thing_seen or nn.isDataType()):
                 thing_seen = True
                 self.write(self.ml(nn) )
-                if (ind > 0):
+                if ind == 1 and node.isEnumerationValue():
+                    self.write(" :: ")
+                elif ind > 0:
                     self.write(" &gt; ")
                 if ind == 1:
                     self.write("<span property=\"rdfs:label\">")
@@ -601,6 +611,7 @@ class ShowUnit (webapp2.RequestHandler) :
 
          if (ENABLE_JSONLD_CONTEXT and (jsonld_score < html_score and jsonld_score < xhtml_score)):
            self.response.headers['Content-Type'] = "application/ld+json"
+           self.emitCacheHeaders()
            self.response.out.write( jsonldcontext )
            return
          else:
@@ -611,6 +622,7 @@ class ShowUnit (webapp2.RequestHandler) :
          if ENABLE_JSONLD_CONTEXT:
            jsonldcontext = GetJsonLdContext()
            self.response.headers['Content-Type'] = "text/plain"
+           self.emitCacheHeaders()
            self.response.out.write( jsonldcontext )
            return
 
@@ -618,6 +630,7 @@ class ShowUnit (webapp2.RequestHandler) :
          if ENABLE_JSONLD_CONTEXT:
            jsonldcontext = GetJsonLdContext()
            self.response.headers['Content-Type'] = "application/ld+json"
+           self.emitCacheHeaders()
            self.response.out.write( jsonldcontext )
            return
 

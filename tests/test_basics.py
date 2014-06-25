@@ -361,6 +361,34 @@ class HasMultipleBaseTypesTests(unittest.TestCase):
     def test_article_non_multiple_supertypes(self):
       self.assertFalse( HasMultipleBaseTypes( Unit.GetUnit("Article") ) , "Article only has one direct supertype.")
 
+class BasicJSONLDTests(unittest.TestCase):
+
+    def test_jsonld_basic_jsonld_context_available(self):
+       import json
+       ctx = json.loads(GetJsonLdContext())
+       self.assertEqual( ctx["@context"]["@vocab"], "http://schema.org/", "Context file should declare schema.org url.")
+
+    def test_issuedBy_jsonld(self):
+       import json
+       ctx = json.loads(GetJsonLdContext())
+       self.assertFalse( "issuedBy" in ctx["@context"] , "issuedBy should be defined." )
+
+    def test_dateModified_jsonld(self):
+       import json
+       ctx = json.loads(GetJsonLdContext())
+       self.assertTrue( "dateModified" in ctx["@context"] , "dateModified should be defined." )
+       self.assertTrue( ctx["@context"]["dateModified"]["@type"] == "Date" , "dateModified should have Date type." )
+
+class AdvancedJSONLDTests(unittest.TestCase):
+
+    def test_sameas_jsonld(self):
+       import json
+       ctx = json.loads(GetJsonLdContext())
+       self.assertTrue( "sameAs" in ctx["@context"] , "sameAs should be defined." )
+
+#      self.assertTrue( HasMultipleBaseTypes( Unit.GetUnit("LocalBusiness") ) , "LocalBusiness is subClassOf Place + Organization." )
+
+
 # TODO: Unwritten tests
 #
 # * different terms should not have identical comments
