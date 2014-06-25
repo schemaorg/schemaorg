@@ -735,15 +735,29 @@ schemasInitialized = False
 
 def read_schemas():
     import os.path
+    import glob
     global schemasInitialized
     if (not schemasInitialized):
-        schema_content = read_file('data/schema.rdfa')
-        example_content = read_file('data/examples.txt')
+#        schema_content = read_file('data/schema.rdfa')
+#        example_content = read_file('data/examples.txt')
+        files = glob.glob("data/*.rdfa")
+        schema_contents = []
+        for f in files:
+            schema_content = read_file(f)
+            schema_contents.append(schema_content)
+
         ft = 'rdfa'
         parser = parsers.MakeParserOfType(ft, None)
-        items = parser.parse(schema_content)
+#        items = parser.parse(schema_content)
+
+        items = parser.parse(schema_contents)
+        files = glob.glob("data/*examples.txt")
+        example_contents = []
+        for f in files:
+            example_content = read_file(f)
+            example_contents.append(example_content)
         parser = parsers.ParseExampleFile(None)
-        parser.parse(example_content)
+        parser.parse(example_contents)
         schemasInitialized = True
 
 read_schemas()
