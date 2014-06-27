@@ -12026,6 +12026,45 @@ JSON:
 }
 </script>
 
+TYPES:  Map, VenueMap
+
+PRE-MARKUP:
+
+<p>
+Welcome to a fictional SF art museum.
+Here is our <a href="/map1234/">venue map</a>
+</p>
+
+MICRODATA:
+
+<p itemscope itemtype="http://schema.org/Museum">
+Welcome to a fictional <span itemprop="name">SF art museum.</name>
+Here is our
+<span itemscope itemprop="hasMap" itemtype="http://schema.org/VenueMap">
+<a itemprop="url" href="/map1234/">venue map</a></span>
+</p>
+
+RDFA:
+
+<p vocab="http://schema.org/" typeof="Museum">
+Welcome to a fictional <span property="name">SF art museum.</name>
+Here is our
+<span property="hasMap" typeof="VenueMap">
+<a property="url" href="/map1234/">venue map</a></span>
+</p>
+
+JSON:
+
+{
+ "@context": "http://schema.org/",
+ "@type": "Museum",
+ "name": "SF art museum",
+ "hasMap": {
+ "@type": "VenueMap",
+   "url":  "http://art-sf.example.com/map1234/"
+   }
+}
+
 TYPES:  FakeEntryNeeded, FixMeSomeDay
 
 PRE-MARKUP:
