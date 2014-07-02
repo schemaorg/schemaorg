@@ -4314,19 +4314,19 @@
        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Enumeration">Enumeration</a></span>
     </div>
 
-    <div typeof="http://schema.org/GamePlayMode" resource="http://schema.org/Online">
+    <div typeof="http://schema.org/GameServerStatus" resource="http://schema.org/Online">
       <span class="h" property="rdfs:label">Online</span>
       <span property="rdfs:comment">Game server status: Online.</span>
     </div>
-    <div typeof="http://schema.org/GamePlayMode" resource="http://schema.org/OnlineFull">
+    <div typeof="http://schema.org/GameServerStatus" resource="http://schema.org/OnlineFull">
       <span class="h" property="rdfs:label">OnlineFull </span>
       <span property="rdfs:comment">Game server status: OnlineFull .</span>
     </div>
-    <div typeof="http://schema.org/GamePlayMode" resource="http://schema.org/OfflineTemporarily">
+    <div typeof="http://schema.org/GameServerStatus" resource="http://schema.org/OfflineTemporarily">
       <span class="h" property="rdfs:label">OfflineTemporarily </span>
       <span property="rdfs:comment">Game server status: OfflineTemporarily .</span>
     </div>
-    <div typeof="http://schema.org/GamePlayMode" resource="http://schema.org/OfflinePermanently">
+    <div typeof="http://schema.org/GameServerStatus" resource="http://schema.org/OfflinePermanently">
       <span class="h" property="rdfs:label">OfflinePermanently </span>
       <span property="rdfs:comment">Game server status: OfflinePermanently .</span>
     </div>
@@ -6770,7 +6770,6 @@
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Organization">Organization</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Event">Event</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Action">Action</a></span>
-       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Game">Game</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Place">Place</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/PostalAddress">PostalAddress</a></span>
     </div>
@@ -9935,7 +9934,7 @@ on public-vocabs@w3.org.</p>
       <span class="h" property="rdfs:label">playModes</span>
       <span property="rdfs:comment">Indicates whether this game multi-player, co-op or single-player</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/VideoGame">VideoGame</a></span>
-      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/GamePlayMode">GamePlayMode</a></span>
  </div>
   <div typeof="rdf:Property" resource="http://schema.org/translator">
       <span class="h" property="rdfs:label">translator</span>
@@ -9980,14 +9979,22 @@ on public-vocabs@w3.org.</p>
         <div typeof="rdf:Property" resource="http://schema.org/serverStatus">
       <span class="h" property="rdfs:label">serverStatus</span>
       <span property="rdfs:comment">Status of game server</span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/OnlineGame">OnlineGame</a></span>
-      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/VideoGame">VideoGame</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/GameServerStatus">GameServerStatus</a></span>
  </div>
       <div typeof="rdf:Property" resource="http://schema.org/playersNumber">
       <span class="h" property="rdfs:label">playersOnline</span>
       <span property="rdfs:comment">Number of players on the server</span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/OnlineGame">OnlineGame</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/VideoGame">VideoGame</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number">Number</a></span>
  </div>
+ <div typeof="rdf:Property" resource="http://schema.org/gameLocation">
+      <span class="h" property="rdfs:label">gameLocation</span>
+      <span property="rdfs:comment">Real or fiction location of the game (or part of game)</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Game">Game</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/URL">URL</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Place">Place</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/PostalAddress">PostalAddress</a></span>
+    </div>
   </body>
 </html>
