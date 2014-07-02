@@ -46,7 +46,11 @@ class ParseExampleFile :
         self.currentStr = []
             
 
-    def parse (self, content):
+    def parse (self, contents):
+        content = ""
+        for i in range(len(contents)):
+            content += contents[i]        
+
         lines = re.split('\n|\r', content)
         for line in lines:
             if ((len(line) > 6) and line[:6] == "TYPES:"):
@@ -78,17 +82,25 @@ class RDFAParser :
     def __init__ (self, webapp):
         self.webapp = webapp
 
-    def parse (self, content):
-        root = ET.fromstring(content)
+    def parse (self, contents):
         self.items = {}
-        self.extractTriples(root, None)
+        root = []
+        for i in range(len(contents)):        
+             root.append(ET.fromstring(contents[i]))
+             pre = root[i].findall(".//*[@prefix]")
+             for e in range(len(pre)):
+                  api.Unit.storePrefix(pre[e].get('prefix'))
+
+        for i in range(len(contents)):
+             self.extractTriples(root[i], None)
+
         return self.items.keys()
 
     def stripID (self, str) :
-        if (len(str) > 16 and (str[:17] == 'http://schema.org')) :
-            return str[18:]
-        else:
-            return str
+        for k in (api.PrefixMap.keys()):
+           if(str.startswith(k)):
+              return str[len(k):]
+        return str
         
     def extractTriples(self, elem, currentNode):
         typeof = elem.get('typeof')
@@ -97,16 +109,19 @@ class RDFAParser :
         property = elem.get('property')
         text = elem.text
         if (property != None):
-            property = api.Unit.GetUnit(self.stripID(property), True)
-            if (href != None) :
-                href = api.Unit.GetUnit(self.stripID(href), True)
-           #     self.webapp.write("<br>%s %s %s" % (currentNode, property, href))
-                api.Triple.AddTriple(currentNode, property, href)
-                self.items[currentNode] = 1
-            elif (text != None):
-             #   logging.info("<br>%s %s '%s'" % (currentNode, property, text))
-                api.Triple.AddTripleText(currentNode, property, text)
-                self.items[currentNode] = 1
+            if(property == "schema:softwareVersion"):
+               api.Unit.storeVersion(text)
+            else:
+                property = api.Unit.GetUnit(self.stripID(property), True)
+                if (href != None) :
+                    href = api.Unit.GetUnit(self.stripID(href), True)
+               #     self.webapp.write("<br>%s %s %s" % (currentNode, property, href))
+                    api.Triple.AddTriple(currentNode, property, href)
+                    self.items[currentNode] = 1
+                elif (text != None):
+                 #   logging.info("<br>%s %s '%s'" % (currentNode, property, text))
+                    api.Triple.AddTripleText(currentNode, property, text)
+                    self.items[currentNode] = 1
         if (resource != None):
             currentNode = api.Unit.GetUnit(self.stripID(resource), True)
             if (typeof != None):

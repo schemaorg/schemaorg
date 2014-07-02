@@ -27,6 +27,8 @@ EMIT_EXTERNAL_MAPPINGS = True
 
 NodeIDMap = {}
 DataCache = {}
+PrefixMap = {}
+VersionList = []
 
 class Unit ():
     """
@@ -144,6 +146,16 @@ class Unit ():
             if (triple.source != None and triple.arc.id == "inverseOf"):
                return triple.source
         return None
+
+    @staticmethod
+    def storePrefix(pf):
+        sp = pf.strip().split(':',1)
+        PrefixMap[sp[1]] = sp[0]
+
+    @staticmethod
+    def storeVersion(ver):
+        if(ver not in VersionList):
+            VersionList.append(ver)
 
 class Triple () :
 
@@ -716,7 +728,10 @@ class ShowUnit (webapp2.RequestHandler) :
                                % (example_type, selected, self.rep(ex.get(example_type))))
                 self.write("</div>\n\n")
 
-        self.write("<p class=\"version\"><b>Schema Version 1.6</b></p>\n\n")
+        self.write("<p class=\"version\">")
+        for v in VersionList:
+             self.write("<b>%s</b><br/>\n" % (v))
+        self.write("<b>Schemaorg Software Version 1.6.1</b></p>\n")
         self.write(" \n\n</div>\n</body>\n</html>")
 
         self.response.write(self.AddCachedText(node, self.outputStrings))
@@ -735,15 +750,25 @@ schemasInitialized = False
 
 def read_schemas():
     import os.path
+    import glob
     global schemasInitialized
     if (not schemasInitialized):
-        schema_content = read_file('data/schema.rdfa')
-        example_content = read_file('data/examples.txt')
+        files = glob.glob("data/*.rdfa")
+        schema_contents = []
+        for f in files:
+            schema_content = read_file(f)
+            schema_contents.append(schema_content)
         ft = 'rdfa'
         parser = parsers.MakeParserOfType(ft, None)
-        items = parser.parse(schema_content)
+        items = parser.parse(schema_contents)
+
+        files = glob.glob("data/*examples.txt")
+        example_contents = []
+        for f in files:
+            example_content = read_file(f)
+            example_contents.append(example_content)
         parser = parsers.ParseExampleFile(None)
-        parser.parse(example_content)
+        parser.parse(example_contents)
         schemasInitialized = True
 
 read_schemas()
