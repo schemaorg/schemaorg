@@ -738,8 +738,6 @@ def read_schemas():
     import glob
     global schemasInitialized
     if (not schemasInitialized):
-#        schema_content = read_file('data/schema.rdfa')
-#        example_content = read_file('data/examples.txt')
         files = glob.glob("data/*.rdfa")
         schema_contents = []
         for f in files:
@@ -748,8 +746,6 @@ def read_schemas():
 
         ft = 'rdfa'
         parser = parsers.MakeParserOfType(ft, None)
-#        items = parser.parse(schema_content)
-
         items = parser.parse(schema_contents)
         files = glob.glob("data/*examples.txt")
         example_contents = []
