@@ -14,10 +14,10 @@ def MakeParserOfType (format, webapp):
     if (format == 'mcf') :
         return MCFParser(webapp)
     elif (format == 'rdfa') :
-        return RDFAParser(webapp) 
+        return RDFAParser(webapp)
     else :
         return 0
- 
+
 class ParseExampleFile :
 
     def __init__ (self, webapp):
@@ -44,13 +44,18 @@ class ParseExampleFile :
             self.jsonStr = "".join(self.currentStr)
         self.state = next
         self.currentStr = []
-            
 
-    def parse (self, content):
+
+    #def parse (self, content):
+    def parse (self, contents):
+        content = ""
+        for i in range(len(contents)):
+            content += contents[i]
+
         lines = re.split('\n|\r', content)
         for line in lines:
             if ((len(line) > 6) and line[:6] == "TYPES:"):
-                self.nextPart('TYPES:')                
+                self.nextPart('TYPES:')
                 api.Example.AddExample(self.terms, self.preMarkupStr, self.microdataStr, self.rdfaStr, self.jsonStr)
                 self.initFields()
                 typelist = re.split(':', line)
@@ -70,18 +75,27 @@ class ParseExampleFile :
                     self.currentStr.append(line + "\n")
         api.Example.AddExample(self.terms, self.preMarkupStr, self.microdataStr, self.rdfaStr, self.jsonStr)
 
-    
-        
+
+
 
 class RDFAParser :
 
     def __init__ (self, webapp):
         self.webapp = webapp
 
-    def parse (self, content):
-        root = ET.fromstring(content)
+    def parse (self, contents):
         self.items = {}
-        self.extractTriples(root, None)
+        root = []
+        for i in range(len(contents)):
+            root.append(ET.fromstring(contents[i]))
+            pre = root[i].findall(".//*[@prefix]")
+            for e in range(len(pre)):
+                api.Unit.storePrefix(pre[e].get('prefix'))
+
+        for i in range(len(contents)):
+              self.extractTriples(root[i], None)
+
+
         return self.items.keys()
 
     def stripID (self, str) :
@@ -89,7 +103,7 @@ class RDFAParser :
             return str[18:]
         else:
             return str
-        
+
     def extractTriples(self, elem, currentNode):
         typeof = elem.get('typeof')
         resource = elem.get('resource')
@@ -115,7 +129,7 @@ class RDFAParser :
             self.extractTriples(child,  currentNode)
 
 
-                
+
 class MCFParser:
 
 
@@ -161,6 +175,5 @@ class MCFParser:
                 values = self.extractValues(l)
                 #   self.webapp.write("<br>Got predicate " + predicate)
                 for v in values:
-#                    self.webapp.write("<br> %s %s %s" % (unit, predicate, v))
                     api.Triple.AddTriple(unit, predicate, api.Unit.GetUnit(v, True))
         return self.items.keys()
