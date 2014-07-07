@@ -16,6 +16,8 @@ import os
 logging.basicConfig(level=logging.INFO) # dev_appserver.py --log_level debug .
 log = logging.getLogger(__name__)
 
+SCHEMA_VERSION=1.7
+
 JINJA_ENVIRONMENT = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
     extensions=['jinja2.ext.autoescape'], autoescape=True)
@@ -716,7 +718,7 @@ class ShowUnit (webapp2.RequestHandler) :
                                % (example_type, selected, self.rep(ex.get(example_type))))
                 self.write("</div>\n\n")
 
-        self.write("<p class=\"version\"><b>Schema Version 1.6</b></p>\n\n")
+        self.write("<p class=\"version\"><b>Schema Version %s</b></p>\n\n" % SCHEMA_VERSION)
         self.write(" \n\n</div>\n</body>\n</html>")
 
         self.response.write(self.AddCachedText(node, self.outputStrings))
@@ -738,8 +740,6 @@ def read_schemas():
     import glob
     global schemasInitialized
     if (not schemasInitialized):
-#        schema_content = read_file('data/schema.rdfa')
-#        example_content = read_file('data/examples.txt')
         files = glob.glob("data/*.rdfa")
         schema_contents = []
         for f in files:
@@ -748,8 +748,6 @@ def read_schemas():
 
         ft = 'rdfa'
         parser = parsers.MakeParserOfType(ft, None)
-#        items = parser.parse(schema_content)
-
         items = parser.parse(schema_contents)
         files = glob.glob("data/*examples.txt")
         example_contents = []

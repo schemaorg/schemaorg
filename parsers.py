@@ -83,11 +83,8 @@ class RDFAParser :
     def __init__ (self, webapp):
         self.webapp = webapp
 
-#   def parse (self, content):
     def parse (self, contents):
-#        root = ET.fromstring(content)
         self.items = {}
-#       self.extractTriples(root, None)
         root = []
         for i in range(len(contents)):
             root.append(ET.fromstring(contents[i]))
@@ -178,6 +175,5 @@ class MCFParser:
                 values = self.extractValues(l)
                 #   self.webapp.write("<br>Got predicate " + predicate)
                 for v in values:
-#                    self.webapp.write("<br> %s %s %s" % (unit, predicate, v))
                     api.Triple.AddTriple(unit, predicate, api.Unit.GetUnit(v, True))
         return self.items.keys()
