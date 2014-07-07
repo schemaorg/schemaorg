@@ -8,14 +8,24 @@ from parsers import *
 
 schema_path = './data/schema.rdfa'
 examples_path = './data/examples.txt'
-    
+
 andstr = "\n AND\n  "
+TYPECOUNT_UPPERBOUND = 1000
+TYPECOUNT_LOWERBOUND = 500
 
 logging.basicConfig(level=logging.INFO)
 log = logging.getLogger(__name__)
 
 # Tests to probe the health of both schemas and code.
 # Note that known failings can be annotated with @unittest.expectedFailure or @skip("reason...")
+
+class BallparkCountTests(unittest.TestCase):
+    def test_alltypes(self):
+
+      # ballpark estimates.
+      self.assertTrue( len( GetAllTypes() )  > TYPECOUNT_LOWERBOUND , "Should be > %d types. Got %s" % (TYPECOUNT_LOWERBOUND, len (GetAllTypes()) ))
+      self.assertTrue( len( GetAllTypes() )  < TYPECOUNT_UPPERBOUND , "Should be < %d types. Got %s" % (TYPECOUNT_UPPERBOUND, len (GetAllTypes()) ))
+
 
 class SDOBasicsTestCase(unittest.TestCase):
 
@@ -24,6 +34,31 @@ class SDOBasicsTestCase(unittest.TestCase):
 
   def test_foundExamples(self):
     self.assertEqual(True, os.path.exists(examples_path), "Expected examples file: "+ examples_path )
+
+class SupertypePathsTestCase(unittest.TestCase):
+    """
+    tRestaurant = Unit.GetUnit("Restaurant")
+    tThing = Unit.GetUnit("Thing")
+    for path in GetParentList(tRestaurant, tThing ):
+      pprint.pprint(', '.join([str(x.id) for x in path ]))"""
+
+    def test_simplePath(self):
+      self.assertEqual(  len(GetParentList(
+                    Unit.GetUnit("CreativeWork"), Unit.GetUnit("Thing")
+                    )
+                  ), 1, "1 supertype path from CreativeWork to Thing."  )
+
+    def test_dualPath(self):
+      self.assertEqual(  len(GetParentList(
+                    Unit.GetUnit("Restaurant"), Unit.GetUnit("Thing")
+                    )
+                  ), 2, "2 supertype paths from Restaurant to Thing."  )
+
+    def test_inverseDualPath(self):
+      self.assertEqual(  len(GetParentList(
+                    Unit.GetUnit("Thing"), Unit.GetUnit("Restaurant")
+                    )
+                  ), 0, "0 supertype paths from Thing to Restaurant."  )
 
 
 class SchemaWellformedTestCase(unittest.TestCase):
@@ -149,6 +184,15 @@ class SchemaBasicAPITestCase(unittest.TestCase):
     tPerson = Unit.GetUnit("Person")
     self.assertFalse(tPerson.isAttribute(), "Not true that Person isAttribute().")
 
+  def test_GetImmediateSubtypesOk(self):
+    tArticle = Unit.GetUnit("Article")
+    self.assertTrue(Unit.GetUnit("NewsArticle") in GetImmediateSubtypes(tArticle), "NewsArticle is in immediate subtypes of Article.")
+
+  def test_GetImmediateSubtypesWrong(self):
+    tArticle = Unit.GetUnit("CreativeWork")
+    self.assertFalse(Unit.GetUnit("NewsArticle") in GetImmediateSubtypes(tArticle), "CreativeWork is not in immediate subtypes of Article.")
+
+
 class SchemaPropertyAPITestCase(unittest.TestCase):
 
   def test_actorSupercedesActors(self):
@@ -181,11 +225,6 @@ class SchemaPropertyAPITestCase(unittest.TestCase):
 # acceptedAnswer subPropertyOf suggestedAnswer .
 class SchemaPropertyMetadataTestCase(unittest.TestCase):
 
-  def test_suggestedAnswerSuperproperty(self):
-    p_suggestedAnswer = Unit.GetUnit("suggestedAnswer")
-    p_acceptedAnswer = Unit.GetUnit("acceptedAnswer")
-    self.assertTrue(p_suggestedAnswer == p_acceptedAnswer.superproperty(), "acceptedAnswer subPropertyOf suggestedAnswer.")
-
   def test_suggestedAnswerSuperproperties(self):
     p_suggestedAnswer = Unit.GetUnit("suggestedAnswer")
     p_acceptedAnswer = Unit.GetUnit("acceptedAnswer")
@@ -199,7 +238,7 @@ class SchemaPropertyMetadataTestCase(unittest.TestCase):
   def test_answerSubproperty(self):
     p_suggestedAnswer = Unit.GetUnit("suggestedAnswer")
     p_acceptedAnswer = Unit.GetUnit("acceptedAnswer")
-    self.assertTrue(p_acceptedAnswer == p_suggestedAnswer.subproperty(), "acceptedAnswer subPropertyOf suggestedAanswer.")
+    self.assertTrue(p_acceptedAnswer in p_suggestedAnswer.subproperties(), "acceptedAnswer is a subPropertyOf suggestedAanswer.")
 
   def test_answerSubproperties(self):
     p_suggestedAnswer = Unit.GetUnit("suggestedAnswer")
@@ -219,11 +258,11 @@ class SchemaPropertyMetadataTestCase(unittest.TestCase):
     p_alumni = Unit.GetUnit("alumni")
     p_alumniOf = Unit.GetUnit("alumniOf")
     p_suggestedAnswer = Unit.GetUnit("suggestedAnswer")
-    self.assertFalse(p_alumni == p_suggestedAnswer.superproperty(), "not suggestedAnswer subPropertyOf alumni.")
-    self.assertFalse(p_suggestedAnswer == p_alumni.superproperty(), "not alumni subPropertyOf suggestedAnswer.")
-    self.assertFalse(p_alumni == p_alumni.superproperty(), "not alumni subPropertyOf alumni.")
-    self.assertFalse(p_alumniOf == p_alumni.superproperty(), "not alumni subPropertyOf alumniOf.")
-    self.assertFalse(p_suggestedAnswer == p_suggestedAnswer.superproperty(), "not suggestedAnswer subPropertyOf suggestedAnswer.")
+    self.assertFalse(p_alumni in p_suggestedAnswer.superproperties(), "not suggestedAnswer subPropertyOf alumni.")
+    self.assertFalse(p_suggestedAnswer in p_alumni.superproperties(), "not alumni subPropertyOf suggestedAnswer.")
+    self.assertFalse(p_alumni in p_alumni.superproperties(), "not alumni subPropertyOf alumni.")
+    self.assertFalse(p_alumniOf in p_alumni.superproperties(), "not alumni subPropertyOf alumniOf.")
+    self.assertFalse(p_suggestedAnswer in p_suggestedAnswer.superproperties(), "not suggestedAnswer subPropertyOf suggestedAnswer.")
 
   def test_alumniInverse(self):
     p_alumni = Unit.GetUnit("alumni")
@@ -303,6 +342,52 @@ class SimpleSchemaIntegrityTests(unittest.TestCase):
              enum_comment_errors.append ("enumerated value %s: Expected 1 rdfs:comment, found: %s.\n %s" % (e.id, len(comments), andstr.join(comments) ) )
       log.debug("enum comment count: "+ str(len(enum_comment_errors)))
       self.assertTrue(len(enum_comment_errors)==0, "Comment count enumeration errors. Aggregated: \n\n" + " \n".join(enum_comment_errors))
+
+class DataTypeTests(unittest.TestCase):
+    def test_booleanDataType(self):
+      self.assertTrue( Unit.GetUnit("Boolean").isDataType())
+      self.assertTrue(Unit.GetUnit("DataType").isDataType())
+      self.assertFalse(Unit.GetUnit("Thing").isDataType())
+      self.assertFalse(Unit.GetUnit("Duration").isDataType())
+
+class HasMultipleBaseTypesTests(unittest.TestCase):
+
+    def test_localbusiness2supertypes(self):
+      self.assertTrue( HasMultipleBaseTypes( Unit.GetUnit("LocalBusiness") ) , "LocalBusiness is subClassOf Place + Organization." )
+
+    def test_restaurant_non_multiple_supertypes(self):
+      self.assertFalse( HasMultipleBaseTypes( Unit.GetUnit("Restaurant") ) , "Restaurant only has one *direct* supertype.")
+
+    def test_article_non_multiple_supertypes(self):
+      self.assertFalse( HasMultipleBaseTypes( Unit.GetUnit("Article") ) , "Article only has one direct supertype.")
+
+class BasicJSONLDTests(unittest.TestCase):
+
+    def test_jsonld_basic_jsonld_context_available(self):
+       import json
+       ctx = json.loads(GetJsonLdContext())
+       self.assertEqual( ctx["@context"]["@vocab"], "http://schema.org/", "Context file should declare schema.org url.")
+
+    def test_issuedBy_jsonld(self):
+       import json
+       ctx = json.loads(GetJsonLdContext())
+       self.assertFalse( "issuedBy" in ctx["@context"] , "issuedBy should be defined." )
+
+    def test_dateModified_jsonld(self):
+       import json
+       ctx = json.loads(GetJsonLdContext())
+       self.assertTrue( "dateModified" in ctx["@context"] , "dateModified should be defined." )
+       self.assertTrue( ctx["@context"]["dateModified"]["@type"] == "Date" , "dateModified should have Date type." )
+
+class AdvancedJSONLDTests(unittest.TestCase):
+
+    def test_sameas_jsonld(self):
+       import json
+       ctx = json.loads(GetJsonLdContext())
+       self.assertTrue( "sameAs" in ctx["@context"] , "sameAs should be defined." )
+
+#      self.assertTrue( HasMultipleBaseTypes( Unit.GetUnit("LocalBusiness") ) , "LocalBusiness is subClassOf Place + Organization." )
+
 
 # TODO: Unwritten tests
 #

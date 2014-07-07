@@ -358,7 +358,7 @@ MICRODATA:
 </script>
 
 <meta itemprop="encodingFormat" content="mp3" />
- <meta itemprop="contentURL" content="http://media.freesound.org/data/0/previews/719__elmomo__12oclock_girona_preview.mp3" />
+ <meta itemprop="contentUrl" content="http://media.freesound.org/data/0/previews/719__elmomo__12oclock_girona_preview.mp3" />
 
 <span class="description">
       <meta itemprop="duration" content="T0M15S" />
@@ -377,7 +377,7 @@ RDFA:
 </script>
 
 <meta property="encodingFormat" content="mp3" />
- <meta property="contentURL" content="http://media.freesound.org/data/0/previews/719__elmomo__12oclock_girona_preview.mp3" />
+ <meta property="contentUrl" content="http://media.freesound.org/data/0/previews/719__elmomo__12oclock_girona_preview.mp3" />
 
 <span class="description">
       <meta property="duration" content="T0M15S" />
@@ -391,7 +391,7 @@ JSON:
 {
   "@context": "http://schema.org",
   "@type": "AudioObject",
-  "contentURL": "http://media.freesound.org/data/0/previews/719__elmomo__12oclock_girona_preview.mp3",
+  "contentUrl": "http://media.freesound.org/data/0/previews/719__elmomo__12oclock_girona_preview.mp3",
   "description": "Recorded on a terrace of Girona a sunday morning",
   "duration": "T0M15S",
   "encodingFormat": "mp3",
@@ -691,6 +691,7 @@ JSON:
 {
   "@context": "http://schema.org",
   "@type": "Event",
+  "name": "Miami Heat at Philadelphia 76ers - Game 3 (Home Game 1)",
   "location": {
     "@type": "Place",
     "address": {
@@ -1969,7 +1970,7 @@ MICRODATA:
 
 <div itemscope itemtype="http://schema.org/ImageObject">
   <h2 itemprop="name">Beach in Mexico</h2>
-  <img src="mexico-beach.jpg" itemprop="contentURL" />
+  <img src="mexico-beach.jpg" itemprop="contentUrl" />
 
   By <span itemprop="author">Jane Doe</span>
   Photographed in
@@ -1984,7 +1985,7 @@ RDFA:
 
 <div vocab="http://schema.org/" typeof="ImageObject">
   <h2 property="name">Beach in Mexico</h2>
-  <img src="mexico-beach.jpg" property="contentURL" />
+  <img src="mexico-beach.jpg" property="contentUrl" />
 
   By <span property="author">Jane Doe</span>
   Photographed in
@@ -2003,7 +2004,7 @@ JSON:
   "@type": "ImageObject",
   "author": "Jane Doe",
   "contentLocation": "Puerto Vallarta, Mexico",
-  "contentURL": "mexico-beach.jpg",
+  "contentUrl": "mexico-beach.jpg",
   "datePublished": "2008-01-25",
   "description": "I took this picture while on vacation last year.",
   "name": "Beach in Mexico"
@@ -9020,7 +9021,7 @@ JSON:
 
 <script type='application/ld+json'>
 {
-  "@context": "schema.org",
+  "@context": "http://schema.org",
   "@type": "GovernmentService",
   "name": "Veterans Affairs Emergency Mental Health",
   "serviceType": "Psychiatric Emergency Services",
@@ -11808,9 +11809,9 @@ MICRODATA:
 <div itemscope itemtype="http://schema.org/Person">
   <span itemprop="name">Delia Derbyshire</span>
   <link itemprop="sameAs" href="http://en.wikipedia.org/wiki/Delia_Derbyshire"/>
-  <div itemprop="alumni" itemscope
+  <div itemprop="alumniOf" itemscope
         itemtype="http://schema.org/OrganizationRole">
-    <div itemprop="alumni" itemscope
+    <div itemprop="alumniOf" itemscope
             itemtype="http://schema.org/CollegeOrUniversity">
       <span itemprop="name">University of Cambridge</span>
       <link itemprop="sameAs" href="http://en.wikipedia.org/wiki/University_of_Cambridge"/>
@@ -11823,8 +11824,8 @@ RDFA:
 <div vocab="http://schema.org/" typeof="Person">
   <span property="name">Delia Derbyshire</span>
   <link property="sameAs" href="http://en.wikipedia.org/wiki/Delia_Derbyshire"/>
-  <div property="alumni" typeof="OrganizationRole">
-    <div property="alumni" typeof="CollegeOrUniversity">
+  <div property="alumniOf" typeof="OrganizationRole">
+    <div property="alumniOf" typeof="CollegeOrUniversity">
       <span property="name">University of Cambridge</span>
       <link property="sameAs" href="http://en.wikipedia.org/wiki/University_of_Cambridge"/>
     </div>
@@ -11932,14 +11933,14 @@ MICRODATA:
 RDFA:
 
 <div vocab="http://schema.org/" typeof="SportsTeam">
-  <span itemprop="name">San Francisco 49ers</span>
-  <div itemprop="member" typeof="OrganizationRole">
-    <div itemprop="member" typeof="http://schema.org/Person">
-      <span itemprop="name">Joe Montana</span>
+  <span property="name">San Francisco 49ers</span>
+  <div property="member" typeof="OrganizationRole">
+    <div property="member" typeof="http://schema.org/Person">
+      <span property="name">Joe Montana</span>
     </div>
-    <span itemprop="startDate">1979</span>
-    <span itemprop="endDate">1992</span>
-    <span itemprop="namedPosition">Quarterback</span>
+    <span property="startDate">1979</span>
+    <span property="endDate">1992</span>
+    <span property="namedPosition">Quarterback</span>
 </div>
 
 JSON:

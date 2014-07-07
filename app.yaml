@@ -13,13 +13,19 @@ handlers:
   application_readable: True
   mime_type: text/html
 
+- url: /docs/jsonldcontext.json.*
+  script: api.app
+
+- url: /docs/full
+  script: api.app
+
 - url: /docs
   static_dir: docs
 
-- url: /
-  static_files: static/index.html
-  upload: static/index.html
-  application_readable: True
+#- url: /
+#  static_files: static/index.html
+#  upload: static/index.html
+#  application_readable: True
 
 - url: /search_files
   static_dir: static/search_files
@@ -29,3 +35,8 @@ handlers:
 
 
 
+libraries:
+- name: webapp2
+  version: 2.5.2
+- name: jinja2
+  version: 2.6
