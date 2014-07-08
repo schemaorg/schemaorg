@@ -352,7 +352,7 @@ def GetExtMappingsRDFa(node):
     return "<!-- no external mappings noted for this term. -->"
 
 def GetJsonLdContext():
-    """Generates a JSON-LD context file for schema.org."""
+    """Generates a basic JSON-LD context file for schema.org."""
     jsonldcontext = "{\n    \"@context\":    {\n"
     jsonldcontext += "        \"@vocab\": \"http://schema.org/\",\n"
 
@@ -383,13 +383,17 @@ def GetJsonLdContext():
 
 PageCache = {}
 
-class ShowUnit (webapp2.RequestHandler) :
-
+class ShowUnit (webapp2.RequestHandler):
+    """ShowUnit exposes schema.org terms via Web RequestHandler
+    (HTML/HTTP etc.).
+    """
     def emitCacheHeaders(self):
+        """Send cache-related headers via HTTP."""
         self.response.headers['Cache-Control'] = "public, max-age=43200" # 12h
         self.response.headers['Vary'] = "Accept, Accept-Encoding"
 
     def GetCachedText(self, node):
+        """Return page text from node.id cache (if found, otherwise None)."""
         global PageCache
         if (node.id in PageCache):
             return PageCache[node.id]
@@ -397,15 +401,21 @@ class ShowUnit (webapp2.RequestHandler) :
             return None
 
     def AddCachedText(self, node, textStrings):
+        """Cache text of our page for this node via its node.id.
+
+        We can be passed a text string or an array of text strings.
+        """
         global PageCache
         outputText = "".join(textStrings)
         PageCache[node.id] = outputText
         return outputText
 
     def write(self, str):
+        """Write some text to Web server's output stream."""
         self.outputStrings.append(str)
 
     def GetParentStack(self, node):
+        """Returns a hiearchical structured used for site breadcrumbs."""
         if (node not in self.parentStack):
             self.parentStack.append(node)
 
@@ -424,9 +434,11 @@ class ShowUnit (webapp2.RequestHandler) :
                 self.GetParentStack(p)
 
     def ml(self, node, label='', title='', prop=''):
-        """
+        """ml ('make link')
         Returns an HTML-formatted link to the class or property URL
 
+        * label = optional anchor text label for the link
+        * title = optional title attribute on the link
         * prop = an optional property value to apply to the A element
         """
 
@@ -439,12 +451,17 @@ class ShowUnit (webapp2.RequestHandler) :
         return "<a href=\"%s\"%s%s>%s</a>" % (node.id, prop, title, label)
 
     def makeLinksFromArray(self, nodearray, tooltip=''):
+        """Make a comma separate list of links via ml() function.
+
+        * tooltip - optional text to use as title of all links
+        """
         hyperlinks = []
         for f in nodearray:
            hyperlinks.append(self.ml(f, f.id, tooltip))
         return (", ".join(hyperlinks))
 
     def UnitHeaders(self, node):
+        """Write out the HTML page headers for this node."""
         self.write("<h1 class=\"page-title\">\n")
         ind = len(self.parentStack)
         thing_seen = False
@@ -469,6 +486,7 @@ class ShowUnit (webapp2.RequestHandler) :
             self.write("<table class=\"definition-table\">\n        <thead>\n  <tr><th>Property</th><th>Expected Type</th><th>Description</th>               \n  </tr>\n  </thead>\n\n")
 
     def ClassProperties (self, cl, subclass=False):
+        """Write out a table of properties for a per-type page."""
         headerPrinted = False
         di = Unit.GetUnit("domainIncludes")
         ri = Unit.GetUnit("rangeIncludes")
@@ -511,6 +529,7 @@ class ShowUnit (webapp2.RequestHandler) :
             self.write("<meta property=\"rdfs:subClassOf\" content=\"%s\">" % (cl.id))
 
     def ClassIncomingProperties (self, cl):
+        """Write out a table of incoming properties for a per-type page."""
         headerPrinted = False
         di = Unit.GetUnit("domainIncludes")
         ri = Unit.GetUnit("rangeIncludes")
@@ -552,6 +571,7 @@ class ShowUnit (webapp2.RequestHandler) :
 
 
     def AttributeProperties (self, node):
+        """Write out properties of this property, for a per-property page."""
         di = Unit.GetUnit("domainIncludes")
         ri = Unit.GetUnit("rangeIncludes")
         ranges = sorted(GetTargets(ri, node), key=lambda u: u.id)
@@ -590,30 +610,35 @@ class ShowUnit (webapp2.RequestHandler) :
         self.write("      </td>\n    </tr>\n</table>\n\n")
 
         if (len(subprops) > 0):
-          self.write("<table class=\"definition-table\">\n")
-          self.write("  <thead>\n    <tr>\n      <th>Sub-properties</th>\n    </tr>\n</thead>\n")
-          for sbp in subprops:
-              c = GetComment(sbp)
-              tt = "%s: ''%s''" % ( sbp.id, c)
-              self.write("\n    <tr><td><code>%s</code></td></tr>\n" % (self.ml(sbp, sbp.id, tt)))
-          self.write("\n</table>\n\n")
+            self.write("<table class=\"definition-table\">\n")
+            self.write("  <thead>\n    <tr>\n      <th>Sub-properties</th>\n    </tr>\n</thead>\n")
+            for sbp in subprops:
+                c = GetComment(sbp)
+                tt = "%s: ''%s''" % ( sbp.id, c)
+                self.write("\n    <tr><td><code>%s</code></td></tr>\n" % (self.ml(sbp, sbp.id, tt)))
+            self.write("\n</table>\n\n")
 
         if (len(superprops) > 0):
-          self.write("<table class=\"definition-table\">\n")
-          self.write("  <thead>\n    <tr>\n      <th>Super-properties</th>\n    </tr>\n</thead>\n")
-          for spp in superprops:
-              c = GetComment(spp)
-              tt = "%s: ''%s''" % ( spp.id, c)
-              self.write("\n    <tr><td><code>%s</code></td></tr>\n" % (self.ml(spp, spp.id, tt)))
-          self.write("\n</table>\n\n")
+            self.write("<table class=\"definition-table\">\n")
+            self.write("  <thead>\n    <tr>\n      <th>Super-properties</th>\n    </tr>\n</thead>\n")
+            for spp in superprops:
+                c = GetComment(spp)
+                tt = "%s: ''%s''" % ( spp.id, c)
+                self.write("\n    <tr><td><code>%s</code></td></tr>\n" % (self.ml(spp, spp.id, tt)))
+            self.write("\n</table>\n\n")
 
     def rep(self, markup):
+        """Replace < and > with HTML escape chars."""
         m1 = re.sub("<", "&lt;", markup)
         m2 = re.sub(">", "&gt;", m1)
+        # TODO: Ampersand? Check usage with examples.
         return m2
 
     def get(self, node):
+        """Get a schema.org site page generated for this node/term.
 
+        Web content is written directly via self.response.
+        """
         # CORS enable, http://en.wikipedia.org/wiki/Cross-origin_resource_sharing
         self.response.headers.add_header("Access-Control-Allow-Origin", "*") # entire site is public.
         if (node == "" or node=="/"):
@@ -749,6 +774,7 @@ class ShowUnit (webapp2.RequestHandler) :
 
 
 def read_file (filename):
+    """Read a file from disk, return it as a single string."""
     import os.path
     folder = os.path.dirname(os.path.realpath(__file__))
     file_path = os.path.join(folder, filename)
@@ -760,6 +786,7 @@ def read_file (filename):
 schemasInitialized = False
 
 def read_schemas():
+    """Read/parse/ingest schemas from data/*.rdfa. Also alsodata/*examples.txt"""
     import os.path
     import glob
     global schemasInitialized
