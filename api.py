@@ -352,34 +352,34 @@ def GetExtMappingsRDFa(node):
     return "<!-- no external mappings noted for this term. -->"
 
 def GetJsonLdContext():
-  """Generates a JSON-LD context file for schema.org."""
-  jsonldcontext = "{\n  \"@context\":  {\n"
-  jsonldcontext += "    \"@vocab\": \"http://schema.org/\",\n"
+    """Generates a JSON-LD context file for schema.org."""
+    jsonldcontext = "{\n    \"@context\":    {\n"
+    jsonldcontext += "        \"@vocab\": \"http://schema.org/\",\n"
 
-  url = Unit.GetUnit("URL")
-  date = Unit.GetUnit("Date")
-  datetime = Unit.GetUnit("DateTime")
+    url = Unit.GetUnit("URL")
+    date = Unit.GetUnit("Date")
+    datetime = Unit.GetUnit("DateTime")
 
-  properties = sorted(GetSources(Unit.GetUnit("typeOf"), Unit.GetUnit("rdf:Property")), key=lambda u: u.id)
-  for p in properties:
-    range = GetTargets(Unit.GetUnit("rangeIncludes"), p)
-    type = None
+    properties = sorted(GetSources(Unit.GetUnit("typeOf"), Unit.GetUnit("rdf:Property")), key=lambda u: u.id)
+    for p in properties:
+        range = GetTargets(Unit.GetUnit("rangeIncludes"), p)
+        type = None
 
-    if url in range:
-      type = "@id"
-    elif date in range:
-      type = "Date"
-    elif datetime in range:
-      type = "DateTime"
+        if url in range:
+            type = "@id"
+        elif date in range:
+            type = "Date"
+        elif datetime in range:
+            type = "DateTime"
 
-    if type:
-      jsonldcontext += "    \"" + p.id + "\": { \"@type\": \"" + type + "\" },"
+        if type:
+            jsonldcontext += "        \"" + p.id + "\": { \"@type\": \"" + type + "\" },"
 
-  jsonldcontext += "}}\n"
-  jsonldcontext = jsonldcontext.replace("},}}","}\n  }\n}")
-  jsonldcontext = jsonldcontext.replace("},","},\n")
+    jsonldcontext += "}}\n"
+    jsonldcontext = jsonldcontext.replace("},}}","}\n    }\n}")
+    jsonldcontext = jsonldcontext.replace("},","},\n")
 
-  return jsonldcontext
+    return jsonldcontext
 
 PageCache = {}
 
