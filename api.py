@@ -22,7 +22,6 @@ JINJA_ENVIRONMENT = jinja2.Environment(
     extensions=['jinja2.ext.autoescape'], autoescape=True)
 
 ENABLE_JSONLD_CONTEXT = True
-EMIT_EXTERNAL_MAPPINGS = True
 
 # Core API: we have a single schema graph built from triples and units.
 
@@ -634,72 +633,44 @@ class ShowUnit (webapp2.RequestHandler):
         # TODO: Ampersand? Check usage with examples.
         return m2
 
-    def get(self, node):
-        """Get a schema.org site page generated for this node/term.
+    def getHomepage(self, node):
+        """Send the homepage, or if no HTML accept header received and JSON-LD was requested, send JSON-LD context file.
 
-        Web content is written directly via self.response.
+        typical browser accept list: ('Accept', 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8')
+        # e.g. curl -H "Accept: application/ld+json" http://localhost:8080/
+        see also http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html
+        https://github.com/rvguha/schemaorg/issues/5
+        https://github.com/rvguha/schemaorg/wiki/JsonLd
         """
-        # CORS enable, http://en.wikipedia.org/wiki/Cross-origin_resource_sharing
-        self.response.headers.add_header("Access-Control-Allow-Origin", "*") # entire site is public.
-        if (node == "" or node=="/"):
-         # Send the homepage, or if no HTML accept header received and JSON-LD was requested, send JSON-LD context file.
-         # typical browser accept list: ('Accept', 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8')
-         # e.g. curl -H "Accept: application/ld+json" http://localhost:8080//  see also http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html
-         accept_header = self.request.headers.get('Accept').split(',')
-         logging.info("accepts: %s" % self.request.headers.get('Accept'))
-         if ENABLE_JSONLD_CONTEXT:
-           jsonldcontext = GetJsonLdContext() # consider memcached?
+        accept_header = self.request.headers.get('Accept').split(',')
+        logging.info("accepts: %s" % self.request.headers.get('Accept'))
+        if ENABLE_JSONLD_CONTEXT:
+            jsonldcontext = GetJsonLdContext() # consider memcached?
 
-         mimereq = {}
-         for ah in accept_header:
-           ah = re.sub( r";q=\d?\.\d+", '', ah).rstrip()
-           mimereq[ah] = 1
+        mimereq = {}
+        for ah in accept_header:
+            ah = re.sub( r";q=\d?\.\d+", '', ah).rstrip()
+            mimereq[ah] = 1
 
-         html_score = mimereq.get('text/html', 5)
-         xhtml_score = mimereq.get('application/xhtml+xml', 5)
-         jsonld_score = mimereq.get('application/ld+json', 10)
-         # print "accept_header: " + str(accept_header) + " mimereq: "+str(mimereq) + "Scores H:{0} XH:{1} J:{2} ".format(html_score,xhtml_score,jsonld_score)
+        html_score = mimereq.get('text/html', 5)
+        xhtml_score = mimereq.get('application/xhtml+xml', 5)
+        jsonld_score = mimereq.get('application/ld+json', 10)
+        # print "accept_header: " + str(accept_header) + " mimereq: "+str(mimereq) + "Scores H:{0} XH:{1} J:{2} ".format(html_score,xhtml_score,jsonld_score)
 
-         if (ENABLE_JSONLD_CONTEXT and (jsonld_score < html_score and jsonld_score < xhtml_score)):
-           self.response.headers['Content-Type'] = "application/ld+json"
-           self.emitCacheHeaders()
-           self.response.out.write( jsonldcontext )
-           return
-         else:
-           self.response.out.write( open("static/index.html", 'r').read() )
-           return
-
-        if (node=="docs/jsonldcontext.json.txt"):
-         if ENABLE_JSONLD_CONTEXT:
-           jsonldcontext = GetJsonLdContext()
-           self.response.headers['Content-Type'] = "text/plain"
-           self.emitCacheHeaders()
-           self.response.out.write( jsonldcontext )
-           return
-
-        if (node=="docs/jsonldcontext.json"):
-         if ENABLE_JSONLD_CONTEXT:
-           jsonldcontext = GetJsonLdContext()
-           self.response.headers['Content-Type'] = "application/ld+json"
-           self.emitCacheHeaders()
-           self.response.out.write( jsonldcontext )
-           return
-
-        if (node == "favicon.ico"):
+        if (ENABLE_JSONLD_CONTEXT and (jsonld_score < html_score and jsonld_score < xhtml_score)):
+            self.response.headers['Content-Type'] = "application/ld+json"
+            self.emitCacheHeaders()
+            self.response.out.write( jsonldcontext )
             return
-        node = Unit.GetUnit(node)
+        else:
+            self.response.out.write( open("static/index.html", 'r').read() )
+            return
 
+    def getExactTermPage(self, node):
+        """Emit a Web page that exactly matches this node."""
         self.outputStrings = []
 
-        if (node==None):
-          self.error(404)
-          self.response.out.write('<title>404 Not Found.</title><a href="/">404 Not Found.</a>')
-          return
-
-        if EMIT_EXTERNAL_MAPPINGS:
-          ext_mappings = GetExtMappingsRDFa(node)
-        else:
-          ext_mappings=''
+        ext_mappings = GetExtMappingsRDFa(node)
 
         headers.OutputSchemaorgHeaders(self, node.id, node.isClass(), ext_mappings)
         cached = self.GetCachedText(node)
@@ -772,6 +743,69 @@ class ShowUnit (webapp2.RequestHandler):
 
         self.response.write(self.AddCachedText(node, self.outputStrings))
 
+    def get(self, node):
+        """Get a schema.org site page generated for this node/term.
+
+        Web content is written directly via self.response.
+
+        These should give a JSON version of schema.org:
+
+            curl --verbose -H "Accept: application/ld+json" http://localhost:8080/docs/jsonldcontext.json
+            curl --verbose -H "Accept: application/ld+json" http://localhost:8080/docs/jsonldcontext.json.txt
+            curl --verbose -H "Accept: application/ld+json" http://localhost:8080/
+
+        Per-term pages vary for type, property and enumeration.
+
+        Last resort is a 404 error if we do not exactly match a term's id.
+
+        TODO: redirections - https://github.com/rvguha/schemaorg/issues/4
+
+        See also https://webapp-improved.appspot.com/guide/request.html#guide-request
+        """
+        # CORS enable, http://en.wikipedia.org/wiki/Cross-origin_resource_sharing
+        self.response.headers.add_header("Access-Control-Allow-Origin", "*") # entire site is public.
+
+        if str(self.request.host).startswith("www.schema.org"):
+            log.debug("www.schema.org requested. We should redirect to use schema.org as hostname, not " + self.request.host)
+            # TODO: https://webapp-improved.appspot.com/guide/routing.html?highlight=redirection
+
+        # First: fixed paths: homepage, favicon.ico and generated JSON-LD files.
+        if (node == "" or node=="/"):
+            self.getHomepage(node)
+            return
+
+        if ENABLE_JSONLD_CONTEXT:
+            if (node=="docs/jsonldcontext.json.txt"):
+                jsonldcontext = GetJsonLdContext()
+                self.response.headers['Content-Type'] = "text/plain"
+                self.emitCacheHeaders()
+                self.response.out.write( jsonldcontext )
+                return
+            if (node=="docs/jsonldcontext.json"):
+                jsonldcontext = GetJsonLdContext()
+                self.response.headers['Content-Type'] = "application/ld+json"
+                self.emitCacheHeaders()
+                self.response.out.write( jsonldcontext )
+                return
+
+        if (node == "favicon.ico"):
+            return
+
+        # Next: pages based on request path matching a Unit in the term graph.
+        node = Unit.GetUnit(node) # e.g. "Person", "CreativeWork".
+
+        # TODO:
+        # - handle http vs https; www.schema.org vs schema.org
+        # - handle foo-input Action pseudo-properties
+        # - handle /Person/Minister -style extensions
+
+        if (node != None):
+            self.getExactTermPage(node)
+            return
+        else:
+          self.error(404)
+          self.response.out.write('<title>404 Not Found.</title><a href="/">404 Not Found.</a><br/><br/>')
+          return
 
 def read_file (filename):
     """Read a file from disk, return it as a single string."""
