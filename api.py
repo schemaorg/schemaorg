@@ -16,6 +16,8 @@ import os
 logging.basicConfig(level=logging.INFO) # dev_appserver.py --log_level debug .
 log = logging.getLogger(__name__)
 
+SCHEMA_VERSION=1.7
+
 JINJA_ENVIRONMENT = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
     extensions=['jinja2.ext.autoescape'], autoescape=True)
@@ -315,14 +317,14 @@ def GetExtMappingsRDFa(node):
     if len(equivs) > 0:
       markup = ''
       for c in equivs:
-        markup = markup + "<link property=\"owl:equivalentClass\" href=\"%s\"/>\n" % c.id
+        markup = markup + "<link property=\"owl:equivalentClass\" resource=\"%s\"/>\n" % c.id
       return markup
   if (node.isAttribute()):
     equivs = GetTargets(Unit.GetUnit("owl:equivalentProperty"), node)
     if len(equivs) > 0:
       markup = ''
       for c in equivs:
-        markup = markup + "<link property=\"owl:equivalentProperty\" href=\"%s\"/>\n" % c.id
+        markup = markup + "<link property=\"owl:equivalentProperty\" resource=\"%s\"/>\n" % c.id
       return markup
   return "<!-- no external mappings noted for this term. -->"
 
@@ -716,7 +718,7 @@ class ShowUnit (webapp2.RequestHandler) :
                                % (example_type, selected, self.rep(ex.get(example_type))))
                 self.write("</div>\n\n")
 
-        self.write("<p class=\"version\"><b>Schema Version 1.6</b></p>\n\n")
+        self.write("<p class=\"version\"><b>Schema Version %s</b></p>\n\n" % SCHEMA_VERSION)
         self.write(" \n\n</div>\n</body>\n</html>")
 
         self.response.write(self.AddCachedText(node, self.outputStrings))
