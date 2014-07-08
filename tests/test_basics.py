@@ -35,6 +35,27 @@ class SDOBasicsTestCase(unittest.TestCase):
   def test_foundExamples(self):
     self.assertEqual(True, os.path.exists(examples_path), "Expected examples file: "+ examples_path )
 
+  def test_ExtractedPlausibleNumberOfExamples(self):
+    # Note: Example constructor registers each example per-term: term.examples.append(self)
+    all_types = GetAllTypes()
+    example_count = 0
+    for t in all_types:
+      if t.examples and len(t.examples) > 0:
+        example_count = example_count + len(t.examples)
+    log.info("Extracted %s examples." % example_count )
+    self.assertTrue(example_count > 300 and example_count < 400, "Expect that we extracted 300 < x < 400 examples from data/*examples.txt. Found: %s " % example_count)
+
+  # Whichever file from data/*examples.txt is glob-loaded last, needs a final entry of "TYPES:  FakeEntryNeeded, FixMeSomeDay"
+  # This used to be examples.txt but now we are multi-file it could strike anywhere.
+  @unittest.expectedFailure
+  def test_finalExampleParsers(self):
+    # parsers calls this with each example (except final)
+    #   api.Example.AddExample(self.terms, self.preMarkupStr, self.microdataStr, self.rdfaStr, self.jsonStr)
+    # Let's look up: FakeEntryNeeded, used in examples.txt
+    tFakeEntryNeeded = Unit.GetUnit("FakeEntryNeeded")
+    fake_count = len(tFakeEntryNeeded.examples)
+    self.assertTrue(fake_count > 0, "Properly we'd find 1 or more FakeEntryNeeded entries, from end(s) of data/*examples.txt file. Fake count: %s" % fake_count)
+
 class SupertypePathsTestCase(unittest.TestCase):
     """
     tRestaurant = Unit.GetUnit("Restaurant")
