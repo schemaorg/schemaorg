@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-#
 
 import webapp2
 import jinja2
@@ -46,6 +45,11 @@ class Unit ():
 
     @staticmethod
     def GetUnit (id, createp=False):
+        """Return a Unit representing a node in the schema graph.
+
+        Argument:
+        createp -- should we create node if we don't find it? (default: False)
+        """
         if (id in NodeIDMap):
             return NodeIDMap[id]
         if (createp != False):
@@ -147,9 +151,10 @@ class Unit ():
                return triple.source
         return None
 
-class Triple () :
-
+class Triple ():
+    """Triple represents an edge in the graph: source, arc and target/text."""
     def __init__ (self, source, arc, target, text):
+        """Triple constructor keeps state via source node's arcsOut."""
         self.source = source
         source.arcsOut.append(self)
         self.arc = arc
@@ -164,6 +169,7 @@ class Triple () :
 
     @staticmethod
     def AddTriple(source, arc, target):
+        """AddTriple stores a thing-valued new Triple within source Unit."""
         if (source == None or arc == None or target == None):
             return
         else:
@@ -171,12 +177,14 @@ class Triple () :
 
     @staticmethod
     def AddTripleText(source, arc, text):
+        """AddTriple stores a string-valued new Triple within source Unit."""
         if (source == None or arc == None or text == None):
             return
         else:
             return Triple(source, arc, None, text)
 
 def GetTargets(arc, source):
+    """All values for a specified arc on specified graph node."""
     targets = {}
     for triple in source.arcsOut:
         if (triple.arc == arc):
@@ -187,6 +195,7 @@ def GetTargets(arc, source):
     return targets.keys()
 
 def GetSources(arc, target):
+    """All source nodes for a specified arc pointing to a specified node."""
     sources = {}
     for triple in target.arcsIn:
         if (triple.arc == arc):
@@ -194,12 +203,14 @@ def GetSources(arc, target):
     return sources.keys()
 
 def GetArcsIn(target):
+    """All incoming arc types for this specified node."""
     arcs = {}
     for triple in target.arcsIn:
         arcs[triple.arc] = 1
     return arcs.keys()
 
 def GetArcsOut(source):
+    """All outgoing arc types for this specified node."""
     arcs = {}
     for triple in source.arcsOut:
         arcs[triple.arc] = 1
@@ -208,40 +219,44 @@ def GetArcsOut(source):
 # Utility API
 
 def GetComment(node) :
+    """Get the first rdfs:comment we find on this node (or "No comment")."""
     for triple in node.arcsOut:
         if (triple.arc.id == 'rdfs:comment'):
             return triple.text
     return "No comment"
 
 def GetImmediateSubtypes(n):
+    """Get this type's immediate subtypes, i.e. that are subClassOf this."""
     if n==None:
         return None
     subs = GetSources( Unit.GetUnit("rdfs:subClassOf"), n)
     return subs
 
 def GetImmediateSupertypes(n):
+    """Get this type's immediate supertypes, i.e. that we are subClassOf."""
     if n==None:
         return None
     return GetTargets( Unit.GetUnit("rdfs:subClassOf"), n)
 
 def GetAllTypes():
-   if DataCache.get('AllTypes'):
+    """Return all types in the graph."""
+    if DataCache.get('AllTypes'):
         logging.debug("DataCache HIT: Alltypes")
         return DataCache.get('AllTypes')
-   else:
-     logging.debug("DataCache MISS: Alltypes")
-     mynode = Unit.GetUnit("Thing")
-     subbed = {}
-     todo = [mynode]
-     while todo:
-       current = todo.pop()
-       subs = GetImmediateSubtypes(current)
-       subbed[current] = 1
-       for sc in subs:
-         if subbed.get(sc.id) == None:
-           todo.append(sc)
-     DataCache['AllTypes'] = subbed.keys()
-     return subbed.keys()
+    else:
+        logging.debug("DataCache MISS: Alltypes")
+        mynode = Unit.GetUnit("Thing")
+        subbed = {}
+        todo = [mynode]
+        while todo:
+            current = todo.pop()
+            subs = GetImmediateSubtypes(current)
+            subbed[current] = 1
+            for sc in subs:
+                if subbed.get(sc.id) == None:
+                    todo.append(sc)
+        DataCache['AllTypes'] = subbed.keys()
+        return subbed.keys()
 
 def GetParentList(start_unit, end_unit=None, path=[]):
 
@@ -283,11 +298,16 @@ class Example ():
 
     @staticmethod
     def AddExample(terms, original_html, microdata, rdfa, jsonld):
+       """
+       Add an Example (via constructor registering it with the terms that it
+       mentions, i.e. stored in term.examples).
+       """
        # todo: fix partial examples: if (len(terms) > 0 and len(original_html) > 0 and (len(microdata) > 0 or len(rdfa) > 0 or len(jsonld) > 0)):
        if (len(terms) > 0 and len(original_html) > 0 and len(microdata) > 0 and len(rdfa) > 0 and len(jsonld) > 0):
             return Example(terms, original_html, microdata, rdfa, jsonld)
 
     def get(self, name) :
+        """Exposes original_content, microdata, rdfa and jsonld versions."""
         if name == 'original_html':
            return self.original_html
         if name == 'microdata':
@@ -298,6 +318,7 @@ class Example ():
            return self.jsonld
 
     def __init__ (self, terms, original_html, microdata, rdfa, jsonld):
+        """Example constructor, registers itself with the relevant Unit(s)."""
         self.terms = terms
         self.original_html = original_html
         self.microdata = microdata
@@ -309,26 +330,29 @@ class Example ():
 
 
 def GetExamples(node):
+    """Returns the examples (if any) for some Unit node."""
     return node.examples
 
 def GetExtMappingsRDFa(node):
-  if (node.isClass()):
-    equivs = GetTargets(Unit.GetUnit("owl:equivalentClass"), node)
-    if len(equivs) > 0:
-      markup = ''
-      for c in equivs:
-        markup = markup + "<link property=\"owl:equivalentClass\" href=\"%s\"/>\n" % c.id
-      return markup
-  if (node.isAttribute()):
-    equivs = GetTargets(Unit.GetUnit("owl:equivalentProperty"), node)
-    if len(equivs) > 0:
-      markup = ''
-      for c in equivs:
-        markup = markup + "<link property=\"owl:equivalentProperty\" href=\"%s\"/>\n" % c.id
-      return markup
-  return "<!-- no external mappings noted for this term. -->"
+    """Self-contained chunk of RDFa HTML markup with mappings for this term."""
+    if (node.isClass()):
+        equivs = GetTargets(Unit.GetUnit("owl:equivalentClass"), node)
+        if len(equivs) > 0:
+            markup = ''
+            for c in equivs:
+                markup = markup + "<link property=\"owl:equivalentClass\" href=\"%s\"/>\n" % c.id
+            return markup
+    if (node.isAttribute()):
+        equivs = GetTargets(Unit.GetUnit("owl:equivalentProperty"), node)
+        if len(equivs) > 0:
+            markup = ''
+            for c in equivs:
+                markup = markup + "<link property=\"owl:equivalentProperty\" href=\"%s\"/>\n" % c.id
+            return markup
+    return "<!-- no external mappings noted for this term. -->"
 
 def GetJsonLdContext():
+  """Generates a JSON-LD context file for schema.org."""
   jsonldcontext = "{\n  \"@context\":  {\n"
   jsonldcontext += "    \"@vocab\": \"http://schema.org/\",\n"
 
