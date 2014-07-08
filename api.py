@@ -317,14 +317,14 @@ def GetExtMappingsRDFa(node):
     if len(equivs) > 0:
       markup = ''
       for c in equivs:
-        markup = markup + "<link property=\"owl:equivalentClass\" href=\"%s\"/>\n" % c.id
+        markup = markup + "<link property=\"owl:equivalentClass\" resource=\"%s\"/>\n" % c.id
       return markup
   if (node.isAttribute()):
     equivs = GetTargets(Unit.GetUnit("owl:equivalentProperty"), node)
     if len(equivs) > 0:
       markup = ''
       for c in equivs:
-        markup = markup + "<link property=\"owl:equivalentProperty\" href=\"%s\"/>\n" % c.id
+        markup = markup + "<link property=\"owl:equivalentProperty\" resource=\"%s\"/>\n" % c.id
       return markup
   return "<!-- no external mappings noted for this term. -->"
 
