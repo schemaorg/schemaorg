@@ -748,6 +748,9 @@ class ShowUnit (webapp2.RequestHandler):
 
         Web content is written directly via self.response.
 
+        CORS enabled all URLs - we assume site entirely public.
+        See http://en.wikipedia.org/wiki/Cross-origin_resource_sharing
+
         These should give a JSON version of schema.org:
 
             curl --verbose -H "Accept: application/ld+json" http://localhost:8080/docs/jsonldcontext.json
@@ -758,18 +761,24 @@ class ShowUnit (webapp2.RequestHandler):
 
         Last resort is a 404 error if we do not exactly match a term's id.
 
-        TODO: redirections - https://github.com/rvguha/schemaorg/issues/4
 
         See also https://webapp-improved.appspot.com/guide/request.html#guide-request
         """
-        # CORS enable, http://en.wikipedia.org/wiki/Cross-origin_resource_sharing
+
         self.response.headers.add_header("Access-Control-Allow-Origin", "*") # entire site is public.
 
-        if str(self.request.host).startswith("www.schema.org"):
-            log.debug("www.schema.org requested. We should redirect to use schema.org as hostname, not " + self.request.host)
-            # TODO: https://webapp-improved.appspot.com/guide/routing.html?highlight=redirection
+#        TODO: redirections - https://github.com/rvguha/schemaorg/issues/4
+#        or https://webapp-improved.appspot.com/guide/routing.html?highlight=redirection
+#
+#        if str(self.request.host).startswith("www.schema.org"):
+#            log.debug("www.schema.org requested. We should redirect to use schema.org as hostname, not " + self.request.host)
+#            origURL = self.request.url
+#            origURL.replace("https://", "http://")
+#            origURL.replace("//www.schema.org", "//schema.org")
+#            self.redirect(newURL, permanent=True)
 
         # First: fixed paths: homepage, favicon.ico and generated JSON-LD files.
+        #
         if (node == "" or node=="/"):
             self.getHomepage(node)
             return
