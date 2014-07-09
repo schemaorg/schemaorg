@@ -1,0 +1,85 @@
+TYPES:  ItemList, Product, Offer
+
+PRE-MARKUP:
+
+<div>
+  <link  href="http://multivarki.ru?filters%5Bprice%5D%5BLTE%5D=39600" />
+  <span>315</span>
+  <div>
+    <img src="http://img01.multivarki.ru.ru/c9/f1/a5fe6642-18d0-47ad-b038-6fca20f1c923.jpeg" />
+    <a  href="http://multivarki.ru/brand_502/">
+      <span>BRAND 502</span>
+    </a>
+    <div>
+      <span>4399 р.</span>
+    </div>...
+    <div>
+    ...
+    </div>
+  </div>
+</div>
+
+MICRODATA:
+
+<div  itemtype="http://schema.org/ItemList">
+  <link itemprop="url" href="http://multivarki.ru?filters%5Bprice%5D%5BLTE%5D=39600" />
+  <span itemprop="numberOfElements">315</span>
+  <div itemprop="itemListElement" itemscope="" itemtype="http://schema.org/Product">
+    <img itemprop="image" src="http://img01.multivarki.ru.ru/c9/f1/a5fe6642-18d0-47ad-b038-6fca20f1c923.jpeg" />
+    <a itemprop="url" href="http://multivarki.ru/brand_502/">
+      <span itemprop="name">BRAND 502</span>
+    </a>
+    <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+      <span itemprop="price">4399 р.</span>
+    </div>...
+    <div itemprop="itemListElement"  itemtype="http://schema.org/Product">
+    ...
+    </div>
+  </div>
+</div>
+
+RDFA:
+
+<div vocab="http://schema.org/" typeof="ItemList">
+  <link property="url" href="http://multivarki.ru?filters%5Bprice%5D%5BLTE%5D=39600" />
+  <span property="numberOfElements">315</span>
+  <div property="itemListElement" typeof="Product">
+    <img property="image" src="http://img01.multivarki.ru.ru/c9/f1/a5fe6642-18d0-47ad-b038-6fca20f1c923.jpeg" />
+    <a property="url" href="http://multivarki.ru/brand_502/">
+      <span property="name">BRAND 502</span>
+    </a>
+    <div property="offers" typeof="http://schema.org/Offer">
+      <span property="price">4399 р.</span>
+    </div>...
+    <div property="itemListElement"  typeof="Product">
+    ...
+    </div>
+  </div>
+</div>
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "ItemList",
+  "url": "http://multivarki.ru?filters%5Bprice%5D%5BLTE%5D=39600",
+  "numberOfElements": "315",
+  "itemListElement": [{
+      "@type": "Product",
+      "image": "http://img01.multivarki.ru.ru/c9/f1/a5fe6642-18d0-47ad-b038-6fca20f1c923.jpeg",
+      "url": "http://multivarki.ru/brand_502/",
+      "name": "Brand 502"
+    },{
+      "@type": "Product",
+      "name": "..."
+    }
+  ],
+    "offers": {
+      "@type": "Offer",
+      "price": "4399 p."
+    }
+}
+</script>
+
+TYPES:  FakeEntryNeeded, FixMeSomeDay
