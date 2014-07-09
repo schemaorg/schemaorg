@@ -1,0 +1,408 @@
+TYPES:  CompetitionEvent, SportsTeam
+
+PRE-MARKUP:
+
+2013 NFC Championship
+San Francisco 49ers
+(at) Seattle Seahawks
+
+MICRODATA:
+
+This example is JSON only.
+
+RDFA:
+
+This example is JSON only.
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "CompetitionEvent",
+  "name": "2013 NFC Championship",
+  "homeTeam": {
+    "@type": "SportsTeam",
+    "name": "Seattle Seahawks"
+  },
+  "awayTeam": {
+    "@type": "SportsTeam",
+    "name": "San Francisco 49ers"
+  }
+}
+</script>
+
+TYPES: SportsEvent, SportsTeam
+
+PRE-MARKUP:
+
+2013 NFC Championship
+San Francisco 49ers
+(at) Seattle Seahawks
+
+
+MICRODATA:
+
+This example is JSON only.
+
+RDFA:
+
+This example is JSON only.
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "SportsEvent",
+  "name": "2013 NFC Championship",
+  "homeTeam": {
+    "@type": "SportsTeam",
+    "name": "Seattle Seahawks"
+  },
+  "awayTeam": {
+    "@type": "SportsTeam",
+    "name": "San Francisco 49ers"
+  }
+}
+</script>
+
+TYPES: SportsEvent, SportsTeam, WinDecision, LoseDecision, Decision
+
+PRE-MARKUP:
+
+2013 NFC Championship
+San Francisco 49ers (L)
+(at) Seattle Seahawks (W)
+
+MICRODATA:
+
+This example is JSON only.
+
+RDFA:
+
+This example is JSON only.
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "SportsEvent",
+  "name": "2013 NFC Championship",
+  "homeTeam": {
+    "@type": "SportsTeam",
+    "name": "Seattle Seahawks"
+  },
+  "awayTeam": {
+    "@type": "SportsTeam",
+    "name": "San Francisco 49ers"
+  },
+  resultDecision: [
+    {
+      "@type": "WinDecision",
+      "competitor": {
+        "@type": "SportsTeam",
+        "name": "Seattle Seahawks"
+      }
+    },{
+      "@type": "LoseDecision",
+      "competitor": {
+        "@type": "SportsTeam",
+        "name": "San Francisco 49ers"
+      }
+    }
+  ]
+}
+</script>
+
+TYPES:  SportsEvent, Decision, PlaceDecision, DidNotFinishDecision
+
+PRE-MARKUP:
+
+2010 Winter Olympics - Snowboarding Finals
+Maelle Ricker - 1st
+Deborah Anthonioz - 2nd
+Jane Doe - DNF
+
+MICRODATA:
+
+This example is JSON only.
+
+RDFA:
+
+This example is JSON only.
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "SportsEvent",
+  "name": "2010 Winter Olympics - Snowboarding Finals",
+  resultDecision: [
+    {
+      "@type": "PlaceDecision",
+      "place": "1",
+      "competitor": {
+        "@type": "Person",
+        "name": "Maelle Ricker"
+      }
+    },{
+      "@type": "PlaceDecision",
+      "place": "2",
+      "competitor": {
+        "@type": "Person",
+        "name": "Deborah Anthonioz"
+      }
+    },{
+      "@type": "DidNotFinishDecision",
+      "competitor": {
+        "@type": "Person",
+        "name": "Jane Doe"
+      }
+    }
+  ]
+}
+</script>
+
+
+TYPES:  EventCompleted, CompetitionEvent
+
+PRE-MARKUP:
+
+2013 NFC Championship
+Status: Completed
+
+MICRODATA:
+
+This example is JSON only.
+
+RDFA:
+
+This example is JSON only.
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "CompetitionEvent",
+  "name": "2013 NFC Championship",
+  "eventStatus": "http://schema.org/EventCompleted"
+}
+</script>
+
+
+TYPES: SportsOrganization
+
+PRE-MARKUP:
+
+National Football League Conference
+- American Football Conference
+- National Football Conference
+
+MICRODATA:
+
+This example is JSON only.
+
+RDFA:
+
+This example is JSON only.
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "SportsOrganization",
+  "sport": "http://en.wikipedia.org/wiki/American_football",
+  "name": "National Football League",
+  "member": [{
+    "@type": "SportsOrganization",
+    "name": "American Football Conference"
+  },{
+    "@type": "SportsOrganization",
+    "name": "National Football Conference",
+  }]
+}
+</script>
+
+
+TYPES:  SportsTeam, SportsOrganization
+
+PRE-MARKUP:
+
+Team: Seattle Seahawks
+Conference: NFC
+Coach: Pete Carroll
+Notable Players: Russell Wilson, Marshawn Lynch
+
+MICRODATA:
+
+This example is JSON only.
+
+RDFA:
+
+This example is JSON only.
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "SportsTeam",
+  "name": "Seattle Seahawks",
+  "member": {
+    "@type": "SportsOrganization",
+    "name": "National Football Conference"
+  },
+  "sport": "http://en.wikipedia.org/wiki/American_football",
+  "coach": {
+    "@type": "Person",
+    "name": "Steve Carroll"
+  },
+  "athlete": [
+    {
+      "@type": "Person",
+      "name": "Russell Wilson"
+    },{
+      "@type": "Person",
+      "name": "Marshawn Lynch"
+    }
+  ]
+}
+</script>
+
+
+TYPES:  Statistic, SportsEvent, SportsTeam
+
+PRE-MARKUP:
+
+Seattle Seahawks
+2013 NFC Championship Stats
+- Interceptions: 2
+
+MICRODATA:
+
+This example is JSON only.
+
+RDFA:
+
+This example is JSON only.
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "SportsTeam",
+  "name": "Seattle Seahawks",
+  "hasStatistic": [
+    "@type": "Statistic",
+    "thingMeasured": "http://en.wikipedia.org/wiki/Interception",
+    "measuredValue": "2",
+    "duringEvent": {
+      "@type": "SportsEvent",
+      "name": "2013 NFC Championship"
+    }
+  ]
+}
+</script>
+
+
+TYPES:  Statistic, SportsEvent, SportsTeam
+
+PRE-MARKUP:
+
+Interception Stats
+Event: 2013 NFC Championship
+Team: Seattle Seahawks
+Number: 2
+
+MICRODATA:
+
+This example is JSON only.
+
+RDFA:
+
+This example is JSON only.
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Statistic",
+  "thingMeasured": "http://en.wikipedia.org/wiki/Interception"
+  "measuredValue": "2",
+  "duringEvent": {
+    "@type": "SportsEvent",
+    "name": "2013 NFC Championship"
+  },
+  "@reverse": {
+    "hasStatistic": {
+      "@type": "SportsTeam",
+      "name": "Seattle Seahawks"
+    }
+  }
+}
+</script>
+
+
+TYPES:  Statistic, SportsEvent, SportsTeam
+
+PRE-MARKUP:
+
+2013 NFC Championship
+Seattle Seahawks
+Interceptions: 2
+Touchdowns: 3
+
+MICRODATA:
+
+This example is JSON only.
+
+RDFA:
+
+This example is JSON only.
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "SportsEvent",
+  "name": "2013 NFC Championship",
+  "@reverse": [
+    {
+      "duringEvent": {
+        "@type": "Statistic",
+        "thingMeasured": "http://en.wikipedia.org/wiki/Interception",
+        "measuredValue": "2",
+        "@reverse": {
+          "hasStatistic" {
+            "@type": "SportsTeam",
+            "name": "Seattle Seahawks"
+          }
+        }
+      }
+    },{
+      "duringEvent": {
+        "@type": "Statistic",
+        "thingMeasured": "Touchdown",
+        "measuredValue": "3",
+        "@reverse": {
+          "hasStatistic" {
+            "@type": "SportsTeam",
+            "name": "Seattle Seahawks"
+          }
+        }
+      }
+    }
+  ]
+}
+</script>
+
+
+TYPES:  FakeEntryNeeded, FixMeSomeDay
