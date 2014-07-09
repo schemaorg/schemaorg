@@ -1,0 +1,59 @@
+
+<div>
+
+<h1>ItemList and ListItem</h1>
+
+<!-- ========================== -->
+<!-- CHANGES TO EXISTING ELEMENTS -->
+<!-- ========================== -->
+
+<!-- Copied above, kept here during proposal development. -->
+<!-- New range
+<div typeof="rdf:Property" resource="http://schema.org/itemListElement">
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ItemList">ItemList</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/ListItem">ListItem</a></span> -->
+  <!-- The following statement is semantically redundant, but should trigger a more useful list of allowed types "Text, ListItem, or Thing" -->
+  <!-- <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Thing">Thing</a></span>
+  ItemList
+</div>-->
+
+<!-- ========================== -->
+<!-- ADDITIONAL ELEMENTS -->
+<!-- ========================== -->
+
+<div typeof="rdfs:Class" resource="http://schema.org/ListItem">
+  <span class="h" property="rdfs:label">ListItem</span>
+  <span property="rdfs:comment">An list item, e.g. a step in a checklist or how-to description.</span>
+  <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/StructuredValue">StructuredValue</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/itemPosition">
+  <span class="h" property="rdfs:label">itemPosition</span>
+  <span property="rdfs:comment">The position of the item in an ordered list (1 = first, 2 = second, ...).</span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ListItem">ListItem</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number">Number</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/item">
+  <span class="h" property="rdfs:label">item</span>
+  <span property="rdfs:comment">The entity represented by the entry in the list (e.g. the artist, song, ...).</span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ListItem">ListItem</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Thing">Thing</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/previous">
+  <span class="h" property="rdfs:label">previous</span>
+  <span property="rdfs:comment">A link to the ListItem that preceeds the current one.</span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ListItem">ListItem</a></span>
+  <span>Domain: <a property="http://schema.org/rangeIncludes" href="http://schema.org/ListItem">ListItem</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/next">
+  <span class="h" property="rdfs:label">next</span>
+  <span property="rdfs:comment">A link to the ListItem that follows the current one.</span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ListItem">ListItem</a></span>
+  <span>Domain: <a property="http://schema.org/rangeIncludes" href="http://schema.org/ListItem">ListItem</a></span>
+</div>
+
+</div>
