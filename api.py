@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-#
 
 import webapp2
 import jinja2
@@ -23,7 +22,6 @@ JINJA_ENVIRONMENT = jinja2.Environment(
     extensions=['jinja2.ext.autoescape'], autoescape=True)
 
 ENABLE_JSONLD_CONTEXT = True
-EMIT_EXTERNAL_MAPPINGS = True
 
 # Core API: we have a single schema graph built from triples and units.
 
@@ -46,6 +44,11 @@ class Unit ():
 
     @staticmethod
     def GetUnit (id, createp=False):
+        """Return a Unit representing a node in the schema graph.
+
+        Argument:
+        createp -- should we create node if we don't find it? (default: False)
+        """
         if (id in NodeIDMap):
             return NodeIDMap[id]
         if (createp != False):
@@ -147,9 +150,10 @@ class Unit ():
                return triple.source
         return None
 
-class Triple () :
-
+class Triple ():
+    """Triple represents an edge in the graph: source, arc and target/text."""
     def __init__ (self, source, arc, target, text):
+        """Triple constructor keeps state via source node's arcsOut."""
         self.source = source
         source.arcsOut.append(self)
         self.arc = arc
@@ -164,6 +168,7 @@ class Triple () :
 
     @staticmethod
     def AddTriple(source, arc, target):
+        """AddTriple stores a thing-valued new Triple within source Unit."""
         if (source == None or arc == None or target == None):
             return
         else:
@@ -171,12 +176,14 @@ class Triple () :
 
     @staticmethod
     def AddTripleText(source, arc, text):
+        """AddTriple stores a string-valued new Triple within source Unit."""
         if (source == None or arc == None or text == None):
             return
         else:
             return Triple(source, arc, None, text)
 
 def GetTargets(arc, source):
+    """All values for a specified arc on specified graph node."""
     targets = {}
     for triple in source.arcsOut:
         if (triple.arc == arc):
@@ -187,6 +194,7 @@ def GetTargets(arc, source):
     return targets.keys()
 
 def GetSources(arc, target):
+    """All source nodes for a specified arc pointing to a specified node."""
     sources = {}
     for triple in target.arcsIn:
         if (triple.arc == arc):
@@ -194,12 +202,14 @@ def GetSources(arc, target):
     return sources.keys()
 
 def GetArcsIn(target):
+    """All incoming arc types for this specified node."""
     arcs = {}
     for triple in target.arcsIn:
         arcs[triple.arc] = 1
     return arcs.keys()
 
 def GetArcsOut(source):
+    """All outgoing arc types for this specified node."""
     arcs = {}
     for triple in source.arcsOut:
         arcs[triple.arc] = 1
@@ -208,40 +218,44 @@ def GetArcsOut(source):
 # Utility API
 
 def GetComment(node) :
+    """Get the first rdfs:comment we find on this node (or "No comment")."""
     for triple in node.arcsOut:
         if (triple.arc.id == 'rdfs:comment'):
             return triple.text
     return "No comment"
 
 def GetImmediateSubtypes(n):
+    """Get this type's immediate subtypes, i.e. that are subClassOf this."""
     if n==None:
         return None
     subs = GetSources( Unit.GetUnit("rdfs:subClassOf"), n)
     return subs
 
 def GetImmediateSupertypes(n):
+    """Get this type's immediate supertypes, i.e. that we are subClassOf."""
     if n==None:
         return None
     return GetTargets( Unit.GetUnit("rdfs:subClassOf"), n)
 
 def GetAllTypes():
-   if DataCache.get('AllTypes'):
+    """Return all types in the graph."""
+    if DataCache.get('AllTypes'):
         logging.debug("DataCache HIT: Alltypes")
         return DataCache.get('AllTypes')
-   else:
-     logging.debug("DataCache MISS: Alltypes")
-     mynode = Unit.GetUnit("Thing")
-     subbed = {}
-     todo = [mynode]
-     while todo:
-       current = todo.pop()
-       subs = GetImmediateSubtypes(current)
-       subbed[current] = 1
-       for sc in subs:
-         if subbed.get(sc.id) == None:
-           todo.append(sc)
-     DataCache['AllTypes'] = subbed.keys()
-     return subbed.keys()
+    else:
+        logging.debug("DataCache MISS: Alltypes")
+        mynode = Unit.GetUnit("Thing")
+        subbed = {}
+        todo = [mynode]
+        while todo:
+            current = todo.pop()
+            subs = GetImmediateSubtypes(current)
+            subbed[current] = 1
+            for sc in subs:
+                if subbed.get(sc.id) == None:
+                    todo.append(sc)
+        DataCache['AllTypes'] = subbed.keys()
+        return subbed.keys()
 
 def GetParentList(start_unit, end_unit=None, path=[]):
 
@@ -283,11 +297,16 @@ class Example ():
 
     @staticmethod
     def AddExample(terms, original_html, microdata, rdfa, jsonld):
+       """
+       Add an Example (via constructor registering it with the terms that it
+       mentions, i.e. stored in term.examples).
+       """
        # todo: fix partial examples: if (len(terms) > 0 and len(original_html) > 0 and (len(microdata) > 0 or len(rdfa) > 0 or len(jsonld) > 0)):
        if (len(terms) > 0 and len(original_html) > 0 and len(microdata) > 0 and len(rdfa) > 0 and len(jsonld) > 0):
             return Example(terms, original_html, microdata, rdfa, jsonld)
 
     def get(self, name) :
+        """Exposes original_content, microdata, rdfa and jsonld versions."""
         if name == 'original_html':
            return self.original_html
         if name == 'microdata':
@@ -298,6 +317,7 @@ class Example ():
            return self.jsonld
 
     def __init__ (self, terms, original_html, microdata, rdfa, jsonld):
+        """Example constructor, registers itself with the relevant Unit(s)."""
         self.terms = terms
         self.original_html = original_html
         self.microdata = microdata
@@ -309,63 +329,70 @@ class Example ():
 
 
 def GetExamples(node):
+    """Returns the examples (if any) for some Unit node."""
     return node.examples
 
 def GetExtMappingsRDFa(node):
-  if (node.isClass()):
-    equivs = GetTargets(Unit.GetUnit("owl:equivalentClass"), node)
-    if len(equivs) > 0:
-      markup = ''
-      for c in equivs:
-        markup = markup + "<link property=\"owl:equivalentClass\" href=\"%s\"/>\n" % c.id
-      return markup
-  if (node.isAttribute()):
-    equivs = GetTargets(Unit.GetUnit("owl:equivalentProperty"), node)
-    if len(equivs) > 0:
-      markup = ''
-      for c in equivs:
-        markup = markup + "<link property=\"owl:equivalentProperty\" href=\"%s\"/>\n" % c.id
-      return markup
-  return "<!-- no external mappings noted for this term. -->"
+    """Self-contained chunk of RDFa HTML markup with mappings for this term."""
+    if (node.isClass()):
+        equivs = GetTargets(Unit.GetUnit("owl:equivalentClass"), node)
+        if len(equivs) > 0:
+            markup = ''
+            for c in equivs:
+                markup = markup + "<link property=\"owl:equivalentClass\" href=\"%s\"/>\n" % c.id
+            return markup
+    if (node.isAttribute()):
+        equivs = GetTargets(Unit.GetUnit("owl:equivalentProperty"), node)
+        if len(equivs) > 0:
+            markup = ''
+            for c in equivs:
+                markup = markup + "<link property=\"owl:equivalentProperty\" href=\"%s\"/>\n" % c.id
+            return markup
+    return "<!-- no external mappings noted for this term. -->"
 
 def GetJsonLdContext():
-  jsonldcontext = "{\n  \"@context\":  {\n"
-  jsonldcontext += "    \"@vocab\": \"http://schema.org/\",\n"
+    """Generates a basic JSON-LD context file for schema.org."""
+    jsonldcontext = "{\n    \"@context\":    {\n"
+    jsonldcontext += "        \"@vocab\": \"http://schema.org/\",\n"
 
-  url = Unit.GetUnit("URL")
-  date = Unit.GetUnit("Date")
-  datetime = Unit.GetUnit("DateTime")
+    url = Unit.GetUnit("URL")
+    date = Unit.GetUnit("Date")
+    datetime = Unit.GetUnit("DateTime")
 
-  properties = sorted(GetSources(Unit.GetUnit("typeOf"), Unit.GetUnit("rdf:Property")), key=lambda u: u.id)
-  for p in properties:
-    range = GetTargets(Unit.GetUnit("rangeIncludes"), p)
-    type = None
+    properties = sorted(GetSources(Unit.GetUnit("typeOf"), Unit.GetUnit("rdf:Property")), key=lambda u: u.id)
+    for p in properties:
+        range = GetTargets(Unit.GetUnit("rangeIncludes"), p)
+        type = None
 
-    if url in range:
-      type = "@id"
-    elif date in range:
-      type = "Date"
-    elif datetime in range:
-      type = "DateTime"
+        if url in range:
+            type = "@id"
+        elif date in range:
+            type = "Date"
+        elif datetime in range:
+            type = "DateTime"
 
-    if type:
-      jsonldcontext += "    \"" + p.id + "\": { \"@type\": \"" + type + "\" },"
+        if type:
+            jsonldcontext += "        \"" + p.id + "\": { \"@type\": \"" + type + "\" },"
 
-  jsonldcontext += "}}\n"
-  jsonldcontext = jsonldcontext.replace("},}}","}\n  }\n}")
-  jsonldcontext = jsonldcontext.replace("},","},\n")
+    jsonldcontext += "}}\n"
+    jsonldcontext = jsonldcontext.replace("},}}","}\n    }\n}")
+    jsonldcontext = jsonldcontext.replace("},","},\n")
 
-  return jsonldcontext
+    return jsonldcontext
 
 PageCache = {}
 
-class ShowUnit (webapp2.RequestHandler) :
-
+class ShowUnit (webapp2.RequestHandler):
+    """ShowUnit exposes schema.org terms via Web RequestHandler
+    (HTML/HTTP etc.).
+    """
     def emitCacheHeaders(self):
+        """Send cache-related headers via HTTP."""
         self.response.headers['Cache-Control'] = "public, max-age=43200" # 12h
         self.response.headers['Vary'] = "Accept, Accept-Encoding"
 
     def GetCachedText(self, node):
+        """Return page text from node.id cache (if found, otherwise None)."""
         global PageCache
         if (node.id in PageCache):
             return PageCache[node.id]
@@ -373,15 +400,21 @@ class ShowUnit (webapp2.RequestHandler) :
             return None
 
     def AddCachedText(self, node, textStrings):
+        """Cache text of our page for this node via its node.id.
+
+        We can be passed a text string or an array of text strings.
+        """
         global PageCache
         outputText = "".join(textStrings)
         PageCache[node.id] = outputText
         return outputText
 
     def write(self, str):
+        """Write some text to Web server's output stream."""
         self.outputStrings.append(str)
 
     def GetParentStack(self, node):
+        """Returns a hiearchical structured used for site breadcrumbs."""
         if (node not in self.parentStack):
             self.parentStack.append(node)
 
@@ -400,9 +433,11 @@ class ShowUnit (webapp2.RequestHandler) :
                 self.GetParentStack(p)
 
     def ml(self, node, label='', title='', prop=''):
-        """
+        """ml ('make link')
         Returns an HTML-formatted link to the class or property URL
 
+        * label = optional anchor text label for the link
+        * title = optional title attribute on the link
         * prop = an optional property value to apply to the A element
         """
 
@@ -415,12 +450,17 @@ class ShowUnit (webapp2.RequestHandler) :
         return "<a href=\"%s\"%s%s>%s</a>" % (node.id, prop, title, label)
 
     def makeLinksFromArray(self, nodearray, tooltip=''):
+        """Make a comma separate list of links via ml() function.
+
+        * tooltip - optional text to use as title of all links
+        """
         hyperlinks = []
         for f in nodearray:
            hyperlinks.append(self.ml(f, f.id, tooltip))
         return (", ".join(hyperlinks))
 
     def UnitHeaders(self, node):
+        """Write out the HTML page headers for this node."""
         self.write("<h1 class=\"page-title\">\n")
         ind = len(self.parentStack)
         thing_seen = False
@@ -445,6 +485,7 @@ class ShowUnit (webapp2.RequestHandler) :
             self.write("<table class=\"definition-table\">\n        <thead>\n  <tr><th>Property</th><th>Expected Type</th><th>Description</th>               \n  </tr>\n  </thead>\n\n")
 
     def ClassProperties (self, cl, subclass=False):
+        """Write out a table of properties for a per-type page."""
         headerPrinted = False
         di = Unit.GetUnit("domainIncludes")
         ri = Unit.GetUnit("rangeIncludes")
@@ -487,6 +528,7 @@ class ShowUnit (webapp2.RequestHandler) :
             self.write("<meta property=\"rdfs:subClassOf\" content=\"%s\">" % (cl.id))
 
     def ClassIncomingProperties (self, cl):
+        """Write out a table of incoming properties for a per-type page."""
         headerPrinted = False
         di = Unit.GetUnit("domainIncludes")
         ri = Unit.GetUnit("rangeIncludes")
@@ -528,6 +570,7 @@ class ShowUnit (webapp2.RequestHandler) :
 
 
     def AttributeProperties (self, node):
+        """Write out properties of this property, for a per-property page."""
         di = Unit.GetUnit("domainIncludes")
         ri = Unit.GetUnit("rangeIncludes")
         ranges = sorted(GetTargets(ri, node), key=lambda u: u.id)
@@ -566,91 +609,68 @@ class ShowUnit (webapp2.RequestHandler) :
         self.write("      </td>\n    </tr>\n</table>\n\n")
 
         if (len(subprops) > 0):
-          self.write("<table class=\"definition-table\">\n")
-          self.write("  <thead>\n    <tr>\n      <th>Sub-properties</th>\n    </tr>\n</thead>\n")
-          for sbp in subprops:
-              c = GetComment(sbp)
-              tt = "%s: ''%s''" % ( sbp.id, c)
-              self.write("\n    <tr><td><code>%s</code></td></tr>\n" % (self.ml(sbp, sbp.id, tt)))
-          self.write("\n</table>\n\n")
+            self.write("<table class=\"definition-table\">\n")
+            self.write("  <thead>\n    <tr>\n      <th>Sub-properties</th>\n    </tr>\n</thead>\n")
+            for sbp in subprops:
+                c = GetComment(sbp)
+                tt = "%s: ''%s''" % ( sbp.id, c)
+                self.write("\n    <tr><td><code>%s</code></td></tr>\n" % (self.ml(sbp, sbp.id, tt)))
+            self.write("\n</table>\n\n")
 
         if (len(superprops) > 0):
-          self.write("<table class=\"definition-table\">\n")
-          self.write("  <thead>\n    <tr>\n      <th>Super-properties</th>\n    </tr>\n</thead>\n")
-          for spp in superprops:
-              c = GetComment(spp)
-              tt = "%s: ''%s''" % ( spp.id, c)
-              self.write("\n    <tr><td><code>%s</code></td></tr>\n" % (self.ml(spp, spp.id, tt)))
-          self.write("\n</table>\n\n")
+            self.write("<table class=\"definition-table\">\n")
+            self.write("  <thead>\n    <tr>\n      <th>Super-properties</th>\n    </tr>\n</thead>\n")
+            for spp in superprops:
+                c = GetComment(spp)
+                tt = "%s: ''%s''" % ( spp.id, c)
+                self.write("\n    <tr><td><code>%s</code></td></tr>\n" % (self.ml(spp, spp.id, tt)))
+            self.write("\n</table>\n\n")
 
     def rep(self, markup):
+        """Replace < and > with HTML escape chars."""
         m1 = re.sub("<", "&lt;", markup)
         m2 = re.sub(">", "&gt;", m1)
+        # TODO: Ampersand? Check usage with examples.
         return m2
 
-    def get(self, node):
+    def getHomepage(self, node):
+        """Send the homepage, or if no HTML accept header received and JSON-LD was requested, send JSON-LD context file.
 
-        # CORS enable, http://en.wikipedia.org/wiki/Cross-origin_resource_sharing
-        self.response.headers.add_header("Access-Control-Allow-Origin", "*") # entire site is public.
-        if (node == "" or node=="/"):
-         # Send the homepage, or if no HTML accept header received and JSON-LD was requested, send JSON-LD context file.
-         # typical browser accept list: ('Accept', 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8')
-         # e.g. curl -H "Accept: application/ld+json" http://localhost:8080//  see also http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html
-         accept_header = self.request.headers.get('Accept').split(',')
-         logging.info("accepts: %s" % self.request.headers.get('Accept'))
-         if ENABLE_JSONLD_CONTEXT:
-           jsonldcontext = GetJsonLdContext() # consider memcached?
+        typical browser accept list: ('Accept', 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8')
+        # e.g. curl -H "Accept: application/ld+json" http://localhost:8080/
+        see also http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html
+        https://github.com/rvguha/schemaorg/issues/5
+        https://github.com/rvguha/schemaorg/wiki/JsonLd
+        """
+        accept_header = self.request.headers.get('Accept').split(',')
+        logging.info("accepts: %s" % self.request.headers.get('Accept'))
+        if ENABLE_JSONLD_CONTEXT:
+            jsonldcontext = GetJsonLdContext() # consider memcached?
 
-         mimereq = {}
-         for ah in accept_header:
-           ah = re.sub( r";q=\d?\.\d+", '', ah).rstrip()
-           mimereq[ah] = 1
+        mimereq = {}
+        for ah in accept_header:
+            ah = re.sub( r";q=\d?\.\d+", '', ah).rstrip()
+            mimereq[ah] = 1
 
-         html_score = mimereq.get('text/html', 5)
-         xhtml_score = mimereq.get('application/xhtml+xml', 5)
-         jsonld_score = mimereq.get('application/ld+json', 10)
-         # print "accept_header: " + str(accept_header) + " mimereq: "+str(mimereq) + "Scores H:{0} XH:{1} J:{2} ".format(html_score,xhtml_score,jsonld_score)
+        html_score = mimereq.get('text/html', 5)
+        xhtml_score = mimereq.get('application/xhtml+xml', 5)
+        jsonld_score = mimereq.get('application/ld+json', 10)
+        # print "accept_header: " + str(accept_header) + " mimereq: "+str(mimereq) + "Scores H:{0} XH:{1} J:{2} ".format(html_score,xhtml_score,jsonld_score)
 
-         if (ENABLE_JSONLD_CONTEXT and (jsonld_score < html_score and jsonld_score < xhtml_score)):
-           self.response.headers['Content-Type'] = "application/ld+json"
-           self.emitCacheHeaders()
-           self.response.out.write( jsonldcontext )
-           return
-         else:
-           self.response.out.write( open("static/index.html", 'r').read() )
-           return
-
-        if (node=="docs/jsonldcontext.json.txt"):
-         if ENABLE_JSONLD_CONTEXT:
-           jsonldcontext = GetJsonLdContext()
-           self.response.headers['Content-Type'] = "text/plain"
-           self.emitCacheHeaders()
-           self.response.out.write( jsonldcontext )
-           return
-
-        if (node=="docs/jsonldcontext.json"):
-         if ENABLE_JSONLD_CONTEXT:
-           jsonldcontext = GetJsonLdContext()
-           self.response.headers['Content-Type'] = "application/ld+json"
-           self.emitCacheHeaders()
-           self.response.out.write( jsonldcontext )
-           return
-
-        if (node == "favicon.ico"):
+        if (ENABLE_JSONLD_CONTEXT and (jsonld_score < html_score and jsonld_score < xhtml_score)):
+            self.response.headers['Content-Type'] = "application/ld+json"
+            self.emitCacheHeaders()
+            self.response.out.write( jsonldcontext )
             return
-        node = Unit.GetUnit(node)
+        else:
+            self.response.out.write( open("static/index.html", 'r').read() )
+            return
 
+    def getExactTermPage(self, node):
+        """Emit a Web page that exactly matches this node."""
         self.outputStrings = []
 
-        if (node==None):
-          self.error(404)
-          self.response.out.write('<title>404 Not Found.</title><a href="/">404 Not Found.</a>')
-          return
-
-        if EMIT_EXTERNAL_MAPPINGS:
-          ext_mappings = GetExtMappingsRDFa(node)
-        else:
-          ext_mappings=''
+        ext_mappings = GetExtMappingsRDFa(node)
 
         headers.OutputSchemaorgHeaders(self, node.id, node.isClass(), ext_mappings)
         cached = self.GetCachedText(node)
@@ -719,12 +739,94 @@ class ShowUnit (webapp2.RequestHandler) :
                 self.write("</div>\n\n")
 
         self.write("<p class=\"version\"><b>Schema Version %s</b></p>\n\n" % SCHEMA_VERSION)
+
+
+        # Analytics
+	self.write("""<script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+	  ga('create', 'UA-52672119-1', 'auto');ga('send', 'pageview');</script>""")
+
         self.write(" \n\n</div>\n</body>\n</html>")
 
         self.response.write(self.AddCachedText(node, self.outputStrings))
 
+    def get(self, node):
+        """Get a schema.org site page generated for this node/term.
+
+        Web content is written directly via self.response.
+
+        CORS enabled all URLs - we assume site entirely public.
+        See http://en.wikipedia.org/wiki/Cross-origin_resource_sharing
+
+        These should give a JSON version of schema.org:
+
+            curl --verbose -H "Accept: application/ld+json" http://localhost:8080/docs/jsonldcontext.json
+            curl --verbose -H "Accept: application/ld+json" http://localhost:8080/docs/jsonldcontext.json.txt
+            curl --verbose -H "Accept: application/ld+json" http://localhost:8080/
+
+        Per-term pages vary for type, property and enumeration.
+
+        Last resort is a 404 error if we do not exactly match a term's id.
+
+
+        See also https://webapp-improved.appspot.com/guide/request.html#guide-request
+        """
+
+        self.response.headers.add_header("Access-Control-Allow-Origin", "*") # entire site is public.
+
+#        TODO: redirections - https://github.com/rvguha/schemaorg/issues/4
+#        or https://webapp-improved.appspot.com/guide/routing.html?highlight=redirection
+#
+#        if str(self.request.host).startswith("www.schema.org"):
+#            log.debug("www.schema.org requested. We should redirect to use schema.org as hostname, not " + self.request.host)
+#            origURL = self.request.url
+#            origURL.replace("https://", "http://")
+#            origURL.replace("//www.schema.org", "//schema.org")
+#            self.redirect(newURL, permanent=True)
+
+        # First: fixed paths: homepage, favicon.ico and generated JSON-LD files.
+        #
+        if (node == "" or node=="/"):
+            self.getHomepage(node)
+            return
+
+        if ENABLE_JSONLD_CONTEXT:
+            if (node=="docs/jsonldcontext.json.txt"):
+                jsonldcontext = GetJsonLdContext()
+                self.response.headers['Content-Type'] = "text/plain"
+                self.emitCacheHeaders()
+                self.response.out.write( jsonldcontext )
+                return
+            if (node=="docs/jsonldcontext.json"):
+                jsonldcontext = GetJsonLdContext()
+                self.response.headers['Content-Type'] = "application/ld+json"
+                self.emitCacheHeaders()
+                self.response.out.write( jsonldcontext )
+                return
+
+        if (node == "favicon.ico"):
+            return
+
+        # Next: pages based on request path matching a Unit in the term graph.
+        node = Unit.GetUnit(node) # e.g. "Person", "CreativeWork".
+
+        # TODO:
+        # - handle http vs https; www.schema.org vs schema.org
+        # - handle foo-input Action pseudo-properties
+        # - handle /Person/Minister -style extensions
+
+        if (node != None):
+            self.getExactTermPage(node)
+            return
+        else:
+          self.error(404)
+          self.response.out.write('<title>404 Not Found.</title><a href="/">404 Not Found.</a><br/><br/>')
+          return
 
 def read_file (filename):
+    """Read a file from disk, return it as a single string."""
     import os.path
     folder = os.path.dirname(os.path.realpath(__file__))
     file_path = os.path.join(folder, filename)
@@ -736,6 +838,7 @@ def read_file (filename):
 schemasInitialized = False
 
 def read_schemas():
+    """Read/parse/ingest schemas from data/*.rdfa. Also alsodata/*examples.txt"""
     import os.path
     import glob
     global schemasInitialized
