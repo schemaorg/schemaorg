@@ -4,7 +4,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta charset="UTF-8" />
-    <title>Potential Actions - schema.org</title>
+    <title>Schema.org Actions - schema.org</title>
     <meta name="description" content="Schema.org is a set of extensible schemas that enables webmasters to embed
     structured data on their web pages for use by search engines and other applications." />
     <link rel="stylesheet" type="text/css"
@@ -107,14 +107,13 @@ td {
 </head>
 <body onload="prettyPrint();">
 
-<p>What follows is a series of changes to <a href="http://schema.org/Action">http://schema.org/Action</a>, currently used to describe past actions, to also enable describing the capability to perform an action in the future, as well as how that capability can be exercised.</p>
-
-<h2>Status of this Document</h2>
-<p>This is an HTML version of the documentation that accompanied the
-<a href="http://blog.schema.org/2014/04/announcing-schemaorg-actions.html">Schema.org Actions</a> (April 2014). Earlier
-drafts and alternate formats are available from the <a href="https://www.w3.org/wiki/WebSchemas/ActivityActions">W3C Wiki</a>. There are a
-few known formatting issues with this version.
-
+<p> What follows describes some terminology and conventions for use with
+    <a href="http://schema.org/Action">http://schema.org/Action</a>.
+    The purpose is to enable describing the capability to perform an action in the future, as well as how that capability
+    can be exercised. See the blog post
+    <a href="http://blog.schema.org/2014/04/announcing-schemaorg-actions.html">Schema.org Actions</a> (April 2014) for more
+    background. Earlier drafts and alternate formats are available from the <a href="https://www.w3.org/wiki/WebSchemas/ActivityActions">W3C Wiki</a>.
+</p>
 
 <h2>Part 1: Action status</h2>
 <p>First, we need a mechanism for differentiating potential actions from actions that have actually taken place or are even still in-progress. The expectation is that the status of an action will often be self-evident based on the usage context, so this property can often be elided.  However, it may still be necessary for resolving ambiguous cases when they arise. For this we introduce a new property of Action called "actionStatus.</p>
@@ -174,10 +173,8 @@ few known formatting issues with this version.
 </tbody>
 </table>
 
-
-<h2></h2>
-
 <h2>Part 2:  Connecting Actions to Things</h2>
+
 <p>Frequently actions are taken or offered in the context of an object (e.g., watch this movie, review this article, share this webpage, etc.).  We introduce a new property called potentialAction for describing the "prototype" of an action that can be taken on that Thing.</p>
 
 <h3>Thing</h3>
@@ -223,7 +220,7 @@ few known formatting issues with this version.
 </table>
 
 
-<h2></h2>
+
 
 <h2>Part 3: Action EntryPoints</h2>
 <p>Potential actions are materialized via execution against the target EntryPoint of an Action.</p>
@@ -390,7 +387,7 @@ android-app://{package_id}/{scheme}/{host_path}
 </table>
 
 
-<h2></h2>
+
 
 <h2>Part 4: Input and Output constraints</h2>
 <p>Additional information is often required from a user or client in order to formulate a complete request.  To facilitate this process we need the ability to describe within a potential action how to construct these inputs.  Since we need this capability for filling in <i>any</i> property of an Action, we introduce a notion of property annotations using a hypen ("-") delimiter. For example, by specifying a "location-input" property on a potential action we are indicating that "location" is a supported input for completing the action.</p>
@@ -444,7 +441,8 @@ android-app://{package_id}/{scheme}/{host_path}
 </td>
 <td>Boolean<br/>
 </td>
-<td>Whether the property must be filled in to complete the action. Default is false. Equivalent to HTML's <a href="http://www.w3.org/TR/html5/forms.html#the-required-attribute">input@required</a>.<br/>
+<td>Whether the property must be filled in to complete the action. Default is false. <br/>
+Equivalent to HTML's <a href="http://www.w3.org/TR/html5/forms.html#the-required-attribute">input@required</a>.<br/>
 </td>
 </tr>
 <tr>
@@ -452,7 +450,9 @@ android-app://{package_id}/{scheme}/{host_path}
 </td>
 <td>Thing, DataType<br/>
 </td>
-<td>The default value for the property.  For properties that expect a DataType, it's a literal value, for properties that expect an object, it's an ID reference to one of the current values. Equivalent to HTML's input@value.<br/>
+<td>The default value for the property.  For properties that expect a DataType, <br/>
+    it's a literal value, for properties that expect an object, it's an ID <br/>
+    reference to one of the current values. Equivalent to HTML's input@value.<br/>
 </td>
 </tr>
 <tr>
@@ -460,7 +460,8 @@ android-app://{package_id}/{scheme}/{host_path}
 </td>
 <td>Text<br/>
 </td>
-<td>Indicates the name of the PropertyValueSpecification to be used in URL templates and form encoding in a manner analogous to HTML's input@name.<br/>
+<td>Indicates the name of the PropertyValueSpecification to be used in URL templates <br/>
+    and form encoding in a manner analogous to HTML's input@name.<br/>
 </td>
 </tr>
 <tr>
@@ -468,7 +469,11 @@ android-app://{package_id}/{scheme}/{host_path}
 </td>
 <td>Boolean<br/>
 </td>
-<td>Whether or not a property is mutable.  Default is false. Equivalent to HTML's <a href="http://www.w3.org/TR/html5/forms.html#the-readonly-attribute">input@readonly</a>. Specifying this for a property that also has a value makes it act similar to a "hidden" input in an HTML form<a href="http://www.w3.org/TR/html5/forms.html#the-pattern-attribute">.</a><br/>
+<td>Whether or not a property is mutable.  Default is false. <br/>
+    Equivalent to HTML's <a href="http://www.w3.org/TR/html5/forms.html#the-readonly-attribute">input@readonly</a>.
+    Specifying this for a property that also has a value makes it act <br/>
+    similar to a "hidden" input in an HTML form<a href="http://www.w3.org/TR/html5/forms.html#the-pattern-attribute">.</a>
+    <br/>
 </td>
 </tr>
 <tr>
@@ -476,7 +481,8 @@ android-app://{package_id}/{scheme}/{host_path}
 </td>
 <td>Boolean<br/>
 </td>
-<td>Whether multiple values are allowed for the property.  Default is false. Equivalent to HTML's <a href="http://www.w3.org/TR/html5/forms.html#the-multiple-attribute">input@multiple</a>.<br/>
+<td>Whether multiple values are allowed for the property.  Default is false. <br/>
+    Equivalent to HTML's <a href="http://www.w3.org/TR/html5/forms.html#the-multiple-attribute">input@multiple</a>.<br/>
 </td>
 </tr>
 <tr>
@@ -484,7 +490,8 @@ android-app://{package_id}/{scheme}/{host_path}
 </td>
 <td>Number<br/>
 </td>
-<td>Specifies the minimum number of characters in a literal value. Equivalent to HTML's <a href="http://www.w3.org/TR/html5/forms.html#the-maxlength-and-minlength-attributes">input@minlength</a>.<br/>
+<td>Specifies the minimum number of characters in a literal value. <br/>
+    Equivalent to HTML's <a href="http://www.w3.org/TR/html5/forms.html#the-maxlength-and-minlength-attributes">input@minlength</a>.<br/>
 </td>
 </tr>
 <tr>
@@ -492,7 +499,8 @@ android-app://{package_id}/{scheme}/{host_path}
 </td>
 <td>Number<br/>
 </td>
-<td>Specifies the maximum number of characters in a literal value. Equivalent to HTML's <a href="http://www.w3.org/TR/html5/forms.html#the-maxlength-and-minlength-attributes">input@maxlength</a>.<br/>
+<td>Specifies the maximum number of characters in a literal value. <br/>
+    Equivalent to HTML's <a href="http://www.w3.org/TR/html5/forms.html#the-maxlength-and-minlength-attributes">input@maxlength</a>.<br/>
 </td>
 </tr>
 <tr>
@@ -500,7 +508,8 @@ android-app://{package_id}/{scheme}/{host_path}
 </td>
 <td>Text<br/>
 </td>
-<td>Specifies a regular expression for testing literal values Equivalent to HTML's <a href="http://www.w3.org/TR/html5/forms.html#the-pattern-attribute">input@pattern</a>.<br/>
+<td>Specifies a regular expression for testing literal values <br/>
+    Equivalent to HTML's <a href="http://www.w3.org/TR/html5/forms.html#the-pattern-attribute">input@pattern</a>.<br/>
 </td>
 </tr>
 <tr>
@@ -508,7 +517,8 @@ android-app://{package_id}/{scheme}/{host_path}
 </td>
 <td>Number, Date, Time, DateTime<br/>
 </td>
-<td>Specifies the allowed range and intervals for literal values.  Equivalent to HTML's <a href="http://www.w3.org/TR/html5/forms.html#the-min-and-max-attributes">input@min, max, step</a>.The lower value of some characteristic or property<br/>
+<td>Specifies the allowed range and intervals for literal values.  <br/>
+Equivalent to HTML's <a href="http://www.w3.org/TR/html5/forms.html#the-min-and-max-attributes">input@min, max, step</a>.The lower value of some characteristic or property<br/>
 </td>
 </tr>
 <tr>
@@ -516,7 +526,8 @@ android-app://{package_id}/{scheme}/{host_path}
 </td>
 <td>Number, Date, Time, DateTime<br/>
 </td>
-<td>The upper value of some characteristic or property. Equivalent to HTML's <a href="http://www.w3.org/TR/html5/forms.html#the-min-and-max-attributes">input@min, max, step</a>.<br/>
+<td>The upper value of some characteristic or property. <br/>
+Equivalent to HTML's <a href="http://www.w3.org/TR/html5/forms.html#the-min-and-max-attributes">input@min, max, step</a>.<br/>
 </td>
 </tr>
 <tr>
