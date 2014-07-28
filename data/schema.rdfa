@@ -6659,9 +6659,9 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/isPartOf">
       <span class="h" property="rdfs:label">isPartOf</span>
-      <span property="rdfs:comment">Indicates the collection or gallery to which the item belongs.</span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/WebPage">WebPage</a></span>
-      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/CollectionPage">CollectionPage</a></span>
+      <span property="rdfs:comment">Indicates a CreativeWork that this CreativeWork is (in some sense) part of.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CreativeWork">CreativeWork</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/CreativeWork">CreativeWork</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/isProprietary">
       <span class="h" property="rdfs:label">isProprietary</span>
@@ -10045,6 +10045,14 @@ on public-vocabs@w3.org.</p>
       <span>domainIncludes: <a property="http://schema.org/domainIncludes" href="http://schema.org/OrganizationRole">OrganizationRole</a></span>
       <span>rangeIncludes: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
       <span>rangeIncludes: <a property="http://schema.org/rangeIncludes" href="http://schema.org/URL">URL</a></span>
+    </div>
+
+    <h1>WebSite</h1>
+
+    <div typeof="rdfs:Class" resource="http://schema.org/WebSite">
+      <span class="h" property="rdfs:label">WebSite</span>
+      <span property="rdfs:comment">A WebSite is a set of related web pages and other items typically served from a single web domain and accessible via URLs.</span>
+    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/CreativeWork">CreativeWork</a></span>
     </div>
 
   </body>
