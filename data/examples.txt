@@ -289,7 +289,7 @@ TYPES:  Place,GeoCoordinates
 
 PRE-MARKUP:
 
-<h1>What is the latitude and longitude of the Empire State Building?<h1>
+<h1>What is the latitude and longitude of the Empire State Building?</h1>
 Answer:
 Latitude: 40 deg 44 min 54.36 sec N
 Longitude: 73 deg 59 min 8.5 sec W
@@ -358,7 +358,7 @@ MICRODATA:
 </script>
 
 <meta itemprop="encodingFormat" content="mp3" />
- <meta itemprop="contentURL" content="http://media.freesound.org/data/0/previews/719__elmomo__12oclock_girona_preview.mp3" />
+ <meta itemprop="contentUrl" content="http://media.freesound.org/data/0/previews/719__elmomo__12oclock_girona_preview.mp3" />
 
 <span class="description">
       <meta itemprop="duration" content="T0M15S" />
@@ -377,7 +377,7 @@ RDFA:
 </script>
 
 <meta property="encodingFormat" content="mp3" />
- <meta property="contentURL" content="http://media.freesound.org/data/0/previews/719__elmomo__12oclock_girona_preview.mp3" />
+ <meta property="contentUrl" content="http://media.freesound.org/data/0/previews/719__elmomo__12oclock_girona_preview.mp3" />
 
 <span class="description">
       <meta property="duration" content="T0M15S" />
@@ -391,7 +391,7 @@ JSON:
 {
   "@context": "http://schema.org",
   "@type": "AudioObject",
-  "contentURL": "http://media.freesound.org/data/0/previews/719__elmomo__12oclock_girona_preview.mp3",
+  "contentUrl": "http://media.freesound.org/data/0/previews/719__elmomo__12oclock_girona_preview.mp3",
   "description": "Recorded on a terrace of Girona a sunday morning",
   "duration": "T0M15S",
   "encodingFormat": "mp3",
@@ -691,6 +691,7 @@ JSON:
 {
   "@context": "http://schema.org",
   "@type": "Event",
+  "name": "Miami Heat at Philadelphia 76ers - Game 3 (Home Game 1)",
   "location": {
     "@type": "Place",
     "address": {
@@ -1820,7 +1821,7 @@ MICRODATA:
   <meta itemprop="mainContentOfPage" content="true"/>
   <h2 itemprop="about">list of presidents</h2>
   <table>
-    <tr><th>President</th><th>Party</th><tr>
+    <tr><th>President</th><th>Party</th></tr>
     <tr>
       <td>George Washington (1789-1797)</td>
       <td>no party</td>
@@ -1839,7 +1840,7 @@ RDFA:
   <meta property="mainContentOfPage" content="true"/>
   <h2 property="about">list of presidents</h2>
   <table>
-    <tr><th>President</th><th>Party</th><tr>
+    <tr><th>President</th><th>Party</th></tr>
     <tr>
       <td>George Washington (1789-1797)</td>
       <td>no party</td>
@@ -1969,7 +1970,7 @@ MICRODATA:
 
 <div itemscope itemtype="http://schema.org/ImageObject">
   <h2 itemprop="name">Beach in Mexico</h2>
-  <img src="mexico-beach.jpg" itemprop="contentURL" />
+  <img src="mexico-beach.jpg" itemprop="contentUrl" />
 
   By <span itemprop="author">Jane Doe</span>
   Photographed in
@@ -1984,7 +1985,7 @@ RDFA:
 
 <div vocab="http://schema.org/" typeof="ImageObject">
   <h2 property="name">Beach in Mexico</h2>
-  <img src="mexico-beach.jpg" property="contentURL" />
+  <img src="mexico-beach.jpg" property="contentUrl" />
 
   By <span property="author">Jane Doe</span>
   Photographed in
@@ -2003,7 +2004,7 @@ JSON:
   "@type": "ImageObject",
   "author": "Jane Doe",
   "contentLocation": "Puerto Vallarta, Mexico",
-  "contentURL": "mexico-beach.jpg",
+  "contentUrl": "mexico-beach.jpg",
   "datePublished": "2008-01-25",
   "description": "I took this picture while on vacation last year.",
   "name": "Beach in Mexico"
@@ -2473,15 +2474,13 @@ MICRODATA:
   <h3>Sample Tracks</h3>
     <div itemprop="track" itemscope itemtype="http://schema.org/MusicRecording">
       <span itemprop="name">Bloom</span>
-        <meta content="/artist/radiohead/album/the-king-of-limbs/track/bloom" itemprop="url" />
-        <meta content="PT5M14S" itemprop="duration" />5:14
-      </span>
+      <meta content="/artist/radiohead/album/the-king-of-limbs/track/bloom" itemprop="url" />
+      <meta content="PT5M14S" itemprop="duration" />5:14
     </div>
     <div itemprop="track" itemscope itemtype="http://schema.org/MusicRecording">
-    <span itemprop="name">Morning Mr Magpie</span>
+      <span itemprop="name">Morning Mr Magpie</span>
       <meta content="/artist/radiohead/album/the-king-of-limbs/track/morning-mr-magpie" itemprop="url" />
       <meta content="PT4M40S" itemprop="duration" />4:40
-    </span>
   </div>
 </div>
 
@@ -2501,15 +2500,13 @@ RDFA:
   <h3>Sample Tracks</h3>
     <div property="track"  typeof="MusicRecording">
       <span property="name">Bloom</span>
-        <meta content="/artist/radiohead/album/the-king-of-limbs/track/bloom" property="url" />
-        <meta content="PT5M14S" property="duration" />5:14
-      </span>
+      <meta content="/artist/radiohead/album/the-king-of-limbs/track/bloom" property="url" />
+      <meta content="PT5M14S" property="duration" />5:14
     </div>
     <div property="track"  typeof="MusicRecording">
-    <span property="name">Morning Mr Magpie</span>
+      <span property="name">Morning Mr Magpie</span>
       <meta content="/artist/radiohead/album/the-king-of-limbs/track/morning-mr-magpie" property="url" />
       <meta content="PT4M40S" property="duration" />4:40
-    </span>
   </div>
 </div>
 
@@ -2788,8 +2785,7 @@ MICRODATA:
     </span>
     for all adult patients.
     (<span itemprop="recommendationStrength">Strong recommendation</span>;
-    <link itemprop="evidenceLevel" href="http://schema.org/EvidenceLevelA">
-      Class I</link>,
+    <a itemprop="evidenceLevel" href="http://schema.org/EvidenceLevelA">Class I</a>,
     based on
     <span itemprop="evidenceOrigin">multiple randomized clinical trials</span>)
   </span>
@@ -2799,11 +2795,10 @@ MICRODATA:
     <span itemprop="subject" itemscope itemtype="http://schema.org/MedicalCondition">
       <span itemprop="name">cardiac failure</span></span> should never
     be treated with
-    <span itemprop="subject" itemscope
-     itemtype="http://schema.org/TherapeuticProcedure">
+    <span itemprop="subject" itemscope itemtype="http://schema.org/TherapeuticProcedure">
       <span itemprop="name">appendectomy</span></span> in adults.
-    (Class III, <link itemprop="evidenceLevel" href="http://schema.org/EvidenceLevelC"/>
-    <span itemprop="evidenceOrigin">standard of care</span></link>)
+    (Class III, <a itemprop="evidenceLevel" href="http://schema.org/EvidenceLevelC"/>
+    <span itemprop="evidenceOrigin">standard of care</span></a>)
   </span></li>
 </ul>
 
@@ -2822,8 +2817,8 @@ RDFA:
     </span>
     for all adult patients.
     (<span property="recommendationStrength">Strong recommendation</span>;
-    <link property="evidenceLevel" href="http://schema.org/EvidenceLevelA">
-      Class I</link>,
+    <a property="evidenceLevel" href="http://schema.org/EvidenceLevelA">
+      Class I</a>,
     based on
     <span property="evidenceOrigin">multiple randomized clinical trials</span>)
   </span>
@@ -2835,8 +2830,8 @@ RDFA:
     be treated with
     <span property="subject"  typeof="TherapeuticProcedure">
       <span property="name">appendectomy</span></span> in adults.
-    (Class III, <link property="evidenceLevel" href="http://schema.org/EvidenceLevelC"/>
-    <span property="evidenceOrigin">standard of care</span></link>)
+    (Class III, <a property="evidenceLevel" href="http://schema.org/EvidenceLevelC"/>
+    <span property="evidenceOrigin">standard of care</span></a>)
   </span></li>
 </ul>
 
@@ -2907,12 +2902,11 @@ MICRODATA:
   <meta itemprop="publicationType" content="Meta-Analysis"/>
   <h1><span itemprop="name">New guidelines for metformin and
       diabetes mellitus</span></h1>
-  <p>
-  <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p><span itemprop="author" itemscope itemtype="http://schema.org/Person">
     <span itemprop="name">Dr. John Smith</span>
     <br><span itemprop="affiliation">Medical University</span>
   </span>
-  <br><span itemprop="datePublished">2012-03-24</span>
+  <br><span itemprop="datePublished">2012-03-24</span></p>
   <p><b>Abstract:</b>
   We review clinical evidence related to the use of metformin for
   treatment of type-2 diabetes mellitus and provide new clinical guideline
@@ -2930,7 +2924,7 @@ MICRODATA:
     </span>
   </span>;
   <span itemprop="about" itemscope itemtype="http://schema.org/MedicalCondition">
-    <span itemprop="name">Diabetes Mellitus, Type 2</span></p>
+    <span itemprop="name">Diabetes Mellitus, Type 2</span>
     <span itemprop="code" itemscope
           itemtype="http://schema.org/MedicalCode"
           itemid="http://www.ncbi.nlm.nih.gov/mesh/C18.452.394.750.149">
@@ -2939,7 +2933,7 @@ MICRODATA:
       <meta itemprop="code" content="C18.452.394.750.149"/>
       <meta itemprop="codingSystem" content="MeSH"/>
     </span>
-  </span>
+  </span></p>
   ...
   <h3>Guidelines</h3>
   <span itemscope itemtype="http://schema.org/MedicalGuidelineRecommendation">
@@ -2947,8 +2941,8 @@ MICRODATA:
     <span itemprop="subject">metformin</span> as an initial pharmacologic therapy
     to treat most patients with <span itemprop="subject">type 2 diabetes</span>
     (Grade: <span itemprop="recommendationStrength">strong recommendation</span>;
-    <link itemprop="evidenceLevel" href="http://schema.org/EvidenceLevelA">high-quality
-      evidence</link>).
+    <a itemprop="evidenceLevel" href="http://schema.org/EvidenceLevelA">high-quality
+      evidence</a>).
   </span>
 </div>
 
@@ -2959,12 +2953,11 @@ RDFA:
   <meta property="publicationType" content="Meta-Analysis"/>
   <h1><span property="name">New guidelines for metformin and
       diabetes mellitus</span></h1>
-  <p>
-  <span property="author"  typeof="Person">
+  <p><span property="author"  typeof="Person">
     <span property="name">Dr. John Smith</span>
     <br><span property="affiliation">Medical University</span>
   </span>
-  <br><span property="datePublished">2012-03-24</span>
+  <br><span property="datePublished">2012-03-24</span></p>
   <p><b>Abstract:</b>
   We review clinical evidence related to the use of metformin for
   treatment of type-2 diabetes mellitus and provide new clinical guideline
@@ -2981,7 +2974,7 @@ RDFA:
     </span>
   </span>;
   <span property="about"  typeof="MedicalCondition">
-    <span property="name">Diabetes Mellitus, Type 2</span></p>
+    <span property="name">Diabetes Mellitus, Type 2</span>
     <span property="code"  typeof="MedicalCode"
           resource="http://www.ncbi.nlm.nih.gov/mesh/C18.452.394.750.149">
       <!-- Note: use of itemid is not mandatory, but recommended when an
@@ -2990,6 +2983,7 @@ RDFA:
       <meta property="codingSystem" content="MeSH"/>
     </span>
   </span>
+  </p>
   ...
   <h3>Guidelines</h3>
   <span  typeof="MedicalGuidelineRecommendation">
@@ -2997,8 +2991,8 @@ RDFA:
     <span property="subject">metformin</span> as an initial pharmacologic therapy
     to treat most patients with <span property="subject">type 2 diabetes</span>
     (Grade: <span property="recommendationStrength">strong recommendation</span>;
-    <link property="evidenceLevel" href="http://schema.org/EvidenceLevelA">high-quality
-      evidence</link>).
+    <a property="evidenceLevel" href="http://schema.org/EvidenceLevelA">high-quality
+      evidence</a>).
   </span>
 </div>
 
@@ -9020,7 +9014,7 @@ JSON:
 
 <script type='application/ld+json'>
 {
-  "@context": "schema.org",
+  "@context": "http://schema.org",
   "@type": "GovernmentService",
   "name": "Veterans Affairs Emergency Mental Health",
   "serviceType": "Psychiatric Emergency Services",
@@ -9109,7 +9103,7 @@ MICRODATA:
 
 RDFA:
 
-<div vocab="http://schema.org/"class="event-wrapper"  typeof="Event">
+<div vocab="http://schema.org/" class="event-wrapper"  typeof="Event">
 
   <div class="event-date" property="startDate" content="2013-09-14T21:30">Sat Sep 14</div>
   <div class="event-title" property="name">Typhoon with Radiation City</div>
@@ -9212,7 +9206,7 @@ MICRODATA:
 
 RDFA:
 
-<div vocab="http://schema.org/"class="event-wrapper"  typeof="Event">
+<div vocab="http://schema.org/" class="event-wrapper"  typeof="Event">
 
   <div class="event-date" property="startDate" content="2013-09-14T21:30">Sat Sep 14</div>
   <div class="event-title" property="name">CANCELLED - Typhoon with Radiation City</div>
@@ -9312,7 +9306,7 @@ MICRODATA:
 
 RDFA:
 
-<div vocab="http://schema.org/"class="event-wrapper">
+<div vocab="http://schema.org/" class="event-wrapper">
   <div class="event-date" property="startDate" content="2013-10-12T22:00">Sat Oct 12</div>
   <div class="event-title" property="name">Typhoon with Radiation City</div>
   <meta property="eventStatus" content="http://schema.org/EventRescheduled">
@@ -9410,7 +9404,7 @@ MICRODATA:
 
 RDFA:
 
-<div vocab="http://schema.org/"class="event-wrapper"  typeof="Event">
+<div vocab="http://schema.org/" class="event-wrapper"  typeof="Event">
 
   <div class="event-date" property="startDate" content="2013-09-14T21:30">Sat Sep 14</div>
   <div class="event-title" property="name">SOLD OUT! Typhoon with Radiation City</div>
@@ -9634,7 +9628,7 @@ as suggested by www.a11ymetadata.org.
       <h2>Reviews of Holt Physical Science (<span itemprop="reviewCount">0</span> reviews)</h2>
 
       <div class="bookReviewScore">
-         <span><span itemprop="ratingValue>0</span> - No Rating Yet</span>
+         <span><span itemprop="ratingValue">0</span> - No Rating Yet</span>
       </div>
    </div>
 </div>
@@ -9708,7 +9702,7 @@ as suggested by www.a11ymetadata.org.
       <h2>Reviews of Holt Physical Science (<span property="reviewCount">0</span> reviews)</h2>
 
       <div class="bookReviewScore">
-         <span><span property="ratingValue>0</span> - No Rating Yet</span>
+         <span><span property="ratingValue">0</span> - No Rating Yet</span>
       </div>
    </div>
 </div>
@@ -10516,15 +10510,15 @@ MICRODATA:
 <div itemscope="" itemtype="http://schema.org/MusicEvent">
 
   <div itemprop="location" itemscope="" itemtype="http://schema.org/MusicVenue">
-    <span itemprop="name" content="Chicago Symphony Center"/>
+    <meta itemprop="name" content="Chicago Symphony Center"/>
     <link itemprop="sameAs" href="http://en.wikipedia.org/wiki/Symphony_Center"/>
-    <span itemprop="address" content="220 S. Michigan Ave, Chicago, Illinois, USA"/>
+    <meta itemprop="address" content="220 S. Michigan Ave, Chicago, Illinois, USA"/>
   </div>
 
   <div itemprop="offers" itemscope="" itemtype="http://schema.org/Offer">
     <link itemprop="url" href="/examples/ticket/12341234" />
-    <span itemprop="price" content="$40"/>
-    <span itemprop="availability" href="http://schema.org/InStock"/>
+    <meta itemprop="price" content="$40"/>
+    <meta itemprop="availability" href="http://schema.org/InStock"/>
   </div>
 
   <h2 itemprop="name">Shostakovich Leningrad</h2>
@@ -10583,15 +10577,15 @@ RDFA:
 <div vocab="http://schema.org/" typeof="MusicEvent">
 
   <div property="location" typeof="MusicVenue">
-    <span property="name" content="Chicago Symphony Center"/>
+    <meta property="name" content="Chicago Symphony Center"/>
     <link property="sameAs" href="http://en.wikipedia.org/wiki/Symphony_Center"/>
-    <span property="address" content="220 S. Michigan Ave, Chicago, Illinois, USA"/>
+    <meta property="address" content="220 S. Michigan Ave, Chicago, Illinois, USA"/>
   </div>
 
   <div property="offers" typeof="Offer">
     <link property="url" href="/examples/ticket/12341234"/>
-    <span property="price" content="$40"/>
-    <span property="availability" href="http://schema.org/InStock"/>
+    <meta property="price" content="$40"/>
+    <meta property="availability" href="http://schema.org/InStock"/>
   </div>
 
   <h2 property="name">Shostakovich Leningrad</h2>
@@ -10703,9 +10697,9 @@ MICRODATA:
 <div itemscope="" itemtype="http://schema.org/TheaterEvent">
   <span itemprop="name">Julius Caesar at Shakespeare's Globe</span>
   <div itemprop="location" itemscope="" itemtype="http://schema.org/PerformingArtsTheater">
-    <span itemprop="name" content="Shakespeare's Globe"/>
+    <meta itemprop="name" content="Shakespeare's Globe"/>
     <link itemprop="sameAs" href="http://www.shakespearesglobe.com/"/>
-    <span itemprop="address" content="London, UK"/>
+    <meta itemprop="address" content="London, UK"/>
   </div>
   <div itemprop="offers" itemscope="" itemtype="http://schema.org/Offer">
     <link itemprop="url" href="/examples/ticket/0012301230123"/>
@@ -10715,7 +10709,7 @@ MICRODATA:
     <link itemprop="sameAs" href="http://en.wikipedia.org/wiki/Julius_Caesar_(play)"/>
     <link itemprop="sameAs" href="http://worldcat.org/entity/work/id/1807288036"/>
     <div itemprop="creator" itemscope="" itemtype="http://schema.org/Person">
-       <span itemprop="name" content="William Shakespeare"/>
+       <meta itemprop="name" content="William Shakespeare"/>
        <link itemprop="sameAs" href="http://en.wikipedia.org/wiki/William_Shakespeare"/>
     </div>
   </div>
@@ -10726,9 +10720,9 @@ RDFA:
 <div vocab="http://schema.org/" typeof="TheaterEvent">
   <span property="name">Julius Caesar at Shakespeare's Globe</span>
   <div property="location" typeof="PerformingArtsTheater">
-    <span property="name" content="Shakespeare's Globe"/>
+    <meta property="name" content="Shakespeare's Globe"/>
     <link property="sameAs" href="http://www.shakespearesglobe.com/"/>
-    <span property="address" content="London, UK"/>
+    <meta property="address" content="London, UK"/>
   </div>
   <div property="offers" typeof="Offer">
     <link property="url" href="/examples/ticket/0012301230123"/>
@@ -10738,7 +10732,7 @@ RDFA:
     <link property="sameAs" href="http://en.wikipedia.org/wiki/Julius_Caesar_(play)"/>
     <link property="sameAs" href="http://worldcat.org/entity/work/id/1807288036"/>
     <div property="creator" typeof="Person">
-       <span property="name" content="William Shakespeare"/>
+       <meta property="name" content="William Shakespeare"/>
        <link property="sameAs" href="http://en.wikipedia.org/wiki/William_Shakespeare"/>
     </div>
   </div>
@@ -11180,7 +11174,7 @@ MICRODATA:
     <p>Open: <time itemprop="openingHours" datetime="Mo-Fr 13:00-17:30">Open weekdays 1pm-5:30pm.</time></p>
     <p>Phone: <span itemprop="telephone" content="+155501002121">555-0100-2121</span></p>
     <p>A branch of <span itemprop="branchOf" itemscope itemtype="http://schema.org/Corporation">
-    <a itemprop="url" href="http://example.com/"><span itemprop="name">Larry's International</span></a>.</p>
+    <a itemprop="url" href="http://example.com/"><span itemprop="name">Larry's International</span></a></span>.</p>
   </div>
 </div>
 
@@ -11209,7 +11203,7 @@ RDFA:
     <p>Open: <time property="openingHours" datetime="Mo-Fr 13:00-17:30">Open weekdays 1pm-5:30pm.</time></p>
     <p>Phone: <span property="telephone" content="+155501002121">555-0100-2121</span></p>
     <p>A branch of <span property="branchOf" typeof="Corporation">
-    <a property="url" href="http://example.com/"><span property="name">Larry's International</span></a>.</p>
+    <a property="url" href="http://example.com/"><span property="name">Larry's International</span></a></span>.</p>
   </div>
 </div>
 
@@ -11808,9 +11802,9 @@ MICRODATA:
 <div itemscope itemtype="http://schema.org/Person">
   <span itemprop="name">Delia Derbyshire</span>
   <link itemprop="sameAs" href="http://en.wikipedia.org/wiki/Delia_Derbyshire"/>
-  <div itemprop="alumni" itemscope
+  <div itemprop="alumniOf" itemscope
         itemtype="http://schema.org/OrganizationRole">
-    <div itemprop="alumni" itemscope
+    <div itemprop="alumniOf" itemscope
             itemtype="http://schema.org/CollegeOrUniversity">
       <span itemprop="name">University of Cambridge</span>
       <link itemprop="sameAs" href="http://en.wikipedia.org/wiki/University_of_Cambridge"/>
@@ -11823,8 +11817,8 @@ RDFA:
 <div vocab="http://schema.org/" typeof="Person">
   <span property="name">Delia Derbyshire</span>
   <link property="sameAs" href="http://en.wikipedia.org/wiki/Delia_Derbyshire"/>
-  <div property="alumni" typeof="OrganizationRole">
-    <div property="alumni" typeof="CollegeOrUniversity">
+  <div property="alumniOf" typeof="OrganizationRole">
+    <div property="alumniOf" typeof="CollegeOrUniversity">
       <span property="name">University of Cambridge</span>
       <link property="sameAs" href="http://en.wikipedia.org/wiki/University_of_Cambridge"/>
     </div>
@@ -12025,20 +12019,5 @@ JSON:
 }
 </script>
 
-TYPES:  FakeEntryNeeded, FixMeSomeDay
 
-PRE-MARKUP:
 
-...
-
-MICRODATA:
-
-...
-
-RDFA:
-
-...
-
-JSON:
-
-...

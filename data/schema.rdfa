@@ -1490,6 +1490,36 @@
        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/CreativeWork">CreativeWork</a></span>
     </div>
 
+    <div typeof="rdfs:Class" resource="http://schema.org/MapCategoryType">
+      <span class="h" property="rdfs:label">MapCategoryType</span>
+      <span property="rdfs:comment">An enumeration of several kinds of Map.</span>
+       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Enumeration">Enumeration</a></span>
+    </div>
+
+    <div typeof="MapCategoryType" resource="http://schema.org/ParkingMap">
+      <span class="h" property="rdfs:label">ParkingMap</span>
+      <span property="rdfs:comment">A parking map.</span>
+    </div>
+    <div typeof="MapCategoryType" resource="http://schema.org/SeatingMap">
+      <span class="h" property="rdfs:label">SeatingMap</span>
+      <span property="rdfs:comment">A seating map.</span>
+    </div>
+    <div typeof="MapCategoryType" resource="http://schema.org/VenueMap">
+      <span class="h" property="rdfs:label">VenueMap</span>
+      <span property="rdfs:comment">A venue map (e.g. for malls, auditoriums, museums, etc.).</span>
+    </div>
+    <div typeof="MapCategoryType" resource="http://schema.org/TransitMap">
+      <span class="h" property="rdfs:label">TransitMap</span>
+      <span property="rdfs:comment">A transit map.</span>
+    </div>
+
+    <div typeof="rdf:Property" resource="http://schema.org/mapType">
+      <span class="h" property="rdfs:label">mapType</span>
+      <span property="rdfs:comment">Indicates the kind of Map, from the MapCategoryType Enumeration.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Map">Map</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/MapCategoryType">MapCategoryType</a></span>
+    </div>
+
     <div typeof="rdfs:Class" resource="http://schema.org/Mass">
       <span class="h" property="rdfs:label">Mass</span>
       <span property="rdfs:comment">Properties that take Mass as values are of the form &#39;&amp;lt;Number&amp;gt; &amp;lt;Mass unit of measure&amp;gt;&#39;. E.g., &#39;7 kg&#39;</span>
@@ -4727,7 +4757,7 @@
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/associatedMedia">
       <span class="h" property="rdfs:label">associatedMedia</span>
-      <span property="rdfs:comment">The media objects that encode this creative work. This property is a synonym for encodings.</span>
+      <span property="rdfs:comment">A media object that encodes this CreativeWork. This property is a synonym for encoding.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CreativeWork">CreativeWork</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/MediaObject">MediaObject</a></span>
     </div>
@@ -4738,6 +4768,13 @@
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/AnatomicalSystem">AnatomicalSystem</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/SuperficialAnatomy">SuperficialAnatomy</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/organizer">
+      <span class="h" property="rdfs:label">organizer</span>
+      <span property="rdfs:comment">An organizer of an Event.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Event">Event</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Person">Person</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Organization">Organization</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/attendee">
       <span class="h" property="rdfs:label">attendee</span>
@@ -5876,13 +5913,13 @@
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/encodesCreativeWork">
       <span class="h" property="rdfs:label">encodesCreativeWork</span>
-      <span property="rdfs:comment">The creative work encoded by this media object</span>
+      <span property="rdfs:comment">The CreativeWork encoded by this media object.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MediaObject">MediaObject</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/CreativeWork">CreativeWork</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/encoding">
       <span class="h" property="rdfs:label">encoding</span>
-      <span property="rdfs:comment">A media object that encode this CreativeWork.</span>
+      <span property="rdfs:comment">A media object that encodes this CreativeWork. This property is a synonym for associatedMedia.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CreativeWork">CreativeWork</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/MediaObject">MediaObject</a></span>
     </div>
@@ -5895,7 +5932,7 @@
     <div typeof="rdf:Property" resource="http://schema.org/encodings">
       <span class="h" property="rdfs:label">encodings</span>
       <span property="http://schema.org/supercededBy" href="http://schema.org/encoding"/>
-      <span property="rdfs:comment">The media objects that encode this creative work (legacy spelling; see singular form, encoding).</span>
+      <span property="rdfs:comment">A media object that encodes this CreativeWork (legacy spelling; see singular form, encoding).</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CreativeWork">CreativeWork</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/MediaObject">MediaObject</a></span>
     </div>
@@ -6435,6 +6472,7 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
       <span property="rdfs:comment">URL of an image of the item.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Thing">Thing</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/URL">URL</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/ImageObject">ImageObject</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/imagingTechnique">
       <span class="h" property="rdfs:label">imagingTechnique</span>
@@ -6622,9 +6660,9 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/isPartOf">
       <span class="h" property="rdfs:label">isPartOf</span>
-      <span property="rdfs:comment">Indicates the collection or gallery to which the item belongs.</span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/WebPage">WebPage</a></span>
-      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/CollectionPage">CollectionPage</a></span>
+      <span property="rdfs:comment">Indicates a CreativeWork that this CreativeWork is (in some sense) part of.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CreativeWork">CreativeWork</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/CreativeWork">CreativeWork</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/isProprietary">
       <span class="h" property="rdfs:label">isProprietary</span>
@@ -6868,15 +6906,23 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Product">Product</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Organization">Organization</a></span>
     </div>
+    <div typeof="rdf:Property" resource="http://schema.org/hasMap">
+      <span class="h" property="rdfs:label">hasMap</span>
+      <span property="rdfs:comment">A URL to a map of the place.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Place">Place</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/URL">URL</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Map">Map</a></span>
+    </div>
     <div typeof="rdf:Property" resource="http://schema.org/map">
       <span class="h" property="rdfs:label">map</span>
       <span property="rdfs:comment">A URL to a map of the place.</span>
+      <span property="http://schema.org/supercededBy" href="http://schema.org/hasMap"/>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Place">Place</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/URL">URL</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/maps">
       <span class="h" property="rdfs:label">maps</span>
-      <span property="http://schema.org/supercededBy" href="http://schema.org/map"/>
+      <span property="http://schema.org/supercededBy" href="http://schema.org/hasMap"/>
       <span property="rdfs:comment">A URL to a map of the place (legacy spelling; see singular form, map).</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Place">Place</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/URL">URL</a></span>
@@ -12544,6 +12590,14 @@ on public-vocabs@w3.org.</p>
       <span>domainIncludes: <a property="http://schema.org/domainIncludes" href="http://schema.org/OrganizationRole">OrganizationRole</a></span>
       <span>rangeIncludes: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
       <span>rangeIncludes: <a property="http://schema.org/rangeIncludes" href="http://schema.org/URL">URL</a></span>
+    </div>
+
+    <h1>WebSite</h1>
+
+    <div typeof="rdfs:Class" resource="http://schema.org/WebSite">
+      <span class="h" property="rdfs:label">WebSite</span>
+      <span property="rdfs:comment">A WebSite is a set of related web pages and other items typically served from a single web domain and accessible via URLs.</span>
+    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/CreativeWork">CreativeWork</a></span>
     </div>
 
   </body>

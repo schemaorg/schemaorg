@@ -60,8 +60,8 @@ headers = '''<!DOCTYPE html>
   .atv    { color: #314B17; } /* href, datetime             */
   .new    { color: #660003; } /* itemscope, itemtype, etc,. */
   .curl   { color: #080;    } /* new url                    */
-  
-  table.definition-table { 
+
+  table.definition-table {
     border-spacing: 3px;
     border-collapse: separate;
   }
