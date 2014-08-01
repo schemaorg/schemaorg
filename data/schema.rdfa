@@ -10721,7 +10721,6 @@ on public-vocabs@w3.org.</p>
       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/LifeEvent">LifeEvent</a></span>
     </div>
 
-<<<<<<< HEAD
     <div typeof="rdfs:Class" resource="http://schema.org/MuscularSystem">
       <span class="h" property="rdfs:label">MuscularSystem</span>
       <span property="rdfs:comment"> An organ system consisting of skeletal, smooth and cardiac muscles.</span>
@@ -11287,6 +11286,7 @@ on public-vocabs@w3.org.</p>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Person">Person</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Birth">Birth</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://purl.bioontology.org/ontology/SNOMEDCT/169812000">sctid:169812000</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Place">Place</a></span>
     </div>
 
     <div typeof="rdf:Property" resource="http://schema.org/birthWeight">
@@ -12507,7 +12507,84 @@ on public-vocabs@w3.org.</p>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Drug">Drug</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/TherapeuticProcedure">TherapeuticProcedure</a></span>
     </div>
+	
+    <div typeof="rdfs:Class" resource="http://schema.org/DrugPackage">
+      <span class="h" property="rdfs:label">DrugPackage</span>
+      <span property="rdfs:comment">The drug or medicine package</span>
+      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Drug">Drug</a></span>
+    </div>
+	
+<div typeof="rdfs:Class" resource="http://schema.org/MedicalSpecimenDonor">
+      <span class="h" property="rdfs:label">MedicalSpecimenDonor</span>
+      <span property="rdfs:comment">Medical Specimen Donor</span>
+      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org#MedicalSpecimen">MedicalSpecimen</a></span>
+    </div>
 
+    <div typeof="rdfs:Class" resource="http://schema.org/MedicalSpecimenReceiver">
+      <span class="h" property="rdfs:label">MedicalSpecimenReceiver</span>
+      <span property="rdfs:comment">Medical Specimen Receiver</span>
+      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org#MedicalSpecimen">MedicalSpecimen</a></span>
+    </div>
+
+    <div typeof="rdfs:Class" resource="http://schema.org/MedicalSpecimen">
+      <span class="h" property="rdfs:label">MedicalSpecimen</span>
+      <span property="rdfs:comment">Material (structure, substance, device) removed from a source (patient, donor, physical location, product)</span>
+      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MedicalEntity">MedicalEntity</a></span>
+    </div>
+
+    <div typeof="rdf:Property" resource="http://schema.org#drugPackage">
+      <span class="h" property="rdfs:label">drugPackage</span>
+      <span property="rdfs:comment">Specifying the drug package resource</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Drug">Drug</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org#DrugPackage">DrugPackage</a></span>
+    </div>
+
+    <div typeof="rdf:Property" resource="http://schema.org#familyRelationshipName">
+      <span class="h" property="rdfs:label">familyRelationshipName</span>
+      <span property="rdfs:comment">Specifying the label of any relationship between persons. </span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/FamilyRelation">FamilyRelation</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+    </div>
+
+<div typeof="rdf:Property" resource="http://schema.org#medicalSpecimenDonor">
+      <span class="h" property="rdfs:label">medicalSpecimenDonor</span>
+      <span property="rdfs:comment">The specimen donor</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org#MedicalSpecimen">MedicalSpecimen</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Person">Person</a></span>
+    </div>
+
+    <div typeof="rdf:Property" resource="http://schema.org#medicalSpecimenReceiver">
+      <span class="h" property="rdfs:label">medicalSpecimenReceiver</span>
+      <span property="rdfs:comment">The specimen receiver</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org#MedicalSpecimen">MedicalSpecimen</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Person">Person</a></span>
+    </div>
+
+    <div typeof="rdf:Property" resource="http://schema.org#medicalSpecimen">
+      <span class="h" property="rdfs:label">medicalSpecimen</span>
+      <span property="rdfs:comment">Specifying a medical specimen resource for a person</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MedicalProcedure">MedicalProcedure</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Person">Person</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org#MedicalSpecimen">MedicalSpecimen</a></span>
+    </div>
+
+    <div typeof="rdf:Property" resource="http://schema.org#receiptDate">
+      <span class="h" property="rdfs:label">receiptDate</span>
+      <span property="rdfs:comment">The date when the medical specimen was received</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org#MedicalSpecimen">MedicalSpecimen</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/DateTime">DateTime</a></span>
+      <span>SubProperty of: <a property="rdfs:subPropertyOf" href="http://schema.org/dateTime">dateTime</a></span>
+    </div>
+
+    <div typeof="rdf:Property" resource="http://schema.org#specimenCollectionDate">
+      <span class="h" property="rdfs:label">specimenCollectionDate</span>
+      <span property="rdfs:comment">The date when the medical specimen was collected</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org#MedicalSpecimen">MedicalSpecimen</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/DateTime">DateTime</a></span>
+      <span>SubProperty of: <a property="rdfs:subPropertyOf" href="http://schema.org/dateTime">dateTime</a></span>
+    </div>
+	
+	
     <div typeof="rdf:Property" resource="http://schema.org/triageProcedure">
       <span class="h" property="rdfs:label">triageProcedure</span>
       <span property="rdfs:comment">Specifying a triage procedure resource</span>
