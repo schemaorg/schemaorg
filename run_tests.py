@@ -24,6 +24,6 @@ def main(sdk_path, test_path):
 if __name__ == '__main__':
 
     from os.path import expanduser
-    SDK_PATH = 'C:\Program Files (x86)\Google\google_appengine'
+    SDK_PATH = expanduser("~") + '/google-cloud-sdk/platform/google_appengine/'
     TEST_PATH = './tests/'
     main(SDK_PATH, TEST_PATH)
