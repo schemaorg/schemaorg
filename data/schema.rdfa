@@ -824,13 +824,15 @@
       <span class="h" property="rdfs:label">MedicalTherapy</span>
       <span property="rdfs:comment">Any medical intervention designed to prevent, treat, and cure human diseases and medical conditions, including both curative and palliative therapies. Medical therapies are typically processes of care relying upon pharmacotherapy, behavioral therapy, supportive therapy (with fluid or nutrition for example), or detoxification (e.g. hemodialysis) aimed at improving or preventing a health condition.</span>
      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/TherapeuticProcedure">TherapeuticProcedure</a></span>
-       <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_WikiDoc">WikiDoc</a></span></div>
-
+     <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_WikiDoc">WikiDoc</a></span>
+	</div>
+	
     <div typeof="rdfs:Class" resource="http://schema.org/LifestyleModification">
       <span class="h" property="rdfs:label">LifestyleModification</span>
       <span property="rdfs:comment">A process of care involving exercise, changes to diet, fitness routines, and other lifestyle changes aimed at improving a health condition.</span>
        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MedicalTherapy">MedicalTherapy</a></span>
-       <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_WikiDoc">WikiDoc</a></span></div>
+       <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_WikiDoc">WikiDoc</a></span>
+	   </div>
 
     <div typeof="rdfs:Class" resource="http://schema.org/Diet">
       <span class="h" property="rdfs:label">Diet</span>
@@ -862,23 +864,24 @@
       <span property="rdfs:comment">A specific dosing schedule for a drug or supplement.</span>
        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MedicalIntangible">MedicalIntangible</a></span>
     </div>
-
+	
     <div typeof="rdfs:Class" resource="http://schema.org/Drug">
       <span class="h" property="rdfs:label">Drug</span>
-      <span property="rdfs:comment">A chemical or biologic substance, used as a medical therapy, that has a physiological effect on an organism.</span>
-       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MedicalTherapy">MedicalTherapy</a></span>
-       <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_WikiDoc">WikiDoc</a></span></div>
+      <span property="rdfs:comment">A chemical or biologic substance, used as a medical therapy, that has a physiological effect on an organism. Here the term drug is used interchangeably with the term medicine although clinical knowledge make a clear difference between them.</span>
+	  <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/PharmaceuticalSubstance">PharmaceuticalSubstance</a></span>  
+       <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_WikiDoc">WikiDoc</a></span>
+	</div>
 
     <div typeof="rdfs:Class" resource="http://schema.org/DrugClass">
       <span class="h" property="rdfs:label">DrugClass</span>
       <span property="rdfs:comment">A class of medical drugs, e.g., statins. Classes can represent general pharmacological class, common mechanisms of action, common physiological effects, etc.</span>
-       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MedicalTherapy">MedicalTherapy</a></span>
+	  <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MedicalEnumeration">MedicalEnumeration</a></span> 
        <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_WikiDoc">WikiDoc</a></span></div>
 
     <div typeof="rdfs:Class" resource="http://schema.org/DrugCost">
       <span class="h" property="rdfs:label">DrugCost</span>
       <span property="rdfs:comment">The cost per unit of a medical drug. Note that this type is not meant to represent the price in an offer of a drug for sale; see the Offer type for that. This type will typically be used to tag wholesale or average retail cost of a drug, or maximum reimbursable cost. Costs of medical drugs vary widely depending on how and where they are paid for, so while this type captures some of the variables, costs should be used with caution by consumers of this schema&#39;s markup.</span>
-       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MedicalIntangible">MedicalIntangible</a></span>
+       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MedicalEnumeration">MedicalEnumeration</a></span>
     </div>
 
     <div typeof="rdfs:Class" resource="http://schema.org/MedicalEnumeration">
@@ -3017,9 +3020,8 @@
       <span class="h" property="rdfs:label">TherapeuticProcedure</span>
       <span property="rdfs:comment">A medical procedure intended primarily for therapeutic purposes, aimed at improving a health condition.</span>
        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MedicalProcedure">MedicalProcedure</a></span>
-       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MedicalTherapy">MedicalTherapy</a></span>
-       <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_WikiDoc">WikiDoc</a></span></div>
-
+       <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_WikiDoc">WikiDoc</a></span></div> 
+	   
     <div typeof="rdfs:Class" resource="http://schema.org/Time">
       <span class="h" property="rdfs:label">Time</span>
       <span property="rdfs:comment">A point in time recurring on multiple days in the form hh:mm:ss[Z|(+|-)hh:mm] (see &lt;a href=&quot;http://www.w3.org/TR/xmlschema-2/#time&quot;&gt;XML schema for details&lt;/a&gt;).</span>
@@ -10295,12 +10297,6 @@ on public-vocabs@w3.org.</p>
       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MedicalCondition">MedicalCondition</a></span>
     </div>
 
-    <div typeof="rdfs:Class" resource="http://schema.org/Drug">
-      <span class="h" property="rdfs:label">Drug</span>
-      <span property="rdfs:comment">Any articles intended for use in the diagnosis, cure, mitigation, treatment, or prevention of disease in man or other animals. Here the term drug is used interchangeably with the term medicine although clinical knowledge make a clear difference between them.</span>
-      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/PharmaceuticalSubstance">PharmaceuticalSubstance</a></span>
-    </div>
-
     <div typeof="rdfs:Class" resource="http://schema.org/EHR">
       <span class="h" property="rdfs:label">EHR</span>
       <span property="rdfs:comment">The Electronic Health Record (EHR) is an electronic record of health-related information on an individual that conforms to nationally recognized interoperability standards and that can be created, managed, and consulted by authorized clinicians and staff across more than one health care organization.US NAHIT</span>
@@ -10810,7 +10806,7 @@ on public-vocabs@w3.org.</p>
       <span property="rdfs:comment">Any chemical substance formulated or compounded as single active ingredient or in combination of other pharmacologically active substance, intended for internal, or external or for use in the medical diagnosis, cure, treatment, or prevention of disease</span>
       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/ChemicalSubstance">ChemicalSubstance</a></span>
     </div>
-
+	
     <div typeof="rdfs:Class" resource="http://schema.org/Pharmacotherapy">
       <span class="h" property="rdfs:label">Pharmacotherapy</span>
       <span property="rdfs:comment">Pharmacotherapy or drug therapy or medication is the treatment of disease through the administration of drugs.</span>
@@ -11009,12 +11005,6 @@ on public-vocabs@w3.org.</p>
       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/AnamnesisProcedure">AnamnesisProcedure</a></span>
     </div>
 
-    <div typeof="rdfs:Class" resource="http://schema.org/TherapeuticProcedure">
-      <span class="h" property="rdfs:label">TherapeuticProcedure</span>
-      <span property="rdfs:comment">Any medical procedure concerned with the prevention or treatment of medical conditions. </span>
-      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MedicalProcedure">MedicalProcedure</a></span>
-    </div>
-
     <div typeof="rdfs:Class" resource="http://schema.org/MedicalTransfer">
       <span class="h" property="rdfs:label">MedicalTransfer</span>
       <span property="rdfs:comment">Procedure consisting in transferring a patient from a health care environment to another</span>
@@ -11137,6 +11127,8 @@ on public-vocabs@w3.org.</p>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://purl.bioontology.org/ontology/SNOMEDCT/277132007">sctid:277132007</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://purl.bioontology.org/ontology/SNOMEDCT/410942007">sctid:410942007</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Patient">Patient</a></span>
+	  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Drug">Drug</a></span>
+	  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/DrugClass">DrugClass</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/TherapeuticProcedure">TherapeuticProcedure</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://purl.bioontology.org/ontology/SNOMEDCT/62014003">sctid:62014003</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/AdverseDrugReaction">AdverseDrugReaction</a></span>
@@ -12511,7 +12503,7 @@ on public-vocabs@w3.org.</p>
     <div typeof="rdfs:Class" resource="http://schema.org/DrugPackage">
       <span class="h" property="rdfs:label">DrugPackage</span>
       <span property="rdfs:comment">The drug or medicine package</span>
-      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Drug">Drug</a></span>
+ 	  <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MedicalEnumeration">MedicalEnumeration</a></span>  
     </div>
 	
 	<div typeof="rdfs:Class" resource="http://schema.org/MedicalSpecimenDonor">
