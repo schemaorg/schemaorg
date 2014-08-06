@@ -809,10 +809,10 @@
 
     <div typeof="rdfs:Class" resource="http://schema.org/MedicalProcedure">
       <span class="h" property="rdfs:label">MedicalProcedure</span>
-      <span property="rdfs:comment">A process of care used in either a diagnostic, therapeutic, or palliative capacity that relies on invasive (surgical), non-invasive, or percutaneous techniques.</span>
+      <span property="rdfs:comment">A process of care used in either a diagnostic, therapeutic, preventive or palliative capacity that relies on invasive (surgical), non-invasive, or other techniques.</span>
        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MedicalEntity">MedicalEntity</a></span>
        <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_WikiDoc">WikiDoc</a></span></div>
-
+	   
     <div typeof="rdfs:Class" resource="http://schema.org/DiagnosticProcedure">
       <span class="h" property="rdfs:label">DiagnosticProcedure</span>
       <span property="rdfs:comment">A medical procedure intended primarily for diagnostic, as opposed to therapeutic, purposes.</span>
@@ -1323,9 +1323,9 @@
     <div typeof="rdfs:Class" resource="http://schema.org/MedicalCondition">
       <span class="h" property="rdfs:label">MedicalCondition</span>
       <span property="rdfs:comment">Any condition of the human body that affects the normal functioning of a person, whether physically or mentally. Includes diseases, injuries, disabilities, disorders, syndromes, etc.</span>
-       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MedicalEntity">MedicalEntity</a></span>
+       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/ClinicalFinding">ClinicalFinding</a></span>
        <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_WikiDoc">WikiDoc</a></span></div>
-
+	   
     <div typeof="rdfs:Class" resource="http://schema.org/InfectiousDisease">
       <span class="h" property="rdfs:label">InfectiousDisease</span>
       <span property="rdfs:comment">An infectious disease is a clinically evident human disease resulting from the presence of pathogenic microbial agents, like pathogenic viruses, pathogenic bacteria, fungi, protozoa, multicellular parasites, and prions. To be considered an infectious disease, such pathogens are known to be able to cause this disease.</span>
@@ -1560,22 +1560,18 @@
       <span property="rdfs:comment">Medical researchers.</span>
     </div>
 
-    <div typeof="http://schema.org/MedicalAudience" resource="http://schema.org/Patient">
+    <div typeof="rdfs:Class" resource="http://schema.org/Patient">
       <span class="h" property="rdfs:label">Patient</span>
-      <span property="rdfs:comment">Patients.</span>
+      <span property="rdfs:comment">A patient is any person recipient of health care services.</span>
+      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Person">Person</a></span>
+      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MedicalAudience">MedicalAudience</a></span>	  
     </div>
-
+	
     <div typeof="rdfs:Class" resource="http://schema.org/MedicalCause">
       <span class="h" property="rdfs:label">MedicalCause</span>
       <span property="rdfs:comment">The causative agent(s) that are responsible for the pathophysiologic process that eventually results in a medical condition, symptom or sign. In this schema, unless otherwise specified this is meant to be the proximate cause of the medical condition, symptom or sign. The proximate cause is defined as the causative agent that most directly results in the medical condition, symptom or sign. For example, the HIV virus could be considered a cause of AIDS. Or in a diagnostic context, if a patient fell and sustained a hip fracture and two days later sustained a pulmonary embolism which eventuated in a cardiac arrest, the cause of the cardiac arrest (the proximate cause) would be the pulmonary embolism and not the fall. &lt;p&gt;Medical causes can include cardiovascular, chemical, dermatologic, endocrine, environmental, gastroenterologic, genetic, hematologic, gynecologic, iatrogenic, infectious, musculoskeletal, neurologic, nutritional, obstetric, oncologic, otolaryngologic, pharmacologic, psychiatric, pulmonary, renal, rheumatologic, toxic, traumatic, or urologic causes; medical conditions can be causes as well.</span>
        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MedicalEntity">MedicalEntity</a></span>
        <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_WikiDoc">WikiDoc</a></span></div>
-
-    <div typeof="rdfs:Class" resource="http://schema.org/MedicalClinic">
-      <span class="h" property="rdfs:label">MedicalClinic</span>
-      <span property="rdfs:comment">A medical clinic.</span>
-       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MedicalOrganization">MedicalOrganization</a></span>
-    </div>
 
     <div typeof="rdfs:Class" resource="http://schema.org/MedicalCode">
       <span class="h" property="rdfs:label">MedicalCode</span>
@@ -1680,11 +1676,6 @@
       <span property="rdfs:comment">Positron emission tomography imaging.</span>
     </div>
 
-    <div typeof="http://schema.org/MedicalImagingTechnique" resource="http://schema.org/Ultrasound">
-      <span class="h" property="rdfs:label">Ultrasound</span>
-      <span property="rdfs:comment">Ultrasound imaging.</span>
-    </div>
-
     <div typeof="http://schema.org/MedicalImagingTechnique" resource="http://schema.org/XRay">
       <span class="h" property="rdfs:label">XRay</span>
       <span property="rdfs:comment">X-ray imaging.</span>
@@ -1756,11 +1747,12 @@
       <span property="rdfs:comment">A type of medical procedure that involves percutaneous techniques, where access to organs or tissue is achieved via needle-puncture of the skin. For example, catheter-based procedures like stent delivery.</span>
     </div>
 
-    <div typeof="http://schema.org/MedicalProcedureType" resource="http://schema.org/SurgicalProcedure">
+    <div typeof="rdfs:Class" resource="http://schema.org/SurgicalProcedure">
       <span class="h" property="rdfs:label">SurgicalProcedure</span>
-      <span property="rdfs:comment">A type of medical procedure that involves invasive surgical techniques.</span>
-    </div>
-
+      <span property="rdfs:comment">A medical procedure involving an incision with instruments; performed for diagnose, or therapeutic purposes</span>
+      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MedicalProcedure">MedicalProcedure</a></span>
+    </div>	
+	
     <div typeof="rdfs:Class" resource="http://schema.org/MedicalRiskEstimator">
       <span class="h" property="rdfs:label">MedicalRiskEstimator</span>
       <span property="rdfs:comment">Any rule set or interactive tool for estimating the risk of developing a complication or condition.</span>
@@ -2626,12 +2618,12 @@
       <span class="h" property="rdfs:label">Throat</span>
       <span property="rdfs:comment">Throat</span>
     </div>
-
-    <div typeof="http://schema.org/PhysicalExam" resource="http://schema.org/VitalSign">
+    <div typeof="rdfs:Class" resource="http://schema.org/VitalSign">
       <span class="h" property="rdfs:label">VitalSign</span>
-      <span property="rdfs:comment">VitalSign</span>
+      <span property="rdfs:comment">Vital signs are measures of various physiological functions in order to assess the most basic body functions</span>
+      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MedicalSign">MedicalSign</a></span>
     </div>
-
+	
     <div typeof="rdfs:Class" resource="http://schema.org/PhysicalTherapy">
       <span class="h" property="rdfs:label">PhysicalTherapy</span>
       <span property="rdfs:comment">A process of progressive physical care and rehabilitation aimed at improving a health condition.</span>
@@ -5156,11 +5148,12 @@
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/cause">
       <span class="h" property="rdfs:label">cause</span>
-      <span property="rdfs:comment">An underlying cause. More specifically, one of the causative agent(s) that are most directly responsible for the pathophysiologic process that eventually results in the occurrence.</span>
+      <span property="rdfs:comment">Specifying a cause of something in general. e.g in medicine , one of the causative agent(s) that are most directly responsible for the pathophysiologic process that eventually results in the occurrence.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MedicalCondition">MedicalCondition</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MedicalSignOrSymptom">MedicalSignOrSymptom</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/MedicalCause">MedicalCause</a></span>
     </div>
+	
     <div typeof="rdf:Property" resource="http://schema.org/causeOf">
       <span class="h" property="rdfs:label">causeOf</span>
       <span property="rdfs:comment">The condition, complication, symptom, sign, etc. caused.</span>
@@ -5292,11 +5285,12 @@
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/comprisedOf">
       <span class="h" property="rdfs:label">comprisedOf</span>
-      <span property="rdfs:comment">The underlying anatomical structures, such as organs, that comprise the anatomical system.</span>
+      <span property="rdfs:comment">Specifying something physically contained by something else. Typically used here for the underlying anatomical structures, such as organs, that comprise the anatomical system.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/AnatomicalSystem">AnatomicalSystem</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/AnatomicalStructure">AnatomicalStructure</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/AnatomicalSystem">AnatomicalSystem</a></span>
     </div>
+	
     <div typeof="rdf:Property" resource="http://schema.org/confirmationNumber">
       <span class="h" property="rdfs:label">confirmationNumber</span>
       <span property="rdfs:comment">A number that confirms the given order.</span>
@@ -5586,10 +5580,14 @@
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/diagnosis">
       <span class="h" property="rdfs:label">diagnosis</span>
-      <span property="rdfs:comment">One or more alternative conditions considered in the differential diagnosis process.</span>
+      <span property="rdfs:comment">One or more alternative conditions considered in the differential diagnosis process as output of a diagnosis process.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/DDxElement">DDxElement</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Patient">Patient</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/MedicalCondition">MedicalCondition</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://purl.bioontology.org/ontology/SNOMEDCT/439401001">sctid:439401001</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/MedicalCondition">MedicalCondition</a></span>
     </div>
+	
     <div typeof="rdf:Property" resource="http://schema.org/diagram">
       <span class="h" property="rdfs:label">diagram</span>
       <span property="rdfs:comment">An image containing a diagram that illustrates the structure and/or its component substructures and/or connections with other structures.</span>
@@ -5751,12 +5749,18 @@
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Vein">Vein</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Vessel">Vessel</a></span>
     </div>
+	
     <div typeof="rdf:Property" resource="http://schema.org/drug">
       <span class="h" property="rdfs:label">drug</span>
-      <span property="rdfs:comment">A drug in this drug class.</span>
+      <span property="rdfs:comment">Specifying a drug or medicine used in a medication procedure</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/DrugClass">DrugClass</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MedicalCondition">MedicalCondition</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Patient">Patient</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/TherapeuticProcedure">TherapeuticProcedure</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://purl.bioontology.org/ontology/SNOMEDCT/410942007">sctid:410942007</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Drug">Drug</a></span>
     </div>
+	
     <div typeof="rdf:Property" resource="http://schema.org/drugClass">
       <span class="h" property="rdfs:label">drugClass</span>
       <span property="rdfs:comment">The class of drug this belongs to (e.g., statins).</span>
@@ -8363,7 +8367,9 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
       <span property="rdfs:comment">A sibling of the person.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Person">Person</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Person">Person</a></span>
+      <span>SubProperty of: <a property="rdfs:subPropertyOf" href="http://schema.org/familyMember">familyMember</a></span>
     </div>
+
     <div typeof="rdf:Property" resource="http://schema.org/siblings">
       <span class="h" property="rdfs:label">siblings</span>
       <span property="http://schema.org/supercededBy" href="http://schema.org/sibling"/>
@@ -8496,7 +8502,9 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
       <span property="rdfs:comment">The person&#39;s spouse.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Person">Person</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Person">Person</a></span>
+      <span>SubProperty of: <a property="rdfs:subPropertyOf" href="http://schema.org/familyMember">familyMember</a></span>
     </div>
+	
     <div typeof="rdf:Property" resource="http://schema.org/stage">
       <span class="h" property="rdfs:label">stage</span>
       <span property="rdfs:comment">The stage of the condition, if applicable.</span>
@@ -10267,12 +10275,6 @@ on public-vocabs@w3.org.</p>
       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MedicalCondition">MedicalCondition</a></span>
     </div>
 
-    <div typeof="rdfs:Class" resource="http://schema.org/DiagnosticProcedure">
-      <span class="h" property="rdfs:label">DiagnosticProcedure</span>
-      <span property="rdfs:comment">A set of process performed to help diagnose a disease or condition</span>
-      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MedicalProcedure">MedicalProcedure</a></span>
-    </div>
-
     <div typeof="rdfs:Class" resource="http://schema.org/DigestiveSystem">
       <span class="h" property="rdfs:label">DigestiveSystem</span>
       <span property="rdfs:comment">The human digestive system is a complex series of organs and glands that processes food. Digestion involves the breakdown of food into smaller and smaller components which can be absorbed and assimilated into the body.</span>
@@ -10577,12 +10579,7 @@ on public-vocabs@w3.org.</p>
       <span class="h" property="rdfs:label">MedicalClinic</span>
       <span property="rdfs:comment">A facility, often associated with a hospital or medical school, that is devoted to the specific diagnosis and/or healthcare. Previously limited to outpatients but with evolution it may be open to inpatients as well.</span>
       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/HealthFacility">HealthFacility</a></span>
-    </div>
-
-    <div typeof="rdfs:Class" resource="http://schema.org/MedicalCondition">
-      <span class="h" property="rdfs:label">MedicalCondition</span>
-      <span property="rdfs:comment">A medical condition is an abnormal condition that affects the body of an organism. It is often construed as a disease when associated with specific symptoms and signs. A medical condition is a broad term that includes all diseases and disorders.</span>
-      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/ClinicalFinding">ClinicalFinding</a></span>
+       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MedicalOrganization">MedicalOrganization</a></span>
     </div>
 
     <div typeof="rdfs:Class" resource="http://schema.org/MedicalDepartment">
@@ -10633,12 +10630,6 @@ on public-vocabs@w3.org.</p>
       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/ClinicalDocument">ClinicalDocument</a></span>
     </div>
 
-    <div typeof="rdfs:Class" resource="http://schema.org/MedicalProcedure">
-      <span class="h" property="rdfs:label">MedicalProcedure</span>
-      <span property="rdfs:comment">A series of steps taken with defined manner of performing something; a method or technique within medical examination, treatment, or other act having preventive, administrative, diagnostic, therapeutic or rehabilitative aims. </span>
-      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MedicalEntity">MedicalEntity</a></span>
-    </div>
-
     <div typeof="rdfs:Class" resource="http://schema.org/MedicalRecord">
       <span class="h" property="rdfs:label">MedicalRecord</span>
       <span property="rdfs:comment">Any kind of patient related information record. This can be paper or digital</span>
@@ -10660,12 +10651,6 @@ on public-vocabs@w3.org.</p>
     <div typeof="rdfs:Class" resource="http://schema.org/MedicalScore">
       <span class="h" property="rdfs:label">MedicalScore</span>
       <span property="rdfs:comment">The number of points achieved by a individual through a systematic evaluation.</span>
-      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MedicalEntity">MedicalEntity</a></span>
-    </div>
-
-    <div typeof="rdfs:Class" resource="http://schema.org/MedicalSpecialty">
-      <span class="h" property="rdfs:label">MedicalSpecialty</span>
-      <span property="rdfs:comment">A specialty (or specialty) in medicine is a branch of medical science.</span>
       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MedicalEntity">MedicalEntity</a></span>
     </div>
 
@@ -10777,22 +10762,10 @@ on public-vocabs@w3.org.</p>
       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MedicalRecord">MedicalRecord</a></span>
     </div>
 
-    <div typeof="rdfs:Class" resource="http://schema.org/PalliativeProcedure">
-      <span class="h" property="rdfs:label">PalliativeProcedure</span>
-      <span property="rdfs:comment">Any procedure related to a care that offers pain and symptom management and emotional and spiritual support when you face a chronic, debilitating or life-threatening illness.</span>
-      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MedicalProcedure">MedicalProcedure</a></span>
-    </div>
-
     <div typeof="rdfs:Class" resource="http://schema.org/PastMedicalHistory">
       <span class="h" property="rdfs:label">PastMedicalHistory</span>
       <span property="rdfs:comment">The total sum of a patient's health status and morbidity events prior to the presenting problem</span>
       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/PersonalHistory">PersonalHistory</a></span>
-    </div>
-
-    <div typeof="rdfs:Class" resource="http://schema.org/Patient">
-      <span class="h" property="rdfs:label">Patient</span>
-      <span property="rdfs:comment">A patient is any person recipient of health care services.</span>
-      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Person">Person</a></span>
     </div>
 
     <div typeof="rdfs:Class" resource="http://schema.org/PersonalHistory">
@@ -10987,12 +10960,6 @@ on public-vocabs@w3.org.</p>
       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MedicalEntity">MedicalEntity</a></span>
     </div>
 
-    <div typeof="rdfs:Class" resource="http://schema.org/SurgicalProcedure">
-      <span class="h" property="rdfs:label">SurgicalProcedure</span>
-      <span property="rdfs:comment">A medical procedure involving an incision with instruments; performed for diagnose, or therapeutic purposes in a living body</span>
-      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MedicalProcedure">MedicalProcedure</a></span>
-    </div>
-
     <div typeof="rdfs:Class" resource="http://schema.org/Syndrome">
       <span class="h" property="rdfs:label">Syndrome</span>
       <span property="rdfs:comment">A syndrome is the association of several medical signs, symptoms, and or other characteristics that often occur together.</span>
@@ -11051,12 +11018,6 @@ on public-vocabs@w3.org.</p>
       <span class="h" property="rdfs:label">VesselsFunction</span>
       <span property="rdfs:comment">The function of vessels in human body</span>
       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/PhysiologicalEntity">PhysiologicalEntity</a></span>
-    </div>
-
-    <div typeof="rdfs:Class" resource="http://schema.org/VitalSign">
-      <span class="h" property="rdfs:label">VitalSign</span>
-      <span property="rdfs:comment">Vital signs are measures of various physiological functions in order to assess the most basic body functions</span>
-      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MedicalSign">MedicalSign</a></span>
     </div>
 
     <div typeof="rdfs:Class" resource="http://schema.org/WaistCircumference">
@@ -11394,14 +11355,6 @@ on public-vocabs@w3.org.</p>
       <span>SubProperty of: <a property="rdfs:subPropertyOf" href="http://schema.org/status">status</a></span>
     </div>
 
-    <div typeof="rdf:Property" resource="http://schema.org/cause">
-      <span class="h" property="rdfs:label">cause</span>
-      <span property="rdfs:comment">Specifying a cause of something. when it's established. </span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MedicalCondition">MedicalCondition</a></span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MedicalSignOrSymptom">MedicalSignOrSymptom</a></span>
-      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/MedicalCause">MedicalCause</a></span>
-    </div>
-
     <div typeof="rdf:Property" resource="http://schema.org/chiefComplaint">
       <span class="h" property="rdfs:label">chiefComplaint</span>
       <span property="rdfs:comment">Specifying a chief complaint resource</span>
@@ -11442,14 +11395,6 @@ on public-vocabs@w3.org.</p>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/MedicalCondition">MedicalCondition</a></span>
     </div>
 
-    <div typeof="rdf:Property" resource="http://schema.org/comprisedOf">
-      <span class="h" property="rdfs:label">comprisedOf</span>
-      <span property="rdfs:comment">Specifying something physically contained by something else. Typically used here for the underlying anatomical structures, such as organs, that comprise the anatomical system.</span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/AnatomicalSystem">AnatomicalSystem</a></span>
-      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/AnatomicalStructure">AnatomicalStructure</a></span>
-      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/AnatomicalSystem">AnatomicalSystem</a></span>
-    </div>
-
     <div typeof="rdf:Property" resource="http://schema.org/confirmationStatus">
       <span class="h" property="rdfs:label">confirmationStatus</span>
       <span property="rdfs:comment">Specifying the confirmation status of something. eg: confirmed, suspected etc., as outcome of evaluation process</span>
@@ -11480,14 +11425,6 @@ on public-vocabs@w3.org.</p>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Death">Death</a></span>
 	  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Place">Place</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://purl.bioontology.org/ontology/SNOMEDCT/169812000">sctid:169812000</a></span>
-    </div>
-
-    <div typeof="rdf:Property" resource="http://schema.org/diagnosis">
-      <span class="h" property="rdfs:label">diagnosis</span>
-      <span property="rdfs:comment">Specifying a medical condition which is output of a diagnosis process</span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Patient">Patient</a></span>
-      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/MedicalCondition">MedicalCondition</a></span>
-      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://purl.bioontology.org/ontology/SNOMEDCT/439401001">sctid:439401001</a></span>
     </div>
 
     <div typeof="rdf:Property" resource="http://schema.org/diagnosticDate">
@@ -11606,16 +11543,6 @@ on public-vocabs@w3.org.</p>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/HealthcareProfessional">HealthcareProfessional</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/TherapeuticProcedure">TherapeuticProcedure</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://purl.bioontology.org/ontology/SNOMEDCT/105904009">sctid:105904009</a></span>
-    </div>
-
-    <div typeof="rdf:Property" resource="http://schema.org/drug">
-      <span class="h" property="rdfs:label">drug</span>
-      <span property="rdfs:comment">Specifying a drug or medicine used in a medication procedure</span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MedicalCondition">MedicalCondition</a></span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Patient">Patient</a></span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/TherapeuticProcedure">TherapeuticProcedure</a></span>
-      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://purl.bioontology.org/ontology/SNOMEDCT/410942007">sctid:410942007</a></span>
-      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Drug">Drug</a></span>
     </div>
 
     <div typeof="rdf:Property" resource="http://schema.org/educationLevel">
@@ -12343,14 +12270,6 @@ on public-vocabs@w3.org.</p>
       <span>SubProperty of: <a property="rdfs:subPropertyOf" href="http://schema.org/lifestyleOrHabit">lifestyleOrHabit</a></span>
     </div>
 
-    <div typeof="rdf:Property" resource="http://schema.org/sibling">
-      <span class="h" property="rdfs:label">sibling</span>
-      <span property="rdfs:comment">A sibling for this person</span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Person">Person</a></span>
-      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Person">Person</a></span>
-      <span>SubProperty of: <a property="rdfs:subPropertyOf" href="http://schema.org/familyMember">familyMember</a></span>
-    </div>
-
     <div typeof="rdf:Property" resource="http://schema.org/sideEffect">
       <span class="h" property="rdfs:label">sideEffect</span>
       <span property="rdfs:comment">Specifying side effect for a given medical procedure or substance</span>
@@ -12387,14 +12306,6 @@ on public-vocabs@w3.org.</p>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Person">Person</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/SocialHistory">SocialHistory</a></span>
       <span>SubProperty of: <a property="rdfs:subPropertyOf" href="http://schema.org/personalHistory">personalHistory</a></span>
-    </div>
-
-    <div typeof="rdf:Property" resource="http://schema.org/spouse">
-      <span class="h" property="rdfs:label">spouse</span>
-      <span property="rdfs:comment">A spouse of this person</span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Person">Person</a></span>
-      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Person">Person</a></span>
-      <span>SubProperty of: <a property="rdfs:subPropertyOf" href="http://schema.org/familyMember">familyMember</a></span>
     </div>
 
     <div typeof="rdf:Property" resource="http://schema.org/substanceUseOrAbuse">
