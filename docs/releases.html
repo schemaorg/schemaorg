@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Release listing - schema.org</title>
+    <meta name="description" content="Schema.org is a set of extensible schemas that enables webmasters to embed
+    structured data on their web pages for use by search engines and other applications." />
+    <link rel="stylesheet" type="text/css"
+          href="../search_files/schemaorg.css" />
+
+    <link href="../search_files/prettify.css" type="text/css"
+          rel="stylesheet" />
+    <script type="text/javascript" src="../js/prettify.js">
+    </script>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+      $(document).ready(function(){
+        prettyPrint();
+        setTimeout(function(){
+
+    $('.atn').each(function(i) {
+      if (($(this).text() == 'itemscope') || ($(this).text() == 'itemtype') || ($(this).text() == 'itemprop') || ($(this).text() == 'itemid') || ($(this).text() == 'time') || ($(this).text() == 'datetime') || ($(this).text() == 'vocab') || ($(this).text() == 'property') || ($(this).text() == 'typeOf') || ($(this).text() == 'rel'))
+        $(this).addClass('custom');
+    });
+
+        }, 500);
+      });
+</script>
+
+<style>
+
+  .tag    { color: #000; }    /* div, span, etc   */
+  .atn    { color: #000; }    /* href, datetime,  */
+  .custom { color: #660003; } /* itemscope, itemtype, etc,. */
+
+</style>
+
+</head>
+<body>
+    <div id="container">
+        <div id="intro">
+            <div id="pageHeader">
+              <div class="wrapper">
+                <h1>schema.org</h1>
+
+<div id="cse-search-form" style="width: 400px;"></div>
+
+<script type="text/javascript" src="//www.google.com/jsapi"></script>
+<script type="text/javascript">
+  google.load('search', '1', {language : 'en', style : google.loader.themes.ESPRESSO});
+  google.setOnLoadCallback(function() {
+    var customSearchControl = new google.search.CustomSearchControl('013516846811604855281:nj5laplixaa');
+    customSearchControl.setResultSetSize(google.search.Search.FILTERED_CSE_RESULTSET);
+    var options = new google.search.DrawOptions();
+    options.enableSearchboxOnly("../docs/search_results.html", null, false, '#');
+    customSearchControl.draw('cse-search-form', options);
+  }, true);
+</script>
+
+
+              </div>
+            </div>
+        </div>
+    </div>
+
+            <div id="selectionbar">
+               <div class="wrapper">
+                <ul>
+                    <li class="activelink">
+                      <a href="../docs/documents.html">Documentation</a></li>
+                    <li >
+                      <a href="../docs/schemas.html">Schemas</a></li>
+                    <li >
+                      <a href="../.">Home</a></li>
+                </ul>
+                </div>
+
+            </div>
+        <div style="padding: 14px; float: right;" id="languagebox"></div>
+
+  <div id="mainContent">
+
+<h1>Releases</h1>
+
+<p>This page lists schema.org releases, most recent first.</p>
+
+<style type="text/css">
+table.grid {
+	font-family: verdana,arial,sans-serif;
+	font-size:11px;
+	color:#333333;
+	border-width: 1px;
+	border-color: #666666;
+	border-collapse: collapse;
+}
+table.grid th {
+	border-width: 1px;
+	padding: 8px;
+	border-style: solid;
+	border-color: #666666;
+	background-color: #dedede;
+}
+table.grid td {
+	border-width: 1px;
+	padding: 8px;
+	border-style: solid;
+	border-color: #666666;
+	background-color: #ffffff;
+}
+</style>
+
+<table class="grid">
+<tr>
+    <th>Release</th>
+    <th>Overview</th>
+    <th>Description</th>
+</tr>
+
+
+
+
+
+<tr>
+<td>1.8<br/>(28 July 2014)</td>
+<td>Added WebSite type; broadened isPartOf property.</td>
+<td>
+Added a new CreativeWork type, <a href="/WebSite">WebSite</a>: "A WebSite is a set of related web pages and other items typically
+served from a single web domain and accessible via URLs."  Also adopts the suggestion made by the <a href="http://www.w3.org/community/schemabibex/BibExtend">BibExtend</a> group and other
+collaborators, to broaden the <a href="/isPartOf">isPartOf</a> property. It now relates any CreativeWork to any other CreativeWork.
+This release also updates the Potential Actions documentation, now made <a href="/docs/actions.html">available</a> in HTML.
+Several <a href="https://github.com/rvguha/schemaorg/pull/71">markup fixes</a> from Stéphane Corlosquet, alongside
+<a href="https://github.com/rvguha/schemaorg/pull/35">improvements</a> to the consistency of <a href="/encoding">encoding</a> /
+<a href="/associatedMedia">associatedMedia</a> property  definitions thanks to Dan Scott.
+(<a href="http://lists.w3.org/Archives/Public/public-vocabs/2014Jul/0053.html">announcement</a>)
+</td>
+</tr>
+
+<tr>
+<td>1.7 (8 July 2014)</td>
+<td>ImageObject, Event organizers, Map improvements.</td>
+<td>This release amends the <a href="http://schema.org/image">image</a> property, noting that <a href="/ImageObject">ImageObject</a> is a
+    reasonable value. It also adds an <a href="http://schema.org/organizer">organizer</a> property to
+    <a href="/Event">Event</a>. Changes around <a href="/Map">Map</a>: we add and prefer a '<a href="/hasMap">hasMap</a>' property
+which supercedes the older 'map' property, and we add a <a href="/mapType">mapType</a> property which comes with some enumerated values:
+<a href="ParkingMap">ParkingMap</a>, <a href="SeatingMap">SeatingMap</a>, <a href="TransitMap">TransitMap</a>,
+<a href="VenueMap">VenueMap</a>. A Map might be (but needn't be) also an <a href="/ImageObject">ImageObject</a>.
+    (<a href="http://lists.w3.org/Archives/Public/public-vocabs/2014Jul/0012.html">announcement</a>)</td>
+</tr>
+
+<tr>
+<td>1.6<br/>(16 June 2014)</td>
+<td>Roles, various fixes, site navigation improvements.</td>
+<td>This release introduced the notion of a <a href="/Role">Role</a> type to schema.org. See the <a href="blog.schema.org/2014/06/introducing-role.html">blog post</a>
+    for details. The Role mechanism applies across all of schema.org, and allows simple statements to be elaborated or
+    qualified, for example with temporal information. Other changes in this release include the addition of a
+    <a href="/license">license</a> property, and some documentation of properties used internally by schema.org's documentation system
+    (<a href="/Property">Property</a>, <a href="/Class">Class</a>, <a href="/supercededBy">supercededBy</a>, <a href="/inverseOf">inverseOf</a>).
+    Fixed an embarrassing typo - "dead" -  in the <a href="/diet">diet</a> property - thanks, Dan Scott. Various other
+    small changes - listed in the <a href="http://lists.w3.org/Archives/Public/public-vocabs/2014Jun/0106.html">preview</a> announcement.
+(<a href="http://lists.w3.org/Archives/Public/public-vocabs/2014Jun/0178.html">announcement</a> and
+<a href="http://lists.w3.org/Archives/Public/public-vocabs/2014Jun/0106.html">candidate release</a>)</td>
+</tr>
+
+<tr>
+<td>1.5 <br/>(27 May 2014)</td>
+<td>Tweaks and fixes.</td>
+<td>Tweaks to definition of '<a href="http://schema.org/keywords">keywords</a>' to indicate that comma-separated entries are expected.
+Several typo fixes from Stéphane Corlosquet. Adds a new <a href="http://schema.org/icaoCode">icaoCode</a>
+text-valued property for <a href="http://schema.org/Airport">Airport</a>.
+Updated the description for <a href="http://schema.org/flightNumber">flightNumber</a> to note that this is "not including the airline IATA code".
+Added missing <a href="/docs/actions.html">Actions</a>-related definitions (urlTemplate, valueName).
+
+    (<a href="http://lists.w3.org/Archives/Public/public-vocabs/2014May/0295.html">announcement</a>)
+</td>
+</tr>
+
+
+<tr>
+<td>1.4<br/>(XX XXX 2014)</td>
+<td....</td>
+<td>
+...
+</td>
+</tr>
+
+</table>
+
+<div id="footer"><p>
+  <a href="../docs/terms.html">Terms and conditions</a></p>
+</div>
+
+</body>
+</html>
