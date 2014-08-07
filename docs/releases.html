@@ -378,6 +378,16 @@ and <a href="http://lists.w3.org/Archives/Public/public-vocabs/2012Nov/0015.html
 </td>
 </tr>
 
+
+<tr>
+<td>0.98<br/>(2012-10-18)</td>
+<td>Fix for <a href="/requiresSubscription">requiresSubscription</a> property.</td>
+<td>
+A minor bugfix release, which improved the documentation of <a href="/requiresSubscription">requiresSubscription</a> property.
+We now encourage its <a href="/Boolean">Boolean</a> value to be represented as true/false rather than yes/no.
+</td>
+</tr>
+
 <tr>
 <td>0.97<br/>(2012-07-26)</td>
 <td>Added DateTime, Time datatypes.</td>
@@ -414,6 +424,37 @@ mainly organized beneath the <a href="/MedicalEntity">MedicalEntity</a> type. An
 (<a href="http://lists.w3.org/Archives/Public/public-vocabs/2012Jun/0130.html">announcement</a>)
 </td>
 </tr>
+
+
+
+<tr>
+<td>0.91<br/>(2012-04-21)</td>
+<td>Removed plural 's' suffix from repeatable properties; added <a href="/Comment">Comment</a> type, SoftwareApplication vocabulary.</td>
+<td>
+<p>
+Added new properties per Singularity <a href="https://www.w3.org/wiki/WebSchemas/Singularity">proposal</a>:
+23 changes: actor, album, attendee, award, blogPost, colleague, contactPoint, employee, encoding, episode, event, founder, map, member, parent, performer, photo, review, season, sibling, significantLink, subEvent, track.
+Each of these originally had a plural 's' to indicate repeatability. After discussion in the W3C WebSchemas group, the consensus was that
+this was confusing and worthwhile changing.
+</p>
+
+<p>
+This revision added a new type, '<a href="/Comment">Comment</a>', whose super-type is <a href="/CreativeWork">CreativeWork</a>
+(<a href="https://www.w3.org/wiki/WebSchemas/Comment">wiki</a>)
+</p>
+
+<p>
+Also adds <a href="/SoftwareApplication">SoftwareApplication</a> and supporting vocabulary (<a href="https://www.w3.org/wiki/WebSchemas/SoftwareApplicationSchema">wiki</a>, <a href="http://www.w3.org/wiki/images/b/b3/Schema.org-SoftwareApplicationsV2.pdf">original proposal</a>),
+including <a href="/MobileApplication">MobileApplication</a>, <a href="/WebApplication">WebApplication</a> subtypes.
+</p>
+
+<p>
+Converged URL/Url spelling. After WebSchemas discussion, consensus was:
+For each of embedURL, contentURL, downloadURL, ensure there is an equivalent property named with mixed-case: 'embedUrl', 'contentUrl', 'downloadUrl'.
+</p>
+</td>
+</tr>
+
 
 </table>
 
