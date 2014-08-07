@@ -122,13 +122,13 @@ table.grid td {
 
 
 <tr>
-<td>1.8<br/>(28 July 2014)</td>
-<td>Added WebSite type; broadened isPartOf property.</td>
+<td>1.8<br/>(2014-07-28)</td>
+<td>Added <a href="/WebSite">WebSite</a> type; broadened <a href="isPartOf">isPartOf</a> property.</td>
 <td>
 Added a new CreativeWork type, <a href="/WebSite">WebSite</a>: "A WebSite is a set of related web pages and other items typically
 served from a single web domain and accessible via URLs."  Also adopts the suggestion made by the <a href="http://www.w3.org/community/schemabibex/BibExtend">BibExtend</a> group and other
-collaborators, to broaden the <a href="/isPartOf">isPartOf</a> property. It now relates any CreativeWork to any other CreativeWork.
-This release also updates the Potential Actions documentation, now made <a href="/docs/actions.html">available</a> in HTML.
+collaborators, to broaden the <a href="/isPartOf">isPartOf</a> property, which now relates any CreativeWork to any other CreativeWork.
+This release also makes the Potential Actions documentation <a href="/docs/actions.html">available</a> in HTML.
 Several <a href="https://github.com/rvguha/schemaorg/pull/71">markup fixes</a> from Stéphane Corlosquet, alongside
 <a href="https://github.com/rvguha/schemaorg/pull/35">improvements</a> to the consistency of <a href="/encoding">encoding</a> /
 <a href="/associatedMedia">associatedMedia</a> property  definitions thanks to Dan Scott.
@@ -137,8 +137,9 @@ Several <a href="https://github.com/rvguha/schemaorg/pull/71">markup fixes</a> f
 </tr>
 
 <tr>
-<td>1.7 (8 July 2014)</td>
-<td>ImageObject, Event organizers, Map improvements.</td>
+<td>1.7 (2014-07-08)</td>
+<td>Allows <a href="/image">image</a> with <a href="/ImageObject">ImageObject</a>; adds <a href="/Event">Event</a> <a href="/organizer">organizer</a>s,
+    <a href="/Map">Map</a> improvements.</td>
 <td>This release amends the <a href="http://schema.org/image">image</a> property, noting that <a href="/ImageObject">ImageObject</a> is a
     reasonable value. It also adds an <a href="http://schema.org/organizer">organizer</a> property to
     <a href="/Event">Event</a>. Changes around <a href="/Map">Map</a>: we add and prefer a '<a href="/hasMap">hasMap</a>' property
@@ -149,7 +150,7 @@ which supercedes the older 'map' property, and we add a <a href="/mapType">mapTy
 </tr>
 
 <tr>
-<td>1.6<br/>(16 June 2014)</td>
+<td>1.6<br/>(2014-06-16)</td>
 <td>Roles, various fixes, site navigation improvements.</td>
 <td>This release introduced the notion of a <a href="/Role">Role</a> type to schema.org. See the <a href="blog.schema.org/2014/06/introducing-role.html">blog post</a>
     for details. The Role mechanism applies across all of schema.org, and allows simple statements to be elaborated or
@@ -163,25 +164,163 @@ which supercedes the older 'map' property, and we add a <a href="/mapType">mapTy
 </tr>
 
 <tr>
-<td>1.5 <br/>(27 May 2014)</td>
+<td>1.5 <br/>(2014-05-27)</td>
 <td>Tweaks and fixes.</td>
 <td>Tweaks to definition of '<a href="http://schema.org/keywords">keywords</a>' to indicate that comma-separated entries are expected.
 Several typo fixes from Stéphane Corlosquet. Adds a new <a href="http://schema.org/icaoCode">icaoCode</a>
 text-valued property for <a href="http://schema.org/Airport">Airport</a>.
-Updated the description for <a href="http://schema.org/flightNumber">flightNumber</a> to note that this is "not including the airline IATA code".
+Updated description for <a href="http://schema.org/flightNumber">flightNumber</a> to note "not including the airline IATA code".
 Added missing <a href="/docs/actions.html">Actions</a>-related definitions (urlTemplate, valueName).
-
     (<a href="http://lists.w3.org/Archives/Public/public-vocabs/2014May/0295.html">announcement</a>)
 </td>
 </tr>
 
+<tr>
+<td>1.4<br/>(16 May 2014-05-16)</td>
+<td>Examples, examples, examples.</td>
+<td>
+    Added two examples to accompany <a href="/workPerformed">workPerformed</a>. Added several local business, company contact and music event examples.
+Several glitch and typo fixes including MedicalEnumeration, thanks to Dan Scott.
+<a href="http://blog.schema.org/2014/05/schemaorg-v14-update-examples-examples.html">announcement blog post</a>
+</td>
+</tr>
 
 <tr>
-<td>1.4<br/>(XX XXX 2014)</td>
-<td....</td>
+<td>1.3<br/>(2014-04-@@)</td>
+<td>Added <a href="/workPerformed">workPerformed</a>.</td>
 <td>
-...
+Added <a href="/workPerformed">workPerformed</a>, a relationship between an <a href="/Event">Event</a> and a <a href="/CreativeWork">CreativeWork</a>
+that is performed at the event.
 </td>
+</tr>
+
+<tr>
+<td>1.2<br/>(16 April 2014)</td>
+<td><a href="/docs/actions.html">Potential Actions</a>.</td>
+<td>
+Introduces vocabulary that enables websites to describe the actions they enable and how these actions can be invoked.
+(<a href="http://lists.w3.org/Archives/Public/public-vocabs/2014Apr/0242.html">announcement</a> and
+<a href="http://blog.schema.org/2014/04/announcing-schemaorg-actions.html">blog post</a>)
+    </td>
+</tr>
+
+<tr>
+<td>1.1<br/>(2014-04-04)</td>
+<td>Reservations, Q/A and more.</td>
+<td>
+<p>Added a Reservation schema. Question/Answer sites. Order changes. Added EmailMessage.</p>
+
+<p>
+1.) This release of schema.org adds a finalized Reservations schema, which refines
+earlier proposals discussed in the Web Schemas community over the last year.
+See <a href="https://www.w3.org/wiki/WebSchemas/ReservationsSchem">wiki</a> for details.</p>
+
+<p>The Reservations vocabulary includes: Reservation, ReservationPackage, ReservationStatusType,
+Ticket, Flight, EventReservation, FlightReservation, TrainReservation, BusReservation,
+TaxiReservation,  LodgingReservation, RentalCarReservation, ProgramMembership, Seat,
+Vehicle, Airline, FoodEstablishmentReservation, TrainTrip, Car, BusTrip, Taxi.</p>
+
+<p>2.) Q/A sites</p>
+
+<p>A simple vocabulary for Question/Answer and FAQ sites. It adds types for Question, Answer, and QAPage.</p>
+
+<p>3.) Adds a type <a href="/EmailMessage">EmailMessage</a>, analogous to the existing WebPage type.</p>
+
+(<a href="http://lists.w3.org/Archives/Public/public-vocabs/2014Mar/0036.html">candidate release</a> drafted as '1.0g'; not
+formally announced but included in the <a href="http://lists.w3.org/Archives/Public/public-vocabs/2014Apr/0015.html">change</a>
+to github-based publishing)
+</td>
+</tr>
+
+<tr>
+<td>1.0f<br/>(2014-02-05)</td>
+<td>Not-for-profit Offer and other fixes.</td>
+<td>This version adapts the wording around the <a href="/Offer">Offer</a> type to suit non-profit scenarios,
+    such as libraries. Thanks to Dan Scott and the BibExtend group for these proposals.
+    This change broadens the definition of <a href="/Offer">Offer</a> and makes associated changes to
+    <a href="/ItemAvailability">ItemAvailability</a> and
+    <a href="/OfferItemCondition">OfferItemCondition</a>, typically rewording "the item for sale" to
+    simply say "the item". The <a href="/itemOffered">itemOffered</a> property is now defined more
+    appropriately as "The item being offered." rather than "...sold.". The "<a href="/seller">seller</a>"
+    property is now defined as "The organization or person making the offer.", a compromise to support
+    its use for more kinds of offer.
+    (<a href="http://lists.w3.org/Archives/Public/public-vocabs/2014Jan/0118.html">candidate release</a>
+    and <a href="http://lists.w3.org/Archives/Public/public-vocabs/2014Feb/0028.html">announcement</a>)
+
+</td>
+</tr>
+
+<tr>
+<td>1.0e<br/>(2013-12-04)</td>
+<td>Accessibility properties and Order type.</td>
+<td>
+This release includes a schema for describing <a href="/Order">Order</a>s,
+as well as the Accessibility properties for
+<a href="/CreativeWork">CreativeWork</a>
+(see <a href="http://lists.w3.org/Archives/Public/public-vocabs/2013Nov/0190.html">discussion</a>).
+The W3C WebSchemas wiki has <a href="https://www.w3.org/wiki/WebSchemas/OrdersSchema">the Order proposal</a> and
+<a href="https://dvcs.w3.org/hg/webschema/file/6910d4e4591a/schema.org/ext/neworder.html">draft schema</a>.
+For Accessibility, see the <a href="http://blog.schema.org/2013/12/content-accessibility.html">blog post</a>
+for more background on the collaborations involved. See also
+ <a href="https://www.w3.org/wiki/WebSchemas/Accessibility">wiki materials</a>
+ and the <a href="https://dvcs.w3.org/hg/webschema/file/6910d4e4591a/schema.org/ext/accessibility.html">draft schema</a>.
+(<a href="http://lists.w3.org/Archives/Public/public-vocabs/2013Dec/0025.html">announcement</a>)
+</td>
+</tr>
+
+<tr>
+<td>1.0d<br/>(2013-11-21)</td>
+<td>TV/Radio; Civic Services; ContactPoint Event and Organization improvements.</td>
+<td>
+
+<p>
+TV/Radio improvements in collaboration with BBC and EBU - see <a href="http://blog.schema.org/2013/12/schemaorg-for-tv-and-radio-markup.html">guest blog post by Yves Raimond</a>.
+For example see <a href="/TVEpisode">TVEpisode</a>.
+</p>
+<p>
+For Background see the <a href="http://www.w3.org/wiki/WebSchemas/TVRadioSchema">TV/Radio wiki entry</a>.
+</p>
+
+<p>
+Civic Services (which includes ContactPoint) was <a href="http://blog.schema.org/2013/08/vocabulary-for-describing-civic-services.html">blogged</a>
+when first discussed. See also <a href="https://www.w3.org/wiki/WebSchemas/CivicServices">wiki entry</a>.
+Example type: <a href="/GovernmentService">GovernmentService</a>.</p>
+<p>
+Event improvements: <a href="https://www.w3.org/wiki/WebSchemas/EventSchemaUpdate">wiki entry</a>.
+Organization improvements: <a href="https://www.w3.org/wiki/WebSchemas/LocalBusinessDepartment">wiki entry</a>.
+In particular, this update added <a href="/department">department</a>, and
+ <a href="/subOrganization">subOrganization</a> properties.
+(<a href="http://blog.schema.org/2013/11/schemaorg-v10d-published-tvradio-civic.html">blog announcement</a>).
+</td>
+</tr>
+
+<tr>
+<td>1.0c<br/>(2013-08-07)</td>
+<td>Actions (in the past).</td>
+<td>
+Introduced a (past-tense) Actions vocabulary (see <a href="http://www.w3.org/wiki/WebSchemas/ActivityActions">wiki</a>)
+This updated added an <a href="/Action">Action</a> type, supporting properties, and a substantial set of subtypes. It was
+followed in 2014 by a mechanism for describing <a href="/docs/actions.html">potential actions</a>.
+(<a href="http://lists.w3.org/Archives/Public/public-vocabs/2013Aug/0008.html">announcement</a>)
+</td>
+</tr>
+
+<tr>
+<td>1.0b<br/>(@@ @@ 2014)</td>
+<td>TODO.</td>
+<td>TODO.</td>
+</tr>
+
+<tr>
+<td>1.0a<br/>(@@ @@ 2014)</td>
+<td>TODO.</td>
+<td>TODO.</td>
+</tr>
+
+<tr>
+<td>0.99<br/>(@@ @@ 2014)</td>
+<td>TODO.</td>
+<td>TODO.</td>
 </tr>
 
 </table>
