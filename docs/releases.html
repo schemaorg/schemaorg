@@ -85,6 +85,8 @@
 
 <p>This page lists schema.org releases, most recent first.</p>
 
+<br/>
+
 <style type="text/css">
 table.grid {
 	font-family: verdana,arial,sans-serif;
@@ -129,8 +131,8 @@ Added a new CreativeWork type, <a href="/WebSite">WebSite</a>: "A WebSite is a s
 served from a single web domain and accessible via URLs."  Also adopts the suggestion made by the <a href="http://www.w3.org/community/schemabibex/BibExtend">BibExtend</a> group and other
 collaborators, to broaden the <a href="/isPartOf">isPartOf</a> property, which now relates any CreativeWork to any other CreativeWork.
 This release also makes the Potential Actions documentation <a href="/docs/actions.html">available</a> in HTML.
-Several <a href="https://github.com/rvguha/schemaorg/pull/71">markup fixes</a> from Stéphane Corlosquet, alongside
-<a href="https://github.com/rvguha/schemaorg/pull/35">improvements</a> to the consistency of <a href="/encoding">encoding</a> /
+Several <a href="http://github.com/rvguha/schemaorg/pull/71">markup fixes</a> from Stéphane Corlosquet, alongside
+<a href="http://github.com/rvguha/schemaorg/pull/35">improvements</a> to the consistency of <a href="/encoding">encoding</a> /
 <a href="/associatedMedia">associatedMedia</a> property  definitions thanks to Dan Scott.
 (<a href="http://lists.w3.org/Archives/Public/public-vocabs/2014Jul/0053.html">announcement</a>)
 </td>
@@ -213,7 +215,7 @@ Introduces vocabulary that enables websites to describe the actions they enable 
 <p>
 1.) This release of schema.org adds a finalized Reservations schema, which refines
 earlier proposals discussed in the Web Schemas community over the last year.
-See <a href="https://www.w3.org/wiki/WebSchemas/ReservationsSchem">wiki</a> for details.</p>
+See <a href="http://www.w3.org/wiki/WebSchemas/ReservationsSchem">wiki</a> for details.</p>
 
 <p>The Reservations vocabulary includes: Reservation, ReservationPackage, ReservationStatusType,
 Ticket, Flight, EventReservation, FlightReservation, TrainReservation, BusReservation,
@@ -258,12 +260,12 @@ This release includes a schema for describing <a href="/Order">Order</a>s,
 as well as the Accessibility properties for
 <a href="/CreativeWork">CreativeWork</a>
 (see <a href="http://lists.w3.org/Archives/Public/public-vocabs/2013Nov/0190.html">discussion</a>).
-The W3C WebSchemas wiki has <a href="https://www.w3.org/wiki/WebSchemas/OrdersSchema">the Order proposal</a> and
-<a href="https://dvcs.w3.org/hg/webschema/file/6910d4e4591a/schema.org/ext/neworder.html">draft schema</a>.
+The W3C WebSchemas wiki has <a href="http://www.w3.org/wiki/WebSchemas/OrdersSchema">the Order proposal</a> and
+<a href="http://dvcs.w3.org/hg/webschema/file/6910d4e4591a/schema.org/ext/neworder.html">draft schema</a>.
 For Accessibility, see the <a href="http://blog.schema.org/2013/12/content-accessibility.html">blog post</a>
 for more background on the collaborations involved. See also
- <a href="https://www.w3.org/wiki/WebSchemas/Accessibility">wiki materials</a>
- and the <a href="https://dvcs.w3.org/hg/webschema/file/6910d4e4591a/schema.org/ext/accessibility.html">draft schema</a>.
+ <a href="http://www.w3.org/wiki/WebSchemas/Accessibility">wiki materials</a>
+ and the <a href="http://dvcs.w3.org/hg/webschema/file/6910d4e4591a/schema.org/ext/accessibility.html">draft schema</a>.
 (<a href="http://lists.w3.org/Archives/Public/public-vocabs/2013Dec/0025.html">announcement</a>)
 </td>
 </tr>
@@ -283,11 +285,11 @@ For Background see the <a href="http://www.w3.org/wiki/WebSchemas/TVRadioSchema"
 
 <p>
 Civic Services (which includes ContactPoint) was <a href="http://blog.schema.org/2013/08/vocabulary-for-describing-civic-services.html">blogged</a>
-when first discussed. See also <a href="https://www.w3.org/wiki/WebSchemas/CivicServices">wiki entry</a>.
+when first discussed. See also <a href="http://www.w3.org/wiki/WebSchemas/CivicServices">wiki entry</a>.
 Example type: <a href="/GovernmentService">GovernmentService</a>.</p>
 <p>
-Event improvements: <a href="https://www.w3.org/wiki/WebSchemas/EventSchemaUpdate">wiki entry</a>.
-Organization improvements: <a href="https://www.w3.org/wiki/WebSchemas/LocalBusinessDepartment">wiki entry</a>.
+Event improvements: <a href="http://www.w3.org/wiki/WebSchemas/EventSchemaUpdate">wiki entry</a>.
+Organization improvements: <a href="http://www.w3.org/wiki/WebSchemas/LocalBusinessDepartment">wiki entry</a>.
 In particular, this update added <a href="/department">department</a>, and
  <a href="/subOrganization">subOrganization</a> properties.
 (<a href="http://blog.schema.org/2013/11/schemaorg-v10d-published-tvradio-civic.html">blog announcement</a>).
@@ -306,24 +308,101 @@ followed in 2014 by a mechanism for describing <a href="/docs/actions.html">pote
 </tr>
 
 <tr>
-<td>1.0b<br/>(@@ @@ 2014)</td>
-<td>TODO.</td>
-<td>TODO.</td>
+<td>1.0b<br/>(2013-07-24)</td>
+<td>Added <a href="/sameAs">sameAs</a>; broadened <a href="/citation">citation</a>.</td>
+<td>
+<p>
+Adds <a href="/sameAs">sameAs</a> property to Thing that makes it easier to indicate identifying URLs for entities
+being described (<a href="http://www.w3.org/wiki/WebSchemas/sameAs">wiki</a>).
+The <a  href="/citation">citation</a> property has been moved up to <a href="/CreativeWork">CreativeWork</a>, from
+<a href="/MedicalScholarlyArticle">MedicalScholarlyArticle</a> (<a href="http://www.w3.org/wiki/WebSchemas/CitationPromotion">wiki</a>).
+Thanks to the BibExtend group for suggesting this small but useful improvement.
+</p>
+(<a href="http://lists.w3.org/Archives/Public/public-vocabs/2013Jul/0067.html">announced</a>)
+</td>
 </tr>
 
 <tr>
-<td>1.0a<br/>(@@ @@ 2014)</td>
-<td>TODO.</td>
-<td>TODO.</td>
+<td>1.0a<br/>(2013-04-05)</td>
+<td>Adds LRMI, Datasets, Audience, Technical Publishing vocabulary and more.</td>
+<td>
+<p>
+For <a href="http://lrmi.net/">LRMI</a> (Learning Resource Metadata Initiative), a collaboration co-led
+by <a href="http://www.aepweb.org/">Association of Educational Publishers (AEP)</a> and <a href="http://creativecommons.org/">Creative Commons</a>:
+Added several properties, mainly to <a href="/CreativeWork">CreativeWork</a>.
+Added <a href="/AlignmentObject">AlignmentObject</a> type, for aligning content to educational coding schemes.
+(see <a href="http://www.w3.org/wiki/WebSchemas/LearningResources">wiki</a>).</p>
+
+<p>
+Added <a href="/Dataset">Dataset</a> type (collaboration building upon work at W3C and elsewhere).
+See also <a href="http://blog.schema.org/2012/07/describing-datasets-with-schemaorg.html">blog</a>,
+<a href="http://www.w3.org/wiki/WebSchemas/Datasets">wiki</a>.
+</p>
+
+<p>
+Added <a href="/Audience">Audience</a> and related types, useful for LRMI and other applications
+(<a href="http://www.w3.org/wiki/WebSchemas/Audience">wiki</a>.</p>
+
+<p>
+Added Technical Publishing vocabulary: <a href="/TechArticle">TechArticle</a>, <a href="/APIReference">APIReference</a>,
+<a href="/Code">Code</a>. See also <a href="http://blog.schema.org/2012/06/newvocabularies-for-technical.html">early
+ blog post</a> and Wiki entries for <a href="http://www.w3.org/wiki/WebSchemas/TechArticleSchema">TechArticleSchema</a>,
+<a href="http://www.w3.org/wiki/WebSchemas/APIReferenceSchema">APIReferenceSchema</a> and
+ <a href="http://www.w3.org/wiki/WebSchemas/CodeSchema">CodeSchema</a>.
+(<a href="http://lists.w3.org/Archives/Public/public-vocabs/2013Apr/0003.html">announcement</a>)
+</td>
 </tr>
 
 <tr>
-<td>0.99<br/>(@@ @@ 2014)</td>
-<td>TODO.</td>
-<td>TODO.</td>
+<td>0.99<br/>(2012-11-08)</td>
+<td>Added Good Relations e-commerce vocabulary.</td>
+<td>Added substantial e-commerce vocabulary based on Good Relations;
+re-engineered site to accept RDFa/RDFS schema definitions from community.(<a href="http://www.w3.org/wiki/WebSchemas/GoodRelations">wiki</a>)
+(<a href="http://blog.schema.org/2012/11/good-relations-and-schemaorg.html">announcement blog post</a>
+and <a href="http://lists.w3.org/Archives/Public/public-vocabs/2012Nov/0015.html">email from Martin Hepp</a>)
+</td>
+</tr>
+
+<tr>
+<td>0.97<br/>(2012-07-26)</td>
+<td>Added DateTime, Time datatypes.</td>
+<td>Added two datatypes in preparation for Good Relations integration.
+(<a href="http://lists.w3.org/Archives/Public/public-vocabs/2012Jul/0072.html">announcement</a>)
+</td>
+</tr>
+
+<tr>
+<td>0.96<br/>(2012-07-18)</td>
+<td>Added <a href="/additionalType">additionalType</a> property.</td>
+<td>Added <a href="/additionalType">additionalType</a> property (<a href="https://www.w3.org/wiki/WebSchemas/additionalTypeProposal">wiki</a>).
+"An additional type for the
+item, typically used for adding more specific types from external
+vocabularies in microdata syntax. This is a relationship between
+something and a class that the thing is in. In RDFa syntax, it is
+better to use the native RDFa syntax - the 'typeof' attribute - for
+multiple types. Schema.org tools may have only weaker understanding of
+extra types, in particular those defined externally."
+(<a href="http://lists.w3.org/Archives/Public/public-vocabs/2012Jul/0069.html">announcement</a>)
+</td>
+</tr>
+
+<tr>
+<td>0.95<br/>(2012-26-26)</td>
+<td>Added <a href="/docs/meddocs.html">Medical/Health</a> vocabulary.</td>
+<td>
+<p>
+This release added substantial vocabulary in the medical/health domain (around 100 classes, 200 properties). The additions are
+mainly organized beneath the <a href="/MedicalEntity">MedicalEntity</a> type. An
+<a href="/docs/meddocs.html">overview document</a> is also provided. From the <a href="http://blog.schema.org/2012/06/health-and-medical-vocabulary-for.html">blog post</a>:
+</p>
+<p>"This collaborative project drew upon search expertise from the schema.org partners but also gained immeasurably through feedback from expert reviewers including the US NCBI; physicians at Harvard, Duke and other institutions, as well as from several health Web sites. Contributions from the W3C Healthcare and Lifesciences group and Web Schemas community also helped bridge the complex worlds of Web standards, search and medicine/healthcare."
+(<a href="http://lists.w3.org/Archives/Public/public-vocabs/2012Jun/0130.html">announcement</a>)
+</td>
 </tr>
 
 </table>
+
+<p>There were also earlier versions back to 0.9 (announced 2011-06-02).</p>
 
 <div id="footer"><p>
   <a href="../docs/terms.html">Terms and conditions</a></p>
