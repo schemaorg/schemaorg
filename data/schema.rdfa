@@ -11035,7 +11035,7 @@ on public-vocabs@w3.org.</p>
     <div typeof="rdf:Property" resource="http://schema.org#medicalScore">
       <span class="h" property="rdfs:label">medicalScore</span>
       <span property="rdfs:comment">Specifying a medical score resource</span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Thing">Thing</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MedicalEntity">MedicalEntity</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/MedicalScore">MedicalScore</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/abortions">
@@ -11214,9 +11214,9 @@ on public-vocabs@w3.org.</p>
 
     <div typeof="rdf:Property" resource="http://schema.org/belongsTo">
       <span class="h" property="rdfs:label">belongsTo</span>
-      <span property="rdfs:comment">Specifying a resource to which another resource belongs</span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Thing">Thing</a></span>
-      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Thing">Thing</a></span>
+      <span property="rdfs:comment">Specifying a resource to which another resource belongs. Typically here it's used to link a medicalRecord to the Patient where isPartOf can't be used'. e.g :MedicalRecord schema:belongsTo :Patient</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MedicalEntity">MedicalEntity</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/MedicalEntity">MedicalEntity</a></span>
     </div>
 
     <div typeof="rdf:Property" resource="http://schema.org/birthHeight">
@@ -11274,7 +11274,7 @@ on public-vocabs@w3.org.</p>
     <div typeof="rdf:Property" resource="http://schema.org/bodyPosition">
       <span class="h" property="rdfs:label">bodyPosition</span>
       <span property="rdfs:comment">Specifying a position of human body or anatomical entity in given space e.g. Supine body position, standing position, sitting position etc.</span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Thing">Thing</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MedicalEntity">MedicalEntity</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://purl.bioontology.org/ontology/SNOMEDCT/364830008">sctid:364830008</a></span>
     </div>
 
@@ -11326,6 +11326,7 @@ on public-vocabs@w3.org.</p>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CaringEvent">CaringEvent</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MedicalProcedure">MedicalProcedure</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Patient">Patient</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/MedicalIndication">MedicalIndication</a></span>
       <span>SubProperty of: <a property="rdfs:subPropertyOf" href="http://schema.org/indication">indication</a></span>
     </div>
 
@@ -11350,8 +11351,8 @@ on public-vocabs@w3.org.</p>
     <div typeof="rdf:Property" resource="http://schema.org/causalityStatus">
       <span class="h" property="rdfs:label">causalityStatus</span>
       <span property="rdfs:comment">Causality score or ranking following a codified system (like HL7 causalityExpectation) or not.</span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Thing">Thing</a></span>
-      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Thing">Thing</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MedicalEntity">MedicalEntity</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/MedicalEntity">MedicalEntity</a></span>
       <span>SubProperty of: <a property="rdfs:subPropertyOf" href="http://schema.org/status">status</a></span>
     </div>
 
@@ -11399,7 +11400,7 @@ on public-vocabs@w3.org.</p>
       <span class="h" property="rdfs:label">confirmationStatus</span>
       <span property="rdfs:comment">Specifying the confirmation status of something. eg: confirmed, suspected etc., as outcome of evaluation process</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Text">Text</a></span>
-      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Thing">Thing</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/MedicalEntity">MedicalEntity</a></span>
       <span>SubProperty of: <a property="rdfs:subPropertyOf" href="http://schema.org/status">status</a></span>
     </div>
 
@@ -11414,7 +11415,7 @@ on public-vocabs@w3.org.</p>
     <div typeof="rdf:Property" resource="http://schema.org/dateTime">
       <span class="h" property="rdfs:label">dateTime</span>
       <span property="rdfs:comment">Specifying an instant of something. Typically derived from W3C Time Ontology this describes a point in time when an event or action occurs.</span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Thing">Thing</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MedicalEntity">MedicalEntity</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/DateTime">DateTime</a></span>
     </div>
 
@@ -11753,7 +11754,7 @@ on public-vocabs@w3.org.</p>
     <div typeof="rdf:Property" resource="http://schema.org/interval">
       <span class="h" property="rdfs:label">interval</span>
       <span property="rdfs:comment">Typically derived from W3C Time Ontology this describes a time interval when an event or action occurs.</span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Thing">Thing</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MedicalEntity">MedicalEntity</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/QuantitativeValue">QuantitativeValue</a></span>
     </div>
 
@@ -11851,7 +11852,7 @@ on public-vocabs@w3.org.</p>
     <div typeof="rdf:Property" resource="http://schema.org/medicalDepartment">
       <span class="h" property="rdfs:label">medicalDepartment</span>
       <span property="rdfs:comment">Specifying the medical department where a procedure or a care event is taking place or attended by a patient.</span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Thing">Thing</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MedicalEntity">MedicalEntity</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://purl.bioontology.org/ontology/SNOMEDCT/404684003">sctid:404684003</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ClinicalFinding">ClinicalFinding</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/LifeEvent">LifeEvent</a></span>
@@ -12124,22 +12125,22 @@ on public-vocabs@w3.org.</p>
     <div typeof="rdf:Property" resource="http://schema.org/physiologicalRole">
       <span class="h" property="rdfs:label">physiologicalRole</span>
       <span property="rdfs:comment">Specifying any physiological role of something</span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Thing">Thing</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MedicalEntity">MedicalEntity</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/PhysiologicalEntity">PhysiologicalEntity</a></span>
     </div>
 
     <div typeof="rdf:Property" resource="http://schema.org/playsRole">
       <span class="h" property="rdfs:label">playsRole</span>
       <span property="rdfs:comment">Specifying the role played by an agent </span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Thing">Thing</a></span>
-      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Thing">Thing</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MedicalEntity">MedicalEntity</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/MedicalEntity">MedicalEntity</a></span>
     </div>
 
     <div typeof="rdf:Property" resource="http://schema.org/possibleCause">
       <span class="h" property="rdfs:label">possibleCause</span>
       <span property="rdfs:comment">Specifying a possible cause of something</span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Thing">Thing</a></span>
-      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Thing">Thing</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MedicalEntity">MedicalEntity</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/MedicalEntity">MedicalEntity</a></span>
       <span>SubProperty of: <a property="rdfs:subPropertyOf" href="http://schema.org/cause">cause</a></span>
     </div>
 
@@ -12178,7 +12179,7 @@ on public-vocabs@w3.org.</p>
     <div typeof="rdf:Property" resource="http://schema.org/rankOrder">
       <span class="h" property="rdfs:label">rankOrder</span>
       <span property="rdfs:comment">The rank order number of something. Typically used together with schema:numerator and schema:denominator. eg. refill number 4 out of 10.</span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Thing">Thing</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MedicalEntity">MedicalEntity</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number">Number</a></span>
     </div>
 
@@ -12258,7 +12259,7 @@ on public-vocabs@w3.org.</p>
     <div typeof="rdf:Property" resource="http://schema.org/severity">
       <span class="h" property="rdfs:label">severity</span>
       <span property="rdfs:comment">Specifying a severity evaluation of a disease: typically by classification resource or ranking scale: mild, moderate, severe, life threatening or fatal</span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Thing">Thing</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MedicalEntity">MedicalEntity</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Severity">Severity</a></span>
     </div>
 
@@ -12368,7 +12369,7 @@ on public-vocabs@w3.org.</p>
     <div typeof="rdf:Property" resource="http://schema.org/totalValue">
       <span class="h" property="rdfs:label">totalValue</span>
       <span property="rdfs:comment">Total number of something.</span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Thing">Thing</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MedicalEntity">MedicalEntity</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number">Number</a></span>
     </div>
 
