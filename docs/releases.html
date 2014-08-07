@@ -95,7 +95,9 @@ table.grid {
 	border-width: 1px;
 	border-color: #666666;
 	border-collapse: collapse;
+    table-layout: fixed;
 }
+
 table.grid th {
 	border-width: 1px;
 	padding: 8px;
@@ -110,6 +112,11 @@ table.grid td {
 	border-color: #666666;
 	background-color: #ffffff;
 }
+
+td.release  {
+  width: 100px;
+}
+
 </style>
 
 <table class="grid">
@@ -124,7 +131,7 @@ table.grid td {
 
 
 <tr id="v1.8">
-<td>1.8<br/>(2014-07-28)</td>
+<td class="release">1.8<br/>(2014-07-28)</td>
 <td>Added <a href="/WebSite">WebSite</a> type; broadened <a href="isPartOf">isPartOf</a> property.</td>
 <td>
 Added a new CreativeWork type, <a href="/WebSite">WebSite</a>: "A WebSite is a set of related web pages and other items typically
@@ -138,8 +145,8 @@ Several <a href="http://github.com/rvguha/schemaorg/pull/71">markup fixes</a> fr
 </td>
 </tr>
 
-<trid="v1.7">
-<td>1.7 (2014-07-08)</td>
+<tr id="v1.7">
+<td class="release">1.7<br/>(2014-07-08)</td>
 <td>Allows <a href="/image">image</a> with <a href="/ImageObject">ImageObject</a>; adds <a href="/Event">Event</a> <a href="/organizer">organizer</a>s,
     <a href="/Map">Map</a> improvements.</td>
 <td>This release amends the <a href="http://schema.org/image">image</a> property, noting that <a href="/ImageObject">ImageObject</a> is a
@@ -152,7 +159,7 @@ which supercedes the older 'map' property, and we add a <a href="/mapType">mapTy
 </tr>
 
 <tr id="v1.6">
-<td>1.6<br/>(2014-06-16)</td>
+<td class="release">1.6<br/>(2014-06-16)</td>
 <td><a href="/Role">Role</a>s, various fixes, site navigation improvements.</td>
 <td>This release introduced the notion of a <a href="/Role">Role</a> type to schema.org. See the <a href="blog.schema.org/2014/06/introducing-role.html">blog post</a>
     for details. The Role mechanism applies across all of schema.org, and allows simple statements to be elaborated or
@@ -166,7 +173,7 @@ which supercedes the older 'map' property, and we add a <a href="/mapType">mapTy
 </tr>
 
 <tr id="v1.5">
-<td>1.5 <br/>(2014-05-27)</td>
+<td class="release">1.5 <br/>(2014-05-27)</td>
 <td>Tweaks and fixes.</td>
 <td>Tweaks to definition of '<a href="http://schema.org/keywords">keywords</a>' to indicate that comma-separated entries are expected.
 Several typo fixes from Stéphane Corlosquet. Adds a new <a href="http://schema.org/icaoCode">icaoCode</a>
@@ -178,7 +185,7 @@ Added missing <a href="/docs/actions.html">Actions</a>-related definitions (urlT
 </tr>
 
 <tr id="v1.4">
-<td>1.4<br/>(2014-05-16)</td>
+<td class="release">1.4<br/>(2014-05-16)</td>
 <td>Examples, examples, examples.</td>
 <td>
     Added two examples to accompany <a href="/workPerformed">workPerformed</a>. Added several local business, company contact and music event examples.
@@ -188,7 +195,7 @@ Several glitch and typo fixes including MedicalEnumeration, thanks to Dan Scott.
 </tr>
 
 <tr id="v1.3">
-<td>1.3<br/>(2014-05-01)</td>
+<td class="release">1.3<br/>(2014-05-01)</td>
 <td>Added <a href="/workPerformed">workPerformed</a>.</td>
 <td>
 Added <a href="/workPerformed">workPerformed</a>, a relationship between an <a href="/Event">Event</a> and a <a href="/CreativeWork">CreativeWork</a>
@@ -197,7 +204,7 @@ that is performed at the event.
 </tr>
 
 <tr id="v1.2">
-<td>1.2<br/>(16 April 2014-04-16)</td>
+<td class="release">1.2<br/>(2014-04-16)</td>
 <td><a href="/docs/actions.html">Potential Actions</a>.</td>
 <td>
 Introduces vocabulary that enables websites to describe the actions they enable and how these actions can be invoked.
@@ -207,7 +214,7 @@ Introduces vocabulary that enables websites to describe the actions they enable 
 </tr>
 
 <tr id="v1.1">
-<td>1.1<br/>(2014-04-04)</td>
+<td class="release">1.1<br/>(2014-04-04)</td>
 <td>Reservations, Q/A and more.</td>
 <td>
 <p>Added a Reservation schema. Question/Answer sites. Order changes. Added EmailMessage.</p>
@@ -225,7 +232,7 @@ See <a href="http://www.w3.org/wiki/WebSchemas/ReservationsSchem">wiki</a> for d
 <a href="/TrainReservation">TrainReservation</a>,
 <a href="/BusReservation">BusReservation</a>,
 <a href="/TaxiReservation">TaxiReservation</a>,
-<a href="/LodgingReservation">,
+<a href="/LodgingReservation">LodgingReservation</a>,
 <a href="/RentalCarReservation">RentalCarReservation</a>,
 <a href="/ProgramMembership">ProgramMembership</a>,
 <a href="/Seat">Seat</a>,
@@ -250,7 +257,7 @@ to github-based publishing)
 </tr>
 
 <tr id="v1.0f">
-<td>1.0f<br/>(2014-02-05)</td>
+<td class="release">1.0f<br/>(2014-02-05)</td>
 <td>Not-for-profit Offer and other fixes.</td>
 <td>This version adapts the wording around the <a href="/Offer">Offer</a> type to suit non-profit scenarios,
     such as libraries. Thanks to Dan Scott and the BibExtend group for these proposals.
@@ -268,7 +275,7 @@ to github-based publishing)
 </tr>
 
 <tr id="v1.0e">
-<td>1.0e<br/>(2013-12-04)</td>
+<td class="release">1.0e<br/>(2013-12-04)</td>
 <td>Accessibility properties and Order type.</td>
 <td>
 This release includes a schema for describing <a href="/Order">Order</a>s,
@@ -286,7 +293,7 @@ for more background on the collaborations involved. See also
 </tr>
 
 <tr id="v1.0d">
-<td>1.0d<br/>(2013-11-21)</td>
+<td class="release">1.0d<br/>(2013-11-21)</td>
 <td>TV/Radio; Civic Services; ContactPoint Event and Organization improvements.</td>
 <td>
 
@@ -307,12 +314,13 @@ Event improvements: <a href="http://www.w3.org/wiki/WebSchemas/EventSchemaUpdate
 Organization improvements: <a href="http://www.w3.org/wiki/WebSchemas/LocalBusinessDepartment">wiki entry</a>.
 In particular, this update added <a href="/department">department</a>, and
  <a href="/subOrganization">subOrganization</a> properties.
+ </p>
 (<a href="http://blog.schema.org/2013/11/schemaorg-v10d-published-tvradio-civic.html">blog announcement</a>).
 </td>
 </tr>
 
 <tr id="v1.0c">
-<td>1.0c<br/>(2013-08-07)</td>
+<td class="release">1.0c<br/>(2013-08-07)</td>
 <td>Actions (in the past).</td>
 <td>
 Introduced a (past-tense) Actions vocabulary (see <a href="http://www.w3.org/wiki/WebSchemas/ActivityActions">wiki</a>)
@@ -323,7 +331,7 @@ followed in 2014 by a mechanism for describing <a href="/docs/actions.html">pote
 </tr>
 
 <tr id="v1.b">
-<td>1.0b<br/>(2013-07-24)</td>
+<td class="release">1.0b<br/>(2013-07-24)</td>
 <td>Added <a href="/sameAs">sameAs</a>; broadened <a href="/citation">citation</a>.</td>
 <td>
 <p>
@@ -338,7 +346,7 @@ Thanks to the BibExtend group for suggesting this small but useful improvement.
 </tr>
 
 <tr id="v1.0a">
-<td>1.0a<br/>(2013-04-05)</td>
+<td class="release">1.0a<br/>(2013-04-05)</td>
 <td>Adds LRMI, Datasets, Audience, Technical Publishing vocabulary and more.</td>
 <td>
 <p>
@@ -364,12 +372,13 @@ Added Technical Publishing vocabulary: <a href="/TechArticle">TechArticle</a>, <
  blog post</a> and Wiki entries for <a href="http://www.w3.org/wiki/WebSchemas/TechArticleSchema">TechArticleSchema</a>,
 <a href="http://www.w3.org/wiki/WebSchemas/APIReferenceSchema">APIReferenceSchema</a> and
  <a href="http://www.w3.org/wiki/WebSchemas/CodeSchema">CodeSchema</a>.
+ </p>
 (<a href="http://lists.w3.org/Archives/Public/public-vocabs/2013Apr/0003.html">announcement</a>)
 </td>
 </tr>
 
 <tr id="v0.99">
-<td>0.99<br/>(2012-11-08)</td>
+<td class="release">0.99<br/>(2012-11-08)</td>
 <td>Added Good Relations e-commerce vocabulary.</td>
 <td>Added substantial e-commerce vocabulary based on Good Relations;
 re-engineered site to accept RDFa/RDFS schema definitions from community.(<a href="http://www.w3.org/wiki/WebSchemas/GoodRelations">wiki</a>)
@@ -380,7 +389,7 @@ and <a href="http://lists.w3.org/Archives/Public/public-vocabs/2012Nov/0015.html
 
 
 <tr id="v0.98">
-<td>0.98<br/>(2012-10-18)</td>
+<td class="release">0.98<br/>(2012-10-18)</td>
 <td>Fix for <a href="/requiresSubscription">requiresSubscription</a> property.</td>
 <td>
 A minor bugfix release, which improved the documentation of <a href="/requiresSubscription">requiresSubscription</a> property.
@@ -389,7 +398,7 @@ We now encourage its <a href="/Boolean">Boolean</a> value to be represented as t
 </tr>
 
 <tr id="v0.97">
-<td>0.97<br/>(2012-07-26)</td>
+<td class="release">0.97<br/>(2012-07-26)</td>
 <td>Added DateTime, Time datatypes.</td>
 <td>Added two datatypes in preparation for Good Relations integration.
 (<a href="http://lists.w3.org/Archives/Public/public-vocabs/2012Jul/0072.html">announcement</a>)
@@ -397,7 +406,7 @@ We now encourage its <a href="/Boolean">Boolean</a> value to be represented as t
 </tr>
 
 <tr id="v0.96">
-<td>0.96<br/>(2012-07-18)</td>
+<td class="release">0.96<br/>(2012-07-18)</td>
 <td>Added <a href="/additionalType">additionalType</a> property.</td>
 <td>Added <a href="/additionalType">additionalType</a> property (<a href="https://www.w3.org/wiki/WebSchemas/additionalTypeProposal">wiki</a>).
 "An additional type for the
@@ -412,7 +421,7 @@ extra types, in particular those defined externally."
 </tr>
 
 <tr id="v0.95">
-<td>0.95<br/>(2012-06-26)</td>
+<td class="release">0.95<br/>(2012-06-26)</td>
 <td>Added <a href="/docs/meddocs.html">Medical/Health</a> vocabulary.</td>
 <td>
 <p>
@@ -421,6 +430,7 @@ mainly organized beneath the <a href="/MedicalEntity">MedicalEntity</a> type. An
 <a href="/docs/meddocs.html">overview document</a> is also provided. From the <a href="http://blog.schema.org/2012/06/health-and-medical-vocabulary-for.html">blog post</a>:
 </p>
 <p>"This collaborative project drew upon search expertise from the schema.org partners but also gained immeasurably through feedback from expert reviewers including the US NCBI; physicians at Harvard, Duke and other institutions, as well as from several health Web sites. Contributions from the W3C Healthcare and Lifesciences group and Web Schemas community also helped bridge the complex worlds of Web standards, search and medicine/healthcare."
+</p>
 (<a href="http://lists.w3.org/Archives/Public/public-vocabs/2012Jun/0130.html">announcement</a>)
 </td>
 </tr>
@@ -428,7 +438,7 @@ mainly organized beneath the <a href="/MedicalEntity">MedicalEntity</a> type. An
 
 
 <tr id="v0.91">
-<td>0.91<br/>(2012-04-21)</td>
+<td class="release">0.91<br/>(2012-04-21)</td>
 <td>Removed plural 's' suffix from repeatable properties; added <a href="/Comment">Comment</a> type, SoftwareApplication vocabulary.</td>
 <td>
 <p>
@@ -458,6 +468,8 @@ For each of embedURL, contentURL, downloadURL, ensure there is an equivalent pro
 </table>
 
 <p>Note: this table is not currently complete - it misses 0.92-0.94 and any changes between 2011-06-02 and 0.91.</p>
+
+</div>
 
 <div id="footer"><p>
   <a href="../docs/terms.html">Terms and conditions</a></p>
