@@ -345,7 +345,12 @@ def GetExtMappingsRDFa(node):
         if len(equivs) > 0:
             markup = ''
             for c in equivs:
-                markup = markup + "<link property=\"owl:equivalentClass\" href=\"%s\"/>\n" % c.id
+
+                if (c.id.startswith('http')):
+                  markup = markup + "<link property=\"owl:equivalentClass\" href=\"%s\"/>\n" % c.id
+                else:
+                  markup = markup + "<link property=\"owl:equivalentClass\" resource=\"%s\"/>\n" % c.id
+
             return markup
     if (node.isAttribute()):
         equivs = GetTargets(Unit.GetUnit("owl:equivalentProperty"), node)

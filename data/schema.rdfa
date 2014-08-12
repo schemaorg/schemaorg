@@ -538,7 +538,7 @@
       <span class="h" property="rdfs:label">Event</span>
       <span property="rdfs:comment">An event happening at a certain time and location, such as a concert, lecture, or festival. Ticketing information may be added via the &#39;offers&#39; property. Repeated events may be structured as separate Event objects.</span>
        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Thing">Thing</a></span>
-       <link property="owl:equivalentClass" href="dc:Event"/>
+       <link property="owl:equivalentClass" href="http://purl.org/dc/dcmitype/Event"/>
     </div>
 
     <div typeof="rdfs:Class" resource="http://schema.org/BusinessEvent">
@@ -1269,7 +1269,7 @@
       <span class="h" property="rdfs:label">ImageObject</span>
       <span property="rdfs:comment">An image file.</span>
        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MediaObject">MediaObject</a></span>
-       <link property="owl:equivalentClass" href="dc:Image"/>
+       <link property="owl:equivalentClass" href="http://purl.org/dc/dcmitype/Image"/>
     </div>
 
     <div typeof="rdfs:Class" resource="http://schema.org/ImagingTest">
@@ -2483,7 +2483,7 @@
       <span class="h" property="rdfs:label">Person</span>
       <span property="rdfs:comment">A person (alive, dead, undead, or fictional).</span>
        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Thing">Thing</a></span>
-       <link property="owl:equivalentClass" href="foaf:Person" />
+       <link property="owl:equivalentClass" href="http://xmlns.com/foaf/0.1/Person" />
        <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_rNews">rNews</a></span></div>
 
     <div typeof="rdfs:Class" resource="http://schema.org/PetStore">
@@ -3485,7 +3485,7 @@
       <span property="rdfs:comment">A collection of datasets.</span>
        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/CreativeWork">CreativeWork</a></span>
        <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_DatasetClass">DatasetClass</a></span>
-       <link property="owl:equivalentClass" href="dcat:DataCatalog"/>
+       <link property="owl:equivalentClass" href="http://www.w3.org/ns/dcat#DataCatalog"/>
     </div>
 
     <div typeof="rdfs:Class" resource="http://schema.org/DataDownload">
@@ -3493,7 +3493,7 @@
       <span property="rdfs:comment">A dataset in downloadable form.</span>
        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MediaObject">MediaObject</a></span>
        <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_DatasetClass">DatasetClass</a></span>
-       <link property="owl:equivalentClass" href="dcat:Distribution"/>
+       <link property="owl:equivalentClass" href="http://www.w3.org/ns/dcat#Distribution"/>
     </div>
 
     <div typeof="rdfs:Class" resource="http://schema.org/Dataset">
@@ -3501,9 +3501,9 @@
       <span property="rdfs:comment">A body of structured information describing some topic(s) of interest.</span>
        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/CreativeWork">CreativeWork</a></span>
        <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_DatasetClass">DatasetClass</a></span>
-       <link property="owl:equivalentClass" href="dcat:Dataset"/>
-       <link property="owl:equivalentClass" href="void:Dataset"/>
-       <link property="owl:equivalentClass" href="dc:Dataset"/>
+       <link property="owl:equivalentClass" href="http://www.w3.org/ns/dcat#Dataset"/>
+       <link property="owl:equivalentClass" href="http://rdfs.org/ns/void#Dataset"/>
+       <link property="owl:equivalentClass" href="http://purl.org/dc/dcmitype/Dataset"/>
        </div>
 
     <div typeof="rdfs:Class" resource="http://schema.org/Class">
@@ -5571,6 +5571,7 @@
     <div typeof="rdf:Property" resource="http://schema.org/description">
       <span class="h" property="rdfs:label">description</span>
       <span property="rdfs:comment">A short description of the item.</span>
+      <link property="owl:equivalentProperty" href="http://purl.org/dc/terms/description"/>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Thing">Thing</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
     </div>
