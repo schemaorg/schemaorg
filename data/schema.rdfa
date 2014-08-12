@@ -6003,6 +6003,7 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
     <div typeof="rdf:Property" resource="http://schema.org/episodeNumber">
       <span class="h" property="rdfs:label">episodeNumber</span>
       <span property="rdfs:comment">Position of the episode within an ordered group of episodes.</span>
+      <link property="rdfs:subPropertyOf" href="http://schema.org/position" />
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Episode">Episode</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Integer">Integer</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
@@ -7507,10 +7508,8 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/position">
       <span class="h" property="rdfs:label">position</span>
-      <span property="rdfs:comment">Free text to define other than pure numerical ranking of an episode or a season in an ordered list of items (further formatting restrictions may apply within particular user groups).</span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Episode">Episode</a></span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Season">Season</a></span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Clip">Clip</a></span>
+      <span property="rdfs:comment">The position of the creative work within a series or other ordered collection of works.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CreativeWork">CreativeWork</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/possibleComplication">
@@ -8220,6 +8219,7 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
     <div typeof="rdf:Property" resource="http://schema.org/seasonNumber">
       <span class="h" property="rdfs:label">seasonNumber</span>
       <span property="rdfs:comment">Position of the season within an ordered group of seasons.</span>
+      <link property="rdfs:subPropertyOf" href="http://schema.org/position" />
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Season">Season</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/TVSeason">TVSeason</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Integer">Integer</a></span>
@@ -10088,6 +10088,7 @@ on public-vocabs@w3.org.</p>
     <div typeof="rdf:Property" resource="http://schema.org/issueNumber">
       <span class="h" property="rdfs:label">issueNumber</span>
       <span property="rdfs:comment">Identifies the issue of publication; for example, "iii" or "2".</span>
+      <link property="rdfs:subPropertyOf" href="http://schema.org/position" />
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/PublicationIssue">PublicationIssue</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Integer">Integer</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
@@ -10121,6 +10122,7 @@ on public-vocabs@w3.org.</p>
     <div typeof="rdf:Property" resource="http://schema.org/volumeNumber">
       <span class="h" property="rdfs:label">volumeNumber</span>
       <span property="rdfs:comment">Identifies the volume of publication or multi-part work; for example, "iii" or "2".</span>
+      <link property="rdfs:subPropertyOf" href="http://schema.org/position" />
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/PublicationVolume">PublicationVolume</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Integer">Integer</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
