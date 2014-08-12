@@ -6631,6 +6631,7 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
       <span property="rdfs:comment">The ISBN of the book.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Book">Book</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+      <link property="owl:equivalentProperty" href="bibo:isbn"/>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/isConsumableFor">
       <span class="h" property="rdfs:label">isConsumableFor</span>
@@ -10058,20 +10059,22 @@ on public-vocabs@w3.org.</p>
 
     <h1>Periodicals</h1>
 
-    <div typeof="rdfs:Class" resource="http://schema.org/Periodical">
+    <div typeof="rdfs:Class" resource="http://schema.org/Periodical" prefix="bibo: http://purl.org/ontology/bibo/">
       <span class="h" property="rdfs:label">Periodical</span>
       <span property="rdfs:comment">A publication in any medium issued in successive parts bearing numerical or chronological designations and intended, such as a magazine, scholarly journal, or newspaper to continue indefinitely.</span>
       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/CreativeWork">CreativeWork</a></span>
+       <link property="owl:equivalentClass" href="bibo:Periodical"/>
     </div>
     <div typeof="rdfs:Class" resource="http://schema.org/PublicationVolume">
       <span class="h" property="rdfs:label">PublicationVolume</span>
       <span property="rdfs:comment">A part of a successively published publication such as a periodical or multi-volume work, often numbered. It may represent a time span, such as a year.</span>
       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/CreativeWork">CreativeWork</a></span>
     </div>
-    <div typeof="rdfs:Class" resource="http://schema.org/PublicationIssue">
+    <div typeof="rdfs:Class" resource="http://schema.org/PublicationIssue" prefix="bibo: http://purl.org/ontology/bibo/">
       <span class="h" property="rdfs:label">PublicationIssue</span>
       <span property="rdfs:comment">A part of a successively published publication such as a periodical or publication volume, often numbered, usually containing a grouping of works such as articles.</span>
       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/CreativeWork">CreativeWork</a></span>
+       <link property="owl:equivalentClass" href="bibo:Issue"/>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/hasPart">
       <span class="h" property="rdfs:label">hasPart</span>
@@ -10079,21 +10082,23 @@ on public-vocabs@w3.org.</p>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CreativeWork">CreativeWork</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/CreativeWork">CreativeWork</a></span>
     </div>
-    <div typeof="rdf:Property" resource="http://schema.org/issn">
+    <div typeof="rdf:Property" resource="http://schema.org/issn" prefix="bibo: http://purl.org/ontology/bibo/">
       <span class="h" property="rdfs:label">issn</span>
       <span property="rdfs:comment">The International Standard Serial Number (ISSN) that identifies this periodical. You can repeat this property to (for example) identify different formats of this periodical.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Periodical">Periodical</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+      <link property="owl:equivalentProperty" href="bibo:issn"/>
     </div>
-    <div typeof="rdf:Property" resource="http://schema.org/issueNumber">
+    <div typeof="rdf:Property" resource="http://schema.org/issueNumber" prefix="bibo: http://purl.org/ontology/bibo/">
       <span class="h" property="rdfs:label">issueNumber</span>
       <span property="rdfs:comment">Identifies the issue of publication; for example, "iii" or "2".</span>
       <link property="rdfs:subPropertyOf" href="http://schema.org/position" />
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/PublicationIssue">PublicationIssue</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Integer">Integer</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+      <link property="owl:equivalentProperty" href="bibo:issue"/>
     </div>
-    <div typeof="rdf:Property" resource="http://schema.org/pageEnd">
+    <div typeof="rdf:Property" resource="http://schema.org/pageEnd" prefix="bibo: http://purl.org/ontology/bibo/">
       <span class="h" property="rdfs:label">pageEnd</span>
       <span property="rdfs:comment">The page on which the work ends; for example "138" or "xvi".</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/PublicationVolume">PublicationVolume</a></span>
@@ -10101,8 +10106,10 @@ on public-vocabs@w3.org.</p>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Article">Article</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Integer">Integer</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+      <link property="owl:equivalentProperty" href="bibo:pageEnd"/>
+      <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_bibo">Bibliographic Ontology</a></span>
     </div>
-    <div typeof="rdf:Property" resource="http://schema.org/pageStart">
+    <div typeof="rdf:Property" resource="http://schema.org/pageStart" prefix="bibo: http://purl.org/ontology/bibo/">
       <span class="h" property="rdfs:label">pageStart</span>
       <span property="rdfs:comment">The page on which the work starts; for example "135" or "xiii".</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/PublicationVolume">PublicationVolume</a></span>
@@ -10110,22 +10117,27 @@ on public-vocabs@w3.org.</p>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Article">Article</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Integer">Integer</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+      <link property="owl:equivalentProperty" href="bibo:pageStart"/>
+      <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_bibo">Bibliographic Ontology</a></span>
     </div>
-    <div typeof="rdf:Property" resource="http://schema.org/pagination">
+    <div typeof="rdf:Property" resource="http://schema.org/pagination" prefix="bibo: http://purl.org/ontology/bibo/">
       <span class="h" property="rdfs:label">pagination</span>
       <span property="rdfs:comment">Any description of pages that is not separated into pageStart and pageEnd; for example, "1-6, 9, 55" or "10-12, 46-49".</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/PublicationVolume">PublicationVolume</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/PublicationIssue">PublicationIssue</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Article">Article</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+      <link property="owl:equivalentProperty" href="bibo:pages"/>
+      <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_bibo">Bibliographic Ontology</a></span>
     </div>
-    <div typeof="rdf:Property" resource="http://schema.org/volumeNumber">
+    <div typeof="rdf:Property" resource="http://schema.org/volumeNumber" prefix="bibo: http://purl.org/ontology/bibo/">
       <span class="h" property="rdfs:label">volumeNumber</span>
       <span property="rdfs:comment">Identifies the volume of publication or multi-part work; for example, "iii" or "2".</span>
       <link property="rdfs:subPropertyOf" href="http://schema.org/position" />
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/PublicationVolume">PublicationVolume</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Integer">Integer</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+      <link property="owl:equivalentProperty" href="bibo:volume"/>
     </div>
 
   </body>
