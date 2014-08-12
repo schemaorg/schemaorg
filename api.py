@@ -105,6 +105,12 @@ class Unit ():
       """
       return self.subClassOf(Unit.GetUnit("DataType"))
 
+    @staticmethod
+    def storePrefix(prefix):
+        """Stores the prefix declaration for a given class or property"""
+        # Currently defined just to let the tests pass
+        pass
+
     def superceded(self):
         """Has this property been superceded? (i.e. deprecated/archaic)"""
         for triple in self.arcsOut:
