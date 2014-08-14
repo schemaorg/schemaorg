@@ -5126,10 +5126,11 @@
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/carrier">
       <span class="h" property="rdfs:label">carrier</span>
-      <span property="rdfs:comment">The party responsible for the parcel delivery.</span>
+      <span property="rdfs:comment">'carrier' is an out-dated term indicating the 'provider' for parcel delivery.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ParcelDelivery">ParcelDelivery</a></span>
       <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Flight">Flight</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Organization">Organization</a></span>
+      <span property="http://schema.org/supercededBy" href="http://schema.org/provider"/>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/carrierRequirements">
       <span class="h" property="rdfs:label">carrierRequirements</span>
@@ -7015,10 +7016,11 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/merchant">
       <span class="h" property="rdfs:label">merchant</span>
-      <span property="rdfs:comment">The party taking the order (e.g. Amazon.com is a merchant for many sellers).</span>
+      <span property="rdfs:comment">'merchant' is an out-dated term for 'seller'.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Order">Order</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Organization">Organization</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Person">Person</a></span>
+      <span property="http://schema.org/supercededBy" href="http://schema.org/seller"/>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/minPrice">
       <span class="h" property="rdfs:label">minPrice</span>
@@ -8248,7 +8250,9 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/seller">
       <span class="h" property="rdfs:label">seller</span>
-      <span property="rdfs:comment">The organization or person making the offer.</span>
+      <span property="rdfs:comment">The entity which sells or offers services or goods. The seller may sell / offer goods and services on behalf of a provider.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Order">Order</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/BuyAction">BuyAction</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Offer">Offer</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Demand">Demand</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Organization">Organization</a></span>
@@ -8990,7 +8994,7 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/vendor">
       <span class="h" property="rdfs:label">vendor</span>
-      <span property="rdfs:comment">'vendor' is an out-dated term for seller.</span>
+      <span property="rdfs:comment">'vendor' is an earlier term for 'seller'.</span>
       <link property="rdfs:subPropertyOf" href="http://schema.org/participant" />
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/BuyAction">BuyAction</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Organization">Organization</a></span>
@@ -9319,11 +9323,12 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/provider">
       <span class="h" property="rdfs:label">provider</span>
-      <span property="rdfs:comment">The person or organization providing the service, reservation, or creative work. The provider may subcontract out the service.</span>
+      <span property="rdfs:comment">The service provider, service operator, or service performer; the goods producer. Another party (a seller) may offer those services or goods on behalf of the provider. A provider may also serve as the seller.</span>
       <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CreativeWork">CreativeWork</a></span>
       <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Service">Service</a></span>
       <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Reservation">Reservation</a></span>
       <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Flight">Flight</a></span>
+      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ParcelDelivery">ParcelDelivery</a></span>
       <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/TrainTrip">TrainTrip</a></span>
       <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/BusTrip">BusTrip</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Person">Person</a></span>
@@ -9331,7 +9336,7 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/bookingAgent">
       <span class="h" property="rdfs:label">bookingAgent</span>
-      <span property="rdfs:comment">If the reservation was not booked directly through the provider, the third-party booking agent can be recorded through this property.</span>
+      <span property="rdfs:comment">'bookingAgent' is an out-dated term indicating a 'broker' that serves as a booking agent.</span>
       <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Reservation">Reservation</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Person">Person</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Organization">Organization</a></span>
