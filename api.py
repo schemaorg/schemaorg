@@ -15,7 +15,7 @@ import os
 logging.basicConfig(level=logging.INFO) # dev_appserver.py --log_level debug .
 log = logging.getLogger(__name__)
 
-SCHEMA_VERSION=1.8
+SCHEMA_VERSION=1.9
 
 JINJA_ENVIRONMENT = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
@@ -104,6 +104,12 @@ class Unit ():
       treat it specially.
       """
       return self.subClassOf(Unit.GetUnit("DataType"))
+
+    @staticmethod
+    def storePrefix(prefix):
+        """Stores the prefix declaration for a given class or property"""
+        # Currently defined just to let the tests pass
+        pass
 
     def superceded(self):
         """Has this property been superceded? (i.e. deprecated/archaic)"""
@@ -339,7 +345,12 @@ def GetExtMappingsRDFa(node):
         if len(equivs) > 0:
             markup = ''
             for c in equivs:
-                markup = markup + "<link property=\"owl:equivalentClass\" href=\"%s\"/>\n" % c.id
+
+                if (c.id.startswith('http')):
+                  markup = markup + "<link property=\"owl:equivalentClass\" href=\"%s\"/>\n" % c.id
+                else:
+                  markup = markup + "<link property=\"owl:equivalentClass\" resource=\"%s\"/>\n" % c.id
+
             return markup
     if (node.isAttribute()):
         equivs = GetTargets(Unit.GetUnit("owl:equivalentProperty"), node)

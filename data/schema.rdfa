@@ -386,7 +386,6 @@
     <div typeof="rdfs:Class" resource="http://schema.org/Blog">
       <span class="h" property="rdfs:label">Blog</span>
       <span property="rdfs:comment">A blog</span>
-       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/CreativeWork">CreativeWork</a></span>
     </div>
 
     <div typeof="rdfs:Class" resource="http://schema.org/BlogPosting">
@@ -539,7 +538,7 @@
       <span class="h" property="rdfs:label">Event</span>
       <span property="rdfs:comment">An event happening at a certain time and location, such as a concert, lecture, or festival. Ticketing information may be added via the &#39;offers&#39; property. Repeated events may be structured as separate Event objects.</span>
        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Thing">Thing</a></span>
-       <link property="owl:equivalentClass" href="dc:Event"/>
+       <link property="owl:equivalentClass" href="http://purl.org/dc/dcmitype/Event"/>
     </div>
 
     <div typeof="rdfs:Class" resource="http://schema.org/BusinessEvent">
@@ -1270,7 +1269,7 @@
       <span class="h" property="rdfs:label">ImageObject</span>
       <span property="rdfs:comment">An image file.</span>
        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MediaObject">MediaObject</a></span>
-       <link property="owl:equivalentClass" href="dc:Image"/>
+       <link property="owl:equivalentClass" href="http://purl.org/dc/dcmitype/Image"/>
     </div>
 
     <div typeof="rdfs:Class" resource="http://schema.org/ImagingTest">
@@ -1496,19 +1495,19 @@
        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Enumeration">Enumeration</a></span>
     </div>
 
-    <div typeof="MapCategoryType" resource="http://schema.org/ParkingMap">
+    <div typeof="http://schema.org/MapCategoryType" resource="http://schema.org/ParkingMap">
       <span class="h" property="rdfs:label">ParkingMap</span>
       <span property="rdfs:comment">A parking map.</span>
     </div>
-    <div typeof="MapCategoryType" resource="http://schema.org/SeatingMap">
+    <div typeof="http://schema.org/MapCategoryType" resource="http://schema.org/SeatingMap">
       <span class="h" property="rdfs:label">SeatingMap</span>
       <span property="rdfs:comment">A seating map.</span>
     </div>
-    <div typeof="MapCategoryType" resource="http://schema.org/VenueMap">
+    <div typeof="http://schema.org/MapCategoryType" resource="http://schema.org/VenueMap">
       <span class="h" property="rdfs:label">VenueMap</span>
       <span property="rdfs:comment">A venue map (e.g. for malls, auditoriums, museums, etc.).</span>
     </div>
-    <div typeof="MapCategoryType" resource="http://schema.org/TransitMap">
+    <div typeof="http://schema.org/MapCategoryType" resource="http://schema.org/TransitMap">
       <span class="h" property="rdfs:label">TransitMap</span>
       <span property="rdfs:comment">A transit map.</span>
     </div>
@@ -2484,7 +2483,7 @@
       <span class="h" property="rdfs:label">Person</span>
       <span property="rdfs:comment">A person (alive, dead, undead, or fictional).</span>
        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Thing">Thing</a></span>
-       <link property="owl:equivalentClass" href="foaf:Person" />
+       <link property="owl:equivalentClass" href="http://xmlns.com/foaf/0.1/Person" />
        <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_rNews">rNews</a></span></div>
 
     <div typeof="rdfs:Class" resource="http://schema.org/PetStore">
@@ -3486,7 +3485,7 @@
       <span property="rdfs:comment">A collection of datasets.</span>
        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/CreativeWork">CreativeWork</a></span>
        <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_DatasetClass">DatasetClass</a></span>
-       <link property="owl:equivalentClass" href="dcat:DataCatalog"/>
+       <link property="owl:equivalentClass" href="http://www.w3.org/ns/dcat#DataCatalog"/>
     </div>
 
     <div typeof="rdfs:Class" resource="http://schema.org/DataDownload">
@@ -3494,7 +3493,7 @@
       <span property="rdfs:comment">A dataset in downloadable form.</span>
        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MediaObject">MediaObject</a></span>
        <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_DatasetClass">DatasetClass</a></span>
-       <link property="owl:equivalentClass" href="dcat:Distribution"/>
+       <link property="owl:equivalentClass" href="http://www.w3.org/ns/dcat#Distribution"/>
     </div>
 
     <div typeof="rdfs:Class" resource="http://schema.org/Dataset">
@@ -3502,9 +3501,9 @@
       <span property="rdfs:comment">A body of structured information describing some topic(s) of interest.</span>
        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/CreativeWork">CreativeWork</a></span>
        <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_DatasetClass">DatasetClass</a></span>
-       <link property="owl:equivalentClass" href="dcat:Dataset"/>
-       <link property="owl:equivalentClass" href="void:Dataset"/>
-       <link property="owl:equivalentClass" href="dc:Dataset"/>
+       <link property="owl:equivalentClass" href="http://www.w3.org/ns/dcat#Dataset"/>
+       <link property="owl:equivalentClass" href="http://rdfs.org/ns/void#Dataset"/>
+       <link property="owl:equivalentClass" href="http://purl.org/dc/dcmitype/Dataset"/>
        </div>
 
     <div typeof="rdfs:Class" resource="http://schema.org/Class">
@@ -5573,6 +5572,7 @@
     <div typeof="rdf:Property" resource="http://schema.org/description">
       <span class="h" property="rdfs:label">description</span>
       <span property="rdfs:comment">A short description of the item.</span>
+      <link property="owl:equivalentProperty" href="http://purl.org/dc/terms/description"/>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Thing">Thing</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
     </div>
@@ -6005,8 +6005,10 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
     <div typeof="rdf:Property" resource="http://schema.org/episodeNumber">
       <span class="h" property="rdfs:label">episodeNumber</span>
       <span property="rdfs:comment">Position of the episode within an ordered group of episodes.</span>
+      <link property="rdfs:subPropertyOf" href="http://schema.org/position" />
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Episode">Episode</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Integer">Integer</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/episodes">
       <span class="h" property="rdfs:label">episodes</span>
@@ -6631,6 +6633,7 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
       <span property="rdfs:comment">The ISBN of the book.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Book">Book</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+      <link property="owl:equivalentProperty" href="http://purl.org/ontology/bibo/isbn"/>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/isConsumableFor">
       <span class="h" property="rdfs:label">isConsumableFor</span>
@@ -6663,6 +6666,7 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
       <span property="rdfs:comment">Indicates a CreativeWork that this CreativeWork is (in some sense) part of.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CreativeWork">CreativeWork</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/CreativeWork">CreativeWork</a></span>
+      <link property="http://schema.org/inverseOf" href="http://schema.org/hasPart"/>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/isProprietary">
       <span class="h" property="rdfs:label">isProprietary</span>
@@ -7509,11 +7513,10 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/position">
       <span class="h" property="rdfs:label">position</span>
-      <span property="rdfs:comment">Free text to define other than pure numerical ranking of an episode or a season in an ordered list of items (further formatting restrictions may apply within particular user groups).</span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Episode">Episode</a></span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Season">Season</a></span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Clip">Clip</a></span>
+      <span property="rdfs:comment">The position of the creative work within a series or other ordered collection of works.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CreativeWork">CreativeWork</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Integer">Integer</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/possibleComplication">
       <span class="h" property="rdfs:label">possibleComplication</span>
@@ -8222,9 +8225,11 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
     <div typeof="rdf:Property" resource="http://schema.org/seasonNumber">
       <span class="h" property="rdfs:label">seasonNumber</span>
       <span property="rdfs:comment">Position of the season within an ordered group of seasons.</span>
+      <link property="rdfs:subPropertyOf" href="http://schema.org/position" />
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Season">Season</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/TVSeason">TVSeason</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Integer">Integer</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/seasons">
       <span class="h" property="rdfs:label">seasons</span>
@@ -10060,6 +10065,90 @@ on public-vocabs@w3.org.</p>
       <span class="h" property="rdfs:label">WebSite</span>
       <span property="rdfs:comment">A WebSite is a set of related web pages and other items typically served from a single web domain and accessible via URLs.</span>
     <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/CreativeWork">CreativeWork</a></span>
+    </div>
+
+    <h1>Periodicals</h1>
+
+    <div typeof="rdfs:Class" resource="http://schema.org/Periodical">
+      <span class="h" property="rdfs:label">Periodical</span>
+      <span property="rdfs:comment">A publication in any medium issued in successive parts bearing numerical or chronological designations and intended, such as a magazine, scholarly journal, or newspaper to continue indefinitely.</span>
+      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/CreativeWork">CreativeWork</a></span>
+       <link property="owl:equivalentClass" href="http://purl.org/ontology/bibo/Periodical"/>
+    </div>
+    <div typeof="rdfs:Class" resource="http://schema.org/PublicationVolume">
+      <span class="h" property="rdfs:label">PublicationVolume</span>
+      <span property="rdfs:comment">A part of a successively published publication such as a periodical or multi-volume work, often numbered. It may represent a time span, such as a year.</span>
+      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/CreativeWork">CreativeWork</a></span>
+    </div>
+    <div typeof="rdfs:Class" resource="http://schema.org/PublicationIssue">
+      <span class="h" property="rdfs:label">PublicationIssue</span>
+      <span property="rdfs:comment">A part of a successively published publication such as a periodical or publication volume, often numbered, usually containing a grouping of works such as articles.</span>
+      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/CreativeWork">CreativeWork</a></span>
+       <link property="owl:equivalentClass" href="http://purl.org/ontology/bibo/Issue"/>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/hasPart">
+      <span class="h" property="rdfs:label">hasPart</span>
+      <span property="rdfs:comment">Indicates a CreativeWork that is (in some sense) a part of this CreativeWork.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CreativeWork">CreativeWork</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/CreativeWork">CreativeWork</a></span>
+      <link property="http://schema.org/inverseOf" href="http://schema.org/isPartOf"/>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/issn">
+      <span class="h" property="rdfs:label">issn</span>
+      <span property="rdfs:comment">The International Standard Serial Number (ISSN) that identifies this periodical. You can repeat this property to (for example) identify different formats of this periodical.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Periodical">Periodical</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+      <link property="owl:equivalentProperty" href="http://purl.org/ontology/bibo/issn"/>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/issueNumber">
+      <span class="h" property="rdfs:label">issueNumber</span>
+      <span property="rdfs:comment">Identifies the issue of publication; for example, "iii" or "2".</span>
+      <link property="rdfs:subPropertyOf" href="http://schema.org/position" />
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/PublicationIssue">PublicationIssue</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Integer">Integer</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+      <link property="owl:equivalentProperty" href="http://purl.org/ontology/bibo/issue"/>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/pageEnd">
+      <span class="h" property="rdfs:label">pageEnd</span>
+      <span property="rdfs:comment">The page on which the work ends; for example "138" or "xvi".</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/PublicationVolume">PublicationVolume</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/PublicationIssue">PublicationIssue</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Article">Article</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Integer">Integer</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+      <link property="owl:equivalentProperty" href="http://purl.org/ontology/bibo/pageEnd"/>
+      <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_bibo">Bibliographic Ontology</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/pageStart">
+      <span class="h" property="rdfs:label">pageStart</span>
+      <span property="rdfs:comment">The page on which the work starts; for example "135" or "xiii".</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/PublicationVolume">PublicationVolume</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/PublicationIssue">PublicationIssue</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Article">Article</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Integer">Integer</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+      <link property="owl:equivalentProperty" href="http://purl.org/ontology/bibo/pageStart"/>
+      <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_bibo">Bibliographic Ontology</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/pagination">
+      <span class="h" property="rdfs:label">pagination</span>
+      <span property="rdfs:comment">Any description of pages that is not separated into pageStart and pageEnd; for example, "1-6, 9, 55" or "10-12, 46-49".</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/PublicationVolume">PublicationVolume</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/PublicationIssue">PublicationIssue</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Article">Article</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+      <link property="owl:equivalentProperty" href="http://purl.org/ontology/bibo/pages"/>
+      <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_bibo">Bibliographic Ontology</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/volumeNumber">
+      <span class="h" property="rdfs:label">volumeNumber</span>
+      <span property="rdfs:comment">Identifies the volume of publication or multi-part work; for example, "iii" or "2".</span>
+      <link property="rdfs:subPropertyOf" href="http://schema.org/position" />
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/PublicationVolume">PublicationVolume</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Integer">Integer</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+      <link property="owl:equivalentProperty" href="http://purl.org/ontology/bibo/volume"/>
     </div>
 
    <h1>Broker</h1>
