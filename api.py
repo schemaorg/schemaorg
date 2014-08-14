@@ -119,7 +119,7 @@ class Unit ():
         return False
 
     def supercedes(self):
-        """Returns a property that supercedes this one, or nothing."""
+        """Returns a property that is supercededBy this one, or nothing."""
         for triple in self.arcsIn:
             if (triple.source != None and triple.arc.id == "supercededBy"):
                 return triple.source
@@ -635,6 +635,15 @@ class ShowUnit (webapp2.RequestHandler):
                 c = GetComment(spp)
                 tt = "%s: ''%s''" % ( spp.id, c)
                 self.write("\n    <tr><td><code>%s</code></td></tr>\n" % (self.ml(spp, spp.id, tt)))
+            self.write("\n</table>\n\n")
+
+        if (supercedes != None):
+            self.write("<table class=\"definition-table\">\n")
+            self.write("  <thead>\n    <tr>\n      <th>Supercedes</th>\n    </tr>\n</thead>\n")
+            c = GetComment(supercedes)
+            tt = "%s: ''%s''" % ( supercedes.id, c)
+            log.info("Supercedes: %s" % tt)
+            self.write("\n    <tr><td><code>%s</code></td></tr>\n" % (self.ml(supercedes, supercedes.id, tt)))
             self.write("\n</table>\n\n")
 
     def rep(self, markup):
