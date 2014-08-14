@@ -33,10 +33,10 @@ class SDOGraphSetupTestCase(unittest.TestCase):
       from rdflib import Graph
       files = glob.glob("data/*.rdfa")
       log.info("Found %s files via data/*rdfa." % len(files))
+      self.rdflib_errors = Graph()
+      self.rdflib_data = Graph()
       for f in files:
         log.info("Files to parse: %s" % f )
-        self.rdflib_errors = Graph()
-        self.rdflib_data = Graph()
         log.info("Parsing URL %s with rdflib RDFa parser. " % f)
         self.rdflib_data.parse(f, format='rdfa', pgraph=self.rdflib_errors)
         # log.info(self.rdflib_errors.serialize(format="nt"))
