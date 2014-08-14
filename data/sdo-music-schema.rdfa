@@ -36,7 +36,7 @@
 </div>
 <div typeof="rdf:Property" resource="http://schema.org/albumRelease">
   <span class="h" property="rdfs:label">albumRelease</span>
-  <span property="rdfs:comment">A release of this album.</span>
+  <span property="rdfs:comment">An arrangement derived from the composition.</span>
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MusicAlbum">MusicAlbum</a></span>
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/MusicRelease">MusicRelease</a></span>
   <link property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#MBZ"/>
@@ -249,8 +249,10 @@
 <div typeof="rdf:Property" resource="http://schema.org/trackNumber">
   <span class="h" property="rdfs:label">trackNumber</span>
   <span property="rdfs:comment">The track number for the song on an individual release.</span>
-  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MusicComposition">MusicComposition</a></span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MusicRecording">MusicRecording</a></span>
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Integer">Integer</a></span>
+  <link property="rdfs:subPropertyOf" href="http://schema.org/position" />
   <link property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#MBZ"/>
 </div>
 
