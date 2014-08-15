@@ -126,11 +126,21 @@ class Unit ():
         return None
         # TODO: supercedes is a list, e.g. 'seller' supercedes 'vendor', 'merchant'
 
+    def supercedes_all(self):
+        """Returns a property (assume max 1) that is supercededBy this one, or nothing."""
+        newer = []
+        for triple in self.arcsIn:
+            if (triple.source != None and triple.arc.id == "supercededBy"):
+                newer.append(triple.source)
+        return newer
+
     def supercededBy(self):
         """Returns a property (assume max 1) that supercededs this one, or nothing."""
-        for p in properties:
-            sbs = GetTargets(Unit.GetUnit("supercededBy"), p)
-            return sbs
+        for p in sorted(GetSources(Unit.GetUnit("typeOf"), Unit.GetUnit("rdf:Property")), key=lambda u: u.id):
+            allnewers = GetTargets(Unit.GetUnit("supercededBy"), p)
+            for newerprop in allnewers:
+                if self in newerprop.supercedes_all():
+                    return newerprop # this is one of possibly many properties that supercedes self.
         return None
 
     def superproperties(self):
@@ -512,6 +522,7 @@ class ShowUnit (webapp2.RequestHandler):
             if (prop.superceded()):
                 continue
             supercedes = prop.supercedes()
+            olderprops = prop.supercedes_all()
             inverseprop = prop.inverseproperty()
             subprops = prop.subproperties()
             superprops = prop.superproperties()
@@ -535,8 +546,9 @@ class ShowUnit (webapp2.RequestHandler):
                 self.write("&nbsp;")
             self.write("</td>")
             self.write("<td class=\"prop-desc\" property=\"rdfs:comment\">%s" % (comment))
-            if (supercedes != None):
-                self.write(" Supercedes %s." % (self.ml(supercedes)))
+            if (len(olderprops) > 0):
+                olderlinks = ", ".join([self.ml(o) for o in olderprops])
+                self.write(" Supercedes %s." % olderlinks )
             if (inverseprop != None):
                 self.write("<br/> Inverse property: %s." % (self.ml(inverseprop)))
 
@@ -596,10 +608,14 @@ class ShowUnit (webapp2.RequestHandler):
         domains = sorted(GetTargets(di, node), key=lambda u: u.id)
         first_range = True
 
-        supercedes = node.supercedes()
+        newerprop = node.supercededBy() # None of one. e.g. we're on 'seller'(new) page, we get 'vendor'(old)
+        olderprop = node.supercedes() # None or one
+        olderprops = node.supercedes_all() # list, e.g. 'seller' has 'vendor', 'merchant'.
+
         inverseprop = node.inverseproperty()
         subprops = node.subproperties()
         superprops = node.superproperties()
+
 
         if (inverseprop != None):
             tt = "This means the same thing, but with the relationship direction reversed."
@@ -636,6 +652,7 @@ class ShowUnit (webapp2.RequestHandler):
                 self.write("\n    <tr><td><code>%s</code></td></tr>\n" % (self.ml(sbp, sbp.id, tt)))
             self.write("\n</table>\n\n")
 
+        # Super-properties
         if (len(superprops) > 0):
             self.write("<table class=\"definition-table\">\n")
             self.write("  <thead>\n    <tr>\n      <th>Super-properties</th>\n    </tr>\n</thead>\n")
@@ -645,24 +662,24 @@ class ShowUnit (webapp2.RequestHandler):
                 self.write("\n    <tr><td><code>%s</code></td></tr>\n" % (self.ml(spp, spp.id, tt)))
             self.write("\n</table>\n\n")
 
-        if (supercedes != None):
+        # Supercedes
+        if (len(olderprops) > 0):
             self.write("<table class=\"definition-table\">\n")
             self.write("  <thead>\n    <tr>\n      <th>Supercedes</th>\n    </tr>\n</thead>\n")
-            c = GetComment(supercedes)
-            tt = "%s: ''%s''" % ( supercedes.id, c)
-            log.info("Supercedes: %s" % tt)
-            self.write("\n    <tr><td><code>%s</code></td></tr>\n" % (self.ml(supercedes, supercedes.id, tt)))
+
+            for o in olderprops:
+                c = GetComment(o)
+                tt = "%s: ''%s''" % ( o.id, c)
+                log.info("Supercedes: %s" % tt)
+                self.write("\n    <tr><td><code>%s</code></td></tr>\n" % (self.ml(o, o.id, tt)))
             self.write("\n</table>\n\n")
 
-        properties = sorted(GetSources(Unit.GetUnit("typeOf"), Unit.GetUnit("rdf:Property")), key=lambda u: u.id)
-        for p in properties:
-            sbs = GetTargets(Unit.GetUnit("supercededBy"), p)
-            for sb in sbs:
-                if sb.supercedes()==node:
-                    self.write("<table class=\"definition-table\">\n")
-                    self.write("  <thead>\n    <tr>\n      <th><a href=\"/supercededBy\">supercededBy</a></th>\n    </tr>\n</thead>\n")
-                    self.write("\n    <tr><td><code>%s</code></td></tr>\n" % (self.ml(sb, sb.id, tt)))
-                    self.write("\n</table>\n\n")
+        # supercededBy (at most one direct successor)
+        if (newerprop != None):
+            self.write("<table class=\"definition-table\">\n")
+            self.write("  <thead>\n    <tr>\n      <th><a href=\"/supercededBy\">supercededBy</a></th>\n    </tr>\n</thead>\n")
+            self.write("\n    <tr><td><code>%s</code></td></tr>\n" % (self.ml(newerprop, newerprop.id, tt)))
+            self.write("\n</table>\n\n")
 
     def rep(self, markup):
         """Replace < and > with HTML escape chars."""
