@@ -119,10 +119,18 @@ class Unit ():
         return False
 
     def supercedes(self):
-        """Returns a property that supercedes this one, or nothing."""
+        """Returns a property (assume max 1) that is supercededBy this one, or nothing."""
         for triple in self.arcsIn:
             if (triple.source != None and triple.arc.id == "supercededBy"):
                 return triple.source
+        return None
+        # TODO: supercedes is a list, e.g. 'seller' supercedes 'vendor', 'merchant'
+
+    def supercededBy(self):
+        """Returns a property (assume max 1) that supercededs this one, or nothing."""
+        for p in properties:
+            sbs = GetTargets(Unit.GetUnit("supercededBy"), p)
+            return sbs
         return None
 
     def superproperties(self):
@@ -636,6 +644,25 @@ class ShowUnit (webapp2.RequestHandler):
                 tt = "%s: ''%s''" % ( spp.id, c)
                 self.write("\n    <tr><td><code>%s</code></td></tr>\n" % (self.ml(spp, spp.id, tt)))
             self.write("\n</table>\n\n")
+
+        if (supercedes != None):
+            self.write("<table class=\"definition-table\">\n")
+            self.write("  <thead>\n    <tr>\n      <th>Supercedes</th>\n    </tr>\n</thead>\n")
+            c = GetComment(supercedes)
+            tt = "%s: ''%s''" % ( supercedes.id, c)
+            log.info("Supercedes: %s" % tt)
+            self.write("\n    <tr><td><code>%s</code></td></tr>\n" % (self.ml(supercedes, supercedes.id, tt)))
+            self.write("\n</table>\n\n")
+
+        properties = sorted(GetSources(Unit.GetUnit("typeOf"), Unit.GetUnit("rdf:Property")), key=lambda u: u.id)
+        for p in properties:
+            sbs = GetTargets(Unit.GetUnit("supercededBy"), p)
+            for sb in sbs:
+                if sb.supercedes()==node:
+                    self.write("<table class=\"definition-table\">\n")
+                    self.write("  <thead>\n    <tr>\n      <th><a href=\"/supercededBy\">supercededBy</a></th>\n    </tr>\n</thead>\n")
+                    self.write("\n    <tr><td><code>%s</code></td></tr>\n" % (self.ml(sb, sb.id, tt)))
+                    self.write("\n</table>\n\n")
 
     def rep(self, markup):
         """Replace < and > with HTML escape chars."""
