@@ -8255,13 +8255,14 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/seller">
       <span class="h" property="rdfs:label">seller</span>
-      <span property="rdfs:comment">The entity which sells or offers services or goods. The seller may sell / offer goods and services on behalf of a provider.</span>
+      <span property="rdfs:comment">An entity which offers (sells / leases / lends / loans) the services / goods.  A seller may also be a provider.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Order">Order</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/BuyAction">BuyAction</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Offer">Offer</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Demand">Demand</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Organization">Organization</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Person">Person</a></span>
+      <link property="rdfs:subPropertyOf" href="http://schema.org/participant" />
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/sender">
       <span class="h" property="rdfs:label">sender</span>
