@@ -126,9 +126,40 @@ td.release  {
     <th>Description</th>
 </tr>
 
+<tr id="v1.9">
+<td class="release">1.9<br/>(2014-08-18)</td>
+<td>Bibliographic improvements (Periodical and more) alongside seller/broker/provider clarifications.</td>
+<td>
+<p>
+Several bibliographic improvements, thanks to the work of the <a href="http://www.w3.org/community/schemabibex/">W3C BibExtend Community Group</a>.
+Improved handling of <a href="https://www.w3.org/wiki/WebSchemas/Periodicals,_Articles_and_Multi-volume_Works">Periodicals, Articles and Multi-volume Works</a>,
+introducing types and supporting properties for <a href="/Periodical">Periodical</a>,
+<a href="/PublicationVolume">PublicationVolume</a> and
+<a href="/PublicationIssue">PublicationIssue</a>. Adds new <a href="https://www.w3.org/wiki/WebSchemas/Periodicals,_Articles_and_Multi-volume_Works#New_Properties_for_Article">Article properties</a>.
+<a href="/CreativeWork">CreativeWork</a>  gains a convenience inverse of <a href="/isPartOf">isPartOf</a> called
+<a href="hasPart">hasPart</a>, as well as a new pair of inverses, <a href="/workExample">workExample</a> and
+<a href="exampleOfWork">exampleOfWork</a> that link specific and general perspectives on creative works. Many thanks to
+all the <a href="http://www.w3.org/community/schemabibex/participants">BibExtend group members</a>, to Richard Wallis
+for chairing, and to Dan Scott for implementing.
+</p>
 
+<p>Provider/Seller vocabulary: this update also clarifies how to use a set of related terms, integrating sections of schema.org that had developed
+separately. Full details are documented <a href="https://www.w3.org/wiki/WebSchemas/SellerVendorCleanup#Implementation_Details">at W3C</a>
+and <a href="https://github.com/rvguha/schemaorg/issues/88">in Github</a>, alongside an <a href="https://www.w3.org/wiki/images/7/7e/ProviderSellerVocabularyRe-DesignProposal.pdf">overview document</a>.
+The <a href="/provider">provider</a> property describes a service provider, service operator, or service performer, while
+<a href="/seller">seller</a> describe the entities which sell or offer a service on behalf of an actual service provider. We
+introduce a more general <a href="/broker">broker</a> property (replacing the over-specific <a href="bookingAgent">bookingAgent</a>,
+as well as deprecating <a href="/vendor">vendor</a> and <a href="/merchant">merchant</a> in favour of <a href="seller">seller</a>.
+Regarding <a href="/Flight">flights</a> and <a href="/ParcelDelivery">parcel delivery</a>, <a href="/carrier">carrier</a> is
+superceded by <a href="/provider">provider</a>. Please also note that <a href="/flightNumber">flightNumber</a> should now be written in full (i.e. "UA110" rather than just "110").
+See the <a href="https://www.w3.org/wiki/WebSchemas/SellerVendorCleanup#Implementation_Details">supporting documents</a> for details.
+</p>
 
-
+<p>This update also improves the display and navigation of <a href="/supercededBy">supercededBy</a> relations between
+schema.org properties (e.g. see <a href="/seller">seller</a>).</p>
+<!-- (<a href="http://lists.w3.org/Archives/Public/public-vocabs/@@@todo">announcement</a>) -->
+</td>
+</tr>
 
 <tr id="v1.8">
 <td class="release">1.8<br/>(2014-07-28)</td>
