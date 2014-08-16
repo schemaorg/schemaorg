@@ -9938,17 +9938,17 @@ JSON:
 }
 </script>
 
-
-TYPES: FlightReservation, Flight
+TYPES:  Flight, FlightReservation
 
 PRE-MARKUP:
 
-Original:
 Reservation #RXJ34P
 Passenger: Eva Green
-Flight: United Airlines flight 110
+Flight: United Airlines Flight 110
+Operated By: Continental Airlines
 Departing: San Francisco Airport (SFO) 2017-03-04T20:15:00-08:00
 Arriving: John F. Kennedy International Airport (JFK) 2017-03-05T06:30:00-05:00
+
 
 MICRODATA:
 
@@ -9972,12 +9972,17 @@ JSON:
   },
   "reservationFor": {
     "@type": "Flight",
-    "flightNumber": "110",
+    "flightNumber": "UA110",
     "provider": {
+      "@type": "Airline",
+      "name": "Continental",
+      "iataCode": "CO"
+    },
+    "seller": {
       "@type": "Airline",
       "name": "United",
       "iataCode": "UA"
-    },
+    }
     "departureAirport": {
       "@type": "Airport",
       "name": "San Francisco Airport",
