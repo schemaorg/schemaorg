@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# -*- coding: UTF-8 -*-
 
 import webapp2
 import jinja2
@@ -435,6 +436,7 @@ class ShowUnit (webapp2.RequestHandler):
         """
         global PageCache
         outputText = "".join(textStrings)
+        log.debug("CACHING: %s" % node.id)
         PageCache[node.id] = outputText
         return outputText
 
@@ -670,7 +672,6 @@ class ShowUnit (webapp2.RequestHandler):
             for o in olderprops:
                 c = GetComment(o)
                 tt = "%s: ''%s''" % ( o.id, c)
-                log.info("Supercedes: %s" % tt)
                 self.write("\n    <tr><td><code>%s</code></td></tr>\n" % (self.ml(o, o.id, tt)))
             self.write("\n</table>\n\n")
 
@@ -886,7 +887,10 @@ def read_file (filename):
     folder = os.path.dirname(os.path.realpath(__file__))
     file_path = os.path.join(folder, filename)
     strs = []
-    for line in open(file_path, 'r').readlines():
+
+    import codecs
+    log.info("READING FILE: filename=%s file_path=%s " % (filename, file_path ) )
+    for line in codecs.open(file_path, 'r', encoding="utf8").readlines():
         strs.append(line)
     return "".join(strs)
 
@@ -898,14 +902,13 @@ def read_schemas():
     import glob
     global schemasInitialized
     if (not schemasInitialized):
-        files = glob.glob("data/*.rdfa")
+        files = glob.glob("data/*schema.rdfa")
         schema_contents = []
         for f in files:
             schema_content = read_file(f)
             schema_contents.append(schema_content)
 
-        ft = 'rdfa'
-        parser = parsers.MakeParserOfType(ft, None)
+        parser = parsers.MakeParserOfType('rdfa', None)
         items = parser.parse(schema_contents)
         files = glob.glob("data/*examples.txt")
         example_contents = []
