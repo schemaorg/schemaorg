@@ -711,7 +711,7 @@ JSON:
 }
 </script>
 
-TYPES:  Product,AggregateRating,Offer,Review,Rating
+TYPES:  Product,AggregateRating,Offer,Review,Rating, price
 
 PRE-MARKUP:
 
@@ -749,7 +749,13 @@ MICRODATA:
   </div>
 
   <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-    <span itemprop="price">$55.00</span>
+
+    <!--price is 1000, a number, with locale-specific thousands separator
+    and decimal mark, and the $ character is marked up with the
+    machine-readable code "USD" -->
+    <span itemprop="priceCurrency" content="USD">$</span><span
+          itemprop="price" content="1000.00">1,000.00</span>
+
     <link itemprop="availability" href="http://schema.org/InStock" />In stock
   </div>
 
@@ -800,7 +806,11 @@ RDFA:
   </div>
 
   <div property="offers"  typeof="Offer">
-    <span property="price">$55.00</span>
+    <!--price is 1000, a number, with locale-specific thousands separator
+        and decimal mark, and the $ character is marked up with the
+        machine-readable code "USD" -->
+    <span property="priceCurrency" content="USD">$</span><span
+      property="price" content="1000.00">1,000.00</span>
     <link property="availability" href="http://schema.org/InStock" />In stock
   </div>
 
@@ -855,7 +865,8 @@ JSON:
   "offers": {
     "@type": "Offer",
     "availability": "http://schema.org/InStock",
-    "price": "$55.00"
+    "price": "55.00",
+    "priceCurrency": "USD"
   },
   "review": [
     {
