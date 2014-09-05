@@ -1396,7 +1396,7 @@
     <div typeof="rdfs:Class" resource="http://schema.org/ItemList">
       <span class="h" property="rdfs:label">ItemList</span>
       <span property="rdfs:comment">A list of items of any sort&amp;#x2014;for example, Top 10 Movies About Weathermen, or Top 100 Party Songs. Not to be confused with HTML lists, which are often used only for formatting.</span>
-       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/CreativeWork">CreativeWork</a></span>
+       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Intangible">Intangible</a></span>
     </div>
 
     <div typeof="rdfs:Class" resource="http://schema.org/ItemPage">
@@ -4355,7 +4355,8 @@
     <div typeof="rdf:Property" resource="http://schema.org/about">
       <span class="h" property="rdfs:label">about</span>
       <span property="rdfs:comment">The subject matter of the content.</span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CreativeWork">CreativeWork</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CreativeWork">CreativeWork</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ItemList">ItemList</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CommunicateAction">CommunicateAction</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Thing">Thing</a></span>
     </div>
@@ -4819,6 +4820,7 @@
       <span class="h" property="rdfs:label">author</span>
       <span property="rdfs:comment">The author of this content. Please note that author is special in that HTML 5 provides a special mechanism for indicating authorship via the rel tag. That is equivalent to this and may be used interchangeably.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CreativeWork">CreativeWork</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ItemList">ItemList</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Organization">Organization</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Person">Person</a></span>
     </div>
@@ -5508,6 +5510,7 @@
       <span class="h" property="rdfs:label">datePublished</span>
       <span property="rdfs:comment">Date of first broadcast/publication.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CreativeWork">CreativeWork</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ItemList">ItemList</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Date">Date</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/dayOfWeek">

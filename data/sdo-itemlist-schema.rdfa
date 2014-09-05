@@ -42,6 +42,7 @@
   <span property="rdfs:comment">The position of the item in an ordered list (1 = first, 2 = second, ...).</span>
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ListItem">ListItem</a></span>
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number">Number</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
 </div>
 
 <div typeof="rdf:Property" resource="http://schema.org/item">
@@ -63,6 +64,14 @@
   <span property="rdfs:comment">A link to the ListItem that follows the current one.</span>
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ListItem">ListItem</a></span>
   <span>Domain: <a property="http://schema.org/rangeIncludes" href="http://schema.org/ListItem">ListItem</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/positionBasis">
+  <span class="h" property="rdfs:label">positionBasis</span>
+  <span property="rdfs:comment">A score or metric used to determine the item's position in the list.</span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ListItem">ListItem</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number">Number</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
 </div>
 
 </div>
