@@ -82,4 +82,182 @@ JSON:
 }
 </script>
 
+TYPES: ItemList
+
+PRE-MARKUP:
+
+The artists with the most cumulative weeks at number one according to Billboard 200
+1. Beatles: 132 weeks
+2. Elvis Presley: 67 weeks
+3. Michael Jackson: 51 weeks
+4. Garth Brooks: 51 weeks
+
+MICRODATA:
+
+<div itemtype="http://schema.org/ItemList">
+  <link itemprop="url" href="http://en.wikipedia.org/wiki/Billboard_200" />
+  <h1><span itemprop="name">Top music artists</span></h1>
+  <div itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+    <span itemprop="position">1</span>
+    <span itemprop="item" itemscope itemtype="http://schema.org/MusicGroup">
+      <span itemprop="name">Beatles</span>
+    </span>
+    <span itemporop="positionBasis" content="132">132 weeks</span>
+  </div>
+  <div itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+    <span itemprop="position">2</span>
+    <span itemprop="item" itemscope itemtype="http://schema.org/MusicGroup">
+      <span itemprop="name">Elvis Presley</span>
+    </span>
+    <span itemporop="positionBasis" content="67">67 weeks</span>
+  </div>
+  <div itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+    <span itemprop="position">3</span>
+    <span itemprop="item" itemscope itemtype="http://schema.org/MusicGroup">
+      <span itemprop="name">Michael Jackson</span>
+    </span>
+    <span itemporop="positionBasis" content="51">51 weeks</span>
+  </div>
+  <div itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+    <span itemprop="position">3</span>
+    <span itemprop="item" itemscope itemtype="http://schema.org/MusicGroup">
+      <span itemprop="name">Garth Brooks</span>
+    </span>
+    <span itemporop="positionBasis" content="51">51 weeks</span>
+  </div>
+</div>
+
+
+
+JSON:
+<script type="application/ld+json">
+{
+	"@context": "http://schema.org",
+	"@type": "ItemList",
+	"@url": "http://en.wikipedia.org/wiki/Billboard_200",
+	"name": "Top music artists",
+	"description": "The artists with the most cumulative weeks at number one according to Billboard 200",
+	"itemListElement": [
+		{
+			"@type": "ListItem",
+			"position": 1,
+			"positionBasis": "132",
+			"item": {
+				"@type": "MusicGroup",
+				"name": "Beatles"
+			}
+		},
+		{
+			"@type": "ListItem",
+			"position": 2,
+			"positionBasis": 67,
+			"item": {
+				"@type": "MusicGroup",
+				"name": "Elvis Presley"
+			}
+		},
+		{
+			"@type": "ListItem",
+			"position": 3,
+			"positionBasis": 51,
+			"item": {
+				"@type": "MusicGroup",
+				"name": "Michael Jackson"
+			}
+		},
+		{
+			"@type": "ListItem",
+			"position": 3,
+			"positionBasis": 51,
+			"item": {
+				"@type": "MusicGroup",
+				"name": "Garth Brooks"
+			}
+		}
+	]
+}
+</script>  
+
+
+TYPES: ItemList, MusicAlbum
+
+PRE-MARKUP:
+
+King of Limbs - Radiohead
+Tracks:
+1. Bloom
+2. Morning Mr. Magpie
+3. Little by Little
+
+MICRODATA:
+
+<div itemscope itemtype="http://schema.org/MusicAlbum">
+  <span itemprop="name">King of Limbs</span>
+  <span itemprop="byArtist">Radiohead</span>
+  <div itemprop="track" itemscope itemtype="http://schema.org/ItemList">
+    <span itemprop="numberOfElements" content=8 />
+    <div itemprop="itemListElement itemscope itemtype="http://schema.org/ListItem">
+      <span itemprop="position">1</span>
+      <div itemprop="item" itemscope itemtype="http://schema.org/MusicRecording">
+        <span itemprop="name">Bloom</span>
+      </div>
+    </div>
+    <div itemprop="itemListElement itemscope itemtype="http://schema.org/ListItem">
+      <span itemprop="position">2</span>
+      <div itemprop="item" itemscope itemtype="http://schema.org/MusicRecording">
+        <span itemprop="name">Morning Mr. Magpie</span>
+      </div>
+    </div>
+    <div itemprop="itemListElement itemscope itemtype="http://schema.org/ListItem">
+      <span itemprop="position">3</span>
+      <div itemprop="item" itemscope itemtype="http://schema.org/MusicRecording">
+        <span itemprop="name">Little by Little</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+JSON:
+
+<script type="application/ld+json>
+{
+	"@context": "http://schema.org",
+	"@type": "MusicAlbum",
+	"name": "King of Limbs",
+	"byArtist": {
+		"@type": "MusicGroup",
+		"name": "Radiohead",
+	},
+	track: [
+		"@type": "ItemList",
+		"numberOfElements": 8,
+		"itemListElement": [
+			{
+"@type": "ListItem",
+				"position": 1,
+				"item": {
+					"@type": "MusicRecording",
+					"name": "Bloom"
+				}
+			},
+			{
+"@type": "ListItem",
+				"position": 2,
+				"item": {
+					"@type": "MusicRecording",
+					"name": "Morning Mr. Magpie"
+				}
+			},
+			{
+"@type": "ListItem",
+				"position": 3,
+				"item": {
+					"@type": "MusicRecording",
+					"name": "Little by Little"
+				}
+			}
+	]
+}
+</script>
+
 TYPES:  FakeEntryNeeded, FixMeSomeDay
