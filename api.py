@@ -883,16 +883,22 @@ class ShowUnit (webapp2.RequestHandler):
 
 def read_file (filename):
     """Read a file from disk, return it as a single string."""
-    import os.path
-    folder = os.path.dirname(os.path.realpath(__file__))
-    file_path = os.path.join(folder, filename)
     strs = []
+
+    file_path = full_path(filename)
 
     import codecs
     log.info("READING FILE: filename=%s file_path=%s " % (filename, file_path ) )
     for line in codecs.open(file_path, 'r', encoding="utf8").readlines():
         strs.append(line)
     return "".join(strs)
+
+def full_path(filename):
+    """convert local file name to full path."""
+    import os.path
+    folder = os.path.dirname(os.path.realpath(__file__))
+    return os.path.join(folder, filename)
+
 
 schemasInitialized = False
 
@@ -902,14 +908,14 @@ def read_schemas():
     import glob
     global schemasInitialized
     if (not schemasInitialized):
-        files = glob.glob("data/*schema.rdfa")
-        schema_contents = []
+        files = glob.glob("data/*.rdfa")
+        file_paths = []
         for f in files:
-            schema_content = read_file(f)
-            schema_contents.append(schema_content)
+            file_paths.append(full_path(f))
 
         parser = parsers.MakeParserOfType('rdfa', None)
-        items = parser.parse(schema_contents)
+        items = parser.parse(file_paths)
+
         files = glob.glob("data/*examples.txt")
         example_contents = []
         for f in files:
