@@ -83,16 +83,19 @@ class RDFAParser :
     def __init__ (self, webapp):
         self.webapp = webapp
 
-    def parse (self, contents):
+    def parse (self, files):
         self.items = {}
         root = []
-        for i in range(len(contents)):
-            root.append(ET.fromstring(contents[i]))
+        for i in range(len(files)):
+            parser = ET.XMLParser(encoding="utf-8")
+            tree = ET.parse(files[i], parser=parser)
+            root.append(tree.getroot())
+
             pre = root[i].findall(".//*[@prefix]")
             for e in range(len(pre)):
                 api.Unit.storePrefix(pre[e].get('prefix'))
 
-        for i in range(len(contents)):
+        for i in range(len(root)):
               self.extractTriples(root[i], None)
 
 
