@@ -570,6 +570,118 @@ JSON:
 }
 </script>
 
+TYPES: exampleOfWork, workExample
+
+PRE-MARKUP:
+
+<p>
+    <em>The Fellowship of the Rings</em> was written by J.R.R Tolkien and
+    was originally published in the United Kingdom in 1954 by George Allen &
+    Unwin.
+</p>
+<p>
+    The book has been republished many times, including editions by
+    HarperCollins in 1974 (ISBN: 0007149212) and by Ballantine in 1984
+    (ISBN: 0345296052).
+</p>
+<p>
+    The book has also been adapted for the screen several times. <em>J.R.R.
+    Tolkien's The Lord of the Rings</em>, an animated version directed by Ralph
+    Bakshi and released in 1978, covered the events of the novel and parts of
+    its sequel. The movie <em>The Lord of the Rings: The Fellowship of the
+    Ring</em>, directed by Peter Jackson and released in 2001, ran 178 minutes
+    long in its theatrical release.
+</p>
+
+MICRODATA:
+
+<p itemscope itemtype="http://schema.org/Book" itemid="http://www.freebase.com/m/0h35m">
+    <em itemprop="name">The Fellowship of the Rings</em> was written by
+    <span itemprop="author">J.R.R Tolkien</span> and was originally published
+    in the <span itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+        <span itemprop="location">United Kingdom</span> by 
+        <span itemprop="name">George Allen & Unwin</span>
+    </span> in <time itemprop="datePublished">1954</time>.
+    The book has been republished many times, including editions by 
+    <span itemprop="workExample" itemscope itemtype="http://schema.org/Book">
+        <span itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+            <span itemprop="name">HarperCollins</span>
+        </span> in <time itemprop="datePublished">1974</time>
+        (ISBN: <span itemprop="isbn">0007149212</span>)
+    </span> and by 
+    <span itemprop="workExample" itemscope itemtype="http://schema.org/Book">
+        <span itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+            <span itemprop="name">Ballantine</span>
+        </span> in <time itemprop="datePublished">1984</time>
+        (ISBN: <span itemprop="isbn">0345296052</span>).
+    </span>
+</p>
+<p>
+    The book has also been adapted for the screen several times.
+    <span itemscope itemtype="http://schema.org/Movie">
+        <meta itemprop="exampleOfWork" href="http://www.freebase.com/m/0h35m">
+        <em itemprop="name">J.R.R. Tolkien's The Lord of the Rings</em>, an
+        animated version directed by <span itemprop="director">Ralph Bakshi</span>
+        and released in <time itemprop="datePublished">1978</time>, covered the
+        events of the novel and parts of its sequel.
+    </span>
+    <span itemscope itemtype="http://schema.org/Movie">
+        <meta itemprop="exampleOfWork" href="http://www.freebase.com/m/0h35m">
+        The movie <em itemprop="name">The Lord of the Rings: The Fellowship of the
+        Ring</em>, directed by <span itemprop="director">Peter Jackson</span> and
+        released in <time itemprop="datePublished">2001</time>, ran
+        <time itemprop="duration" content="PT178M">178</time> minutes long in its
+        theatrical release.
+    </span>
+</p>
+
+RDFA:
+
+<div vocab="http://schema.org/">
+    <p typeof="Book" resource="http://www.freebase.com/m/0h35m">
+        <em property="name">The Fellowship of the Rings</em> was written by
+        <span property="author">J.R.R Tolkien</span> and was originally published
+        in the <span property="publisher" typeof="Organization">
+            <span property="location">United Kingdom</span> by 
+            <span property="name">George Allen & Unwin</span>
+        </span> in <time property="datePublished">1954</time>.
+        The book has been republished many times, including editions by 
+        <span property="workExample" typeof="Book">
+            <span property="publisher" typeof="Organization">
+                <span property="name">HarperCollins</span>
+            </span> in <time property="datePublished">1974</time>
+            (ISBN: <span property="isbn">0007149212</span>)
+        </span> and by 
+        <span property="workExample" typeof="Book">
+            <span property="publisher" typeof="Organization">
+                <span property="name">Ballantine</span>
+            </span> in <time property="datePublished">1984</time>
+            (ISBN: <span property="isbn">0345296052</span>).
+        </span>
+    </p>
+    <p>
+        The book has also been adapted for the screen several times.
+        <span typeof="Movie">
+            <meta property="exampleOfWork" href="http://www.freebase.com/m/0h35m">
+            <em property="name">J.R.R. Tolkien's The Lord of the Rings</em>, an
+            animated version directed by <span property="director">Ralph Bakshi</span>
+            and released in <time property="datePublished">1978</time>, covered the
+            events of the novel and parts of its sequel.
+        </span>
+        <span typeof="Movie">
+            <meta property="exampleOfWork" href="http://www.freebase.com/m/0h35m">
+            The movie <em property="name">The Lord of the Rings: The Fellowship of the
+            Ring</em>, directed by <span property="director">Peter Jackson</span> and
+            released in <time property="datePublished">2001</time>, ran
+            <time property="duration" content="PT178M">178</time> minutes long in its
+            theatrical release.
+        </span>
+    </p>
+</div>
+
+JSON:
+ 
+
 TYPES:  FakeEntryNeeded, FixMeSomeDay
 PRE-MARKUP:
 MICRODATA:
