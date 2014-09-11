@@ -24,7 +24,7 @@ MICRODATA:
 <div  itemtype="http://schema.org/ItemList">
   <link itemprop="url" href="http://multivarki.ru?filters%5Bprice%5D%5BLTE%5D=39600" />
   <span itemprop="numberOfItems">315</span>
-  <div itemprop="itemInList" itemscope="" itemtype="http://schema.org/Product">
+  <div itemprop="itemListElement" itemscope="" itemtype="http://schema.org/Product">
     <img itemprop="image" src="http://img01.multivarki.ru.ru/c9/f1/a5fe6642-18d0-47ad-b038-6fca20f1c923.jpeg" />
     <a itemprop="url" href="http://multivarki.ru/brand_502/">
       <span itemprop="name">BRAND 502</span>
@@ -32,7 +32,7 @@ MICRODATA:
     <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
       <span itemprop="price">4399 р.</span>
     </div>...
-    <div itemprop="itemInList"  itemtype="http://schema.org/Product">
+    <div itemprop="itemListElement"  itemtype="http://schema.org/Product">
     ...
     </div>
   </div>
@@ -43,7 +43,7 @@ RDFA:
 <div vocab="http://schema.org/" typeof="ItemList">
   <link property="url" href="http://multivarki.ru?filters%5Bprice%5D%5BLTE%5D=39600" />
   <span property="numberOfItems">315</span>
-  <div property="itemInList" typeof="Product">
+  <div property="itemListElement" typeof="Product">
     <img property="image" src="http://img01.multivarki.ru.ru/c9/f1/a5fe6642-18d0-47ad-b038-6fca20f1c923.jpeg" />
     <a property="url" href="http://multivarki.ru/brand_502/">
       <span property="name">BRAND 502</span>
@@ -51,7 +51,7 @@ RDFA:
     <div property="offers" typeof="http://schema.org/Offer">
       <span property="price">4399 р.</span>
     </div>...
-    <div property="itemInList"  typeof="Product">
+    <div property="itemListElement"  typeof="Product">
     ...
     </div>
   </div>
@@ -65,7 +65,7 @@ JSON:
   "@type": "ItemList",
   "url": "http://multivarki.ru?filters%5Bprice%5D%5BLTE%5D=39600",
   "numberOfItems": "315",
-  "itemInList": [{
+  "itemListElement": [{
       "@type": "Product",
       "image": "http://img01.multivarki.ru.ru/c9/f1/a5fe6642-18d0-47ad-b038-6fca20f1c923.jpeg",
       "url": "http://multivarki.ru/brand_502/",
@@ -97,28 +97,28 @@ MICRODATA:
 <div itemtype="http://schema.org/ItemList">
   <link itemprop="url" href="http://en.wikipedia.org/wiki/Billboard_200" />
   <h1><span itemprop="name">Top music artists</span></h1>
-  <div itemprop="itemInList" itemscope itemtype="http://schema.org/ListItem">
+  <div itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
     <span itemprop="position">1</span>
     <span itemprop="item" itemscope itemtype="http://schema.org/MusicGroup">
       <span itemprop="name">Beatles</span>
     </span>
     <span>132 weeks</span>
   </div>
-  <div itemprop="itemInList" itemscope itemtype="http://schema.org/ListItem">
+  <div itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
     <span itemprop="position">2</span>
     <span itemprop="item" itemscope itemtype="http://schema.org/MusicGroup">
       <span itemprop="name">Elvis Presley</span>
     </span>
     <span>67 weeks</span>
   </div>
-  <div itemprop="itemInList" itemscope itemtype="http://schema.org/ListItem">
+  <div itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
     <span itemprop="position">3</span>
     <span itemprop="item" itemscope itemtype="http://schema.org/MusicGroup">
       <span itemprop="name">Michael Jackson</span>
     </span>
     <span>51 weeks</span>
   </div>
-  <div itemprop="itemInList" itemscope itemtype="http://schema.org/ListItem">
+  <div itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
     <span itemprop="position">3</span>
     <span itemprop="item" itemscope itemtype="http://schema.org/MusicGroup">
       <span itemprop="name">Garth Brooks</span>
@@ -140,7 +140,7 @@ JSON:
 	"@url": "http://en.wikipedia.org/wiki/Billboard_200",
 	"name": "Top music artists",
 	"description": "The artists with the most cumulative weeks at number one according to Billboard 200",
-	"itemInList": [
+	"itemListElement": [
 		{
 			"@type": "ListItem",
 			"position": 1,
@@ -195,19 +195,19 @@ MICRODATA:
   <span itemprop="byArtist">Radiohead</span>
   <div itemprop="track" itemscope itemtype="http://schema.org/ItemList">
     <span itemprop="numberOfItems" content=8 />
-    <div itemprop="itemInList itemscope itemtype="http://schema.org/ListItem">
+    <div itemprop="itemListElement itemscope itemtype="http://schema.org/ListItem">
       <span itemprop="position">1</span>
       <div itemprop="item" itemscope itemtype="http://schema.org/MusicRecording">
         <span itemprop="name">Bloom</span>
       </div>
     </div>
-    <div itemprop="itemInList itemscope itemtype="http://schema.org/ListItem">
+    <div itemprop="itemListElement itemscope itemtype="http://schema.org/ListItem">
       <span itemprop="position">2</span>
       <div itemprop="item" itemscope itemtype="http://schema.org/MusicRecording">
         <span itemprop="name">Morning Mr. Magpie</span>
       </div>
     </div>
-    <div itemprop="itemInList itemscope itemtype="http://schema.org/ListItem">
+    <div itemprop="itemListElement itemscope itemtype="http://schema.org/ListItem">
       <span itemprop="position">3</span>
       <div itemprop="item" itemscope itemtype="http://schema.org/MusicRecording">
         <span itemprop="name">Little by Little</span>
@@ -234,7 +234,7 @@ JSON:
 	track: [
 		"@type": "ItemList",
 		"numberOfItems": 8,
-		"itemInList": [
+		"itemListElement": [
 			{
 "@type": "ListItem",
 				"position": 1,
