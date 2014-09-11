@@ -7,8 +7,8 @@
 <!-- CHANGES TO EXISTING ELEMENTS -->
 <!-- ========================== -->
 
-<div typeof="rdf:Property" resource="http://schema.org/itemListElement">
-  <span class="h" property="rdfs:label">itemListElement</span>
+<div typeof="rdf:Property" resource="http://schema.org/itemInList">
+  <span class="h" property="rdfs:label">itemInList</span>
   <span property="rdfs:comment">A single list item. An ItemList can have a itemListElement property whose value is a ListItem.</span>
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ItemList">ItemList</a></span>
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
@@ -23,44 +23,48 @@
 <div typeof="rdfs:Class" resource="http://schema.org/ListItem">
   <span class="h" property="rdfs:label">ListItem</span>
   <span property="rdfs:comment">An list item, e.g. a step in a checklist or how-to description.</span>
-  <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/StructuredValue">StructuredValue</a></span>
+  <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Intangible">Intangible</a></span>
 </div>
 
-<div typeof="rdf:Property" resource="http://schema.org/itemPosition">
+<!-- dropped in favour of general position property.
+ <div typeof="rdf:Property" resource="http://schema.org/itemPosition">
   <span class="h" property="rdfs:label">itemPosition</span>
   <span property="rdfs:comment">The position of the item in an ordered list (1 = first, 2 = second, ...).</span>
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ListItem">ListItem</a></span>
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number">Number</a></span>
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
-</div>
+ </div>
+-->
 
 <div typeof="rdf:Property" resource="http://schema.org/item">
   <span class="h" property="rdfs:label">item</span>
-  <span property="rdfs:comment">The entity represented by the entry in the list (e.g. the artist, song, ...).</span>
+  <span property="rdfs:comment">An entity represented by an entry in a list (e.g. an 'artist' in a list of 'artists')’.</span>
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ListItem">ListItem</a></span>
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Thing">Thing</a></span>
 </div>
 
-<div typeof="rdf:Property" resource="http://schema.org/previous">
-  <span class="h" property="rdfs:label">previous</span>
+<div typeof="rdf:Property" resource="http://schema.org/previousItem">
+  <span class="h" property="rdfs:label">previousItem</span>
   <span property="rdfs:comment">A link to the ListItem that preceeds the current one.</span>
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ListItem">ListItem</a></span>
   <span>Domain: <a property="http://schema.org/rangeIncludes" href="http://schema.org/ListItem">ListItem</a></span>
 </div>
 
-<div typeof="rdf:Property" resource="http://schema.org/next">
-  <span class="h" property="rdfs:label">next</span>
+<div typeof="rdf:Property" resource="http://schema.org/nextItem">
+  <span class="h" property="rdfs:label">nextItem</span>
   <span property="rdfs:comment">A link to the ListItem that follows the current one.</span>
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ListItem">ListItem</a></span>
   <span>Domain: <a property="http://schema.org/rangeIncludes" href="http://schema.org/ListItem">ListItem</a></span>
 </div>
 
-<div typeof="rdf:Property" resource="http://schema.org/positionBasis">
+<!-- retiring this proposal for now:
+ <div typeof="rdf:Property" resource="http://schema.org/positionBasis">
   <span class="h" property="rdfs:label">positionBasis</span>
   <span property="rdfs:comment">A score or metric used to determine the item's position in the list.</span>
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ListItem">ListItem</a></span>
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number">Number</a></span>
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
-</div>
+ </div>
+-->
 
 </div>
