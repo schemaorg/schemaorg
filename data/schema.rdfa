@@ -6727,8 +6727,35 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
       <span class="h" property="rdfs:label">itemListOrder</span>
       <span property="rdfs:comment">Type of ordering (e.g. Ascending, Descending, Unordered).</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ItemList">ItemList</a></span>
-      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/ItemListOrderType">ItemListOrderType</a></span>
     </div>
+
+
+    <div typeof="rdfs:Class" resource="http://schema.org/ItemListOrderType">
+      <span class="h" property="rdfs:label">ItemListOrderType</span>
+      <span property="rdfs:comment">Enumerated for values for itemListOrder for indicating how an ordered ItemList is organized.</span>
+      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Enumeration">Enumeration</a></span>
+    </div>
+
+    <div typeof="http://schema.org/ItemListOrderType" resource="http://schema.org/ItemListOrderAscending">
+      <span class="h" property="rdfs:label">ItemListOrderAscending</span>
+      <span property="rdfs:comment">An ItemList ordered with lower values listed first.</span>
+      <span>type: <a href="http://schema.org/ItemListOrderType">ItemListOrderType</a></span>
+    </div>
+
+    <div typeof="http://schema.org/ItemListOrderType" resource="http://schema.org/ItemListOrderDescending">
+      <span class="h" property="rdfs:label">ItemListOrderDescending</span>
+      <span property="rdfs:comment">An ItemList ordered with higher values listed first.</span>
+      <span>type: <a href="http://schema.org/ItemListOrderType">ItemListOrderType</a></span>
+    </div>
+
+    <div typeof="http://schema.org/ItemListOrderType" resource="http://schema.org/ItemListUnordered">
+      <span class="h" property="rdfs:label">ItemListUnordered</span>
+      <span property="rdfs:comment">An ItemList ordered with no explicit order.</span>
+      <span>type: <a href="http://schema.org/ItemListOrderType">ItemListOrderType</a></span>
+    </div>
+
+
     <div typeof="rdf:Property" resource="http://schema.org/itemOffered">
       <span class="h" property="rdfs:label">itemOffered</span>
       <span property="rdfs:comment">The item being offered.</span>
