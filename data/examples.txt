@@ -711,7 +711,7 @@ JSON:
 }
 </script>
 
-TYPES:  Product,AggregateRating,Offer,Review,Rating
+TYPES:  Product,AggregateRating,Offer,Review,Rating, price
 
 PRE-MARKUP:
 
@@ -749,7 +749,13 @@ MICRODATA:
   </div>
 
   <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-    <span itemprop="price">$55.00</span>
+
+    <!--price is 1000, a number, with locale-specific thousands separator
+    and decimal mark, and the $ character is marked up with the
+    machine-readable code "USD" -->
+    <span itemprop="priceCurrency" content="USD">$</span><span
+          itemprop="price" content="1000.00">1,000.00</span>
+
     <link itemprop="availability" href="http://schema.org/InStock" />In stock
   </div>
 
@@ -800,7 +806,11 @@ RDFA:
   </div>
 
   <div property="offers"  typeof="Offer">
-    <span property="price">$55.00</span>
+    <!--price is 1000, a number, with locale-specific thousands separator
+        and decimal mark, and the $ character is marked up with the
+        machine-readable code "USD" -->
+    <span property="priceCurrency" content="USD">$</span><span
+      property="price" content="1000.00">1,000.00</span>
     <link property="availability" href="http://schema.org/InStock" />In stock
   </div>
 
@@ -855,7 +865,8 @@ JSON:
   "offers": {
     "@type": "Offer",
     "availability": "http://schema.org/InStock",
-    "price": "$55.00"
+    "price": "55.00",
+    "priceCurrency": "USD"
   },
   "review": [
     {
@@ -1055,7 +1066,7 @@ by <a itemprop="author" href="/author/jd_salinger.html">J.D. Salinger</a>
 </div>
 
 <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-  Price: <span itemprop="price">$6.99</span>
+  Price: <span itemprop="price" content="6.99">$6.99</span>
   <meta itemprop="priceCurrency" content="USD" />
   <link itemprop="availability" href="http://schema.org/InStock">In Stock
 </div>
@@ -1113,7 +1124,7 @@ by <a property="author" href="/author/jd_salinger.html">J.D. Salinger</a>
 </div>
 
 <div property="offers"  typeof="Offer">
-  Price: <span property="price">$6.99</span>
+  Price: <span property="price" content="6.99">$6.99</span>
   <meta property="priceCurrency" content="USD" />
   <link property="availability" href="http://schema.org/InStock">In Stock
 </div>
@@ -1171,7 +1182,7 @@ JSON:
   "offers": {
     "@type": "Offer",
     "availability": "http://schema.org/InStock",
-    "price": "$6.99",
+    "price": "6.99",
     "priceCurrency": "USD"
   },
   "publisher": "Little, Brown, and Company",
@@ -7805,7 +7816,8 @@ JSON:
     "@type": "Book",
     "name": "Outliers"
   },
-  "price": "US$ 50"
+  "price": "50",
+  "priceCurrency": "USD"
 }
 </script>
 
@@ -7870,7 +7882,8 @@ JSON:
     "@type": "Person",
     "name": "John"
   },
-  "price": "US$ 10",
+  "price": "10",
+  "priceCurrency": "USD"
   "recipient": {
     "@type": "Person",
     "name": "Steve"
@@ -7939,7 +7952,8 @@ JSON:
     "@type": "Person",
     "name": "John"
   },
-  "price": "US$ 1,500",
+  "price": "1500",
+  "priceCurrency": "USD",
   "purpose": {
     "@type": "Flight",
     "name": "AA123"
@@ -7976,7 +7990,8 @@ JSON:
     "@type": "Flight",
     "name": "AA123"
   },
-  "price": "US$ 1,500"
+  "price": "1500",
+  "priceCurrency": "UDC"
 }
 </script>
 
@@ -8077,7 +8092,8 @@ JSON:
     "@type": "Person",
     "name": "John"
   },
-  "price": "US$ 10",
+  "price": "10",
+  "priceCurrency": "USD"
   "recipient": {
     "@type": "Person",
     "name": "Steve"
@@ -8254,7 +8270,8 @@ JSON:
     "@type": "Person",
     "name": "John"
   },
-  "price": "US$ 10",
+  "price": "10",
+  "priceCurrency": "USD"
   "recipient": {
     "@type": "Person",
     "name": "Steve"
@@ -9096,7 +9113,8 @@ MICRODATA:
   <div class="event-time">9:30 PM</div>
 
  <span itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-  <div class="event-price" itemprop="price">$13.00</div>
+  <div class="event-price" itemprop="price" content="13.00">$13.00</div>
+  <span itemprop="priceCurrency" content="USD" />
   <a itemprop="url" href="http://www.ticketfly.com/purchase/309433">Tickets</a>
  </span>
 </div>
@@ -9121,8 +9139,9 @@ RDFA:
   <div class="event-time">9:30 PM</div>
 
  <span property="offers"  typeof="Offer">
-  <div class="event-price" property="price">$13.00</div>
-  <a property="url" href="http://www.ticketfly.com/purchase/309433">Tickets</a>
+  <div class="event-price" property="price" content="13.00">$13.00</div>
+    <span property="priceCurrency" content="USD" />
+    <a property="url" href="http://www.ticketfly.com/purchase/309433">Tickets</a>
  </span>
 </div>
 
@@ -9146,7 +9165,8 @@ JSON:
   "name": "Typhoon with Radiation City",
   "offers": {
     "@type": "Offer",
-    "price": "$13.00",
+    "price": "13.00",
+    "priceCurrency": "USD",
     "url": "http://www.ticketfly.com/purchase/309433"
   },
   "startDate": "Sat Sep 14"
@@ -9199,7 +9219,8 @@ MICRODATA:
   <div class="event-time">9:30 PM</div>
 
  <span itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-  <div class="event-price" itemprop="price">$13.00</div>
+  <div class="event-price" itemprop="price" content="13.00">$13.00</div>
+  <span itemprop="priceCurrency" content="USD" />
   <a itemprop="url" href="http://www.ticketfly.com/purchase/309433">Tickets</a>
  </span>
 </div>
@@ -9251,7 +9272,8 @@ JSON:
   "name": "CANCELLED - Typhoon with Radiation City",
   "offers": {
     "@type": "Offer",
-    "price": "$13.00",
+    "price": "13.00",
+    "priceCurrency": "USD",
     "url": "http://www.ticketfly.com/purchase/309433"
   },
   "startDate": "Sat Sep 14"
@@ -9299,8 +9321,9 @@ MICRODATA:
   </div>
   <div class="event-time">10:00 PM</div>
   <span itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-   <div class="event-price" itemprop="price">$13.00</div>
-   <a itemprop="url" href="http://www.ticketfly.com/purchase/309433">Tickets</a>
+   <div class="event-price" itemprop="price" content="13.00">$13.00</div>
+     <span itemprop="priceCurrency" content="USD" />
+     <a itemprop="url" href="http://www.ticketfly.com/purchase/309433">Tickets</a>
   </span>
 </div>
 
@@ -9323,8 +9346,9 @@ RDFA:
   </div>
   <div class="event-time">10:00 PM</div>
   <span property="offers"  typeof="Offer">
-   <div class="event-price" property="price">$13.00</div>
-   <a property="url" href="http://www.ticketfly.com/purchase/309433">Tickets</a>
+   <div class="event-price" property="price" content="13.00">$13.00</div>
+    <span property="priceCurrency" content="USD" />
+    <a property="url" href="http://www.ticketfly.com/purchase/309433">Tickets</a>
   </span>
 </div>
 
@@ -9347,7 +9371,8 @@ JSON:
     },
     {
       "@type": "Offer",
-      "price": "$13.00",
+      "price": "13.00",
+      "priceCurrency": "USD",
       "url": "http://www.ticketfly.com/purchase/309433"
     }
   ]
@@ -9397,8 +9422,9 @@ MICRODATA:
  <span itemprop="offers" itemscope itemtype="http://schema.org/Offer">
   <meta itemprop="availability" content="http://schema.org/SoldOut">
 
-  <div class="event-price" itemprop="price">$13.00</div>
-  <a itemprop="url" href="http://www.ticketfly.com/purchase/309433">Tickets</a>
+  <div class="event-price" itemprop="price" content="13.00">$13.00</div>
+    <span itemprop="priceCurrency" content="USD" />
+    <a itemprop="url" href="http://www.ticketfly.com/purchase/309433">Tickets</a>
  </span>
 </div>
 
@@ -9424,7 +9450,8 @@ RDFA:
  <span property="offers"  typeof="Offer">
   <meta property="availability" content="http://schema.org/SoldOut">
 
-  <div class="event-price" property="price">$13.00</div>
+  <div class="event-price" property="price" content="13.00">$13.00</div>
+  <span property="priceCurrency" content="USD" />
   <a property="url" href="http://www.ticketfly.com/purchase/309433">Tickets</a>
  </span>
 </div>
@@ -9450,7 +9477,8 @@ JSON:
   "offers": {
     "@type": "Offer",
     "availability": "http://schema.org/SoldOut",
-    "price": "$13.00",
+    "price": "13.00",
+    "priceCurrency": "USD",
     "url": "http://www.ticketfly.com/purchase/309433"
   },
   "startDate": "Sat Sep 14"
@@ -9938,17 +9966,17 @@ JSON:
 }
 </script>
 
-
-TYPES: FlightReservation, Flight
+TYPES:  Flight, FlightReservation
 
 PRE-MARKUP:
 
-Original:
 Reservation #RXJ34P
 Passenger: Eva Green
-Flight: United Airlines flight 110
+Flight: United Airlines Flight 110
+Operated By: Continental Airlines
 Departing: San Francisco Airport (SFO) 2017-03-04T20:15:00-08:00
 Arriving: John F. Kennedy International Airport (JFK) 2017-03-05T06:30:00-05:00
+
 
 MICRODATA:
 
@@ -9972,12 +10000,17 @@ JSON:
   },
   "reservationFor": {
     "@type": "Flight",
-    "flightNumber": "110",
-    "carrier": {
+    "flightNumber": "UA110",
+    "provider": {
+      "@type": "Airline",
+      "name": "Continental",
+      "iataCode": "CO"
+    },
+    "seller": {
       "@type": "Airline",
       "name": "United",
       "iataCode": "UA"
-    },
+    }
     "departureAirport": {
       "@type": "Airport",
       "name": "San Francisco Airport",
@@ -10517,7 +10550,8 @@ MICRODATA:
 
   <div itemprop="offers" itemscope="" itemtype="http://schema.org/Offer">
     <link itemprop="url" href="/examples/ticket/12341234" />
-    <meta itemprop="price" content="$40"/>
+    <meta itemprop="price" content="40"/>
+    <meta itemprop="priceCurrency" content="USD" />
     <meta itemprop="availability" href="http://schema.org/InStock"/>
   </div>
 
@@ -10584,7 +10618,8 @@ RDFA:
 
   <div property="offers" typeof="Offer">
     <link property="url" href="/examples/ticket/12341234"/>
-    <meta property="price" content="$40"/>
+    <meta property="price" content="40"/>
+    <meta property="priceCurrency" content="USD" />
     <meta property="availability" href="http://schema.org/InStock"/>
   </div>
 
@@ -10648,7 +10683,8 @@ JSON:
   "offers": {
     "@type": "Offer",
     "url": "/examples/ticket/12341234",
-    "price": "$40",
+    "price": "40",
+    "priceCurrency": "USD",
     "availability": "http://schema.org/InStock"
   },
   "performer": [
@@ -10946,7 +10982,7 @@ MICRODATA:
 
 RDFA:
 
-<div vocab="http://schema.org" typeof="Store">
+<div vocab="http://schema.org/" typeof="Store">
   <h1 property="name">Middle of Nowhere Foods</h1>
   <h2>Opening hours</h2>
   <p>Normally open <time property="openingHours" datetime="Mo,Tu,We,Th,Fr,Sa,Su 09:00-14:00">daily 9am-2pm</time> except on:</p>
@@ -11584,7 +11620,7 @@ JSON:
   "startDate" : "2014-04-12T19:30",
   "location" : {
      "@type" : "Place",
-     "name" : "Lupo’s Heartbreak Hotel",
+     "name" : "Lupo's Heartbreak Hotel",
      "address" : "79 Washington St., Providence, RI"
   },
   "offers" : {

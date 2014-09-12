@@ -216,32 +216,32 @@ class SchemaBasicAPITestCase(unittest.TestCase):
 
 class SchemaPropertyAPITestCase(unittest.TestCase):
 
-  def test_actorSupercedesActors(self):
+  def test_actorSupersedesActors(self):
     p_actor = Unit.GetUnit("actor")
     p_actors = Unit.GetUnit("actors")
-    self.assertTrue(p_actors == p_actor.supercedes(), "actor supercedes actors.")
+    self.assertTrue(p_actors == p_actor.supersedes(), "actor supersedes actors.")
 
-  def test_actorsSuperceded(self):
+  def test_actorsSuperseded(self):
     p_actors = Unit.GetUnit("actors")
-    self.assertTrue(p_actors.superceded(), "actors property has been superceded.")
+    self.assertTrue(p_actors.superseded(), "actors property has been superseded.")
 
-  def test_actorNotSuperceded(self):
+  def test_actorNotSuperseded(self):
     p_actor = Unit.GetUnit("actor")
-    self.assertFalse(p_actor.superceded(), "actor property has not been superceded.")
+    self.assertFalse(p_actor.superseded(), "actor property has not been superseded.")
 
-  def test_offersNotSuperceded(self):
+  def test_offersNotSuperseded(self):
     p_offers = Unit.GetUnit("offers")
-    self.assertFalse(p_offers.superceded(), "offers property has not been superceded.")
+    self.assertFalse(p_offers.superseded(), "offers property has not been superseded.")
 
-  def test_actorNotSupercededByOffers(self):
-    p_actor = Unit.GetUnit("actor")
-    p_offers = Unit.GetUnit("offers")
-    self.assertFalse(p_actor == p_offers.supercedes(), "actor property doesn't supercede offers property.")
-
-  def test_offersNotSupercededByActor(self):
+  def test_actorNotSupersededByOffers(self):
     p_actor = Unit.GetUnit("actor")
     p_offers = Unit.GetUnit("offers")
-    self.assertFalse(p_offers == p_actor.supercedes(), "offers property doesn't supercede actors property.")
+    self.assertFalse(p_actor == p_offers.supersedes(), "actor property doesn't supersede offers property.")
+
+  def test_offersNotSupersededByActor(self):
+    p_actor = Unit.GetUnit("actor")
+    p_offers = Unit.GetUnit("offers")
+    self.assertFalse(p_offers == p_actor.supersedes(), "offers property doesn't supersede actors property.")
 
 # acceptedAnswer subPropertyOf suggestedAnswer .
 class SchemaPropertyMetadataTestCase(unittest.TestCase):
