@@ -659,8 +659,9 @@ class ShowUnit (webapp2.RequestHandler):
             self.write("<table class=\"definition-table\">\n")
             self.write("  <thead>\n    <tr>\n      <th>Super-properties</th>\n    </tr>\n</thead>\n")
             for spp in superprops:
-                c = GetComment(spp)
-                tt = "%s: ''%s''" % ( spp.id, c)
+                c = GetComment(spp)           # markup needs to be stripped from c, e.g. see 'logo', 'photo'
+                c = re.sub(r'<[^>]*>', '', c) # This is not a sanitizer, we trust our input.
+                tt = "%s: ''%s''" % ( spp.id, c) 
                 self.write("\n    <tr><td><code>%s</code></td></tr>\n" % (self.ml(spp, spp.id, tt)))
             self.write("\n</table>\n\n")
 
