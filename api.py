@@ -16,7 +16,7 @@ import os
 logging.basicConfig(level=logging.INFO) # dev_appserver.py --log_level debug .
 log = logging.getLogger(__name__)
 
-SCHEMA_VERSION=1.9
+SCHEMA_VERSION=1.91
 
 JINJA_ENVIRONMENT = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
@@ -112,36 +112,36 @@ class Unit ():
         # Currently defined just to let the tests pass
         pass
 
-    def superceded(self):
-        """Has this property been superceded? (i.e. deprecated/archaic)"""
+    def superseded(self):
+        """Has this property been superseded? (i.e. deprecated/archaic)"""
         for triple in self.arcsOut:
-            if (triple.target != None and triple.arc.id == "supercededBy"):
+            if (triple.target != None and triple.arc.id == "supersededBy"):
                 return True
         return False
 
-    def supercedes(self):
-        """Returns a property (assume max 1) that is supercededBy this one, or nothing."""
+    def supersedes(self):
+        """Returns a property (assume max 1) that is supersededBy this one, or nothing."""
         for triple in self.arcsIn:
-            if (triple.source != None and triple.arc.id == "supercededBy"):
+            if (triple.source != None and triple.arc.id == "supersededBy"):
                 return triple.source
         return None
-        # TODO: supercedes is a list, e.g. 'seller' supercedes 'vendor', 'merchant'
+        # TODO: supersedes is a list, e.g. 'seller' supersedes 'vendor', 'merchant'
 
-    def supercedes_all(self):
-        """Returns a property (assume max 1) that is supercededBy this one, or nothing."""
+    def supersedes_all(self):
+        """Returns a property (assume max 1) that is supersededBy this one, or nothing."""
         newer = []
         for triple in self.arcsIn:
-            if (triple.source != None and triple.arc.id == "supercededBy"):
+            if (triple.source != None and triple.arc.id == "supersededBy"):
                 newer.append(triple.source)
         return newer
 
-    def supercededBy(self):
-        """Returns a property (assume max 1) that supercededs this one, or nothing."""
+    def supersededBy(self):
+        """Returns a property (assume max 1) that supersededs this one, or nothing."""
         for p in sorted(GetSources(Unit.GetUnit("typeOf"), Unit.GetUnit("rdf:Property")), key=lambda u: u.id):
-            allnewers = GetTargets(Unit.GetUnit("supercededBy"), p)
+            allnewers = GetTargets(Unit.GetUnit("supersededBy"), p)
             for newerprop in allnewers:
-                if self in newerprop.supercedes_all():
-                    return newerprop # this is one of possibly many properties that supercedes self.
+                if self in newerprop.supersedes_all():
+                    return newerprop # this is one of possibly many properties that supersedes self.
         return None
 
     def superproperties(self):
@@ -521,10 +521,10 @@ class ShowUnit (webapp2.RequestHandler):
         di = Unit.GetUnit("domainIncludes")
         ri = Unit.GetUnit("rangeIncludes")
         for prop in sorted(GetSources(di, cl), key=lambda u: u.id):
-            if (prop.superceded()):
+            if (prop.superseded()):
                 continue
-            supercedes = prop.supercedes()
-            olderprops = prop.supercedes_all()
+            supersedes = prop.supersedes()
+            olderprops = prop.supersedes_all()
             inverseprop = prop.inverseproperty()
             subprops = prop.subproperties()
             superprops = prop.superproperties()
@@ -550,7 +550,7 @@ class ShowUnit (webapp2.RequestHandler):
             self.write("<td class=\"prop-desc\" property=\"rdfs:comment\">%s" % (comment))
             if (len(olderprops) > 0):
                 olderlinks = ", ".join([self.ml(o) for o in olderprops])
-                self.write(" Supercedes %s." % olderlinks )
+                self.write(" Supersedes %s." % olderlinks )
             if (inverseprop != None):
                 self.write("<br/> Inverse property: %s." % (self.ml(inverseprop)))
 
@@ -566,9 +566,9 @@ class ShowUnit (webapp2.RequestHandler):
         di = Unit.GetUnit("domainIncludes")
         ri = Unit.GetUnit("rangeIncludes")
         for prop in sorted(GetSources(ri, cl), key=lambda u: u.id):
-            if (prop.superceded()):
+            if (prop.superseded()):
                 continue
-            supercedes = prop.supercedes()
+            supersedes = prop.supersedes()
             inverseprop = prop.inverseproperty()
             subprops = prop.subproperties()
             superprops = prop.superproperties()
@@ -592,8 +592,8 @@ class ShowUnit (webapp2.RequestHandler):
                 self.write("&nbsp;")
             self.write("</td>")
             self.write("<td class=\"prop-desc\">%s " % (comment))
-            if (supercedes != None):
-                self.write(" Supercedes %s." % (self.ml(supercedes)))
+            if (supersedes != None):
+                self.write(" Supersedes %s." % (self.ml(supersedes)))
             if (inverseprop != None):
                 self.write("<br/> inverse property: %s." % (self.ml(inverseprop)) )
 
@@ -610,9 +610,9 @@ class ShowUnit (webapp2.RequestHandler):
         domains = sorted(GetTargets(di, node), key=lambda u: u.id)
         first_range = True
 
-        newerprop = node.supercededBy() # None of one. e.g. we're on 'seller'(new) page, we get 'vendor'(old)
-        olderprop = node.supercedes() # None or one
-        olderprops = node.supercedes_all() # list, e.g. 'seller' has 'vendor', 'merchant'.
+        newerprop = node.supersededBy() # None of one. e.g. we're on 'seller'(new) page, we get 'vendor'(old)
+        olderprop = node.supersedes() # None or one
+        olderprops = node.supersedes_all() # list, e.g. 'seller' has 'vendor', 'merchant'.
 
         inverseprop = node.inverseproperty()
         subprops = node.subproperties()
@@ -664,10 +664,10 @@ class ShowUnit (webapp2.RequestHandler):
                 self.write("\n    <tr><td><code>%s</code></td></tr>\n" % (self.ml(spp, spp.id, tt)))
             self.write("\n</table>\n\n")
 
-        # Supercedes
+        # Supersedes
         if (len(olderprops) > 0):
             self.write("<table class=\"definition-table\">\n")
-            self.write("  <thead>\n    <tr>\n      <th>Supercedes</th>\n    </tr>\n</thead>\n")
+            self.write("  <thead>\n    <tr>\n      <th>Supersedes</th>\n    </tr>\n</thead>\n")
 
             for o in olderprops:
                 c = GetComment(o)
@@ -675,10 +675,10 @@ class ShowUnit (webapp2.RequestHandler):
                 self.write("\n    <tr><td><code>%s</code></td></tr>\n" % (self.ml(o, o.id, tt)))
             self.write("\n</table>\n\n")
 
-        # supercededBy (at most one direct successor)
+        # supersededBy (at most one direct successor)
         if (newerprop != None):
             self.write("<table class=\"definition-table\">\n")
-            self.write("  <thead>\n    <tr>\n      <th><a href=\"/supercededBy\">supercededBy</a></th>\n    </tr>\n</thead>\n")
+            self.write("  <thead>\n    <tr>\n      <th><a href=\"/supersededBy\">supersededBy</a></th>\n    </tr>\n</thead>\n")
             self.write("\n    <tr><td><code>%s</code></td></tr>\n" % (self.ml(newerprop, newerprop.id, tt)))
             self.write("\n</table>\n\n")
 
@@ -883,16 +883,22 @@ class ShowUnit (webapp2.RequestHandler):
 
 def read_file (filename):
     """Read a file from disk, return it as a single string."""
-    import os.path
-    folder = os.path.dirname(os.path.realpath(__file__))
-    file_path = os.path.join(folder, filename)
     strs = []
+
+    file_path = full_path(filename)
 
     import codecs
     log.info("READING FILE: filename=%s file_path=%s " % (filename, file_path ) )
     for line in codecs.open(file_path, 'r', encoding="utf8").readlines():
         strs.append(line)
     return "".join(strs)
+
+def full_path(filename):
+    """convert local file name to full path."""
+    import os.path
+    folder = os.path.dirname(os.path.realpath(__file__))
+    return os.path.join(folder, filename)
+
 
 schemasInitialized = False
 
@@ -902,14 +908,14 @@ def read_schemas():
     import glob
     global schemasInitialized
     if (not schemasInitialized):
-        files = glob.glob("data/*schema.rdfa")
-        schema_contents = []
+        files = glob.glob("data/*.rdfa")
+        file_paths = []
         for f in files:
-            schema_content = read_file(f)
-            schema_contents.append(schema_content)
+            file_paths.append(full_path(f))
 
         parser = parsers.MakeParserOfType('rdfa', None)
-        items = parser.parse(schema_contents)
+        items = parser.parse(file_paths)
+
         files = glob.glob("data/*examples.txt")
         example_contents = []
         for f in files:

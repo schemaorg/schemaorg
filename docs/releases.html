@@ -126,6 +126,28 @@ td.release  {
     <th>Description</th>
 </tr>
 
+
+<tr id="v1.91">
+<td class="release">1.91<br/>(2014-09-12)</td>
+<td>Offer/price documentation fixes, cleanup and community contributions.</td>
+<td>
+<ul>
+<li>Updated text of the <a href="/price">price</a> property to include practical usage guidance, alongside
+links to information from GS1 to the gtin-related <a href="/Offer">Offer</a> properties.</li>
+<li><a href="https://github.com/danbri/schemaorg/commit/83e5e69f74ecb112892662e0c0206f0f40504908">Updated</a> all our examples to follow that guidance; primarily by using priceCurrency and the content= attribute.</li>
+<li>Noted our <a href="/docs/faq.html#17">thanks</a> to the <a href="http://www.opendomain.org/">OpenDomain</a> project for our domain name.</li>
+<li><a href="https://github.com/rvguha/schemaorg/pull/103">Updated</a> the text of the '<a href="/image">image</a>' property to match its expected types. Thanks Dan Scott!</li>
+<li><a href="https://github.com/rvguha/schemaorg/pull/102">Changed</a> spelling of 'supercededBy' to the more <a href="http://www.dailymail.co.uk/news/article-1049010/Cant-spell-Maybe-youre-clever-says-Collins-dictionary.html">conventional</a> <a href="/supersededBy">supersededBy</a>. Thanks Sachini Aparna Herath!</li>
+<li><a href="https://github.com/rvguha/schemaorg/pull/115">Noted</a> that '<a href="/logo">logo</a>' and '<a href="/photo">photo</a>' are sub-properties of '<a href="/image">image</a>'. Thanks Sachini Aparna Herath, again!</li>
+<li><a href="https://github.com/rvguha/schemaorg/pull/107">Fixed</a> two syntax errors in examples (Store opening hours RDFa; Book, PublicationVolume Microdata). Thanks Gregg Kellogg!</li>
+<li><a href="https://github.com/rvguha/schemaorg/pull/108">Added</a> Tolkien-based examples for <a href="/exampleOfWork">exampleOfWork</a>/<a href="/workExample">workExample</a>. Thanks Dan Scott, again!</li>
+<li><a href="https://github.com/rvguha/schemaorg/pull/111">Fixed</a> a bug with our UTF-8 support. Thanks Richard Wallis!</li>
+</p>
+
+
+</td>
+</tr>
+
 <tr id="v1.9">
 <td class="release">1.9<br/>(2014-08-18)</td>
 <td>Bibliographic improvements (Periodical and more) alongside seller/broker/provider clarifications.</td>
@@ -152,7 +174,7 @@ The <a href="/provider">provider</a> property describes a service provider, serv
 introduce a more general <a href="/broker">broker</a> property (replacing the over-specific <a href="bookingAgent">bookingAgent</a>),
 as well as deprecating <a href="/vendor">vendor</a> and <a href="/merchant">merchant</a> in favour of <a href="/seller">seller</a>.
 Regarding <a href="/Flight">flights</a> and <a href="/ParcelDelivery">parcel delivery</a>, <a href="/carrier">carrier</a> is
-superceded by <a href="/provider">provider</a>. Please also note that <a href="/flightNumber">flightNumber</a> should now be written in full (i.e. "UA110" rather than just "110").
+superseded by <a href="/provider">provider</a>. Please also note that <a href="/flightNumber">flightNumber</a> should now be written in full (i.e. "UA110" rather than just "110").
 See the <a href="https://www.w3.org/wiki/WebSchemas/SellerVendorCleanup#Implementation_Details">supporting documents</a> for details.
 </p>
 
@@ -163,10 +185,10 @@ and <a href="/Text">Text</a> values are anticipated. A common superproperty, <a 
 reflects <a href="http://lists.w3.org/Archives/Public/public-vocabs/2014Aug/0133.html">implementation experience</a> and
 establishes a model that can be applied elsewhere, e.g. ongoing work on <a href="http://lists.w3.org/Archives/Public/public-vocabs/2014Jun/0154.html">describing</a> music.</p>
 
-<p>This update also improves the display and navigation of <a href="/supercededBy">supercededBy</a> relations between
+<p>This update also improves the display and navigation of <a href="/supersededBy">supersededBy</a> relations between
 schema.org properties (e.g. see <a href="/seller">seller</a>).</p>
 
-<p>The <a href="/docs/terms.html">Terms of service</a> document was also updated to note 
+<p>The <a href="/docs/terms.html">Terms of service</a> document was also updated to note
 that <a href="http://www.yandex.com/">Yandex</a> is now a schema.org Sponsor and to adopt the patent terms used by W3C.</p>
 
 (<a href="http://lists.w3.org/Archives/Public/public-vocabs/2014Aug/0170.html">announcement</a>)
@@ -195,7 +217,7 @@ Several <a href="http://github.com/rvguha/schemaorg/pull/71">markup fixes</a> fr
 <td>This release amends the <a href="http://schema.org/image">image</a> property, noting that <a href="/ImageObject">ImageObject</a> is a
     reasonable value. It also adds an <a href="http://schema.org/organizer">organizer</a> property to
     <a href="/Event">Event</a>. Changes around <a href="/Map">Map</a>: we add and prefer a '<a href="/hasMap">hasMap</a>' property
-which supercedes the older 'map' property, and we add a <a href="/mapType">mapType</a> property which comes with some enumerated values:
+which supersedes the older 'map' property, and we add a <a href="/mapType">mapType</a> property which comes with some enumerated values:
 <a href="ParkingMap">ParkingMap</a>, <a href="SeatingMap">SeatingMap</a>, <a href="TransitMap">TransitMap</a>,
 <a href="VenueMap">VenueMap</a>. A Map might be (but needn't be) also an <a href="/ImageObject">ImageObject</a>.
     (<a href="http://lists.w3.org/Archives/Public/public-vocabs/2014Jul/0012.html">announcement</a>)</td>
@@ -208,7 +230,7 @@ which supercedes the older 'map' property, and we add a <a href="/mapType">mapTy
     for details. The Role mechanism applies across all of schema.org, and allows simple statements to be elaborated or
     qualified, for example with temporal information. Other changes in this release include the addition of a
     <a href="/license">license</a> property, and some documentation of properties used internally by schema.org's documentation system
-    (<a href="/Property">Property</a>, <a href="/Class">Class</a>, <a href="/supercededBy">supercededBy</a>, <a href="/inverseOf">inverseOf</a>).
+    (<a href="/Property">Property</a>, <a href="/Class">Class</a>, <a href="/supersededBy">supersededBy</a>, <a href="/inverseOf">inverseOf</a>).
     Fixed an embarrassing typo - "dead" -  in the <a href="/diet">diet</a> property - thanks, Dan Scott. Various other
     small changes - listed in the <a href="http://lists.w3.org/Archives/Public/public-vocabs/2014Jun/0106.html">preview</a> announcement.
 (<a href="http://lists.w3.org/Archives/Public/public-vocabs/2014Jun/0178.html">announcement</a> and
