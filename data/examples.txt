@@ -289,7 +289,7 @@ TYPES:  Place,GeoCoordinates
 
 PRE-MARKUP:
 
-<h1>What is the latitude and longitude of the Empire State Building?<h1>
+<h1>What is the latitude and longitude of the Empire State Building?</h1>
 Answer:
 Latitude: 40 deg 44 min 54.36 sec N
 Longitude: 73 deg 59 min 8.5 sec W
@@ -358,7 +358,7 @@ MICRODATA:
 </script>
 
 <meta itemprop="encodingFormat" content="mp3" />
- <meta itemprop="contentURL" content="http://media.freesound.org/data/0/previews/719__elmomo__12oclock_girona_preview.mp3" />
+ <meta itemprop="contentUrl" content="http://media.freesound.org/data/0/previews/719__elmomo__12oclock_girona_preview.mp3" />
 
 <span class="description">
       <meta itemprop="duration" content="T0M15S" />
@@ -377,7 +377,7 @@ RDFA:
 </script>
 
 <meta property="encodingFormat" content="mp3" />
- <meta property="contentURL" content="http://media.freesound.org/data/0/previews/719__elmomo__12oclock_girona_preview.mp3" />
+ <meta property="contentUrl" content="http://media.freesound.org/data/0/previews/719__elmomo__12oclock_girona_preview.mp3" />
 
 <span class="description">
       <meta property="duration" content="T0M15S" />
@@ -391,7 +391,7 @@ JSON:
 {
   "@context": "http://schema.org",
   "@type": "AudioObject",
-  "contentURL": "http://media.freesound.org/data/0/previews/719__elmomo__12oclock_girona_preview.mp3",
+  "contentUrl": "http://media.freesound.org/data/0/previews/719__elmomo__12oclock_girona_preview.mp3",
   "description": "Recorded on a terrace of Girona a sunday morning",
   "duration": "T0M15S",
   "encodingFormat": "mp3",
@@ -691,6 +691,7 @@ JSON:
 {
   "@context": "http://schema.org",
   "@type": "Event",
+  "name": "Miami Heat at Philadelphia 76ers - Game 3 (Home Game 1)",
   "location": {
     "@type": "Place",
     "address": {
@@ -710,7 +711,7 @@ JSON:
 }
 </script>
 
-TYPES:  Product,AggregateRating,Offer,Review,Rating
+TYPES:  Product,AggregateRating,Offer,Review,Rating, price
 
 PRE-MARKUP:
 
@@ -748,7 +749,13 @@ MICRODATA:
   </div>
 
   <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-    <span itemprop="price">$55.00</span>
+
+    <!--price is 1000, a number, with locale-specific thousands separator
+    and decimal mark, and the $ character is marked up with the
+    machine-readable code "USD" -->
+    <span itemprop="priceCurrency" content="USD">$</span><span
+          itemprop="price" content="1000.00">1,000.00</span>
+
     <link itemprop="availability" href="http://schema.org/InStock" />In stock
   </div>
 
@@ -799,7 +806,11 @@ RDFA:
   </div>
 
   <div property="offers"  typeof="Offer">
-    <span property="price">$55.00</span>
+    <!--price is 1000, a number, with locale-specific thousands separator
+        and decimal mark, and the $ character is marked up with the
+        machine-readable code "USD" -->
+    <span property="priceCurrency" content="USD">$</span><span
+      property="price" content="1000.00">1,000.00</span>
     <link property="availability" href="http://schema.org/InStock" />In stock
   </div>
 
@@ -854,7 +865,8 @@ JSON:
   "offers": {
     "@type": "Offer",
     "availability": "http://schema.org/InStock",
-    "price": "$55.00"
+    "price": "55.00",
+    "priceCurrency": "USD"
   },
   "review": [
     {
@@ -1054,7 +1066,7 @@ by <a itemprop="author" href="/author/jd_salinger.html">J.D. Salinger</a>
 </div>
 
 <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-  Price: <span itemprop="price">$6.99</span>
+  Price: <span itemprop="price" content="6.99">$6.99</span>
   <meta itemprop="priceCurrency" content="USD" />
   <link itemprop="availability" href="http://schema.org/InStock">In Stock
 </div>
@@ -1112,7 +1124,7 @@ by <a property="author" href="/author/jd_salinger.html">J.D. Salinger</a>
 </div>
 
 <div property="offers"  typeof="Offer">
-  Price: <span property="price">$6.99</span>
+  Price: <span property="price" content="6.99">$6.99</span>
   <meta property="priceCurrency" content="USD" />
   <link property="availability" href="http://schema.org/InStock">In Stock
 </div>
@@ -1170,7 +1182,7 @@ JSON:
   "offers": {
     "@type": "Offer",
     "availability": "http://schema.org/InStock",
-    "price": "$6.99",
+    "price": "6.99",
     "priceCurrency": "USD"
   },
   "publisher": "Little, Brown, and Company",
@@ -1820,7 +1832,7 @@ MICRODATA:
   <meta itemprop="mainContentOfPage" content="true"/>
   <h2 itemprop="about">list of presidents</h2>
   <table>
-    <tr><th>President</th><th>Party</th><tr>
+    <tr><th>President</th><th>Party</th></tr>
     <tr>
       <td>George Washington (1789-1797)</td>
       <td>no party</td>
@@ -1839,7 +1851,7 @@ RDFA:
   <meta property="mainContentOfPage" content="true"/>
   <h2 property="about">list of presidents</h2>
   <table>
-    <tr><th>President</th><th>Party</th><tr>
+    <tr><th>President</th><th>Party</th></tr>
     <tr>
       <td>George Washington (1789-1797)</td>
       <td>no party</td>
@@ -1969,7 +1981,7 @@ MICRODATA:
 
 <div itemscope itemtype="http://schema.org/ImageObject">
   <h2 itemprop="name">Beach in Mexico</h2>
-  <img src="mexico-beach.jpg" itemprop="contentURL" />
+  <img src="mexico-beach.jpg" itemprop="contentUrl" />
 
   By <span itemprop="author">Jane Doe</span>
   Photographed in
@@ -1984,7 +1996,7 @@ RDFA:
 
 <div vocab="http://schema.org/" typeof="ImageObject">
   <h2 property="name">Beach in Mexico</h2>
-  <img src="mexico-beach.jpg" property="contentURL" />
+  <img src="mexico-beach.jpg" property="contentUrl" />
 
   By <span property="author">Jane Doe</span>
   Photographed in
@@ -2003,7 +2015,7 @@ JSON:
   "@type": "ImageObject",
   "author": "Jane Doe",
   "contentLocation": "Puerto Vallarta, Mexico",
-  "contentURL": "mexico-beach.jpg",
+  "contentUrl": "mexico-beach.jpg",
   "datePublished": "2008-01-25",
   "description": "I took this picture while on vacation last year.",
   "name": "Beach in Mexico"
@@ -2473,15 +2485,13 @@ MICRODATA:
   <h3>Sample Tracks</h3>
     <div itemprop="track" itemscope itemtype="http://schema.org/MusicRecording">
       <span itemprop="name">Bloom</span>
-        <meta content="/artist/radiohead/album/the-king-of-limbs/track/bloom" itemprop="url" />
-        <meta content="PT5M14S" itemprop="duration" />5:14
-      </span>
+      <meta content="/artist/radiohead/album/the-king-of-limbs/track/bloom" itemprop="url" />
+      <meta content="PT5M14S" itemprop="duration" />5:14
     </div>
     <div itemprop="track" itemscope itemtype="http://schema.org/MusicRecording">
-    <span itemprop="name">Morning Mr Magpie</span>
+      <span itemprop="name">Morning Mr Magpie</span>
       <meta content="/artist/radiohead/album/the-king-of-limbs/track/morning-mr-magpie" itemprop="url" />
       <meta content="PT4M40S" itemprop="duration" />4:40
-    </span>
   </div>
 </div>
 
@@ -2501,15 +2511,13 @@ RDFA:
   <h3>Sample Tracks</h3>
     <div property="track"  typeof="MusicRecording">
       <span property="name">Bloom</span>
-        <meta content="/artist/radiohead/album/the-king-of-limbs/track/bloom" property="url" />
-        <meta content="PT5M14S" property="duration" />5:14
-      </span>
+      <meta content="/artist/radiohead/album/the-king-of-limbs/track/bloom" property="url" />
+      <meta content="PT5M14S" property="duration" />5:14
     </div>
     <div property="track"  typeof="MusicRecording">
-    <span property="name">Morning Mr Magpie</span>
+      <span property="name">Morning Mr Magpie</span>
       <meta content="/artist/radiohead/album/the-king-of-limbs/track/morning-mr-magpie" property="url" />
       <meta content="PT4M40S" property="duration" />4:40
-    </span>
   </div>
 </div>
 
@@ -2788,8 +2796,7 @@ MICRODATA:
     </span>
     for all adult patients.
     (<span itemprop="recommendationStrength">Strong recommendation</span>;
-    <link itemprop="evidenceLevel" href="http://schema.org/EvidenceLevelA">
-      Class I</link>,
+    <a itemprop="evidenceLevel" href="http://schema.org/EvidenceLevelA">Class I</a>,
     based on
     <span itemprop="evidenceOrigin">multiple randomized clinical trials</span>)
   </span>
@@ -2799,11 +2806,10 @@ MICRODATA:
     <span itemprop="subject" itemscope itemtype="http://schema.org/MedicalCondition">
       <span itemprop="name">cardiac failure</span></span> should never
     be treated with
-    <span itemprop="subject" itemscope
-     itemtype="http://schema.org/TherapeuticProcedure">
+    <span itemprop="subject" itemscope itemtype="http://schema.org/TherapeuticProcedure">
       <span itemprop="name">appendectomy</span></span> in adults.
-    (Class III, <link itemprop="evidenceLevel" href="http://schema.org/EvidenceLevelC"/>
-    <span itemprop="evidenceOrigin">standard of care</span></link>)
+    (Class III, <a itemprop="evidenceLevel" href="http://schema.org/EvidenceLevelC"/>
+    <span itemprop="evidenceOrigin">standard of care</span></a>)
   </span></li>
 </ul>
 
@@ -2822,8 +2828,8 @@ RDFA:
     </span>
     for all adult patients.
     (<span property="recommendationStrength">Strong recommendation</span>;
-    <link property="evidenceLevel" href="http://schema.org/EvidenceLevelA">
-      Class I</link>,
+    <a property="evidenceLevel" href="http://schema.org/EvidenceLevelA">
+      Class I</a>,
     based on
     <span property="evidenceOrigin">multiple randomized clinical trials</span>)
   </span>
@@ -2835,8 +2841,8 @@ RDFA:
     be treated with
     <span property="subject"  typeof="TherapeuticProcedure">
       <span property="name">appendectomy</span></span> in adults.
-    (Class III, <link property="evidenceLevel" href="http://schema.org/EvidenceLevelC"/>
-    <span property="evidenceOrigin">standard of care</span></link>)
+    (Class III, <a property="evidenceLevel" href="http://schema.org/EvidenceLevelC"/>
+    <span property="evidenceOrigin">standard of care</span></a>)
   </span></li>
 </ul>
 
@@ -2907,12 +2913,11 @@ MICRODATA:
   <meta itemprop="publicationType" content="Meta-Analysis"/>
   <h1><span itemprop="name">New guidelines for metformin and
       diabetes mellitus</span></h1>
-  <p>
-  <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p><span itemprop="author" itemscope itemtype="http://schema.org/Person">
     <span itemprop="name">Dr. John Smith</span>
     <br><span itemprop="affiliation">Medical University</span>
   </span>
-  <br><span itemprop="datePublished">2012-03-24</span>
+  <br><span itemprop="datePublished">2012-03-24</span></p>
   <p><b>Abstract:</b>
   We review clinical evidence related to the use of metformin for
   treatment of type-2 diabetes mellitus and provide new clinical guideline
@@ -2930,7 +2935,7 @@ MICRODATA:
     </span>
   </span>;
   <span itemprop="about" itemscope itemtype="http://schema.org/MedicalCondition">
-    <span itemprop="name">Diabetes Mellitus, Type 2</span></p>
+    <span itemprop="name">Diabetes Mellitus, Type 2</span>
     <span itemprop="code" itemscope
           itemtype="http://schema.org/MedicalCode"
           itemid="http://www.ncbi.nlm.nih.gov/mesh/C18.452.394.750.149">
@@ -2939,7 +2944,7 @@ MICRODATA:
       <meta itemprop="code" content="C18.452.394.750.149"/>
       <meta itemprop="codingSystem" content="MeSH"/>
     </span>
-  </span>
+  </span></p>
   ...
   <h3>Guidelines</h3>
   <span itemscope itemtype="http://schema.org/MedicalGuidelineRecommendation">
@@ -2947,8 +2952,8 @@ MICRODATA:
     <span itemprop="subject">metformin</span> as an initial pharmacologic therapy
     to treat most patients with <span itemprop="subject">type 2 diabetes</span>
     (Grade: <span itemprop="recommendationStrength">strong recommendation</span>;
-    <link itemprop="evidenceLevel" href="http://schema.org/EvidenceLevelA">high-quality
-      evidence</link>).
+    <a itemprop="evidenceLevel" href="http://schema.org/EvidenceLevelA">high-quality
+      evidence</a>).
   </span>
 </div>
 
@@ -2959,12 +2964,11 @@ RDFA:
   <meta property="publicationType" content="Meta-Analysis"/>
   <h1><span property="name">New guidelines for metformin and
       diabetes mellitus</span></h1>
-  <p>
-  <span property="author"  typeof="Person">
+  <p><span property="author"  typeof="Person">
     <span property="name">Dr. John Smith</span>
     <br><span property="affiliation">Medical University</span>
   </span>
-  <br><span property="datePublished">2012-03-24</span>
+  <br><span property="datePublished">2012-03-24</span></p>
   <p><b>Abstract:</b>
   We review clinical evidence related to the use of metformin for
   treatment of type-2 diabetes mellitus and provide new clinical guideline
@@ -2981,7 +2985,7 @@ RDFA:
     </span>
   </span>;
   <span property="about"  typeof="MedicalCondition">
-    <span property="name">Diabetes Mellitus, Type 2</span></p>
+    <span property="name">Diabetes Mellitus, Type 2</span>
     <span property="code"  typeof="MedicalCode"
           resource="http://www.ncbi.nlm.nih.gov/mesh/C18.452.394.750.149">
       <!-- Note: use of itemid is not mandatory, but recommended when an
@@ -2990,6 +2994,7 @@ RDFA:
       <meta property="codingSystem" content="MeSH"/>
     </span>
   </span>
+  </p>
   ...
   <h3>Guidelines</h3>
   <span  typeof="MedicalGuidelineRecommendation">
@@ -2997,8 +3002,8 @@ RDFA:
     <span property="subject">metformin</span> as an initial pharmacologic therapy
     to treat most patients with <span property="subject">type 2 diabetes</span>
     (Grade: <span property="recommendationStrength">strong recommendation</span>;
-    <link property="evidenceLevel" href="http://schema.org/EvidenceLevelA">high-quality
-      evidence</link>).
+    <a property="evidenceLevel" href="http://schema.org/EvidenceLevelA">high-quality
+      evidence</a>).
   </span>
 </div>
 
@@ -4045,7 +4050,7 @@ JSON:
 
 <!--  John listened to Pink with Steve at Anna's apartment on his iPod. -->
 <script type="application/ld+json">
-
+{
   "@context": "http://schema.org",
   "@type": "ListenAction",
   "agent": {
@@ -4089,7 +4094,7 @@ JSON:
 
 <!--  John created an exercise plan with Steve. -->
 <script type="application/ld+json">
-
+{
   "@context": "http://schema.org",
   "@type": "CreateAction",
   "agent": {
@@ -4125,7 +4130,7 @@ JSON:
 
 <!--  John achieved his exercise plan. -->
 <script type="application/ld+json">
-
+{
   "@context": "http://schema.org",
   "@type": "AchieveAction",
   "agent": {
@@ -4157,7 +4162,7 @@ JSON:
 
 <!--  John lost a match of angry birds to Steve. -->
 <script type="application/ld+json">
-
+{
   "@context": "http://schema.org",
   "@type": "WinAction",
   "agent": {
@@ -4193,7 +4198,7 @@ JSON:
 
 <!--  John tied on a match of chess with Steve. -->
 <script type="application/ld+json">
-
+{
   "@context": "http://schema.org",
   "@type": "WinAction",
   "agent": {
@@ -4229,7 +4234,7 @@ JSON:
 
 <!--  John won a Nobel prize. -->
 <script type="application/ld+json">
-
+{
   "@context": "http://schema.org",
   "@type": "WinAction",
   "agent": {
@@ -4261,7 +4266,7 @@ JSON:
 
 <!--  John assessed a scholar paper. -->
 <script type="application/ld+json">
-
+{
   "@context": "http://schema.org",
   "@type": "AssessAction",
   "agent": {
@@ -4293,7 +4298,7 @@ JSON:
 
 <!--  John chose Dogfish Head between that and Russian River. -->
 <script type="application/ld+json">
-
+{
   "@context": "http://schema.org",
   "@type": "ChooseAction",
   "agent": {
@@ -4335,7 +4340,7 @@ JSON:
 
 <!--  John chose Dogfish Head from all breweries. -->
 <script type="application/ld+json">
-
+{
   "@context": "http://schema.org",
   "@type": "ChooseAction",
   "agent": {
@@ -4368,7 +4373,7 @@ JSON:
 
 <!--  John voted on Steve. -->
 <script type="application/ld+json">
-
+{
   "@context": "http://schema.org",
   "@type": "VoteAction",
   "agent": {
@@ -4400,7 +4405,7 @@ JSON:
 
 <!--  John ignored Steve. -->
 <script type="application/ld+json">
-
+{
   "@context": "http://schema.org",
   "@type": "IgnoreAction",
   "agent": {
@@ -4432,7 +4437,7 @@ JSON:
 
 <!--  John and Steve ignored an article. -->
 <script type="application/ld+json">
-
+{
   "@context": "http://schema.org",
   "@type": "IgnoreAction",
   "agent": {
@@ -4468,7 +4473,7 @@ JSON:
 
 <!--  John ignores a friend request from Steve. -->
 <script type="application/ld+json">
-
+{
   "@context": "http://schema.org",
   "@type": "IgnoreAction",
   "agent": {
@@ -4507,7 +4512,7 @@ JSON:
 
 <!--  John reacted to a scholar paper claiming that P = NP!. -->
 <script type="application/ld+json">
-
+{
   "@context": "http://schema.org",
   "@type": "ReactAction",
   "agent": {
@@ -4539,7 +4544,7 @@ JSON:
 
 <!--  John and Steve agreed with a scholar paper claiming that P = NP!. -->
 <script type="application/ld+json">
-
+{
   "@context": "http://schema.org",
   "@type": "AgreeAction",
   "agent": {
@@ -4575,7 +4580,7 @@ JSON:
 
 <!--  John and Steve disagreed with a scholar paper claiming that P = NP!,  resulting in another scholar paper claiming that P is in fact != NP!. -->
 <script type="application/ld+json">
-
+{
   "@context": "http://schema.org",
   "@type": "DisagreeAction",
   "agent": {
@@ -4615,7 +4620,7 @@ JSON:
 
 <!--  John and Steve dislike an article. -->
 <script type="application/ld+json">
-
+{
   "@context": "http://schema.org",
   "@type": "DislikeAction",
   "agent": {
@@ -4651,7 +4656,7 @@ JSON:
 
 <!--  John endorsed Steve. -->
 <script type="application/ld+json">
-
+{
   "@context": "http://schema.org",
   "@type": "EndorseAction",
   "agent": {
@@ -4683,7 +4688,7 @@ JSON:
 
 <!--  John and Steve like an article. -->
 <script type="application/ld+json">
-
+{
   "@context": "http://schema.org",
   "@type": "LikeAction",
   "agent": {
@@ -4719,7 +4724,7 @@ JSON:
 
 <!--  John and Steve want an ipod. -->
 <script type="application/ld+json">
-
+{
   "@context": "http://schema.org",
   "@type": "WantAction",
   "agent": {
@@ -4755,7 +4760,7 @@ JSON:
 
 <!--  John and Steve reviewed an article. -->
 <script type="application/ld+json">
-
+{
   "@context": "http://schema.org",
   "@type": "ReviewAction",
   "agent": {
@@ -4795,7 +4800,7 @@ JSON:
 
 <!--  The biceps consumed 100 calories. -->
 <script type="application/ld+json">
-
+{
   "@context": "http://schema.org",
   "@type": "ConsumeAction",
   "agent": {
@@ -4827,7 +4832,7 @@ JSON:
 
 <!--  John drank a coke. -->
 <script type="application/ld+json">
-
+{
   "@context": "http://schema.org",
   "@type": "DrinkAction",
   "agent": {
@@ -4859,7 +4864,7 @@ JSON:
 
 <!--  John eat a cake. -->
 <script type="application/ld+json">
-
+{
   "@context": "http://schema.org",
   "@type": "EatAction",
   "agent": {
@@ -4891,7 +4896,7 @@ JSON:
 
 <!--  John installed fitbit. -->
 <script type="application/ld+json">
-
+{
   "@context": "http://schema.org",
   "@type": "InstallAction",
   "agent": {
@@ -4923,7 +4928,7 @@ JSON:
 
 <!--  John listened to Pink. -->
 <script type="application/ld+json">
-
+{
   "@context": "http://schema.org",
   "@type": "ListenAction",
   "agent": {
@@ -4955,7 +4960,7 @@ JSON:
 
 <!--  John listened to star 101.3. -->
 <script type="application/ld+json">
-
+{
   "@context": "http://schema.org",
   "@type": "ListenAction",
   "agent": {
@@ -4987,7 +4992,7 @@ JSON:
 
 <!--  John listened to an Elvis playlist. -->
 <script type="application/ld+json">
-
+{
   "@context": "http://schema.org",
   "@type": "ListenAction",
   "agent": {
@@ -5019,7 +5024,7 @@ JSON:
 
 <!--  John read an article. -->
 <script type="application/ld+json">
-
+{
   "@context": "http://schema.org",
   "@type": "ReadAction",
   "agent": {
@@ -5051,7 +5056,7 @@ JSON:
 
 <!--  John read a book. -->
 <script type="application/ld+json">
-
+{
   "@context": "http://schema.org",
   "@type": "ReadAction",
   "agent": {
@@ -5083,7 +5088,7 @@ JSON:
 
 <!--  John read a code. -->
 <script type="application/ld+json">
-
+{
   "@context": "http://schema.org",
   "@type": "ReadAction",
   "agent": {
@@ -5115,7 +5120,7 @@ JSON:
 
 <!--  John read a web page. -->
 <script type="application/ld+json">
-
+{
   "@context": "http://schema.org",
   "@type": "ReadAction",
   "agent": {
@@ -6570,7 +6575,7 @@ JSON:
     "name": "John"
   },
   "object": {
-    "@type": "TheatreGroup",
+    "@type": "TheaterGroup",
     "name": "Cats"
   }
 }
@@ -7811,7 +7816,8 @@ JSON:
     "@type": "Book",
     "name": "Outliers"
   },
-  "price": "US$ 50"
+  "price": "50",
+  "priceCurrency": "USD"
 }
 </script>
 
@@ -7876,7 +7882,8 @@ JSON:
     "@type": "Person",
     "name": "John"
   },
-  "price": "US$ 10",
+  "price": "10",
+  "priceCurrency": "USD"
   "recipient": {
     "@type": "Person",
     "name": "Steve"
@@ -7945,7 +7952,8 @@ JSON:
     "@type": "Person",
     "name": "John"
   },
-  "price": "US$ 1,500",
+  "price": "1500",
+  "priceCurrency": "USD",
   "purpose": {
     "@type": "Flight",
     "name": "AA123"
@@ -7982,7 +7990,8 @@ JSON:
     "@type": "Flight",
     "name": "AA123"
   },
-  "price": "US$ 1,500"
+  "price": "1500",
+  "priceCurrency": "UDC"
 }
 </script>
 
@@ -8083,7 +8092,8 @@ JSON:
     "@type": "Person",
     "name": "John"
   },
-  "price": "US$ 10",
+  "price": "10",
+  "priceCurrency": "USD"
   "recipient": {
     "@type": "Person",
     "name": "Steve"
@@ -8260,7 +8270,8 @@ JSON:
     "@type": "Person",
     "name": "John"
   },
-  "price": "US$ 10",
+  "price": "10",
+  "priceCurrency": "USD"
   "recipient": {
     "@type": "Person",
     "name": "Steve"
@@ -9020,7 +9031,7 @@ JSON:
 
 <script type='application/ld+json'>
 {
-  "@context": "schema.org",
+  "@context": "http://schema.org",
   "@type": "GovernmentService",
   "name": "Veterans Affairs Emergency Mental Health",
   "serviceType": "Psychiatric Emergency Services",
@@ -9102,14 +9113,15 @@ MICRODATA:
   <div class="event-time">9:30 PM</div>
 
  <span itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-  <div class="event-price" itemprop="price">$13.00</div>
+  <div class="event-price" itemprop="price" content="13.00">$13.00</div>
+  <span itemprop="priceCurrency" content="USD" />
   <a itemprop="url" href="http://www.ticketfly.com/purchase/309433">Tickets</a>
  </span>
 </div>
 
 RDFA:
 
-<div vocab="http://schema.org/"class="event-wrapper"  typeof="Event">
+<div vocab="http://schema.org/" class="event-wrapper"  typeof="Event">
 
   <div class="event-date" property="startDate" content="2013-09-14T21:30">Sat Sep 14</div>
   <div class="event-title" property="name">Typhoon with Radiation City</div>
@@ -9127,8 +9139,9 @@ RDFA:
   <div class="event-time">9:30 PM</div>
 
  <span property="offers"  typeof="Offer">
-  <div class="event-price" property="price">$13.00</div>
-  <a property="url" href="http://www.ticketfly.com/purchase/309433">Tickets</a>
+  <div class="event-price" property="price" content="13.00">$13.00</div>
+    <span property="priceCurrency" content="USD" />
+    <a property="url" href="http://www.ticketfly.com/purchase/309433">Tickets</a>
  </span>
 </div>
 
@@ -9152,7 +9165,8 @@ JSON:
   "name": "Typhoon with Radiation City",
   "offers": {
     "@type": "Offer",
-    "price": "$13.00",
+    "price": "13.00",
+    "priceCurrency": "USD",
     "url": "http://www.ticketfly.com/purchase/309433"
   },
   "startDate": "Sat Sep 14"
@@ -9205,14 +9219,15 @@ MICRODATA:
   <div class="event-time">9:30 PM</div>
 
  <span itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-  <div class="event-price" itemprop="price">$13.00</div>
+  <div class="event-price" itemprop="price" content="13.00">$13.00</div>
+  <span itemprop="priceCurrency" content="USD" />
   <a itemprop="url" href="http://www.ticketfly.com/purchase/309433">Tickets</a>
  </span>
 </div>
 
 RDFA:
 
-<div vocab="http://schema.org/"class="event-wrapper"  typeof="Event">
+<div vocab="http://schema.org/" class="event-wrapper"  typeof="Event">
 
   <div class="event-date" property="startDate" content="2013-09-14T21:30">Sat Sep 14</div>
   <div class="event-title" property="name">CANCELLED - Typhoon with Radiation City</div>
@@ -9257,7 +9272,8 @@ JSON:
   "name": "CANCELLED - Typhoon with Radiation City",
   "offers": {
     "@type": "Offer",
-    "price": "$13.00",
+    "price": "13.00",
+    "priceCurrency": "USD",
     "url": "http://www.ticketfly.com/purchase/309433"
   },
   "startDate": "Sat Sep 14"
@@ -9305,14 +9321,15 @@ MICRODATA:
   </div>
   <div class="event-time">10:00 PM</div>
   <span itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-   <div class="event-price" itemprop="price">$13.00</div>
-   <a itemprop="url" href="http://www.ticketfly.com/purchase/309433">Tickets</a>
+   <div class="event-price" itemprop="price" content="13.00">$13.00</div>
+     <span itemprop="priceCurrency" content="USD" />
+     <a itemprop="url" href="http://www.ticketfly.com/purchase/309433">Tickets</a>
   </span>
 </div>
 
 RDFA:
 
-<div vocab="http://schema.org/"class="event-wrapper">
+<div vocab="http://schema.org/" class="event-wrapper">
   <div class="event-date" property="startDate" content="2013-10-12T22:00">Sat Oct 12</div>
   <div class="event-title" property="name">Typhoon with Radiation City</div>
   <meta property="eventStatus" content="http://schema.org/EventRescheduled">
@@ -9329,8 +9346,9 @@ RDFA:
   </div>
   <div class="event-time">10:00 PM</div>
   <span property="offers"  typeof="Offer">
-   <div class="event-price" property="price">$13.00</div>
-   <a property="url" href="http://www.ticketfly.com/purchase/309433">Tickets</a>
+   <div class="event-price" property="price" content="13.00">$13.00</div>
+    <span property="priceCurrency" content="USD" />
+    <a property="url" href="http://www.ticketfly.com/purchase/309433">Tickets</a>
   </span>
 </div>
 
@@ -9353,7 +9371,8 @@ JSON:
     },
     {
       "@type": "Offer",
-      "price": "$13.00",
+      "price": "13.00",
+      "priceCurrency": "USD",
       "url": "http://www.ticketfly.com/purchase/309433"
     }
   ]
@@ -9403,14 +9422,15 @@ MICRODATA:
  <span itemprop="offers" itemscope itemtype="http://schema.org/Offer">
   <meta itemprop="availability" content="http://schema.org/SoldOut">
 
-  <div class="event-price" itemprop="price">$13.00</div>
-  <a itemprop="url" href="http://www.ticketfly.com/purchase/309433">Tickets</a>
+  <div class="event-price" itemprop="price" content="13.00">$13.00</div>
+    <span itemprop="priceCurrency" content="USD" />
+    <a itemprop="url" href="http://www.ticketfly.com/purchase/309433">Tickets</a>
  </span>
 </div>
 
 RDFA:
 
-<div vocab="http://schema.org/"class="event-wrapper"  typeof="Event">
+<div vocab="http://schema.org/" class="event-wrapper"  typeof="Event">
 
   <div class="event-date" property="startDate" content="2013-09-14T21:30">Sat Sep 14</div>
   <div class="event-title" property="name">SOLD OUT! Typhoon with Radiation City</div>
@@ -9430,7 +9450,8 @@ RDFA:
  <span property="offers"  typeof="Offer">
   <meta property="availability" content="http://schema.org/SoldOut">
 
-  <div class="event-price" property="price">$13.00</div>
+  <div class="event-price" property="price" content="13.00">$13.00</div>
+  <span property="priceCurrency" content="USD" />
   <a property="url" href="http://www.ticketfly.com/purchase/309433">Tickets</a>
  </span>
 </div>
@@ -9456,7 +9477,8 @@ JSON:
   "offers": {
     "@type": "Offer",
     "availability": "http://schema.org/SoldOut",
-    "price": "$13.00",
+    "price": "13.00",
+    "priceCurrency": "USD",
     "url": "http://www.ticketfly.com/purchase/309433"
   },
   "startDate": "Sat Sep 14"
@@ -9634,7 +9656,7 @@ as suggested by www.a11ymetadata.org.
       <h2>Reviews of Holt Physical Science (<span itemprop="reviewCount">0</span> reviews)</h2>
 
       <div class="bookReviewScore">
-         <span><span itemprop="ratingValue>0</span> - No Rating Yet</span>
+         <span><span itemprop="ratingValue">0</span> - No Rating Yet</span>
       </div>
    </div>
 </div>
@@ -9708,7 +9730,7 @@ as suggested by www.a11ymetadata.org.
       <h2>Reviews of Holt Physical Science (<span property="reviewCount">0</span> reviews)</h2>
 
       <div class="bookReviewScore">
-         <span><span property="ratingValue>0</span> - No Rating Yet</span>
+         <span><span property="ratingValue">0</span> - No Rating Yet</span>
       </div>
    </div>
 </div>
@@ -9944,17 +9966,17 @@ JSON:
 }
 </script>
 
-
-TYPES: FlightReservation, Flight
+TYPES:  Flight, FlightReservation
 
 PRE-MARKUP:
 
-Original:
 Reservation #RXJ34P
 Passenger: Eva Green
-Flight: United Airlines flight 110
+Flight: United Airlines Flight 110
+Operated By: Continental Airlines
 Departing: San Francisco Airport (SFO) 2017-03-04T20:15:00-08:00
 Arriving: John F. Kennedy International Airport (JFK) 2017-03-05T06:30:00-05:00
+
 
 MICRODATA:
 
@@ -9978,12 +10000,17 @@ JSON:
   },
   "reservationFor": {
     "@type": "Flight",
-    "flightNumber": "110",
-    "carrier": {
+    "flightNumber": "UA110",
+    "provider": {
+      "@type": "Airline",
+      "name": "Continental",
+      "iataCode": "CO"
+    },
+    "seller": {
       "@type": "Airline",
       "name": "United",
       "iataCode": "UA"
-    },
+    }
     "departureAirport": {
       "@type": "Airport",
       "name": "San Francisco Airport",
@@ -10276,65 +10303,95 @@ PRE-MARKUP:
 
 MICRODATA:
 
-<body itemscope itemtype="http://schema.org/QAPage">
-  <div itemscope itemtype="http://schema.org/Question">
-    <h1 itemprop="name">What is attr_accessor in Ruby?</h1>
-    <div itemprop="upvoteCount">196</div>
-    <div itemprop="text">I am having difficulty understanding Ruby attr_accessors, can someone explain them?</div>
-    <div>asked <time itemprop="dateCreated" datetime="2010-11-04T20:07Z">Nov 11 '10 at 20:07</time></div>
-    <div itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">someuser</span></div>
-    <div><span itemprop="answerCount">4</span> answers</div>
-    <div itemprop="suggestedAnswer acceptedAnswer" itemscope itemtype="http://schema.org/Answer">
-      <div itemprop="voteCount">1337</div>
-      <div itemprop="text">
-      (The text of the accepted answer goes here...).
-      </div>
-      <div>answered <time itemprop="dateCreated" datetime="2010-12-01T22:01Z">Dec 1 '10 at 22:01</time></div>
-      <div itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">anotheruser</span></div>
-    <div>
-    <div itemprop="suggestedAnswer" itemscope itemtype="http://schema.org/Answer">
-      <div itemprop="voteCount">39</div>
-      <div itemprop="text">
-        (Another explanation would go here).
-      </div>
-      <div>answered <time itemprop="dateCreated" datetime="2010-12-06T21:11Z">Dec 6 '10 at 21:11</time></div>
-      <div itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">lonelyuser1234</span></div>
-    <div>
-  </div>
-</body>
+<div itemscope itemtype="http://schema.org/Question">
+  <h1 itemprop="name">What is attr_accessor in Ruby?</h1>
+  <div itemprop="upvoteCount">196</div>
+  <div itemprop="text">I am having difficulty understanding Ruby attr_accessors, can someone explain them?</div>
+  <div>asked <time itemprop="dateCreated" datetime="2010-11-04T20:07Z">Nov 11 '10 at 20:07</time></div>
+  <div itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">someuser</span></div>
+  <div><span itemprop="answerCount">4</span> answers</div>
+  <div itemprop="suggestedAnswer acceptedAnswer" itemscope itemtype="http://schema.org/Answer">
+    <div itemprop="upvoteCount">1337</div>
+    <div itemprop="text">
+    (The text of the accepted answer goes here...).
+    </div>
+    <div>answered <time itemprop="dateCreated" datetime="2010-12-01T22:01Z">Dec 1 '10 at 22:01</time></div>
+    <div itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">anotheruser</span></div>
+  <div>
+  <div itemprop="suggestedAnswer" itemscope itemtype="http://schema.org/Answer">
+    <div itemprop="upvoteCount">39</div>
+    <div itemprop="text">
+      (Another explanation would go here).
+    </div>
+    <div>answered <time itemprop="dateCreated" datetime="2010-12-06T21:11Z">Dec 6 '10 at 21:11</time></div>
+    <div itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">lonelyuser1234</span></div>
+  <div>
+</div>
 
 RDFA:
 
-<body vocab="http://schema.org/" itemtype="QAPage">
-  <div  typeof="Question">
-    <h1 property="name">What is attr_accessor in Ruby?</h1>
-    <div property="upvoteCount">196</div>
-    <div property="text">I am having difficulty understanding Ruby attr_accessors, can someone explain them?</div>
-    <div>asked <time property="dateCreated" datetime="2010-11-04T20:07Z">Nov 11 '10 at 20:07</time></div>
-    <div property="author"  typeof="Person"><span property="name">someuser</span></div>
-    <div><span property="answerCount">4</span> answers</div>
-    <div property="suggestedAnswer acceptedAnswer"  typeof="Answer">
-      <div property="voteCount">1337</div>
-      <div property="text">
-      (The text of the accepted answer goes here...).
-      </div>
-      <div>answered <time property="dateCreated" datetime="2010-12-01T22:01Z">Dec 1 '10 at 22:01</time></div>
-      <div property="author"  typeof="Person"><span property="name">anotheruser</span></div>
-    <div>
-    <div property="suggestedAnswer"  typeof="Answer">
-      <div property="voteCount">39</div>
-      <div property="text">
-        (Another explanation would go here).
-      </div>
-      <div>answered <time property="dateCreated" datetime="2010-12-06T21:11Z">Dec 6 '10 at 21:11</time></div>
-      <div property="author"  typeof="Person"><span property="name">lonelyuser1234</span></div>
-    <div>
-  </div>
-</body>
+<div vocab="http://schema.org/" typeof="Question">
+  <h1 property="name">What is attr_accessor in Ruby?</h1>
+  <div property="upvoteCount">196</div>
+  <div property="text">I am having difficulty understanding Ruby attr_accessors, can someone explain them?</div>
+  <div>asked <time property="dateCreated" datetime="2010-11-04T20:07Z">Nov 11 '10 at 20:07</time></div>
+  <div property="author"  typeof="Person"><span property="name">someuser</span></div>
+  <div><span property="answerCount">4</span> answers</div>
+  <div property="suggestedAnswer acceptedAnswer"  typeof="Answer">
+    <div property="upvoteCount">1337</div>
+    <div property="text">
+    (The text of the accepted answer goes here...).
+    </div>
+    <div>answered <time property="dateCreated" datetime="2010-12-01T22:01Z">Dec 1 '10 at 22:01</time></div>
+    <div property="author"  typeof="Person"><span property="name">anotheruser</span></div>
+  <div>
+  <div property="suggestedAnswer"  typeof="Answer">
+    <div property="upvoteCount">39</div>
+    <div property="text">
+      (Another explanation would go here).
+    </div>
+    <div>answered <time property="dateCreated" datetime="2010-12-06T21:11Z">Dec 6 '10 at 21:11</time></div>
+    <div property="author"  typeof="Person"><span property="name">lonelyuser1234</span></div>
+  <div>
+</div>
 
 JSON:
 
-Coming soon
+<script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Question",
+    "name": "What is attr_accessor in Ruby?",
+    "upvoteCount": "196",
+    "text": "I am having difficulty understanding Ruby attr_accessors, can someone explain them?",
+    "dateCreated": "2010-11-04T20:07Z",
+    "author": {
+        "@type": "Person",
+        "name": "someuser"
+    },
+    "answerCount": "4",
+    "acceptedAnswer": {
+        "@type": "Answer",
+        "upvoteCount": "1337",
+        "text": "(The text of the accepted answer goes here...).",
+        "dateCreated": "2010-12-01T22:01Z",
+        "author": {
+            "@type": "Person",
+            "name": "someuser"
+        }
+    },
+    "suggestedAnswer": {
+        "@type": "Answer",
+        "upvoteCount": "39",
+        "text": "(The text of the accepted answer goes here...).",
+        "dateCreated": "2010-12-06T21:11Z",
+        "author": {
+            "@type": "Person",
+            "name": "lonelyuser1234"
+        }
+    }
+}
+</script>
 
 TYPES: WatchAction, Movie
 
@@ -10449,11 +10506,11 @@ PRE-MARKUP:
       <li>
         <link href="http://en.wikipedia.org/wiki/Peter_Grimes" />
         <span><strong>Britten</strong> Four Sea Interludes and Passacaglia from <em>Peter Grimes</em></span>
-	</li>
+  </li>
       <li>
-	    <link href="http://en.wikipedia.org/wiki/Symphony_No._7_(Shostakovich)" />
-	    <span><strong>Shostakovich</strong> Symphony No. 7 <em>(Leningrad)</em></span>
-	</li>
+      <link href="http://en.wikipedia.org/wiki/Symphony_No._7_(Shostakovich)" />
+      <span><strong>Shostakovich</strong> Symphony No. 7 <em>(Leningrad)</em></span>
+  </li>
     </ul>
   </div>
 
@@ -10486,15 +10543,16 @@ MICRODATA:
 <div itemscope="" itemtype="http://schema.org/MusicEvent">
 
   <div itemprop="location" itemscope="" itemtype="http://schema.org/MusicVenue">
-    <span itemprop="name" content="Chicago Symphony Center"/>
+    <meta itemprop="name" content="Chicago Symphony Center"/>
     <link itemprop="sameAs" href="http://en.wikipedia.org/wiki/Symphony_Center"/>
-    <span itemprop="address" content="220 S. Michigan Ave, Chicago, Illinois, USA"/>
+    <meta itemprop="address" content="220 S. Michigan Ave, Chicago, Illinois, USA"/>
   </div>
 
   <div itemprop="offers" itemscope="" itemtype="http://schema.org/Offer">
     <link itemprop="url" href="/examples/ticket/12341234" />
-    <span itemprop="price" content="$40"/>
-    <span itemprop="availability" href="http://schema.org/InStock"/>
+    <meta itemprop="price" content="40"/>
+    <meta itemprop="priceCurrency" content="USD" />
+    <meta itemprop="availability" href="http://schema.org/InStock"/>
   </div>
 
   <h2 itemprop="name">Shostakovich Leningrad</h2>
@@ -10515,11 +10573,11 @@ MICRODATA:
       <li itemprop="workPerformed" itemscope="" itemtype="http://schema.org/CreativeWork">
         <link itemprop="sameAs" href="http://en.wikipedia.org/wiki/Peter_Grimes" />
         <span itemprop="name"><strong>Britten</strong> Four Sea Interludes and Passacaglia from <em itemprop="name">Peter Grimes</em></span>
-	</li>
+  </li>
       <li itemprop="workPerformed" itemscope="" itemtype="http://schema.org/CreativeWork">
-	    <link itemprop="sameAs" href="http://en.wikipedia.org/wiki/Symphony_No._7_(Shostakovich)" />
-	    <span itemprop="name"><strong>Shostakovich</strong> Symphony No. 7 <em>(Leningrad)</em></span>
-	</li>
+      <link itemprop="sameAs" href="http://en.wikipedia.org/wiki/Symphony_No._7_(Shostakovich)" />
+      <span itemprop="name"><strong>Shostakovich</strong> Symphony No. 7 <em>(Leningrad)</em></span>
+  </li>
     </ul>
   </div>
 
@@ -10553,15 +10611,16 @@ RDFA:
 <div vocab="http://schema.org/" typeof="MusicEvent">
 
   <div property="location" typeof="MusicVenue">
-    <span property="name" content="Chicago Symphony Center"/>
+    <meta property="name" content="Chicago Symphony Center"/>
     <link property="sameAs" href="http://en.wikipedia.org/wiki/Symphony_Center"/>
-    <span property="address" content="220 S. Michigan Ave, Chicago, Illinois, USA"/>
+    <meta property="address" content="220 S. Michigan Ave, Chicago, Illinois, USA"/>
   </div>
 
   <div property="offers" typeof="Offer">
     <link property="url" href="/examples/ticket/12341234"/>
-    <span property="price" content="$40"/>
-    <span property="availability" href="http://schema.org/InStock"/>
+    <meta property="price" content="40"/>
+    <meta property="priceCurrency" content="USD" />
+    <meta property="availability" href="http://schema.org/InStock"/>
   </div>
 
   <h2 property="name">Shostakovich Leningrad</h2>
@@ -10582,11 +10641,11 @@ RDFA:
       <li property="workPerformed" typeof="CreativeWork">
         <link href="http://en.wikipedia.org/wiki/Peter_Grimes" property="sameAs"/>
         <span property="name"><strong>Britten</strong> Four Sea Interludes and Passacaglia from <em property="name">Peter Grimes</em></span>
-	</li>
+  </li>
       <li property="workPerformed" typeof="CreativeWork">
-	    <link href="http://en.wikipedia.org/wiki/Symphony_No._7_(Shostakovich)" property="sameAs"/>
-	    <span property="name"><strong>Shostakovich</strong> Symphony No. 7 <em>(Leningrad)</em></span>
-	</li>
+      <link href="http://en.wikipedia.org/wiki/Symphony_No._7_(Shostakovich)" property="sameAs"/>
+      <span property="name"><strong>Shostakovich</strong> Symphony No. 7 <em>(Leningrad)</em></span>
+  </li>
     </ul>
   </div>
 
@@ -10624,7 +10683,8 @@ JSON:
   "offers": {
     "@type": "Offer",
     "url": "/examples/ticket/12341234",
-    "price": "$40",
+    "price": "40",
+    "priceCurrency": "USD",
     "availability": "http://schema.org/InStock"
   },
   "performer": [
@@ -10671,48 +10731,46 @@ PRE-MARKUP:
 MICRODATA:
 
 <div itemscope="" itemtype="http://schema.org/TheaterEvent">
-  <span itemprop="startDate" content="2014-10-01T19:30">Wed 01 October 2014 19:30</span>
   <span itemprop="name">Julius Caesar at Shakespeare's Globe</span>
   <div itemprop="location" itemscope="" itemtype="http://schema.org/PerformingArtsTheater">
-    <span itemprop="name" content="Shakespeare's Globe"/>
+    <meta itemprop="name" content="Shakespeare's Globe"/>
     <link itemprop="sameAs" href="http://www.shakespearesglobe.com/"/>
-    <link itemprop="sameAs" href="http://en.wikipedia.org/wiki/Shakespeare%27s_Globe"/>
-    <span itemprop="address" content="21 New Globe Walk, Bankside, London SE1 9DT"/>
+    <meta itemprop="address" content="London, UK"/>
   </div>
+  <div itemprop="offers" itemscope="" itemtype="http://schema.org/Offer">
+    <link itemprop="url" href="/examples/ticket/0012301230123"/>
+  </div>
+  <span itemprop="startDate" content="2014-10-01T19:30">Wed 01 October 2014 19:30</span>
   <div itemprop="workPerformed" itemscope="" itemtype="http://schema.org/CreativeWork">
     <link itemprop="sameAs" href="http://en.wikipedia.org/wiki/Julius_Caesar_(play)"/>
     <link itemprop="sameAs" href="http://worldcat.org/entity/work/id/1807288036"/>
     <div itemprop="creator" itemscope="" itemtype="http://schema.org/Person">
-       <span itemprop="name" content="William Shakespeare"/>
+       <meta itemprop="name" content="William Shakespeare"/>
        <link itemprop="sameAs" href="http://en.wikipedia.org/wiki/William_Shakespeare"/>
     </div>
-  </div>
-  <div itemprop="offers" itemscope="" itemtype="http://schema.org/Offer">
-    <link itemprop="url" href="/examples/ticket/0012301230123"/>
   </div>
 </div>
 
 RDFA:
 
 <div vocab="http://schema.org/" typeof="TheaterEvent">
-  <span content="2014-10-01T19:30" property="startDate">Wed 01 October 2014 19:30</span>
   <span property="name">Julius Caesar at Shakespeare's Globe</span>
   <div property="location" typeof="PerformingArtsTheater">
-    <span property="name" content="Shakespeare's Globe"/>
+    <meta property="name" content="Shakespeare's Globe"/>
     <link property="sameAs" href="http://www.shakespearesglobe.com/"/>
-    <link property="sameAs" href="http://en.wikipedia.org/wiki/Shakespeare%27s_Globe"/>
-    <span content="21 New Globe Walk, Bankside, London SE1 9DT" property="address"/>
+    <meta property="address" content="London, UK"/>
   </div>
+  <div property="offers" typeof="Offer">
+    <link property="url" href="/examples/ticket/0012301230123"/>
+  </div>
+  <span property="startDate" content="2014-10-01T19:30">Wed 01 October 2014 19:30</span>
   <div property="workPerformed" typeof="CreativeWork">
     <link property="sameAs" href="http://en.wikipedia.org/wiki/Julius_Caesar_(play)"/>
     <link property="sameAs" href="http://worldcat.org/entity/work/id/1807288036"/>
     <div property="creator" typeof="Person">
-       <span property="name" content="William Shakespeare"/>
+       <meta property="name" content="William Shakespeare"/>
        <link property="sameAs" href="http://en.wikipedia.org/wiki/William_Shakespeare"/>
     </div>
-  </div>
-  <div property="offers" typeof="Offer">
-    <link property="url" href="/examples/ticket/0012301230123"/>
   </div>
 </div>
 
@@ -10722,31 +10780,120 @@ JSON:
 {
   "@context": "http://schema.org",
   "@type": "TheaterEvent",
+  "name": "Julius Caesar at Shakespeare's Globe",
   "location": {
     "@type": "PerformingArtsTheater",
     "name": "Shakespeare's Globe",
-    "sameAs": "http://www.shakespearesglobe.com/"
+    "sameAs": "http://www.shakespearesglobe.com/",
+    "address": "London, UK"
   },
-  "name": "Julius Caesar at Shakespeare's Globe",
   "offers": {
     "@type": "Offer",
     "url": "/examples/ticket/0012301230123"
   },
-  "startDate": "Wed 01 October 2014 19:30",
+  "startDate": "2014-10-01T19:30",
   "workPerformed": {
     "@type": "CreativeWork",
-    "creator": {
+    "name": "Julius Caesar",
+    "sameAs": "http://en.wikipedia.org/wiki/Julius_Caesar_(play)",
+    "sameAs": "http://worldcat.org/entity/work/id/1807288036",
+        "creator": {
       "@type": "Person",
-      "name": ""
-    },
-    "sameAs": [
-      "http://en.wikipedia.org/wiki/Julius_Caesar_(play)",
-      "http://worldcat.org/entity/work/id/1807288036"
-    ]
+      "name": "William Shakespeare",
+      "sameAs": "http://en.wikipedia.org/wiki/William_Shakespeare"
+    }
   }
 }
 </script>
-...
+
+
+TYPES:  SportsEvent, OrderedEvent
+
+PRE-MARKUP:
+
+World Series Event in JSON.
+
+MICRODATA:
+
+n/a
+
+RDFA:
+
+n/a
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "SportsEvent",
+  "name": "2013 World Series",
+  "subEvent": {
+    "@type": "OrderedEvent",
+    "@id": "http://mlb.com/ws2013g1",
+    "name": "Game 1",
+    "eventOrderPosition": "1",
+    "nextEvent": "http://mlb.com/ws2013g2"
+  }
+}
+</script>
+
+TYPES:  OrderedEvent
+
+PRE-MARKUP:
+
+World Series Event in JSON - first event.
+
+MICRODATA:
+
+n/a
+
+RDFA:
+
+n/a
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "OrderedEvent",
+  "superEvent": "2013 World Series",
+  "@id": "http://mlb.com/ws2013g1",
+  "name": "Game 1",
+  "eventOrderPosition": "1",
+  "nextEvent": "http://mlb.com/ws2013g2"
+}
+</script>
+
+TYPES:  OrderedEvent
+
+PRE-MARKUP:
+
+World Series Event in JSON - second event.
+
+MICRODATA:
+
+n/a
+
+RDFA:
+
+n/a
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "OrderedEvent",
+  "superEvent": "2013 World Series",
+  "@id": "http://mlb.com/ws2013g2",
+  "name": "Game 2",
+  "eventOrderPosition": "2",
+  "previousEvent": "http://mlb.com/ws2013g1",
+  "nextEvent": "http://mlb.com/ws2013g3"
+}
+</script>
 
 TYPES:  Restaurant
 
@@ -10835,7 +10982,7 @@ MICRODATA:
 
 RDFA:
 
-<div vocab="http://schema.org" typeof="Store">
+<div vocab="http://schema.org/" typeof="Store">
   <h1 property="name">Middle of Nowhere Foods</h1>
   <h2>Opening hours</h2>
   <p>Normally open <time property="openingHours" datetime="Mo,Tu,We,Th,Fr,Sa,Su 09:00-14:00">daily 9am-2pm</time> except on:</p>
@@ -11063,7 +11210,7 @@ MICRODATA:
     <p>Open: <time itemprop="openingHours" datetime="Mo-Fr 13:00-17:30">Open weekdays 1pm-5:30pm.</time></p>
     <p>Phone: <span itemprop="telephone" content="+155501002121">555-0100-2121</span></p>
     <p>A branch of <span itemprop="branchOf" itemscope itemtype="http://schema.org/Corporation">
-    <a itemprop="url" href="http://example.com/"><span itemprop="name">Larry's International</span></a>.</p>
+    <a itemprop="url" href="http://example.com/"><span itemprop="name">Larry's International</span></a></span>.</p>
   </div>
 </div>
 
@@ -11092,7 +11239,7 @@ RDFA:
     <p>Open: <time property="openingHours" datetime="Mo-Fr 13:00-17:30">Open weekdays 1pm-5:30pm.</time></p>
     <p>Phone: <span property="telephone" content="+155501002121">555-0100-2121</span></p>
     <p>A branch of <span property="branchOf" typeof="Corporation">
-    <a property="url" href="http://example.com/"><span property="name">Larry's International</span></a>.</p>
+    <a property="url" href="http://example.com/"><span property="name">Larry's International</span></a></span>.</p>
   </div>
 </div>
 
@@ -11473,7 +11620,7 @@ JSON:
   "startDate" : "2014-04-12T19:30",
   "location" : {
      "@type" : "Place",
-     "name" : "Lupo’s Heartbreak Hotel",
+     "name" : "Lupo's Heartbreak Hotel",
      "address" : "79 Washington St., Providence, RI"
   },
   "offers" : {
@@ -11567,20 +11714,346 @@ JSON:
 }]
 </script>
 
-TYPES:  FakeEntryNeeded, FixMeSomeDay
+TYPES:  Role, OrganizationRole
 
 PRE-MARKUP:
 
-...
+A basic Role example in JSON that
+shows how to qualify the 'member' property
+by adding an intermediate Role entity.
 
 MICRODATA:
 
-...
+<div itemscope itemtype="http://schema.org/Organization">
+  <span itemprop="name">Cryptography Users</span>
+  <div itemprop="member" itemscope
+        itemtype="http://schema.org/OrganizationRole">
+    <div itemprop="member" itemscope
+            itemtype="http://schema.org/Person">
+      <span itemprop="name">Alice</span>
+    </div>
+    <span itemprop="startDate">1977</span>
+  </div>
+</div>
 
 RDFA:
 
-...
+<div vocab="http://schema.org/" typeof="Organization">
+  <span property="name">Cryptography Users</span>
+  <div property="member" typeof="OrganizationRole">
+    <div property="member" typeof="Person">
+      <span property="name">Alice</span>
+    </div>
+    <span property="startDate">1977</span>
+  </div>
+</div>
 
 JSON:
 
-...
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Organization",
+  "name": "Cryptography Users",
+  "member": {
+    "@type": "OrganizationRole",
+    "member": {
+    "@type": "Person",
+    "name": "Alice"
+    },
+    "startDate": "1977"
+  }
+}
+</script>
+
+TYPES:  Role, OrganizationRole, CollegeOrUniversity, EducationalOrganization
+
+PRE-MARKUP:
+
+A JSON example of an OrganizationRole being used to qualify
+the 'alumni' property. Note that we use startDate to indicate
+when the alumni situation began, which was the date of leaving
+the organization.
+
+MICRODATA:
+
+<div itemscope itemtype="http://schema.org/CollegeOrUniversity">
+  <span itemprop="name">University of Cambridge</span>
+  <link itemprop="sameAs" href="http://en.wikipedia.org/wiki/University_of_Cambridge"/>
+  <div itemprop="alumni" itemscope
+        itemtype="http://schema.org/OrganizationRole">
+    <div itemprop="alumni" itemscope
+            itemtype="http://schema.org/Person">
+      <span itemprop="name">Delia Derbyshire</span>
+      <link itemprop="sameAs" href="http://en.wikipedia.org/wiki/Delia_Derbyshire"/>
+    </div>
+    <span itemprop="startDate">1959</span>
+</div>
+
+RDFA:
+
+<div vocab="http://schema.org/" typeof="CollegeOrUniversity">
+    <span property="name">University of Cambridge</span>
+  <link property="sameAs" href="http://en.wikipedia.org/wiki/University_of_Cambridge"/>
+  <div property="alumni" typeof="OrganizationRole">
+    <div property="alumni" typeof="Person">
+      <span property="name">Delia Derbyshire</span>
+      <link property="sameAs" href="http://en.wikipedia.org/wiki/Delia_Derbyshire"/>
+    </div>
+    <span property="startDate">1959</span>
+</div>
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "CollegeOrUniversity",
+  "name": "University of Cambridge",
+  "sameAs": "http://en.wikipedia.org/wiki/University_of_Cambridge",
+  "alumni": {
+    "@type": "OrganizationRole",
+    "alumni": {
+      "@type": "Person",
+       "name": "Delia Derbyshire",
+      "sameAs": "http://en.wikipedia.org/wiki/Delia_Derbyshire"
+    },
+    "startDate": "1959"
+  }
+}
+</script>
+
+TYPES:  Role, OrganizationRole, CollegeOrUniversity, EducationalOrganization
+
+PRE-MARKUP:
+
+A JSON example of an OrganizationRole being used to qualify
+the 'alumniOf' property (which is inverseOf 'alumni').
+
+Note that we use startDate to indicate when the alumniOf
+situation began, which was the date of leaving the organization.
+
+MICRODATA:
+
+<div itemscope itemtype="http://schema.org/Person">
+  <span itemprop="name">Delia Derbyshire</span>
+  <link itemprop="sameAs" href="http://en.wikipedia.org/wiki/Delia_Derbyshire"/>
+  <div itemprop="alumniOf" itemscope
+        itemtype="http://schema.org/OrganizationRole">
+    <div itemprop="alumniOf" itemscope
+            itemtype="http://schema.org/CollegeOrUniversity">
+      <span itemprop="name">University of Cambridge</span>
+      <link itemprop="sameAs" href="http://en.wikipedia.org/wiki/University_of_Cambridge"/>
+    </div>
+    <span itemprop="startDate">1959</span>
+</div>
+
+RDFA:
+
+<div vocab="http://schema.org/" typeof="Person">
+  <span property="name">Delia Derbyshire</span>
+  <link property="sameAs" href="http://en.wikipedia.org/wiki/Delia_Derbyshire"/>
+  <div property="alumniOf" typeof="OrganizationRole">
+    <div property="alumniOf" typeof="CollegeOrUniversity">
+      <span property="name">University of Cambridge</span>
+      <link property="sameAs" href="http://en.wikipedia.org/wiki/University_of_Cambridge"/>
+    </div>
+    <span property="startDate">1959</span>
+</div>
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Person",
+   "name": "Delia Derbyshire",
+   "sameAs": "http://en.wikipedia.org/wiki/Delia_Derbyshire",
+   "alumniOf": {
+     "@type": "OrganizationRole",
+     "alumniOf": {
+       "@type": "CollegeOrUniversity",
+       "name": "University of Cambridge",
+       "sameAs": "http://en.wikipedia.org/wiki/University_of_Cambridge"
+    },
+    "startDate": "1959"
+  }
+}
+</script>
+
+TYPES:  Role, PerformanceRole
+
+PRE-MARKUP:
+
+A JSON example of a PerformanceRole, in which
+the Role represents the acting contribution made by
+Bill Murray in the film Ghostbusters. The Role entity
+allows us to additional information, such as the
+character's name that he played in the film.
+
+MICRODATA:
+
+<div itemscope itemtype="http://schema.org/Movie">
+  <span itemprop="name">Ghostbusters</span>
+  <link itemprop="sameAs" href="http://en.wikipedia.org/wiki/Ghostbusters"/>
+  <div itemprop="actor" itemscope
+        itemtype="http://schema.org/PerformanceRole">
+    <div itemprop="actor" itemscope
+            itemtype="http://schema.org/Person">
+      <span itemprop="name">Bill Murray</span>
+    </div>
+    <span itemprop="characterName">Dr. Peter Venkman</span>
+</div>
+
+RDFA:
+
+<div vocab="http://schema.org/" typeof="Movie">
+  <span property="name">Ghostbusters</span>
+  <link property="sameAs" href="http://en.wikipedia.org/wiki/Ghostbusters"/>
+  <div property="actor" typeof="PerformanceRole">
+    <div property="actor" typeof="Person">
+      <span property="name">Bill Murray</span>
+    </div>
+    <span property="characterName">Dr. Peter Venkman</span>
+</div>
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Movie",
+  "name": "Ghostbusters",
+  "sameAs": "http://en.wikipedia.org/wiki/Ghostbusters",
+  "actor": {
+    "@type": "PerformanceRole",
+    "actor": {
+      "@type": "Person",
+      "name": "Bill Murray"
+    },
+    "characterName": "Dr. Peter Venkman"
+  }
+}
+</script>
+
+TYPES:  Role, OrganizationRole, Person, SportsTeam, Organization
+
+PRE-MARKUP:
+
+A JSON example of an OrganizationRole, showing information
+about a 'member' of a 'SportsTeam', including time qualfiers
+(when he began and ended that role).
+
+MICRODATA:
+
+<div itemscope itemtype="http://schema.org/SportsTeam">
+  <span itemprop="name">San Francisco 49ers</span>
+  <div itemprop="member" itemscope
+        itemtype="http://schema.org/OrganizationRole">
+    <div itemprop="member" itemscope
+            itemtype="http://schema.org/Person">
+      <span itemprop="name">Joe Montana</span>
+    </div>
+    <span itemprop="startDate">1979</span>
+    <span itemprop="endDate">1992</span>
+    <span itemprop="namedPosition">Quarterback</span>
+</div>
+
+RDFA:
+
+<div vocab="http://schema.org/" typeof="SportsTeam">
+  <span property="name">San Francisco 49ers</span>
+  <div property="member" typeof="OrganizationRole">
+    <div property="member" typeof="http://schema.org/Person">
+      <span property="name">Joe Montana</span>
+    </div>
+    <span property="startDate">1979</span>
+    <span property="endDate">1992</span>
+    <span property="namedPosition">Quarterback</span>
+</div>
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "SportsTeam",
+  "name": "San Francisco 49ers",
+  "member": {
+    "@type": "OrganizationRole",
+    "member": {
+      "@type": "Person",
+      "name": "Joe Montana"
+    },
+    "startDate": "1979",
+    "endDate": "1992",
+    "namedPosition": "Quarterback"
+  }
+}
+
+</script>
+
+TYPES:  WebPage, CollegeOrUniversity
+
+PRE-MARKUP:
+
+<body>
+  <h1>Lecture 12: Graphs, networks, incidence matrices</h1>
+  <p>These video lectures of Professor Gilbert
+    Strang teaching 18.06 were  recorded in Fall 1999 and do not
+    correspond precisely to the current  edition of the textbook.</p>
+  <div>
+    <h4>About <span>MIT OpenCourseWare</span></h4>
+  </div>
+  <a
+    rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/us/deed.en_US"><img
+    src="/images/cc_by-nc-sa.png" alt="Creative Commons logo with terms BY-NC-SA." /></a>
+</body>
+
+MICRODATA:
+
+<body itemscope="" itemtype="http://schema.org/WebPage">
+  <h1 itemprop="name">Lecture 12: Graphs, networks, incidence matrices</h1>
+  <p itemprop="description">These video lectures of Professor Gilbert
+    Strang teaching 18.06 were  recorded in Fall 1999 and do not
+    correspond precisely to the current  edition of the textbook.</p>
+  <div itemprop="publisher" itemscope="" itemtype="http://schema.org/CollegeOrUniversity">
+    <h4 class="footer">About <span itemprop="name">MIT OpenCourseWare</span></h4>
+  </div>
+  <a itemprop="license"
+    rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/us/deed.en_US"><img
+    src="/images/cc_by-nc-sa.png" alt="Creative Commons logo with terms BY-NC-SA." /></a>
+</body>
+
+RDFA:
+
+<body vocab="http://schema.org/" typeof="WebPage">
+  <h1 property="name">Lecture 12: Graphs, networks, incidence matrices</h1>
+  <p property="description">These video lectures of Professor Gilbert
+    Strang teaching 18.06 were  recorded in Fall 1999 and do not
+    correspond precisely to the current  edition of the textbook.</p>
+  <div property="publisher" typeof="CollegeOrUniversity">
+    <h4 class="footer">About <span property="name">MIT OpenCourseWare</span></h4>
+  </div>
+  <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/us/deed.en_US"><img
+    src="/images/cc_by-nc-sa.png" alt="Creative Commons logo with terms BY-NC-SA." /></a>
+</body>
+
+JSON:
+
+<script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "WebPage",
+    "name": "Lecture 12: Graphs, networks, incidence matrices",
+    "description": "These video lectures of Professor Gilbert Strang teaching 18.06 were recorded in Fall 1999 and do not correspond precisely to the current  edition of the textbook.",
+    "publisher": {
+        "@type": "CollegeOrUniversity",
+        "name": "MIT OpenCourseWare"
+    },
+    "license": "http://creativecommons.org/licenses/by-nc-sa/3.0/us/deed.en_US"
+}
+</script>
+
+
+

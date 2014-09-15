@@ -1,0 +1,48 @@
+TYPES: SearchAction, WebSite
+
+PRE-MARKUP:
+
+<p>(A WebSite describing its search options)</p>
+
+MICRODATA:
+
+<div itemscope itemtype="http://schema.org/WebSite">
+    <meta itemprop="url" content="http://www.example.com/"/>
+    <form itemprop="potentialAction" itemscope itemtype="http://schema.org/SearchAction">
+      <meta itemprop="target" content="http://www.example.com/search?q={query}"/>
+      <input itemprop="query-input" type="text" name="query">
+      <input type="submit">
+    </form>
+</div>
+
+RDFA:
+
+<div vocab="http://schema.org/" typeof="WebSite">
+    <meta property="url" content="http://www.example.com/"/>
+    <form property="potentialAction" typeof="http://schema.org/SearchAction">
+      <meta property="target" content="http://www.example.com/search?q={query}"/>
+      <input property="query-input" type="text" name="query">
+      <input type="submit">
+    </form>
+</div>
+
+JSON:
+
+<script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "WebSite",
+    "url": "http://www.example.com/",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "http://www.example.com/search?&q={query}",
+      "query-input": "required"
+    }
+}
+</script>
+
+TYPES:  FakeEntryNeeded, FixMeSomeDay
+PRE-MARKUP:
+MICRODATA:
+RDFA:
+JSON:
