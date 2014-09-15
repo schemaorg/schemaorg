@@ -289,7 +289,7 @@ TYPES:  Place,GeoCoordinates
 
 PRE-MARKUP:
 
-<h1>What is the latitude and longitude of the Empire State Building?<h1>
+<h1>What is the latitude and longitude of the Empire State Building?</h1>
 Answer:
 Latitude: 40 deg 44 min 54.36 sec N
 Longitude: 73 deg 59 min 8.5 sec W
@@ -711,7 +711,7 @@ JSON:
 }
 </script>
 
-TYPES:  Product,AggregateRating,Offer,Review,Rating
+TYPES:  Product,AggregateRating,Offer,Review,Rating, price
 
 PRE-MARKUP:
 
@@ -749,7 +749,13 @@ MICRODATA:
   </div>
 
   <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-    <span itemprop="price">$55.00</span>
+
+    <!--price is 1000, a number, with locale-specific thousands separator
+    and decimal mark, and the $ character is marked up with the
+    machine-readable code "USD" -->
+    <span itemprop="priceCurrency" content="USD">$</span><span
+          itemprop="price" content="1000.00">1,000.00</span>
+
     <link itemprop="availability" href="http://schema.org/InStock" />In stock
   </div>
 
@@ -800,7 +806,11 @@ RDFA:
   </div>
 
   <div property="offers"  typeof="Offer">
-    <span property="price">$55.00</span>
+    <!--price is 1000, a number, with locale-specific thousands separator
+        and decimal mark, and the $ character is marked up with the
+        machine-readable code "USD" -->
+    <span property="priceCurrency" content="USD">$</span><span
+      property="price" content="1000.00">1,000.00</span>
     <link property="availability" href="http://schema.org/InStock" />In stock
   </div>
 
@@ -855,7 +865,8 @@ JSON:
   "offers": {
     "@type": "Offer",
     "availability": "http://schema.org/InStock",
-    "price": "$55.00"
+    "price": "55.00",
+    "priceCurrency": "USD"
   },
   "review": [
     {
@@ -1055,7 +1066,7 @@ by <a itemprop="author" href="/author/jd_salinger.html">J.D. Salinger</a>
 </div>
 
 <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-  Price: <span itemprop="price">$6.99</span>
+  Price: <span itemprop="price" content="6.99">$6.99</span>
   <meta itemprop="priceCurrency" content="USD" />
   <link itemprop="availability" href="http://schema.org/InStock">In Stock
 </div>
@@ -1113,7 +1124,7 @@ by <a property="author" href="/author/jd_salinger.html">J.D. Salinger</a>
 </div>
 
 <div property="offers"  typeof="Offer">
-  Price: <span property="price">$6.99</span>
+  Price: <span property="price" content="6.99">$6.99</span>
   <meta property="priceCurrency" content="USD" />
   <link property="availability" href="http://schema.org/InStock">In Stock
 </div>
@@ -1171,7 +1182,7 @@ JSON:
   "offers": {
     "@type": "Offer",
     "availability": "http://schema.org/InStock",
-    "price": "$6.99",
+    "price": "6.99",
     "priceCurrency": "USD"
   },
   "publisher": "Little, Brown, and Company",
@@ -1821,7 +1832,7 @@ MICRODATA:
   <meta itemprop="mainContentOfPage" content="true"/>
   <h2 itemprop="about">list of presidents</h2>
   <table>
-    <tr><th>President</th><th>Party</th><tr>
+    <tr><th>President</th><th>Party</th></tr>
     <tr>
       <td>George Washington (1789-1797)</td>
       <td>no party</td>
@@ -1840,7 +1851,7 @@ RDFA:
   <meta property="mainContentOfPage" content="true"/>
   <h2 property="about">list of presidents</h2>
   <table>
-    <tr><th>President</th><th>Party</th><tr>
+    <tr><th>President</th><th>Party</th></tr>
     <tr>
       <td>George Washington (1789-1797)</td>
       <td>no party</td>
@@ -2474,15 +2485,13 @@ MICRODATA:
   <h3>Sample Tracks</h3>
     <div itemprop="track" itemscope itemtype="http://schema.org/MusicRecording">
       <span itemprop="name">Bloom</span>
-        <meta content="/artist/radiohead/album/the-king-of-limbs/track/bloom" itemprop="url" />
-        <meta content="PT5M14S" itemprop="duration" />5:14
-      </span>
+      <meta content="/artist/radiohead/album/the-king-of-limbs/track/bloom" itemprop="url" />
+      <meta content="PT5M14S" itemprop="duration" />5:14
     </div>
     <div itemprop="track" itemscope itemtype="http://schema.org/MusicRecording">
-    <span itemprop="name">Morning Mr Magpie</span>
+      <span itemprop="name">Morning Mr Magpie</span>
       <meta content="/artist/radiohead/album/the-king-of-limbs/track/morning-mr-magpie" itemprop="url" />
       <meta content="PT4M40S" itemprop="duration" />4:40
-    </span>
   </div>
 </div>
 
@@ -2502,15 +2511,13 @@ RDFA:
   <h3>Sample Tracks</h3>
     <div property="track"  typeof="MusicRecording">
       <span property="name">Bloom</span>
-        <meta content="/artist/radiohead/album/the-king-of-limbs/track/bloom" property="url" />
-        <meta content="PT5M14S" property="duration" />5:14
-      </span>
+      <meta content="/artist/radiohead/album/the-king-of-limbs/track/bloom" property="url" />
+      <meta content="PT5M14S" property="duration" />5:14
     </div>
     <div property="track"  typeof="MusicRecording">
-    <span property="name">Morning Mr Magpie</span>
+      <span property="name">Morning Mr Magpie</span>
       <meta content="/artist/radiohead/album/the-king-of-limbs/track/morning-mr-magpie" property="url" />
       <meta content="PT4M40S" property="duration" />4:40
-    </span>
   </div>
 </div>
 
@@ -2789,8 +2796,7 @@ MICRODATA:
     </span>
     for all adult patients.
     (<span itemprop="recommendationStrength">Strong recommendation</span>;
-    <link itemprop="evidenceLevel" href="http://schema.org/EvidenceLevelA">
-      Class I</link>,
+    <a itemprop="evidenceLevel" href="http://schema.org/EvidenceLevelA">Class I</a>,
     based on
     <span itemprop="evidenceOrigin">multiple randomized clinical trials</span>)
   </span>
@@ -2800,11 +2806,10 @@ MICRODATA:
     <span itemprop="subject" itemscope itemtype="http://schema.org/MedicalCondition">
       <span itemprop="name">cardiac failure</span></span> should never
     be treated with
-    <span itemprop="subject" itemscope
-     itemtype="http://schema.org/TherapeuticProcedure">
+    <span itemprop="subject" itemscope itemtype="http://schema.org/TherapeuticProcedure">
       <span itemprop="name">appendectomy</span></span> in adults.
-    (Class III, <link itemprop="evidenceLevel" href="http://schema.org/EvidenceLevelC"/>
-    <span itemprop="evidenceOrigin">standard of care</span></link>)
+    (Class III, <a itemprop="evidenceLevel" href="http://schema.org/EvidenceLevelC"/>
+    <span itemprop="evidenceOrigin">standard of care</span></a>)
   </span></li>
 </ul>
 
@@ -2823,8 +2828,8 @@ RDFA:
     </span>
     for all adult patients.
     (<span property="recommendationStrength">Strong recommendation</span>;
-    <link property="evidenceLevel" href="http://schema.org/EvidenceLevelA">
-      Class I</link>,
+    <a property="evidenceLevel" href="http://schema.org/EvidenceLevelA">
+      Class I</a>,
     based on
     <span property="evidenceOrigin">multiple randomized clinical trials</span>)
   </span>
@@ -2836,8 +2841,8 @@ RDFA:
     be treated with
     <span property="subject"  typeof="TherapeuticProcedure">
       <span property="name">appendectomy</span></span> in adults.
-    (Class III, <link property="evidenceLevel" href="http://schema.org/EvidenceLevelC"/>
-    <span property="evidenceOrigin">standard of care</span></link>)
+    (Class III, <a property="evidenceLevel" href="http://schema.org/EvidenceLevelC"/>
+    <span property="evidenceOrigin">standard of care</span></a>)
   </span></li>
 </ul>
 
@@ -2908,12 +2913,11 @@ MICRODATA:
   <meta itemprop="publicationType" content="Meta-Analysis"/>
   <h1><span itemprop="name">New guidelines for metformin and
       diabetes mellitus</span></h1>
-  <p>
-  <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p><span itemprop="author" itemscope itemtype="http://schema.org/Person">
     <span itemprop="name">Dr. John Smith</span>
     <br><span itemprop="affiliation">Medical University</span>
   </span>
-  <br><span itemprop="datePublished">2012-03-24</span>
+  <br><span itemprop="datePublished">2012-03-24</span></p>
   <p><b>Abstract:</b>
   We review clinical evidence related to the use of metformin for
   treatment of type-2 diabetes mellitus and provide new clinical guideline
@@ -2931,7 +2935,7 @@ MICRODATA:
     </span>
   </span>;
   <span itemprop="about" itemscope itemtype="http://schema.org/MedicalCondition">
-    <span itemprop="name">Diabetes Mellitus, Type 2</span></p>
+    <span itemprop="name">Diabetes Mellitus, Type 2</span>
     <span itemprop="code" itemscope
           itemtype="http://schema.org/MedicalCode"
           itemid="http://www.ncbi.nlm.nih.gov/mesh/C18.452.394.750.149">
@@ -2940,7 +2944,7 @@ MICRODATA:
       <meta itemprop="code" content="C18.452.394.750.149"/>
       <meta itemprop="codingSystem" content="MeSH"/>
     </span>
-  </span>
+  </span></p>
   ...
   <h3>Guidelines</h3>
   <span itemscope itemtype="http://schema.org/MedicalGuidelineRecommendation">
@@ -2948,8 +2952,8 @@ MICRODATA:
     <span itemprop="subject">metformin</span> as an initial pharmacologic therapy
     to treat most patients with <span itemprop="subject">type 2 diabetes</span>
     (Grade: <span itemprop="recommendationStrength">strong recommendation</span>;
-    <link itemprop="evidenceLevel" href="http://schema.org/EvidenceLevelA">high-quality
-      evidence</link>).
+    <a itemprop="evidenceLevel" href="http://schema.org/EvidenceLevelA">high-quality
+      evidence</a>).
   </span>
 </div>
 
@@ -2960,12 +2964,11 @@ RDFA:
   <meta property="publicationType" content="Meta-Analysis"/>
   <h1><span property="name">New guidelines for metformin and
       diabetes mellitus</span></h1>
-  <p>
-  <span property="author"  typeof="Person">
+  <p><span property="author"  typeof="Person">
     <span property="name">Dr. John Smith</span>
     <br><span property="affiliation">Medical University</span>
   </span>
-  <br><span property="datePublished">2012-03-24</span>
+  <br><span property="datePublished">2012-03-24</span></p>
   <p><b>Abstract:</b>
   We review clinical evidence related to the use of metformin for
   treatment of type-2 diabetes mellitus and provide new clinical guideline
@@ -2982,7 +2985,7 @@ RDFA:
     </span>
   </span>;
   <span property="about"  typeof="MedicalCondition">
-    <span property="name">Diabetes Mellitus, Type 2</span></p>
+    <span property="name">Diabetes Mellitus, Type 2</span>
     <span property="code"  typeof="MedicalCode"
           resource="http://www.ncbi.nlm.nih.gov/mesh/C18.452.394.750.149">
       <!-- Note: use of itemid is not mandatory, but recommended when an
@@ -2991,6 +2994,7 @@ RDFA:
       <meta property="codingSystem" content="MeSH"/>
     </span>
   </span>
+  </p>
   ...
   <h3>Guidelines</h3>
   <span  typeof="MedicalGuidelineRecommendation">
@@ -2998,8 +3002,8 @@ RDFA:
     <span property="subject">metformin</span> as an initial pharmacologic therapy
     to treat most patients with <span property="subject">type 2 diabetes</span>
     (Grade: <span property="recommendationStrength">strong recommendation</span>;
-    <link property="evidenceLevel" href="http://schema.org/EvidenceLevelA">high-quality
-      evidence</link>).
+    <a property="evidenceLevel" href="http://schema.org/EvidenceLevelA">high-quality
+      evidence</a>).
   </span>
 </div>
 
@@ -7812,7 +7816,8 @@ JSON:
     "@type": "Book",
     "name": "Outliers"
   },
-  "price": "US$ 50"
+  "price": "50",
+  "priceCurrency": "USD"
 }
 </script>
 
@@ -7877,7 +7882,8 @@ JSON:
     "@type": "Person",
     "name": "John"
   },
-  "price": "US$ 10",
+  "price": "10",
+  "priceCurrency": "USD"
   "recipient": {
     "@type": "Person",
     "name": "Steve"
@@ -7946,7 +7952,8 @@ JSON:
     "@type": "Person",
     "name": "John"
   },
-  "price": "US$ 1,500",
+  "price": "1500",
+  "priceCurrency": "USD",
   "purpose": {
     "@type": "Flight",
     "name": "AA123"
@@ -7983,7 +7990,8 @@ JSON:
     "@type": "Flight",
     "name": "AA123"
   },
-  "price": "US$ 1,500"
+  "price": "1500",
+  "priceCurrency": "UDC"
 }
 </script>
 
@@ -8084,7 +8092,8 @@ JSON:
     "@type": "Person",
     "name": "John"
   },
-  "price": "US$ 10",
+  "price": "10",
+  "priceCurrency": "USD"
   "recipient": {
     "@type": "Person",
     "name": "Steve"
@@ -8261,7 +8270,8 @@ JSON:
     "@type": "Person",
     "name": "John"
   },
-  "price": "US$ 10",
+  "price": "10",
+  "priceCurrency": "USD"
   "recipient": {
     "@type": "Person",
     "name": "Steve"
@@ -9103,14 +9113,15 @@ MICRODATA:
   <div class="event-time">9:30 PM</div>
 
  <span itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-  <div class="event-price" itemprop="price">$13.00</div>
+  <div class="event-price" itemprop="price" content="13.00">$13.00</div>
+  <span itemprop="priceCurrency" content="USD" />
   <a itemprop="url" href="http://www.ticketfly.com/purchase/309433">Tickets</a>
  </span>
 </div>
 
 RDFA:
 
-<div vocab="http://schema.org/"class="event-wrapper"  typeof="Event">
+<div vocab="http://schema.org/" class="event-wrapper"  typeof="Event">
 
   <div class="event-date" property="startDate" content="2013-09-14T21:30">Sat Sep 14</div>
   <div class="event-title" property="name">Typhoon with Radiation City</div>
@@ -9128,8 +9139,9 @@ RDFA:
   <div class="event-time">9:30 PM</div>
 
  <span property="offers"  typeof="Offer">
-  <div class="event-price" property="price">$13.00</div>
-  <a property="url" href="http://www.ticketfly.com/purchase/309433">Tickets</a>
+  <div class="event-price" property="price" content="13.00">$13.00</div>
+    <span property="priceCurrency" content="USD" />
+    <a property="url" href="http://www.ticketfly.com/purchase/309433">Tickets</a>
  </span>
 </div>
 
@@ -9153,7 +9165,8 @@ JSON:
   "name": "Typhoon with Radiation City",
   "offers": {
     "@type": "Offer",
-    "price": "$13.00",
+    "price": "13.00",
+    "priceCurrency": "USD",
     "url": "http://www.ticketfly.com/purchase/309433"
   },
   "startDate": "Sat Sep 14"
@@ -9206,14 +9219,15 @@ MICRODATA:
   <div class="event-time">9:30 PM</div>
 
  <span itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-  <div class="event-price" itemprop="price">$13.00</div>
+  <div class="event-price" itemprop="price" content="13.00">$13.00</div>
+  <span itemprop="priceCurrency" content="USD" />
   <a itemprop="url" href="http://www.ticketfly.com/purchase/309433">Tickets</a>
  </span>
 </div>
 
 RDFA:
 
-<div vocab="http://schema.org/"class="event-wrapper"  typeof="Event">
+<div vocab="http://schema.org/" class="event-wrapper"  typeof="Event">
 
   <div class="event-date" property="startDate" content="2013-09-14T21:30">Sat Sep 14</div>
   <div class="event-title" property="name">CANCELLED - Typhoon with Radiation City</div>
@@ -9258,7 +9272,8 @@ JSON:
   "name": "CANCELLED - Typhoon with Radiation City",
   "offers": {
     "@type": "Offer",
-    "price": "$13.00",
+    "price": "13.00",
+    "priceCurrency": "USD",
     "url": "http://www.ticketfly.com/purchase/309433"
   },
   "startDate": "Sat Sep 14"
@@ -9306,14 +9321,15 @@ MICRODATA:
   </div>
   <div class="event-time">10:00 PM</div>
   <span itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-   <div class="event-price" itemprop="price">$13.00</div>
-   <a itemprop="url" href="http://www.ticketfly.com/purchase/309433">Tickets</a>
+   <div class="event-price" itemprop="price" content="13.00">$13.00</div>
+     <span itemprop="priceCurrency" content="USD" />
+     <a itemprop="url" href="http://www.ticketfly.com/purchase/309433">Tickets</a>
   </span>
 </div>
 
 RDFA:
 
-<div vocab="http://schema.org/"class="event-wrapper">
+<div vocab="http://schema.org/" class="event-wrapper">
   <div class="event-date" property="startDate" content="2013-10-12T22:00">Sat Oct 12</div>
   <div class="event-title" property="name">Typhoon with Radiation City</div>
   <meta property="eventStatus" content="http://schema.org/EventRescheduled">
@@ -9330,8 +9346,9 @@ RDFA:
   </div>
   <div class="event-time">10:00 PM</div>
   <span property="offers"  typeof="Offer">
-   <div class="event-price" property="price">$13.00</div>
-   <a property="url" href="http://www.ticketfly.com/purchase/309433">Tickets</a>
+   <div class="event-price" property="price" content="13.00">$13.00</div>
+    <span property="priceCurrency" content="USD" />
+    <a property="url" href="http://www.ticketfly.com/purchase/309433">Tickets</a>
   </span>
 </div>
 
@@ -9354,7 +9371,8 @@ JSON:
     },
     {
       "@type": "Offer",
-      "price": "$13.00",
+      "price": "13.00",
+      "priceCurrency": "USD",
       "url": "http://www.ticketfly.com/purchase/309433"
     }
   ]
@@ -9404,14 +9422,15 @@ MICRODATA:
  <span itemprop="offers" itemscope itemtype="http://schema.org/Offer">
   <meta itemprop="availability" content="http://schema.org/SoldOut">
 
-  <div class="event-price" itemprop="price">$13.00</div>
-  <a itemprop="url" href="http://www.ticketfly.com/purchase/309433">Tickets</a>
+  <div class="event-price" itemprop="price" content="13.00">$13.00</div>
+    <span itemprop="priceCurrency" content="USD" />
+    <a itemprop="url" href="http://www.ticketfly.com/purchase/309433">Tickets</a>
  </span>
 </div>
 
 RDFA:
 
-<div vocab="http://schema.org/"class="event-wrapper"  typeof="Event">
+<div vocab="http://schema.org/" class="event-wrapper"  typeof="Event">
 
   <div class="event-date" property="startDate" content="2013-09-14T21:30">Sat Sep 14</div>
   <div class="event-title" property="name">SOLD OUT! Typhoon with Radiation City</div>
@@ -9431,7 +9450,8 @@ RDFA:
  <span property="offers"  typeof="Offer">
   <meta property="availability" content="http://schema.org/SoldOut">
 
-  <div class="event-price" property="price">$13.00</div>
+  <div class="event-price" property="price" content="13.00">$13.00</div>
+  <span property="priceCurrency" content="USD" />
   <a property="url" href="http://www.ticketfly.com/purchase/309433">Tickets</a>
  </span>
 </div>
@@ -9457,7 +9477,8 @@ JSON:
   "offers": {
     "@type": "Offer",
     "availability": "http://schema.org/SoldOut",
-    "price": "$13.00",
+    "price": "13.00",
+    "priceCurrency": "USD",
     "url": "http://www.ticketfly.com/purchase/309433"
   },
   "startDate": "Sat Sep 14"
@@ -9635,7 +9656,7 @@ as suggested by www.a11ymetadata.org.
       <h2>Reviews of Holt Physical Science (<span itemprop="reviewCount">0</span> reviews)</h2>
 
       <div class="bookReviewScore">
-         <span><span itemprop="ratingValue>0</span> - No Rating Yet</span>
+         <span><span itemprop="ratingValue">0</span> - No Rating Yet</span>
       </div>
    </div>
 </div>
@@ -9709,7 +9730,7 @@ as suggested by www.a11ymetadata.org.
       <h2>Reviews of Holt Physical Science (<span property="reviewCount">0</span> reviews)</h2>
 
       <div class="bookReviewScore">
-         <span><span property="ratingValue>0</span> - No Rating Yet</span>
+         <span><span property="ratingValue">0</span> - No Rating Yet</span>
       </div>
    </div>
 </div>
@@ -9945,17 +9966,17 @@ JSON:
 }
 </script>
 
-
-TYPES: FlightReservation, Flight
+TYPES:  Flight, FlightReservation
 
 PRE-MARKUP:
 
-Original:
 Reservation #RXJ34P
 Passenger: Eva Green
-Flight: United Airlines flight 110
+Flight: United Airlines Flight 110
+Operated By: Continental Airlines
 Departing: San Francisco Airport (SFO) 2017-03-04T20:15:00-08:00
 Arriving: John F. Kennedy International Airport (JFK) 2017-03-05T06:30:00-05:00
+
 
 MICRODATA:
 
@@ -9979,12 +10000,17 @@ JSON:
   },
   "reservationFor": {
     "@type": "Flight",
-    "flightNumber": "110",
-    "carrier": {
+    "flightNumber": "UA110",
+    "provider": {
+      "@type": "Airline",
+      "name": "Continental",
+      "iataCode": "CO"
+    },
+    "seller": {
       "@type": "Airline",
       "name": "United",
       "iataCode": "UA"
-    },
+    }
     "departureAirport": {
       "@type": "Airport",
       "name": "San Francisco Airport",
@@ -10517,15 +10543,16 @@ MICRODATA:
 <div itemscope="" itemtype="http://schema.org/MusicEvent">
 
   <div itemprop="location" itemscope="" itemtype="http://schema.org/MusicVenue">
-    <span itemprop="name" content="Chicago Symphony Center"/>
+    <meta itemprop="name" content="Chicago Symphony Center"/>
     <link itemprop="sameAs" href="http://en.wikipedia.org/wiki/Symphony_Center"/>
-    <span itemprop="address" content="220 S. Michigan Ave, Chicago, Illinois, USA"/>
+    <meta itemprop="address" content="220 S. Michigan Ave, Chicago, Illinois, USA"/>
   </div>
 
   <div itemprop="offers" itemscope="" itemtype="http://schema.org/Offer">
     <link itemprop="url" href="/examples/ticket/12341234" />
-    <span itemprop="price" content="$40"/>
-    <span itemprop="availability" href="http://schema.org/InStock"/>
+    <meta itemprop="price" content="40"/>
+    <meta itemprop="priceCurrency" content="USD" />
+    <meta itemprop="availability" href="http://schema.org/InStock"/>
   </div>
 
   <h2 itemprop="name">Shostakovich Leningrad</h2>
@@ -10584,15 +10611,16 @@ RDFA:
 <div vocab="http://schema.org/" typeof="MusicEvent">
 
   <div property="location" typeof="MusicVenue">
-    <span property="name" content="Chicago Symphony Center"/>
+    <meta property="name" content="Chicago Symphony Center"/>
     <link property="sameAs" href="http://en.wikipedia.org/wiki/Symphony_Center"/>
-    <span property="address" content="220 S. Michigan Ave, Chicago, Illinois, USA"/>
+    <meta property="address" content="220 S. Michigan Ave, Chicago, Illinois, USA"/>
   </div>
 
   <div property="offers" typeof="Offer">
     <link property="url" href="/examples/ticket/12341234"/>
-    <span property="price" content="$40"/>
-    <span property="availability" href="http://schema.org/InStock"/>
+    <meta property="price" content="40"/>
+    <meta property="priceCurrency" content="USD" />
+    <meta property="availability" href="http://schema.org/InStock"/>
   </div>
 
   <h2 property="name">Shostakovich Leningrad</h2>
@@ -10655,7 +10683,8 @@ JSON:
   "offers": {
     "@type": "Offer",
     "url": "/examples/ticket/12341234",
-    "price": "$40",
+    "price": "40",
+    "priceCurrency": "USD",
     "availability": "http://schema.org/InStock"
   },
   "performer": [
@@ -10704,9 +10733,9 @@ MICRODATA:
 <div itemscope="" itemtype="http://schema.org/TheaterEvent">
   <span itemprop="name">Julius Caesar at Shakespeare's Globe</span>
   <div itemprop="location" itemscope="" itemtype="http://schema.org/PerformingArtsTheater">
-    <span itemprop="name" content="Shakespeare's Globe"/>
+    <meta itemprop="name" content="Shakespeare's Globe"/>
     <link itemprop="sameAs" href="http://www.shakespearesglobe.com/"/>
-    <span itemprop="address" content="London, UK"/>
+    <meta itemprop="address" content="London, UK"/>
   </div>
   <div itemprop="offers" itemscope="" itemtype="http://schema.org/Offer">
     <link itemprop="url" href="/examples/ticket/0012301230123"/>
@@ -10716,7 +10745,7 @@ MICRODATA:
     <link itemprop="sameAs" href="http://en.wikipedia.org/wiki/Julius_Caesar_(play)"/>
     <link itemprop="sameAs" href="http://worldcat.org/entity/work/id/1807288036"/>
     <div itemprop="creator" itemscope="" itemtype="http://schema.org/Person">
-       <span itemprop="name" content="William Shakespeare"/>
+       <meta itemprop="name" content="William Shakespeare"/>
        <link itemprop="sameAs" href="http://en.wikipedia.org/wiki/William_Shakespeare"/>
     </div>
   </div>
@@ -10727,9 +10756,9 @@ RDFA:
 <div vocab="http://schema.org/" typeof="TheaterEvent">
   <span property="name">Julius Caesar at Shakespeare's Globe</span>
   <div property="location" typeof="PerformingArtsTheater">
-    <span property="name" content="Shakespeare's Globe"/>
+    <meta property="name" content="Shakespeare's Globe"/>
     <link property="sameAs" href="http://www.shakespearesglobe.com/"/>
-    <span property="address" content="London, UK"/>
+    <meta property="address" content="London, UK"/>
   </div>
   <div property="offers" typeof="Offer">
     <link property="url" href="/examples/ticket/0012301230123"/>
@@ -10739,7 +10768,7 @@ RDFA:
     <link property="sameAs" href="http://en.wikipedia.org/wiki/Julius_Caesar_(play)"/>
     <link property="sameAs" href="http://worldcat.org/entity/work/id/1807288036"/>
     <div property="creator" typeof="Person">
-       <span property="name" content="William Shakespeare"/>
+       <meta property="name" content="William Shakespeare"/>
        <link property="sameAs" href="http://en.wikipedia.org/wiki/William_Shakespeare"/>
     </div>
   </div>
@@ -10953,7 +10982,7 @@ MICRODATA:
 
 RDFA:
 
-<div vocab="http://schema.org" typeof="Store">
+<div vocab="http://schema.org/" typeof="Store">
   <h1 property="name">Middle of Nowhere Foods</h1>
   <h2>Opening hours</h2>
   <p>Normally open <time property="openingHours" datetime="Mo,Tu,We,Th,Fr,Sa,Su 09:00-14:00">daily 9am-2pm</time> except on:</p>
@@ -11181,7 +11210,7 @@ MICRODATA:
     <p>Open: <time itemprop="openingHours" datetime="Mo-Fr 13:00-17:30">Open weekdays 1pm-5:30pm.</time></p>
     <p>Phone: <span itemprop="telephone" content="+155501002121">555-0100-2121</span></p>
     <p>A branch of <span itemprop="branchOf" itemscope itemtype="http://schema.org/Corporation">
-    <a itemprop="url" href="http://example.com/"><span itemprop="name">Larry's International</span></a>.</p>
+    <a itemprop="url" href="http://example.com/"><span itemprop="name">Larry's International</span></a></span>.</p>
   </div>
 </div>
 
@@ -11210,7 +11239,7 @@ RDFA:
     <p>Open: <time property="openingHours" datetime="Mo-Fr 13:00-17:30">Open weekdays 1pm-5:30pm.</time></p>
     <p>Phone: <span property="telephone" content="+155501002121">555-0100-2121</span></p>
     <p>A branch of <span property="branchOf" typeof="Corporation">
-    <a property="url" href="http://example.com/"><span property="name">Larry's International</span></a>.</p>
+    <a property="url" href="http://example.com/"><span property="name">Larry's International</span></a></span>.</p>
   </div>
 </div>
 
@@ -11591,7 +11620,7 @@ JSON:
   "startDate" : "2014-04-12T19:30",
   "location" : {
      "@type" : "Place",
-     "name" : "Lupo’s Heartbreak Hotel",
+     "name" : "Lupo's Heartbreak Hotel",
      "address" : "79 Washington St., Providence, RI"
   },
   "offers" : {
