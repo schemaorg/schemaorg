@@ -4297,15 +4297,15 @@
 
     <div typeof="http://schema.org/GamePlayMode" resource="http://schema.org/Multi-player">
       <span class="h" property="rdfs:label">Multi-player</span>
-      <span property="rdfs:comment">Play mode: Multi-player.</span>
+      <span property="rdfs:comment">Play mode: Multi-player. Requiring or allowing multiple human players to play simultaneously.</span>
     </div>
      <div typeof="http://schema.org/GamePlayMode" resource="http://schema.org/Co-op">
       <span class="h" property="rdfs:label">Co-op</span>
-      <span property="rdfs:comment">Play mode: Co-op.</span>
+      <span property="rdfs:comment">Play mode: Co-op. Co-operative games, where you play on the same team with friends</span>
     </div>
     <div typeof="http://schema.org/GamePlayMode" resource="http://schema.org/Single-player">
       <span class="h" property="rdfs:label">Single-player</span>
-      <span property="rdfs:comment">Play mode: Single-player.</span>
+      <span property="rdfs:comment">Play mode: Single-player. Which is played by a lone player</span>
     </div>
 
 <div typeof="rdfs:Class" resource="http://schema.org/GameServerStatus">
@@ -4316,19 +4316,19 @@
 
     <div typeof="http://schema.org/GameServerStatus" resource="http://schema.org/Online">
       <span class="h" property="rdfs:label">Online</span>
-      <span property="rdfs:comment">Game server status: Online.</span>
+      <span property="rdfs:comment">Game server status: Online. Server is available</span>
     </div>
     <div typeof="http://schema.org/GameServerStatus" resource="http://schema.org/OnlineFull">
       <span class="h" property="rdfs:label">OnlineFull </span>
-      <span property="rdfs:comment">Game server status: OnlineFull .</span>
+      <span property="rdfs:comment">Game server status: OnlineFull. Server is online but unavailable. The maximum number of players has reached</span>
     </div>
     <div typeof="http://schema.org/GameServerStatus" resource="http://schema.org/OfflineTemporarily">
       <span class="h" property="rdfs:label">OfflineTemporarily </span>
-      <span property="rdfs:comment">Game server status: OfflineTemporarily .</span>
+      <span property="rdfs:comment">Game server status: OfflineTemporarily. Server is offline now but it can be online soon</span>
     </div>
     <div typeof="http://schema.org/GameServerStatus" resource="http://schema.org/OfflinePermanently">
       <span class="h" property="rdfs:label">OfflinePermanently </span>
-      <span property="rdfs:comment">Game server status: OfflinePermanently .</span>
+      <span property="rdfs:comment">Game server status: OfflinePermanently. Server is offline and not available</span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/about">
       <span class="h" property="rdfs:label">about</span>
@@ -9901,7 +9901,9 @@ on public-vocabs@w3.org.</p>
     </div>
 <div typeof="rdf:Property" resource="http://schema.org/NumberOfPlayer">
       <span class="h" property="rdfs:label">minNumberOfPlayer</span>
-      <span property="rdfs:comment">Number of players in a game</span>
+      <span property="rdfs:comment">Indicate how many people can play this game (minimum, maximum,
+or range).
+</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Game">Game</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/QuantitativeValue">QuantitativeValue</a></span>
  </div>
@@ -9932,7 +9934,7 @@ on public-vocabs@w3.org.</p>
 
   <div typeof="rdf:Property" resource="http://schema.org/playMode">
       <span class="h" property="rdfs:label">playMode</span>
-      <span property="rdfs:comment">Indicates whether this game multi-player, co-op or single-player</span>
+      <span property="rdfs:comment">Indicates whether this game multi-player, co-op or single-player.  The game can be marked as multi-player, co-op and single-player at the same time</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/VideoGame">VideoGame</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/GamePlayMode">GamePlayMode</a></span>
  </div>
