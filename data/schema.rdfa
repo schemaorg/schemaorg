@@ -1402,7 +1402,7 @@
     <div typeof="rdfs:Class" resource="http://schema.org/ItemList">
       <span class="h" property="rdfs:label">ItemList</span>
       <span property="rdfs:comment">A list of items of any sort&amp;#x2014;for example, Top 10 Movies About Weathermen, or Top 100 Party Songs. Not to be confused with HTML lists, which are often used only for formatting.</span>
-       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/CreativeWork">CreativeWork</a></span>
+       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Intangible">Intangible</a></span>
     </div>
 
     <div typeof="rdfs:Class" resource="http://schema.org/ItemPage">
@@ -3248,7 +3248,7 @@
     http://purl.org/goodrelations/v1#PublicInstitution
     http://purl.org/goodrelations/v1#Reseller
 
-    		</span>
+        </span>
        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Enumeration">Enumeration</a></span>
        <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsClass">GoodRelationsClass</a></span></div>
 
@@ -3266,7 +3266,7 @@
     http://purl.org/goodrelations/v1#Repair
     http://purl.org/goodrelations/v1#Sell
     http://purl.org/goodrelations/v1#Buy
-    		</span>
+        </span>
        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Enumeration">Enumeration</a></span>
        <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsClass">GoodRelationsClass</a></span></div>
 
@@ -3285,7 +3285,7 @@
     http://purl.org/goodrelations/v1#GoogleCheckout
     http://purl.org/goodrelations/v1#PayPal
     http://purl.org/goodrelations/v1#PaySwarm
-    		</span>
+        </span>
        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Enumeration">Enumeration</a></span>
        <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsClass">GoodRelationsClass</a></span></div>
 
@@ -3301,7 +3301,7 @@
     http://purl.org/goodrelations/v1#JCB
     http://purl.org/goodrelations/v1#MasterCard
     http://purl.org/goodrelations/v1#VISA
-    		</span>
+        </span>
        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/PaymentMethod">PaymentMethod</a></span>
        <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsClass">GoodRelationsClass</a></span></div>
 
@@ -3319,7 +3319,7 @@
     http://purl.org/goodrelations/v1#Saturday
     http://purl.org/goodrelations/v1#Sunday
     http://purl.org/goodrelations/v1#PublicHolidays
-    		</span>
+        </span>
        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Enumeration">Enumeration</a></span>
        <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsClass">GoodRelationsClass</a></span></div>
 
@@ -3349,7 +3349,7 @@
     http://purl.org/goodrelations/v1#DHL
     http://purl.org/goodrelations/v1#FederalExpress
     http://purl.org/goodrelations/v1#UPS
-    		</span>
+        </span>
        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Enumeration">Enumeration</a></span>
        <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsClass">GoodRelationsClass</a></span></div>
 
@@ -3386,7 +3386,7 @@
     http://purl.org/goodrelations/v1#DHL
     http://purl.org/goodrelations/v1#FederalExpress
     http://purl.org/goodrelations/v1#UPS
-    	</span>
+      </span>
        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/DeliveryMethod">DeliveryMethod</a></span>
        <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsClass">GoodRelationsClass</a></span></div>
 
@@ -3447,7 +3447,7 @@
     http://purl.org/goodrelations/v1#Labor-BringIn
     http://purl.org/goodrelations/v1#PartsAndLabor-BringIn
     http://purl.org/goodrelations/v1#PartsAndLabor-PickUp
-    	</span>
+      </span>
        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Enumeration">Enumeration</a></span>
        <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsClass">GoodRelationsClass</a></span></div>
 
@@ -6716,18 +6716,47 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Demand">Demand</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/OfferItemCondition">OfferItemCondition</a></span>
     </div>
-    <div typeof="rdf:Property" resource="http://schema.org/itemListElement">
-      <span class="h" property="rdfs:label">itemListElement</span>
-      <span property="rdfs:comment">A single list item.</span>
+
+    <div typeof="rdf:Property" resource="http://schema.org/numberOfItems">
+      <span class="h" property="rdfs:label">numberOfItems</span>
+      <span property="rdfs:comment">The number of items in an ItemList. Note that some descriptions might not full describe all items in a list (e.g. multi-page pagination).</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ItemList">ItemList</a></span>
-      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number">Number</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/itemListOrder">
       <span class="h" property="rdfs:label">itemListOrder</span>
       <span property="rdfs:comment">Type of ordering (e.g. Ascending, Descending, Unordered).</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ItemList">ItemList</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/ItemListOrderType">ItemListOrderType</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
     </div>
+
+
+    <div typeof="rdfs:Class" resource="http://schema.org/ItemListOrderType">
+      <span class="h" property="rdfs:label">ItemListOrderType</span>
+      <span property="rdfs:comment">Enumerated for values for itemListOrder for indicating how an ordered ItemList is organized.</span>
+      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Enumeration">Enumeration</a></span>
+    </div>
+
+    <div typeof="http://schema.org/ItemListOrderType" resource="http://schema.org/ItemListOrderAscending">
+      <span class="h" property="rdfs:label">ItemListOrderAscending</span>
+      <span property="rdfs:comment">An ItemList ordered with lower values listed first.</span>
+      <span>type: <a href="http://schema.org/ItemListOrderType">ItemListOrderType</a></span>
+    </div>
+
+    <div typeof="http://schema.org/ItemListOrderType" resource="http://schema.org/ItemListOrderDescending">
+      <span class="h" property="rdfs:label">ItemListOrderDescending</span>
+      <span property="rdfs:comment">An ItemList ordered with higher values listed first.</span>
+      <span>type: <a href="http://schema.org/ItemListOrderType">ItemListOrderType</a></span>
+    </div>
+
+    <div typeof="http://schema.org/ItemListOrderType" resource="http://schema.org/ItemListUnordered">
+      <span class="h" property="rdfs:label">ItemListUnordered</span>
+      <span property="rdfs:comment">An ItemList ordered with no explicit order.</span>
+      <span>type: <a href="http://schema.org/ItemListOrderType">ItemListOrderType</a></span>
+    </div>
+
+
     <div typeof="rdf:Property" resource="http://schema.org/itemOffered">
       <span class="h" property="rdfs:label">itemOffered</span>
       <span property="rdfs:comment">The item being offered.</span>
@@ -7524,8 +7553,9 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/position">
       <span class="h" property="rdfs:label">position</span>
-      <span property="rdfs:comment">The position of the creative work within a series or other ordered collection of works.</span>
+      <span property="rdfs:comment">The position of an item in a series or sequence of items.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CreativeWork">CreativeWork</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ListItem">ListItem</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Integer">Integer</a></span>
     </div>
@@ -10225,6 +10255,69 @@ postponing for 1.6.
       <span>rangeIncludes: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Person">Person</a></span>
       <span>rangeIncludes: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Organization">Organization</a></span>
     </div>
+
+    <h1>ItemList and ListItem extras</h1>
+
+    <div typeof="rdf:Property" resource="http://schema.org/itemListElement">
+      <span class="h" property="rdfs:label">itemListElement</span>
+      <span property="rdfs:comment">For itemListElement values, you can use simple strings (e.g. "Peter", "Paul, "Mary"), existing entities, or use ListItem.
+    &lt;br/&gt;&lt;br/&gt;
+    Text values are best if the elements in the list are plain strings. Existing entities are best for a simple, unordered list of existing things in your data. ListItem is used with ordered lists when you want to provide additional context about the element in that list or when the same item might be in different places in different lists.
+    &lt;br/&gt;&lt;br/&gt;
+    Note: The order of elements in your mark-up is not sufficient for indicating the order or elements.  Use ItemList with a 'position' property in such cases.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ItemList">ItemList</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/ListItem">ListItem</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Thing">Thing</a></span>
+    </div>
+
+    <div typeof="rdfs:Class" resource="http://schema.org/ListItem">
+      <span class="h" property="rdfs:label">ListItem</span>
+      <span property="rdfs:comment">An list item, e.g. a step in a checklist or how-to description.</span>
+      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Intangible">Intangible</a></span>
+    </div>
+
+    <!-- dropped in favour of general position property.
+     <div typeof="rdf:Property" resource="http://schema.org/itemPosition">
+      <span class="h" property="rdfs:label">itemPosition</span>
+      <span property="rdfs:comment">The position of the item in an ordered list (1 = first, 2 = second, ...).</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ListItem">ListItem</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number">Number</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+     </div>
+    -->
+
+    <div typeof="rdf:Property" resource="http://schema.org/item">
+      <span class="h" property="rdfs:label">item</span>
+      <span property="rdfs:comment">An entity represented by an entry in a list (e.g. an 'artist' in a list of 'artists')’.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ListItem">ListItem</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Thing">Thing</a></span>
+    </div>
+
+    <div typeof="rdf:Property" resource="http://schema.org/previousItem">
+      <span class="h" property="rdfs:label">previousItem</span>
+      <span property="rdfs:comment">A link to the ListItem that preceeds the current one.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ListItem">ListItem</a></span>
+      <span>Domain: <a property="http://schema.org/rangeIncludes" href="http://schema.org/ListItem">ListItem</a></span>
+    </div>
+
+    <div typeof="rdf:Property" resource="http://schema.org/nextItem">
+      <span class="h" property="rdfs:label">nextItem</span>
+      <span property="rdfs:comment">A link to the ListItem that follows the current one.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ListItem">ListItem</a></span>
+      <span>Domain: <a property="http://schema.org/rangeIncludes" href="http://schema.org/ListItem">ListItem</a></span>
+    </div>
+
+    <!-- retiring this proposal for now:
+     <div typeof="rdf:Property" resource="http://schema.org/positionBasis">
+      <span class="h" property="rdfs:label">positionBasis</span>
+      <span property="rdfs:comment">A score or metric used to determine the item's position in the list.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ListItem">ListItem</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number">Number</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+     </div>
+    -->
+
 
   </body>
 </html>

@@ -1639,7 +1639,7 @@ MICRODATA:
 <div itemscope itemtype="http://schema.org/ItemList">
   <meta itemprop="mainContentOfPage" content="true"/>
   <h2 itemprop="name">Top 10 laptops</h2><br>
-  <meta itemprop="itemListOrder" content="Descending" />
+  <meta itemprop="itemListOrder" content="http://schema.org/ItemListOrderDescending" />
   <p>1. <span itemprop="itemListElement">HP Pavilion dv6-6013cl</span></p>
   <p>2. <span itemprop="itemListElement">Dell XPS 15 (Sandy Bridge)</span></p>
   <p>3. <span itemprop="itemListElement">Lenovo ThinkPad X220</span></p>
@@ -1651,7 +1651,7 @@ RDFA:
 <div vocab="http://schema.org/" typeof="ItemList">
   <meta property="mainContentOfPage" content="true"/>
   <h2 property="name">Top 10 laptops</h2><br>
-  <meta property="itemListOrder" content="Descending" />
+  <meta property="itemListOrder" content="http://schema.org/ItemListOrderDescending" />
   <p>1. <span property="itemListElement">HP Pavilion dv6-6013cl</span></p>
   <p>2. <span property="itemListElement">Dell XPS 15 (Sandy Bridge)</span></p>
   <p>3. <span property="itemListElement">Lenovo ThinkPad X220</span></p>
@@ -1669,7 +1669,7 @@ JSON:
     "Dell XPS 15 (Sandy Bridge)",
     "Lenovo ThinkPad X220"
   ],
-  "itemListOrder": "Descending",
+  "itemListOrder": "http://schema.org/ItemListOrderDescending",
   "mainContentOfPage": "true",
   "name": "Top 10 laptops"
 }
@@ -11990,7 +11990,6 @@ JSON:
     "namedPosition": "Quarterback"
   }
 }
-
 </script>
 
 TYPES:  WebPage, CollegeOrUniversity
@@ -12055,5 +12054,556 @@ JSON:
 }
 </script>
 
+TYPES:  ItemList, Product, Offer
+
+PRE-MARKUP:
+
+<div>
+  <link  href="http://multivarki.ru?filters%5Bprice%5D%5BLTE%5D=39600" />
+  <span>315</span>
+  <div>
+    <img src="http://img01.multivarki.ru.ru/c9/f1/a5fe6642-18d0-47ad-b038-6fca20f1c923.jpeg" />
+    <a  href="http://multivarki.ru/brand_502/">
+      <span>BRAND 502</span>
+    </a>
+    <div>
+      <span>4399 р.</span>
+    </div>...
+    <div>
+    ...
+    </div>
+  </div>
+</div>
+
+MICRODATA:
+
+<div  itemtype="http://schema.org/ItemList">
+  <link itemprop="url" href="http://multivarki.ru?filters%5Bprice%5D%5BLTE%5D=39600" />
+  <span itemprop="numberOfItems">315</span>
+  <div itemprop="itemListElement" itemscope="" itemtype="http://schema.org/Product">
+    <img itemprop="image" src="http://img01.multivarki.ru.ru/c9/f1/a5fe6642-18d0-47ad-b038-6fca20f1c923.jpeg" />
+    <a itemprop="url" href="http://multivarki.ru/brand_502/">
+      <span itemprop="name">BRAND 502</span>
+    </a>
+    <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+      <span itemprop="price">4399 р.</span>
+    </div>...
+    <div itemprop="itemListElement"  itemtype="http://schema.org/Product">
+    ...
+    </div>
+  </div>
+</div>
+
+RDFA:
+
+<div vocab="http://schema.org/" typeof="ItemList">
+  <link property="url" href="http://multivarki.ru?filters%5Bprice%5D%5BLTE%5D=39600" />
+  <span property="numberOfItems">315</span>
+  <div property="itemListElement" typeof="Product">
+    <img property="image" src="http://img01.multivarki.ru.ru/c9/f1/a5fe6642-18d0-47ad-b038-6fca20f1c923.jpeg" />
+    <a property="url" href="http://multivarki.ru/brand_502/">
+      <span property="name">BRAND 502</span>
+    </a>
+    <div property="offers" typeof="http://schema.org/Offer">
+      <span property="price">4399 р.</span>
+    </div>...
+    <div property="itemListElement"  typeof="Product">
+    ...
+    </div>
+  </div>
+</div>
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "ItemList",
+  "url": "http://multivarki.ru?filters%5Bprice%5D%5BLTE%5D=39600",
+  "numberOfItems": "315",
+  "itemListElement": [{
+      "@type": "Product",
+      "image": "http://img01.multivarki.ru.ru/c9/f1/a5fe6642-18d0-47ad-b038-6fca20f1c923.jpeg",
+      "url": "http://multivarki.ru/brand_502/",
+      "name": "Brand 502"
+    },{
+      "@type": "Product",
+      "name": "..."
+    }
+  ],
+    "offers": {
+      "@type": "Offer",
+      "price": "4399 p."
+    }
+}
+</script>
+
+TYPES: ItemList, CreativeWork, Place
+
+PRE-MARKUP:
+
+Top 5 covers of Bob Dylan Songs
+by John Doe
+5. If Not for You -- George Harrison
+4. The Times They Are A-Changin' -- Tracy Chapman 
+3. It Ain't Me, Babe -- Johnny Cash and June Carter Cash
+2. Don't Think Twice, It's Alright -- Waylon Jennings
+1. All Along the Watchtower -- Jimi Hendrix
+
+MICRODATA:
+
+<div itemtype="http://schema.org/ItemList http://schema.org/CreativeWork">
+  <h1 itemprop="name">Top 5 covers of Bob Dylan Songs</h1>
+  <div itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <span itemprop="name" content="John Doe">by John Doe</span>
+  </div>
+  <div itemprop="about" itemscope itemtype="http://schema.org/MusicRecording">
+    <div itemprop="byArtist" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Bob Dylan" />
+    </div>
+  </div>
+  <meta itemprop="itemListOrder" content="http://schema.org/ItemListOrderAscending" />
+  <meta itemprop="numberOfItems" content="5" />
+  <div itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+    <span itemprop="position">5</span>
+    <div itemprop="item" itemscope itemtype="http://schema.org/MusicRecording">
+      <span itemprop="name">If Not For You</span>
+      <div itemprop="byArtist" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">George Harrison</span>
+      </div>
+    </div>
+  </div>
+  <div itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+    <span itemprop="position">4</span>
+    <div itemprop="item" itemscope itemtype="http://schema.org/MusicRecording">
+      <span itemprop="name">The Times They Are A-Changin'</span>
+      <div itemprop="byArtist" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Tracy Chapman</span>
+      </div>
+    </div>
+  </div>
+  <div itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+    <span itemprop="position">3</span>
+    <div itemprop="item" itemscope itemtype="http://schema.org/MusicRecording">
+      <span itemprop="name">It Ain't Me Babe</span>
+      <div itemprop="byArtist" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Johnny Cash</span>
+      </div>
+      <div itemprop="byArtist" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">June Carter Cash</span>
+      </div>
+    </div>
+  </div>
+  <div itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+    <span itemprop="position">2</span>
+    <div itemprop="item" itemscope itemtype="http://schema.org/MusicRecording">
+      <span itemprop="name">Don't Think Twice It's Alright</span>
+      <div itemprop="byArtist" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Waylon Jennings</span>
+      </div>
+    </div>
+  </div>
+  <div itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+    <span itemprop="position">1</span>
+    <div itemprop="item" itemscope itemtype="http://schema.org/MusicRecording">
+      <span itemprop="name">All Along the Watchtower</span>
+      <div itemprop="byArtist" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Jimi Hendrix</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+RDFA:
+
+<div vocab="http://schema.org/" typeof="ItemList CreativeWOrk">
+  <h1 property="name">Top 5 covers of Bob Dylan Songs</h1>
+  <div property="author" typeof="Person">
+    <span property="name" content="John Doe">by John Doe</span>
+  </div>
+  <div property="about" typeof="MusicRecording">
+    <div property="byArtist" typeof="Person">
+      <meta property="name" content="Bob Dylan" />
+    </div>
+  </div>
+  <meta property="itemListOrder" content="http://schema.org/ItemListOrderAscending" />
+  <meta property="numberOfItems" content="5" />
+  <div property="itemListElement" typeof="ListItem">
+    <span property="position">5</span>
+    <div property="item" typeof="MusicRecording">
+      <span property="name">If Not For You</span>
+      <div property="byArtist" typeof="Person">
+        <span property="name">George Harrison</span>
+      </div>
+    </div>
+  </div>
+  <div property="itemListElement" typeof="ListItem">
+    <span property="position">4</span>
+    <div property="item" typeof="MusicRecording">
+      <span property="name">The Times They Are A-Changin'</span>
+      <div property="byArtist" typeof="Person">
+        <span property="name">Tracy Chapman</span>
+      </div>
+    </div>
+  </div>
+  <div property="itemListElement" typeof="ListItem">
+    <span property="position">3</span>
+    <div property="item" typeof="MusicRecording">
+      <span property="name">It Ain't Me Babe</span>
+      <div property="byArtist" typeof="Person">
+        <span property="name">Johnny Cash</span>
+      </div>
+      <div property="byArtist" typeof="Person">
+        <span property="name">June Carter Cash</span>
+      </div>
+    </div>
+  </div>
+  <div property="itemListElement" typeof="ListItem">
+    <span property="position">2</span>
+    <div property="item" typeof="MusicRecording">
+      <span property="name">Don't Think Twice It's Alright</span>
+      <div property="byArtist" typeof="Person">
+        <span property="name">Waylon Jennings</span>
+      </div>
+    </div>
+  </div>
+  <div property="itemListElement" typeof="ListItem">
+    <span property="position">1</span>
+    <div property="item" typeof="MusicRecording">
+      <span property="name">All Along the Watchtower</span>
+      <div property="byArtist" typeof="Person">
+        <span property="name">Jimi Hendrix</span>
+      </div>
+    </div>
+  </div>
+</div>
 
 
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": ["ItemList", "CreativeWork"],
+  "name": "Top 5 covers of Bob Dylan Songs",
+  "author": "John Doe",
+  "about: {
+    "@type": "MusicRecording",
+    "byArtist": {
+      "@type": "Person",
+      "name": "Bob Dylan"
+    }
+  },
+  "itemListOrder": "http://schema.org/ItemListOrderAscending",
+  "numberOfItems: 5,
+  itemListElement: [
+    {
+      "@type": "ListItem",
+      "position": 5,
+      "item": {
+        "@type": "MusicRecording",
+        "name": If Not For You,
+        "byArtist": {
+          "@type": "Person",
+          "name": "George Harrison"
+        }
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "item": {
+        "@type": "MusicRecording",
+        "name": "The Times They Are A-Changin'",
+        "byArtist": {
+          "@type": "Person",
+          "name": "Tracy Chapman"
+        }
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "item": {
+        "@type": "MusicRecording",
+        "name": "It Ain't Me Babe",
+        "byArtist": [
+          {
+            "@type": "Person",
+            "name": "Johnny Cash"
+          },
+          {
+            "@type": "Person",
+            "name": "June Carter Cash"
+          }
+        ]
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "item": {
+        "@type": "MusicRecording",
+        "name": "Don't Think Twice It's Alright",
+        "byArtist": {
+          "@type": "Person",
+          "name": "Waylon Jennings"
+        }
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "item": {
+        "@type": "MusicRecording",
+        "name": "All Along the Watchtower",
+        "byArtist": {
+          "@type": "Person",
+          "name": "Jimi Hendrix"
+        }
+      }
+    }
+  ]
+}
+</script>
+
+
+TYPES: ItemList
+
+PRE-MARKUP:
+
+The artists with the most cumulative weeks at number one according to Billboard 200
+1. Beatles: 132 weeks
+2. Elvis Presley: 67 weeks
+3. Michael Jackson: 51 weeks
+4. Garth Brooks: 51 weeks
+
+MICRODATA:
+
+<div itemtype="http://schema.org/ItemList">
+  <link itemprop="url" href="http://en.wikipedia.org/wiki/Billboard_200" />
+  <h1><span itemprop="name">Top music artists</span></h1>
+  <div itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+    <span itemprop="position">1</span>
+    <span itemprop="item" itemscope itemtype="http://schema.org/MusicGroup">
+      <span itemprop="name">Beatles</span>
+    </span>
+    <span>132 weeks</span>
+  </div>
+  <div itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+    <span itemprop="position">2</span>
+    <span itemprop="item" itemscope itemtype="http://schema.org/MusicGroup">
+      <span itemprop="name">Elvis Presley</span>
+    </span>
+    <span>67 weeks</span>
+  </div>
+  <div itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+    <span itemprop="position">3</span>
+    <span itemprop="item" itemscope itemtype="http://schema.org/MusicGroup">
+      <span itemprop="name">Michael Jackson</span>
+    </span>
+    <span>51 weeks</span>
+  </div>
+  <div itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+    <span itemprop="position">3</span>
+    <span itemprop="item" itemscope itemtype="http://schema.org/MusicGroup">
+      <span itemprop="name">Garth Brooks</span>
+    </span>
+    <span>51 weeks</span>
+  </div>
+</div>
+
+RDFA:
+
+<div vocab="http://schema.org/" typeof="ItemList">
+  <link property="url" href="http://en.wikipedia.org/wiki/Billboard_200" />
+  <span property="name">Top music artists</span>
+  <div property="itemListElement" typeof="ListItem">
+    <span property="position">1</span>
+    <span property="item" typeof="MusicGroup">
+      <span property="name">Beatles</span>
+    </span>
+  </div>
+  <div property="itemListElement" typeof="http://schema.org/ListItem">
+    <span property="position">2</span>
+    <span property="item" typeof="MusicGroup">
+      <span property="name">Elvis Presley</span>
+    </span>
+    <span>67 weeks</span>
+  </div>
+  <div property="itemListElement" typeof="ListItem">
+    <span property="position">3</span>
+    <span property="item" typeof="MusicGroup">
+      <span property="name">Michael Jackson</span>
+    </span>
+    <span>51 weeks</span>
+  </div>
+  <div property="itemListElement" typeof="ListItem">
+    <span property="position">3</span>
+    <span property="item" typeof="MusicGroup">
+      <span itemprop="name">Garth Brooks</span>
+    </span>
+    <span>51 weeks</span>
+  </div>
+</div>
+
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "ItemList",
+  "@url": "http://en.wikipedia.org/wiki/Billboard_200",
+  "name": "Top music artists",
+  "description": "The artists with the most cumulative weeks at number one according to Billboard 200",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "item": {
+        "@type": "MusicGroup",
+        "name": "Beatles"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "item": {
+        "@type": "MusicGroup",
+        "name": "Elvis Presley"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "item": {
+        "@type": "MusicGroup",
+        "name": "Michael Jackson"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "item": {
+        "@type": "MusicGroup",
+        "name": "Garth Brooks"
+      }
+    }
+  ]
+}
+</script>
+
+
+TYPES: ItemList, MusicAlbum
+
+PRE-MARKUP:
+
+King of Limbs - Radiohead
+Tracks:
+1. Bloom
+2. Morning Mr. Magpie
+3. Little by Little
+
+MICRODATA:
+
+<div itemscope itemtype="http://schema.org/MusicAlbum">
+  <span itemprop="name">King of Limbs</span>
+  <span itemprop="byArtist">Radiohead</span>
+  <div itemprop="track" itemscope itemtype="http://schema.org/ItemList">
+    <span itemprop="numberOfItems" content=8 />
+    <div itemprop="itemListElement itemscope itemtype="http://schema.org/ListItem">
+      <span itemprop="position">1</span>
+      <div itemprop="item" itemscope itemtype="http://schema.org/MusicRecording">
+        <span itemprop="name">Bloom</span>
+      </div>
+    </div>
+    <div itemprop="itemListElement itemscope itemtype="http://schema.org/ListItem">
+      <span itemprop="position">2</span>
+      <div itemprop="item" itemscope itemtype="http://schema.org/MusicRecording">
+        <span itemprop="name">Morning Mr. Magpie</span>
+      </div>
+    </div>
+    <div itemprop="itemListElement itemscope itemtype="http://schema.org/ListItem">
+      <span itemprop="position">3</span>
+      <div itemprop="item" itemscope itemtype="http://schema.org/MusicRecording">
+        <span itemprop="name">Little by Little</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+RDFA:
+
+<div vocab="http://schema.org/" typeof="MusicAlbum">
+  <span property="name">King of Limbs</span>
+  <span property="byArtist">Radiohead</span>
+  <div property="track" typeof="ItemList">
+    <span property="numberOfItems" content=8 />
+    <div property="itemListElement" typeof="ListItem">
+      <span property="position">1</span>
+      <div property="item" typeof="http://schema.org/MusicRecording">
+        <span property="name">Bloom</span>
+      </div>
+    </div>
+    <div property="itemListElement typeof="ListItem">
+      <span property="position">2</span>
+      <div property="item" typeof="MusicRecording">
+        <span property="name">Morning Mr. Magpie</span>
+      </div>
+    </div>
+    <div property="itemListElement typeof="ListItem">
+      <span property="position">3</span>
+      <div property="item" ypeof="MusicRecording">
+        <span property="name">Little by Little</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+JSON:
+
+<script type="application/ld+json>
+{
+  "@context": "http://schema.org",
+  "@type": "MusicAlbum",
+  "name": "King of Limbs",
+  "byArtist": {
+    "@type": "MusicGroup",
+    "name": "Radiohead",
+  },
+  track: {
+    "@type": "ItemList",
+    "numberOfItems": 8,
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@type": "MusicRecording",
+          "name": "Bloom"
+        }
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "item": {
+          "@type": "MusicRecording",
+          "name": "Morning Mr. Magpie"
+        }
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "item": {
+          "@type": "MusicRecording",
+          "name": "Little by Little"
+        }
+      }
+    ]
+  }
+}
+</script>
+
+TYPES:  FakeEntryNeeded, FixMeSomeDay
