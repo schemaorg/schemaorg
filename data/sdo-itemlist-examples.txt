@@ -263,4 +263,81 @@ JSON:
 }
 </script>
 
+TYPES: ItemList, ListItem, itemListElement, item, WebPage
+
+PRE-MARKUP:
+
+<ol>
+  <li>
+    <a href="https://example.com/dresses">Dresses</a>
+  </li>
+› <li>
+    <a href="https://example.com/dresses/real">Real Dresses</a>
+  </li>
+</ol>
+
+MICRODATA:
+
+<ol itemscope itemtype="http://schema.org/ItemList">
+  <li itemprop="itemListElement" itemscope
+      itemtype="http://schema.org/ListItem">
+    <a itemprop="item" href="https://example.com/dresses">
+    <span itemprop="name">Dresses</span></a>
+    <meta itemprop="position" content="1" />
+  </li>
+› <li itemprop="itemListElement" itemscope
+      itemtype="http://schema.org/ListItem">
+    <a itemprop="item" href="https://example.com/dresses/real">
+    <span itemprop="name">Real Dresses</span></a>
+    <meta itemprop="position" content="2" />
+  </li>
+</ol>
+
+RDFA:
+
+<ol vocab="http://schema.org/" typeof="ItemList">
+  <li property="itemListElement" typeof="ListItem">
+    <a property="item" typeof="WebPage" href="https://example.com/dresses">
+     <span property="name">Dresses</span></a>
+     <meta property="position" content="1">
+  </li>
+› <li property="itemListElement" typeof="ListItem">
+    <a property="item" typeof="WebPage" href="https://example.com/dresses/real">
+    <span property="name">Real Dresses</span></a>
+    <meta property="position" content="2">
+  </li>
+</ol>
+
+
+JSON:
+
+<script type="application/ld+json>
+{
+ "@context": "http://schema.org",
+ "@type": "ItemList",
+ "itemListElement":
+ [
+  {
+   "@type": "ListItem",
+   "position": 1,
+   "item":
+   {
+    "@id": "https://example.com/dresses",
+    "name": "Dresses"
+    }
+  },
+  {
+   "@type": "ListItem",
+  "position": 2,
+  "item":
+   {
+     "@id": "https://example.com/dresses/real",
+     "name": "Real Dresses"
+   }
+  }
+ ]
+}
+</script>
+
 TYPES:  FakeEntryNeeded, FixMeSomeDay
+
