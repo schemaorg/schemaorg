@@ -37,6 +37,36 @@ JSON:
         "@type": "MusicRelease",
         "name": "Let It Be",
         "@id": "http://musicbrainz.org/release/8d5347a5-9ecb-44be-a213-860aaaf5d0b8"
+    },
+    track: {
+	    "@type": "ItemList",
+	    "numberOfItems": 12,
+	    "itemListElement": [
+		    {
+		      "@type": "ListItem",
+		      "position": 1,
+		      "item": {
+			      "@type": "MusicRecording",
+			      "name": "Two Of Us"
+		      }
+		    },
+		    {
+		      "@type": "ListItem",
+		      "position": 2,
+		      "item": {
+			      "@type": "MusicRecording",
+			      "name": "Dig a Pony"
+		      }
+		    },
+		    {
+		      "@type": "ListItem",
+		      "position": 3,
+		      "item": {
+			      "@type": "MusicRecording",
+			      "name": "Across the Universe"
+		      }
+		    }
+	    ]
     }
 }
 </script>
@@ -126,7 +156,49 @@ JSON:
         "alternateName": "The White Album",
         "@id": "http://musicbrainz.org/release-group/055be730-dcad-31bf-b550-45ba9c202aa3",
         "datePublished": "1968"
-    }
+    },
+    "member": [
+      {
+        "@type": "OrganizationRole",
+        "member": {
+          "@type": "Person",
+          "name": "John Lennon"
+        },
+        "startDate": "1957",
+        "endDate": "1970",
+        "namedPosition": ["guitar", "lead vocals"]
+      },
+      {
+        "@type": "OrganizationRole",
+        "member": {
+          "@type": "Person",
+          "name": "Paul McCartney"
+        },
+        "startDate": "1957",
+        "endDate": "1970",
+        "namedPosition": ["bass guitar", "lead vocals"]
+      },
+      {
+        "@type": "OrganizationRole",
+        "member": {
+          "@type": "Person",
+          "name": "George Harrison"
+        },
+        "startDate": "1958",
+        "endDate": "1970",
+        "namedPosition": ["guitar", "lead vocals"]
+      },
+      {
+        "@type": "OrganizationRole",
+        "member": {
+          "@type": "Person",
+          "name": "Ringo Starr"
+        },
+        "startDate": "1962",
+        "endDate": "1970",
+        "namedPosition": "drums"
+      }
+    ]
 }
 </script>
 
@@ -161,8 +233,7 @@ JSON:
         "@type": "MusicComposition",
         "name": "Back in the U.S.S.R",
         "iswcCode": "T-010.140.236-1"
-    },
-    "trackNumber": "A1"
+    }
 }
 </script>
 

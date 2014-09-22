@@ -32,13 +32,14 @@
   <link property="http://schema.org/inverseOf" href="http://schema.org/releaseOf"/>
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MusicAlbum">MusicAlbum</a></span>
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/MusicRelease">MusicRelease</a></span>
-  <link property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#MBZ"/>
 </div>
-<div typeof="rdf:Property" resource="http://schema.org/arrangement">
-  <span class="h" property="rdfs:label">arrangement</span>
-  <span property="rdfs:comment">An arrangement derived from the composition.</span>
-  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MusicAlbum">MusicAlbum</a></span>
-  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/MusicRelease">MusicRelease</a></span>
+<div typeof="rdf:Property" resource="http://schema.org/track">
+  <span class="h" property="rdfs:label">track</span>
+  <span property="rdfs:comment">A music recording (track)&amp;#x2014;usually a single song. If an ItemList is given, the list should contain items of type MusicRecording</span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MusicPlaylist">MusicPlaylist</a></span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MusicGroup">MusicGroup</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/ItemList">ItemList</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/MusicRecording">MusicRecording</a></span>
   <link property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#MBZ"/>
 </div>
 
@@ -133,20 +134,11 @@
   <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/CreativeWork">CreativeWork</a></span>
   <link property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#MBZ"/>
 </div>
-
 <div typeof="rdf:Property" resource="http://schema.org/musicArrangement">
   <span class="h" property="rdfs:label">musicArrangement</span>
-  <span property="rdfs:comment">A release of this album.</span>
+  <span property="rdfs:comment">An arrangement derived from the composition.</span>
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MusicComposition">MusicComposition</a></span>
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/MusicComposition">MusicComposition</a></span>
-  <link property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#MBZ"/>
-</div>
-<div typeof="rdf:Property" resource="http://schema.org/arranger">
-  <span class="h" property="rdfs:label">arranger</span>
-  <span property="rdfs:comment">The person who arranged the work. The original composer should be listed under "creator".</span>
-  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MusicComposition">MusicComposition</a></span>
-  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Person">Person</a></span>
-  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Organization">Organization</a></span>
   <link property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#MBZ"/>
 </div>
 <div typeof="rdf:Property" resource="http://schema.org/composer">
@@ -178,18 +170,11 @@
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
   <link property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#MBZ"/>
 </div>
-<div typeof="rdf:Property" resource="http://schema.org/iswcCode">
-  <span class="h" property="rdfs:label">iswcCode</span>
-  <span property="rdfs:comment">The International Standard Musical Work Code for the composition.</span>
-  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MusicComposition">MusicComposition</a></span>
-  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
-  <link property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#MBZ"/>
-</div>
 <div typeof="rdf:Property" resource="http://schema.org/lyricist">
   <span class="h" property="rdfs:label">lyricist</span>
   <span property="rdfs:comment">The person who wrote the words.</span>
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MusicComposition">MusicComposition</a></span>
-  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Person">Person</a></span>
   <link property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#MBZ"/>
 </div>
 <div typeof="rdf:Property" resource="http://schema.org/musicCompositionForm">
@@ -245,17 +230,6 @@
   <link property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#MBZ"/>
 </div>
 
-
-<div typeof="rdf:Property" resource="http://schema.org/trackNumber">
-  <span class="h" property="rdfs:label">trackNumber</span>
-  <span property="rdfs:comment">The track number for the song on an individual release.</span>
-  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MusicRecording">MusicRecording</a></span>
-  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
-  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Integer">Integer</a></span>
-  <link property="rdfs:subPropertyOf" href="http://schema.org/position" />
-  <link property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#MBZ"/>
-</div>
-
 <p>MusicRelease: Thing > CreativeWork > MusicPlaylist > MusicRelease is a new type describing a specific release of a music album.
 </p>
 
@@ -278,7 +252,8 @@
   <span class="h" property="rdfs:label">creditedTo</span>
   <span property="rdfs:comment">The group the release is credited to if different than the byArtist. For example, Red and Blue is credited to "Stefani Germanotta Band", but by Lady Gaga.</span>
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MusicRelease">MusicRelease</a></span>
-  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Person">Person</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Organization">Organization</a></span>
   <link property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#MBZ"/>
 </div>
 
@@ -316,12 +291,6 @@
   <link property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#MBZ"/>
 </div>
 
-<p>NOTE: added 'track' domainIncludes MusicRecording, tweak def if needed.</p>
-
-<div typeof="rdf:Property" resource="http://schema.org/track">
-  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MusicRecording">MusicRecording</a></span>
-</div>
-
 <p>Addition to CreativeWork.</p>
 
 <!-- orig proposal: -->
@@ -334,6 +303,12 @@
 -->
 
 <!-- proposed alternative. -->
+<div typeof="rdf:Property" resource="http://schema.org/recordedAt">
+  <span class="h" property="rdfs:label">recordedAt</span>
+  <span property="rdfs:comment">The event where the work was recorded. Used primarily with video, audio, and photography.</span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CreativeWork">CreativeWork</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Event">Event</a></span>
+</div>
 <div typeof="rdf:Property" resource="http://schema.org/releasedEvent">
   <span class="h" property="rdfs:label">releasedEvent</span>
   <span property="rdfs:comment">The place and time the release was issued, expressed as a PublicationEvent.</span>
@@ -399,4 +374,17 @@
 
 
 <p>TODO: Person birthPlace, deathPlace. (check old historical-info proposal, make a converged design later).</p>
+<p>NOTE: Added foundingLocation (Place) to Organization.</p>
+<div typeof="rdf:Property" resource="http://schema.org/birthPlace">
+  <span class="h" property="rdfs:label">birthPlace</span>
+  <span property="rdfs:comment">The place where the person was born.</span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Person">Person</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Place">Place</a></span>
+</div>
+<div typeof="rdf:Property" resource="http://schema.org/deathPlace">
+  <span class="h" property="rdfs:label">deathPlace</span>
+  <span property="rdfs:comment">The place where the person died.</span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Person">Person</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Place">Place</a></span>
+</div>
 </div>
