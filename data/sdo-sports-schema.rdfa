@@ -1,0 +1,68 @@
+<div>
+﻿
+    <h1>Sports</h1>
+    <p>Sports Agents Vocabulary as of 2014-09-16.</p>
+    <!-- Based on https://www.w3.org/wiki/File:2014SportsAgentsVocab.1.0.pdf -->
+
+    <!-- SUBCLASSING OF 'SportsTeam' under 'SportsOrganization -->
+    <div typeof="rdfs:Class" resource="http://schema.org/SportsTeam">
+        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/SportsOrganization">SportsOrganization</a></span>
+    </div>
+
+    <!-- Sports Organization and associated properties -->
+    <div typeof="rdfs:Class" resource="http://schema.org/SportsOrganization">
+        <span class="h" property="rdfs:label">SportsOrganization</span>
+        <span property="rdfs:comment">Represents the collection of all sports organizations, including sports teams, governing bodies, and sports associations.</span>
+        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Organization">Organization</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/sport">
+        <span class="h" property="rdfs:label">sport</span>
+        <span property="rdfs:comment">A type of sport (e.g. Baseball).</span>
+        <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/SportsOrganization">SportsOrganization</a></span>
+        <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+    </div>
+
+    <!-- new athlete and coach properties for Sports Team-->
+    <div typeof="rdf:Property" resource="http://schema.org/coach">
+        <span class="h" property="rdfs:label">coach</span>
+        <span property="rdfs:comment">A person that acts in a coaching role for a sports team.</span>
+        <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/SportsTeam">SportsTeam</a></span>
+        <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Person">Person</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/athlete">
+        <span class="h" property="rdfs:label">athlete</span>
+        <span property="rdfs:comment">A person that acts as performing member of a sports team; a player as opposed to a coach</span>
+        <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/SportsTeam">SportsTeam</a></span>
+        <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Person">Person</a></span>
+    </div>
+
+    <!-- new property for jersey numbers -->
+    <div typeof="rdf:Property" resource="http://schema.org/numberedPosition">
+        <span class="h" property="rdfs:label">numberedPosition</span>
+        <span property="rdfs:comment">A number associated with a role in an organization, for example, the number on an athlete's jersey.</span>
+        <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/OrganizationRole">OrganizationRole</a></span>
+        <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number">Number</a></span>
+    </div>
+
+    <!-- basic event properties -->
+
+    <!-- new homeTeam and awayTeam properties for Sports Event-->
+    <div typeof="rdf:Property" resource="http://schema.org/homeTeam">
+        <span class="h" property="rdfs:label">homeTeam</span>
+        <span property="rdfs:comment">The home team in a sports event.</span>
+        <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/SportsEvent">SportsEvent</a></span>
+        <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Person">Person</a></span>
+        <span>Range: <a property="http://schema.org/rangeIncludesIncludes" href="http://schema.org/Organization">Organization</a></span>
+        <span>SuperProperty: <a property="rdfs:subPropertyOf" href="http://schema.org/competitor">Competitor</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/awayTeam">
+        <span class="h" property="rdfs:label">awayTeam</span>
+        <span property="rdfs:comment">The away team in a sports event.</span>
+        <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/SportsEvent">SportsEvent</a></span>
+        <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Person">Person</a></span>
+        <span>Range: <a property="http://schema.org/rangeIncludesIncludes" href="http://schema.org/Organization">Organization</a></span>
+        <span>SuperProperty: <a property="rdfs:subPropertyOf" href="http://schema.org/competitor">Competitor</a></span>
+    </div>
+
+
+</div>
