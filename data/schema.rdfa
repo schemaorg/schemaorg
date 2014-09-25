@@ -4965,9 +4965,11 @@
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/baseSalary">
       <span class="h" property="rdfs:label">baseSalary</span>
-      <span property="rdfs:comment">The base salary of the job.</span>
+      <span property="rdfs:comment">The base salary of the job or of an employee in an EmployeeRole.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/JobPosting">JobPosting</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/EmployeeRole">EmployeeRole</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number">Number</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/PriceSpecification">PriceSpecification</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/benefits">
       <span class="h" property="rdfs:label">benefits</span>
@@ -7151,6 +7153,12 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Nerve">Nerve</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Muscle">Muscle</a></span>
     </div>
+    <div typeof="rdf:Property" resource="http://schema.org/netWorth">
+      <span class="h" property="rdfs:label">netWorth</span>
+      <span property="rdfs:comment">The total financial value of the organization or person as calculated by subtracting assets from liabilities.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Person">Person</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/PriceSpecification">PriceSpecification</a></span>
+    </div>
     <div typeof="rdf:Property" resource="http://schema.org/nonEqual">
       <span class="h" property="rdfs:label">nonEqual</span>
       <span property="rdfs:comment">This ordering relation for qualitative values indicates that the subject is not equal to the object.</span>
@@ -8219,8 +8227,9 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/salaryCurrency">
       <span class="h" property="rdfs:label">salaryCurrency</span>
-      <span property="rdfs:comment">The currency (coded using ISO 4217, http://en.wikipedia.org/wiki/ISO_4217 used for the main salary information in this job posting.</span>
+      <span property="rdfs:comment">The currency (coded using ISO 4217, http://en.wikipedia.org/wiki/ISO_4217 used for the main salary information in this job posting or for this employee.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/JobPosting">JobPosting</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/EmployeeRole">EmployeeRole</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/sameAs">
@@ -10091,6 +10100,12 @@ on public-vocabs@w3.org.</p>
       <span>domainIncludes: <a property="http://schema.org/domainIncludes" href="http://schema.org/OrganizationRole">OrganizationRole</a></span>
       <span>rangeIncludes: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
       <span>rangeIncludes: <a property="http://schema.org/rangeIncludes" href="http://schema.org/URL">URL</a></span>
+    </div>
+
+    <div typeof="rdfs:Class" resource="http://schema.org/EmployeeRole">
+      <span class="h" property="rdfs:label">EmployeeRole</span>
+      <span property="rdfs:comment">A subclass of OrganizationRole used to describe employee relationships.</span>
+      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/OrganizationRole">OrganizationRole</a></span>
     </div>
 
   </body>
