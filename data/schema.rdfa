@@ -4034,34 +4034,34 @@
        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/ReactAction">ReactAction</a></span>
     </div>
 
-    <div typeof="rdfs:Class" resource="http://schema.org/OperateAction">
-      <span class="h" property="rdfs:label">OperateAction</span>
-      <span property="rdfs:comment">An agent operates a device or application.</span>
+    <div typeof="rdfs:Class" resource="http://schema.org/ControlAction">
+      <span class="h" property="rdfs:label">ControlAction</span>
+      <span property="rdfs:comment">An agent controls a device or application.</span>
        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Action">Action</a></span>
     </div>
 
     <div typeof="rdfs:Class" resource="http://schema.org/ActivateAction">
       <span class="h" property="rdfs:label">ActivateAction</span>
       <span property="rdfs:comment">The act of starting or activating a device or application (e.g. starting a timer or turning on a flashlight).</span>
-       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/OperateAction">OperateAction</a></span>
+       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/ControlAction">ControlAction</a></span>
     </div>
 
     <div typeof="rdfs:Class" resource="http://schema.org/DeactivateAction">
       <span class="h" property="rdfs:label">DeactivateAction</span>
       <span property="rdfs:comment">The act of stopping or deactivating a device or application (e.g. stopping a timer or turning off a flashlight).</span>
-       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/OperateAction">OperateAction</a></span>
+       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/ControlAction">ControlAction</a></span>
     </div>
 
     <div typeof="rdfs:Class" resource="http://schema.org/ResumeAction">
       <span class="h" property="rdfs:label">ResumeAction</span>
       <span property="rdfs:comment">The act of resuming a device or application which was formerly paused (e.g. resume music playback or resume a timer).</span>
-       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/OperateAction">OperateAction</a></span>
+       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/ControlAction">ControlAction</a></span>
     </div>
 
     <div typeof="rdfs:Class" resource="http://schema.org/SuspendAction">
       <span class="h" property="rdfs:label">SuspendAction</span>
       <span property="rdfs:comment">The act of momentarily pausing a device or application (e.g. pause music playback or pause a timer).</span>
-       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/OperateAction">OperateAction</a></span>
+       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/ControlAction">ControlAction</a></span>
     </div>
 
     <div typeof="rdfs:Class" resource="http://schema.org/PlayAction">
@@ -5396,8 +5396,8 @@
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MediaObject">MediaObject</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/URL">URL</a></span>
     </div>
-    <div typeof="rdf:Property" resource="http://schema.org/contingentOnOffer">
-      <span class="h" property="rdfs:label">contingentOnOffer</span>
+    <div typeof="rdf:Property" resource="http://schema.org/expectsAcceptanceOf">
+      <span class="h" property="rdfs:label">expectsAcceptanceOf</span>
       <span property="rdfs:comment">An Offer which must be accepted before the user can perform the Action. For example, the user may need to buy a movie before being able to watch it.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ConsumeAction">ConsumeAction</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Offer">Offer</a></span>
@@ -5907,6 +5907,12 @@
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Demand">Demand</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/GeoShape">GeoShape</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/ineligibleRegion">
+      <span class="h" property="rdfs:label">ineligibleRegion</span>
+      <span property="rdfs:comment">The place(s) from which the offer cannot be obtained (e.g. a region where the transaction is not allowed).</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Offer">Offer</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Place">Place</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/eligibleTransactionVolume">
       <span class="h" property="rdfs:label">eligibleTransactionVolume</span>
@@ -7163,12 +7169,6 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
       <span property="rdfs:comment">Range of acceptable values for a typical patient, when applicable.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MedicalTest">MedicalTest</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
-    </div>
-    <div typeof="rdf:Property" resource="http://schema.org/notAvailableAtOrFrom">
-      <span class="h" property="rdfs:label">notAvailableAtOrFrom</span>
-      <span property="rdfs:comment">The place(s) from which the offer cannot be obtained (e.g. a region where the transaction is not allowed).</span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Offer">Offer</a></span>
-      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Place">Place</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/numberofEmployees">
       <span class="h" property="rdfs:label">numberofEmployees</span>
