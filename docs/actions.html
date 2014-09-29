@@ -683,7 +683,8 @@ Finally, we also allow URI templating (using <a href="http://tools.ietf.org/html
     "@type": "Movie",<br/>
 <span style="color:#222222"><b>    "url-input": "required",</b></span><br/>
 <span style="color:#222222"><b>  },</b></span><br/>
-  "resultReview": {<br/>
+  "result": {<br/>
+    "@type": "Review",<br/>
 <span style="color:#222222"><b>    "url-output": "required",</b></span><br/>
 <span style="color:#222222"><b>    "reviewBody-input": "required",</b></span><br/>
     "reviewRating": {<br/>
@@ -709,7 +710,8 @@ Finally, we also allow URI templating (using <a href="http://tools.ietf.org/html
   "object" : {<br/>
 <span style="color:#222222">    "@id": "http://example.com/movies/123"</span><br/>
   },<br/>
-  "resultReview": {<br/>
+  "result": {<br/>
+    "@type": "Review",<br/>
     "reviewBody": "yada, yada, yada",<br/>
     "reviewRating": {<br/>
       "ratingValue": "4"<br/>
@@ -731,7 +733,8 @@ Finally, we also allow URI templating (using <a href="http://tools.ietf.org/html
   "@context": "http://schema.org",<br/>
   "@type": "ReviewAction",<br/>
   "actionStatus": "CompletedActionStatus",<br/>
-<span style="color:#222222">  "resultReview" : {
+<span style="color:#222222">  "result" : {<br/>
+    "@type": "Review",<br/>
     "url"<b>: "http://example.com/reviews/abc"</b></span><br/>
   }<br/>
 }<br/>
