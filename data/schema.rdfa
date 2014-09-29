@@ -4047,6 +4047,36 @@
        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/ReactAction">ReactAction</a></span>
     </div>
 
+    <div typeof="rdfs:Class" resource="http://schema.org/ControlAction">
+      <span class="h" property="rdfs:label">ControlAction</span>
+      <span property="rdfs:comment">An agent controls a device or application.</span>
+       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Action">Action</a></span>
+    </div>
+
+    <div typeof="rdfs:Class" resource="http://schema.org/ActivateAction">
+      <span class="h" property="rdfs:label">ActivateAction</span>
+      <span property="rdfs:comment">The act of starting or activating a device or application (e.g. starting a timer or turning on a flashlight).</span>
+       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/ControlAction">ControlAction</a></span>
+    </div>
+
+    <div typeof="rdfs:Class" resource="http://schema.org/DeactivateAction">
+      <span class="h" property="rdfs:label">DeactivateAction</span>
+      <span property="rdfs:comment">The act of stopping or deactivating a device or application (e.g. stopping a timer or turning off a flashlight).</span>
+       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/ControlAction">ControlAction</a></span>
+    </div>
+
+    <div typeof="rdfs:Class" resource="http://schema.org/ResumeAction">
+      <span class="h" property="rdfs:label">ResumeAction</span>
+      <span property="rdfs:comment">The act of resuming a device or application which was formerly paused (e.g. resume music playback or resume a timer).</span>
+       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/ControlAction">ControlAction</a></span>
+    </div>
+
+    <div typeof="rdfs:Class" resource="http://schema.org/SuspendAction">
+      <span class="h" property="rdfs:label">SuspendAction</span>
+      <span property="rdfs:comment">The act of momentarily pausing a device or application (e.g. pause music playback or pause a timer).</span>
+       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/ControlAction">ControlAction</a></span>
+    </div>
+
     <div typeof="rdfs:Class" resource="http://schema.org/PlayAction">
       <span class="h" property="rdfs:label">PlayAction</span>
       <span property="rdfs:comment">The act of playing/exercising/training/performing for enjoyment, leisure, recreation, Competition or exercise.&lt;p&gt;Related actions:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;&lt;a href=&quot;http://schema.org/ListenAction&quot;&gt;ListenAction&lt;/a&gt;: Unlike ListenAction (which is under ConsumeAction), PlayAction refers to performing for an audience or at an event, rather than consuming music.&lt;/li&gt;&lt;li&gt;&lt;a href=&quot;http://schema.org/WatchAction&quot;&gt;WatchAction&lt;/a&gt;: Unlike WatchAction (which is under ConsumeAction), PlayAction refers to showing/displaying for an audience or at an event, rather than consuming visual content.&lt;/li&gt;&lt;/ul&gt;</span>
@@ -4946,9 +4976,11 @@
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/baseSalary">
       <span class="h" property="rdfs:label">baseSalary</span>
-      <span property="rdfs:comment">The base salary of the job.</span>
+      <span property="rdfs:comment">The base salary of the job or of an employee in an EmployeeRole.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/JobPosting">JobPosting</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/EmployeeRole">EmployeeRole</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number">Number</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/PriceSpecification">PriceSpecification</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/benefits">
       <span class="h" property="rdfs:label">benefits</span>
@@ -5380,6 +5412,12 @@
       <span property="rdfs:comment">Actual bytes of the media object, for example the image file or video file. (previous spelling: contentURL)</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MediaObject">MediaObject</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/URL">URL</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/expectsAcceptanceOf">
+      <span class="h" property="rdfs:label">expectsAcceptanceOf</span>
+      <span property="rdfs:comment">An Offer which must be accepted before the user can perform the Action. For example, the user may need to buy a movie before being able to watch it.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ConsumeAction">ConsumeAction</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Offer">Offer</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/contraindication">
       <span class="h" property="rdfs:label">contraindication</span>
@@ -5886,6 +5924,12 @@
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Demand">Demand</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/GeoShape">GeoShape</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/ineligibleRegion">
+      <span class="h" property="rdfs:label">ineligibleRegion</span>
+      <span property="rdfs:comment">The place(s) from which the offer cannot be obtained (e.g. a region where the transaction is not allowed).</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Offer">Offer</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Place">Place</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/eligibleTransactionVolume">
       <span class="h" property="rdfs:label">eligibleTransactionVolume</span>
@@ -7155,6 +7199,12 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Nerve">Nerve</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Muscle">Muscle</a></span>
     </div>
+    <div typeof="rdf:Property" resource="http://schema.org/netWorth">
+      <span class="h" property="rdfs:label">netWorth</span>
+      <span property="rdfs:comment">The total financial value of the organization or person as calculated by subtracting assets from liabilities.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Person">Person</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/PriceSpecification">PriceSpecification</a></span>
+    </div>
     <div typeof="rdf:Property" resource="http://schema.org/nonEqual">
       <span class="h" property="rdfs:label">nonEqual</span>
       <span property="rdfs:comment">This ordering relation for qualitative values indicates that the subject is not equal to the object.</span>
@@ -8245,8 +8295,9 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/salaryCurrency">
       <span class="h" property="rdfs:label">salaryCurrency</span>
-      <span property="rdfs:comment">The currency (coded using ISO 4217, http://en.wikipedia.org/wiki/ISO_4217 used for the main salary information in this job posting.</span>
+      <span property="rdfs:comment">The currency (coded using ISO 4217, http://en.wikipedia.org/wiki/ISO_4217 used for the main salary information in this job posting or for this employee.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/JobPosting">JobPosting</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/EmployeeRole">EmployeeRole</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/sameAs">
@@ -10130,6 +10181,13 @@ postponing for 1.6.
       <span>rangeIncludes: <a property="http://schema.org/rangeIncludes" href="http://schema.org/URL">URL</a></span>
     </div>
 
+
+    <div typeof="rdfs:Class" resource="http://schema.org/EmployeeRole">
+      <span class="h" property="rdfs:label">EmployeeRole</span>
+      <span property="rdfs:comment">A subclass of OrganizationRole used to describe employee relationships.</span>
+      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/OrganizationRole">OrganizationRole</a></span>
+    </div>
+
     <h1>WebSite</h1>
 
     <div typeof="rdfs:Class" resource="http://schema.org/WebSite">
@@ -10319,7 +10377,6 @@ postponing for 1.6.
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
      </div>
     -->
-
 
   </body>
 </html>
