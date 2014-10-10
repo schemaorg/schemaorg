@@ -4283,6 +4283,11 @@
        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/SoftwareApplication">SoftwareApplication</a></span>
        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Game">Game</a></span>
  </div>
+ <div typeof="rdfs:Class" resource="http://schema.org/GameServer">
+      <span class="h" property="rdfs:label">GameServer</span>
+      <span property="rdfs:comment">Server that provides game interaction in a multiplayer game</span>
+      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Intangible">Intangible</a></span>
+ </div>
   <div typeof="rdfs:Class" resource="http://schema.org/Game">
       <span class="h" property="rdfs:label">Game</span>
       <span property="rdfs:comment">A role-playing game is a game in which players assume the roles of characters in a fictional setting.</span>
@@ -9980,14 +9985,26 @@ or range).
         <div typeof="rdf:Property" resource="http://schema.org/serverStatus">
       <span class="h" property="rdfs:label">serverStatus</span>
       <span property="rdfs:comment">Status of game server</span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/VideoGame">VideoGame</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/GameServer">GameServer</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/GameServerStatus">GameServerStatus</a></span>
  </div>
       <div typeof="rdf:Property" resource="http://schema.org/playersOnline">
       <span class="h" property="rdfs:label">playersOnline</span>
       <span property="rdfs:comment">Number of players on the server</span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/VideoGame">VideoGame</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/GameServer">GameServer</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number">Number</a></span>
+ </div>
+ <div typeof="rdf:Property" resource="http://schema.org/game">
+      <span class="h" property="rdfs:label">game</span>
+      <span property="rdfs:comment">Video game which is played on this server</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/GameServer">GameServer</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/VideoGame">VideoGame</a></span>
+ </div>
+  <div typeof="rdf:Property" resource="http://schema.org/gameServer">
+      <span class="h" property="rdfs:label">gameServer</span>
+      <span property="rdfs:comment">The server on which possible to play the game</span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/GameServer">GameServer</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/VideoGame">VideoGame</a></span>
  </div>
  <div typeof="rdf:Property" resource="http://schema.org/gameLocation">
       <span class="h" property="rdfs:label">gameLocation</span>
