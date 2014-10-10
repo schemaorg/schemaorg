@@ -263,7 +263,7 @@ JSON:
 }
 </script>
 
-TYPES: ItemList, ListItem, itemListElement, item, WebPage
+TYPES: BreadcrumbList, ItemList, ListItem, itemListElement, item, WebPage
 
 PRE-MARKUP:
 
@@ -278,7 +278,7 @@ PRE-MARKUP:
 
 MICRODATA:
 
-<ol itemscope itemtype="http://schema.org/ItemList">
+<ol itemscope itemtype="http://schema.org/BreadcrumbList">
   <li itemprop="itemListElement" itemscope
       itemtype="http://schema.org/ListItem">
     <a itemprop="item" href="https://example.com/dresses">
@@ -295,7 +295,7 @@ MICRODATA:
 
 RDFA:
 
-<ol vocab="http://schema.org/" typeof="ItemList">
+<ol vocab="http://schema.org/" typeof="BreadcrumbList">
   <li property="itemListElement" typeof="ListItem">
     <a property="item" typeof="WebPage" href="https://example.com/dresses">
      <span property="name">Dresses</span></a>
@@ -314,7 +314,7 @@ JSON:
 <script type="application/ld+json>
 {
  "@context": "http://schema.org",
- "@type": "ItemList",
+ "@type": "BreadcrumbList",
  "itemListElement":
  [
   {
