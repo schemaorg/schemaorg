@@ -1910,7 +1910,7 @@ JSON:
 }
 </script>
 
-TYPES:  CreativeWork,ContentRating
+TYPES:  VideoGame,ContentRating
 
 PRE-MARKUP:
 
@@ -1921,21 +1921,21 @@ Rated: Mature
 
 MICRODATA:
 
-<div itemscope itemtype="http://schema.org/CreativeWork">
-<img property="image" src="videogame.jpg" />
-<span property="name">Resistance 3: Fall of Man</span>
-by <span property="author">Sony</span>,
-Platform: Playstation 3
-Rated:<span property="contentRating">Mature</span>
+<div itemscope itemtype="http://schema.org/VideoGame">
+<img itemprop="image" src="videogame.jpg" />
+<span itemprop="name">Resistance 3: Fall of Man</span>
+by <span itemprop="author">Sony</span>,
+Platform: <span itemprop="gamePlatform">Playstation 3</span>
+Rated:<span itemprop="contentRating">Mature</span>
 </div>
 
 RDFA:
 
-<div vocab="http://schema.org/" typeof="CreativeWork">
+<div vocab="http://schema.org/" typeof="VideoGame">
 <img property="image" src="videogame.jpg" />
 <span property="name">Resistance 3: Fall of Man</span>
 by <span property="author">Sony</span>,
-Platform: Playstation 3
+Platform: <span property="gamePlatform">Playstation 3</span>
 Rated:<span property="contentRating">Mature</span>
 </div>
 
@@ -1944,11 +1944,12 @@ JSON:
 <script type="application/ld+json">
 {
   "@context": "http://schema.org",
-  "@type": "CreativeWork",
+  "@type": "VideoGame",
   "author": "Sony",
   "contentRating": "Mature",
   "image": "videogame.jpg",
-  "name": "Resistance 3: Fall of Man"
+  "name": "Resistance 3: Fall of Man",
+  "gamePlatform":"gamePlatform"
 }
 </script>
 
@@ -12024,6 +12025,7 @@ JSON:
     "license": "http://creativecommons.org/licenses/by-nc-sa/3.0/us/deed.en_US"
 }
 </script>
+
 
 
 TYPES:  FakeEntryNeeded, FixMeSomeDay
