@@ -35,6 +35,27 @@ class SDOBasicsTestCase(unittest.TestCase):
   def test_foundExamples(self):
     self.assertEqual(True, os.path.exists(examples_path), "Expected examples file: "+ examples_path )
 
+  def test_ExtractedPlausibleNumberOfExamples(self):
+    # Note: Example constructor registers each example per-term: term.examples.append(self)
+    all_types = GetAllTypes()
+    example_count = 0
+    for t in all_types:
+      if t.examples and len(t.examples) > 0:
+        example_count = example_count + len(t.examples)
+    log.info("Extracted %s examples." % example_count )
+    self.assertTrue(example_count > 300 and example_count < 400, "Expect that we extracted 300 < x < 400 examples from data/*examples.txt. Found: %s " % example_count)
+
+  # Whichever file from data/*examples.txt is glob-loaded last, needs a final entry of "TYPES:  FakeEntryNeeded, FixMeSomeDay"
+  # This used to be examples.txt but now we are multi-file it could strike anywhere.
+  @unittest.expectedFailure
+  def test_finalExampleParsers(self):
+    # parsers calls this with each example (except final)
+    #   api.Example.AddExample(self.terms, self.preMarkupStr, self.microdataStr, self.rdfaStr, self.jsonStr)
+    # Let's look up: FakeEntryNeeded, used in examples.txt
+    tFakeEntryNeeded = Unit.GetUnit("FakeEntryNeeded")
+    fake_count = len(tFakeEntryNeeded.examples)
+    self.assertTrue(fake_count > 0, "Properly we'd find 1 or more FakeEntryNeeded entries, from end(s) of data/*examples.txt file. Fake count: %s" % fake_count)
+
 class SupertypePathsTestCase(unittest.TestCase):
     """
     tRestaurant = Unit.GetUnit("Restaurant")
@@ -195,32 +216,32 @@ class SchemaBasicAPITestCase(unittest.TestCase):
 
 class SchemaPropertyAPITestCase(unittest.TestCase):
 
-  def test_actorSupercedesActors(self):
+  def test_actorSupersedesActors(self):
     p_actor = Unit.GetUnit("actor")
     p_actors = Unit.GetUnit("actors")
-    self.assertTrue(p_actors == p_actor.supercedes(), "actor supercedes actors.")
+    self.assertTrue(p_actors == p_actor.supersedes(), "actor supersedes actors.")
 
-  def test_actorsSuperceded(self):
+  def test_actorsSuperseded(self):
     p_actors = Unit.GetUnit("actors")
-    self.assertTrue(p_actors.superceded(), "actors property has been superceded.")
+    self.assertTrue(p_actors.superseded(), "actors property has been superseded.")
 
-  def test_actorNotSuperceded(self):
+  def test_actorNotSuperseded(self):
     p_actor = Unit.GetUnit("actor")
-    self.assertFalse(p_actor.superceded(), "actor property has not been superceded.")
+    self.assertFalse(p_actor.superseded(), "actor property has not been superseded.")
 
-  def test_offersNotSuperceded(self):
+  def test_offersNotSuperseded(self):
     p_offers = Unit.GetUnit("offers")
-    self.assertFalse(p_offers.superceded(), "offers property has not been superceded.")
+    self.assertFalse(p_offers.superseded(), "offers property has not been superseded.")
 
-  def test_actorNotSupercededByOffers(self):
-    p_actor = Unit.GetUnit("actor")
-    p_offers = Unit.GetUnit("offers")
-    self.assertFalse(p_actor == p_offers.supercedes(), "actor property doesn't supercede offers property.")
-
-  def test_offersNotSupercededByActor(self):
+  def test_actorNotSupersededByOffers(self):
     p_actor = Unit.GetUnit("actor")
     p_offers = Unit.GetUnit("offers")
-    self.assertFalse(p_offers == p_actor.supercedes(), "offers property doesn't supercede actors property.")
+    self.assertFalse(p_actor == p_offers.supersedes(), "actor property doesn't supersede offers property.")
+
+  def test_offersNotSupersededByActor(self):
+    p_actor = Unit.GetUnit("actor")
+    p_offers = Unit.GetUnit("offers")
+    self.assertFalse(p_offers == p_actor.supersedes(), "offers property doesn't supersede actors property.")
 
 # acceptedAnswer subPropertyOf suggestedAnswer .
 class SchemaPropertyMetadataTestCase(unittest.TestCase):
@@ -394,6 +415,8 @@ class AdvancedJSONLDTests(unittest.TestCase):
 # * different terms should not have identical comments
 # * if x and y are inverseOf each other, the rangeIncludes types on x should be domainIncludes on y, and vice-versa.
 # * need a few supporting functions e.g. all terms, all types, all properties, all enum values; candidates for api later but just use here first.
+# * make sure terms match their labels (e.g. priceRange), with or without whitespace?
+
 
 if __name__ == "__main__":
   unittest.main()
