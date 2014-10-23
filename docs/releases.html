@@ -161,7 +161,19 @@ This change also adds an enumeration <a href="/RsvpResponseType">RsvpResponseTyp
 alongside an <a href="/error">error</a> property linking an Action to more information on the cause of the failure.
 </li>
 <li id="roleName">Add <a href="/roleName">roleName</a> to <a href="/Role">Role</a>, superceding <a href="/namedPosition">namedPosition</a> (see also <a href="https://github.com/rvguha/schemaorg/issues/151">issue</a> and <a href="https://github.com/rvguha/schemaorg/pull/146/files">details</a>).</li>
-<li>Also: (to implement/document) Music vocabulary (TODO)</li>
+<li id="music">Add to <a href="/MusicAlbum">MusicAlbum</a> properties: <a href="/albumProductionType">albumProductionType</a>, 
+<a href="/albumReleaseType">albumReleaseType</a>, <a href="/albumRelease">albumRelease</a> (and inverse, <a href="/releaseOf">releaseOf</a>). 
+Supporting enumerated types: <a href="/MusicAlbumProductionType">MusicAlbumProductionType</a> (<a href="/CompilationAlbum">CompilationAlbum</a>, <a href="/DemoAlbum">DemoAlbum</a>, 
+<a href="/DJMixAlbum">DJMixAlbum</a>, <a href="/LiveAlbum">LiveAlbum</a>, <a href="/MixtapeAlbum">MixtapeAlbum</a>, <a href="/RemixAlbum">RemixAlbum</a>,
+<a href="/SoundtrackAlbum">SoundtrackAlbum</a>, <a href="/SpokenWordAlbum">SpokenWordAlbum</a>, <a href="/StudioAlbum">StudioAlbum</a>. 
+<a href="/MusicAlbumReleaseType">MusicAlbumReleaseType</a> (<a href="/AlbumRelease">AlbumRelease</a>, <a href="/BroadcastRelease">BroadcastRelease</a>, <a href="/EPRelease">EPRelease</a>,
+<a href="/SingleRelease">SingleRelease</a>).
+Add new types: <a href="/MusicRelease">MusicRelease</a>, <a href="/MusicComposition">MusicComposition</a>, the latter with properties <a href="/musicArrangement">musicArrangement</a>,
+<a href="/composer">composer</a>, <a href="/firstPerformance">firstPerformance</a>, <a href="/includedComposition">includedComposition</a>, <a href="/iswcCode">iswcCode</a>,
+<a href="/lyricist">lyricist</a>, <a href="/musicCompositionForm">musicCompositionForm</a>, <a href="/musicalKey">musicalKey</a>, <a href="/recordedAs">recordedAs</a> (inverse: <a href="/recordingOf">recordingOf</a>).
+Expand <a href="/track">track</a> to allow <a href="/ItemList">ItemList</a> values, for lists of <a href="/MusicRecording">MusicRecording</a>, and 
+<a href="/genre">genre</a> to apply to <a href="/MusicGroup">MusicGroup</a>.
+</li>
 </ul>
 </td>
 </tr>
