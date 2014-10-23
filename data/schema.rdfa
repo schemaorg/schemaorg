@@ -10220,8 +10220,17 @@ postponing for 1.6.
 
     <div typeof="rdf:Property" resource="http://schema.org/namedPosition">
       <span class="h" property="rdfs:label">namedPosition</span>
+      <span property="http://schema.org/supersededBy" href="http://schema.org/roleName"/>
       <span property="rdfs:comment">A position played, performed or filled by a person or organization, as part of an organization. For example, an athlete in a SportsTeam might play in the position named 'Quarterback'.</span>
-      <span>domainIncludes: <a property="http://schema.org/domainIncludes" href="http://schema.org/OrganizationRole">OrganizationRole</a></span>
+      <span>domainIncludes: <a property="http://schema.org/domainIncludes" href="http://schema.org/Role">Role</a></span>
+      <span>rangeIncludes: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+      <span>rangeIncludes: <a property="http://schema.org/rangeIncludes" href="http://schema.org/URL">URL</a></span>
+    </div>
+
+    <div typeof="rdf:Property" resource="http://schema.org/roleName">
+      <span class="h" property="rdfs:label">roleName</span>
+      <span property="rdfs:comment">A role played, performed or filled by a person or organization. For example, the team of creators for a comic book might fill the roles named 'inker', 'penciller', and 'letterer'; or an athlete in a SportsTeam might play in the position named 'Quarterback'.</span>
+      <span>domainIncludes: <a property="http://schema.org/domainIncludes" href="http://schema.org/Role">Role</a></span>
       <span>rangeIncludes: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
       <span>rangeIncludes: <a property="http://schema.org/rangeIncludes" href="http://schema.org/URL">URL</a></span>
     </div>
