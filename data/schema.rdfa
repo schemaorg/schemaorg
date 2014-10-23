@@ -4275,6 +4275,39 @@
        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/InformAction">InformAction</a></span>
     </div>
 
+    <div typeof="rdf:Property" resource="http://schema.org/additionalNumberOfGuests">
+      <span class="h" property="rdfs:label">additionalNumberOfGuests</span>
+      <span property="rdfs:comment">If responding yes, the number of guests who will attend in addition to the invitee.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/RsvpAction">RsvpAction</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number">Number</a></span>
+    </div>
+
+    <div typeof="rdf:Property" resource="http://schema.org/rsvpResponse">
+      <span class="h" property="rdfs:label">rsvpResponse</span>
+      <span property="rdfs:comment">The response (yes, no, maybe) to the RSVP.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/RsvpAction">RsvpAction</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/RsvpResponseType">RsvpResponseType</a></span>
+    </div>
+
+    <div typeof="rdfs:Class" resource="http://schema.org/RsvpResponseType">
+      <span class="h" property="rdfs:label">RsvpResponseType</span>
+      <span property="rdfs:comment">RsvpResponseType is an enumeration type whose instances represent responding to an RSVP request.</span>
+       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Enumeration">Enumeration</a></span>
+    </div>
+
+    <div typeof="http://schema.org/RsvpResponseType" resource="http://schema.org/RsvpResponseYes">
+      <span class="h" property="rdfs:label">RsvpResponseYes</span>
+      <span property="rdfs:comment">The invitee will attend.</span>
+    </div>
+    <div typeof="http://schema.org/RsvpResponseType" resource="http://schema.org/RsvpResponseNo">
+      <span class="h" property="rdfs:label">RsvpResponseNo</span>
+      <span property="rdfs:comment">The invitee will not attend.</span>
+    </div>
+    <div typeof="http://schema.org/RsvpResponseType" resource="http://schema.org/RsvpResponseMaybe">
+      <span class="h" property="rdfs:label">RsvpResponseMaybe</span>
+      <span property="rdfs:comment">The invitee may or may not attend.</span>
+    </div>
+
     <div typeof="rdfs:Class" resource="http://schema.org/ScheduleAction">
       <span class="h" property="rdfs:label">ScheduleAction</span>
       <span property="rdfs:comment">Scheduling future actions, events, or tasks.&lt;p&gt;Related actions:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;&lt;a href=&quot;http://schema.org/ReserveAction&quot;&gt;ReserveAction&lt;/a&gt;: Unlike ReserveAction, ScheduleAction allocates future actions (e.g. an event, a task, etc) towards a time slot / spatial allocation.&lt;/li&gt;&lt;/ul&gt;</span>
@@ -10003,6 +10036,18 @@ postponing for 1.6.
     <div typeof="http://schema.org/ActionStatusType" resource="http://schema.org/CompletedActionStatus">
       <span class="h" property="rdfs:label">CompletedActionStatus</span>
       <span property="rdfs:comment">An action that has already taken place.</span>
+    </div>
+
+    <div typeof="http://schema.org/ActionStatusType" resource="http://schema.org/FailedActionStatus">
+      <span class="h" property="rdfs:label">FailedActionStatus</span>
+      <span property="rdfs:comment">An action that failed to complete. The action's error property and the HTTP return code contain more information about the failure.</span>
+    </div>
+
+    <div typeof="rdf:Property" resource="http://schema.org/error">
+      <span class="h" property="rdfs:label">error</span>
+      <span property="rdfs:comment">For failed actions, more information on the cause of the failure.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Action">Action</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Thing">Thing</a></span>
     </div>
 
     <div typeof="rdf:Property" resource="http://schema.org/potentialAction">
