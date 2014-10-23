@@ -127,20 +127,54 @@ td.release  {
 </tr>
 
 
-<tr id="v1.92">
-<td class="release">1.92<br/>(2014-09-25)</td>
+
+<span id="sdo-venkman" />
+<tr id="v.next">
+<td class="release">sdo-venkman<br/>(2014-11-@@)</td>
 <td>ItemList improvements, Sport-related additions, weight/height on Person.</td>
 <td>
+<p>See also <a href="https://github.com/rvguha/schemaorg/milestones/sdo-venkman%20release">Github issues</a>: <a href="https://github.com/rvguha/schemaorg/milestones/sdo-venkman%20release">open</a>, 
+<a href="https://github.com/rvguha/schemaorg/issues?q=milestone%3A%22sdo-venkman+release%22+is%3Aclosed">closed</a>.</p>
 <ul>
-<li>Updated <a href="/ItemList">ItemList</a> to allow for richer kinds of lists (including ordering), rather than just strings.</li>
-<li>The <a href="/weight">weight</a> and <a href="/height">height</a> properties can now be with the <a href="/Person">Person</a> type.</li>
-<li>Added <a href="/SportsOrganization">SportsOrganization</a> as a super-type of <a href="SportsTeam">SportsTeam</a>,
+<li>Updated <a href="/ItemList">ItemList</a> to allow for richer kinds of lists (including ordering), rather than just strings; added <a href="/BreadcrumbList">BreadcrumbList</a></li>
+<li id="person_additions">The <a href="/weight">weight</a> and <a href="/height">height</a> properties can now be with the <a href="/Person">Person</a> type. Added <a href="/netWorth">netWorth</a> to Person. Added <a href="/EmployeeRole">EmployeeRole</a>.</li>
+<li>Added <a href="/SportsOrganization">SportsOrganization</a> as a super-type of <a href="/SportsTeam">SportsTeam</a>,
     representing <em>sports organizations, including sports teams, governing bodies, and sports associations</em>.
     Added a <a href="/sport">sport</a> property to indicate the associated sport(s) for a SportsOrganization; also
     added <a href="/coach">coach</a> and <a href="/athlete">athlete</a> properties.
     Added <a href="/numberedPosition">numberedPosition</a> property to <a href="/OrganizationRole">OrganizationRole</a>.
-    Added <a href="/homeTeam">homeTeam</a> and <a href="/awayTeam">awayTeam</a> properties to <a href="/SportsEvent">SportsEvent</a>.
+    Added <a href="/homeTeam">homeTeam</a> and <a href="/awayTeam">awayTeam</a> properties to <a href="/SportsEvent">SportsEvent</a>.</li>
+<li id="videogames">Added a <a href="/VideoGame">VideoGame</a> type, with <a href="/cheatCode">cheatCode</a>, <a href="/gamePlatform">gamePlatform</a>, <a href="/playMode">playMode</a> 
+ and <a href="/tip">tip</a> properties, plus a few supporting types. Further work is <a href="https://github.com/rvguha/schemaorg/issues/148">anticipated</a> to clarify best practice 
+ for describing series of games, although this is possible using <a href="/hasPart">hasPart</a>.
 </li>
+<li id="action_additions">
+Added <a href="/ControlAction">ControlAction</a> (previously proposed as OperateAction). Add <a href="/expectsAcceptanceOf">expectsAcceptanceOf</a>
+ on <a href="/ConsumeAction">ConsumeAction</a> (previously proposed as 'contingentOnOffer'). Added <a href="/ineligibleRegion">ineligibleRegion</a>
+ (on <a href="/Offer">Offer</a>, previously proposed as 'notAvailableAtOrFrom').
+</li>
+<li id="rsvp_and_fails">Add <a href="/rsvpResponse">rsvpResponse</a>, <a href="/additionalNumberOfGuests">additionalNumberOfGuests</a> properties 
+to the existing <a href="/RsvpAction">RsvpAction</a> type 
+(see also <a href="https://github.com/rvguha/schemaorg/issues/150">github issue</a> and <a href="https://github.com/danbri/schemaorg/pull/18/files">details</a>).
+This change also adds an enumeration <a href="/RsvpResponseType">RsvpResponseType</a>: <a href="/RsvpResponseYes">RsvpResponseYes</a>, <a href="/RsvpResponseNo">RsvpResponseNo</a>,
+<a href="/RsvpResponseMaybe">RsvpResponseMaybe</a>. Finally, we add a new possible <a href="/ActionStatusType">ActionStatusType</a>: <a href="/FailedActionStatus">FailedActionStatus</a>,
+alongside an <a href="/error">error</a> property linking an Action to more information on the cause of the failure.
+</li>
+<li id="roleName">Add <a href="/roleName">roleName</a> to <a href="/Role">Role</a>, superceding <a href="/namedPosition">namedPosition</a> (see also <a href="https://github.com/rvguha/schemaorg/issues/151">issue</a> and <a href="https://github.com/rvguha/schemaorg/pull/146/files">details</a>).</li>
+<li id="music">Add to <a href="/MusicAlbum">MusicAlbum</a> properties: <a href="/albumProductionType">albumProductionType</a>, 
+<a href="/albumReleaseType">albumReleaseType</a>, <a href="/albumRelease">albumRelease</a> (and inverse, <a href="/releaseOf">releaseOf</a>). 
+Supporting enumerated types: <a href="/MusicAlbumProductionType">MusicAlbumProductionType</a> (<a href="/CompilationAlbum">CompilationAlbum</a>, <a href="/DemoAlbum">DemoAlbum</a>, 
+<a href="/DJMixAlbum">DJMixAlbum</a>, <a href="/LiveAlbum">LiveAlbum</a>, <a href="/MixtapeAlbum">MixtapeAlbum</a>, <a href="/RemixAlbum">RemixAlbum</a>,
+<a href="/SoundtrackAlbum">SoundtrackAlbum</a>, <a href="/SpokenWordAlbum">SpokenWordAlbum</a>, <a href="/StudioAlbum">StudioAlbum</a>. 
+<a href="/MusicAlbumReleaseType">MusicAlbumReleaseType</a> (<a href="/AlbumRelease">AlbumRelease</a>, <a href="/BroadcastRelease">BroadcastRelease</a>, <a href="/EPRelease">EPRelease</a>,
+<a href="/SingleRelease">SingleRelease</a>).
+Add new types: <a href="/MusicRelease">MusicRelease</a>, <a href="/MusicComposition">MusicComposition</a>, the latter with properties <a href="/musicArrangement">musicArrangement</a>,
+<a href="/composer">composer</a>, <a href="/firstPerformance">firstPerformance</a>, <a href="/includedComposition">includedComposition</a>, <a href="/iswcCode">iswcCode</a>,
+<a href="/lyricist">lyricist</a>, <a href="/musicCompositionForm">musicCompositionForm</a>, <a href="/musicalKey">musicalKey</a>, <a href="/recordedAs">recordedAs</a> (inverse: <a href="/recordingOf">recordingOf</a>).
+Expand <a href="/track">track</a> to allow <a href="/ItemList">ItemList</a> values, for lists of <a href="/MusicRecording">MusicRecording</a>, and 
+<a href="/genre">genre</a> to apply to <a href="/MusicGroup">MusicGroup</a>. See also <a href="https://github.com/vholland/schemaorg/compare/danbri:sdo-venkman...sdo-music">details</a>.
+</li>
+<li id="logo-generalized">Broadened the description of <a href="/logo">logo</a> property, to match the types it applies to. See also <a href="https://github.com/rvguha/schemaorg/issues/144">github issue</a> and <a href="https://github.com/danbri/schemaorg/commit/0e56869bb122252a41fce31e903c9608f0621a7d">details</a>.</li>
 </ul>
 </td>
 </tr>

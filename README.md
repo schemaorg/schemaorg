@@ -43,6 +43,25 @@ using separate files. When vocabulary is finally integrated into the main reposi
 data will be merged into schema.org. However examples will stay in separate files, as this
 works better with git's file comparison machinery.
 
+
+Github Branch naming
+====================
+
+Since discussion of http://schema.org/Role frequently referred to Ghostbusters, 
+and we want to name Github branches for upcoming releases without pre-deciding 
+their final official schema.org version number, we'll start at 
+http://en.wikipedia.org/wiki/Ghostbusters#Cast and take it from there. 
+
+i.e. sdo-venkman, sdo-stantz, sdo-barrett, sdo-spengler, sdo-zeddemore, 
+sdo-tully, sdo-melnitz, sdo-peck, sdo-lenny, sdo-gozer.
+
+We'll name these 'sdo-venkman', 'sdo-stantz' etc. as this naming pattern is used for 
+our test builds on Appspot.
+
+See http://schema.org/docs/releases.html for published release history.
+
+The successor to http://schema.org/docs/releases.html#v1.91 is code-named sdo-venkman.
+
 Notes
 =====
 

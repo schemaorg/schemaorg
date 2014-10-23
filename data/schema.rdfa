@@ -6220,7 +6220,7 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/familyName">
       <span class="h" property="rdfs:label">familyName</span>
-      <span property="rdfs:comment">Family name. In the U.S., the last name of an Person. This can be used along with givenName instead of the Name property.</span>
+      <span property="rdfs:comment">Family name. In the U.S., the last name of an Person. This can be used along with givenName instead of the name property.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Person">Person</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
     </div>
@@ -6372,7 +6372,7 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/genre">
       <span class="h" property="rdfs:label">genre</span>
-      <span property="rdfs:comment">Genre of the creative work</span>
+      <span property="rdfs:comment">Genre of the creative work or group.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CreativeWork">CreativeWork</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
     </div>
@@ -6391,7 +6391,7 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/givenName">
       <span class="h" property="rdfs:label">givenName</span>
-      <span property="rdfs:comment">Given name. In the U.S., the first name of a Person. This can be used along with familyName instead of the Name property.</span>
+      <span property="rdfs:comment">Given name. In the U.S., the first name of a Person. This can be used along with familyName instead of the name property.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Person">Person</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
     </div>
@@ -6980,7 +6980,7 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/logo">
       <span class="h" property="rdfs:label">logo</span>
-      <span property="rdfs:comment">A logo associated with an organization.</span>
+      <span property="rdfs:comment">An associated logo.</span>
       <link property="rdfs:subPropertyOf" href="http://schema.org/image" />
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Organization">Organization</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Place">Place</a></span>
@@ -7849,16 +7849,10 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/producer">
       <span class="h" property="rdfs:label">producer</span>
-      <span property="rdfs:comment">The producer of the movie, tv/radio series, season, or episode, or video.</span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Movie">Movie</a></span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Episode">Episode</a></span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/TVEpisode">TVEpisode</a></span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Season">Season</a></span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Series">Series</a></span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/TVSeries">TVSeries</a></span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/RadioEpisode">RadioEpisode</a></span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/RadioSeries">RadioSeries</a></span>
+      <span property="rdfs:comment">The person or organization who produced the work (e.g. music album, movie, tv/radio series etc.).</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CreativeWork">CreativeWork</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Person">Person</a></span>
+      <span>Range: <a property="http://schema.org/domainIncludes" href="http://schema.org/Organization">Organization</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/produces">
       <span class="h" property="rdfs:label">produces</span>
@@ -8081,6 +8075,20 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
       <span property="rdfs:comment">Recommended intake of this supplement for a given population as defined by a specific recommending authority.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/DietarySupplement">DietarySupplement</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/RecommendedDoseSchedule">RecommendedDoseSchedule</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/recordedAt">
+      <span class="h" property="rdfs:label">recordedAt</span>
+      <span property="rdfs:comment">The Event where the CreativeWork was recorded. The CreativeWork may capture all or part of the event.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CreativeWork">CreativeWork</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Event">Event</a></span>
+      <link property="http://schema.org/inverseOf" href="http://schema.org/recordedAt"/>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/recordedIn">
+      <span class="h" property="rdfs:label">recordedIn</span>
+      <span property="rdfs:comment">The CreativeWork that captured all or part of this Event.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Event">Event</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/CreativeWork">CreativeWork</a></span>
+      <link property="http://schema.org/inverseOf" href="http://schema.org/recordedIn"/>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/regionDrained">
       <span class="h" property="rdfs:label">regionDrained</span>
@@ -8950,13 +8958,6 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
       <span property="rdfs:comment">The total time it takes to prepare and cook the recipe, in &lt;a href=&#39;http://en.wikipedia.org/wiki/ISO_8601&#39;&gt;ISO 8601 duration format&lt;/a&gt;.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Recipe">Recipe</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Duration">Duration</a></span>
-    </div>
-    <div typeof="rdf:Property" resource="http://schema.org/track">
-      <span class="h" property="rdfs:label">track</span>
-      <span property="rdfs:comment">A music recording (track)&amp;#x2014;usually a single song.</span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MusicPlaylist">MusicPlaylist</a></span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MusicGroup">MusicGroup</a></span>
-      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/MusicRecording">MusicRecording</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/trackingNumber">
       <span class="h" property="rdfs:label">trackingNumber</span>
@@ -10220,8 +10221,17 @@ postponing for 1.6.
 
     <div typeof="rdf:Property" resource="http://schema.org/namedPosition">
       <span class="h" property="rdfs:label">namedPosition</span>
+      <span property="http://schema.org/supersededBy" href="http://schema.org/roleName"/>
       <span property="rdfs:comment">A position played, performed or filled by a person or organization, as part of an organization. For example, an athlete in a SportsTeam might play in the position named 'Quarterback'.</span>
-      <span>domainIncludes: <a property="http://schema.org/domainIncludes" href="http://schema.org/OrganizationRole">OrganizationRole</a></span>
+      <span>domainIncludes: <a property="http://schema.org/domainIncludes" href="http://schema.org/Role">Role</a></span>
+      <span>rangeIncludes: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+      <span>rangeIncludes: <a property="http://schema.org/rangeIncludes" href="http://schema.org/URL">URL</a></span>
+    </div>
+
+    <div typeof="rdf:Property" resource="http://schema.org/roleName">
+      <span class="h" property="rdfs:label">roleName</span>
+      <span property="rdfs:comment">A role played, performed or filled by a person or organization. For example, the team of creators for a comic book might fill the roles named 'inker', 'penciller', and 'letterer'; or an athlete in a SportsTeam might play in the position named 'Quarterback'.</span>
+      <span>domainIncludes: <a property="http://schema.org/domainIncludes" href="http://schema.org/Role">Role</a></span>
       <span>rangeIncludes: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
       <span>rangeIncludes: <a property="http://schema.org/rangeIncludes" href="http://schema.org/URL">URL</a></span>
     </div>
