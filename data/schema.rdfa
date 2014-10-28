@@ -5227,6 +5227,7 @@
       <span class="h" property="rdfs:label">category</span>
       <span property="rdfs:comment">A category for the item. Greater signs or slashes can be used to informally indicate a category hierarchy.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Offer">Offer</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Invoice">Invoice</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/PhysicalActivity">PhysicalActivity</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/PhysicalActivityCategory">PhysicalActivityCategory</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
@@ -5379,8 +5380,9 @@
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/confirmationNumber">
       <span class="h" property="rdfs:label">confirmationNumber</span>
-      <span property="rdfs:comment">A number that confirms the given order.</span>
+      <span property="rdfs:comment">A number that confirms the given order or payment has been received.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Order">Order</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Invoice">Invoice</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/connectedTo">
@@ -5557,8 +5559,9 @@
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/customer">
       <span class="h" property="rdfs:label">customer</span>
-      <span property="rdfs:comment">Party placing the order.</span>
+      <span property="rdfs:comment">Party placing the order or paying the invoice.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Order">Order</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Invoice">Invoice</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Organization">Organization</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Person">Person</a></span>
     </div>
@@ -7540,6 +7543,7 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
       <span class="h" property="rdfs:label">paymentDue</span>
       <span property="rdfs:comment">The date that payment is due.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Order">Order</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Invoice">Invoice</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/DateTime">DateTime</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/paymentMethod">
@@ -9488,6 +9492,7 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
       <span property="rdfs:comment">The service provider, service operator, or service performer; the goods producer. Another party (a seller) may offer those services or goods on behalf of the provider. A provider may also serve as the seller.</span>
       <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CreativeWork">CreativeWork</a></span>
       <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Service">Service</a></span>
+      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Invoice">Invoice</a></span>
       <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Reservation">Reservation</a></span>
       <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Flight">Flight</a></span>
       <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ParcelDelivery">ParcelDelivery</a></span>
@@ -10441,6 +10446,7 @@ postponing for 1.6.
       <span property="rdfs:comment">An entity that arranges for an exchange between a buyer and a seller.  In most cases a broker never acquires or releases ownership of a product or service involved in an exchange.  If it is not clear whether an entity is a broker, seller, or buyer, the latter two terms are preferred.</span>
       <span>domainIncludes: <a property="http://schema.org/domainIncludes" href="http://schema.org/Reservation">Reservation</a></span>
       <span>domainIncludes: <a property="http://schema.org/domainIncludes" href="http://schema.org/Order">Order</a></span>
+      <span>domainIncludes: <a property="http://schema.org/domainIncludes" href="http://schema.org/Invoice">Invoice</a></span>
       <span>rangeIncludes: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Person">Person</a></span>
       <span>rangeIncludes: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Organization">Organization</a></span>
     </div>
@@ -10449,7 +10455,7 @@ postponing for 1.6.
 
     <div typeof="rdf:Property" resource="http://schema.org/itemListElement">
       <span class="h" property="rdfs:label">itemListElement</span>
-      <span property="rdfs:comment">For itemListElement values, you can use simple strings (e.g. "Peter", "Paul, "Mary"), existing entities, or use ListItem.
+      <span property="rdfs:comment">For itemListElement values, you can use simple strings (e.g. "Peter", "Paul", "Mary"), existing entities, or use ListItem.
     &lt;br/&gt;&lt;br/&gt;
     Text values are best if the elements in the list are plain strings. Existing entities are best for a simple, unordered list of existing things in your data. ListItem is used with ordered lists when you want to provide additional context about the element in that list or when the same item might be in different places in different lists.
     &lt;br/&gt;&lt;br/&gt;
@@ -10506,6 +10512,56 @@ postponing for 1.6.
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
      </div>
     -->
+
+    <h1>Bills</h1>
+    <div typeof="rdfs:Class" resource="http://schema.org/Invoice">
+      <span class="h" property="rdfs:label">Invoice</span>
+      <span property="rdfs:comment">A statement of the money due for goods or services; a bill.</span>
+      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Intangible">Intangible</a></span>
+    </div>
+
+    <div typeof="rdf:Property" resource="http://schema.org/totalPaymentDue">
+      <span class="h" property="rdfs:label">totalPaymentDue</span>
+      <span property="rdfs:comment">The total amount due.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Invoice">Invoice</a></span>
+      <span>Domain: <a property="http://schema.org/rangeIncludes" href="http://schema.org/PriceSpecification">PriceSpecification</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/minimumPaymentDue">
+      <span class="h" property="rdfs:label">minimumPaymentDue</span>
+      <span property="rdfs:comment">The minimum payment required at this time.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Invoice">Invoice</a></span>
+      <span>Domain: <a property="http://schema.org/rangeIncludes" href="http://schema.org/PriceSpecification">PriceSpecification</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/accountId">
+      <span class="h" property="rdfs:label">accountId</span>
+      <span property="rdfs:comment">The identifier for the account the payment will be applied to.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Invoice">Invoice</a></span>
+      <span>Domain: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/payFromAccountId">
+      <span class="h" property="rdfs:label">payFromAccountId</span>
+      <span property="rdfs:comment">The identifier for the account payment will be taken from.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Invoice">Invoice</a></span>
+      <span>Domain: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/scheduledPaymentDate">
+      <span class="h" property="rdfs:label">scheduledPaymentDate</span>
+      <span property="rdfs:comment">The date the invoice is scheduled to be paid.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Invoice">Invoice</a></span>
+      <span>Domain: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Date">Date</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/billingPeriod">
+      <span class="h" property="rdfs:label">billingPeriod</span>
+      <span property="rdfs:comment">The time interval used to compute the invoice.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Invoice">Invoice</a></span>
+      <span>Domain: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Duration">Duration</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/paymentStatus">
+      <span class="h" property="rdfs:label">paymentStatus</span>
+      <span property="rdfs:comment">The status of payment; whether the invoice has been paid or not.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Invoice">Invoice</a></span>
+      <span>Domain: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+    </div>
 
   </body>
 </html>
