@@ -1,0 +1,64 @@
+﻿<div>
+  <h1>Dated Money Specification</h1>
+  <p>Addition of DatedMoneySpecification as of 2014-11-14.</p>
+  <p>Tweaks: calling it DatedMoneySpecification rather than DatedMoneyValue
+  for symmetry with PriceSpecification and subtypes. Removed comments on startDate/endDate as definitions are global and these exist.</p>
+
+  <!-- SUBCLASSING OF 'DatedMoneySpecification' under 'StructuredValue-->
+  <div typeof="rdfs:Class" resource="http://schema.org/DatedMoneySpecification">
+    <span>
+      Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/StructuredValue">StructuredValue</a>
+    </span>
+  </div>
+
+  <!-- Money Value and associated properties -->
+  <div typeof="rdfs:Class" resource="http://schema.org/DatedMoneySpecification">
+    <span class="h" property="rdfs:label">DatedMoneySpecification</span>
+    <span property="rdfs:comment">A DatedMoneySpecification represents monetary values with optional start and end dates. For example, this could represent an employee's salary over a specific period of time.</span>
+    <span>
+      Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/StructuredValue">StructuredValue</a>
+    </span>
+  </div>
+  <div typeof="rdf:Property" resource="http://schema.org/amount">
+    <span class="h" property="rdfs:label">amount</span>
+    <span property="rdfs:comment">The amount of money.</span>
+    <span>
+      domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/DatedMoneySpecification">DatedMoneySpecification</a>
+    </span>
+    <span>
+      Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number">Number</a>
+    </span>
+  </div>
+  <div typeof="rdf:Property" resource="http://schema.org/currency">
+    <span class="h" property="rdfs:label">currency</span>
+    <span property="rdfs:comment">The currency in which the monetary amount is expressed (in 3-letter ISO 4217 format).</span>
+    <span>
+      domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/DatedMoneySpecification">DatedMoneySpecification</a>
+    </span>
+    <span>
+      Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a>
+    </span>
+  </div>
+  <div typeof="rdf:Property" resource="http://schema.org/startDate">
+    <!--
+    <span property="rdfs:comment">The start date and time for which the monetary value applies (in ISO 8601 date format). For example, the date on which an employee's salary became effective.</span>
+    -->
+    <span>
+      domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/DatedMoneySpecification">DatedMoneySpecification</a>
+    </span>
+    <span>
+      Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Date">Date</a>
+    </span>
+  </div>
+  <div typeof="rdf:Property" resource="http://schema.org/endDate">
+    <!--
+    <span property="rdfs:comment">The end date and time for which the monetary value applies (in ISO 8601 date format). For example, the date on which an employee's salary changed to a different value.</span>
+    -->
+    <span>
+      domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/DatedMoneySpecification">DatedMoneySpecification</a>
+    </span>
+    <span>
+      Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Date">Date</a>
+    </span>
+  </div>
+</div>
