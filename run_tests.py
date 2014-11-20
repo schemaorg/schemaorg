@@ -3,6 +3,7 @@
 import optparse
 import sys
 from os import path
+from os.path import expanduser
 import unittest
 
 # Simple stand-alone test runner
@@ -23,7 +24,4 @@ def main(sdk_path, test_path):
 
 if __name__ == '__main__':
 
-    from os.path import expanduser
-    SDK_PATH = expanduser("~") + '/google-cloud-sdk/platform/google_appengine/'
-    TEST_PATH = './tests/'
-    main(SDK_PATH, TEST_PATH)
+    main(expanduser("~") + '/google-cloud-sdk/platform/google_appengine/', './tests/')
