@@ -96,7 +96,7 @@ class SDOGraphSetupTestCase(unittest.TestCase):
 
   @unittest.expectedFailure
   def test_needlessRangeIncludes(self):
-    # as above, but for range.
+    # as above, but for range. We excuse URL as it is special, not best seen as a Text subtype.
     # check immediate subtypes don't declare same domainIncludes
     # TODO: could we use property paths here to be more thorough?
     nri1= ("SELECT ?prop ?c1 ?c2 "
@@ -105,7 +105,9 @@ class SDOGraphSetupTestCase(unittest.TestCase):
              "?prop <http://schema.org/rangeIncludes> ?c2 ."
              "?c1 rdfs:subClassOf ?c2 ."
              "FILTER (?c1 != ?c2) ."
-             "}" )
+             "FILTER (?c1 != <http://schema.org/URL>) ." 
+             "}"
+             "ORDER BY ?prop ")
     nri1_results = self.rdflib_data.query(nri1)
     if (len(nri1_results)>0):
       for row in nri1_results:
