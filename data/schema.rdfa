@@ -2943,7 +2943,7 @@
 
     <div typeof="rdfs:Class" resource="http://schema.org/Episode">
       <span class="h" property="rdfs:label">Episode</span>
-      <span property="rdfs:comment">A TV or radio episode which can be part of a series or season.</span>
+      <span property="rdfs:comment">A media episode (e.g. TV, radio, video game) which can be part of a series or season.</span>
        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/CreativeWork">CreativeWork</a></span>
     </div>
 
@@ -2955,7 +2955,7 @@
 
     <div typeof="rdfs:Class" resource="http://schema.org/Season">
       <span class="h" property="rdfs:label">Season</span>
-      <span property="rdfs:comment">A TV or radio season.</span>
+      <span property="rdfs:comment">A media season e.g. tv, radio, video game etc.</span>
        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/CreativeWork">CreativeWork</a></span>
     </div>
 
@@ -2968,7 +2968,30 @@
 
     <div typeof="rdfs:Class" resource="http://schema.org/Series">
       <span class="h" property="rdfs:label">Series</span>
-      <span property="rdfs:comment">A TV or radio series.</span>
+      <span property="rdfs:comment">
+          A Series in schema.org is a group of related items, typically but not necessarily of the same kind.
+          Series are usually organized into some order, often chronological. Unlike &lt;a href="/ItemList"&gt;ItemList&lt;/a&gt; which
+          is a general purpose data structure for lists of things, the emphasis with Series
+          is on published materials (written e.g. books and periodicals, or media such as
+          tv, radio and games).
+
+          &lt;br/&gt;&lt;br/&gt;
+
+          Specific subtypes are available for describing &lt;a href="/TVSeries"&gt;TVSeries&lt;/a&gt;, &lt;a href="/RadioSeries"&gt;RadioSeries&lt;/a&gt;,
+          &lt;a href="/MovieSeries"&gt;MovieSeries&lt;/a&gt;,
+          &lt;a href="/BookSeries"&gt;BookSeries&lt;/a&gt;,
+          &lt;a href="/Periodical"&gt;Periodical&lt;/a&gt;
+          and &lt;a href="/VideoGameSeries"&gt;VideoGameSeries&lt;/a&gt;. In each case,
+          the &lt;a href="/hasPart"&gt;hasPart&lt;/a&gt; / &lt;a href="/isPartOf"&gt;isPartOf&lt;/a&gt; properties
+          can be used to relate the Series to its parts. The general Series type serves largely
+          just to organize these more specific and practical subtypes.
+
+          &lt;br/&gt;&lt;br/&gt;
+
+          It is common for properties applicable to an item from the series to be usefully applied to the containing group.
+          Schema.org attempts to anticipate some of these cases, but publishers should be free to apply
+          properties of the series parts to the series as a whole wherever they seem appropriate.
+          </span>
        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/CreativeWork">CreativeWork</a></span>
     </div>
 
@@ -2976,6 +2999,12 @@
       <span class="h" property="rdfs:label">TVSeries</span>
       <span property="rdfs:comment">Series dedicated to TV broadcast and associated online delivery.</span>
        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/CreativeWork">CreativeWork</a></span>
+       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Series">Series</a></span>
+    </div>
+
+    <div typeof="rdfs:Class" resource="http://schema.org/VideoGameSeries">
+      <span class="h" property="rdfs:label">VideoGameSeries</span>
+      <span property="rdfs:comment">A &lt;a href="/VideoGame"&gt;video game&lt;/a&gt; series.</span>
        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Series">Series</a></span>
     </div>
 
@@ -4537,27 +4566,31 @@
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/actor">
       <span class="h" property="rdfs:label">actor</span>
-      <span property="rdfs:comment">A cast member of the movie, tv/radio series, season, episode, or video.</span>
+      <span property="rdfs:comment">An actor, e.g. in tv, radio, movie, video games etc. Actors can be associated with individual items or with a series, episode, clip.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Movie">Movie</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/VideoObject">VideoObject</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/VideoGame">VideoGame</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Episode">Episode</a></span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/TVEpisode">TVEpisode</a></span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Series">Series</a></span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/TVSeries">TVSeries</a></span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/RadioEpisode">RadioEpisode</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/RadioSeries">RadioSeries</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MovieSeries">MovieSeries</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/VideoGameSeries">VideoGameSeries</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/TVSeries">TVSeries</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Clip">Clip</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Person">Person</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/actors">
       <span class="h" property="rdfs:label">actors</span>
       <span property="http://schema.org/supersededBy" href="http://schema.org/actor"/>
-      <span property="rdfs:comment">A cast member of the movie, tv/radio series, season, episode, or video.</span>
+      <span property="rdfs:comment">An actor, e.g. in tv, radio, movie, video games etc. Actors can be associated with individual items or with a series, episode, clip.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Movie">Movie</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/VideoObject">VideoObject</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/VideoGame">VideoGame</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Episode">Episode</a></span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/TVEpisode">TVEpisode</a></span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Series">Series</a></span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/TVSeries">TVSeries</a></span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/RadioEpisode">RadioEpisode</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/RadioSeries">RadioSeries</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MovieSeries">MovieSeries</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/VideoGameSeries">VideoGameSeries</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/TVSeries">TVSeries</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Clip">Clip</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Person">Person</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/additionalName">
@@ -4694,7 +4727,6 @@
       <span class="h" property="rdfs:label">alternateName</span>
       <span property="rdfs:comment">An alias for the item.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Thing">Thing</a></span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MedicalEntity">MedicalEntity</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/alternativeHeadline">
@@ -5113,7 +5145,6 @@
       <span property="rdfs:comment">The branches that delineate from the nerve bundle.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Nerve">Nerve</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/AnatomicalStructure">AnatomicalStructure</a></span>
-      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Nerve">Nerve</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/branchOf">
       <span class="h" property="rdfs:label">branchOf</span>
@@ -5703,27 +5734,36 @@
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/director">
       <span class="h" property="rdfs:label">director</span>
-      <span property="rdfs:comment">The director of the movie, tv/radio episode or series.</span>
+      <span property="rdfs:comment">A director of e.g. tv, radio, movie, video games etc. content. Directors can be associated with individual items or with a series, episode, clip.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Movie">Movie</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/VideoObject">VideoObject</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/VideoGame">VideoGame</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Episode">Episode</a></span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/TVEpisode">TVEpisode</a></span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Series">Series</a></span>
+
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/VideoGameSeries">VideoGameSeries</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/TVSeries">TVSeries</a></span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/RadioEpisode">RadioEpisode</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/RadioSeries">RadioSeries</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MovieSeries">Series</a></span>
+
+
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Clip">Clip</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Person">Person</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/directors">
       <span class="h" property="rdfs:label">directors</span>
       <span property="http://schema.org/supersededBy" href="http://schema.org/director"/>
-      <span property="rdfs:comment">The director of the movie, tv/radio episode or series.</span>
+      <span property="rdfs:comment">A director of e.g. tv, radio, movie, video games etc. content. Directors can be associated with individual items or with a series, episode, clip.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Movie">Movie</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/VideoObject">VideoObject</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/VideoGame">VideoGame</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Episode">Episode</a></span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/TVEpisode">TVEpisode</a></span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Series">Series</a></span>
+
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/VideoGameSeries">VideoGameSeries</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/TVSeries">TVSeries</a></span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/RadioEpisode">RadioEpisode</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/RadioSeries">RadioSeries</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MovieSeries">MovieSeries</a></span>
+
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Clip">Clip</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Person">Person</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/discount">
@@ -6037,9 +6077,7 @@
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Role">Role</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Event">Event</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Season">Season</a></span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/TVSeason">TVSeason</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Series">Series</a></span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/TVSeries">TVSeries</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Date">Date</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/endorsee">
@@ -6083,13 +6121,11 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/episode">
       <span class="h" property="rdfs:label">episode</span>
-      <span property="rdfs:comment">An episode of a TV/radio series or season</span>
+      <span property="rdfs:comment">An episode of a tv, radio or game media within a series or season.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Season">Season</a></span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/TVSeason">TVSeason</a></span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Series">Series</a></span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/TVSeries">TVSeries</a></span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/RadioSeason">RadioSeason</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/RadioSeries">RadioSeries</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/VideoGameSeries">VideoGameSeries</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/TVSeries">TVSeries</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Episode">Episode</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/episodeNumber">
@@ -6105,11 +6141,9 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
       <span property="http://schema.org/supersededBy" href="http://schema.org/episode"/>
       <span property="rdfs:comment">An episode of a TV/radio series or season.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Season">Season</a></span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/TVSeason">TVSeason</a></span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Series">Series</a></span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/TVSeries">TVSeries</a></span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/RadioSeason">RadioSeason</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/RadioSeries">RadioSeries</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/VideoGameSeries">VideoGameSeries</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/TVSeries">TVSeries</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Episode">Episode</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/equal">
@@ -6558,6 +6592,7 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
       <span class="h" property="rdfs:label">illustrator</span>
       <span property="rdfs:comment">The illustrator of the book.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Book">Book</a></span>
+      <!--      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/BookSeries">BookSeries</a></span> -->
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Person">Person</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/image">
@@ -6683,7 +6718,6 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CreativeWork">CreativeWork</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Organization">Organization</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Place">Place</a></span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MediaObject">MediaObject</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Person">Person</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
     </div>
@@ -7180,10 +7214,7 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
       <span property="rdfs:comment">The composer of the movie or TV/radio soundtrack.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Movie">Movie</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Episode">Episode</a></span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/TVEpisode">TVEpisode</a></span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Series">Series</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/TVSeries">TVSeries</a></span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/RadioEpisode">RadioEpisode</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/RadioSeries">RadioSeries</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/MusicGroup">MusicGroup</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Person">Person</a></span>
@@ -7267,10 +7298,8 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
       <span class="h" property="rdfs:label">numberOfEpisodes</span>
       <span property="rdfs:comment">The number of episodes in this season or series.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Season">Season</a></span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/TVSeason">TVSeason</a></span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Series">Series</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/TVSeries">TVSeries</a></span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/RadioSeason">RadioSeason</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/VideoGameSeries">VideoGameSeries</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/RadioSeries">RadioSeries</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number">Number</a></span>
     </div>
@@ -7283,7 +7312,9 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
     <div typeof="rdf:Property" resource="http://schema.org/numberOfSeasons">
       <span class="h" property="rdfs:label">numberOfSeasons</span>
       <span property="rdfs:comment">The number of seasons in this series.</span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Series">Series</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/TVSeries">TVSeries</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/RadioSeries">RadioSeries</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/VideoGameSeries">VideoGameSeries</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number">Number</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/numTracks">
@@ -7320,7 +7351,6 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
       <span class="h" property="rdfs:label">offers</span>
       <span property="rdfs:comment">An offer to provide this item&amp;#x2014;for example, an offer to sell a product, rent the DVD of a movie, or give away tickets to an event.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CreativeWork">CreativeWork</a></span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MediaObject">MediaObject</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Event">Event</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Product">Product</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Offer">Offer</a></span>
@@ -7487,25 +7517,15 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
       <span class="h" property="rdfs:label">partOfSeason</span>
       <span property="rdfs:comment">The season to which this episode belongs.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Episode">Episode</a></span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/TVEpisode">TVEpisode</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Clip">Clip</a></span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/RadioClip">RadioClip</a></span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/RadioEpisode">RadioEpisode</a></span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/TVClip">TVClip</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Season">Season</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/partOfSeries">
       <span class="h" property="rdfs:label">partOfSeries</span>
       <span property="rdfs:comment">The series to which this episode or season belongs.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Episode">Episode</a></span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/TVEpisode">TVEpisode</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Season">Season</a></span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/TVSeason">TVSeason</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Clip">Clip</a></span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/RadioClip">RadioClip</a></span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/RadioEpisode">RadioEpisode</a></span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/RadioSeason">RadioSeason</a></span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/TVClip">TVClip</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Series">Series</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/partOfSystem">
@@ -7868,17 +7888,17 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/productionCompany">
       <span class="h" property="rdfs:label">productionCompany</span>
-      <span property="rdfs:comment">The production company or studio that made the movie, tv/radio series, season, or episode, or media object.</span>
+      <span property="rdfs:comment">The production company or studio responsible for the item e.g. series, video game, episode etc.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MediaObject">MediaObject</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Movie">Movie</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Episode">Episode</a></span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/TVEpisode">TVEpisode</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Season">Season</a></span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Series">Series</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/TVSeries">TVSeries</a></span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/VideoObject">VideoObject</a></span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/RadioEpisode">RadioEpisode</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/RadioSeries">RadioSeries</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MovieSeries">MovieSeries</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/VideoGameSeries">VideoGameSeries</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/RadioSeries">RadioSeries</a></span>
+
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Organization">Organization</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/productSupported">
@@ -8363,7 +8383,6 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
       <span class="h" property="rdfs:label">scheduledTime</span>
       <span property="rdfs:comment">The time the object is scheduled to.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/PlanAction">PlanAction</a></span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ReserveAction">ReserveAction</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/DateTime">DateTime</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/screenshot">
@@ -8375,8 +8394,8 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/season">
       <span class="h" property="rdfs:label">season</span>
-      <span property="rdfs:comment">A season in a tv/radio series.</span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Series">Series</a></span>
+      <span property="rdfs:comment">A season in a media series.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/VideoGameSeries">VideoGameSeries</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/TVSeries">TVSeries</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/RadioSeries">RadioSeries</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Season">Season</a></span>
@@ -8386,15 +8405,14 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
       <span property="rdfs:comment">Position of the season within an ordered group of seasons.</span>
       <link property="rdfs:subPropertyOf" href="http://schema.org/position" />
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Season">Season</a></span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/TVSeason">TVSeason</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Integer">Integer</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/seasons">
       <span class="h" property="rdfs:label">seasons</span>
       <span property="http://schema.org/supersededBy" href="http://schema.org/season"/>
-      <span property="rdfs:comment">A season in a tv/radio series.</span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Series">Series</a></span>
+      <span property="rdfs:comment">A season in a media series.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/VideoGameSeries">VideoGameSeries</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/TVSeries">TVSeries</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/RadioSeries">RadioSeries</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Season">Season</a></span>
@@ -8679,9 +8697,7 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Role">Role</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Event">Event</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Season">Season</a></span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/TVSeason">TVSeason</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Series">Series</a></span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/TVSeries">TVSeries</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Date">Date</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/startTime">
@@ -8981,17 +8997,15 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/trailer">
       <span class="h" property="rdfs:label">trailer</span>
-      <span property="rdfs:comment">The trailer of a movie or tv/radio series, season, or episode.</span>
+      <span property="rdfs:comment">The trailer of a movie or tv/radio series, season, episode, etc.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Movie">Movie</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Episode">Episode</a></span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/TVEpisode">TVEpisode</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Season">Season</a></span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/TVSeason">TVSeason</a></span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Series">Series</a></span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/TVSeries">TVSeries</a></span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/RadioEpisode">RadioEpisode</a></span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/RadioSeason">RadioSeason</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/VideoGame">VideoGame</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/VideoGameSeries">VideoGameSeries</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MovieGameSeries">MovieGameSeries</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/RadioSeries">RadioSeries</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/TVSeries">TVSeries</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/VideoObject">VideoObject</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/transcript">
@@ -10257,7 +10271,8 @@ postponing for 1.6.
     <div typeof="rdfs:Class" resource="http://schema.org/Periodical">
       <span class="h" property="rdfs:label">Periodical</span>
       <span property="rdfs:comment">A publication in any medium issued in successive parts bearing numerical or chronological designations and intended, such as a magazine, scholarly journal, or newspaper to continue indefinitely.</span>
-      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/CreativeWork">CreativeWork</a></span>
+      <!--      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/CreativeWork">CreativeWork</a></span> -->
+      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Series">Series</a></span>
        <link property="owl:equivalentClass" href="http://purl.org/ontology/bibo/Periodical"/>
        <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_bibex">BibEx</a></span>
     </div>
@@ -10434,17 +10449,34 @@ postponing for 1.6.
      </div>
     -->
 
+    <h1>MovieSeries, BookSeries</h1>
+
+    <p>(minimal additions to fit with VideoGameSeries integration)</p>
+
+  <div typeof="rdfs:Class" resource="http://schema.org/MovieSeries">
+      <span class="h" property="rdfs:label">MovieSeries</span>
+      <span property="rdfs:comment">A series of movies. Included movies can be indicated with the hasPart property.</span>
+      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Series">Series</a></span>
+  </div>
+
+<div typeof="rdfs:Class" resource="http://schema.org/BookSeries">
+    <span class="h" property="rdfs:label">BookSeries</span>
+    <span property="rdfs:comment">A series of books. Included books can be indicated with the hasPart property.</span>
+    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Series">Series</a></span>
+</div>
+
+
 <h1>VideoGame</h1>
 
 <div typeof="rdfs:Class" resource="http://schema.org/VideoGame">
   <span class="h" property="rdfs:label">VideoGame</span>
-  <span property="rdfs:comment">A video game is an electronic game that involves human interaction with a user interface to generate visual feedback on a video device</span>
+  <span property="rdfs:comment">A video game is an electronic game that involves human interaction with a user interface to generate visual feedback on a video device.</span>
    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/SoftwareApplication">SoftwareApplication</a></span>
    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Game">Game</a></span>
 </div>
 <div typeof="rdfs:Class" resource="http://schema.org/GameServer">
   <span class="h" property="rdfs:label">GameServer</span>
-  <span property="rdfs:comment">Server that provides game interaction in a multiplayer game</span>
+  <span property="rdfs:comment">Server that provides game interaction in a multiplayer game.</span>
   <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Intangible">Intangible</a></span>
 </div>
 <div typeof="rdfs:Class" resource="http://schema.org/Game">
@@ -10455,7 +10487,7 @@ postponing for 1.6.
 
 <div typeof="rdfs:Class" resource="http://schema.org/GamePlayMode">
   <span class="h" property="rdfs:label">GamePlayMode</span>
-  <span property="rdfs:comment">Indicates whether this game multi-player, co-op or single-player</span>
+  <span property="rdfs:comment">Indicates whether this game is multi-player, co-op or single-player.</span>
    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Enumeration">Enumeration</a></span>
 </div>
 
@@ -10465,139 +10497,148 @@ postponing for 1.6.
 </div>
  <div typeof="http://schema.org/GamePlayMode" resource="http://schema.org/CoOp">
   <span class="h" property="rdfs:label">CoOp</span>
-  <span property="rdfs:comment">Play mode: CoOp. Co-operative games, where you play on the same team with friends</span>
+  <span property="rdfs:comment">Play mode: CoOp. Co-operative games, where you play on the same team with friends.</span>
 </div>
 <div typeof="http://schema.org/GamePlayMode" resource="http://schema.org/SinglePlayer">
   <span class="h" property="rdfs:label">SinglePlayer</span>
-  <span property="rdfs:comment">Play mode: SinglePlayer. Which is played by a lone player</span>
+  <span property="rdfs:comment">Play mode: SinglePlayer. Which is played by a lone player.</span>
 </div>
 
 <div typeof="rdfs:Class" resource="http://schema.org/GameServerStatus">
   <span class="h" property="rdfs:label">GameServerStatus</span>
-  <span property="rdfs:comment">Status of game server</span>
+  <span property="rdfs:comment">Status of a game server.</span>
    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Enumeration">Enumeration</a></span>
 </div>
 
 <div typeof="http://schema.org/GameServerStatus" resource="http://schema.org/Online">
   <span class="h" property="rdfs:label">Online</span>
-  <span property="rdfs:comment">Game server status: Online. Server is available</span>
+  <span property="rdfs:comment">Game server status: Online. Server is available.</span>
 </div>
 <div typeof="http://schema.org/GameServerStatus" resource="http://schema.org/OnlineFull">
   <span class="h" property="rdfs:label">OnlineFull </span>
-  <span property="rdfs:comment">Game server status: OnlineFull. Server is online but unavailable. The maximum number of players has reached</span>
+  <span property="rdfs:comment">Game server status: OnlineFull. Server is online but unavailable. The maximum number of players has reached.</span>
 </div>
 <div typeof="http://schema.org/GameServerStatus" resource="http://schema.org/OfflineTemporarily">
   <span class="h" property="rdfs:label">OfflineTemporarily </span>
-  <span property="rdfs:comment">Game server status: OfflineTemporarily. Server is offline now but it can be online soon</span>
+  <span property="rdfs:comment">Game server status: OfflineTemporarily. Server is offline now but it can be online soon.</span>
 </div>
 <div typeof="http://schema.org/GameServerStatus" resource="http://schema.org/OfflinePermanently">
   <span class="h" property="rdfs:label">OfflinePermanently </span>
-  <span property="rdfs:comment">Game server status: OfflinePermanently. Server is offline and not available</span>
+  <span property="rdfs:comment">Game server status: OfflinePermanently. Server is offline and not available.</span>
 </div>
 
 <div typeof="rdf:Property" resource="http://schema.org/numberOfPlayers">
       <span class="h" property="rdfs:label">numberOfPlayers</span>
       <span property="rdfs:comment">Indicate how many people can play this game (minimum, maximum, or range).</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Game">Game</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/VideoGameSeries">VideoGameSeries</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/QuantitativeValue">QuantitativeValue</a></span>
  </div>
   <div typeof="rdf:Property" resource="http://schema.org/quest">
       <span class="h" property="rdfs:label">quest</span>
-      <span property="rdfs:comment">The task that a player-controlled character, or group of characters may complete in order to gain a reward</span>
+      <span property="rdfs:comment">The task that a player-controlled character, or group of characters may complete in order to gain a reward.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Game">Game</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/VideoGameSeries">VideoGameSeries</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Thing">Thing</a></span>
  </div>
    <div typeof="rdf:Property" resource="http://schema.org/gameItem">
       <span class="h" property="rdfs:label">gameItem</span>
-      <span property="rdfs:comment">An item is an object within the game world that can be collected by a player or, occasionally, a non-player character</span>
+      <span property="rdfs:comment">An item is an object within the game world that can be collected by a player or, occasionally, a non-player character.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Game">Game</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/VideoGameSeries">VideoGameSeries</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Thing">Thing</a></span>
  </div>
     <div typeof="rdf:Property" resource="http://schema.org/character">
       <span class="h" property="rdfs:label">character</span>
-      <span property="rdfs:comment">Fictional person connected with creative work</span>
+      <span property="rdfs:comment">Fictional person connected with a creative work.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CreativeWork">CreativeWork</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Person">Person</a></span>
  </div>
     <div typeof="rdf:Property" resource="http://schema.org/characterAttribute">
       <span class="h" property="rdfs:label">characterAttribute</span>
-      <span property="rdfs:comment">A piece of data that represents a particular aspect of a fictional character (skill, power, character points, advantage, disadvantage)</span>
+      <span property="rdfs:comment">A piece of data that represents a particular aspect of a fictional character (skill, power, character points, advantage, disadvantage).</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Game">Game</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/VideoGameSeries">VideoGameSeries</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Thing">Thing</a></span>
  </div>
 
   <div typeof="rdf:Property" resource="http://schema.org/playMode">
       <span class="h" property="rdfs:label">playMode</span>
-      <span property="rdfs:comment">Indicates whether this game multi-player, co-op or single-player.  The game can be marked as multi-player, co-op and single-player at the same time</span>
+      <span property="rdfs:comment">Indicates whether this game is multi-player, co-op or single-player.  The game can be marked as multi-player, co-op and single-player at the same time.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/VideoGame">VideoGame</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/VideoGameSeries">VideoGameSeries</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/GamePlayMode">GamePlayMode</a></span>
  </div>
   <div typeof="rdf:Property" resource="http://schema.org/translator">
       <span class="h" property="rdfs:label">translator</span>
-      <span property="rdfs:comment">Organization or person who adapts creative work to different languages, regional differences and technical requirements of a target market. </span>
+      <span property="rdfs:comment">Organization or person who adapts a creative work to different languages, regional differences and technical requirements of a target market.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CreativeWork">CreativeWork</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Person">Person</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Organization">Organization</a></span>
  </div>
         <div typeof="rdf:Property" resource="http://schema.org/softwareAddOn">
       <span class="h" property="rdfs:label">softwareAddOn</span>
-      <span property="rdfs:comment">Additional content for a software application</span>
+      <span property="rdfs:comment">Additional content for a software application.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/SoftwareApplication">SoftwareApplication</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/SoftwareApplication">SoftwareApplication</a></span>
  </div>
           <div typeof="rdf:Property" resource="http://schema.org/cheatCode">
       <span class="h" property="rdfs:label">cheatCode</span>
-      <span property="rdfs:comment">Cheat codes to the game</span>
+      <span property="rdfs:comment">Cheat codes to the game.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/VideoGame">VideoGame</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/VideoGameSeries">VideoGameSeries</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/CreativeWork">CreativeWork</a></span>
  </div>
-      <div typeof="rdf:Property" resource="http://schema.org/help">
-      <span class="h" property="rdfs:label">help</span>
-      <span property="rdfs:comment">Software application help</span>
+      <div typeof="rdf:Property" resource="http://schema.org/softwareHelp">
+      <span class="h" property="rdfs:label">softwareHelp</span>
+      <span property="rdfs:comment">Software application help.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/SoftwareApplication">SoftwareApplication</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/CreativeWork">CreativeWork</a></span>
  </div>
-       <div typeof="rdf:Property" resource="http://schema.org/tip">
-      <span class="h" property="rdfs:label">tip</span>
-      <span property="rdfs:comment">Links to tips, tactics, etc</span>
+       <div typeof="rdf:Property" resource="http://schema.org/gameTip">
+      <span class="h" property="rdfs:label">gameTip</span>
+      <span property="rdfs:comment">Links to tips, tactics, etc.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/VideoGame">VideoGame</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/CreativeWork">CreativeWork</a></span>
  </div>
   <div typeof="rdf:Property" resource="http://schema.org/gamePlatform">
       <span class="h" property="rdfs:label">gamePlatform</span>
-      <span property="rdfs:comment">The electronic systems used to play video games http://en.wikipedia.org/wiki/Category:Video_game_platforms</span>
+      <span property="rdfs:comment">The electronic systems used to play &lt;a href="http://en.wikipedia.org/wiki/Category:Video_game_platforms"&gt;video games&lt;/a&gt;.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/VideoGame">VideoGame</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/VideoGameSeries">VideoGameSeries</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/URL">URL</a></span>
        <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Thing">Thing</a></span>
  </div>
         <div typeof="rdf:Property" resource="http://schema.org/serverStatus">
       <span class="h" property="rdfs:label">serverStatus</span>
-      <span property="rdfs:comment">Status of game server</span>
+      <span property="rdfs:comment">Status of a game server.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/GameServer">GameServer</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/GameServerStatus">GameServerStatus</a></span>
  </div>
       <div typeof="rdf:Property" resource="http://schema.org/playersOnline">
       <span class="h" property="rdfs:label">playersOnline</span>
-      <span property="rdfs:comment">Number of players on the server</span>
+      <span property="rdfs:comment">Number of players on the server.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/GameServer">GameServer</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number">Number</a></span>
  </div>
  <div typeof="rdf:Property" resource="http://schema.org/game">
       <span class="h" property="rdfs:label">game</span>
-      <span property="rdfs:comment">Video game which is played on this server</span>
+      <span property="rdfs:comment">Video game which is played on this server.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/GameServer">GameServer</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/VideoGame">VideoGame</a></span>
+      <link property="http://schema.org/inverseOf" href="http://schema.org/gameServer" />
  </div>
   <div typeof="rdf:Property" resource="http://schema.org/gameServer">
       <span class="h" property="rdfs:label">gameServer</span>
-      <span property="rdfs:comment">The server on which possible to play the game</span>
+      <span property="rdfs:comment">The server on which  it is possible to play the game.</span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/GameServer">GameServer</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/VideoGame">VideoGame</a></span>
+      <link property="http://schema.org/inverseOf" href="http://schema.org/game" />
  </div>
    <div typeof="rdf:Property" resource="http://schema.org/gameLocation">
       <span class="h" property="rdfs:label">gameLocation</span>
-      <span property="rdfs:comment">Real or fiction location of the game (or part of game)</span>
+      <span property="rdfs:comment">Real or fictional location of the game (or part of game).</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Game">Game</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/URL">URL</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Place">Place</a></span>
