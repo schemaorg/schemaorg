@@ -76,7 +76,6 @@ class SDOGraphSetupTestCase(unittest.TestCase):
     inverseOf_results = self.rdflib_data.query("select ?x ?y where { ?x <http://schema.org/inverseOf> ?y }")
     self.assertEqual(len(inverseOf_results ) % 2 == 0, True, "Even number of inverseOf triples expected. Found: %s " % len(inverseOf_results ) )
 
-  @unittest.expectedFailure
   def test_needlessDomainIncludes(self):
     # check immediate subtypes don't declare same domainIncludes
     # TODO: could we use property paths here to be more thorough?
