@@ -94,7 +94,6 @@ class SDOGraphSetupTestCase(unittest.TestCase):
             log.info(row)
     self.assertEqual(len(ndi1_results), 0, "No subtype need redeclare a domainIncludes of its parents. Found: %s " % len(ndi1_results ) )
 
-  @unittest.expectedFailure
   def test_needlessRangeIncludes(self):
     # as above, but for range. We excuse URL as it is special, not best seen as a Text subtype.
     # check immediate subtypes don't declare same domainIncludes
