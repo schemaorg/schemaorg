@@ -321,14 +321,14 @@ def HasMultipleBaseTypes(typenode):
 class Example ():
 
     @staticmethod
-    def AddExample(terms, original_html, microdata, rdfa, jsonld):
+    def AddExample(terms, original_html, microdata, rdfa, jsonld, egmeta):
        """
        Add an Example (via constructor registering it with the terms that it
        mentions, i.e. stored in term.examples).
        """
        # todo: fix partial examples: if (len(terms) > 0 and len(original_html) > 0 and (len(microdata) > 0 or len(rdfa) > 0 or len(jsonld) > 0)):
        if (len(terms) > 0 and len(original_html) > 0 and len(microdata) > 0 and len(rdfa) > 0 and len(jsonld) > 0):
-            return Example(terms, original_html, microdata, rdfa, jsonld)
+            return Example(terms, original_html, microdata, rdfa, jsonld, egmeta)
 
     def get(self, name) :
         """Exposes original_content, microdata, rdfa and jsonld versions."""
@@ -341,13 +341,18 @@ class Example ():
         if name == 'jsonld':
            return self.jsonld
 
-    def __init__ (self, terms, original_html, microdata, rdfa, jsonld):
+    def __init__ (self, terms, original_html, microdata, rdfa, jsonld, egmeta):
         """Example constructor, registers itself with the relevant Unit(s)."""
         self.terms = terms
         self.original_html = original_html
         self.microdata = microdata
         self.rdfa = rdfa
         self.jsonld = jsonld
+        self.egmeta = egmeta
+        if "id" in egmeta:
+          logging.info("Created Example with ID" + egmeta["id"])
+        else:
+          logging.info("Created Example with no #id.")
         for term in terms:
             term.examples.append(self)
 

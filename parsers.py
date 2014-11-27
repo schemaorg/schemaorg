@@ -27,6 +27,7 @@ class ParseExampleFile :
     def initFields(self):
         self.currentStr = []
         self.terms = []
+        self.egmeta = {}
         self.preMarkupStr = ""
         self.microdataStr = ""
         self.rdfaStr = ""
@@ -45,24 +46,35 @@ class ParseExampleFile :
         self.state = next
         self.currentStr = []
 
+    def process_example_id(self, m):
+        self.egmeta["id"] = "id-" + m.group(1)
+        logging.info("Storing ID: %s" % self.egmeta["id"] ) # danbri tmp
+        return ''
 
-    #def parse (self, content):
     def parse (self, contents):
         content = ""
+        egid = re.compile("""#(\S+)\s+""")
         for i in range(len(contents)):
             content += contents[i]
 
         lines = re.split('\n|\r', content)
         for line in lines:
+            # Per-example sections begin with e.g.: 'TYPES: #music-2 Person, MusicComposition, Organization'
+
             if ((len(line) > 6) and line[:6] == "TYPES:"):
                 self.nextPart('TYPES:')
-                api.Example.AddExample(self.terms, self.preMarkupStr, self.microdataStr, self.rdfaStr, self.jsonStr)
+                api.Example.AddExample(self.terms, self.preMarkupStr, self.microdataStr, self.rdfaStr, self.jsonStr, self.egmeta)
+                # logging.info("AddExample called with terms %s " % self.terms)
                 self.initFields()
                 typelist = re.split(':', line)
                 self.terms = []
-                ttl = typelist[1].split(',')
+                self.egmeta = {}
+                # logging.info("TYPE INFO: '%s' " % line );
+                tdata = egid.sub(self.process_example_id, typelist[1]) # strips IDs, records them in egmeta["id"]
+                ttl = tdata.split(',')
                 for ttli in ttl:
                     ttli = re.sub(' ', '', ttli)
+                    # logging.info("TTLI: %s " % ttli); # danbri tmp
                     self.terms.append(api.Unit.GetUnit(ttli, True))
             else:
                 tokens = ["PRE-MARKUP:", "MICRODATA:", "RDFA:", "JSON:"]
@@ -73,7 +85,8 @@ class ParseExampleFile :
                         line = line[ltk:]
                 if (len(line) > 0):
                     self.currentStr.append(line + "\n")
-        api.Example.AddExample(self.terms, self.preMarkupStr, self.microdataStr, self.rdfaStr, self.jsonStr)
+        api.Example.AddExample(self.terms, self.preMarkupStr, self.microdataStr, self.rdfaStr, self.jsonStr, self.egmeta) # should flush on each block of examples
+        # logging.info("Final AddExample called with terms %s " % self.terms)
 
 
 
