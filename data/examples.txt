@@ -1,9 +1,9 @@
-TYPES:  Person,PostalAddress,addressRegion,postalCode,address,streetAddress,telephone,email,url,addressLocality
+TYPES: #eg-1 Person,PostalAddress,addressRegion,postalCode,address,streetAddress,telephone,email,url,addressLocality
 
 PRE-MARKUP:
 
 Jane Doe
-<img src="janedoe.jpg" />
+<img src="janedoe.jpg" alt="Photo of Jane Joe"/>
 
 Professor
 20341 Whitworth Institute
@@ -23,7 +23,7 @@ MICRODATA:
 
 <div itemscope itemtype="http://schema.org/Person">
   <span itemprop="name">Jane Doe</span>
-  <img src="janedoe.jpg" itemprop="image" />
+  <img src="janedoe.jpg" itemprop="image" alt="Photo of Jane Joe"/>
 
   <span itemprop="jobTitle">Professor</span>
   <div itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
@@ -53,7 +53,7 @@ RDFA:
 
 <div vocab="http://schema.org/" typeof="Person">
   <span property="name">Jane Doe</span>
-  <img src="janedoe.jpg" property="image" />
+  <img src="janedoe.jpg" property="image" alt="Photo of Jane Joe"/>
 
   <span property="jobTitle">Professor</span>
   <div property="address"  typeof="PostalAddress">
@@ -903,7 +903,7 @@ TYPES:  Product,AggregateRating,AggregateOffer,Offer
 
 PRE-MARKUP:
 
-<img src="dell-30in-lcd.jpg" />
+<img src="dell-30in-lcd.jpg" alt="A Dell UltraSharp monitor" />
 Dell UltraSharp 30" LCD Monitor
 
 87 out of 100 based on 24 user ratings
@@ -920,7 +920,7 @@ Sellers:
 MICRODATA:
 
 <div itemscope itemtype="http://schema.org/Product">
-  <img itemprop="image" src="dell-30in-lcd.jpg" />
+  <img itemprop="image" src="dell-30in-lcd.jpg" alt="A Dell UltraSharp monitor"/>
   <span itemprop="name">Dell UltraSharp 30" LCD Monitor</span>
 
   <div itemprop="aggregateRating"
@@ -950,7 +950,7 @@ MICRODATA:
 RDFA:
 
 <div vocab="http://schema.org/" typeof="Product">
-  <img property="image" src="dell-30in-lcd.jpg" />
+  <img property="image" src="dell-30in-lcd.jpg" alt="A Dell UltraSharp monitor"/>
   <span property="name">Dell UltraSharp 30" LCD Monitor</span>
 
   <div property="aggregateRating"
@@ -1018,7 +1018,8 @@ PRE-MARKUP:
  <a href="category/books-literature.html">Literature & Fiction</a> >
  <a href="category/books-classics">Classics</a>
 
-<img src="catcher-in-the-rye-book-cover.jpg" />
+<img src="catcher-in-the-rye-book-cover.jpg" 
+  alt="cover art: red horse, city in background"/>
 The Catcher in the Rye - Mass Market Paperback
 by <a href="/author/jd_salinger.html">J.D. Salinger</a>
 4 stars - 3077 reviews
@@ -1055,7 +1056,8 @@ MICRODATA:
 
 <div itemscope itemtype="http://schema.org/Book">
 
-<img itemprop="image" src="catcher-in-the-rye-book-cover.jpg" />
+<img itemprop="image" src="catcher-in-the-rye-book-cover.jpg"
+     alt="cover art: red horse, city in background" />
 <span itemprop="name">The Catcher in the Rye</span> -
  <link itemprop="bookFormat" href="http://schema.org/Paperback">Mass Market Paperback
 by <a itemprop="author" href="/author/jd_salinger.html">J.D. Salinger</a>
@@ -1113,7 +1115,8 @@ RDFA:
 
 <div  typeof="Book">
 
-<img property="image" src="catcher-in-the-rye-book-cover.jpg" />
+<img property="image" src="catcher-in-the-rye-book-cover.jpg" 
+    alt="cover art: red horse, city in background"/>
 <span property="name">The Catcher in the Rye</span> -
  <link property="bookFormat" href="http://schema.org/Paperback">Mass Market Paperback
 by <a property="author" href="/author/jd_salinger.html">J.D. Salinger</a>
@@ -1213,7 +1216,7 @@ PRE-MARKUP:
 
 Mom's World Famous Banana Bread
 By John Smith, May 8, 2009
-<img src="bananabread.jpg" />
+<img src="bananabread.jpg" alt="Banana bread on a plate" />
 
 This classic banana bread recipe comes from my mom -- the walnuts add a nice
  texture and flavor to the banana bread.
@@ -1245,7 +1248,8 @@ MICRODATA:
   <span itemprop="name">Mom's World Famous Banana Bread</span>
   By <span itemprop="author">John Smith</span>,
   <meta itemprop="datePublished" content="2009-05-08">May 8, 2009
-  <img itemprop="image" src="bananabread.jpg" />
+  <img itemprop="image" src="bananabread.jpg"
+       alt="Banana bread on a plate"  />
 
   <span itemprop="description">This classic banana bread recipe comes
   from my mom -- the walnuts add a nice texture and flavor to the banana
@@ -1286,7 +1290,8 @@ RDFA:
   <span property="name">Mom's World Famous Banana Bread</span>
   By <span property="author">John Smith</span>,
   <meta property="datePublished" content="2009-05-08">May 8, 2009
-  <img property="image" src="bananabread.jpg" />
+  <img property="image" src="bananabread.jpg" 
+    alt="Banana bread on a plate" />
 
   <span property="description">This classic banana bread recipe comes
   from my mom -- the walnuts add a nice texture and flavor to the banana
