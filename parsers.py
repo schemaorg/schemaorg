@@ -47,8 +47,8 @@ class ParseExampleFile :
         self.currentStr = []
 
     def process_example_id(self, m):
-        self.egmeta["id"] = "id-" + m.group(1)
-        logging.info("Storing ID: %s" % self.egmeta["id"] ) # danbri tmp
+        self.egmeta["id"] = m.group(1)
+        logging.debug("Storing ID: %s" % self.egmeta["id"] )
         return ''
 
     def parse (self, contents):

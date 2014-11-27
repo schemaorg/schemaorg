@@ -349,11 +349,9 @@ class Example ():
         self.rdfa = rdfa
         self.jsonld = jsonld
         self.egmeta = egmeta
-        if "id" in egmeta:
-          logging.info("Created Example with ID" + egmeta["id"])
-        #else:
-        #  logging.info("Created Example with no #id.")
         for term in terms:
+            if "id" in egmeta:
+              logging.debug("Created Example with ID %s and type %s" % ( egmeta["id"], term.id )) # danbri
             term.examples.append(self)
 
 
@@ -789,6 +787,8 @@ class ShowUnit (webapp2.RequestHandler):
             ]
             self.write("<br/><br/><b>Examples</b><br/><br/>\n\n")
             for ex in examples:
+                if "id" in ex.egmeta:
+                    self.write('<span id="%s"></span>' % ex.egmeta["id"])
                 self.write("<div class='ds-selector-tabs ds-selector'>\n")
                 self.write("  <div class='selectors'>\n")
                 for label, example_type, selected in example_labels:
