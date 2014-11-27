@@ -351,8 +351,8 @@ class Example ():
         self.egmeta = egmeta
         if "id" in egmeta:
           logging.info("Created Example with ID" + egmeta["id"])
-        else:
-          logging.info("Created Example with no #id.")
+        #else:
+        #  logging.info("Created Example with no #id.")
         for term in terms:
             term.examples.append(self)
 
