@@ -321,6 +321,30 @@ def HasMultipleBaseTypes(typenode):
     """True if this unit represents a type with more than one immediate supertype."""
     return len( GetTargets( Unit.GetUnit("rdfs:subClassOf"), typenode ) ) > 1
 
+class TypeHierarchyTree:
+
+    def __init__(self):
+        self.txt = ""
+        self.visited = {}
+
+    def emit(self, s):
+        self.txt += s + "\n"
+
+    def toHTML(self):
+        return '<ul>%s</ul>' % self.txt
+
+    def traverse(self, node, depth = 1):
+        if len(node.GetImmediateSubtypes()) > 0 and node.id not in self.visited:
+            self.visited[node.id] = True
+            self.emit( ' %s<li class="tbranch"><a href="/%s">%s</a>' % (" " * depth, node.id, node.id) )
+            self.emit(' %s<ul>' % (" " * depth))
+            for item in node.GetImmediateSubtypes():
+                self.traverse(item, depth + 4)
+            self.emit( ' %s</ul>' % (" " * depth))
+        else:
+            self.emit( '%s<li class="tleaf"><a href="/%s">%s</a>' % (" " * depth,  node.id, node.id))
+        self.emit( ' %s</li>' % (" " * depth) )
+
 class Example ():
 
     @staticmethod
@@ -872,6 +896,16 @@ class ShowUnit (webapp2.RequestHandler):
                 return
 
         if (node == "favicon.ico"):
+            return
+
+        if (node == "docs/full.html"):
+            root = TypeHierarchyTree()
+            uThing = Unit.GetUnit("Thing")
+            root.traverse(uThing)
+            self.response.headers['Content-Type'] = "text/html"
+            self.emitCacheHeaders()
+            self.response.out.write(root.toHTML() )
+            # print root.toHTML()
             return
 
         # Next: pages based on request path matching a Unit in the term graph.
