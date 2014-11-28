@@ -333,16 +333,35 @@ class TypeHierarchyTree:
     def toHTML(self):
         return '<ul>%s</ul>' % self.txt
 
-    def traverse(self, node, depth = 1):
-        if len(node.GetImmediateSubtypes()) > 0 and node.id not in self.visited:
-            self.visited[node.id] = True
-            self.emit( ' %s<li class="tbranch"><a href="/%s">%s</a>' % (" " * depth, node.id, node.id) )
-            self.emit(' %s<ul>' % (" " * depth))
-            for item in node.GetImmediateSubtypes():
-                self.traverse(item, depth + 4)
-            self.emit( ' %s</ul>' % (" " * depth))
-        else:
-            self.emit( '%s<li class="tleaf"><a href="/%s">%s</a>' % (" " * depth,  node.id, node.id))
+    def traverseForHTML(self, node, depth = 1):
+
+        # we are a supertype of some kind
+        if len(node.GetImmediateSubtypes()) > 0:
+
+            # and we haven't been here before
+            if node.id not in self.visited:
+                self.visited[node.id] = True # remember our visit
+                self.emit( ' %s<li class="tbranch" id="%s"><a href="/%s">%s</a>' % (" " * depth, node.id, node.id, node.id) )
+                self.emit(' %s<ul>' % (" " * depth))
+
+                # handle our subtypes
+                for item in node.GetImmediateSubtypes():
+                    self.traverseForHTML(item, depth + 4)
+                self.emit( ' %s</ul>' % (" " * depth))
+            else:
+                # we are a supertype but we visited this type before, e.g. saw Restaurant via Place then via Organization
+                seen = '  <a href="#%s">*</a> ' % node.id
+                self.emit( ' %s<li class="tbranch" id="%s"><a href="/%s">%s</a>%s' % (" " * depth, node.id, node.id, node.id, seen) )
+
+        # leaf nodes
+        if len(node.GetImmediateSubtypes()) == 0:
+            if node.id not in self.visited:
+                self.emit( '%s<li class="tleaf" id="%s"><a href="/%s">%s</a>%s' % (" " * depth, node.id, node.id, node.id, "" ))
+            #else:
+                #self.visited[node.id] = True # never...
+                # we tolerate "VideoGame" appearing under both Game and SoftwareApplication
+                # and would only suppress it if it had its own subtypes. Seems legit.
+
         self.emit( ' %s</li>' % (" " * depth) )
 
 class Example ():
@@ -901,11 +920,10 @@ class ShowUnit (webapp2.RequestHandler):
         if (node == "docs/full.html"):
             root = TypeHierarchyTree()
             uThing = Unit.GetUnit("Thing")
-            root.traverse(uThing)
+            root.traverseForHTML(uThing)
             self.response.headers['Content-Type'] = "text/html"
             self.emitCacheHeaders()
             self.response.out.write(root.toHTML() )
-            # print root.toHTML()
             return
 
         # Next: pages based on request path matching a Unit in the term graph.
