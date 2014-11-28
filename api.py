@@ -43,6 +43,9 @@ class Unit ():
         self.examples = []
         self.subtypes = None
 
+    def GetImmediateSubtypes(self):
+      return GetImmediateSubtypes(self)
+
     @staticmethod
     def GetUnit (id, createp=False):
         """Return a Unit representing a node in the schema graph.
@@ -664,7 +667,7 @@ class ShowUnit (webapp2.RequestHandler):
             for spp in superprops:
                 c = GetComment(spp)           # markup needs to be stripped from c, e.g. see 'logo', 'photo'
                 c = re.sub(r'<[^>]*>', '', c) # This is not a sanitizer, we trust our input.
-                tt = "%s: ''%s''" % ( spp.id, c) 
+                tt = "%s: ''%s''" % ( spp.id, c)
                 self.write("\n    <tr><td><code>%s</code></td></tr>\n" % (self.ml(spp, spp.id, tt)))
             self.write("\n</table>\n\n")
 
