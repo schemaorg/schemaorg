@@ -416,7 +416,7 @@ class AdvancedJSONLDTests(unittest.TestCase):
 # * if x and y are inverseOf each other, the rangeIncludes types on x should be domainIncludes on y, and vice-versa.
 # * need a few supporting functions e.g. all terms, all types, all properties, all enum values; candidates for api later but just use here first.
 # * make sure terms match their labels (e.g. priceRange), with or without whitespace?
-
+# * check we don't assign more than one example to the same ID
 
 if __name__ == "__main__":
   unittest.main()

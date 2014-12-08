@@ -131,7 +131,7 @@ td.release  {
 <span id="sdo-venkman" />
 <tr id="v.next">
 <td class="release">sdo-venkman<br/>(2014-11-@@)</td>
-<td>ItemList improvements, Sport-related additions, weight/height on Person.</td>
+<td>ItemList and BreadcrumbList changes; Sports-related improvements; Added a Music vocabulary. Also weight/height on Person; Video games; Control and RSVP actions; Role names; Dated monetary values.</td>
 <td>
 <p>See also <a href="https://github.com/rvguha/schemaorg/milestones/sdo-venkman%20release">Github issues</a>: <a href="https://github.com/rvguha/schemaorg/milestones/sdo-venkman%20release">open</a>, 
 <a href="https://github.com/rvguha/schemaorg/issues?q=milestone%3A%22sdo-venkman+release%22+is%3Aclosed">closed</a>.</p>
@@ -143,8 +143,8 @@ td.release  {
     Added a <a href="/sport">sport</a> property to indicate the associated sport(s) for a SportsOrganization; also
     added <a href="/coach">coach</a> and <a href="/athlete">athlete</a> properties.
     Added <a href="/numberedPosition">numberedPosition</a> property to <a href="/OrganizationRole">OrganizationRole</a>.
-    Added <a href="/homeTeam">homeTeam</a> and <a href="/awayTeam">awayTeam</a> properties to <a href="/SportsEvent">SportsEvent</a>.</li>
-<li id="videogames">Added a <a href="/VideoGame">VideoGame</a> type, with <a href="/cheatCode">cheatCode</a>, <a href="/gamePlatform">gamePlatform</a>, <a href="/playMode">playMode</a> 
+    Added <a href="/homeTeam">homeTeam</a> and <a href="/awayTeam">awayTeam</a> properties to <a href="/SportsEvent">SportsEvent</a>, alongside a super-property of those, <a href="/competitor">competitor</a>.</li>
+<li id="videogames">Added a <a href="/VideoGame">VideoGame</a> type with two super-types: <a href="/SoftwareApplication">SoftwareApplication</a> and a new <a href="/Game">Game</a> type. We anticipate a need for future work around <a href="/Game">Game</a>, see <a href="https://github.com/rvguha/schemaorg/issues/169">issue #169</a>. <a href="/VideoGame">VideoGame</a> has <a href="/cheatCode">cheatCode</a>, <a href="/gamePlatform">gamePlatform</a>, <a href="/playMode">playMode</a> 
  and <a href="/tip">tip</a> properties, plus a few supporting types. Further work is <a href="https://github.com/rvguha/schemaorg/issues/148">anticipated</a> to clarify best practice 
  for describing series of games, although this is possible using <a href="/hasPart">hasPart</a>.
 </li>
@@ -175,6 +175,8 @@ Expand <a href="/track">track</a> to allow <a href="/ItemList">ItemList</a> valu
 <a href="/genre">genre</a> to apply to <a href="/MusicGroup">MusicGroup</a>. See also <a href="https://github.com/vholland/schemaorg/compare/danbri:sdo-venkman...sdo-music">details</a>.
 </li>
 <li id="logo-generalized">Broadened the description of <a href="/logo">logo</a> property, to match the types it applies to. See also <a href="https://github.com/rvguha/schemaorg/issues/144">github issue</a> and <a href="https://github.com/danbri/schemaorg/commit/0e56869bb122252a41fce31e903c9608f0621a7d">details</a>.</li>
+<li id="dated-money"><a href="https://github.com/rvguha/schemaorg/issues/163">Added</a> a <a href="/DatedMoneySpecification">DatedMoneySpecification</a> type for non-price monetary values, by analogy with <a href="/PriceSpecification">PriceSpecification</a> and its subtypes. Added <a href="/amount">amount</a> and 
+<a href="/currency">currency</a> properties and tweaked <a href="/startDate">startDate</a> and <a href="/endDate">endDate</a> property definitions to fit.</li>
 </ul>
 </td>
 </tr>
