@@ -16,11 +16,12 @@ import os
 logging.basicConfig(level=logging.INFO) # dev_appserver.py --log_level debug .
 log = logging.getLogger(__name__)
 
-SCHEMA_VERSION=2.0
+SCHEMA_VERSION=1.92
 
 JINJA_ENVIRONMENT = jinja2.Environment(
-    loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
+    loader=jinja2.FileSystemLoader(os.path.join(os.path.dirname(__file__), 'templates')),
     extensions=['jinja2.ext.autoescape'], autoescape=True)
+
 
 ENABLE_JSONLD_CONTEXT = True
 
@@ -397,7 +398,7 @@ class Example ():
         self.egmeta = egmeta
         for term in terms:
             if "id" in egmeta:
-              logging.debug("Created Example with ID %s and type %s" % ( egmeta["id"], term.id )) # danbri
+              logging.debug("Created Example with ID %s and type %s" % ( egmeta["id"], term.id ))
             term.examples.append(self)
 
 
@@ -917,13 +918,30 @@ class ShowUnit (webapp2.RequestHandler):
         if (node == "favicon.ico"):
             return
 
-        if (node == "docs/full.html"):
-            root = TypeHierarchyTree()
+        if (node == "docs/full.html"): # danbri
+
+            template = JINJA_ENVIRONMENT.get_template('full.tpl')
             uThing = Unit.GetUnit("Thing")
-            root.traverseForHTML(uThing)
+            uDataType = Unit.GetUnit("DataType")
+
+            mainroot = TypeHierarchyTree()
+            mainroot.traverseForHTML(uThing)
+            thing_tree = mainroot.toHTML()
+
+            dtroot = TypeHierarchyTree()
+            dtroot.traverseForHTML(uDataType)
+            datatype_tree = dtroot.toHTML()
+
+            template_values = {
+                'thing_tree': thing_tree,
+                'datatype_tree': datatype_tree,
+            }
+
+            page = template.render(template_values)
+
             self.response.headers['Content-Type'] = "text/html"
             self.emitCacheHeaders()
-            self.response.out.write(root.toHTML() )
+            self.response.out.write( page )
             return
 
         # Next: pages based on request path matching a Unit in the term graph.
