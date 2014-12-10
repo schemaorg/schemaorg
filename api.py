@@ -258,6 +258,7 @@ def GetImmediateSubtypes(n):
     if n==None:
         return None
     subs = GetSources( Unit.GetUnit("rdfs:subClassOf"), n)
+    subs.sort(key=lambda x: x.id)
     return subs
 
 def GetImmediateSupertypes(n):
@@ -776,7 +777,7 @@ class ShowUnit (webapp2.RequestHandler):
     def getExactTermPage(self, node):
         """Emit a Web page that exactly matches this node."""
         self.outputStrings = []
-
+        log.info("EXACT PAGE: %s" % node.id)
         ext_mappings = GetExtMappingsRDFa(node)
 
         headers.OutputSchemaorgHeaders(self, node.id, node.isClass(), ext_mappings)
@@ -925,6 +926,7 @@ class ShowUnit (webapp2.RequestHandler):
             if DataCache.get('FullTreePage'):
                 self.response.out.write( DataCache.get('FullTreePage') )
                 log.debug("Serving cached FullTreePage.")
+                return
             else:
                 template = JINJA_ENVIRONMENT.get_template('full.tpl')
                 uThing = Unit.GetUnit("Thing")
@@ -949,7 +951,7 @@ class ShowUnit (webapp2.RequestHandler):
                 log.debug("Serving fresh FullTreePage.")
                 DataCache["FullTreePage"] = page
 
-        return
+                return
 
         # Next: pages based on request path matching a Unit in the term graph.
         node = Unit.GetUnit(node) # e.g. "Person", "CreativeWork".
