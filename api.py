@@ -918,31 +918,38 @@ class ShowUnit (webapp2.RequestHandler):
         if (node == "favicon.ico"):
             return
 
-        if (node == "docs/full.html"): # danbri
-
-            template = JINJA_ENVIRONMENT.get_template('full.tpl')
-            uThing = Unit.GetUnit("Thing")
-            uDataType = Unit.GetUnit("DataType")
-
-            mainroot = TypeHierarchyTree()
-            mainroot.traverseForHTML(uThing)
-            thing_tree = mainroot.toHTML()
-
-            dtroot = TypeHierarchyTree()
-            dtroot.traverseForHTML(uDataType)
-            datatype_tree = dtroot.toHTML()
-
-            template_values = {
-                'thing_tree': thing_tree,
-                'datatype_tree': datatype_tree,
-            }
-
-            page = template.render(template_values)
-
+        if (node == "docs/full.html"): # DataCache.getDataCache.get
             self.response.headers['Content-Type'] = "text/html"
             self.emitCacheHeaders()
-            self.response.out.write( page )
-            return
+
+            if DataCache.get('FullTreePage'):
+                self.response.out.write( DataCache.get('FullTreePage') )
+                log.debug("Serving cached FullTreePage.")
+            else:
+                template = JINJA_ENVIRONMENT.get_template('full.tpl')
+                uThing = Unit.GetUnit("Thing")
+                uDataType = Unit.GetUnit("DataType")
+
+                mainroot = TypeHierarchyTree()
+                mainroot.traverseForHTML(uThing)
+                thing_tree = mainroot.toHTML()
+
+                dtroot = TypeHierarchyTree()
+                dtroot.traverseForHTML(uDataType)
+                datatype_tree = dtroot.toHTML()
+
+                template_values = {
+                    'thing_tree': thing_tree,
+                    'datatype_tree': datatype_tree,
+                }
+
+                page = template.render(template_values)
+
+                self.response.out.write( page )
+                log.debug("Serving fresh FullTreePage.")
+                DataCache["FullTreePage"] = page
+
+        return
 
         # Next: pages based on request path matching a Unit in the term graph.
         node = Unit.GetUnit(node) # e.g. "Person", "CreativeWork".
