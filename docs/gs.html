@@ -53,14 +53,20 @@
 
   <div id="mainContent" class="faq">
 
-<h1>Getting started with schema.org</h1>
+<h1>Getting started with schema.org using Microdata</h1>
 
 <p>Most webmasters are familiar with HTML tags on their pages. Usually, HTML tags tell the browser how to display the information included in the tag. For example, <code>&lt;h1&gt;Avatar&lt;/h1&gt;</code> tells the browser to display the text string "Avatar" in a heading 1 format. However, the HTML tag doesn't give any information about what that text string means&mdash;"Avatar" could refer to the hugely successful 3D movie, or it could refer to a type of profile picture&mdash;and this can make it more difficult for search engines to intelligently display relevant content to a user.</p>
 
 <p>Schema.org provides a collection of shared vocabularies webmasters can use to mark up their pages in ways that can be understood by the major search engines: Google, Microsoft, Yandex and Yahoo!</p>
 
-<p>You use the <a href="../">schema.org</a> vocabulary along with the <a href="http://dev.w3.org/html5/md-LC/" target="new">microdata</a>, <a href="http://rdfa.info" target="new">RDFa</a>, or <a href="http://json-ld.org" target="new">JSON-LD</a> formats to add information to your HTML content.
-This guide will help get you up to speed with microdata and schema.org so that you can start adding markup to your web pages.</p>
+<p>You use the <a href="../">schema.org</a> vocabulary along with the <a href="http://en.wikipedia.org/wiki/Microdata_(HTML)">Microdata</a>, <a href="http://en.wikipedia.org/wiki/RDFa">RDFa</a>, or
+    <a href="http://en.wikipedia.org/wiki/JSON-LD">JSON-LD</a> formats to add information to your Web content.
+This guide will help get you up to speed with Microdata and schema.org so that you can start adding markup to your web pages.</p>
+
+<p>Although this guide focusses on <a href="http://en.wikipedia.org/wiki/Microdata_(HTML)">Microdata</a>,
+most examples on the <a href="/">schema.org</a> site show examples in RDFa and JSON-LD too.
+The basic ideas (types, properties etc.) introduced here are relevant beyond Microdata - take a look at the
+examples to see how the details compare.</p>
 
 
 <span id="top"></span>
@@ -173,7 +179,7 @@ This guide will help get you up to speed with microdata and schema.org so that y
 <pre>&lt;div itemscope itemtype ="http://schema.org/Movie"&gt;
   &lt;h1 itemprop="name"&g;Avatar&lt;/h1&gt;
   &lt;div <strong>itemprop="director" itemscope itemtype="http://schema.org/Person"</strong>&gt;
-  Director: &lt;span itemprop="name"&gt;James Cameron&lt;/span&gt; (born &lt;span itemprop="birthDate"&gt;August 16, 1954)&lt;/span&gt;
+  Director: &lt;span itemprop="name"&gt;James Cameron&lt;/span&gt; (born &lt;span <strong>itemprop="birthDate"</strong>&gt;August 16, 1954)&lt;/span&gt;
   &lt;/div&gt;
   &lt;span itemprop="genre">Science fiction&lt;/span&gt;
   &lt;a href="../movies/avatar-theatrical-trailer.html" itemprop="trailer"&gt;Trailer&lt;/a&gt;
