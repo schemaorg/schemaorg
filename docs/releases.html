@@ -126,6 +126,105 @@ td.release  {
     <th>Description</th>
 </tr>
 
+
+
+<span id="sdo-venkman" />
+<tr id="v.next">
+<td class="release">1.93x<br/>sdo-stantz<br/>(20YY-MM-DD)</td>
+<td>sdo-stantz is the next release post-venkman, currently (dec 2014) being drafted.
+<td>
+...
+</td>
+</tr>
+<td class="release">1.92<br/>sdo-venkman<br/>(2014-12-11)</td>
+<td>ItemList and BreadcrumbList changes; Sports-related improvements; Added a Music vocabulary; Video games. Also weight/height on Person; Control and RSVP actions; Role names; Dated monetary values.</td>
+<td>
+<p>See also <a href="https://github.com/rvguha/schemaorg/milestones/sdo-venkman%20release">Github issues</a>: <a href="https://github.com/rvguha/schemaorg/milestones/sdo-venkman%20release">open</a>,
+<a href="https://github.com/rvguha/schemaorg/issues?q=milestone%3A%22sdo-venkman+release%22+is%3Aclosed">closed</a>.</p>
+<ul>
+<li>Updated <a href="/ItemList">ItemList</a> to allow for richer kinds of lists (including ordering), rather than just strings; added <a href="/BreadcrumbList">BreadcrumbList</a></li>
+<li id="person_additions">The <a href="/weight">weight</a> and <a href="/height">height</a> properties can now be with the <a href="/Person">Person</a> type. Added <a href="/netWorth">netWorth</a> to Person. Added <a href="/EmployeeRole">EmployeeRole</a>.</li>
+<li>Added <a href="/SportsOrganization">SportsOrganization</a> as a super-type of <a href="/SportsTeam">SportsTeam</a>,
+    representing <em>sports organizations, including sports teams, governing bodies, and sports associations</em>.
+    Added a <a href="/sport">sport</a> property to indicate the associated sport(s) for a SportsOrganization; also
+    added <a href="/coach">coach</a> and <a href="/athlete">athlete</a> properties.
+    Added <a href="/numberedPosition">numberedPosition</a> property to <a href="/OrganizationRole">OrganizationRole</a>.
+    Added <a href="/homeTeam">homeTeam</a> and <a href="/awayTeam">awayTeam</a> properties to <a href="/SportsEvent">SportsEvent</a>, alongside a super-property of those, <a href="/competitor">competitor</a>.</li>
+<li id="videogames">Added a <a href="/VideoGame">VideoGame</a> type with two super-types:
+    <a href="/SoftwareApplication">SoftwareApplication</a> and a new <a href="/Game">Game</a> type.
+    We anticipate a need for future work around <a href="/Game">Game</a>,
+    see <a href="https://github.com/rvguha/schemaorg/issues/169">issue #169</a>.
+    <a href="/VideoGame">VideoGame</a> has <a href="/cheatCode">cheatCode</a>,
+    <a href="/gameServer">gameServer</a>,
+    <a href="/gamePlatform">gamePlatform</a>, <a href="/playMode">playMode</a>
+ and <a href="/gameTip">gameTip</a> properties, plus a few supporting types. A property <a href="/softwareHelp">softwareHelp</a>
+ has also been added to <a href="/SoftwareApplication">SoftwareApplication</a> to indicate supporting documentation.
+ </li>
+ <li id="series">While integrating <a href="/VideoGame">VideoGame</a> an issue was
+     <a href="https://github.com/rvguha/schemaorg/issues/148">raised</a> around the need to describe series of games.
+As a result we have made some changes to the <a href="/Series">Series</a> type, which previously emphasised only
+TV and Radio Series: added <a href="/VideoGameSeries">VideoGameSeries</a>,
+<a href="/BookSeries">BookSeries</a>, and <a href="/MovieSeries">MovieSeries</a>. The recently added
+<a href="/Periodical">Periodical</a> type is also now modeled as a <a href="/Series">Series</a> subtype. Some redundant
+type/property associations were also tidied up. The existing
+<a href="/trailer">trailer</a> property can now be used with
+<a href="/VideoGame">VideoGame</a> and <a href="/VideoGameSeries">VideoGameSeries</a>.</li>
+<li id="action_additions">
+Added <a href="/ControlAction">ControlAction</a> (previously proposed as OperateAction). Add <a href="/expectsAcceptanceOf">expectsAcceptanceOf</a>
+ on <a href="/ConsumeAction">ConsumeAction</a> (previously proposed as 'contingentOnOffer'). Added <a href="/ineligibleRegion">ineligibleRegion</a>
+ (on <a href="/Offer">Offer</a>, previously proposed as 'notAvailableAtOrFrom').
+</li>
+<li id="rsvp_and_fails">Add <a href="/rsvpResponse">rsvpResponse</a>, <a href="/additionalNumberOfGuests">additionalNumberOfGuests</a> properties
+to the existing <a href="/RsvpAction">RsvpAction</a> type
+(see also <a href="https://github.com/rvguha/schemaorg/issues/150">github issue</a> and <a href="https://github.com/danbri/schemaorg/pull/18/files">details</a>).
+This change also adds an enumeration <a href="/RsvpResponseType">RsvpResponseType</a>: <a href="/RsvpResponseYes">RsvpResponseYes</a>, <a href="/RsvpResponseNo">RsvpResponseNo</a>,
+<a href="/RsvpResponseMaybe">RsvpResponseMaybe</a>. Finally, we add a new possible <a href="/ActionStatusType">ActionStatusType</a>: <a href="/FailedActionStatus">FailedActionStatus</a>,
+alongside an <a href="/error">error</a> property linking an Action to more information on the cause of the failure.
+</li>
+<li id="roleName">Add <a href="/roleName">roleName</a> to <a href="/Role">Role</a>, superceding <a href="/namedPosition">namedPosition</a> (see also <a href="https://github.com/rvguha/schemaorg/issues/151">issue</a> and <a href="https://github.com/rvguha/schemaorg/pull/146/files">details</a>).</li>
+<li id="music">Add to <a href="/MusicAlbum">MusicAlbum</a> properties: <a href="/albumProductionType">albumProductionType</a>,
+<a href="/albumReleaseType">albumReleaseType</a>, <a href="/albumRelease">albumRelease</a> (and inverse, <a href="/releaseOf">releaseOf</a>).
+Supporting enumerated types: <a href="/MusicAlbumProductionType">MusicAlbumProductionType</a> (<a href="/CompilationAlbum">CompilationAlbum</a>, <a href="/DemoAlbum">DemoAlbum</a>,
+<a href="/DJMixAlbum">DJMixAlbum</a>, <a href="/LiveAlbum">LiveAlbum</a>, <a href="/MixtapeAlbum">MixtapeAlbum</a>, <a href="/RemixAlbum">RemixAlbum</a>,
+<a href="/SoundtrackAlbum">SoundtrackAlbum</a>, <a href="/SpokenWordAlbum">SpokenWordAlbum</a>, <a href="/StudioAlbum">StudioAlbum</a>.
+<a href="/MusicAlbumReleaseType">MusicAlbumReleaseType</a> (<a href="/AlbumRelease">AlbumRelease</a>, <a href="/BroadcastRelease">BroadcastRelease</a>, <a href="/EPRelease">EPRelease</a>,
+<a href="/SingleRelease">SingleRelease</a>).
+Add new types: <a href="/MusicRelease">MusicRelease</a>, <a href="/MusicComposition">MusicComposition</a>, the latter with properties <a href="/musicArrangement">musicArrangement</a>,
+<a href="/composer">composer</a>, <a href="/firstPerformance">firstPerformance</a>, <a href="/includedComposition">includedComposition</a>, <a href="/iswcCode">iswcCode</a>,
+<a href="/lyricist">lyricist</a>, <a href="/musicCompositionForm">musicCompositionForm</a>, <a href="/musicalKey">musicalKey</a>, <a href="/recordedAs">recordedAs</a> (inverse: <a href="/recordingOf">recordingOf</a>).
+Expand <a href="/track">track</a> to allow <a href="/ItemList">ItemList</a> values, for lists of <a href="/MusicRecording">MusicRecording</a>, and
+<a href="/genre">genre</a> to apply to <a href="/MusicGroup">MusicGroup</a>. See also <a href="https://github.com/vholland/schemaorg/compare/danbri:sdo-venkman...sdo-music">details</a>.
+</li>
+<li id="logo-generalized">Broadened the description of <a href="/logo">logo</a> property, to match the types it applies to. See also <a href="https://github.com/rvguha/schemaorg/issues/144">github issue</a> and <a href="https://github.com/danbri/schemaorg/commit/0e56869bb122252a41fce31e903c9608f0621a7d">details</a>.</li>
+<li id="dated-money"><a href="https://github.com/rvguha/schemaorg/issues/163">Added</a> a <a href="/DatedMoneySpecification">DatedMoneySpecification</a> type for non-price monetary values, by analogy with <a href="/PriceSpecification">PriceSpecification</a> and its subtypes. Added <a href="/amount">amount</a> and
+<a href="/currency">currency</a> properties and tweaked <a href="/startDate">startDate</a> and <a href="/endDate">endDate</a> property definitions to fit.</li>
+<li id="documentation">Some general documentation improvements: added links to supporting blog posts for <a href="/Role">Role</a>, <a href="/Action">Action</a> and
+<a href="/Periodical">Periodical</a>. Added "alt" attributes to all image examples. Fixed the <a href="/docs/full.html">Full Hierarchy</a> page.</li>
+<li>See also <a href="http://blog.schema.org/2014/12/schemaorg-v192-music-video-games-sports.html">blog post...</a></li>
+</ul>
+</td>
+</tr>
+<tr id="v1.91">
+<td class="release">1.91<br/>(2014-09-12)</td>
+<td>Offer/price documentation fixes, cleanup and community contributions.</td>
+<td>
+<ul>
+<li>Updated text of the <a href="/price">price</a> property to include practical usage guidance, alongside
+links to information from GS1 to the gtin-related <a href="/Offer">Offer</a> properties.</li>
+<li><a href="https://github.com/danbri/schemaorg/commit/83e5e69f74ecb112892662e0c0206f0f40504908">Updated</a> all our examples to follow that guidance; primarily by using priceCurrency and the content= attribute.</li>
+<li>Noted our <a href="/docs/faq.html#17">thanks</a> to the <a href="http://www.opendomain.org/">OpenDomain</a> project for our domain name.</li>
+<li><a href="https://github.com/rvguha/schemaorg/pull/103">Updated</a> the text of the '<a href="/image">image</a>' property to match its expected types. Thanks, Dan Scott!</li>
+<li><a href="https://github.com/rvguha/schemaorg/pull/102">Changed</a> spelling of 'supercededBy' to the more <a href="http://www.dailymail.co.uk/news/article-1049010/Cant-spell-Maybe-youre-clever-says-Collins-dictionary.html">conventional</a> <a href="/supersededBy">supersededBy</a>. Thanks, Sachini Aparna Herath!</li>
+<li><a href="https://github.com/rvguha/schemaorg/pull/115">Noted</a> that '<a href="/logo">logo</a>' and '<a href="/photo">photo</a>' are sub-properties of '<a href="/image">image</a>'. Thanks, Sachini Aparna Herath, again!</li>
+<li><a href="https://github.com/rvguha/schemaorg/pull/107">Fixed</a> two syntax errors in examples (Store opening hours RDFa; Book, PublicationVolume Microdata). Thanks, Gregg Kellogg!</li>
+<li><a href="https://github.com/rvguha/schemaorg/pull/108">Added</a> Tolkien-based examples for <a href="/exampleOfWork">exampleOfWork</a>/<a href="/workExample">workExample</a>. Thanks, Dan Scott, again!</li>
+<li><a href="https://github.com/rvguha/schemaorg/pull/111">Fixed</a> a bug with our UTF-8 support. Thanks, Richard Wallis!</li>
+</p>
+
+
+</td>
+</tr>
+
 <tr id="v1.9">
 <td class="release">1.9<br/>(2014-08-18)</td>
 <td>Bibliographic improvements (Periodical and more) alongside seller/broker/provider clarifications.</td>
@@ -152,7 +251,7 @@ The <a href="/provider">provider</a> property describes a service provider, serv
 introduce a more general <a href="/broker">broker</a> property (replacing the over-specific <a href="bookingAgent">bookingAgent</a>),
 as well as deprecating <a href="/vendor">vendor</a> and <a href="/merchant">merchant</a> in favour of <a href="/seller">seller</a>.
 Regarding <a href="/Flight">flights</a> and <a href="/ParcelDelivery">parcel delivery</a>, <a href="/carrier">carrier</a> is
-superceded by <a href="/provider">provider</a>. Please also note that <a href="/flightNumber">flightNumber</a> should now be written in full (i.e. "UA110" rather than just "110").
+superseded by <a href="/provider">provider</a>. Please also note that <a href="/flightNumber">flightNumber</a> should now be written in full (i.e. "UA110" rather than just "110").
 See the <a href="https://www.w3.org/wiki/WebSchemas/SellerVendorCleanup#Implementation_Details">supporting documents</a> for details.
 </p>
 
@@ -163,9 +262,13 @@ and <a href="/Text">Text</a> values are anticipated. A common superproperty, <a 
 reflects <a href="http://lists.w3.org/Archives/Public/public-vocabs/2014Aug/0133.html">implementation experience</a> and
 establishes a model that can be applied elsewhere, e.g. ongoing work on <a href="http://lists.w3.org/Archives/Public/public-vocabs/2014Jun/0154.html">describing</a> music.</p>
 
-<p>This update also improves the display and navigation of <a href="/supercededBy">supercededBy</a> relations between
+<p>This update also improves the display and navigation of <a href="/supersededBy">supersededBy</a> relations between
 schema.org properties (e.g. see <a href="/seller">seller</a>).</p>
-<!-- (<a href="http://lists.w3.org/Archives/Public/public-vocabs/@@@todo">announcement</a>) -->
+
+<p>The <a href="/docs/terms.html">Terms of service</a> document was also updated to note
+that <a href="http://www.yandex.com/">Yandex</a> is now a schema.org Sponsor and to adopt the patent terms used by W3C.</p>
+
+(<a href="http://lists.w3.org/Archives/Public/public-vocabs/2014Aug/0170.html">announcement</a>)
 </td>
 </tr>
 
@@ -191,7 +294,7 @@ Several <a href="http://github.com/rvguha/schemaorg/pull/71">markup fixes</a> fr
 <td>This release amends the <a href="http://schema.org/image">image</a> property, noting that <a href="/ImageObject">ImageObject</a> is a
     reasonable value. It also adds an <a href="http://schema.org/organizer">organizer</a> property to
     <a href="/Event">Event</a>. Changes around <a href="/Map">Map</a>: we add and prefer a '<a href="/hasMap">hasMap</a>' property
-which supercedes the older 'map' property, and we add a <a href="/mapType">mapType</a> property which comes with some enumerated values:
+which supersedes the older 'map' property, and we add a <a href="/mapType">mapType</a> property which comes with some enumerated values:
 <a href="ParkingMap">ParkingMap</a>, <a href="SeatingMap">SeatingMap</a>, <a href="TransitMap">TransitMap</a>,
 <a href="VenueMap">VenueMap</a>. A Map might be (but needn't be) also an <a href="/ImageObject">ImageObject</a>.
     (<a href="http://lists.w3.org/Archives/Public/public-vocabs/2014Jul/0012.html">announcement</a>)</td>
@@ -200,11 +303,11 @@ which supercedes the older 'map' property, and we add a <a href="/mapType">mapTy
 <tr id="v1.6">
 <td class="release">1.6<br/>(2014-06-16)</td>
 <td><a href="/Role">Role</a>s, various fixes, site navigation improvements.</td>
-<td>This release introduced the notion of a <a href="/Role">Role</a> type to schema.org. See the <a href="blog.schema.org/2014/06/introducing-role.html">blog post</a>
+<td>This release introduced the notion of a <a href="/Role">Role</a> type to schema.org. See the <a href="http://blog.schema.org/2014/06/introducing-role.html">blog post</a>
     for details. The Role mechanism applies across all of schema.org, and allows simple statements to be elaborated or
     qualified, for example with temporal information. Other changes in this release include the addition of a
     <a href="/license">license</a> property, and some documentation of properties used internally by schema.org's documentation system
-    (<a href="/Property">Property</a>, <a href="/Class">Class</a>, <a href="/supercededBy">supercededBy</a>, <a href="/inverseOf">inverseOf</a>).
+    (<a href="/Property">Property</a>, <a href="/Class">Class</a>, <a href="/supersededBy">supersededBy</a>, <a href="/inverseOf">inverseOf</a>).
     Fixed an embarrassing typo - "dead" -  in the <a href="/diet">diet</a> property - thanks, Dan Scott. Various other
     small changes - listed in the <a href="http://lists.w3.org/Archives/Public/public-vocabs/2014Jun/0106.html">preview</a> announcement.
 (<a href="http://lists.w3.org/Archives/Public/public-vocabs/2014Jun/0178.html">announcement</a> and

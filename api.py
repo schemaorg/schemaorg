@@ -16,11 +16,12 @@ import os
 logging.basicConfig(level=logging.INFO) # dev_appserver.py --log_level debug .
 log = logging.getLogger(__name__)
 
-SCHEMA_VERSION=1.9
+SCHEMA_VERSION=1.93x # drafting sdo-stantz
 
 JINJA_ENVIRONMENT = jinja2.Environment(
-    loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
+    loader=jinja2.FileSystemLoader(os.path.join(os.path.dirname(__file__), 'templates')),
     extensions=['jinja2.ext.autoescape'], autoescape=True)
+
 
 ENABLE_JSONLD_CONTEXT = True
 
@@ -42,6 +43,9 @@ class Unit ():
         self.arcsOut = []
         self.examples = []
         self.subtypes = None
+
+    def GetImmediateSubtypes(self):
+      return GetImmediateSubtypes(self)
 
     @staticmethod
     def GetUnit (id, createp=False):
@@ -112,36 +116,36 @@ class Unit ():
         # Currently defined just to let the tests pass
         pass
 
-    def superceded(self):
-        """Has this property been superceded? (i.e. deprecated/archaic)"""
+    def superseded(self):
+        """Has this property been superseded? (i.e. deprecated/archaic)"""
         for triple in self.arcsOut:
-            if (triple.target != None and triple.arc.id == "supercededBy"):
+            if (triple.target != None and triple.arc.id == "supersededBy"):
                 return True
         return False
 
-    def supercedes(self):
-        """Returns a property (assume max 1) that is supercededBy this one, or nothing."""
+    def supersedes(self):
+        """Returns a property (assume max 1) that is supersededBy this one, or nothing."""
         for triple in self.arcsIn:
-            if (triple.source != None and triple.arc.id == "supercededBy"):
+            if (triple.source != None and triple.arc.id == "supersededBy"):
                 return triple.source
         return None
-        # TODO: supercedes is a list, e.g. 'seller' supercedes 'vendor', 'merchant'
+        # TODO: supersedes is a list, e.g. 'seller' supersedes 'vendor', 'merchant'
 
-    def supercedes_all(self):
-        """Returns a property (assume max 1) that is supercededBy this one, or nothing."""
+    def supersedes_all(self):
+        """Returns a property (assume max 1) that is supersededBy this one, or nothing."""
         newer = []
         for triple in self.arcsIn:
-            if (triple.source != None and triple.arc.id == "supercededBy"):
+            if (triple.source != None and triple.arc.id == "supersededBy"):
                 newer.append(triple.source)
         return newer
 
-    def supercededBy(self):
-        """Returns a property (assume max 1) that supercededs this one, or nothing."""
+    def supersededBy(self):
+        """Returns a property (assume max 1) that supersededs this one, or nothing."""
         for p in sorted(GetSources(Unit.GetUnit("typeOf"), Unit.GetUnit("rdf:Property")), key=lambda u: u.id):
-            allnewers = GetTargets(Unit.GetUnit("supercededBy"), p)
+            allnewers = GetTargets(Unit.GetUnit("supersededBy"), p)
             for newerprop in allnewers:
-                if self in newerprop.supercedes_all():
-                    return newerprop # this is one of possibly many properties that supercedes self.
+                if self in newerprop.supersedes_all():
+                    return newerprop # this is one of possibly many properties that supersedes self.
         return None
 
     def superproperties(self):
@@ -254,6 +258,7 @@ def GetImmediateSubtypes(n):
     if n==None:
         return None
     subs = GetSources( Unit.GetUnit("rdfs:subClassOf"), n)
+    subs.sort(key=lambda x: x.id)
     return subs
 
 def GetImmediateSupertypes(n):
@@ -318,17 +323,60 @@ def HasMultipleBaseTypes(typenode):
     """True if this unit represents a type with more than one immediate supertype."""
     return len( GetTargets( Unit.GetUnit("rdfs:subClassOf"), typenode ) ) > 1
 
+class TypeHierarchyTree:
+
+    def __init__(self):
+        self.txt = ""
+        self.visited = {}
+
+    def emit(self, s):
+        self.txt += s + "\n"
+
+    def toHTML(self):
+        return '<ul>%s</ul>' % self.txt
+
+    def traverseForHTML(self, node, depth = 1):
+
+        # we are a supertype of some kind
+        if len(node.GetImmediateSubtypes()) > 0:
+
+            # and we haven't been here before
+            if node.id not in self.visited:
+                self.visited[node.id] = True # remember our visit
+                self.emit( ' %s<li class="tbranch" id="%s"><a href="/%s">%s</a>' % (" " * depth, node.id, node.id, node.id) )
+                self.emit(' %s<ul>' % (" " * depth))
+
+                # handle our subtypes
+                for item in node.GetImmediateSubtypes():
+                    self.traverseForHTML(item, depth + 4)
+                self.emit( ' %s</ul>' % (" " * depth))
+            else:
+                # we are a supertype but we visited this type before, e.g. saw Restaurant via Place then via Organization
+                seen = '  <a href="#%s">*</a> ' % node.id
+                self.emit( ' %s<li class="tbranch" id="%s"><a href="/%s">%s</a>%s' % (" " * depth, node.id, node.id, node.id, seen) )
+
+        # leaf nodes
+        if len(node.GetImmediateSubtypes()) == 0:
+            if node.id not in self.visited:
+                self.emit( '%s<li class="tleaf" id="%s"><a href="/%s">%s</a>%s' % (" " * depth, node.id, node.id, node.id, "" ))
+            #else:
+                #self.visited[node.id] = True # never...
+                # we tolerate "VideoGame" appearing under both Game and SoftwareApplication
+                # and would only suppress it if it had its own subtypes. Seems legit.
+
+        self.emit( ' %s</li>' % (" " * depth) )
+
 class Example ():
 
     @staticmethod
-    def AddExample(terms, original_html, microdata, rdfa, jsonld):
+    def AddExample(terms, original_html, microdata, rdfa, jsonld, egmeta):
        """
        Add an Example (via constructor registering it with the terms that it
        mentions, i.e. stored in term.examples).
        """
        # todo: fix partial examples: if (len(terms) > 0 and len(original_html) > 0 and (len(microdata) > 0 or len(rdfa) > 0 or len(jsonld) > 0)):
        if (len(terms) > 0 and len(original_html) > 0 and len(microdata) > 0 and len(rdfa) > 0 and len(jsonld) > 0):
-            return Example(terms, original_html, microdata, rdfa, jsonld)
+            return Example(terms, original_html, microdata, rdfa, jsonld, egmeta)
 
     def get(self, name) :
         """Exposes original_content, microdata, rdfa and jsonld versions."""
@@ -341,14 +389,17 @@ class Example ():
         if name == 'jsonld':
            return self.jsonld
 
-    def __init__ (self, terms, original_html, microdata, rdfa, jsonld):
+    def __init__ (self, terms, original_html, microdata, rdfa, jsonld, egmeta):
         """Example constructor, registers itself with the relevant Unit(s)."""
         self.terms = terms
         self.original_html = original_html
         self.microdata = microdata
         self.rdfa = rdfa
         self.jsonld = jsonld
+        self.egmeta = egmeta
         for term in terms:
+            if "id" in egmeta:
+              logging.debug("Created Example with ID %s and type %s" % ( egmeta["id"], term.id ))
             term.examples.append(self)
 
 
@@ -521,10 +572,10 @@ class ShowUnit (webapp2.RequestHandler):
         di = Unit.GetUnit("domainIncludes")
         ri = Unit.GetUnit("rangeIncludes")
         for prop in sorted(GetSources(di, cl), key=lambda u: u.id):
-            if (prop.superceded()):
+            if (prop.superseded()):
                 continue
-            supercedes = prop.supercedes()
-            olderprops = prop.supercedes_all()
+            supersedes = prop.supersedes()
+            olderprops = prop.supersedes_all()
             inverseprop = prop.inverseproperty()
             subprops = prop.subproperties()
             superprops = prop.superproperties()
@@ -550,7 +601,7 @@ class ShowUnit (webapp2.RequestHandler):
             self.write("<td class=\"prop-desc\" property=\"rdfs:comment\">%s" % (comment))
             if (len(olderprops) > 0):
                 olderlinks = ", ".join([self.ml(o) for o in olderprops])
-                self.write(" Supercedes %s." % olderlinks )
+                self.write(" Supersedes %s." % olderlinks )
             if (inverseprop != None):
                 self.write("<br/> Inverse property: %s." % (self.ml(inverseprop)))
 
@@ -566,9 +617,9 @@ class ShowUnit (webapp2.RequestHandler):
         di = Unit.GetUnit("domainIncludes")
         ri = Unit.GetUnit("rangeIncludes")
         for prop in sorted(GetSources(ri, cl), key=lambda u: u.id):
-            if (prop.superceded()):
+            if (prop.superseded()):
                 continue
-            supercedes = prop.supercedes()
+            supersedes = prop.supersedes()
             inverseprop = prop.inverseproperty()
             subprops = prop.subproperties()
             superprops = prop.superproperties()
@@ -592,8 +643,8 @@ class ShowUnit (webapp2.RequestHandler):
                 self.write("&nbsp;")
             self.write("</td>")
             self.write("<td class=\"prop-desc\">%s " % (comment))
-            if (supercedes != None):
-                self.write(" Supercedes %s." % (self.ml(supercedes)))
+            if (supersedes != None):
+                self.write(" Supersedes %s." % (self.ml(supersedes)))
             if (inverseprop != None):
                 self.write("<br/> inverse property: %s." % (self.ml(inverseprop)) )
 
@@ -610,9 +661,9 @@ class ShowUnit (webapp2.RequestHandler):
         domains = sorted(GetTargets(di, node), key=lambda u: u.id)
         first_range = True
 
-        newerprop = node.supercededBy() # None of one. e.g. we're on 'seller'(new) page, we get 'vendor'(old)
-        olderprop = node.supercedes() # None or one
-        olderprops = node.supercedes_all() # list, e.g. 'seller' has 'vendor', 'merchant'.
+        newerprop = node.supersededBy() # None of one. e.g. we're on 'seller'(new) page, we get 'vendor'(old)
+        olderprop = node.supersedes() # None or one
+        olderprops = node.supersedes_all() # list, e.g. 'seller' has 'vendor', 'merchant'.
 
         inverseprop = node.inverseproperty()
         subprops = node.subproperties()
@@ -659,15 +710,16 @@ class ShowUnit (webapp2.RequestHandler):
             self.write("<table class=\"definition-table\">\n")
             self.write("  <thead>\n    <tr>\n      <th>Super-properties</th>\n    </tr>\n</thead>\n")
             for spp in superprops:
-                c = GetComment(spp)
+                c = GetComment(spp)           # markup needs to be stripped from c, e.g. see 'logo', 'photo'
+                c = re.sub(r'<[^>]*>', '', c) # This is not a sanitizer, we trust our input.
                 tt = "%s: ''%s''" % ( spp.id, c)
                 self.write("\n    <tr><td><code>%s</code></td></tr>\n" % (self.ml(spp, spp.id, tt)))
             self.write("\n</table>\n\n")
 
-        # Supercedes
+        # Supersedes
         if (len(olderprops) > 0):
             self.write("<table class=\"definition-table\">\n")
-            self.write("  <thead>\n    <tr>\n      <th>Supercedes</th>\n    </tr>\n</thead>\n")
+            self.write("  <thead>\n    <tr>\n      <th>Supersedes</th>\n    </tr>\n</thead>\n")
 
             for o in olderprops:
                 c = GetComment(o)
@@ -675,10 +727,10 @@ class ShowUnit (webapp2.RequestHandler):
                 self.write("\n    <tr><td><code>%s</code></td></tr>\n" % (self.ml(o, o.id, tt)))
             self.write("\n</table>\n\n")
 
-        # supercededBy (at most one direct successor)
+        # supersededBy (at most one direct successor)
         if (newerprop != None):
             self.write("<table class=\"definition-table\">\n")
-            self.write("  <thead>\n    <tr>\n      <th><a href=\"/supercededBy\">supercededBy</a></th>\n    </tr>\n</thead>\n")
+            self.write("  <thead>\n    <tr>\n      <th><a href=\"/supersededBy\">supersededBy</a></th>\n    </tr>\n</thead>\n")
             self.write("\n    <tr><td><code>%s</code></td></tr>\n" % (self.ml(newerprop, newerprop.id, tt)))
             self.write("\n</table>\n\n")
 
@@ -725,7 +777,7 @@ class ShowUnit (webapp2.RequestHandler):
     def getExactTermPage(self, node):
         """Emit a Web page that exactly matches this node."""
         self.outputStrings = []
-
+        log.info("EXACT PAGE: %s" % node.id)
         ext_mappings = GetExtMappingsRDFa(node)
 
         headers.OutputSchemaorgHeaders(self, node.id, node.isClass(), ext_mappings)
@@ -783,6 +835,8 @@ class ShowUnit (webapp2.RequestHandler):
             ]
             self.write("<br/><br/><b>Examples</b><br/><br/>\n\n")
             for ex in examples:
+                if "id" in ex.egmeta:
+                    self.write('<span id="%s"></span>' % ex.egmeta["id"])
                 self.write("<div class='ds-selector-tabs ds-selector'>\n")
                 self.write("  <div class='selectors'>\n")
                 for label, example_type, selected in example_labels:
@@ -865,6 +919,40 @@ class ShowUnit (webapp2.RequestHandler):
         if (node == "favicon.ico"):
             return
 
+        if (node == "docs/full.html"): # DataCache.getDataCache.get
+            self.response.headers['Content-Type'] = "text/html"
+            self.emitCacheHeaders()
+
+            if DataCache.get('FullTreePage'):
+                self.response.out.write( DataCache.get('FullTreePage') )
+                log.debug("Serving cached FullTreePage.")
+                return
+            else:
+                template = JINJA_ENVIRONMENT.get_template('full.tpl')
+                uThing = Unit.GetUnit("Thing")
+                uDataType = Unit.GetUnit("DataType")
+
+                mainroot = TypeHierarchyTree()
+                mainroot.traverseForHTML(uThing)
+                thing_tree = mainroot.toHTML()
+
+                dtroot = TypeHierarchyTree()
+                dtroot.traverseForHTML(uDataType)
+                datatype_tree = dtroot.toHTML()
+
+                template_values = {
+                    'thing_tree': thing_tree,
+                    'datatype_tree': datatype_tree,
+                }
+
+                page = template.render(template_values)
+
+                self.response.out.write( page )
+                log.debug("Serving fresh FullTreePage.")
+                DataCache["FullTreePage"] = page
+
+                return
+
         # Next: pages based on request path matching a Unit in the term graph.
         node = Unit.GetUnit(node) # e.g. "Person", "CreativeWork".
 
@@ -883,16 +971,22 @@ class ShowUnit (webapp2.RequestHandler):
 
 def read_file (filename):
     """Read a file from disk, return it as a single string."""
-    import os.path
-    folder = os.path.dirname(os.path.realpath(__file__))
-    file_path = os.path.join(folder, filename)
     strs = []
+
+    file_path = full_path(filename)
 
     import codecs
     log.info("READING FILE: filename=%s file_path=%s " % (filename, file_path ) )
     for line in codecs.open(file_path, 'r', encoding="utf8").readlines():
         strs.append(line)
     return "".join(strs)
+
+def full_path(filename):
+    """convert local file name to full path."""
+    import os.path
+    folder = os.path.dirname(os.path.realpath(__file__))
+    return os.path.join(folder, filename)
+
 
 schemasInitialized = False
 
@@ -902,14 +996,14 @@ def read_schemas():
     import glob
     global schemasInitialized
     if (not schemasInitialized):
-        files = glob.glob("data/*schema.rdfa")
-        schema_contents = []
+        files = glob.glob("data/*.rdfa")
+        file_paths = []
         for f in files:
-            schema_content = read_file(f)
-            schema_contents.append(schema_content)
+            file_paths.append(full_path(f))
 
         parser = parsers.MakeParserOfType('rdfa', None)
-        items = parser.parse(schema_contents)
+        items = parser.parse(file_paths)
+
         files = glob.glob("data/*examples.txt")
         example_contents = []
         for f in files:
