@@ -16,11 +16,12 @@ import os
 logging.basicConfig(level=logging.INFO) # dev_appserver.py --log_level debug .
 log = logging.getLogger(__name__)
 
-SCHEMA_VERSION=1.91
+SCHEMA_VERSION=1.92
 
 JINJA_ENVIRONMENT = jinja2.Environment(
-    loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
+    loader=jinja2.FileSystemLoader(os.path.join(os.path.dirname(__file__), 'templates')),
     extensions=['jinja2.ext.autoescape'], autoescape=True)
+
 
 ENABLE_JSONLD_CONTEXT = True
 
@@ -42,6 +43,9 @@ class Unit ():
         self.arcsOut = []
         self.examples = []
         self.subtypes = None
+
+    def GetImmediateSubtypes(self):
+      return GetImmediateSubtypes(self)
 
     @staticmethod
     def GetUnit (id, createp=False):
@@ -254,6 +258,7 @@ def GetImmediateSubtypes(n):
     if n==None:
         return None
     subs = GetSources( Unit.GetUnit("rdfs:subClassOf"), n)
+    subs.sort(key=lambda x: x.id)
     return subs
 
 def GetImmediateSupertypes(n):
@@ -318,17 +323,60 @@ def HasMultipleBaseTypes(typenode):
     """True if this unit represents a type with more than one immediate supertype."""
     return len( GetTargets( Unit.GetUnit("rdfs:subClassOf"), typenode ) ) > 1
 
+class TypeHierarchyTree:
+
+    def __init__(self):
+        self.txt = ""
+        self.visited = {}
+
+    def emit(self, s):
+        self.txt += s + "\n"
+
+    def toHTML(self):
+        return '<ul>%s</ul>' % self.txt
+
+    def traverseForHTML(self, node, depth = 1):
+
+        # we are a supertype of some kind
+        if len(node.GetImmediateSubtypes()) > 0:
+
+            # and we haven't been here before
+            if node.id not in self.visited:
+                self.visited[node.id] = True # remember our visit
+                self.emit( ' %s<li class="tbranch" id="%s"><a href="/%s">%s</a>' % (" " * depth, node.id, node.id, node.id) )
+                self.emit(' %s<ul>' % (" " * depth))
+
+                # handle our subtypes
+                for item in node.GetImmediateSubtypes():
+                    self.traverseForHTML(item, depth + 4)
+                self.emit( ' %s</ul>' % (" " * depth))
+            else:
+                # we are a supertype but we visited this type before, e.g. saw Restaurant via Place then via Organization
+                seen = '  <a href="#%s">*</a> ' % node.id
+                self.emit( ' %s<li class="tbranch" id="%s"><a href="/%s">%s</a>%s' % (" " * depth, node.id, node.id, node.id, seen) )
+
+        # leaf nodes
+        if len(node.GetImmediateSubtypes()) == 0:
+            if node.id not in self.visited:
+                self.emit( '%s<li class="tleaf" id="%s"><a href="/%s">%s</a>%s' % (" " * depth, node.id, node.id, node.id, "" ))
+            #else:
+                #self.visited[node.id] = True # never...
+                # we tolerate "VideoGame" appearing under both Game and SoftwareApplication
+                # and would only suppress it if it had its own subtypes. Seems legit.
+
+        self.emit( ' %s</li>' % (" " * depth) )
+
 class Example ():
 
     @staticmethod
-    def AddExample(terms, original_html, microdata, rdfa, jsonld):
+    def AddExample(terms, original_html, microdata, rdfa, jsonld, egmeta):
        """
        Add an Example (via constructor registering it with the terms that it
        mentions, i.e. stored in term.examples).
        """
        # todo: fix partial examples: if (len(terms) > 0 and len(original_html) > 0 and (len(microdata) > 0 or len(rdfa) > 0 or len(jsonld) > 0)):
        if (len(terms) > 0 and len(original_html) > 0 and len(microdata) > 0 and len(rdfa) > 0 and len(jsonld) > 0):
-            return Example(terms, original_html, microdata, rdfa, jsonld)
+            return Example(terms, original_html, microdata, rdfa, jsonld, egmeta)
 
     def get(self, name) :
         """Exposes original_content, microdata, rdfa and jsonld versions."""
@@ -341,14 +389,17 @@ class Example ():
         if name == 'jsonld':
            return self.jsonld
 
-    def __init__ (self, terms, original_html, microdata, rdfa, jsonld):
+    def __init__ (self, terms, original_html, microdata, rdfa, jsonld, egmeta):
         """Example constructor, registers itself with the relevant Unit(s)."""
         self.terms = terms
         self.original_html = original_html
         self.microdata = microdata
         self.rdfa = rdfa
         self.jsonld = jsonld
+        self.egmeta = egmeta
         for term in terms:
+            if "id" in egmeta:
+              logging.debug("Created Example with ID %s and type %s" % ( egmeta["id"], term.id ))
             term.examples.append(self)
 
 
@@ -661,7 +712,7 @@ class ShowUnit (webapp2.RequestHandler):
             for spp in superprops:
                 c = GetComment(spp)           # markup needs to be stripped from c, e.g. see 'logo', 'photo'
                 c = re.sub(r'<[^>]*>', '', c) # This is not a sanitizer, we trust our input.
-                tt = "%s: ''%s''" % ( spp.id, c) 
+                tt = "%s: ''%s''" % ( spp.id, c)
                 self.write("\n    <tr><td><code>%s</code></td></tr>\n" % (self.ml(spp, spp.id, tt)))
             self.write("\n</table>\n\n")
 
@@ -726,7 +777,7 @@ class ShowUnit (webapp2.RequestHandler):
     def getExactTermPage(self, node):
         """Emit a Web page that exactly matches this node."""
         self.outputStrings = []
-
+        log.info("EXACT PAGE: %s" % node.id)
         ext_mappings = GetExtMappingsRDFa(node)
 
         headers.OutputSchemaorgHeaders(self, node.id, node.isClass(), ext_mappings)
@@ -784,6 +835,8 @@ class ShowUnit (webapp2.RequestHandler):
             ]
             self.write("<br/><br/><b>Examples</b><br/><br/>\n\n")
             for ex in examples:
+                if "id" in ex.egmeta:
+                    self.write('<span id="%s"></span>' % ex.egmeta["id"])
                 self.write("<div class='ds-selector-tabs ds-selector'>\n")
                 self.write("  <div class='selectors'>\n")
                 for label, example_type, selected in example_labels:
@@ -865,6 +918,40 @@ class ShowUnit (webapp2.RequestHandler):
 
         if (node == "favicon.ico"):
             return
+
+        if (node == "docs/full.html"): # DataCache.getDataCache.get
+            self.response.headers['Content-Type'] = "text/html"
+            self.emitCacheHeaders()
+
+            if DataCache.get('FullTreePage'):
+                self.response.out.write( DataCache.get('FullTreePage') )
+                log.debug("Serving cached FullTreePage.")
+                return
+            else:
+                template = JINJA_ENVIRONMENT.get_template('full.tpl')
+                uThing = Unit.GetUnit("Thing")
+                uDataType = Unit.GetUnit("DataType")
+
+                mainroot = TypeHierarchyTree()
+                mainroot.traverseForHTML(uThing)
+                thing_tree = mainroot.toHTML()
+
+                dtroot = TypeHierarchyTree()
+                dtroot.traverseForHTML(uDataType)
+                datatype_tree = dtroot.toHTML()
+
+                template_values = {
+                    'thing_tree': thing_tree,
+                    'datatype_tree': datatype_tree,
+                }
+
+                page = template.render(template_values)
+
+                self.response.out.write( page )
+                log.debug("Serving fresh FullTreePage.")
+                DataCache["FullTreePage"] = page
+
+                return
 
         # Next: pages based on request path matching a Unit in the term graph.
         node = Unit.GetUnit(node) # e.g. "Person", "CreativeWork".
