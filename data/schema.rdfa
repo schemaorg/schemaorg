@@ -9665,24 +9665,6 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
       <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/FlightReservation">ReservationPackage</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
     </div>
-    <div typeof="rdf:Property" resource="http://schema.org/passengerSequenceNumber">
-      <span class="h" property="rdfs:label">passengerSequenceNumber</span>
-      <span property="rdfs:comment">The passenger's sequence number as assigned by the airline.</span>
-      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/FlightReservation">FlightReservation</a></span>
-      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
-    </div>
-    <div typeof="rdf:Property" resource="http://schema.org/securityScreening">
-      <span class="h" property="rdfs:label">securityScreening</span>
-      <span property="rdfs:comment">The type of security screening the passenger is subject to.</span>
-      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/FlightReservation">FlightReservation</a></span>
-      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/SecurityScreeningType">SecurityScreeningType</a></span>
-    </div>
-    <div typeof="rdf:Property" resource="http://schema.org/passengerPriorityStatus">
-      <span class="h" property="rdfs:label">passengerPriorityStatus</span>
-      <span property="rdfs:comment">The priority status assigned to a passenger for security or boarding (e.g. FastTrack or Priority).</span>
-      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/FlightReservation">FlightReservation</a></span>
-      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
-    </div>
     <div typeof="rdf:Property" resource="http://schema.org/flightNumber">
       <span class="h" property="rdfs:label">flightNumber</span>
       <span property="rdfs:comment">The unique identifier for a flight including the airline IATA code. For example, if describing United flight 110, where the IATA code for United is 'UA', the flightNumber is 'UA110'.</span>
@@ -9783,12 +9765,6 @@ postponing for 1.6.
       <span property="rdfs:comment">The time when a passenger can check into the flight online.</span>
       <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Flight">Flight</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/DateTime">DateTime</a></span>
-    </div>
-    <div typeof="rdf:Property" resource="http://schema.org/boardingPolicy">
-      <span class="h" property="rdfs:label">boardingPolicy</span>
-      <span property="rdfs:comment">The type of boarding policy used by the airline (e.g. zone-based or group-based).</span>
-      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Airline">Airline</a></span>
-      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/BoardingPolicyType">BoardingPolicyType</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/iataCode">
       <span class="h" property="rdfs:label">iataCode</span>
@@ -9938,33 +9914,6 @@ postponing for 1.6.
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number">Number</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/QuantitativeValue">QuantitativeValue</a></span>
     </div>
-
-    <div typeof="rdfs:Class" resource="http://schema.org/SecurityScreeningType">
-      <span class="h" property="rdfs:label">SecurityScreeningType</span>
-      <span property="rdfs:comment">A type of security screening a passenger may be subject to.</span>
-       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Enumeration">Enumeration</a></span>
-    </div>
-
-    <div typeof="http://schema.org/SecurityScreeningType" resource="http://schema.org/TSAPreCheck">
-      <span class="h" property="rdfs:label">TSAPreCheck</span>
-      <span property="rdfs:comment">The passenger qualifies for expedited security screening through the TSA Precheck program.</span>
-    </div>
-
-    <div typeof="rdfs:Class" resource="http://schema.org/BoardingPolicyType">
-      <span class="h" property="rdfs:label">BoardingPolicyType</span>
-      <span property="rdfs:comment">A type of boarding policy used by an airline.</span>
-       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Enumeration">Enumeration</a></span>
-    </div>
-
-    <div typeof="http://schema.org/BoardingPolicyType" resource="http://schema.org/ZoneBoardingPolicy">
-      <span class="h" property="rdfs:label">ZoneBoardingPolicy</span>
-      <span property="rdfs:comment">The airline boards by zones of the plane.</span>
-    </div>
-    <div typeof="http://schema.org/BoardingPolicyType" resource="http://schema.org/GroupBoardingPolicy">
-      <span class="h" property="rdfs:label">GroupBoardingPolicy</span>
-      <span property="rdfs:comment">The airline boards by groups based on check-in time, priority, etc.</span>
-    </div>
-
     <hr />
 
     <h1>Questions and Answers (QA) and FAQ schema</h1>
@@ -10345,24 +10294,8 @@ postponing for 1.6.
       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Series">Series</a></span>
        <link property="owl:equivalentClass" href="http://purl.org/ontology/bibo/Periodical"/>
        <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_bibex">BibEx</a></span>
-      <link property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#MBZ"/>
     </div>
 
-    <div typeof="rdf:Property" resource="http://schema.org/musicArrangement">
-      <span class="h" property="rdfs:label">musicArrangement</span>
-      <span property="rdfs:comment">An arrangement derived from the composition.</span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MusicComposition">MusicComposition</a></span>
-      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/MusicComposition">MusicComposition</a></span>
-      <link property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#MBZ"/>
-    </div>
-    <div typeof="rdf:Property" resource="http://schema.org/arranger">
-      <span class="h" property="rdfs:label">arranger</span>
-      <span property="rdfs:comment">The person who arranged the work. The original composer should be listed under "creator".</span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MusicComposition">MusicComposition</a></span>
-      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Person">Person</a></span>
-      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Organization">Organization</a></span>
-      <link property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#MBZ"/>
-    </div>
     <div typeof="rdfs:Class" resource="http://schema.org/PublicationVolume">
       <span class="h" property="rdfs:label">PublicationVolume</span>
       <span property="rdfs:comment">A part of a successively published publication such as a periodical or multi-volume work, often numbered. It may represent a time span, such as a year.
@@ -10467,14 +10400,6 @@ postponing for 1.6.
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/CreativeWork">CreativeWork</a></span>
       <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_bibex">BibExt</a></span>
       <link property="http://schema.org/inverseOf" href="http://schema.org/workExample"/>
-    </div>
-
-    <div typeof="rdf:Property" resource="http://schema.org/trackNumber">
-      <span class="h" property="rdfs:label">trackNumber</span>
-      <span property="rdfs:comment">The track number for the song on an individual release.</span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MusicRecording">MusicRecording</a></span>
-      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
-      <link property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#MBZ"/>
     </div>
 
    <h1>Broker</h1>
