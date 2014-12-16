@@ -11252,8 +11252,13 @@ postponing for 1.6.
          <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/VisualArtwork">VisualArtwork</a></span>
        </div>
 
-     <p>todo: what about <a href="http://www.w3.org/wiki/WebSchemas/VisualArtwork#Vocabulary">edition</a>; is a general CreativeWork editions model possible? What does "For multiples such as prints, the number of copies in the edition
-   " mean in practice?</p>
+       <div typeof="rdf:Property" resource="http://schema.org/artEdition">
+         <span class="h" property="rdfs:label">artEdition</span>
+         <span property="rdfs:comment">The number of copies when multiple copies of a piece of artwork are produced - e.g. for a limited edition of 20 prints, 'artEdition' refers to the total number of copies (in this example "20"). </span>
+         <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/VisualArtwork">VisualArtwork</a></span>
+         <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+         <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Integer">Integer</a></span>
+       </div>
 
 
 </body>
