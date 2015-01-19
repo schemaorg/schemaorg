@@ -1,12 +1,8 @@
-schemaorg
-=========
+Schema.org project repository
 
-Schema.org on app engine
+This repository contains all the schemas, examples and software use to publish schema.org. 
 
-This codebase is a simple Python app used to publish the schema.org site.
-
-It uses Google App Engine, and is designed to allow schema.org contributors to explore 
-new or improved schemas. The code has a bias towards simplicity and minimal dependencies,
+The codebase is a simple Python application. It uses Google App Engine, and is designed to allow schema.org contributors to explore new or improved schemas. The code has a bias towards simplicity and minimal dependencies,
 rather than elegance and re-usability. 
 
 The app reads its schemas and examples from the data/ directory when it starts up. These
@@ -60,7 +56,11 @@ our test builds on Appspot.
 
 See http://schema.org/docs/releases.html for published release history.
 
-The successor to http://schema.org/docs/releases.html#v1.91 is code-named sdo-venkman.
+The successor to http://schema.org/docs/releases.html#v1.91 was code-named sdo-venkman, 
+and eventually became http://schema.org/docs/releases.html#v1.91
+
+
+
 
 Notes
 =====
@@ -70,3 +70,5 @@ This documentation concerns the software codebase rather than schema.org itself.
 However do note that labels, comments, and documentation should use US English (in the code
 and schemas), if a choice between English variants is needed. Please aim for international 
 English wherever possible.
+
+See also: https://twitter.com/schemaorg_dev
