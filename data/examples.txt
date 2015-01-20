@@ -9652,13 +9652,13 @@ as suggested by www.a11ymetadata.org.
       <dt>ISBN-13:</dt>
       <dd itemprop="isbn">9780030426599</dd>
       <dt>Publisher:</dt>
-      <dd itemprop="publisher" itemtype="http://schema.org/Organization" itemscope="">Holt, Rinehart and Winston</dd>
+      <dd itemprop="publisher" itemtype="http://schema.org/Organization" itemscope=""><span itemprop="name">Holt, Rinehart and Winston</span></dd>
       <dt>Date of Addition:</dt>
       <dd>06/08/10</dd>
       <dt>Copyright Date:</dt>
       <dd itemprop="copyrightYear">2007</dd>
       <dt>Copyrighted By:</dt>
-      <dd itemprop="copyrightHolder" itemtype="http://schema.org/Organization" itemscope="">Holt, Rinehart and Winston</dd>
+      <dd itemprop="copyrightHolder" itemtype="http://schema.org/Organization" itemscope=""><span itemprop="name">Holt, Rinehart and Winston</span></dd>
       <dt>Adult content:</dt>
       <dd><meta itemprop="isFamilyFriendly" content="true"/>No</dd>
       <dt>Language:</dt>
@@ -9697,7 +9697,7 @@ appropriate values for these properties. This example shows simple text values,
 as suggested by www.a11ymetadata.org.
 </p>
 
-<div   typeof="Book">
+<div vocab="http://schema.org/" typeof="Book">
    <meta property="bookFormat" content="EBook/DAISY3"/>
    <meta property="accessibilityFeature" content="largePrint/CSSEnabled"/>
    <meta property="accessibilityFeature" content="highContrast/CSSEnabled"/>
@@ -9726,13 +9726,13 @@ as suggested by www.a11ymetadata.org.
       <dt>ISBN-13:</dt>
       <dd property="isbn">9780030426599</dd>
       <dt>Publisher:</dt>
-      <dd property="publisher"  typeof="Organization" >Holt, Rinehart and Winston</dd>
+      <dd property="publisher" typeof="Organization"><span property="name">Holt, Rinehart and Winston</span></dd>
       <dt>Date of Addition:</dt>
       <dd>06/08/10</dd>
       <dt>Copyright Date:</dt>
       <dd property="copyrightYear">2007</dd>
       <dt>Copyrighted By:</dt>
-      <dd property="copyrightHolder"  typeof="Organization" >Holt, Rinehart and Winston</dd>
+      <dd property="copyrightHolder" typeof="Organization"><span property="name">Holt, Rinehart and Winston</span></dd>
       <dt>Adult content:</dt>
       <dd><meta property="isFamilyFriendly" content="true"/>No</dd>
       <dt>Language:</dt>
@@ -9753,7 +9753,7 @@ as suggested by www.a11ymetadata.org.
       supplied by the NIMAC under these restrictions. Learn more in the NIMAC Support Center.</dd>
    </dl>
 
-   <div class="bookReviews" property="aggregateRating"  typeof="AggregateRating">
+   <div class="bookReviews" property="aggregateRating" typeof="AggregateRating">
       <h2>Reviews of Holt Physical Science (<span property="reviewCount">0</span> reviews)</h2>
 
       <div class="bookReviewScore">
@@ -9792,7 +9792,8 @@ JSON:
   },
   "bookFormat": "EBook/DAISY3",
   "copyrightHolder": {
-    "@type": "Organization"
+    "@type": "Organization",
+    "name": "Holt, Rinehart and Winston"
   },
   "copyrightYear": "2007",
   "description": "NIMAC-sourced textbook",
@@ -9803,7 +9804,8 @@ JSON:
   "name": "Holt Physical Science",
   "numberOfPages": "598 Pages",
   "publisher": {
-    "@type": "Organization"
+    "@type": "Organization",
+    "name": "Holt, Rinehart and Winston"
   }
 }
 </script>
