@@ -833,7 +833,7 @@ class ShowUnit (webapp2.RequestHandler):
               ('RDFa', 'rdfa', ''),
               ('JSON-LD', 'jsonld', ''),
             ]
-            self.write("<br/><br/><b>Examples</b><br/><br/>\n\n")
+            self.write("<br/><br/><b><a id=\"examples\">Examples</a></b><br/><br/>\n\n")
             for ex in examples:
                 if "id" in ex.egmeta:
                     self.write('<span id="%s"></span>' % ex.egmeta["id"])
