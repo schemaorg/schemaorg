@@ -7581,12 +7581,14 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
       <span class="h" property="rdfs:label">paymentMethod</span>
       <span property="rdfs:comment">The name of the credit card or other method of payment for the order.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Order">Order</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Invoice">Invoice</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/PaymentMethod">PaymentMethod</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/paymentMethodId">
       <span class="h" property="rdfs:label">paymentMethodId</span>
       <span property="rdfs:comment">An identifier for the method of payment used (e.g. the last 4 digits of the credit card).</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Order">Order</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Invoice">Invoice</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/paymentUrl">
@@ -11292,12 +11294,6 @@ postponing for 1.6.
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Invoice">Invoice</a></span>
   <span>Domain: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
 </div>
-<div typeof="rdf:Property" resource="http://schema.org/payFromAccountId">
-  <span class="h" property="rdfs:label">payFromAccountId</span>
-  <span property="rdfs:comment">The identifier for the account payment will be taken from.</span>
-  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Invoice">Invoice</a></span>
-  <span>Domain: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
-</div>
 <div typeof="rdf:Property" resource="http://schema.org/scheduledPaymentDate">
   <span class="h" property="rdfs:label">scheduledPaymentDate</span>
   <span property="rdfs:comment">The date the invoice is scheduled to be paid.</span>
@@ -11315,6 +11311,13 @@ postponing for 1.6.
   <span property="rdfs:comment">The status of payment; whether the invoice has been paid or not.</span>
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Invoice">Invoice</a></span>
   <span>Domain: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/referencesOrder">
+  <span class="h" property="rdfs:label">referencesOrder</span>
+  <span property="rdfs:comment">The Order(s) related to this Invoice. One or more Orders may be combined into a single Invoice.</span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Invoice">Invoice</a></span>
+  <span>Domain: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Order">Order</a></span>
 </div>
 
 </body>
