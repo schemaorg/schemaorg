@@ -682,7 +682,7 @@ class ShowUnit (webapp2.RequestHandler):
                 self.write("<br/>")
             first_range = False
             tt = "The '%s' property has values that include instances of the '%s' type." % (node.id, r.id)
-            self.write(" <code>%s</code> " % (self.ml(r, r.id, tt))+"\n")
+            self.write(" <code>%s</code> " % (self.ml(r, r.id, tt, prop="rangeIncludes")))+"\n")
         self.write("    </td>\n  </tr>\n</table>\n\n")
         first_domain = True
 
