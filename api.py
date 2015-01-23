@@ -872,8 +872,8 @@ class ShowUnit (webapp2.RequestHandler):
 
         These should give a JSON version of schema.org:
 
-            curl --verbose -H "Accept: application/ld+json" http://localhost:8080/docs/jsonldcontext.json
-            curl --verbose -H "Accept: application/ld+json" http://localhost:8080/docs/jsonldcontext.json.txt
+            curl --verbose -H "Accept: application/ld+json" http://localhost:8080/docs/jsonldcontext.jsonld
+            curl --verbose -H "Accept: application/ld+json" http://localhost:8080/docs/jsonldcontext.jsonld.txt
             curl --verbose -H "Accept: application/ld+json" http://localhost:8080/
 
         Per-term pages vary for type, property and enumeration.
@@ -903,13 +903,13 @@ class ShowUnit (webapp2.RequestHandler):
             return
 
         if ENABLE_JSONLD_CONTEXT:
-            if (node=="docs/jsonldcontext.json.txt"):
+            if (node=="docs/jsonldcontext.json.txt" or node=="docs/jsonldcontext.jsonld.txt"):
                 jsonldcontext = GetJsonLdContext()
                 self.response.headers['Content-Type'] = "text/plain"
                 self.emitCacheHeaders()
                 self.response.out.write( jsonldcontext )
                 return
-            if (node=="docs/jsonldcontext.json"):
+            if (node=="docs/jsonldcontext.json" or node=="docs/jsonldcontext.jsonld"):
                 jsonldcontext = GetJsonLdContext()
                 self.response.headers['Content-Type'] = "application/ld+json"
                 self.emitCacheHeaders()
