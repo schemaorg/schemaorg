@@ -113,7 +113,6 @@ class SDOGraphSetupTestCase(unittest.TestCase):
         log.info(row)
     self.assertEqual(len(nri1_results), 0, "No subtype need redeclare a rangeIncludes of its parents. Found: %s " % len(nri1_results ) )
 
-
   # These are place-holders for more sophisticated SPARQL-expressed checks.
 
   @unittest.expectedFailure
