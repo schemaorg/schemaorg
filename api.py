@@ -16,11 +16,12 @@ import os
 logging.basicConfig(level=logging.INFO) # dev_appserver.py --log_level debug .
 log = logging.getLogger(__name__)
 
-SCHEMA_VERSION=2.0
+SCHEMA_VERSION=1.92
 
 JINJA_ENVIRONMENT = jinja2.Environment(
-    loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
+    loader=jinja2.FileSystemLoader(os.path.join(os.path.dirname(__file__), 'templates')),
     extensions=['jinja2.ext.autoescape'], autoescape=True)
+
 
 ENABLE_JSONLD_CONTEXT = True
 
@@ -257,6 +258,7 @@ def GetImmediateSubtypes(n):
     if n==None:
         return None
     subs = GetSources( Unit.GetUnit("rdfs:subClassOf"), n)
+    subs.sort(key=lambda x: x.id)
     return subs
 
 def GetImmediateSupertypes(n):
@@ -397,7 +399,7 @@ class Example ():
         self.egmeta = egmeta
         for term in terms:
             if "id" in egmeta:
-              logging.debug("Created Example with ID %s and type %s" % ( egmeta["id"], term.id )) # danbri
+              logging.debug("Created Example with ID %s and type %s" % ( egmeta["id"], term.id ))
             term.examples.append(self)
 
 
@@ -680,7 +682,7 @@ class ShowUnit (webapp2.RequestHandler):
                 self.write("<br/>")
             first_range = False
             tt = "The '%s' property has values that include instances of the '%s' type." % (node.id, r.id)
-            self.write(" <code>%s</code> " % (self.ml(r, r.id, tt))+"\n")
+            self.write(" <code>%s</code> " % (self.ml(r, r.id, tt, prop="rangeIncludes"))+"\n")
         self.write("    </td>\n  </tr>\n</table>\n\n")
         first_domain = True
 
@@ -775,7 +777,7 @@ class ShowUnit (webapp2.RequestHandler):
     def getExactTermPage(self, node):
         """Emit a Web page that exactly matches this node."""
         self.outputStrings = []
-
+        log.info("EXACT PAGE: %s" % node.id)
         ext_mappings = GetExtMappingsRDFa(node)
 
         headers.OutputSchemaorgHeaders(self, node.id, node.isClass(), ext_mappings)
@@ -831,7 +833,7 @@ class ShowUnit (webapp2.RequestHandler):
               ('RDFa', 'rdfa', ''),
               ('JSON-LD', 'jsonld', ''),
             ]
-            self.write("<br/><br/><b>Examples</b><br/><br/>\n\n")
+            self.write("<br/><br/><b><a id=\"examples\">Examples</a></b><br/><br/>\n\n")
             for ex in examples:
                 if "id" in ex.egmeta:
                     self.write('<span id="%s"></span>' % ex.egmeta["id"])
@@ -917,14 +919,39 @@ class ShowUnit (webapp2.RequestHandler):
         if (node == "favicon.ico"):
             return
 
-        if (node == "docs/full.html"):
-            root = TypeHierarchyTree()
-            uThing = Unit.GetUnit("Thing")
-            root.traverseForHTML(uThing)
+        if (node == "docs/full.html"): # DataCache.getDataCache.get
             self.response.headers['Content-Type'] = "text/html"
             self.emitCacheHeaders()
-            self.response.out.write(root.toHTML() )
-            return
+
+            if DataCache.get('FullTreePage'):
+                self.response.out.write( DataCache.get('FullTreePage') )
+                log.debug("Serving cached FullTreePage.")
+                return
+            else:
+                template = JINJA_ENVIRONMENT.get_template('full.tpl')
+                uThing = Unit.GetUnit("Thing")
+                uDataType = Unit.GetUnit("DataType")
+
+                mainroot = TypeHierarchyTree()
+                mainroot.traverseForHTML(uThing)
+                thing_tree = mainroot.toHTML()
+
+                dtroot = TypeHierarchyTree()
+                dtroot.traverseForHTML(uDataType)
+                datatype_tree = dtroot.toHTML()
+
+                template_values = {
+                    'thing_tree': thing_tree,
+                    'datatype_tree': datatype_tree,
+                }
+
+                page = template.render(template_values)
+
+                self.response.out.write( page )
+                log.debug("Serving fresh FullTreePage.")
+                DataCache["FullTreePage"] = page
+
+                return
 
         # Next: pages based on request path matching a Unit in the term graph.
         node = Unit.GetUnit(node) # e.g. "Person", "CreativeWork".
