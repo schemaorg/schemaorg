@@ -16,7 +16,7 @@ import os
 logging.basicConfig(level=logging.INFO) # dev_appserver.py --log_level debug .
 log = logging.getLogger(__name__)
 
-SCHEMA_VERSION=1.93x # drafting sdo-stantz
+SCHEMA_VERSION=1.92
 
 JINJA_ENVIRONMENT = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.join(os.path.dirname(__file__), 'templates')),
@@ -682,7 +682,7 @@ class ShowUnit (webapp2.RequestHandler):
                 self.write("<br/>")
             first_range = False
             tt = "The '%s' property has values that include instances of the '%s' type." % (node.id, r.id)
-            self.write(" <code>%s</code> " % (self.ml(r, r.id, tt))+"\n")
+            self.write(" <code>%s</code> " % (self.ml(r, r.id, tt, prop="rangeIncludes"))+"\n")
         self.write("    </td>\n  </tr>\n</table>\n\n")
         first_domain = True
 
@@ -833,7 +833,7 @@ class ShowUnit (webapp2.RequestHandler):
               ('RDFa', 'rdfa', ''),
               ('JSON-LD', 'jsonld', ''),
             ]
-            self.write("<br/><br/><b>Examples</b><br/><br/>\n\n")
+            self.write("<br/><br/><b><a id=\"examples\">Examples</a></b><br/><br/>\n\n")
             for ex in examples:
                 if "id" in ex.egmeta:
                     self.write('<span id="%s"></span>' % ex.egmeta["id"])

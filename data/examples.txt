@@ -935,14 +935,15 @@ MICRODATA:
     to <span itemprop="highPrice">$1495</span>
     from <span itemprop="offerCount">8</span> sellers
 
-  Sellers:
-  <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-    <a itemprop="url" href="save-a-lot-monitors.com/dell-30.html">
-     Save A Lot Monitors - $1250</a>
-  </div>
-  <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-    <a itemprop="url" href="jondoe-gadgets.com/dell-30.html">
-     Jon Doe's Gadgets - $1350</a>
+    Sellers:
+    <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+        <a itemprop="url" href="save-a-lot-monitors.com/dell-30.html">
+        Save A Lot Monitors - $1250</a>
+    </div>
+    <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+        <a itemprop="url" href="jondoe-gadgets.com/dell-30.html">
+        Jon Doe's Gadgets - $1350</a>
+    </div>
   </div>
   ...
 </div>
@@ -2946,9 +2947,9 @@ MICRODATA:
   </span>
   <br><span itemprop="datePublished">2012-03-24</span></p>
   <p><b>Abstract:</b>
-  We review clinical evidence related to the use of metformin for
+  <span itemprop="description">We review clinical evidence related to the use of metformin for
   treatment of type-2 diabetes mellitus and provide new clinical guideline
-  recommendations.</p>
+  recommendations.</span></p>
   <p><b>MeSH subject headings:</b>
   <span itemprop="about" itemscope itemtype="http://schema.org/Drug">
     <span itemprop="name">Metformin</span>
@@ -2997,9 +2998,9 @@ RDFA:
   </span>
   <br><span property="datePublished">2012-03-24</span></p>
   <p><b>Abstract:</b>
-  We review clinical evidence related to the use of metformin for
+  <span property="description">We review clinical evidence related to the use of metformin for
   treatment of type-2 diabetes mellitus and provide new clinical guideline
-  recommendations.</p>
+  recommendations.</span></p>
   <p><b>MeSH subject headings:</b>
   <span property="about"  typeof="Drug">
     <span property="name">Metformin</span>
@@ -3069,6 +3070,7 @@ JSON:
     "codingSystem": "MeSH"
   },
   "datePublished": "2012-03-24",
+  "description": "We review clinical evidence related to the use of metformin for treatment of type-2 diabetes mellitus and provide new clinical guideline recommendations.",
   "evidenceLevel": "http://schema.org/EvidenceLevelA",
   "name": "New guidelines for metformin and diabetes mellitus",
   "publicationType": "Meta-Analysis",
@@ -7877,8 +7879,8 @@ JSON:
     "@type": "Book",
     "name": "Outliers"
   },
-  "location": {
-    "@type": "Product",
+  "seller": {
+    "@type": "Organization",
     "name": "Amazon"
   }
 }
@@ -9648,17 +9650,17 @@ as suggested by www.a11ymetadata.org.
       <dt>Book Quality:</dt>
       <dd>Publisher Quality</dd>
       <dt>Book Size:</dt>
-      <dd itemprop="numberOfPages">598 Pages</dd>
+      <dd><span itemprop="numberOfPages">598</span> Pages</dd>
       <dt>ISBN-13:</dt>
       <dd itemprop="isbn">9780030426599</dd>
       <dt>Publisher:</dt>
-      <dd itemprop="publisher" itemtype="http://schema.org/Organization" itemscope="">Holt, Rinehart and Winston</dd>
+      <dd itemprop="publisher" itemtype="http://schema.org/Organization" itemscope=""><span itemprop="name">Holt, Rinehart and Winston</span></dd>
       <dt>Date of Addition:</dt>
       <dd>06/08/10</dd>
       <dt>Copyright Date:</dt>
       <dd itemprop="copyrightYear">2007</dd>
       <dt>Copyrighted By:</dt>
-      <dd itemprop="copyrightHolder" itemtype="http://schema.org/Organization" itemscope="">Holt, Rinehart and Winston</dd>
+      <dd itemprop="copyrightHolder" itemtype="http://schema.org/Organization" itemscope=""><span itemprop="name">Holt, Rinehart and Winston</span></dd>
       <dt>Adult content:</dt>
       <dd><meta itemprop="isFamilyFriendly" content="true"/>No</dd>
       <dt>Language:</dt>
@@ -9697,7 +9699,7 @@ appropriate values for these properties. This example shows simple text values,
 as suggested by www.a11ymetadata.org.
 </p>
 
-<div   typeof="Book">
+<div vocab="http://schema.org/" typeof="Book">
    <meta property="bookFormat" content="EBook/DAISY3"/>
    <meta property="accessibilityFeature" content="largePrint/CSSEnabled"/>
    <meta property="accessibilityFeature" content="highContrast/CSSEnabled"/>
@@ -9722,17 +9724,17 @@ as suggested by www.a11ymetadata.org.
       <dt>Book Quality:</dt>
       <dd>Publisher Quality</dd>
       <dt>Book Size:</dt>
-      <dd property="numberOfPages">598 Pages</dd>
+      <dd><span property="numberOfPages">598</span> Pages</dd>
       <dt>ISBN-13:</dt>
       <dd property="isbn">9780030426599</dd>
       <dt>Publisher:</dt>
-      <dd property="publisher"  typeof="Organization" >Holt, Rinehart and Winston</dd>
+      <dd property="publisher" typeof="Organization"><span property="name">Holt, Rinehart and Winston</span></dd>
       <dt>Date of Addition:</dt>
       <dd>06/08/10</dd>
       <dt>Copyright Date:</dt>
       <dd property="copyrightYear">2007</dd>
       <dt>Copyrighted By:</dt>
-      <dd property="copyrightHolder"  typeof="Organization" >Holt, Rinehart and Winston</dd>
+      <dd property="copyrightHolder" typeof="Organization"><span property="name">Holt, Rinehart and Winston</span></dd>
       <dt>Adult content:</dt>
       <dd><meta property="isFamilyFriendly" content="true"/>No</dd>
       <dt>Language:</dt>
@@ -9753,7 +9755,7 @@ as suggested by www.a11ymetadata.org.
       supplied by the NIMAC under these restrictions. Learn more in the NIMAC Support Center.</dd>
    </dl>
 
-   <div class="bookReviews" property="aggregateRating"  typeof="AggregateRating">
+   <div class="bookReviews" property="aggregateRating" typeof="AggregateRating">
       <h2>Reviews of Holt Physical Science (<span property="reviewCount">0</span> reviews)</h2>
 
       <div class="bookReviewScore">
@@ -9792,7 +9794,8 @@ JSON:
   },
   "bookFormat": "EBook/DAISY3",
   "copyrightHolder": {
-    "@type": "Organization"
+    "@type": "Organization",
+    "name": "Holt, Rinehart and Winston"
   },
   "copyrightYear": "2007",
   "description": "NIMAC-sourced textbook",
@@ -9801,9 +9804,10 @@ JSON:
   "isFamilyFriendly": "true",
   "isbn": "9780030426599",
   "name": "Holt Physical Science",
-  "numberOfPages": "598 Pages",
+  "numberOfPages": "598",
   "publisher": {
-    "@type": "Organization"
+    "@type": "Organization",
+    "name": "Holt, Rinehart and Winston"
   }
 }
 </script>
@@ -9905,7 +9909,7 @@ JSON:
   "reservationStatus": "http://schema.org/ReservationConfirmed",
   "reservationFor": {
     "@type": "BusTrip",
-    "operatingCompany": {
+    "provider": {
       "@type": "Organization",
       "name": "Bolt NYC"
     },
@@ -10037,7 +10041,7 @@ JSON:
       "@type": "Airline",
       "name": "United",
       "iataCode": "UA"
-    },
+    }
     "departureAirport": {
       "@type": "Airport",
       "name": "San Francisco Airport",
