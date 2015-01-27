@@ -76,17 +76,6 @@ class SDOGraphSetupTestCase(unittest.TestCase):
     inverseOf_results = self.rdflib_data.query("select ?x ?y where { ?x <http://schema.org/inverseOf> ?y }")
     self.assertEqual(len(inverseOf_results ) % 2 == 0, True, "Even number of inverseOf triples expected. Found: %s " % len(inverseOf_results ) )
 
-  def test_unlabelledType(self):
-
-    unlabelledType_results = self.rdflib_data.query( "SELECT ?t WHERE { ?t a rdfs:Class . FILTER NOT EXISTS { ?t rdfs:label ?l } } ")
-
-    if (len(unlabelledType_results)>0):
-        for row in unlabelledType_results:
-            log.info(row)
-    self.assertEqual(len(unlabelledType_results ) == 0, True, "We should find no rdf classes that lack a label. Found %s" % len(unlabelledType_results ) )
-
-    # what about in other namespaces? do we ever both asserting they're rdf:type rdfs:Class?
-
   def test_needlessDomainIncludes(self):
     # check immediate subtypes don't declare same domainIncludes
     # TODO: could we use property paths here to be more thorough?
@@ -123,30 +112,6 @@ class SDOGraphSetupTestCase(unittest.TestCase):
       for row in nri1_results:
         log.info(row)
     self.assertEqual(len(nri1_results), 0, "No subtype need redeclare a rangeIncludes of its parents. Found: %s " % len(nri1_results ) )
-
-  @unittest.expectedFailure
-  def test_needlessRangeIncludesv2(self):
-    # as above, but for range. We excuse URL as it is special, not best seen as a Text subtype.
-    # check immediate subtypes don't declare same domainIncludes
-    # TODO: could we use property paths here to be more thorough? -> couldn't get it working.
-    nri1= ("SELECT ?prop ?c1 ?c2 "
-             "WHERE { "
-             "?prop <http://schema.org/rangeIncludes> ?c1 ."
-             "?prop <http://schema.org/rangeIncludes> ?c3 ."
-             "?c1 rdfs:subClassOf ?c2 ."
-             "?c2 rdfs:subClassOf ?c3 ."
-             "FILTER (?c1 != ?c3) ."
-             "FILTER (?c1 != <http://schema.org/URL>) ." 
-             "}"
-             "ORDER BY ?prop ")
-    nri1_results = self.rdflib_data.query(nri1)
-    if (len(nri1_results)>0):
-      tx=''
-      for row in nri1_results:
-        log.info(row)
-        tx +=  " %s \n" %  ( str(row) ) 
-    self.assertEqual(len(nri1_results), 0, "No subtype need redeclare a rangeIncludes of its parents. Found: %s Details:\n %s" % ( len(nri1_results ), tx ) )
-
 
   # These are place-holders for more sophisticated SPARQL-expressed checks.
 
