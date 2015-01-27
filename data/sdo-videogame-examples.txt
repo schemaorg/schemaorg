@@ -139,15 +139,17 @@ RDFA:
     <h2>Video: <span property="name">Super Game review</span></h2>
      <meta property="duration" content="T1M33S" />
      <meta property="thumbnail" content="super-game.jpg" />
-      <object ...>
-        <param ...>
-        <embed type="application/x-shockwave-flash" ...>
-      </object>
-  <div>
-    <h2>Hints, Secrets, Glitches & Easter Eggs<h2>
-    <p>Easy Credits <span property="cheatCode">To get infinite credits you must first have at least 1 or 2 companions with you </span></p>
-    <p><a href="http://example.com/strategy/super-game/victory.php">Victory Strategy Guides</a></p>
-  </div>
+    <object ...>
+      <param ...>
+      <embed type="application/x-shockwave-flash" ...>
+    </object>
+</div>
+<div>
+  <h2>Hints, Secrets, Glitches & Easter Eggs<h2>
+  <p>Easy Credits <span property="cheatCode">To get infinite credits you must first have at least 1 or 2 companions with you </span></p>
+  <p><a href="http://example.com/strategy/super-game/victory.php">Victory Strategy Guides</a></p>
+</div>
+</body>
 
 JSON:
 
@@ -475,7 +477,7 @@ MICRODATA:
     <li itemprop="gameLocation">"Arefu"</li>
   </ul>
 </div>
-<a href="http://fallout.wikia.com/wiki/Fallout_3_Manual">Manual</a>
+<a itemprop="gameTip" href="http://fallout.wikia.com/wiki/Fallout_3_Manual">Manual</a>
 </body>
 
 RDFA:
@@ -535,7 +537,7 @@ RDFA:
     <li property="gameLocation">"Arefu"</li>
   </ul>
 </div>
-<a href="http://fallout.wikia.com/wiki/Fallout_3_Manual">Manual</a>
+<a property="gameTip" href="http://fallout.wikia.com/wiki/Fallout_3_Manual">Manual</a>
 </body>
 
 JSON:
@@ -577,8 +579,8 @@ JSON:
     "alternateName":"perk",
     "description":"+10% damage to the opposite sex, and unique dialogue options with certain characters"
   }],
-  "location":["Rivet City", "Megaton", "Canterbury Commons", "Big Town", "Arefu"],
-  "tip":"http://fallout.wikia.com/wiki/Fallout_3_Manual"
+  "gameLocation":["Rivet City", "Megaton", "Canterbury Commons", "Big Town", "Arefu"],
+  "gameTip":"http://fallout.wikia.com/wiki/Fallout_3_Manual"
 }</script>
 
 TYPES: #games-4 VideoGame
@@ -607,9 +609,10 @@ by <span>Electronic Arts</span>
   Age<span>4</span>+
 </div>
 </body>
+
 MICRODATA:
 
-<body vocab="http://schema.org/" itemscope itemtype="http://schema.org/VideoGame http://schema.org/MobileApplication">
+<body itemscope itemtype="http://schema.org/VideoGame http://schema.org/MobileApplication">
 ...
 <span itemprop="gamePlatform">iOS</span>
 
@@ -620,7 +623,7 @@ by <span itemprop="author">Electronic Arts</span>
 **YOU VOTED & THE CAT’S OUT OF THE BAG** Thanks to the votes from YOU and thousands of loyal MONOPOLY Facebook fans from 185 different countries, the CAT mover is now available to play with in this latest update as well as in the classic board game version of MONOPOLY!</span>
 <div itemprop="aggregateRating"  itemscope itemtype="http://schema.org/AggregateRating">
   <span itemprop="ratingValue">4</span> stars -
-  <span itemprop="reviewCount">33</span> reviews
+  <span itemprop="ratingCount">33</span> reviews
 </div>
 <div itemprop="offers"  itemscope itemtype="http://schema.org/Offer">
   Price: <span itemprop="price">1</span>
@@ -647,7 +650,7 @@ by <span property="author">Electronic Arts</span>
 **YOU VOTED & THE CAT’S OUT OF THE BAG** Thanks to the votes from YOU and thousands of loyal MONOPOLY Facebook fans from 185 different countries, the CAT mover is now available to play with in this latest update as well as in the classic board game version of MONOPOLY!</span>
 <div property="aggregateRating"  typeof="AggregateRating">
   <span property="ratingValue">4</span> stars -
-  <span property="reviewCount">33</span> reviews
+  <span property="ratingCount">33</span> reviews
 </div>
 <div property="offers"  typeof="Offer">
   Price: <span property="price">1</span>
@@ -732,10 +735,10 @@ PRE-MARKUP:
     <section>
         <span>Approx. Retail:</span>
         <span>$17.99</span>
-        <a href="/monopoly-2/en_US/shop/where-to-buy.cfm?brand_guid=DAD28866-1C43-11DD-BD0B-0800200C9A66&prodName=Monopoly Game">Where To Buy</a>
+        <a href="/monopoly-2/en_US/shop/where-to-buy.cfm?brand_guid=DAD28866-1C43-11DD-BD0B-0800200C9A66&prodName=Monopoly%20Game">Where To Buy</a>
     </section>
     <span>
-      Ages: <span>8 </span> YEARS & UP
+      Ages: <span>8</span> YEARS & UP
     </span>
       <h4>Game  Description:</h4>
     <p >Own it all as a high-flying trader in the fast-paced world of real estate. Tour the city for the hottest properties: sites, stations and utilities are all up for grabs. Invest in houses and hotels, then watch the rent come pouring in! Make deals with other players and look out for bargains at auction. There are many ways to get what you want. For really speedy dealers, use the speed die for a quick and intense game of Monopoly. So get on Go and trade your way to success!<br/><br/>Includes <span>gameboard</span>, <span>8 tokens</span>, <span>28 Title Deed cards</span>, <span>16 Chance cards</span>, <span>16 Community Chest cards</span>, <span>money pack</span>,<span> 32 houses</span>, <span>12 hotels</span>, 2 dice and instructions<br/><br/>•Features a speed die for a faster, more intense game<br/>•Includes the new token that was voted No. 1: the cat<br/><br/>For <div>
@@ -748,10 +751,10 @@ MICRODATA:
     <section itemprop="offers" itemscope itemtype="http://schema.org/Offer">
         <span>Approx. Retail:</span>
         <span itemprop="priceCurrency">$</span><span itemprop="price">17.99</span>
-        <a href="/monopoly-2/en_US/shop/where-to-buy.cfm?brand_guid=DAD28866-1C43-11DD-BD0B-0800200C9A66&prodName=Monopoly Game" itemprop="availableAtOrFrom">Where To Buy</a>
+        <a href="/monopoly-2/en_US/shop/where-to-buy.cfm?brand_guid=DAD28866-1C43-11DD-BD0B-0800200C9A66&prodName=Monopoly%20Game" itemprop="availableAtOrFrom">Where To Buy</a>
     </section>
     <span itemprop="audience" itemscope itemtype="http://schema.org/PeopleAudience">
-      Ages: <span itemprop="suggestedMinAge">8 </span> YEARS & UP
+      Ages: <span itemprop="suggestedMinAge">8</span> YEARS & UP
     </span>
       <h4>Game  Description:</h4>
     <p itemprop="description">Own it all as a high-flying trader in the fast-paced world of real estate. Tour the city for the hottest properties: sites, stations and utilities are all up for grabs. Invest in houses and hotels, then watch the rent come pouring in! Make deals with other players and look out for bargains at auction. There are many ways to get what you want. For really speedy dealers, use the speed die for a quick and intense game of Monopoly. So get on Go and trade your way to success!<br/><br/>Includes <span itemprop="gameItem">gameboard</span>, <span itemprop="gameItem">8 tokens</span>, <span itemprop="gameItem">28 Title Deed cards</span>, <span itemprop="gameItem">16 Chance cards</span>, <span itemprop="gameItem">16 Community Chest cards</span>, <span itemprop="gameItem">money pack</span>,<span itemprop="gameItem"> 32 houses</span>, <span itemprop="gameItem">12 hotels</span>, 2 dice and instructions<br/><br/>•Features a speed die for a faster, more intense game<br/>•Includes the new token that was voted No. 1: the cat<br/><br/>For <div itemprop="numberOfPlayers" itemscope itemtype="http://schema.org/QuantitativeValue">
@@ -764,10 +767,10 @@ RDFA:
     <section property="offers" typeof="Offer">
         <span>Approx. Retail:</span>
         <span property="priceCurrency">$</span><span property="price">17.99</span>
-        <a href="/monopoly-2/en_US/shop/where-to-buy.cfm?brand_guid=DAD28866-1C43-11DD-BD0B-0800200C9A66&prodName=Monopoly Game" property="availableAtOrFrom">Where To Buy</a>
+        <a href="/monopoly-2/en_US/shop/where-to-buy.cfm?brand_guid=DAD28866-1C43-11DD-BD0B-0800200C9A66&prodName=Monopoly%20Game" property="availableAtOrFrom">Where To Buy</a>
     </section>
     <span property="audience" typeof="PeopleAudience">
-      Ages: <span property="suggestedMinAge">8 </span> YEARS & UP
+      Ages: <span property="suggestedMinAge">8</span> YEARS & UP
     </span>
       <h4>Game  Description:</h4>
     <p property="description">Own it all as a high-flying trader in the fast-paced world of real estate. Tour the city for the hottest properties: sites, stations and utilities are all up for grabs. Invest in houses and hotels, then watch the rent come pouring in! Make deals with other players and look out for bargains at auction. There are many ways to get what you want. For really speedy dealers, use the speed die for a quick and intense game of Monopoly. So get on Go and trade your way to success!<br/><br/>Includes <span property="gameItem">gameboard</span>, <span property="gameItem">8 tokens</span>, <span property="gameItem">28 Title Deed cards</span>, <span property="gameItem">16 Chance cards</span>, <span property="gameItem">16 Community Chest cards</span>, <span property="gameItem">money pack</span>,<span property="gameItem"> 32 houses</span>, <span property="gameItem">12 hotels</span>, 2 dice and instructions<br/><br/>•Features a speed die for a faster, more intense game<br/>•Includes the new token that was voted No. 1: the cat<br/><br/>For <div property="numberOfPlayers" typeof="QuantitativeValue">
@@ -783,7 +786,7 @@ JSON:
     "@type":"Offer",
     "priceCurrency":"$",
     "price":"17.99",
-    "availableAtOrFrom":"/monopoly-2/en_US/shop/where-to-buy.cfm?brand_guid=DAD28866-1C43-11DD-BD0B-0800200C9A66&prodName=Monopoly Game"
+    "availableAtOrFrom":"/monopoly-2/en_US/shop/where-to-buy.cfm?brand_guid=DAD28866-1C43-11DD-BD0B-0800200C9A66&prodName=Monopoly%20Game"
   },
   "audience":{
     "@type":"PeopleAudience",
@@ -851,7 +854,7 @@ JSON:
   "@type": "VideoGame",
   "name":"Mass Effect Galaxy",
   "gamePlatform":"iOS",
-  "datePublished":"2009-06=22"
+  "datePublished":"2009-06-22"
   }]
  }
  </script>

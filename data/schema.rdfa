@@ -6888,7 +6888,7 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
     <div typeof="rdf:Property" resource="http://schema.org/itemReviewed">
       <span class="h" property="rdfs:label">itemReviewed</span>
       <span property="rdfs:comment">The item that is being reviewed/rated.</span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/AggregateRating">AggregateRating</a></span>
+<!--      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Rating">Rating</a></span> -->
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Review">Review</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Thing">Thing</a></span>
     </div>
@@ -7216,11 +7216,16 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/musicBy">
       <span class="h" property="rdfs:label">musicBy</span>
-      <span property="rdfs:comment">The composer of the movie or TV/radio soundtrack.</span>
+      <span property="rdfs:comment">The composer of the soundtrack.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Movie">Movie</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Episode">Episode</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/TVSeries">TVSeries</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/RadioSeries">RadioSeries</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Clip">Clip</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MovieSeries">MovieSeries</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/VideoGame">VideoGame</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/VideoGameSeries">VideoGameSeries</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/VideoObject">VideoObject</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/MusicGroup">MusicGroup</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Person">Person</a></span>
     </div>
@@ -7293,8 +7298,8 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MedicalTest">MedicalTest</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
     </div>
-    <div typeof="rdf:Property" resource="http://schema.org/numberofEmployees">
-      <span class="h" property="rdfs:label">numberofEmployees</span>
+    <div typeof="rdf:Property" resource="http://schema.org/numberOfEmployees">
+      <span class="h" property="rdfs:label">numberOfEmployees</span>
       <span property="rdfs:comment">The size of business by number of employees.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/BusinessAudience">BusinessAudience</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/QuantitativeValue">QuantitativeValue</a></span>
@@ -7358,6 +7363,7 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CreativeWork">CreativeWork</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Event">Event</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Product">Product</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/AggregateOffer">AggregateOffer</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Offer">Offer</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/openingHours">
@@ -9014,7 +9020,7 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Season">Season</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/VideoGame">VideoGame</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/VideoGameSeries">VideoGameSeries</a></span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MovieGameSeries">MovieGameSeries</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MovieSeries">MovieSeries</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/RadioSeries">RadioSeries</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/TVSeries">TVSeries</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/VideoObject">VideoObject</a></span>
@@ -11207,62 +11213,59 @@ postponing for 1.6.
     </span>
   </div>
 </div>
+<h1>VisualArtwork</h1>
 
 
-   <h1>VisualArtwork</h1>
+<p>See <a href="http://lists.w3.org/Archives/Public/public-vocabs/2013May/0030.html">discussion</a> and <a href="http://www.w3.org/wiki/WebSchemas/VisualArtwork">wiki</a></p>
 
 
-     <p>See <a href="http://lists.w3.org/Archives/Public/public-vocabs/2013May/0030.html">discussion</a> and <a href="http://www.w3.org/wiki/WebSchemas/VisualArtwork">wiki</a></p>
+<div typeof="rdfs:Class" resource="http://schema.org/VisualArtwork">
+    <span class="h" property="rdfs:label">VisualArtwork</span>
+    <span property="rdfs:comment">A work of art that is primarily visual in character.</span>
+    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/CreativeWork">CreativeWork</a></span>
+    <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_VisualArtworkClass">WebSchemas community</a></span>
+</div>
 
+<div typeof="rdf:Property" resource="http://schema.org/artform">
+    <span class="h" property="rdfs:label">artform</span>
+    <span property="rdfs:comment">e.g. Painting, Drawing, Sculpture, Print, Photograph, Assemblage, Collage, etc.</span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/VisualArtwork">VisualArtwork</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+</div>
 
-       <div typeof="rdfs:Class" resource="http://schema.org/VisualArtwork">
-         <span class="h" property="rdfs:label">VisualArtwork</span>
-         <span property="rdfs:comment">A work of art that is primarily visual in character.</span>
-         <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/CreativeWork">CreativeWork</a></span>
-         <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_VisualArtworkClass">WebSchemas community</a></span>
-       </div>
+<div typeof="rdf:Property" resource="http://schema.org/material">
+    <span class="h" property="rdfs:label">material</span>
+    <span property="rdfs:comment">e.g. Oil, Watercolour, Acrylic, Linoprint, Marble, Cyanotype, Digital, Lithograph, DryPoint, Intaglio, Pastel, Woodcut, Pencil, Mixed Media, etc.</span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/VisualArtwork">VisualArtwork</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+</div>
 
-       <div typeof="rdf:Property" resource="http://schema.org/artform">
-         <span class="h" property="rdfs:label">artform</span>
-         <span property="rdfs:comment">e.g. Painting, Drawing, Scupture, Print, Photograph, Assemblage, Collage, etc.</span>
-         <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/VisualArtwork">VisualArtwork</a></span>
-         <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
-       </div>
+<div typeof="rdf:Property" resource="http://schema.org/surface">
+    <span class="h" property="rdfs:label">surface</span>
+    <span property="rdfs:comment">e.g. Canvas, Paper, Wood, Board, etc.</span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/VisualArtwork">VisualArtwork</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+</div>
 
-       <div typeof="rdf:Property" resource="http://schema.org/materials">
-         <span class="h" property="rdfs:label">materials</span>
-         <span property="rdfs:comment">e.g. Oil, Watercolour, Acrylic, Linoprint, Marble, Cyanotype, Digital, Lithograph, DryPoint, Intaglio, Pastel, Woodcut, Pencil, Mixed Media, etc.</span>
-         <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/VisualArtwork">VisualArtwork</a></span>
-         <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
-       </div>
+<div typeof="rdf:Property" resource="http://schema.org/width"> <!-- exists, see http://schema.org/docs/schema_org_rdfa.html existing domains MediaObject, Product. -->
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/VisualArtwork">VisualArtwork</a></span>
+</div>
 
-       <div typeof="rdf:Property" resource="http://schema.org/surface">
-         <span class="h" property="rdfs:label">surface</span>
-         <span property="rdfs:comment">e.g. Canvas, Paper, Wood, Board, etc.</span>
-         <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/VisualArtwork">VisualArtwork</a></span>
-         <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
-       </div>
+<div typeof="rdf:Property" resource="http://schema.org/height"> <!-- exists, see http://schema.org/docs/schema_org_rdfa.html existing domains MediaObject, Product. -->
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/VisualArtwork">VisualArtwork</a></span>
+</div>
 
-       <div typeof="rdf:Property" resource="http://schema.org/width"> <!-- exists, see http://schema.org/docs/schema_org_rdfa.html existing domains MediaObject, Product. -->
-         <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/VisualArtwork">VisualArtwork</a></span>
-       </div>
+<div typeof="rdf:Property" resource="http://schema.org/depth"> <!-- exists, see http://schema.org/docs/schema_org_rdfa.html existing domains MediaObject, Product. -->
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/VisualArtwork">VisualArtwork</a></span>
+</div>
 
-       <div typeof="rdf:Property" resource="http://schema.org/height"> <!-- exists, see http://schema.org/docs/schema_org_rdfa.html existing domains MediaObject, Product. -->
-         <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/VisualArtwork">VisualArtwork</a></span>
-       </div>
-
-       <div typeof="rdf:Property" resource="http://schema.org/depth"> <!-- exists, see http://schema.org/docs/schema_org_rdfa.html existing domains MediaObject, Product. -->
-         <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/VisualArtwork">VisualArtwork</a></span>
-       </div>
-
-       <div typeof="rdf:Property" resource="http://schema.org/artEdition">
-         <span class="h" property="rdfs:label">artEdition</span>
-         <span property="rdfs:comment">The number of copies when multiple copies of a piece of artwork are produced - e.g. for a limited edition of 20 prints, 'artEdition' refers to the total number of copies (in this example "20"). </span>
-         <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/VisualArtwork">VisualArtwork</a></span>
-         <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
-         <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Integer">Integer</a></span>
-       </div>
-
+<div typeof="rdf:Property" resource="http://schema.org/artEdition">
+    <span class="h" property="rdfs:label">artEdition</span>
+    <span property="rdfs:comment">The number of copies when multiple copies of a piece of artwork are produced - e.g. for a limited edition of 20 prints, 'artEdition' refers to the total number of copies (in this example "20"). </span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/VisualArtwork">VisualArtwork</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Integer">Integer</a></span>
+</div>
 
 </body>
 </html>
