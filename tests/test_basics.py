@@ -43,7 +43,7 @@ class SDOBasicsTestCase(unittest.TestCase):
       if t.examples and len(t.examples) > 0:
         example_count = example_count + len(t.examples)
     log.info("Extracted %s examples." % example_count )
-    self.assertTrue(example_count > 300 and example_count < 400, "Expect that we extracted 300 < x < 400 examples from data/*examples.txt. Found: %s " % example_count)
+    self.assertTrue(example_count > 300 and example_count < 450, "Expect that we extracted 300 < x < 400 examples from data/*examples.txt. Found: %s " % example_count)
 
   # Whichever file from data/*examples.txt is glob-loaded last, needs a final entry of "TYPES:  FakeEntryNeeded, FixMeSomeDay"
   # This used to be examples.txt but now we are multi-file it could strike anywhere.
