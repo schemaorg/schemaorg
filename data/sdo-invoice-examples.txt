@@ -6,6 +6,7 @@ An example of a credit card bill (invoice).
 
 ACME Bank
 Bill for: January 2015 Visa
+invoice link: http://www.acmebank.com/invoice.pdf
 Customer: Jane Doe
 account ID: xxxx-xxxx-xxxx-1234
 payment due: 2015-01-30
@@ -18,6 +19,7 @@ MICRODATA:
 
 <div itemscope itemtype="http://schema.org/Invoice">
   <h1 itemprop="description">January 2015 Visa</h1>
+  <link itemprop="url" href="http://acmebank.com/invoice.pdf" />Invoice PDF
   <div itemprop="broker" itemscope itemtype="http://schema.org/BankOrCreditUnion">
     <b itemprop="name">ACME Bank</b>
   </div>
@@ -43,6 +45,7 @@ RDFA:
 
 <div vocab="http://schema.org" typeof="Invoice">
   <h1 property="description">January 2015 Visa</h1>
+  <link property="url" href="http://acmebank.com/invoice.pdf" />Invoice PDF
   <div property="broker" itemscope typeof="http://schema.org/BankOrCreditUnion">
     <b property="name">ACME Bank</b>
   </div>
@@ -71,6 +74,7 @@ JSON:
     "@context": "http://schema.org",
     "@type": "Invoice",
     "description": "January 2015 Visa bill.",
+    "url": "http://acmebank.com/invoice.pdf",
     "broker": {
       "@type": "BankOrCreditUnion",
       "name": "ACME Bank",

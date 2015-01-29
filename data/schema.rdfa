@@ -7523,6 +7523,12 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Episode">Episode</a></span>
       <link property="rdfs:subPropertyOf" href="http://schema.org/isPartOf" />
     </div>
+    <div typeof="rdf:Property" resource="http://schema.org/partOfInvoice">
+      <span class="h" property="rdfs:label">partOfInvoice</span>
+      <span property="rdfs:comment">The order is being paid as part of the referenced Invoice.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Order">Order</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Invoice">Invoice</a></span>
+    </div>
     <div typeof="rdf:Property" resource="http://schema.org/partOfOrder">
       <span class="h" property="rdfs:label">partOfOrder</span>
       <span property="rdfs:comment">The overall order the items in this delivery were included in.</span>
