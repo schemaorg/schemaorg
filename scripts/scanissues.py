@@ -6,6 +6,8 @@
 
 # Beginning of script to scan github for issue/term associations.
 
+# Note: https://developer.github.com/v3/#rate-limiting 
+# 60 requests per hour per IP address.
 
 import requests # http://www.python-requests.org/en/latest/
 import json
@@ -31,7 +33,7 @@ def getPagedAPI(u):
           print
     else:
             print "# Issue API error."
-
+            return("404") # ugh:)
 
 # TODO: figure out how (headers?) to know how many pages to fetch.
 
@@ -39,4 +41,6 @@ for i in range(10):
   u = "https://api.github.com/repos/schemaorg/schemaorg/issues?milestone=*;page=%i" % i 
   print "# Fetching: %s " % u
   getPagedAPI(u)
+#  if getPagedAPI(u)=="404":
+#    break
   
