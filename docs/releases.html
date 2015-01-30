@@ -137,11 +137,14 @@ td.release  {
 <h3>Vocabulary</h3>
 <ul>
 <li><a href="https://github.com/schemaorg/schemaorg/issues/204">Added</a> <a href="/VisualArtwork">VisualArtwork</a> type and supporting properties - <a href="/artEdition">artEdition</a>, <a href="/artform">artform</a>, <a href="/materials">materials</a>. Thanks, Paul Watson.</li>
-<li><a href="https://github.com/schemaorg/schemaorg/pull/279">Added</a> an <a href="/Invoice">Invoice</a> type to represent invoices/bills, with additional properties <a href="/totalPaymentDue">totalPaymentDue</a>, 
-<a href="/minimumPaymentDue">minimumPaymentDue</a>, <a href="/accountId">accountId</a>, <a href="/scheduledPaymentDate">scheduledPaymentDate</a>, <a href="/billingPeriod">billingPeriod</a>, <a href="/paymentStatus">paymentStatus</a>, <a href="/referencesOrder">referencesOrder</a>. 
+<li><a href="https://github.com/schemaorg/schemaorg/pull/279">Added</a> an <a href="/Invoice">Invoice</a> type to represent invoices/bills, with additional properties <a href="/totalPaymentDue">totalPaymentDue</a>,
+<a href="/minimumPaymentDue">minimumPaymentDue</a>, <a href="/accountId">accountId</a>, <a href="/scheduledPaymentDate">scheduledPaymentDate</a>, <a href="/billingPeriod">billingPeriod</a>, <a href="/paymentStatus">paymentStatus</a>, <a href="/referencesOrder">referencesOrder</a>.
 </li>
 <li><a href="https://github.com/schemaorg/schemaorg/pull/209">Fix</a> to allow <a href="/offers">offers</a> on <a href="/AggregateOffer">AggregateOffer</a>. Thanks, <a href="https://github.com/sesuncedu">Simon Spero</a>, <a href="https://github.com/Zinebb">Zinebb</a>.</li>
 <li><a href="https://github.com/schemaorg/schemaorg/issues/235">Expanded</a> the list of types that <a href="/musicBy">musicBy</a> applies to, matching those of <a href="/actor">actor</a> and <a href="/director">director</a>. Thanks, <a href="https://github.com/sesuncedu">Simon Spero</a>.</li>
+<li><a href="https://github.com/schemaorg/schemaorg/pull/307">Adding</a> <a href="/priceSpecification">priceSpecification</a> to <a href="/TradeAction">TradeAction</a> type, fixing <a href="https://github.com/schemaorg/schemaorg/issues/306">#306</a>.</li>
+<li><a href="https://github.com/schemaorg/schemaorg/pull/308">Adding</a> <a href="/deliveryMethod">deliveryMethod</a> to <a href="/TradeAction">OrderAction</a> type, fixing <a href="https://github.com/schemaorg/schemaorg/issues/305">#305</a>.</li>
+<li><a href="https://github.com/schemaorg/schemaorg/commit/bf79073bf246dc01fe38a7c9329e5b86dd24c230">Adjusted</a> description of <a href="/width">width</a>, <a href="/height">height</a> and <a href="/depth">depth</a> properties to be "the ___ of the item.", rather than list specific types.</li>
 </ul>
 
 <h3>Site improvements</h3>
@@ -157,6 +160,12 @@ td.release  {
 <li><a href="https://github.com/schemaorg/schemaorg/pull/190">Added</a> <a href="/name">name</a> property in <a href="/CreativeWork">CreativeWork</a> examples; <a href="https://github.com/schemaorg/schemaorg/pull/229">Improved</a> <a href="/MedicalScholarlyArticle">MedicalScholarlyArticle</a> example, marking up the abstract using <a href="http://schema.org/description">description</a> - thanks to <a href="https://github.com/dbs">Dan Scott</a>.</li>
 <li><a href="https://github.com/schemaorg/schemaorg/issues/252">Corrected</a> a case typo in <a href="/numberOfEmployees</a>. Thanks, <a href="https://github.com/scor">Stéphane Corlosquet</a>.</li>
 <li><a href="https://github.com/schemaorg/schemaorg/issues/234">Fixed</a> mistaken use of "MovieGameSeries"; reported by both Gregg and Simon.</li>
+<li><a href="https://github.com/schemaorg/schemaorg/commit/b3db6310e1ddfa98c38f5cf310a0633c33f93609">Fixed</a> valuePattern definition; it takes Text values, not Number. Thanks, Holger.</li>
+<li><a href="https://github.com/schemaorg/schemaorg/commit/392b0359fbc84dc365bab4fe126516f33057cc32">Fixed</a> definitions for <a href="/fromLocation">fromLocation</a>, <a href="/toLocation">toLocation</a>; they do not support numeric values. <a href="https://github.com/schemaorg/schemaorg/issues/227">Thanks</a>, Simon Spero.</li>
+<li><a href="https://github.com/schemaorg/schemaorg/commit/bccb6134d85bd3718d661302c471fb5dadd97169">Fixed</a> <a href="/producer">producer</a> property; it takes an <a href="/Organization">Organization</a> value, rather than applying to organizations. Thanks, <a href="https://github.com/unor">unor</a>.</li>
+<li><a href="https://github.com/schemaorg/schemaorg/commit/0a281c451b115422335dcb86ed8fd00ff7dd9289">Fixed</a> typo: <a href="/clinicalPharmacology">clinicalPharmacology</a> is <a href="/supersededBy">supersededBy</a> <a href="/clinicalPharmacology">clinicalPharmacology</a>. Thanks, <a href="https://github.com/twamarc">Marc</a>.</li>
+<li><a href="https://github.com/schemaorg/schemaorg/commit/1d264a7bee598b451c5b972f185fa17e19ede9c7">Fixed</a> an example that used "Address" instead of <a href="/PostalAddress">PostalAddress</a>. Thanks, <a href="https://github.com/unor">unor</a>.</li>
+<li><a href="https://github.com/schemaorg/schemaorg/issues/294">Added</a> 100+ periods / full stops (".") to end each definition.</li>
 </ul>
 
 <div>See also <a href="https://github.com/schemaorg/schemaorg/issues?q=milestone%3A%22sdo-venkman+release%22+>issues</a> and <a href="https://github.com/schemaorg/schemaorg/pulls?q=milestone%3A%22sdo-stantz+release%22+is%3Apr">pull requests</a> for this release.</div>
