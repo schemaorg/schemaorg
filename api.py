@@ -379,7 +379,7 @@ class TypeHierarchyTree:
         p1 = " " * 4 * depth
         if emit_debug:
             self.emit("%s# @id: %s last_at_this_level: %s" % (p1, node.id, last_at_this_level))
-        context = "{}".format(""""@context": {
+        ctx = "{}".format(""""@context": {
     "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
     "schema": "http://schema.org/",
     "xsd": "http://www.w3.org/2001/XMLSchema#",
@@ -400,14 +400,14 @@ class TypeHierarchyTree:
         unvisited_subtype_count = len(unseen_subtypes)
         subtype_count = len( node.GetImmediateSubtypes() )
 
-        supertext = "{}".format( '"rdfs:subClassOf": "schema:%s", ' % supertype.id if supertype != "None" else '' )
+        supertx = "{}".format( '"rdfs:subClassOf": "schema:%s", ' % supertype.id if supertype != "None" else '' )
         maybe_comma = "{}".format("," if unvisited_subtype_count > 0 else "")
         comment = GetComment(node).strip()
         comment = comment.replace('"',"'")
         comment = re.sub('<[^<]+?>', '', comment)[:60]
 
-        self.emit('\n%s{\n%s\n%s"@type": "rdfs:Class", %s "description": "%s...",\n%s"@id": "schema:%s"%s'
-            % (p1, context, p1, supertext, comment, p1, node.id , maybe_comma))
+        self.emit('\n%s{\n%s\n%s"@type": "rdfs:Class", %s "description": "%s...",\n%s"name": "%s",\n%s"@id": "schema:%s"%s'
+                  % (p1, ctx, p1,                 supertx,            comment,     p1,   node.id, p1,        node.id,  maybe_comma))
 
         i = 1
         if unvisited_subtype_count > 0:
