@@ -335,6 +335,9 @@ class TypeHierarchyTree:
     def toHTML(self):
         return '<ul>%s</ul>' % self.txt
 
+    def toJSON(self):
+        return self.txt
+
     def traverseForHTML(self, node, depth = 1):
 
         # we are a supertype of some kind
@@ -343,17 +346,17 @@ class TypeHierarchyTree:
             # and we haven't been here before
             if node.id not in self.visited:
                 self.visited[node.id] = True # remember our visit
-                self.emit( ' %s<li class="tbranch" id="%s"><a href="/%s">%s</a>' % (" " * depth, node.id, node.id, node.id) )
-                self.emit(' %s<ul>' % (" " * depth))
+                self.emit( ' %s<li class="tbranch" id="%s"><a href="/%s">%s</a>' % (" " * 4 * depth, node.id, node.id, node.id) )
+                self.emit(' %s<ul>' % (" " * 4 * depth))
 
                 # handle our subtypes
                 for item in node.GetImmediateSubtypes():
-                    self.traverseForHTML(item, depth + 4)
-                self.emit( ' %s</ul>' % (" " * depth))
+                    self.traverseForHTML(item, depth + 1)
+                self.emit( ' %s</ul>' % (" " * 4 * depth))
             else:
                 # we are a supertype but we visited this type before, e.g. saw Restaurant via Place then via Organization
                 seen = '  <a href="#%s">*</a> ' % node.id
-                self.emit( ' %s<li class="tbranch" id="%s"><a href="/%s">%s</a>%s' % (" " * depth, node.id, node.id, node.id, seen) )
+                self.emit( ' %s<li class="tbranch" id="%s"><a href="/%s">%s</a>%s' % (" " * 4 * depth, node.id, node.id, node.id, seen) )
 
         # leaf nodes
         if len(node.GetImmediateSubtypes()) == 0:
@@ -364,7 +367,102 @@ class TypeHierarchyTree:
                 # we tolerate "VideoGame" appearing under both Game and SoftwareApplication
                 # and would only suppress it if it had its own subtypes. Seems legit.
 
-        self.emit( ' %s</li>' % (" " * depth) )
+        self.emit( ' %s</li>' % (" " * 4 * depth) )
+
+    def traverseForJSONLD(self, node, depth = 0, last_at_this_level = True):
+        emit_debug = True
+        if node.id in self.visited:
+            # self.emit("skipping %s - already visited" % node.id)
+            return
+        self.visited[node.id] = True
+
+        p1 = " " * 4 * depth
+
+        self.emit("%s# @id: %s" % (p1, node.id))
+
+        unseen_subtypes = []
+        for st in node.GetImmediateSubtypes():
+            if not st.id in self.visited:
+                unseen_subtypes.append(st)
+        # context = "{}".format( '"@context": "http://schema.org", ' if last_at_this_level and depth==0 else '')
+        unvisited_subtype_count = len(unseen_subtypes)
+        subtype_count = len( node.GetImmediateSubtypes() )
+
+        i = 1
+
+        if unvisited_subtype_count > 0:
+            self.emit("  %s["  % p1 )
+            inner_lastness = False
+            for t in unseen_subtypes:
+                if i == unvisited_subtype_count:
+                    self.emit("%s# %s will be last at its level. calling traverseForJSONLD():" % (p1, t.id))
+                    inner_lastness = True
+                self.traverseForJSONLD(t, depth + 1, inner_lastness)
+
+            self.emit("%s  ]\n%s}%s  # %s" % (p1, p1,  "{}".format( "," if not last_at_this_level else '' ), node.id ) )
+
+        else:
+            self.emit("%s# %s is a leaf node." % (p1, node.id))
+
+
+#                self.emit("%s  ]\n%s}%s  # %s" % (p1, p1,  "{}".format( "," if not last_at_this_level else '!' ), node.id ) )
+
+#        if subtype_count == 0:         # leaf nodes TODO: or unvisited_subtype_count ??
+#            if node.id not in self.visited:
+#                self.emit( '%s{' % (" " * 4 * (depth ) ))
+#                self.emit( '%s "name": "%s" ' % (" " * 4 * depth, node.id ))
+#            self.emit("#%s %s last? %s visited?: %s" %(p1, node.id, last_at_this_level, node.id in self.visited ))
+#            self.emit( '%s}%s' % (" " * 4 * (depth), "{}".format( ',' if not last_at_this_level else '' ) ) )
+
+
+    def OldtraverseForJSONLD(self, node, depth = 0, last_at_this_level = True):
+        emit_debug = True
+        subtype_count = len( node.GetImmediateSubtypes() )
+        unvisited_subtype_count = 0
+        for st in node.GetImmediateSubtypes():
+            if not st.id in self.visited:
+                unvisited_subtype_count = unvisited_subtype_count + 1
+        if emit_debug:
+            self.emit("# BEGIN %s depth: %s last_at_this_level: %s unvisited_subtype_count: %s" %( node.id, depth, last_at_this_level, unvisited_subtype_count ))
+        p1 = " " * 4 * depth                    # text indent padding
+        context = "{}".format( '"@context": "http://schema.org", ' if last_at_this_level and depth==0 else '')
+
+        if unvisited_subtype_count > 0: # TODO or unvisited_subtype_count
+            if node.id not in self.visited:     # and we haven't been here before
+                self.visited[node.id] = True    # remember our visit
+                self.emit('%s{\n%s\n%s"name": "%s",   \n%s"@id": "%s",\n%s"child": '
+                        %(   p1,  context, p1,   node.id,      p1, node.id, p1 ))
+                i = 0
+                inner_lastness = False
+                self.emit("  %s["  % p1 )
+                inner_lastness = False
+                for item in node.GetImmediateSubtypes():                 # handle our subtypes
+                    #if ( i + 1 >= subtype_count ):
+                    if True:
+                        self.emit("EVAL: will %s be last at its level?" % (item.id))
+                        self.emit("#%s id:%s entering: %s last_at_this_level: %s i: %s subtype_count: %s unvisited_subtype_count: %s item: %s"
+                            %(p1, node.id, item.id, last_at_this_level, i, subtype_count, unvisited_subtype_count, item.id ))
+                    if ( i + 1 >= unvisited_subtype_count ):
+                        inner_lastness = True
+                    self.emit("ANSWER: inner_lastness: %s" % inner_lastness)
+                    if emit_debug:
+                        self.emit("#%s id:%s entering: %s last_at_this_level: %s inner_lastness: %s i: %s subtype_count: %s unvisited_subtype_count: %s item: %s"
+                        %(p1, node.id, item.id, last_at_this_level, inner_lastness, i, subtype_count, unvisited_subtype_count, item.id ))
+                    self.traverseForJSONLD(item, depth + 1, inner_lastness)
+                    i = i + 1
+
+                if emit_debug:
+                    self.emit("#lastchild? %s id:%s closing: %s last_at_this_level: %s  subtype_count: %s unvisited_subtype_count: %s item: %s"
+                        %(p1, node.id, item.id, last_at_this_level, subtype_count, unvisited_subtype_count, item.id ))
+
+                self.emit("%s  ]\n%s}%s  # %s" % (p1, p1,  "{}".format( "," if not last_at_this_level else '!' ), node.id ) )
+
+        if subtype_count == 0:         # leaf nodes TODO: or unvisited_subtype_count ??
+            if node.id not in self.visited:
+                self.emit( '%s{' % (" " * 4 * (depth ) ))
+                self.emit( '%s "name": "%s" ' % (" " * 4 * depth, node.id ))
+#            self.emit("#%s %s last? %s visited?: %s" %(p1, node.id, last_at_this_level, node.id in self.visited ))
+            self.emit( '%s}%s' % (" " * 4 * (depth), "{}".format( ',' if not last_at_this_level else '' ) ) )
 
 class Example ():
 
@@ -952,6 +1050,26 @@ class ShowUnit (webapp2.RequestHandler):
                 DataCache["FullTreePage"] = page
 
                 return
+
+        if (node == "docs/full-jsonld.html"): # DataCache.getDataCache.get
+            self.response.headers['Content-Type'] = "text/plain"
+            self.emitCacheHeaders()
+
+            if DataCache.get('JSONLDThingTree'):
+                self.response.out.write( DataCache.get('JSONLDThingTree') )
+                log.debug("Serving cached JSONLDThingTree.")
+                return
+            else:
+                uThing = Unit.GetUnit("Thing")
+                mainroot = TypeHierarchyTree()
+                mainroot.traverseForJSONLD(Unit.GetUnit("Thing"))
+                thing_tree = mainroot.toJSON()
+                self.response.out.write( thing_tree )
+                log.debug("Serving fresh JSONLDThingTree.")
+                DataCache["JSONLDThingTree"] = thing_tree
+
+                return
+
 
         # Next: pages based on request path matching a Unit in the term graph.
         node = Unit.GetUnit(node) # e.g. "Person", "CreativeWork".
