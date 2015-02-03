@@ -369,100 +369,64 @@ class TypeHierarchyTree:
 
         self.emit( ' %s</li>' % (" " * 4 * depth) )
 
-    def traverseForJSONLD(self, node, depth = 0, last_at_this_level = True):
-        emit_debug = True
+    # based on http://danbri.org/2013/SchemaD3/examples/4063550/hackathon-schema.js  - thanks @gregg, @sandro
+    def traverseForJSONLD(self, node, depth = 0, last_at_this_level = True, supertype="None"):
+        emit_debug = False
         if node.id in self.visited:
             # self.emit("skipping %s - already visited" % node.id)
             return
         self.visited[node.id] = True
-
         p1 = " " * 4 * depth
-
-        self.emit("%s# @id: %s" % (p1, node.id))
+        if emit_debug:
+            self.emit("%s# @id: %s last_at_this_level: %s" % (p1, node.id, last_at_this_level))
+        context = "{}".format(""""@context": {
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "schema": "http://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "rdfs:subClassOf": {
+      "@type": "@id"
+    },
+    "name": "rdfs:label",
+    "description": "rdfs:comment",
+    "children": {
+      "@reverse": "rdfs:subClassOf"
+    }
+  },\n""" if last_at_this_level and depth==0 else '' )
 
         unseen_subtypes = []
         for st in node.GetImmediateSubtypes():
             if not st.id in self.visited:
                 unseen_subtypes.append(st)
-        # context = "{}".format( '"@context": "http://schema.org", ' if last_at_this_level and depth==0 else '')
         unvisited_subtype_count = len(unseen_subtypes)
         subtype_count = len( node.GetImmediateSubtypes() )
 
-        i = 1
+        supertext = "{}".format( '"rdfs:subClassOf": "schema:%s", ' % supertype.id if supertype != "None" else '' )
+        maybe_comma = "{}".format("," if unvisited_subtype_count > 0 else "")
+        comment = GetComment(node).strip()
+        comment = comment.replace('"',"'")
+        comment = re.sub('<[^<]+?>', '', comment)[:60]
 
+        self.emit('\n%s{\n%s\n%s"@type": "rdfs:Class", %s "description": "%s...",\n%s"@id": "schema:%s"%s'
+            % (p1, context, p1, supertext, comment, p1, node.id , maybe_comma))
+
+        i = 1
         if unvisited_subtype_count > 0:
+            self.emit('%s"children": ' % p1 )
             self.emit("  %s["  % p1 )
             inner_lastness = False
             for t in unseen_subtypes:
-                if i == unvisited_subtype_count:
-                    self.emit("%s# %s will be last at its level. calling traverseForJSONLD():" % (p1, t.id))
-                    inner_lastness = True
-                self.traverseForJSONLD(t, depth + 1, inner_lastness)
-
-            self.emit("%s  ]\n%s}%s  # %s" % (p1, p1,  "{}".format( "," if not last_at_this_level else '' ), node.id ) )
-
-        else:
-            self.emit("%s# %s is a leaf node." % (p1, node.id))
-
-
-#                self.emit("%s  ]\n%s}%s  # %s" % (p1, p1,  "{}".format( "," if not last_at_this_level else '!' ), node.id ) )
-
-#        if subtype_count == 0:         # leaf nodes TODO: or unvisited_subtype_count ??
-#            if node.id not in self.visited:
-#                self.emit( '%s{' % (" " * 4 * (depth ) ))
-#                self.emit( '%s "name": "%s" ' % (" " * 4 * depth, node.id ))
-#            self.emit("#%s %s last? %s visited?: %s" %(p1, node.id, last_at_this_level, node.id in self.visited ))
-#            self.emit( '%s}%s' % (" " * 4 * (depth), "{}".format( ',' if not last_at_this_level else '' ) ) )
-
-
-    def OldtraverseForJSONLD(self, node, depth = 0, last_at_this_level = True):
-        emit_debug = True
-        subtype_count = len( node.GetImmediateSubtypes() )
-        unvisited_subtype_count = 0
-        for st in node.GetImmediateSubtypes():
-            if not st.id in self.visited:
-                unvisited_subtype_count = unvisited_subtype_count + 1
-        if emit_debug:
-            self.emit("# BEGIN %s depth: %s last_at_this_level: %s unvisited_subtype_count: %s" %( node.id, depth, last_at_this_level, unvisited_subtype_count ))
-        p1 = " " * 4 * depth                    # text indent padding
-        context = "{}".format( '"@context": "http://schema.org", ' if last_at_this_level and depth==0 else '')
-
-        if unvisited_subtype_count > 0: # TODO or unvisited_subtype_count
-            if node.id not in self.visited:     # and we haven't been here before
-                self.visited[node.id] = True    # remember our visit
-                self.emit('%s{\n%s\n%s"name": "%s",   \n%s"@id": "%s",\n%s"child": '
-                        %(   p1,  context, p1,   node.id,      p1, node.id, p1 ))
-                i = 0
-                inner_lastness = False
-                self.emit("  %s["  % p1 )
-                inner_lastness = False
-                for item in node.GetImmediateSubtypes():                 # handle our subtypes
-                    #if ( i + 1 >= subtype_count ):
-                    if True:
-                        self.emit("EVAL: will %s be last at its level?" % (item.id))
-                        self.emit("#%s id:%s entering: %s last_at_this_level: %s i: %s subtype_count: %s unvisited_subtype_count: %s item: %s"
-                            %(p1, node.id, item.id, last_at_this_level, i, subtype_count, unvisited_subtype_count, item.id ))
-                    if ( i + 1 >= unvisited_subtype_count ):
-                        inner_lastness = True
-                    self.emit("ANSWER: inner_lastness: %s" % inner_lastness)
-                    if emit_debug:
-                        self.emit("#%s id:%s entering: %s last_at_this_level: %s inner_lastness: %s i: %s subtype_count: %s unvisited_subtype_count: %s item: %s"
-                        %(p1, node.id, item.id, last_at_this_level, inner_lastness, i, subtype_count, unvisited_subtype_count, item.id ))
-                    self.traverseForJSONLD(item, depth + 1, inner_lastness)
-                    i = i + 1
-
                 if emit_debug:
-                    self.emit("#lastchild? %s id:%s closing: %s last_at_this_level: %s  subtype_count: %s unvisited_subtype_count: %s item: %s"
-                        %(p1, node.id, item.id, last_at_this_level, subtype_count, unvisited_subtype_count, item.id ))
+                    self.emit("%s  # In %s > %s i: %s unvisited_subtype_count: %s" %(p1, node.id, t.id, i, unvisited_subtype_count))
+                if i == unvisited_subtype_count:
+                    inner_lastness = True
+                i = i + 1
+                self.traverseForJSONLD(t, depth + 1, inner_lastness, supertype=node)
 
-                self.emit("%s  ]\n%s}%s  # %s" % (p1, p1,  "{}".format( "," if not last_at_this_level else '!' ), node.id ) )
+            self.emit("%s  ]%s" % (p1,  "{}".format( "" if not last_at_this_level else '' ) ) )
 
-        if subtype_count == 0:         # leaf nodes TODO: or unvisited_subtype_count ??
-            if node.id not in self.visited:
-                self.emit( '%s{' % (" " * 4 * (depth ) ))
-                self.emit( '%s "name": "%s" ' % (" " * 4 * depth, node.id ))
-#            self.emit("#%s %s last? %s visited?: %s" %(p1, node.id, last_at_this_level, node.id in self.visited ))
-            self.emit( '%s}%s' % (" " * 4 * (depth), "{}".format( ',' if not last_at_this_level else '' ) ) )
+        maybe_comma = "{}".format( ',' if not last_at_this_level else '' )
+        self.emit('\n%s}%s\n' % (p1, maybe_comma))
+
 
 class Example ():
 
@@ -1051,8 +1015,8 @@ class ShowUnit (webapp2.RequestHandler):
 
                 return
 
-        if (node == "docs/full-jsonld.html"): # DataCache.getDataCache.get
-            self.response.headers['Content-Type'] = "text/plain"
+        if (node == "docs/tree.jsonld"):
+            self.response.headers['Content-Type'] = "application/ld+json"
             self.emitCacheHeaders()
 
             if DataCache.get('JSONLDThingTree'):
@@ -1069,7 +1033,6 @@ class ShowUnit (webapp2.RequestHandler):
                 DataCache["JSONLDThingTree"] = thing_tree
 
                 return
-
 
         # Next: pages based on request path matching a Unit in the term graph.
         node = Unit.GetUnit(node) # e.g. "Person", "CreativeWork".
