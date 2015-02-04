@@ -57,7 +57,7 @@ our test builds on Appspot.
 See http://schema.org/docs/releases.html for published release history.
 
 The successor to http://schema.org/docs/releases.html#v1.91 was code-named sdo-venkman, 
-and eventually became http://schema.org/docs/releases.html#v1.91
+and eventually became http://schema.org/docs/releases.html#v1.92
 
 
 
