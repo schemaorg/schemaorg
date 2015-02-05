@@ -1,0 +1,256 @@
+TYPES: #invoice-1 Invoice,BankOrCreditUnion,Person,PriceSpecification
+
+PRE-MARKUP:
+
+An example of a credit card bill (invoice).
+
+ACME Bank
+Bill for: January 2015 Visa
+invoice link: http://www.acmebank.com/invoice.pdf
+Customer: Jane Doe
+account ID: xxxx-xxxx-xxxx-1234
+payment due: 2015-01-30
+minimum payment: $15.00
+total due: $200.00
+billing period: 2014-12-21 to 2015-01-20
+payment due
+
+MICRODATA:
+
+<div itemscope itemtype="http://schema.org/Invoice">
+  <h1 itemprop="description">January 2015 Visa</h1>
+  <link itemprop="url" href="http://acmebank.com/invoice.pdf" />Invoice PDF
+  <div itemprop="broker" itemscope itemtype="http://schema.org/BankOrCreditUnion">
+    <b itemprop="name">ACME Bank</b>
+  </div>
+  <span itemprop="accountId">xxxx-xxxx-xxxx-1234</span>
+  <div itemprop="customer" itemscope itemtype="http://schema.org/Person">
+    <b itemprop="name">Jane Doe</b>
+  </div>
+  <span itemprop="paymentDue">2015-01-30</span>
+  <div itemprop="minimumPaymentDue" itemscope itemtype="http://schema.org/PriceSpecification">
+    <span itemprop="price">15.00</span>
+    <span itemprop="priceCurrency">USD</span>
+  </div>
+  <div itemprop="totalPaymentDue" itemscope itemtype="http://schema.org/PriceSpecification">
+    <span itemprop="price">200.00</span>
+    <span itemprop="priceCurrency">USD</span>
+  </div>
+  <meta itemprop="billingPeriod" content="2014-12-21/P30D" />starts:2014-12-21 30 days
+  <span itemprop="paymentStatus">payment due</span>
+</div>
+
+ 
+RDFA:
+
+<div vocab="http://schema.org" typeof="Invoice">
+  <h1 property="description">January 2015 Visa</h1>
+  <link property="url" href="http://acmebank.com/invoice.pdf" />Invoice PDF
+  <div property="broker" itemscope typeof="http://schema.org/BankOrCreditUnion">
+    <b property="name">ACME Bank</b>
+  </div>
+  <span property="accountId">xxxx-xxxx-xxxx-1234</span>
+  <div property="customer" typeof="http://schema.org/Person">
+    <b property="name">Jane Doe</b>
+  </div>
+  <span property="paymentDue">2015-01-30</span>
+  <div property="minimumPaymentDue" typeof="http://schema.org/PriceSpecification">
+    <span property="price">15.00</span>
+    <span property="priceCurrency">USD</span>
+  </div>
+  <div property="totalPaymentDue" typeof="http://schema.org/PriceSpecification">
+    <span property="price">200.00</span>
+    <span property="priceCurrency">USD</span>
+  </div>
+  <meta property="billingPeriod" content="2014-12-21/P30D" />starts:2014-12-21 30 days
+  <span property="paymentStatus">payment due</span>
+</div>
+
+
+JSON:
+
+<script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Invoice",
+    "description": "January 2015 Visa bill.",
+    "url": "http://acmebank.com/invoice.pdf",
+    "broker": {
+      "@type": "BankOrCreditUnion",
+      "name": "ACME Bank",
+    },
+    "accountId": "xxxx-xxxx-xxxx-1234",
+    "customer": {
+      "@type": "Person",
+      "name": "Jane Doe"
+    },
+    "paymentDue": "2015-01-30",
+    "minimumPaymentDue": {
+      "@type": "PriceSpecification",
+      "price": 15.00,
+      "priceCurrency": "USD"
+    },
+    "totalPaymentDue": {
+      "@type": "PriceSpecification",
+      "price": 200.00,
+      "priceCurrency": "USD"
+    },
+    "billingPeriod": "2014-12-21/P30D",
+    "paymentStatus": "payment due"
+}
+</script>
+
+TYPES: Invoice,Order,LocalBusiness,Person,PriceSpecification,Service
+
+PRE-MARKUP:
+
+An example of a invoice for a purchase and installation.
+
+ACME Home Heating
+Bill for: New furnace and installation
+Customer: Jane Doe
+payment due: 2015-01-30
+minimum payment: $0.00
+total due: $0.00
+payment status: paid
+order: furnace model ABC123
+order: installation labor
+
+MICRODATA:
+
+<div itemscope itemtype="http://schema.org/Invoice">
+  <h1 itemprop="description">New furnace and installation</h1>
+  <div itemprop="broker" itemscope itemtype="http://schema.org/LocalBusiness">
+    <b itemprop="name">ACME Home Heating</b>
+  </div>
+  <div itemprop="customer" itemscope itemtype="http://schema.org/Person">
+    <b itemprop="name">Jane Doe</b>
+  </div>
+  <span itemprop="paymentDue">2015-01-30</span>
+  <div itemprop="minimumPaymentDue" itemscope itemtype="http://schema.org/PriceSpecification">
+    <span itemprop="price">0.00</span>
+    <span itemprop="priceCurrency">USD</span>
+  </div>
+  <div itemprop="totalPaymentDue" itemscope itemtype="http://schema.org/PriceSpecification">
+    <span itemprop="price">0.00</span>
+    <span itemprop="priceCurrency">USD</span>
+  </div>
+  <span itemprop="paymentStatus">paid</span>
+  <div itemprop="referencesOrder" itemscope itemtype="http://schema.org/Order">
+    <span itemprop="description">furnace</span>
+    <span itemprop="orderDate">2014-12-01</span>
+    <span itemprop="orderNumber">123ABC</span>
+    <div itemprop="orderedItem" itemscope itemtype="http://schema.org/Product">
+      <span itemprop="name">ACME Furnace 3000</span>
+      <meta itemprop="productId" content="ABC123" />
+    </div>
+  </div>
+  <div itemprop="referencesOrder" itemscope itemtype="http://schema.org/Order">
+    <span itemprop="description">furnace installation</span>
+    <span itemprop="orderDate">2014-12-02</span>
+    <div itemprop="orderedItem" itemscope itemtype="http://schema.org/Service">
+      <span itemprop="description">furnace installation</span>
+    </div>
+  </div>
+</div>
+
+ 
+RDFA:
+
+<div vocab="http://schema.org" typeof="Invoice">
+  <h1 property="description">New furnace and installation</h1>
+  <div property="broker" itemscope typeof="http://schema.org/LocalBusiness">
+    <b property="name">ACME Home Heating</b>
+  </div>
+  <div property="customer" typeof="http://schema.org/Person">
+    <b property="name">Jane Doe</b>
+  </div>
+  <span property="paymentDue">2015-01-30</span>
+  <div property="minimumPaymentDue" typeof="http://schema.org/PriceSpecification">
+    <span property="price">0.00</span>
+    <span property="priceCurrency">USD</span>
+  </div>
+  <div property="totalPaymentDue" typeof="http://schema.org/PriceSpecification">
+    <span property="price">0.00</span>
+    <span property="priceCurrency">USD</span>
+  </div>
+  <meta property="billingPeriod" content="2014-12-21/P30D" />starts:2014-12-21 30 days
+  <span property="paymentStatus">paid</span>
+  <div property="referencesOrder" typeof="Order">
+    <span property="description">furnace</span>
+    <span property="orderDate">2014-12-01</span>
+    <span property="orderNumber">123ABC</span>
+    <div property="orderedItem" typeof="Product">
+      <span property="name">ACME Furnace 3000</span>
+      <meta property="productId" content="ABC123" />
+    </div>
+  </div>
+  <div property="referencesOrder" typeof="Order">
+    <span property="description">furnace installation</span>
+    <span property="orderDate">2014-12-02</span>
+    <div property="orderedItem" typeof="Service">
+      <span property="description">furnace installation</span>
+    </div>
+  </div>
+</div>
+
+
+JSON:
+
+<script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Invoice",
+    "broker": {
+      "@type": "LocalBusiness",
+      "name": "ACME Home Heating",
+    },
+    "accountId": "xxxx-xxxx-xxxx-1234",
+    "customer": {
+      "@type": "Person",
+      "name": "Jane Doe"
+    },
+    "paymentDue": "2015-01-30",
+    "minimumPaymentDue": {
+      "@type": "PriceSpecification",
+      "price": 0.00,
+      "priceCurrency": "USD"
+    },
+    "totalPaymentDue": {
+      "@type": "PriceSpecification",
+      "price": 0.00,
+      "priceCurrency": "USD"
+    },
+    "paymentStatus": "paid",
+    "referencesOrder": [
+      {
+        "@type": "Order",
+        "description": "furnace",
+        "orderDate": "2014-12-01",
+        "orderNumber": "123ABC",
+        "paymentMethod": "http://purl.org/goodrelations/v1#ByInvoice",
+        "orderedItem": {
+          "@type": "Product",
+          "name": "ACME Furnace 3000",
+          "productId": "ABC123"
+        }
+      },
+      {
+        "@type": "Order",
+        "description": "furnace installation",
+        "orderDate": "2014-12-02",
+        "paymentMethod": "http://purl.org/goodrelations/v1#ByInvoice",
+        "orderedItem": {
+          "@type": "Service",
+          "description": "furnace installation"
+        }
+      },
+    ]
+}
+
+
+</script>
+
+
+
+    
