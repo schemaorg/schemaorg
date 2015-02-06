@@ -7991,9 +7991,10 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/publishedOn">
       <span class="h" property="rdfs:label">publishedOn</span>
-      <span property="rdfs:comment">A broadcast service associated with the publication event.</span>
+      <span property="rdfs:comment">A broadcast service or station associated with the publication event.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/PublicationEvent">PublicationEvent</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/BroadcastService">BroadcastService</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/TelevisionStation">TelevisionStation</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/publisher">
       <span class="h" property="rdfs:label">publisher</span>
@@ -11326,6 +11327,64 @@ postponing for 1.6.
   <span property="rdfs:comment">The Order(s) related to this Invoice. One or more Orders may be combined into a single Invoice.</span>
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Invoice">Invoice</a></span>
   <span>Domain: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Order">Order</a></span>
+</div>
+
+﻿<div>
+  <h1>TV Listing additions</h1>
+    <div typeof="rdf:Property" resource="http://schema.org/affiliateOf">
+      <span class="h" property="rdfs:label">affiliateOf</span>
+      <span property="rdfs:comment">The television network(s) whose content is broadcast on this station.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/TelevisionStation">TelevisionStation</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Organization">Organization</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/displayName">
+      <span class="h" property="rdfs:label">displayName</span>
+      <span property="rdfs:comment">The name displayed in the channel guide. For many US affiliates, it is the network name.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/TelevisionStation">TelevisionStation</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/timezone">
+      <span class="h" property="rdfs:label">timezone</span>
+      <span property="rdfs:comment">The timezone for which the TV station bases its broadcasts.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/TelevisionStation">TelevisionStation</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/isLiveBroadcast">
+      <span class="h" property="rdfs:label">isLiveBroadcast</span>
+      <span property="rdfs:comment">True is the broadcast is of a live event..</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/BroadcastEvent">BroadcastEvent</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Boolean">Boolean</a></span>
+    </div>
+    <div typeof="rdfs:Class" resource="http://schema.org/TelevisionChannel">
+      <span class="h" property="rdfs:label">TelevisionChannel</span>
+      <span property="rdfs:comment">A unique instance of a TelevisionStation on a BroadcastService's lineup.</span>
+      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Intangible">Intangible</a></span>
+   </div>
+    <div typeof="rdf:Property" resource="http://schema.org/channel">
+      <span class="h" property="rdfs:label">channel</span>
+      <span property="rdfs:comment">The unique address by which the TV station can be identified in a provider lineup. In US, this is typically a number.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/TelevisionChannel">TelevisionChannel</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/inLineup">
+      <span class="h" property="rdfs:label">inLineup</span>
+      <span property="rdfs:comment">The BroadcastService offering the channel.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/TelevisionChannel">TelevisionChannel</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/BroadcastService">BroadcastService</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/serviceTier">
+      <span class="h" property="rdfs:label">serviceTier</span>
+      <span property="rdfs:comment">The type of service required to have access to the channel (e.g. Standard or Premium).</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/TelevisionChannel">TelevisionChannel</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/station">
+      <span class="h" property="rdfs:label">station</span>
+      <span property="rdfs:comment">The TelevisionStation offered on this channel.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/TelevisionChannel">TelevisionChannel</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/TelevisionStation">TelevisionStation</a></span>
+    </div>
+
 </div>
 
 </body>
