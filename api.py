@@ -497,12 +497,14 @@ class ShowUnit (webapp2.RequestHandler):
 
     def GetParentStack(self, node):
         """Returns a hiearchical structured used for site breadcrumbs."""
+        thing = Unit.GetUnit("Thing")
+
         if (node not in self.parentStack):
             self.parentStack.append(node)
 
         if (Unit.isAttribute(node)):
             self.parentStack.append(Unit.GetUnit("Property"))
-            self.parentStack.append(Unit.GetUnit("Thing"))
+            self.parentStack.append(thing)
 
         sc = Unit.GetUnit("rdfs:subClassOf")
         if GetTargets(sc, node):
@@ -513,6 +515,12 @@ class ShowUnit (webapp2.RequestHandler):
             sc = Unit.GetUnit("typeOf")
             for p in GetTargets(sc, node):
                 self.GetParentStack(p)
+
+
+#Put 'Thing' to the end for multiple inheritance classes
+        if(thing in self.parentStack):
+	        self.parentStack.remove(thing)
+	        self.parentStack.append(thing)
 
     def ml(self, node, label='', title='', prop=''):
         """ml ('make link')
@@ -544,27 +552,68 @@ class ShowUnit (webapp2.RequestHandler):
     def UnitHeaders(self, node):
         """Write out the HTML page headers for this node."""
         self.write("<h1 class=\"page-title\">\n")
-        ind = len(self.parentStack)
-        thing_seen = False
-        while (ind > 0) :
-            ind = ind -1
-            nn = self.parentStack[ind]
-            if (nn.id == "Thing" or thing_seen or nn.isDataType()):
-                thing_seen = True
-                self.write(self.ml(nn) )
-                if ind == 1 and node.isEnumerationValue():
-                    self.write(" :: ")
-                elif ind > 0:
-                    self.write(" &gt; ")
-                if ind == 1:
-                    self.write("<span property=\"rdfs:label\">")
-                if ind == 0:
-                    self.write("</span>")
+        self.write(node.id)
         self.write("</h1>")
+        self.BreadCrums(node)
         comment = GetComment(node)
         self.write(" <div property=\"rdfs:comment\">%s</div>\n\n" % (comment) + "\n")
         if (node.isClass() and not node.isDataType()):
             self.write("<table class=\"definition-table\">\n        <thead>\n  <tr><th>Property</th><th>Expected Type</th><th>Description</th>               \n  </tr>\n  </thead>\n\n")
+
+# Stacks to support multiple inheritance
+    crumStacks = []
+    def BreadCrums(self, node):
+        self.crumStacks = []
+        cstack = []
+        self.crumStacks.append(cstack)
+        self.WalkCrums(node,cstack)
+        if (Unit.isAttribute(node)):
+            cstack.append(Unit.GetUnit("Property"))
+            cstack.append(Unit.GetUnit("Thing"))
+       
+        enuma = node.isEnumerationValue()
+
+        self.write("<h4>")
+        for row in range(len(self.crumStacks)):
+           count = 0
+           if(row > 0):
+                self.write('<br/>')
+           self.write("<span class='breadcrums'>")
+           while(len(self.crumStacks[row]) > 0):
+                if(count > 0):
+                    if((len(self.crumStacks[row]) == 1) and enuma):
+                        self.write(" :: ")
+                    else:
+                        self.write(" &gt; ")
+                n = self.crumStacks[row].pop()
+                self.write("%s" % (self.ml(n)))
+                count += 1
+           self.write("</span>")
+        self.write("</h4>\n")
+
+#Walk up the stack, appending crums & create new (duplicating crums already identified) if more than one parent found
+    def WalkCrums(self, node, cstack):
+        cstack.append(node)
+        tmpStacks = []
+        tmpStacks.append(cstack)
+        sc = []
+        if (Unit.isClass(node)):
+            sc = Unit.GetUnit("rdfs:subClassOf")
+        elif(Unit.isAttribute(node)):
+            sc = Unit.GetUnit("rdfs:subPropertyOf")
+        else:
+            sc = Unit.GetUnit("typeOf")# Enumerations are classes that have no declared subclasses
+
+        subs = GetTargets(sc, node)
+        for i in range(len(subs)):
+            if(i > 0):
+                t = cstack[:]
+                tmpStacks.append(t)
+                self.crumStacks.append(t)        
+        x = 0
+        for p in subs:
+            self.WalkCrums(p,tmpStacks[x])
+            x += 1
 
     def ClassProperties (self, cl, subclass=False):
         """Write out a table of properties for a per-type page."""
