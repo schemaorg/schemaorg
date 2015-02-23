@@ -11,7 +11,7 @@ Proposal for enhance [schema.rdfa](http://schema.org/docs/schema_org_rdfa.html) 
 
 A sibling project at Wikidata will be the *Wikidata.org-to-Schema.org* mapping.
 
-##PART 1 - SchemaOrg  mapping to Wikidata**
+##PART 1 - SchemaOrg  mapping to Wikidata ##
 
 *Actions*: add `<link property="{$OWL}" href="{$WikiDataURL}"/>` with the correct *$WikiDataURL*.   
 
@@ -33,7 +33,7 @@ A sibling project at Wikidata will be the *Wikidata.org-to-Schema.org* mapping.
 
 -------------
 
-##PART 2 -  Wikidata mapping to SchemaOrg
+##PART 2 -  Wikidata mapping to SchemaOrg ##
 
 ... under construction... see similar mappings at  [schema.rdfs.org/mappings.html](http://schema.rdfs.org/mappings.html)...  Wikidata also have a lot of iniciatives maping Wikidata to external vocabularies (ex. there are a map from Wikidata to BNCF Thesaurus)...
 
