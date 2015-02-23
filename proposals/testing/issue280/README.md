@@ -47,4 +47,7 @@ Step-by-step:
  4. Export back to CSV (ex. `generated2015-02-23-back.csv`).
  3. Modify `schema.rdfa` with the `updateWithWikidata` tool. Check and send to fork at Github.
 
+#WORKING IN PROGRESS
+
+See the shared [generated2015-02-23 spreadsheet](https://docs.google.com/spreadsheets/d/1KeTSrVjSHRfVRwSgg6-LN0pu6nVre7cspUrkf_gfMm8/).
 
