@@ -13,11 +13,11 @@ A sibling project at Wikidata will be the *Wikidata.org-to-Schema.org* mapping.
 
 ##PART 1 - SchemaOrg  mapping to Wikidata ##
 
-*Actions*: add `<link property="{$OWL}" href="{$WikiDataURL}"/>` with the correct *$WikiDataURL*.   
+*Actions*: add `<link property="{$OWL}" href="{$WikidataURL}"/>` with the correct *$WikidataURL*.   
 
-   * At  each `rdfs:Class ` add the `<link>` tag with   `$OWL="owl:equivalentClass"` or, when not possible, use`$OWL="rdfs:subClassOf"`.
+   * At  each `rdfs:Class ` add the `<link>` tag with  `$OWL="owl:equivalentClass"` or, when not possible, `$OWL="rdfs:subClassOf"`.
 
-   * At  each `rdf:Property ` add the `<link>` tag with   `$OWL="owl:equivalentProperty"` or, when not possible, use`$OWL="rdfs:subPropertyOf"`.
+   * At  each `rdf:Property ` add the `<link>` tag with  `$OWL="owl:equivalentProperty"` or, when not possible, `$OWL="rdfs:subPropertyOf"`.
 
 *Actions on testing phase*:  do some with no automation. Example: start with classes Person and Organization, and its properties.
 
@@ -37,17 +37,54 @@ A sibling project at Wikidata will be the *Wikidata.org-to-Schema.org* mapping.
 
 ... under construction... see similar mappings at  [schema.rdfs.org/mappings.html](http://schema.rdfs.org/mappings.html)...  Wikidata also have a lot of iniciatives maping Wikidata to external vocabularies (ex. there are a map from Wikidata to BNCF Thesaurus)...
 
+... some comments about (automation):
+* "(...) we can automate importing most of that mapping into Wikidata so no one needs to click and copy&paste..."
+* "I could not figure out a good programmatic way to access Wikidata's schema information in all its richness. Maybe there is a way to take the JSON dumps, load them into some fast-access NoSQL-ish database, so that things can be searched/matched/retrieved easily?"
+* ...
+
 #CONCRETE MODIFICATIONS#
 
 Step-by-step:
 
- 1. create tools: `generateCSV.php` and `updateWithWikidata.php`. 
- 2. Use `generateCSV` tool to generates a CSV file (ex. `generated2015-02-23.csv`)
- 3. Edit it as spreadsheet on GoogleDocs (@danbri suggestion). All colaborators edit at GoogleDocs.
- 4. Export back to CSV (ex. `generated2015-02-23-back.csv`).
- 3. Modify `schema.rdfa` with the `updateWithWikidata` tool. Check and send to fork at Github.
+ 1. use tool `updtRDF-CSV.php` (check/edit the main configs before to use).
+
+    1.1. Generating the first version (original) from ex. [sdo-gozer/data/schema.rdfa](https://github.com/schemaorg/schemaorg/blob/sdo-gozer/data/schema.rdfa). <br/>Terminal command: `php updtRDF-CSV.php > original.csv`
+
+    1.2. Read `original.csv` with LibreOffice or Excel, to render columns, add bolds, etc.  And upload it in  GoogleDocs. Example: [generated2015-02-23 spreadsheet](https://docs.google.com/spreadsheets/d/1KeTSrVjSHRfVRwSgg6-LN0pu6nVre7cspUrkf_gfMm8/).
+
+    1.3. Download the edited spreadsheet (ex. updated2015-02-24) and transform it in a new `schema.rdfa`.  <br/>Terminal command: `php updtRDF-CSV.php -u > schema.rdfa.htm`
+
+ 2. ... Check all, replace `data/schema.rdfa`, send a fork to Github... Example: 
 
 #WORKING IN PROGRESS
 
 See the shared [generated2015-02-23 spreadsheet](https://docs.google.com/spreadsheets/d/1KeTSrVjSHRfVRwSgg6-LN0pu6nVre7cspUrkf_gfMm8/).
+
+## APPENDIX - USING TERMINAL TOOL 
+
+```shell
+git clone ....
+cd schemaorg/proposals/testing/issue280/
+php updtRDF-CSV.php > spreadsheets/original.csv
+
+# ... some days later...
+% php updtRDF-CSV.php -u > schema.rdfa.htm
+# this last command results in:
+```
+```txt
+	 --line 89.	 Organization = Q43229
+	 --line 91.	  brand = Q431289
+	 --line 96.	  email = Q9158
+	 --line 803.	 Person = Q215627
+	 --line 804.	  additionalName < Q1071027
+	 --line 806.	  alumniOf = Q447877
+	 --line 807.	  birthDate = Q47223
+	 --line 808.	  children < Q171318
+	 --line 809.	  colleague = Q1751358
+	 --line 810.	  colleagues = Q1751358
+	 --line 811.	  deathDate < Q1202197
+	 --line 812.	  familyName = Q101352
+	 --line 814.	  gender = Q48264
+	 --line 815.	  givenName = Q202444
+```
 
