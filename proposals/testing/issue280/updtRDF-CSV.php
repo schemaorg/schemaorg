@@ -1,7 +1,8 @@
 <?php
 /**
- * Updates schema.rdfa with the CSV file, and vice-versa.
- *
+ * Updates schema.rdfa with the CSV file (merge WikidataIDs), and vice-versa.
+ * @use php updtRDF-CSV2.php --help 
+ *      php updtRDF-CSV2.php -u --rdfa schemaOrg.htm --csv googleDocs.csv > fileRDFA.htm
  * ToDoList:
  * + to use ../xsl/schemaOrgHtmRDFa.xsl  standaring output ... and a PHP-LIB with the commom "sanitize" filters.
  * + to use ../xsl/HtmRDFa2HtmTable-wikidataPrj-module1.xsl  for obtain an XHTML-table standard representation as pre-CSV.
