@@ -109,13 +109,13 @@ php updtRDF-CSV.php -c
 	 --ERROR-15 clinicalPharmacology duplicated.
 	 --ERROR-15 departureAirport duplicated.
 	 **COUNTINGS:**
-	 * number of div tags (nDivs): 1521
-	 * number of definitions by classes+properties (nDefs): 1478
-	 * number of rdfs-classes (nClass): 620
-	 * number of rdf-Properties (nProp): 858
-	 * number of schema-supersededBy (nSupBy): 33
-	 * number of duplicated rdfs-labels (nDup): 2
-	 * number of defs with link tag (nLinks): 105
-	 * total number of link tags over defs (nLinksTot): 112
+	 * number of div tags (nDivs): **1521**
+	 * number of definitions by classes+properties (nDefs): **1478**
+	 * number of rdfs-classes (nClass): **620**
+	 * number of rdf-Properties (nProp): **858**
+	 * number of schema-supersededBy (nSupBy): **33**
+	 * number of duplicated rdfs-labels (nDup): **2**
+	 * number of defs with link tag (nLinks): **105**
+	 * total number of link tags over defs (nLinksTot): **112**
 ```
 

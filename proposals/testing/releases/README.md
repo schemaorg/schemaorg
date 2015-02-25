@@ -22,7 +22,7 @@ RELEASES AND DUMPS
 Main releases and the result reporting of each one. The dumps are for checking profile and to compare with near releases.
 
 ## 2015-02-25-master dump ##
-...
+... 
 
 ## 2015-02-25-portal dump ##
 At http://schema.org/docs/schema_org_rdfa.html in 2015-02-25.
@@ -34,40 +34,53 @@ Same as 2015-02-25-master, differing only by
 File of https://github.com/schemaorg/schemaorg/branches  renamed here to
 `r2015-02-07-sdoGozer.schema.rdfa.htm`.
 
-**GENERAL PROFILE (countings)**
+** PROFILE (countings)**
 
- * number of div tags (nDivs): 1521
- * number of definitions by classes+properties (nDefs): 1478
- * number of rdfs-classes (nClass): 620
- * number of rdf-Properties (nProp): 858
- * number of schema-supersededBy (nSupBy): 33
- * number of duplicated rdfs-labels (nDup): 2
- * number of defs with link tag (nLinks): 105
- * total number of link tags over defs (nLinksTot): 112
+ * number of div tags (nDivs): **1521**
+ * number of definitions by classes+properties (nDefs): **1478**
+ * number of rdfs-classes (nClass): **620**
+ * number of rdf-Properties (nProp): **858**
+ * number of schema-supersededBy (nSupBy): **33**
+ * number of duplicated rdfs-labels (nDup): **2**
+ * number of defs with `link` tag (nLinks): **105**
+ * total number of link tags over defs (nLinksTot): **112**
+ * **tag `link` countings:**
+   * links with property='owl:equivalentClass': **10**
+   * links with property='rdfs:subPropertyOf': **53**
+   * links with property='http://schema.org/inverseOf': **16**
+   * links with property='http://schema.org/supersededBy': **1**
+   * links with property='owl:equivalentProperty': **8**
+   * links with property='dc:source': **24**
 
 **VALIDATION**
 
 Some little problems:
 
- * Labels of classes with space: ' TaxiReservation', ' TrainReservation'.
- * Tag `div` with resource definition (?) but with no `rdfs:label`: comment, genre, duration, SportsTeam, DatedMoneySpecification, startDate, endDate, width, height, depth.
- * Duplicated labels:  'clinicalPharmacology' and 'departureAirport'.
-
+ * Labels of classes with space: **' TaxiReservation', ' TrainReservation'**.
+ * Tag `div` with resource definition (?) but with no `rdfs:label`: **comment, genre, duration, SportsTeam, DatedMoneySpecification, startDate, endDate, width, height, depth.**
+ * Duplicated labels:  **'clinicalPharmacology' and 'departureAirport'**.
 
 ## Release of 2015-02-04 (v1.93-stantz) ##
 File of https://github.com/schemaorg/schemaorg/branches  renamed here to
 `r2015-02-04-v1.93-sdoStantz.schema.rdfa.htm`.
 
-**GENERAL PROFILE (countings)**
+** PROFILE (countings)**
 
- * number of div tags (nDivs): 1521
- * number of definitions by classes+properties (nDefs): 1478
- * number of rdfs-classes (nClass): 620
- * number of rdf-Properties (nProp): 858
- * number of schema-supersededBy (nSupBy): 33
- * number of duplicated rdfs-labels (nDup): 2
- * number of defs with link tag (nLinks): 105
- * total number of link tags over defs (nLinksTot): 112
+ * number of div tags (nDivs): **1521**
+ * number of definitions by classes+properties (nDefs): **1478**
+ * number of rdfs-classes (nClass): **620**
+ * number of rdf-Properties (nProp): **858**
+ * number of schema-supersededBy (nSupBy): **33**
+ * number of duplicated rdfs-labels (nDup): **2**
+ * number of defs with link tag (nLinks): **105**
+ * total number of link tags over defs (nLinksTot): **112**
+ * **tag `link` countings:**
+   * links with property='owl:equivalentClass': **10**
+   * links with property='rdfs:subPropertyOf': **53**
+   * links with property='http://schema.org/inverseOf': **16**
+   * links with property='supersededBy': **1**
+   * links with property='owl:equivalentProperty': **8**
+   * links with property='dc:source': **24**
 
 **VALIDATION**
 
@@ -81,7 +94,7 @@ Some little problems:
 File of https://github.com/schemaorg/schemaorg/branches  renamed here to
 `r2014-12-11-v1.92-sdoVenkman.schema.rdfa.htm`.
 
-**GENERAL PROFILE (countings)**
+** PROFILE (countings)**
 
  * number of div tags (nDivs): 1503
  * number of definitions by classes+properties (nDefs): 1463
@@ -99,6 +112,3 @@ Some little problems:
  * Labels of classes with space: ' TaxiReservation', ' TrainReservation'.
  * Tag `div` with resource definition (?) but with no `rdfs:label`: comment, genre, duration, SportsTeam, DatedMoneySpecification, startDate, endDate.
  * Duplicated labels: 'departureAirport'.
-
-
-

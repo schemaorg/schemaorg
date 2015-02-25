@@ -15,7 +15,7 @@
 // MAIN CONFIGS
 $schemaFile = '../../../data/schema.rdfa';  // original (default)
 // $schemaFile = 'schema.rdfa.htm';			// rewrited
-// $schemaFile = '../../../proposals/testing/releases/r2015-02-04-v1.93-sdoStantz.schema.rdfa.htm';
+$schemaFile = '../../../proposals/testing/releases/r2015-02-04-v1.93-sdoStantz.schema.rdfa.htm';
 
 $csvFile = 'spreadsheets/updated2015-02-23b.csv';
 $cmd     = isset($argv[1])? $argv[1]: '';
@@ -96,8 +96,8 @@ if ($cmd=='-c' || $cmd=='-r') {// COUNT AND REPORT COMMANDS  ////
 					$lkp = $lk->getAttribute('property');
 					$lkh = $lk->getAttribute('href');
 					//debug print "\n\t -- $lkp=$lkh";
-					if (isset($repLks['lktypes'][$lkp])) $repLks['lktypes'][$lkp]++; 
-					else $repLks['lktypes'][$lkp]=1; // for nDup
+					if (isset($repLks['lktypes'][0][$lkp])) $repLks['lktypes'][0][$lkp]++; 
+					else $repLks['lktypes'][0][$lkp]=1; // for nDup
 				} // for
 			} // if -r
 		} // if errors
@@ -113,12 +113,12 @@ if ($cmd=='-c' || $cmd=='-r') {// COUNT AND REPORT COMMANDS  ////
 	if ($rep['nLinks'][0])
 		$rep['nLinksTot'] = $repLks['nLinksTot'];	
 	foreach($rep as $k=>$r) {
-		print "\n\t * $r[1] ($k): $r[0]";
+		print "\n\t * $r[1] ($k): **$r[0]**";
 	}
 	if ($cmd=='-r') {
-		print "\n\t **LINKS UNDER COSNTRUCTION**";
-		foreach($repLks['lktypes'][0] as $k=>$r) {
-			print "\n\t\t * links with property='$r[1]': $r[0]";
+		print "\n\t **tag link countings**";
+		foreach($repLks['lktypes'][0] as $prop=>$n) {
+			print "\n\t\t * links with property='$prop': **$n**";
 		}
 	}
 	print "\n";
