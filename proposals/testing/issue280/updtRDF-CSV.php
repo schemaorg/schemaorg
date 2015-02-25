@@ -1,16 +1,18 @@
 <?php
 /**
  * Updates schema.rdfa with the CSV file, and vice-versa.
- * USE after check bellow the main configs (!).
- * USE after update or get original schema.rdfa:
- *   php updatesRDFbyCSV.php > spreadsheets/updated2015-02-23.csv
- * USE after update (edit) the spreadsheet and export it back to here:
- *   php updatesRDFbyCSV.php -u > schema.rdfa.htm
  *
+ * ToDoList:
+ * + to use ../xsl/schemaOrgHtmRDFa.xsl  standaring output ... and a PHP-LIB with the commom "sanitize" filters.
+ * + to use ../xsl/HtmRDFa2HtmTable-wikidataPrj-module1.xsl  for obtain an XHTML-table standard representation as pre-CSV.
+ * + adopt external lib to CSV convertions.
+ * 
  * @see https://github.com/schemaorg/schemaorg/issues/355
  * @see https://github.com/schemaorg/schemaorg/issues/359
  * @see https://github.com/schemaorg/schemaorg/issues/360 
+ * @see https://github.com/schemaorg/schemaorg/issues/361
  */
+define('THISVERSION',"v1.2 2015-02-20");
 
 // MAIN CONFIGS
 $schemaFile = '../../../data/schema.rdfa';  // original (gozer my default)
@@ -32,10 +34,175 @@ $U = 'http://schema.org'; // urlBase
 $INCs = "$U/domainIncludes";
 
 
+////////////////////////////////////////
+////////////////////////////////////////
+// BEGIN:OPTIONS 
+$shortopts  = ""; 	// short options, with the form -X
+$shortopts .= "v"; 	// version of this tool
+$shortopts .= "h";	// Help
+$shortopts .= "c"; 	// counting (short) report 
+$shortopts .= "r"; 	// (full) report 
+$shortopts .= "u"; 	// updates HTML (command)
+$shortopts .= "g"; 	// generates spreadsheet (command)
+$longopts  = array(	// long options, with the form --X VALUE
+    "rdfa:",     	// HTML+RDFa file (required value)
+    "csv:",      	// CSV file (required value)
+    "help",      	// same as -h
+    "version",      // same as -v
+);
+$opt = getopt($shortopts, $longopts);
+foreach (array('rdfa','csv') as $k) if (!isset($opt[$k])) $opt[$k]=false;	// associative mode
+foreach (array('help'=>'h','version'=>'v') as $k=>$k2) if (isset($opt[$k])) $opt[$k2]=true;	// alias;
+$cmd='';
+foreach ($opt as $k=>$v) if ($k && strlen($k)==1) {$cmd=$k; break;} 		// get first command
+// END:OPTIONS
+//////////////
+
+if ($opt['csv']) 	$csvFile    =$opt['csv'];
+if ($opt['rdfa'])	$schemaFile =$opt['rdfa'];
+
+switch ($cmd) {
+
+//////////////////////////////////////////////
+//////////////////////////////////////////////
+case 'g': // GENERATES CSV SPREADSHEET command
+
+	// DOM INITIALIZE
+	$dom = new DOMDocument('1.0','UTF-8');
+	$dom->load( $schemaFile );
+	$dom->encoding = 'UTF-8'; // after load
+	$xp = new DOMXpath($dom);
+
+	// SCAN AND UPDATE LOOP:
+	$n=$n2=0;
+
+
+	$allProps = array();
+	$supBy = array();
+	$WQ = ''; // 'Q?';
+	print "WikidataID\tisSub\tLabel\tComment";
+	// SCAN AND PRINT:
+	foreach (iterator_to_array($xp->query("//div[@typeof='rdfs:Class']")) as $i) {
+		//$class=$i->nodeValue;
+		$class = getSpan($i,'rdfs:label');
+		$descr = getSpan($i,'rdfs:comment');
+		if ( getSpan($i,'supBy') )
+			$supBy[] = $class;
+		else
+			printLine($i,$class,$descr);
+		$q = "//div[@typeof='rdf:Property' and ./span/a[@property='$INCs' and @href='$U/$class']]";
+		foreach (iterator_to_array($xp->query($q)) as $j) if ( ($p=getSpan($j)) && !isset($allProps[$p]) ) {
+			$descr = getSpan($j,'rdfs:comment');
+			if ( getSpan($j,'supBy') )
+				$supBy[] = $p;
+			else
+				printLine($j," $p",$descr);
+			$allProps[$p]=1;
+		}
+	}
+
+	// VALIDATION:
+	$N = $xp->query("//div[@typeof='rdf:Property']")->length;
+	if ($N!=count(array_keys($allProps))) {
+		foreach (iterator_to_array($xp->query("//div[@typeof='rdf:Property']/span[@property='rdfs:label']")) as $i)
+			if ( ($p=$i->nodeValue) && !isset($allProps[$p]) ) 
+				print "\n * ERROR: property '$p' without Class.";
+		// see detected bugs at https://github.com/schemaorg/schemaorg/issues/355
+	}
+
+	if (count($supBy)) {
+		$nSup=1;
+		print "\n---- items supersededBy ----";
+		foreach ($supBy as $label)
+			echo "\n\t", $nSup++, " $label";
+	}
+	print "\n";
+
+	break;
 
 ////////////////////////////////////////
 ////////////////////////////////////////
-if ($cmd=='-c' || $cmd=='-r') {// COUNT AND REPORT COMMANDS  ////
+case 'u': // UPDATES HTML-RDFAa command
+
+	// DOM INITIALIZE
+	$dom = new DOMDocument('1.0','UTF-8');
+	//$dom->load($schemaFile);
+	$dom->loadXML( xml_entity_decode(file_get_contents($schemaFile),$mode='10') );
+	$dom->encoding = 'UTF-8'; // for loaded
+	$dom->substituteEntities = false; // no effect!
+	$xp = new DOMXpath($dom); // back out 
+
+	// CSV INITIALIZE
+	$h = fopen($csvFile,'r');
+
+	// SCAN AND UPDATE LOOP:
+	$n=$n2=0;
+	while( !feof($h) && (!$nmax || $n<$nmax) ) {
+		$n++;
+		$r = fgetcsv($h,$csvFile_lineMaxLen,$csvFile_sep);
+		if ( $n>1  && $r[2]) { // line contains data
+			$r = array_map('trim', $r);
+			$name    = $r[2];
+
+			$firstLetter = substr($name,0,1);
+			$isPropByLabel = (strtolower($firstLetter)==$firstLetter);
+			$isClass = (!$isPropByLabel); // ops, but ok
+			$type    = $isClass? 'rdfs:Class': 'rdf:Property';
+			$wID     = preg_match('/Q\d+/',$r[0])? $r[0]: '';
+			$isSub   = $r[1]? true: false;
+			if ($wID){
+				$q = "//div[@typeof='$type' and @resource='$U/$name']";
+				$node = $xp->query($q)->item(0); // one occurence hypothesis
+				$label = $xp->evaluate("string(span[@property='rdfs:label'])",$node);
+				/* Debug link tags:
+				foreach (iterator_to_array($xp->query("link",$node)) as $lk) {
+					$lkp = $lk->getAttribute('property');
+					$lkh = $lk->getAttribute('href');
+					print "\n\t -- $lkp=$lkh";
+				}
+				*/
+				if ($label){
+
+					$OWL = $isClass? 
+						($isSub? 'rdfs:subClassOf':    'owl:equivalentClass'): 
+						($isSub? 'rdfs:subPropertyOf': 'owl:equivalentProperty');
+					$newHref = "https://www.wikidata.org/wiki/$wID";	
+					$linkCt = $xp->query("link[contains(translate(@href,'WIKDATORG','wikdatorg'),'wikidata.org')]",$node);
+					if ($linkCt->length) { 	// // CHANGE link tag:  // //
+						$lk = $linkCt->item(0);
+						$oldProp = $lk->getAttribute('property');
+						$oldID   = $lk->getAttribute('href');
+						if ($oldProp!=$OWL || $oldID!=$newHref)
+							msg("NOTICE: was $oldProp($oldID), now is $OWL($wID)");
+					} else			
+						$lk = $dom->createElement('link');
+					$lk->setAttribute('property',$OWL);
+					$lk->setAttribute('href',$newHref);
+					if (!$linkCt->length)	// ADD a link tag.
+						$node->appendChild($lk);
+					$isSub = $isSub? '<': '=';
+					$isClass = $isClass? '': ' ';
+					msg("line $n.\t$isClass $name $isSub $wID");					
+
+				} // if label
+
+			}
+			$n2++;
+		}
+	} // loop file
+	fclose($h);
+	msg("\n"); 
+	$s = xml_entity_decode( $dom->saveXML() );  // C14N or saveXML
+	$s = preg_replace('#\s*<((?:link|hr|br|meta)[^>]*)\s*/>#uis', "\n      <\$1$LSP/>",$s); // tidy and LSP
+	print $s;
+
+	break;
+
+////////////////////////////////////////
+////////////////////////////////////////
+case 'c': // COUNT-REPORT command
+case 'r': // REPORT command
+	print "\n ---- REPORT (using option $cmd with file $schemaFile)  ----";
 	$dom = new DOMDocument('1.0','UTF-8');
 	$dom->load($schemaFile);
 	$xp = new DOMXpath($dom);
@@ -57,8 +224,6 @@ if ($cmd=='-c' || $cmd=='-r') {// COUNT AND REPORT COMMANDS  ////
 		'nSpans'=>array(0,'number of defs with span-a tag'),
 		'nSpansTot'=>array(0,'total number of span-a tags over defs'),
 	);
-
-	print "\n ---- REPORT ($schemaFile)... ----";
 	$all = array();
 	$supBy = array();
 	foreach (iterator_to_array($xp->query("//div[@typeof='rdfs:Class' or @typeof='rdf:Property']")) as $i) {
@@ -152,143 +317,39 @@ if ($cmd=='-c' || $cmd=='-r') {// COUNT AND REPORT COMMANDS  ////
 	}
 	print "\n";
 
+	break;
+
 ////////////////////////////////////////
 ////////////////////////////////////////
-} elseif ($cmd=='-u') {// UPDATE COMMAND  ////
+case 'h': // HELP command
+ // copy/paste the above comments here: 
+	print " ".basename(__FILE__)."
+ This tool generates schema.rdfa reports; updates schema.rdfa with the CSV file, and vice-versa.
+ Commands (use only one):
+	-v	version of this tool
+	-h	Help
+	-c	counting (short) report 
+	-r	(full) report 
+	-u	updates HTML
+	-g	generates spreadsheet
+ Options:
+	--rdfa FILE	HTML+RDFa file (required value)
+	--csv  FILE	CSV file (required value)
+	";
+case 'v':   // VERSION command
+	print "\n VERSION: ".THISVERSION;
+	break;
+default:
+	print "\n ERROR: UNKNOWN COMMANDO.";
+} // switch cmd
 
-	// DOM INITIALIZE
-	$dom = new DOMDocument('1.0','UTF-8');
-	//$dom->load($schemaFile);
-	$dom->loadXML( xml_entity_decode(file_get_contents($schemaFile),$mode='10') );
-	$dom->encoding = 'UTF-8'; // for loaded
-	$dom->substituteEntities = false; // no effect!
-	$xp = new DOMXpath($dom); // back out 
+print "\n\n";
 
-	// CSV INITIALIZE
-	$h = fopen($csvFile,'r');
-
-	// SCAN AND UPDATE LOOP:
-	$n=$n2=0;
-	while( !feof($h) && (!$nmax || $n<$nmax) ) {
-		$n++;
-		$r = fgetcsv($h,$csvFile_lineMaxLen,$csvFile_sep);
-		if ( $n>1  && $r[2]) { // line contains data
-			$r = array_map('trim', $r);
-			$name    = $r[2];
-
-			$firstLetter = substr($name,0,1);
-			$isPropByLabel = (strtolower($firstLetter)==$firstLetter);
-			$isClass = (!$isPropByLabel); // ops, but ok
-			$type    = $isClass? 'rdfs:Class': 'rdf:Property';
-			$wID     = preg_match('/Q\d+/',$r[0])? $r[0]: '';
-			$isSub   = $r[1]? true: false;
-			if ($wID){
-				$q = "//div[@typeof='$type' and @resource='$U/$name']";
-				$node = $xp->query($q)->item(0); // one occurence hypothesis
-				$label = $xp->evaluate("string(span[@property='rdfs:label'])",$node);
-				/* Debug link tags:
-				foreach (iterator_to_array($xp->query("link",$node)) as $lk) {
-					$lkp = $lk->getAttribute('property');
-					$lkh = $lk->getAttribute('href');
-					print "\n\t -- $lkp=$lkh";
-				}
-				*/
-				if ($label){
-
-					$OWL = $isClass? 
-						($isSub? 'rdfs:subClassOf':    'owl:equivalentClass'): 
-						($isSub? 'rdfs:subPropertyOf': 'owl:equivalentProperty');
-					$newHref = "https://www.wikidata.org/wiki/$wID";	
-					$linkCt = $xp->query("link[contains(translate(@href,'WIKDATORG','wikdatorg'),'wikidata.org')]",$node);
-					if ($linkCt->length) { 	// // CHANGE link tag:  // //
-						$lk = $linkCt->item(0);
-						$oldProp = $lk->getAttribute('property');
-						$oldID   = $lk->getAttribute('href');
-						if ($oldProp!=$OWL || $oldID!=$newHref)
-							msg("NOTICE: was $oldProp($oldID), now is $OWL($wID)");
-					} else			
-						$lk = $dom->createElement('link');
-					$lk->setAttribute('property',$OWL);
-					$lk->setAttribute('href',$newHref);
-					if (!$linkCt->length)	// ADD a link tag.
-						$node->appendChild($lk);
-					$isSub = $isSub? '<': '=';
-					$isClass = $isClass? '': ' ';
-					msg("line $n.\t$isClass $name $isSub $wID");					
-
-				} // if label
-
-			}
-			$n2++;
-		}
-	} // loop file
-	fclose($h);
-	msg("\n"); 
-	$s = xml_entity_decode( $dom->saveXML() );  // C14N or saveXML
-	$s = preg_replace('#\s*<((?:link|hr|br|meta)[^>]*)\s*/>#uis', "\n      <\$1$LSP/>",$s); // tidy and LSP
-	print $s;
-}	//////////////// END UPDATE COMMAND
-else
-{
-	////////////////////////////////////////
-	////////////////////////////////////////
-	            // CSV FILE GENERATOR  ////
-
-	// DOM INITIALIZE
-	$dom = new DOMDocument('1.0','UTF-8');
-	$dom->load( $schemaFile );
-	$dom->encoding = 'UTF-8'; // after load
-	$xp = new DOMXpath($dom);
-
-	// SCAN AND UPDATE LOOP:
-	$n=$n2=0;
-
-
-	$allProps = array();
-	$supBy = array();
-	$WQ = ''; // 'Q?';
-	print "WikidataID\tisSub\tLabel\tComment";
-	// SCAN AND PRINT:
-	foreach (iterator_to_array($xp->query("//div[@typeof='rdfs:Class']")) as $i) {
-		//$class=$i->nodeValue;
-		$class = getSpan($i,'rdfs:label');
-		$descr = getSpan($i,'rdfs:comment');
-		if ( getSpan($i,'supBy') )
-			$supBy[] = $class;
-		else
-			printLine($i,$class,$descr);
-		$q = "//div[@typeof='rdf:Property' and ./span/a[@property='$INCs' and @href='$U/$class']]";
-		foreach (iterator_to_array($xp->query($q)) as $j) if ( ($p=getSpan($j)) && !isset($allProps[$p]) ) {
-			$descr = getSpan($j,'rdfs:comment');
-			if ( getSpan($j,'supBy') )
-				$supBy[] = $p;
-			else
-				printLine($j," $p",$descr);
-			$allProps[$p]=1;
-		}
-	}
-
-	// VALIDATION:
-	$N = $xp->query("//div[@typeof='rdf:Property']")->length;
-	if ($N!=count(array_keys($allProps))) {
-		foreach (iterator_to_array($xp->query("//div[@typeof='rdf:Property']/span[@property='rdfs:label']")) as $i)
-			if ( ($p=$i->nodeValue) && !isset($allProps[$p]) ) 
-				print "\n * ERROR: property '$p' without Class.";
-		// see detected bugs at https://github.com/schemaorg/schemaorg/issues/355
-	}
-
-	if (count($supBy)) {
-		$nSup=1;
-		print "\n---- items supersededBy ----";
-		foreach ($supBy as $label)
-			echo "\n\t", $nSup++, " $label";
-	}
-	print "\n";
-
-}
-
-
-// // // LIB
+////////////////////////////////////////
+////////////////////////////////////////
+////////////////////////////////////////
+////////////////////////////////////////
+// LIB:
 
 function getSpan($node,$prop='rdfs:label') {
 	global $xp;
@@ -317,10 +378,7 @@ function xml_entity_decode($s,$mode='11') {
 		$s = str_replace($XSAFENTITIES,$XENTITIES,$s);
 	}
 	return $s;
-}  
-
-///////////////////
-
+}
 
 function msg($msg) {
 	global $stderr;
