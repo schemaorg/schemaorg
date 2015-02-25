@@ -67,7 +67,7 @@ git clone ....
 cd schemaorg/proposals/testing/issue280/
 php updtRDF-CSV.php > spreadsheets/original.csv
 
-# ... some days later...
+# ... some days later, after online collaboration, exporting ex. spreadsheets/updated2015-02-23b.csv ...
 % php updtRDF-CSV.php -u > schema.rdfa.htm
 # this last command results in:
 ```
@@ -87,4 +87,29 @@ php updtRDF-CSV.php > spreadsheets/original.csv
 	 --line 814.	  gender = Q48264
 	 --line 815.	  givenName = Q202444
 ```
+
+```shell
+# Now you can count items of this new `schema.rdfa.htm`:
+php updtRDF-CSV.php -c
+```
+```txt
+ ---- COUNTING (../../../data/schema.rdfa)... ----
+	 --ERROR-3 on label of class  TaxiReservation.
+	 --ERROR-3 on label of class  TrainReservation.
+	 --ERROR-2 (no label) on http://schema.org/comment .
+	 --ERROR-2 (no label) on http://schema.org/genre .
+	 --ERROR-2 (no label) on http://schema.org/duration .
+	 --ERROR-2 (no label) on http://schema.org/SportsTeam .
+	 --ERROR-2 (no label) on http://schema.org/DatedMoneySpecification .
+	 --ERROR-2 (no label) on http://schema.org/startDate .
+	 --ERROR-2 (no label) on http://schema.org/endDate .
+	 --ERROR-2 (no label) on http://schema.org/width .
+	 --ERROR-2 (no label) on http://schema.org/height .
+	 --ERROR-2 (no label) on http://schema.org/depth .
+	 --ERROR-5 clinicalPharmacology duplicated.
+	 --ERROR-5 departureAirport duplicated.
+ #Divs=1521 (sum=1478  #Class=620; #nProp=858); #supersededBy=33; dups=2
+```
+
+
 

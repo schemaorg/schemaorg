@@ -14,8 +14,8 @@
 
 // MAIN CONFIGS
 $schemaFile = '../../../data/schema.rdfa';  // original
-//or $schemaFile = 'schema.rdfa.htm';			// rewrited
-$csvFile = 'spreadsheets/updated2015-02-23.csv';
+//$schemaFile = 'schema.rdfa.htm';			// rewrited
+$csvFile = 'spreadsheets/updated2015-02-23b.csv';
 $cmd     = isset($argv[1])? $argv[1]: '';
 
 
@@ -26,40 +26,90 @@ $nmax = 0;  // non-zero for debug first lines
 $LSP = ' '; // last space in a <closed/> tag.
 $stderr = 'php://stderr';
 $isTerminal = true;
+$U = 'http://schema.org'; // urlBase
+$INCs = "$U/domainIncludes";
 
 
 
 ////////////////////////////////////////
 ////////////////////////////////////////
-if ($cmd=='-u') {// UPDATE COMMAND  ////
+if ($cmd=='-c' || $cmd=='-r') {// COUNT AND REPORT COMMANDS  ////
+	$dom = new DOMDocument('1.0','UTF-8');
+	$dom->load($schemaFile);
+	$xp = new DOMXpath($dom);
+
+	print "\n ---- COUNTING ($schemaFile)... ----";
+	$nDivs=$nClass=$nProp=$nSupBy=0;
+	$all = array();
+	$supBy = array();
+	foreach (iterator_to_array($xp->query("//div[@typeof='rdfs:Class' or @typeof='rdf:Property']")) as $i) {
+		$nDivs++;
+		$isClass = ($i->getAttribute('typeof')==='rdfs:Class');
+		$label = getSpan($i,'rdfs:label');
+		$res   = $i->getAttribute('resource');
+		$firstLetter = substr($label,0,1);
+		$isPropByLabel = (strtolower($firstLetter)==$firstLetter);
+		if (!$res)
+			msg("ERROR-1 (no resouce) on div ...!");
+		elseif (!$label)
+			msg("ERROR-2 (no label) on $res .");
+		elseif ( getSpan($i,'supBy') )
+			$nSupBy++;
+		elseif ($isClass) {
+			if ($isPropByLabel){
+				msg("ERROR-3 on label of class $label.");
+				//var_dump($dom->saveXML($i));
+			}
+			if (isset($all[$label])) $all[$label]++; else $all[$label]=1;
+			$nClass++;
+		} else {
+			if (!$isPropByLabel){
+				msg("ERROR-4 on label of property $label.");
+				//var_dump($dom->saveXML($i));
+			}
+			if (isset($all[$label])) $all[$label]++; else $all[$label]=1;			
+			$nProp++;
+		}
+	} // for
+	$sum = $nClass+$nProp;
+	$nDup = 0;
+	foreach ($all as $k=>$v) if ($v>1) {$nDup++;
+		msg("ERROR-5 $k duplicated."); 
+	}
+	print "\n #Divs=$nDivs (sum=$sum  #Class=$nClass; #nProp=$nProp); #supersededBy=$nSupBy; dups=$nDup\n\n";
+
+////////////////////////////////////////
+////////////////////////////////////////
+} elseif ($cmd=='-u') {// UPDATE COMMAND  ////
 
 	// DOM INITIALIZE
 	$dom = new DOMDocument('1.0','UTF-8');
-	$dom->substituteEntities = false; // no effect!
 	//$dom->load($schemaFile);
 	$dom->loadXML( xml_entity_decode(file_get_contents($schemaFile),$mode='10') );
-
 	$dom->encoding = 'UTF-8'; // for loaded
 	$dom->substituteEntities = false; // no effect!
+	$xp = new DOMXpath($dom); // back out 
 
 	// CSV INITIALIZE
 	$h = fopen($csvFile,'r');
 
 	// SCAN AND UPDATE LOOP:
 	$n=$n2=0;
-	$xp = new DOMXpath($dom);
 	while( !feof($h) && (!$nmax || $n<$nmax) ) {
 		$n++;
 		$r = fgetcsv($h,$csvFile_lineMaxLen,$csvFile_sep);
-		if ( $n>1  && $r[2]) { // line cond
+		if ( $n>1  && $r[2]) { // line contains data
 			$r = array_map('trim', $r);
-			$isClass = (strtolower($r[2])=='class'); // vai mudar para detecção de primeira maiuscula!
+			$name    = $r[2];
+
+			$firstLetter = substr($name,0,1);
+			$isPropByLabel = (strtolower($firstLetter)==$firstLetter);
+			$isClass = (!$isPropByLabel); // ops, but ok
 			$type    = $isClass? 'rdfs:Class': 'rdf:Property';
 			$wID     = preg_match('/Q\d+/',$r[0])? $r[0]: '';
 			$isSub   = $r[1]? true: false;
-			$name    = $r[3];
 			if ($wID){
-				$q = "//div[@typeof='$type' and @resource='http://schema.org/$name']";
+				$q = "//div[@typeof='$type' and @resource='$U/$name']";
 				$node = $xp->query($q)->item(0); // one occurence hypothesis
 				$label = $xp->evaluate("string(span[@property='rdfs:label'])",$node);
 				/* Debug link tags:
@@ -67,30 +117,33 @@ if ($cmd=='-u') {// UPDATE COMMAND  ////
 					$lkp = $lk->getAttribute('property');
 					$lkh = $lk->getAttribute('href');
 					print "\n\t -- $lkp=$lkh";
-	// normalize to SPAN, wait @elf-pavlik 
 				}
 				*/
-				$OWL = $isClass? 
-					($isSub? 'rdfs:subClassOf':    'owl:equivalentClass'): 
-					($isSub? 'rdfs:subPropertyOf': 'owl:equivalentProperty');
-				$newHref = "https://www.wikidata.org/wiki/$wID";	
-				$linkCt = $xp->query("link[contains(translate(@href,'WIKDATORG','wikdatorg'),'wikidata.org')]",$node);
-				if ($linkCt->length) { 	// // CHANGE link tag:  // //
-					$lk = $linkCt->item(0);
-					$oldProp = $lk->getAttribute('property');
-					$oldID   = $lk->getAttribute('href');
-					if ($oldProp!=$OWL || $oldID!=$newHref)
-						$msg("NOTICE: was $linkProp($oldID), now is $OWL($wID)");
-				} else			
-					$lk = $dom->createElement('link');
-				$lk->setAttribute('property',$OWL);
-				$lk->setAttribute('href',$newHref);
-				if (!$linkCt->length)	// ADD a link tag.
-					$node->appendChild($lk);
-				// debug msg( $dom->saveXML($node) );	
-				$isSub = $isSub? '<': '=';
-				$isClass = $isClass? '': ' ';
-				msg("line $n.\t$isClass $name $isSub $wID");
+				if ($label){
+
+					$OWL = $isClass? 
+						($isSub? 'rdfs:subClassOf':    'owl:equivalentClass'): 
+						($isSub? 'rdfs:subPropertyOf': 'owl:equivalentProperty');
+					$newHref = "https://www.wikidata.org/wiki/$wID";	
+					$linkCt = $xp->query("link[contains(translate(@href,'WIKDATORG','wikdatorg'),'wikidata.org')]",$node);
+					if ($linkCt->length) { 	// // CHANGE link tag:  // //
+						$lk = $linkCt->item(0);
+						$oldProp = $lk->getAttribute('property');
+						$oldID   = $lk->getAttribute('href');
+						if ($oldProp!=$OWL || $oldID!=$newHref)
+							msg("NOTICE: was $oldProp($oldID), now is $OWL($wID)");
+					} else			
+						$lk = $dom->createElement('link');
+					$lk->setAttribute('property',$OWL);
+					$lk->setAttribute('href',$newHref);
+					if (!$linkCt->length)	// ADD a link tag.
+						$node->appendChild($lk);
+					$isSub = $isSub? '<': '=';
+					$isClass = $isClass? '': ' ';
+					msg("line $n.\t$isClass $name $isSub $wID");					
+
+				} // if label
+
 			}
 			$n2++;
 		}
@@ -119,7 +172,6 @@ else
 
 	$allProps = array();
 	$supBy = array();
-	$INCs = 'http://schema.org/domainIncludes';
 	$WQ = ''; // 'Q?';
 	print "WikidataID\tisSub\tLabel\tComment";
 	// SCAN AND PRINT:
@@ -131,7 +183,7 @@ else
 			$supBy[] = $class;
 		else
 			printLine($i,$class,$descr);
-		$q = "//div[@typeof='rdf:Property' and ./span/a[@property='$INCs' and @href='http://schema.org/$class']]";
+		$q = "//div[@typeof='rdf:Property' and ./span/a[@property='$INCs' and @href='$U/$class']]";
 		foreach (iterator_to_array($xp->query($q)) as $j) if ( ($p=getSpan($j)) && !isset($allProps[$p]) ) {
 			$descr = getSpan($j,'rdfs:comment');
 			if ( getSpan($j,'supBy') )
@@ -166,8 +218,9 @@ else
 
 function getSpan($node,$prop='rdfs:label') {
 	global $xp;
+	global $U;
 	if ($prop=='supBy')
-		return $xp->evaluate("boolean(span[@property='http://schema.org/supersededBy']/@property)",$node);	
+		return $xp->evaluate("boolean(span[@property='$U/supersededBy']/@property)",$node);	
 	$s = $xp->evaluate("string(span[@property='$prop'])",$node);
 	$s = str_replace("\n"," ",html_entity_decode($s,ENT_HTML5));
 	if (mb_strlen($s,'UTF-8')>250)
