@@ -13,8 +13,10 @@
  */
 
 // MAIN CONFIGS
-$schemaFile = '../../../data/schema.rdfa';  // original
-//$schemaFile = 'schema.rdfa.htm';			// rewrited
+$schemaFile = '../../../data/schema.rdfa';  // original (default)
+// $schemaFile = 'schema.rdfa.htm';			// rewrited
+// $schemaFile = '../../../proposals/testing/releases/r2015-02-04-v1.93-sdoStantz.schema.rdfa.htm';
+
 $csvFile = 'spreadsheets/updated2015-02-23b.csv';
 $cmd     = isset($argv[1])? $argv[1]: '';
 
@@ -38,45 +40,88 @@ if ($cmd=='-c' || $cmd=='-r') {// COUNT AND REPORT COMMANDS  ////
 	$dom->load($schemaFile);
 	$xp = new DOMXpath($dom);
 
-	print "\n ---- COUNTING ($schemaFile)... ----";
-	$nDivs=$nClass=$nProp=$nSupBy=0;
+	$rep=array(  // general counting report
+		'nDivs'=>array(0,'number of div tags'),
+		'nDefs'=>array(0,'number of definitions by classes+properties'),
+		'nClass'=>array(0,'number of rdfs-classes'),
+		'nProp'=>array(0,'number of rdf-Properties'),
+		'nSupBy'=>array(0,'number of schema-supersededBy'),
+		'nDup'=>array(0,'number of duplicated rdfs-labels'),
+		//'x'=>array(0,'number of '),
+	);
+	$repLks=array(  // report of links and spans
+		'lktypes'=>array(array(),'number of defs with link tag'),
+		'nLinks'=>array(0,'number of defs with link tag'),
+		'nLinksTot'=>array(0,'total number of link tags over defs'),
+		'nY'=>array(0,'number of spans'),
+	);
+
+	print "\n ---- REPORT ($schemaFile)... ----";
 	$all = array();
 	$supBy = array();
 	foreach (iterator_to_array($xp->query("//div[@typeof='rdfs:Class' or @typeof='rdf:Property']")) as $i) {
-		$nDivs++;
+		$rep['nDivs'][0]++;
 		$isClass = ($i->getAttribute('typeof')==='rdfs:Class');
 		$label = getSpan($i,'rdfs:label');
 		$res   = $i->getAttribute('resource');
 		$firstLetter = substr($label,0,1);
 		$isPropByLabel = (strtolower($firstLetter)==$firstLetter);
+
 		if (!$res)
-			msg("ERROR-1 (no resouce) on div ...!");
+			msg("ERROR-1 (no resouce) on div.");
 		elseif (!$label)
 			msg("ERROR-2 (no label) on $res .");
 		elseif ( getSpan($i,'supBy') )
-			$nSupBy++;
-		elseif ($isClass) {
-			if ($isPropByLabel){
-				msg("ERROR-3 on label of class $label.");
-				//var_dump($dom->saveXML($i));
+			$rep['nSupBy'][0]++;  // property="supersededBy" or "http://schema.org/supersededBy"
+		else {
+			if (isset($all[$label])) $all[$label]++; else $all[$label]=1; // for nDup
+			if ($isClass) {
+				if ($isPropByLabel)
+					msg("ERROR-3 on label of class '$label'.");
+				$rep['nClass'][0]++;
+			} else {
+				if (!$isPropByLabel)
+					msg("ERROR-4 on label of property '$label'.");
+				$rep['nProp'][0]++;
+			} // isClass
+			// check links and spans:
+			$xpq_link = $xp->query("link",$i);
+			$aux = $xpq_link->length;
+			if ($aux) {
+				$repLks['nLinks'][0]++;
+				$repLks['nLinksTot'][0] += $aux;	
 			}
-			if (isset($all[$label])) $all[$label]++; else $all[$label]=1;
-			$nClass++;
-		} else {
-			if (!$isPropByLabel){
-				msg("ERROR-4 on label of property $label.");
-				//var_dump($dom->saveXML($i));
-			}
-			if (isset($all[$label])) $all[$label]++; else $all[$label]=1;			
-			$nProp++;
-		}
-	} // for
-	$sum = $nClass+$nProp;
-	$nDup = 0;
-	foreach ($all as $k=>$v) if ($v>1) {$nDup++;
-		msg("ERROR-5 $k duplicated."); 
+			if ($cmd=='-r') {
+				foreach (iterator_to_array($xpq_link) as $lk) {
+					$lkp = $lk->getAttribute('property');
+					$lkh = $lk->getAttribute('href');
+					//debug print "\n\t -- $lkp=$lkh";
+					if (isset($repLks['lktypes'][$lkp])) $repLks['lktypes'][$lkp]++; 
+					else $repLks['lktypes'][$lkp]=1; // for nDup
+				} // for
+			} // if -r
+		} // if errors
+
+	} // for node $i
+	$rep['nDefs'][0] = $rep['nClass'][0]+$rep['nProp'][0];
+	foreach ($all as $k=>$v) if ($v>1) {
+		$rep['nDup'][0]++;
+		msg("ERROR-15 $k duplicated."); 
 	}
-	print "\n #Divs=$nDivs (sum=$sum  #Class=$nClass; #nProp=$nProp); #supersededBy=$nSupBy; dups=$nDup\n\n";
+	print "\n\t **COUNTINGS:**";
+	$rep['nLinks'] = $repLks['nLinks'];
+	if ($rep['nLinks'][0])
+		$rep['nLinksTot'] = $repLks['nLinksTot'];	
+	foreach($rep as $k=>$r) {
+		print "\n\t * $r[1] ($k): $r[0]";
+	}
+	if ($cmd=='-r') {
+		print "\n\t **LINKS UNDER COSNTRUCTION**";
+		foreach($repLks['lktypes'][0] as $k=>$r) {
+			print "\n\t\t * links with property='$r[1]': $r[0]";
+		}
+	}
+	print "\n";
 
 ////////////////////////////////////////
 ////////////////////////////////////////

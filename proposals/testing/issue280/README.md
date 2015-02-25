@@ -88,14 +88,14 @@ php updtRDF-CSV.php > spreadsheets/original.csv
 	 --line 815.	  givenName = Q202444
 ```
 
+Now you can count items... Here an example of generated profile of `schema.rdfa.htm` of the *stantz release*:
 ```shell
-# Now you can count items of this new `schema.rdfa.htm`:
 php updtRDF-CSV.php -c
 ```
 ```txt
- ---- COUNTING (../../../data/schema.rdfa)... ----
-	 --ERROR-3 on label of class  TaxiReservation.
-	 --ERROR-3 on label of class  TrainReservation.
+ ---- REPORT (../../../proposals/testing/versions/r2015-02-04-v1.93-sdoStantz.schema.rdfa.htm)... ----
+	 --ERROR-3 on label of class ' TaxiReservation'.
+	 --ERROR-3 on label of class ' TrainReservation'.
 	 --ERROR-2 (no label) on http://schema.org/comment .
 	 --ERROR-2 (no label) on http://schema.org/genre .
 	 --ERROR-2 (no label) on http://schema.org/duration .
@@ -106,10 +106,16 @@ php updtRDF-CSV.php -c
 	 --ERROR-2 (no label) on http://schema.org/width .
 	 --ERROR-2 (no label) on http://schema.org/height .
 	 --ERROR-2 (no label) on http://schema.org/depth .
-	 --ERROR-5 clinicalPharmacology duplicated.
-	 --ERROR-5 departureAirport duplicated.
- #Divs=1521 (sum=1478  #Class=620; #nProp=858); #supersededBy=33; dups=2
+	 --ERROR-15 clinicalPharmacology duplicated.
+	 --ERROR-15 departureAirport duplicated.
+	 **COUNTINGS:**
+	 * number of div tags (nDivs): 1521
+	 * number of definitions by classes+properties (nDefs): 1478
+	 * number of rdfs-classes (nClass): 620
+	 * number of rdf-Properties (nProp): 858
+	 * number of schema-supersededBy (nSupBy): 33
+	 * number of duplicated rdfs-labels (nDup): 2
+	 * number of defs with link tag (nLinks): 105
+	 * total number of link tags over defs (nLinksTot): 112
 ```
-
-
 
