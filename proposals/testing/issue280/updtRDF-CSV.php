@@ -13,9 +13,9 @@
  */
 
 // MAIN CONFIGS
-$schemaFile = '../../../data/schema.rdfa';  // original (default)
+$schemaFile = '../../../data/schema.rdfa';  // original (gozer my default)
 // $schemaFile = 'schema.rdfa.htm';			// rewrited
-$schemaFile = '../../../proposals/testing/releases/r2015-02-04-v1.93-sdoStantz.schema.rdfa.htm';
+// $schemaFile = '../../../proposals/testing/releases/r2015-02-04-v1.93-sdoStantz.schema.rdfa.htm';
 
 $csvFile = 'spreadsheets/updated2015-02-23b.csv';
 $cmd     = isset($argv[1])? $argv[1]: '';
@@ -53,7 +53,9 @@ if ($cmd=='-c' || $cmd=='-r') {// COUNT AND REPORT COMMANDS  ////
 		'lktypes'=>array(array(),'number of defs with link tag'),
 		'nLinks'=>array(0,'number of defs with link tag'),
 		'nLinksTot'=>array(0,'total number of link tags over defs'),
-		'nY'=>array(0,'number of spans'),
+		'spatypes'=>array(array(),'number of defs with span-a tag'),
+		'nSpans'=>array(0,'number of defs with span-a tag'),
+		'nSpansTot'=>array(0,'total number of span-a tags over defs'),
 	);
 
 	print "\n ---- REPORT ($schemaFile)... ----";
@@ -84,7 +86,8 @@ if ($cmd=='-c' || $cmd=='-r') {// COUNT AND REPORT COMMANDS  ////
 					msg("ERROR-4 on label of property '$label'.");
 				$rep['nProp'][0]++;
 			} // isClass
-			// check links and spans:
+
+			// check link tags:
 			$xpq_link = $xp->query("link",$i);
 			$aux = $xpq_link->length;
 			if ($aux) {
@@ -100,6 +103,25 @@ if ($cmd=='-c' || $cmd=='-r') {// COUNT AND REPORT COMMANDS  ////
 					else $repLks['lktypes'][0][$lkp]=1; // for nDup
 				} // for
 			} // if -r
+
+			// check span-a tags (<span>...<a property href></a></span>):
+			$xpq_link = $xp->query("span/a[@property]",$i);
+			$aux = $xpq_link->length;
+			if ($aux) {
+				$repLks['nSpans'][0]++;
+				$repLks['nSpansTot'][0] += $aux;	
+			}
+			if ($cmd=='-r') {
+				foreach (iterator_to_array($xpq_link) as $lk) {
+					$lkp = $lk->getAttribute('property');
+					$lkh = $lk->getAttribute('href');
+					if ($lkp=='rdfs:subClassOf' && strpos($lkh,'schema.org')===false)
+						print "\n\t\t!found subClassOf $lkh";
+					if (isset($repLks['spatypes'][0][$lkp])) $repLks['spatypes'][0][$lkp]++; 
+					else $repLks['spatypes'][0][$lkp]=1; // for nDup
+				} // for
+			} // if -r
+
 		} // if errors
 
 	} // for node $i
@@ -111,7 +133,10 @@ if ($cmd=='-c' || $cmd=='-r') {// COUNT AND REPORT COMMANDS  ////
 	print "\n\t **COUNTINGS:**";
 	$rep['nLinks'] = $repLks['nLinks'];
 	if ($rep['nLinks'][0])
-		$rep['nLinksTot'] = $repLks['nLinksTot'];	
+		$rep['nLinksTot'] = $repLks['nLinksTot'];
+	$rep['nSpans'] = $repLks['nSpans'];
+	if ($rep['nSpans'][0])
+		$rep['nSpansTot'] = $repLks['nSpansTot'];
 	foreach($rep as $k=>$r) {
 		print "\n\t * $r[1] ($k): **$r[0]**";
 	}
@@ -119,6 +144,10 @@ if ($cmd=='-c' || $cmd=='-r') {// COUNT AND REPORT COMMANDS  ////
 		print "\n\t **tag link countings**";
 		foreach($repLks['lktypes'][0] as $prop=>$n) {
 			print "\n\t\t * links with property='$prop': **$n**";
+		}
+		print "\n\t **tag sapn-a countings**";
+		foreach($repLks['spatypes'][0] as $prop=>$n) {
+			print "\n\t\t * span-a with property='$prop': **$n**";
 		}
 	}
 	print "\n";

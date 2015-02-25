@@ -34,7 +34,7 @@ Same as 2015-02-25-master, differing only by
 File of https://github.com/schemaorg/schemaorg/branches  renamed here to
 `r2015-02-07-sdoGozer.schema.rdfa.htm`.
 
-** PROFILE (countings)**
+**PROFILE (countings)**
 
  * number of div tags (nDivs): **1521**
  * number of definitions by classes+properties (nDefs): **1478**
@@ -51,6 +51,11 @@ File of https://github.com/schemaorg/schemaorg/branches  renamed here to
    * links with property='http://schema.org/supersededBy': **1**
    * links with property='owl:equivalentProperty': **8**
    * links with property='dc:source': **24**
+ * **tag `span` `a` countings:**
+   * span-a with property='rdfs:subClassOf': **663**
+   * span-a with property='dc:source': **130**
+   * span-a with property='http://schema.org/domainIncludes': **1158**
+   * span-a with property='http://schema.org/rangeIncludes': **986**
 
 **VALIDATION**
 
@@ -64,7 +69,7 @@ Some little problems:
 File of https://github.com/schemaorg/schemaorg/branches  renamed here to
 `r2015-02-04-v1.93-sdoStantz.schema.rdfa.htm`.
 
-** PROFILE (countings)**
+**PROFILE (countings)**
 
  * number of div tags (nDivs): **1521**
  * number of definitions by classes+properties (nDefs): **1478**
@@ -81,6 +86,11 @@ File of https://github.com/schemaorg/schemaorg/branches  renamed here to
    * links with property='supersededBy': **1**
    * links with property='owl:equivalentProperty': **8**
    * links with property='dc:source': **24**
+ * **tag sapn-a countings:**
+   * span-a with property='rdfs:subClassOf': **663**
+   * span-a with property='dc:source': **130**
+   * span-a with property='http://schema.org/domainIncludes': **1157**
+   * span-a with property='http://schema.org/rangeIncludes': **985**
 
 **VALIDATION**
 
@@ -94,7 +104,7 @@ Some little problems:
 File of https://github.com/schemaorg/schemaorg/branches  renamed here to
 `r2014-12-11-v1.92-sdoVenkman.schema.rdfa.htm`.
 
-** PROFILE (countings)**
+**PROFILE (countings)**
 
  * number of div tags (nDivs): 1503
  * number of definitions by classes+properties (nDefs): 1463

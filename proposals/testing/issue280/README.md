@@ -118,4 +118,5 @@ php updtRDF-CSV.php -c
 	 * number of defs with link tag (nLinks): **105**
 	 * total number of link tags over defs (nLinksTot): **112**
 ```
+NOTE: for better illustration and more detail about reports, see https://github.com/ppKrauss/schemaorg/tree/sdo-gozer/proposals/testing/releases
 
