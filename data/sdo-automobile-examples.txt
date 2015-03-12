@@ -1,0 +1,245 @@
+TYPES: Car
+
+PRE-MARKUP:
+
+<!-- Seller Details -->
+<div >
+  <strong>Contact Name: </strong> <span>Brent</span>
+  <div>$18,000</div>
+<!-- Car Details -->
+  <div id="product">
+    <strong>2009 Volkswagen Golf V GTI MY09 Direct-Shift Gearbox</strong>
+    <p>2009 Volkswagen Golf V GTI MY09 Direct-Shift Gearbox in perfect 
+    mechanical condition and low kilometres. It's impressive 2.0 litre turbo engine makes 
+    every drive a fun experience. Well looked after by one owner with full service history. 
+    It drives like new and has only done 50,000kms. (...)</p>
+    <img href="2009_Volkswagen_Golf_V_GTI_MY09.png" />
+    <p><strong>Color: </strong>Black</p>
+    <p><strong>Interior Color: </strong>Black</p>
+    <p><strong>Interior Type: </strong>Leather upholstery, wood paneling</p>
+    <p><strong>Model Year: </strong><time>2009</time></p>    
+    <p><strong>Transmission: </strong>6 speed Sports Automatic Dual Clutch</p>  
+    <p><strong>VIN: </strong>WVWZZZ1KZ9U######</p>  
+    <p><strong>Number of gears: </strong>6</p>    
+    <p><strong>Body: </strong>Hatchback</p>
+    <p><strong>Number of doors: </strong>3</p>
+    <p><strong>Number of seats: </strong>5</p>
+    <p><strong>Drive Type: </strong>Front Wheel Drive</p>
+    <p><strong>Engine: </strong>4 cylinder Petrol Turbo Intercooled 2.0 L (1984 cc)</p>
+    <p><strong>Engine Power: </strong>147 kw at 5100 rpm</p>
+    <p><strong>Fuel type: </strong>Petrol - Premium ULP</p>
+    <p><strong>Engine Size: </strong>1984 ccm</p>
+    <p><strong>Mileage: </strong>53100 km</p>
+    <p><strong>Number of airbags: </strong>6</p>
+    <p><strong>CO2 Emission Combined: </strong>192 g/km</p>
+</div>
+
+MICRODATA:
+
+<!-- Seller Details -->
+<div itemscope itemtype="http://schema.org/Person">
+  <strong>Contact Name: </strong> <span itemprop="name givenName">Brent</span>
+  <div itemprop="makesOffer" itemscope itemtype="http://schema.org/Offer" itemref="product">
+    <span itemprop="priceSpecification" itemscope 
+        itemtype="http://schema.org/UnitPriceSpecification">
+      <meta itemprop="priceCurrency" content="USD">$
+      <meta itemprop="price" content="18000">18,000
+     </span>
+   </div>
+</div>
+<!-- Car Details -->
+<div id="product" itemprop="itemOffered" itemscope itemtype="http://schema.org/Car">
+  <strong itemprop="name">2009 Volkswagen Golf V GTI MY09 Direct-Shift Gearbox</strong>
+  <p itemprop="description">2009 Volkswagen Golf V GTI MY09 Direct-Shift Gearbox in perfect 
+  mechanical condition and low kilometres. It's impressive 2.0 litre turbo engine makes 
+  every drive a fun experience. Well looked after by one owner with full service history. 
+  It drives like new and has only done 50,000kms. (...)</p>
+  <img itemprop="image" href="2009_Volkswagen_Golf_V_GTI_MY09.png" />
+  <p><strong>Color: </strong><span itemprop="color">Black</span></p>
+  <p><strong>Interior Color: </strong><span itemprop="colorInterior">Black</span></p>
+  <p><strong>Interior Type: </strong><span itemprop="interiorType">Leather upholstery, 
+    wood paneling</span></p>
+  <p><strong>Model Year: </strong><time itemprop="modelDate">2009</time></p>    
+  <p><strong>Transmission: </strong>
+    <span itemprop="transmission">6 speed Sports Automatic Dual Clutch</span>
+  </p>  
+  <p><strong>VIN: </strong><span itemprop="VIN">WVWZZZ1KZ9U######</span></p>  
+  <p><strong>Number of gears: </strong><span itemprop="gears">6</span></p>    
+  <p><strong>Body: </strong>
+    <span itemprop="bodyType">Hatchback</span>
+  </p>
+  <p><strong>Number of doors: </strong><span itemprop="doors">3</span></p>
+  <p><strong>Number of seats: </strong><span itemprop="seatingCapacity">5</span></p>
+  <p><strong>Drive Type: </strong>
+    <link itemprop="driveWheelConfiguration" href="http://schema.org/FWD" />
+    Front Wheel Drive
+  </p>
+  <p><strong>Engine: </strong>
+    <span itemprop="engineName">4 cylinder Petrol Turbo Intercooled 2.0 L (1984 cc)</span>
+  </p>
+  <p><strong>Engine Power: </strong>
+    <span itemprop="enginePower" itemscope itemtype="http://schema.org/QuantitativeValue">
+      <span itemprop="value">147</span> 
+      <meta itemprop="unitCode" content="KWT">kw
+      at <span itemprop="valueReference" itemscope itemtype="http://schema.org/QuantitativeValue">
+        <meta itemprop="name" content="referenceRPM"> 
+        <span itemprop="value">5100</span> 
+        <meta itemprop="unitCode" content="RPM">rpm
+      </span>
+    </span>
+  </p>
+  <p><strong>Fuel type: </strong>
+    <span itemprop="fuelType">Petrol - Premium ULP</span>     
+  </p>
+  <p><strong>Engine Size: </strong>
+    <span itemprop="engineDisplacement" itemscope itemtype="http://schema.org/QuantitativeValue">
+      <span itemprop="value">1984</span> 
+      <meta itemprop="unitCode" content="CMQ">ccm
+    </span>
+  </p>
+  <p><strong>Mileage: </strong>
+    <span itemprop="mileageFromOdometer" itemscope itemtype="http://schema.org/QuantitativeValue">
+      <span itemprop="value">53100</span> 
+      <meta itemprop="unitCode" content="KMT">km
+    </span>
+  </p>
+  <p><strong>Number of airbags: </strong><span itemprop="airbags">6</span></p>
+  <p><strong>CO2 Emission Combined: </strong><span itemprop="emissionCO2">192</span> g/km</p>
+</div>
+
+
+RDFA:
+
+<!-- Seller Details -->
+<div vocab="http://schema.org/" typeof="Person">
+<strong>Contact Name: </strong> <span property="name givenName">Brent</span>
+  <div property="makesOffer" typeof="Offer">
+    <span property="priceSpecification" typeof="UnitPriceSpecification">
+      <meta property="priceCurrency" content="USD">$
+      <meta property="price" content="18000">18,000
+    </span>
+<!-- Car Details -->
+    <div id="product" property="itemOffered" typeof="Car">
+      <strong property="name">2009 Volkswagen Golf V GTI MY09 Direct-Shift Gearbox</strong>
+      <p property="description">2009 Volkswagen Golf V GTI MY09 Direct-Shift Gearbox in perfect 
+        mechanical condition and low kilometres. It's impressive 2.0 litre turbo engine makes 
+        every drive a fun experience. Well looked after by one owner with full service history. 
+        It drives like new and has only done 50,000kms. (...)
+      </p>
+      <img property="image" href="2009_Volkswagen_Golf_V_GTI_MY09.png" />
+      <p><strong>Color: </strong><span property="color">Black</span></p>
+      <p><strong>Interior Color: </strong><span property="colorInterior">Black</span></p>
+      <p><strong>Interior Type: </strong><span property="interiorType">Leather upholstery, wood paneling</span></p>
+      <p><strong>Model Year: </strong><time property="modelDate">2009</time></p> 
+      <p><strong>Transmission: </strong>
+        <span property="transmission">6 speed Sports Automatic Dual Clutch</span>
+      </p> 
+      <p><strong>VIN: </strong><span property="VIN">WVWZZZ1KZ9U######</span></p> 
+      <p><strong>Number of gears: </strong><span property="gears">6</span></p> 
+      <p><strong>Body: </strong>
+        <span property="bodyType">Hatchback</span>
+      </p>
+      <p><strong>Number of doors: </strong><span property="doors">3</span></p>
+      <p><strong>Number of seats: </strong><span property="seatingCapacity">5</span></p>
+      <p><strong>Drive Type: </strong>
+        <link property="driveWheelConfiguration" href="http://schema.org/FWD" />
+        Front Wheel Drive
+      </p>
+      <p><strong>Engine: </strong>
+        <span property="engineName">4 cylinder Petrol Turbo Intercooled 2.0 L (1984 cc)</span>
+      </p>
+      <p><strong>Engine Power: </strong>
+        <span property="enginePower" typeof="QuantitativeValue">
+          <span property="value">147</span> 
+          <meta property="unitCode" content="KWT">kw
+          at <span property="valueReference" typeof="QuantitativeValue">
+            <meta property="name" content="referenceRPM"> 
+            <span property="value">5100</span> 
+            <meta property="unitCode" content="RPM">rpm
+          </span>
+        </span>
+      </p>
+      <p><strong>Fuel type: </strong>
+        <span property="fuelType">Petrol - Premium ULP</span>
+      </p>
+      <p><strong>Engine Size: </strong>
+        <span property="engineDisplacement" typeof="QuantitativeValue">
+          <span property="value">1984</span> 
+          <meta property="unitCode" content="CMQ">ccm
+        </span>
+      </p>
+      <p><strong>Mileage: </strong>
+        <span property="mileageFromOdometer" typeof="QuantitativeValue">
+          <span property="value">53100</span> 
+          <meta property="unitCode" content="KMT">km
+        </span>
+      </p>
+      <p><strong>Number of airbags: </strong><span property="airbags">6</span></p>
+      <p><strong>CO2 Emission Combined: </strong><span property="emissionCO2">192</span> g/km</p>
+    </div>
+  </div>
+</div>
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Person",
+  "name" : "Brent",
+  "makesOffer" : { 
+        "@type" :"Offer",
+        "priceSpecification" : { 
+            "@type" : "UnitPriceSpecification", 
+            "priceCurrency" : "USD",
+            "price" : "18000" },
+        "itemOffered" : { 
+            "@type" : "Car",
+            "name" : "2009 Volkswagen Golf V GTI MY09 Direct-Shift Gearbox",
+            "description" : "2009 Volkswagen Golf V GTI MY09 Direct-Shift Gearbox in perfect mechanical condition and low kilometres. It's impressive 2.0 litre turbo engine makes every drive a fun experience. Well looked after by one owner with full service history. It drives like new and has only done 50,000kms. (...)",
+        "image" : "2009_Volkswagen_Golf_V_GTI_MY09.png",
+        "color" : "Black",
+        "colorInterior" : "Black",
+        "interiorType" : "Leather upholstery, wood paneling",
+        "modelDate" : "2009",
+        "transmission" : "6 speed Sports Automatic Dual Clutch",
+        "VIN" : "WVWZZZ1KZ9U######",
+        "gears" : "6",
+        "bodyType" : "Hatchback",
+        "doors" : "3",
+        "seatingCapacity" : "5",
+        "driveWheelConfiguration" : "http://schema.org/FWD",
+        "engineName" : "4 cylinder Petrol Turbo Intercooled 2.0 L (1984 cc)",
+        "enginePower" : { 
+            "@type" : "QuantitativeValue",
+            "value" : "147",
+            "unitCode" : "KWT",
+            "valueReference" : {
+                "@type" : "QuantitativeValue",
+                "name" : "referenceRPM", 
+                "value" : "5100",
+                "unitCode" : "RPM" }
+                        },
+        "fuelType" : "Petrol - Premium ULP",
+        "engineDisplacement" : {
+            "@type": "QuantitativeValue",
+            "value" : "1984",
+            "unitCode" : "CMQ"
+                        },
+        "mileageFromOdometer" : {
+            "@type" : "QuantitativeValue",
+            "value" : "53100",
+            "unitCode" : "KMT"
+                        },
+        "airbags" : "6",
+        "emissionCO2" : "192"
+        }
+    }
+}
+</script>
+
+TYPES:  FakeEntryNeeded, FixMeSomeDay
+PRE-MARKUP:
+MICRODATA:
+RDFA:
+JSON:
