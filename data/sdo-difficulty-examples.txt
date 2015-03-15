@@ -1,0 +1,43 @@
+<div typeof="rdf:Property" resource="http://schema.org/difficulty">
+      <span class="h" property="rdfs:label">difficulty</span>
+      <span property="rdfs:comment">Difficulty of the recipe.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Recipe">Recipe</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+</div>
+
+Example:
+
+<div vocab="http://schema.org/" typeof="Recipe">
+  <span property="name">Mom's World Famous Banana Bread</span>
+  By <span property="author">John Smith</span>,
+  <meta property="datePublished" content="2009-05-08">May 8, 2009
+  <img property="image" src="bananabread.jpg"
+    alt="Banana bread on a plate" />
+  <span property="description">This classic banana bread recipe comes
+  from my mom -- the walnuts add a nice texture and flavor to the banana
+  bread.</span>
+  Prep Time: <meta property="prepTime" content="PT15M">15 minutes
+  Cook time: <meta property="cookTime" content="PT1H">1 hour
+  Yield: <span property="recipeYield">1 loaf</span>
+  Difficulty: <span property="difficulty">Easy</span>
+  <div property="nutrition"
+     typeof="NutritionInformation">
+    Nutrition facts:
+    <span property="calories">240 calories</span>,
+    <span property="fatContent">9 grams fat</span>
+  </div>
+  Ingredients:
+  - <span property="ingredients">3 or 4 ripe bananas, smashed</span>
+  - <span property="ingredients">1 egg</span>
+  - <span property="ingredients">3/4 cup of sugar</span>
+  ...
+  Instructions:
+  <span property="recipeInstructions">
+  Preheat the oven to 350 degrees. Mix in the ingredients in a bowl. Add
+  the flour last. Pour the mixture into a loaf pan and bake for one hour.
+  </span>
+  140 comments:
+  <meta property="interactionCount" content="UserComments:140" />
+  From Janel, May 5 -- thank you, great recipe!
+  ...
+</div>
