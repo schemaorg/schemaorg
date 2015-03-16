@@ -557,6 +557,43 @@ class ShowUnit (webapp2.RequestHandler):
         """Write some text to Web server's output stream."""
         self.outputStrings.append(str)
 
+
+    def moreInfoBlock(self, node):
+
+        # if we think we have more info on this term, show a bulleted list of extra items.
+
+        # defaults
+        bugs = ["No known open issues."]
+        mappings = ["No recorded schema mappings."]
+        items = bugs + mappings
+
+        moreinfo = """<div>
+        <div id='infobox' style='text-align: right;'><b><span>[more...]</b></div>
+        <div id='infomsg' style='display: none; background-color: #EEEEEE; text-align: left; padding: 0.5em;'>
+        <ul>"""
+
+        for i in items:
+            moreinfo += "<li>%s</li>" % i
+
+#          <li>mappings to other terms.</li>
+#          <li>or links to open issues.</li>
+
+        moreinfo += """</ul>
+          </div>
+        </div</div>
+        <script type="text/javascript">
+        $("#infobox").click(function(x) {
+            element = $("#infomsg");
+            if (! $(element).is(":visible")) {
+                $("#infomsg").show(300);
+            } else {
+                $("#infomsg").hide(300);
+
+            }
+        });
+</script>"""
+        return moreinfo
+
     def GetParentStack(self, node):
         """Returns a hiearchical structured used for site breadcrumbs."""
         if (node not in self.parentStack):
@@ -625,6 +662,9 @@ class ShowUnit (webapp2.RequestHandler):
         self.write("</h1>")
         comment = GetComment(node)
         self.write(" <div property=\"rdfs:comment\">%s</div>\n\n" % (comment) + "\n")
+
+        self.write(self.moreInfoBlock(node))
+
         if (node.isClass() and not node.isDataType()):
             self.write("<table class=\"definition-table\">\n        <thead>\n  <tr><th>Property</th><th>Expected Type</th><th>Description</th>               \n  </tr>\n  </thead>\n\n")
 
@@ -1075,8 +1115,10 @@ def read_schemas():
     """Read/parse/ingest schemas from data/*.rdfa. Also alsodata/*examples.txt"""
     import os.path
     import glob
+    dynaload=True
     global schemasInitialized
-    if (not schemasInitialized):
+    if (not schemasInitialized or dynaload):
+        log.info("(re)loading everything.")
         files = glob.glob("data/*.rdfa")
         file_paths = []
         for f in files:
