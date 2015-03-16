@@ -181,11 +181,12 @@ class Unit ():
 
 class Triple ():
     """Triple represents an edge in the graph: source, arc and target/text."""
-    def __init__ (self, source, arc, target, text):
+    def __init__ (self, source, arc, target, text, layer='#core'):
         """Triple constructor keeps state via source node's arcsOut."""
         self.source = source
         source.arcsOut.append(self)
         self.arc = arc
+        self.layer = layer
 
         if (target != None):
             self.target = target
@@ -196,53 +197,57 @@ class Triple ():
             self.target = None
 
     @staticmethod
-    def AddTriple(source, arc, target):
+    def AddTriple(source, arc, target, layer='#core'):
         """AddTriple stores a thing-valued new Triple within source Unit."""
         if (source == None or arc == None or target == None):
             return
         else:
-            return Triple(source, arc, target, None)
+            return Triple(source, arc, target, None, layer)
 
     @staticmethod
-    def AddTripleText(source, arc, text):
+    def AddTripleText(source, arc, text, layer='#core'):
         """AddTriple stores a string-valued new Triple within source Unit."""
         if (source == None or arc == None or text == None):
             return
         else:
-            return Triple(source, arc, None, text)
+            return Triple(source, arc, None, text, layer)
 
-def GetTargets(arc, source):
+def GetTargets(arc, source, layer='#core'):
     """All values for a specified arc on specified graph node."""
     targets = {}
     for triple in source.arcsOut:
         if (triple.arc == arc):
-            if (triple.target != None):
+            if (triple.target != None and triple.layer=='#core'):
                 targets[triple.target] = 1
-            elif (triple.text != None):
+            elif (triple.text != None and triple.layer=='#core'):
                 targets[triple.text] = 1
     return targets.keys()
 
-def GetSources(arc, target):
+def GetSources(arc, target, layer='#core'):
     """All source nodes for a specified arc pointing to a specified node."""
     sources = {}
     for triple in target.arcsIn:
-        if (triple.arc == arc):
+        if (triple.arc == arc and triple.layer=='#core'):
             sources[triple.source] = 1
     return sources.keys()
 
-def GetArcsIn(target):
+def GetArcsIn(target, layer='#core'):
     """All incoming arc types for this specified node."""
     arcs = {}
     for triple in target.arcsIn:
-        arcs[triple.arc] = 1
+        if triple.layer==layer:
+            arcs[triple.arc] = 1
     return arcs.keys()
 
-def GetArcsOut(source):
+def GetArcsOut(source,  layer='#core'):
     """All outgoing arc types for this specified node."""
     arcs = {}
     for triple in source.arcsOut:
-        arcs[triple.arc] = 1
+        if triple.layer==layer:
+            arcs[triple.arc] = 1
     return arcs.keys()
+
+# @@TODO: danbri add filteredArcsOut(layer) version of this below: @@TODO
 
 # Utility API
 
