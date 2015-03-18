@@ -16,7 +16,7 @@ import os
 logging.basicConfig(level=logging.INFO) # dev_appserver.py --log_level debug .
 log = logging.getLogger(__name__)
 
-SCHEMA_VERSION=1.92
+SCHEMA_VERSION=1.94
 
 JINJA_ENVIRONMENT = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.join(os.path.dirname(__file__), 'templates')),
@@ -24,6 +24,7 @@ JINJA_ENVIRONMENT = jinja2.Environment(
 
 
 ENABLE_JSONLD_CONTEXT = True
+DYNALOAD=True # permits read_schemas to be re-invoked live.
 
 # Core API: we have a single schema graph built from triples and units.
 
@@ -217,9 +218,9 @@ def GetTargets(arc, source, layer='#core'):
     targets = {}
     for triple in source.arcsOut:
         if (triple.arc == arc):
-            if (triple.target != None and triple.layer=='#core'):
+            if (triple.target != None and triple.layer in layer):
                 targets[triple.target] = 1
-            elif (triple.text != None and triple.layer=='#core'):
+            elif (triple.text != None and triple.layer in layer):
                 targets[triple.text] = 1
     return targets.keys()
 
@@ -251,28 +252,28 @@ def GetArcsOut(source,  layer='#core'):
 
 # Utility API
 
-def GetComment(node) :
+def GetComment(node, layer='#core') :
     """Get the first rdfs:comment we find on this node (or "No comment")."""
     for triple in node.arcsOut:
         if (triple.arc.id == 'rdfs:comment'):
             return triple.text
     return "No comment"
 
-def GetImmediateSubtypes(n):
+def GetImmediateSubtypes(n, layer='#core'):
     """Get this type's immediate subtypes, i.e. that are subClassOf this."""
     if n==None:
         return None
-    subs = GetSources( Unit.GetUnit("rdfs:subClassOf"), n)
+    subs = GetSources( Unit.GetUnit("rdfs:subClassOf"), n, layer=layer)
     subs.sort(key=lambda x: x.id)
     return subs
 
-def GetImmediateSupertypes(n):
+def GetImmediateSupertypes(n, layer='#core'):
     """Get this type's immediate supertypes, i.e. that we are subClassOf."""
     if n==None:
         return None
-    return GetTargets( Unit.GetUnit("rdfs:subClassOf"), n)
+    return GetTargets( Unit.GetUnit("rdfs:subClassOf"), n, layer=layer)
 
-def GetAllTypes():
+def GetAllTypes(layer='#core'):
     """Return all types in the graph."""
     if DataCache.get('AllTypes'):
         logging.debug("DataCache HIT: Alltypes")
@@ -284,7 +285,7 @@ def GetAllTypes():
         todo = [mynode]
         while todo:
             current = todo.pop()
-            subs = GetImmediateSubtypes(current)
+            subs = GetImmediateSubtypes(current, layer=layer)
             subbed[current] = 1
             for sc in subs:
                 if subbed.get(sc.id) == None:
@@ -292,7 +293,7 @@ def GetAllTypes():
         DataCache['AllTypes'] = subbed.keys()
         return subbed.keys()
 
-def GetParentList(start_unit, end_unit=None, path=[]):
+def GetParentList(start_unit, end_unit=None, path=[], layer='#core'):
 
         """
         Returns one or more lists, each giving a path from a start unit to a supertype parent unit.
@@ -317,9 +318,9 @@ def GetParentList(start_unit, end_unit=None, path=[]):
         if not Unit.GetUnit(start_unit.id):
             return []
         paths = []
-        for node in GetTargets(arc, start_unit):
+        for node in GetTargets(arc, start_unit, layer=layer):
             if node not in path:
-                newpaths = GetParentList(node, end_unit, path)
+                newpaths = GetParentList(node, end_unit, path, layer=layer)
                 for newpath in newpaths:
                     paths.append(newpath)
         return paths
@@ -1120,17 +1121,20 @@ def read_schemas():
     """Read/parse/ingest schemas from data/*.rdfa. Also alsodata/*examples.txt"""
     import os.path
     import glob
-    dynaload=True
+
     global schemasInitialized
-    if (not schemasInitialized or dynaload):
-        log.info("(re)loading everything.")
+    if (not schemasInitialized or DYNALOAD):
+        log.info("(re)loading core and annotations.")
         files = glob.glob("data/*.rdfa")
         file_paths = []
         for f in files:
             file_paths.append(full_path(f))
-
         parser = parsers.MakeParserOfType('rdfa', None)
         items = parser.parse(file_paths)
+
+        log.info("(re)scanning for extensions.")
+        extfiles = glob.glob("data/ext/*/*.rdfa")
+        log.info("Extensions found: %s ." % " , ".join(extfiles) )
 
         files = glob.glob("data/*examples.txt")
         example_contents = []
