@@ -963,7 +963,7 @@ class ShowUnit (webapp2.RequestHandler):
         self.UnitHeaders(node,  layers=layers)
 
 
-        self.write("CLASS? layers: %s node: %s class test: %s" % ( layers, node.id, node.isClass(layers=layers) ) )
+    #    self.write("CLASS? layers: %s node: %s class test: %s" % ( layers, node.id, node.isClass(layers=layers) ) )
 
         if (node.isClass(layers=layers)):
 
