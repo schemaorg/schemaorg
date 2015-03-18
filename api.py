@@ -1118,9 +1118,10 @@ def full_path(filename):
 schemasInitialized = False
 
 def read_schemas():
-    """Read/parse/ingest schemas from data/*.rdfa. Also alsodata/*examples.txt"""
+    """Read/parse/ingest schemas from data/*.rdfa. Also data/*examples.txt"""
     import os.path
     import glob
+    import re
 
     global schemasInitialized
     if (not schemasInitialized or DYNALOAD):
@@ -1135,6 +1136,19 @@ def read_schemas():
         log.info("(re)scanning for extensions.")
         extfiles = glob.glob("data/ext/*/*.rdfa")
         log.info("Extensions found: %s ." % " , ".join(extfiles) )
+        fnstrip_re = re.compile("\/.*")
+        for ext in extfiles:
+            ext_file_path = full_path(ext)
+            extid = ext.replace('data/ext/', '')
+            extid = re.sub(fnstrip_re,'',extid)
+            log.info("Preparing to parse extension data: %s as '%s'" % (ext_file_path, extid))
+            parser = parsers.MakeParserOfType('rdfa', None)
+            extitems = parser.parse([ext_file_path], layer=extid) # put schema triples in a layer
+            log.info("Results: %s " % len( extitems) )
+            for x in extitems:
+                if x is not None:
+                    log.info("%s:%s" % ( extid, str(x.id) ))
+# 'data/ext/bib/bibdemo.rdfa'
 
         files = glob.glob("data/*examples.txt")
         example_contents = []
