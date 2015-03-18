@@ -157,24 +157,22 @@ class Unit ():
         else:
             return None
 
-#TODO: use  GetSources(arc, target, layers='#core'):
-
-#        for triple in self.arcsIn:
-#            if (triple.source != None and triple.arc.id == "supersededBy"):
-#                return triple.source
-#        return None
-#        # TODO: supersedes is a list, e.g. 'seller' supersedes 'vendor', 'merchant'
-
     def supersedes_all(self, layers='#core'):
-        """Returns a property (assume max 1) that is supersededBy this one, or nothing."""
-        return(GetTargets( Unit.GetUnit("supersededBy"), self, layers ))
-#        newer = []
-#        for triple in self.arcsIn:
-#            if (triple.source != None and triple.arc.id == "supersededBy"):
-#                newer.append(triple.source)
-#        return newer
+        """Returns terms that is supersededBy by this later one, or nothing. (in this layer)"""
+        return(GetSources( Unit.GetUnit("supersededBy"), self, layers ))
+        # so we want sources of arcs pointing here with 'supersededBy'
+
+    # e.g. vendor supersededBy seller ; returns newer 'seller' for earlier 'vendor'.
 
     def supersededBy(self, layers='#core'):
+        """Returns a property (assume max 1) that supersededs this one, or nothing."""
+        newerterms = GetTargets( Unit.GetUnit("supersededBy"), self )
+        if len(newerterms)>0:
+            return newerterms.pop()
+        else:
+            return None
+
+    def OLDsupersededBy(self, layers='#core'):
         """Returns a property (assume max 1) that supersededs this one, or nothing."""
         for p in sorted(GetSources(Unit.GetUnit("typeOf"), Unit.GetUnit("rdf:Property"), layers), key=lambda u: u.id):
             allnewers = GetTargets(Unit.GetUnit("supersededBy"), p, layers)
