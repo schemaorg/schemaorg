@@ -45,8 +45,8 @@ class Unit ():
         self.examples = []
         self.subtypes = None
 
-    def GetImmediateSubtypes(self):
-      return GetImmediateSubtypes(self)
+    def GetImmediateSubtypes(self, layers='#core'):
+      return GetImmediateSubtypes(self, layers=layers)
 
     @staticmethod
     def GetUnit (id, createp=False):
@@ -60,56 +60,74 @@ class Unit ():
         if (createp != False):
             return Unit(id)
 
-    def typeOf(self, type):
-        """Boolean, true if the unit has an rdf:type matching this type."""
-        for triple in self.arcsOut:
-            if (triple.target != None and triple.arc.id == "typeOf"):
-                val = triple.target.subClassOf(type)
-                if (val):
-                    return True
-        return False
+#    def OLDtypeOf(self, type,  layers='#core'):
+#        """Boolean, true if the unit has an rdf:type matching this type."""
+#        for triple in self.arcsOut:
+#            if (triple.target != None and triple.arc.id == "typeOf"):
+#                val = triple.target.subClassOf(type)
+#                if (val):
+#                    return True
+#        return False
 
-    def subClassOf(self, type):
+    def typeOf(self, type,  layers='#core'):
+        """Boolean, true if the unit has an rdf:type matching this type."""
+        types = GetTargets( Unit.GetUnit("typeOf"), self, layers )
+        return (type in types)
+
+
+#    def OLDsubClassOf(self, type, layers='#core'):
+#        """Boolean, true if the unit has an rdfs:subClassOf matching this type."""
+#        if (self.id == type.id):
+#            return True
+#        for triple in self.arcsOut:
+#            if (triple.target != None and triple.arc.id == "rdfs:subClassOf"):
+#                val = triple.target.subClassOf(type)
+#                if (val):
+#                    return True
+#        return False
+
+
+    # Function needed rewriting to use GetTargets(arc,src,layers)
+    def subClassOf(self, type, layers='#core'):
         """Boolean, true if the unit has an rdfs:subClassOf matching this type."""
         if (self.id == type.id):
             return True
-        for triple in self.arcsOut:
-            if (triple.target != None and triple.arc.id == "rdfs:subClassOf"):
-                val = triple.target.subClassOf(type)
-                if (val):
-                    return True
-        return False
+        subtypes = GetTargets( Unit.GetUnit("rdfs:subClassOf"), self, layers )
+        if type in subtypes:
+            return True
+        else:
+            return False
 
-    def isClass(self):
+    def isClass(self, layers='#core'):
         """Does this unit represent a class/type?"""
-        return self.typeOf(Unit.GetUnit("rdfs:Class"))
+        return self.typeOf(Unit.GetUnit("rdfs:Class"), layers='#core')
 
-    def isAttribute(self):
+    def isAttribute(self, layers='#core'):
         """Does this unit represent an attribute/property?"""
-        return self.typeOf(Unit.GetUnit("rdf:Property"))
+        return self.typeOf(Unit.GetUnit("rdf:Property"), layers='#core')
 
-    def isEnumeration(self):
+    def isEnumeration(self, layers='#core'):
         """Does this unit represent an enumerated type?"""
-        return self.subClassOf(Unit.GetUnit("Enumeration"))
+        return self.subClassOf(Unit.GetUnit("Enumeration"), layers='#core')
 
-    def isEnumerationValue(self):
+    def isEnumerationValue(self, layers='#core'):
         """Does this unit represent a member of an enumerated type?"""
-        types = GetTargets(Unit.GetUnit("typeOf"), self  )
-        log.debug("isEnumerationValue() called on %s, found %s types." % (self.id, str( len( types ) )) )
+        types = GetTargets(Unit.GetUnit("typeOf"), self , layers='#core' )
+        log.debug("isEnumerationValue() called on %s, found %s types. layers: %s" % (self.id, str( len( types ) ), layers ) )
         found_enum = False
         for t in types:
-          if t.subClassOf(Unit.GetUnit("Enumeration")):
+          if t.subClassOf(Unit.GetUnit("Enumeration"), layers='#core'):
             found_enum = True
         return found_enum
 
-    def isDataType(self):
+    def isDataType(self, layers='#core'):
       """
       Does this unit represent a DataType type or sub-type?
 
       DataType and its children do not descend from Thing, so we need to
       treat it specially.
       """
-      return self.subClassOf(Unit.GetUnit("DataType"))
+      return self.subClassOf(Unit.GetUnit("DataType"), layers='#core')
 
     @staticmethod
     def storePrefix(prefix):
@@ -117,39 +135,51 @@ class Unit ():
         # Currently defined just to let the tests pass
         pass
 
-    def superseded(self):
+    def superseded(self, layers='#core'):
         """Has this property been superseded? (i.e. deprecated/archaic)"""
-        for triple in self.arcsOut:
-            if (triple.target != None and triple.arc.id == "supersededBy"):
-                return True
-        return False
+        supersededBy_values = GetTargets( Unit.GetUnit("rdfs:subClassOf"), self, layers )
+        return ( len(supersededBy_values) > 0)
+#        for triple in self.arcsOut:
+#            if (triple.target != None and triple.arc.id == "supersededBy"):
+#                return True
+#        return False
 
-    def supersedes(self):
+    def supersedes(self, layers='#core'):
         """Returns a property (assume max 1) that is supersededBy this one, or nothing."""
-        for triple in self.arcsIn:
-            if (triple.source != None and triple.arc.id == "supersededBy"):
-                return triple.source
-        return None
-        # TODO: supersedes is a list, e.g. 'seller' supersedes 'vendor', 'merchant'
+        olderterms = GetSources( Unit.GetUnit("supersededBy"), self, layers )
+        if len(olderterms) > 0:
+            return olderterms[0]
+        else:
+            return None
 
-    def supersedes_all(self):
+#TODO: use  GetSources(arc, target, layers='#core'):
+
+#        for triple in self.arcsIn:
+#            if (triple.source != None and triple.arc.id == "supersededBy"):
+#                return triple.source
+#        return None
+#        # TODO: supersedes is a list, e.g. 'seller' supersedes 'vendor', 'merchant'
+
+    def supersedes_all(self, layers='#core'):
         """Returns a property (assume max 1) that is supersededBy this one, or nothing."""
-        newer = []
-        for triple in self.arcsIn:
-            if (triple.source != None and triple.arc.id == "supersededBy"):
-                newer.append(triple.source)
-        return newer
+        return(GetTargets( Unit.GetUnit("supersededBy"), self, layers ))
+#        newer = []
+#        for triple in self.arcsIn:
+#            if (triple.source != None and triple.arc.id == "supersededBy"):
+#                newer.append(triple.source)
+#        return newer
 
-    def supersededBy(self):
+    def supersededBy(self, layers='#core'):
         """Returns a property (assume max 1) that supersededs this one, or nothing."""
-        for p in sorted(GetSources(Unit.GetUnit("typeOf"), Unit.GetUnit("rdf:Property")), key=lambda u: u.id):
-            allnewers = GetTargets(Unit.GetUnit("supersededBy"), p)
+        for p in sorted(GetSources(Unit.GetUnit("typeOf"), Unit.GetUnit("rdf:Property"), layers), key=lambda u: u.id):
+            allnewers = GetTargets(Unit.GetUnit("supersededBy"), p, layers)
             for newerprop in allnewers:
-                if self in newerprop.supersedes_all():
+                if self in newerprop.supersedes_all(layers=layers):
                     return newerprop # this is one of possibly many properties that supersedes self.
         return None
 
-    def superproperties(self):
+#TODO-layer
+    def superproperties(self, layers='#core'):
         """Returns super-properties of this one."""
         if not self.isAttribute():
           logging.debug("Non-property %s won't have superproperties." % self.id)
@@ -159,7 +189,7 @@ class Unit ():
                 superprops.append(triple.target)
         return superprops
 
-    def subproperties(self):
+    def subproperties(self, layers='#core'):
         """Returns direct subproperties of this property."""
         if not self.isAttribute():
           logging.debug("Non-property %s won't have subproperties." % self.id)
@@ -213,67 +243,77 @@ class Triple ():
         else:
             return Triple(source, arc, None, text, layer)
 
-def GetTargets(arc, source, layer='#core'):
-    """All values for a specified arc on specified graph node."""
+def GetTargets(arc, source, layers='#core'):
+    """All values for a specified arc on specified graph node (within any of the specified layers)."""
+    log.debug("GetTargets checking in layer: %s for unit: %s arc: %s" % (layers, source.id, arc.id))
     targets = {}
     for triple in source.arcsOut:
         if (triple.arc == arc):
-            if (triple.target != None and triple.layer in layer):
+            if (triple.target != None and triple.layer in layers):
                 targets[triple.target] = 1
-            elif (triple.text != None and triple.layer in layer):
+            elif (triple.text != None and triple.layer in layers):
                 targets[triple.text] = 1
     return targets.keys()
 
-def GetSources(arc, target, layer='#core'):
-    """All source nodes for a specified arc pointing to a specified node."""
+def GetSources(arc, target, layers='#core'):
+    """All source nodes for a specified arc pointing to a specified node (within any of the specified layers)."""
+    log.debug("GetSources checking in layer: %s for unit: %s arc: %s" % (layers, target.id, arc.id))
     sources = {}
     for triple in target.arcsIn:
-        if (triple.arc == arc and triple.layer=='#core'):
+        if (triple.arc == arc and triple.layer in layers):
             sources[triple.source] = 1
     return sources.keys()
 
-def GetArcsIn(target, layer='#core'):
-    """All incoming arc types for this specified node."""
+def GetArcsIn(target, layers='#core'):
+    """All incoming arc types for this specified node (within any of the specified layers)."""
     arcs = {}
     for triple in target.arcsIn:
-        if triple.layer==layer:
+        if triple.layer in layers:
             arcs[triple.arc] = 1
     return arcs.keys()
 
-def GetArcsOut(source,  layer='#core'):
+def GetArcsOut(source,  layers='#core'):
     """All outgoing arc types for this specified node."""
     arcs = {}
     for triple in source.arcsOut:
-        if triple.layer==layer:
+        if triple.layer in layers:
             arcs[triple.arc] = 1
     return arcs.keys()
 
-# @@TODO: danbri add filteredArcsOut(layer) version of this below: @@TODO
-
 # Utility API
 
-def GetComment(node, layer='#core') :
-    """Get the first rdfs:comment we find on this node (or "No comment")."""
-    for triple in node.arcsOut:
-        if (triple.arc.id == 'rdfs:comment'):
-            return triple.text
-    return "No comment"
+# TODO: use: def GetTargets(arc, source, layers='#core'):
 
-def GetImmediateSubtypes(n, layer='#core'):
+def GetComment(node, layers='#core') :
+    """Get the first rdfs:comment we find on this node (or "No comment"), within any of the specified layers."""
+    tx = GetTargets(Unit.GetUnit("rdfs:comment"), node, layers=layers )
+    if len(tx) > 0:
+            return tx[0]
+    else:
+        return "No comment"
+
+#def OldGetComment(node, layers='#core'):
+#    """Get the first rdfs:comment we find on this node (or "No comment")."""
+#    for triple in node.arcsOut:
+#        if (triple.arc.id == 'rdfs:comment'):
+#            return triple.text
+#    return "No comment"
+
+def GetImmediateSubtypes(n, layers='#core'):
     """Get this type's immediate subtypes, i.e. that are subClassOf this."""
     if n==None:
         return None
-    subs = GetSources( Unit.GetUnit("rdfs:subClassOf"), n, layer=layer)
+    subs = GetSources( Unit.GetUnit("rdfs:subClassOf"), n, layers=layers)
     subs.sort(key=lambda x: x.id)
     return subs
 
-def GetImmediateSupertypes(n, layer='#core'):
+def GetImmediateSupertypes(n, layers='#core'):
     """Get this type's immediate supertypes, i.e. that we are subClassOf."""
     if n==None:
         return None
-    return GetTargets( Unit.GetUnit("rdfs:subClassOf"), n, layer=layer)
+    return GetTargets( Unit.GetUnit("rdfs:subClassOf"), n, layers=layer)
 
-def GetAllTypes(layer='#core'):
+def GetAllTypes(layers='#core'):
     """Return all types in the graph."""
     if DataCache.get('AllTypes'):
         logging.debug("DataCache HIT: Alltypes")
@@ -285,7 +325,7 @@ def GetAllTypes(layer='#core'):
         todo = [mynode]
         while todo:
             current = todo.pop()
-            subs = GetImmediateSubtypes(current, layer=layer)
+            subs = GetImmediateSubtypes(current, layers=layers)
             subbed[current] = 1
             for sc in subs:
                 if subbed.get(sc.id) == None:
@@ -293,7 +333,7 @@ def GetAllTypes(layer='#core'):
         DataCache['AllTypes'] = subbed.keys()
         return subbed.keys()
 
-def GetParentList(start_unit, end_unit=None, path=[], layer='#core'):
+def GetParentList(start_unit, end_unit=None, path=[], layers='#core'):
 
         """
         Returns one or more lists, each giving a path from a start unit to a supertype parent unit.
@@ -318,16 +358,16 @@ def GetParentList(start_unit, end_unit=None, path=[], layer='#core'):
         if not Unit.GetUnit(start_unit.id):
             return []
         paths = []
-        for node in GetTargets(arc, start_unit, layer=layer):
+        for node in GetTargets(arc, start_unit, layers=layers):
             if node not in path:
-                newpaths = GetParentList(node, end_unit, path, layer=layer)
+                newpaths = GetParentList(node, end_unit, path, layers=layers)
                 for newpath in newpaths:
                     paths.append(newpath)
         return paths
 
-def HasMultipleBaseTypes(typenode):
+def HasMultipleBaseTypes(typenode, layers='#core'):
     """True if this unit represents a type with more than one immediate supertype."""
-    return len( GetTargets( Unit.GetUnit("rdfs:subClassOf"), typenode ) ) > 1
+    return len( GetTargets( Unit.GetUnit("rdfs:subClassOf"), typenode, layers ) ) > 1
 
 class TypeHierarchyTree:
 
@@ -344,7 +384,7 @@ class TypeHierarchyTree:
     def toJSON(self):
         return self.txt
 
-    def traverseForHTML(self, node, depth = 1):
+    def traverseForHTML(self, node, depth = 1, layers='#core'):
 
         # we are a supertype of some kind
         if len(node.GetImmediateSubtypes()) > 0:
@@ -356,8 +396,8 @@ class TypeHierarchyTree:
                 self.emit(' %s<ul>' % (" " * 4 * depth))
 
                 # handle our subtypes
-                for item in node.GetImmediateSubtypes():
-                    self.traverseForHTML(item, depth + 1)
+                for item in node.GetImmediateSubtypes(layers='#core'):
+                    self.traverseForHTML(item, depth + 1, layers='#core')
                 self.emit( ' %s</ul>' % (" " * 4 * depth))
             else:
                 # we are a supertype but we visited this type before, e.g. saw Restaurant via Place then via Organization
@@ -365,7 +405,7 @@ class TypeHierarchyTree:
                 self.emit( ' %s<li class="tbranch" id="%s"><a href="/%s">%s</a>%s' % (" " * 4 * depth, node.id, node.id, node.id, seen) )
 
         # leaf nodes
-        if len(node.GetImmediateSubtypes()) == 0:
+        if len(node.GetImmediateSubtypes(layers='#core')) == 0:
             if node.id not in self.visited:
                 self.emit( '%s<li class="tleaf" id="%s"><a href="/%s">%s</a>%s' % (" " * depth, node.id, node.id, node.id, "" ))
             #else:
@@ -376,7 +416,7 @@ class TypeHierarchyTree:
         self.emit( ' %s</li>' % (" " * 4 * depth) )
 
     # based on http://danbri.org/2013/SchemaD3/examples/4063550/hackathon-schema.js  - thanks @gregg, @sandro
-    def traverseForJSONLD(self, node, depth = 0, last_at_this_level = True, supertype="None"):
+    def traverseForJSONLD(self, node, depth = 0, last_at_this_level = True, supertype="None", layers='#core'):
         emit_debug = False
         if node.id in self.visited:
             # self.emit("skipping %s - already visited" % node.id)
@@ -400,11 +440,11 @@ class TypeHierarchyTree:
   },\n""" if last_at_this_level and depth==0 else '' )
 
         unseen_subtypes = []
-        for st in node.GetImmediateSubtypes():
+        for st in node.GetImmediateSubtypes(layers='#core'):
             if not st.id in self.visited:
                 unseen_subtypes.append(st)
         unvisited_subtype_count = len(unseen_subtypes)
-        subtype_count = len( node.GetImmediateSubtypes() )
+        subtype_count = len( node.GetImmediateSubtypes(layers='#core') )
 
         supertx = "{}".format( '"rdfs:subClassOf": "schema:%s", ' % supertype.id if supertype != "None" else '' )
         maybe_comma = "{}".format("," if unvisited_subtype_count > 0 else "")
@@ -426,7 +466,7 @@ class TypeHierarchyTree:
                 if i == unvisited_subtype_count:
                     inner_lastness = True
                 i = i + 1
-                self.traverseForJSONLD(t, depth + 1, inner_lastness, supertype=node)
+                self.traverseForJSONLD(t, depth + 1, inner_lastness, supertype=node, layers='#core')
 
             self.emit("%s  ]%s" % (p1,  "{}".format( "" if not last_at_this_level else '' ) ) )
 
@@ -437,17 +477,17 @@ class TypeHierarchyTree:
 class Example ():
 
     @staticmethod
-    def AddExample(terms, original_html, microdata, rdfa, jsonld, egmeta):
+    def AddExample(terms, original_html, microdata, rdfa, jsonld, egmeta, layer='#core'):
        """
        Add an Example (via constructor registering it with the terms that it
        mentions, i.e. stored in term.examples).
        """
        # todo: fix partial examples: if (len(terms) > 0 and len(original_html) > 0 and (len(microdata) > 0 or len(rdfa) > 0 or len(jsonld) > 0)):
        if (len(terms) > 0 and len(original_html) > 0 and len(microdata) > 0 and len(rdfa) > 0 and len(jsonld) > 0):
-            return Example(terms, original_html, microdata, rdfa, jsonld, egmeta)
+            return Example(terms, original_html, microdata, rdfa, jsonld, egmeta, layer='#core')
 
-    def get(self, name) :
-        """Exposes original_content, microdata, rdfa and jsonld versions."""
+    def get(self, name, layers='#core') :
+        """Exposes original_content, microdata, rdfa and jsonld versions (in the layer(s) specified)."""
         if name == 'original_html':
            return self.original_html
         if name == 'microdata':
@@ -457,7 +497,7 @@ class Example ():
         if name == 'jsonld':
            return self.jsonld
 
-    def __init__ (self, terms, original_html, microdata, rdfa, jsonld, egmeta):
+    def __init__ (self, terms, original_html, microdata, rdfa, jsonld, egmeta, layer='#core'):
         """Example constructor, registers itself with the relevant Unit(s)."""
         self.terms = terms
         self.original_html = original_html
@@ -465,6 +505,7 @@ class Example ():
         self.rdfa = rdfa
         self.jsonld = jsonld
         self.egmeta = egmeta
+        self.layer = layer
         for term in terms:
             if "id" in egmeta:
               logging.debug("Created Example with ID %s and type %s" % ( egmeta["id"], term.id ))
@@ -472,14 +513,14 @@ class Example ():
 
 
 
-def GetExamples(node):
+def GetExamples(node, layers='#core'):
     """Returns the examples (if any) for some Unit node."""
     return node.examples
 
-def GetExtMappingsRDFa(node):
+def GetExtMappingsRDFa(node, layers='#core'):
     """Self-contained chunk of RDFa HTML markup with mappings for this term."""
     if (node.isClass()):
-        equivs = GetTargets(Unit.GetUnit("owl:equivalentClass"), node)
+        equivs = GetTargets(Unit.GetUnit("owl:equivalentClass"), node, layers='#core')
         if len(equivs) > 0:
             markup = ''
             for c in equivs:
@@ -499,7 +540,7 @@ def GetExtMappingsRDFa(node):
             return markup
     return "<!-- no external mappings noted for this term. -->"
 
-def GetJsonLdContext():
+def GetJsonLdContext(layers='#core'):
     """Generates a basic JSON-LD context file for schema.org."""
     jsonldcontext = "{\n    \"@context\":    {\n"
     jsonldcontext += "        \"@vocab\": \"http://schema.org/\",\n"
@@ -508,9 +549,9 @@ def GetJsonLdContext():
     date = Unit.GetUnit("Date")
     datetime = Unit.GetUnit("DateTime")
 
-    properties = sorted(GetSources(Unit.GetUnit("typeOf"), Unit.GetUnit("rdf:Property")), key=lambda u: u.id)
+    properties = sorted(GetSources(Unit.GetUnit("typeOf"), Unit.GetUnit("rdf:Property"), layers='#core'), key=lambda u: u.id)
     for p in properties:
-        range = GetTargets(Unit.GetUnit("rangeIncludes"), p)
+        range = GetTargets(Unit.GetUnit("rangeIncludes"), p, layers='#core')
         type = None
 
         if url in range:
@@ -540,7 +581,7 @@ class ShowUnit (webapp2.RequestHandler):
         self.response.headers['Cache-Control'] = "public, max-age=43200" # 12h
         self.response.headers['Vary'] = "Accept, Accept-Encoding"
 
-    def GetCachedText(self, node):
+    def GetCachedText(self, node, layer='#core'):
         """Return page text from node.id cache (if found, otherwise None)."""
         global PageCache
         if (node.id in PageCache):
@@ -548,7 +589,7 @@ class ShowUnit (webapp2.RequestHandler):
         else:
             return None
 
-    def AddCachedText(self, node, textStrings):
+    def AddCachedText(self, node, textStrings, layer='#core'):
         """Cache text of our page for this node via its node.id.
 
         We can be passed a text string or an array of text strings.
@@ -564,7 +605,7 @@ class ShowUnit (webapp2.RequestHandler):
         self.outputStrings.append(str)
 
 
-    def moreInfoBlock(self, node):
+    def moreInfoBlock(self, node, layer='#core'):
 
         # if we think we have more info on this term, show a bulleted list of extra items.
 
@@ -600,7 +641,7 @@ class ShowUnit (webapp2.RequestHandler):
 </script>"""
         return moreinfo
 
-    def GetParentStack(self, node):
+    def GetParentStack(self, node, layers='#core'):
         """Returns a hiearchical structured used for site breadcrumbs."""
         if (node not in self.parentStack):
             self.parentStack.append(node)
@@ -610,9 +651,9 @@ class ShowUnit (webapp2.RequestHandler):
             self.parentStack.append(Unit.GetUnit("Thing"))
 
         sc = Unit.GetUnit("rdfs:subClassOf")
-        if GetTargets(sc, node):
-            for p in GetTargets(sc, node):
-                self.GetParentStack(p)
+        if GetTargets(sc, node, layers=layers):
+            for p in GetTargets(sc, node, layers=layers):
+                self.GetParentStack(p, layers=layers)
         else:
             # Enumerations are classes that have no declared subclasses
             sc = Unit.GetUnit("typeOf")
@@ -646,7 +687,7 @@ class ShowUnit (webapp2.RequestHandler):
            hyperlinks.append(self.ml(f, f.id, tooltip))
         return (", ".join(hyperlinks))
 
-    def UnitHeaders(self, node):
+    def UnitHeaders(self, node, layers='#core'):
         """Write out the HTML page headers for this node."""
         self.write("<h1 class=\"page-title\">\n")
         ind = len(self.parentStack)
@@ -1004,6 +1045,8 @@ class ShowUnit (webapp2.RequestHandler):
 #            origURL.replace("//www.schema.org", "//schema.org")
 #            self.redirect(newURL, permanent=True)
 
+        layerlist = ["#core"]
+
         # First: fixed paths: homepage, favicon.ico and generated JSON-LD files.
         #
         if (node == "" or node=="/"):
@@ -1088,13 +1131,22 @@ class ShowUnit (webapp2.RequestHandler):
         # - handle foo-input Action pseudo-properties
         # - handle /Person/Minister -style extensions
 
-        if (node != None):
+        if inLayer(layerlist, node):            #        if (node != None):
             self.getExactTermPage(node)
             return
         else:
           self.error(404)
           self.response.out.write('<title>404 Not Found.</title><a href="/">404 Not Found.</a><br/><br/>')
           return
+
+def inLayer(layerlist, node):
+    """Does a unit get its type mentioned in a layer?"""
+    if (node is None):
+        return False
+    log.info("Looking in %s for %s" % (layerlist, node.id))
+    if GetTargets(Unit.GetUnit("typeOf"), node, layers=layerlist):
+        return True
+    return False
 
 def read_file (filename):
     """Read a file from disk, return it as a single string."""
@@ -1131,7 +1183,7 @@ def read_schemas():
         for f in files:
             file_paths.append(full_path(f))
         parser = parsers.MakeParserOfType('rdfa', None)
-        items = parser.parse(file_paths)
+        items = parser.parse(file_paths, "#core")
 
         log.info("(re)scanning for extensions.")
         extfiles = glob.glob("data/ext/*/*.rdfa")
@@ -1141,7 +1193,7 @@ def read_schemas():
             ext_file_path = full_path(ext)
             extid = ext.replace('data/ext/', '')
             extid = re.sub(fnstrip_re,'',extid)
-            log.info("Preparing to parse extension data: %s as '%s'" % (ext_file_path, extid))
+            log.info("Preparing to parse extension data: %s as '%s'" % (ext_file_path, "#%s" % extid))
             parser = parsers.MakeParserOfType('rdfa', None)
             extitems = parser.parse([ext_file_path], layer=extid) # put schema triples in a layer
             log.info("Results: %s " % len( extitems) )

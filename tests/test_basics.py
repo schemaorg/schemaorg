@@ -199,6 +199,8 @@ class SchemaBasicAPITestCase(unittest.TestCase):
   def test_StoresAreOrganizations(self):
     tStore = Unit.GetUnit("Store")
     tOrganization = Unit.GetUnit("Organization")
+    orgsubtypes = GetSources( Unit.GetUnit("rdfs:subClassOf"), tOrganization  )
+    log.info("Hello World." % orgsubtypes)
     self.assertTrue(tStore.subClassOf(tOrganization), "Store subClassOf Organization.")
 
   def test_PersonNotAttribute(self):
