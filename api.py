@@ -138,9 +138,11 @@ class Unit ():
         # Currently defined just to let the tests pass
         pass
 
+    # e.g. <http://schema.org/actors> <http://schema.org/supersededBy> <http://schema.org/actor> .
+
     def superseded(self, layers='#core'):
-        """Has this property been superseded? (i.e. deprecated/archaic)"""
-        supersededBy_values = GetTargets( Unit.GetUnit("rdfs:subClassOf"), self, layers )
+        """Has this property been superseded? (i.e. deprecated/archaic), in any of these layers."""
+        supersededBy_values = GetTargets( Unit.GetUnit("supersededBy"), self, layers )
         return ( len(supersededBy_values) > 0)
 #        for triple in self.arcsOut:
 #            if (triple.target != None and triple.arc.id == "supersededBy"):
