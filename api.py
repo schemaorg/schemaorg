@@ -182,14 +182,22 @@ class Unit ():
         return None
 
 #TODO-layer
+#    def OLDsuperproperties(self, layers='#core'):
+#        """Returns super-properties of this one."""
+#        if not self.isAttribute():
+#          logging.debug("Non-property %s won't have superproperties." % self.id)
+#        superprops = []
+#        for triple in self.arcsOut:
+#            if (triple.target != None and triple.arc.id == "rdfs:subPropertyOf"):
+#                superprops.append(triple.target)
+#        return superprops
+
     def superproperties(self, layers='#core'):
         """Returns super-properties of this one."""
         if not self.isAttribute():
-          logging.debug("Non-property %s won't have superproperties." % self.id)
-        superprops = []
-        for triple in self.arcsOut:
-            if (triple.target != None and triple.arc.id == "rdfs:subPropertyOf"):
-                superprops.append(triple.target)
+          logging.debug("Non-property %s won't have subproperties." % self.id)
+          return None
+        superprops = GetTargets(Unit.GetUnit("rdfs:subPropertyOf"),self, layers=layers )
         return superprops
 
     def subproperties(self, layers='#core'):
@@ -197,10 +205,7 @@ class Unit ():
         if not self.isAttribute():
           logging.debug("Non-property %s won't have subproperties." % self.id)
           return None
-        subprops = []
-        for triple in self.arcsIn:
-            if (triple.source != None and triple.arc.id == "rdfs:subPropertyOf"):
-              subprops.append(triple.source)
+        subprops = GetSources(Unit.GetUnit("rdfs:subPropertyOf"),self, layers=layers )
         return subprops
 
     def inverseproperty(self):
