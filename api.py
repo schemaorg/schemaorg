@@ -103,23 +103,23 @@ class Unit ():
 
     def isClass(self, layers='#core'):
         """Does this unit represent a class/type?"""
-        return self.typeOf(Unit.GetUnit("rdfs:Class"), layers='#core')
+        return self.typeOf(Unit.GetUnit("rdfs:Class"), layers=layers)
 
     def isAttribute(self, layers='#core'):
         """Does this unit represent an attribute/property?"""
-        return self.typeOf(Unit.GetUnit("rdf:Property"), layers='#core')
+        return self.typeOf(Unit.GetUnit("rdf:Property"), layers=layers)
 
     def isEnumeration(self, layers='#core'):
         """Does this unit represent an enumerated type?"""
-        return self.subClassOf(Unit.GetUnit("Enumeration"), layers='#core')
+        return self.subClassOf(Unit.GetUnit("Enumeration"), layers=layers)
 
     def isEnumerationValue(self, layers='#core'):
         """Does this unit represent a member of an enumerated type?"""
-        types = GetTargets(Unit.GetUnit("typeOf"), self , layers='#core' )
+        types = GetTargets(Unit.GetUnit("typeOf"), self , layers=layers)
         log.debug("isEnumerationValue() called on %s, found %s types. layers: %s" % (self.id, str( len( types ) ), layers ) )
         found_enum = False
         for t in types:
-          if t.subClassOf(Unit.GetUnit("Enumeration"), layers='#core'):
+          if t.subClassOf(Unit.GetUnit("Enumeration"), layers=layers):
             found_enum = True
         return found_enum
 
@@ -130,7 +130,7 @@ class Unit ():
       DataType and its children do not descend from Thing, so we need to
       treat it specially.
       """
-      return self.subClassOf(Unit.GetUnit("DataType"), layers='#core')
+      return self.subClassOf(Unit.GetUnit("DataType"), layers=layers)
 
     @staticmethod
     def storePrefix(prefix):
@@ -207,16 +207,6 @@ class Unit ():
           return None
         subprops = GetSources(Unit.GetUnit("rdfs:subPropertyOf"),self, layers=layers )
         return subprops
-
-#    def inversepropertyOLD(self):
-#        """A property that is an inverseOf this one, e.g. alumni vs alumniOf."""
-#        for triple in self.arcsOut:
-#            if (triple.target != None and triple.arc.id == "inverseOf"):
-#               return triple.target
-#        for triple in self.arcsIn:
-#            if (triple.source != None and triple.arc.id == "inverseOf"):
-#               return triple.source
-#        return None
 
     def inverseproperty(self, layers="#core"):
         """A property that is an inverseOf this one, e.g. alumni vs alumniOf."""
@@ -424,8 +414,8 @@ class TypeHierarchyTree:
                 self.emit(' %s<ul>' % (" " * 4 * depth))
 
                 # handle our subtypes
-                for item in node.GetImmediateSubtypes(layers='#core'):
-                    self.traverseForHTML(item, depth + 1, layers='#core')
+                for item in node.GetImmediateSubtypes(layers=layers):
+                    self.traverseForHTML(item, depth + 1, layers=layers)
                 self.emit( ' %s</ul>' % (" " * 4 * depth))
             else:
                 # we are a supertype but we visited this type before, e.g. saw Restaurant via Place then via Organization
@@ -433,7 +423,7 @@ class TypeHierarchyTree:
                 self.emit( ' %s<li class="tbranch" id="%s"><a href="/%s">%s</a>%s' % (" " * 4 * depth, node.id, node.id, node.id, seen) )
 
         # leaf nodes
-        if len(node.GetImmediateSubtypes(layers='#core')) == 0:
+        if len(node.GetImmediateSubtypes(layers=layers)) == 0:
             if node.id not in self.visited:
                 self.emit( '%s<li class="tleaf" id="%s"><a href="/%s">%s</a>%s' % (" " * depth, node.id, node.id, node.id, "" ))
             #else:
@@ -468,11 +458,11 @@ class TypeHierarchyTree:
   },\n""" if last_at_this_level and depth==0 else '' )
 
         unseen_subtypes = []
-        for st in node.GetImmediateSubtypes(layers='#core'):
+        for st in node.GetImmediateSubtypes(layers=layers):
             if not st.id in self.visited:
                 unseen_subtypes.append(st)
         unvisited_subtype_count = len(unseen_subtypes)
-        subtype_count = len( node.GetImmediateSubtypes(layers='#core') )
+        subtype_count = len( node.GetImmediateSubtypes(layers=layers) )
 
         supertx = "{}".format( '"rdfs:subClassOf": "schema:%s", ' % supertype.id if supertype != "None" else '' )
         maybe_comma = "{}".format("," if unvisited_subtype_count > 0 else "")
@@ -494,7 +484,7 @@ class TypeHierarchyTree:
                 if i == unvisited_subtype_count:
                     inner_lastness = True
                 i = i + 1
-                self.traverseForJSONLD(t, depth + 1, inner_lastness, supertype=node, layers='#core')
+                self.traverseForJSONLD(t, depth + 1, inner_lastness, supertype=node, layers=layers)
 
             self.emit("%s  ]%s" % (p1,  "{}".format( "" if not last_at_this_level else '' ) ) )
 
@@ -674,7 +664,7 @@ class ShowUnit (webapp2.RequestHandler):
         if (node not in self.parentStack):
             self.parentStack.append(node)
 
-        if (Unit.isAttribute(node)):
+        if (Unit.isAttribute(node, layers=layers)):
             self.parentStack.append(Unit.GetUnit("Property"))
             self.parentStack.append(Unit.GetUnit("Thing"))
 
@@ -685,8 +675,8 @@ class ShowUnit (webapp2.RequestHandler):
         else:
             # Enumerations are classes that have no declared subclasses
             sc = Unit.GetUnit("typeOf")
-            for p in GetTargets(sc, node):
-                self.GetParentStack(p)
+            for p in GetTargets(sc, node, layers=layers):
+                self.GetParentStack(p, layers=layers)
 
     def ml(self, node, label='', title='', prop=''):
         """ml ('make link')
@@ -723,7 +713,7 @@ class ShowUnit (webapp2.RequestHandler):
         while (ind > 0) :
             ind = ind -1
             nn = self.parentStack[ind]
-            if (nn.id == "Thing" or thing_seen or nn.isDataType()):
+            if (nn.id == "Thing" or thing_seen or nn.isDataType(layers=layers)):
                 thing_seen = True
                 self.write(self.ml(nn) )
                 if ind == 1 and node.isEnumerationValue():
@@ -740,24 +730,25 @@ class ShowUnit (webapp2.RequestHandler):
 
         self.write(self.moreInfoBlock(node))
 
-        if (node.isClass() and not node.isDataType()):
+        if (node.isClass(layers=layers) and not node.isDataType(layers=layers)):
             self.write("<table class=\"definition-table\">\n        <thead>\n  <tr><th>Property</th><th>Expected Type</th><th>Description</th>               \n  </tr>\n  </thead>\n\n")
 
-    def ClassProperties (self, cl, subclass=False):
+    def ClassProperties (self, cl, subclass=False, layers="#core"):
         """Write out a table of properties for a per-type page."""
+
         headerPrinted = False
         di = Unit.GetUnit("domainIncludes")
         ri = Unit.GetUnit("rangeIncludes")
-        for prop in sorted(GetSources(di, cl), key=lambda u: u.id):
-            if (prop.superseded()):
+        for prop in sorted(GetSources(di, cl, layers=layers), key=lambda u: u.id):
+            if (prop.superseded(layers=layers)):
                 continue
-            supersedes = prop.supersedes()
-            olderprops = prop.supersedes_all()
-            inverseprop = prop.inverseproperty()
-            subprops = prop.subproperties()
-            superprops = prop.superproperties()
-            ranges = GetTargets(ri, prop)
-            comment = GetComment(prop)
+            supersedes = prop.supersedes(layers=layers)
+            olderprops = prop.supersedes_all(layers=layers)
+            inverseprop = prop.inverseproperty(layers=layers)
+            subprops = prop.subproperties(layers=layers)
+            superprops = prop.superproperties(layers=layers)
+            ranges = GetTargets(ri, prop, layers=layers)
+            comment = GetComment(prop, layers=layers)
             if (not headerPrinted):
                 class_head = self.ml(cl)
                 if subclass:
@@ -788,20 +779,20 @@ class ShowUnit (webapp2.RequestHandler):
         if subclass: # in case the superclass has no defined attributes
             self.write("<meta property=\"rdfs:subClassOf\" content=\"%s\">" % (cl.id))
 
-    def ClassIncomingProperties (self, cl):
+    def ClassIncomingProperties (self, cl, layers="#core"):
         """Write out a table of incoming properties for a per-type page."""
         headerPrinted = False
         di = Unit.GetUnit("domainIncludes")
         ri = Unit.GetUnit("rangeIncludes")
-        for prop in sorted(GetSources(ri, cl), key=lambda u: u.id):
-            if (prop.superseded()):
+        for prop in sorted(GetSources(ri, cl, layers=layers), key=lambda u: u.id):
+            if (prop.superseded(layers=layers)):
                 continue
-            supersedes = prop.supersedes()
-            inverseprop = prop.inverseproperty()
-            subprops = prop.subproperties()
-            superprops = prop.superproperties()
-            ranges = GetTargets(di, prop)
-            comment = GetComment(prop)
+            supersedes = prop.supersedes(layers=layers)
+            inverseprop = prop.inverseproperty(layers=layers)
+            subprops = prop.subproperties(layers=layers)
+            superprops = prop.superproperties(layers=layers)
+            ranges = GetTargets(di, prop, layers=layers)
+            comment = GetComment(prop, layers=layers)
 
             if (not headerPrinted):
                 self.write("<br/><br/>Instances of %s may appear as values for the following properties<br/>" % (self.ml(cl)))
@@ -830,21 +821,21 @@ class ShowUnit (webapp2.RequestHandler):
             self.write("</table>\n")
 
 
-    def AttributeProperties (self, node):
+    def AttributeProperties (self, node, layers="#core"):
         """Write out properties of this property, for a per-property page."""
         di = Unit.GetUnit("domainIncludes")
         ri = Unit.GetUnit("rangeIncludes")
-        ranges = sorted(GetTargets(ri, node), key=lambda u: u.id)
-        domains = sorted(GetTargets(di, node), key=lambda u: u.id)
+        ranges = sorted(GetTargets(ri, node, layers=layers), key=lambda u: u.id)
+        domains = sorted(GetTargets(di, node, layers=layers), key=lambda u: u.id)
         first_range = True
 
-        newerprop = node.supersededBy() # None of one. e.g. we're on 'seller'(new) page, we get 'vendor'(old)
-        olderprop = node.supersedes() # None or one
-        olderprops = node.supersedes_all() # list, e.g. 'seller' has 'vendor', 'merchant'.
+        newerprop = node.supersededBy(layers=layers) # None of one. e.g. we're on 'seller'(new) page, we get 'vendor'(old)
+        olderprop = node.supersedes(layers=layers) # None or one
+        olderprops = node.supersedes_all(layers=layers) # list, e.g. 'seller' has 'vendor', 'merchant'.
 
-        inverseprop = node.inverseproperty()
-        subprops = node.subproperties()
-        superprops = node.superproperties()
+        inverseprop = node.inverseproperty(layers=layers)
+        subprops = node.subproperties(layers=layers)
+        superprops = node.superproperties(layers=layers)
 
 
         if (inverseprop != None):
@@ -877,7 +868,7 @@ class ShowUnit (webapp2.RequestHandler):
             self.write("<table class=\"definition-table\">\n")
             self.write("  <thead>\n    <tr>\n      <th>Sub-properties</th>\n    </tr>\n</thead>\n")
             for sbp in subprops:
-                c = GetComment(sbp)
+                c = GetComment(sbp,layers=layers)
                 tt = "%s: ''%s''" % ( sbp.id, c)
                 self.write("\n    <tr><td><code>%s</code></td></tr>\n" % (self.ml(sbp, sbp.id, tt)))
             self.write("\n</table>\n\n")
@@ -887,7 +878,7 @@ class ShowUnit (webapp2.RequestHandler):
             self.write("<table class=\"definition-table\">\n")
             self.write("  <thead>\n    <tr>\n      <th>Super-properties</th>\n    </tr>\n</thead>\n")
             for spp in superprops:
-                c = GetComment(spp)           # markup needs to be stripped from c, e.g. see 'logo', 'photo'
+                c = GetComment(spp, layers=layers)           # markup needs to be stripped from c, e.g. see 'logo', 'photo'
                 c = re.sub(r'<[^>]*>', '', c) # This is not a sanitizer, we trust our input.
                 tt = "%s: ''%s''" % ( spp.id, c)
                 self.write("\n    <tr><td><code>%s</code></td></tr>\n" % (self.ml(spp, spp.id, tt)))
@@ -899,7 +890,7 @@ class ShowUnit (webapp2.RequestHandler):
             self.write("  <thead>\n    <tr>\n      <th>Supersedes</th>\n    </tr>\n</thead>\n")
 
             for o in olderprops:
-                c = GetComment(o)
+                c = GetComment(o, layers=layers)
                 tt = "%s: ''%s''" % ( o.id, c)
                 self.write("\n    <tr><td><code>%s</code></td></tr>\n" % (self.ml(o, o.id, tt)))
             self.write("\n</table>\n\n")
@@ -951,58 +942,67 @@ class ShowUnit (webapp2.RequestHandler):
             self.response.out.write( open("static/index.html", 'r').read() )
             return
 
-    def getExactTermPage(self, node):
+    def getExactTermPage(self, node, layers="#core"):
         """Emit a Web page that exactly matches this node."""
         self.outputStrings = []
         log.info("EXACT PAGE: %s" % node.id)
-        ext_mappings = GetExtMappingsRDFa(node)
+        ext_mappings = GetExtMappingsRDFa(node) # TODO: layer
 
         headers.OutputSchemaorgHeaders(self, node.id, node.isClass(), ext_mappings)
-        cached = self.GetCachedText(node)
+
+        self.write("<div>Layers: <b>%s</b></div>" % layers) # TODO: hide except localhost
+
+        cached = self.GetCachedText(node) # TODO: fix for layers
         if (cached != None):
             self.response.write(cached)
             return
 
         self.parentStack = []
-        self.GetParentStack(node)
+        self.GetParentStack(node, layers=layers)
 
-        self.UnitHeaders(node)
+        self.UnitHeaders(node,  layers=layers)
 
-        if (node.isClass()):
+
+        self.write("CLASS? layers: %s node: %s class test: %s" % ( layers, node.id, node.isClass(layers=layers) ) )
+
+        if (node.isClass(layers=layers)):
+
+            self.write("<div>GOT CLASS: <b>%s</b></div>" % layers)
+
             subclass = True
             for p in self.parentStack:
-                self.ClassProperties(p, p==self.parentStack[0])
+                self.ClassProperties(p, p==self.parentStack[0], layers=layers)
             self.write("</table>\n")
-            self.ClassIncomingProperties(node)
-        elif (Unit.isAttribute(node)):
-            self.AttributeProperties(node)
+            self.ClassIncomingProperties(node, layers=layers)
+        elif (Unit.isAttribute(node, layers=layers)):
+            self.AttributeProperties(node, layers=layers)
 
-        if (not Unit.isAttribute(node)):
+        if (not Unit.isAttribute(node, layers=layers)):
             self.write("\n\n</table>\n\n") # no supertype table for properties
 
-        if (node.isClass()):
-            children = sorted(GetSources(Unit.GetUnit("rdfs:subClassOf"), node), key=lambda u: u.id)
+        if (node.isClass(layers=layers)):
+            children = sorted(GetSources(Unit.GetUnit("rdfs:subClassOf"), node, layers=layers), key=lambda u: u.id)
             if (len(children) > 0):
                 self.write("<br/><b>More specific Types</b>");
                 for c in children:
                     self.write("<li> %s" % (self.ml(c)))
 
-        if (node.isEnumeration()):
-            children = sorted(GetSources(Unit.GetUnit("typeOf"), node), key=lambda u: u.id)
+        if (node.isEnumeration(layers=layers)):
+            children = sorted(GetSources(Unit.GetUnit("typeOf"), node, layers=layers), key=lambda u: u.id)
             if (len(children) > 0):
                 self.write("<br/><br/>Enumeration members");
                 for c in children:
                     self.write("<li> %s" % (self.ml(c)))
 
-        ackorgs = GetTargets(Unit.GetUnit("dc:source"), node)
+        ackorgs = GetTargets(Unit.GetUnit("dc:source"), node, layers=layers)
         if (len(ackorgs) > 0):
             self.write("<h4  id=\"acks\">Acknowledgements</h4>\n")
             for ao in ackorgs:
-                acks = sorted(GetTargets(Unit.GetUnit("rdfs:comment"), ao))
+                acks = sorted(GetTargets(Unit.GetUnit("rdfs:comment"), ao, layers))
                 for ack in acks:
                     self.write(str(ack+"<br/>"))
 
-        examples = GetExamples(node)
+        examples = GetExamples(node, layers=layers)
         if (len(examples) > 0):
             example_labels = [
               ('Without Markup', 'original_html', 'selected'),
@@ -1026,7 +1026,7 @@ class ShowUnit (webapp2.RequestHandler):
                 self.write("</div>\n\n")
 
         self.write("<p class=\"version\"><b>Schema Version %s</b></p>\n\n" % SCHEMA_VERSION)
-
+        # TODO: add some version info regarding the extension
 
         # Analytics
 	self.write("""<script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -1073,7 +1073,9 @@ class ShowUnit (webapp2.RequestHandler):
 #            origURL.replace("//www.schema.org", "//schema.org")
 #            self.redirect(newURL, permanent=True)
 
-        layerlist = ["#core"]
+#        layerlist = ["#core", "#bib"]
+
+        layerlist = [ "#core"]
 
         # First: fixed paths: homepage, favicon.ico and generated JSON-LD files.
         #
@@ -1160,7 +1162,7 @@ class ShowUnit (webapp2.RequestHandler):
         # - handle /Person/Minister -style extensions
 
         if inLayer(layerlist, node):            #        if (node != None):
-            self.getExactTermPage(node)
+            self.getExactTermPage(node, layerlist)
             return
         else:
           self.error(404)
@@ -1172,8 +1174,13 @@ def inLayer(layerlist, node):
     if (node is None):
         return False
     log.info("Looking in %s for %s" % (layerlist, node.id))
-    if GetTargets(Unit.GetUnit("typeOf"), node, layers=layerlist):
+    if GetTargets(Unit.GetUnit("typeOf"), node, layers=layerlist) != None:
+        log.info("Found typeOf")
         return True
+    if GetTargets(Unit.GetUnit("rdfs:subClassOf"), node, layers=layerlist) != None:
+        log.info("Found rdfs:subClassOf")
+        return True
+    log.info("inLayer: Failed to find in %s for %s" % (layerlist, node.id))
     return False
 
 def read_file (filename):
@@ -1223,7 +1230,7 @@ def read_schemas():
             extid = re.sub(fnstrip_re,'',extid)
             log.info("Preparing to parse extension data: %s as '%s'" % (ext_file_path, "#%s" % extid))
             parser = parsers.MakeParserOfType('rdfa', None)
-            extitems = parser.parse([ext_file_path], layer=extid) # put schema triples in a layer
+            extitems = parser.parse([ext_file_path], layer="#%s" % extid) # put schema triples in a layer
             log.info("Results: %s " % len( extitems) )
             for x in extitems:
                 if x is not None:
