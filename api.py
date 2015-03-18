@@ -208,8 +208,28 @@ class Unit ():
         subprops = GetSources(Unit.GetUnit("rdfs:subPropertyOf"),self, layers=layers )
         return subprops
 
-    def inverseproperty(self):
+#    def inversepropertyOLD(self):
+#        """A property that is an inverseOf this one, e.g. alumni vs alumniOf."""
+#        for triple in self.arcsOut:
+#            if (triple.target != None and triple.arc.id == "inverseOf"):
+#               return triple.target
+#        for triple in self.arcsIn:
+#            if (triple.source != None and triple.arc.id == "inverseOf"):
+#               return triple.source
+#        return None
+
+    def inverseproperty(self, layers="#core"):
         """A property that is an inverseOf this one, e.g. alumni vs alumniOf."""
+        a = GetTargets(Unit.GetUnit("inverseOf"), self, layers=layers)
+        b = GetSources(Unit.GetUnit("inverseOf"), self, layers=layers)
+        if len(a)>0:
+            return a.pop()
+        else:
+            if len(b) > 0:
+                return b.pop()
+            else:
+                return None
+
         for triple in self.arcsOut:
             if (triple.target != None and triple.arc.id == "inverseOf"):
                return triple.target
