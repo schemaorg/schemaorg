@@ -75,28 +75,31 @@ class Unit ():
         return (type in types)
 
 
-#    def OLDsubClassOf(self, type, layers='#core'):
-#        """Boolean, true if the unit has an rdfs:subClassOf matching this type."""
-#        if (self.id == type.id):
-#            return True
-#        for triple in self.arcsOut:
-#            if (triple.target != None and triple.arc.id == "rdfs:subClassOf"):
-#                val = triple.target.subClassOf(type)
-#                if (val):
-#                    return True
-#        return False
+    def OLDsubClassOf(self, type, layers='#core'):
+        """Boolean, true if the unit has an rdfs:subClassOf matching this type."""
+        if (self.id == type.id):
+            return True
+        for triple in self.arcsOut:
+            if (triple.target != None and triple.arc.id == "rdfs:subClassOf"):
+                val = triple.target.subClassOf(type)
+                if (val):
+                    return True
+        return False
 
 
-    # Function needed rewriting to use GetTargets(arc,src,layers)
+    # Function needs rewriting to use GetTargets(arc,src,layers) and recurse
     def subClassOf(self, type, layers='#core'):
         """Boolean, true if the unit has an rdfs:subClassOf matching this type."""
         if (self.id == type.id):
             return True
-        subtypes = GetTargets( Unit.GetUnit("rdfs:subClassOf"), self, layers )
-        if type in subtypes:
+        parents = GetTargets( Unit.GetUnit("rdfs:subClassOf"), self, layers )
+        if type in parents:
             return True
         else:
-            return False
+            for p in parents:
+                if p.subClassOf(type, layers):
+                     return True
+        return False
 
     def isClass(self, layers='#core'):
         """Does this unit represent a class/type?"""
