@@ -1066,9 +1066,10 @@ class ShowUnit (webapp2.RequestHandler):
         layerlist = [ "#core"]
 
         os_host = os.environ['HTTP_HOST']
-        host_ext = re.match(r'(\w*)[.:]',os_host).group(1)
-        log.debug("Host: %s host_ext: %s" % ( os_host , host_ext ) )
-        extlist.append(host_ext)
+        host_ext = re.match(r'(\w*)[.:]',os_host)
+        if host_ext != None:
+            log.info("Host: %s host_ext: %s" % ( os_host , host_ext.group(1) ) )
+            extlist.append(host_ext.group(1))
 
         for x in extlist:
             log.info("Ext filter found: %s" % str(x))
