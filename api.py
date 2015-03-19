@@ -30,6 +30,7 @@ DYNALOAD=True # permits read_schemas to be re-invoked live.
 
 NodeIDMap = {}
 DataCache = {}
+ext_re = re.compile(r'([^\w,])+')
 
 class Unit ():
     """
@@ -59,15 +60,6 @@ class Unit ():
             return NodeIDMap[id]
         if (createp != False):
             return Unit(id)
-
-#    def OLDtypeOf(self, type,  layers='#core'):
-#        """Boolean, true if the unit has an rdf:type matching this type."""
-#        for triple in self.arcsOut:
-#            if (triple.target != None and triple.arc.id == "typeOf"):
-#                val = triple.target.subClassOf(type)
-#                if (val):
-#                    return True
-#        return False
 
     def typeOf(self, type,  layers='#core'):
         """Boolean, true if the unit has an rdf:type matching this type."""
@@ -144,10 +136,6 @@ class Unit ():
         """Has this property been superseded? (i.e. deprecated/archaic), in any of these layers."""
         supersededBy_values = GetTargets( Unit.GetUnit("supersededBy"), self, layers )
         return ( len(supersededBy_values) > 0)
-#        for triple in self.arcsOut:
-#            if (triple.target != None and triple.arc.id == "supersededBy"):
-#                return True
-#        return False
 
     def supersedes(self, layers='#core'):
         """Returns a property (assume max 1) that is supersededBy this one, or nothing."""
@@ -161,12 +149,11 @@ class Unit ():
         """Returns terms that is supersededBy by this later one, or nothing. (in this layer)"""
         return(GetSources( Unit.GetUnit("supersededBy"), self, layers ))
         # so we want sources of arcs pointing here with 'supersededBy'
-
-    # e.g. vendor supersededBy seller ; returns newer 'seller' for earlier 'vendor'.
+        # e.g. vendor supersededBy seller ; returns newer 'seller' for earlier 'vendor'.
 
     def supersededBy(self, layers='#core'):
         """Returns a property (assume max 1) that supersededs this one, or nothing."""
-        newerterms = GetTargets( Unit.GetUnit("supersededBy"), self )
+        newerterms = GetTargets( Unit.GetUnit("supersededBy"), self, layers )
         if len(newerterms)>0:
             return newerterms.pop()
         else:
@@ -180,17 +167,6 @@ class Unit ():
                 if self in newerprop.supersedes_all(layers=layers):
                     return newerprop # this is one of possibly many properties that supersedes self.
         return None
-
-#TODO-layer
-#    def OLDsuperproperties(self, layers='#core'):
-#        """Returns super-properties of this one."""
-#        if not self.isAttribute():
-#          logging.debug("Non-property %s won't have superproperties." % self.id)
-#        superprops = []
-#        for triple in self.arcsOut:
-#            if (triple.target != None and triple.arc.id == "rdfs:subPropertyOf"):
-#                superprops.append(triple.target)
-#        return superprops
 
     def superproperties(self, layers='#core'):
         """Returns super-properties of this one."""
@@ -227,6 +203,18 @@ class Unit ():
             if (triple.source != None and triple.arc.id == "inverseOf"):
                return triple.source
         return None
+
+# NOTE: each Triple is in exactly one layer, by default '#core'. When we
+# read_schemas() from data/ext/{x}/*.rdfa each schema triple is given a
+# layer named "#x". Access to triples can default to layer="#core" or take
+# a custom layer or layers, e.g. layers="#bib", or layers=["#bib", "#foo"].
+# This is verbose but at least explicit. If we move towards making better
+# use of external templates for site generation we could reorganize.
+# For now e.g. 'grep GetSources api.py| grep -v layer' and
+# 'grep GetTargets api.py| grep -v layer' etc. can check for non-layered usage.
+#
+# Units, on the other hand, are layer-independent. For now we have only a
+# crude inLayer(layerlist, unit) API to check which layers mention a term.
 
 class Triple ():
     """Triple represents an edge in the graph: source, arc and target/text."""
@@ -300,8 +288,6 @@ def GetArcsOut(source,  layers='#core'):
 
 # Utility API
 
-# TODO: use: def GetTargets(arc, source, layers='#core'):
-
 def GetComment(node, layers='#core') :
     """Get the first rdfs:comment we find on this node (or "No comment"), within any of the specified layers."""
     tx = GetTargets(Unit.GetUnit("rdfs:comment"), node, layers=layers )
@@ -309,13 +295,6 @@ def GetComment(node, layers='#core') :
             return tx[0]
     else:
         return "No comment"
-
-#def OldGetComment(node, layers='#core'):
-#    """Get the first rdfs:comment we find on this node (or "No comment")."""
-#    for triple in node.arcsOut:
-#        if (triple.arc.id == 'rdfs:comment'):
-#            return triple.text
-#    return "No comment"
 
 def GetImmediateSubtypes(n, layers='#core'):
     """Get this type's immediate subtypes, i.e. that are subClassOf this."""
@@ -405,7 +384,7 @@ class TypeHierarchyTree:
     def traverseForHTML(self, node, depth = 1, layers='#core'):
 
         # we are a supertype of some kind
-        if len(node.GetImmediateSubtypes()) > 0:
+        if len(node.GetImmediateSubtypes(layers=layers)) > 0:
 
             # and we haven't been here before
             if node.id not in self.visited:
@@ -466,7 +445,7 @@ class TypeHierarchyTree:
 
         supertx = "{}".format( '"rdfs:subClassOf": "schema:%s", ' % supertype.id if supertype != "None" else '' )
         maybe_comma = "{}".format("," if unvisited_subtype_count > 0 else "")
-        comment = GetComment(node).strip()
+        comment = GetComment(node, layers).strip()
         comment = comment.replace('"',"'")
         comment = re.sub('<[^<]+?>', '', comment)[:60]
 
@@ -538,7 +517,7 @@ def GetExamples(node, layers='#core'):
 def GetExtMappingsRDFa(node, layers='#core'):
     """Self-contained chunk of RDFa HTML markup with mappings for this term."""
     if (node.isClass()):
-        equivs = GetTargets(Unit.GetUnit("owl:equivalentClass"), node, layers='#core')
+        equivs = GetTargets(Unit.GetUnit("owl:equivalentClass"), node, layers=layers)
         if len(equivs) > 0:
             markup = ''
             for c in equivs:
@@ -550,7 +529,7 @@ def GetExtMappingsRDFa(node, layers='#core'):
 
             return markup
     if (node.isAttribute()):
-        equivs = GetTargets(Unit.GetUnit("owl:equivalentProperty"), node)
+        equivs = GetTargets(Unit.GetUnit("owl:equivalentProperty"), node, layers)
         if len(equivs) > 0:
             markup = ''
             for c in equivs:
@@ -567,9 +546,9 @@ def GetJsonLdContext(layers='#core'):
     date = Unit.GetUnit("Date")
     datetime = Unit.GetUnit("DateTime")
 
-    properties = sorted(GetSources(Unit.GetUnit("typeOf"), Unit.GetUnit("rdf:Property"), layers='#core'), key=lambda u: u.id)
+    properties = sorted(GetSources(Unit.GetUnit("typeOf"), Unit.GetUnit("rdf:Property"), layers=layers), key=lambda u: u.id)
     for p in properties:
-        range = GetTargets(Unit.GetUnit("rangeIncludes"), p, layers='#core')
+        range = GetTargets(Unit.GetUnit("rangeIncludes"), p, layers=layers)
         type = None
 
         if url in range:
@@ -599,23 +578,26 @@ class ShowUnit (webapp2.RequestHandler):
         self.response.headers['Cache-Control'] = "public, max-age=43200" # 12h
         self.response.headers['Vary'] = "Accept, Accept-Encoding"
 
-    def GetCachedText(self, node, layer='#core'):
+    def GetCachedText(self, node, layers='#core'):
         """Return page text from node.id cache (if found, otherwise None)."""
         global PageCache
-        if (node.id in PageCache):
-            return PageCache[node.id]
+        cachekey = "%s:%s" % ( layers, node.id ) # was node.id
+        #if (node.id in PageCache):
+        if (cachekey in PageCache):
+            return PageCache[cachekey]
         else:
             return None
 
-    def AddCachedText(self, node, textStrings, layer='#core'):
+    def AddCachedText(self, node, textStrings, layers='#core'):
         """Cache text of our page for this node via its node.id.
 
         We can be passed a text string or an array of text strings.
         """
         global PageCache
+        cachekey = "%s:%s" % ( layers, node.id ) # was node.id
         outputText = "".join(textStrings)
         log.debug("CACHING: %s" % node.id)
-        PageCache[node.id] = outputText
+        PageCache[cachekey] = outputText
         return outputText
 
     def write(self, str):
@@ -716,7 +698,7 @@ class ShowUnit (webapp2.RequestHandler):
             if (nn.id == "Thing" or thing_seen or nn.isDataType(layers=layers)):
                 thing_seen = True
                 self.write(self.ml(nn) )
-                if ind == 1 and node.isEnumerationValue():
+                if ind == 1 and node.isEnumerationValue(layers=layers):
                     self.write(" :: ")
                 elif ind > 0:
                     self.write(" &gt; ")
@@ -725,7 +707,7 @@ class ShowUnit (webapp2.RequestHandler):
                 if ind == 0:
                     self.write("</span>")
         self.write("</h1>")
-        comment = GetComment(node)
+        comment = GetComment(node, layers)
         self.write(" <div property=\"rdfs:comment\">%s</div>\n\n" % (comment) + "\n")
 
         self.write(self.moreInfoBlock(node))
@@ -864,7 +846,7 @@ class ShowUnit (webapp2.RequestHandler):
             self.write("\n    <code>%s</code> " % (self.ml(d, d.id, tt, prop="domainIncludes"))+"\n")
         self.write("      </td>\n    </tr>\n</table>\n\n")
 
-        if (len(subprops) > 0):
+        if (subprops != None and len(subprops) > 0):
             self.write("<table class=\"definition-table\">\n")
             self.write("  <thead>\n    <tr>\n      <th>Sub-properties</th>\n    </tr>\n</thead>\n")
             for sbp in subprops:
@@ -874,7 +856,7 @@ class ShowUnit (webapp2.RequestHandler):
             self.write("\n</table>\n\n")
 
         # Super-properties
-        if (len(superprops) > 0):
+        if (superprops != None and  len(superprops) > 0):
             self.write("<table class=\"definition-table\">\n")
             self.write("  <thead>\n    <tr>\n      <th>Super-properties</th>\n    </tr>\n</thead>\n")
             for spp in superprops:
@@ -885,7 +867,7 @@ class ShowUnit (webapp2.RequestHandler):
             self.write("\n</table>\n\n")
 
         # Supersedes
-        if (len(olderprops) > 0):
+        if (olderprops != None and len(olderprops) > 0):
             self.write("<table class=\"definition-table\">\n")
             self.write("  <thead>\n    <tr>\n      <th>Supersedes</th>\n    </tr>\n</thead>\n")
 
@@ -946,13 +928,13 @@ class ShowUnit (webapp2.RequestHandler):
         """Emit a Web page that exactly matches this node."""
         self.outputStrings = []
         log.info("EXACT PAGE: %s" % node.id)
-        ext_mappings = GetExtMappingsRDFa(node) # TODO: layer
+        ext_mappings = GetExtMappingsRDFa(node, layers=layers)
 
         headers.OutputSchemaorgHeaders(self, node.id, node.isClass(), ext_mappings)
 
-        self.write("<div>Layers: <b>%s</b></div>" % layers) # TODO: hide except localhost
+        self.write("<!-- layers: %s -->" % layers)
 
-        cached = self.GetCachedText(node) # TODO: fix for layers
+        cached = self.GetCachedText(node, layers)
         if (cached != None):
             self.response.write(cached)
             return
@@ -962,13 +944,7 @@ class ShowUnit (webapp2.RequestHandler):
 
         self.UnitHeaders(node,  layers=layers)
 
-
-    #    self.write("CLASS? layers: %s node: %s class test: %s" % ( layers, node.id, node.isClass(layers=layers) ) )
-
         if (node.isClass(layers=layers)):
-
-            self.write("<div>GOT CLASS: <b>%s</b></div>" % layers)
-
             subclass = True
             for p in self.parentStack:
                 self.ClassProperties(p, p==self.parentStack[0], layers=layers)
@@ -1037,9 +1013,11 @@ class ShowUnit (webapp2.RequestHandler):
 
         self.write(" \n\n</div>\n</body>\n</html>")
 
-        self.response.write(self.AddCachedText(node, self.outputStrings))
+        self.response.write(self.AddCachedText(node, self.outputStrings, layers))
 
     def get(self, node):
+        import re
+
         """Get a schema.org site page generated for this node/term.
 
         Web content is written directly via self.response.
@@ -1073,9 +1051,21 @@ class ShowUnit (webapp2.RequestHandler):
 #            origURL.replace("//www.schema.org", "//schema.org")
 #            self.redirect(newURL, permanent=True)
 
-#        layerlist = ["#core", "#bib"]
+        if (node == "favicon.ico"):
+            return
 
+        extlist = self.request.get("ext")
+        extlist = re.sub(ext_re, '', extlist).split(',')
+        log.debug("Extension list: %s " % ", ".join(extlist))
+#        layerlist = ["#core", "#bib"]
         layerlist = [ "#core"]
+        for x in extlist:
+            log.info("Ext filter found: %s" % str(x))
+            if x == "core" or x == "":
+                continue
+            layerlist.append("#%s" % str(x))
+        layerlist = list(set(layerlist))
+        log.info("layerlist: %s" % layerlist)
 
         # First: fixed paths: homepage, favicon.ico and generated JSON-LD files.
         #
@@ -1097,9 +1087,6 @@ class ShowUnit (webapp2.RequestHandler):
                 self.response.out.write( jsonldcontext )
                 return
 
-        if (node == "favicon.ico"):
-            return
-
         if (node == "docs/full.html"): # DataCache.getDataCache.get
             self.response.headers['Content-Type'] = "text/html"
             self.emitCacheHeaders()
@@ -1114,11 +1101,11 @@ class ShowUnit (webapp2.RequestHandler):
                 uDataType = Unit.GetUnit("DataType")
 
                 mainroot = TypeHierarchyTree()
-                mainroot.traverseForHTML(uThing)
+                mainroot.traverseForHTML(uThing, layers=layerlist)
                 thing_tree = mainroot.toHTML()
 
                 dtroot = TypeHierarchyTree()
-                dtroot.traverseForHTML(uDataType)
+                dtroot.traverseForHTML(uDataType, layers=layerlist)
                 datatype_tree = dtroot.toHTML()
 
                 template_values = {
@@ -1161,7 +1148,7 @@ class ShowUnit (webapp2.RequestHandler):
         # - handle foo-input Action pseudo-properties
         # - handle /Person/Minister -style extensions
 
-        if inLayer(layerlist, node):            #        if (node != None):
+        if inLayer(layerlist, node):
             self.getExactTermPage(node, layerlist)
             return
         else:
@@ -1173,14 +1160,15 @@ def inLayer(layerlist, node):
     """Does a unit get its type mentioned in a layer?"""
     if (node is None):
         return False
-    log.info("Looking in %s for %s" % (layerlist, node.id))
-    if GetTargets(Unit.GetUnit("typeOf"), node, layers=layerlist) != None:
-        log.info("Found typeOf")
+    log.debug("Looking in %s for %s" % (layerlist, node.id))
+    if len(GetTargets(Unit.GetUnit("typeOf"), node, layers=layerlist) ) > 0:
+        log.debug("Found typeOf for node %s in layers: %s"  % (node.id, layerlist ))
         return True
-    if GetTargets(Unit.GetUnit("rdfs:subClassOf"), node, layers=layerlist) != None:
+    if len(GetTargets(Unit.GetUnit("rdfs:subClassOf"), node, layers=layerlist) ) > 0:
         log.info("Found rdfs:subClassOf")
+    # TODO: should we really test for any mention of a term, not just typing?
         return True
-    log.info("inLayer: Failed to find in %s for %s" % (layerlist, node.id))
+    log.debug("inLayer: Failed to find in %s for %s" % (layerlist, node.id))
     return False
 
 def read_file (filename):
@@ -1231,11 +1219,11 @@ def read_schemas():
             log.info("Preparing to parse extension data: %s as '%s'" % (ext_file_path, "#%s" % extid))
             parser = parsers.MakeParserOfType('rdfa', None)
             extitems = parser.parse([ext_file_path], layer="#%s" % extid) # put schema triples in a layer
-            log.info("Results: %s " % len( extitems) )
+            # log.debug("Results: %s " % len( extitems) )
             for x in extitems:
                 if x is not None:
-                    log.info("%s:%s" % ( extid, str(x.id) ))
-# 'data/ext/bib/bibdemo.rdfa'
+                    log.debug("%s:%s" % ( extid, str(x.id) ))
+            # e.g. see 'data/ext/bib/bibdemo.rdfa'
 
         files = glob.glob("data/*examples.txt")
         example_contents = []
