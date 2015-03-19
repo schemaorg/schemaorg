@@ -1017,6 +1017,7 @@ class ShowUnit (webapp2.RequestHandler):
 
     def get(self, node):
         import re
+        import os
 
         """Get a schema.org site page generated for this node/term.
 
@@ -1057,12 +1058,18 @@ class ShowUnit (webapp2.RequestHandler):
         # Identify which extension layer(s) are requested
         # TODO: add subdomain support e.g. bib.schema.org/Globe
         # instead of Globe?ext=bib which is more for debugging.
-        # 
+        #
         extlist = self.request.get("ext")
         extlist = re.sub(ext_re, '', extlist).split(',')
         log.debug("Extension list: %s " % ", ".join(extlist))
 #        layerlist = ["#core", "#bib"]
         layerlist = [ "#core"]
+
+        os_host = os.environ['HTTP_HOST']
+        host_ext = re.match(r'(\w*)[.:]',os_host).group(1)
+        log.debug("Host: %s host_ext: %s" % ( os_host , host_ext ) )
+        extlist.append(host_ext)
+
         for x in extlist:
             log.info("Ext filter found: %s" % str(x))
             if x == "core" or x == "":
@@ -1071,7 +1078,7 @@ class ShowUnit (webapp2.RequestHandler):
         layerlist = list(set(layerlist))
         log.info("layerlist: %s" % layerlist)
 
-        # First: fixed paths: homepage, favicon.ico and generated JSON-LD files.
+        # First: fixed paths: homepage, and generated JSON-LD files.
         #
         if (node == "" or node=="/"):
             self.getHomepage(node)
