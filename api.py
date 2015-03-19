@@ -1165,6 +1165,7 @@ class ShowUnit (webapp2.RequestHandler):
         else:
           self.error(404)
           self.response.out.write('<title>404 Not Found.</title><a href="/">404 Not Found.</a><br/><br/>')
+          self.response.out.write("<br /><br /><br /><br /><br /><!-- %s -->" % ",".join(layerlist))
           return
 
 def inLayer(layerlist, node):
