@@ -1144,7 +1144,7 @@ class ShowUnit (webapp2.RequestHandler):
             else:
                 uThing = Unit.GetUnit("Thing")
                 mainroot = TypeHierarchyTree()
-                mainroot.traverseForJSONLD(Unit.GetUnit("Thing"))
+                mainroot.traverseForJSONLD(Unit.GetUnit("Thing"), layers=layerlist)
                 thing_tree = mainroot.toJSON()
                 self.response.out.write( thing_tree )
                 log.debug("Serving fresh JSONLDThingTree.")
