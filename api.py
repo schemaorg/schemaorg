@@ -1054,6 +1054,10 @@ class ShowUnit (webapp2.RequestHandler):
         if (node == "favicon.ico"):
             return
 
+        # Identify which extension layer(s) are requested
+        # TODO: add subdomain support e.g. bib.schema.org/Globe
+        # instead of Globe?ext=bib which is more for debugging.
+        # 
         extlist = self.request.get("ext")
         extlist = re.sub(ext_re, '', extlist).split(',')
         log.debug("Extension list: %s " % ", ".join(extlist))
