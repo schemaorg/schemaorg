@@ -31,6 +31,7 @@ DYNALOAD=True # permits read_schemas to be re-invoked live.
 NodeIDMap = {}
 DataCache = {}
 ext_re = re.compile(r'([^\w,])+')
+all_layers = {}
 
 class Unit ():
     """
@@ -236,6 +237,7 @@ class Triple ():
     @staticmethod
     def AddTriple(source, arc, target, layer='#core'):
         """AddTriple stores a thing-valued new Triple within source Unit."""
+        all_layers["%s%s" % ( layer, source.id ) ] = 1
         if (source == None or arc == None or target == None):
             return
         else:
@@ -932,7 +934,11 @@ class ShowUnit (webapp2.RequestHandler):
 
         headers.OutputSchemaorgHeaders(self, node.id, node.isClass(), ext_mappings)
 
-        self.write("<!-- layers: %s -->" % layers)
+        if ("#core" not in layers or len(layers)>1):
+            ll = " ".join(layers).replace("#","")
+            s = "<p id='lli' class='layerinfo %s'><a href=\"https://github.com/schemaorg/schemaorg/wiki/ExtensionList\">extensions shown</a>: %s [<a href='/%s'>x</a>]</p>\n" % (ll, ll, node.id )
+            self.write( s )
+            self.write("<!-- Layers: %s -->" % layers)
 
         cached = self.GetCachedText(node, layers)
         if (cached != None):
@@ -1073,7 +1079,7 @@ class ShowUnit (webapp2.RequestHandler):
 
         for x in extlist:
             log.info("Ext filter found: %s" % str(x))
-            if x == "core" or x == "":
+            if x  in ["core", "localhost", ""]:
                 continue
             layerlist.append("#%s" % str(x))
         layerlist = list(set(layerlist))
@@ -1164,16 +1170,21 @@ class ShowUnit (webapp2.RequestHandler):
             self.getExactTermPage(node, layerlist)
             return
         else:
-          self.error(404)
-          self.response.out.write('<title>404 Not Found.</title><a href="/">404 Not Found.</a><br/><br/>')
-          self.response.out.write("<br /><br /><br /><br /><br /><!-- %s -->" % ",".join(layerlist))
-          return
+            log.info("Looking for node: %s in layers: %s" % (node.id, ",".join(layerlist)) )
+            if inLayer(all_layers, node):# look for it in other layers
+                log.info("TODO: layer toc")
+                self.write("Layers should be listed here.")
+            else:
+              self.error(404)
+              self.response.out.write('<title>404 Not Found.</title><a href="/">404 Not Found.</a><br/><br/>')
+              self.response.out.write("<br /><br /><br /><br /><br /><!-- %s -->" % ",".join(layerlist))
+              return
 
 def inLayer(layerlist, node):
     """Does a unit get its type mentioned in a layer?"""
     if (node is None):
         return False
-    log.debug("Looking in %s for %s" % (layerlist, node.id))
+    log.debug("Looking in %s for %s" % (layerlist, node.id ))
     if len(GetTargets(Unit.GetUnit("typeOf"), node, layers=layerlist) ) > 0:
         log.debug("Found typeOf for node %s in layers: %s"  % (node.id, layerlist ))
         return True
@@ -1231,6 +1242,7 @@ def read_schemas():
             extid = re.sub(fnstrip_re,'',extid)
             log.info("Preparing to parse extension data: %s as '%s'" % (ext_file_path, "#%s" % extid))
             parser = parsers.MakeParserOfType('rdfa', None)
+            all_layers[extid] = "1"
             extitems = parser.parse([ext_file_path], layer="#%s" % extid) # put schema triples in a layer
             # log.debug("Results: %s " % len( extitems) )
             for x in extitems:
