@@ -634,6 +634,11 @@ class ShowUnit (webapp2.RequestHandler):
         mappings = ["No recorded schema mappings."]
         items = bugs + mappings
 
+        items = [
+
+         "<a href='https://github.com/schemaorg/schemaorg/issues?q=is%3Aissue+is%3Aopen+{0}'>Check for open issues.</a>".format(node.id) 
+        ]
+
         moreinfo = """<div>
         <div id='infobox' style='text-align: right;'><b><span>[more...]</b></div>
         <div id='infomsg' style='display: none; background-color: #EEEEEE; text-align: left; padding: 0.5em;'>
