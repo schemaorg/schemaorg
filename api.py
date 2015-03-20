@@ -32,6 +32,7 @@ NodeIDMap = {}
 DataCache = {}
 ext_re = re.compile(r'([^\w,])+')
 all_layers = {}
+all_terms = {}
 
 class Unit ():
     """
@@ -237,10 +238,27 @@ class Triple ():
     @staticmethod
     def AddTriple(source, arc, target, layer='#core'):
         """AddTriple stores a thing-valued new Triple within source Unit."""
-        all_layers["%s%s" % ( layer, source.id ) ] = 1
+
         if (source == None or arc == None or target == None):
             return
         else:
+
+            # for any term mentioned as subject or object, we register the layer
+            # TODO: make this into a function
+            x = all_terms.get(source.id) # subjects
+            if x is None:
+                x = []
+            if layer not in x:
+                x.append(layer)
+            all_terms[source.id]= x
+
+            x = all_terms.get(target.id) # objects
+            if x is None:
+                x = []
+            if layer not in x:
+                x.append(layer)
+            all_terms[target.id]= x
+
             return Triple(source, arc, target, None, layer)
 
     @staticmethod
@@ -936,7 +954,8 @@ class ShowUnit (webapp2.RequestHandler):
 
         if ("#core" not in layers or len(layers)>1):
             ll = " ".join(layers).replace("#","")
-            s = "<p id='lli' class='layerinfo %s'><a href=\"https://github.com/schemaorg/schemaorg/wiki/ExtensionList\">extensions shown</a>: %s [<a href='/%s'>x</a>]</p>\n" % (ll, ll, node.id )
+
+            s = "<p id='lli' class='layerinfo %s'><a href=\"https://github.com/schemaorg/schemaorg/wiki/ExtensionList\">extensions shown</a>: %s [<a href='http://schema.org/%s'>x</a>]</p>\n" % (ll, ll, node.id )
             self.write( s )
             self.write("<!-- Layers: %s -->" % layers)
 
@@ -1170,10 +1189,15 @@ class ShowUnit (webapp2.RequestHandler):
             self.getExactTermPage(node, layerlist)
             return
         else:
-            log.info("Looking for node: %s in layers: %s" % (node.id, ",".join(layerlist)) )
-            if inLayer(all_layers, node):# look for it in other layers
-                log.info("TODO: layer toc")
-                self.write("Layers should be listed here.")
+            # log.info("Looking for node: %s in layers: %s" % (node.id, ",".join(all_layers.keys() )) )
+            if node is not None and node.id in all_terms:# look for it in other layers
+                log.info("TODO: layer toc: %s" % all_terms[node.id] )
+                # self.response.out.write("Layers should be listed here. %s " %  all_terms[node.id] )
+                self.response.out.write("<h3>Schema.org Extensions</h3>\n<p>The term '%s' is not in the schema.org core, but is described by the following extension(s):</p>\n<ul>\n" % node.id)
+                for x in all_terms[node.id]:
+                    x = x.replace("#","")
+                    self.response.out.write("<li><a href='?ext=%s'>%s</a>" % (x, x) )
+
             else:
               self.error(404)
               self.response.out.write('<title>404 Not Found.</title><a href="/">404 Not Found.</a><br/><br/>')
