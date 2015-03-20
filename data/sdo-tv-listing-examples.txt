@@ -6,11 +6,10 @@ WAAY is an affiliate of the ABC network and broadcasts in SD.
 MICRODATA:
 <div itemscope itemtype="http://schema.org/TelevisionStation">
   <span itemprop="name">WAAY-TV</span>
-  <span itemprop="displayName">ABC</span>
-  <span itemprop="screeningType">SD</span>
-  <span itemprop="timezone">PST</span>
-  <span itemprop="timezone">PDT</span>
-  <div itemprop="affiliateOf" itemscope itemtype="http://schema.org/Organization">
+  <span itemprop="broadcastDisplayName">ABC</span>
+  <span itemprop="videoFormat">SD</span>
+  <span itemprop="timezone" content="-8:00">PST</span>
+  <div itemprop="broadcastAffiliateOf" itemscope itemtype="http://schema.org/Organization">
     <span itemprop="name">ABC</span>
   </div>
 </div>
@@ -18,11 +17,10 @@ MICRODATA:
 RDFA:
 <div vocab="http://schema.org" typeof="TelevisionStation">
   <span property="name">WAAY-TV</span>
-  <span property="displayName">ABC</span>
-  <span property="screeningType">SD</span>
-  <span property="timezone">PST</span>
-  <span property="timezone">PDT</span>
-  <div property="affiliateOf" typeof="Organization">
+  <span property="broadcastDisplayName">ABC</span>
+  <span property="videoFormat">SD</span>
+  <span property="timezone content="-8:00">PST</span>
+  <div property="broadcastAffiliateOf" typeof="Organization">
     <span property="name">ABC</span>
   </div>
 </div>
@@ -34,13 +32,10 @@ JSON:
   "@context":"http://schema.org",
   "@type":"TelevisionStation",
   "name":"WAAY-TV",
-  "displayName":"ABC",
-  "screeningType":"SD",
-  "timezone":[
-    "PST",
-    "PDT"
-  ],
-  "affiliateOf":{
+  "broadcastDisplayName":"ABC",
+  "videoFormat":"SD",
+  "timezone": "-8:00",
+  "broadcastAffiliateOf":{
     "@type":"Organization",
     "name":"ABC"
   }
@@ -56,15 +51,15 @@ WAAY is channel 7 on Comcast cable.
 MICRODATA:
 <div itemscope itemtype="http://schema.org/TelevisionChannel">
   <span itemprop="name">WAAY 7</span>
-  <span itemprop="channel">7</span>
-  <span itemprop="serviceTier">Premium</span>
-  <div itemprop="inLineup" itemscope itemtype="http://schema.org/BroadcastService">
+  <span itemprop="televisionChannelId">7</span>
+  <span itemprop="televisionServiceTier">Premium</span>
+  <div itemprop="inBroadcastLineup" itemscope itemtype="http://schema.org/BroadcastService">
     <span itemprop="name">Comcast</span>
   </div>
-  <div itemprop="station" itemscope itemtype="http://schema.org/TelevisionStation">
+  <div itemprop="televisionChannelStation" itemscope itemtype="http://schema.org/TelevisionStation">
     <span itemprop="name">WAAY-TV</span>
-    <span itemprop="displayName">ABC</span>
-    <div itemprop="affiliateOf" itemscope itemtype="http://schema.org/Organization">
+    <span itemprop="broadcastDisplayName">ABC</span>
+    <div itemprop="broadcastAffiliateOf" itemscope itemtype="http://schema.org/Organization">
       <span itemprop="name">ABC</span>
     </div>
   </div>
@@ -73,15 +68,15 @@ MICRODATA:
 RDFA:
 <div vocab="http://schema.org" typeof="TelevisionChannel">
   <span property="name">WAAY 7</span>
-  <span property="channel">7</span>
-  <span property="serviceTier">Premium</span>
-  <div property="inLineup" typeof="BroadcastService">
+  <span property="televisionChannelId">7</span>
+  <span property="televisionServiceTier">Premium</span>
+  <div property="inBroadcastLineup" typeof="BroadcastService">
     <span property="name">Comcast</span>
   </div>
-  <div property="station" typeof="TelevisionStation">
+  <div property="televisionChannelStation" typeof="TelevisionStation">
     <span property="name">WAAY-TV</span>
-    <span property="displayName">ABC</span>
-    <div property="affiliateOf" typeof="Organization">
+    <span property="broadcastDisplayName">ABC</span>
+    <div property="broadcastAffiliateOf" typeof="Organization">
       <span property="name">ABC</span>
     </div>
   </div>
@@ -94,17 +89,17 @@ JSON:
   "@context":"http://schema.org",
   "@type":"TelevisionChannel",
   "name": "WAAY 7",
-  "channel":"7",
-  "serviceTier":"Premium",
-  "inLineup":{
+  "televisionChannelId":"7",
+  "televisionServiceTier":"Premium",
+  "inBroadcastLineup":{
     "@type":"BroadcastService",
     "name": "Comcast",
   },
-  "station":{
+  "televisionChannelStation":{
     "@type":"TelevisionStation",
     "name": "WAAY-TV",
-    "displayName": "ABC",
-    "affiliateOf":{
+    "broadcastDisplayName": "ABC",
+    "broadcastAffiliateOf":{
       "@type":"Organization",
       "name":"ABC"
     }
@@ -124,7 +119,7 @@ MICRODATA:
   <span itemprop="name">Modern Family - S6E8 - Three Turkeys</span>
   <span itemprop="description">Phil and Luke take over Thanksgiving duties.</span>
   <meta itemprop="IsLiveBroadcast" content="http://schema.org/False" />
-  <span itemprop="screeningType">HD</span>
+  <span itemprop="videoFormat">HD</span>
   <span itemprop="inLanguage">en</span>
   <span itemprop="subtitleLanguage">es</span>
   <span itemprop="startDate" content="2014-10-12T21:00">starts 10/12/2014 9:00PM</span>
@@ -142,7 +137,7 @@ RDFA:
   <span property="name">Modern Family - S6E8 - Three Turkeys</span>
   <span property="description">Phil and Luke take over Thanksgiving duties.</span>
   <meta property="IsLiveBroadcast" content="http://schema.org/False" />
-  <span property="screeningType">HD</span>
+  <span property="videoFormat">HD</span>
   <span property="inLanguage">en</span>
   <span property="subtitleLanguage">es</span>
   <span property="startDate" content="2014-10-12T21:00">starts 10/12/2014 9:00PM</span>
@@ -173,7 +168,7 @@ JSON:
   },
   "inLanguage":"en",
   "subtitleLanguage":"es",
-  "screeningType":"HD",
+  "videoFormat":"HD",
   "isLiveBroadcast":"False",
   "name":"Modern Family - S6E8 - Three Turkeys",
   "description":"Phil and Luke take over Thanksgiving duties."
