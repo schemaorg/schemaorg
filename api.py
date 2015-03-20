@@ -636,8 +636,12 @@ class ShowUnit (webapp2.RequestHandler):
 
         items = [
 
-         "<a href='https://github.com/schemaorg/schemaorg/issues?q=is%3Aissue+is%3Aopen+{0}'>Check for open issues.</a>".format(node.id) 
+         "<a href='https://github.com/schemaorg/schemaorg/issues?q=is%3Aissue+is%3Aopen+{0}'>Check for open issues.</a>".format(node.id)
         ]
+
+        for l in all_terms[node.id]:
+            l = l.replace("#","")
+            items.append("'{0}' is described in extension layer: <a href='?ext={1}'>{2}</a>".format( node.id, l, l ))
 
         moreinfo = """<div>
         <div id='infobox' style='text-align: right;'><b><span>[more...]</b></div>
