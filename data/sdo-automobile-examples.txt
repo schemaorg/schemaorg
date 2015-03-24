@@ -74,29 +74,31 @@ MICRODATA:
     <link itemprop="driveWheelConfiguration" href="http://schema.org/FWD" />
     Front Wheel Drive
   </p>
-  <p><strong>Engine: </strong>
-    <span itemprop="engineName">4 cylinder Petrol Turbo Intercooled 2.0 L (1984 cc)</span>
-  </p>
-  <p><strong>Engine Power: </strong>
-    <span itemprop="enginePower" itemscope itemtype="http://schema.org/QuantitativeValue">
-      <span itemprop="value">147</span> 
-      <meta itemprop="unitCode" content="KWT">kw
-      at <span itemprop="valueReference" itemscope itemtype="http://schema.org/QuantitativeValue">
-        <meta itemprop="name" content="referenceRPM"> 
-        <span itemprop="value">5100</span> 
-        <meta itemprop="unitCode" content="RPM">rpm
+  <div itemprop="engine" itemscope itemtype="http://schema.org/EngineSpecification">
+    <p><strong>Engine: </strong>
+      <span itemprop="name">4 cylinder Petrol Turbo Intercooled 2.0 L (1984 cc)</span>
+    </p>
+    <p><strong>Engine Power: </strong>
+      <span itemprop="enginePower" itemscope itemtype="http://schema.org/QuantitativeValue">
+        <span itemprop="value">147</span> 
+        <meta itemprop="unitCode" content="KWT">kw
+        at <span itemprop="valueReference" itemscope itemtype="http://schema.org/QuantitativeValue">
+          <meta itemprop="name" content="referenceRPM"> 
+          <span itemprop="value">5100</span> 
+          <meta itemprop="unitCode" content="RPM">rpm
+        </span>
       </span>
-    </span>
-  </p>
-  <p><strong>Fuel type: </strong>
-    <span itemprop="fuelType">Petrol - Premium ULP</span>     
-  </p>
-  <p><strong>Engine Size: </strong>
-    <span itemprop="engineDisplacement" itemscope itemtype="http://schema.org/QuantitativeValue">
-      <span itemprop="value">1984</span> 
-      <meta itemprop="unitCode" content="CMQ">ccm
-    </span>
-  </p>
+    </p>
+    <p><strong>Fuel type: </strong>
+      <span itemprop="fuelType">Petrol - Premium ULP</span>     
+    </p>
+    <p><strong>Engine Size: </strong>
+      <span itemprop="engineDisplacement" itemscope itemtype="http://schema.org/QuantitativeValue">
+        <span itemprop="value">1984</span> 
+        <meta itemprop="unitCode" content="CMQ">ccm
+      </span>
+    </p>
+  </div>
   <p><strong>Mileage: </strong>
     <span itemprop="mileageFromOdometer" itemscope itemtype="http://schema.org/QuantitativeValue">
       <span itemprop="value">53100</span> 
@@ -145,29 +147,31 @@ RDFA:
         <link property="driveWheelConfiguration" href="http://schema.org/FWD" />
         Front Wheel Drive
       </p>
-      <p><strong>Engine: </strong>
-        <span property="engineName">4 cylinder Petrol Turbo Intercooled 2.0 L (1984 cc)</span>
-      </p>
-      <p><strong>Engine Power: </strong>
-        <span property="enginePower" typeof="QuantitativeValue">
-          <span property="value">147</span> 
-          <meta property="unitCode" content="KWT">kw
-          at <span property="valueReference" typeof="QuantitativeValue">
-            <meta property="name" content="referenceRPM"> 
-            <span property="value">5100</span> 
-            <meta property="unitCode" content="RPM">rpm
+      <div property="engine" typeOf="EngineSpecification">
+        <p><strong>Engine: </strong>
+          <span property="name">4 cylinder Petrol Turbo Intercooled 2.0 L (1984 cc)</span>
+        </p>
+        <p><strong>Engine Power: </strong>
+          <span property="enginePower" typeof="QuantitativeValue">
+            <span property="value">147</span> 
+            <meta property="unitCode" content="KWT">kw
+            at <span property="valueReference" typeof="QuantitativeValue">
+              <meta property="name" content="referenceRPM"> 
+              <span property="value">5100</span> 
+              <meta property="unitCode" content="RPM">rpm
+            </span>
           </span>
-        </span>
-      </p>
-      <p><strong>Fuel type: </strong>
-        <span property="fuelType">Petrol - Premium ULP</span>
-      </p>
-      <p><strong>Engine Size: </strong>
-        <span property="engineDisplacement" typeof="QuantitativeValue">
-          <span property="value">1984</span> 
-          <meta property="unitCode" content="CMQ">ccm
-        </span>
-      </p>
+        </p>
+        <p><strong>Fuel type: </strong>
+          <span property="fuelType">Petrol - Premium ULP</span>
+        </p>
+        <p><strong>Engine Size: </strong>
+          <span property="engineDisplacement" typeof="QuantitativeValue">
+            <span property="value">1984</span> 
+            <meta property="unitCode" content="CMQ">ccm
+          </span>
+        </p>
+      </div>
       <p><strong>Mileage: </strong>
         <span property="mileageFromOdometer" typeof="QuantitativeValue">
           <span property="value">53100</span> 
@@ -209,23 +213,26 @@ JSON:
         "doors" : "3",
         "seatingCapacity" : "5",
         "driveWheelConfiguration" : "http://schema.org/FWD",
-        "engineName" : "4 cylinder Petrol Turbo Intercooled 2.0 L (1984 cc)",
-        "enginePower" : { 
-            "@type" : "QuantitativeValue",
-            "value" : "147",
-            "unitCode" : "KWT",
-            "valueReference" : {
+        "engine" : {
+            "@type": "EngineSpecification",
+            "name" : "4 cylinder Petrol Turbo Intercooled 2.0 L (1984 cc)",
+            "enginePower" : { 
                 "@type" : "QuantitativeValue",
-                "name" : "referenceRPM", 
-                "value" : "5100",
-                "unitCode" : "RPM" }
+                "value" : "147",
+                "unitCode" : "KWT",
+                "valueReference" : {
+                    "@type" : "QuantitativeValue",
+                    "name" : "referenceRPM", 
+                    "value" : "5100",
+                    "unitCode" : "RPM" }
                         },
-        "fuelType" : "Petrol - Premium ULP",
-        "engineDisplacement" : {
-            "@type": "QuantitativeValue",
-            "value" : "1984",
-            "unitCode" : "CMQ"
-                        },
+            "fuelType" : "Petrol - Premium ULP",
+            "engineDisplacement" : {
+                "@type": "QuantitativeValue",
+                "value" : "1984",
+                "unitCode" : "CMQ"
+                        }
+                    },
         "mileageFromOdometer" : {
             "@type" : "QuantitativeValue",
             "value" : "53100",
