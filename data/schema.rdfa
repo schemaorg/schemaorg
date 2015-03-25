@@ -6235,6 +6235,7 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
       <span property="rdfs:comment">exif data for this object.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ImageObject">ImageObject</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+	  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/PropertyValue">PropertyValue</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/expectedArrivalFrom">
       <span class="h" property="rdfs:label">expectedArrivalFrom</span>
@@ -7139,7 +7140,9 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
       <span class="h" property="rdfs:label">maxValue</span>
       <span property="rdfs:comment">The upper value of some characteristic or property.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/QuantitativeValue">QuantitativeValue</a></span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/PropertyValueSpecification">PropertyValueSpecification</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/PropertyValue">PropertyValue</a></span>
+	  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/PropertyValueSpecification">PropertyValueSpecification</a></span>
+	  
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number">Number</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/mechanismOfAction">
@@ -7228,7 +7231,8 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
       <span class="h" property="rdfs:label">minValue</span>
       <span property="rdfs:comment">The lower value of some characteristic or property.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/QuantitativeValue">QuantitativeValue</a></span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/PropertyValueSpecification">PropertyValueSpecification</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/PropertyValue">PropertyValue</a></span>
+	  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/PropertyValueSpecification">PropertyValueSpecification</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number">Number</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/model">
@@ -9117,11 +9121,14 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/unitCode">
       <span class="h" property="rdfs:label">unitCode</span>
-      <span property="rdfs:comment">The unit of measurement given using the UN/CEFACT Common Code (3 characters).</span>
+      <span property="rdfs:comment">The unit of measurement given using the UN/CEFACT Common Code (3 characters) or a URL. Other codes than the UN/CEFACT Common Code may be used with a prefix followed by a colon.</span>
+	  
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/QuantitativeValue">QuantitativeValue</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/TypeAndQuantityNode">TypeAndQuantityNode</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/UnitPriceSpecification">UnitPriceSpecification</a></span>
+	  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/PropertyValue">PropertyValue</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+	  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/URL">URL</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/unsaturatedFatContent">
       <span class="h" property="rdfs:label">unsaturatedFatContent</span>
@@ -9192,10 +9199,14 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/value">
       <span class="h" property="rdfs:label">value</span>
-      <span property="rdfs:comment">The value of the product characteristic.</span>
+      <span property="rdfs:comment">The value of the quantitative value or property value node. For QuantitativeValue, the recommended type for values is &apos;Number&apos;. For PropertyValue, it can be &apos;Text;&apos;, &apos;Number&apos;, &apos;Boolean&apos;, or &apos;StructuredValue&apos;.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/QuantitativeValue">QuantitativeValue</a></span>
+	  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/PropertyValue">PropertyValue</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number">Number</a></span>
-    </div>
+	  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+	  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Boolean">Boolean</a></span>
+	  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/StructuredValue">StructuredValue</a></span>
+    </div>	
     <div typeof="rdf:Property" resource="http://schema.org/valueAddedTaxIncluded">
       <span class="h" property="rdfs:label">valueAddedTaxIncluded</span>
       <span property="rdfs:comment">Specifies whether the applicable value-added tax (VAT) is included in the price specification or not.</span>
@@ -9207,8 +9218,14 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
       <span property="rdfs:comment">A pointer to a secondary value that provides additional information on the original value, e.g. a reference temperature.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/QualitativeValue">QualitativeValue</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/QuantitativeValue">QuantitativeValue</a></span>
+	  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/PropertyValue">PropertyValue</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Enumeration">Enumeration</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/StructuredValue">StructuredValue</a></span>
+      <!-- Note: The following is logically redundant, but it will give prominence to the most useful types for user -->
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/PropertyValue">PropertyValue</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/QualitativeValue">QualitativeValue</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/QuantitativeValue">QuantitativeValue</a></span>
+      <!-- end of hints -->	  
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/vatID">
       <span class="h" property="rdfs:label">vatID</span>
@@ -11837,6 +11854,48 @@ postponing for 1.6.
       <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group">GAO</a></span>
     </div>  
 
+<!-- Property-Value Support as per https://www.w3.org/wiki/WebSchemas/PropertyValuePairs -->  
+<h1>Property-Value Support</h1>
+<div typeof="rdfs:Class" resource="http://schema.org/PropertyValue">
+    <span class="h" property="rdfs:label">PropertyValue</span>
+    <span property="rdfs:comment">A property-value pair, e.g. representing a feature of a product or place. Use the &apos;name&apos; property for the name of the property. If there is an additional human-readable version of the value, put that into the &apos;description&apos; property</span>
+    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/StructuredValue">StructuredValue</a></span>
+    <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsClass">GoodRelationsClass</a></span>
+</div>
+<div typeof="rdf:Property" resource="http://schema.org/additionalProperty">
+    <span class="h" property="rdfs:label">additionalProperty</span>
+    <span property="rdfs:comment">A property-value pair representing an additional characteristics of the entitity, e.g. a product feature or another characteristic for which there is no matching property in schema.org. &lt;br /&gt;&lt;br /&gt;
+
+Note: Publishers should be aware that applications designed to use specific schema.org properties (e.g. http://schema.org/width, http://schema.org/color, http://schema.org/gtin13, ...) will typically expect such data to be provided using those properties, rather than using the generic property/value mechanism.
+</span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Product">Product</a></span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Place">Place</a></span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/QualitativeValue">QualitativeValue</a></span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/QuantitativeValue">QuantitativeValue</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/PropertyValue">PropertyValue</a></span>
+</div>
+<div typeof="rdf:Property" resource="http://schema.org/unitText">
+    <span class="h" property="rdfs:label">unitText</span>
+    <span property="rdfs:comment">A string or text indicating the unit of measurement. Useful if you cannot provide a standard unit code for
+&lt;a href=&#39;unitCode&#39;&gt;unitCode&lt;/a&gt;.</span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/PropertyValue">PropertyValue</a></span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/QuantitativeValue">QuantitativeValue</a></span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/TypeAndQuantityNode">TypeAndQuantityNode</a></span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/UnitPriceSpecification">UnitPriceSpecification</a></span>      
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+</div>
+<div typeof="rdf:Property" resource="http://schema.org/propertyID">
+    <span class="h" property="rdfs:label">propertyID</span>
+    <span property="rdfs:comment">A commonly used identifier for the characteristic represented by the property, e.g. a manufacturer or a standard code for a property. propertyID can be
+(1) a prefixed string, mainly meant to be used with standards for product properties; (2) a site-specific, non-prefixed string (e.g. the primary key of the property or the vendor-specific id of the property), or (3)
+a URL indicating the type of the property, either pointing to an external vocabulary, or a Web resource that describes the property (e.g. a glossary entry). 
+Standards bodies should promote a standard prefix for the identifiers of properties from their standards.</span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/PropertyValue">PropertyValue</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/URL">URL</a></span>
+</div>
+<!-- property name goes in schema:name -->
+<!-- unstructured textual properties or human-readable version should go in schema:description -->
 </body>
 
 </html>
