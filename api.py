@@ -328,7 +328,7 @@ def GetImmediateSupertypes(n, layers='#core'):
     """Get this type's immediate supertypes, i.e. that we are subClassOf."""
     if n==None:
         return None
-    return GetTargets( Unit.GetUnit("rdfs:subClassOf"), n, layers=layer)
+    return GetTargets( Unit.GetUnit("rdfs:subClassOf"), n, layers=layers)
 
 def GetAllTypes(layers='#core'):
     """Return all types in the graph."""
