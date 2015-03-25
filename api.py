@@ -12,6 +12,8 @@ import logging
 import parsers
 import headers
 import os
+import csv
+import StringIO
 
 logging.basicConfig(level=logging.INFO) # dev_appserver.py --log_level debug .
 log = logging.getLogger(__name__)
@@ -1184,6 +1186,124 @@ class ShowUnit (webapp2.RequestHandler):
                 log.debug("Serving fresh JSONLDThingTree.")
                 DataCache["JSONLDThingTree"] = thing_tree
 
+                return
+
+        if (node == "docs/all-types.csv"):
+            self.response.headers['Content-Type'] = "text/csv;charset=utf-8"
+            self.response.headers['Content-Disposition'] = "attachment"
+            self.emitCacheHeaders()
+
+            if DataCache.get('CSVTypes'):
+                self.response.out.write( DataCache.get('CSVTypes') )
+                log.debug("Serving cached CSVTypes.")
+                return
+
+            else:
+                out = StringIO.StringIO()
+                writer = csv.writer(out)
+                writer.writerow(['Id', 'Comment',
+                        'Hierarchy', 'Supertypes', 'Subtypes', 'DirectProperties', 'EnumValues'])
+
+                types = GetAllTypes()
+                domainIncludes = Unit.GetUnit('domainIncludes')
+                typeOf = Unit.GetUnit('typeOf')
+                for type in sorted(types, key = lambda t: t.id):
+                    ancestors = []
+                    supertypes = map(lambda t: t.id, GetImmediateSupertypes(type))
+                    subtypes = map(lambda t: t.id, GetImmediateSubtypes(type))
+                    parents = GetImmediateSupertypes(type)
+                    while parents != None and len(parents) > 0:
+                        ancestors.append(parents[0].id)
+                        parents = GetImmediateSupertypes(parents[0])
+                    props = map(lambda p: p.id, GetSources(domainIncludes, type))
+                    if type.isEnumeration():
+                        enumValues = map(lambda v: v.id, GetSources(typeOf, type))
+                    else:
+                        enumValues = []
+
+                    row = []
+                    row.append(type.id)
+                    row.append(GetComment(type).strip().encode('utf-8'))
+                    row.append(' '.join(ancestors))
+                    row.append(' '.join(supertypes))
+                    row.append(' '.join(subtypes))
+                    row.append(' '.join(sorted(props)))
+                    row.append(' '.join(sorted(enumValues)))
+                    writer.writerow(row)
+
+                self.response.out.write(out.getvalue())
+                DataCache['CSVTypes'] = out.getvalue()
+                log.debug("Serving fresh CSVTypes.")
+                return
+
+        if (node == "docs/all-properties.csv"):
+            self.response.headers['Content-Type'] = "text/csv;charset=utf-8"
+            self.response.headers['Content-Disposition'] = "attachment"
+            self.emitCacheHeaders()
+
+            if DataCache.get('CSVProperties'):
+                self.response.out.write( DataCache.get('CSVProperties') )
+                log.debug("Serving cached CSVProperties.")
+                return
+
+            else:
+                out = StringIO.StringIO()
+                writer = csv.writer(out)
+                writer.writerow(['Id', 'Comment', 'DomainIncludes', 'RangeIncludes'])
+
+                types = GetAllTypes()
+                domainIncludes = Unit.GetUnit('domainIncludes')
+                rangeIncludes = Unit.GetUnit('rangeIncludes')
+                allProperties = {}
+                for type in types:
+                    for prop in GetSources(domainIncludes, type):
+                        allProperties[prop.id] = prop
+                for pid in sorted(allProperties.keys()):
+                    prop = allProperties[pid]
+                    domains = map(lambda t: t.id, GetTargets(domainIncludes, prop))
+                    ranges = map(lambda t: t.id, GetTargets(rangeIncludes, prop))
+
+                    row = []
+                    row.append(pid)
+                    row.append(GetComment(prop).strip().encode('utf-8'))
+                    row.append(' '.join(sorted(domains)))
+                    row.append(' '.join(sorted(ranges)))
+                    writer.writerow(row)
+
+                self.response.out.write(out.getvalue())
+                DataCache['CSVProperties'] = out.getvalue()
+                log.debug("Serving fresh CSVProperties.")
+                return
+
+        if (node == "docs/all-enumerations.csv"):
+            self.response.headers['Content-Type'] = "text/csv;charset=utf-8"
+            self.response.headers['Content-Disposition'] = "attachment"
+            self.emitCacheHeaders()
+
+            if DataCache.get('CSVEnumerations'):
+                self.response.out.write( DataCache.get('CSVEnumerations') )
+                log.debug("Serving cached CSVEnumerations.")
+                return
+
+            else:
+                out = StringIO.StringIO()
+                writer = csv.writer(out)
+                writer.writerow(['Enumeration', 'Value', 'Comment'])
+
+                types = GetAllTypes()
+                typeOf = Unit.GetUnit('typeOf')
+                for type in sorted(types, key = lambda t: t.id):
+                    if not type.isEnumeration(): continue
+                    for value in sorted(GetSources(typeOf, type), key = lambda v: v.id):
+                        row = []
+                        row.append(type.id)
+                        row.append(value.id)
+                        row.append(GetComment(value).strip().encode('utf-8'))
+                        writer.writerow(row)
+
+                self.response.out.write(out.getvalue())
+                DataCache['CSVEnumerations'] = out.getvalue()
+                log.debug("Serving fresh CSVEnumerations.")
                 return
 
         # Next: pages based on request path matching a Unit in the term graph.
