@@ -96,7 +96,7 @@ class RDFAParser :
     def __init__ (self, webapp):
         self.webapp = webapp
 
-    def parse (self, files, layer="#core"):
+    def parse (self, files, layer="core"):
         self.items = {}
         root = []
         for i in range(len(files)):
@@ -121,7 +121,7 @@ class RDFAParser :
         else:
             return str
 
-    def extractTriples(self, elem, currentNode, layer="#core"):
+    def extractTriples(self, elem, currentNode, layer="core"):
         typeof = elem.get('typeof')
         resource = elem.get('resource')
         href = elem.get('href')

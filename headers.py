@@ -16,11 +16,8 @@ headers = '''<!DOCTYPE html>
     <title>%s - schema.org</title>
     <meta name="description" content="Schema.org is a set of extensible schemas that enables webmasters to embed
     structured data on their web pages for use by search engines and other applications." />
-    <link rel="stylesheet" type="text/css"
-          href="/docs/schemaorg.css" />
-
-    <link href="/docs/prettify.css" type="text/css"
-          rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="/docs/schemaorg.css" />
+    <link href="/docs/prettify.css" type="text/css" rel="stylesheet" />
     <script type="text/javascript" src="/docs/prettify.js">
     </script>
     <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
@@ -69,7 +66,7 @@ headers = '''<!DOCTYPE html>
 </style>
 
 </head>
-<body>
+<body class="%s">
     <div id="container">
         <div id="intro">
             <div id="pageHeader">
@@ -118,7 +115,7 @@ headers = '''<!DOCTYPE html>
 
 '''
 
-def OutputSchemaorgHeaders(webapp, entry='', is_class=False, ext_mappings=''):
+def OutputSchemaorgHeaders(webapp, entry='', is_class=False, ext_mappings='', sitemode="default"):
     """
     Generates the headers for class and property pages
 
@@ -128,5 +125,5 @@ def OutputSchemaorgHeaders(webapp, entry='', is_class=False, ext_mappings=''):
     rdfs_type = 'rdfs:Property'
     if is_class:
         rdfs_type = 'rdfs:Class'
-    out = headers % (str(entry), rdfs_type, str(entry), ext_mappings)
+    out = headers % (str(entry), sitemode, rdfs_type, str(entry), ext_mappings)
     webapp.response.write(out)

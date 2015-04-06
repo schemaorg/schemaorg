@@ -50,16 +50,17 @@ color: #990000;
 letter-spacing: -1px;
 margin: 2em 0 0 0;
 }
-h2
-{
+
+h2 {
 border-top: 1px solid #990000;
 padding-top: 5px;
-clear: both, color: #990000;
+clear: both;
+color: #990000;
 font: normal 18px Helvetica, Arial, sans-serif;
 margin: 2em 0 0 0;
 }
-h3
-{
+
+h3 {
 font-size: 12px;
 color: #660000;
 margin: 1em 0 0 0;
@@ -95,7 +96,7 @@ overflow: auto;
 width: 100%;
 height: 80px;
 background: #990000;
-position: top;
+position: top; /* TODO: this is wrong */
 }
 #pageHeader h1
 {
@@ -423,12 +424,8 @@ input.gsc-search-button {
 
 
 .layerinfo {
-//    position: fixed;
-//   top: 0;
     width: 100%; /* compatibility */
-//    background: #c33;
     background-color: #990000;
-    //background-color: #fff;
     color: #fff;
     text-align: right;
     font-weight: bold;
@@ -436,3 +433,18 @@ input.gsc-search-button {
 }
 #lli a:link {  text-decoration: underline; color : #fff;  background-color: #990000; text-decoration: none; }
 #lli a:visited {  text-decoration: underline; color : #fff;  background-color: #990000; text-decoration: none; }
+
+
+/* Style overrides based on sitemode */
+
+	
+div testmode {
+  color: green;
+  background-color: #DDFF00;
+  background: #DDFF00;
+  font-weight: 900;
+
+  /* background-image: url(/docs/draft.jpg);
+  background-repeat:repeat; */
+
+}
