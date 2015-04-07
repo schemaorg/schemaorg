@@ -18,7 +18,7 @@ log = logging.getLogger(__name__)
 
 SCHEMA_VERSION=1.999999
 sitemode = "mainsite" # whitespaced list for CSS tags,
-            # e.g. "mainsite testmode" when off expected domains
+            # e.g. "mainsite testsite" when off expected domains
             # "extensionsite" when in an extension (e.g. blue?)
 
 #TODO: Modes:
@@ -973,7 +973,7 @@ class ShowUnit (webapp2.RequestHandler):
         global sitemode;
 
         if ("schema.org" not in os_host and sitemode == "mainsite"):
-            sitemode = "mainsite testmode"
+            sitemode = "mainsite testsite"
 
         headers.OutputSchemaorgHeaders(self, node.id, node.isClass(), ext_mappings, sitemode)
 
