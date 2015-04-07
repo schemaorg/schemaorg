@@ -11899,7 +11899,7 @@ Standards bodies should promote a standard prefix for the identifiers of propert
   <h1>TV Listing additions</h1>
     <div typeof="rdf:Property" resource="http://schema.org/broadcastAffiliateOf">
       <span class="h" property="rdfs:label">broadcastAffiliateOf</span>
-      <span property="rdfs:comment">The television network(s) whose content is broadcast on this station.</span>
+      <span property="rdfs:comment">The media network(s) whose content is broadcast on this station.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/BroadcastService">BroadcastService</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Organization">Organization</a></span>
     </div>
@@ -11911,13 +11911,13 @@ Standards bodies should promote a standard prefix for the identifiers of propert
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/timezone">
       <span class="h" property="rdfs:label">timezone</span>
-      <span property="rdfs:comment">The timezone in &lt;a href=&#39;http://en.wikipedia.org/wiki/ISO_8601&#39;&gt;ISO 8601 format&lt;/a&gt;for which the TV station bases its broadcasts.</span>
+      <span property="rdfs:comment">The timezone in &lt;a href=&#39;http://en.wikipedia.org/wiki/ISO_8601&#39;&gt;ISO 8601 format&lt;/a&gt;for which the service bases its broadcasts.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/BroadcastService">BroadcastService</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/isLiveBroadcast">
       <span class="h" property="rdfs:label">isLiveBroadcast</span>
-      <span property="rdfs:comment">True is the broadcast is of a live event..</span>
+      <span property="rdfs:comment">True is the broadcast is of a live event.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/BroadcastEvent">BroadcastEvent</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Boolean">Boolean</a></span>
     </div>
@@ -11935,12 +11935,12 @@ Standards bodies should promote a standard prefix for the identifiers of propert
     <div typeof="rdfs:Class" resource="http://schema.org/TelevisionChannel">
       <span class="h" property="rdfs:label">TelevisionChannel</span>
       <span property="rdfs:comment">A unique instance of a television BroadcastService on a CableOrSatelliteService lineup.</span>
-      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/BroadcastChannel">Intangible</a></span>
+      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/BroadcastChannel">BroadcastChannel</a></span>
    </div>
     <div typeof="rdfs:Class" resource="http://schema.org/RadioChannel">
       <span class="h" property="rdfs:label">RadioChannel</span>
       <span property="rdfs:comment">A unique instance of a radio BroadcastService on a CableOrSatelliteService lineup.</span>
-      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/BroadcastChannel">Intangible</a></span>
+      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/BroadcastChannel">BroadcastChannel</a></span>
    </div>
     <div typeof="rdf:Property" resource="http://schema.org/broadcastChannelId">
       <span class="h" property="rdfs:label">broadcastChannelId</span>
@@ -11951,7 +11951,7 @@ Standards bodies should promote a standard prefix for the identifiers of propert
     <div typeof="rdf:Property" resource="http://schema.org/inBroadcastLineup">
       <span class="h" property="rdfs:label">inBroadcastLineup</span>
       <span property="rdfs:comment">The CableOrSatelliteService offering the channel.</span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/BroadcastService">BroadcastService</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/BroadcastChannel">BroadcastChannel</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/CableOrSatelliteService">CableOrSatelliteService</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/broadcastServiceTier">
