@@ -1,0 +1,176 @@
+TYPES: Organization,BroadcastService
+
+PRE-MARKUP:
+WAAY is an affiliate of the ABC network and broadcasts in SD.
+
+MICRODATA:
+<div itemscope itemtype="http://schema.org/BroadcastService">
+  <span itemprop="name">WAAY-TV</span>
+  <span itemprop="broadcastDisplayName">ABC</span>
+  <span itemprop="videoFormat">SD</span>
+  <span itemprop="timezone" content="-8:00">PST</span>
+  <div itemprop="broadcastAffiliateOf" itemscope itemtype="http://schema.org/Organization">
+    <span itemprop="name">ABC</span>
+  </div>
+</div>
+
+RDFA:
+<div vocab="http://schema.org" typeof="BroadcastService">
+  <span property="name">WAAY-TV</span>
+  <span property="broadcastDisplayName">ABC</span>
+  <span property="videoFormat">SD</span>
+  <span property="timezone content="-8:00">PST</span>
+  <div property="broadcastAffiliateOf" typeof="Organization">
+    <span property="name">ABC</span>
+  </div>
+</div>
+
+
+JSON:
+<script type="application/ld+json">
+{
+  "@context":"http://schema.org",
+  "@type":"BroadcastService",
+  "name":"WAAY-TV",
+  "broadcastDisplayName":"ABC",
+  "videoFormat":"SD",
+  "timezone": "-8:00",
+  "broadcastAffiliateOf":{
+    "@type":"Organization",
+    "name":"ABC"
+  }
+}
+</script>
+
+TYPES: Organization,BroadcastService,TelevisionChannel,CableOrSatelliteService
+
+
+PRE-MARKUP:
+WAAY is channel 7 on Comcast cable.
+
+MICRODATA:
+<div itemscope itemtype="http://schema.org/TelevisionChannel">
+  <span itemprop="name">WAAY 7</span>
+  <span itemprop="broadcastChannelId">7</span>
+  <span itemprop="broadcastServiceTier">Premium</span>
+  <div itemprop="inBroadcastLineup" itemscope itemtype="http://schema.org/CableOrSatelliteProvider">
+    <span itemprop="name">Comcast</span>
+  </div>
+  <div itemprop="providesBroadcastService" itemscope itemtype="http://schema.org/BroadcastService">
+    <span itemprop="name">WAAY-TV</span>
+    <span itemprop="broadcastDisplayName">ABC</span>
+    <div itemprop="broadcastAffiliateOf" itemscope itemtype="http://schema.org/Organization">
+      <span itemprop="name">ABC</span>
+    </div>
+  </div>
+</div>
+
+RDFA:
+<div vocab="http://schema.org" typeof="TelevisionChannel">
+  <span property="name">WAAY 7</span>
+  <span property="broadcastChannelId">7</span>
+  <span property="broadcastServiceTier">Premium</span>
+  <div property="inBroadcastLineup" typeof="CableOrSatelliteService">
+    <span property="name">Comcast</span>
+  </div>
+  <div property="providesBroadcastService" typeof="BroadcastService">
+    <span property="name">WAAY-TV</span>
+    <span property="broadcastDisplayName">ABC</span>
+    <div property="broadcastAffiliateOf" typeof="Organization">
+      <span property="name">ABC</span>
+    </div>
+  </div>
+</div>
+
+
+JSON:
+<script type="application/ld+json">
+{
+  "@context":"http://schema.org",
+  "@type":"TelevisionChannel",
+  "name": "WAAY 7",
+  "broadcastChannelId":"7",
+  "broadcastServiceTier":"Premium",
+  "inBroadcastLineup":{
+    "@type":"CableOrSatelliteService",
+    "name": "Comcast",
+  },
+  "providesBroadcastService":{
+    "@type":"BroadcastService",
+    "name": "WAAY-TV",
+    "broadcastDisplayName": "ABC",
+    "broadcastAffiliateOf":{
+      "@type":"Organization",
+      "name":"ABC"
+    }
+  }
+}
+</script>
+
+
+TYPES: BroadcastEvent,BroadcastService,TVEpisode
+
+
+PRE-MARKUP:
+WAAY is broadcasting Modern Family at 9:00PM on October 12, 2014 in English with Spanish subtitles available.
+
+MICRODATA:
+<div itemscope itemtype="http://schema.org/BroadcastEvent">
+  <span itemprop="name">Modern Family - S6E8 - Three Turkeys</span>
+  <span itemprop="description">Phil and Luke take over Thanksgiving duties.</span>
+  <meta itemprop="IsLiveBroadcast" content="http://schema.org/False" />
+  <span itemprop="videoFormat">HD</span>
+  <span itemprop="inLanguage">en</span>
+  <span itemprop="subtitleLanguage">es</span>
+  <span itemprop="startDate" content="2014-10-12T21:00">starts 10/12/2014 9:00PM</span>
+  <span itemprop="endDate" content="2014-10-12T21:30">ends 10/12/2014 9:30PM</span>
+  <div itemprop="publishedOn" itemscope itemtype="http://schema.org/BroadcastService">
+    <span itemprop="name">WAAY-TV</span>
+  </div>
+  <div itemprop="workPerformed" itemscope itemtype="http://schema.org/TVEpisode">
+    <span itemprop="name">Modern Family: Three Turkeys</span>
+  </div>
+</div>
+
+RDFA:
+<div vocab="http://schema.org" typeof="BroadcastEvent">
+  <span property="name">Modern Family - S6E8 - Three Turkeys</span>
+  <span property="description">Phil and Luke take over Thanksgiving duties.</span>
+  <meta property="IsLiveBroadcast" content="http://schema.org/False" />
+  <span property="videoFormat">HD</span>
+  <span property="inLanguage">en</span>
+  <span property="subtitleLanguage">es</span>
+  <span property="startDate" content="2014-10-12T21:00">starts 10/12/2014 9:00PM</span>
+  <span property="endDate" content="2014-10-12T21:30">ends 10/12/2014 9:30PM</span>
+  <div property="publishedOn" typeof="BroadcastService">
+    <span property="name">WAAY-TV</span>
+  </div>
+  <div property="workPerformed" typeof="TVEpisode">
+    <span property="name">Modern Family: Three Turkeys</span>
+  </div>
+</div>
+
+
+JSON:
+<script type="application/ld+json">
+{
+  "@context":"http://schema.org",
+  "@type":"BroadcastEvent",
+  "startDate":"2014-10-12T21:00",
+  "endDate":"2014-10-12T21:30",
+  "publishedOn":{
+    "@type":"BroadcastService",
+    "name: "WAAY-TV"
+  },
+  "workPerformed":{
+    "@type":"CreativeWork",
+    "name": "Modern Family: Three Turkeys"
+  },
+  "inLanguage":"en",
+  "subtitleLanguage":"es",
+  "videoFormat":"HD",
+  "isLiveBroadcast":"False",
+  "name":"Modern Family - S6E8 - Three Turkeys",
+  "description":"Phil and Luke take over Thanksgiving duties."
+}
+</script>

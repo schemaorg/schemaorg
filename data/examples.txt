@@ -4261,7 +4261,7 @@ This example is JSON only.
 
 JSON:
 
-<!--  John won a Nobel prize. -->
+<!--  John won a book about the Nobel prize. -->
 <script type="application/ld+json">
 {
   "@context": "http://schema.org",
@@ -4271,8 +4271,8 @@ JSON:
     "name": "John"
   },
   "object": {
-    "@type": "Award",
-    "name": "Nobel prize"
+    "@type": "Book",
+    "name": "Top 1000 Things You Didn't Know about Nobel prizes"
   }
 }
 </script>
@@ -10007,7 +10007,10 @@ Flight: United Airlines Flight 110
 Operated By: Continental Airlines
 Departing: San Francisco Airport (SFO) 2017-03-04T20:15:00-08:00
 Arriving: John F. Kennedy International Airport (JFK) 2017-03-05T06:30:00-05:00
-
+Passenger Sequence Number: ABC123
+Boarding priority: FastTrack
+Boarding policy: zone-based
+Security screening: TSA PreCheck
 
 MICRODATA:
 
@@ -10025,6 +10028,9 @@ JSON:
   "@type": "FlightReservation",
   "reservationId": "RXJ34P",
   "reservationStatus": "http://schema.org/ReservationConfirmed",
+  "passengerPriorityStatus": "Fast Track",
+  "passengerSequenceNumber": "ABC123",
+  "securityScreening": "TSA PreCheck",
   "underName": {
     "@type": "Person",
     "name": "Eva Green"
@@ -10035,7 +10041,8 @@ JSON:
     "provider": {
       "@type": "Airline",
       "name": "Continental",
-      "iataCode": "CO"
+      "iataCode": "CO",
+      "boardingPolicy": "http://schema.org/ZoneBoardingPolicy"
     },
     "seller": {
       "@type": "Airline",
