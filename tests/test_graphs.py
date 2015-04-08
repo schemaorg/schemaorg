@@ -28,7 +28,8 @@ class SDOGraphSetupTestCase(unittest.TestCase):
   def parseRDFaFilesWithRDFLib(self):
       """Parse data/*rdfa into a data object and an error object with rdflib.
       We glob so that work-in-progress schemas can be stored separately. For
-      final publication, a single schema file is used."""
+      final publication, a single schema file is used. Note that this does 
+      not yet load or test any extension schemas beneath data/ext/*."""
 
       from rdflib import Graph
       files = glob.glob("data/*.rdfa")

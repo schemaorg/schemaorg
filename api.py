@@ -34,7 +34,7 @@ JINJA_ENVIRONMENT = jinja2.Environment(
 ENABLE_JSONLD_CONTEXT = True
 DYNALOAD=True # permits read_schemas to be re-invoked live.
 
-os_host = os.environ['HTTP_HOST']
+os_host = os.environ.get('HTTP_HOST', 'localhost')
 host_ext = re.match(r'(\w*)[.:]',os_host)
 
 # Core API: we have a single schema graph built from triples and units.
