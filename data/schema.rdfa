@@ -3781,6 +3781,36 @@
        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Intangible">Intangible</a></span>
     </div>
 
+    <div typeof="rdfs:Class" resource="http://schema.org/OrderItem">
+        <span class="h" property="rdfs:label">OrderItem</span>
+        <span property="rdfs:comment">An order item is a line of an order. It includes the quantity and shipping details of a bought offer.</span>
+        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Intangible">Intangible</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/orderQuantity">
+        <span class="h" property="rdfs:label">orderQuantity</span>
+        <span property="rdfs:comment">The number of the item ordered. If the property is not set, assume the quantity is one.</span>
+        <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/OrderItem">OrderItem</a></span>
+        <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number">Number</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/orderItemStatus">
+        <span class="h" property="rdfs:label">orderItemStatus</span>
+        <span property="rdfs:comment">The current status of the order item.</span>
+        <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/OrderItem">OrderItem</a></span>
+        <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/OrderStatus">OrderStatus</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/orderItemNumber">
+        <span class="h" property="rdfs:label">orderItemNumber</span>
+        <span property="rdfs:comment">The identifier of the order item.</span>
+        <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/OrderItem">OrderItem</a></span>
+        <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/orderDelivery">
+        <span class="h" property="rdfs:label">orderDelivery</span>
+        <span property="rdfs:comment">The delivery of the parcel related to this order or order item.</span>
+        <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Order">Order</a></span>
+        <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/OrderItem">OrderItem</a></span>
+        <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/ParcelDelivery">ParcelDelivery</a></span>
+    </div>
     <div typeof="rdfs:Class" resource="http://schema.org/Action">
       <span class="h" property="rdfs:label">Action</span>
       <span property="rdfs:comment">An action performed by a direct agent and indirect     participants upon a direct object. Optionally happens at a location     with the help of an inanimate instrument. The execution of the action     may produce a result. Specific action sub-type documentation specifies     the exact expectation of each argument/role.
@@ -7452,7 +7482,9 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
       <span class="h" property="rdfs:label">orderedItem</span>
       <span property="rdfs:comment">The item ordered.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Order">Order</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/OrderItem">OrderItem</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Product">Product</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/OrderItem">OrderItem</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/orderNumber">
       <span class="h" property="rdfs:label">orderNumber</span>
