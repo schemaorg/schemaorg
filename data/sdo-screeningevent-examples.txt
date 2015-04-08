@@ -1,0 +1,62 @@
+TYPES: #screening-1 ScreeningEvent, Movie, MovieTheater
+
+PRE-MARKUP:
+
+MICRODATA:
+
+<div itemscope itemtype="http://schema.org/ScreeningEvent">
+  <h1 itemprop="name">Jaws 3-D"</h1>
+  <div itemprop="description">Jaws 3-D shown in 3D.</div>
+  <p>Location: <div itemprop="location" itemscope itemtype="http://schema.org/MovieTheater">
+    <span itemprop="name">ACME Cinemas 10</span>
+    <span itemprop="screenCount">10</span>
+  </p>
+  <div itemprop="workPresented" itemscope itemtype="http://schema.org/Movie">
+    <span itemprop="name">Jaws 3-D</span>
+    <link itemprop="sameAs" href="www.imdb.com/title/tt0085750/"/>
+  </div>
+  <p>Language: <span itemprop="inLanguage" content="en">English</span></p>
+  <p>Film format: <span itemprop="videoFormat">3D</span></p>
+</div>
+
+RDFA:
+
+<div vocab="http://schema.org/" typeof="http://schema.org/ScreeningEvent">
+  <h1 property="name">Jaws 3-D"</h1>
+  <div property="description">Jaws 3-D shown in 3D.</div>
+  <p>Location: <div property="location" typeof="http://schema.org/MovieTheater">
+    <span property="name">ACME Cinemas 10</span>
+    <span property="screenCount">10</span>
+  </p>
+  <div property="workPresented" typeof="http://schema.org/Movie">
+    <span property="name">Jaws 3-D</span>
+    <link property="sameAs" href="www.imdb.com/title/tt0085750/"/>
+  </div>
+  <p>Language: <span property="inLanguage" content="en">English</span></p>
+  <p>Film format: <span property="videoFormat">3D</span></p>
+</div>
+
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context:": "http://schema.org",
+  "@type": "ScreeningEvent",
+  "name": "Jaws 3-D",
+  "description": "Jaws 3-D shown in 3D."
+  "location": {
+    "@type": "MovieTheater",
+    "name": "ACME Cinemas 10",
+    "screenCount": 10
+  },
+  "workPresented": {
+    "@type": "Movie",
+    "name": "Jaws 3-D",
+    "sameAs": "www.imdb.com/title/tt0085750/"
+  },
+  "inLanguage": "en",
+  "videoFormat": "3D"
+}
+</script>
+
