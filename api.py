@@ -45,6 +45,55 @@ ext_re = re.compile(r'([^\w,])+')
 all_layers = {}
 all_terms = {}
 
+# Utility declaration of W3C Initial Context
+# From http://www.w3.org/2011/rdfa-context/rdfa-1.1
+# and http://www.w3.org/2013/json-ld-context/rdfa11
+namespaces = """        "cat": "http://www.w3.org/ns/dcat#",
+        "qb": "http://purl.org/linked-data/cube#",
+        "org": "http://www.w3.org/ns/org#",
+        "grddl": "http://www.w3.org/2003/g/data-view#",
+        "ma": "http://www.w3.org/ns/ma-ont#",
+        "owl": "http://www.w3.org/2002/07/owl#",
+        "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+        "rdfa": "http://www.w3.org/ns/rdfa#",
+        "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+        "rif": "http://www.w3.org/2007/rif#",
+        "rr": "http://www.w3.org/ns/r2rml#",
+        "skos": "http://www.w3.org/2004/02/skos/core#",
+        "skosxl": "http://www.w3.org/2008/05/skos-xl#",
+        "wdr": "http://www.w3.org/2007/05/powder#",
+        "void": "http://rdfs.org/ns/void#",
+        "wdrs": "http://www.w3.org/2007/05/powder-s#",
+        "xhv": "http://www.w3.org/1999/xhtml/vocab#",
+        "xml": "http://www.w3.org/XML/1998/namespace",
+        "xsd": "http://www.w3.org/2001/XMLSchema#",
+        "prov": "http://www.w3.org/ns/prov#",
+        "sd": "http://www.w3.org/ns/sparql-service-description#",
+        "org": "http://www.w3.org/ns/org#",
+        "gldp": "http://www.w3.org/ns/people#",
+        "cnt": "http://www.w3.org/2008/content#",
+        "dcat": "http://www.w3.org/ns/dcat#",
+        "earl": "http://www.w3.org/ns/earl#",
+        "ht": "http://www.w3.org/2006/http#",
+        "ptr": "http://www.w3.org/2009/pointers#",
+        "cc": "http://creativecommons.org/ns#",
+        "ctag": "http://commontag.org/ns#",
+        "dc": "http://purl.org/dc/terms/",
+        "dcterms": "http://purl.org/dc/terms/",
+        "foaf": "http://xmlns.com/foaf/0.1/",
+        "gr": "http://purl.org/goodrelations/v1#",
+        "ical": "http://www.w3.org/2002/12/cal/icaltzd#",
+        "og": "http://ogp.me/ns#",
+        "rev": "http://purl.org/stuff/rev#",
+        "sioc": "http://rdfs.org/sioc/ns#",
+        "v": "http://rdf.data-vocabulary.org/#",
+        "vcard": "http://www.w3.org/2006/vcard/ns#",
+        "schema": "http://schema.org/",
+        "describedby": "http://www.w3.org/2007/05/powder-s#describedby",
+        "license": "http://www.w3.org/1999/xhtml/vocab#license",
+        "role": "http://www.w3.org/1999/xhtml/vocab#role",
+"""
+
 class Unit ():
     """
     Unit represents a node in our schema graph. IDs are local,
@@ -453,51 +502,10 @@ class TypeHierarchyTree:
         p1 = " " * 4 * depth
         if emit_debug:
             self.emit("%s# @id: %s last_at_this_level: %s" % (p1, node.id, last_at_this_level))
+        global namespaces;
         ctx = "{}".format(""""@context": {
-    "cat": "http://www.w3.org/ns/dcat#",
-    "qb": "http://purl.org/linked-data/cube#",
-    "org": "http://www.w3.org/ns/org#",
-    "grddl": "http://www.w3.org/2003/g/data-view#",
-    "ma": "http://www.w3.org/ns/ma-ont#",
-    "owl": "http://www.w3.org/2002/07/owl#",
-    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
-    "rdfa": "http://www.w3.org/ns/rdfa#",
     "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
-    "rif": "http://www.w3.org/2007/rif#",
-    "rr": "http://www.w3.org/ns/r2rml#",
-    "skos": "http://www.w3.org/2004/02/skos/core#",
-    "skosxl": "http://www.w3.org/2008/05/skos-xl#",
-    "wdr": "http://www.w3.org/2007/05/powder#",
-    "void": "http://rdfs.org/ns/void#",
-    "wdrs": "http://www.w3.org/2007/05/powder-s#",
-    "xhv": "http://www.w3.org/1999/xhtml/vocab#",
-    "xml": "http://www.w3.org/XML/1998/namespace",
-    "xsd": "http://www.w3.org/2001/XMLSchema#",
-    "prov": "http://www.w3.org/ns/prov#",
-    "sd": "http://www.w3.org/ns/sparql-service-description#",
-    "org": "http://www.w3.org/ns/org#",
-    "gldp": "http://www.w3.org/ns/people#",
-    "cnt": "http://www.w3.org/2008/content#",
-    "dcat": "http://www.w3.org/ns/dcat#",
-    "earl": "http://www.w3.org/ns/earl#",
-    "ht": "http://www.w3.org/2006/http#",
-    "ptr": "http://www.w3.org/2009/pointers#",
-    "cc": "http://creativecommons.org/ns#",
-    "ctag": "http://commontag.org/ns#",
-    "dc": "http://purl.org/dc/terms/",
-    "dcterms": "http://purl.org/dc/terms/",
-    "foaf": "http://xmlns.com/foaf/0.1/",
-    "gr": "http://purl.org/goodrelations/v1#",
-    "ical": "http://www.w3.org/2002/12/cal/icaltzd#",
-    "og": "http://ogp.me/ns#",
-    "rev": "http://purl.org/stuff/rev#",
-    "sioc": "http://rdfs.org/sioc/ns#",
-    "v": "http://rdf.data-vocabulary.org/#",
-    "vcard": "http://www.w3.org/2006/vcard/ns#",
     "schema": "http://schema.org/",
-    "describedby": "http://www.w3.org/2007/05/powder-s#describedby",
-    "license": "http://www.w3.org/1999/xhtml/vocab#license",
-    "role": "http://www.w3.org/1999/xhtml/vocab#role",
     "rdfs:subClassOf": { "@type": "@id" },
     "name": "rdfs:label",
     "description": "rdfs:comment",
@@ -607,7 +615,9 @@ def GetExtMappingsRDFa(node, layers='core'):
 
 def GetJsonLdContext(layers='core'):
     """Generates a basic JSON-LD context file for schema.org."""
-    jsonldcontext = "{\n    \"@context\":    {\n"
+    global namespaces;
+    jsonldcontext = "{\"@context\":    {\n"
+    jsonldcontext += namespaces ;
     jsonldcontext += "        \"@vocab\": \"http://schema.org/\",\n"
 
     url = Unit.GetUnit("URL")
