@@ -17,6 +17,7 @@ logging.basicConfig(level=logging.INFO) # dev_appserver.py --log_level debug .
 log = logging.getLogger(__name__)
 
 SCHEMA_VERSION=1.999999
+sitename = "schema.org"
 sitemode = "mainsite" # whitespaced list for CSS tags,
             # e.g. "mainsite testsite" when off expected domains
             # "extensionsite" when in an extension (e.g. blue?)
@@ -699,7 +700,7 @@ class ShowUnit (webapp2.RequestHandler):
 
         for l in all_terms[node.id]:
             l = l.replace("#","")
-            items.append("'{0}' is described in extension layer: <a href='?ext={1}'>{2}</a>".format( node.id, l, l ))
+            items.append("'{0}' is mentioned in extension layer: <a href='?ext={1}'>{2}</a>".format( node.id, l, l ))
 
         moreinfo = """<div>
         <div id='infobox' style='text-align: right;'><b><span>[more...]</b></div>
@@ -1011,28 +1012,35 @@ class ShowUnit (webapp2.RequestHandler):
             self.response.out.write( open("static/index.html", 'r').read() )
             return
 
+    def getExtendedSiteName(self, layers):
+        """Returns site name (domain name), informed by the list of active layers."""
+        if layers==["core"]:
+            return "schema.org"
+        # layers.remove("core")
+        return (layers[ len(layers)-1 ] + ".schema.org")
+
     def getExactTermPage(self, node, layers="core"):
         """Emit a Web page that exactly matches this node."""
         self.outputStrings = []
         log.info("EXACT PAGE: %s" % node.id)
         ext_mappings = GetExtMappingsRDFa(node, layers=layers)
 
-        global sitemode;
+        global sitemode
 
         if ("schema.org" not in os_host and sitemode == "mainsite"):
             sitemode = "mainsite testsite"
 
-        headers.OutputSchemaorgHeaders(self, node.id, node.isClass(), ext_mappings, sitemode)
+        headers.OutputSchemaorgHeaders(self, node.id, node.isClass(), ext_mappings, sitemode, sitename)
 
         if ("core" not in layers or len(layers)>1):
             ll = " ".join(layers).replace("#","")
 
             s = "<p id='lli' class='layerinfo %s'><a href=\"https://github.com/schemaorg/schemaorg/wiki/ExtensionList\">extensions shown</a>: %s [<a href='http://schema.org/%s'>x</a>]</p>\n" % (ll, ll, node.id )
             self.write(s)
-            self.write("<!-- Layers: %s -->" % layers)
+#            self.write("<!-- Layers: %s -->" % layers)
 
-        if ("localhost" in os_host):
-            self.write("<p id='localhost_note' class='layerinfo'>localhost</p>")
+#        if ("localhost" in os_host):
+#            self.write("<p id='localhost_note' class='layerinfo'>localhost</p>")
 
 #        if ("schema.org" not in os_host and sitemode == "mainsite"):
 #            self.write("<p id='offsite_note' class='layerinfo'>in schema.org mode but offsite</p>")
@@ -1122,6 +1130,7 @@ class ShowUnit (webapp2.RequestHandler):
     def get(self, node):
         import re
         import os
+        global sitename
 
         """Get a schema.org site page generated for this node/term.
 
@@ -1180,6 +1189,9 @@ class ShowUnit (webapp2.RequestHandler):
             layerlist.append("%s" % str(x))
         layerlist = list(set(layerlist))
         log.info("layerlist: %s" % layerlist)
+
+        sitename = self.getExtendedSiteName(layerlist)
+
 
         # First: fixed paths: homepage, and generated JSON-LD files.
         #

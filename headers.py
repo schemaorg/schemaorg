@@ -18,8 +18,7 @@ headers = '''<!DOCTYPE html>
     structured data on their web pages for use by search engines and other applications." />
     <link rel="stylesheet" type="text/css" href="/docs/schemaorg.css" />
     <link href="/docs/prettify.css" type="text/css" rel="stylesheet" />
-    <script type="text/javascript" src="/docs/prettify.js">
-    </script>
+    <script type="text/javascript" src="/docs/prettify.js"></script>
     <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
 
 <script type="text/javascript">
@@ -71,7 +70,7 @@ headers = '''<!DOCTYPE html>
         <div id="intro">
             <div id="pageHeader">
               <div class="wrapper">
-                <h1>schema.org</h1>
+                <h1>%s</h1>
 
 <div id="cse-search-form" style="width: 400px;"></div>
 
@@ -115,7 +114,7 @@ headers = '''<!DOCTYPE html>
 
 '''
 
-def OutputSchemaorgHeaders(webapp, entry='', is_class=False, ext_mappings='', sitemode="default"):
+def OutputSchemaorgHeaders(webapp, entry='', is_class=False, ext_mappings='', sitemode="default", sitename="schema.org"):
     """
     Generates the headers for class and property pages
 
@@ -125,5 +124,5 @@ def OutputSchemaorgHeaders(webapp, entry='', is_class=False, ext_mappings='', si
     rdfs_type = 'rdfs:Property'
     if is_class:
         rdfs_type = 'rdfs:Class'
-    out = headers % (str(entry), sitemode, rdfs_type, str(entry), ext_mappings)
+    out = headers % (str(entry), sitemode, sitename, rdfs_type, str(entry), ext_mappings)
     webapp.response.write(out)
