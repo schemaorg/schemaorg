@@ -4,8 +4,8 @@
 import sys
 
 def vocab_term (term) :
-    parts = term.split('/')
-    if (len(parts) < 3) :
+    parts = term.split('/', 4)
+    if (len(parts) < 4) :
         return None 
     domain = parts[2]
     if (not (domain == "schema.org")) :
@@ -13,8 +13,14 @@ def vocab_term (term) :
     else :
         return parts[3]
 
-def bucket (term, count) :
-    vt = vocab_term(term)
+counts = {}
+def addCount (term, count) :
+    if (term in counts) :
+        counts[term] = counts[term] + count
+    else:
+        counts[term] = count
+        
+def bucket (vt, count) :
     if (vt != None):
         if (count < 10) :
             return None
@@ -28,8 +34,6 @@ def bucket (term, count) :
             return "%s\t%i" % (vt, 4)
         elif (count < 100000) :
             return "%s\t%i" % (vt, 5)
-        elif (count < 100000) :
-            return "%s\t%i" % (vt, 6)
         elif (count < 250000) :
             return "%s\t%i" % (vt, 7)
         elif (count < 500000) :
@@ -46,7 +50,7 @@ if (input_file != None):
     f = open(input_file)
     if (f != None):
         for line in f:            
-            parts = line.strip().split('\t')
+            parts = line.strip().split(',')
             if (len(parts) > 1):
                 term = parts[0]
                 count = 0
@@ -55,8 +59,9 @@ if (input_file != None):
                     count = int(parts[1])
                 except:
                     count = 0
-                bck = bucket(term, count)
-                if (bck != None) :
-                    print bck
+                term = vocab_term(term)
+                addCount(term, count)
+        for term in sorted(counts.keys(), key= lambda term: counts[term], reverse=True):
+            print bucket(term, counts[term])
     else:
         print "Cannot open file " + input_file
