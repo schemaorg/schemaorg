@@ -1,4 +1,4 @@
-TYPES: ComicIssue,ComicSeries,CoverArt,comicArtist,comicColorist,letterer
+TYPES: ComicIssue,ComicSeries,CoverArt,artist,colorist,letterer
 
 PRE-MARKUP:
 
@@ -51,10 +51,10 @@ MICRODATA:
         <div itemprop="author" itemscope itemtype="http://schema.org/Person">Author:
           <span itemprop="name">Michael McMillian</span>
         </div>
-        <div itemprop="comicArtist" itemscope itemtype="http://schema.org/Person">Art by: 
+        <div itemprop="artist" itemscope itemtype="http://schema.org/Person">Art by: 
           <span itemprop="name">Beni Lobel</span>
         </div>
-        <div itemprop="comicColorist" itemscope itemtype="http://schema.org/Person">Colors by:
+        <div itemprop="colorist" itemscope itemtype="http://schema.org/Person">Colors by:
           <span itemprop="name">Esther Sanz</span>
         </div>
         <div itemprop="letterer" itemscope itemtype="http://schema.org/Person">Letters by:
@@ -69,7 +69,7 @@ MICRODATA:
           daylight, but does his best not to think about it.
         </div>
       </div>
-      <div itemprop="hasPart" itemscope itemtype="http://schema.org/CoverArt">
+      <div itemprop="hasPart" itemscope itemtype="http://schema.org/ComicCoverArt">
         <em itemprop="name">CVR B</em>
         <div itemprop="creator" itemscope itemtype="http://schema.org/Person">Cover by:
           <span itemprop="name">Michael Gaydos</span>
@@ -100,10 +100,10 @@ RDFA:
         <div property="author" typeof="Person">Author:
           <span property="name">Michael McMillian</span>
         </div>
-        <div property="comicArtist" typeof="Person">Art by: 
+        <div property="artist" typeof="Person">Art by: 
           <span property="name">Beni Lobel</span>
         </div>
-        <div property="comicColorist" typeof="Person">Colors by:
+        <div property="colorist" typeof="Person">Colors by:
           <span property="name">Esther Sanz</span>
         </div>
         <div property="letterer" typeof="Person">Letters by:
@@ -118,7 +118,7 @@ RDFA:
           daylight, but does his best not to think about it.
         </div>
       </div>
-      <div property="hasPart" typeof="CoverArt">
+      <div property="hasPart" typeof="ComicCoverArt">
         <em property="name">CVR B</em>
         <div property="creator" typeof="Person">Cover by:
           <span property="name">Michael Gaydos</span>
@@ -148,11 +148,11 @@ JSON:
             "@type": "Person",
             "name": "Michael McMillian"
           },
-          "comicArtist": {
+          "artist": {
             "@type": "Person",
             "name": "Beni Lobel"
           },
-          "comicColorist": {
+          "colorist": {
             "@type": "Person",
             "name": "Esther Sanz"
           },
@@ -166,7 +166,7 @@ JSON:
           }
         },
         {
-        "@type": "CoverArt",
+        "@type": "ComicCoverArt",
         "name": "CVR B",
         "creator": {
           "@type": "Person",
