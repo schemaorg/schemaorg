@@ -54,6 +54,13 @@
   <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/CreativeWork">schema:CreativeWork</a></span>
 </div>
 
+<div typeof="rdfs:Class" resource="http://schema.org/CoverArt">
+  <span class="h" property="rdfs:label">bib:CoverArt</span>
+  <span property="rdfs:comment">The artwork on the outer surface of a published CreativeWork.</span>
+  <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/VisualArtwork">schema:VisualArtwork</a></span>
+  <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/ComicStory">bib:ComicStory</a></span>
+</div>
+
 <h2>Properties</h2>
 
 <div typeof="rdf:Property" resource="http://schema.org/publisherImprint">
@@ -76,14 +83,6 @@
 <div typeof="rdf:Property" resource="http://schema.org/comicColorist">
   <span class="h" property="rdfs:label">bib:comicColorist</span>
   <span class="h" property="rdfs:comment">The individual who adds color to inked drawings.</span>
-  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ComicIssue">bib:ComicIssue</a></span>
-  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ComicStory">bib:ComicStory</a></span>
-  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Person">schema:Person</a></span>
-</div>
-
-<div typeof="rdf:Property" resource="http://schema.org/coverArtist">
-  <span class="h" property="rdfs:label">bib:coverArtist</span>
-  <span class="h" property="rdfs:comment">The penciler or artist for the cover of a comic.</span>
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ComicIssue">bib:ComicIssue</a></span>
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ComicStory">bib:ComicStory</a></span>
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Person">schema:Person</a></span>

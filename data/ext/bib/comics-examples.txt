@@ -1,4 +1,4 @@
-TYPES: ComicIssue,ComicSeries,comicArtist,comicColorist,coverArtist,letterer
+TYPES: ComicIssue,ComicSeries,CoverArt,comicArtist,comicColorist,letterer
 
 PRE-MARKUP:
 
@@ -18,7 +18,6 @@ An issue of a comic book.
       <div>Author: Michael McMillian</div>
       <div>Art by: Beni Lobel</div>
       <div>Colors by: Esther Sanz</div>
-      <div>Cover by: Michael Gaydos</div>
       <div>Letters by: Neil Uyetake</div>
       <div>Edits by: Denton J. Tipton</div>
       <div>Date published: May 2013</div>
@@ -26,6 +25,7 @@ An issue of a comic book.
         Jason discovers the reason for Amy's sudden ability to go out in the
         daylight, but does his best not to think about it.
       </div>
+      <div><em>CVR B</em> Cover by: Michael Gaydos</div>
     </li>
   </ul>
 </div>
@@ -46,29 +46,34 @@ MICRODATA:
   <ul>
     <li itemprop="hasPart" itemscope itemtype="http://schema.org/ComicIssue">
       Issue <span itemprop="issueNumber">13</span>
-      <span itemprop="name">HERE WE GO AGAIN PART 3: FEELING SINISTER</span>
-      <div itemprop="author" itemscope itemtype="http://schema.org/Person">Author:
-        <span itemprop="name">Michael McMillian</span>
+      <div itemprop="hasPart" itemscope itemtype="http://schema.org/ComicStory">
+        <span itemprop="name">HERE WE GO AGAIN PART 3: FEELING SINISTER</span>
+        <div itemprop="author" itemscope itemtype="http://schema.org/Person">Author:
+          <span itemprop="name">Michael McMillian</span>
+        </div>
+        <div itemprop="comicArtist" itemscope itemtype="http://schema.org/Person">Art by: 
+          <span itemprop="name">Beni Lobel</span>
+        </div>
+        <div itemprop="comicColorist" itemscope itemtype="http://schema.org/Person">Colors by:
+          <span itemprop="name">Esther Sanz</span>
+        </div>
+        <div itemprop="letterer" itemscope itemtype="http://schema.org/Person">Letters by:
+          <span itemprop="name">Neil Uyetake</span>
+        </div>
+        <div itemprop="editor" itemscope itemtype="http://schema.org/Person">Edits by:
+          <span itemprop="name">Denton J. Tipton</span>
+        </div>
+        <div>Date published: <time itemprop="datePublished" datetime="2013-05">May 2013</time></div>
+        <div itemprop="description">
+          Jason discovers the reason for Amy's sudden ability to go out in the
+          daylight, but does his best not to think about it.
+        </div>
       </div>
-      <div itemprop="comicArtist" itemscope itemtype="http://schema.org/Person">Art by: 
-        <span itemprop="name">Beni Lobel</span>
-      </div>
-      <div itemprop="comicColorist" itemscope itemtype="http://schema.org/Person">Colors by:
-        <span itemprop="name">Esther Sanz</span>
-      </div>
-      <div itemprop="coverArtist" itemscope itemtype="http://schema.org/Person">Cover by:
-        <span itemprop="name">Michael Gaydos</span>
-      </div>
-      <div itemprop="letterer" itemscope itemtype="http://schema.org/Person">Letters by:
-        <span itemprop="name">Neil Uyetake</span>
-      </div>
-      <div itemprop="editor" itemscope itemtype="http://schema.org/Person">Edits by:
-        <span itemprop="name">Denton J. Tipton</span>
-      </div>
-      <div>Date published: <time itemprop="datePublished" datetime="2013-05">May 2013</time></div>
-      <div itemprop="description">
-        Jason discovers the reason for Amy's sudden ability to go out in the
-        daylight, but does his best not to think about it.
+      <div itemprop="hasPart" itemscope itemtype="http://schema.org/CoverArt">
+        <em itemprop="name">CVR B</em>
+        <div itemprop="creator" itemscope itemtype="http://schema.org/Person">Cover by:
+          <span itemprop="name">Michael Gaydos</span>
+        </div>
       </div>
     </li>
   </ul>
@@ -90,29 +95,34 @@ RDFA:
   <ul>
     <li property="hasPart" typeof="ComicIssue">
       Issue <span property="issueNumber">13</span>
-      <span property="name">HERE WE GO AGAIN PART 3: FEELING SINISTER</span>
-      <div property="author" typeof="Person">Author:
-        <span property="name">Michael McMillian</span>
+      <div property="hasPart" typeof="ComicStory">
+        <span property="name">HERE WE GO AGAIN PART 3: FEELING SINISTER</span>
+        <div property="author" typeof="Person">Author:
+          <span property="name">Michael McMillian</span>
+        </div>
+        <div property="comicArtist" typeof="Person">Art by: 
+          <span property="name">Beni Lobel</span>
+        </div>
+        <div property="comicColorist" typeof="Person">Colors by:
+          <span property="name">Esther Sanz</span>
+        </div>
+        <div property="letterer" typeof="Person">Letters by:
+          <span property="name">Neil Uyetake</span>
+        </div>
+        <div property="editor" typeof="Person">Edits by:
+          <span property="name">Denton J. Tipton</span>
+        </div>
+        <div>Date published: <time property="datePublished" datetime="2013-05">May 2013</time></div>
+        <div property="description">
+          Jason discovers the reason for Amy's sudden ability to go out in the
+          daylight, but does his best not to think about it.
+        </div>
       </div>
-      <div property="comicArtist" typeof="Person">Art by: 
-        <span property="name">Beni Lobel</span>
-      </div>
-      <div property="comicColorist" typeof="Person">Colors by:
-        <span property="name">Esther Sanz</span>
-      </div>
-      <div property="coverArtist" typeof="Person">Cover by:
-        <span property="name">Michael Gaydos</span>
-      </div>
-      <div property="letterer" typeof="Person">Letters by:
-        <span property="name">Neil Uyetake</span>
-      </div>
-      <div property="editor" typeof="Person">Edits by:
-        <span property="name">Denton J. Tipton</span>
-      </div>
-      <div>Date published: <time property="datePublished" datetime="2013-05">May 2013</time></div>
-      <div property="description">
-        Jason discovers the reason for Amy's sudden ability to go out in the
-        daylight, but does his best not to think about it.
+      <div property="hasPart" typeof="CoverArt">
+        <em property="name">CVR B</em>
+        <div property="creator" typeof="Person">Cover by:
+          <span property="name">Michael Gaydos</span>
+        </div>
       </div>
     </li>
   </ul>
@@ -130,32 +140,39 @@ JSON:
       "@type": "ComicIssue",
       "issueNumber": 13,
       "datePublished": "2013-05",
-      "description": "Jason discovers the reason for Amy's sudden ability to go out in the daylight, but does his best not to think about it.",
-      "name": "HERE WE GO AGAIN PART 3: FEELING SINISTER",
-      "author": {
-        "@type": "Person",
-        "name": "Michael McMillian"
-      },
-      "comicArtist": {
-        "@type": "Person",
-        "name": "Beni Lobel"
-      },
-      "comicColorist": {
-        "@type": "Person",
-        "name": "Esther Sanz"
-      },
-      "coverArtist": {
-        "@type": "Person",
-        "name": "Michael Gaydos"
-      },
-      "editor": {
-        "@type": "Person",
-        "name": "Denton J. Tipton"
-      },
-      "letterer": {
-        "@type": "Person",
-        "name": "Neil Uyetake"
-      }
+      "hasPart": [{
+          "@type": "ComicStory",
+          "description": "Jason discovers the reason for Amy's sudden ability to go out in the daylight, but does his best not to think about it.",
+          "name": "HERE WE GO AGAIN PART 3: FEELING SINISTER",
+          "author": {
+            "@type": "Person",
+            "name": "Michael McMillian"
+          },
+          "comicArtist": {
+            "@type": "Person",
+            "name": "Beni Lobel"
+          },
+          "comicColorist": {
+            "@type": "Person",
+            "name": "Esther Sanz"
+          },
+          "editor": {
+            "@type": "Person",
+            "name": "Denton J. Tipton"
+          },
+          "letterer": {
+            "@type": "Person",
+            "name": "Neil Uyetake"
+          }
+        },
+        {
+        "@type": "CoverArt",
+        "name": "CVR B",
+        "creator": {
+          "@type": "Person",
+          "name": "Michael Gaydos"
+        }
+      }]
     }
 }
 </script>
