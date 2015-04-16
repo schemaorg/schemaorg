@@ -1045,7 +1045,7 @@ def read_schemas():
         parser = parsers.ParseExampleFile(None)
         parser.parse(example_contents)
 
-        files = glob.glob("data/vocab_counts.txt")
+        files = glob.glob("data/2015-04-vocab_counts.txt")
 
         for file in files:
             print file
