@@ -12192,17 +12192,17 @@ by John Doe
 
 MICRODATA:
 
-<div itemtype="http://schema.org/ItemList http://schema.org/CreativeWork">
+<div itemscope itemtype="http://schema.org/ItemList http://schema.org/CreativeWork">
   <h1 itemprop="name">Top 5 covers of Bob Dylan Songs</h1>
   <div itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <span itemprop="name" content="John Doe">by John Doe</span>
+    by <span itemprop="name">John Doe</span>
   </div>
   <div itemprop="about" itemscope itemtype="http://schema.org/MusicRecording">
     <div itemprop="byArtist" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Bob Dylan" />
     </div>
   </div>
-  <meta itemprop="itemListOrder" content="http://schema.org/ItemListOrderAscending" />
+  <link itemprop="itemListOrder" href="http://schema.org/ItemListOrderAscending" />
   <meta itemprop="numberOfItems" content="5" />
   <div itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
     <span itemprop="position">5</span>
@@ -12259,14 +12259,14 @@ RDFA:
 <div vocab="http://schema.org/" typeof="ItemList CreativeWOrk">
   <h1 property="name">Top 5 covers of Bob Dylan Songs</h1>
   <div property="author" typeof="Person">
-    <span property="name" content="John Doe">by John Doe</span>
+    by <span property="name">John Doe</span>
   </div>
   <div property="about" typeof="MusicRecording">
     <div property="byArtist" typeof="Person">
       <meta property="name" content="Bob Dylan" />
     </div>
   </div>
-  <meta property="itemListOrder" content="http://schema.org/ItemListOrderAscending" />
+  <link property="itemListOrder" href="http://schema.org/ItemListOrderAscending" />
   <meta property="numberOfItems" content="5" />
   <div property="itemListElement" typeof="ListItem">
     <span property="position">5</span>
