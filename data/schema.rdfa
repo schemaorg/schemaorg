@@ -6748,7 +6748,16 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
       <span property="rdfs:comment">A single ingredient used in the recipe, e.g. sugar, flour or garlic.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Recipe">Recipe</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+      <span property="http://schema.org/supersededBy" href="http://schema.org/recipeIngredient"/>
     </div>
+
+    <div typeof="rdf:Property" resource="http://schema.org/recipeIngredient">
+      <span class="h" property="rdfs:label">recipeIngredient</span>
+      <span property="rdfs:comment">A single ingredient used in the recipe, e.g. sugar, flour or garlic.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Recipe">Recipe</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+    </div>
+
     <div typeof="rdf:Property" resource="http://schema.org/inLanguage">
       <span class="h" property="rdfs:label">inLanguage</span>
       <span property="rdfs:comment">The language of the content or performance. Please use one of the language codes from the &lt;a href=&#39;http://tools.ietf.org/html/bcp47&#39;&gt;IETF BCP 47 standard&lt;/a&gt;.</span>
@@ -8179,6 +8188,7 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
       <span property="rdfs:comment">A step or instruction involved in making the recipe.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Recipe">Recipe</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/ItemList">ItemList</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/recipeYield">
       <span class="h" property="rdfs:label">recipeYield</span>
