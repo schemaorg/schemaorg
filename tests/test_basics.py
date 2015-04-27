@@ -199,6 +199,7 @@ class SchemaBasicAPITestCase(unittest.TestCase):
   def test_StoresAreOrganizations(self):
     tStore = Unit.GetUnit("Store")
     tOrganization = Unit.GetUnit("Organization")
+    orgsubtypes = GetSources( Unit.GetUnit("rdfs:subClassOf"), tOrganization  )
     self.assertTrue(tStore.subClassOf(tOrganization), "Store subClassOf Organization.")
 
   def test_PersonNotAttribute(self):
@@ -254,7 +255,9 @@ class SchemaPropertyMetadataTestCase(unittest.TestCase):
   def test_acceptedAnswerSuperpropertiesArrayLen(self):
     p_acceptedAnswer = Unit.GetUnit("acceptedAnswer")
     aa_supers = p_acceptedAnswer.superproperties()
-    self.assertEqual( len(aa_supers), 1, "acceptedAnswer subproperties() gives array of len 1." )
+    for f in aa_supers:
+        log.info("acceptedAnswer's subproperties(): %s" % f.id)
+    self.assertTrue( len(aa_supers) == 1, "acceptedAnswer subproperties() gives array of len 1. Actual: %s ." % len(aa_supers) )
 
   def test_answerSubproperty(self):
     p_suggestedAnswer = Unit.GetUnit("suggestedAnswer")

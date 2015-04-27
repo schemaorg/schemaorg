@@ -103,7 +103,7 @@ class UsageFileParser:
                 count = parts[1]
                 node = api.Unit.GetUnit(unitstr, False)
                 if (node == None):
-                    logging.info("'%s' does not have a node" % unitstr)
+                    logging.debug("'%s' stat. does not have a node" % unitstr)
                 else:
                     node.setUsage(count)
 
@@ -113,10 +113,11 @@ class RDFAParser :
     def __init__ (self, webapp):
         self.webapp = webapp
 
-    def parse (self, files):
+    def parse (self, files, layer="core"):
         self.items = {}
         root = []
         for i in range(len(files)):
+            logging.info("RDFa parse schemas in %s " % files[i])
             parser = ET.XMLParser(encoding="utf-8")
             tree = ET.parse(files[i], parser=parser)
             root.append(tree.getroot())
@@ -126,7 +127,7 @@ class RDFAParser :
                 api.Unit.storePrefix(pre[e].get('prefix'))
 
         for i in range(len(root)):
-              self.extractTriples(root[i], None)
+              self.extractTriples(root[i], None, layer)
 
 
         return self.items.keys()
@@ -137,7 +138,7 @@ class RDFAParser :
         else:
             return str
 
-    def extractTriples(self, elem, currentNode):
+    def extractTriples(self, elem, currentNode, layer="core"):
         typeof = elem.get('typeof')
         resource = elem.get('resource')
         href = elem.get('href')
@@ -148,18 +149,18 @@ class RDFAParser :
             if (href != None) :
                 href = api.Unit.GetUnit(self.stripID(href), True)
            #     self.webapp.write("<br>%s %s %s" % (currentNode, property, href))
-                api.Triple.AddTriple(currentNode, property, href)
+                api.Triple.AddTriple(currentNode, property, href, layer)
                 self.items[currentNode] = 1
             elif (text != None):
              #   logging.info("<br>%s %s '%s'" % (currentNode, property, text))
-                api.Triple.AddTripleText(currentNode, property, text)
+                api.Triple.AddTripleText(currentNode, property, text, layer)
                 self.items[currentNode] = 1
         if (resource != None):
             currentNode = api.Unit.GetUnit(self.stripID(resource), True)
             if (typeof != None):
-                api.Triple.AddTriple(currentNode, api.Unit.GetUnit("typeOf", True), api.Unit.GetUnit(self.stripID(typeof), True))
+                api.Triple.AddTriple(currentNode, api.Unit.GetUnit("typeOf", True), api.Unit.GetUnit(self.stripID(typeof), True), layer)
         for child in elem.findall('*'):
-            self.extractTriples(child,  currentNode)
+            self.extractTriples(child,  currentNode, layer)
 
 
 
