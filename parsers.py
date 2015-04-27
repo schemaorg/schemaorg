@@ -89,6 +89,23 @@ class ParseExampleFile :
         # logging.info("Final AddExample called with terms %s " % self.terms)
 
 
+class UsageFileParser:
+
+    def __init__ (self, webapp):
+        self.webapp = webapp
+
+    def parse (self, contents):
+        lines = contents.split('\n')
+        for l in lines:
+            parts = l.split('\t')
+            if (len(parts) == 2):
+                unitstr = parts[0].strip()
+                count = parts[1]
+                node = api.Unit.GetUnit(unitstr, False)
+                if (node == None):
+                    logging.debug("'%s' stat. does not have a node" % unitstr)
+                else:
+                    node.setUsage(count)
 
 
 class RDFAParser :
@@ -194,3 +211,5 @@ class MCFParser:
                 for v in values:
                     api.Triple.AddTriple(unit, predicate, api.Unit.GetUnit(v, True))
         return self.items.keys()
+
+

@@ -107,10 +107,14 @@ class Unit ():
         self.arcsIn = []
         self.arcsOut = []
         self.examples = []
+        self.usage = 0
         self.subtypes = None
 
     def GetImmediateSubtypes(self, layers='core'):
       return GetImmediateSubtypes(self, layers=layers)
+
+    def setUsage(self, count):
+        self.usage = count
 
     @staticmethod
     def GetUnit (id, createp=False):
@@ -266,6 +270,29 @@ class Unit ():
             if (triple.source != None and triple.arc.id == "inverseOf"):
                return triple.source
         return None
+
+    def UsageStr (self) :
+        str = self.usage
+        if (str == '1') :
+            return "Between 10 and 100 domains"
+        elif (str == '2'):
+            return "Between 100 and 1000 domains"
+        elif (str == '3'):
+            return "Between 1000 and 10,000 domains"
+        elif (str == '4'):
+            return "Between 10,000 and 50,000 domains"
+        elif (str == '5'):
+            return "Between 50,000 and 100,000 domains"
+        elif (str == '7'):
+            return "Between 100,000 and 250,000 domains"
+        elif (str == '8'):
+            return "Between 250,000 and 500,000 domains"
+        elif (str == '9'):
+            return "Between 500,000 and 1,000,000 domains"
+        elif (str == '10'):
+            return "Over 1,000,000 domains"
+        else:
+            return "Fewer than 10 domains"
 
 # NOTE: each Triple is in exactly one layer, by default 'core'. When we
 # read_schemas() from data/ext/{x}/*.rdfa each schema triple is given a
@@ -800,7 +827,10 @@ class ShowUnit (webapp2.RequestHandler):
 
         self.write(self.moreInfoBlock(node))
 
+        self.write(" <br><div>Usage: %s</div>\n\n" % (node.UsageStr()) + "\n")
+
         if (node.isClass(layers=layers) and not node.isDataType(layers=layers)):
+            
             self.write("<table class=\"definition-table\">\n        <thead>\n  <tr><th>Property</th><th>Expected Type</th><th>Description</th>               \n  </tr>\n  </thead>\n\n")
 
     def ClassProperties (self, cl, subclass=False, layers="core"):
@@ -1370,6 +1400,15 @@ def read_schemas():
             example_contents.append(example_content)
         parser = parsers.ParseExampleFile(None)
         parser.parse(example_contents)
+
+        files = glob.glob("data/2015-04-vocab_counts.txt")
+
+        for file in files:
+            print file
+            usage_data = read_file(file)
+            parser = parsers.UsageFileParser(None)
+            parser.parse(usage_data)
+
         schemasInitialized = True
 
 read_schemas()

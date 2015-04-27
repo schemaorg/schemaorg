@@ -1268,9 +1268,9 @@ MICRODATA:
   </div>
 
   Ingredients:
-  - <span itemprop="ingredients">3 or 4 ripe bananas, smashed</span>
-  - <span itemprop="ingredients">1 egg</span>
-  - <span itemprop="ingredients">3/4 cup of sugar</span>
+  - <span itemprop="recipeIngredient">3 or 4 ripe bananas, smashed</span>
+  - <span itemprop="recipeIngredient">1 egg</span>
+  - <span itemprop="recipeIngredient">3/4 cup of sugar</span>
   ...
 
   Instructions:
@@ -1310,9 +1310,9 @@ RDFA:
   </div>
 
   Ingredients:
-  - <span property="ingredients">3 or 4 ripe bananas, smashed</span>
-  - <span property="ingredients">1 egg</span>
-  - <span property="ingredients">3/4 cup of sugar</span>
+  - <span property="recipeIngredient">3 or 4 ripe bananas, smashed</span>
+  - <span property="recipeIngredient">1 egg</span>
+  - <span property="recipeIngredient">3/4 cup of sugar</span>
   ...
 
   Instructions:
@@ -1338,7 +1338,7 @@ JSON:
   "datePublished": "2009-05-08",
   "description": "This classic banana bread recipe comes from my mom -- the walnuts add a nice texture and flavor to the banana bread.",
   "image": "bananabread.jpg",
-  "ingredients": [
+  "recipeIngredient": [
     "3 or 4 ripe bananas, smashed",
     "1 egg",
     "3/4 cup of sugar"
@@ -1368,7 +1368,7 @@ PRE-MARKUP:
   <param ...>
   <embed type="application/x-shockwave-flash" ...>
 </object>
-Catch this exclusive interview with Dave Grohl and the Food Fighters
+Catch this exclusive interview with Dave Grohl and the Foo Fighters
  about their new album, Rope.
 
 
@@ -1433,7 +1433,7 @@ MICRODATA:
     <embed type="application/x-shockwave-flash" ...>
   </object>
   <span itemprop="description">Catch this exclusive interview with
-    Dave Grohl and the Food Fighters about their new album, Rope.</span>
+    Dave Grohl and the Foo Fighters about their new album, Rope.</span>
 </div>
 
 
@@ -1518,7 +1518,7 @@ RDFA:
     <embed type="application/x-shockwave-flash" ...>
   </object>
   <span property="description">Catch this exclusive interview with
-    Dave Grohl and the Food Fighters about their new album, Rope.</span>
+    Dave Grohl and the Foo Fighters about their new album, Rope.</span>
 </div>
 
 
@@ -1640,7 +1640,7 @@ JSON:
   ],
   "video": {
     "@type": "VideoObject",
-    "description": "Catch this exclusive interview with Dave Grohl and the Food Fighters about their new album, Rope.",
+    "description": "Catch this exclusive interview with Dave Grohl and the Foo Fighters about their new album, Rope.",
     "duration": "T1M33S",
     "name": "Interview with the Foo Fighters",
     "thumbnail": "foo-fighters-interview-thumb.jpg"
@@ -2600,7 +2600,7 @@ PRE-MARKUP:
   </p>
   <p><strong>Responsibilities:</strong></p>
   <ul>
-    <li>Design and write specifications for tools for in-house costumers</li>
+    <li>Design and write specifications for tools for in-house customers</li>
     <li>Build tools according to specifications</li>
   </ul>
   <p><strong>Educational requirements:</strong></p>
@@ -2658,7 +2658,7 @@ MICRODATA:
 
   <p><strong>Responsibilities:</strong></p>
   <ul itemprop="responsibilities">
-    <li>Design and write specifications for tools for in-house costumers</li>
+    <li>Design and write specifications for tools for in-house customers</li>
     <li>Build tools according to specifications</li>
   </ul>
 
@@ -2723,7 +2723,7 @@ RDFA:
 
   <p><strong>Responsibilities:</strong></p>
   <ul property="responsibilities">
-    <li>Design and write specifications for tools for in-house costumers</li>
+    <li>Design and write specifications for tools for in-house customers</li>
     <li>Build tools according to specifications</li>
   </ul>
 
@@ -2787,7 +2787,7 @@ JSON:
   },
   "occupationalCategory": "15-1132.00 Software Developers, Application",
   "qualifications": "Ability to work in a team environment with members of varying skill levels. Highly motivated. Learns quickly.",
-  "responsibilities": "Design and write specifications for tools for in-house costumers Build tools according to specifications",
+  "responsibilities": "Design and write specifications for tools for in-house customers Build tools according to specifications",
   "salaryCurrency": "USD",
   "skills": "Web application development using Java/J2EE Web application development using Python or familiarity with dynamic programming languages",
   "specialCommitments": "VeteranCommit",
@@ -4261,7 +4261,7 @@ This example is JSON only.
 
 JSON:
 
-<!--  John won a Nobel prize. -->
+<!--  John won a book about the Nobel prize. -->
 <script type="application/ld+json">
 {
   "@context": "http://schema.org",
@@ -4271,8 +4271,8 @@ JSON:
     "name": "John"
   },
   "object": {
-    "@type": "Award",
-    "name": "Nobel prize"
+    "@type": "Book",
+    "name": "Top 1000 Things You Didn't Know about Nobel prizes"
   }
 }
 </script>
@@ -9072,7 +9072,7 @@ JSON:
     "@type": "AdministrativeArea",
     "name": "Massachusetts"
   },
-  "serviceAudience": {
+  "audience": {
     "@type": "CivicAudience",
     "name": "Veterans"
   },
@@ -10007,7 +10007,10 @@ Flight: United Airlines Flight 110
 Operated By: Continental Airlines
 Departing: San Francisco Airport (SFO) 2017-03-04T20:15:00-08:00
 Arriving: John F. Kennedy International Airport (JFK) 2017-03-05T06:30:00-05:00
-
+Passenger Sequence Number: ABC123
+Boarding priority: FastTrack
+Boarding policy: zone-based
+Security screening: TSA PreCheck
 
 MICRODATA:
 
@@ -10025,6 +10028,9 @@ JSON:
   "@type": "FlightReservation",
   "reservationId": "RXJ34P",
   "reservationStatus": "http://schema.org/ReservationConfirmed",
+  "passengerPriorityStatus": "Fast Track",
+  "passengerSequenceNumber": "ABC123",
+  "securityScreening": "TSA PreCheck",
   "underName": {
     "@type": "Person",
     "name": "Eva Green"
@@ -10035,13 +10041,14 @@ JSON:
     "provider": {
       "@type": "Airline",
       "name": "Continental",
-      "iataCode": "CO"
+      "iataCode": "CO",
+      "boardingPolicy": "http://schema.org/ZoneBoardingPolicy"
     },
     "seller": {
       "@type": "Airline",
       "name": "United",
       "iataCode": "UA"
-    }
+    },
     "departureAirport": {
       "@type": "Airport",
       "name": "San Francisco Airport",
@@ -12335,7 +12342,7 @@ JSON:
       "position": 5,
       "item": {
         "@type": "MusicRecording",
-        "name": If Not For You,
+        "name": "If Not For You",
         "byArtist": {
           "@type": "Person",
           "name": "George Harrison"

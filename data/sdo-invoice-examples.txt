@@ -6,6 +6,7 @@ An example of a credit card bill (invoice).
 
 ACME Bank
 Bill for: January 2015 Visa
+invoice link: http://www.acmebank.com/invoice.pdf
 Customer: Jane Doe
 account ID: xxxx-xxxx-xxxx-1234
 payment due: 2015-01-30
@@ -18,6 +19,7 @@ MICRODATA:
 
 <div itemscope itemtype="http://schema.org/Invoice">
   <h1 itemprop="description">January 2015 Visa</h1>
+  <link itemprop="url" href="http://acmebank.com/invoice.pdf" />Invoice PDF
   <div itemprop="broker" itemscope itemtype="http://schema.org/BankOrCreditUnion">
     <b itemprop="name">ACME Bank</b>
   </div>
@@ -41,8 +43,9 @@ MICRODATA:
  
 RDFA:
 
-<div vocab="http://schema.org" typeof="Invoice">
+<div vocab="http://schema.org/" typeof="Invoice">
   <h1 property="description">January 2015 Visa</h1>
+  <link property="url" href="http://acmebank.com/invoice.pdf" />Invoice PDF
   <div property="broker" itemscope typeof="http://schema.org/BankOrCreditUnion">
     <b property="name">ACME Bank</b>
   </div>
@@ -68,9 +71,10 @@ JSON:
 
 <script type="application/ld+json">
 {
-    "@context": "http://schema.org",
+    "@context": "http://schema.org/",
     "@type": "Invoice",
     "description": "January 2015 Visa bill.",
+    "url": "http://acmebank.com/invoice.pdf",
     "broker": {
       "@type": "BankOrCreditUnion",
       "name": "ACME Bank",
@@ -153,7 +157,7 @@ MICRODATA:
  
 RDFA:
 
-<div vocab="http://schema.org" typeof="Invoice">
+<div vocab="http://schema.org/" typeof="Invoice">
   <h1 property="description">New furnace and installation</h1>
   <div property="broker" itemscope typeof="http://schema.org/LocalBusiness">
     <b property="name">ACME Home Heating</b>
@@ -195,7 +199,7 @@ JSON:
 
 <script type="application/ld+json">
 {
-    "@context": "http://schema.org",
+    "@context": "http://schema.org/",
     "@type": "Invoice",
     "broker": {
       "@type": "LocalBusiness",
@@ -243,8 +247,136 @@ JSON:
       },
     ]
 }
+</script>
+
+TYPES: Order,OrderItem,Organization,Person
+
+PRE-MARKUP:
+
+An example of an order for multiple items, shipped separately.
+
+ACME Supplies
+Customer: Jane Doe
+Order:
+  Item abc123: 1 Widget: delivered 2015-03-10
+  Item def456: 3 Widget accessories: shipped 2015-03-12
+
+MICRODATA:
+
+<div itemscope itemtype="http://schema.org/Order">
+  <div itemprop="seller" itemscope itemtype="http://schema.org/Organization">
+    <b itemprop="name">ACME Supplies</b>
+  </div>
+  <div itemprop="customer" itemscope itemtype="http://schema.org/Person">
+    <b itemprop="name">Jane Doe</b>
+  </div>
+  <div itemprop="orderedItem" itemscope itemtype="http://schema.org/OrderItem">
+    Item number: <span itemprop="orderItemNumber">abc123</span>
+    <span itemprop="orderQuantity">1</span>
+    <div itemprop="orderedItem" itemscope itemtype="http://schema.org/Product">
+      <span itemprop="name">Widget</span>
+    </div>
+    <span itemprop="orderItemStatus" content="http://schema.org/OrderDelivered">Delivered</span>
+    <div itemprop="orderDelivery" itemscope itemtype="http://schema.org/ParcelDelivery">
+      <span itemprop="expectedArrivalFrom">2015-03-10</span>
+    </div>
+  </div>
+  <div itemprop="orderedItem" itemscope itemtype="http://schema.org/OrderItem">
+    Item number: <span itemprop="orderItemNumber">def456</span>
+    <span itemprop="orderQuantity">4</span>
+    <div itemprop="orderedItem" itemscope itemtype="http://schema.org/Product">
+      <span itemprop="name">Widget accessories</span>
+    </div>
+    <span itemprop="orderItemStatus" content="http://schema.org/OrderInTransit">Shipped</span>
+    <div itemprop="orderDelivery" itemscope itemtype="http://schema.org/ParcelDelivery">
+      <span itemprop="expectedArrivalFrom">2015-03-15</span>
+      <span itemprop="expectedArrivalUntil">2015-03-18</span>
+    </div>
+  </div>
+</div>
+
+ 
+RDFA:
+
+<div vocab="http://schema.org/" typeof="Order">
+  <div property="seller" typeof="Organization">
+    <b property="name">ACME Supplies</b>
+  </div>
+  <div property="customer" typeof="Person">
+    <b property="name">Jane Doe</b>
+  </div>
+  <div property="orderedItem" typeof="OrderItem">
+    Item number: <span property="orderItemNumber">abc123</span>
+    <span property="orderQuantity">1</span>
+    <div property="orderedItem" typeof="Product">
+      <span property="name">Widget</span>
+    </div>
+    <span property="orderItemStatus" content="http://schema.org/OrderDelivered">Delivered</span>
+    <div property="orderDelivery" typeof="ParcelDelivery">
+      <span property="expectedArrivalFrom">2015-03-10</span>
+    </div>
+  </div>
+  <div property="orderedItem" typeof="OrderItem">
+    Item number: <span property="orderItemNumber">def456</span>
+    <span property="orderQuantity">4</span>
+    <div property="orderedItem" typeof="Product">
+      <span property="name">Widget accessories</span>
+    </div>
+    <span property="orderItemStatus" content="http://schema.org/OrderInTransit">Shipped</span>
+    <div property="orderDelivery" typeof="ParcelDelivery">
+      <span property="expectedArrivalFrom">2015-03-15</span>
+      <span property="expectedArrivalUntil">2015-03-18</span>
+    </div>
+  </div>
+</div>
 
 
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org/"
+  "@type": "Order",
+  "seller": {
+    "@type": "Organization",
+    "name": "ACME Supplies"
+  },
+  "customer": {
+    "@type": "Person",
+    "name": "Jane Doe"
+  },
+  "orderedItem": [
+    {
+      "@type": "OrderItem"
+      "orderItemNumber": "abc123",
+      "orderQuantity": 1,
+      "orderedItem": {
+        "@type": "Product",
+        "name": "Widget"
+      },
+      "orderItemStatus": "http://schema.org/OrderDelivered",
+      "orderDelivery": {
+        "@type": "ParcelDelivery",
+        "expectedArrivalFrom": "2015-03-10"
+      }
+    },
+    {
+      "@type": "OrderItem"
+      "orderItemNumber": "def456",
+      "orderQuantity": 3,
+      "orderedItem": {
+        "@type": "Product",
+        "name": "Widget accessories"
+      },
+      "orderItemStatus": "http://schema.org/OrderInTransit",
+      "orderDelivery": {
+        "@type": "ParcelDelivery",
+        "expectedArrivalFrom": "2015-03-15",
+        "expectedArrivalUntil": "2015-03-18"
+      }
+    }
+  ]
+}
 </script>
 
 
