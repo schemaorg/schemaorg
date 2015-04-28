@@ -730,7 +730,7 @@ class ShowUnit (webapp2.RequestHandler):
             items.append("'{0}' is mentioned in extension layer: <a href='?ext={1}'>{2}</a>".format( node.id, l, l ))
 
         moreinfo = """<div>
-        <div id='infobox' style='text-align: right;'><b><span>[more...]</b></div>
+        <div id='infobox' style='text-align: right;'><b><span style="cursor: pointer;">[more...]</span></b></div>
         <div id='infomsg' style='display: none; background-color: #EEEEEE; text-align: left; padding: 0.5em;'>
         <ul>"""
 
@@ -830,7 +830,7 @@ class ShowUnit (webapp2.RequestHandler):
         self.write(" <br><div>Usage: %s</div>\n\n" % (node.UsageStr()) + "\n")
 
         if (node.isClass(layers=layers) and not node.isDataType(layers=layers)):
-            
+
             self.write("<table class=\"definition-table\">\n        <thead>\n  <tr><th>Property</th><th>Expected Type</th><th>Description</th>               \n  </tr>\n  </thead>\n\n")
 
     def ClassProperties (self, cl, subclass=False, layers="core"):
