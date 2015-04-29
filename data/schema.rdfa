@@ -7160,7 +7160,34 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
 
     <div typeof="rdf:Property" resource="http://schema.org/mainEntityOfPage">
       <span class="h" property="rdfs:label">mainEntityOfPage</span>
-      <span property="rdfs:comment">Indicates a page (or other CreativeWork) for which this thing is the main entity being described.</span>
+      <span property="rdfs:comment">Indicates a page (or other CreativeWork) for which this thing is the main entity being described.
+      &lt;br /&gt;&lt;br /&gt;
+      Many (but not all) pages have a fairly clear primary topic, some entity or thing that the page describes. For
+      example a restaurant's home page might be primarily about that Restaurant, or an event listing page might
+      represent a single event. The mainEntity and mainEntityOfPage properties allow you to explicitly express the relationship
+      between the page and the primary entity.
+      &lt;br /&gt;&lt;br /&gt;
+
+      Related properties include sameAs, about, and url.
+      &lt;br /&gt;&lt;br /&gt;
+
+      The sameAs and url properties are both similar to mainEntityOfPage. The url property should be reserved to refer to more
+      official or authoritative web pages, such as the item’s official website. The sameAs property also relates a thing
+      to a page that indirectly identifies it. Whereas sameAs emphasises well known pages, the mainEntityOfPage property
+      serves more to clarify which of several entities is the main one for that page.
+      &lt;br /&gt;&lt;br /&gt;
+
+      mainEntityOfPage can be used for any page, including those not recognized as authoritative for that entity. For example,
+      for a product, sameAs might refer to a page on the manufacturer’s official site with specs for the product, while
+      mainEntityOfPage might be used on pages within various retailers’ sites giving details for the same product.
+      &lt;br /&gt;&lt;br /&gt;
+
+      about is similar to mainEntity, with two key differences. First, about can refer to multiple entities/topics,
+      while mainEntity should be used for only the primary one. Second, some pages have a primary entity that itself
+      describes some other entity. For example, one web page may display a news article about a particular person.
+      Another page may display a product review for a particular product. In these cases, mainEntity for the pages
+      should refer to the news article or review, respectively, while about would more properly refer to the person or product.
+      </span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Thing">Thing</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/CreativeWork">CreativeWork</a></span>
       <link property="http://schema.org/inverseOf" href="http://schema.org/mainEntity"/>
