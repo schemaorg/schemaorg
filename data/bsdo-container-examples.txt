@@ -1,0 +1,179 @@
+TYPES: Container, BoxContainer, FolderContainer, Shelf
+
+PRE-MARKUP:
+
+<div>
+  <h1>A small collection of things</h1>
+  <div>Creator: Twinkle T. Hose</div>
+</div>
+<div>
+	<h1>The Hitchhiker's guide to the galaxy. The quandry phase</h1>
+	<div>Author: Douglas Adams</div>
+	<div>ISBN: 9781405699532</div>
+	<div>Audiobook</div>
+	<div>Part Of: A small collection of things</div>
+	<div>Stored in: Box One</div>
+</div>
+<div>
+	<h1>A letter from me to the authorities</h1>
+	<div>Author: Twinkle T. Hose</div>
+	<div>Date: 4th July 1976</div>
+	<div>Part Of: A small collection of things</div>
+	<div>Stored in: Folder A</div>
+</div>
+<div>
+	<h1>Folder A</h1>
+	<div>Stored in: Box One</div>
+</div>
+<div>
+	<h1>Box One</h1>
+</div>
+
+MICRODATA:
+
+
+<div>
+<div itemscope itemtype="http://schema.org/Collection" itemid="http://example.org/colls/101">
+  <h1 itemprop="name">A small collection of things</h1>
+  <div>Creator: <span itemprop="creator">Twinkle T. Hose</span></div>
+</div>
+<div itemscope itemtype="http://schema.org/Book" itemid="http://www.worldcat.org/oclc/68043906">
+  <h1 itemprop="name">The Hitchhiker's guide to the galaxy. The quandry phase</h1>
+  <div>Author: <span itemprop="author" itemid="http://viaf.org/viaf/113230702">Douglas Adams</span></div>
+  <div>ISBN: <span itemprop="isbn">9781405699532</span></div>
+  <div>Format: <span itemprop="bookFormat" itemid="http://schema.org/AudioBook">AudioBook</span></div>
+  <div>Part of: <span itemprop="isPartOf" itemscope itemtype="http://schema.org/Collection" itemid="http://example.org/colls/101">A small collection of things</span></div>
+  <div>Stored In: <span itemprop="containedIn" itemscope itemtype="http://schema.org/BoxContainer" itemid="http://example.org/contaiers/b/b001">Box One</span></div>
+</div>
+<div itemscope itemtype="http://schema.org/CreativeWork" itemid="http://http://example.org/letters/1976/1">
+  <h1 itemprop="name">A letter from me to the authorities</h1>
+  <div>Author: <span itemprop="author" >Twinkle T. Hose</span></div>
+  <div>Part of: <span itemprop="isPartOf" itemscope itemtype="http://schema.org/Collection" itemid="http://example.org/colls/101">A small collection of things</span></div>
+  <div>Stored In: <span itemprop="containedIn" itemscope itemtype="http://schema.org/FolderContainer" itemid="http://example.org/contaiers/f/f00A">Folder A</span></div>
+</div>
+<div itemscope itemtype="http://schema.org/FolderContainer" itemid="http://example.org/contaiers/f/f00A">
+  <h1 itemprop="name">Folder A</h1>
+  <div>Stored In: <span itemprop="containedIn" itemscope itemtype="http://schema.org/BoxContainer" itemid="http://example.org/contaiers/b/b001">Box One</span></div>
+  <link itemprop="contains" itemscope itemtype="http://schema.org/CreativeWork" itemid="http://http://example.org/letters/1976/1" />
+</div>
+<div itemscope itemtype="http://schema.org/BoxContainer" itemid="http://example.org/contaiers/b/b001">
+  <h1 itemprop="name">Box One</h1>
+  <link itemprop="contains" itemscope itemtype="http://schema.org/Book" itemid="http://www.worldcat.org/oclc/68043906" />
+  <link itemprop="contains" itemscope itemtype="http://schema.org/FolderContainer" itemid="http://example.org/contaiers/f/f00A" />
+</div>
+</div>
+
+RDFA:
+
+<div vocab="http://schema.org/">
+<div typeof="Collection" resource="http://example.org/colls/101">
+  <h1 property="name">A small collection of things</h1>
+  <div>Creator: <span property="creator">Twinkle T. Hose</span></div>
+</div>
+<div typeof="Book" resource="http://www.worldcat.org/oclc/68043906">
+  <h1 property="name">The Hitchhiker's guide to the galaxy. The quandry phase</h1>
+  <div>Author: <span property="author" resource="http://viaf.org/viaf/113230702">Douglas Adams</span></div>
+  <div>ISBN: <span property="isbn">9781405699532</span></div>
+  <div>Format: <span property="bookFormat" resource="http://schema.org/AudioBook">AudioBook</span></div>
+  <div>Part of: <span property="isPartOf" resource="http://example.org/colls/101">A small collection of things</span></div>
+  <div>Stored In: <span property="containedIn" resource="http://example.org/contaiers/b/b001">Box One</span></div>
+</div>
+<div typeof="CreativeWork" resource="http://http://example.org/letters/1976/1">
+  <h1 property="name">A letter from me to the authorities</h1>
+  <div>Author: <span property="author" >Twinkle T. Hose</span></div>
+  <div>Part of: <span property="isPartOf" resource="http://example.org/colls/101">A small collection of things</span></div>
+  <div>Stored In: <span property="containedIn" resource="http://example.org/contaiers/f/f00A">Folder A</span></div>
+</div>
+<div typeof="FolderContainer" resource="http://example.org/contaiers/f/f00A">
+  <h1 property="name">Folder A</h1>
+  <div>Stored In: <span property="containedIn" resource="http://example.org/contaiers/b/b001">Box One</span></div>
+  <link property="contains" resource="http://http://example.org/letters/1976/1" />
+</div>
+<div typeof="BoxContainer" resource="http://example.org/contaiers/b/b001">
+  <h1 property="name">Box One</h1>
+  <link property="contains" resource="http://www.worldcat.org/oclc/68043906" />
+  <link property="contains" resource="http://example.org/contaiers/f/f00A" />
+</div>
+</div>
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": {
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "rdfa": "http://www.w3.org/ns/rdfa#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "schema": "http://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#"
+  },
+  "@graph": [
+    {
+      "@id": "http://example.org/contaiers/f/f00A",
+      "@type": "schema:FolderContainer",
+      "schema:containedIn": {
+        "@id": "http://example.org/contaiers/b/b001"
+      },
+      "schema:contains": {
+        "@id": "http://http://example.org/letters/1976/1"
+      },
+      "schema:name": "Folder A"
+    },
+    {
+      "@id": "",
+      "rdfa:usesVocabulary": {
+        "@id": "schema:"
+      }
+    },
+    {
+      "@id": "http://example.org/contaiers/b/b001",
+      "@type": "schema:BoxContainer",
+      "schema:contains": [
+        {
+          "@id": "http://example.org/contaiers/f/f00A"
+        },
+        {
+          "@id": "http://www.worldcat.org/oclc/68043906"
+        }
+      ],
+      "schema:name": "Box One"
+    },
+    {
+      "@id": "http://http://example.org/letters/1976/1",
+      "@type": "schema:CreativeWork",
+      "schema:author": "Twinkle T. Hose",
+      "schema:containedIn": {
+        "@id": "http://example.org/contaiers/f/f00A"
+      },
+      "schema:isPartOf": {
+        "@id": "http://example.org/colls/101"
+      },
+      "schema:name": "A letter from me to the authorities"
+    },
+    {
+      "@id": "http://www.worldcat.org/oclc/68043906",
+      "@type": "schema:Book",
+      "schema:author": {
+        "@id": "http://viaf.org/viaf/113230702"
+      },
+      "schema:bookFormat": {
+        "@id": "schema:AudioBook"
+      },
+      "schema:containedIn": {
+        "@id": "http://example.org/contaiers/b/b001"
+      },
+      "schema:isPartOf": {
+        "@id": "http://example.org/colls/101"
+      },
+      "schema:isbn": "9781405699532",
+      "schema:name": "The Hitchhiker's guide to the galaxy. The quandry phase"
+    },
+    {
+      "@id": "http://example.org/colls/101",
+      "@type": "schema:Collection",
+      "schema:creator": "Twinkle T. Hose",
+      "schema:name": "A small collection of things"
+    }
+  ]
+}
+</script>
