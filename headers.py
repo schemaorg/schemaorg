@@ -70,7 +70,7 @@ headers = '''<!DOCTYPE html>
         <div id="intro">
             <div id="pageHeader">
               <div class="wrapper">
-                <h1>%s</h1>
+                <h1><a href="/">%s</a></h1>
 
 <div id="cse-search-form" style="width: 400px;"></div>
 
