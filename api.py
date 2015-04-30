@@ -42,7 +42,7 @@ if host_ext != None:
     host_ext = host_ext.group(1) # e.g. "bib"
 
 debugging = False
-if host_ext == "localhost":
+if host_ext == "localhost" or  "webschemas" in os_host:
     debugging = True
 
 # Core API: we have a single schema graph built from triples and units.
@@ -835,9 +835,9 @@ class ShowUnit (webapp2.RequestHandler):
         comment = GetComment(node, layers)
         self.write(" <div property=\"rdfs:comment\">%s</div>\n\n" % (comment) + "\n")
 
-        self.write(self.moreInfoBlock(node))
-
         self.write(" <br><div>Usage: %s</div>\n\n" % (node.UsageStr()) + "\n")
+
+        self.write(self.moreInfoBlock(node))
 
         if (node.isClass(layers=layers) and not node.isDataType(layers=layers)):
 
