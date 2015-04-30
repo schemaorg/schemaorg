@@ -67,11 +67,15 @@ super-type, here we show each type in one branch of the tree only.
 
 <h4>DataType</h4>
 
-<div> {{ datatype_tree | safe }} </div>
+<div> 
+{{ datatype_tree | safe }}
+</div>
 
 <h4>Thing</h4>
 
-<div> {{ thing_tree | safe }} </div>
+<div> 
+{{ thing_tree | safe }}
+</div>
 
 
 

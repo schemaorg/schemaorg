@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bgn="http://bibliograph.net" xmlns:schema="http://schema.org/" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xml:lang="en" lang="en">
+
+<!-- NOTE: this file borrowed from bibliograph.net after discussion with richard wallis, to serve as a rough demo of how a bib extension might function.
+     We need to be clear that this is not intended to imply consensus in the wider community. -->
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>BiblioGraph - RDFa Lite Reflection</title>
+<style type="text/css">
+      span.h {
+        padding-left: 0px;
+        font-weight: bold;
+      }
+      span {
+        display: block;
+        padding-left: 10px;
+      }
+    </style>
+</head>
+<body>
+<h1>BiblioGraph.net core schema</h1>
+<p>This is an  RDFa  representation of the BiblioGaph.net schema, copied here for collaboration and feedback.</p>
+
+<p vocab="http://schema.org" prefix="bgn:http://bibliograph.net/">Default vocabulary prefix: 'bgn:'</p>
+<p>
+<span property="schema:softwareVersion">BiblioGraph.net Version 1.1</span>
+</p>
+<hr/>
+<h2>Types</h2>
+
+<div typeof="rdfs:Class" resource="http://schema.org/Agent">
+<span class="h" property="rdfs:label">bgn:Agent</span>
+<span property="rdfs:comment">An agent (e.g. person, group, software, or physical artifact). This class is useful in cases where schema:Person or schema:Organization is unclear or too specific.</span>
+<span> Subclass of:
+		     <a property="rdfs:subClassOf" href="http://schema.org/Thing">schema:Thing</a>
+</span>
+<span>Source:  <a property="dc:source" href="http://xmlns.com/foaf/0.1/Agent">foaf:Agent</a></span>
+</div>
+
+<div typeof="rdfs:Class" resource="http://schema.org/Atlas">
+<span class="h" property="rdfs:label">bgn:Atlas</span>
+<span property="rdfs:comment">A collection or bound volume of maps, charts, plates or tables, physical or in media form illustrating any subject.</span>
+<span> Subclass of:
+		     <a property="rdfs:subClassOf" href="http://schema.org/CreativeWork">schema:CreativeWork</a>
+</span>
+<span>Source:  <a property="dc:source" href="http://www.productontology.org/id/Atlas">pto:Atlas</a></span>
+</div>
+
+<div typeof="rdfs:Class" resource="http://schema.org/BlurayDisc">
+<span class="h" property="rdfs:label">bgn:BlurayDisc</span>
+<span property="rdfs:comment">A digital optical disc data storage format capable of storing high-definition video resolution.</span>
+<span> Subclass of:
+		     <a property="rdfs:subClassOf" href="http://schema.org/Product">schema:Product</a>
+</span>
+<span>Source:  <a property="dc:source" href="http://www.productontology.org/id/Blu-ray_Disc">pto:Blu-ray_Disc</a></span>
+</div>
+
+<div typeof="rdfs:Class" resource="http://schema.org/BroadcastService">
+<span class="h" property="rdfs:label">schema:BroadcastService</span>
+<span> Subclass of:
+		     <a property="rdfs:subClassOf" href="http://schema.org/Agent">bgn:Agent</a>
+</span>
+</div>
+
+<div typeof="rdfs:Class" resource="http://schema.org/Chapter">
+<span class="h" property="rdfs:label">bgn:Chapter</span>
+<span property="rdfs:comment">One of the sections into which a book is divided. A chapter usually has a section number or a name.</span>
+<span> Subclass of:
+		     <a property="rdfs:subClassOf" href="http://schema.org/CreativeWork">schema:CreativeWork</a>
+</span>
+</div>
+
+<div typeof="rdfs:Class" resource="http://schema.org/CompactCassette">
+<span class="h" property="rdfs:label">bgn:CompactCassette</span>
+<span property="rdfs:comment">The Compact Cassette or Musicassette (MC), also commonly called cassette tape, audio cassette, or simply tape or cassette, is a magnetic tape recording format for audio recording and playback.</span>
+<span> Subclass of:
+		     <a property="rdfs:subClassOf" href="http://schema.org/Product">schema:Product</a>
+</span>
+<span>Source:  <a property="dc:source" href="http://www.productontology.org/id/Compact_Cassette">pto:Compact_Cassette</a></span>
+</div>
+
+<div typeof="rdfs:Class" resource="http://schema.org/CD">
+<span class="h" property="rdfs:label">bgn:CD</span>
+<span property="rdfs:comment">CD or Compact Disk - a storage medium which can hold large amounts of data including images and sound.</span>
+<span> Subclass of:
+			<a property="rdfs:subClassOf" href="http://schema.org/Product">schema:Product</a>
+</span>
+<span>Source:  <a property="dc:source" href="http://www.productontology.org/id/Compact_disc">pto:Compact_disc</a></span>
+</div>
+
+<div typeof="rdfs:Class" resource="http://schema.org/ComputerFile">
+<span class="h" property="rdfs:label">bgn:ComputerFile</span>
+<span property="rdfs:comment">A computer file is a resource for storing information, which is available to a computer program and is usually based on some kind of durable storage.</span>
+<span> Subclass of:
+		     <a property="rdfs:subClassOf" href="http://schema.org/CreativeWork">schema:CreativeWork</a>
+</span>
+<span>Source:  <a property="dc:source" href="http://www.productontology.org/id/Computer_file">pto:Computer_file</a></span>
+</div>
+
+<div typeof="rdfs:Class" resource="http://schema.org/DVD">
+<span class="h" property="rdfs:label">bgn:DVD</span>
+<span property="rdfs:comment">A type of compact disc able to store large amounts of data, especially high-resolution audiovisual material.</span>
+<span> Subclass of:
+			<a property="rdfs:subClassOf" href="http://schema.org/Product">schema:Product</a>
+</span>
+<span>Source:  <a property="dc:source" href="http://www.productontology.org/id/DVD">pto:DVD</a></span>
+</div>
+
+<div typeof="rdfs:Class" resource="http://schema.org/Globe">
+<span class="h" property="rdfs:label">bgn:Globe</span>
+<span property="rdfs:comment">A three-dimensional scale model of Earth (terrestrial globe or geographical globe) or other celestial body such as a planet or moon. </span>
+<span> Subclass of:
+		     <a property="rdfs:subClassOf" href="http://schema.org/CreativeWork">schema:CreativeWork</a>
+</span>
+<span>Source:  <a property="dc:source" href="http://www.productontology.org/id/Globe">pto:Globe</a></span>
+</div>
+
+<div typeof="rdfs:Class" resource="http://schema.org/Image">
+<span class="h" property="rdfs:label">bgn:Image</span>
+<span property="rdfs:comment">An artifact that depicts or records visual perception, for example a two-dimensional picture, that has a similar appearance to some subject – usually a physical object or a person</span>
+<span> Subclass of:
+		     <a property="rdfs:subClassOf" href="http://schema.org/CreativeWork">schema:CreativeWork</a>
+</span>
+<span>Source:  <a property="dc:source" href="http://www.productontology.org/id/Image">pto:Image</a></span>
+</div>
+
+<div typeof="rdfs:Class" resource="http://schema.org/ImageObject">
+<span class="h" property="rdfs:label">schema:ImageObject</span>
+<span> Subclass of:
+		     <a property="rdfs:subClassOf" href="http://schema.org/Image">bgn:Image</a>
+</span>
+</div>
+
+<div typeof="rdfs:Class" resource="http://schema.org/Kit">
+<span class="h" property="rdfs:label">bgn:Kit</span>
+<span property="rdfs:comment">A collection of various components (CreativeWorks, products, artefacts) collected and described as a unit.  No one component is identifiable as the predominant component of the collection. Examples include packages of assorted materials, for study as part of an educational curriculum topic (books, workbooks, guides, activities, etc.), or packages of educational test materials (tests, answer sheets, scoring guides, score charts, interpretative manuals, etc.).</span>
+<span> Subclass of:
+		     <a property="rdfs:subClassOf" href="http://schema.org/CreativeWork">schema:CreativeWork</a>
+</span>
+<span>Source:  <a property="dc:source" href="http://www.loc.gov/marc/bibliographic/bd007o.html">MARC21 Bibliographic Format</a></span>
+</div>
+
+<div typeof="rdfs:Class" resource="http://schema.org/LPRecord">
+<span class="h" property="rdfs:label">bgn:LPRecord</span>
+<span property="rdfs:comment">LP or Long-Play record - a format for phonograph (gramophone) records, an analog sound storage medium.</span>
+<span> Subclass of:
+			<a property="rdfs:subClassOf" href="http://schema.org/CreativeWork">schema:CreativeWork</a>
+</span>
+<span>Source:  <a property="dc:source" href="http://www.productontology.org/id/LP_record">pto:LP_record</a></span>
+</div>
+
+<div typeof="rdfs:Class" resource="http://schema.org/Meeting">
+<span class="h" property="rdfs:label">bgn:Meeting</span>
+<span property="rdfs:comment">A meeting: when two or more people come together to discuss one or more topics, often in a formal setting.</span>
+<span> Subclass of:
+		     <a property="rdfs:subClassOf" href="http://schema.org/Event">schema:Event</a>
+<a property="rdfs:subClassOf" href="http://schema.org/Organization">schema:Organization</a>
+</span>
+<span>Source:  <a property="dc:source" href="http://www.productontology.org/id/Meeting">pto:Meeting</a></span>
+</div>
+
+<div typeof="rdfs:Class" resource="http://schema.org/Microform">
+<span class="h" property="rdfs:label">bgn:Microform</span>
+<span property="rdfs:comment">Any form, either film or paper, containing microreproductions of documents for transmission, storage, reading, and printing. (Microfilm, microfiche, microcards, etc</span>
+<span> Subclass of:
+			<a property="rdfs:subClassOf" href="http://schema.org/Product">schema:Product</a>
+</span>
+<span>Source:  <a property="dc:source" href="http://www.productontology.org/id/Microform">pto:Microform</a></span>
+</div>
+
+<div typeof="rdfs:Class" resource="http://schema.org/Newspaper">
+<span class="h" property="rdfs:label">bgn:Newspaper</span>
+<span property="rdfs:comment">A publication containing information about varied topics that are pertinent to general information, a geographic area, or a specific subject matter (i.e. business, culture, education). Often published daily.</span>
+<span> Subclass of:
+		     <a property="rdfs:subClassOf" href="http://schema.org/Periodical">schema:Periodical</a>
+</span>
+<span>Source:  <a property="dc:source" href="http://www.productontology.org/id/Newspaper">pto:Newspaper</a></span>
+</div>
+
+<div typeof="rdfs:Class" resource="http://schema.org/MusicScore">
+<span class="h" property="rdfs:label">bgn:MusicScore</span>
+<span property="rdfs:comment">Handwritten or printed music notation</span>
+<span> Subclass of:
+		     <a property="rdfs:subClassOf" href="http://schema.org/CreativeWork">schema:CreativeWork</a>
+</span>
+<span>Source:  <a property="dc:source" href="http://www.productontology.org/id/Sheet_music">pto:Sheet_music</a></span>
+</div>
+
+<div typeof="rdfs:Class" resource="http://schema.org/Organization">
+<span class="h" property="rdfs:label">schema:Organization</span>
+<span> Subclass of:
+		     <a property="rdfs:subClassOf" href="http://schema.org/Agent">bgn:Agent</a>
+</span>
+</div>
+
+<div typeof="rdfs:Class" resource="http://schema.org/Painting">
+<span class="h" property="rdfs:label">schema:Painting</span>
+<span> Subclass of:
+		     <a property="rdfs:subClassOf" href="http://schema.org/Image">bgn:Image</a>
+</span>
+</div>
+
+<div typeof="rdfs:Class" resource="http://schema.org/Person">
+<span class="h" property="rdfs:label">schema:Person</span>
+<span> Subclass of:
+		     <a property="rdfs:subClassOf" href="http://schema.org/Agent">bgn:Agent</a>
+</span>
+</div>
+
+<div typeof="rdfs:Class" resource="http://schema.org/Photograph">
+<span class="h" property="rdfs:label">schema:Photograph</span>
+<span> Subclass of:
+		     <a property="rdfs:subClassOf" href="http://schema.org/Image">bgn:Image</a>
+</span>
+</div>
+
+<div typeof="rdfs:Class" resource="http://schema.org/PublicationSeries">
+<span class="h" property="rdfs:label">bgn:PublicationSeries</span>
+<span property="rdfs:comment">A set of related creative works that are generated in sequence over time.</span>
+<span> Subclass of:
+		     <a property="rdfs:subClassOf" href="http://schema.org/CreativeWork">schema:CreativeWork</a>
+</span>
+</div>
+
+<div typeof="rdfs:Class" resource="http://schema.org/SoundRecording">
+<span class="h" property="rdfs:label">bgn:SoundRecording</span>
+<span property="rdfs:comment">An electrical or mechanical recording of sound waves.</span>
+<span> Subclass of:
+		     <a property="rdfs:subClassOf" href="http://schema.org/CreativeWork">schema:CreativeWork</a>
+</span>
+</div>
+
+<div typeof="rdfs:Class" resource="http://schema.org/MusicRecording">
+	<span class="h" property="rdfs:label">schema:MusicRecording</span>
+<span> Subclass of:
+		     <a property="rdfs:subClassOf" href="http://schema.org/SoundRecording">bgn:SoundRecording</a>
+</span>
+</div>
+
+<div typeof="rdfs:Class" resource="http://schema.org/Thesis">
+<span class="h" property="rdfs:label">bgn:Thesis</span>
+<span property="rdfs:comment">A thesis or dissertation document submitted in support of candidature for an academic degree or professional qualification.</span>
+<span> Subclass of:
+		     <a property="rdfs:subClassOf" href="http://schema.org/CreativeWork">schema:CreativeWork</a>
+</span>
+<span>Source:  <a property="dc:source" href="http://www.productontology.org/id/Thesis">pto:Thesis</a></span>
+</div>
+
+<div typeof="rdfs:Class" resource="http://schema.org/Toy">
+<span class="h" property="rdfs:label">bgn:Toy</span>
+<span property="rdfs:comment">An item that can be used for play.</span>
+<span> Subclass of:
+		     <a property="rdfs:subClassOf" href="http://schema.org/CreativeWork">schema:CreativeWork</a>
+		     <a property="rdfs:subClassOf" href="http://schema.org/Product">schema:Product</a>
+</span>
+<span>Source:  <a property="dc:source" href="http://www.productontology.org/id/Toy">pto:Toy</a></span>
+</div>
+
+<div typeof="rdfs:Class" resource="http://schema.org/VHS">
+<span class="h" property="rdfs:label">bgn:VHS</span>
+<span property="rdfs:comment">A Video Home System (VHS) tape cartridge.</span>
+<span> Subclass of:
+		     <a property="rdfs:subClassOf" href="http://schema.org/Product">schema:Product</a>
+</span>
+<span>Source:  <a property="dc:source" href="http://www.productontology.org/id/VHS">pto:VHS</a></span>
+</div>
+
+<hr/>
+<h2>Enumeration Members</h2>
+
+<div typeof="http://schema.org/BookFormatType" resource="http://schema.org/AudioBook">
+<span class="h" property="rdfs:label">bgn:AudioBook</span>
+<span property="rdfs:comment">Book format: Audio book.</span>
+<span>Source:  <a property="dc:source" href="http://www.productontology.org/id/Audiobook">pto:Audiobook</a></span>
+</div>
+
+<div typeof="http://schema.org/BookFormatType" resource="http://schema.org/LargePrintBook">
+<span class="h" property="rdfs:label">bgn:LargePrintBook</span>
+<span property="rdfs:comment">Book format: Large-Print book.</span>
+</div>
+
+<div typeof="http://schema.org/BookFormatType" resource="http://schema.org/PrintBook">
+<span class="h" property="rdfs:label">bgn:PrintBook</span>
+<span property="rdfs:comment">Book format: Print book. Used in cases where the book format is unknown or otherwise not covered by specific formats such as schema:Paperback, schema:Hardcover, etc.</span>
+</div>
+
+<div typeof="http://schema.org/MapCategoryType" resource="http://schema.org/CartographicMap">
+  <span class="h" property="rdfs:label">bgn:CartographicMap</span>
+  <span property="rdfs:comment">A cartographic / geographic map .</span>
+</div>
+
+<hr/>
+<h2>Properties</h2>
+
+<div typeof="rdf:Property" resource="http://schema.org/creator">
+<span class="h" property="rdfs:label">schema:creator</span>
+<span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Agent">bgn:Agent</a>
+</span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/inSupportOf">
+<span class="h" property="rdfs:label">bgn:inSupportOf</span>
+<span property="rdfs:comment">Qualification, candidature, degree, application that Thesis supports.</span>
+<span>Domain:
+            <a property="http://schema.org/domainIncludes" href="http://schema.org/Thesis">bgn:Thesis</a>
+</span>
+<span>Range:
+            <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">schema:Text</a>
+</span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/publishedBy">
+<span class="h" property="rdfs:label">bgn:publishedBy</span>
+<span property="rdfs:comment">An agent associated with the publication event.</span>
+<span>Domain:
+            <a property="http://schema.org/domainIncludes" href="http://schema.org/PublicationEvent">schema:PublicationEvent</a>
+</span>
+<span>Range:
+            <a property="http://schema.org/rangeIncludes" href="http://schema.org/Agent">bgn:Agent</a>
+</span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/translationOfWork">
+<span class="h" property="rdfs:label">bgn:translationOfWork</span>
+<span property="rdfs:comment">The work that this work has been translated from. e.g. 物种起源 is a translationOf “On the Origin of Species”</span>
+<span>Domain:
+	      	<a property="http://schema.org/domainIncludes" href="http://schema.org/CreativeWork">schema:CreativeWork</a>
+</span>
+<span>Range:
+	      	<a property="http://schema.org/rangeIncludes" href="http://schema.org/CreativeWork">schema:CreativeWork</a>
+</span>
+<link property="http://schema.org/inverseOf" href="http://schema.org/workTranslation"/>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/translator">
+<span class="h" property="rdfs:label">bgn:translator</span>
+<span property="rdfs:comment">An agent responsible for rendering a translated work from a source work</span>
+<span>Domain:
+	      	<a property="http://schema.org/domainIncludes" href="http://schema.org/CreativeWork">schema:CreativeWork</a>
+</span>
+<span>Range:
+	      	<a property="http://schema.org/rangeIncludes" href="http://schema.org/Agent">bgn:Agent</a>
+</span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/workTranslation">
+<span class="h" property="rdfs:label">bgn:workTranslation</span>
+<span property="rdfs:comment">A work that is a translation of the content of this work. e.g. 西遊記 has an English workTranslation “Journey to the West”,a German workTranslation “Monkeys Pilgerfahrt” and a Vietnamese  translation Tây du ký bình khảo.</span>
+<span>Domain:
+	      	<a property="http://schema.org/domainIncludes" href="http://schema.org/CreativeWork">schema:CreativeWork</a>
+</span>
+<span>Range:
+	      	<a property="http://schema.org/rangeIncludes" href="http://schema.org/CreativeWork">schema:CreativeWork</a>
+</span>
+<link property="http://schema.org/inverseOf" href="http://schema.org/translationOfWork"/>
+</div>
+
+</body>
+</html>
