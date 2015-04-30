@@ -369,7 +369,7 @@ class Triple ():
 
 def GetTargets(arc, source, layers='core'):
     """All values for a specified arc on specified graph node (within any of the specified layers)."""
-    log.debug("GetTargets checking in layer: %s for unit: %s arc: %s" % (layers, source.id, arc.id))
+    # log.debug("GetTargets checking in layer: %s for unit: %s arc: %s" % (layers, source.id, arc.id))
     targets = {}
     for triple in source.arcsOut:
         if (triple.arc == arc):
@@ -1438,7 +1438,6 @@ def read_schemas():
         files = glob.glob("data/2015-04-vocab_counts.txt")
 
         for file in files:
-            print file
             usage_data = read_file(file)
             parser = parsers.UsageFileParser(None)
             parser.parse(usage_data)
