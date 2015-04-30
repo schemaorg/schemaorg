@@ -138,6 +138,8 @@ td.release  {
 
 <h3>Vocabulary</h3>
 <ul>
+<li><a href="https://github.com/schemaorg/schemaorg/issues/130">Fix to #130</a>: Amended <a href="/True">True</a> and <a href="/False">False</a> to be instances (rather than sub-types) of <a href="/Boolean">Boolean</a>.</li>
+<li><a href="https://github.com/schemaorg/schemaorg/issues/218">Fix to #218</a>: Amended <a href="/DataType">DataType</a> to model it as a sub-class of Class, with each datatype e.g. <a href="/Boolean">Boolean</a>, <a href="/Text">Text</a>, <a href="/Date">Date</a>, <a href="/DateTime">DateTime</a>, <a href="/Time">Time</a> etc. being classes that have a typeOf <a href="/DataType">DataType</a>. DataTypes can have sub-types, e.g. <a href="/Integer">Integer</a> and <a href="/Float">Float</a> are subtypes of <a href="/Number">Number</a>.</li>
 <li><a href="https://github.com/schemaorg/schemaorg/issues/8">Fix to #8</a>: Fixed description of <a href="/box">box</a> to follow the original <a href="http://dev.iptc.org/rNews-1-The-GeoCoordinates-Class">rNews</a> definition (instead of accidental copy of <a href="/polygon">polygon</a>). Added explanatory text to <a href="/GeoShape">GeoShape</a> regarding commas/whitespace.</li>
 <li><a href="https://github.com/schemaorg/schemaorg/issues/301">Fix to #301</a>: Added <a href="/mainEntityOfPage">mainEntityOfPage</a> (and an inverse, <a href="/mainEntity">mainEntity</a>) to indicate which of the entities mentioned in a page is its primary topic.</li>
 <li><a href="https://github.com/schemaorg/schemaorg/issues/225">Fix to #225</a>: Added a <a href=/schemaVersion">schemaVersion</a> property, for use by applications that require more precise referencing of schema versions.</li>
@@ -154,7 +156,6 @@ td.release  {
 <li><a href="https://github.com/schemaorg/schemaorg/issues/456">Fix to 456</a>: Generalized <a href="/numberOfEmployees">numberOfEmployees</a>, to apply to <a href="/Organization">Organization</a> as well as to <a href="/BusinessAudience">BusinessAudience</a>.</li>
 <li><a href="https://github.com/schemaorg/schemaorg/issues/439">Fix to #439</a>: Clarified <a href="/numberOfItems">numberOfItems</a> with multi-page pagination.</li>
 <li><a href="https://github.com/gkellogg/schemaorg/commit/290ed07cb2fa274b46c82ea4b6220b13cbe946f8">Fixed</a> the mapping from <a href="/DataCatalog">DataCatalog</a> to <a href="http://www.w3.org/ns/dcat#Catalog">dcat:Catalog</a></li>
-<li><a href="https://github.com/schemaorg/schemaorg/issues/130">Fix to #130</a>: Amended <a href="/True">True</a> and <a href="/False">False</a> to be instances (rather than sub-types) of <a href="/Boolean">Boolean</a>.</li>
 <li><a href="https://github.com/schemaorg/schemaorg/issues/341">Fix to #341</a>: Amended <a href="/programmingLanguage">programmingLanguage</a> to expect a <a href="/Language">Language</a> rather than a <a href="/Thing">Thing</a>.</li>
 <li><a href="https://github.com/schemaorg/schemaorg/issues/365">Fix to #365</a>: Extended <a href="/award">award</a> for use on <a href="/Organization">Organization</a>, <a href="/Product">Product</a>.</li>
 <li><a href="https://github.com/schemaorg/schemaorg/issues/145">Fix to #145</a>: Marked <a href="/serviceAudience">serviceAudience</a> as supersededBy the more general <a href="/audience">audience</a> property.</li>
