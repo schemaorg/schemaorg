@@ -3,26 +3,36 @@
 
 <div class="extinfo">
 <h3>Schema.org Hosted Extension: {{ name }}</h3>
-<p>Schema.org is a set of extensible schemas that enables webmasters to embed structured data on their web pages for use by search engines and other applications. 
+<p>Schema.org is a set of extensible schemas that enables webmasters to embed structured data on their web pages for use by search engines and other applications.
 For more details, see the <a href="/">homepage</a>.
 
 </p>
-<p>This is the front page for the <em>{{name}}</em> extension, whose short name is: {{ abbrev }}</p>
+<p>This is the front page for the <em>{{name}}</em>, whose short name is: <code>{{ abbrev }}</code></p>
 </div>
 
 {%- endmacro %}
 
 
+
+
+
 {%- macro debugInfo() -%}
 
-<div style="clear: both; float: left; font-size: smaller; margin: 1em;">
- <dl>
-  <dt>SCHEMA_VERSION:</dt><dd>{{ SCHEMA_VERSION }}</dd>
-  <dt>ENABLE_JSONLD_CONTEXT:</dt><dd>{{ ENABLE_JSONLD_CONTEXT }}</dd>
-  <dt>ENABLE_CORS:</dt><dd>{{ ENABLE_CORS }}</dd>
-  <dt>os_host:</dt><dd>{{ os_host }}</dd>
-  <dt>host_ext:</dt><dd>{{ host_ext }}</dd>
- </dl>
+{% if not debugging %}<div style="display: none;">{%- endif %}
+
+<div style="clear: both; float: left; text-align: left; font-size: xx-small; color: #888 ; margin: 1em; line-height: 100%;">
+ <ul>
+  <li>SCHEMA_VERSION: {{ SCHEMA_VERSION }} </li>
+  <li>ENABLE_JSONLD_CONTEXT: {{ ENABLE_JSONLD_CONTEXT }} </li>
+  <li>ENABLE_CORS: {{ ENABLE_CORS }} </li>
+  <li>os_host: {{ os_host }} </li>
+  <li>host_ext: {{ host_ext }} </li>
+  <li>debugging: {{ debugging }} </li>
+ </ul>
 </div>
+
+{% if not debugging %}</div>{%- endif %}
+
+
 
 {%- endmacro %}

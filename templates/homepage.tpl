@@ -5,7 +5,9 @@
     <title>Home - schema.org</title>
     <meta name="description" content="Schema.org is a set of extensible schemas that enables webmasters to embed
     structured data on their web pages for use by search engines and other applications." />
-    <link rel="stylesheet" type="text/css" href="search_files/schemaorg.css" />
+    <!-- link rel="stylesheet" type="text/css" href="search_files/schemaorg.css" -->
+
+    <link rel="stylesheet" type="text/css" href="docs/schemaorg.css">
 
 </head>
 <body>
@@ -53,6 +55,16 @@
   <div id="mainContent">
 
 {% import 'ext.tpl' as ext with context %}
+
+{% if os_host in [ "sdo-gozer.appspot.com", "sdo-tully.appspot.com", "sdo-lenny.appspot.com" ] %}
+
+<p id="lli" class="layerinfo">
+Note: This is {{ os_host }}. you are viewing an unstable work-in-progress preview of <a href="http://schema.org/">schema.org</a>.
+See the draft <b><a href="/docs/releases.html">releases</a></b> page to learn more about this version.
+</p>
+
+{% endif %}
+
 
 {% if host_ext == "bib" %}
   {{ ext.overview(name="Bibliographic Extension", abbrev="ext") }}
