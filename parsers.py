@@ -10,6 +10,7 @@ import xml.etree.ElementTree as ET
 import logging
 import api
 
+        
 def MakeParserOfType (format, webapp):
     if (format == 'mcf') :
         return MCFParser(webapp)
@@ -21,6 +22,8 @@ def MakeParserOfType (format, webapp):
 class ParseExampleFile :
 
     def __init__ (self, webapp):
+        logging.basicConfig(level=logging.INFO) # dev_appserver.py --log_level debug .
+
         self.webapp = webapp
         self.initFields()
 
@@ -145,6 +148,9 @@ class RDFAParser :
         property = elem.get('property')
         text = elem.text
         if (property != None):
+            if property == "rdf:type":
+              property = "typeOf" # some crude normalization, since we aren't a real rdfa parser.
+              logging.info("normalized rdf:type to typeOf internally. value is: %s" % href )
             property = api.Unit.GetUnit(self.stripID(property), True)
             if (href != None) :
                 href = api.Unit.GetUnit(self.stripID(href), True)
@@ -158,7 +164,9 @@ class RDFAParser :
         if (resource != None):
             currentNode = api.Unit.GetUnit(self.stripID(resource), True)
             if (typeof != None):
-                api.Triple.AddTriple(currentNode, api.Unit.GetUnit("typeOf", True), api.Unit.GetUnit(self.stripID(typeof), True), layer)
+                for some_type in typeof.split():
+                  # logging.debug("rdfa typeOf: %s" % some_type)
+                  api.Triple.AddTriple(currentNode, api.Unit.GetUnit("typeOf", True), api.Unit.GetUnit(self.stripID(some_type), True), layer)
         for child in elem.findall('*'):
             self.extractTriples(child,  currentNode, layer)
 

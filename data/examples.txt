@@ -6007,7 +6007,7 @@ JSON:
 }
 </script>
 
-TYPES:  AskAction
+TYPES:  AskAction,Question
 
 PRE-MARKUP:
 
@@ -6035,8 +6035,11 @@ JSON:
   "recipient": {
     "@type": "Person",
     "name": "Steve"
-  },
-  "question": "What's 2 + 2?"
+  }, 
+  "question": {
+    "@type": "Question",
+    "text": "What's 2 + 2?"
+  }
 }
 </script>
 
@@ -6224,9 +6227,9 @@ JSON:
     "@type": "Person",
     "name": "John"
   },
-  "object": {
-    "@type": "UserComment",
-    "name": "That's cool!"
+  "resultComment": {
+    "@type": "Comment",
+    "text": "That's cool!"
   },
   "about": {
     "@type": "ScholarlyArticle",
@@ -6371,7 +6374,7 @@ JSON:
 }
 </script>
 
-TYPES:  ReplyAction
+TYPES:  ReplyAction,Question,Answer
 
 PRE-MARKUP:
 
@@ -6400,8 +6403,14 @@ JSON:
     "@type": "Person",
     "name": "Steve"
   },
-  "question": "What's 2 + 2?",
-  "answer": "4."
+  "resultComment": {
+    "@type": "Answer",
+    "parentItem": {
+      "@type": "Question",
+      "text":  "What's 2 + 2?"
+    }
+    "text": "4."
+  }
 }
 </script>
 
@@ -10399,7 +10408,7 @@ JSON:
 {
     "@context": "http://schema.org",
     "@type": "Question",
-    "name": "What is attr_accessor in Ruby?",
+    "text": "What is attr_accessor in Ruby?",
     "upvoteCount": "196",
     "text": "I am having difficulty understanding Ruby attr_accessors, can someone explain them?",
     "dateCreated": "2010-11-04T20:07Z",

@@ -33,10 +33,17 @@ JINJA_ENVIRONMENT = jinja2.Environment(
 
 
 ENABLE_JSONLD_CONTEXT = True
-DYNALOAD=True # permits read_schemas to be re-invoked live.
+ENABLE_CORS = True
+DYNALOAD = True # permits read_schemas to be re-invoked live.
 
 os_host = os.environ.get('HTTP_HOST', 'localhost')
 host_ext = re.match(r'(\w*)[.:]',os_host)
+if host_ext != None:
+    host_ext = host_ext.group(1) # e.g. "bib"
+
+debugging = False
+if host_ext == "localhost" or  "webschemas" in os_host:
+    debugging = True
 
 # Core API: we have a single schema graph built from triples and units.
 
@@ -49,6 +56,9 @@ all_terms = {}
 # Utility declaration of W3C Initial Context
 # From http://www.w3.org/2011/rdfa-context/rdfa-1.1
 # and http://www.w3.org/2013/json-ld-context/rdfa11
+# Enables all these prefixes without explicit declaration when
+# using schema.org's JSON-LD context file.
+#
 namespaces = """        "cat": "http://www.w3.org/ns/dcat#",
         "qb": "http://purl.org/linked-data/cube#",
         "org": "http://www.w3.org/ns/org#",
@@ -359,7 +369,7 @@ class Triple ():
 
 def GetTargets(arc, source, layers='core'):
     """All values for a specified arc on specified graph node (within any of the specified layers)."""
-    log.debug("GetTargets checking in layer: %s for unit: %s arc: %s" % (layers, source.id, arc.id))
+    # log.debug("GetTargets checking in layer: %s for unit: %s arc: %s" % (layers, source.id, arc.id))
     targets = {}
     for triple in source.arcsOut:
         if (triple.arc == arc):
@@ -730,7 +740,7 @@ class ShowUnit (webapp2.RequestHandler):
             items.append("'{0}' is mentioned in extension layer: <a href='?ext={1}'>{2}</a>".format( node.id, l, l ))
 
         moreinfo = """<div>
-        <div id='infobox' style='text-align: right;'><b><span>[more...]</b></div>
+        <div id='infobox' style='text-align: right;'><b><span style="cursor: pointer;">[more...]</span></b></div>
         <div id='infomsg' style='display: none; background-color: #EEEEEE; text-align: left; padding: 0.5em;'>
         <ul>"""
 
@@ -825,12 +835,12 @@ class ShowUnit (webapp2.RequestHandler):
         comment = GetComment(node, layers)
         self.write(" <div property=\"rdfs:comment\">%s</div>\n\n" % (comment) + "\n")
 
-        self.write(self.moreInfoBlock(node))
-
         self.write(" <br><div>Usage: %s</div>\n\n" % (node.UsageStr()) + "\n")
 
+        self.write(self.moreInfoBlock(node))
+
         if (node.isClass(layers=layers) and not node.isDataType(layers=layers)):
-            
+
             self.write("<table class=\"definition-table\">\n        <thead>\n  <tr><th>Property</th><th>Expected Type</th><th>Description</th>               \n  </tr>\n  </thead>\n\n")
 
     def ClassProperties (self, cl, subclass=False, layers="core"):
@@ -1039,8 +1049,30 @@ class ShowUnit (webapp2.RequestHandler):
             self.response.out.write( jsonldcontext )
             return
         else:
-            self.response.out.write( open("static/index.html", 'r').read() )
+            # Serve a homepage from template
+            # the .tpl has responsibility for extension homepages
+            # TODO: pass in extension, base_domain etc.
+            hp = DataCache.get("homepage")
+            if hp != None:
+                self.response.out.write( hp )
+                log.info("Served datacache homepage.tpl")
+            else:
+                template = JINJA_ENVIRONMENT.get_template('homepage.tpl')
+                template_values = {
+                    'ENABLE_JSONLD_CONTEXT': ENABLE_JSONLD_CONTEXT,
+                    'ENABLE_CORS': ENABLE_CORS,
+                    'SCHEMA_VERSION': SCHEMA_VERSION,
+                    'os_host': os_host,
+                    'host_ext': host_ext,
+                    'debugging': debugging
+                }
+                page = template.render(template_values)
+                self.response.out.write( page )
+                log.info("Served fresh homepage.tpl")
+                DataCache["homepage"] = page
+                #            self.response.out.write( open("static/index.html", 'r').read() )
             return
+    log.info("Error: unreachable reached.")
 
     def getExtendedSiteName(self, layers):
         """Returns site name (domain name), informed by the list of active layers."""
@@ -1183,7 +1215,8 @@ class ShowUnit (webapp2.RequestHandler):
         See also https://webapp-improved.appspot.com/guide/request.html#guide-request
         """
 
-        self.response.headers.add_header("Access-Control-Allow-Origin", "*") # entire site is public.
+        if ENABLE_CORS:
+            self.response.headers.add_header("Access-Control-Allow-Origin", "*") # entire site is public.
 
 #        TODO: redirections - https://github.com/rvguha/schemaorg/issues/4
 #        or https://webapp-improved.appspot.com/guide/routing.html?highlight=redirection
@@ -1209,8 +1242,9 @@ class ShowUnit (webapp2.RequestHandler):
         layerlist = [ "core"]
 
         if host_ext != None:
-            log.info("Host: %s host_ext: %s" % ( os_host , host_ext.group(1) ) )
-            extlist.append(host_ext.group(1))
+            log.info("Host: %s host_ext: %s" % ( os_host , host_ext ) )
+            extlist.append(host_ext)
+            #host_ext = host_ext.group(1)
 
         for x in extlist:
             log.info("Ext filter found: %s" % str(x))
@@ -1404,7 +1438,6 @@ def read_schemas():
         files = glob.glob("data/2015-04-vocab_counts.txt")
 
         for file in files:
-            print file
             usage_data = read_file(file)
             parser = parsers.UsageFileParser(None)
             parser.parse(usage_data)
