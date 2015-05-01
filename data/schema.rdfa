@@ -8178,7 +8178,7 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
       <span property="rdfs:comment">A sub property of object. A question.</span>
       <link property="rdfs:subPropertyOf" href="http://schema.org/object" />
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/AskAction">AskAction</a></span>
-      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Question">Question</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/rangeIncludes">
       <span class="h" property="rdfs:label">rangeIncludes</span>
@@ -8445,6 +8445,14 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
       <span property="rdfs:comment">The result produced in the action. e.g. John wrote *a book*.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Action">Action</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Thing">Thing</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/resultComment">
+      <span class="h" property="rdfs:label">resultComment</span>
+      <span property="rdfs:comment">A sub property of result. The Comment created or sent as a result of this action.</span>
+      <link property="rdfs:subPropertyOf" href="http://schema.org/result" />
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CommentAction">CommentAction</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ReplyAction">ReplyAction</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Comment">Comment</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/resultReview">
       <span class="h" property="rdfs:label">resultReview</span>
@@ -10184,7 +10192,6 @@ postponing for 1.6.
       <span class="h" property="rdfs:label">upvoteCount</span>
       <span property="rdfs:comment">The number of upvotes this question, answer or comment has received from the community.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Question">Question</a></span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Answer">Answer</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Comment">Comment</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Integer">Integer</a></span>
     </div>
@@ -10192,7 +10199,6 @@ postponing for 1.6.
       <span class="h" property="rdfs:label">downvoteCount</span>
       <span property="rdfs:comment">The number of downvotes this question, answer or comment has received from the community.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Question">Question</a></span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Answer">Answer</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Comment">Comment</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Integer">Integer</a></span>
     </div>
@@ -10241,14 +10247,13 @@ postponing for 1.6.
     <div typeof="rdfs:Class" resource="http://schema.org/Answer">
       <span class="h" property="rdfs:label">Answer</span>
       <span property="rdfs:comment">An answer offered to a question; perhaps correct, perhaps opinionated or wrong.</span>
-      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/CreativeWork">CreativeWork</a></span>
+      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Comment">Comment</a></span>
       <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_QAStackExchange">Stack Overflow</a></span>
     </div>
     <!--  New properties for the new Answer class. -->
     <div typeof="rdf:Property" resource="http://schema.org/parentItem">
       <span class="h" property="rdfs:label">parentItem</span>
       <span property="rdfs:comment">The parent of a question, answer or item in general.</span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Answer">Answer</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Comment">Comment</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Question">Question</a></span>
     </div>
