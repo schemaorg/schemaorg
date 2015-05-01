@@ -5459,7 +5459,6 @@
       <span property="rdfs:comment">Comments, typically from users.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CreativeWork">CreativeWork</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/RsvpAction">RsvpAction</a></span>
-      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/UserComments">UserComments</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Comment">Comment</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/commentText">
@@ -5648,7 +5647,7 @@
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/creator">
       <span class="h" property="rdfs:label">creator</span>
-      <span property="rdfs:comment">The creator/author of this CreativeWork or UserComments. This is the same as the Author property for CreativeWork.</span>
+      <span property="rdfs:comment">The creator/author of this CreativeWork. This is the same as the Author property for CreativeWork.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CreativeWork">CreativeWork</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/UserComments">UserComments</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Organization">Organization</a></span>
@@ -6773,9 +6772,11 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
 
     <div typeof="rdf:Property" resource="http://schema.org/inLanguage">
       <span class="h" property="rdfs:label">inLanguage</span>
-      <span property="rdfs:comment">The language of the content or performance. Please use one of the language codes from the &lt;a href=&#39;http://tools.ietf.org/html/bcp47&#39;&gt;IETF BCP 47 standard&lt;/a&gt;.</span>
+      <span property="rdfs:comment">The language of the content or performance or used in an action. Please use one of the language codes from the &lt;a href=&#39;http://tools.ietf.org/html/bcp47&#39;&gt;IETF BCP 47 standard&lt;/a&gt;.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CreativeWork">CreativeWork</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Event">Event</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CommunicateAction">CommunicateAction</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/WriteAction">WriteAction</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Language">Language</a></span>
     </div>
@@ -7037,6 +7038,7 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
     <div typeof="rdf:Property" resource="http://schema.org/language">
       <span class="h" property="rdfs:label">language</span>
       <span property="rdfs:comment">A sub property of instrument. The language used on this action.</span>
+      <link property="http://schema.org/supersededBy" href="http://schema.org/inLanguage"/>
       <link property="rdfs:subPropertyOf" href="http://schema.org/instrument" />
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CommunicateAction">CommunicateAction</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/WriteAction">WriteAction</a></span>
@@ -8445,6 +8447,13 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
       <span property="rdfs:comment">The result produced in the action. e.g. John wrote *a book*.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Action">Action</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Thing">Thing</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/resultComment">
+      <span class="h" property="rdfs:label">resultComment</span>
+      <span property="rdfs:comment">A sub property of result. The Comment created or sent as a result of this action.</span>
+      <link property="rdfs:subPropertyOf" href="http://schema.org/result" />
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CommentAction">CommentAction</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Comment">Comment</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/resultReview">
       <span class="h" property="rdfs:label">resultReview</span>
@@ -10165,11 +10174,6 @@ postponing for 1.6.
       <span class="h" property="rdfs:label">QAPage</span>
       <span property="rdfs:comment">A QAPage is a WebPage focussed on a specific Question and its Answer(s), e.g. in a question answering site or documenting Frequently Asked Questions (FAQs).</span>
       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/WebPage">WebPage</a></span>
-    </div>
-
-    <!-- extend range of comment property to include Comment type, not just the old UserComments -->
-    <div typeof="rdf:Property" resource="http://schema.org/comment">
-      <link property="http://schema.org/rangeIncludes" href="http://schema.org/Comment" />
     </div>
 
     <!--  New Question class. -->
