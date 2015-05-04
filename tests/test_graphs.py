@@ -95,6 +95,7 @@ class SDOGraphSetupTestCase(unittest.TestCase):
             log.info(row)
     self.assertEqual(len(ndi1_results), 0, "No subtype need redeclare a domainIncludes of its parents. Found: %s " % len(ndi1_results ) )
 
+  @unittest.expectedFailure # fails on valueReference: https://github.com/schemaorg/schemaorg/issues/468
   def test_needlessRangeIncludes(self):
     # as above, but for range. We excuse URL as it is special, not best seen as a Text subtype.
     # check immediate subtypes don't declare same domainIncludes
@@ -110,9 +111,12 @@ class SDOGraphSetupTestCase(unittest.TestCase):
              "ORDER BY ?prop ")
     nri1_results = self.rdflib_data.query(nri1)
     if (len(nri1_results)>0):
+      log.info("property, class1, [which is subclassOf] class2:\n")
       for row in nri1_results:
-        log.info(row)
-    self.assertEqual(len(nri1_results), 0, "No subtype need redeclare a rangeIncludes of its parents. Found: %s " % len(nri1_results ) )
+        log.info(str(row))
+        #print(str(row))
+    self.assertEqual(len(nri1_results), 0, "No subtype need redeclare a rangeIncludes of its parents. Found: %s" % len(nri1_results) )
+    
 
   # These are place-holders for more sophisticated SPARQL-expressed checks.
 

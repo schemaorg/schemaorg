@@ -3,7 +3,8 @@ import os
 import logging # https://docs.python.org/2/library/logging.html#logging-levels
 
 from headers import *
-from api import *
+#from api import *
+from sdoapp import *
 from parsers import *
 
 schema_path = './data/schema.rdfa'
@@ -370,7 +371,7 @@ class SimpleSchemaIntegrityTests(unittest.TestCase):
 class DataTypeTests(unittest.TestCase):
     def test_booleanDataType(self):
       self.assertTrue( Unit.GetUnit("Boolean").isDataType())
-      self.assertTrue(Unit.GetUnit("DataType").isDataType())
+      self.assertFalse(Unit.GetUnit("DataType").isDataType())
       self.assertFalse(Unit.GetUnit("Thing").isDataType())
       self.assertFalse(Unit.GetUnit("Duration").isDataType())
 
