@@ -13,7 +13,7 @@ import parsers
 import headers
 import os
 
-from api import inLayer, read_file, full_path, read_schemas, namespaces
+from api import inLayer, read_file, full_path, read_schemas, namespaces, DataCache
 from api import Unit, GetTargets, GetSources
 from api import GetComment, all_terms, GetAllTypes
 from api import GetParentList, GetImmediateSubtypes, HasMultipleBaseTypes
