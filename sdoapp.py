@@ -29,6 +29,8 @@ sitemode = "mainsite" # whitespaced list for CSS tags,
 
 # Declare here as used here, not in api.py any more:
 
+silent_skip_list =  [ "favicon.ico" ] # Do nothing for now
+
 all_layers = {}
 ext_re = re.compile(r'([^\w,])+')
 PageCache = {}
@@ -228,35 +230,41 @@ def GetExtMappingsRDFa(node, layers='core'):
 
 def GetJsonLdContext(layers='core'):
     """Generates a basic JSON-LD context file for schema.org."""
-    global namespaces;
-    jsonldcontext = "{\"@context\":    {\n"
-    jsonldcontext += namespaces ;
-    jsonldcontext += "        \"@vocab\": \"http://schema.org/\",\n"
 
-    url = Unit.GetUnit("URL")
-    date = Unit.GetUnit("Date")
-    datetime = Unit.GetUnit("DateTime")
+    if DataCache.get('JSONLDCONTEXT'):
+        log.info("DataCache: recycled JSONLDCONTEXT")
+        return DataCache.get('JSONLDCONTEXT')
+    else:
+        global namespaces;
+        jsonldcontext = "{\"@context\":    {\n"
+        jsonldcontext += namespaces ;
+        jsonldcontext += "        \"@vocab\": \"http://schema.org/\",\n"
 
-    properties = sorted(GetSources(Unit.GetUnit("typeOf"), Unit.GetUnit("rdf:Property"), layers=layers), key=lambda u: u.id)
-    for p in properties:
-        range = GetTargets(Unit.GetUnit("rangeIncludes"), p, layers=layers)
-        type = None
+        url = Unit.GetUnit("URL")
+        date = Unit.GetUnit("Date")
+        datetime = Unit.GetUnit("DateTime")
 
-        if url in range:
-            type = "@id"
-        elif date in range:
-            type = "Date"
-        elif datetime in range:
-            type = "DateTime"
+        properties = sorted(GetSources(Unit.GetUnit("typeOf"), Unit.GetUnit("rdf:Property"), layers=layers), key=lambda u: u.id)
+        for p in properties:
+            range = GetTargets(Unit.GetUnit("rangeIncludes"), p, layers=layers)
+            type = None
 
-        if type:
-            jsonldcontext += "        \"" + p.id + "\": { \"@type\": \"" + type + "\" },"
+            if url in range:
+                type = "@id"
+            elif date in range:
+                type = "Date"
+            elif datetime in range:
+                type = "DateTime"
 
-    jsonldcontext += "}}\n"
-    jsonldcontext = jsonldcontext.replace("},}}","}\n    }\n}")
-    jsonldcontext = jsonldcontext.replace("},","},\n")
+            if type:
+                jsonldcontext += "        \"" + p.id + "\": { \"@type\": \"" + type + "\" },"
 
-    return jsonldcontext
+        jsonldcontext += "}}\n"
+        jsonldcontext = jsonldcontext.replace("},}}","}\n    }\n}")
+        jsonldcontext = jsonldcontext.replace("},","},\n")
+        DataCache['JSONLDCONTEXT'] = jsonldcontext
+        log.info("DataCache: added JSONLDCONTEXT")
+        return jsonldcontext
 
 class ShowUnit (webapp2.RequestHandler):
     """ShowUnit exposes schema.org terms via Web RequestHandler
@@ -592,7 +600,7 @@ class ShowUnit (webapp2.RequestHandler):
         # TODO: Ampersand? Check usage with examples.
         return m2
 
-    def getHomepage(self, node):
+    def handleHomepage(self, node):
         """Send the homepage, or if no HTML accept header received and JSON-LD was requested, send JSON-LD context file.
 
         typical browser accept list: ('Accept', 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8')
@@ -603,9 +611,11 @@ class ShowUnit (webapp2.RequestHandler):
         """
         accept_header = self.request.headers.get('Accept').split(',')
         logging.info("accepts: %s" % self.request.headers.get('Accept'))
-        if ENABLE_JSONLD_CONTEXT:
-            jsonldcontext = GetJsonLdContext() # consider memcached?
 
+        if ENABLE_JSONLD_CONTEXT:
+            jsonldcontext = GetJsonLdContext()
+
+        # Homepage is content-negotiated. HTML or JSON-LD.
         mimereq = {}
         for ah in accept_header:
             ah = re.sub( r";q=\d?\.\d+", '', ah).rstrip()
@@ -620,7 +630,7 @@ class ShowUnit (webapp2.RequestHandler):
             self.response.headers['Content-Type'] = "application/ld+json"
             self.emitCacheHeaders()
             self.response.out.write( jsonldcontext )
-            return
+            return True
         else:
             # Serve a homepage from template
             # the .tpl has responsibility for extension homepages
@@ -644,10 +654,9 @@ class ShowUnit (webapp2.RequestHandler):
                 log.info("Served fresh homepage.tpl")
                 DataCache["homepage"] = page
                 #            self.response.out.write( open("static/index.html", 'r').read() )
-            return
+            return True
         log.info("Warning: got here how?")
-        return
-    log.info("Error: unreachable reached.")
+        return False
 
     def getExtendedSiteName(self, layers):
         """Returns site name (domain name), informed by the list of active layers."""
@@ -656,7 +665,7 @@ class ShowUnit (webapp2.RequestHandler):
         # layers.remove("core")
         return (layers[ len(layers)-1 ] + ".schema.org")
 
-    def getExactTermPage(self, node, layers="core"):
+    def emitExactTermPage(self, node, layers="core"):
         """Emit a Web page that exactly matches this node."""
         self.outputStrings = []
         log.info("EXACT PAGE: %s" % node.id)
@@ -765,6 +774,141 @@ class ShowUnit (webapp2.RequestHandler):
 
         self.response.write(self.AddCachedText(node, self.outputStrings, layers))
 
+    def emitHTTPHeaders(self, node):
+        if ENABLE_CORS:
+            self.response.headers.add_header("Access-Control-Allow-Origin", "*") # entire site is public.
+            # see http://en.wikipedia.org/wiki/Cross-origin_resource_sharing
+
+    def handleHTTPRedirection(self, node):
+        return False # none yet.
+        # https://github.com/schemaorg/schemaorg/issues/4
+
+    def setupExtensionLayerlist(self, node):
+        # Identify which extension layer(s) are requested
+        # TODO: add subdomain support e.g. bib.schema.org/Globe
+        # instead of Globe?ext=bib which is more for debugging.
+
+        # 1. get a comma list from ?ext=foo,bar URL notation
+        extlist = self.request.get("ext") # for debugging
+        extlist = re.sub(ext_re, '', extlist).split(',')
+        log.debug("?ext= extension list: %s " % ", ".join(extlist))
+
+        # 2. Ignore ?ext=, start with 'core' only.
+        layerlist = [ "core"]
+
+        # 3. Use host_ext if set, e.g. 'bib' from bib.schema.org
+        if host_ext != None:
+            log.info("Host: %s host_ext: %s" % ( os_host , host_ext ) )
+            extlist.append(host_ext)
+
+        # Report domain-requested extensions
+        for x in extlist:
+            log.info("Ext filter found: %s" % str(x))
+            if x  in ["core", "localhost", ""]:
+                continue
+            layerlist.append("%s" % str(x))
+        layerlist = list(set(layerlist))   # dedup
+        log.info("layerlist: %s" % layerlist)
+        return layerlist
+
+    def handleJSONContext(self, node):
+        """Handle JSON-LD Context non-homepage requests (including refuse if not enabled)."""
+
+        if not ENABLE_JSONLD_CONTEXT:
+            self.error(404)
+            self.response.out.write('<title>404 Not Found.</title><a href="/">404 Not Found (JSON-LD Context not enabled.)</a><br/><br/>')
+            return True
+        if (node=="docs/jsonldcontext.json.txt"):
+            jsonldcontext = GetJsonLdContext()
+            self.response.headers['Content-Type'] = "text/plain"
+            self.emitCacheHeaders()
+            self.response.out.write( jsonldcontext )
+            return True
+        if (node=="docs/jsonldcontext.json"):
+            jsonldcontext = GetJsonLdContext()
+            self.response.headers['Content-Type'] = "application/ld+json"
+            self.emitCacheHeaders()
+            self.response.out.write( jsonldcontext )
+            return True
+        return False
+        # see also handleHomepage for conneg'd version.
+
+    def handleFullHierarchyPage(self, node,  layerlist='core'):
+        self.response.headers['Content-Type'] = "text/html"
+        self.emitCacheHeaders()
+
+        if DataCache.get('FullTreePage'):
+            self.response.out.write( DataCache.get('FullTreePage') )
+            log.debug("Serving recycled FullTreePage.")
+            return True
+        else:
+            template = JINJA_ENVIRONMENT.get_template('full.tpl')
+            uThing = Unit.GetUnit("Thing")
+            uDataType = Unit.GetUnit("DataType")
+
+            mainroot = TypeHierarchyTree()
+            mainroot.traverseForHTML(uThing, layers=layerlist)
+            thing_tree = mainroot.toHTML()
+
+            dtroot = TypeHierarchyTree()
+            dtroot.traverseForHTML(uDataType, layers=layerlist)
+            datatype_tree = dtroot.toHTML()
+            page = template.render({ 'thing_tree': thing_tree, 'datatype_tree': datatype_tree })
+
+            self.response.out.write( page )
+            log.debug("Serving fresh FullTreePage.")
+            DataCache["FullTreePage"] = page
+
+            return True
+
+    def handleJSONSchemaTree(self, node, layerlist='core'):
+        """Handle a request for a JSON-LD tree representation of the schemas (RDFS-based)."""
+
+        self.response.headers['Content-Type'] = "application/ld+json"
+        self.emitCacheHeaders()
+
+        if DataCache.get('JSONLDThingTree'):
+            self.response.out.write( DataCache.get('JSONLDThingTree') )
+            log.debug("Serving recycled JSONLDThingTree.")
+            return True
+        else:
+            uThing = Unit.GetUnit("Thing")
+            mainroot = TypeHierarchyTree()
+            mainroot.traverseForJSONLD(Unit.GetUnit("Thing"), layers=layerlist)
+            thing_tree = mainroot.toJSON()
+            self.response.out.write( thing_tree )
+            log.debug("Serving fresh JSONLDThingTree.")
+            DataCache["JSONLDThingTree"] = thing_tree
+            return True
+        return False
+
+
+    def handleExactTermPage(self, node, layers='core'):
+        """Handle with requests for specific terms like /Person, /fooBar. """
+
+        schema_node = Unit.GetUnit(node) # e.g. "Person", "CreativeWork".
+
+        if inLayer(layerlist, schema_node):
+            self.emitExactTermPage(schema_node, layers=layers)
+            return True
+        else:
+            # log.info("Looking for node: %s in layers: %s" % (node.id, ",".join(all_layers.keys() )) )
+            if schema_node is not None and schema_node.id in all_terms:# look for it in other layers
+                log.info("TODO: layer toc: %s" % all_terms[schema_node.id] )
+                # self.response.out.write("Layers should be listed here. %s " %  all_terms[node.id] )
+                self.response.out.write("<h3>Schema.org Extensions</h3>\n<p>The term '%s' is not in the schema.org core, but is described by the following extension(s):</p>\n<ul>\n" % schema_node.id)
+                for x in all_terms[schema_node.id]:
+                    x = x.replace("#","")
+                    self.response.out.write("<li><a href='?ext=%s'>%s</a></li>" % (x, x) )
+                return True
+            return False
+
+    def handle404Failure(self, node):
+        self.error(404)
+        self.response.out.write('<title>404 Not Found.</title><a href="/">404 Not Found.</a><br/><br/>')
+        self.response.out.write("<br /><br /><br /><br /><br /><!-- %s -->" % ",".join(layerlist))
+        return True
+
     def get(self, node):
 
         """Get a schema.org site page generated for this node/term.
@@ -784,152 +928,62 @@ class ShowUnit (webapp2.RequestHandler):
 
         Last resort is a 404 error if we do not exactly match a term's id.
 
-
         See also https://webapp-improved.appspot.com/guide/request.html#guide-request
         """
 
-        if ENABLE_CORS:
-            self.response.headers.add_header("Access-Control-Allow-Origin", "*") # entire site is public.
+        # Handle
+        self.emitHTTPHeaders(node)
 
-#        TODO: redirections - https://github.com/rvguha/schemaorg/issues/4
-#        or https://webapp-improved.appspot.com/guide/routing.html?highlight=redirection
-#
-#        if str(self.request.host).startswith("www.schema.org"):
-#            log.debug("www.schema.org requested. We should redirect to use schema.org as hostname, not " + self.request.host)
-#            origURL = self.request.url
-#            origURL.replace("https://", "http://")
-#            origURL.replace("//www.schema.org", "//schema.org")
-#            self.redirect(newURL, permanent=True)
-
-        if (node == "favicon.ico"):
+        if self.handleHTTPRedirection(node):
             return
 
-        # Identify which extension layer(s) are requested
-        # TODO: add subdomain support e.g. bib.schema.org/Globe
-        # instead of Globe?ext=bib which is more for debugging.
-        #
-        extlist = self.request.get("ext")
-        extlist = re.sub(ext_re, '', extlist).split(',')
-        log.debug("Extension list: %s " % ", ".join(extlist))
-#        layerlist = ["core", "bib"]
-        layerlist = [ "core"]
+        if (node in silent_skip_list):
+            return
 
-        if host_ext != None:
-            log.info("Host: %s host_ext: %s" % ( os_host , host_ext ) )
-            extlist.append(host_ext)
-            #host_ext = host_ext.group(1)
 
-        for x in extlist:
-            log.info("Ext filter found: %s" % str(x))
-            if x  in ["core", "localhost", ""]:
-                continue
-            layerlist.append("%s" % str(x))
-        layerlist = list(set(layerlist))
-        log.info("layerlist: %s" % layerlist)
+        layerlist = self.setupExtensionLayerlist(node) # e.g. ['core', 'bib']
 
-        sitename = self.getExtendedSiteName(layerlist)
+        sitename = self.getExtendedSiteName(layerlist) # e.g. 'bib.schema.org', 'schema.org'
 
 
         # First: fixed paths: homepage, and generated JSON-LD files.
-        #
-        if (node == "" or node=="/"):
-            self.getHomepage(node)
-            return
 
-        if ENABLE_JSONLD_CONTEXT:
-            if (node=="docs/jsonldcontext.json.txt"):
-                jsonldcontext = GetJsonLdContext()
-                self.response.headers['Content-Type'] = "text/plain"
-                self.emitCacheHeaders()
-                self.response.out.write( jsonldcontext )
+        if (node in ["", "/"]):
+            if self.handleHomepage(node):
                 return
-            if (node=="docs/jsonldcontext.json"):
-                jsonldcontext = GetJsonLdContext()
-                self.response.headers['Content-Type'] = "application/ld+json"
-                self.emitCacheHeaders()
-                self.response.out.write( jsonldcontext )
+            else:
+                log.info("Error handling homepage: %s" % node)
+
+        if ([node in "docs/jsonldcontext.json.txt", "docs/jsonldcontext.json"]):
+            if self.handleJSONContext(node):
                 return
+            else:
+                log.info("Error handling JSON-LD context: %s" % node)
 
         if (node == "docs/full.html"): # DataCache.getDataCache.get
-            self.response.headers['Content-Type'] = "text/html"
-            self.emitCacheHeaders()
-
-            if DataCache.get('FullTreePage'):
-                self.response.out.write( DataCache.get('FullTreePage') )
-                log.debug("Serving cached FullTreePage.")
+            if self.handleFullHierarchyPage(node, layerlist=layerlist):
                 return
             else:
-                template = JINJA_ENVIRONMENT.get_template('full.tpl')
-                uThing = Unit.GetUnit("Thing")
-                uDataType = Unit.GetUnit("DataType")
-
-                mainroot = TypeHierarchyTree()
-                mainroot.traverseForHTML(uThing, layers=layerlist)
-                thing_tree = mainroot.toHTML()
-
-                dtroot = TypeHierarchyTree()
-                dtroot.traverseForHTML(uDataType, layers=layerlist)
-                datatype_tree = dtroot.toHTML()
-
-                template_values = {
-                    'thing_tree': thing_tree,
-                    'datatype_tree': datatype_tree,
-                }
-
-                page = template.render(template_values)
-
-                self.response.out.write( page )
-                log.debug("Serving fresh FullTreePage.")
-                DataCache["FullTreePage"] = page
-
-                return
+                log.info("Error handling full.html : %s " % node)
 
         if (node == "docs/tree.jsonld"):
-            self.response.headers['Content-Type'] = "application/ld+json"
-            self.emitCacheHeaders()
-
-            if DataCache.get('JSONLDThingTree'):
-                self.response.out.write( DataCache.get('JSONLDThingTree') )
-                log.debug("Serving cached JSONLDThingTree.")
+            if self.handleJSONSchemaTree(node, layerlist=layerlist):
                 return
             else:
-                uThing = Unit.GetUnit("Thing")
-                mainroot = TypeHierarchyTree()
-                mainroot.traverseForJSONLD(Unit.GetUnit("Thing"), layers=layerlist)
-                thing_tree = mainroot.toJSON()
-                self.response.out.write( thing_tree )
-                log.debug("Serving fresh JSONLDThingTree.")
-                DataCache["JSONLDThingTree"] = thing_tree
+                log.info("Error handling JSON-LD schema tree: %s " % node)
 
-                return
 
-        # Next: pages based on request path matching a Unit in the term graph.
-
-        node = Unit.GetUnit(node) # e.g. "Person", "CreativeWork".
-
-        # TODO:
-        # - handle http vs https; www.schema.org vs schema.org
-        # - handle foo-input Action pseudo-properties
-        # - handle /Person/Minister -style extensions
-
-        if inLayer(layerlist, node):
-            self.getExactTermPage(node, layerlist)
+        # Pages based on request path matching a Unit in the term graph:
+        if self.handleExactTermPage(node, layers=layerlist):
             return
         else:
-            # log.info("Looking for node: %s in layers: %s" % (node.id, ",".join(all_layers.keys() )) )
-            if node is not None and node.id in all_terms:# look for it in other layers
-                log.info("TODO: layer toc: %s" % all_terms[node.id] )
-                # self.response.out.write("Layers should be listed here. %s " %  all_terms[node.id] )
-                self.response.out.write("<h3>Schema.org Extensions</h3>\n<p>The term '%s' is not in the schema.org core, but is described by the following extension(s):</p>\n<ul>\n" % node.id)
-                for x in all_terms[node.id]:
-                    x = x.replace("#","")
-                    self.response.out.write("<li><a href='?ext=%s'>%s</a>" % (x, x) )
+            log.info("Error handling exact term page: %s" % node)
 
-            else:
-              self.error(404)
-              self.response.out.write('<title>404 Not Found.</title><a href="/">404 Not Found.</a><br/><br/>')
-              self.response.out.write("<br /><br /><br /><br /><br /><!-- %s -->" % ",".join(layerlist))
-              return
+        # Drop through to 404 as default exit.
+        if self.handle404Failure(node):
+            return
+        else:
+            log.info("Error handling 404.")
 
 read_schemas()
 schemasInitialized = True
