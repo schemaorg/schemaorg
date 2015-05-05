@@ -16,26 +16,16 @@ import os
 logging.basicConfig(level=logging.INFO) # dev_appserver.py --log_level debug .
 log = logging.getLogger(__name__)
 
+schemasInitialized = False
 SCHEMA_VERSION=1.999999
 sitename = "schema.org"
 sitemode = "mainsite" # whitespaced list for CSS tags,
-            # e.g. "mainsite testsite" when off expected domains
-            # "extensionsite" when in an extension (e.g. blue?)
+            # e.g. "mainsite testsite", "extensionsite" when off expected domains
 
-schemasInitialized = False
-#TODO: Modes:
-# mainsite
-# webschemadev
-# known extension (not skiplist'd, eg. demo1 on schema.org)
-
+DYNALOAD = True # permits read_schemas to be re-invoked live.
 JINJA_ENVIRONMENT = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.join(os.path.dirname(__file__), 'templates')),
     extensions=['jinja2.ext.autoescape'], autoescape=True)
-
-
-ENABLE_JSONLD_CONTEXT = True
-ENABLE_CORS = True
-DYNALOAD = True # permits read_schemas to be re-invoked live.
 
 os_host = os.environ.get('HTTP_HOST', 'localhost')
 host_ext = re.match(r'(\w*)[.:]',os_host)

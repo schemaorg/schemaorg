@@ -45,7 +45,6 @@ JINJA_ENVIRONMENT = jinja2.Environment(
 
 ENABLE_JSONLD_CONTEXT = True
 ENABLE_CORS = True
-DYNALOAD = True # permits read_schemas to be re-invoked live.
 
 os_host = os.environ.get('HTTP_HOST', 'localhost')
 host_ext = re.match(r'(\w*)[.:]',os_host)
@@ -668,6 +667,7 @@ class ShowUnit (webapp2.RequestHandler):
         if ("schema.org" not in os_host and sitemode == "mainsite"):
             sitemode = "mainsite testsite"
 
+        global sitename
         headers.OutputSchemaorgHeaders(self, node.id, node.isClass(), ext_mappings, sitemode, sitename)
 
         if ("core" not in layers or len(layers)>1):
@@ -766,9 +766,6 @@ class ShowUnit (webapp2.RequestHandler):
         self.response.write(self.AddCachedText(node, self.outputStrings, layers))
 
     def get(self, node):
-        import re
-        import os
-        global sitename
 
         """Get a schema.org site page generated for this node/term.
 
