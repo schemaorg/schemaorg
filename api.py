@@ -27,14 +27,7 @@ JINJA_ENVIRONMENT = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.join(os.path.dirname(__file__), 'templates')),
     extensions=['jinja2.ext.autoescape'], autoescape=True)
 
-os_host = os.environ.get('HTTP_HOST', 'localhost')
-host_ext = re.match(r'(\w*)[.:]',os_host)
-if host_ext != None:
-    host_ext = host_ext.group(1) # e.g. "bib"
-
 debugging = False
-if host_ext == "localhost" or  "webschemas" in os_host:
-    debugging = True
 
 # Core API: we have a single schema graph built from triples and units.
 

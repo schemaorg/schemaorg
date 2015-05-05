@@ -27,7 +27,9 @@ sitemode = "mainsite" # whitespaced list for CSS tags,
             # e.g. "mainsite testsite" when off expected domains
             # "extensionsite" when in an extension (e.g. blue?)
 
-# Declare here as used here, not in api.py any more:
+host_ext = ""
+myhost = ""
+mybasehost = ""
 
 silent_skip_list =  [ "favicon.ico" ] # Do nothing for now
 
@@ -44,18 +46,10 @@ JINJA_ENVIRONMENT = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.join(os.path.dirname(__file__), 'templates')),
     extensions=['jinja2.ext.autoescape'], autoescape=True)
 
-
 ENABLE_JSONLD_CONTEXT = True
 ENABLE_CORS = True
 
-os_host = os.environ.get('HTTP_HOST', 'localhost')
-host_ext = re.match(r'(\w*)[.:]',os_host)
-if host_ext != None:
-    host_ext = host_ext.group(1) # e.g. "bib"
-
 debugging = False
-if host_ext == "localhost" or  "webschemas" in os_host:
-    debugging = True
 
 # Core API: we have a single schema graph built from triples and units.
 # now in api.py
@@ -645,7 +639,8 @@ class ShowUnit (webapp2.RequestHandler):
                     'ENABLE_JSONLD_CONTEXT': ENABLE_JSONLD_CONTEXT,
                     'ENABLE_CORS': ENABLE_CORS,
                     'SCHEMA_VERSION': SCHEMA_VERSION,
-                    'os_host': os_host,
+                    'myhost': myhost,
+                    'mybasehost': mybasehost,
                     'host_ext': host_ext,
                     'debugging': debugging
                 }
@@ -662,8 +657,11 @@ class ShowUnit (webapp2.RequestHandler):
         """Returns site name (domain name), informed by the list of active layers."""
         if layers==["core"]:
             return "schema.org"
-        # layers.remove("core")
-        return (layers[ len(layers)-1 ] + ".schema.org")
+        if len(layers)==0:
+            return "schema.org"
+        mylayers = layers
+        log.info("EXT: computing sitename from layer list: %s" %  str(mylayers) )
+        return (layers[ len(mylayers)-1 ] + ".schema.org") 
 
     def emitExactTermPage(self, node, layers="core"):
         """Emit a Web page that exactly matches this node."""
@@ -673,25 +671,17 @@ class ShowUnit (webapp2.RequestHandler):
 
         global sitemode
 
-        if ("schema.org" not in os_host and sitemode == "mainsite"):
+        if ("schema.org" not in self.request.host and sitemode == "mainsite"):
             sitemode = "mainsite testsite"
 
         global sitename
         headers.OutputSchemaorgHeaders(self, node.id, node.isClass(), ext_mappings, sitemode, sitename)
 
         if ("core" not in layers or len(layers)>1):
-            ll = " ".join(layers).replace("#","")
+            ll = " ".join(layers).replace("core","")
 
-            s = "<p id='lli' class='layerinfo %s'><a href=\"https://github.com/schemaorg/schemaorg/wiki/ExtensionList\">extensions shown</a>: %s [<a href='http://schema.org/%s'>x</a>]</p>\n" % (ll, ll, node.id )
+            s = "<p id='lli' class='layerinfo %s'><a href=\"https://github.com/schemaorg/schemaorg/wiki/ExtensionList\">extensions shown</a>: %s [<a href='http://%s/'>x</a>]</p>\n" % (ll, ll, mybasehost )
             self.write(s)
-#            self.write("<!-- Layers: %s -->" % layers)
-
-#        if ("localhost" in os_host):
-#            self.write("<p id='localhost_note' class='layerinfo'>localhost</p>")
-
-#        if ("schema.org" not in os_host and sitemode == "mainsite"):
-#            self.write("<p id='offsite_note' class='layerinfo'>in schema.org mode but offsite</p>")
-
 
         cached = self.GetCachedText(node, layers)
         if (cached != None):
@@ -798,7 +788,7 @@ class ShowUnit (webapp2.RequestHandler):
 
         # 3. Use host_ext if set, e.g. 'bib' from bib.schema.org
         if host_ext != None:
-            log.info("Host: %s host_ext: %s" % ( os_host , host_ext ) )
+            log.info("Host: %s host_ext: %s" % ( self.request.host , host_ext ) )
             extlist.append(host_ext)
 
         # Report domain-requested extensions
@@ -909,6 +899,22 @@ class ShowUnit (webapp2.RequestHandler):
         self.response.out.write("<br /><br /><br /><br /><br /><!-- %s -->" % ",".join(layerlist))
         return True
 
+
+    def setupHostinfo(self, node):
+        global debugging, host_ext, myhost, mybasehost
+        host_ext = re.match(r'(\w*)[.:]',self.request.host)
+        if host_ext != None:
+            host_ext = host_ext.group(1) # e.g. "bib"
+            log.info("HOST: Found %s in %s" % ( host_ext, self.request.host ))
+            myhost = self.request.host
+            mybasehost = myhost
+            mybasehost = mybasehost.replace(host_ext + ".","")
+            # mybasehost = mybasehost.replace(":8080", "")
+
+
+        if "localhost" in self.request.host or  "webschemas" in self.request.host:
+            debugging = True
+
     def get(self, node):
 
         """Get a schema.org site page generated for this node/term.
@@ -931,6 +937,10 @@ class ShowUnit (webapp2.RequestHandler):
         See also https://webapp-improved.appspot.com/guide/request.html#guide-request
         """
 
+        global debugging, host_ext, myhost, mybasehost, sitename
+
+        self.setupHostinfo(node)
+
         self.emitHTTPHeaders(node)
 
         if self.handleHTTPRedirection(node):
@@ -942,6 +952,7 @@ class ShowUnit (webapp2.RequestHandler):
         layerlist = self.setupExtensionLayerlist(node) # e.g. ['core', 'bib']
         sitename = self.getExtendedSiteName(layerlist) # e.g. 'bib.schema.org', 'schema.org'
 
+        log.info("EXT: set sitename to %s " % sitename)
         if (node in ["", "/"]):
             if self.handleHomepage(node):
                 return

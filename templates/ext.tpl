@@ -25,8 +25,9 @@ For more details, see the <a href="/">homepage</a>.
   <li>SCHEMA_VERSION: {{ SCHEMA_VERSION }} </li>
   <li>ENABLE_JSONLD_CONTEXT: {{ ENABLE_JSONLD_CONTEXT }} </li>
   <li>ENABLE_CORS: {{ ENABLE_CORS }} </li>
-  <li>os_host: {{ os_host }} </li>
   <li>host_ext: {{ host_ext }} </li>
+  <li>myhost: {{ myhost }} </li>
+  <li>mybasehost: {{ mybasehost }} </li>
   <li>debugging: {{ debugging }} </li>
  </ul>
 </div>
