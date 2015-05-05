@@ -9,7 +9,6 @@ from google.appengine.ext.webapp import blobstore_handlers
 import xml.etree.ElementTree as ET
 import logging
 import api
-
         
 def MakeParserOfType (format, webapp):
     if (format == 'mcf') :

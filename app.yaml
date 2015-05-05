@@ -1,5 +1,6 @@
 #application: schemaorgae
-application: sdo-gozer
+#application: webschemas
+application: sdo-scripts
 version: 1
 runtime: python27
 api_version: 1
@@ -14,13 +15,13 @@ handlers:
   mime_type: text/html
 
 - url: /docs/jsonldcontext.json.*
-  script: api.app
+  script: sdoapp.app
 
 - url: /docs/full.*.html
-  script: api.app
+  script: sdoapp.app
 
 - url: /docs/tree.jsonld
-  script: api.app
+  script: sdoapp.app
 
 - url: /docs
   static_dir: docs
@@ -34,7 +35,7 @@ handlers:
   static_dir: static/search_files
 
 - url: /.*
-  script: api.app
+  script: sdoapp.app
 
 
 
