@@ -888,7 +888,7 @@ class ShowUnit (webapp2.RequestHandler):
 
         schema_node = Unit.GetUnit(node) # e.g. "Person", "CreativeWork".
 
-        if inLayer(layerlist, schema_node):
+        if inLayer(layers, schema_node):
             self.emitExactTermPage(schema_node, layers=layers)
             return True
         else:
@@ -931,7 +931,6 @@ class ShowUnit (webapp2.RequestHandler):
         See also https://webapp-improved.appspot.com/guide/request.html#guide-request
         """
 
-        # Handle
         self.emitHTTPHeaders(node)
 
         if self.handleHTTPRedirection(node):
@@ -940,50 +939,50 @@ class ShowUnit (webapp2.RequestHandler):
         if (node in silent_skip_list):
             return
 
-
         layerlist = self.setupExtensionLayerlist(node) # e.g. ['core', 'bib']
-
         sitename = self.getExtendedSiteName(layerlist) # e.g. 'bib.schema.org', 'schema.org'
-
-
-        # First: fixed paths: homepage, and generated JSON-LD files.
 
         if (node in ["", "/"]):
             if self.handleHomepage(node):
                 return
             else:
                 log.info("Error handling homepage: %s" % node)
+                return
 
-        if ([node in "docs/jsonldcontext.json.txt", "docs/jsonldcontext.json"]):
+        if node in ["docs/jsonldcontext.json.txt", "docs/jsonldcontext.json"]:
             if self.handleJSONContext(node):
                 return
             else:
                 log.info("Error handling JSON-LD context: %s" % node)
+                return
 
         if (node == "docs/full.html"): # DataCache.getDataCache.get
             if self.handleFullHierarchyPage(node, layerlist=layerlist):
                 return
             else:
                 log.info("Error handling full.html : %s " % node)
+                return
 
         if (node == "docs/tree.jsonld"):
             if self.handleJSONSchemaTree(node, layerlist=layerlist):
                 return
             else:
                 log.info("Error handling JSON-LD schema tree: %s " % node)
-
+                return
 
         # Pages based on request path matching a Unit in the term graph:
         if self.handleExactTermPage(node, layers=layerlist):
             return
         else:
             log.info("Error handling exact term page: %s" % node)
+            return
 
         # Drop through to 404 as default exit.
         if self.handle404Failure(node):
             return
         else:
             log.info("Error handling 404.")
+            return
 
 read_schemas()
 schemasInitialized = True
