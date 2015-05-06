@@ -4,14 +4,14 @@
 import webapp2
 import jinja2
 import re
+import logging
+import parsers
+import os
+
 from google.appengine.ext import ndb
 from google.appengine.ext import blobstore
 from google.appengine.api import users
 from google.appengine.ext.webapp import blobstore_handlers
-import logging
-import parsers
-import headers
-import os
 
 from api import inLayer, read_file, full_path, read_schemas, namespaces, DataCache
 from api import Unit, GetTargets, GetSources

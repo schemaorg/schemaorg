@@ -1,17 +1,19 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 
+import os
+import re
 import webapp2
 import jinja2
-import re
+import logging
+
+import parsers
+
 from google.appengine.ext import ndb
 from google.appengine.ext import blobstore
 from google.appengine.api import users
 from google.appengine.ext.webapp import blobstore_handlers
-import logging
-import parsers
-import headers
-import os
+
 
 logging.basicConfig(level=logging.INFO) # dev_appserver.py --log_level debug .
 log = logging.getLogger(__name__)
