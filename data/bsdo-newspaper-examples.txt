@@ -1,0 +1,59 @@
+TYPES: Newspaper
+
+PRE-MARKUP:
+
+A Newspaper.
+
+<div>
+  <h1>The Financial Times</h1>
+  <div>Publisher: Pearson PLC</div>
+  <div>URL: <a href="http://ft.com">http://ft.com</div>
+  <div>Editor: Lionel Barber</div>
+</div>
+
+MICRODATA:
+
+
+
+<div itemscope itemtype="http://schema.org/Newspaper">
+  <h1 itemprop="name">The Financial Times</h1>
+  <div>Publisher: <span itemprop="publisher" itemscope itemtype="http://schema.org/Organization" itemid="http://www.wikidata.org/entity/Q1916402">Pearson PLC</span></div>
+  <div>URL: <a itemprop="url" href="http://ft.com">http://ft.com</a></div>
+  <div>Editor: <span itemprop="editor" itemscope itemtype="http://schema.org/Person" itemid="http://www.wikidata.org/entity/6555518">Lionel Barber</span></div>
+</div>
+
+RDFA:
+
+<div vocab="http://schema.org/" typeof="Newspaper">
+  <h1 property="name">The Financial Times</h1>
+  <div>Publisher: <span property="publisher" resource="http://www.wikidata.org/entity/Q1916402">Pearson PLC</span></div>
+  <div>URL: <a property="url" href="http://ft.com">http://ft.com</a></div>
+  <div>Editor: <span property="editor" resource="http://www.wikidata.org/entity/6555518">Lionel Barber</span></div>
+</div>
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": {
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "rdfa": "http://www.w3.org/ns/rdfa#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "schema": "http://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#"
+  },
+  "@id": "",
+  "rdfa:usesVocabulary": {
+    "@id": "schema:"
+  },
+   "@type": "schema:Newspaper",
+   "schema:editor": {
+     "@id": "http://www.wikidata.org/entity/6555518"
+   },
+  "schema:name": "The Financial Times",
+  "schema:publisher": {
+    "@id": "http://www.wikidata.org/entity/Q1916402"
+  },
+  "schema:url": "http://ft.com"
+}
+</script>
