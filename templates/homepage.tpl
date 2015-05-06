@@ -56,16 +56,14 @@
 
 {% import 'ext.tpl' as ext with context %}
 
-{% if os_host in [ "sdo-gozer.appspot.com", "sdo-tully.appspot.com", "sdo-lenny.appspot.com", "sdo-scripts.appspot.com" ] %}
+{% if myhost in [ "sdo-gozer.appspot.com", "sdo-tully.appspot.com", "sdo-lenny.appspot.com", "sdo-scripts.appspot.com", "localhost" ] %}
 
 <p id="lli" class="layerinfo">
-Note: This is {{ os_host }}. you are viewing an unstable work-in-progress preview of <a href="http://schema.org/">schema.org</a>.
+Note: This is {{ myhost }}. you are viewing an unstable work-in-progress preview of <a href="http://schema.org/">schema.org</a>.
 See the draft <b><a href="/docs/releases.html">releases</a></b> page to learn more about this version.
 </p>
 
 {% endif %}
-
-
 
 
 {% if host_ext == "bib" %}

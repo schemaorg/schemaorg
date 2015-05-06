@@ -55,6 +55,12 @@ ENABLE_CORS = True
 
 debugging = False
 
+
+def cleanPath(node):
+    """Return the substring of a string matching chars approved for use in our URL paths."""
+    return re.sub(r'[^a-zA-Z0-9\-/,]', '', str(node), flags=re.DOTALL)
+
+
 # Core API: we have a single schema graph built from triples and units.
 # now in api.py
 
@@ -815,7 +821,7 @@ class ShowUnit (webapp2.RequestHandler):
         # instead of Globe?ext=bib which is more for debugging.
 
         # 1. get a comma list from ?ext=foo,bar URL notation
-        extlist = self.request.get("ext") # for debugging
+        extlist = cleanPath( self.request.get("ext")  )# for debugging
         extlist = re.sub(ext_re, '', extlist).split(',')
         log.debug("?ext= extension list: %s " % ", ".join(extlist))
 
@@ -935,7 +941,8 @@ class ShowUnit (webapp2.RequestHandler):
         self.response.out.write('<h3>404 Not Found.</h3><p><br/>Page not found. Please <a href="/">try the homepage.</a><br/><br/></p>')
 
 
-        clean_node = re.sub(r'[^a-zA-Z0-9\-/]', '', node, flags=re.DOTALL)
+        clean_node = cleanPath(node)
+
         log.info("404: clean_node: clean_node: %s node: %s" % (clean_node, node))
 
         base_term = Unit.GetUnit( node.rsplit('/')[0] )
@@ -957,7 +964,7 @@ class ShowUnit (webapp2.RequestHandler):
         if host_ext != None:
             host_ext = host_ext.group(1) # e.g. "bib"
             log.info("HOST: Found %s in %s" % ( host_ext, self.request.host ))
-            myhost = self.request.host
+            myhost = self.request.host.rsplit(':')[0] 
             mybasehost = myhost
             mybasehost = mybasehost.replace(host_ext + ".","")
             # mybasehost = mybasehost.replace(":8080", "")
