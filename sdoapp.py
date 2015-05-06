@@ -1,12 +1,14 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 
+import os
+import re
 import webapp2
 import jinja2
-import re
 import logging
+
 import parsers
-import os
+
 
 from google.appengine.ext import ndb
 from google.appengine.ext import blobstore
@@ -667,7 +669,7 @@ class ShowUnit (webapp2.RequestHandler):
 
     def emitSchemaorgHeaders(self, webapp, entry='', is_class=False, ext_mappings='', sitemode="default", sitename="schema.org"):
         """
-        Generates the headers for class, property and enumeration pages
+        Generates, caches and emits HTML headers for class, property and enumeration pages. Leaves <body> open.
 
         * entry = name of the class or property
         """
@@ -678,17 +680,26 @@ class ShowUnit (webapp2.RequestHandler):
         if is_class:
             rdfs_type = 'rdfs:Class'
 
-        template = JINJA_ENVIRONMENT.get_template('genericTermPageHeader.tpl')
-        template_values = {
-            'entry': str(entry),
-            'sitemode': sitemode,
-            'sitename': sitename,
-            'rdfs_type': rdfs_type,
-            'ext_mappings': ext_mappings
-        }
-        out = template.render(template_values)
-        webapp.response.write(out)
+        generated_page_id = "genericTermPageHeader-%s" % str(entry)
+        gtp = DataCache.get( generated_page_id )
 
+        if gtp != None:
+            self.response.out.write( gtp )
+            log.info("Served recycled genericTermPageHeader.tpl for %s" % generated_page_id )
+        else:
+            template = JINJA_ENVIRONMENT.get_template('genericTermPageHeader.tpl')
+            template_values = {
+                'entry': str(entry),
+                'sitemode': sitemode,
+                'sitename': sitename,
+                'rdfs_type': rdfs_type,
+                'ext_mappings': ext_mappings
+            }
+            out = template.render(template_values)
+            DataCache[ generated_page_id ] = out
+            log.info("Served and cached fresh genericTermPageHeader.tpl for %s" % generated_page_id )
+
+            webapp.response.write(out)
 
 
     def emitExactTermPage(self, node, layers="core"):
