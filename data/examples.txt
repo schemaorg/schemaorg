@@ -2395,12 +2395,12 @@ MICRODATA:
  <div itemprop="actor" itemscope itemtype="http://schema.org/Person">
    <span itemprop="name">Jessica Capshaw</span>
  </div>
- <div itemprop="season" itemscope itemtype="http://schema.org/TVSeason">
+ <div itemprop="containsSeason" itemscope itemtype="http://schema.org/TVSeason">
    <span itemprop="name">Season 1</span> -
    <meta itemprop="numberOfEpisodes" content="14"/>
    <meta itemprop="datePublished" content="2005-05-22">May 22, 2005
  </div>
- <div itemprop="season" itemscope itemtype="http://schema.org/TVSeason">
+ <div itemprop="containsSeason" itemscope itemtype="http://schema.org/TVSeason">
    <span itemprop="name">Season 2</span> -
    <meta itemprop="numberOfEpisodes" content="27"/>
    <meta itemprop="datePublished" content="2006-05-14">May 14, 2006
@@ -2425,12 +2425,12 @@ RDFA:
  <div property="actor"  typeof="Person">
    <span property="name">Jessica Capshaw</span>
  </div>
- <div property="season"  typeof="TVSeason">
+ <div property="containsSeason"  typeof="TVSeason">
    <span property="name">Season 1</span> -
    <meta property="numberOfEpisodes" content="14"/>
    <meta property="datePublished" content="2005-05-22">May 22, 2005
  </div>
- <div property="season"  typeof="TVSeason">
+ <div property="containsSeason"  typeof="TVSeason">
    <span property="name">Season 2</span> -
    <meta property="numberOfEpisodes" content="27"/>
    <meta property="datePublished" content="2006-05-14">May 14, 2006
@@ -2462,7 +2462,7 @@ JSON:
     "name": "Shonda Rimes"
   },
   "name": "Greys Anatomy",
-  "season": [
+  "containsSeason": [
     {
       "@type": "TVSeason",
       "datePublished": "2005-05-22",
@@ -2686,11 +2686,11 @@ MICRODATA:
   </ul>
 
   <p><strong>Benefits:</strong></p>
-    <ul><li>ABC Corp provides top-tier employee compensation benefits and a relaxed, team-oriented work environment, including:<span itemprop="benefits"> Medical, Life, Dental</span></li>
+    <ul><li>ABC Corp provides top-tier employee compensation benefits and a relaxed, team-oriented work environment, including:<span itemprop="jobBenefits"> Medical, Life, Dental</span></li>
     </ul>
 
       <p><strong>Incentives:</strong></p>
-        <ul><li><span itemprop="incentives">Performance-based annual bonus plan, project-completion bonuses</span></li>
+        <ul><li><span itemprop="incentiveCompensation">Performance-based annual bonus plan, project-completion bonuses</span></li>
       </ul>
 
   <p>If interested in this position, please email us your resume, along with salary requirements and a cover letter to Jobs@abc.123.</p>
@@ -2751,11 +2751,11 @@ RDFA:
   </ul>
 
   <p><strong>Benefits:</strong></p>
-    <ul><li>ABC Corp provides top-tier employee compensation benefits and a relaxed, team-oriented work environment, including:<span property="benefits"> Medical, Life, Dental</span></li>
+    <ul><li>ABC Corp provides top-tier employee compensation benefits and a relaxed, team-oriented work environment, including:<span property="jobBenefits"> Medical, Life, Dental</span></li>
     </ul>
 
       <p><strong>Incentives:</strong></p>
-        <ul><li><span property="incentives">Performance-based annual bonus plan, project-completion bonuses</span></li>
+        <ul><li><span property="incentiveCompensation">Performance-based annual bonus plan, project-completion bonuses</span></li>
       </ul>
 
   <p>If interested in this position, please email us your resume, along with salary requirements and a cover letter to Jobs@abc.123.</p>
@@ -2769,13 +2769,13 @@ JSON:
   "@context": "http://schema.org",
   "@type": "JobPosting",
   "baseSalary": "100000",
-  "benefits": "Medical, Life, Dental",
+  "jobBenefits": "Medical, Life, Dental",
   "datePosted": "2011-10-31",
   "description": "Description: ABC Company Inc. seeks a full-time mid-level software engineer to develop in-house tools.",
   "educationRequirements": "Bachelor's Degree in Computer Science, Information Systems or related fields of study.",
   "employmentType": "Full-time",
   "experienceRequirements": "Minumum 3 years experience as a software engineer",
-  "incentives": "Performance-based annual bonus plan, project-completion bonuses",
+  "incentiveCompensation": "Performance-based annual bonus plan, project-completion bonuses",
   "industry": "Computer Software",
   "jobLocation": {
     "@type": "Place",
@@ -7613,7 +7613,7 @@ JSON:
       "name": "The Wedding Crashers"
     }
   ],
-  "collection": {
+  "targetCollection": {
     "@type": "ItemList",
     "name": "List of my favorite movies",
     "url": "http://netflix.com/john/favorite"
@@ -8510,7 +8510,7 @@ JSON:
     "@type": "Person",
     "name": "John"
   },
-  "collection": {
+  "targetCollection": {
     "@type": "ItemList",
     "name": "List of my favorite movies",
     "url": "http://netflix.com/john/favorite"
@@ -8547,7 +8547,7 @@ JSON:
     "@type": "Movie",
     "name": "The Internship"
   },
-  "collection": {
+  "targetCollection": {
     "@type": "ItemList",
     "name": "List of my favorite movies",
     "url": "http://netflix.com/john/favorite"
@@ -8584,7 +8584,7 @@ JSON:
     "@type": "SoftwareApplication",
     "name": "SAAS"
   },
-  "collection": {
+  "targetCollection": {
     "@type": "ItemList",
     "name": "John's skillset",
     "url": "http://linkedn.com/john/skillset"
@@ -8621,7 +8621,7 @@ JSON:
     "@type": "Movie",
     "name": "The Internship"
   },
-  "collection": {
+  "targetCollection": {
     "@type": "ItemList",
     "name": "List of my favorite movies",
     "url": "http://netflix.com/john/favorite"
@@ -8659,7 +8659,7 @@ JSON:
     "@type": "Movie",
     "name": "The Internship"
   },
-  "collection": {
+  "targetCollection": {
     "@type": "ItemList",
     "name": "List of my favorite movies",
     "url": "http://netflix.com/john/favorite"
@@ -8696,7 +8696,7 @@ JSON:
     "@type": "Movie",
     "name": "The Internship"
   },
-  "collection": {
+  "targetCollection": {
     "@type": "ItemList",
     "name": "List of my favorite movies",
     "url": "http://netflix.com/john/favorite"
@@ -8733,7 +8733,7 @@ JSON:
     "@type": "Movie",
     "name": "The Internship"
   },
-  "collection": {
+  "targetCollection": {
     "@type": "ItemList",
     "name": "List of my favorite movies",
     "url": "http://netflix.com/john/favorite"
@@ -8774,7 +8774,7 @@ JSON:
     "@type": "Movie",
     "name": "The Wedding Crashers"
   },
-  "collection": {
+  "targetCollection": {
     "@type": "ItemList",
     "name": "List of my favorite movies",
     "url": "http://netflix.com/john/favorite"
@@ -8800,7 +8800,7 @@ MICRODATA:
 <div itemscope itemtype="http://schema.org/TVSeries">
   <a itemprop="url" href="http://www.bbc.co.uk/programmes/b006q2x0">
    <span itemprop="name">Doctor Who</span></a>,
-  <div itemprop="season" itemscope itemtype="http://schema.org/TVSeason">
+  <div itemprop="containsSeason" itemscope itemtype="http://schema.org/TVSeason">
     <a itemprop="url" href="http://www.bbc.co.uk/programmes/b00rs69w">
      <span itemprop="name">Series 5</span></a>,
     <div itemprop="episode" itemscope itemtype="http://schema.org/TVEpisode">
@@ -8832,7 +8832,7 @@ RDFA:
 <div vocab="http://schema.org/" typeof="TVSeries">
   <a property="url" href="http://www.bbc.co.uk/programmes/b006q2x0">
    <span property="name">Doctor Who</span></a>,
-  <div property="season"  typeof="TVSeason">
+  <div property="containsSeason"  typeof="TVSeason">
     <a property="url" href="http://www.bbc.co.uk/programmes/b00rs69w">
      <span property="name">Series 5</span></a>,
     <div property="episode"  typeof="TVEpisode">
@@ -8865,7 +8865,7 @@ JSON:
 {
   "@context": "http://schema.org",
   "@type": "TVSeries",
-  "season": {
+  "containsSeason": {
     "@type": "TVSeason",
     "episode": {
       "@type": "TVEpisode",
@@ -10508,7 +10508,7 @@ JSON:
       {
         "@type": "EntryPoint",
         "urlTemplate": "urbanspoon://r/6/92204",
-        "application": {
+        "actionApplication": {
           "@type": "SoftwareApplication",
           "@id": "284708449",
           "name": "Urbanspoon iPhone & iPad App",
@@ -10518,7 +10518,7 @@ JSON:
       {
         "@type": "EntryPoint",
         "urlTemplate": "urbanspoon://r/6/92204",
-        "application": {
+        "actionApplication": {
           "@type": "SoftwareApplication",
           "@id": "5b23b738-bb64-4829-9296-5bcb59bb0d2d",
           "name": "Windows Phone App",
@@ -11256,7 +11256,7 @@ MICRODATA:
     <p itemprop="description">Keep your clothes clean while you do your daily shopping!</p>
     <p>Open: <time itemprop="openingHours" datetime="Mo-Fr 13:00-17:30">Open weekdays 1pm-5:30pm.</time></p>
     <p>Phone: <span itemprop="telephone" content="+155501002121">555-0100-2121</span></p>
-    <p>A branch of <span itemprop="branchOf" itemscope itemtype="http://schema.org/Corporation">
+    <p>A branch of <span itemprop="parentOrganization" itemscope itemtype="http://schema.org/Corporation">
     <a itemprop="url" href="http://example.com/"><span itemprop="name">Larry's International</span></a></span>.</p>
   </div>
 </div>
@@ -11285,7 +11285,7 @@ RDFA:
     <p property="description">Keep your clothes clean while you do your daily shopping!</p>
     <p>Open: <time property="openingHours" datetime="Mo-Fr 13:00-17:30">Open weekdays 1pm-5:30pm.</time></p>
     <p>Phone: <span property="telephone" content="+155501002121">555-0100-2121</span></p>
-    <p>A branch of <span property="branchOf" typeof="Corporation">
+    <p>A branch of <span property="parentOrganization" typeof="Corporation">
     <a property="url" href="http://example.com/"><span property="name">Larry's International</span></a></span>.</p>
   </div>
 </div>
@@ -11315,7 +11315,7 @@ JSON:
       "description": "Keep your clothes clean while you do your daily shopping!",
       "openingHours": "Mo-Fr 13:00-17:30",
       "telephone": "+155501002121",
-      "branchOf":
+      "parentOrganization":
       {
         "@type": "Corporation",
         "url": "http://example.com/",
