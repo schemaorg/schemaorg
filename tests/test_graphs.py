@@ -3,7 +3,6 @@ import os
 import logging # https://docs.python.org/2/library/logging.html#logging-levels
 import glob
 
-from headers import *
 from api import *
 from parsers import *
 

@@ -2,7 +2,6 @@ import unittest
 import os
 import logging # https://docs.python.org/2/library/logging.html#logging-levels
 
-from headers import *
 #from api import *
 from sdoapp import *
 from parsers import *
