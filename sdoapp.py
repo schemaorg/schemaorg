@@ -667,7 +667,7 @@ class ShowUnit (webapp2.RequestHandler):
         log.info("EXT: computing sitename from layer list: %s" %  str(mylayers) )
         return (layers[ len(mylayers)-1 ] + ".schema.org")
 
-    def emitSchemaorgHeaders(self, webapp, entry='', is_class=False, ext_mappings='', sitemode="default", sitename="schema.org"):
+    def emitSchemaorgHeaders(self, entry='', is_class=False, ext_mappings='', sitemode="default", sitename="schema.org"):
         """
         Generates, caches and emits HTML headers for class, property and enumeration pages. Leaves <body> open.
 
@@ -697,7 +697,7 @@ class ShowUnit (webapp2.RequestHandler):
             DataCache[ generated_page_id ] = out
             log.info("Served and cached fresh genericTermPageHeader.tpl for %s" % generated_page_id )
 
-            webapp.response.write(out)
+            self.response.write(out)
 
 
     def emitExactTermPage(self, node, layers="core"):
@@ -711,7 +711,7 @@ class ShowUnit (webapp2.RequestHandler):
         if ("schema.org" not in self.request.host and sitemode == "mainsite"):
             sitemode = "mainsite testsite"
 
-        self.emitSchemaorgHeaders(self, node.id, node.isClass(), ext_mappings, sitemode, sitename)
+        self.emitSchemaorgHeaders(node.id, node.isClass(), ext_mappings, sitemode, sitename)
 
         if ("core" not in layers or len(layers)>1):
             ll = " ".join(layers).replace("core","")
@@ -931,8 +931,23 @@ class ShowUnit (webapp2.RequestHandler):
 
     def handle404Failure(self, node, layers="core"):
         self.error(404)
-        self.response.out.write('<title>404 Not Found.</title><a href="/">404 Not Found.</a><br/><br/>')
-        # self.response.out.write("<br /><br /><br /><br /><br /><!-- %s -->" % ",".join(layers))
+        self.emitSchemaorgHeaders("404 Missing")
+        self.response.out.write('<h3>404 Not Found.</h3><p><br/>Page not found. Please <a href="/">try the homepage.</a><br/><br/></p>')
+
+
+        clean_node = re.sub(r'[^a-zA-Z0-9\-/]', '', node, flags=re.DOTALL)
+        log.info("404: clean_node: clean_node: %s node: %s" % (clean_node, node))
+
+        base_term = Unit.GetUnit( node.rsplit('/')[0] )
+        if base_term != None :
+            self.response.out.write('<div>See also: <a href="/%s">%s</a></div> <br/><br/> ' % ( base_term.id, base_term.id ))
+
+        base_actionprop = Unit.GetUnit( node.rsplit('-')[0] )
+        if base_actionprop != None :
+            self.response.out.write('<div>Looking for an <a href="/Action">Action</a>-related property? Note that xyz-input and xyz-output have <a href="/docs/actions.html">special meaning</a>. See also: <a href="/%s">%s</a></div> <br/><br/> ' % ( base_actionprop.id, base_actionprop.id ))
+
+
+
         return True
 
 
