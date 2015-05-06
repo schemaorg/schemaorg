@@ -391,7 +391,7 @@ class ShowUnit (webapp2.RequestHandler):
            hyperlinks.append(self.ml(f, f.id, tooltip))
         return (", ".join(hyperlinks))
 
-    def UnitHeaders(self, node, layers='core'):
+    def emitUnitHeaders(self, node, layers='core'):
         """Write out the HTML page headers for this node."""
         self.write("<h1 class=\"page-title\">\n")
         ind = len(self.parentStack)
@@ -468,7 +468,7 @@ class ShowUnit (webapp2.RequestHandler):
         if subclass: # in case the superclass has no defined attributes
             self.write("<meta property=\"rdfs:subClassOf\" content=\"%s\">" % (cl.id))
 
-    def ClassIncomingProperties (self, cl, layers="core"):
+    def emitClassIncomingProperties (self, cl, layers="core"):
         """Write out a table of incoming properties for a per-type page."""
         headerPrinted = False
         di = Unit.GetUnit("domainIncludes")
@@ -510,7 +510,7 @@ class ShowUnit (webapp2.RequestHandler):
             self.write("</table>\n")
 
 
-    def AttributeProperties (self, node, layers="core"):
+    def emitAttributeProperties(self, node, layers="core"):
         """Write out properties of this property, for a per-property page."""
         di = Unit.GetUnit("domainIncludes")
         ri = Unit.GetUnit("rangeIncludes")
@@ -674,8 +674,6 @@ class ShowUnit (webapp2.RequestHandler):
         * entry = name of the class or property
         """
 
-        global ENABLE_JSONLD_CONTEXT, ENABLE_CORS
-
         rdfs_type = 'rdfs:Property'
         if is_class:
             rdfs_type = 'rdfs:Class'
@@ -708,12 +706,11 @@ class ShowUnit (webapp2.RequestHandler):
         log.info("EXACT PAGE: %s" % node.id)
         ext_mappings = GetExtMappingsRDFa(node, layers=layers)
 
-        global sitemode
+        global sitemode, sitename
 
         if ("schema.org" not in self.request.host and sitemode == "mainsite"):
             sitemode = "mainsite testsite"
 
-        global sitename
         self.emitSchemaorgHeaders(self, node.id, node.isClass(), ext_mappings, sitemode, sitename)
 
         if ("core" not in layers or len(layers)>1):
@@ -730,16 +727,16 @@ class ShowUnit (webapp2.RequestHandler):
         self.parentStack = []
         self.GetParentStack(node, layers=layers)
 
-        self.UnitHeaders(node,  layers=layers)
+        self.emitUnitHeaders(node,  layers=layers) # writes <h1><table>...
 
         if (node.isClass(layers=layers)):
             subclass = True
             for p in self.parentStack:
                 self.ClassProperties(p, p==self.parentStack[0], layers=layers)
             self.write("</table>\n")
-            self.ClassIncomingProperties(node, layers=layers)
+            self.emitClassIncomingProperties(node, layers=layers)
         elif (Unit.isAttribute(node, layers=layers)):
-            self.AttributeProperties(node, layers=layers)
+            self.emitAttributeProperties(node, layers=layers)
 
         if (not Unit.isAttribute(node, layers=layers)):
             self.write("\n\n</table>\n\n") # no supertype table for properties
@@ -932,10 +929,10 @@ class ShowUnit (webapp2.RequestHandler):
                 return True
             return False
 
-    def handle404Failure(self, node):
+    def handle404Failure(self, node, layers="core"):
         self.error(404)
         self.response.out.write('<title>404 Not Found.</title><a href="/">404 Not Found.</a><br/><br/>')
-        self.response.out.write("<br /><br /><br /><br /><br /><!-- %s -->" % ",".join(layerlist))
+        # self.response.out.write("<br /><br /><br /><br /><br /><!-- %s -->" % ",".join(layers))
         return True
 
 
@@ -1024,15 +1021,14 @@ class ShowUnit (webapp2.RequestHandler):
         if self.handleExactTermPage(node, layers=layerlist):
             return
         else:
-            log.info("Error handling exact term page: %s" % node)
-            return
+            log.info("Error handling exact term page assuming a 404: %s" % node)
 
-        # Drop through to 404 as default exit.
-        if self.handle404Failure(node):
-            return
-        else:
-            log.info("Error handling 404.")
-            return
+            # Drop through to 404 as default exit.
+            if self.handle404Failure(node):
+                return
+            else:
+                log.info("Error handling 404.")
+                return
 
 
 read_schemas()
