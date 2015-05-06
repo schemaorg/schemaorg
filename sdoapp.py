@@ -27,6 +27,7 @@ sitemode = "mainsite" # whitespaced list for CSS tags,
             # e.g. "mainsite testsite" when off expected domains
             # "extensionsite" when in an extension (e.g. blue?)
 
+#
 host_ext = ""
 myhost = ""
 mybasehost = ""
@@ -48,6 +49,7 @@ JINJA_ENVIRONMENT = jinja2.Environment(
 
 ENABLE_JSONLD_CONTEXT = True
 ENABLE_CORS = True
+
 
 debugging = False
 
@@ -229,7 +231,7 @@ def GetJsonLdContext(layers='core'):
         log.info("DataCache: recycled JSONLDCONTEXT")
         return DataCache.get('JSONLDCONTEXT')
     else:
-        global namespaces;
+        global namespaces
         jsonldcontext = "{\"@context\":    {\n"
         jsonldcontext += namespaces ;
         jsonldcontext += "        \"@vocab\": \"http://schema.org/\",\n"
@@ -661,7 +663,33 @@ class ShowUnit (webapp2.RequestHandler):
             return "schema.org"
         mylayers = layers
         log.info("EXT: computing sitename from layer list: %s" %  str(mylayers) )
-        return (layers[ len(mylayers)-1 ] + ".schema.org") 
+        return (layers[ len(mylayers)-1 ] + ".schema.org")
+
+    def emitSchemaorgHeaders(self, webapp, entry='', is_class=False, ext_mappings='', sitemode="default", sitename="schema.org"):
+        """
+        Generates the headers for class, property and enumeration pages
+
+        * entry = name of the class or property
+        """
+
+        global ENABLE_JSONLD_CONTEXT, ENABLE_CORS
+
+        rdfs_type = 'rdfs:Property'
+        if is_class:
+            rdfs_type = 'rdfs:Class'
+
+        template = JINJA_ENVIRONMENT.get_template('genericTermPageHeader.tpl')
+        template_values = {
+            'entry': str(entry),
+            'sitemode': sitemode,
+            'sitename': sitename,
+            'rdfs_type': rdfs_type,
+            'ext_mappings': ext_mappings
+        }
+        out = template.render(template_values)
+        webapp.response.write(out)
+
+
 
     def emitExactTermPage(self, node, layers="core"):
         """Emit a Web page that exactly matches this node."""
@@ -675,7 +703,7 @@ class ShowUnit (webapp2.RequestHandler):
             sitemode = "mainsite testsite"
 
         global sitename
-        headers.OutputSchemaorgHeaders(self, node.id, node.isClass(), ext_mappings, sitemode, sitename)
+        self.emitSchemaorgHeaders(self, node.id, node.isClass(), ext_mappings, sitemode, sitename)
 
         if ("core" not in layers or len(layers)>1):
             ll = " ".join(layers).replace("core","")
@@ -994,6 +1022,7 @@ class ShowUnit (webapp2.RequestHandler):
         else:
             log.info("Error handling 404.")
             return
+
 
 read_schemas()
 schemasInitialized = True
