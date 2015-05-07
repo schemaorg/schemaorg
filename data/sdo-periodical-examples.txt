@@ -680,7 +680,67 @@ RDFA:
 </div>
 
 JSON:
- 
+
+<script type="application/ld+json">
+{
+  "@context": {
+    "schema": "http://schema.org/"
+  },
+  "@graph": [
+    {
+      "@id": "http://www.freebase.com/m/0h35m",
+      "@type": "Book",
+      "author": "J.R.R Tolkien",
+      "datePublished": "1954",
+      "name": "The Fellowship of the Ring",
+      "publisher": {
+          "@type": "Organization",
+          "location": "United Kingdom",
+          "name": "George Allen & Unwin"
+      },
+      "workExample": [
+        {
+          "@type": "Book",
+          "datePublished": "1974",
+          "isbn": "0007149212",
+          "publisher": {
+            "@type": "Organization",
+            "name": "HarperCollins"
+          }
+        },
+        {
+          "@type": "Book",
+          "datePublished": "1984",
+          "isbn": "0345296052",
+          "publisher": {
+            "@type": "Organization",
+            "name": "Ballantine"
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Movie",
+      "datePublished": "2001",
+      "director": "Peter Jackson",
+      "duration": "PT178M",
+      "name": "The Lord of the Rings: The Fellowship of the Ring",
+      "exampleOfWork": {
+        "@id": "http://www.freebase.com/m/0h35m"
+      }
+    },
+    {
+      "@type": "Movie",
+      "datePublished": "1978",
+      "director": "Ralph Bakshi",
+      "name": "J.R.R. Tolkien's The Lord of the Rings",
+      "exampleOfWork": {
+        "@id": "http://www.freebase.com/m/0h35m"
+      }
+    }
+  ]
+}
+</script>
 
 TYPES:  FakeEntryNeeded, FixMeSomeDay
 PRE-MARKUP:
