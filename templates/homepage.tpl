@@ -123,7 +123,7 @@ See the draft <b><a href="/docs/releases.html">releases</a></b> page to learn mo
     We invite you to <a href="docs/gs.html">get started</a>!
 </p>
 <p>
-    View our blog at <a href="http://blog.schema.org">blog.schema.org</a>.
+    View our blog at <a href="http://blog.schema.org">blog.schema.org</a> or see <a href="/docs/releases.html">release history</a>.
 </p>
 
 <br/>
