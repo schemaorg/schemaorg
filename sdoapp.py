@@ -54,7 +54,7 @@ ENABLE_CORS = True
 
 
 debugging = False
-
+# debugging = True
 
 def cleanPath(node):
     """Return the substring of a string matching chars approved for use in our URL paths."""
@@ -960,17 +960,20 @@ class ShowUnit (webapp2.RequestHandler):
 
     def setupHostinfo(self, node):
         global debugging, host_ext, myhost, mybasehost
-        host_ext = re.match(r'(\w*)[.:]',self.request.host)
+
+        host_ext = re.match( r'([\w\-_]+)[\.:]?', self.request.host).group(1)
+        log.debug("setupHostinfo: srh=%s host_ext=%s" % (self.request.host, str(host_ext) ))
+
         if host_ext != None:
-            host_ext = host_ext.group(1) # e.g. "bib"
-            log.info("HOST: Found %s in %s" % ( host_ext, self.request.host ))
-            myhost = self.request.host.rsplit(':')[0] 
+            # e.g. "bib"
+            log.debug("HOST: Found %s in %s" % ( host_ext, self.request.host ))
+            myhost = self.request.host.rsplit(':')[0]
             mybasehost = myhost
             mybasehost = mybasehost.replace(host_ext + ".","")
             # mybasehost = mybasehost.replace(":8080", "")
 
 
-        if "localhost" in self.request.host or  "webschemas" in self.request.host:
+        if "localhost" in self.request.host or  "webschemas" in self.request.host or "sdo-gozer.appspot.com" in self.request.host:
             debugging = True
 
     def get(self, node):
@@ -1053,6 +1056,7 @@ class ShowUnit (webapp2.RequestHandler):
                 return
 
 
+#log.info("STARTING UP... reading schemas.")
 read_schemas()
 schemasInitialized = True
 
