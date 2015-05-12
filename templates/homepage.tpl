@@ -95,37 +95,39 @@ See the draft <b><a href="/docs/releases.html">releases</a></b> page to learn mo
     Internet, on web pages, in email messages, and beyond.
 </p>
 
-<p>    
+<p>
     Schema.org vocabulary can be used with many different encodings,
-    including RDFa, Microdata and json-ld. Over 10 million sites use
+    including RDFa, Microdata and JSON-LD. These vocabularies cover
+    entities, relationships between entities and actions, and can
+    easily be extended through a well-documented extension model. Over 10 million sites use
     Schema.org to markup their web pages and email messages.
-    Many applications from the Google, Microsoft, Pinterest and others
-    use this markup.
+    Many applications from Google, Microsoft, Pinterest, Yandex and others
+    already use these vocabularies to power rich, extensible experiences.
 </p>
-    <p>
-    Schema.org is sponsored by Google, Microsoft, Yandex and
-    Yahoo. The vocabularies are developed by a open community process,
+<p>
+    Schema.org is sponsored by Google, Microsoft, Yahoo and Yandex.
+    The vocabularies are developed by an open <a href="https://www.w3.org/community/schemaorg">community</a> process,
     using the <a
-    href="https://lists.w3.org/Archives/Public/public-vocabs/">public-vocabs@w3.org</a>
-    mailing list and through <a href="http://github.com/schemaorg/schemaorg">GitHub</a>. 
-    </p>
-  <p>
-    A shared markup vocabulary makes it easier for webmasters to decide
-    on a markup schema and get the maximum benefit for their efforts.
-    It is in this spirit that the search engines, together with the
-    larger community has come 
-    together, to provide a shared collection of schemas that webmasters
-    can use.
-  </p>
-  <p>
-    We invite you to <a href="docs/gs.html">get started</a>!
-  </p>
-  <p>
-    View our blog at <a href="http://blog.schema.org">blog.schema.org</a>.
-  </p>
-<br/>
+    href="http://lists.w3.org/Archives/Public/public-schemaorg">public-schemaorg@w3.org</a>
+     mailing list and through <a href="http://github.com/schemaorg/schemaorg">GitHub</a>.
+</p>
 
-  </div>
+<p>
+   A shared vocabulary makes it easier for webmasters and developers to decide
+   on a schema and get the maximum benefit for their efforts.
+   It is in this spirit that the sponsors, together with the
+   larger community have come together, to provide a shared collection of schemas.
+ </p>
+
+<p>
+    We invite you to <a href="docs/gs.html">get started</a>!
+</p>
+<p>
+    View our blog at <a href="http://blog.schema.org">blog.schema.org</a>.
+</p>
+
+<br/>
+</div>
 
 
 <div id="footer"><p>
