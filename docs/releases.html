@@ -133,7 +133,11 @@ td.release  {
 <td class="release">2.0<br/>sdo-gozer<br/>(2015-05-12)</td>
 <span id="sdo-gozer" />
 <span id="v2.0" />
-<td>Plenty to do...</td>
+<td>Version 2.0 consolidates and integrates schema.org's existing vocabulary. This version features many updated definitions, type/property associations and term names that
+improve consistency and usability. It also introduces a new <a href="/docs/extension.html">extension system</a>.
+Version 2.0 adds various new terms including <a href="/mainEntityOfPage">mainEntityOfPage</a> and major contributions from the
+<a href="https://www.w3.org/community/gao/">Automotive Ontology community</a>.
+</td>
 <td>
 
 <h3>Vocabulary</h3>
@@ -146,15 +150,10 @@ td.release  {
 The new vocabulary includes: <a href="/numberOfAirbags">numberOfAirbags</a>,
 <a href="/numberOfAxles">numberOfAxles</a>,
 <a href="/numberOfForwardGears">numberOfForwardGears</a>,
-
 <a href="/fuelConsumption">fuelConsumption</a>,
 <a href="/fuelEfficiency">fuelEfficiency</a>
 <a href="/vehicleEngine">vehicleEngine</a>,
-<a href="/EngineSpecification">EngineSpecification</a>,
-<a href="/driveWheelConfiguration">driveWheelConfiguration</a>,
-<a href="/DriveWheelConfigurationValue">DriveWheelConfigurationValue</a> (<a href="/4WDriveWheelConfiguration">4WDriveWheelConfiguration</a>,
-<a href="/AWDriveWheelConfiguration">AWDriveWheelConfiguration</a>, <a href="/FWDriveWheelConfiguration">FWDriveWheelConfiguration</a>,
-<a href="/RWDriveWheelConfiguration">RWDriveWheelConfiguration</a>).
+<a href="/EngineSpecification">EngineSpecification</a>.
 <br/>
 Thanks to Martin Hepp, Mirek Sopek, Karol Szczepański and <a href="https://www.w3.org/community/gao/participants">others</a>
 in the <a href="https://www.w3.org/community/gao/">Automotive Ontology</a> community group.
@@ -178,7 +177,7 @@ We anticipate substantial additions that build on this foundation will be contri
 <li><a href="https://github.com/schemaorg/schemaorg/issues/328">Fix to #328</a>: Added <a href="/ScreeningEvent">ScreeningEvent</a> to support movie/video screenings.</li>
 <li><a href="https://github.com/schemaorg/schemaorg/issues/314">Fix to #314</a>: Added <a href="/MovieClip">MovieClip</a> and  <a href="/VideoGameClip">VideoGameClip</a> as parallels to  <a href="/TVClip">TVClip</a> and  <a href="/RadioClip">RadioClip</a>.</li>
 <li><a href="https://github.com/schemaorg/schemaorg/issues/122">Fix to #122</a>: Added <a href="/gtin12">gtin12</a> property for <a href="/Product">Product</a>.</li>
-<li><a href="https://github.com/schemaorg/schemaorg/issues/417">Fix to #417</a>: Renamed many types and properties, which had overly generic names. This is no cause for alarm,
+<li id="rename2015"><a href="https://github.com/schemaorg/schemaorg/issues/417">Fix to #417</a>: Renamed many types and properties, which had overly generic names. This is no cause for alarm,
 the superseded names can still be used, although we encourage consumers and producers of schema.org data to move towards the newer terminology.
     <a href="/CreativeWorkSeason">CreativeWorkSeason was Season</a>,
     <a href="/CreativeWorkSeries">CreativeWorkSeries was Series</a>,
@@ -211,6 +210,13 @@ the superseded names can still be used, although we encourage consumers and prod
 </ul>
 
 <h3>Site improvements</h3>
+
+<ul>
+<li id="extng"><a href="https://github.com/schemaorg/schemaorg/issues/429">Fix to #429</a>: Implementation of new <a href="/docs/extension.html">extension system</a>.</li>
+<li id="404handler"><a href="https://github.com/schemaorg/schemaorg/issues/6">Fix to #6</a>: Improved 404 handler for missing pages, with support for old-style "/Person/Minister" extension URLs and Action-related "/query-input" pseudo-properties.</li>
+<li id="d3"><a href="https://github.com/schemaorg/schemaorg/issues/318">Fix to #318</a>: Added an <em>experimental</em> JSON(-LD) <a href="http://sdo-gozer.appspot.com/docs/tree.jsonld">view</a> of the hierarchy. This combines <a href="http://d3js.org/">D3</a> with <a href="http://www.w3.org/TR/rdf-schema/">RDF schema</a>. Thanks to Gregg Kellogg and Sandro Hawke for collaboration.</li>
+<li>Various behind-the-scenes improvement to the site software.</li>
+</ul>
 
 <h3>Quick fixes and Examples</h3>
 <ul>
