@@ -85,9 +85,9 @@
                <div class="wrapper">
                 <ul>
                     <li >
-                      <a href="docs/documents.html">Documentation</a></li>
+                      <a href="/docs/documents.html">Documentation</a></li>
                     <li class="activelink">
-                      <a href="docs/schemas.html">Schemas</a></li>
+                      <a href="/docs/schemas.html">Schemas</a></li>
                     <li >
                       <a href=".">Home</a></li>
                 </ul>
