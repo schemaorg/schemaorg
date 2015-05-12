@@ -6951,7 +6951,7 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Organization">Organization</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Place">Place</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Person">Person</a></span>
-      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span> --> 
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span> -->
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/interactivityType">
       <span class="h" property="rdfs:label">interactivityType</span>
@@ -11788,7 +11788,10 @@ postponing for 1.6.
 <h1>Property-Value Support</h1>
 <div typeof="rdfs:Class" resource="http://schema.org/PropertyValue">
     <span class="h" property="rdfs:label">PropertyValue</span>
-    <span property="rdfs:comment">A property-value pair, e.g. representing a feature of a product or place. Use the &apos;name&apos; property for the name of the property. If there is an additional human-readable version of the value, put that into the &apos;description&apos; property</span>
+    <span property="rdfs:comment">A property-value pair, e.g. representing a feature of a product or place. Use the &apos;name&apos; property for the name of the property. If there is an additional human-readable version of the value, put that into the &apos;description&apos; property.
+        &lt;br/&gt;&lt;br/&gt;
+        Always use specific schema.org properties when a) they exist and b) you can populate them. Using PropertyValue as a substitute will typically not trigger the same effect as using the original, specific property.
+    </span>
     <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/StructuredValue">StructuredValue</a></span>
     <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsClass">GoodRelationsClass</a></span>
 </div>
