@@ -64,9 +64,18 @@ This is the main schema.org hierarchy: a collection of types (or "classes"), eac
 Although a type may have more than one super-type, here we show each type in one branch of the tree only.
 </p>
 
+
 <div>
 {{ thing_tree | safe }}
 </div>
+
+{% for term in coreterms %}
+<h2 id="term_{{term}}" name="term_{{term}}">{{ term }}</a></h2>
+<p>
+...
+</p>
+{% endfor %}
+
 
 
 <br/><br/>

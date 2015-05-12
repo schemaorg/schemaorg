@@ -85,7 +85,7 @@ class TypeHierarchyTree:
 
         """Generate a hierarchical tree view of the types. hashorslash is used for relative link prefixing."""
 
-        log.info("traverseForHTML: node=%s hashorslash=%s" % ( node.id, hashorslash ))
+        # log.debug("traverseForHTML: node=%s hashorslash=%s" % ( node.id, hashorslash ))
 
         # we are a supertype of some kind
         if len(node.GetImmediateSubtypes(layers=layers)) > 0:
@@ -1000,13 +1000,15 @@ class ShowUnit (webapp2.RequestHandler):
             return True
         else:
             template = JINJA_ENVIRONMENT.get_template('fullReleasePage.tpl')
-            uThing = Unit.GetUnit("Thing")
-
             mainroot = TypeHierarchyTree()
-            mainroot.traverseForHTML(uThing, hashorslash="#term_", layers=layerlist)
+            mainroot.traverseForHTML(Unit.GetUnit("Thing"), hashorslash="#term_", layers=layerlist)
             thing_tree = mainroot.toHTML()
 
-            page = template.render({ 'thing_tree': thing_tree })
+            coreterms = { key:GetComment(Unit.GetUnit(key)) for key, value in all_terms.items() if value == ['core'] and "http" not in key}
+            for t in coreterms:
+                log.info(t)
+
+            page = template.render({ 'thing_tree': thing_tree, 'coreterms': coreterms })
 
             self.response.out.write( page )
             log.debug("Serving fresh FullReleasePage.")
