@@ -947,7 +947,7 @@ class ShowUnit (webapp2.RequestHandler):
 
         base_term = Unit.GetUnit( node.rsplit('/')[0] )
         if base_term != None :
-            self.response.out.write('<div>See also: <a href="/%s">%s</a></div> <br/><br/> ' % ( base_term.id, base_term.id ))
+            self.response.out.write('<div>Perhaps you meant: <a href="/%s">%s</a></div> <br/><br/> ' % ( base_term.id, base_term.id ))
 
         base_actionprop = Unit.GetUnit( node.rsplit('-')[0] )
         if base_actionprop != None :
