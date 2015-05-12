@@ -15,14 +15,14 @@
         prettyPrint();
         setTimeout(function(){
 
-  $(".atn:contains(itemscope), .atn:contains(itemtype), .atn:contains(itemprop), .atn:contains(itemid), .atn:contains(time), .atn:contains(datetime), .atn:contains(datetime), .tag:contains(time) ").addClass(\'new\');
-  $('.new + .pun + .atv\').addClass(\'curl\');
+  $(".atn:contains(itemscope), .atn:contains(itemtype), .atn:contains(itemprop), .atn:contains(itemid), .atn:contains(time), .atn:contains(datetime), .atn:contains(datetime), .tag:contains(time) ").addClass('new');
+  $('.new + .pun + .atv').addClass('curl');
 
         }, 500);
         setTimeout(function(){
 
-  $(".atn:contains(property), .atn:contains(typeof) ").addClass(\'new\');
-  $('.new + .pun + .atv\').addClass(\'curl\');
+  $(".atn:contains(property), .atn:contains(typeof) ").addClass('new');
+  $('.new + .pun + .atv').addClass('curl');
 
         }, 500);
         setTimeout(function() {
