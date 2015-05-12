@@ -81,7 +81,11 @@ class TypeHierarchyTree:
     def toJSON(self):
         return self.txt
 
-    def traverseForHTML(self, node, depth = 1, layers='core'):
+    def traverseForHTML(self, node, depth = 1, hashorslash="/", layers='core'):
+
+        """Generate a hierarchical tree view of the types. hashorslash is used for relative link prefixing."""
+
+        log.info("traverseForHTML: node=%s hashorslash=%s" % ( node.id, hashorslash ))
 
         # we are a supertype of some kind
         if len(node.GetImmediateSubtypes(layers=layers)) > 0:
@@ -89,22 +93,22 @@ class TypeHierarchyTree:
             # and we haven't been here before
             if node.id not in self.visited:
                 self.visited[node.id] = True # remember our visit
-                self.emit( ' %s<li class="tbranch" id="%s"><a href="/%s">%s</a>' % (" " * 4 * depth, node.id, node.id, node.id) )
+                self.emit( ' %s<li class="tbranch" id="%s"><a href="%s%s">%s</a>' % (" " * 4 * depth, node.id, hashorslash, node.id, node.id) )
                 self.emit(' %s<ul>' % (" " * 4 * depth))
 
                 # handle our subtypes
                 for item in node.GetImmediateSubtypes(layers=layers):
-                    self.traverseForHTML(item, depth + 1, layers=layers)
+                    self.traverseForHTML(item, depth + 1, hashorslash=hashorslash, layers=layers)
                 self.emit( ' %s</ul>' % (" " * 4 * depth))
             else:
                 # we are a supertype but we visited this type before, e.g. saw Restaurant via Place then via Organization
                 seen = '  <a href="#%s">*</a> ' % node.id
-                self.emit( ' %s<li class="tbranch" id="%s"><a href="/%s">%s</a>%s' % (" " * 4 * depth, node.id, node.id, node.id, seen) )
+                self.emit( ' %s<li class="tbranch" id="%s"><a href="%s%s">%s</a>%s' % (" " * 4 * depth, node.id, hashorslash, node.id, node.id, seen) )
 
         # leaf nodes
         if len(node.GetImmediateSubtypes(layers=layers)) == 0:
             if node.id not in self.visited:
-                self.emit( '%s<li class="tleaf" id="%s"><a href="/%s">%s</a>%s' % (" " * depth, node.id, node.id, node.id, "" ))
+                self.emit( '%s<li class="tleaf" id="%s"><a href="%s%s">%s</a>%s' % (" " * depth, node.id, hashorslash, node.id, node.id, "" ))
             #else:
                 #self.visited[node.id] = True # never...
                 # we tolerate "VideoGame" appearing under both Game and SoftwareApplication
@@ -955,9 +959,58 @@ class ShowUnit (webapp2.RequestHandler):
         if base_actionprop != None :
             self.response.out.write('<div>Looking for an <a href="/Action">Action</a>-related property? Note that xyz-input and xyz-output have <a href="/docs/actions.html">special meaning</a>. See also: <a href="/%s">%s</a></div> <br/><br/> ' % ( base_actionprop.id, base_actionprop.id ))
 
-
-
         return True
+
+    def handleJSONSchemaTree(self, node, layerlist='core'):
+        """Handle a request for a JSON-LD tree representation of the schemas (RDFS-based)."""
+
+        self.response.headers['Content-Type'] = "application/ld+json"
+        self.emitCacheHeaders()
+
+        if DataCache.get('JSONLDThingTree'):
+            self.response.out.write( DataCache.get('JSONLDThingTree') )
+            log.debug("Serving recycled JSONLDThingTree.")
+            return True
+        else:
+            uThing = Unit.GetUnit("Thing")
+            mainroot = TypeHierarchyTree()
+            mainroot.traverseForJSONLD(Unit.GetUnit("Thing"), layers=layerlist)
+            thing_tree = mainroot.toJSON()
+            self.response.out.write( thing_tree )
+            log.debug("Serving fresh JSONLDThingTree.")
+            DataCache["JSONLDThingTree"] = thing_tree
+            return True
+        return False
+
+
+
+#         if (node == "version/2.0/" or node == "version/latest/" or "version/" in node) ...
+
+    def handleFullReleasePage(self, node,  layerlist='core'):
+
+        """Deal with a request for a full release summary page. Lists all terms and their descriptions inline in one long page.
+        version/latest/ is from current schemas, others will need to be loaded and emitted from stored HTML snapshots (for now)."""
+
+        self.response.headers['Content-Type'] = "text/html"
+        self.emitCacheHeaders()
+
+        if DataCache.get('FullReleasePage'):
+            self.response.out.write( DataCache.get('FullReleasePage') )
+            log.debug("Serving recycled FullReleasePage.")
+            return True
+        else:
+            template = JINJA_ENVIRONMENT.get_template('fullReleasePage.tpl')
+            uThing = Unit.GetUnit("Thing")
+
+            mainroot = TypeHierarchyTree()
+            mainroot.traverseForHTML(uThing, hashorslash="#term_", layers=layerlist)
+            thing_tree = mainroot.toHTML()
+
+            page = template.render({ 'thing_tree': thing_tree })
+
+            self.response.out.write( page )
+            log.debug("Serving fresh FullReleasePage.")
+            DataCache["FullReleasePage"] = page
 
 
     def setupHostinfo(self, node):
@@ -1046,6 +1099,13 @@ class ShowUnit (webapp2.RequestHandler):
                 return
             else:
                 log.info("Error handling JSON-LD schema tree: %s " % node)
+                return
+
+        if (node == "version/2.0/" or node == "version/latest/" or "version/" in node):
+            if self.handleFullReleasePage(node, layerlist=layerlist):
+                return
+            else:
+                log.info("Error handling full release page: %s " % node)
                 return
 
         # Pages based on request path matching a Unit in the term graph:
