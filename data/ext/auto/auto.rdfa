@@ -121,6 +121,55 @@ Typical unit code(s): C62</span>
 
 <!-- EXTENSION CONTENT FOLLOWS -->
 
+<!--
+<a href="/driveWheelConfiguration">driveWheelConfiguration</a>,
+<a href="/DriveWheelConfigurationValue">DriveWheelConfigurationValue</a> (<a href="/4WDriveWheelConfiguration">4WDriveWheelConfiguration</a>,
+<a href="/AWDriveWheelConfiguration">AWDriveWheelConfiguration</a>, <a href="/FWDriveWheelConfiguration">FWDriveWheelConfiguration</a>,
+<a href="/RWDriveWheelConfiguration">RWDriveWheelConfiguration</a>). -->
+
+
+<div typeof="rdf:Property" resource="http://schema.org/driveWheelConfiguration">
+    <span class="h" property="rdfs:label">driveWheelConfiguration</span>
+    <span property="rdfs:comment">The drive wheel configuration, i.e. which roadwheels will receive torque from the vehicle's engine via the drivetrain.</span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Vehicle">Vehicle</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/DriveWheelConfigurationValue">DriveWheelConfigurationValue</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+    <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group">GAO</a></span>
+</div>
+
+<div typeof="rdfs:Class" resource="http://schema.org/DriveWheelConfigurationValue">
+    <span class="h" property="rdfs:label">DriveWheelConfigurationValue</span>
+    <span property="rdfs:comment">A value indicating which roadwheels will receive torque.</span>
+    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/QualitativeValue">QualitativeValue</a></span>
+    <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group">GAO</a></span>
+</div>
+
+
+<div typeof="http://schema.org/DriveWheelConfigurationValue" resource="http://schema.org/4WDriveWheelConfiguration">
+  <span class="h" property="rdfs:label">4WDriveWheelConfiguration</span>
+  <span property="rdfs:comment">Four-wheel drive is a transmission layout where the engine primarily drives two wheels with a part-time four-wheel drive capability.</span>
+  <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group">GAO</a></span>
+</div>
+
+<div typeof="http://schema.org/DriveWheelConfigurationValue" resource="http://schema.org/AWDriveWheelConfiguration">
+  <span class="h" property="rdfs:label">AWDriveWheelConfiguration</span>
+  <span property="rdfs:comment">All-wheel Drive is a transmission layout where the engine drives all four wheels.</span>
+  <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group">GAO</a></span>
+</div>
+<div typeof="http://schema.org/DriveWheelConfigurationValue" resource="http://schema.org/FWDriveWheelConfiguration">
+  <span class="h" property="rdfs:label">FWDriveWheelConfiguration</span>
+  <span property="rdfs:comment">Front-wheel drive is a transmission layout where the engine drives the front wheels.</span>
+  <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group">GAO</a></span>
+</div>
+<div typeof="http://schema.org/DriveWheelConfigurationValue" resource="http://schema.org/RWDriveWheelConfiguration">
+  <span class="h" property="rdfs:label">RWDriveWheelConfiguration</span>
+  <span property="rdfs:comment">Real-wheel drive is a transmission layout where the engine drives the rear wheels.</span>
+  <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group">GAO</a></span>
+</div>
+
+
+
+
 
     <div typeof="rdfs:Class" resource="http://schema.org/MotorizedBicycle">
         <span class="h" property="rdfs:label">MotorizedBicycle</span>
