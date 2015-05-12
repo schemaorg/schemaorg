@@ -706,7 +706,7 @@ def read_file (filename):
     file_path = full_path(filename)
 
     import codecs
-    log.info("READING FILE: filename=%s file_path=%s " % (filename, file_path ) )
+    log.debug("READING FILE: filename=%s file_path=%s " % (filename, file_path ) )
     for line in codecs.open(file_path, 'r', encoding="utf8").readlines():
         strs.append(line)
     return "".join(strs)

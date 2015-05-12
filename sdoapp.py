@@ -51,6 +51,7 @@ JINJA_ENVIRONMENT = jinja2.Environment(
 
 ENABLE_JSONLD_CONTEXT = True
 ENABLE_CORS = True
+ENABLE_HOSTED_EXTENSIONS = False
 
 
 debugging = False
@@ -236,7 +237,7 @@ def GetJsonLdContext(layers='core'):
     """Generates a basic JSON-LD context file for schema.org."""
 
     if DataCache.get('JSONLDCONTEXT'):
-        log.info("DataCache: recycled JSONLDCONTEXT")
+        log.debug("DataCache: recycled JSONLDCONTEXT")
         return DataCache.get('JSONLDCONTEXT')
     else:
         global namespaces
@@ -267,7 +268,7 @@ def GetJsonLdContext(layers='core'):
         jsonldcontext = jsonldcontext.replace("},}}","}\n    }\n}")
         jsonldcontext = jsonldcontext.replace("},","},\n")
         DataCache['JSONLDCONTEXT'] = jsonldcontext
-        log.info("DataCache: added JSONLDCONTEXT")
+        log.debug("DataCache: added JSONLDCONTEXT")
         return jsonldcontext
 
 class ShowUnit (webapp2.RequestHandler):
@@ -322,7 +323,8 @@ class ShowUnit (webapp2.RequestHandler):
 
         for l in all_terms[node.id]:
             l = l.replace("#","")
-            items.append("'{0}' is mentioned in extension layer: <a href='?ext={1}'>{2}</a>".format( node.id, l, l ))
+            if ENABLE_HOSTED_EXTENSIONS:
+                items.append("'{0}' is mentioned in extension layer: <a href='?ext={1}'>{2}</a>".format( node.id, l, l ))
 
         moreinfo = """<div>
         <div id='infobox' style='text-align: right;'><b><span style="cursor: pointer;">[more...]</span></b></div>
@@ -642,7 +644,7 @@ class ShowUnit (webapp2.RequestHandler):
             hp = DataCache.get("homepage")
             if hp != None:
                 self.response.out.write( hp )
-                log.info("Served datacache homepage.tpl")
+                log.debug("Served datacache homepage.tpl")
             else:
                 template = JINJA_ENVIRONMENT.get_template('homepage.tpl')
                 template_values = {
@@ -656,7 +658,7 @@ class ShowUnit (webapp2.RequestHandler):
                 }
                 page = template.render(template_values)
                 self.response.out.write( page )
-                log.info("Served fresh homepage.tpl")
+                log.debug("Served fresh homepage.tpl")
                 DataCache["homepage"] = page
                 #            self.response.out.write( open("static/index.html", 'r').read() )
             return True
@@ -670,7 +672,7 @@ class ShowUnit (webapp2.RequestHandler):
         if len(layers)==0:
             return "schema.org"
         mylayers = layers
-        log.info("EXT: computing sitename from layer list: %s" %  str(mylayers) )
+        log.debug("EXT: computing sitename from layer list: %s" %  str(mylayers) )
         return (layers[ len(mylayers)-1 ] + ".schema.org")
 
     def emitSchemaorgHeaders(self, entry='', is_class=False, ext_mappings='', sitemode="default", sitename="schema.org"):
@@ -689,7 +691,7 @@ class ShowUnit (webapp2.RequestHandler):
 
         if gtp != None:
             self.response.out.write( gtp )
-            log.info("Served recycled genericTermPageHeader.tpl for %s" % generated_page_id )
+            log.debug("Served recycled genericTermPageHeader.tpl for %s" % generated_page_id )
         else:
             template = JINJA_ENVIRONMENT.get_template('genericTermPageHeader.tpl')
             template_values = {
@@ -701,7 +703,7 @@ class ShowUnit (webapp2.RequestHandler):
             }
             out = template.render(template_values)
             DataCache[ generated_page_id ] = out
-            log.info("Served and cached fresh genericTermPageHeader.tpl for %s" % generated_page_id )
+            log.debug("Served and cached fresh genericTermPageHeader.tpl for %s" % generated_page_id )
 
             self.response.write(out)
 
@@ -709,7 +711,7 @@ class ShowUnit (webapp2.RequestHandler):
     def emitExactTermPage(self, node, layers="core"):
         """Emit a Web page that exactly matches this node."""
         self.outputStrings = []
-        log.info("EXACT PAGE: %s" % node.id)
+        log.debug("EXACT PAGE: %s" % node.id)
         ext_mappings = GetExtMappingsRDFa(node, layers=layers)
 
         global sitemode, sitename
@@ -719,7 +721,8 @@ class ShowUnit (webapp2.RequestHandler):
 
         self.emitSchemaorgHeaders(node.id, node.isClass(), ext_mappings, sitemode, sitename)
 
-        if ("core" not in layers or len(layers)>1):
+
+        if ( ENABLE_HOSTED_EXTENSIONS and ("core" not in layers or len(layers)>1) ):
             ll = " ".join(layers).replace("core","")
 
             s = "<p id='lli' class='layerinfo %s'><a href=\"https://github.com/schemaorg/schemaorg/wiki/ExtensionList\">extensions shown</a>: %s [<a href='http://%s/'>x</a>]</p>\n" % (ll, ll, mybasehost )
@@ -830,17 +833,17 @@ class ShowUnit (webapp2.RequestHandler):
 
         # 3. Use host_ext if set, e.g. 'bib' from bib.schema.org
         if host_ext != None:
-            log.info("Host: %s host_ext: %s" % ( self.request.host , host_ext ) )
+            log.debug("Host: %s host_ext: %s" % ( self.request.host , host_ext ) )
             extlist.append(host_ext)
 
         # Report domain-requested extensions
         for x in extlist:
-            log.info("Ext filter found: %s" % str(x))
+            log.debug("Ext filter found: %s" % str(x))
             if x  in ["core", "localhost", ""]:
                 continue
             layerlist.append("%s" % str(x))
         layerlist = list(set(layerlist))   # dedup
-        log.info("layerlist: %s" % layerlist)
+        log.debug("layerlist: %s" % layerlist)
         return layerlist
 
     def handleJSONContext(self, node):
@@ -926,7 +929,7 @@ class ShowUnit (webapp2.RequestHandler):
         else:
             # log.info("Looking for node: %s in layers: %s" % (node.id, ",".join(all_layers.keys() )) )
             if schema_node is not None and schema_node.id in all_terms:# look for it in other layers
-                log.info("TODO: layer toc: %s" % all_terms[schema_node.id] )
+                log.debug("TODO: layer toc: %s" % all_terms[schema_node.id] )
                 # self.response.out.write("Layers should be listed here. %s " %  all_terms[node.id] )
                 self.response.out.write("<h3>Schema.org Extensions</h3>\n<p>The term '%s' is not in the schema.org core, but is described by the following extension(s):</p>\n<ul>\n" % schema_node.id)
                 for x in all_terms[schema_node.id]:
@@ -943,7 +946,7 @@ class ShowUnit (webapp2.RequestHandler):
 
         clean_node = cleanPath(node)
 
-        log.info("404: clean_node: clean_node: %s node: %s" % (clean_node, node))
+        log.debug("404: clean_node: clean_node: %s node: %s" % (clean_node, node))
 
         base_term = Unit.GetUnit( node.rsplit('/')[0] )
         if base_term != None :
@@ -1010,10 +1013,14 @@ class ShowUnit (webapp2.RequestHandler):
         if (node in silent_skip_list):
             return
 
-        layerlist = self.setupExtensionLayerlist(node) # e.g. ['core', 'bib']
+        if ENABLE_HOSTED_EXTENSIONS:
+            layerlist = self.setupExtensionLayerlist(node) # e.g. ['core', 'bib']
+        else:
+            layerlist = ["core"]
+
         sitename = self.getExtendedSiteName(layerlist) # e.g. 'bib.schema.org', 'schema.org'
 
-        log.info("EXT: set sitename to %s " % sitename)
+        log.debug("EXT: set sitename to %s " % sitename)
         if (node in ["", "/"]):
             if self.handleHomepage(node):
                 return
@@ -1035,7 +1042,7 @@ class ShowUnit (webapp2.RequestHandler):
                 log.info("Error handling full.html : %s " % node)
                 return
 
-        if (node == "docs/tree.jsonld"):
+        if (node == "docs/tree.jsonld" or node == "docs/tree.json"):
             if self.handleJSONSchemaTree(node, layerlist=layerlist):
                 return
             else:
