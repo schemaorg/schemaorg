@@ -975,7 +975,7 @@ class ShowUnit (webapp2.RequestHandler):
             # mybasehost = mybasehost.replace(":8080", "")
 
 
-        if "localhost" in self.request.host or  "webschemas" in self.request.host or "sdo-gozer.appspot.com" in self.request.host:
+        if "localhost" in self.request.host or "sdo-gozer.appspot.com" in self.request.host:
             debugging = True
 
     def get(self, node):
