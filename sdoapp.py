@@ -648,8 +648,7 @@ class ShowUnit (webapp2.RequestHandler):
             else:
                 template = JINJA_ENVIRONMENT.get_template('homepage.tpl')
                 template_values = {
-                    'ENABLE_JSONLD_CONTEXT': ENABLE_JSONLD_CONTEXT,
-                    'ENABLE_CORS': ENABLE_CORS,
+                    'ENABLE_HOSTED_EXTENSIONS': ENABLE_HOSTED_EXTENSIONS,
                     'SCHEMA_VERSION': SCHEMA_VERSION,
                     'myhost': myhost,
                     'mybasehost': mybasehost,

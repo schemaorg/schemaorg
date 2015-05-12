@@ -67,7 +67,7 @@ See the draft <b><a href="/docs/releases.html">releases</a></b> page to learn mo
 {% endif %}
 
 
-{% if host_ext == "bib" %}
+{% if ENABLE_HOSTED_EXTENSIONS and host_ext == "bib" %}
   {{ ext.overview(name="Bibliographic Extension", abbrev="ext") }}
   <p>
   You are viewing the Bibliographic Extension within <a href="http://schema.org/">schema.org</a>.
@@ -76,7 +76,7 @@ See the draft <b><a href="/docs/releases.html">releases</a></b> page to learn mo
   This is an initial exploratory release.
   </p>
 
-{% elif host_ext == "test001" %}
+{% elif ENABLE_HOSTED_EXTENSIONS and host_ext == "test001" %}
   {{ ext.overview(name="Test Extension", abbrev="test1") }}
 
   <p>This is purely here for testing, please ignore.</p>

@@ -23,8 +23,7 @@ For more details, see the <a href="/">homepage</a>.
 <div style="clear: both; float: left; text-align: left; font-size: xx-small; color: #888 ; margin: 1em; line-height: 100%;">
  <ul>
   <li>SCHEMA_VERSION: {{ SCHEMA_VERSION }} </li>
-  <li>ENABLE_JSONLD_CONTEXT: {{ ENABLE_JSONLD_CONTEXT }} </li>
-  <li>ENABLE_CORS: {{ ENABLE_CORS }} </li>
+  <li>ENABLE_HOSTED_EXTENSIONS:  {{ ENABLE_HOSTED_EXTENSIONS  }} </li>
   <li>host_ext: {{ host_ext }} </li>
   <li>myhost: {{ myhost }} </li>
   <li>mybasehost: {{ mybasehost }} </li>
