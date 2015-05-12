@@ -59,26 +59,33 @@
 
 <h3>Full Hierarchy</h3>
 
+<!--
 <p>
 Schema.org is defined as two hierarchies: one for textual property values, and
 one for the things that they describe. Although a type may have more than one
 super-type, here we show each type in one branch of the tree only.
-</p>
-
+</p> -->
+<!--
 <h4>DataType</h4>
 
-<div> 
+<div>
 {{ datatype_tree | safe }}
-</div>
+</div> -->
 
 <h4>Thing</h4>
 
-<div> 
+<p>
+This is the main schema.org hierarchy: a collection of types (or "classes"), each of which has one or more parent types.
+Although a type may have more than one super-type, here we show each type in one branch of the tree only.
+</p>
+
+<div>
 {{ thing_tree | safe }}
 </div>
 
 
-
+<p>An <em>experimental</em> <a href="http://d3js.org">D3</a>-compatible <a href="/docs/tree.jsonld">JSON</a> version is also available.</p>
+<br/><br/>
 
 </div>
 
