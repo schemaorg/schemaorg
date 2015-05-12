@@ -23,7 +23,7 @@ from api import GetParentList, GetImmediateSubtypes, HasMultipleBaseTypes
 logging.basicConfig(level=logging.INFO) # dev_appserver.py --log_level debug .
 log = logging.getLogger(__name__)
 
-SCHEMA_VERSION=1.999999
+SCHEMA_VERSION=2.0
 sitename = "schema.org"
 sitemode = "mainsite" # whitespaced list for CSS tags,
             # e.g. "mainsite testsite" when off expected domains
