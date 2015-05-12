@@ -719,7 +719,7 @@ def full_path(filename):
 
 
 
-def read_schemas():
+def read_schemas(loadExtensions=False):
     """Read/parse/ingest schemas from data/*.rdfa. Also data/*examples.txt"""
     import os.path
     import glob
@@ -735,23 +735,26 @@ def read_schemas():
         parser = parsers.MakeParserOfType('rdfa', None)
         items = parser.parse(file_paths, "core")
 
-        log.info("(re)scanning for extensions.")
-        extfiles = glob.glob("data/ext/*/*.rdfa")
-        log.info("Extensions found: %s ." % " , ".join(extfiles) )
-        fnstrip_re = re.compile("\/.*")
-        for ext in extfiles:
-            ext_file_path = full_path(ext)
-            extid = ext.replace('data/ext/', '')
-            extid = re.sub(fnstrip_re,'',extid)
-            log.info("Preparing to parse extension data: %s as '%s'" % (ext_file_path, "%s" % extid))
-            parser = parsers.MakeParserOfType('rdfa', None)
-            all_layers[extid] = "1"
-            extitems = parser.parse([ext_file_path], layer="%s" % extid) # put schema triples in a layer
-            # log.debug("Results: %s " % len( extitems) )
-            for x in extitems:
-                if x is not None:
-                    log.debug("%s:%s" % ( extid, str(x.id) ))
-            # e.g. see 'data/ext/bib/bibdemo.rdfa'
+
+
+        if loadExtensions:
+            log.info("(re)scanning for extensions.")
+            extfiles = glob.glob("data/ext/*/*.rdfa")
+            log.info("Extensions found: %s ." % " , ".join(extfiles) )
+            fnstrip_re = re.compile("\/.*")
+            for ext in extfiles:
+                ext_file_path = full_path(ext)
+                extid = ext.replace('data/ext/', '')
+                extid = re.sub(fnstrip_re,'',extid)
+                log.info("Preparing to parse extension data: %s as '%s'" % (ext_file_path, "%s" % extid))
+                parser = parsers.MakeParserOfType('rdfa', None)
+                all_layers[extid] = "1"
+                extitems = parser.parse([ext_file_path], layer="%s" % extid) # put schema triples in a layer
+                # log.debug("Results: %s " % len( extitems) )
+                for x in extitems:
+                    if x is not None:
+                        log.debug("%s:%s" % ( extid, str(x.id) ))
+                # e.g. see 'data/ext/bib/bibdemo.rdfa'
 
         files = glob.glob("data/*examples.txt")
         example_contents = []

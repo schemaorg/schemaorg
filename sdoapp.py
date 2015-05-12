@@ -522,8 +522,11 @@ class ShowUnit (webapp2.RequestHandler):
             self.write("</table>\n")
 
 
-    def emitAttributeProperties(self, node, layers="core"):
+    def emitAttributeProperties(self, node, layers="core", out = None):
         """Write out properties of this property, for a per-property page."""
+        if not out:
+            out = self
+
         di = Unit.GetUnit("domainIncludes")
         ri = Unit.GetUnit("rangeIncludes")
         ranges = sorted(GetTargets(ri, node, layers=layers), key=lambda u: u.id)
@@ -541,67 +544,67 @@ class ShowUnit (webapp2.RequestHandler):
 
         if (inverseprop != None):
             tt = "This means the same thing, but with the relationship direction reversed."
-            self.write("<p>Inverse-property: %s.</p>" % (self.ml(inverseprop, inverseprop.id,tt)) )
+            out.write("<p>Inverse-property: %s.</p>" % (self.ml(inverseprop, inverseprop.id,tt)) )
 
-        self.write("<table class=\"definition-table\">\n")
-        self.write("<thead>\n  <tr>\n    <th>Values expected to be one of these types</th>\n  </tr>\n</thead>\n\n  <tr>\n    <td>\n      ")
+        out.write("<table class=\"definition-table\">\n")
+        out.write("<thead>\n  <tr>\n    <th>Values expected to be one of these types</th>\n  </tr>\n</thead>\n\n  <tr>\n    <td>\n      ")
 
         for r in ranges:
             if (not first_range):
                 self.write("<br/>")
             first_range = False
             tt = "The '%s' property has values that include instances of the '%s' type." % (node.id, r.id)
-            self.write(" <code>%s</code> " % (self.ml(r, r.id, tt, prop="rangeIncludes"))+"\n")
-        self.write("    </td>\n  </tr>\n</table>\n\n")
+            out.write(" <code>%s</code> " % (self.ml(r, r.id, tt, prop="rangeIncludes"))+"\n")
+        out.write("    </td>\n  </tr>\n</table>\n\n")
         first_domain = True
 
-        self.write("<table class=\"definition-table\">\n")
-        self.write("  <thead>\n    <tr>\n      <th>Used on these types</th>\n    </tr>\n</thead>\n<tr>\n  <td>")
+        out.write("<table class=\"definition-table\">\n")
+        out.write("  <thead>\n    <tr>\n      <th>Used on these types</th>\n    </tr>\n</thead>\n<tr>\n  <td>")
         for d in domains:
             if (not first_domain):
-                self.write("<br/>")
+                out.write("<br/>")
             first_domain = False
             tt = "The '%s' property is used on the '%s' type." % (node.id, d.id)
-            self.write("\n    <code>%s</code> " % (self.ml(d, d.id, tt, prop="domainIncludes"))+"\n")
-        self.write("      </td>\n    </tr>\n</table>\n\n")
+            out.write("\n    <code>%s</code> " % (self.ml(d, d.id, tt, prop="domainIncludes"))+"\n")
+        out.write("      </td>\n    </tr>\n</table>\n\n")
 
         if (subprops != None and len(subprops) > 0):
-            self.write("<table class=\"definition-table\">\n")
-            self.write("  <thead>\n    <tr>\n      <th>Sub-properties</th>\n    </tr>\n</thead>\n")
+            out.write("<table class=\"definition-table\">\n")
+            out.write("  <thead>\n    <tr>\n      <th>Sub-properties</th>\n    </tr>\n</thead>\n")
             for sbp in subprops:
                 c = GetComment(sbp,layers=layers)
                 tt = "%s: ''%s''" % ( sbp.id, c)
-                self.write("\n    <tr><td><code>%s</code></td></tr>\n" % (self.ml(sbp, sbp.id, tt)))
-            self.write("\n</table>\n\n")
+                out.write("\n    <tr><td><code>%s</code></td></tr>\n" % (self.ml(sbp, sbp.id, tt)))
+            out.write("\n</table>\n\n")
 
         # Super-properties
         if (superprops != None and  len(superprops) > 0):
-            self.write("<table class=\"definition-table\">\n")
-            self.write("  <thead>\n    <tr>\n      <th>Super-properties</th>\n    </tr>\n</thead>\n")
+            out.write("<table class=\"definition-table\">\n")
+            out.write("  <thead>\n    <tr>\n      <th>Super-properties</th>\n    </tr>\n</thead>\n")
             for spp in superprops:
                 c = GetComment(spp, layers=layers)           # markup needs to be stripped from c, e.g. see 'logo', 'photo'
                 c = re.sub(r'<[^>]*>', '', c) # This is not a sanitizer, we trust our input.
                 tt = "%s: ''%s''" % ( spp.id, c)
-                self.write("\n    <tr><td><code>%s</code></td></tr>\n" % (self.ml(spp, spp.id, tt)))
-            self.write("\n</table>\n\n")
+                out.write("\n    <tr><td><code>%s</code></td></tr>\n" % (self.ml(spp, spp.id, tt)))
+            out.write("\n</table>\n\n")
 
         # Supersedes
         if (olderprops != None and len(olderprops) > 0):
-            self.write("<table class=\"definition-table\">\n")
-            self.write("  <thead>\n    <tr>\n      <th>Supersedes</th>\n    </tr>\n</thead>\n")
+            out.write("<table class=\"definition-table\">\n")
+            out.write("  <thead>\n    <tr>\n      <th>Supersedes</th>\n    </tr>\n</thead>\n")
 
             for o in olderprops:
                 c = GetComment(o, layers=layers)
                 tt = "%s: ''%s''" % ( o.id, c)
-                self.write("\n    <tr><td><code>%s</code></td></tr>\n" % (self.ml(o, o.id, tt)))
-            self.write("\n</table>\n\n")
+                out.write("\n    <tr><td><code>%s</code></td></tr>\n" % (self.ml(o, o.id, tt)))
+            out.write("\n</table>\n\n")
 
         # supersededBy (at most one direct successor)
         if (newerprop != None):
-            self.write("<table class=\"definition-table\">\n")
-            self.write("  <thead>\n    <tr>\n      <th><a href=\"/supersededBy\">supersededBy</a></th>\n    </tr>\n</thead>\n")
-            self.write("\n    <tr><td><code>%s</code></td></tr>\n" % (self.ml(newerprop, newerprop.id, tt)))
-            self.write("\n</table>\n\n")
+            out.write("<table class=\"definition-table\">\n")
+            out.write("  <thead>\n    <tr>\n      <th><a href=\"/supersededBy\">supersededBy</a></th>\n    </tr>\n</thead>\n")
+            out.write("\n    <tr><td><code>%s</code></td></tr>\n" % (self.ml(newerprop, newerprop.id, tt)))
+            out.write("\n</table>\n\n")
 
     def rep(self, markup):
         """Replace < and > with HTML escape chars."""
@@ -723,7 +726,6 @@ class ShowUnit (webapp2.RequestHandler):
             sitemode = "mainsite testsite"
 
         self.emitSchemaorgHeaders(node.id, node.isClass(), ext_mappings, sitemode, sitename)
-
 
         if ( ENABLE_HOSTED_EXTENSIONS and ("core" not in layers or len(layers)>1) ):
             ll = " ".join(layers).replace("core","")
@@ -931,9 +933,12 @@ class ShowUnit (webapp2.RequestHandler):
             return True
         else:
             # log.info("Looking for node: %s in layers: %s" % (node.id, ",".join(all_layers.keys() )) )
+            if not ENABLE_HOSTED_EXTENSIONS:
+                return False
             if schema_node is not None and schema_node.id in all_terms:# look for it in other layers
                 log.debug("TODO: layer toc: %s" % all_terms[schema_node.id] )
                 # self.response.out.write("Layers should be listed here. %s " %  all_terms[node.id] )
+
                 self.response.out.write("<h3>Schema.org Extensions</h3>\n<p>The term '%s' is not in the schema.org core, but is described by the following extension(s):</p>\n<ul>\n" % schema_node.id)
                 for x in all_terms[schema_node.id]:
                     x = x.replace("#","")
@@ -991,6 +996,10 @@ class ShowUnit (webapp2.RequestHandler):
         """Deal with a request for a full release summary page. Lists all terms and their descriptions inline in one long page.
         version/latest/ is from current schemas, others will need to be loaded and emitted from stored HTML snapshots (for now)."""
 
+        # http://jinja.pocoo.org/docs/dev/templates/
+        from markupsafe import Markup, escape # https://pypi.python.org/pypi/MarkupSafe
+            # TODO: Unicode checks
+
         self.response.headers['Content-Type'] = "text/html"
         self.emitCacheHeaders()
 
@@ -1004,11 +1013,23 @@ class ShowUnit (webapp2.RequestHandler):
             mainroot.traverseForHTML(Unit.GetUnit("Thing"), hashorslash="#term_", layers=layerlist)
             thing_tree = mainroot.toHTML()
 
-            coreterms = { key:GetComment(Unit.GetUnit(key)) for key, value in all_terms.items() if value == ['core'] and "http" not in key}
-            for t in coreterms:
-                log.info(t)
+            az_props = {'hasPart': { 'type': 'Property'}, 'price': { 'type': 'Property'}, 'url': { 'type': 'Property'}, 'name': { 'type': 'Property'}, 'alumniOf': { 'type': 'Property'} }
 
-            page = template.render({ 'thing_tree': thing_tree, 'coreterms': coreterms })
+            for p in az_props:
+                pt = Unit.GetUnit(p)
+                if pt != None:
+                    cmt = Markup(GetComment(pt))
+                    log.info("property: %s c: %s " % ( pt.id,  cmt  ) )
+                    az_props[p]['comment'] = cmt
+                else:
+                    log.info("nope %s" % p)
+
+            # if value == ['core'] and "http" not in key}
+            # azprops = { key:value['comment'] for key, value in az_props}
+            #for t in coreterms:
+                #log.info(t)
+
+            page = template.render({ 'thing_tree': thing_tree, 'az_props': az_props })
 
             self.response.out.write( page )
             log.debug("Serving fresh FullReleasePage.")
@@ -1114,7 +1135,7 @@ class ShowUnit (webapp2.RequestHandler):
         if self.handleExactTermPage(node, layers=layerlist):
             return
         else:
-            log.info("Error handling exact term page assuming a 404: %s" % node)
+            log.info("Error handling exact term page. Assuming a 404: %s" % node)
 
             # Drop through to 404 as default exit.
             if self.handle404Failure(node):
@@ -1125,7 +1146,7 @@ class ShowUnit (webapp2.RequestHandler):
 
 
 #log.info("STARTING UP... reading schemas.")
-read_schemas()
+read_schemas(loadExtensions=ENABLE_HOSTED_EXTENSIONS)
 schemasInitialized = True
 
 app = ndb.toplevel(webapp2.WSGIApplication([("/(.*)", ShowUnit)]))
