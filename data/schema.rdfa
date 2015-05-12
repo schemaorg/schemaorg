@@ -11901,6 +11901,118 @@ Standards bodies should promote a standard prefix for the identifiers of propert
 </div>
 
 
+<h1>Vehicles</h1>
+
+<p>See <a href="https://github.com/schemaorg/schemaorg/issues/262">#262</a> - some terms enter core, others will be an auto: extension.</p>
+
+<div typeof="rdfs:Class" resource="http://schema.org/EngineSpecification">
+    <span class="h" property="rdfs:label">EngineSpecification</span>
+    <span property="rdfs:comment">Information about the engine of the vehicle. A vehicle can have multiple engines represented by multiple engine specification entities.</span>
+    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/StructuredValue">StructuredValue</a></span>
+    <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group">GAO</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/numberOfAirbags">
+    <span class="h" property="rdfs:label">numberOfAirbags</span>
+    <span property="rdfs:comment">The number or type of airbags in the vehicle.</span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Vehicle">Vehicle</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number">Number</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+    <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group">GAO</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/numberOfAxles">
+    <span class="h" property="rdfs:label">numberOfAxles</span>
+    <span property="rdfs:comment">The number of axles.&lt;br /&gt;
+Typical unit code(s): C62</span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Vehicle">Vehicle</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/QuantitativeValue">QuantitativeValue</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number">Number</a></span>
+    <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group">GAO</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/driveWheelConfiguration">
+    <span class="h" property="rdfs:label">driveWheelConfiguration</span>
+    <span property="rdfs:comment">The drive wheel configuration, i.e. which roadwheels will receive torque from the vehicle's engine via the drivetrain.</span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Vehicle">Vehicle</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/DriveWheelConfigurationValue">DriveWheelConfigurationValue</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+    <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group">GAO</a></span>
+</div>
+
+<div typeof="rdfs:Class" resource="http://schema.org/DriveWheelConfigurationValue">
+    <span class="h" property="rdfs:label">DriveWheelConfigurationValue</span>
+    <span property="rdfs:comment">A value indicating which roadwheels will receive torque.</span>
+    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/QualitativeValue">QualitativeValue</a></span>
+    <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group">GAO</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/vehicleEngine">
+    <span class="h" property="rdfs:label">vehicleEngine</span>
+    <span property="rdfs:comment">Information about the engine or engines of the vehicle.</span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Vehicle">Vehicle</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/EngineSpecification">EngineSpecification</a></span>
+    <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group">GAO</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/fuelConsumption">
+    <span class="h" property="rdfs:label">fuelConsumption</span>
+    <span property="rdfs:comment">The amount of fuel consumed for traveling a particular distance or temporal duration with the given vehicle (e.g. liters per 100 km).&lt;br /&gt;
+Note 1: There are unfortunately no standard unit codes for liters per 100 km.&lt;br /&gt;
+Use &lt;a href=&quot;unitText&quot;&gt;unitText&lt;/a&gt; to indicate the unit of measurement, e.g. L/100 km.
+Note 2: There are two ways of indicating the fuel consumption, &lt;a href=&quot;fuelConsumption&quot;&gt;fuelConsumption&lt;/a&gt; (e.g. 8 liters per 100 km) and &lt;a href=&quot;fuelEfficiency&quot;&gt;fuelEfficiency&lt;/a&gt; (e.g. 30 miles per gallon). They are reciprocal.&lt;br /&gt;
+Note 3: Often, the absolute value is useful only when related to driving speed ("at 80 km/h") or usage pattern ("city traffic"). You can use &lt;a href=&quot;valueReference&quot;&gt;valueReference&lt;/a&gt; to link the value for the fuel consumption to another value.</span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Vehicle">Vehicle</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/QuantitativeValue">QuantitativeValue</a></span>
+    <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group">GAO</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/fuelEfficiency">
+    <span class="h" property="rdfs:label">fuelEfficiency</span>
+    <span property="rdfs:comment">The distance traveled per unit of fuel used; most commonly miles per gallon (mpg) or kilometers per liter (km/L).&lt;br /&gt;
+Note 1: There are unfortunately no standard unit codes for miles per gallon or kilometers per liter.&lt;br /&gt;
+Use &lt;a href=&quot;unitText&quot;&gt;unitText&lt;/a&gt; to indicate the unit of measurement, e.g. mpg or km/L.
+Note 2: There are two ways of indicating the fuel consumption, &lt;a href=&quot;fuelConsumption&quot;&gt;fuelConsumption&lt;/a&gt; (e.g. 8 liters per 100 km) and &lt;a href=&quot;fuelEfficiency&quot;&gt;fuelEfficiency&lt;/a&gt; (e.g. 30 miles per gallon). They are reciprocal.&lt;br /&gt;
+Note 3: Often, the absolute value is useful only when related to driving speed ("at 80 km/h") or usage pattern ("city traffic"). You can use &lt;a href=&quot;valueReference&quot;&gt;valueReference&lt;/a&gt; to link the value for the fuel economy to another value.</span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Vehicle">Vehicle</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/QuantitativeValue">QuantitativeValue</a></span>
+    <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group">GAO</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/numberOfForwardGears">
+    <span class="h" property="rdfs:label">numberOfForwardGears</span>
+    <span property="rdfs:comment">The total number of forward gears available for the transmission system of the vehicle.&lt;br /&gt;
+Typical unit code(s): C62</span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Vehicle">Vehicle</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/QuantitativeValue">QuantitativeValue</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number">Number</a></span>
+    <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group">GAO</a></span>
+</div>
+
+<div typeof="http://schema.org/DriveWheelConfigurationValue" resource="http://schema.org/4WD">
+  <span class="h" property="rdfs:label">4WD</span>
+  <span property="rdfs:comment">Four-wheel drive is a transmission layout where the engine primarily drives two wheels with a part-time four-wheel drive capability.</span>
+  <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group">GAO</a></span>
+</div>
+
+<div typeof="http://schema.org/DriveWheelConfigurationValue" resource="http://schema.org/AWD">
+  <span class="h" property="rdfs:label">AWD</span>
+  <span property="rdfs:comment">All-wheel Drive is a transmission layout where the engine drives all four wheels.</span>
+  <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group">GAO</a></span>
+</div>
+<div typeof="http://schema.org/DriveWheelConfigurationValue" resource="http://schema.org/FWD">
+  <span class="h" property="rdfs:label">FWD</span>
+  <span property="rdfs:comment">Front-wheel drive is a transmission layout where the engine drives the front wheels.</span>
+  <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group">GAO</a></span>
+</div>
+<div typeof="http://schema.org/DriveWheelConfigurationValue" resource="http://schema.org/RWD">
+  <span class="h" property="rdfs:label">RWD</span>
+  <span property="rdfs:comment">Real-wheel drive is a transmission layout where the engine drives the rear wheels.</span>
+  <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group">GAO</a></span>
+</div>
+
+
+
 
 <!-- property name goes in schema:name -->
 <!-- unstructured textual properties or human-readable version should go in schema:description -->
