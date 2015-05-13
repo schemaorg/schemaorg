@@ -457,6 +457,33 @@ class ShowUnit (webapp2.RequestHandler):
 
             self.write("<table class=\"definition-table\">\n        <thead>\n  <tr><th>Property</th><th>Expected Type</th><th>Description</th>               \n  </tr>\n  </thead>\n\n")
 
+
+    def emitSimplePropertiesPerType(self, cl, layers="core", out=None, hashorslash="/"):
+        """Emits a simple list of properties applicable to the specified type."""
+
+        if not out:
+            out = self
+
+        out.write("<ul class='props4type'>")
+        for prop in sorted(GetSources(  Unit.GetUnit("domainIncludes"), cl, layers=layers), key=lambda u: u.id):
+            if (prop.superseded(layers=layers)):
+                continue
+            out.write("<li><a href='%s%s'>%s</a></li>" % ( hashorslash, prop.id, prop.id  ))
+        out.write("</ul>\n\n")
+
+    def emitSimplePropertiesIntoType(self, cl, layers="core", out=None, hashorslash="/"):
+        """Emits a simple list of properties whose values are the specified type."""
+
+        if not out:
+            out = self
+
+        out.write("<ul class='props2type'>")
+        for prop in sorted(GetSources(  Unit.GetUnit("rangeIncludes"), cl, layers=layers), key=lambda u: u.id):
+            if (prop.superseded(layers=layers)):
+                continue
+            out.write("<li><a href='%s%s'>%s</a></li>" % ( hashorslash, prop.id, prop.id  ))
+        out.write("</ul>\n\n")
+
     def ClassProperties (self, cl, subclass=False, layers="core", out=None, hashorslash="/"):
         """Write out a table of properties for a per-type page."""
         if not out:
@@ -548,6 +575,29 @@ class ShowUnit (webapp2.RequestHandler):
             self.write("</td></tr>")
         if (headerPrinted):
             self.write("</table>\n")
+
+
+    def emitRangeTypesForProperty(self, node, layers="core", out=None, hashorslash="/"):
+        """Write out simple HTML summary of this property's expected types."""
+        if not out:
+            out = self
+
+        out.write("<ul class='attrrangesummary'>")
+        for rt in sorted(GetTargets(Unit.GetUnit("rangeIncludes"), node, layers=layers), key=lambda u: u.id):
+            out.write("<li><a href='%s%s'>%s</a></li>" % ( hashorslash, rt.id, rt.id  ))
+        out.write("</ul>\n\n")
+
+
+    def emitDomainTypesForProperty(self, node, layers="core", out=None, hashorslash="/"):
+        """Write out simple HTML summary of types that expect this property."""
+        if not out:
+            out = self
+
+        out.write("<ul class='attrdomainsummary'>")
+        for dt in sorted(GetTargets(Unit.GetUnit("domainIncludes"), node, layers=layers), key=lambda u: u.id):
+            out.write("<li><a href='%s%s'>%s</a></li>" % ( hashorslash, dt.id, dt.id  ))
+        out.write("</ul>\n\n")
+
 
 
     def emitAttributeProperties(self, node, layers="core", out=None, hashorslash="/"):
@@ -1116,21 +1166,36 @@ class ShowUnit (webapp2.RequestHandler):
 
             # TYPES
             for t in az_types:
-                typeInfo = HTMLOutput()
-                self.ClassProperties(t, out=typeInfo, hashorslash="#term_" )
+                props4type = HTMLOutput() # properties applicable for a type
+                props2type = HTMLOutput() # properties that go into a type
+
+                self.emitSimplePropertiesPerType(t, out=props4type, hashorslash="#term_" )
+                self.emitSimplePropertiesIntoType(t, out=props2type, hashorslash="#term_" )
+
+                #self.ClassProperties(t, out=typeInfo, hashorslash="#term_" )
                 tcmt = Markup(GetComment(t))
                 az_type_meta[t]={}
                 az_type_meta[t]['comment'] = tcmt
-                az_type_meta[t]['typeinfo'] = typeInfo.toHTML()
+                az_type_meta[t]['props4type'] = props4type.toHTML()
+                az_type_meta[t]['props2type'] = props2type.toHTML()
 
             # PROPERTIES
             for pt in az_props:
                 attrInfo = HTMLOutput()
-                self.emitAttributeProperties(pt, out=attrInfo, hashorslash="#term_" )
+                rangeList = HTMLOutput()
+                domainList = HTMLOutput()
+                # self.emitAttributeProperties(pt, out=attrInfo, hashorslash="#term_" )
+                # self.emitSimpleAttributeProperties(pt, out=rangedomainInfo, hashorslash="#term_" )
+
+                self.emitRangeTypesForProperty(pt, out=rangeList, hashorslash="#term_" )
+                self.emitDomainTypesForProperty(pt, out=domainList, hashorslash="#term_" )
+
                 cmt = Markup(GetComment(pt))
                 az_prop_meta[pt] = {}
                 az_prop_meta[pt]['comment'] = cmt
                 az_prop_meta[pt]['attrinfo'] = attrInfo.toHTML()
+                az_prop_meta[pt]['rangelist'] = rangeList.toHTML()
+                az_prop_meta[pt]['domainlist'] = domainList.toHTML()
 
             page = template.render({ "base_href": base_href, 'thing_tree': thing_tree,
                     'liveversion': SCHEMA_VERSION,

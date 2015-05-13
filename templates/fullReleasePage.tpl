@@ -122,7 +122,10 @@ that are useful for publishers and consumers of schema.org data.
 
 <p>
   <div>{{ az_type_meta[term]['comment'] }} </div>
-  <div> {{ az_type_meta[term]['typeinfo'] }} </div>
+
+  <p>Properties used on this type: {{ az_type_meta[term]['props4type'] }} </p>
+  <p>Properties whose values are of this type: {{ az_type_meta[term]['props2type'] }} </p>
+
   <small><a href="#intro">[^top]</a></small>
 </p>
 
@@ -138,7 +141,13 @@ that are useful for publishers and consumers of schema.org data.
   <h4 id="term_{{term}}" name="term_{{term}}">{{ term }}</a></h4>
   <p>
   <div>{{ az_prop_meta[term]['comment'] }} </div>
-  <div> {{ az_prop_meta[term]['attrinfo'] }} </div>
+  <dl>
+     <dt><b>Relevant types</b>:</dt>
+     <dd> {{ az_prop_meta[term]['domainlist'] }}  </dd>
+     <dt><b>Values</b>:</dt>
+     <dd> {{ az_prop_meta[term]['rangelist'] }}  </dd>
+ </dl>
+
   <small><a href="#intro">[^top]</a></small>
   </p>
 {% endfor %}
