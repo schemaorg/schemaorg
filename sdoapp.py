@@ -1057,8 +1057,30 @@ class ShowUnit (webapp2.RequestHandler):
 
         if requested_version in releaselog:
             log.info("Version '%s' was released on %s. Serving from filesystem." % ( node, releaselog[requested_version] ))
-            # TODO
 
+            version_rdfa = "data/releases/%s/schema.rdfa" % requested_version
+            version_allhtml = "data/releases/%s/schema-all.html" % requested_version
+            version_nt = "data/releases/%s/schema.nt" % requested_version
+
+            if requested_format=="":
+                #self.response.out.write( open(version_allhtml, 'r').read() )
+                #return True
+                log.info("Skipping filesystem for now.")
+
+            if requested_format=="schema.rdfa":
+                self.response.headers['Content-Type'] = "application/octet-stream" # It is HTML but ... not really.
+                self.response.headers['Content-Disposition']= "attachment; filename=schemaorg_%s.rdfa.html" % requested_version
+                self.response.out.write( open(version_rdfa, 'r').read() )
+                return True
+
+            if requested_format=="schema.nt":
+                self.response.headers['Content-Type'] = "application/n-triples" # It is HTML but ... not really.
+                self.response.headers['Content-Disposition']= "attachment; filename=schemaorg_%s.rdfa.nt" % requested_version
+                self.response.out.write( open(version_nt, 'r').read() )
+                return True
+
+            if requested_format != "":
+                return False # Turtle, csv etc.
 
         else:
             log.info("Unreleased version requested. We only understand requests for latest if unreleased.")
@@ -1079,7 +1101,7 @@ class ShowUnit (webapp2.RequestHandler):
             mainroot = TypeHierarchyTree()
             mainroot.traverseForHTML(Unit.GetUnit("Thing"), hashorslash="#term_", layers=layerlist)
             thing_tree = mainroot.toHTML()
-            base_href = "/version/latest/"
+            base_href = "/version/%s/" % requested_version
 
             az_types = GetAllTypes()
             az_types.sort( key=lambda u: u.id)

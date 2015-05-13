@@ -8,7 +8,7 @@
     <link rel="stylesheet" type="text/css" href="/docs/schemaorg.css" />
 
 
-    <base href="{{ base_href }}" ></base>
+    <basxe href="{{ base_href }}" ></base>
 </head>
 <body style="text-align: left;">
 

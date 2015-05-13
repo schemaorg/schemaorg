@@ -27,7 +27,7 @@
                         var customSearchControl = new google.search.CustomSearchControl('013516846811604855281:nj5laplixaa');
                         customSearchControl.setResultSetSize(google.search.Search.FILTERED_CSE_RESULTSET);
                         var options = new google.search.DrawOptions();
-                        options.enableSearchboxOnly("../docs/search_results.html", null, false, '#');
+                        options.enableSearchboxOnly("/docs/search_results.html", null, false, '#');
                         customSearchControl.draw('cse-search-form', options);
                     }, true);
                     </script>
@@ -58,7 +58,7 @@
 
 <div style="margin-left: 8%; margin-right: 8%">
 
-<h1>Schema.org release {{ requested_version }}</h1>
+<h1>Schema.org version {{ requested_version }}</h1>
 
 <dl>
 
@@ -74,7 +74,7 @@
  <dt>Alternate formats:</dt>
  <dd>
      {% if requested_version != "latest" %}
-     This release is also available in <a href="schema.rdfa">rdfa</a>, <a href="schema.nt">N-triples</a>
+     This release is also available in <a href="schema.rdfa">RDFa/RDFS</a>, <a href="schema.nt">N-Triples</a>
      {% endif %}
 
      {% if requested_version == "latest" %}
@@ -86,17 +86,21 @@
 
 <p>
 <b>Overview:</b>
-This is a full release summary for schema.org. It describes in one document the terms (types, properties and enumerations) included in this version of schema.org.
+This is a <a href="/version/">full release</a> summary for schema.org. It describes in one document the terms (types, properties and enumerations) included in this version of schema.org.
 The <a href="http://schema.org/">live site</a> offers various other page-by-page <a href="/docs/schemas.html">views</a> that include more information and examples.
-Note that schema.org release numbers are not generally included when you <em>use</em> schema.org. In context (e.g. related standards work) when a particular release needs to be cited, this document provides the appropriate URL.
+Note that schema.org release numbers are not generally included when you <em>use</em> schema.org. In context (e.g. related standards work) when a particular
+release needs to be cited, this document provides the appropriate URL.
 </p>
 
 <p>See the <a href="/docs/releases.html">releases page</a> for information about other schema.org releases.</p>
 
 <p>
-<b>Status:</b> this document represents a stable release of schema.org, and is automatically generated from the underlying schema data. Although
-the formal schema dataset associated with this release will not change, we may update the formatting (tracked as <a href="https://github.com/schemaorg/schemaorg/issues/484">issue #484</a>), layout and other details of this document to
-improve the presentation of this information.
+<b>Status:</b> this document represents a stable release of schema.org, and is automatically generated from the underlying canonical RDFS-based schema data. Although
+the formal schema dataset associated with this release will not change, we may update the formatting (tracked as
+<a href="https://github.com/schemaorg/schemaorg/issues/484">issue #484</a>), layout and other details of this document to
+improve the presentation of this information. Similarly, the encoding and publication details (RDFa/RDFS etc.) for the machine-readable schema file may evolve; however the
+data encoded should be considered canonical and frozen for each release. We solicit <a href="github.com/schemaorg/schemaorg/issues">advice</a> on data formats
+that are useful for publishers and consumers of schema.org data.
 </p>
 
 <p>The structure of this document is simple: it provides an alphabetic list of types, and then properties, as they are defined in this version of schema.org.</p>
