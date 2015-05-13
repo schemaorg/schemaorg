@@ -5,9 +5,10 @@
     <title>Full Hierarchy - schema.org</title>
     <meta name="description" content="Schema.org is a set of extensible schemas that enables webmasters to embed
     structured data on their web pages for use by search engines and other applications." />
-    <link rel="stylesheet" type="text/css"
-    href="/docs/schemaorg.css" />
+    <link zzzrel="stylesheet" type="text/css" href="/docs/schemaorg.css" />
 
+
+    <base href="{{ base_href }}" ></base>
 </head>
 <body style="text-align: left;">
 
@@ -72,10 +73,11 @@ Although a type may have more than one super-type, here we show each type in one
 </div>
 
 {% for term in az_props.keys() %}
-<h2 id="term_{{term}}" name="term_{{term}}">{{ az_props[term]['comment'] }}</a></h2>
-<p>
-...
-</p>
+
+  <h3 id="term_{{term}}" name="term_{{term}}">{{ az_props[term]['comment'] }}</a></h3>
+
+  <div> {{ az_props[term]['attrinfo'] }} </div>
+
 {% endfor %}
 
 

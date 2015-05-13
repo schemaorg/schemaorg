@@ -735,8 +735,6 @@ def read_schemas(loadExtensions=False):
         parser = parsers.MakeParserOfType('rdfa', None)
         items = parser.parse(file_paths, "core")
 
-
-
         if loadExtensions:
             log.info("(re)scanning for extensions.")
             extfiles = glob.glob("data/ext/*/*.rdfa")

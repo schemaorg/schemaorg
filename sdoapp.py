@@ -7,6 +7,8 @@ import webapp2
 import jinja2
 import logging
 
+from markupsafe import Markup, escape # https://pypi.python.org/pypi/MarkupSafe
+
 import parsers
 
 
@@ -61,6 +63,22 @@ def cleanPath(node):
     """Return the substring of a string matching chars approved for use in our URL paths."""
     return re.sub(r'[^a-zA-Z0-9\-/,]', '', str(node), flags=re.DOTALL)
 
+
+
+class HTMLOutput:
+    """Used in place of http response when we're collecting HTML to pass to template engine."""
+
+    def __init__(self):
+        self.outputStrings = []
+
+    def write(self, str):
+        self.outputStrings.append(str)
+
+    def toHTML(self):
+        return Markup ( "".join(self.outputStrings)  )
+
+    def __str__(self):
+        return self.toHTML()
 
 # Core API: we have a single schema graph built from triples and units.
 # now in api.py
@@ -279,6 +297,10 @@ class ShowUnit (webapp2.RequestHandler):
     """ShowUnit exposes schema.org terms via Web RequestHandler
     (HTML/HTTP etc.).
     """
+
+#    def __init__(self):
+#        self.outputStrings = []
+
     def emitCacheHeaders(self):
         """Send cache-related headers via HTTP."""
         self.response.headers['Cache-Control'] = "public, max-age=43200" # 12h
@@ -376,7 +398,7 @@ class ShowUnit (webapp2.RequestHandler):
             for p in GetTargets(sc, node, layers=layers):
                 self.GetParentStack(p, layers=layers)
 
-    def ml(self, node, label='', title='', prop=''):
+    def ml(self, node, label='', title='', prop='', hashorslash='/'):
         """ml ('make link')
         Returns an HTML-formatted link to the class or property URL
 
@@ -391,7 +413,7 @@ class ShowUnit (webapp2.RequestHandler):
           title = " title=\"%s\"" % (title)
         if prop:
             prop = " property=\"%s\"" % (prop)
-        return "<a href=\"%s\"%s%s>%s</a>" % (node.id, prop, title, label)
+        return "<a href=\"%s%s\"%s%s>%s</a>" % (hashorslash, node.id, prop, title, label)
 
     def makeLinksFromArray(self, nodearray, tooltip=''):
         """Make a comma separate list of links via ml() function.
@@ -522,7 +544,7 @@ class ShowUnit (webapp2.RequestHandler):
             self.write("</table>\n")
 
 
-    def emitAttributeProperties(self, node, layers="core", out = None):
+    def emitAttributeProperties(self, node, layers="core", out=None, hashorslash="/"):
         """Write out properties of this property, for a per-property page."""
         if not out:
             out = self
@@ -544,17 +566,17 @@ class ShowUnit (webapp2.RequestHandler):
 
         if (inverseprop != None):
             tt = "This means the same thing, but with the relationship direction reversed."
-            out.write("<p>Inverse-property: %s.</p>" % (self.ml(inverseprop, inverseprop.id,tt)) )
+            out.write("<p>Inverse-property: %s.</p>" % (self.ml(inverseprop, inverseprop.id,tt, prop=False, hashorslash=hashorslash)) )
 
         out.write("<table class=\"definition-table\">\n")
         out.write("<thead>\n  <tr>\n    <th>Values expected to be one of these types</th>\n  </tr>\n</thead>\n\n  <tr>\n    <td>\n      ")
 
         for r in ranges:
             if (not first_range):
-                self.write("<br/>")
+                out.write("<br/>")
             first_range = False
             tt = "The '%s' property has values that include instances of the '%s' type." % (node.id, r.id)
-            out.write(" <code>%s</code> " % (self.ml(r, r.id, tt, prop="rangeIncludes"))+"\n")
+            out.write(" <code>%s</code> " % (self.ml(r, r.id, tt, prop="rangeIncludes", hashorslash=hashorslash) +"\n"))
         out.write("    </td>\n  </tr>\n</table>\n\n")
         first_domain = True
 
@@ -565,7 +587,7 @@ class ShowUnit (webapp2.RequestHandler):
                 out.write("<br/>")
             first_domain = False
             tt = "The '%s' property is used on the '%s' type." % (node.id, d.id)
-            out.write("\n    <code>%s</code> " % (self.ml(d, d.id, tt, prop="domainIncludes"))+"\n")
+            out.write("\n    <code>%s</code> " % (self.ml(d, d.id, tt, prop="domainIncludes",hashorslash=hashorslash)+"\n" ))
         out.write("      </td>\n    </tr>\n</table>\n\n")
 
         if (subprops != None and len(subprops) > 0):
@@ -574,7 +596,7 @@ class ShowUnit (webapp2.RequestHandler):
             for sbp in subprops:
                 c = GetComment(sbp,layers=layers)
                 tt = "%s: ''%s''" % ( sbp.id, c)
-                out.write("\n    <tr><td><code>%s</code></td></tr>\n" % (self.ml(sbp, sbp.id, tt)))
+                out.write("\n    <tr><td><code>%s</code></td></tr>\n" % (self.ml(sbp, sbp.id, tt, hashorslash=hashorslash)))
             out.write("\n</table>\n\n")
 
         # Super-properties
@@ -585,7 +607,7 @@ class ShowUnit (webapp2.RequestHandler):
                 c = GetComment(spp, layers=layers)           # markup needs to be stripped from c, e.g. see 'logo', 'photo'
                 c = re.sub(r'<[^>]*>', '', c) # This is not a sanitizer, we trust our input.
                 tt = "%s: ''%s''" % ( spp.id, c)
-                out.write("\n    <tr><td><code>%s</code></td></tr>\n" % (self.ml(spp, spp.id, tt)))
+                out.write("\n    <tr><td><code>%s</code></td></tr>\n" % (self.ml(spp, spp.id, tt,hashorslash)))
             out.write("\n</table>\n\n")
 
         # Supersedes
@@ -596,14 +618,14 @@ class ShowUnit (webapp2.RequestHandler):
             for o in olderprops:
                 c = GetComment(o, layers=layers)
                 tt = "%s: ''%s''" % ( o.id, c)
-                out.write("\n    <tr><td><code>%s</code></td></tr>\n" % (self.ml(o, o.id, tt)))
+                out.write("\n    <tr><td><code>%s</code></td></tr>\n" % (self.ml(o, o.id, tt, hashorslash)))
             out.write("\n</table>\n\n")
 
         # supersededBy (at most one direct successor)
         if (newerprop != None):
             out.write("<table class=\"definition-table\">\n")
             out.write("  <thead>\n    <tr>\n      <th><a href=\"/supersededBy\">supersededBy</a></th>\n    </tr>\n</thead>\n")
-            out.write("\n    <tr><td><code>%s</code></td></tr>\n" % (self.ml(newerprop, newerprop.id, tt)))
+            out.write("\n    <tr><td><code>%s</code></td></tr>\n" % (self.ml(newerprop, newerprop.id, tt,hashorslash)))
             out.write("\n</table>\n\n")
 
     def rep(self, markup):
@@ -716,8 +738,8 @@ class ShowUnit (webapp2.RequestHandler):
 
     def emitExactTermPage(self, node, layers="core"):
         """Emit a Web page that exactly matches this node."""
-        self.outputStrings = []
         log.debug("EXACT PAGE: %s" % node.id)
+        self.outputStrings = [] # blank slate
         ext_mappings = GetExtMappingsRDFa(node, layers=layers)
 
         global sitemode, sitename
@@ -926,6 +948,7 @@ class ShowUnit (webapp2.RequestHandler):
     def handleExactTermPage(self, node, layers='core'):
         """Handle with requests for specific terms like /Person, /fooBar. """
 
+        #self.outputStrings = [] # blank slate
         schema_node = Unit.GetUnit(node) # e.g. "Person", "CreativeWork".
 
         if inLayer(layers, schema_node):
@@ -997,7 +1020,6 @@ class ShowUnit (webapp2.RequestHandler):
         version/latest/ is from current schemas, others will need to be loaded and emitted from stored HTML snapshots (for now)."""
 
         # http://jinja.pocoo.org/docs/dev/templates/
-        from markupsafe import Markup, escape # https://pypi.python.org/pypi/MarkupSafe
             # TODO: Unicode checks
 
         self.response.headers['Content-Type'] = "text/html"
@@ -1013,14 +1035,26 @@ class ShowUnit (webapp2.RequestHandler):
             mainroot.traverseForHTML(Unit.GetUnit("Thing"), hashorslash="#term_", layers=layerlist)
             thing_tree = mainroot.toHTML()
 
+            base_href = "/version/latest/"
+
+            # prepare some HTML
+
+            #attrTest = HTMLOutput()
+            #    def emitAttributeProperties(self, node, layers="core", out=None):
+            #self.emitAttributeProperties( Unit.GetUnit("isPartOf"), out=attrTest   )
+            #log.info("OUT: %s " % Markup(attrTest) )
+            #
             az_props = {'hasPart': { 'type': 'Property'}, 'price': { 'type': 'Property'}, 'url': { 'type': 'Property'}, 'name': { 'type': 'Property'}, 'alumniOf': { 'type': 'Property'} }
 
             for p in az_props:
                 pt = Unit.GetUnit(p)
                 if pt != None:
+                    attrInfo = HTMLOutput()
+                    self.emitAttributeProperties(pt, out=attrInfo, hashorslash="#term_" )
                     cmt = Markup(GetComment(pt))
-                    log.info("property: %s c: %s " % ( pt.id,  cmt  ) )
+                    # log.info("property: %s c: %s " % ( pt.id,  cmt  ) )
                     az_props[p]['comment'] = cmt
+                    az_props[p]['attrinfo'] = attrInfo.toHTML()
                 else:
                     log.info("nope %s" % p)
 
@@ -1029,7 +1063,7 @@ class ShowUnit (webapp2.RequestHandler):
             #for t in coreterms:
                 #log.info(t)
 
-            page = template.render({ 'thing_tree': thing_tree, 'az_props': az_props })
+            page = template.render({ 'thing_tree': thing_tree, 'az_props': az_props, "base_href": base_href })
 
             self.response.out.write( page )
             log.debug("Serving fresh FullReleasePage.")
