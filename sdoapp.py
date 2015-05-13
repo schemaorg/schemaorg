@@ -457,9 +457,11 @@ class ShowUnit (webapp2.RequestHandler):
 
             self.write("<table class=\"definition-table\">\n        <thead>\n  <tr><th>Property</th><th>Expected Type</th><th>Description</th>               \n  </tr>\n  </thead>\n\n")
 
-    def ClassProperties (self, cl, subclass=False, layers="core"):
+    def ClassProperties (self, cl, subclass=False, layers="core", out=None, hashorslash="/"):
         """Write out a table of properties for a per-type page."""
-
+        if not out:
+            out = self
+        
         headerPrinted = False
         di = Unit.GetUnit("domainIncludes")
         ri = Unit.GetUnit("rangeIncludes")
@@ -503,8 +505,11 @@ class ShowUnit (webapp2.RequestHandler):
         if subclass: # in case the superclass has no defined attributes
             self.write("<meta property=\"rdfs:subClassOf\" content=\"%s\">" % (cl.id))
 
-    def emitClassIncomingProperties (self, cl, layers="core"):
+    def emitClassIncomingProperties (self, cl, layers="core", out=None, hashorslash="/"):
         """Write out a table of incoming properties for a per-type page."""
+        if not out:
+            out = self
+
         headerPrinted = False
         di = Unit.GetUnit("domainIncludes")
         ri = Unit.GetUnit("rangeIncludes")

@@ -42,11 +42,11 @@
         <div class="wrapper">
             <ul>
                 <li >
-                    <a href="../docs/documents.html">Documentation</a></li>
+                    <a href="/docs/documents.html">Documentation</a></li>
                     <li class="activelink">
-                        <a href="../docs/schemas.html">Schemas</a></li>
+                        <a href="/docs/schemas.html">Schemas</a></li>
                         <li >
-                            <a href="../.">Home</a></li>
+                            <a href="/">Home</a></li>
                         </ul>
                     </div>
 
@@ -72,10 +72,14 @@
  <dd>{{ releasedate }}</dd>
 
  <dt>Alternate formats:</dt>
- <dd>This release is also available in <a href="schema.rdfa">rdfa</a>, <a href="schema.nt">schema.nt</a> formats.</dd>
+ <dd>This release is also available in <a href="schema.rdfa">rdfa</a>, <a href="schema.nt">N-triples</a> downloadable formats.</dd>
 
 <p>
-This is a release summary for schema.org. It describes in one document the terms (types, properties and enumerations) included in this version of schema.org.
+<b>Overview:</b>
+This is a full release summary for schema.org. It describes in one document the terms (types, properties and enumerations) included in this version of schema.org.
+The <a href="http://schema.org/">live site</a> offers various other page-by-page <a href="/docs/schemas.html">views</a> that include more information and examples.
+This document captures the main content of the schemas for a particular release. Note that schema.org release numbers are not generally included when you <em>use</em>
+schema.org. In context (e.g. related standards work) when a particular release needs to be cited, this document provides the appropriate URL.
 </p>
 
 <p>
@@ -84,7 +88,10 @@ the formal schema dataset associated with this release will not change, we may u
 improve the presentation of this information.
 </p>
 
-<h2>Overview (type hierarchy)</h2>
+<p>The structure of this document is simple: it provides an alphabetic list of types, and then properties, as they are defined in this version of schema.org.</p>
+
+<h4>Type hierarchy</h4>
+
 <div>
 <small>
 {{ thing_tree | safe }}
@@ -96,9 +103,13 @@ improve the presentation of this information.
 {% for term in az_types %}
 
 <div>
-  <h3 id="term_{{term}}" name="term_{{term}}">{{term}}</a></h3>
+  <h4 id="term_{{term}}" name="term_{{term}}">{{term}}</a></h4>
+
+<p>
   <div>{{ az_type_meta[term]['comment'] }} </div>
   <small><a href="#intro">[^top]</a></small>
+</p>
+
 </div>
 
 {% endfor %}
@@ -108,11 +119,12 @@ improve the presentation of this information.
 
 {% for term in az_props %}
 
-  <h3 id="term_{{term}}" name="term_{{term}}">{{ term }}</a></h3>
+  <h4 id="term_{{term}}" name="term_{{term}}">{{ term }}</a></h4>
+  <p>
   <div>{{ az_prop_meta[term]['comment'] }} </div>
   <div> {{ az_prop_meta[term]['attrinfo'] }} </div>
   <small><a href="#intro">[^top]</a></small>
-
+  </p>
 {% endfor %}
 
 
