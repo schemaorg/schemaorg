@@ -103,11 +103,11 @@ data encoded should be considered canonical and frozen for each release. We soli
 that are useful for publishers and consumers of schema.org data.
 </p>
 
-<p>The structure of this document is simple: it provides an alphabetic list of types, and then properties, as they are defined in this version of schema.org.</p>
+<p>The structure of this document is simple: it provides an alphabetic list of types, and then <a href="#propaz">properties</a>, as they are defined in this version of schema.org.</p>
 
 <h4>Type hierarchy</h4>
 
-<div>
+<div id="alltypes">
 <small>
 {{ thing_tree | safe }}
 </small>
@@ -135,6 +135,16 @@ that are useful for publishers and consumers of schema.org data.
 
 
 <h2>Properties</h2>
+
+
+<p id="#propaz">
+<b>A-Z:</b>
+<small>
+{% for term in az_props %}
+<a href="term_{{term}}">{{term}}</a>
+{% endfor %}
+</small>
+</p>
 
 {% for term in az_props %}
 
