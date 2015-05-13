@@ -11973,6 +11973,221 @@ Typical unit code(s): C62</span>
     <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group">GAO</a></span>
 </div>
 
+<div typeof="rdf:Property" resource="http://schema.org/vehicleIdentificationNumber"><!-- formerly vin -->
+    <span class="h" property="rdfs:label">vin</span>
+    <span property="rdfs:comment">The Vehicle Identification Number (VIN) is a unique serial number used by the automotive industry to identify individual motor vehicles.</span>
+     <link property="rdfs:subPropertyOf" href="http://schema.org/serialNumber" />
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Vehicle">Vehicle</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+    <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group">GAO</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/cargoVolume">
+    <span class="h" property="rdfs:label">cargoVolume</span>
+    <span property="rdfs:comment">The available volume for cargo or luggage. For automobiles, this is usually the trunk volume.&lt;br /&gt;
+Typical unit code(s): LTR for liters, FTQ for cubic foot/feet&lt;br /&gt;
+
+Note: You can use &lt;a href=&quot;minValue&quot;&gt;minValue&lt;/a&gt; and &lt;a href=&quot;maxValue&quot;&gt;maxValue&lt;/a&gt; to indicate ranges.</span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Vehicle">Vehicle</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/QuantitativeValue">QuantitativeValue</a></span>
+    <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group">GAO</a></span>
+</div>
+
+
+<div typeof="rdf:Property" resource="http://schema.org/vehicleConfiguration"> <!-- formerly configuration -->
+    <span class="h" property="rdfs:label">vehicleConfiguration</span>
+    <span property="rdfs:comment">A short text indicating the configuration of the vehicle, e.g. &apos;5dr hatchback ST 2.5 MT 225 hp&apos; or &apos;limited edition&apos;.</span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Vehicle">Vehicle</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+    <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group">GAO</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/knownVehicleDamages">
+    <span class="h" property="rdfs:label">knownVehicleDamages</span>
+    <span property="rdfs:comment">A textual description of known damages, both repaired and unrepaired.</span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Vehicle">Vehicle</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+    <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group">GAO</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/dateVehicleFirstRegistered"> <!-- was dateFirstRegistered -->
+    <span class="h" property="rdfs:label">dateVehicleFirstRegistered</span>
+    <span property="rdfs:comment">The date of the first registration of the vehicle with the respective public authorities.</span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Vehicle">Vehicle</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Date">Date</a></span>
+    <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group">GAO</a></span>
+</div>
+
+
+
+<div typeof="rdf:Property" resource="http://schema.org/driveWheelConfiguration">
+    <span class="h" property="rdfs:label">driveWheelConfiguration</span>
+    <span property="rdfs:comment">The drive wheel configuration, i.e. which roadwheels will receive torque from the vehicle's engine via the drivetrain.</span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Vehicle">Vehicle</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/DriveWheelConfigurationValue">DriveWheelConfigurationValue</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+    <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group">GAO</a></span>
+</div>
+
+<div typeof="rdfs:Class" resource="http://schema.org/DriveWheelConfigurationValue">
+    <span class="h" property="rdfs:label">DriveWheelConfigurationValue</span>
+    <span property="rdfs:comment">A value indicating which roadwheels will receive torque.</span>
+    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/QualitativeValue">QualitativeValue</a></span>
+    <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group">GAO</a></span>
+</div>
+
+<!-- these enums were 4WD AWD FWD RWD abbreviations -->
+
+<div typeof="http://schema.org/DriveWheelConfigurationValue" resource="http://schema.org/4WDriveWheelConfiguration">
+  <span class="h" property="rdfs:label">4WDriveWheelConfiguration</span>
+  <span property="rdfs:comment">Four-wheel drive is a transmission layout where the engine primarily drives two wheels with a part-time four-wheel drive capability.</span>
+  <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group">GAO</a></span>
+</div>
+
+<div typeof="http://schema.org/DriveWheelConfigurationValue" resource="http://schema.org/AWDriveWheelConfiguration">
+  <span class="h" property="rdfs:label">AWDriveWheelConfiguration</span>
+  <span property="rdfs:comment">All-wheel Drive is a transmission layout where the engine drives all four wheels.</span>
+  <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group">GAO</a></span>
+</div>
+<div typeof="http://schema.org/DriveWheelConfigurationValue" resource="http://schema.org/FrontWheelDriveConfiguration">
+  <span class="h" property="rdfs:label">FrontWheelDriveConfiguration</span>
+  <span property="rdfs:comment">Front-wheel drive is a transmission layout where the engine drives the front wheels.</span>
+  <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group">GAO</a></span>
+</div>
+<div typeof="http://schema.org/DriveWheelConfigurationValue" resource="http://schema.org/RearWheelDriveConfiguration">
+  <span class="h" property="rdfs:label">RearWheelDriveConfiguration</span>
+  <span property="rdfs:comment">Real-wheel drive is a transmission layout where the engine drives the rear wheels.</span>
+  <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group">GAO</a></span>
+</div>
+
+
+<div typeof="rdf:Property" resource="http://schema.org/fuelType">
+    <span class="h" property="rdfs:label">fuelType</span>
+    <span property="rdfs:comment">The type of fuel suitable for the engine or engines of the vehicle. If the vehicle has only one engine, this property can be attached directly to the vehicle.</span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Vehicle">Vehicle</a></span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/EngineSpecification">EngineSpecification</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/QualitativeValue">QualitativeValue</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/URL">URL</a></span>
+    <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group">GAO</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/vehicleInteriorColor">
+    <span class="h" property="rdfs:label">vehicleInteriorColor</span>
+    <span property="rdfs:comment">The color or color combination of the interior of the vehicle.</span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Vehicle">Vehicle</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+    <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group">GAO</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/vehicleInteriorType">
+    <span class="h" property="rdfs:label">vehicleInteriorType</span>
+    <span property="rdfs:comment">The type or material of the interior of the vehicle (e.g. synthetic fabric, leather, wood, etc.). While most interior types are characterized by the material used, an interior type can also be based on vehicle usage or target audience.</span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Vehicle">Vehicle</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+    <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group">GAO</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/mileageFromOdometer">
+    <span class="h" property="rdfs:label">mileageFromOdometer</span>
+    <span property="rdfs:comment">The total distance travelled by the particular vehicle since its initial production, as read from its odometer.&lt;br /&gt;
+Typical unit code(s): KMT for kilometers, SMI for statute miles</span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Vehicle">Vehicle</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/QuantitativeValue">QuantitativeValue</a></span>
+    <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group">GAO</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/vehicleModelDate">
+    <span class="h" property="rdfs:label">vehicleModelDate</span>
+    <span property="rdfs:comment">The release date of a vehicle model (often used to differentiate versions of the same make and model).</span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Vehicle">Vehicle</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Date">Date</a></span>
+    <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group">GAO</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/numberOfPreviousOwners"> <!-- was previousOwners -->
+    <span class="h" property="rdfs:label">numberOfPreviousOwners</span>
+    <span property="rdfs:comment">The number of owners of the vehicle, including the current one.&lt;br /&gt;
+Typical unit code(s): C62</span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Vehicle">Vehicle</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/QuantitativeValue">QuantitativeValue</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number">Number</a></span>
+    <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group">GAO</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/productionDate">
+    <span class="h" property="rdfs:label">productionDate</span>
+    <span property="rdfs:comment">The date of production of the item, e.g. vehicle.</span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Vehicle">Vehicle</a></span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Product">Product</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Date">Date</a></span>
+    <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group">GAO</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/purchaseDate">
+    <span class="h" property="rdfs:label">purchaseDate</span>
+    <span property="rdfs:comment">The date the item e.g. vehicle was purchased by the current owner.</span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Vehicle">Vehicle</a></span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Product">Product</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Date">Date</a></span>
+    <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group">GAO</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/vehicleSeatingCapacity">
+    <span class="h" property="rdfs:label">vehicleSeatingCapacity</span>
+    <span property="rdfs:comment">The number of passengers that can be seated in the vehicle, both in terms of the physical space available, and in terms of limitations set by law.&lt;br /&gt;
+Typical unit code(s): C62 for persons </span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Vehicle">Vehicle</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/QuantitativeValue">QuantitativeValue</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number">Number</a></span>
+    <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group">GAO</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/vehicleTransmission">
+    <span class="h" property="rdfs:label">vehicleTransmission</span>
+    <span property="rdfs:comment">The type of component used for transmitting the power from a rotating power source to the wheels or other relevant component(s) ("gearbox" for cars).</span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Vehicle">Vehicle</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/QualitativeValue">QualitativeValue</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/URL">URL</a></span>
+    <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group">GAO</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/steeringPosition">
+    <span class="h" property="rdfs:label">steeringPosition</span>
+    <span property="rdfs:comment">The position of the steering wheel or similar device (mostly for cars).</span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Vehicle">Vehicle</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/SteeringPositionValue">SteeringPositionValue</a></span>
+    <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group">GAO</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/vehicleSpecialUsage">
+    <span class="h" property="rdfs:label">vehicleSpecialUsage</span>
+    <span property="rdfs:comment">Indicates whether the vehicle has been used for special purposes, like commercial rental, driving school, or as a taxi. The legislation in many countries requires this information to be revealed when offering a car for sale.</span>
+</div>
+
+<div typeof="rdfs:Class" resource="http://schema.org/CarUsageType">
+  <span class="h" property="rdfs:label">CarUsageType</span>
+  <span property="rdfs:comment">A value indicating a special usage of a car, e.g. commercial rental, driving school, or as a taxi.</span>
+  <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/QualitativeValue">QualitativeValue</a></span>
+  <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group">GAO</a></span>
+</div>
+
+<div typeof="http://schema.org/CarUsageType" resource="http://schema.org/RentalVehicleUsage">
+  <span class="h" property="rdfs:label">RentalVehicleUsage</span>
+  <span property="rdfs:comment">Indicates the usage of the vehicle as a rental car.</span>
+  <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group">GAO</a></span>
+</div>
+<div typeof="http://schema.org/CarUsageType" resource="http://schema.org/DrivingSchoolVehicleUsage">
+  <span class="h" property="rdfs:label">DrivingSchoolVehicleUsage</span>
+  <span property="rdfs:comment">Indicates the usage of the vehicle for driving school.</span>
+  <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group">GAO</a></span>
+</div>
+<div typeof="http://schema.org/CarUsageType" resource="http://schema.org/TaxiVehicleUsage">
+  <span class="h" property="rdfs:label">TaxiVehicleUsage</span>
+  <span property="rdfs:comment">Indicates the usage of the car as a taxi.</span>
+  <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group">GAO</a></span>
+</div>
 
 
 
