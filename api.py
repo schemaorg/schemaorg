@@ -422,6 +422,18 @@ def GetAllTypes(layers='core'):
         DataCache['AllTypes'] = subbed.keys()
         return subbed.keys()
 
+def GetAllProperties(layers='core'):
+    """Return all properties in the graph."""
+    if DataCache.get('AllProperties'):
+        logging.debug("DataCache HIT: AllProperties")
+        return DataCache.get('AllProperties')
+    else:
+        logging.debug("DataCache MISS: AllProperties")
+        mynode = Unit.GetUnit("Thing")
+        sorted_all_properties = sorted(GetSources(Unit.GetUnit("typeOf"), Unit.GetUnit("rdf:Property"), layers=layers), key=lambda u: u.id)
+        DataCache['AllProperties'] = sorted_all_properties
+        return sorted_all_properties
+
 def GetParentList(start_unit, end_unit=None, path=[], layers='core'):
 
         """

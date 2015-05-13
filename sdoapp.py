@@ -19,7 +19,7 @@ from google.appengine.ext.webapp import blobstore_handlers
 
 from api import inLayer, read_file, full_path, read_schemas, namespaces, DataCache
 from api import Unit, GetTargets, GetSources
-from api import GetComment, all_terms, GetAllTypes
+from api import GetComment, all_terms, GetAllTypes, GetAllProperties
 from api import GetParentList, GetImmediateSubtypes, HasMultipleBaseTypes
 
 logging.basicConfig(level=logging.INFO) # dev_appserver.py --log_level debug .
@@ -31,6 +31,7 @@ sitemode = "mainsite" # whitespaced list for CSS tags,
             # e.g. "mainsite testsite" when off expected domains
             # "extensionsite" when in an extension (e.g. blue?)
 
+releaselog = { "2.0": "2015-05-13" }
 #
 host_ext = ""
 myhost = ""
@@ -1034,36 +1035,47 @@ class ShowUnit (webapp2.RequestHandler):
             mainroot = TypeHierarchyTree()
             mainroot.traverseForHTML(Unit.GetUnit("Thing"), hashorslash="#term_", layers=layerlist)
             thing_tree = mainroot.toHTML()
-
             base_href = "/version/latest/"
-
+            global releaselog
             # prepare some HTML
 
-            #attrTest = HTMLOutput()
-            #    def emitAttributeProperties(self, node, layers="core", out=None):
             #self.emitAttributeProperties( Unit.GetUnit("isPartOf"), out=attrTest   )
             #log.info("OUT: %s " % Markup(attrTest) )
             #
-            az_props = {'hasPart': { 'type': 'Property'}, 'price': { 'type': 'Property'}, 'url': { 'type': 'Property'}, 'name': { 'type': 'Property'}, 'alumniOf': { 'type': 'Property'} }
+            #az_props = {'hasPart': { 'type': 'Property'}, 'price': { 'type': 'Property'}, 'url': { 'type': 'Property'}, 'name': { 'type': 'Property'}, 'alumniOf': { 'type': 'Property'} }
 
-            for p in az_props:
-                pt = Unit.GetUnit(p)
-                if pt != None:
-                    attrInfo = HTMLOutput()
-                    self.emitAttributeProperties(pt, out=attrInfo, hashorslash="#term_" )
-                    cmt = Markup(GetComment(pt))
-                    # log.info("property: %s c: %s " % ( pt.id,  cmt  ) )
-                    az_props[p]['comment'] = cmt
-                    az_props[p]['attrinfo'] = attrInfo.toHTML()
-                else:
-                    log.info("nope %s" % p)
+            az_types = GetAllTypes()
+            az_types.sort( key=lambda u: u.id)
+            az_type_meta = {}
 
-            # if value == ['core'] and "http" not in key}
-            # azprops = { key:value['comment'] for key, value in az_props}
-            #for t in coreterms:
-                #log.info(t)
+            az_props = GetAllProperties()
+            az_props.sort( key = lambda u: u.id)
+            az_prop_meta = {}
 
-            page = template.render({ 'thing_tree': thing_tree, 'az_props': az_props, "base_href": base_href })
+            # TYPES
+            log.info(az_types)
+            for t in az_types:
+                log.info(t.id)
+                tcmt = Markup(GetComment(t))
+                az_type_meta[t]={}
+                az_type_meta[t]['comment'] = tcmt
+                az_type_meta[t]['typeinfo'] = 'TODO'
+
+            # PROPERTIES
+            for pt in az_props:
+                log.info("prop: %s" % pt )
+                attrInfo = HTMLOutput()
+                self.emitAttributeProperties(pt, out=attrInfo, hashorslash="#term_" )
+                cmt = Markup(GetComment(pt))
+                az_prop_meta[pt] = {}
+                az_prop_meta[pt]['comment'] = cmt
+                az_prop_meta[pt]['attrinfo'] = attrInfo.toHTML()
+
+            page = template.render({ "base_href": base_href, 'thing_tree': thing_tree,
+                    'version': SCHEMA_VERSION,
+                    'releasedate': releaselog[str(SCHEMA_VERSION)],
+                    'az_props': az_props, 'az_types': az_types,
+                    'az_prop_meta': az_prop_meta, 'az_type_meta': az_type_meta })
 
             self.response.out.write( page )
             log.debug("Serving fresh FullReleasePage.")

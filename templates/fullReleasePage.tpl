@@ -2,10 +2,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>Full Hierarchy - schema.org</title>
+    <title>Full Release Summary: Schema.org</title>
     <meta name="description" content="Schema.org is a set of extensible schemas that enables webmasters to embed
     structured data on their web pages for use by search engines and other applications." />
-    <link zzzrel="stylesheet" type="text/css" href="/docs/schemaorg.css" />
+    <link rel="stylesheet" type="text/css" href="/docs/schemaorg.css" />
 
 
     <base href="{{ base_href }}" ></base>
@@ -58,25 +58,60 @@
 
 <div style="margin-left: 8%; margin-right: 8%">
 
-<h1>Full Release Summary: {{ version }}</h1>
+<h1>Schema.org version {{ version }}</h1>
+
+<dl>
+
+ <dt>Version:</dt>
+ <dd>{{version}}</dd>
+
+ <dt>URL:</dt>
+ <dd><a href="http://schema.org/version/{{version}}/">http://schema.org/version/{{version}}/</a></dd>
+
+ <dt>Published:</dt>
+ <dd>{{ releasedate }}</dd>
+
+ <dt>Alternate formats:</dt>
+ <dd>This release is also available in <a href="schema.rdfa">rdfa</a>, <a href="schema.nt">schema.nt</a> formats.</dd>
 
 <p>
-This is the main schema.org hierarchy: a collection of types (or "classes"), each of which has one or more parent types.
-Although a type may have more than one super-type, here we show each type in one branch of the tree only.
+This is a release summary for schema.org. It describes in one document the terms (types, properties and enumerations) included in this version of schema.org.
 </p>
 
+<p>
+<b>Status:</b> this document represents a stable release of schema.org, and is automatically generated from the underlying schema data. Although
+the formal schema dataset associated with this release will not change, we may update the formatting, layout and other details of this document to
+improve the presentation of this information.
+</p>
 
+<h2>Overview (type hierarchy)</h2>
 <div>
 <small>
 {{ thing_tree | safe }}
 </small>
 </div>
 
-{% for term in az_props.keys() %}
+<h2>Types</h2>
 
-  <h3 id="term_{{term}}" name="term_{{term}}">{{ az_props[term]['comment'] }}</a></h3>
+{% for term in az_types %}
 
-  <div> {{ az_props[term]['attrinfo'] }} </div>
+<div>
+  <h3 id="term_{{term}}" name="term_{{term}}">{{term}}</a></h3>
+  <div>{{ az_type_meta[term]['comment'] }} </div>
+  <small><a href="#intro">[^top]</a></small>
+</div>
+
+{% endfor %}
+
+
+<h2>Properties</h2>
+
+{% for term in az_props %}
+
+  <h3 id="term_{{term}}" name="term_{{term}}">{{ term }}</a></h3>
+  <div>{{ az_prop_meta[term]['comment'] }} </div>
+  <div> {{ az_prop_meta[term]['attrinfo'] }} </div>
+  <small><a href="#intro">[^top]</a></small>
 
 {% endfor %}
 
