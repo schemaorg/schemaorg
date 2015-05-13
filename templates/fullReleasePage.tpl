@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>Full Release Summary: Schema.org</title>
+    <title>Full Release Summary: Schema.org - {{requested_version}} - {{ releasedate }}</title>
     <meta name="description" content="Schema.org is a set of extensible schemas that enables webmasters to embed
     structured data on their web pages for use by search engines and other applications." />
     <link rel="stylesheet" type="text/css" href="/docs/schemaorg.css" />
@@ -58,21 +58,31 @@
 
 <div style="margin-left: 8%; margin-right: 8%">
 
-<h1>Schema.org version {{ version }}</h1>
+<h1>Schema.org release {{ requested_version }}</h1>
 
 <dl>
 
  <dt>Version:</dt>
- <dd>{{version}}</dd>
+ <dd>{{requested_version}}</dd>
 
  <dt>URL:</dt>
- <dd><a href="http://schema.org/version/{{version}}/">http://schema.org/version/{{version}}/</a></dd>
+ <dd><a href="http://schema.org/version/{{requested_version}}/">http://schema.org/version/{{requested_version}}/</a></dd>
 
  <dt>Published:</dt>
  <dd>{{ releasedate }}</dd>
 
  <dt>Alternate formats:</dt>
- <dd>This release is also available in <a href="schema.rdfa">rdfa</a>, <a href="schema.nt">N-triples</a> downloadable formats.</dd>
+ <dd>
+     {% if requested_version != "latest" %}
+     This release is also available in <a href="schema.rdfa">rdfa</a>, <a href="schema.nt">N-triples</a>
+     {% endif %}
+
+     {% if requested_version == "latest" %}
+     This release is also available in <a href="http://schema.org/docs/schema_org_rdfa.html">rdfa</a>
+     {% endif %}
+
+
+</dd>
 
 <p>
 <b>Overview:</b>

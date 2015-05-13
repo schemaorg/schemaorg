@@ -62,7 +62,7 @@ debugging = False
 
 def cleanPath(node):
     """Return the substring of a string matching chars approved for use in our URL paths."""
-    return re.sub(r'[^a-zA-Z0-9\-/,]', '', str(node), flags=re.DOTALL)
+    return re.sub(r'[^a-zA-Z0-9\-/,\.]', '', str(node), flags=re.DOTALL)
 
 
 
@@ -461,7 +461,7 @@ class ShowUnit (webapp2.RequestHandler):
         """Write out a table of properties for a per-type page."""
         if not out:
             out = self
-        
+
         headerPrinted = False
         di = Unit.GetUnit("domainIncludes")
         ri = Unit.GetUnit("rangeIncludes")
@@ -1018,7 +1018,7 @@ class ShowUnit (webapp2.RequestHandler):
 
 
 
-#         if (node == "version/2.0/" or node == "version/latest/" or "version/" in node) ...
+    # if (node == "version/2.0/" or node == "version/latest/" or "version/" in node) ...
 
     def handleFullReleasePage(self, node,  layerlist='core'):
 
@@ -1026,10 +1026,49 @@ class ShowUnit (webapp2.RequestHandler):
         version/latest/ is from current schemas, others will need to be loaded and emitted from stored HTML snapshots (for now)."""
 
         # http://jinja.pocoo.org/docs/dev/templates/
-            # TODO: Unicode checks
 
+        global releaselog
+        clean_node = cleanPath(node)
         self.response.headers['Content-Type'] = "text/html"
         self.emitCacheHeaders()
+
+        requested_version = clean_node.rsplit('/')[1]
+        requested_format = clean_node.rsplit('/')[-1]
+        if len( clean_node.rsplit('/') ) == 2:
+            requested_format=""
+
+        log.info("Full release page for: node: '%s' cleannode: '%s' requested_version: '%s' requested_format: '%s' l: %s" % (node, clean_node, requested_version, requested_format, len(clean_node.rsplit('/')) ) )
+
+        # Full release page for: node: 'version/' cleannode: 'version/' requested_version: '' requested_format: '' l: 2
+        # /version/
+        if (clean_node=="version/" or clean_node=="version") and requested_version=="" and requested_format=="":
+            log.info("Table of contents should be sent instead, then succeed.")
+            if DataCache.get('tocVersionPage'):
+                self.response.out.write( DataCache.get('tocVersionPage'))
+                return True
+            else:
+                template = JINJA_ENVIRONMENT.get_template('tocVersionPage.tpl')
+                page = template.render({ "releases": releaselog.keys() })
+
+                self.response.out.write( page )
+                log.debug("Serving fresh tocVersionPage.")
+                DataCache["tocVersionPage"] = page
+                return True
+
+        if requested_version in releaselog:
+            log.info("Version '%s' was released on %s. Serving from filesystem." % ( node, releaselog[requested_version] ))
+
+
+
+        else:
+            log.info("Unreleased version requested. We only understand requests for latest if unreleased.")
+
+            if requested_version != "latest":
+                return False
+                log.info("giving up to 404.")
+            else:
+                log.info("generating a live view of this latest release.")
+
 
         if DataCache.get('FullReleasePage'):
             self.response.out.write( DataCache.get('FullReleasePage') )
@@ -1041,13 +1080,6 @@ class ShowUnit (webapp2.RequestHandler):
             mainroot.traverseForHTML(Unit.GetUnit("Thing"), hashorslash="#term_", layers=layerlist)
             thing_tree = mainroot.toHTML()
             base_href = "/version/latest/"
-            global releaselog
-            # prepare some HTML
-
-            #self.emitAttributeProperties( Unit.GetUnit("isPartOf"), out=attrTest   )
-            #log.info("OUT: %s " % Markup(attrTest) )
-            #
-            #az_props = {'hasPart': { 'type': 'Property'}, 'price': { 'type': 'Property'}, 'url': { 'type': 'Property'}, 'name': { 'type': 'Property'}, 'alumniOf': { 'type': 'Property'} }
 
             az_types = GetAllTypes()
             az_types.sort( key=lambda u: u.id)
@@ -1058,9 +1090,7 @@ class ShowUnit (webapp2.RequestHandler):
             az_prop_meta = {}
 
             # TYPES
-            log.info(az_types)
             for t in az_types:
-                log.info(t.id)
                 tcmt = Markup(GetComment(t))
                 az_type_meta[t]={}
                 az_type_meta[t]['comment'] = tcmt
@@ -1068,7 +1098,6 @@ class ShowUnit (webapp2.RequestHandler):
 
             # PROPERTIES
             for pt in az_props:
-                log.info("prop: %s" % pt )
                 attrInfo = HTMLOutput()
                 self.emitAttributeProperties(pt, out=attrInfo, hashorslash="#term_" )
                 cmt = Markup(GetComment(pt))
@@ -1077,7 +1106,8 @@ class ShowUnit (webapp2.RequestHandler):
                 az_prop_meta[pt]['attrinfo'] = attrInfo.toHTML()
 
             page = template.render({ "base_href": base_href, 'thing_tree': thing_tree,
-                    'version': SCHEMA_VERSION,
+                    'liveversion': SCHEMA_VERSION,
+                    'requested_version': requested_version,
                     'releasedate': releaselog[str(SCHEMA_VERSION)],
                     'az_props': az_props, 'az_types': az_types,
                     'az_prop_meta': az_prop_meta, 'az_type_meta': az_type_meta })
@@ -1085,6 +1115,7 @@ class ShowUnit (webapp2.RequestHandler):
             self.response.out.write( page )
             log.debug("Serving fresh FullReleasePage.")
             DataCache["FullReleasePage"] = page
+            return True
 
 
     def setupHostinfo(self, node):
@@ -1180,7 +1211,11 @@ class ShowUnit (webapp2.RequestHandler):
                 return
             else:
                 log.info("Error handling full release page: %s " % node)
-                return
+                if self.handle404Failure(node):
+                    return
+                else:
+                    log.info("Error handling 404 under /version/")
+                    return
 
         # Pages based on request path matching a Unit in the term graph:
         if self.handleExactTermPage(node, layers=layerlist):
