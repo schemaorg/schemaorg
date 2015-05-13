@@ -129,19 +129,6 @@ class Unit ():
         types = GetTargets( Unit.GetUnit("typeOf"), self, layers )
         return (type in types)
 
-
-    def OLDsubClassOf(self, type, layers='core'):
-        """Boolean, true if the unit has an rdfs:subClassOf matching this type."""
-        if (self.id == type.id):
-            return True
-        for triple in self.arcsOut:
-            if (triple.target != None and triple.arc.id == "rdfs:subClassOf"):
-                val = triple.target.subClassOf(type)
-                if (val):
-                    return True
-        return False
-
-
     # Function needs rewriting to use GetTargets(arc,src,layers) and recurse
     def subClassOf(self, type, layers='core'):
         """Boolean, true if the unit has an rdfs:subClassOf matching this type, direct or implied (in specified layer(s))."""
@@ -228,15 +215,6 @@ class Unit ():
             return newerterms.pop()
         else:
             return None
-
-    def OLDsupersededBy(self, layers='core'):
-        """Returns a property (assume max 1) that supersededs this one, or nothing."""
-        for p in sorted(GetSources(Unit.GetUnit("typeOf"), Unit.GetUnit("rdf:Property"), layers), key=lambda u: u.id):
-            allnewers = GetTargets(Unit.GetUnit("supersededBy"), p, layers)
-            for newerprop in allnewers:
-                if self in newerprop.supersedes_all(layers=layers):
-                    return newerprop # this is one of possibly many properties that supersedes self.
-        return None
 
     def superproperties(self, layers='core'):
         """Returns super-properties of this one."""
