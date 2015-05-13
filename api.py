@@ -106,6 +106,9 @@ class Unit ():
         self.usage = 0
         self.subtypes = None
 
+    def __str__(self):
+        return self.id
+
     def GetImmediateSubtypes(self, layers='core'):
       return GetImmediateSubtypes(self, layers=layers)
 
