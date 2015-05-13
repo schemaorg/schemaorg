@@ -88,13 +88,14 @@
 <b>Overview:</b>
 This is a full release summary for schema.org. It describes in one document the terms (types, properties and enumerations) included in this version of schema.org.
 The <a href="http://schema.org/">live site</a> offers various other page-by-page <a href="/docs/schemas.html">views</a> that include more information and examples.
-This document captures the main content of the schemas for a particular release. Note that schema.org release numbers are not generally included when you <em>use</em>
-schema.org. In context (e.g. related standards work) when a particular release needs to be cited, this document provides the appropriate URL.
+Note that schema.org release numbers are not generally included when you <em>use</em> schema.org. In context (e.g. related standards work) when a particular release needs to be cited, this document provides the appropriate URL.
 </p>
+
+<p>See the <a href="/docs/releases.html">releases page</a> for information about other schema.org releases.</p>
 
 <p>
 <b>Status:</b> this document represents a stable release of schema.org, and is automatically generated from the underlying schema data. Although
-the formal schema dataset associated with this release will not change, we may update the formatting, layout and other details of this document to
+the formal schema dataset associated with this release will not change, we may update the formatting (tracked as <a href="https://github.com/schemaorg/schemaorg/issues/484">issue #484</a>), layout and other details of this document to
 improve the presentation of this information.
 </p>
 
