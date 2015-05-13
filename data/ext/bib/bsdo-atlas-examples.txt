@@ -1,0 +1,59 @@
+TYPES: Atlas
+
+PRE-MARKUP:
+
+An Atlas.
+
+<div>
+  <h1>Atlas of the World</h1>
+  <h2>National Geographic atlas of the world</h2>
+  <div>Edition: 7th ed.</div>
+  <div>Publisher: National Geographic Society</div>
+  <div>Published: 1999</div>
+</div>
+
+MICRODATA:
+
+
+
+<div itemscope itemtype="http://schema.org/Atlas" itemid="http://www.worldcat.org/oclc/41310554">
+	<h1 itemprop="name">Atlas of the World</h1>
+	<h2 itemprop="alternateName">National Geographic atlas of the world</h2>
+	<div>Publisher: <span itemprop="bookEdition">7th ed.</span></div>
+	<div>Publisher: <span itemprop="publisher">National Geographic Society</span></div>
+	<div>Published: <span itemprop="datePublished">1999</span></div>
+</div>
+
+RDFA:
+
+<div vocab="http://schema.org/" resource="http://www.worldcat.org/oclc/41310554" typeof="Atlas">
+  <h1 property="name">Atlas of the World</h1>
+  <h2 property="alternateName">National Geographic atlas of the world</h2>
+  <div>Edition: <span property="bookEdition">7th ed.</span></div>
+  <div>Publisher: <span property="publisher">National Geographic Society</span></div>
+  <div>Published: <span property="datePublished">1999</span></div>
+</div>
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": {
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "rdfa": "http://www.w3.org/ns/rdfa#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "schema": "http://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#"
+  },
+  "@id": "http://www.worldcat.org/oclc/41310554",
+  "rdfa:usesVocabulary": {
+    "@id": "schema:"
+  },
+  "@type": "schema:Atlas",
+  "schema:name": "Atlas of the World",
+  "schema:alternateName": "National Geographic atlas of the world",
+  "schema:bookEdition": "7th ed.",
+  "schema:datePublished": "1999",
+  "schema:publisher": "National Geographic Society"
+}
+</script>

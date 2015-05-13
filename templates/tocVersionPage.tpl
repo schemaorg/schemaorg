@@ -2,12 +2,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>Full Hierarchy - schema.org</title>
+    <title>Schema.org - Full Releases</title>
     <meta name="description" content="Schema.org is a set of extensible schemas that enables webmasters to embed
     structured data on their web pages for use by search engines and other applications." />
-    <link rel="stylesheet" type="text/css"
-    href="../search_files/schemaorg.css" />
+    <link rel="stylesheet" type="text/css" href="/docs/schemaorg.css" />
 
+
+    <basxe href="{{ base_href }}" ></base>
 </head>
 <body style="text-align: left;">
 
@@ -41,11 +42,11 @@
         <div class="wrapper">
             <ul>
                 <li >
-                    <a href="../docs/documents.html">Documentation</a></li>
+                    <a href="/docs/documents.html">Documentation</a></li>
                     <li class="activelink">
-                        <a href="../docs/schemas.html">Schemas</a></li>
+                        <a href="/docs/schemas.html">Schemas</a></li>
                         <li >
-                            <a href="../.">Home</a></li>
+                            <a href="/">Home</a></li>
                         </ul>
                     </div>
 
@@ -57,35 +58,19 @@
 
 <div style="margin-left: 8%; margin-right: 8%">
 
-<h3>Full Hierarchy</h3>
+<h1>Schema.org versions</h1>
 
-<!--
-<p>
-Schema.org is defined as two hierarchies: one for textual property values, and
-one for the things that they describe. Although a type may have more than one
-super-type, here we show each type in one branch of the tree only.
-</p> -->
-<!--
-<h4>DataType</h4>
+<p>See the <a href="/docs/releases.html">releases page</a> for a longer and more detailed history of schema.org releases.</p>
 
-<div>
-{{ datatype_tree | safe }}
-</div> -->
+<p>The following snapshot(s) of schema.org releases are available:</p>
 
-<h4>Thing</h4>
-
-<p>
-This is the main schema.org hierarchy: a collection of types (or "classes"), each of which has one or more parent types.
-Although a type may have more than one super-type, here we show each type in one branch of the tree only.
-</p>
-
-<div>
-{{ thing_tree | safe }}
-</div>
+<ul>
+{% for release in releases %}
+  <li><a href="/version/{{release}}">{{release}}</a></li>
+{% endfor %}
+</ul>
 
 
-<p>An <em>experimental</em> <a href="http://d3js.org">D3</a>-compatible <a href="/docs/tree.jsonld">JSON</a> version is also available.</p>
 <br/><br/>
-
 </div>
 

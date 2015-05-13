@@ -1,0 +1,165 @@
+TYPES: Collection
+
+PRE-MARKUP:
+
+<div>
+  <h1>Eclectic Time</h1>
+  <div>Creator: Twinkle T. Hose</div>
+</div>
+<div>
+	<h1>The Hitchhiker's guide to the galaxy. The quandry phase</h1>
+	<div>Author: Douglas Adams</div>
+	<div>ISBN: 9781405699532</div>
+	<div>Audiobook</div>
+</div>
+<div>
+	<h1>A brief history of time : from the big bang to black holes</h1>
+	<div>Author: Stephen Hawking </div>
+	<div>ISBN: 055305340X</div>
+</div>
+<div>
+	<h1>Back to the future</h1>
+	<div>Director: Steven Spielberg </div>
+	<div>Production Company: Universal Pictures</div>
+	<div>Format: DVD</div>
+</div>
+
+MICRODATA:
+
+
+<div>
+<div itemscope itemtype="http://schema.org/Collection" itemid="http://example.org/colls/68">
+  <h1 itemprop="name">Eclectic Time</h1>
+  <div>Creator: <span itemprop="creator">Twinkle T. Hose</span></div>
+  <link itemprop="hasPart" itemscope itemtype="http://schema.org/CreativeWork" itemid="http://www.worldcat.org/oclc/68043906" />
+  <link itemprop="hasPart" itemscope itemtype="http://schema.org/CreativeWork" itemid="http://www.worldcat.org/oclc/17105155" />
+  <link itemprop="hasPart" itemscope itemtype="http://schema.org/CreativeWork" itemid="http://www.worldcat.org/oclc/297618476" />
+</div>
+<div itemscope itemtype="http://schema.org/Book" itemid="http://www.worldcat.org/oclc/68043906">
+  <h1 itemprop="name">The Hitchhiker's guide to the galaxy. The quandry phase</h1>
+  <div>Author: <span itemprop="author" itemid="http://viaf.org/viaf/113230702">Douglas Adams</span></div>
+  <div>ISBN: <span itemprop="isbn">9781405699532</span></div>
+  <div>Format: <span itemprop="bookFormat" itemid="http://schema.org/AudioBook">AudioBook</span></div>
+  <link itemprop="isPartOf" itemscope itemtype="http://schema.org/Collection" itemid="http://example.org/colls/68" />
+</div>
+<div itemscope itemtype="http://schema.org/Book" itemid="http://www.worldcat.org/oclc/17105155">
+  <h1 itemprop="name">A brief history of time : from the big bang to black holes</h1>
+  <div>Author: <span itemprop="author" itemid="http://viaf.org/viaf/102304634">Stephen Hawking</span></div>
+  <link itemprop="isPartOf" itemscope itemtype="http://schema.org/Collection" itemid="http://example.org/colls/68" />
+  <div>ISBN: <span itemprop="isbn">055305340X</span></div>
+</div>
+<div itemscope itemtype="http://schema.org/Movie" itemid="http://www.worldcat.org/oclc/297618476">
+  <h1 itemprop="name">Back to the future</h1>
+  <div>Director: <span itemprop="director">Steven Spielberg</span></div>
+  <div>Production Company: <span itemprop="productionCompany">Universal Pictures</span></div>
+  <div>Format: <span itemprop="alternateType" itemtype="productontology.org/id/DVD">DVD</div>
+  <link itemprop="isPartOf" itemscope itemtype="http://schema.org/Collection" itemid="http://example.org/colls/68" />
+</div>
+</div>
+
+RDFA:
+
+<div vocab="http://schema.org/">
+<div typeof="Collection" resource="http://example.org/colls/68">
+  <h1 property="name">Eclectic Time</h1>
+  <div>Creator: <span property="creator">Twinkle T. Hose</span></div>
+  <link property="hasPart" resource="http://www.worldcat.org/oclc/68043906" />
+  <link property="hasPart" resource="http://www.worldcat.org/oclc/17105155" />
+  <link property="hasPart" resource="http://www.worldcat.org/oclc/297618476" />
+</div>
+<div typeof="Book" resource="http://www.worldcat.org/oclc/68043906">
+  <h1 property="name">The Hitchhiker's guide to the galaxy. The quandry phase</h1>
+  <div>Author: <span property="author" itemid="http://viaf.org/viaf/113230702">Douglas Adams</span></div>
+  <div>ISBN: <span property="isbn">9781405699532</span></div>
+  <div>Format: <span property="bookFormat" itemid="http://schema.org/AudioBook">AudioBook</span></div>
+  <link property="isPartOf" resource="http://example.org/colls/68" />
+</div>
+<div typeof="Book" resource="http://www.worldcat.org/oclc/17105155">
+  <h1 property="name">A brief history of time : from the big bang to black holes</h1>
+  <div>Author: <span property="author" resource="http://viaf.org/viaf/102304634">Stephen Hawking</span></div>
+  <div>ISBN: <span property="isbn">055305340X</span></div>
+  <link property="isPartOf" resource="http://example.org/colls/68" />
+</div>
+<div typeof="Movie http://productontology.org/id/DVD" resource="http://www.worldcat.org/oclc/297618476">
+  <h1 property="name">Back to the future</h1>
+  <div>Director: <span property="director">Steven Spielberg</span></div>
+  <div>Production Company: <span property="productionCompany">Universal Pictures</span></div>
+  <div>Format: DVD</div>
+  <link property="isPartOf" resource="http://example.org/colls/68" />
+</div>
+</div>
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": {
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "rdfa": "http://www.w3.org/ns/rdfa#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "schema": "http://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#"
+  },
+  "@graph": [
+    {
+      "@id": "http://example.org/colls/68",
+      "@type": "schema:Collection",
+      "schema:creator": "Twinkle T. Hose",
+      "schema:hasPart": [
+        {
+          "@id": "http://www.worldcat.org/oclc/17105155"
+        },
+        {
+          "@id": "http://www.worldcat.org/oclc/68043906"
+        },
+        {
+          "@id": "http://www.worldcat.org/oclc/297618476"
+        }
+      ],
+      "schema:name": "Eclectic Time"
+    },
+    {
+      "@id": "http://www.worldcat.org/oclc/17105155",
+      "@type": "schema:Book",
+      "schema:author": {
+        "@id": "http://viaf.org/viaf/102304634"
+      },
+      "schema:isPartOf": {
+        "@id": "http://example.org/colls/68"
+      },
+      "schema:isbn": "055305340X",
+      "schema:name": "A brief history of time : from the big bang to black holes"
+    },
+    {
+      "@id": "http://www.worldcat.org/oclc/68043906",
+      "@type": "schema:Book",
+      "schema:author": "Douglas Adams",
+      "schema:bookFormat": "AudioBook",
+      "schema:isPartOf": {
+        "@id": "http://example.org/colls/68"
+      },
+      "schema:isbn": "9781405699532",
+      "schema:name": "The Hitchhiker's guide to the galaxy. The quandry phase"
+    },
+    {
+      "@id": "",
+      "rdfa:usesVocabulary": {
+        "@id": "schema:"
+      }
+    },
+    {
+      "@id": "http://www.worldcat.org/oclc/297618476",
+      "@type": [
+        "http://productontology.org/id/DVD",
+        "schema:Movie"
+      ],
+      "schema:director": "Steven Spielberg",
+      "schema:isPartOf": {
+        "@id": "http://example.org/colls/68"
+      },
+      "schema:name": "Back to the future",
+      "schema:productionCompany": "Universal Pictures"
+    }
+  ]
+}
+</script>

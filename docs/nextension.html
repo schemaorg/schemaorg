@@ -30,7 +30,7 @@
   }, true);
 </script>
 
-
+ 
               </div>
             </div>
         </div>
@@ -53,11 +53,11 @@
 
   <div id="mainContent" class="faq">
 
-<h1>Extension Mechanism</h1>
-
+<h2>Extension Mechanism</h1>
+    
 <p><b>Status Note:</b>
-<br/>This page introduces the new extension mechanism adopted in May
-    2015. Documentation on the old 'slash-based' extension mechanism
+<br/>This page introduces the new extension mechanism adopted in Q2
+    2015. Documentation on the old 'slash-baesd' extension mechanism
     can be found <a href="old_extension.html">here</a>.
 </p>
 
@@ -72,29 +72,22 @@
     such additional vocabularies.
    </p>
 
-    <p>
-    With most extensions, we expect that some small frequently used
-    set of terms will be in core schema.org, with a long tail of more
-    specialized terms in the extension.
-    </p>
-
-<h3>Types of Extensions</h3>
+<h3>Types of Extensions</h3>    
 
     <p>
  There are two kinds of extensions: reviewed/hosted extensions and external extensions. Both kinds of extensions typically add subclasses and properties to the core. Properties may be added to existing and/or new classes. More generally, they are an overlay on top of the core, and so they may add domains/ranges, superclasses, etc. as well. Extensions have to be consistent with the core schema.org. Every item in the core (i.e., www.schema.org) is also in every extension. Extensions might overlap with each other in concepts (e.g., two extensions defining terms for financial institutions, one calling it FinancialBank and other calling it FinancialInstitution), but we should not have the same term being reused to mean something completely different (e.g., we should not have two extensions, one using Bank to mean river bank and the other using Bank to mean financial institution).
 </p>
-
-
+    
 <h3>Reviewed/hosted Extensions</h3>
 
     <p>
-Each reviewed extension (say, e1), gets its own chunk of schema.org namespace: e1.schema.org. The items in that extension are created and maintained by the creators of that extension.  Reviewed extensions are very different from proposals. A proposal, if accepted, with modifications could either go into the core or become a reviewed extension.
+Each reviewed extension (say, e1), gets its own chunk of schema.org namespace: e1.schema.org. The items in that extension are created and maintained by the creators of that extension.  Reviewed extensions are very different from proposals. A proposal, if accepted, with modifications could either go into the core or become a reviewed extension. 
 
 </p>
 
-<p>
-
-A reviewed extension is something that has been looked at and discussed by the community, albeit not as much as something in the core. We also expect a reviewed extension to have strong community support, preferably in the form of a few deployments.
+<p>    
+    
+A reviewed extension is something that has been looked at and discussed by the community, albeit not as much as something in the core. We also expect a reviewed extension to have strong community support, preferably in the form of a few deployments. 
 
 </p>
 
@@ -113,10 +106,10 @@ may go through the kind of feedback process that reviewed extensions
 go through, but can be hosted on the third party's site.
 </p>
 
-
+   
 <h3>How it works for webmasters</h3>
 <p>
- All of Schema.org core and all of the reviewed extensions will be available from the schema.org website. Each extension will be linked to from each of the touch points it has with the core. So, if an extension (say, having to do with Legal stuff) creates legal.schema.org/LegalPerson which is a subclass of schema.org/Person, the Person will link to LegalPerson.  Typically, a webpage / email will use only a single extension (e.g., legal), in which case, instead of ‘schema.org’ they say ‘legal.schema.org’ and use all of the vocabulary in legal.schema.org and schema.org.
+ All of Schema.org core and all of the reviewed extensions will be available from the schema.org website. Each extension will be linked to from each of the touch points it has with the core. So, if an extension (say, having to do with Legal stuff) creates legal.schema.org/LegalPerson which is a subclass of schema.org/Person, the Person will link to LegalPerson.  Typically, a webpage / email will use only a single extension (e.g., legal), in which case, instead of ‘schema.org’ they say ‘legal.schema.org’ and use all of the vocabulary in legal.schema.org and schema.org. 
 </p>
 <p>
 As appropriate, the main schema.org site will also link to relevant external extensions. With external extensions, the use of multiple namespaces is unavoidable.
@@ -139,7 +132,7 @@ This example uses a type that makes sense for archival and bibliographic applica
 </p>
 
 <p>
-The extension type is taken from  http://bibliograph.net/Microform, (which on this proposed model would move to bib.schema.org) which is a version of the opensource schema.org codebases that overlays bibliographic extras onto the core schema.org types. The example is adapted from http://schema.org/workExample.
+The extension type is taken from  http://bibliograph.net/Microform, (which on this proposed model would move to bib.schema.org) which is a version of the opensource schema.org codebases that overlays bibliographic extras onto the core schema.org types. The example is adapted from http://schema.org/workExample. 
 </p>
 
 <pre>
@@ -148,17 +141,17 @@ The extension type is taken from  http://bibliograph.net/Microform, (which on th
         &lt;em property="name"&gt;The Fellowship of the Rings&lt;/em&gt; was written by
         &lt;span property="author"&gt;J.R.R Tolkien&lt;/span&gt; and was originally published
         in the &lt;span property="publisher" typeof="Organization"&gt;
-            &lt;span property="location"&gt;United Kingdom&lt;/span&gt; by
+            &lt;span property="location"&gt;United Kingdom&lt;/span&gt; by 
             &lt;span property="name"&gt;George Allen & Unwin&lt;/span&gt;
         &lt;/span&gt; in &lt;time property="datePublished"&gt;1954&lt;/time&gt;.
-        The book has been republished many times, including editions by
+        The book has been republished many times, including editions by 
         &lt;span property="workExample" typeof="Book"&gt;
             &lt;span property="publisher" typeof="Organization"&gt;
                 &lt;span property="name"&gt;HarperCollins&lt;/span&gt;
             &lt;/span&gt; in &lt;time property="datePublished"&gt;1974&lt;/time&gt;
             (ISBN: &lt;span property="isbn"&gt;0007149212&lt;/span&gt;)
-        &lt;/span&gt; and by
-        &lt;span property="workExample" typeof="Book Microform"&gt;
+        &lt;/span&gt; and by 
+        &lt;span property="workExample" typeof="Book Microform"&gt;  
             &lt;span property="publisher" typeof="Organization"&gt;
                 &lt;span property="name"&gt;Microfiche Press&lt;/span&gt;
             &lt;/span&gt; in &lt;time property="datePublished"&gt;2016&lt;/time&gt;
@@ -182,17 +175,17 @@ The example above puts all data into the extension namespace. Although this can 
         &lt;em property="name"&gt;The Fellowship of the Rings&lt;/em&gt; was written by
         &lt;span property="author"&gt;J.R.R Tolkien&lt;/span&gt; and was originally published
         in the &lt;span property="publisher" typeof="Organization"&gt;
-            &lt;span property="location"&gt;United Kingdom&lt;/span&gt; by
+            &lt;span property="location"&gt;United Kingdom&lt;/span&gt; by 
             &lt;span property="name"&gt;George Allen & Unwin&lt;/span&gt;
         &lt;/span&gt; in &lt;time property="datePublished"&gt;1954&lt;/time&gt;.
-        The book has been republished many times, including editions by
+        The book has been republished many times, including editions by 
         &lt;span property="workExample" typeof="Book"&gt;
             &lt;span property="publisher" typeof="Organization"&gt;
                 &lt;span property="name"&gt;HarperCollins&lt;/span&gt;
             &lt;/span&gt; in &lt;time property="datePublished"&gt;1974&lt;/time&gt;
             (ISBN: &lt;span property="isbn"&gt;0007149212&lt;/span&gt;)
-        &lt;/span&gt; and by
-        &lt;span property="workExample" typeof="Book bib:Microform"&gt;
+        &lt;/span&gt; and by 
+        &lt;span property="workExample" typeof="Book bib:Microform"&gt;  
             &lt;span property="publisher" typeof="Organization"&gt;
                 &lt;span property="name"&gt;Microfiche Press&lt;/span&gt;
             &lt;/span&gt; in &lt;time property="datePublished"&gt;2016&lt;/time&gt;
@@ -247,7 +240,7 @@ Here is that last approach written in JSON-LD (it works today, but would be even
 
 <pre>
 &lt;script type="application/ld+json"&gt;
-{
+{ 
     "@context": "http://schema.org/",
     "@vocab": "http://gs1.schema.org/",
     "@id": "http://id.manufacturer.com/gtin/05011476100885",
@@ -307,8 +300,8 @@ Here is that last approach written in JSON-LD (it works today, but would be even
 
 <p>
 This example shows a possible encoding of the GS1 schemas overlaid onto schema.org. It uses JSON-LD syntax, which would support several variations on this approach. It is based on examples from GS1's proposal circulated to the schema.org community recently.
-(https://lists.w3.org/Archives/Public/public-vocabs/2015Jan/0069.html). Instead of writing
-    "@context": "http://schema.org/",   "@vocab": "http://gs1.schema.org/", it would be possible to simply write "@context": "http://gs1.schema.org/".
+(https://lists.w3.org/Archives/Public/public-vocabs/2015Jan/0069.html). Instead of writing 
+    "@context": "http://schema.org/",   "@vocab": "http://gs1.schema.org/", it would be possible to simply write "@context": "http://gs1.schema.org/". 
 
 </p>
 

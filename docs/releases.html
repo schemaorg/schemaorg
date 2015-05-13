@@ -130,6 +130,133 @@ td.release  {
 <span id="v.next" />
 
 <tr>
+<td class="release"><a href="/version/2.0/">2.0</a><br/>sdo-gozer<br/>(2015-05-12)</td>
+<span id="sdo-gozer" />
+<span id="v2.0" />
+<td>Version 2.0 consolidates and integrates schema.org's existing vocabulary. This version features many updated definitions, type/property associations and term names that
+improve consistency and usability. It also introduces a new <a href="/docs/extension.html">extension system</a>.
+Version 2.0 adds various new terms including <a href="/mainEntityOfPage">mainEntityOfPage</a> and major contributions from the
+<a href="https://www.w3.org/community/gao/">Automotive Ontology community</a>.
+</td>
+<td>
+
+<h3>Vocabulary</h3>
+<ul>
+
+
+<li id="automotive">
+<a href="https://github.com/schemaorg/schemaorg/issues/262">Fix to #262</a>: Added new vocabulary for <a href="/Car">Car</a>:
+
+The new vocabulary includes a number of properties such as: <a href="/numberOfAirbags">numberOfAirbags</a>,
+<a href="/numberOfAxles">numberOfAxles</a>,
+<a href="/numberOfForwardGears">numberOfForwardGears</a>,
+<a href="/fuelConsumption">fuelConsumption</a>,
+<a href="/fuelEfficiency">fuelEfficiency</a>
+<a href="/vehicleEngine">vehicleEngine</a>,
+<a href="/EngineSpecification">EngineSpecification</a>...
+<br/>
+Thanks to Martin Hepp, Mirek Sopek, Karol Szczepański and <a href="https://www.w3.org/community/gao/participants">others</a>
+in the <a href="https://www.w3.org/community/gao/">Automotive Ontology</a> community group.
+We <a href="https://github.com/schemaorg/schemaorg/issues/262">anticipate</a> substantial additions that build on this foundation will be contributed as an <a href="/docs/extension.html">extension</a>.
+</li>
+<li id="propvalue">
+<a href="https://github.com/schemaorg/schemaorg/issues/263">Fix to #301</a>: Added a generic property/values mechanism, building upon <a href="/PropertyValueSpecification">PropertyValueSpecification</a>, <a href="/StructuredValue">StructuredValue</a> and <a href="/value">value</a>; added
+<a href="/PropertyValue">PropertyValue</a> and <a href="/additionalProperty">additionalProperty</a>. See <a href="/PropertyValue#examples">examples</a> for usage.  This is a lightweight
+    mechanism to allow markup of properties that are not easily mapped to existing schema.org properties. Whenever possible, it is generally better to use a dedicated schema.org property if one exists.
+</li>
+<li><a href="https://github.com/schemaorg/schemaorg/issues/301">Fix to #301</a>: Added <a href="/mainEntityOfPage">mainEntityOfPage</a> (and an inverse, <a href="/mainEntity">mainEntity</a>) to indicate which of the entities mentioned in a page is its primary topic.</li>
+<li><a href="https://github.com/schemaorg/schemaorg/issues/225">Fix to #225</a>: Added a <a href="/schemaVersion">schemaVersion</a> property, for use by applications that require more precise referencing of schema versions.</li>
+<li><a href="https://github.com/schemaorg/schemaorg/issues/266">Fix to #266</a>: Added <a href="/OrderItem">OrderItem</a> to allow <a href="/ParcelDelivery">ParcelDelivery</a> to be tracked per item, not just on an entire <a href="/Order">Order</a>.</li>
+
+<li><a href="https://github.com/schemaorg/schemaorg/issues/170">Fix to #170</a>: Clarifying CommentAction, Comment by deprecating UserComments. Several mentions of UserComments removed from other terms. 'inLanguage' supersedes 'language'. Added a <a href="/resultComment">resultComment</a> property. UserInteraction and sub-types will be deprecated.</li>
+<li><a href="https://github.com/schemaorg/schemaorg/issues/300">Fix to #300</a>: Answer is now a sub-type of Comment. The 'question' property expects 'Question' type for its values (rather than Text as in AskAction previously). Added resultComment on ReplyAction. Cleaned up examples.</li>
+
+<li><a href="https://github.com/schemaorg/schemaorg/issues/130">Fix to #130</a>: Amended <a href="/True">True</a> and <a href="/False">False</a> to be instances (rather than sub-types) of <a href="/Boolean">Boolean</a>.</li>
+<li><a href="https://github.com/schemaorg/schemaorg/issues/218">Fix to #218</a>: Amended <a href="/DataType">DataType</a> to model it as a sub-class of Class, with each datatype e.g. <a href="/Boolean">Boolean</a>, <a href="/Text">Text</a>, <a href="/Date">Date</a>, <a href="/DateTime">DateTime</a>, <a href="/Time">Time</a> etc. being classes that have a typeOf <a href="/DataType">DataType</a>. DataTypes can have sub-types, e.g. <a href="/Integer">Integer</a> and <a href="/Float">Float</a> are subtypes of <a href="/Number">Number</a>.</li>
+
+<li><a href="https://github.com/schemaorg/schemaorg/issues/328">Fix to #328</a>: Added <a href="/ScreeningEvent">ScreeningEvent</a> to support movie/video screenings.</li>
+<li><a href="https://github.com/schemaorg/schemaorg/issues/314">Fix to #314</a>: Added <a href="/MovieClip">MovieClip</a> and  <a href="/VideoGameClip">VideoGameClip</a> as parallels to  <a href="/TVClip">TVClip</a> and  <a href="/RadioClip">RadioClip</a>.</li>
+<li><a href="https://github.com/schemaorg/schemaorg/issues/122">Fix to #122</a>: Added <a href="/gtin12">gtin12</a> property for <a href="/Product">Product</a>.</li>
+<li id="rename2015"><a href="https://github.com/schemaorg/schemaorg/issues/417">Fix to #417</a>: Renamed many types and properties, which had overly generic names. This is no cause for alarm,
+the superseded names can still be used, although we encourage consumers and producers of schema.org data to move towards the newer terminology.
+    <a href="/CreativeWorkSeason">CreativeWorkSeason was Season</a>,
+    <a href="/CreativeWorkSeries">CreativeWorkSeries was Series</a>,
+    <a href="/SoftwareSourceCode">SoftwareSourceCode was Code</a>,
+    <a href="/TaxiService">TaxiService was Taxi</a>,
+    <a href="/actionApplication">actionApplication was application</a>,
+    <a href="/actionOption">actionOption was option</a>,
+    <a href="/artMedium">artMedium was material</a>,
+    <a href="/artworkSurface">artworkSurface was surface</a>,
+    <a href="/availableOnDevice">availableOnDevice was device</a>,
+    <a href="/branchOf">branchOf was parentOrganization</a>,
+    <a href="/broadcastTimezone">broadcastTimezone was timezone</a>,
+    <a href="/codeSampleType">codeSampleType was sampleType</a>,
+    <a href="/containsSeason">containsSeason was season</a>,
+    <a href="/datasetTimeInterval">datasetTimeInterval was temporal</a>,
+    <a href="/executableLibraryName">executableLibraryName was assembly</a>,
+    <a href="/exerciseCourse">exerciseCourse was course</a>,
+    <a href="/exerciseRelatedDiet">exerciseRelatedDiet was diet</a>,
+    <a href="/incentiveCompensation">incentiveCompensation was incentives</a>,
+    <a href="/includedDataCatalog">includedDataCatalog was catalog</a>,
+    <a href="/isAccessibleForFree">isAccessibleForFree was free</a>,
+    <a href="/jobBenefits">jobBenefits was benefits</a>,
+    <a href="/runtimePlatform">runtimePlatform was runtime</a>,
+    <a href="/serviceArea">serviceArea was area</a>,
+    <a href="/serviceOutput">serviceOutput was produces</a>,
+    <a href="/softwareRequirements">softwareRequirements was requirements</a>,
+    <a href="/targetCollection">targetCollection was collection</a>.
+</li>
+
+</ul>
+
+<h3>Site improvements</h3>
+
+<ul>
+<li id="extng"><a href="https://github.com/schemaorg/schemaorg/issues/429">Fix to #429</a>: Implementation of new <a href="/docs/extension.html">extension system</a>.</li>
+<li id="404handler"><a href="https://github.com/schemaorg/schemaorg/issues/6">Fix to #6</a>: Improved 404 handler for missing pages, with support for old-style "/Person/Minister" extension URLs and Action-related "/query-input" pseudo-properties.</li>
+<li id="d3"><a href="https://github.com/schemaorg/schemaorg/issues/318">Fix to #318</a>: Added an <em>experimental</em> JSON(-LD) <a href="http://sdo-gozer.appspot.com/docs/tree.jsonld">view</a> of the hierarchy. This combines <a href="http://d3js.org/">D3</a> with <a href="http://www.w3.org/TR/rdf-schema/">RDF schema</a>. Thanks to Gregg Kellogg and Sandro Hawke for collaboration.</li>
+<li>Various behind-the-scenes improvement to the site software.</li>
+</ul>
+
+<h3>Quick fixes and Examples</h3>
+<ul>
+<li><a href="https://github.com/schemaorg/schemaorg/issues/119">Fix to #119</a>: Added a link to <a href="http://www.gs1.org/gln">GS1's page</a> giving background information on <a href="/globalLocationNumber">/globalLocationNumber</a>.</li>
+<li><a href="https://github.com/schemaorg/schemaorg/issues/471">Fix to #471</a>: Added a JSON example for <a href="/exampleOfWork">exampleOfWork</a> and <a href="/workExample">workExample</a>.</li>
+<li><a href="https://github.com/schemaorg/schemaorg/issues/131">Fix to #131</a>: Amended <a href="/category">category</a> to be applicable to <a href="/Product">Product</a></li>
+<li><a href="https://github.com/schemaorg/schemaorg/issues/8">Fix to #8</a>: Fixed description of <a href="/box">box</a> to follow the original <a href="http://dev.iptc.org/rNews-1-The-GeoCoordinates-Class">rNews</a> definition (instead of accidental copy of <a href="/polygon">polygon</a>). Added explanatory text to <a href="/GeoShape">GeoShape</a> regarding commas/whitespace.</li>
+<li><a href="https://github.com/schemaorg/schemaorg/issues/224">Fix to #224</a>: Changed expected value of <a href="/openingHours">openingHours</a> to be Text rather than Duration, since latter is for ISO formats not our custom micro-syntax.</li>
+<li><a href="https://github.com/schemaorg/schemaorg/issues/112">Fix to #112</a>: Clarified that <a href="/upvoteCount">upvoteCount</a> and <a href="/downvoteCount">downvoteCount</a> apply to questions, answers and comments (rather than just to questions).</li>
+<li><a href="https://github.com/schemaorg/schemaorg/issues/109">Fix to #103</a>: Clarified description of <a href="/StructuredValue">StructuredValue</a>.</li>
+<li><a href="https://github.com/schemaorg/schemaorg/issues/333">Fix to #333</a>: Clarified description of <a href="/BreadcrumbList">BreadcrumbList</a>.</li>
+<li><a href="https://github.com/schemaorg/schemaorg/issues/456">Fix to 456</a>: Generalized <a href="/numberOfEmployees">numberOfEmployees</a>, to apply to <a href="/Organization">Organization</a> as well as to <a href="/BusinessAudience">BusinessAudience</a>.</li>
+<li><a href="https://github.com/schemaorg/schemaorg/issues/439">Fix to #439</a>: Clarified <a href="/numberOfItems">numberOfItems</a> with multi-page pagination.</li>
+<li><a href="https://github.com/gkellogg/schemaorg/commit/290ed07cb2fa274b46c82ea4b6220b13cbe946f8">Fixed</a> the mapping from <a href="/DataCatalog">DataCatalog</a> to <a href="http://www.w3.org/ns/dcat#Catalog">dcat:Catalog</a></li>
+<li><a href="https://github.com/schemaorg/schemaorg/issues/341">Fix to #341</a>: Amended <a href="/programmingLanguage">programmingLanguage</a> to expect a <a href="/Language">Language</a> rather than a <a href="/Thing">Thing</a>.</li>
+<li><a href="https://github.com/schemaorg/schemaorg/issues/365">Fix to #365</a>: Extended <a href="/award">award</a> for use on <a href="/Organization">Organization</a>, <a href="/Product">Product</a>.</li>
+<li><a href="https://github.com/schemaorg/schemaorg/issues/145">Fix to #145</a>: Marked <a href="/serviceAudience">serviceAudience</a> as supersededBy the more general <a href="/audience">audience</a> property.</li>
+<li><a href="https://github.com/schemaorg/schemaorg/issues/165">Fix to #165</a>: Renamed  <a href="/ingredients">ingredients</a> to <a href="/recipeIngredient">recipeIngredient</a>, improved the description, and added <a href="/ItemList">ItemList</a> as a possible value for <a href="/recipeInstructions">recipeInstructions</a>.</li>
+<li><a href="https://github.com/schemaorg/schemaorg/issues/171">Fix to #171</a>: Removed <a href="/Class">Class</a> as a value of <a href="/query">query</a> property.</li>
+<li><a href="https://github.com/schemaorg/schemaorg/issues/183">Fix to #183</a>: <a href="/comment">comment</a> property now applicable to an <a href="/RsvpAction">RsvpAction</a>, and can have <a href="/Comment">Comment</a> as values.</li>
+<li><a href="https://github.com/schemaorg/schemaorg/issues/193">Fix to #193</a>: <a href="/aggregateRating">aggregateRating</a> and <a href="/review">review</a> properties are now expected on <a href="/Brand">Brand</a>, <a href="/Event">Event</a>, <a href="/Service">Service</a>.</li>
+<li><a href="https://github.com/schemaorg/schemaorg/issues/247">Fix to #247</a>: We now write "antonym" instead of the incorrect "antagonym" in several Action definitions.</li>
+<li><a href="https://github.com/schemaorg/schemaorg/issues/316">Fix to #316</a>: Marked <a href="/warrantyPromise">warrantyPromise</a> as supersededBy <a href="/warranty">warranty</a>.</li>
+<li><a href="https://github.com/schemaorg/schemaorg/issues/213">Fix to #213</a>: Amended <a href="/eligibleRegion">eligibleRegion</a> and <a href="/ineligibleRegion">ineligibleRegion</a> to have the same associated types.</li>
+<li><a href="https://github.com/schemaorg/schemaorg/issues/315">Fix to #315</a>: Updated <a href="/BroadcastService">BroadcastService</a>, marking it as a kind of <a href="/Service">Service</a> rather than just <a href="/Thing">Thing</a>.</li>
+<li><a href="https://github.com/schemaorg/schemaorg/issues/426">Fix to #426</a>: Broadened <a href="/supersededBy">supersededBy</a> to be usable with classes and enumerations.</li>
+<li><a href="https://github.com/schemaorg/schemaorg/issues/366">Fix to #366</a>: Reworded description of <a href="/publication">publication</a> to use 'item' instead of a list of types (which had omitted Book), and marked it as applicable to <a href="/CreativeWork">CreativeWork</a>.</li>
+<li><a href="https://github.com/schemaorg/schemaorg/issues/288">Fix to #288</a>: added properties related to boarding passes to <a href="/FlightReservation">FlightReservation</a>.</li>
+<li><a href="https://github.com/schemaorg/schemaorg/issues/329">Fix to #329</a>: expanded <a href="/BroadcastService">BroadcastService</a> and added new types <a href="/CableOrSatelliteService">CableOrSatelliteService</a>, <a href="/BroadcastChannel">BroadcastChannel</a>, <a href="/TelevisionChannel">TelevisionChannel</a>, and <a href="/RadioChannel">RadioChannel</a> to support TV/radio schedules. Thanks, Yves Raimond for careful review.</li>
+<li><a href="https://github.com/schemaorg/schemaorg/issues/335">Fix to #335</a>: added gameLocation to <a href="/VideoGameSeries">VideoGameSeries</a>.</li>
+<li><a href="https://github.com/schemaorg/schemaorg/issues/336">Fix to #336</a>: added actor and director to <a href="/Series">Series</a>.</li>
+<li><a href="https://github.com/schemaorg/schemaorg/issues/364">Fix to #364</a>: replaced non-existent Award type with Book in <a href="/WinAction">WinAction</a> type. Thanks, unor.</li>
+<li><a href="https://github.com/schemaorg/schemaorg/issues/386">Fix to #386</a>: Fixed extra spaces in labels.</li>
+</ul>
+
+<div>See also <a href="https://github.com/schemaorg/schemaorg/issues?q=milestone%3A%22sdo-gozer+release%22">issue list</a> for this release.</div>
+</td>
+</tr>
+
+<tr>
 <td class="release">1.93<br/>sdo-stantz<br/>(2015-02-04)</td>
 <span id="sdo-stantz" />
 <span id="v1.93" />
@@ -137,7 +264,7 @@ td.release  {
 <td>
 <h3>Vocabulary</h3>
 <ul>
-<li id="visualartwork"><a href="https://github.com/schemaorg/schemaorg/issues/204">Added</a> <a href="/VisualArtwork">VisualArtwork</a> type and supporting properties - <a href="/artEdition">artEdition</a>, <a href="/artform">artform</a>, <a href="/material">material</a>, <a href="/surface">surface</a>. Thanks, <a href="https://github.com/lazaruscorporation"></a>Paul Watson</a>.</li>
+<li id="visualartwork"><a href="https://github.com/schemaorg/schemaorg/issues/204">Added</a> <a href="/VisualArtwork">VisualArtwork</a> type and supporting properties - <a href="/artEdition">artEdition</a>, <a href="/artform">artform</a>, <a href="/material">material</a>, <a href="/surface">surface</a>. Thanks, <a href="https://github.com/lazaruscorporation">Paul Watson</a>.</li>
 <li id="invoices"><a href="https://github.com/schemaorg/schemaorg/pull/279">Added</a> an <a href="/Invoice">Invoice</a> type to represent invoices/bills, with additional properties <a href="/totalPaymentDue">totalPaymentDue</a>,
 <a href="/minimumPaymentDue">minimumPaymentDue</a>, <a href="/accountId">accountId</a>, <a href="/scheduledPaymentDate">scheduledPaymentDate</a>, <a href="/billingPeriod">billingPeriod</a>, <a href="/paymentStatus">paymentStatus</a>, <a href="/referencesOrder">referencesOrder</a>.
 </li>
