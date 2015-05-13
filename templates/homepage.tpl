@@ -86,7 +86,7 @@ See the draft <b><a href="/docs/releases.html">releases</a></b> page to learn mo
 {% else %}
 
 
-  <h1>Welcome to Schema.org?</h1>
+  <h1>Welcome to Schema.org</h1>
 
 
 <p>
