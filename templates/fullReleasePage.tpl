@@ -122,6 +122,7 @@ that are useful for publishers and consumers of schema.org data.
 
 <p>
   <div>{{ az_type_meta[term]['comment'] }} </div>
+  <div> {{ az_type_meta[term]['typeinfo'] }} </div>
   <small><a href="#intro">[^top]</a></small>
 </p>
 

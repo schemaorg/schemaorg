@@ -479,31 +479,31 @@ class ShowUnit (webapp2.RequestHandler):
                 class_head = self.ml(cl)
                 if subclass:
                     class_head = self.ml(cl, prop="rdfs:subClassOf")
-                self.write("<thead class=\"supertype\">\n  <tr>\n    <th class=\"supertype-name\" colspan=\"3\">Properties from %s</th>\n  </tr>\n</thead>\n\n<tbody class=\"supertype\">\n  " % (class_head))
+                out.write("<thead class=\"supertype\">\n  <tr>\n    <th class=\"supertype-name\" colspan=\"3\">Properties from %s</th>\n  </tr>\n</thead>\n\n<tbody class=\"supertype\">\n  " % (class_head))
                 headerPrinted = True
 
-            self.write("<tr typeof=\"rdfs:Property\" resource=\"http://schema.org/%s\">\n    \n      <th class=\"prop-nam\" scope=\"row\">\n\n<code property=\"rdfs:label\">%s</code>\n    </th>\n " % (prop.id, self.ml(prop)))
-            self.write("<td class=\"prop-ect\">\n")
+            out.write("<tr typeof=\"rdfs:Property\" resource=\"http://schema.org/%s\">\n    \n      <th class=\"prop-nam\" scope=\"row\">\n\n<code property=\"rdfs:label\">%s</code>\n    </th>\n " % (prop.id, self.ml(prop)))
+            out.write("<td class=\"prop-ect\">\n")
             first_range = True
             for r in ranges:
                 if (not first_range):
-                    self.write(" or <br/> ")
+                    out.write(" or <br/> ")
                 first_range = False
-                self.write(self.ml(r, prop='rangeIncludes'))
-                self.write("&nbsp;")
-            self.write("</td>")
-            self.write("<td class=\"prop-desc\" property=\"rdfs:comment\">%s" % (comment))
+                out.write(self.ml(r, prop='rangeIncludes'))
+                out.write("&nbsp;")
+            out.write("</td>")
+            out.write("<td class=\"prop-desc\" property=\"rdfs:comment\">%s" % (comment))
             if (len(olderprops) > 0):
                 olderlinks = ", ".join([self.ml(o) for o in olderprops])
-                self.write(" Supersedes %s." % olderlinks )
+                out.write(" Supersedes %s." % olderlinks )
             if (inverseprop != None):
-                self.write("<br/> Inverse property: %s." % (self.ml(inverseprop)))
+                out.write("<br/> Inverse property: %s." % (self.ml(inverseprop)))
 
-            self.write("</td></tr>")
+            out.write("</td></tr>")
             subclass = False
 
         if subclass: # in case the superclass has no defined attributes
-            self.write("<meta property=\"rdfs:subClassOf\" content=\"%s\">" % (cl.id))
+            out.write("<meta property=\"rdfs:subClassOf\" content=\"%s\">" % (cl.id))
 
     def emitClassIncomingProperties (self, cl, layers="core", out=None, hashorslash="/"):
         """Write out a table of incoming properties for a per-type page."""
@@ -1111,12 +1111,17 @@ class ShowUnit (webapp2.RequestHandler):
             az_props.sort( key = lambda u: u.id)
             az_prop_meta = {}
 
+
+#TODO: ClassProperties (self, cl, subclass=False, layers="core", out=None, hashorslash="/"):
+
             # TYPES
             for t in az_types:
+                typeInfo = HTMLOutput()
+                self.ClassProperties(t, out=typeInfo, hashorslash="#term_" )
                 tcmt = Markup(GetComment(t))
                 az_type_meta[t]={}
                 az_type_meta[t]['comment'] = tcmt
-                az_type_meta[t]['typeinfo'] = 'TODO'
+                az_type_meta[t]['typeinfo'] = typeInfo.toHTML()
 
             # PROPERTIES
             for pt in az_props:
