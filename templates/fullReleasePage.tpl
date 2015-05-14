@@ -99,7 +99,7 @@ release needs to be cited, this document provides the appropriate URL.
 the formal schema dataset associated with this release will not change, we may update the formatting (tracked as
 <a href="https://github.com/schemaorg/schemaorg/issues/484">issue #484</a>), layout and other details of this document to
 improve the presentation of this information. Similarly, the encoding and publication details (RDFa/RDFS etc.) for the machine-readable schema file may evolve; however the
-data encoded should be considered canonical and frozen for each release. We solicit <a href="github.com/schemaorg/schemaorg/issues">advice</a> on data formats
+data encoded should be considered canonical and frozen for each release. We solicit <a href="http://github.com/schemaorg/schemaorg/issues">advice</a> on data formats
 that are useful for publishers and consumers of schema.org data.
 </p>
 
