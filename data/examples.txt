@@ -1662,7 +1662,7 @@ MICRODATA:
 
 <div itemscope itemtype="http://schema.org/ItemList">
   <h2 itemprop="name">Top 10 laptops</h2><br>
-  <meta itemprop="itemListOrder" content="http://schema.org/ItemListOrderDescending" />
+  <link itemprop="itemListOrder" href="http://schema.org/ItemListOrderDescending" />
   <p>1. <span itemprop="itemListElement">HP Pavilion dv6-6013cl</span></p>
   <p>2. <span itemprop="itemListElement">Dell XPS 15 (Sandy Bridge)</span></p>
   <p>3. <span itemprop="itemListElement">Lenovo ThinkPad X220</span></p>
@@ -1673,7 +1673,7 @@ RDFA:
 
 <div vocab="http://schema.org/" typeof="ItemList">
   <h2 property="name">Top 10 laptops</h2><br>
-  <meta property="itemListOrder" content="http://schema.org/ItemListOrderDescending" />
+  <link property="itemListOrder" href="http://schema.org/ItemListOrderDescending" />
   <p>1. <span property="itemListElement">HP Pavilion dv6-6013cl</span></p>
   <p>2. <span property="itemListElement">Dell XPS 15 (Sandy Bridge)</span></p>
   <p>3. <span property="itemListElement">Lenovo ThinkPad X220</span></p>
@@ -12106,11 +12106,11 @@ TYPES:  ItemList, Product, Offer
 PRE-MARKUP:
 
 <div>
-  <link  href="http://multivarki.ru?filters%5Bprice%5D%5BLTE%5D=39600" />
+  <!-- http://multivarki.ru?filters%5Bprice%5D%5BLTE%5D=39600 -->
   <span>315</span>
   <div>
-    <img src="http://img01.multivarki.ru.ru/c9/f1/a5fe6642-18d0-47ad-b038-6fca20f1c923.jpeg" />
-    <a alt="Photo of product" href="http://multivarki.ru/brand_502/">
+    <img alt="Photo of product" src="http://img01.multivarki.ru.ru/c9/f1/a5fe6642-18d0-47ad-b038-6fca20f1c923.jpeg" />
+    <a href="http://multivarki.ru/brand_502/">
       <span>BRAND 502</span>
     </a>
     <div>
@@ -12124,10 +12124,10 @@ PRE-MARKUP:
 
 MICRODATA:
 
-<div  itemtype="http://schema.org/ItemList">
+<div itemscope itemtype="http://schema.org/ItemList">
   <link itemprop="url" href="http://multivarki.ru?filters%5Bprice%5D%5BLTE%5D=39600" />
   <span itemprop="numberOfItems">315</span>
-  <div itemprop="itemListElement" itemscope="" itemtype="http://schema.org/Product">
+  <div itemprop="itemListElement" itemscope itemtype="http://schema.org/Product">
     <img alt="Photo of product" itemprop="image"
      src="http://img01.multivarki.ru.ru/c9/f1/a5fe6642-18d0-47ad-b038-6fca20f1c923.jpeg" />
     <a itemprop="url" href="http://multivarki.ru/brand_502/">
@@ -12136,7 +12136,7 @@ MICRODATA:
     <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
       <span itemprop="price">4399 р.</span>
     </div>...
-    <div itemprop="itemListElement"  itemtype="http://schema.org/Product">
+    <div itemprop="itemListElement" itemscope itemtype="http://schema.org/Product">
     ...
     </div>
   </div>
@@ -12156,7 +12156,7 @@ RDFA:
     <div property="offers" typeof="http://schema.org/Offer">
       <span property="price">4399 р.</span>
     </div>...
-    <div property="itemListElement"  typeof="Product">
+    <div property="itemListElement" typeof="Product">
     ...
     </div>
   </div>
@@ -12201,17 +12201,17 @@ by John Doe
 
 MICRODATA:
 
-<div itemtype="http://schema.org/ItemList http://schema.org/CreativeWork">
+<div itemscope itemtype="http://schema.org/ItemList http://schema.org/CreativeWork">
   <h1 itemprop="name">Top 5 covers of Bob Dylan Songs</h1>
   <div itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <span itemprop="name" content="John Doe">by John Doe</span>
+    by <span itemprop="name">John Doe</span>
   </div>
   <div itemprop="about" itemscope itemtype="http://schema.org/MusicRecording">
     <div itemprop="byArtist" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Bob Dylan" />
     </div>
   </div>
-  <meta itemprop="itemListOrder" content="http://schema.org/ItemListOrderAscending" />
+  <link itemprop="itemListOrder" href="http://schema.org/ItemListOrderAscending" />
   <meta itemprop="numberOfItems" content="5" />
   <div itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
     <span itemprop="position">5</span>
@@ -12268,14 +12268,14 @@ RDFA:
 <div vocab="http://schema.org/" typeof="ItemList CreativeWOrk">
   <h1 property="name">Top 5 covers of Bob Dylan Songs</h1>
   <div property="author" typeof="Person">
-    <span property="name" content="John Doe">by John Doe</span>
+    by <span property="name">John Doe</span>
   </div>
   <div property="about" typeof="MusicRecording">
     <div property="byArtist" typeof="Person">
       <meta property="name" content="Bob Dylan" />
     </div>
   </div>
-  <meta property="itemListOrder" content="http://schema.org/ItemListOrderAscending" />
+  <link property="itemListOrder" href="http://schema.org/ItemListOrderAscending" />
   <meta property="numberOfItems" content="5" />
   <div property="itemListElement" typeof="ListItem">
     <span property="position">5</span>
@@ -12429,7 +12429,7 @@ The artists with the most cumulative weeks at number one according to Billboard 
 
 MICRODATA:
 
-<div itemtype="http://schema.org/ItemList">
+<div itemscope itemtype="http://schema.org/ItemList">
   <link itemprop="url" href="http://en.wikipedia.org/wiki/Billboard_200" />
   <h1><span itemprop="name">Top music artists</span></h1>
   <div itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
@@ -12490,7 +12490,7 @@ RDFA:
   <div property="itemListElement" typeof="ListItem">
     <span property="position">3</span>
     <span property="item" typeof="MusicGroup">
-      <span itemprop="name">Garth Brooks</span>
+      <span property="name">Garth Brooks</span>
     </span>
     <span>51 weeks</span>
   </div>
@@ -12560,20 +12560,20 @@ MICRODATA:
   <span itemprop="name">King of Limbs</span>
   <span itemprop="byArtist">Radiohead</span>
   <div itemprop="track" itemscope itemtype="http://schema.org/ItemList">
-    <span itemprop="numberOfItems" content=8 />
-    <div itemprop="itemListElement itemscope itemtype="http://schema.org/ListItem">
+    <meta itemprop="numberOfItems" content="8" />
+    <div itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
       <span itemprop="position">1</span>
       <div itemprop="item" itemscope itemtype="http://schema.org/MusicRecording">
         <span itemprop="name">Bloom</span>
       </div>
     </div>
-    <div itemprop="itemListElement itemscope itemtype="http://schema.org/ListItem">
+    <div itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
       <span itemprop="position">2</span>
       <div itemprop="item" itemscope itemtype="http://schema.org/MusicRecording">
         <span itemprop="name">Morning Mr. Magpie</span>
       </div>
     </div>
-    <div itemprop="itemListElement itemscope itemtype="http://schema.org/ListItem">
+    <div itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
       <span itemprop="position">3</span>
       <div itemprop="item" itemscope itemtype="http://schema.org/MusicRecording">
         <span itemprop="name">Little by Little</span>
@@ -12588,22 +12588,22 @@ RDFA:
   <span property="name">King of Limbs</span>
   <span property="byArtist">Radiohead</span>
   <div property="track" typeof="ItemList">
-    <span property="numberOfItems" content=8 />
+    <meta property="numberOfItems" content=8 />
     <div property="itemListElement" typeof="ListItem">
       <span property="position">1</span>
       <div property="item" typeof="http://schema.org/MusicRecording">
         <span property="name">Bloom</span>
       </div>
     </div>
-    <div property="itemListElement typeof="ListItem">
+    <div property="itemListElement" typeof="ListItem">
       <span property="position">2</span>
       <div property="item" typeof="MusicRecording">
         <span property="name">Morning Mr. Magpie</span>
       </div>
     </div>
-    <div property="itemListElement typeof="ListItem">
+    <div property="itemListElement" typeof="ListItem">
       <span property="position">3</span>
-      <div property="item" ypeof="MusicRecording">
+      <div property="item" typeof="MusicRecording">
         <span property="name">Little by Little</span>
       </div>
     </div>
