@@ -1,0 +1,75 @@
+TYPES: UpVoteCounter,ShareCounter,ViewCounter,VideoObject
+
+PRE-MARKUP:
+A video has the following interactions:
+Youtube: 512 up votes
+Twitter: 1,024 up votes
+Twitter: 2,345 tweets
+Facebook: 1,024 likes
+4,356 views
+
+
+MICRODATA:
+TBD
+
+RDFA:
+TBD
+
+JSON:
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org/",
+  "@type": "VideoObject",
+  "name": "Light at the End of the Tunnel",
+  "url": "http://videolectures.net/iswc2013_guha_tunnel/",
+  "datePublished": "2013-11-28",
+  "author": {
+    "@type": "Person",
+    "name": "Ramanathan V. Guha"
+  },
+  "interactionStatistic": [
+    {
+      "@type": "UpVoteCounter",
+      "interactionService": {
+        "@type": "Website",
+        "name": "Youtube",
+        "url": "http://www.youtube.com"
+      },
+      "userInteractionCount": "512"
+    },
+    {
+      "@type": "UpVoteCounter",
+      "interactionService": {
+        "@type": "SoftwareApplication",
+        "name": "Twitter",
+        "url": "http://www.twitter.com"
+      },
+      "userInteractionCount": "1024"
+    },
+    {
+      "@type": "ShareCounter",
+      "interactionService": {
+        "@type": "SoftwareApplication",
+        "name": "Twitter",
+        "url": "http://www.twitter.com"
+      },
+      "userInteractionCount": "2345"
+    },
+    {
+      "@type": "UpVoteCounter",
+      "interactionService": {
+        "@type": "Website",
+        "name": "Facebook",
+        "url": "http://www.facebook.com"
+      },
+      "userInteractionCount": "1024"
+    },
+    {
+      "@type": "ViewCounter",
+      "userInteractionCount": "4356"
+    },
+  ]
+}
+
+
+  
