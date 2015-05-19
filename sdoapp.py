@@ -54,7 +54,9 @@ JINJA_ENVIRONMENT = jinja2.Environment(
 
 ENABLE_JSONLD_CONTEXT = True
 ENABLE_CORS = True
-ENABLE_HOSTED_EXTENSIONS = False
+ENABLE_HOSTED_EXTENSIONS = True
+
+ENABLED_EXTENSIONS = [ 'admin', 'auto', 'bib' ]
 
 
 debugging = False
