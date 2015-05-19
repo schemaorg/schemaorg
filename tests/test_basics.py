@@ -1,6 +1,8 @@
 import unittest
 import os
 import logging # https://docs.python.org/2/library/logging.html#logging-levels
+import sys
+sys.path.append( os.getcwd() )
 
 #from api import *
 from sdoapp import *

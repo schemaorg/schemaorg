@@ -2,8 +2,17 @@ Schema.org project repository
 
 This repository contains all the schemas, examples and software use to publish schema.org. 
 
-The codebase is a simple Python application. It uses Google App Engine, and is designed to allow schema.org contributors to explore new or improved schemas. The code has a bias towards simplicity and minimal dependencies,
-rather than elegance and re-usability. 
+Issues and proposals are managed here by participants of the W3C Schema.org Community Group.
+See http://www.w3.org/community/schemaorg for the group. If you are interested to participate please
+join the group at W3C, introduce yourself and find or file issues here that engage your interest. 
+
+
+Software 
+========
+
+The site codebase is a simple Python application. It uses Google App Engine, and is designed to allow schema.org contributors to explore new or improved schemas. The code has a bias towards simplicity and minimal dependencies,
+rather than elegance and re-usability. We expect collaboration will focus more on schemas and examples than 
+on our supporting software.
 
 The app reads its schemas and examples from the data/ directory when it starts up. These
 are expressed in simple text formats. Proposals to schema.org can be provided as diffs
@@ -19,7 +28,7 @@ that we're comfortable with it being hardcoded in various ways around the needs 
 approaches of schema.org. If that's not too discouraging, do let us know if you find
 interesting uses for it or have ideas for improvements.
 
-See also wiki: https://github.com/rvguha/schemaorg/wiki/Contributing
+See also wiki: https://github.com/schemaorg/schemaorg/wiki/Contributing
 
 Formats and standards
 =====================
@@ -32,34 +41,34 @@ While developing schemas, using data/sdo-somethinghere-schema.rdfa can be useful
 
 The format is based on W3C RDFS in HTML/RDFa format, see http://schema.org/docs/datamodel.html
 
-The examples are stored in data/examples.txt (utf-8) 
+The examples are stored in data/examples.txt (utf-8) and other *.txt files.
 
 As with schemas, data/*examples.txt will also be read. It can be useful to develop
 using separate files. When vocabulary is finally integrated into the main repository, schema
 data will be merged into schema.org. However examples will stay in separate files, as this
 works better with git's file comparison machinery.
 
+The data/releases/ hierarchy is reserved for release snapshots (see http://schema.org/version/).
+
+The ext/*/ hierarchy is reserved for extensions (see http://schema.org/docs/extension.html).
+
 
 Github Branch naming
 ====================
 
-Since discussion of http://schema.org/Role frequently referred to Ghostbusters, 
-and we want to name Github branches for upcoming releases without pre-deciding 
-their final official schema.org version number, we'll start at 
-http://en.wikipedia.org/wiki/Ghostbusters#Cast and take it from there. 
+http://schema.org/docs/releases.html lists releases by working codename and release name.
 
-i.e. sdo-venkman, sdo-stantz, sdo-barrett, sdo-spengler, sdo-zeddemore, 
-sdo-tully, sdo-melnitz, sdo-peck, sdo-lenny, sdo-gozer.
+We began using Ghostbusters character names (http://en.wikipedia.org/wiki/Ghostbusters#Cast)
+sdo-stantz, sdo-venkman, sdo-stantz; inspired by http://schema.org/Role discussions.
 
-We'll name these 'sdo-venkman', 'sdo-stantz' etc. as this naming pattern is used for 
-our test builds on Appspot.
-
-See http://schema.org/docs/releases.html for published release history.
-
-The successor to http://schema.org/docs/releases.html#v1.91 was code-named sdo-venkman, 
+e.g. successor to http://schema.org/docs/releases.html#v1.91 was code-named sdo-venkman, 
 and eventually became http://schema.org/docs/releases.html#v1.92
 
+You can therefore see candidate draft release notes in the Git repository at docs/releases.html
 
+As of May 2015, our next release will be called sdo-ganymede. The default branch in Github
+is named after the release. https://en.wikipedia.org/wiki/Ganymede_(moon) ... subsequent names
+will be in this general direction.
 
 
 Notes
