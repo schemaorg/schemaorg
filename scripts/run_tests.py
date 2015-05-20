@@ -2,7 +2,7 @@
 
 import optparse
 import sys
-from os import path
+from os import path, getenv
 from os.path import expanduser
 import unittest
 import argparse
