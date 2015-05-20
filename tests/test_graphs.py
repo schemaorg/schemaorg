@@ -119,6 +119,10 @@ class SDOGraphSetupTestCase(unittest.TestCase):
         #print(str(row))
     self.assertEqual(len(nri1_results), 0, "No subtype need redeclare a rangeIncludes of its parents. Found: %s" % len(nri1_results) )
     
+#  def test_supersededByAreLabelled(self):
+#    supersededByAreLabelled_results = self.rdflib_data.query("select ?x ?y ?z where { ?x <http://schema.org/supersededBy> ?y . ?y <http://schema.org/name> ?z }")
+#    self.assertEqual(len(inverseOf_results ) % 2 == 0, True, "Even number of inverseOf triples expected. Found: %s " % len(inverseOf_results ) )
+
 
   # These are place-holders for more sophisticated SPARQL-expressed checks.
 
