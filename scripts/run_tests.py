@@ -17,8 +17,10 @@ import argparse
 #
 # Alt: python -m unittest discover -s tests/ -p 'test_*.py' (problem as needs GAE files)
 
-def main(sdk_path, test_path, args):
-    sys.path.insert(0, sdk_path)
+def main(test_path, args):
+    sdk_path = getenv('APP_ENGINE',
+                      expanduser("~") + '/google-cloud-sdk/platform/google_appengine/')
+    sys.path.insert(0, sdk_path) # add AppEngine SDK to path
     import dev_appserver
     dev_appserver.fix_sys_path()
     print args, test_path
@@ -30,10 +32,7 @@ def main(sdk_path, test_path, args):
 
 
 if __name__ == '__main__':
-
-
     parser = argparse.ArgumentParser(description='Configurable testing of schema.org.')
-    
     parser.add_argument('--skipbasics', action='store_true', help='Skip basic tests.')
     args = parser.parse_args()
-    main(expanduser("~") + '/google-cloud-sdk/platform/google_appengine/', './tests/', args)
+    main('./tests/', args)

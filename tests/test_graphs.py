@@ -1,9 +1,16 @@
 import unittest
 import os
+from os import getenv
+from os.path import expanduser
 import logging # https://docs.python.org/2/library/logging.html#logging-levels
 import glob
 import sys
+
 sys.path.append( os.getcwd() ) 
+
+#sdk_path = getenv('APP_ENGINE',
+#                  expanduser("~") + '/google-cloud-sdk/platform/google_appengine/')
+#sys.path.insert(0, sdk_path)
 
 from api import *
 from parsers import *
@@ -20,10 +27,7 @@ log = logging.getLogger(__name__)
 
 # Tests to probe the health of both schemas and code using graph libraries in rdflib
 # Note that known failings can be annotated with @unittest.expectedFailure or @skip("reason...")
-
-
 class SDOGraphSetupTestCase(unittest.TestCase):
-
 
   @classmethod
   def parseRDFaFilesWithRDFLib(self):
@@ -46,7 +50,6 @@ class SDOGraphSetupTestCase(unittest.TestCase):
   @classmethod
   def setUpClass(self):
     log.info("Graph tests require rdflib.")
-    import unittest
     try:
       import rdflib
       from rdflib import Graph
@@ -61,10 +64,12 @@ class SDOGraphSetupTestCase(unittest.TestCase):
     SDOGraphSetupTestCase.parseRDFaFilesWithRDFLib()
 
   def test_schemasInitializedForGraph(self):
-    self.assertEqual(self.schemasInitialized,True, "Schemas should be initialized during setup, so we can load them into a graph for testing.")
+    self.assertTrue(self.schemasInitialized,
+                     "Schemas should be initialized during setup to be loaded into a graph for testing.")
 
   def test_rdflib_happy(self):
-    self.assertEqual(len(self.rdflib_errors)==0, True, "rdflib should have zero errors. %s" % self.rdflib_errors.serialize(format="nt"))
+    self.assertEqual(len(self.rdflib_errors), 0,
+                     "rdflib should have zero errors. %s" % self.rdflib_errors.serialize(format="nt"))
 
   # SPARQLResult http://rdflib.readthedocs.org/en/latest/apidocs/rdflib.plugins.sparql.html
   # "A list of dicts (solution mappings) is returned"
@@ -72,18 +77,32 @@ class SDOGraphSetupTestCase(unittest.TestCase):
   def test_found_sixplus_inverseOf(self):
     inverseOf_results = self.rdflib_data.query("select ?x ?y where { ?x <http://schema.org/inverseOf> ?y }")
     log.info("inverseOf result count: %s" % len(inverseOf_results ) )
-    self.assertEqual(len(inverseOf_results ) >= 6, True, "Six or more inverseOf expected. Found: %s " % len(inverseOf_results ) )
+    self.assertTrue(len(inverseOf_results) >= 6,
+                    "Six or more inverseOf expected. Found: %s " % len(inverseOf_results ) )
 
   def test_even_number_inverseOf(self):
     inverseOf_results = self.rdflib_data.query("select ?x ?y where { ?x <http://schema.org/inverseOf> ?y }")
-    self.assertEqual(len(inverseOf_results ) % 2 == 0, True, "Even number of inverseOf triples expected. Found: %s " % len(inverseOf_results ) )
+    self.assertTrue(len(inverseOf_results ) % 2 == 0,
+                    "Even number of inverseOf triples expected. Found: %s " % len(inverseOf_results ) )
 
+  def test_non_equal_inverseOf(self):
+    results = self.rdflib_data.query("select ?x ?y where { ?x <http://schema.org/inverseOf> ?y }")
+    for result in results :
+      self.assertTrue(result[0] != result[1], 
+                      "%s should not be equal to %s" % (result[0], result[1]) )
+
+  def test_non_equal_supercededBy(self):
+    results = self.rdflib_data.query("select ?x ?y where { ?x <http://schema.org/supercededBy> ?y }")
+    for result in results :
+      self.assertTrue(result[0] != result[1], 
+                      "%s should not be equal to %s" % (result[0], result[1]) )
+    
   @unittest.expectedFailure # autos
   def test_needlessDomainIncludes(self):
     # check immediate subtypes don't declare same domainIncludes
     # TODO: could we use property paths here to be more thorough?
     # rdfs:subClassOf+ should work but seems not to.
-    ndi1= ("SELECT ?prop ?c1 ?c2 "
+    ndi1 = ("SELECT ?prop ?c1 ?c2 "
            "WHERE { "
            "?prop <http://schema.org/domainIncludes> ?c1 ."
            "?prop <http://schema.org/domainIncludes> ?c2 ."
@@ -92,10 +111,11 @@ class SDOGraphSetupTestCase(unittest.TestCase):
            "}"
            "ORDER BY ?prop ")
     ndi1_results = self.rdflib_data.query(ndi1)
-    if (len(ndi1_results)>0):
+    if (len(ndi1_results) > 0):
         for row in ndi1_results:
             log.info(row)
-    self.assertEqual(len(ndi1_results), 0, "No subtype need redeclare a domainIncludes of its parents. Found: %s " % len(ndi1_results ) )
+    self.assertEqual(len(ndi1_results), 0,
+                     "No subtype need redeclare a domainIncludes of its parents. Found: %s " % len(ndi1_results ) )
 
   @unittest.expectedFailure # fails on valueReference: https://github.com/schemaorg/schemaorg/issues/468
   def test_needlessRangeIncludes(self):
@@ -118,10 +138,8 @@ class SDOGraphSetupTestCase(unittest.TestCase):
         log.info(str(row))
         #print(str(row))
     self.assertEqual(len(nri1_results), 0, "No subtype need redeclare a rangeIncludes of its parents. Found: %s" % len(nri1_results) )
-    
 
   # These are place-holders for more sophisticated SPARQL-expressed checks.
-
   @unittest.expectedFailure
   def test_readSchemaFromRDFa(self):
     self.assertTrue(True, False, "We should know how to locally get /docs/schema_org_rdfa.html but this requires fixes to api.py.")
