@@ -10,28 +10,14 @@ join the group at W3C, introduce yourself and find or file issues here that enga
 
 Our next milestone release has the working name 'sdo-ganymede'. See https://github.com/schemaorg/schemaorg/issues/510 for an entry point, or else navigate issues via label or milestone withing Github. Every change to the site comes via discussions here. Substantive changes are recorded in our [release notes](http://schema.org/docs/releases.html). A preview of the [draft new release notes](http://sdo-ganymede.appspot.com/docs/releases.html#sdo-ganymede) can be found as part of the test site for our next release. Every month or so, after final review by the Schema.org Steering Group, we make a formal release. 
 
-Software 
+Software
 ========
 
-The site codebase is a simple Python application. It uses Google App Engine, and is designed to allow schema.org contributors to explore new or improved schemas. The code has a bias towards simplicity and minimal dependencies,
-rather than elegance and re-usability. We expect collaboration will focus more on schemas and examples than 
-on our supporting software.
+For most collaborators, all you need to know about the software is how to run it. Essentially you will need to have the Python version of Google App Engine SDK running on the platform of your choice. You can then make test builds of schema.org running on your own machine accessible as http://localhost:8080/ or else post them on appspot.com for collaboration. See https://cloud.google.com/appengine/docs for details. 
 
-The app reads its schemas and examples from the data/ directory when it starts up. These
-are expressed in simple text formats. Proposals to schema.org can be provided as diffs
-or github pull requests.
+More information about the software is also available in [SOFTWARE_README.md](SOFTWARE_README.md)
 
-Internals
-=========
-
-Internally, the app uses a simple RDF-like graph data model, and has a parser for 
-the RDFa Lite subset that we use to represent schemas. Potential contributors are 
-cautioned that this code is not designed to become a general purpose framework, and
-that we're comfortable with it being hardcoded in various ways around the needs and
-approaches of schema.org. If that's not too discouraging, do let us know if you find
-interesting uses for it or have ideas for improvements.
-
-See also wiki: https://github.com/schemaorg/schemaorg/wiki/Contributing
+See also notes in the wiki: https://github.com/schemaorg/schemaorg/wiki/Contributing
 
 Formats and standards
 =====================
