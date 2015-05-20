@@ -3181,7 +3181,7 @@
       </span>
 
        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/UserInteraction">UserInteraction</a></span>
-      <span property="http://schema.org/supersededBy" href="http://schema.org/CommentCounter"/>
+      <span property="http://schema.org/supersededBy" href="http://schema.org/InteractionCounter"/>
        <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_rNews">rNews</a></span></div>
 
     <div typeof="rdfs:Class" resource="http://schema.org/UserDownloads">
@@ -3191,7 +3191,7 @@
           &lt;a href="/Action"&gt;Action&lt;/a&gt;-based vocabulary, alongside types such as &lt;a href="/Comment"&gt;Comment&lt;/a&gt;.
       </span>
 
-      <span property="http://schema.org/supersededBy" href="http://schema.org/DownloadCounter"/>
+      <span property="http://schema.org/supersededBy" href="http://schema.org/InteractionCounter"/>
      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/UserInteraction">UserInteraction</a></span>
     </div>
 
@@ -3202,7 +3202,7 @@
           &lt;a href="/Action"&gt;Action&lt;/a&gt;-based vocabulary, alongside types such as &lt;a href="/Comment"&gt;Comment&lt;/a&gt;.
       </span>
 
-      <span property="http://schema.org/supersededBy" href="http://schema.org/UpVoteCounter"/>
+      <span property="http://schema.org/supersededBy" href="http://schema.org/InteractionCounter"/>
       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/UserInteraction">UserInteraction</a></span>
     </div>
 
@@ -3213,7 +3213,7 @@
           &lt;a href="/Action"&gt;Action&lt;/a&gt;-based vocabulary, alongside types such as &lt;a href="/Comment"&gt;Comment&lt;/a&gt;.
       </span>
 
-      <span property="http://schema.org/supersededBy" href="http://schema.org/PageVisitCounter"/>
+      <span property="http://schema.org/supersededBy" href="http://schema.org/InteractionCounter"/>
       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/UserInteraction">UserInteraction</a></span>
     </div>
 
@@ -3224,7 +3224,7 @@
           &lt;a href="/Action"&gt;Action&lt;/a&gt;-based vocabulary, alongside types such as &lt;a href="/Comment"&gt;Comment&lt;/a&gt;.
       </span>
 
-      <span property="http://schema.org/supersededBy" href="http://schema.org/ViewCounter"/>
+      <span property="http://schema.org/supersededBy" href="http://schema.org/InteractionCounter"/>
       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/UserInteraction">UserInteraction</a></span>
     </div>
 
@@ -3235,7 +3235,7 @@
           &lt;a href="/Action"&gt;Action&lt;/a&gt;-based vocabulary, alongside types such as &lt;a href="/Comment"&gt;Comment&lt;/a&gt;.
       </span>
 
-      <span property="http://schema.org/supersededBy" href="http://schema.org/UpVoteCounter"/>
+      <span property="http://schema.org/supersededBy" href="http://schema.org/InteractionCounter"/>
       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/UserInteraction">UserInteraction</a></span>
     </div>
 
@@ -3246,7 +3246,7 @@
           &lt;a href="/Action"&gt;Action&lt;/a&gt;-based vocabulary, alongside types such as &lt;a href="/Comment"&gt;Comment&lt;/a&gt;.
       </span>
 
-      <span property="http://schema.org/supersededBy" href="http://schema.org/ShareCounter"/>
+      <span property="http://schema.org/supersededBy" href="http://schema.org/InteractionCounter"/>
       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/UserInteraction">UserInteraction</a></span>
     </div>
 
@@ -12251,6 +12251,12 @@ Typical unit code(s): C62 for persons </span>
     <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CreativeWork">CreativeWork</a></span>
     <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/InteractionCounter">InteractionCounter</a></span>
 </div>
+<div typeof="rdf:Property" resource="http://schema.org/interactionType">
+    <span class="h" property="rdfs:label">interactionType</span>
+    <span property="rdfs:comment">The Action representing the type of interaction. For up votes, +1s, etc. use &lt;a href=&#39;http://schema.org/LikeAction&#39;&gt;LikeAction&lt;/a&gt;. For down votes use &lt;a href=&#39;http://schema.org/DislikeAction&lt;/a&gt;. Otherwise, use the most specific Action.</span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/InteractionCount">InteractionCount</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Action">Action</a></span>
+</div>
 <div typeof="rdf:Property" resource="http://schema.org/userInteractionCount">
     <span class="h" property="rdfs:label">userInteractionCount</span>
     <span property="rdfs:comment">The number of interactions for the CreativeWork using the WebSite or SoftwareApplication.</span>
@@ -12258,41 +12264,6 @@ Typical unit code(s): C62 for persons </span>
     <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Integer">Integer</a></span>
 </div>
 
-<div typeof="rdfs:Class" resource="CommentCounter">
-    <span class="h" property="rdfs:label">CommentCounter</span>
-    <span property="rdfs:comment">A summary of the number of user comments for this CreativeWork.</span>
-    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/InteractionCounter">InteractionCounter</a></span>
-</div>
-<div typeof="rdfs:Class" resource="DownloadCounter">
-    <span class="h" property="rdfs:label">DownloadCounter</span>
-    <span property="rdfs:comment">A summary of the number of user downloads of this CreativeWork.</span>
-    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/InteractionCounter">InteractionCounter</a></span>
-</div>
-<div typeof="rdfs:Class" resource="DownVoteCounter">
-    <span class="h" property="rdfs:label">DownVoteCounter</span>
-    <span property="rdfs:comment">A summary of the number of times users have voted against a CreativeWork on a particular site or software application. Down votes are any negative, countable interaction including but not limited to Youtube down votes or Reddit dislikes.</span>
-    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/InteractionCounter">InteractionCounter</a></span>
-</div>
-<div typeof="rdfs:Class" resource="PageVisitCounter">
-    <span class="h" property="rdfs:label">PageViewCounter</span>
-    <span property="rdfs:comment">A summary of the number of times users have viewed a particular WebPage.</span>
-    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/InteractionCounter">InteractionCounter</a></span>
-</div>
-<div typeof="rdfs:Class" resource="ShareCounter">
-    <span class="h" property="rdfs:label">ShareCounter</span>
-    <span property="rdfs:comment">A summary of the number of times users have shared a CreativeWork on a particular site or software application, including, but not limited to Facebook shares, Twitter retweets, and Pinterest pins.</span>
-    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/InteractionCounter">InteractionCounter</a></span>
-</div>
-<div typeof="rdfs:Class" resource="UpVoteCounter">
-    <span class="h" property="rdfs:label">UpVoteCounter</span>
-    <span property="rdfs:comment">A summary of the number of times users have voted for a CreativeWork on a particular site or software application. Up votes are any positive, countable interaction including but not limited to Facebook likes, Google Plus +1s, and Youtube up votes.</span>
-    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/InteractionCounter">InteractionCounter</a></span>
-</div>
-<div typeof="rdfs:Class" resource="ViewCounter">
-    <span class="h" property="rdfs:label">UpVoteCounter</span>
-    <span property="rdfs:comment">A summary of the number of times users have viewed a CreativeWork on a particular site or software application.</span>
-    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/InteractionCounter">InteractionCounter</a></span>
-</div>
 
 
 

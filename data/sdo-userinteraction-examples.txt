@@ -1,4 +1,4 @@
-TYPES: UpVoteCounter,ShareCounter,ViewCounter,VideoObject
+TYPES: InteractionCounter,VideoObject
 
 PRE-MARKUP:
 A video has the following interactions:
@@ -29,43 +29,48 @@ JSON:
   },
   "interactionStatistic": [
     {
-      "@type": "UpVoteCounter",
+      "@type": "InteractionCounter",
       "interactionService": {
         "@type": "Website",
         "name": "Youtube",
         "url": "http://www.youtube.com"
       },
+      "interactionType": "http://schema.org/LikeAction",
       "userInteractionCount": "512"
     },
     {
-      "@type": "UpVoteCounter",
+      "@type": "InteractionCounter",
       "interactionService": {
         "@type": "SoftwareApplication",
         "name": "Twitter",
         "url": "http://www.twitter.com"
       },
+      "interactionType": "http://schema.org/LikeAction",
       "userInteractionCount": "1024"
     },
     {
-      "@type": "ShareCounter",
+      "@type": "InteractionCounter",
       "interactionService": {
         "@type": "SoftwareApplication",
         "name": "Twitter",
         "url": "http://www.twitter.com"
       },
+      "interactionType": "http://schema.org/ShareAction",
       "userInteractionCount": "2345"
     },
     {
-      "@type": "UpVoteCounter",
+      "@type": "InteractionCounter",
       "interactionService": {
         "@type": "Website",
         "name": "Facebook",
         "url": "http://www.facebook.com"
       },
+      "interactionType": "http://schema.org/LikeAction",
       "userInteractionCount": "1024"
     },
     {
       "@type": "ViewCounter",
+      "interactionType": "http://schema.org/WatchAction",
       "userInteractionCount": "4356"
     },
   ]
