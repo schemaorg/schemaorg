@@ -1,11 +1,14 @@
-Schema.org project repository
+Welcome to Schema.org
+=====================
 
-This repository contains all the schemas, examples and software use to publish schema.org. 
+
+This is the Schema.org project repository. It contains all the schemas, examples and software use to publish schema.org. For the site itself, please see http://schema.org/ instead.
 
 Issues and proposals are managed here by participants of the W3C Schema.org Community Group.
 See http://www.w3.org/community/schemaorg for the group. If you are interested to participate please
 join the group at W3C, introduce yourself and find or file issues here that engage your interest. 
 
+Our next milestone release has the working name 'sdo-ganymede'. See https://github.com/schemaorg/schemaorg/issues/510 for an entry point, or else navigate issues via label or milestone withing Github. Every change to the site comes via discussions here. Substantive changes are recorded in our [release notes](http://schema.org/docs/releases.html). A preview of the [draft new release notes](http://sdo-ganymede.appspot.com/docs/releases.html#sdo-ganymede) can be found as part of the test site for our next release. Every month or so, after final review by the Schema.org Steering Group, we make a formal release. 
 
 Software 
 ========
