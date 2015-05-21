@@ -399,7 +399,7 @@
     <div typeof="rdfs:Class" resource="http://schema.org/BlogPosting">
       <span class="h" property="rdfs:label">BlogPosting</span>
       <span property="rdfs:comment">A blog post.</span>
-       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Article">Article</a></span>
+       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/SocialMediaPosting">SocialMediaPosting</a></span>
     </div>
 
     <div typeof="rdfs:Class" resource="http://schema.org/MedicalTest">
@@ -12219,6 +12219,45 @@ Typical unit code(s): C62 for persons </span>
   <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group">GAO</a></span>
 </div>
 
+
+<h1>Social Media</h1>
+
+<div typeof="rdfs:Class" resource="http://schema.org/SocialMediaPosting">
+  <span class="h" property="rdfs:label">SocialMediaPosting</span>
+  <span property="rdfs:comment">A post to a social media platform, including blog posts, tweets, Facebook posts, etc.</span>
+  <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Article">Article</a></span>
+</div>
+
+<div typeof="rdfs:Class" resource="http://schema.org/DiscussionForumPosting">
+  <span class="h" property="rdfs:label">DiscussionForumPosting</span>
+  <span property="rdfs:comment">A posting to a discussion forum.</span>
+  <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/SocialMediaPosting">SocialMediaPosting</a></span>
+</div>
+
+<div typeof="rdfs:Class" resource="http://schema.org/LiveBlogPosting">
+  <span class="h" property="rdfs:label">LiveBlog</span>
+  <span property="rdfs:comment">A blog post intended to provide a rolling textual coverage of an ongoing event through continuous updates.</span>
+  <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/BlogPosting">BlogPosting</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/coverageStartTime">
+  <span class="h" property="rdfs:label">coverageStartTime</span>
+  <span property="rdfs:comment">The time when the live blog will begin covering the Event. Note that coverage may begin before the Event's start time. The LiveBlogPosting may also be created before coverage begins.</span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/LiveBlogPosting">LiveBlogPosting</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/DateTime">DateTime</a></span>
+</div>
+<div typeof="rdf:Property" resource="http://schema.org/coverageEndTime">
+  <span class="h" property="rdfs:label">coverageEndTime</span>
+  <span property="rdfs:comment">The time when the live blog will stop covering the Event. Note that coverage may continue after the Event concludes.</span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/LiveBlogPosting">LiveBlogPosting</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/DateTime">DateTime</a></span>
+</div>
+<div typeof="rdf:Property" resource="http://schema.org/liveBlogUpdate">
+  <span class="h" property="rdfs:label">liveBlogUpdate</span>
+  <span property="rdfs:comment">An update to the LiveBlog.</span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/LiveBlogPosting">LiveBlogPosting</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/BlogPosting">BlogPosting</a></span>
+</div>
 
 
 
