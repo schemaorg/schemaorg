@@ -8,7 +8,11 @@ Issues and proposals are managed here by participants of the W3C Schema.org Comm
 See http://www.w3.org/community/schemaorg for the group. If you are interested to participate please
 join the group at W3C, introduce yourself and find or file issues here that engage your interest. 
 
-Our next milestone release has the working name 'sdo-ganymede'. See https://github.com/schemaorg/schemaorg/issues/510 for an entry point, or else navigate issues via label or milestone withing Github. Every change to the site comes via discussions here. Substantive changes are recorded in our [release notes](http://schema.org/docs/releases.html). A preview of the [draft new release notes](http://sdo-ganymede.appspot.com/docs/releases.html#sdo-ganymede) can be found as part of the test site for our next release. Every month or so, after final review by the Schema.org Steering Group, we make a formal release. 
+issue #1 (https://github.com/schemaorg/schemaorg/issues/1) in Github is an entry point for release planning. It 
+should provide an overview of upcoming work, in terms of broad themes, specific issues and release milestones.
+
+Our next milestone release has the working name 'sdo-ganymede'. See
+https://github.com/schemaorg/schemaorg/issues/510 for an entry point, or else navigate issues via label or milestone withing Github. Every change to the site comes via discussions here. Substantive changes are recorded in our [release notes](http://schema.org/docs/releases.html). A preview of the [draft new release notes](http://sdo-ganymede.appspot.com/docs/releases.html#sdo-ganymede) can be found as part of the test site for our next release. Every month or so, after final review by the Schema.org Steering Group, we make a formal release. 
 
 Software
 ========
