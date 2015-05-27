@@ -8,7 +8,7 @@ Issues and proposals are managed here by participants of the W3C Schema.org Comm
 See http://www.w3.org/community/schemaorg for the group. If you are interested to participate please
 join the group at W3C, introduce yourself and find or file issues here that engage your interest. 
 
-issue #1 (https://github.com/schemaorg/schemaorg/issues/1) in Github is an entry point for release planning. It 
+Issue #1 (https://github.com/schemaorg/schemaorg/issues/1) in Github is an entry point for release planning. It 
 should provide an overview of upcoming work, in terms of broad themes, specific issues and release milestones.
 
 Our next milestone release has the working name 'sdo-ganymede'. See
