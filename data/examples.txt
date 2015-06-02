@@ -809,8 +809,8 @@ RDFA:
     <!--price is 1000, a number, with locale-specific thousands separator
         and decimal mark, and the $ character is marked up with the
         machine-readable code "USD" -->
-    <span property="priceCurrency" content="USD">$</span><span
-      property="price" content="1000.00">1,000.00</span>
+    <meta property="priceCurrency" content="USD" />$
+    <meta property="price" content="1000.00" />1,000.00
     <link property="availability" href="http://schema.org/InStock" />In stock
   </div>
 
@@ -1127,9 +1127,9 @@ by <a property="author" href="/author/jd_salinger.html">J.D. Salinger</a>
   <span property="reviewCount">3077</span> reviews
 </div>
 
-<div property="offers"  typeof="Offer">
-  Price: <span property="price" content="6.99">$6.99</span>
-  <meta property="priceCurrency" content="USD" />
+<div property="offers" typeof="Offer">
+  Price: <meta property="price" content="6.99" />6.99
+  <meta property="priceCurrency" content="USD" />$
   <link property="availability" href="http://schema.org/InStock">In Stock
 </div>
 
@@ -9177,8 +9177,10 @@ RDFA:
   <div class="event-time">9:30 PM</div>
 
  <span property="offers"  typeof="Offer">
-  <div class="event-price" property="price" content="13.00">$13.00</div>
-    <span property="priceCurrency" content="USD" />
+  <div class="event-price">
+    <meta property="priceCurrency" content="USD" />$
+    <meta property="price" content="13.00" />13.00
+  </div>
     <a property="url" href="http://www.ticketfly.com/purchase/309433">Tickets</a>
  </span>
 </div>
@@ -9284,7 +9286,10 @@ RDFA:
   <div class="event-time">9:30 PM</div>
 
  <span property="offers"  typeof="Offer">
-  <div class="event-price" property="price">$13.00</div>
+  <div class="event-price">
+    <meta property="priceCurrency" content="USD" />$
+    <span property="price">13.00</span>
+  </div>
   <a property="url" href="http://www.ticketfly.com/purchase/309433">Tickets</a>
  </span>
 </div>
@@ -9384,8 +9389,10 @@ RDFA:
   </div>
   <div class="event-time">10:00 PM</div>
   <span property="offers"  typeof="Offer">
-   <div class="event-price" property="price" content="13.00">$13.00</div>
-    <span property="priceCurrency" content="USD" />
+   <div class="event-price">
+     <meta property="priceCurrency" content="USD" />$
+     <meta property="price" content="13.00" />13.00
+   </div>
     <a property="url" href="http://www.ticketfly.com/purchase/309433">Tickets</a>
   </span>
 </div>
@@ -9468,12 +9475,12 @@ MICRODATA:
 
 RDFA:
 
-<div vocab="http://schema.org/" class="event-wrapper"  typeof="Event">
+<div vocab="http://schema.org/" class="event-wrapper" typeof="Event">
 
   <div class="event-date" property="startDate" content="2013-09-14T21:30">Sat Sep 14</div>
   <div class="event-title" property="name">SOLD OUT! Typhoon with Radiation City</div>
 
-  <div class="event-venue" property="location"  typeof="Place">
+  <div class="event-venue" property="location" typeof="Place">
     <span property="name">The Hi-Dive</span>
     <div class="address" property="address"  typeof="PostalAddress">
       <span property="streetAddress">7 S. Broadway</span><br>
@@ -9485,11 +9492,13 @@ RDFA:
 
   <div class="event-time">9:30 PM</div>
 
- <span property="offers"  typeof="Offer">
+ <span property="offers" typeof="Offer">
   <meta property="availability" content="http://schema.org/SoldOut">
 
-  <div class="event-price" property="price" content="13.00">$13.00</div>
-  <span property="priceCurrency" content="USD" />
+  <div class="event-price">
+    <meta property="priceCurrency" content="USD" />$
+    <meta property="price" content="13.00" />13.00
+  </div>
   <a property="url" href="http://www.ticketfly.com/purchase/309433">Tickets</a>
  </span>
 </div>
@@ -10664,10 +10673,10 @@ RDFA:
   </div>
 
   <div property="offers" typeof="Offer">
-    <link property="url" href="/examples/ticket/12341234"/>
-    <meta property="price" content="40"/>
-    <meta property="priceCurrency" content="USD" />
-    <meta property="availability" href="http://schema.org/InStock"/>
+    <link property="url" href="/examples/ticket/12341234" />
+    <meta property="price" content="40" />40.00
+    <meta property="priceCurrency" content="USD" />$
+    <meta property="availability" href="http://schema.org/InStock" />
   </div>
 
   <h2 property="name">Shostakovich Leningrad</h2>
@@ -12126,7 +12135,7 @@ PRE-MARKUP:
 
 MICRODATA:
 
-<div  itemtype="http://schema.org/ItemList">
+<div itemtype="http://schema.org/ItemList">
   <link itemprop="url" href="http://multivarki.ru?filters%5Bprice%5D%5BLTE%5D=39600" />
   <span itemprop="numberOfItems">315</span>
   <div itemprop="itemListElement" itemscope="" itemtype="http://schema.org/Product">
@@ -12156,7 +12165,9 @@ RDFA:
       <span property="name">BRAND 502</span>
     </a>
     <div property="offers" typeof="http://schema.org/Offer">
-      <span property="price">4399 р.</span>
+      <meta property="schema:priceCurrency" content="RUB">руб
+      <meta property="schema:price" content="4399.00">4 399,00
+      <link property="schema:itemCondition" href="http://schema.org/NewCondition">
     </div>...
     <div property="itemListElement"  typeof="Product">
     ...
