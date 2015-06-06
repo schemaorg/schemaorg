@@ -108,7 +108,7 @@
     background. Earlier drafts and alternate formats are available from the <a href="https://www.w3.org/wiki/WebSchemas/ActivityActions">W3C Wiki</a>.
 </p>
 
-<h2>Part 1: Action status</h2>
+<h2 id="part-1">Part 1: Action status</h2>
 <p>First, we need a mechanism for differentiating potential actions from actions that have actually taken place or are even still in-progress. The expectation is that the status of an action will often be self-evident based on the usage context, so this property can often be elided.  However, it may still be necessary for resolving ambiguous cases when they arise. For this we introduce a new property of Action called "actionStatus.</p>
 
 <h3>Thing &gt; Action</h3>
@@ -166,7 +166,7 @@
 </tbody>
 </table>
 
-<h2>Part 2:  Connecting Actions to Things</h2>
+<h2 id="part-2">Part 2:  Connecting Actions to Things</h2>
 
 <p>Frequently actions are taken or offered in the context of an object (e.g., watch this movie, review this article, share this webpage, etc.).  We introduce a new property called potentialAction for describing the "prototype" of an action that can be taken on that Thing.</p>
 
@@ -215,7 +215,7 @@
 
 
 
-<h2>Part 3: Action EntryPoints</h2>
+<h2 id="part-3">Part 3: Action EntryPoints</h2>
 <p>Potential actions are materialized via execution against the target EntryPoint of an Action.</p>
 
 <h4>Example: Action target URL</h4>
@@ -382,7 +382,7 @@ android-app://{package_id}/{scheme}/{host_path}
 
 
 
-<h2>Part 4: Input and Output constraints</h2>
+<h2 id="part-4">Part 4: Input and Output constraints</h2>
 <p>Additional information is often required from a user or client in order to formulate a complete request.  To facilitate this process we need the ability to describe within a potential action how to construct these inputs.  Since we need this capability for filling in <i>any</i> property of an Action, we introduce a notion of property annotations using a hypen ("-") delimiter. For example, by specifying a "location-input" property on a potential action we are indicating that "location" is a supported input for completing the action.</p>
 <p>Similarly, it is also helpful to indicate to clients what will be included in the final completed version of an action, so we introduce the corresponding -output annotation for indicating which properties will be present in the completed action.</p>
 
