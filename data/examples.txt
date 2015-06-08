@@ -10444,16 +10444,30 @@ TYPES: WatchAction, Movie
 
 PRE-MARKUP:
 
-A Movie named "Footloose" with a WatchAction as a
-potentialAction, with a target of http://example.com/player?id=123.
+<!-- A Movie named "Footloose" with a WatchAction as a
+potentialAction, with a target of http://example.com/player?id=123. -->
+
+<div>
+  <a href="http://example.com/player?id=123">Watch <cite>Footloose</cite></a>
+</div>
 
 MICRODATA:
 
-This example is JSON only.
+<div itemscope itemtype="http://schema.org/Movie">
+  <meta itemprop="name" content="Footloose">
+  <div itemprop="potentialAction" itemscope itemtype="http://schema.org/WatchAction">
+    <a itemprop="target" href="http://example.com/player?id=123">Watch <cite>Footloose</cite></a>
+  </div>
+</div>
 
 RDFA:
 
-This example is JSON only.
+<div vocab="http://schema.org/" typeof="Movie">
+  <meta property="name" content="Footloose">
+  <div property="potentialAction" typeof="WatchAction">
+    <a property="target" href="http://example.com/player?id=123">Watch <cite>Footloose</cite></a>
+  </div>
+</div>
 
 JSON:
 
