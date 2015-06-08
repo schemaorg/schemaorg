@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 
-import optparse
-import sys
-from os import path
-from os.path import expanduser
-import unittest
 import argparse
+import optparse
+from os import getenv, path
+from os.path import expanduser
+import sys
+import unittest
 
 # Simple stand-alone test runner
 # - Runs independently of appengine runner
@@ -18,7 +18,7 @@ import argparse
 # Alt: python -m unittest discover -s tests/ -p 'test_*.py' (problem as needs GAE files)
 
 def main(sdk_path, test_path, args):
-    sys.path.insert(0, sdk_path)
+    sys.path.insert(0, sdk_path) # add AppEngine SDK to path
     import dev_appserver
     dev_appserver.fix_sys_path()
     print args, test_path
@@ -30,10 +30,9 @@ def main(sdk_path, test_path, args):
 
 
 if __name__ == '__main__':
-
-
+    sdk_path = getenv('APP_ENGINE',
+                      expanduser("~") + '/google-cloud-sdk/platform/google_appengine/')
     parser = argparse.ArgumentParser(description='Configurable testing of schema.org.')
-    
     parser.add_argument('--skipbasics', action='store_true', help='Skip basic tests.')
     args = parser.parse_args()
-    main(expanduser("~") + '/google-cloud-sdk/platform/google_appengine/', './tests/', args)
+    main(sdk_path, './tests/', args)
