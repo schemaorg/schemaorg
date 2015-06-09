@@ -2,6 +2,22 @@ TYPES: #screening-1 ScreeningEvent, Movie, MovieTheater
 
 PRE-MARKUP:
 
+<div>
+  <h1>Jaws 3-D"</h1>
+  <div>Jaws 3-D shown in 3D.</div>
+  <p>Location: <div>
+    <span itemprop="name">ACME Cinemas 10</span>
+    <span>screenCount: 10</span>
+    </div>
+  </p>
+  <div>
+    <span>Jaws 3-D</span>
+    <link href="www.imdb.com/title/tt0085750/" />
+  </div>
+  <p>Language: <span>English</span></p>
+  <p>Film format: <span>3D</span></p>
+</div>
+
 MICRODATA:
 
 <div itemscope itemtype="http://schema.org/ScreeningEvent">
@@ -10,6 +26,7 @@ MICRODATA:
   <p>Location: <div itemprop="location" itemscope itemtype="http://schema.org/MovieTheater">
     <span itemprop="name">ACME Cinemas 10</span>
     <span itemprop="screenCount">10</span>
+    </div>
   </p>
   <div itemprop="workPresented" itemscope itemtype="http://schema.org/Movie">
     <span itemprop="name">Jaws 3-D</span>
@@ -59,4 +76,12 @@ JSON:
   "videoFormat": "3D"
 }
 </script>
+
+
+TYPES: FakeEntryNeeded, FixMeSomeDay
+PRE-MARKUP:
+MICRODATA:
+RDFA:
+JSON:
+
 
