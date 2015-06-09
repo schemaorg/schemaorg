@@ -580,8 +580,14 @@ class Example ():
        mentions, i.e. stored in term.examples).
        """
        # todo: fix partial examples: if (len(terms) > 0 and len(original_html) > 0 and (len(microdata) > 0 or len(rdfa) > 0 or len(jsonld) > 0)):
+       typeinfo = "".join( [" %s " % t.id for t in terms] )
+       if "FakeEntryNeeded" in typeinfo or terms==[]:
+           return
        if (len(terms) > 0 and len(original_html) > 0 and len(microdata) > 0 and len(rdfa) > 0 and len(jsonld) > 0):
             return Example(terms, original_html, microdata, rdfa, jsonld, egmeta, layer='core')
+       else:
+           log.info("API AddExample skipped a case due to missing value(s) in example. Target terms: %s ORIG: %s MICRODATA: %s RDFA: %s JSON: %s EGMETA: %s " % ( typeinfo, original_html, microdata, rdfa, jsonld, egmeta ) )
+
 
     def get(self, name, layers='core') :
         """Exposes original_content, microdata, rdfa and jsonld versions (in the layer(s) specified)."""
@@ -752,6 +758,7 @@ def read_schemas(loadExtensions=False):
         for f in files:
             example_content = read_file(f)
             example_contents.append(example_content)
+            log.info("examples loaded from: %s" % f)
         parser = parsers.ParseExampleFile(None)
         parser.parse(example_contents)
 

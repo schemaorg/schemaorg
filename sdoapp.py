@@ -192,16 +192,17 @@ class TypeHierarchyTree:
         self.emit('\n%s}%s\n' % (p1, maybe_comma))
 
 
-class Example ():
+class OBSOLETEExample ():
 
     @staticmethod
-    def AddExample(terms, original_html, microdata, rdfa, jsonld, egmeta, layer='core'):
+    def OBSOLETEAddExample(terms, original_html, microdata, rdfa, jsonld, egmeta, layer='core'):
        """
        Add an Example (via constructor registering it with the terms that it
        mentions, i.e. stored in term.examples).
        """
        # todo: fix partial examples: if (len(terms) > 0 and len(original_html) > 0 and (len(microdata) > 0 or len(rdfa) > 0 or len(jsonld) > 0)):
        if (len(terms) > 0 and len(original_html) > 0 and len(microdata) > 0 and len(rdfa) > 0 and len(jsonld) > 0):
+            log.info("SDOAPP AddExample called in api.py: %s %s %s %s %s %s " % ( "".join( [" %s " % t.id for t in terms] ), original_html, microdata, rdfa, jsonld, egmeta ) )
             return Example(terms, original_html, microdata, rdfa, jsonld, egmeta, layer='core')
 
     def get(self, name, layers='core') :
@@ -501,7 +502,7 @@ class ShowUnit (webapp2.RequestHandler):
             if(i > 0):
                 t = cstack[:]
                 tmpStacks.append(t)
-                self.crumStacks.append(t)        
+                self.crumStacks.append(t)
         x = 0
         for p in subs:
             self.WalkCrums(p,tmpStacks[x],layers=layers)
@@ -906,6 +907,7 @@ class ShowUnit (webapp2.RequestHandler):
                     self.write(str(ack+"<br/>"))
 
         examples = GetExamples(node, layers=layers)
+        log.debug("Rendering n=%s examples" % len(examples))
         if (len(examples) > 0):
             example_labels = [
               ('Without Markup', 'original_html', 'selected'),
