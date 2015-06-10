@@ -11784,6 +11784,7 @@ postponing for 1.6.
   <span property="rdfs:comment">The status of payment; whether the invoice has been paid or not.</span>
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Invoice">Invoice</a></span>
   <span>Domain: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+  <span>Domain: <a property="http://schema.org/rangeIncludes" href="http://schema.org/PaymentStatusType">PaymentStatusType</a></span>
 </div>
 
 <div typeof="rdf:Property" resource="http://schema.org/referencesOrder">
@@ -11791,6 +11792,33 @@ postponing for 1.6.
   <span property="rdfs:comment">The Order(s) related to this Invoice. One or more Orders may be combined into a single Invoice.</span>
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Invoice">Invoice</a></span>
   <span>Domain: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Order">Order</a></span>
+</div>
+
+<div typeof="rdfs:Class" resource="http://schema.org/PaymentStatusType">
+  <span class="h" property="rdfs:label">PaymentStatusType</span>
+  <span property="rdfs:comment">A specific payment status. For example, PaymentDue, PaymentComplete, etc.</span>
+  <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Intangible">Intangible</a></span>
+</div>
+
+<div typeof="http://schema.org/PaymentStatusType" resource="http://schema.org/PaymentAutomaticallyApplied">
+  <span class="h" property="rdfs:label">PaymentAutomaticallyApplied</span>
+  <span property="rdfs:comment">An automatic payment system is in place and will be used.</span>
+</div>
+<div typeof="http://schema.org/PaymentStatusType" resource="http://schema.org/PaymentComplete">
+  <span class="h" property="rdfs:label">PaymentComplete</span>
+  <span property="rdfs:comment">The payment has been received and processed.</span>
+</div>
+<div typeof="http://schema.org/PaymentStatusType" resource="http://schema.org/PaymentDeclined">
+  <span class="h" property="rdfs:label">PaymentDeclined</span>
+  <span property="rdfs:comment">The payee received the payment, but it was declined for some reason.</span>
+</div>
+<div typeof="http://schema.org/PaymentStatusType" resource="http://schema.org/PaymentDue">
+  <span class="h" property="rdfs:label">PaymentDue</span>
+  <span property="rdfs:comment">The payment is due, but still within an acceptable time to be received.</span>
+</div>
+<div typeof="http://schema.org/PaymentStatusType" resource="http://schema.org/PaymentPastDue">
+  <span class="h" property="rdfs:label">PaymentPastDue</span>
+  <span property="rdfs:comment">The payment is due and considered late.</span>
 </div>
 
 
