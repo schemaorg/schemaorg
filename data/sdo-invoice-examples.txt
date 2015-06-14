@@ -46,24 +46,24 @@ RDFA:
 <div vocab="http://schema.org/" typeof="Invoice">
   <h1 property="description">January 2015 Visa</h1>
   <a property="url" href="http://acmebank.com/invoice.pdf">Invoice PDF</a>
-  <div property="broker" typeof="http://schema.org/BankOrCreditUnion">
+  <div property="broker" typeof="BankOrCreditUnion">
     <b property="name">ACME Bank</b>
   </div>
   <span property="accountId">xxxx-xxxx-xxxx-1234</span>
-  <div property="customer" typeof="http://schema.org/Person">
+  <div property="customer" typeof="Person">
     <b property="name">Jane Doe</b>
   </div>
   <span property="paymentDue">2015-01-30</span>
-  <div property="minimumPaymentDue" typeof="http://schema.org/PriceSpecification">
+  <div property="minimumPaymentDue" typeof="PriceSpecification">
     <span property="price">15.00</span>
     <span property="priceCurrency">USD</span>
   </div>
-  <div property="totalPaymentDue" typeof="http://schema.org/PriceSpecification">
+  <div property="totalPaymentDue" typeof="PriceSpecification">
     <span property="price">200.00</span>
     <span property="priceCurrency">USD</span>
   </div>
   <meta property="billingPeriod" content="2014-12-21/P30D" />starts:2014-12-21 30 days
-  <link property="paymentStatus" href="http://schema.org/PaymentDue" />
+  <link property="paymentStatus" href="PaymentDue" />
 </div>
 
 
@@ -159,23 +159,23 @@ RDFA:
 
 <div vocab="http://schema.org/" typeof="Invoice">
   <h1 property="description">New furnace and installation</h1>
-  <div property="broker" typeof="http://schema.org/LocalBusiness">
+  <div property="broker" typeof="LocalBusiness">
     <b property="name">ACME Home Heating</b>
   </div>
-  <div property="customer" typeof="http://schema.org/Person">
+  <div property="customer" typeof="Person">
     <b property="name">Jane Doe</b>
   </div>
   <span property="paymentDue">2015-01-30</span>
-  <div property="minimumPaymentDue" typeof="http://schema.org/PriceSpecification">
+  <div property="minimumPaymentDue" typeof="PriceSpecification">
     <span property="price">0.00</span>
     <span property="priceCurrency">USD</span>
   </div>
-  <div property="totalPaymentDue" typeof="http://schema.org/PriceSpecification">
+  <div property="totalPaymentDue" typeof="PriceSpecification">
     <span property="price">0.00</span>
     <span property="priceCurrency">USD</span>
   </div>
   <meta property="billingPeriod" content="2014-12-21/P30D" />starts:2014-12-21 30 days
-  <link itemprop="paymentStatus" href="http://schema.org/PaymentComplete" />
+  <link itemprop="paymentStatus" href="PaymentComplete" />
   <div property="referencesOrder" typeof="Order">
     <span property="description">furnace</span>
     <span property="orderDate">2014-12-01</span>
