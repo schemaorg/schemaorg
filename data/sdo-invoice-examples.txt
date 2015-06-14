@@ -27,7 +27,7 @@ MICRODATA:
   <div itemprop="customer" itemscope itemtype="http://schema.org/Person">
     <b itemprop="name">Jane Doe</b>
   </div>
-  <span itemprop="paymentDue">2015-01-30</span>
+  <time itemprop="paymentDue">2015-01-30</time>
   <div itemprop="minimumPaymentDue" itemscope itemtype="http://schema.org/PriceSpecification">
     <span itemprop="price">15.00</span>
     <span itemprop="priceCurrency">USD</span>
@@ -53,7 +53,7 @@ RDFA:
   <div property="customer" typeof="Person">
     <b property="name">Jane Doe</b>
   </div>
-  <span property="paymentDue">2015-01-30</span>
+  <time property="paymentDue">2015-01-30</time>
   <div property="minimumPaymentDue" typeof="PriceSpecification">
     <span property="price">15.00</span>
     <span property="priceCurrency">USD</span>
@@ -126,7 +126,7 @@ MICRODATA:
   <div itemprop="customer" itemscope itemtype="http://schema.org/Person">
     <b itemprop="name">Jane Doe</b>
   </div>
-  <span itemprop="paymentDue">2015-01-30</span>
+  <time itemprop="paymentDue">2015-01-30</time>
   <div itemprop="minimumPaymentDue" itemscope itemtype="http://schema.org/PriceSpecification">
     <span itemprop="price">0.00</span>
     <span itemprop="priceCurrency">USD</span>
@@ -138,7 +138,7 @@ MICRODATA:
   <link itemprop="paymentStatus" href="http://schema.org/PaymentComplete" />
   <div itemprop="referencesOrder" itemscope itemtype="http://schema.org/Order">
     <span itemprop="description">furnace</span>
-    <span itemprop="orderDate">2014-12-01</span>
+    <time itemprop="orderDate">2014-12-01</time>
     <span itemprop="orderNumber">123ABC</span>
     <div itemprop="orderedItem" itemscope itemtype="http://schema.org/Product">
       <span itemprop="name">ACME Furnace 3000</span>
@@ -147,7 +147,7 @@ MICRODATA:
   </div>
   <div itemprop="referencesOrder" itemscope itemtype="http://schema.org/Order">
     <span itemprop="description">furnace installation</span>
-    <span itemprop="orderDate">2014-12-02</span>
+    <time itemprop="orderDate">2014-12-02</time>
     <div itemprop="orderedItem" itemscope itemtype="http://schema.org/Service">
       <span itemprop="description">furnace installation</span>
     </div>
@@ -165,7 +165,7 @@ RDFA:
   <div property="customer" typeof="Person">
     <b property="name">Jane Doe</b>
   </div>
-  <span property="paymentDue">2015-01-30</span>
+  <time property="paymentDue">2015-01-30</time>
   <div property="minimumPaymentDue" typeof="PriceSpecification">
     <span property="price">0.00</span>
     <span property="priceCurrency">USD</span>
@@ -177,7 +177,7 @@ RDFA:
   <link itemprop="paymentStatus" href="PaymentComplete" />
   <div property="referencesOrder" typeof="Order">
     <span property="description">furnace</span>
-    <span property="orderDate">2014-12-01</span>
+    <time property="orderDate">2014-12-01</time>
     <span property="orderNumber">123ABC</span>
     <div property="orderedItem" typeof="Product">
       <span property="name">ACME Furnace 3000</span>
@@ -186,7 +186,7 @@ RDFA:
   </div>
   <div property="referencesOrder" typeof="Order">
     <span property="description">furnace installation</span>
-    <span property="orderDate">2014-12-02</span>
+    <time property="orderDate">2014-12-02</time>
     <div property="orderedItem" typeof="Service">
       <span property="description">furnace installation</span>
     </div>
@@ -277,7 +277,7 @@ MICRODATA:
     </div>
     <link itemprop="orderItemStatus" href="http://schema.org/OrderDelivered">Delivered
     <div itemprop="orderDelivery" itemscope itemtype="http://schema.org/ParcelDelivery">
-      <span itemprop="expectedArrivalFrom">2015-03-10</span>
+      <time itemprop="expectedArrivalFrom">2015-03-10</time>
     </div>
   </div>
   <div itemprop="orderedItem" itemscope itemtype="http://schema.org/OrderItem">
@@ -288,8 +288,8 @@ MICRODATA:
     </div>
     <link itemprop="orderItemStatus" href="http://schema.org/OrderInTransit" />Shipped
     <div itemprop="orderDelivery" itemscope itemtype="http://schema.org/ParcelDelivery">
-      <span itemprop="expectedArrivalFrom">2015-03-15</span>
-      <span itemprop="expectedArrivalUntil">2015-03-18</span>
+      <time itemprop="expectedArrivalFrom">2015-03-15</time>
+      <time itemprop="expectedArrivalUntil">2015-03-18</time>
     </div>
   </div>
 </div>
@@ -312,7 +312,7 @@ RDFA:
     </div>
     <link property="orderItemStatus" href="http://schema.org/OrderDelivered" />Delivered
     <div property="orderDelivery" typeof="ParcelDelivery">
-      <span property="expectedArrivalFrom">2015-03-10</span>
+      <time property="expectedArrivalFrom">2015-03-10</time>
     </div>
   </div>
   <div property="orderedItem" typeof="OrderItem">
@@ -323,8 +323,8 @@ RDFA:
     </div>
     <link property="orderItemStatus" href="http://schema.org/OrderInTransit" />Shipped
     <div property="orderDelivery" typeof="ParcelDelivery">
-      <span property="expectedArrivalFrom">2015-03-15</span>
-      <span property="expectedArrivalUntil">2015-03-18</span>
+      <time property="expectedArrivalFrom">2015-03-15</time>
+      <time property="expectedArrivalUntil">2015-03-18</time>
     </div>
   </div>
 </div>
