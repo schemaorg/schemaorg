@@ -732,6 +732,7 @@ class ShowUnit (webapp2.RequestHandler):
         if (newerprop != None):
             out.write("<table class=\"definition-table\">\n")
             out.write("  <thead>\n    <tr>\n      <th><a href=\"/supersededBy\">supersededBy</a></th>\n    </tr>\n</thead>\n")
+            tt="supersededBy: %s" % newerprop.id
             out.write("\n    <tr><td><code>%s</code></td></tr>\n" % (self.ml(newerprop, newerprop.id, tt,hashorslash)))
             out.write("\n</table>\n\n")
 
