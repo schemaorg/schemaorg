@@ -3,7 +3,6 @@ import os
 import logging # https://docs.python.org/2/library/logging.html#logging-levels
 import glob
 
-from headers import *
 from api import *
 from parsers import *
 
@@ -28,8 +27,9 @@ class SDOGraphSetupTestCase(unittest.TestCase):
   def parseRDFaFilesWithRDFLib(self):
       """Parse data/*rdfa into a data object and an error object with rdflib.
       We glob so that work-in-progress schemas can be stored separately. For
-      final publication, a single schema file is used."""
-      
+      final publication, a single schema file is used. Note that this does 
+      not yet load or test any extension schemas beneath data/ext/*."""
+
       from rdflib import Graph
       files = glob.glob("data/*.rdfa")
       log.info("Found %s files via data/*rdfa." % len(files))
@@ -75,6 +75,48 @@ class SDOGraphSetupTestCase(unittest.TestCase):
   def test_even_number_inverseOf(self):
     inverseOf_results = self.rdflib_data.query("select ?x ?y where { ?x <http://schema.org/inverseOf> ?y }")
     self.assertEqual(len(inverseOf_results ) % 2 == 0, True, "Even number of inverseOf triples expected. Found: %s " % len(inverseOf_results ) )
+
+  @unittest.expectedFailure # autos
+  def test_needlessDomainIncludes(self):
+    # check immediate subtypes don't declare same domainIncludes
+    # TODO: could we use property paths here to be more thorough?
+    # rdfs:subClassOf+ should work but seems not to.
+    ndi1= ("SELECT ?prop ?c1 ?c2 "
+           "WHERE { "
+           "?prop <http://schema.org/domainIncludes> ?c1 ."
+           "?prop <http://schema.org/domainIncludes> ?c2 ."
+           "?c1 rdfs:subClassOf ?c2 ."
+           "FILTER (?c1 != ?c2) ."
+           "}"
+           "ORDER BY ?prop ")
+    ndi1_results = self.rdflib_data.query(ndi1)
+    if (len(ndi1_results)>0):
+        for row in ndi1_results:
+            log.info(row)
+    self.assertEqual(len(ndi1_results), 0, "No subtype need redeclare a domainIncludes of its parents. Found: %s " % len(ndi1_results ) )
+
+  @unittest.expectedFailure # fails on valueReference: https://github.com/schemaorg/schemaorg/issues/468
+  def test_needlessRangeIncludes(self):
+    # as above, but for range. We excuse URL as it is special, not best seen as a Text subtype.
+    # check immediate subtypes don't declare same domainIncludes
+    # TODO: could we use property paths here to be more thorough?
+    nri1= ("SELECT ?prop ?c1 ?c2 "
+             "WHERE { "
+             "?prop <http://schema.org/rangeIncludes> ?c1 ."
+             "?prop <http://schema.org/rangeIncludes> ?c2 ."
+             "?c1 rdfs:subClassOf ?c2 ."
+             "FILTER (?c1 != ?c2) ."
+             "FILTER (?c1 != <http://schema.org/URL>) ." 
+             "}"
+             "ORDER BY ?prop ")
+    nri1_results = self.rdflib_data.query(nri1)
+    if (len(nri1_results)>0):
+      log.info("property, class1, [which is subclassOf] class2:\n")
+      for row in nri1_results:
+        log.info(str(row))
+        #print(str(row))
+    self.assertEqual(len(nri1_results), 0, "No subtype need redeclare a rangeIncludes of its parents. Found: %s" % len(nri1_results) )
+    
 
   # These are place-holders for more sophisticated SPARQL-expressed checks.
 

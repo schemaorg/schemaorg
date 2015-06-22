@@ -1,0 +1,58 @@
+TYPES: Thesis, inSupportOf
+
+PRE-MARKUP:
+
+A Thesis.
+
+<div>
+  <h1>Asian elephants are essential as seed dispersers in a disturbed tropical forest</h1>
+  <h2> A Thesis<h2>
+  <div>Author: Sekar, Nitin, Ph.D.</div>
+  <div>Course: Conservation Biology</div>
+  <div>School: Princeton University</div>
+</div>
+
+MICRODATA:
+
+
+
+<div itemscope itemtype="http://schema.org/Thesis">
+  <h1 itemprop="name">Asian elephants are essential as seed dispersers in a disturbed tropical forest</h1>
+  <h2> A Thesis<h2>
+  <div>Author: <span itemprop="author">Sekar, Nitin, Ph.D.</span></div>
+  <div>Course: <span itemprop="inSupportOf">Conservation Biology</span></div>
+  <div>School: <span itemprop="sourceOrganization">Princeton University</span></div>
+</div>
+
+RDFA:
+
+<div vocab="http://schema.org/" typeof="Thesis">
+  <h1 property="name">Asian elephants are essential as seed dispersers in a disturbed tropical forest</h1>
+  <h2> A Thesis<h2>
+  <div>Author: <span property="author">Sekar, Nitin, Ph.D.</span></div>
+  <div>Course: <span property="inSupportOf">Conservation Biology</span></div>
+  <div>School: <span property="sourceOrganization">Princeton University</span></div>
+</div>
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": {
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "rdfa": "http://www.w3.org/ns/rdfa#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "schema": "http://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#"
+  },
+  "@id": "",
+  "rdfa:usesVocabulary": {
+    "@id": "schema:"
+  },
+  "@type": "schema:Thesis",
+  "schema:author": "Sekar, Nitin, Ph.D.",
+  "schema:inSupportOf": "Conservation Biology",
+  "schema:name": "Asian elephants are essential as seed dispersers in a disturbed tropical forest",
+  "schema:sourceOrganization": "Princeton University"
+}
+</script>

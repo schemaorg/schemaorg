@@ -1,0 +1,89 @@
+TYPES: #mainEntity-1 mainEntity
+
+PRE-MARKUP:
+
+     <div>
+      <h1>Cath's Cafe</h1>
+      <p>Open: Daily from 11:00am till 8pm</p>
+      <p>Phone: 555-0100-3344</p>
+      <p>View <a href="/menu">our menu</a>.</p>
+     </div>
+
+MICRODATA:
+
+<div itemid="http://cathscafe.example.com/" itemscope itemtype="http://schema.org/WebPage">
+    <div itemprop="mainEntity" itemscope itemtype="http://schema.org/Restaurant" itemid="#thecafe">
+      <h1 itemprop="name">Cath's Cafe</h1>
+      <p>Open: <time itemprop="openingHours" datetime="Mo,Tu,We,Th,Fr,Sa,Su 11:00-20:00">Daily from 11:00am till 8pm</time></p>
+      <p>Phone: <span itemprop="telephone" content="+155501003344">555-0100-3344</span></p>
+      <p>View <a itemprop="menu" href="/menu">our menu</a>.</p>
+    </div>
+</div>
+ 
+RDFA:
+
+TODO.
+
+JSON:
+
+<script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "WebPage",
+    "@id": "http://cathscafe.example.com/",
+    "mainEntity": {
+      "@type": "Restaurant",
+      "name": "Cath's Cafe",
+      "openingHours": "Mo,Tu,We,Th,Fr,Sa,Su 11:00-20:00",
+      "telephone": "+155501003344",
+      "menu": "/menu"
+    }
+}
+</script>
+
+
+TYPES: #mainEntity-2 mainEntityOfPage
+
+PRE-MARKUP:
+
+     <div>
+      <h1>Cath's Cafe</h1>
+      <p>Open: Daily from 11:00am till 8pm</p>
+      <p>Phone: 555-0100-3344</p>
+      <p>View <a href="/menu">our menu</a>.</p>
+     </div>
+
+MICRODATA:
+
+<div itemscope itemtype="http://schema.org/Restaurant" itemid="#thecafe">
+    <a itemprop="mainEntityOfPage" href="http://cathscafe.example.com/"><h1 itemprop="name">Cath's Cafe</h1></a>
+    <p>Open: <time itemprop="openingHours" datetime="Mo,Tu,We,Th,Fr,Sa,Su 11:00-20:00">Daily from 11:00am till 8pm</time></p>
+    <p>Phone: <span itemprop="telephone" content="+155501003344">555-0100-3344</span></p>
+    <p>View <a itemprop="menu" href="/menu">our menu</a>.</p>
+</div>
+ 
+RDFA:
+
+<div vocab="http://schema.org/" typeof="Restaurant" resource="#thecafe">
+    <a property="mainEntityOfPage" href="http://cathscafe.example.com/"><h1 property="name">Cath's Cafe</h1></a>
+    <p>Open: <time property="openingHours" datetime="Mo,Tu,We,Th,Fr,Sa,Su 11:00-20:00">Daily from 11:00am till 8pm</time></p>
+    <p>Phone: <span property="telephone" content="+155501003344">555-0100-3344</span></p>
+    <p>View <a property="menu" href="/menu">our menu</a>.</p>
+</div>
+
+JSON:
+
+<script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+      "@type": "Restaurant",
+      "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "http://cathscafe.example.com/",
+      },
+      "name": "Cath's Cafe",
+      "openingHours": "Mo,Tu,We,Th,Fr,Sa,Su 11:00-20:00",
+      "telephone": "+155501003344",
+      "menu": "/menu"
+}
+</script>

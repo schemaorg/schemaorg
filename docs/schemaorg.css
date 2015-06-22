@@ -50,16 +50,17 @@ color: #990000;
 letter-spacing: -1px;
 margin: 2em 0 0 0;
 }
-h2
-{
+
+h2 {
 border-top: 1px solid #990000;
 padding-top: 5px;
-clear: both, color: #990000;
+clear: both;
+color: #990000;
 font: normal 18px Helvetica, Arial, sans-serif;
 margin: 2em 0 0 0;
 }
-h3
-{
+
+h3 {
 font-size: 12px;
 color: #660000;
 margin: 1em 0 0 0;
@@ -95,7 +96,7 @@ overflow: auto;
 width: 100%;
 height: 80px;
 background: #990000;
-position: top;
+position: top; /* TODO: this is wrong */
 }
 #pageHeader h1
 {
@@ -320,7 +321,7 @@ padding: 10px 0;
  position:relative;
  top: 25px; left: -40px;
  text-shadow: 0 2px 0 #510000;
- pointer-events: none;
+ /*pointer-events: none; */
 }
 #selectionbar ul {
   margin: 0 auto;
@@ -392,7 +393,7 @@ input.gsc-search-button {
   height: 27px;
   padding: 0 8px;
   line-height: 27px;
-  transition: all,0.218s; 
+  transition: all,0.218s;
   border-top-right-radius: 2px;
   border-top-left-radius: 2px;
   color: #666;
@@ -416,4 +417,39 @@ input.gsc-search-button {
 }
 .ds-selector-tabs pre.selected {
   display: block;
+}
+
+
+
+
+
+
+.layerinfo {
+    width: 100%; /* compatibility */
+    background-color: #990000;
+    color: #fff;
+    text-align: right;
+    font-weight: bold;
+    padding: 0.7em;
+}
+#lli a:link {  text-decoration: underline; color : #fff;  background-color: #990000; text-decoration: none; }
+#lli a:visited {  text-decoration: underline; color : #fff;  background-color: #990000; text-decoration: none; }
+
+
+/* Style overrides based on sitemode */
+
+.testsite {
+
+    color: black;
+    background-color: #EEE; 
+
+/*
+  color: green;
+  background-color: #DDFF00;
+  background: #DDFF00;
+  font-weight: 900;
+  background-image: url(draft.jpg);
+  background-repeat:repeat;
+*/
+
 }

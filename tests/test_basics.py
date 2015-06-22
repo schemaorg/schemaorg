@@ -2,8 +2,8 @@ import unittest
 import os
 import logging # https://docs.python.org/2/library/logging.html#logging-levels
 
-from headers import *
-from api import *
+#from api import *
+from sdoapp import *
 from parsers import *
 
 schema_path = './data/schema.rdfa'
@@ -43,7 +43,7 @@ class SDOBasicsTestCase(unittest.TestCase):
       if t.examples and len(t.examples) > 0:
         example_count = example_count + len(t.examples)
     log.info("Extracted %s examples." % example_count )
-    self.assertTrue(example_count > 300 and example_count < 400, "Expect that we extracted 300 < x < 400 examples from data/*examples.txt. Found: %s " % example_count)
+    self.assertTrue(example_count > 300 and example_count < 450, "Expect that we extracted 300 < x < 400 examples from data/*examples.txt. Found: %s " % example_count)
 
   # Whichever file from data/*examples.txt is glob-loaded last, needs a final entry of "TYPES:  FakeEntryNeeded, FixMeSomeDay"
   # This used to be examples.txt but now we are multi-file it could strike anywhere.
@@ -199,6 +199,7 @@ class SchemaBasicAPITestCase(unittest.TestCase):
   def test_StoresAreOrganizations(self):
     tStore = Unit.GetUnit("Store")
     tOrganization = Unit.GetUnit("Organization")
+    orgsubtypes = GetSources( Unit.GetUnit("rdfs:subClassOf"), tOrganization  )
     self.assertTrue(tStore.subClassOf(tOrganization), "Store subClassOf Organization.")
 
   def test_PersonNotAttribute(self):
@@ -254,7 +255,9 @@ class SchemaPropertyMetadataTestCase(unittest.TestCase):
   def test_acceptedAnswerSuperpropertiesArrayLen(self):
     p_acceptedAnswer = Unit.GetUnit("acceptedAnswer")
     aa_supers = p_acceptedAnswer.superproperties()
-    self.assertEqual( len(aa_supers), 1, "acceptedAnswer subproperties() gives array of len 1." )
+    for f in aa_supers:
+        log.info("acceptedAnswer's subproperties(): %s" % f.id)
+    self.assertTrue( len(aa_supers) == 1, "acceptedAnswer subproperties() gives array of len 1. Actual: %s ." % len(aa_supers) )
 
   def test_answerSubproperty(self):
     p_suggestedAnswer = Unit.GetUnit("suggestedAnswer")
@@ -367,7 +370,7 @@ class SimpleSchemaIntegrityTests(unittest.TestCase):
 class DataTypeTests(unittest.TestCase):
     def test_booleanDataType(self):
       self.assertTrue( Unit.GetUnit("Boolean").isDataType())
-      self.assertTrue(Unit.GetUnit("DataType").isDataType())
+      self.assertFalse(Unit.GetUnit("DataType").isDataType())
       self.assertFalse(Unit.GetUnit("Thing").isDataType())
       self.assertFalse(Unit.GetUnit("Duration").isDataType())
 
@@ -416,7 +419,7 @@ class AdvancedJSONLDTests(unittest.TestCase):
 # * if x and y are inverseOf each other, the rangeIncludes types on x should be domainIncludes on y, and vice-versa.
 # * need a few supporting functions e.g. all terms, all types, all properties, all enum values; candidates for api later but just use here first.
 # * make sure terms match their labels (e.g. priceRange), with or without whitespace?
-
+# * check we don't assign more than one example to the same ID
 
 if __name__ == "__main__":
   unittest.main()

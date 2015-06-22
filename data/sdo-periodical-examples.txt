@@ -1,4 +1,4 @@
-TYPES: Article, Periodical, PublicationIssue, PublicationVolume, ScholarlyArticle
+TYPES: #bib-1 Article, Periodical, PublicationIssue, PublicationVolume, ScholarlyArticle
  
 PRE-MARKUP:
  
@@ -114,7 +114,7 @@ JSON:
 }
 </script>
 
-TYPES: Article, Periodical, PublicationIssue, PublicationVolume, ScholarlyArticle
+TYPES: #bib-2 Article, Periodical, PublicationIssue, PublicationVolume, ScholarlyArticle
 
 PRE-MARKUP:
 
@@ -279,7 +279,7 @@ JSON:
 }
 </script>
 
-TYPES: Book, PublicationVolume
+TYPES: #bib-3 Book, PublicationVolume
 
 PRE-MARKUP:
 
@@ -306,7 +306,7 @@ MICRODATA:
   <link itemprop="about" href="http://id.worldcat.org/fast/1020337">
     The <strong itemprop="name">Lord of the Rings</strong> is an 
     <span itemprop="inLanguage" content="en">English-language</span> 
-    <span itemprop="genre" itemprop="Fiction">fictional</span> trilogy by
+    <span itemprop="genre">fictional</span> trilogy by
   <span itemprop="author" itemscope itemtype="http://schema.org/Person" itemid="#author">
     <link itemprop="sameAs" href="http://viaf.org/viaf/95218067">
     <span itemprop="name" content="Tolkien, J. R. R. (John Ronald Reuel)">J. R. R. Tolkien</span>
@@ -355,7 +355,7 @@ RDFA:
   <link property="about" href="http://id.worldcat.org/fast/1020337">
     The <strong property="name">Lord of the Rings</strong> is an 
     <span property="inLanguage" content="en">English-language</span> 
-    <span property="genre" property="Fiction">fictional</span> trilogy by
+    <span property="genre">fictional</span> trilogy by
   <span property="author" typeof="Person" resource="#author">
     <link property="sameAs" href="http://viaf.org/viaf/95218067">
     <span property="name" content="Tolkien, J. R. R. (John Ronald Reuel)">J. R. R. Tolkien</span>
@@ -464,7 +464,7 @@ JSON:
 }
 </script>
 
-TYPES: PublicationIssue, PublicationVolume, ScholarlyArticle
+TYPES: #bib-4 PublicationIssue, PublicationVolume, ScholarlyArticle
 
 PRE-MARKUP:
 
@@ -570,7 +570,7 @@ JSON:
 }
 </script>
 
-TYPES: exampleOfWork, workExample
+TYPES: #bib-5 exampleOfWork, workExample
 
 PRE-MARKUP:
 
@@ -630,7 +630,7 @@ MICRODATA:
         The movie <em itemprop="name">The Lord of the Rings: The Fellowship of the
         Ring</em>, directed by <span itemprop="director">Peter Jackson</span> and
         released in <time itemprop="datePublished">2001</time>, ran
-        <time itemprop="duration" content="PT178M">178</time> minutes long in its
+        <time itemprop="duration" datetime="PT178M">178</time> minutes long in its
         theatrical release.
     </span>
 </p>
@@ -673,14 +673,74 @@ RDFA:
             The movie <em property="name">The Lord of the Rings: The Fellowship of the
             Ring</em>, directed by <span property="director">Peter Jackson</span> and
             released in <time property="datePublished">2001</time>, ran
-            <time property="duration" content="PT178M">178</time> minutes long in its
+            <time property="duration" datetime="PT178M">178</time> minutes long in its
             theatrical release.
         </span>
     </p>
 </div>
 
 JSON:
- 
+
+<script type="application/ld+json">
+{
+  "@context": {
+    "schema": "http://schema.org/"
+  },
+  "@graph": [
+    {
+      "@id": "http://www.freebase.com/m/0h35m",
+      "@type": "Book",
+      "author": "J.R.R Tolkien",
+      "datePublished": "1954",
+      "name": "The Fellowship of the Ring",
+      "publisher": {
+          "@type": "Organization",
+          "location": "United Kingdom",
+          "name": "George Allen & Unwin"
+      },
+      "workExample": [
+        {
+          "@type": "Book",
+          "datePublished": "1974",
+          "isbn": "0007149212",
+          "publisher": {
+            "@type": "Organization",
+            "name": "HarperCollins"
+          }
+        },
+        {
+          "@type": "Book",
+          "datePublished": "1984",
+          "isbn": "0345296052",
+          "publisher": {
+            "@type": "Organization",
+            "name": "Ballantine"
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Movie",
+      "datePublished": "2001",
+      "director": "Peter Jackson",
+      "duration": "PT178M",
+      "name": "The Lord of the Rings: The Fellowship of the Ring",
+      "exampleOfWork": {
+        "@id": "http://www.freebase.com/m/0h35m"
+      }
+    },
+    {
+      "@type": "Movie",
+      "datePublished": "1978",
+      "director": "Ralph Bakshi",
+      "name": "J.R.R. Tolkien's The Lord of the Rings",
+      "exampleOfWork": {
+        "@id": "http://www.freebase.com/m/0h35m"
+      }
+    }
+  ]
+}
+</script>
 
 TYPES:  FakeEntryNeeded, FixMeSomeDay
 PRE-MARKUP:

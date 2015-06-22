@@ -1,0 +1,53 @@
+TYPES: #sports-1 SportsTeam, SportsOrganization
+
+PRE-MARKUP: 
+
+Seattle Seahawks
+American Football Team (NFC West)
+Head Coach: Pete Carroll
+Notable Players:  Russell Wilson, Marshawn Lynch
+
+MICRODATA:
+
+This example is JSON only.
+
+RDFA:
+
+This example is JSON only.
+
+JSON: 
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "SportsTeam",
+  "name": "Seattle Seahawks",
+  "sport": "American Football",
+  "memberOf": [
+    {
+      "@type": "SportsOrganization",
+      "name": "National Football League"
+    },{
+      "@type": "SportsOrganization",
+      "name": "National Football Conference"
+    },{
+      "@type": "SportsOrganization",
+      "name": "NFC West Division"
+    }
+  ],
+  "coach": {
+    "@type": "Person",
+    "name": "Pete Carroll"
+  },
+  "athlete": [
+    {
+      "@type": "Person",
+      "name": "Russell Wilson"
+    },{
+      "@type": "Person",
+      "name": "Marshawn Lynch"
+    }
+  ]
+}
+</script>
+
