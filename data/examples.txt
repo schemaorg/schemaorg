@@ -10544,6 +10544,91 @@ JSON:
 }
 </script>
 
+TYPES: DownloadAction, EntryPoint, MobileApplication
+
+PRE-MARKUP:
+
+A MobileAction is available to download from two different URLs based on geography.
+
+MICRODATA:
+
+This example is JSON only.
+
+RDFA:
+
+This example is JSON only.
+
+JSON:
+
+<script type="application/ld+json">
+
+{
+  "@context": "http://schema.org",
+  "@type": "MobileAction",
+  "name": "New Game",
+  "potentialAction": {
+    "@type": "DownloadAction",
+    "target": [
+      {
+        "@type": "EntryPoint",
+        "url": "http://www.example.com/download/us/new_game/"
+        "eligibleRegion": "US"
+      },
+      {
+        "@type": "EntryPoint",
+        "url": "http://www.example.com/download/uk/new_game/"
+        "eligibleRegion": "GB"
+      },
+    ]
+  }
+}
+</script>
+
+TYPES: ViewAction, EntryPoint, CreativeWork
+
+PRE-MARKUP:
+
+An item is viewable at different URLs based on language.
+
+MICRODATA:
+
+This example is JSON only.
+
+RDFA:
+
+This example is JSON only.
+
+JSON:
+
+<script type="application/ld+json">
+
+{
+  "@context": "http://schema.org",
+  "@type": "CreativeWork",
+  "name": "Online Art Exhibit",
+  "potentialAction": {
+    "@type": "ViewAction",
+    "target": [
+      {
+        "@type": "EntryPoint",
+        "url": "http://www.example.com/view/en"
+        "inLanguage": "en"
+      },
+      {
+        "@type": "EntryPoint",
+        "url": "http://www.example.com/view/ru"
+        "inLanguage": "ru"
+      },
+      {
+        "@type": "EntryPoint",
+        "url": "http://www.example.com/view/jp"
+        "inLanguage": "jp"
+      },
+    ]
+  }
+}
+</script>
+
 TYPES:  MusicEvent, Event, CreativeWork, MusicGroup, Person
 
 PRE-MARKUP:
