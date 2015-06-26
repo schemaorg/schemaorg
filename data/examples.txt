@@ -3,7 +3,7 @@ TYPES: #eg-1 Person,PostalAddress,addressRegion,postalCode,address,streetAddress
 PRE-MARKUP:
 
 Jane Doe
-<img src="janedoe.jpg" alt="Photo of Jane Joe"/>
+<img src="janedoe.jpg"  alt="Photo of Jane Joe"/>
 
 Professor
 20341 Whitworth Institute
@@ -1280,7 +1280,10 @@ MICRODATA:
   </span>
 
   140 comments:
-  <meta itemprop="interactionCount" content="UserComments:140" />
+  <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+    <meta itemprop="interactionType" content="http://schema.org/CommentAction" />
+    <meta itemprop="userInteractionCount" content="140" />
+  </div>
   From Janel, May 5 -- thank you, great recipe!
   ...
 </div>
@@ -1322,7 +1325,10 @@ RDFA:
   </span>
 
   140 comments:
-  <meta property="interactionCount" content="UserComments:140" />
+  <div property="interactionStatistic" typeof="InteractionCounter">
+    <meta property="interactionType" content="http://schema.org/CommentAction" />
+    <meta property="userInteractionCount" content="140" />
+  </div>
   From Janel, May 5 -- thank you, great recipe!
   ...
 </div>
@@ -1343,7 +1349,11 @@ JSON:
     "1 egg",
     "3/4 cup of sugar"
   ],
-  "interactionCount": "UserComments:140",
+  "interactionStatistic": {
+    "@type": "InteractionCounter",
+    "interactionType": "http://schema.org/Comment",
+    "userInteractionCount": "140"
+  },
   "name": "Mom's World Famous Banana Bread",
   "nutrition": {
     "@type": "NutritionInformation",
@@ -1443,7 +1453,11 @@ MICRODATA:
   <span itemprop="name">Rope</span>
   <meta itemprop="url" content ="foo-fighters-rope.html">
   Length: <meta itemprop="duration" content="PT4M5S">4:05 -
-  14300 plays<meta itemprop="interactionCount" content="UserPlays:14300" />
+  14300 plays
+  <div itemprop="interactionCount" itemscope itemtype="http://schema.org/InteractionCounter">
+    <meta itemprop="interactionType" content="http://schema.org/ListenAction" />
+    <meta itemprop="userInteractionCount" content="14300" />
+  </div>
   <a href="foo-fighters-rope-play.html" itemprop="audio">Play</a>
   <a href="foo-fighters-rope-buy.html" itemprop="offers">Buy</a>
   From album: <a href="foo-fighters-wasting-light.html"
@@ -1454,7 +1468,11 @@ MICRODATA:
   <span itemprop="name">Everlong</span>
   <meta itemprop="url" content ="foo-fighters-everlong.html">
   Length: <meta itemprop="duration" content="PT6M33S">6:33 -
-  <span itemprop="playCount">11700</span> plays
+  11700 plays
+  <div itemprop="interactionCount" itemscope itemtype="http://schema.org/InteractionCounter">
+    <meta itemprop="interactionType" content="http://schema.org/ListenAction" />
+    <meta itemprop="userInteractionCount" content="11700" />
+  </div>
   <a href="foo-fighters-everlong-play.html" itemprop="audio">Play</a>
   <a href="foo-fighters-everlong-buy.html" itemprop="offers">Buy</a>
   From album: <a href="foo-fighters-color-and-shape.html"
@@ -1497,7 +1515,10 @@ src="foofighters-thumb3.jpg" /></a>
 <h2>Comments:</h2>
 Excited about seeing them in concert next week. -Lawrence , Jan 23
 I dig their latest single. -Mary, Jan 19
-<meta itemprop="interactionCount" content="UserComments:18" />
+<div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+  <meta itemprop="interactionType" content="http://schema.org/CommentAction" />
+  <meta itemprop="userInteractionCount" content="18" />
+</div>
 Showing 1-2 of 18 comments. <a href="foofighters-comments">More</a>
 
 </div>
@@ -1528,7 +1549,11 @@ RDFA:
   <span property="name">Rope</span>
   <meta property="url" content ="foo-fighters-rope.html">
   Length: <meta property="duration" content="PT4M5S">4:05 -
-  14300 plays<meta property="interactionCount" content="UserPlays:14300" />
+  14300 plays
+  <div property="interactionStatistic" typeof="http://schema.org/InteractionCounter">
+    <meta property="interactionType" content="http://schema.org/ListenAction" />
+    <meta property="userInteractionCount" content="14300" />
+  </div>
   <a href="foo-fighters-rope-play.html" property="audio">Play</a>
   <a href="foo-fighters-rope-buy.html" property="offers">Buy</a>
   From album: <a href="foo-fighters-wasting-light.html"
@@ -1539,7 +1564,11 @@ RDFA:
   <span property="name">Everlong</span>
   <meta property="url" content ="foo-fighters-everlong.html">
   Length: <meta property="duration" content="PT6M33S">6:33 -
-  <span property="playCount">11700</span> plays
+  11700 plays
+  <div property="interactionStatistic" typeof="http://schema.org/InteractionCounter">
+    <meta property="interactionType" content="http://schema.org/ListenAction" />
+    <meta property="userInteractionCount" content="11700" />
+  </div>
   <a href="foo-fighters-everlong-play.html" property="audio">Play</a>
   <a href="foo-fighters-everlong-buy.html" property="offers">Buy</a>
   From album: <a href="foo-fighters-color-and-shape.html"
@@ -1582,7 +1611,10 @@ src="foofighters-thumb1.jpg" /></a>
 <h2>Comments:</h2>
 Excited about seeing them in concert next week. -Lawrence , Jan 23
 I dig their latest single. -Mary, Jan 19
-<meta property="interactionCount" content="UserComments:18" />
+<div property="interactionStatistic" typeof="http://schema.org/InteractionCounter">
+  <meta property="interactionType" content="http://schema.org/CommentAction" />
+  <meta property="userInteractionCount" content="18" />
+</div>
 Showing 1-2 of 18 comments. <a href="foofighters-comments">More</a>
 
 </div>
@@ -1614,7 +1646,11 @@ JSON:
     "foofighters-2.jpg",
     "foofighters-3.jpg"
   ],
-  "interactionCount": "UserComments:18",
+  "interactionStatistic: {
+    "@type": "InteractionCounter",
+    "interactionType": "http://schema.org/CommentAction",
+    "userInteractionCount": "18",
+  },
   "name": "Foo Fighters",
   "track": [
     {
@@ -1622,7 +1658,12 @@ JSON:
       "audio": "foo-fighters-rope-play.html",
       "duration": "PT4M5S",
       "inAlbum": "foo-fighters-wasting-light.html",
-      "interactionCount": "UserPlays:14300",
+      "interactionStatistic: {
+        "@type": "InteractionCounter",
+        "interactionType": "http://schema.org/ListenAction",
+        "userInteractionCount": "14300",
+      }
+    },
       "name": "Rope",
       "offers": "foo-fighters-rope-buy.html",
       "url": "foo-fighters-rope.html"
@@ -1633,8 +1674,12 @@ JSON:
       "duration": "PT6M33S",
       "inAlbum": "foo-fighters-color-and-shape.html",
       "name": "Everlong",
+      "interactionStatistic: {
+        "@type": "InteractionCounter",
+        "interactionType": "http://schema.org/ListenAction",
+        "userInteractionCount": "11700",
+      },
       "offers": "foo-fighters-everlong-buy.html",
-      "playCount": "11700",
       "url": "foo-fighters-everlong.html"
     }
   ],
@@ -2207,7 +2252,7 @@ JSON:
 }
 </script>
 
-TYPES:  UserInteraction,Article
+TYPES:  InteractionCounter,Article
 
 PRE-MARKUP:
 
@@ -2221,8 +2266,17 @@ MICRODATA:
   <span itemprop="name">How to Tie a Reef Knot</span>
   by <span itemprop="author">John Doe</span>
   This article has been tweeted 1203 times and contains 78 user comments.
-  <meta itemprop="interactionCount" content="UserTweets:1203"/>
-  <meta itemprop="interactionCount" content="UserComments:78"/>
+  <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+    <div itemprop="interactionService" itemscope itemid="http://www.twitter.com" itemtype="http://schema.org/Website">
+      <meta itemprop="name" content="Twitter" />
+    </div>
+    <meta itemprop="interactionType" content="http://schema.org/ShareAction"/>
+    <meta itemprop="userInteractionCount" content="1203" />
+  </div>
+  <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+    <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+    <meta itemprop="userInteractionCount" content="78" />
+  </div>
 </div>
 
 RDFA:
@@ -2231,8 +2285,17 @@ RDFA:
   <span property="name">How to Tie a Reef Knot</span>
   by <span property="author">John Doe</span>
   This article has been tweeted 1203 times and contains 78 user comments.
-  <meta property="interactionCount" content="UserTweets:1203"/>
-  <meta property="interactionCount" content="UserComments:78"/>
+  <div property="interactionStatistic" typeof="InteractionCounter">
+    <div property="interactionService" itemscope itemid="http://www.twitter.com" itemtype="http://schema.org/Website">
+      <meta property="name" content="Twitter" />
+    </div>
+    <meta property="interactionType" content="http://schema.org/ShareAction"/>
+    <meta property="userInteractionCount" content="1203" />
+  </div>
+  <div property="interactionStatistic" typeof="InteractionCounter">
+    <meta property="interactionType" content="http://schema.org/CommentAction"/>
+    <meta property="userInteractionCount" content="78" />
+  </div>
 </div>
 
 JSON:
@@ -2242,9 +2305,22 @@ JSON:
   "@context": "http://schema.org",
   "@type": "Article",
   "author": "John Doe",
-  "interactionCount": [
-    "UserTweets:1203",
-    "UserComments:78"
+  "interactionStatistic": [
+    {
+      "@type": "InteractionCounter",
+      "interactionService": {
+        "@type": "Website",
+        "name": "Twitter",
+        "url": "http://www.twitter.com"
+      },
+      "interactionType": "http://schema.org/ShareAction",
+      "userInteractionCount": "1203"
+    },
+    {
+      "@type": "InteractionCounter",
+      "interactionType": "http://schema.org/CommentAction",
+      "userInteractionCount": "78"
+    },
   ],
   "name": "How to Tie a Reef Knot"
 }
