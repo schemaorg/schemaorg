@@ -9897,8 +9897,58 @@ JSON:
 }
 </script>
 
+TYPES: fileFormat, accessibilityHazard, accessibilityFeature, accessibilityControl, accessibilityAPI
 
+PRE-MARKUP:
+[A basic presentation in HTML]
 
+MICRODATA:
+
+No microdata available
+
+RDFA:
+
+<div vocab="http://schema.org/" typeof="CreativeWork">
+   <meta property="accessibilityHazard" content="FlashingHazard"/>
+   <meta property="accessibilityHazard" content="noMotionSimulationHazard"/>
+   <meta property="accessibilityHazard" content="noSoundHazard"/>
+   <meta property="accessibilityFeature" content="longDescription"/>
+   <meta property="accessibilityFeature" content="alternativeText"/>
+   <meta property="fileFormat" content="text/html"/>
+   <meta property="fileFormat" content="image/png"/>
+   <meta property="fileFormat" content="text/css"/>
+   <meta property="fileFormat" content="text/javascript"/>
+   <meta property="accessibilityAPI" content="ARIA"/>
+   <meta property="accessibilityAPI" content="UIA"/>
+   <meta property="accessibilityControl" content="fullKeyboardControl"/>
+   <meta property="accessibilityControl" content="fullKeyboardControl"/>
+   <meta property="accessibilityControl" content="fullKeyboardControl"/>
+   <meta property="accessibilityControl" content="fullMouseControl"/>
+ <!--...slide content...-->
+</div>
+
+JSON:
+
+<script type="application/ld+json"> {
+ "@context" :  "http://schema.org/" ,
+ "@type" : "CreativeWork" ,
+ "accessibilityHazard" :  [
+        "FlashingHazard" , "noSoundHazard" ,
+        "noMotionSimulationHazard" ] , 
+
+ "accessibilityFeature" : [
+        "alternativeText" , "longDescription" ] ,
+
+ "fileFormat" : [
+        "text/html" , "image/png" ,
+        "text/javascript" , "text/css" ] ,
+
+ "accessibilityAPI" : [ 
+        "ARIA" , "UIA" ]
+ "accessibilityControl" : [
+        "fullKeyboardControl" , "fullTouchControl" ,
+        "fullVoiceControl" , "fullMouseControl" ]
+} </script>
 
 
 TYPES: TrainReservation, TrainTrip
