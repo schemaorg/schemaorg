@@ -9897,6 +9897,38 @@ JSON:
 }
 </script>
 
+TYPES: accessibilityFeature, accessibilityHazard, fileFormat
+
+PRE-MARKUP:
+<img src="png"
+  alt="standards. toothbrushes. don't ask" longdesc="927desc.html">
+
+MICRODATA:
+<figure itemscope itemtype="http://schema.org/CreativeWork">
+ <meta itemprop="accessibilityFeature" content="textAlternative">
+ <meta itemprop="accessibilityFeature" content="longDescription">
+ <meta itemprop="accessibilityHazard" content="noFlashingHazard">
+ <meta itemprop="accessibilityHazard" content="noMotionSimulationHazard">
+ <meta itemprop="fileFormat" content="image/png">
+<img src="png"
+  alt="standards. toothbrushes. don't ask" longdesc="927desc.html">
+</figure>
+
+RDFA:
+<figure vocab="http://schema.org/" typeof="CreativeWork">
+ <meta property="accessibilityFeature" content="textAlternative">
+ <meta property="accessibilityFeature" content="longDescription">
+ <meta property="accessibilityHazard" content="noFlashingHazard">
+ <meta property="accessibilityHazard" content="noMotionSimulationHazard">
+ <meta property="fileFormat" content="image/png">
+<img src="png"
+  alt="standards. toothbrushes. don't ask" longdesc="927desc.html">
+</figure>
+
+JSON:
+
+No Json example available
+
 TYPES: fileFormat, accessibilityHazard, accessibilityFeature, accessibilityControl, accessibilityAPI
 
 PRE-MARKUP:
@@ -9904,7 +9936,24 @@ PRE-MARKUP:
 
 MICRODATA:
 
-No microdata available
+<main itemscope itemtype="http://schema.org/CreativeWork">
+   <meta itemprop="accessibilityHazard" content="FlashingHazard"/>
+   <meta itemprop="accessibilityHazard" content="noMotionSimulationHazard"/>
+   <meta itemprop="accessibilityHazard" content="noSoundHazard"/>
+   <meta itemprop="accessibilityFeature" content="longDescription"/>
+   <meta itemprop="accessibilityFeature" content="alternativeText"/>
+   <meta itemprop="fileFormat" content="text/html"/>
+   <meta itemprop="fileFormat" content="image/png"/>
+   <meta itemprop="fileFormat" content="text/css"/>
+   <meta itemprop="fileFormat" content="text/javascript"/>
+   <meta itemprop="accessibilityAPI" content="ARIA"/>
+   <meta itemprop="accessibilityAPI" content="UIA"/>
+   <meta itemprop="accessibilityControl" content="fullKeyboardControl"/>
+   <meta itemprop="accessibilityControl" content="fullKeyboardControl"/>
+   <meta itemprop="accessibilityControl" content="fullKeyboardControl"/>
+   <meta itemprop="accessibilityControl" content="fullMouseControl"/>
+ <!--...slide content...-->
+</main>
 
 RDFA:
 
