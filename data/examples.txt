@@ -9648,7 +9648,7 @@ JSON:
 }
 </script>
 
-TYPES:  Book,CreativeWork
+TYPES:  Book,CreativeWork,accessibilityFeature,accessibilityHazard,accessibilityControl,accessibilityAPI
 
 PRE-MARKUP:
 
@@ -9897,8 +9897,107 @@ JSON:
 }
 </script>
 
+TYPES: accessibilityFeature, accessibilityHazard, fileFormat
 
+PRE-MARKUP:
+<img src="png"
+  alt="standards. toothbrushes. don't ask" longdesc="927desc.html">
 
+MICRODATA:
+<figure itemscope itemtype="http://schema.org/CreativeWork">
+ <meta itemprop="accessibilityFeature" content="textAlternative">
+ <meta itemprop="accessibilityFeature" content="longDescription">
+ <meta itemprop="accessibilityHazard" content="noFlashingHazard">
+ <meta itemprop="accessibilityHazard" content="noMotionSimulationHazard">
+ <meta itemprop="fileFormat" content="image/png">
+<img src="png"
+  alt="standards. toothbrushes. don't ask" longdesc="927desc.html">
+</figure>
+
+RDFA:
+<figure vocab="http://schema.org/" typeof="CreativeWork">
+ <meta property="accessibilityFeature" content="textAlternative">
+ <meta property="accessibilityFeature" content="longDescription">
+ <meta property="accessibilityHazard" content="noFlashingHazard">
+ <meta property="accessibilityHazard" content="noMotionSimulationHazard">
+ <meta property="fileFormat" content="image/png">
+<img src="png"
+  alt="standards. toothbrushes. don't ask" longdesc="927desc.html">
+</figure>
+
+JSON:
+
+No Json example available
+
+TYPES: fileFormat, accessibilityHazard, accessibilityFeature, accessibilityControl, accessibilityAPI
+
+PRE-MARKUP:
+[A basic presentation in HTML]
+
+MICRODATA:
+
+<main itemscope itemtype="http://schema.org/CreativeWork">
+   <meta itemprop="accessibilityHazard" content="FlashingHazard"/>
+   <meta itemprop="accessibilityHazard" content="noMotionSimulationHazard"/>
+   <meta itemprop="accessibilityHazard" content="noSoundHazard"/>
+   <meta itemprop="accessibilityFeature" content="longDescription"/>
+   <meta itemprop="accessibilityFeature" content="alternativeText"/>
+   <meta itemprop="fileFormat" content="text/html"/>
+   <meta itemprop="fileFormat" content="image/png"/>
+   <meta itemprop="fileFormat" content="text/css"/>
+   <meta itemprop="fileFormat" content="text/javascript"/>
+   <meta itemprop="accessibilityAPI" content="ARIA"/>
+   <meta itemprop="accessibilityAPI" content="UIA"/>
+   <meta itemprop="accessibilityControl" content="fullKeyboardControl"/>
+   <meta itemprop="accessibilityControl" content="fullKeyboardControl"/>
+   <meta itemprop="accessibilityControl" content="fullKeyboardControl"/>
+   <meta itemprop="accessibilityControl" content="fullMouseControl"/>
+ <!--...slide content...-->
+</main>
+
+RDFA:
+
+<div vocab="http://schema.org/" typeof="CreativeWork">
+   <meta property="accessibilityHazard" content="FlashingHazard"/>
+   <meta property="accessibilityHazard" content="noMotionSimulationHazard"/>
+   <meta property="accessibilityHazard" content="noSoundHazard"/>
+   <meta property="accessibilityFeature" content="longDescription"/>
+   <meta property="accessibilityFeature" content="alternativeText"/>
+   <meta property="fileFormat" content="text/html"/>
+   <meta property="fileFormat" content="image/png"/>
+   <meta property="fileFormat" content="text/css"/>
+   <meta property="fileFormat" content="text/javascript"/>
+   <meta property="accessibilityAPI" content="ARIA"/>
+   <meta property="accessibilityAPI" content="UIA"/>
+   <meta property="accessibilityControl" content="fullKeyboardControl"/>
+   <meta property="accessibilityControl" content="fullKeyboardControl"/>
+   <meta property="accessibilityControl" content="fullKeyboardControl"/>
+   <meta property="accessibilityControl" content="fullMouseControl"/>
+ <!--...slide content...-->
+</div>
+
+JSON:
+
+<script type="application/ld+json"> {
+ "@context" :  "http://schema.org/" ,
+ "@type" : "CreativeWork" ,
+ "accessibilityHazard" :  [
+        "FlashingHazard" , "noSoundHazard" ,
+        "noMotionSimulationHazard" ] , 
+
+ "accessibilityFeature" : [
+        "alternativeText" , "longDescription" ] ,
+
+ "fileFormat" : [
+        "text/html" , "image/png" ,
+        "text/javascript" , "text/css" ] ,
+
+ "accessibilityAPI" : [ 
+        "ARIA" , "UIA" ]
+ "accessibilityControl" : [
+        "fullKeyboardControl" , "fullTouchControl" ,
+        "fullVoiceControl" , "fullMouseControl" ]
+} </script>
 
 
 TYPES: TrainReservation, TrainTrip
