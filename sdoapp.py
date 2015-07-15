@@ -293,7 +293,7 @@ def GetJsonLdContext(layers='core'):
         jsonldcontext += "}}\n"
         jsonldcontext = jsonldcontext.replace("},}}","}\n    }\n}")
         jsonldcontext = jsonldcontext.replace("},","},\n")
-        DataCache['JSONLDCONTEXT'] = jsonldcontext
+        DataCache.put('JSONLDCONTEXT',jsonldcontext)
         log.debug("DataCache: added JSONLDCONTEXT")
         return jsonldcontext
 
@@ -314,6 +314,7 @@ class ShowUnit (webapp2.RequestHandler):
         """Return page text from node.id cache (if found, otherwise None)."""
         global PageCache
         cachekey = "%s:%s" % ( layers, node.id ) # was node.id
+        log.info("ZZZZZZZZZZZZZZZZ cachekey:%s" % cachekey)
         #if (node.id in PageCache):
         if (cachekey in PageCache):
             return PageCache[cachekey]
@@ -781,6 +782,7 @@ class ShowUnit (webapp2.RequestHandler):
             hp = DataCache.get("homepage")
             if hp != None:
                 self.response.out.write( hp )
+                log.info("Served datacache homepage.tpl")
                 log.debug("Served datacache homepage.tpl")
             else:
                 template = JINJA_ENVIRONMENT.get_template('homepage.tpl')
@@ -795,7 +797,7 @@ class ShowUnit (webapp2.RequestHandler):
                 page = template.render(template_values)
                 self.response.out.write( page )
                 log.debug("Served fresh homepage.tpl")
-                DataCache["homepage"] = page
+                DataCache.put("homepage",page)
                 #            self.response.out.write( open("static/index.html", 'r').read() )
             return True
         log.info("Warning: got here how?")
@@ -838,7 +840,7 @@ class ShowUnit (webapp2.RequestHandler):
                 'ext_mappings': ext_mappings
             }
             out = template.render(template_values)
-            DataCache[ generated_page_id ] = out
+            DataCache.put(generated_page_id,out)
             log.debug("Served and cached fresh genericTermPageHeader.tpl for %s" % generated_page_id )
 
             self.response.write(out)
@@ -970,6 +972,7 @@ class ShowUnit (webapp2.RequestHandler):
         # 3. Use host_ext if set, e.g. 'bib' from bib.schema.org
         if host_ext != None:
             log.debug("Host: %s host_ext: %s" % ( self.request.host , host_ext ) )
+            log.info("Host: %s host_ext: %s" % ( self.request.host , host_ext ) )
             extlist.append(host_ext)
 
         # Report domain-requested extensions
@@ -1028,7 +1031,7 @@ class ShowUnit (webapp2.RequestHandler):
 
             self.response.out.write( page )
             log.debug("Serving fresh FullTreePage.")
-            DataCache["FullTreePage"] = page
+            DataCache.put("FullTreePage",page)
 
             return True
 
@@ -1049,7 +1052,7 @@ class ShowUnit (webapp2.RequestHandler):
             thing_tree = mainroot.toJSON()
             self.response.out.write( thing_tree )
             log.debug("Serving fresh JSONLDThingTree.")
-            DataCache["JSONLDThingTree"] = thing_tree
+            DataCache.put("JSONLDThingTree",thing_tree)
             return True
         return False
 
@@ -1115,7 +1118,7 @@ class ShowUnit (webapp2.RequestHandler):
             thing_tree = mainroot.toJSON()
             self.response.out.write( thing_tree )
             log.debug("Serving fresh JSONLDThingTree.")
-            DataCache["JSONLDThingTree"] = thing_tree
+            DataCache.put("JSONLDThingTree",thing_tree)
             return True
         return False
 
@@ -1155,7 +1158,7 @@ class ShowUnit (webapp2.RequestHandler):
 
                 self.response.out.write( page )
                 log.debug("Serving fresh tocVersionPage.")
-                DataCache["tocVersionPage"] = page
+                DataCache.put("tocVersionPage",page)
                 return True
 
         if requested_version in releaselog:
@@ -1259,7 +1262,7 @@ class ShowUnit (webapp2.RequestHandler):
 
             self.response.out.write( page )
             log.debug("Serving fresh FullReleasePage.")
-            DataCache["FullReleasePage"] = page
+            DataCache.put("FullReleasePage",page)
             return True
 
 
@@ -1267,11 +1270,12 @@ class ShowUnit (webapp2.RequestHandler):
         global debugging, host_ext, myhost, mybasehost
 
         host_ext = re.match( r'([\w\-_]+)[\.:]?', self.request.host).group(1)
-        log.debug("setupHostinfo: srh=%s host_ext=%s" % (self.request.host, str(host_ext) ))
+        log.debug("setupHostinfo: srh=%s host_ext=%s" % (self.request.host, str(host_ext) ))        
 
         if host_ext != None:
             # e.g. "bib"
             log.debug("HOST: Found %s in %s" % ( host_ext, self.request.host ))
+            DataCache.setCurrent(host_ext)
             myhost = self.request.host.rsplit(':')[0]
             mybasehost = myhost
             mybasehost = mybasehost.replace(host_ext + ".","")

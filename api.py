@@ -34,7 +34,6 @@ debugging = False
 # Core API: we have a single schema graph built from triples and units.
 
 NodeIDMap = {}
-DataCache = {}
 ext_re = re.compile(r'([^\w,])+')
 all_layers = {}
 all_terms = {}
@@ -91,6 +90,28 @@ namespaces = """        "cat": "http://www.w3.org/ns/dcat#",
         "role": "http://www.w3.org/1999/xhtml/vocab#role",
 """
 
+
+class DataCacheTool():
+         
+    def __init__ (self):
+        self._DataCache = {}
+        self._CurrentDataCache = "schema"
+        
+    def get(self,key):
+        return self._DataCache[self._CurrentDataCache].get(key)
+        
+    def put(self,key,val):
+        self._DataCache[self._CurrentDataCache][key] = val
+        
+    def setCurrent(self,current):
+        self._CurrentDataCache = current
+        if(self._DataCache.get(self._CurrentDataCache) == None):
+            self._DataCache[self._CurrentDataCache] = {}
+        log.debug("Setting _CurrentDataCache: %s",self._CurrentDataCache)
+        
+DataCache = DataCacheTool()   
+        
+        
 class Unit ():
     """
     Unit represents a node in our schema graph. IDs are local,
@@ -419,7 +440,7 @@ def GetAllTypes(layers='core'):
             for sc in subs:
                 if subbed.get(sc.id) == None:
                     todo.append(sc)
-        DataCache['AllTypes'] = subbed.keys()
+        DataCache.put('AllTypes',subbed.keys())
         return subbed.keys()
 
 def GetAllProperties(layers='core'):
@@ -431,7 +452,7 @@ def GetAllProperties(layers='core'):
         logging.debug("DataCache MISS: AllProperties")
         mynode = Unit.GetUnit("Thing")
         sorted_all_properties = sorted(GetSources(Unit.GetUnit("typeOf"), Unit.GetUnit("rdf:Property"), layers=layers), key=lambda u: u.id)
-        DataCache['AllProperties'] = sorted_all_properties
+        DataCache.put('AllProperties',sorted_all_properties)
         return sorted_all_properties
 
 def GetParentList(start_unit, end_unit=None, path=[], layers='core'):
