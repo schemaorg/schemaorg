@@ -1011,7 +1011,7 @@ JSON:
 }
 </script>
 
-TYPES:  WebPage,Book,AggregateRating,Offer,Review,CreativeWork
+TYPES:  WebPage,Book,AggregateRating,Offer,Review,CreativeWork,mainEntity
 
 PRE-MARKUP:
 
@@ -1055,7 +1055,7 @@ MICRODATA:
   <a href="category/books-classics">Classics</a>
 </div>
 
-<div itemscope itemtype="http://schema.org/Book">
+<div itemprop="mainEntity" itemscope itemtype="http://schema.org/Book">
 
 <img itemprop="image" src="catcher-in-the-rye-book-cover.jpg"
      alt="cover art: red horse, city in background" />
@@ -1114,7 +1114,7 @@ RDFA:
   <a href="category/books-classics">Classics</a>
 </div>
 
-<div  typeof="Book">
+<div property="mainEntity" typeof="Book">
 
 <img property="image" src="catcher-in-the-rye-book-cover.jpg"
     alt="cover art: red horse, city in background"/>
@@ -1169,45 +1169,48 @@ JSON:
 {
   "@context": "http://schema.org",
   "@type": "WebPage",
-  "aggregateRating": {
-    "@type": "AggregateRating",
-    "ratingValue": "4",
-    "reviewCount": "3077"
-  },
-  "author": "/author/jd_salinger.html",
-  "bookFormat": "http://schema.org/Paperback",
-  "breadcrumb": "Books > Literature & Fiction > Classics",
-  "datePublished": "1991-05-01",
-  "image": "catcher-in-the-rye-book-cover.jpg",
-  "inLanguage": "English",
-  "isbn": "0316769487",
-  "name": "The Catcher in the Rye",
-  "numberOfPages": "224",
-  "offers": {
-    "@type": "Offer",
-    "availability": "http://schema.org/InStock",
-    "price": "6.99",
-    "priceCurrency": "USD"
-  },
-  "publisher": "Little, Brown, and Company",
-  "review": [
-    {
-      "@type": "Review",
-      "author": "John Doe",
-      "datePublished": "2006-05-04",
-      "name": "A masterpiece of literature",
-      "reviewBody": "I really enjoyed this book. It captures the essential challenge people face as they try make sense of their lives and grow to adulthood.",
-      "reviewRating": "5"
-    },
-    {
-      "@type": "Review",
-      "author": "Bob Smith",
-      "datePublished": "2006-06-15",
-      "name": "A good read.",
-      "reviewBody": "Catcher in the Rye is a fun book. It's a good book to read.",
-      "reviewRating": "4"
-    }
-  ]
+  "mainEntity":{
+	  "@type": "Book",
+	  "author": "/author/jd_salinger.html",
+	  "bookFormat": "http://schema.org/Paperback",
+	  "breadcrumb": "Books > Literature & Fiction > Classics",
+	  "datePublished": "1991-05-01",
+	  "image": "catcher-in-the-rye-book-cover.jpg",
+	  "inLanguage": "English",
+	  "isbn": "0316769487",
+	  "name": "The Catcher in the Rye",
+	  "numberOfPages": "224",
+	  "offers": {
+	    "@type": "Offer",
+	    "availability": "http://schema.org/InStock",
+	    "price": "6.99",
+	    "priceCurrency": "USD"
+	  },
+	  "publisher": "Little, Brown, and Company",
+	  "aggregateRating": {
+	    "@type": "AggregateRating",
+	    "ratingValue": "4",
+	    "reviewCount": "3077"
+	  },
+	  "review": [
+	    {
+	      "@type": "Review",
+	      "author": "John Doe",
+	      "datePublished": "2006-05-04",
+	      "name": "A masterpiece of literature",
+	      "reviewBody": "I really enjoyed this book. It captures the essential challenge people face as they try make sense of their lives and grow to adulthood.",
+	      "reviewRating": "5"
+	    },
+	    {
+	      "@type": "Review",
+	      "author": "Bob Smith",
+	      "datePublished": "2006-06-15",
+	      "name": "A good read.",
+	      "reviewBody": "Catcher in the Rye is a fun book. It's a good book to read.",
+	      "reviewRating": "4"
+	    }
+	  ]
+  	}
 }
 </script>
 
