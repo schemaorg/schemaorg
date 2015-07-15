@@ -109,6 +109,9 @@ class DataCacheTool():
             self._DataCache[self._CurrentDataCache] = {}
         log.debug("Setting _CurrentDataCache: %s",self._CurrentDataCache)
         
+    def getCurrentself):
+        return self._CurrentDataCache
+        
 DataCache = DataCacheTool()   
         
         
