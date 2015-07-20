@@ -87,7 +87,8 @@ class ParseExampleFile :
                         line = line[ltk:]
                 if (len(line) > 0):
                     self.currentStr.append(line + "\n")
-        api.Example.AddExample(self.terms, self.preMarkupStr, self.microdataStr, self.rdfaStr, self.jsonStr, self.egmeta) # should flush on each block of examples
+        self.nextPart('TYPES:') # should flush on each block of examples
+        api.Example.AddExample(self.terms, self.preMarkupStr, self.microdataStr, self.rdfaStr, self.jsonStr, self.egmeta) # should flush last one
         #logging.info("Final AddExample called with terms %s " % self.terms)
         for t in self.terms:
             logging.debug("Adding %s" % "".join( [" ; %s " % t.id for t in self.terms] ) )
