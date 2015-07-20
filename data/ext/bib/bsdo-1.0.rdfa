@@ -46,6 +46,15 @@
 <span>Source:  <a property="dc:source" href="http://www.productontology.org/id/Atlas">pto:Atlas</a></span>
 </div>
 
+<div typeof="rdfs:Class" resource="http://schema.org/Audiobook">
+<span class="h" property="rdfs:label">bib:Audiobook</span>
+<span property="rdfs:comment">An audiobook.</span>
+<span> Subclass of:
+		     <a property="rdfs:subClassOf" href="http://schema.org/Book">schema:Book</a>
+		     <a property="rdfs:subClassOf" href="http://schema.org/AudioObject">schema:AudioObject</a>
+</span>
+</div>
+
 <div typeof="rdfs:Class" resource="http://schema.org/Chapter">
 <span class="h" property="rdfs:label">bib:Chapter</span>
 <span property="rdfs:comment">One of the sections into which a book is divided. A chapter usually has a section number or a name.</span>
@@ -100,6 +109,13 @@
 <hr/>
 <h2>Properties</h2>
 
+<div typeof="rdf:Property" resource="http://schema.org/abridged">
+  <span class="h" property="rdfs:label">bib:abridged</span>
+  <span property="rdfs:comment">Indicates whether the book is an abridged edition.</span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Book">schema:Book</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Boolean">schema:Boolean</a></span>
+</div>
+
 <div typeof="rdf:Property" resource="http://schema.org/author">
 <span class="h" property="rdfs:label">schema:author</span>
 <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Agent">bib:Agent</a>
@@ -124,6 +140,10 @@
 </span>
 </div>
 
+<div typeof="rdf:Property" resource="http://schema.org/duration">
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Audiobook">bib:Audiobook</a></span>
+</div>
+
 <div typeof="rdf:Property" resource="http://schema.org/inSupportOf">
 <span class="h" property="rdfs:label">bib:inSupportOf</span>
 <span property="rdfs:comment">Qualification, candidature, degree, application that Thesis supports.</span>
@@ -143,6 +163,18 @@
 </span>
 <span>Range:
             <a property="http://schema.org/rangeIncludes" href="http://schema.org/Agent">bib:Agent</a>
+</span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/readBy">
+<span class="h" property="rdfs:label">bib:readBy</span>
+<span property="rdfs:comment">A person who reads (performs) the audiobook.</span>
+<link property="rdfs:subPropertyOf" href="http://schema.org/actor" />
+<span>Domain:
+            <a property="http://schema.org/domainIncludes" href="http://schema.org/Audiobook">bib:Audiobook</a>
+</span>
+<span>Range:
+            <a property="http://schema.org/rangeIncludes" href="http://schema.org/Person">schema:Text</a>
 </span>
 </div>
 
