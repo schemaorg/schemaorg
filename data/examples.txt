@@ -161,6 +161,39 @@ JSON:
 }
 </script>
 
+TYPES:  Painting,genre
+
+PRE-MARKUP:
+
+<h1>The Madonna with the Long Neck</h1>
+Late Renaissance painting by Parmigianino
+
+MICRODATA:
+
+<div itemscope itemtype="http://schema.org/Painting">
+  <h1><span itemprop="name">The Madonna with the Long Neck</span></h1>
+  <meta itemprop="genre" content="http://vocab.getty.edu/aat/300021143">Late Renaissance</meta> painting by 
+  <span itemprop="creator">Parmigianino</span>.
+</div>
+
+RDFA:
+<div vocab="http://schema.org/" typeof="Painting">
+  <h1><span property="name">The Madonna with the Long Neck</span></h1>
+  <span property="genre" content="http://vocab.getty.edu/aat/300021143">Late Renaissance</span> painting by 
+  <span property="creator">Parmigianino</span>.
+</div>
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Painting",
+  "name": "The Madonna with the Long Neck",
+  "genre": "http://vocab.getty.edu/aat/300021143"
+}
+</script>
+
 TYPES:  Restaurant,AggregateRating,FoodEstablishment,LocalBusiness
 
 PRE-MARKUP:
@@ -1058,7 +1091,7 @@ MICRODATA:
 <div itemprop="mainEntity" itemscope itemtype="http://schema.org/Book">
 
 <img itemprop="image" src="catcher-in-the-rye-book-cover.jpg"
-     alt="cover art: red horse, city in background" />
+     alt="cover art: red horse, city in background"/>
 <span itemprop="name">The Catcher in the Rye</span> -
  <link itemprop="bookFormat" href="http://schema.org/Paperback">Mass Market Paperback
 by <a itemprop="author" href="/author/jd_salinger.html">J.D. Salinger</a>
@@ -1085,7 +1118,7 @@ Reviews:
 
 <div itemprop="review" itemscope itemtype="http://schema.org/Review">
   <span itemprop="reviewRating">5</span> stars -
-  <b>"<span itemprop="name">A masterpiece of literature</span>" </b>
+  <b>"<span itemprop="name">A masterpiece of literature</span>"</b> 
   by <span itemprop="author">John Doe</span>,
   Written on <meta itemprop="datePublished" content="2006-05-04">May 4, 2006
   <span itemprop="reviewBody">I really enjoyed this book. It captures the essential
@@ -1144,7 +1177,7 @@ Reviews:
 
 <div property="review"  typeof="Review">
   <span property="reviewRating">5</span> stars -
-  <b>"<span property="name">A masterpiece of literature</span>" </b>
+  <b>"<span property="name">A masterpiece of literature</span>"</b> 
   by <span property="author">John Doe</span>,
   Written on <meta property="datePublished" content="2006-05-04">May 4, 2006
   <span property="reviewBody">I really enjoyed this book. It captures the essential
