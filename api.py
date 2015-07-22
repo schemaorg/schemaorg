@@ -758,12 +758,12 @@ def read_schemas(loadExtensions=False):
         for f in files:
             example_content = read_file(f)
             example_contents.append(example_content)
-            log.info("examples loaded from: %s" % f)
+            log.debug("examples loaded from: %s" % f)
         files2 = glob.glob("data/ext/*/*examples.txt")
         for f in files2:
             example_content = read_file(f)
             example_contents.append(example_content)
-            log.info("examples loaded from: %s" % f)
+            log.debug("examples loaded from: %s" % f)
         parser = parsers.ParseExampleFile(None)
         parser.parse(example_contents)
 
