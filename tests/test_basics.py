@@ -95,6 +95,27 @@ class SchemaWellformedTestCase(unittest.TestCase):
     self.assertEqual("html", rootElem.tag, "Expected root element of schema to be 'html'.")
 
 
+class TriplesBasicAPITestCase(unittest.TestCase):
+  """Tests that don't assume the schemas are pre-loaded."""
+
+  @unittest.expectedFailure
+  def test_checkAddedTriples(self):
+     """This test _should_ store a couple of triples and retrieve them. Work in progress."""
+
+     u_Volcano = Unit.GetUnit("Volcano")
+     p_name = Unit.GetUnit("name")
+
+     api.Triple.AddTripleText(u_Volcano, p_name, "foo", "neogeo") # last arg is 'layer' aka extension
+     api.Triple.AddTripleText(u_Volcano, p_name, "bar", "neogeo") # can we add two triples w/ same property?
+     log.info("Stored: Volcano isPartOf 'neogeo'")
+
+     log.info("Looking for: Volcano's 'name' property values, 'foo' and 'bar'.")
+     v_names = GetTargets( p_name, u_Volcano )
+     for vn in vnames:
+         log.info("Found a Volcano 'name' value: %s " % vn) 
+     self.assertEqual(len(v_names), 2, "length of list of names of Volcano should be 2. actual: %s " % len(v_names) )
+
+
 class SchemaBasicAPITestCase(unittest.TestCase):
 
   def setUp(self):
