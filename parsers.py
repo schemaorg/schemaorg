@@ -9,7 +9,7 @@ from google.appengine.ext.webapp import blobstore_handlers
 import xml.etree.ElementTree as ET
 import logging
 import api
-
+        
 def MakeParserOfType (format, webapp):
     if (format == 'mcf') :
         return MCFParser(webapp)
@@ -21,12 +21,15 @@ def MakeParserOfType (format, webapp):
 class ParseExampleFile :
 
     def __init__ (self, webapp):
+        logging.basicConfig(level=logging.INFO) # dev_appserver.py --log_level debug .
+
         self.webapp = webapp
         self.initFields()
 
     def initFields(self):
         self.currentStr = []
         self.terms = []
+        self.egmeta = {}
         self.preMarkupStr = ""
         self.microdataStr = ""
         self.rdfaStr = ""
@@ -45,24 +48,35 @@ class ParseExampleFile :
         self.state = next
         self.currentStr = []
 
+    def process_example_id(self, m):
+        self.egmeta["id"] = m.group(1)
+        logging.debug("Storing ID: %s" % self.egmeta["id"] )
+        return ''
 
-    #def parse (self, content):
     def parse (self, contents):
         content = ""
+        egid = re.compile("""#(\S+)\s+""")
         for i in range(len(contents)):
             content += contents[i]
 
         lines = re.split('\n|\r', content)
         for line in lines:
+            # Per-example sections begin with e.g.: 'TYPES: #music-2 Person, MusicComposition, Organization'
+
             if ((len(line) > 6) and line[:6] == "TYPES:"):
                 self.nextPart('TYPES:')
-                api.Example.AddExample(self.terms, self.preMarkupStr, self.microdataStr, self.rdfaStr, self.jsonStr)
+                api.Example.AddExample(self.terms, self.preMarkupStr, self.microdataStr, self.rdfaStr, self.jsonStr, self.egmeta)
+                # logging.info("AddExample called with terms %s " % self.terms)
                 self.initFields()
                 typelist = re.split(':', line)
                 self.terms = []
-                ttl = typelist[1].split(',')
+                self.egmeta = {}
+                # logging.info("TYPE INFO: '%s' " % line );
+                tdata = egid.sub(self.process_example_id, typelist[1]) # strips IDs, records them in egmeta["id"]
+                ttl = tdata.split(',')
                 for ttli in ttl:
                     ttli = re.sub(' ', '', ttli)
+                    # logging.info("TTLI: %s " % ttli); # danbri tmp
                     self.terms.append(api.Unit.GetUnit(ttli, True))
             else:
                 tokens = ["PRE-MARKUP:", "MICRODATA:", "RDFA:", "JSON:"]
@@ -73,9 +87,27 @@ class ParseExampleFile :
                         line = line[ltk:]
                 if (len(line) > 0):
                     self.currentStr.append(line + "\n")
-        api.Example.AddExample(self.terms, self.preMarkupStr, self.microdataStr, self.rdfaStr, self.jsonStr)
+        api.Example.AddExample(self.terms, self.preMarkupStr, self.microdataStr, self.rdfaStr, self.jsonStr, self.egmeta) # should flush on each block of examples
+        # logging.info("Final AddExample called with terms %s " % self.terms)
 
 
+class UsageFileParser:
+
+    def __init__ (self, webapp):
+        self.webapp = webapp
+
+    def parse (self, contents):
+        lines = contents.split('\n')
+        for l in lines:
+            parts = l.split('\t')
+            if (len(parts) == 2):
+                unitstr = parts[0].strip()
+                count = parts[1]
+                node = api.Unit.GetUnit(unitstr, False)
+                if (node == None):
+                    logging.debug("'%s' stat. does not have a node" % unitstr)
+                else:
+                    node.setUsage(count)
 
 
 class RDFAParser :
@@ -83,17 +115,21 @@ class RDFAParser :
     def __init__ (self, webapp):
         self.webapp = webapp
 
-    def parse (self, contents):
+    def parse (self, files, layer="core"):
         self.items = {}
         root = []
-        for i in range(len(contents)):
-            root.append(ET.fromstring(contents[i]))
+        for i in range(len(files)):
+            logging.info("RDFa parse schemas in %s " % files[i])
+            parser = ET.XMLParser(encoding="utf-8")
+            tree = ET.parse(files[i], parser=parser)
+            root.append(tree.getroot())
+
             pre = root[i].findall(".//*[@prefix]")
             for e in range(len(pre)):
                 api.Unit.storePrefix(pre[e].get('prefix'))
 
-        for i in range(len(contents)):
-              self.extractTriples(root[i], None)
+        for i in range(len(root)):
+              self.extractTriples(root[i], None, layer)
 
 
         return self.items.keys()
@@ -104,29 +140,34 @@ class RDFAParser :
         else:
             return str
 
-    def extractTriples(self, elem, currentNode):
+    def extractTriples(self, elem, currentNode, layer="core"):
         typeof = elem.get('typeof')
         resource = elem.get('resource')
         href = elem.get('href')
         property = elem.get('property')
         text = elem.text
         if (property != None):
+            if property == "rdf:type":
+              property = "typeOf" # some crude normalization, since we aren't a real rdfa parser.
+              logging.info("normalized rdf:type to typeOf internally. value is: %s" % href )
             property = api.Unit.GetUnit(self.stripID(property), True)
             if (href != None) :
                 href = api.Unit.GetUnit(self.stripID(href), True)
            #     self.webapp.write("<br>%s %s %s" % (currentNode, property, href))
-                api.Triple.AddTriple(currentNode, property, href)
+                api.Triple.AddTriple(currentNode, property, href, layer)
                 self.items[currentNode] = 1
             elif (text != None):
              #   logging.info("<br>%s %s '%s'" % (currentNode, property, text))
-                api.Triple.AddTripleText(currentNode, property, text)
+                api.Triple.AddTripleText(currentNode, property, text, layer)
                 self.items[currentNode] = 1
         if (resource != None):
             currentNode = api.Unit.GetUnit(self.stripID(resource), True)
             if (typeof != None):
-                api.Triple.AddTriple(currentNode, api.Unit.GetUnit("typeOf", True), api.Unit.GetUnit(self.stripID(typeof), True))
+                for some_type in typeof.split():
+                  # logging.debug("rdfa typeOf: %s" % some_type)
+                  api.Triple.AddTriple(currentNode, api.Unit.GetUnit("typeOf", True), api.Unit.GetUnit(self.stripID(some_type), True), layer)
         for child in elem.findall('*'):
-            self.extractTriples(child,  currentNode)
+            self.extractTriples(child,  currentNode, layer)
 
 
 
@@ -177,3 +218,5 @@ class MCFParser:
                 for v in values:
                     api.Triple.AddTriple(unit, predicate, api.Unit.GetUnit(v, True))
         return self.items.keys()
+
+

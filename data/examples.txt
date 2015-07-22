@@ -1,9 +1,9 @@
-TYPES:  Person,PostalAddress,addressRegion,postalCode,address,streetAddress,telephone,email,url,addressLocality
+TYPES: #eg-1 Person,PostalAddress,addressRegion,postalCode,address,streetAddress,telephone,email,url,addressLocality
 
 PRE-MARKUP:
 
 Jane Doe
-<img src="janedoe.jpg" />
+<img src="janedoe.jpg" alt="Photo of Jane Joe"/>
 
 Professor
 20341 Whitworth Institute
@@ -23,7 +23,7 @@ MICRODATA:
 
 <div itemscope itemtype="http://schema.org/Person">
   <span itemprop="name">Jane Doe</span>
-  <img src="janedoe.jpg" itemprop="image" />
+  <img src="janedoe.jpg" itemprop="image" alt="Photo of Jane Joe"/>
 
   <span itemprop="jobTitle">Professor</span>
   <div itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
@@ -53,7 +53,7 @@ RDFA:
 
 <div vocab="http://schema.org/" typeof="Person">
   <span property="name">Jane Doe</span>
-  <img src="janedoe.jpg" property="image" />
+  <img src="janedoe.jpg" property="image" alt="Photo of Jane Joe"/>
 
   <span property="jobTitle">Professor</span>
   <div property="address"  typeof="PostalAddress">
@@ -399,7 +399,7 @@ JSON:
 }
 </script>
 
-TYPES:  Organization,Address
+TYPES:  Organization,PostalAddress
 
 PRE-MARKUP:
 
@@ -609,7 +609,7 @@ JSON:
 }
 </script>
 
-TYPES:  Event,Place,Address,AggregateOffer
+TYPES:  Event,Place,PostalAddress,AggregateOffer
 
 PRE-MARKUP:
 
@@ -711,7 +711,7 @@ JSON:
 }
 </script>
 
-TYPES:  Product,AggregateRating,Offer,Review,Rating
+TYPES:  Product,AggregateRating,Offer,Review,Rating, price
 
 PRE-MARKUP:
 
@@ -749,7 +749,13 @@ MICRODATA:
   </div>
 
   <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-    <span itemprop="price">$55.00</span>
+
+    <!--price is 1000, a number, with locale-specific thousands separator
+    and decimal mark, and the $ character is marked up with the
+    machine-readable code "USD" -->
+    <span itemprop="priceCurrency" content="USD">$</span><span
+          itemprop="price" content="1000.00">1,000.00</span>
+
     <link itemprop="availability" href="http://schema.org/InStock" />In stock
   </div>
 
@@ -800,7 +806,11 @@ RDFA:
   </div>
 
   <div property="offers"  typeof="Offer">
-    <span property="price">$55.00</span>
+    <!--price is 1000, a number, with locale-specific thousands separator
+        and decimal mark, and the $ character is marked up with the
+        machine-readable code "USD" -->
+    <span property="priceCurrency" content="USD">$</span><span
+      property="price" content="1000.00">1,000.00</span>
     <link property="availability" href="http://schema.org/InStock" />In stock
   </div>
 
@@ -855,7 +865,8 @@ JSON:
   "offers": {
     "@type": "Offer",
     "availability": "http://schema.org/InStock",
-    "price": "$55.00"
+    "price": "55.00",
+    "priceCurrency": "USD"
   },
   "review": [
     {
@@ -892,7 +903,7 @@ TYPES:  Product,AggregateRating,AggregateOffer,Offer
 
 PRE-MARKUP:
 
-<img src="dell-30in-lcd.jpg" />
+<img src="dell-30in-lcd.jpg" alt="A Dell UltraSharp monitor" />
 Dell UltraSharp 30" LCD Monitor
 
 87 out of 100 based on 24 user ratings
@@ -909,7 +920,7 @@ Sellers:
 MICRODATA:
 
 <div itemscope itemtype="http://schema.org/Product">
-  <img itemprop="image" src="dell-30in-lcd.jpg" />
+  <img itemprop="image" src="dell-30in-lcd.jpg" alt="A Dell UltraSharp monitor"/>
   <span itemprop="name">Dell UltraSharp 30" LCD Monitor</span>
 
   <div itemprop="aggregateRating"
@@ -924,14 +935,15 @@ MICRODATA:
     to <span itemprop="highPrice">$1495</span>
     from <span itemprop="offerCount">8</span> sellers
 
-  Sellers:
-  <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-    <a itemprop="url" href="save-a-lot-monitors.com/dell-30.html">
-     Save A Lot Monitors - $1250</a>
-  </div>
-  <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-    <a itemprop="url" href="jondoe-gadgets.com/dell-30.html">
-     Jon Doe's Gadgets - $1350</a>
+    Sellers:
+    <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+        <a itemprop="url" href="save-a-lot-monitors.com/dell-30.html">
+        Save A Lot Monitors - $1250</a>
+    </div>
+    <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+        <a itemprop="url" href="jondoe-gadgets.com/dell-30.html">
+        Jon Doe's Gadgets - $1350</a>
+    </div>
   </div>
   ...
 </div>
@@ -939,7 +951,7 @@ MICRODATA:
 RDFA:
 
 <div vocab="http://schema.org/" typeof="Product">
-  <img property="image" src="dell-30in-lcd.jpg" />
+  <img property="image" src="dell-30in-lcd.jpg" alt="A Dell UltraSharp monitor"/>
   <span property="name">Dell UltraSharp 30" LCD Monitor</span>
 
   <div property="aggregateRating"
@@ -1007,7 +1019,8 @@ PRE-MARKUP:
  <a href="category/books-literature.html">Literature & Fiction</a> >
  <a href="category/books-classics">Classics</a>
 
-<img src="catcher-in-the-rye-book-cover.jpg" />
+<img src="catcher-in-the-rye-book-cover.jpg"
+  alt="cover art: red horse, city in background"/>
 The Catcher in the Rye - Mass Market Paperback
 by <a href="/author/jd_salinger.html">J.D. Salinger</a>
 4 stars - 3077 reviews
@@ -1044,7 +1057,8 @@ MICRODATA:
 
 <div itemscope itemtype="http://schema.org/Book">
 
-<img itemprop="image" src="catcher-in-the-rye-book-cover.jpg" />
+<img itemprop="image" src="catcher-in-the-rye-book-cover.jpg"
+     alt="cover art: red horse, city in background" />
 <span itemprop="name">The Catcher in the Rye</span> -
  <link itemprop="bookFormat" href="http://schema.org/Paperback">Mass Market Paperback
 by <a itemprop="author" href="/author/jd_salinger.html">J.D. Salinger</a>
@@ -1055,7 +1069,7 @@ by <a itemprop="author" href="/author/jd_salinger.html">J.D. Salinger</a>
 </div>
 
 <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-  Price: <span itemprop="price">$6.99</span>
+  Price: <span itemprop="price" content="6.99">$6.99</span>
   <meta itemprop="priceCurrency" content="USD" />
   <link itemprop="availability" href="http://schema.org/InStock">In Stock
 </div>
@@ -1102,7 +1116,8 @@ RDFA:
 
 <div  typeof="Book">
 
-<img property="image" src="catcher-in-the-rye-book-cover.jpg" />
+<img property="image" src="catcher-in-the-rye-book-cover.jpg"
+    alt="cover art: red horse, city in background"/>
 <span property="name">The Catcher in the Rye</span> -
  <link property="bookFormat" href="http://schema.org/Paperback">Mass Market Paperback
 by <a property="author" href="/author/jd_salinger.html">J.D. Salinger</a>
@@ -1113,7 +1128,7 @@ by <a property="author" href="/author/jd_salinger.html">J.D. Salinger</a>
 </div>
 
 <div property="offers"  typeof="Offer">
-  Price: <span property="price">$6.99</span>
+  Price: <span property="price" content="6.99">$6.99</span>
   <meta property="priceCurrency" content="USD" />
   <link property="availability" href="http://schema.org/InStock">In Stock
 </div>
@@ -1171,7 +1186,7 @@ JSON:
   "offers": {
     "@type": "Offer",
     "availability": "http://schema.org/InStock",
-    "price": "$6.99",
+    "price": "6.99",
     "priceCurrency": "USD"
   },
   "publisher": "Little, Brown, and Company",
@@ -1202,7 +1217,7 @@ PRE-MARKUP:
 
 Mom's World Famous Banana Bread
 By John Smith, May 8, 2009
-<img src="bananabread.jpg" />
+<img src="bananabread.jpg" alt="Banana bread on a plate" />
 
 This classic banana bread recipe comes from my mom -- the walnuts add a nice
  texture and flavor to the banana bread.
@@ -1234,7 +1249,8 @@ MICRODATA:
   <span itemprop="name">Mom's World Famous Banana Bread</span>
   By <span itemprop="author">John Smith</span>,
   <meta itemprop="datePublished" content="2009-05-08">May 8, 2009
-  <img itemprop="image" src="bananabread.jpg" />
+  <img itemprop="image" src="bananabread.jpg"
+       alt="Banana bread on a plate"  />
 
   <span itemprop="description">This classic banana bread recipe comes
   from my mom -- the walnuts add a nice texture and flavor to the banana
@@ -1252,9 +1268,9 @@ MICRODATA:
   </div>
 
   Ingredients:
-  - <span itemprop="ingredients">3 or 4 ripe bananas, smashed</span>
-  - <span itemprop="ingredients">1 egg</span>
-  - <span itemprop="ingredients">3/4 cup of sugar</span>
+  - <span itemprop="recipeIngredient">3 or 4 ripe bananas, smashed</span>
+  - <span itemprop="recipeIngredient">1 egg</span>
+  - <span itemprop="recipeIngredient">3/4 cup of sugar</span>
   ...
 
   Instructions:
@@ -1275,7 +1291,8 @@ RDFA:
   <span property="name">Mom's World Famous Banana Bread</span>
   By <span property="author">John Smith</span>,
   <meta property="datePublished" content="2009-05-08">May 8, 2009
-  <img property="image" src="bananabread.jpg" />
+  <img property="image" src="bananabread.jpg"
+    alt="Banana bread on a plate" />
 
   <span property="description">This classic banana bread recipe comes
   from my mom -- the walnuts add a nice texture and flavor to the banana
@@ -1293,9 +1310,9 @@ RDFA:
   </div>
 
   Ingredients:
-  - <span property="ingredients">3 or 4 ripe bananas, smashed</span>
-  - <span property="ingredients">1 egg</span>
-  - <span property="ingredients">3/4 cup of sugar</span>
+  - <span property="recipeIngredient">3 or 4 ripe bananas, smashed</span>
+  - <span property="recipeIngredient">1 egg</span>
+  - <span property="recipeIngredient">3/4 cup of sugar</span>
   ...
 
   Instructions:
@@ -1321,7 +1338,7 @@ JSON:
   "datePublished": "2009-05-08",
   "description": "This classic banana bread recipe comes from my mom -- the walnuts add a nice texture and flavor to the banana bread.",
   "image": "bananabread.jpg",
-  "ingredients": [
+  "recipeIngredient": [
     "3 or 4 ripe bananas, smashed",
     "1 egg",
     "3/4 cup of sugar"
@@ -1351,7 +1368,7 @@ PRE-MARKUP:
   <param ...>
   <embed type="application/x-shockwave-flash" ...>
 </object>
-Catch this exclusive interview with Dave Grohl and the Food Fighters
+Catch this exclusive interview with Dave Grohl and the Foo Fighters
  about their new album, Rope.
 
 
@@ -1384,9 +1401,15 @@ May 23
 
 
 <h2><a href="foo-fighters-photos">28 Photos</a></h2>
-<a href="foofighters-1.jpg"><img src="foofighters-thumb1.jpg" /></a>
-<a href="foofighters-2.jpg"><img src="foofighters-thumb2.jpg" /></a>
-<a href="foofighters-3.jpg"><img src="foofighters-thumb3.jpg" /></a>
+<a href="foofighters-1.jpg"><img
+alt="Thumbnail and linked photo of Foo Fighters band"
+src="foofighters-thumb1.jpg" /></a>
+<a href="foofighters-2.jpg"><img
+alt="Thumbnail and linked photo of Foo Fighters band"
+src="foofighters-thumb2.jpg" /></a>
+<a href="foofighters-3.jpg"><img
+alt="Thumbnail and linked photo of Foo Fighters band"
+src="foofighters-thumb3.jpg" /></a>
 
 
 <h2>Comments:</h2>
@@ -1410,7 +1433,7 @@ MICRODATA:
     <embed type="application/x-shockwave-flash" ...>
   </object>
   <span itemprop="description">Catch this exclusive interview with
-    Dave Grohl and the Food Fighters about their new album, Rope.</span>
+    Dave Grohl and the Foo Fighters about their new album, Rope.</span>
 </div>
 
 
@@ -1460,9 +1483,15 @@ MICRODATA:
 </div>
 
 <h2><a href="foo-fighters-photos">28 Photos</a></h2>
-<a href="foofighters-1.jpg" itemprop="image"><img src="foofighters-thumb1.jpg" /></a>
-<a href="foofighters-2.jpg" itemprop="image"><img src="foofighters-thumb2.jpg" /></a>
-<a href="foofighters-3.jpg" itemprop="image"><img src="foofighters-thumb3.jpg" /></a>
+<a href="foofighters-1.jpg" itemprop="image"><img
+alt="Thumbnail and linked photo of Foo Fighters band"
+src="foofighters-thumb1.jpg" /></a>
+<a href="foofighters-2.jpg" itemprop="image"><img
+alt="Thumbnail and linked photo of Foo Fighters band"
+src="foofighters-thumb2.jpg" /></a>
+<a href="foofighters-3.jpg" itemprop="image"><img
+alt="Thumbnail and linked photo of Foo Fighters band"
+src="foofighters-thumb3.jpg" /></a>
 
 
 <h2>Comments:</h2>
@@ -1489,7 +1518,7 @@ RDFA:
     <embed type="application/x-shockwave-flash" ...>
   </object>
   <span property="description">Catch this exclusive interview with
-    Dave Grohl and the Food Fighters about their new album, Rope.</span>
+    Dave Grohl and the Foo Fighters about their new album, Rope.</span>
 </div>
 
 
@@ -1539,9 +1568,15 @@ RDFA:
 </div>
 
 <h2><a href="foo-fighters-photos">28 Photos</a></h2>
-<a href="foofighters-1.jpg" property="image"><img src="foofighters-thumb1.jpg" /></a>
-<a href="foofighters-2.jpg" property="image"><img src="foofighters-thumb2.jpg" /></a>
-<a href="foofighters-3.jpg" property="image"><img src="foofighters-thumb3.jpg" /></a>
+<a href="foofighters-1.jpg" property="image"><img
+alt="Thumbnail and linked photo of Foo Fighters band"
+src="foofighters-thumb1.jpg" /></a>
+<a href="foofighters-2.jpg" property="image"><img
+ alt="Thumbnail and linked photo of Foo Fighters band"
+ src="foofighters-thumb2.jpg" /></a>
+<a href="foofighters-3.jpg" property="image"><img
+ alt="Thumbnail and linked photo of Foo Fighters band"
+ src="foofighters-thumb3.jpg" /></a>
 
 
 <h2>Comments:</h2>
@@ -1605,7 +1640,7 @@ JSON:
   ],
   "video": {
     "@type": "VideoObject",
-    "description": "Catch this exclusive interview with Dave Grohl and the Food Fighters about their new album, Rope.",
+    "description": "Catch this exclusive interview with Dave Grohl and the Foo Fighters about their new album, Rope.",
     "duration": "T1M33S",
     "name": "Interview with the Foo Fighters",
     "thumbnail": "foo-fighters-interview-thumb.jpg"
@@ -1626,9 +1661,8 @@ PRE-MARKUP:
 MICRODATA:
 
 <div itemscope itemtype="http://schema.org/ItemList">
-  <meta itemprop="mainContentOfPage" content="true"/>
   <h2 itemprop="name">Top 10 laptops</h2><br>
-  <meta itemprop="itemListOrder" content="Descending" />
+  <meta itemprop="itemListOrder" content="http://schema.org/ItemListOrderDescending" />
   <p>1. <span itemprop="itemListElement">HP Pavilion dv6-6013cl</span></p>
   <p>2. <span itemprop="itemListElement">Dell XPS 15 (Sandy Bridge)</span></p>
   <p>3. <span itemprop="itemListElement">Lenovo ThinkPad X220</span></p>
@@ -1638,9 +1672,8 @@ MICRODATA:
 RDFA:
 
 <div vocab="http://schema.org/" typeof="ItemList">
-  <meta property="mainContentOfPage" content="true"/>
   <h2 property="name">Top 10 laptops</h2><br>
-  <meta property="itemListOrder" content="Descending" />
+  <meta property="itemListOrder" content="http://schema.org/ItemListOrderDescending" />
   <p>1. <span property="itemListElement">HP Pavilion dv6-6013cl</span></p>
   <p>2. <span property="itemListElement">Dell XPS 15 (Sandy Bridge)</span></p>
   <p>3. <span property="itemListElement">Lenovo ThinkPad X220</span></p>
@@ -1658,8 +1691,7 @@ JSON:
     "Dell XPS 15 (Sandy Bridge)",
     "Lenovo ThinkPad X220"
   ],
-  "itemListOrder": "Descending",
-  "mainContentOfPage": "true",
+  "itemListOrder": "http://schema.org/ItemListOrderDescending",
   "name": "Top 10 laptops"
 }
 </script>
@@ -1818,7 +1850,6 @@ PRE-MARKUP:
 MICRODATA:
 
 <div itemscope itemtype="http://schema.org/Table">
-  <meta itemprop="mainContentOfPage" content="true"/>
   <h2 itemprop="about">list of presidents</h2>
   <table>
     <tr><th>President</th><th>Party</th></tr>
@@ -1837,7 +1868,6 @@ MICRODATA:
 RDFA:
 
 <div vocab="http://schema.org/" typeof="Table">
-  <meta property="mainContentOfPage" content="true"/>
   <h2 property="about">list of presidents</h2>
   <table>
     <tr><th>President</th><th>Party</th></tr>
@@ -1860,7 +1890,6 @@ JSON:
   "@context": "http://schema.org",
   "@type": "Table",
   "about": "list of presidents",
-  "mainContentOfPage": "true"
 }
 </script>
 
@@ -1915,15 +1944,19 @@ TYPES:  CreativeWork,ContentRating
 
 PRE-MARKUP:
 
+<div>
 Resistance 3: Fall of Man
 by Sony
 Platform: Playstation 3
 Rated: Mature
+<img alt="Fall of Man cover art" src="videogame.jpg" />
+</div>
 
 MICRODATA:
 
 <div itemscope itemtype="http://schema.org/CreativeWork">
-<img itemprop="image" src="videogame.jpg" />
+<img itemprop="image" alt="Fall of Man cover art"
+src="videogame.jpg" />
 <span itemprop="name">Resistance 3: Fall of Man</span>
 by <span itemprop="author">Sony</span>,
 Platform: Playstation 3
@@ -1933,7 +1966,8 @@ Rated:<span itemprop="contentRating">Mature</span>
 RDFA:
 
 <div vocab="http://schema.org/" typeof="CreativeWork">
-<img property="image" src="videogame.jpg" />
+<img property="image" alt="Fall of Man cover art"
+src="videogame.jpg" />
 <span property="name">Resistance 3: Fall of Man</span>
 by <span property="author">Sony</span>,
 Platform: Playstation 3
@@ -1958,7 +1992,7 @@ TYPES:  ImageObject
 PRE-MARKUP:
 
 <h2>Beach in Mexico</h2>
-<img src="mexico-beach.jpg" />
+<img src="mexico-beach.jpg" alt="Sunny, sandy beach."/>
 
 By Jane Doe
 Photographed in Puerto Vallarta, Mexico
@@ -1970,7 +2004,9 @@ MICRODATA:
 
 <div itemscope itemtype="http://schema.org/ImageObject">
   <h2 itemprop="name">Beach in Mexico</h2>
-  <img src="mexico-beach.jpg" itemprop="contentUrl" />
+  <img src="mexico-beach.jpg"
+  alt="Sunny, sandy beach."
+  itemprop="contentUrl" />
 
   By <span itemprop="author">Jane Doe</span>
   Photographed in
@@ -1985,7 +2021,8 @@ RDFA:
 
 <div vocab="http://schema.org/" typeof="ImageObject">
   <h2 property="name">Beach in Mexico</h2>
-  <img src="mexico-beach.jpg" property="contentUrl" />
+  <img src="mexico-beach.jpg" alt="Sunny, sandy beach."
+  property="contentUrl" />
 
   By <span property="author">Jane Doe</span>
   Photographed in
@@ -2358,12 +2395,12 @@ MICRODATA:
  <div itemprop="actor" itemscope itemtype="http://schema.org/Person">
    <span itemprop="name">Jessica Capshaw</span>
  </div>
- <div itemprop="season" itemscope itemtype="http://schema.org/TVSeason">
+ <div itemprop="containsSeason" itemscope itemtype="http://schema.org/TVSeason">
    <span itemprop="name">Season 1</span> -
    <meta itemprop="numberOfEpisodes" content="14"/>
    <meta itemprop="datePublished" content="2005-05-22">May 22, 2005
  </div>
- <div itemprop="season" itemscope itemtype="http://schema.org/TVSeason">
+ <div itemprop="containsSeason" itemscope itemtype="http://schema.org/TVSeason">
    <span itemprop="name">Season 2</span> -
    <meta itemprop="numberOfEpisodes" content="27"/>
    <meta itemprop="datePublished" content="2006-05-14">May 14, 2006
@@ -2388,12 +2425,12 @@ RDFA:
  <div property="actor"  typeof="Person">
    <span property="name">Jessica Capshaw</span>
  </div>
- <div property="season"  typeof="TVSeason">
+ <div property="containsSeason"  typeof="TVSeason">
    <span property="name">Season 1</span> -
    <meta property="numberOfEpisodes" content="14"/>
    <meta property="datePublished" content="2005-05-22">May 22, 2005
  </div>
- <div property="season"  typeof="TVSeason">
+ <div property="containsSeason"  typeof="TVSeason">
    <span property="name">Season 2</span> -
    <meta property="numberOfEpisodes" content="27"/>
    <meta property="datePublished" content="2006-05-14">May 14, 2006
@@ -2425,7 +2462,7 @@ JSON:
     "name": "Shonda Rimes"
   },
   "name": "Greys Anatomy",
-  "season": [
+  "containsSeason": [
     {
       "@type": "TVSeason",
       "datePublished": "2005-05-22",
@@ -2452,7 +2489,7 @@ TYPES:  MusicAlbum
 PRE-MARKUP:
 
 <h1> King of Limbs </h1>
-<img src="king-of-limbs.jpg" />
+<img alt="Blurry, spooky cover art" src="king-of-limbs.jpg" />
 <h2> Radiohead </h2>
 <h3>Sample Tracks</h3>
 Bloom - 5:14<br>
@@ -2463,7 +2500,8 @@ MICRODATA:
 <div itemscope itemtype="http://schema.org/MusicAlbum">
   <h1 itemprop="name"> King of Limbs </h1>
   <meta content="/artist/radiohead/album/the-king-of-limbs" itemprop="url" />
-  <img src="king-of-limbs.jpg" itemprop="image" />
+  <img alt="Blurry, spooky cover art"
+  src="king-of-limbs.jpg" itemprop="image" />
   <meta content="8" itemprop="numTracks" />
   <meta content="Alt/Punk" itemprop="genre" />
 
@@ -2489,7 +2527,8 @@ RDFA:
 <div vocab="http://schema.org/" typeof="MusicAlbum">
   <h1 property="name"> King of Limbs </h1>
   <meta content="/artist/radiohead/album/the-king-of-limbs" property="url" />
-  <img src="king-of-limbs.jpg" property="image" />
+  <img alt="Blurry, spooky cover art"
+  src="king-of-limbs.jpg" property="image" />
   <meta content="8" property="numTracks" />
   <meta content="Alt/Punk" property="genre" />
 
@@ -2561,7 +2600,7 @@ PRE-MARKUP:
   </p>
   <p><strong>Responsibilities:</strong></p>
   <ul>
-    <li>Design and write specifications for tools for in-house costumers</li>
+    <li>Design and write specifications for tools for in-house customers</li>
     <li>Build tools according to specifications</li>
   </ul>
   <p><strong>Educational requirements:</strong></p>
@@ -2619,7 +2658,7 @@ MICRODATA:
 
   <p><strong>Responsibilities:</strong></p>
   <ul itemprop="responsibilities">
-    <li>Design and write specifications for tools for in-house costumers</li>
+    <li>Design and write specifications for tools for in-house customers</li>
     <li>Build tools according to specifications</li>
   </ul>
 
@@ -2647,11 +2686,11 @@ MICRODATA:
   </ul>
 
   <p><strong>Benefits:</strong></p>
-    <ul><li>ABC Corp provides top-tier employee compensation benefits and a relaxed, team-oriented work environment, including:<span itemprop="benefits"> Medical, Life, Dental</span></li>
+    <ul><li>ABC Corp provides top-tier employee compensation benefits and a relaxed, team-oriented work environment, including:<span itemprop="jobBenefits"> Medical, Life, Dental</span></li>
     </ul>
 
       <p><strong>Incentives:</strong></p>
-        <ul><li><span itemprop="incentives">Performance-based annual bonus plan, project-completion bonuses</span></li>
+        <ul><li><span itemprop="incentiveCompensation">Performance-based annual bonus plan, project-completion bonuses</span></li>
       </ul>
 
   <p>If interested in this position, please email us your resume, along with salary requirements and a cover letter to Jobs@abc.123.</p>
@@ -2684,7 +2723,7 @@ RDFA:
 
   <p><strong>Responsibilities:</strong></p>
   <ul property="responsibilities">
-    <li>Design and write specifications for tools for in-house costumers</li>
+    <li>Design and write specifications for tools for in-house customers</li>
     <li>Build tools according to specifications</li>
   </ul>
 
@@ -2712,11 +2751,11 @@ RDFA:
   </ul>
 
   <p><strong>Benefits:</strong></p>
-    <ul><li>ABC Corp provides top-tier employee compensation benefits and a relaxed, team-oriented work environment, including:<span property="benefits"> Medical, Life, Dental</span></li>
+    <ul><li>ABC Corp provides top-tier employee compensation benefits and a relaxed, team-oriented work environment, including:<span property="jobBenefits"> Medical, Life, Dental</span></li>
     </ul>
 
       <p><strong>Incentives:</strong></p>
-        <ul><li><span property="incentives">Performance-based annual bonus plan, project-completion bonuses</span></li>
+        <ul><li><span property="incentiveCompensation">Performance-based annual bonus plan, project-completion bonuses</span></li>
       </ul>
 
   <p>If interested in this position, please email us your resume, along with salary requirements and a cover letter to Jobs@abc.123.</p>
@@ -2730,13 +2769,13 @@ JSON:
   "@context": "http://schema.org",
   "@type": "JobPosting",
   "baseSalary": "100000",
-  "benefits": "Medical, Life, Dental",
+  "jobBenefits": "Medical, Life, Dental",
   "datePosted": "2011-10-31",
   "description": "Description: ABC Company Inc. seeks a full-time mid-level software engineer to develop in-house tools.",
   "educationRequirements": "Bachelor's Degree in Computer Science, Information Systems or related fields of study.",
   "employmentType": "Full-time",
   "experienceRequirements": "Minumum 3 years experience as a software engineer",
-  "incentives": "Performance-based annual bonus plan, project-completion bonuses",
+  "incentiveCompensation": "Performance-based annual bonus plan, project-completion bonuses",
   "industry": "Computer Software",
   "jobLocation": {
     "@type": "Place",
@@ -2748,7 +2787,7 @@ JSON:
   },
   "occupationalCategory": "15-1132.00 Software Developers, Application",
   "qualifications": "Ability to work in a team environment with members of varying skill levels. Highly motivated. Learns quickly.",
-  "responsibilities": "Design and write specifications for tools for in-house costumers Build tools according to specifications",
+  "responsibilities": "Design and write specifications for tools for in-house customers Build tools according to specifications",
   "salaryCurrency": "USD",
   "skills": "Web application development using Java/J2EE Web application development using Python or familiarity with dynamic programming languages",
   "specialCommitments": "VeteranCommit",
@@ -2908,9 +2947,9 @@ MICRODATA:
   </span>
   <br><span itemprop="datePublished">2012-03-24</span></p>
   <p><b>Abstract:</b>
-  We review clinical evidence related to the use of metformin for
+  <span itemprop="description">We review clinical evidence related to the use of metformin for
   treatment of type-2 diabetes mellitus and provide new clinical guideline
-  recommendations.</p>
+  recommendations.</span></p>
   <p><b>MeSH subject headings:</b>
   <span itemprop="about" itemscope itemtype="http://schema.org/Drug">
     <span itemprop="name">Metformin</span>
@@ -2959,9 +2998,9 @@ RDFA:
   </span>
   <br><span property="datePublished">2012-03-24</span></p>
   <p><b>Abstract:</b>
-  We review clinical evidence related to the use of metformin for
+  <span property="description">We review clinical evidence related to the use of metformin for
   treatment of type-2 diabetes mellitus and provide new clinical guideline
-  recommendations.</p>
+  recommendations.</span></p>
   <p><b>MeSH subject headings:</b>
   <span property="about"  typeof="Drug">
     <span property="name">Metformin</span>
@@ -3031,6 +3070,7 @@ JSON:
     "codingSystem": "MeSH"
   },
   "datePublished": "2012-03-24",
+  "description": "We review clinical evidence related to the use of metformin for treatment of type-2 diabetes mellitus and provide new clinical guideline recommendations.",
   "evidenceLevel": "http://schema.org/EvidenceLevelA",
   "name": "New guidelines for metformin and diabetes mellitus",
   "publicationType": "Meta-Analysis",
@@ -4221,7 +4261,7 @@ This example is JSON only.
 
 JSON:
 
-<!--  John won a Nobel prize. -->
+<!--  John won a book about the Nobel prize. -->
 <script type="application/ld+json">
 {
   "@context": "http://schema.org",
@@ -4231,8 +4271,8 @@ JSON:
     "name": "John"
   },
   "object": {
-    "@type": "Award",
-    "name": "Nobel prize"
+    "@type": "Book",
+    "name": "Top 1000 Things You Didn't Know about Nobel prizes"
   }
 }
 </script>
@@ -5967,7 +6007,7 @@ JSON:
 }
 </script>
 
-TYPES:  AskAction
+TYPES:  AskAction,Question
 
 PRE-MARKUP:
 
@@ -5995,8 +6035,11 @@ JSON:
   "recipient": {
     "@type": "Person",
     "name": "Steve"
-  },
-  "question": "What's 2 + 2?"
+  }, 
+  "question": {
+    "@type": "Question",
+    "text": "What's 2 + 2?"
+  }
 }
 </script>
 
@@ -6184,9 +6227,9 @@ JSON:
     "@type": "Person",
     "name": "John"
   },
-  "object": {
-    "@type": "UserComment",
-    "name": "That's cool!"
+  "resultComment": {
+    "@type": "Comment",
+    "text": "That's cool!"
   },
   "about": {
     "@type": "ScholarlyArticle",
@@ -6331,7 +6374,7 @@ JSON:
 }
 </script>
 
-TYPES:  ReplyAction
+TYPES:  ReplyAction,Question,Answer
 
 PRE-MARKUP:
 
@@ -6360,8 +6403,14 @@ JSON:
     "@type": "Person",
     "name": "Steve"
   },
-  "question": "What's 2 + 2?",
-  "answer": "4."
+  "resultComment": {
+    "@type": "Answer",
+    "parentItem": {
+      "@type": "Question",
+      "text":  "What's 2 + 2?"
+    }
+    "text": "4."
+  }
 }
 </script>
 
@@ -7564,7 +7613,7 @@ JSON:
       "name": "The Wedding Crashers"
     }
   ],
-  "collection": {
+  "targetCollection": {
     "@type": "ItemList",
     "name": "List of my favorite movies",
     "url": "http://netflix.com/john/favorite"
@@ -7805,7 +7854,8 @@ JSON:
     "@type": "Book",
     "name": "Outliers"
   },
-  "price": "US$ 50"
+  "price": "50",
+  "priceCurrency": "USD"
 }
 </script>
 
@@ -7838,8 +7888,8 @@ JSON:
     "@type": "Book",
     "name": "Outliers"
   },
-  "location": {
-    "@type": "Product",
+  "seller": {
+    "@type": "Organization",
     "name": "Amazon"
   }
 }
@@ -7870,7 +7920,8 @@ JSON:
     "@type": "Person",
     "name": "John"
   },
-  "price": "US$ 10",
+  "price": "10",
+  "priceCurrency": "USD"
   "recipient": {
     "@type": "Person",
     "name": "Steve"
@@ -7939,7 +7990,8 @@ JSON:
     "@type": "Person",
     "name": "John"
   },
-  "price": "US$ 1,500",
+  "price": "1500",
+  "priceCurrency": "USD",
   "purpose": {
     "@type": "Flight",
     "name": "AA123"
@@ -7976,7 +8028,8 @@ JSON:
     "@type": "Flight",
     "name": "AA123"
   },
-  "price": "US$ 1,500"
+  "price": "1500",
+  "priceCurrency": "UDC"
 }
 </script>
 
@@ -8077,7 +8130,8 @@ JSON:
     "@type": "Person",
     "name": "John"
   },
-  "price": "US$ 10",
+  "price": "10",
+  "priceCurrency": "USD"
   "recipient": {
     "@type": "Person",
     "name": "Steve"
@@ -8254,7 +8308,8 @@ JSON:
     "@type": "Person",
     "name": "John"
   },
-  "price": "US$ 10",
+  "price": "10",
+  "priceCurrency": "USD"
   "recipient": {
     "@type": "Person",
     "name": "Steve"
@@ -8455,7 +8510,7 @@ JSON:
     "@type": "Person",
     "name": "John"
   },
-  "collection": {
+  "targetCollection": {
     "@type": "ItemList",
     "name": "List of my favorite movies",
     "url": "http://netflix.com/john/favorite"
@@ -8492,7 +8547,7 @@ JSON:
     "@type": "Movie",
     "name": "The Internship"
   },
-  "collection": {
+  "targetCollection": {
     "@type": "ItemList",
     "name": "List of my favorite movies",
     "url": "http://netflix.com/john/favorite"
@@ -8529,7 +8584,7 @@ JSON:
     "@type": "SoftwareApplication",
     "name": "SAAS"
   },
-  "collection": {
+  "targetCollection": {
     "@type": "ItemList",
     "name": "John's skillset",
     "url": "http://linkedn.com/john/skillset"
@@ -8566,7 +8621,7 @@ JSON:
     "@type": "Movie",
     "name": "The Internship"
   },
-  "collection": {
+  "targetCollection": {
     "@type": "ItemList",
     "name": "List of my favorite movies",
     "url": "http://netflix.com/john/favorite"
@@ -8604,7 +8659,7 @@ JSON:
     "@type": "Movie",
     "name": "The Internship"
   },
-  "collection": {
+  "targetCollection": {
     "@type": "ItemList",
     "name": "List of my favorite movies",
     "url": "http://netflix.com/john/favorite"
@@ -8641,7 +8696,7 @@ JSON:
     "@type": "Movie",
     "name": "The Internship"
   },
-  "collection": {
+  "targetCollection": {
     "@type": "ItemList",
     "name": "List of my favorite movies",
     "url": "http://netflix.com/john/favorite"
@@ -8678,7 +8733,7 @@ JSON:
     "@type": "Movie",
     "name": "The Internship"
   },
-  "collection": {
+  "targetCollection": {
     "@type": "ItemList",
     "name": "List of my favorite movies",
     "url": "http://netflix.com/john/favorite"
@@ -8719,7 +8774,7 @@ JSON:
     "@type": "Movie",
     "name": "The Wedding Crashers"
   },
-  "collection": {
+  "targetCollection": {
     "@type": "ItemList",
     "name": "List of my favorite movies",
     "url": "http://netflix.com/john/favorite"
@@ -8745,7 +8800,7 @@ MICRODATA:
 <div itemscope itemtype="http://schema.org/TVSeries">
   <a itemprop="url" href="http://www.bbc.co.uk/programmes/b006q2x0">
    <span itemprop="name">Doctor Who</span></a>,
-  <div itemprop="season" itemscope itemtype="http://schema.org/TVSeason">
+  <div itemprop="containsSeason" itemscope itemtype="http://schema.org/TVSeason">
     <a itemprop="url" href="http://www.bbc.co.uk/programmes/b00rs69w">
      <span itemprop="name">Series 5</span></a>,
     <div itemprop="episode" itemscope itemtype="http://schema.org/TVEpisode">
@@ -8777,7 +8832,7 @@ RDFA:
 <div vocab="http://schema.org/" typeof="TVSeries">
   <a property="url" href="http://www.bbc.co.uk/programmes/b006q2x0">
    <span property="name">Doctor Who</span></a>,
-  <div property="season"  typeof="TVSeason">
+  <div property="containsSeason"  typeof="TVSeason">
     <a property="url" href="http://www.bbc.co.uk/programmes/b00rs69w">
      <span property="name">Series 5</span></a>,
     <div property="episode"  typeof="TVEpisode">
@@ -8810,7 +8865,7 @@ JSON:
 {
   "@context": "http://schema.org",
   "@type": "TVSeries",
-  "season": {
+  "containsSeason": {
     "@type": "TVSeason",
     "episode": {
       "@type": "TVEpisode",
@@ -9026,7 +9081,7 @@ JSON:
     "@type": "AdministrativeArea",
     "name": "Massachusetts"
   },
-  "serviceAudience": {
+  "audience": {
     "@type": "CivicAudience",
     "name": "Veterans"
   },
@@ -9096,7 +9151,8 @@ MICRODATA:
   <div class="event-time">9:30 PM</div>
 
  <span itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-  <div class="event-price" itemprop="price">$13.00</div>
+  <div class="event-price" itemprop="price" content="13.00">$13.00</div>
+  <span itemprop="priceCurrency" content="USD" />
   <a itemprop="url" href="http://www.ticketfly.com/purchase/309433">Tickets</a>
  </span>
 </div>
@@ -9121,8 +9177,9 @@ RDFA:
   <div class="event-time">9:30 PM</div>
 
  <span property="offers"  typeof="Offer">
-  <div class="event-price" property="price">$13.00</div>
-  <a property="url" href="http://www.ticketfly.com/purchase/309433">Tickets</a>
+  <div class="event-price" property="price" content="13.00">$13.00</div>
+    <span property="priceCurrency" content="USD" />
+    <a property="url" href="http://www.ticketfly.com/purchase/309433">Tickets</a>
  </span>
 </div>
 
@@ -9146,7 +9203,8 @@ JSON:
   "name": "Typhoon with Radiation City",
   "offers": {
     "@type": "Offer",
-    "price": "$13.00",
+    "price": "13.00",
+    "priceCurrency": "USD",
     "url": "http://www.ticketfly.com/purchase/309433"
   },
   "startDate": "Sat Sep 14"
@@ -9199,7 +9257,8 @@ MICRODATA:
   <div class="event-time">9:30 PM</div>
 
  <span itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-  <div class="event-price" itemprop="price">$13.00</div>
+  <div class="event-price" itemprop="price" content="13.00">$13.00</div>
+  <span itemprop="priceCurrency" content="USD" />
   <a itemprop="url" href="http://www.ticketfly.com/purchase/309433">Tickets</a>
  </span>
 </div>
@@ -9251,7 +9310,8 @@ JSON:
   "name": "CANCELLED - Typhoon with Radiation City",
   "offers": {
     "@type": "Offer",
-    "price": "$13.00",
+    "price": "13.00",
+    "priceCurrency": "USD",
     "url": "http://www.ticketfly.com/purchase/309433"
   },
   "startDate": "Sat Sep 14"
@@ -9299,8 +9359,9 @@ MICRODATA:
   </div>
   <div class="event-time">10:00 PM</div>
   <span itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-   <div class="event-price" itemprop="price">$13.00</div>
-   <a itemprop="url" href="http://www.ticketfly.com/purchase/309433">Tickets</a>
+   <div class="event-price" itemprop="price" content="13.00">$13.00</div>
+     <span itemprop="priceCurrency" content="USD" />
+     <a itemprop="url" href="http://www.ticketfly.com/purchase/309433">Tickets</a>
   </span>
 </div>
 
@@ -9323,8 +9384,9 @@ RDFA:
   </div>
   <div class="event-time">10:00 PM</div>
   <span property="offers"  typeof="Offer">
-   <div class="event-price" property="price">$13.00</div>
-   <a property="url" href="http://www.ticketfly.com/purchase/309433">Tickets</a>
+   <div class="event-price" property="price" content="13.00">$13.00</div>
+    <span property="priceCurrency" content="USD" />
+    <a property="url" href="http://www.ticketfly.com/purchase/309433">Tickets</a>
   </span>
 </div>
 
@@ -9347,7 +9409,8 @@ JSON:
     },
     {
       "@type": "Offer",
-      "price": "$13.00",
+      "price": "13.00",
+      "priceCurrency": "USD",
       "url": "http://www.ticketfly.com/purchase/309433"
     }
   ]
@@ -9397,8 +9460,9 @@ MICRODATA:
  <span itemprop="offers" itemscope itemtype="http://schema.org/Offer">
   <meta itemprop="availability" content="http://schema.org/SoldOut">
 
-  <div class="event-price" itemprop="price">$13.00</div>
-  <a itemprop="url" href="http://www.ticketfly.com/purchase/309433">Tickets</a>
+  <div class="event-price" itemprop="price" content="13.00">$13.00</div>
+    <span itemprop="priceCurrency" content="USD" />
+    <a itemprop="url" href="http://www.ticketfly.com/purchase/309433">Tickets</a>
  </span>
 </div>
 
@@ -9424,7 +9488,8 @@ RDFA:
  <span property="offers"  typeof="Offer">
   <meta property="availability" content="http://schema.org/SoldOut">
 
-  <div class="event-price" property="price">$13.00</div>
+  <div class="event-price" property="price" content="13.00">$13.00</div>
+  <span property="priceCurrency" content="USD" />
   <a property="url" href="http://www.ticketfly.com/purchase/309433">Tickets</a>
  </span>
 </div>
@@ -9450,7 +9515,8 @@ JSON:
   "offers": {
     "@type": "Offer",
     "availability": "http://schema.org/SoldOut",
-    "price": "$13.00",
+    "price": "13.00",
+    "priceCurrency": "USD",
     "url": "http://www.ticketfly.com/purchase/309433"
   },
   "startDate": "Sat Sep 14"
@@ -9593,17 +9659,17 @@ as suggested by www.a11ymetadata.org.
       <dt>Book Quality:</dt>
       <dd>Publisher Quality</dd>
       <dt>Book Size:</dt>
-      <dd itemprop="numberOfPages">598 Pages</dd>
+      <dd><span itemprop="numberOfPages">598</span> Pages</dd>
       <dt>ISBN-13:</dt>
       <dd itemprop="isbn">9780030426599</dd>
       <dt>Publisher:</dt>
-      <dd itemprop="publisher" itemtype="http://schema.org/Organization" itemscope="">Holt, Rinehart and Winston</dd>
+      <dd itemprop="publisher" itemtype="http://schema.org/Organization" itemscope=""><span itemprop="name">Holt, Rinehart and Winston</span></dd>
       <dt>Date of Addition:</dt>
       <dd>06/08/10</dd>
       <dt>Copyright Date:</dt>
       <dd itemprop="copyrightYear">2007</dd>
       <dt>Copyrighted By:</dt>
-      <dd itemprop="copyrightHolder" itemtype="http://schema.org/Organization" itemscope="">Holt, Rinehart and Winston</dd>
+      <dd itemprop="copyrightHolder" itemtype="http://schema.org/Organization" itemscope=""><span itemprop="name">Holt, Rinehart and Winston</span></dd>
       <dt>Adult content:</dt>
       <dd><meta itemprop="isFamilyFriendly" content="true"/>No</dd>
       <dt>Language:</dt>
@@ -9642,7 +9708,7 @@ appropriate values for these properties. This example shows simple text values,
 as suggested by www.a11ymetadata.org.
 </p>
 
-<div   typeof="Book">
+<div vocab="http://schema.org/" typeof="Book">
    <meta property="bookFormat" content="EBook/DAISY3"/>
    <meta property="accessibilityFeature" content="largePrint/CSSEnabled"/>
    <meta property="accessibilityFeature" content="highContrast/CSSEnabled"/>
@@ -9667,17 +9733,17 @@ as suggested by www.a11ymetadata.org.
       <dt>Book Quality:</dt>
       <dd>Publisher Quality</dd>
       <dt>Book Size:</dt>
-      <dd property="numberOfPages">598 Pages</dd>
+      <dd><span property="numberOfPages">598</span> Pages</dd>
       <dt>ISBN-13:</dt>
       <dd property="isbn">9780030426599</dd>
       <dt>Publisher:</dt>
-      <dd property="publisher"  typeof="Organization" >Holt, Rinehart and Winston</dd>
+      <dd property="publisher" typeof="Organization"><span property="name">Holt, Rinehart and Winston</span></dd>
       <dt>Date of Addition:</dt>
       <dd>06/08/10</dd>
       <dt>Copyright Date:</dt>
       <dd property="copyrightYear">2007</dd>
       <dt>Copyrighted By:</dt>
-      <dd property="copyrightHolder"  typeof="Organization" >Holt, Rinehart and Winston</dd>
+      <dd property="copyrightHolder" typeof="Organization"><span property="name">Holt, Rinehart and Winston</span></dd>
       <dt>Adult content:</dt>
       <dd><meta property="isFamilyFriendly" content="true"/>No</dd>
       <dt>Language:</dt>
@@ -9698,7 +9764,7 @@ as suggested by www.a11ymetadata.org.
       supplied by the NIMAC under these restrictions. Learn more in the NIMAC Support Center.</dd>
    </dl>
 
-   <div class="bookReviews" property="aggregateRating"  typeof="AggregateRating">
+   <div class="bookReviews" property="aggregateRating" typeof="AggregateRating">
       <h2>Reviews of Holt Physical Science (<span property="reviewCount">0</span> reviews)</h2>
 
       <div class="bookReviewScore">
@@ -9737,7 +9803,8 @@ JSON:
   },
   "bookFormat": "EBook/DAISY3",
   "copyrightHolder": {
-    "@type": "Organization"
+    "@type": "Organization",
+    "name": "Holt, Rinehart and Winston"
   },
   "copyrightYear": "2007",
   "description": "NIMAC-sourced textbook",
@@ -9746,9 +9813,10 @@ JSON:
   "isFamilyFriendly": "true",
   "isbn": "9780030426599",
   "name": "Holt Physical Science",
-  "numberOfPages": "598 Pages",
+  "numberOfPages": "598",
   "publisher": {
-    "@type": "Organization"
+    "@type": "Organization",
+    "name": "Holt, Rinehart and Winston"
   }
 }
 </script>
@@ -9850,7 +9918,7 @@ JSON:
   "reservationStatus": "http://schema.org/ReservationConfirmed",
   "reservationFor": {
     "@type": "BusTrip",
-    "operatingCompany": {
+    "provider": {
       "@type": "Organization",
       "name": "Bolt NYC"
     },
@@ -9938,17 +10006,20 @@ JSON:
 }
 </script>
 
-
-TYPES: FlightReservation, Flight
+TYPES:  Flight, FlightReservation
 
 PRE-MARKUP:
 
-Original:
 Reservation #RXJ34P
 Passenger: Eva Green
-Flight: United Airlines flight 110
+Flight: United Airlines Flight 110
+Operated By: Continental Airlines
 Departing: San Francisco Airport (SFO) 2017-03-04T20:15:00-08:00
 Arriving: John F. Kennedy International Airport (JFK) 2017-03-05T06:30:00-05:00
+Passenger Sequence Number: ABC123
+Boarding priority: FastTrack
+Boarding policy: zone-based
+Security screening: TSA PreCheck
 
 MICRODATA:
 
@@ -9966,14 +10037,23 @@ JSON:
   "@type": "FlightReservation",
   "reservationId": "RXJ34P",
   "reservationStatus": "http://schema.org/ReservationConfirmed",
+  "passengerPriorityStatus": "Fast Track",
+  "passengerSequenceNumber": "ABC123",
+  "securityScreening": "TSA PreCheck",
   "underName": {
     "@type": "Person",
     "name": "Eva Green"
   },
   "reservationFor": {
     "@type": "Flight",
-    "flightNumber": "110",
-    "carrier": {
+    "flightNumber": "UA110",
+    "provider": {
+      "@type": "Airline",
+      "name": "Continental",
+      "iataCode": "CO",
+      "boardingPolicy": "http://schema.org/ZoneBoardingPolicy"
+    },
+    "seller": {
       "@type": "Airline",
       "name": "United",
       "iataCode": "UA"
@@ -10328,7 +10408,7 @@ JSON:
 {
     "@context": "http://schema.org",
     "@type": "Question",
-    "name": "What is attr_accessor in Ruby?",
+    "text": "What is attr_accessor in Ruby?",
     "upvoteCount": "196",
     "text": "I am having difficulty understanding Ruby attr_accessors, can someone explain them?",
     "dateCreated": "2010-11-04T20:07Z",
@@ -10428,7 +10508,7 @@ JSON:
       {
         "@type": "EntryPoint",
         "urlTemplate": "urbanspoon://r/6/92204",
-        "application": {
+        "actionApplication": {
           "@type": "SoftwareApplication",
           "@id": "284708449",
           "name": "Urbanspoon iPhone & iPad App",
@@ -10438,7 +10518,7 @@ JSON:
       {
         "@type": "EntryPoint",
         "urlTemplate": "urbanspoon://r/6/92204",
-        "application": {
+        "actionApplication": {
           "@type": "SoftwareApplication",
           "@id": "5b23b738-bb64-4829-9296-5bcb59bb0d2d",
           "name": "Windows Phone App",
@@ -10517,7 +10597,8 @@ MICRODATA:
 
   <div itemprop="offers" itemscope="" itemtype="http://schema.org/Offer">
     <link itemprop="url" href="/examples/ticket/12341234" />
-    <meta itemprop="price" content="$40"/>
+    <meta itemprop="price" content="40"/>
+    <meta itemprop="priceCurrency" content="USD" />
     <meta itemprop="availability" href="http://schema.org/InStock"/>
   </div>
 
@@ -10584,7 +10665,8 @@ RDFA:
 
   <div property="offers" typeof="Offer">
     <link property="url" href="/examples/ticket/12341234"/>
-    <meta property="price" content="$40"/>
+    <meta property="price" content="40"/>
+    <meta property="priceCurrency" content="USD" />
     <meta property="availability" href="http://schema.org/InStock"/>
   </div>
 
@@ -10648,7 +10730,8 @@ JSON:
   "offers": {
     "@type": "Offer",
     "url": "/examples/ticket/12341234",
-    "price": "$40",
+    "price": "40",
+    "priceCurrency": "USD",
     "availability": "http://schema.org/InStock"
   },
   "performer": [
@@ -10946,7 +11029,7 @@ MICRODATA:
 
 RDFA:
 
-<div vocab="http://schema.org" typeof="Store">
+<div vocab="http://schema.org/" typeof="Store">
   <h1 property="name">Middle of Nowhere Foods</h1>
   <h2>Opening hours</h2>
   <p>Normally open <time property="openingHours" datetime="Mo,Tu,We,Th,Fr,Sa,Su 09:00-14:00">daily 9am-2pm</time> except on:</p>
@@ -11173,7 +11256,7 @@ MICRODATA:
     <p itemprop="description">Keep your clothes clean while you do your daily shopping!</p>
     <p>Open: <time itemprop="openingHours" datetime="Mo-Fr 13:00-17:30">Open weekdays 1pm-5:30pm.</time></p>
     <p>Phone: <span itemprop="telephone" content="+155501002121">555-0100-2121</span></p>
-    <p>A branch of <span itemprop="branchOf" itemscope itemtype="http://schema.org/Corporation">
+    <p>A branch of <span itemprop="parentOrganization" itemscope itemtype="http://schema.org/Corporation">
     <a itemprop="url" href="http://example.com/"><span itemprop="name">Larry's International</span></a></span>.</p>
   </div>
 </div>
@@ -11202,7 +11285,7 @@ RDFA:
     <p property="description">Keep your clothes clean while you do your daily shopping!</p>
     <p>Open: <time property="openingHours" datetime="Mo-Fr 13:00-17:30">Open weekdays 1pm-5:30pm.</time></p>
     <p>Phone: <span property="telephone" content="+155501002121">555-0100-2121</span></p>
-    <p>A branch of <span property="branchOf" typeof="Corporation">
+    <p>A branch of <span property="parentOrganization" typeof="Corporation">
     <a property="url" href="http://example.com/"><span property="name">Larry's International</span></a></span>.</p>
   </div>
 </div>
@@ -11232,7 +11315,7 @@ JSON:
       "description": "Keep your clothes clean while you do your daily shopping!",
       "openingHours": "Mo-Fr 13:00-17:30",
       "telephone": "+155501002121",
-      "branchOf":
+      "parentOrganization":
       {
         "@type": "Corporation",
         "url": "http://example.com/",
@@ -11584,7 +11667,7 @@ JSON:
   "startDate" : "2014-04-12T19:30",
   "location" : {
      "@type" : "Place",
-     "name" : "Lupo’s Heartbreak Hotel",
+     "name" : "Lupo's Heartbreak Hotel",
      "address" : "79 Washington St., Providence, RI"
   },
   "offers" : {
@@ -11920,7 +12003,7 @@ MICRODATA:
     </div>
     <span itemprop="startDate">1979</span>
     <span itemprop="endDate">1992</span>
-    <span itemprop="namedPosition">Quarterback</span>
+    <span itemprop="roleName">Quarterback</span>
 </div>
 
 RDFA:
@@ -11933,7 +12016,7 @@ RDFA:
     </div>
     <span property="startDate">1979</span>
     <span property="endDate">1992</span>
-    <span property="namedPosition">Quarterback</span>
+    <span property="roleName">Quarterback</span>
 </div>
 
 JSON:
@@ -11951,10 +12034,9 @@ JSON:
     },
     "startDate": "1979",
     "endDate": "1992",
-    "namedPosition": "Quarterback"
+    "roleName": "Quarterback"
   }
 }
-
 </script>
 
 TYPES:  WebPage, CollegeOrUniversity
@@ -12019,5 +12101,558 @@ JSON:
 }
 </script>
 
+TYPES:  ItemList, Product, Offer
+
+PRE-MARKUP:
+
+<div>
+  <link  href="http://multivarki.ru?filters%5Bprice%5D%5BLTE%5D=39600" />
+  <span>315</span>
+  <div>
+    <img src="http://img01.multivarki.ru.ru/c9/f1/a5fe6642-18d0-47ad-b038-6fca20f1c923.jpeg" />
+    <a alt="Photo of product" href="http://multivarki.ru/brand_502/">
+      <span>BRAND 502</span>
+    </a>
+    <div>
+      <span>4399 р.</span>
+    </div>...
+    <div>
+    ...
+    </div>
+  </div>
+</div>
+
+MICRODATA:
+
+<div  itemtype="http://schema.org/ItemList">
+  <link itemprop="url" href="http://multivarki.ru?filters%5Bprice%5D%5BLTE%5D=39600" />
+  <span itemprop="numberOfItems">315</span>
+  <div itemprop="itemListElement" itemscope="" itemtype="http://schema.org/Product">
+    <img alt="Photo of product" itemprop="image"
+     src="http://img01.multivarki.ru.ru/c9/f1/a5fe6642-18d0-47ad-b038-6fca20f1c923.jpeg" />
+    <a itemprop="url" href="http://multivarki.ru/brand_502/">
+      <span itemprop="name">BRAND 502</span>
+    </a>
+    <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+      <span itemprop="price">4399 р.</span>
+    </div>...
+    <div itemprop="itemListElement"  itemtype="http://schema.org/Product">
+    ...
+    </div>
+  </div>
+</div>
+
+RDFA:
+
+<div vocab="http://schema.org/" typeof="ItemList">
+  <link property="url" href="http://multivarki.ru?filters%5Bprice%5D%5BLTE%5D=39600" />
+  <span property="numberOfItems">315</span>
+  <div property="itemListElement" typeof="Product">
+    <img property="image" alt="Photo of product"
+     src="http://img01.multivarki.ru.ru/c9/f1/a5fe6642-18d0-47ad-b038-6fca20f1c923.jpeg" />
+    <a property="url" href="http://multivarki.ru/brand_502/">
+      <span property="name">BRAND 502</span>
+    </a>
+    <div property="offers" typeof="http://schema.org/Offer">
+      <span property="price">4399 р.</span>
+    </div>...
+    <div property="itemListElement"  typeof="Product">
+    ...
+    </div>
+  </div>
+</div>
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "ItemList",
+  "url": "http://multivarki.ru?filters%5Bprice%5D%5BLTE%5D=39600",
+  "numberOfItems": "315",
+  "itemListElement": [{
+      "@type": "Product",
+      "image": "http://img01.multivarki.ru.ru/c9/f1/a5fe6642-18d0-47ad-b038-6fca20f1c923.jpeg",
+      "url": "http://multivarki.ru/brand_502/",
+      "name": "Brand 502"
+    },{
+      "@type": "Product",
+      "name": "..."
+    }
+  ],
+    "offers": {
+      "@type": "Offer",
+      "price": "4399 p."
+    }
+}
+</script>
+
+TYPES: ItemList, CreativeWork, Place
+
+PRE-MARKUP:
+
+Top 5 covers of Bob Dylan Songs
+by John Doe
+5. If Not for You -- George Harrison
+4. The Times They Are A-Changin' -- Tracy Chapman
+3. It Ain't Me, Babe -- Johnny Cash and June Carter Cash
+2. Don't Think Twice, It's Alright -- Waylon Jennings
+1. All Along the Watchtower -- Jimi Hendrix
+
+MICRODATA:
+
+<div itemtype="http://schema.org/ItemList http://schema.org/CreativeWork">
+  <h1 itemprop="name">Top 5 covers of Bob Dylan Songs</h1>
+  <div itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <span itemprop="name" content="John Doe">by John Doe</span>
+  </div>
+  <div itemprop="about" itemscope itemtype="http://schema.org/MusicRecording">
+    <div itemprop="byArtist" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Bob Dylan" />
+    </div>
+  </div>
+  <meta itemprop="itemListOrder" content="http://schema.org/ItemListOrderAscending" />
+  <meta itemprop="numberOfItems" content="5" />
+  <div itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+    <span itemprop="position">5</span>
+    <div itemprop="item" itemscope itemtype="http://schema.org/MusicRecording">
+      <span itemprop="name">If Not For You</span>
+      <div itemprop="byArtist" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">George Harrison</span>
+      </div>
+    </div>
+  </div>
+  <div itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+    <span itemprop="position">4</span>
+    <div itemprop="item" itemscope itemtype="http://schema.org/MusicRecording">
+      <span itemprop="name">The Times They Are A-Changin'</span>
+      <div itemprop="byArtist" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Tracy Chapman</span>
+      </div>
+    </div>
+  </div>
+  <div itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+    <span itemprop="position">3</span>
+    <div itemprop="item" itemscope itemtype="http://schema.org/MusicRecording">
+      <span itemprop="name">It Ain't Me Babe</span>
+      <div itemprop="byArtist" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Johnny Cash</span>
+      </div>
+      <div itemprop="byArtist" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">June Carter Cash</span>
+      </div>
+    </div>
+  </div>
+  <div itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+    <span itemprop="position">2</span>
+    <div itemprop="item" itemscope itemtype="http://schema.org/MusicRecording">
+      <span itemprop="name">Don't Think Twice It's Alright</span>
+      <div itemprop="byArtist" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Waylon Jennings</span>
+      </div>
+    </div>
+  </div>
+  <div itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+    <span itemprop="position">1</span>
+    <div itemprop="item" itemscope itemtype="http://schema.org/MusicRecording">
+      <span itemprop="name">All Along the Watchtower</span>
+      <div itemprop="byArtist" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Jimi Hendrix</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+RDFA:
+
+<div vocab="http://schema.org/" typeof="ItemList CreativeWOrk">
+  <h1 property="name">Top 5 covers of Bob Dylan Songs</h1>
+  <div property="author" typeof="Person">
+    <span property="name" content="John Doe">by John Doe</span>
+  </div>
+  <div property="about" typeof="MusicRecording">
+    <div property="byArtist" typeof="Person">
+      <meta property="name" content="Bob Dylan" />
+    </div>
+  </div>
+  <meta property="itemListOrder" content="http://schema.org/ItemListOrderAscending" />
+  <meta property="numberOfItems" content="5" />
+  <div property="itemListElement" typeof="ListItem">
+    <span property="position">5</span>
+    <div property="item" typeof="MusicRecording">
+      <span property="name">If Not For You</span>
+      <div property="byArtist" typeof="Person">
+        <span property="name">George Harrison</span>
+      </div>
+    </div>
+  </div>
+  <div property="itemListElement" typeof="ListItem">
+    <span property="position">4</span>
+    <div property="item" typeof="MusicRecording">
+      <span property="name">The Times They Are A-Changin'</span>
+      <div property="byArtist" typeof="Person">
+        <span property="name">Tracy Chapman</span>
+      </div>
+    </div>
+  </div>
+  <div property="itemListElement" typeof="ListItem">
+    <span property="position">3</span>
+    <div property="item" typeof="MusicRecording">
+      <span property="name">It Ain't Me Babe</span>
+      <div property="byArtist" typeof="Person">
+        <span property="name">Johnny Cash</span>
+      </div>
+      <div property="byArtist" typeof="Person">
+        <span property="name">June Carter Cash</span>
+      </div>
+    </div>
+  </div>
+  <div property="itemListElement" typeof="ListItem">
+    <span property="position">2</span>
+    <div property="item" typeof="MusicRecording">
+      <span property="name">Don't Think Twice It's Alright</span>
+      <div property="byArtist" typeof="Person">
+        <span property="name">Waylon Jennings</span>
+      </div>
+    </div>
+  </div>
+  <div property="itemListElement" typeof="ListItem">
+    <span property="position">1</span>
+    <div property="item" typeof="MusicRecording">
+      <span property="name">All Along the Watchtower</span>
+      <div property="byArtist" typeof="Person">
+        <span property="name">Jimi Hendrix</span>
+      </div>
+    </div>
+  </div>
+</div>
 
 
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": ["ItemList", "CreativeWork"],
+  "name": "Top 5 covers of Bob Dylan Songs",
+  "author": "John Doe",
+  "about: {
+    "@type": "MusicRecording",
+    "byArtist": {
+      "@type": "Person",
+      "name": "Bob Dylan"
+    }
+  },
+  "itemListOrder": "http://schema.org/ItemListOrderAscending",
+  "numberOfItems: 5,
+  itemListElement: [
+    {
+      "@type": "ListItem",
+      "position": 5,
+      "item": {
+        "@type": "MusicRecording",
+        "name": "If Not For You",
+        "byArtist": {
+          "@type": "Person",
+          "name": "George Harrison"
+        }
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "item": {
+        "@type": "MusicRecording",
+        "name": "The Times They Are A-Changin'",
+        "byArtist": {
+          "@type": "Person",
+          "name": "Tracy Chapman"
+        }
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "item": {
+        "@type": "MusicRecording",
+        "name": "It Ain't Me Babe",
+        "byArtist": [
+          {
+            "@type": "Person",
+            "name": "Johnny Cash"
+          },
+          {
+            "@type": "Person",
+            "name": "June Carter Cash"
+          }
+        ]
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "item": {
+        "@type": "MusicRecording",
+        "name": "Don't Think Twice It's Alright",
+        "byArtist": {
+          "@type": "Person",
+          "name": "Waylon Jennings"
+        }
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "item": {
+        "@type": "MusicRecording",
+        "name": "All Along the Watchtower",
+        "byArtist": {
+          "@type": "Person",
+          "name": "Jimi Hendrix"
+        }
+      }
+    }
+  ]
+}
+</script>
+
+
+TYPES: ItemList
+
+PRE-MARKUP:
+
+The artists with the most cumulative weeks at number one according to Billboard 200
+1. Beatles: 132 weeks
+2. Elvis Presley: 67 weeks
+3. Michael Jackson: 51 weeks
+4. Garth Brooks: 51 weeks
+
+MICRODATA:
+
+<div itemtype="http://schema.org/ItemList">
+  <link itemprop="url" href="http://en.wikipedia.org/wiki/Billboard_200" />
+  <h1><span itemprop="name">Top music artists</span></h1>
+  <div itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+    <span itemprop="position">1</span>
+    <span itemprop="item" itemscope itemtype="http://schema.org/MusicGroup">
+      <span itemprop="name">Beatles</span>
+    </span>
+    <span>132 weeks</span>
+  </div>
+  <div itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+    <span itemprop="position">2</span>
+    <span itemprop="item" itemscope itemtype="http://schema.org/MusicGroup">
+      <span itemprop="name">Elvis Presley</span>
+    </span>
+    <span>67 weeks</span>
+  </div>
+  <div itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+    <span itemprop="position">3</span>
+    <span itemprop="item" itemscope itemtype="http://schema.org/MusicGroup">
+      <span itemprop="name">Michael Jackson</span>
+    </span>
+    <span>51 weeks</span>
+  </div>
+  <div itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+    <span itemprop="position">3</span>
+    <span itemprop="item" itemscope itemtype="http://schema.org/MusicGroup">
+      <span itemprop="name">Garth Brooks</span>
+    </span>
+    <span>51 weeks</span>
+  </div>
+</div>
+
+RDFA:
+
+<div vocab="http://schema.org/" typeof="ItemList">
+  <link property="url" href="http://en.wikipedia.org/wiki/Billboard_200" />
+  <span property="name">Top music artists</span>
+  <div property="itemListElement" typeof="ListItem">
+    <span property="position">1</span>
+    <span property="item" typeof="MusicGroup">
+      <span property="name">Beatles</span>
+    </span>
+  </div>
+  <div property="itemListElement" typeof="http://schema.org/ListItem">
+    <span property="position">2</span>
+    <span property="item" typeof="MusicGroup">
+      <span property="name">Elvis Presley</span>
+    </span>
+    <span>67 weeks</span>
+  </div>
+  <div property="itemListElement" typeof="ListItem">
+    <span property="position">3</span>
+    <span property="item" typeof="MusicGroup">
+      <span property="name">Michael Jackson</span>
+    </span>
+    <span>51 weeks</span>
+  </div>
+  <div property="itemListElement" typeof="ListItem">
+    <span property="position">3</span>
+    <span property="item" typeof="MusicGroup">
+      <span itemprop="name">Garth Brooks</span>
+    </span>
+    <span>51 weeks</span>
+  </div>
+</div>
+
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "ItemList",
+  "@url": "http://en.wikipedia.org/wiki/Billboard_200",
+  "name": "Top music artists",
+  "description": "The artists with the most cumulative weeks at number one according to Billboard 200",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "item": {
+        "@type": "MusicGroup",
+        "name": "Beatles"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "item": {
+        "@type": "MusicGroup",
+        "name": "Elvis Presley"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "item": {
+        "@type": "MusicGroup",
+        "name": "Michael Jackson"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "item": {
+        "@type": "MusicGroup",
+        "name": "Garth Brooks"
+      }
+    }
+  ]
+}
+</script>
+
+
+TYPES: ItemList, MusicAlbum
+
+PRE-MARKUP:
+
+King of Limbs - Radiohead
+Tracks:
+1. Bloom
+2. Morning Mr. Magpie
+3. Little by Little
+
+MICRODATA:
+
+<div itemscope itemtype="http://schema.org/MusicAlbum">
+  <span itemprop="name">King of Limbs</span>
+  <span itemprop="byArtist">Radiohead</span>
+  <div itemprop="track" itemscope itemtype="http://schema.org/ItemList">
+    <span itemprop="numberOfItems" content=8 />
+    <div itemprop="itemListElement itemscope itemtype="http://schema.org/ListItem">
+      <span itemprop="position">1</span>
+      <div itemprop="item" itemscope itemtype="http://schema.org/MusicRecording">
+        <span itemprop="name">Bloom</span>
+      </div>
+    </div>
+    <div itemprop="itemListElement itemscope itemtype="http://schema.org/ListItem">
+      <span itemprop="position">2</span>
+      <div itemprop="item" itemscope itemtype="http://schema.org/MusicRecording">
+        <span itemprop="name">Morning Mr. Magpie</span>
+      </div>
+    </div>
+    <div itemprop="itemListElement itemscope itemtype="http://schema.org/ListItem">
+      <span itemprop="position">3</span>
+      <div itemprop="item" itemscope itemtype="http://schema.org/MusicRecording">
+        <span itemprop="name">Little by Little</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+RDFA:
+
+<div vocab="http://schema.org/" typeof="MusicAlbum">
+  <span property="name">King of Limbs</span>
+  <span property="byArtist">Radiohead</span>
+  <div property="track" typeof="ItemList">
+    <span property="numberOfItems" content=8 />
+    <div property="itemListElement" typeof="ListItem">
+      <span property="position">1</span>
+      <div property="item" typeof="http://schema.org/MusicRecording">
+        <span property="name">Bloom</span>
+      </div>
+    </div>
+    <div property="itemListElement typeof="ListItem">
+      <span property="position">2</span>
+      <div property="item" typeof="MusicRecording">
+        <span property="name">Morning Mr. Magpie</span>
+      </div>
+    </div>
+    <div property="itemListElement typeof="ListItem">
+      <span property="position">3</span>
+      <div property="item" ypeof="MusicRecording">
+        <span property="name">Little by Little</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+JSON:
+
+<script type="application/ld+json>
+{
+  "@context": "http://schema.org",
+  "@type": "MusicAlbum",
+  "name": "King of Limbs",
+  "byArtist": {
+    "@type": "MusicGroup",
+    "name": "Radiohead",
+  },
+  track: {
+    "@type": "ItemList",
+    "numberOfItems": 8,
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@type": "MusicRecording",
+          "name": "Bloom"
+        }
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "item": {
+          "@type": "MusicRecording",
+          "name": "Morning Mr. Magpie"
+        }
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "item": {
+          "@type": "MusicRecording",
+          "name": "Little by Little"
+        }
+      }
+    ]
+  }
+}
+</script>
+
+TYPES:  FakeEntryNeeded, FixMeSomeDay

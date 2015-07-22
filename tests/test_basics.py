@@ -2,8 +2,8 @@ import unittest
 import os
 import logging # https://docs.python.org/2/library/logging.html#logging-levels
 
-from headers import *
-from api import *
+#from api import *
+from sdoapp import *
 from parsers import *
 
 schema_path = './data/schema.rdfa'
@@ -43,7 +43,7 @@ class SDOBasicsTestCase(unittest.TestCase):
       if t.examples and len(t.examples) > 0:
         example_count = example_count + len(t.examples)
     log.info("Extracted %s examples." % example_count )
-    self.assertTrue(example_count > 300 and example_count < 400, "Expect that we extracted 300 < x < 400 examples from data/*examples.txt. Found: %s " % example_count)
+    self.assertTrue(example_count > 300 and example_count < 450, "Expect that we extracted 300 < x < 400 examples from data/*examples.txt. Found: %s " % example_count)
 
   # Whichever file from data/*examples.txt is glob-loaded last, needs a final entry of "TYPES:  FakeEntryNeeded, FixMeSomeDay"
   # This used to be examples.txt but now we are multi-file it could strike anywhere.
@@ -199,6 +199,7 @@ class SchemaBasicAPITestCase(unittest.TestCase):
   def test_StoresAreOrganizations(self):
     tStore = Unit.GetUnit("Store")
     tOrganization = Unit.GetUnit("Organization")
+    orgsubtypes = GetSources( Unit.GetUnit("rdfs:subClassOf"), tOrganization  )
     self.assertTrue(tStore.subClassOf(tOrganization), "Store subClassOf Organization.")
 
   def test_PersonNotAttribute(self):
@@ -216,32 +217,32 @@ class SchemaBasicAPITestCase(unittest.TestCase):
 
 class SchemaPropertyAPITestCase(unittest.TestCase):
 
-  def test_actorSupercedesActors(self):
+  def test_actorSupersedesActors(self):
     p_actor = Unit.GetUnit("actor")
     p_actors = Unit.GetUnit("actors")
-    self.assertTrue(p_actors == p_actor.supercedes(), "actor supercedes actors.")
+    self.assertTrue(p_actors == p_actor.supersedes(), "actor supersedes actors.")
 
-  def test_actorsSuperceded(self):
+  def test_actorsSuperseded(self):
     p_actors = Unit.GetUnit("actors")
-    self.assertTrue(p_actors.superceded(), "actors property has been superceded.")
+    self.assertTrue(p_actors.superseded(), "actors property has been superseded.")
 
-  def test_actorNotSuperceded(self):
+  def test_actorNotSuperseded(self):
     p_actor = Unit.GetUnit("actor")
-    self.assertFalse(p_actor.superceded(), "actor property has not been superceded.")
+    self.assertFalse(p_actor.superseded(), "actor property has not been superseded.")
 
-  def test_offersNotSuperceded(self):
+  def test_offersNotSuperseded(self):
     p_offers = Unit.GetUnit("offers")
-    self.assertFalse(p_offers.superceded(), "offers property has not been superceded.")
+    self.assertFalse(p_offers.superseded(), "offers property has not been superseded.")
 
-  def test_actorNotSupercededByOffers(self):
-    p_actor = Unit.GetUnit("actor")
-    p_offers = Unit.GetUnit("offers")
-    self.assertFalse(p_actor == p_offers.supercedes(), "actor property doesn't supercede offers property.")
-
-  def test_offersNotSupercededByActor(self):
+  def test_actorNotSupersededByOffers(self):
     p_actor = Unit.GetUnit("actor")
     p_offers = Unit.GetUnit("offers")
-    self.assertFalse(p_offers == p_actor.supercedes(), "offers property doesn't supercede actors property.")
+    self.assertFalse(p_actor == p_offers.supersedes(), "actor property doesn't supersede offers property.")
+
+  def test_offersNotSupersededByActor(self):
+    p_actor = Unit.GetUnit("actor")
+    p_offers = Unit.GetUnit("offers")
+    self.assertFalse(p_offers == p_actor.supersedes(), "offers property doesn't supersede actors property.")
 
 # acceptedAnswer subPropertyOf suggestedAnswer .
 class SchemaPropertyMetadataTestCase(unittest.TestCase):
@@ -254,7 +255,9 @@ class SchemaPropertyMetadataTestCase(unittest.TestCase):
   def test_acceptedAnswerSuperpropertiesArrayLen(self):
     p_acceptedAnswer = Unit.GetUnit("acceptedAnswer")
     aa_supers = p_acceptedAnswer.superproperties()
-    self.assertEqual( len(aa_supers), 1, "acceptedAnswer subproperties() gives array of len 1." )
+    for f in aa_supers:
+        log.info("acceptedAnswer's subproperties(): %s" % f.id)
+    self.assertTrue( len(aa_supers) == 1, "acceptedAnswer subproperties() gives array of len 1. Actual: %s ." % len(aa_supers) )
 
   def test_answerSubproperty(self):
     p_suggestedAnswer = Unit.GetUnit("suggestedAnswer")
@@ -367,7 +370,7 @@ class SimpleSchemaIntegrityTests(unittest.TestCase):
 class DataTypeTests(unittest.TestCase):
     def test_booleanDataType(self):
       self.assertTrue( Unit.GetUnit("Boolean").isDataType())
-      self.assertTrue(Unit.GetUnit("DataType").isDataType())
+      self.assertFalse(Unit.GetUnit("DataType").isDataType())
       self.assertFalse(Unit.GetUnit("Thing").isDataType())
       self.assertFalse(Unit.GetUnit("Duration").isDataType())
 
@@ -415,6 +418,8 @@ class AdvancedJSONLDTests(unittest.TestCase):
 # * different terms should not have identical comments
 # * if x and y are inverseOf each other, the rangeIncludes types on x should be domainIncludes on y, and vice-versa.
 # * need a few supporting functions e.g. all terms, all types, all properties, all enum values; candidates for api later but just use here first.
+# * make sure terms match their labels (e.g. priceRange), with or without whitespace?
+# * check we don't assign more than one example to the same ID
 
 if __name__ == "__main__":
   unittest.main()
