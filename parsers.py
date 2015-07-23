@@ -119,6 +119,7 @@ class RDFAParser :
         self.webapp = webapp
 
     def parse (self, files, layer="core"):
+        logging.info("Layer: %s" % layer)
         self.items = {}
         root = []
         for i in range(len(files)):

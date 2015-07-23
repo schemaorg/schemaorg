@@ -104,6 +104,7 @@ class Unit ():
         self.arcsOut = []
         self.examples = []
         self.usage = 0
+        self.home = None
         self.subtypes = None
 
     def __str__(self):
@@ -218,6 +219,19 @@ class Unit ():
             return newerterms.pop()
         else:
             return None
+
+        return ret
+            
+    def getHomeLayer(self,defaultToCore=False):
+        ret = self.home
+        if ret == None:
+            if defaultToCore:
+                ret = 'core'
+            else:
+                log.info("WARNING %s has no home extension defined!!" % self.id)
+                ret = ""
+        return ret
+        
 
     def superproperties(self, layers='core'):
         """Returns super-properties of this one."""
@@ -387,7 +401,7 @@ def GetComment(node, layers='core') :
             return tx[0]
     else:
         return "No comment"
-
+        
 def GetImmediateSubtypes(n, layers='core'):
     """Get this type's immediate subtypes, i.e. that are subClassOf this."""
     if n==None:
@@ -716,6 +730,21 @@ def full_path(filename):
     folder = os.path.dirname(os.path.realpath(__file__))
     return os.path.join(folder, filename)
 
+def setHomeValues(items,layer='core',defaultToCore=False):
+    for node in items:
+        if(node == None):
+            continue
+            
+        home = GetTargets( Unit.GetUnit("isPartOf"), node, layer )
+        if(len(home) > 0):
+            if(node.home != None):
+                log.info("ERROR: %s trying to overwite home from %s to %s" % (node.id,node.home,home[0].id))
+            else:
+                node.home = re.match( r'([\w\-_]+)[\.:]?', home[0].id.lstrip("http://")).group(1)
+            if(node.home == 'schema'):
+                node.home = 'core'
+        elif (defaultToCore and node.home == None):
+            node.home = "core"
 
 
 def read_schemas(loadExtensions=False):
@@ -733,6 +762,9 @@ def read_schemas(loadExtensions=False):
             file_paths.append(full_path(f))
         parser = parsers.MakeParserOfType('rdfa', None)
         items = parser.parse(file_paths, "core")
+        
+#set default home for those in core that do not have one
+        setHomeValues(items,"core",True)
 
         if loadExtensions:
             log.info("(re)scanning for extensions.")
@@ -747,6 +779,7 @@ def read_schemas(loadExtensions=False):
                 parser = parsers.MakeParserOfType('rdfa', None)
                 all_layers[extid] = "1"
                 extitems = parser.parse([ext_file_path], layer="%s" % extid) # put schema triples in a layer
+                setHomeValues(extitems,extid,False)
                 # log.debug("Results: %s " % len( extitems) )
                 for x in extitems:
                     if x is not None:
@@ -774,3 +807,8 @@ def read_schemas(loadExtensions=False):
             parser = parsers.UsageFileParser(None)
             parser.parse(usage_data)
         schemasInitialized = True
+        
+                
+                
+                
+        

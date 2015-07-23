@@ -6,6 +6,7 @@ import re
 import webapp2
 import jinja2
 import logging
+import StringIO
 
 from markupsafe import Markup, escape # https://pypi.python.org/pypi/MarkupSafe
 
@@ -35,6 +36,7 @@ releaselog = { "2.0": "2015-05-13" }
 #
 host_ext = ""
 myhost = ""
+myport = ""
 mybasehost = ""
 
 silent_skip_list =  [ "favicon.ico" ] # Do nothing for now
@@ -57,6 +59,7 @@ ENABLE_CORS = True
 ENABLE_HOSTED_EXTENSIONS = True
 
 ENABLED_EXTENSIONS = [ 'admin', 'auto', 'bib' ]
+ALL_LAYERS = [ 'admin', 'auto', 'bib', 'core' ]
 
 
 debugging = False
@@ -423,7 +426,20 @@ class ShowUnit (webapp2.RequestHandler):
           title = " title=\"%s\"" % (title)
         if prop:
             prop = " property=\"%s\"" % (prop)
-        return "<a href=\"%s%s\"%s%s>%s</a>" % (hashorslash, node.id, prop, title, label)
+        urlprefix = ""
+        home = node.getHomeLayer()
+        
+        if home in ENABLED_EXTENSIONS and home != host_ext:
+            port = ""
+            if myport != "80":
+                port = ":%s" % myport
+            urlprefix = "http://%s.%s%s" % (home, mybasehost, port) 
+        
+        extclass = ""
+        if home != "core" and home != "":
+            extclass = "class=\"ext-%s\" " % home  
+        
+        return "<a %shref=\"%s%s%s\"%s%s>%s</a>" % (extclass, urlprefix, hashorslash, node.id, prop, title, label)
 
     def makeLinksFromArray(self, nodearray, tooltip=''):
         """Make a comma separate list of links via ml() function.
@@ -442,9 +458,12 @@ class ShowUnit (webapp2.RequestHandler):
         self.write("</h1>")
 
 
-        self.BreadCrums(node, layers=layers)
+        self.BreadCrumbs(node, layers=layers)
 
         comment = GetComment(node, layers)
+        log.info("HOME for %s: %s" % (node, node.getHomeLayer(False)))
+
+        
         self.write(" <div property=\"rdfs:comment\">%s</div>\n\n" % (comment) + "\n")
 
         self.write(" <br><div>Usage: %s</div>\n\n" % (node.UsageStr()) + "\n")
@@ -456,12 +475,12 @@ class ShowUnit (webapp2.RequestHandler):
             self.write("<table class=\"definition-table\">\n        <thead>\n  <tr><th>Property</th><th>Expected Type</th><th>Description</th>               \n  </tr>\n  </thead>\n\n")
 
     # Stacks to support multiple inheritance
-    crumStacks = []
-    def BreadCrums(self, node, layers):
-        self.crumStacks = []
+    crumbStacks = []
+    def BreadCrumbs(self, node, layers):
+        self.crumbStacks = []
         cstack = []
-        self.crumStacks.append(cstack)
-        self.WalkCrums(node,cstack,layers=layers)
+        self.crumbStacks.append(cstack)
+        self.WalkCrumbs(node,cstack,layers=layers)
         if (node.isAttribute(layers=layers)):
             cstack.append(Unit.GetUnit("Property"))
             cstack.append(Unit.GetUnit("Thing"))
@@ -469,23 +488,23 @@ class ShowUnit (webapp2.RequestHandler):
         enuma = node.isEnumerationValue(layers=layers)
 
         self.write("<h4>")
-        for row in range(len(self.crumStacks)):
+        for row in range(len(self.crumbStacks)):
            count = 0
-           self.write("<span class='breadcrums'>")
-           while(len(self.crumStacks[row]) > 0):
+           self.write("<span class='breadcrumbs'>")
+           while(len(self.crumbStacks[row]) > 0):
                 if(count > 0):
-                    if((len(self.crumStacks[row]) == 1) and enuma):
+                    if((len(self.crumbStacks[row]) == 1) and enuma):
                         self.write(" :: ")
                     else:
                         self.write(" &gt; ")
-                n = self.crumStacks[row].pop()
+                n = self.crumbStacks[row].pop()
                 self.write("%s" % (self.ml(n)))
                 count += 1
            self.write("</span><br/>\n")
         self.write("</h4>\n")
 
-#Walk up the stack, appending crums & create new (duplicating crums already identified) if more than one parent found
-    def WalkCrums(self, node, cstack, layers):
+#Walk up the stack, appending crumbs & create new (duplicating crumbs already identified) if more than one parent found
+    def WalkCrumbs(self, node, cstack, layers):
         cstack.append(node)
         tmpStacks = []
         tmpStacks.append(cstack)
@@ -502,10 +521,10 @@ class ShowUnit (webapp2.RequestHandler):
             if(i > 0):
                 t = cstack[:]
                 tmpStacks.append(t)
-                self.crumStacks.append(t)
+                self.crumbStacks.append(t)
         x = 0
         for p in subs:
-            self.WalkCrums(p,tmpStacks[x],layers=layers)
+            self.WalkCrumbs(p,tmpStacks[x],layers=layers)
             x += 1
 
 
@@ -546,6 +565,9 @@ class ShowUnit (webapp2.RequestHandler):
         for prop in sorted(GetSources(di, cl, layers=layers), key=lambda u: u.id):
             if (prop.superseded(layers=layers)):
                 continue
+            inextend = ""
+            if not inLayer('core',prop):
+                inextend = "*"
             supersedes = prop.supersedes(layers=layers)
             olderprops = prop.supersedes_all(layers=layers)
             inverseprop = prop.inverseproperty(layers=layers)
@@ -559,8 +581,8 @@ class ShowUnit (webapp2.RequestHandler):
                     class_head = self.ml(cl, prop="rdfs:subClassOf")
                 out.write("<thead class=\"supertype\">\n  <tr>\n    <th class=\"supertype-name\" colspan=\"3\">Properties from %s</th>\n  </tr>\n</thead>\n\n<tbody class=\"supertype\">\n  " % (class_head))
                 headerPrinted = True
-
-            out.write("<tr typeof=\"rdfs:Property\" resource=\"http://schema.org/%s\">\n    \n      <th class=\"prop-nam\" scope=\"row\">\n\n<code property=\"rdfs:label\">%s</code>\n    </th>\n " % (prop.id, self.ml(prop)))
+                
+            out.write("<tr typeof=\"rdfs:Property\" resource=\"http://schema.org/%s\">\n    \n      <th class=\"prop-nam\" scope=\"row\">\n\n<code property=\"rdfs:label\">%s%s</code>\n    </th>\n " % (prop.id, self.ml(prop),inextend))
             out.write("<td class=\"prop-ect\">\n")
             first_range = True
             for r in ranges:
@@ -582,6 +604,51 @@ class ShowUnit (webapp2.RequestHandler):
 
         if subclass: # in case the superclass has no defined attributes
             out.write("<meta property=\"rdfs:subClassOf\" content=\"%s\">" % (cl.id))
+        
+
+    def emitClassExtensionProperties (self, cl, layers="core", out=None):
+        if not out:
+            out = self        
+                
+        buff = StringIO.StringIO()
+
+        for p in self.parentStack:
+            self._ClassExtensionProperties(buff, p, layers=layers)
+        
+        content = buff.getvalue()
+        if(len(content) > 0):
+            self.write("<h4>Available properties in extensions</h4>")
+            self.write("<ul>")
+            self.write(content)
+            self.write("</ul>")
+        buff.close()
+
+    def _ClassExtensionProperties (self, out, cl, layers="core"):
+        """Write out a list of properties not displayed as they are in extensions for a per-type page."""
+
+        di = Unit.GetUnit("domainIncludes")
+
+        headerPrinted = False
+        first = True
+        count = 0
+        for prop in sorted(GetSources(di, cl, ALL_LAYERS), key=lambda u: u.id):
+            if (prop.superseded(layers=layers)):
+                continue
+            if inLayer(layers,prop):
+                continue
+            log.debug("ClassExtensionfFound %s " % (prop))
+                
+            sep = ", "
+            if first:
+                out.write("<li>From %s: " % cl)
+                sep = ""
+                first = False
+                
+            out.write("%s%s" % (sep,self.ml(prop)))
+            count += 1
+        if(count > 0):
+            out.write("</li>\n")
+                                            
 
     def emitClassIncomingProperties (self, cl, layers="core", out=None, hashorslash="/"):
         """Write out a table of incoming properties for a per-type page."""
@@ -594,20 +661,23 @@ class ShowUnit (webapp2.RequestHandler):
         for prop in sorted(GetSources(ri, cl, layers=layers), key=lambda u: u.id):
             if (prop.superseded(layers=layers)):
                 continue
+            inextend = ""
+            if not inLayer('core',prop):
+                inextend = "*"
             supersedes = prop.supersedes(layers=layers)
             inverseprop = prop.inverseproperty(layers=layers)
             subprops = prop.subproperties(layers=layers)
             superprops = prop.superproperties(layers=layers)
             ranges = GetTargets(di, prop, layers=layers)
             comment = GetComment(prop, layers=layers)
-
+            
             if (not headerPrinted):
                 self.write("<br/><br/>Instances of %s may appear as values for the following properties<br/>" % (self.ml(cl)))
                 self.write("<table class=\"definition-table\">\n        \n  \n<thead>\n  <tr><th>Property</th><th>On Types</th><th>Description</th>               \n  </tr>\n</thead>\n\n")
 
                 headerPrinted = True
 
-            self.write("<tr>\n<th class=\"prop-nam\" scope=\"row\">\n <code>%s</code>\n</th>\n " % (self.ml(prop)) + "\n")
+            self.write("<tr>\n<th class=\"prop-nam\" scope=\"row\">\n <code>%s%s</code>\n</th>\n " % (self.ml(prop),inextend) + "\n")
             self.write("<td class=\"prop-ect\">\n")
             first_range = True
             for r in ranges:
@@ -788,6 +858,7 @@ class ShowUnit (webapp2.RequestHandler):
                     'ENABLE_HOSTED_EXTENSIONS': ENABLE_HOSTED_EXTENSIONS,
                     'SCHEMA_VERSION': SCHEMA_VERSION,
                     'myhost': myhost,
+                    'myport': myport,
                     'mybasehost': mybasehost,
                     'host_ext': host_ext,
                     'debugging': debugging
@@ -876,9 +947,15 @@ class ShowUnit (webapp2.RequestHandler):
         if (node.isClass(layers=layers)):
             subclass = True
             for p in self.parentStack:
-                self.ClassProperties(p, p==self.parentStack[0], layers=layers)
-            self.write("</table>\n")
+                log.debug("Properties for: %s" % p)
+                self.ClassProperties(p, p==self.parentStack[0], layers=layers) 
+                
+            self.write("\n\n</table>\n\n")                       
+ 
             self.emitClassIncomingProperties(node, layers=layers)
+
+            self.emitClassExtensionProperties(p,layers)
+
         elif (Unit.isAttribute(node, layers=layers)):
             self.emitAttributeProperties(node, layers=layers)
 
@@ -886,18 +963,27 @@ class ShowUnit (webapp2.RequestHandler):
             self.write("\n\n</table>\n\n") # no supertype table for properties
 
         if (node.isClass(layers=layers)):
+
             children = sorted(GetSources(Unit.GetUnit("rdfs:subClassOf"), node, layers=layers), key=lambda u: u.id)
             if (len(children) > 0):
-                self.write("<br/><b>More specific Types</b>");
+                self.write("<br/><b>More specific Types</b><ul>")
                 for c in children:
-                    self.write("<li> %s" % (self.ml(c)))
+                    inextend = ""
+                    if not inLayer('core',c):
+                        inextend = "*"
+                    self.write("<li> %s%s" % (self.ml(c),inextend))
+                self.write("</ul>")
 
         if (node.isEnumeration(layers=layers)):
             children = sorted(GetSources(Unit.GetUnit("typeOf"), node, layers=layers), key=lambda u: u.id)
             if (len(children) > 0):
-                self.write("<br/><br/>Enumeration members");
+                self.write("<br/><br/>Enumeration members<ul>")
                 for c in children:
-                    self.write("<li> %s" % (self.ml(c)))
+                    inextend = ""
+                    if not inLayer('core',c):
+                        inextend = "*"
+                    self.write("<li> %s%s" % (self.ml(c),inextend))
+                self.write("</ul>")
 
         ackorgs = GetTargets(Unit.GetUnit("dc:source"), node, layers=layers)
         if (len(ackorgs) > 0):
@@ -1059,7 +1145,7 @@ class ShowUnit (webapp2.RequestHandler):
 
         #self.outputStrings = [] # blank slate
         schema_node = Unit.GetUnit(node) # e.g. "Person", "CreativeWork".
-
+        log.debug("Layers: %s",layers)
         if inLayer(layers, schema_node):
             self.emitExactTermPage(schema_node, layers=layers)
             return True
@@ -1264,15 +1350,22 @@ class ShowUnit (webapp2.RequestHandler):
 
 
     def setupHostinfo(self, node):
-        global debugging, host_ext, myhost, mybasehost
+        global debugging, host_ext, myhost, myport, mybasehost
+        
+        log.info("Request %s" % self.request)
 
         host_ext = re.match( r'([\w\-_]+)[\.:]?', self.request.host).group(1)
         log.debug("setupHostinfo: srh=%s host_ext=%s" % (self.request.host, str(host_ext) ))
 
         if host_ext != None:
             # e.g. "bib"
+            log.info("HOST: Found %s in %s" % ( host_ext, self.request.host ))
             log.debug("HOST: Found %s in %s" % ( host_ext, self.request.host ))
-            myhost = self.request.host.rsplit(':')[0]
+            split = self.request.host.rsplit(':')
+            myhost = split[0]
+            myport = "80"
+            if len(split) > 1:
+                myport = split[1]                
             mybasehost = myhost
             mybasehost = mybasehost.replace(host_ext + ".","")
             # mybasehost = mybasehost.replace(":8080", "")
@@ -1303,7 +1396,7 @@ class ShowUnit (webapp2.RequestHandler):
         See also https://webapp-improved.appspot.com/guide/request.html#guide-request
         """
 
-        global debugging, host_ext, myhost, mybasehost, sitename
+        global debugging, host_ext, myhost, myport, mybasehost, sitename
 
         self.setupHostinfo(node)
 

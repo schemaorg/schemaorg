@@ -21,7 +21,7 @@
 <h1>Candidates for schema.org</h1>
 <p></p>
 
-<p vocab="http://schema.org" prefix="bib:http://schema.org/">Default vocabulary prefix: 'bib:'</p>
+<p vocab="http://schema.org" prefix="bib:http://bib.schema.org/">Default vocabulary prefix: 'bib:'</p>
 <p>
 <span property="schema:softwareVersion">bib.schema.org Version 0.1</span>
 </p>
@@ -29,78 +29,73 @@
 <h2>Types</h2>
 
 <div typeof="rdfs:Class" resource="http://schema.org/Agent">
-<span class="h" property="rdfs:label">bib:Agent</span>
-<span property="rdfs:comment">A Super Type for types that can act as agents (e.g. person, organization). This type is useful in cases where schema:Person or schema:Organization is optional, unclear or too specific.</span>
-<span> Subclass of:
-		     <a property="rdfs:subClassOf" href="http://schema.org/Thing">schema:Thing</a>
-</span>
-<span>Source:  <a property="dc:source" href="http://xmlns.com/foaf/0.1/Agent">foaf:Agent</a></span>
+	<link property="http://schema.org/isPartOf" href="http://bib.schema.org" />
+	<span class="h" property="rdfs:label">bib:Agent</span>
+	<span property="rdfs:comment">A Super Type for types that can act as agents (e.g. person, organization). This type is useful in cases where schema:Person or schema:Organization is optional, unclear or too specific.</span>
+	<span> Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Thing">schema:Thing</a></span>
+	<span>Source:  <a property="dc:source" href="http://xmlns.com/foaf/0.1/Agent">foaf:Agent</a></span>
 </div>
 
 <div typeof="rdfs:Class" resource="http://schema.org/Atlas">
-<span class="h" property="rdfs:label">bib:Atlas</span>
-<span property="rdfs:comment">A collection or bound volume of maps, charts, plates or tables, physical or in media form illustrating any subject.</span>
-<span> Subclass of:
-		     <a property="rdfs:subClassOf" href="http://schema.org/CreativeWork">schema:CreativeWork</a>
-</span>
-<span>Source:  <a property="dc:source" href="http://www.productontology.org/id/Atlas">pto:Atlas</a></span>
+	<link property="http://schema.org/isPartOf" href="http://bib.schema.org" />
+	<span class="h" property="rdfs:label">bib:Atlas</span>
+	<span property="rdfs:comment">A collection or bound volume of maps, charts, plates or tables, physical or in media form illustrating any subject.</span>
+	<span> Subclass of:<a property="rdfs:subClassOf" href="http://schema.org/CreativeWork">schema:CreativeWork</a></span>
+	<span>Source:  <a property="dc:source" href="http://www.productontology.org/id/Atlas">pto:Atlas</a></span>
 </div>
 
 <div typeof="rdfs:Class" resource="http://schema.org/Audiobook">
-<span class="h" property="rdfs:label">bib:Audiobook</span>
-<span property="rdfs:comment">An audiobook.</span>
-<span> Subclass of:
-		     <a property="rdfs:subClassOf" href="http://schema.org/Book">schema:Book</a>
-		     <a property="rdfs:subClassOf" href="http://schema.org/AudioObject">schema:AudioObject</a>
-</span>
+	<link property="http://schema.org/isPartOf" href="http://bib.schema.org" />
+	<span class="h" property="rdfs:label">bib:Audiobook</span>
+	<span property="rdfs:comment">An audiobook.</span>
+	<span> Subclass of:
+			     <a property="rdfs:subClassOf" href="http://schema.org/Book">schema:Book</a>
+			     <a property="rdfs:subClassOf" href="http://schema.org/AudioObject">schema:AudioObject</a>
+	</span>
 </div>
 
 <div typeof="rdfs:Class" resource="http://schema.org/Chapter">
-<span class="h" property="rdfs:label">bib:Chapter</span>
-<span property="rdfs:comment">One of the sections into which a book is divided. A chapter usually has a section number or a name.</span>
-<span> Subclass of:
-		     <a property="rdfs:subClassOf" href="http://schema.org/CreativeWork">schema:CreativeWork</a>
-</span>
+	<link property="http://schema.org/isPartOf" href="http://bib.schema.org" />
+	<span class="h" property="rdfs:label">bib:Chapter</span>
+	<span property="rdfs:comment">One of the sections into which a book is divided. A chapter usually has a section number or a name.</span>
+	<span> Subclass of:<a property="rdfs:subClassOf" href="http://schema.org/CreativeWork">schema:CreativeWork</a>
+	</span>
 </div>
 
 <div typeof="rdfs:Class" resource="http://schema.org/Collection">
-<span class="h" property="rdfs:label">bib:Collection</span>
-<span property="rdfs:comment">A created collection of Creative Works or other artefacts. </span>
-<span> Subclass of:
-		     <a property="rdfs:subClassOf" href="http://schema.org/CreativeWork">schema:CreativeWork</a>
-</span>
+	<link property="http://schema.org/isPartOf" href="http://bib.schema.org" />
+	<span class="h" property="rdfs:label">bib:Collection</span>
+	<span property="rdfs:comment">A created collection of Creative Works or other artefacts. </span>
+	<span> Subclass of:<a property="rdfs:subClassOf" href="http://schema.org/CreativeWork">schema:CreativeWork</a>
+	</span>
 </div>
 
 <div typeof="rdfs:Class" resource="http://schema.org/Newspaper">
-<span class="h" property="rdfs:label">bib:Newspaper</span>
-<span property="rdfs:comment">A publication containing information about varied topics that are pertinent to general information, a geographic area, or a specific subject matter (i.e. business, culture, education). Often published daily.</span>
-<span> Subclass of:
-		     <a property="rdfs:subClassOf" href="http://schema.org/Periodical">schema:Periodical</a>
-</span>
-<span>Source:  <a property="dc:source" href="http://www.productontology.org/id/Newspaper">pto:Newspaper</a></span>
+	<link property="http://schema.org/isPartOf" href="http://bib.schema.org" />
+	<span class="h" property="rdfs:label">bib:Newspaper</span>
+	<span property="rdfs:comment">A publication containing information about varied topics that are pertinent to general information, a geographic area, or a specific subject matter (i.e. business, culture, education). Often published daily.</span>
+	<span> Subclass of:<a property="rdfs:subClassOf" href="http://schema.org/Periodical">schema:Periodical</a></span>
+	<span>Source:  <a property="dc:source" href="http://www.productontology.org/id/Newspaper">pto:Newspaper</a></span>
 </div>
 
 <div typeof="rdfs:Class" resource="http://schema.org/Organization">
-<span class="h" property="rdfs:label">schema:Organization</span>
-<span> Subclass of:
-		     <a property="rdfs:subClassOf" href="http://schema.org/Agent">bib:Agent</a>
-</span>
+	<link property="http://schema.org/isPartOf" href="http://bib.schema.org" />
+	<span class="h" property="rdfs:label">schema:Organization</span>
+	<span> Subclass of:<a property="rdfs:subClassOf" href="http://schema.org/Agent">bib:Agent</a></span>
 </div>
 
 <div typeof="rdfs:Class" resource="http://schema.org/Person">
-<span class="h" property="rdfs:label">schema:Person</span>
-<span> Subclass of:
-		     <a property="rdfs:subClassOf" href="http://schema.org/Agent">bib:Agent</a>
-</span>
+	<link property="http://schema.org/isPartOf" href="http://bib.schema.org" />
+	<span class="h" property="rdfs:label">schema:Person</span>
+	<span> Subclass of:<a property="rdfs:subClassOf" href="http://schema.org/Agent">bib:Agent</a></span>
 </div>
 
 <div typeof="rdfs:Class" resource="http://schema.org/Thesis">
-<span class="h" property="rdfs:label">bib:Thesis</span>
-<span property="rdfs:comment">A thesis or dissertation document submitted in support of candidature for an academic degree or professional qualification.</span>
-<span> Subclass of:
-		     <a property="rdfs:subClassOf" href="http://schema.org/CreativeWork">schema:CreativeWork</a>
-</span>
-<span>Source:  <a property="dc:source" href="http://www.productontology.org/id/Thesis">pto:Thesis</a></span>
+	<link property="http://schema.org/isPartOf" href="http://bib.schema.org" />
+	<span class="h" property="rdfs:label">bib:Thesis</span>
+	<span property="rdfs:comment">A thesis or dissertation document submitted in support of candidature for an academic degree or professional qualification.</span>
+	<span> Subclass of:<a property="rdfs:subClassOf" href="http://schema.org/CreativeWork">schema:CreativeWork</a></span>
+	<span>Source:  <a property="dc:source" href="http://www.productontology.org/id/Thesis">pto:Thesis</a></span>
 </div>
 
 <hr/>
@@ -110,128 +105,101 @@
 <h2>Properties</h2>
 
 <div typeof="rdf:Property" resource="http://schema.org/abridged">
-  <span class="h" property="rdfs:label">bib:abridged</span>
-  <span property="rdfs:comment">Indicates whether the book is an abridged edition.</span>
-  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Book">schema:Book</a></span>
-  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Boolean">schema:Boolean</a></span>
+	<link property="http://schema.org/isPartOf" href="http://bib.schema.org" />
+	<span class="h" property="rdfs:label">bib:abridged</span>
+	<span property="rdfs:comment">Indicates whether the book is an abridged edition.</span>
+	<span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Book">schema:Book</a></span>
+	<span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Boolean">schema:Boolean</a></span>
 </div>
 
 <div typeof="rdf:Property" resource="http://schema.org/author">
-<span class="h" property="rdfs:label">schema:author</span>
-<span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Agent">bib:Agent</a>
-</span>
+	<span class="h" property="rdfs:label">schema:author</span>
+	<span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Agent">bib:Agent</a></span>
 </div>
 
 <div typeof="rdf:Property" resource="http://schema.org/contributor">
-<span class="h" property="rdfs:label">schema:contributor</span>
-<span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Agent">bib:Agent</a>
-</span>
+	<span class="h" property="rdfs:label">schema:contributor</span>
+	<span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Agent">bib:Agent</a></span>
 </div>
 
 <div typeof="rdf:Property" resource="http://schema.org/copyrightHolder">
-<span class="h" property="rdfs:label">schema:copyrightHolder</span>
-<span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Agent">bib:Agent</a>
-</span>
+	<span class="h" property="rdfs:label">schema:copyrightHolder</span>
+	<span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Agent">bib:Agent</a></span>
 </div>
 
 <div typeof="rdf:Property" resource="http://schema.org/creator">
-<span class="h" property="rdfs:label">schema:creator</span>
-<span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Agent">bib:Agent</a>
-</span>
+	<span class="h" property="rdfs:label">schema:creator</span>
+	<span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Agent">bib:Agent</a></span>
 </div>
 
 <div typeof="rdf:Property" resource="http://schema.org/duration">
-  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Audiobook">bib:Audiobook</a></span>
+	<span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Audiobook">bib:Audiobook</a></span>
 </div>
 
 <div typeof="rdf:Property" resource="http://schema.org/inSupportOf">
-<span class="h" property="rdfs:label">bib:inSupportOf</span>
-<span property="rdfs:comment">Qualification, candidature, degree, application that Thesis supports.</span>
-<span>Domain:
-            <a property="http://schema.org/domainIncludes" href="http://schema.org/Thesis">bib:Thesis</a>
-</span>
-<span>Range:
-            <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">schema:Text</a>
-</span>
+	<link property="http://schema.org/isPartOf" href="http://bib.schema.org" />
+	<span class="h" property="rdfs:label">bib:inSupportOf</span>
+	<span property="rdfs:comment">Qualification, candidature, degree, application that Thesis supports.</span>
+	<span>Domain:<a property="http://schema.org/domainIncludes" href="http://schema.org/Thesis">bib:Thesis</a></span>
+	<span>Range:<a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">schema:Text</a></span>
 </div>
 
 <div typeof="rdf:Property" resource="http://schema.org/publishedBy">
-<span class="h" property="rdfs:label">bib:publishedBy</span>
-<span property="rdfs:comment">An agent associated with the publication event.</span>
-<span>Domain:
-            <a property="http://schema.org/domainIncludes" href="http://schema.org/PublicationEvent">schema:PublicationEvent</a>
-</span>
-<span>Range:
-            <a property="http://schema.org/rangeIncludes" href="http://schema.org/Agent">bib:Agent</a>
-</span>
+	<link property="http://schema.org/isPartOf" href="http://bib.schema.org" />
+	<span class="h" property="rdfs:label">bib:publishedBy</span>
+	<span property="rdfs:comment">An agent associated with the publication event.</span>
+	<span>Domain:<a property="http://schema.org/domainIncludes" href="http://schema.org/PublicationEvent">schema:PublicationEvent</a></span>
+	<span>Range:<a property="http://schema.org/rangeIncludes" href="http://schema.org/Agent">bib:Agent</a></span>
 </div>
 
 <div typeof="rdf:Property" resource="http://schema.org/readBy">
-<span class="h" property="rdfs:label">bib:readBy</span>
-<span property="rdfs:comment">A person who reads (performs) the audiobook.</span>
-<link property="rdfs:subPropertyOf" href="http://schema.org/actor" />
-<span>Domain:
-            <a property="http://schema.org/domainIncludes" href="http://schema.org/Audiobook">bib:Audiobook</a>
-</span>
-<span>Range:
-            <a property="http://schema.org/rangeIncludes" href="http://schema.org/Person">schema:Text</a>
-</span>
+	<link property="http://schema.org/isPartOf" href="http://bib.schema.org" />
+	<span class="h" property="rdfs:label">bib:readBy</span>
+	<span property="rdfs:comment">A person who reads (performs) the audiobook.</span>
+	<link property="rdfs:subPropertyOf" href="http://schema.org/actor" />
+	<span>Domain:<a property="http://schema.org/domainIncludes" href="http://schema.org/Audiobook">bib:Audiobook</a></span>
+	<span>Range:<a property="http://schema.org/rangeIncludes" href="http://schema.org/Person">schema:Text</a></span>
 </div>
 
 <div typeof="rdf:Property" resource="http://schema.org/translationOfWork">
-<span class="h" property="rdfs:label">bib:translationOfWork</span>
-<span property="rdfs:comment">The work that this work has been translated from. e.g. 物种起源 is a translationOf “On the Origin of Species”</span>
-<span>Domain:
-	      	<a property="http://schema.org/domainIncludes" href="http://schema.org/CreativeWork">schema:CreativeWork</a>
-</span>
-<span>Range:
-	      	<a property="http://schema.org/rangeIncludes" href="http://schema.org/CreativeWork">schema:CreativeWork</a>
-</span>
-<link property="http://schema.org/inverseOf" href="http://schema.org/workTranslation"/>
+	<link property="http://schema.org/isPartOf" href="http://bib.schema.org" />
+	<span class="h" property="rdfs:label">bib:translationOfWork</span>
+	<span property="rdfs:comment">The work that this work has been translated from. e.g. 物种起源 is a translationOf “On the Origin of Species”</span>
+	<span>Domain:<a property="http://schema.org/domainIncludes" href="http://schema.org/CreativeWork">schema:CreativeWork</a></span>
+	<span>Range:<a property="http://schema.org/rangeIncludes" href="http://schema.org/CreativeWork">schema:CreativeWork</a></span>
+	<link property="http://schema.org/inverseOf" href="http://schema.org/workTranslation"/>
 </div>
 
 <div typeof="rdf:Property" resource="http://schema.org/translator">
-<span class="h" property="rdfs:label">bib:translator</span>
-<span property="rdfs:comment">An agent responsible for rendering a translated work from a source work</span>
-<span>Domain:
-	      	<a property="http://schema.org/domainIncludes" href="http://schema.org/CreativeWork">schema:CreativeWork</a>
-</span>
-<span>Range:
-	      	<a property="http://schema.org/rangeIncludes" href="http://schema.org/Agent">bib:Agent</a>
-</span>
+	<link property="http://schema.org/isPartOf" href="http://bib.schema.org" />
+	<span class="h" property="rdfs:label">bib:translator</span>
+	<span property="rdfs:comment">An agent responsible for rendering a translated work from a source work</span>
+	<span>Domain:<a property="http://schema.org/domainIncludes" href="http://schema.org/CreativeWork">schema:CreativeWork</a></span>
+	<span>Range:<a property="http://schema.org/rangeIncludes" href="http://schema.org/Agent">bib:Agent</a></span>
 </div>
 
 <div typeof="rdf:Property" resource="http://schema.org/pageStart">
-<span class="h" property="rdfs:label">schema:pageStart</span>
-<span>Domain:
-	      	<a property="http://schema.org/domainIncludes" href="http://schema.org/Chapter">bib:Chapter</a>
-</span>
+	<span class="h" property="rdfs:label">schema:pageStart</span>
+	<span>Domain:<a property="http://schema.org/domainIncludes" href="http://schema.org/Chapter">bib:Chapter</a></span>
 </div>
 
 <div typeof="rdf:Property" resource="http://schema.org/pageEnd">
-<span class="h" property="rdfs:label">schema:pageEnd</span>
-<span>Domain:
-	      	<a property="http://schema.org/domainIncludes" href="http://schema.org/Chapter">bib:Chapter</a>
-</span>
+	<span class="h" property="rdfs:label">schema:pageEnd</span>
+	<span>Domain:<a property="http://schema.org/domainIncludes" href="http://schema.org/Chapter">bib:Chapter</a></span>
 </div>
 
 <div typeof="rdf:Property" resource="http://schema.org/pagination">
-<span class="h" property="rdfs:label">schema:pagination</span>
-<span>Domain:
-	      	<a property="http://schema.org/domainIncludes" href="http://schema.org/Chapter">bib:Chapter</a>
-</span>
+	<span class="h" property="rdfs:label">schema:pagination</span>
+	<span>Domain:<a property="http://schema.org/domainIncludes" href="http://schema.org/Chapter">bib:Chapter</a></span>
 </div>
 
 <div typeof="rdf:Property" resource="http://schema.org/workTranslation">
-<span class="h" property="rdfs:label">bib:workTranslation</span>
-<span property="rdfs:comment">A work that is a translation of the content of this work. e.g. 西遊記 has an English workTranslation “Journey to the West”,a German workTranslation “Monkeys Pilgerfahrt” and a Vietnamese  translation Tây du ký bình khảo.</span>
-<span>Domain:
-	      	<a property="http://schema.org/domainIncludes" href="http://schema.org/CreativeWork">schema:CreativeWork</a>
-</span>
-<span>Range:
-	      	<a property="http://schema.org/rangeIncludes" href="http://schema.org/CreativeWork">schema:CreativeWork</a>
-</span>
-<link property="http://schema.org/inverseOf" href="http://schema.org/translationOfWork"/>
+	<link property="http://schema.org/isPartOf" href="http://bib.schema.org" />
+	<span class="h" property="rdfs:label">bib:workTranslation</span>
+	<span property="rdfs:comment">A work that is a translation of the content of this work. e.g. 西遊記 has an English workTranslation “Journey to the West”,a German workTranslation “Monkeys Pilgerfahrt” and a Vietnamese  translation Tây du ký bình khảo.</span>
+	<span>Domain:<a property="http://schema.org/domainIncludes" href="http://schema.org/CreativeWork">schema:CreativeWork</a></span>
+	<span>Range:<a property="http://schema.org/rangeIncludes" href="http://schema.org/CreativeWork">schema:CreativeWork</a></span>
+	<link property="http://schema.org/inverseOf" href="http://schema.org/translationOfWork"/>
 </div>
 
 </body>
