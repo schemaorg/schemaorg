@@ -1,12 +1,35 @@
 #!/usr/bin/python
 
-# TODO: 
-# * this is fragile, you need path to the right python which has an rdflib
-# * consider https://github.com/schemaorg/schemaorg/issues/178 - bundling
-# * if you hit problems loading appengine libs, you might be running wrong python interpreter
+# This script runs the Schema.org unit tests. The basic tests are concerned 
+# with our site infrastructure; loading and accessing data.  The graph tests
+# are concerned with the shape/size of the schema graph itself.
 
-# based on original in google appengine dist
+# Currently this means
+# they require Google AppEngine to be installed, because api.py and sdoapp.py both
+# depend upon AppEngine. This is something we should minimise - eventually only 
+# sdoapp.py should need AppEngine. 
+# We use W3C SPARQL for the graph tests, and therefore these tests will only run 
+# if 'rdflib' is installed.
+#
+# There are two dependencies:
+#
+# 1. AppEngine SDK
+# Typically in ~/google_cloud_sdk and/or linked from /usr/local/google_appengine
+# This script will do its best to update your python path to point to 
+# the SDK (whether you point to it directly or the broader Cloud SDK), to
+# AppEngine's tools and libs and to other bundled libraries. But to bootstrap
+# this is needs to at least find dev_appserver.
+# 
+# 2. rdflib 
+#
+# A normal Python package. Take care that it is installed against the version of 
+# Python that is being used to run this script. easy_install or pip should work.
+# We may later bundle this, see https://github.com/schemaorg/schemaorg/issues/178
 
+
+# script originally based on original in google appengine dist and shared 
+# under same terms,
+#
 #    Licensed under the Apache License, Version 2.0 (the "License");
 #    you may not use this file except in compliance with the License.
 #    You may obtain a copy of the License at
@@ -19,21 +42,11 @@
 #    See the License for the specific language governing permissions and
 #    limitations under the License.
 
-# [START runner]
 import argparse
 import optparse
 import os
 import sys
 import unittest
-
-
-USAGE = """%prog SDK_PATH TEST_PATH
-Run unit tests for App Engine apps.
-
-SDK_PATH    Path to Google Cloud or Google App Engine SDK installation, usually
-            ~/google_cloud_sdk
-TEST_PATH   Path to package containing test modules"""
-
 
 def main(sdk_path, test_path, args):
 
@@ -73,18 +86,17 @@ def main(sdk_path, test_path, args):
 
 if __name__ == '__main__':
 
-    #parser = optparse.OptionParser(USAGE)
-    #options, args = parser.parse_args()
-
     parser = argparse.ArgumentParser(description='Configurable testing of schema.org.')
     parser.add_argument('--skipbasics', action='store_true', help='Skip basic tests.')
     args = parser.parse_args()
 
-    # SDK_PATH = "~/google-cloud-sdk"
+
+    # alternative, try
+    # PYTHONPATH=/usr/local/google_appengine ./scripts/run_tests.py 
+
     SDK_PATH = os.path.expanduser("~") + "/google-cloud-sdk"
     print SDK_PATH
     TEST_PATH = "./tests/"
 
     main(SDK_PATH, TEST_PATH, args)
 
-# [END runner]
