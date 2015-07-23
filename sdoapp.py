@@ -314,8 +314,6 @@ class ShowUnit (webapp2.RequestHandler):
         """Return page text from node.id cache (if found, otherwise None)."""
         global PageCache
         cachekey = "%s:%s" % ( layers, node.id ) # was node.id
-        log.info("ZZZZZZZZZZZZZZZZ cachekey:%s" % cachekey)
-        #if (node.id in PageCache):
         if (cachekey in PageCache):
             return PageCache[cachekey]
         else:
