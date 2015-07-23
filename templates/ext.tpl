@@ -26,6 +26,7 @@ For more details, see the <a href="/">homepage</a>.
   <li>ENABLE_HOSTED_EXTENSIONS:  {{ ENABLE_HOSTED_EXTENSIONS  }} </li>
   <li>host_ext: {{ host_ext }} </li>
   <li>myhost: {{ myhost }} </li>
+  <li>myport: {{ myport }} </li>
   <li>mybasehost: {{ mybasehost }} </li>
   <li>debugging: {{ debugging }} </li>
  </ul>
