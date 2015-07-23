@@ -4,12 +4,15 @@
 # with our site infrastructure; loading and accessing data.  The graph tests
 # are concerned with the shape/size of the schema graph itself.
 
-# Currently this means
-# they require Google AppEngine to be installed, because api.py and sdoapp.py both
-# depend upon AppEngine. This is something we should minimise - eventually only 
-# sdoapp.py should need AppEngine. 
-# We use W3C SPARQL for the graph tests, and therefore these tests will only run 
-# if 'rdflib' is installed.
+# Currently this means they require Google AppEngine to be installed, 
+# because api.py and sdoapp.py both  depend upon AppEngine. This is 
+# something we should minimise - eventually only 
+# sdoapp.py should need AppEngine.  We use W3C SPARQL for the graph tests, 
+# and therefore these tests will only run  if 'rdflib' is installed.
+#
+# We do not currently test the generated Web site with unit tests. However 
+# please see /docs/qa.html for some useful links to check whenever site UI
+# code is being changed.
 #
 # There are two dependencies:
 #
