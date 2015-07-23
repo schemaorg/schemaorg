@@ -48,10 +48,11 @@ class SDOGraphSetupTestCase(unittest.TestCase):
     log.info("Graph tests require rdflib.")
     import unittest
     try:
+      log.info("Trying to import rdflib...")
       import rdflib
       from rdflib import Graph
-    except:
-      raise unittest.SkipTest("Need rdflib installed to do graph tests.")
+    except Exception as e:
+      raise unittest.SkipTest("Need rdflib installed to do graph tests: %s" % e)
 
     read_schemas() # built-in parsers.
     self.schemasInitialized = schemasInitialized

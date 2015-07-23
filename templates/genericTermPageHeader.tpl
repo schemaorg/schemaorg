@@ -99,7 +99,7 @@
 
 
   <div id="mainContent" vocab="http://schema.org/" typeof="{{ rdfs_type }}" resource="http://schema.org/{{ entry }}">
-  {{ ext_mappings | safe }} 
+  {{ ext_mappings | safe }}
 
 
 
