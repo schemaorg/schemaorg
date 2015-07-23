@@ -95,7 +95,7 @@ class DataCacheTool():
          
     def __init__ (self):
         self._DataCache = {}
-        self._CurrentDataCache = "schema"
+        self.setCurrent("schema")
         
     def get(self,key):
         return self._DataCache[self._CurrentDataCache].get(key)
@@ -109,7 +109,7 @@ class DataCacheTool():
             self._DataCache[self._CurrentDataCache] = {}
         log.debug("Setting _CurrentDataCache: %s",self._CurrentDataCache)
         
-    def getCurrentself):
+    def getCurrent(self):
         return self._CurrentDataCache
         
 DataCache = DataCacheTool()   
