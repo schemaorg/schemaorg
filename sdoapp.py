@@ -435,10 +435,12 @@ class ShowUnit (webapp2.RequestHandler):
             urlprefix = "http://%s.%s%s" % (home, mybasehost, port) 
         
         extclass = ""
+        extflag = ""
         if home != "core" and home != "":
-            extclass = "class=\"ext-%s\" " % home  
+            extclass = "class=\"ext-%s\" " % home
+            extflag = "*"  
         
-        return "<a %shref=\"%s%s%s\"%s%s>%s</a>" % (extclass, urlprefix, hashorslash, node.id, prop, title, label)
+        return "<a %shref=\"%s%s%s\"%s%s>%s</a>%s" % (extclass, urlprefix, hashorslash, node.id, prop, title, label, extflag)
 
     def makeLinksFromArray(self, nodearray, tooltip=''):
         """Make a comma separate list of links via ml() function.
@@ -455,13 +457,15 @@ class ShowUnit (webapp2.RequestHandler):
         self.write("<h1 class=\"page-title\">\n")
         self.write(node.id)
         self.write("</h1>")
+        home = node.home
+        if home != "core" and home != "":
+            self.write("Defined in the %s.schema.org extension" % home)
+            
 
 
         self.BreadCrumbs(node, layers=layers)
 
         comment = GetComment(node, layers)
-        log.info("HOME for %s: %s" % (node, node.getHomeLayer(False)))
-
         
         self.write(" <div property=\"rdfs:comment\">%s</div>\n\n" % (comment) + "\n")
 
@@ -564,9 +568,6 @@ class ShowUnit (webapp2.RequestHandler):
         for prop in sorted(GetSources(di, cl, layers=layers), key=lambda u: u.id):
             if (prop.superseded(layers=layers)):
                 continue
-            inextend = ""
-            if not inLayer('core',prop):
-                inextend = "*"
             supersedes = prop.supersedes(layers=layers)
             olderprops = prop.supersedes_all(layers=layers)
             inverseprop = prop.inverseproperty(layers=layers)
@@ -581,7 +582,7 @@ class ShowUnit (webapp2.RequestHandler):
                 out.write("<thead class=\"supertype\">\n  <tr>\n    <th class=\"supertype-name\" colspan=\"3\">Properties from %s</th>\n  </tr>\n</thead>\n\n<tbody class=\"supertype\">\n  " % (class_head))
                 headerPrinted = True
                 
-            out.write("<tr typeof=\"rdfs:Property\" resource=\"http://schema.org/%s\">\n    \n      <th class=\"prop-nam\" scope=\"row\">\n\n<code property=\"rdfs:label\">%s%s</code>\n    </th>\n " % (prop.id, self.ml(prop),inextend))
+            out.write("<tr typeof=\"rdfs:Property\" resource=\"http://schema.org/%s\">\n    \n      <th class=\"prop-nam\" scope=\"row\">\n\n<code property=\"rdfs:label\">%s</code>\n    </th>\n " % (prop.id, self.ml(prop)))
             out.write("<td class=\"prop-ect\">\n")
             first_range = True
             for r in ranges:
@@ -660,9 +661,6 @@ class ShowUnit (webapp2.RequestHandler):
         for prop in sorted(GetSources(ri, cl, layers=layers), key=lambda u: u.id):
             if (prop.superseded(layers=layers)):
                 continue
-            inextend = ""
-            if not inLayer('core',prop):
-                inextend = "*"
             supersedes = prop.supersedes(layers=layers)
             inverseprop = prop.inverseproperty(layers=layers)
             subprops = prop.subproperties(layers=layers)
@@ -676,7 +674,7 @@ class ShowUnit (webapp2.RequestHandler):
 
                 headerPrinted = True
 
-            self.write("<tr>\n<th class=\"prop-nam\" scope=\"row\">\n <code>%s%s</code>\n</th>\n " % (self.ml(prop),inextend) + "\n")
+            self.write("<tr>\n<th class=\"prop-nam\" scope=\"row\">\n <code>%s</code>\n</th>\n " % (self.ml(prop)) + "\n")
             self.write("<td class=\"prop-ect\">\n")
             first_range = True
             for r in ranges:
@@ -968,10 +966,7 @@ class ShowUnit (webapp2.RequestHandler):
             if (len(children) > 0):
                 self.write("<br/><b>More specific Types</b><ul>")
                 for c in children:
-                    inextend = ""
-                    if not inLayer('core',c):
-                        inextend = "*"
-                    self.write("<li> %s%s" % (self.ml(c),inextend))
+                    self.write("<li> %s" % (self.ml(c)))
                 self.write("</ul>")
 
         if (node.isEnumeration(layers=layers)):
@@ -979,10 +974,7 @@ class ShowUnit (webapp2.RequestHandler):
             if (len(children) > 0):
                 self.write("<br/><br/>Enumeration members<ul>")
                 for c in children:
-                    inextend = ""
-                    if not inLayer('core',c):
-                        inextend = "*"
-                    self.write("<li> %s%s" % (self.ml(c),inextend))
+                    self.write("<li> %s" % (self.ml(c)))
                 self.write("</ul>")
 
         ackorgs = GetTargets(Unit.GetUnit("dc:source"), node, layers=layers)
