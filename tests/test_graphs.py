@@ -131,6 +131,17 @@ class SDOGraphSetupTestCase(unittest.TestCase):
   def test_readSchemaFromRDFa(self):
     self.assertTrue(True, False, "We should know how to locally get /docs/schema_org_rdfa.html but this requires fixes to api.py.")
 
+
+  @unittest.expectedFailure 
+  def test_propertyDefinitionsUseActualTypes(self):
+    """Sometimes we write domainIncludes or rangeIncludes with a typo'd type name."""
+    # 
+    # TODO: https://github.com/schemaorg/schemaorg/issues/662
+    #
+    # self.assertEqual(len(ndi1_results), 0, "No domainIncludes or rangeIncludes value should lack a type. Found: %s " % len(ndi1_results ) )
+
+
+
 # TODO: Unwritten tests (from basics; easier here?)
 #
 # * different terms should not have identical comments
