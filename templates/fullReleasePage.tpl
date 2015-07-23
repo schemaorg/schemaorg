@@ -7,7 +7,6 @@
     structured data on their web pages for use by search engines and other applications." />
     <link rel="stylesheet" type="text/css" href="/docs/schemaorg.css" />
 
-
     <base href="{{ base_href }}" ></base>
 </head>
 <body style="text-align: left;">
