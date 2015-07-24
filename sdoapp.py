@@ -453,6 +453,8 @@ class ShowUnit (webapp2.RequestHandler):
 
         self.write("<h4>")
         for row in range(len(self.crumbStacks)):
+           if(":" in self.crumbStacks[row][len(self.crumbStacks[row])-1].id):
+                continue
            count = 0
            self.write("<span class='breadcrumbs'>")
            while(len(self.crumbStacks[row]) > 0):
@@ -469,6 +471,9 @@ class ShowUnit (webapp2.RequestHandler):
 
 #Walk up the stack, appending crumbs & create new (duplicating crumbs already identified) if more than one parent found
     def WalkCrumbs(self, node, cstack, layers):
+        if "http://" in node.id:  #Suppress external class references
+            return
+            
         cstack.append(node)
         tmpStacks = []
         tmpStacks.append(cstack)
@@ -1306,8 +1311,6 @@ class ShowUnit (webapp2.RequestHandler):
 
     def setupHostinfo(self, node):
         global debugging, host_ext, myhost, myport, mybasehost
-        
-        log.info("Request %s" % self.request)
 
         host_ext = re.match( r'([\w\-_]+)[\.:]?', self.request.host).group(1)
         log.debug("setupHostinfo: srh=%s host_ext=%s" % (self.request.host, str(host_ext) ))        
