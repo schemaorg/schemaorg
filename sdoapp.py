@@ -195,45 +195,6 @@ class TypeHierarchyTree:
         self.emit('\n%s}%s\n' % (p1, maybe_comma))
 
 
-class OBSOLETEExample ():
-
-    @staticmethod
-    def OBSOLETEAddExample(terms, original_html, microdata, rdfa, jsonld, egmeta, layer='core'):
-       """
-       Add an Example (via constructor registering it with the terms that it
-       mentions, i.e. stored in term.examples).
-       """
-       # todo: fix partial examples: if (len(terms) > 0 and len(original_html) > 0 and (len(microdata) > 0 or len(rdfa) > 0 or len(jsonld) > 0)):
-       if (len(terms) > 0 and len(original_html) > 0 and len(microdata) > 0 and len(rdfa) > 0 and len(jsonld) > 0):
-            log.info("SDOAPP AddExample called in api.py: %s %s %s %s %s %s " % ( "".join( [" %s " % t.id for t in terms] ), original_html, microdata, rdfa, jsonld, egmeta ) )
-            return Example(terms, original_html, microdata, rdfa, jsonld, egmeta, layer='core')
-
-    def get(self, name, layers='core') :
-        """Exposes original_content, microdata, rdfa and jsonld versions (in the layer(s) specified)."""
-        if name == 'original_html':
-           return self.original_html
-        if name == 'microdata':
-           return self.microdata
-        if name == 'rdfa':
-           return self.rdfa
-        if name == 'jsonld':
-           return self.jsonld
-
-    def __init__ (self, terms, original_html, microdata, rdfa, jsonld, egmeta, layer='core'):
-        """Example constructor, registers itself with the relevant Unit(s)."""
-        self.terms = terms
-        self.original_html = original_html
-        self.microdata = microdata
-        self.rdfa = rdfa
-        self.jsonld = jsonld
-        self.egmeta = egmeta
-        self.layer = layer
-        for term in terms:
-            if "id" in egmeta:
-              logging.debug("Created Example with ID %s and type %s" % ( egmeta["id"], term.id ))
-            term.examples.append(self)
-
-
 
 def GetExamples(node, layers='core'):
     """Returns the examples (if any) for some Unit node."""
