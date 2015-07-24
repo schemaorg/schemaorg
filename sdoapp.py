@@ -508,8 +508,7 @@ class ShowUnit (webapp2.RequestHandler):
 
 #Walk up the stack, appending crumbs & create new (duplicating crumbs already identified) if more than one parent found
     def WalkCrumbs(self, node, cstack, layers):
-        log.info("node: %s" % node.id)
-        if "http://" in node.id:
+        if "http://" in node.id:  #Suppress external class references
             return
             
         cstack.append(node)
