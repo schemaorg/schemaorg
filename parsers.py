@@ -119,11 +119,10 @@ class RDFAParser :
         self.webapp = webapp
 
     def parse (self, files, layer="core"):
-        logging.info("Layer: %s" % layer)
         self.items = {}
         root = []
         for i in range(len(files)):
-            logging.info("RDFa parse schemas in %s " % files[i])
+            logging.debug("RDFa parse schemas in %s " % files[i])
             parser = ET.XMLParser(encoding="utf-8")
             tree = ET.parse(files[i], parser=parser)
             root.append(tree.getroot())
