@@ -3,16 +3,16 @@
 
 import os
 import re
-import webapp2
-import jinja2
+#import webapp2
+#import jinja2 # used for templates
 import logging
 
 import parsers
 
-from google.appengine.ext import ndb
-from google.appengine.ext import blobstore
-from google.appengine.api import users
-from google.appengine.ext.webapp import blobstore_handlers
+#from google.appengine.ext import ndb
+#from google.appengine.ext import blobstore
+#from google.appengine.api import users
+#from google.appengine.ext.webapp import blobstore_handlers
 
 
 logging.basicConfig(level=logging.INFO) # dev_appserver.py --log_level debug .
@@ -25,9 +25,9 @@ sitemode = "mainsite" # whitespaced list for CSS tags,
             # e.g. "mainsite testsite", "extensionsite" when off expected domains
 
 DYNALOAD = True # permits read_schemas to be re-invoked live.
-JINJA_ENVIRONMENT = jinja2.Environment(
-    loader=jinja2.FileSystemLoader(os.path.join(os.path.dirname(__file__), 'templates')),
-    extensions=['jinja2.ext.autoescape'], autoescape=True)
+#JINJA_ENVIRONMENT = jinja2.Environment(
+#   loader=jinja2.FileSystemLoader(os.path.join(os.path.dirname(__file__), 'templates')),
+#    extensions=['jinja2.ext.autoescape'], autoescape=True)
 
 debugging = False
 
