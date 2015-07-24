@@ -492,6 +492,8 @@ class ShowUnit (webapp2.RequestHandler):
 
         self.write("<h4>")
         for row in range(len(self.crumbStacks)):
+           if(":" in self.crumbStacks[row][len(self.crumbStacks[row])-1].id):
+                continue
            count = 0
            self.write("<span class='breadcrumbs'>")
            while(len(self.crumbStacks[row]) > 0):
@@ -1347,8 +1349,6 @@ class ShowUnit (webapp2.RequestHandler):
 
     def setupHostinfo(self, node):
         global debugging, host_ext, myhost, myport, mybasehost
-        
-        log.info("Request %s" % self.request)
 
         host_ext = re.match( r'([\w\-_]+)[\.:]?', self.request.host).group(1)
         log.debug("setupHostinfo: srh=%s host_ext=%s" % (self.request.host, str(host_ext) ))        
