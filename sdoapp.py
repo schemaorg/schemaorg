@@ -371,7 +371,7 @@ class ShowUnit (webapp2.RequestHandler):
 
         moreinfo += """</ul>
           </div>
-        </div</div>
+        </div>
         <script type="text/javascript">
         $("#infobox").click(function(x) {
             element = $("#infomsg");
@@ -565,6 +565,7 @@ class ShowUnit (webapp2.RequestHandler):
         headerPrinted = False
         di = Unit.GetUnit("domainIncludes")
         ri = Unit.GetUnit("rangeIncludes")
+
         for prop in sorted(GetSources(di, cl, layers=layers), key=lambda u: u.id):
             if (prop.superseded(layers=layers)):
                 continue
@@ -579,7 +580,7 @@ class ShowUnit (webapp2.RequestHandler):
                 class_head = self.ml(cl)
                 if subclass:
                     class_head = self.ml(cl, prop="rdfs:subClassOf")
-                out.write("<thead class=\"supertype\">\n  <tr>\n    <th class=\"supertype-name\" colspan=\"3\">Properties from %s</th>\n  </tr>\n</thead>\n\n<tbody class=\"supertype\">\n  " % (class_head))
+                out.write("<tr class=\"supertype\">\n     <th class=\"supertype-name\" colspan=\"3\">Properties from %s</th>\n  \n</tr>\n\n<tbody class=\"supertype\">\n  " % (class_head))
                 headerPrinted = True
                 
             out.write("<tr typeof=\"rdfs:Property\" resource=\"http://schema.org/%s\">\n    \n      <th class=\"prop-nam\" scope=\"row\">\n\n<code property=\"rdfs:label\">%s</code>\n    </th>\n " % (prop.id, self.ml(prop)))
@@ -603,7 +604,7 @@ class ShowUnit (webapp2.RequestHandler):
             subclass = False
 
         if subclass: # in case the superclass has no defined attributes
-            out.write("<meta property=\"rdfs:subClassOf\" content=\"%s\">" % (cl.id))
+            out.write("<tr><td colspan=\"3\"><meta property=\"rdfs:subClassOf\" content=\"%s\"></td></tr>" % (cl.id))
         
 
     def emitClassExtensionProperties (self, cl, layers="core", out=None):
@@ -957,8 +958,8 @@ class ShowUnit (webapp2.RequestHandler):
         elif (Unit.isAttribute(node, layers=layers)):
             self.emitAttributeProperties(node, layers=layers)
 
-        if (not Unit.isAttribute(node, layers=layers)):
-            self.write("\n\n</table>\n\n") # no supertype table for properties
+#        if (not Unit.isAttribute(node, layers=layers)):
+#            self.write("\n\n</table>\n\n") # no supertype table for properties
 
         if (node.isClass(layers=layers)):
 
@@ -1001,8 +1002,8 @@ class ShowUnit (webapp2.RequestHandler):
                 self.write("<div class='ds-selector-tabs ds-selector'>\n")
                 self.write("  <div class='selectors'>\n")
                 for label, example_type, selected in example_labels:
-                    self.write("    <a value='%s' data-selects='%s' class='%s'>%s</a>\n"
-                               % (example_type, example_type, selected, label))
+                    self.write("    <a data-selects='%s' class='%s'>%s</a>\n"
+                               % (example_type, selected, label))
                 self.write("</div>\n\n")
                 for label, example_type, selected in example_labels:
                     self.write("<pre class=\"prettyprint lang-html linenums %s %s\">%s</pre>\n\n"
