@@ -172,14 +172,14 @@ MICRODATA:
 
 <div itemscope itemtype="http://schema.org/Painting">
   <h1><span itemprop="name">The Madonna with the Long Neck</span></h1>
-  <meta itemprop="genre" content="http://vocab.getty.edu/aat/300021143">Late Renaissance</meta> painting by 
+  <meta itemprop="genre" content="http://vocab.getty.edu/aat/300021143">Late Renaissance</meta> painting by
   <span itemprop="creator">Parmigianino</span>.
 </div>
 
 RDFA:
 <div vocab="http://schema.org/" typeof="Painting">
   <h1><span property="name">The Madonna with the Long Neck</span></h1>
-  <span property="genre" content="http://vocab.getty.edu/aat/300021143">Late Renaissance</span> painting by 
+  <span property="genre" content="http://vocab.getty.edu/aat/300021143">Late Renaissance</span> painting by
   <span property="creator">Parmigianino</span>.
 </div>
 
@@ -1118,7 +1118,7 @@ Reviews:
 
 <div itemprop="review" itemscope itemtype="http://schema.org/Review">
   <span itemprop="reviewRating">5</span> stars -
-  <b>"<span itemprop="name">A masterpiece of literature</span>"</b> 
+  <b>"<span itemprop="name">A masterpiece of literature</span>"</b>
   by <span itemprop="author">John Doe</span>,
   Written on <meta itemprop="datePublished" content="2006-05-04">May 4, 2006
   <span itemprop="reviewBody">I really enjoyed this book. It captures the essential
@@ -1177,7 +1177,7 @@ Reviews:
 
 <div property="review"  typeof="Review">
   <span property="reviewRating">5</span> stars -
-  <b>"<span property="name">A masterpiece of literature</span>"</b> 
+  <b>"<span property="name">A masterpiece of literature</span>"</b>
   by <span property="author">John Doe</span>,
   Written on <meta property="datePublished" content="2006-05-04">May 4, 2006
   <span property="reviewBody">I really enjoyed this book. It captures the essential
@@ -1232,7 +1232,10 @@ JSON:
 	      "datePublished": "2006-05-04",
 	      "name": "A masterpiece of literature",
 	      "reviewBody": "I really enjoyed this book. It captures the essential challenge people face as they try make sense of their lives and grow to adulthood.",
-	      "reviewRating": "5"
+	      "reviewRating": {
+            "@type": "Rating",
+            "ratingValue": "5"
+           }
 	    },
 	    {
 	      "@type": "Review",
@@ -6147,7 +6150,7 @@ JSON:
   "recipient": {
     "@type": "Person",
     "name": "Steve"
-  }, 
+  },
   "question": {
     "@type": "Question",
     "text": "What's 2 + 2?"
@@ -10019,7 +10022,7 @@ JSON:
  "@type" : "CreativeWork" ,
  "accessibilityHazard" :  [
         "FlashingHazard" , "noSoundHazard" ,
-        "noMotionSimulationHazard" ] , 
+        "noMotionSimulationHazard" ] ,
 
  "accessibilityFeature" : [
         "alternativeText" , "longDescription" ] ,
@@ -10028,7 +10031,7 @@ JSON:
         "text/html" , "image/png" ,
         "text/javascript" , "text/css" ] ,
 
- "accessibilityAPI" : [ 
+ "accessibilityAPI" : [
         "ARIA" , "UIA" ]
  "accessibilityControl" : [
         "fullKeyboardControl" , "fullTouchControl" ,
