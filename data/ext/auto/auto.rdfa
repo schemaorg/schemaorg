@@ -6,27 +6,6 @@
 
 <!-- EXTENSION CONTENT FOLLOWS -->
 
-
-
-<div typeof="rdf:Property" resource="http://schema.org/driveWheelConfiguration">
-    <link property="http://schema.org/isPartOf" href="http://auto.schema.org" />
-    <span class="h" property="rdfs:label">driveWheelConfiguration</span>
-    <span property="rdfs:comment">The drive wheel configuration, i.e. which roadwheels will receive torque from the vehicle's engine via the drivetrain.</span>
-    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Vehicle">Vehicle</a></span>
-    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/DriveWheelConfigurationValue">DriveWheelConfigurationValue</a></span>
-    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
-    <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group">GAO</a></span>
-</div>
-
-<div typeof="rdfs:Class" resource="http://schema.org/DriveWheelConfigurationValue">
-    <link property="http://schema.org/isPartOf" href="http://auto.schema.org" />
-    <span class="h" property="rdfs:label">DriveWheelConfigurationValue</span>
-    <span property="rdfs:comment">A value indicating which roadwheels will receive torque.</span>
-    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/QualitativeValue">QualitativeValue</a></span>
-    <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group">GAO</a></span>
-</div>
-
-
 <div typeof="http://schema.org/DriveWheelConfigurationValue" resource="http://schema.org/4WDriveWheelConfiguration">
     <link property="http://schema.org/isPartOf" href="http://auto.schema.org" />
     <span class="h" property="rdfs:label">4WDriveWheelConfiguration</span>
@@ -40,22 +19,6 @@
   <span property="rdfs:comment">All-wheel Drive is a transmission layout where the engine drives all four wheels.</span>
   <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group">GAO</a></span>
 </div>
-<div typeof="http://schema.org/DriveWheelConfigurationValue" resource="http://schema.org/FrontWheelDriveConfiguration">
-  <link property="http://schema.org/isPartOf" href="http://auto.schema.org" />
-  <span class="h" property="rdfs:label">FrontWheelDriveConfiguration</span>
-  <span property="rdfs:comment">Front-wheel drive is a transmission layout where the engine drives the front wheels.</span>
-  <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group">GAO</a></span>
-</div>
-<div typeof="http://schema.org/DriveWheelConfigurationValue" resource="http://schema.org/RearWheelDriveConfiguration">
-  <link property="http://schema.org/isPartOf" href="http://auto.schema.org" />
-  <span class="h" property="rdfs:label">RearWheelDriveConfiguration</span>
-  <span property="rdfs:comment">Real-wheel drive is a transmission layout where the engine drives the rear wheels.</span>
-  <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group">GAO</a></span>
-</div>
-
-
-
-
 
     <div typeof="rdfs:Class" resource="http://schema.org/MotorizedBicycle">
         <link property="http://schema.org/isPartOf" href="http://auto.schema.org" />
@@ -78,22 +41,7 @@
         <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Vehicle">Vehicle</a></span>
         <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group">GAO</a></span>
     </div>
-    <div typeof="rdfs:Class" resource="http://schema.org/SteeringPositionValue">
-        <link property="http://schema.org/isPartOf" href="http://auto.schema.org" />
-        <span class="h" property="rdfs:label">SteeringPositionValue</span>
-        <span property="rdfs:comment">A value indicating a steering position.</span>
-        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/QualitativeValue">QualitativeValue</a></span>
-        <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group">GAO</a></span>
-    </div>
 
-
-  <div typeof="rdfs:Class" resource="http://schema.org/CarUsageType">
-        <link property="http://schema.org/isPartOf" href="http://auto.schema.org" />
-        <span class="h" property="rdfs:label">CarUsageType</span>
-        <span property="rdfs:comment">A value indicating a special usage of a car, e.g. commercial rental, driving school, or as a taxi.</span>
-        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/QualitativeValue">QualitativeValue</a></span>
-        <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group">GAO</a></span>
-    </div>
     <div typeof="rdf:Property" resource="http://schema.org/fuelCapacity">
         <link property="http://schema.org/isPartOf" href="http://auto.schema.org" />
         <span class="h" property="rdfs:label">fuelCapacity</span>
@@ -327,38 +275,6 @@
         <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Vehicle">Vehicle</a></span>
         <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number">Number</a></span>
         <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group">GAO</a></span>
-    </div>
-    <div typeof="http://schema.org/SteeringPositionValue" resource="http://schema.org/RightHandDriving">
-      <link property="http://schema.org/isPartOf" href="http://auto.schema.org" />
-      <span class="h" property="rdfs:label">RightHandDriving</span>
-      <span property="rdfs:comment">The steering position is on the right side of the vehicle (viewed from the main direction of driving).</span>
-      <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group">GAO</a></span>
-    </div>
-    <div typeof="http://schema.org/SteeringPositionValue" resource="http://schema.org/LeftHandDriving">
-      <link property="http://schema.org/isPartOf" href="http://auto.schema.org" />
-      <span class="h" property="rdfs:label">LeftHandDriving</span>
-      <span property="rdfs:comment">The steering position is on the left side of the vehicle (viewed from the main direction of driving).</span>
-      <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group">GAO</a></span>
-    </div>
-
-
-    <div typeof="http://schema.org/CarUsageType" resource="http://schema.org/RentalVehicleUsage">
-      <link property="http://schema.org/isPartOf" href="http://auto.schema.org" />
-      <span class="h" property="rdfs:label">RentalVehicleUsage</span>
-      <span property="rdfs:comment">Indicates the usage of the vehicle as a rental car.</span>
-      <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group">GAO</a></span>
-    </div>
-    <div typeof="http://schema.org/CarUsageType" resource="http://schema.org/DrivingSchoolVehicleUsage">
-      <link property="http://schema.org/isPartOf" href="http://auto.schema.org" />
-      <span class="h" property="rdfs:label">DrivingSchoolVehicleUsage</span>
-      <span property="rdfs:comment">Indicates the usage of the vehicle for driving school.</span>
-      <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group">GAO</a></span>
-    </div>
-    <div typeof="http://schema.org/CarUsageType" resource="http://schema.org/TaxiVehicleUsage">
-      <link property="http://schema.org/isPartOf" href="http://auto.schema.org" />
-      <span class="h" property="rdfs:label">TaxiVehicleUsage</span>
-      <span property="rdfs:comment">Indicates the usage of the car as a taxi.</span>
-      <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group">GAO</a></span>
     </div>
 
 </div>
