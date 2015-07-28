@@ -19,6 +19,9 @@ logging.basicConfig(level=logging.INFO) # dev_appserver.py --log_level debug .
 log = logging.getLogger(__name__)
 
 schemasInitialized = False
+extensionsLoaded = False
+extensionLoadErrors = ""
+
 SCHEMA_VERSION=1.999999
 sitename = "schema.org"
 sitemode = "mainsite" # whitespaced list for CSS tags,
@@ -654,22 +657,30 @@ def full_path(filename):
     folder = os.path.dirname(os.path.realpath(__file__))
     return os.path.join(folder, filename)
 
+
 def setHomeValues(items,layer='core',defaultToCore=False):
+    global extensionLoadErrors
+    
     for node in items:
         if(node == None):
             continue
-
         home = GetTargets( Unit.GetUnit("isPartOf"), node, layer )
         if(len(home) > 0):
             if(node.home != None):
-                log.info("ERROR: %s trying to overwite home from %s to %s" % (node.id,node.home,home[0].id))
+                msg = "ERROR: %s trying to overwite home from %s to %s" % (node.id,node.home,home[0].id)
+                log.info(msg)
+                extensionLoadErrors += msg + '\n'
             else:
                 node.home = re.match( r'([\w\-_]+)[\.:]?', home[0].id.lstrip("http://")).group(1)
             if(node.home == 'schema'):
                 node.home = 'core'
-        elif (defaultToCore and node.home == None):
-            node.home = "core"
-
+        elif node.home == None:
+            if defaultToCore:
+                node.home = "core"
+            else:
+                msg = "ERROR: %s has no home defined" % (node.id)
+                log.info(msg)
+                extensionLoadErrors += msg + '\n'
 
 def read_schemas(loadExtensions=False):
     """Read/parse/ingest schemas from data/*.rdfa. Also data/*examples.txt"""
@@ -690,47 +701,58 @@ def read_schemas(loadExtensions=False):
 #set default home for those in core that do not have one
         setHomeValues(items,"core",True)
 
-        if loadExtensions:
-            log.info("(re)scanning for extensions.")
-            extfiles = glob.glob("data/ext/*/*.rdfa")
-            log.info("Extensions found: %s ." % " , ".join(extfiles) )
-            fnstrip_re = re.compile("\/.*")
-            for ext in extfiles:
-                ext_file_path = full_path(ext)
-                extid = ext.replace('data/ext/', '')
-                extid = re.sub(fnstrip_re,'',extid)
-                log.info("Preparing to parse extension data: %s as '%s'" % (ext_file_path, "%s" % extid))
-                parser = parsers.MakeParserOfType('rdfa', None)
-                all_layers[extid] = "1"
-                extitems = parser.parse([ext_file_path], layer="%s" % extid) # put schema triples in a layer
-                setHomeValues(extitems,extid,False)
-                # log.debug("Results: %s " % len( extitems) )
-                for x in extitems:
-                    if x is not None:
-                        log.debug("%s:%s" % ( extid, str(x.id) ))
-                # e.g. see 'data/ext/bib/bibdemo.rdfa'
-
         files = glob.glob("data/*examples.txt")
-        example_contents = []
-        for f in files:
-            example_content = read_file(f)
-            example_contents.append(example_content)
-            log.debug("examples loaded from: %s" % f)
-        files2 = glob.glob("data/ext/*/*examples.txt")
-        for f in files2:
-            example_content = read_file(f)
-            example_contents.append(example_content)
-            log.debug("examples loaded from: %s" % f)
-        parser = parsers.ParseExampleFile(None)
-        parser.parse(example_contents)
-
+        
+        read_examples(files)
+        
         files = glob.glob("data/2015-04-vocab_counts.txt")
 
         for file in files:
             usage_data = read_file(file)
             parser = parsers.UsageFileParser(None)
             parser.parse(usage_data)
-        schemasInitialized = True
+    
+    schemasInitialized = True
+
+
+def read_extensions(extensions):
+    import os.path
+    import glob
+    import re
+    global extensionsLoaded
+    extfiles = []
+    expfiles = []
+    if not extensionsLoaded: #2nd load will throw up errors and duplicate terms
+        log.info("(re)scanning for extensions.")
+        for i in extensions:
+            extfiles += glob.glob("data/ext/%s/*.rdfa" % i)
+            expfiles += glob.glob("data/ext/%s/*examples.txt" % i)
+
+        log.info("Extensions found: %s ." % " , ".join(extfiles) )
+        fnstrip_re = re.compile("\/.*")
+        for ext in extfiles:
+            ext_file_path = full_path(ext)
+            extid = ext.replace('data/ext/', '')
+            extid = re.sub(fnstrip_re,'',extid)
+            log.info("Preparing to parse extension data: %s as '%s'" % (ext_file_path, "%s" % extid))
+            parser = parsers.MakeParserOfType('rdfa', None)
+            all_layers[extid] = "1"
+            extitems = parser.parse([ext_file_path], layer="%s" % extid) # put schema triples in a layer
+            setHomeValues(extitems,extid,False)
+        
+        read_examples(expfiles)
+        
+    extensionsLoaded = True
+    
+def read_examples(files):
+        example_contents = []
+        for f in files:
+            example_content = read_file(f)
+            example_contents.append(example_content)
+            log.debug("examples loaded from: %s" % f)
+                        
+        parser = parsers.ParseExampleFile(None)
+        parser.parse(example_contents)
 
 
 
