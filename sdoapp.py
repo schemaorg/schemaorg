@@ -585,10 +585,9 @@ class ShowUnit (webapp2.RequestHandler):
        sc = Unit.GetUnit("rdfs:subClassOf")
 
        for p in GetTargets(sc, cl, ALL_LAYERS):
-          log.info("Found %s " % (p))
+
           if inLayer(layers,p):
                continue
-          log.info("ClassExtensionfFound %s " % (p))
                 
           sep = ", "
           if first:
