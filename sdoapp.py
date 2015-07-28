@@ -393,7 +393,7 @@ class ShowUnit (webapp2.RequestHandler):
             port = ""
             if myport != "80":
                 port = ":%s" % myport
-            urlprefix = "http://%s.%s%s" % (home, mybasehost, port) 
+            urlprefix = self.makeUrl(home) 
         
         extclass = ""
         extflag = ""
@@ -929,8 +929,13 @@ class ShowUnit (webapp2.RequestHandler):
 
         if ( ENABLE_HOSTED_EXTENSIONS and ("core" not in layers or len(layers)>1) ):
             ll = " ".join(layers).replace("core","")
+            
+            target=""
+            if inLayer("core", node):
+                target = node.id
+            
 
-            s = "<p id='lli' class='layerinfo %s'><a href=\"https://github.com/schemaorg/schemaorg/wiki/ExtensionList\">extensions shown</a>: %s [<a href='http://%s/'>x</a>]</p>\n" % (ll, ll, mybasehost )
+            s = "<p id='lli' class='layerinfo %s'><a href=\"https://github.com/schemaorg/schemaorg/wiki/ExtensionList\">extension shown</a>: %s [<a href='%s'>x</a>]</p>\n" % (ll, ll, self.makeUrl("",target)) 
             self.write(s)
 
         cached = self.GetCachedText(node, layers)
@@ -1158,7 +1163,7 @@ class ShowUnit (webapp2.RequestHandler):
                 self.response.out.write("<h3>Schema.org Extensions</h3>\n<p>The term '%s' is not in the schema.org core, but is described by the following extension(s):</p>\n<ul>\n" % schema_node.id)
                 for x in all_terms[schema_node.id]:
                     x = x.replace("#","")
-                    self.response.out.write("<li><a href='http://%s.%s%s/%s'>%s</a></li>" % (x, mybasehost,port,schema_node.id, x) )
+                    self.response.out.write("<li><a href='%s'>%s</a></li>" % (self.makeUrl(x,schema_node.id), x) )
                 return True
             return False
 
@@ -1369,6 +1374,24 @@ class ShowUnit (webapp2.RequestHandler):
 
         if "localhost" in self.request.host or "sdo-gozer.appspot.com" in self.request.host:
             debugging = True
+    
+    def makeUrl(self,ext="",path=""):
+        port = ""
+        sub = ""
+        p = ""
+        if(myport != "80"):
+            port = ":%s" % myport
+        if ext != "core" and ext != "":
+            sub = "%s." % ext
+        if path != "":
+            if path.startswith("/"):
+                p = path
+            else:
+                p = "/%s" % path
+            
+        url = "http://%s%s%s%s" % (sub,mybasehost,port,p)
+        return url
+
 
     def get(self, node):
 
