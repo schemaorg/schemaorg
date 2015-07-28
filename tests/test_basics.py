@@ -1,10 +1,14 @@
 import unittest
 import os
 import logging # https://docs.python.org/2/library/logging.html#logging-levels
+import sys
+sys.path.append( os.getcwd() )
 
 #from api import *
 from sdoapp import *
 from parsers import *
+from api import extensionsLoaded, extensionLoadErrors
+
 
 schema_path = './data/schema.rdfa'
 examples_path = './data/examples.txt'
@@ -43,7 +47,7 @@ class SDOBasicsTestCase(unittest.TestCase):
       if t.examples and len(t.examples) > 0:
         example_count = example_count + len(t.examples)
     log.info("Extracted %s examples." % example_count )
-    self.assertTrue(example_count > 300 and example_count < 450, "Expect that we extracted 300 < x < 400 examples from data/*examples.txt. Found: %s " % example_count)
+    self.assertTrue(example_count > 300 and example_count < 450, "Expect that we extracted 300 < x < 450 examples from data/*examples.txt. Found: %s " % example_count)
 
   # Whichever file from data/*examples.txt is glob-loaded last, needs a final entry of "TYPES:  FakeEntryNeeded, FixMeSomeDay"
   # This used to be examples.txt but now we are multi-file it could strike anywhere.
@@ -93,6 +97,48 @@ class SchemaWellformedTestCase(unittest.TestCase):
     self.assertEqual("html", rootElem.tag, "Expected root element of schema to be 'html'.")
 
 
+class TriplesBasicAPITestCase(unittest.TestCase):
+  """Tests that don't assume the schemas are pre-loaded."""
+
+  def test_checkAddedTriples(self):
+     """This test should store a couple of triples and retrieve them for a fictional 'neogeo' extension layer."""
+
+     u_Volcano = Unit.GetUnit("Volcano", createp=True)
+     p_name = Unit.GetUnit("name", createp=True)
+     api.Triple.AddTripleText(u_Volcano, p_name, "foo", layer="neogeo") # last arg is 'layer' aka extension
+     api.Triple.AddTripleText(u_Volcano, p_name, "bar", "neogeo") # show both syntax options 
+
+     try:
+       v_names = GetTargets( p_name, u_Volcano, "neogeo")
+       log.info("Looking for: Volcano's 'name' property values, 'foo' and 'bar'. counted: %s" % len(v_names) )
+       for vn in v_names:
+           log.debug("Found a Volcano 'name' value: %s " % vn)
+     except Exception as e:
+       log.info("Failed volcano lookup. %s " % e)
+
+     self.assertTrue ( "foo" in v_names and "bar" in v_names, "should have foo and bar in name list: %s " % ",".join(v_names)   )
+     self.assertEqual(len(v_names), 2, "length of list of names of Volcano should be 2. actual: %s " % len(v_names) )
+
+
+  def test_checkMismatchedLayerTriplesFail(self):
+     """This test should store a couple of triples for a fictional 'neogeo' extension layer, and fail to find it when looking in another layer."""
+
+     u_Volcano = Unit.GetUnit("Volcano", createp=True)
+     p_name = Unit.GetUnit("name", createp=True)
+     api.Triple.AddTripleText(u_Volcano, p_name, "foo", "neogeo")#   , "neogeo") # last arg is 'layer' aka extension
+     api.Triple.AddTripleText(u_Volcano, p_name, "bar", "neogeo")#   , "neogeo") # can we add two triples w/ same property?
+     try:
+       v_names = GetTargets( p_name, u_Volcano, layers='core' )
+       log.info("Looking for: Volcano's 'name' property values, 'foo' and 'bar'. counted: %s" % len(v_names) )
+       for vn in v_names:
+           log.debug("Found a Volcano 'name' value: %s " % vn)
+     except Exception as e:
+       log.info("Failed volcano lookup. %s " % e)
+
+     self.assertFalse ( "foo" in v_names and "bar" in v_names, "Layer mismatch - should NOT have foo and bar in name list: %s " % ",".join(v_names)   )
+     self.assertEqual(len(v_names), 0, "layer mismatch - length of list of names of Volcano should be 0. actual: %s " % len(v_names) )
+
+
 class SchemaBasicAPITestCase(unittest.TestCase):
 
   def setUp(self):
@@ -101,6 +147,17 @@ class SchemaBasicAPITestCase(unittest.TestCase):
 
   def test_schemasInitialized(self):
      self.assertEqual(self.schemasInitialized,True, "Schemas should be initialized during setup.")
+  
+  def test_extensionsLoaded(self):
+     global extensionsLoaded, extensionLoadErrors
+
+     if not extensionsLoaded: #Will error if called more than once
+         read_extensions([ 'admin', 'auto', 'bib' ])
+         
+     if len(extensionLoadErrors) > 0:
+         log.info("Extension load errors:\n%s" % extensionLoadErrors)
+
+     self.assertEqual(len(extensionLoadErrors),0, "Extension schemas reporting errors.")
 
   def test_gotThing(self):
 

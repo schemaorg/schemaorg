@@ -1,12 +1,22 @@
+<<<<<<< HEAD
 application: schemaorgae
 #application: webschemas
 #application: sdo-gozer
+#application: schemaorgae
+application: webschemas
+#application: sdo-ganymede
+
 version: 1
 runtime: python27
 api_version: 1
 threadsafe: true
 
 handlers:
+
+- url: /favicon.ico
+  static_files: docs/favicon.ico
+  upload: docs/favicon.ico
+  mime_type: image/x-icon
 
 - url: /docs/schema_org_rdfa.html
   static_files: data/schema.rdfa

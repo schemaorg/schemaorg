@@ -5,9 +5,7 @@
     <title>Home - schema.org</title>
     <meta name="description" content="Schema.org is a set of extensible schemas that enables webmasters to embed
     structured data on their web pages for use by search engines and other applications." />
-    <!-- link rel="stylesheet" type="text/css" href="search_files/schemaorg.css" -->
-
-    <link rel="stylesheet" type="text/css" href="docs/schemaorg.css">
+    <link rel="stylesheet" type="text/css" href="/docs/schemaorg.css">
 
 </head>
 <body>
@@ -57,7 +55,7 @@
 
 {% import 'ext.tpl' as ext with context %}
 
-{% if myhost in [ "sdo-gozer.appspot.com", "sdo-tully.appspot.com", "sdo-lenny.appspot.com", "webschemas.org", "sdo-scripts.appspot.com", "localhost" ] %}
+{% if myhost in [ "sdo-ganymede.appspot.com", "sdo-gozer.appspot.com", "sdo-tully.appspot.com", "sdo-lenny.appspot.com", "webschemas.org", "sdo-scripts.appspot.com", "localhost" ] %}
 
 <p id="lli" class="layerinfo">
 Note: This is {{ myhost }}. you are viewing an unstable work-in-progress preview of <a href="http://schema.org/">schema.org</a>.
@@ -68,14 +66,25 @@ See the draft <b><a href="/docs/releases.html">releases</a></b> page to learn mo
 
 
 {% if ENABLE_HOSTED_EXTENSIONS and host_ext == "bib" %}
-  {{ ext.overview(name="Bibliographic Extension", abbrev="ext") }}
+  {{ ext.overview(name="Bibliographic Extension", abbrev="bib") }}
   <p>
   You are viewing the Bibliographic Extension within <a href="http://schema.org/">schema.org</a>.
   It defines terms such as <a href="/workTranslation">workTranslation</a>. For more details
   see the W3C BibExtend Community Group's <a href="http://www.w3.org/community/schemabibex/wiki/Bib.schema.org-1.0">wiki</a>.
-  This is an initial exploratory release.
+  <br/>This is an initial exploratory release.
   </p>
 
+{% elif ENABLE_HOSTED_EXTENSIONS and host_ext == "auto" %}
+  {{ ext.overview(name="Auto Extension", abbrev="auto") }}
+
+  <p>  You are viewing the Auto Extension within <a href="http://schema.org/">schema.org</a>.
+  It defines terms such as <a href="/MotorizedBicycle">MotorizedBicycle</a>. For more details
+  see the W3C <a href="https://www.w3.org/community/gao/">Automotive Ontology Working Group</a>.
+  <br/>This is an initial exploratory release.
+</p>
+
+  <p><br/></p>
+  
 {% elif ENABLE_HOSTED_EXTENSIONS and host_ext == "test001" %}
   {{ ext.overview(name="Test Extension", abbrev="test1") }}
 

@@ -3,38 +3,40 @@
 
 import os
 import re
-import webapp2
-import jinja2
+#import webapp2
+#import jinja2 # used for templates
 import logging
 
 import parsers
 
-from google.appengine.ext import ndb
-from google.appengine.ext import blobstore
-from google.appengine.api import users
-from google.appengine.ext.webapp import blobstore_handlers
+#from google.appengine.ext import ndb
+#from google.appengine.ext import blobstore
+#from google.appengine.api import users
+#from google.appengine.ext.webapp import blobstore_handlers
 
 
 logging.basicConfig(level=logging.INFO) # dev_appserver.py --log_level debug .
 log = logging.getLogger(__name__)
 
 schemasInitialized = False
+extensionsLoaded = False
+extensionLoadErrors = ""
+
 SCHEMA_VERSION=1.999999
 sitename = "schema.org"
 sitemode = "mainsite" # whitespaced list for CSS tags,
             # e.g. "mainsite testsite", "extensionsite" when off expected domains
 
 DYNALOAD = True # permits read_schemas to be re-invoked live.
-JINJA_ENVIRONMENT = jinja2.Environment(
-    loader=jinja2.FileSystemLoader(os.path.join(os.path.dirname(__file__), 'templates')),
-    extensions=['jinja2.ext.autoescape'], autoescape=True)
+#JINJA_ENVIRONMENT = jinja2.Environment(
+#   loader=jinja2.FileSystemLoader(os.path.join(os.path.dirname(__file__), 'templates')),
+#    extensions=['jinja2.ext.autoescape'], autoescape=True)
 
 debugging = False
 
 # Core API: we have a single schema graph built from triples and units.
 
 NodeIDMap = {}
-DataCache = {}
 ext_re = re.compile(r'([^\w,])+')
 all_layers = {}
 all_terms = {}
@@ -91,6 +93,31 @@ namespaces = """        "cat": "http://www.w3.org/ns/dcat#",
         "role": "http://www.w3.org/1999/xhtml/vocab#role",
 """
 
+
+class DataCacheTool():
+
+    def __init__ (self):
+        self._DataCache = {}
+        self.setCurrent("schema")
+
+    def get(self,key):
+        return self._DataCache[self._CurrentDataCache].get(key)
+
+    def put(self,key,val):
+        self._DataCache[self._CurrentDataCache][key] = val
+
+    def setCurrent(self,current):
+        self._CurrentDataCache = current
+        if(self._DataCache.get(self._CurrentDataCache) == None):
+            self._DataCache[self._CurrentDataCache] = {}
+        log.debug("Setting _CurrentDataCache: %s",self._CurrentDataCache)
+
+    def getCurrent(self):
+        return self._CurrentDataCache
+
+DataCache = DataCacheTool()
+
+
 class Unit ():
     """
     Unit represents a node in our schema graph. IDs are local,
@@ -104,6 +131,7 @@ class Unit ():
         self.arcsOut = []
         self.examples = []
         self.usage = 0
+        self.home = None
         self.subtypes = None
 
     def __str__(self):
@@ -218,6 +246,19 @@ class Unit ():
             return newerterms.pop()
         else:
             return None
+
+        return ret
+
+    def getHomeLayer(self,defaultToCore=False):
+        ret = self.home
+        if ret == None:
+            if defaultToCore:
+                ret = 'core'
+            else:
+                log.info("WARNING %s has no home extension defined!!" % self.id)
+                ret = ""
+        return ret
+
 
     def superproperties(self, layers='core'):
         """Returns super-properties of this one."""
@@ -419,7 +460,7 @@ def GetAllTypes(layers='core'):
             for sc in subs:
                 if subbed.get(sc.id) == None:
                     todo.append(sc)
-        DataCache['AllTypes'] = subbed.keys()
+        DataCache.put('AllTypes',subbed.keys())
         return subbed.keys()
 
 def GetAllProperties(layers='core'):
@@ -431,7 +472,7 @@ def GetAllProperties(layers='core'):
         logging.debug("DataCache MISS: AllProperties")
         mynode = Unit.GetUnit("Thing")
         sorted_all_properties = sorted(GetSources(Unit.GetUnit("typeOf"), Unit.GetUnit("rdf:Property"), layers=layers), key=lambda u: u.id)
-        DataCache['AllProperties'] = sorted_all_properties
+        DataCache.put('AllProperties',sorted_all_properties)
         return sorted_all_properties
 
 def GetParentList(start_unit, end_unit=None, path=[], layers='core'):
@@ -470,106 +511,6 @@ def HasMultipleBaseTypes(typenode, layers='core'):
     """True if this unit represents a type with more than one immediate supertype."""
     return len( GetTargets( Unit.GetUnit("rdfs:subClassOf"), typenode, layers ) ) > 1
 
-class TypeHierarchyTree:
-
-    def __init__(self):
-        self.txt = ""
-        self.visited = {}
-
-    def emit(self, s):
-        self.txt += s + "\n"
-
-    def toHTML(self):
-        return '<ul>%s</ul>' % self.txt
-
-    def toJSON(self):
-        return self.txt
-
-    def traverseForHTML(self, node, depth = 1, layers='core'):
-
-        # we are a supertype of some kind
-        if len(node.GetImmediateSubtypes(layers=layers)) > 0:
-
-            # and we haven't been here before
-            if node.id not in self.visited:
-                self.visited[node.id] = True # remember our visit
-                self.emit( ' %s<li class="tbranch" id="%s"><a href="/%s">%s</a>' % (" " * 4 * depth, node.id, node.id, node.id) )
-                self.emit(' %s<ul>' % (" " * 4 * depth))
-
-                # handle our subtypes
-                for item in node.GetImmediateSubtypes(layers=layers):
-                    self.traverseForHTML(item, depth + 1, layers=layers)
-                self.emit( ' %s</ul>' % (" " * 4 * depth))
-            else:
-                # we are a supertype but we visited this type before, e.g. saw Restaurant via Place then via Organization
-                seen = '  <a href="#%s">*</a> ' % node.id
-                self.emit( ' %s<li class="tbranch" id="%s"><a href="/%s">%s</a>%s' % (" " * 4 * depth, node.id, node.id, node.id, seen) )
-
-        # leaf nodes
-        if len(node.GetImmediateSubtypes(layers=layers)) == 0:
-            if node.id not in self.visited:
-                self.emit( '%s<li class="tleaf" id="%s"><a href="/%s">%s</a>%s' % (" " * depth, node.id, node.id, node.id, "" ))
-            #else:
-                #self.visited[node.id] = True # never...
-                # we tolerate "VideoGame" appearing under both Game and SoftwareApplication
-                # and would only suppress it if it had its own subtypes. Seems legit.
-
-        self.emit( ' %s</li>' % (" " * 4 * depth) )
-
-    # based on http://danbri.org/2013/SchemaD3/examples/4063550/hackathon-schema.js  - thanks @gregg, @sandro
-    def traverseForJSONLD(self, node, depth = 0, last_at_this_level = True, supertype="None", layers='core'):
-        emit_debug = False
-        if node.id in self.visited:
-            # self.emit("skipping %s - already visited" % node.id)
-            return
-        self.visited[node.id] = True
-        p1 = " " * 4 * depth
-        if emit_debug:
-            self.emit("%s# @id: %s last_at_this_level: %s" % (p1, node.id, last_at_this_level))
-        global namespaces;
-        ctx = "{}".format(""""@context": {
-    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
-    "schema": "http://schema.org/",
-    "rdfs:subClassOf": { "@type": "@id" },
-    "name": "rdfs:label",
-    "description": "rdfs:comment",
-    "children": { "@reverse": "rdfs:subClassOf" }
-  },\n""" if last_at_this_level and depth==0 else '' )
-
-        unseen_subtypes = []
-        for st in node.GetImmediateSubtypes(layers=layers):
-            if not st.id in self.visited:
-                unseen_subtypes.append(st)
-        unvisited_subtype_count = len(unseen_subtypes)
-        subtype_count = len( node.GetImmediateSubtypes(layers=layers) )
-
-        supertx = "{}".format( '"rdfs:subClassOf": "schema:%s", ' % supertype.id if supertype != "None" else '' )
-        maybe_comma = "{}".format("," if unvisited_subtype_count > 0 else "")
-        comment = GetComment(node, layers).strip()
-        comment = comment.replace('"',"'")
-        comment = re.sub('<[^<]+?>', '', comment)[:60]
-
-        self.emit('\n%s{\n%s\n%s"@type": "rdfs:Class", %s "description": "%s...",\n%s"name": "%s",\n%s"@id": "schema:%s"%s'
-                  % (p1, ctx, p1,                 supertx,            comment,     p1,   node.id, p1,        node.id,  maybe_comma))
-
-        i = 1
-        if unvisited_subtype_count > 0:
-            self.emit('%s"children": ' % p1 )
-            self.emit("  %s["  % p1 )
-            inner_lastness = False
-            for t in unseen_subtypes:
-                if emit_debug:
-                    self.emit("%s  # In %s > %s i: %s unvisited_subtype_count: %s" %(p1, node.id, t.id, i, unvisited_subtype_count))
-                if i == unvisited_subtype_count:
-                    inner_lastness = True
-                i = i + 1
-                self.traverseForJSONLD(t, depth + 1, inner_lastness, supertype=node, layers=layers)
-
-            self.emit("%s  ]%s" % (p1,  "{}".format( "" if not last_at_this_level else '' ) ) )
-
-        maybe_comma = "{}".format( ',' if not last_at_this_level else '' )
-        self.emit('\n%s}%s\n' % (p1, maybe_comma))
-
 
 class Example ():
 
@@ -580,8 +521,14 @@ class Example ():
        mentions, i.e. stored in term.examples).
        """
        # todo: fix partial examples: if (len(terms) > 0 and len(original_html) > 0 and (len(microdata) > 0 or len(rdfa) > 0 or len(jsonld) > 0)):
+       typeinfo = "".join( [" %s " % t.id for t in terms] )
+       if "FakeEntryNeeded" in typeinfo or terms==[]:
+           return
        if (len(terms) > 0 and len(original_html) > 0 and len(microdata) > 0 and len(rdfa) > 0 and len(jsonld) > 0):
             return Example(terms, original_html, microdata, rdfa, jsonld, egmeta, layer='core')
+       else:
+           log.info("API AddExample skipped a case due to missing value(s) in example. Target terms: %s ORIG: %s MICRODATA: %s RDFA: %s JSON: %s EGMETA: %s " % ( typeinfo, original_html, microdata, rdfa, jsonld, egmeta ) )
+
 
     def get(self, name, layers='core') :
         """Exposes original_content, microdata, rdfa and jsonld versions (in the layer(s) specified)."""
@@ -711,6 +658,29 @@ def full_path(filename):
     return os.path.join(folder, filename)
 
 
+def setHomeValues(items,layer='core',defaultToCore=False):
+    global extensionLoadErrors
+    
+    for node in items:
+        if(node == None):
+            continue
+        home = GetTargets( Unit.GetUnit("isPartOf"), node, layer )
+        if(len(home) > 0):
+            if(node.home != None):
+                msg = "ERROR: %s trying to overwite home from %s to %s" % (node.id,node.home,home[0].id)
+                log.info(msg)
+                extensionLoadErrors += msg + '\n'
+            else:
+                node.home = re.match( r'([\w\-_]+)[\.:]?', home[0].id.lstrip("http://")).group(1)
+            if(node.home == 'schema'):
+                node.home = 'core'
+        elif node.home == None:
+            if defaultToCore:
+                node.home = "core"
+            else:
+                msg = "ERROR: %s has no home defined" % (node.id)
+                log.info(msg)
+                extensionLoadErrors += msg + '\n'
 
 def read_schemas(loadExtensions=False):
     """Read/parse/ingest schemas from data/*.rdfa. Also data/*examples.txt"""
@@ -728,37 +698,63 @@ def read_schemas(loadExtensions=False):
         parser = parsers.MakeParserOfType('rdfa', None)
         items = parser.parse(file_paths, "core")
 
-        if loadExtensions:
-            log.info("(re)scanning for extensions.")
-            extfiles = glob.glob("data/ext/*/*.rdfa")
-            log.info("Extensions found: %s ." % " , ".join(extfiles) )
-            fnstrip_re = re.compile("\/.*")
-            for ext in extfiles:
-                ext_file_path = full_path(ext)
-                extid = ext.replace('data/ext/', '')
-                extid = re.sub(fnstrip_re,'',extid)
-                log.info("Preparing to parse extension data: %s as '%s'" % (ext_file_path, "%s" % extid))
-                parser = parsers.MakeParserOfType('rdfa', None)
-                all_layers[extid] = "1"
-                extitems = parser.parse([ext_file_path], layer="%s" % extid) # put schema triples in a layer
-                # log.debug("Results: %s " % len( extitems) )
-                for x in extitems:
-                    if x is not None:
-                        log.debug("%s:%s" % ( extid, str(x.id) ))
-                # e.g. see 'data/ext/bib/bibdemo.rdfa'
+#set default home for those in core that do not have one
+        setHomeValues(items,"core",True)
 
         files = glob.glob("data/*examples.txt")
-        example_contents = []
-        for f in files:
-            example_content = read_file(f)
-            example_contents.append(example_content)
-        parser = parsers.ParseExampleFile(None)
-        parser.parse(example_contents)
-
+        
+        read_examples(files)
+        
         files = glob.glob("data/2015-04-vocab_counts.txt")
 
         for file in files:
             usage_data = read_file(file)
             parser = parsers.UsageFileParser(None)
             parser.parse(usage_data)
-        schemasInitialized = True
+    
+    schemasInitialized = True
+
+
+def read_extensions(extensions):
+    import os.path
+    import glob
+    import re
+    global extensionsLoaded
+    extfiles = []
+    expfiles = []
+    if not extensionsLoaded: #2nd load will throw up errors and duplicate terms
+        log.info("(re)scanning for extensions.")
+        for i in extensions:
+            extfiles += glob.glob("data/ext/%s/*.rdfa" % i)
+            expfiles += glob.glob("data/ext/%s/*examples.txt" % i)
+
+        log.info("Extensions found: %s ." % " , ".join(extfiles) )
+        fnstrip_re = re.compile("\/.*")
+        for ext in extfiles:
+            ext_file_path = full_path(ext)
+            extid = ext.replace('data/ext/', '')
+            extid = re.sub(fnstrip_re,'',extid)
+            log.info("Preparing to parse extension data: %s as '%s'" % (ext_file_path, "%s" % extid))
+            parser = parsers.MakeParserOfType('rdfa', None)
+            all_layers[extid] = "1"
+            extitems = parser.parse([ext_file_path], layer="%s" % extid) # put schema triples in a layer
+            setHomeValues(extitems,extid,False)
+        
+        read_examples(expfiles)
+        
+    extensionsLoaded = True
+    
+def read_examples(files):
+        example_contents = []
+        for f in files:
+            example_content = read_file(f)
+            example_contents.append(example_content)
+            log.debug("examples loaded from: %s" % f)
+                        
+        parser = parsers.ParseExampleFile(None)
+        parser.parse(example_contents)
+
+
+
+
+
