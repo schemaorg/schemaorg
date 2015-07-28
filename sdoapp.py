@@ -575,29 +575,61 @@ class ShowUnit (webapp2.RequestHandler):
             out.write("<tr><td colspan=\"3\"><meta property=\"rdfs:subClassOf\" content=\"%s\"></td></tr>" % (cl.id))
         
 
-    def emitClassExtensionProperties (self, cl, layers="core", out=None):
-        if not out:
-            out = self        
+    def emitClassExtensionSuperclasses (self, cl, layers="core", out=None):
+       first = True
+       count = 0
+       if not out:
+           out = self        
+           
+       buff = StringIO.StringIO()
+       sc = Unit.GetUnit("rdfs:subClassOf")
+
+       for p in GetTargets(sc, cl, ALL_LAYERS):
+
+          if inLayer(layers,p):
+               continue
                 
-        buff = StringIO.StringIO()
+          sep = ", "
+          if first:
+            sep = "<li>"
+            first = False
+                
+          buff.write("%s%s" % (sep,self.ml(p)))
+          count += 1
+          
+          if(count > 0):
+            buff.write("</li>\n")
+   
+       content = buff.getvalue()
+       if(len(content) > 0):
+           self.write("<h4>Available supertypes defined in extensions</h4>")
+           self.write("<ul>")
+           self.write(content)
+           self.write("</ul>")
+       buff.close()
+       
+    def emitClassExtensionProperties (self, cl, layers="core", out=None):
+       if not out:
+           out = self        
+           
+       buff = StringIO.StringIO()
 
-        for p in self.parentStack:
-            self._ClassExtensionProperties(buff, p, layers=layers)
-        
-        content = buff.getvalue()
-        if(len(content) > 0):
-            self.write("<h4>Available properties in extensions</h4>")
-            self.write("<ul>")
-            self.write(content)
-            self.write("</ul>")
-        buff.close()
-
+       for p in self.parentStack:
+           self._ClassExtensionProperties(buff, p, layers=layers)
+   
+       content = buff.getvalue()
+       if(len(content) > 0):
+           self.write("<h4>Available properties in extensions</h4>")
+           self.write("<ul>")
+           self.write(content)
+           self.write("</ul>")
+       buff.close()
+   
     def _ClassExtensionProperties (self, out, cl, layers="core"):
         """Write out a list of properties not displayed as they are in extensions for a per-type page."""
 
         di = Unit.GetUnit("domainIncludes")
 
-        headerPrinted = False
         first = True
         count = 0
         for prop in sorted(GetSources(di, cl, ALL_LAYERS), key=lambda u: u.id):
@@ -920,6 +952,8 @@ class ShowUnit (webapp2.RequestHandler):
             self.write("\n\n</table>\n\n")                       
  
             self.emitClassIncomingProperties(node, layers=layers)
+            
+            self.emitClassExtensionSuperclasses(node,layers)
 
             self.emitClassExtensionProperties(p,layers)
 
@@ -1118,11 +1152,13 @@ class ShowUnit (webapp2.RequestHandler):
             if schema_node is not None and schema_node.id in all_terms:# look for it in other layers
                 log.debug("TODO: layer toc: %s" % all_terms[schema_node.id] )
                 # self.response.out.write("Layers should be listed here. %s " %  all_terms[node.id] )
-
+                port=""
+                if(myport != "80"):
+                    port = ":%s" % myport
                 self.response.out.write("<h3>Schema.org Extensions</h3>\n<p>The term '%s' is not in the schema.org core, but is described by the following extension(s):</p>\n<ul>\n" % schema_node.id)
                 for x in all_terms[schema_node.id]:
                     x = x.replace("#","")
-                    self.response.out.write("<li><a href='?ext=%s'>%s</a></li>" % (x, x) )
+                    self.response.out.write("<li><a href='http://%s.%s%s/%s'>%s</a></li>" % (x, mybasehost,port,schema_node.id, x) )
                 return True
             return False
 
