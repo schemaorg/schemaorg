@@ -18,7 +18,7 @@ from google.appengine.ext import blobstore
 from google.appengine.api import users
 from google.appengine.ext.webapp import blobstore_handlers
 
-from api import inLayer, read_file, full_path, read_schemas, namespaces, DataCache
+from api import inLayer, read_file, full_path, read_schemas, read_extensions, read_examples, namespaces, DataCache
 from api import Unit, GetTargets, GetSources
 from api import GetComment, all_terms, GetAllTypes, GetAllProperties
 from api import GetParentList, GetImmediateSubtypes, HasMultipleBaseTypes
@@ -59,7 +59,7 @@ ENABLE_CORS = True
 ENABLE_HOSTED_EXTENSIONS = True
 
 ENABLED_EXTENSIONS = [ 'admin', 'auto', 'bib' ]
-ALL_LAYERS = [ 'admin', 'auto', 'bib', 'core' ]
+ALL_LAYERS = [ 'core', 'admin', 'auto', 'bib' ]
 
 
 debugging = False
@@ -420,7 +420,9 @@ class ShowUnit (webapp2.RequestHandler):
         self.write("</h1>")
         home = node.home
         if home != "core" and home != "":
-            self.write("Defined in the %s.schema.org extension" % home)
+            self.write("Defined in the %s.schema.org extension." % home)
+            self.write(" (This is an initial exploratory release.)")
+            
             
 
 
@@ -1429,6 +1431,8 @@ class ShowUnit (webapp2.RequestHandler):
 
 #log.info("STARTING UP... reading schemas.")
 read_schemas(loadExtensions=ENABLE_HOSTED_EXTENSIONS)
+if ENABLE_HOSTED_EXTENSIONS:
+    read_extensions(ENABLED_EXTENSIONS)
 schemasInitialized = True
 
 app = ndb.toplevel(webapp2.WSGIApplication([("/(.*)", ShowUnit)]))
