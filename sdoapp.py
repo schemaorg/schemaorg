@@ -39,12 +39,6 @@ myhost = ""
 myport = ""
 mybasehost = ""
 
-host_ext2 = ""
-myhost2 = ""
-myport2 = ""
-mybasehost2 = ""
-debugging2 = False
-
 silent_skip_list =  [ "favicon.ico" ] # Do nothing for now
 
 all_layers = {}
