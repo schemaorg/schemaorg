@@ -970,20 +970,62 @@ class ShowUnit (webapp2.RequestHandler):
 
         if (node.isClass(layers=layers)):
 
-            children = sorted(GetSources(Unit.GetUnit("rdfs:subClassOf"), node, layers=layers), key=lambda u: u.id)
+            children = sorted(GetSources(Unit.GetUnit("rdfs:subClassOf"), node, ALL_LAYERS), key=lambda u: u.id)
             if (len(children) > 0):
-                self.write("<br/><b>More specific Types</b><ul>")
+                buff = StringIO.StringIO()
+                extbuff = StringIO.StringIO()
+                
+                firstext=True
                 for c in children:
-                    self.write("<li> %s" % (self.ml(c)))
-                self.write("</ul>")
+                    if inLayer(layers, c):
+                        buff.write("<li> %s </li>" % (self.ml(c)))
+                    else:
+                        sep = ","
+                        if firstext:
+                            sep = ""
+                            firstext=False
+                        extbuff.write("%s%s" % (sep,self.ml(c)) )
+
+                if (len(buff.getvalue()) > 0):
+                    self.write("<br/><b>More specific Types</b><ul>") 
+                    self.write(buff.getvalue())
+                    self.write("</ul>")
+
+                if (len(extbuff.getvalue()) > 0):
+                    self.write("<h4>More specific Types available in extensions</h4><ul><li>")
+                    self.write(extbuff.getvalue())
+                    self.write("</li></ul>")
+                buff.close()
+                extbuff.close()
 
         if (node.isEnumeration(layers=layers)):
-            children = sorted(GetSources(Unit.GetUnit("typeOf"), node, layers=layers), key=lambda u: u.id)
+            children = sorted(GetSources(Unit.GetUnit("typeOf"), node, ALL_LAYERS), key=lambda u: u.id)
             if (len(children) > 0):
-                self.write("<br/><br/>Enumeration members<ul>")
+                buff = StringIO.StringIO()
+                extbuff = StringIO.StringIO()
+                
+                firstext=True
                 for c in children:
-                    self.write("<li> %s" % (self.ml(c)))
-                self.write("</ul>")
+                    if inLayer(layers, c):
+                        buff.write("<li> %s </li>" % (self.ml(c)))
+                    else:
+                        sep = ","
+                        if firstext:
+                            sep = ""
+                            firstext=False
+                        extbuff.write("%s%s" % (sep,self.ml(c)) )
+
+                if (len(buff.getvalue()) > 0):
+                    self.write("<br/><br/><b>Enumeration members</b><ul>") 
+                    self.write(buff.getvalue())
+                    self.write("</ul>")
+
+                if (len(extbuff.getvalue()) > 0):
+                    self.write("<h4>Enumeration members available in extensions</h4><ul><li>")
+                    self.write(extbuff.getvalue())
+                    self.write("</li></ul>")
+                buff.close()
+                extbuff.close()
 
         ackorgs = GetTargets(Unit.GetUnit("dc:source"), node, layers=layers)
         if (len(ackorgs) > 0):
