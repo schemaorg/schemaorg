@@ -97,8 +97,8 @@ if __name__ == '__main__':
     # alternative, try
     # PYTHONPATH=/usr/local/google_appengine ./scripts/run_tests.py 
 
-    #SDK_PATH = os.path.expanduser("~") + "/google-cloud-sdk"
-    SDK_PATH = "C:\Program Files\Google\Cloud SDK\google-cloud-sdk\platform\google_appengine"
+    SDK_PATH = os.path.expanduser("~") + "/google-cloud-sdk"
+    #SDK_PATH = "C:\Program Files\Google\Cloud SDK\google-cloud-sdk\platform\google_appengine"
     print SDK_PATH
     TEST_PATH = "./tests/"
 
