@@ -12142,7 +12142,6 @@ Typical unit code(s): C62 for persons </span>
   <span class="h" property="rdfs:label">adverseOutcome</span>
   <span property="rdfs:comment">A possible complication and/or side effect of this therapy. If it is known that an adverse outcome is serious (resulting in death, disability, or permanent damage; requiring hospitalization; or is otherwise life-threatening or requires immediate medical attention), tag it as a seriouseAdverseOutcome instead.</span>
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MedicalDevice">MedicalDevice</a></span>
-  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MedicalTherapy">MedicalTherapy</a></span>
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/TherapeuticProcedure">TherapeuticProcedure</a></span>
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/MedicalEntity">MedicalEntity</a></span>
 </div>
@@ -12835,7 +12834,6 @@ Typical unit code(s): C62 for persons </span>
   <span class="h" property="rdfs:label">doseSchedule</span>
   <span property="rdfs:comment">A dosing schedule for the drug for a given population, either observed, recommended, or maximum dose based on the type used.</span>
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Drug">Drug</a></span>
-  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MedicalTherapy">MedicalTherapy</a></span>
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/TherapeuticProcedure">TherapeuticProcedure</a></span>
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/DoseSchedule">DoseSchedule</a></span>
 </div>
@@ -12865,7 +12863,6 @@ Typical unit code(s): C62 for persons </span>
   <span class="h" property="rdfs:label">drugAdministration</span>
   <span property="rdfs:comment">specifying the event of administering the drug to the patient. Typically associated with the route of administration i.e.oral, injection etc.</span>
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MedicalCondition">MedicalCondition</a></span>
-  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MedicalTherapy">MedicalTherapy</a></span>
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Patient">Patient</a></span>
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/TherapeuticProcedure">TherapeuticProcedure</a></span>
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://purl.bioontology.org/ontology/SNOMEDCT/182832007">sctid:182832007</a></span>
@@ -12885,7 +12882,6 @@ Typical unit code(s): C62 for persons </span>
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/HealthcareProfessional">HealthcareProfessional</a></span>
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MedicalCondition">MedicalCondition</a></span>
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MedicationDispensation">MedicationDispensation</a></span>
-  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MedicalTherapy">MedicalTherapy</a></span>
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/TherapeuticProcedure">TherapeuticProcedure</a></span>
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://purl.bioontology.org/ontology/SNOMEDCT/440298008">sctid:440298008</a></span>
 </div>
@@ -12898,13 +12894,19 @@ Typical unit code(s): C62 for persons </span>
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/HealthcareProfessional">HealthcareProfessional</a></span>
   <span>SubProperty of: <a property="rdfs:subPropertyOf" href="http://schema.org/provider">provider</a></span>
 </div>
-
-<div typeof="rdf:Property" resource="http://schema.org/drugIntaken">
-  <span class="h" property="rdfs:label">drugIntaken</span>
-  <span property="rdfs:comment">Specifying an event of taking cure medication, related to a medication period</span>
+<div typeof="rdf:Property" resource="http://schema.org/drugTaken">
+  <span class="h" property="rdfs:label">drugTaken</span>
+  <span property="rdfs:comment">Medication actually taken which may be different from drug administrated sometimes when some quantity is lost</span>
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Drug">Drug</a></span>
-  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MedicalCondition">MedicalCondition</a></span>
-  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MedicalTherapy">MedicalTherapy</a></span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Patient">Patient</a></span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/TherapeuticProcedure">TherapeuticProcedure</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://purl.bioontology.org/ontology/SNOMEDCT/129019007">sctid:129019007</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/drugAdministrated">
+  <span class="h" property="rdfs:label">drugAdministrated</span>
+  <span property="rdfs:comment">Medication administrated not taking into account the quantity really taken by the patient f.eg. when some quantity may be vomitted</span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Drug">Drug</a></span>
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Patient">Patient</a></span>
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/TherapeuticProcedure">TherapeuticProcedure</a></span>
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://purl.bioontology.org/ontology/SNOMEDCT/129019007">sctid:129019007</a></span>
@@ -12916,11 +12918,9 @@ Typical unit code(s): C62 for persons </span>
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://purl.bioontology.org/ontology/SNOMEDCT/223366009">sctid:223366009</a></span>
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Drug">Drug</a></span>
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/HealthcareProfessional">HealthcareProfessional</a></span>
-  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MedicalTherapy">MedicalTherapy</a></span>
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Person">Person</a></span>
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/TherapeuticProcedure">TherapeuticProcedure</a></span>
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://purl.bioontology.org/ontology/SNOMEDCT/105904009">sctid:105904009</a></span>
-</div>
 
 <div typeof="rdf:Property" resource="http://schema.org/drugUnit">
   <span class="h" property="rdfs:label">drugUnit</span>
@@ -13310,7 +13310,7 @@ Typical unit code(s): C62 for persons </span>
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MedicalIndication">MedicalIndication</a></span>
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MedicalIntervention">MedicalIntervention</a></span>
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MedicalProcedure">MedicalProcedure</a></span>
-  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MedicalTherapy">MedicalTherapy</a></span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/TherapeuticProcedure">TherapeuticProcedure</a></span>
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/MedicalIndication">MedicalIndication</a></span>
 </div>
 
@@ -14770,7 +14770,6 @@ Typical unit code(s): C62 for persons </span>
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Patient">Patient</a></span>
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://purl.bioontology.org/ontology/SNOMEDCT/277132007">sctid:277132007</a></span>
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Drug">Drug</a></span>
-  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/MedicalTherapy">MedicalTherapy</a></span>
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/TherapeuticProcedure">TherapeuticProcedure</a></span>
 </div>
 
