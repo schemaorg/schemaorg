@@ -158,7 +158,7 @@ class SchemaBasicAPITestCase(unittest.TestCase):
          log.info("Extension load errors:\n%s" % extensionLoadErrors)
 
      self.assertEqual(len(extensionLoadErrors),0, "Extension schemas reporting errors.")
-
+     
   def test_gotThing(self):
 
      thing = Unit.GetUnit("Thing")
@@ -168,6 +168,90 @@ class SchemaBasicAPITestCase(unittest.TestCase):
        gotThing = True
 
      self.assertEqual( gotThing, True, "Thing node should be accessible via GetUnit('Thing').")
+
+  def test_hostInfo(self):
+      global debugging, host_ext, myhost, myport, mybasehost
+
+      thing = Unit.GetUnit("Thing")
+      u = ShowUnit()
+      u.setupHostinfo(thing,"localhost")
+      self.assertEqual( u.getHostExt(), "", "host_ext should be empty for host localhost.")
+      self.assertEqual( u.getBaseHost(), "localhost", "baseHost should be 'schema.org' for host schema.org.")
+      self.assertEqual( u.getHostPort(), "80", "HostPort should be '80' for host localhost.")
+      self.assertEqual( u.makeUrl("tst"), "http://tst.localhost", "URL should be 'http://tst.localhost' for host localhost.")
+      
+      u.setupHostinfo(thing,"bib.localhost")
+      self.assertEqual( u.getHostExt(), "bib", "host_ext should be 'bib' for host bib.localhost.")
+      self.assertEqual( u.getBaseHost(), "localhost", "baseHost should be 'localhost' for host bib.localhost.")
+      self.assertEqual( u.getHostPort(), "80", "HostPort should be '80' for host localhost.")
+      self.assertEqual( u.makeUrl("tst"), "http://tst.localhost", "URL should be 'http://tst.localhost' for host bib.localhost.")
+
+      u.setupHostinfo(thing,"bib.localhost:8080")
+      self.assertEqual( u.getHostExt(), "bib", "host_ext should be 'bib' for host bib.localhost:8080.")
+      self.assertEqual( u.getBaseHost(), "localhost", "baseHost should be 'localhost' for host bib.localhost:8080.")
+      self.assertEqual( u.getHostPort(), "8080", "HostPort should be '8080' for host bib.localhost:8080.")
+      self.assertEqual( u.makeUrl("tst"), "http://tst.localhost:8080", "URL should be 'http://tst.localhost:8080' for host bib.localhost:8080.")
+
+      u.setupHostinfo(thing,"fred.localhost:8080")
+      self.assertEqual( u.getHostExt(), "", "host_ext should be empty for host fred.localhost:8080.")
+      self.assertEqual( u.getBaseHost(), "fred.localhost", "baseHost should be 'fred.localhost' for host fred.localhost:8080.")
+      self.assertEqual( u.getHostPort(), "8080", "HostPort should be '8080' for host fred.localhost:8080.")
+      self.assertEqual( u.makeUrl("tst"), "http://tst.fred.localhost:8080", "URL should be 'http://tst.fred.localhost:8080' for host fred.localhost:8080.")
+
+      u.setupHostinfo(thing,"schema.org")
+      self.assertEqual( u.getHostExt(), "", "host_ext should be empty for host schema.org.")
+      self.assertEqual( u.getBaseHost(), "schema.org", "baseHost should be 'schema.org' for host schema.org.")
+      self.assertEqual( u.getHostPort(), "80", "HostPort should be '80' for host schema.org.")
+      self.assertEqual( u.makeUrl("tst"), "http://tst.schema.org", "URL should be 'http://tst.schema.org' for host schema.org.")
+      
+      u.setupHostinfo(thing,"bib.schema.org")
+      self.assertEqual( u.getHostExt(), "bib", "host_ext should be 'bib' for host bib.schema.org.")
+      self.assertEqual( u.getBaseHost(), "schema.org", "baseHost should be 'bib.schema.org' for host schema.org.")
+      self.assertEqual( u.getHostPort(), "80", "HostPort should be '80' for host bib.schema.org.")
+      self.assertEqual( u.makeUrl("tst"), "http://tst.schema.org", "URL should be 'http://tst.schema.org' for host bib.schema.org.")
+
+      u.setupHostinfo(thing,"fred.schema.org:8080")
+      self.assertEqual( u.getHostExt(), "", "host_ext should be empty for host fred.schema.org:8080.")
+      self.assertEqual( u.getBaseHost(), "fred.schema.org", "baseHost should be 'fred.schema.org' for host fred.schema.org:8080.")
+      self.assertEqual( u.getHostPort(), "8080", "HostPort should be '8080' for host fred.schema.org:8080.")
+      self.assertEqual( u.makeUrl("tst"), "http://tst.fred.schema.org:8080", "URL should be 'http://tst.fred.schema.org:8080' for host fred.schema.org:8080.")
+
+      u.setupHostinfo(thing,"webschemas.org")
+      self.assertEqual( u.getHostExt(), "", "host_ext should be empty for host webschemas.org.")
+      self.assertEqual( u.getBaseHost(), "webschemas.org", "baseHost should be 'webschemas.org' for host webschemas.org.")
+      self.assertEqual( u.getHostPort(), "80", "HostPort should be '80' for host webschemas.org.")
+      self.assertEqual( u.makeUrl("tst"), "http://tst.webschemas.org", "URL should be 'http://tst.webschemas.org' for host webschemas.org.")
+      
+      u.setupHostinfo(thing,"bib.webschemas.org")
+      self.assertEqual( u.getHostExt(), "bib", "host_ext should be 'bib' for host bib.webschemas.org.")
+      self.assertEqual( u.getBaseHost(), "webschemas.org", "baseHost should be 'webschemas.org' for host bib.webschemas.org.")
+      self.assertEqual( u.getHostPort(), "80", "HostPort should be '80' for host bib.webschemas.org.")
+      self.assertEqual( u.makeUrl("tst"), "http://tst.webschemas.org", "URL should be 'http://tst.webschemas.org' for host bib.webschemas.org.")
+
+      u.setupHostinfo(thing,"fred.webschemas.org:8080")
+      self.assertEqual( u.getHostExt(), "", "host_ext should be empty for host fred.webschemas.org:8080.")
+      self.assertEqual( u.getBaseHost(), "fred.webschemas.org", "baseHost should be 'fred.webschemas.org' for host fred.webschemas.org:8080.")
+      self.assertEqual( u.getHostPort(), "8080", "HostPort should be '8080' for host fred.webschemas.org:8080.")
+      self.assertEqual( u.makeUrl("tst"), "http://tst.fred.webschemas.org:8080", "URL should be 'http://tst.fred.webschemas.org:8080' for host fred.webschemas.org:8080.")
+      
+      u.setupHostinfo(thing,"sdo-ganymede.appspot.com")
+      self.assertEqual( u.getHostExt(), "", "host_ext should be empty for host sdo-ganymede.appspot.com.")
+      self.assertEqual( u.getBaseHost(), "sdo-ganymede.appspot.com", "baseHost should be 'sdo-ganymede.appspot.com' for host sdo-ganymede.appspot.com.")
+      self.assertEqual( u.getHostPort(), "80", "HostPort should be '80' for host sdo-ganymede.appspot.com.")
+      self.assertEqual( u.makeUrl("tst"), "http://tst.sdo-ganymede.appspot.com", "URL should be 'http://tst.sdo-ganymede.appspot.com' for host sdo-ganymede.appspot.com.")
+      
+      u.setupHostinfo(thing,"bib.sdo-ganymede.appspot.com")
+      self.assertEqual( u.getHostExt(), "bib", "host_ext should be 'bib' for host bib.sdo-ganymede.appspot.com.")
+      self.assertEqual( u.getBaseHost(), "sdo-ganymede.appspot.com", "baseHost should be 'bib.sdo-ganymede.appspot.com' for host sdo-ganymede.appspot.com.")
+      self.assertEqual( u.getHostPort(), "80", "HostPort should be '80' for host bib.sdo-ganymede.appspot.com.")
+      self.assertEqual( u.makeUrl("tst"), "http://tst.sdo-ganymede.appspot.com", "URL should be 'http://tst.sdo-ganymede.appspot.com' for host bib.sdo-ganymede.appspot.com.")
+
+      u.setupHostinfo(thing,"fred.sdo-ganymede.appspot.com")
+      self.assertEqual( u.getHostExt(), "", "host_ext should be empty for host fred.sdo-ganymede.appspot.com.")
+      self.assertEqual( u.getBaseHost(), "fred.sdo-ganymede.appspot.com", "baseHost should be 'fred.sdo-ganymede.appspot.com' for host fred.sdo-ganymede.appspot.com.")
+      self.assertEqual( u.getHostPort(), "80", "HostPort should be '80' for host fred.sdo-ganymede.appspot.com.")
+      self.assertEqual( u.makeUrl("tst"), "http://tst.fred.sdo-ganymede.appspot.com", "URL should be 'http://tst.fred.sdo-ganymede.appspot.com' for host fred.sdo-ganymede.appspot.com.")
+      
 
   def test_gotFooBarThing(self):
 
