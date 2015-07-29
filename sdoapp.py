@@ -1351,36 +1351,56 @@ class ShowUnit (webapp2.RequestHandler):
             DataCache.put("FullReleasePage",page)
             return True
 
-
-    def setupHostinfo(self, node):
+    
+    def setupHostinfo(self, node, test=""):
         global debugging, host_ext, myhost, myport, mybasehost
+        
+        hostString = test
+        if test == "":
+            hostString = self.request.host 
 
-        host_ext = re.match( r'([\w\-_]+)[\.:]?', self.request.host).group(1)
-        log.debug("setupHostinfo: srh=%s host_ext=%s" % (self.request.host, str(host_ext) ))        
+        host_ext = re.match( r'([\w\-_]+)[\.:]?', hostString).group(1)
+        log.debug("setupHostinfo: srh=%s host_ext2=%s" % (hostString, str(host_ext) ))        
+
+        split = hostString.rsplit(':')
+        myhost = split[0]
+        mybasehost = myhost
+        myport = "80"
+        if len(split) > 1:
+            myport = split[1]   
 
         if host_ext != None:
             # e.g. "bib"
-            log.debug("HOST: Found %s in %s" % ( host_ext, self.request.host ))
-            DataCache.setCurrent(host_ext)
-            split = self.request.host.rsplit(':')
-            myhost = split[0]
-            myport = "80"
-            if len(split) > 1:
-                myport = split[1]                
-            mybasehost = myhost
-            mybasehost = mybasehost.replace(host_ext + ".","")
-            # mybasehost = mybasehost.replace(":8080", "")
-
-
-        if "localhost" in self.request.host or "sdo-gozer.appspot.com" in self.request.host:
+            log.debug("HOST: Found %s in %s" % ( host_ext, hostString ))
+            if not host_ext in ENABLED_EXTENSIONS:
+                host_ext = ""
+            else:
+                mybasehost = mybasehost[len(host_ext) + 1:]            
+            
+        dcn = host_ext
+        if dcn == None or dcn == "":
+            dcn = "core"
+        DataCache.setCurrent(dcn)
+                        
+        debugging = False
+        if "localhost" in hostString or "sdo-ganymede.appspot.com" in hostString:
             debugging = True
-    
+            
+    def getHostExt(self):
+        return host_ext
+
+    def getBaseHost(self):
+        return mybasehost
+
+    def getHostPort(self):
+        return myport
+        
     def makeUrl(self,ext="",path=""):
         port = ""
         sub = ""
         p = ""
-        if(myport != "80"):
-            port = ":%s" % myport
+        if(self.getHostPort() != "80"):
+            port = ":%s" % self.getHostPort()
         if ext != "core" and ext != "":
             sub = "%s." % ext
         if path != "":
@@ -1389,7 +1409,7 @@ class ShowUnit (webapp2.RequestHandler):
             else:
                 p = "/%s" % path
             
-        url = "http://%s%s%s%s" % (sub,mybasehost,port,p)
+        url = "http://%s%s%s%s" % (sub,self.getBaseHost(),port,p)
         return url
 
 
