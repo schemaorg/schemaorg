@@ -7898,6 +7898,14 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
     <div typeof="rdf:Property" resource="http://schema.org/paymentDue">
       <span class="h" property="rdfs:label">paymentDue</span>
       <span property="rdfs:comment">The date that payment is due.</span>
+      <link property="http://schema.org/supersededBy" href="http://schema.org/paymentDueDate"/>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Order">Order</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Invoice">Invoice</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/DateTime">DateTime</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/paymentDueDate">
+      <span class="h" property="rdfs:label">paymentDueDate</span>
+      <span property="rdfs:comment">The date that payment is due.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Order">Order</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Invoice">Invoice</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/DateTime">DateTime</a></span>
