@@ -131,40 +131,49 @@ td.release  {
 <td class="release"><a href="/version/2.x/">2.x</a><br/>sdo-ganymede<br/>(2015-xx-xx)</td>
 <span id="sdo-ganymede" />
 <span id="v2.1" />
-<td>Version 2.1 (working name 'sdo-ganymede) is under development. An unstable working snapshot of the draft release is <a href="http://sdo-ganymede.appspot.com/">available at sdo-ganymede.appspot.com/</a>.</td>
+<td>Version 2.1 (working name 'sdo-ganymede) is under development. A pre-release version is  available at <a href="http://sdo-ganymede.appspot.com/">available at sdo-ganymede.appspot.com/</a> for final review.</td>
+
 <td>
 
 <h3>Vocabulary</h3>
 <ul>
-<li class="needsreview"><a href="https://github.com/schemaorg/schemaorg/issues/207">Fix to #596</a>: Documented that <a href="/affiliation">affiliation</a> is a  sub-property of <a href="/memberOf">memberOf</a>.</li>
+<li class="needsreview"><a href="https://github.com/schemaorg/schemaorg/issues/611">Fix to #611</a>: Added <a href="/Person">Person</a> as expected value for <a href="/publisher">publisher</a> property.</li>
+<li class="needsreview"><a href="https://github.com/schemaorg/schemaorg/issues/596">Fix to #596</a>: Documented that <a href="/affiliation">affiliation</a> is a  sub-property of <a href="/memberOf">memberOf</a>.</li>
 <li class="needsreview"><a href="https://github.com/schemaorg/schemaorg/issues/207">Fix to #207</a>: Added a <a href="/Bridge">Bridge</a> type under <a href="/CivicStructure">CivicStructure</a>.</li>
 <li class="needsreview"><a href="https://github.com/schemaorg/schemaorg/issues/346">Fix to #346</a>: Added <a href="/URL">URL</a> as expected value for <a href="/genre">genre</a> property.</li>
 <li class="needsreview"><a href="https://github.com/schemaorg/schemaorg/issues/374">Fix to #374</a>: Added <a href="/Report">Report</a> type under <a href="/Article">Article</a>, and a <a href="/reportNumber">reportNumber</a> property.</li>
-</li>
-
 <li class="needsreview"><a href="https://github.com/schemaorg/schemaorg/issues/577">Fix to #577</a>: Amended <a href="/videoFormat">videoFormat</a> to indicate that it is expected on <a href="/BroadcastEvent">BroadcastEvent</a> and <a href="/ScreeningEvent">ScreeningEvent</a>, rather than <a href="/TelevisionStation">TelevisionStation</a>.</li>
 <li><a href="https://github.com/schemaorg/schemaorg/issues/535">Fix to #535</a>: Broadened domain of <a href="/parentOrganization">parentOrganization</a> to allow any <a href="/Organization">Organization</a>, rather than only <a href="/LocalBusiness">LocalBusiness</a>. Noted <a href="/parentOrganization">parentOrganization</a> and <a href="/subOrganization">subOrganization</a> as inverses.</li>
 <li><a href="https://github.com/schemaorg/schemaorg/issues/531">Fix to #531</a>: Added the <a href="/lyrics">lyrics</a> property to MusicComposition.</li>
-<li><a href="https://github.com/schemaorg/schemaorg/issues/518">Fix to #518</a>: <a href="/paymentStatus">paymentStatus</a> now expects an enumerated value of type <a href="/PaymentStatusType">PaymentStatusType</a> in addition to Text.</li>
-<li><a href="https://github.com/schemaorg/schemaorg/issues/137">Fix to #137</a>: Deprecated <a href="/UserInteraction">UserInteraction</a> and its children in favor of <a href="/InteractionCounter">InteractionCounter</a>. InteractionCounter allows for reporting aggregated statistics by service and type. Thanks elf Pavlik for collaboration.</li>
-<li><a href="https://github.com/schemaorg/schemaorg/issues/526">Fix to #526</a>: Added new types <a href="/LiveBlog">LiveBlog</a>, <a href="SocialMediaPosting">SocialMediaPosting>SocialMediaPosting</a>, and <a href="/DiscussionForumPosting">DiscussionForumPosting</a>.</li>
+<li class="needsreview"><a href="https://github.com/schemaorg/schemaorg/issues/518">Fix to #518</a>: Renamed <a href="/paymentDue">paymentDue</a> property to <a href="/paymentDueDate">paymentDueDate</a>. Changed <a href="/paymentStatus">paymentStatus</a> property to expect an enumerated value of type <a href="/PaymentStatusType">PaymentStatusType</a> in addition to <a href="/Text">Text</a>. The options are: PaymentComplete, PaymentDue, PaymentPastDue, PaymentDeclined and PaymentAutomaticallyApplied.</li>
+<li><a href="https://github.com/schemaorg/schemaorg/issues/137">Fix to #137</a>: Deprecated <a href="/UserInteraction">UserInteraction</a> and its children in favor of a new type: <a
+href="/InteractionCounter">InteractionCounter</a>. InteractionCounter allows for reporting aggregated statistics by service and type. Thanks elf Pavlik for collaboration.</li>
+<li class="needsreview"><a href="https://github.com/schemaorg/schemaorg/issues/526">Fix to #526</a>: Added new types <a href="/LiveBlog">LiveBlog</a>, <a href="SocialMediaPosting">SocialMediaPosting>SocialMediaPosting</a>, and <a href="/DiscussionForumPosting">DiscussionForumPosting</a>, alongside supporting properties.</li>
+<li class="needsreview"><a href="https://github.com/schemaorg/schemaorg/issues/334">Fix to #334</a>: Updated the controlled values for <a href="/accessibilityHazard">accessibilityHazard</a> shown in examples to follow latest community recommendations: 'noFlashing' is now 'noFlashingHazard', 'noMotionSimulation' is 'noMotionSimulationHazard', and 'noSound' is 'noSoundHazard'.</li>
 </ul>
 
 <h3>Site improvements</h3>
 
 <ul>
-<li class="needsreview"><a href="https://github.com/schemaorg/schemaorg/issues/655">Fix to #655</a>: Extension definitions now include an isPartOf property to link them to the extension</li>
-<li class="needsreview"><a href="https://github.com/schemaorg/schemaorg/issues/429">Fix to #429</a>: Extensions eg. bib.schema.org enabled and iditentified with appropriate navigation</li>
-<li><a href="https://github.com/schemaorg/schemaorg/issues/527">Fix to #527</a>: Added materials from <a href="/docs/kickoff.html">Kickoff Workshop in 2011</a></li>
-<li class="needsreview"><a href="https://github.com/schemaorg/schemaorg/issues/382">Fix to #382</a>: Removed examples that don't reference WebPage from WebPage</li>
-<li class="needsreview"><a href="https://github.com/schemaorg/schemaorg/issues/552">Fix to #552</a>: Fixed Book examples</li>
+<li class="needsreview"><a href="https://github.com/schemaorg/schemaorg/issues/655">Fix to #655</a>: Extension definitions now include an <a href="/isPartOf">isPartOf</a> property to link them to the extension.</li>
+<li class="needsreview"><a href="https://github.com/schemaorg/schemaorg/issues/429">Fix to #429</a>: Extensions eg. bib.schema.org enabled and identified within appropriate navigation.</li>
+<li><a href="https://github.com/schemaorg/schemaorg/issues/527">Fix to #527</a>: Added materials from <a href="/docs/kickoff.html">Kickoff Workshop in 2011</a>.</li>
+<li class="needsreview"><a href="https://github.com/schemaorg/schemaorg/issues/78">Fix to #78</a>: Multiple supertypes are now displayed properly. It is possible for several schema.org types to apply to a single thing, and for a type to have multiple parent types. This is relatively rare, but important to display. For example, anything that is a <a href="/LocalBusiness">LocalBusiness</a> is considered both an <a href="/Organization">Organization</a> and a <a href="/Place">Place</a>; so all subtypes of LocalBusinesshave both as supertypes. We can now show this more clearly, e.g. <a href="/ElectronicsStore">ElectronicsStore</a>.</li>
+<li>Added explicit styling (<code>class="needsreview"</code>) to <a href="/docs/releases.html">releases page</a> for Steering Group review of candidate releases.</li>
+<li>Behind the scenes: cleanup and improvements to Python code, unit tests, <a href="https://github.com/schemaorg/schemaorg/issues/654">CSS</a>, <a href="https://github.com/schemaorg/schemaorg/pull/608">filetree layout</a>.</li>
 </ul>
 
 <h3>Quick fixes and Examples</h3>
 <ul>
 <li><a href="https://github.com/schemaorg/schemaorg/issues/343">Fix to #343</a>: Improved description of <a href="/sampleType">sampleType</a>.</li>
 <li><a href="https://github.com/schemaorg/schemaorg/issues/498">Fix to #498</a>: We now write "a URL" consistently, rather than sometimes also using "an URL".</li>
-<li><a href="https://github.com/schemaorg/schemaorg/issues/585">Fix to #585</a>: Fix description of <a href="/netWorth">netWorth, which erroneosly included Organization.</li>
+<li><a href="https://github.com/schemaorg/schemaorg/issues/585">Fix to #585</a>: Fix description of <a href="/netWorth">netWorth</a>, which erroneously included Organization.</li>
+<li><a href="https://github.com/schemaorg/schemaorg/pull/570">#570</a>: Added RDFa and Microdata examples for WatchAction.</li>
+<li><a href="https://github.com/schemaorg/schemaorg/commit/b2e202f604996b68e2d7e95df334d88456dd85ae">Added</a> new accessibility examples.</li>
+<li>Numerous small documentation fixes for typos, markup <a href="https://github.com/schemaorg/schemaorg/issues/375">validity</a> and textual clarity.</li>
+<li>Fixes to several examples including <a href="https://github.com/schemaorg/schemaorg/commit/9a1af4baa043ac4d0eb9ddffe6eff9f0357fa944">byArtist</a>, <a href="https://github.com/schemaorg/schemaorg/issues/558">Place</a>, <a href="https://github.com/schemaorg/schemaorg/issues/353">Question/Answer</a>, ...</li>
+<li class="needsreview"><a href="https://github.com/schemaorg/schemaorg/issues/552">Fix to #552</a>, <a href="https://github.com/schemaorg/schemaorg/issues/644">#644</a>: Fixes for Book examples.</li>
+<li class="needsreview"><a href="https://github.com/schemaorg/schemaorg/issues/382">Fix to #382</a>: Removed examples that don't reference WebPage from WebPage.</li>
 </ul>
 
 <div>See also <a href="https://github.com/schemaorg/schemaorg/issues?q=milestone%3A%22sdo-ganymede+release%22">issue list</a> for this release.</div>
