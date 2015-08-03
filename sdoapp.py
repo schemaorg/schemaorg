@@ -58,7 +58,7 @@ ENABLE_JSONLD_CONTEXT = True
 ENABLE_CORS = True
 ENABLE_HOSTED_EXTENSIONS = True
 
-EXTENSION_SUFFIX = "*"
+EXTENSION_SUFFIX = "" # e.g. "*"
 
 ENABLED_EXTENSIONS = [ 'admin', 'auto', 'bib' ]
 ALL_LAYERS = [ 'core', 'admin', 'auto', 'bib' ]
@@ -112,9 +112,7 @@ class TypeHierarchyTree:
 
         """Generate a hierarchical tree view of the types. hashorslash is used for relative link prefixing."""
 
-        # log.debug("traverseForHTML: node=%s hashorslash=%s" % ( node.id, hashorslash ))
-        log.info("DEPTH %s" % depth)
-                    
+        log.debug("traverseForHTML: node=%s hashorslash=%s" % ( node.id, hashorslash ))                    
 
         urlprefix = ""
         home = node.getHomeLayer()
@@ -136,7 +134,7 @@ class TypeHierarchyTree:
             # and we haven't been here before
             if node.id not in self.visited:
                 self.visited[node.id] = True # remember our visit
-                self.emit( ' %s<li %s class="tbranch" id="%s"><a %s %s href="%s%s%s">%s</a>%s' % (" " * 4 * depth, node.id,  tooltip, extclass, urlprefix, hashorslash, node.id, node.id, extflag) )
+                self.emit( ' %s<li class="tbranch" id="%s"><a %s %s href="%s%s%s">%s</a>%s' % (" " * 4 * depth, node.id,  tooltip, extclass, urlprefix, hashorslash, node.id, node.id, extflag) )
                 self.emit(' %s<ul>' % (" " * 4 * depth))
 
                 # handle our subtypes
