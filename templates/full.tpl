@@ -5,7 +5,24 @@
     <title>Full Hierarchy - schema.org</title>
     <meta name="description" content="Schema.org is a set of extensible schemas that enables webmasters to embed
     structured data on their web pages for use by search engines and other applications." />
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
     <link rel="stylesheet" type="text/css" href="/docs/schemaorg.css" />
+
+<script type="text/javascript">
+$(document).ready(function(){
+    $('input[type="radio"]').click(function(){
+        if($(this).attr("value")=="local"){
+            $("#thing_tree").slideDown(1000);
+            $("#full_thing_tree").slideUp(1000);
+        }
+        if($(this).attr("value")=="full"){
+            $("#thing_tree").slideUp(500);
+            $("#full_thing_tree").slideDown(1000);
+        }
+    });
+	$("#full_thing_tree").hide();
+});
+</script>
 </head>
 <body style="text-align: left;">
 
@@ -76,9 +93,20 @@ super-type, here we show each type in one branch of the tree only.
 This is the main schema.org hierarchy: a collection of types (or "classes"), each of which has one or more parent types.
 Although a type may have more than one super-type, here we show each type in one branch of the tree only.
 </p>
+<br/>
+<div>Select vocabulary view:<br/>
+    <div>
+        <label><input type="radio" name="viewSel" value="local" checked="checked"> {{local_button}}</label>
+        <label><input type="radio" name="viewSel" value="full"> {{full_button}}</label>
+	</div>
+</div>
+	
 
-<div>
+<div id="thing_tree">
 {{ thing_tree | safe }}
+</div>
+<div class="display: none" id="full_thing_tree">
+{{ full_thing_tree | safe }}
 </div>
 
 

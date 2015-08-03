@@ -58,6 +58,8 @@ ENABLE_JSONLD_CONTEXT = True
 ENABLE_CORS = True
 ENABLE_HOSTED_EXTENSIONS = True
 
+EXTENSION_SUFFIX = "*"
+
 ENABLED_EXTENSIONS = [ 'admin', 'auto', 'bib' ]
 ALL_LAYERS = [ 'core', 'admin', 'auto', 'bib' ]
 
@@ -92,15 +94,16 @@ class HTMLOutput:
 
 class TypeHierarchyTree:
 
-    def __init__(self):
+    def __init__(self, prefix=""):
         self.txt = ""
         self.visited = {}
+        self.prefix = prefix
 
     def emit(self, s):
         self.txt += s + "\n"
 
     def toHTML(self):
-        return '<ul>%s</ul>' % self.txt
+        return '%s<ul>%s</ul>' % (self.prefix, self.txt)
 
     def toJSON(self):
         return self.txt
@@ -110,14 +113,30 @@ class TypeHierarchyTree:
         """Generate a hierarchical tree view of the types. hashorslash is used for relative link prefixing."""
 
         # log.debug("traverseForHTML: node=%s hashorslash=%s" % ( node.id, hashorslash ))
+        log.info("DEPTH %s" % depth)
+                    
+
+        urlprefix = ""
+        home = node.getHomeLayer()
+        
+        if home in ENABLED_EXTENSIONS and home != getHostExt():
+            urlprefix = makeUrl(home)
+             
+        extclass = ""
+        extflag = ""
+        tooltip=""
+        if home != "core" and home != "":
+            extclass = "class=\"ext ext-%s\"" % home
+            extflag = EXTENSION_SUFFIX  
+            tooltip = "title=\"Extended schema: %s.schema.org\" " % home
 
         # we are a supertype of some kind
-        if len(node.GetImmediateSubtypes(layers=layers)) > 0:
+        if len(node.GetImmediateSubtypes(layers=layers)) > 0:            
 
             # and we haven't been here before
             if node.id not in self.visited:
                 self.visited[node.id] = True # remember our visit
-                self.emit( ' %s<li class="tbranch" id="%s"><a href="%s%s">%s</a>' % (" " * 4 * depth, node.id, hashorslash, node.id, node.id) )
+                self.emit( ' %s<li %s class="tbranch" id="%s"><a %s %s href="%s%s%s">%s</a>%s' % (" " * 4 * depth, node.id,  tooltip, extclass, urlprefix, hashorslash, node.id, node.id, extflag) )
                 self.emit(' %s<ul>' % (" " * 4 * depth))
 
                 # handle our subtypes
@@ -126,13 +145,13 @@ class TypeHierarchyTree:
                 self.emit( ' %s</ul>' % (" " * 4 * depth))
             else:
                 # we are a supertype but we visited this type before, e.g. saw Restaurant via Place then via Organization
-                seen = '  <a href="#%s">*</a> ' % node.id
-                self.emit( ' %s<li class="tbranch" id="%s"><a href="%s%s">%s</a>%s' % (" " * 4 * depth, node.id, hashorslash, node.id, node.id, seen) )
+                seen = '  <a href="#%s">+</a> ' % node.id
+                self.emit( ' %s<li class="tbranch" id="%s"><a %s %s href="%s%s%s">%s</a>%s%s' % (" " * 4 * depth, node.id,  tooltip, extclass, urlprefix, hashorslash, node.id, node.id, extflag, seen) )
 
         # leaf nodes
         if len(node.GetImmediateSubtypes(layers=layers)) == 0:
             if node.id not in self.visited:
-                self.emit( '%s<li class="tleaf" id="%s"><a href="%s%s">%s</a>%s' % (" " * depth, node.id, hashorslash, node.id, node.id, "" ))
+                self.emit( '%s<li class="tleaf" id="%s"><a %s %s href="%s%s%s">%s</a>%s%s' % (" " * depth, node.id, tooltip, extclass, urlprefix, hashorslash, node.id, node.id, extflag, "" ))
             #else:
                 #self.visited[node.id] = True # never...
                 # we tolerate "VideoGame" appearing under both Game and SoftwareApplication
@@ -389,19 +408,21 @@ class ShowUnit (webapp2.RequestHandler):
         urlprefix = ""
         home = node.getHomeLayer()
         
-        if home in ENABLED_EXTENSIONS and home != host_ext:
+        if home in ENABLED_EXTENSIONS and home != getHostExt():
             port = ""
             if myport != "80":
                 port = ":%s" % myport
-            urlprefix = self.makeUrl(home) 
+            urlprefix = makeUrl(home) 
         
         extclass = ""
         extflag = ""
+        tooltip = ""
         if home != "core" and home != "":
-            extclass = "class=\"ext-%s\" " % home
-            extflag = "*"  
+            extclass = "class=\"ext ext-%s\" " % home
+            extflag = EXTENSION_SUFFIX 
+            tooltip = "title=\"Extended schema: %s.schema.org\" " % home
         
-        return "<a %shref=\"%s%s%s\"%s%s>%s</a>%s" % (extclass, urlprefix, hashorslash, node.id, prop, title, label, extflag)
+        return "<a %s %s href=\"%s%s%s\"%s%s>%s</a>%s" % (tooltip, extclass, urlprefix, hashorslash, node.id, prop, title, label, extflag)
 
     def makeLinksFromArray(self, nodearray, tooltip=''):
         """Make a comma separate list of links via ml() function.
@@ -859,7 +880,7 @@ class ShowUnit (webapp2.RequestHandler):
                     'myhost': myhost,
                     'myport': myport,
                     'mybasehost': mybasehost,
-                    'host_ext': host_ext,
+                    'host_ext': getHostExt(),
                     'debugging': debugging
                 }
                 page = template.render(template_values)
@@ -935,7 +956,7 @@ class ShowUnit (webapp2.RequestHandler):
                 target = node.id
             
 
-            s = "<p id='lli' class='layerinfo %s'><a href=\"https://github.com/schemaorg/schemaorg/wiki/ExtensionList\">extension shown</a>: %s [<a href='%s'>x</a>]</p>\n" % (ll, ll, self.makeUrl("",target)) 
+            s = "<p id='lli' class='layerinfo %s'><a href=\"https://github.com/schemaorg/schemaorg/wiki/ExtensionList\">extension shown</a>: %s [<a href='%s'>x</a>]</p>\n" % (ll, ll, makeUrl("",target)) 
             self.write(s)
 
         cached = self.GetCachedText(node, layers)
@@ -970,20 +991,62 @@ class ShowUnit (webapp2.RequestHandler):
 
         if (node.isClass(layers=layers)):
 
-            children = sorted(GetSources(Unit.GetUnit("rdfs:subClassOf"), node, layers=layers), key=lambda u: u.id)
+            children = sorted(GetSources(Unit.GetUnit("rdfs:subClassOf"), node, ALL_LAYERS), key=lambda u: u.id)
             if (len(children) > 0):
-                self.write("<br/><b>More specific Types</b><ul>")
+                buff = StringIO.StringIO()
+                extbuff = StringIO.StringIO()
+                
+                firstext=True
                 for c in children:
-                    self.write("<li> %s" % (self.ml(c)))
-                self.write("</ul>")
+                    if inLayer(layers, c):
+                        buff.write("<li> %s </li>" % (self.ml(c)))
+                    else:
+                        sep = ","
+                        if firstext:
+                            sep = ""
+                            firstext=False
+                        extbuff.write("%s%s" % (sep,self.ml(c)) )
+
+                if (len(buff.getvalue()) > 0):
+                    self.write("<br/><b>More specific Types</b><ul>") 
+                    self.write(buff.getvalue())
+                    self.write("</ul>")
+
+                if (len(extbuff.getvalue()) > 0):
+                    self.write("<h4>More specific Types available in extensions</h4><ul><li>")
+                    self.write(extbuff.getvalue())
+                    self.write("</li></ul>")
+                buff.close()
+                extbuff.close()
 
         if (node.isEnumeration(layers=layers)):
-            children = sorted(GetSources(Unit.GetUnit("typeOf"), node, layers=layers), key=lambda u: u.id)
+            children = sorted(GetSources(Unit.GetUnit("typeOf"), node, ALL_LAYERS), key=lambda u: u.id)
             if (len(children) > 0):
-                self.write("<br/><br/>Enumeration members<ul>")
+                buff = StringIO.StringIO()
+                extbuff = StringIO.StringIO()
+                
+                firstext=True
                 for c in children:
-                    self.write("<li> %s" % (self.ml(c)))
-                self.write("</ul>")
+                    if inLayer(layers, c):
+                        buff.write("<li> %s </li>" % (self.ml(c)))
+                    else:
+                        sep = ","
+                        if firstext:
+                            sep = ""
+                            firstext=False
+                        extbuff.write("%s%s" % (sep,self.ml(c)) )
+
+                if (len(buff.getvalue()) > 0):
+                    self.write("<br/><br/><b>Enumeration members</b><ul>") 
+                    self.write(buff.getvalue())
+                    self.write("</ul>")
+
+                if (len(extbuff.getvalue()) > 0):
+                    self.write("<h4>Enumeration members available in extensions</h4><ul><li>")
+                    self.write(extbuff.getvalue())
+                    self.write("</li></ul>")
+                buff.close()
+                extbuff.close()
 
         ackorgs = GetTargets(Unit.GetUnit("dc:source"), node, layers=layers)
         if (len(ackorgs) > 0):
@@ -1054,10 +1117,10 @@ class ShowUnit (webapp2.RequestHandler):
         layerlist = [ "core"]
 
         # 3. Use host_ext if set, e.g. 'bib' from bib.schema.org
-        if host_ext != None:
-            log.debug("Host: %s host_ext: %s" % ( self.request.host , host_ext ) )
-            log.info("Host: %s host_ext: %s" % ( self.request.host , host_ext ) )
-            extlist.append(host_ext)
+        if getHostExt() != None:
+            log.debug("Host: %s host_ext: %s" % ( self.request.host , getHostExt() ) )
+            log.info("Host: %s host_ext: %s" % ( self.request.host , getHostExt() ) )
+            extlist.append(getHostExt())
 
         # Report domain-requested extensions
         for x in extlist:
@@ -1101,17 +1164,50 @@ class ShowUnit (webapp2.RequestHandler):
             return True
         else:
             template = JINJA_ENVIRONMENT.get_template('full.tpl')
+            
+            extlist=""
+            count=0
+            for i in layerlist:
+                if i != "core":
+                    sep = ""
+                    if count > 0:
+                        sep = ", "
+                    extlist += "plus '%s'%s" % (i, sep)
+                    
+                    count += 1
+            local_button = ""
+            local_label = "<h3>Core %s extension vocabularies</h3>" % extlist
+            if count == 0:
+                local_button = "Core vocabulary"
+            elif count == 1:
+                local_button = "Core %s extension" % extlist
+            else:
+                local_button = "Core %s extensions" % extlist
+            
             uThing = Unit.GetUnit("Thing")
             uDataType = Unit.GetUnit("DataType")
 
-            mainroot = TypeHierarchyTree()
+            mainroot = TypeHierarchyTree(local_label)
             mainroot.traverseForHTML(uThing, layers=layerlist)
             thing_tree = mainroot.toHTML()
+
+            fullmainroot = TypeHierarchyTree("<h3>Core plus all extension vocabularies</h3>")
+            fullmainroot.traverseForHTML(uThing, layers=ALL_LAYERS)
+            full_thing_tree = fullmainroot.toHTML()
 
             dtroot = TypeHierarchyTree()
             dtroot.traverseForHTML(uDataType, layers=layerlist)
             datatype_tree = dtroot.toHTML()
-            page = template.render({ 'thing_tree': thing_tree, 'datatype_tree': datatype_tree })
+
+        
+                    
+            full_button = "Core plus all extensions"
+            
+            page = template.render({ 'thing_tree': thing_tree, 
+                                    'full_thing_tree': full_thing_tree, 
+                                    'datatype_tree': datatype_tree, 
+                                    'local_button': local_button,
+                                    'full_button': full_button})
 
             self.response.out.write( page )
             log.debug("Serving fresh FullTreePage.")
@@ -1163,7 +1259,7 @@ class ShowUnit (webapp2.RequestHandler):
                 self.response.out.write("<h3>Schema.org Extensions</h3>\n<p>The term '%s' is not in the schema.org core, but is described by the following extension(s):</p>\n<ul>\n" % schema_node.id)
                 for x in all_terms[schema_node.id]:
                     x = x.replace("#","")
-                    self.response.out.write("<li><a href='%s'>%s</a></li>" % (self.makeUrl(x,schema_node.id), x) )
+                    self.response.out.write("<li><a href='%s'>%s</a></li>" % (makeUrl(x,schema_node.id), x) )
                 return True
             return False
 
@@ -1385,33 +1481,7 @@ class ShowUnit (webapp2.RequestHandler):
         debugging = False
         if "localhost" in hostString or "sdo-ganymede.appspot.com" in hostString:
             debugging = True
-            
-    def getHostExt(self):
-        return host_ext
-
-    def getBaseHost(self):
-        return mybasehost
-
-    def getHostPort(self):
-        return myport
-        
-    def makeUrl(self,ext="",path=""):
-        port = ""
-        sub = ""
-        p = ""
-        if(self.getHostPort() != "80"):
-            port = ":%s" % self.getHostPort()
-        if ext != "core" and ext != "":
-            sub = "%s." % ext
-        if path != "":
-            if path.startswith("/"):
-                p = path
-            else:
-                p = "/%s" % path
-            
-        url = "http://%s%s%s%s" % (sub,self.getBaseHost(),port,p)
-        return url
-
+                            
 
     def get(self, node):
 
@@ -1507,6 +1577,31 @@ class ShowUnit (webapp2.RequestHandler):
                 log.info("Error handling 404.")
                 return
 
+def getHostExt():
+    return host_ext
+
+def getBaseHost():
+    return mybasehost
+
+def getHostPort():
+    return myport
+        
+def makeUrl(ext="",path=""):
+        port = ""
+        sub = ""
+        p = ""
+        if(getHostPort() != "80"):
+            port = ":%s" % getHostPort()
+        if ext != "core" and ext != "":
+            sub = "%s." % ext
+        if path != "":
+            if path.startswith("/"):
+                p = path
+            else:
+                p = "/%s" % path
+            
+        url = "http://%s%s%s%s" % (sub,getBaseHost(),port,p)
+        return url
 
 #log.info("STARTING UP... reading schemas.")
 read_schemas(loadExtensions=ENABLE_HOSTED_EXTENSIONS)
