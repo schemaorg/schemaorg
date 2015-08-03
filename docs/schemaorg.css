@@ -130,7 +130,7 @@ text-decoration: none;
 
 #cse-search-form {
   float: right;
-  margin-top:-35px;
+  margin-top:20px;
   width: 248px !important;
 }
 @media all and (max-width: 720px) {
@@ -344,18 +344,19 @@ padding-top: 1em;
 float: right;
 padding: 10px 0;
 }
-#mainContent, #footer, #pageHeader h1, .wrapper {
+#mainContent, #footer, .wrapper {
  max-width: 960px;
  min-width: 350px;
  margin: 0 auto !important;
  padding: 0 40px;
 }
-#pageHeader h1 {
- /* display: inline-block; */
- position: relative;
- top: 25px; left: -40px;
- text-shadow: 0 2px 0 #510000;
- /*pointer-events: none; */  /* old wasn't commented out. TODO check this. */
+#sitename {
+    max-width: 500px;
+    min-width: auto;
+	display: inline-block;
+    text-shadow: 0 2px 0 #510000;
+    padding: 0;
+    top: 25px; left: -40px;	
 }
 #selectionbar ul {
   margin: 0 auto;
