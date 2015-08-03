@@ -124,9 +124,11 @@ class TypeHierarchyTree:
              
         extclass = ""
         extflag = ""
+        tooltip=""
         if home != "core" and home != "":
             extclass = "class=\"ext ext-%s\"" % home
             extflag = EXTENSION_SUFFIX  
+            tooltip = "title=\"Extended schema: %s.schema.org\" " % home
 
         # we are a supertype of some kind
         if len(node.GetImmediateSubtypes(layers=layers)) > 0:            
@@ -134,7 +136,7 @@ class TypeHierarchyTree:
             # and we haven't been here before
             if node.id not in self.visited:
                 self.visited[node.id] = True # remember our visit
-                self.emit( ' %s<li class="tbranch" id="%s"><a %s href="%s%s%s">%s</a>%s' % (" " * 4 * depth, node.id, extclass, urlprefix, hashorslash, node.id, node.id, extflag) )
+                self.emit( ' %s<li %s class="tbranch" id="%s"><a %s %s href="%s%s%s">%s</a>%s' % (" " * 4 * depth, node.id,  tooltip, extclass, urlprefix, hashorslash, node.id, node.id, extflag) )
                 self.emit(' %s<ul>' % (" " * 4 * depth))
 
                 # handle our subtypes
@@ -144,12 +146,12 @@ class TypeHierarchyTree:
             else:
                 # we are a supertype but we visited this type before, e.g. saw Restaurant via Place then via Organization
                 seen = '  <a href="#%s">+</a> ' % node.id
-                self.emit( ' %s<li class="tbranch" id="%s"><a %s href="%s%s%s">%s</a>%s%s' % (" " * 4 * depth, node.id, extclass, urlprefix, hashorslash, node.id, node.id, extflag, seen) )
+                self.emit( ' %s<li class="tbranch" id="%s"><a %s %s href="%s%s%s">%s</a>%s%s' % (" " * 4 * depth, node.id,  tooltip, extclass, urlprefix, hashorslash, node.id, node.id, extflag, seen) )
 
         # leaf nodes
         if len(node.GetImmediateSubtypes(layers=layers)) == 0:
             if node.id not in self.visited:
-                self.emit( '%s<li class="tleaf" id="%s"><a %s href="%s%s%s">%s</a>%s%s' % (" " * depth, node.id, extclass, urlprefix, hashorslash, node.id, node.id, extflag, "" ))
+                self.emit( '%s<li class="tleaf" id="%s"><a %s %s href="%s%s%s">%s</a>%s%s' % (" " * depth, node.id, tooltip, extclass, urlprefix, hashorslash, node.id, node.id, extflag, "" ))
             #else:
                 #self.visited[node.id] = True # never...
                 # we tolerate "VideoGame" appearing under both Game and SoftwareApplication
@@ -414,11 +416,13 @@ class ShowUnit (webapp2.RequestHandler):
         
         extclass = ""
         extflag = ""
+        tooltip = ""
         if home != "core" and home != "":
             extclass = "class=\"ext ext-%s\" " % home
-            extflag = EXTENSION_SUFFIX  
+            extflag = EXTENSION_SUFFIX 
+            tooltip = "title=\"Extended schema: %s.schema.org\" " % home
         
-        return "<a %s href=\"%s%s%s\"%s%s>%s</a>%s" % (extclass, urlprefix, hashorslash, node.id, prop, title, label, extflag)
+        return "<a %s %s href=\"%s%s%s\"%s%s>%s</a>%s" % (tooltip, extclass, urlprefix, hashorslash, node.id, prop, title, label, extflag)
 
     def makeLinksFromArray(self, nodearray, tooltip=''):
         """Make a comma separate list of links via ml() function.
