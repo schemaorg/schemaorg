@@ -125,7 +125,7 @@ class TypeHierarchyTree:
         extclass = ""
         extflag = ""
         if home != "core" and home != "":
-            extclass = "class=\"ext-%s\"" % home
+            extclass = "class=\"ext ext-%s\"" % home
             extflag = EXTENSION_SUFFIX  
 
         # we are a supertype of some kind
@@ -415,7 +415,7 @@ class ShowUnit (webapp2.RequestHandler):
         extclass = ""
         extflag = ""
         if home != "core" and home != "":
-            extclass = "class=\"ext-%s\" " % home
+            extclass = "class=\"ext ext-%s\" " % home
             extflag = EXTENSION_SUFFIX  
         
         return "<a %s href=\"%s%s%s\"%s%s>%s</a>%s" % (extclass, urlprefix, hashorslash, node.id, prop, title, label, extflag)
