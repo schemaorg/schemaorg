@@ -27,6 +27,12 @@ text-align: left;
 text-align: right;
 font-size: x-small;
 }
+#mainContent, #footer, .wrapper {
+ max-width: 960px;
+ min-width: 350px;
+ margin: 0 auto !important;
+ padding: 0 40px;
+}
 
 /* -- general -- */
 body
@@ -105,14 +111,15 @@ overflow: auto;
 width: 100%;
 height: 80px;
 background: #990000;
-position: top; /* TODO: this is wrong */
 }
 #pageHeader h1
 {
 color: #fff;
-margin: 0 0 5px 20px;
+margin: 0;
+padding-top: 25px;
 font: bold Helvetica, Arial, sans-serif;
 letter-spacing: -1px;
+text-shadow: 0 2px 0 #510000;
 }
 #pageHeader a:link, #pageHeader a:hover, #pageHeader a:visited
 {
@@ -121,6 +128,20 @@ background-color: #990000;
 text-decoration: none;
 }
 
+#cse-search-form {
+  float: right;
+  margin-top:-35px;
+  width: 248px !important;
+}
+@media all and (max-width: 720px) {
+  #pageHeader {
+    height: 120px;
+  }
+  #cse-search-form {
+    margin-left: 15px;
+    margin-top: 20px;
+  }
+}
 
 /* -- nav bar -- */
 #selectionbar
@@ -132,8 +153,10 @@ font-size: 90%;
 }
 #selectionbar ul
 {
-margin: 0;
-padding: 1em 1em 0 0;
+  float: right;
+  padding: 10px 0;
+  margin: 0 auto;
+  display: block;
 }
 #selectionbar li
 {
@@ -315,6 +338,7 @@ font-size: x-small;
 clear: both;
 padding-top: 1em;
 }
+
 #selectionbar ul
 {
 float: right;
@@ -327,7 +351,7 @@ padding: 10px 0;
  padding: 0 40px;
 }
 #pageHeader h1 {
- display: inline-block;
+ /* display: inline-block; */
  position: relative;
  top: 25px; left: -40px;
  text-shadow: 0 2px 0 #510000;
@@ -339,7 +363,7 @@ padding: 10px 0;
 }
 #cse-search-form {
   float: right;
-  margin-top:-20px;
+  /*margin-top:-20px;*/
   width: 248px !important;
 }
 gsc-input input.gsc-input { background: #FFF !important;}
@@ -353,7 +377,6 @@ gsc-input input.gsc-input { background: #FFF !important;}
     margin-top: 20px;
   }
 }
-
 
 /* -- extras -- */
 
@@ -431,7 +454,7 @@ input.gsc-search-button {
 
 /* Extension links */
 a.ext:link {
-   color: #0000aa !important; 
+   color: #0000aa !important;
    border-bottom: dotted 1px #0000aa !important;
    text-decoration: none;
 }
@@ -446,9 +469,9 @@ a.ext:hover {
    text-decoration: none;
 }
 
-/* Bib extension links overriding default 'ext' values 
+/* Bib extension links overriding default 'ext' values
 a.ext.ext-bib:link{
-   color: #009900 !important; 
+   color: #009900 !important;
    border-bottom: dotted 1px #009900;
    text-decoration: none;
 }
