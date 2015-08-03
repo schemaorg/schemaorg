@@ -58,7 +58,7 @@ ENABLE_JSONLD_CONTEXT = True
 ENABLE_CORS = True
 ENABLE_HOSTED_EXTENSIONS = True
 
-EXTENSION_SUFFIX = "*"
+EXTENSION_SUFFIX = "" # e.g. "*"
 
 ENABLED_EXTENSIONS = [ 'admin', 'auto', 'bib' ]
 ALL_LAYERS = [ 'core', 'admin', 'auto', 'bib' ]
