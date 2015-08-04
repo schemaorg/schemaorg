@@ -27,7 +27,6 @@ logging.basicConfig(level=logging.INFO) # dev_appserver.py --log_level debug .
 log = logging.getLogger(__name__)
 
 SCHEMA_VERSION=2.0
-sitename = "schema.org"
 sitemode = "mainsite" # whitespaced list for CSS tags,
             # e.g. "mainsite testsite" when off expected domains
             # "extensionsite" when in an extension (e.g. blue?)
@@ -875,10 +874,12 @@ class ShowUnit (webapp2.RequestHandler):
                 template_values = {
                     'ENABLE_HOSTED_EXTENSIONS': ENABLE_HOSTED_EXTENSIONS,
                     'SCHEMA_VERSION': SCHEMA_VERSION,
+                    'sitename': sitename,
                     'myhost': myhost,
                     'myport': myport,
                     'mybasehost': mybasehost,
                     'host_ext': getHostExt(),
+                    'home_page': "True",
                     'debugging': debugging
                 }
                 page = template.render(template_values)
@@ -896,9 +897,7 @@ class ShowUnit (webapp2.RequestHandler):
             return "schema.org"
         if len(layers)==0:
             return "schema.org"
-        mylayers = layers
-        log.debug("EXT: computing sitename from layer list: %s" %  str(mylayers) )
-        return (layers[ len(mylayers)-1 ] + ".schema.org")
+        return (getHostExt() + ".schema.org")
 
     def emitSchemaorgHeaders(self, entry='', is_class=False, ext_mappings='', sitemode="default", sitename="schema.org"):
         """
@@ -923,6 +922,7 @@ class ShowUnit (webapp2.RequestHandler):
                 'entry': str(entry),
                 'sitemode': sitemode,
                 'sitename': sitename,
+                'menu_sel': "Schemas",
                 'rdfs_type': rdfs_type,
                 'ext_mappings': ext_mappings
             }
@@ -1205,7 +1205,9 @@ class ShowUnit (webapp2.RequestHandler):
                                     'full_thing_tree': full_thing_tree, 
                                     'datatype_tree': datatype_tree, 
                                     'local_button': local_button,
-                                    'full_button': full_button})
+                                    'full_button': full_button,
+                                    'sitename': sitename,
+                                    'menu_sel': "Schemas"})
 
             self.response.out.write( page )
             log.debug("Serving fresh FullTreePage.")
@@ -1251,13 +1253,23 @@ class ShowUnit (webapp2.RequestHandler):
             if schema_node is not None and schema_node.id in all_terms:# look for it in other layers
                 log.debug("TODO: layer toc: %s" % all_terms[schema_node.id] )
                 # self.response.out.write("Layers should be listed here. %s " %  all_terms[node.id] )
-                port=""
-                if(myport != "80"):
-                    port = ":%s" % myport
-                self.response.out.write("<h3>Schema.org Extensions</h3>\n<p>The term '%s' is not in the schema.org core, but is described by the following extension(s):</p>\n<ul>\n" % schema_node.id)
+
+                extensions = []
                 for x in all_terms[schema_node.id]:
                     x = x.replace("#","")
-                    self.response.out.write("<li><a href='%s'>%s</a></li>" % (makeUrl(x,schema_node.id), x) )
+                    ext = {}
+                    ext['href'] = makeUrl(x,schema_node.id)
+                    ext['text'] = x
+                    extensions.append(ext)
+                    #self.response.out.write("<li><a href='%s'>%s</a></li>" % (makeUrl(x,schema_node.id), x) )
+
+                template = JINJA_ENVIRONMENT.get_template('wrongExt.tpl')
+                page = template.render({ 'target': schema_node.id, 
+                                        'extensions': extensions,
+                                        'sitename': "schema.org"})
+
+                self.response.out.write( page )
+                log.debug("Serving fresh wrongExtPage.")
                 return True
             return False
 
@@ -1334,7 +1346,9 @@ class ShowUnit (webapp2.RequestHandler):
                 return True
             else:
                 template = JINJA_ENVIRONMENT.get_template('tocVersionPage.tpl')
-                page = template.render({ "releases": releaselog.keys() })
+                page = template.render({ "releases": releaselog.keys(),
+                                         "menu_sel": "Schemas",
+                                         "sitename": sitename})
 
                 self.response.out.write( page )
                 log.debug("Serving fresh tocVersionPage.")
@@ -1438,7 +1452,9 @@ class ShowUnit (webapp2.RequestHandler):
                     'requested_version': requested_version,
                     'releasedate': releaselog[str(SCHEMA_VERSION)],
                     'az_props': az_props, 'az_types': az_types,
-                    'az_prop_meta': az_prop_meta, 'az_type_meta': az_type_meta })
+                    'az_prop_meta': az_prop_meta, 'az_type_meta': az_type_meta,
+                    'sitename': sitename,
+                    'menu_sel': "Documentation"})
 
             self.response.out.write( page )
             log.debug("Serving fresh FullReleasePage.")
@@ -1472,8 +1488,9 @@ class ShowUnit (webapp2.RequestHandler):
                 mybasehost = mybasehost[len(host_ext) + 1:]            
             
         dcn = host_ext
-        if dcn == None or dcn == "":
+        if dcn == None or dcn == "" or dcn =="core":
             dcn = "core"
+                        
         DataCache.setCurrent(dcn)
                         
         debugging = False
