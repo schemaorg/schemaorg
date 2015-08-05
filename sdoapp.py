@@ -1002,7 +1002,7 @@ class ShowUnit (webapp2.RequestHandler):
         if (node.isClass(layers=layers)):
             children = []
             children = GetSources(Unit.GetUnit("rdfs:subClassOf"), node, ALL_LAYERS)# Normal subclasses
-            if(node.isDataType()):
+            if(node.isDataType() or node.id == "DataType"):
                 children += GetSources(Unit.GetUnit("typeOf"), node, ALL_LAYERS)# Datatypes
             children = sorted(children, key=lambda u: u.id)
             
