@@ -32,25 +32,14 @@ $(document).ready(function(){
 
 <h3>Full Hierarchy</h3>
 
-<!--
 <p>
-Schema.org is defined as two hierarchies: one for textual property values, and
-one for the things that they describe. Although a type may have more than one
-super-type, here we show each type in one branch of the tree only.
-</p> -->
-<!--
-<h4>DataType</h4>
-
-<div>
-{{ datatype_tree | safe }}
-</div> -->
+Schema.org is defined as two hierarchies: one for textual property values, and one for the things that they describe. 
+</p> 
 
 <h4>Thing</h4>
 
-<p>
-This is the main schema.org hierarchy: a collection of types (or "classes") and <a href="#datatype_tree">data types</a>, each of which has one or more parent types.
-Although a type may have more than one super-type, here we show each type in one branch of the tree only.
-</p>
+<p>This is the main schema.org hierarchy: a collection of types (or "classes"), each of which has one or more parent types. Although a type may have more than one super-type, here we show each type in one branch of the tree only. There is also a parallel hierarchy for <a href="#datatype_tree">data types</a>.</p>
+
 <br/>
 <div>Select vocabulary view:<br/>
     <div>
