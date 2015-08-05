@@ -996,7 +996,6 @@ class ShowUnit (webapp2.RequestHandler):
             self.emitClassExtensionProperties(p,layers)
 
         elif (Unit.isAttribute(node, layers=layers)):
-            log.info("Node: %s isAttribute" % node.id)
             self.emitAttributeProperties(node, layers=layers)
 
         if (node.isClass(layers=layers)):
