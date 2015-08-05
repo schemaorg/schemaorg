@@ -210,7 +210,19 @@ class Unit ():
       DataType and its children do not descend from Thing, so we need to
       treat it specially.
       """
-      return self.directInstanceOf(Unit.GetUnit("DataType"), layers=layers)
+      if (self.directInstanceOf(Unit.GetUnit("DataType"), layers=layers)):
+          return True
+      
+      subs = GetTargets(Unit.GetUnit("typeOf"), self, layers=layers)
+      subs += GetTargets(Unit.GetUnit("rdfs:subClassOf"), self, layers=layers)
+      
+      for p in subs:
+          if p.isDataType(layers=layers):
+              return True
+      
+      return False
+      
+      
 
     @staticmethod
     def storePrefix(prefix):
@@ -347,6 +359,16 @@ class Triple ():
         elif (text != None):
             self.text = text
             self.target = None
+            
+    def __str__ (self):
+        ret = ""
+        if self.source != None:
+            ret +=  "%s " % self.source
+        if self.target != None:
+            ret += "%s " % self.target
+        if self.arc != None:
+            ret += "%s " % self.arc
+        return ret
 
     @staticmethod
     def AddTriple(source, arc, target, layer='core'):
@@ -396,7 +418,7 @@ def GetTargets(arc, source, layers='core'):
 
 def GetSources(arc, target, layers='core'):
     """All source nodes for a specified arc pointing to a specified node (within any of the specified layers)."""
-    log.debug("GetSources checking in layer: %s for unit: %s arc: %s" % (layers, target.id, arc.id))
+#    log.debug("GetSources checking in layer: %s for unit: %s arc: %s" % (layers, target.id, arc.id))
     sources = {}
     for triple in target.arcsIn:
         if (triple.arc == arc and triple.layer in layers):

@@ -395,7 +395,9 @@ class ShowUnit (webapp2.RequestHandler):
         * title = optional title attribute on the link
         * prop = an optional property value to apply to the A element
         """
-
+        if(node.id == "DataType"):  #Special case
+            return "<a href=\"%s\">%s</a>" % (node.id, node.id)
+            
         if label=='':
           label = node.id
         if title != '':
@@ -454,7 +456,7 @@ class ShowUnit (webapp2.RequestHandler):
 
         self.write(self.moreInfoBlock(node))
 
-        if (node.isClass(layers=layers) and not node.isDataType(layers=layers)):
+        if (node.isClass(layers=layers) and not node.isDataType(layers=layers) and node.id != "DataType"):
 
             self.write("<table class=\"definition-table\">\n        <thead>\n  <tr><th>Property</th><th>Expected Type</th><th>Description</th>               \n  </tr>\n  </thead>\n\n")
 
@@ -497,15 +499,18 @@ class ShowUnit (webapp2.RequestHandler):
         cstack.append(node)
         tmpStacks = []
         tmpStacks.append(cstack)
-        sc = []
-        if (node.isClass(layers=layers) and not node.isDataType(layers=layers)):
-            sc = Unit.GetUnit("rdfs:subClassOf")
-        elif(node.isAttribute(layers=layers)):
-            sc = Unit.GetUnit("rdfs:subPropertyOf")
-        else:
-            sc = Unit.GetUnit("typeOf")# Enumerations are classes that have no declared subclasses
+        subs = []
 
-        subs = GetTargets(sc, node, layers=layers)
+        if(node.isDataType(layers=layers)):
+            subs = GetTargets(Unit.GetUnit("typeOf"), node, layers=layers)
+            subs += GetTargets(Unit.GetUnit("rdfs:subClassOf"), node, layers=layers)
+        elif node.isClass(layers=layers):
+            subs = GetTargets(Unit.GetUnit("rdfs:subClassOf"), node, layers=layers)
+        elif(node.isAttribute(layers=layers)):
+            subs = GetTargets(Unit.GetUnit("rdfs:subPropertyOf"), node, layers=layers)
+        else:
+            subs = GetTargets(Unit.GetUnit("typeOf"), node, layers=layers)# Enumerations are classes that have no declared subclasses
+
         for i in range(len(subs)):
             if(i > 0):
                 t = cstack[:]
@@ -547,6 +552,8 @@ class ShowUnit (webapp2.RequestHandler):
         """Write out a table of properties for a per-type page."""
         if not out:
             out = self
+            
+        propcount = 0
 
         headerPrinted = False
         di = Unit.GetUnit("domainIncludes")
@@ -588,10 +595,12 @@ class ShowUnit (webapp2.RequestHandler):
 
             out.write("</td></tr>")
             subclass = False
+            propcount += 1
 
         if subclass: # in case the superclass has no defined attributes
             out.write("<tr><td colspan=\"3\"><meta property=\"rdfs:subClassOf\" content=\"%s\"></td></tr>" % (cl.id))
         
+        return propcount
 
     def emitClassExtensionSuperclasses (self, cl, layers="core", out=None):
        first = True
@@ -620,7 +629,10 @@ class ShowUnit (webapp2.RequestHandler):
    
        content = buff.getvalue()
        if(len(content) > 0):
-           self.write("<h4>Available supertypes defined in extensions</h4>")
+           if cl.id == "DataType":
+               self.write("<h4>Subclass of:<h4>")
+           else:
+               self.write("<h4>Available supertypes defined in extensions</h4>")
            self.write("<ul>")
            self.write(content)
            self.write("</ul>")
@@ -970,10 +982,9 @@ class ShowUnit (webapp2.RequestHandler):
         if (node.isClass(layers=layers)):
             subclass = True
             for p in self.parentStack:
-                log.debug("Properties for: %s" % p)
                 self.ClassProperties(p, p==self.parentStack[0], layers=layers) 
-                
-            self.write("\n\n</table>\n\n")                       
+            if (not node.isDataType(layers=layers) and node.id != "DataType"):
+                self.write("\n\n</table>\n\n")                       
  
             self.emitClassIncomingProperties(node, layers=layers)
             
@@ -982,14 +993,15 @@ class ShowUnit (webapp2.RequestHandler):
             self.emitClassExtensionProperties(p,layers)
 
         elif (Unit.isAttribute(node, layers=layers)):
+            log.info("Node: %s isAttribute" % node.id)
             self.emitAttributeProperties(node, layers=layers)
 
-#        if (not Unit.isAttribute(node, layers=layers)):
-#            self.write("\n\n</table>\n\n") # no supertype table for properties
-
         if (node.isClass(layers=layers)):
-
-            children = sorted(GetSources(Unit.GetUnit("rdfs:subClassOf"), node, ALL_LAYERS), key=lambda u: u.id)
+            children = []
+            children = GetSources(Unit.GetUnit("rdfs:subClassOf"), node, ALL_LAYERS)# Normal subclasses
+            children += GetSources(Unit.GetUnit("typeOf"), node, ALL_LAYERS)# Datatypes
+            children = sorted(children, key=lambda u: u.id)
+            
             if (len(children) > 0):
                 buff = StringIO.StringIO()
                 extbuff = StringIO.StringIO()
@@ -999,14 +1011,17 @@ class ShowUnit (webapp2.RequestHandler):
                     if inLayer(layers, c):
                         buff.write("<li> %s </li>" % (self.ml(c)))
                     else:
-                        sep = ","
+                        sep = ", "
                         if firstext:
                             sep = ""
                             firstext=False
                         extbuff.write("%s%s" % (sep,self.ml(c)) )
 
                 if (len(buff.getvalue()) > 0):
-                    self.write("<br/><b>More specific Types</b><ul>") 
+                    if node.isDataType():
+                        self.write("<br/><b>More specific DataTypes</b><ul>") 
+                    else:
+                        self.write("<br/><b>More specific Types</b><ul>") 
                     self.write(buff.getvalue())
                     self.write("</ul>")
 
@@ -1015,7 +1030,7 @@ class ShowUnit (webapp2.RequestHandler):
                     self.write(extbuff.getvalue())
                     self.write("</li></ul>")
                 buff.close()
-                extbuff.close()
+                extbuff.close()                                    
 
         if (node.isEnumeration(layers=layers)):
             children = sorted(GetSources(Unit.GetUnit("typeOf"), node, ALL_LAYERS), key=lambda u: u.id)
@@ -1117,7 +1132,6 @@ class ShowUnit (webapp2.RequestHandler):
         # 3. Use host_ext if set, e.g. 'bib' from bib.schema.org
         if getHostExt() != None:
             log.debug("Host: %s host_ext: %s" % ( self.request.host , getHostExt() ) )
-            log.info("Host: %s host_ext: %s" % ( self.request.host , getHostExt() ) )
             extlist.append(getHostExt())
 
         # Report domain-requested extensions
