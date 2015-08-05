@@ -210,6 +210,8 @@ class Unit ():
       DataType and its children do not descend from Thing, so we need to
       treat it specially.
       """
+      if self.id == "DataType":
+          return True
       if (self.directInstanceOf(Unit.GetUnit("DataType"), layers=layers)):
           return True
       
@@ -456,6 +458,8 @@ def GetImmediateSubtypes(n, layers='core'):
     if n==None:
         return None
     subs = GetSources( Unit.GetUnit("rdfs:subClassOf"), n, layers=layers)
+    if n.isDataType():
+        subs += GetSources( Unit.GetUnit("typeOf"), n, layers=layers)
     subs.sort(key=lambda x: x.id)
     return subs
 

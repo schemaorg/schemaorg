@@ -615,6 +615,9 @@ class ShowUnit (webapp2.RequestHandler):
 
           if inLayer(layers,p):
                continue
+
+          if p.id == "http://www.w3.org/2000/01/rdf-schema#Class": #Special case for "DataType"
+              p.id = "Class"
                 
           sep = ", "
           if first:
@@ -999,7 +1002,8 @@ class ShowUnit (webapp2.RequestHandler):
         if (node.isClass(layers=layers)):
             children = []
             children = GetSources(Unit.GetUnit("rdfs:subClassOf"), node, ALL_LAYERS)# Normal subclasses
-            children += GetSources(Unit.GetUnit("typeOf"), node, ALL_LAYERS)# Datatypes
+            if(node.isDataType()):
+                children += GetSources(Unit.GetUnit("typeOf"), node, ALL_LAYERS)# Datatypes
             children = sorted(children, key=lambda u: u.id)
             
             if (len(children) > 0):
@@ -1207,12 +1211,10 @@ class ShowUnit (webapp2.RequestHandler):
             fullmainroot.traverseForHTML(uThing, layers=ALL_LAYERS)
             full_thing_tree = fullmainroot.toHTML()
 
-            dtroot = TypeHierarchyTree()
+            dtroot = TypeHierarchyTree("<h4>Data Types</h4>")
             dtroot.traverseForHTML(uDataType, layers=layerlist)
             datatype_tree = dtroot.toHTML()
-
-        
-                    
+                                
             full_button = "Core plus all extensions"
             
             page = template.render({ 'thing_tree': thing_tree, 
