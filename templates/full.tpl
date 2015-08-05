@@ -48,7 +48,7 @@ super-type, here we show each type in one branch of the tree only.
 <h4>Thing</h4>
 
 <p>
-This is the main schema.org hierarchy: a collection of types (or "classes"), each of which has one or more parent types.
+This is the main schema.org hierarchy: a collection of types (or "classes") and <a href="#datatype_tree">data types</a>, each of which has one or more parent types.
 Although a type may have more than one super-type, here we show each type in one branch of the tree only.
 </p>
 <br/>
@@ -66,6 +66,10 @@ Although a type may have more than one super-type, here we show each type in one
 <div class="display: none" id="full_thing_tree">
 {{ full_thing_tree | safe }}
 </div>
+<div id="datatype_tree">
+{{ datatype_tree | safe }}
+</div>
+
 
 
 <p>An <em>experimental</em> <a href="http://d3js.org">D3</a>-compatible <a href="/docs/tree.jsonld">JSON</a> version is also available.</p>
