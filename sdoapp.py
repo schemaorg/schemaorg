@@ -480,14 +480,16 @@ class ShowUnit (webapp2.RequestHandler):
            count = 0
            self.write("<span class='breadcrumbs'>")
            while(len(self.crumbStacks[row]) > 0):
+                n = self.crumbStacks[row].pop()
                 if(count > 0):
                     if((len(self.crumbStacks[row]) == 1) and enuma):
                         self.write(" :: ")
                     else:
                         self.write(" &gt; ")
-                n = self.crumbStacks[row].pop()
-                self.write("%s" % (self.ml(n)))
+                elif n.id == "Class": # If Class is first breadcrum suppress it 
+                        continue
                 count += 1
+                self.write("%s" % (self.ml(n)))
            self.write("</span><br/>\n")
         self.write("</h4>\n")
 
