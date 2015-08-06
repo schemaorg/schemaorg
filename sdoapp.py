@@ -52,7 +52,7 @@ PageCache = {}
 
 JINJA_ENVIRONMENT = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.join(os.path.dirname(__file__), 'templates')),
-    extensions=['jinja2.ext.autoescape'], autoescape=True)
+    extensions=['jinja2.ext.autoescape'], autoescape=True, cache_size=0)
 
 ENABLE_JSONLD_CONTEXT = True
 ENABLE_CORS = True
@@ -851,6 +851,7 @@ class ShowUnit (webapp2.RequestHandler):
                 #log.info("Served datacache homepage.tpl key: %s" % sitekeyedhomepage)
                 log.debug("Served datacache homepage.tpl key: %s" % sitekeyedhomepage)
             else:
+
                 template = JINJA_ENVIRONMENT.get_template('homepage.tpl')
                 template_values = {
                     'ENABLE_HOSTED_EXTENSIONS': ENABLE_HOSTED_EXTENSIONS,
@@ -865,8 +866,6 @@ class ShowUnit (webapp2.RequestHandler):
                 }
 
                 # We don't want JINJA2 doing any cachine of included sub-templates.
-                from jinja2 import Environment
-                env = Environment(cache_size=0)
 
                 page = template.render(template_values)
                 self.response.out.write( page )
