@@ -844,11 +844,12 @@ class ShowUnit (webapp2.RequestHandler):
             # Serve a homepage from template
             # the .tpl has responsibility for extension homepages
             # TODO: pass in extension, base_domain etc.
-            hp = DataCache.get("homepage")
+            sitekeyedhomepage = "homepage %s" % sitename
+            hp = DataCache.get(sitekeyedhomepage)
             if hp != None:
                 self.response.out.write( hp )
-                log.info("Served datacache homepage.tpl")
-                log.debug("Served datacache homepage.tpl")
+                log.info("Served datacache homepage.tpl key: %s" % sitekeyedhomepage)
+                log.debug("Served datacache homepage.tpl key: %s" % sitekeyedhomepage)
             else:
                 template = JINJA_ENVIRONMENT.get_template('homepage.tpl')
                 template_values = {
@@ -864,8 +865,9 @@ class ShowUnit (webapp2.RequestHandler):
                 }
                 page = template.render(template_values)
                 self.response.out.write( page )
-                log.debug("Served fresh homepage.tpl")
-                DataCache.put("homepage",page)
+                log.debug("Served and cached fresh homepage.tpl key: %s " % sitekeyedhomepage)
+                log.info("Served and cached fresh homepage.tpl key: %s " % sitekeyedhomepage)
+                DataCache.put(sitekeyedhomepage, page)
                 #            self.response.out.write( open("static/index.html", 'r').read() )
             return True
         log.info("Warning: got here how?")
@@ -1344,9 +1346,9 @@ class ShowUnit (webapp2.RequestHandler):
             version_nt = "data/releases/%s/schema.nt" % requested_version
 
             if requested_format=="":
-                #self.response.out.write( open(version_allhtml, 'r').read() )
-                #return True
-                log.info("Skipping filesystem for now.")
+                self.response.out.write( open(version_allhtml, 'r').read() )
+                return True
+                # log.info("Skipping filesystem for now.")
 
             if requested_format=="schema.rdfa":
                 self.response.headers['Content-Type'] = "application/octet-stream" # It is HTML but ... not really.
