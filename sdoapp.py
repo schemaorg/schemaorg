@@ -32,7 +32,7 @@ sitemode = "mainsite" # whitespaced list for CSS tags,
             # e.g. "mainsite testsite" when off expected domains
             # "extensionsite" when in an extension (e.g. blue?)
 
-releaselog = { "2.0": "2015-05-13" }
+releaselog = { "2.0": "2015-05-13", "2.1": "2015-08-06" }
 #
 host_ext = ""
 myhost = ""
