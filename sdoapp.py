@@ -848,7 +848,7 @@ class ShowUnit (webapp2.RequestHandler):
             hp = DataCache.get(sitekeyedhomepage)
             if hp != None:
                 self.response.out.write( hp )
-                log.info("Served datacache homepage.tpl key: %s" % sitekeyedhomepage)
+                #log.info("Served datacache homepage.tpl key: %s" % sitekeyedhomepage)
                 log.debug("Served datacache homepage.tpl key: %s" % sitekeyedhomepage)
             else:
                 template = JINJA_ENVIRONMENT.get_template('homepage.tpl')
@@ -866,7 +866,7 @@ class ShowUnit (webapp2.RequestHandler):
                 page = template.render(template_values)
                 self.response.out.write( page )
                 log.debug("Served and cached fresh homepage.tpl key: %s " % sitekeyedhomepage)
-                log.info("Served and cached fresh homepage.tpl key: %s " % sitekeyedhomepage)
+                #log.info("Served and cached fresh homepage.tpl key: %s " % sitekeyedhomepage)
                 DataCache.put(sitekeyedhomepage, page)
                 #            self.response.out.write( open("static/index.html", 'r').read() )
             return True
