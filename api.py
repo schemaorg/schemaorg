@@ -612,41 +612,10 @@ def GetExtMappingsRDFa(node, layers='core'):
             return markup
     return "<!-- no external mappings noted for this term. -->"
 
-def OLDGetJsonLdContext(layers='core'):
-    """Generates a basic JSON-LD context file for schema.org."""
-    global namespaces;
-    jsonldcontext = "{\"@context\":    {\n"
-    jsonldcontext += namespaces ;
-    jsonldcontext += "        \"@vocab\": \"http://schema.org/\",\n"
-
-    url = Unit.GetUnit("URL")
-    date = Unit.GetUnit("Date")
-    datetime = Unit.GetUnit("DateTime")
-
-    properties = sorted(GetSources(Unit.GetUnit("typeOf"), Unit.GetUnit("rdf:Property"), layers=layers), key=lambda u: u.id)
-    for p in properties:
-        range = GetTargets(Unit.GetUnit("rangeIncludes"), p, layers=layers)
-        type = None
-
-        if url in range:
-            type = "@id"
-        elif date in range:
-            type = "Date"
-        elif datetime in range:
-            type = "DateTime"
-
-        if type:
-            jsonldcontext += "        \"" + p.id + "\": { \"@type\": \"" + type + "\" },"
-
-    jsonldcontext += "}}\n"
-    jsonldcontext = jsonldcontext.replace("},}}","}\n    }\n}")
-    jsonldcontext = jsonldcontext.replace("},","},\n")
-
-    return jsonldcontext
-
 def GetJsonLdContext(layers='core'):
     """Generates a basic JSON-LD context file for schema.org."""
 
+    # Caching assumes the context is neutral w.r.t. our hostname.
     if DataCache.get('JSONLDCONTEXT'):
         log.debug("DataCache: recycled JSONLDCONTEXT")
         return DataCache.get('JSONLDCONTEXT')
