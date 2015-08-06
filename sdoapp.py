@@ -863,6 +863,11 @@ class ShowUnit (webapp2.RequestHandler):
                     'home_page': "True",
                     'debugging': debugging
                 }
+
+                # We don't want JINJA2 doing any cachine of included sub-templates.
+                from jinja2 import Environment
+                env = Environment(cache_size=0)
+
                 page = template.render(template_values)
                 self.response.out.write( page )
                 log.debug("Served and cached fresh homepage.tpl key: %s " % sitekeyedhomepage)
