@@ -69,9 +69,9 @@
                 <ul>
                     <li class="activelink">
                       <a href="../docs/documents.html">Documentation</a></li>
-                    <li >
+                    <li>
                       <a href="../docs/schemas.html">Schemas</a></li>
-                    <li >
+                    <li>
                       <a href="../.">Home</a></li>
                 </ul>
                 </div>
@@ -142,11 +142,11 @@ td.release  {
 <h3>Vocabulary</h3>
 <ul>
 <li><a href="https://github.com/schemaorg/schemaorg/issues/611">Fix to #611</a>: Added <a href="/Person">Person</a> as expected value for <a href="/publisher">publisher</a> property.</li>
-<li ><a href="https://github.com/schemaorg/schemaorg/issues/596">Fix to #596</a>: Documented that <a href="/affiliation">affiliation</a> is a  sub-property of <a href="/memberOf">memberOf</a>.</li>
-<li ><a href="https://github.com/schemaorg/schemaorg/issues/207">Fix to #207</a>: Added a <a href="/Bridge">Bridge</a> type under <a href="/CivicStructure">CivicStructure</a>.</li>
-<li ><a href="https://github.com/schemaorg/schemaorg/issues/346">Fix to #346</a>: Added <a href="/URL">URL</a> as expected value for <a href="/genre">genre</a> property.</li>
-<li ><a href="https://github.com/schemaorg/schemaorg/issues/374">Fix to #374</a>: Added <a href="/Report">Report</a> type under <a href="/Article">Article</a>, and a <a href="/reportNumber">reportNumber</a> property.</li>
-<li ><a href="https://github.com/schemaorg/schemaorg/issues/577">Fix to #577</a>: Amended <a href="/videoFormat">videoFormat</a> to indicate that it is expected on <a href="/BroadcastEvent">BroadcastEvent</a> and <a href="/ScreeningEvent">ScreeningEvent</a>, rather than <a href="/TelevisionStation">TelevisionStation</a>.</li>
+<li><a href="https://github.com/schemaorg/schemaorg/issues/596">Fix to #596</a>: Documented that <a href="/affiliation">affiliation</a> is a  sub-property of <a href="/memberOf">memberOf</a>.</li>
+<li><a href="https://github.com/schemaorg/schemaorg/issues/207">Fix to #207</a>: Added a <a href="/Bridge">Bridge</a> type under <a href="/CivicStructure">CivicStructure</a>.</li>
+<li><a href="https://github.com/schemaorg/schemaorg/issues/346">Fix to #346</a>: Added <a href="/URL">URL</a> as expected value for <a href="/genre">genre</a> property.</li>
+<li><a href="https://github.com/schemaorg/schemaorg/issues/374">Fix to #374</a>: Added <a href="/Report">Report</a> type under <a href="/Article">Article</a>, and a <a href="/reportNumber">reportNumber</a> property.</li>
+<li><a href="https://github.com/schemaorg/schemaorg/issues/577">Fix to #577</a>: Amended <a href="/videoFormat">videoFormat</a> to indicate that it is expected on <a href="/BroadcastEvent">BroadcastEvent</a> and <a href="/ScreeningEvent">ScreeningEvent</a>, rather than <a href="/TelevisionStation">TelevisionStation</a>.</li>
 <li><a href="https://github.com/schemaorg/schemaorg/issues/535">Fix to #535</a>: Broadened domain of <a href="/parentOrganization">parentOrganization</a> to allow any <a href="/Organization">Organization</a>, rather than only <a href="/LocalBusiness">LocalBusiness</a>. Noted <a href="/parentOrganization">parentOrganization</a> and <a href="/subOrganization">subOrganization</a> as inverses.</li>
 <li id="lyrics"><a href="https://github.com/schemaorg/schemaorg/issues/531">Fix to #531</a>: Added the <a href="/lyrics">lyrics</a> property to MusicComposition.</li>
 <li id="paymentDuePaymentStatus" ><a href="https://github.com/schemaorg/schemaorg/issues/518">Fix to #518</a>: Renamed <a href="/paymentDue">paymentDue</a> property to <a href="/paymentDueDate">paymentDueDate</a>. Changed <a href="/paymentStatus">paymentStatus</a> property to expect an enumerated value of type <a href="/PaymentStatusType">PaymentStatusType</a> in addition to <a href="/Text">Text</a>. The options are: PaymentComplete, PaymentDue, PaymentPastDue, PaymentDeclined and PaymentAutomaticallyApplied.</li>
@@ -159,11 +159,12 @@ href="/InteractionCounter">InteractionCounter</a>. InteractionCounter allows for
 <h3>Site improvements</h3>
 
 <ul>
-<li ><a href="https://github.com/schemaorg/schemaorg/issues/655">Fix to #655</a>: Extension definitions now include an <a href="/isPartOf">isPartOf</a> property to link them to the extension.</li>
-<li ><a href="https://github.com/schemaorg/schemaorg/issues/429">Fix to #429</a>: Extensions eg. bib.schema.org enabled and identified within appropriate navigation.</li>
+<li><a href="https://github.com/schemaorg/schemaorg/issues/429">Fix to #429</a>: Hosted <a href="/docs/extension.html">extensions</a> e.g. <a href="http://bib.schema.org">bib.schema.org</a> are now enabled and linked from 'core' pages with appropriate navigation and <a href="https://github.com/schemaorg/schemaorg/issues/684">styling</a>.</li>
+<li><a href="https://github.com/schemaorg/schemaorg/issues/655">Fix to #655</a>: Extension definitions now include an <a href="/isPartOf">isPartOf</a> property to link them to the extension.</li>
 <li><a href="https://github.com/schemaorg/schemaorg/issues/527">Fix to #527</a>: Added materials from <a href="/docs/kickoff.html">Kickoff Workshop in 2011</a>.</li>
-<li ><a href="https://github.com/schemaorg/schemaorg/issues/78">Fix to #78</a>: Multiple supertypes are now displayed properly. It is possible for several schema.org types to apply to a single thing, and for a type to have multiple parent types. This is relatively rare, but important to display. For example, anything that is a <a href="/LocalBusiness">LocalBusiness</a> is considered both an <a href="/Organization">Organization</a> and a <a href="/Place">Place</a>; so all subtypes of LocalBusiness have both as supertypes. We can now show this more clearly, e.g. <a href="/ElectronicsStore">ElectronicsStore</a>.</li>
+<li><a href="https://github.com/schemaorg/schemaorg/issues/78">Fix to #78</a>: Multiple supertypes are now displayed properly. It is possible for several schema.org types to apply to a single thing, and for a type to have multiple parent types. This is relatively rare, but important to display. For example, anything that is a <a href="/LocalBusiness">LocalBusiness</a> is considered both an <a href="/Organization">Organization</a> and a <a href="/Place">Place</a>; so all subtypes of LocalBusiness have both as supertypes. We can now show this more clearly, e.g. <a href="/ElectronicsStore">ElectronicsStore</a>.</li>
 <li>Added explicit styling (<code></code>) to <a href="/docs/releases.html">releases page</a> for Steering Group review of candidate releases.</li>
+<li><a href="https://github.com/schemaorg/schemaorg/issues/557">Fix to #557</a>, <a href="https://github.com/schemaorg/schemaorg/issues/660">#660</a>, <a href="https://github.com/schemaorg/schemaorg/issues/695">#695</a>, <a href="https://github.com/schemaorg/schemaorg/issues/469">#469</a>: Several <a href="/DataType">DataType</a>-related navigation fixes, following recent <a href="https://github.com/schemaorg/schemaorg/issues/130">modeling changes</a>.</li>
 <li>Behind the scenes: cleanup and improvements to Python code, unit tests, <a href="https://github.com/schemaorg/schemaorg/issues/654">CSS</a>, <a href="https://github.com/schemaorg/schemaorg/pull/608">filetree layout</a>.</li>
 </ul>
 
@@ -176,8 +177,8 @@ href="/InteractionCounter">InteractionCounter</a>. InteractionCounter allows for
 <li><a href="https://github.com/schemaorg/schemaorg/commit/b2e202f604996b68e2d7e95df334d88456dd85ae">Added</a> new accessibility examples.</li>
 <li>Numerous small documentation fixes for typos, markup <a href="https://github.com/schemaorg/schemaorg/issues/375">validity</a> and textual clarity.</li>
 <li>Fixes to several examples including <a href="https://github.com/schemaorg/schemaorg/commit/9a1af4baa043ac4d0eb9ddffe6eff9f0357fa944">byArtist</a>, <a href="https://github.com/schemaorg/schemaorg/issues/558">Place</a>, <a href="https://github.com/schemaorg/schemaorg/issues/353">Question/Answer</a>, ...</li>
-<li ><a href="https://github.com/schemaorg/schemaorg/issues/552">Fix to #552</a>, <a href="https://github.com/schemaorg/schemaorg/issues/644">#644</a>: Fixes for Book examples.</li>
-<li ><a href="https://github.com/schemaorg/schemaorg/issues/382">Fix to #382</a>: Removed examples that don't reference WebPage from WebPage.</li>
+<li><a href="https://github.com/schemaorg/schemaorg/issues/552">Fix to #552</a>, <a href="https://github.com/schemaorg/schemaorg/issues/644">#644</a>: Fixes for Book examples.</li>
+<li><a href="https://github.com/schemaorg/schemaorg/issues/382">Fix to #382</a>: Removed examples that don't reference WebPage from WebPage.</li>
 </ul>
 
 <div>See also <a href="https://github.com/schemaorg/schemaorg/issues?q=milestone%3A%22sdo-ganymede+release%22">issue list</a> for this release.</div>
