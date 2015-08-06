@@ -212,17 +212,17 @@ class Unit ():
       """
       if (self.directInstanceOf(Unit.GetUnit("DataType"), layers=layers)):
           return True
-      
+
       subs = GetTargets(Unit.GetUnit("typeOf"), self, layers=layers)
       subs += GetTargets(Unit.GetUnit("rdfs:subClassOf"), self, layers=layers)
-      
+
       for p in subs:
           if p.isDataType(layers=layers):
               return True
-      
+
       return False
-      
-      
+
+
 
     @staticmethod
     def storePrefix(prefix):
@@ -359,7 +359,7 @@ class Triple ():
         elif (text != None):
             self.text = text
             self.target = None
-            
+
     def __str__ (self):
         ret = ""
         if self.source != None:
@@ -612,7 +612,7 @@ def GetExtMappingsRDFa(node, layers='core'):
             return markup
     return "<!-- no external mappings noted for this term. -->"
 
-def GetJsonLdContext(layers='core'):
+def OLDGetJsonLdContext(layers='core'):
     """Generates a basic JSON-LD context file for schema.org."""
     global namespaces;
     jsonldcontext = "{\"@context\":    {\n"
@@ -644,6 +644,43 @@ def GetJsonLdContext(layers='core'):
 
     return jsonldcontext
 
+def GetJsonLdContext(layers='core'):
+    """Generates a basic JSON-LD context file for schema.org."""
+
+    if DataCache.get('JSONLDCONTEXT'):
+        log.debug("DataCache: recycled JSONLDCONTEXT")
+        return DataCache.get('JSONLDCONTEXT')
+    else:
+        global namespaces
+        jsonldcontext = "{\"@context\":    {\n"
+        jsonldcontext += namespaces ;
+        jsonldcontext += "        \"@vocab\": \"http://schema.org/\",\n"
+
+        url = Unit.GetUnit("URL")
+        date = Unit.GetUnit("Date")
+        datetime = Unit.GetUnit("DateTime")
+
+        properties = sorted(GetSources(Unit.GetUnit("typeOf"), Unit.GetUnit("rdf:Property"), layers=layers), key=lambda u: u.id)
+        for p in properties:
+            range = GetTargets(Unit.GetUnit("rangeIncludes"), p, layers=layers)
+            type = None
+
+            if url in range:
+                type = "@id"
+            elif date in range:
+                type = "Date"
+            elif datetime in range:
+                type = "DateTime"
+
+            if type:
+                jsonldcontext += "        \"" + p.id + "\": { \"@type\": \"" + type + "\" },"
+
+        jsonldcontext += "}}\n"
+        jsonldcontext = jsonldcontext.replace("},}}","}\n    }\n}")
+        jsonldcontext = jsonldcontext.replace("},","},\n")
+        DataCache.put('JSONLDCONTEXT',jsonldcontext)
+        log.debug("DataCache: added JSONLDCONTEXT")
+        return jsonldcontext
 
 
 
@@ -688,7 +725,7 @@ def full_path(filename):
 
 def setHomeValues(items,layer='core',defaultToCore=False):
     global extensionLoadErrors
-    
+
     for node in items:
         if(node == None):
             continue
@@ -730,16 +767,16 @@ def read_schemas(loadExtensions=False):
         setHomeValues(items,"core",True)
 
         files = glob.glob("data/*examples.txt")
-        
+
         read_examples(files)
-        
+
         files = glob.glob("data/2015-04-vocab_counts.txt")
 
         for file in files:
             usage_data = read_file(file)
             parser = parsers.UsageFileParser(None)
             parser.parse(usage_data)
-    
+
     schemasInitialized = True
 
 
@@ -767,18 +804,18 @@ def read_extensions(extensions):
             all_layers[extid] = "1"
             extitems = parser.parse([ext_file_path], layer="%s" % extid) # put schema triples in a layer
             setHomeValues(extitems,extid,False)
-        
+
         read_examples(expfiles)
-        
+
     extensionsLoaded = True
-    
+
 def read_examples(files):
         example_contents = []
         for f in files:
             example_content = read_file(f)
             example_contents.append(example_content)
             log.debug("examples loaded from: %s" % f)
-                        
+
         parser = parsers.ParseExampleFile(None)
         parser.parse(example_contents)
 
