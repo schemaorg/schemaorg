@@ -42,7 +42,7 @@ See the draft <b><a href="/docs/releases.html">releases</a></b> page to learn mo
   <p>  You are viewing the Auto Extension within <a href="http://schema.org/">schema.org</a>.
   It defines terms such as <a href="/MotorizedBicycle">MotorizedBicycle</a>. For more details
   see the W3C <a href="https://www.w3.org/community/gao/">Automotive Ontology Working Group</a>.
-  <br/>This is an initial exploratory release.
+  <br/>This is the first release of the extension. We will add examples and additional elements in the next releases.
 </p>
 
   <p><br/></p>
