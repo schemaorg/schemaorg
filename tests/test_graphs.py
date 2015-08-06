@@ -2,6 +2,8 @@ import unittest
 import os
 import logging # https://docs.python.org/2/library/logging.html#logging-levels
 import glob
+import sys
+sys.path.append( os.getcwd() ) 
 
 from api import *
 from parsers import *
@@ -46,10 +48,11 @@ class SDOGraphSetupTestCase(unittest.TestCase):
     log.info("Graph tests require rdflib.")
     import unittest
     try:
+      log.info("Trying to import rdflib...")
       import rdflib
       from rdflib import Graph
-    except:
-      raise unittest.SkipTest("Need rdflib installed to do graph tests.")
+    except Exception as e:
+      raise unittest.SkipTest("Need rdflib installed to do graph tests: %s" % e)
 
     read_schemas() # built-in parsers.
     self.schemasInitialized = schemasInitialized
@@ -117,12 +120,27 @@ class SDOGraphSetupTestCase(unittest.TestCase):
         #print(str(row))
     self.assertEqual(len(nri1_results), 0, "No subtype need redeclare a rangeIncludes of its parents. Found: %s" % len(nri1_results) )
     
+#  def test_supersededByAreLabelled(self):
+#    supersededByAreLabelled_results = self.rdflib_data.query("select ?x ?y ?z where { ?x <http://schema.org/supersededBy> ?y . ?y <http://schema.org/name> ?z }")
+#    self.assertEqual(len(inverseOf_results ) % 2 == 0, True, "Even number of inverseOf triples expected. Found: %s " % len(inverseOf_results ) )
+
 
   # These are place-holders for more sophisticated SPARQL-expressed checks.
 
   @unittest.expectedFailure
   def test_readSchemaFromRDFa(self):
     self.assertTrue(True, False, "We should know how to locally get /docs/schema_org_rdfa.html but this requires fixes to api.py.")
+
+
+  @unittest.expectedFailure 
+  def test_propertyDefinitionsUseActualTypes(self):
+    """Sometimes we write domainIncludes or rangeIncludes with a typo'd type name."""
+    # 
+    # TODO: https://github.com/schemaorg/schemaorg/issues/662
+    #
+    # self.assertEqual(len(ndi1_results), 0, "No domainIncludes or rangeIncludes value should lack a type. Found: %s " % len(ndi1_results ) )
+
+
 
 # TODO: Unwritten tests (from basics; easier here?)
 #

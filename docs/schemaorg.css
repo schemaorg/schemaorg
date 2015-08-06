@@ -27,6 +27,12 @@ text-align: left;
 text-align: right;
 font-size: x-small;
 }
+#mainContent, #footer, .wrapper {
+ max-width: 960px;
+ min-width: 350px;
+ margin: 0 auto !important;
+ padding: 0 40px;
+}
 
 /* -- general -- */
 body
@@ -59,7 +65,6 @@ color: #990000;
 font: normal 18px Helvetica, Arial, sans-serif;
 margin: 2em 0 0 0;
 }
-
 h3 {
 font-size: 12px;
 color: #660000;
@@ -67,6 +72,16 @@ margin: 1em 0 0 0;
 position: relative;
 top: 8px;
 }
+/*
+h3
+{
+//font-size: 12px;
+color: #660000;
+//margin: 1em 0 0 0;
+//position: relative;
+//top: 8px;
+}
+*/
 hr
 {
 border: none;
@@ -96,14 +111,15 @@ overflow: auto;
 width: 100%;
 height: 80px;
 background: #990000;
-position: top; /* TODO: this is wrong */
 }
 #pageHeader h1
 {
 color: #fff;
-margin: 0 0 5px 20px;
+margin: 0;
+padding-top: 25px;
 font: bold Helvetica, Arial, sans-serif;
 letter-spacing: -1px;
+text-shadow: 0 2px 0 #510000;
 }
 #pageHeader a:link, #pageHeader a:hover, #pageHeader a:visited
 {
@@ -112,6 +128,20 @@ background-color: #990000;
 text-decoration: none;
 }
 
+#cse-search-form {
+  float: right;
+  margin-top:20px;
+  width: 248px !important;
+}
+@media all and (max-width: 720px) {
+  #pageHeader {
+    height: 120px;
+  }
+  #cse-search-form {
+    margin-left: 15px;
+    margin-top: 20px;
+  }
+}
 
 /* -- nav bar -- */
 #selectionbar
@@ -123,8 +153,10 @@ font-size: 90%;
 }
 #selectionbar ul
 {
-margin: 0;
-padding: 1em 1em 0 0;
+  float: right;
+  padding: 10px 0;
+  margin: 0 auto;
+  display: block;
 }
 #selectionbar li
 {
@@ -168,19 +200,19 @@ list-style: inherit;
 padding: 0 0 0 5px;
 margin: 0;
 }
-#mainContent a:link
+a:link
 {
 color: #660000;
 text-decoration: none;
 border-bottom: dotted 1px #660000;
 }
-#mainContent a:visited
+a:visited
 {
 color: #990000;
 text-decoration: none;
 border-bottom: dotted 1px #990000;
 }
-#mainContent a:hover
+a:hover
 {
 border-bottom: none;
 color: #fff;
@@ -306,22 +338,25 @@ font-size: x-small;
 clear: both;
 padding-top: 1em;
 }
+
 #selectionbar ul
 {
 float: right;
 padding: 10px 0;
 }
-#mainContent, #footer, #pageHeader h1, .wrapper {
+#mainContent, #footer, .wrapper {
  max-width: 960px;
  min-width: 350px;
  margin: 0 auto !important;
  padding: 0 40px;
 }
-#pageHeader h1 {
- position:relative;
- top: 25px; left: -40px;
- text-shadow: 0 2px 0 #510000;
- /*pointer-events: none; */
+#sitename {
+    max-width: 500px;
+    min-width: auto;
+	display: inline-block;
+    text-shadow: 0 2px 0 #510000;
+    padding: 0;
+    top: 25px; left: -40px;	
 }
 #selectionbar ul {
   margin: 0 auto;
@@ -329,7 +364,7 @@ padding: 10px 0;
 }
 #cse-search-form {
   float: right;
-  margin-top:-20px;
+  /*margin-top:-20px;*/
   width: 248px !important;
 }
 gsc-input input.gsc-input { background: #FFF !important;}
@@ -343,7 +378,6 @@ gsc-input input.gsc-input { background: #FFF !important;}
     margin-top: 20px;
   }
 }
-
 
 /* -- extras -- */
 
@@ -419,8 +453,40 @@ input.gsc-search-button {
   display: block;
 }
 
+/* Extension links */
+a.ext:link {
+   color: #0000aa !important;
+   border-bottom: dotted 1px #0000aa !important;
+   text-decoration: none;
+}
+a.ext:visited {
+   color: #0000cc !important;
+   border-bottom: dotted 1px #0000cc !important;
+   text-decoration: none;
+}
+a.ext:hover {
+   color: #fff !important;
+   background-color: #0000cc;
+   text-decoration: none;
+}
 
-
+/* Bib extension links overriding default 'ext' values
+a.ext.ext-bib:link{
+   color: #009900 !important;
+   border-bottom: dotted 1px #009900;
+   text-decoration: none;
+}
+a.ext.ext-bib:visited {
+   color: #00bb00 !important;
+   border-bottom: dotted 1px #00bb00;
+   text-decoration: none;
+}
+a.ext.ext-bib:hover {
+   color: #fff !important;
+   background-color: #00bb00;
+   text-decoration: none;
+}
+*/
 
 
 
@@ -441,7 +507,7 @@ input.gsc-search-button {
 .testsite {
 
     color: black;
-    background-color: #EEE; 
+    background-color: #EEE;
 
 /*
   color: green;
@@ -451,5 +517,11 @@ input.gsc-search-button {
   background-image: url(draft.jpg);
   background-repeat:repeat;
 */
+
+}
+
+.needsreview {
+
+  background-color: #FAEBD7;
 
 }
