@@ -892,7 +892,7 @@ class ShowUnit (webapp2.RequestHandler):
         if is_class:
             rdfs_type = 'rdfs:Class'
 
-        generated_page_id = "genericTermPageHeader-%s" % str(entry)
+        generated_page_id = "genericTermPageHeader-%s-%s" % ( str(entry), sitename )
         gtp = DataCache.get( generated_page_id )
 
         if gtp != None:
@@ -1474,7 +1474,9 @@ class ShowUnit (webapp2.RequestHandler):
         if dcn == None or dcn == "" or dcn =="core":
             dcn = "core"
 
+        log.debug("sdoapp.py setting current datacache to: %s " % dcn)
         DataCache.setCurrent(dcn)
+
 
         debugging = False
         if "localhost" in hostString or "sdo-ganymede.appspot.com" in hostString:
