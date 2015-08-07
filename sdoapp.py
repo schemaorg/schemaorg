@@ -404,10 +404,8 @@ class ShowUnit (webapp2.RequestHandler):
         home = node.home
         if home != "core" and home != "":
             self.write("Defined in the %s.schema.org extension." % home)
-            self.write(" (This is an initial exploratory release.)")
-
-
-
+            self.write(" (This is an initial exploratory release.)<br/>")
+            self.emitCanonicalURL(node)
 
         self.BreadCrumbs(node, layers=layers)
 
@@ -415,7 +413,7 @@ class ShowUnit (webapp2.RequestHandler):
 
         self.write(" <div property=\"rdfs:comment\">%s</div>\n\n" % (comment) + "\n")
 
-        self.write(" <br><div>Usage: %s</div>\n\n" % (node.UsageStr()) + "\n")
+        self.write(" <br/><div>Usage: %s</div>\n\n" % (node.UsageStr()) + "\n")
 
         self.write(self.moreInfoBlock(node))
 
@@ -423,6 +421,10 @@ class ShowUnit (webapp2.RequestHandler):
 
             self.write("<table class=\"definition-table\">\n        <thead>\n  <tr><th>Property</th><th>Expected Type</th><th>Description</th>               \n  </tr>\n  </thead>\n\n")
 
+    def emitCanonicalURL(self,node):
+        cURL = "http://schema.org/" + node.id
+        self.write(" <span class=\"canonicalUrl\">Canonical URL: <a href=\"%s\">%s</a></span>" % (cURL, cURL))
+    
     # Stacks to support multiple inheritance
     crumbStacks = []
     def BreadCrumbs(self, node, layers):
@@ -437,10 +439,13 @@ class ShowUnit (webapp2.RequestHandler):
         enuma = node.isEnumerationValue(layers=layers)
 
         self.write("<h4>")
+        rowcount = 0
         for row in range(len(self.crumbStacks)):
            if(":" in self.crumbStacks[row][len(self.crumbStacks[row])-1].id):
                 continue
            count = 0
+           if rowcount > 0:
+               self.write("<br/>")
            self.write("<span class='breadcrumbs'>")
            while(len(self.crumbStacks[row]) > 0):
                 n = self.crumbStacks[row].pop()
@@ -453,7 +458,8 @@ class ShowUnit (webapp2.RequestHandler):
                         continue
                 count += 1
                 self.write("%s" % (self.ml(n)))
-           self.write("</span><br/>\n")
+           self.write("</span>\n")
+           rowcount += 1
         self.write("</h4>\n")
 
 #Walk up the stack, appending crumbs & create new (duplicating crumbs already identified) if more than one parent found
