@@ -445,7 +445,7 @@ class ShowUnit (webapp2.RequestHandler):
            while(len(self.crumbStacks[row]) > 0):
                 n = self.crumbStacks[row].pop()
                 if(count > 0):
-                    if((len(self.crumbStacks[row]) == 1) and enuma):
+                    if((len(self.crumbStacks[row]) == 0) and enuma):
                         self.write(" :: ")
                     else:
                         self.write(" &gt; ")
