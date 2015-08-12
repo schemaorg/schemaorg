@@ -98,13 +98,22 @@ class DataCacheTool():
 
     def __init__ (self):
         self._DataCache = {}
-        self.setCurrent("schema")
+        self.setCurrent("core")
 
-    def get(self,key):
-        return self._DataCache[self._CurrentDataCache].get(key)
+    def getCache(self,cache=None):
+        if cache == None:
+            cache = self._CurrentDataCache
+        if cache in self._DataCache.keys():
+            return self._DataCache[cache] 
+        else:
+            log.debug("DataCache Invalid cache name '%s'" % cache)
+            return None
 
-    def put(self,key,val):
-        self._DataCache[self._CurrentDataCache][key] = val
+    def get(self,key,cache=None):
+        return self.getCache(cache).get(key)
+
+    def put(self,key,val,cache=None):
+        self.getCache(cache)[key] = val
 
     def setCurrent(self,current):
         self._CurrentDataCache = current
@@ -114,6 +123,9 @@ class DataCacheTool():
 
     def getCurrent(self):
         return self._CurrentDataCache
+
+    def keys(self):
+        return self._DataCache.keys()
 
 DataCache = DataCacheTool()
 
@@ -705,7 +717,10 @@ def setHomeValues(items,layer='core',defaultToCore=False):
                 log.info(msg)
                 extensionLoadErrors += msg + '\n'
             else:
-                node.home = re.match( r'([\w\-_]+)[\.:]?', home[0].id.lstrip("http://")).group(1)
+                h = home[0].id.strip()
+                if h.startswith("http://"):
+                    h = h[7:]
+                node.home = re.match( r'([\w\-_]+)[\.:]?', h).group(1)
             if(node.home == 'schema'):
                 node.home = 'core'
         elif node.home == None:
