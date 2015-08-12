@@ -1475,7 +1475,11 @@ class ShowUnit (webapp2.RequestHandler):
         if host_ext != None:
             # e.g. "bib"
             log.debug("HOST: Found %s in %s" % ( host_ext, hostString ))
-            if not host_ext in ENABLED_EXTENSIONS:
+            if host_ext == "www":
+                # www is special case that cannot be an extension - need to redirect to basehost
+                mybasehost = mybasehost[4:]
+                return self.redirectToBase(node)
+            elif not host_ext in ENABLED_EXTENSIONS:
                 host_ext = ""
             else:
                 mybasehost = mybasehost[len(host_ext) + 1:]
@@ -1491,6 +1495,14 @@ class ShowUnit (webapp2.RequestHandler):
         debugging = False
         if "localhost" in hostString or "sdo-ganymede.appspot.com" in hostString:
             debugging = True
+
+        return True
+
+    def redirectToBase(self,node=""):
+        uri = makeUrl("",node)
+        self.response = webapp2.redirect(uri, True, 301)
+        log.info("Redirecting [301] to: %s" % uri)
+        return False
 
 
     def get(self, node):
@@ -1517,7 +1529,8 @@ class ShowUnit (webapp2.RequestHandler):
 
         global debugging, host_ext, myhost, myport, mybasehost, sitename
 
-        self.setupHostinfo(node)
+        if not self.setupHostinfo(node):
+            return
 
         self.emitHTTPHeaders(node)
 
