@@ -689,7 +689,7 @@
       <span property="rdfs:comment">A date value in &lt;a href=&#39;http://en.wikipedia.org/wiki/ISO_8601&#39;&gt;ISO 8601 date format&lt;/a&gt;.</span>
     </div>
 
-    <div typeof="rdfs:Class" resource="http://schema.org/DateTime">
+    <div typeof="rdfs:Class http://schema.org/DataType" resource="http://schema.org/DateTime">
       <span class="h" property="rdfs:label">DateTime</span>
       <span property="rdfs:comment">A combination of date and time of day in the form [-]CCYY-MM-DDThh:mm:ss[Z|(+|-)hh:mm] (see Chapter 5.4 of ISO 8601).</span>
     </div>
@@ -7341,6 +7341,36 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Offer">Offer</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Demand">Demand</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/WarrantyPromise">WarrantyPromise</a></span>
+
+    <div typeof="rdf:Property" resource="http://schema.org/paymentDue">
+      <span class="h" property="rdfs:label">paymentDue</span>
+      <span property="rdfs:comment">The date that payment is due.</span>
+      <link property="http://schema.org/supersededBy" href="http://schema.org/paymentDueDate"/>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Order">Order</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Invoice">Invoice</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/DateTime">DateTime</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/paymentDueDate">
+      <span class="h" property="rdfs:label">paymentDueDate</span>
+      <span property="rdfs:comment">The date that payment is due.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Order">Order</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Invoice">Invoice</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/DateTime">DateTime</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/paymentMethod">
+      <span class="h" property="rdfs:label">paymentMethod</span>
+      <span property="rdfs:comment">The name of the credit card or other method of payment for the order.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Order">Order</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Invoice">Invoice</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/PaymentMethod">PaymentMethod</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/paymentMethodId">
+      <span class="h" property="rdfs:label">paymentMethodId</span>
+      <span property="rdfs:comment">An identifier for the method of payment used (e.g. the last 4 digits of the credit card).</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Order">Order</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Invoice">Invoice</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/warrantyPromise">
       <span class="h" property="rdfs:label">warrantyPromise</span>

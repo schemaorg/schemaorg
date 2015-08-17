@@ -210,7 +210,19 @@ class Unit ():
       DataType and its children do not descend from Thing, so we need to
       treat it specially.
       """
-      return self.directInstanceOf(Unit.GetUnit("DataType"), layers=layers)
+      if (self.directInstanceOf(Unit.GetUnit("DataType"), layers=layers)):
+          return True
+
+      subs = GetTargets(Unit.GetUnit("typeOf"), self, layers=layers)
+      subs += GetTargets(Unit.GetUnit("rdfs:subClassOf"), self, layers=layers)
+
+      for p in subs:
+          if p.isDataType(layers=layers):
+              return True
+
+      return False
+
+
 
     @staticmethod
     def storePrefix(prefix):
@@ -348,6 +360,16 @@ class Triple ():
             self.text = text
             self.target = None
 
+    def __str__ (self):
+        ret = ""
+        if self.source != None:
+            ret +=  "%s " % self.source
+        if self.target != None:
+            ret += "%s " % self.target
+        if self.arc != None:
+            ret += "%s " % self.arc
+        return ret
+
     @staticmethod
     def AddTriple(source, arc, target, layer='core'):
         """AddTriple stores a thing-valued new Triple within source Unit."""
@@ -396,7 +418,7 @@ def GetTargets(arc, source, layers='core'):
 
 def GetSources(arc, target, layers='core'):
     """All source nodes for a specified arc pointing to a specified node (within any of the specified layers)."""
-    log.debug("GetSources checking in layer: %s for unit: %s arc: %s" % (layers, target.id, arc.id))
+#    log.debug("GetSources checking in layer: %s for unit: %s arc: %s" % (layers, target.id, arc.id))
     sources = {}
     for triple in target.arcsIn:
         if (triple.arc == arc and triple.layer in layers):
@@ -434,6 +456,8 @@ def GetImmediateSubtypes(n, layers='core'):
     if n==None:
         return None
     subs = GetSources( Unit.GetUnit("rdfs:subClassOf"), n, layers=layers)
+    if (n.isDataType() or n.id == "DataType"):
+        subs += GetSources( Unit.GetUnit("typeOf"), n, layers=layers)
     subs.sort(key=lambda x: x.id)
     return subs
 
@@ -441,7 +465,11 @@ def GetImmediateSupertypes(n, layers='core'):
     """Get this type's immediate supertypes, i.e. that we are subClassOf."""
     if n==None:
         return None
-    return GetTargets( Unit.GetUnit("rdfs:subClassOf"), n, layers=layer)
+    sups = GetTargets( Unit.GetUnit("rdfs:subClassOf"), n, layers=layers)
+    if (n.isDataType() or n.id == "DataType"):
+        sups += GetTargets( Unit.GetUnit("typeOf"), n, layers=layers)
+    sups.sort(key=lambda x: x.id)
+    return sups
 
 def GetAllTypes(layers='core'):
     """Return all types in the graph."""
@@ -586,36 +614,42 @@ def GetExtMappingsRDFa(node, layers='core'):
 
 def GetJsonLdContext(layers='core'):
     """Generates a basic JSON-LD context file for schema.org."""
-    global namespaces;
-    jsonldcontext = "{\"@context\":    {\n"
-    jsonldcontext += namespaces ;
-    jsonldcontext += "        \"@vocab\": \"http://schema.org/\",\n"
 
-    url = Unit.GetUnit("URL")
-    date = Unit.GetUnit("Date")
-    datetime = Unit.GetUnit("DateTime")
+    # Caching assumes the context is neutral w.r.t. our hostname.
+    if DataCache.get('JSONLDCONTEXT'):
+        log.debug("DataCache: recycled JSONLDCONTEXT")
+        return DataCache.get('JSONLDCONTEXT')
+    else:
+        global namespaces
+        jsonldcontext = "{\"@context\":    {\n"
+        jsonldcontext += namespaces ;
+        jsonldcontext += "        \"@vocab\": \"http://schema.org/\",\n"
 
-    properties = sorted(GetSources(Unit.GetUnit("typeOf"), Unit.GetUnit("rdf:Property"), layers=layers), key=lambda u: u.id)
-    for p in properties:
-        range = GetTargets(Unit.GetUnit("rangeIncludes"), p, layers=layers)
-        type = None
+        url = Unit.GetUnit("URL")
+        date = Unit.GetUnit("Date")
+        datetime = Unit.GetUnit("DateTime")
 
-        if url in range:
-            type = "@id"
-        elif date in range:
-            type = "Date"
-        elif datetime in range:
-            type = "DateTime"
+        properties = sorted(GetSources(Unit.GetUnit("typeOf"), Unit.GetUnit("rdf:Property"), layers=layers), key=lambda u: u.id)
+        for p in properties:
+            range = GetTargets(Unit.GetUnit("rangeIncludes"), p, layers=layers)
+            type = None
 
-        if type:
-            jsonldcontext += "        \"" + p.id + "\": { \"@type\": \"" + type + "\" },"
+            if url in range:
+                type = "@id"
+            elif date in range:
+                type = "Date"
+            elif datetime in range:
+                type = "DateTime"
 
-    jsonldcontext += "}}\n"
-    jsonldcontext = jsonldcontext.replace("},}}","}\n    }\n}")
-    jsonldcontext = jsonldcontext.replace("},","},\n")
+            if type:
+                jsonldcontext += "        \"" + p.id + "\": { \"@type\": \"" + type + "\" },"
 
-    return jsonldcontext
-
+        jsonldcontext += "}}\n"
+        jsonldcontext = jsonldcontext.replace("},}}","}\n    }\n}")
+        jsonldcontext = jsonldcontext.replace("},","},\n")
+        DataCache.put('JSONLDCONTEXT',jsonldcontext)
+        log.debug("DataCache: added JSONLDCONTEXT")
+        return jsonldcontext
 
 
 
@@ -660,7 +694,7 @@ def full_path(filename):
 
 def setHomeValues(items,layer='core',defaultToCore=False):
     global extensionLoadErrors
-    
+
     for node in items:
         if(node == None):
             continue
@@ -702,16 +736,16 @@ def read_schemas(loadExtensions=False):
         setHomeValues(items,"core",True)
 
         files = glob.glob("data/*examples.txt")
-        
+
         read_examples(files)
-        
+
         files = glob.glob("data/2015-04-vocab_counts.txt")
 
         for file in files:
             usage_data = read_file(file)
             parser = parsers.UsageFileParser(None)
             parser.parse(usage_data)
-    
+
     schemasInitialized = True
 
 
@@ -739,18 +773,18 @@ def read_extensions(extensions):
             all_layers[extid] = "1"
             extitems = parser.parse([ext_file_path], layer="%s" % extid) # put schema triples in a layer
             setHomeValues(extitems,extid,False)
-        
+
         read_examples(expfiles)
-        
+
     extensionsLoaded = True
-    
+
 def read_examples(files):
         example_contents = []
         for f in files:
             example_content = read_file(f)
             example_contents.append(example_content)
             log.debug("examples loaded from: %s" % f)
-                        
+
         parser = parsers.ParseExampleFile(None)
         parser.parse(example_contents)
 

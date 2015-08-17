@@ -22,12 +22,12 @@ from api import inLayer, read_file, full_path, read_schemas, read_extensions, re
 from api import Unit, GetTargets, GetSources
 from api import GetComment, all_terms, GetAllTypes, GetAllProperties
 from api import GetParentList, GetImmediateSubtypes, HasMultipleBaseTypes
+from api import GetJsonLdContext
 
 logging.basicConfig(level=logging.INFO) # dev_appserver.py --log_level debug .
 log = logging.getLogger(__name__)
 
-SCHEMA_VERSION=2.0
-sitename = "schema.org"
+SCHEMA_VERSION=2.1
 sitemode = "mainsite" # whitespaced list for CSS tags,
             # e.g. "mainsite testsite" when off expected domains
             # "extensionsite" when in an extension (e.g. blue?)
@@ -57,6 +57,8 @@ JINJA_ENVIRONMENT = jinja2.Environment(
 ENABLE_JSONLD_CONTEXT = True
 ENABLE_CORS = True
 ENABLE_HOSTED_EXTENSIONS = True
+
+EXTENSION_SUFFIX = "" # e.g. "*"
 
 ENABLED_EXTENSIONS = [ 'admin', 'auto', 'bib' ]
 ALL_LAYERS = [ 'core', 'admin', 'auto', 'bib' ]
@@ -92,15 +94,16 @@ class HTMLOutput:
 
 class TypeHierarchyTree:
 
-    def __init__(self):
+    def __init__(self, prefix=""):
         self.txt = ""
         self.visited = {}
+        self.prefix = prefix
 
     def emit(self, s):
         self.txt += s + "\n"
 
     def toHTML(self):
-        return '<ul>%s</ul>' % self.txt
+        return '%s<ul>%s</ul>' % (self.prefix, self.txt)
 
     def toJSON(self):
         return self.txt
@@ -109,7 +112,21 @@ class TypeHierarchyTree:
 
         """Generate a hierarchical tree view of the types. hashorslash is used for relative link prefixing."""
 
-        # log.debug("traverseForHTML: node=%s hashorslash=%s" % ( node.id, hashorslash ))
+        log.debug("traverseForHTML: node=%s hashorslash=%s" % ( node.id, hashorslash ))
+
+        urlprefix = ""
+        home = node.getHomeLayer()
+
+        if home in ENABLED_EXTENSIONS and home != getHostExt():
+            urlprefix = makeUrl(home)
+
+        extclass = ""
+        extflag = ""
+        tooltip=""
+        if home != "core" and home != "":
+            extclass = "class=\"ext ext-%s\"" % home
+            extflag = EXTENSION_SUFFIX
+            tooltip = "title=\"Extended schema: %s.schema.org\" " % home
 
         # we are a supertype of some kind
         if len(node.GetImmediateSubtypes(layers=layers)) > 0:
@@ -117,7 +134,7 @@ class TypeHierarchyTree:
             # and we haven't been here before
             if node.id not in self.visited:
                 self.visited[node.id] = True # remember our visit
-                self.emit( ' %s<li class="tbranch" id="%s"><a href="%s%s">%s</a>' % (" " * 4 * depth, node.id, hashorslash, node.id, node.id) )
+                self.emit( ' %s<li class="tbranch" id="%s"><a %s %s href="%s%s%s">%s</a>%s' % (" " * 4 * depth, node.id,  tooltip, extclass, urlprefix, hashorslash, node.id, node.id, extflag) )
                 self.emit(' %s<ul>' % (" " * 4 * depth))
 
                 # handle our subtypes
@@ -126,13 +143,13 @@ class TypeHierarchyTree:
                 self.emit( ' %s</ul>' % (" " * 4 * depth))
             else:
                 # we are a supertype but we visited this type before, e.g. saw Restaurant via Place then via Organization
-                seen = '  <a href="#%s">*</a> ' % node.id
-                self.emit( ' %s<li class="tbranch" id="%s"><a href="%s%s">%s</a>%s' % (" " * 4 * depth, node.id, hashorslash, node.id, node.id, seen) )
+                seen = '  <a href="#%s">+</a> ' % node.id
+                self.emit( ' %s<li class="tbranch" id="%s"><a %s %s href="%s%s%s">%s</a>%s%s' % (" " * 4 * depth, node.id,  tooltip, extclass, urlprefix, hashorslash, node.id, node.id, extflag, seen) )
 
         # leaf nodes
         if len(node.GetImmediateSubtypes(layers=layers)) == 0:
             if node.id not in self.visited:
-                self.emit( '%s<li class="tleaf" id="%s"><a href="%s%s">%s</a>%s' % (" " * depth, node.id, hashorslash, node.id, node.id, "" ))
+                self.emit( '%s<li class="tleaf" id="%s"><a %s %s href="%s%s%s">%s</a>%s%s' % (" " * depth, node.id, tooltip, extclass, urlprefix, hashorslash, node.id, node.id, extflag, "" ))
             #else:
                 #self.visited[node.id] = True # never...
                 # we tolerate "VideoGame" appearing under both Game and SoftwareApplication
@@ -222,44 +239,6 @@ def GetExtMappingsRDFa(node, layers='core'):
                 markup = markup + "<link property=\"owl:equivalentProperty\" href=\"%s\"/>\n" % c.id
             return markup
     return "<!-- no external mappings noted for this term. -->"
-
-def GetJsonLdContext(layers='core'):
-    """Generates a basic JSON-LD context file for schema.org."""
-
-    if DataCache.get('JSONLDCONTEXT'):
-        log.debug("DataCache: recycled JSONLDCONTEXT")
-        return DataCache.get('JSONLDCONTEXT')
-    else:
-        global namespaces
-        jsonldcontext = "{\"@context\":    {\n"
-        jsonldcontext += namespaces ;
-        jsonldcontext += "        \"@vocab\": \"http://schema.org/\",\n"
-
-        url = Unit.GetUnit("URL")
-        date = Unit.GetUnit("Date")
-        datetime = Unit.GetUnit("DateTime")
-
-        properties = sorted(GetSources(Unit.GetUnit("typeOf"), Unit.GetUnit("rdf:Property"), layers=layers), key=lambda u: u.id)
-        for p in properties:
-            range = GetTargets(Unit.GetUnit("rangeIncludes"), p, layers=layers)
-            type = None
-
-            if url in range:
-                type = "@id"
-            elif date in range:
-                type = "Date"
-            elif datetime in range:
-                type = "DateTime"
-
-            if type:
-                jsonldcontext += "        \"" + p.id + "\": { \"@type\": \"" + type + "\" },"
-
-        jsonldcontext += "}}\n"
-        jsonldcontext = jsonldcontext.replace("},}}","}\n    }\n}")
-        jsonldcontext = jsonldcontext.replace("},","},\n")
-        DataCache.put('JSONLDCONTEXT',jsonldcontext)
-        log.debug("DataCache: added JSONLDCONTEXT")
-        return jsonldcontext
 
 class ShowUnit (webapp2.RequestHandler):
     """ShowUnit exposes schema.org terms via Web RequestHandler
@@ -379,6 +358,8 @@ class ShowUnit (webapp2.RequestHandler):
         * title = optional title attribute on the link
         * prop = an optional property value to apply to the A element
         """
+        if(node.id == "DataType"):  #Special case
+            return "<a href=\"%s\">%s</a>" % (node.id, node.id)
 
         if label=='':
           label = node.id
@@ -388,20 +369,22 @@ class ShowUnit (webapp2.RequestHandler):
             prop = " property=\"%s\"" % (prop)
         urlprefix = ""
         home = node.getHomeLayer()
-        
-        if home in ENABLED_EXTENSIONS and home != host_ext:
+
+        if home in ENABLED_EXTENSIONS and home != getHostExt():
             port = ""
             if myport != "80":
                 port = ":%s" % myport
-            urlprefix = "http://%s.%s%s" % (home, mybasehost, port) 
-        
+            urlprefix = makeUrl(home)
+
         extclass = ""
         extflag = ""
+        tooltip = ""
         if home != "core" and home != "":
-            extclass = "class=\"ext-%s\" " % home
-            extflag = "*"  
-        
-        return "<a %shref=\"%s%s%s\"%s%s>%s</a>%s" % (extclass, urlprefix, hashorslash, node.id, prop, title, label, extflag)
+            extclass = "class=\"ext ext-%s\" " % home
+            extflag = EXTENSION_SUFFIX
+            tooltip = "title=\"Extended schema: %s.schema.org\" " % home
+
+        return "<a %s %s href=\"%s%s%s\"%s%s>%s</a>%s" % (tooltip, extclass, urlprefix, hashorslash, node.id, prop, title, label, extflag)
 
     def makeLinksFromArray(self, nodearray, tooltip=''):
         """Make a comma separate list of links via ml() function.
@@ -422,21 +405,21 @@ class ShowUnit (webapp2.RequestHandler):
         if home != "core" and home != "":
             self.write("Defined in the %s.schema.org extension." % home)
             self.write(" (This is an initial exploratory release.)")
-            
-            
+
+
 
 
         self.BreadCrumbs(node, layers=layers)
 
         comment = GetComment(node, layers)
-        
+
         self.write(" <div property=\"rdfs:comment\">%s</div>\n\n" % (comment) + "\n")
 
         self.write(" <br><div>Usage: %s</div>\n\n" % (node.UsageStr()) + "\n")
 
         self.write(self.moreInfoBlock(node))
 
-        if (node.isClass(layers=layers) and not node.isDataType(layers=layers)):
+        if (node.isClass(layers=layers) and not node.isDataType(layers=layers) and node.id != "DataType"):
 
             self.write("<table class=\"definition-table\">\n        <thead>\n  <tr><th>Property</th><th>Expected Type</th><th>Description</th>               \n  </tr>\n  </thead>\n\n")
 
@@ -460,14 +443,16 @@ class ShowUnit (webapp2.RequestHandler):
            count = 0
            self.write("<span class='breadcrumbs'>")
            while(len(self.crumbStacks[row]) > 0):
+                n = self.crumbStacks[row].pop()
                 if(count > 0):
                     if((len(self.crumbStacks[row]) == 1) and enuma):
                         self.write(" :: ")
                     else:
                         self.write(" &gt; ")
-                n = self.crumbStacks[row].pop()
-                self.write("%s" % (self.ml(n)))
+                elif n.id == "Class": # If Class is first breadcrum suppress it
+                        continue
                 count += 1
+                self.write("%s" % (self.ml(n)))
            self.write("</span><br/>\n")
         self.write("</h4>\n")
 
@@ -475,19 +460,22 @@ class ShowUnit (webapp2.RequestHandler):
     def WalkCrumbs(self, node, cstack, layers):
         if "http://" in node.id:  #Suppress external class references
             return
-            
+
         cstack.append(node)
         tmpStacks = []
         tmpStacks.append(cstack)
-        sc = []
-        if (node.isClass(layers=layers) and not node.isDataType(layers=layers)):
-            sc = Unit.GetUnit("rdfs:subClassOf")
-        elif(node.isAttribute(layers=layers)):
-            sc = Unit.GetUnit("rdfs:subPropertyOf")
-        else:
-            sc = Unit.GetUnit("typeOf")# Enumerations are classes that have no declared subclasses
+        subs = []
 
-        subs = GetTargets(sc, node, layers=layers)
+        if(node.isDataType(layers=layers)):
+            subs = GetTargets(Unit.GetUnit("typeOf"), node, layers=layers)
+            subs += GetTargets(Unit.GetUnit("rdfs:subClassOf"), node, layers=layers)
+        elif node.isClass(layers=layers):
+            subs = GetTargets(Unit.GetUnit("rdfs:subClassOf"), node, layers=layers)
+        elif(node.isAttribute(layers=layers)):
+            subs = GetTargets(Unit.GetUnit("rdfs:subPropertyOf"), node, layers=layers)
+        else:
+            subs = GetTargets(Unit.GetUnit("typeOf"), node, layers=layers)# Enumerations are classes that have no declared subclasses
+
         for i in range(len(subs)):
             if(i > 0):
                 t = cstack[:]
@@ -530,6 +518,8 @@ class ShowUnit (webapp2.RequestHandler):
         if not out:
             out = self
 
+        propcount = 0
+
         headerPrinted = False
         di = Unit.GetUnit("domainIncludes")
         ri = Unit.GetUnit("rangeIncludes")
@@ -550,7 +540,7 @@ class ShowUnit (webapp2.RequestHandler):
                     class_head = self.ml(cl, prop="rdfs:subClassOf")
                 out.write("<tr class=\"supertype\">\n     <th class=\"supertype-name\" colspan=\"3\">Properties from %s</th>\n  \n</tr>\n\n<tbody class=\"supertype\">\n  " % (class_head))
                 headerPrinted = True
-                
+
             out.write("<tr typeof=\"rdfs:Property\" resource=\"http://schema.org/%s\">\n    \n      <th class=\"prop-nam\" scope=\"row\">\n\n<code property=\"rdfs:label\">%s</code>\n    </th>\n " % (prop.id, self.ml(prop)))
             out.write("<td class=\"prop-ect\">\n")
             first_range = True
@@ -570,34 +560,74 @@ class ShowUnit (webapp2.RequestHandler):
 
             out.write("</td></tr>")
             subclass = False
+            propcount += 1
 
         if subclass: # in case the superclass has no defined attributes
             out.write("<tr><td colspan=\"3\"><meta property=\"rdfs:subClassOf\" content=\"%s\"></td></tr>" % (cl.id))
-        
+
+        return propcount
+
+    def emitClassExtensionSuperclasses (self, cl, layers="core", out=None):
+       first = True
+       count = 0
+       if not out:
+           out = self
+
+       buff = StringIO.StringIO()
+       sc = Unit.GetUnit("rdfs:subClassOf")
+
+       for p in GetTargets(sc, cl, ALL_LAYERS):
+
+          if inLayer(layers,p):
+               continue
+
+          if p.id == "http://www.w3.org/2000/01/rdf-schema#Class": #Special case for "DataType"
+              p.id = "Class"
+
+          sep = ", "
+          if first:
+            sep = "<li>"
+            first = False
+
+          buff.write("%s%s" % (sep,self.ml(p)))
+          count += 1
+
+          if(count > 0):
+            buff.write("</li>\n")
+
+       content = buff.getvalue()
+       if(len(content) > 0):
+           if cl.id == "DataType":
+               self.write("<h4>Subclass of:<h4>")
+           else:
+               self.write("<h4>Available supertypes defined in extensions</h4>")
+           self.write("<ul>")
+           self.write(content)
+           self.write("</ul>")
+       buff.close()
 
     def emitClassExtensionProperties (self, cl, layers="core", out=None):
-        if not out:
-            out = self        
-                
-        buff = StringIO.StringIO()
+       if not out:
+           out = self
 
-        for p in self.parentStack:
-            self._ClassExtensionProperties(buff, p, layers=layers)
-        
-        content = buff.getvalue()
-        if(len(content) > 0):
-            self.write("<h4>Available properties in extensions</h4>")
-            self.write("<ul>")
-            self.write(content)
-            self.write("</ul>")
-        buff.close()
+       buff = StringIO.StringIO()
+
+       for p in self.parentStack:
+           self._ClassExtensionProperties(buff, p, layers=layers)
+
+       content = buff.getvalue()
+       if(len(content) > 0):
+           self.write("<h4>Available properties in extensions</h4>")
+           self.write("<ul>")
+           self.write(content)
+           self.write("</ul>")
+       buff.close()
 
     def _ClassExtensionProperties (self, out, cl, layers="core"):
         """Write out a list of properties not displayed as they are in extensions for a per-type page."""
 
         di = Unit.GetUnit("domainIncludes")
 
-        headerPrinted = False
         first = True
         count = 0
         for prop in sorted(GetSources(di, cl, ALL_LAYERS), key=lambda u: u.id):
@@ -606,18 +636,18 @@ class ShowUnit (webapp2.RequestHandler):
             if inLayer(layers,prop):
                 continue
             log.debug("ClassExtensionfFound %s " % (prop))
-                
+
             sep = ", "
             if first:
                 out.write("<li>From %s: " % cl)
                 sep = ""
                 first = False
-                
+
             out.write("%s%s" % (sep,self.ml(prop)))
             count += 1
         if(count > 0):
             out.write("</li>\n")
-                                            
+
 
     def emitClassIncomingProperties (self, cl, layers="core", out=None, hashorslash="/"):
         """Write out a table of incoming properties for a per-type page."""
@@ -636,7 +666,7 @@ class ShowUnit (webapp2.RequestHandler):
             superprops = prop.superproperties(layers=layers)
             ranges = GetTargets(di, prop, layers=layers)
             comment = GetComment(prop, layers=layers)
-            
+
             if (not headerPrinted):
                 self.write("<br/><br/>Instances of %s may appear as values for the following properties<br/>" % (self.ml(cl)))
                 self.write("<table class=\"definition-table\">\n        \n  \n<thead>\n  <tr><th>Property</th><th>On Types</th><th>Description</th>               \n  </tr>\n</thead>\n\n")
@@ -792,7 +822,7 @@ class ShowUnit (webapp2.RequestHandler):
         logging.info("accepts: %s" % self.request.headers.get('Accept'))
 
         if ENABLE_JSONLD_CONTEXT:
-            jsonldcontext = GetJsonLdContext()
+            jsonldcontext = GetJsonLdContext(layers=ALL_LAYERS)
 
         # Homepage is content-negotiated. HTML or JSON-LD.
         mimereq = {}
@@ -824,10 +854,12 @@ class ShowUnit (webapp2.RequestHandler):
                 template_values = {
                     'ENABLE_HOSTED_EXTENSIONS': ENABLE_HOSTED_EXTENSIONS,
                     'SCHEMA_VERSION': SCHEMA_VERSION,
+                    'sitename': sitename,
                     'myhost': myhost,
                     'myport': myport,
                     'mybasehost': mybasehost,
-                    'host_ext': host_ext,
+                    'host_ext': getHostExt(),
+                    'home_page': "True",
                     'debugging': debugging
                 }
                 page = template.render(template_values)
@@ -845,9 +877,7 @@ class ShowUnit (webapp2.RequestHandler):
             return "schema.org"
         if len(layers)==0:
             return "schema.org"
-        mylayers = layers
-        log.debug("EXT: computing sitename from layer list: %s" %  str(mylayers) )
-        return (layers[ len(mylayers)-1 ] + ".schema.org")
+        return (getHostExt() + ".schema.org")
 
     def emitSchemaorgHeaders(self, entry='', is_class=False, ext_mappings='', sitemode="default", sitename="schema.org"):
         """
@@ -872,6 +902,7 @@ class ShowUnit (webapp2.RequestHandler):
                 'entry': str(entry),
                 'sitemode': sitemode,
                 'sitename': sitename,
+                'menu_sel': "Schemas",
                 'rdfs_type': rdfs_type,
                 'ext_mappings': ext_mappings
             }
@@ -898,7 +929,12 @@ class ShowUnit (webapp2.RequestHandler):
         if ( ENABLE_HOSTED_EXTENSIONS and ("core" not in layers or len(layers)>1) ):
             ll = " ".join(layers).replace("core","")
 
-            s = "<p id='lli' class='layerinfo %s'><a href=\"https://github.com/schemaorg/schemaorg/wiki/ExtensionList\">extensions shown</a>: %s [<a href='http://%s/'>x</a>]</p>\n" % (ll, ll, mybasehost )
+            target=""
+            if inLayer("core", node):
+                target = node.id
+
+
+            s = "<p id='lli' class='layerinfo %s'><a href=\"https://github.com/schemaorg/schemaorg/wiki/ExtensionList\">extension shown</a>: %s [<a href='%s'>x</a>]</p>\n" % (ll, ll, makeUrl("",target))
             self.write(s)
 
         cached = self.GetCachedText(node, layers)
@@ -914,37 +950,84 @@ class ShowUnit (webapp2.RequestHandler):
         if (node.isClass(layers=layers)):
             subclass = True
             for p in self.parentStack:
-                log.debug("Properties for: %s" % p)
-                self.ClassProperties(p, p==self.parentStack[0], layers=layers) 
-                
-            self.write("\n\n</table>\n\n")                       
- 
+                self.ClassProperties(p, p==self.parentStack[0], layers=layers)
+            if (not node.isDataType(layers=layers) and node.id != "DataType"):
+                self.write("\n\n</table>\n\n")
+
             self.emitClassIncomingProperties(node, layers=layers)
+
+            self.emitClassExtensionSuperclasses(node,layers)
 
             self.emitClassExtensionProperties(p,layers)
 
         elif (Unit.isAttribute(node, layers=layers)):
             self.emitAttributeProperties(node, layers=layers)
 
-#        if (not Unit.isAttribute(node, layers=layers)):
-#            self.write("\n\n</table>\n\n") # no supertype table for properties
-
         if (node.isClass(layers=layers)):
+            children = []
+            children = GetSources(Unit.GetUnit("rdfs:subClassOf"), node, ALL_LAYERS)# Normal subclasses
+            if(node.isDataType() or node.id == "DataType"):
+                children += GetSources(Unit.GetUnit("typeOf"), node, ALL_LAYERS)# Datatypes
+            children = sorted(children, key=lambda u: u.id)
 
-            children = sorted(GetSources(Unit.GetUnit("rdfs:subClassOf"), node, layers=layers), key=lambda u: u.id)
             if (len(children) > 0):
-                self.write("<br/><b>More specific Types</b><ul>")
+                buff = StringIO.StringIO()
+                extbuff = StringIO.StringIO()
+
+                firstext=True
                 for c in children:
-                    self.write("<li> %s" % (self.ml(c)))
-                self.write("</ul>")
+                    if inLayer(layers, c):
+                        buff.write("<li> %s </li>" % (self.ml(c)))
+                    else:
+                        sep = ", "
+                        if firstext:
+                            sep = ""
+                            firstext=False
+                        extbuff.write("%s%s" % (sep,self.ml(c)) )
+
+                if (len(buff.getvalue()) > 0):
+                    if node.isDataType():
+                        self.write("<br/><b>More specific DataTypes</b><ul>")
+                    else:
+                        self.write("<br/><b>More specific Types</b><ul>")
+                    self.write(buff.getvalue())
+                    self.write("</ul>")
+
+                if (len(extbuff.getvalue()) > 0):
+                    self.write("<h4>More specific Types available in extensions</h4><ul><li>")
+                    self.write(extbuff.getvalue())
+                    self.write("</li></ul>")
+                buff.close()
+                extbuff.close()
 
         if (node.isEnumeration(layers=layers)):
-            children = sorted(GetSources(Unit.GetUnit("typeOf"), node, layers=layers), key=lambda u: u.id)
+            children = sorted(GetSources(Unit.GetUnit("typeOf"), node, ALL_LAYERS), key=lambda u: u.id)
             if (len(children) > 0):
-                self.write("<br/><br/>Enumeration members<ul>")
+                buff = StringIO.StringIO()
+                extbuff = StringIO.StringIO()
+
+                firstext=True
                 for c in children:
-                    self.write("<li> %s" % (self.ml(c)))
-                self.write("</ul>")
+                    if inLayer(layers, c):
+                        buff.write("<li> %s </li>" % (self.ml(c)))
+                    else:
+                        sep = ","
+                        if firstext:
+                            sep = ""
+                            firstext=False
+                        extbuff.write("%s%s" % (sep,self.ml(c)) )
+
+                if (len(buff.getvalue()) > 0):
+                    self.write("<br/><br/><b>Enumeration members</b><ul>")
+                    self.write(buff.getvalue())
+                    self.write("</ul>")
+
+                if (len(extbuff.getvalue()) > 0):
+                    self.write("<h4>Enumeration members available in extensions</h4><ul><li>")
+                    self.write(extbuff.getvalue())
+                    self.write("</li></ul>")
+                buff.close()
+                extbuff.close()
 
         ackorgs = GetTargets(Unit.GetUnit("dc:source"), node, layers=layers)
         if (len(ackorgs) > 0):
@@ -1015,10 +1098,9 @@ class ShowUnit (webapp2.RequestHandler):
         layerlist = [ "core"]
 
         # 3. Use host_ext if set, e.g. 'bib' from bib.schema.org
-        if host_ext != None:
-            log.debug("Host: %s host_ext: %s" % ( self.request.host , host_ext ) )
-            log.info("Host: %s host_ext: %s" % ( self.request.host , host_ext ) )
-            extlist.append(host_ext)
+        if getHostExt() != None:
+            log.debug("Host: %s host_ext: %s" % ( self.request.host , getHostExt() ) )
+            extlist.append(getHostExt())
 
         # Report domain-requested extensions
         for x in extlist:
@@ -1037,14 +1119,15 @@ class ShowUnit (webapp2.RequestHandler):
             self.error(404)
             self.response.out.write('<title>404 Not Found.</title><a href="/">404 Not Found (JSON-LD Context not enabled.)</a><br/><br/>')
             return True
+
         if (node=="docs/jsonldcontext.json.txt"):
-            jsonldcontext = GetJsonLdContext()
+            jsonldcontext = GetJsonLdContext(layers=ALL_LAYERS)
             self.response.headers['Content-Type'] = "text/plain"
             self.emitCacheHeaders()
             self.response.out.write( jsonldcontext )
             return True
         if (node=="docs/jsonldcontext.json"):
-            jsonldcontext = GetJsonLdContext()
+            jsonldcontext = GetJsonLdContext(layers=ALL_LAYERS)
             self.response.headers['Content-Type'] = "application/ld+json"
             self.emitCacheHeaders()
             self.response.out.write( jsonldcontext )
@@ -1062,17 +1145,50 @@ class ShowUnit (webapp2.RequestHandler):
             return True
         else:
             template = JINJA_ENVIRONMENT.get_template('full.tpl')
+
+            extlist=""
+            count=0
+            for i in layerlist:
+                if i != "core":
+                    sep = ""
+                    if count > 0:
+                        sep = ", "
+                    extlist += "plus '%s'%s" % (i, sep)
+
+                    count += 1
+            local_button = ""
+            local_label = "<h3>Core %s extension vocabularies</h3>" % extlist
+            if count == 0:
+                local_button = "Core vocabulary"
+            elif count == 1:
+                local_button = "Core %s extension" % extlist
+            else:
+                local_button = "Core %s extensions" % extlist
+
             uThing = Unit.GetUnit("Thing")
             uDataType = Unit.GetUnit("DataType")
 
-            mainroot = TypeHierarchyTree()
+            mainroot = TypeHierarchyTree(local_label)
             mainroot.traverseForHTML(uThing, layers=layerlist)
             thing_tree = mainroot.toHTML()
 
-            dtroot = TypeHierarchyTree()
+            fullmainroot = TypeHierarchyTree("<h3>Core plus all extension vocabularies</h3>")
+            fullmainroot.traverseForHTML(uThing, layers=ALL_LAYERS)
+            full_thing_tree = fullmainroot.toHTML()
+
+            dtroot = TypeHierarchyTree("<h4>Data Types</h4>")
             dtroot.traverseForHTML(uDataType, layers=layerlist)
             datatype_tree = dtroot.toHTML()
-            page = template.render({ 'thing_tree': thing_tree, 'datatype_tree': datatype_tree })
+
+            full_button = "Core plus all extensions"
+
+            page = template.render({ 'thing_tree': thing_tree,
+                                    'full_thing_tree': full_thing_tree,
+                                    'datatype_tree': datatype_tree,
+                                    'local_button': local_button,
+                                    'full_button': full_button,
+                                    'sitename': sitename,
+                                    'menu_sel': "Schemas"})
 
             self.response.out.write( page )
             log.debug("Serving fresh FullTreePage.")
@@ -1119,10 +1235,22 @@ class ShowUnit (webapp2.RequestHandler):
                 log.debug("TODO: layer toc: %s" % all_terms[schema_node.id] )
                 # self.response.out.write("Layers should be listed here. %s " %  all_terms[node.id] )
 
-                self.response.out.write("<h3>Schema.org Extensions</h3>\n<p>The term '%s' is not in the schema.org core, but is described by the following extension(s):</p>\n<ul>\n" % schema_node.id)
+                extensions = []
                 for x in all_terms[schema_node.id]:
                     x = x.replace("#","")
-                    self.response.out.write("<li><a href='?ext=%s'>%s</a></li>" % (x, x) )
+                    ext = {}
+                    ext['href'] = makeUrl(x,schema_node.id)
+                    ext['text'] = x
+                    extensions.append(ext)
+                    #self.response.out.write("<li><a href='%s'>%s</a></li>" % (makeUrl(x,schema_node.id), x) )
+
+                template = JINJA_ENVIRONMENT.get_template('wrongExt.tpl')
+                page = template.render({ 'target': schema_node.id,
+                                        'extensions': extensions,
+                                        'sitename': "schema.org"})
+
+                self.response.out.write( page )
+                log.debug("Serving fresh wrongExtPage.")
                 return True
             return False
 
@@ -1199,7 +1327,9 @@ class ShowUnit (webapp2.RequestHandler):
                 return True
             else:
                 template = JINJA_ENVIRONMENT.get_template('tocVersionPage.tpl')
-                page = template.render({ "releases": releaselog.keys() })
+                page = template.render({ "releases": releaselog.keys(),
+                                         "menu_sel": "Schemas",
+                                         "sitename": sitename})
 
                 self.response.out.write( page )
                 log.debug("Serving fresh tocVersionPage.")
@@ -1303,7 +1433,9 @@ class ShowUnit (webapp2.RequestHandler):
                     'requested_version': requested_version,
                     'releasedate': releaselog[str(SCHEMA_VERSION)],
                     'az_props': az_props, 'az_types': az_types,
-                    'az_prop_meta': az_prop_meta, 'az_type_meta': az_type_meta })
+                    'az_prop_meta': az_prop_meta, 'az_type_meta': az_type_meta,
+                    'sitename': sitename,
+                    'menu_sel': "Documentation"})
 
             self.response.out.write( page )
             log.debug("Serving fresh FullReleasePage.")
@@ -1311,28 +1443,41 @@ class ShowUnit (webapp2.RequestHandler):
             return True
 
 
-    def setupHostinfo(self, node):
+    def setupHostinfo(self, node, test=""):
         global debugging, host_ext, myhost, myport, mybasehost
 
-        host_ext = re.match( r'([\w\-_]+)[\.:]?', self.request.host).group(1)
-        log.debug("setupHostinfo: srh=%s host_ext=%s" % (self.request.host, str(host_ext) ))        
+        hostString = test
+        if test == "":
+            hostString = self.request.host
+
+        host_ext = re.match( r'([\w\-_]+)[\.:]?', hostString).group(1)
+        log.debug("setupHostinfo: srh=%s host_ext2=%s" % (hostString, str(host_ext) ))
+
+        split = hostString.rsplit(':')
+        myhost = split[0]
+        mybasehost = myhost
+        myport = "80"
+        if len(split) > 1:
+            myport = split[1]
 
         if host_ext != None:
             # e.g. "bib"
-            log.debug("HOST: Found %s in %s" % ( host_ext, self.request.host ))
-            DataCache.setCurrent(host_ext)
-            split = self.request.host.rsplit(':')
-            myhost = split[0]
-            myport = "80"
-            if len(split) > 1:
-                myport = split[1]                
-            mybasehost = myhost
-            mybasehost = mybasehost.replace(host_ext + ".","")
-            # mybasehost = mybasehost.replace(":8080", "")
+            log.debug("HOST: Found %s in %s" % ( host_ext, hostString ))
+            if not host_ext in ENABLED_EXTENSIONS:
+                host_ext = ""
+            else:
+                mybasehost = mybasehost[len(host_ext) + 1:]
 
+        dcn = host_ext
+        if dcn == None or dcn == "" or dcn =="core":
+            dcn = "core"
 
-        if "localhost" in self.request.host or "sdo-gozer.appspot.com" in self.request.host:
+        DataCache.setCurrent(dcn)
+
+        debugging = False
+        if "localhost" in hostString or "sdo-ganymede.appspot.com" in hostString:
             debugging = True
+
 
     def get(self, node):
 
@@ -1428,6 +1573,31 @@ class ShowUnit (webapp2.RequestHandler):
                 log.info("Error handling 404.")
                 return
 
+def getHostExt():
+    return host_ext
+
+def getBaseHost():
+    return mybasehost
+
+def getHostPort():
+    return myport
+
+def makeUrl(ext="",path=""):
+        port = ""
+        sub = ""
+        p = ""
+        if(getHostPort() != "80"):
+            port = ":%s" % getHostPort()
+        if ext != "core" and ext != "":
+            sub = "%s." % ext
+        if path != "":
+            if path.startswith("/"):
+                p = path
+            else:
+                p = "/%s" % path
+
+        url = "http://%s%s%s%s" % (sub,getBaseHost(),port,p)
+        return url
 
 #log.info("STARTING UP... reading schemas.")
 read_schemas(loadExtensions=ENABLE_HOSTED_EXTENSIONS)

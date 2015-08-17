@@ -2,84 +2,63 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>Full Hierarchy - schema.org</title>
+    <title>Full Hierarchy - {{ sitename }}</title>
     <meta name="description" content="Schema.org is a set of extensible schemas that enables webmasters to embed
     structured data on their web pages for use by search engines and other applications." />
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
     <link rel="stylesheet" type="text/css" href="/docs/schemaorg.css" />
+
+<script type="text/javascript">
+$(document).ready(function(){
+    $('input[type="radio"]').click(function(){
+        if($(this).attr("value")=="local"){
+            $("#thing_tree").slideDown(1000);
+            $("#full_thing_tree").slideUp(1000);
+        }
+        if($(this).attr("value")=="full"){
+            $("#thing_tree").slideUp(500);
+            $("#full_thing_tree").slideDown(1000);
+        }
+    });
+	$("#full_thing_tree").hide();
+});
+</script>
 </head>
 <body style="text-align: left;">
 
-    <div id="container">
-        <div id="intro">
-            <div id="pageHeader">
-                <div class="wrapper">
-                    <h1>schema.org</h1>
-
-                    <div id="cse-search-form" style="width: 400px;"></div>
-
-                    <script type="text/javascript" src="//www.google.com/jsapi"></script>
-                    <script type="text/javascript">
-                    google.load('search', '1', {language : 'en', style : google.loader.themes.ESPRESSO});
-                    google.setOnLoadCallback(function() {
-                        var customSearchControl = new google.search.CustomSearchControl('013516846811604855281:nj5laplixaa');
-                        customSearchControl.setResultSetSize(google.search.Search.FILTERED_CSE_RESULTSET);
-                        var options = new google.search.DrawOptions();
-                        options.enableSearchboxOnly("../docs/search_results.html", null, false, '#');
-                        customSearchControl.draw('cse-search-form', options);
-                    }, true);
-                    </script>
-
-
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="selectionbar">
-        <div class="wrapper">
-            <ul>
-                <li >
-                    <a href="../docs/documents.html">Documentation</a></li>
-                    <li class="activelink">
-                        <a href="../docs/schemas.html">Schemas</a></li>
-                        <li >
-                            <a href="../.">Home</a></li>
-                        </ul>
-                    </div>
-
-                </div>
-                <div style="padding: 14px; float: right;" id="languagebox"></div>
-
-
-
+{% include 'basicPageHeader.tpl' with context %}
 
 <div style="margin-left: 8%; margin-right: 8%">
 
 <h3>Full Hierarchy</h3>
 
-<!--
 <p>
-Schema.org is defined as two hierarchies: one for textual property values, and
-one for the things that they describe. Although a type may have more than one
-super-type, here we show each type in one branch of the tree only.
-</p> -->
-<!--
-<h4>DataType</h4>
-
-<div>
-{{ datatype_tree | safe }}
-</div> -->
+Schema.org is defined as two hierarchies: one for textual property values, and one for the things that they describe. 
+</p> 
 
 <h4>Thing</h4>
 
-<p>
-This is the main schema.org hierarchy: a collection of types (or "classes"), each of which has one or more parent types.
-Although a type may have more than one super-type, here we show each type in one branch of the tree only.
-</p>
+<p>This is the main schema.org hierarchy: a collection of types (or "classes"), each of which has one or more parent types. Although a type may have more than one super-type, here we show each type in one branch of the tree only. There is also a parallel hierarchy for <a href="#datatype_tree">data types</a>.</p>
 
-<div>
+<br/>
+<div>Select vocabulary view:<br/>
+    <div>
+        <label><input type="radio" name="viewSel" value="local" checked="checked"> {{local_button}}</label>
+        <label><input type="radio" name="viewSel" value="full"> {{full_button}}</label>
+	</div>
+</div>
+	
+
+<div id="thing_tree">
 {{ thing_tree | safe }}
 </div>
+<div class="display: none" id="full_thing_tree">
+{{ full_thing_tree | safe }}
+</div>
+<div id="datatype_tree">
+{{ datatype_tree | safe }}
+</div>
+
 
 
 <p>An <em>experimental</em> <a href="http://d3js.org">D3</a>-compatible <a href="/docs/tree.jsonld">JSON</a> version is also available.</p>
