@@ -1,0 +1,147 @@
+TYPES: HealthcareProvider
+
+Use of HealthcareProvider - in clinical domain, the healthcare provider is equivalent to healthcare giver or healthcare professional and is a human.
+Thanks to Healthcare Schema Vocabulary Community Group for input 
+
+WITHOUT-MARKUP:
+Ms. Dr Sebastiano Tullia, a specialist in Gyneco-ostetrics, born on August 22, 1910 located at <http://example.org/Place/63542#this>, ID "AXP41523689" affiliated to <http://example.org/ContactPoint/228566#this> in the profession of <http://example.org/HealthcareProfession/11#this> and the role of <http://example.org/HealthcareRole/152#this> is working only during day working hours at location <http://example.org/Address/100#this>. Contact point <http://example.org/ContactPoint/228566#this>. 
+
+TURTLE:
+@prefix dcterms:  <http://purl.org/dc/terms/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix schema: <http://schema.org/>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+
+<http://example.org/HealthcareProfessional/32#this>
+	rdfs:subClassOf <http://snomed.info/125676002>; 
+	rdfs:subClassOf <http://snomed.info/223366009>; 
+	dcterms:identifier "AXP41523689"; 
+	schema:medicalSpecialty "Gyneco-Obstetrics";
+	schema:profession <http://example.org/HealthcareProfession/11#this>; 
+	schema:playsRole <http://example.org/HealthcareRole/152#this>; 	
+	schema:gender "Female"; 
+	foaf:title "Ms."; 
+	schema:familyName "Sebastino" ;
+	schema:givenName "Tullia" ;
+	schema:jobTitle "Dr."; 
+	schema:birthDate  "1910-08-22"^^xsd:date;
+	schema:location <http://example.org/Place/63542#this>; 
+	schema:contactPoint <http://example.org/ContactPoint/228566#this>; 				
+	schema:affiliation <http://example.org/HealthFacility/1522#this>;
+	schema:workLocation <http://example.org/Address/100#this>;
+	schema:description "Working only during working hours"@en.	
+
+MICRODATA:
+
+
+<div>
+  <div itemtype="http://www.w3.org/2000/01/rdf-schema#Resource" itemid="http://example.org/HealthcareProfessional/32#this" itemscope>
+    <meta itemprop="http://purl.org/dc/terms/identifier" content="AXP41523689" />
+    <meta itemprop="http://schema.org/medicalSpecialty" content="Gyneco-Obstetrics" />
+    <meta itemprop="http://xmlns.com/foaf/0.1/title" content="Ms." />
+    <link itemprop="http://schema.org/contactPoint" href="http://example.org/ContactPoint/228566#this" />
+    <meta itemprop="http://schema.org/description" content="Working only during day working hours" />
+    <meta itemprop="http://schema.org/familyName" content="Sebastino" />
+    <link itemprop="http://schema.org/profession" href="http://example.org/HealthcareProfession/11#this" />
+    <link itemprop="http://schema.org/location" href="http://example.org/Place/63542#this" />
+    <meta itemprop="http://schema.org/jobTitle" content="Dr." />
+    <link itemprop="http://schema.org/affiliation" href="http://example.org/HealthFacility/1522#this" />
+    <link itemprop="http://schema.org/workLocation" href="http://example.org/Address/100#this" />
+    <link itemprop="http://schema.org/playsRole" href="http://example.org/HealthcareRole/152#this" />
+    <meta itemprop="http://schema.org/gender" content="Female" />
+    <link itemprop="subClassOf" href="http://snomed.info/223366009" />
+    <link itemprop="subClassOf" href="http://snomed.info/125676002" />
+    <meta itemprop="http://schema.org/birthDate" content="1910-08-22" />
+    <meta itemprop="http://schema.org/givenName" content="Tullia" />
+  </div>
+</div>
+
+RDFa:
+
+<div xmlns="http://www.w3.org/1999/xhtml"
+  prefix="
+    foaf: http://xmlns.com/foaf/0.1/
+    rdfs: http://www.w3.org/2000/01/rdf-schema#
+    rdf: http://www.w3.org/1999/02/22-rdf-syntax-ns#
+    xsd: http://www.w3.org/2001/XMLSchema#
+    dcterms: http://purl.org/dc/terms/
+    schema: http://schema.org/"
+  >
+  <div typeof="rdfs:Resource" about="http://example.org/HealthcareProfessional/32#this">
+    <div property="schema:jobTitle" content="Dr."></div>
+    <div property="schema:givenName" content="Tullia"></div>
+    <div rel="schema:contactPoint" resource="http://example.org/ContactPoint/228566#this"></div>
+    <div property="schema:description" xml:lang="en" content="Working only during day working hours"></div>
+    <div property="schema:familyName" content="Sebastino"></div>
+    <div property="schema:gender" content="Female"></div>
+    <div rel="schema:affiliation" resource="http://example.org/HealthFacility/1522#this"></div>
+    <div property="schema:medicalSpecialty" content="Gyneco-Obstetrics"></div>
+    <div property="foaf:title" content="Ms."></div>
+    <div rel="schema:location" resource="http://example.org/Place/63542#this"></div>
+    <div property="dcterms:identifier" content="AXP41523689"></div>
+    <div rel="schema:profession" resource="http://example.org/HealthcareProfession/11#this"></div>
+    <div rel="rdfs:subClassOf" resource="http://snomed.info/223366009"></div>
+    <div rel="schema:workLocation" resource="http://example.org/Address/100#this"></div>
+    <div rel="rdfs:subClassOf" resource="http://snomed.info/125676002"></div>
+    <div rel="schema:playsRole" resource="http://example.org/HealthcareRole/152#this"></div>
+    <div property="schema:birthDate" datatype="xsd:date" content="1910-08-22"></div>
+  </div>
+</div>
+
+JSON-LD:
+
+<script type="application/ld+json">
+{
+  "@context": {
+    "dcterms": "http://purl.org/dc/terms/",
+    "foaf": "http://xmlns.com/foaf/0.1/",
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "schema": "http://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#"
+  },
+  "@id": "http://example.org/HealthcareProfessional/32#this",
+  "dcterms:identifier": "AXP41523689",
+  "foaf:title": "Ms.",
+  "rdfs:subClassOf": [
+    {
+      "@id": "http://snomed.info/125676002"
+    },
+    {
+      "@id": "http://snomed.info/223366009"
+    }
+  ],
+  "schema:affiliation": {
+    "@id": "http://example.org/HealthFacility/1522#this"
+  },
+  "schema:birthDate": {
+    "@type": "xsd:date",
+    "@value": "1910-08-22"
+  },
+  "schema:contactPoint": {
+    "@id": "http://example.org/ContactPoint/228566#this"
+  },
+  "schema:description": {
+    "@language": "en",
+    "@value": "Working only during day working hours"
+  },
+  "schema:familyName": "Sebastino",
+  "schema:gender": "Female",
+  "schema:givenName": "Tullia",
+  "schema:jobTitle": "Dr.",
+  "schema:location": {
+    "@id": "http://example.org/Place/63542#this"
+  },
+  "schema:medicalSpecialty": "Gyneco-Obstetrics",
+  "schema:playsRole": {
+    "@id": "http://example.org/HealthcareRole/152#this"
+  },
+  "schema:profession": {
+    "@id": "http://example.org/HealthcareProfession/11#this"
+  },
+  "schema:workLocation": {
+    "@id": "http://example.org/Address/100#this"
+  }
+}
+</script>

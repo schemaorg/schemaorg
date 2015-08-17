@@ -1,0 +1,220 @@
+TYPES: MedicalProcedure
+
+Use of ENCOUNTER - in clinical domain, the Medical Procedure can be isolated or a part of a medical intervention (a set of therapeutic or preventive procedures executed in one or more steps).
+The medical procedure has activities and phases	
+Thanks to Healthcare Schema Vocabulary Community Group for input 
+
+WITHOUT-MARKUP:
+
+
+TURTLE:
+@prefix dcterms:  <http://purl.org/dc/terms/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix schema: <http://schema.org/>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+
+<http://example.org/MedicalProcedure/DiagnosisProcedure/6321#this>
+	rdfs:subClassOf <http://snomed.info/71388002>; 	
+	dcterms:identifier "77566"; 	
+	schema:belongsTo <http://example.org/MedicalIntervention/6321#this>; 
+	schema:procedureActivity <http://example.org/ProcedureActivity/52#this>;
+	schema:procedurePhase <http://example.org/ProcedurePhase/02#this>;	
+	schema:name "A free text name of the condition"@en;
+	schema:description "A free text description of the condition "@en;
+	schema:code <http://snomed.info/77996006>; 
+	schema:caredPerson <http://example.org/Patient/10001#this>;
+	schema:careProvider <http://example.org/HealthcareProvider/5555#this> ;
+	schema:usesDevice <http://example.org/MedicalDevice/78#this>;	
+	schema:howPerformed "Partial removal of urethral stent under general anesthesia";
+	schema:bodyLocation <http://example.org/Anatomy/Region/Organ/4553#this>;
+	schema:bodyPosition <http://example.org/CodeableConcept/BodyPosition/6#this>;
+	schema:medicalCase <http://example.org/MedicalCase/43865003#this>;
+	schema:medicalPriority <http://example.org/CodeableConcept/Priority/5#this>;
+	schema:category <http://example.org/CodeableConcept/ProcedureCategory/Category/A#this>; 
+	schema:eventStatus <http://example.org/CodeableConcept/Status/5#this>;		
+	schema:careReason <http://example.org/MedicalIndication/6321#this>;
+	schema:orderDate "1999-12-10Z"^^xsd:date; 
+	schema:dateCreated "2010-08-22Z"^^xsd:date;	
+	schema:startDate "2000-12-22Z"^^xsd:date;
+	schema:endDate "2005-01-01Z"^^xsd:date;
+	schema:orderedBy <http://example.org/HealthFacility/MedicalDepartment/70#this>; 
+	schema:executedBy <http://example.org/HealthFacility/MedicalDepartment/15#this>; 
+	schema:careLocation	<http://example.org/HealthFacility/MedicalUnit/03#this>; 
+	schema:medicalCondition <http://example.org/MedicalCondition/Diagnosis/561#this>;
+	schema:outcome <http://example.org/ProcedureResult/MedicalReport/235333#this>.		
+
+MICRODATA:
+<div>
+  <div itemtype="http://www.w3.org/2000/01/rdf-schema#Resource" itemid="http://example.org/MedicalProcedure/DiagnosisProcedure/6321#this" itemscope>
+    <link itemprop="http://schema.org/outcome" href="http://example.org/ProcedureResult/MedicalReport/235333#this" />
+    <link itemprop="http://schema.org/procedurePhase" href="http://example.org/ProcedurePhase/02#this" />
+    <meta itemprop="http://schema.org/startDate" content="2000-12-22" />
+    <link itemprop="http://schema.org/medicalCondition" href="http://example.org/MedicalCondition/Diagnosis/561#this" />
+    <link itemprop="http://schema.org/bodyLocation" href="http://example.org/Anatomy/Region/Organ/4553#this" />
+    <link itemprop="http://schema.org/usesDevice" href="http://example.org/MedicalDevice/78#this" />
+    <link itemprop="http://schema.org/executedBy" href="http://example.org/HealthFacility/MedicalDepartment/15#this" />
+    <link itemprop="http://schema.org/medicalCase" href="http://example.org/MedicalCase/43865003#this" />
+    <link itemprop="http://schema.org/orderedBy" href="http://example.org/HealthFacility/MedicalDepartment/70#this" />
+    <link itemprop="http://schema.org/careProvider" href="http://example.org/HealthcareProvider/5555#this" />
+    <meta itemprop="http://schema.org/endDate" content="2005-01-01" />
+    <link itemprop="http://schema.org/caredPerson" href="http://example.org/Patient/10001#this" />
+    <meta itemprop="http://schema.org/orderDate" content="1999-12-10" />
+    <link itemprop="http://schema.org/careReason" href="http://example.org/MedicalIndication/6321#this" />
+    <link itemprop="subClassOf" href="http://snomed.info/71388002" />
+    <link itemprop="http://schema.org/medicalPriority" href="http://example.org/CodeableConcept/Priority/5#this" />
+    <link itemprop="http://schema.org/bodyPosition" href="http://example.org/CodeableConcept/BodyPosition/6#this" />
+    <meta itemprop="http://schema.org/description" content="A free text description of the condition " />
+    <link itemprop="http://schema.org/category" href="http://example.org/CodeableConcept/ProcedureCategory/Category/A#this" />
+    <meta itemprop="http://schema.org/name" content="A free text name of the condition" />
+    <meta itemprop="http://schema.org/howPerformed" content="Partial removal of urethral stent under general anesthesia" />
+    <link itemprop="http://schema.org/belongsTo" href="http://example.org/MedicalIntervention/6321#this" />
+    <link itemprop="http://schema.org/procedureActivity" href="http://example.org/ProcedureActivity/52#this" />
+    <meta itemprop="http://purl.org/dc/terms/identifier" content="77566" />
+    <link itemprop="http://schema.org/eventStatus" href="http://example.org/CodeableConcept/Status/5#this" />
+    <link itemprop="http://schema.org/careLocation" href="http://example.org/HealthFacility/MedicalUnit/03#this" />
+    <meta itemprop="http://schema.org/dateCreated" content="2010-08-22" />
+    <link itemprop="http://schema.org/code" href="http://snomed.info/77996006" />
+  </div>
+</div>
+
+RDFa:
+<div xmlns="http://www.w3.org/1999/xhtml"
+  prefix="
+    schema: http://schema.org/
+    rdf: http://www.w3.org/1999/02/22-rdf-syntax-ns#
+    dcterms: http://purl.org/dc/terms/
+    xsd: http://www.w3.org/2001/XMLSchema#
+    rdfs: http://www.w3.org/2000/01/rdf-schema#"
+  >
+  <div typeof="rdfs:Resource" about="http://example.org/MedicalProcedure/DiagnosisProcedure/6321#this">
+    <div rel="schema:orderedBy" resource="http://example.org/HealthFacility/MedicalDepartment/70#this"></div>
+    <div property="dcterms:identifier" content="77566"></div>
+    <div rel="rdfs:subClassOf" resource="http://snomed.info/71388002"></div>
+    <div property="schema:dateCreated" datatype="xsd:date" content="2010-08-22"></div>
+    <div rel="schema:eventStatus" resource="http://example.org/CodeableConcept/Status/5#this"></div>
+    <div rel="schema:bodyPosition" resource="http://example.org/CodeableConcept/BodyPosition/6#this"></div>
+    <div rel="schema:outcome" resource="http://example.org/ProcedureResult/MedicalReport/235333#this"></div>
+    <div rel="schema:procedureActivity" resource="http://example.org/ProcedureActivity/52#this"></div>
+    <div property="schema:orderDate" datatype="xsd:date" content="1999-12-10"></div>
+    <div rel="schema:bodyLocation" resource="http://example.org/Anatomy/Region/Organ/4553#this"></div>
+    <div property="schema:description" xml:lang="en" content="A free text description of the condition "></div>
+    <div rel="schema:usesDevice" resource="http://example.org/MedicalDevice/78#this"></div>
+    <div rel="schema:medicalCondition" resource="http://example.org/MedicalCondition/Diagnosis/561#this"></div>
+    <div rel="schema:category" resource="http://example.org/CodeableConcept/ProcedureCategory/Category/A#this"></div>
+    <div property="schema:howPerformed" content="Partial removal of urethral stent under general anesthesia"></div>
+    <div rel="schema:careReason" resource="http://example.org/MedicalIndication/6321#this"></div>
+    <div rel="schema:procedurePhase" resource="http://example.org/ProcedurePhase/02#this"></div>
+    <div rel="schema:medicalCase" resource="http://example.org/MedicalCase/43865003#this"></div>
+    <div rel="schema:careProvider" resource="http://example.org/HealthcareProvider/5555#this"></div>
+    <div property="schema:endDate" datatype="xsd:date" content="2005-01-01"></div>
+    <div rel="schema:code" resource="http://snomed.info/77996006"></div>
+    <div rel="schema:caredPerson" resource="http://example.org/Patient/10001#this"></div>
+    <div rel="schema:belongsTo" resource="http://example.org/MedicalIntervention/6321#this"></div>
+    <div rel="schema:medicalPriority" resource="http://example.org/CodeableConcept/Priority/5#this"></div>
+    <div rel="schema:executedBy" resource="http://example.org/HealthFacility/MedicalDepartment/15#this"></div>
+    <div property="schema:name" xml:lang="en" content="A free text name of the condition"></div>
+    <div property="schema:startDate" datatype="xsd:date" content="2000-12-22"></div>
+    <div rel="schema:careLocation" resource="http://example.org/HealthFacility/MedicalUnit/03#this"></div>
+  </div>
+</div>
+
+JSON-LD:
+
+<script type="application/ld+json">
+{
+  "@context": {
+    "dcterms": "http://purl.org/dc/terms/",
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "schema": "http://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#"
+  },
+  "@id": "http://example.org/MedicalProcedure/DiagnosisProcedure/6321#this",
+  "dcterms:identifier": "77566",
+  "rdfs:subClassOf": {
+    "@id": "http://snomed.info/71388002"
+  },
+  "schema:belongsTo": {
+    "@id": "http://example.org/MedicalIntervention/6321#this"
+  },
+  "schema:bodyLocation": {
+    "@id": "http://example.org/Anatomy/Region/Organ/4553#this"
+  },
+  "schema:bodyPosition": {
+    "@id": "http://example.org/CodeableConcept/BodyPosition/6#this"
+  },
+  "schema:careLocation": {
+    "@id": "http://example.org/HealthFacility/MedicalUnit/03#this"
+  },
+  "schema:careProvider": {
+    "@id": "http://example.org/HealthcareProvider/5555#this"
+  },
+  "schema:careReason": {
+    "@id": "http://example.org/MedicalIndication/6321#this"
+  },
+  "schema:caredPerson": {
+    "@id": "http://example.org/Patient/10001#this"
+  },
+  "schema:category": {
+    "@id": "http://example.org/CodeableConcept/ProcedureCategory/Category/A#this"
+  },
+  "schema:code": {
+    "@id": "http://snomed.info/77996006"
+  },
+  "schema:dateCreated": {
+    "@type": "xsd:date",
+    "@value": "2010-08-22"
+  },
+  "schema:description": {
+    "@language": "en",
+    "@value": "A free text description of the condition "
+  },
+  "schema:endDate": {
+    "@type": "xsd:date",
+    "@value": "2005-01-01"
+  },
+  "schema:eventStatus": {
+    "@id": "http://example.org/CodeableConcept/Status/5#this"
+  },
+  "schema:executedBy": {
+    "@id": "http://example.org/HealthFacility/MedicalDepartment/15#this"
+  },
+  "schema:howPerformed": "Partial removal of urethral stent under general anesthesia",
+  "schema:medicalCase": {
+    "@id": "http://example.org/MedicalCase/43865003#this"
+  },
+  "schema:medicalCondition": {
+    "@id": "http://example.org/MedicalCondition/Diagnosis/561#this"
+  },
+  "schema:medicalPriority": {
+    "@id": "http://example.org/CodeableConcept/Priority/5#this"
+  },
+  "schema:name": {
+    "@language": "en",
+    "@value": "A free text name of the condition"
+  },
+  "schema:orderDate": {
+    "@type": "xsd:date",
+    "@value": "1999-12-10"
+  },
+  "schema:orderedBy": {
+    "@id": "http://example.org/HealthFacility/MedicalDepartment/70#this"
+  },
+  "schema:outcome": {
+    "@id": "http://example.org/ProcedureResult/MedicalReport/235333#this"
+  },
+  "schema:procedureActivity": {
+    "@id": "http://example.org/ProcedureActivity/52#this"
+  },
+  "schema:procedurePhase": {
+    "@id": "http://example.org/ProcedurePhase/02#this"
+  },
+  "schema:startDate": {
+    "@type": "xsd:date",
+    "@value": "2000-12-22"
+  },
+  "schema:usesDevice": {
+    "@id": "http://example.org/MedicalDevice/78#this"
+  }
+}
+</script>
