@@ -278,6 +278,20 @@
   <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Substance"> health:Substance</a></span>
 </div>
 
+<div typeof="rdfs:Class" resource="http://schema.org/Protein">
+  <span class="h" property="rdfs:label"> health:Protein</span>
+  <span property="rdfs:comment">Nitrogenous organic compounds which have large molecules composed of one or more long chains of amino acids and are an essential part of all living organisms, especially as structural components of body tissues, enzymes and antibodies.</span>
+  <link property="http://schema.org/isPartOf" href="http://health.schema.org" />
+  <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Substance"> health:Substance</a></span>
+</div>
+
+<div typeof="rdfs:Class" resource="http://schema.org/Enzyme">
+  <span class="h" property="rdfs:label"> health:Enzyme</span>
+  <span property="rdfs:comment">Substance in living organism which acts as a catalyst to bring about a specific biochemical reaction</span>
+  <link property="http://schema.org/isPartOf" href="http://health.schema.org" />
+  <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Protein"> health:Protein</a></span>
+</div>
+
 <div typeof="rdfs:Class" resource="http://schema.org/Chemotherapy">
   <span class="h" property="rdfs:label"> health:Chemotherapy</span>
   <span property="rdfs:comment">The word chemotherapy means the use of any drug (such as aspirin or penicillin) to treat any disease, but to most people chemotherapy refers to drugs used for cancer treatment.</span>
@@ -2085,8 +2099,8 @@
   <link property="http://schema.org/isPartOf" href="http://health.schema.org" />
 </div>
 
-<div typeof="rdf:Property" resource="http://schema.org/Enzyme">
-  <span class="h" property="rdfs:label"> health:Enzyme</span>
+<div typeof="rdf:Property" resource="http://schema.org/enzyme">
+  <span class="h" property="rdfs:label"> health:enzyme</span>
   <span property="rdfs:comment">Biological molecules (proteins) that act as catalysts and help biochemical reactions into the body</span>
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/PhysiologicalEntity"> health:PhysiologicalEntity</a></span>
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Enzyme"> health:Enzyme</a></span>
@@ -2094,6 +2108,7 @@
 
 <div typeof="rdf:Property" resource="http://schema.org/abortions">
   <span class="h" property="rdfs:label"> health:abortions</span>
+  <link property="http://schema.org/isPartOf" href="http://health.schema.org" />
   <span property="rdfs:comment">Specifying the number of abortion for a given woman</span>
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://purl.bioontology.org/ontology/SNOMEDCT/224526002">sctid:224526002</a></span>
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number"> schema:Number</a></span>
@@ -2450,13 +2465,12 @@
 </div>
 
 <div typeof="rdf:Property" resource="http://schema.org/birthPlace">
-  <span class="h" property="rdfs:label"> health:birthPlace</span>
+  <span class="h" property="rdfs:label"> schema:birthPlace</span>
   <span property="rdfs:comment">The place where the person was born.</span>
-  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Birth">Birth</a></span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Birth">health:Birth</a></span>
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Person"> schema:Person</a></span>
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://purl.bioontology.org/ontology/SNOMEDCT/169812000">sctid:169812000</a></span>
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Place"> schema:Place</a></span>
-  <link property="http://schema.org/isPartOf" href="http://health.schema.org" />
 </div>
 
 <div typeof="rdf:Property" resource="http://schema.org/birthWeight">
@@ -2879,13 +2893,12 @@
 </div>
 
 <div typeof="rdf:Property" resource="http://schema.org/deathPlace">
-  <span class="h" property="rdfs:label"> health:deathPlace</span>
+  <span class="h" property="rdfs:label"> schema:deathPlace</span>
   <span property="rdfs:comment">The place where the person died.</span>
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Death"> health:Death</a></span>
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Person"> schema:Person</a></span>
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://purl.bioontology.org/ontology/SNOMEDCT/169812000">sctid:169812000</a></span>
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Place"> schema:Place</a></span>
-  <link property="http://schema.org/isPartOf" href="http://health.schema.org" />
 </div>
 
 <div typeof="rdf:Property" resource="http://schema.org/diagnosis">
@@ -4577,16 +4590,6 @@
   <link property="http://schema.org/isPartOf" href="http://health.schema.org" />
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MedicalScholarlyArticle"> health:MedicalScholarlyArticle</a></span>
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text"> schema:Text </a></span>
-</div>
-
-<div typeof="rdf:Property" resource="http://schema.org/purpose">
-  <span class="h" property="rdfs:label"> schema:purpose</span>
-  <span property="rdfs:comment">A goal towards an action is taken. Can be concrete or abstract.</span>
-  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/AllocateAction"> schema:AllocateAction</a></span>
-  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MedicalDevice"> health:MedicalDevice</a></span>
-  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/PayAction"> schema:PayAction</a></span>
-  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/MedicalDevicePurpose"> health:MedicalDevicePurpose</a></span>
-  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Thing">schema:Thing</a></span>
 </div>
 
 <div typeof="rdf:Property" resource="http://schema.org/race">
