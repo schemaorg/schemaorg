@@ -198,6 +198,25 @@ pair <code>vocab="http://schema.org/"</code> is added to the body or
 some other enclosing tag.
 </p>
 
+
+
+<h2 id="mainEntityBackground">mainEntity(OfPage)</h2>
+
+<p>Background information on <a href="/mainEntityOfPage">mainEntityOfPage</a> / <a href="/mainEntity">mainEntity</a> properties.</p>
+
+<p><a href="/mainEntityOfPage">mainEntityOfPage</a> "Indicates a page (or other CreativeWork) for which this thing is the main entity being described."</p>
+
+<p>Many (but not all) pages have a fairly clear primary topic, some entity or thing that the page describes. For example a restaurant's home page might be primarily about that Restaurant, or an event listing page might represent a single event. The mainEntity and mainEntityOfPage properties allow you to explicitly express the relationship between the page and the primary entity.</p>
+
+<p>Related properties include <a href="/sameAs">sameAs</a>, <a href="/about">about</a>, and <a href="/url">url</a>.</p>
+
+<p>The <a href="/sameAs">sameAs</a> and <a href="/url">url</a> properties are both similar to <a href="/mainEntityOfPage">mainEntityOfPage</a>. The url property should be reserved to refer to more official or authoritative web pages, such as the item’s official website. The sameAs property also relates a thing to a page that indirectly identifies it. Whereas sameAs emphasises well known pages, the mainEntityOfPage property serves more to clarify which of several entities is the main one for that page.</p>
+
+<p>mainEntityOfPage can be used for any page, including those not recognized as authoritative for that entity. For example, for a product, sameAs might refer to a page on the manufacturer’s official site with specs for the product, while mainEntityOfPage might be used on pages within various retailers’ sites giving details for the same product.</p>
+
+<p><a href="/about">about</a> is similar to mainEntity, with two key differences. First, about can refer to multiple entities/topics, while mainEntity should be used for only the primary one. Second, some pages have a primary entity that itself describes some other entity. For example, one web page may display a news article about a particular person. Another page may display a product review for a particular product. In these cases, mainEntity for the pages should refer to the news article or review, respectively, while about would more properly refer to the person or product.</p>
+
+<br/><br/>
   </div>
 
 

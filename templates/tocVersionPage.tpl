@@ -22,9 +22,11 @@
 
 <ul>
 {% for release in releases %}
-  <li><a href="/version/{{release}}">{{release}}</a></li>
+  <li><a href="/version/{{release}}/">{{release}}</a></li>
 {% endfor %}
 </ul>
+
+<p>Note that these snapshots currently contain only the schema.org core vocabulary. Information about <a href="/docs/extension.html">extensions</a> and older releases may be added later.</p>
 
 
 <br/><br/>
