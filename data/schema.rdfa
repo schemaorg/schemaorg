@@ -3434,18 +3434,6 @@
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Person">Person</a></span>
     </div>
 
-    <div typeof="rdf:Property" resource="http://schema.org/activityDuration">
-      <span class="h" property="rdfs:label">activityDuration</span>
-      <span property="rdfs:comment">Length of time to engage in the activity.</span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ExercisePlan">ExercisePlan</a></span>
-      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Duration">Duration</a></span>
-    </div>
-    <div typeof="rdf:Property" resource="http://schema.org/activityFrequency">
-      <span class="h" property="rdfs:label">activityFrequency</span>
-      <span property="rdfs:comment">How often one should engage in the activity.</span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ExercisePlan">ExercisePlan</a></span>
-      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
-    </div>
     <div typeof="rdf:Property" resource="http://schema.org/actor">
       <span class="h" property="rdfs:label">actor</span>
       <span property="rdfs:comment">An actor, e.g. in tv, radio, movie, video games etc. Actors can be associated with individual items or with a series, episode, clip.</span>
@@ -3489,12 +3477,7 @@
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Thing">Thing</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/URL">URL</a></span>
     </div>
-    <div typeof="rdf:Property" resource="http://schema.org/additionalVariable">
-      <span class="h" property="rdfs:label">additionalVariable</span>
-      <span property="rdfs:comment">Any additional component of the exercise prescription that may need to be articulated to the patient. This may include the order of exercises, the number of repetitions of movement, quantitative distance, progressions over time, etc.</span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ExercisePlan">ExercisePlan</a></span>
-      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
-    </div>
+
     <div typeof="rdf:Property" resource="http://schema.org/addOn">
       <span class="h" property="rdfs:label">addOn</span>
       <span property="rdfs:comment">An additional offer that can only be obtained in combination with the first base offer (e.g. supplements and extensions that are available for a surcharge).</span>
@@ -4835,20 +4818,7 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Event">Event</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/EventStatusType">EventStatusType</a></span>
     </div>
-    <div typeof="rdf:Property" resource="http://schema.org/exercisePlan">
-      <span class="h" property="rdfs:label">exercisePlan</span>
-      <span property="rdfs:comment">A sub property of instrument. The exercise plan used on this action.</span>
-      <link property="rdfs:subPropertyOf" href="http://schema.org/instrument" />
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ExerciseAction">ExerciseAction</a></span>
-      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/ExercisePlan">ExercisePlan</a></span>
-    </div>
-    <div typeof="rdf:Property" resource="http://schema.org/exerciseType">
-      <span class="h" property="rdfs:label">exerciseType</span>
-      <span property="rdfs:comment">Type(s) of exercise or activity, such as strength training, flexibility training, aerobics, cardiac rehabilitation, etc.</span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ExercisePlan">ExercisePlan</a></span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ExerciseAction">ExerciseAction</a></span>
-      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
-    </div>
+ 
     <div typeof="rdf:Property" resource="http://schema.org/exifData">
       <span class="h" property="rdfs:label">exifData</span>
       <span property="rdfs:comment">exif data for this object.</span>
@@ -5226,12 +5196,6 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
       <span property="rdfs:comment">The object that helped the agent perform the action. e.g. John wrote a book with *a pen*.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Action">Action</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Thing">Thing</a></span>
-    </div>
-    <div typeof="rdf:Property" resource="http://schema.org/intensity">
-      <span class="h" property="rdfs:label">intensity</span>
-      <span property="rdfs:comment">Quantitative measure gauging the degree of force involved in the exercise, for example, heartbeats per minute. May include the velocity of the movement.</span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ExercisePlan">ExercisePlan</a></span>
-      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
     </div>
 
     <div typeof="rdf:Property" resource="http://schema.org/interactionCount">
@@ -5908,12 +5872,6 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ParcelDelivery">ParcelDelivery</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/PostalAddress">PostalAddress</a></span>
     </div>
-    <div typeof="rdf:Property" resource="http://schema.org/overview">
-      <span class="h" property="rdfs:label">overview</span>
-      <span property="rdfs:comment">Descriptive information establishing the overarching theory/philosophy of the plan. May include the rationale for the name, the population where the plan first came to prominence, etc.</span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Diet">Diet</a></span>
-      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
-    </div>
     <div typeof="rdf:Property" resource="http://schema.org/ownedFrom">
       <span class="h" property="rdfs:label">ownedFrom</span>
       <span property="rdfs:comment">The date and time of obtaining the product.</span>
@@ -6453,12 +6411,6 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/URL">URL</a></span>
     </div>
 
-    <div typeof="rdf:Property" resource="http://schema.org/repetitions">
-      <span class="h" property="rdfs:label">repetitions</span>
-      <span property="rdfs:comment">Number of times one should repeat the activity.</span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ExercisePlan">ExercisePlan</a></span>
-      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number">Number</a></span>
-    </div>
     <div typeof="rdf:Property" resource="http://schema.org/replacee">
       <span class="h" property="rdfs:label">replacee</span>
       <span property="rdfs:comment">A sub property of object. The object that is being replaced.</span>
@@ -6530,12 +6482,7 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/JobPosting">JobPosting</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
     </div>
-    <div typeof="rdf:Property" resource="http://schema.org/restPeriods">
-      <span class="h" property="rdfs:label">restPeriods</span>
-      <span property="rdfs:comment">How often one should break from the activity.</span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ExercisePlan">ExercisePlan</a></span>
-      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
-    </div>
+ 
     <div typeof="rdf:Property" resource="http://schema.org/result">
       <span class="h" property="rdfs:label">result</span>
       <span property="rdfs:comment">The result produced in the action. e.g. John wrote *a book*.</span>
@@ -7441,12 +7388,7 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/JobPosting">JobPosting</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
     </div>
-    <div typeof="rdf:Property" resource="http://schema.org/workload">
-      <span class="h" property="rdfs:label">workload</span>
-      <span property="rdfs:comment">Quantitative measure of the physiologic output of the exercise; also referred to as energy expenditure.</span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ExercisePlan">ExercisePlan</a></span>
-      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Energy">Energy</a></span>
-    </div>
+
     <div typeof="rdf:Property" resource="http://schema.org/workLocation">
       <span class="h" property="rdfs:label">workLocation</span>
       <span property="rdfs:comment">A contact location for a person&#39;s place of work.</span>
@@ -9230,8 +9172,6 @@ postponing for 1.6.
 
 <p>TODO: Add CreativeWorkReleaseRegion - or decide whether PublicationEvent does the job, and rename properties accordingly.</p>
 
-
-
 <div typeof="rdfs:Class" resource="http://schema.org/MusicReleaseFormatType">
   <span class="h" property="rdfs:label">MusicReleaseFormatType</span>
   <span property="rdfs:comment">Format of this release (the type of recording media used, ie. compact disc, digital media, LP, etc.).</span>
@@ -9285,27 +9225,9 @@ postponing for 1.6.
 </div>
 
 
-<p>TODO: Person birthPlace, deathPlace. (check old historical-info proposal, make a converged design later).</p>
+<!-- <p>Moved to health extension but to be discussed: Person birthPlace, deathPlace. (check old historical-info proposal, make a converged design later).</p> -->
 <p>NOTE: Added foundingLocation (Place) to Organization.</p>
 
-<div typeof="rdf:Property" resource="http://schema.org/birthPlace">
-  <span class="h" property="rdfs:label">birthPlace</span>
-  <span property="rdfs:comment">The place where the person was born.</span>
-  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Birth">Birth</a></span>
-  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Person">Person</a></span>
-  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://purl.bioontology.org/ontology/SNOMEDCT/169812000">sctid:169812000</a></span>
-  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Place">Place</a></span>
-</div>
-
-	<div typeof="rdf:Property" resource="http://schema.org/deathPlace">
-	  <span class="h" property="rdfs:label">deathPlace</span>
-	  <span property="rdfs:comment">The place where the person died.</span>
-	  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Death">Death</a></span>
-	  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Person">Person</a></span>
-	  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://purl.bioontology.org/ontology/SNOMEDCT/169812000">sctid:169812000</a></span>
-	  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Place">Place</a></span>
-	  <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MovedFromCore">MovedFromCore</a></span>
-	</div>
 </div>
 
 

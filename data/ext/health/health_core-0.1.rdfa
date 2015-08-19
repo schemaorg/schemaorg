@@ -47,6 +47,13 @@
   <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MedicalProcedure"> health:MedicalProcedure</a></span>
 </div>
 
+<div typeof="rdfs:Class" resource="http://schema.org/AdmissionProcedure">
+  <span class="h" property="rdfs:label"> health:AdmissionProcedure</span>
+  <span property="rdfs:comment">A medical admission procedure related to the admitting a patient into healthcare facility as inpatient for health services. This can be a short stay, a day or long stay hospitalisation</span>
+  <link property="http://schema.org/isPartOf" href="http://health.schema.org" />
+  <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MedicalProcedure"> health:MedicalProcedure</a></span>
+</div>
+
 <div typeof="rdfs:Class" resource="http://schema.org/AdulthoodHistory">
   <span class="h" property="rdfs:label"> health:AdulthoodHistory</span>
   <span property="rdfs:comment">Any medical history happening in adulthood, the period of time in your life after your physical growth has stopped and you are fully developed</span>
@@ -287,7 +294,7 @@
 
 <div typeof="rdfs:Class" resource="http://schema.org/Enzyme">
   <span class="h" property="rdfs:label"> health:Enzyme</span>
-  <span property="rdfs:comment">Substance in living organism which acts as a catalyst to bring about a specific biochemical reaction</span>
+  <span property="rdfs:comment">Substance or biological molecules (proteins) that act as catalysts and help biochemical reactions into the body in living organism </span>
   <link property="http://schema.org/isPartOf" href="http://health.schema.org" />
   <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Protein"> health:Protein</a></span>
 </div>
@@ -761,12 +768,6 @@
   <span property="rdfs:comment">An infectious disease is a clinically evident human disease resulting from the presence of pathogenic microbial agents, like pathogenic viruses, pathogenic bacteria, fungi, protozoa, multicellular parasites, and prions. To be considered an infectious disease, such pathogens are known to be able to cause this disease.</span>
   <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MedicalCondition"> health:MedicalCondition</a></span>
   <link property="http://schema.org/isPartOf" href="http://health.schema.org" />
-</div>
-
-<div typeof="rdfs:Class" resource="http://schema.org/Intangible">
-  <span class="h" property="rdfs:label"> schema:Intangible</span>
-  <span property="rdfs:comment">A utility class that serves as the umbrella for a number of 'intangible' things such as quantities, structured values, etc.</span>
-  <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Thing">schema:Thing</a></span>
 </div>
 
 <div typeof="rdfs:Class" resource="http://schema.org/IntegumentarySystem">
@@ -1831,13 +1832,6 @@
   <link property="http://schema.org/isPartOf" href="http://health.schema.org" />
 </div>
 
-<div typeof="rdfs:Class" resource="http://schema.org/ScholarlyArticle">
-  <span class="h" property="rdfs:label"> schema:ScholarlyArticle</span>
-  <span property="rdfs:comment">A scholarly article.</span>
-  <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Article">schema:Article</a></span>
-
-</div>
-
 <div typeof="rdfs:Class" resource="http://schema.org/Severity">
   <span class="h" property="rdfs:label"> health:Severity</span>
   <span property="rdfs:comment">Intensity quantification or scoring of illness or a medical condition</span>
@@ -1871,13 +1865,6 @@
   <span property="rdfs:comment">A portion of the medical history addressing familial, occupational, and recreational aspects of the patient's personal life that have the potential to be clinically significant.</span>
   <link property="http://schema.org/isPartOf" href="http://health.schema.org" />
   <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/PersonalHistory"> health:PersonalHistory</a></span>
-</div>
-
-<div typeof="rdfs:Class" resource="http://schema.org/Specialty">
-  <span class="h" property="rdfs:label"> schema:Specialty</span>
-  <span property="rdfs:comment">Any branch of a field in which people typically develop specific expertise, usually after significant study, time, and effort.</span>
-  <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Enumeration">schema:Enumeration</a></span>
-
 </div>
 
 <div typeof="rdfs:Class" resource="http://schema.org/UseOfSubstance">
@@ -2097,13 +2084,6 @@
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/DateTime"> schema:DateTime</a></span>
   <span>SubProperty of: <a property="rdfs:subPropertyOf" href="http://schema.org/dateTime"> health:dateTime</a></span>
   <link property="http://schema.org/isPartOf" href="http://health.schema.org" />
-</div>
-
-<div typeof="rdf:Property" resource="http://schema.org/enzyme">
-  <span class="h" property="rdfs:label"> health:enzyme</span>
-  <span property="rdfs:comment">Biological molecules (proteins) that act as catalysts and help biochemical reactions into the body</span>
-  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/PhysiologicalEntity"> health:PhysiologicalEntity</a></span>
-  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Enzyme"> health:Enzyme</a></span>
 </div>
 
 <div typeof="rdf:Property" resource="http://schema.org/abortions">
@@ -2357,6 +2337,34 @@
   <link property="http://schema.org/isPartOf" href="http://health.schema.org" />
 </div>
 
+<div typeof="rdf:Property" resource="http://schema.org/veinBranch">
+  <span class="h" property="rdfs:label"> health:veinBranch</span>
+  <span property="rdfs:comment">The branches that comprise the vein structure.</span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Vein">health:Vein</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/AnatomicalStructure"> health:AnatomicalStructure </a></span>
+  <link property="http://schema.org/isPartOf" href="http://health.schema.org" />
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/nerveBranch">
+  <span class="h" property="rdfs:label"> health:nerveBranch</span>
+  <span property="rdfs:comment">The branches that comprise the nerve structure.</span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Nerve"> health:Nerve</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/AnatomicalStructure"> health:AnatomicalStructure </a></span>
+  <link property="http://schema.org/isPartOf" href="http://health.schema.org" />
+</div>
+
+
+<div typeof="rdf:Property" resource="http://schema.org/branch">
+  <span class="h" property="rdfs:label"> health:branch</span>
+  <span property="rdfs:comment">The branches that delineate from the nerve bundle.</span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Nerve"> health:Nerve</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/AnatomicalStructure"> health:AnatomicalStructure </a></span>
+  <link property="http://schema.org/supersededBy" href="http://schema.org/nerveBranch"/>
+  <link property="http://schema.org/supersededBy" href="http://schema.org/veinBranch"/>
+  <link property="http://schema.org/supersededBy" href="http://schema.org/arterialBranch"/> 
+  <link property="http://schema.org/isPartOf" href="http://health.schema.org" />
+</div>
+
 <div typeof="rdf:Property" resource="http://schema.org/arterialPulse">
   <span class="h" property="rdfs:label"> health:arterialPulse</span>
   <span property="rdfs:comment">Specifying the regularly recurrent wave of distension in arteries that results from the progress through an artery of blood injected into the arterial system at each contraction of the ventricles of the heart</span>
@@ -2371,6 +2379,7 @@
   <span property="rdfs:comment">An aspect of medical practice that is considered on the page, such as 'diagnosis', 'treatment', 'causes', 'prognosis', 'etiology', 'epidemiology', etc.</span>
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MedicalWebPage"> health:MedicalWebPage</a></span>
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text"> schema:Text </a></span>
+  <link property="http://schema.org/supersededBy" href="http://schema.org/mainContentOfPage"/>
   <link property="http://schema.org/isPartOf" href="http://health.schema.org" />
 </div>
 
@@ -2465,12 +2474,23 @@
 </div>
 
 <div typeof="rdf:Property" resource="http://schema.org/birthPlace">
-  <span class="h" property="rdfs:label"> schema:birthPlace</span>
+  <span class="h" property="rdfs:label"> health:birthPlace</span>
   <span property="rdfs:comment">The place where the person was born.</span>
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Birth">health:Birth</a></span>
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Person"> schema:Person</a></span>
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://purl.bioontology.org/ontology/SNOMEDCT/169812000">sctid:169812000</a></span>
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Place"> schema:Place</a></span>
+  <link property="http://schema.org/isPartOf" href="http://health.schema.org" />
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/deathPlace">
+  <span class="h" property="rdfs:label">health:deathPlace</span>
+  <span property="rdfs:comment">The place where the person died.</span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Death"> health:Death</a></span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Person"> schema:Person</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://purl.bioontology.org/ontology/SNOMEDCT/169812000">sctid:169812000</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Place"> schema:Place</a></span>
+  <link property="http://schema.org/isPartOf" href="http://health.schema.org" />
 </div>
 
 <div typeof="rdf:Property" resource="http://schema.org/birthWeight">
@@ -2556,14 +2576,6 @@
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Person"> schema:Person</a></span>
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number"> schema:Number</a></span>
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/QualitativeValue"> schema:QualitativeValue </a></span>
-  <link property="http://schema.org/isPartOf" href="http://health.schema.org" />
-</div>
-
-<div typeof="rdf:Property" resource="http://schema.org/branch">
-  <span class="h" property="rdfs:label"> health:branch</span>
-  <span property="rdfs:comment">The branches that delineate from the nerve bundle.</span>
-  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Nerve"> health:Nerve</a></span>
-  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/AnatomicalStructure"> health:AnatomicalStructure </a></span>
   <link property="http://schema.org/isPartOf" href="http://health.schema.org" />
 </div>
 
@@ -2875,7 +2887,81 @@
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text"> schema:Text </a></span>
   <link property="http://schema.org/isPartOf" href="http://health.schema.org" />
 </div>
+<div typeof="rdf:Property" resource="http://schema.org/workload">
+  <span class="h" property="rdfs:label">health:workload</span>
+  <span property="rdfs:comment">Quantitative measure of the physiologic output of the exercise; also referred to as energy expenditure.</span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ExercisePlan">health:ExercisePlan</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Energy">schema:Energy</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/QualitativeValue"> schema:QualitativeValue </a></span>
+  <link property="http://schema.org/isPartOf" href="http://health.schema.org" />
+</div>
 
+   <div typeof="rdf:Property" resource="http://schema.org/exercisePlan">
+      <span class="h" property="rdfs:label"> health:exercisePlan</span>
+      <span property="rdfs:comment">A sub property of instrument. The exercise plan used on this action.</span>
+      <link property="rdfs:subPropertyOf" href="http://schema.org/instrument" />
+      <link property="http://schema.org/isPartOf" href="http://health.schema.org" />
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ExerciseAction"> schema:ExerciseAction</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/ExercisePlan"> health:ExercisePlan</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/exerciseType">
+      <span class="h" property="rdfs:label"> health:exerciseType</span>
+      <span property="rdfs:comment">Type(s) of exercise or activity, such as strength training, flexibility training, aerobics, cardiac rehabilitation, etc.</span>
+      <link property="http://schema.org/isPartOf" href="http://health.schema.org" />
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ExercisePlan"> health:ExercisePlan</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ExerciseAction"> schema:ExerciseAction</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text"> schema:Text</a></span>
+    </div>
+
+    <div typeof="rdf:Property" resource="http://schema.org/repetitions">
+      <span class="h" property="rdfs:label"> health:repetitions</span>
+      <span property="rdfs:comment">Number of times one should repeat the activity.</span>
+      <link property="http://schema.org/isPartOf" href="http://health.schema.org" />
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ExercisePlan"> health:ExercisePlan</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number">Number</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/QualitativeValue"> schema:QualitativeValue </a></span>
+    </div>
+   <div typeof="rdf:Property" resource="http://schema.org/restPeriods">
+      <span class="h" property="rdfs:label"> health:restPeriods</span>
+      <span property="rdfs:comment">How often one should break from the activity.</span>
+      <link property="http://schema.org/isPartOf" href="http://health.schema.org" />
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ExercisePlan"> health:ExercisePlan</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text"> schema:Text</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/QualitativeValue"> schema:QualitativeValue </a></span>
+    </div>
+
+    <div typeof="rdf:Property" resource="http://schema.org/activityDuration">
+      <span class="h" property="rdfs:label"> health:activityDuration</span>
+      <span property="rdfs:comment">Length of time to engage in the activity.</span>
+      <link property="http://schema.org/isPartOf" href="http://health.schema.org" />
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ExercisePlan"> health:ExercisePlan</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Duration"> schema:Duration</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/QualitativeValue"> schema:QualitativeValue </a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/activityFrequency">
+      <span class="h" property="rdfs:label"> health:activityFrequency</span>
+      <span property="rdfs:comment">How often one should engage in the activity.</span>
+      <link property="http://schema.org/isPartOf" href="http://health.schema.org" />
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ExercisePlan"> health:ExercisePlan</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text"> schema:Text</a></span>
+	  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/QualitativeValue"> schema:QualitativeValue </a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/additionalVariable">
+      <span class="h" property="rdfs:label"> health:additionalVariable</span>
+      <span property="rdfs:comment">Any additional component of the exercise prescription that may need to be articulated to the patient. This may include the order of exercises, the number of repetitions of movement, quantitative distance, progressions over time, etc.</span>
+	  <link property="http://schema.org/isPartOf" href="http://health.schema.org" />
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ExercisePlan"> health:ExercisePlan</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text"> schema:Text</a></span>
+    </div>	
+	
+<div typeof="rdf:Property" resource="http://schema.org/intensity">
+  <span class="h" property="rdfs:label">health:intensity</span>
+  <span property="rdfs:comment">Quantitative measure gauging the degree of force involved in the exercise, for example, heartbeats per minute. May include the velocity of the movement.</span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ExercisePlan">health:ExercisePlan</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/QualitativeValue"> schema:QualitativeValue </a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+  <link property="http://schema.org/isPartOf" href="http://health.schema.org" />
+</div>
 <div typeof="rdf:Property" resource="http://schema.org/cost">
   <span class="h" property="rdfs:label"> health:cost</span>
   <span property="rdfs:comment">Cost per unit of the drug, as reported by the source being tagged.</span>
@@ -3423,6 +3509,7 @@
   <span property="rdfs:comment">The degree of mobility the joint allows.</span>
   <link property="http://schema.org/isPartOf" href="http://health.schema.org" />
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Joint"> health:Joint</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/MedicalEntity"> health:MedicalEntity</a></span>
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text"> schema:Text </a></span>
 </div>
 
@@ -4264,6 +4351,7 @@
   <span property="rdfs:comment">Expected or actual outcomes of the study.</span>
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MedicalStudy"> health:MedicalStudy</a></span>
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MedicalProcedure"> health:MedicalProcedure</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/MedicalEntity"> health:MedicalEntity</a></span>
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text"> schema:Text </a></span>
   <link property="http://schema.org/isPartOf" href="http://health.schema.org" />
 </div>
@@ -4501,9 +4589,16 @@
   <span property="rdfs:comment">Typical preparation that a patient must undergo before having the procedure performed.</span>
   <link property="http://schema.org/isPartOf" href="http://health.schema.org" />
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MedicalProcedure"> health:MedicalProcedure</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/MedicalEntity"> health:MedicalEntity</a></span>
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text"> schema:Text </a></span>
 </div>
-
+<div typeof="rdf:Property" resource="http://schema.org/overview">
+  <span class="h" property="rdfs:label">health:overview</span>
+  <span property="rdfs:comment">Descriptive information establishing the overarching theory/philosophy of the plan. May include the rationale for the name, the population where the plan first came to prominence, etc.</span>
+  <link property="http://schema.org/isPartOf" href="http://health.schema.org" />
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Diet">health:Diet</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">schema:Text</a></span>
+</div>
 <div typeof="rdf:Property" resource="http://schema.org/prescribingInfo">
   <span class="h" property="rdfs:label"> health:prescribingInfo</span>
   <span property="rdfs:comment">Link to prescribing information for the drug.</span>
@@ -4960,7 +5055,10 @@
   <span class="h" property="rdfs:label"> health:source</span>
   <span property="rdfs:comment">The anatomical or organ system that the artery originates from.</span>
   <link property="http://schema.org/isPartOf" href="http://health.schema.org" />
-  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Artery">Artery</a></span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Artery">health:Artery</a></span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Artery">health:Vein</a></span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Artery">health:Vessel</a></span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Artery">health:Nerve</a></span>
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/AnatomicalStructure"> health:AnatomicalStructure </a></span>
 </div>
 
