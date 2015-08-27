@@ -891,12 +891,13 @@ class ShowUnit (webapp2.RequestHandler):
             return "schema.org"
         return (getHostExt() + ".schema.org")
 
-    def emitSchemaorgHeaders(self, entry='', is_class=False, ext_mappings='', sitemode="default", sitename="schema.org"):
+    def emitSchemaorgHeaders(self, node, is_class=False, ext_mappings='', sitemode="default", sitename="schema.org", layers="core"):
         """
         Generates, caches and emits HTML headers for class, property and enumeration pages. Leaves <body> open.
 
         * entry = name of the class or property
         """
+        entry = node.id
 
         rdfs_type = 'rdfs:Property'
         if is_class:
@@ -909,9 +910,12 @@ class ShowUnit (webapp2.RequestHandler):
             self.response.out.write( gtp )
             log.debug("Served recycled genericTermPageHeader.tpl for %s" % generated_page_id )
         else:
+            desc = self.getMetaDescription(node, layers=layers, lengthHint=200)
+            
             template = JINJA_ENVIRONMENT.get_template('genericTermPageHeader.tpl')
             template_values = {
                 'entry': str(entry),
+                'desc' : desc,
                 'sitemode': sitemode,
                 'sitename': sitename,
                 'menu_sel': "Schemas",
@@ -924,7 +928,40 @@ class ShowUnit (webapp2.RequestHandler):
 
             self.response.write(out)
 
+    def getMetaDescription(self, node, layers="core",lengthHint=250):
+        ins = ""
+        if node.isEnumeration():
+            ins += " Enumeration Type"
+        elif node.isClass():
+            ins += " Type"
+        elif node.isAttribute():
+            ins += " Property"
+        elif node.isEnumerationValue():
+            ins += " Enumeration Value"
 
+        desc = "Schema.org%s: %s - " % (ins, node.id)
+        
+        lengthHint -= len(desc)
+        
+        comment = GetComment(node, layers)
+        if len(comment) > lengthHint:
+            sentEnd = re.compile('[.!?]')
+            sentList = sentEnd.split(comment)
+            com=""
+            for sent in sentList:
+                com += sent 
+                com += "."
+                if len(com) > lengthHint:
+                    break
+            comment = com
+              
+        desc += comment
+        
+        return desc
+        
+        
+        
+        
     def emitExactTermPage(self, node, layers="core"):
         """Emit a Web page that exactly matches this node."""
         log.debug("EXACT PAGE: %s" % node.id)
@@ -936,7 +973,7 @@ class ShowUnit (webapp2.RequestHandler):
         if ("schema.org" not in self.request.host and sitemode == "mainsite"):
             sitemode = "mainsite testsite"
 
-        self.emitSchemaorgHeaders(node.id, node.isClass(), ext_mappings, sitemode, sitename)
+        self.emitSchemaorgHeaders(node, node.isClass(), ext_mappings, sitemode, sitename, layers)
 
         if ( ENABLE_HOSTED_EXTENSIONS and ("core" not in layers or len(layers)>1) ):
             ll = " ".join(layers).replace("core","")
