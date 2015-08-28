@@ -950,7 +950,7 @@ class ShowUnit (webapp2.RequestHandler):
             com=""
             for sent in sentList:
                 com += sent 
-                com += "."
+                com += comment[len(com)]
                 if len(com) > lengthHint:
                     break
             comment = com
