@@ -8,7 +8,7 @@ sys.path.append( os.getcwd() )
 from sdoapp import *
 from parsers import *
 from api import extensionsLoaded, extensionLoadErrors
-
+from google.appengine.ext import deferred 
 
 schema_path = './data/schema.rdfa'
 examples_path = './data/examples.txt'
@@ -19,6 +19,8 @@ TYPECOUNT_LOWERBOUND = 500
 
 logging.basicConfig(level=logging.INFO)
 log = logging.getLogger(__name__)
+
+setInTestHarness(True)
 
 # Tests to probe the health of both schemas and code.
 # Note that known failings can be annotated with @unittest.expectedFailure or @skip("reason...")
@@ -170,7 +172,7 @@ class SchemaBasicAPITestCase(unittest.TestCase):
      self.assertEqual( gotThing, True, "Thing node should be accessible via GetUnit('Thing').")
 
   def test_hostInfo(self):
-      global debugging, host_ext, myhost, myport, mybasehost
+#      Note This test will fail if setInTestHarness(True) has not been called!!!!!
 
       thing = Unit.GetUnit("Thing")
       u = ShowUnit()

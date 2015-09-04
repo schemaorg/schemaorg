@@ -34,10 +34,6 @@ sitemode = "mainsite" # whitespaced list for CSS tags,
 
 releaselog = { "2.0": "2015-05-13", "2.1": "2015-08-06" }
 #
-host_ext = ""
-myhost = ""
-myport = ""
-mybasehost = ""
 
 silent_skip_list =  [ "favicon.ico" ] # Do nothing for now
 
@@ -58,14 +54,16 @@ ENABLE_JSONLD_CONTEXT = True
 ENABLE_CORS = True
 ENABLE_HOSTED_EXTENSIONS = True
 
+INTESTHARNESS = False #Used to indicate we are being called from tests - use setInTestHarness() & getInTestHarness() to manage value
+
 EXTENSION_SUFFIX = "" # e.g. "*"
 
 ENABLED_EXTENSIONS = [ 'admin', 'auto', 'bib' ]
 ALL_LAYERS = [ 'core', 'admin', 'auto', 'bib' ]
 
 
-debugging = False
-# debugging = True
+FORCEDEBUGGING = False
+# FORCEDEBUGGING = True
 
 def cleanPath(node):
     """Return the substring of a string matching chars approved for use in our URL paths."""
@@ -372,8 +370,8 @@ class ShowUnit (webapp2.RequestHandler):
 
         if home in ENABLED_EXTENSIONS and home != getHostExt():
             port = ""
-            if myport != "80":
-                port = ":%s" % myport
+            if getHostPort() != "80":
+                port = ":%s" % getHostPort()
             urlprefix = makeUrl(home)
 
         extclass = ""
@@ -464,7 +462,7 @@ class ShowUnit (webapp2.RequestHandler):
 
 #Walk up the stack, appending crumbs & create new (duplicating crumbs already identified) if more than one parent found
     def WalkCrumbs(self, node, cstack, layers):
-        if "http://" in node.id:  #Suppress external class references
+        if "http://" in node.id or "https://" in node.id:  #Suppress external class references
             return
 
         cstack.append(node)
@@ -850,7 +848,7 @@ class ShowUnit (webapp2.RequestHandler):
             # Serve a homepage from template
             # the .tpl has responsibility for extension homepages
             # TODO: pass in extension, base_domain etc.
-            sitekeyedhomepage = "homepage %s" % sitename
+            sitekeyedhomepage = "homepage %s" % getSiteName()
             hp = DataCache.get(sitekeyedhomepage)
             if hp != None:
                 self.response.out.write( hp )
@@ -862,13 +860,14 @@ class ShowUnit (webapp2.RequestHandler):
                 template_values = {
                     'ENABLE_HOSTED_EXTENSIONS': ENABLE_HOSTED_EXTENSIONS,
                     'SCHEMA_VERSION': SCHEMA_VERSION,
-                    'sitename': sitename,
-                    'myhost': myhost,
-                    'myport': myport,
-                    'mybasehost': mybasehost,
+                    'sitename': getSiteName(),
+                    'staticPath': makeUrl("",""),
+                    'myhost': getHost(),
+                    'myport': getHostPort(),
+                    'mybasehost': getBaseHost(),
                     'host_ext': getHostExt(),
                     'home_page': "True",
-                    'debugging': debugging
+                    'debugging': getAppVar('debugging')
                 }
 
                 # We don't want JINJA2 doing any cachine of included sub-templates.
@@ -902,7 +901,7 @@ class ShowUnit (webapp2.RequestHandler):
         if is_class:
             rdfs_type = 'rdfs:Class'
 
-        generated_page_id = "genericTermPageHeader-%s-%s" % ( str(entry), sitename )
+        generated_page_id = "genericTermPageHeader-%s-%s" % ( str(entry), getSiteName() )
         gtp = DataCache.get( generated_page_id )
 
         if gtp != None:
@@ -913,7 +912,8 @@ class ShowUnit (webapp2.RequestHandler):
             template_values = {
                 'entry': str(entry),
                 'sitemode': sitemode,
-                'sitename': sitename,
+                'sitename': getSiteName(),
+                'staticPath': makeUrl("",""),
                 'menu_sel': "Schemas",
                 'rdfs_type': rdfs_type,
                 'ext_mappings': ext_mappings
@@ -931,12 +931,12 @@ class ShowUnit (webapp2.RequestHandler):
         self.outputStrings = [] # blank slate
         ext_mappings = GetExtMappingsRDFa(node, layers=layers)
 
-        global sitemode, sitename
+        global sitemode #,sitename
 
         if ("schema.org" not in self.request.host and sitemode == "mainsite"):
             sitemode = "mainsite testsite"
 
-        self.emitSchemaorgHeaders(node.id, node.isClass(), ext_mappings, sitemode, sitename)
+        self.emitSchemaorgHeaders(node.id, node.isClass(), ext_mappings, sitemode, getSiteName())
 
         if ( ENABLE_HOSTED_EXTENSIONS and ("core" not in layers or len(layers)>1) ):
             ll = " ".join(layers).replace("core","")
@@ -1092,10 +1092,6 @@ class ShowUnit (webapp2.RequestHandler):
             self.response.headers.add_header("Access-Control-Allow-Origin", "*") # entire site is public.
             # see http://en.wikipedia.org/wiki/Cross-origin_resource_sharing
 
-    def handleHTTPRedirection(self, node):
-        return False # none yet.
-        # https://github.com/schemaorg/schemaorg/issues/4
-
     def setupExtensionLayerlist(self, node):
         # Identify which extension layer(s) are requested
         # TODO: add subdomain support e.g. bib.schema.org/Globe
@@ -1147,6 +1143,27 @@ class ShowUnit (webapp2.RequestHandler):
         return False
         # see also handleHomepage for conneg'd version.
 
+    def handleSchemasPage(self, node,  layerlist='core'):
+        self.response.headers['Content-Type'] = "text/html"
+        self.emitCacheHeaders()
+
+        if DataCache.get('SchemasPage'):
+            self.response.out.write( DataCache.get('SchemasPage') )
+            log.debug("Serving recycled SchemasPage.")
+            return True
+        else:
+            template = JINJA_ENVIRONMENT.get_template('schemas.tpl')
+            page = template.render({'sitename': getSiteName(),
+                                    'staticPath': makeUrl("",""),
+                                    'menu_sel': "Schemas"})
+
+            self.response.out.write( page )
+            log.debug("Serving fresh SchemasPage.")
+            DataCache.put("SchemasPage",page)
+
+            return True
+
+
     def handleFullHierarchyPage(self, node,  layerlist='core'):
         self.response.headers['Content-Type'] = "text/html"
         self.emitCacheHeaders()
@@ -1157,6 +1174,7 @@ class ShowUnit (webapp2.RequestHandler):
             return True
         else:
             template = JINJA_ENVIRONMENT.get_template('full.tpl')
+
 
             extlist=""
             count=0
@@ -1199,7 +1217,8 @@ class ShowUnit (webapp2.RequestHandler):
                                     'datatype_tree': datatype_tree,
                                     'local_button': local_button,
                                     'full_button': full_button,
-                                    'sitename': sitename,
+                                    'sitename': getSiteName(),
+                                    'staticPath': makeUrl("",""),
                                     'menu_sel': "Schemas"})
 
             self.response.out.write( page )
@@ -1259,7 +1278,8 @@ class ShowUnit (webapp2.RequestHandler):
                 template = JINJA_ENVIRONMENT.get_template('wrongExt.tpl')
                 page = template.render({ 'target': schema_node.id,
                                         'extensions': extensions,
-                                        'sitename': "schema.org"})
+                                        'sitename': "schema.org",
+                                        'staticPath': makeUrl("","")})
 
                 self.response.out.write( page )
                 log.debug("Serving fresh wrongExtPage.")
@@ -1341,7 +1361,8 @@ class ShowUnit (webapp2.RequestHandler):
                 template = JINJA_ENVIRONMENT.get_template('tocVersionPage.tpl')
                 page = template.render({ "releases": releaselog.keys(),
                                          "menu_sel": "Schemas",
-                                         "sitename": sitename})
+                                         "sitename": getSiteName(),
+                                         'staticPath': makeUrl("","")})
 
                 self.response.out.write( page )
                 log.debug("Serving fresh tocVersionPage.")
@@ -1446,7 +1467,8 @@ class ShowUnit (webapp2.RequestHandler):
                     'releasedate': releaselog[str(SCHEMA_VERSION)],
                     'az_props': az_props, 'az_types': az_types,
                     'az_prop_meta': az_prop_meta, 'az_type_meta': az_type_meta,
-                    'sitename': sitename,
+                    'sitename': getSiteName(),
+                    'staticPath': makeUrl("",""),
                     'menu_sel': "Documentation"})
 
             self.response.out.write( page )
@@ -1456,14 +1478,16 @@ class ShowUnit (webapp2.RequestHandler):
 
 
     def setupHostinfo(self, node, test=""):
-        global debugging, host_ext, myhost, myport, mybasehost
-
         hostString = test
         if test == "":
             hostString = self.request.host
+            
+        scheme = self.request.scheme
 
         host_ext = re.match( r'([\w\-_]+)[\.:]?', hostString).group(1)
-        log.debug("setupHostinfo: srh=%s host_ext2=%s" % (hostString, str(host_ext) ))
+        log.info("setupHostinfo: scheme=%s hoststring=%s host_ext?=%s" % (scheme, hostString, str(host_ext) ))
+        
+        setHttpScheme(scheme)
 
         split = hostString.rsplit(':')
         myhost = split[0]
@@ -1483,6 +1507,10 @@ class ShowUnit (webapp2.RequestHandler):
                 host_ext = ""
             else:
                 mybasehost = mybasehost[len(host_ext) + 1:]
+        
+        setHostExt(host_ext)
+        setBaseHost(mybasehost)
+        setHostPort(myport)
 
         dcn = host_ext
         if dcn == None or dcn == "" or dcn =="core":
@@ -1493,9 +1521,10 @@ class ShowUnit (webapp2.RequestHandler):
 
 
         debugging = False
-        if "localhost" in hostString or "sdo-ganymede.appspot.com" in hostString:
+        if "localhost" in hostString or "sdo-phobos.appspot.com" in hostString or FORCEDEBUGGING:
             debugging = True
-
+        setAppVar('debugging',debugging)
+        
         return True
 
     def redirectToBase(self,node=""):
@@ -1527,15 +1556,12 @@ class ShowUnit (webapp2.RequestHandler):
         See also https://webapp-improved.appspot.com/guide/request.html#guide-request
         """
 
-        global debugging, host_ext, myhost, myport, mybasehost, sitename
-
         if not self.setupHostinfo(node):
             return
+            
+        self.callCount()
 
         self.emitHTTPHeaders(node)
-
-        if self.handleHTTPRedirection(node):
-            return
 
         if (node in silent_skip_list):
             return
@@ -1545,9 +1571,9 @@ class ShowUnit (webapp2.RequestHandler):
         else:
             layerlist = ["core"]
 
-        sitename = self.getExtendedSiteName(layerlist) # e.g. 'bib.schema.org', 'schema.org'
+        setSiteName(self.getExtendedSiteName(layerlist)) # e.g. 'bib.schema.org', 'schema.org'
 
-        log.debug("EXT: set sitename to %s " % sitename)
+        log.debug("EXT: set sitename to %s " % getSiteName())
         if (node in ["", "/"]):
             if self.handleHomepage(node):
                 return
@@ -1568,6 +1594,15 @@ class ShowUnit (webapp2.RequestHandler):
             else:
                 log.info("Error handling full.html : %s " % node)
                 return
+                
+        if (node == "docs/schemas.html"): # DataCache.getDataCache.get
+            if self.handleSchemasPage(node, layerlist=layerlist):
+                return
+            else:
+                log.info("Error handling schemas.html : %s " % node)
+                return
+
+
 
         if (node == "docs/tree.jsonld" or node == "docs/tree.json"):
             if self.handleJSONSchemaTree(node, layerlist=layerlist):
@@ -1586,6 +1621,10 @@ class ShowUnit (webapp2.RequestHandler):
                 else:
                     log.info("Error handling 404 under /version/")
                     return
+        
+        if(node == "_siteDebug"):
+            self.siteDebug()
+            return
 
         # Pages based on request path matching a Unit in the term graph:
         if self.handleExactTermPage(node, layers=layerlist):
@@ -1599,15 +1638,130 @@ class ShowUnit (webapp2.RequestHandler):
             else:
                 log.info("Error handling 404.")
                 return
+                
+    def siteDebug(self):
+        global STATS
+        template = JINJA_ENVIRONMENT.get_template('siteDebug.tpl')
+        page = template.render({'sitename': getSiteName(),
+                                'staticPath': makeUrl("","")})
 
+        self.response.out.write( page )
+        self.response.out.write("<table style=\"width: 50%; border: solid 1px #CCCCCC; border-collapse: collapse;\"><tbody>\n")
+        self.writeDebugRow("Setting","Value",True)
+        
+        self.writeDebugRow("httpScheme",getHttpScheme())
+        self.writeDebugRow("host_ext",getHostExt())
+        self.writeDebugRow("basehost",getBaseHost())
+        self.writeDebugRow("hostport",getHostPort())
+        self.writeDebugRow("sitename",getSiteName())
+        self.writeDebugRow("debugging",getAppVar('debugging'))
+        self.writeDebugRow("intestharness",getInTestHarness())
+        self.writeDebugRow("Current DataCache",DataCache.getCurrent())
+        self.writeDebugRow("DataCaches",len(DataCache.keys()))
+        for c in DataCache.keys():
+            self.writeDebugRow("DataCache[%s] size" % c, len(DataCache.getCache(c)))
+        for s in STATS.keys():
+            self.writeDebugRow("%s" % s, STATS[s])
+        
+        self.response.out.write("</tbody><table><br/>\n")
+        self.response.out.write( "</div>\n<body>\n</html>" )
+
+    def writeDebugRow(self,term,value,head=False):
+        rt = "td"
+        cellStyle = "border: solid 1px #CCCCCC; border-collapse: collapse;"
+        if head:
+            rt = "th"
+            cellStyle += " color: #FFFFFF; background: #888888;"
+        
+        self.response.out.write("<tr><%s style=\"%s\">%s</%s><%s style=\"%s\">%s</%s></tr>\n" % (rt,cellStyle,term,rt,rt,cellStyle,value,rt))
+
+    def callCount(self):
+        statInc("total calls")
+        statInc(getHttpScheme() + " calls")
+        if getHostExt() != "":
+            statInc(getHostExt() + " calls")
+        else:
+            statInc("core calls")
+                
+        
+STATS = {}
+def statInc(stat):
+    global STATS
+    val = 1
+    if stat in STATS:
+        val += STATS.get(stat)
+    STATS[stat] = val
+
+        
+def setInTestHarness(val):
+    global INTESTHARNESS
+    INTESTHARNESS = val
+def getInTestHarness():
+    global INTESTHARNESS
+    return INTESTHARNESS
+    
+TestAppIndex = {}
+def getAppVar(index):
+    global TestAppIndex
+    
+    reg = None
+    if not getInTestHarness():
+        app = webapp2.get_app()
+        reg = app.registry
+    else:
+        log.debug("getAppVar(): Using non-threadsafe session variables for test only")
+        reg = TestAppIndex
+        
+    return reg.get(index)
+        
+def setAppVar(index,val):
+    global TestAppIndex
+    
+    reg = None
+    if not getInTestHarness():
+        app = webapp2.get_app()
+        reg = app.registry
+    else: 
+        log.debug("setAppVar(): Using non-threadsafe session variables for test only")
+        reg = TestAppIndex
+        
+    reg[index] = val
+            
+def setHttpScheme(val):
+    setAppVar('httpScheme',val)
+    
+def getHttpScheme():
+    return getAppVar('httpScheme')
+
+def setHostExt(val):
+    setAppVar('host_ext',val)
+    
 def getHostExt():
-    return host_ext
+    return getAppVar('host_ext')
 
+def setSiteName(val):
+    setAppVar('sitename',val)
+    
+def getSiteName():
+    return getAppVar('sitename')
+
+def setHost(val):
+    setAppVar('myhost',val)
+    
+def getHost():
+    return getAppVar('myhost')
+
+def setBaseHost(val):
+    setAppVar('mybasehost',val)
+    
 def getBaseHost():
-    return mybasehost
+    return getAppVar('mybasehost')
+
+def setHostPort(val):
+    setAppVar('myport',val)
 
 def getHostPort():
-    return myport
+    return getAppVar('myport')
 
 def makeUrl(ext="",path=""):
         port = ""
@@ -1623,7 +1777,7 @@ def makeUrl(ext="",path=""):
             else:
                 p = "/%s" % path
 
-        url = "http://%s%s%s%s" % (sub,getBaseHost(),port,p)
+        url = "%s://%s%s%s%s" % (getHttpScheme(),sub,getBaseHost(),port,p)
         return url
 
 #log.info("STARTING UP... reading schemas.")
