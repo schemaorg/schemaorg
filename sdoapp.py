@@ -1482,7 +1482,9 @@ class ShowUnit (webapp2.RequestHandler):
         if test == "":
             hostString = self.request.host
             
-        scheme = self.request.scheme
+        scheme = "http" #Defalt for tests
+        if not getInTestHarness():  #Get the actual scheme from the request
+            scheme = self.request.scheme
 
         host_ext = re.match( r'([\w\-_]+)[\.:]?', hostString).group(1)
         log.info("setupHostinfo: scheme=%s hoststring=%s host_ext?=%s" % (scheme, hostString, str(host_ext) ))

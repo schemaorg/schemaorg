@@ -5,6 +5,7 @@ import glob
 import sys
 sys.path.append( os.getcwd() ) 
 
+from sdoapp import *
 from api import *
 from parsers import *
 
@@ -17,6 +18,7 @@ TYPECOUNT_LOWERBOUND = 500
 
 logging.basicConfig(level=logging.INFO)
 log = logging.getLogger(__name__)
+setInTestHarness(True)
 
 # Tests to probe the health of both schemas and code using graph libraries in rdflib
 # Note that known failings can be annotated with @unittest.expectedFailure or @skip("reason...")
@@ -76,10 +78,9 @@ class SDOGraphSetupTestCase(unittest.TestCase):
     self.assertEqual(len(inverseOf_results ) >= 6, True, "Six or more inverseOf expected. Found: %s " % len(inverseOf_results ) )
 
   def test_even_number_inverseOf(self):
-    inverseOf_results = self.rdflib_data.query("select ?x ?y where { ?x <http://schema.org/inverseOf> ?y }")
+    inverseOf_results = self.rdflib_data.query("select ?x ?y where { ?x <http://schema.org/inverseOf> ?y }")    
     self.assertEqual(len(inverseOf_results ) % 2 == 0, True, "Even number of inverseOf triples expected. Found: %s " % len(inverseOf_results ) )
 
-  @unittest.expectedFailure # autos
   def test_needlessDomainIncludes(self):
     # check immediate subtypes don't declare same domainIncludes
     # TODO: could we use property paths here to be more thorough?
@@ -98,7 +99,7 @@ class SDOGraphSetupTestCase(unittest.TestCase):
             log.info(row)
     self.assertEqual(len(ndi1_results), 0, "No subtype need redeclare a domainIncludes of its parents. Found: %s " % len(ndi1_results ) )
 
-  @unittest.expectedFailure # fails on valueReference: https://github.com/schemaorg/schemaorg/issues/468
+  @unittest.expectedFailure
   def test_needlessRangeIncludes(self):
     # as above, but for range. We excuse URL as it is special, not best seen as a Text subtype.
     # check immediate subtypes don't declare same domainIncludes
@@ -115,8 +116,6 @@ class SDOGraphSetupTestCase(unittest.TestCase):
     nri1_results = self.rdflib_data.query(nri1)
     if (len(nri1_results)>0):
       log.info("property, class1, [which is subclassOf] class2:\n")
-      for row in nri1_results:
-        log.info(str(row))
         #print(str(row))
     self.assertEqual(len(nri1_results), 0, "No subtype need redeclare a rangeIncludes of its parents. Found: %s" % len(nri1_results) )
     
@@ -125,16 +124,45 @@ class SDOGraphSetupTestCase(unittest.TestCase):
 #    self.assertEqual(len(inverseOf_results ) % 2 == 0, True, "Even number of inverseOf triples expected. Found: %s " % len(inverseOf_results ) )
 
 
+  def test_validRangeIncludes(self):
+    nri1= ('''SELECT ?prop ?c1 
+                 WHERE { 
+                     ?prop <http://schema.org/rangeIncludes> ?c1 .
+                     OPTIONAL{
+                        ?c1 rdf:type ?c2 .
+                        ?c1 rdf:type rdfs:Class .
+                     }.
+                     FILTER (!BOUND(?c2))
+                 }
+                 ORDER BY ?prop ''')
+    nri1_results = self.rdflib_data.query(nri1)
+    for row in nri1_results:
+        log.info("Property %s invalid rangeIncludes value: %s" % (row["prop"],row["c1"]))      
+    self.assertEqual(len(nri1_results), 0, "RangeIncludes should define valid type. Found: %s" % len(nri1_results))
+
+  def test_validDomainIncludes(self):
+    nri1= ('''SELECT ?prop ?c1 
+                 WHERE { 
+                     ?prop <http://schema.org/domainIncludes> ?c1 .
+                     OPTIONAL{
+                        ?c1 rdf:type ?c2 .
+                        ?c1 rdf:type rdfs:Class .
+                     }.
+                     FILTER (!BOUND(?c2))
+                 }
+                 ORDER BY ?prop ''')
+    nri1_results = self.rdflib_data.query(nri1)
+    for row in nri1_results:
+        log.info("Property %s invalid domainIncludes value: %s" % (row["prop"],row["c1"]))      
+    self.assertEqual(len(nri1_results), 0, "DomainIncludes should define valid type. Found: %s" % len(nri1_results))
+
   # These are place-holders for more sophisticated SPARQL-expressed checks.
 
   @unittest.expectedFailure
   def test_readSchemaFromRDFa(self):
     self.assertTrue(True, False, "We should know how to locally get /docs/schema_org_rdfa.html but this requires fixes to api.py.")
-
-
-  @unittest.expectedFailure 
-  def test_propertyDefinitionsUseActualTypes(self):
-    """Sometimes we write domainIncludes or rangeIncludes with a typo'd type name."""
+    
+      
     # 
     # TODO: https://github.com/schemaorg/schemaorg/issues/662
     #
