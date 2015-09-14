@@ -1,0 +1,51 @@
+TYPES: #datafeed-1 DataFeed
+
+PRE-MARKUP:
+
+Company Directory
+last modified: 2015-01-02
+  Alice: alice@example.com
+  entry added: 2014-07-01
+
+  Bob: bob@example.com
+  entry modified: 2015-01-02
+
+
+MICRODATA:
+
+TODO.
+ 
+RDFA:
+
+TODO.
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org/",
+  "@type": "DataFeed",
+  "name": "Company directory",
+  "dateModified": "2015-01-02",
+  "dataFeedElement": [
+    {
+      "@type": "DataFeedItem",
+      "dateCreated": "2014-07-01",
+      "item": {
+        "@type": "Person",
+        "name": "Alice",
+        "email": "alice@example.com"
+      }
+    },
+    {
+      "@type": "DataFeedItem",
+      "dateModified": "2015-01-02",
+      "item": {
+        "@type": "Person",
+        "name": "Bob",
+        "email": "bob@example.com"
+      }
+    }
+  ]
+}
+</script>
