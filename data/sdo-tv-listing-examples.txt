@@ -1,4 +1,4 @@
-TYPES: Organization,BroadcastService
+TYPES: #tv-listing1 Organization,BroadcastService
 
 PRE-MARKUP:
 WAAY is an affiliate of the ABC network and broadcasts in SD.
@@ -42,7 +42,7 @@ JSON:
 }
 </script>
 
-TYPES: Organization,BroadcastService,TelevisionChannel,CableOrSatelliteService
+TYPES: #tv-listing2 Organization,BroadcastService,TelevisionChannel,CableOrSatelliteService
 
 
 PRE-MARKUP:
@@ -108,7 +108,7 @@ JSON:
 </script>
 
 
-TYPES: BroadcastEvent,BroadcastService,TVEpisode
+TYPES: #tv-listing3 BroadcastEvent,BroadcastService,TVEpisode
 
 
 PRE-MARKUP:
@@ -118,7 +118,7 @@ MICRODATA:
 <div itemscope itemtype="http://schema.org/BroadcastEvent">
   <span itemprop="name">Modern Family - S6E8 - Three Turkeys</span>
   <span itemprop="description">Phil and Luke take over Thanksgiving duties.</span>
-  <meta itemprop="IsLiveBroadcast" content="http://schema.org/False" />
+  <meta itemprop="isLiveBroadcast" content="http://schema.org/False" />
   <span itemprop="videoFormat">HD</span>
   <span itemprop="inLanguage">en</span>
   <span itemprop="subtitleLanguage">es</span>
@@ -136,7 +136,7 @@ RDFA:
 <div vocab="http://schema.org" typeof="BroadcastEvent">
   <span property="name">Modern Family - S6E8 - Three Turkeys</span>
   <span property="description">Phil and Luke take over Thanksgiving duties.</span>
-  <meta property="IsLiveBroadcast" content="http://schema.org/False" />
+  <meta property="isLiveBroadcast" content="http://schema.org/False" />
   <span property="videoFormat">HD</span>
   <span property="inLanguage">en</span>
   <span property="subtitleLanguage">es</span>
@@ -172,5 +172,89 @@ JSON:
   "isLiveBroadcast":"False",
   "name":"Modern Family - S6E8 - Three Turkeys",
   "description":"Phil and Luke take over Thanksgiving duties."
+}
+</script>
+
+TYPES: #tv-listing4 BroadcastEvent,SportsEvent
+
+
+PRE-MARKUP:
+A broadcast of the FIFA Women's World Cup 2015 final.
+
+MICRODATA:
+<div itemscope itemtype="http://schema.org/BroadcastEvent">
+  <span itemprop="name">FIFA Women's World Cup Final</span>
+  <span itemprop="description">US vs. Japan</span>
+  <meta itemprop="isLiveBroadcast" content="http://schema.org/True" />
+  <span itemprop="videoFormat">HD</span>
+  <span itemprop="startDate" content="2015-07-05T15:30-07:00">starts 07/05/2015 3:30PM</span>
+  <div itemprop="broadcastOfEvent" itemscope itemtype="http://schema.org/SportsEvent">
+    <span itemprop="name">FIFA Women's World Cup Final 2015</span>
+    <div itemprop="competitor" itemscope itemtype="http://schema.org/SportsTeam">
+      <meta itemprop="name" content="United States" />
+    </div>
+    <div itemprop="competitor" itemscope itemtype="http://schema.org/SportsTeam">
+      <meta itemprop="name" content="Japan" />
+    </div>
+    <meta itemprop="startDate" content="2015-07-05T16:00-07:00" />
+    <div itemprop="location" itemscope itemtype="http://schema.org/City">
+      Played in <span itemprop="name">Vancouver</span>
+    </div>
+  </div>
+</div>
+
+RDFA:
+
+<div vocab="http://schema.org/" typeof="BroadcastEvent">
+  <span property="name">FIFA Women's World Cup Final</span>
+  <span property="description">US vs. Japan</span>
+  <meta property="isLiveBroadcast" content="http://schema.org/True" />
+  <span property="videoFormat">HD</span>
+  <span property="startDate" content="2015-07-05T15:30-07:00">starts 07/05/2015 3:30PM</span>
+  <div property="broadcastOfEvent" typeof="SportsEvent">
+    <span property="name">FIFA Women's World Cup Final 2015</span>
+    <div property="competitor" typeof="SportsTeam">
+      <meta property="name" content="United States" />
+    </div>
+    <div property="competitor" typeof="SportsTeam">
+      <meta property="name" content="Japan" />
+    </div>
+    <meta property="startDate" content="2015-07-05T16:00-07:00" />
+    <div property="location" typeof="City">
+      Played in <span property="name">Vancouver</span>
+    </div>
+  </div>
+</div>
+
+
+JSON:
+<script type="application/ld+json">
+{
+  "@context":"http://schema.org",
+  "@type":"BroadcastEvent",
+  "name": "FIFA Women's World Cup Final",
+  "description": "US vs. Japan",
+  "isLiveBroadcast": "http://schema.org/True",
+  "videoFormat": "HD",
+  "startDate": "2015-07-05T15:30-07:00",
+  "broadcastOfEvent": {
+    "@type": "SportsEvent",
+    "name": "FIFA Women's World Cup Final 2015",
+    "competitor": [
+      {
+        "@type": "SportsTeam",
+        "name": "United States"
+      },
+      {
+        "@type": "SportsTeam",
+        "name": "Japan"
+      }
+    ],
+    "startDate": "2015-07-05T16:00-07:00",
+    "location": {
+      "@type": "City",
+      "name": "Vancouver"
+    }
+  }
 }
 </script>
