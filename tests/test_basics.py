@@ -49,7 +49,7 @@ class SDOBasicsTestCase(unittest.TestCase):
       if t.examples and len(t.examples) > 0:
         example_count = example_count + len(t.examples)
     log.info("Extracted %s examples." % example_count )
-    self.assertTrue(example_count > 300 and example_count < 450, "Expect that we extracted 300 < x < 450 examples from data/*examples.txt. Found: %s " % example_count)
+    self.assertTrue(example_count > 300 and example_count < 500, "Expect that we extracted 300 < x < 500 examples from data/*examples.txt. Found: %s " % example_count)
 
 class SupertypePathsTestCase(unittest.TestCase):
     """
