@@ -294,7 +294,7 @@ class ShowUnit (webapp2.RequestHandler):
         for l in all_terms[node.id]:
             l = l.replace("#","")
             if ENABLE_HOSTED_EXTENSIONS:
-                items.append("'{0}' is mentioned in extension layer: <a href='?ext={1}'>{2}</a>".format( node.id, l, l ))
+                items.append("'{0}' is mentioned in extension layer: <a href='{1}'>{2}</a>".format( node.id, makeUrl(l,node.id), l ))
 
         moreinfo = """<div>
         <div id='infobox' style='text-align: right;'><b><span style="cursor: pointer;">[more...]</span></b></div>
