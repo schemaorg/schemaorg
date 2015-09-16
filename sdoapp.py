@@ -959,10 +959,11 @@ class ShowUnit (webapp2.RequestHandler):
         ext_mappings = GetExtMappingsRDFa(node, layers=layers)
 
         global sitemode #,sitename
+	sitename = "schema.org" # TMP FIX 
 
         if ("schema.org" not in self.request.host and sitemode == "mainsite"):
             sitemode = "mainsite testsite"
-
+        
         self.emitSchemaorgHeaders(node, node.isClass(), ext_mappings, sitemode, sitename, layers)
 
         if ( ENABLE_HOSTED_EXTENSIONS and ("core" not in layers or len(layers)>1) ):
