@@ -108,7 +108,7 @@ class UsageFileParser:
                 count = parts[1]
                 node = api.Unit.GetUnit(unitstr, False)
                 if (node == None):
-                    logging.debug("'%s' stat. does not have a node" % unitstr)
+#                    logging.debug("'%s' stat. does not have a node" % unitstr)
                 else:
                     node.setUsage(count)
 
