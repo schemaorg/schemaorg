@@ -803,7 +803,24 @@ def read_examples(files):
         parser = parsers.ParseExampleFile(None)
         parser.parse(example_contents)
 
-
+def StripHtmlTags(source):
+    return re.sub('<[^<]+?>', '', source)
+    
+def ShortenOnSentence(source,lengthHint=250):
+    if len(source) > lengthHint:
+        sentEnd = re.compile('[.!?]')
+        sentList = sentEnd.split(source)
+        com=""
+        for sent in sentList:
+            com += sent 
+            com += source[len(com)]
+            if len(com) > lengthHint:
+                break
+        if len(source) > len(com):
+            com += ".."
+        source = com
+    return source
+     
 
 
 

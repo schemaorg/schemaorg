@@ -3905,7 +3905,7 @@
     </div>
     <div typeof="rdfs:Class" resource="http://schema.org/Action">
       <span class="h" property="rdfs:label">Action</span>
-      <span property="rdfs:comment">An action performed by a direct agent and indirect     participants upon a direct object. Optionally happens at a location     with the help of an inanimate instrument. The execution of the action     may produce a result. Specific action sub-type documentation specifies     the exact expectation of each argument/role.
+      <span property="rdfs:comment">An action performed by a direct agent and indirect participants upon a direct object. Optionally happens at a location with the help of an inanimate instrument. The execution of the action may produce a result. Specific action sub-type documentation specifies the exact expectation of each argument/role.
       &lt;br/&gt;&lt;br/&gt;See also &lt;a href="http://blog.schema.org/2014/04/announcing-schemaorg-actions.html"&gt;blog post&lt;/a&gt;
       and &lt;a href="http://schema.org/docs/actions.html"&gt;Actions overview document&lt;/a&gt;.</span>
        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Thing">Thing</a></span>
@@ -3932,7 +3932,7 @@
 
     <div typeof="rdfs:Class" resource="http://schema.org/AchieveAction">
       <span class="h" property="rdfs:label">AchieveAction</span>
-      <span property="rdfs:comment">The act of accomplishing something via     previous efforts. It is an instantaneous action rather than an ongoing     process.</span>
+      <span property="rdfs:comment">The act of accomplishing something via previous efforts. It is an instantaneous action rather than an ongoing process.</span>
        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Action">Action</a></span>
     </div>
 
@@ -5774,6 +5774,15 @@
       <link property="rdfs:subPropertyOf" href="http://schema.org/location" />
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ExerciseAction">ExerciseAction</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Place">Place</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/countryOfOrigin">
+      <span class="h" property="rdfs:label">countryOfOrigin</span>
+      <span property="rdfs:comment">The country of the principal offices of the production company or individual responsible for the movie or program.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Movie">Movie</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/TVEpisode">TVEpisode</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/TVSeason">TVSeason</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/TVSeries">TVSeries</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Country">Country</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/creator">
       <span class="h" property="rdfs:label">creator</span>
