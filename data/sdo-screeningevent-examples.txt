@@ -78,6 +78,54 @@ JSON:
 </script>
 
 
+TYPES: #screening-2 Movie, countryOfOrigin
+
+PRE-MARKUP:
+
+Ghostbusters was produced by Black Rhino in the United States.
+
+MICRODATA:
+
+<div itemscope itemtype="http://schema.org/Movie">
+  <h1 itemprop="name">Ghostbusters</h1>
+  <div itemprop="productionCompany" itemscope itemtype="http://schema.org/Organization">
+    Produced by: <span itemprop="name">Black Rhino</span><p>
+  </div>
+  <div itemprop="countryOfOrigin" itemscope itemtype="http://schema.org/Country">
+    Country: <span itemprop="name" content="USA">United States</span><p>
+  </div>
+</div>
+
+RDFA:
+
+<div vocab="http://schema.org/" typeof="Movie">
+  <h1 property="name">Ghostbusters</h1>
+  <div property="productionCompany" typeof="Organization">
+    Produced by: <span property="name">Black Rhino</span><p>
+  </div>
+  <div property="countryOfOrigin" typeof="Country">
+    Country: <span property="name" content="USA">United States</span><p>
+  </div>
+</div>
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org/",
+  "@type": "Movie",
+  "name": "Ghostbusters",
+  "productionCompany": {
+    "@type": "Organization",
+    "name": "Black Rhino"
+  },
+  "countryOfOrigin": {
+    "@type": "Country",
+    "name": "USA"
+  }
+}
+</script>
+
 TYPES: FakeEntryNeeded, FixMeSomeDay
 PRE-MARKUP:
 MICRODATA:
