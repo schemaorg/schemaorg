@@ -22,7 +22,7 @@ from api import inLayer, read_file, full_path, read_schemas, read_extensions, re
 from api import Unit, GetTargets, GetSources
 from api import GetComment, all_terms, GetAllTypes, GetAllProperties
 from api import GetParentList, GetImmediateSubtypes, HasMultipleBaseTypes
-from api import GetJsonLdContext
+from api import GetJsonLdContext, ShortenOnSentence, StripHtmlTags
 
 logging.basicConfig(level=logging.INFO) # dev_appserver.py --log_level debug .
 log = logging.getLogger(__name__)
@@ -188,9 +188,9 @@ class TypeHierarchyTree:
         maybe_comma = "{}".format("," if unvisited_subtype_count > 0 else "")
         comment = GetComment(node, layers).strip()
         comment = comment.replace('"',"'")
-        comment = re.sub('<[^<]+?>', '', comment)[:60]
+        comment = ShortenOnSentence(StripHtmlTags(comment),60)
 
-        self.emit('\n%s{\n%s\n%s"@type": "rdfs:Class", %s "description": "%s...",\n%s"name": "%s",\n%s"@id": "schema:%s"%s'
+        self.emit('\n%s{\n%s\n%s"@type": "rdfs:Class", %s "description": "%s",\n%s"name": "%s",\n%s"@id": "schema:%s"%s'
                   % (p1, ctx, p1,                 supertx,            comment,     p1,   node.id, p1,        node.id,  maybe_comma))
 
         i = 1
@@ -944,18 +944,8 @@ class ShowUnit (webapp2.RequestHandler):
         lengthHint -= len(desc)
         
         comment = GetComment(node, layers)
-        if len(comment) > lengthHint:
-            sentEnd = re.compile('[.!?]')
-            sentList = sentEnd.split(comment)
-            com=""
-            for sent in sentList:
-                com += sent 
-                com += comment[len(com)]
-                if len(com) > lengthHint:
-                    break
-            comment = com
-              
-        desc += comment
+                     
+        desc += ShortenOnSentence(StripHtmlTags(comment),lengthHint) 
         
         return desc
         
