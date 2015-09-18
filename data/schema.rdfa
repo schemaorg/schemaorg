@@ -10613,6 +10613,40 @@ postponing for 1.6.
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/SoftwareApplication">SoftwareApplication</a></span>
     </div>
 
+    <div typeof="rdf:Property" resource="http://schema.org/actionPlatform">
+      <span class="h" property="rdfs:label">actionPlatform</span>
+      <span property="rdfs:comment">The high level platform(s) where the Action can be performed for the given URL. To specify a specific application or operating system instance, use actionApplication.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/EntryPoint">EntryPoint</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/"></a></span>
+    </div>
+
+    <div typeof="rdfs:Class" resource="http://schema.org/ActionPlatformType">
+      <span class="h" property="rdfs:label">ActionPlatformType</span>
+      <span property="rdfs:comment">A type of platform which may be used when performing an Action</span>
+      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Enumeration">Enumeration</a></span>
+    </div>
+
+    <div typeof="http://schema.org/ActionPlatformType" resource="http://schema.org/IOSPlatform">
+      <span class="h" property="rdfs:label">IOSPlatform</span>
+      <span property="rdfs:comment">Any version of iOS.</span>
+    </div>
+    <div typeof="http://schema.org/ActionPlatformType" resource="http://schema.org/AndroidPlatform">
+      <span class="h" property="rdfs:label">AndroidPlatform</span>
+      <span property="rdfs:comment">Any version of Android.</span>
+    </div>
+    <div typeof="http://schema.org/ActionPlatformType" resource="http://schema.org/WindowsMobilePlatform">
+      <span class="h" property="rdfs:label">WindowsMobilePlatform</span>
+      <span property="rdfs:comment">Any version of Windows Mobile.</span>
+    </div>
+    <div typeof="http://schema.org/ActionPlatformType" resource="http://schema.org/MobileWebPlatform">
+      <span class="h" property="rdfs:label">MobileWebPlatform</span>
+      <span property="rdfs:comment">Any web browser on a mobile device.</span>
+    </div>
+    <div typeof="http://schema.org/ActionPlatformType" resource="http://schema.org/DesktopWebPlatform">
+      <span class="h" property="rdfs:label">DesktopWebPlatform</span>
+      <span property="rdfs:comment">Any web browser on a desktop computer.</span>
+    </div>
+
     <div typeof="rdfs:Class" resource="http://schema.org/PropertyValueSpecification">
       <span class="h" property="rdfs:label">PropertyValueSpecification</span>
       <span property="rdfs:comment">A Property value specification.</span>
