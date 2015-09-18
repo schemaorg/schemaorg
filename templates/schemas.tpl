@@ -16,13 +16,15 @@
 
 
 <h1>Organization of Schemas</h1>
-The schemas are a set of 'types', each associated with a set of properties. The types are arranged in a hierarchy.
-<br />
+The schemas are a set of 'types', each associated with a set of properties. The types are arranged in a hierarchy.<br/>
+{{ counts | safe }}<br/>
+
 <br />Browse the full hierarchy:
 <ul>
   <li><a href="{{staticPath}}/Thing">One page per type</a></li>
   <li><a href="full.html">Full list of types, shown on one page</a></li>
-</ul><br />
+</ul>
+<br />
 
 Or you can jump directly to a commonly used type:
 <ul>
@@ -38,7 +40,14 @@ Or you can jump directly to a commonly used type:
   <li><a href="{{staticPath}}/Action">Action</a></li>
 </ul>
 
-<p>See also the <a href="{{staticPath}}/docs/releases.html">releases</a> page for recent updates and project history.</p>
+<br/>Using the <a href="{{staticPath}}/docs/extension.html">extension mechanism</a> the core vocabulary is extended by the following hosted extensions:
+<ul>
+{% for ext in extensions %}
+	<li>{{ ext | safe }}</li>
+{% endfor %}
+</ul>
+
+<br/>See also the <a href="{{staticPath}}/docs/releases.html">releases</a> page for recent updates and project history.<br/>
 
 <br />
 We also have a small set of <a href="{{staticPath}}/DataType">primitive data types</a> for numbers, text, etc. More details about the data model, etc. are available <a href="{{staticPath}}/datamodel.html">here</a>.

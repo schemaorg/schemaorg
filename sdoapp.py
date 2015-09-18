@@ -20,7 +20,7 @@ from google.appengine.ext.webapp import blobstore_handlers
 
 from api import inLayer, read_file, full_path, read_schemas, read_extensions, read_examples, namespaces, DataCache
 from api import Unit, GetTargets, GetSources
-from api import GetComment, all_terms, GetAllTypes, GetAllProperties
+from api import GetComment, all_terms, GetAllTypes, GetAllProperties, GetAllEnumerationValues
 from api import GetParentList, GetImmediateSubtypes, HasMultipleBaseTypes
 from api import GetJsonLdContext, ShortenOnSentence, StripHtmlTags
 
@@ -58,8 +58,9 @@ INTESTHARNESS = False #Used to indicate we are being called from tests - use set
 
 EXTENSION_SUFFIX = "" # e.g. "*"
 
-ENABLED_EXTENSIONS = [ 'admin', 'auto', 'bib' ]
-ALL_LAYERS = [ 'core', 'admin', 'auto', 'bib' ]
+#ENABLED_EXTENSIONS = [ 'admin', 'auto', 'bib' ]
+ENABLED_EXTENSIONS = [ 'auto', 'bib' ]
+ALL_LAYERS = [ 'core', 'auto', 'bib' ]
 
 
 FORCEDEBUGGING = False
@@ -100,20 +101,30 @@ class TypeHierarchyTree:
     def emit(self, s):
         self.txt += s + "\n"
 
+    def emit2buff(self, buff, s):
+        buff.write(s + "\n") 
+
     def toHTML(self):
         return '%s<ul>%s</ul>' % (self.prefix, self.txt)
 
     def toJSON(self):
         return self.txt
 
-    def traverseForHTML(self, node, depth = 1, hashorslash="/", layers='core'):
+    def traverseForHTML(self, node, depth = 1, hashorslash="/", layers='core', buff=None):
 
         """Generate a hierarchical tree view of the types. hashorslash is used for relative link prefixing."""
 
         log.debug("traverseForHTML: node=%s hashorslash=%s" % ( node.id, hashorslash ))
-
+        localBuff = False
+        if buff == None:
+            localBuff = True
+            buff = StringIO.StringIO()
+       
         urlprefix = ""
         home = node.getHomeLayer()
+        gotOutput = False
+        if home in layers:
+            gotOutput = True
 
         if home in ENABLED_EXTENSIONS and home != getHostExt():
             urlprefix = makeUrl(home)
@@ -127,33 +138,44 @@ class TypeHierarchyTree:
             tooltip = "title=\"Extended schema: %s.schema.org\" " % home
 
         # we are a supertype of some kind
-        if len(node.GetImmediateSubtypes(layers=layers)) > 0:
-
+        subTypes = node.GetImmediateSubtypes(layers=ALL_LAYERS)
+        if len(subTypes) > 0:
             # and we haven't been here before
             if node.id not in self.visited:
                 self.visited[node.id] = True # remember our visit
-                self.emit( ' %s<li class="tbranch" id="%s"><a %s %s href="%s%s%s">%s</a>%s' % (" " * 4 * depth, node.id,  tooltip, extclass, urlprefix, hashorslash, node.id, node.id, extflag) )
-                self.emit(' %s<ul>' % (" " * 4 * depth))
+                self.emit2buff(buff, ' %s<li class="tbranch" id="%s"><a %s %s href="%s%s%s">%s</a>%s' % (" " * 4 * depth, node.id,  tooltip, extclass, urlprefix, hashorslash, node.id, node.id, extflag) )
+                self.emit2buff(buff, ' %s<ul>' % (" " * 4 * depth))
 
                 # handle our subtypes
-                for item in node.GetImmediateSubtypes(layers=layers):
-                    self.traverseForHTML(item, depth + 1, hashorslash=hashorslash, layers=layers)
-                self.emit( ' %s</ul>' % (" " * 4 * depth))
+                for item in subTypes:
+                    subBuff = StringIO.StringIO()
+                    got = self.traverseForHTML(item, depth + 1, hashorslash=hashorslash, layers=layers, buff=subBuff)
+                    if got:
+                        gotOutput = True
+                        self.emit2buff(buff,subBuff.getvalue())
+                    subBuff.close()
+                self.emit2buff(buff, ' %s</ul>' % (" " * 4 * depth))
             else:
                 # we are a supertype but we visited this type before, e.g. saw Restaurant via Place then via Organization
                 seen = '  <a href="#%s">+</a> ' % node.id
-                self.emit( ' %s<li class="tbranch" id="%s"><a %s %s href="%s%s%s">%s</a>%s%s' % (" " * 4 * depth, node.id,  tooltip, extclass, urlprefix, hashorslash, node.id, node.id, extflag, seen) )
+                self.emit2buff(buff, ' %s<li class="tbranch" id="%s"><a %s %s href="%s%s%s">%s</a>%s%s' % (" " * 4 * depth, node.id,  tooltip, extclass, urlprefix, hashorslash, node.id, node.id, extflag, seen) )
 
         # leaf nodes
-        if len(node.GetImmediateSubtypes(layers=layers)) == 0:
+        if len(subTypes) == 0:
             if node.id not in self.visited:
-                self.emit( '%s<li class="tleaf" id="%s"><a %s %s href="%s%s%s">%s</a>%s%s' % (" " * depth, node.id, tooltip, extclass, urlprefix, hashorslash, node.id, node.id, extflag, "" ))
+                self.emit2buff(buff, '%s<li class="tleaf" id="%s"><a %s %s href="%s%s%s">%s</a>%s%s' % (" " * depth, node.id, tooltip, extclass, urlprefix, hashorslash, node.id, node.id, extflag, "" ))
             #else:
                 #self.visited[node.id] = True # never...
                 # we tolerate "VideoGame" appearing under both Game and SoftwareApplication
                 # and would only suppress it if it had its own subtypes. Seems legit.
 
-        self.emit( ' %s</li>' % (" " * 4 * depth) )
+        self.emit2buff(buff, ' %s</li>' % (" " * 4 * depth) )
+        
+        if localBuff:
+            self.emit(buff.getvalue())
+            buff.close()
+        
+        return gotOutput
 
     # based on http://danbri.org/2013/SchemaD3/examples/4063550/hackathon-schema.js  - thanks @gregg, @sandro
     def traverseForJSONLD(self, node, depth = 0, last_at_this_level = True, supertype="None", layers='core'):
@@ -866,6 +888,7 @@ class ShowUnit (webapp2.RequestHandler):
                     'myport': getHostPort(),
                     'mybasehost': getBaseHost(),
                     'host_ext': getHostExt(),
+                    'ext_contents': self.handleExtensionContents(getHostExt()),
                     'home_page': "True",
                     'debugging': getAppVar('debugging')
                 }
@@ -1178,9 +1201,15 @@ class ShowUnit (webapp2.RequestHandler):
             log.debug("Serving recycled SchemasPage.")
             return True
         else:
+            extensions = []
+            for ex in sorted(ENABLED_EXTENSIONS):
+                extensions.append("<a href=\"%s\">%s.schema.org</a>" % (makeUrl(ex,""),ex))
+                
             template = JINJA_ENVIRONMENT.get_template('schemas.tpl')
             page = template.render({'sitename': getSiteName(),
                                     'staticPath': makeUrl("",""),
+                                    'counts': self.getCounts(),
+                                    'extensions': extensions,
                                     'menu_sel': "Schemas"})
 
             self.response.out.write( page )
@@ -1188,6 +1217,13 @@ class ShowUnit (webapp2.RequestHandler):
             DataCache.put("SchemasPage",page)
 
             return True
+            
+    def getCounts(self):
+        text = ""
+        text += "The core vocabulary currently consists of %s Types, " % len(GetAllTypes("core"))
+        text += " %s Properties, " % len(GetAllProperties("core"))
+        text += "and %s Enumeration values." % len(GetAllEnumerationValues("core"))
+        return text
 
 
     def handleFullHierarchyPage(self, node,  layerlist='core'):
@@ -1203,23 +1239,31 @@ class ShowUnit (webapp2.RequestHandler):
 
 
             extlist=""
+            extonlylist=[]
             count=0
             for i in layerlist:
                 if i != "core":
                     sep = ""
                     if count > 0:
                         sep = ", "
-                    extlist += "plus '%s'%s" % (i, sep)
-
+                    extlist += "'%s'%s" % (i, sep)
+                    extonlylist.append(i)
                     count += 1
             local_button = ""
-            local_label = "<h3>Core %s extension vocabularies</h3>" % extlist
+            local_label = "<h3>Core plus %s extension vocabularies</h3>" % extlist
             if count == 0:
                 local_button = "Core vocabulary"
             elif count == 1:
-                local_button = "Core %s extension" % extlist
+                local_button = "Core plus %s extension" % extlist
             else:
-                local_button = "Core %s extensions" % extlist
+                local_button = "Core plus %s extensions" % extlist
+                
+            ext_button = ""
+            if count == 1:
+                ext_button = "Extension %s" % extlist
+            elif count > 1:
+                ext_button = "Extensions %s" % extlist
+                
 
             uThing = Unit.GetUnit("Thing")
             uDataType = Unit.GetUnit("DataType")
@@ -1227,10 +1271,27 @@ class ShowUnit (webapp2.RequestHandler):
             mainroot = TypeHierarchyTree(local_label)
             mainroot.traverseForHTML(uThing, layers=layerlist)
             thing_tree = mainroot.toHTML()
+            #az_enums = GetAllEnumerationValues(layerlist)
+            #az_enums.sort( key = lambda u: u.id)
+            #thing_tree += self.listTerms(az_enums,"<br/><strong>Enumeration Values</strong><br/>")
+            
 
             fullmainroot = TypeHierarchyTree("<h3>Core plus all extension vocabularies</h3>")
             fullmainroot.traverseForHTML(uThing, layers=ALL_LAYERS)
             full_thing_tree = fullmainroot.toHTML()
+            #az_enums = GetAllEnumerationValues(ALL_LAYERS)
+            #az_enums.sort( key = lambda u: u.id)
+            #full_thing_tree += self.listTerms(az_enums,"<br/><strong>Enumeration Values</strong><br/>")
+            
+            ext_thing_tree = None
+            if len(extonlylist) > 0:
+                extroot = TypeHierarchyTree("<h3>Extension: %s</h3>" % extlist)
+                extroot.traverseForHTML(uThing, layers=extonlylist)
+                ext_thing_tree = extroot.toHTML()
+                #az_enums = GetAllEnumerationValues(extonlylist)
+                #az_enums.sort( key = lambda u: u.id)
+                #ext_thing_tree += self.listTerms(az_enums,"<br/><strong>Enumeration Values</strong><br/>")
+                
 
             dtroot = TypeHierarchyTree("<h4>Data Types</h4>")
             dtroot.traverseForHTML(uDataType, layers=layerlist)
@@ -1240,9 +1301,11 @@ class ShowUnit (webapp2.RequestHandler):
 
             page = template.render({ 'thing_tree': thing_tree,
                                     'full_thing_tree': full_thing_tree,
+                                    'ext_thing_tree': ext_thing_tree,
                                     'datatype_tree': datatype_tree,
                                     'local_button': local_button,
                                     'full_button': full_button,
+                                    'ext_button': ext_button,
                                     'sitename': getSiteName(),
                                     'staticPath': makeUrl("",""),
                                     'menu_sel': "Schemas"})
@@ -1502,6 +1565,45 @@ class ShowUnit (webapp2.RequestHandler):
             DataCache.put("FullReleasePage",page)
             return True
 
+    def handleExtensionContents(self,ext):
+        if not ext in ENABLED_EXTENSIONS:
+            log.info("cannot list ext %s",ext)
+            return ""
+        
+        buff = StringIO.StringIO()
+        
+        az_types = GetAllTypes(ext)
+        az_types.sort( key=lambda u: u.id)
+        az_props = GetAllProperties(ext)
+        az_props.sort( key = lambda u: u.id)
+        az_enums = GetAllEnumerationValues(ext)
+        az_enums.sort( key = lambda u: u.id)
+        
+        buff.write("<br/><h3>Terms defined or referenced in the '%s' extension.</h3>" % ext)
+        buff.write(self.listTerms(az_types,"<br/><strong>Types</strong> (%s)<br/>" % len(az_types)))
+        buff.write(self.listTerms(az_props,"<br/><br/><strong>Properties</strong> (%s)<br/>" % len(az_props)))
+        buff.write(self.listTerms(az_enums,"<br/><br/><strong>Enumeration values</strong> (%s)<br/>" % len(az_enums)))
+        ret = buff.getvalue()
+        buff.close()
+        return ret
+        
+    def listTerms(self,terms,prefix=""):
+        buff = StringIO.StringIO()
+        if(len(terms) > 0):
+            buff.write(prefix)
+            first = True
+            sep = ""
+            for term in terms:
+                if not first:
+                    sep = ", "
+                else:
+                    first = False
+                buff.write("%s%s" % (sep,self.ml(term)))
+            
+        ret = buff.getvalue()
+        buff.close()
+        return ret
+        
 
     def setupHostinfo(self, node, test=""):
         hostString = test
