@@ -310,6 +310,12 @@
        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/FinancialService">FinancialService</a></span>
     </div>
 
+    <div typeof="rdfs:Class" resource="http://schema.org/Barcode">
+      <span class="h" property="rdfs:label">Barcode</span>
+      <span property="rdfs:comment">An image of a visual machine-readable code such as a barcode or QR code.</span>
+       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/ImageObject">ImageObject</a></span>
+    </div>
+
     <div typeof="rdfs:Class" resource="http://schema.org/BarOrPub">
       <span class="h" property="rdfs:label">BarOrPub</span>
       <span property="rdfs:comment">A bar or pub.</span>
@@ -2668,7 +2674,7 @@
     </div>
     <div typeof="rdfs:Class" resource="http://schema.org/Action">
       <span class="h" property="rdfs:label">Action</span>
-      <span property="rdfs:comment">An action performed by a direct agent and indirect     participants upon a direct object. Optionally happens at a location     with the help of an inanimate instrument. The execution of the action     may produce a result. Specific action sub-type documentation specifies     the exact expectation of each argument/role.
+      <span property="rdfs:comment">An action performed by a direct agent and indirect participants upon a direct object. Optionally happens at a location with the help of an inanimate instrument. The execution of the action may produce a result. Specific action sub-type documentation specifies the exact expectation of each argument/role.
       &lt;br/&gt;&lt;br/&gt;See also &lt;a href="http://blog.schema.org/2014/04/announcing-schemaorg-actions.html"&gt;blog post&lt;/a&gt;
       and &lt;a href="http://schema.org/docs/actions.html"&gt;Actions overview document&lt;/a&gt;.</span>
        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Thing">Thing</a></span>
@@ -2695,7 +2701,7 @@
 
     <div typeof="rdfs:Class" resource="http://schema.org/AchieveAction">
       <span class="h" property="rdfs:label">AchieveAction</span>
-      <span property="rdfs:comment">The act of accomplishing something via     previous efforts. It is an instantaneous action rather than an ongoing     process.</span>
+      <span property="rdfs:comment">The act of accomplishing something via previous efforts. It is an instantaneous action rather than an ongoing process.</span>
        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Action">Action</a></span>
     </div>
 
@@ -4271,6 +4277,15 @@
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ExerciseAction">ExerciseAction</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Place">Place</a></span>
     </div>
+    <div typeof="rdf:Property" resource="http://schema.org/countryOfOrigin">
+      <span class="h" property="rdfs:label">countryOfOrigin</span>
+      <span property="rdfs:comment">The country of the principal offices of the production company or individual responsible for the movie or program.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Movie">Movie</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/TVEpisode">TVEpisode</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/TVSeason">TVSeason</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/TVSeries">TVSeries</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Country">Country</a></span>
+    </div>
     <div typeof="rdf:Property" resource="http://schema.org/creator">
       <span class="h" property="rdfs:label">creator</span>
       <span property="rdfs:comment">The creator/author of this CreativeWork. This is the same as the Author property for CreativeWork.</span>
@@ -4301,9 +4316,11 @@
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/dateCreated">
       <span class="h" property="rdfs:label">dateCreated</span>
-      <span property="rdfs:comment">The date on which the CreativeWork was created.</span>
+      <span property="rdfs:comment">The date on which the CreativeWork was created or the item was added to a DataFeed.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CreativeWork">CreativeWork</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/DataFeedItem">DataFeedItem</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Date">Date</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/DateTime">DateTime</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/dateline">
       <span class="h" property="rdfs:label">dateline</span>
@@ -4311,11 +4328,19 @@
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/NewsArticle">NewsArticle</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
     </div>
+    <div typeof="rdf:Property" resource="http://schema.org/dateDeleted">
+      <span class="h" property="rdfs:label">dateDeleted</span>
+      <span property="rdfs:comment">The datetime the item was removed from the DataFeed.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/DataFeedItem">DataFeedItem</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/DateTime">DateTime</a></span>
+    </div>
     <div typeof="rdf:Property" resource="http://schema.org/dateModified">
       <span class="h" property="rdfs:label">dateModified</span>
-      <span property="rdfs:comment">The date on which the CreativeWork was most recently modified.</span>
+      <span property="rdfs:comment">The date on which the CreativeWork was most recently modified or when the item's entry was modified within a DataFeed.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CreativeWork">CreativeWork</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/DataFeedItem">DataFeedItem</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Date">Date</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/DateTime">DateTime</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/datePosted">
       <span class="h" property="rdfs:label">datePosted</span>
@@ -8561,8 +8586,9 @@ postponing for 1.6.
 
     <div typeof="rdf:Property" resource="http://schema.org/item">
       <span class="h" property="rdfs:label">item</span>
-      <span property="rdfs:comment">An entity represented by an entry in a list (e.g. an 'artist' in a list of 'artists')’.</span>
+      <span property="rdfs:comment">An entity represented by an entry in a list or data feed (e.g. an 'artist' in a list of 'artists')’.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ListItem">ListItem</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/DataFeedItem">DataFeedItem</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Thing">Thing</a></span>
     </div>
 
@@ -9511,6 +9537,12 @@ Standards bodies should promote a standard prefix for the identifiers of propert
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/BroadcastService">BroadcastService</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
     </div>
+    <div typeof="rdf:Property" resource="http://schema.org/broadcastOfEvent">
+      <span class="h" property="rdfs:label">broadcastOfEvent</span>
+      <span property="rdfs:comment">The event being broadcast such as a sporting event or awards ceremony.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/BroadcastEvent">BroadcastEvent</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Event">Event</a></span>
+    </div>
     <div typeof="rdf:Property" resource="http://schema.org/broadcastTimezone">
       <span class="h" property="rdfs:label">timezone</span>
       <span property="rdfs:comment">The timezone in &lt;a href=&#39;http://en.wikipedia.org/wiki/ISO_8601&#39;&gt;ISO 8601 format&lt;/a&gt; for which the service bases its broadcasts.</span>
@@ -10405,6 +10437,26 @@ Typical unit code(s): C62 for persons </span>
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Mass"> Mass</a></span>
 </div>
 
+<h1>DataFeed</h1>
+
+<div typeof="rdfs:Class" resource="http://schema.org/DataFeed">
+  <span class="h" property="rdfs:label">DataFeed</span>
+  <span property="rdfs:comment">A single feed providing structured information about one or more entities or topics.</span>
+  <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Dataset">Dataset</a></span>
+</div>
+<div typeof="rdf:Property" resource="http://schema.org/dataFeedElement">
+  <span class="h" property="rdfs:label">dataFeedElement</span>
+  <span property="rdfs:comment">An item within in a data feed. Data feeds may have many elements.</span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/DataFeed">DataFeed</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Thing">Thing</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/DataFeedItem">DataFeedItem</a></span>
+</div>
+<div typeof="rdfs:Class" resource="http://schema.org/DataFeedItem">
+  <span class="h" property="rdfs:label">DataFeedItem</span>
+  <span property="rdfs:comment">A single item within a larger data feed.</span>
+  <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Intangible">Intangible</a></span>
+</div>
 
 <!-- TODO:  -->
 

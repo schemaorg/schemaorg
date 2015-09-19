@@ -8,7 +8,7 @@ sys.path.append( os.getcwd() )
 from sdoapp import *
 from parsers import *
 from api import extensionsLoaded, extensionLoadErrors
-
+from google.appengine.ext import deferred 
 
 schema_path = './data/schema.rdfa'
 examples_path = './data/examples.txt'
@@ -19,6 +19,8 @@ TYPECOUNT_LOWERBOUND = 500
 
 logging.basicConfig(level=logging.INFO)
 log = logging.getLogger(__name__)
+
+setInTestHarness(True)
 
 # Tests to probe the health of both schemas and code.
 # Note that known failings can be annotated with @unittest.expectedFailure or @skip("reason...")
@@ -47,18 +49,7 @@ class SDOBasicsTestCase(unittest.TestCase):
       if t.examples and len(t.examples) > 0:
         example_count = example_count + len(t.examples)
     log.info("Extracted %s examples." % example_count )
-    self.assertTrue(example_count > 300 and example_count < 450, "Expect that we extracted 300 < x < 450 examples from data/*examples.txt. Found: %s " % example_count)
-
-  # Whichever file from data/*examples.txt is glob-loaded last, needs a final entry of "TYPES:  FakeEntryNeeded, FixMeSomeDay"
-  # This used to be examples.txt but now we are multi-file it could strike anywhere.
-  @unittest.expectedFailure
-  def test_finalExampleParsers(self):
-    # parsers calls this with each example (except final)
-    #   api.Example.AddExample(self.terms, self.preMarkupStr, self.microdataStr, self.rdfaStr, self.jsonStr)
-    # Let's look up: FakeEntryNeeded, used in examples.txt
-    tFakeEntryNeeded = Unit.GetUnit("FakeEntryNeeded")
-    fake_count = len(tFakeEntryNeeded.examples)
-    self.assertTrue(fake_count > 0, "Properly we'd find 1 or more FakeEntryNeeded entries, from end(s) of data/*examples.txt file. Fake count: %s" % fake_count)
+    self.assertTrue(example_count > 300 and example_count < 500, "Expect that we extracted 300 < x < 500 examples from data/*examples.txt. Found: %s " % example_count)
 
 class SupertypePathsTestCase(unittest.TestCase):
     """
@@ -170,7 +161,7 @@ class SchemaBasicAPITestCase(unittest.TestCase):
      self.assertEqual( gotThing, True, "Thing node should be accessible via GetUnit('Thing').")
 
   def test_hostInfo(self):
-      global debugging, host_ext, myhost, myport, mybasehost
+#      Note This test will fail if setInTestHarness(True) has not been called!!!!!
 
       thing = Unit.GetUnit("Thing")
       u = ShowUnit()

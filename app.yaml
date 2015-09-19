@@ -12,7 +12,7 @@ version: 1
 runtime: python27
 api_version: 1
 #threadsafe: true
-threadsafe: false
+threadsafe: true
 
 handlers:
 
@@ -31,6 +31,9 @@ handlers:
   script: sdoapp.app
 
 - url: /docs/full.*.html
+  script: sdoapp.app
+
+- url: /docs/schemas.html
   script: sdoapp.app
 
 - url: /docs/tree.json.*
