@@ -60,8 +60,8 @@ ENABLE_HOSTED_EXTENSIONS = True
 
 EXTENSION_SUFFIX = "" # e.g. "*"
 
-ENABLED_EXTENSIONS = [ 'admin', 'auto', 'bib' ]
-ALL_LAYERS = [ 'core', 'admin', 'auto', 'bib' ]
+ENABLED_EXTENSIONS = [ 'admin', 'auto', 'bib', 'health'  ]
+ALL_LAYERS = [ 'core', 'admin', 'auto', 'bib', 'health'  ]
 
 
 debugging = False

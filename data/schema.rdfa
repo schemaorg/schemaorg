@@ -807,11 +807,7 @@
       <span property="rdfs:comment">A gym.</span>
        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/SportsActivityLocation">SportsActivityLocation</a></span>
     </div>
-	<div typeof="rdfs:Class" resource="http://schema.org/Enumeration">
-      <span class="h" property="rdfs:label">Enumeration</span>
-      <span property="rdfs:comment">Lists or enumerations&amp;#x2014;for example, a list of cuisines or music genres, etc.</span>
-       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Intangible">Intangible</a></span>
-    </div>
+
     <div typeof="rdfs:Class" resource="http://schema.org/FastFoodRestaurant">
       <span class="h" property="rdfs:label">FastFoodRestaurant</span>
       <span property="rdfs:comment">A fast-food restaurant.</span>
@@ -10028,9 +10024,389 @@ Typical unit code(s): C62 for persons </span>
 
 <hr />
 
-<!-- TODO: US HEALTH INSURANCE VOCAB -->
+<!-- TODO: RETURNED FROM HEALTHEXTENSION -->
+<div typeof="rdfs:Class" resource="http://schema.org/Diet">
+  <span class="h" property="rdfs:label"> Diet</span>
+  <span property="rdfs:comment">A strategy of regulating the intake of food to achieve or maintain a specific health-related goal.</span>
+  <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/CreativeWork"> CreativeWork </a></span>
+</div>
 
-<!-- TODO: GENETIC VOCAB -->
+<div typeof="rdf:Property" resource="http://schema.org/calories">
+  <span class="h" property="rdfs:label"> calories</span>
+  <span property="rdfs:comment">The number of calories.</span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/NutritionInformation"> NutritionInformation</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Energy">Energy</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/carbohydrateContent">
+  <span class="h" property="rdfs:label"> carbohydrateContent</span>
+  <span property="rdfs:comment">The number of grams of carbohydrates.</span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/NutritionInformation"> NutritionInformation</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Mass"> Mass </a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/cholesterolContent">
+  <span class="h" property="rdfs:label"> cholesterolContent</span>
+  <span property="rdfs:comment">The number of milligrams of cholesterol.</span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/NutritionInformation"> NutritionInformation</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Mass"> Mass </a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/fiberContent">
+  <span class="h" property="rdfs:label"> fiberContent</span>
+  <span property="rdfs:comment">The number of grams of fiber.</span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/NutritionInformation"> NutritionInformation</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Mass"> Mass </a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/proteinContent">
+  <span class="h" property="rdfs:label"> proteinContent</span>
+  <span property="rdfs:comment">The number of grams of protein.</span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/NutritionInformation"> NutritionInformation</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Mass"> Mass </a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/saturatedFatContent">
+  <span class="h" property="rdfs:label"> saturatedFatContent</span>
+  <span property="rdfs:comment">The number of grams of saturated fat.</span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/NutritionInformation"> NutritionInformation</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Mass"> Mass </a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/servingSize">
+  <span class="h" property="rdfs:label"> servingSize</span>
+  <span property="rdfs:comment">The serving size, in terms of the number of volume or mass.</span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/NutritionInformation"> NutritionInformation</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/sodiumContent">
+  <span class="h" property="rdfs:label"> sodiumContent</span>
+  <span property="rdfs:comment">The number of milligrams of sodium.</span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/NutritionInformation"> NutritionInformation</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Mass"> Mass </a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/sugarContent">
+  <span class="h" property="rdfs:label"> sugarContent</span>
+  <span property="rdfs:comment">The number of grams of sugar.</span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/NutritionInformation"> NutritionInformation</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Mass"> Mass </a></span>
+</div>
+
+<div typeof="http://schema.org/PhysicalActivityCategory" resource="http://schema.org/AerobicActivity">
+  <span class="h" property="rdfs:label"> AerobicActivity</span>
+  <span property="rdfs:comment">Physical activity of relatively low intensity that depends primarily on the aerobic energy-generating process; during activity, the aerobic metabolism uses oxygen to adequately meet energy demands during exercise.</span>
+</div>
+
+<div typeof="http://schema.org/PhysicalActivityCategory" resource="http://schema.org/AnaerobicActivity">
+  <span class="h" property="rdfs:label"> AnaerobicActivity</span>
+  <span property="rdfs:comment">Physical activity that is of high-intensity which utilizes the anaerobic metabolism of the body.</span>
+</div>
+
+<div typeof="http://schema.org/PhysicalActivityCategory" resource="http://schema.org/Balance">
+  <span class="h" property="rdfs:label"> Balance</span>
+  <span property="rdfs:comment">Physical activity that is engaged to help maintain posture and balance.</span>
+</div>
+
+<div typeof="http://schema.org/PhysicalActivityCategory" resource="http://schema.org/Flexibility">
+  <span class="h" property="rdfs:label"> Flexibility</span>
+  <span property="rdfs:comment">Physical activity that is engaged in to improve joint and muscle flexibility.</span>
+</div>
+
+<div typeof="http://schema.org/PhysicalActivityCategory" resource="http://schema.org/LeisureTimeActivity">
+  <span class="h" property="rdfs:label"> LeisureTimeActivity</span>
+  <span property="rdfs:comment">Any physical activity engaged in for recreational purposes. Examples may include ballroom dancing, roller skating, canoeing, fishing, etc.</span>
+</div>
+
+<div typeof="http://schema.org/PhysicalActivityCategory" resource="http://schema.org/OccupationalActivity">
+  <span class="h" property="rdfs:label"> OccupationalActivity</span>
+  <span property="rdfs:comment">Any physical activity engaged in for job-related purposes. Examples may include waiting tables, maid service, carrying a mailbag, picking fruits or vegetables, construction work, etc.</span>
+</div>
+
+<div typeof="http://schema.org/PhysicalActivityCategory" resource="http://schema.org/StrengthTraining">
+  <span class="h" property="rdfs:label"> StrengthTraining</span>
+  <span property="rdfs:comment">Physical activity that is engaged in to improve muscle and bone strength. Also referred to as resistance training.</span>
+</div>
+
+
+<div typeof="rdfs:Class" resource="http://schema.org/ExercisePlan">
+  <span class="h" property="rdfs:label"> ExercisePlan</span>
+  <span property="rdfs:comment">Fitness-related activity designed for a specific health-related purpose, including defined exercise routines as well as activity prescribed by a clinician.</span>
+  <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/CreativeWork"> CreativeWork </a></span>
+  <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/PhysicalActivity"> PhysicalActivity </a></span>
+</div>
+
+<div typeof="rdfs:Class" resource="http://schema.org/Enumeration">
+  <span class="h" property="rdfs:label"> Enumeration</span>
+  <span property="rdfs:comment">Lists or enumerations&#x2014;for example, a list of cuisines or music genres, etc.</span>
+  <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Intangible">Intangible</a></span>
+</div>
+
+<div typeof="rdfs:Class" resource="http://schema.org/PhysicalActivity">
+  <span class="h" property="rdfs:label"> PhysicalActivity</span>
+  <span property="rdfs:comment">Any bodily activity that enhances or maintains physical fitness and overall health and wellness. Includes activity that is part of daily living and routine, structured exercise, and exercise prescribed as part of a medical treatment or recovery plan.</span>
+</div>
+
+<div typeof="rdfs:Class" resource="http://schema.org/PhysicalActivityCategory">
+  <span class="h" property="rdfs:label"> PhysicalActivityCategory</span>
+  <span property="rdfs:comment">Categories of physical activity, organized by physiologic classification.</span>
+  <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Enumeration"> Enumeration </a></span>
+</div>
+
+<div typeof="rdfs:Class" resource="http://schema.org/NutritionInformation">
+  <span class="h" property="rdfs:label"> NutritionInformation</span>
+  <span property="rdfs:comment">Nutritional information about the recipe.</span>
+  <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/StructuredValue">StructuredValue</a></span>
+</div>
+
+<div typeof="rdfs:Class" resource="http://schema.org/Recipe">
+  <span class="h" property="rdfs:label"> Recipe</span>
+  <span property="rdfs:comment">A recipe.</span>
+  <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/CreativeWork"> CreativeWork </a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/cookTime">
+  <span class="h" property="rdfs:label"> cookTime</span>
+  <span property="rdfs:comment">The time it takes to actually cook the dish, in <a href='http://en.wikipedia.org/wiki/ISO_8601'>ISO 8601 duration format</a>.</span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Recipe"> Recipe</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Duration"> Duration</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/cookingMethod">
+  <span class="h" property="rdfs:label"> cookingMethod</span>
+  <span property="rdfs:comment">The method of cooking, such as Frying, Steaming, ...</span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Recipe"> Recipe</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text"> Text </a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/workload">
+  <span class="h" property="rdfs:label"> workload</span>
+  <span property="rdfs:comment">Quantitative measure of the physiologic output of the exercise; also referred to as energy expenditure.</span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ExercisePlan"> ExercisePlan</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Energy">schema:Energy</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/QualitativeValue"> QualitativeValue </a></span>
+</div>
+
+   <div typeof="rdf:Property" resource="http://schema.org/exercisePlan">
+      <span class="h" property="rdfs:label"> exercisePlan</span>
+      <span property="rdfs:comment">A sub property of instrument. The exercise plan used on this action.</span>
+      <link property="rdfs:subPropertyOf" href="http://schema.org/instrument" />
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ExerciseAction"> ExerciseAction</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/ExercisePlan"> ExercisePlan</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/exerciseType">
+      <span class="h" property="rdfs:label"> exerciseType</span>
+      <span property="rdfs:comment">Type(s) of exercise or activity, such as strength training, flexibility training, aerobics, cardiac rehabilitation, etc.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ExercisePlan"> ExercisePlan</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ExerciseAction"> ExerciseAction</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text"> Text</a></span>
+    </div>
+
+    <div typeof="rdf:Property" resource="http://schema.org/repetitions">
+      <span class="h" property="rdfs:label"> repetitions</span>
+      <span property="rdfs:comment">Number of times one should repeat the activity.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ExercisePlan"> ExercisePlan</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number">Number</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/QualitativeValue"> QualitativeValue </a></span>
+    </div>
+   <div typeof="rdf:Property" resource="http://schema.org/restPeriods">
+      <span class="h" property="rdfs:label"> restPeriods</span>
+      <span property="rdfs:comment">How often one should break from the activity.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ExercisePlan"> ExercisePlan</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text"> Text</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/QualitativeValue"> QualitativeValue </a></span>
+    </div>
+
+    <div typeof="rdf:Property" resource="http://schema.org/activityDuration">
+      <span class="h" property="rdfs:label"> activityDuration</span>
+      <span property="rdfs:comment">Length of time to engage in the activity.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ExercisePlan"> ExercisePlan</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Duration"> Duration</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/QualitativeValue"> QualitativeValue </a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/activityFrequency">
+      <span class="h" property="rdfs:label"> activityFrequency</span>
+      <span property="rdfs:comment">How often one should engage in the activity.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ExercisePlan"> ExercisePlan</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text"> Text</a></span>
+	  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/QualitativeValue"> QualitativeValue </a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/additionalVariable">
+      <span class="h" property="rdfs:label"> additionalVariable</span>
+      <span property="rdfs:comment">Any additional component of the exercise prescription that may need to be articulated to the patient. This may include the order of exercises, the number of repetitions of movement, quantitative distance, progressions over time, etc.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ExercisePlan"> ExercisePlan</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text"> Text</a></span>
+    </div>	
+	
+<div typeof="rdf:Property" resource="http://schema.org/intensity">
+  <span class="h" property="rdfs:label"> intensity</span>
+  <span property="rdfs:comment">Quantitative measure gauging the degree of force involved in the exercise, for example, heartbeats per minute. May include the velocity of the movement.</span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ExercisePlan"> ExercisePlan</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/QualitativeValue"> QualitativeValue </a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+</div>
+
+	
+    <div typeof="rdf:Property" resource="http://schema.org/diet">
+      <span class="h" property="rdfs:label">diet</span>
+      <link property="http://schema.org/supersededBy" href="http://schema.org/exerciseRelatedDiet"/>
+      <span property="rdfs:comment">A sub property of instrument. The diet used in this action.</span>
+      <link property="rdfs:subPropertyOf" href="http://schema.org/instrument" />
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ExerciseAction">ExerciseAction</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Diet">Diet</a></span>
+    </div>
+	
+    <div typeof="rdf:Property" resource="http://schema.org/exerciseRelatedDiet">
+      <span class="h" property="rdfs:label">exerciseRelatedDiet</span>
+      <span property="rdfs:comment">A sub property of instrument. The diet used in this action.</span>
+      <link property="rdfs:subPropertyOf" href="http://schema.org/instrument" />
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ExerciseAction">ExerciseAction</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Diet">Diet</a></span>
+    </div>
+	
+    <div typeof="rdf:Property" resource="http://schema.org/dietFeatures">
+      <span class="h" property="rdfs:label">dietFeatures</span>
+      <span property="rdfs:comment">Nutritional information specific to the dietary plan. May include dietary recommendations on what foods to avoid, what foods to consume, and specific alterations/deviations from the USDA or other regulatory body&#39;s approved dietary guidelines.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Diet">Diet</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+    </div>
+
+<div typeof="rdf:Property" resource="http://schema.org/dietFeatures">
+  <span class="h" property="rdfs:label"> dietFeatures</span>
+  <span property="rdfs:comment">Nutritional information specific to the dietary plan. May include dietary recommendations on what foods to avoid, what foods to consume, and specific alterations/deviations from the USDA or other regulatory body's approved dietary guidelines.</span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Diet"> Diet</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text"> Text </a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/exerciseRelatedDiet">
+  <span class="h" property="rdfs:label"> exerciseRelatedDiet</span>
+  <span property="rdfs:comment">A sub property of instrument. The diet used in this action.</span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ExerciseAction"> ExerciseAction</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Diet"> Diet</a></span>
+  <span>SubProperty of: <a property="rdfs:subPropertyOf" href="http://schema.org/instrument"> instrument</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/expertConsiderations">
+  <span class="h" property="rdfs:label"> expertConsiderations</span>
+  <span property="rdfs:comment">Medical expert advice related to the plan.</span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Diet"> Diet</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text"> Text </a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/fatContent">
+  <span class="h" property="rdfs:label"> fatContent</span>
+  <span property="rdfs:comment">The number of grams of fat.</span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/NutritionInformation"> NutritionInformation</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Mass"> Mass</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/foodEstablishment">
+  <span class="h" property="rdfs:label"> foodEstablishment</span>
+  <span property="rdfs:comment">A sub property of location. The specific food establishment where the action occurred.</span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CookAction"> CookAction</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/FoodEstablishment"> FoodEstablishment</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Place"> Place</a></span>
+  <span>SubProperty of: <a property="rdfs:subPropertyOf" href="http://schema.org/location"> location</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/foodEvent">
+  <span class="h" property="rdfs:label"> foodEvent</span>
+  <span property="rdfs:comment">A sub property of location. The specific food event where the action occurred.</span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CookAction"> CookAction</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/FoodEvent">FoodEvent</a></span>
+  <span>SubProperty of: <a property="rdfs:subPropertyOf" href="http://schema.org/location"> location</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/nutrition">
+  <span class="h" property="rdfs:label"> nutrition</span>
+  <span property="rdfs:comment">Nutrition information about the recipe.</span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Recipe"> Recipe</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/NutritionInformation"> NutritionInformation</a></span> 
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/prepTime">
+  <span class="h" property="rdfs:label"> prepTime</span>
+  <span property="rdfs:comment">The length of time it takes to prepare the recipe, in <a href='http://en.wikipedia.org/wiki/ISO_8601'>ISO 8601 duration format</a>.</span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Recipe"> Recipe</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Duration"> Duration</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/recipeCategory">
+  <span class="h" property="rdfs:label"> recipeCategory</span>
+  <span property="rdfs:comment">The category of the recipe&#x2014;for example, appetizer, entree, etc.</span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Recipe"> Recipe</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text"> Text </a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/recipeCuisine">
+  <span class="h" property="rdfs:label"> recipeCuisine</span>
+  <span property="rdfs:comment">The cuisine of the recipe (for example, French or Ethiopian).</span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Recipe"> Recipe</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text"> Text </a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/recipeIngredient">
+  <span class="h" property="rdfs:label"> recipeIngredient</span>
+  <span property="rdfs:comment">A single ingredient used in the recipe, e.g. sugar, flour or garlic.</span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Recipe"> Recipe</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text"> Text </a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/recipeInstructions">
+  <span class="h" property="rdfs:label"> recipeInstructions</span>
+  <span property="rdfs:comment">A step or instruction involved in making the recipe.</span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Recipe"> Recipe</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/ItemList">schema:ItemList</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text"> Text </a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/recipeYield">
+  <span class="h" property="rdfs:label"> recipeYield</span>
+  <span property="rdfs:comment">The quantity produced by the recipe (for example, number of people served, number of servings, etc).</span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Recipe"> Recipe</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text"> Text </a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/recipe">
+  <span class="h" property="rdfs:label"> recipe</span>
+  <span property="rdfs:comment">A sub property of instrument. The recipe/instructions used to perform the action.</span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CookAction"> CookAction</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Recipe"> Recipe</a></span>
+  <span>SubProperty of: <a property="rdfs:subPropertyOf" href="http://schema.org/instrument"> instrument</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/risks">
+  <span class="h" property="rdfs:label"> risks</span>
+  <span property="rdfs:comment">Specific physiologic risks associated to the plan.</span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Diet"> Diet</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text"> Text </a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/totalTime">
+  <span class="h" property="rdfs:label"> totalTime</span>
+  <span property="rdfs:comment">The total time it takes to prepare and cook the recipe, in <a href='http://en.wikipedia.org/wiki/ISO_8601'>ISO 8601 duration format</a>.</span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MedicalProcedure"> MedicalProcedure</a></span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Recipe"> Recipe</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Duration"> Duration</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/transFatContent">
+  <span class="h" property="rdfs:label"> transFatContent</span>
+  <span property="rdfs:comment">The number of grams of trans fat.</span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/NutritionInformation"> NutritionInformation</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Mass"> Mass</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/unsaturatedFatContent">
+  <span class="h" property="rdfs:label"> unsaturatedFatContent</span>
+  <span property="rdfs:comment">The number of grams of unsaturated fat.</span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/NutritionInformation"> NutritionInformation</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Mass"> Mass</a></span>
+</div>
+
+
+<!-- TODO:  -->
 
 <!-- property name goes in schema:name -->
 <!-- unstructured textual properties or human-readable version should go in schema:description -->
