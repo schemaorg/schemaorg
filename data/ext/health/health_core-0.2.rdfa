@@ -1508,6 +1508,75 @@
   <link property="http://schema.org/isPartOf" href="http://health.schema.org" />
 </div>
 
+<div typeof="rdf:Property" resource="http://schema.org/biomechnicalClass">
+  <span class="h" property="rdfs:label">health:biomechnicalClass</span>
+  <span property="rdfs:comment">The biomechanical properties of the bone.</span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Joint">health:Joint</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">schema:Text</a></span>
+  <link property="http://schema.org/isPartOf" href="http://health.schema.org" />
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/hospitalAffiliation">
+  <span class="h" property="rdfs:label">health:hospitalAffiliation</span>
+  <span property="rdfs:comment">A hospital with which the physician or office is affiliated.</span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Physician">health:Physician</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Hospital">health:Hospital</a></span>
+  <link property="http://schema.org/isPartOf" href="http://health.schema.org" />
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/proprietaryName">
+  <span class="h" property="rdfs:label">health:proprietaryName</span>
+  <span property="rdfs:comment">Proprietary name given to the diet plan, typically by its originator or creator.</span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/DietarySupplement"> health:DietarySupplement</a></span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Drug"> health:Drug</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+  <link property="http://schema.org/isPartOf" href="http://health.schema.org" />
+</div>
+	
+<div typeof="rdf:Property" resource="http://schema.org/purpose">
+  <span class="h" property="rdfs:label"> health:purpose</span>
+  <span property="rdfs:comment">A goal towards an action is taken. Can be concrete or abstract.</span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/AllocateAction"> schema:AllocateAction</a></span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MedicalDevice"> health:MedicalDevice</a></span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/PayAction"> schema:PayAction</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/MedicalDevicePurpose"> health:MedicalDevicePurpose</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Thing">schema:Thing</a></span>
+  <link property="http://schema.org/isPartOf" href="http://health.schema.org" />
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/sourcedFrom">
+  <span class="h" property="rdfs:label">health:sourcedFrom</span>
+  <span property="rdfs:comment">The neurological pathway that originates the neurons.</span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Nerve">health:Nerve</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/BrainStructure">health:BrainStructure</a></span>
+  <link property="http://schema.org/isPartOf" href="http://health.schema.org" />
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/tissueSample">
+  <span class="h" property="rdfs:label"> health:tissueSample</span>
+  <span property="rdfs:comment">The type of tissue sample required for the test.</span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/PathologyTest">health:PathologyTest</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">schema:Text</a></span>
+  <link property="http://schema.org/isPartOf" href="http://health.schema.org" />
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/totalTime">
+  <span class="h" property="rdfs:label"> health:totalTime</span>
+  <span property="rdfs:comment">The total time it takes to prepare and cook the recipe, in <a href='http://en.wikipedia.org/wiki/ISO_8601'>ISO 8601 duration format</a>.</span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MedicalProcedure"> health:MedicalProcedure</a></span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Recipe"> schema:Recipe</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Duration"> schema:Duration</a></span>
+  <link property="http://schema.org/isPartOf" href="http://health.schema.org" />
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/frequency">
+  <span class="h" property="rdfs:label">health:frequency</span>
+  <span property="rdfs:comment">How often the dose is taken, e.g. &#39;daily&#39;.</span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/DoseSchedule">health:DoseSchedule</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">schema:Text</a></span>
+  <link property="http://schema.org/isPartOf" href="http://health.schema.org" />
+</div>	
+
 <div typeof="rdf:Property" resource="http://schema.org/applicableLocation">
   <span class="h" property="rdfs:label"> health:applicableLocation</span>
   <span property="rdfs:comment">The location in which the status applies.</span>
