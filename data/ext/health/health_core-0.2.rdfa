@@ -91,13 +91,6 @@
   <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/ProfessionalService"> schema:ProfessionalService</a></span>
 </div>
 
-<div typeof="rdfs:Class" resource="http://schema.org/DietarySupplement">
-  <span class="h" property="rdfs:label"> health:DietarySupplement</span>
-  <span property="rdfs:comment">A product taken by mouth that contains a dietary ingredient intended to supplement the diet. Dietary ingredients may include vitamins, minerals, herbs or other botanicals, amino acids, and substances such as enzymes, organ tissues, glandulars and metabolites.</span>
-  <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MedicalTherapy">health:MedicalTherapy</a></span>
-  <link property="http://schema.org/isPartOf" href="http://health.schema.org" />
-</div>
-
 <div typeof="rdfs:Class" resource="http://schema.org/DiagnosticLab">
   <span class="h" property="rdfs:label"> health:DiagnosticLab</span>
   <span property="rdfs:comment">A medical laboratory that offers on-site or off-site diagnostic services.</span>
@@ -215,11 +208,26 @@
 </div>
 
 <div typeof="http://schema.org/MedicalSpecialty" resource="http://schema.org/DietNutrition">
-  <span class="h" property="rdfs:label"> health:DietNutrition</span>
-  <span property="rdfs:comment">Diet and nutrition. In nutrition, diet is the sum of food consumed by a person or other organism.</span>
+  <span class="h" property="rdfs:label">DietNutrition</span>
+  <span property="rdfs:comment">Dietetic and nutrition as a medical speciality.</span>
 <link property="http://schema.org/isPartOf" href="http://health.schema.org" />        
 </div>
 
+<div typeof="rdfs:Class" resource="http://schema.org/Diet">
+  <span class="h" property="rdfs:label"> health:Diet</span>
+  <span property="rdfs:comment">A strategy of regulating the intake of food to achieve or maintain a specific health-related goal.</span>
+  <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/CreativeWork"> schema:CreativeWork </a></span>
+  <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/LifestyleModification"> health:LifestyleModification</a></span>
+  <link property="http://schema.org/isPartOf" href="http://health.schema.org" />
+</div>
+
+<div typeof="rdfs:Class" resource="http://schema.org/DietarySupplement">
+  <span class="h" property="rdfs:label"> health:DietarySupplement</span>
+  <span property="rdfs:comment">A product taken by mouth that contains a dietary ingredient intended to supplement the diet. Dietary ingredients may include vitamins, minerals, herbs or other botanicals, amino acids, and substances such as enzymes, organ tissues, glandulars and metabolites.</span>
+  <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Substance">health:Substance</a></span>
+  <link property="http://schema.org/isPartOf" href="http://health.schema.org" />
+</div>
+	
 <div typeof="http://schema.org/MedicalSpecialty" resource="http://schema.org/Emergency">
   <span class="h" property="rdfs:label"> health:Emergency</span>
   <span property="rdfs:comment">A specific branch of medical science that is deals with the evaluation and initial treatment of medical conditions caused by trauma or sudden illness.</span>
@@ -945,7 +953,7 @@
 <div typeof="rdfs:Class" resource="http://schema.org/LifestyleModification">
   <span class="h" property="rdfs:label"> health:LifestyleModification</span>
   <span property="rdfs:comment">A process of care involving exercise, changes to diet, fitness routines, and other lifestyle changes aimed at improving a health condition.</span>
-  <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MedicalTherapy">health:MedicalTherapy</a></span>
+  <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MedicalEntity">health:MedicalEntity</a></span>
   <link property="http://schema.org/isPartOf" href="http://health.schema.org" />
 </div>
 
@@ -1004,7 +1012,7 @@
 <div typeof="rdfs:Class" resource="http://schema.org/MedicalCondition"> 
   <span class="h" property="rdfs:label"> health:MedicalCondition</span>
   <span property="rdfs:comment">Any condition of the human body that affects the normal functioning of a person, whether physically or mentally. Includes diseases, injuries, disabilities, disorders, syndromes, etc.</span>
-  <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/ClinicalFinding"> health:ClinicalFinding</a></span>
+  <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MedicalEntity"> health:MedicalEntity</a></span>
   <link property="http://schema.org/isPartOf" href="http://health.schema.org" />
 </div>
 
@@ -1832,6 +1840,84 @@
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/QualitativeValue"> schema:QualitativeValue </a></span>
 </div>
 
+<div typeof="rdf:Property" resource="http://schema.org/diet">
+  <span class="h" property="rdfs:label"> health:diet</span>
+  <link property="http://schema.org/isPartOf" href="http://health.schema.org" />
+  <span property="rdfs:comment">A sub property of instrument. The diet used in this action.</span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ExerciseAction"> schema:ExerciseAction</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Diet"> health:Diet</a></span>
+  <span>SubProperty of: <a property="rdfs:subPropertyOf" href="http://schema.org/instrument"> schema:instrument</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/dietFeatures">
+  <span class="h" property="rdfs:label"> health:dietFeatures</span>
+  <link property="http://schema.org/isPartOf" href="http://health.schema.org" />
+  <span property="rdfs:comment">Nutritional information specific to the dietary plan. May include dietary recommendations on what foods to avoid, what foods to consume, and specific alterations/deviations from the USDA or other regulatory body's approved dietary guidelines.</span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Diet"> health:Diet</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text"> schema:Text </a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/exerciseRelatedDiet">
+  <span class="h" property="rdfs:label"> health:exerciseRelatedDiet</span>
+  <link property="http://schema.org/isPartOf" href="http://health.schema.org" />
+  <span property="rdfs:comment">A sub property of instrument. The diet used in this action.</span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ExerciseAction"> schema:ExerciseAction</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Diet"> health:Diet</a></span>
+  <span>SubProperty of: <a property="rdfs:subPropertyOf" href="http://schema.org/instrument"> schema:instrument</a></span>
+</div>
+<div typeof="rdf:Property" resource="http://schema.org/expertConsiderations">
+  <span class="h" property="rdfs:label">health:expertConsiderations</span>
+  <span property="rdfs:comment">Medical expert advice related to the plan.</span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Diet">health:Diet</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">schema:Text</a></span>
+<link property="http://schema.org/isPartOf" href="http://health.schema.org" />
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/risks">
+  <span class="h" property="rdfs:label"> health:risks</span>
+  <span property="rdfs:comment">Specific physiologic risks associated to the diet plan.</span>
+  <link property="http://schema.org/isPartOf" href="http://health.schema.org" />
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Diet"> health:Diet</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text"> schema:Text </a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/endorsers">
+  <span class="h" property="rdfs:label">health:endorsers</span>
+  <span property="rdfs:comment">People or organizations that endorse the plan.</span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Diet">health:Diet</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Organization">schema:Organization</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Person">schema:Person</a></span>
+  <link property="http://schema.org/isPartOf" href="http://health.schema.org" />
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/targetPopulation">
+  <span class="h" property="rdfs:label">health:targetPopulation</span>
+  <span property="rdfs:comment">Characteristics of the population for which this is intended, or which typically uses it, e.g. &#39;adults&#39;.</span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/DietarySupplement">health:DietarySupplement</a></span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/DoseSchedule">health:DoseSchedule</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">schema:Text</a></span>
+  <link property="http://schema.org/isPartOf" href="http://health.schema.org" />
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/background">
+  <span class="h" property="rdfs:label">health:background</span>
+  <span property="rdfs:comment">Descriptive information establishing a historical perspective on the supplement. May include the rationale for the name, the population where the supplement first came to prominence, etc.</span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/DietarySupplement">health:DietarySupplement</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">schema:Text</a></span>
+  <link property="http://schema.org/isPartOf" href="http://health.schema.org" />
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/maximumIntake">
+  <span class="h" property="rdfs:label">health:maximumIntake</span>
+  <span property="rdfs:comment">Recommended intake of this supplement for a given population as defined by a specific recommending authority.</span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/DietarySupplement">health:DietarySupplement</a></span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Drug"> health:Drug</a></span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/DrugStrength"> health:DrugStrength</a></span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Substance"> health:Substance</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/MaximumDoseSchedule">health:MaximumDoseSchedule</a></span>
+  <link property="http://schema.org/isPartOf" href="http://health.schema.org" />
+</div>
+
 <div typeof="rdf:Property" resource="http://schema.org/drainsTo">
   <span class="h" property="rdfs:label"> health:drainsTo</span>
   <link property="http://schema.org/isPartOf" href="http://health.schema.org" />
@@ -1846,7 +1932,6 @@
   <span property="rdfs:comment">The unit in which the drug is measured, e.g. '5 mg tablet'.</span>
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/DrugCost"> health:DrugCost</a></span>
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Drug"> health:Drug</a></span>
-  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MedicalPrescription"> health:MedicalPrescription</a></span>
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/DrugDispense"> health:DrugDispense</a></span>
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text"> schema:Text </a></span>
 </div>
@@ -1856,7 +1941,6 @@
   <link property="http://schema.org/isPartOf" href="http://health.schema.org" />
   <span property="rdfs:comment">The class of drug this belongs to (e.g., statins).</span>
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Drug"> health:Drug</a></span>
-  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MedicalPrescription"> health:MedicalPrescription</a></span>
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/DrugClass"> health:DrugClass</a></span>
 </div>
 
@@ -2029,9 +2113,7 @@
   <span class="h" property="rdfs:label"> health:indication</span>
   <link property="http://schema.org/isPartOf" href="http://health.schema.org" />
   <span property="rdfs:comment">A factor that indicates use of this therapy for treatment and/or prevention of a condition, symptom, etc. For therapies such as drugs, indications can include both officially-approved indications as well as off-label uses. These can be distinguished by using the ApprovedIndication subtype of MedicalIndication.</span>
-  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CaringEvent"> health:CaringEvent</a></span>
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MedicalDevice"> health:MedicalDevice</a></span>
-  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MedicalIntervention"> health:MedicalIntervention</a></span>
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MedicalProcedure"> health:MedicalProcedure</a></span>
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/TherapeuticProcedure"> health:TherapeuticProcedure</a></span>
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/MedicalIndication"> health:MedicalIndication</a></span>
@@ -2573,9 +2655,6 @@
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MedicalStudy"> health:MedicalStudy</a></span>
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MedicalProcedure"> health:MedicalProcedure</a></span>
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MedicalCondition"> health:MedicalCondition</a></span>
-	<span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ClinicalDocument"> health:ClinicalDocument</a></span>
-	<span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ClinicalFinding"> health:ClinicalFinding</a></span>
-	<span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MedicalObservable"> health:MedicalObservable</a></span>
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/MedicalStudyStatus"> health:MedicalStudyStatus</a></span> 
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/EventStatusType"> schema:EventStatusType</a></span>
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text"> schema:Text </a></span>

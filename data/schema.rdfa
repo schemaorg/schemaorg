@@ -3822,12 +3822,7 @@
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Product">Product</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
     </div>
-    <div typeof="rdf:Property" resource="http://schema.org/background">
-      <span class="h" property="rdfs:label">background</span>
-      <span property="rdfs:comment">Descriptive information establishing a historical perspective on the supplement. May include the rationale for the name, the population where the supplement first came to prominence, etc.</span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/DietarySupplement">DietarySupplement</a></span>
-      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
-    </div>
+
     <div typeof="rdf:Property" resource="http://schema.org/baseSalary">
       <span class="h" property="rdfs:label">baseSalary</span>
       <span property="rdfs:comment">The base salary of the job or of an employee in an EmployeeRole.</span>
@@ -4741,13 +4736,7 @@
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Organization">Organization</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Person">Person</a></span>
     </div>
-    <div typeof="rdf:Property" resource="http://schema.org/endorsers">
-      <span class="h" property="rdfs:label">endorsers</span>
-      <span property="rdfs:comment">People or organizations that endorse the plan.</span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Diet">Diet</a></span>
-      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Organization">Organization</a></span>
-      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Person">Person</a></span>
-    </div>
+
     <div typeof="rdf:Property" resource="http://schema.org/endTime">
       <span class="h" property="rdfs:label">endTime</span>
       <span property="rdfs:comment">The endTime of something. For a reserved event or service (e.g. FoodEstablishmentReservation), the time that it is expected to end. For actions that span a period of time, when the action was performed. e.g. John wrote a book from January to *December*.
@@ -5567,12 +5556,7 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Place">Place</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/URL">URL</a></span>
     </div>
-    <div typeof="rdf:Property" resource="http://schema.org/maximumIntake">
-      <span class="h" property="rdfs:label">maximumIntake</span>
-      <span property="rdfs:comment">Recommended intake of this supplement for a given population as defined by a specific recommending authority.</span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/DietarySupplement">DietarySupplement</a></span>
-      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/MaximumDoseSchedule">MaximumDoseSchedule</a></span>
-    </div>
+
     <div typeof="rdf:Property" resource="http://schema.org/maxPrice">
       <span class="h" property="rdfs:label">maxPrice</span>
       <span property="rdfs:comment">The highest price if the price is a range.</span>
@@ -6266,7 +6250,7 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
     <div typeof="rdf:Property" resource="http://schema.org/proprietaryName">
       <span class="h" property="rdfs:label">proprietaryName</span>
       <span property="rdfs:comment">Proprietary name given to the diet plan, typically by its originator or creator.</span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Diet">Diet</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Diet">health:Diet</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
     </div>
 
@@ -6988,13 +6972,7 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/APIReference">APIReference</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
     </div>
-    <div typeof="rdf:Property" resource="http://schema.org/targetPopulation">
-      <span class="h" property="rdfs:label">targetPopulation</span>
-      <span property="rdfs:comment">Characteristics of the population for which this is intended, or which typically uses it, e.g. &#39;adults&#39;.</span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/DietarySupplement">DietarySupplement</a></span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/DoseSchedule">DoseSchedule</a></span>
-      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
-    </div>
+
     <div typeof="rdf:Property" resource="http://schema.org/targetProduct">
       <span class="h" property="rdfs:label">targetProduct</span>
       <span property="rdfs:comment">Target Operating System / Product to which the code applies.  If applies to several versions, just the product name can be used.</span>
@@ -10057,11 +10035,6 @@ Typical unit code(s): C62 for persons </span>
 <hr />
 
 <!-- TODO: RETURNED FROM HEALTHEXTENSION -->
-<div typeof="rdfs:Class" resource="http://schema.org/Diet">
-  <span class="h" property="rdfs:label"> Diet</span>
-  <span property="rdfs:comment">A strategy of regulating the intake of food to achieve or maintain a specific health-related goal.</span>
-  <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/CreativeWork"> CreativeWork </a></span>
-</div>
 
 <div typeof="rdf:Property" resource="http://schema.org/calories">
   <span class="h" property="rdfs:label"> calories</span>
@@ -10279,53 +10252,6 @@ Typical unit code(s): C62 for persons </span>
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
 </div>
 
-	
-    <div typeof="rdf:Property" resource="http://schema.org/diet">
-      <span class="h" property="rdfs:label">diet</span>
-      <link property="http://schema.org/supersededBy" href="http://schema.org/exerciseRelatedDiet"/>
-      <span property="rdfs:comment">A sub property of instrument. The diet used in this action.</span>
-      <link property="rdfs:subPropertyOf" href="http://schema.org/instrument" />
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ExerciseAction">ExerciseAction</a></span>
-      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Diet">Diet</a></span>
-    </div>
-	
-    <div typeof="rdf:Property" resource="http://schema.org/exerciseRelatedDiet">
-      <span class="h" property="rdfs:label">exerciseRelatedDiet</span>
-      <span property="rdfs:comment">A sub property of instrument. The diet used in this action.</span>
-      <link property="rdfs:subPropertyOf" href="http://schema.org/instrument" />
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ExerciseAction">ExerciseAction</a></span>
-      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Diet">Diet</a></span>
-    </div>
-	
-    <div typeof="rdf:Property" resource="http://schema.org/dietFeatures">
-      <span class="h" property="rdfs:label">dietFeatures</span>
-      <span property="rdfs:comment">Nutritional information specific to the dietary plan. May include dietary recommendations on what foods to avoid, what foods to consume, and specific alterations/deviations from the USDA or other regulatory body&#39;s approved dietary guidelines.</span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Diet">Diet</a></span>
-      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
-    </div>
-
-<div typeof="rdf:Property" resource="http://schema.org/dietFeatures">
-  <span class="h" property="rdfs:label"> dietFeatures</span>
-  <span property="rdfs:comment">Nutritional information specific to the dietary plan. May include dietary recommendations on what foods to avoid, what foods to consume, and specific alterations/deviations from the USDA or other regulatory body's approved dietary guidelines.</span>
-  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Diet"> Diet</a></span>
-  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text"> Text </a></span>
-</div>
-
-<div typeof="rdf:Property" resource="http://schema.org/exerciseRelatedDiet">
-  <span class="h" property="rdfs:label"> exerciseRelatedDiet</span>
-  <span property="rdfs:comment">A sub property of instrument. The diet used in this action.</span>
-  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ExerciseAction"> ExerciseAction</a></span>
-  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Diet"> Diet</a></span>
-  <span>SubProperty of: <a property="rdfs:subPropertyOf" href="http://schema.org/instrument"> instrument</a></span>
-</div>
-
-<div typeof="rdf:Property" resource="http://schema.org/expertConsiderations">
-  <span class="h" property="rdfs:label"> expertConsiderations</span>
-  <span property="rdfs:comment">Medical expert advice related to the plan.</span>
-  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Diet"> Diet</a></span>
-  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text"> Text </a></span>
-</div>
-
 <div typeof="rdf:Property" resource="http://schema.org/fatContent">
   <span class="h" property="rdfs:label"> fatContent</span>
   <span property="rdfs:comment">The number of grams of fat.</span>
@@ -10406,13 +10332,6 @@ Typical unit code(s): C62 for persons </span>
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CookAction"> CookAction</a></span>
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Recipe"> Recipe</a></span>
   <span>SubProperty of: <a property="rdfs:subPropertyOf" href="http://schema.org/instrument"> instrument</a></span>
-</div>
-
-<div typeof="rdf:Property" resource="http://schema.org/risks">
-  <span class="h" property="rdfs:label"> risks</span>
-  <span property="rdfs:comment">Specific physiologic risks associated to the plan.</span>
-  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Diet"> Diet</a></span>
-  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text"> Text </a></span>
 </div>
 
 <div typeof="rdf:Property" resource="http://schema.org/totalTime">
