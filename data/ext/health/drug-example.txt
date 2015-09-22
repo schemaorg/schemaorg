@@ -1,9 +1,37 @@
-TYPES: DIAGNOSIS
 
-Use of Diagnosis - in clinical domain, the diagnosis is a diagnosed medical condition.
-Thanks to Healthcare Schema Vocabulary Community Group for input 
 
-WITHOUT-MARKUP:
+TYPES:  Drug,TreatmentIndication,MedicalContraindication
+
+PRE-MARKUP:
+
+<h1>Drug Info: PainAwayMax</h1>
+PainAwayMax is a brand of ibuprofen manufactured by FooCorp. It is an
+analgesic in the class of nonsteroidal anti-inflammatory (NSAID) drugs.
+It is used to temporarily relieve minor aches and pains due
+to:
+<ul>
+  <li>headache</li>
+  <li>toothache</li>
+  <li>backache</li>
+  <li>menstrual cramps</li>
+  <li>the common cold</li>
+  <li>muscular aches</li>
+  <li>minor pain of arthritis</li>
+</ul>
+and to temporarily reduce fever.
+<br>
+It is available in the US as a non-prescription drug in the form of
+tablets and capsules.
+<br>
+Common side effects include diarrhea, constipation, bloating,
+dizziniess, or nervousness. Call a doctor immediately if you
+experience any of the following rare but serious side effects:
+vomiting blood, bloody stools, or stomach pain that does not get better.
+<br>
+Do not use PainAwayMax if you have ever had an allergic reaction to any
+other pain reliever/fever reducer, or right before or after heart surgery.
+<br>
+<b>Warning:</b> NSAIDs may cause severe stomach bleeding.
 
 MICRODATA:
 
@@ -100,7 +128,8 @@ MICRODATA:
   <span itemprop="warning">NSAIDs may cause severe stomach bleeding</span>.
 </div>
 
-RDFa:
+RDFA:
+
 <div vocab="http://schema.org/" typeof="Drug">
   <h1>Drug Info: <span property="name">PainAwayMax</span></h1>
   PainAwayMax is a brand of
@@ -194,8 +223,8 @@ RDFa:
   <span property="warning">NSAIDs may cause severe stomach bleeding</span>.
 </div>
 
+JSON:
 
-JSON-LD:
 <script type="application/ld+json">
 {
   "@context": "http://schema.org",

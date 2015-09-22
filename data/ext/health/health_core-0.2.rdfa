@@ -109,7 +109,6 @@
   <span class="h" property="rdfs:label"> health:DiagnosticProcedure</span>
   <span property="rdfs:comment">A medical procedure intended primarily for diagnostic, as opposed to therapeutic, purposes.</span>
   <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MedicalProcedure"> health:MedicalProcedure</a></span>
-  <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MedicalTest"> health:MedicalTest</a></span>
   <link property="http://schema.org/isPartOf" href="http://health.schema.org" />
 </div>
 
@@ -174,7 +173,7 @@
   <span property="rdfs:comment">A chemical or biologic substance, used as a medical therapy, that has a physiological effect on an organism. Here the term drug is used interchangeably with the term medicine although clinical knowledge make a clear difference between them.</span>
   <link property="http://schema.org/isPartOf" href="http://health.schema.org" />
   <link property="owl:equivalentClass" href="http://purl.bioontology.org/ontology/SNOMEDCT/410942007"/> 
-  <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/PharmaceuticalSubstance"> health:PharmaceuticalSubstance</a></span>
+  <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Substance"> health:Substance</a></span>
 </div>
 
 <div typeof="rdfs:Class" resource="http://schema.org/MedicalSpecialty">
@@ -832,38 +831,38 @@
 </div>
 
 <div typeof="http://schema.org/PhysicalExam" resource="http://schema.org/Appearance">
-  <span class="h" property="rdfs:label"> health:Appearance clinical examination.</span>
-  <span property="rdfs:comment">Appearance.</span>
+  <span class="h" property="rdfs:label"> health:Appearance </span>
+  <span property="rdfs:comment">Appearance assessment with clinical examination.</span>
 <link property="http://schema.org/isPartOf" href="http://health.schema.org" />        
 </div>
 
 <div typeof="http://schema.org/PhysicalExam" resource="http://schema.org/CardiovascularExam">
   <span class="h" property="rdfs:label"> health:CardiovascularExam</span>
-  <span property="rdfs:comment">Cardiovascular system clinical examination.</span>
+  <span property="rdfs:comment">Cardiovascular system assessment withclinical examination.</span>
 <link property="http://schema.org/isPartOf" href="http://health.schema.org" />       
 </div>
 
 <div typeof="http://schema.org/PhysicalExam" resource="http://schema.org/Ear">
   <span class="h" property="rdfs:label"> health:Ear</span>
-  <span property="rdfs:comment">Ear clinical examination..</span>
+  <span property="rdfs:comment">Ear function assessment with clinical examination.</span>
 <link property="http://schema.org/isPartOf" href="http://health.schema.org" />        
 </div>
 
 <div typeof="http://schema.org/PhysicalExam" resource="http://schema.org/Eye">
   <span class="h" property="rdfs:label"> health:Eye</span>
-  <span property="rdfs:comment">Eye or ophtalmological clinical examination.</span>
+  <span property="rdfs:comment">Eye or ophtalmological function assessment with clinical examination.</span>
 <link property="http://schema.org/isPartOf" href="http://health.schema.org" />       
 </div>
 
 <div typeof="http://schema.org/PhysicalExam" resource="http://schema.org/Genitourinary">
   <span class="h" property="rdfs:label"> health:Genitourinary</span>
-  <span property="rdfs:comment">Genitourinary system clinical examination.</span>
+  <span property="rdfs:comment">Genitourinary system function assessment with clinical examination.</span>
 <link property="http://schema.org/isPartOf" href="http://health.schema.org" />        
 </div>
 
 <div typeof="http://schema.org/PhysicalExam" resource="http://schema.org/Head">
   <span class="h" property="rdfs:label"> health:Head</span>
-  <span property="rdfs:comment">Head clinical examination.</span>
+  <span property="rdfs:comment">Head assessment with clinical examination.</span>
 <link property="http://schema.org/isPartOf" href="http://health.schema.org" />        
 </div>
 
@@ -881,7 +880,7 @@
 
 <div typeof="http://schema.org/PhysicalExam" resource="http://schema.org/Neck">
   <span class="h" property="rdfs:label"> health:Neck</span>
-  <span property="rdfs:comment">Neck clinical examination.</span>
+  <span property="rdfs:comment">Neck assessment with clinical examination.</span>
 <link property="http://schema.org/isPartOf" href="http://health.schema.org" />       
 </div>
 
@@ -893,25 +892,25 @@
 
 <div typeof="http://schema.org/PhysicalExam" resource="http://schema.org/Nose">
   <span class="h" property="rdfs:label"> health:Nose</span>
-  <span property="rdfs:comment">Nose clinical examination.</span>
+  <span property="rdfs:comment">Nose function assessment with clinical examination.</span>
 <link property="http://schema.org/isPartOf" href="http://health.schema.org" />        
 </div>
 
 <div typeof="http://schema.org/PhysicalExam" resource="http://schema.org/Skin">
   <span class="h" property="rdfs:label"> health:Skin</span>
-  <span property="rdfs:comment">Skin clinical examination.</span>
+  <span property="rdfs:comment">Skin assessment with clinical examination.</span>
 <link property="http://schema.org/isPartOf" href="http://health.schema.org" />        
 </div>
 
 <div typeof="http://schema.org/PhysicalExam" resource="http://schema.org/Throat">
   <span class="h" property="rdfs:label"> health:Throat</span>
-  <span property="rdfs:comment">Throat clinical examination.</span>
+  <span property="rdfs:comment">Throat assessment with  clinical examination.</span>
 <link property="http://schema.org/isPartOf" href="http://health.schema.org" />        
 </div>
 
 <div typeof="http://schema.org/PhysicalExam" resource="http://schema.org/VitalSign">
   <span class="h" property="rdfs:label"> health:VitalSign</span>
-  <span property="rdfs:comment">Vital signs clinical examination.</span>
+  <span property="rdfs:comment">Vital signs  assessment with clinical examination.</span>
 <link property="http://schema.org/isPartOf" href="http://health.schema.org" />    
 </div>
 
@@ -1221,6 +1220,14 @@
   <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/TherapeuticProcedure"> health:TherapeuticProcedure</a></span>
 </div>
 
+<div typeof="rdfs:Class" resource="http://schema.org/TherapeuticProcedure"> 
+  <span class="h" property="rdfs:label"> health:TherapeuticProcedure</span>
+  <span property="rdfs:comment">A medical procedure intended primarily for therapeutic purposes, aimed at improving a health condition.</span>
+  <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MedicalProcedure"> health:MedicalProcedure</a></span>
+  <link property="owl:equivalentClass" href="http://purl.bioontology.org/ontology/SNOMEDCT/277132007"/>
+  <link property="http://schema.org/isPartOf" href="http://health.schema.org" />
+</div>
+
 <div typeof="rdfs:Class" resource="http://schema.org/MedicalTrialDesign">
   <span class="h" property="rdfs:label"> health:MedicalTrialDesign</span>
   <span property="rdfs:comment">Design models for medical trials. Enumerated type.</span>
@@ -1431,9 +1438,17 @@
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/DietarySupplement"> health:DietarySupplement</a></span>
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Drug"> health:Drug</a></span>
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/DrugStrength"> health:DrugStrength</a></span>
-  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/PharmaceuticalSubstance"> health:PharmaceuticalSubstance</a></span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Substance"> health:Substance</a></span>
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text"> schema:Text </a></span>
   <link property="http://schema.org/isPartOf" href="http://health.schema.org" />
+</div>
+
+<div typeof="rdfs:Class" resource="http://schema.org/Substance"> 
+  <span class="h" property="rdfs:label"> health:Substance</span>
+  <span property="rdfs:comment">Any matter of defined composition that has discrete existence, whose origin may be biological, mineral or chemical.</span>
+  <link property="http://schema.org/isPartOf" href="http://health.schema.org" />
+  <link property="owl:equivalentClass" href="http://purl.bioontology.org/ontology/SNOMEDCT/105590001"/>
+  <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MedicalEntity"> health:MedicalEntity</a></span>
 </div>
 
 <div typeof="rdf:Property" resource="http://schema.org/administrationRoute">
@@ -2720,6 +2735,8 @@
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/URL"> schema:URL</a></span>
   <link property="http://schema.org/isPartOf" href="http://health.schema.org" />
 </div>
+
+<!-- TODO: CLINICAL TRIALS VOCAB -->
 
 <!-- TODO: US HEALTH INSURANCE VOCAB -->
 
