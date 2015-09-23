@@ -12395,6 +12395,7 @@ Typical unit code(s): C62 for persons </span>
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/BlogPosting">BlogPosting</a></span>
 </div>
 
+
 <h1>DataFeed</h1>
 
 <div typeof="rdfs:Class" resource="http://schema.org/DataFeed">
@@ -12605,6 +12606,105 @@ For more specific types of accommodations not defined in schema.org, one can use
     <span>Source:  <a property="dc:source" href="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology">STI Accommodation Ontology</a></span>
 </div>
 
+<div typeof="rdfs:Class" resource="http://schema.org/Lunch">
+        <span class="h" property="rdfs:label">Lunch</span>
+        <span property="rdfs:comment">A luncheon, commonly abbreviated to lunch, is a middle of the day meal (Source: Wikipedia, the free encyclopedia, see &lt;a href=&quot;http://en.wikipedia.org/wiki/Lunch&quot;&gt;http://en.wikipedia.org/wiki/Lunch&lt;/a&gt;).</span>
+        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Meal">Meal</a></span>
+        <span>Source:  <a property="dc:source" href="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology">STI Accommodation Ontology</a></span>
+</div>
+
+<div typeof="rdfs:Class" resource="http://schema.org/Dinner">
+        <span class="h" property="rdfs:label">Dinner</span>
+        <span property="rdfs:comment">A dinner is the main meal of the day, often consumed in the evening of the day.</span>
+        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Meal">Meal</a></span>
+        <span>Source:  <a property="dc:source" href="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology">STI Accommodation Ontology</a></span>
+</div>
+
+<div typeof="rdfs:Class" resource="http://schema.org/All_inclusive">
+        <span class="h" property="rdfs:label">All_inclusive</span>
+        <span property="rdfs:comment">All-inclusive in the sense of this vocabulary is a comprehensive set of foods and beverages, and sometimes complementing services, provided throughout the entire day.</span>
+        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Product">Product</a></span>
+        <span>Source:  <a property="dc:source" href="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology">STI Accommodation Ontology</a></span>
+</div>
+
+
+<div typeof="rdfs:Class" resource="http://schema.org/CompoundPrice">
+        <span class="h" property="rdfs:label">CompoundPrice</span>
+        <span property="rdfs:comment">A compound price specification is one that bundles multiple prices that all apply in combination for different dimensions of consumption. Use the name property for indicating the dimension (e.g. "electricity" or "final cleaning").</span>
+        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/PriceSpecification">PriceSpecification</a></span>
+        <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsClass">GoodRelationsClass</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/priceComponent">
+    <span class="h" property="rdfs:label">priceComponent</span>
+    <span property="rdfs:comment">This property links to all UnitPriceSpecification nodes that apply in parallel for the CompoundPrice node.</span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CompoundPrice">CompoundPrice</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/UnitPriceSpecification">UnitPriceSpecification</a></span>
+    <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsProperties">GoodRelationsProperty</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/referenceQuantity">
+    <span class="h" property="rdfs:label">referenceQuantity</span>
+    <span property="rdfs:comment">The reference quantity for which a certain price applies, e.g. 1 EUR per 4 kWh of electricity. This property is a replacement for unitOfMeasurement for the advanced cases where the price does not relate to a standard unit.</span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/UnitPriceSpecification">UnitPriceSpecification</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/QuantitativeValue">QuantitativeValue</a></span>
+    <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsProperties">GoodRelationsProperty</a></span>
+</div>
+
+<div typeof="rdfs:Class" resource="http://schema.org/BedDetails">
+        <span class="h" property="rdfs:label">BedDetails</span>
+        <span property="rdfs:comment">An entity holding detailed information about the available bed types, e.g. the quantity of twin beds for a hotel room. For the single case of just one bed of a certain type, you can use bed directly with BedType instances.</span>
+        <span>Source:  <a property="dc:source" href="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology">STI Accommodation Ontology</a></span>
+</div>
+
+<div typeof="rdfs:Class" resource="http://schema.org/DwellingType">
+        <span class="h" property="rdfs:label">DwellingType</span>
+        <span property="rdfs:comment">A type of dwelling, e.g. tent, mobile home, etc. for indicating the permitted usage on a campsite.</span>
+        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/QualitativeValue">QualitativeValue</a></span>
+        <span>Source:  <a property="dc:source" href="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology">STI Accommodation Ontology</a></span>
+</div>
+
+<div typeof="rdfs:Class" resource="http://schema.org/AccommodationFeature">
+        <span class="h" property="rdfs:label">AccommodationFeature</span>
+        <span property="rdfs:comment">An accommodation feature is a structured value representing the feature of an accommodation as a property-value pair of varying degrees of formality.</span>
+		<span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/PropertyValue">PropertyValue</a></span>
+        <span>Source:  <a property="dc:source" href="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology">STI Accommodation Ontology</a></span>
+</div>
+
+<div typeof="rdfs:Class" resource="http://schema.org/BedType">
+        <span class="h" property="rdfs:label">BedType</span>
+        <span property="rdfs:comment">A type of bed. This is used for indicating the bed or beds available in an accommodation.</span>
+        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/QualitativeValue">QualitativeValue</a></span>
+        <span>Source:  <a property="dc:source" href="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology">STI Accommodation Ontology</a></span>
+</div>
+
+<!-- Properties -->
+
+<div typeof="rdf:Property" resource="http://schema.org/optionalFeature">
+    <span class="h" property="rdfs:label">optionalFeature</span>
+    <span property="rdfs:comment">A feature (e.g. a characteristic or service) of the Accommodation that is generally available but not included in the offer for the main accommodation, i.e. at  extra costs.</span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Accommodation">Accommodation</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/AccommodationFeature">AccommodationFeature</a></span>
+    <span>Source:  <a property="dc:source" href="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology">STI Accommodation Ontology</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/includedFeature">
+    <span class="h" property="rdfs:label">includedFeature</span>
+    <span property="rdfs:comment">A feature (e.g. a characteristic or service) of the Accommodation that is included in the offer for the main accommodation, i.e. at no extra costs.</span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Accommodation">Accommodation</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/AccommodationFeature">AccommodationFeature</a></span>
+    <span>Source:  <a property="dc:source" href="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology">STI Accommodation Ontology</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/typeOfBed">
+    <span class="h" property="rdfs:label">typeOfBed</span>
+    <span property="rdfs:comment">The type of bed to which the BedDetail refers, i.e. the type of bed available in the quantity indicated by quantity.</span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/BedDetails">BedDetails</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/BedType">BedType</a></span>
+    <span>Source:  <a property="dc:source" href="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology">STI Accommodation Ontology</a></span>
+</div>
+
+>>>>>>> refs/remotes/origin/hotels
 <div typeof="rdf:Property" resource="http://schema.org/permittedUsage">
     <span class="h" property="rdfs:label">permittedUsage</span>
     <span property="rdfs:comment">The type of objects that you are allowed to put on the camping pitch, e.g. a tent, car, boat, or mobile home.</span>
