@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>Release listing - schema.org</title>
+    <title>Markup for Hotels - schema.org</title>
     <meta name="description" content="Schema.org is a set of extensible schemas that enables webmasters to embed
     structured data on their web pages for use by search engines and other applications." />
     <link rel="stylesheet" type="text/css" href="/docs/schemaorg.css" />
@@ -83,7 +83,7 @@
 
 <h1>Markup for Hotels</h1>
 
-<p>This page provides background information on the use of schema.org for marking up hotels and other forms of accommidations. For feature requests, please use the <a href="https://github.com/schemaorg/schemaorg">Github repository</a>.</p>
+<p>This page provides background information on the use of schema.org for marking up hotels and other forms of accommodations. For feature requests, please use the <a href="https://github.com/schemaorg/schemaorg">Github repository</a>.</p>
 
 <br/>
 
@@ -91,28 +91,57 @@
 
 <h2 id="overview">Overview</h2>
 
-<p>Add materials from the STI Accommodation Ontology page.</p>
+<p>When modeling hotel-related information in Web content with schema.org, there are three core objetcs:</p>
 
+<ul>
+	<li>A <strong>hotel</strong> (or hostel, ressort, camping site): essentially the place that houses the actually relevant units of the establishment (e.g. hotel rooms). The hotel can encompass multiple buildings but is in most cases a coherent place.</li>
+	<li>A <strong>hotel room</strong>, i.e. the actually relevant units of the establishment (e.g. hotel rooms, suites, apartments, meeting rooms, camping pitches, etc.)</li>
+	<li>An <strong>offer</strong> to rent out a hotel room for a given amount of money and for a given type of usage (e.g. occupancy), typically further constrained by advance booking requirements and other terms and conditions.
+</ul>
+
+<p>In schema.org, an offer for a hotel room is using the same patterns as an offer for a TV set or a welding service. In other words, the hotel room is a special form of a <a href= "../Product">http://schema.org/Product</a> and an offer for hotel rooms is a <a href="../Offer">http://schema.org/Offer</a>. Prices and terms and conditions are thus not properties of the hotel or hotel room, but of the offer for a certain room or room category.</p>
+
+<h3>Basic Model</h3>
+<p>The following diagram illustrates the basic pattern for describing hotel room offers:</p>
+
+<img alt="" border="0" src="http://1.bp.blogspot.com/-h-nBek0AUlk/U58Xo-yuc_I/AAAAAAAAI5M/ORErxieZ7Fg/s1600/sdo-sports-image0.png" title="San Fran 49ers linked by a 'member' arrow to Joe Montana." />
+
+<h3>Types of Accommodations</h3>
+<p>Currently, there are explicit types for the following kinds of accommodations:</p>
+
+<ul>
+	<li>Apartment</li>
+	<li>CampingPitch</li>
+	<li>CampingSite (* double check *)</li>
+	<li>Hostel (* double check *)</li>
+	<li>Hotel (* double check *)</li>
+	<li>HotelRoom (* double check *)</li>
+	<li>House (* double check *)</li>
+	<li>MeetingRoom</li>
+	<li>Resort (* double check *)</li>
+	<li>Suite</li>
+</ul>
+
+<p>For other forms, the generic type <a href="../Accommodation">Accommodation</a> can be used. The property <a href="../additionalType">additionalType</a> allows using external identifiers to indicating the exact type.</p>
+	
 <h2 id="minimal">Minimal Example</h2>
-	<pre>
+	<pre class="prettyprint lang-html linenums">
 &lt;div <strong>itemscope</strong>&gt;
   &lt;h1&gt;Avatar&lt;/h1&gt;
   &lt;span&gt;Director: James Cameron (born August 16, 1954) &lt;/span&gt;
   &lt;span&gt;Science fiction&lt;/span&gt;
   &lt;a href="../movies/avatar-theatrical-trailer.html"&gt;Trailer&lt;/a&gt;
-&lt;/div&gt;
-	</pre>
+&lt;/div&gt;</pre>
 <h2 id="hotel_info">Information about the Hotel</h2>
 	<h3>Address and Geo Position</h3>
 	<h3>Telephone and Fax</h3>
-	<pre>
+	<pre class="prettyprint lang-html linenums">
 &lt;div <strong>itemscope</strong>&gt;
   &lt;h1&gt;Avatar&lt;/h1&gt;
   &lt;span&gt;Director: James Cameron (born August 16, 1954) &lt;/span&gt;
   &lt;span&gt;Science fiction&lt;/span&gt;
   &lt;a href="../movies/avatar-theatrical-trailer.html"&gt;Trailer&lt;/a&gt;
-&lt;/div&gt;
-	</pre>
+&lt;/div&gt;</pre>
 	<h3>Map</h3>
 	<h3>Photos and Logo</h3>
 	<h3>Opening Hours (Reception)</h3>
@@ -150,9 +179,12 @@
 	<h3>Fees for Optional Services</h3>
 <h2 id="bundles">Example of a Bundle</h2>
 
+<h2>Acknowledgments</h2>
+<p>The elements for describing hotels in schema.org are based on the STI Accommodation Ontology, see <a href="http://ontologies.sti-innsbruck.at/acco/ns.html">http://ontologies.sti-innsbruck.at/acco/ns.html</a> for details. 
+ Many class and property definitions are inspired by or based on abstracts from Wikipedia, the free encyclopedia.</p>
+<br/>
+<br/>
 </div>
-
-
 <div id="footer"><p>
   <a href="../docs/terms.html">Terms and conditions</a></p>
 </div>
