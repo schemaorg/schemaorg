@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Release listing - schema.org</title>
+    <meta name="description" content="Schema.org is a set of extensible schemas that enables webmasters to embed
+    structured data on their web pages for use by search engines and other applications." />
+    <link rel="stylesheet" type="text/css" href="/docs/schemaorg.css" />
+    <link href="/docs/prettify.css" type="text/css" rel="stylesheet" />
+    <script type="text/javascript" src="/docs/prettify.js"></script>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+      $(document).ready(function(){
+        prettyPrint();
+        setTimeout(function(){
+
+    $('.atn').each(function(i) {
+      if (($(this).text() == 'itemscope') || ($(this).text() == 'itemtype') || ($(this).text() == 'itemprop') || ($(this).text() == 'itemid') || ($(this).text() == 'time') || ($(this).text() == 'datetime') || ($(this).text() == 'vocab') || ($(this).text() == 'property') || ($(this).text() == 'typeOf') || ($(this).text() == 'rel'))
+        $(this).addClass('custom');
+    });
+
+        }, 500);
+      });
+</script>
+
+<style>
+
+  .tag    { color: #000; }    /* div, span, etc   */
+  .atn    { color: #000; }    /* href, datetime,  */
+  .custom { color: #660003; } /* itemscope, itemtype, etc,. */
+
+</style>
+
+</head>
+<body>
+    <div id="container">
+        <div id="intro">
+            <div id="pageHeader">
+              <div class="wrapper">
+				<div id="sitename">
+				<h1>
+					<a href="/">schema.org</a>
+				</h1>
+				</div>
+
+<div id="cse-search-form" style="width: 400px;"></div>
+
+<script type="text/javascript" src="//www.google.com/jsapi"></script>
+<script type="text/javascript">
+  google.load('search', '1', {language : 'en', style : google.loader.themes.ESPRESSO});
+  google.setOnLoadCallback(function() {
+    var customSearchControl = new google.search.CustomSearchControl('013516846811604855281:nj5laplixaa');
+    customSearchControl.setResultSetSize(google.search.Search.FILTERED_CSE_RESULTSET);
+    var options = new google.search.DrawOptions();
+    options.enableSearchboxOnly("../docs/search_results.html", null, false, '#');
+    customSearchControl.draw('cse-search-form', options);
+  }, true);
+</script>
+
+
+              </div>
+            </div>
+        </div>
+    </div>
+
+            <div id="selectionbar">
+               <div class="wrapper">
+                <ul>
+                    <li class="activelink">
+                      <a href="../docs/documents.html">Documentation</a></li>
+                    <li>
+                      <a href="../docs/schemas.html">Schemas</a></li>
+                    <li>
+                      <a href="../.">Home</a></li>
+                </ul>
+                </div>
+
+            </div>
+        <div style="padding: 14px; float: right;" id="languagebox"></div>
+
+  <div id="mainContent">
+
+<h1>Markup for Hotels</h1>
+
+<p>This page provides background information on the use of schema.org for marking up hotels and other forms of accommidations. For feature requests, please use the <a href="https://github.com/schemaorg/schemaorg">Github repository</a>.</p>
+
+<br/>
+
+<!-- add toc here later on-->
+
+<h2 id="overview">Overview</h2>
+
+<p>Add materials from the STI Accommodation Ontology page.</p>
+
+<h2 id="minimal">Minimal Example</h2>
+	<pre>
+&lt;div <strong>itemscope</strong>&gt;
+  &lt;h1&gt;Avatar&lt;/h1&gt;
+  &lt;span&gt;Director: James Cameron (born August 16, 1954) &lt;/span&gt;
+  &lt;span&gt;Science fiction&lt;/span&gt;
+  &lt;a href="../movies/avatar-theatrical-trailer.html"&gt;Trailer&lt;/a&gt;
+&lt;/div&gt;
+	</pre>
+<h2 id="hotel_info">Information about the Hotel</h2>
+	<h3>Address and Geo Position</h3>
+	<h3>Telephone and Fax</h3>
+	<pre>
+&lt;div <strong>itemscope</strong>&gt;
+  &lt;h1&gt;Avatar&lt;/h1&gt;
+  &lt;span&gt;Director: James Cameron (born August 16, 1954) &lt;/span&gt;
+  &lt;span&gt;Science fiction&lt;/span&gt;
+  &lt;a href="../movies/avatar-theatrical-trailer.html"&gt;Trailer&lt;/a&gt;
+&lt;/div&gt;
+	</pre>
+	<h3>Map</h3>
+	<h3>Photos and Logo</h3>
+	<h3>Opening Hours (Reception)</h3>
+	<h3>Reviews and Ratings</h3>
+	<h3>Number of Rooms</h3>
+	<h3>Renovation and Date of Establishment</h3>
+	<h3>Star Rating</h3>
+	<h3>Membership in Organizations</h3>
+	<h3>Chain Hotels</h3>
+	<h3>Hotel Features and Services</h3>
+	also availability times and periods (e.g. sauna only in Winter)
+	<h3>Points of Interest in the Vicinity</h3>
+	e.g. railway station, airports, touristics spots, etc.
+	<h3>Check-in and Check-out</h3>
+
+<h2 id="room_info">Information about the Room</h2>
+
+<h3>Basic Pattern</h3>
+<h3>Pictures</h3>
+<h3>Optional Features and Services</h3>
+<p>also fees for those via addOn</p>
+<h3>Availability Times and Periods</h3>
+	
+<h2 id="pricing">Offers and Pricing</h2>
+	<p>A key principle in schema.org is that things do not have prices, but that offers to grant you some rights on the things have. Thus, all commercial aspects of a hotel offer belong to the Offer.</p>
+	<h3>Basic Pattern</h3>
+	<h3>Price Ranges</h3>
+	<h3>Compound Prices</h3>
+	<h3>Meals</h3>
+	<h3>Occupancy</h3>
+	<h3>Advance Booking Requirement</h3>
+	<h3>Minimum Duration of Stay</h3>
+	<h3>Seasonal Pricing</h3>
+	<h3>Cancellation Rules and Terms and Conditions</h3>
+	<h3>Fees for Optional Services</h3>
+<h2 id="bundles">Example of a Bundle</h2>
+
+</div>
+
+
+<div id="footer"><p>
+  <a href="../docs/terms.html">Terms and conditions</a></p>
+</div>
+
+</body>
+</html>
