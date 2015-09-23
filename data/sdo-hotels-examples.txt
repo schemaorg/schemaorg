@@ -1,0 +1,146 @@
+TYPES: Hotel
+
+PRE-MARKUP:
+
+tbd
+
+MICRODATA:
+
+tbd
+
+RDFA:
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Hotel",
+  "name" : "ACME Hotel Innsbruck",
+  "description" : "A beautifully located business hotel right in the heart of the alps. Watch the sun rise over the scenic Inn valley while enjoying your morning coffee.",
+  "url" : "http://www.acme-innsbruck.at", 
+  "sameAs" : [
+    "http://www.facebook.com/acme-innsbruck",
+    "http://www.twitter.com/acme-innsbruck",
+    "http://plus.google.com/acme-innsbruck"
+  ],
+  "currenciesAccepted" : ["EUR", "USD"],
+  "paymentAccepted": "Cash and credit cards",
+  "address" : { "@type" : "PostalAddress", 
+                "addressCountry" : "AT",
+                "addressLocality" : "Innsbruck,
+                "addressRegion" : "Tyrol",
+                "postalCode" : "6020",
+                "streetAddress" : "Technikerstrasse 21",
+                },
+  "email" : "office@acme-innsbruck-innsbruck.at",
+  "faxNumber" : "+43 512 8000-999",
+  "telephone" :  "+43 512 8000-0",
+  "geo" : { "@type" : "GeoCoordinates", 
+            "elevation" : "580 m",
+            "latitude" : "47.1234",
+            "longitude" : "11.1234"
+            },
+    "hasMap" : "https://www.google.com/maps?ie=UTF8&hq&ll=47.1234,11.1234&z=13",
+    "logo" : "http://www.acme-innsbruck.at/logo.png",
+    "photo" : [ "http://www.acme-innsbruck.at/photo1.png", "http://www.acme-innsbruck-innsbruck.at/photo2.png"],
+  "award" : "ADAC Family Friendly Hotel 2015",
+  "brand" : { "@type" : "Brand", 
+              "name" "ACME Hotels" },
+  "memberOf" : [ { "@type" : "Organization", 
+                   "name" : "Austrian Hotel & Lodging Association - AH&LA",
+                   "sameAs" : "http://www.ahla.at/" },
+                 { "@type" : "Organization", 
+                   "name" : "Hotel Association of Tyrol",
+                   "sameAs" : "www.hotelassociation-tyrol.at/" }
+                ],
+  "parentOrganization" : { "@type" : "Organization", 
+              "name" "ACME Hotels GesmbH" },
+  "taxID" : "AT1234556",
+  "vatID" : "ATU123456",
+  "accommodationOccupancy" : { "@type" : "QuantitativeValue",
+                               "maxValue" : "100",
+                               "unitCode" : "C62" },
+
+  "feature" : [{ "@type" : "AccommodationFeature", 
+                 "name" : "Sauna",
+                 "description" : "Our wellness center includes both a Finnish sauna and a Turkish bath",
+                 "value" : "True" },
+                { "@type" : "AccommodationFeature", 
+                  "name" : "Wifi",
+                  "description" : "Fast Wifi is available in the lobby and guestrooms",
+                "value" : "True" },
+               ]
+  "petsAllowed" : "False",
+  "starRating" : [ "4", 
+                   { "@type" : "PropertyValue",
+                     "name" : "DEHOGA",
+                     "value" : "4S",
+                     "description" : "We are a 4-star superior hotel."
+                   }],
+  "category" : "City Hotel",
+}
+</script>
+
+
+TYPES:  HotelRoom
+PRE-MARKUP:
+tbd
+MICRODATA:
+tbd
+RDFA:
+tbd
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "HotelRoom",
+  "name" : "Double Room (Standard)",
+  "description" : "Ein Zimmer plus Bad mit Dusche/Badewanne sowie WC."
+  "url" : "http://www.acme-innsbruck.at/Rooms#DoubleRoom", 
+  "photo" : [ "http://www.acme-innsbruck.at/double_room1.png", "http://www.acme-innsbruck.at/double_room2.png"],
+  "accommodationOccupancy" : { "@type" : "QuantitativeValue",
+                               "maxValue" : "2",
+                               "unitCode" : "C62" },
+  "includedFeature" : [ { "@type" : "AccommodationFeature", 
+                          "name" : "Hair dryer",
+                          "value" : "True" },
+                        { "@type" : "AccommodationFeature", 
+                          "name" : "Wifi",
+                          "value" : "True" },
+                        { "@type" : "AccommodationFeature", 
+                          "name" : "Airconditioning",
+                          "value" : "True" } ],
+  "offers" : { "@type" : "Offer", 
+               "name" : "Flex-rate",
+               "description" : "blablabla",
+               "acceptedPaymentMethod" : 
+                     [ { "@id": "http://purl.org/goodrelations/v1#Cash" },
+                       { "@id" : "http://purl.org/goodrelations/v1#AmericanExpress" },
+                       { "@id" : "http://purl.org/goodrelations/v1#DinersClub" }, 
+                       { "@id" : "http://purl.org/goodrelations/v1#Discover" }, 
+                       { "@id" : "http://purl.org/goodrelations/v1#JCB" },
+                       { "@id" : "http://purl.org/goodrelations/v1#MasterCard" }, 
+                       { "@id" : "http://purl.org/goodrelations/v1#VISA" }, 
+                       { "@id" : "http://purl.org/goodrelations/v1#DirectDebit" } ],
+  "businessFunction" : { "@id" : "http://purl.org/goodrelations/v1#LeaseOut"},
+  "eligibleDuration" : { "@type" : "QuantitativeValue",
+                         "minValue" : "1",
+                         "unitCode" : "DAY" },
+  "inventoryLevel" : { "@type" : "QuantitativeValue",
+                         "minValue" : "3",
+                         "unitCode" : "C62" },
+  "priceSpecification" : { "@type" : "UnitPriceSpecification",
+                           "priceCurrency" : "EUR",
+                           "price" : "99",
+                           "unitCode" "DAY" },
+  "validThrough" : "2015-08-31"
+}
+</script>
+
+TYPES:  FakeEntryNeeded, FixMeSomeDay
+PRE-MARKUP:
+MICRODATA:
+RDFA:
+JSON:
