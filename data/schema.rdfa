@@ -12560,9 +12560,9 @@ For more specific types of accommodations not defined in schema.org, one can use
 </div>
 
 <!-- Compound price extension from GoodRelations -->
-<div typeof="rdfs:Class" resource="http://schema.org/CompoundPrice">
-        <span class="h" property="rdfs:label">CompoundPrice</span>
-        <span property="rdfs:comment">A compound price specification is one that bundles multiple prices that all apply in combination for different dimensions of consumption. Use the name property for indicating the dimension (e.g. "electricity" or "final cleaning").</span>
+<div typeof="rdfs:Class" resource="http://schema.org/CompoundPriceSpecification">
+        <span class="h" property="rdfs:label">CompoundPriceSpecification</span>
+        <span property="rdfs:comment">A compound price specification is one that bundles multiple prices that all apply in combination for different dimensions of consumption. Use the name property of the attached unit price specification for indicating the dimension of a price component (e.g. "electricity" or "final cleaning").</span>
         <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/PriceSpecification">PriceSpecification</a></span>
         <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsClass">GoodRelationsClass</a></span>
 </div>
@@ -12570,7 +12570,7 @@ For more specific types of accommodations not defined in schema.org, one can use
 <div typeof="rdf:Property" resource="http://schema.org/priceComponent">
     <span class="h" property="rdfs:label">priceComponent</span>
     <span property="rdfs:comment">This property links to all UnitPriceSpecification nodes that apply in parallel for the CompoundPrice node.</span>
-    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CompoundPrice">CompoundPrice</a></span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CompoundPriceSpecification">CompoundPriceSpecification</a></span>
     <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/UnitPriceSpecification">UnitPriceSpecification</a></span>
     <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsProperties">GoodRelationsProperty</a></span>
 </div>
