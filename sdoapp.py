@@ -313,13 +313,16 @@ class ShowUnit (webapp2.RequestHandler):
         items = bugs + mappings
 
         nodetype="Misc"
+
         if node.isEnumeration():
             nodetype = "enumeration"
-        elif node.isClass():
+        elif node.isDataType(layers=layer):
+            nodetype = "datatype"
+        elif node.isClass(layers=layer):
             nodetype = "type"
-        elif node.isAttribute():
+        elif node.isAttribute(layers=layer):
             nodetype = "property"
-        elif node.isEnumerationValue():
+        elif node.isEnumerationValue(layers=layer):
             nodetype = "enumeratedvalue"
 
         feedback_url = FEEDBACK_FORM_BASE_URL.format("http://schema.org/{0}".format(node.id), nodetype)
