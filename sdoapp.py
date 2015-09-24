@@ -102,7 +102,7 @@ class TypeHierarchyTree:
         self.txt += s + "\n"
 
     def emit2buff(self, buff, s):
-        buff.write(s + "\n") 
+        buff.write(s + "\n")
 
     def toHTML(self):
         return '%s<ul>%s</ul>' % (self.prefix, self.txt)
@@ -119,7 +119,7 @@ class TypeHierarchyTree:
         if buff == None:
             localBuff = True
             buff = StringIO.StringIO()
-       
+
         urlprefix = ""
         home = node.getHomeLayer()
         gotOutput = False
@@ -170,11 +170,11 @@ class TypeHierarchyTree:
                 # and would only suppress it if it had its own subtypes. Seems legit.
 
         self.emit2buff(buff, ' %s</li>' % (" " * 4 * depth) )
-        
+
         if localBuff:
             self.emit(buff.getvalue())
             buff.close()
-        
+
         return gotOutput
 
     # based on http://danbri.org/2013/SchemaD3/examples/4063550/hackathon-schema.js  - thanks @gregg, @sandro
@@ -435,7 +435,7 @@ class ShowUnit (webapp2.RequestHandler):
 
         self.write(" <br/><div>Usage: %s</div>\n\n" % (node.UsageStr()) + "\n")
 
-        self.write(self.moreInfoBlock(node))
+        #was:        self.write(self.moreInfoBlock(node))
 
         if (node.isClass(layers=layers) and not node.isDataType(layers=layers) and node.id != "DataType"):
 
@@ -444,7 +444,7 @@ class ShowUnit (webapp2.RequestHandler):
     def emitCanonicalURL(self,node):
         cURL = "http://schema.org/" + node.id
         self.write(" <span class=\"canonicalUrl\">Canonical URL: <a href=\"%s\">%s</a></span>" % (cURL, cURL))
-    
+
     # Stacks to support multiple inheritance
     crumbStacks = []
     def BreadCrumbs(self, node, layers):
@@ -940,7 +940,7 @@ class ShowUnit (webapp2.RequestHandler):
             desc = entry
             if anode:
                 desc = self.getMetaDescription(node, layers=layers, lengthHint=200)
-                
+
             template = JINJA_ENVIRONMENT.get_template('genericTermPageHeader.tpl')
             template_values = {
                 'entry': str(entry),
@@ -970,18 +970,18 @@ class ShowUnit (webapp2.RequestHandler):
             ins += " Enumeration Value"
 
         desc = "Schema.org%s: %s - " % (ins, node.id)
-        
+
         lengthHint -= len(desc)
-        
+
         comment = GetComment(node, layers)
-                     
-        desc += ShortenOnSentence(StripHtmlTags(comment),lengthHint) 
-        
+
+        desc += ShortenOnSentence(StripHtmlTags(comment),lengthHint)
+
         return desc
-        
-        
-        
-        
+
+
+
+
     def emitExactTermPage(self, node, layers="core"):
         """Emit a Web page that exactly matches this node."""
         log.debug("EXACT PAGE: %s" % node.id)
@@ -991,7 +991,7 @@ class ShowUnit (webapp2.RequestHandler):
         global sitemode #,sitename
         if ("schema.org" not in self.request.host and sitemode == "mainsite"):
             sitemode = "mainsite testsite"
-        
+
         self.emitSchemaorgHeaders(node, node.isClass(), ext_mappings, sitemode, getSiteName(), layers)
 
         if ( ENABLE_HOSTED_EXTENSIONS and ("core" not in layers or len(layers)>1) ):
@@ -1015,13 +1015,17 @@ class ShowUnit (webapp2.RequestHandler):
 
         self.emitUnitHeaders(node,  layers=layers) # writes <h1><table>...
 
+        if (node.isEnumerationValue(layers=layers)):
+            self.write(self.moreInfoBlock(node))
+
         if (node.isClass(layers=layers)):
             subclass = True
+            self.write(self.moreInfoBlock(node))
+
             for p in self.parentStack:
                 self.ClassProperties(p, p==self.parentStack[0], layers=layers)
             if (not node.isDataType(layers=layers) and node.id != "DataType"):
                 self.write("\n\n</table>\n\n")
-
             self.emitClassIncomingProperties(node, layers=layers)
 
             self.emitClassExtensionSuperclasses(node,layers)
@@ -1030,6 +1034,7 @@ class ShowUnit (webapp2.RequestHandler):
 
         elif (Unit.isAttribute(node, layers=layers)):
             self.emitAttributeProperties(node, layers=layers)
+            self.write(self.moreInfoBlock(node))
 
         if (node.isClass(layers=layers)):
             children = []
@@ -1069,6 +1074,9 @@ class ShowUnit (webapp2.RequestHandler):
                 extbuff.close()
 
         if (node.isEnumeration(layers=layers)):
+
+            self.write(self.moreInfoBlock(node))
+
             children = sorted(GetSources(Unit.GetUnit("typeOf"), node, ALL_LAYERS), key=lambda u: u.id)
             if (len(children) > 0):
                 buff = StringIO.StringIO()
@@ -1211,7 +1219,7 @@ class ShowUnit (webapp2.RequestHandler):
             extensions = []
             for ex in sorted(ENABLED_EXTENSIONS):
                 extensions.append("<a href=\"%s\">%s.schema.org</a>" % (makeUrl(ex,""),ex))
-                
+
             template = JINJA_ENVIRONMENT.get_template('schemas.tpl')
             page = template.render({'sitename': getSiteName(),
                                     'staticPath': makeUrl("",""),
@@ -1224,7 +1232,7 @@ class ShowUnit (webapp2.RequestHandler):
             DataCache.put("SchemasPage",page)
 
             return True
-            
+
     def getCounts(self):
         text = ""
         text += "The core vocabulary currently consists of %s Types, " % len(GetAllTypes("core"))
@@ -1264,13 +1272,13 @@ class ShowUnit (webapp2.RequestHandler):
                 local_button = "Core plus %s extension" % extlist
             else:
                 local_button = "Core plus %s extensions" % extlist
-                
+
             ext_button = ""
             if count == 1:
                 ext_button = "Extension %s" % extlist
             elif count > 1:
                 ext_button = "Extensions %s" % extlist
-                
+
 
             uThing = Unit.GetUnit("Thing")
             uDataType = Unit.GetUnit("DataType")
@@ -1281,7 +1289,7 @@ class ShowUnit (webapp2.RequestHandler):
             #az_enums = GetAllEnumerationValues(layerlist)
             #az_enums.sort( key = lambda u: u.id)
             #thing_tree += self.listTerms(az_enums,"<br/><strong>Enumeration Values</strong><br/>")
-            
+
 
             fullmainroot = TypeHierarchyTree("<h3>Core plus all extension vocabularies</h3>")
             fullmainroot.traverseForHTML(uThing, layers=ALL_LAYERS)
@@ -1289,7 +1297,7 @@ class ShowUnit (webapp2.RequestHandler):
             #az_enums = GetAllEnumerationValues(ALL_LAYERS)
             #az_enums.sort( key = lambda u: u.id)
             #full_thing_tree += self.listTerms(az_enums,"<br/><strong>Enumeration Values</strong><br/>")
-            
+
             ext_thing_tree = None
             if len(extonlylist) > 0:
                 extroot = TypeHierarchyTree("<h3>Extension: %s</h3>" % extlist)
@@ -1298,7 +1306,7 @@ class ShowUnit (webapp2.RequestHandler):
                 #az_enums = GetAllEnumerationValues(extonlylist)
                 #az_enums.sort( key = lambda u: u.id)
                 #ext_thing_tree += self.listTerms(az_enums,"<br/><strong>Enumeration Values</strong><br/>")
-                
+
 
             dtroot = TypeHierarchyTree("<h4>Data Types</h4>")
             dtroot.traverseForHTML(uDataType, layers=layerlist)
@@ -1576,16 +1584,16 @@ class ShowUnit (webapp2.RequestHandler):
         if not ext in ENABLED_EXTENSIONS:
             log.info("cannot list ext %s",ext)
             return ""
-        
+
         buff = StringIO.StringIO()
-        
+
         az_types = GetAllTypes(ext)
         az_types.sort( key=lambda u: u.id)
         az_props = GetAllProperties(ext)
         az_props.sort( key = lambda u: u.id)
         az_enums = GetAllEnumerationValues(ext)
         az_enums.sort( key = lambda u: u.id)
-        
+
         buff.write("<br/><h3>Terms defined or referenced in the '%s' extension.</h3>" % ext)
         buff.write(self.listTerms(az_types,"<br/><strong>Types</strong> (%s)<br/>" % len(az_types)))
         buff.write(self.listTerms(az_props,"<br/><br/><strong>Properties</strong> (%s)<br/>" % len(az_props)))
@@ -1593,7 +1601,7 @@ class ShowUnit (webapp2.RequestHandler):
         ret = buff.getvalue()
         buff.close()
         return ret
-        
+
     def listTerms(self,terms,prefix=""):
         buff = StringIO.StringIO()
         if(len(terms) > 0):
@@ -1606,24 +1614,24 @@ class ShowUnit (webapp2.RequestHandler):
                 else:
                     first = False
                 buff.write("%s%s" % (sep,self.ml(term)))
-            
+
         ret = buff.getvalue()
         buff.close()
         return ret
-        
+
 
     def setupHostinfo(self, node, test=""):
         hostString = test
         if test == "":
             hostString = self.request.host
-            
+
         scheme = "http" #Defalt for tests
         if not getInTestHarness():  #Get the actual scheme from the request
             scheme = self.request.scheme
 
         host_ext = re.match( r'([\w\-_]+)[\.:]?', hostString).group(1)
         log.info("setupHostinfo: scheme=%s hoststring=%s host_ext?=%s" % (scheme, hostString, str(host_ext) ))
-        
+
         setHttpScheme(scheme)
 
         split = hostString.rsplit(':')
@@ -1644,7 +1652,7 @@ class ShowUnit (webapp2.RequestHandler):
                 host_ext = ""
             else:
                 mybasehost = mybasehost[len(host_ext) + 1:]
-        
+
         setHostExt(host_ext)
         setBaseHost(mybasehost)
         setHostPort(myport)
@@ -1661,7 +1669,7 @@ class ShowUnit (webapp2.RequestHandler):
         if "localhost" in hostString or "sdo-phobos.appspot.com" in hostString or FORCEDEBUGGING:
             debugging = True
         setAppVar('debugging',debugging)
-        
+
         return True
 
     def redirectToBase(self,node=""):
@@ -1695,7 +1703,7 @@ class ShowUnit (webapp2.RequestHandler):
 
         if not self.setupHostinfo(node):
             return
-            
+
         self.callCount()
 
         self.emitHTTPHeaders(node)
@@ -1731,7 +1739,7 @@ class ShowUnit (webapp2.RequestHandler):
             else:
                 log.info("Error handling full.html : %s " % node)
                 return
-                
+
         if (node == "docs/schemas.html"): # DataCache.getDataCache.get
             if self.handleSchemasPage(node, layerlist=layerlist):
                 return
@@ -1758,7 +1766,7 @@ class ShowUnit (webapp2.RequestHandler):
                 else:
                     log.info("Error handling 404 under /version/")
                     return
-        
+
         if(node == "_siteDebug"):
             self.siteDebug()
             return
@@ -1775,7 +1783,7 @@ class ShowUnit (webapp2.RequestHandler):
             else:
                 log.info("Error handling 404.")
                 return
-                
+
     def siteDebug(self):
         global STATS
         template = JINJA_ENVIRONMENT.get_template('siteDebug.tpl')
@@ -1785,7 +1793,7 @@ class ShowUnit (webapp2.RequestHandler):
         self.response.out.write( page )
         self.response.out.write("<table style=\"width: 50%; border: solid 1px #CCCCCC; border-collapse: collapse;\"><tbody>\n")
         self.writeDebugRow("Setting","Value",True)
-        
+
         self.writeDebugRow("httpScheme",getHttpScheme())
         self.writeDebugRow("host_ext",getHostExt())
         self.writeDebugRow("basehost",getBaseHost())
@@ -1799,7 +1807,7 @@ class ShowUnit (webapp2.RequestHandler):
             self.writeDebugRow("DataCache[%s] size" % c, len(DataCache.getCache(c)))
         for s in STATS.keys():
             self.writeDebugRow("%s" % s, STATS[s])
-        
+
         self.response.out.write("</tbody><table><br/>\n")
         self.response.out.write( "</div>\n<body>\n</html>" )
 
@@ -1809,7 +1817,7 @@ class ShowUnit (webapp2.RequestHandler):
         if head:
             rt = "th"
             cellStyle += " color: #FFFFFF; background: #888888;"
-        
+
         self.response.out.write("<tr><%s style=\"%s\">%s</%s><%s style=\"%s\">%s</%s></tr>\n" % (rt,cellStyle,term,rt,rt,cellStyle,value,rt))
 
     def callCount(self):
@@ -1819,8 +1827,8 @@ class ShowUnit (webapp2.RequestHandler):
             statInc(getHostExt() + " calls")
         else:
             statInc("core calls")
-                
-        
+
+
 STATS = {}
 def statInc(stat):
     global STATS
@@ -1829,18 +1837,18 @@ def statInc(stat):
         val += STATS.get(stat)
     STATS[stat] = val
 
-        
+
 def setInTestHarness(val):
     global INTESTHARNESS
     INTESTHARNESS = val
 def getInTestHarness():
     global INTESTHARNESS
     return INTESTHARNESS
-    
+
 TestAppIndex = {}
 def getAppVar(index):
     global TestAppIndex
-    
+
     reg = None
     if not getInTestHarness():
         app = webapp2.get_app()
@@ -1848,49 +1856,49 @@ def getAppVar(index):
     else:
         log.debug("getAppVar(): Using non-threadsafe session variables for test only")
         reg = TestAppIndex
-        
+
     return reg.get(index)
-        
+
 def setAppVar(index,val):
     global TestAppIndex
-    
+
     reg = None
     if not getInTestHarness():
         app = webapp2.get_app()
         reg = app.registry
-    else: 
+    else:
         log.debug("setAppVar(): Using non-threadsafe session variables for test only")
         reg = TestAppIndex
-        
+
     reg[index] = val
-            
+
 def setHttpScheme(val):
     setAppVar('httpScheme',val)
-    
+
 def getHttpScheme():
     return getAppVar('httpScheme')
 
 def setHostExt(val):
     setAppVar('host_ext',val)
-    
+
 def getHostExt():
     return getAppVar('host_ext')
 
 def setSiteName(val):
     setAppVar('sitename',val)
-    
+
 def getSiteName():
     return getAppVar('sitename')
 
 def setHost(val):
     setAppVar('myhost',val)
-    
+
 def getHost():
     return getAppVar('myhost')
 
 def setBaseHost(val):
     setAppVar('mybasehost',val)
-    
+
 def getBaseHost():
     return getAppVar('mybasehost')
 
