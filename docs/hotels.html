@@ -38,11 +38,11 @@
         <div id="intro">
             <div id="pageHeader">
               <div class="wrapper">
-				<div id="sitename">
-				<h1>
-					<a href="/">schema.org</a>
-				</h1>
-				</div>
+                <div id="sitename">
+                <h1>
+                    <a href="/">schema.org</a>
+                </h1>
+                </div>
 
 <div id="cse-search-form" style="width: 400px;"></div>
 
@@ -94,17 +94,20 @@
 <p>When modeling hotel-related information in Web content with schema.org, there are three core objetcs:</p>
 
 <ul>
-	<li>A <strong><a href="../LodgingBusiness">lodging business</a></strong>, e.g. a hotel, hostel, ressort, camping site): essentially the place and local business that houses the actually relevant units of the establishment (e.g. hotel rooms). The lodging business can encompass multiple buildings but is in most cases a coherent place.</li>
-	<li>An <strong><a href="../Accommodation">accommodation</a></strong>, i.e. the actually relevant units of the establishment (e.g. hotel rooms, suites, apartments, meeting rooms, camping pitches, etc.).</li>
-	<li>An <strong><a href="../Offer">offer</a></strong> to rent out a hotel room for a given amount of money and for a given type of usage (e.g. occupancy), typically further constrained by advance booking requirements and other terms and conditions.
+    <li>A <strong><a href="../LodgingBusiness">lodging business</a></strong>, e.g. a hotel, hostel, ressort, camping site): essentially the place and local business that houses the actual units of the establishment (e.g. hotel rooms). The lodging business can encompass multiple buildings but is in most cases a coherent place.</li>
+    <li>An <strong><a href="../Accommodation">accommodation</a></strong>, i.e. the actually relevant units of the establishment (e.g. hotel rooms, suites, apartments, meeting rooms, camping pitches, etc.).</li>
+    <li>An <strong><a href="../Offer">offer</a></strong> to let a hotel room (or other forms of accommodations) for a particular amount of money and for a given type of usage (e.g. occupancy), typically further constrained by advance booking requirements and other terms and conditions.
 </ul>
 
 <p>In schema.org, an offer for a hotel room is using the same patterns as an offer for a TV set or a welding service. In other words, the hotel room is a special form of a <a href= "../Product">http://schema.org/Product</a> and an offer for hotel rooms is a <a href="../Offer">http://schema.org/Offer</a>. Prices and terms and conditions are thus not properties of the hotel or hotel room, but of the offer for a certain room or room category.</p>
 
 <h3>Basic Model</h3>
-<p>The following diagram illustrates the basic pattern for describing hotel room offers. All actual accommodations are subclasses of <a href="../Place">http://schema.org/Place</a> and of <a href="../Product">http://schema.org/Product</a> (which is just anything that can be included in an offer). All types of lodging businesses are subclasses of <a href="../Place">http://schema.org/Place</a> and of <a href="../LocalBusiness">http://schema.org/LocalBusiness</a>.</p>
+<p>The diagram shown below illustrates the basic pattern for describing hotel room offers and offers for other forms of accommodations.</p> 
+<p>All actual accommodations are subclasses of <a href="../Place">http://schema.org/Place</a> and of <a href="../Product">http://schema.org/Product</a> (which is just anything that can be included in an offer). All types of lodging businesses are subclasses of <a href="../Place">http://schema.org/Place</a> and of <a href="../LocalBusiness">http://schema.org/LocalBusiness</a>.</p>
 
-<p>The relationship between an accommodation and the local business it belongs to is represented via the <a href="../containedIn">containedIn</a> property. The relationship between the offer and the room included in the offer can be represented via either the <a href="../offers">offers</a> property (from the room to the offer) or via <a href="../itemOffered">itemsOffered</a> (from the offer to the room). When the offer includes more than just the bare room (e.g. meals) or multiple nightse use the <a href="../includesObject">includesObject</a> property and one or more <a href="../TypeAndQuantityNode">TypeAndQuantityNode</a> nodes.
+<p>The relationship between an accommodation and the local business it belongs to is represented via the <a href="../containedIn">containedIn</a> property. The relationship between the offer and the room included in the offer can be represented via either the <a href="../offers">offers</a> property (from the room to the offer) or via <a href="../itemOffered">itemsOffered</a> (from the offer to the room).</p>
+<p>The relationship between the lodging business and its offers for rooms is represented via the <a href="../makesOffer">makesOffer</a> property.</p>
+<p>When the offer includes more than just the bare room (e.g. meals) or multiple nights we use the <a href="../includesObject">includesObject</a> property and one or more <a href="../TypeAndQuantityNode">TypeAndQuantityNode</a> nodes.
 
 <img alt="Schema.org pattern for describing hotel room offers" width="960" border="0" src="schema_hotels_1.png" title="Schema.org pattern for describing hotel room offers" />
 
@@ -112,34 +115,33 @@
 <p>Currently, there are explicit types for the following kinds of lodging businesses:</p>
 
 <ul>
-	<li><a href="../BedAndBreakfast">BedAndBreakfast</a></li>
-	<li><a href="../CampingSite">CampingSite</a></li>
-	<li><a href="../Hostel">Hostel</a></li>
-	<li><a href="../Hotel">Hotel</a></li>
-	<li><a href="../Motel">Motel</a></li>
-	<li><a href="../Resort">Resort</a></li>
+    <li><a href="../BedAndBreakfast">BedAndBreakfast</a></li>
+    <li><a href="../CampingSite">CampingSite</a></li>
+    <li><a href="../Hostel">Hostel</a></li>
+    <li><a href="../Hotel">Hotel</a></li>
+    <li><a href="../Motel">Motel</a></li>
+    <li><a href="../Resort">Resort</a></li>
 </ul>
 
-<p>This list might be extended in the future. For other forms, the generic type <a href="../LodgingBusiness">LodgingBusiness</a> can be used. The property <a href="../additionalType">additionalType</a> allows using external identifiers for indicating the exact type.</p>
+<p>This list might be extended in the future. For other forms, the generic type <a href="../LodgingBusiness">LodgingBusiness</a> can be used. The property <a href="../additionalType">additionalType</a> allows using external identifiers for indicating the exact type in such cases.</p>
 
 <h3>Types of Accommodations</h3>
 <p>For kinds of accommodations, the following types more specific types are available:</p>
 
 <ul>
-	<li><a href="../Apartment">Apartment</a></li>
-	<li><a href="../CampingPitch">CampingPitch</a></li>
-	<li><a href="../HotelRoom">HotelRoom</a></li>
-	<li><a href="../House">House</a></li>
-	<li><a href="../MeetingRoom">MeetingRoom</a></li>
-	<li><a href="../Suite">Suite</a></li>
+    <li><a href="../Apartment">Apartment</a></li>
+    <li><a href="../CampingPitch">CampingPitch</a></li>
+    <li><a href="../HotelRoom">HotelRoom</a></li>
+    <li><a href="../House">House</a></li>
+    <li><a href="../MeetingRoom">MeetingRoom</a></li>
+    <li><a href="../Suite">Suite</a></li>
 </ul>
 
-<p>This list might be extended in the future. For other forms, the generic type <a href="../Accommodation">Accommodation</a> can be used. The property <a href="../additionalType">additionalType</a> allows using external identifiers for indicating the exact type.</p>
-	
+<p>This list might be extended in the future. For other forms, the generic type <a href="../Accommodation">Accommodation</a> can be used. The property <a href="../additionalType">additionalType</a> allows using external identifiers for indicating the exact type in such cases.</p>
+    
 <h2 id="minimal">Minimal Example</h2>
-<p>In the most basic form, we can just model the hotel without individual room rates:
-	
-	<pre class="prettyprint lang-html linenums">
+<p>In the most basic form, we can just model the hotel with basic information like photos and star rating and a price range, but without individual room rates and availability information:
+    <pre class="prettyprint lang-html linenums">
 &lt;div itemscope itemtype=&quot;http://schema.org/Hotel&quot;&gt;
   &lt;h1&gt;&lt;span itemprop=&quot;name&quot;&gt;ACME Hotel Innsbruck&lt;/span&gt;&lt;/h1&gt;
   &lt;span itemprop=&quot;description&quot;&gt;A beautifully located business hotel right in the
@@ -148,39 +150,46 @@ enjoying your morning coffee.&lt;/span&gt;
   &lt;div itemprop=&quot;address&quot; itemscope itemtype=&quot;http://schema.org/PostalAddress&quot;&gt;
     &lt;span itemprop=&quot;streetAddress&quot;&gt;Technikerstrasse 21&lt;/span&gt;
     &lt;span itemprop=&quot;postalCode&quot;&gt;6020&lt;/span&gt;
-	&lt;span itemprop=&quot;addressLocality&quot;&gt;Innsbruck&lt;/span&gt;
+    &lt;span itemprop=&quot;addressLocality&quot;&gt;Innsbruck&lt;/span&gt;
     &lt;span itemprop=&quot;addressRegion&quot;&gt;Tyrol&lt;/span&gt;,
-	&lt;span itemprop=&quot;addressCountry&quot;&gt;Austria&lt;/span&gt;
+    &lt;span itemprop=&quot;addressCountry&quot;&gt;Austria&lt;/span&gt;
   &lt;/div&gt;
   Phone: &lt;span itemprop=&quot;telephone&quot;&gt;+43 512 8000-0&lt;/span&gt;
-&lt;/div&gt;</pre>
+  &lt;img itemprop=&quot;photo&quot; src=&quot;../media/hotel_front.png&quot; alt=&quot;Front view of the hotel&quot; /&gt;
+  Star rating: &lt;meta itemprop=&quot;starRating&quot; content=&quot;4&quot;&gt;****
+  Room rates: &lt;span itemprop=&quot;priceRange&quot;&gt;$100 - $240&lt;/span&gt;
+&lt;/div&gt;
+</pre>
 
 See the page for <a href="../Hotel">http://schema.org/Hotel</a> for a complete list of additional properties for describing the hotel. Popular properties are also explained in more detail below.</p>
 
+<p><strong>Note:</strong> In the following, we focus on hotel-related examples, but the basic patterns for other types of lodging businesses are the same. Simply use the more specific types (e.g. <a href="../CampingSite">CampingSite</a> or <a href="MeetingRoom">MeetingRoom</a>).</p>
+
 <h2 id="hotel_info">Information about the Hotel</h2>
-	<h3>Address and Geo Position</h3>
-	<h3>Telephone and Fax</h3>
-	<pre class="prettyprint lang-html linenums">
+<p>If your Web site contains provide more detailed information about your hotel, you can use many additional properties for marking them up with schema.org. Below, we highlight a few prominent properties.</p>
+    <h3>Address and Geo Position</h3>
+    <h3>Telephone and Fax</h3>
+    <pre class="prettyprint lang-html linenums">
 &lt;div <strong>itemscope</strong>&gt;
   &lt;h1&gt;Avatar&lt;/h1&gt;
   &lt;span&gt;Director: James Cameron (born August 16, 1954) &lt;/span&gt;
   &lt;span&gt;Science fiction&lt;/span&gt;
   &lt;a href="../movies/avatar-theatrical-trailer.html"&gt;Trailer&lt;/a&gt;
 &lt;/div&gt;</pre>
-	<h3>Map</h3>
-	<h3>Photos and Logo</h3>
-	<h3>Opening Hours (Reception)</h3>
-	<h3>Reviews and Ratings</h3>
-	<h3>Number of Rooms</h3>
-	<h3>Renovation and Date of Establishment</h3>
-	<h3>Star Rating</h3>
-	<h3>Membership in Organizations</h3>
-	<h3>Chain Hotels</h3>
-	<h3>Hotel Features and Services</h3>
-	also availability times and periods (e.g. sauna only in Winter)
-	<h3>Points of Interest in the Vicinity</h3>
-	e.g. railway station, airports, touristics spots, etc.
-	<h3>Check-in and Check-out</h3>
+    <h3>Map</h3>
+    <h3>Photos and Logo</h3>
+    <h3>Opening Hours (Reception)</h3>
+    <h3>Reviews and Ratings</h3>
+    <h3>Number of Rooms</h3>
+    <h3>Renovation and Date of Establishment</h3>
+    <h3>Star Rating</h3>
+    <h3>Membership in Organizations</h3>
+    <h3>Chain Hotels</h3>
+    <h3>Hotel Features and Services</h3>
+    also availability times and periods (e.g. sauna only in Winter)
+    <h3>Points of Interest in the Vicinity</h3>
+    e.g. railway station, airports, touristics spots, etc.
+    <h3>Check-in and Check-out</h3>
 
 <h2 id="room_info">Information about the Room</h2>
 
@@ -189,19 +198,19 @@ See the page for <a href="../Hotel">http://schema.org/Hotel</a> for a complete l
 <h3>Optional Features and Services</h3>
 <p>also fees for those via addOn</p>
 <h3>Availability Times and Periods</h3>
-	
+    
 <h2 id="pricing">Offers and Pricing</h2>
-	<p>A key principle in schema.org is that things do not have prices, but that offers to grant you some rights on the things have. Thus, all commercial aspects of a hotel offer belong to the Offer.</p>
-	<h3>Basic Pattern</h3>
-	<h3>Price Ranges</h3>
-	<h3>Compound Prices</h3>
-	<h3>Meals</h3>
-	<h3>Occupancy</h3>
-	<h3>Advance Booking Requirement</h3>
-	<h3>Minimum Duration of Stay</h3>
-	<h3>Seasonal Pricing</h3>
-	<h3>Cancellation Rules and Terms and Conditions</h3>
-	<h3>Fees for Optional Services</h3>
+    <p>A key principle in schema.org is that things do not have prices, but that offers to grant you some rights on the things have. Thus, all commercial aspects of a hotel offer belong to the Offer.</p>
+    <h3>Basic Pattern</h3>
+    <h3>Price Ranges</h3>
+    <h3>Compound Prices</h3>
+    <h3>Meals</h3>
+    <h3>Occupancy</h3>
+    <h3>Advance Booking Requirement</h3>
+    <h3>Minimum Duration of Stay</h3>
+    <h3>Seasonal Pricing</h3>
+    <h3>Cancellation Rules and Terms and Conditions</h3>
+    <h3>Fees for Optional Services</h3>
 <h2 id="bundles">Example of a Bundle</h2>
 
 <h2>Acknowledgments</h2>

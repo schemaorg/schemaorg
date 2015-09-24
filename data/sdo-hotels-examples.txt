@@ -1,7 +1,87 @@
 TYPES: Hotel
 
 PRE-MARKUP:
+<h1>ACME Hotel Innsbruck</h1>
+<span>A beautifully located business hotel right in the
+heart of the alps. Watch the sun rise over the scenic Inn valley while
+enjoying your morning coffee.</span>
+  <span>Technikerstrasse 21</span>
+  <span>6020</span>
+  <span>Innsbruck</span>
+  <span>Tyrol</span>,
+  <span>Austria</span>
+  </div>
+  Phone: +43 512 8000-0
+  <img src="../media/hotel_front.png" alt="Front view of the hotel" />
+  Star rating: ****
+  Room rates: $100 - $240
+</div>
 
+
+MICRODATA:
+<div itemscope itemtype="http://schema.org/Hotel">
+  <h1><span itemprop="name">ACME Hotel Innsbruck</span></h1>
+  <span itemprop="description">A beautifully located business hotel right in the
+heart of the alps. Watch the sun rise over the scenic Inn valley while
+enjoying your morning coffee.</span>
+  <div itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
+    <span itemprop="streetAddress">Technikerstrasse 21</span>
+    <span itemprop="postalCode">6020</span>
+	<span itemprop="addressLocality">Innsbruck</span>
+    <span itemprop="addressRegion">Tyrol</span>,
+	<span itemprop="addressCountry">Austria</span>
+  </div>
+  Phone: <span itemprop="telephone">+43 512 8000-0</span>
+  <img itemprop="photo" src="../media/hotel_front.png" alt="Front view of the hotel" />
+  Star rating: <meta itemprop="starRating" content="4">****
+  Room rates: <span itemprop="priceRange">$100 - $240</span>
+</div>
+
+RDFA:
+<div vocab="http://schema.org/" typeof="Hotel">
+  <h1><span property="name">ACME Hotel Innsbruck</span></h1>
+  <span property="description">A beautifully located business hotel right in the
+heart of the alps. Watch the sun rise over the scenic Inn valley while
+enjoying your morning coffee.</span>
+  <div property="address" typeof="PostalAddress">
+    <span property="streetAddress">Technikerstrasse 21</span>
+    <span property="postalCode">6020</span>
+	<span property="addressLocality">Innsbruck</span>
+    <span property="addressRegion">Tyrol</span>,
+	<span property="addressCountry">Austria</span>
+  </div>
+  Phone: <span property="telephone">+43 512 8000-0</span>
+  <img property="photo" src="../media/hotel_front.png" alt="Front view of the hotel" />
+  Star rating: <meta property="starRating" content="4">****
+  Room rates: <span property="priceRange">$100 - $240</span>
+</div>
+
+JSON:
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Hotel",
+  "name" : "ACME Hotel Innsbruck",
+  "description" : "A beautifully located business hotel right in the
+heart of the alps. Watch the sun rise over the scenic Inn valley while
+enjoying your morning coffee.",
+  "address" : { "@type" : "PostalAddress",
+               "addressCountry" : "AT",
+               "addressLocality" : "Innsbruck",
+               "addressRegion" : "Tyrol",
+               "postalCode" : "6020",
+               "streetAddress" : "Technikerstrasse 21"
+               },
+  "telephone" :  "+43 512 8000-0",
+  "photo" : "http://www.acme-innsbruck.at//media/hotel_front.png",
+  "starRating" : "4",
+  "priceRange" : "$100 - $240"
+}
+</script>
+
+TYPES: HotelRoom, Hotel
+
+PRE-MARKUP:
 tbd
 
 MICRODATA:
@@ -40,7 +120,10 @@ full bathroom with tub, shower and toilet</span>
   </div>
 </div>
 
+RDFA:
+tbd
 
+JSON:
 <script type="application/ld+json">
 {
   "@context": "http://schema.org",
@@ -87,51 +170,6 @@ full bathroom with tub, shower and toilet</span>
   "validThrough" : "2015-08-31"
 }
 </script>
-
-
- "@context": "http://schema.org",
- "@type": "Hotel",
- "name" : "",
- "description" : "",
- "url" : "http://www.acme-innsbruck.at",
- "address" : { "@type" : "PostalAddress",
-               "addressCountry" : "AT",
-               "addressLocality" : "Innsbruck",
-               "addressRegion" : "Tyrol",
-               "postalCode" : "6020",
-               "streetAddress" : "Technikerstrasse 21"
-               },
- "photo" : "http://www.acme-innsbruck.at/photo1.png",
-}
-
-
-RDFA:
-
-tbd
-
-JSON:
-
-JSON:
-<script type="application/ld+json">
-{
- "@context": "http://schema.org",
- "@type": "Hotel",
- "name" : "ACME Hotel Innsbruck",
- "description" : "A beautifully located business hotel right in the
-heart of the alps. Watch the sun rise over the scenic Inn valley while
-enjoying your morning coffee.",
- "url" : "http://www.acme-innsbruck.at",
- "address" : { "@type" : "PostalAddress",
-               "addressCountry" : "AT",
-               "addressLocality" : "Innsbruck",
-               "addressRegion" : "Tyrol",
-               "postalCode" : "6020",
-               "streetAddress" : "Technikerstrasse 21"
-               },
- "photo" : "http://www.acme-innsbruck.at/photo1.png",
-}
-</script>
-
 
 TYPES: Hotel
 
