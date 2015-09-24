@@ -939,7 +939,12 @@ class ShowUnit (webapp2.RequestHandler):
 
         * entry = name of the class or property
         """
-        entry = node.id
+        anode = True
+        if isinstance(node, str):
+            entry = node
+            anode = False
+        else:
+            entry = node.id
 
         rdfs_type = 'rdfs:Property'
         if is_class:
@@ -952,7 +957,10 @@ class ShowUnit (webapp2.RequestHandler):
             self.response.out.write( gtp )
             log.debug("Served recycled genericTermPageHeader.tpl for %s" % generated_page_id )
         else:
-            desc = self.getMetaDescription(node, layers=layers, lengthHint=200)
+
+            desc = entry
+            if anode:
+                desc = self.getMetaDescription(node, layers=layers, lengthHint=200)
 
             template = JINJA_ENVIRONMENT.get_template('genericTermPageHeader.tpl')
             template_values = {
