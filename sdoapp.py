@@ -28,6 +28,10 @@ logging.basicConfig(level=logging.INFO) # dev_appserver.py --log_level debug .
 log = logging.getLogger(__name__)
 
 SCHEMA_VERSION=2.2
+
+FEEDBACK_FORM_BASE_URL='https://docs.google.com/a/google.com/forms/d/1krxHlWJAO3JgvHRZV9Rugkr9VYnMdrI10xbGsWt733c/viewform?entry.1174568178&entry.41124795={0}&entry.882602760={1}'
+# {0}: term URL, {1} category of term.
+
 sitemode = "mainsite" # whitespaced list for CSS tags,
             # e.g. "mainsite testsite" when off expected domains
             # "extensionsite" when in an extension (e.g. blue?)
@@ -308,9 +312,25 @@ class ShowUnit (webapp2.RequestHandler):
         mappings = ["No recorded schema mappings."]
         items = bugs + mappings
 
+        nodetype="Misc"
+
+        if node.isEnumeration():
+            nodetype = "enumeration"
+        elif node.isDataType(layers=layer):
+            nodetype = "datatype"
+        elif node.isClass(layers=layer):
+            nodetype = "type"
+        elif node.isAttribute(layers=layer):
+            nodetype = "property"
+        elif node.isEnumerationValue(layers=layer):
+            nodetype = "enumeratedvalue"
+
+        feedback_url = FEEDBACK_FORM_BASE_URL.format("http://schema.org/{0}".format(node.id), nodetype)
         items = [
 
-         "<a href='https://github.com/schemaorg/schemaorg/issues?q=is%3Aissue+is%3Aopen+{0}'>Check for open issues.</a>".format(node.id)
+        "<a href='{0}'>Leave public feedback on this term &#128172;</a>".format(feedback_url),
+        "<a href='https://github.com/schemaorg/schemaorg/issues?q=is%3Aissue+is%3Aopen+{0}'>Check for open issues.</a>".format(node.id)
+
         ]
 
         for l in all_terms[node.id]:
@@ -941,6 +961,7 @@ class ShowUnit (webapp2.RequestHandler):
             self.response.out.write( gtp )
             log.debug("Served recycled genericTermPageHeader.tpl for %s" % generated_page_id )
         else:
+
             desc = entry
             if anode:
                 desc = self.getMetaDescription(node, layers=layers, lengthHint=200)
