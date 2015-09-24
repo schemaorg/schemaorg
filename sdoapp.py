@@ -27,7 +27,7 @@ from api import GetJsonLdContext, ShortenOnSentence, StripHtmlTags
 logging.basicConfig(level=logging.INFO) # dev_appserver.py --log_level debug .
 log = logging.getLogger(__name__)
 
-SCHEMA_VERSION=2.1
+SCHEMA_VERSION=2.2
 sitemode = "mainsite" # whitespaced list for CSS tags,
             # e.g. "mainsite testsite" when off expected domains
             # "extensionsite" when in an extension (e.g. blue?)
