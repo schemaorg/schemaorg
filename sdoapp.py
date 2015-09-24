@@ -458,27 +458,31 @@ class ShowUnit (webapp2.RequestHandler):
 
         enuma = node.isEnumerationValue(layers=layers)
 
-        self.write("<h4>")
-        rowcount = 0
+        crumbsout = []
         for row in range(len(self.crumbStacks)):
+           thisrow = ""
            if(":" in self.crumbStacks[row][len(self.crumbStacks[row])-1].id):
                 continue
            count = 0
-           if rowcount > 0:
-               self.write("<br/>")
-           self.write("<span class='breadcrumbs'>")
            while(len(self.crumbStacks[row]) > 0):
                 n = self.crumbStacks[row].pop()
                 if(count > 0):
                     if((len(self.crumbStacks[row]) == 0) and enuma):
-                        self.write(" :: ")
+                        thisrow += " :: "
                     else:
-                        self.write(" &gt; ")
+                        thisrow += " &gt; "
                 elif n.id == "Class": # If Class is first breadcrum suppress it
                         continue
                 count += 1
-                self.write("%s" % (self.ml(n)))
-           self.write("</span>\n")
+                thisrow += "%s" % (self.ml(n))
+           crumbsout.append(thisrow)
+        
+        self.write("<h4>")
+        rowcount = 0
+        for crumb in sorted(crumbsout):
+           if rowcount > 0:
+               self.write("<br/>")
+           self.write("<span class='breadcrumbs'>%s</span>\n" % crumb)
            rowcount += 1
         self.write("</h4>\n")
 
