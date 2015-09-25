@@ -1,0 +1,232 @@
+TYPES: #offer-1 Offer, offeredBy, Book
+
+PRE-MARKUP:
+
+<!-- Uses both the "Book" and "Product" item types to support Offer relationships -->
+
+ <div>
+   <h3>Le concerto</h3>
+   <table summary="Bibliographic Details">
+     <tr>
+       <th>Main Author: </th>
+       <td>Ferchault, Guy</td>
+     </tr>
+   </table>
+ </div>
+
+ <table summary="Holdings details from Anytown City Library">
+   <!-- Example of a copy available for loan -->
+   <tr>
+     <th>Copy </th>
+     <td>Available
+       <div>Barcode: <span>CONC91000937</span></div>
+       <div>Call number: <span>780 R2</span></div>
+       <div>Library: <span>Anytown City Library</span></div>
+     </td>
+   </tr>
+ <table>
+
+MICRODATA:
+
+ <!-- Uses both the "Book" and "Product" item types to support Offer relationships -->
+
+ <div itemscope itemtype="http://schema.org/Book" itemid="#record">
+   <link itemprop="additionalType" href="http://schema.org/Product"/>
+   <h3 itemprop="name">Le concerto</h3>
+   <table summary="Bibliographic Details">
+     <tr>
+       <th>Main Author: </th>
+       <td itemprop="author">Ferchault, Guy</td>
+     </tr>
+   </table>
+ </div>
+
+ <table summary="Holdings details from Anytown City Library">
+   <!-- Example of a copy available for loan -->
+   <tr itemscope itemtype="http://schema.org/Offer">
+     <th>Copy </th>
+     <td>Available
+       <link itemprop="availability" href="http://schema.org/InStock">
+       <div>Barcode: <span itemprop="serialNumber">CONC91000937</span></div>
+       <div>Call number: <span itemprop="sku">780 R2</span></div>
+       <div>Library: <span itemprop="offeredBy" itemtype="http://schema.org/Library" itemid="http://library.anytown.gov.uk" >Anytown City Library</span></div>
+       <link itemprop="businessFunction" href="http://purl.org/goodrelations/v1#LeaseOut">
+       <link itemprop="itemOffered" href="#record">
+     </td>
+   </tr>
+ <table>
+
+RDFA:
+
+ <!-- Uses both the "Book" and "Product" item types to support Offer relationships -->
+ <div vocab="http://schema.org/" resource="#record" typeof="Book Product">
+   <h3 property="name">Le concerto</h3>
+   <table summary="Bibliographic Details">
+     <tr>
+       <th>Main Author: </th>
+       <td property="author">Ferchault, Guy</td>
+     </tr>
+   </table>
+ </div>
+
+ <table vocab="http://schema.org/" summary="Holdings details from Anytown City Library">
+   <!-- Example of a copy available for loan -->
+   <tr typeof="Offer">
+     <th>Copy </th>
+     <td>Available
+       <link property="availability" href="http://schema.org/InStock">
+       <div>Barcode: <span property="serialNumber">CONC91000937</span></div>
+       <div>Call number: <span property="sku">780 R2</span></div>
+       <div>Library: <span property="offeredBy" typeof="Library" resource="http://library.anytown.gov.uk" >Anytown City Library</span></div>
+       <link property="businessFunction" href="http://purl.org/goodrelations/v1#LeaseOut">
+       <link property="itemOffered" href="#record">
+     </td>
+   </tr>
+ <table>
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": {
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "rdfa": "http://www.w3.org/ns/rdfa#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "schema": "http://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#"
+  },
+  "@graph": [
+    {
+      "@id": "#record",
+      "@type": ["schema:Book","schema:Product"],
+      "schema:name": "Le concerto",
+      "schema:author": "Ferchault, Guy"
+    },
+    {
+      "@type": "schema:Offer",
+      "schema:availability": "http://schema.org/InStock",
+      "schema:serialNumber": "CONC91000937",
+      "schema:sku": "780 R2",
+      "schema:offeredBy": {
+          "@type": "schema:Library",
+          "@id": "http://library.anytown.gov.uk",
+          "schema:name": "Anytown City Library"
+      },
+      "schema:businessFunction": "http://purl.org/goodrelations/v1#LeaseOut",
+      "schema:itemOffered": "#record"
+    }
+]
+}
+</script>
+
+TYPES: #offer-2 Offer, makesOffer
+
+PRE-MARKUP:
+<body>
+  <main>
+    <article>
+      <h1>
+         <a href="http://www.example.com/explosive-tennis-balls">Explosive tennis balls</a>
+      </h1>     
+      <img alt="Explosive tennis balls" title src="http://www.example.com/explosive-tennis-balls.jpg" />
+      <p >
+        $29.99 - In stock
+      </p>
+      <p >
+        Tickle your friends!<br />
+        Surprise your opponent!
+      <p>
+    </article>
+  </main>
+  <footer>
+    <p>
+      © <span>2015</span> - <span property="name">Acme Inc</span>
+    </p>
+    <ul>
+      <li><a href="https://twitter.com/AcmeInc">Twitter</a></li>
+      <li><a href="https://www.facebook.com/AcmeInc">Facebook</a></li>
+      <li><a href="https://plus.google.com/u/0/+AcmeInc/">Google+</a></li>
+    </ul>
+  </footer>
+</body>
+
+MICRODATA:
+<!— No Microdata Example —>
+RDFA:
+
+<body vocab="http://schema.org/" resource="http://www.example.com/explosive-tennis-balls" typeof="ItemPage">
+  <link property="copyrightHolder publisher" href="#Organization" />
+  <main>
+    <article resource="#Product" property="mainEntity" typeof="Product">
+      <h1 property="name">
+         <a property="url" href="http://www.example.com/explosive-tennis-balls">Explosive tennis balls</a>
+      </h1>     
+      <img property="image" alt="Explosive tennis balls" title src="http://www.example.com/explosive-tennis-balls.jpg" />
+      <p resource="#Offer" property="offers" typeof="Offer">
+        <meta property="priceCurrency" content="USD" />
+        <meta property="price" content="1000.00" />
+        <link property="availability" href="InStock" />
+        <link property="itemOffered" href="#Product" />
+        <link property="businessFunction" href="http://purl.org/goodrelations/v1#Sell" />
+        <link rev="makesOffer" href="#Organization" />
+        $29.99 - In stock
+      </p>
+      <p property="description">
+        Tickle your friends!<br />
+        Surprise your opponent!
+      <p>
+    </article>
+  </main>
+  <footer>
+    <p resource="#Organization" typeof="Organization">
+      © <span resource="#CopyrightYear" typeof="rdfa:Pattern">2015</span> - <span property="name">Acme Inc</span>
+      <link property="logo" href="http://www.example.com/acme-inc-logo.jpg" />
+      <link property="url" href="http://www.example.com" />
+      <link property="rdfa:copy" href="#SameAsResource"/>
+    </p>
+    <ul resource="#SameAsResource" typeof="rdfa:Pattern">
+      <li><a property="sameAs" href="https://twitter.com/AcmeInc">Twitter</a></li>
+      <li><a property="sameAs" href="https://www.facebook.com/AcmeInc">Facebook</a></li>
+      <li><a property="sameAs" href="https://plus.google.com/u/0/+AcmeInc/">Google+</a></li>
+    </ul>
+  </footer>
+</body>
+
+JSON:
+<script type="application/ld+json">
+{
+  "@context":"http://schema.org",
+  "@id":"http://www.example.com/explosive-tennis-balls",
+  "@type":"ItemPage",
+  "copyrightYear":"2015",
+  "copyrightHolder":{"@id":"#Organization"},
+  "publisher":{"@id":"#Organization"},
+  "mainEntity":{
+    "@id":"#Product",
+    "@type":"Product",
+    "name":"Explosive tennis balls",
+    "description":"Tickle your friends! Surprise your opponent!",
+    "image":"http://www.example.com/explosive-tennis-balls.jpg",
+    "url":"http://www.example.com/explosive-tennis-balls",
+    "offers":{
+      "@id":"#Offer",
+      "@type":"Offer",
+      "priceCurrency":"USD",
+      "price":"1000.00",
+      "availability":"http://schema.org/InStock",
+      "itemOffered":{"@id":"#Product"},
+      "businessFunction":"http://purl.org/goodrelations/v1#Sell",
+      "@reverse":{
+        "makesOffer":{
+          "@id":"#Organization",
+          "@type":"Organization",
+          "name":"Acme Inc",
+          "logo":"http://www.example.com/acme-inc-logo.jpg",
+          "url":"http://www.example.com/",
+          "sameAs":["https://twitter.com/AcmeInc","https://www.facebook.com/AcmeInc","https://plus.google.com/u/0/+AcmeInc/"]
+        }
+      }      
+    }
+  }
+}
+</script>
