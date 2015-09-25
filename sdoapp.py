@@ -335,12 +335,16 @@ class ShowUnit (webapp2.RequestHandler):
 
         for l in all_terms[node.id]:
             l = l.replace("#","")
+            if l == "core":
+                ext = ""
+            else:
+                ext = "extension "
             if ENABLE_HOSTED_EXTENSIONS:
-                items.append("'{0}' is mentioned in extension layer: <a href='{1}'>{2}</a>".format( node.id, makeUrl(l,node.id), l ))
+                items.append("'{0}' is mentioned in {1}layer: <a href='{2}'>{3}</a>".format( node.id, ext, makeUrl(l,node.id), l ))
 
         moreinfo = """<div>
-        <div id='infobox' style='text-align: right;'><b><span style="cursor: pointer;">[more...]</span></b></div>
-        <div id='infomsg' style='display: none; background-color: #EEEEEE; text-align: left; padding: 0.5em;'>
+        <div id='infobox' style='text-align: right;'><label role="checkbox" for=morecheck><b><span style="cursor: pointer;">[more...]</span></b></label></div>
+        <input type='checkbox' checked="checked" style='display: none' id=morecheck><div id='infomsg' style='background-color: #EEEEEE; text-align: left; padding: 0.5em;'>
         <ul>"""
 
         for i in items:
@@ -349,20 +353,7 @@ class ShowUnit (webapp2.RequestHandler):
 #          <li>mappings to other terms.</li>
 #          <li>or links to open issues.</li>
 
-        moreinfo += """</ul>
-          </div>
-        </div>
-        <script type="text/javascript">
-        $("#infobox").click(function(x) {
-            element = $("#infomsg");
-            if (! $(element).is(":visible")) {
-                $("#infomsg").show(300);
-            } else {
-                $("#infomsg").hide(300);
-
-            }
-        });
-</script>"""
+        moreinfo += "</ul>\n</div>\n</div>\n"
         return moreinfo
 
     def GetParentStack(self, node, layers='core'):
