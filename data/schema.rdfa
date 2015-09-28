@@ -4762,7 +4762,7 @@
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Organization">Organization</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Place">Place</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Person">Person</a></span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/GeoShape">GeoShape</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/GeoCoordinates">GeoCoordinates</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/PostalAddress">PostalAddress</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/addressCountry">
@@ -4955,6 +4955,7 @@
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Place">Place</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/areaServed">
+      <link property="http://schema.org/supersededBy" href="http://schema.org/serviceArea"/>
       <span class="h" property="rdfs:label">areaServed</span>
       <span property="rdfs:comment">The location served by this contact point (e.g., a phone number intended for Europeans vs. North Americans or only within the United States).</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ContactPoint">ContactPoint</a></span>
@@ -8911,6 +8912,7 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
       <span property="rdfs:comment">The geographic area where the service is provided.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Service">Service</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Organization">Organization</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ContactPoint">ContactPoint</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Place">Place</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/GeoShape">GeoShape</a></span>
     </div>
