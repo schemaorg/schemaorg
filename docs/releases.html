@@ -141,9 +141,17 @@ td.release  {
 
 <h3>Vocabulary</h3>
 <ul>
-  <li class="needsreview" id="service-property-fixes"><a href="https://github.com/schemaorg/schemaorg/issues/801">Fix to #801</a>:
+  <li class="needsreview" id="service-usability-fixes"><a href="https://github.com/schemaorg/schemaorg/issues/801">Fix to #801</a>:
 Broadened <a href="/award">award</a>, <a href="/category">category</a>, <a href="/offers">offers</a> to be applicable on <a href="/Service">Service</a>.
 Extended <a href="/itemOffered">itemOffered</a> to expect <a href="/Service">Service</a> as a possible value.
+Added <a href="/LegalService">LegalService</a> as a supertype for <a href="/Notary">Notary</a>, <a href="/Attorney">Attorney</a>.
+A cluster of construction-related local businesses
+formerly treated as <a href="/ProfessionalService">ProfessionalService</a> continue as <a href="/HomeAndConstructionBusiness">HomeAndConstructionBusiness</a> subtypes.
+Marked <a href="/ProfessionalService">ProfessionalService</a> as deprecated, with some explanation, and added a brief account of
+the relationship with <a href="/Service">Service</a> to some of the more service-oriented local business types
+e.g. <a href="/LegalService">LegalService</a>, <a href="/HomeAndConstructionBusiness">HomeAndConstructionBusiness</a>.
+Marked <a href="/Attorney">Attorney</a> as deprecated in favor of <a href="/LegalService">LegalService</a>
+per <a href="https://github.com/schemaorg/schemaorg/issues/784">#784</a>.
 </li>
   <li id="areaServed-fixes" class="needsreview"><a href="https://github.com/schemaorg/schemaorg/issues/411">Fix to #411</a>
     Clarification and cleanup around <a href="/areaServed">areaServed</a>, now marked as a super-property of

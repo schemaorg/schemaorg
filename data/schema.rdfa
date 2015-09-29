@@ -83,15 +83,48 @@
 
     <div typeof="rdfs:Class" resource="http://schema.org/ProfessionalService">
       <span class="h" property="rdfs:label">ProfessionalService</span>
-      <span property="rdfs:comment">Provider of professional services.</span>
+      <span property="rdfs:comment">Original definition: "provider of professional services."
+        &lt;br&gt;&lt;br&gt;
+        The general &lt;a href=&quot;/ProfessionalService&quot;&gt;ProfessionalService&lt;/a&gt; type
+        for local businesses was deprecated due to confusion with &lt;a href=&quot;/Service&quot;&gt;Service&lt;/a&gt;.
+        For reference, the types that it included were: &lt;a href=&quot;/Dentist&quot;&gt;Dentist&lt;/a&gt;,
+        &lt;a href=&quot;/AccountingService&quot;&gt;AccountingService&lt;/a&gt;,
+        &lt;a href=&quot;/Attorney&quot;&gt;Attorney&lt;/a&gt;,
+        &lt;a href=&quot;/Notary&quot;&gt;Notary&lt;/a&gt;, as well as types for several kinds of
+        &lt;a href=&quot;/HomeAndConstructionBusiness&quot;&gt;HomeAndConstructionBusiness&lt;/a&gt;:
+        &lt;a href=&quot;/Electrician&quot;&gt;Electrician&lt;/a&gt;,
+        &lt;a href=&quot;/GeneralContractor&quot;&gt;GeneralContractor&lt;/a&gt;,
+        &lt;a href=&quot;/HousePainter&quot;&gt;HousePainter&lt;/a&gt;,
+        &lt;a href=&quot;/Locksmith&quot;&gt;Locksmith&lt;/a&gt;,
+        &lt;a href=&quot;/Plumber&quot;&gt;Plumber&lt;/a&gt;,
+        &lt;a href=&quot;/Plumber&quot;&gt;RoofingContractor&lt;/a&gt;.
+        &lt;a href=&quot;/LegalBusiness&quot;&gt;LegalBusiness&lt;/a&gt; was introduced as a more
+        inclusive supertype of &lt;a href=&quot;/Attorney&quot;&gt;Attorney&lt;/a&gt;.
+
+      </span>
+       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/LocalBusiness">LocalBusiness</a></span>
+    </div>
+
+    <div typeof="rdfs:Class" resource="http://schema.org/LegalService">
+      <span class="h" property="rdfs:label">LegalService</span>
+      <span property="rdfs:comment">A LegalService is a business that provides legally-oriented services, advice and representation, e.g. law firms.
+        &lt;br&gt;&lt;br&gt;
+        As a &lt;a href=&quot;/LocalBusiness&quot;&gt;LocalBusiness&lt;/a&gt; it can be
+        described as a &lt;a href=&quot;/provider&quot;&gt;provider&lt;/a&gt; of one or more
+        &lt;a href=&quot;/Service&quot;&gt;Service(s)&lt;/a&gt;.
+      </span>
        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/LocalBusiness">LocalBusiness</a></span>
     </div>
 
     <div typeof="rdfs:Class" resource="http://schema.org/AccountingService">
       <span class="h" property="rdfs:label">AccountingService</span>
-      <span property="rdfs:comment">Accountancy business.</span>
+      <span property="rdfs:comment">Accountancy business.
+        &lt;br&gt;&lt;br&gt;
+        As a &lt;a href=&quot;/LocalBusiness&quot;&gt;LocalBusiness&lt;/a&gt; it can be
+        described as a &lt;a href=&quot;/provider&quot;&gt;provider&lt;/a&gt; of one or more
+        &lt;a href=&quot;/Service&quot;&gt;Service(s)&lt;/a&gt;.
+      </span>
        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/FinancialService">FinancialService</a></span>
-       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/ProfessionalService">ProfessionalService</a></span>
     </div>
 
     <div typeof="rdfs:Class" resource="http://schema.org/AdministrativeArea">
@@ -254,8 +287,11 @@
 
     <div typeof="rdfs:Class" resource="http://schema.org/Attorney">
       <span class="h" property="rdfs:label">Attorney</span>
-      <span property="rdfs:comment">Professional service: Attorney.</span>
-       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/ProfessionalService">ProfessionalService</a></span>
+      <span property="rdfs:comment">Professional service: Attorney. &lt;br&gt;&lt;br&gt;
+        This type is deprecated - &lt;a href=&quot;/LegalService&quot;&gt;LegalService&lt;/a&gt; is more inclusive and less ambiguous.
+
+      </span>
+       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/LegalService">LegalService</a></span>
     </div>
 
     <div typeof="rdfs:Class" resource="http://schema.org/Audience">
@@ -810,7 +846,6 @@
       <span class="h" property="rdfs:label">Dentist</span>
       <span property="rdfs:comment">A dentist.</span>
        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MedicalOrganization">MedicalOrganization</a></span>
-       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/ProfessionalService">ProfessionalService</a></span>
     </div>
 
     <div typeof="rdfs:Class" resource="http://schema.org/DepartmentStore">
@@ -1014,7 +1049,14 @@
 
     <div typeof="rdfs:Class" resource="http://schema.org/HomeAndConstructionBusiness">
       <span class="h" property="rdfs:label">HomeAndConstructionBusiness</span>
-      <span property="rdfs:comment">A construction business.</span>
+      <span property="rdfs:comment">A construction business.
+        &lt;br&gt;&lt;br&gt;
+        A HomeAndConstructionBusiness is a LocalBusiness that provides services around homes and buildings.
+          &lt;br&gt;&lt;br&gt;
+          As a &lt;a href=&quot;/LocalBusiness&quot;&gt;LocalBusiness&lt;/a&gt; it can be
+          described as a &lt;a href=&quot;/provider&quot;&gt;provider&lt;/a&gt; of one or more
+          &lt;a href=&quot;/Service&quot;&gt;Service(s)&lt;/a&gt;.
+      </span>
        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/LocalBusiness">LocalBusiness</a></span>
     </div>
 
@@ -1022,7 +1064,6 @@
       <span class="h" property="rdfs:label">Electrician</span>
       <span property="rdfs:comment">An electrician.</span>
        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/HomeAndConstructionBusiness">HomeAndConstructionBusiness</a></span>
-       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/ProfessionalService">ProfessionalService</a></span>
     </div>
 
     <div typeof="rdfs:Class" resource="http://schema.org/ElectronicsStore">
@@ -1156,7 +1197,6 @@
       <span class="h" property="rdfs:label">GeneralContractor</span>
       <span property="rdfs:comment">A general contractor.</span>
        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/HomeAndConstructionBusiness">HomeAndConstructionBusiness</a></span>
-       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/ProfessionalService">ProfessionalService</a></span>
     </div>
 
     <div typeof="rdfs:Class" resource="http://schema.org/GeoCoordinates">
@@ -1268,7 +1308,6 @@
       <span class="h" property="rdfs:label">HousePainter</span>
       <span property="rdfs:comment">A house painting service.</span>
        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/HomeAndConstructionBusiness">HomeAndConstructionBusiness</a></span>
-       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/ProfessionalService">ProfessionalService</a></span>
     </div>
 
     <div typeof="rdfs:Class" resource="http://schema.org/IceCreamShop">
@@ -1507,7 +1546,6 @@
       <span class="h" property="rdfs:label">Locksmith</span>
       <span property="rdfs:comment">A locksmith.</span>
        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/HomeAndConstructionBusiness">HomeAndConstructionBusiness</a></span>
-       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/ProfessionalService">ProfessionalService</a></span>
     </div>
 
     <div typeof="rdfs:Class" resource="http://schema.org/LymphaticVessel">
@@ -2422,7 +2460,7 @@
     <div typeof="rdfs:Class" resource="http://schema.org/Notary">
       <span class="h" property="rdfs:label">Notary</span>
       <span property="rdfs:comment">A notary.</span>
-       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/ProfessionalService">ProfessionalService</a></span>
+       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/LegalService">LegalService</a></span>
     </div>
 
     <div typeof="rdfs:Class" resource="http://schema.org/NutritionInformation">
@@ -2696,7 +2734,6 @@
       <span class="h" property="rdfs:label">Plumber</span>
       <span property="rdfs:comment">A plumbing service.</span>
        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/HomeAndConstructionBusiness">HomeAndConstructionBusiness</a></span>
-       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/ProfessionalService">ProfessionalService</a></span>
     </div>
 
     <div typeof="rdfs:Class" resource="http://schema.org/PoliceStation">
@@ -2836,7 +2873,6 @@
       <span class="h" property="rdfs:label">RoofingContractor</span>
       <span property="rdfs:comment">A roofing contractor.</span>
        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/HomeAndConstructionBusiness">HomeAndConstructionBusiness</a></span>
-       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/ProfessionalService">ProfessionalService</a></span>
     </div>
 
     <div typeof="rdfs:Class" resource="http://schema.org/SaleEvent">
