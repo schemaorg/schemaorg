@@ -96,7 +96,7 @@
 
     <div typeof="rdfs:Class" resource="http://schema.org/AdministrativeArea">
       <span class="h" property="rdfs:label">AdministrativeArea</span>
-      <span property="rdfs:comment">A geographical region under the jurisdiction of a particular government.</span>
+      <span property="rdfs:comment">A geographical region, typically under the jurisdiction of a particular government.</span>
        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Place">Place</a></span>
     </div>
 
@@ -4956,11 +4956,18 @@
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Place">Place</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/areaServed">
-      <link property="http://schema.org/supersededBy" href="http://schema.org/serviceArea"/>
       <span class="h" property="rdfs:label">areaServed</span>
-      <span property="rdfs:comment">The location served by this contact point (e.g., a phone number intended for Europeans vs. North Americans or only within the United States).</span>
+      <span property="rdfs:comment">The geographic area where a service or offered item is provided.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Service">Service</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Organization">Organization</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ContactPoint">ContactPoint</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Demand">Demand</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Offer">Offer</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/DeliveryChargeSpecification">DeliveryChargeSpecification</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Place">Place</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/AdministrativeArea">AdministrativeArea</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/GeoShape">GeoShape</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/arterialBranch">
       <span class="h" property="rdfs:label">arterialBranch</span>
@@ -5107,6 +5114,7 @@
     <div typeof="rdf:Property" resource="http://schema.org/availableAtOrFrom">
       <span class="h" property="rdfs:label">availableAtOrFrom</span>
       <span property="rdfs:comment">The place(s) from which the offer can be obtained (e.g. store locations).</span>
+      <link property="rdfs:subPropertyOf" href="http://schema.org/areaServed" />
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Offer">Offer</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Demand">Demand</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Place">Place</a></span>
@@ -6250,6 +6258,7 @@
     <div typeof="rdf:Property" resource="http://schema.org/eligibleRegion">
       <span class="h" property="rdfs:label">eligibleRegion</span>
       <span property="rdfs:comment">The ISO 3166-1 (ISO 3166-1 alpha-2) or ISO 3166-2 code, the place, or the GeoShape for the geo-political region(s) for which the offer or delivery charge specification is valid.</span>
+      <link property="rdfs:subPropertyOf" href="http://schema.org/areaServed" />
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Offer">Offer</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/DeliveryChargeSpecification">DeliveryChargeSpecification</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Demand">Demand</a></span>
@@ -8911,10 +8920,12 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
     <div typeof="rdf:Property" resource="http://schema.org/serviceArea">
       <span class="h" property="rdfs:label">serviceArea</span>
       <span property="rdfs:comment">The geographic area where the service is provided.</span>
+      <link property="http://schema.org/supersededBy" href="http://schema.org/areaServed"/>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Service">Service</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Organization">Organization</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ContactPoint">ContactPoint</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Place">Place</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/AdministrativeArea">AdministrativeArea</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/GeoShape">GeoShape</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/serviceAudience">

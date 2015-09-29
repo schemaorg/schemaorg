@@ -141,10 +141,14 @@ td.release  {
 
 <h3>Vocabulary</h3>
 <ul>
-<li class="needsreview"><a href="https://github.com/schemaorg/schemaorg/issues/808">Fix to #808</a>: The <a href="/address">address</a> property now anticipates <a href="/Text">Text</a> values, to support unstructured address data.</li>
-<li class="needsreview"><a href="https://github.com/schemaorg/schemaorg/issues/803">Fix to #803</a>: The <a href="/ContactPoint">ContactPoint</a>-specific <a href="/areaServed">areaServed</a> property is supersededBy <a href="/serviceArea">serviceArea</a>, which can now be used on <a href="/ContactPoint">ContactPoint</a>.</li>
-<li class="needsreview"><a href="https://github.com/schemaorg/schemaorg/issues/802">Fix to #802</a>: Referenced <a href="https://en.wikipedia.org/wiki/World_Geodetic_System">World Geotic System</a> from <a href="/GeoCoordinates">GeoCoordinates</a> properties (<a href="/elevation">elevation</a>, <a href="/longitude">longitude</a>, <a href="/latitude">latitude</a>); made <a href="/address">address</a> an expected property for <a href="/GeoCoordinates">GeoCoordinates</a>.</li>
-<li class="needsreview"><a href="https://github.com/schemaorg/schemaorg/issues/411">Fix to #411</a> Broadened <a href="/serviceArea">serviceArea</a>: expected on <a href="/Organization">Organization</a>, and expects both <a href="/Place">Place</a> and <a href="/GeoShape">GeoShape</a> (rather than just <a href="/AdministrativeArea">AdministrativeArea</a>).</li>
+  <li id="areaServed-fixes" class="needsreview"><a href="https://github.com/schemaorg/schemaorg/issues/411">Fix to #411</a>
+    Clarification and cleanup around <a href="/areaServed">areaServed</a>, now marked as a super-property of
+    the more specific <a href="/eligibleRegion">eligibleRegion</a> and <a href="/availableAtOrFrom">availableAtOrFrom</a> properties.
+    Marked <a href="/serviceArea">serviceArea</a> as supersededBy <a href="/areaServed">areaServed. Updated the associated
+    types for <a href="/areaServed">areaServed</a> to cover those used by its sub-properties.
+  </li>
+<li class="needsreview" id="address-fixes"><a href="https://github.com/schemaorg/schemaorg/issues/808">Fix to #808</a>: The <a href="/address">address</a> property now anticipates <a href="/Text">Text</a> values, to support unstructured address data.</li>
+<li class="needsreview"><a href="https://github.com/schemaorg/schemaorg/issues/802">Fix to #802</a>: Referenced <a href="https://en.wikipedia.org/wiki/World_Geodetic_System">World Geotic System</a> from <a href="/GeoCoordinates">GeoCoordinates</a> properties (<a href="/elevation">elevation</a>, <a href="/longitude">longitude</a>, <a href="/latitude">latitude</a>); made <a href="/address">address</a> an expected property for <a href="/GeoCoordinates">GeoCoordinates</a> and <a href="/GeoShape">GeoShape</a>.</li>
 <li class="queued"><a href="https://github.com/schemaorg/schemaorg/issues/791">Fix to #791</a> Added <a href="/branchCode">branchCode</a> to represent codes identifying stores and other business locations.</li>
 <li class="queued"><a href="https://github.com/schemaorg/schemaorg/issues/790">Fix to #790</a> Broadened <a href="/fileFormat">fileFormat</a> to be usable with CreativeWork, and improved the description.</li>
 <li class="queued"><a href="https://github.com/schemaorg/schemaorg/issues/687">Fix to #687</a>: Added <a href="/Barcode">Barcode</a> as a subtype of ImageObject.</li>
