@@ -5704,9 +5704,26 @@
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ContactPoint">ContactPoint</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
     </div>
+    <div typeof="rdf:Property" resource="http://schema.org/containedInPlace">
+      <span class="h" property="rdfs:label">containedInPlace</span>
+      <span property="rdfs:comment">The basic containment relation between a place and one that contains it.</span>
+      <link property="http://schema.org/inverseOf" href="http://schema.org/containsPlace"/>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Place">Place</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Place">Place</a></span>
+    </div>
+
+    <div typeof="rdf:Property" resource="http://schema.org/containsPlace">
+      <span class="h" property="rdfs:label">containsPlace</span>
+      <span property="rdfs:comment">The basic containment relation between a place and another that it contains.</span>
+      <link property="http://schema.org/inverseOf" href="http://schema.org/containsPlace"/>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Place">Place</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Place">Place</a></span>
+    </div>
+
     <div typeof="rdf:Property" resource="http://schema.org/containedIn">
       <span class="h" property="rdfs:label">containedIn</span>
-      <span property="rdfs:comment">The basic containment relation between places.</span>
+      <span property="rdfs:comment">The basic containment relation between a place and one that contains it.</span>
+      <link property="http://schema.org/supersededBy" href="http://schema.org/containedInPlace"/>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Place">Place</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Place">Place</a></span>
     </div>
