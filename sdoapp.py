@@ -1090,9 +1090,7 @@ class ShowUnit (webapp2.RequestHandler):
                 extbuff.close()
 
         if (node.isEnumeration(layers=layers)):
-
-            self.write(self.moreInfoBlock(node))
-
+            
             children = sorted(GetSources(Unit.GetUnit("typeOf"), node, ALL_LAYERS), key=lambda u: u.id)
             if (len(children) > 0):
                 buff = StringIO.StringIO()
