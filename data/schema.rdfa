@@ -7455,9 +7455,18 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
     <div typeof="rdf:Property" resource="http://schema.org/makesOffer">
       <span class="h" property="rdfs:label">makesOffer</span>
       <span property="rdfs:comment">A pointer to products or services offered by the organization or person.</span>
+      <link property="http://schema.org/inverseOf" href="http://schema.org/offeredBy"/>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Organization">Organization</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Person">Person</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Offer">Offer</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/offeredBy">
+      <span class="h" property="rdfs:label">offeredBy</span>
+      <span property="rdfs:comment">A pointer to the organization or person making the offer.</span>
+      <link property="http://schema.org/inverseOf" href="http://schema.org/makesOffer"/>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Offer">Organization</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Person">Person</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Organization">Offer</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/manufacturer">
       <span class="h" property="rdfs:label">manufacturer</span>
