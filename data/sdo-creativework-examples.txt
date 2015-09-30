@@ -1,0 +1,67 @@
+TYPES: #creativework-1 Painting, contentLocation, locationCreated
+
+PRE-MARKUP:
+
+<div>
+The Church at Auvers by Vincent van Gogh depicts a church in Auvers-sur-Oise, but was created in Saint-Rémy-de-Provence.
+</div>
+
+MICRODATA:
+
+<div itemscope itemtype="http://schema.org/Painting">
+<img itemprop="image" src="https://upload.wikimedia.org/wikipedia/commons/a/ad/Vincent_van_Gogh_-_The_Church_in_Auvers-sur-Oise%2C_View_from_the_Chevet_-_Google_Art_Project.jpg" />
+<meta itemprop="sameAs" content="https://en.wikipedia.org/wiki/The_Church_at_Auvers" />
+<span itemprop="name">The Church at Auvers</span>
+by <div itemprop="creator" itemscope itemtype="http://schema.org/Person">
+<span itemprop="name">Vincent van Gogh</span>
+</div>
+</span>,
+depicts a church in <div itemprop="contentLocation" itemscope itemtype="http://schema.org/AdministrativeArea">
+<span itemprop="name">Auvers-sur-Oise</span>,
+</div>
+but was creaetd in <div itemprop="locationCreated" itemscope itemtype="http://schema.org/AdministrativeArea">
+<span itemprop="name">Saint-Rémy-de-Provence</span>.
+</div>
+</div>
+
+RDFA:
+
+<div vocab="http://schema.org/" typeof="Painting">
+<img property="image" src="https://upload.wikimedia.org/wikipedia/commons/a/ad/Vincent_van_Gogh_-_The_Church_in_Auvers-sur-Oise%2C_View_from_the_Chevet_-_Google_Art_Project.jpg" />
+<meta property="sameAs" content="https://en.wikipedia.org/wiki/The_Church_at_Auvers" />
+<span property="name">The Church at Auvers</span>
+by <div property="creator" typeof="Person">
+<span property="name">Vincent van Gogh</span>
+</div>
+</span>,
+depicts a church in <div property="contentLocation" typeof="AdministrativeArea">
+<span property="name">Auvers-sur-Oise</span>,
+</div>
+but was creaetd in <div property="locationCreated" typeof="AdministrativeArea">
+<span property="name">Saint-Rémy-de-Provence</span>.
+</div>
+</div>
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org/",
+  "@type": "Painting",
+  "name": "The Church at Auvers",
+  "image": "https://upload.wikimedia.org/wikipedia/commons/a/ad/Vincent_van_Gogh_-_The_Church_in_Auvers-sur-Oise%2C_View_from_the_Chevet_-_Google_Art_Project.jpg",
+  "sameAs": "https://en.wikipedia.org/wiki/The_Church_at_Auvers",
+  "creator": {
+    "@type": "Person",
+    "name": "Vincent van Gogh"
+  },
+  "contentLocation": {
+    "@type": "AdministrativeArea",
+    "name": "Auvers-sur-Oise"
+  },
+  "locationCreated": {
+    "@type": "AdministrativeArea",
+    "name": "Saint-Rémy-de-Provence"
+  }
+}
+</script>
