@@ -1211,6 +1211,30 @@
        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/StructuredValue">StructuredValue</a></span>
        <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_rNews">rNews</a></span></div>
 
+       <div typeof="rdfs:Class" resource="http://schema.org/GeoCircle">
+       	<span class="h" property="rdfs:label">GeoCircle</span>
+       	<span property="rdfs:comment">A GeoCircle is a GeoShape representing a circular geographic area. As it is a GeoShape
+          it provides the simple textual property 'circle', but also allows the combination of postalCode alongside geoRadius.
+          The center of the circle can be indicated via the 'geoMidpoint' property, or more approximately using 'address', 'postalCode'.
+       </span>
+       	<span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/GeoShape">GeoShape</a></span>
+       </div>
+
+       <div typeof="rdf:Property" resource="http://schema.org/geoRadius">
+               <span class="h" property="rdfs:label">geoRadius</span>
+               <span class="h" property="rdfs:comment">Indicates the approximate radius in metres of a GeoCircle.</span>
+               <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/GeoCircle">GeoCircle</a></span>
+               <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+               <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number">Number</a></span>
+       </div>
+
+       <div typeof="rdf:Property" resource="http://schema.org/geoMidpoint">
+               <span class="h" property="rdfs:label">geoMidpoint</span>
+               <span class="h" property="rdfs:comment">Indicates the GeoCoordinates at the centre of a GeoShape e.g. GeoCircle.</span>
+               <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/GeoCircle">GeoShape</a></span>
+               <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/GeoCoordinates">GeoCoordinates</a></span>
+       </div>
+
     <div typeof="rdfs:Class" resource="http://schema.org/GolfCourse">
       <span class="h" property="rdfs:label">GolfCourse</span>
       <span property="rdfs:comment">A golf course.</span>
@@ -3332,6 +3356,13 @@
     <div typeof="rdfs:Class" resource="http://schema.org/VisualArtsEvent">
       <span class="h" property="rdfs:label">VisualArtsEvent</span>
       <span property="rdfs:comment">Event type: Visual arts event.</span>
+       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Event">Event</a></span>
+    </div>
+
+    <!-- https://github.com/schemaorg/schemaorg/issues/445 -->
+    <div typeof="rdfs:Class" resource="http://schema.org/ExhibitionEvent">
+      <span class="h" property="rdfs:label">ExhibitionEvent</span>
+      <span property="rdfs:comment">Event type: Exhibition event, e.g. at a museum, library, archive, tradeshow, ...</span>
        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Event">Event</a></span>
     </div>
 
@@ -10798,6 +10829,7 @@ postponing for 1.6.
     <div typeof="rdf:Property" resource="http://schema.org/workPresented">
       <span class="h" property="rdfs:label">workPresented</span>
       <span property="rdfs:comment">The movie presented during this event.</span>
+      <link property="rdfs:subPropertyOf" href="http://schema.org/workFeatured" />
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ScreeningEvent">ScreeningEvent</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Movie">Movie</a></span>
     </div>
@@ -10816,6 +10848,15 @@ postponing for 1.6.
     <div typeof="rdf:Property" resource="http://schema.org/workPerformed">
       <span class="h" property="rdfs:label">workPerformed</span>
       <span property="rdfs:comment">A work performed in some event, for example a play performed in a TheaterEvent.</span>
+      <link property="rdfs:subPropertyOf" href="http://schema.org/workFeatured" />
+      <span>domainIncludes: <a property="http://schema.org/domainIncludes" href="http://schema.org/Event">Event</a></span>
+      <span>rangeIncludes: <a property="http://schema.org/rangeIncludes" href="http://schema.org/CreativeWork">CreativeWork</a></span>
+    </div>
+
+    <div typeof="rdf:Property" resource="http://schema.org/workFeatured">
+      <span class="h" property="rdfs:label">workFeatured</span>
+      <span property="rdfs:comment">A work featured in some event, e.g. exhibited in an ExhibitionEvent.
+       Specific subproperties are available for workPerformed (e.g. a play), or a workPresented (a Movie at a ScreeningEvent).</span>
       <span>domainIncludes: <a property="http://schema.org/domainIncludes" href="http://schema.org/Event">Event</a></span>
       <span>rangeIncludes: <a property="http://schema.org/rangeIncludes" href="http://schema.org/CreativeWork">CreativeWork</a></span>
     </div>
