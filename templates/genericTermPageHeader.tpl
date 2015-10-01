@@ -49,6 +49,12 @@
     border-spacing: 3px;
     border-collapse: separate;
   }
+  
+  #morecheck {
+	  outline: none;
+  }
+#morecheck:checked + div { display: none; }
+  
 
 </style>
 

@@ -103,6 +103,8 @@ See the draft <b><a href="{{staticPath}}/docs/releases.html">releases</a></b> pa
 
 {% endif %}
 
+{{ ext_contents | safe }}
+
 <div id="footer"><p>
   <a href="docs/terms.html">Terms and conditions</a></p>
 </div>
