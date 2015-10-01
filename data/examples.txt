@@ -12900,3 +12900,52 @@ JSON:
   }
 }
 </script>
+
+TYPES: #opening-hours-1 OpeningHoursSpecification, OpeningHoursStatusType
+
+PRE-MARKUP:
+
+Middle of Nowhere Campground
+Closed 2013-10-01 to 2014-05-01
+
+MICRODATA:
+
+<div itemscope itemtype="http://schema.org/Campground">
+  <span itemprop="name">Middle of Nowhere Campground</span>
+  <div itemprop="openingHoursSpecification" itemscope itemtype="http://schema.org/OpeningHoursSpecification">
+    Closed
+    <span itemprop="validFrom">2013-10-01</span>
+    <span itemprop="validThrough">2014-05-01</span>
+    <meta itemprop="openingHoursStatus" content="http://schema.org/OpeningHoursClosed" />
+  </div>
+</div>
+
+RDFA:
+
+<div vocab="http://schema.org/" typeof="Campground">
+  <span property="name">Middle of Nowhere Campground</span>
+  <div property="openingHoursSpecification" typeof="OpeningHoursSpecification">
+    Closed
+    <span property="validFrom">2013-10-01</span>
+    <span property="validThrough">2014-05-01</span>
+    <meta property="openingHoursStatus" content="http://schema.org/OpeningHoursClosed" />
+  </div>
+</div>
+
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Campground",
+  "name": "Middle of Nowhere Campground",
+  "openingHoursSpecification":
+  {
+    "@type": "OpeningHoursSpecification",
+    "validFrom": "2013-10-01",
+    "validThrough": "2014-05-01",
+    "openingHoursStatus": "http://schema.org/OpeningHoursClosed"
+  }
+}
+</script>

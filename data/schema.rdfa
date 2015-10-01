@@ -3566,6 +3566,24 @@
        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/StructuredValue">StructuredValue</a></span>
        <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsClass">GoodRelationsClass</a></span></div>
 
+    <div typeof="rdfs:Class" resource="http://schema.org/OpeningHoursStatusType">
+      <span class="h" property="rdfs:label">OpeningHoursStatusType</span>
+      <span property="rdfs:comment">Enumerated status values for openingHoursStatus.</span>
+      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Enumeration">Enumeration</a></span>
+    </div>
+
+    <div typeof="http://schema.org/ReservationStatusType" resource="http://schema.org/OpeningHoursClosed">
+      <span class="h" property="rdfs:label">OpeningHoursClosed</span>
+      <span property="rdfs:comment">The location status is closed.</span>
+      <span>type: <a href="http://schema.org/OpeningHoursStatusType">OpeningHoursStatusType</a></span>
+    </div>
+
+    <div typeof="http://schema.org/ReservationStatusType" resource="http://schema.org/OpeningHoursOpen">
+      <span class="h" property="rdfs:label">OpeningHoursOpen</span>
+      <span property="rdfs:comment">The location status is open.</span>
+      <span>type: <a href="http://schema.org/OpeningHoursStatusType">OpeningHoursStatusType</a></span>
+    </div>
+
     <div typeof="rdfs:Class" resource="http://schema.org/OwnershipInfo">
       <span class="h" property="rdfs:label">OwnershipInfo</span>
       <span property="rdfs:comment">A structured value providing information about when a certain organization or person owned a certain product.</span>
@@ -7826,6 +7844,12 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
       <span property="rdfs:comment">The opening hour of the place or service on the given day(s) of the week.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/OpeningHoursSpecification">OpeningHoursSpecification</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Time">Time</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/openingHoursStatus">
+      <span class="h" property="rdfs:label">openingHoursStatus</span>
+      <span property="rdfs:comment">The status (open or closed) of this location for the duration of the OpeningHoursSpecification.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/OpeningHoursSpecification">OpeningHoursSpecification</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/OpeningHoursStatusType">OpeningHoursStatusType</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/operatingSystem">
       <span class="h" property="rdfs:label">operatingSystem</span>
