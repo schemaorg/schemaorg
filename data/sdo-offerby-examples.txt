@@ -230,3 +230,285 @@ JSON:
   }
 }
 </script>
+
+TYPES: #offer-3 Offer, OfferCatalog, Service, LocalBusiness, hasOfferCatalog
+
+PRE-MARKUP: 
+
+ACME Home Cleaning offers a variety of services in Massachusetts, including:
+<ul>
+  <li>Apartment light cleaning</li>
+  <li>House light cleaning up to 2 bedrooms</li>
+  <li>House light cleaning 3+ bedrooms</li>
+  <li>Window washing</li>
+  <li>Carpet deep cleaning</li>
+  <li>Move in/out cleaning</li>
+</ul>
+
+
+MICRODATA:
+
+<div itemscope itemtype="http://schema.org/Service">
+  <meta itemprop="serviceType" content="Home cleaning" />
+  <span itemprop="provider" itemscope itemtype="http://schema.org/LocalBusiness">
+    <span itemprop="name">ACME Home Cleaning</span>
+  </span>
+  offers a variety of services in
+  <span itemprop="areaServed" itemscope itemtype="http://schema.org/State">
+    <span itemprop="name">Massachusetts</span>, including
+  </span>
+  <ul itemprop="hasOfferCatalog" itemscope itemtype="http://schema.org/OfferCatalog">
+    <li itemprop="itemListElement" itemscope itemtype="http://schema.org/Offer">
+      <div itemprop="itemOffered" itemscope itemtype="http://schema.org/Service">
+        <span itemprop="name">Apartment light cleaning</span>
+      </div>
+    </li>
+    <li itemprop="itemListElement" itemscope itemtype="http://schema.org/Offer">
+      <div itemprop="itemOffered" itemscope itemtype="http://schema.org/Service">
+        <span itemprop="name">House light cleaning up to 2 bedrooms</span>
+      </div>
+    </li>
+    <li itemprop="itemListElement" itemscope itemtype="http://schema.org/Offer">
+      <div itemprop="itemOffered" itemscope itemtype="http://schema.org/Service">
+        <span itemprop="name">House light cleaning 3+ bedrooms</span>
+      </div>
+    </li>
+    <li itemprop="itemListElement" itemscope itemtype="http://schema.org/Offer">
+      <div itemprop="itemOffered" itemscope itemtype="http://schema.org/Service">
+        <span itemprop="name">Window washing</span>
+      </div>
+    </li>
+    <li itemprop="itemListElement" itemscope itemtype="http://schema.org/Offer">
+      <div itemprop="itemOffered" itemscope itemtype="http://schema.org/Service">
+        <span itemprop="name">Carpet deep cleaning</span>
+      </div>
+    </li>
+    <li itemprop="itemListElement" itemscope itemtype="http://schema.org/Offer">
+      <div itemprop="itemOffered" itemscope itemtype="http://schema.org/Service">
+        <span itemprop="name">Move in/out cleaning</span>
+      </div>
+    </li>
+  </ul>
+</div>
+
+
+RDFA:
+
+<div vocab="http://schema.org/" typeof="Service">
+  <meta property="serviceType" content="Home cleaning" />
+  <span property="provider" typeof="LocalBusiness">
+    <span property="name">ACME Home Cleaning</span>
+  </span>
+  offers a variety of services in
+  <span property="areaServed" typeof="State">
+    <span property="name">Massachusetts</span>, including
+  </span>
+  <ul property="hasOfferCatalog" typeof="OfferCatalog">
+    <li property="itemListElement" typeof="Offer">
+      <div property="itemOffered" typeof="Service">
+        <span property="name">Apartment light cleaning</span>
+      </div>
+    </li>
+    <li property="itemListElement" typeof="Offer">
+      <div property="itemOffered" typeof="Service">
+        <span property="name">House light cleaning up to 2 bedrooms</span>
+      </div>
+    </li>
+    <li property="itemListElement" typeof="Offer">
+      <div property="itemOffered" typeof="Service">
+        <span property="name">House light cleaning 3+ bedrooms</span>
+      </div>
+    </li>
+    <li property="itemListElement" typeof="Offer">
+      <div property="itemOffered" typeof="Service">
+        <span property="name">Window washing</span>
+      </div>
+    </li>
+    <li property="itemListElement" typeof="Offer">
+      <div property="itemOffered" typeof="Service">
+        <span property="name">Carpet deep cleaning</span>
+      </div>
+    </li>
+    <li property="itemListElement" typeof="Offer">
+      <div property="itemOffered" typeof="Service">
+        <span property="name">Move in/out cleaning</span>
+      </div>
+    </li>
+  </ul>
+</div>
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org/",
+  "@type": "Service",
+  "serviceType": "Home cleaning",
+  "provider": {
+    "@type": "LocalBusiness",
+    "name": "ACME Home Cleaning"
+  },
+  "areaServed": {
+    "@type": "State",
+    "name": "Massachusetts"
+  },
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "itemListElement": [
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Apartment light cleaning"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "House light cleaning up to 2 bedrooms"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "House light cleaning 3+ bedrooms"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Window washing"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Carpet cleaning"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Move in/out cleaning"
+        }
+      }
+    ]
+  }
+}
+
+</script>
+
+TYPES: #offer-4 Offer, FoodEstablishment, GeoCircle, DeliveryChargeSpecification, PriceSpecification
+
+PRE-MARKUP: 
+
+Joes' Pizza
+123 Main Street
+Cambridge, MA 02142
+delivers within 5 km of its store with a minimum order of $20.
+
+
+MICRODATA:
+
+<div itemscope itemtype="http://schema.org/FoodEstablishment">
+  <span itemprop="name">Joe's Pizza</span>
+  <div itemprop="location" itemscope itemtype="http://schema.org/PostalAddress">
+    <span itemprop="streetAddress">123 Main Street</span>
+    <span itemprop="addressLocality">Cambridge</span>
+    <span itemprop="addressRegion">MA</span>
+    <span itemprop="postalCode">02142</span>
+  </div>
+  delivers within 5 km of its store
+  <div itemprop="makesOffer" itemscope itemtype="http://schema.org/Offer">
+    <div itemprop="availableAtOrFrom" itemscope itemtype="http://schema.org/GeoCircle">
+      <div itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
+        <meta itemprop="streetAddress" content="123 Main Street" />
+        <meta itemprop="addressLocality" content="Cambridge" />
+        <meta itemprop="addressRegion" content="MA" />
+        <meta itemprop="postalCode" cotent="02142" />
+      </div>
+      <meta itemprop="geoRadius" content="5000" />
+    </div>
+
+    with a minium order of $20.
+    <div itemprop="priceSpecification" itemscope itemtype="http://schema.org/DeliveryChargeSpecification">
+      <meta itemprop="appliesToDeliveryMethod" link="http://purl.org/goodrelations/v1#DeliveryModeOwnFleet">
+      <div itemprop="eligibleTransactionVolume" itemscope itemtype="http://schema.org/PriceSpecification">
+        <meta itemprop="price" content="20.00" />
+        <meta itemprop="priceCurrency" content="USD" />
+      </div>
+    </div>
+  </div>
+</div>
+
+RDFA:
+
+<div vocab="http://schema.org/" typeof="FoodEstablishment">
+  <span property="name">Joe's Pizza</span>
+  <div property="location" typeof="PostalAddress">
+    <span property="streetAddress">123 Main Street</span>
+    <span property="addressLocality">Cambridge</span>
+    <span property="addressRegion">MA</span>
+    <span property="postalCode">02142</span>
+  </div>
+  delivers within 5 km of its store with a minium order of $20.
+  <div property="makesOffer" typeof="Offer">
+    <div property="priceSpecification" typeof="DeliveryChargeSpecification">
+      <meta property="appliesToDeliveryMethod" link="http://purl.org/goodrelations/v1#DeliveryModeOwnFleet">
+      <div property="eligibleTransactionVolume" typeof="PriceSpecification">
+        <meta property="price" content="20.00" />
+        <meta property="priceCurrency" content="USD" />
+      </div>
+      <div property="eligibleRegion" typeof="GeoCircle">
+        <div property="address" typeof="PostalAddress">
+          <meta property="streetAddress" content="123 Main Street" />
+          <meta property="addressLocality" content="Cambridge" />
+          <meta property="addressRegion" content="MA" />
+          <meta property="postalCode" cotent="02142" />
+        </div>
+        <meta property="geoRadius" content="5000" />
+      </div>
+    </div>
+  </div>
+</div>
+
+JSON:
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org/",
+    "@type": "FoodEstablishment",
+    "name": "Joe's Pizza",
+    "location": {
+      "@type": "PostalAddress",
+      "@id": "http://www.example.com/address",
+      "streetAddress": "123 Main Street",
+      "addressLocality": "Cambridge",
+      "addressRegion": "MA",
+      "postalCode": "02142"
+    },
+    "makesOffer": {
+      "@type": "Offer",
+      "priceSpecification": {
+        "@type": "DeliveryChargeSpecification",
+        "appliesToDeliveryMethod": "http://purl.org/goodrelations/v1#DeliveryModeOwnFleet",
+        "eligibleTransactionVolume": {
+          "@type": "PriceSpecification",
+          "price": "20.00",
+          "priceCurrency": "USD"
+        },
+        "eligibleRegion": {
+          "@type": "GeoCircle",
+          "address": {
+            "@id": "http://www.example.com/address"
+          },
+          "geoRadius": "5000"
+        }
+      }
+    }
+  }
+</script>
