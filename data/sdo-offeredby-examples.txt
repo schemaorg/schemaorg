@@ -230,3 +230,141 @@ JSON:
   }
 }
 </script>
+
+TYPES: #offerBy-1 offeredBy, Book
+
+PRE-MARKUP:
+<body>
+<h1>In search of Haydn [videorecording] / Phil Grabsky Films.com &amp; Seventh Art Productions in association with Sky Art HD ; filmed, written and directed by Phil Grabsky.</h1>
+<h2>Record details</h2>
+<ul>
+	<li><strong>Publisher:</strong>[Brighton, UK] :Seventh Art Productions,[2011]</li>
+</ul>
+<table>
+		<tr><td>Subject:</td>
+			<td>Haydn, Joseph, 1732-1809.<br>Composers &gt; Austria &gt; Biography.<br></td>
+		</tr>
+		<tr><td>Genre:</td>
+			<td>Documentary films.<br></td>
+		</tr>
+</table>
+<table>
+    <tr><th>Location</th><th>Call Number / Copy Notes</th><th>Barcode</th><th>Shelving Location</th><th>Status</th><th>Due Date</th></tr>
+	<tr>
+		<td><a href="/eg/opac/library/MRC">Music Resource Centre</a></td>
+		<td>ML 410 H4 I5 2011</td>
+		<td>30007008812793</td>
+		<td>Circulation</td>
+		<td>&nbsp;</td>
+	</tr>
+</table>
+</body>
+
+MICRODATA:
+<body itemscope itemtype='http://schema.org/Movie Product' itemid="#schemarecord">
+<link itemprop="additionalType" href="http://schema.org/Product"/>
+<h1 itemprop="name">In search of Haydn [videorecording] / Phil Grabsky Films.com &amp; Seventh Art Productions in association with Sky Art HD ; filmed, written and directed by Phil Grabsky.</h1>
+<h2>Record details</h2>
+<ul>
+	<li><strong>Publisher:</strong> <span itemprop="publisher" itemtype="Organization"><span itemprop="location">[Brighton, UK] :</span> <span itemprop="name">Seventh Art Productions,</span></span> <span itemprop="datePublished">[2011]</span></li>
+</ul>
+<table>
+		<tr><td>Subject:</td>
+			<td><span itemprop="about">Haydn, Joseph, 1732-1809.<br></span><span itemprop="about">Composers &gt; Austria &gt; Biography.<br></span></td>
+		</tr>
+		<tr><td>Genre:</td>
+			<td><span itemprop="about">Documentary films.<br></span></td>
+		</tr>
+</table>
+<table>
+    <tr><th>Location</th><th>Call Number / Copy Notes</th><th>Barcode</th><th>Shelving Location</th><th>Status</th><th>Due Date</th></tr>
+	<tr itemprop="offers" itemtype="Offer">
+		<td><a itemprop="offeredBy" itemtype="Library" href="/eg/opac/library/MRC"><span itemprop="name">Music Resource Centre</span></a></td>
+		<td><span itemprop="sku">ML 410 H4 I5 2011</span></td>
+		<td itemprop="serialNumber">30007008812793</td>
+		<td itemprop="availableAtOrFrom">Circulation</td>
+		<td>&nbsp;<link itemprop="businessFunction" href="http://purl.org/goodrelations/v1#LeaseOut">
+			<meta itemprop="price" content="0.00">
+			<link itemprop="availability" href="http://schema.org/InStock">
+		</td>
+	</tr>
+</table>
+</body>
+
+RDFA:
+
+<body vocab="http://schema.org" typeof='Movie Product' resource="#schemarecord">
+<h1 property="name">In search of Haydn [videorecording] / Phil Grabsky Films.com &amp; Seventh Art Productions in association with Sky Art HD ; filmed, written and directed by Phil Grabsky.</h1>
+<h2>Record details</h2>
+<ul>
+	<li><strong>Publisher:</strong> <span property="publisher" typeof="Organization"><span property="location">[Brighton, UK] :</span> <span property="name">Seventh Art Productions,</span></span> <span property="datePublished">[2011]</span></li>
+</ul>
+<table>
+		<tr><td>Subject:</td>
+			<td><span property="about">Haydn, Joseph, 1732-1809.<br></span><span property="about">Composers &gt; Austria &gt; Biography.<br></span></td>
+		</tr>
+		<tr><td>Genre:</td>
+			<td><span property="about">Documentary films.<br></span></td>
+		</tr>
+</table>
+<table>
+    <tr><th>Location</th><th>Call Number / Copy Notes</th><th>Barcode</th><th>Shelving Location</th><th>Status</th><th>Due Date</th></tr>
+	<tr property="offers" typeof="Offer">
+		<td><a property="offeredBy" typeof="Library" href="/eg/opac/library/MRC"><span property="name">Music Resource Centre</span></a></td>
+		<td><span property="sku">ML 410 H4 I5 2011</span></td>
+		<td property="serialNumber">30007008812793</td>
+		<td property="availableAtOrFrom">Circulation</td>
+		<td>&nbsp;<link property="businessFunction" href="http://purl.org/goodrelations/v1#LeaseOut">
+			<meta property="price" content="0.00">
+			<link property="availability" href="http://schema.org/InStock">
+		</td>
+	</tr>
+</table>
+</body>
+JSON:
+
+<script type="application/ld+json" >
+"@context":"http://schema.org",
+"@graph": [
+  {
+    "@id": "https://laurentian.concat.ca/eg/opac/library/MRC",
+    "@type": "Library",
+    "name": "Music Resource Centre"
+  },
+  {
+    "@id": "https://laurentian.concat.ca/eg/opac/record/2845929#schemarecord",
+    "@type": [
+      "Product",
+      "Movie"
+    ],
+    "about": [
+        "Composers > Austria > Biography.",
+        "Haydn, Joseph, 1732-1809.",
+        "Documentary films."
+    ],
+    "datePublished": "[2011]",
+    "name": "In search of Haydn [videorecording] / Phil Grabsky Films.com & Seventh Art Productions in association with Sky Art HD ; filmed, written and directed by Phil Grabsky.",
+    "offers": {
+      "@type": "Offer",
+      "availability": {
+        "@id": "InStock"
+      },
+      "availableAtOrFrom": "Circulation",
+      "businessFunction": {
+        "@id": "gr:LeaseOut"
+      },
+      "price": "0.00",
+      "seller": {
+        "@id": "https://laurentian.concat.ca/eg/opac/library/MRC"
+      },
+      "serialNumber":  "30007008812793",
+      "sku": "ML 410 H4 I5 2011"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "location": "[Brighton, UK] :",
+      "name": "Seventh Art Productions,"
+    }
+  }
+]
+</script>
