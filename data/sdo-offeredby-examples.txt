@@ -1,4 +1,4 @@
-TYPES: #offer-1 Offer, offeredBy, Book
+TYPES: #offer-1 Offer, offeredBy, Book, additionalType
 
 PRE-MARKUP:
 
@@ -88,32 +88,27 @@ JSON:
 
 <script type="application/ld+json">
 {
-  "@context": {
-    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
-    "rdfa": "http://www.w3.org/ns/rdfa#",
-    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
-    "schema": "http://schema.org/",
-    "xsd": "http://www.w3.org/2001/XMLSchema#"
-  },
+  "@context":  "http://schema.org/",
   "@graph": [
     {
       "@id": "#record",
-      "@type": ["schema:Book","schema:Product"],
-      "schema:name": "Le concerto",
-      "schema:author": "Ferchault, Guy"
+        "@type": "Book",
+      "additionalType": "Product",
+      "name": "Le concerto",
+      "author": "Ferchault, Guy"
     },
     {
-      "@type": "schema:Offer",
-      "schema:availability": "http://schema.org/InStock",
-      "schema:serialNumber": "CONC91000937",
-      "schema:sku": "780 R2",
-      "schema:offeredBy": {
-          "@type": "schema:Library",
+      "@type": "Offer",
+      "availability": "http://schema.org/InStock",
+      "serialNumber": "CONC91000937",
+      "sku": "780 R2",
+      "offeredBy": {
+          "@type": "Library",
           "@id": "http://library.anytown.gov.uk",
-          "schema:name": "Anytown City Library"
+          "name": "Anytown City Library"
       },
-      "schema:businessFunction": "http://purl.org/goodrelations/v1#LeaseOut",
-      "schema:itemOffered": "#record"
+      "businessFunction": "http://purl.org/goodrelations/v1#LeaseOut",
+      "itemOffered": "#record"
     }
 ]
 }
@@ -126,9 +121,9 @@ PRE-MARKUP:
   <main>
     <article>
       <h1>
-         <a href="http://www.example.com/explosive-tennis-balls">Explosive tennis balls</a>
-      </h1>     
-      <img alt="Explosive tennis balls" title src="http://www.example.com/explosive-tennis-balls.jpg" />
+         <a href="http://example.com/explosive-tennis-balls">Explosive tennis balls</a>
+      </h1>
+      <img alt="Explosive tennis balls" title src="http://example.com/explosive-tennis-balls.jpg" />
       <p >
         $29.99 - In stock
       </p>
@@ -151,17 +146,19 @@ PRE-MARKUP:
 </body>
 
 MICRODATA:
-<!— No Microdata Example —>
+
+<!— No Microdata example yet —>
+
 RDFA:
 
-<body vocab="http://schema.org/" resource="http://www.example.com/explosive-tennis-balls" typeof="ItemPage">
+<body vocab="http://schema.org/" resource="http://example.com/explosive-tennis-balls" typeof="ItemPage">
   <link property="copyrightHolder publisher" href="#Organization" />
   <main>
     <article resource="#Product" property="mainEntity" typeof="Product">
       <h1 property="name">
-         <a property="url" href="http://www.example.com/explosive-tennis-balls">Explosive tennis balls</a>
-      </h1>     
-      <img property="image" alt="Explosive tennis balls" title src="http://www.example.com/explosive-tennis-balls.jpg" />
+         <a property="url" href="http://example.com/explosive-tennis-balls">Explosive tennis balls</a>
+      </h1>
+      <img property="image" alt="Explosive tennis balls" title src="http://example.com/explosive-tennis-balls.jpg" />
       <p resource="#Offer" property="offers" typeof="Offer">
         <meta property="priceCurrency" content="USD" />
         <meta property="price" content="1000.00" />
@@ -180,8 +177,8 @@ RDFA:
   <footer>
     <p resource="#Organization" typeof="Organization">
       © <span resource="#CopyrightYear" typeof="rdfa:Pattern">2015</span> - <span property="name">Acme Inc</span>
-      <link property="logo" href="http://www.example.com/acme-inc-logo.jpg" />
-      <link property="url" href="http://www.example.com" />
+      <link property="logo" href="http://example.com/acme-inc-logo.jpg" />
+      <link property="url" href="http://example.com" />
       <link property="rdfa:copy" href="#SameAsResource"/>
     </p>
     <ul resource="#SameAsResource" typeof="rdfa:Pattern">
@@ -196,7 +193,7 @@ JSON:
 <script type="application/ld+json">
 {
   "@context":"http://schema.org",
-  "@id":"http://www.example.com/explosive-tennis-balls",
+  "@id":"http://example.com/explosive-tennis-balls",
   "@type":"ItemPage",
   "copyrightYear":"2015",
   "copyrightHolder":{"@id":"#Organization"},
@@ -206,8 +203,8 @@ JSON:
     "@type":"Product",
     "name":"Explosive tennis balls",
     "description":"Tickle your friends! Surprise your opponent!",
-    "image":"http://www.example.com/explosive-tennis-balls.jpg",
-    "url":"http://www.example.com/explosive-tennis-balls",
+    "image":"http://example.com/explosive-tennis-balls.jpg",
+    "url":"http://example.com/explosive-tennis-balls",
     "offers":{
       "@id":"#Offer",
       "@type":"Offer",
@@ -215,25 +212,159 @@ JSON:
       "price":"1000.00",
       "availability":"http://schema.org/InStock",
       "itemOffered":{"@id":"#Product"},
-      "businessFunction":"http://purl.org/goodrelations/v1#Sell",
-      "@reverse":{
-        "makesOffer":{
+        "offeredBy":{
           "@id":"#Organization",
           "@type":"Organization",
           "name":"Acme Inc",
-          "logo":"http://www.example.com/acme-inc-logo.jpg",
-          "url":"http://www.example.com/",
+          "logo":"http://example.commple.com/acme-inc-logo.jpg",
+          "url":"http://example.com/",
           "sameAs":["https://twitter.com/AcmeInc","https://www.facebook.com/AcmeInc","https://plus.google.com/u/0/+AcmeInc/"]
         }
-      }      
     }
   }
 }
 </script>
 
+TYPES: #offeredBy-1 offeredBy, Book
+
+PRE-MARKUP:
+<!-- A Library Example with Holdings -->
+<body>
+<h1>In search of Haydn [videorecording] / Phil Grabsky Films.com &amp; Seventh Art Productions in association with Sky Art HD ; filmed, written and directed by Phil Grabsky.</h1>
+<h2>Record details</h2>
+<ul>
+	<li><strong>Publisher:</strong>[Brighton, UK] :Seventh Art Productions,[2011]</li>
+</ul>
+<table>
+		<tr><td>Subject:</td>
+			<td>Haydn, Joseph, 1732-1809.<br>Composers &gt; Austria &gt; Biography.<br></td>
+		</tr>
+		<tr><td>Genre:</td>
+			<td>Documentary films.<br></td>
+		</tr>
+</table>
+<table>
+    <tr><th>Location</th><th>Call Number / Copy Notes</th><th>Barcode</th><th>Shelving Location</th><th>Status</th><th>Due Date</th></tr>
+	<tr>
+		<td><a href="/eg/opac/library/MRC">Music Resource Centre</a></td>
+		<td>ML 410 H4 I5 2011</td>
+		<td>30007008812793</td>
+		<td>Circulation</td>
+		<td>&nbsp;</td>
+	</tr>
+</table>
+</body>
+
+MICRODATA:
+
+<body itemscope itemtype='http://schema.org/Movie Product' itemid="#schemarecord">
+<link itemprop="additionalType" href="http://schema.org/Product"/>
+<h1 itemprop="name">In search of Haydn [videorecording] / Phil Grabsky Films.com &amp; Seventh Art Productions in association with Sky Art HD ; filmed, written and directed by Phil Grabsky.</h1>
+<h2>Record details</h2>
+<ul>
+	<li><strong>Publisher:</strong> <span itemprop="publisher" itemtype="Organization"><span itemprop="location">[Brighton, UK] :</span> <span itemprop="name">Seventh Art Productions,</span></span> <span itemprop="datePublished">[2011]</span></li>
+</ul>
+<table>
+		<tr><td>Subject:</td>
+			<td><span itemprop="about">Haydn, Joseph, 1732-1809.<br></span><span itemprop="about">Composers &gt; Austria &gt; Biography.<br></span></td>
+		</tr>
+		<tr><td>Genre:</td>
+			<td><span itemprop="about">Documentary films.<br></span></td>
+		</tr>
+</table>
+<table>
+    <tr><th>Location</th><th>Call Number / Copy Notes</th><th>Barcode</th><th>Shelving Location</th><th>Status</th><th>Due Date</th></tr>
+	<tr itemprop="offers" itemtype="Offer">
+		<td><a itemprop="offeredBy" itemtype="Library" href="/eg/opac/library/MRC"><span itemprop="name">Music Resource Centre</span></a></td>
+		<td><span itemprop="sku">ML 410 H4 I5 2011</span></td>
+		<td itemprop="serialNumber">30007008812793</td>
+		<td itemprop="availableAtOrFrom">Circulation</td>
+		<td>&nbsp;<link itemprop="businessFunction" href="http://purl.org/goodrelations/v1#LeaseOut">
+			<meta itemprop="price" content="0.00">
+			<link itemprop="availability" href="http://schema.org/InStock">
+		</td>
+	</tr>
+</table>
+</body>
+
+RDFA:
+
+<body vocab="http://schema.org" typeof='Movie Product' resource="#schemarecord">
+<h1 property="name">In search of Haydn [videorecording] / Phil Grabsky Films.com &amp; Seventh Art Productions in association with Sky Art HD ; filmed, written and directed by Phil Grabsky.</h1>
+<h2>Record details</h2>
+<ul>
+	<li><strong>Publisher:</strong> <span property="publisher" typeof="Organization"><span property="location">[Brighton, UK] :</span> <span property="name">Seventh Art Productions,</span></span> <span property="datePublished">[2011]</span></li>
+</ul>
+<table>
+		<tr><td>Subject:</td>
+			<td><span property="about">Haydn, Joseph, 1732-1809.<br></span><span property="about">Composers &gt; Austria &gt; Biography.<br></span></td>
+		</tr>
+		<tr><td>Genre:</td>
+			<td><span property="about">Documentary films.<br></span></td>
+		</tr>
+</table>
+<table>
+    <tr><th>Location</th><th>Call Number / Copy Notes</th><th>Barcode</th><th>Shelving Location</th><th>Status</th><th>Due Date</th></tr>
+	<tr property="offers" typeof="Offer">
+		<td><a property="offeredBy" typeof="Library" href="/eg/opac/library/MRC"><span property="name">Music Resource Centre</span></a></td>
+		<td><span property="sku">ML 410 H4 I5 2011</span></td>
+		<td property="serialNumber">30007008812793</td>
+		<td property="availableAtOrFrom">Circulation</td>
+		<td>&nbsp;<link property="businessFunction" href="http://purl.org/goodrelations/v1#LeaseOut">
+			<meta property="price" content="0.00">
+			<link property="availability" href="http://schema.org/InStock">
+		</td>
+	</tr>
+</table>
+</body>
+
+JSON:
+
+<script type="application/ld+json">
+{
+"@context":"http://schema.org",
+"@graph": [
+  {
+    "@id": "https://laurentian.concat.ca/eg/opac/library/MRC",
+    "@type": "Library",
+    "name": "Music Resource Centre"
+  },
+  {
+    "@id": "https://laurentian.concat.ca/eg/opac/record/2845929#schemarecord",
+    "@type": "Movie",
+    "additionalType": "Product",
+    "about": [
+        "Composers > Austria > Biography.",
+        "Haydn, Joseph, 1732-1809.",
+        "Documentary films."
+    ],
+    "datePublished": "[2011]",
+    "name": "In search of Haydn [videorecording] / Phil Grabsky Films.com & Seventh Art Productions in association with Sky Art HD ; filmed, written and directed by Phil Grabsky.",
+    "offers": {
+      "@type": "Offer",
+      "availability": "http://schema.org/InStock",
+      "businessFunction": "http://purl.org/goodrelations/v1#LeaseOut",
+      "availableAtOrFrom": "Circulation",
+      "price": "0.00",
+      "seller": {
+        "@id": "https://laurentian.concat.ca/eg/opac/library/MRC"
+      },
+      "serialNumber":  "30007008812793",
+      "sku": "ML 410 H4 I5 2011"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "location": "[Brighton, UK] :",
+      "name": "Seventh Art Productions,"
+    }
+  }
+]
+}
+</script>
+
 TYPES: #offer-3 Offer, OfferCatalog, Service, LocalBusiness, hasOfferCatalog
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
 ACME Home Cleaning offers a variety of services in Massachusetts, including:
 <ul>
@@ -405,7 +536,7 @@ JSON:
 
 TYPES: #offer-4 Offer, FoodEstablishment, GeoCircle, DeliveryChargeSpecification, PriceSpecification
 
-PRE-MARKUP: 
+PRE-MARKUP:
 
 Joes' Pizza
 123 Main Street
@@ -485,7 +616,7 @@ JSON:
     "name": "Joe's Pizza",
     "location": {
       "@type": "PostalAddress",
-      "@id": "http://www.example.com/address",
+      "@id": "http://example.com/address",
       "streetAddress": "123 Main Street",
       "addressLocality": "Cambridge",
       "addressRegion": "MA",
