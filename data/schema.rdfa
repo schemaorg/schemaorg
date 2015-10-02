@@ -12608,6 +12608,54 @@ Typical unit code(s): C62 for persons </span>
   <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Intangible">Intangible</a></span>
 </div>
 
+<!-- Compound price extension from GoodRelations -->
+<div typeof="rdfs:Class" resource="http://schema.org/CompoundPriceSpecification">
+        <span class="h" property="rdfs:label">CompoundPriceSpecification</span>
+        <span property="rdfs:comment">A compound price specification is one that bundles multiple prices that all apply in combination for different dimensions of consumption. Use the name property of the attached unit price specification for indicating the dimension of a price component (e.g. "electricity" or "final cleaning").</span>
+        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/PriceSpecification">PriceSpecification</a></span>
+        <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsClass">GoodRelationsClass</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/priceComponent">
+    <span class="h" property="rdfs:label">priceComponent</span>
+    <span property="rdfs:comment">This property links to all UnitPriceSpecification nodes that apply in parallel for the CompoundPriceSpecification node.</span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CompoundPriceSpecification">CompoundPriceSpecification</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/UnitPriceSpecification">UnitPriceSpecification</a></span>
+    <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsProperties">GoodRelationsProperty</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/referenceQuantity">
+    <span class="h" property="rdfs:label">referenceQuantity</span>
+    <span property="rdfs:comment">The reference quantity for which a certain price applies, e.g. 1 EUR per 4 kWh of electricity. This property is a replacement for unitOfMeasurement for the advanced cases where the price does not relate to a standard unit.</span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/UnitPriceSpecification">UnitPriceSpecification</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/QuantitativeValue">QuantitativeValue</a></span>
+    <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsProperties">GoodRelationsProperty</a></span>
+</div>
+
+<!-- POI distance information from GoodRelations -->
+<div typeof="rdfs:Class" resource="http://schema.org/DistanceSpecification">
+        <span class="h" property="rdfs:label">DistanceSpecification</span>
+        <span property="rdfs:comment">Information about the distance from one place to another.</span>
+        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/QuantitativeValue">QuantitativeValue</a></span>
+        <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsClass">GoodRelationsClass</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/distanceInformation">
+    <span class="h" property="rdfs:label">distanceInformation</span>
+    <span property="rdfs:comment">Information about the distance from the place to a point of interest in the vicinity, e.g. airports, train stations, or the city center.</span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Place">Place</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/DistanceSpecification">DistanceSpecification</a></span>
+    <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsProperties">GoodRelationsProperty</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/destination">
+    <span class="h" property="rdfs:label">destination</span>
+    <span property="rdfs:comment">The destination of a distance specification, e.g. an airport or train station.</span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/DistanceSpecification">DistanceSpecification</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Place">Place</a></span>
+    <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsProperties">GoodRelationsProperty</a></span>
+</div>
+
 <h1>Hotels</h1>
 
  <!-- Hotel Extension from the STI Accommodation Ontology -->
@@ -12747,53 +12795,7 @@ For more specific types of accommodations not defined in schema.org, one can use
         <span>Source:  <a property="dc:source" href="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology">STI Accommodation Ontology</a></span>
 </div>
 
-<!-- Compound price extension from GoodRelations -->
-<div typeof="rdfs:Class" resource="http://schema.org/CompoundPriceSpecification">
-        <span class="h" property="rdfs:label">CompoundPriceSpecification</span>
-        <span property="rdfs:comment">A compound price specification is one that bundles multiple prices that all apply in combination for different dimensions of consumption. Use the name property of the attached unit price specification for indicating the dimension of a price component (e.g. "electricity" or "final cleaning").</span>
-        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/PriceSpecification">PriceSpecification</a></span>
-        <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsClass">GoodRelationsClass</a></span>
-</div>
 
-<div typeof="rdf:Property" resource="http://schema.org/priceComponent">
-    <span class="h" property="rdfs:label">priceComponent</span>
-    <span property="rdfs:comment">This property links to all UnitPriceSpecification nodes that apply in parallel for the CompoundPriceSpecification node.</span>
-    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CompoundPriceSpecification">CompoundPriceSpecification</a></span>
-    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/UnitPriceSpecification">UnitPriceSpecification</a></span>
-    <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsProperties">GoodRelationsProperty</a></span>
-</div>
-
-<div typeof="rdf:Property" resource="http://schema.org/referenceQuantity">
-    <span class="h" property="rdfs:label">referenceQuantity</span>
-    <span property="rdfs:comment">The reference quantity for which a certain price applies, e.g. 1 EUR per 4 kWh of electricity. This property is a replacement for unitOfMeasurement for the advanced cases where the price does not relate to a standard unit.</span>
-    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/UnitPriceSpecification">UnitPriceSpecification</a></span>
-    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/QuantitativeValue">QuantitativeValue</a></span>
-    <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsProperties">GoodRelationsProperty</a></span>
-</div>
-
-<!-- POI distance information from GoodRelations -->
-<div typeof="rdfs:Class" resource="http://schema.org/DistanceSpecification">
-        <span class="h" property="rdfs:label">DistanceSpecification</span>
-        <span property="rdfs:comment">Information about the distance from one place to another.</span>
-        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/QuantitativeValue">QuantitativeValue</a></span>
-        <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsClass">GoodRelationsClass</a></span>
-</div>
-
-<div typeof="rdf:Property" resource="http://schema.org/distanceInformation">
-    <span class="h" property="rdfs:label">distanceInformation</span>
-    <span property="rdfs:comment">Information about the distance from the place to a point of interest in the vicinity, e.g. airports, train stations, or the city center.</span>
-    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Place">Place</a></span>
-    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/DistanceSpecification">DistanceSpecification</a></span>
-    <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsProperties">GoodRelationsProperty</a></span>
-</div>
-
-<div typeof="rdf:Property" resource="http://schema.org/destination">
-    <span class="h" property="rdfs:label">destination</span>
-    <span property="rdfs:comment">The destination of a distance specification, e.g. an airport or train station.</span>
-    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/DistanceSpecification">DistanceSpecification</a></span>
-    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Place">Place</a></span>
-    <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsProperties">GoodRelationsProperty</a></span>
-</div>
 
 <!-- Properties -->
 <div typeof="rdf:Property" resource="http://schema.org/feature">
