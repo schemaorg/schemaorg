@@ -1,4 +1,4 @@
-TYPES: #offer-1 Offer, offeredBy, Book
+TYPES: #offer-1 Offer, offeredBy, Book, additionalType
 
 PRE-MARKUP:
 
@@ -88,32 +88,27 @@ JSON:
 
 <script type="application/ld+json">
 {
-  "@context": {
-    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
-    "rdfa": "http://www.w3.org/ns/rdfa#",
-    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
-    "schema": "http://schema.org/",
-    "xsd": "http://www.w3.org/2001/XMLSchema#"
-  },
+  "@context":  "http://schema.org/",
   "@graph": [
     {
       "@id": "#record",
-      "@type": ["schema:Book","schema:Product"],
-      "schema:name": "Le concerto",
-      "schema:author": "Ferchault, Guy"
+        "@type": "Book",
+      "additionalType": "Product",
+      "name": "Le concerto",
+      "author": "Ferchault, Guy"
     },
     {
-      "@type": "schema:Offer",
-      "schema:availability": "http://schema.org/InStock",
-      "schema:serialNumber": "CONC91000937",
-      "schema:sku": "780 R2",
-      "schema:offeredBy": {
-          "@type": "schema:Library",
+      "@type": "Offer",
+      "availability": "http://schema.org/InStock",
+      "serialNumber": "CONC91000937",
+      "sku": "780 R2",
+      "offeredBy": {
+          "@type": "Library",
           "@id": "http://library.anytown.gov.uk",
-          "schema:name": "Anytown City Library"
+          "name": "Anytown City Library"
       },
-      "schema:businessFunction": "http://purl.org/goodrelations/v1#LeaseOut",
-      "schema:itemOffered": "#record"
+      "businessFunction": "http://purl.org/goodrelations/v1#LeaseOut",
+      "itemOffered": "#record"
     }
 ]
 }
@@ -126,9 +121,9 @@ PRE-MARKUP:
   <main>
     <article>
       <h1>
-         <a href="http://www.example.com/explosive-tennis-balls">Explosive tennis balls</a>
-      </h1>     
-      <img alt="Explosive tennis balls" title src="http://www.example.com/explosive-tennis-balls.jpg" />
+         <a href="http://example.com/explosive-tennis-balls">Explosive tennis balls</a>
+      </h1>
+      <img alt="Explosive tennis balls" title src="http://example.com/explosive-tennis-balls.jpg" />
       <p >
         $29.99 - In stock
       </p>
@@ -151,17 +146,19 @@ PRE-MARKUP:
 </body>
 
 MICRODATA:
-<!— No Microdata Example —>
+
+<!— No Microdata example yet —>
+
 RDFA:
 
-<body vocab="http://schema.org/" resource="http://www.example.com/explosive-tennis-balls" typeof="ItemPage">
+<body vocab="http://schema.org/" resource="http://example.com/explosive-tennis-balls" typeof="ItemPage">
   <link property="copyrightHolder publisher" href="#Organization" />
   <main>
     <article resource="#Product" property="mainEntity" typeof="Product">
       <h1 property="name">
-         <a property="url" href="http://www.example.com/explosive-tennis-balls">Explosive tennis balls</a>
-      </h1>     
-      <img property="image" alt="Explosive tennis balls" title src="http://www.example.com/explosive-tennis-balls.jpg" />
+         <a property="url" href="http://example.com/explosive-tennis-balls">Explosive tennis balls</a>
+      </h1>
+      <img property="image" alt="Explosive tennis balls" title src="http://example.com/explosive-tennis-balls.jpg" />
       <p resource="#Offer" property="offers" typeof="Offer">
         <meta property="priceCurrency" content="USD" />
         <meta property="price" content="1000.00" />
@@ -180,8 +177,8 @@ RDFA:
   <footer>
     <p resource="#Organization" typeof="Organization">
       © <span resource="#CopyrightYear" typeof="rdfa:Pattern">2015</span> - <span property="name">Acme Inc</span>
-      <link property="logo" href="http://www.example.com/acme-inc-logo.jpg" />
-      <link property="url" href="http://www.example.com" />
+      <link property="logo" href="http://example.com/acme-inc-logo.jpg" />
+      <link property="url" href="http://example.com" />
       <link property="rdfa:copy" href="#SameAsResource"/>
     </p>
     <ul resource="#SameAsResource" typeof="rdfa:Pattern">
@@ -196,7 +193,7 @@ JSON:
 <script type="application/ld+json">
 {
   "@context":"http://schema.org",
-  "@id":"http://www.example.com/explosive-tennis-balls",
+  "@id":"http://example.com/explosive-tennis-balls",
   "@type":"ItemPage",
   "copyrightYear":"2015",
   "copyrightHolder":{"@id":"#Organization"},
@@ -206,8 +203,8 @@ JSON:
     "@type":"Product",
     "name":"Explosive tennis balls",
     "description":"Tickle your friends! Surprise your opponent!",
-    "image":"http://www.example.com/explosive-tennis-balls.jpg",
-    "url":"http://www.example.com/explosive-tennis-balls",
+    "image":"http://example.com/explosive-tennis-balls.jpg",
+    "url":"http://example.com/explosive-tennis-balls",
     "offers":{
       "@id":"#Offer",
       "@type":"Offer",
@@ -215,23 +212,20 @@ JSON:
       "price":"1000.00",
       "availability":"http://schema.org/InStock",
       "itemOffered":{"@id":"#Product"},
-      "businessFunction":"http://purl.org/goodrelations/v1#Sell",
-      "@reverse":{
-        "makesOffer":{
+        "offeredBy":{
           "@id":"#Organization",
           "@type":"Organization",
           "name":"Acme Inc",
-          "logo":"http://www.example.com/acme-inc-logo.jpg",
-          "url":"http://www.example.com/",
+          "logo":"http://example.commple.com/acme-inc-logo.jpg",
+          "url":"http://example.com/",
           "sameAs":["https://twitter.com/AcmeInc","https://www.facebook.com/AcmeInc","https://plus.google.com/u/0/+AcmeInc/"]
         }
-      }      
     }
   }
 }
 </script>
 
-TYPES: #offerBy-1 offeredBy, Book
+TYPES: #offeredBy-1 offeredBy, Book
 
 PRE-MARKUP:
 <!-- A Library Example with Holdings -->
@@ -262,6 +256,7 @@ PRE-MARKUP:
 </body>
 
 MICRODATA:
+
 <body itemscope itemtype='http://schema.org/Movie Product' itemid="#schemarecord">
 <link itemprop="additionalType" href="http://schema.org/Product"/>
 <h1 itemprop="name">In search of Haydn [videorecording] / Phil Grabsky Films.com &amp; Seventh Art Productions in association with Sky Art HD ; filmed, written and directed by Phil Grabsky.</h1>
@@ -322,9 +317,11 @@ RDFA:
 	</tr>
 </table>
 </body>
+
 JSON:
 
-<script type="application/ld+json" >
+<script type="application/ld+json">
+{
 "@context":"http://schema.org",
 "@graph": [
   {
@@ -334,10 +331,8 @@ JSON:
   },
   {
     "@id": "https://laurentian.concat.ca/eg/opac/record/2845929#schemarecord",
-    "@type": [
-      "Product",
-      "Movie"
-    ],
+    "@type": "Movie",
+    "additionalType": "Product",
     "about": [
         "Composers > Austria > Biography.",
         "Haydn, Joseph, 1732-1809.",
@@ -347,13 +342,9 @@ JSON:
     "name": "In search of Haydn [videorecording] / Phil Grabsky Films.com & Seventh Art Productions in association with Sky Art HD ; filmed, written and directed by Phil Grabsky.",
     "offers": {
       "@type": "Offer",
-      "availability": {
-        "@id": "InStock"
-      },
+      "availability": "http://schema.org/InStock",
+      "businessFunction": "http://purl.org/goodrelations/v1#LeaseOut",
       "availableAtOrFrom": "Circulation",
-      "businessFunction": {
-        "@id": "gr:LeaseOut"
-      },
       "price": "0.00",
       "seller": {
         "@id": "https://laurentian.concat.ca/eg/opac/library/MRC"
@@ -368,4 +359,287 @@ JSON:
     }
   }
 ]
+}
+</script>
+
+TYPES: #offer-3 Offer, OfferCatalog, Service, LocalBusiness, hasOfferCatalog
+
+PRE-MARKUP:
+
+ACME Home Cleaning offers a variety of services in Massachusetts, including:
+<ul>
+  <li>Apartment light cleaning</li>
+  <li>House light cleaning up to 2 bedrooms</li>
+  <li>House light cleaning 3+ bedrooms</li>
+  <li>Window washing</li>
+  <li>Carpet deep cleaning</li>
+  <li>Move in/out cleaning</li>
+</ul>
+
+
+MICRODATA:
+
+<div itemscope itemtype="http://schema.org/Service">
+  <meta itemprop="serviceType" content="Home cleaning" />
+  <span itemprop="provider" itemscope itemtype="http://schema.org/LocalBusiness">
+    <span itemprop="name">ACME Home Cleaning</span>
+  </span>
+  offers a variety of services in
+  <span itemprop="areaServed" itemscope itemtype="http://schema.org/State">
+    <span itemprop="name">Massachusetts</span>, including
+  </span>
+  <ul itemprop="hasOfferCatalog" itemscope itemtype="http://schema.org/OfferCatalog">
+    <li itemprop="itemListElement" itemscope itemtype="http://schema.org/Offer">
+      <div itemprop="itemOffered" itemscope itemtype="http://schema.org/Service">
+        <span itemprop="name">Apartment light cleaning</span>
+      </div>
+    </li>
+    <li itemprop="itemListElement" itemscope itemtype="http://schema.org/Offer">
+      <div itemprop="itemOffered" itemscope itemtype="http://schema.org/Service">
+        <span itemprop="name">House light cleaning up to 2 bedrooms</span>
+      </div>
+    </li>
+    <li itemprop="itemListElement" itemscope itemtype="http://schema.org/Offer">
+      <div itemprop="itemOffered" itemscope itemtype="http://schema.org/Service">
+        <span itemprop="name">House light cleaning 3+ bedrooms</span>
+      </div>
+    </li>
+    <li itemprop="itemListElement" itemscope itemtype="http://schema.org/Offer">
+      <div itemprop="itemOffered" itemscope itemtype="http://schema.org/Service">
+        <span itemprop="name">Window washing</span>
+      </div>
+    </li>
+    <li itemprop="itemListElement" itemscope itemtype="http://schema.org/Offer">
+      <div itemprop="itemOffered" itemscope itemtype="http://schema.org/Service">
+        <span itemprop="name">Carpet deep cleaning</span>
+      </div>
+    </li>
+    <li itemprop="itemListElement" itemscope itemtype="http://schema.org/Offer">
+      <div itemprop="itemOffered" itemscope itemtype="http://schema.org/Service">
+        <span itemprop="name">Move in/out cleaning</span>
+      </div>
+    </li>
+  </ul>
+</div>
+
+
+RDFA:
+
+<div vocab="http://schema.org/" typeof="Service">
+  <meta property="serviceType" content="Home cleaning" />
+  <span property="provider" typeof="LocalBusiness">
+    <span property="name">ACME Home Cleaning</span>
+  </span>
+  offers a variety of services in
+  <span property="areaServed" typeof="State">
+    <span property="name">Massachusetts</span>, including
+  </span>
+  <ul property="hasOfferCatalog" typeof="OfferCatalog">
+    <li property="itemListElement" typeof="Offer">
+      <div property="itemOffered" typeof="Service">
+        <span property="name">Apartment light cleaning</span>
+      </div>
+    </li>
+    <li property="itemListElement" typeof="Offer">
+      <div property="itemOffered" typeof="Service">
+        <span property="name">House light cleaning up to 2 bedrooms</span>
+      </div>
+    </li>
+    <li property="itemListElement" typeof="Offer">
+      <div property="itemOffered" typeof="Service">
+        <span property="name">House light cleaning 3+ bedrooms</span>
+      </div>
+    </li>
+    <li property="itemListElement" typeof="Offer">
+      <div property="itemOffered" typeof="Service">
+        <span property="name">Window washing</span>
+      </div>
+    </li>
+    <li property="itemListElement" typeof="Offer">
+      <div property="itemOffered" typeof="Service">
+        <span property="name">Carpet deep cleaning</span>
+      </div>
+    </li>
+    <li property="itemListElement" typeof="Offer">
+      <div property="itemOffered" typeof="Service">
+        <span property="name">Move in/out cleaning</span>
+      </div>
+    </li>
+  </ul>
+</div>
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org/",
+  "@type": "Service",
+  "serviceType": "Home cleaning",
+  "provider": {
+    "@type": "LocalBusiness",
+    "name": "ACME Home Cleaning"
+  },
+  "areaServed": {
+    "@type": "State",
+    "name": "Massachusetts"
+  },
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "itemListElement": [
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Apartment light cleaning"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "House light cleaning up to 2 bedrooms"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "House light cleaning 3+ bedrooms"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Window washing"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Carpet cleaning"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Move in/out cleaning"
+        }
+      }
+    ]
+  }
+}
+
+</script>
+
+TYPES: #offer-4 Offer, FoodEstablishment, GeoCircle, DeliveryChargeSpecification, PriceSpecification
+
+PRE-MARKUP:
+
+Joes' Pizza
+123 Main Street
+Cambridge, MA 02142
+delivers within 5 km of its store with a minimum order of $20.
+
+
+MICRODATA:
+
+<div itemscope itemtype="http://schema.org/FoodEstablishment">
+  <span itemprop="name">Joe's Pizza</span>
+  <div itemprop="location" itemscope itemtype="http://schema.org/PostalAddress">
+    <span itemprop="streetAddress">123 Main Street</span>
+    <span itemprop="addressLocality">Cambridge</span>
+    <span itemprop="addressRegion">MA</span>
+    <span itemprop="postalCode">02142</span>
+  </div>
+  delivers within 5 km of its store
+  <div itemprop="makesOffer" itemscope itemtype="http://schema.org/Offer">
+    <div itemprop="availableAtOrFrom" itemscope itemtype="http://schema.org/GeoCircle">
+      <div itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
+        <meta itemprop="streetAddress" content="123 Main Street" />
+        <meta itemprop="addressLocality" content="Cambridge" />
+        <meta itemprop="addressRegion" content="MA" />
+        <meta itemprop="postalCode" cotent="02142" />
+      </div>
+      <meta itemprop="geoRadius" content="5000" />
+    </div>
+
+    with a minium order of $20.
+    <div itemprop="priceSpecification" itemscope itemtype="http://schema.org/DeliveryChargeSpecification">
+      <meta itemprop="appliesToDeliveryMethod" link="http://purl.org/goodrelations/v1#DeliveryModeOwnFleet">
+      <div itemprop="eligibleTransactionVolume" itemscope itemtype="http://schema.org/PriceSpecification">
+        <meta itemprop="price" content="20.00" />
+        <meta itemprop="priceCurrency" content="USD" />
+      </div>
+    </div>
+  </div>
+</div>
+
+RDFA:
+
+<div vocab="http://schema.org/" typeof="FoodEstablishment">
+  <span property="name">Joe's Pizza</span>
+  <div property="location" typeof="PostalAddress">
+    <span property="streetAddress">123 Main Street</span>
+    <span property="addressLocality">Cambridge</span>
+    <span property="addressRegion">MA</span>
+    <span property="postalCode">02142</span>
+  </div>
+  delivers within 5 km of its store with a minium order of $20.
+  <div property="makesOffer" typeof="Offer">
+    <div property="priceSpecification" typeof="DeliveryChargeSpecification">
+      <meta property="appliesToDeliveryMethod" link="http://purl.org/goodrelations/v1#DeliveryModeOwnFleet">
+      <div property="eligibleTransactionVolume" typeof="PriceSpecification">
+        <meta property="price" content="20.00" />
+        <meta property="priceCurrency" content="USD" />
+      </div>
+      <div property="eligibleRegion" typeof="GeoCircle">
+        <div property="address" typeof="PostalAddress">
+          <meta property="streetAddress" content="123 Main Street" />
+          <meta property="addressLocality" content="Cambridge" />
+          <meta property="addressRegion" content="MA" />
+          <meta property="postalCode" cotent="02142" />
+        </div>
+        <meta property="geoRadius" content="5000" />
+      </div>
+    </div>
+  </div>
+</div>
+
+JSON:
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org/",
+    "@type": "FoodEstablishment",
+    "name": "Joe's Pizza",
+    "location": {
+      "@type": "PostalAddress",
+      "@id": "http://example.com/address",
+      "streetAddress": "123 Main Street",
+      "addressLocality": "Cambridge",
+      "addressRegion": "MA",
+      "postalCode": "02142"
+    },
+    "makesOffer": {
+      "@type": "Offer",
+      "priceSpecification": {
+        "@type": "DeliveryChargeSpecification",
+        "appliesToDeliveryMethod": "http://purl.org/goodrelations/v1#DeliveryModeOwnFleet",
+        "eligibleTransactionVolume": {
+          "@type": "PriceSpecification",
+          "price": "20.00",
+          "priceCurrency": "USD"
+        },
+        "eligibleRegion": {
+          "@type": "GeoCircle",
+          "address": {
+            "@id": "http://www.example.com/address"
+          },
+          "geoRadius": "5000"
+        }
+      }
+    }
+  }
 </script>

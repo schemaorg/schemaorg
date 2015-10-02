@@ -49,3 +49,49 @@ JSON:
   ]
 }
 </script>
+
+
+TYPES: #datafeed-2 MobileApplication, DataFeed, supportingData
+
+PRE-MARKUP:
+
+The e-reader comes installed with Anna Karenina, Pride and Prejudice, and My Bondage and My Freedom
+
+MICRODATA:
+
+Example is JSON-LD only.
+
+RDFA:
+
+Example is JSON-LD only.
+
+JSON:
+
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org/",
+    "@type": "MobileApplication",
+    "applicationCategory": "https://en.wikipedia.org/wiki/E-reader",
+    "supportingData": {
+      "@type": "DataFeed",
+      "dataFeedElement": [
+        {
+          "@type": "Book",
+          "name": "Anna Karenina",
+          "sameAs": "https://en.wikipedia.org/wiki/Anna_Karenina"
+        },
+        {
+          "@type": "Book",
+          "name": "Pride and Prejudice",
+          "sameAs": "https://en.wikipedia.org/wiki/Pride_and_Prejudice"
+        },
+        {
+          "@type": "Book",
+          "name": "My Bondage and My Freedom",
+          "sameAs": "https://en.wikipedia.org/wiki/My_Bondage_and_My_Freedom"
+        }
+      ]
+    }
+  }
+
+</script>

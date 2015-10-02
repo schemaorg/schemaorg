@@ -1495,6 +1495,20 @@
        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/ItemList">ItemList</a></span>
     </div>
 
+    <div typeof="rdfs:Class" resource="http://schema.org/OfferCatalog">
+      <span class="h" property="rdfs:label">OfferCatalog</span>
+      <span property="rdfs:comment">An OfferCatalog is an ItemList that contains Offers and/or further OfferCatalogs.</span>
+       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/ItemList">ItemList</a></span>
+    </div>
+
+    <div typeof="rdf:Property" resource="http://schema.org/hasOfferCatalog">
+      <span class="h" property="rdfs:label">hasOfferCatalog</span>
+      <span property="rdfs:comment">Indicates an OfferCatalog listing for this Organization or Service.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Organization">Organization</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Service">Service</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/OfferCatalog">OfferCatalog</a></span>
+    </div>
+
     <div typeof="rdfs:Class" resource="http://schema.org/ItemPage">
       <span class="h" property="rdfs:label">ItemPage</span>
       <span property="rdfs:comment">A page devoted to a single item, such as a particular product or hotel.</span>
@@ -9423,6 +9437,12 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Artery">Artery</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/AnatomicalStructure">AnatomicalStructure</a></span>
     </div>
+    <div typeof="rdf:Property" resource="http://schema.org/supportingData">
+      <span class="h" property="rdfs:label">supportingData</span>
+      <span property="rdfs:comment">Supporting data for a SoftwareApplication.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/SoftwareApplication">SoftwareApplication</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/DataFeed">DataFeed</a></span>
+    </div>
     <div typeof="rdf:Property" resource="http://schema.org/targetDescription">
       <span class="h" property="rdfs:label">targetDescription</span>
       <span property="rdfs:comment">The description of a node in an established educational framework.</span>
@@ -10105,6 +10125,12 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
       <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/BusTrip">BusTrip</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Person">Person</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Organization">Organization</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/providerMobility">
+      <span class="h" property="rdfs:label">providerMobility</span>
+      <span property="rdfs:comment">Indicates the mobility of a provided service (e.g. 'static', 'dynamic').</span>
+      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Service">Service</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/bookingAgent">
       <span class="h" property="rdfs:label">bookingAgent</span>
