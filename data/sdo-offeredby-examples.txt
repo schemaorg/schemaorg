@@ -89,15 +89,12 @@ JSON:
 <script type="application/ld+json">
 {
   "@context":  "http://schema.org/",
-  "@graph": [
-    {
-      "@id": "#record",
-        "@type": "Book",
-      "additionalType": "Product",
-      "name": "Le concerto",
-      "author": "Ferchault, Guy"
-    },
-    {
+  "@id": "#record",
+  "@type": "Book",
+  "additionalType": "Product",
+  "name": "Le concerto",
+  "author": "Ferchault, Guy",
+  "offers":{
       "@type": "Offer",
       "availability": "http://schema.org/InStock",
       "serialNumber": "CONC91000937",
@@ -110,7 +107,6 @@ JSON:
       "businessFunction": "http://purl.org/goodrelations/v1#LeaseOut",
       "itemOffered": "#record"
     }
-]
 }
 </script>
 
