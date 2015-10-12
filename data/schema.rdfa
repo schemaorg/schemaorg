@@ -1503,7 +1503,8 @@
 
     <div typeof="rdf:Property" resource="http://schema.org/hasOfferCatalog">
       <span class="h" property="rdfs:label">hasOfferCatalog</span>
-      <span property="rdfs:comment">Indicates an OfferCatalog listing for this Service. For linking from an Organization to an OfferCatalog, use makesOffer.</span>
+      <span property="rdfs:comment">Indicates an OfferCatalog listing for this Organization or Service.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Organization">Organization</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Service">Service</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/OfferCatalog">OfferCatalog</a></span>
     </div>
@@ -7506,14 +7507,12 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Organization">Organization</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Person">Person</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Offer">Offer</a></span>
-      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/OfferCatalog">OfferCatalog</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/offeredBy">
       <span class="h" property="rdfs:label">offeredBy</span>
       <span property="rdfs:comment">A pointer to the organization or person making the offer.</span>
       <link property="http://schema.org/inverseOf" href="http://schema.org/makesOffer"/>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Offer">Organization</a></span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/OfferCatalog">OfferCatalog</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Person">Person</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Organization">Offer</a></span>
     </div>
