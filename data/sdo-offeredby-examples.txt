@@ -358,7 +358,7 @@ JSON:
 }
 </script>
 
-TYPES: #offer-3 Offer, OfferCatalog, Service, LocalBusiness, hasOfferCatalog
+TYPES: #offer-3 Offer, OfferCatalog, Service, LocalBusiness, serviceDetails
 
 PRE-MARKUP:
 
@@ -384,7 +384,7 @@ MICRODATA:
   <span itemprop="areaServed" itemscope itemtype="http://schema.org/State">
     <span itemprop="name">Massachusetts</span>, including
   </span>
-  <ul itemprop="hasOfferCatalog" itemscope itemtype="http://schema.org/OfferCatalog">
+  <ul itemprop="serviceDetails" itemscope itemtype="http://schema.org/OfferCatalog">
     <li itemprop="itemListElement" itemscope itemtype="http://schema.org/Offer">
       <div itemprop="itemOffered" itemscope itemtype="http://schema.org/Service">
         <span itemprop="name">Apartment light cleaning</span>
@@ -430,7 +430,7 @@ RDFA:
   <span property="areaServed" typeof="State">
     <span property="name">Massachusetts</span>, including
   </span>
-  <ul property="hasOfferCatalog" typeof="OfferCatalog">
+  <ul property="serviceDetails" typeof="OfferCatalog">
     <li property="itemListElement" typeof="Offer">
       <div property="itemOffered" typeof="Service">
         <span property="name">Apartment light cleaning</span>
@@ -479,7 +479,7 @@ JSON:
     "@type": "State",
     "name": "Massachusetts"
   },
-  "hasOfferCatalog": {
+  "serviceDetails": {
     "@type": "OfferCatalog",
     "itemListElement": [
       {
