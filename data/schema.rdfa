@@ -98,7 +98,7 @@
         &lt;a href=&quot;/Locksmith&quot;&gt;Locksmith&lt;/a&gt;,
         &lt;a href=&quot;/Plumber&quot;&gt;Plumber&lt;/a&gt;,
         &lt;a href=&quot;/Plumber&quot;&gt;RoofingContractor&lt;/a&gt;.
-        &lt;a href=&quot;/LegalBusiness&quot;&gt;LegalBusiness&lt;/a&gt; was introduced as a more
+        &lt;a href=&quot;/LegalService&quot;&gt;LegalService&lt;/a&gt; was introduced as a more
         inclusive supertype of &lt;a href=&quot;/Attorney&quot;&gt;Attorney&lt;/a&gt;.
 
       </span>
@@ -1222,10 +1222,11 @@
 
        <div typeof="rdf:Property" resource="http://schema.org/geoRadius">
                <span class="h" property="rdfs:label">geoRadius</span>
-               <span class="h" property="rdfs:comment">Indicates the approximate radius in metres of a GeoCircle.</span>
+               <span class="h" property="rdfs:comment">Indicates the approximate radius of a GeoCircle (metres unless indicated otherwise via Distance notation).</span>
                <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/GeoCircle">GeoCircle</a></span>
                <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
                <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number">Number</a></span>
+               <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Distance">Distance</a></span>
        </div>
 
        <div typeof="rdf:Property" resource="http://schema.org/geoMidpoint">
@@ -1492,6 +1493,20 @@
       with '1' for the first item in the list.
       </span>
        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/ItemList">ItemList</a></span>
+    </div>
+
+    <div typeof="rdfs:Class" resource="http://schema.org/OfferCatalog">
+      <span class="h" property="rdfs:label">OfferCatalog</span>
+      <span property="rdfs:comment">An OfferCatalog is an ItemList that contains Offers and/or further OfferCatalogs.</span>
+       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/ItemList">ItemList</a></span>
+    </div>
+
+    <div typeof="rdf:Property" resource="http://schema.org/hasOfferCatalog">
+      <span class="h" property="rdfs:label">hasOfferCatalog</span>
+      <span property="rdfs:comment">Indicates an OfferCatalog listing for this Organization or Service.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Organization">Organization</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Service">Service</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/OfferCatalog">OfferCatalog</a></span>
     </div>
 
     <div typeof="rdfs:Class" resource="http://schema.org/ItemPage">
@@ -6929,6 +6944,7 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
     <div typeof="rdf:Property" resource="http://schema.org/homeLocation">
       <span class="h" property="rdfs:label">homeLocation</span>
       <span property="rdfs:comment">A contact location for a person&#39;s residence.</span>
+      <link property="rdfs:subPropertyOf" href="http://schema.org/location" />
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Person">Person</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/ContactPoint">ContactPoint</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Place">Place</a></span>
@@ -7416,12 +7432,13 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/location">
       <span class="h" property="rdfs:label">location</span>
-      <span property="rdfs:comment">The location of the event, organization or action.</span>
+      <span property="rdfs:comment">The location of for example where the event is happening, an organization is located, or where an action takes place.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Organization">Organization</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Event">Event</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Action">Action</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Place">Place</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/PostalAddress">PostalAddress</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/logo">
       <span class="h" property="rdfs:label">logo</span>
@@ -9422,6 +9439,12 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Artery">Artery</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/AnatomicalStructure">AnatomicalStructure</a></span>
     </div>
+    <div typeof="rdf:Property" resource="http://schema.org/supportingData">
+      <span class="h" property="rdfs:label">supportingData</span>
+      <span property="rdfs:comment">Supporting data for a SoftwareApplication.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/SoftwareApplication">SoftwareApplication</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/DataFeed">DataFeed</a></span>
+    </div>
     <div typeof="rdf:Property" resource="http://schema.org/targetDescription">
       <span class="h" property="rdfs:label">targetDescription</span>
       <span property="rdfs:comment">The description of a node in an established educational framework.</span>
@@ -9850,6 +9873,7 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
     <div typeof="rdf:Property" resource="http://schema.org/workLocation">
       <span class="h" property="rdfs:label">workLocation</span>
       <span property="rdfs:comment">A contact location for a person&#39;s place of work.</span>
+      <link property="rdfs:subPropertyOf" href="http://schema.org/location" />
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Person">Person</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/ContactPoint">ContactPoint</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Place">Place</a></span>
@@ -10104,6 +10128,12 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
       <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/BusTrip">BusTrip</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Person">Person</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Organization">Organization</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/providerMobility">
+      <span class="h" property="rdfs:label">providerMobility</span>
+      <span property="rdfs:comment">Indicates the mobility of a provided service (e.g. 'static', 'dynamic').</span>
+      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Service">Service</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/bookingAgent">
       <span class="h" property="rdfs:label">bookingAgent</span>
@@ -10712,6 +10742,13 @@ postponing for 1.6.
       <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_ActionCollabClass">Action collaborations</a></span>
     </div>
 
+    <div typeof="rdf:Property" resource="http://schema.org/actionPlatform">
+      <span class="h" property="rdfs:label">actionPlatform</span>
+      <span property="rdfs:comment">The high level platform(s) where the Action can be performed for the given URL. To specify a specific application or operating system instance, use actionApplication.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/EntryPoint">EntryPoint</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text"></a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/URL"></a></span>
+    </div>
 
     <div typeof="rdf:Property" resource="http://schema.org/target">
       <span class="h" property="rdfs:label">target</span>
