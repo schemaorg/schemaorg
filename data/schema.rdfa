@@ -1497,14 +1497,15 @@
 
     <div typeof="rdfs:Class" resource="http://schema.org/OfferCatalog">
       <span class="h" property="rdfs:label">OfferCatalog</span>
-      <span property="rdfs:comment">An OfferCatalog is an ItemList that contains Offers and/or further OfferCatalogs.</span>
+      <span property="rdfs:comment">An OfferCatalog is an ItemList that contains related Offers and/or further OfferCatalogs from the same seller.</span>
        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/ItemList">ItemList</a></span>
     </div>
 
     <div typeof="rdf:Property" resource="http://schema.org/hasOfferCatalog">
       <span class="h" property="rdfs:label">hasOfferCatalog</span>
-      <span property="rdfs:comment">Indicates an OfferCatalog listing for this Organization or Service.</span>
+      <span property="rdfs:comment">Indicates an OfferCatalog listing for this Organization, Person, or Service.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Organization">Organization</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Person">Person</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Service">Service</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/OfferCatalog">OfferCatalog</a></span>
     </div>
