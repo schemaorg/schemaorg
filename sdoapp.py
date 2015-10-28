@@ -487,7 +487,7 @@ class ShowUnit (webapp2.RequestHandler):
                 count += 1
                 thisrow += "%s" % (self.ml(n))
            crumbsout.append(thisrow)
-        
+
         self.write("<h4>")
         rowcount = 0
         for crumb in sorted(crumbsout):
@@ -808,7 +808,7 @@ class ShowUnit (webapp2.RequestHandler):
             out.write("<table class=\"definition-table\">\n")
             out.write("  <thead>\n    <tr>\n      <th>Sub-properties</th>\n    </tr>\n</thead>\n")
             for sbp in subprops:
-                c = GetComment(sbp,layers=layers)
+                c = ShortenOnSentence(StripHtmlTags( GetComment(sbp,layers=layers) ),60)
                 tt = "%s: ''%s''" % ( sbp.id, c)
                 out.write("\n    <tr><td><code>%s</code></td></tr>\n" % (self.ml(sbp, sbp.id, tt, hashorslash=hashorslash)))
             out.write("\n</table>\n\n")
@@ -818,7 +818,7 @@ class ShowUnit (webapp2.RequestHandler):
             out.write("<table class=\"definition-table\">\n")
             out.write("  <thead>\n    <tr>\n      <th>Super-properties</th>\n    </tr>\n</thead>\n")
             for spp in superprops:
-                c = GetComment(spp, layers=layers)           # markup needs to be stripped from c, e.g. see 'logo', 'photo'
+                c = ShortenOnSentence(StripHtmlTags( GetComment(spp,layers=layers) ),60)
                 c = re.sub(r'<[^>]*>', '', c) # This is not a sanitizer, we trust our input.
                 tt = "%s: ''%s''" % ( spp.id, c)
                 out.write("\n    <tr><td><code>%s</code></td></tr>\n" % (self.ml(spp, spp.id, tt,hashorslash)))
@@ -1090,7 +1090,7 @@ class ShowUnit (webapp2.RequestHandler):
                 extbuff.close()
 
         if (node.isEnumeration(layers=layers)):
-            
+
             children = sorted(GetSources(Unit.GetUnit("typeOf"), node, ALL_LAYERS), key=lambda u: u.id)
             if (len(children) > 0):
                 buff = StringIO.StringIO()
