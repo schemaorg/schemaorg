@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bgn="http://bibliograph.net" xmlns:schema="http://schema.org/" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xml:lang="en" lang="en">
+
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>fibo.schema.org version 1.0</title>
+<style type="text/css">
+      span.h {
+        padding-left: 0px;
+        font-weight: bold;
+      }
+      span {
+        display: block;
+        padding-left: 10px;
+      }
+    </style>
+</head>
+<body>
+<h1>Candidates for fibo.schema.org</h1>
+<p></p>
+
+<p vocab="http://schema.org" prefix="fibo:http://fibo.schema.org/">Default vocabulary prefix: 'fibo:'</p>
+<p>
+<span property="schema:softwareVersion">fibo.schema.org Version 1.0</span>
+</p>
+<hr/>
+<h2>Types</h2>
+
+
+<div typeof="rdfs:Class" resource="http://schema.org/TestType">
+	<link property="http://schema.org/isPartOf" href="http://fibo.schema.org" />
+	<span class="h" property="rdfs:label">bib:Atlas</span>
+	<span property="rdfs:comment">A collection or bound volume of maps, charts, plates or tables, physical or in media form illustrating any subject.</span>
+	<span> Subclass of:<a property="rdfs:subClassOf" href="http://schema.org/Thing">schema:Thing</a></span>
+</div>
+
+
+<hr/>
+<h2>Enumeration Members</h2>
+
+<hr/>
+<h2>Properties</h2>
+
+<div typeof="rdf:Property" resource="http://schema.org/testProperty">
+	<link property="http://schema.org/isPartOf" href="http://fibo.schema.org" />
+	<span class="h" property="rdfs:label">fibo:testProperty</span>
+	<span property="rdfs:comment">A test property.</span>
+	<span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/TestType">fibo:TestType</a></span>
+	<span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Thing">schema:Thing</a></span>
+</div>
+
+
+</body>
+</html>

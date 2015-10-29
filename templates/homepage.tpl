@@ -47,6 +47,17 @@ See the draft <b><a href="{{staticPath}}/docs/releases.html">releases</a></b> pa
 
   <p><br/></p>
 
+{% elif ENABLE_HOSTED_EXTENSIONS and host_ext == "fibo" %}
+  {{ ext.overview(name="FIBO Extension", abbrev="fibo") }}
+
+  <p>  You are viewing the FIBO Extension within <a href="http://schema.org/">schema.org</a>.
+  It defines terms such as <a href="/FinancialProduct">FinancialProduct</a> and adds terms to <a href="/BankOrCreditUnion">BankOrCreditUnion</a>. For more details
+  see the W3C <a href="">FIBO ????? Working Group</a>.
+  <br/>This should be considered a preview release; final changes may be made after wider <a href="">community review</a>.
+</p>
+
+  <p><br/></p>
+
 {% elif ENABLE_HOSTED_EXTENSIONS and host_ext == "test001" %}
   {{ ext.overview(name="Test Extension", abbrev="test1") }}
 
