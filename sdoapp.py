@@ -928,12 +928,13 @@ class ShowUnit (webapp2.RequestHandler):
             return "schema.org"
         return (getHostExt() + ".schema.org")
 
-    def emitSchemaorgHeaders(self, node, is_class=False, ext_mappings='', sitemode="default", sitename="schema.org", layers="core"):
+    def emitSchemaorgHeaders(self, node, ext_mappings='', sitemode="default", sitename="schema.org", layers="core"):
         """
         Generates, caches and emits HTML headers for class, property and enumeration pages. Leaves <body> open.
 
         * entry = name of the class or property
         """
+        rdfs_type = 'rdfs:Property'
         anode = True
         if isinstance(node, str):
             entry = node
@@ -941,9 +942,22 @@ class ShowUnit (webapp2.RequestHandler):
         else:
             entry = node.id
 
-        rdfs_type = 'rdfs:Property'
-        if is_class:
-            rdfs_type = 'rdfs:Class'
+            if node.isEnumeration():
+                rdfs_type = 'rdfs:Class'
+            elif node.isEnumerationValue():
+                rdfs_type = ""
+                nodeTypes = GetTargets(Unit.GetUnit("typeOf"), node, layers=layers)
+                typecount = 0
+                for type in nodeTypes: 
+                     if typecount > 0:
+                         rdfs_type += " "
+                     rdfs_type += type.id
+                     typecount += 1
+                     
+            elif node.isClass():
+                rdfs_type = 'rdfs:Class'
+            elif node.isAttribute():
+                rdfs_type = 'rdfs:Property'
 
         generated_page_id = "genericTermPageHeader-%s-%s" % ( str(entry), getSiteName() )
         gtp = DataCache.get( generated_page_id )
@@ -1008,7 +1022,7 @@ class ShowUnit (webapp2.RequestHandler):
         if ("schema.org" not in self.request.host and sitemode == "mainsite"):
             sitemode = "mainsite testsite"
 
-        self.emitSchemaorgHeaders(node, node.isClass(), ext_mappings, sitemode, getSiteName(), layers)
+        self.emitSchemaorgHeaders(node, ext_mappings, sitemode, getSiteName(), layers)
 
         if ( ENABLE_HOSTED_EXTENSIONS and ("core" not in layers or len(layers)>1) ):
             ll = " ".join(layers).replace("core","")
