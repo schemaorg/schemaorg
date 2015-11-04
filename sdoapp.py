@@ -418,7 +418,7 @@ class ShowUnit (webapp2.RequestHandler):
         rdfalink = ''
         if prop:
             rdfalink = '<link %s href="http://schema.org/%s" />' % (prop,label)
-            
+
 
         return "%s<a %s %s href=\"%s%s%s\"%s>%s</a>%s" % (rdfalink,tooltip, extclass, urlprefix, hashorslash, node.id, title, label, extflag)
         #return "<a %s %s href=\"%s%s%s\"%s%s>%s</a>%s" % (tooltip, extclass, urlprefix, hashorslash, node.id, prop, title, label, extflag)
@@ -954,12 +954,12 @@ class ShowUnit (webapp2.RequestHandler):
                 rdfs_type = ""
                 nodeTypes = GetTargets(Unit.GetUnit("typeOf"), node, layers=layers)
                 typecount = 0
-                for type in nodeTypes: 
+                for type in nodeTypes:
                      if typecount > 0:
                          rdfs_type += " "
                      rdfs_type += type.id
                      typecount += 1
-                     
+
             elif node.isClass():
                 rdfs_type = 'rdfs:Class'
             elif node.isAttribute():
@@ -1444,26 +1444,26 @@ class ShowUnit (webapp2.RequestHandler):
 
         return True
 
-    def handleJSONSchemaTree(self, node, layerlist='core'):
-        """Handle a request for a JSON-LD tree representation of the schemas (RDFS-based)."""
-
-        self.response.headers['Content-Type'] = "application/ld+json"
-        self.emitCacheHeaders()
-
-        if DataCache.get('JSONLDThingTree'):
-            self.response.out.write( DataCache.get('JSONLDThingTree') )
-            log.debug("Serving recycled JSONLDThingTree.")
-            return True
-        else:
-            uThing = Unit.GetUnit("Thing")
-            mainroot = TypeHierarchyTree()
-            mainroot.traverseForJSONLD(Unit.GetUnit("Thing"), layers=layerlist)
-            thing_tree = mainroot.toJSON()
-            self.response.out.write( thing_tree )
-            log.debug("Serving fresh JSONLDThingTree.")
-            DataCache.put("JSONLDThingTree",thing_tree)
-            return True
-        return False
+#    def handleJSONSchemaTree(self, node, layerlist='core'):
+#        """Handle a request for a JSON-LD tree representation of the schemas (RDFS-based)."""
+#
+#        self.response.headers['Content-Type'] = "application/ld+json"
+#        self.emitCacheHeaders()
+#
+#        if DataCache.get('JSONLDThingTree'):
+#            self.response.out.write( DataCache.get('JSONLDThingTree') )
+#            log.debug("Serving recycled JSONLDThingTree.")
+#            return True
+#        else:
+#            uThing = Unit.GetUnit("Thing")
+#            mainroot = TypeHierarchyTree()
+#            mainroot.traverseForJSONLD(Unit.GetUnit("Thing"), layers=layerlist)
+#            thing_tree = mainroot.toJSON()
+#            self.response.out.write( thing_tree )
+#            log.debug("Serving fresh JSONLDThingTree.")
+#            DataCache.put("JSONLDThingTree",thing_tree)
+#            return True
+#        return False
 
 
 
