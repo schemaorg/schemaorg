@@ -1784,7 +1784,7 @@ class ShowUnit (webapp2.RequestHandler):
 
 
         if (node == "docs/tree.jsonld" or node == "docs/tree.json"):
-            if self.handleJSONSchemaTree(node, layerlist=layerlist):
+            if self.handleJSONSchemaTree(node, layerlist=ALL_LAYERS):
                 return
             else:
                 log.info("Error handling JSON-LD schema tree: %s " % node)
