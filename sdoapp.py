@@ -7,6 +7,7 @@ import webapp2
 import jinja2
 import logging
 import StringIO
+import json
 
 from markupsafe import Markup, escape # https://pypi.python.org/pypi/MarkupSafe
 
@@ -211,16 +212,13 @@ class TypeHierarchyTree:
         supertx = "{}".format( '"rdfs:subClassOf": "schema:%s", ' % supertype.id if supertype != "None" else '' )
         maybe_comma = "{}".format("," if unvisited_subtype_count > 0 else "")
         comment = GetComment(node, layers).strip()
-        comment = comment.replace('"',"'")
         comment = ShortenOnSentence(StripHtmlTags(comment),60)
 
-        def escSingleQuotes(s):
-            s = s.replace("'", " ")
-            s = s.replace("\n", " ")
-            return s
+        def encode4json(s):
+            return json.dumps(s)
 
-        self.emit('\n%s{\n%s\n%s"@type": "rdfs:Class", %s "description": "%s",\n%s"name": "%s",\n%s"@id": "schema:%s"%s'
-                  % (p1, ctx, p1,                 supertx,            escSingleQuotes(comment),     p1,   escSingleQuotes(node.id), p1,        node.id,  maybe_comma))
+        self.emit('\n%s{\n%s\n%s"@type": "rdfs:Class", %s "description": %s,\n%s"name": "%s",\n%s"@id": "schema:%s"%s'
+                  % (p1, ctx, p1,                 supertx,            encode4json(comment),     p1,   node.id, p1,        node.id,  maybe_comma))
 
         i = 1
         if unvisited_subtype_count > 0:
