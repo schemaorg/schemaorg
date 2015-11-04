@@ -215,7 +215,7 @@ class TypeHierarchyTree:
         comment = ShortenOnSentence(StripHtmlTags(comment),60)
 
         def escSingleQuotes(s):
-            s = s.replace("'", "\\'")
+            s = s.replace("'", " ")
             return s
 
         self.emit('\n%s{\n%s\n%s"@type": "rdfs:Class", %s "description": "%s",\n%s"name": "%s",\n%s"@id": "schema:%s"%s'
