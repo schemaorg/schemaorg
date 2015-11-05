@@ -32,18 +32,18 @@ customSearchControl.draw('cse-search-form', options);
 	        {% else %}
 	        <li>
 	        {% endif %}
-				<a href="http://schema.org/docs/documents.html">Documentation</a>
+				<a href="/docs/documents.html">Documentation</a>
 			</li>
 	        {% if menu_sel == "Schemas" %}
 	        <li class="activelink">
 	        {% else %}
 	        <li>
 	        {% endif %}
-				<a href="http://schema.org/docs/schemas.html">Schemas</a>
+				<a href="/docs/schemas.html">Schemas</a>
 			</li>
 			<li>
 	        {% if home_page == "True" %}
-				<a href="http://schema.org/docs/about.html">About</a>
+				<a href="{{staticPath}}/docs/about.html">About</a>
 	        {% else %}
 				<a href="/">Home</a>
 	        {% endif %}
