@@ -1,0 +1,118 @@
+
+0-a) Technical pre-conditions for release.
+
+Overview
+
+Code, schema, examples and supporting documentation should be in a stable state.
+
+Pay particular attention to release-specific structures and docs/releases.html
+
+In sdoapp.py we declare the current version. This should match the number
+chosen in /docs/releases.html (check markup assigns an HTML ID too).
+
+The following steps assume a general healthy freeze (tested / QA as below).
+
+in sdoapp.py:
+
+    SCHEMA_VERSION=2.2 # or 2.x, as above.
+
+in sdoapp.py:
+
+  releaselog = { "2.0": "2015-05-13", "2.1": "2015-08-06" }
+
+becomes
+
+  releaselog = { "2.0": "2015-05-13", "2.1": "2015-08-06", "2.2": "2015-11-05" }
+
+
+... this should have a release date for the current release and all
+previous releases that are archived under data/releases/{version}/*
+
+TODO: Add a unit test to ensure this.
+
+TODO: Re-order this document to avoid forward references.
+
+Under data/releases/{version}/ we need a versioned-snapshot structure:
+
+e.g.
+    data/releases/2.1
+    data/releases/2.1/all-layers.nq
+    data/releases/2.1/core.nq
+    data/releases/2.1/ext-auto.nq
+    data/releases/2.1/ext-bib.nq
+    data/releases/2.1/README.md
+    data/releases/2.1/schema-all.html
+    data/releases/2.1/schema.nt
+    data/releases/2.1/schema.rdfa
+
+Of these,
+
+ * schema.rdfa is a frozen one-time copy of data/schema.rdfa
+ * schema-all.html is generated from this via running the Web app and
+   capturing via curl, e.g. http://localhost:8080/version/2.1/
+   served locally via "dev_appserver ."
+   (TODO: confirm whether grabbing via localhost is safe or needs manual fixups)
+ * the .nt and .nq files are n-triples and n-quads capturing the core
+   and extensions. Use script/rdfa2nq for the latter.
+   TODO: add scripts/rdfa for ntriples convertor.
+  * We consider schema.rdfa as immutable; the rest can be fixed and augmented
+   as they are derrived and potentially improvable formats.
+  * we don't preserve snapshots of per-extension RDFa here (or examples etc.)
+  * README.md should be copied/updated accordingly.  TODO: simplify this file.
+
+Example usage:
+
+Use of rdfa2nq with extensions:
+
+./scripts/rdfa2nq data/ext/bib/bsdo-1.0.rdfa http://bib.schema.org/#v2.1 > data/releases/2.1/ext-bib.nq
+./scripts/rdfa2nq data/ext/bib/comics.rdfa http://bib.schema.org/#v2.1 >> data/releases/2.1/ext-bib.nq
+./scripts/rdfa2nq data/ext/auto/auto.rdfa http://auto.schema.org/#v2.1 > data/releases/2.1/ext-auto.nq
+
+TODO: explain where all-layers.nq comes from (cat'ing the others)
+TODO: list optional tasks post-launch (blog, email, refresh dydra sparql db etc.).
+
+
+
+1) General preconditions / process and QA for release.
+
+1-a) Steering Group have signed off on changes and release plan,
+and no active and unresolved disputes in the Community Group.
+
+1-b) All code is commited to appropriate release branch at Github (usually
+configured as the current default github branch for /schemaorg/ project).
+
+1-c) All tests pass.
+It is best to test against a fresh checkout to avoid depending on uncommitted
+files. The unit tests depend upon a local installation of Google AppEngine, e.g.
+
+PYTHONPATH=/usr/local/google_appengine ./scripts/run_tests.py
+
+To run the full unit tests (graph test of schema integrity) the 'rdflib'
+python library is also needed: 'sudo easy_install rdflib' should do it.
+
+ Example transcript:
+
+  git clone https://github.com/schemaorg/schemaorg.git
+  Cloning into 'schemaorg'...
+  remote: Counting objects: 6375, done.
+  remote: Compressing objects: 100% (80/80), done.
+  remote: Total 6375 (delta 43), reused 0 (delta 0), pack-reused 6295
+  Receiving objects: 100% (6375/6375), 27.62 MiB | 1.01 MiB/s, done.
+  Resolving deltas: 100% (4074/4074), done.
+  Checking connectivity... done.
+  danbri-macbookpro2:tmp danbri$ cd schemaorg/
+
+  [...]
+
+  Ran 70 tests in 21.168s
+
+  OK (expected failures=3)
+
+1-d) Latest candidate release branch is pushed to per-branch appspot instance
+(e.g. sdo-phobos.appspot.com) and the generic unstable upstream site
+(i.e. webschemas.org).
+
+1-e) The manual QA page /docs/qa.html has been reviewed to ensure
+representative pages of each type appear to be in a healthy state.
+
+e.g. see http://webschemas.org/docs/qa.html
