@@ -32,7 +32,7 @@ customSearchControl.draw('cse-search-form', options);
 	        {% else %}
 	        <li>
 	        {% endif %}
-				<a href="{{staticPath}}/docs/documents.html">Documentation</a>
+				<a href="/docs/documents.html">Documentation</a>
 			</li>
 	        {% if menu_sel == "Schemas" %}
 	        <li class="activelink">
