@@ -1493,12 +1493,14 @@ class ShowUnit (webapp2.RequestHandler):
 
         # Full release page for: node: 'version/' cleannode: 'version/' requested_version: '' requested_format: '' l: 2
         # /version/
+        log.debug("clean_node: %s requested_version: %s " %  (clean_node, requested_version))
         if (clean_node=="version/" or clean_node=="version") and requested_version=="" and requested_format=="":
             log.info("Table of contents should be sent instead, then succeed.")
             if DataCache.get('tocVersionPage'):
                 self.response.out.write( DataCache.get('tocVersionPage'))
                 return True
             else:
+                log.debug("Serving tocversionPage from cache.")
                 template = JINJA_ENVIRONMENT.get_template('tocVersionPage.tpl')
                 page = template.render({ "releases": releaselog.keys(),
                                          "menu_sel": "Schemas",
