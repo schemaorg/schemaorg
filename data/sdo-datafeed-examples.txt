@@ -1,0 +1,97 @@
+TYPES: #datafeed-1 DataFeed
+
+PRE-MARKUP:
+
+Company Directory
+last modified: 2015-01-02
+  Alice: alice@example.com
+  entry added: 2014-07-01
+
+  Bob: bob@example.com
+  entry modified: 2015-01-02
+
+
+MICRODATA:
+
+TODO.
+ 
+RDFA:
+
+TODO.
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org/",
+  "@type": "DataFeed",
+  "name": "Company directory",
+  "dateModified": "2015-01-02",
+  "dataFeedElement": [
+    {
+      "@type": "DataFeedItem",
+      "dateCreated": "2014-07-01",
+      "item": {
+        "@type": "Person",
+        "name": "Alice",
+        "email": "alice@example.com"
+      }
+    },
+    {
+      "@type": "DataFeedItem",
+      "dateModified": "2015-01-02",
+      "item": {
+        "@type": "Person",
+        "name": "Bob",
+        "email": "bob@example.com"
+      }
+    }
+  ]
+}
+</script>
+
+
+TYPES: #datafeed-2 MobileApplication, DataFeed, supportingData
+
+PRE-MARKUP:
+
+The e-reader comes installed with Anna Karenina, Pride and Prejudice, and My Bondage and My Freedom
+
+MICRODATA:
+
+Example is JSON-LD only.
+
+RDFA:
+
+Example is JSON-LD only.
+
+JSON:
+
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org/",
+    "@type": "MobileApplication",
+    "applicationCategory": "https://en.wikipedia.org/wiki/E-reader",
+    "supportingData": {
+      "@type": "DataFeed",
+      "dataFeedElement": [
+        {
+          "@type": "Book",
+          "name": "Anna Karenina",
+          "sameAs": "https://en.wikipedia.org/wiki/Anna_Karenina"
+        },
+        {
+          "@type": "Book",
+          "name": "Pride and Prejudice",
+          "sameAs": "https://en.wikipedia.org/wiki/Pride_and_Prejudice"
+        },
+        {
+          "@type": "Book",
+          "name": "My Bondage and My Freedom",
+          "sameAs": "https://en.wikipedia.org/wiki/My_Bondage_and_My_Freedom"
+        }
+      ]
+    }
+  }
+
+</script>

@@ -12,15 +12,23 @@
 $(document).ready(function(){
     $('input[type="radio"]').click(function(){
         if($(this).attr("value")=="local"){
-            $("#thing_tree").slideDown(1000);
-            $("#full_thing_tree").slideUp(1000);
+            $("#full_thing_tree").hide();
+            $("#ext_thing_tree").hide();
+            $("#thing_tree").show(500);
         }
         if($(this).attr("value")=="full"){
-            $("#thing_tree").slideUp(500);
-            $("#full_thing_tree").slideDown(1000);
+            $("#thing_tree").hide();
+            $("#ext_thing_tree").hide();
+            $("#full_thing_tree").show(500);
         }
-    });
+        if($(this).attr("value")=="ext"){
+            $("#thing_tree").hide();
+            $("#full_thing_tree").hide();
+            $("#ext_thing_tree").show(500);
+        }
+     });
 	$("#full_thing_tree").hide();
+	$("#ext_thing_tree").hide();
 });
 </script>
 </head>
@@ -45,6 +53,9 @@ Schema.org is defined as two hierarchies: one for textual property values, and o
     <div>
         <label><input type="radio" name="viewSel" value="local" checked="checked"> {{local_button}}</label>
         <label><input type="radio" name="viewSel" value="full"> {{full_button}}</label>
+		{% if ext_button != "" %}
+        	<label><input type="radio" name="viewSel" value="ext"> {{ext_button}}</label>
+		{% endif %}
 	</div>
 </div>
 	
@@ -55,6 +66,11 @@ Schema.org is defined as two hierarchies: one for textual property values, and o
 <div class="display: none" id="full_thing_tree">
 {{ full_thing_tree | safe }}
 </div>
+{% if ext_button != "" %}
+	<div class="display: none" id="ext_thing_tree">
+	{{ ext_thing_tree | safe }}
+	</div>
+{% endif %}
 <div id="datatype_tree">
 {{ datatype_tree | safe }}
 </div>

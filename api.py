@@ -22,7 +22,7 @@ schemasInitialized = False
 extensionsLoaded = False
 extensionLoadErrors = ""
 
-SCHEMA_VERSION=1.999999
+EVERYLAYER = "!EVERYLAYER!"
 sitename = "schema.org"
 sitemode = "mainsite" # whitespaced list for CSS tags,
             # e.g. "mainsite testsite", "extensionsite" when off expected domains
@@ -98,13 +98,22 @@ class DataCacheTool():
 
     def __init__ (self):
         self._DataCache = {}
-        self.setCurrent("schema")
+        self.setCurrent("core")
 
-    def get(self,key):
-        return self._DataCache[self._CurrentDataCache].get(key)
+    def getCache(self,cache=None):
+        if cache == None:
+            cache = self._CurrentDataCache
+        if cache in self._DataCache.keys():
+            return self._DataCache[cache]
+        else:
+            log.debug("DataCache Invalid cache name '%s'" % cache)
+            return None
 
-    def put(self,key,val):
-        self._DataCache[self._CurrentDataCache][key] = val
+    def get(self,key,cache=None):
+        return self.getCache(cache).get(key)
+
+    def put(self,key,val,cache=None):
+        self.getCache(cache)[key] = val
 
     def setCurrent(self,current):
         self._CurrentDataCache = current
@@ -114,6 +123,9 @@ class DataCacheTool():
 
     def getCurrent(self):
         return self._CurrentDataCache
+
+    def keys(self):
+        return self._DataCache.keys()
 
 DataCache = DataCacheTool()
 
@@ -410,9 +422,9 @@ def GetTargets(arc, source, layers='core'):
     targets = {}
     for triple in source.arcsOut:
         if (triple.arc == arc):
-            if (triple.target != None and triple.layer in layers):
+            if (triple.target != None and (layers == EVERYLAYER or triple.layer in layers)):
                 targets[triple.target] = 1
-            elif (triple.text != None and triple.layer in layers):
+            elif (triple.text != None and (layers == EVERYLAYER or triple.layer in layers)):
                 targets[triple.text] = 1
     return targets.keys()
 
@@ -421,7 +433,7 @@ def GetSources(arc, target, layers='core'):
 #    log.debug("GetSources checking in layer: %s for unit: %s arc: %s" % (layers, target.id, arc.id))
     sources = {}
     for triple in target.arcsIn:
-        if (triple.arc == arc and triple.layer in layers):
+        if (triple.arc == arc and (layers == EVERYLAYER or triple.layer in layers)):
             sources[triple.source] = 1
     return sources.keys()
 
@@ -429,7 +441,7 @@ def GetArcsIn(target, layers='core'):
     """All incoming arc types for this specified node (within any of the specified layers)."""
     arcs = {}
     for triple in target.arcsIn:
-        if triple.layer in layers:
+        if (layers == EVERYLAYER or triple.layer in layers):
             arcs[triple.arc] = 1
     return arcs.keys()
 
@@ -437,7 +449,7 @@ def GetArcsOut(source,  layers='core'):
     """All outgoing arc types for this specified node."""
     arcs = {}
     for triple in source.arcsOut:
-        if triple.layer in layers:
+        if (layers == EVERYLAYER or triple.layer in layers):
             arcs[triple.arc] = 1
     return arcs.keys()
 
@@ -473,34 +485,69 @@ def GetImmediateSupertypes(n, layers='core'):
 
 def GetAllTypes(layers='core'):
     """Return all types in the graph."""
-    if DataCache.get('AllTypes'):
-        logging.debug("DataCache HIT: Alltypes")
-        return DataCache.get('AllTypes')
+    KEY = "AllTypes:%s" % layers
+    if DataCache.get(KEY):
+        logging.debug("DataCache HIT: %s" % KEY)
+        return DataCache.get(KEY)
     else:
-        logging.debug("DataCache MISS: Alltypes")
+        logging.debug("DataCache MISS: %s" % KEY)
         mynode = Unit.GetUnit("Thing")
         subbed = {}
         todo = [mynode]
         while todo:
             current = todo.pop()
-            subs = GetImmediateSubtypes(current, layers=layers)
-            subbed[current] = 1
+            subs = GetImmediateSubtypes(current, EVERYLAYER)
+            if inLayer(layers,current):
+                subbed[current] = 1
             for sc in subs:
                 if subbed.get(sc.id) == None:
                     todo.append(sc)
-        DataCache.put('AllTypes',subbed.keys())
+        DataCache.put(KEY,subbed.keys())
         return subbed.keys()
+
+def GetAllEnumerationValues(layers='core'):
+    KEY = "AllEnums:%s" % layers
+    if DataCache.get(KEY):
+        logging.debug("DataCache HIT: %s" % KEY)
+        return DataCache.get(KEY)
+    else:
+        logging.debug("DataCache MISS: %s" % KEY)
+        mynode = Unit.GetUnit("Enumeration")
+        log.info("Enum %s" % mynode)
+        enums = {}
+        subbed = {}
+        todo = [mynode]
+        while todo:
+            current = todo.pop()
+            subs = GetImmediateSubtypes(current, EVERYLAYER)
+            subbed[current] = 1
+            for sc in subs:
+                vals = GetSources( Unit.GetUnit("typeOf"), sc, layers=EVERYLAYER)
+                for val in vals:
+                    if inLayer(layers,val):
+                        enums[val] = 1
+                if subbed.get(sc.id) == None:
+                    todo.append(sc)
+        DataCache.put(KEY,enums.keys())
+        return enums.keys()
+
 
 def GetAllProperties(layers='core'):
     """Return all properties in the graph."""
-    if DataCache.get('AllProperties'):
-        logging.debug("DataCache HIT: AllProperties")
-        return DataCache.get('AllProperties')
+    KEY = "AllProperties:%s" % layers
+    if DataCache.get(KEY):
+        logging.debug("DataCache HIT: %s" % KEY)
+        return DataCache.get(KEY)
     else:
-        logging.debug("DataCache MISS: AllProperties")
+        logging.debug("DataCache MISS: %s" % KEY)
         mynode = Unit.GetUnit("Thing")
-        sorted_all_properties = sorted(GetSources(Unit.GetUnit("typeOf"), Unit.GetUnit("rdf:Property"), layers=layers), key=lambda u: u.id)
-        DataCache.put('AllProperties',sorted_all_properties)
+        props = GetSources(Unit.GetUnit("typeOf"), Unit.GetUnit("rdf:Property"), layers=EVERYLAYER)
+        res = []
+        for prop in props:
+            if inLayer(layers,prop):
+                res.append(prop)
+        sorted_all_properties = sorted(res, key=lambda u: u.id)
+        DataCache.put(KEY,sorted_all_properties)
         return sorted_all_properties
 
 def GetParentList(start_unit, end_unit=None, path=[], layers='core'):
@@ -622,7 +669,9 @@ def GetJsonLdContext(layers='core'):
     else:
         global namespaces
         jsonldcontext = "{\"@context\":    {\n"
-        jsonldcontext += namespaces ;
+        jsonldcontext += "        \"type\": \"@type\",\n"
+        jsonldcontext += "        \"id\": \"@id\",\n"
+        jsonldcontext += namespaces
         jsonldcontext += "        \"@vocab\": \"http://schema.org/\",\n"
 
         url = Unit.GetUnit("URL")
@@ -705,7 +754,10 @@ def setHomeValues(items,layer='core',defaultToCore=False):
                 log.info(msg)
                 extensionLoadErrors += msg + '\n'
             else:
-                node.home = re.match( r'([\w\-_]+)[\.:]?', home[0].id.lstrip("http://")).group(1)
+                h = home[0].id.strip()
+                if h.startswith("http://"):
+                    h = h[7:]
+                node.home = re.match( r'([\w\-_]+)[\.:]?', h).group(1)
             if(node.home == 'schema'):
                 node.home = 'core'
         elif node.home == None:
@@ -788,7 +840,20 @@ def read_examples(files):
         parser = parsers.ParseExampleFile(None)
         parser.parse(example_contents)
 
+def StripHtmlTags(source):
+    return re.sub('<[^<]+?>', '', source)
 
-
-
-
+def ShortenOnSentence(source,lengthHint=250):
+    if len(source) > lengthHint:
+        sentEnd = re.compile('[.!?]')
+        sentList = sentEnd.split(source)
+        com=""
+        for sent in sentList:
+            com += sent
+            com += source[len(com)]
+            if len(com) > lengthHint:
+                break
+        if len(source) > len(com):
+            com += ".."
+        source = com
+    return source
