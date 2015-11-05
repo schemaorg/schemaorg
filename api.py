@@ -23,7 +23,6 @@ extensionsLoaded = False
 extensionLoadErrors = ""
 
 EVERYLAYER = "!EVERYLAYER!"
-SCHEMA_VERSION=1.999999
 sitename = "schema.org"
 sitemode = "mainsite" # whitespaced list for CSS tags,
             # e.g. "mainsite testsite", "extensionsite" when off expected domains
