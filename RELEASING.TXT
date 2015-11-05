@@ -97,10 +97,7 @@ Then generate N-Triples version:
 Use of rdfa2nq with extensions:
 
 
-
-TODO: explain where all-layers.nq comes from (cat'ing the others)
 TODO: list optional tasks post-launch (blog, email, refresh dydra sparql db etc.).
-
 
 
 
@@ -148,3 +145,74 @@ python library is also needed: 'sudo easy_install rdflib' should do it.
 representative pages of each type appear to be in a healthy state.
 
 e.g. see http://webschemas.org/docs/qa.html
+
+2.) Final checks
+
+There is often some final tweaking, bugs, etc. When things settle down, a
+final round of sanity-check tests is useful:
+
+* Run again: PYTHONPATH=/usr/local/google_appengine ./scripts/run_tests.py
+* Run again 'git status', confirm no uncommited files or changes.
+* Run again: './scripts/updateAppEngine.sh' for development/upstream site sync.
+
+3.) Merge release branch into master
+
+3a.) Get changes into master branch on github
+
+Use GitHub Web UI to create a pull request. For example to merge the
+release branch sdo-phobos into master, we set the base branch 'master' and
+compare 'sdo-phobos'. If you get this backwards you should see nothing to do,
+because there ought to be no changes in master that we lack in the later
+sdo-phobos branch.
+
+Note also that if someone else has already (e.g. mistakenly) filed a pull request
+between the same pair of branches, Github will try to recycle that one (including
+their description) instead of give you a new one with proper name, description.
+Workaround is to close that PR (keeping track of any open issue it raises).
+
+Result should be "danbri  wants to merge 205 commits into master from sdo-phobos"
+or similar. Check the Commits and Files changed tabs. If it looks plausible
+(e.g. Showing  55 changed files  with 79,679 additions and 820 deletions.) we
+can proceed with merging.
+
+3b) Get merged changes back into your working colorOpacity
+
+I do 'git checkout master'; 'git pull --all'. You may know of other
+incantations. See also http://xkcd.com/1597/
+
+4.) Publish from a clean checkout of 'master' branch to schema.org.
+
+Either by editing app.yaml to make sure 'application: schemaorgae' is active,
+or by passing the name of the live appengine ID on the commandline. Currently
+@rvguha (as Steering Group chair) and @danbri (as Community Group chair and
+webmaster / dogsbody) have write access to the corresponding appengine account.
+
+ * e.g. run: appcfg.py update . -A schemaorgae
+ * inspect console output for something like:
+  * 03:35 PM Completed update of app: schemaorgae, version: 1
+ * Count to ten. Check http://schema.org/ and the 'releases' link.
+
+5.) Related post-release tasks.
+
+* Let the Community Group and Steering Group know.
+* Blog post.
+* There's a SPARQL database at DYDRA that can load NQuad dumps from
+https://github.com/schemaorg/schemaorg/blob/sdo-phobos/data/releases/2.2/all-layers.nq
+* Make a new per-release branch, reserve an appspot.com account for it.
+* Configure GitHub with the new default branch.
+  See https://github.com/schemaorg/schemaorg/settings/branches
+* Update issue tracker moving issues to new releases.
+ * Close issues that were addressed in this release.
+ * Make careful considered adjustment to expected release for the rest. Or
+   just tag them all for the next release.
+* Update git release tags (TODO: we have no history of handling this yet).
+
+For example, if we are in 'master' and 'git status' shows it in a clean state,
+
+* git checkout -b sdo-deimos
+* This tells us we can do:
+ *     git push --set-upstream origin sdo-deimos
+
+> To https://github.com/schemaorg/schemaorg.git
+>  * [new branch]      sdo-deimos -> sdo-deimos
+> Branch sdo-deimos set up to track remote branch sdo-deimos from origin.
