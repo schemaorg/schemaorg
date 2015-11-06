@@ -23,7 +23,6 @@ extensionsLoaded = False
 extensionLoadErrors = ""
 
 EVERYLAYER = "!EVERYLAYER!"
-SCHEMA_VERSION=1.999999
 sitename = "schema.org"
 sitemode = "mainsite" # whitespaced list for CSS tags,
             # e.g. "mainsite testsite", "extensionsite" when off expected domains
@@ -105,7 +104,7 @@ class DataCacheTool():
         if cache == None:
             cache = self._CurrentDataCache
         if cache in self._DataCache.keys():
-            return self._DataCache[cache] 
+            return self._DataCache[cache]
         else:
             log.debug("DataCache Invalid cache name '%s'" % cache)
             return None
@@ -505,7 +504,7 @@ def GetAllTypes(layers='core'):
                     todo.append(sc)
         DataCache.put(KEY,subbed.keys())
         return subbed.keys()
-        
+
 def GetAllEnumerationValues(layers='core'):
     KEY = "AllEnums:%s" % layers
     if DataCache.get(KEY):
@@ -546,7 +545,7 @@ def GetAllProperties(layers='core'):
         res = []
         for prop in props:
             if inLayer(layers,prop):
-                res.append(prop)            
+                res.append(prop)
         sorted_all_properties = sorted(res, key=lambda u: u.id)
         DataCache.put(KEY,sorted_all_properties)
         return sorted_all_properties
@@ -670,7 +669,9 @@ def GetJsonLdContext(layers='core'):
     else:
         global namespaces
         jsonldcontext = "{\"@context\":    {\n"
-        jsonldcontext += namespaces ;
+        jsonldcontext += "        \"type\": \"@type\",\n"
+        jsonldcontext += "        \"id\": \"@id\",\n"
+        jsonldcontext += namespaces
         jsonldcontext += "        \"@vocab\": \"http://schema.org/\",\n"
 
         url = Unit.GetUnit("URL")
@@ -841,14 +842,14 @@ def read_examples(files):
 
 def StripHtmlTags(source):
     return re.sub('<[^<]+?>', '', source)
-    
+
 def ShortenOnSentence(source,lengthHint=250):
     if len(source) > lengthHint:
         sentEnd = re.compile('[.!?]')
         sentList = sentEnd.split(source)
         com=""
         for sent in sentList:
-            com += sent 
+            com += sent
             com += source[len(com)]
             if len(com) > lengthHint:
                 break
@@ -856,7 +857,3 @@ def ShortenOnSentence(source,lengthHint=250):
             com += ".."
         source = com
     return source
-     
-
-
-

@@ -1982,7 +1982,7 @@ JSON:
 {
   "@context": "http://schema.org",
   "@type": "Table",
-  "about": "list of presidents",
+  "about": "list of presidents"
 }
 </script>
 
@@ -9333,7 +9333,7 @@ JSON:
     "priceCurrency": "USD",
     "url": "http://www.ticketfly.com/purchase/309433"
   },
-  "startDate": "Sat Sep 14"
+  "startDate": "2013-09-14T21:30"
 }
 </script>
 
@@ -9440,7 +9440,7 @@ JSON:
     "priceCurrency": "USD",
     "url": "http://www.ticketfly.com/purchase/309433"
   },
-  "startDate": "Sat Sep 14"
+  "startDate": "2013-09-14T21:30"
 }
 </script>
 
@@ -9648,7 +9648,7 @@ JSON:
     "priceCurrency": "USD",
     "url": "http://www.ticketfly.com/purchase/309433"
   },
-  "startDate": "Sat Sep 14"
+  "startDate": "2013-09-14T21:30"
 }
 </script>
 
@@ -10454,12 +10454,12 @@ JSON:
     "brand": {
       "@type": "Brand",
       "name": "Honda"
-    },
-    "operatingCompany": {
-      "@type": "Organization",
-      "name": "Hertz"
     }
   },
+  "provider": {
+        "@type": "Organization",
+        "name": "Hertz"
+      },
   "pickupLocation": {
     "@type": "Place",
     "name": "Hertz San Diego Airport",
@@ -10488,7 +10488,6 @@ JSON:
   "dropoffTime": "2017-08-06T20:00:00-07:00"
 }
 </script>
-
 TYPES: TaxiReservation
 
 PRE-MARKUP:
@@ -10572,7 +10571,7 @@ PRE-MARKUP:
       </div>
       <div>answered Dec 6 '10 at 21:11</div>
       <div><span>lonelyuser1234</span></div>
-    <div>
+    </div>
   </div>
 </body>
 
@@ -10600,7 +10599,7 @@ MICRODATA:
     </div>
     <div>answered <time itemprop="dateCreated" datetime="2010-12-06T21:11Z">Dec 6 '10 at 21:11</time></div>
     <div itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">lonelyuser1234</span></div>
-  <div>
+  </div>
 </div>
 
 RDFA:
@@ -10627,7 +10626,7 @@ RDFA:
     </div>
     <div>answered <time property="dateCreated" datetime="2010-12-06T21:11Z">Dec 6 '10 at 21:11</time></div>
     <div property="author" typeof="Person"><span property="name">lonelyuser1234</span></div>
-  <div>
+  </div>
 </div>
 
 JSON:
@@ -12866,9 +12865,9 @@ JSON:
   "name": "King of Limbs",
   "byArtist": {
     "@type": "MusicGroup",
-    "name": "Radiohead",
+    "name": "Radiohead"
   },
-  track: {
+  "track": {
     "@type": "ItemList",
     "numberOfItems": 8,
     "itemListElement": [
