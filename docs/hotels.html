@@ -161,8 +161,7 @@ enjoying your morning coffee.&lt;/span&gt;
   &lt;img itemprop=&quot;photo&quot; src=&quot;../media/hotel_front.png&quot; alt=&quot;Front view of the hotel&quot; /&gt;
   Star rating: &lt;meta itemprop=&quot;starRating&quot; content=&quot;4&quot;&gt;****
   Room rates: &lt;span itemprop=&quot;priceRange&quot;&gt;$100 - $240&lt;/span&gt;
-&lt;/div&gt;
-</pre>
+&lt;/div&gt;</pre>
 
 See the page for <a href="../Hotel">http://schema.org/Hotel</a> for a complete list of additional properties for describing the hotel. Popular properties are also explained in more detail below.</p>
 
@@ -188,8 +187,7 @@ enjoying your morning coffee.&lt;/span&gt;
     &lt;meta itemprop=&quot;latitude&quot; content=&quot;47.2649990&quot; /&gt;
     &lt;meta itemprop=&quot;longitude&quot; content=&quot;11.3428720&quot; /&gt;
   &lt;/div&gt;</strong>
-&lt;/div&gt;
-		</pre>
+&lt;/div&gt;</pre>
     <h3>Telephone and Fax</h3>
     <pre class="prettyprint lang-html linenums">
 &lt;div itemscope itemtype=&quot;http://schema.org/Hotel&quot;&gt;
@@ -199,21 +197,54 @@ heart of the alps. Watch the sun rise over the scenic Inn valley while
 enjoying your morning coffee.&lt;/span&gt;
    <strong>Phone: &lt;span itemprop=&quot;telephone&quot;&gt;+43 512 8000-0&lt;/span&gt;
    Fax: &lt;span itemprop=&quot;faxNumber&quot;&gt;+43 512 8000-99&lt;/span&gt;</strong>
-&lt;/div&gt;
-</pre>
+&lt;/div&gt;</pre>
     <h3>Star Rating</h3>
-	<p>Simple</p>
+	<p>Star ratings are popular indicators for the quality of an accommodation. In many countries, they are awarded by dedicated public or private bodies and are based on well-defined criteria that often also specify minimal amenities for a certain star rating.</p>
+	<h4>Simple</h4>
+		<p>You can simply mark-up the start rating as a numerical value:</p>
 		<pre class="prettyprint lang-html linenums">
-		</pre>
-	<p>Advanced: Type of Star Rating</p>
+&lt;div itemscope itemtype=&quot;http://schema.org/Hotel&quot;&gt;
+  &lt;h1&gt;&lt;span itemprop=&quot;name&quot;&gt;ACME Hotel Innsbruck&lt;/span&gt;&lt;/h1&gt;
+  &lt;span itemprop=&quot;description&quot;&gt;A beautifully located business hotel right in the
+heart of the alps. Watch the sun rise over the scenic Inn valley while
+enjoying your morning coffee.&lt;/span&gt;
+  Star rating: &lt;meta itemprop=&quot;starRating&quot; content=&quot;4&quot;&gt;****
+  Room rates: &lt;span itemprop=&quot;priceRange&quot;&gt;$100 - $240&lt;/span&gt;
+&lt;/div&gt;</pre>
+	<h4>Advanced: Type of Star Rating</h4>
+	<p>if available, it makes sense to specify the origin of the star rating, e.g. the name of the awarding institution. In this case, use a http://schema.org/PropertyValue and its name property for indicating the type of the rating (e.g. HOTREC, DEHOGA, WHR, or Hotelstars).
 		<pre class="prettyprint lang-html linenums">
-		</pre>
+&lt;div itemscope itemtype=&quot;http://schema.org/Hotel&quot;&gt;
+  &lt;h1&gt;&lt;span itemprop=&quot;name&quot;&gt;ACME Hotel Innsbruck&lt;/span&gt;&lt;/h1&gt;
+  &lt;span itemprop=&quot;description&quot;&gt;A beautifully located business hotel right in the
+heart of the alps. Watch the sun rise over the scenic Inn valley while
+enjoying your morning coffee.&lt;/span&gt;
+  Star rating: &lt;link itemprop=&quot;starRating&quot; itemscope itemtype=&quot;http://schema.org/PropertyValue&quot;&gt;
+    &lt;meta itemprop=&quot;name&quot; content=&quot;DEHOGA&quot;&gt;
+    &lt;meta itemprop=&quot;value&quot; content=&quot;4&quot;&gt;****
+  &lt;/link&gt;
+  Room rates: &lt;span itemprop=&quot;priceRange&quot;&gt;$100 - $240&lt;/span&gt;
+&lt;/div&gt;</pre>
     <h3>Photos and Logo</h3>
 		<pre class="prettyprint lang-html linenums">
-		</pre>
+&lt;div itemscope itemtype=&quot;http://schema.org/Hotel&quot;&gt;
+  &lt;h1&gt;&lt;span itemprop=&quot;name&quot;&gt;ACME Hotel Innsbruck&lt;/span&gt;&lt;/h1&gt;
+  &lt;img itemprop=&quot;logo&quot; src=&quot;../media/logo.png&quot; alt=&quot;hotel logo&quot; /&gt;
+  &lt;span itemprop=&quot;description&quot;&gt;A beautifully located business hotel right in the
+heart of the alps. Watch the sun rise over the scenic Inn valley while
+enjoying your morning coffee.&lt;/span&gt;
+  &lt;img itemprop=&quot;photo&quot; src=&quot;../media/hotel_front.png&quot; alt=&quot;Front view of the hotel&quot; /&gt;
+&lt;/div&gt;</pre>
     <h3>Map</h3>
 		<pre class="prettyprint lang-html linenums">
-		</pre>
+&lt;div itemscope itemtype=&quot;http://schema.org/Hotel&quot;&gt;
+  &lt;h1&gt;&lt;span itemprop=&quot;name&quot;&gt;ACME Hotel Innsbruck&lt;/span&gt;&lt;/h1&gt;
+  &lt;span itemprop=&quot;description&quot;&gt;A beautifully located business hotel right in the
+heart of the alps. Watch the sun rise over the scenic Inn valley while
+enjoying your morning coffee.&lt;/span&gt;
+  &lt;a itemprop=&quot;hasMap&quot; href=&quot;https://www.google.com/maps?ie=UTF8&amp;hq&amp;ll=47.1234,11.1234&amp;z=13&quot;&gt;
+  Click here for a map.&lt;/a&gt;
+&lt;/div&gt;</pre>
     <h3>Opening Hours (Reception)</h3>
 		<pre class="prettyprint lang-html linenums">
 		</pre>
@@ -238,10 +269,6 @@ enjoying your morning coffee.&lt;/span&gt;
 		</pre>
     <h3>Hotel Features and Services</h3>
     also availability times and periods (e.g. sauna only in Winter)
-		<pre class="prettyprint lang-html linenums">
-		</pre>
-    <h3>Points of Interest in the Vicinity</h3>
-    e.g. railway station, airports, touristics spots, etc.
 		<pre class="prettyprint lang-html linenums">
 		</pre>
     <h3>Check-in and Check-out Times</h3>
