@@ -12768,7 +12768,7 @@ For more specific types of accommodations not defined in schema.org, one can use
 
 <div typeof="rdfs:Class" resource="http://schema.org/BedDetails">
     <span class="h" property="rdfs:label">BedDetails</span>
-    <span property="rdfs:comment">An entity holding detailed information about the available bed types, e.g. the quantity of twin beds for a hotel room. For the single case of just one bed of a certain type, you can use bed directly with BedType instances.</span>
+    <span property="rdfs:comment">An entity holding detailed information about the available bed types, e.g. the quantity of twin beds for a hotel room. For the single case of just one bed of a certain type, you can use bed directly with a text or a BedType instances.</span>
     <span>Source:  <a property="dc:source" href="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology">STI Accommodation Ontology</a></span>
 </div>
 
@@ -12812,6 +12812,7 @@ For more specific types of accommodations not defined in schema.org, one can use
     <span class="h" property="rdfs:label">typeOfBed</span>
     <span property="rdfs:comment">The type of bed to which the BedDetail refers, i.e. the type of bed available in the quantity indicated by quantity.</span>
     <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/BedDetails">BedDetails</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
     <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/BedType">BedType</a></span>
     <span>Source:  <a property="dc:source" href="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology">STI Accommodation Ontology</a></span>
 </div>
@@ -12836,11 +12837,12 @@ Typical unit code(s): C62 for person</span>
 
 <div typeof="rdf:Property" resource="http://schema.org/bed">
     <span class="h" property="rdfs:label">bed</span>
-    <span property="rdfs:comment">The type of bed or beds included in the accommodation. For the single case of just one bed of a certain type, you use bed directly with BedType instances. If you want to indicate the quantity of a certain BedType, use an instance of BedDetails. For more detailed information, use the feature property.</span>
+    <span property="rdfs:comment">The type of bed or beds included in the accommodation. For the single case of just one bed of a certain type, you use bed directly with a text or a BedType instance. If you want to indicate the quantity of a certain BedType, use an instance of BedDetails. For more detailed information, use the feature property.</span>
     <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Apartment">Apartment</a></span>
     <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/HotelRoom">HotelRoom</a></span>
     <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/House">House</a></span>
     <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Suite">Suite</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>  
     <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/BedDetails">BedDetails</a></span>
     <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/BedType">BedType</a></span>  
     <span>Source:  <a property="dc:source" href="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology">STI Accommodation Ontology</a></span>
@@ -12943,44 +12945,6 @@ Typical unit code(s): C62 for person</span>
     <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Room">Hotel</a></span>
     <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Suite">Suite</a></span>    
     <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
-    <span>Source:  <a property="dc:source" href="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology">STI Accommodation Ontology</a></span>
-</div>
-
-
-<!-- Enumerated Values -->
-<div typeof="http://schema.org/BedType" resource="http://schema.org/BedTypeSingle">
-    <span class="h" property="rdfs:label">BedTypeSingle</span>
-    <span property="rdfs:comment">A single bed. The actual dimension may vary by country, see &lt;a href=&quot;http://en.wikipedia.org/wiki/Bed_size&quot;&gt;http://en.wikipedia.org/wiki/Bed_size&lt;/a&gt;.</span>
-    <span>Source:  <a property="dc:source" href="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology">STI Accommodation Ontology</a></span>
-</div>
-
-<div typeof="http://schema.org/BedType" resource="http://schema.org/BedTypeQueen">
-    <span class="h" property="rdfs:label">BedTypeQueen</span>
-    <span property="rdfs:comment">A Queen King (UK/Ire.) or Wide Double (Japan) bed. The actual dimension may vary by country, see &lt;a href=&quot;http://en.wikipedia.org/wiki/Bed_size&quot;&gt;http://en.wikipedia.org/wiki/Bed_size&lt;/a&gt;.</span>
-    <span>Source:  <a property="dc:source" href="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology">STI Accommodation Ontology</a></span>
-</div>
-
-<div typeof="http://schema.org/BedType" resource="http://schema.org/BedTypeKing">
-    <span class="h" property="rdfs:label">BedTypeKing</span>
-    <span property="rdfs:comment">An King or Super King bed. The actual dimension may vary by country, see &lt;a href=&quot;http://en.wikipedia.org/wiki/Bed_size&quot;&gt;http://en.wikipedia.org/wiki/Bed_size&lt;/a&gt;.</span>
-    <span>Source:  <a property="dc:source" href="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology">STI Accommodation Ontology</a></span>
-</div>
-
-<div typeof="http://schema.org/BedType" resource="http://schema.org/BedTypeDouble">
-    <span class="h" property="rdfs:label">BedTypeDouble</span>
-    <span property="rdfs:comment">A double bed. The actual dimension may vary by country, see &lt;a href=&quot;http://en.wikipedia.org/wiki/Bed_size&quot;&gt;http://en.wikipedia.org/wiki/Bed_size&lt;/a&gt;.</span>
-    <span>Source:  <a property="dc:source" href="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology">STI Accommodation Ontology</a></span>
-</div>
-
-<div typeof="http://schema.org/BedType" resource="http://schema.org/BedTypeOlympicQueen">
-    <span class="h" property="rdfs:label">BedTypeOlympicQueen</span>
-    <span property="rdfs:comment">An Olympic Queen bed. The actual dimension may vary by country, see &lt;a href=&quot;http://en.wikipedia.org/wiki/Bed_size&quot;&gt;http://en.wikipedia.org/wiki/Bed_size&lt;/a&gt;.</span>
-    <span>Source:  <a property="dc:source" href="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology">STI Accommodation Ontology</a></span>
-</div>
-
-<div typeof="http://schema.org/BedType" resource="http://schema.org/BedTypeCaliforniaKing">
-    <span class="h" property="rdfs:label">BedTypeCaliforniaKing</span>
-    <span property="rdfs:comment">A California King or King Long bed. The actual dimension may vary by country, see &lt;a href=&quot;http://en.wikipedia.org/wiki/Bed_size&quot;&gt;http://en.wikipedia.org/wiki/Bed_size&lt;/a&gt;.</span>
     <span>Source:  <a property="dc:source" href="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology">STI Accommodation Ontology</a></span>
 </div>
 
