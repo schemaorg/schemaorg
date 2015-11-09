@@ -86,7 +86,7 @@
 <div typeof="rdfs:Class" resource="http://schema.org/Dentist">
   <span class="h" property="rdfs:label"> health:Dentist</span>
   <span property="rdfs:comment">A dentist.</span>
-  <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MedicalOrganization"> health:MedicalOrganization</a></span>
+  <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MedicalBusiness"> health:MedicalBusiness</a></span>
   <link property="http://schema.org/isPartOf" href="http://health.schema.org" />
   <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/ProfessionalService"> schema:ProfessionalService</a></span>
 </div>
@@ -191,25 +191,35 @@
 
 <div typeof="http://schema.org/MedicalSpecialty" resource="http://schema.org/CommunityHealth">
   <span class="h" property="rdfs:label"> health:CommunityHealth</span>
-  <span property="rdfs:comment">Community health.</span>
+  <span property="rdfs:comment">A field of public health focusing on improving health characteristics of a defined population in relation with their geographical or environment areas</span>
+  <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MedicalBusiness"> health:MedicalBusiness</a></span>
 <link property="http://schema.org/isPartOf" href="http://health.schema.org" />        
 </div>
 
 <div typeof="http://schema.org/MedicalSpecialty" resource="http://schema.org/Dentistry">
   <span class="h" property="rdfs:label"> health:Dentistry</span>
-  <span property="rdfs:comment">Dentistry.</span>
+  <span property="rdfs:comment">A branch of medicine that is involved in the dental care.</span>
 <link property="http://schema.org/isPartOf" href="http://health.schema.org" />        
 </div>
 
 <div typeof="http://schema.org/MedicalSpecialty" resource="http://schema.org/Dermatologic">
   <span class="h" property="rdfs:label"> health:Dermatologic</span>
-  <span property="rdfs:comment">A specific branch of medical science that pertains to diagnosis and treatment of disorders of skin.</span>
+  <span property="rdfs:comment">Something relating to or practicing dermatology</span>
+  <link property="http://schema.org/supersededBy" href="http://schema.org/Dermatology"/>
 <link property="http://schema.org/isPartOf" href="http://health.schema.org" />        
+</div>
+
+<div typeof="http://schema.org/MedicalSpecialty" resource="http://schema.org/Dermatology">
+  <span class="h" property="rdfs:label"> health:Dermatology</span>
+  <span property="rdfs:comment">A specific branch of medical science that pertains to diagnosis and treatment of disorders of skin.</span>
+  <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MedicalBusiness"> health:MedicalBusiness</a></span>
+  <link property="http://schema.org/isPartOf" href="http://health.schema.org" />        
 </div>
 
 <div typeof="http://schema.org/MedicalSpecialty" resource="http://schema.org/DietNutrition">
   <span class="h" property="rdfs:label">DietNutrition</span>
   <span property="rdfs:comment">Dietetic and nutrition as a medical speciality.</span>
+  <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MedicalBusiness"> health:MedicalBusiness</a></span>
 <link property="http://schema.org/isPartOf" href="http://health.schema.org" />        
 </div>
 
@@ -230,7 +240,8 @@
 	
 <div typeof="http://schema.org/MedicalSpecialty" resource="http://schema.org/Emergency">
   <span class="h" property="rdfs:label"> health:Emergency</span>
-  <span property="rdfs:comment">A specific branch of medical science that is deals with the evaluation and initial treatment of medical conditions caused by trauma or sudden illness.</span>
+  <span property="rdfs:comment">A specific branch of medical science that deals with the evaluation and initial treatment of medical conditions caused by trauma or sudden illness.</span>
+  <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MedicalBusiness"> health:MedicalBusiness</a></span>
 <link property="http://schema.org/isPartOf" href="http://health.schema.org" />        
 </div>
 
@@ -255,12 +266,14 @@
 <div typeof="http://schema.org/MedicalSpecialty" resource="http://schema.org/Geriatric">
   <span class="h" property="rdfs:label"> health:Geriatric</span>
   <span property="rdfs:comment">A specific branch of medical science that is concerned with the diagnosis and treatment of diseases, debilities and provision of care to the aged.</span>
+  <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MedicalBusiness"> health:MedicalBusiness</a></span>
 <link property="http://schema.org/isPartOf" href="http://health.schema.org" />        
 </div>
 
 <div typeof="http://schema.org/MedicalSpecialty" resource="http://schema.org/Gynecologic">
   <span class="h" property="rdfs:label"> health:Gynecologic</span>
   <span property="rdfs:comment">A specific branch of medical science that pertains to the health care of women, particularly in the diagnosis and treatment of disorders affecting the female reproductive system.</span>
+  <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MedicalBusiness"> health:MedicalBusiness</a></span>
 <link property="http://schema.org/isPartOf" href="http://health.schema.org" />        
 </div>
 
@@ -285,6 +298,7 @@
 <div typeof="http://schema.org/MedicalSpecialty" resource="http://schema.org/Midwifery">
   <span class="h" property="rdfs:label"> health:Midwifery</span>
   <span property="rdfs:comment">A nurse-like health profession that deals with pregnancy, childbirth, and the postpartum period (including care of the newborn), besides sexual and reproductive health of women throughout their lives.</span>
+  <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MedicalBusiness"> health:MedicalBusiness</a></span>
 <link property="http://schema.org/isPartOf" href="http://health.schema.org" />        
 </div>
 
@@ -303,36 +317,42 @@
 <div typeof="http://schema.org/MedicalSpecialty" resource="http://schema.org/Nursing">
   <span class="h" property="rdfs:label"> health:Nursing</span>
   <span property="rdfs:comment">A health profession of a person formally educated and trained in the care of the sick or infirm person.</span>
+  <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MedicalBusiness"> health:MedicalBusiness</a></span>
 <link property="http://schema.org/isPartOf" href="http://health.schema.org" />        
 </div>
 
 <div typeof="http://schema.org/MedicalSpecialty" resource="http://schema.org/Obstetric">
   <span class="h" property="rdfs:label"> health:Obstetric</span>
   <span property="rdfs:comment">A specific branch of medical science that specializes in the care of women during the prenatal and postnatal care and with the delivery of the child.</span>
+  <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MedicalBusiness"> health:MedicalBusiness</a></span>
 <link property="http://schema.org/isPartOf" href="http://health.schema.org" />       
 </div>
 
 <div typeof="http://schema.org/MedicalSpecialty" resource="http://schema.org/OccupationalTherapy">
   <span class="h" property="rdfs:label"> health:OccupationalTherapy</span>
-  <span property="rdfs:comment">A treatment of people with physical, emotional, or social problems, using purposeful activity to help them overcome or learn to deal with their problems.</span>
+  <span property="rdfs:comment">A treatment of people with physical, emotional, or social problems, using purposeful activity to help them overcome or learn to deal with their problems.</span>  
+  <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MedicalTherapy">health:MedicalTherapy</a></span>
 <link property="http://schema.org/isPartOf" href="http://health.schema.org" />       
 </div>
 
 <div typeof="http://schema.org/MedicalSpecialty" resource="http://schema.org/Oncologic">
   <span class="h" property="rdfs:label"> health:Oncologic</span>
   <span property="rdfs:comment">A specific branch of medical science that deals with benign and malignant tumors, including the study of their development, diagnosis, treatment and prevention.</span>
+  <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MedicalBusiness"> health:MedicalBusiness</a></span>
 <link property="http://schema.org/isPartOf" href="http://health.schema.org" />        
 </div>
 
 <div typeof="http://schema.org/MedicalSpecialty" resource="http://schema.org/Optometic">
   <span class="h" property="rdfs:label"> health:Optometic</span>
   <span property="rdfs:comment">The science or practice of testing visual acuity and prescribing corrective lenses.</span>
+  <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MedicalBusiness"> health:MedicalBusiness</a></span>
 <link property="http://schema.org/isPartOf" href="http://health.schema.org" />        
 </div>
 
 <div typeof="http://schema.org/MedicalSpecialty" resource="http://schema.org/Otolaryngologic">
   <span class="h" property="rdfs:label"> health:Otolaryngologic</span>
   <span property="rdfs:comment">A specific branch of medical science that is concerned with the ear, nose and throat and their respective disease states.</span>
+  <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MedicalBusiness"> health:MedicalBusiness</a></span>
 <link property="http://schema.org/isPartOf" href="http://health.schema.org" />        
 </div>
 
@@ -345,48 +365,55 @@
 <div typeof="http://schema.org/MedicalSpecialty" resource="http://schema.org/Pediatric">
   <span class="h" property="rdfs:label"> health:Pediatric</span>
   <span property="rdfs:comment">A specific branch of medical science that specializes in the care of infants, children and adolescents.</span>
+  <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MedicalBusiness"> health:MedicalBusiness</a></span>
 <link property="http://schema.org/isPartOf" href="http://health.schema.org" />        
 </div>
 
 <div typeof="http://schema.org/MedicalSpecialty" resource="http://schema.org/PharmacySpecialty">
   <span class="h" property="rdfs:label"> health:PharmacySpecialty</span>
-  <span property="rdfs:comment">The practice or art and science of preparing and dispensing drugs and medicines.</span>
+  <span property="rdfs:comment">The practice or art and science of preparing and dispensing drugs and medicines.</span>  
 <link property="http://schema.org/isPartOf" href="http://health.schema.org" />        
 </div>
 
 <div typeof="http://schema.org/MedicalSpecialty" resource="http://schema.org/Physiotherapy">
   <span class="h" property="rdfs:label"> health:Physiotherapy</span>
   <span property="rdfs:comment">The practice of treatment of disease, injury, or deformity by physical methods such as massage, heat treatment, and exercise rather than by drugs or surgery..</span>
+  <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MedicalBusiness"> health:MedicalBusiness</a></span>
 <link property="http://schema.org/isPartOf" href="http://health.schema.org" />       
 </div>
 
 <div typeof="http://schema.org/MedicalSpecialty" resource="http://schema.org/PlasticSurgery">
   <span class="h" property="rdfs:label"> health:PlasticSurgery</span>
   <span property="rdfs:comment">A specific branch of medical science that pertains to therapeutic or cosmetic repair or re-formation of missing, injured or malformed tissues or body parts by manual and instrumental means.</span>
+  <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MedicalBusiness"> health:MedicalBusiness</a></span>
 <link property="http://schema.org/isPartOf" href="http://health.schema.org" />       
 </div>
 
 <div typeof="http://schema.org/MedicalSpecialty" resource="http://schema.org/Podiatric">
   <span class="h" property="rdfs:label"> health:Podiatric</span>
   <span property="rdfs:comment">Podiatry is the care of the human foot, especially the diagnosis and treatment of foot disorders.</span>
+  <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MedicalBusiness"> health:MedicalBusiness</a></span>
 <link property="http://schema.org/isPartOf" href="http://health.schema.org" />        
 </div>
 
 <div typeof="http://schema.org/MedicalSpecialty" resource="http://schema.org/PrimaryCare">
   <span class="h" property="rdfs:label"> health:PrimaryCare</span>
   <span property="rdfs:comment">The medical care by a physician, or other health-care professional, who is the patient's first contact with the health-care system and who may recommend a specialist if necessary.</span>
+  <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MedicalBusiness"> health:MedicalBusiness</a></span>
 <link property="http://schema.org/isPartOf" href="http://health.schema.org" />        
 </div>
 
 <div typeof="http://schema.org/MedicalSpecialty" resource="http://schema.org/Psychiatric">
   <span class="h" property="rdfs:label"> health:Psychiatric</span>
   <span property="rdfs:comment">A specific branch of medical science that is concerned with the study, treatment, and prevention of mental illness, using both medical and psychological therapies.</span>
+  <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MedicalBusiness"> health:MedicalBusiness</a></span>
 <link property="http://schema.org/isPartOf" href="http://health.schema.org" />        
 </div>
 
 <div typeof="http://schema.org/MedicalSpecialty" resource="http://schema.org/PublicHealth">
   <span class="h" property="rdfs:label"> health:PublicHealth</span>
   <span property="rdfs:comment">Branch of medicine that pertains to the health services to improve and protect community health, especially epidemiology, sanitation, immunization, and preventive medicine.</span>
+  <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MedicalBusiness"> health:MedicalBusiness</a></span>
 <link property="http://schema.org/isPartOf" href="http://health.schema.org" />        
 </div>
 
@@ -398,6 +425,13 @@
 
 <div typeof="http://schema.org/MedicalSpecialty" resource="http://schema.org/Radiograpy">
   <span class="h" property="rdfs:label"> health:Radiograpy</span>
+  <span property="rdfs:comment">Radiography is the process or occupation of taking radiographs to assist in medical examinations.</span>
+  <link property="http://schema.org/supersededBy" href="http://schema.org/Radiography"/>
+<link property="http://schema.org/isPartOf" href="http://health.schema.org" />        
+</div>
+
+<div typeof="http://schema.org/MedicalSpecialty" resource="http://schema.org/Radiography">
+  <span class="h" property="rdfs:label"> health:Radiography</span>
   <span property="rdfs:comment">Radiography is the process or occupation of taking radiographs to assist in medical examinations.</span>
 <link property="http://schema.org/isPartOf" href="http://health.schema.org" />        
 </div>
@@ -411,6 +445,7 @@
 <div typeof="http://schema.org/MedicalSpecialty" resource="http://schema.org/RespiratoryTherapy">
   <span class="h" property="rdfs:label"> health:RespiratoryTherapy</span>
   <span property="rdfs:comment">The therapy that is concerned with the maintenance or improvement of respiratory function (as in patients with pulmonary disease).</span>
+  <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MedicalTherapy">health:MedicalTherapy</a></span>
 <link property="http://schema.org/isPartOf" href="http://health.schema.org" />       
 </div>
 
@@ -1000,6 +1035,7 @@
   <span property="rdfs:comment">A facility, often associated with a hospital or medical school, that is devoted to the specific diagnosis and/or healthcare. Previously limited to outpatients but with evolution it may be open to inpatients as well.</span>
   <link property="http://schema.org/isPartOf" href="http://health.schema.org" />
   <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MedicalOrganization"> health:MedicalOrganization</a></span>
+  <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MedicalBusiness"> health:MedicalBusiness</a></span>
 </div>
 
 <div typeof="rdfs:Class" resource="http://schema.org/Hospital">
@@ -1008,6 +1044,7 @@
   <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/CivicStructure"> schema:CivicStructure</a></span>
   <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/EmergencyService"> schema:EmergencyService</a></span>
   <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MedicalOrganization"> health:MedicalOrganization</a></span>
+  <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MedicalBusiness"> health:MedicalBusiness</a></span>
   <link property="http://schema.org/isPartOf" href="http://health.schema.org" />
 </div>
 
@@ -1133,7 +1170,14 @@
 
 <div typeof="rdfs:Class" resource="http://schema.org/MedicalOrganization">
   <span class="h" property="rdfs:label"> health:MedicalOrganization</span>
-  <span property="rdfs:comment">A medical organization, such as a doctor's office or clinic.</span>
+  <span property="rdfs:comment">A medical organization (physical or not), such as hospital, institution or clinic.</span>
+  <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Organization">schema:Organization</a></span>
+  <link property="http://schema.org/isPartOf" href="http://health.schema.org" />
+</div>
+
+<div typeof="rdfs:Class" resource="http://schema.org/MedicalBusiness">
+  <span class="h" property="rdfs:label"> health:MedicalBusiness</span>
+  <span property="rdfs:comment">A particular physical or virtual business of an organization for medical purposes. Examples of MedicalBusiness include differents busness run by health professionals.</span>
   <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/LocalBusiness">schema:LocalBusiness</a></span>
   <link property="http://schema.org/isPartOf" href="http://health.schema.org" />
 </div>
@@ -1297,8 +1341,7 @@
 <div typeof="rdfs:Class" resource="http://schema.org/Optician">
   <span class="h" property="rdfs:label"> health:Optician</span>
   <span property="rdfs:comment">A store that sells reading glasses and similar devices for improving vision.</span>
-  <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/HealthFacility"> health:HealthFacility</a></span>
-  <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MedicalOrganization"> health:MedicalOrganization</a></span>
+  <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MedicalBusiness"> health:MedicalBusiness</a></span>
   <link property="http://schema.org/isPartOf" href="http://health.schema.org" />
 </div>
 
@@ -1330,6 +1373,7 @@
   <span class="h" property="rdfs:label"> health:Pharmacy</span>
   <span property="rdfs:comment">A pharmacy or drugstore.</span>
   <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MedicalOrganization"> health:MedicalOrganization</a></span>
+  <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MedicalBusiness"> health:MedicalBusiness</a></span>
   <link property="http://schema.org/isPartOf" href="http://health.schema.org" />
 </div>
 
@@ -1337,6 +1381,7 @@
   <span class="h" property="rdfs:label"> health:PhysicalExam</span>
   <span property="rdfs:comment">A type of physical examination of a patient performed by a physician. </span>
   <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MedicalProcedure"> health:MedicalProcedure</a></span>
+  <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MedicalEnumeration"> health:MedicalEnumeration </a></span>
   <link property="http://schema.org/isPartOf" href="http://health.schema.org" />
 </div>
 
@@ -1351,6 +1396,7 @@
   <span class="h" property="rdfs:label"> health:Physician</span>
   <span property="rdfs:comment">A doctor's office.</span>
   <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MedicalOrganization"> health:MedicalOrganization</a></span>
+  <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MedicalBusiness"> health:MedicalBusiness</a></span>
   <link property="http://schema.org/isPartOf" href="http://health.schema.org" />
 </div>
 
@@ -2296,6 +2342,7 @@
 <div typeof="rdf:Property" resource="http://schema.org/medicalSpecialty">
   <span class="h" property="rdfs:label"> health:medicalSpecialty</span>
   <span property="rdfs:comment">A medical specialty of the provider.</span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MedicalOrganization"> health:MedicalOrganization</a></span>
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Hospital"> health:Hospital</a></span>
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MedicalClinic"> health:MedicalClinic</a></span>
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Physician"> health:Physician</a></span>
