@@ -3,7 +3,7 @@ TYPES: #eg-1 Person,PostalAddress,addressRegion,postalCode,address,streetAddress
 PRE-MARKUP:
 
 Jane Doe
-<img src="janedoe.jpg"  alt="Photo of Jane Joe"/>
+<img src="janedoe.jpg" alt="Photo of Jane Joe"/>
 
 Professor
 20341 Whitworth Institute
@@ -56,7 +56,7 @@ RDFA:
   <img src="janedoe.jpg" property="image" alt="Photo of Jane Joe"/>
 
   <span property="jobTitle">Professor</span>
-  <div property="address"  typeof="PostalAddress">
+  <div property="address" typeof="PostalAddress">
     <span property="streetAddress">
       20341 Whitworth Institute
       405 N. Whitworth
@@ -135,7 +135,7 @@ RDFA:
   <h1><span property="name">Beachwalk Beachwear & Giftware</span></h1>
   <span property="description"> A superb collection of fine gifts and clothing
   to accent your stay in Mexico Beach.</span>
-  <div property="address"  typeof="PostalAddress">
+  <div property="address" typeof="PostalAddress">
     <span property="streetAddress">3102 Highway 98</span>
     <span property="addressLocality">Mexico Beach</span>,
     <span property="addressRegion">FL</span>
@@ -254,12 +254,12 @@ RDFA:
 <div vocab="http://schema.org/" typeof="Restaurant">
   <span property="name">GreatFood</span>
 
-  <div property="aggregateRating"  typeof="AggregateRating">
+  <div property="aggregateRating" typeof="AggregateRating">
     <span property="ratingValue">4</span> stars -
     based on <span property="reviewCount">250</span> reviews
   </div>
 
-  <div property="address"  typeof="PostalAddress">
+  <div property="address" typeof="PostalAddress">
     <span property="streetAddress">1901 Lemur Ave</span>
     <span property="addressLocality">Sunnyvale</span>,
     <span property="addressRegion">CA</span> <span property="postalCode">94086</span>
@@ -345,7 +345,7 @@ RDFA:
 <div vocab="http://schema.org/" typeof="Place">
   <h1>What is the latitude and longitude of the <span property="name">Empire State Building</span>?</h1>
   Answer:
-  <div property="geo"  typeof="GeoCoordinates">
+  <div property="geo" typeof="GeoCoordinates">
     Latitude: 40 deg 44 min 54.36 sec N
     Longitude: 73 deg 59 min 8.5 dec W
     <meta property="latitude" content="40.75" />
@@ -470,12 +470,13 @@ Contact Details:
 Members:
 - National Scientific Members in 100 countries and territories: Country1, Country2, ...
 - Scientific Union Members, 30 organizations listed in this Yearbook:
-  <span itemprop="member" itemscope itemtype="http://schema.org/Organization">
-    Member1
-  </span>,
-  <span itemprop="member" itemscope itemtype="http://schema.org/Organization">
-    Member2
-  </span>,
+List of Alumni:
+ <span itemprop="alumni" itemscope itemtype="http://schema.org/Person">
+   <span itemprop="name">Jack Dan</span>
+ </span>,
+ <span itemprop="alumni" itemscope itemtype="http://schema.org/Person">
+   <span itemprop="name">John Smith</span>
+ </span>,
 
 History:
 </div>
@@ -486,7 +487,7 @@ RDFA:
   <span property="name">Google.org (GOOG)</span>
 
 Contact Details:
-  <div property="address"  typeof="PostalAddress">
+  <div property="address" typeof="PostalAddress">
     Main address:
       <span property="streetAddress">38 avenue de l'Opera</span>
       <span property="postalCode">F-75002</span>
@@ -500,13 +501,13 @@ Contact Details:
 Members:
 - National Scientific Members in 100 countries and territories: Country1, Country2, ...
 - Scientific Union Members, 30 organizations listed in this Yearbook:
-  <span property="member"  typeof="Organization">
-    Member1
-  </span>,
-  <span property="member"  typeof="Organization">
-    Member2
-  </span>,
-
+List of Alumni:
+ <span property="alumni"  typeof="Person">
+   <span property="name">Jack Dan</span>
+ </span>,
+ <span property="alumni"  typeof="Person">
+   <span property="name">John Smith</span>
+ </span>
 History:
 </div>
 
@@ -530,6 +531,16 @@ JSON:
     },
     {
       "@type": "Organization"
+    }
+  ],
+  "alumni": [
+    {
+      "@type": "Person",
+      "name": "Jack Dan"
+    },
+    {
+      "@type": "Person",
+      "name": "John Smith"
     }
   ],
   "name": "Google.org (GOOG)",
@@ -591,7 +602,7 @@ RDFA:
   <span property="name">Google.org (GOOG)</span>
 
 Contact Details:
-  <div property="address"  typeof="PostalAddress">
+  <div property="address" typeof="PostalAddress">
     Main address:
       <span property="streetAddress">38 avenue de l'Opera</span>
       <span property="postalCode">F-75002</span>
@@ -605,10 +616,10 @@ Contact Details:
 Members:
 - National Scientific Members in 100 countries and territories: Country1, Country2, ...
 - Scientific Union Members, 30 organizations listed in this Yearbook:
-  <span property="member"  typeof="Organization">
+  <span property="member" typeof="Organization">
     Member1
   </span>,
-  <span property="member"  typeof="Organization">
+  <span property="member" typeof="Organization">
     Member2
   </span>,
 
@@ -702,17 +713,17 @@ RDFA:
     Thu, 04/21/16
     8:00 p.m.
 
-  <div property="location"  typeof="Place">
+  <div property="location" typeof="Place">
     <a property="url" href="wells-fargo-center.html">
     Wells Fargo Center
     </a>
-    <div property="address"  typeof="PostalAddress">
+    <div property="address" typeof="PostalAddress">
       <span property="addressLocality">Philadelphia</span>,
       <span property="addressRegion">PA</span>
     </div>
   </div>
 
-  <div property="offers"  typeof="AggregateOffer">
+  <div property="offers" typeof="AggregateOffer">
     Priced from: <span property="lowPrice">$35</span>
     <span property="offerCount">1938</span> tickets left
   </div>
@@ -838,7 +849,7 @@ RDFA:
    based on <span property="reviewCount">11</span> customer reviews
   </div>
 
-  <div property="offers"  typeof="Offer">
+  <div property="offers" typeof="Offer">
     <!--price is 1000, a number, with locale-specific thousands separator
         and decimal mark, and the $ character is marked up with the
         machine-readable code "USD" -->
@@ -854,11 +865,11 @@ RDFA:
 
   Customer reviews:
 
-  <div property="review"  typeof="Review">
+  <div property="review" typeof="Review">
     <span property="name">Not a happy camper</span> -
     by <span property="author">Ellie</span>,
     <meta property="datePublished" content="2011-04-01">April 1, 2011
-    <div property="reviewRating"  typeof="Rating">
+    <div property="reviewRating" typeof="Rating">
       <meta property="worstRating" content = "1">
       <span property="ratingValue">1</span>/
       <span property="bestRating">5</span>stars
@@ -867,11 +878,11 @@ RDFA:
     it. </span>
   </div>
 
-  <div property="review"  typeof="Review">
+  <div property="review" typeof="Review">
     <span property="name">Value purchase</span> -
     by <span property="author">Lucas</span>,
     <meta property="datePublished" content="2011-03-25">March 25, 2011
-    <div property="reviewRating"  typeof="Rating">
+    <div property="reviewRating" typeof="Rating">
       <meta property="worstRating" content = "1"/>
       <span property="ratingValue">4</span>/
       <span property="bestRating">5</span>stars
@@ -994,17 +1005,17 @@ RDFA:
     based on <span property="ratingCount">24</span> user ratings
   </div>
 
-  <div property="offers"  typeof="AggregateOffer">
+  <div property="offers" typeof="AggregateOffer">
     <span property="lowPrice">$1250</span>
     to <span property="highPrice">$1495</span>
     from <span property="offerCount">8</span> sellers
 
   Sellers:
-  <div property="offers"  typeof="Offer">
+  <div property="offers" typeof="Offer">
     <a property="url" href="save-a-lot-monitors.com/dell-30.html">
      Save A Lot Monitors - $1250</a>
   </div>
-  <div property="offers"  typeof="Offer">
+  <div property="offers" typeof="Offer">
     <a property="url" href="jondoe-gadgets.com/dell-30.html">
      Jon Doe's Gadgets - $1350</a>
   </div>
@@ -1155,14 +1166,13 @@ RDFA:
  <link property="bookFormat" href="http://schema.org/Paperback">Mass Market Paperback
 by <a property="author" href="/author/jd_salinger.html">J.D. Salinger</a>
 
-<div property="aggregateRating"  typeof="AggregateRating">
+<div property="aggregateRating" typeof="AggregateRating">
   <span property="ratingValue">4</span> stars -
   <span property="reviewCount">3077</span> reviews
 </div>
 
-<div property="offers"  typeof="Offer">
-  Price: <span property="price" content="6.99">$6.99</span>
-  <meta property="priceCurrency" content="USD" />
+<div property="offers" typeof="Offer">
+  Price: <meta property="priceCurrency" content="USD" />$<meta property="price" content="6.99" />6.99  
   <link property="availability" href="http://schema.org/InStock">In Stock
 </div>
 
@@ -1175,7 +1185,7 @@ ISBN-10: <span property="isbn">0316769487</span>
 
 Reviews:
 
-<div property="review"  typeof="Review">
+<div property="review" typeof="Review">
   <span property="reviewRating">5</span> stars -
   <b>"<span property="name">A masterpiece of literature</span>"</b>
   by <span property="author">John Doe</span>,
@@ -1184,7 +1194,7 @@ Reviews:
   challenge people face as they try make sense of their lives and grow to adulthood.</span>
 </div>
 
-<div property="review"  typeof="Review">
+<div property="review" typeof="Review">
   <span property="reviewRating">4</span> stars -
   <b>"<span property="name">A good read.</span>" </b>
   by <span property="author">Bob Smith</span>,
@@ -1289,7 +1299,7 @@ MICRODATA:
   By <span itemprop="author">John Smith</span>,
   <meta itemprop="datePublished" content="2009-05-08">May 8, 2009
   <img itemprop="image" src="bananabread.jpg"
-       alt="Banana bread on a plate"  />
+       alt="Banana bread on a plate" />
 
   <span itemprop="description">This classic banana bread recipe comes
   from my mom -- the walnuts add a nice texture and flavor to the banana
@@ -1344,8 +1354,7 @@ RDFA:
   Cook time: <meta property="cookTime" content="PT1H">1 hour
   Yield: <span property="recipeYield">1 loaf</span>
 
-  <div property="nutrition"
-     typeof="NutritionInformation">
+  <div property="nutrition" typeof="NutritionInformation">
     Nutrition facts:
     <span property="calories">240 calories</span>,
     <span property="fatContent">9 grams fat</span>
@@ -1569,7 +1578,7 @@ RDFA:
 <h1 property="name">Foo Fighters</h1>
 
 
-<div property="video"  typeof="VideoObject">
+<div property="video" typeof="VideoObject">
   <h2>Video: <span property="name">Interview with the Foo Fighters</span></h2>
   <meta property="duration" content="T1M33S" />
   <meta property="thumbnail" content="foo-fighters-interview-thumb.jpg" />
@@ -1584,7 +1593,7 @@ RDFA:
 
 <h2>Songs</h2>
 
-<div property="track"  typeof="MusicRecording">
+<div property="track" typeof="MusicRecording">
   <span property="name">Rope</span>
   <meta property="url" content ="foo-fighters-rope.html">
   Length: <meta property="duration" content="PT4M5S">4:05 -
@@ -1599,7 +1608,7 @@ RDFA:
     property="inAlbum">Wasting Light</a>
 </div>
 
-<div property="track"  typeof="MusicRecording">
+<div property="track" typeof="MusicRecording">
   <span property="name">Everlong</span>
   <meta property="url" content ="foo-fighters-everlong.html">
   Length: <meta property="duration" content="PT6M33S">6:33 -
@@ -1617,7 +1626,7 @@ RDFA:
 
 <h2>Upcoming shows</h2>
 
-<div property="event"  typeof="Event">
+<div property="event" typeof="Event">
   <a href="foo-fighters-may20-fedexforum" property="url">
     <span property="name">FedExForum</span>
   </a>
@@ -1626,7 +1635,7 @@ RDFA:
   <a href="ticketmaster.com/foofighters/may20-2011" property="offers">Buy tickets</a>
 </div>
 
-<div property="event"  typeof="Event">
+<div property="event" typeof="Event">
   <a href="foo-fighters-may23-midamericacenter" property="url">
     <span property="name">Mid America Center</span>
   </a>
@@ -1839,28 +1848,28 @@ RDFA:
  find the elusive fountain of youth, only to discover that Blackbeard and
  his daughter are after it too.</span>
 Director:
- <div property="director"  typeof="Person">
+ <div property="director" typeof="Person">
 <span property="name">Rob Marshall</span>
 </div>
 Writers:
- <div property="author"  typeof="Person">
+ <div property="author" typeof="Person">
 <span property="name">Ted Elliott</span>
 </div>
-<div property="author"  typeof="Person">
+<div property="author" typeof="Person">
 <span property="name">Terry Rossio</span>
 </div>
 , and 7 more credits
 Stars:
- <div property="actor"  typeof="Person">
+ <div property="actor" typeof="Person">
 <span property="name">Johnny Depp</span>,
  </div>
-<div property="actor"  typeof="Person">
+<div property="actor" typeof="Person">
 <span property="name">Penelope Cruz</span>,
 </div>
-<div property="actor"  typeof="Person">
+<div property="actor" typeof="Person">
 <span property="name">Ian McShane</span>
 </div>
-<div property="aggregateRating"  typeof="AggregateRating">
+<div property="aggregateRating" typeof="AggregateRating">
   <span property="ratingValue">8</span>/<span property="bestRating">10</span> stars from
   <span property="ratingCount">200</span> users.
   Reviews: <span property="reviewCount">50</span>.
@@ -1973,7 +1982,7 @@ JSON:
 {
   "@context": "http://schema.org",
   "@type": "Table",
-  "about": "list of presidents",
+  "about": "list of presidents"
 }
 </script>
 
@@ -2197,7 +2206,7 @@ RDFA:
   <span property="name">Classic Rock Playlist</span>
   <meta property="numTracks" content="5"/>
 
-  <div property="track"  typeof="MusicRecording">
+  <div property="track" typeof="MusicRecording">
     1.<span property="name">Sweet Home Alabama</span> -
     <span property="byArtist">Lynard Skynard</span>
     <meta content="sweet-home-alabama" property="url" />
@@ -2205,7 +2214,7 @@ RDFA:
     <meta content="Second Helping" property="inAlbum" />
    </div>
 
-  <div property="track"  typeof="MusicRecording">
+  <div property="track" typeof="MusicRecording">
     2.<span property="name">Shook you all Night Long</span> -
     <span property="byArtist">AC/DC</span>
     <meta content="shook-you-all-night-long" property="url" />
@@ -2213,7 +2222,7 @@ RDFA:
     <meta content="Back In Black" property="inAlbum" />
   </div>
 
-  <div property="track"  typeof="MusicRecording">
+  <div property="track" typeof="MusicRecording">
     3.<span property="name">Sharp Dressed Man</span> -
     <span property="byArtist">ZZ Top</span>
     <meta content="sharp-dressed-man" property="url" />
@@ -2221,7 +2230,7 @@ RDFA:
     <meta content="Eliminator" property="inAlbum" />
  </div>
 
-  <div property="track"  typeof="MusicRecording">
+  <div property="track" typeof="MusicRecording">
     4.<span property="name">Old Time Rock and Roll</span> -
     <span property="byArtist">Bob Seger</span>
     <meta content="old-time-rock-and-roll" property="url" />
@@ -2229,7 +2238,7 @@ RDFA:
     <meta content="Stranger In Town" property="inAlbum" />
   </div>
 
-  <div property="track"  typeof="MusicRecording">
+  <div property="track" typeof="MusicRecording">
     5.<span property="name">Hurt So Good</span> -
     <span property="byArtist">John Cougar</span>
     <meta content="hurt-so-good" property="url" />
@@ -2443,16 +2452,16 @@ RDFA:
 
 <div vocab="http://schema.org/" typeof="EducationalOrganization">
  <span property="name">Palo Alto High School</span>
- <div property="address"  typeof="PostalAddress">
+ <div property="address" typeof="PostalAddress">
     <span property="streetAddress">50 Embarcadero Rd</span>
     <span property="addressLocality">Palo Alto</span>,
     <span property="addressRegion">CA</span> <span property="postalCode">94301</span>
   </div>
  List of Alumni
- <span property="alumni"  typeof="Person">
+ <span property="alumni" typeof="Person">
    <span property="name">John Doe</span>
  </span>
- <span property="alumni"  typeof="Person">
+ <span property="alumni" typeof="Person">
    <span property="name">Sarah Glames</span>
  </span>
 </div>
@@ -2530,26 +2539,26 @@ RDFA:
 
 <div vocab="http://schema.org/" typeof="TVSeries">
  <span property="name">Greys Anatomy</span> is a medical drama television series created by
- <div  property="author"  typeof="Person">
+ <div  property="author" typeof="Person">
    <span property="name">Shonda Rimes</span>
  </div>
  Starring:
- <div property="actor"  typeof="Person">
+ <div property="actor" typeof="Person">
    <span property="name">Justin Chambers</span>
  </div>
- <div property="actor"  typeof="Person">
+ <div property="actor" typeof="Person">
    <span property="name">Jessica Capshaw</span>
  </div>
- <div property="containsSeason"  typeof="TVSeason">
+ <div property="containsSeason" typeof="TVSeason">
    <span property="name">Season 1</span> -
    <meta property="numberOfEpisodes" content="14"/>
    <meta property="datePublished" content="2005-05-22">May 22, 2005
  </div>
- <div property="containsSeason"  typeof="TVSeason">
+ <div property="containsSeason" typeof="TVSeason">
    <span property="name">Season 2</span> -
    <meta property="numberOfEpisodes" content="27"/>
    <meta property="datePublished" content="2006-05-14">May 14, 2006
-   <div property="episode"  typeof="TVEpisode">
+   <div property="episode" typeof="TVEpisode">
      <span property="name">Episode 1</span> -
      <meta property="episodeNumber" content="1"/>
    </div>
@@ -2652,12 +2661,12 @@ RDFA:
   </h2>
 
   <h3>Sample Tracks</h3>
-    <div property="track"  typeof="MusicRecording">
+    <div property="track" typeof="MusicRecording">
       <span property="name">Bloom</span>
       <meta content="/artist/radiohead/album/the-king-of-limbs/track/bloom" property="url" />
       <meta content="PT5M14S" property="duration" />5:14
     </div>
-    <div property="track"  typeof="MusicRecording">
+    <div property="track" typeof="MusicRecording">
       <span property="name">Morning Mr Magpie</span>
       <meta content="/artist/radiohead/album/the-king-of-limbs/track/morning-mr-magpie" property="url" />
       <meta content="PT4M40S" property="duration" />4:40
@@ -2818,7 +2827,7 @@ RDFA:
   <meta property="specialCommitments" content="VeteranCommit" />
   <h2 property="title">Software Engineer</h2>
   <span>
-    <p><strong>Location:</strong> <span property="jobLocation"  typeof="Place"><span property="address"  typeof="PostalAddress">
+    <p><strong>Location:</strong> <span property="jobLocation" typeof="Place"><span property="address" typeof="PostalAddress">
     <span property="addressLocality">Kirkland</span> <span property="addressRegion">WA</span></span></span></p>
   </span>
 
@@ -2832,7 +2841,7 @@ RDFA:
   </p>
 
   <p property="description">
-    <strong>Description:</strong> <span property="hiringOrganization"  typeof="Organization"><span property="name">ABC Company Inc.</span>
+    <strong>Description:</strong> <span property="hiringOrganization" typeof="Organization"><span property="name">ABC Company Inc.</span>
     seeks a full-time mid-level software engineer to develop in-house tools.</span>
   </p>
 
@@ -7851,25 +7860,25 @@ RDFA:
 <div vocab="http://schema.org/" typeof="TVSeries">
   <a property="url" href="http://www.bbc.co.uk/programmes/b006q2x0">
    <span property="name">Doctor Who</span></a>,
-  <div property="containsSeason"  typeof="TVSeason">
+  <div property="containsSeason" typeof="TVSeason">
     <a property="url" href="http://www.bbc.co.uk/programmes/b00rs69w">
      <span property="name">Series 5</span></a>,
-    <div property="episode"  typeof="TVEpisode">
+    <div property="episode" typeof="TVEpisode">
       <a property="url" href="http://www.bbc.co.uk/programmes/b00sj9sq">
        <span property="name">The Hungry Earth</span></a>,
       episode <span property="position">8</span>, broadcast on
-      <div property="publication"  typeof="BroadcastEvent">
-        <div property="publishedOn"  typeof="BroadcastService">
+      <div property="publication" typeof="BroadcastEvent">
+        <div property="publishedOn" typeof="BroadcastService">
           <a property="url" href="http://www.bbc.co.uk/bbcone"><span property="name">BBC One</span></a>
         </div> at
         <span property="startDate"
           content="2010-05-22T18:15:00+01:00">18:15, 22nd of May 2010</span>
       </div>,
       available on
-      <div property="video"  typeof="VideoObject">
+      <div property="video" typeof="VideoObject">
         <a property="url" href="http://www.bbc.co.uk/iplayer/episode/b00sj9sq">BBC iPlayer</a>
       </div> from
-      <div property="publication"  typeof="OnDemandEvent">
+      <div property="publication" typeof="OnDemandEvent">
         <span property="startDate"
          content="2012-06-02T19:45:00+01:00">19:45 on the 2nd of June</span> until the
         <span property="endDate" content="2012-06-09T19:44:00+01:00">9th</span>.
@@ -7955,19 +7964,19 @@ RDFA:
 <div vocab="http://schema.org/" typeof="RadioSeries">
   <a property="url" href="http://www.bbc.co.uk/programmes/b006qykl">
    <span property="name">In Our Time</span></a>,
-  <div property="episode"  typeof="RadioEpisode">
+  <div property="episode" typeof="RadioEpisode">
     <a property="url" href="http://www.bbc.co.uk/programmes/b03ggc19">
      <span property="name">Ordinary Language Philosophy</span></a>,
     episode <span property="position">604</span>, broadcast on
-    <div property="publication"  typeof="BroadcastEvent">
-      <div property="publishedOn"  typeof="BroadcastService">
+    <div property="publication" typeof="BroadcastEvent">
+      <div property="publishedOn" typeof="BroadcastService">
         <a property="url" href="http://www.bbc.co.uk/radio4"><span property="name">BBC Radio 4</span></a>
       </div> at
       <span property="startDate"
         content="2013-11-07T09:00:00+01:00">09:00, 7th of November 2013</span>
     </div>,
     available online from
-    <div property="publication"  typeof="OnDemandEvent">
+    <div property="publication" typeof="OnDemandEvent">
       <span property="startDate"
        content="2013-11-07T09:45:00+01:00">09:45 on the same day</span>.
     </div>
@@ -8032,13 +8041,13 @@ RDFA:
 
 <div vocab="http://schema.org/" typeof="GovernmentPermit">
   <span property="name">NYC Food Service Establishment Permit</span>
-  <div property="issuedBy"  typeof="GovernmentOrganization">
+  <div property="issuedBy" typeof="GovernmentOrganization">
     <span property="name">Department of Health and Mental Hygiene"</span>
   </div>
-  <div property="issuedThrough"  typeof="GovernmentService">
+  <div property="issuedThrough" typeof="GovernmentService">
     <span property="name">NYC Food Service Establishment Permit Service</span>
    </div>
-  <div property="validIn"  typeof="AdministrativeArea">
+  <div property="validIn" typeof="AdministrativeArea">
     <span property="name">New York</span>
   </div>
   <time property="validFor" content="P1Y">1 year</time>
@@ -8178,14 +8187,14 @@ MICRODATA:
 
 RDFA:
 
-<div vocab="http://schema.org/" class="event-wrapper"  typeof="Event">
+<div vocab="http://schema.org/" class="event-wrapper" typeof="Event">
 
   <div class="event-date" property="startDate" content="2013-09-14T21:30">Sat Sep 14</div>
   <div class="event-title" property="name">Typhoon with Radiation City</div>
 
-  <div class="event-venue" property="location"  typeof="Place">
+  <div class="event-venue" property="location" typeof="Place">
     <span property="name">The Hi-Dive</span>
-    <div class="address" property="address"  typeof="PostalAddress">
+    <div class="address" property="address" typeof="PostalAddress">
       <span property="streetAddress">7 S. Broadway</span><br>
       <span property="addressLocality">Denver</span>,
       <span property="addressRegion">CO</span>
@@ -8195,10 +8204,12 @@ RDFA:
 
   <div class="event-time">9:30 PM</div>
 
- <span property="offers"  typeof="Offer">
-  <div class="event-price" property="price" content="13.00">$13.00</div>
-    <span property="priceCurrency" content="USD" />
-    <a property="url" href="http://www.ticketfly.com/purchase/309433">Tickets</a>
+ <span property="offers" typeof="Offer">
+ <div class="event-price">
+    <meta property="priceCurrency" content="USD" />$
+    <meta property="price" content="13.00" />13.00
+ </div>
+ <a property="url" href="http://www.ticketfly.com/purchase/309433">Tickets</a>
  </span>
 </div>
 
@@ -8226,7 +8237,7 @@ JSON:
     "priceCurrency": "USD",
     "url": "http://www.ticketfly.com/purchase/309433"
   },
-  "startDate": "Sat Sep 14"
+  "startDate": "2013-09-14T21:30"
 }
 </script>
 
@@ -8284,15 +8295,15 @@ MICRODATA:
 
 RDFA:
 
-<div vocab="http://schema.org/" class="event-wrapper"  typeof="Event">
+<div vocab="http://schema.org/" class="event-wrapper" typeof="Event">
 
   <div class="event-date" property="startDate" content="2013-09-14T21:30">Sat Sep 14</div>
   <div class="event-title" property="name">CANCELLED - Typhoon with Radiation City</div>
   <meta property="eventStatus" content="http://schema.org/EventCancelled">
 
-  <div class="event-venue" property="location"  typeof="Place">
+  <div class="event-venue" property="location" typeof="Place">
     <span property="name">The Hi-Dive</span>
-    <div class="address" property="address"  typeof="PostalAddress">
+    <div class="address" property="address" typeof="PostalAddress">
       <span property="streetAddress">7 S. Broadway</span><br>
       <span property="addressLocality">Denver</span>,
       <span property="addressRegion">CO</span>
@@ -8302,7 +8313,7 @@ RDFA:
 
   <div class="event-time">9:30 PM</div>
 
- <span property="offers"  typeof="Offer">
+ <span property="offers" typeof="Offer">
   <div class="event-price" property="price">$13.00</div>
   <a property="url" href="http://www.ticketfly.com/purchase/309433">Tickets</a>
  </span>
@@ -8333,7 +8344,7 @@ JSON:
     "priceCurrency": "USD",
     "url": "http://www.ticketfly.com/purchase/309433"
   },
-  "startDate": "Sat Sep 14"
+  "startDate": "2013-09-14T21:30"
 }
 </script>
 
@@ -8392,9 +8403,9 @@ RDFA:
   <meta property="eventStatus" content="http://schema.org/EventRescheduled">
   <span property="previousStartDate" content="2013-09-14T21:30">(previously scheduled for Sept 14th)</span>
 
-  <div class="event-venue" property="location"  typeof="Place">
+  <div class="event-venue" property="location" typeof="Place">
     <span property="name">The Hi-Dive</span>
-    <div class="address" property="address"  typeof="PostalAddress">
+    <div class="address" property="address" typeof="PostalAddress">
       <span property="streetAddress">7 S. Broadway</span><br>
       <span property="addressLocality">Denver</span>,
       <span property="addressRegion">CO</span>
@@ -8402,10 +8413,12 @@ RDFA:
     </div>
   </div>
   <div class="event-time">10:00 PM</div>
-  <span property="offers"  typeof="Offer">
-   <div class="event-price" property="price" content="13.00">$13.00</div>
-    <span property="priceCurrency" content="USD" />
-    <a property="url" href="http://www.ticketfly.com/purchase/309433">Tickets</a>
+  <span property="offers" typeof="Offer">
+  <div class="event-price">
+    <meta property="priceCurrency" content="USD" />$
+    <meta property="price" content="13.00" />13.00
+  </div>   
+  <a property="url" href="http://www.ticketfly.com/purchase/309433">Tickets</a>
   </span>
 </div>
 
@@ -8487,14 +8500,14 @@ MICRODATA:
 
 RDFA:
 
-<div vocab="http://schema.org/" class="event-wrapper"  typeof="Event">
+<div vocab="http://schema.org/" class="event-wrapper" typeof="Event">
 
   <div class="event-date" property="startDate" content="2013-09-14T21:30">Sat Sep 14</div>
   <div class="event-title" property="name">SOLD OUT! Typhoon with Radiation City</div>
 
-  <div class="event-venue" property="location"  typeof="Place">
+  <div class="event-venue" property="location" typeof="Place">
     <span property="name">The Hi-Dive</span>
-    <div class="address" property="address"  typeof="PostalAddress">
+    <div class="address" property="address" typeof="PostalAddress">
       <span property="streetAddress">7 S. Broadway</span><br>
       <span property="addressLocality">Denver</span>,
       <span property="addressRegion">CO</span>
@@ -8504,11 +8517,12 @@ RDFA:
 
   <div class="event-time">9:30 PM</div>
 
- <span property="offers"  typeof="Offer">
+ <span property="offers" typeof="Offer">
   <meta property="availability" content="http://schema.org/SoldOut">
-
-  <div class="event-price" property="price" content="13.00">$13.00</div>
-  <span property="priceCurrency" content="USD" />
+  <div class="event-price">
+    <meta property="priceCurrency" content="USD" />$
+    <meta property="price" content="13.00" />13.00
+  </div>
   <a property="url" href="http://www.ticketfly.com/purchase/309433">Tickets</a>
  </span>
 </div>
@@ -8538,7 +8552,7 @@ JSON:
     "priceCurrency": "USD",
     "url": "http://www.ticketfly.com/purchase/309433"
   },
-  "startDate": "Sat Sep 14"
+  "startDate": "2013-09-14T21:30"
 }
 </script>
 
@@ -9344,12 +9358,12 @@ JSON:
     "brand": {
       "@type": "Brand",
       "name": "Honda"
-    },
-    "operatingCompany": {
-      "@type": "Organization",
-      "name": "Hertz"
     }
   },
+  "provider": {
+        "@type": "Organization",
+        "name": "Hertz"
+      },
   "pickupLocation": {
     "@type": "Place",
     "name": "Hertz San Diego Airport",
@@ -9378,7 +9392,6 @@ JSON:
   "dropoffTime": "2017-08-06T20:00:00-07:00"
 }
 </script>
-
 TYPES: TaxiReservation
 
 PRE-MARKUP:
@@ -9500,23 +9513,23 @@ RDFA:
   <div property="upvoteCount">196</div>
   <div property="text">I am having difficulty understanding Ruby attr_accessors, can someone explain them?</div>
   <div>asked <time property="dateCreated" datetime="2010-11-04T20:07Z">Nov 11 '10 at 20:07</time></div>
-  <div property="author"  typeof="Person"><span property="name">someuser</span></div>
+  <div property="author" typeof="Person"><span property="name">someuser</span></div>
   <div><span property="answerCount">4</span> answers</div>
-  <div property="suggestedAnswer acceptedAnswer"  typeof="Answer">
+  <div property="suggestedAnswer acceptedAnswer" typeof="Answer">
     <div property="upvoteCount">1337</div>
     <div property="text">
     (The text of the accepted answer goes here...).
     </div>
     <div>answered <time property="dateCreated" datetime="2010-12-01T22:01Z">Dec 1 '10 at 22:01</time></div>
-    <div property="author"  typeof="Person"><span property="name">anotheruser</span></div>
+    <div property="author" typeof="Person"><span property="name">anotheruser</span></div>
   </div>
-  <div property="suggestedAnswer"  typeof="Answer">
+  <div property="suggestedAnswer" typeof="Answer">
     <div property="upvoteCount">39</div>
     <div property="text">
       (Another explanation would go here).
     </div>
     <div>answered <time property="dateCreated" datetime="2010-12-06T21:11Z">Dec 6 '10 at 21:11</time></div>
-    <div property="author"  typeof="Person"><span property="name">lonelyuser1234</span></div>
+    <div property="author" typeof="Person"><span property="name">lonelyuser1234</span></div>
   </div>
 </div>
 
@@ -9731,7 +9744,7 @@ MICRODATA:
     <link itemprop="url" href="/examples/ticket/12341234" />
     <meta itemprop="price" content="40"/>
     <meta itemprop="priceCurrency" content="USD" />
-    <meta itemprop="availability" href="http://schema.org/InStock"/>
+    <link itemprop="availability" href="http://schema.org/InStock"/>
   </div>
 
   <h2 itemprop="name">Shostakovich Leningrad</h2>
@@ -9797,9 +9810,9 @@ RDFA:
 
   <div property="offers" typeof="Offer">
     <link property="url" href="/examples/ticket/12341234"/>
-    <meta property="price" content="40"/>
-    <meta property="priceCurrency" content="USD" />
-    <meta property="availability" href="http://schema.org/InStock"/>
+    <meta property="priceCurrency" content="USD" />$
+    <meta property="price" content="40"/>40.00
+    <link property="availability" href="http://schema.org/InStock"/>
   </div>
 
   <h2 property="name">Shostakovich Leningrad</h2>
@@ -10166,12 +10179,12 @@ RDFA:
   <h2>Opening hours</h2>
   <p>Normally open <time property="openingHours" datetime="Mo,Tu,We,Th,Fr,Sa,Su 09:00-14:00">daily 9am-2pm</time> except on:</p>
   <ul>
-    <li property="openingHoursSpecification"  typeof="OpeningHoursSpecification">
+    <li property="openingHoursSpecification" typeof="OpeningHoursSpecification">
       <span property="validFrom" content="2013-12-24">24 December 2013</span> and
       <span property="validThrough" content="2013-12-25">25 December 2013</span>:
       <span property="opens" content="09:00">9am</span>-<span property="closes" content="11:00">11am</span>
     </li>
-    <li property="openingHoursSpecification"  typeof="OpeningHoursSpecification">
+    <li property="openingHoursSpecification" typeof="OpeningHoursSpecification">
       <span property="validFrom" content="2014-01-01">1st January 2014</span>
       <span property="validThrough" content="2014-01-01"></span>:
       <span property="opens" content="12:00">Noon</span>-<span property="closes" content="14:00">2pm</span>
@@ -10522,13 +10535,13 @@ RDFA:
     <p>Phone: <span property="telephone" content="+155501001110">555-0100-1110</span></p>
   </div>
 
-  <address property="address"  typeof="PostalAddress">
+  <address property="address" typeof="PostalAddress">
     <span property="streetAddress"> Unit 42, Land of Bargains Shopping Paradise, 12 Highway 101</span>,
     <span property="addressLocality">Boston</span>,
     <span property="addressRegion">MA</span>, <span property="addressCountry">USA</span>
   </address>
 
-  <div property="department"  typeof="Pharmacy">
+  <div property="department" typeof="Pharmacy">
     <h2 property="name">Philippa's Pharmacy</h2>
     <p property="description">A superb collection of fine pharmaceuticals...</p>
     <p>Open: <time property="openingHours" datetime="Mo-Th 09:00-12:00">Monday-Thursday 9am-noon</time></p>
@@ -10639,18 +10652,18 @@ RDFA:
     <p>Phone: <span property="telephone" content="+155501001110">555-0100-1110</span></p>
   </div>
 
-  <address property="address"  typeof="PostalAddress">
+  <address property="address" typeof="PostalAddress">
     <span property="streetAddress">Unit 42, Land of Bargains Shopping Paradise, 12 Highway 101</span>,
     <span property="addressLocality">Boston</span>,
     <span property="addressRegion">MA</span>, <span property="addressCountry">USA</span>
   </address>
 
-  <div property="department"  typeof="Pharmacy">
+  <div property="department" typeof="Pharmacy">
     <h2 property="name">Philippa's Pharmacy</h2>
     <p property="description">A superb collection of fine pharmaceuticals...</p>
     <p>Open: <time property="openingHours" datetime="Mo-Th 09:00-12:00">Monday-Thursday 9am-noon</time></p>
     <p>Phone: <span property="telephone" content="+155501001111">555-0100-1111</span></p>
-    <address property="address"  typeof="PostalAddress">
+    <address property="address" typeof="PostalAddress">
       <span property="streetAddress">Unit 42b, Land of Bargains Shopping Paradise, 12 Highway 101</span>,
       <span property="addressLocality">Boston</span>,
       <span property="addressRegion">MA</span>, <span property="addressCountry">USA</span>
@@ -11270,7 +11283,7 @@ MICRODATA:
     <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
       <span itemprop="price">4399 р.</span>
     </div>...
-    <div itemprop="itemListElement" itemscope itemtype="http://schema.org/Product">
+    <div itemprop="itemListElement" itemtype="http://schema.org/Product">
     ...
     </div>
   </div>
@@ -11288,7 +11301,9 @@ RDFA:
       <span property="name">BRAND 502</span>
     </a>
     <div property="offers" typeof="http://schema.org/Offer">
-      <span property="price">4399 р.</span>
+      <meta property="schema:priceCurrency" content="RUB">руб
+      <meta property="schema:price" content="4399.00">4 399,00
+      <link property="schema:itemCondition" href="http://schema.org/NewCondition">    
     </div>...
     <div property="itemListElement" typeof="Product">
     ...
@@ -11694,7 +11709,7 @@ MICRODATA:
   <span itemprop="name">King of Limbs</span>
   <span itemprop="byArtist">Radiohead</span>
   <div itemprop="track" itemscope itemtype="http://schema.org/ItemList">
-    <meta itemprop="numberOfItems" content="8" />
+    <span itemprop="numberOfItems" content=8 />
     <div itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
       <span itemprop="position">1</span>
       <div itemprop="item" itemscope itemtype="http://schema.org/MusicRecording">
@@ -11754,9 +11769,9 @@ JSON:
   "name": "King of Limbs",
   "byArtist": {
     "@type": "MusicGroup",
-    "name": "Radiohead",
+    "name": "Radiohead"
   },
-  track: {
+  "track": {
     "@type": "ItemList",
     "numberOfItems": 8,
     "itemListElement": [

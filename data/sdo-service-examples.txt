@@ -1,0 +1,67 @@
+TYPES: #service-1 Service, TaxiService, GeoCircle, geoMidPoint, geoRadius, providerMobility
+
+PRE-MARKUP: 
+
+Car for hire driver #123 is within 50 meters of a given location, but is moving.
+
+MICRODATA:
+
+<div itemscope itemtype="http://schema.org/TaxiService">
+  <div itemprop="provider" itemscope itemtype="http://schema.org/LocalBusiness">
+    <span itemprop="name">driver #123</span>
+    <div itemprop="location" itemscope itemtype="http://schema.org/Place">
+      <div itemprop="geo" itemscope itemtype="http://schema.org/GeoCircle">
+        <div itemprop="geoMidpoint" itemscope itemtype="http://schema.org/GeoCoordinates">
+          <meta itemprop="latitude" content="42.362757" />
+          <meta itemprop="longitude" content="-71.087109" />
+        </div>
+        <meta itemprop="geoRadius" content="50" />
+      </div>
+    </div>
+  </div>
+  <meta itemprop="providerMobility" content="dynamic" />
+</div>
+
+RDFA:
+
+<div vocab="http://schema.org/" typeof="TaxiService">
+  <div property="provider" typeof="LocalBusiness">
+    <span property="name">driver #123</span>
+    <div property="location" typeof="Place">
+      <div property="geo" typeof="GeoCircle">
+        <div property="geoMidpoint" typeof="GeoCoordinates">
+          <meta property="latitude" content="42.362757" />
+          <meta property="longitude" content="-71.087109" />
+        </div>
+        <meta property="geoRadius" content="50" />
+      </div>
+    </div>
+  </div>
+  <meta property="providerMobility" content="dynamic" />
+</div>
+
+JSON:
+
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org/",
+    "@type": "TaxiService",
+    "provider": {
+      "@type": "LocalBusiness",
+      "name": "driver #123",
+      "location": {
+        "@type": "Place",
+        "geo": {
+          "@type": "GeoCircle",
+          "geoMidpoint": {
+            "@type": "GeoCoordinates",
+            "latitude": "42.362757",
+            "longitude": "-71.087109"
+          },
+          "geoRadius": "50"
+        }
+      }
+    },
+    "providerMobility": "dynamic"
+  }
+</script>
