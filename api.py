@@ -6,7 +6,7 @@ import re
 #import webapp2
 #import jinja2 # used for templates
 import logging
-
+import threading
 import parsers
 
 #from google.appengine.ext import ndb
@@ -98,11 +98,13 @@ class DataCacheTool():
 
     def __init__ (self):
         self._DataCache = {}
-        self.setCurrent("core")
+        self.tlocal = threading.local()
+        self.tlocal.CurrentDataCache = "core"
+
 
     def getCache(self,cache=None):
         if cache == None:
-            cache = self._CurrentDataCache
+            cache = self.getCurrent()
         if cache in self._DataCache.keys():
             return self._DataCache[cache]
         else:
@@ -116,13 +118,13 @@ class DataCacheTool():
         self.getCache(cache)[key] = val
 
     def setCurrent(self,current):
-        self._CurrentDataCache = current
-        if(self._DataCache.get(self._CurrentDataCache) == None):
-            self._DataCache[self._CurrentDataCache] = {}
-        log.debug("Setting _CurrentDataCache: %s",self._CurrentDataCache)
+        self.tlocal.CurrentDataCache = current
+        if(self._DataCache.get(current) == None):
+            self._DataCache[current] = {}
+        log.info("Setting _CurrentDataCache: %s",current)
 
     def getCurrent(self):
-        return self._CurrentDataCache
+        return self.tlocal.CurrentDataCache
 
     def keys(self):
         return self._DataCache.keys()
