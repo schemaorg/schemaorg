@@ -20,7 +20,6 @@ from google.appengine.ext import blobstore
 from google.appengine.api import users
 from google.appengine.ext.webapp import blobstore_handlers
 from google.appengine.api import modules
-from google.appengine.api import memcache
 from google.appengine.api import runtime
 
 from api import inLayer, read_file, full_path, read_schemas, read_extensions, read_examples, namespaces, DataCache
@@ -28,6 +27,7 @@ from api import Unit, GetTargets, GetSources
 from api import GetComment, all_terms, GetAllTypes, GetAllProperties, GetAllEnumerationValues
 from api import GetParentList, GetImmediateSubtypes, HasMultipleBaseTypes
 from api import GetJsonLdContext, ShortenOnSentence, StripHtmlTags
+from api import setInTestHarness, getInTestHarness
 
 logging.basicConfig(level=logging.INFO) # dev_appserver.py --log_level debug .
 log = logging.getLogger(__name__)
@@ -63,7 +63,7 @@ ENABLE_JSONLD_CONTEXT = True
 ENABLE_CORS = True
 ENABLE_HOSTED_EXTENSIONS = True
 
-INTESTHARNESS = False #Used to indicate we are being called from tests - use setInTestHarness() & getInTestHarness() to manage value
+#INTESTHARNESS = True #Used to indicate we are being called from tests - use setInTestHarness() & getInTestHarness() to manage value
 
 EXTENSION_SUFFIX = "" # e.g. "*"
 
@@ -75,16 +75,28 @@ ALL_LAYERS = [ 'core', 'auto', 'bib' ]
 FORCEDEBUGGING = False
 # FORCEDEBUGGING = True
 
+SHAREDSITEDEBUG = True
+if not getInTestHarness():
+    if SHAREDSITEDEBUG:
+        from google.appengine.api import memcache
+else:
+    SHAREDSITEDEBUG = False
+       
+
 instance_first = True 
 instance_num = 0
+global_vars = threading.local()
 systarttime = datetime.datetime.now()
-#Ensure clean start for any memcached values....
-if memcache.get("static-version") != os.environ["CURRENT_VERSION_ID"]:
-    memcache.flush_all()
-    memcache.set(key="static-version", value=os.environ["CURRENT_VERSION_ID"]) 
-    memcache.add(key="SysStart", value=systarttime) 
-    instance_first = True 
-    log.info("Detected new code version - resetting debug values")
+
+#Ensure clean start for any memcached values...
+if SHAREDSITEDEBUG:
+    if memcache.get("static-version") != os.environ["CURRENT_VERSION_ID"]:
+        memcache.flush_all()
+        memcache.set(key="static-version", value=os.environ["CURRENT_VERSION_ID"]) 
+        memcache.add(key="SysStart", value=systarttime) 
+        instance_first = True 
+        log.info("Detected new code version - resetting debug values")
+     
 
 
 def cleanPath(node):
@@ -1639,7 +1651,10 @@ class ShowUnit (webapp2.RequestHandler):
         if not ext in ENABLED_EXTENSIONS:
             log.info("cannot list ext %s",ext)
             return ""
-
+            
+        if DataCache.get('ExtensionContents',ext):
+            return DataCache.get('ExtensionContents',ext)
+        
         buff = StringIO.StringIO()
 
         az_types = GetAllTypes(ext)
@@ -1654,6 +1669,7 @@ class ShowUnit (webapp2.RequestHandler):
         buff.write(self.listTerms(az_props,"<br/><br/><strong>Properties</strong> (%s)<br/>" % len(az_props)))
         buff.write(self.listTerms(az_enums,"<br/><br/><strong>Enumeration values</strong> (%s)<br/>" % len(az_enums)))
         ret = buff.getvalue()
+        DataCache.put('ExtensionContents',ret,ext)
         buff.close()
         return ret
 
@@ -1757,8 +1773,7 @@ class ShowUnit (webapp2.RequestHandler):
         """
 
         global_vars.time_start = datetime.datetime.now()
-        
-    
+                
         if not self.setupHostinfo(node):
             return
 
@@ -1831,6 +1846,10 @@ class ShowUnit (webapp2.RequestHandler):
         if(node == "_ah/warmup"):
             log.info("Instance[%s] received Warmup request at %s" % (modules.get_current_instance_id(), global_vars.time_start) )
             self.handleFullHierarchyPage("")
+            self.getCounts()
+            for ext in ENABLED_EXTENSIONS:
+                self.handleExtensionContents(ext)
+            
             
             log.info("Instance[%s] completed Warmup request at %s" % (modules.get_current_instance_id(), global_vars.time_start) )
             return
@@ -1865,10 +1884,13 @@ class ShowUnit (webapp2.RequestHandler):
         self.response.out.write("<div style=\"display: none;\">\nLAYER:%s\n</div>" % ext)
         self.response.out.write("<table style=\"width: 70%; border: solid 1px #CCCCCC; border-collapse: collapse;\"><tbody>\n")
         self.writeDebugRow("Setting","Value",True)
-        self.writeDebugRow("System start",memcache.get("SysStart"))
+        if SHAREDSITEDEBUG:
+            self.writeDebugRow("System start",memcache.get("SysStart"))
+            inst = memcache.get("Instances")
+            extinst = memcache.get("ExitInstances")
+            self.writeDebugRow("Running instances(%s)" % len(memcache.get("Instances")),inst.keys())
+            self.writeDebugRow("Instance exits(%s)" % len(memcache.get("ExitInstances")),extinst.keys())
         self.writeDebugRow("This Instance ID",os.environ["INSTANCE_ID"])
-        self.writeDebugRow("Running instances",memcache.get("Instances"))
-        self.writeDebugRow("Instance exits",memcache.get("ExitInstances"))
         self.writeDebugRow("httpScheme",getHttpScheme())
         self.writeDebugRow("host_ext",getHostExt())
         self.writeDebugRow("basehost",getBaseHost())
@@ -1876,11 +1898,12 @@ class ShowUnit (webapp2.RequestHandler):
         self.writeDebugRow("sitename",getSiteName())
         self.writeDebugRow("debugging",getAppVar('debugging'))
         self.writeDebugRow("intestharness",getInTestHarness())
-        self.writeDebugRow("total calls",memcache.get("total"))
-        for s in ALL_LAYERS:
-            self.writeDebugRow("%s calls" % s, memcache.get(s))
-        for s in ["http","https"]:
-            self.writeDebugRow("%s calls" % s, memcache.get(s))
+        if SHAREDSITEDEBUG:
+            self.writeDebugRow("total calls",memcache.get("total"))
+            for s in ALL_LAYERS:
+                self.writeDebugRow("%s calls" % s, memcache.get(s))
+            for s in ["http","https"]:
+                self.writeDebugRow("%s calls" % s, memcache.get(s))
             
 
         self.writeDebugRow("This Instance Memory Usage [Mb]", str(runtime.memory_usage()).replace("\n","<br/>"))
@@ -1898,7 +1921,9 @@ class ShowUnit (webapp2.RequestHandler):
             rt = "th"
             cellStyle += " color: #FFFFFF; background: #888888;"
 
-        self.response.out.write("<tr><%s style=\"%s\">%s</%s><%s style=\"%s\">%s</%s></tr>\n" % (rt,cellStyle,term,rt,rt,cellStyle,value,rt))
+        divstyle = "width: 100%; max-height: 100px; overflow: auto"
+
+        self.response.out.write("<tr><%s style=\"%s\">%s</%s><%s style=\"%s\"><div style=\"%s\">%s</div></%s></tr>\n" % (rt,cellStyle,term,rt,rt,cellStyle,divstyle,value,rt))
 
     def callCount(self):
         global instance_first
@@ -1906,44 +1931,36 @@ class ShowUnit (webapp2.RequestHandler):
         if(instance_first):
             instance_first = False
             instance_num += 1
-            if(memcache.add(key="Instances",value={})):                
-                memcache.add(key="ExitInstances",value={})
-                memcache.add(key="http",value=0)
-                memcache.add(key="https",value=0)
-                memcache.add(key="total",value=0)
-                for i in ALL_LAYERS:
-                    memcache.add(key=i,value=0)
+            if SHAREDSITEDEBUG:
+                if(memcache.add(key="Instances",value={})):                
+                    memcache.add(key="ExitInstances",value={})
+                    memcache.add(key="http",value=0)
+                    memcache.add(key="https",value=0)
+                    memcache.add(key="total",value=0)
+                    for i in ALL_LAYERS:
+                        memcache.add(key=i,value=0)
            
-            Insts = memcache.get("Instances")
-            Insts[os.environ["INSTANCE_ID"]] = 1
-            memcache.replace("Instances",Insts)
+                Insts = memcache.get("Instances")
+                Insts[os.environ["INSTANCE_ID"]] = 1
+                memcache.replace("Instances",Insts)
         
-        memcache.incr("total")
-        memcache.incr(getHttpScheme())
-        if getHostExt() != "":
-            memcache.incr(getHostExt())
-        else:
-            memcache.incr("core")
-
-global_vars = threading.local()
-global_vars.v = {}
-
-
-def setInTestHarness(val):
-    global INTESTHARNESS
-    INTESTHARNESS = val
-def getInTestHarness():
-    global INTESTHARNESS
-    return INTESTHARNESS
+        if SHAREDSITEDEBUG:
+            memcache.incr("total")
+            memcache.incr(getHttpScheme())
+            if getHostExt() != "":
+                memcache.incr(getHostExt())
+            else:
+                memcache.incr("core")
 
 def my_shutdown_hook():
     global instance_num
-    Insts = memcache.get("ExitInstances")
-    Insts[os.environ["INSTANCE_ID"]] = 1
-    memcache.replace("ExitInstances",Insts)
+    if SHAREDSITEDEBUG:
+        Insts = memcache.get("ExitInstances")
+        Insts[os.environ["INSTANCE_ID"]] = 1
+        memcache.replace("ExitInstances",Insts)
     
-    memcache.add("Exits",0)
-    memcache.incr("Exits")
+        memcache.add("Exits",0)
+        memcache.incr("Exits")
     log.info("Instance[%s] shutting down" % modules.get_current_instance_id())
 
 runtime.set_shutdown_hook(my_shutdown_hook)
