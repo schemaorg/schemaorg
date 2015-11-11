@@ -85,6 +85,8 @@ else:
 
 instance_first = True 
 instance_num = 0
+callCount = 0
+WarmedUp = False
 global_vars = threading.local()
 systarttime = datetime.datetime.now()
 
@@ -1649,7 +1651,6 @@ class ShowUnit (webapp2.RequestHandler):
 
     def handleExtensionContents(self,ext):
         if not ext in ENABLED_EXTENSIONS:
-            log.info("cannot list ext %s",ext)
             return ""
             
         if DataCache.get('ExtensionContents',ext):
@@ -1790,8 +1791,20 @@ class ShowUnit (webapp2.RequestHandler):
             layerlist = ["core"]
 
         setSiteName(self.getExtendedSiteName(layerlist)) # e.g. 'bib.schema.org', 'schema.org'
-
         log.debug("EXT: set sitename to %s " % getSiteName())
+        if(node == "_ah/warmup"):
+            self.warmup()
+            return
+        else:  #Do a bit of warming on each call
+            global WarmedUp
+            global Warmer
+            if not WarmedUp:
+                Warmer.stepWarm()
+            
+        if(node == "_ah/start"):
+            log.info("Instance[%s] received Start request at %s" % (modules.get_current_instance_id(), global_vars.time_start) )
+            return
+
         if (node in ["", "/"]):
             if self.handleHomepage(node):
                 return
@@ -1842,21 +1855,7 @@ class ShowUnit (webapp2.RequestHandler):
 
         if(node == "_siteDebug"):
             self.siteDebug()
-            return
-        if(node == "_ah/warmup"):
-            log.info("Instance[%s] received Warmup request at %s" % (modules.get_current_instance_id(), global_vars.time_start) )
-            self.handleFullHierarchyPage("")
-            self.getCounts()
-            for ext in ENABLED_EXTENSIONS:
-                self.handleExtensionContents(ext)
-            
-            
-            log.info("Instance[%s] completed Warmup request at %s" % (modules.get_current_instance_id(), global_vars.time_start) )
-            return
-        if(node == "_ah/start"):
-            log.info("Instance[%s] received Start request at %s" % (modules.get_current_instance_id(), global_vars.time_start) )
-            return
- 
+            return 
 
         # Pages based on request path matching a Unit in the term graph:
         if self.handleExactTermPage(node, layers=layerlist):
@@ -1906,6 +1905,7 @@ class ShowUnit (webapp2.RequestHandler):
             
 
         self.writeDebugRow("This Instance ID",os.environ["INSTANCE_ID"],True)
+        self.writeDebugRow("Instance Calls", callCount)
         self.writeDebugRow("Instance Memory Usage [Mb]", str(runtime.memory_usage()).replace("\n","<br/>"))
         self.writeDebugRow("Instance Current DataCache", DataCache.getCurrent())
         self.writeDebugRow("Instance DataCaches", len(DataCache.keys()))
@@ -1931,6 +1931,8 @@ class ShowUnit (webapp2.RequestHandler):
     def callCount(self):
         global instance_first
         global instance_num
+        global callCount
+        callCount += 1
         if(instance_first):
             instance_first = False
             instance_num += 1
@@ -1954,6 +1956,56 @@ class ShowUnit (webapp2.RequestHandler):
                 memcache.incr(getHostExt())
             else:
                 memcache.incr("core")
+                
+                
+    def warmup(self):
+        global WarmedUp
+        global Warmer
+        if WarmedUp:
+            return
+        log.info("Instance[%s] received Warmup request at %s" % (modules.get_current_instance_id(), global_vars.time_start) )
+        Warmer.warmAll()
+        log.info("Instance[%s] completed Warmup request at %s" % (modules.get_current_instance_id(), global_vars.time_start) )
+
+class WarmupTool():
+    
+    def __init__(self):
+        self.types = []
+        self.props = []
+        self.enums = []
+        
+    def stepWarm(self,all=False):
+        global WarmedUp
+        if WarmedUp:
+            return
+        if len (self.types) < len(ALL_LAYERS): 
+            for l in ALL_LAYERS:
+                if l not in self.types:
+                    self.types.append(l)           
+                    GetAllTypes(l)
+                    break
+        elif len (self.props) < len(ALL_LAYERS):
+            for l in ALL_LAYERS:
+                if l not in self.props:
+                    self.props.append(l)           
+                    GetAllProperties(l)
+                    break
+        elif len (self.enums) < len(ALL_LAYERS):
+            for l in ALL_LAYERS:
+                if l not in self.enums:
+                    self.enums.append(l)           
+                    GetAllEnumerationValues(l)
+                    break
+        else:
+            WarmedUp = True
+
+    def warmAll(self):
+        global WarmedUp
+        while not WarmedUp:
+            self.stepWarm(True)
+
+Warmer = WarmupTool()            
+            
 
 def my_shutdown_hook():
     global instance_num
