@@ -497,7 +497,7 @@ def GetImmediateSupertypes(n, layers='core'):
     sups.sort(key=lambda x: x.id)
     return sups
 
-Utc = "utils_cache"
+Utc = "util_cache"
 def GetAllTypes(layers='core'):
     global Utc
     """Return all types in the graph."""

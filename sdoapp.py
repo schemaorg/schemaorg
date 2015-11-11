@@ -1890,7 +1890,6 @@ class ShowUnit (webapp2.RequestHandler):
             extinst = memcache.get("ExitInstances")
             self.writeDebugRow("Running instances(%s)" % len(memcache.get("Instances")),inst.keys())
             self.writeDebugRow("Instance exits(%s)" % len(memcache.get("ExitInstances")),extinst.keys())
-        self.writeDebugRow("This Instance ID",os.environ["INSTANCE_ID"])
         self.writeDebugRow("httpScheme",getHttpScheme())
         self.writeDebugRow("host_ext",getHostExt())
         self.writeDebugRow("basehost",getBaseHost())
@@ -1906,11 +1905,12 @@ class ShowUnit (webapp2.RequestHandler):
                 self.writeDebugRow("%s calls" % s, memcache.get(s))
             
 
-        self.writeDebugRow("This Instance Memory Usage [Mb]", str(runtime.memory_usage()).replace("\n","<br/>"))
-        self.writeDebugRow("This Instance Current DataCache", DataCache.getCurrent())
-        self.writeDebugRow("This Instance DataCaches", len(DataCache.keys()))
+        self.writeDebugRow("This Instance ID",os.environ["INSTANCE_ID"],True)
+        self.writeDebugRow("Instance Memory Usage [Mb]", str(runtime.memory_usage()).replace("\n","<br/>"))
+        self.writeDebugRow("Instance Current DataCache", DataCache.getCurrent())
+        self.writeDebugRow("Instance DataCaches", len(DataCache.keys()))
         for c in DataCache.keys():
-           self.writeDebugRow("This Instance DataCache[%s] size" % c, len(DataCache.getCache(c) ))
+           self.writeDebugRow("Instance DataCache[%s] size" % c, len(DataCache.getCache(c) ))
         self.response.out.write("</tbody><table><br/>\n")
         self.response.out.write( "</div>\n<body>\n</html>" )
 
@@ -1920,10 +1920,13 @@ class ShowUnit (webapp2.RequestHandler):
         if head:
             rt = "th"
             cellStyle += " color: #FFFFFF; background: #888888;"
+        
+        leftcellStyle = cellStyle
+        leftcellStyle += " width: 35%"
 
         divstyle = "width: 100%; max-height: 100px; overflow: auto"
 
-        self.response.out.write("<tr><%s style=\"%s\">%s</%s><%s style=\"%s\"><div style=\"%s\">%s</div></%s></tr>\n" % (rt,cellStyle,term,rt,rt,cellStyle,divstyle,value,rt))
+        self.response.out.write("<tr><%s style=\"%s\">%s</%s><%s style=\"%s\"><div style=\"%s\">%s</div></%s></tr>\n" % (rt,leftcellStyle,term,rt,rt,cellStyle,divstyle,value,rt))
 
     def callCount(self):
         global instance_first
