@@ -40,6 +40,41 @@ JSON:
    }
 }
 
+TYPES: #map-2 Map, MapDisplayOptionType, mapDisplayOption
+
+PRE-MARKUP:
+
+<p>
+Here is a <a href="/metro-map/1234">map from your location to the nearest Metro stop</a>.
+</p>
+
+MICRODATA:
+
+<p itemscope itemtype="http://schema.org/Map">
+Here is a 
+<a itemprop="url" href="/metro-map/1234">map from your location to the nearest Metro stop</a>.
+<meta itemprop="mapDisplayOption" content="http://schema.org/MapDisplayRoute" />
+<meta itemprop="mapDisplayOption" content="http://schema.org/MapDisplayUserLocation" />
+</p>
+
+RDFA:
+
+<p vocab="http://schema.org/" typeof="Map">
+Here is a 
+<a property="url" href="/metro-map/1234">map from your location to the nearest Metro stop</a>.
+<meta property="mapDisplayOption" content="http://schema.org/MapDisplayRoute" />
+<meta property="mapDisplayOption" content="http://schema.org/MapDisplayUserLocation" />
+</p>
+
+JSON:
+
+{
+ "@context": "http://schema.org/",
+ "@type": "Map",
+ "url": "/metro-map/1234",
+ "mapDisplayOption": ["http://schema.org/MapDisplayRoute", "http://schema.org/MapDisplayUserLocation"]
+}
+
 
 TYPES: FakeEntryNeeded, FixMeSomeDay
 PRE-MARKUP:

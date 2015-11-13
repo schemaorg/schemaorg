@@ -1630,6 +1630,36 @@
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/MapCategoryType">MapCategoryType</a></span>
     </div>
 
+    <div typeof="rdfs:Class" resource="http://schema.org/MapDisplayOptionType">
+      <span class="h" property="rdfs:label">MapDisplayOptionType</span>
+      <span property="rdfs:comment">An enumeration of several options when displaying a Map.</span>
+       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Enumeration">Enumeration</a></span>
+    </div>
+
+    <div typeof="http://schema.org/MapDisplayOptionType" resource="http://schema.org/MapDisplayRoute">
+      <span class="h" property="rdfs:label">MapDisplayRoute</span>
+      <span property="rdfs:comment">The route the user should take is displayed on the map.</span>
+    </div>
+    <div typeof="http://schema.org/MapDisplayOptionType" resource="http://schema.org/MapHideRoute">
+      <span class="h" property="rdfs:label">MapHideRoute</span>
+      <span property="rdfs:comment">No route information is displayed on the map.</span>
+    </div>
+    <div typeof="http://schema.org/MapDisplayOptionType" resource="http://schema.org/MapDisplayUserLocation">
+      <span class="h" property="rdfs:label">MapDisplayUserLocation</span>
+      <span property="rdfs:comment">The user's location is displayed on the map, including 'You Are Here' designations.</span>
+    </div>
+    <div typeof="http://schema.org/MapDisplayOptionType" resource="http://schema.org/MapHideUserLocation">
+      <span class="h" property="rdfs:label">MapHideUserLocation</span>
+      <span property="rdfs:comment">The user's location is not displayed on the map.</span>
+    </div>
+
+    <div typeof="rdf:Property" resource="http://schema.org/mapDisplayOption">
+      <span class="h" property="rdfs:label">mapDisplayOption</span>
+      <span property="rdfs:comment">Indicates option(s) for displaying the Map.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Map">Map</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/MapCategoryType">MapDisplayOptionType</a></span>
+    </div>
+
     <div typeof="rdfs:Class" resource="http://schema.org/Mass">
       <span class="h" property="rdfs:label">Mass</span>
       <span property="rdfs:comment">Properties that take Mass as values are of the form &#39;&amp;lt;Number&amp;gt; &amp;lt;Mass unit of measure&amp;gt;&#39;. E.g., &#39;7 kg&#39;.</span>
