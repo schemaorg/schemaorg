@@ -6,7 +6,7 @@ import re
 #import webapp2
 #import jinja2 # used for templates
 import logging
-
+import threading
 import parsers
 
 #from google.appengine.ext import ndb
@@ -21,6 +21,17 @@ log = logging.getLogger(__name__)
 schemasInitialized = False
 extensionsLoaded = False
 extensionLoadErrors = ""
+
+#INTESTHARNESS used to flag we are in a test harness - not called by webApp so somethings will work different!
+#setInTestHarness(True) should be called from test suites.
+INTESTHARNESS = False
+def setInTestHarness(val):
+    global INTESTHARNESS
+    INTESTHARNESS = val
+def getInTestHarness():
+    global INTESTHARNESS
+    return INTESTHARNESS
+
 
 EVERYLAYER = "!EVERYLAYER!"
 sitename = "schema.org"
@@ -98,16 +109,19 @@ class DataCacheTool():
 
     def __init__ (self):
         self._DataCache = {}
-        self.setCurrent("core")
+        self.tlocal = threading.local()
+        self.tlocal.CurrentDataCache = "core"
+        self._DataCache[self.tlocal.CurrentDataCache] = {}
+
 
     def getCache(self,cache=None):
         if cache == None:
-            cache = self._CurrentDataCache
+            cache = self.getCurrent()
         if cache in self._DataCache.keys():
             return self._DataCache[cache]
         else:
-            log.debug("DataCache Invalid cache name '%s'" % cache)
-            return None
+            self._DataCache[cache] = {}
+            return self._DataCache[cache]
 
     def get(self,key,cache=None):
         return self.getCache(cache).get(key)
@@ -116,13 +130,13 @@ class DataCacheTool():
         self.getCache(cache)[key] = val
 
     def setCurrent(self,current):
-        self._CurrentDataCache = current
-        if(self._DataCache.get(self._CurrentDataCache) == None):
-            self._DataCache[self._CurrentDataCache] = {}
-        log.debug("Setting _CurrentDataCache: %s",self._CurrentDataCache)
+        self.tlocal.CurrentDataCache = current
+        if(self._DataCache.get(current) == None):
+            self._DataCache[current] = {}
+        log.info("Setting _CurrentDataCache: %s",current)
 
     def getCurrent(self):
-        return self._CurrentDataCache
+        return self.tlocal.CurrentDataCache
 
     def keys(self):
         return self._DataCache.keys()
@@ -483,12 +497,14 @@ def GetImmediateSupertypes(n, layers='core'):
     sups.sort(key=lambda x: x.id)
     return sups
 
+Utc = "util_cache"
 def GetAllTypes(layers='core'):
+    global Utc
     """Return all types in the graph."""
     KEY = "AllTypes:%s" % layers
-    if DataCache.get(KEY):
+    if DataCache.get(KEY,Utc):
         logging.debug("DataCache HIT: %s" % KEY)
-        return DataCache.get(KEY)
+        return DataCache.get(KEY,Utc)
     else:
         logging.debug("DataCache MISS: %s" % KEY)
         mynode = Unit.GetUnit("Thing")
@@ -502,18 +518,18 @@ def GetAllTypes(layers='core'):
             for sc in subs:
                 if subbed.get(sc.id) == None:
                     todo.append(sc)
-        DataCache.put(KEY,subbed.keys())
+        DataCache.put(KEY,subbed.keys(),Utc)
         return subbed.keys()
 
 def GetAllEnumerationValues(layers='core'):
+    global Utc
     KEY = "AllEnums:%s" % layers
-    if DataCache.get(KEY):
+    if DataCache.get(KEY,Utc):
         logging.debug("DataCache HIT: %s" % KEY)
-        return DataCache.get(KEY)
+        return DataCache.get(KEY,Utc)
     else:
         logging.debug("DataCache MISS: %s" % KEY)
         mynode = Unit.GetUnit("Enumeration")
-        log.info("Enum %s" % mynode)
         enums = {}
         subbed = {}
         todo = [mynode]
@@ -528,16 +544,17 @@ def GetAllEnumerationValues(layers='core'):
                         enums[val] = 1
                 if subbed.get(sc.id) == None:
                     todo.append(sc)
-        DataCache.put(KEY,enums.keys())
+        DataCache.put(KEY,enums.keys(),Utc)
         return enums.keys()
 
 
 def GetAllProperties(layers='core'):
     """Return all properties in the graph."""
+    global Utc
     KEY = "AllProperties:%s" % layers
-    if DataCache.get(KEY):
+    if DataCache.get(KEY,Utc):
         logging.debug("DataCache HIT: %s" % KEY)
-        return DataCache.get(KEY)
+        return DataCache.get(KEY,Utc)
     else:
         logging.debug("DataCache MISS: %s" % KEY)
         mynode = Unit.GetUnit("Thing")
@@ -547,7 +564,7 @@ def GetAllProperties(layers='core'):
             if inLayer(layers,prop):
                 res.append(prop)
         sorted_all_properties = sorted(res, key=lambda u: u.id)
-        DataCache.put(KEY,sorted_all_properties)
+        DataCache.put(KEY,sorted_all_properties,Utc)
         return sorted_all_properties
 
 def GetParentList(start_unit, end_unit=None, path=[], layers='core'):

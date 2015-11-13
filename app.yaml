@@ -1,12 +1,17 @@
 application: schemaorgae
 #application: webschemas
-#application: sdo-phobos
 
 version: 1
 runtime: python27
 api_version: 1
-#threadsafe: true
-threadsafe: false
+threadsafe: true
+
+automatic_scaling:
+  min_idle_instances: 2
+
+inbound_services:
+- warmup
+
 
 handlers:
 
