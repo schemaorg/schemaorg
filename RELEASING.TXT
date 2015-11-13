@@ -1,0 +1,218 @@
+
+0-a) Technical pre-conditions for release.
+
+Overview
+
+Code, schema, examples and supporting documentation should be in a stable state.
+
+Pay particular attention to release-specific structures and docs/releases.html
+(e.g. no stray '2.x', '2.*' etc. in hidden markup or tables)
+
+In sdoapp.py we declare the current version. This should match the number
+chosen in /docs/releases.html (check markup assigns an HTML ID too).
+
+The following steps assume a general healthy freeze (tested / QA as below).
+
+in sdoapp.py:
+
+    SCHEMA_VERSION=2.2 # or 2.x, as above.
+
+in sdoapp.py:
+
+  releaselog = { "2.0": "2015-05-13", "2.1": "2015-08-06" }
+
+becomes
+
+  releaselog = { "2.0": "2015-05-13", "2.1": "2015-08-06", "2.2": "2015-11-05" }
+
+
+... this should have a release date for the current release and all
+previous releases that are archived under data/releases/{version}/*
+
+TODO: Add a unit test to ensure this.
+
+TODO: Re-order this document to avoid forward references.
+
+Under data/releases/{version}/ we need a versioned-snapshot structure:
+
+e.g.
+    data/releases/2.1
+    data/releases/2.1/all-layers.nq
+    data/releases/2.1/core.nq
+    data/releases/2.1/ext-auto.nq
+    data/releases/2.1/ext-bib.nq
+    data/releases/2.1/README.md
+    data/releases/2.1/schema-all.html
+    data/releases/2.1/schema.nt
+    data/releases/2.1/schema.rdfa
+
+Of these,
+
+ * schema.rdfa is a frozen one-time copy of data/schema.rdfa
+ * schema-all.html is generated from this via running the Web app and
+   capturing via curl of /version/ (no numbers),
+   e.g. http://localhost:8080/version/
+   when served locally via "dev_appserver ."
+ * the .nt and .nq files are n-triples and n-quads capturing the core
+   and extensions. Use script/rdfa2nq for the latter.
+   scripts/rdfa2nt for the former. TODO: fix the charset warning we're ignoring.
+  * We consider schema.rdfa as immutable; the rest can be fixed and augmented
+   as they are derrived and potentially improvable formats.
+  * we don't preserve snapshots of per-extension RDFa here (or examples etc.)
+  * README.md should be copied/updated accordingly.  TODO: simplify this file.
+
+Example usage:
+
+# n-triples
+
+First copy snapshot into place:
+
+* cp data/schema.rdfa data/releases/2.2/schema.rdfa
+
+Then generate N-Triples version:
+
+* ./scripts/rdfa2nt data/releases/2.2/schema.rdfa  > data/releases/2.2/schema.nt
+* We ignore a warning here, currently: NTSerializer does not use custom encoding. (TODO)
+
+* Now we generate NQuad (.nq) files for each published extension, manually (some extensions may be multi-file):
+ * ./scripts/rdfa2nq data/ext/bib/bsdo-1.0.rdfa http://bib.schema.org/#v2.2 | grep -v file: > data/releases/2.2/ext-bib.nq
+ * ./scripts/rdfa2nq data/ext/bib/comics.rdfa http://bib.schema.org/#v2.2 | grep -v file: >> data/releases/2.2/ext-bib.nq
+ * ./scripts/rdfa2nq data/ext/auto/auto.rdfa http://auto.schema.org/#v2.2 | grep -v file: >> data/releases/2.2/ext-auto.nq
+* And for the core itself:
+ * ./scripts/rdfa2nq data/releases/2.2/schema.rdfa http://schema.org/version/2.1/ | grep -v file: >> data/releases/2.2/core.nq
+* Now concat the lot:
+ * find data/releases/2.2/ -name \*.nq -exec cat {} \; > data/releases/2.2/all-layers.nq
+* Now the HTML snapshot itself. Assuming a local server (e.g. from 'dev_appserver .') we can do:
+ * curl http://localhost:8080/version/latest/> data/releases/2.2/schema-all.html
+* Inspect snapshot, add to git and push to repo.
+ * ls -l data/releases/2.2/
+ * git add data/releases/2.2/*
+ * git push
+ * update sites: e.g.  ./scripts/updateAppEngine.sh  to update sdo-phobos.appspot.com, webschemas.org
+  * Inspect /version/{x.y}/ on those sites manually; check for newly added terms etc.
+ * TODO: more QA and automation would be highly appropriate here.
+
+
+# NQuads
+Use of rdfa2nq with extensions:
+
+
+TODO: list optional tasks post-launch (blog, email, refresh dydra sparql db etc.).
+
+
+
+
+1) General preconditions / process and QA for release.
+
+1-a) Steering Group have signed off on changes and release plan,
+and no active and unresolved disputes in the Community Group.
+
+1-b) All code is commited to appropriate release branch at Github (usually
+configured as the current default github branch for /schemaorg/ project).
+
+1-c) All tests pass.
+It is best to test against a fresh checkout to avoid depending on uncommitted
+files. The unit tests depend upon a local installation of Google AppEngine, e.g.
+
+PYTHONPATH=/usr/local/google_appengine ./scripts/run_tests.py
+
+To run the full unit tests (graph test of schema integrity) the 'rdflib'
+python library is also needed: 'sudo easy_install rdflib' should do it.
+
+ Example transcript:
+
+  git clone https://github.com/schemaorg/schemaorg.git
+  Cloning into 'schemaorg'...
+  remote: Counting objects: 6375, done.
+  remote: Compressing objects: 100% (80/80), done.
+  remote: Total 6375 (delta 43), reused 0 (delta 0), pack-reused 6295
+  Receiving objects: 100% (6375/6375), 27.62 MiB | 1.01 MiB/s, done.
+  Resolving deltas: 100% (4074/4074), done.
+  Checking connectivity... done.
+  danbri-macbookpro2:tmp danbri$ cd schemaorg/
+
+  [...]
+
+  Ran 70 tests in 21.168s
+
+  OK (expected failures=3)
+
+1-d) Latest candidate release branch is pushed to per-branch appspot instance
+(e.g. sdo-phobos.appspot.com) and the generic unstable upstream site
+(i.e. webschemas.org).
+
+1-e) The manual QA page /docs/qa.html has been reviewed to ensure
+representative pages of each type appear to be in a healthy state.
+
+e.g. see http://webschemas.org/docs/qa.html
+
+2.) Final checks
+
+There is often some final tweaking, bugs, etc. When things settle down, a
+final round of sanity-check tests is useful:
+
+* Run again: PYTHONPATH=/usr/local/google_appengine ./scripts/run_tests.py
+* Run again 'git status', confirm no uncommited files or changes.
+* Run again: './scripts/updateAppEngine.sh' for development/upstream site sync.
+
+3.) Merge release branch into master
+
+3a.) Get changes into master branch on github
+
+Use GitHub Web UI to create a pull request. For example to merge the
+release branch sdo-phobos into master, we set the base branch 'master' and
+compare 'sdo-phobos'. If you get this backwards you should see nothing to do,
+because there ought to be no changes in master that we lack in the later
+sdo-phobos branch.
+
+Note also that if someone else has already (e.g. mistakenly) filed a pull request
+between the same pair of branches, Github will try to recycle that one (including
+their description) instead of give you a new one with proper name, description.
+Workaround is to close that PR (keeping track of any open issue it raises).
+
+Result should be "danbri  wants to merge 205 commits into master from sdo-phobos"
+or similar. Check the Commits and Files changed tabs. If it looks plausible
+(e.g. Showing  55 changed files  with 79,679 additions and 820 deletions.) we
+can proceed with merging.
+
+3b) Get merged changes back into your working colorOpacity
+
+I do 'git checkout master'; 'git pull --all'. You may know of other
+incantations. See also http://xkcd.com/1597/
+
+4.) Publish from a clean checkout of 'master' branch to schema.org.
+
+Either by editing app.yaml to make sure 'application: schemaorgae' is active,
+or by passing the name of the live appengine ID on the commandline. Currently
+@rvguha (as Steering Group chair) and @danbri (as Community Group chair and
+webmaster / dogsbody) have write access to the corresponding appengine account.
+
+ * e.g. run: appcfg.py update . -A schemaorgae
+ * inspect console output for something like:
+  * 03:35 PM Completed update of app: schemaorgae, version: 1
+ * Count to ten. Check http://schema.org/ and the 'releases' link.
+
+5.) Related post-release tasks.
+
+* Let the Community Group and Steering Group know.
+* Blog post.
+* There's a SPARQL database at DYDRA that can load NQuad dumps from
+https://github.com/schemaorg/schemaorg/blob/sdo-phobos/data/releases/2.2/all-layers.nq
+* Make a new per-release branch, reserve an appspot.com account for it.
+* Configure GitHub with the new default branch.
+  See https://github.com/schemaorg/schemaorg/settings/branches
+* Update issue tracker moving issues to new releases.
+ * Close issues that were addressed in this release.
+ * Make careful considered adjustment to expected release for the rest. Or
+   just tag them all for the next release.
+* Update git release tags (TODO: we have no history of handling this yet).
+
+For example, if we are in 'master' and 'git status' shows it in a clean state,
+
+* git checkout -b sdo-deimos
+* This tells us we can do:
+ *     git push --set-upstream origin sdo-deimos
+
+> To https://github.com/schemaorg/schemaorg.git
+>  * [new branch]      sdo-deimos -> sdo-deimos
+> Branch sdo-deimos set up to track remote branch sdo-deimos from origin.
