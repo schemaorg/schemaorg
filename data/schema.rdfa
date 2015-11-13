@@ -6049,7 +6049,7 @@
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/description">
       <span class="h" property="rdfs:label">description</span>
-      <span property="rdfs:comment">A short description of the item.</span>
+      <span property="rdfs:comment">A description of the item.</span>
       <link property="owl:equivalentProperty" href="http://purl.org/dc/terms/description"/>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Thing">Thing</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
@@ -6139,6 +6139,13 @@
 
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Clip">Clip</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Person">Person</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/disambiguatingDescription">
+      <span class="h" property="rdfs:label">disambiguatingDescription</span>
+      <span property="rdfs:comment">A sub property of description. A short description of the item used to disambiguate from other, similar items.</span>
+      <link property="rdfs:subPropertyOf" href="http://schema.org/description" />
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Thing">Thing</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/discount">
       <span class="h" property="rdfs:label">discount</span>
