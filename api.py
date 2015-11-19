@@ -862,15 +862,27 @@ def StripHtmlTags(source):
 
 def ShortenOnSentence(source,lengthHint=250):
     if len(source) > lengthHint:
+        source = source.strip()
         sentEnd = re.compile('[.!?]')
         sentList = sentEnd.split(source)
+        log.info("source '%s'" % source)
         com=""
-        for sent in sentList:
-            com += sent
-            com += source[len(com)]
+        count = 0
+        while count < len(sentList):
+            if(count > 0 ):
+                if len(com) < len(source):
+                    com += source[len(com)]
+            com += sentList[count]
+            count += 1
+            if count == len(sentList):
+                if len(com) < len(source):
+                    com += source[len(source) - 1]
             if len(com) > lengthHint:
+                if len(com) < len(source):
+                    com += source[len(com)]
                 break
-        if len(source) > len(com):
+                
+        if len(source) > len(com) + 1:
             com += ".."
         source = com
     return source
