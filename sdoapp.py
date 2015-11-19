@@ -1852,10 +1852,11 @@ class ShowUnit (webapp2.RequestHandler):
                 else:
                     log.info("Error handling 404 under /version/")
                     return
-
+        log.info("PRODSITEDEBUG: %s" % os.environ['PRODSITEDEBUG'])
         if(node == "_siteDebug"):
-            self.siteDebug()
-            return 
+            if(getBaseHost() != "schema.org" or os.environ['PRODSITEDEBUG'] == "True"):
+                self.siteDebug()
+                return 
 
         # Pages based on request path matching a Unit in the term graph:
         if self.handleExactTermPage(node, layers=layerlist):
