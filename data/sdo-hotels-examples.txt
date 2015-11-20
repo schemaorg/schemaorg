@@ -217,6 +217,165 @@ Not yet available.
 JSON:
 Not yet available.
 
+
+TYPES: numberOfRooms
+
+PRE-MARKUP:
+tbd
+
+MICRODATA:
+<div itemscope itemtype="http://schema.org/Hotel">
+  <h1><span itemprop="name">ACME Hotel Innsbruck</span></h1>
+  <span itemprop="description">A beautifully located business hotel right in the
+heart of the alps. Watch the sun rise over the scenic Inn valley while
+enjoying your morning coffee.</span>
+  <span itemprop="numberOfRooms">60</span> rooms.
+</div>
+
+RDFA:
+Not yet available.
+
+JSON:
+Not yet available.
+
+TYPES: numberOfRooms
+
+PRE-MARKUP:
+tbd
+
+MICRODATA:
+<div itemscope itemtype="http://schema.org/Hotel">
+  <h1><span itemprop="name">ACME Hotel Innsbruck</span></h1>
+  <span itemprop="description">A beautifully located business hotel right in the
+heart of the alps. Watch the sun rise over the scenic Inn valley while
+enjoying your morning coffee.</span>
+  <span itemprop="numberOfRooms" itemscope itemtype="http://schema.org/QuantitativeValue">
+     <span itemprop="value">45</span>
+     <span itemprop="unitText">double rooms</span>
+  </span>
+  <span itemprop="numberOfRooms" itemscope itemtype="http://schema.org/QuantitativeValue">
+     <span itemprop="value">15</span>
+     <span itemprop="unitText">single rooms</span>
+  </span>
+</div>
+
+RDFA:
+Not yet available.
+
+JSON:
+Not yet available.
+
+TYPES: feature, AccommodationFeature
+
+PRE-MARKUP:
+tbd
+
+MICRODATA:
+<div itemscope itemtype="http://schema.org/Hotel">
+  <h1><span itemprop="name">ACME Hotel Innsbruck</span></h1>
+  <span itemprop="description">A beautifully located business hotel right in the
+heart of the alps. Watch the sun rise over the scenic Inn valley while
+enjoying your morning coffee.</span>
+  Hotel Features:
+  <ul>
+  <li itemprop="feature" itemscope itemtype="http://schema.org/AccommodationFeature">
+    <span itemprop="name">Sauna</span>
+    <meta itemprop="value" content="True">
+  </li>
+  <li itemprop="feature" itemscope itemtype="http://schema.org/AccommodationFeature">
+    <span itemprop="name">Gym</span>
+    <meta itemprop="value" content="True">
+  </li>
+  </ul>
+</div>
+
+RDFA:
+Not yet available.
+
+JSON:
+Not yet available.
+
+TYPES: feature, AccommodationFeature, availabilityTimes
+
+PRE-MARKUP:
+tbd
+
+MICRODATA:
+<div itemscope itemtype="http://schema.org/Hotel">
+  <h1><span itemprop="name">ACME Hotel Innsbruck</span></h1>
+  <span itemprop="description">A beautifully located business hotel right in the
+heart of the alps. Watch the sun rise over the scenic Inn valley while
+enjoying your morning coffee.</span>
+  Hotel Features:
+  <ul>
+  <li itemprop="feature" itemscope itemtype="http://schema.org/AccommodationFeature">
+    <span itemprop="name">Sauna</span>
+    <meta itemprop="value" content="True">
+    <div itemprop="availabilityTimes" itemtype="http://schema.org/OpeningHoursSpecification">
+      <link itemprop="dayOfWeek" href="http://purl.org/goodrelations/v1#Thursday" />(Open Thursdays 
+      <time itemprop="opens" content="16:00:00"> 4:00 PM</time> - 
+      <time itemprop="closes" content="21:00:00"> 9:00 PM</time>)
+    </div>
+  </li>
+  </ul>
+</div>
+
+RDFA:
+Not yet available.
+
+JSON:
+Not yet available.
+
+TYPES: checkinTime, checkoutTime
+
+PRE-MARKUP:
+tbd
+
+MICRODATA:
+<div itemscope itemtype="http://schema.org/Hotel">
+  <h1><span itemprop="name">ACME Hotel Innsbruck</span></h1>
+  <img itemprop="logo" src="../media/logo.png" alt="hotel logo" />
+  <span itemprop="description">A beautifully located business hotel right in the
+heart of the alps. Watch the sun rise over the scenic Inn valley while
+enjoying your morning coffee.</span>
+  Check-in: <meta itemprop="checkinTime" content="14:00:00">2:00 PM
+  Check-out: <meta itemprop="checkoutTime" content="11:00:00">11:00 AM
+</div>
+
+RDFA:
+Not yet available.
+
+JSON:
+Not yet available.
+
+TYPES: availableLanguage, Language
+
+PRE-MARKUP:
+tbd
+
+MICRODATA:
+<div itemscope itemtype="http://schema.org/Hotel">
+  <h1><span itemprop="name">ACME Hotel Innsbruck</span></h1>
+  <span itemprop="description">A beautifully located business hotel right in the
+heart of the alps. Watch the sun rise over the scenic Inn valley while
+enjoying your morning coffee.</span>
+  We speak:
+  <ul>
+    <li itemprop="availableLanguage" itemscope itemtype="http://schema.org/Language">
+      <span itemprop="name">English</span>
+    </li>
+    <li itemprop="availableLanguage" itemscope itemtype="http://schema.org/Language">
+      <span itemprop="name">German</span>
+    </li>
+  </ul>
+</div>
+
+RDFA:
+Not yet available.
+
+JSON:
+Not yet available.
+
 TYPES: HotelRoom, Hotel
 
 PRE-MARKUP:

@@ -183,10 +183,10 @@ enjoying your morning coffee.&lt;/span&gt;
     &lt;span itemprop=&quot;addressRegion&quot;&gt;Tyrol&lt;/span&gt;,
     &lt;span itemprop=&quot;addressCountry&quot;&gt;Austria&lt;/span&gt;
   &lt;/div&gt;
-<strong>  &lt;div itemprop=&quot;geo&quot; itemscope itemtype=&quot;http://schema.org/GeoCoordinates&quot;&gt;
+  &lt;div itemprop=&quot;geo&quot; itemscope itemtype=&quot;http://schema.org/GeoCoordinates&quot;&gt;
     &lt;meta itemprop=&quot;latitude&quot; content=&quot;47.2649990&quot; /&gt;
     &lt;meta itemprop=&quot;longitude&quot; content=&quot;11.3428720&quot; /&gt;
-  &lt;/div&gt;</strong>
+  &lt;/div&gt;
 &lt;/div&gt;</pre>
     <h3>Telephone and Fax</h3>
     <pre class="prettyprint lang-html linenums">
@@ -195,8 +195,8 @@ enjoying your morning coffee.&lt;/span&gt;
   &lt;span itemprop=&quot;description&quot;&gt;A beautifully located business hotel right in the
 heart of the alps. Watch the sun rise over the scenic Inn valley while
 enjoying your morning coffee.&lt;/span&gt;
-   <strong>Phone: &lt;span itemprop=&quot;telephone&quot;&gt;+43 512 8000-0&lt;/span&gt;
-   Fax: &lt;span itemprop=&quot;faxNumber&quot;&gt;+43 512 8000-99&lt;/span&gt;</strong>
+   Phone: &lt;span itemprop=&quot;telephone&quot;&gt;+43 512 8000-0&lt;/span&gt;
+   Fax: &lt;span itemprop=&quot;faxNumber&quot;&gt;+43 512 8000-99&lt;/span&gt;
 &lt;/div&gt;</pre>
     <h3>Star Rating</h3>
 	<p>Star ratings are popular indicators for the quality of an accommodation. In many countries, they are awarded by dedicated public or private bodies and are based on well-defined criteria that often also specify minimal amenities for a certain star rating.</p>
@@ -226,7 +226,7 @@ enjoying your morning coffee.&lt;/span&gt;
   Room rates: &lt;span itemprop=&quot;priceRange&quot;&gt;$100 - $240&lt;/span&gt;
 &lt;/div&gt;</pre>
     <h3>Photos and Logo</h3>
-		<pre class="prettyprint lang-html linenums">
+	<pre class="prettyprint lang-html linenums">
 &lt;div itemscope itemtype=&quot;http://schema.org/Hotel&quot;&gt;
   &lt;h1&gt;&lt;span itemprop=&quot;name&quot;&gt;ACME Hotel Innsbruck&lt;/span&gt;&lt;/h1&gt;
   &lt;img itemprop=&quot;logo&quot; src=&quot;../media/logo.png&quot; alt=&quot;hotel logo&quot; /&gt;
@@ -236,7 +236,7 @@ enjoying your morning coffee.&lt;/span&gt;
   &lt;img itemprop=&quot;photo&quot; src=&quot;../media/hotel_front.png&quot; alt=&quot;Front view of the hotel&quot; /&gt;
 &lt;/div&gt;</pre>
     <h3>Map</h3>
-		<pre class="prettyprint lang-html linenums">
+	<pre class="prettyprint lang-html linenums">
 &lt;div itemscope itemtype=&quot;http://schema.org/Hotel&quot;&gt;
   &lt;h1&gt;&lt;span itemprop=&quot;name&quot;&gt;ACME Hotel Innsbruck&lt;/span&gt;&lt;/h1&gt;
   &lt;span itemprop=&quot;description&quot;&gt;A beautifully located business hotel right in the
@@ -246,40 +246,154 @@ enjoying your morning coffee.&lt;/span&gt;
   Click here for a map.&lt;/a&gt;
 &lt;/div&gt;</pre>
     <h3>Opening Hours (Reception)</h3>
-		<pre class="prettyprint lang-html linenums">
-		</pre>
+	<p>You can use the <a href="../openingHours">openingHours</a> or <a href="../openingHoursSpecification">openingHoursSpecification</a> properties to indicate the opening hours of the reception of the hotel.</p>
+	<pre class="prettyprint lang-html linenums">
+&lt;div itemscope itemtype=&quot;http://schema.org/Hotel&quot;&gt;
+  &lt;h1&gt;&lt;span itemprop=&quot;name&quot;&gt;ACME Hotel Innsbruck&lt;/span&gt;&lt;/h1&gt;
+  &lt;span itemprop=&quot;description&quot;&gt;A beautifully located business hotel right in the
+heart of the alps. Watch the sun rise over the scenic Inn valley while
+enjoying your morning coffee.&lt;/span&gt;
+  Reception opening hours:
+  &lt;meta itemprop=&quot;openingHours&quot; content=&quot;Mo-Fr 07:00-23:00&quot;&gt;Mon-Fri 07.00-23.00
+  &lt;meta itemprop=&quot;openingHours&quot; content=&quot;Sa 08:00-23:00&quot;&gt;Saturdays 08.00-23.00
+  &lt;meta itemprop=&quot;openingHours&quot; content=&quot;Suo 08:00-12:00&quot;&gt;Sundays 08.00-12.00
+&lt;/div&gt;</pre>
     <h3>Reviews and Ratings</h3>
-		<pre class="prettyprint lang-html linenums">
-		</pre>
+	<p>Simply attach individual (customer) reviews and aggregate ratings using <a href="../review">review</a> / <a href="../Review">Review</a> and aggregate ratings using <a href="aggregateRating">aggregateRating</a> / <a href="AggregateRating">AggregateRating</a>.</p>
+	<p><strong>Note:</strong> Official hotel star ratings are not reviews but should use the <a href="starRating">starRating</a> property.</p>
     <h3>Number of Rooms</h3>
-	<p>Simple</p>
-		<pre class="prettyprint lang-html linenums">
-		</pre>
-	<p>Advanced: 10 Single Rooms, 20 Double Rooms</p>
-		<pre class="prettyprint lang-html linenums">
-		</pre>
+	<h4>Simple</h4>
+	<pre class="prettyprint lang-html linenums">
+&lt;div itemscope itemtype=&quot;http://schema.org/Hotel&quot;&gt;
+  &lt;h1&gt;&lt;span itemprop=&quot;name&quot;&gt;ACME Hotel Innsbruck&lt;/span&gt;&lt;/h1&gt;
+  &lt;span itemprop=&quot;description&quot;&gt;A beautifully located business hotel right in the
+heart of the alps. Watch the sun rise over the scenic Inn valley while
+enjoying your morning coffee.&lt;/span&gt;
+  &lt;span itemprop=&quot;numberOfRooms&quot;&gt;60&lt;/span&gt; rooms.
+&lt;/div&gt;</pre>
+	<h4>Advanced: 45 Double Rooms, 15 Single Rooms</h4>
+	<pre class="prettyprint lang-html linenums">
+&lt;div itemscope itemtype=&quot;http://schema.org/Hotel&quot;&gt;
+  &lt;h1&gt;&lt;span itemprop=&quot;name&quot;&gt;ACME Hotel Innsbruck&lt;/span&gt;&lt;/h1&gt;
+  &lt;span itemprop=&quot;description&quot;&gt;A beautifully located business hotel right in the
+heart of the alps. Watch the sun rise over the scenic Inn valley while
+enjoying your morning coffee.&lt;/span&gt;
+  &lt;span itemprop=&quot;numberOfRooms&quot; itemscope itemtype=&quot;http://schema.org/QuantitativeValue&quot;&gt;
+     &lt;span itemprop=&quot;value&quot;&gt;45&lt;/span&gt;
+     &lt;span itemprop=&quot;unitText&quot;&gt;double rooms&lt;/span&gt;
+  &lt;/span&gt;
+  &lt;span itemprop=&quot;numberOfRooms&quot; itemscope itemtype=&quot;http://schema.org/QuantitativeValue&quot;&gt;
+     &lt;span itemprop=&quot;value&quot;&gt;15&lt;/span&gt;
+     &lt;span itemprop=&quot;unitText&quot;&gt;single rooms&lt;/span&gt;
+  &lt;/span&gt;
+&lt;/div&gt;</pre>
     <h3>Renovation and Date of Establishment</h3>
-		<pre class="prettyprint lang-html linenums">
-		</pre>
+	<pre class="prettyprint lang-html linenums">
+&lt;div itemscope itemtype=&quot;http://schema.org/Hotel&quot;&gt;
+  &lt;h1&gt;&lt;span itemprop=&quot;name&quot;&gt;ACME Hotel Innsbruck&lt;/span&gt;&lt;/h1&gt;
+  &lt;span itemprop=&quot;description&quot;&gt;A beautifully located business hotel right in the
+heart of the alps. Watch the sun rise over the scenic Inn valley while
+enjoying your morning coffee.&lt;/span&gt;
+  Founded: &lt;span itemprop=&quot;foundingDate&quot;&gt;1985&lt;/span&gt;
+  Last Renovation: &lt;span itemprop=&quot;additionalProperty&quot; 
+  itemscope itemtype=&quot;http://schema.org/PropertyValue&quot;&gt;
+    &lt;meta itemprop=&quot;name&quot; content=&quot;renovation&quot;&gt;
+    &lt;span itemprop=&quot;value&quot;&gt;2001&lt;/span&gt;
+    &lt;span itemprop=&quot;description&quot;&gt;The three-month project involved a complete update 
+    of all guestrooms, guest bathrooms and public spaces, including a redesign of 
+    the hotel&amp;apos;s restaurant.&lt;/span&gt;
+  &lt;/span&gt;
+&lt;/div&gt;</pre>
     <h3>Membership in Organizations</h3>
-		<pre class="prettyprint lang-html linenums">
-		</pre>
+	<pre class="prettyprint lang-html linenums">
+&lt;div itemscope itemtype=&quot;http://schema.org/Hotel&quot;&gt;
+  &lt;h1&gt;&lt;span itemprop=&quot;name&quot;&gt;ACME Hotel Innsbruck&lt;/span&gt;&lt;/h1&gt;
+  &lt;span itemprop=&quot;description&quot;&gt;A beautifully located business hotel right in the
+heart of the alps. Watch the sun rise over the scenic Inn valley while
+enjoying your morning coffee.&lt;/span&gt;
+  Member of the &lt;span itemprop=&quot;memberOf&quot; itemscope itemtype=&quot;http://schema.org/Organization&quot;&gt;
+    &lt;span itemprop=&quot;name&quot;&gt;Austrian Tourist Partner Association&lt;/span&gt;
+  &lt;/span&gt;
+&lt;/div&gt;</pre>
     <h3>Hotels Chains</h3>
 		<pre class="prettyprint lang-html linenums">
-		</pre>
+&lt;div itemscope itemtype=&quot;http://schema.org/Hotel&quot;&gt;
+  &lt;h1&gt;&lt;span itemprop=&quot;name&quot;&gt;ACME Hotel Innsbruck&lt;/span&gt;&lt;/h1&gt;
+  &lt;span itemprop=&quot;description&quot;&gt;A beautifully located business hotel right in the
+heart of the alps. Watch the sun rise over the scenic Inn valley while
+enjoying your morning coffee.&lt;/span&gt;
+  An &lt;span itemprop=&quot;parentOrganization&quot; itemscope itemtype=&quot;http://schema.org/Organization&quot;&gt;
+    &lt;span itemprop=&quot;name&quot;&gt;ACME Hotel&lt;/span&gt;
+  &lt;/span&gt;
+&lt;/div&gt;</pre>
     <h3>Hotel Features and Services</h3>
-    also availability times and periods (e.g. sauna only in Winter)
-		<pre class="prettyprint lang-html linenums">
-		</pre>
+	<h4>Sauna and Gym</h4>
+	<pre class="prettyprint lang-html linenums">
+&lt;div itemscope itemtype=&quot;http://schema.org/Hotel&quot;&gt;
+  &lt;h1&gt;&lt;span itemprop=&quot;name&quot;&gt;ACME Hotel Innsbruck&lt;/span&gt;&lt;/h1&gt;
+  &lt;span itemprop=&quot;description&quot;&gt;A beautifully located business hotel right in the
+heart of the alps. Watch the sun rise over the scenic Inn valley while
+enjoying your morning coffee.&lt;/span&gt;
+  Hotel Features:
+  &lt;ul&gt;
+  &lt;li itemprop=&quot;feature&quot; itemscope itemtype=&quot;http://schema.org/AccommodationFeature&quot;&gt;
+    &lt;span itemprop=&quot;name&quot;&gt;Sauna&lt;/span&gt;
+    &lt;meta itemprop=&quot;value&quot; content=&quot;True&quot;&gt;
+  &lt;/li&gt;
+  &lt;li itemprop=&quot;feature&quot; itemscope itemtype=&quot;http://schema.org/AccommodationFeature&quot;&gt;
+    &lt;span itemprop=&quot;name&quot;&gt;Gym&lt;/span&gt;
+    &lt;meta itemprop=&quot;value&quot; content=&quot;True&quot;&gt;
+  &lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/div&gt;</pre>
+	<h4>Sauna with Opening Hours</h4>
+	<pre class="prettyprint lang-html linenums">
+&lt;div itemscope itemtype=&quot;http://schema.org/Hotel&quot;&gt;
+  &lt;h1&gt;&lt;span itemprop=&quot;name&quot;&gt;ACME Hotel Innsbruck&lt;/span&gt;&lt;/h1&gt;
+  &lt;span itemprop=&quot;description&quot;&gt;A beautifully located business hotel right in the
+heart of the alps. Watch the sun rise over the scenic Inn valley while
+enjoying your morning coffee.&lt;/span&gt;
+  Hotel Features:
+  &lt;ul&gt;
+  &lt;li itemprop=&quot;feature&quot; itemscope itemtype=&quot;http://schema.org/AccommodationFeature&quot;&gt;
+    &lt;span itemprop=&quot;name&quot;&gt;Sauna&lt;/span&gt;
+    &lt;meta itemprop=&quot;value&quot; content=&quot;True&quot;&gt;
+    &lt;div itemprop=&quot;availabilityTimes&quot; itemtype=&quot;http://schema.org/OpeningHoursSpecification&quot;&gt;
+      &lt;link itemprop=&quot;dayOfWeek&quot; href=&quot;http://purl.org/goodrelations/v1#Thursday&quot; /&gt;(Open Thursdays 
+      &lt;time itemprop=&quot;opens&quot; content=&quot;16:00:00&quot;&gt; 4:00 PM&lt;/time&gt; - 
+      &lt;time itemprop=&quot;closes&quot; content=&quot;21:00:00&quot;&gt; 9:00 PM&lt;/time&gt;)
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/div&gt;</pre>
     <h3>Check-in and Check-out Times</h3>
 		<pre class="prettyprint lang-html linenums">
-		</pre>
-    <h3>Target Audience Information</h3>
-		<pre class="prettyprint lang-html linenums">
-		</pre>		
+&lt;div itemscope itemtype=&quot;http://schema.org/Hotel&quot;&gt;
+  &lt;h1&gt;&lt;span itemprop=&quot;name&quot;&gt;ACME Hotel Innsbruck&lt;/span&gt;&lt;/h1&gt;
+  &lt;img itemprop=&quot;logo&quot; src=&quot;../media/logo.png&quot; alt=&quot;hotel logo&quot; /&gt;
+  &lt;span itemprop=&quot;description&quot;&gt;A beautifully located business hotel right in the
+heart of the alps. Watch the sun rise over the scenic Inn valley while
+enjoying your morning coffee.&lt;/span&gt;
+  Check-in: &lt;meta itemprop=&quot;checkinTime&quot; content=&quot;14:00:00&quot;&gt;2:00 PM
+  Check-out: &lt;meta itemprop=&quot;checkoutTime&quot; content=&quot;11:00:00&quot;&gt;11:00 AM
+&lt;/div&gt;</pre>
     <h3>Languages</h3>
-		<pre class="prettyprint lang-html linenums">
-		</pre>	
+    <pre class="prettyprint lang-html linenums">
+&lt;div itemscope itemtype=&quot;http://schema.org/Hotel&quot;&gt;
+  &lt;h1&gt;&lt;span itemprop=&quot;name&quot;&gt;ACME Hotel Innsbruck&lt;/span&gt;&lt;/h1&gt;
+  &lt;span itemprop=&quot;description&quot;&gt;A beautifully located business hotel right in the
+heart of the alps. Watch the sun rise over the scenic Inn valley while
+enjoying your morning coffee.&lt;/span&gt;
+  We speak:
+  &lt;ul&gt;
+    &lt;li itemprop=&quot;availableLanguage&quot; itemscope itemtype=&quot;http://schema.org/Language&quot;&gt;
+      &lt;span itemprop=&quot;name&quot;&gt;English&lt;/span&gt;
+    &lt;/li&gt;
+    &lt;li itemprop=&quot;availableLanguage&quot; itemscope itemtype=&quot;http://schema.org/Language&quot;&gt;
+      &lt;span itemprop=&quot;name&quot;&gt;German&lt;/span&gt;
+    &lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/div&gt;</pre>	
 <h2 id="room_info">Information about the Room</h2>
 
 <h3>Basic Pattern</h3>
