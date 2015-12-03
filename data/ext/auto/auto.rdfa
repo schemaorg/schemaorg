@@ -204,9 +204,9 @@
         <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/QuantitativeValue">QuantitativeValue</a></span>
         <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group">GAO</a></span>
     </div>
-    <div typeof="rdf:Property" resource="http://schema.org/specialUsage">
+    <div typeof="rdf:Property" resource="http://schema.org/vehicleSpecialUsage">
         <link property="http://schema.org/isPartOf" href="http://auto.schema.org" />
-        <span class="h" property="rdfs:label">specialUsage</span>
+        <span class="h" property="rdfs:label">vehicleSpecialUsage</span>
         <span property="rdfs:comment">Indicates whether the object has been used for special purposes, like vehicles that have been used for commercial rental, driving school, or as a taxi. The legislation in some countries may require this information to be revealed when offering the item for sale.
     </span>
         <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Vehicle">Vehicle</a></span>
@@ -245,12 +245,40 @@
         <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/QuantitativeValue">QuantitativeValue</a></span>
         <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group">GAO</a></span>
     </div>
+    
     <div typeof="rdf:Property" resource="http://schema.org/emissionsCO2">
         <link property="http://schema.org/isPartOf" href="http://auto.schema.org" />
         <span class="h" property="rdfs:label">emissionsCO2</span>
-        <span property="rdfs:comment">The CO2 emissions in g/km. The property uses a number instead of a QuantitativeValue, since g/km is the dominant unit of measurement, and there is no UNCEFACT Common Code for g/km.</span>
+        <span property="rdfs:comment">The CO2 emissions in g/km. When used in combination with a QuantitativeValue, put &quot;g/km&quot; into the unitText property of that value, since there is no UN/CEFACT Common Code for &quot;g/km&quot;.</span>
         <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Vehicle">Vehicle</a></span>
         <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number">Number</a></span>
+        <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group">GAO</a></span>
+    </div>
+
+        <div typeof="rdfs:Class" resource="http://schema.org/CarUsageType">
+        <link property="http://schema.org/isPartOf" href="http://auto.schema.org" />
+        <span class="h" property="rdfs:label">CarUsageType</span>
+        <span property="rdfs:comment">A value indicating a special usage of a car, e.g. commercial rental, driving school, or as a taxi.</span>
+        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/QualitativeValue">QualitativeValue</a></span>
+        <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group">GAO</a></span>
+    </div>
+
+    <div typeof="http://schema.org/CarUsageType" resource="http://schema.org/RentalVehicleUsage">
+        <link property="http://schema.org/isPartOf" href="http://auto.schema.org" />    
+        <span class="h" property="rdfs:label">RentalVehicleUsage</span>
+        <span property="rdfs:comment">Indicates the usage of the vehicle as a rental car.</span>
+        <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group">GAO</a></span>
+    </div>
+    <div typeof="http://schema.org/CarUsageType" resource="http://schema.org/DrivingSchoolVehicleUsage">
+        <link property="http://schema.org/isPartOf" href="http://auto.schema.org" />
+        <span class="h" property="rdfs:label">DrivingSchoolVehicleUsage</span>
+        <span property="rdfs:comment">Indicates the usage of the vehicle for driving school.</span>
+        <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group">GAO</a></span>
+    </div>
+    <div typeof="http://schema.org/CarUsageType" resource="http://schema.org/TaxiVehicleUsage">
+        <link property="http://schema.org/isPartOf" href="http://auto.schema.org" />
+        <span class="h" property="rdfs:label">TaxiVehicleUsage</span>
+        <span property="rdfs:comment">Indicates the usage of the car as a taxi.</span>
         <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group">GAO</a></span>
     </div>
 
