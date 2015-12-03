@@ -201,7 +201,7 @@ enjoying your morning coffee.&lt;/span&gt;
     <h3>Star Rating</h3>
 	<p>Star ratings are popular indicators for the quality of an accommodation. In many countries, they are awarded by dedicated public or private bodies and are based on well-defined criteria that often also specify minimal amenities for a certain star rating.</p>
 	<h4>Simple</h4>
-		<p>You can simply mark-up the start rating as a numerical value:</p>
+		<p>You can simply mark-up the star rating as a numerical value:</p>
 		<pre class="prettyprint lang-html linenums">
 &lt;div itemscope itemtype=&quot;http://schema.org/Hotel&quot;&gt;
   &lt;h1&gt;&lt;span itemprop=&quot;name&quot;&gt;ACME Hotel Innsbruck&lt;/span&gt;&lt;/h1&gt;
@@ -212,7 +212,7 @@ enjoying your morning coffee.&lt;/span&gt;
   Room rates: &lt;span itemprop=&quot;priceRange&quot;&gt;$100 - $240&lt;/span&gt;
 &lt;/div&gt;</pre>
 	<h4>Advanced: Type of Star Rating</h4>
-	<p>if available, it makes sense to specify the origin of the star rating, e.g. the name of the awarding institution. In this case, use a http://schema.org/PropertyValue and its name property for indicating the type of the rating (e.g. HOTREC, DEHOGA, WHR, or Hotelstars).
+	<p>if available, it makes sense to specify the origin of the star rating, e.g. the name of the awarding institution. In this case, use a <a href="../PropertyValue">PropertyValue</a> and its <a href="../name">name</a> property for indicating the type of the rating (e.g. HOTREC, DEHOGA, WHR, or Hotelstars).
 		<pre class="prettyprint lang-html linenums">
 &lt;div itemscope itemtype=&quot;http://schema.org/Hotel&quot;&gt;
   &lt;h1&gt;&lt;span itemprop=&quot;name&quot;&gt;ACME Hotel Innsbruck&lt;/span&gt;&lt;/h1&gt;
@@ -397,10 +397,14 @@ enjoying your morning coffee.&lt;/span&gt;
 <h2 id="room_info">Information about the Room</h2>
 
 <h3>Basic Pattern</h3>
+Hotel - Room
 <h3>Pictures</h3>
-<h3>Optional Features and Services</h3>
+<h3>Beds and Occupancy</h3>
+<h3>Features and Services</h3>
+<h4>General Features</h4>
+<h4>Free Features and Services</h4>
+<h4>Optional Features and Services</h4>
 <p>also fees for those via addOn</p>
-<h3>Availability Times and Periods</h3>
     
 <h2 id="pricing">Offers and Pricing</h2>
     <p>A key principle in schema.org is that things do not have prices, but that offers to grant you some rights on the things have. Thus, all commercial aspects of a hotel offer belong to the Offer. In the following, we show the use of relevant schema.org elememts.</p>
