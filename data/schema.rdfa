@@ -10391,6 +10391,8 @@ postponing for 1.6.
       <span class="h" property="rdfs:label">mealService</span>
       <span property="rdfs:comment">Description of the meals that will be provided or available for purchase.</span>
       <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Flight">Flight</a></span>
+      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/LodgingBusiness">LodgingBusiness</a></span>
+      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Accommodation">Accommodation</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/estimatedFlightDuration">
@@ -12720,42 +12722,6 @@ For more specific types of accommodations not defined in schema.org, one can use
     <span>Source:  <a property="dc:source" href="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology">STI Accommodation Ontology</a></span>
 </div>
 
-<!-- Meals etc. -->
-<div typeof="rdfs:Class" resource="http://schema.org/Meal">
-    <span class="h" property="rdfs:label">Meal</span>
-    <span property="rdfs:comment">A meal in the sense of this vocabulary is some combination of food or beverages.</span>
-    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Product">Product</a></span>
-    <span>Source:  <a property="dc:source" href="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology">STI Accommodation Ontology</a></span>
-</div>
-
-<div typeof="rdfs:Class" resource="http://schema.org/Breakfast">
-    <span class="h" property="rdfs:label">Breakfast</span>
-    <span property="rdfs:comment">A breakfast is the first meal taken after rising from a night&apos;s sleep, most often eaten in the early morning before undertaking the day's work (Source: Wikipedia, the free encyclopedia, see &lt;a href=&quot;http://en.wikipedia.org/wiki/Breakfast&quot;&gt;http://en.wikipedia.org/wiki/Breakfast&lt;/a&gt;).</span>
-    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Meal">Meal</a></span>
-    <span>Source:  <a property="dc:source" href="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology">STI Accommodation Ontology</a></span>
-</div>
-
-<div typeof="rdfs:Class" resource="http://schema.org/Lunch">
-    <span class="h" property="rdfs:label">Lunch</span>
-    <span property="rdfs:comment">A luncheon, commonly abbreviated to lunch, is a middle of the day meal (Source: Wikipedia, the free encyclopedia, see &lt;a href=&quot;http://en.wikipedia.org/wiki/Lunch&quot;&gt;http://en.wikipedia.org/wiki/Lunch&lt;/a&gt;).</span>
-    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Meal">Meal</a></span>
-    <span>Source:  <a property="dc:source" href="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology">STI Accommodation Ontology</a></span>
-</div>
-
-<div typeof="rdfs:Class" resource="http://schema.org/Dinner">
-    <span class="h" property="rdfs:label">Dinner</span>
-    <span property="rdfs:comment">A dinner is the main meal of the day, often consumed in the evening of the day.</span>
-    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Meal">Meal</a></span>
-    <span>Source:  <a property="dc:source" href="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology">STI Accommodation Ontology</a></span>
-</div>
-
-<div typeof="rdfs:Class" resource="http://schema.org/All_inclusive">
-    <span class="h" property="rdfs:label">All_inclusive</span>
-    <span property="rdfs:comment">All-inclusive in the sense of this vocabulary is a comprehensive set of foods and beverages, and sometimes complementing services, provided throughout the entire day.</span>
-    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Product">Product</a></span>
-    <span>Source:  <a property="dc:source" href="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology">STI Accommodation Ontology</a></span>
-</div>
-
 <!-- Values etc. -->
 
 <div typeof="rdfs:Class" resource="http://schema.org/AccommodationFeature">
@@ -12764,7 +12730,6 @@ For more specific types of accommodations not defined in schema.org, one can use
     <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/PropertyValue">PropertyValue</a></span>
     <span>Source:  <a property="dc:source" href="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology">STI Accommodation Ontology</a></span>
 </div>
-
 
 <div typeof="rdfs:Class" resource="http://schema.org/BedDetails">
     <span class="h" property="rdfs:label">BedDetails</span>
@@ -12828,7 +12793,7 @@ For more specific types of accommodations not defined in schema.org, one can use
 <div typeof="rdf:Property" resource="http://schema.org/occupancyAdults">
     <span class="h" property="rdfs:label">occupancyAdults</span>
     <span property="rdfs:comment">The allowed total occupancy of adults for the accommodation or lodging business in persons. The exact definition of what constitutes an adult varies across regions and will typically not match the legal definition of being an adult. 
-Typical unit code(s): C62 for person</span>
+Typical unit code(s): IE for person or C62 for no unit</span>
     <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Accommodation">Accommodation</a></span>
     <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/LodgingBusiness">LodgingBusiness</a></span>
     <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/QuantitativeValue">QuantitativeValue</a></span>
@@ -12851,7 +12816,7 @@ Typical unit code(s): C62 for person</span>
 <div typeof="rdf:Property" resource="http://schema.org/numberOfRooms">
     <span class="h" property="rdfs:label">numberOfRooms</span>
     <span property="rdfs:comment">The number of rooms (excluding bathrooms and closets) of the acccommodation or lodging business. 
-Typical unit code(s): C62 for room. The type of room can be put in the unitText property of the QuantitativeValue.</span>
+Typical unit code(s): ROM for room or C62 for no unit. The type of room can be put in the unitText property of the QuantitativeValue.</span>
     <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Accommodation">Accommodation</a></span>
     <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/LodgingBusiness">LodgingBusiness</a></span>
     <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number">Number</a></span>
