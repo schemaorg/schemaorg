@@ -1459,7 +1459,7 @@ class ShowUnit (webapp2.RequestHandler):
 
     def handle404Failure(self, node, layers="core"):
         self.error(404)
-        self.emitSchemaorgHeaders("404 Missing")
+        self.emitSchemaorgHeaders("404%20Missing")
         self.response.out.write('<h3>404 Not Found.</h3><p><br/>Page not found. Please <a href="/">try the homepage.</a><br/><br/></p>')
 
 
@@ -1474,6 +1474,8 @@ class ShowUnit (webapp2.RequestHandler):
         base_actionprop = Unit.GetUnit( node.rsplit('-')[0] )
         if base_actionprop != None :
             self.response.out.write('<div>Looking for an <a href="/Action">Action</a>-related property? Note that xyz-input and xyz-output have <a href="/docs/actions.html">special meaning</a>. See also: <a href="/%s">%s</a></div> <br/><br/> ' % ( base_actionprop.id, base_actionprop.id ))
+        
+        self.response.out.write("</div>\n</body>\n</html>\n")
 
         return True
 
