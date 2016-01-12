@@ -8,6 +8,7 @@ import jinja2
 import logging
 import StringIO
 import json
+from apirdflib import load_graph
 
 from markupsafe import Markup, escape # https://pypi.python.org/pypi/MarkupSafe
 
@@ -21,9 +22,10 @@ from google.appengine.ext.webapp import blobstore_handlers
 
 from api import inLayer, read_file, full_path, read_schemas, read_extensions, read_examples, namespaces, DataCache
 from api import Unit, GetTargets, GetSources
-from api import GetComment, all_terms, GetAllTypes, GetAllProperties, GetAllEnumerationValues
+from api import GetComment, all_terms, GetAllTypes, GetAllProperties, GetAllEnumerationValues, LoadExamples
 from api import GetParentList, GetImmediateSubtypes, HasMultipleBaseTypes
 from api import GetJsonLdContext, ShortenOnSentence, StripHtmlTags
+
 
 logging.basicConfig(level=logging.INFO) # dev_appserver.py --log_level debug .
 log = logging.getLogger(__name__)
@@ -242,7 +244,7 @@ class TypeHierarchyTree:
 
 def GetExamples(node, layers='core'):
     """Returns the examples (if any) for some Unit node."""
-    return node.examples
+    return LoadExamples(node,layers)
 
 def GetExtMappingsRDFa(node, layers='core'):
     """Self-contained chunk of RDFa HTML markup with mappings for this term."""
@@ -384,6 +386,7 @@ class ShowUnit (webapp2.RequestHandler):
             self.parentStack.remove(thing)
             self.parentStack.append(thing)
 
+
     def ml(self, node, label='', title='', prop='', hashorslash='/'):
         """ml ('make link')
         Returns an HTML-formatted link to the class or property URL
@@ -442,7 +445,7 @@ class ShowUnit (webapp2.RequestHandler):
         self.write(node.id)
         self.write("</h1>")
         home = node.home
-        if home != "core" and home != "":
+        if home != "core" and home != "" and home != None:
             self.write("Defined in the %s.schema.org extension." % home)
             self.write(" (This is an initial exploratory release.)<br/>")
             self.emitCanonicalURL(node)
@@ -458,7 +461,6 @@ class ShowUnit (webapp2.RequestHandler):
         #was:        self.write(self.moreInfoBlock(node))
 
         if (node.isClass(layers=layers) and not node.isDataType(layers=layers) and node.id != "DataType"):
-
             self.write("<table class=\"definition-table\">\n        <thead>\n  <tr><th>Property</th><th>Expected Type</th><th>Description</th>               \n  </tr>\n  </thead>\n\n")
 
     def emitCanonicalURL(self,node):
@@ -707,6 +709,7 @@ class ShowUnit (webapp2.RequestHandler):
         headerPrinted = False
         di = Unit.GetUnit("domainIncludes")
         ri = Unit.GetUnit("rangeIncludes")
+        log.info("Incomming for %s" % cl.id)
         for prop in sorted(GetSources(ri, cl, layers=layers), key=lambda u: u.id):
             if (prop.superseded(layers=layers)):
                 continue
@@ -869,10 +872,7 @@ class ShowUnit (webapp2.RequestHandler):
         https://github.com/rvguha/schemaorg/wiki/JsonLd
         """
         accept_header = self.request.headers.get('Accept').split(',')
-        logging.info("accepts: %s" % self.request.headers.get('Accept'))
-
-        if ENABLE_JSONLD_CONTEXT:
-            jsonldcontext = GetJsonLdContext(layers=ALL_LAYERS)
+        log.info("accepts: %s" % self.request.headers.get('Accept'))            
 
         # Homepage is content-negotiated. HTML or JSON-LD.
         mimereq = {}
@@ -886,6 +886,7 @@ class ShowUnit (webapp2.RequestHandler):
         # print "accept_header: " + str(accept_header) + " mimereq: "+str(mimereq) + "Scores H:{0} XH:{1} J:{2} ".format(html_score,xhtml_score,jsonld_score)
 
         if (ENABLE_JSONLD_CONTEXT and (jsonld_score < html_score and jsonld_score < xhtml_score)):
+            jsonldcontext = GetJsonLdContext(layers=ALL_LAYERS)
             self.response.headers['Content-Type'] = "application/ld+json"
             self.emitCacheHeaders()
             self.response.out.write( jsonldcontext )
@@ -1394,8 +1395,9 @@ class ShowUnit (webapp2.RequestHandler):
         """Handle with requests for specific terms like /Person, /fooBar. """
 
         #self.outputStrings = [] # blank slate
+        log.debug("Looking for node: %s" % node)
         schema_node = Unit.GetUnit(node) # e.g. "Person", "CreativeWork".
-        log.debug("Layers: %s",layers)
+        #log.info("Node in layer: %s" % inLayer(layers, schema_node))
         if inLayer(layers, schema_node):
             self.emitExactTermPage(schema_node, layers=layers)
             return True
@@ -1965,6 +1967,7 @@ def makeUrl(ext="",path=""):
         return url
 
 #log.info("STARTING UP... reading schemas.")
+#load_graph(loadExtensions=ENABLE_HOSTED_EXTENSIONS)
 read_schemas(loadExtensions=ENABLE_HOSTED_EXTENSIONS)
 if ENABLE_HOSTED_EXTENSIONS:
     read_extensions(ENABLED_EXTENSIONS)

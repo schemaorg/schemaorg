@@ -65,7 +65,7 @@ class ParseExampleFile :
 
             if ((len(line) > 6) and line[:6] == "TYPES:"):
                 self.nextPart('TYPES:')
-                logging.debug("About to call api.Example.AddExample with terms: %s " % "".join( [" ; %s " % t.id for t in self.terms] ) )
+                #logging.debug("About to call api.Example.AddExample with terms: %s " % "".join( [" ; %s " % t.id for t in self.terms] ) )
                 api.Example.AddExample(self.terms, self.preMarkupStr, self.microdataStr, self.rdfaStr, self.jsonStr, self.egmeta)
                 self.initFields()
                 typelist = re.split(':', line)
@@ -77,7 +77,7 @@ class ParseExampleFile :
                 for ttli in ttl:
                     ttli = re.sub(' ', '', ttli)
                     logging.debug("TTLI: %s " % ttli); # danbri tmp
-                    self.terms.append(api.Unit.GetUnit(ttli, True))
+                    self.terms.append(ttli)
             else:
                 tokens = ["PRE-MARKUP:", "MICRODATA:", "RDFA:", "JSON:"]
                 for tk in tokens:
@@ -91,7 +91,7 @@ class ParseExampleFile :
         api.Example.AddExample(self.terms, self.preMarkupStr, self.microdataStr, self.rdfaStr, self.jsonStr, self.egmeta) # should flush last one
         #logging.info("Final AddExample called with terms %s " % self.terms)
         for t in self.terms:
-            logging.debug("Adding %s" % "".join( [" ; %s " % t.id for t in self.terms] ) )
+            logging.debug("Adding %s" % "".join( [" ; %s " % t for t in self.terms] ) )
 
 
 class UsageFileParser:
@@ -106,12 +106,7 @@ class UsageFileParser:
             if (len(parts) == 2):
                 unitstr = parts[0].strip()
                 count = parts[1]
-                node = api.Unit.GetUnit(unitstr, False)
-                if (node == None):
-                    logging.debug("'%s' stat. does not have a node" % unitstr)
-                else:
-                    node.setUsage(count)
-
+                api.StoreUsage(unitstr, count)
 
 class RDFAParser :
 
@@ -150,9 +145,9 @@ class RDFAParser :
         property = elem.get('property')
         text = elem.text
         if (property != None):
-            if property == "rdf:type":
-              property = "typeOf" # some crude normalization, since we aren't a real rdfa parser.
-              logging.info("normalized rdf:type to typeOf internally. value is: %s" % href )
+#            if property == "rdf:type":
+#              property = "typeOf" # some crude normalization, since we aren't a real rdfa parser.
+#              logging.info("normalized rdf:type to typeOf internally. value is: %s" % href )
             property = api.Unit.GetUnit(self.stripID(property), True)
             if (href != None) :
                 href = api.Unit.GetUnit(self.stripID(href), True)

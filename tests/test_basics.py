@@ -42,12 +42,10 @@ class SDOBasicsTestCase(unittest.TestCase):
     self.assertEqual(True, os.path.exists(examples_path), "Expected examples file: "+ examples_path )
 
   def test_ExtractedPlausibleNumberOfExamples(self):
-    # Note: Example constructor registers each example per-term: term.examples.append(self)
-    all_types = GetAllTypes()
-    example_count = 0
-    for t in all_types:
-      if t.examples and len(t.examples) > 0:
-        example_count = example_count + len(t.examples)
+
+    example_count = len(api.EXAMPLES)
+#    for t in api.EXAMPLES:
+#        example_count = example_count + len(t)
     log.info("Extracted %s examples." % example_count )
     self.assertTrue(example_count > 300 and example_count < 500, "Expect that we extracted 300 < x < 500 examples from data/*examples.txt. Found: %s " % example_count)
 
@@ -470,7 +468,7 @@ class SimpleSchemaIntegrityTests(unittest.TestCase):
     #@unittest.expectedFailure # "member and acceptsReservations need work"
     def test_propCommentCount(self):
       prop_comment_errors=[]
-      for p in GetSources ( Unit.GetUnit("typeOf"), Unit.GetUnit("rdf:Property") ):
+      for p in GetSources ( Unit.GetUnit("rdf:type"), Unit.GetUnit("rdf:Property") ):
         comments = GetTargets( Unit.GetUnit("rdfs:comment"), p )
         log.debug("property %s props %s" % (p.id, str(len(comments)) ))
         if len(comments) != 1:
@@ -480,7 +478,7 @@ class SimpleSchemaIntegrityTests(unittest.TestCase):
 
     def test_typeCommentCount(self):
       type_comment_errors=[]
-      for t in GetSources ( Unit.GetUnit("typeOf"), Unit.GetUnit("rdfs:Class") ):
+      for t in GetSources ( Unit.GetUnit("rdf:type"), Unit.GetUnit("rdfs:Class") ):
         comments = GetTargets( Unit.GetUnit("rdfs:comment"), t )
         log.debug(t.id + " " + str(len(comments)))
         if len(comments) != 1:
@@ -491,7 +489,7 @@ class SimpleSchemaIntegrityTests(unittest.TestCase):
     def test_enumValueCommentCount(self):
       enum_comment_errors=[]
       for e in GetSources ( Unit.GetUnit("rdfs:subClassOf"), Unit.GetUnit("Enumeration") ):
-        for ev in GetSources ( Unit.GetUnit("typeOf"), e ):
+        for ev in GetSources ( Unit.GetUnit("rdf:type"), e ):
           comments = GetTargets( Unit.GetUnit("rdfs:comment"), ev )
           log.debug("'%s' is an enumerated value of enum type %s with %s rdfs:comment definitions." % ( ev.id, e.id, str(len(comments)  )) )
           if len(comments) != 1:
