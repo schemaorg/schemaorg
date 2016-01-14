@@ -9284,10 +9284,16 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/sponsor">
       <span class="h" property="rdfs:label">sponsor</span>
-      <span property="rdfs:comment">Sponsor of the study.</span>
+      <span property="rdfs:comment">A person or organization that supports a thing through a pledge, promise, or financial contribution. e.g. A sponsor of a Medical Study.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MedicalStudy">MedicalStudy</a></span>
+	  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Person">Person</a></span> 
+	  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Organization">Organization</a></span> 
+	  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Event">Event</a></span> 
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Organization">Organization</a></span>
+	  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Person">Person</a></span> 
     </div>
+
+	
     <div typeof="rdf:Property" resource="http://schema.org/sportsActivityLocation">
       <span class="h" property="rdfs:label">sportsActivityLocation</span>
       <span property="rdfs:comment">A sub property of location. The sports activity location where this action occurred.</span>
@@ -12646,15 +12652,6 @@ Typical unit code(s): C62 for persons </span>
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/BlogPosting">BlogPosting</a></span>
 </div>
 
-<div typeof="rdf:property" resource="http://schema.org/sponsor">
-  <span class="h"  property="rdfs:label">sponsor</span>
-  <span property="rdfs:comment">A person or organization that supports a thing through a pledge, promise, or financial contribution.</span>
-  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Person">Person</a></span> 
-  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Organization">Organization</a></span> 
-  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Event">Event</a></span> 
-  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Person">Person</a></span> 
-  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Organization">Organization</a></span> 
-</div>
 
 <h1>DataFeed</h1>
 
