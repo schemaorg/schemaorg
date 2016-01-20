@@ -2897,6 +2897,67 @@
        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/FoodEstablishment">FoodEstablishment</a></span>
     </div>
 
+    <div typeof="rdfs:Class" resource="http://schema.org/RestrictedDiet">
+      <span class="h" property="rdfs:label">RestrictedDiet</span>
+      <span property="rdfs:comment">A diet restricted to certain foods or preparations for cultural, religious, health or lifestyle reasons.</span>
+       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Enumeration">Enumeration</a></span>
+    </div>
+
+    <div typeof="http://schema.org/RestrictedDiet" resource="http://schema.org/DiabeticDiet">
+      <span class="h" property="rdfs:label">DiabeticDiet</span>
+      <span property="rdfs:comment">A diet appropriate for people with diabetes.</span>
+    </div>
+
+    <div typeof="http://schema.org/RestrictedDiet" resource="http://schema.org/GlutenFreeDiet">
+      <span class="h" property="rdfs:label">GlutenFreeDiet</span>
+      <span property="rdfs:comment">A diet exclusive of gluten.</span>
+    </div>
+
+    <div typeof="http://schema.org/RestrictedDiet" resource="http://schema.org/HalalDiet">
+      <span class="h" property="rdfs:label">HalalDiet</span>
+      <span property="rdfs:comment">A diet conforming to Islamic dietary practices.</span>
+    </div>
+
+    <div typeof="http://schema.org/RestrictedDiet" resource="http://schema.org/HinduDiet">
+      <span class="h" property="rdfs:label">HinduDiet</span>
+      <span property="rdfs:comment">A diet conforming to Hindu dietary practices.</span>
+    </div>
+
+    <div typeof="http://schema.org/RestrictedDiet" resource="http://schema.org/KosherDiet">
+      <span class="h" property="rdfs:label">KosherDiet</span>
+      <span property="rdfs:comment">A diet conforming to Jewish dietary practices.</span>
+    </div>
+
+    <div typeof="http://schema.org/RestrictedDiet" resource="http://schema.org/LowCalorieDiet">
+      <span class="h" property="rdfs:label">LowCalorieDiet</span>
+      <span property="rdfs:comment">A diet focused on reduced calorie intake.</span>
+    </div>
+
+    <div typeof="http://schema.org/RestrictedDiet" resource="http://schema.org/LowFatDiet">
+      <span class="h" property="rdfs:label">LowFatDiet</span>
+      <span property="rdfs:comment">A diet focused on reduced fat and cholesterol intake.</span>
+    </div>
+
+    <div typeof="http://schema.org/RestrictedDiet" resource="http://schema.org/LowLactoseDiet">
+      <span class="h" property="rdfs:label">LowLactoseDiet</span>
+      <span property="rdfs:comment">A diet appropriate for people with lactose intolerance.</span>
+    </div>
+
+    <div typeof="http://schema.org/RestrictedDiet" resource="http://schema.org/LowSaltDiet">
+      <span class="h" property="rdfs:label">LowSaltDiet</span>
+      <span property="rdfs:comment">A diet focused on reduced sodium intake.</span>
+    </div>
+
+    <div typeof="http://schema.org/RestrictedDiet" resource="http://schema.org/VeganDiet">
+      <span class="h" property="rdfs:label">VeganDiet</span>
+      <span property="rdfs:comment">A diet exclusive of all animal products.</span>
+    </div>
+
+    <div typeof="http://schema.org/RestrictedDiet" resource="http://schema.org/VegetarianDiet">
+      <span class="h" property="rdfs:label">VegetarianDiet</span>
+      <span property="rdfs:comment">A diet exclusive of animal meat.</span>
+    </div>
+
     <div typeof="rdfs:Class" resource="http://schema.org/Review">
       <span class="h" property="rdfs:label">Review</span>
       <span property="rdfs:comment">A review of an item - for example, of a restaurant, movie, or store.</span>
@@ -9427,6 +9488,12 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
       <span property="rdfs:comment">Minimal age recommended for viewing content.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/PeopleAudience">PeopleAudience</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number">Number</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/suitableForDiet">
+      <span class="h" property="rdfs:label">suitableForDiet</span>
+      <span property="rdfs:comment">Indicates a dietary restriction or guideline for which this recipe is suitable, e.g. diabetic, halal etc.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Recipe">Recipe</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/RestrictedDiet">RestrictedDiet</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/superEvent">
       <span class="h" property="rdfs:label">superEvent</span>
