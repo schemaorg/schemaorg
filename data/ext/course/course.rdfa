@@ -55,8 +55,16 @@
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CourseSection">CourseSection</a></span>
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number">Number</a></span>
-  <!-- TODO: how to express courseCredit **UNITS** here? (e.g. for course equivalency) 
-
+</div>
+<div typeof="rdf:Property" resource="http://schema.org/courseCreditsUnit">
+  <span class="h" property="rdfs:label">courseCreditsUnit</span>
+  <span property="rdfs:comment">The type of credit associated with the credits earned for the course. (e.g. TODO NoCredit, Quarter, Semester, CarnegieUnits, ContinuingEducationUnits, ClockHours, Other)</span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Course">Course</a></span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CourseSection">CourseSection</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/URL">URL</a></span>
+  <!-- TODO: As enums, should these be named CourseCreditUnit Classes or defined URLs (of instances of CourseCreditUnit)?
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/CourseCreditUnit">CourseCreditUnit</a></span>
   -->
 </div>
 
