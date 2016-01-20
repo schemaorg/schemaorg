@@ -10,7 +10,6 @@
 * | Course Extension Schema GDoc: https://goo.gl/2Sxxy3
 * | Use Cases GDoc: https://goo.gl/DnTTsb
 -->
-</div>
 
 <div typeof="rdfs:Class" resource="http://schema.org/Course">
     <span class="h" property="rdfs:label">Course</span>
@@ -18,4 +17,13 @@ A unit of teaching where one or more instructors delivers lessons to students. C
     <span property="rdfs:comment"></span>
     <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/CreativeWork">CreativeWork</a></span>
     <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Product">Product`</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/courseNumber">
+  <span class="h" property="rdfs:label">courseNumber</span>
+  <span property="rdfs:comment">The identifier used for the course (e.g. CS101 or 6.001)</span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Course">Course</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+</div>
+
 </div>
