@@ -20,7 +20,7 @@ ARG _USER='app'
 # _APP='schemaorg'
 ARG _APP="schemaorg"
 # _HOME='/home/app'
-ENV _HOME="/home/${APPUSER}"
+ENV _HOME="/home/${_USER}"
 # _WRD='/home/app/schemaorg'
 ARG _WRD="${_HOME}/${_APP}"
 ENV GITDEST "${_WRD}"
