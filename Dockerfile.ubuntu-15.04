@@ -25,19 +25,6 @@ ENV _HOME="/home/${_USER}"
 ARG _WRD="${_HOME}/${_APP}"
 ENV GITDEST "${_WRD}"
 
-## 
-# schemaorg/schemaorg
-ENV GITURL 'https://github.com/schemaorg/schemaorg'
-ENV GITREV 'sdo-deimos'
-# Docker 1.9 --build-args
-ARG GITURL='https://github.com/schemaorg/schemaorg'
-ARG GITREV='sdo-deimos'
-# Docker < 1.9, static: username/schemaorg , branch
-#ENV GITURL 'https://github.com/westurner/schemaorg'
-#ENV GITREV 'feature/ext-course'
-#ENV GITDEST '/home/app/schemaorg'
-
-
 ## Setup
 RUN useradd -U -m "${_USER}"
 # RUN useradd -U -m -G admin app
@@ -53,6 +40,18 @@ WORKDIR "${_HOME}"
 ## RUN make -C schemaorg install_pip
 RUN curl -s -S -O https://bootstrap.pypa.io/get-pip.py
 RUN python ./get-pip.py --user
+
+
+## 
+## schemaorg/schemaorg
+#ENV GITURL 'https://github.com/schemaorg/schemaorg'
+#ENV GITREV 'sdo-deimos'
+## Docker 1.9 --build-args
+#ARG GITURL='https://github.com/schemaorg/schemaorg'
+#ARG GITREV='sdo-deimos'
+# Docker < 1.9, static: username/schemaorg , branch
+ENV GITURL 'https://github.com/westurner/schemaorg'
+ENV GITREV 'feature/ext-course'
 
 ## RUN make -C schemaorg clone GITDEST="/home/app/schemaorg"
 RUN git clone --depth=20 "${GITURL}" -b "${GITREV}" "${GITDEST}"
