@@ -102,10 +102,10 @@ install_requirements_tests:
 	$(PYTHON) -m pip install -r ./requirements-test-extra.txt
 
 GITURL='https://github.com/schemaorg/schemaorg'
-GITREV=sdo-deimos
+GITREV='sdo-deimos'
 
 GITURL='https://github.com/westurner/schemaorg'
-GITREV="feature/ext-course"
+GITREV='feature/ext-course'
 
 clone_schemaorg:
 	git clone $(GITURL) -b $(GITREV)
@@ -124,9 +124,9 @@ testext-course:
 ## Docker
 
 REPOTAG='schemaorg/appengine-ubuntu-15.04'
-DOCKER_ENV=--env GITURL='$(GITURL)' --env GITREV='$(GITREV)'
-DOCKER_ARG=--build-arg GITURL='$(GITURL)' \
-		   --build-arg GITREV='$(GITREV)'
+DOCKER_ENV=--env GITURL=$(GITURL) --env GITREV=$(GITREV)
+DOCKER_ARG=--build-arg GITURL=$(GITURL) \
+		   --build-arg GITREV=$(GITREV)
 #DOCKEROPTS=
 build-docker:
 	docker build -f Dockerfile.ubuntu-15.04 -t $(REPOTAG) \
