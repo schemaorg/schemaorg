@@ -82,9 +82,10 @@ RUN python -m pip install --user -r "${_WRD}/requirements-test-extra.txt" ipytho
 ## RUN make test
 RUN make -C "${_WRD}" test 2>&1 | tee "${_HOME}/schemaorg.test.log"
 
-ENV _VAR="${_HOME}/.${_APP}"
+ENV _VAR="${_HOME}"
 ENV _VAR_DATA="${_VAR}/data"
-RUN mkdir -p "${_VAR_DATA}"
+ENV _VAR_DATA_APP="${_VAR_DATA}/${_APP}"
+RUN mkdir -p "${_VAR_DATA}" && mkdir -p "${_VAR_DATA_APP}"
 
 EXPOSE 8000 8080 22
 ## RUN make run

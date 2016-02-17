@@ -77,12 +77,19 @@ appenginesdk_unzip:
 		mkdir -p '$(APPENGINESDK_BASEPATH)'
 	unzip '$(APPENGINESDK_ARCHIVE)' -d '$(APPENGINESDK_BASEPATH)'
 
-_WRD:="$(shell pwd)"
+_HOME=${HOME}
+_APP:=schemaorg
+_WRD:='$(shell pwd)'
+_VAR=${_HOME}
+#_VAR="/var"
+_VAR_DATA=${_VAR}/data
+_VAR_DATA_APP=${_VAR_DATA}/${_APP}
 dev_appserver:
+	test -d "${_VAR_DATA_APP}" || mkdir -p "${_VAR_DATA_APP}"
 	$(DEV_APPSERVER) \
 		--automatic_restart=1 \
 		--skip_sdk_update_check=1 \
-	 	--storage-path="$(_VAR_DATA)" \
+		--storage_path="$(_VAR_DATA_APP)" \
 		${_WRD}
 
 run: dev_appserver
