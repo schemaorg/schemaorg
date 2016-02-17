@@ -38,19 +38,25 @@ RUN chown -R ${_USER}:${_USER} "${_HOME}"
 ENV APPENGINESDK_VERSION=1.9.32
 ENV APPENGINESDK_ARCHIVE="google_appengine_${APPENGINESDK_VERSION}.zip"
 ENV APPENGINESDK_ARCHIVE_URL="https://storage.googleapis.com/appengine-sdks/featured/${APPENGINESDK_ARCHIVE}"
+ENV APPENGINESDK_BASEPATH="${_HOME}/google-cloud-sdk/platform"
+ENV APPENGINESDK_PREFIX="${APPENGINESDK_BASEPATH}/google_appengine"
+#ENV APPENGINESDK_PREFIX="/usr/local/google_appengine"
 
+### cd /home/app
 USER ${_USER}
 WORKDIR "${_HOME}"
+
+## install AppEngine SDK
 RUN curl -f -s -S -O "${APPENGINESDK_ARCHIVE_URL}"
 RUN mkdir -p "${APPENGINESDK_PREFIX}"
-RUN unzip "${APPENGINESDK_ARCHIVE}" -d "${APPENGINESDK_PREFIX}"
+RUN unzip "${APPENGINESDK_ARCHIVE}" -d "${APPENGINESDK_BASEPATH}"
 
+## install pip
 RUN curl -s -S -O https://bootstrap.pypa.io/get-pip.py
 RUN python ./get-pip.py --user
 
 
-## 
-## schemaorg/schemaorg
+## clone schemaorg/schemaorg (or a fork/branch)
 #ENV GITURL 'https://github.com/schemaorg/schemaorg'
 #ENV GITREV 'sdo-deimos'
 ## Docker 1.9 --build-args
@@ -59,19 +65,26 @@ RUN python ./get-pip.py --user
 # Docker < 1.9, static: username/schemaorg , branch
 ENV GITURL 'https://github.com/westurner/schemaorg'
 ENV GITREV 'feature/ext-course'
-
-## RUN make -C schemaorg clone GITDEST="/home/app/schemaorg"
+## RUN make clone GITDEST="/home/app/schemaorg"
 RUN git clone --depth=20 "${GITURL}" -b "${GITREV}" "${GITDEST}"
-RUN ls "${_WRD}"
+# ADD . "${_WRD}"  # *this* revision
 WORKDIR "${_WRD}"
+RUN git -C "${_WRD}" log -n6 --stat
+RUN ls -al "${_WRD}"
 
-## RUN make -C schemaorg install_pip_requirements
+## RUN make install_pip_requirements
 # RUN python -m pip install --user rdflib
 RUN python -m pip install --user -r "${_WRD}/requirements.txt"
-RUN python -m pip install --user -r "${_WRD}/requirements-test-extra.txt"
+RUN python -m pip install --user -r "${_WRD}/requirements-test-extra.txt" ipython
 
+## RUN make test
 RUN make -C "${_WRD}" test 2>&1 | tee "${_HOME}/schemaorg.test.log"
-RUN make -C "${_WRD}" run
+
+## RUN make run
+RUN "${APPENGINESDK_PREFIX}/dev_appserver.py" \
+    --automatic_restart=1 \
+    --skip_sdk_update_check=1 \
+    "${_WRD}"
 EXPOSE 8000 8080
 
 ## ONBUILD for downstream images
