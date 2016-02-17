@@ -57,8 +57,10 @@ appenginesdk_install:
 #APPENGINESDK_BASEPATH:=/usr/local
 
 ## appengine installed in e.g. ~/google-cloud-sdk/platform/google_appengine
-GCLOUD_BASEPATH:=$(HOME)
-APPENGINESDK_BASEPATH:=$(GCLOUD_BASEPATH)/google-cloud-sdk/platform
+CLOUDSDK_PREFIX:=$(HOME)/google-cloud-sdk
+APPENGINESDK_BASEPATH:=$(CLOUDSDK_PREFIX)/platform
+APPENGINESDK_PREFIX=$(APPENGINESDK_BASEPATH)/google_appengine
+DEV_APPSERVER=$(APPENGINESDK_PREFIX)/dev_appserver.py
 
 APPENGINESDK_VERSION:=1.9.32
 APPENGINESDK_ARCHIVE:=google_appengine_$(APPENGINESDK_VERSION).zip
@@ -75,8 +77,6 @@ appenginesdk_unzip:
 		mkdir -p '$(APPENGINESDK_BASEPATH)'
 	unzip '$(APPENGINESDK_ARCHIVE)' -d '$(APPENGINESDK_BASEPATH)'
 
-APPENGINESDK_PATH=$(APPENGINESDK_BASEPATH)/google_appengine
-DEV_APPSERVER=$(APPENGINESDK_PATH)/dev_appserver.py
 dev_appserver:
 	$(DEV_APPSERVER) --automatic_restart True .
 
@@ -123,7 +123,7 @@ testext-course:
 
 ## Docker
 
-REPOTAG='schemaorg/appengine-ubuntu-15.04'
+REPOTAG='schemaorg/schemaorg-ubuntu-15.04'
 DOCKER_ENV=--env GITURL=$(GITURL) --env GITREV=$(GITREV)
 DOCKER_ARG=--build-arg GITURL=$(GITURL) \
 		   --build-arg GITREV=$(GITREV)

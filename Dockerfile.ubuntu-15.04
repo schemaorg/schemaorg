@@ -1,5 +1,5 @@
 
-### schemaorg/Dockerfile.ubuntu-15.04 "schemaorg/ubuntu-15.04"
+### schemaorg/Dockerfile.ubuntu-15.04 "schemaorg/schemaorg-ubuntu-15.04"
 
 FROM ubuntu:15.04
 
@@ -15,13 +15,13 @@ RUN apt-get update && apt-get install -y \
     curl
 
 ## ARGs and ENVs
-# _USER='app'
+#   _USER='app'
 ARG _USER='app'
-# _APP='schemaorg'
+#   _APP='schemaorg'
 ARG _APP="schemaorg"
-# _HOME='/home/app'
+#   _HOME='/home/app'
 ENV _HOME="/home/${_USER}"
-# _WRD='/home/app/schemaorg'
+#   _WRD='/home/app/schemaorg'
 ARG _WRD="${_HOME}/${_APP}"
 ENV GITDEST "${_WRD}"
 
@@ -31,13 +31,19 @@ RUN useradd -U -m "${_USER}"
 # RUN useradd -U -m -G sudo app
 ADD ./Makefile "${_HOME}/Makefile"
 RUN chown -R ${_USER}:${_USER} "${_HOME}"
-RUN make -C "${_HOME}" appenginesdk_install HOME="${_HOME}"
+
+## install AppEngine SDK
+#ARG APPENGINESDK_VERSION=1.9.32
+ENV APPENGINESDK_VERSION=1.9.32
+ENV APPENGINESDK_ARCHIVE="google_appengine_${APPENGINESDK_VERSION}.zip"
+ENV APPENGINESDK_ARCHIVE_URL="https://storage.googleapis.com/appengine-sdks/featured/${APPENGINESDK_ARCHIVE}"
 
 USER ${_USER}
 WORKDIR "${_HOME}"
+RUN curl -f -s -S -O "${APPENGINESDK_ARCHIVE_URL}"
+RUN mkdir -p "${APPENGINESDK_PREFIX}"
+RUN unzip "${APPENGINESDK_ARCHIVE}" -d "${APPENGINESDK_PREFIX}"
 
-
-## RUN make -C schemaorg install_pip
 RUN curl -s -S -O https://bootstrap.pypa.io/get-pip.py
 RUN python ./get-pip.py --user
 
