@@ -32,7 +32,6 @@ RUN useradd -U -m "${_USER}"
 # RUN useradd -U -m -G admin app
 # RUN useradd -U -m -G sudo app
 #
-ADD ./Makefile "${_HOME}/Makefile"
 RUN chown -R ${_USER}:${_USER} "${_HOME}"
 
 ## install AppEngine SDK
@@ -94,7 +93,7 @@ RUN "${_dev_appserver}" --help
 #CMD ["sh", "-c", "$_dev_appserver", \
 #    "--automatic_restart=1", \
 #    "--skip_sdk_update_check=1", \
-#    "--storage-path="${_VAR_DATA}"
+#    "--storage_path="${_VAR_DATA}"
 #    "$_WRD"]
 #ADD servicedef for dev_appserver.py
 USER root
