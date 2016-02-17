@@ -29,7 +29,7 @@ ENV GITDEST "${_WRD}"
 RUN useradd -U -m "${_USER}"
 # RUN useradd -U -m -G admin app
 # RUN useradd -U -m -G sudo app
-COPY ./Makefile "${_HOME}/Makefile"
+ADD ./Makefile "${_HOME}/Makefile"
 RUN chown -R ${_USER}:${_USER} "${_HOME}"
 RUN make -C "${_HOME}" appenginesdk_install HOME="${_HOME}"
 
