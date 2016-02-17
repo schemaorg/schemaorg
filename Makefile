@@ -77,8 +77,13 @@ appenginesdk_unzip:
 		mkdir -p '$(APPENGINESDK_BASEPATH)'
 	unzip '$(APPENGINESDK_ARCHIVE)' -d '$(APPENGINESDK_BASEPATH)'
 
+_WRD:="$(shell pwd)"
 dev_appserver:
-	$(DEV_APPSERVER) --automatic_restart True .
+	$(DEV_APPSERVER) \
+		--automatic_restart=1 \
+		--skip_sdk_update_check=1 \
+	 	--storage-path="$(_VAR_DATA)" \
+		${_WRD}
 
 run: dev_appserver
 
@@ -123,19 +128,29 @@ testext-course:
 
 ## Docker
 
-REPOTAG='schemaorg/schemaorg-ubuntu-15.04'
-DOCKER_ENV=--env GITURL=$(GITURL) --env GITREV=$(GITREV)
-DOCKER_ARG=--build-arg GITURL=$(GITURL) \
-		   --build-arg GITREV=$(GITREV)
-#DOCKEROPTS=
+DOCKER_REPOTAG='schemaorg/schemaorg-ubuntu-15.04'
+#DOCKER_ENV=
+DOCKER_BUILD_ARGS=--build-arg GITURL=$(GITURL) \
+				  --build-arg GITREV=$(GITREV)
+DOCKER_RUN_ARGS=-p 8000:8000 -p 8080:8080 -u app
+
 build-docker:
-	docker build -f Dockerfile.ubuntu-15.04 -t $(REPOTAG) \
-		$(DOCKER_ARG) \
+	docker build -f Dockerfile.ubuntu-15.04 -t $(DOCKER_REPOTAG) \
+		$(DOCKER_BUILD_ARGS) \
 		.
 
-run-docker-interactive:
-	docker run -i -t $(DOCKER_ENV) $(REPOTAG) /bin/bash.
+run-docker-interactive-bash:
+	docker run -i $(DOCKER_RUN_ARGS) -t $(DOCKER_REPOTAG) \
+		/bin/bash -i
 
-run-docker-background:
-	docker run -t $(DOCKER_ENV) $(REPOTAG)
+run-docker-interactive-dev_appserver:
+	docker run -i $(DOCKER_RUN_ARGS) -t $(DOCKER_REPOTAG) \
+		make dev_appserver
 
+run-docker-background-init:
+	docker run $(DOCKER_RUN_ARGS) -t $(DOCKER_REPOTAG) \
+		/sbin/init
+
+run-docker-background-dev_appserver:
+	docker run $(DOCKER_RUN_ARGS) -t $(DOCKER_REPOTAG) \
+		make dev_appserver
