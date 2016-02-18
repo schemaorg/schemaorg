@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Markup for Hotels - schema.org</title>
+    <meta name="description" content="Schema.org is a set of extensible schemas that enables webmasters to embed
+    structured data on their web pages for use by search engines and other applications." />
+    <link rel="stylesheet" type="text/css" href="/docs/schemaorg.css" />
+    <link href="/docs/prettify.css" type="text/css" rel="stylesheet" />
+    <script type="text/javascript" src="/docs/prettify.js"></script>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+      $(document).ready(function(){
+        prettyPrint();
+        setTimeout(function(){
+
+    $('.atn').each(function(i) {
+      if (($(this).text() == 'itemscope') || ($(this).text() == 'itemtype') || ($(this).text() == 'itemprop') || ($(this).text() == 'itemid') || ($(this).text() == 'time') || ($(this).text() == 'datetime') || ($(this).text() == 'vocab') || ($(this).text() == 'property') || ($(this).text() == 'typeOf') || ($(this).text() == 'rel'))
+        $(this).addClass('custom');
+    });
+
+        }, 500);
+      });
+</script>
+
+<style>
+
+  .tag    { color: #000; }    /* div, span, etc   */
+  .atn    { color: #000; }    /* href, datetime,  */
+  .custom { color: #660003; } /* itemscope, itemtype, etc,. */
+
+</style>
+
+</head>
+<body>
+    <div id="container">
+        <div id="intro">
+            <div id="pageHeader">
+              <div class="wrapper">
+                <div id="sitename">
+                <h1>
+                    <a href="/">schema.org</a>
+                </h1>
+                </div>
+
+<div id="cse-search-form" style="width: 400px;"></div>
+
+<script type="text/javascript" src="//www.google.com/jsapi"></script>
+<script type="text/javascript">
+  google.load('search', '1', {language : 'en', style : google.loader.themes.ESPRESSO});
+  google.setOnLoadCallback(function() {
+    var customSearchControl = new google.search.CustomSearchControl('013516846811604855281:nj5laplixaa');
+    customSearchControl.setResultSetSize(google.search.Search.FILTERED_CSE_RESULTSET);
+    var options = new google.search.DrawOptions();
+    options.enableSearchboxOnly("../docs/search_results.html", null, false, '#');
+    customSearchControl.draw('cse-search-form', options);
+  }, true);
+</script>
+
+
+              </div>
+            </div>
+        </div>
+    </div>
+
+            <div id="selectionbar">
+               <div class="wrapper">
+                <ul>
+                    <li class="activelink">
+                      <a href="../docs/documents.html">Documentation</a></li>
+                    <li>
+                      <a href="../docs/schemas.html">Schemas</a></li>
+                    <li>
+                      <a href="../.">Home</a></li>
+                </ul>
+                </div>
+
+            </div>
+        <div style="padding: 14px; float: right;" id="languagebox"></div>
+
+  <div id="mainContent">
+
+<h1>Markup for Hotels</h1>
+
+<p>This page provides background information on the use of schema.org for marking up hotels and other forms of accommodations. For feature requests, please use the <a href="https://github.com/schemaorg/schemaorg">Github repository</a>.</p>
+
+<br/>
+
+<!-- add toc here later on-->
+
+<h2 id="overview">Overview</h2>
+
+<p>When modeling hotel-related information in Web content with schema.org, there are three core objetcs:</p>
+
+<ul>
+    <li>A <strong><a href="../LodgingBusiness">lodging business</a></strong>, e.g. a hotel, hostel, resort, or a camping site): essentially the place and local business that houses the actual units of the establishment (e.g. hotel rooms). The lodging business can encompass multiple buildings but is in most cases a coherent place.</li>
+    <li>An <strong><a href="../Accommodation">accommodation</a></strong>, i.e. the actually relevant units of the establishment (e.g. hotel rooms, suites, apartments, meeting rooms, camping pitches, etc.). These are the actual objects that are offered for rental.</li>
+    <li>An <strong><a href="../Offer">offer</a></strong> to let a hotel room (or other forms of accommodations) for a particular amount of money and for a given type of usage (e.g. occupancy), typically further constrained by advance booking requirements and other terms and conditions.
+</ul>
+
+<p>In schema.org, an offer for a hotel room is using the same patterns as an offer for any other type of product or service, e.g. a TV set or a welding service. In other words, the hotel room is a special form of a <a href= "../Product">http://schema.org/Product</a> and an offer for hotel rooms is a <a href="../Offer">http://schema.org/Offer</a>. Prices and terms and conditions are thus not properties of the hotel or hotel room, but of the offer for a certain room or room category.</p>
+
+<h3>Basic Model</h3>
+<p>The diagram shown below illustrates the basic pattern for describing hotel room offers and offers for other forms of accommodations.</p> 
+<p>All actual accommodations are subclasses of <a href="../Place">http://schema.org/Place</a> and of <a href="../Product">http://schema.org/Product</a> (which is just anything that can be included in an offer). All types of lodging businesses are subclasses of <a href="../Place">http://schema.org/Place</a> and of <a href="../LocalBusiness">http://schema.org/LocalBusiness</a>.</p>
+
+<p>The relationship between an accommodation and the local business it belongs to is represented via the <a href="../containedIn">containedIn</a> property. The relationship between the offer and the room included in the offer can be represented via either the <a href="../offers">offers</a> property (from the room to the offer) or via <a href="../itemOffered">itemsOffered</a> (from the offer to the room).</p>
+<p>The relationship between the lodging business and its offers for rooms is represented via the <a href="../makesOffer">makesOffer</a> property.</p>
+<p>When the offer includes more than just the bare room (e.g. meals) or multiple nights we use the <a href="../includesObject">includesObject</a> property and one or more <a href="../TypeAndQuantityNode">TypeAndQuantityNode</a> nodes.
+
+<img alt="Schema.org pattern for describing hotel room offers" width="960" border="0" src="schema_hotels_1.png" title="Schema.org pattern for describing hotel room offers" />
+
+<h3>Types of Lodging Businesses</h3>
+<p>Currently, there are explicit types for the following kinds of lodging businesses:</p>
+
+<ul>
+    <li><a href="../BedAndBreakfast">BedAndBreakfast</a></li>
+    <li><a href="../CampingSite">CampingSite</a></li>
+    <li><a href="../Hostel">Hostel</a></li>
+    <li><a href="../Hotel">Hotel</a></li>
+    <li><a href="../Motel">Motel</a></li>
+    <li><a href="../Resort">Resort</a></li>
+</ul>
+
+<p>This list might be extended in the future. For other forms, the generic type <a href="../LodgingBusiness">LodgingBusiness</a> can be used. The property <a href="../additionalType">additionalType</a> allows using external identifiers for indicating the exact type in such cases.</p>
+
+<h3>Types of Accommodations</h3>
+<p>For kinds of accommodations, the following types more specific types are available:</p>
+
+<ul>
+    <li><a href="../Apartment">Apartment</a></li>
+    <li><a href="../CampingPitch">CampingPitch</a></li>
+    <li><a href="../HotelRoom">HotelRoom</a></li>
+    <li><a href="../House">House</a></li>
+    <li><a href="../MeetingRoom">MeetingRoom</a></li>
+    <li><a href="../Suite">Suite</a></li>
+</ul>
+
+<p>This list might be extended in the future. For other forms, the generic type <a href="../Accommodation">Accommodation</a> can be used. The property <a href="../additionalType">additionalType</a> allows using external identifiers for indicating the exact type in such cases.</p>
+    
+<h2 id="minimal">Minimal Example</h2>
+<p>In the most basic form, we can just model the hotel with basic information like photos and star rating and a price range, but without individual room rates and availability information:
+    <pre class="prettyprint lang-html linenums">
+&lt;div itemscope itemtype=&quot;http://schema.org/Hotel&quot;&gt;
+  &lt;h1&gt;&lt;span itemprop=&quot;name&quot;&gt;ACME Hotel Innsbruck&lt;/span&gt;&lt;/h1&gt;
+  &lt;span itemprop=&quot;description&quot;&gt;A beautifully located business hotel right in the
+heart of the alps. Watch the sun rise over the scenic Inn valley while
+enjoying your morning coffee.&lt;/span&gt;
+  &lt;div itemprop=&quot;address&quot; itemscope itemtype=&quot;http://schema.org/PostalAddress&quot;&gt;
+    &lt;span itemprop=&quot;streetAddress&quot;&gt;Technikerstrasse 21&lt;/span&gt;
+    &lt;span itemprop=&quot;postalCode&quot;&gt;6020&lt;/span&gt;
+    &lt;span itemprop=&quot;addressLocality&quot;&gt;Innsbruck&lt;/span&gt;
+    &lt;span itemprop=&quot;addressRegion&quot;&gt;Tyrol&lt;/span&gt;,
+    &lt;span itemprop=&quot;addressCountry&quot;&gt;Austria&lt;/span&gt;
+  &lt;/div&gt;
+  Phone: &lt;span itemprop=&quot;telephone&quot;&gt;+43 512 8000-0&lt;/span&gt;
+  &lt;img itemprop=&quot;photo&quot; src=&quot;../media/hotel_front.png&quot; alt=&quot;Front view of the hotel&quot; /&gt;
+  Star rating: &lt;meta itemprop=&quot;starRating&quot; content=&quot;4&quot;&gt;****
+  Room rates: &lt;span itemprop=&quot;priceRange&quot;&gt;$100 - $240&lt;/span&gt;
+&lt;/div&gt;
+</pre>
+
+See the page for <a href="../Hotel">http://schema.org/Hotel</a> for a complete list of additional properties for describing the hotel. Popular properties are also explained in more detail below.</p>
+
+<p><strong>Note:</strong> In the following, we focus on hotel-related examples, but the basic patterns for other types of lodging businesses are the same. Simply use the more specific types (e.g. <a href="../CampingSite">CampingSite</a> or <a href="MeetingRoom">MeetingRoom</a>).</p>
+
+<h2 id="hotel_info">Information about the Hotel</h2>
+<p>If your Web site contains provide more detailed information about your hotel, you can use many additional properties for marking them up with schema.org. Below, we highlight a few prominent properties.</p>
+    <h3>Geo Position</h3>
+		<pre class="prettyprint lang-html linenums">
+&lt;div itemscope itemtype=&quot;http://schema.org/Hotel&quot;&gt;
+  &lt;h1&gt;&lt;span itemprop=&quot;name&quot;&gt;ACME Hotel Innsbruck&lt;/span&gt;&lt;/h1&gt;
+  &lt;span itemprop=&quot;description&quot;&gt;A beautifully located business hotel right in the
+heart of the alps. Watch the sun rise over the scenic Inn valley while
+enjoying your morning coffee.&lt;/span&gt;
+  &lt;div itemprop=&quot;address&quot; itemscope itemtype=&quot;http://schema.org/PostalAddress&quot;&gt;
+    &lt;span itemprop=&quot;streetAddress&quot;&gt;Technikerstrasse 21&lt;/span&gt;
+    &lt;span itemprop=&quot;postalCode&quot;&gt;6020&lt;/span&gt;
+    &lt;span itemprop=&quot;addressLocality&quot;&gt;Innsbruck&lt;/span&gt;
+    &lt;span itemprop=&quot;addressRegion&quot;&gt;Tyrol&lt;/span&gt;,
+    &lt;span itemprop=&quot;addressCountry&quot;&gt;Austria&lt;/span&gt;
+  &lt;/div&gt;
+<strong>  &lt;div itemprop=&quot;geo&quot; itemscope itemtype=&quot;http://schema.org/GeoCoordinates&quot;&gt;
+    &lt;meta itemprop=&quot;latitude&quot; content=&quot;47.2649990&quot; /&gt;
+    &lt;meta itemprop=&quot;longitude&quot; content=&quot;11.3428720&quot; /&gt;
+  &lt;/div&gt;</strong>
+&lt;/div&gt;
+		</pre>
+    <h3>Telephone and Fax</h3>
+    <pre class="prettyprint lang-html linenums">
+&lt;div itemscope itemtype=&quot;http://schema.org/Hotel&quot;&gt;
+  &lt;h1&gt;&lt;span itemprop=&quot;name&quot;&gt;ACME Hotel Innsbruck&lt;/span&gt;&lt;/h1&gt;
+  &lt;span itemprop=&quot;description&quot;&gt;A beautifully located business hotel right in the
+heart of the alps. Watch the sun rise over the scenic Inn valley while
+enjoying your morning coffee.&lt;/span&gt;
+   <strong>Phone: &lt;span itemprop=&quot;telephone&quot;&gt;+43 512 8000-0&lt;/span&gt;
+   Fax: &lt;span itemprop=&quot;faxNumber&quot;&gt;+43 512 8000-99&lt;/span&gt;</strong>
+&lt;/div&gt;
+</pre>
+    <h3>Star Rating</h3>
+	<p>Simple</p>
+		<pre class="prettyprint lang-html linenums">
+		</pre>
+	<p>Advanced: Type of Star Rating</p>
+		<pre class="prettyprint lang-html linenums">
+		</pre>
+    <h3>Photos and Logo</h3>
+		<pre class="prettyprint lang-html linenums">
+		</pre>
+    <h3>Map</h3>
+		<pre class="prettyprint lang-html linenums">
+		</pre>
+    <h3>Opening Hours (Reception)</h3>
+		<pre class="prettyprint lang-html linenums">
+		</pre>
+    <h3>Reviews and Ratings</h3>
+		<pre class="prettyprint lang-html linenums">
+		</pre>
+    <h3>Number of Rooms</h3>
+	<p>Simple</p>
+		<pre class="prettyprint lang-html linenums">
+		</pre>
+	<p>Advanced: 10 Single Rooms, 20 Double Rooms</p>
+		<pre class="prettyprint lang-html linenums">
+		</pre>
+    <h3>Renovation and Date of Establishment</h3>
+		<pre class="prettyprint lang-html linenums">
+		</pre>
+    <h3>Membership in Organizations</h3>
+		<pre class="prettyprint lang-html linenums">
+		</pre>
+    <h3>Hotels Chains</h3>
+		<pre class="prettyprint lang-html linenums">
+		</pre>
+    <h3>Hotel Features and Services</h3>
+    also availability times and periods (e.g. sauna only in Winter)
+		<pre class="prettyprint lang-html linenums">
+		</pre>
+    <h3>Points of Interest in the Vicinity</h3>
+    e.g. railway station, airports, touristics spots, etc.
+		<pre class="prettyprint lang-html linenums">
+		</pre>
+    <h3>Check-in and Check-out Times</h3>
+		<pre class="prettyprint lang-html linenums">
+		</pre>
+    <h3>Target Audience Information</h3>
+		<pre class="prettyprint lang-html linenums">
+		</pre>		
+    <h3>Languages</h3>
+		<pre class="prettyprint lang-html linenums">
+		</pre>	
+<h2 id="room_info">Information about the Room</h2>
+
+<h3>Basic Pattern</h3>
+<h3>Pictures</h3>
+<h3>Optional Features and Services</h3>
+<p>also fees for those via addOn</p>
+<h3>Availability Times and Periods</h3>
+    
+<h2 id="pricing">Offers and Pricing</h2>
+    <p>A key principle in schema.org is that things do not have prices, but that offers to grant you some rights on the things have. Thus, all commercial aspects of a hotel offer belong to the Offer. In the following, we show the use of relevant schema.org elememts.</p>
+    <h3>Basic Pattern</h3>
+	<h3>Price per Room vs. Price per Person</h3>
+    <h3>Price Ranges</h3>
+	<h3>Validity of an Offer<h3>
+		<h4>Absolute Date Range</h4>
+		<h4>Advance Booking Requirement</h4>
+		<h4>Eligible Dates<h4>
+		<h4>Seasonal Pricing</h4>
+    <h3>Compound Prices</h3>
+    <h3>Meals</h3>
+    <h3>Occupancy</h3>
+    <h3>Minimum Duration of Stay</h3>
+    <h3>Cancellation Rules and Terms and Conditions</h3>
+    <h3>Fees for Optional Services</h3>
+<h2 id="bundles">Example of a Bundle</h2>
+<p>Winter Weekend: 2 nights including half-board, 199 EUR per person for two nights.</p>
+
+<h2>Acknowledgments</h2>
+<p>The elements for describing hotels in schema.org are based on the STI Accommodation Ontology, see <a href="http://ontologies.sti-innsbruck.at/acco/ns.html">http://ontologies.sti-innsbruck.at/acco/ns.html</a> for details. 
+ Many class and property definitions are inspired by or based on abstracts from Wikipedia, the free encyclopedia.</p>
+<br/>
+<br/>
+</div>
+<div id="footer"><p>
+  <a href="../docs/terms.html">Terms and conditions</a></p>
+</div>
+
+</body>
+</html>

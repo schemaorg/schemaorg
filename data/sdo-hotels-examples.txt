@@ -1,0 +1,355 @@
+TYPES: Hotel
+
+PRE-MARKUP:
+<h1>ACME Hotel Innsbruck</h1>
+<span>A beautifully located business hotel right in the
+heart of the alps. Watch the sun rise over the scenic Inn valley while
+enjoying your morning coffee.</span>
+  <span>Technikerstrasse 21</span>
+  <span>6020</span>
+  <span>Innsbruck</span>
+  <span>Tyrol</span>,
+  <span>Austria</span>
+  </div>
+  Phone: +43 512 8000-0
+  <img src="../media/hotel_front.png" alt="Front view of the hotel" />
+  Star rating: ****
+  Room rates: $100 - $240
+</div>
+
+
+MICRODATA:
+<div itemscope itemtype="http://schema.org/Hotel">
+  <h1><span itemprop="name">ACME Hotel Innsbruck</span></h1>
+  <span itemprop="description">A beautifully located business hotel right in the
+heart of the alps. Watch the sun rise over the scenic Inn valley while
+enjoying your morning coffee.</span>
+  <div itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
+    <span itemprop="streetAddress">Technikerstrasse 21</span>
+    <span itemprop="postalCode">6020</span>
+	<span itemprop="addressLocality">Innsbruck</span>
+    <span itemprop="addressRegion">Tyrol</span>,
+	<span itemprop="addressCountry">Austria</span>
+  </div>
+  Phone: <span itemprop="telephone">+43 512 8000-0</span>
+  <img itemprop="photo" src="../media/hotel_front.png" alt="Front view of the hotel" />
+  Star rating: <meta itemprop="starRating" content="4">****
+  Room rates: <span itemprop="priceRange">$100 - $240</span>
+</div>
+
+RDFA:
+<div vocab="http://schema.org/" typeof="Hotel">
+  <h1><span property="name">ACME Hotel Innsbruck</span></h1>
+  <span property="description">A beautifully located business hotel right in the
+heart of the alps. Watch the sun rise over the scenic Inn valley while
+enjoying your morning coffee.</span>
+  <div property="address" typeof="PostalAddress">
+    <span property="streetAddress">Technikerstrasse 21</span>
+    <span property="postalCode">6020</span>
+	<span property="addressLocality">Innsbruck</span>
+    <span property="addressRegion">Tyrol</span>,
+	<span property="addressCountry">Austria</span>
+  </div>
+  Phone: <span property="telephone">+43 512 8000-0</span>
+  <img property="photo" src="../media/hotel_front.png" alt="Front view of the hotel" />
+  Star rating: <meta property="starRating" content="4">****
+  Room rates: <span property="priceRange">$100 - $240</span>
+</div>
+
+JSON:
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Hotel",
+  "name" : "ACME Hotel Innsbruck",
+  "description" : "A beautifully located business hotel right in the
+heart of the alps. Watch the sun rise over the scenic Inn valley while
+enjoying your morning coffee.",
+  "address" : { "@type" : "PostalAddress",
+               "addressCountry" : "AT",
+               "addressLocality" : "Innsbruck",
+               "addressRegion" : "Tyrol",
+               "postalCode" : "6020",
+               "streetAddress" : "Technikerstrasse 21"
+               },
+  "telephone" :  "+43 512 8000-0",
+  "photo" : "http://www.acme-innsbruck.at//media/hotel_front.png",
+  "starRating" : "4",
+  "priceRange" : "$100 - $240"
+}
+</script>
+
+
+TYPES: GeoCoordinates, geo
+PRE-MARKUP:
+Not yet available.
+
+MICRODATA:
+<div itemscope itemtype="http://schema.org/Hotel">
+  <h1><span itemprop="name">ACME Hotel Innsbruck</span></h1>
+  <span itemprop="description">A beautifully located business hotel right in the
+heart of the alps. Watch the sun rise over the scenic Inn valley while
+enjoying your morning coffee.</span>
+  <div itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
+    <span itemprop="streetAddress">Technikerstrasse 21</span>
+    <span itemprop="postalCode">6020</span>
+    <span itemprop="addressLocality">Innsbruck</span>
+    <span itemprop="addressRegion">Tyrol</span>,
+    <span itemprop="addressCountry">Austria</span>
+  </div>
+  <div itemprop="geo" itemscope itemtype="http://schema.org/GeoCoordinates">
+    <meta itemprop="latitude" content="47.2649990" />
+    <meta itemprop="longitude" content="11.3428720" />
+  </div>
+</div>
+
+RDFA:
+Not yet available.
+
+JSON:
+Not yet available.
+
+TYPES: HotelRoom, Hotel
+
+PRE-MARKUP:
+tbd
+
+MICRODATA:
+<div id="hotel" itemprop="containedIn" itemscope itemtype="http://schema.org/Hotel">
+  <h1><span itemprop="name">ACME Hotel Innsbruck</span></h1>
+  <span itemprop="description">A beautifully located business hotel right in the
+heart of the alps. Watch the sun rise over the scenic Inn valley while
+enjoying your morning coffee.</span>
+  <div itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
+    <span itemprop="streetAddress">Technikerstrasse 21</span>
+    <span itemprop="postalCode">6020</span>
+	<span itemprop="addressLocality">Innsbruck</span>
+    <span itemprop="addressRegion">Tyrol</span>,
+	<span itemprop="addressCountry">Austria</span>
+  </div>
+  Phone: <span itemprop="telephone">+43 512 8000-0</span>
+</div>
+
+<div itemscope itemtype="http://schema.org/HotelRoom" itemref="hotel">
+  <span itemprop="name">Standard Double Room</span>
+  <span itemprop="description">Our standard double rooms include a double bed, a 
+full bathroom with tub, shower and toilet</span>
+  <img itemprop="photo" src="../media/single_room1.png" />
+  Available rates:
+  <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+    <span itemprop="name">Flex-rate</span>
+	<span itemprop="description">Terms and conditions go here...</span>
+	<link itemprop="businessFunction" href="http://purl.org/goodrelations/v1#LeaseOut" />
+    <span itemprop="priceSpecification" itemscope itemtype="http://schema.org/UnitPriceSpecification">
+	  <meta itemprop="priceCurrency" content="EUR"> €
+	  <span itemprop="price"> 99</span>
+	  <meta itemprop="unitCode" content="DAY"> per room per day
+	  To save this rate, book by
+	  <meta itemprop="validThrough" content="2016-08-31"> August 31, 2016
+	</span>
+  </div>
+</div>
+
+RDFA:
+tbd
+
+JSON:
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "HotelRoom",
+  "name" : "Double Room (Standard)",
+  "description" : "Ein Zimmer plus Bad mit Dusche/Badewanne sowie WC."
+  "url" : "http://www.acme-innsbruck.at/Rooms#DoubleRoom", 
+  "photo" : [ "http://www.acme-innsbruck.at/double_room1.png", "http://www.acme-innsbruck.at/double_room2.png"],
+  "accommodationOccupancy" : { "@type" : "QuantitativeValue",
+                               "maxValue" : "2",
+                               "unitCode" : "C62" },
+  "includedFeature" : [ { "@type" : "AccommodationFeature", 
+                          "name" : "Hair dryer",
+                          "value" : "True" },
+                        { "@type" : "AccommodationFeature", 
+                          "name" : "Wifi",
+                          "value" : "True" },
+                        { "@type" : "AccommodationFeature", 
+                          "name" : "Airconditioning",
+                          "value" : "True" } ],
+  "offers" : { "@type" : "Offer", 
+               "name" : "Flex-rate",
+               "description" : "blablabla",
+               "acceptedPaymentMethod" : 
+                     [ { "@id": "http://purl.org/goodrelations/v1#Cash" },
+                       { "@id" : "http://purl.org/goodrelations/v1#AmericanExpress" },
+                       { "@id" : "http://purl.org/goodrelations/v1#DinersClub" }, 
+                       { "@id" : "http://purl.org/goodrelations/v1#Discover" }, 
+                       { "@id" : "http://purl.org/goodrelations/v1#JCB" },
+                       { "@id" : "http://purl.org/goodrelations/v1#MasterCard" }, 
+                       { "@id" : "http://purl.org/goodrelations/v1#VISA" }, 
+                       { "@id" : "http://purl.org/goodrelations/v1#DirectDebit" } ],
+  "businessFunction" : { "@id" : "http://purl.org/goodrelations/v1#LeaseOut"},
+  "eligibleDuration" : { "@type" : "QuantitativeValue",
+                         "minValue" : "1",
+                         "unitCode" : "DAY" },
+  "inventoryLevel" : { "@type" : "QuantitativeValue",
+                         "minValue" : "3",
+                         "unitCode" : "C62" },
+  "priceSpecification" : { "@type" : "UnitPriceSpecification",
+                           "priceCurrency" : "EUR",
+                           "price" : "99",
+                           "unitCode" "DAY" },
+  "validThrough" : "2015-08-31"
+}
+</script>
+
+TYPES: Hotel
+
+PRE-MARKUP:
+
+tbd
+
+MICRODATA:
+
+tbd
+
+RDFA:
+
+tbd
+
+JSON:
+<script type="application/ld+json">
+{
+ "@context": "http://schema.org",
+ "@type": "Hotel",
+ "name" : "ACME Hotel Innsbruck",
+ "description" : "A beautifully located business hotel right in the
+heart of the alps. Watch the sun rise over the scenic Inn valley while
+enjoying your morning coffee.",
+ "url" : "http://www.acme-innsbruck.at",
+ "sameAs" : [
+   "http://www.facebook.com/acme-innsbruck",
+   "http://www.twitter.com/acme-innsbruck",
+   "http://plus.google.com/acme-innsbruck"
+ ],
+ "currenciesAccepted" : ["EUR", "USD"],
+ "paymentAccepted": "Cash and credit cards",
+ "address" : { "@type" : "PostalAddress",
+               "addressCountry" : "AT",
+               "addressLocality" : "Innsbruck",
+               "addressRegion" : "Tyrol",
+               "postalCode" : "6020",
+               "streetAddress" : "Technikerstrasse 21"
+               },
+ "email" : "office@acme-innsbruck-innsbruck.at",
+ "faxNumber" : "+43 512 8000-999",
+ "telephone" :  "+43 512 8000-0",
+ "geo" : { "@type" : "GeoCoordinates",
+           "elevation" : "580 m",
+           "latitude" : "47.1234",
+           "longitude" : "11.1234"
+           },
+   "hasMap" :
+"https://www.google.com/maps?ie=UTF8&hq&ll=47.1234,11.1234&z=13",
+   "logo" : "http://www.acme-innsbruck.at/logo.png",
+   "photo" : [ "http://www.acme-innsbruck.at/photo1.png",
+"http://www.acme-innsbruck-innsbruck.at/photo2.png"],
+ "award" : "ADAC Family Friendly Hotel 2015",
+ "brand" : { "@type" : "Brand",
+             "name" : "ACME Hotels" },
+ "memberOf" : [ { "@type" : "Organization",
+                  "name" : "Austrian Hotel & Lodging Association - AH&LA",
+                  "sameAs" : "http://www.ahla.at/" },
+                { "@type" : "Organization",
+                  "name" : "Hotel Association of Tyrol",
+                  "sameAs" : "www.hotelassociation-tyrol.at/" }
+               ],
+ "parentOrganization" : { "@type" : "Organization",
+             "name" : "ACME Hotels GesmbH" },
+ "taxID" : "AT1234556",
+ "vatID" : "ATU123456",
+ "accommodationOccupancy" : { "@type" : "QuantitativeValue",
+                              "maxValue" : "100",
+                              "unitCode" : "C62" },
+ "feature" : [{ "@type" : "AccommodationFeature",
+                "name" : "Sauna",
+                "description" : "Our wellness center includes both a
+Finnish sauna and a Turkish bath",
+                "value" : "True" },
+               { "@type" : "AccommodationFeature",
+                 "name" : "Wifi",
+                 "description" : "Fast Wifi is available in the lobby
+and guestrooms",
+               "value" : "True" }
+              ],
+ "petsAllowed" : "False",
+ "starRating" : [ "4",
+                  { "@type" : "PropertyValue",
+                    "name" : "DEHOGA",
+                    "value" : "4S",
+                    "description" : "We are a 4-star superior hotel."
+                  }],
+ "category" : "City Hotel"
+}
+</script>
+
+
+TYPES:  HotelRoom
+PRE-MARKUP:
+tbd
+MICRODATA:
+tbd
+RDFA:
+tbd
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "HotelRoom",
+  "name" : "Double Room (Standard)",
+  "description" : "Ein Zimmer plus Bad mit Dusche/Badewanne sowie WC."
+  "url" : "http://www.acme-innsbruck.at/Rooms#DoubleRoom", 
+  "photo" : [ "http://www.acme-innsbruck.at/double_room1.png", "http://www.acme-innsbruck.at/double_room2.png"],
+  "accommodationOccupancy" : { "@type" : "QuantitativeValue",
+                               "maxValue" : "2",
+                               "unitCode" : "C62" },
+  "includedFeature" : [ { "@type" : "AccommodationFeature", 
+                          "name" : "Hair dryer",
+                          "value" : "True" },
+                        { "@type" : "AccommodationFeature", 
+                          "name" : "Wifi",
+                          "value" : "True" },
+                        { "@type" : "AccommodationFeature", 
+                          "name" : "Airconditioning",
+                          "value" : "True" } ],
+  "offers" : { "@type" : "Offer", 
+               "name" : "Flex-rate",
+               "description" : "blablabla",
+               "acceptedPaymentMethod" : 
+                     [ { "@id": "http://purl.org/goodrelations/v1#Cash" },
+                       { "@id" : "http://purl.org/goodrelations/v1#AmericanExpress" },
+                       { "@id" : "http://purl.org/goodrelations/v1#DinersClub" }, 
+                       { "@id" : "http://purl.org/goodrelations/v1#Discover" }, 
+                       { "@id" : "http://purl.org/goodrelations/v1#JCB" },
+                       { "@id" : "http://purl.org/goodrelations/v1#MasterCard" }, 
+                       { "@id" : "http://purl.org/goodrelations/v1#VISA" }, 
+                       { "@id" : "http://purl.org/goodrelations/v1#DirectDebit" } ],
+  "businessFunction" : { "@id" : "http://purl.org/goodrelations/v1#LeaseOut"},
+  "eligibleDuration" : { "@type" : "QuantitativeValue",
+                         "minValue" : "1",
+                         "unitCode" : "DAY" },
+  "inventoryLevel" : { "@type" : "QuantitativeValue",
+                         "minValue" : "3",
+                         "unitCode" : "C62" },
+  "priceSpecification" : { "@type" : "UnitPriceSpecification",
+                           "priceCurrency" : "EUR",
+                           "price" : "99",
+                           "unitCode" "DAY" },
+  "validThrough" : "2015-08-31"
+}
+</script>
+
+TYPES:  FakeEntryNeeded, FixMeSomeDay
+PRE-MARKUP:
+MICRODATA:
+RDFA:
+JSON:
