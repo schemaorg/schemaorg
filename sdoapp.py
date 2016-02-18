@@ -7,6 +7,7 @@ import webapp2
 import jinja2
 import logging
 import StringIO
+import json
 
 from markupsafe import Markup, escape # https://pypi.python.org/pypi/MarkupSafe
 
@@ -36,7 +37,7 @@ sitemode = "mainsite" # whitespaced list for CSS tags,
             # e.g. "mainsite testsite" when off expected domains
             # "extensionsite" when in an extension (e.g. blue?)
 
-releaselog = { "2.0": "2015-05-13", "2.1": "2015-08-06" }
+releaselog = { "2.0": "2015-05-13", "2.1": "2015-08-06", "2.2": "2015-11-05" }
 #
 
 silent_skip_list =  [ "favicon.ico" ] # Do nothing for now
@@ -211,11 +212,13 @@ class TypeHierarchyTree:
         supertx = "{}".format( '"rdfs:subClassOf": "schema:%s", ' % supertype.id if supertype != "None" else '' )
         maybe_comma = "{}".format("," if unvisited_subtype_count > 0 else "")
         comment = GetComment(node, layers).strip()
-        comment = comment.replace('"',"'")
         comment = ShortenOnSentence(StripHtmlTags(comment),60)
 
-        self.emit('\n%s{\n%s\n%s"@type": "rdfs:Class", %s "description": "%s",\n%s"name": "%s",\n%s"@id": "schema:%s"%s'
-                  % (p1, ctx, p1,                 supertx,            comment,     p1,   node.id, p1,        node.id,  maybe_comma))
+        def encode4json(s):
+            return json.dumps(s)
+
+        self.emit('\n%s{\n%s\n%s"@type": "rdfs:Class", %s "description": %s,\n%s"name": "%s",\n%s"@id": "schema:%s",\n%s"layer": "%s"%s'
+                  % (p1, ctx, p1,                 supertx,            encode4json(comment),     p1,   node.id, p1,        node.id, p1, node.getHomeLayer(), maybe_comma))
 
         i = 1
         if unvisited_subtype_count > 0:
@@ -415,7 +418,13 @@ class ShowUnit (webapp2.RequestHandler):
             extflag = EXTENSION_SUFFIX
             tooltip = "title=\"Extended schema: %s.schema.org\" " % home
 
-        return "<a %s %s href=\"%s%s%s\"%s%s>%s</a>%s" % (tooltip, extclass, urlprefix, hashorslash, node.id, prop, title, label, extflag)
+        rdfalink = ''
+        if prop:
+            rdfalink = '<link %s href="http://schema.org/%s" />' % (prop,label)
+
+
+        return "%s<a %s %s href=\"%s%s%s\"%s>%s</a>%s" % (rdfalink,tooltip, extclass, urlprefix, hashorslash, node.id, title, label, extflag)
+        #return "<a %s %s href=\"%s%s%s\"%s%s>%s</a>%s" % (tooltip, extclass, urlprefix, hashorslash, node.id, prop, title, label, extflag)
 
     def makeLinksFromArray(self, nodearray, tooltip=''):
         """Make a comma separate list of links via ml() function.
@@ -429,7 +438,7 @@ class ShowUnit (webapp2.RequestHandler):
 
     def emitUnitHeaders(self, node, layers='core'):
         """Write out the HTML page headers for this node."""
-        self.write("<h1 class=\"page-title\">\n")
+        self.write("<h1 property=\"rdfs:label\" class=\"page-title\">\n")
         self.write(node.id)
         self.write("</h1>")
         home = node.home
@@ -487,7 +496,7 @@ class ShowUnit (webapp2.RequestHandler):
                 count += 1
                 thisrow += "%s" % (self.ml(n))
            crumbsout.append(thisrow)
-        
+
         self.write("<h4>")
         rowcount = 0
         for crumb in sorted(crumbsout):
@@ -808,7 +817,7 @@ class ShowUnit (webapp2.RequestHandler):
             out.write("<table class=\"definition-table\">\n")
             out.write("  <thead>\n    <tr>\n      <th>Sub-properties</th>\n    </tr>\n</thead>\n")
             for sbp in subprops:
-                c = GetComment(sbp,layers=layers)
+                c = ShortenOnSentence(StripHtmlTags( GetComment(sbp,layers=layers) ),60)
                 tt = "%s: ''%s''" % ( sbp.id, c)
                 out.write("\n    <tr><td><code>%s</code></td></tr>\n" % (self.ml(sbp, sbp.id, tt, hashorslash=hashorslash)))
             out.write("\n</table>\n\n")
@@ -818,7 +827,7 @@ class ShowUnit (webapp2.RequestHandler):
             out.write("<table class=\"definition-table\">\n")
             out.write("  <thead>\n    <tr>\n      <th>Super-properties</th>\n    </tr>\n</thead>\n")
             for spp in superprops:
-                c = GetComment(spp, layers=layers)           # markup needs to be stripped from c, e.g. see 'logo', 'photo'
+                c = ShortenOnSentence(StripHtmlTags( GetComment(spp,layers=layers) ),60)
                 c = re.sub(r'<[^>]*>', '', c) # This is not a sanitizer, we trust our input.
                 tt = "%s: ''%s''" % ( spp.id, c)
                 out.write("\n    <tr><td><code>%s</code></td></tr>\n" % (self.ml(spp, spp.id, tt,hashorslash)))
@@ -928,12 +937,13 @@ class ShowUnit (webapp2.RequestHandler):
             return "schema.org"
         return (getHostExt() + ".schema.org")
 
-    def emitSchemaorgHeaders(self, node, is_class=False, ext_mappings='', sitemode="default", sitename="schema.org", layers="core"):
+    def emitSchemaorgHeaders(self, node, ext_mappings='', sitemode="default", sitename="schema.org", layers="core"):
         """
         Generates, caches and emits HTML headers for class, property and enumeration pages. Leaves <body> open.
 
         * entry = name of the class or property
         """
+        rdfs_type = 'rdfs:Property'
         anode = True
         if isinstance(node, str):
             entry = node
@@ -941,9 +951,22 @@ class ShowUnit (webapp2.RequestHandler):
         else:
             entry = node.id
 
-        rdfs_type = 'rdfs:Property'
-        if is_class:
-            rdfs_type = 'rdfs:Class'
+            if node.isEnumeration():
+                rdfs_type = 'rdfs:Class'
+            elif node.isEnumerationValue():
+                rdfs_type = ""
+                nodeTypes = GetTargets(Unit.GetUnit("typeOf"), node, layers=layers)
+                typecount = 0
+                for type in nodeTypes:
+                     if typecount > 0:
+                         rdfs_type += " "
+                     rdfs_type += type.id
+                     typecount += 1
+
+            elif node.isClass():
+                rdfs_type = 'rdfs:Class'
+            elif node.isAttribute():
+                rdfs_type = 'rdfs:Property'
 
         generated_page_id = "genericTermPageHeader-%s-%s" % ( str(entry), getSiteName() )
         gtp = DataCache.get( generated_page_id )
@@ -1008,7 +1031,7 @@ class ShowUnit (webapp2.RequestHandler):
         if ("schema.org" not in self.request.host and sitemode == "mainsite"):
             sitemode = "mainsite testsite"
 
-        self.emitSchemaorgHeaders(node, node.isClass(), ext_mappings, sitemode, getSiteName(), layers)
+        self.emitSchemaorgHeaders(node, ext_mappings, sitemode, getSiteName(), layers)
 
         if ( ENABLE_HOSTED_EXTENSIONS and ("core" not in layers or len(layers)>1) ):
             ll = " ".join(layers).replace("core","")
@@ -1090,7 +1113,7 @@ class ShowUnit (webapp2.RequestHandler):
                 extbuff.close()
 
         if (node.isEnumeration(layers=layers)):
-            
+
             children = sorted(GetSources(Unit.GetUnit("typeOf"), node, ALL_LAYERS), key=lambda u: u.id)
             if (len(children) > 0):
                 buff = StringIO.StringIO()
@@ -1424,26 +1447,26 @@ class ShowUnit (webapp2.RequestHandler):
 
         return True
 
-    def handleJSONSchemaTree(self, node, layerlist='core'):
-        """Handle a request for a JSON-LD tree representation of the schemas (RDFS-based)."""
-
-        self.response.headers['Content-Type'] = "application/ld+json"
-        self.emitCacheHeaders()
-
-        if DataCache.get('JSONLDThingTree'):
-            self.response.out.write( DataCache.get('JSONLDThingTree') )
-            log.debug("Serving recycled JSONLDThingTree.")
-            return True
-        else:
-            uThing = Unit.GetUnit("Thing")
-            mainroot = TypeHierarchyTree()
-            mainroot.traverseForJSONLD(Unit.GetUnit("Thing"), layers=layerlist)
-            thing_tree = mainroot.toJSON()
-            self.response.out.write( thing_tree )
-            log.debug("Serving fresh JSONLDThingTree.")
-            DataCache.put("JSONLDThingTree",thing_tree)
-            return True
-        return False
+#    def handleJSONSchemaTree(self, node, layerlist='core'):
+#        """Handle a request for a JSON-LD tree representation of the schemas (RDFS-based)."""
+#
+#        self.response.headers['Content-Type'] = "application/ld+json"
+#        self.emitCacheHeaders()
+#
+#        if DataCache.get('JSONLDThingTree'):
+#            self.response.out.write( DataCache.get('JSONLDThingTree') )
+#            log.debug("Serving recycled JSONLDThingTree.")
+#            return True
+#        else:
+#            uThing = Unit.GetUnit("Thing")
+#            mainroot = TypeHierarchyTree()
+#            mainroot.traverseForJSONLD(Unit.GetUnit("Thing"), layers=layerlist)
+#            thing_tree = mainroot.toJSON()
+#            self.response.out.write( thing_tree )
+#            log.debug("Serving fresh JSONLDThingTree.")
+#            DataCache.put("JSONLDThingTree",thing_tree)
+#            return True
+#        return False
 
 
 
@@ -1470,12 +1493,14 @@ class ShowUnit (webapp2.RequestHandler):
 
         # Full release page for: node: 'version/' cleannode: 'version/' requested_version: '' requested_format: '' l: 2
         # /version/
+        log.debug("clean_node: %s requested_version: %s " %  (clean_node, requested_version))
         if (clean_node=="version/" or clean_node=="version") and requested_version=="" and requested_format=="":
             log.info("Table of contents should be sent instead, then succeed.")
             if DataCache.get('tocVersionPage'):
                 self.response.out.write( DataCache.get('tocVersionPage'))
                 return True
             else:
+                log.debug("Serving tocversionPage from cache.")
                 template = JINJA_ENVIRONMENT.get_template('tocVersionPage.tpl')
                 page = template.render({ "releases": releaselog.keys(),
                                          "menu_sel": "Schemas",
@@ -1764,7 +1789,7 @@ class ShowUnit (webapp2.RequestHandler):
 
 
         if (node == "docs/tree.jsonld" or node == "docs/tree.json"):
-            if self.handleJSONSchemaTree(node, layerlist=layerlist):
+            if self.handleJSONSchemaTree(node, layerlist=ALL_LAYERS):
                 return
             else:
                 log.info("Error handling JSON-LD schema tree: %s " % node)

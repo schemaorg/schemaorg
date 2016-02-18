@@ -1,4 +1,4 @@
-schema.org 2.1: see http://schema.org/version/2.1/
+schema.org 2.2: see http://schema.org/version/2.2/
 
 Github repository has full history: http://github.com/schemaorg/schemaorg
 

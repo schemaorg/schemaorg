@@ -17,10 +17,10 @@
 
 {% import 'ext.tpl' as ext with context %}
 
-{% if myhost in [ "sdo-phobos.appspot.com", "sdo-ganymede.appspot.com", "sdo-gozer.appspot.com", "sdo-tully.appspot.com", "sdo-lenny.appspot.com", "webschemas.org", "sdo-scripts.appspot.com", "localhost" ] %}
+{% if mybasehost in [ "sdo-deimos.appspot.com", "sdo-phobos.appspot.com", "sdo-ganymede.appspot.com", "sdo-gozer.appspot.com", "sdo-tully.appspot.com", "sdo-lenny.appspot.com", "webschemas.org", "sdo-scripts.appspot.com", "localhost" ] %}
 
 <p id="lli" class="layerinfo">
-Note: This is {{ myhost }}. you are viewing an unstable work-in-progress preview of <a href="http://schema.org/">schema.org</a>.
+Note: This is {{ mybasehost }}. you are viewing an unstable work-in-progress preview of <a href="http://schema.org/">schema.org</a>.
 See the draft <b><a href="{{staticPath}}/docs/releases.html">releases</a></b> page to learn more about this version.
 </p>
 
