@@ -2863,10 +2863,7 @@
 
     <div typeof="rdfs:Class" resource="http://schema.org/Recipe">
       <span class="h" property="rdfs:label">Recipe</span>
-      <span property="rdfs:comment">A recipe. For dietary restrictions covered by the recipe,
-      a few common restrictions are enumerated via &lt;a href="/suitableForDiet"&gt;suitableForDiet&lt;/a&gt;.
-      The &lt;a href="/keywords"&gt;keywords&lt;/a&gt; property can also be used to add more detail.
-    </span>
+      <span property="rdfs:comment">A recipe.</span>
        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/CreativeWork">CreativeWork</a></span>
     </div>
 
@@ -2898,67 +2895,6 @@
       <span class="h" property="rdfs:label">Restaurant</span>
       <span property="rdfs:comment">A restaurant.</span>
        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/FoodEstablishment">FoodEstablishment</a></span>
-    </div>
-
-    <div typeof="rdfs:Class" resource="http://schema.org/RestrictedDiet">
-      <span class="h" property="rdfs:label">RestrictedDiet</span>
-      <span property="rdfs:comment">A diet restricted to certain foods or preparations for cultural, religious, health or lifestyle reasons. </span>
-       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Enumeration">Enumeration</a></span>
-    </div>
-
-    <div typeof="http://schema.org/RestrictedDiet" resource="http://schema.org/DiabeticDiet">
-      <span class="h" property="rdfs:label">DiabeticDiet</span>
-      <span property="rdfs:comment">A diet appropriate for people with diabetes.</span>
-    </div>
-
-    <div typeof="http://schema.org/RestrictedDiet" resource="http://schema.org/GlutenFreeDiet">
-      <span class="h" property="rdfs:label">GlutenFreeDiet</span>
-      <span property="rdfs:comment">A diet exclusive of gluten.</span>
-    </div>
-
-    <div typeof="http://schema.org/RestrictedDiet" resource="http://schema.org/HalalDiet">
-      <span class="h" property="rdfs:label">HalalDiet</span>
-      <span property="rdfs:comment">A diet conforming to Islamic dietary practices.</span>
-    </div>
-
-    <div typeof="http://schema.org/RestrictedDiet" resource="http://schema.org/HinduDiet">
-      <span class="h" property="rdfs:label">HinduDiet</span>
-      <span property="rdfs:comment">A diet conforming to Hindu dietary practices, in particular, beef-free.</span>
-    </div>
-
-    <div typeof="http://schema.org/RestrictedDiet" resource="http://schema.org/KosherDiet">
-      <span class="h" property="rdfs:label">KosherDiet</span>
-      <span property="rdfs:comment">A diet conforming to Jewish dietary practices.</span>
-    </div>
-
-    <div typeof="http://schema.org/RestrictedDiet" resource="http://schema.org/LowCalorieDiet">
-      <span class="h" property="rdfs:label">LowCalorieDiet</span>
-      <span property="rdfs:comment">A diet focused on reduced calorie intake.</span>
-    </div>
-
-    <div typeof="http://schema.org/RestrictedDiet" resource="http://schema.org/LowFatDiet">
-      <span class="h" property="rdfs:label">LowFatDiet</span>
-      <span property="rdfs:comment">A diet focused on reduced fat and cholesterol intake.</span>
-    </div>
-
-    <div typeof="http://schema.org/RestrictedDiet" resource="http://schema.org/LowLactoseDiet">
-      <span class="h" property="rdfs:label">LowLactoseDiet</span>
-      <span property="rdfs:comment">A diet appropriate for people with lactose intolerance.</span>
-    </div>
-
-    <div typeof="http://schema.org/RestrictedDiet" resource="http://schema.org/LowSaltDiet">
-      <span class="h" property="rdfs:label">LowSaltDiet</span>
-      <span property="rdfs:comment">A diet focused on reduced sodium intake.</span>
-    </div>
-
-    <div typeof="http://schema.org/RestrictedDiet" resource="http://schema.org/VeganDiet">
-      <span class="h" property="rdfs:label">VeganDiet</span>
-      <span property="rdfs:comment">A diet exclusive of all animal products.</span>
-    </div>
-
-    <div typeof="http://schema.org/RestrictedDiet" resource="http://schema.org/VegetarianDiet">
-      <span class="h" property="rdfs:label">VegetarianDiet</span>
-      <span property="rdfs:comment">A diet exclusive of animal meat.</span>
     </div>
 
     <div typeof="rdfs:Class" resource="http://schema.org/Review">
@@ -9492,12 +9428,6 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/PeopleAudience">PeopleAudience</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number">Number</a></span>
     </div>
-    <div typeof="rdf:Property" resource="http://schema.org/suitableForDiet">
-      <span class="h" property="rdfs:label">suitableForDiet</span>
-      <span property="rdfs:comment">Indicates a dietary restriction or guideline for which this recipe is suitable, e.g. diabetic, halal etc.</span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Recipe">Recipe</a></span>
-      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/RestrictedDiet">RestrictedDiet</a></span>
-    </div>
     <div typeof="rdf:Property" resource="http://schema.org/superEvent">
       <span class="h" property="rdfs:label">superEvent</span>
       <span property="rdfs:comment">An event that this event is a part of. For example, a collection of individual music performances might each have a music festival as their superEvent.</span>
@@ -12670,29 +12600,6 @@ Typical unit code(s): C62 for persons </span>
   <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Intangible">Intangible</a></span>
 </div>
 
-<!-- Compound price extension from GoodRelations -->
-<div typeof="rdfs:Class" resource="http://schema.org/CompoundPriceSpecification">
-        <span class="h" property="rdfs:label">CompoundPriceSpecification</span>
-        <span property="rdfs:comment">A compound price specification is one that bundles multiple prices that all apply in combination for different dimensions of consumption. Use the name property of the attached unit price specification for indicating the dimension of a price component (e.g. "electricity" or "final cleaning").</span>
-        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/PriceSpecification">PriceSpecification</a></span>
-        <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsClass">GoodRelationsClass</a></span>
-</div>
-
-<div typeof="rdf:Property" resource="http://schema.org/priceComponent">
-    <span class="h" property="rdfs:label">priceComponent</span>
-    <span property="rdfs:comment">This property links to all UnitPriceSpecification nodes that apply in parallel for the CompoundPriceSpecification node.</span>
-    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CompoundPriceSpecification">CompoundPriceSpecification</a></span>
-    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/UnitPriceSpecification">UnitPriceSpecification</a></span>
-    <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsProperties">GoodRelationsProperty</a></span>
-</div>
-
-<div typeof="rdf:Property" resource="http://schema.org/referenceQuantity">
-    <span class="h" property="rdfs:label">referenceQuantity</span>
-    <span property="rdfs:comment">The reference quantity for which a certain price applies, e.g. 1 EUR per 4 kWh of electricity. This property is a replacement for unitOfMeasurement for the advanced cases where the price does not relate to a standard unit.</span>
-    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/UnitPriceSpecification">UnitPriceSpecification</a></span>
-    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/QuantitativeValue">QuantitativeValue</a></span>
-    <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsProperties">GoodRelationsProperty</a></span>
-</div>
 
 <!-- property name goes in schema:name -->
 <!-- unstructured textual properties or human-readable version should go in schema:description -->
