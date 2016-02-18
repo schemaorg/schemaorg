@@ -438,7 +438,7 @@ class ShowUnit (webapp2.RequestHandler):
 
     def emitUnitHeaders(self, node, layers='core'):
         """Write out the HTML page headers for this node."""
-        self.write("<h1 class=\"page-title\">\n")
+        self.write("<h1 property=\"rdfs:label\" class=\"page-title\">\n")
         self.write(node.id)
         self.write("</h1>")
         home = node.home
