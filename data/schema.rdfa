@@ -7638,6 +7638,12 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/DietarySupplement">DietarySupplement</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/MaximumDoseSchedule">MaximumDoseSchedule</a></span>
     </div>
+    <div typeof="rdf:Property" resource="http://schema.org/maxAmount">
+      <span class="h" property="rdfs:label">maxAmount</span>
+      <span property="rdfs:comment">The highest amount if the amount is a range.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MonetaryAmount">MonetaryAmount</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number">Number</a></span>
+    </div>
     <div typeof="rdf:Property" resource="http://schema.org/maxPrice">
       <span class="h" property="rdfs:label">maxPrice</span>
       <span property="rdfs:comment">The highest price if the price is a range.</span>
@@ -7650,7 +7656,6 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/QuantitativeValue">QuantitativeValue</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/PropertyValue">PropertyValue</a></span>
 	  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/PropertyValueSpecification">PropertyValueSpecification</a></span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MonetaryAmount">MonetaryAmount</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number">Number</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/mechanismOfAction">
@@ -7729,6 +7734,12 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Person">Person</a></span>
       <link property="http://schema.org/supersededBy" href="http://schema.org/seller"/>
     </div>
+    <div typeof="rdf:Property" resource="http://schema.org/minAmount">
+      <span class="h" property="rdfs:label">minAmount</span>
+      <span property="rdfs:comment">The lowest amount if the amount is a range.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MonetaryAmount">MonetaryAmount</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number">Number</a></span>
+    </div>
     <div typeof="rdf:Property" resource="http://schema.org/minPrice">
       <span class="h" property="rdfs:label">minPrice</span>
       <span property="rdfs:comment">The lowest price if the price is a range.</span>
@@ -7741,7 +7752,6 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/QuantitativeValue">QuantitativeValue</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/PropertyValue">PropertyValue</a></span>
 	  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/PropertyValueSpecification">PropertyValueSpecification</a></span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MonetaryAmount">MonetaryAmount</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number">Number</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/model">
@@ -9830,11 +9840,9 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
       <span class="h" property="rdfs:label">value</span>
       <span property="rdfs:comment">The value of the quantitative value or property value node.&lt;br/&gt;
 	For QuantitativeValue, the recommended type for values is &apos;Number&apos;. &lt;br/&gt;
-	For PropertyValue, it can be &apos;Text;&apos;, &apos;Number&apos;, &apos;Boolean&apos;, or &apos;StructuredValue&apos;. &lt;br/&gt;
-	For MonetaryAmount, it can be &apos;Number&apos;, or &apos;Float&apos;.</span>
+	For PropertyValue, it can be &apos;Text;&apos;, &apos;Number&apos;, &apos;Boolean&apos;, or &apos;StructuredValue&apos;. &lt;br/&gt;.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/QuantitativeValue">QuantitativeValue</a></span>
 	  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/PropertyValue">PropertyValue</a></span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MonetaryAmount">MonetaryAmount</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number">Number</a></span>
 	  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
 	  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Boolean">Boolean</a></span>
@@ -11961,6 +11969,7 @@ postponing for 1.6.
     <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/DatedMoneySpecification">DatedMoneySpecification</a></span>
     <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/LoanOrCredit">LoanOrCredit</a></span>
     <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/InvestmentOrDeposit">InvestmentOrDeposit</a></span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MonetaryAmount">MonetaryAmount</a></span>
     <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/MonetaryAmount">MonetaryAmount</a></span>
     <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number">Number</a></span>
   </div>
