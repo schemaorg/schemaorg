@@ -816,7 +816,7 @@ def config(cfg):
         ("google_appengine_{APPENGINESDK_VERSION}.zip"
          ).format(**cfg))
     cfg.setdefault(
-        "APPENGIENSDK_ARCHIVE_URL_PREFIX",
+        "APPENGINESDK_ARCHIVE_URL_PREFIX",
         "https://storage.googleapis.com/appengine-sdks/featured/")
     cfg.setdefault(
         "APPENGINESDK_ARCHIVE_URL",
