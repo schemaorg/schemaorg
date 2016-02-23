@@ -1,0 +1,20 @@
+
+{# Dockerfile.Debian.jinja #}
+{% extends "Dockerfile.base.jinja" %}
+
+{% block install_ospkgs %}
+RUN DEBIAN_FRONTEND=noninteractive \
+    apt-get update \
+    && apt-get upgrade -y \
+    && apt-get install --no-install-recommends -y \
+        sudo \
+        ca-certificates \
+        git \
+        language-pack-en \
+        make \
+        python \
+        unzip \
+        curl \
+        screen \
+        openssh-server
+{% endblock install_ospkgs %}

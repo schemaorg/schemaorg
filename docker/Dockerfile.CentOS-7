@@ -1,27 +1,22 @@
 
 
-#### Dockerfile.Ubuntu-15.04
-## | dockertag: Ubuntu-15.04
-## | Dockerfile: https://github.com/schemaorg/schemaorg/tree/sdo-deimos/docker/Dockerfile.Ubuntu-15.04
+#### Dockerfile.CentOS-7
+## | dockertag: CentOS-7
+## | Dockerfile: https://github.com/schemaorg/schemaorg/tree/sdo-deimos/docker/Dockerfile.CentOS-7
 
-#FROM ubuntu:15.04
-FROM  ubuntu:15.04
+#FROM centos:7
+FROM  centos:7
 
-
-RUN DEBIAN_FRONTEND=noninteractive \
-    apt-get update \
-    && apt-get upgrade -y \
-    && apt-get install --no-install-recommends -y \
-        sudo \
-        ca-certificates \
-        git \
-        language-pack-en \
-        make \
-        python \
-        unzip \
-        curl \
-        screen \
-        openssh-server
+RUN yum update -y && yum install -y \
+    sudo \
+    ca-certificates \
+    git \
+    make \
+    python \
+    unzip \
+    curl \
+    screen \
+    openssh-server
 
 ## ARGs and ENVs
 #   _USER='app'

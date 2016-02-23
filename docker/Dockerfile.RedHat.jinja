@@ -1,0 +1,17 @@
+
+{# Dockerfile.RedHat.jinja #}
+{% extends "Dockerfile.base.jinja" %}
+
+{% block install_ospkgs -%}
+{% set YUM="dnf" if os == "Fedora" else "yum" -%}
+RUN {{YUM}} update -y && {{YUM}} install -y \
+    sudo \
+    ca-certificates \
+    git \
+    make \
+    python \
+    unzip \
+    curl \
+    screen \
+    openssh-server
+{% endblock -%}

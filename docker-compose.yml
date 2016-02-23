@@ -1,0 +1,28 @@
+
+### docker-compose.yml for schemaorg/schemaorg-ubuntu-15.04
+# * ** This is not a production docker image. **
+# * This is for development and testing
+
+version: "2"
+
+services:
+  schemaorg:
+    build:
+      context: .
+      dockerfile: Dockerfile.ubuntu-15.04
+      args:
+        buildno: 1
+        #GITURL: https://github.com/schemaorg/schemaorg
+        #GITREV: sdo-deimos
+        GITURL: https://github.com/westurner/schemaorg
+        GITREV: feature/ext-course
+        _USER: app
+        _APP: schemaorg
+    ports:
+      - "8000:8000"
+      - "8080:8080"
+    volumes:
+      # _VAR_DB="/var/db:/var/db"
+      # _VAR_DATA="/var/data"
+      # _VAR_DATA="/home/app/data"
+      - /home/app/data:/home/app/data

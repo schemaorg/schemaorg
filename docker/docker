@@ -4,24 +4,22 @@
 ## | dockertag: Ubuntu-15.04
 ## | Dockerfile: https://github.com/schemaorg/schemaorg/tree/sdo-deimos/docker/Dockerfile.Ubuntu-15.04
 
-#FROM ubuntu:15.04
-FROM  ubuntu:15.04
+#FROM Ubuntu:15.04
+FROM  Ubuntu:15.04
 
 
-RUN DEBIAN_FRONTEND=noninteractive \
-    apt-get update \
-    && apt-get upgrade -y \
-    && apt-get install --no-install-recommends -y \
-        sudo \
-        ca-certificates \
-        git \
-        language-pack-en \
-        make \
-        python \
-        unzip \
-        curl \
-        screen \
-        openssh-server
+RUN apt-get update && apt-get upgrade -y
+RUN apt-get update && apt-get install -y \
+    sudo \
+    ca-certificates \
+    git \
+    language-pack-en \
+    make \
+    python \
+    unzip \
+    curl \
+    screen \
+    openssh-server
 
 ## ARGs and ENVs
 #   _USER='app'
@@ -32,6 +30,7 @@ ARG _APP="schemaorg"
 ENV _HOME="/home/${_USER}"
 #   _WRD='/home/app/schemaorg'
 ARG _WRD="${_HOME}/${_APP}"
+ENV GITDEST "${_WRD}"
 
 ## Setup
 RUN useradd -U -m "${_USER}"
@@ -44,15 +43,26 @@ USER ${_USER}
 WORKDIR "${_HOME}"
 
 
-ADD ./Makefile
-RUN make appenginesdk_install
+## set AppEngine SDK args (ARG requires Docker 1.9+, Compose 1.6+) 
+#ARG APPENGINESDK_VERSION=1.9.32
+ENV APPENGINESDK_VERSION=1.9.32
+ENV APPENGINESDK_ARCHIVE="google_appengine_${APPENGINESDK_VERSION}.zip"
+ENV APPENGINESDK_ARCHIVE_URL="https://storage.googleapis.com/appengine-sdks/featured/${APPENGINESDK_ARCHIVE}"
+ENV APPENGINESDK_BASEPATH="${_HOME}/google-cloud-sdk/platform"
+ENV APPENGINESDK_PREFIX="${APPENGINESDK_BASEPATH}/google_appengine"
+#ENV APPENGINESDK_PREFIX="/usr/local/google_appengine"
+
+## install AppEngine SDK
+RUN curl -f -s -S -O "${APPENGINESDK_ARCHIVE_URL}"
+RUN mkdir -p "${APPENGINESDK_PREFIX}"
+RUN unzip -q "${APPENGINESDK_ARCHIVE}" -d "${APPENGINESDK_BASEPATH}"
 
 ## install pip
 RUN curl -s -S -O https://bootstrap.pypa.io/get-pip.py
 RUN python ./get-pip.py --user
 
 ## install_app
-ADD . "${_WRD}"
+ADD . ${_WRD}
 ## RUN make install_pip_requirements
 # RUN python -m pip install --user rdflib
 RUN python -m pip install --user -r "${_WRD}/requirements.txt"

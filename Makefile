@@ -20,10 +20,7 @@ help:
 	install_requirements_tests \
 	clone_schemaorg \
 	test \
-	testext-course \
-	build-docker \
-	run-docker-interactive \
-	run-docker-background
+	testext-course 
 
 
 generate_PHONY:
@@ -133,31 +130,3 @@ testext-course:
 	PYTHONPATH=$(PYTHONPATH) \
 		$(MAKE) -C ./data/ext/course test
 
-## Docker
-
-DOCKER_REPOTAG='schemaorg/schemaorg-ubuntu-15.04'
-#DOCKER_ENV=
-DOCKER_BUILD_ARGS=--build-arg GITURL=$(GITURL) \
-				  --build-arg GITREV=$(GITREV)
-DOCKER_RUN_ARGS=-p 8000:8000 -p 8080:8080 -u app
-
-build-docker:
-	docker build -f Dockerfile.ubuntu-15.04 -t $(DOCKER_REPOTAG) \
-		$(DOCKER_BUILD_ARGS) \
-		.
-
-run-docker-interactive-bash:
-	docker run -i $(DOCKER_RUN_ARGS) -t $(DOCKER_REPOTAG) \
-		/bin/bash -i
-
-run-docker-interactive-dev_appserver:
-	docker run -i $(DOCKER_RUN_ARGS) -t $(DOCKER_REPOTAG) \
-		make dev_appserver
-
-run-docker-background-init:
-	docker run $(DOCKER_RUN_ARGS) -t $(DOCKER_REPOTAG) \
-		/sbin/init
-
-run-docker-background-dev_appserver:
-	docker run $(DOCKER_RUN_ARGS) -t $(DOCKER_REPOTAG) \
-		make dev_appserver
