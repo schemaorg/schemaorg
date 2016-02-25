@@ -184,7 +184,7 @@ def _print_buildsteps(buildsteps=BUILDSTEPS, debug=None):
         ctxt = OrderedDict()
         ctxt['name'] = get_obj_name(step) or ''
         ctxt['description'] = get_obj_description(step) or ''
-        yield "## {name} ##  {description}".format(**ctxt)
+        yield "## {name:24s} ##  {description}".format(**ctxt)
         if debug or log.level <= logging.DEBUG:
             ctxt['step'] = step
             yield "## {name} ## :: {step}".format(**ctxt)
@@ -215,8 +215,8 @@ class OrderedDict__(OrderedDict):
 DEFAULT_LOGGER = os.path.basename(__file__)
 logging.basicConfig(
     level=logging.DEBUG,
-    format='## %(levelname)-5s %(filename)s +%(lineno)-4s %(funcName)s()\n## %(message)s/#'
-)
+    format=('## %(levelname)-5s %(filename)s +%(lineno)-4s %(funcName)s()\n'
+            '#> %(message)s/#'))
 log = logging.getLogger(DEFAULT_LOGGER)
 
 ########
@@ -447,7 +447,7 @@ class BuildstepPlan(list):
                     depth=0):
         indentstr = '  ' * depth
         if printheader:
-            hdrstr = "##### {!s}results".format(
+            hdrstr = "##### {!s}".format(
                 (prefix + ' ') if prefix is not None else '')
             yield indentstr + ""
             yield indentstr + hdrstr
