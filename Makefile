@@ -61,7 +61,7 @@ appenginesdk_install:
 ## appengine installed in e.g. ~/google-cloud-sdk/platform/google_appengine
 GCLOUD_BASEPATH:=$(HOME)
 APPENGINESDK_BASEPATH:=$(GCLOUD_BASEPATH)/google-cloud-sdk/platform
-
+APPENGINESDK_PREFIX=$(APPENGINESDK_BASEPATH)/google_appengine
 APPENGINESDK_VERSION:=1.9.33
 APPENGINESDK_ARCHIVE:=google_appengine_$(APPENGINESDK_VERSION).zip
 APPENGINESDK_ARCHIVE_URL:=https://storage.googleapis.com/appengine-sdks/featured/$(APPENGINESDK_ARCHIVE)
@@ -79,13 +79,24 @@ appenginesdk_unzip:
 	unzip '$(APPENGINESDK_ARCHIVE)' -d '$(APPENGINESDK_BASEPATH)'
 
 appenginesdk_clean:
-	test -d '${APPENGINESDK_BASEPATH}/google_appengine' && \
-		rm -rf '${APPENGINESDK_BASEPATH}/google_appengine'
+	test -d '${APPENGINESDK_PREFIX}' && \
+		rm -rf '${APPENGINESDK_PREFIX}'
 
-APPENGINESDK_PATH=$(APPENGINESDK_BASEPATH)/google_appengine
+_HOME=${HOME}
+_APP:=schemaorg
+_WRD:='$(shell pwd)'
+_VAR=${_HOME}
+#_VAR="/var"
+_VAR_DATA=${_VAR}/data
+_VAR_DATA_APP=${_VAR_DATA}/${_APP}
 DEV_APPSERVER=$(APPENGINESDK_PATH)/dev_appserver.py
 dev_appserver:
-	$(DEV_APPSERVER) --automatic_restart True .
+	test -d "${_VAR_DATA_APP}" || mkdir -p "${_VAR_DATA_APP}"
+	$(DEV_APPSERVER) \
+		--automatic_restart=1 \
+		--skip_sdk_update_check=1 \
+		--storage_path="$(_VAR_DATA_APP)" \
+		${_WRD}
 
 run: dev_appserver
 
@@ -110,7 +121,7 @@ install_requirements_tests:
 	$(PYTHON) -m pip install -r ./requirements-test-extra.txt
 
 GITURL='https://github.com/schemaorg/schemaorg'
-GITREV=sdo-deimos
+GITREV='sdo-deimos'
 
 GITURL='https://github.com/westurner/schemaorg'
 GITREV="feature/ext-course"
@@ -123,4 +134,3 @@ clone_schemaorg:
 test:
 	@# python ./scripts/run_tests.py
 	PYTHONPATH=$(PYTHONPATH) $(PYTHON) ./scripts/run_tests.py
-	$(MAKE) testext-course
