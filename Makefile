@@ -89,7 +89,7 @@ _VAR=${_HOME}
 #_VAR="/var"
 _VAR_DATA=${_VAR}/data
 _VAR_DATA_APP=${_VAR_DATA}/${_APP}
-DEV_APPSERVER=$(APPENGINESDK_PATH)/dev_appserver.py
+DEV_APPSERVER=$(APPENGINESDK_PREFIX)/dev_appserver.py
 dev_appserver:
 	test -d "${_VAR_DATA_APP}" || mkdir -p "${_VAR_DATA_APP}"
 	$(DEV_APPSERVER) \
