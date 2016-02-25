@@ -184,10 +184,10 @@ def _print_buildsteps(buildsteps=BUILDSTEPS, debug=None):
         ctxt = OrderedDict()
         ctxt['name'] = get_obj_name(step) or ''
         ctxt['description'] = get_obj_description(step) or ''
-        yield "## {name:24s} ##  {description}".format(**ctxt)
+        yield "## {name:24s} ## {description}".format(**ctxt)
         if debug or log.level <= logging.DEBUG:
             ctxt['step'] = step
-            yield "## {name} ## :: {step}".format(**ctxt)
+            yield "## {name:24s} ## :: {step}".format(**ctxt)
 
 
 def print_buildsteps(buildsteps=BUILDSTEPS, debug=None):
