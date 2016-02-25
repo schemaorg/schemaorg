@@ -261,8 +261,8 @@ def json_dumps(obj, *args, **kwargs):
     kwargs.setdefault('skipkeys', True)
     return json.dumps(obj, *args, **kwargs)
 
-##########################################################
-# BuildstepResult, BuildstepResultList, BuildstepBuilder
+###################################################################
+# BuildstepBuilder, BuildstepPlan, BuildstepStep, BuildstepResult
 
 
 class BuildstepResult(object):
@@ -280,6 +280,8 @@ class BuildstepResult(object):
         if name is None:
             if step is not None:
                 name = get_obj_name(step)
+        # if name is None:
+        #     raise ValueError(('name is None'))
         self.data['name'] = name
         self.data['step'] = step
         if conf is not UNSET:
@@ -323,14 +325,22 @@ class BuildstepResult(object):
         else:
             return None
 
-    def _repr_checkbox_(self, prefix=None, debug=None):
-        msg = self.data.get('msg')
-        name = get_obj_name(self)
+    def _repr_checkbox_(self,
+                        name=UNSET,
+                        success=UNSET,
+                        msg=UNSET,
+                        debug=None):
+        name = self.name if name is UNSET else name
+        success = self.success if success is UNSET else success
+        msg = self.data.get('msg') if msg is UNSET else msg
         if debug is None:
             debug = getattr(self, 'debug', None)
-        return "+ [{}] {}{}{}".format(
+        if name is None:
+            name = get_obj_name(self.data['step'], default=None)
+        if name is None:
+            raise ValueError(('name is  None', self))
+        return "+ [{}] {}{}".format(
             'X' if self.success else ' ',
-            prefix if prefix is not None else '',
             name,
             ((('\n' + '\n'.join(
                 _indent_linestr(str(msg), 1, '        ')))
@@ -383,10 +393,21 @@ class BuildstepStep(object):
         self.data['result'] = value
 
     @property
+    def name(self):
+        return self.data['name']
+
+    @name.setter
+    def name(self, value):
+        self.data['name'] = value
+
+    @property
     def success(self):
         if 'result' not in self.data:
             return None
         return self.data['result'].success
+
+    def _repr_checkbox_(self, indentstr=''):
+        return '{}+ [ ] {name}'.format(indentstr, name=self.name)
 
 
 class BuildstepPlan(list):
@@ -430,6 +451,8 @@ class BuildstepPlan(list):
             raise ValueError(
                 ('step', step, 'is not a BuildstepStep or a 2-tuple/list'))
         log.info(('step', (step)))
+        if step.name is None:
+            step.name = get_obj_name(func)
         return super(BuildstepPlan, self).append(step)
 
     def extend(self, results):
@@ -443,15 +466,17 @@ class BuildstepPlan(list):
     def __print_all(self, argv,
                     printheader=True,
                     prefix=None,
+                    hdrstr=None,
                     objs=None,
                     depth=0):
         indentstr = '  ' * depth
+        hdrstr = prefix if hdrstr is None else hdrstr
         if printheader:
-            hdrstr = "##### {!s}".format(
-                (prefix + ' ') if prefix is not None else '')
+            _hdrstr = "##### {!s}".format(
+                (hdrstr + ' ') if hdrstr is not None else '')
             yield indentstr + ""
-            yield indentstr + hdrstr
-            yield indentstr + '#' * len(hdrstr)
+            yield indentstr + _hdrstr
+            yield indentstr + '#' * len(_hdrstr)
         else:
             yield ''
         yield indentstr + '- ### args: {!r}'.format(argv)
@@ -471,9 +496,13 @@ class BuildstepPlan(list):
                     raise ValueError((type(obj), obj))
                 # TODO step._repr_checkbox_
                 if result is None:
-                    yield indentstr + '+ [ ] {name}'.format(**obj.data)
+                    if obj:
+                        if hasattr(obj, '_repr_checkbox_'):
+                            yield indentstr + obj._repr_checkbox_()
+                        else:
+                            yield indentstr + '+ [ ] {!s}'.format(obj)
                     continue
-                yield indentstr + result._repr_checkbox_(prefix=prefix)
+                yield indentstr + result._repr_checkbox_()
                 if 'returnvalue' in result.data:
                     subresults = result.data['returnvalue'].get('results')
                     if subresults is not None:
@@ -513,24 +542,10 @@ class BuildstepBuilder(object):
     def __init__(self, steps=None, cfg=None, result_cls=BuildstepResult):
         self.steps = BuildstepPlan() if steps is None else BuildstepPlan(steps)
         self.cfg = OrderedDict() if steps is None else cfg
+        self.results = None
         self.result_cls = BuildstepResult
 
-    def build_iter(self, cfg=None, steps=None):
-        if cfg is None:
-            cfg = self.cfg
-        if steps is None:
-            steps = self.steps
-        for step in steps:
-            stepresult = step.data['func'](cfg)
-            if not isinstance(stepresult, self.result_cls):
-                raise ValueError(
-                    ('stepresult', stepresult,
-                        'is not a {!r}'.format(self.result_cls)))
-            stepresult.name = step.data['name']
-            stepresult.step = step
-            yield stepresult
-
-    def build_plan_iter(self, cfg=None, steps=None): #TODO rename
+    def iter_build(self, cfg=None, steps=None):
         cfg = self.cfg if cfg is None else cfg
         steps = self.steps if steps is None else steps
         for step in steps:
@@ -538,18 +553,32 @@ class BuildstepBuilder(object):
             args.extend(step.data.get('args', []))
             kwargs = step.data.get('kwargs', {})
             func = step.data['func']
-            step.result = func(*args, **kwargs)
-            step.result.name = step.data['name']
+            result = func(*args, **kwargs)
+            result.name = step.data['name']
+            if not isinstance(result, self.result_cls):
+                raise ValueError(
+                    ('stepresult', result,
+                        'is not a {!r}'.format(self.result_cls)))
+            step.result = result
             yield step
 
     def build_plan(self, cfg=None, steps=None):
-        return BuildstepPlan(self.build_plan_iter(cfg=cfg, steps=steps))
+        return BuildstepPlan(self.iter_build(cfg=cfg, steps=steps))
 
-    def build(self, cfg=None, steps=None):
-        return list(self.build_iter(cfg=cfg, steps=steps))
+    def build(self, cfg=None, steps=None, name=None):
+        results = self.build_plan(cfg=cfg, steps=steps)
+        returncode = 0 if results.success else 1
+        return BuildstepResult(
+            name=name,
+            returncode=returncode,
+            returnvalue=OrderedDict__([
+                ('results', results)]))
 
     def data(self):
-        return [('cfg', self.cfg), ('steps', self.steps)]
+        return OrderedDict__(
+            [('cfg', self.cfg),
+             ('steps', self.steps),
+             ('results', self.results)])
 
     def append(self, *args, **kwargs):
         return self.steps.append(*args, **kwargs)
@@ -647,7 +676,7 @@ def makedirs(path, filemode=None):
     Args:
         path (str):
     Kwargs:
-        filemode (int): default filemode (e.g. ``0o771``)
+        filemode (int): default filemode (e.g. ``0o751``)
     Returns:
         BuildstepResult
     """
@@ -663,7 +692,9 @@ def makedirs(path, filemode=None):
                 success = False
     else:
         success = True
-        # XXX os.chmod(path, filemode %^? os.umask.current)
+    if filemode is not None:
+        if os.access(path, os.W_OK):
+            os.chmod(path, filemode)
     returncode = 0 if success is True else 1
     return BuildstepResult(
         returncode=returncode,
@@ -904,20 +935,12 @@ def clean(cfg):
 @buildstep
 def install(cfg):
     """install AppEngine SDK [clean, download_zip, unzip] """
-    steps = [
-        # open_download_url,
+    return BuildstepBuilder(steps=[
+        # open_download_url,  # --open-download
         clean,
         download_zip,
         unzip
-    ]
-    bldr = BuildstepBuilder(steps=steps)
-    results = BuildstepPlan()
-    results.extend(bldr.build())
-    returncode = 0 if results.success else 1
-    return BuildstepResult(
-        returncode=returncode,
-        returnvalue=OrderedDict__([
-            ('results', results)]))
+    ]).build(cfg, name="install")
 
 
 @buildstep
@@ -1043,20 +1066,13 @@ def check(cfg):
     def _check_exists(key, cfg=cfg):
         bldr.append(func=check_env_key_path_exists,
                     args=(key, cfg))
-
     _check_exists('APPENGINESDK_PREFIX')
     _check_exists('DEV_APPSERVER')
     _check_exists('_VAR_DATA')
     _check_exists('APPENGINESDK_ARCHIVE_DESTDIR')
     _check_exists('APPENGINESDK_ARCHIVE_PATH')
-
     bldr.append(('version_info', version_info))
-    results = bldr.build_plan(cfg=cfg)
-    returncode = 0 if results.success else 1
-    return BuildstepResult(
-        returncode=returncode,
-        returnvalue=OrderedDict__([
-            ('results', results)]))
+    return bldr.build(cfg, name="check")
 
 
 @buildstep
@@ -1088,11 +1104,16 @@ def open_docs_urls(cfg):
 
 import unittest
 
+
 class TestInstallAppengineSDK(unittest.TestCase):
 
     def setUp(self):
+        log = logging.getLogger(DEFAULT_LOGGER)
+        if 'DEBUG' in os.environ and os.environ['DEBUG']:
+            log.setLevel(logging.DEBUG)
         cfg = OrderedDict()
         cfg['APPENGINESDK_ARCHIVE_URL_PREFIX'] = 'http://localhost:8082/'
+        config(cfg)
         self._base_cfg = cfg
 
     def assertReturncode(self, func, *args, **kwargs):
@@ -1112,12 +1133,9 @@ class TestInstallAppengineSDK(unittest.TestCase):
             self.assertReturncode(main, ['-h'])
             self.assertReturncode(main, ['--help'])
 
-    def test_main_001_list_build_steps(self):
+    def test_main_001_list_steps(self):
         self.assertReturncode(main, ['--list-steps'])
         self.assertReturncode(main, ['--list-steps', '-v'])
-
-    def test_main_002_config(self):
-        self.assertReturncode(main, ['--config'])
 
     def test_main_010_get_object_name(self):
         TESTNAME1 = 'testname1'
@@ -1157,36 +1175,38 @@ class TestInstallAppengineSDK(unittest.TestCase):
         self.assertEqual(get_obj_description(_func1), TESTDESCRIPTION1)
         self.assertEqual(get_obj_description(_funcnone), None)
 
+    def test_main_100_clean_(self):
+        self.assertReturncode(main, ['--clean'])
 
-    def test_main_102_clean_(self):
-        self.assertReturncode(main, ['--clean', '--install'])
-
-    def test_main_102_clean(self):
+    def test_main_101_download_(self):
         self.assertReturncode(main, ['--clean', '--download'])
-        self.assertReturncode(main, ['--clean', '--download', '--unzip'])
+
+    def test_main_102_clean_download_unzip(self):
+        self.assertReturncode(main, ['--unzip'])
         with self.assertRaises(Exception):
             self.assertReturncode(main, ['--unzip'])
         self.assertReturncode(main, ['--clean', '--unzip'])
 
-    def test_main_103_clean_install(self):
-        self.assertReturncode(main, ['--clean', '--install'])
-
-    def test_main_102_print_env(self):
-        self.assertReturncode(main, ['--clean', '--install'])
-        self.assertReturncode(main, ['--print-env'])
-        self.assertReturncode(main, ['--print-env', '-q'])
-        self.assertReturncode(main, ['--print-env-all'])
-        self.assertReturncode(main, ['--print-env-all', '-q'])
-
-    def test_main_101_print_version(self):
-        self.assertReturncode(main, ['--clean', '--install'])
+    def test_main_103_print_version(self):
         self.assertReturncode(main, ['--print-version'])
         self.assertReturncode(main, ['--print-version', '-q'])
+        self.assertReturncode(main, ['-s', 'print_version'])
 
-    def test_main_102_install_s_print_env_all_check(self):
-        self.assertReturncode(main, ['--install', '-s', 'print_env_all'])
-        self.assertReturncode(main, ['-s', 'check'])
+    def test_main_104_print_env(self):
+        self.assertReturncode(main, ['--print-env'])
+        self.assertReturncode(main, ['--print-env', '-q'])
+        self.assertReturncode(main, ['-s', 'print_env'])
+
+    def test_main_105_print_env_all(self):
+        self.assertReturncode(main, ['--print-env-all'])
+        self.assertReturncode(main, ['--print-env-all', '-q'])
+        self.assertReturncode(main, ['-s', 'print_env_all'])
+
+    def test_main_106_check(self):
         self.assertReturncode(main, ['--check'])
+        self.assertReturncode(main, ['-s', 'check'])
+
+    def test_main_107_empty_step_err(self):
         with self.assertRaises(SystemExit):
             self.assertReturncode(main, ['-s'])
 
@@ -1195,11 +1215,6 @@ def main(argv=None, stdout=sys.stdout, stderr=sys.stderr, cfg=None):
     import optparse
     prs = optparse.OptionParser(
         usage="%prog [--config] [--install] [--download|--unzip]")
-    prs.add_option('--config',
-                   dest='config',
-                   default=True,
-                   action='store_true',
-                   help='Print configuration variables')
     prs.add_option('--check',
                    dest='check',
                    action='store_true',
@@ -1227,7 +1242,7 @@ def main(argv=None, stdout=sys.stdout, stderr=sys.stderr, cfg=None):
                    help='Run a named step (see: --list-steps)')
 
     prs.add_option('--environ',
-                   dest='read_from_environ',
+                   dest='config_from_environ',
                    action='store_true',
                    help='Read environment variables from os.environ into cfg')
 
@@ -1269,7 +1284,7 @@ def main(argv=None, stdout=sys.stdout, stderr=sys.stderr, cfg=None):
                    help=("Open the AppEngine SDK docs URL(s) in browser tabs"))
 
     prs.add_option('--list-steps',
-                   dest='list_build_steps',
+                   dest='print_buildsteps',
                    action='store_true',
                    help='Print @buildstep-decorated build functions')
 
@@ -1306,6 +1321,9 @@ def main(argv=None, stdout=sys.stdout, stderr=sys.stderr, cfg=None):
     if opts.test:
         return unittest.main(argv=[sys.argv[0]]+args, exit=False)
 
+    if opts.print_buildsteps:
+        print_buildsteps()
+
     if cfg is None:
         cfg = collections.OrderedDict()
 
@@ -1313,39 +1331,22 @@ def main(argv=None, stdout=sys.stdout, stderr=sys.stderr, cfg=None):
         cfg['APPENGINESDK_VERSION'] = opts.APPENGINESDK_VERSION
 
     cfg['FORCE_DOWNLOAD'] = opts.force_download
-    # cfg['opts'] = opts.__dict__
 
     plan = BuildstepPlan()
 
-    if opts.list_build_steps:
-        print_buildsteps()
+    if opts.config_from_environ:
+        plan.append(config_from_environ)
 
-    if opts.read_from_environ:
-        plan.append(
-            ('config_from_environ',
-                config_from_environ))
-
-    if opts.install or opts.config:
-        plan.append(
-            ('config',
-                config))
+    plan.append(config)
 
     if opts.install or opts.check:
-        plan.append(
-            ('check/before',
-                check))
+        plan.append(('check:before', check))
     if opts.install or opts.clean:
-        plan.append(
-            ('clean',
-                clean))
+        plan.append(clean)
     if opts.install or opts.download:
-        plan.append(
-            ('download_zip',
-                download_zip))
+        plan.append(download_zip)
     if opts.install or opts.unzip:
-        plan.append(
-            ('unzip',
-                unzip))
+        plan.append(unzip)
     if opts.steps:
         for name in opts.steps:
             matching_steps = get_buildstep(name)
@@ -1356,28 +1357,18 @@ def main(argv=None, stdout=sys.stdout, stderr=sys.stderr, cfg=None):
 
     if opts.install or (opts.check and any(
             (opts.install, opts.clean, opts.download, opts.unzip))):
-        plan.append(
-            ('check/after',
-                check))
+        plan.append(('check:after', check))
 
     if opts.install or opts.print_env_all:
-        plan.append((
-            'print_env_all',
-                print_env_all))
+        plan.append(print_env_all)
 
     if opts.print_env:
-        plan.append((
-            'print_env',
-                print_env))
+        plan.append(print_env)
 
     if opts.open_download:
-        plan.append((
-            'open_download_url',
-                open_download_url))
+        plan.append(open_download_url)
     if opts.open_docs:
-        plan.append((
-            'open_docs_urls',
-                open_docs_urls))
+        plan.append(open_docs_urls)
 
     if opts.print_version:
         result = version_info(cfg)
@@ -1387,20 +1378,19 @@ def main(argv=None, stdout=sys.stdout, stderr=sys.stderr, cfg=None):
     if not opts.quiet:
         # print(plan)
         if not (len(plan) == 1 and plan[0].data['name'] == 'config'):
-            plan.print_all(argv=_argv, file=stdout)
+            plan.print_all(argv=_argv, file=stdout, prefix='check:before/')
 
     for step in plan:
         args = [cfg]
         args.extend(step.data.get('args', []))
         kwargs = step.data.get('kwargs', {})
         func = step.data['func']
-        name = step.data['name']
         step.result = func(*args, **kwargs)
 
     if not opts.quiet:
         # print(plan)
         if not (len(plan) == 1 and plan[0].data['name'] == 'config'):
-            plan.print_all(argv=_argv, file=stdout)
+            plan.print_all(argv=_argv, file=stdout, prefix='check:after/')
 
     retcode = 0 if plan.success else 1
     return retcode
