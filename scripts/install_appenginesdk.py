@@ -50,7 +50,7 @@ Google AppEngine Links:
 * https://cloud.google.com/appengine/docs/python/
 """
 __version__ = version = "0.1.0"
-APPENGINESDK_VERSION_DEFAULT = "1.9.32"  # --version='x.y.z'
+APPENGINESDK_VERSION_DEFAULT = "1.9.33"  # --version='x.y.z'
 # APPENGINESDK_FILEMODE_DEFAULT = 0o777
 APPENGINESDK_FILEMODE_DEFAULT = 0o751
 # APPENGINESDK_FILEMODE_DEFAULT = 0o771
