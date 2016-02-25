@@ -1,0 +1,37 @@
+
+<div vocab="http://schema.org/"
+  prefix="schema: http://schema.org/
+          rdfa: http://www.w3.org/ns/rdfa#">
+  <!-- xml:base="http://schema.org/CourseUnit#examples##" -->
+  <div typeof="Course" about="#course-name">
+    <h1 property="name" id="course-name">Course name</h1>
+    <div>
+      <h2>Description</h2>
+      <p property="description">Course description</p>
+    </div>
+    <div typeof="CourseUnit ItemList" about="#unit-1" resource="#unit-1x">
+      <h2 property="name" id="unit-1">Unit 1</h2>
+      <div property="itemListElement" typeof="CourseUnit ItemList" about="#unit-1.1">
+        <h3 property="name" id="unit-1.1-syllabus">Unit 1.1: Syllabus</h3>
+        <div property="itemListElement" typeof="CreativeWork ListItem" about="#syllabus-pdf">
+          <span property="name">Course name syllabus [PDF]</span>
+          <a href="syllabus-yyyy-mm-dd.pdf" property="url">
+            syllabus-yyyy-mm-dd.pdf
+          </a>
+        </div>
+      </div>
+    </div>
+    <div typeof="CourseUnit ItemList" about="#unit-2">
+      <h2 property="name" id="unit-2">Unit 2</h2>
+    </div>
+    <div typeof="CourseUnit ItemList" about="#unit-3">
+      <h2 property="name" id="unit-3">Unit 3</h2>
+
+      <div typeof="CourseUnit ItemList" about="#unit-3.1">
+        <div property="itemListElement" typeof="ListItem CreativeWork" about="#unit-3-summary">
+          <span property="name" id="unit-3-summary">Unit 3 Summary</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
