@@ -99,11 +99,6 @@ def buildstep(f):
                                     get_obj_name(result))))
         log.debug(json_dumps(ctxt))
         log.debug('## </buildstep> ###########')
-        #name = getattr(result, 'name', None)
-        # if name is None:
-        #     name = kwargs.get('name', get_obj_name(result))
-        #     if name is None:
-        #         name = get_obj_name(f)
         del ctxt
         return result
     return _buildstep
@@ -513,77 +508,6 @@ class BuildstepPlan(list):
         return "BuildstepPlan([%s])" % json_dumps(self)
 
 
-# class BuildstepResultList(list):
-
-#     def append(self, result):
-#         if isinstance(result, BuildstepResult):
-#             name_result = (result.name, result)
-#         elif (isinstance(result, (tuple, list))
-#               and len(result) == 2
-#               and isinstance(result[1], BuildstepResult)):
-#             name_result = result
-#         else:
-#             raise ValueError(
-#                 ('result', result, 'is not a BuildstepResult'))
-#         log.info(('result', (name_result)))
-#         return super(BuildstepResultList, self).append(name_result)
-
-#     def extend(self, results):
-#         for result in results:
-#             self.append(result)
-
-#     def __print_all(self, argv,
-#                     printheader=True,
-#                     prefix=None,
-#                     results=None,
-#                     depth=0):
-#         indentstr = '  ' * depth
-#         if printheader:
-#             hdrstr = "##### {!s}results".format(
-#                 (prefix + ' ') if prefix is not None else '')
-#             yield indentstr + ""
-#             yield indentstr + hdrstr
-#             yield indentstr + '#' * len(hdrstr)
-#         else:
-#             yield ''
-#         yield indentstr + '- ### args: {!r}'.format(argv)
-#         if results is None:
-#             results = self
-#         for (name, result) in results:
-#             yield indentstr + result._repr_checkbox_(prefix=prefix)
-#             if 'returnvalue' in result.data:
-#                 subresults = result.data['returnvalue'].get('results')
-#                 if subresults is not None:
-#                     for subresult in self.__print_all(
-#                             argv=argv,
-#                             results=subresults,
-#                             printheader=False,
-#                             depth=depth+1):
-#                         yield subresult
-#                     yield ''
-#         yield ''
-
-#     def _print_all(self, argv, prefix=None, depth=0):
-#         return _indent_lineiter(
-#             self.__print_all(argv, prefix=prefix),
-#             depth=depth)
-
-#     def print_all(self, argv, prefix=None, depth=0, file=None):
-#         for obj in self._print_all(argv, prefix=prefix, depth=depth):
-#             print(obj, file=file)
-
-#     @property
-#     def success(self):
-#         return all(result.success for (name, result) in self)
-
-#     @property
-#     def data(self):
-#         return self
-
-#     def __repr__(self):
-#         return "BuildstepResultList([%s])" % json_dumps(self)
-
-
 class BuildstepBuilder(object):
 
     def __init__(self, steps=None, cfg=None, result_cls=BuildstepResult):
@@ -676,7 +600,6 @@ def subprocess_call_expect(cmd, *args, **kwargs):
                  ('retcode', retcode),
                  ('expectreturncode', expectreturncode)])
     return retcode
-    #return BuildstepResult(returncode=retcode)
 
 
 def _rm_r(path):
@@ -763,12 +686,18 @@ def download_file(url=None,
         destfile (str): destination path to expect file to be downloaded to
     Returns:
         tuple: (success:bool, cmd:str)
+
+    .. warning::  With ``force=True``, this function
+        **deletes** ``destfile`` *before* the download
+
+    .. code:: bash
+
+        curl -S -O "${url}"
     """
     if url is None:
         raise ValueError((url, 'is None'))
     if destdir is None:
         raise ValueError((destdir, 'is None'))
-    # curl -S --continue - -O '$(APPENGINESDK_ARCHIVE_URL)'
     skip_download = None
     result = makedirs(destdir, dirmode)
     if not result.success:
@@ -1021,8 +950,9 @@ def download_zip(cfg):
 
 @buildstep
 def unzip(cfg):
-    filemode = cfg.get('APPENGINESDK_FILEMODE',
-                        APPENGINESDK_FILEMODE_DEFAULT)
+    filemode = cfg.get(
+        'APPENGINESDK_FILEMODE',
+        APPENGINESDK_FILEMODE_DEFAULT)
     archive_path = cfg['APPENGINESDK_ARCHIVE_PATH']
     basepath = cfg['APPENGINESDK_BASEPATH']
     if not (os.path.exists(archive_path) and os.path.isfile(archive_path)):
@@ -1033,9 +963,9 @@ def unzip(cfg):
         os.makedirs(cfg['APPENGINESDK_BASEPATH'], filemode)
     prefix = cfg['APPENGINESDK_PREFIX']
     if os.path.exists(prefix):
-        raise AssertionError(('APPENGINESDK_PREFIX already exists',
-                         ('APPENGINESDK_PREFIX',
-                          cfg['APPENGINESDK_PREFIX'])))
+        raise AssertionError(
+            ('APPENGINESDK_PREFIX already exists',
+                ('APPENGINESDK_PREFIX', cfg['APPENGINESDK_PREFIX'])))
     cmd = ('unzip', '-q',
            cfg['APPENGINESDK_ARCHIVE_PATH'],
            '-d', cfg['APPENGINESDK_BASEPATH'])
@@ -1043,7 +973,7 @@ def unzip(cfg):
     retcode = subprocess_call_expect(
         cmd,
         cwd=cwd,
-        expectreturncode=0)  # XXX TODO
+        expectreturncode=0)
     return BuildstepResult(
         returncode=retcode,
         returnvalue=OrderedDict__([
