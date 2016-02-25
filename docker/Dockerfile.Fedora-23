@@ -39,7 +39,7 @@ USER ${_USER}
 WORKDIR "${_HOME}"
 
 
-ADD ./Makefile
+ADD ./Makefile ./Makefile
 RUN make appenginesdk_install
 
 ## install pip
