@@ -83,8 +83,7 @@ def main(sdk_path, test_path, args):
     else:
         suite = unittest.loader.TestLoader().discover(test_path, pattern="test*.py")
 
-    results = unittest.TextTestRunner(verbosity=2).run(suite)
-    return results
+    return unittest.TextTestRunner(verbosity=2).run(suite)
 
 
 
@@ -102,5 +101,10 @@ if __name__ == '__main__':
     print SDK_PATH
     TEST_PATH = "./tests/"
 
-    sys.exit(main(SDK_PATH, TEST_PATH, args))
-
+    results = main(SDK_PATH, TEST_PATH, args)
+    errorcount = (
+        len(results.errors)
+        + len(results.failures)
+        + len(results.unexpectedSuccesses))
+    returncode = 0 if errorcount == 0 else 1
+    sys.exit(returncode)
