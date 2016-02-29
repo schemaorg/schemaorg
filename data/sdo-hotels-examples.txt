@@ -32,7 +32,9 @@ enjoying your morning coffee.</span>
   </div>
   Phone: <span itemprop="telephone">+43 512 8000-0</span>
   <img itemprop="photo" src="../media/hotel_front.png" alt="Front view of the hotel" />
-  Star rating: <meta itemprop="starRating" content="4">****
+  Star rating: <div itemprop="entityRating" itemscope itemtype="http://schema.org/Rating">
+    <meta itemprop="http://schema.org/ratingValue" content="4" />****
+  </div>
   Room rates: <span itemprop="priceRange">$100 - $240</span>
 </div>
 
@@ -51,7 +53,9 @@ enjoying your morning coffee.</span>
   </div>
   Phone: <span property="telephone">+43 512 8000-0</span>
   <img property="photo" src="../media/hotel_front.png" alt="Front view of the hotel" />
-  Star rating: <meta property="starRating" content="4">****
+  Star rating: <div property="entityRating" typeOf="Rating">
+    <meta property="ratingValue" content="4" />****
+  </div>
   Room rates: <span property="priceRange">$100 - $240</span>
 </div>
 
@@ -73,12 +77,13 @@ enjoying your morning coffee.",
                },
   "telephone" :  "+43 512 8000-0",
   "photo" : "http://www.acme-innsbruck.at//media/hotel_front.png",
-  "starRating" : "4",
+  "entityRating" : {
+    "@type": "Rating",
+    "ratingValue": "4"
+  },
   "priceRange" : "$100 - $240"
 }
 </script>
-
-TYPES: starRating
 
 PRE-MARKUP:
 <h1>ACME Hotel Innsbruck</h1>
@@ -95,7 +100,9 @@ MICRODATA:
   <span itemprop="description">A beautifully located business hotel right in the
 heart of the alps. Watch the sun rise over the scenic Inn valley while
 enjoying your morning coffee.</span>
-  Star rating: <meta itemprop="starRating" content="4">****
+  Star rating: <div itemprop="entityRating" itemscope itemtype="http://schema.org/Rating">
+    <meta itemprop="http://schema.org/ratingValue" content="4" />****
+  </div>
   Room rates: <span itemprop="priceRange">$100 - $240</span>
 </div>
 
@@ -104,8 +111,6 @@ This example is in microdata only.
 
 JSON:
 This example is in microdata only.
-
-TYPES: starRating
 
 PRE-MARKUP:
 <h1>ACME Hotel Innsbruck</h1>
@@ -122,10 +127,10 @@ MICRODATA:
   <span itemprop="description">A beautifully located business hotel right in the
 heart of the alps. Watch the sun rise over the scenic Inn valley while
 enjoying your morning coffee.</span>
-  Star rating: <link itemprop="starRating" itemscope itemtype="http://schema.org/PropertyValue">
-    <meta itemprop="name" content="DEHOGA">
-    <meta itemprop="value" content="4">****
-  </link>
+  Star rating: <div itemprop="entityRating" itemscope itemtype="http://schema.org/Rating">
+    <meta itemprop="author" content="DEHOGA">
+    <meta itemprop="http://schema.org/ratingValue" content="4" />****
+  </div>
   Room rates: <span itemprop="priceRange">$100 - $240</span>
 </div>
 
@@ -264,7 +269,7 @@ This example is in microdata only.
 JSON:
 This example is in microdata only.
 
-TYPES: feature, AccommodationFeature
+TYPES: accommodationFeature, AccommodationFeatureSpecification
 
 PRE-MARKUP:
 This example is in microdata only.
@@ -277,11 +282,11 @@ heart of the alps. Watch the sun rise over the scenic Inn valley while
 enjoying your morning coffee.</span>
   Hotel Features:
   <ul>
-  <li itemprop="feature" itemscope itemtype="http://schema.org/AccommodationFeature">
+  <li itemprop="accommodationFeature" itemscope itemtype="http://schema.org/AccommodationFeatureSpecification">
     <span itemprop="name">Sauna</span>
     <meta itemprop="value" content="True">
   </li>
-  <li itemprop="feature" itemscope itemtype="http://schema.org/AccommodationFeature">
+  <li itemprop="accommodationFeature" itemscope itemtype="http://schema.org/AccommodationFeatureSpecification">
     <span itemprop="name">Gym</span>
     <meta itemprop="value" content="True">
   </li>
@@ -294,7 +299,7 @@ This example is in microdata only.
 JSON:
 This example is in microdata only.
 
-TYPES: feature, AccommodationFeature, availabilityTimes
+TYPES: accommodationFeature, AccommodationFeatureSpecification, hoursAvailable
 
 PRE-MARKUP:
 This example is in microdata only.
@@ -307,10 +312,10 @@ heart of the alps. Watch the sun rise over the scenic Inn valley while
 enjoying your morning coffee.</span>
   Hotel Features:
   <ul>
-  <li itemprop="feature" itemscope itemtype="http://schema.org/AccommodationFeature">
+  <li itemprop="accommodationFeature" itemscope itemtype="http://schema.org/AccommodationFeatureSpecification">
     <span itemprop="name">Sauna</span>
     <meta itemprop="value" content="True">
-    <div itemprop="availabilityTimes" itemtype="http://schema.org/OpeningHoursSpecification">
+    <div itemprop="hoursAvailable" itemtype="http://schema.org/OpeningHoursSpecification">
       <link itemprop="dayOfWeek" href="http://purl.org/goodrelations/v1#Thursday" />(Open Thursdays 
       <time itemprop="opens" content="16:00:00"> 4:00 PM</time> - 
       <time itemprop="closes" content="21:00:00"> 9:00 PM</time>)
@@ -347,34 +352,6 @@ This example is in microdata only.
 JSON:
 This example is in microdata only.
 
-TYPES: availableLanguage, Language
-
-PRE-MARKUP:
-This example is in microdata only.
-
-MICRODATA:
-<div itemscope itemtype="http://schema.org/Hotel">
-  <h1><span itemprop="name">ACME Hotel Innsbruck</span></h1>
-  <span itemprop="description">A beautifully located business hotel right in the
-heart of the alps. Watch the sun rise over the scenic Inn valley while
-enjoying your morning coffee.</span>
-  We speak:
-  <ul>
-    <li itemprop="availableLanguage" itemscope itemtype="http://schema.org/Language">
-      <span itemprop="name">English</span>
-    </li>
-    <li itemprop="availableLanguage" itemscope itemtype="http://schema.org/Language">
-      <span itemprop="name">German</span>
-    </li>
-  </ul>
-</div>
-
-RDFA:
-This example is in microdata only.
-
-JSON:
-This example is in microdata only.
-
 TYPES: HotelRoom, Hotel
 
 PRE-MARKUP:
@@ -394,7 +371,7 @@ enjoying your morning coffee.</span>
     <span itemprop="addressCountry">Austria</span>
   </div>
   Phone: <span itemprop="telephone">+43 512 8000-0</span>
-  <div itemprop="containsPlace" itemscope itemtype="http://schema.org/HotelRoom">
+  <div itemprop="containsPlace" itemscope itemtype="http://schema.org/Accommodation http://schema.org/HotelRoom">
     <span itemprop="name">Standard Double Room</span>
     <span itemprop="description">Our standard double rooms include a double bed, a 
   full bathroom with tub, shower and toilet</span>
