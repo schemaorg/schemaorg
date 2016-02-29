@@ -14,53 +14,51 @@
 <!-- <schema.org/Course> -->
 <div typeof="rdfs:Class" resource="http://schema.org/Course">
     <span class="h" property="rdfs:label">Course</span>
-    <span property="rdfs:comment">A unit of teaching where one or more instructors delivers lessons to students. Courses may be one-time meetings or meet regularly for a defined period of time. A class.</span>
+    <span property="rdfs:comment">A description of an educational course which may be offered as distinct instances at different times and places, or through different media or modes of study. An educational course is a sequence of one or more educational events and/or creative works which aims to build knowledge, competence or ability of learners.</span>
     <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/CreativeWork">CreativeWork</a></span>
-    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Product">Product`</a></span>
 </div>
 
-<div typeof="rdf:Property" resource="http://schema.org/courseNumber">
-  <span class="h" property="rdfs:label">courseNumber</span>
+<div typeof="rdf:Property" resource="http://schema.org/courseCode">
+  <span class="h" property="rdfs:label">courseCode</span>
   <span property="rdfs:comment">The identifier used for the Course (e.g. CS101 or 6.001)</span>
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Course">Course</a></span>
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
 </div>
 
-<div typeof="rdf:Property" resource="http://schema.org/provider">
+<!--div typeof="rdf:Property" resource="http://schema.org/provider">
   <span class="h" property="rdfs:label">provider</span>
   <span property="rdfs:comment">The organization offering the Course (e.g. a university).</span>
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Course">Course</a></span>
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Organization">Organization</a></span>
-</div>
+</div-->
 
-<div typeof="rdf:Property" resource="http://schema.org/providingDepartment">
+<!--div typeof="rdf:Property" resource="http://schema.org/providingDepartment">
   <span class="h" property="rdfs:label">providingDepartment</span>
   <span property="rdfs:comment">The department (within the offeringInstitution) offering the Course (e.g. the Computer Science department of a university).</span>
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Course">Course</a></span>
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Organization">Organization</a></span>
-</div>
+</div-->
 
-<div typeof="rdf:Property" resource="http://schema.org/subjectOfStudy">
+<!--div typeof="rdf:Property" resource="http://schema.org/subjectOfStudy">
   <span class="h" property="rdfs:label">subjectOfStudy</span>
   <span property="rdfs:comment">The primary subject being studied (e.g. "Computer Science" or "Pottery")</span>
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Course">Course</a></span>
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/AlignmentObject">AlignmentObject</a></span>
-</div>
+</div-->
 
 
 <div typeof="rdf:Property" resource="http://schema.org/courseCredits">
   <span class="h" property="rdfs:label">courseCredits</span>
   <span property="rdfs:comment">The number of credits offered for the Course toward an academic goal.</span>
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Course">Course</a></span>
-  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CourseSection">CourseSection</a></span>
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number">Number</a></span>
 </div>
+
 <div typeof="rdf:Property" resource="http://schema.org/courseCreditsUnit">
   <span class="h" property="rdfs:label">courseCreditsUnit</span>
   <span property="rdfs:comment">The type of credit associated with the credits earned for the Course. (e.g. TODO NoCredit, Quarter, Semester, CarnegieUnits, ContinuingEducationUnits, ClockHours, Other)</span>
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Course">Course</a></span>
-  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CourseSection">CourseSection</a></span>
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/URL">URL</a></span>
   <!-- TODO: As enums, should these be named CourseCreditUnit Classes or defined URLs (of instances of CourseCreditUnit)?
@@ -77,19 +75,19 @@
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/AlignmentObject">AlignmentObject</a></span>
 </div>
 
-<div typeof="rdf:Property" resource="http://schema.org/estimatedWorkload">
+<!--div typeof="rdf:Property" resource="http://schema.org/estimatedWorkload">
   <span class="h" property="rdfs:label">estimatedWorkload</span>
   <span property="rdfs:comment">A description of the estimated workload (e.g. actual hours per week).</span>
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Course">Course</a></span>
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
-</div>
+</div-->
 
-<div typeof="rdf:Property" resource="http://schema.org/timeRequired">
+<!--div typeof="rdf:Property" resource="http://schema.org/timeRequired">
   <span class="h" property="rdfs:label">timeRequired</span>
   <span property="rdfs:comment">The total time the Course will require.</span>
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Course">Course</a></span>
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Duration">Duration</a></span>
-</div>
+</div-->
 
 <div typeof="rdf:Property" resource="http://schema.org/grantsCredential">
   <span class="h" property="rdfs:label">grantsCredential</span>
@@ -99,11 +97,11 @@
   <!-- TODO: define Credential > [Certificate, ] -->
 </div>
 
-<div typeof="rdf:Property" resource="http://schema.org/courseSection">
-  <span class="h" property="rdfs:label">courseSection</span>
-  <span property="rdfs:comment">A specific CourseSection of the Course (e.g. as offered by zero or more instructors).</span>
+<div typeof="rdf:Property" resource="http://schema.org/courseInstance">
+  <span class="h" property="rdfs:label">courseInstance</span>
+  <span property="rdfs:comment">An offering of the course at a specific time and place or through specific media or mode of study or to a specific section of students.</span>
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Course">Course</a></span>
-  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/CourseSection">CourseSection</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/CourseInstance">CourseInstance</a></span>
 </div>
 
 <!-- CreativeWork.audience r:Audience> -->
@@ -111,11 +109,12 @@
 <!-- Product.seller r:Organization  -->
 <!-- Product.offers r:Offer -->
 
-<div typeof="rdf:Property" resource="http://schema.org/isVirtual">
-  <span class="h" property="rdfs:label">isVirtual</span>
-  <span property="rdfs:comment">Indicates that a Course is designed for a mode of learning in which students and teachers are separated by time and/or location and interact through the use of computers and/or telecommunications technologies.</span>
-  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Course">Course</a></span>
-  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CourseSection">CourseSection</a></span>
+<div typeof="rdf:Property" resource="http://schema.org/courseMode">
+  <span class="h" property="rdfs:label">courseMode</span>
+  <span property="rdfs:comment">The medium or means of delivery of the course, or the mode of study.</span>
+<!--  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Course">Course</a></span>
+-->
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CourseInstance">CourseInstance</a></span>
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Boolean">Boolean</a></span>
 </div>
 
@@ -129,26 +128,24 @@
 
 <!-- </schema.org/Course> -->
 
-<!-- <schema.org/CourseSection> -->
-<div typeof="rdfs:Class" resource="http://schema.org/CourseSection">
-    <span class="h" property="rdfs:label">CourseSection</span>
-    <span property="rdfs:comment">An instance of a Course offered by zero or more instructors.</span>
+<!-- <schema.org/CourseInstance> -->
+<div typeof="rdfs:Class" resource="http://schema.org/CourseInstance">
+    <span class="h" property="rdfs:label">CourseInstance</span>
+    <span property="rdfs:comment">An instance of a Course offered at a specific time and place or through specific media or mode of study or to a specific section of students.</span>
     <!-- TODO: link to schema.org Course (HTML-encode .comment) -->
-    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Intangible">Intangible</a></span>
-    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Product">Product</a></span>
-    <!-- TODO: are CourseSections also Products? -->
+    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Event">Event</a></span>
 </div>
 
 <div typeof="rdf:Property" resource="http://schema.org/instructor">
   <span class="h" property="rdfs:label">instructor</span>
-  <span property="rdfs:comment">A person assigned to instruct or provide instructional assistance for the CourseSection.</span>
-  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CourseSection">CourseSection</a></span>
+  <span property="rdfs:comment">A person assigned to instruct or provide instructional assistance for the CourseInstance.</span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CourseInstance">CourseInstance</a></span>
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Person">Person</a></span>
 </div>
 
 <!-- CreativeWork.inLanguage d:[CreativeWork, ] r:Language -->
 
-<!-- <schema.org/CourseSection> -->
+<!-- <schema.org/CourseInstance> -->
 
 <!-- -->
 </div>
