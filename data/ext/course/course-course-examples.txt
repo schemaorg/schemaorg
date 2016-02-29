@@ -1,34 +1,257 @@
 
-TYPES: Course
+TYPES: #CourseExteg1 Course, CourseInstance, courseMode
 
 PRE-MARKUP:
-
+<!-- A MOOC / free online course. As a simple one-off course -->
+Course
+  name:	The Data Scientist’s Toolbox
+  courseInstance [CourseInstance]:
+    courseMode:	MOOC
+    courseMode:	online
+    startDate:	February 15
+    endDate:	March 21
+    offers [Offer]:
+      price:	0
 
 MICRODATA:
+<!--TODO--> 
 
 
 RDFA:
-
+<body vocab="http://schema.org/">
+<!-- A MOOC / free online course. As a simple one-off course -->
+<header>
+<div >Coursera</div> 
+<div >Universal access to the world’s best education.</div> 
+</header> 
+<main typeof="Course">
+<div>
+<div style="border: 1px solid grey; width: 90%; margin: 10px"> 
+<!--The right+central banner of the page-->
+<h1 property="name">The Data Scientist’s Toolbox</h1>
+<!--FIXME: lazy use of text rather than entity-->
+<h2>Johns Hopkins University</h2>
+<h3>
+    Part of a 10-course series, the 
+    <a href="/specializations/jhu-data-science">Data Science Specialization</a>
+</h3>
+</div>
+<div  > 
+       <!--This starts the central column of the page-->
+<div   style="border: 1px solid grey;  width: 90%; margin: 10px">
+<h2  >About this Course</h2>
+        <p>In this course you will get an introduction to the main tools and ideas in the
+        data scientist's toolbox. The course gives an overview of the data, questions,
+        and tools that data analysts and data scientists work with. There are two
+        components to this course. The first is a conceptual introduction to the ideas
+        behind turning data into actionable knowledge. The second is a practical
+        introduction to the tools that will be used in the program like version control,
+        markdown, git, GitHub, R, and RStudio.</p>
+        <div ><span >Subtitles available in <strong>English, Russian, Chinese (Simplified)</strong>
+              </span>
+        </div>
+        <div ><span >1-4 hours/week</span></div>
+</div>
+<div style="border: 1px solid grey;  width: 90%; margin: 10px">
+<h2  >Instructors</h2>
+        <a href="/instructor/~315" >
+        <div style="border: 1px solid grey;  width: 90%; margin: 10px"><div  >
+        <p  >Jeff Leek, PhD</p>
+        <div  >Associate Professor, Biostatistics</div>
+        <div  >Bloomberg School of Public Health </div>
+        </div></div>
+        </a>
+        
+        <a  href="/instructor/rdpeng" >
+        <div  style="border: 1px solid grey;  width: 90%; margin: 10px"><div  >
+        <p  >Roger Peng, PhD</p>
+        <div  >Associate Professor, Biostatistics</div>
+        <div  >Bloomberg School of Public Health</div>
+        </div></div>
+        </a>
+        
+        <a  href="/instructor/~47" >
+        <div  style="border: 1px solid grey;  width: 90%; margin: 10px"><div  >
+        <p  >Brian Caffo, PhD</p>
+        <div  >Professor, Biostatistics</div>
+        <div  >Bloomberg School of Public Health</div>
+        </div></div>
+        </a>
+</div>
+</div> <!--This ends the central column of the page-->
+<div  > <!--This starts the right hand column of the page-->
+<div rel="courseInstance" typeOf="CourseInstance" style="border: 1px solid grey;  width: 90%; margin: 10px">
+<p>Current session:</p>
+<meta property="courseMode" content="MOOC" />
+<meta property="courseMode" content="online" />
+<span rel="offers" typeOf="Offer">
+    <meta property="price" content="0" />
+</span>
+<h3 ><span property="startDate">February 15</span>
+        <span > - </span><span property="endDate">March 21</span></h3>
+        <div  ><p  ><span >Enrollment ends February 21</span></p>
+        <button  >Enroll</button></div>
+        <div  ><p  ><span >Following session begins February 22</span></p></div>        
+</div>
+<div   style="border: 1px solid grey;  width: 90%; margin: 10px"><p  ><span >
+Financial Aid is available for learners who cannot afford the fee. <a
+href="#">Learn more and apply.</a> </span></p>
+</div>
+</div>
+</div></main>
+</body>
 
 JSON:
+<!--TODO--> 
 
-<script type="application/ld+json">
-{
-  "@context": {
-    "schema": "http://schema.org/",
-  },
-  "@graph": [
-    {
-        "@type": "schema:Course",
-        "@id": "http://example.org/courses/abc",
-        "name": "Course ABC",
-        "description": "Description of Course ABC",
-        "eventList": [
-            {"@type": "schema:EducationalEvent",
-            #TODO
-            },
-        ]
-    }
-  ]
-}
-</script>
+TYPES: #CourseExteg2 Course, CourseInstance, courseMode
+
+PRE-MARKUP:
+<!-- A college course offered at several locations -->
+Course
+name:	HNC Accounting
+  grantsCredential:	HNC Accounting
+  courseInstance [CourseInstance]:
+    courseMode:	Full Time
+    startDate:	2016-08-29
+    location:	St Brycedale Campus Kirkcaldy
+    offers [Offer]:
+      potentialAction [ApplyAction]:
+      url:	https://courses.fife.ac.uk/portal/...
+  courseInstance [CourseInstance]:
+    courseMode:	Full Time
+    startDate:	2016-08-29
+    location:	Halbeath Campus Dunfermline
+    offers [Offer]:
+      potentialAction [ApplyAction]:
+      url:	https://courses.fife.ac.uk/portal/...
+  courseInstance [CourseInstance]:
+    courseMode:	Evenings only and weekends
+    startDate:	2016-08-31
+    location:	St Brycedale Campus Kirkcaldy
+    offers [Offer]:
+      potentialAction [ApplyAction]:
+      url:	https://courses.fife.ac.uk/portal/...
+
+MICRODATA:
+<!--TODO--> 
+
+
+RDFA:
+<body vocab="http://schema.org/">
+<!-- A college course offered at several locations -->
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>Pages - Course Details : HNC Accounting</title>
+</head>
+<body vocab="http://schema.org/" typeof="Course">
+  <h1>Course Details</h1>           
+  <h2>
+    <span property="name grantsCredential">HNC Accounting</span>
+  </h2>
+  <h4>
+    <a href="http://www.fife.ac.uk/courses/Pages/scqf.aspx">SCQF</a> Level 7
+  </h4>
+  <div >
+    <p>This course is designed for those wishing to take up a career in Accounting 
+       and Financial Administration within a range of organisations. Both HNC and 
+       HND awards are suitable for a wide target audience including school leavers, 
+       adult returners to education and those in employment wishing to formalise 
+       their skills.</p>
+    <p>You will gain a range of competencies required by employers, allowing scope 
+       to develop and progress in a variety of functions within organisations. In 
+       addition, you may progress to further academic and professional qualifications 
+       either prior to taking up an Accounting position or parallel with it.</p>
+  </div>
+  <h4>This course is currently offered on the date(s) and venue(s) listed below.</h4>
+  <div >
+    <table >
+      <tbody>
+        <tr >
+          <th scope="col" >Method of Study</th>
+          <th scope="col" >Year of course</th>
+          <th scope="col" >Starts</th>
+          <th scope="col" >Ends</th>
+          <th scope="col" >Based at</th>
+          <th scope="col" >Apply</th>
+        </tr>
+        <tr rel="courseInstance" typeOf="CourseInstance">
+          <td property="courseMode"><a href="http://www.fife.ac.uk/courses/Pages/studyoptions.aspx">
+                   Full Time
+               </a>
+          </td>
+          <td >1st Year</td>
+          <td >
+            <abbr title="20160829" property="startDate">29 Aug 2016</abbr>
+          </td>
+          <td >
+            <abbr title="20170623" >23 Jun 2017</abbr>
+          </td>
+          <td property="location">St Brycedale Campus Kirkcaldy</td>
+          <td rel="offers" typeOf="Offer">
+            <span rel="potentialAction" typeOf="ApplyAction">
+            <a property="Url" href="https://courses.fife.ac.uk/portal/..." target="">apply online</a>
+            </span>
+          </td>
+        </tr>
+        <tr rel="courseInstance" typeOf="CourseInstance">
+          <td property="courseMode">
+            <a href="http://www.fife.ac.uk/courses/Pages/studyoptions.aspx">
+               Full Time
+            </a>
+          </td>
+          <td >1st Year</td>
+          <td >
+            <abbr title="20160829" property="startDate">29 Aug 2016</abbr>
+          </td>
+          <td >
+            <abbr title="20170623" >23 Jun 2017</abbr>
+          </td>
+          <td  property="location">Halbeath Campus Dunfermline</td>
+          <td rel="offers" typeOf="Offer">
+            <span rel="potentialAction" typeOf="ApplyAction">
+            <a property="Url"  href="https://courses.fife.ac.uk/portal/..." target="">apply online</a>
+            </span>
+          </td>
+        </tr>
+        <tr rel="courseInstance" typeOf="CourseInstance">
+          <td property="courseMode">
+            <a href="http://www.fife.ac.uk/courses/Pages/studyoptions.aspx">
+               Evenings only and weekends
+            </a>
+          </td>
+          <td >1st Year</td>
+          <td >
+            <abbr title="20160831" property="startDate">31 Aug 2016</abbr>
+          </td>
+          <td >
+            <abbr title="20170621" >21 Jun 2017</abbr>
+          </td>
+          <td  property="location">St Brycedale Campus Kirkcaldy</td>
+          <td rel="offers" typeOf="Offer">
+            <span rel="potentialAction" typeOf="ApplyAction">
+            <a property="Url" href="https://courses.fife.ac.uk/portal/..." target="">apply online</a>
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div id="footerBottom">
+        <div id="address">
+        <span>© Fife College</span><br>
+        <span>Pittsburgh Road, Dunfermline, KY11 8DY</span><br>
+        <span>Fife College is a registered Scottish charity (No. SCO21203)</span>
+  </div>
+  <div id="creditation">
+        <span>developed by Fife College ICT Services</span><br>
+        <span><a href="http://www.fife.ac.uk/collegeinfo/Pages/contactus.aspx" 
+                 title="Contact Us">Contact Us</a></span>
+  </div>
+</div>
+</body></html>
+
+JSON:
+<!--TODO--> 
+
