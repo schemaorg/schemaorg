@@ -1,11 +1,11 @@
 
-TYPES: #CourseExteg1 Course, CourseInstance, courseMode
+TYPES: #CourseExteg1 Course, CourseInstance, courseMode, hasCourseInstance
 
 PRE-MARKUP:
 <!-- A MOOC / free online course. As a simple one-off course -->
 Course
   name:	The Data Scientist’s Toolbox
-  courseInstance [CourseInstance]:
+  hasCourseInstance [CourseInstance]:
     courseMode:	MOOC
     courseMode:	online
     startDate:	February 15
@@ -80,7 +80,7 @@ RDFA:
 </div>
 </div> <!--This ends the central column of the page-->
 <div  > <!--This starts the right hand column of the page-->
-<div rel="courseInstance" typeOf="CourseInstance" style="border: 1px solid grey;  width: 90%; margin: 10px">
+<div rel="hasCourseInstance" typeOf="CourseInstance" style="border: 1px solid grey;  width: 90%; margin: 10px">
 <p>Current session:</p>
 <meta property="courseMode" content="MOOC" />
 <meta property="courseMode" content="online" />
@@ -111,21 +111,21 @@ PRE-MARKUP:
 Course
 name:	HNC Accounting
   grantsCredential:	HNC Accounting
-  courseInstance [CourseInstance]:
+  hasCourseInstance [CourseInstance]:
     courseMode:	Full Time
     startDate:	2016-08-29
     location:	St Brycedale Campus Kirkcaldy
     offers [Offer]:
       potentialAction [ApplyAction]:
       url:	https://courses.fife.ac.uk/portal/...
-  courseInstance [CourseInstance]:
+  hasCourseInstance [CourseInstance]:
     courseMode:	Full Time
     startDate:	2016-08-29
     location:	Halbeath Campus Dunfermline
     offers [Offer]:
       potentialAction [ApplyAction]:
       url:	https://courses.fife.ac.uk/portal/...
-  courseInstance [CourseInstance]:
+  hasCourseInstance [CourseInstance]:
     courseMode:	Evenings only and weekends
     startDate:	2016-08-31
     location:	St Brycedale Campus Kirkcaldy
@@ -176,7 +176,7 @@ RDFA:
           <th scope="col" >Based at</th>
           <th scope="col" >Apply</th>
         </tr>
-        <tr rel="courseInstance" typeOf="CourseInstance">
+        <tr rel="hasCourseInstance" typeOf="CourseInstance">
           <td property="courseMode"><a href="http://www.fife.ac.uk/courses/Pages/studyoptions.aspx">
                    Full Time
                </a>
@@ -195,7 +195,7 @@ RDFA:
             </span>
           </td>
         </tr>
-        <tr rel="courseInstance" typeOf="CourseInstance">
+        <tr rel="hasCourseInstance" typeOf="CourseInstance">
           <td property="courseMode">
             <a href="http://www.fife.ac.uk/courses/Pages/studyoptions.aspx">
                Full Time
@@ -215,7 +215,7 @@ RDFA:
             </span>
           </td>
         </tr>
-        <tr rel="courseInstance" typeOf="CourseInstance">
+        <tr rel="hasCourseInstance" typeOf="CourseInstance">
           <td property="courseMode">
             <a href="http://www.fife.ac.uk/courses/Pages/studyoptions.aspx">
                Evenings only and weekends
