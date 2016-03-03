@@ -1,34 +1,474 @@
 
-TYPES: Course
+TYPES: #CourseExteg1 Course, CourseInstance, courseMode, hasCourseInstance
 
 PRE-MARKUP:
-
+<!-- A MOOC / free online course. As a simple one-off course -->
+Course
+  name:	The Data Scientist’s Toolbox
+  hasCourseInstance [CourseInstance]:
+    courseMode:	MOOC
+    courseMode:	online
+    startDate:	February 15
+    endDate:	March 21
+    offers [Offer]:
+      price:	0
 
 MICRODATA:
+<!--TODO--> 
 
 
 RDFA:
-
+<body vocab="http://schema.org/">
+<!-- A MOOC / free online course. As a simple one-off course -->
+<header>
+<div >Coursera</div> 
+<div >Universal access to the world’s best education.</div> 
+</header> 
+<main typeof="Course">
+<div>
+<div style="border: 1px solid grey; width: 90%; margin: 10px"> 
+<!--The right+central banner of the page-->
+<h1 property="name">The Data Scientist’s Toolbox</h1>
+<!--FIXME: lazy use of text rather than entity-->
+<h2>Johns Hopkins University</h2>
+<h3>
+    Part of a 10-course series, the 
+    <a href="/specializations/jhu-data-science">Data Science Specialization</a>
+</h3>
+</div>
+<div  > 
+       <!--This starts the central column of the page-->
+<div   style="border: 1px solid grey;  width: 90%; margin: 10px">
+<h2  >About this Course</h2>
+        <p>In this course you will get an introduction to the main tools and ideas in the
+        data scientist's toolbox. The course gives an overview of the data, questions,
+        and tools that data analysts and data scientists work with. There are two
+        components to this course. The first is a conceptual introduction to the ideas
+        behind turning data into actionable knowledge. The second is a practical
+        introduction to the tools that will be used in the program like version control,
+        markdown, git, GitHub, R, and RStudio.</p>
+        <div ><span >Subtitles available in <strong>English, Russian, Chinese (Simplified)</strong>
+              </span>
+        </div>
+        <div ><span >1-4 hours/week</span></div>
+</div>
+<div style="border: 1px solid grey;  width: 90%; margin: 10px">
+<h2  >Instructors</h2>
+        <a href="/instructor/~315" >
+        <div style="border: 1px solid grey;  width: 90%; margin: 10px"><div  >
+        <p  >Jeff Leek, PhD</p>
+        <div  >Associate Professor, Biostatistics</div>
+        <div  >Bloomberg School of Public Health </div>
+        </div></div>
+        </a>
+        
+        <a  href="/instructor/rdpeng" >
+        <div  style="border: 1px solid grey;  width: 90%; margin: 10px"><div  >
+        <p  >Roger Peng, PhD</p>
+        <div  >Associate Professor, Biostatistics</div>
+        <div  >Bloomberg School of Public Health</div>
+        </div></div>
+        </a>
+        
+        <a  href="/instructor/~47" >
+        <div  style="border: 1px solid grey;  width: 90%; margin: 10px"><div  >
+        <p  >Brian Caffo, PhD</p>
+        <div  >Professor, Biostatistics</div>
+        <div  >Bloomberg School of Public Health</div>
+        </div></div>
+        </a>
+</div>
+</div> <!--This ends the central column of the page-->
+<div  > <!--This starts the right hand column of the page-->
+<div rel="hasCourseInstance" typeOf="CourseInstance" style="border: 1px solid grey;  width: 90%; margin: 10px">
+<p>Current session:</p>
+<meta property="courseMode" content="MOOC" />
+<meta property="courseMode" content="online" />
+<span rel="offers" typeOf="Offer">
+    <meta property="price" content="0" />
+</span>
+<h3 ><span property="startDate">February 15</span>
+        <span > - </span><span property="endDate">March 21</span></h3>
+        <div  ><p  ><span >Enrollment ends February 21</span></p>
+        <button  >Enroll</button></div>
+        <div  ><p  ><span >Following session begins February 22</span></p></div>        
+</div>
+<div   style="border: 1px solid grey;  width: 90%; margin: 10px"><p  ><span >
+Financial Aid is available for learners who cannot afford the fee. <a
+href="#">Learn more and apply.</a> </span></p>
+</div>
+</div>
+</div></main>
+</body>
 
 JSON:
+<!--TODO--> 
 
-<script type="application/ld+json">
-{
-  "@context": {
-    "schema": "http://schema.org/",
-  },
-  "@graph": [
-    {
-        "@type": "schema:Course",
-        "@id": "http://example.org/courses/abc",
-        "name": "Course ABC",
-        "description": "Description of Course ABC",
-        "eventList": [
-            {"@type": "schema:EducationalEvent",
-            #TODO
-            },
-        ]
-    }
-  ]
-}
-</script>
+TYPES: #CourseExteg2 Course, CourseInstance, courseMode
+
+PRE-MARKUP:
+<!-- A college course offered at several locations -->
+Course
+name:	HNC Accounting
+  grantsCredential:	HNC Accounting
+  hasCourseInstance [CourseInstance]:
+    courseMode:	Full Time
+    startDate:	2016-08-29
+    location:	St Brycedale Campus Kirkcaldy
+    offers [Offer]:
+      potentialAction [ApplyAction]:
+      url:	https://courses.fife.ac.uk/portal/...
+  hasCourseInstance [CourseInstance]:
+    courseMode:	Full Time
+    startDate:	2016-08-29
+    location:	Halbeath Campus Dunfermline
+    offers [Offer]:
+      potentialAction [ApplyAction]:
+      url:	https://courses.fife.ac.uk/portal/...
+  hasCourseInstance [CourseInstance]:
+    courseMode:	Evenings only and weekends
+    startDate:	2016-08-31
+    location:	St Brycedale Campus Kirkcaldy
+    offers [Offer]:
+      potentialAction [ApplyAction]:
+      url:	https://courses.fife.ac.uk/portal/...
+
+MICRODATA:
+<!--TODO--> 
+
+
+RDFA:
+<body vocab="http://schema.org/">
+<!-- A college course offered at several locations -->
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>Pages - Course Details : HNC Accounting</title>
+</head>
+<body vocab="http://schema.org/" typeof="Course">
+  <h1>Course Details</h1>           
+  <h2>
+    <span property="name grantsCredential">HNC Accounting</span>
+  </h2>
+  <h4>
+    <a href="http://www.fife.ac.uk/courses/Pages/scqf.aspx">SCQF</a> Level 7
+  </h4>
+  <div >
+    <p>This course is designed for those wishing to take up a career in Accounting 
+       and Financial Administration within a range of organisations. Both HNC and 
+       HND awards are suitable for a wide target audience including school leavers, 
+       adult returners to education and those in employment wishing to formalise 
+       their skills.</p>
+    <p>You will gain a range of competencies required by employers, allowing scope 
+       to develop and progress in a variety of functions within organisations. In 
+       addition, you may progress to further academic and professional qualifications 
+       either prior to taking up an Accounting position or parallel with it.</p>
+  </div>
+  <h4>This course is currently offered on the date(s) and venue(s) listed below.</h4>
+  <div >
+    <table >
+      <tbody>
+        <tr >
+          <th scope="col" >Method of Study</th>
+          <th scope="col" >Year of course</th>
+          <th scope="col" >Starts</th>
+          <th scope="col" >Ends</th>
+          <th scope="col" >Based at</th>
+          <th scope="col" >Apply</th>
+        </tr>
+        <tr rel="hasCourseInstance" typeOf="CourseInstance">
+          <td property="courseMode"><a href="http://www.fife.ac.uk/courses/Pages/studyoptions.aspx">
+                   Full Time
+               </a>
+          </td>
+          <td >1st Year</td>
+          <td >
+            <abbr title="20160829" property="startDate">29 Aug 2016</abbr>
+          </td>
+          <td >
+            <abbr title="20170623" >23 Jun 2017</abbr>
+          </td>
+          <td property="location">St Brycedale Campus Kirkcaldy</td>
+          <td rel="offers" typeOf="Offer">
+            <span rel="potentialAction" typeOf="ApplyAction">
+            <a property="Url" href="https://courses.fife.ac.uk/portal/..." target="">apply online</a>
+            </span>
+          </td>
+        </tr>
+        <tr rel="hasCourseInstance" typeOf="CourseInstance">
+          <td property="courseMode">
+            <a href="http://www.fife.ac.uk/courses/Pages/studyoptions.aspx">
+               Full Time
+            </a>
+          </td>
+          <td >1st Year</td>
+          <td >
+            <abbr title="20160829" property="startDate">29 Aug 2016</abbr>
+          </td>
+          <td >
+            <abbr title="20170623" >23 Jun 2017</abbr>
+          </td>
+          <td  property="location">Halbeath Campus Dunfermline</td>
+          <td rel="offers" typeOf="Offer">
+            <span rel="potentialAction" typeOf="ApplyAction">
+            <a property="Url"  href="https://courses.fife.ac.uk/portal/..." target="">apply online</a>
+            </span>
+          </td>
+        </tr>
+        <tr rel="hasCourseInstance" typeOf="CourseInstance">
+          <td property="courseMode">
+            <a href="http://www.fife.ac.uk/courses/Pages/studyoptions.aspx">
+               Evenings only and weekends
+            </a>
+          </td>
+          <td >1st Year</td>
+          <td >
+            <abbr title="20160831" property="startDate">31 Aug 2016</abbr>
+          </td>
+          <td >
+            <abbr title="20170621" >21 Jun 2017</abbr>
+          </td>
+          <td  property="location">St Brycedale Campus Kirkcaldy</td>
+          <td rel="offers" typeOf="Offer">
+            <span rel="potentialAction" typeOf="ApplyAction">
+            <a property="Url" href="https://courses.fife.ac.uk/portal/..." target="">apply online</a>
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div id="footerBottom">
+        <div id="address">
+        <span>© Fife College</span><br>
+        <span>Pittsburgh Road, Dunfermline, KY11 8DY</span><br>
+        <span>Fife College is a registered Scottish charity (No. SCO21203)</span>
+  </div>
+  <div id="creditation">
+        <span>developed by Fife College ICT Services</span><br>
+        <span><a href="http://www.fife.ac.uk/collegeinfo/Pages/contactus.aspx" 
+                 title="Contact Us">Contact Us</a></span>
+  </div>
+</div>
+</body></html>
+
+JSON:
+<!--TODO--> 
+
+TYPES: #CourseExteg3 Course, CourseInstance, courseMode, hasCourseInstance
+
+PRE-MARKUP:
+<!--A self-paced distance learning course (no events)-->
+Course
+  name:	Basic Proofreading
+  url:	http://www.example.com/courses/basic-proofreading
+  description:	The distance learning training course that takes you from complete beginner to PQB  qualified proofreader in one step.
+  typicalLearningTime:	PT40H
+  creator [Person]:
+    name:	Gillian Clarke
+    description:	has been a freelance proofreader and editor since 1975. She is a founder member and honorary member of the Society for Editors and Proofreaders (SfEP) and was responsible for setting up its training programme.
+  creator [Person]:
+    name:	Margaret Aherne
+    description:	has worked since 1986 as a proofreader, copy-editor, project manager and tutor/mentor for a wide range of publishing clients, as well as for bodies such as the Audit Commission. She was also commissioned to create and deliver the PTC’s Advanced Copy-Editing one-day course and in 2011 became the tutor for the PTC’s online Grammar at Work module. She is a founder member of the Society for Editors and Proofreaders (SfEP) and is a mentor in proofreading and copy-editing on the SfEP’s mentoring scheme.
+  hasCourseInstance [CourseInstance]:
+    courseMode:	online
+    courseMode:	distance learning
+    offers [Offer]:
+      price:	395
+      priceCurrency:	GBP
+  hasCourseInstance [CourseInstance]:
+    courseMode:	posted
+    courseMode:	distance learning
+    offers [Offer]:
+      price:	440
+      priceCurrency:	GBP
+
+MICRODATA:
+<!--TODO--> 
+
+RDFA:
+<!--A self-paced distance learning course (no events)-->
+
+<html>
+<head></head>
+<body vocab="http://schema.org/">
+<div >
+<div typeof="Course"><main  >
+<div > <!--start of main block-->
+<h1 property="name"><a property="url" title="Basic Proofreading" 
+       href="http://www.example.com/courses/basic-proofreading">
+    Basic Proofreading</a>
+</h1>
+<p><strong property="description">The distance learning training course that takes you from complete 
+beginner to PQB qualified proofreader in one step.</strong></p>
+<p>Proofreading is the process of checking written materials for errors before 
+they are published. These materials may include books, magazines, blogs, 
+websites, brochures and journals.</p>
+<p>Basic Proofreading is designed to give you the skill, judgement and 
+understanding of the publishing process that you will need to be a successful 
+proofreader. </p>
+<h3>Learning outcomes</h3>
+<p>At the end of this course you will be able to:</p>
+<ul>
+    <li>understand and use British Standards Institution symbols</li>
+    <li>make informed decisions when marking up proofs</li>
+    <li>mark up documents on paper and on screen, and understand the differences
+between the two</li>
+</ul>
+<h3>How does the course work?</h3>
+<p>There are five units, each containing five self-check exercises and a longer 
+assignment, which you will submit for marking and commentary.</p>
+<p><strong>If you have already enrolled on this course and wish to access your 
+course materials, please log in to our learning site 
+<a href="http://www.example.com">www.example.com</a> and select the course from 
+the 'My courses and resources' list.</strong></p>
+
+<div  >
+<div >
+<h2 >How to Enrol</h2>
+<p>To enrol, you need to click on the Add to Cart button on this page. You will 
+be asked to register (if you have not already done so). You will, at that point, 
+be able to pay immediately by credit/debit card, request a pro-forma invoice or 
+download and complete a “fillable” PDF enrolment form. This form can be emailed 
+to <a href="..." >publishing.training@publishingtrainingcentre.co.uk</a> or 
+posted to the Publishing Training Centre, Ground Floor, Crowne House, 56-58 
+Southwark Street, London, SE1 1UN.</p>
+<h3>Money back guarantee</h3>
+<p>If, within 30 days of receiving your course materials (and before any 
+assignments have been sent to your tutor for marking), you decide that the 
+course is not for you, simply return the materials to us, in perfect condition, 
+to receive a full refund. In the case of the online version of the course, there
+is nothing you need to return to us, but your access to the learning platform 
+will cease once your refund is confirmed.</p>
+<h3>Important note:</h3>
+<p>You must complete the course within 12 months of enrolment or, if you wish 
+to continue the course beyond this period, you can study for a further 12 months
+following payment of a re-registration fee. Any further extensions are at the 
+discretion of The Publishing Training Centre.</p>
+</div>
+<div >
+<h2 >What is Included?</h2>
+<h3>Course Materials</h3>
+<p>Either posted to you in printed form or as downloadable PDFs, depending on 
+which course version you select.</p>
+<h3>Your own tutor</h3>
+<p>Each student is assigned an experienced proofreader as a tutor who will 
+support you through the course and for up to three months after completion.</p>
+<h3>Certificate</h3>
+<p> Upon successfully completing the course you will receive:</p>
+<p>• A completion certificate from PQB showing whether you have achieved a pass,
+merit or distinction in your work.</p>
+<p>• An entry in the PTC’s <a href="...">Freelance Finder</a> – the listing can 
+be used by companies when they are looking to employ freelancers.</p>
+<p>• SfEP points – the Society for Editors and Proofreaders (SfEP) recommends 
+this course as a foundation for those wishing to take its accreditation test. 
+If you become an SfEP member, passing this course is worth points towards 
+upgrading your membership.</p>
+</div>
+<div >
+<h2 >Who is it for?</h2>
+<ul>
+<li>New editorial staff looking to increase your skills</li>
+<li>Career-changers looking for a flexible and interesting career</li>
+<li>Anyone who proofreads as part of their job but has no formal training</li>
+<li>Anyone looking to work as a freelance proofreader</li>
+</ul>
+</div>
+<div >
+<h2 >About the Author</h2>
+<p rel="creator" typeOf="Person"><strong property="name">Gillian Clarke</strong> <span property="description">has been a freelance proofreader and editor 
+since 1975. She is a founder member and honorary member of the Society for 
+Editors and Proofreaders (SfEP) and was responsible for setting up its training 
+programme. </span></p>
+<p rel="creator" typeOf="Person"><strong property="name">Margaret Aherne</strong><span property="description"> has worked since 1986 as a 
+proofreader, copy-editor, project manager and tutor/mentor for a wide range of 
+publishing clients, as well as for bodies such as the Audit Commission. 
+She was also commissioned to create and deliver the PTC’s 
+<a href="...">Advanced Copy-Editing</a> one-day course and in 2011 became the 
+tutor for the PTC’s online <a href="...">Grammar at Work</a> module. She is a 
+founder member of the Society for Editors and Proofreaders (SfEP) and is a 
+mentor in proofreading and copy-editing on the SfEP’s mentoring scheme.</span></p>
+</div>
+</div>
+</div> <!--end of main block-->
+<div ><!--start of RH side bar-->
+		
+<div >
+  <div >£440.00/£395</div>
+  <span rel="hasCourseInstance" typeOf="CourseInstance">
+    <meta property="courseMode" content="online" />
+    <meta property="courseMode" content="distance learning" />
+    <span rel="offers" typeOf="Offer">
+      <meta property="price" content="395" />
+      <meta property="priceCurrency" content="GBP" />
+    </span>
+  </span>
+  <span rel="hasCourseInstance" typeOf="CourseInstance">
+    <meta property="courseMode" content="posted" />
+    <meta property="courseMode" content="distance learning" />
+    <span rel="offers" typeOf="Offer">
+      <meta property="price" content="440" />
+      <meta property="priceCurrency" content="GBP" />
+    </span>
+  </span>
+<form action="http://..." method="post" name="j2store-addtocart-form-4">
+  <div >
+  <!-- radio -->
+    <div  >
+      <span >*</span><b>Course Type:</b><br>
+      <input type="radio" name="product_option[5]" value="13">
+      <label for="option-value-13">Online</label>
+      <br>
+      <input type="radio" name="product_option[5]" value="14">
+      <label for="option-value-14">Posted</label>
+    </div>
+  <!-- radio -->
+    <div  >
+      <span >*</span><b>Postal Payment:</b><br>
+      <input type="radio" name="product_option[7]" value="17">
+      <label for="option-value-17">Full Payment (£440)</label>
+      <br>
+      <input type="radio" name="product_option[7]" value="18">
+      <label for="option-value-18">First Instalment (£230)</label>
+    </div>
+  <!-- checkbox-->
+    <div  >
+      <b>Special Offer:</b><br>
+      <input type="checkbox" name="product_option[8][]" value="33" >
+      <label for="option-value-33">Grammar at Work(+£30)</label>
+    </div>
+  </div>
+  <div  >
+     <p >Item added to cart. <a href="..." >Checkout</a></p>
+  </div>
+  <div  >
+	 <input type="number" name="product_qty" value="1"  min="1" step="1">				 
+     <input type="hidden"  name="product_id" value="4">
+     <input value="Add to cart" type="submit" >
+  </div>
+</form>
+</div>
+<div >
+  <h3 >Study Time</h3>
+  <p>At least 40 hours over 12 months</p>
+  <meta property="typicalLearningTime" content="PT40H" />
+</div>
+	
+</div><!--end of main block-->
+</main></div>
+<footer  >
+<p >Copyright © 2014 The Publishing Training Centre, Crowne House, 
+56-58 Southwark Street, London SE1 1UN<br>
+<span >The Publishing Training Centre is a registered charity. 
+Registered name: The Publishing Training Centre Foundation, a company limited 
+by guarantee incorporated in England and Wales.<br>
+Registration number: 1253854. Registered office: 16 High Holborn, 
+London WC1V 6BX. Tel: +44 (0)20 8874 2718</span></p>
+</footer>
+           
+</div>
+</body></html>
+
+JSON:
+<!--TODO--> 
+
