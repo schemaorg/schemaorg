@@ -258,3 +258,46 @@ JSON:
   }
 }
 </script>
+
+TYPES: #tv-listing5 BroadcastService
+
+
+PRE-MARKUP:
+A radio station on 107.9 FM.
+
+MICRODATA:
+<div itemscope itemtype="http://schema.org/BroadcastService">
+  <span itemprop="name">WXKS-FM</span>
+  <span itemprop="broadcastDisplayName">Kiss 108</span>
+  <div itemprop="broadcastFrequency" itemscope itemtype="http://schema.org/QuantitativeValue">
+    <meta itemprop="value" content="107.9" />
+    <meta itemprop="unitCode" content="MHZ" />
+  </div>
+</div>
+
+RDFA:
+
+<div vocab="http://schema.org/" typeof="BroadcastService">
+  <span property="name">WXKS-FM</span>
+  <span property="broadcastDisplayName">Kiss 108</span>
+  <div property="broadcastFrequency" typeof="QuantitativeValue">
+    <meta property="value" content="107.9" />
+    <meta property="unitCode" content="MHZ" />
+  </span>
+</div>
+
+
+JSON:
+<script type="application/ld+json">
+{
+  "@context":"http://schema.org",
+  "@type":"BroadcastService",
+  "name": "WXKS-FM",
+  "broadcastDisplayName": "Kiss 108",
+  "broadcastFrequency": {
+    "@type": "QuantitativeValue",
+    "value": 107.9,
+    "unitCode": "MHZ"
+  }
+}
+</script>
