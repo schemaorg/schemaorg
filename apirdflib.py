@@ -101,7 +101,7 @@ def rdfGetTriples(id):
 			homeSetTo = layer
 
 		prop = api.Unit.GetUnit(p,True)
-		log.info("%s is a %s" % (row.o,row.o.__class__.__name__))
+
 		if isinstance(row.o,rdflib.Literal):
 			api.Triple.AddTripleText(unit, prop, row.o, layer)
 		else: 
