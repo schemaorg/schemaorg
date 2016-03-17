@@ -5,10 +5,14 @@ import sys
 sys.path.append( os.getcwd() )
 
 #from api import *
-from sdoapp import *
 from parsers import *
 from api import extensionsLoaded, extensionLoadErrors
+from api import setInTestHarness, getInTestHarness
 from google.appengine.ext import deferred 
+
+#Setup testharness state BEFORE importing sdoapp
+setInTestHarness(True)
+from sdoapp import *
 
 schema_path = './data/schema.rdfa'
 examples_path = './data/examples.txt'
@@ -20,7 +24,7 @@ TYPECOUNT_LOWERBOUND = 500
 logging.basicConfig(level=logging.INFO)
 log = logging.getLogger(__name__)
 
-setInTestHarness(True)
+
 
 # Tests to probe the health of both schemas and code.
 # Note that known failings can be annotated with @unittest.expectedFailure or @skip("reason...")

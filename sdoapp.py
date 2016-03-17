@@ -13,18 +13,22 @@ from apirdflib import load_graph
 from markupsafe import Markup, escape # https://pypi.python.org/pypi/MarkupSafe
 
 import parsers
-
+import threading
+import datetime
 
 from google.appengine.ext import ndb
 from google.appengine.ext import blobstore
 from google.appengine.api import users
 from google.appengine.ext.webapp import blobstore_handlers
+from google.appengine.api import modules
+from google.appengine.api import runtime
 
 from api import inLayer, read_file, full_path, read_schemas, read_extensions, read_examples, namespaces, DataCache
 from api import Unit, GetTargets, GetSources
 from api import GetComment, all_terms, GetAllTypes, GetAllProperties, GetAllEnumerationValues, LoadExamples
 from api import GetParentList, GetImmediateSubtypes, HasMultipleBaseTypes
 from api import GetJsonLdContext, ShortenOnSentence, StripHtmlTags
+from api import setInTestHarness, getInTestHarness
 
 
 logging.basicConfig(level=logging.INFO) # dev_appserver.py --log_level debug .
@@ -61,7 +65,7 @@ ENABLE_JSONLD_CONTEXT = True
 ENABLE_CORS = True
 ENABLE_HOSTED_EXTENSIONS = True
 
-INTESTHARNESS = False #Used to indicate we are being called from tests - use setInTestHarness() & getInTestHarness() to manage value
+#INTESTHARNESS = True #Used to indicate we are being called from tests - use setInTestHarness() & getInTestHarness() to manage value
 
 EXTENSION_SUFFIX = "" # e.g. "*"
 
@@ -72,6 +76,32 @@ ALL_LAYERS = [ 'core', 'auto', 'bib' ]
 
 FORCEDEBUGGING = False
 # FORCEDEBUGGING = True
+
+SHAREDSITEDEBUG = True
+if not getInTestHarness():
+    if SHAREDSITEDEBUG:
+        from google.appengine.api import memcache
+else:
+    SHAREDSITEDEBUG = False
+       
+
+instance_first = True 
+instance_num = 0
+callCount = 0
+WarmedUp = False
+global_vars = threading.local()
+systarttime = datetime.datetime.now()
+
+#Ensure clean start for any memcached values...
+if SHAREDSITEDEBUG:
+    if memcache.get("static-version") != os.environ["CURRENT_VERSION_ID"]:
+        memcache.flush_all()
+        memcache.set(key="static-version", value=os.environ["CURRENT_VERSION_ID"]) 
+        memcache.add(key="SysStart", value=systarttime) 
+        instance_first = True 
+        log.info("Detected new code version - resetting debug values")
+     
+
 
 def cleanPath(node):
     """Return the substring of a string matching chars approved for use in our URL paths."""
@@ -442,7 +472,7 @@ class ShowUnit (webapp2.RequestHandler):
 
     def emitUnitHeaders(self, node, layers='core'):
         """Write out the HTML page headers for this node."""
-        self.write("<h1 class=\"page-title\">\n")
+        self.write("<h1 property=\"rdfs:label\" class=\"page-title\">\n")
         self.write(node.id)
         self.write("</h1>")
         home = node.home
@@ -1432,7 +1462,7 @@ class ShowUnit (webapp2.RequestHandler):
 
     def handle404Failure(self, node, layers="core"):
         self.error(404)
-        self.emitSchemaorgHeaders("404 Missing")
+        self.emitSchemaorgHeaders("404%20Missing")
         self.response.out.write('<h3>404 Not Found.</h3><p><br/>Page not found. Please <a href="/">try the homepage.</a><br/><br/></p>')
 
 
@@ -1447,6 +1477,8 @@ class ShowUnit (webapp2.RequestHandler):
         base_actionprop = Unit.GetUnit( node.rsplit('-')[0] )
         if base_actionprop != None :
             self.response.out.write('<div>Looking for an <a href="/Action">Action</a>-related property? Note that xyz-input and xyz-output have <a href="/docs/actions.html">special meaning</a>. See also: <a href="/%s">%s</a></div> <br/><br/> ' % ( base_actionprop.id, base_actionprop.id ))
+        
+        self.response.out.write("</div>\n</body>\n</html>\n")
 
         return True
 
@@ -1624,9 +1656,11 @@ class ShowUnit (webapp2.RequestHandler):
 
     def handleExtensionContents(self,ext):
         if not ext in ENABLED_EXTENSIONS:
-            log.info("cannot list ext %s",ext)
             return ""
-
+            
+        if DataCache.get('ExtensionContents',ext):
+            return DataCache.get('ExtensionContents',ext)
+        
         buff = StringIO.StringIO()
 
         az_types = GetAllTypes(ext)
@@ -1641,6 +1675,7 @@ class ShowUnit (webapp2.RequestHandler):
         buff.write(self.listTerms(az_props,"<br/><br/><strong>Properties</strong> (%s)<br/>" % len(az_props)))
         buff.write(self.listTerms(az_enums,"<br/><br/><strong>Enumeration values</strong> (%s)<br/>" % len(az_enums)))
         ret = buff.getvalue()
+        DataCache.put('ExtensionContents',ret,ext)
         buff.close()
         return ret
 
@@ -1743,6 +1778,8 @@ class ShowUnit (webapp2.RequestHandler):
         See also https://webapp-improved.appspot.com/guide/request.html#guide-request
         """
 
+        global_vars.time_start = datetime.datetime.now()
+                
         if not self.setupHostinfo(node):
             return
 
@@ -1759,8 +1796,20 @@ class ShowUnit (webapp2.RequestHandler):
             layerlist = ["core"]
 
         setSiteName(self.getExtendedSiteName(layerlist)) # e.g. 'bib.schema.org', 'schema.org'
-
         log.debug("EXT: set sitename to %s " % getSiteName())
+        if(node == "_ah/warmup"):
+            self.warmup()
+            return
+        else:  #Do a bit of warming on each call
+            global WarmedUp
+            global Warmer
+            if not WarmedUp:
+                Warmer.stepWarm()
+            
+        if(node == "_ah/start"):
+            log.info("Instance[%s] received Start request at %s" % (modules.get_current_instance_id(), global_vars.time_start) )
+            return
+
         if (node in ["", "/"]):
             if self.handleHomepage(node):
                 return
@@ -1808,10 +1857,11 @@ class ShowUnit (webapp2.RequestHandler):
                 else:
                     log.info("Error handling 404 under /version/")
                     return
-
+        log.info("PRODSITEDEBUG: %s" % os.environ['PRODSITEDEBUG'])
         if(node == "_siteDebug"):
-            self.siteDebug()
-            return
+            if(getBaseHost() != "schema.org" or os.environ['PRODSITEDEBUG'] == "True"):
+                self.siteDebug()
+                return 
 
         # Pages based on request path matching a Unit in the term graph:
         if self.handleExactTermPage(node, layers=layerlist):
@@ -1833,9 +1883,18 @@ class ShowUnit (webapp2.RequestHandler):
                                 'staticPath': makeUrl("","")})
 
         self.response.out.write( page )
-        self.response.out.write("<table style=\"width: 50%; border: solid 1px #CCCCCC; border-collapse: collapse;\"><tbody>\n")
+        ext = getHostExt()
+        if ext == "":
+            ext = "core"
+        self.response.out.write("<div style=\"display: none;\">\nLAYER:%s\n</div>" % ext)
+        self.response.out.write("<table style=\"width: 70%; border: solid 1px #CCCCCC; border-collapse: collapse;\"><tbody>\n")
         self.writeDebugRow("Setting","Value",True)
-
+        if SHAREDSITEDEBUG:
+            self.writeDebugRow("System start",memcache.get("SysStart"))
+            inst = memcache.get("Instances")
+            extinst = memcache.get("ExitInstances")
+            self.writeDebugRow("Running instances(%s)" % len(memcache.get("Instances")),inst.keys())
+            self.writeDebugRow("Instance exits(%s)" % len(memcache.get("ExitInstances")),extinst.keys())
         self.writeDebugRow("httpScheme",getHttpScheme())
         self.writeDebugRow("host_ext",getHostExt())
         self.writeDebugRow("basehost",getBaseHost())
@@ -1843,76 +1902,139 @@ class ShowUnit (webapp2.RequestHandler):
         self.writeDebugRow("sitename",getSiteName())
         self.writeDebugRow("debugging",getAppVar('debugging'))
         self.writeDebugRow("intestharness",getInTestHarness())
-        self.writeDebugRow("Current DataCache",DataCache.getCurrent())
-        self.writeDebugRow("DataCaches",len(DataCache.keys()))
-        for c in DataCache.keys():
-            self.writeDebugRow("DataCache[%s] size" % c, len(DataCache.getCache(c)))
-        for s in STATS.keys():
-            self.writeDebugRow("%s" % s, STATS[s])
+        if SHAREDSITEDEBUG:
+            self.writeDebugRow("total calls",memcache.get("total"))
+            for s in ALL_LAYERS:
+                self.writeDebugRow("%s calls" % s, memcache.get(s))
+            for s in ["http","https"]:
+                self.writeDebugRow("%s calls" % s, memcache.get(s))
+            
 
+        self.writeDebugRow("This Instance ID",os.environ["INSTANCE_ID"],True)
+        self.writeDebugRow("Instance Calls", callCount)
+        self.writeDebugRow("Instance Memory Usage [Mb]", str(runtime.memory_usage()).replace("\n","<br/>"))
+        self.writeDebugRow("Instance Current DataCache", DataCache.getCurrent())
+        self.writeDebugRow("Instance DataCaches", len(DataCache.keys()))
+        for c in DataCache.keys():
+           self.writeDebugRow("Instance DataCache[%s] size" % c, len(DataCache.getCache(c) ))
         self.response.out.write("</tbody><table><br/>\n")
         self.response.out.write( "</div>\n<body>\n</html>" )
 
     def writeDebugRow(self,term,value,head=False):
         rt = "td"
-        cellStyle = "border: solid 1px #CCCCCC; border-collapse: collapse;"
+        cellStyle = "border: solid 1px #CCCCCC; vertical-align: top; border-collapse: collapse;"
         if head:
             rt = "th"
             cellStyle += " color: #FFFFFF; background: #888888;"
+        
+        leftcellStyle = cellStyle
+        leftcellStyle += " width: 35%"
 
-        self.response.out.write("<tr><%s style=\"%s\">%s</%s><%s style=\"%s\">%s</%s></tr>\n" % (rt,cellStyle,term,rt,rt,cellStyle,value,rt))
+        divstyle = "width: 100%; max-height: 100px; overflow: auto"
+
+        self.response.out.write("<tr><%s style=\"%s\">%s</%s><%s style=\"%s\"><div style=\"%s\">%s</div></%s></tr>\n" % (rt,leftcellStyle,term,rt,rt,cellStyle,divstyle,value,rt))
 
     def callCount(self):
-        statInc("total calls")
-        statInc(getHttpScheme() + " calls")
-        if getHostExt() != "":
-            statInc(getHostExt() + " calls")
+        global instance_first
+        global instance_num
+        global callCount
+        callCount += 1
+        if(instance_first):
+            instance_first = False
+            instance_num += 1
+            if SHAREDSITEDEBUG:
+                if(memcache.add(key="Instances",value={})):                
+                    memcache.add(key="ExitInstances",value={})
+                    memcache.add(key="http",value=0)
+                    memcache.add(key="https",value=0)
+                    memcache.add(key="total",value=0)
+                    for i in ALL_LAYERS:
+                        memcache.add(key=i,value=0)
+           
+                Insts = memcache.get("Instances")
+                Insts[os.environ["INSTANCE_ID"]] = 1
+                memcache.replace("Instances",Insts)
+        
+        if SHAREDSITEDEBUG:
+            memcache.incr("total")
+            memcache.incr(getHttpScheme())
+            if getHostExt() != "":
+                memcache.incr(getHostExt())
+            else:
+                memcache.incr("core")
+                
+                
+    def warmup(self):
+        global WarmedUp
+        global Warmer
+        if WarmedUp:
+            return
+        log.info("Instance[%s] received Warmup request at %s" % (modules.get_current_instance_id(), global_vars.time_start) )
+        Warmer.warmAll()
+        log.info("Instance[%s] completed Warmup request at %s" % (modules.get_current_instance_id(), global_vars.time_start) )
+
+class WarmupTool():
+    
+    def __init__(self):
+        self.types = []
+        self.props = []
+        self.enums = []
+        
+    def stepWarm(self,all=False):
+        global WarmedUp
+        if WarmedUp:
+            return
+        if len (self.types) < len(ALL_LAYERS): 
+            for l in ALL_LAYERS:
+                if l not in self.types:
+                    self.types.append(l)           
+                    GetAllTypes(l)
+                    break
+        elif len (self.props) < len(ALL_LAYERS):
+            for l in ALL_LAYERS:
+                if l not in self.props:
+                    self.props.append(l)           
+                    GetAllProperties(l)
+                    break
+        elif len (self.enums) < len(ALL_LAYERS):
+            for l in ALL_LAYERS:
+                if l not in self.enums:
+                    self.enums.append(l)           
+                    GetAllEnumerationValues(l)
+                    break
         else:
-            statInc("core calls")
+            WarmedUp = True
 
+    def warmAll(self):
+        global WarmedUp
+        while not WarmedUp:
+            self.stepWarm(True)
 
-STATS = {}
-def statInc(stat):
-    global STATS
-    val = 1
-    if stat in STATS:
-        val += STATS.get(stat)
-    STATS[stat] = val
+Warmer = WarmupTool()            
+            
 
+def my_shutdown_hook():
+    global instance_num
+    if SHAREDSITEDEBUG:
+        Insts = memcache.get("ExitInstances")
+        Insts[os.environ["INSTANCE_ID"]] = 1
+        memcache.replace("ExitInstances",Insts)
+    
+        memcache.add("Exits",0)
+        memcache.incr("Exits")
+    log.info("Instance[%s] shutting down" % modules.get_current_instance_id())
 
-def setInTestHarness(val):
-    global INTESTHARNESS
-    INTESTHARNESS = val
-def getInTestHarness():
-    global INTESTHARNESS
-    return INTESTHARNESS
+runtime.set_shutdown_hook(my_shutdown_hook)
 
-TestAppIndex = {}
-def getAppVar(index):
-    global TestAppIndex
+ThreadVars = threading.local()
+def getAppVar(var):
+    ret = getattr(ThreadVars, var, None)
+    log.debug("got var %s as %s" % (var,ret))
+    return ret
 
-    reg = None
-    if not getInTestHarness():
-        app = webapp2.get_app()
-        reg = app.registry
-    else:
-        log.debug("getAppVar(): Using non-threadsafe session variables for test only")
-        reg = TestAppIndex
-
-    return reg.get(index)
-
-def setAppVar(index,val):
-    global TestAppIndex
-
-    reg = None
-    if not getInTestHarness():
-        app = webapp2.get_app()
-        reg = app.registry
-    else:
-        log.debug("setAppVar(): Using non-threadsafe session variables for test only")
-        reg = TestAppIndex
-
-    reg[index] = val
+def setAppVar(var,val):
+    log.debug("Setting var %s to %s" % (var,val))
+    setattr(ThreadVars,var,val)
 
 def setHttpScheme(val):
     setAppVar('httpScheme',val)

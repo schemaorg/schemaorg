@@ -6,9 +6,12 @@ import sys
 sys.path.append( os.getcwd() ) 
 sys.path.insert( 1, 'lib' ) #Pickup libs, rdflib etc., from shipped lib directory
 
-from sdoapp import *
 from api import *
 from parsers import *
+
+#Setup testharness state BEFORE importing sdoapp
+setInTestHarness(True)
+from sdoapp import *
 
 schema_path = './data/schema.rdfa'
 examples_path = './data/examples.txt'
