@@ -364,6 +364,7 @@ class ShowUnit (webapp2.RequestHandler):
     def GetParentStack(self, node, layers='core'):
         """Returns a hiearchical structured used for site breadcrumbs."""
         thing = Unit.GetUnit("Thing")
+        log.info("GetParentStack for: %s",node)
         if (node not in self.parentStack):
             self.parentStack.append(node)
 
@@ -377,7 +378,7 @@ class ShowUnit (webapp2.RequestHandler):
                 self.GetParentStack(p, layers=layers)
         else:
             # Enumerations are classes that have no declared subclasses
-            sc = Unit.GetUnit("typeOf")
+            sc = Unit.GetUnit("rdf:type")
             for p in GetTargets(sc, node, layers=layers):
                 self.GetParentStack(p, layers=layers)
 
@@ -519,14 +520,14 @@ class ShowUnit (webapp2.RequestHandler):
         subs = []
 
         if(node.isDataType(layers=layers)):
-            subs = GetTargets(Unit.GetUnit("typeOf"), node, layers=layers)
+            subs = GetTargets(Unit.GetUnit("rdf:type"), node, layers=layers)
             subs += GetTargets(Unit.GetUnit("rdfs:subClassOf"), node, layers=layers)
         elif node.isClass(layers=layers):
             subs = GetTargets(Unit.GetUnit("rdfs:subClassOf"), node, layers=layers)
         elif(node.isAttribute(layers=layers)):
             subs = GetTargets(Unit.GetUnit("rdfs:subPropertyOf"), node, layers=layers)
         else:
-            subs = GetTargets(Unit.GetUnit("typeOf"), node, layers=layers)# Enumerations are classes that have no declared subclasses
+            subs = GetTargets(Unit.GetUnit("rdf:type"), node, layers=layers)# Enumerations are classes that have no declared subclasses
 
         for i in range(len(subs)):
             if(i > 0):
@@ -956,7 +957,7 @@ class ShowUnit (webapp2.RequestHandler):
                 rdfs_type = 'rdfs:Class'
             elif node.isEnumerationValue():
                 rdfs_type = ""
-                nodeTypes = GetTargets(Unit.GetUnit("typeOf"), node, layers=layers)
+                nodeTypes = GetTargets(Unit.GetUnit("rdf:type"), node, layers=layers)
                 typecount = 0
                 for type in nodeTypes:
                      if typecount > 0:
@@ -1080,7 +1081,7 @@ class ShowUnit (webapp2.RequestHandler):
             children = []
             children = GetSources(Unit.GetUnit("rdfs:subClassOf"), node, ALL_LAYERS)# Normal subclasses
             if(node.isDataType() or node.id == "DataType"):
-                children += GetSources(Unit.GetUnit("typeOf"), node, ALL_LAYERS)# Datatypes
+                children += GetSources(Unit.GetUnit("rdf:type"), node, ALL_LAYERS)# Datatypes
             children = sorted(children, key=lambda u: u.id)
 
             if (len(children) > 0):
@@ -1115,7 +1116,7 @@ class ShowUnit (webapp2.RequestHandler):
 
         if (node.isEnumeration(layers=layers)):
 
-            children = sorted(GetSources(Unit.GetUnit("typeOf"), node, ALL_LAYERS), key=lambda u: u.id)
+            children = sorted(GetSources(Unit.GetUnit("rdf:type"), node, ALL_LAYERS), key=lambda u: u.id)
             if (len(children) > 0):
                 buff = StringIO.StringIO()
                 extbuff = StringIO.StringIO()

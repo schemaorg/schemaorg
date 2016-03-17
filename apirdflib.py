@@ -24,39 +24,43 @@ log = logging.getLogger(__name__)
 VOCAB = "http://schema.org"
 STORE = rdflib.Dataset()
 
+nss = {'core': 'http://schema.org/',
+		'auto': 'http://auto.schema.org/',
+		'bib': 'http://bib.schema.org/'}
+
+revNss = {v: k for k, v in nss.items()}
+
 ROWSLOCK = threading.Lock() #rdflib uses generators which are not threadsafe
 
 GETTRIPS = prepareQuery("SELECT ?g ?p ?o  WHERE {GRAPH ?g {?sub ?p ?o }}")
-GETALL = prepareQuery("SELECT ?g ?p ?o  WHERE {GRAPH ?g {?s ?p ?o }}")
+GGETALL = prepareQuery("SELECT ?g ?s ?p ?o  WHERE {GRAPH ?g {?s ?p ?o }}")
+GETALL = prepareQuery("SELECT ?s ?p ?o  WHERE {?s ?p ?o }")
+GETP = prepareQuery("SELECT DISTINCT ?p   WHERE {GRAPH ?g { ?s ?p ?o }} ORDER BY ?p")
 
 def load_graph(context, files):
-	"""Read/parse/ingest schemas from data/*.rdfa."""
-	import os.path
-	import glob
-	import re
+    """Read/parse/ingest schemas from data/*.rdfa."""
+    import os.path
+    import glob
+    import re
 
-	
-	log.info("Loading %s graph." % context)
-	g = rdflib.Graph(identifier=context)
-	STORE.add_graph(g)
-	for f in files:
-		log.info("parse(%s,%s %s)" % (context, f, full_path(f)))
-		g.parse(file=open(full_path(f),"r"),format="rdfa")
 
-'''	subUri = rdflib.URIRef("http://schema.org/Thing")	
-	res = STORE.query(GETTRIPS, initBindings={'sub':subUri})
-	
-	for row in res:
-		log.info("=====================>  %s %s %s" % (row.g, row.p, row.o))
-	
-	log.info("SIZE %s" % len(list(STORE.triples( (None, None, None, None) ))))	
-
-	res = STORE.query(GETALL)
-
-	for row in res:
-		log.info("====>  %s %s %s %s" % (row.s, row.p, row.o, row.g))
-'''	
-			
+    log.info("Loading %s graph." % context)
+    for f in files:
+        if(f[-5:] == ".rdfa"):
+            format = "rdfa"
+        elif(f[-7:] == ".jsonld"):
+            format = "json-ld"
+        else:
+            log.info("Unrecognised file format: %s" % f) 
+            return       
+        if(format == "rdfa"):
+            uri = nss[context]
+            g = STORE.graph(URIRef(uri))
+            g.parse(file=open(full_path(f),"r"),format=format)
+            STORE.bind(context,uri)
+        elif(format == "json-ld"):
+            STORE.parse(file=open(full_path(f),"r"),format=format)
+							
 def rdfGetTriples(id):
 	"""All triples with node as subject."""
 	targets = []
@@ -81,28 +85,27 @@ def rdfGetTriples(id):
 		ROWSLOCK.release()
 		
 	for row in res:
-		layer = str(row.g)
+		layer = str(revNss[str(row.g)])
 		if first:
 			first = False
 			unit = api.Unit.GetUnitNoLoad(id,True)
 #		log.info("Triples ?s: %s ?p %s ?o %s - %s" % (source,row.p,row.o,layer))
 		s = stripID(source)
 		p = stripID(row.p)
+		if p == "rdf:type": 
+			typeOfInLayers.append(layer)
+		elif(p == "isPartOf"):
+			if(unit.home != None and unit.home != layer):
+				log.info("WARNING Cannot set %s home to %s - already set to: %s" % (s,layer,unit.home))
+			unit.home = layer
+			homeSetTo = layer
+
+		prop = api.Unit.GetUnit(p,True)
+		log.info("%s is a %s" % (row.o,row.o.__class__.__name__))
 		if isinstance(row.o,rdflib.Literal):
-			api.Triple.AddTripleText(unit, api.Unit.GetUnit(p,True), row.o, layer)
-		else:
-			obj = api.Unit.GetUnit(stripID(row.o),True)
-			if p == "rdf:type": 
-				typeOfInLayers.append(layer)
-			
-			if(p == "isPartOf"):
-				if(unit.home != None and unit.home != layer):
-					log.info("WARNING Cannot set %s home to %s - already set to: %s" % (s,layer,unit.home))
-				unit.home = layer
-				homeSetTo = layer
-			
-			prop = api.Unit.GetUnit(p,True)
-			api.Triple.AddTriple(unit, prop, obj, layer)
+			api.Triple.AddTripleText(unit, prop, row.o, layer)
+		else: 
+			api.Triple.AddTriple(unit, prop, api.Unit.GetUnit(stripID(row.o),True), layer)
 			
 	""" Default Unit.home to core if not specificly set with an 'isPartOf' triple """
 	if(unit and homeSetTo == None):
@@ -137,7 +140,7 @@ def rdfGetSourceTriples(target):
 		ROWSLOCK.release()
 
 	for row in res:
-		layer = str(row.g)
+		layer = str(revNss[str(row.g)])
 		unit = api.Unit.GetUnit(stripID(row.s))
 		p = stripID(row.p)
 		prop = api.Unit.GetUnit(p,True)

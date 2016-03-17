@@ -439,7 +439,7 @@ def GetTargets(arc, source, layers='core'):
 
 def GetSources(arc, target, layers='core'):
     """All source nodes for a specified arc pointing to a specified node (within any of the specified layers)."""
-    log.debug("GetSources checking in layer: %s for unit: %s arc: %s" % (layers, target.id, arc.id))
+    #log.debug("GetSources checking in layer: %s for unit: %s arc: %s" % (layers, target.id, arc.id))
     if(target.sourced == False):
 	    apirdflib.rdfGetSourceTriples(target)
     sources = {}
@@ -802,6 +802,11 @@ def read_schemas(loadExtensions=False):
     if (not schemasInitialized or DYNALOAD):
         log.info("(re)loading core and annotations.")
         files = glob.glob("data/*.rdfa")
+        jfiles = glob.glob("data/*.jsonld")
+        for jf in jfiles: 
+            rdfequiv = jf[:-7]+".rdfa"
+            if not rdfequiv in files: #Only add .jsonld files if no equivalent .rdfa
+                files.append(jf)
         file_paths = []
         for f in files:
             file_paths.append(full_path(f))
@@ -833,6 +838,17 @@ def read_extensions(extensions):
         for i in extensions:
             all_layers[i] = "1"
             extfiles = glob.glob("data/ext/%s/*.rdfa" % i)
+            jextfiles = glob.glob("data/ext/%s/*.jsonld" % i)
+            for jf in jextfiles: 
+                rdfequiv = jf[:-7]+".rdfa"
+                if not rdfequiv in extfiles: #Only add .jsonld files if no equivalent .rdfa
+                    extfiles.append(jf)
+                
+                
+                
+            log.info("FILES: %s" % extfiles)
+            
+            
             expfiles += glob.glob("data/ext/%s/*examples.txt" % i)
             file_paths = []
             log.info("extfiles %s" % extfiles)
