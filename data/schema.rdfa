@@ -12676,6 +12676,29 @@ Typical unit code(s): C62 for persons.</span>
   <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Intangible">Intangible</a></span>
 </div>
 
+<!-- Compound price extension from GoodRelations -->
+<div typeof="rdfs:Class" resource="http://schema.org/CompoundPriceSpecification">
+        <span class="h" property="rdfs:label">CompoundPriceSpecification</span>
+        <span property="rdfs:comment">A compound price specification is one that bundles multiple prices that all apply in combination for different dimensions of consumption. Use the name property of the attached unit price specification for indicating the dimension of a price component (e.g. "electricity" or "final cleaning").</span>
+        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/PriceSpecification">PriceSpecification</a></span>
+        <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsClass">GoodRelationsClass</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/priceComponent">
+    <span class="h" property="rdfs:label">priceComponent</span>
+    <span property="rdfs:comment">This property links to all UnitPriceSpecification nodes that apply in parallel for the CompoundPriceSpecification node.</span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CompoundPriceSpecification">CompoundPriceSpecification</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/UnitPriceSpecification">UnitPriceSpecification</a></span>
+    <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsProperties">GoodRelationsProperty</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/referenceQuantity">
+    <span class="h" property="rdfs:label">referenceQuantity</span>
+    <span property="rdfs:comment">The reference quantity for which a certain price applies, e.g. 1 EUR per 4 kWh of electricity. This property is a replacement for unitOfMeasurement for the advanced cases where the price does not relate to a standard unit.</span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/UnitPriceSpecification">UnitPriceSpecification</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/QuantitativeValue">QuantitativeValue</a></span>
+    <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsProperties">GoodRelationsProperty</a></span>
+</div>
 
 <!-- property name goes in schema:name -->
 <!-- unstructured textual properties or human-readable version should go in schema:description -->
