@@ -12601,6 +12601,29 @@ Typical unit code(s): C62 for persons </span>
 </div>
 
 
+<!-- POI distance information from GoodRelations -->
+<div typeof="rdfs:Class" resource="http://schema.org/DistanceSpecification">
+        <span class="h" property="rdfs:label">DistanceSpecification</span>
+        <span property="rdfs:comment">Information about the distance from one place to another.</span>
+        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/QuantitativeValue">QuantitativeValue</a></span>
+        <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsClass">GoodRelationsClass</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/distanceInformation">
+    <span class="h" property="rdfs:label">distanceInformation</span>
+    <span property="rdfs:comment">Information about the distance from the place to a point of interest in the vicinity, e.g. airports, train stations, or the city center.</span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Place">Place</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/DistanceSpecification">DistanceSpecification</a></span>
+    <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsProperties">GoodRelationsProperty</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/destination">
+    <span class="h" property="rdfs:label">destination</span>
+    <span property="rdfs:comment">The destination of a distance specification, e.g. an airport or train station.</span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/DistanceSpecification">DistanceSpecification</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Place">Place</a></span>
+    <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsProperties">GoodRelationsProperty</a></span>
+</div>
 <!-- property name goes in schema:name -->
 <!-- unstructured textual properties or human-readable version should go in schema:description -->
 </body>
