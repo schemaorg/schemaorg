@@ -473,8 +473,7 @@ class ShowUnit (webapp2.RequestHandler):
         self.write("</h1>")
         home = node.home
         if home != "core" and home != "":
-            self.write("Defined in the %s.schema.org extension." % home)
-            self.write(" (This is an initial exploratory release.)<br/>")
+            self.write("Defined in the %s.schema.org extension.<br/>" % home)
             self.emitCanonicalURL(node)
 
         self.BreadCrumbs(node, layers=layers)
