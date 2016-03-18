@@ -77,7 +77,7 @@ redraw = (flag) ->
   d3.json 'tree.json', (error, root) ->
     
     if flag
-      console.log prune_tree root
+      prune_tree root
 
     tree_utils.canonical_sort root  
     nodes = partition.nodes root
@@ -87,73 +87,93 @@ redraw = (flag) ->
     sectors = zoomable_layer.selectAll '.class'
       .data nodes, (d) -> d['@id']
 
-    enter_sectors = sectors.enter().append('a')
+    sectors.exit()
+      .transition().duration(1000)
+      .style
+        opacity: 0
+      .remove()
+
+    sectors.select '.sector'
+      .attr
+        opacity: 0
+      .transition().delay(1000).duration(1000)
+        .attr
+          d: arc
+        .style
+          opacity: 1
+
+    sectors.select 'title'
+      .text (d) -> "#{d.name}:\n#{d.description}"
+
+    enter_sectors = sectors.enter().append 'a'
       .attr
         class: 'class'
         'xlink:href': (d) ->"../#{d.name}"
         target: '_blank'
 
-    enter_sectors.append('path')
+    enter_sectors.append 'path'
       .attr
-        class: 'sector',
+        class: 'sector'
+      .style
+        opacity: 0
         fill: (d) -> 
           get_color d
-        opacity: 0
-        d: arc
-      .transition().duration(1500)
+      .transition().delay(2000).duration(1000)
+        .attr
+          d: arc
         .style
           opacity: 1
 
     enter_sectors.append 'title'
-    
-    sectors.select '.sector'
-      .transition().delay(1500).duration(1500)
-      .attr
-        d: arc
-      
-    sectors.select 'title'
-      .text (d) -> "#{d.name}:\n#{d.description}"
-
-    sectors.exit()
-      .transition().delay(500).duration(1500)
-      .style
-        opacity: 0
-      .remove()
 
     ### Sector LABELS
     ###
     labels = zoomable_layer.selectAll '.label'
       .data nodes, (d) -> d['@id']
       
+    labels.exit().transition().duration(1000)
+      .style
+        opacity: 0
+      .remove()
+
+    labels
+      .transition().delay(1000).duration(1000)
+        .attr
+          transform: (d) ->
+            if d.name is 'Thing'
+              'translate(0,0)'
+            else 
+              "translate(#{(Math.pow(d.y + d.dy/2, 0.4)) * Math.cos(d.x + d.dx/2 - Math.PI/2)}, #{(Math.pow(d.y + d.dy/2, 0.4)) * Math.sin(d.x + d.dx/2 - Math.PI/2)})"
+
     enter_labels = labels.enter().append 'g'
       .attr
+        opacity: 0
         class: 'label'
-
-    labels.transition().duration(1500)
-      .attr
         transform: (d) ->
           if d.name is 'Thing'
             'translate(0,0)'
           else 
             "translate(#{(Math.pow(d.y + d.dy/2, 0.4)) * Math.cos(d.x + d.dx/2 - Math.PI/2)}, #{(Math.pow(d.y + d.dy/2, 0.4)) * Math.sin(d.x + d.dx/2 - Math.PI/2)})"
-          
+            
+    enter_labels.transition().delay(2000).duration(1000)
+        .style
+          opacity: 1
+
     enter_labels.append 'text'
       .attr
         class: 'halo semantic_zoom'
         dy: '0.35em'
-      
-    labels.select '.halo'
-      .text (d) -> d.name
 
     enter_labels.append 'text'
       .attr
         class: 'halo_text semantic_zoom'
         dy: '0.35em'
+
+    labels.select '.halo'
+      .text (d) -> d.name    
       
     labels.select '.halo_text'
       .text (d) -> d.name
-
-    labels.exit().remove()
 
     ### Radio buttons on-change transition
     ###
