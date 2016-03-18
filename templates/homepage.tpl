@@ -33,7 +33,6 @@ See the draft <b><a href="{{staticPath}}/docs/releases.html">releases</a></b> pa
   You are viewing the Bibliographic Extension within <a href="http://schema.org/">schema.org</a>.
   It defines terms such as <a href="/Audiobook">Audiobook</a>, <a href="/Thesis">Thesis</a>, <a href="/ComicStory">ComicStory</a>, and  <a href="/workTranslation">workTranslation</a>.
    For more details see the W3C BibExtend Community Group's <a href="http://www.w3.org/community/schemabibex/wiki/Bib.schema.org-1.0">wiki</a>.
-  <br/>This should be considered a pre-final preview release; final changes may be made after wider <a href="https://github.com/schemaorg/schemaorg/issues/699">community review</a>.
   </p>
 
 {% elif ENABLE_HOSTED_EXTENSIONS and host_ext == "auto" %}
