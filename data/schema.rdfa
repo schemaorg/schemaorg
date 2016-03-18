@@ -11662,17 +11662,13 @@ postponing for 1.6.
 
 <p>Additions/changes for existing MusicGroup type: allowing 'genre' to be used on a MusicGroup.</p>
 
-<p>TODO: For discussion - If a MusicGroup can have a genre, why not any Organization?</p>
-
 <div typeof="rdf:Property" resource="http://schema.org/genre">
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MusicGroup">MusicGroup</a></span>
 </div>
 
-<p>Deprecating musicGroupMember in favour of member (already done, but site UI is not ideal; TODO: we should update any examples).</p>
+<p>Deprecating musicGroupMember in favour of member (already done, but site UI is not ideal).</p>
 
 <p>Additions for MusicRecording</p>
-
-<p>TODO: For discussion - do we need something like CreativeWorkContributionRole ?</p>
 
 <div typeof="rdf:Property" resource="http://schema.org/isrcCode">
   <span class="h" property="rdfs:label">isrcCode</span>
@@ -11744,7 +11740,6 @@ postponing for 1.6.
 
 <div typeof="rdf:Property" resource="http://schema.org/releaseOf">
   <span class="h" property="rdfs:label">releaseOf</span>
-  <p>TODO: broaden meaning or add 'album' to name? </p>
   <span property="rdfs:comment">The album this is a release of.</span>
   <link property="http://schema.org/inverseOf" href="http://schema.org/albumRelease"/>
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MusicRelease">MusicRelease</a></span>
@@ -11777,10 +11772,6 @@ postponing for 1.6.
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CreativeWork">CreativeWork</a></span>
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/PublicationEvent">PublicationEvent</a></span>
 </div>
-
-<p>TODO: Add CreativeWorkReleaseRegion - or decide whether PublicationEvent does the job, and rename properties accordingly.</p>
-
-
 
 <div typeof="rdfs:Class" resource="http://schema.org/MusicReleaseFormatType">
   <span class="h" property="rdfs:label">MusicReleaseFormatType</span>
@@ -11834,8 +11825,6 @@ postponing for 1.6.
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Place">Place</a></span>
 </div>
 
-
-<p>TODO: Person birthPlace, deathPlace. (check old historical-info proposal, make a converged design later).</p>
 <p>NOTE: Added foundingLocation (Place) to Organization.</p>
 <div typeof="rdf:Property" resource="http://schema.org/birthPlace">
   <span class="h" property="rdfs:label">birthPlace</span>
