@@ -8,23 +8,22 @@ MICRODATA:
 
 <div itemscope itemtype="http://schema.org/Offer">
   <h1 itemprop="description">Our Private Bank Account Package: Low monthly fees and fair per-use charges.</h1>
-    <b itemprop="name">Private Bank Account Package</b>
-    <span itemprop="itemOffered" itemscope itemtype="http://schema.org/BankAccount">
-        <span itemprop="name">ACME Private Bank Account</span>
-        APR: <meta itemprop="annualPercentageRate" content="0.0314">3.14%
-    </span> 
-  </div>
-  <span itemprop="priceSpecification" itemscope itemtyp="http://schema.org/CompoundPriceSpecification">
-      <span itemprop="priceComponent" itemscope itemtype="http://schema.org/UnitPriceSpecification">
-          <span itemprop="price">5</span> 
-          <meta itemprop="priceCurrency" content="USD"> US$
-          <meta itemprop="unitCode" content="MON"> per month
-      </span>
-      <span itemprop="priceComponent" itemscope itemtype="http://schema.org/UnitPriceSpecification">
-          <span itemprop="price">0.10</span> 
-          <meta itemprop="priceCurrency" content="USD"> US$
-          <span itemprop="unitText"> per transaction
-      </span>
+  <b itemprop="name">Private Bank Account Package</b>
+  <span itemprop="itemOffered" itemscope itemtype="http://schema.org/BankAccount">
+    <span itemprop="name">ACME Private Bank Account</span>
+    APR: <meta itemprop="annualPercentageRate" content="0.0314">3.14%
+  </span> 
+  <span itemprop="priceSpecification" itemscope itemtype="http://schema.org/CompoundPriceSpecification">
+    <span itemprop="priceComponent" itemscope itemtype="http://schema.org/UnitPriceSpecification">
+      <span itemprop="price">5</span> 
+      <meta itemprop="priceCurrency" content="USD"> US$
+      <meta itemprop="unitCode" content="MON"> per month
+    </span>
+    <span itemprop="priceComponent" itemscope itemtype="http://schema.org/UnitPriceSpecification">
+      <span itemprop="price">0.10</span> 
+      <meta itemprop="priceCurrency" content="USD"> US$
+      <span itemprop="unitText"> per transaction</span>
+    </span>
   </span>
 </div>
  
@@ -46,18 +45,21 @@ JSON:
         "annualPercentageRate" : 0.0314 },
     "priceSpecification" : {
         "@type" : "CompoundPriceSpecification",
-        "priceComponent" : {
+        "priceComponent" : 
+        [
+        {
             "@type" : "UnitPriceSpecification",
             "price" : 5,
             "priceCurrency" : "USD",
             "unitCode" : "MON"
         },
-        "priceComponent" : {
+        {
             "@type" : "UnitPriceSpecification",
             "price" : 0.10,
             "priceCurrency" : "USD",
             "unitText" : "per transaction"
         }
+        ]
     }
 }
 </script>
@@ -72,22 +74,21 @@ MICRODATA:
 
 <div itemscope itemtype="http://schema.org/Offer">
   <h1 itemprop="description">Our standard rental car is 50 USD per day and and $ 0.10 per mile.</h1>
-    <b itemprop="name">Rental Car Package</b>
-    <span itemprop="itemOffered" itemscope itemtype="http://schema.org/Car">
-        <span itemprop="name">Volkswagen Golf Class Car</span>
-    </span> 
-  </div>
-  <span itemprop="priceSpecification" itemscope itemtyp="http://schema.org/CompoundPriceSpecification">
-      <span itemprop="priceComponent" itemscope itemtype="http://schema.org/UnitPriceSpecification">
-          <span itemprop="price">50</span> 
-          <meta itemprop="priceCurrency" content="USD"> US$
-          <meta itemprop="unitCode" content="DAY"> per day
-      </span>
-      <span itemprop="priceComponent" itemscope itemtype="http://schema.org/UnitPriceSpecification">
-          <span itemprop="price">0.10</span> 
-          <meta itemprop="priceCurrency" content="USD"> US$
-          <meta itemprop="unitCode" content="SMI"> per mile
-      </span>
+  <b itemprop="name">Rental Car Package</b>
+  <span itemprop="itemOffered" itemscope itemtype="http://schema.org/Car">
+    <span itemprop="name">Volkswagen Golf Class Car</span>
+  </span> 
+  <span itemprop="priceSpecification" itemscope itemtype="http://schema.org/CompoundPriceSpecification">
+    <span itemprop="priceComponent" itemscope itemtype="http://schema.org/UnitPriceSpecification">
+      <span itemprop="price">50</span> 
+      <meta itemprop="priceCurrency" content="USD"> US$
+      <meta itemprop="unitCode" content="DAY"> per day
+    </span>
+    <span itemprop="priceComponent" itemscope itemtype="http://schema.org/UnitPriceSpecification">
+      <span itemprop="price">0.10</span> 
+      <meta itemprop="priceCurrency" content="USD"> US$
+      <meta itemprop="unitCode" content="SMI"> per mile
+    </span>
   </span>
 </div>
  
@@ -109,18 +110,20 @@ JSON:
         },
     "priceSpecification" : {
         "@type" : "CompoundPriceSpecification",
-        "priceComponent" : {
+        "priceComponent" : [
+        {
             "@type" : "UnitPriceSpecification",
             "price" : 50,
             "priceCurrency" : "USD",
             "unitCode" : "DAY"
         },
-        "priceComponent" : {
+        {
             "@type" : "UnitPriceSpecification",
             "price" : 0.10,
             "priceCurrency" : "USD",
             "unitCode" : "SMI"
         }
+        ]
     }
 }
 </script>
