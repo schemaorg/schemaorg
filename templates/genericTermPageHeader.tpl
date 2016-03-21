@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<!-- Generated from genericTermPageHeader.tpl -->
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>{{ entry }} - {{ sitename }}</title>
@@ -66,10 +67,8 @@
   <div id="mainContent" vocab="http://schema.org/" typeof="{{ rdfs_type }}" resource="http://schema.org/{{ entry }}">
   {{ ext_mappings | safe }}
 
-
-
 <!-- webapp will assemble the rest elsewhere -->
+<!-- Will need at least:  </div></body></html> -->
+<!-- end of genericTermPageHeader.tpl -->
+  
 
-<!-- </div>
-</body>
-</html> -->
