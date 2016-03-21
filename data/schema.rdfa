@@ -7177,6 +7177,7 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Event">Event</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CommunicateAction">CommunicateAction</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/WriteAction">WriteAction</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/LinkRole">LinkRole</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Language">Language</a></span>
     </div>
@@ -7512,6 +7513,11 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
       <span class="h" property="rdfs:label">line</span>
       <span property="rdfs:comment">A line is a point-to-point path consisting of two or more points. A line is expressed as a series of two or more point objects separated by space.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/GeoShape">GeoShape</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/linkRelationship">
+      <span class="h" property="rdfs:label">linkRelationship</span>
+      <span property="rdfs:comment">Indicates the relationship type of a Web link. </span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/location">
@@ -11005,6 +11011,11 @@ postponing for 1.6.
     <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Intangible">Intangible</a></span>
     </div>
 
+    <div typeof="rdfs:Class" resource="http://schema.org/LinkRole">
+      <span class="h" property="rdfs:label">LinkRole</span>
+      <span property="rdfs:comment">A a Role that represents a Web link e.g. as expressed via the 'url' property. Its linkRelationship property can indicate URL-based and plain textual link types e.g. those in <a href="http://www.iana.org/assignments/link-relations/link-relations.xhtml">IANA link registry</a> or others such as 'amphtml'. This structure provides a placeholder where details from <a href="https://www.w3.org/TR/html51/document-metadata.html#the-link-element">HTML's link element</a> can be represented outside of HTML, e.g. in JSON-LD feeds.</span>
+      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Role">Role</a></span>
+    </div>
     <div typeof="rdfs:Class" resource="http://schema.org/PerformanceRole">
       <span class="h" property="rdfs:label">PerformanceRole</span>
       <span property="rdfs:comment">A PerformanceRole is a Role that some entity places with regard to a theatrical performance, e.g. in a Movie, TVSeries etc.</span>
