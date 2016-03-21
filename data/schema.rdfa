@@ -3532,6 +3532,23 @@
        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Enumeration">Enumeration</a></span>
        <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsClass">GoodRelationsClass</a></span></div>
 
+    <div typeof="rdfs:Class" resource="http://schema.org/CreditCard">
+      <span class="h" property="rdfs:label">CreditCard</span>
+      <span property="rdfs:comment">A card payment method of a particular brand or name.  Used to mark up a particular payment method and/or the financial product/service that supplies the card account.&lt;br /&gt;
+    Commonly used values:&lt;br /&gt;
+&lt;br /&gt;
+    http://purl.org/goodrelations/v1#AmericanExpress &lt;br /&gt;
+    http://purl.org/goodrelations/v1#DinersClub &lt;br /&gt;
+    http://purl.org/goodrelations/v1#Discover &lt;br /&gt;
+    http://purl.org/goodrelations/v1#JCB &lt;br /&gt;
+    http://purl.org/goodrelations/v1#MasterCard &lt;br /&gt;
+    http://purl.org/goodrelations/v1#VISA &lt;br /&gt;
+       </span>  
+       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/PaymentCard">PaymentCard</a></span>
+       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/LoanOrCredit">LoanOrCredit</a></span>
+       <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsClass">GoodRelationsClass</a></span>
+       <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO">FIBO</a></span></div>
+
     <div typeof="rdfs:Class" resource="http://schema.org/BusinessFunction">
       <span class="h" property="rdfs:label">BusinessFunction</span>
       <span property="rdfs:comment">The business function specifies the type of activity or access (i.e., the bundle of rights) offered by the organization or business person through the offer. Typical are sell, rental or lease, maintenance or repair, manufacture / produce, recycle / dispose, engineering / construction, or installation. Proprietary specifications of access rights are also instances of this class.
@@ -3568,39 +3585,6 @@
         </span>
        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Enumeration">Enumeration</a></span>
        <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsClass">GoodRelationsClass</a></span></div>
-
-    <div typeof="rdfs:Class" resource="http://schema.org/CreditCard">
-      <span class="h" property="rdfs:label">CreditCard</span>
-    <!-- Description from FIBO proposal -->
-       <span property="rdfs:comment">A card payment method of a particular brand or name.  Used to mark up a particular payment method and/or the financial product/service that supplies the card account.
-&lt;br /&gt;
-    Commonly used values:&lt;br /&gt;
-&lt;br /&gt;
-    http://purl.org/goodrelations/v1#AmericanExpress &lt;br /&gt;
-    http://purl.org/goodrelations/v1#DinersClub &lt;br /&gt;
-    http://purl.org/goodrelations/v1#Discover &lt;br /&gt;
-    http://purl.org/goodrelations/v1#JCB &lt;br /&gt;
-    http://purl.org/goodrelations/v1#MasterCard &lt;br /&gt;
-    http://purl.org/goodrelations/v1#VISA &lt;br /&gt;
-        </span>  
-<!-- Previous description
-       <span property="rdfs:comment">A credit or debit card type as a standardized procedure for transferring the monetary amount for a purchase.
-&lt;br /&gt;
-    Commonly used values:&lt;br /&gt;
-&lt;br /&gt;
-    http://purl.org/goodrelations/v1#AmericanExpress &lt;br /&gt;
-    http://purl.org/goodrelations/v1#DinersClub &lt;br /&gt;
-    http://purl.org/goodrelations/v1#Discover &lt;br /&gt;
-    http://purl.org/goodrelations/v1#JCB &lt;br /&gt;
-    http://purl.org/goodrelations/v1#MasterCard &lt;br /&gt;
-    http://purl.org/goodrelations/v1#VISA &lt;br /&gt;
-        </span>  
--->
-
-       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/PaymentCard">PaymentCard</a></span>
-       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/LoanOrCredit">LoanOrCredit</a></span>
-       <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsClass">GoodRelationsClass</a></span>
-       <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO">FIBO</a></span></div>
 
     <div typeof="rdfs:Class" resource="http://schema.org/DayOfWeek">
       <span class="h" property="rdfs:label">DayOfWeek</span>
@@ -11986,6 +11970,7 @@ postponing for 1.6.
       Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/StructuredValue">StructuredValue</a>
     </span>
   </div>
+  
   <div typeof="rdf:Property" resource="http://schema.org/amount">
     <span class="h" property="rdfs:label">amount</span>
     <span property="rdfs:comment">The amount of money.</span>
@@ -11996,6 +11981,7 @@ postponing for 1.6.
     <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/MonetaryAmount">MonetaryAmount</a></span>
     <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number">Number</a></span>
   </div>
+  
   <div typeof="rdf:Property" resource="http://schema.org/currency">
     <span class="h" property="rdfs:label">currency</span>
     <span property="rdfs:comment">The currency in which the monetary amount is expressed (in 3-letter &lt;a href=&#39;http://en.wikipedia.org/wiki/ISO_4217&#39;"&gt;ISO 4217&lt;/a&gt; format).</span>
