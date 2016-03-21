@@ -1,0 +1,40 @@
+TYPES: #document-1 Document,ReadPermission,WritePermission
+PRE-MARKUP:
+
+A document everyone can read, but only one person can edit.
+
+MICRODATA:
+
+TODO.
+ 
+RDFA:
+
+TODO.
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@type": "Document",
+  "name": "New schema.org types proposal",
+  "author": "Alice",
+  "hasDocumentPermission": [
+    {
+      "@type": "DocumentPermissionType",
+      "permissionType": "http://schema.org/WritePermission",
+      "grantee": {
+        "@type": "Person",
+        "email": "alice@example.com"
+      }
+    },
+    {
+      "@type": "DocumentPermissionType",
+      "permissionType": "http://schema.org/ReadPermission",
+      "grantee": {
+        "@type": "Audience",
+        "audienceType": "public"
+      }
+    }
+  ]
+}
+</script>
