@@ -10548,7 +10548,7 @@ JSON:
 }
 </script>
 
-TYPES: Question, Answer, QAPage
+TYPES: Question, Answer
 
 PRE-MARKUP:
 
@@ -12900,6 +12900,53 @@ JSON:
         }
       }
     ]
+  }
+}
+</script>
+
+TYPES: Person, disambiguatingDescription
+
+PRE-MARKUP:
+
+George Bush, the 41st President of the United States is the father of George W. Bush, the 43rd President of the United States.
+  
+
+MICRODATA:
+
+<div itemscope itemtype="http://schema.org/Person">
+  <span itemprop="name">George Bush</span>, the
+  <span itemprop="disambiguatingDescription">41st President of the United States</span>
+  is the father of
+  <div itemprop="children" itemscope itemtype="http://schema.org/Person">
+    <span itemprop="name">George W. Bush</span>, the
+    <span itemprop="disambiguatingDescription">43rd President of the United States</span>.
+  </div>
+</div>
+
+RDFA:
+
+<div vocab="http://schema.org/" typeof="Person">
+  <span property="name">George Bush</span>, the
+  <span property="disambiguatingDescription">41st President of the United States</span>
+  is the father of
+  <div property="children" typeof="Person">
+    <span property="name">George W. Bush</span>, the
+    <span property="disambiguatingDescription">43rd President of the United States</span>.
+  </div>
+</div>
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Person",
+  "name": "George Bush",
+  "disambiguatingDescription": "41st President of the United States",
+  "children": {
+    "@type": "Person",
+    "name": "George W. Bush",
+    "disambiguatingDescription": "43rd President of the United States"
   }
 }
 </script>
