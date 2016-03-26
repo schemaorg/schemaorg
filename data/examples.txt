@@ -1755,7 +1755,7 @@ MICRODATA:
 
 <div itemscope itemtype="http://schema.org/ItemList">
   <h2 itemprop="name">Top 10 laptops</h2><br>
-  <meta itemprop="itemListOrder" content="http://schema.org/ItemListOrderDescending" />
+  <link itemprop="itemListOrder" href="http://schema.org/ItemListOrderDescending" />
   <p>1. <span itemprop="itemListElement">HP Pavilion dv6-6013cl</span></p>
   <p>2. <span itemprop="itemListElement">Dell XPS 15 (Sandy Bridge)</span></p>
   <p>3. <span itemprop="itemListElement">Lenovo ThinkPad X220</span></p>
@@ -1766,7 +1766,7 @@ RDFA:
 
 <div vocab="http://schema.org/" typeof="ItemList">
   <h2 property="name">Top 10 laptops</h2><br>
-  <meta property="itemListOrder" content="http://schema.org/ItemListOrderDescending" />
+  <link property="itemListOrder" href="http://schema.org/ItemListOrderDescending" />
   <p>1. <span property="itemListElement">HP Pavilion dv6-6013cl</span></p>
   <p>2. <span property="itemListElement">Dell XPS 15 (Sandy Bridge)</span></p>
   <p>3. <span property="itemListElement">Lenovo ThinkPad X220</span></p>
@@ -2917,1102 +2917,6 @@ JSON:
   "specialCommitments": "VeteranCommit",
   "title": "Software Engineer",
   "workHours": "40 hours per week"
-}
-</script>
-
-TYPES:  MedicalGuideline,MedicalGuidelineRecommendation,MedicalGuidelineContraindication
-
-PRE-MARKUP:
-
-<h1>Guidelines</h1>
-<ul>
-  <li>Recommendation: NewvoDrug is indicated for initial treatment of cardiac
-  failure for all adult patients. (Strong recommendation;
-  Class I, based on multiple randomized clinical trials)</li>
-  <li>Contraindication: cardiac failure should never be treated with
-  appendectomy in adults. (Class III, standard of care)</li>
-</ul>
-
-MICRODATA:
-
-<h1>Guidelines</h1>
-<ul>
-  <li>Recommendation:
-  <span itemscope itemtype="http://schema.org/MedicalGuidelineRecommendation">
-    <span itemprop="subject" itemscope itemtype="http://schema.org/Drug">
-      <span itemprop="name">NewvoDrug</span>
-    </span>
-    is indicated for initial treatment of
-    <span itemprop="subject" itemscope itemtype="http://schema.org/MedicalCondition">
-      <span itemprop="name">cardiac failure</span>
-    </span>
-    for all adult patients.
-    (<span itemprop="recommendationStrength">Strong recommendation</span>;
-    <a itemprop="evidenceLevel" href="http://schema.org/EvidenceLevelA">Class I</a>,
-    based on
-    <span itemprop="evidenceOrigin">multiple randomized clinical trials</span>)
-  </span>
-  </li>
-  <li>Contraindication:
-  <span itemscope itemtype="http://schema.org/MedicalGuidelineContraindication">
-    <span itemprop="subject" itemscope itemtype="http://schema.org/MedicalCondition">
-      <span itemprop="name">cardiac failure</span></span> should never
-    be treated with
-    <span itemprop="subject" itemscope itemtype="http://schema.org/TherapeuticProcedure">
-      <span itemprop="name">appendectomy</span></span> in adults.
-    (Class III, <a itemprop="evidenceLevel" href="http://schema.org/EvidenceLevelC"/>
-    <span itemprop="evidenceOrigin">standard of care</span></a>)
-  </span></li>
-</ul>
-
-RDFA:
-
-<h1>Guidelines</h1>
-<ul>
-  <li>Recommendation:
-  <span  typeof="MedicalGuidelineRecommendation">
-    <span property="subject" typeof="Drug">
-      <span property="name">NewvoDrug</span>
-    </span>
-    is indicated for initial treatment of
-    <span property="subject" typeof="MedicalCondition">
-      <span property="name">cardiac failure</span>
-    </span>
-    for all adult patients.
-    (<span property="recommendationStrength">Strong recommendation</span>;
-    <a property="evidenceLevel" href="http://schema.org/EvidenceLevelA">
-      Class I</a>,
-    based on
-    <span property="evidenceOrigin">multiple randomized clinical trials</span>)
-  </span>
-  </li>
-  <li>Contraindication:
-  <span  typeof="MedicalGuidelineContraindication">
-    <span property="subject" typeof="MedicalCondition">
-      <span property="name">cardiac failure</span></span> should never
-    be treated with
-    <span property="subject" typeof="TherapeuticProcedure">
-      <span property="name">appendectomy</span></span> in adults.
-    (Class III, <a property="evidenceLevel" href="http://schema.org/EvidenceLevelC"/>
-    <span property="evidenceOrigin">standard of care</span></a>)
-  </span></li>
-</ul>
-
-JSON:
-
-<script type="application/ld+json">
-{
-  "@context": "http://schema.org",
-  "@graph": [
-    {
-      "@type": "MedicalGuidelineRecommendation",
-      "evidenceLevel": "http://schema.org/EvidenceLevelA",
-      "evidenceOrigin": "multiple randomized clinical trials",
-      "recommendationStrength": "Strong recommendation",
-      "subject": [
-        {
-          "@type": "Drug",
-          "name": "NewvoDrug"
-        },
-        {
-          "@type": "MedicalCondition",
-          "name": "cardiac failure"
-        }
-      ]
-    },
-    {
-      "@type": "MedicalGuidelineContraindication",
-      "evidenceLevel": "http://schema.org/EvidenceLevelC",
-      "evidenceOrigin": "standard of care",
-      "subject": [
-        {
-          "@type": "MedicalCondition",
-          "name": "cardiac failure"
-        },
-        {
-          "@type": "TherapeuticProcedure",
-          "name": "appendectomy"
-        }
-      ]
-    }
-  ]
-}
-</script>
-
-TYPES:  MedicalScholarlyArticle,MedicalGuideline,MedicalGuidelineRecommendation
-
-PRE-MARKUP:
-
-<h1>New guidelines for metformin and diabetes mellitus</h1>
-<p>Dr. John Smith
-<br>Medical University
-<br>2012-03-24</p>
-<p><b>Abstract:</b>
-We review clinical evidence related to the use of metformin for
-treatment of type-2 diabetes mellitus and provide new clinical guideline
-recommendations.</p>
-<p><b>MeSH subject headings:</b> Metformin; Diabetes Mellitus, Type 2</p>
-...
-<h3>Guidelines</h3>
-Recommendation: we recommend monotherapy with metformin as an initial
-pharmacologic therapy to treat most patients with type 2 diabetes
-(Grade: strong recommendation; high-quality evidence).
-
-MICRODATA:
-
-<div itemscope itemtype="http://schema.org/MedicalScholarlyArticle">
-  <link itemprop="audience" href="http://schema.org/Clinician"/>
-  <meta itemprop="publicationType" content="Meta-Analysis"/>
-  <h1><span itemprop="name">New guidelines for metformin and
-      diabetes mellitus</span></h1>
-  <p><span itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <span itemprop="name">Dr. John Smith</span>
-    <br><span itemprop="affiliation">Medical University</span>
-  </span>
-  <br><span itemprop="datePublished">2012-03-24</span></p>
-  <p><b>Abstract:</b>
-  <span itemprop="description">We review clinical evidence related to the use of metformin for
-  treatment of type-2 diabetes mellitus and provide new clinical guideline
-  recommendations.</span></p>
-  <p><b>MeSH subject headings:</b>
-  <span itemprop="about" itemscope itemtype="http://schema.org/Drug">
-    <span itemprop="name">Metformin</span>
-    <span itemprop="code" itemscope
-          itemtype="http://schema.org/MedicalCode"
-          itemid="http://www.ncbi.nlm.nih.gov/mesh/D02.078.370.141.450">
-      <!-- Note: use of itemid is not mandatory, but recommended when an
-           external enumeration is available -->
-      <meta itemprop="code" content="D02.078.370.141.450"/>
-      <meta itemprop="codingSystem" content="MeSH"/>
-    </span>
-  </span>;
-  <span itemprop="about" itemscope itemtype="http://schema.org/MedicalCondition">
-    <span itemprop="name">Diabetes Mellitus, Type 2</span>
-    <span itemprop="code" itemscope
-          itemtype="http://schema.org/MedicalCode"
-          itemid="http://www.ncbi.nlm.nih.gov/mesh/C18.452.394.750.149">
-      <!-- Note: use of itemid is not mandatory, but recommended when an
-           external enumeration is available -->
-      <meta itemprop="code" content="C18.452.394.750.149"/>
-      <meta itemprop="codingSystem" content="MeSH"/>
-    </span>
-  </span></p>
-  ...
-  <h3>Guidelines</h3>
-  <span itemscope itemtype="http://schema.org/MedicalGuidelineRecommendation">
-    Recommendation: we recommend monotherapy with
-    <span itemprop="subject">metformin</span> as an initial pharmacologic therapy
-    to treat most patients with <span itemprop="subject">type 2 diabetes</span>
-    (Grade: <span itemprop="recommendationStrength">strong recommendation</span>;
-    <a itemprop="evidenceLevel" href="http://schema.org/EvidenceLevelA">high-quality
-      evidence</a>).
-  </span>
-</div>
-
-RDFA:
-
-<div vocab="http://schema.org/" typeof="MedicalScholarlyArticle">
-  <link property="audience" href="http://schema.org/Clinician"/>
-  <meta property="publicationType" content="Meta-Analysis"/>
-  <h1><span property="name">New guidelines for metformin and
-      diabetes mellitus</span></h1>
-  <p><span property="author" typeof="Person">
-    <span property="name">Dr. John Smith</span>
-    <br><span property="affiliation">Medical University</span>
-  </span>
-  <br><span property="datePublished">2012-03-24</span></p>
-  <p><b>Abstract:</b>
-  <span property="description">We review clinical evidence related to the use of metformin for
-  treatment of type-2 diabetes mellitus and provide new clinical guideline
-  recommendations.</span></p>
-  <p><b>MeSH subject headings:</b>
-  <span property="about" typeof="Drug">
-    <span property="name">Metformin</span>
-    <span property="code" typeof="MedicalCode"
-          resource="http://www.ncbi.nlm.nih.gov/mesh/D02.078.370.141.450">
-      <!-- Note: use of itemid is not mandatory, but recommended when an
-           external enumeration is available -->
-      <meta property="code" content="D02.078.370.141.450"/>
-      <meta property="codingSystem" content="MeSH"/>
-    </span>
-  </span>;
-  <span property="about" typeof="MedicalCondition">
-    <span property="name">Diabetes Mellitus, Type 2</span>
-    <span property="code" typeof="MedicalCode"
-          resource="http://www.ncbi.nlm.nih.gov/mesh/C18.452.394.750.149">
-      <!-- Note: use of itemid is not mandatory, but recommended when an
-           external enumeration is available -->
-      <meta property="code" content="C18.452.394.750.149"/>
-      <meta property="codingSystem" content="MeSH"/>
-    </span>
-  </span>
-  </p>
-  ...
-  <h3>Guidelines</h3>
-  <span  typeof="MedicalGuidelineRecommendation">
-    Recommendation: we recommend monotherapy with
-    <span property="subject">metformin</span> as an initial pharmacologic therapy
-    to treat most patients with <span property="subject">type 2 diabetes</span>
-    (Grade: <span property="recommendationStrength">strong recommendation</span>;
-    <a property="evidenceLevel" href="http://schema.org/EvidenceLevelA">high-quality
-      evidence</a>).
-  </span>
-</div>
-
-JSON:
-
-<script type="application/ld+json">
-{
-  "@context": "http://schema.org",
-  "@type": "MedicalScholarlyArticle",
-  "about": [
-    {
-      "@type": "Drug",
-      "code": {
-        "@id": "http://www.ncbi.nlm.nih.gov/mesh/D02.078.370.141.450",
-        "@type": "MedicalCode",
-        "code": "D02.078.370.141.450",
-        "codingSystem": "MeSH"
-      },
-      "name": "Metformin"
-    },
-    {
-      "@type": "MedicalCondition",
-      "name": "Diabetes Mellitus, Type 2"
-    }
-  ],
-  "audience": "http://schema.org/Clinician",
-  "author": {
-    "@type": "Person",
-    "affiliation": "Medical University",
-    "name": "Dr. John Smith"
-  },
-  "code": {
-    "@id": "http://www.ncbi.nlm.nih.gov/mesh/C18.452.394.750.149",
-    "@type": "MedicalCode",
-    "code": "C18.452.394.750.149",
-    "codingSystem": "MeSH"
-  },
-  "datePublished": "2012-03-24",
-  "description": "We review clinical evidence related to the use of metformin for treatment of type-2 diabetes mellitus and provide new clinical guideline recommendations.",
-  "evidenceLevel": "http://schema.org/EvidenceLevelA",
-  "name": "New guidelines for metformin and diabetes mellitus",
-  "publicationType": "Meta-Analysis",
-  "recommendationStrength": "strong recommendation",
-  "subject": [
-    "metformin",
-    "type 2 diabetes"
-  ]
-}
-</script>
-
-TYPES:  MedicalWebPage,DrugClass
-
-PRE-MARKUP:
-
-<h1>About High Blood Pressure (hypertension)</h1>
-
-<h2>Diagnosis</h2>
-High blood pressure is diagnosed by measuring ...
-...
-<h2>Treatment</h2>
-There are many common treatments for high blood pressure,
-including beta-blocker drugs such as propanaolol (Innopran)
-and atenonlol (Tenormin) ...
-
-MICRODATA:
-
-<body itemscope itemtype="http://schema.org/MedicalWebPage">
-  <link itemprop="audience" href="http://schema.org/Patient" />
-  <link itemprop="specialty" href="http://schema.org/Cardiovascular" />
-  <meta itemprop="lastReviewed" content="2011-09-14"/>
-  <h1>About
-    <span itemprop="about" itemscope itemtype="http://schema.org/MedicalCondition">
-      <span itemprop="name">High Blood Pressure</span>
-      (<span itemprop="name">hypertension</span>)</span>
-  </h1>
-  ...
-  <h2><span itemprop="aspect">Diagnosis</span></h2>
-  High blood pressure is diagnosed by measuring ...
-  ...
-  <h2><span itemprop="aspect">Treatment</span></h2>
-  There are many common treatments for high blood pressure,
-  including
-  <span itemscope itemtype="http://schema.org/DrugClass">
-    <span itemprop="name">beta-blocker</span> drugs such as
-    <span itemprop="drug" itemscope itemtype="http://schema.org/Drug">
-      <span itemprop="nonProprietaryName">propanaolol</span>
-      (<span itemprop="otherName">Innopran</span>)
-    </span>
-  and
-    <span itemprop="drug" itemscope itemtype="http://schema.org/Drug">
-      <span itemprop="nonProprietaryName">atenolol</span>
-      (<span itemprop="otherName">Tenormin</span>)
-    </span> ...
-  ...
-</body>
-
-RDFA:
-
-<body vocab="http://schema.org/" typeof="MedicalWebPage">
-  <link property="audience" href="http://schema.org/Patient" />
-  <link property="specialty" href="http://schema.org/Cardiovascular" />
-  <meta property="lastReviewed" content="2011-09-14"/>
-  <h1>About
-    <span property="about" typeof="MedicalCondition">
-      <span property="name">High Blood Pressure</span>
-      (<span property="name">hypertension</span>)</span>
-  </h1>
-  ...
-  <h2><span property="aspect">Diagnosis</span></h2>
-  High blood pressure is diagnosed by measuring ...
-  ...
-  <h2><span property="aspect">Treatment</span></h2>
-  There are many common treatments for high blood pressure,
-  including
-  <span  typeof="DrugClass">
-    <span property="name">beta-blocker</span> drugs such as
-    <span property="drug" typeof="Drug">
-      <span property="nonProprietaryName">propanaolol</span>
-      (<span property="otherName">Innopran</span>)
-    </span>
-  and
-    <span property="drug" typeof="Drug">
-      <span property="nonProprietaryName">atenolol</span>
-      (<span property="otherName">Tenormin</span>)
-    </span> ...
-  ...
-</body>
-
-JSON:
-
-<script type="application/ld+json">
-{
-  "@context": "http://schema.org",
-  "@type": "MedicalWebPage",
-  "about": {
-    "@type": "MedicalCondition",
-    "name": [
-      "High Blood Pressure",
-      "hypertension"
-    ]
-  },
-  "aspect": [
-    "Diagnosis",
-    "Treatment"
-  ],
-  "audience": "http://schema.org/Patient",
-  "drug": [
-    {
-      "@type": "Drug",
-      "nonProprietaryName": "propanaolol",
-      "otherName": "Innopran"
-    },
-    {
-      "@type": "Drug",
-      "nonProprietaryName": "atenolol",
-      "otherName": "Tenormin"
-    }
-  ],
-  "lastReviewed": "2011-09-14",
-  "name": "beta-blocker",
-  "specialty": "http://schema.org/Cardiovascular"
-}
-</script>
-
-TYPES:  MedicalCondition,MedicalCause,MedicalRiskFactor,DDxElement,MedicalSymptom,MedicalSignOrSymptom
-
-PRE-MARKUP:
-
-<h1>Stable angina (angina pectoris)</h1>
-Stable angina is a medical condition that affects the heart. The
-most common causes are atherosclerosis and spasms of the
-epicardial artery. Typical symptoms include:
-<ul>
-  <li>chest discomfort</li>
-  <li>feeling of tightness, heaviness, or pain in the chest</li>
-</ul>
-Both stable angina and a heart attack result in chest pain, but
-a heart attack will have chest pain lasting at least
-10 minutes at rest, repeated episodes of chest pain at rest
-lasting 5 or more minutes, or an accelerating pattern of chest
-discomfort (episodes that are more frequent, severe,
-longer in duration, and precipitated by minimal exertion).
-<br>
-Risk factors for stable angina include:
-<ul>
-  <li>Age</li>
-  <li>Gender</li>
-  <li>Systolic blood pressure</li>
-  <li>Smoking</li>
-  <li>Total cholesterol and/or cholesterol:HDL ratio</li>
-  <li>Coronary artery disease</li>
-</ul>
-The initial treatment for stable angina is usually drug therapy
-with aspirin, beta blockers, ACE inhibitors, and/or nitroglycerine.
-Future episodes of stable angina can sometimes be prevented by
-stopping smoking, weight management, and increased physical activity.
-
-MICRODATA:
-
-<div itemscope itemtype="http://schema.org/MedicalCondition">
-  <h1><span itemprop="name">Stable angina</span>
-    (<span itemprop="alternateName">angina pectoris</span>)</h1>
-  <span itemprop="code" itemscope itemtype="http://schema.org/MedicalCode">
-    <meta itemprop="code" content="413"/>
-    <meta itemprop="codingSystem" content="ICD-9"/>
-  </span>
-  Stable angina is a medical condition that affects the
-  <span itemprop="associatedAnatomy" itemscope itemtype="http://schema.org/AnatomicalStructure">
-    <span itemprop="name">heart</span>
-  </span>.
-  The most common causes are
-  <span itemprop="cause" itemscope itemtype="http://schema.org/MedicalCause">
-    <span itemprop="name">atherosclerosis</span>
-  </span>
-  and
-  <span itemprop="cause" itemscope itemtype="http://schema.org/MedicalCause">
-    <span itemprop="name">spasms of the epicardial artery</span>
-  </span>.
-  Typical symptoms include:
-  <ul>
-    <li><span itemprop="signOrSymptom" itemscope itemtype="http://schema.org/MedicalSymptom">
-          <span itemprop="name">chest discomfort</span>
-        </span>
-    </li>
-    <li><span itemprop="signOrSymptom" itemscope itemtype="http://schema.org/MedicalSymptom">
-          <span itemprop="name">feeling of tightness, heaviness,
-            or pain in the chest</span>
-        </span>
-    </li>
-  </ul>
-  Both stable angina and a
-  <span itemprop="differentialDiagnosis" itemscope itemtype="http://schema.org/DDxElement">
-    <span itemprop="diagnosis" itemscope itemtype="http://schema.org/MedicalCondition">
-      <span itemprop="name">heart attack</span>
-    </span>
-    result in chest pain, but a heart attack will have
-    <span itemprop="distinguishingSign" itemscope itemtype="http://schema.org/MedicalSymptom">
-      <span itemprop="name">chest pain lasting at least 10 minutes at rest</span>
-    </span>,
-    <span itemprop="distinguishingSign" itemscope itemtype="http://schema.org/MedicalSymptom">
-      <span itemprop="name">repeated episodes of chest pain at rest
-        lasting 5 or more minutes
-      </span>
-    </span>, or
-    <span itemprop="distinguishingSign" itemscope itemtype="http://schema.org/MedicalSymptom">
-      <span itemprop="name">an accelerating pattern of
-        chest discomfort (episodes that are more frequent, severe,
-        longer in duration, and precipitated by minimal exertion)
-      </span>
-    </span>
-  </span>.
-  <br>
-  Risk factors for stable angina include:
-  <ul>
-    <li><span itemprop="riskFactor" itemscope itemtype="http://schema.org/MedicalRiskFactor">
-          <span itemprop="name">Age</span>
-        </span></li>
-    <li><span itemprop="riskFactor" itemscope itemtype="http://schema.org/MedicalRiskFactor">
-          <span itemprop="name">Gender</span>
-        </span></li>
-    <li><span itemprop="riskFactor" itemscope itemtype="http://schema.org/MedicalRiskFactor">
-          <span itemprop="name">Systolic blood pressure</span>
-        </span></li>
-    <li><span itemprop="riskFactor" itemscope itemtype="http://schema.org/MedicalRiskFactor">
-          <span itemprop="name">Smoking</span>
-        </span></li>
-    <li><span itemprop="riskFactor" itemscope itemtype="http://schema.org/MedicalRiskFactor">
-          <span itemprop="name">Total cholesterol and/or cholesterol:HDL ratio</span>
-        </span></li>
-    <li><span itemprop="riskFactor" itemscope itemtype="http://schema.org/MedicalRiskFactor">
-          <span itemprop="name">Coronary artery disease</span>
-        </span></li>
-  </ul>
-  The initial treatment for stable angina is usually drug therapy
-  with
-  <span itemprop="possibleTreatment" itemscope itemtype="http://schema.org/Drug">
-    <span itemprop="name">aspirin</span>
-  </span>,
-  <span itemprop="possibleTreatment" itemscope itemtype="http://schema.org/DrugClass">
-    <span itemprop="name">beta blockers</span>
-  </span>,
-  <span itemprop="possibleTreatment" itemscope itemtype="http://schema.org/DrugClass">
-    <span itemprop="name">ACE inhibitors</span>
-  </span>, and/or
-  <span itemprop="possibleTreatment" itemscope itemtype="http://schema.org/Drug">
-    <span itemprop="name">nitroglycerine</span>
-  </span>,
-  Future episodes of stable angina can sometimes be prevented by
-  <span itemprop="secondaryPrevention" itemscope itemtype="http://schema.org/LifestyleModification">
-    <span itemprop="name">stopping smoking</span>
-  </span>,
-  <span itemprop="secondaryPrevention" itemscope itemtype="http://schema.org/LifestyleModification">
-    <span itemprop="name">weight management</span>
-  </span>, and
-  <span itemprop="secondaryPrevention" itemscope itemtype="http://schema.org/LifestyleModification">
-    <span itemprop="name">increased physical activity</span>
-  </span>.
-</div>
-
-RDFA:
-
-<div vocab="http://schema.org/" typeof="MedicalCondition">
-  <h1><span property="name">Stable angina</span>
-    (<span property="alternateName">angina pectoris</span>)</h1>
-  <span property="code" typeof="MedicalCode">
-    <meta property="code" content="413"/>
-    <meta property="codingSystem" content="ICD-9"/>
-  </span>
-  Stable angina is a medical condition that affects the
-  <span property="associatedAnatomy" typeof="AnatomicalStructure">
-    <span property="name">heart</span>
-  </span>.
-  The most common causes are
-  <span property="cause" typeof="MedicalCause">
-    <span property="name">atherosclerosis</span>
-  </span>
-  and
-  <span property="cause" typeof="MedicalCause">
-    <span property="name">spasms of the epicardial artery</span>
-  </span>.
-  Typical symptoms include:
-  <ul>
-    <li><span property="signOrSymptom" typeof="MedicalSymptom">
-          <span property="name">chest discomfort</span>
-        </span>
-    </li>
-    <li><span property="signOrSymptom" typeof="MedicalSymptom">
-          <span property="name">feeling of tightness, heaviness,
-            or pain in the chest</span>
-        </span>
-    </li>
-  </ul>
-  Both stable angina and a
-  <span property="differentialDiagnosis" typeof="DDxElement">
-    <span property="diagnosis" typeof="MedicalCondition">
-      <span property="name">heart attack</span>
-    </span>
-    result in chest pain, but a heart attack will have
-    <span property="distinguishingSign" typeof="MedicalSymptom">
-      <span property="name">chest pain lasting at least 10 minutes at rest</span>
-    </span>,
-    <span property="distinguishingSign" typeof="MedicalSymptom">
-      <span property="name">repeated episodes of chest pain at rest
-        lasting 5 or more minutes
-      </span>
-    </span>, or
-    <span property="distinguishingSign" typeof="MedicalSymptom">
-      <span property="name">an accelerating pattern of
-        chest discomfort (episodes that are more frequent, severe,
-        longer in duration, and precipitated by minimal exertion)
-      </span>
-    </span>
-  </span>.
-  <br>
-  Risk factors for stable angina include:
-  <ul>
-    <li><span property="riskFactor" typeof="MedicalRiskFactor">
-          <span property="name">Age</span>
-        </span></li>
-    <li><span property="riskFactor" typeof="MedicalRiskFactor">
-          <span property="name">Gender</span>
-        </span></li>
-    <li><span property="riskFactor" typeof="MedicalRiskFactor">
-          <span property="name">Systolic blood pressure</span>
-        </span></li>
-    <li><span property="riskFactor" typeof="MedicalRiskFactor">
-          <span property="name">Smoking</span>
-        </span></li>
-    <li><span property="riskFactor" typeof="MedicalRiskFactor">
-          <span property="name">Total cholesterol and/or cholesterol:HDL ratio</span>
-        </span></li>
-    <li><span property="riskFactor" typeof="MedicalRiskFactor">
-          <span property="name">Coronary artery disease</span>
-        </span></li>
-  </ul>
-  The initial treatment for stable angina is usually drug therapy
-  with
-  <span property="possibleTreatment" typeof="Drug">
-    <span property="name">aspirin</span>
-  </span>,
-  <span property="possibleTreatment" typeof="DrugClass">
-    <span property="name">beta blockers</span>
-  </span>,
-  <span property="possibleTreatment" typeof="DrugClass">
-    <span property="name">ACE inhibitors</span>
-  </span>, and/or
-  <span property="possibleTreatment" typeof="Drug">
-    <span property="name">nitroglycerine</span>
-  </span>,
-  Future episodes of stable angina can sometimes be prevented by
-  <span property="secondaryPrevention" typeof="LifestyleModification">
-    <span property="name">stopping smoking</span>
-  </span>,
-  <span property="secondaryPrevention" typeof="LifestyleModification">
-    <span property="name">weight management</span>
-  </span>, and
-  <span property="secondaryPrevention" typeof="LifestyleModification">
-    <span property="name">increased physical activity</span>
-  </span>.
-</div>
-
-JSON:
-
-<script type="application/ld+json">
-{
-  "@context": "http://schema.org",
-  "@type": "MedicalCondition",
-  "alternateName": "angina pectoris",
-  "associatedAnatomy": {
-    "@type": "AnatomicalStructure",
-    "name": "heart"
-  },
-  "cause": [
-    {
-      "@type": "MedicalCause",
-      "name": "atherosclerosis"
-    },
-    {
-      "@type": "MedicalCause",
-      "name": "spasms of the epicardial artery"
-    }
-  ],
-  "code": {
-    "@type": "MedicalCode",
-    "code": "413",
-    "codingSystem": "ICD-9"
-  },
-  "differentialDiagnosis": {
-    "@type": "DDxElement",
-    "diagnosis": {
-      "@type": "MedicalCondition",
-      "name": "heart attack"
-    },
-    "distinguishingSign": [
-      {
-        "@type": "MedicalSymptom",
-        "name": "chest pain lasting at least 10 minutes at rest"
-      },
-      {
-        "@type": "MedicalSymptom",
-        "name": "repeated episodes of chest pain at rest lasting 5 or more minutes"
-      },
-      {
-        "@type": "MedicalSymptom",
-        "name": "an accelerating pattern of chest discomfort (episodes that are more frequent, severe, longer in duration, and precipitated by minimal exertion)"
-      }
-    ]
-  },
-  "name": "Stable angina",
-  "possibleTreatment": [
-    {
-      "@type": "Drug",
-      "name": "aspirin"
-    },
-    {
-      "@type": "DrugClass",
-      "name": "beta blockers"
-    },
-    {
-      "@type": "DrugClass",
-      "name": "ACE inhibitors"
-    },
-    {
-      "@type": "Drug",
-      "name": "nitroglycerine"
-    }
-  ],
-  "riskFactor": [
-    {
-      "@type": "MedicalRiskFactor",
-      "name": "Age"
-    },
-    {
-      "@type": "MedicalRiskFactor",
-      "name": "Gender"
-    },
-    {
-      "@type": "MedicalRiskFactor",
-      "name": "Systolic blood pressure"
-    },
-    {
-      "@type": "MedicalRiskFactor",
-      "name": "Smoking"
-    },
-    {
-      "@type": "MedicalRiskFactor",
-      "name": "Total cholesterol and/or cholesterol:HDL ratio"
-    },
-    {
-      "@type": "MedicalRiskFactor",
-      "name": "Coronary artery disease"
-    }
-  ],
-  "secondaryPrevention": [
-    {
-      "@type": "LifestyleModification",
-      "name": "stopping smoking"
-    },
-    {
-      "@type": "LifestyleModification",
-      "name": "weight management"
-    },
-    {
-      "@type": "LifestyleModification",
-      "name": "increased physical activity"
-    }
-  ],
-  "signOrSymptom": [
-    {
-      "@type": "MedicalSymptom",
-      "name": "chest discomfort"
-    },
-    {
-      "@type": "MedicalSymptom",
-      "name": "feeling of tightness, heaviness, or pain in the chest"
-    }
-  ]
-}
-</script>
-
-TYPES:  Drug,TreatmentIndication,MedicalContraindication
-
-PRE-MARKUP:
-
-<h1>Drug Info: PainAwayMax</h1>
-PainAwayMax is a brand of ibuprofen manufactured by FooCorp. It is an
-analgesic in the class of nonsteroidal anti-inflammatory (NSAID) drugs.
-It is used to temporarily relieve minor aches and pains due
-to:
-<ul>
-  <li>headache</li>
-  <li>toothache</li>
-  <li>backache</li>
-  <li>menstrual cramps</li>
-  <li>the common cold</li>
-  <li>muscular aches</li>
-  <li>minor pain of arthritis</li>
-</ul>
-and to temporarily reduce fever.
-<br>
-It is available in the US as a non-prescription drug in the form of
-tablets and capsules.
-<br>
-Common side effects include diarrhea, constipation, bloating,
-dizziniess, or nervousness. Call a doctor immediately if you
-experience any of the following rare but serious side effects:
-vomiting blood, bloody stools, or stomach pain that does not get better.
-<br>
-Do not use PainAwayMax if you have ever had an allergic reaction to any
-other pain reliever/fever reducer, or right before or after heart surgery.
-<br>
-<b>Warning:</b> NSAIDs may cause severe stomach bleeding.
-
-MICRODATA:
-
-<div itemscope itemtype="http://schema.org/Drug">
-  <h1>Drug Info: <span itemprop="name">PainAwayMax</span></h1>
-  PainAwayMax is a brand of
-  <span itemprop="alternateName">ibuprofen</span> manufactured by
-  <span itemprop="manufacturer" itemscope itemtype="http://schema.org/Organization">
-    <span itemprop="name">FooCorp</span>
-  </span>.
-  It is an
-  <span itemprop="drugClass" itemscope itemtype="http://schema.org/DrugClass">
-   <span itemprop="name">analgesic</span>
-  </span> in the class of
-  <span itemprop="drugClass" itemscope itemtype="http://schema.org/DrugClass">
-    <span itemprop="name">nonsteroidal anti-inflammatory</span>
-    (<span itemprop="alternateName">NSAID</span>)
-  </span>
-  drugs.
-  It is used to temporarily relieve minor aches and pains due to:
-  <ul>
-    <li><span itemprop="indication" itemscope itemtype="http://schema.org/TreatmentIndication">
-          <span itemprop="name">headache</span>
-        </span></li>
-    <li><span itemprop="indication" itemscope itemtype="http://schema.org/TreatmentIndication">
-          <span itemprop="name">toothache</span>
-        </span></li>
-    <li><span itemprop="indication" itemscope itemtype="http://schema.org/TreatmentIndication">
-          <span itemprop="name">backache</span>
-        </span></li>
-    <li><span itemprop="indication" itemscope itemtype="http://schema.org/TreatmentIndication">
-          <span itemprop="name">menstrual cramps</span>
-        </span></li>
-    <li><span itemprop="indication" itemscope itemtype="http://schema.org/TreatmentIndication">
-          the <span itemprop="name">common cold</span>
-        </span></li>
-    <li><span itemprop="indication" itemscope itemtype="http://schema.org/TreatmentIndication">
-          <span itemprop="name">muscular aches</span>
-        </span></li>
-    <li><span itemprop="indication" itemscope itemtype="http://schema.org/TreatmentIndication">
-          <span itemprop="name">minor pain of arthritis</span>
-        </span></li>
-  </ul>
-  and to temporarily reduce
-  <span itemprop="indication" itemscope itemtype="http://schema.org/TreatmentIndication">
-    <span itemprop="name">fever</span>
-  </span>.
-  <br>It is available in the
-  <span itemprop="legalStatus" itemscope itemtype="http://schema.org/DrugLegalStatus">
-    <span itemprop="applicableLocation">US</span> as a
-    <span itemprop="name">non-prescription drug</span>
-  </span>
-  <link itemprop="prescriptionStatus" href="http://schema.org/OTC" />
-  in the form of <span itemprop="dosageForm">tablets</span> and
-  <span itemprop="dosageForm">capsules</span>.
-  <br>
-  Common side effects include
-  <span itemprop="adverseOutcome" itemscope itemtype="http://schema.org/MedicalSymptom">
-    <span itemprop="name">diarrhea</span>
-  </span>,
-  <span itemprop="adverseOutcome" itemscope itemtype="http://schema.org/MedicalSymptom">
-    <span itemprop="name">constipation</span>
-  </span>,
-  <span itemprop="adverseOutcome" itemscope itemtype="http://schema.org/MedicalSymptom">
-    <span itemprop="name">bloating</span>
-  </span>,
-  <span itemprop="adverseOutcome" itemscope itemtype="http://schema.org/MedicalSymptom">
-    <span itemprop="name">dizziness</span>
-  </span>, or
-  <span itemprop="adverseOutcome" itemscope itemtype="http://schema.org/MedicalSymptom">
-    <span itemprop="name">nervousness</span>
-  </span>.
-  Call a doctor immediately if you experience any of the following
-  rare but serious side effects:
-  <span itemprop="seriousAdverseOutcome" itemscope itemtype="http://schema.org/MedicalSymptom">
-    <span itemprop="name">vomiting blood</span>
-  </span>,
-  <span itemprop="seriousAdverseOutcome" itemscope itemtype="http://schema.org/MedicalSymptom">
-    <span itemprop="name">bloody stools</span>
-  </span>, or
-  <span itemprop="seriousAdverseOutcome" itemscope itemtype="http://schema.org/MedicalSymptom">
-    <span itemprop="name">stomach pain that does not get better</span>
-  </span>.
-  <br>Do not use PainAwayMax if you have ever had an
-  <span itemprop="contraindication" itemscope itemtype="http://schema.org/MedicalContraindication">
-    <meta itemprop="name" content="allergic reaction to any pain reliever"/>
-    allergic reaction to any other pain reliever/fever reducer
-  </span>, or right before or after
-  <span itemprop="contraindication" itemscope itemtype="http://schema.org/MedicalContraindication">
-    <span itemprop="name">heart surgery</span>
-  </span>.
-  <br>
-  <b>Warning:</b>
-  <span itemprop="warning">NSAIDs may cause severe stomach bleeding</span>.
-</div>
-
-RDFA:
-
-<div vocab="http://schema.org/" typeof="Drug">
-  <h1>Drug Info: <span property="name">PainAwayMax</span></h1>
-  PainAwayMax is a brand of
-  <span property="alternateName">ibuprofen</span> manufactured by
-  <span property="manufacturer" typeof="Organization">
-    <span property="name">FooCorp</span>
-  </span>.
-  It is an
-  <span property="drugClass" typeof="DrugClass">
-   <span property="name">analgesic</span>
-  </span> in the class of
-  <span property="drugClass" typeof="DrugClass">
-    <span property="name">nonsteroidal anti-inflammatory</span>
-    (<span property="alternateName">NSAID</span>)
-  </span>
-  drugs.
-  It is used to temporarily relieve minor aches and pains due to:
-  <ul>
-    <li><span property="indication" typeof="TreatmentIndication">
-          <span property="name">headache</span>
-        </span></li>
-    <li><span property="indication" typeof="TreatmentIndication">
-          <span property="name">toothache</span>
-        </span></li>
-    <li><span property="indication" typeof="TreatmentIndication">
-          <span property="name">backache</span>
-        </span></li>
-    <li><span property="indication" typeof="TreatmentIndication">
-          <span property="name">menstrual cramps</span>
-        </span></li>
-    <li><span property="indication" typeof="TreatmentIndication">
-          the <span property="name">common cold</span>
-        </span></li>
-    <li><span property="indication" typeof="TreatmentIndication">
-          <span property="name">muscular aches</span>
-        </span></li>
-    <li><span property="indication" typeof="TreatmentIndication">
-          <span property="name">minor pain of arthritis</span>
-        </span></li>
-  </ul>
-  and to temporarily reduce
-  <span property="indication" typeof="TreatmentIndication">
-    <span property="name">fever</span>
-  </span>.
-  <br>It is available in the
-  <span property="legalStatus" typeof="DrugLegalStatus">
-    <span property="applicableLocation">US</span> as a
-    <span property="name">non-prescription drug</span>
-  </span>
-  <link property="prescriptionStatus" href="http://schema.org/OTC" />
-  in the form of <span property="dosageForm">tablets</span> and
-  <span property="dosageForm">capsules</span>.
-  <br>
-  Common side effects include
-  <span property="adverseOutcome" typeof="MedicalSymptom">
-    <span property="name">diarrhea</span>
-  </span>,
-  <span property="adverseOutcome" typeof="MedicalSymptom">
-    <span property="name">constipation</span>
-  </span>,
-  <span property="adverseOutcome" typeof="MedicalSymptom">
-    <span property="name">bloating</span>
-  </span>,
-  <span property="adverseOutcome" typeof="MedicalSymptom">
-    <span property="name">dizziness</span>
-  </span>, or
-  <span property="adverseOutcome" typeof="MedicalSymptom">
-    <span property="name">nervousness</span>
-  </span>.
-  Call a doctor immediately if you experience any of the following
-  rare but serious side effects:
-  <span property="seriousAdverseOutcome" typeof="MedicalSymptom">
-    <span property="name">vomiting blood</span>
-  </span>,
-  <span property="seriousAdverseOutcome" typeof="MedicalSymptom">
-    <span property="name">bloody stools</span>
-  </span>, or
-  <span property="seriousAdverseOutcome" typeof="MedicalSymptom">
-    <span property="name">stomach pain that does not get better</span>
-  </span>.
-  <br>Do not use PainAwayMax if you have ever had an
-  <span property="contraindication" typeof="MedicalContraindication">
-    <meta property="name" content="allergic reaction to any pain reliever"/>
-    allergic reaction to any other pain reliever/fever reducer
-  </span>, or right before or after
-  <span property="contraindication" typeof="MedicalContraindication">
-    <span property="name">heart surgery</span>
-  </span>.
-  <br>
-  <b>Warning:</b>
-  <span property="warning">NSAIDs may cause severe stomach bleeding</span>.
-</div>
-
-JSON:
-
-<script type="application/ld+json">
-{
-  "@context": "http://schema.org",
-  "@type": "Drug",
-  "adverseOutcome": [
-    {
-      "@type": "MedicalSymptom",
-      "name": "diarrhea"
-    },
-    {
-      "@type": "MedicalSymptom",
-      "name": "constipation"
-    },
-    {
-      "@type": "MedicalSymptom",
-      "name": "bloating"
-    },
-    {
-      "@type": "MedicalSymptom",
-      "name": "dizziness"
-    },
-    {
-      "@type": "MedicalSymptom",
-      "name": "nervousness"
-    }
-  ],
-  "alternateName": "ibuprofen",
-  "contraindication": [
-    {
-      "@type": "MedicalContraindication",
-      "name": "allergic reaction to any pain reliever"
-    },
-    {
-      "@type": "MedicalContraindication",
-      "name": "heart surgery"
-    }
-  ],
-  "dosageForm": [
-    "tablets",
-    "capsules"
-  ],
-  "drugClass": [
-    {
-      "@type": "DrugClass",
-      "name": "analgesic"
-    },
-    {
-      "@type": "DrugClass",
-      "alternateName": "NSAID",
-      "name": "nonsteroidal anti-inflammatory"
-    }
-  ],
-  "indication": [
-    {
-      "@type": "TreatmentIndication",
-      "name": "headache"
-    },
-    {
-      "@type": "TreatmentIndication",
-      "name": "toothache"
-    },
-    {
-      "@type": "TreatmentIndication",
-      "name": "backache"
-    },
-    {
-      "@type": "TreatmentIndication",
-      "name": "menstrual cramps"
-    },
-    {
-      "@type": "TreatmentIndication",
-      "name": "common cold"
-    },
-    {
-      "@type": "TreatmentIndication",
-      "name": "muscular aches"
-    },
-    {
-      "@type": "TreatmentIndication",
-      "name": "minor pain of arthritis"
-    },
-    {
-      "@type": "TreatmentIndication",
-      "name": "fever"
-    }
-  ],
-  "legalStatus": {
-    "@type": "DrugLegalStatus",
-    "applicableLocation": "US",
-    "name": "non-prescription drug"
-  },
-  "manufacturer": {
-    "@type": "Organization",
-    "name": "FooCorp"
-  },
-  "name": "PainAwayMax",
-  "prescriptionStatus": "http://schema.org/OTC",
-  "seriousAdverseOutcome": [
-    {
-      "@type": "MedicalSymptom",
-      "name": "vomiting blood"
-    },
-    {
-      "@type": "MedicalSymptom",
-      "name": "bloody stools"
-    },
-    {
-      "@type": "MedicalSymptom",
-      "name": "stomach pain that does not get better"
-    }
-  ],
-  "warning": "NSAIDs may cause severe stomach bleeding"
 }
 </script>
 
@@ -10563,7 +9467,7 @@ PRE-MARKUP:
       </div>
       <div>answered Dec 1 '10 at 22:01</div>
       <div><span>anotheruser</span></div>
-    <div>
+    </div>
     <div>
       <div>vote count: 39</div>
       <div>
@@ -12349,11 +11253,11 @@ TYPES:  ItemList, Product, Offer
 PRE-MARKUP:
 
 <div>
-  <link  href="http://multivarki.ru?filters%5Bprice%5D%5BLTE%5D=39600" />
+  <!-- http://multivarki.ru?filters%5Bprice%5D%5BLTE%5D=39600 -->
   <span>315</span>
   <div>
-    <img src="http://img01.multivarki.ru.ru/c9/f1/a5fe6642-18d0-47ad-b038-6fca20f1c923.jpeg" />
-    <a alt="Photo of product" href="http://multivarki.ru/brand_502/">
+    <img alt="Photo of product" src="http://img01.multivarki.ru.ru/c9/f1/a5fe6642-18d0-47ad-b038-6fca20f1c923.jpeg" />
+    <a href="http://multivarki.ru/brand_502/">
       <span>BRAND 502</span>
     </a>
     <div>
@@ -12367,10 +11271,10 @@ PRE-MARKUP:
 
 MICRODATA:
 
-<div  itemtype="http://schema.org/ItemList">
+<div itemscope itemtype="http://schema.org/ItemList">
   <link itemprop="url" href="http://multivarki.ru?filters%5Bprice%5D%5BLTE%5D=39600" />
   <span itemprop="numberOfItems">315</span>
-  <div itemprop="itemListElement" itemscope="" itemtype="http://schema.org/Product">
+  <div itemprop="itemListElement" itemscope itemtype="http://schema.org/Product">
     <img alt="Photo of product" itemprop="image"
      src="http://img01.multivarki.ru.ru/c9/f1/a5fe6642-18d0-47ad-b038-6fca20f1c923.jpeg" />
     <a itemprop="url" href="http://multivarki.ru/brand_502/">
@@ -12446,17 +11350,17 @@ by John Doe
 
 MICRODATA:
 
-<div itemtype="http://schema.org/ItemList http://schema.org/CreativeWork">
+<div itemscope itemtype="http://schema.org/ItemList http://schema.org/CreativeWork">
   <h1 itemprop="name">Top 5 covers of Bob Dylan Songs</h1>
   <div itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <span itemprop="name" content="John Doe">by John Doe</span>
+    by <span itemprop="name">John Doe</span>
   </div>
   <div itemprop="about" itemscope itemtype="http://schema.org/MusicRecording">
     <div itemprop="byArtist" itemscope itemtype="http://schema.org/MusicGroup">
       <meta itemprop="name" content="Bob Dylan" />
     </div>
   </div>
-  <meta itemprop="itemListOrder" content="http://schema.org/ItemListOrderAscending" />
+  <link itemprop="itemListOrder" href="http://schema.org/ItemListOrderAscending" />
   <meta itemprop="numberOfItems" content="5" />
   <div itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
     <span itemprop="position">5</span>
@@ -12513,14 +11417,14 @@ RDFA:
 <div vocab="http://schema.org/" typeof="ItemList CreativeWOrk">
   <h1 property="name">Top 5 covers of Bob Dylan Songs</h1>
   <div property="author" typeof="Person">
-    <span property="name" content="John Doe">by John Doe</span>
+    by <span property="name">John Doe</span>
   </div>
   <div property="about" typeof="MusicRecording">
     <div property="byArtist" typeof="MusicGroup">
       <meta property="name" content="Bob Dylan" />
     </div>
   </div>
-  <meta property="itemListOrder" content="http://schema.org/ItemListOrderAscending" />
+  <link property="itemListOrder" href="http://schema.org/ItemListOrderAscending" />
   <meta property="numberOfItems" content="5" />
   <div property="itemListElement" typeof="ListItem">
     <span property="position">5</span>
@@ -12581,7 +11485,7 @@ JSON:
   "@type": ["ItemList", "CreativeWork"],
   "name": "Top 5 covers of Bob Dylan Songs",
   "author": "John Doe",
-  "about: {
+  "about": {
     "@type": "MusicRecording",
     "byArtist": {
       "@type": "MusicGroup",
@@ -12589,8 +11493,8 @@ JSON:
     }
   },
   "itemListOrder": "http://schema.org/ItemListOrderAscending",
-  "numberOfItems: 5,
-  itemListElement: [
+  "numberOfItems": 5,
+  "itemListElement": [
     {
       "@type": "ListItem",
       "position": 5,
@@ -12674,7 +11578,7 @@ The artists with the most cumulative weeks at number one according to Billboard 
 
 MICRODATA:
 
-<div itemtype="http://schema.org/ItemList">
+<div itemscope itemtype="http://schema.org/ItemList">
   <link itemprop="url" href="http://en.wikipedia.org/wiki/Billboard_200" />
   <h1><span itemprop="name">Top music artists</span></h1>
   <div itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
@@ -12735,7 +11639,7 @@ RDFA:
   <div property="itemListElement" typeof="ListItem">
     <span property="position">3</span>
     <span property="item" typeof="MusicGroup">
-      <span itemprop="name">Garth Brooks</span>
+      <span property="name">Garth Brooks</span>
     </span>
     <span>51 weeks</span>
   </div>
@@ -12833,7 +11737,7 @@ RDFA:
   <span property="name">King of Limbs</span>
   <span property="byArtist">Radiohead</span>
   <div property="track" typeof="ItemList">
-    <span property="numberOfItems" content=8 />
+    <meta property="numberOfItems" content=8 />
     <div property="itemListElement" typeof="ListItem">
       <span property="position">1</span>
       <div property="item" typeof="http://schema.org/MusicRecording">
@@ -12848,7 +11752,7 @@ RDFA:
     </div>
     <div property="itemListElement" typeof="ListItem">
       <span property="position">3</span>
-      <div property="item" ypeof="MusicRecording">
+      <div property="item" typeof="MusicRecording">
         <span property="name">Little by Little</span>
       </div>
     </div>
