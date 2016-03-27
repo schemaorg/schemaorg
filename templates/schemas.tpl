@@ -31,7 +31,7 @@ Or you can jump directly to a commonly used type:
   <li>Creative works: <a href="{{staticPath}}/CreativeWork">CreativeWork</a>, <a href="{{staticPath}}/Book">Book</a>, <a href="{{staticPath}}/Movie">Movie</a>, <a href="{{staticPath}}/MusicRecording">MusicRecording</a>, <a href="{{staticPath}}/Recipe">Recipe</a>, <a href="{{staticPath}}/TVSeries">TVSeries</a> ...</li>
   <li>Embedded non-text objects: <a href="{{staticPath}}/AudioObject">AudioObject</a>, <a href="{{staticPath}}/ImageObject">ImageObject</a>, <a href="{{staticPath}}/VideoObject">VideoObject</a></li>
   <li><a href="{{staticPath}}/Event">Event</a></li>
-  <li><a href="{{staticPath}}/meddocs.html">Health and medical types</a>: notes on the health and medical types under <a href="{{staticPath}}/MedicalEntity">MedicalEntity</a>.</li>
+  <li><a href="{{staticPath}}/docs/meddocs.html">Health and medical types</a>: notes on the health and medical types under <a href="{{staticPath}}/MedicalEntity">MedicalEntity</a>.</li>
   <li><a href="{{staticPath}}/Organization">Organization</a></li>
   <li><a href="{{staticPath}}/Person">Person</a></li>
   <li><a href="{{staticPath}}/Place">Place</a>, <a href="{{staticPath}}/LocalBusiness">LocalBusiness</a>, <a href="{{staticPath}}/Restaurant">Restaurant</a> ...</li>
@@ -50,7 +50,7 @@ Or you can jump directly to a commonly used type:
 <br/>See also the <a href="{{staticPath}}/docs/releases.html">releases</a> page for recent updates and project history.<br/>
 
 <br />
-We also have a small set of <a href="{{staticPath}}/DataType">primitive data types</a> for numbers, text, etc. More details about the data model, etc. are available <a href="{{staticPath}}/datamodel.html">here</a>.
+We also have a small set of <a href="{{staticPath}}/DataType">primitive data types</a> for numbers, text, etc. More details about the data model, etc. are available <a href="{{staticPath}}/docs/datamodel.html">here</a>.
 <br />
 <br />
 
