@@ -2568,18 +2568,6 @@
        <link property="owl:equivalentClass" href="http://purl.org/dc/dcmitype/Dataset"/>
        </div>
 
-    <div typeof="rdfs:Class" resource="http://schema.org/Class">
-      <span class="h" property="rdfs:label">Class</span>
-      <span property="rdfs:comment">A class, also often called a &#39;Type&#39;; equivalent to rdfs:Class.</span>
-       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Intangible">Intangible</a></span>
-    </div>
-
-    <div typeof="rdfs:Class" resource="http://schema.org/Property">
-      <span class="h" property="rdfs:label">Property</span>
-      <span property="rdfs:comment">A property, used to indicate attributes and relationships of some Thing; equivalent to rdf:Property.</span>
-       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Intangible">Intangible</a></span>
-    </div>
-
     <div typeof="rdfs:Class" resource="http://schema.org/PublicationEvent">
       <span class="h" property="rdfs:label">PublicationEvent</span>
       <span property="rdfs:comment">A PublicationEvent corresponds indifferently to the event of publication for a CreativeWork of any type e.g. a broadcast event, an on-demand event, a book/journal publication via a variety of delivery media.</span>
@@ -4719,28 +4707,7 @@
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Dataset">Dataset</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/DataDownload">DataDownload</a></span>
     </div>
-    <div typeof="rdf:Property" resource="http://schema.org/domainIncludes">
-      <span class="h" property="rdfs:label">domainIncludes</span>
-      <span property="rdfs:comment">Relates a property to a class that is (one of) the type(s) the property is expected to be used on.</span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Property">Property</a></span>
-      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Class">Class</a></span>
-    </div>
-    <div typeof="rdf:Property" resource="http://schema.org/inverseOf">
-      <span class="h" property="rdfs:label">inverseOf</span>
-      <span property="rdfs:comment">Relates a property to a property that is its inverse. Inverse properties relate the same pairs of items to each other, but in reversed direction. For example, the 'alumni' and 'alumniOf' properties are inverseOf each other. Some properties don't have explicit inverses; in these situations RDFa and JSON-LD syntax for reverse properties can be used.</span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Property">Property</a></span>
-      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Property">Property</a></span>
-    </div>
-    <div typeof="rdf:Property" resource="http://schema.org/supersededBy">
-      <span class="h" property="rdfs:label">supersededBy</span>
-      <span property="rdfs:comment">Relates a term (i.e. a property, class or enumeration) to one that supersedes it.</span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Property">Property</a></span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Class">Class</a></span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Enumeration">Enumeration</a></span>
-      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Property">Property</a></span>
-      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Class">Class</a></span>
-      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Enumeration">Enumeration</a></span>
-    </div>
+
     <div typeof="rdf:Property" resource="http://schema.org/doorTime">
       <span class="h" property="rdfs:label">doorTime</span>
       <span property="rdfs:comment">The time admission will commence.</span>
@@ -6525,12 +6492,6 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
       <link property="rdfs:subPropertyOf" href="http://schema.org/object" />
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/AskAction">AskAction</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Question">Question</a></span>
-    </div>
-    <div typeof="rdf:Property" resource="http://schema.org/rangeIncludes">
-      <span class="h" property="rdfs:label">rangeIncludes</span>
-      <span property="rdfs:comment">Relates a property to a class that constitutes (one of) the expected type(s) for values of the property.</span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Property">Property</a></span>
-      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Class">Class</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/ratingCount">
       <span class="h" property="rdfs:label">ratingCount</span>
