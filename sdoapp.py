@@ -68,8 +68,8 @@ ENABLE_HOSTED_EXTENSIONS = True
 EXTENSION_SUFFIX = "" # e.g. "*"
 
 #ENABLED_EXTENSIONS = [ 'admin', 'auto', 'bib', 'health-lifesci'  ]
-ENABLED_EXTENSIONS = ['auto', 'bib', 'health-lifesci', 'pending'  ]
-ALL_LAYERS = [ 'core', 'admin', 'auto', 'bib', 'health-lifesci', 'pending' ]
+ENABLED_EXTENSIONS = ['auto', 'bib', 'health-lifesci', 'pending', 'meta'  ]
+ALL_LAYERS = [ 'core', 'admin', 'auto', 'bib', 'health-lifesci', 'pending', 'meta' ]
 
 
 FORCEDEBUGGING = False
