@@ -3,6 +3,7 @@ import os
 import logging # https://docs.python.org/2/library/logging.html#logging-levels
 import sys
 sys.path.append( os.getcwd() )
+sys.path.insert( 1, 'lib' ) #Pickup libs, rdflib etc., from shipped lib directory
 
 from api import extensionsLoaded, extensionLoadErrors
 from api import setInTestHarness, getInTestHarness
