@@ -28,7 +28,17 @@ def getInTestHarness():
     global INTESTHARNESS
     return INTESTHARNESS
 
+AllLayersList = []
+def setAllLayersList(val):
+    global AllLayersList
+    AllLayersList = val
+    #Copy it into apirdflib 
+    apirdflib.allLayersList = val
 
+def getAllLayersList():
+    global AllLayersList
+    return AllLayersList
+    
 EVERYLAYER = "!EVERYLAYER!"
 sitename = "schema.org"
 sitemode = "mainsite" # whitespaced list for CSS tags,
@@ -541,7 +551,6 @@ def GetAllEnumerationValues(layers='core'):
     else:
         logging.debug("DataCache MISS: %s" % KEY)
         mynode = Unit.GetUnit("Enumeration", True)
-        log.info("Enum %s" % mynode)
         enums = {}
         subbed = {}
         todo = [mynode]

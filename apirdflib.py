@@ -22,12 +22,35 @@ log = logging.getLogger(__name__)
 
 VOCAB = "http://schema.org"
 STORE = rdflib.Dataset()
+#Namespace mapping#############
+nss = {'core': 'http://schema.org/'}
+revNss = {}
+NSSLoaded = False
+allLayersList = []
 
-nss = {'core': 'http://schema.org/',
-		'auto': 'http://auto.schema.org/',
-		'bib': 'http://bib.schema.org/'}
 
-revNss = {v: k for k, v in nss.items()}
+def loadNss():
+    global NSSLoaded
+    global nss
+    global revNss
+    if not NSSLoaded:
+        NSSLoaded = True
+        for i in allLayersList:
+            if i != "core":
+                nss.update({i:"http://%s.schema.org" % i})
+        revNss = {v: k for k, v in nss.items()}
+               
+def getNss(val):
+    global nss
+    loadNss()
+    return nss[val]
+    
+def getRevNss(val):
+    global revNss
+    loadNss()
+    return revNss[val]
+##############################    
+
 
 ROWSLOCK = threading.Lock() #rdflib uses generators which are not threadsafe
 
@@ -53,7 +76,7 @@ def load_graph(context, files):
             log.info("Unrecognised file format: %s" % f) 
             return       
         if(format == "rdfa"):
-            uri = nss[context]
+            uri = getNss(context)
             g = STORE.graph(URIRef(uri))
             g.parse(file=open(full_path(f),"r"),format=format)
             STORE.bind(context,uri)
@@ -84,7 +107,7 @@ def rdfGetTriples(id):
 		ROWSLOCK.release()
 		
 	for row in res:
-		layer = str(revNss[str(row.g)])
+		layer = str(getRevNss(str(row.g)))
 		if first:
 			first = False
 			unit = api.Unit.GetUnitNoLoad(id,True)
@@ -139,7 +162,7 @@ def rdfGetSourceTriples(target):
 		ROWSLOCK.release()
 
 	for row in res:
-		layer = str(revNss[str(row.g)])
+		layer = str(getRevNss(str(row.g)))
 		unit = api.Unit.GetUnit(stripID(row.s))
 		p = stripID(row.p)
 		prop = api.Unit.GetUnit(p,True)

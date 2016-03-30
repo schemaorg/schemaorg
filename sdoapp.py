@@ -28,7 +28,7 @@ from api import Unit, GetTargets, GetSources
 from api import GetComment, all_terms, GetAllTypes, GetAllProperties, GetAllEnumerationValues, LoadExamples
 from api import GetParentList, GetImmediateSubtypes, HasMultipleBaseTypes
 from api import GetJsonLdContext, ShortenOnSentence, StripHtmlTags
-from api import setInTestHarness, getInTestHarness
+from api import setInTestHarness, getInTestHarness, setAllLayersList
 
 
 logging.basicConfig(level=logging.INFO) # dev_appserver.py --log_level debug .
@@ -69,9 +69,11 @@ ENABLE_HOSTED_EXTENSIONS = True
 
 EXTENSION_SUFFIX = "" # e.g. "*"
 
-#ENABLED_EXTENSIONS = [ 'admin', 'auto', 'bib', 'health-lifesci'  ]
 ENABLED_EXTENSIONS = ['auto', 'bib', 'health-lifesci', 'pending', 'meta'  ]
-ALL_LAYERS = [ 'core', 'admin', 'auto', 'bib', 'health-lifesci', 'pending', 'meta' ]
+ALL_LAYERS = ['core']
+
+ALL_LAYERS += ENABLED_EXTENSIONS
+setAllLayersList(ALL_LAYERS)
 
 
 FORCEDEBUGGING = False
