@@ -69,9 +69,9 @@ ENABLE_HOSTED_EXTENSIONS = True
 
 EXTENSION_SUFFIX = "" # e.g. "*"
 
-#ENABLED_EXTENSIONS = [ 'admin', 'auto', 'bib' ]
-ENABLED_EXTENSIONS = [ 'auto', 'bib' ]
-ALL_LAYERS = [ 'core', 'auto', 'bib' ]
+#ENABLED_EXTENSIONS = [ 'admin', 'auto', 'bib', 'health-lifesci'  ]
+ENABLED_EXTENSIONS = ['auto', 'bib', 'health-lifesci', 'pending', 'meta'  ]
+ALL_LAYERS = [ 'core', 'admin', 'auto', 'bib', 'health-lifesci', 'pending', 'meta' ]
 
 
 FORCEDEBUGGING = False
@@ -476,9 +476,8 @@ class ShowUnit (webapp2.RequestHandler):
         self.write(node.id)
         self.write("</h1>")
         home = node.home
-        if home != "core" and home != "" and home != None:
-            self.write("Defined in the %s.schema.org extension." % home)
-            self.write(" (This is an initial exploratory release.)<br/>")
+        if home != "core" and home != "":
+            self.write("Defined in the %s.schema.org extension.<br/>" % home)
             self.emitCanonicalURL(node)
 
         self.BreadCrumbs(node, layers=layers)
