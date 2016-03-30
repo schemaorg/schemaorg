@@ -4,10 +4,9 @@ import logging # https://docs.python.org/2/library/logging.html#logging-levels
 import sys
 sys.path.append( os.getcwd() )
 
-#from api import *
-from parsers import *
 from api import extensionsLoaded, extensionLoadErrors
 from api import setInTestHarness, getInTestHarness
+from api import EXAMPLES, Triple
 from google.appengine.ext import deferred 
 
 #Setup testharness state BEFORE importing sdoapp
@@ -47,7 +46,7 @@ class SDOBasicsTestCase(unittest.TestCase):
 
   def test_ExtractedPlausibleNumberOfExamples(self):
 
-    example_count = len(api.EXAMPLES)
+    example_count = len(EXAMPLES)
 #    for t in api.EXAMPLES:
 #        example_count = example_count + len(t)
     log.info("Extracted %s examples." % example_count )
@@ -98,8 +97,8 @@ class TriplesBasicAPITestCase(unittest.TestCase):
 
      u_Volcano = Unit.GetUnit("Volcano", createp=True)
      p_name = Unit.GetUnit("name", createp=True)
-     api.Triple.AddTripleText(u_Volcano, p_name, "foo", layer="neogeo") # last arg is 'layer' aka extension
-     api.Triple.AddTripleText(u_Volcano, p_name, "bar", "neogeo") # show both syntax options 
+     Triple.AddTripleText(u_Volcano, p_name, "foo", layer="neogeo") # last arg is 'layer' aka extension
+     Triple.AddTripleText(u_Volcano, p_name, "bar", "neogeo") # show both syntax options 
 
      try:
        v_names = GetTargets( p_name, u_Volcano, "neogeo")
@@ -118,8 +117,8 @@ class TriplesBasicAPITestCase(unittest.TestCase):
 
      u_Volcano = Unit.GetUnit("Volcano", createp=True)
      p_name = Unit.GetUnit("name", createp=True)
-     api.Triple.AddTripleText(u_Volcano, p_name, "foo", "neogeo")#   , "neogeo") # last arg is 'layer' aka extension
-     api.Triple.AddTripleText(u_Volcano, p_name, "bar", "neogeo")#   , "neogeo") # can we add two triples w/ same property?
+     Triple.AddTripleText(u_Volcano, p_name, "foo", "neogeo")#   , "neogeo") # last arg is 'layer' aka extension
+     Triple.AddTripleText(u_Volcano, p_name, "bar", "neogeo")#   , "neogeo") # can we add two triples w/ same property?
      try:
        v_names = GetTargets( p_name, u_Volcano, layers='core' )
        log.info("Looking for: Volcano's 'name' property values, 'foo' and 'bar'. counted: %s" % len(v_names) )

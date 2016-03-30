@@ -10,7 +10,6 @@ from rdflib.serializer import Serializer
 from rdflib.plugins.sparql import prepareQuery
 import threading
 import api
-from api import schemasInitialized
 
 from rdflib import RDF
 
