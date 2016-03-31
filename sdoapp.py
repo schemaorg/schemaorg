@@ -1738,6 +1738,8 @@ class ShowUnit (webapp2.RequestHandler):
         dcn = host_ext
         if dcn == None or dcn == "" or dcn =="core":
             dcn = "core"
+        if scheme != "http":
+            dcn = "%s-%s" % (dcn,scheme)
 
         log.debug("sdoapp.py setting current datacache to: %s " % dcn)
         DataCache.setCurrent(dcn)
