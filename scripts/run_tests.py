@@ -64,6 +64,8 @@ def main(sdk_path, test_path, args):
     else:
         sys.path.insert(0, sdk_path)
 
+    sys.path.insert(0, '/usr/local/google_appengine') # default
+
     # Ensure that the google.appengine.* packages are available
     # in tests as well as all bundled third-party packages.
     import dev_appserver
