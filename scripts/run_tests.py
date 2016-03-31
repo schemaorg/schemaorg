@@ -1,5 +1,5 @@
 #!/usr/bin/python
-
+# -*- coding: utf-8 -*-
 # Note: if this stops working in OSX, consider "sudo pip uninstall protobuf"
 # to remove a 2nd clashing google/ python lib. See 
 # https://github.com/coto/gae-boilerplate/issues/306
