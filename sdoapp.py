@@ -707,25 +707,35 @@ class ShowUnit (webapp2.RequestHandler):
 
         di = Unit.GetUnit("domainIncludes")
 
-        first = True
-        count = 0
+        
+        exts = {}
+        
         for prop in sorted(GetSources(di, cl, ALL_LAYERS), key=lambda u: u.id):
             if (prop.superseded(layers=layers)):
                 continue
             if inLayer(layers,prop):
                 continue
-            log.debug("ClassExtensionfFound %s " % (prop))
+            ext = prop.getHomeLayer()
+            log.debug("ClassExtensionfFound %s from %s" % (prop, ext))
+            if not ext in exts.keys():
+                exts[ext] = []
+            exts[ext].append(prop)
+            
+        for e in sorted(exts.keys()):
+            log.info("%s EXTS %s: %s" % (cl, e,exts[e]))
+            count = 0
+            first = True
+            for p in sorted(exts[e], key=lambda u: u.id):
+                sep = ", "
+                if first:
+                    out.write("<li>For %s in the <a href=\"%s\">%s</a> extension:  " % (self.ml(cl),makeUrl(e,""),e))
+                    sep = ""
+                    first = False
 
-            sep = ", "
-            if first:
-                out.write("<li>From %s: " % cl)
-                sep = ""
-                first = False
-
-            out.write("%s%s" % (sep,self.ml(prop)))
-            count += 1
-        if(count > 0):
-            out.write("</li>\n")
+                out.write("%s%s" % (sep,self.ml(p)))
+                count += 1
+            if(count > 0):
+                out.write("</li>\n")
 
 
     def emitClassIncomingProperties (self, cl, layers="core", out=None, hashorslash="/"):
