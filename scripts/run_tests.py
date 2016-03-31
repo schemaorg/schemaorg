@@ -1,5 +1,9 @@
 #!/usr/bin/python
 
+# Note: if this stops working in OSX, consider "sudo pip uninstall protobuf"
+# to remove a 2nd clashing google/ python lib. See 
+# https://github.com/coto/gae-boilerplate/issues/306
+
 # This script runs the Schema.org unit tests. The basic tests are concerned 
 # with our site infrastructure; loading and accessing data.  The graph tests
 # are concerned with the shape/size of the schema graph itself.
