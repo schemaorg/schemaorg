@@ -73,10 +73,17 @@ assert sys.version_info >= (2, 5, 0), "rdflib requires Python 2.5 or higher"
 del sys
 
 import logging
-#import __main__
-#if not hasattr(__main__, '__file__'):
-    # show log messages in interactive mode
-#    logging.basicConfig(level=logging.INFO)
+try:
+    import __main__
+    if not hasattr(__main__, '__file__'):
+        # show log messages in interactive mode
+        logging.basicConfig(level=logging.INFO)
+except ImportError:
+    #Main already imported from elsewhere
+    import warnings
+    warnings.warn('__main__ already imported', ImportWarning)
+    del warnings
+    
 logger = logging.getLogger(__name__)
 logger.info("RDFLib Version: %s" % __version__)
 
