@@ -6523,6 +6523,7 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
       <span class="h" property="rdfs:label">recipient</span>
       <span property="rdfs:comment">A sub property of participant. The participant who is at the receiving end of the action.</span>
       <link property="rdfs:subPropertyOf" href="http://schema.org/participant" />
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Message">Message</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CommunicateAction">CommunicateAction</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/AuthorizeAction">AuthorizeAction</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/DonateAction">DonateAction</a></span>
@@ -6847,6 +6848,7 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
       <span class="h" property="rdfs:label">sender</span>
       <span property="rdfs:comment">A sub property of participant. The participant who is at the sending end of the action.</span>
       <link property="rdfs:subPropertyOf" href="http://schema.org/participant" />
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Message">Message</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ReceiveAction">ReceiveAction</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Audience">Audience</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Organization">Organization</a></span>
@@ -8370,7 +8372,7 @@ postponing for 1.6.
     <div typeof="rdfs:Class" resource="http://schema.org/EmailMessage">
       <span class="h" property="rdfs:label">EmailMessage</span>
       <span property="rdfs:comment">An email message.</span>
-      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/CreativeWork">CreativeWork</a></span>
+      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Message">Message</a></span>
     </div>
 
   <hr />
@@ -10599,6 +10601,43 @@ Typical unit code(s): C62 for persons.</span>
   <span class="h" property="rdfs:label">DataFeedItem</span>
   <span property="rdfs:comment">A single item within a larger data feed.</span>
   <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Intangible">Intangible</a></span>
+</div>
+
+<h1>Conversation</h1>
+
+<div typeof="rdfs:Class" resource="http://schema.org/Conversation">
+  <span class="h" property="rdfs:label">Conversation</span>
+  <span property="rdfs:comment">One or more messages between organizations or people on a particular topic. Individual messages can be linked to the conversation with isPartOf or hasPart properties.</span>
+  <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/CreativeWork">CreativeWork</a></span>
+</div>
+<div typeof="rdfs:Class" resource="http://schema.org/Message">
+  <span class="h" property="rdfs:label">Message</span>
+  <span property="rdfs:comment">A single message from a sender to one or more organizations or people.</span>
+  <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/CreativeWork">CreativeWork</a></span>
+</div>
+<div typeof="rdf:Property" resource="http://schema.org/dateRead">
+  <span class="h" property="rdfs:label">dateRead</span>
+  <span property="rdfs:comment">The date/time at which the message has been read by the recipient if a single recipient exists.</span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Message">Message</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/DateTime">DateTime</a></span>
+</div>
+<div typeof="rdf:Property" resource="http://schema.org/dateReceived">
+  <span class="h" property="rdfs:label">dateReceived</span>
+  <span property="rdfs:comment">The date/time the message was received if a single recipient exists.</span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Message">Message</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/DateTime">DateTime</a></span>
+</div>
+<div typeof="rdf:Property" resource="http://schema.org/dateSent">
+  <span class="h" property="rdfs:label">dateSent</span>
+  <span property="rdfs:comment">The date/time at which the message was sent.</span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Message">Message</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/DateTime">DateTime</a></span>
+</div>
+<div typeof="rdf:Property" resource="http://schema.org/messageAttachment">
+  <span class="h" property="rdfs:label">messageAttachment</span>
+  <span property="rdfs:comment">A CreativeWork attached to the message.</span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Message">Message</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/CreativeWork">CreativeWork</a></span>
 </div>
 
 <!-- Compound price extension from GoodRelations -->
