@@ -174,6 +174,8 @@ def stripID (str):
     l = len(str)
     if (l > 16 and (str[:17] == 'http://schema.org')):
         return str[18:]
+    elif (l > 24 and (str[:25] == 'http://purl.org/dc/terms/')):
+        return "dc:" + str[25:]
     elif (l > 36 and (str[:37] == 'http://www.w3.org/2000/01/rdf-schema#')):
         return "rdfs:" + str[37:]
     elif (l > 42 and (str[:43] == 'http://www.w3.org/1999/02/22-rdf-syntax-ns#')):
