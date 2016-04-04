@@ -3,6 +3,7 @@ import os
 import logging # https://docs.python.org/2/library/logging.html#logging-levels
 import sys
 sys.path.append( os.getcwd() )
+sys.path.insert( 1, 'lib' ) #Pickup libs, rdflib etc., from shipped lib directory
 
 #from api import *
 from parsers import *
@@ -509,6 +510,13 @@ class DataTypeTests(unittest.TestCase):
       self.assertFalse(Unit.GetUnit("DataType").isDataType())
       self.assertFalse(Unit.GetUnit("Thing").isDataType())
       self.assertFalse(Unit.GetUnit("Duration").isDataType())
+
+class MarkDownTest(unittest.TestCase):
+    def test_emph(self):
+        from api import MD
+        markstring = "This is _em_, __strong__, ___strong em___"
+        html = MD.parse(markstring,True)
+        self.assertFalse(html != "<p>This is <em>em</em>, <strong>strong</strong>, <strong><em>strong em</em></strong></p>", "Markdown string not formatted correctly")
 
 class HasMultipleBaseTypesTests(unittest.TestCase):
 

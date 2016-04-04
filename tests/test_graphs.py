@@ -4,6 +4,7 @@ import logging # https://docs.python.org/2/library/logging.html#logging-levels
 import glob
 import sys
 sys.path.append( os.getcwd() ) 
+sys.path.insert( 1, 'lib' ) #Pickup libs, rdflib etc., from shipped lib directory
 
 from api import *
 from parsers import *
