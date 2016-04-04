@@ -1,4 +1,8 @@
 #!/usr/bin/python
+# -*- coding: utf-8 -*-
+# Note: if this stops working in OSX, consider "sudo pip uninstall protobuf"
+# to remove a 2nd clashing google/ python lib. See 
+# https://github.com/coto/gae-boilerplate/issues/306
 
 # This script runs the Schema.org unit tests. The basic tests are concerned 
 # with our site infrastructure; loading and accessing data.  The graph tests
@@ -59,6 +63,8 @@ def main(sdk_path, test_path, args):
         sys.path.insert(0, os.path.join(sdk_path, 'platform/google_appengine'))
     else:
         sys.path.insert(0, sdk_path)
+
+    sys.path.insert(0, '/usr/local/google_appengine') # default
 
     # Ensure that the google.appengine.* packages are available
     # in tests as well as all bundled third-party packages.
