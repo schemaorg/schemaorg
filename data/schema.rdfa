@@ -6873,9 +6873,23 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/gender">
       <span class="h" property="rdfs:label">gender</span>
-      <span property="rdfs:comment">Gender of the person.</span>
+      <span property="rdfs:comment">Gender of the person. While http://schema.org/Male and http://schema.org/Female may be used, text strings are also acceptable for people who do not identify as a binary gender.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Person">Person</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/GenderType">GenderType</a></span>
+    </div>
+    <div typeof="rdfs:Class" resource="http://schema.org/GenderType">
+      <span class="h" property="rdfs:label">GenderType</span>
+      <span property="rdfs:comment">An enumeration of genders.</span>
+       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Enumeration">Enumeration</a></span>
+    </div>
+    <div typeof="http://schema.org/GenderType" resource="http://schema.org/Female">
+      <span class="h" property="rdfs:label">Female</span>
+      <span property="rdfs:comment">The female gender.</span>
+    </div>
+    <div typeof="http://schema.org/GenderType" resource="http://schema.org/Male">
+      <span class="h" property="rdfs:label">Male</span>
+      <span property="rdfs:comment">The male gender.</span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/genre">
       <span class="h" property="rdfs:label">genre</span>
