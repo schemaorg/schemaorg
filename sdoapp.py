@@ -13,7 +13,8 @@ from markupsafe import Markup, escape # https://pypi.python.org/pypi/MarkupSafe
 
 import parsers
 import threading
-import datetime
+import datetime, time
+from time import gmtime, strftime
 
 from google.appengine.ext import ndb
 from google.appengine.ext import blobstore
@@ -76,31 +77,46 @@ FORCEDEBUGGING = False
 # FORCEDEBUGGING = True
 
 SHAREDSITEDEBUG = True
-if not getInTestHarness():
-    if SHAREDSITEDEBUG:
-        from google.appengine.api import memcache
-else:
+if getInTestHarness():
     SHAREDSITEDEBUG = False
        
-
+############# Shared values and times ############
+#### Memcache functions dissabled in test mode ###
+appver = "TestHarness Version"
+if "CURRENT_VERSION_ID" in os.environ:
+    appver = os.environ["CURRENT_VERSION_ID"]
 instance_first = True 
 instance_num = 0
 callCount = 0
 WarmedUp = False
 global_vars = threading.local()
-systarttime = datetime.datetime.now()
+starttime = datetime.datetime.utcnow()
+systarttime = starttime
+
+if not getInTestHarness():
+    from google.appengine.api import memcache
+
+def tick(): #Keep memcache values fresh so they don't expire
+    if not getInTestHarness():
+        memcache.set(key="SysStart", value=systarttime) 
+        memcache.set(key="static-version", value=appver) 
 
 #Ensure clean start for any memcached values...
-if SHAREDSITEDEBUG:
-    if memcache.get("static-version") != os.environ["CURRENT_VERSION_ID"]:
+if not getInTestHarness():
+    if memcache.get("static-version") != appver: #We are a new instance of the app
         memcache.flush_all()
-        memcache.set(key="static-version", value=os.environ["CURRENT_VERSION_ID"]) 
+        memcache.set(key="static-version", value=appver) 
         memcache.add(key="SysStart", value=systarttime) 
         instance_first = True 
-        log.info("Detected new code version - resetting debug values")
-     
-
-
+        log.info("Detected new code version - resetting memory values")
+    else:
+       systarttime = memcache.get("SysStart")
+       tick()
+   
+modtime = systarttime.replace(microsecond=0)
+etagSlug = "24751%s" % modtime.strftime("%y%m%d%H%M%Sa")
+#################################################
+    
 def cleanPath(node):
     """Return the substring of a string matching chars approved for use in our URL paths."""
     return re.sub(r'[^a-zA-Z0-9\-/,\.]', '', str(node), flags=re.DOTALL)
@@ -309,6 +325,7 @@ class ShowUnit (webapp2.RequestHandler):
         """Send cache-related headers via HTTP."""
         self.response.headers['Cache-Control'] = "public, max-age=43200" # 12h
         self.response.headers['Vary'] = "Accept, Accept-Encoding"
+        self.response.headers['Last-Modified'] = modtime.strftime("%a, %d %b %Y %H:%M:%S UTC")
 
     def GetCachedText(self, node, layers='core'):
         """Return page text from node.id cache (if found, otherwise None)."""
@@ -925,6 +942,7 @@ class ShowUnit (webapp2.RequestHandler):
             # TODO: pass in extension, base_domain etc.
             sitekeyedhomepage = "homepage %s" % getSiteName()
             hp = DataCache.get(sitekeyedhomepage)
+            self.emitCacheHeaders()
             if hp != None:
                 self.response.out.write( hp )
                 #log.info("Served datacache homepage.tpl key: %s" % sitekeyedhomepage)
@@ -1422,7 +1440,7 @@ class ShowUnit (webapp2.RequestHandler):
     def handleExactTermPage(self, node, layers='core'):
         """Handle with requests for specific terms like /Person, /fooBar. """
 
-        #self.outputStrings = [] # blank slate
+        self.emitCacheHeaders()
         schema_node = Unit.GetUnit(node) # e.g. "Person", "CreativeWork".
         log.debug("Layers: %s",layers)
         if inLayer(layers, schema_node):
@@ -1477,31 +1495,6 @@ class ShowUnit (webapp2.RequestHandler):
         self.response.out.write("</div>\n</body>\n</html>\n")
 
         return True
-
-#    def handleJSONSchemaTree(self, node, layerlist='core'):
-#        """Handle a request for a JSON-LD tree representation of the schemas (RDFS-based)."""
-#
-#        self.response.headers['Content-Type'] = "application/ld+json"
-#        self.emitCacheHeaders()
-#
-#        if DataCache.get('JSONLDThingTree'):
-#            self.response.out.write( DataCache.get('JSONLDThingTree') )
-#            log.debug("Serving recycled JSONLDThingTree.")
-#            return True
-#        else:
-#            uThing = Unit.GetUnit("Thing")
-#            mainroot = TypeHierarchyTree()
-#            mainroot.traverseForJSONLD(Unit.GetUnit("Thing"), layers=layerlist)
-#            thing_tree = mainroot.toJSON()
-#            self.response.out.write( thing_tree )
-#            log.debug("Serving fresh JSONLDThingTree.")
-#            DataCache.put("JSONLDThingTree",thing_tree)
-#            return True
-#        return False
-
-
-
-    # if (node == "version/2.0/" or node == "version/latest/" or "version/" in node) ...
 
     def handleFullReleasePage(self, node,  layerlist='core'):
 
@@ -1752,7 +1745,57 @@ class ShowUnit (webapp2.RequestHandler):
         return False
 
 
+    def head(self, node):
+
+        self.get(node) #Get the page
+        
+        #Clear the request & payload and only put the headers and status back
+        hdrs = self.response.headers.copy()
+        stat = self.response.status
+        self.response.clear()        
+        self.response.headers = hdrs
+        self.response.status = stat
+        return
+
     def get(self, node):
+        if not self.setupHostinfo(node):
+            return
+
+        if not node or node == "":
+            node = "/"
+        NotModified = False
+        etag = etagSlug + str(hash(node))
+        
+        try:
+            if ( "If-None-Match" in self.request.headers and
+                 self.request.headers["If-None-Match"] == etag ):
+                    NotModified = True
+                    log.debug("Etag do 304")
+            elif ( "If-Unmodified-Since" in self.request.headers and
+                   datetime.datetime.strptime(self.request.headers["If-Unmodified-Since"],"%a, %d %b %Y %H:%M:%S %Z") == modtime ):  
+                    NotModified = True
+                    log.debug("Unmod-since do 304")
+        except Exception as e:
+            log.info("ERROR reading request headers: %s" % e)
+            pass
+        
+        retHdrs = None
+        if NotModified and DataCache.get(etag):
+            retHdrs = DataCache.get(etag)   #Already cached headers for this request
+        else:    
+            self._get(node) #Go build the page
+            self.response.headers.add_header("ETag", etag)
+            retHdrs = self.response.headers.copy()
+            DataCache.put(etag,retHdrs) #Cache these headers for a future 304 return
+        
+        if NotModified:
+            self.response.clear()        
+            self.response.headers = retHdrs
+            self.response.set_status(304,"Not Modified")
+        return
+        
+        
+    def _get(self, node):
 
         """Get a schema.org site page generated for this node/term.
 
@@ -1775,10 +1818,8 @@ class ShowUnit (webapp2.RequestHandler):
         """
 
         global_vars.time_start = datetime.datetime.now()
+        tick() #keep system fresh
                 
-        if not self.setupHostinfo(node):
-            return
-
         self.callCount()
 
         self.emitHTTPHeaders(node)
@@ -1853,7 +1894,7 @@ class ShowUnit (webapp2.RequestHandler):
                 else:
                     log.info("Error handling 404 under /version/")
                     return
-        log.info("PRODSITEDEBUG: %s" % os.environ['PRODSITEDEBUG'])
+
         if(node == "_siteDebug"):
             if(getBaseHost() != "schema.org" or os.environ['PRODSITEDEBUG'] == "True"):
                 self.siteDebug()
