@@ -130,87 +130,22 @@ td.release  {
 </tr>
 
 <!-- optional 'early access' section, used between formal releases. -->
-<!--
 <tr>
 <td>&nbsp;</td>
 <td class="prerelease">Early Access Fixes</td>
 <td>
-<p>Changes that will be included in the next full release, but which have been published immediately:</p>
+<p>Changes that will be included in the next full release, but which have been published immediately:
+</p>
+<ul>
+<li><a href="https://github.com/schemaorg/schemaorg/issues/919">Fix to #919</a>: <a href="https://github.com/schemaorg/schemaorg/pull/920">Fixed</a> Javascript errors caused by bad markup in 404 pages.</li>
+<li><a href="https://github.com/schemaorg/schemaorg/issues/899">Fix to #899</a>: <a href="https://github.com/schemaorg/schemaorg/pull/901">Bugfix</a> for a few pages that were returning 500 error codes.</li>
+<li><a href="https://github.com/schemaorg/schemaorg/issues/904">Fix to #904</a>: <a href="https://github.com/schemaorg/schemaorg/pull/925">Simplified</a> JSON-LD examples for <a href="http://schema.org/Periodical">Periodical</a>.</li>
+</ul>
+
 </td>
 </tr>
--->
-
-<tr>
-<td class="release"><a href="/version/2.x/">2.x</a><br/>sdo-deimos<br/>(201x-xx-x)</td>
-<span id="v.next"></span>
-<span id="sdo-deimos"></span>
-<span id="v2.x"></span>
-<td>
-<div>
-Version 2.x (working name 'sdo-deimos'). This release is under development. See <a href="https://github.com/schemaorg/schemaorg/issues/1">planning pages</a>, specifically <a href="https://github.com/schemaorg/schemaorg/issues/911">#911</a> for details.
-</div>
-</td>
-
-<td>
-<h3>Vocabulary</h3>
-<ul>
-<li><a href="https://github.com/schemaorg/schemaorg/issues/845">Fix to #845</a>: Added vocabulary for suitability to restricted diets in Recipe (<a href="/suitableForDiet">suitableForDiet</a>, <a href="/RestrictedDiet">RestrictedDiet</a>).</li>
-<li><a href="https://github.com/schemaorg/schemaorg/issues/1005">Fix to #1005</a>: Generalized some properties from Product to <a href="https://github.com/schemaorg/schemaorg/pull/1006">apply also to Service</a>.</li>
-<li><a href="https://github.com/schemaorg/schemaorg/issues/880">Fix to #880</a>: Added <a href="/disambiguatingDescription">disambiguatingDescription</a> to explicitly indicate short <a href="https://en.wikipedia.org/wiki/Phobos">Wikipedia-like</a> disambiguating descriptions.</li>
-<li><a href="https://github.com/schemaorg/schemaorg/issues/888">Fix to #888</a>: Added <a href="/PreSale">PreSale</a> to the <a href="/ItemAvailability">ItemAvailability</a> enumerated values.</li>
-<li><a href="https://github.com/schemaorg/schemaorg/pull/962">Fix to #962</a>: Broadened definition of <a href="/sponsor">sponsor</a> property.</li>
-<li><a href="https://github.com/schemaorg/schemaorg/pull/922">Fix to #922</a>: Finalized first release of <a href="http://auto.schema.org/">auto.schema.org</a>.</li>
-<li><a href="https://github.com/schemaorg/schemaorg/issues/961">Fix to #961</a>: Improved wording of <a href="/validThrough">validThrough</a>, and added <a href="/JobPosting">JobPosting</a> to allow markup for job posting closing dates.</li>
-<li><a href="https://github.com/schemaorg/schemaorg/issues/1059">Fix to #1059</a>: Created hosted extensions for 'meta' vocabulary and for 'proposed' vocabulary under review. Moved Class, Property, domainIncludes, rangeIncludes, inverseOf, supersededBy into meta.</li>
-<li><a href="https://github.com/schemaorg/schemaorg/issues/1061">Fix to #1061</a>: Added <a href="/ClaimReview">ClaimReview</a> proposal for fact-checking reviews to 'pending' extension.</li>
-<li><a href="https://github.com/schemaorg/schemaorg/issues/1020">Fix to #1020</a>: Added new subtypes of <a href="/CreativeWork">CreativeWork</a>: <a href="/Message">Message</a> and <a href="/Conversation">Conversation</a>. Marked <a href="/EmailMessage">EmailMessage</a> as a subtype of <a href="/Message">Message</a>.</li>
-<li>...</li>
-</ul>
-
-<h3>Site improvements</h3>
-<ul>
-<li>...</li>
-</ul>
-
-<h3>Quick fixes and Examples</h3>
-<ul>
-<li><a href="https://github.com/schemaorg/schemaorg/issues/1066">Fix to #1066</a>: Cleanup around <a href="/Dataset">Dataset</a> / <a href="/DataCatalog">DataCatalog</a> association: renamed containedDataCatalog as <a href="/containedInDataCatalog">containedInDataCatalog</a>, marked it as inverse of <a href="/dataset">dataset</a> and improved wording of both definitions.</li>
-<li><a href="https://github.com/schemaorg/schemaorg/issues/1073">Fix to #1073</a>: Removed redundant types listed for <a href="/branchCode">branchCode</a> - <a href="/Place">Place</a> already covered <a href="/LocalBusiness">LocalBusiness</a> and <a href="/Store">Store</a>.</li>
-<li><a href="https://github.com/schemaorg/schemaorg/issues/1081">Fix to #1081</a>: Added <a href="/AudiobookFormat">AudiobookFormat</a> to the <a href="/BookFormatType">BookFormatType</a>, for consistency. Note that the bib extension also has a <a href="http://bib.schema.org/Audiobook">dedicated type</a> for describing audio books.</li>
-<li><a href="https://github.com/schemaorg/schemaorg/issues/950">Fix to #950</a>: isBasedOnUrl now called isBasedOn; isBasedOnUrl still exists but is marked as supersededBy isBasedOn. Extended range to include (for now just) CreativeWork, Product.</li>
-<li><a href="https://github.com/schemaorg/schemaorg/issues/1057">Fix to #929</a>: Marked <a href="/subEvent">subEvent</a> and <a href="/superEvent">superEvent</a> as inverses of each other.</li>
-<li><a href="https://github.com/schemaorg/schemaorg/issues/929">Fix to #929</a>: the <a href="/colleague">colleague</a> property now also expects URL values (and for JSON-LD therefore expects things not strings by default).</li>
-<li>Various typo fixes (including <a href="https://github.com/schemaorg/schemaorg/pull/1014">#1014</a>.</li>
-<li><a href="https://github.com/schemaorg/schemaorg/pull/984">Fix to #984</a>: bug fixes for bib.schema.org/Chapter example.</li>
-<li><a href="https://github.com/schemaorg/schemaorg/issues/966">Fix to #966</a>: Fixed bug in <a href="/PropertyValue">PropertyValue</a> JSON-LD example.</li>
-<li><a href="https://github.com/schemaorg/schemaorg/issues/912">Fix to #912</a>: <a href="https://github.com/schemaorg/schemaorg/issues/912">Added</a> education/learning examples (from Phil Barker / LRMI):
-<a href="/learningResourceType">learningResourceType</a>,
-<a href="/educationalAlignment">educationalAlignment</a>,
-<a href="/AlignmentObject">AlignmentObject</a>,
-<a href="/educationalFramework">educationalFramework</a>,
-<a href="/alignmentType">alignmentType</a>,
-<a href="/targetName">targetName</a>,
-<a href="/targetUrl">targetUrl</a>,
-<a href="/audience">audience</a>,
-<a href="/EducationalAudience">EducationalAudience</a>,
-<a href="/typicalAgeRange">typicalAgeRange</a>,
-<a href="/timeRequired">timeRequired</a>,
-<a href="/educationalRole">educationalRole</a>.
-</li>
-typicalAgeRange, timeRequired, educationalAlignment, AlignmentObject, educationalFramework, alignmentType, targetName, targetUrl
 
 
-<li><a href="https://github.com/schemaorg/schemaorg/issues/919">Fix to #919</a>: <a href="https://github.com/schemaorg/schemaorg/pull/920">Fixed</a> Javascript errors caused by bad markup in 404 pages (published 2015-12-10).</li>
-<li><a href="https://github.com/schemaorg/schemaorg/issues/899">Fix to #899</a>: <a href="https://github.com/schemaorg/schemaorg/pull/901">Bugfix</a> for a few pages that were returning 500 error codes (published 2015-12-10).</li>
-<li><a href="https://github.com/schemaorg/schemaorg/issues/904">Fix to #904</a>: <a href="https://github.com/schemaorg/schemaorg/pull/925">Simplified</a> JSON-LD examples for <a href="http://schema.org/Periodical">Periodical</a> (published 2015-12-10).</li>
-<li><a href="https://github.com/schemaorg/schemaorg/issues/1015">Fix to #1015</a>: <a href="https://github.com/schemaorg/schemaorg/pull/954">Fixed spelling of "content" in FoodEstablishment example</a>.</li>
-<li><a href="https://github.com/schemaorg/schemaorg/issues/997">Fix to #997</a>: <a href="https://github.com/schemaorg/schemaorg/pull/998">Expanded sharedContent to coverage of SocialMediaPosting example</a>.</li>
-<li><a href="https://github.com/schemaorg/schemaorg/issues/992">Fix to #992</a>: Removed an example from QAPage since the example didn't illustrate the term's use.</li>
-<li><a href="https://github.com/schemaorg/schemaorg/pull/836">Fix to #836</a>: Markup fixes to examples of <a href="/PropertyValue">PropertyValue</a>.</li>
-</ul>
-</td>
-
-</tr>
 
 <tr>
 <td class="release"><a href="/version/2.2/">2.2</a><br/>sdo-phobos<br/>(2015-11-05)</td>
