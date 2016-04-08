@@ -1,0 +1,79 @@
+<div>
+<!-- medical/health provider network directory vocabulary, issue 1062 -->
+
+<p>Status: Unfinished transcription from <a href="https://docs.google.com/document/d/1LNew5OEon4uir2D5Zzp0AkUPA7c9nO8reJ_M1pOy-3s/edit#">original</a>.</p>
+
+<div typeof="rdfs:Class" resource="http://schema.org/HealthInsurancePlan">
+  <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
+  <span class="h" property="rdfs:label">HealthInsurancePlan</span>
+  <span property="rdfs:comment">...</span>
+  <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Intangible">Intangible</a></span>
+  <span>Source:  <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1062">#1062</a></span>
+</div>
+
+<textarea>
+
+# more types to add
+
+* TODO: HealthPlanIdType (enum?)
+* TODO: HealthPlanFormular
+* TODO: Network
+* TODO: HealthPlanNetworkTierType
+* TODO: HealthPlanFormulary
+* HealthPlanDrugTierType
+* PrescriptionCostSharingType
+* HealthPlanPharmacyType
+HealthPlanCopayType
+HealthPlanCoinsuranceType
+
+
+# existing properties with custom definitions to note somewhere
+* name : The name of the plan as it is displayed on HealthCare.gov
+
+# ... with expanded domainIncludes:
+* contactPoint (on HealthInsurancePlan), "An email address for developers/public to report mistakes in the network and formulary data."
+
+
+# New properties TODO (some names too broad?)
+* summaryUrl (URL) The URL that goes directly to the summary of benefits and coverage for the specific standard plan or plan variation
+* marketingUrl (URL) The URL that goes directly to the plan brochure for the specific standard plan or plan variation.
+* healthPlanNetworkTiers (HealthPlanNetworkTierType) --- network array, see doc. TODO.
+* includesHealthPlanFormularies (HealthPlanFormulary)
+
+* healthPlanNetworkID (NetworkIdentifier) "Name or unique ID of network (Networks are often reused across different insurance plans)"
+* healthPlanNetworkURL (URL) "URL describing this network"
+* healthPlanNetworkTiers (HealthPlanNetworkTierType) "Network"
+
+* healthPlanDrugTier
+* offersPrescriptionByMail
+* healthPlanCostSharing
+
+* healthPlanPharmacyType
+* healthPlanCopay
+* healthPlanCopayOption
+* HealthPlanCoinsuranceRate
+* healthPlanCoinsuranceOption
+
+</textarea>
+
+<hr />
+
+<div typeof="rdf:Property" resource="http://schema.org/usesHealthPlanIdType">
+  <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
+  <span class="h" property="rdfs:label">usesHealthPlanIdType</span>
+  <span property="rdfs:comment">Type of Plan ID. The preferred is the HIOS Plan ID - HIOS-PLAN-ID.</span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/HealthInsurancePlan">HealthInsurancePlan</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/TODO">URL</a></span>
+  <span>Source:  <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1062">#1062</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/healthPlanId">
+  <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
+  <span class="h" property="rdfs:label">healthPlanId</span>
+  <span property="rdfs:comment">The 14-character, HIOS-generated Plan ID number. (Plan IDs must be unique, even across different markets.)</span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/HealthInsurancePlan">HealthInsurancePlan</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/TODO">URL</a></span>
+  <span>Source:  <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1062">#1062</a></span>
+</div>
+
+</div>
