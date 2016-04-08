@@ -1975,6 +1975,15 @@
        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/CreativeWorkSeries">CreativeWorkSeries</a></span>
     </div>
 
+    <div typeof="rdfs:Class" resource="http://schema.org/EventSeries">
+      <span class="h" property="rdfs:label">EventSeries</span>
+      <span property="rdfs:comment">
+        A &lt;a href="/Event"&gt;event&lt;/a&gt; series. Included events can relate with the series using
+        the &lt;a href="/superEvent"&gt;superEvent&lt;/a&gt; property.
+      </span>
+      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Series">Series</a></span>
+    </div>
+
     <div typeof="rdfs:Class" resource="http://schema.org/Table">
       <span class="h" property="rdfs:label">Table</span>
       <span property="rdfs:comment">A table on a Web page.</span>
@@ -7186,6 +7195,7 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
       <link property="http://schema.org/inverseOf" href="http://schema.org/subEvent"/>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Event">Event</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Event">Event</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/EventSeries">EventSeries</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/supportingData">
       <span class="h" property="rdfs:label">supportingData</span>
