@@ -1,0 +1,26 @@
+@prefix schema: <http://schema.org/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<http://www.salzburgerfestspiele.at/> a schema:EventSeries ;
+  schema:name "Salzburger Festspiele"@de ;
+  schema:name "Salzburg Festival"@en .
+
+<http://www.salzburgerfestspiele.at/#2015> a schema:Event ;
+  schema:superEvent <http://www.salzburgerfestspiele.at/> ;
+  schema:startDate "2015-07-18"^^xsd:date ;
+  schema:endDate "2015-08-30"^^xsd:date ;
+  schema:name "Salzburger Festspiele 2015"@de ;
+  schema:name "Salzburg Festival 2015"@en ;
+  schema:subEvent <http://www.salzburgerfestspiele.at/opera/eroberung-2015> .
+
+<http://www.salzburgerfestspiele.at/opera/eroberung-2015> a schema:Event ;
+  schema:startDate "2015-07-20T20:00:00"^^xsd:dateTime ;
+  schema:endDate "2015-07-20T22:00:00"^^xsd:dateTime ;
+  schema:name "Wolfgang Rihm, Die Eroberung von Mexico"@de .
+
+<http://www.salzburgerfestspiele.at/#2014> a schema:Event ;
+  schema:superEvent <http://www.salzburgerfestspiele.at/> ;
+  schema:startDate "2014-07-21"^^xsd:date ;
+  schema:endDate "2015-08-28"^^xsd:date ;
+  schema:name "Salzburger Festspiele 2014"@de ;
+  schema:name "Salzburg Festival 2014"@en .
