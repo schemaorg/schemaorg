@@ -1,10 +1,18 @@
 import unittest
 import os
 import logging # https://docs.python.org/2/library/logging.html#logging-levels
+import sys
+sys.path.append( os.getcwd() )
 
-from headers import *
-from api import *
+#from api import *
 from parsers import *
+from api import extensionsLoaded, extensionLoadErrors
+from api import setInTestHarness, getInTestHarness
+from google.appengine.ext import deferred 
+
+#Setup testharness state BEFORE importing sdoapp
+setInTestHarness(True)
+from sdoapp import *
 
 schema_path = './data/schema.rdfa'
 examples_path = './data/examples.txt'
@@ -15,6 +23,8 @@ TYPECOUNT_LOWERBOUND = 500
 
 logging.basicConfig(level=logging.INFO)
 log = logging.getLogger(__name__)
+
+
 
 # Tests to probe the health of both schemas and code.
 # Note that known failings can be annotated with @unittest.expectedFailure or @skip("reason...")
@@ -43,18 +53,7 @@ class SDOBasicsTestCase(unittest.TestCase):
       if t.examples and len(t.examples) > 0:
         example_count = example_count + len(t.examples)
     log.info("Extracted %s examples." % example_count )
-    self.assertTrue(example_count > 300 and example_count < 450, "Expect that we extracted 300 < x < 400 examples from data/*examples.txt. Found: %s " % example_count)
-
-  # Whichever file from data/*examples.txt is glob-loaded last, needs a final entry of "TYPES:  FakeEntryNeeded, FixMeSomeDay"
-  # This used to be examples.txt but now we are multi-file it could strike anywhere.
-  @unittest.expectedFailure
-  def test_finalExampleParsers(self):
-    # parsers calls this with each example (except final)
-    #   api.Example.AddExample(self.terms, self.preMarkupStr, self.microdataStr, self.rdfaStr, self.jsonStr)
-    # Let's look up: FakeEntryNeeded, used in examples.txt
-    tFakeEntryNeeded = Unit.GetUnit("FakeEntryNeeded")
-    fake_count = len(tFakeEntryNeeded.examples)
-    self.assertTrue(fake_count > 0, "Properly we'd find 1 or more FakeEntryNeeded entries, from end(s) of data/*examples.txt file. Fake count: %s" % fake_count)
+    self.assertTrue(example_count > 300 and example_count < 500, "Expect that we extracted 300 < x < 500 examples from data/*examples.txt. Found: %s " % example_count)
 
 class SupertypePathsTestCase(unittest.TestCase):
     """
@@ -93,6 +92,48 @@ class SchemaWellformedTestCase(unittest.TestCase):
     self.assertEqual("html", rootElem.tag, "Expected root element of schema to be 'html'.")
 
 
+class TriplesBasicAPITestCase(unittest.TestCase):
+  """Tests that don't assume the schemas are pre-loaded."""
+
+  def test_checkAddedTriples(self):
+     """This test should store a couple of triples and retrieve them for a fictional 'neogeo' extension layer."""
+
+     u_Volcano = Unit.GetUnit("Volcano", createp=True)
+     p_name = Unit.GetUnit("name", createp=True)
+     api.Triple.AddTripleText(u_Volcano, p_name, "foo", layer="neogeo") # last arg is 'layer' aka extension
+     api.Triple.AddTripleText(u_Volcano, p_name, "bar", "neogeo") # show both syntax options 
+
+     try:
+       v_names = GetTargets( p_name, u_Volcano, "neogeo")
+       log.info("Looking for: Volcano's 'name' property values, 'foo' and 'bar'. counted: %s" % len(v_names) )
+       for vn in v_names:
+           log.debug("Found a Volcano 'name' value: %s " % vn)
+     except Exception as e:
+       log.info("Failed volcano lookup. %s " % e)
+
+     self.assertTrue ( "foo" in v_names and "bar" in v_names, "should have foo and bar in name list: %s " % ",".join(v_names)   )
+     self.assertEqual(len(v_names), 2, "length of list of names of Volcano should be 2. actual: %s " % len(v_names) )
+
+
+  def test_checkMismatchedLayerTriplesFail(self):
+     """This test should store a couple of triples for a fictional 'neogeo' extension layer, and fail to find it when looking in another layer."""
+
+     u_Volcano = Unit.GetUnit("Volcano", createp=True)
+     p_name = Unit.GetUnit("name", createp=True)
+     api.Triple.AddTripleText(u_Volcano, p_name, "foo", "neogeo")#   , "neogeo") # last arg is 'layer' aka extension
+     api.Triple.AddTripleText(u_Volcano, p_name, "bar", "neogeo")#   , "neogeo") # can we add two triples w/ same property?
+     try:
+       v_names = GetTargets( p_name, u_Volcano, layers='core' )
+       log.info("Looking for: Volcano's 'name' property values, 'foo' and 'bar'. counted: %s" % len(v_names) )
+       for vn in v_names:
+           log.debug("Found a Volcano 'name' value: %s " % vn)
+     except Exception as e:
+       log.info("Failed volcano lookup. %s " % e)
+
+     self.assertFalse ( "foo" in v_names and "bar" in v_names, "Layer mismatch - should NOT have foo and bar in name list: %s " % ",".join(v_names)   )
+     self.assertEqual(len(v_names), 0, "layer mismatch - length of list of names of Volcano should be 0. actual: %s " % len(v_names) )
+
+
 class SchemaBasicAPITestCase(unittest.TestCase):
 
   def setUp(self):
@@ -101,7 +142,18 @@ class SchemaBasicAPITestCase(unittest.TestCase):
 
   def test_schemasInitialized(self):
      self.assertEqual(self.schemasInitialized,True, "Schemas should be initialized during setup.")
+  
+  def test_extensionsLoaded(self):
+     global extensionsLoaded, extensionLoadErrors
 
+     if not extensionsLoaded: #Will error if called more than once
+         read_extensions([ 'admin', 'auto', 'bib' ])
+         
+     if len(extensionLoadErrors) > 0:
+         log.info("Extension load errors:\n%s" % extensionLoadErrors)
+
+     self.assertEqual(len(extensionLoadErrors),0, "Extension schemas reporting errors.")
+     
   def test_gotThing(self):
 
      thing = Unit.GetUnit("Thing")
@@ -111,6 +163,90 @@ class SchemaBasicAPITestCase(unittest.TestCase):
        gotThing = True
 
      self.assertEqual( gotThing, True, "Thing node should be accessible via GetUnit('Thing').")
+
+  def test_hostInfo(self):
+#      Note This test will fail if setInTestHarness(True) has not been called!!!!!
+
+      thing = Unit.GetUnit("Thing")
+      u = ShowUnit()
+      u.setupHostinfo(thing,"localhost")
+      self.assertEqual( getHostExt(), "", "host_ext should be empty for host localhost.")
+      self.assertEqual( getBaseHost(), "localhost", "baseHost should be 'schema.org' for host schema.org.")
+      self.assertEqual( getHostPort(), "80", "HostPort should be '80' for host localhost.")
+      self.assertEqual( makeUrl("tst"), "http://tst.localhost", "URL should be 'http://tst.localhost' for host localhost.")
+      
+      u.setupHostinfo(thing,"bib.localhost")
+      self.assertEqual( getHostExt(), "bib", "host_ext should be 'bib' for host bib.localhost.")
+      self.assertEqual( getBaseHost(), "localhost", "baseHost should be 'localhost' for host bib.localhost.")
+      self.assertEqual( getHostPort(), "80", "HostPort should be '80' for host localhost.")
+      self.assertEqual( makeUrl("tst"), "http://tst.localhost", "URL should be 'http://tst.localhost' for host bib.localhost.")
+
+      u.setupHostinfo(thing,"bib.localhost:8080")
+      self.assertEqual( getHostExt(), "bib", "host_ext should be 'bib' for host bib.localhost:8080.")
+      self.assertEqual( getBaseHost(), "localhost", "baseHost should be 'localhost' for host bib.localhost:8080.")
+      self.assertEqual( getHostPort(), "8080", "HostPort should be '8080' for host bib.localhost:8080.")
+      self.assertEqual( makeUrl("tst"), "http://tst.localhost:8080", "URL should be 'http://tst.localhost:8080' for host bib.localhost:8080.")
+
+      u.setupHostinfo(thing,"fred.localhost:8080")
+      self.assertEqual( getHostExt(), "", "host_ext should be empty for host fred.localhost:8080.")
+      self.assertEqual( getBaseHost(), "fred.localhost", "baseHost should be 'fred.localhost' for host fred.localhost:8080.")
+      self.assertEqual( getHostPort(), "8080", "HostPort should be '8080' for host fred.localhost:8080.")
+      self.assertEqual( makeUrl("tst"), "http://tst.fred.localhost:8080", "URL should be 'http://tst.fred.localhost:8080' for host fred.localhost:8080.")
+
+      u.setupHostinfo(thing,"schema.org")
+      self.assertEqual( getHostExt(), "", "host_ext should be empty for host schema.org.")
+      self.assertEqual( getBaseHost(), "schema.org", "baseHost should be 'schema.org' for host schema.org.")
+      self.assertEqual( getHostPort(), "80", "HostPort should be '80' for host schema.org.")
+      self.assertEqual( makeUrl("tst"), "http://tst.schema.org", "URL should be 'http://tst.schema.org' for host schema.org.")
+      
+      u.setupHostinfo(thing,"bib.schema.org")
+      self.assertEqual( getHostExt(), "bib", "host_ext should be 'bib' for host bib.schema.org.")
+      self.assertEqual( getBaseHost(), "schema.org", "baseHost should be 'bib.schema.org' for host schema.org.")
+      self.assertEqual( getHostPort(), "80", "HostPort should be '80' for host bib.schema.org.")
+      self.assertEqual( makeUrl("tst"), "http://tst.schema.org", "URL should be 'http://tst.schema.org' for host bib.schema.org.")
+
+      u.setupHostinfo(thing,"fred.schema.org:8080")
+      self.assertEqual( getHostExt(), "", "host_ext should be empty for host fred.schema.org:8080.")
+      self.assertEqual( getBaseHost(), "fred.schema.org", "baseHost should be 'fred.schema.org' for host fred.schema.org:8080.")
+      self.assertEqual( getHostPort(), "8080", "HostPort should be '8080' for host fred.schema.org:8080.")
+      self.assertEqual( makeUrl("tst"), "http://tst.fred.schema.org:8080", "URL should be 'http://tst.fred.schema.org:8080' for host fred.schema.org:8080.")
+
+      u.setupHostinfo(thing,"webschemas.org")
+      self.assertEqual( getHostExt(), "", "host_ext should be empty for host webschemas.org.")
+      self.assertEqual( getBaseHost(), "webschemas.org", "baseHost should be 'webschemas.org' for host webschemas.org.")
+      self.assertEqual( getHostPort(), "80", "HostPort should be '80' for host webschemas.org.")
+      self.assertEqual( makeUrl("tst"), "http://tst.webschemas.org", "URL should be 'http://tst.webschemas.org' for host webschemas.org.")
+      
+      u.setupHostinfo(thing,"bib.webschemas.org")
+      self.assertEqual( getHostExt(), "bib", "host_ext should be 'bib' for host bib.webschemas.org.")
+      self.assertEqual( getBaseHost(), "webschemas.org", "baseHost should be 'webschemas.org' for host bib.webschemas.org.")
+      self.assertEqual( getHostPort(), "80", "HostPort should be '80' for host bib.webschemas.org.")
+      self.assertEqual( makeUrl("tst"), "http://tst.webschemas.org", "URL should be 'http://tst.webschemas.org' for host bib.webschemas.org.")
+
+      u.setupHostinfo(thing,"fred.webschemas.org:8080")
+      self.assertEqual( getHostExt(), "", "host_ext should be empty for host fred.webschemas.org:8080.")
+      self.assertEqual( getBaseHost(), "fred.webschemas.org", "baseHost should be 'fred.webschemas.org' for host fred.webschemas.org:8080.")
+      self.assertEqual( getHostPort(), "8080", "HostPort should be '8080' for host fred.webschemas.org:8080.")
+      self.assertEqual( makeUrl("tst"), "http://tst.fred.webschemas.org:8080", "URL should be 'http://tst.fred.webschemas.org:8080' for host fred.webschemas.org:8080.")
+      
+      u.setupHostinfo(thing,"sdo-ganymede.appspot.com")
+      self.assertEqual( getHostExt(), "", "host_ext should be empty for host sdo-ganymede.appspot.com.")
+      self.assertEqual( getBaseHost(), "sdo-ganymede.appspot.com", "baseHost should be 'sdo-ganymede.appspot.com' for host sdo-ganymede.appspot.com.")
+      self.assertEqual( getHostPort(), "80", "HostPort should be '80' for host sdo-ganymede.appspot.com.")
+      self.assertEqual( makeUrl("tst"), "http://tst.sdo-ganymede.appspot.com", "URL should be 'http://tst.sdo-ganymede.appspot.com' for host sdo-ganymede.appspot.com.")
+      
+      u.setupHostinfo(thing,"bib.sdo-ganymede.appspot.com")
+      self.assertEqual( getHostExt(), "bib", "host_ext should be 'bib' for host bib.sdo-ganymede.appspot.com.")
+      self.assertEqual( getBaseHost(), "sdo-ganymede.appspot.com", "baseHost should be 'bib.sdo-ganymede.appspot.com' for host sdo-ganymede.appspot.com.")
+      self.assertEqual( getHostPort(), "80", "HostPort should be '80' for host bib.sdo-ganymede.appspot.com.")
+      self.assertEqual( makeUrl("tst"), "http://tst.sdo-ganymede.appspot.com", "URL should be 'http://tst.sdo-ganymede.appspot.com' for host bib.sdo-ganymede.appspot.com.")
+
+      u.setupHostinfo(thing,"fred.sdo-ganymede.appspot.com")
+      self.assertEqual( getHostExt(), "", "host_ext should be empty for host fred.sdo-ganymede.appspot.com.")
+      self.assertEqual( getBaseHost(), "fred.sdo-ganymede.appspot.com", "baseHost should be 'fred.sdo-ganymede.appspot.com' for host fred.sdo-ganymede.appspot.com.")
+      self.assertEqual( getHostPort(), "80", "HostPort should be '80' for host fred.sdo-ganymede.appspot.com.")
+      self.assertEqual( makeUrl("tst"), "http://tst.fred.sdo-ganymede.appspot.com", "URL should be 'http://tst.fred.sdo-ganymede.appspot.com' for host fred.sdo-ganymede.appspot.com.")
+      
 
   def test_gotFooBarThing(self):
 
@@ -199,6 +335,7 @@ class SchemaBasicAPITestCase(unittest.TestCase):
   def test_StoresAreOrganizations(self):
     tStore = Unit.GetUnit("Store")
     tOrganization = Unit.GetUnit("Organization")
+    orgsubtypes = GetSources( Unit.GetUnit("rdfs:subClassOf"), tOrganization  )
     self.assertTrue(tStore.subClassOf(tOrganization), "Store subClassOf Organization.")
 
   def test_PersonNotAttribute(self):
@@ -254,7 +391,9 @@ class SchemaPropertyMetadataTestCase(unittest.TestCase):
   def test_acceptedAnswerSuperpropertiesArrayLen(self):
     p_acceptedAnswer = Unit.GetUnit("acceptedAnswer")
     aa_supers = p_acceptedAnswer.superproperties()
-    self.assertEqual( len(aa_supers), 1, "acceptedAnswer subproperties() gives array of len 1." )
+    for f in aa_supers:
+        log.info("acceptedAnswer's subproperties(): %s" % f.id)
+    self.assertTrue( len(aa_supers) == 1, "acceptedAnswer subproperties() gives array of len 1. Actual: %s ." % len(aa_supers) )
 
   def test_answerSubproperty(self):
     p_suggestedAnswer = Unit.GetUnit("suggestedAnswer")
@@ -367,7 +506,7 @@ class SimpleSchemaIntegrityTests(unittest.TestCase):
 class DataTypeTests(unittest.TestCase):
     def test_booleanDataType(self):
       self.assertTrue( Unit.GetUnit("Boolean").isDataType())
-      self.assertTrue(Unit.GetUnit("DataType").isDataType())
+      self.assertFalse(Unit.GetUnit("DataType").isDataType())
       self.assertFalse(Unit.GetUnit("Thing").isDataType())
       self.assertFalse(Unit.GetUnit("Duration").isDataType())
 

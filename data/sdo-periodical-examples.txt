@@ -88,10 +88,7 @@ JSON:
       {
         "@id": "issue9735", 
         "@type": "PublicationIssue", 
-        "datePublished": {
-          "@value": "2010-07-03", 
-          "@type": "http://www.w3.org/2001/XMLSchema#date"
-        }, 
+        "datePublished": "2010-07-03", 
         "pageEnd": "140", 
         "pageStart": "69", 
         "issueNumber": "9735"
@@ -99,10 +96,7 @@ JSON:
       {
         "@id": "issue9734", 
         "@type": "PublicationIssue", 
-        "datePublished": {
-          "@value": "2010-07-03", 
-          "@type": "http://www.w3.org/2001/XMLSchema#date"
-        }, 
+        "datePublished": "2010-07-03", 
         "pageEnd": "68", 
         "pageStart": "1", 
         "issueNumber": "9734"
@@ -303,18 +297,18 @@ MICRODATA:
 <!-- A trilogy of books with numbered volumes. -->
 <div>
   <p itemscope itemtype="http://schema.org/Book" itemid="#trilogy">
-  <link itemprop="about" href="http://id.worldcat.org/fast/1020337">
+    <link itemprop="about" href="http://id.worldcat.org/fast/1020337">
     The <strong itemprop="name">Lord of the Rings</strong> is an 
-    <span itemprop="inLanguage" content="en">English-language</span> 
+    <meta itemprop="inLanguage" content="en">English-language</meta> 
     <span itemprop="genre">fictional</span> trilogy by
-  <span itemprop="author" itemscope itemtype="http://schema.org/Person" itemid="#author">
-    <link itemprop="sameAs" href="http://viaf.org/viaf/95218067">
-    <span itemprop="name" content="Tolkien, J. R. R. (John Ronald Reuel)">J. R. R. Tolkien</span>
-    (<span itemprop="birthDate">1892</span>-<span itemprop="deathDate">1973</span>).
-  </span>
-  <link itemprop="hasPart" href="#book1">
-  <link itemprop="hasPart" href="#book2">
-  <link itemprop="hasPart" href="#book3">
+    <span itemprop="author" itemscope itemtype="http://schema.org/Person" itemid="#author">
+      <link itemprop="sameAs" href="http://viaf.org/viaf/95218067">
+      <meta itemprop="name" content="Tolkien, J. R. R. (John Ronald Reuel)">J. R. R. Tolkien</meta>
+     (<span itemprop="birthDate">1892</span>-<span itemprop="deathDate">1973</span>).
+    </span>
+    <link itemprop="hasPart" href="#book1">
+    <link itemprop="hasPart" href="#book2">
+    <link itemprop="hasPart" href="#book3">
   </p>
   <p>
     The books in the trilogy are:
@@ -329,7 +323,7 @@ MICRODATA:
       <span itemprop="name">The Fellowship of the Ring</span>
     </li>
     <li itemscope itemtype="http://schema.org/Book http://schema.org/PublicationVolume" itemid="#book2">
-      Vol. <span itemprop="volumeNumber">3</span>:
+      Vol. <span itemprop="volumeNumber">2</span>:
       <link itemprop="about" href="http://id.worldcat.org/fast/1020337">
       <link itemprop="isPartOf" href="#trilogy">
       <link itemprop="author" href="#author">
@@ -352,18 +346,18 @@ RDFA:
 <!-- A trilogy of books with numbered volumes. -->
 <div vocab="http://schema.org/">
   <p typeof="Book" resource="#trilogy">
-  <link property="about" href="http://id.worldcat.org/fast/1020337">
+    <link property="about" href="http://id.worldcat.org/fast/1020337">
     The <strong property="name">Lord of the Rings</strong> is an 
     <span property="inLanguage" content="en">English-language</span> 
     <span property="genre">fictional</span> trilogy by
-  <span property="author" typeof="Person" resource="#author">
-    <link property="sameAs" href="http://viaf.org/viaf/95218067">
-    <span property="name" content="Tolkien, J. R. R. (John Ronald Reuel)">J. R. R. Tolkien</span>
-    (<span property="birthDate">1892</span>-<span property="deathDate">1973</span>).
-  </span>
-  <link property="hasPart" href="#book1">
-  <link property="hasPart" href="#book2">
-  <link property="hasPart" href="#book3">
+    <span property="author" typeof="Person" resource="#author">
+      <link property="sameAs" href="http://viaf.org/viaf/95218067">
+      <span property="name" content="Tolkien, J. R. R. (John Ronald Reuel)">J. R. R. Tolkien</span>
+      (<span property="birthDate">1892</span>-<span property="deathDate">1973</span>).
+    </span>
+    <link property="hasPart" href="#book1">
+    <link property="hasPart" href="#book2">
+    <link property="hasPart" href="#book3">
   </p>
   <p>
     The books in the trilogy are:
@@ -378,7 +372,7 @@ RDFA:
       <span property="name">The Fellowship of the Ring</span>
     </li>
     <li typeof="Book PublicationVolume" resource="#book2">
-      Vol. <span property="volumeNumber">3</span>:
+      Vol. <span property="volumeNumber">2</span>:
       <link property="about" href="http://id.worldcat.org/fast/1020337">
       <link property="isPartOf" href="#trilogy">
       <link property="author" href="#author">
@@ -438,7 +432,7 @@ JSON:
           "about": "http://id.worldcat.org/fast/1020337", 
           "isPartOf": "#trilogy", 
           "inLanguage": "en", 
-          "volumeNumber": "3", 
+          "volumeNumber": "2", 
           "author": "#author"
         }, 
         {
@@ -531,10 +525,7 @@ JSON:
     {
       "@id": "#issue4",
       "@type": "PublicationIssue",
-      "datePublished": {
-        "@value": "2006-10",
-        "@type": "xsd:gYearMonth"
-      },
+      "datePublished": "2006-10",
       "issueNumber": "4"
     },
     {
@@ -619,14 +610,14 @@ MICRODATA:
 <p>
     The book has also been adapted for the screen several times.
     <span itemscope itemtype="http://schema.org/Movie">
-        <meta itemprop="exampleOfWork" href="http://www.freebase.com/m/0h35m">
+        <link itemprop="exampleOfWork" href="http://www.freebase.com/m/0h35m">
         <em itemprop="name">J.R.R. Tolkien's The Lord of the Rings</em>, an
         animated version directed by <span itemprop="director">Ralph Bakshi</span>
         and released in <time itemprop="datePublished">1978</time>, covered the
         events of the novel and parts of its sequel.
     </span>
     <span itemscope itemtype="http://schema.org/Movie">
-        <meta itemprop="exampleOfWork" href="http://www.freebase.com/m/0h35m">
+        <link itemprop="exampleOfWork" href="http://www.freebase.com/m/0h35m">
         The movie <em itemprop="name">The Lord of the Rings: The Fellowship of the
         Ring</em>, directed by <span itemprop="director">Peter Jackson</span> and
         released in <time itemprop="datePublished">2001</time>, ran
@@ -662,14 +653,14 @@ RDFA:
     <p>
         The book has also been adapted for the screen several times.
         <span typeof="Movie">
-            <meta property="exampleOfWork" href="http://www.freebase.com/m/0h35m">
+            <link property="exampleOfWork" href="http://www.freebase.com/m/0h35m">
             <em property="name">J.R.R. Tolkien's The Lord of the Rings</em>, an
             animated version directed by <span property="director">Ralph Bakshi</span>
             and released in <time property="datePublished">1978</time>, covered the
             events of the novel and parts of its sequel.
         </span>
         <span typeof="Movie">
-            <meta property="exampleOfWork" href="http://www.freebase.com/m/0h35m">
+            <link property="exampleOfWork" href="http://www.freebase.com/m/0h35m">
             The movie <em property="name">The Lord of the Rings: The Fellowship of the
             Ring</em>, directed by <span property="director">Peter Jackson</span> and
             released in <time property="datePublished">2001</time>, ran
@@ -680,7 +671,67 @@ RDFA:
 </div>
 
 JSON:
- 
+
+<script type="application/ld+json">
+{
+  "@context": {
+    "schema": "http://schema.org/"
+  },
+  "@graph": [
+    {
+      "@id": "http://www.freebase.com/m/0h35m",
+      "@type": "Book",
+      "author": "J.R.R Tolkien",
+      "datePublished": "1954",
+      "name": "The Fellowship of the Ring",
+      "publisher": {
+          "@type": "Organization",
+          "location": "United Kingdom",
+          "name": "George Allen & Unwin"
+      },
+      "workExample": [
+        {
+          "@type": "Book",
+          "datePublished": "1974",
+          "isbn": "0007149212",
+          "publisher": {
+            "@type": "Organization",
+            "name": "HarperCollins"
+          }
+        },
+        {
+          "@type": "Book",
+          "datePublished": "1984",
+          "isbn": "0345296052",
+          "publisher": {
+            "@type": "Organization",
+            "name": "Ballantine"
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Movie",
+      "datePublished": "2001",
+      "director": "Peter Jackson",
+      "duration": "PT178M",
+      "name": "The Lord of the Rings: The Fellowship of the Ring",
+      "exampleOfWork": {
+        "@id": "http://www.freebase.com/m/0h35m"
+      }
+    },
+    {
+      "@type": "Movie",
+      "datePublished": "1978",
+      "director": "Ralph Bakshi",
+      "name": "J.R.R. Tolkien's The Lord of the Rings",
+      "exampleOfWork": {
+        "@id": "http://www.freebase.com/m/0h35m"
+      }
+    }
+  ]
+}
+</script>
 
 TYPES:  FakeEntryNeeded, FixMeSomeDay
 PRE-MARKUP:
