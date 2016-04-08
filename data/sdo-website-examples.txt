@@ -7,23 +7,23 @@ PRE-MARKUP:
 MICRODATA:
 
 <div itemscope itemtype="http://schema.org/WebSite">
-    <meta itemprop="url" content="http://www.example.com/"/>
+    <link itemprop="url" href="http://www.example.com/"/>
     <form itemprop="potentialAction" itemscope itemtype="http://schema.org/SearchAction">
-      <meta itemprop="target" content="http://www.example.com/search?q={query}"/>
-      <input itemprop="query-input" type="text" name="query">
-      <input type="submit">
+	  <meta itemprop="target" content="http://example.com/search?q={query}"/>
+      <input itemprop="query-input" type="text" name="query"/>
+      <input type="submit"/>
     </form>
 </div>
 
 RDFA:
 
 <div vocab="http://schema.org/" typeof="WebSite">
-    <meta property="url" content="http://www.example.com/"/>
-    <form property="potentialAction" typeof="http://schema.org/SearchAction">
-      <meta property="target" content="http://www.example.com/search?q={query}"/>
-      <input property="query-input" type="text" name="query">
-      <input type="submit">
-    </form>
+   <link property="url" href="http://example.com/"/>
+   <form property="potentialAction" typeof="SearchAction">
+      <meta property="target" content="http://example.com/search?q={query}"/>
+      <input property="query-input" type="text" name="query"/>
+      <input type="submit"/>
+  </form>
 </div>
 
 JSON:
@@ -32,10 +32,10 @@ JSON:
 {
     "@context": "http://schema.org",
     "@type": "WebSite",
-    "url": "http://www.example.com/",
+    "url": "http://example.com/",
     "potentialAction": {
       "@type": "SearchAction",
-      "target": "http://www.example.com/search?&q={query}",
+      "target": "http://example.com/search?&q={query}",
       "query-input": "required"
     }
 }

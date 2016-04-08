@@ -2,79 +2,50 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>Home - schema.org</title>
+    <title>Home - {{ sitename }}</title>
     <meta name="description" content="Schema.org is a set of extensible schemas that enables webmasters to embed
     structured data on their web pages for use by search engines and other applications." />
-    <!-- link rel="stylesheet" type="text/css" href="search_files/schemaorg.css" -->
-
-    <link rel="stylesheet" type="text/css" href="docs/schemaorg.css">
+    <link rel="stylesheet" type="text/css" href="/docs/schemaorg.css">
 
 </head>
 <body>
-    <div id="container">
-        <div id="intro">
-            <div id="pageHeader">
-              <div class="wrapper">
-                <h1>schema.org</h1>
 
-<div id="cse-search-form" style="width: 400px;"></div>
-
-<script type="text/javascript" src="//www.google.com/jsapi"></script>
-<script type="text/javascript">
-  google.load('search', '1', {language : 'en', style : google.loader.themes.ESPRESSO});
-  google.setOnLoadCallback(function() {
-    var customSearchControl = new google.search.CustomSearchControl('013516846811604855281:nj5laplixaa');
-    customSearchControl.setResultSetSize(google.search.Search.FILTERED_CSE_RESULTSET);
-    var options = new google.search.DrawOptions();
-    options.enableSearchboxOnly("docs/search_results.html", null, false, '#');
-    customSearchControl.draw('cse-search-form', options);
-  }, true);
-</script>
-
-
-              </div>
-            </div>
-        </div>
-    </div>
-
-            <div id="selectionbar">
-               <div class="wrapper">
-                <ul>
-                    <li >
-                      <a href="docs/documents.html">Documentation</a></li>
-                    <li >
-                      <a href="docs/schemas.html">Schemas</a></li>
-                    <li>
-                      <a href="docs/about.html">About</a></li>
-                </ul>
-                </div>
-
-            </div>
-        <div style="padding: 14px; float: right;" id="languagebox"></div>
+{% include 'basicPageHeader.tpl' with context %}
 
   <div id="mainContent">
 
 
 {% import 'ext.tpl' as ext with context %}
 
-{% if myhost in [ "sdo-gozer.appspot.com", "sdo-tully.appspot.com", "sdo-lenny.appspot.com", "webschemas.org", "sdo-scripts.appspot.com", "localhost" ] %}
+{% if mybasehost in [ "sdo-deimos.appspot.com", "sdo-phobos.appspot.com", "sdo-ganymede.appspot.com", "sdo-gozer.appspot.com", "sdo-tully.appspot.com", "sdo-lenny.appspot.com", "webschemas.org", "sdo-scripts.appspot.com", "localhost" ] %}
 
 <p id="lli" class="layerinfo">
-Note: This is {{ myhost }}. you are viewing an unstable work-in-progress preview of <a href="http://schema.org/">schema.org</a>.
-See the draft <b><a href="/docs/releases.html">releases</a></b> page to learn more about this version.
+Note: This is {{ mybasehost }}. you are viewing an unstable work-in-progress preview of <a href="http://schema.org/">schema.org</a>.
+See the draft <b><a href="{{staticPath}}/docs/releases.html">releases</a></b> page to learn more about this version.
 </p>
 
 {% endif %}
 
 
 {% if ENABLE_HOSTED_EXTENSIONS and host_ext == "bib" %}
-  {{ ext.overview(name="Bibliographic Extension", abbrev="ext") }}
+  {{ ext.overview(name="Bibliographic Extension", abbrev="bib") }}
   <p>
   You are viewing the Bibliographic Extension within <a href="http://schema.org/">schema.org</a>.
-  It defines terms such as <a href="/workTranslation">workTranslation</a>. For more details
-  see the W3C BibExtend Community Group's <a href="http://www.w3.org/community/schemabibex/wiki/Bib.schema.org-1.0">wiki</a>.
-  This is an initial exploratory release.
+  It defines terms such as <a href="/Audiobook">Audiobook</a>, <a href="/Thesis">Thesis</a>, <a href="/ComicStory">ComicStory</a>, and  <a href="/workTranslation">workTranslation</a>.
+   For more details see the W3C BibExtend Community Group's <a href="http://www.w3.org/community/schemabibex/wiki/Bib.schema.org-1.0">wiki</a>.
+  <br/>This should be considered a pre-final preview release; final changes may be made after wider <a href="https://github.com/schemaorg/schemaorg/issues/699">community review</a>.
   </p>
+
+{% elif ENABLE_HOSTED_EXTENSIONS and host_ext == "auto" %}
+  {{ ext.overview(name="Auto Extension", abbrev="auto") }}
+
+  <p>  You are viewing the Auto Extension within <a href="http://schema.org/">schema.org</a>.
+  It defines terms such as <a href="/MotorizedBicycle">MotorizedBicycle</a> and adds terms to <a href="/Car">Car</a>. For more details
+  see the W3C <a href="https://www.w3.org/community/gao/">Automotive Ontology Working Group</a>.
+  <br/>This should be considered a pre-final preview release; final changes may be made after wider <a href="https://github.com/schemaorg/schemaorg/issues/704">community review</a>.
+</p>
+
+  <p><br/></p>
 
 {% elif ENABLE_HOSTED_EXTENSIONS and host_ext == "test001" %}
   {{ ext.overview(name="Test Extension", abbrev="test1") }}
@@ -86,7 +57,7 @@ See the draft <b><a href="/docs/releases.html">releases</a></b> page to learn mo
 {% else %}
 
 
-  <h1>Welcome to Schema.org?</h1>
+  <h1>Welcome to Schema.org</h1>
 
 
 <p>
@@ -130,6 +101,10 @@ See the draft <b><a href="/docs/releases.html">releases</a></b> page to learn mo
 </div>
 
 
+{% endif %}
+
+{{ ext_contents | safe }}
+
 <div id="footer"><p>
   <a href="docs/terms.html">Terms and conditions</a></p>
 </div>
@@ -145,8 +120,6 @@ See the draft <b><a href="/docs/releases.html">releases</a></b> page to learn mo
 
 </script>
 
-
-{% endif %}
 
 
 <p><br/></p>

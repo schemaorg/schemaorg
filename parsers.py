@@ -9,7 +9,7 @@ from google.appengine.ext.webapp import blobstore_handlers
 import xml.etree.ElementTree as ET
 import logging
 import api
-        
+
 def MakeParserOfType (format, webapp):
     if (format == 'mcf') :
         return MCFParser(webapp)
@@ -65,18 +65,18 @@ class ParseExampleFile :
 
             if ((len(line) > 6) and line[:6] == "TYPES:"):
                 self.nextPart('TYPES:')
+                logging.debug("About to call api.Example.AddExample with terms: %s " % "".join( [" ; %s " % t.id for t in self.terms] ) )
                 api.Example.AddExample(self.terms, self.preMarkupStr, self.microdataStr, self.rdfaStr, self.jsonStr, self.egmeta)
-                # logging.info("AddExample called with terms %s " % self.terms)
                 self.initFields()
                 typelist = re.split(':', line)
                 self.terms = []
                 self.egmeta = {}
-                # logging.info("TYPE INFO: '%s' " % line );
+                logging.debug("TYPE INFO: '%s' " % line );
                 tdata = egid.sub(self.process_example_id, typelist[1]) # strips IDs, records them in egmeta["id"]
                 ttl = tdata.split(',')
                 for ttli in ttl:
                     ttli = re.sub(' ', '', ttli)
-                    # logging.info("TTLI: %s " % ttli); # danbri tmp
+                    logging.debug("TTLI: %s " % ttli); # danbri tmp
                     self.terms.append(api.Unit.GetUnit(ttli, True))
             else:
                 tokens = ["PRE-MARKUP:", "MICRODATA:", "RDFA:", "JSON:"]
@@ -87,8 +87,11 @@ class ParseExampleFile :
                         line = line[ltk:]
                 if (len(line) > 0):
                     self.currentStr.append(line + "\n")
-        api.Example.AddExample(self.terms, self.preMarkupStr, self.microdataStr, self.rdfaStr, self.jsonStr, self.egmeta) # should flush on each block of examples
-        # logging.info("Final AddExample called with terms %s " % self.terms)
+        self.nextPart('TYPES:') # should flush on each block of examples
+        api.Example.AddExample(self.terms, self.preMarkupStr, self.microdataStr, self.rdfaStr, self.jsonStr, self.egmeta) # should flush last one
+        #logging.info("Final AddExample called with terms %s " % self.terms)
+        for t in self.terms:
+            logging.debug("Adding %s" % "".join( [" ; %s " % t.id for t in self.terms] ) )
 
 
 class UsageFileParser:
@@ -119,7 +122,7 @@ class RDFAParser :
         self.items = {}
         root = []
         for i in range(len(files)):
-            logging.info("RDFa parse schemas in %s " % files[i])
+            logging.debug("RDFa parse schemas in %s " % files[i])
             parser = ET.XMLParser(encoding="utf-8")
             tree = ET.parse(files[i], parser=parser)
             root.append(tree.getroot())

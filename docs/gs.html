@@ -5,16 +5,18 @@
     <title>Getting Started - schema.org</title>
     <meta name="description" content="Schema.org is a set of extensible schemas that enables webmasters to embed
     structured data on their web pages for use by search engines and other applications." />
-    <link rel="stylesheet" type="text/css"
-          href="../search_files/schemaorg.css" />
-
+    <link rel="stylesheet" type="text/css" href="schemaorg.css" />
 </head>
 <body>
     <div id="container">
         <div id="intro">
             <div id="pageHeader">
               <div class="wrapper">
-                <h1>schema.org</h1>
+				<div id="sitename">
+				<h1>
+					<a href="/">schema.org</a>
+				</h1>
+				</div>
 
 <div id="cse-search-form" style="width: 400px;"></div>
 
@@ -161,7 +163,7 @@ examples to see how the details compare.</p>
 <p>What additional information can we give search engines about the movie Avatar? Movies have interesting properties such as actors, director, ratings. To label properties of an item, use the <code>itemprop</code> attribute. For example, to identify the director of a movie, add <code>itemprop="director"</code> to the element enclosing the director's name. (There's a full list of all the properties you can associate with a movie at http://schema.org/Movie.)</p>
 
 <pre>&lt;div itemscope itemtype ="http://schema.org/Movie"&gt;
-  &lt;h1 <strong>itemprop="name"</strong>>Avatar&lt;/h1&gt;
+  &lt;h1 <strong>itemprop="name"</strong>&gt;Avatar&lt;/h1&gt;
   &lt;span&gt;Director: &lt;span <strong>itemprop="director"</strong>&gt;James Cameron&lt;/span&gt; (born August 16, 1954)&lt;/span&gt;
   &lt;span <strong>itemprop="genre"</strong>&gt;Science fiction&lt;/span&gt;
   &lt;a href="../movies/avatar-theatrical-trailer.html" <strong>itemprop="trailer"</strong>&gt;Trailer&lt;/a&gt;
@@ -177,9 +179,9 @@ examples to see how the details compare.</p>
 <p>Sometimes the value of an item property can itself be another item with its own set of properties. For example, we can specify that the director of the movie is an item of type Person and the Person has the properties <code>name</code> and <code>birthDate</code>. To specify that the value of a property is another item, you begin a new <code>itemscope</code> immediately after the corresponding <code>itemprop</code>.</p>
 
 <pre>&lt;div itemscope itemtype ="http://schema.org/Movie"&gt;
-  &lt;h1 itemprop="name"&g;Avatar&lt;/h1&gt;
+  &lt;h1 itemprop="name"&gt;Avatar&lt;/h1&gt;
   &lt;div <strong>itemprop="director" itemscope itemtype="http://schema.org/Person"</strong>&gt;
-  Director: &lt;span itemprop="name"&gt;James Cameron&lt;/span&gt; (born &lt;span <strong>itemprop="birthDate"</strong>&gt;August 16, 1954)&lt;/span&gt;
+  Director: &lt;span itemprop="name"&gt;James Cameron&lt;/span&gt; (born &lt;span <strong>itemprop="birthDate"</strong>&gt;August 16, 1954&lt;/span&gt;)
   &lt;/div&gt;
   &lt;span itemprop="genre">Science fiction&lt;/span&gt;
   &lt;a href="../movies/avatar-theatrical-trailer.html" itemprop="trailer"&gt;Trailer&lt;/a&gt;
@@ -358,7 +360,7 @@ examples to see how the details compare.</p>
 
 <h3 id="advanced_extending">3d. Extending schema.org</h3>
 
-<p>Most sites and organizations will not have a reason to extend schema.org. However, schema.org offers the ability to specify additional properties or sub-types to existing types. If you are interesting in doing this, read more about the <a href="http://www.schema.org/docs/extension.html">schema.org extension mechanism</a>. </p>
+<p>Most sites and organizations will not have a reason to extend schema.org. However, schema.org offers the ability to specify additional properties or sub-types to existing types. If you are interested in doing this, read more about the <a href="http://schema.org/docs/extension.html">schema.org extension mechanism</a>. </p>
 <br /><br /><br />
 
   </div>

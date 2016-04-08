@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+
+<meta charset="utf-8">
+<title>RDFa - 2011-09-21</title>
+
+<style>
+.code {
+ margin: 40px;
+ padding: 20px 20px 20px 30px;
+ background: #ccc;
+ font-family: courier;
+ white-space: pre;
+ border-left: solid #666 4px;
+ font-size: 0.8em;
+}
+
+.property {
+ color: red;
+}
+
+.target {
+ color: green;
+}
+</style>
+<!-- Your Slides -->
+<!-- One section is one slide -->
+
+<section>
+    <!-- This is the first slide -->
+    <br />
+    <div align="center"><img src="browserid.png" /></div>
+    <h1>RDFa<br />Structured data<br />for the Web</h1>
+    <br />
+    <h5 align="center">
+      Ben Adida<br />
+      Creative Commons
+    </h5>
+    <footer>21 September 2011</footer>
+</section>
+
+<section>
+<h2>Three Points</h2>
+<br />
+<ol>
+<li> What is RDFa?</li>
+<li> RDFa 1.1 Lite &mdash; a Proposal</li>
+<li> RDFa is Better for the Web</li>
+</ol>
+</section>
+
+<section>
+<h2>An Old Slide (2008)</h2>
+<img src="old-rdfa-slide.png" width="100%" />
+</section>
+
+<section>
+<h2>Basic Facts</h2>
+    <br />
+    <ul>
+      <li> Started 2004. Early adopters 2006.</li>
+      <li> W3C Recommendation 2008</li>
+      <li> Yahoo! SearchMonkey 2008</li>
+      <li> Google Rich Snippets 2009</li>
+      <li> Facebook Open Graph Protocol 2010</li>
+      <li> rNews, GoodRelations, ...</li>
+      <li> Flickr, Overstock, BestBuy,<br />Newsweek, PLoS,...</li>
+    </ul>
+</section>
+
+<section>
+    <h2>Simple: Annotate HTML</h2>
+    <div class="code">This blog is available under
+&lt;a <span class="property">rel="license"</span>
+   href="<span class="target">http://cc.org/licenses/by/3.0/</span>"&gt;
+  a CC license
+&lt;/a&gt;</div>
+    <div class="code">Please give credit to
+&lt;span <span class="property">property="attributionName"</span>&gt;
+  <span class="target">Manu Sporny</span>
+&lt;/span&gt;</div>
+</section>
+
+<section>
+    <h2>Multiple Items on a Page</h2>
+    <div class="code">&lt;div <span class="property">typeof="Person"</span>&gt;
+  &lt;span <span class="property">property="name"</span>&gt;
+    <span class="target">Manu Sporny</span>
+  &lt;/span&gt;
+  ...
+&lt;/div&gt;
+
+&lt;div <span class="property">typeof="Person"</span>&gt;
+  &lt;span <span class="property">property="name"</span>&gt;
+    <span class="target">Ivan Herman</span>
+  &lt;/span&gt;
+  ...
+&lt;/div&gt;</div>
+</section>
+
+
+<section>
+    <h2>Vocabularies (Ready to Use)</h2>
+<br />
+<div class="code">&lt;div <span class="property">vocab="http://schema.org/"</span>
+     typeof="<span class="target">Person</span>"&gt;
+  &lt;span property="<span class="target">name</span>"&gt;
+    Manu Sporny
+  &lt;/span&gt;
+  &lt;img rel="<span class="target">image</span>" src="manu.jpg" /&gt;
+&lt;/div&gt;
+</div>
+
+</section>
+
+<section>
+    <h2>Vocabularies (On the Fly)</h2>
+<br />
+<div class="code">&lt;div vocab="http://schema.org/"
+   <span class="property">prefix="foaf: http://xmlns.com/foaf/0.1/"</span>
+   typeof="Person <span class="target">foaf:Person</span>"&gt;
+  &lt;span property="name <span class="target">foaf:name</span>"&gt;
+    Manu Sporny
+  &lt;/span&gt;
+  &lt;img rel="image" src="manu.jpg" /&gt;
+&lt;/div&gt;
+</div>
+</section>
+
+<section>
+    <h2>Connecting Items</h2>
+<div class="code">&lt;div vocab="http://schema.org/"
+     typeof="Person"&gt;
+  &lt;span property="name"&gt;Manu Sporny&lt;/span&gt;
+  &lt;div <span class="property">rel="address"</span>&gt;
+    &lt;div <span class="property">typeof="PostalAddress"</span>&gt;
+      &lt;span <span class="property">property="streetAddress</span>"&gt;
+       <span class="target">1700 Kraft Drive, Suite 2408</span>
+      &lt;/span&gt;
+      &lt;span property="addressLocality"&gt;
+       <span class="target">Blacksburg</span>
+      &lt;/span&gt;
+      ...
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</div>
+</section>
+
+<section>
+  <h2>We Made Mistakes</h2>
+<br />
+<ul>
+<li> xmlns</li>
+<li> explicit vocabularies only</li>
+<li> but, we improved</li>
+<li> RDFa 1.1 has improved thanks to<br />
+Yahoo, Google, Facebook, ...</li>
+</ul>
+</section>
+
+<section>
+  <h2>RDFa 1.1 Lite</h2>
+  <div class="code" style="font-size: 0.6em;">&lt;div <span class="property">vocab="http://schema.org/"</span>
+     <span class="property">typeof="Person"</span>&gt;
+  &lt;span <span class="property">property="name"</span>&gt;<span class="target">Manu Sporny</span>&lt;/span&gt;
+  &lt;img <span class="property">rel="image"</span> src="<span class="target">manu.jpg</span>" /&gt;
+
+  &lt;span <span class="property">property="jobTitle"</span>&gt;<span class="target">CEO</span>&lt;/span&gt;
+
+  &lt;div <span class="property">rel="address"</span>&gt;
+    &lt;span <span class="property">property="streetAddress"</span>&gt;
+     <span class="target">1700 Kraft Drive, Suite 2408</span>
+    &lt;/span&gt;
+    ...
+  &lt;/div&gt;
+
+  &lt;a <span class="property">rel="url"</span>
+     href="<span class="target">http://manu.sporny.org/</span>"&gt;
+       manu.sporny.org
+  &lt;/a&gt;
+&lt;/div&gt;</section>
+
+<section>
+  <h2>RDFa is Better for the Web</h2>
+<div class="code">&lt;div <span class="property">vocab="http://schema.org/"</span>
+   <span class="property">prefix="foaf: http://xmlns.com/foaf/0.1/"</span>
+   typeof="Person <span class="target">foaf:Person</span>"&gt;
+  &lt;span property="name <span class="target">foaf:name</span>"&gt;
+    Manu Sporny
+  &lt;/span&gt;
+...
+</div>
+<h4>Anyone can create a vocabulary.</h4>
+<h4>Anyone can remix vocabularies.</h4>
+</section>
+
+
+
+
+<!-- Your Style -->
+<!-- Define the style of you presentation -->
+
+<!-- Maybe a font from http://www.google.com/webfonts ? -->
+<link href='http://fonts.googleapis.com/css?family=Oswald' rel='stylesheet'>
+<link href='http://fonts.googleapis.com/css?family=Questrial' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
+
+<style>
+  html { background-color: black; }
+  body {background-color: white;}
+  /* A section is a slide. It's size is 800x600, and this will never change */
+  section {
+      /* The font from Google */
+      font-family: 'Open Sans', arial, serif;
+      font-size: 2em;
+  }
+  h1, h2, h3 {
+      margin-top: 30px;
+      text-align: center;
+  }
+  h4 {
+  margin-left: 50px;
+  }
+  ul, ol {
+      margin-left: 120px;
+  }
+  li {
+      padding-bottom: 10px;
+  }
+  a { color: #FF0066; } a:hover {text-decoration: underline;}
+  footer { position: absolute; bottom: 50px; right: 50px; }
+
+  /* Transition effect */
+  /* Feel free to change the transition effect for original
+     animations. See here:
+     https://developer.mozilla.org/en/CSS/CSS_transitions
+     How to use CSS3 Transitions: */
+  section {
+      -moz-transition: left 400ms linear 0s;
+      -webkit-transition: left 400ms linear 0s;
+      -ms-transition: left 400ms linear 0s;
+      transition: left 400ms linear 0s;
+  }
+
+  /* Before */
+  section { left: -150%; }
+  /* Now */
+  section[aria-selected] { left: 0; }
+  /* After */
+  section[aria-selected] ~ section { left: +150% }
+</style>
+
+
+<!-- {{{{ *****************  DZSlides CORE 2.0b1 *************************** -->
+<!-- *********************************************************************** -->
+<!-- *********************************************************************** -->
+<!-- *********************************************************************** -->
+<!-- *********************************************************************** -->
+
+<!-- This block of code is not supposed to be edited, but if you want to change the behavior of the slides, feel free to hack it ;) -->
+
+<!-- Default Style -->
+<style>
+  * { margin: 0; padding: 0; }
+  details {display: none;}
+  body {
+    width: 800px; height: 600px;
+    margin-left: -400px; margin-top: -300px;
+    position: absolute; top: 50%; left: 50%;
+    overflow: hidden;
+  }
+  html {
+    overflow: hidden;
+  }
+  section {
+    position: absolute;
+    pointer-events: none;
+    width: 100%; height: 100%;
+  }
+  section[aria-selected] { pointer-events: auto;}
+  body {display: none}
+  body.loaded {display: block}
+</style>
+
+<script>
+  var friendWindows = [];
+  var idx = 1;
+  var slides;
+
+  /* main() */
+
+  window.onload = function() {
+    slides = document.querySelectorAll("body > section");
+    onhashchange();
+    setSlide();
+    document.body.className = "loaded";
+    setupTouchEvents();
+    onresize();
+  }
+
+  /* Handle keys */
+
+  window.onkeydown = function(e) {
+    // Don't intercept keyboard shortcuts
+    if (e.altKey || e.ctrlKey || e.metaKey || e.shiftKey) {
+      return;
+    }
+    if ( e.keyCode == 37 // left arrow
+      || e.keyCode == 38 // up arrow
+      || e.keyCode == 33 // page up
+    ) {
+      e.preventDefault();
+      back();
+    }
+    if ( e.keyCode == 39 // right arrow
+      || e.keyCode == 40 // down arrow
+      || e.keyCode == 34 // page down
+    ) {
+      e.preventDefault();
+      forward();
+    }
+
+    if ( e.keyCode == 32) { // space
+        e.preventDefault();
+        toggleContent();
+    }
+  }
+
+  /* Touch Events */
+
+  function setupTouchEvents() {
+    var orgX, newX;
+    var tracking = false;
+
+    var body = document.body;
+    body.addEventListener("touchstart", start, false);
+    body.addEventListener("touchmove", move, false);
+
+    function start(e) {
+      e.preventDefault();
+      tracking = true;
+      orgX = e.changedTouches[0].pageX;
+    }
+
+    function move(e) {
+      if (!tracking) return;
+      newX = e.changedTouches[0].pageX;
+      if (orgX - newX > 100) {
+        tracking = false;
+        forward();
+      } else {
+        if (orgX - newX < -100) {
+          tracking = false;
+          back();
+        }
+      }
+    }
+  }
+
+  /* Adapt the size of the slides to the window */
+
+  window.onresize = function() {
+    var sx = document.body.clientWidth / window.innerWidth;
+    var sy = document.body.clientHeight / window.innerHeight;
+    var transform = "scale(" + (1/Math.max(sx, sy)) + ")";
+    document.body.style.MozTransform = transform;
+    document.body.style.WebkitTransform = transform;
+    document.body.style.OTransform = transform;
+    document.body.style.msTransform = transform;
+    document.body.style.transform = transform;
+  }
+  function getDetails(idx) {
+    var s = document.querySelector("section:nth-of-type("+ idx +")");
+    var d = s.querySelector("details");
+    return d?d.innerHTML:"";
+  }
+  window.onmessage = function(e) {
+    msg = e.data;
+    win = e.source;
+    if (msg === "register") {
+      friendWindows.push(win);
+      win.postMessage(JSON.stringify({method: "registered", title: document.title, count: slides.length}), "*");
+      win.postMessage(JSON.stringify({method: "newslide", details: getDetails(idx), idx: idx}), "*");
+      return;
+    }
+    if (msg === "back") back();
+    if (msg === "forward") forward();
+    if (msg === "toggleContent") toggleContent();
+    // setSlide(42)
+    var r = /setSlide\((\d+)\)/.exec(msg);
+    if (r) {
+        idx = r[1];
+        setSlide();
+    }
+  }
+
+  /* If a Video is present in this new slide, play it.
+     If a Video is present in the previous slide, stop it. */
+
+  function toggleContent() {
+    var s = document.querySelector("section[aria-selected]");
+    if (s) {
+        var video = s.querySelector("video");
+        if (video) {
+            if (video.ended || video.paused) {
+                video.play();
+            } else {
+                video.pause();
+            }
+        }
+    }
+  }
+
+  /* If the user change the slide number in the URL bar, jump
+     to this slide. */
+
+  window.onhashchange = function(e) {
+    var newidx = ~~window.location.hash.split("#")[1];
+    if (!newidx) newidx = 1;
+    if (newidx == idx) return;
+    idx = newidx;
+    setSlide();
+  }
+
+  /* Slide controls */
+
+  function back() {
+    if (idx == 1) return;
+    idx--;
+    setSlide();
+  }
+  function forward() {
+    if (idx >= slides.length) return;
+    idx++;
+    setSlide();
+  }
+  function setSlide() {
+    var old = document.querySelector("section[aria-selected]");
+    var next = document.querySelector("section:nth-of-type("+ idx +")");
+    if (old) {
+      old.removeAttribute("aria-selected");
+      var video = old.querySelector("video");
+      if (video) { video.pause(); }
+    }
+    if (next) {
+      next.setAttribute("aria-selected", "true");
+      var video = next.querySelector("video");
+      if (video) { video.play(); }
+    } else {
+      console.warn("No such slide: " + idx);
+      idx = 0;
+      for (var i = 0; i < slides.length; i++) {
+          if (slides[i].hasAttribute("aria-selected")) {
+              idx = i + 1;
+          }
+      }
+    }
+    window.location.hash = idx;
+    for (var i = 0; i < friendWindows.length; i++) {
+        friendWindows[i].postMessage(JSON.stringify({method: "newslide", details: getDetails(idx), idx: idx}), "*");
+    }
+  }
+</script>
+<!-- vim: set fdm=marker: }}} -->
