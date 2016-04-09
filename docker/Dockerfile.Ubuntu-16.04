@@ -1,0 +1,85 @@
+
+
+#### Dockerfile.Ubuntu-16.04
+## | dockertag: Ubuntu-16.04
+## | Dockerfile: https://github.com/schemaorg/schemaorg/tree/sdo-deimos/docker/Dockerfile.Ubuntu-16.04
+
+#FROM ubuntu:16.04
+FROM  ubuntu:16.04
+
+
+RUN DEBIAN_FRONTEND=noninteractive \
+    apt-get update \
+    && apt-get upgrade -y \
+    && apt-get install --no-install-recommends -y \
+        sudo \
+        ca-certificates \
+        git \
+        language-pack-en \
+        make \
+        python \
+        unzip \
+        curl \
+        screen \
+        openssh-server
+
+## ARGs and ENVs
+#   _USER='app'
+ARG _USER='app'
+#   _APP='schemaorg'
+ARG _APP="schemaorg"
+#   _HOME='/home/app'
+ENV _HOME="/home/${_USER}"
+#   _WRD='/home/app/schemaorg'
+ARG _WRD="${_HOME}/${_APP}"
+
+## Setup
+RUN useradd -U -m "${_USER}"
+# RUN useradd -U -m -G admin app
+# RUN useradd -U -m -G sudo app
+#
+RUN chown -R ${_USER}:${_USER} "${_HOME}"
+### ~ sudo -u "${_USER}" PWD=/home/app sh
+USER ${_USER}
+WORKDIR "${_HOME}"
+
+
+ADD ./Makefile ./Makefile
+RUN make appenginesdk_install
+
+## install pip
+RUN curl -s -S -O https://bootstrap.pypa.io/get-pip.py
+RUN python ./get-pip.py --user
+
+## install_app
+ADD . "${_WRD}"
+## RUN make install_pip_requirements
+# RUN python -m pip install --user rdflib
+RUN python -m pip install --user -r "${_WRD}/requirements.txt"
+RUN python -m pip install --user -r "${_WRD}/requirements-test-extra.txt" ipython
+## RUN make test
+RUN make -C "${_WRD}" test 2>&1 | tee "${_HOME}/schemaorg.test.log"
+
+ENV _VAR="${_HOME}"
+ENV _VAR_DATA="${_VAR}/data"
+ENV _VAR_DATA_APP="${_VAR_DATA}/${_APP}"
+RUN mkdir -p "${_VAR_DATA}" && mkdir -p "${_VAR_DATA_APP}"
+
+EXPOSE 8000 8080 22
+## RUN make run
+ENV _dev_appserver "${APPENGINESDK_PREFIX}/dev_appserver.py"
+RUN "${_dev_appserver}" --help
+#CMD ["sh", "-c", "$_dev_appserver", \
+#    "--automatic_restart=1", \
+#    "--skip_sdk_update_check=1", \
+#    "--storage_path="${_VAR_DATA}"
+#    "$_WRD"]
+#ADD servicedef for dev_appserver.py
+
+USER root
+CMD ['/sbin/init']
+
+## ONBUILD for downstream images
+ONBUILD RUN sudo -u app git -C "${_WRD}" fetch
+ONBUILD RUN sudo -u app git -C "${_WRD}" checkout '${GITREV}'
+ONBUILD RUN sudo -u app make -C "${_WRD}" test

@@ -1,0 +1,147 @@
+
+{#- Dockerfile.base.jinja -#}
+{% block header2 -%}
+#### {{ cfg.docker_dockerfile }}
+## | dockertag: {{ cfg.docker_tag }}
+{% if cfg.docker_dockerfile_url -%}
+## | Dockerfile: {{ cfg.docker_dockerfile_url }}
+{% endif %}
+#FROM {{ cfg.docker_from }}
+FROM  {{ cfg.docker_from }}
+
+{% endblock header2 -%}
+
+{% block install_ospkgs %}
+## This should be defined by a template extending this template
+## {\% extends "Dockerfile.ubuntu.jinja" \%}
+{% endblock -%}
+
+{% block setup_locals %}
+## ARGs and ENVs
+#   _USER='app'
+ARG _USER='app'
+#   _APP='schemaorg'
+ARG _APP="schemaorg"
+#   _HOME='/home/app'
+ENV _HOME="/home/${_USER}"
+#   _WRD='/home/app/schemaorg'
+ARG _WRD="${_HOME}/${_APP}"
+{% endblock setup_locals -%}
+
+{% block setup_accounts %}
+## Setup
+RUN useradd -U -m "${_USER}"
+# RUN useradd -U -m -G admin app
+# RUN useradd -U -m -G sudo app
+#
+RUN chown -R ${_USER}:${_USER} "${_HOME}"
+{% endblock setup_accounts -%}
+
+### ~ sudo -u "${_USER}" PWD=/home/app sh
+USER ${_USER}
+WORKDIR "${_HOME}"
+
+{% block install_appenginesdk %}
+{#
+## set AppEngine SDK args (ARG requires Docker 1.9+, Compose 1.6+) 
+#ARG APPENGINESDK_VERSION=1.9.32
+ENV APPENGINESDK_VERSION={{ cfg.get('APPENGINESDK_VERSION', '1.9.32') }}
+ENV APPENGINESDK_ARCHIVE=google_appengine_${APPENGINESDK_VERSION}.zip
+ENV APPENGINESDK_ARCHIVE_URL="https://storage.googleapis.com/appengine-sdks/featured/${APPENGINESDK_ARCHIVE}"
+ENV APPENGINESDK_BASEPATH="${_HOME}/google-cloud-sdk/platform"
+ENV APPENGINESDK_PREFIX="${APPENGINESDK_BASEPATH}/google_appengine"
+#ENV APPENGINESDK_PREFIX="/usr/local/google_appengine"
+
+## install AppEngine SDK
+RUN curl -f -s -S -O "${APPENGINESDK_ARCHIVE_URL}"
+RUN mkdir -p "${APPENGINESDK_PREFIX}"
+RUN unzip -q "${APPENGINESDK_ARCHIVE}" -d "${APPENGINESDK_BASEPATH}"
+-#}
+ADD ./Makefile ./Makefile
+{% if cfg.APPENGINESDK_VERSION -%}
+RUN make appenginesdk_install \
+    APPENGINESDK_VERSION={{ cfg.APPENGINESDK_VERSION }}
+{% else -%}
+RUN make appenginesdk_install
+{% endif -%}
+{% endblock install_appenginesdk -%}
+
+{% block install_pip %}
+## install pip
+RUN curl -s -S -O https://bootstrap.pypa.io/get-pip.py
+RUN python ./get-pip.py --user
+{% endblock install_pip -%}
+
+{% block install_app %}
+## install_app
+    {%- if cfg.GITREV -%}
+        {%- block clone_app -%}
+## ~ make clone GITURL= GITREV= GITDEST="{_WRD}"
+{#-
+## ~ docker build --build-args GITURL= --build-args GITREV= [...]
+#   (ARG & --build-args require Docker 1.9+, Compose 1.6+)
+ARG GITURL='{{ cfg.GITURL }}'
+#ARG GITREV='{{ cfg.GITREV }}' -#}
+RUN git clone --depth=20 '{{ cfg.GITURL }}' -b '{{ cfg.GITREV }}' "${_WRD}" \
+    && git -C "${_WRD}" log -n6 --stat \
+    && ls -al "${_WRD}"
+        {%- endblock clone_app -%}
+    {%- else %}
+        {%- block add_app %}
+ADD . "${_WRD}"
+        {%- endblock add_app -%}
+    {%- endif -%}
+    {%- block install_pip_requirements %}
+## RUN make install_pip_requirements
+# RUN python -m pip install --user rdflib
+RUN python -m pip install --user -r "${_WRD}/requirements.txt"
+RUN python -m pip install --user -r "${_WRD}/requirements-test-extra.txt" ipython
+    {%- endblock install_pip_requirements -%}
+{% endblock install_app -%}
+
+{% block test %}
+    {%- block test_app %}
+## RUN make test
+RUN make -C "${_WRD}" test 2>&1 | tee "${_HOME}/schemaorg.test.log"
+    {%- endblock test_app %}
+{% endblock test -%}
+
+{% block setup_app %}
+ENV _VAR="${_HOME}"
+ENV _VAR_DATA="${_VAR}/data"
+ENV _VAR_DATA_APP="${_VAR_DATA}/${_APP}"
+RUN mkdir -p "${_VAR_DATA}" && mkdir -p "${_VAR_DATA_APP}"
+
+EXPOSE 8000 8080 22
+## RUN make run
+ENV _dev_appserver "${APPENGINESDK_PREFIX}/dev_appserver.py"
+RUN "${_dev_appserver}" --help
+#CMD ["sh", "-c", "$_dev_appserver", \
+#    "--automatic_restart=1", \
+#    "--skip_sdk_update_check=1", \
+#    "--storage_path="${_VAR_DATA}"
+#    "$_WRD"]
+#ADD servicedef for dev_appserver.py
+{% endblock setup_app -%}
+
+{% block cmd_entrypoint__main %}
+USER root
+CMD ['/sbin/init']
+{% endblock cmd_entrypoint__main -%}
+
+{% block onbuild %}
+## ONBUILD for downstream images
+    {%- block onbuild_before %}
+    {%- endblock onbuild_before -%}
+    {%- block onbuild_app %}
+ONBUILD RUN sudo -u app git -C "${_WRD}" fetch
+ONBUILD RUN sudo -u app git -C "${_WRD}" checkout '${GITREV}'
+    {%- endblock onbuild_app -%}
+    {%- block onbuild_system %}
+    {%- endblock onbuild_system -%}
+    {%- block onbuild_app_test %}
+ONBUILD RUN sudo -u app make -C "${_WRD}" test
+    {%- endblock onbuild_app_test -%}
+    {%- block onbuild_after %}
+    {%- endblock onbuild_after -%}
+{% endblock onbuild -%}

@@ -4,17 +4,17 @@
 # to remove a 2nd clashing google/ python lib. See 
 # https://github.com/coto/gae-boilerplate/issues/306
 
-# This script runs the Schema.org unit tests. The basic tests are concerned 
+# This script runs the Schema.org unit tests. The basic tests are concerned
 # with our site infrastructure; loading and accessing data.  The graph tests
 # are concerned with the shape/size of the schema graph itself.
 
-# Currently this means they require Google AppEngine to be installed, 
-# because api.py and sdoapp.py both  depend upon AppEngine. This is 
-# something we should minimise - eventually only 
-# sdoapp.py should need AppEngine.  We use W3C SPARQL for the graph tests, 
+# Currently this means they require Google AppEngine to be installed,
+# because api.py and sdoapp.py both  depend upon AppEngine. This is
+# something we should minimise - eventually only
+# sdoapp.py should need AppEngine.  We use W3C SPARQL for the graph tests,
 # and therefore these tests will only run  if 'rdflib' is installed.
 #
-# We do not currently test the generated Web site with unit tests. However 
+# We do not currently test the generated Web site with unit tests. However
 # please see /docs/qa.html for some useful links to check whenever site UI
 # code is being changed.
 #
@@ -22,19 +22,19 @@
 #
 # 1. AppEngine SDK
 # Typically in ~/google_cloud_sdk and/or linked from /usr/local/google_appengine
-# This script will do its best to update your python path to point to 
+# This script will do its best to update your python path to point to
 # the SDK (whether you point to it directly or the broader Cloud SDK), to
 # AppEngine's tools and libs and to other bundled libraries. But to bootstrap
 # this is needs to at least find dev_appserver.
-# 
-# 2. rdflib 
 #
-# A normal Python package. Take care that it is installed against the version of 
+# 2. rdflib
+#
+# A normal Python package. Take care that it is installed against the version of
 # Python that is being used to run this script. easy_install or pip should work.
 # We may later bundle this, see https://github.com/schemaorg/schemaorg/issues/178
 
 
-# script originally based on original in google appengine dist and shared 
+# script originally based on original in google appengine dist and shared
 # under same terms,
 #
 #    Licensed under the Apache License, Version 2.0 (the "License");
@@ -89,7 +89,7 @@ def main(sdk_path, test_path, args):
     else:
         suite = unittest.loader.TestLoader().discover(test_path, pattern="test*.py")
 
-    unittest.TextTestRunner(verbosity=2).run(suite)
+    return unittest.TextTestRunner(verbosity=2).run(suite)
 
 
 
@@ -101,12 +101,17 @@ if __name__ == '__main__':
 
 
     # alternative, try
-    # PYTHONPATH=/usr/local/google_appengine ./scripts/run_tests.py 
+    # PYTHONPATH=/usr/local/google_appengine ./scripts/run_tests.py
 
     SDK_PATH = os.path.expanduser("~") + "/google-cloud-sdk"
     #SDK_PATH = "C:\Program Files\Google\Cloud SDK\google-cloud-sdk\platform\google_appengine"
     print SDK_PATH
     TEST_PATH = "./tests/"
 
-    main(SDK_PATH, TEST_PATH, args)
-
+    results = main(SDK_PATH, TEST_PATH, args)
+    errorcount = (
+        len(results.errors)
+        + len(results.failures)
+        + len(results.unexpectedSuccesses))
+    returncode = 0 if errorcount == 0 else 1
+    sys.exit(returncode)
