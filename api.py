@@ -495,7 +495,7 @@ def GetComment(node, layers='core') :
     """Get the first rdfs:comment we find on this node (or "No comment"), within any of the specified layers."""
     tx = GetComments(node, layers)
     if len(tx) > 0:
-            return tx[0]
+            return MD.parse(tx[0])
     else:
         return "No comment"
 
@@ -943,3 +943,23 @@ def ShortenOnSentence(source,lengthHint=250):
             com += ".."
         source = com
     return source
+    
+class MarkdownTool():
+    def __init__ (self):
+        import markdown
+        from markdown.extensions.wikilinks import WikiLinkExtension
+        self._md = markdown.Markdown(extensions=[WikiLinkExtension(base_url='/', end_url='', html_class='localLink')])
+        
+    def parse(self,source,preservePara=False):
+        if not source or len(source) == 0:
+            return ""
+        source = source.replace("\\n","\n")
+        ret = self._md.reset().convert(source)
+        if not preservePara:
+            #Remove wrapping <p> </p> that Markdown adds by default
+            if len(ret) > 7 and ret.startswith("<p>") and ret.endswith("</p>"):
+                ret = ret[3:len(ret)-4]
+        return ret
+
+MD = MarkdownTool()
+

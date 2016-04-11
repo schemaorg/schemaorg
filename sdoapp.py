@@ -28,9 +28,8 @@ from api import inLayer, read_file, full_path, read_schemas, read_extensions, re
 from api import Unit, GetTargets, GetSources, GetComments, GetsoftwareVersions
 from api import GetComment, all_terms, GetAllTypes, GetAllProperties, GetAllEnumerationValues, LoadExamples
 from api import GetParentList, GetImmediateSubtypes, HasMultipleBaseTypes
-from api import GetJsonLdContext, ShortenOnSentence, StripHtmlTags
+from api import GetJsonLdContext, ShortenOnSentence, StripHtmlTags, MD
 from api import setInTestHarness, getInTestHarness, setAllLayersList
-
 
 logging.basicConfig(level=logging.INFO) # dev_appserver.py --log_level debug .
 log = logging.getLogger(__name__)
@@ -1233,7 +1232,7 @@ class ShowUnit (webapp2.RequestHandler):
             for ao in ackorgs:
                 acks = sorted(GetTargets(Unit.GetUnit("rdfs:comment"), ao, layers))
                 for ack in acks:
-                    self.write(str(ack+"<br/>"))
+                    self.write(MD.parse(str(ack),True))
 
         examples = GetExamples(node, layers=layers)
         log.debug("Rendering n=%s examples" % len(examples))

@@ -508,6 +508,13 @@ class DataTypeTests(unittest.TestCase):
       self.assertFalse(Unit.GetUnit("Thing").isDataType())
       self.assertFalse(Unit.GetUnit("Duration").isDataType())
 
+class MarkDownTest(unittest.TestCase):
+    def test_emph(self):
+        from api import MD
+        markstring = "This is _em_, __strong__, ___strong em___"
+        html = MD.parse(markstring,True)
+        self.assertFalse(html != "<p>This is <em>em</em>, <strong>strong</strong>, <strong><em>strong em</em></strong></p>", "Markdown string not formatted correctly")
+
 class HasMultipleBaseTypesTests(unittest.TestCase):
 
     def test_localbusiness2supertypes(self):

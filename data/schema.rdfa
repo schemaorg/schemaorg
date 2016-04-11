@@ -2993,7 +2993,7 @@
 
     <div typeof="rdfs:Class" resource="http://schema.org/CheckInAction">
       <span class="h" property="rdfs:label">CheckInAction</span>
-      <span property="rdfs:comment">The act of an agent communicating (service provider, social media, etc) their arrival by registering/confirming for a previously reserved service (e.g. flight check in) or at a place (e.g. hotel), possibly resulting in a result (boarding pass, etc).&lt;p&gt;Related actions:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;&lt;a href=&quot;http://schema.org/CheckOutAction&quot;&gt;CheckOutAction&lt;/a&gt;: The antonym of CheckInAction.&lt;/li&gt;&lt;li&gt;&lt;a href=&quot;http://schema.org/ArriveAction&quot;&gt;ArriveAction&lt;/a&gt;: Unlike ArriveAction, CheckInAction implies that the agent is informing/confirming the start of a previously reserved service.&lt;/li&gt;&lt;li&gt;&lt;a href=&quot;http://schema.org/ConfirmAction&quot;&gt;ConfirmAction&lt;/a&gt;: Unlike ConfirmAction, CheckInAction implies that the agent is informing/confirming the *start* of a previously reserved service rather than its validity/existence&lt;/li&gt;&lt;/ul&gt;.</span>
+      <span property="rdfs:comment">The act of an agent communicating (service provider, social media, etc) their arrival by registering/confirming for a previously reserved service (e.g. flight check in) or at a place (e.g. hotel), possibly resulting in a result (boarding pass, etc).\n\nRelated actions:\n\n* [[CheckOutAction]]: The antonym of CheckInAction.\n* [[ArriveAction]]: Unlike ArriveAction, CheckInAction implies that the agent is informing/confirming the start of a previously reserved service.\n* [[ConfirmAction]]: Unlike ConfirmAction, CheckInAction implies that the agent is informing/confirming the *start* of a previously reserved service rather than its validity/existence.</span>
        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/CommunicateAction">CommunicateAction</a></span>
     </div>
 
@@ -7036,7 +7036,7 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
     <div typeof="rdf:Property" resource="http://schema.org/sponsor">
       <span class="h" property="rdfs:label">sponsor</span>
       <span property="rdfs:comment">A person or organization that supports a thing through a pledge, promise, or financial contribution. e.g. a sponsor of a Medical Study or a corporate sponsor of an event.</span>
-	  <!-- <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MedicalStudy">MedicalStudy</a></span> moved to extension -->
+	  	  <!-- <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MedicalStudy">MedicalStudy</a></span> moved to extension -->
 	  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Person">Person</a></span>
 	  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Organization">Organization</a></span>
 	  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Event">Event</a></span>
@@ -7659,12 +7659,12 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
 
     <div typeof="http://schema.org/Organization" resource="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_bibex">
       <span property="rdfs:label">BibExTerm</span>
-      <span property="rdfs:comment">The W3C &lt;a href="http://www.w3.org/community/schemabibex/"&gt;Schema Bib Extend&lt;/a&gt; (BibEx) group led the work to improve schema.org for bibliographic information, including terms for periodicals, articles and multi-volume works. The design was inspired in places (e.g. pageStart, pageEnd, pagination) by the &lt;a href="http://bibliontology.com/"&gt;Bibliographic Ontology&lt;/a&gt;, 'bibo'.</span>
+      <span property="rdfs:comment">The W3C [Schema Bib Extend](http://www.w3.org/community/schemabibex/) (BibEx) group led the work to improve schema.org for bibliographic information, including terms for periodicals, articles and multi-volume works. The design was inspired in places (e.g. [[pageStart]], [[pageEnd]], [[pagination]]) by the [Bibliographic Ontology](http://bibliontology.com/), 'bibo'.</span>
     </div>
 
 	<div typeof="http://schema.org/Organization" resource="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group">
 	  <span property="rdfs:label">AutomotiveOntologyWGClass</span>
-	  <span property="rdfs:comment">This element is based on the work of the Automotive Ontology Working Group, see &lt;a href=&quot;http://www.automotive-ontology.org&quot;&gt;http://www.automotive-ontology.org&lt;/a&gt; for details. Many class and property definitions are inspired by or based on abstracts from Wikipedia, the free encyclopedia.</span>
+	  <span property="rdfs:comment">This element is based on the work of the Automotive Ontology Working Group, see [www.automotive-ontology.org](http://www.automotive-ontology.org) for details. Many class and property definitions are inspired by or based on abstracts from Wikipedia, the free encyclopedia.</span>
 	</div>
     <hr />
 
@@ -8671,9 +8671,7 @@ postponing for 1.6.
 
     <div typeof="rdfs:Class" resource="http://schema.org/Periodical">
       <span class="h" property="rdfs:label">Periodical</span>
-      <span property="rdfs:comment">A publication in any medium issued in successive parts bearing numerical or chronological designations and intended, such as a magazine, scholarly journal, or newspaper to continue indefinitely.
-
-      &lt;br/&gt;&lt;br/&gt;See also &lt;a href="http://blog.schema.org/2014/09/schemaorg-support-for-bibliographic_2.html"&gt;blog post&lt;/a&gt;.</span>
+      <span property="rdfs:comment">A publication in any medium issued in successive parts bearing numerical or chronological designations and intended, such as a magazine, scholarly journal, or newspaper to continue indefinitely.\n\nSee also [blog post](http://blog.schema.org/2014/09/schemaorg-support-for-bibliographic_2.html).</span>
       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/CreativeWorkSeries">CreativeWorkSeries</a></span>
        <link property="owl:equivalentClass" href="http://purl.org/ontology/bibo/Periodical"/>
        <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_bibex">BibEx</a></span>
