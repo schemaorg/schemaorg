@@ -65,3 +65,190 @@ JSON:
   }
 }
 </script>
+
+
+TYPES: #creativework-2 Conversation,Message
+
+PRE-MARKUP:
+
+<div>
+A conversation between two people re: duck season vs rabbit season.
+</div>
+
+MICRODATA:
+
+<div itemscope itemtype="http://schema.org/Conversation">
+  <meta itemprop="name" content="Duck Season vs Rabbit Season" />
+  <meta itemprop="sameAs" content="https://www.youtube.com/watch?v=9-k5J4RxQdE" />
+  <div itemscope itemprop="hasPart" itemtype="http://schema.org/Message">
+    <div itemscope itemprop="sender" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Bugs Bunny" />
+    </div>
+    <div itemscope itemprop="recipient" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Daffy Duck" />
+    </div>
+    <div itemscope itemprop="about" itemtype="http://schema.org/Thing">
+      <meta itemprop="name" content="Duck Season" />
+    </div>
+    <meta itemprop="datePublished" content="2016-02-29" />
+  </div>
+  <div itemscope itemprop="hasPart" itemtype="http://schema.org/Message">
+    <div itemscope itemprop="sender" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Daffy Duck" />
+    </div>
+    <div itemscope itemprop="recipient" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Bugs Bunny" />
+    </div>
+    <div itemscope itemprop="about" itemtype="http://schema.org/Thing">
+      <meta itemprop="name" content="Rabbit Season" />
+    </div>
+    <meta itemprop="datePublished" content="2016-03-01" />
+  </div>
+</div>
+
+RDFA:
+
+<div vocab="http://schema.org/" typeof="Conversation">
+  <meta property="name" content="Duck Season vs Rabbit Season" />
+  <meta property="sameAs" content="https://www.youtube.com/watch?v=9-k5J4RxQdE" />
+  <div property="hasPart" typeof="Message">
+    <div property="sender" typeof="Person">
+      <meta property="name" content="Bugs Bunny" />
+    </div>
+    <div property="recipient" typeof="Person">
+      <meta property="name" content="Daffy Duck" />
+    </div>
+    <div property="about" typeof="Thing">
+      <meta property="name" content="Duck Season" />
+    </div>
+    <meta itemprop="datePublished" content="2016-02-29" />
+  </div>
+  <div property="hasPart" typeof="Message">
+    <div property="sender" typeof="Person">
+      <meta property="name" content="Daffy Duck" />
+    </div>
+    <div property="recipient" typeof="Person">
+      <meta property="name" content="Bugs Bunny" />
+    </div>
+    <div property="about" typeof="Thing">
+      <meta property="name" content="Rabbit Season" />
+    </div>
+    <meta itemprop="datePublished" content="2016-03-01" />
+  </div>
+</div>
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org/",
+  "@type": "Conversation",
+  "name": "Duck Season vs Rabbit Season",
+  "sameAs": "https://www.youtube.com/watch?v=9-k5J4RxQdE",
+  "hasPart": [
+    {
+      "@type": "Message",
+      "sender": {
+        "@type": "Person",
+        "name": "Bugs Bunny"
+      },
+      "recipient": {
+        "@type": "Person",
+        "name": "Daffy Duck"
+      },
+      "about": {
+        "@type": "Thing",
+        "name": "Duck Season"
+      },
+      "datePublished": "2016-02-29"
+    },
+    {
+      "@type": "Message",
+      "sender": {
+        "@type": "Person",
+        "name": "Daffy Duck"
+      },
+      "recipient": {
+        "@type": "Person",
+        "name": "Bugs Bunny"
+      },
+      "about": {
+        "@type": "Thing",
+        "name": "Rabbit Season"
+      },
+      "datePublished": "2016-03-01"
+    }
+  ]
+}
+</script>
+
+TYPES: #creativework-3 Message
+
+PRE-MARKUP:
+
+A message from Dom Portwood to Peter Gibbons about TPS reports.
+
+MICRODATA:
+
+<div itemscope itemtype="http://schema.org/Message">
+  <div itemscope itemprop="sender" itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Dom Portwood" />
+  </div>
+  <div itemscope itemprop="recipient" itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Peter Gibbons" />
+  </div>
+  <div itemscope itemprop="about" itemtype="http://schema.org/Thing">
+    <meta itemprop="name" content="TPS reports" />
+  </div>
+  <meta itemprop="datePublished" content="2016-02-29" />
+  <meta itemprop="dateRead" content="2016-03-03" />
+  <div itemscope itemprop="messageAttachement" itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="name" content="New coversheet" />
+  </div>
+</div>
+
+RDFA:
+
+<div vocab="http://schema.org/" typeof="Message">
+  <div property="sender" typeof="Person">
+    <meta property="name" content="Dom Portwood" />
+  </div>
+  <div property="recipient" typeof="Person">
+    <meta property="name" content="Peter Gibbons" />
+  </div>
+  <div property="about" typeof="Thing">
+    <meta property="name" content="TPS reports" />
+  </div>
+  <meta property="datePublished" content="2016-02-29" />
+  <meta property="dateRead" content="2016-03-03" />
+  <div property="messageAttachement" typeof="CreativeWork">
+    <meta property="name" content="New coversheet" />
+  </div>
+</div>
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org/",
+  "@type": "Message",
+  "sender": {
+    "@type": "Person",
+    "name": "Dom Portwood"
+  },
+  "recipient": {
+    "@type": "Person",
+    "name": "Peter Gibbons"
+  },
+  "about": {
+    "@type": "Thing",
+    "name": "TPS reports"
+  },
+  "datePublished": "2016-02-29",
+  "dateRead": "2016-03-03",
+  "messageAttachment": {
+    "@type": "CreativeWork",
+    "name": "New coversheet"
+  }
+}
+</script>
