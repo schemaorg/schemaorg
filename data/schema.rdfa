@@ -7036,10 +7036,7 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
     <div typeof="rdf:Property" resource="http://schema.org/sponsor">
       <span class="h" property="rdfs:label">sponsor</span>
       <span property="rdfs:comment">A person or organization that supports a thing through a pledge, promise, or financial contribution. e.g. a sponsor of a Medical Study or a corporate sponsor of an event.</span>
-<<<<<<< HEAD
-=======
-    <!-- <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MedicalStudy">MedicalStudy</a></span> moved to extension -->
->>>>>>> origin/sdo-deimos
+	  <!-- <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MedicalStudy">MedicalStudy</a></span> moved to extension -->
 	  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Person">Person</a></span>
 	  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Organization">Organization</a></span>
 	  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Event">Event</a></span>
@@ -10410,6 +10407,14 @@ Typical unit code(s): C62 for persons.</span>
   <span class="h" property="rdfs:label">NutritionInformation</span>
   <span property="rdfs:comment">Nutritional information about the recipe.</span>
   <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/StructuredValue">StructuredValue</a></span>
+</div>
+
+<div typeof="rdfs:Class" resource="http://schema.org/Recipe">
+  <span class="h" property="rdfs:label">Recipe</span>
+  <span property="rdfs:comment">A recipe. For dietary restrictions covered by the recipe,
+    a few common restrictions are enumerated via &lt;a href="/suitableForDiet"&gt;suitableForDiet&lt;/a&gt;.
+    The &lt;a href="/keywords"&gt;keywords&lt;/a&gt; property can also be used to add more detail.</span>
+   <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/CreativeWork">CreativeWork</a></span>
 </div>
 
 <div typeof="rdf:Property" resource="http://schema.org/cookTime">
