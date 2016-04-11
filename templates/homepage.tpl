@@ -27,7 +27,14 @@ See the draft <b><a href="{{staticPath}}/docs/releases.html">releases</a></b> pa
 {% endif %}
 
 
-{% if ENABLE_HOSTED_EXTENSIONS and host_ext == "bib" %}
+{% if ENABLE_HOSTED_EXTENSIONS and extComment != "" %}
+  {{ ext.overview(name=extName, abbrev=host_ext) }}
+  <p>
+	  {{extComment |safe}}
+      <br/><br/>Extension Version: {{extVers}}
+  </p>
+
+{% elif ENABLE_HOSTED_EXTENSIONS and host_ext == "bib" %}
   {{ ext.overview(name="Bibliographic Extension", abbrev="bib") }}
   <p>
   You are viewing the Bibliographic Extension within <a href="http://schema.org/">schema.org</a>.

@@ -4,6 +4,7 @@ import logging # https://docs.python.org/2/library/logging.html#logging-levels
 import glob
 import sys
 sys.path.append( os.getcwd() ) 
+sys.path.insert( 1, 'lib' ) #Pickup libs, rdflib etc., from shipped lib directory
 
 from api import *
 from parsers import *
@@ -38,6 +39,8 @@ class SDOGraphSetupTestCase(unittest.TestCase):
       not yet load or test any extension schemas beneath data/ext/*."""
 
       from rdflib import Graph
+      import rdflib
+      log.info("rdflib: %s - %s" % (rdflib.__version__,rdflib.__date__))
       files = glob.glob("data/*.rdfa")
       log.info("Found %s files via data/*rdfa." % len(files))
       self.rdflib_errors = Graph()

@@ -3,11 +3,11 @@ import os
 import logging # https://docs.python.org/2/library/logging.html#logging-levels
 import sys
 sys.path.append( os.getcwd() )
+sys.path.insert( 1, 'lib' ) #Pickup libs, rdflib etc., from shipped lib directory
 
-#from api import *
-from parsers import *
 from api import extensionsLoaded, extensionLoadErrors
 from api import setInTestHarness, getInTestHarness
+from api import EXAMPLES, Triple
 from google.appengine.ext import deferred 
 
 #Setup testharness state BEFORE importing sdoapp
@@ -46,12 +46,10 @@ class SDOBasicsTestCase(unittest.TestCase):
     self.assertEqual(True, os.path.exists(examples_path), "Expected examples file: "+ examples_path )
 
   def test_ExtractedPlausibleNumberOfExamples(self):
-    # Note: Example constructor registers each example per-term: term.examples.append(self)
-    all_types = GetAllTypes()
-    example_count = 0
-    for t in all_types:
-      if t.examples and len(t.examples) > 0:
-        example_count = example_count + len(t.examples)
+
+    example_count = len(EXAMPLES)
+#    for t in api.EXAMPLES:
+#        example_count = example_count + len(t)
     log.info("Extracted %s examples." % example_count )
     self.assertTrue(example_count > 300 and example_count < 500, "Expect that we extracted 300 < x < 500 examples from data/*examples.txt. Found: %s " % example_count)
 
@@ -100,8 +98,8 @@ class TriplesBasicAPITestCase(unittest.TestCase):
 
      u_Volcano = Unit.GetUnit("Volcano", createp=True)
      p_name = Unit.GetUnit("name", createp=True)
-     api.Triple.AddTripleText(u_Volcano, p_name, "foo", layer="neogeo") # last arg is 'layer' aka extension
-     api.Triple.AddTripleText(u_Volcano, p_name, "bar", "neogeo") # show both syntax options 
+     Triple.AddTripleText(u_Volcano, p_name, "foo", layer="neogeo") # last arg is 'layer' aka extension
+     Triple.AddTripleText(u_Volcano, p_name, "bar", "neogeo") # show both syntax options 
 
      try:
        v_names = GetTargets( p_name, u_Volcano, "neogeo")
@@ -120,8 +118,8 @@ class TriplesBasicAPITestCase(unittest.TestCase):
 
      u_Volcano = Unit.GetUnit("Volcano", createp=True)
      p_name = Unit.GetUnit("name", createp=True)
-     api.Triple.AddTripleText(u_Volcano, p_name, "foo", "neogeo")#   , "neogeo") # last arg is 'layer' aka extension
-     api.Triple.AddTripleText(u_Volcano, p_name, "bar", "neogeo")#   , "neogeo") # can we add two triples w/ same property?
+     Triple.AddTripleText(u_Volcano, p_name, "foo", "neogeo")#   , "neogeo") # last arg is 'layer' aka extension
+     Triple.AddTripleText(u_Volcano, p_name, "bar", "neogeo")#   , "neogeo") # can we add two triples w/ same property?
      try:
        v_names = GetTargets( p_name, u_Volcano, layers='core' )
        log.info("Looking for: Volcano's 'name' property values, 'foo' and 'bar'. counted: %s" % len(v_names) )
@@ -474,7 +472,7 @@ class SimpleSchemaIntegrityTests(unittest.TestCase):
     #@unittest.expectedFailure # "member and acceptsReservations need work"
     def test_propCommentCount(self):
       prop_comment_errors=[]
-      for p in GetSources ( Unit.GetUnit("typeOf"), Unit.GetUnit("rdf:Property") ):
+      for p in GetSources ( Unit.GetUnit("rdf:type"), Unit.GetUnit("rdf:Property") ):
         comments = GetTargets( Unit.GetUnit("rdfs:comment"), p )
         log.debug("property %s props %s" % (p.id, str(len(comments)) ))
         if len(comments) != 1:
@@ -484,7 +482,7 @@ class SimpleSchemaIntegrityTests(unittest.TestCase):
 
     def test_typeCommentCount(self):
       type_comment_errors=[]
-      for t in GetSources ( Unit.GetUnit("typeOf"), Unit.GetUnit("rdfs:Class") ):
+      for t in GetSources ( Unit.GetUnit("rdf:type"), Unit.GetUnit("rdfs:Class") ):
         comments = GetTargets( Unit.GetUnit("rdfs:comment"), t )
         log.debug(t.id + " " + str(len(comments)))
         if len(comments) != 1:
@@ -495,7 +493,7 @@ class SimpleSchemaIntegrityTests(unittest.TestCase):
     def test_enumValueCommentCount(self):
       enum_comment_errors=[]
       for e in GetSources ( Unit.GetUnit("rdfs:subClassOf"), Unit.GetUnit("Enumeration") ):
-        for ev in GetSources ( Unit.GetUnit("typeOf"), e ):
+        for ev in GetSources ( Unit.GetUnit("rdf:type"), e ):
           comments = GetTargets( Unit.GetUnit("rdfs:comment"), ev )
           log.debug("'%s' is an enumerated value of enum type %s with %s rdfs:comment definitions." % ( ev.id, e.id, str(len(comments)  )) )
           if len(comments) != 1:

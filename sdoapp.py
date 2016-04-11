@@ -8,6 +8,7 @@ import jinja2
 import logging
 import StringIO
 import json
+from apirdflib import load_graph, getNss, getRevNss
 
 from markupsafe import Markup, escape # https://pypi.python.org/pypi/MarkupSafe
 
@@ -24,11 +25,12 @@ from google.appengine.api import modules
 from google.appengine.api import runtime
 
 from api import inLayer, read_file, full_path, read_schemas, read_extensions, read_examples, namespaces, DataCache
-from api import Unit, GetTargets, GetSources
-from api import GetComment, all_terms, GetAllTypes, GetAllProperties, GetAllEnumerationValues
+from api import Unit, GetTargets, GetSources, GetComments, GetsoftwareVersions
+from api import GetComment, all_terms, GetAllTypes, GetAllProperties, GetAllEnumerationValues, LoadExamples
 from api import GetParentList, GetImmediateSubtypes, HasMultipleBaseTypes
 from api import GetJsonLdContext, ShortenOnSentence, StripHtmlTags
-from api import setInTestHarness, getInTestHarness
+from api import setInTestHarness, getInTestHarness, setAllLayersList
+
 
 logging.basicConfig(level=logging.INFO) # dev_appserver.py --log_level debug .
 log = logging.getLogger(__name__)
@@ -68,9 +70,11 @@ ENABLE_HOSTED_EXTENSIONS = True
 
 EXTENSION_SUFFIX = "" # e.g. "*"
 
-#ENABLED_EXTENSIONS = [ 'admin', 'auto', 'bib', 'health-lifesci'  ]
 ENABLED_EXTENSIONS = ['auto', 'bib', 'health-lifesci', 'pending', 'meta'  ]
-ALL_LAYERS = [ 'core', 'admin', 'auto', 'bib', 'health-lifesci', 'pending', 'meta' ]
+ALL_LAYERS = ['core',""]
+
+ALL_LAYERS += ENABLED_EXTENSIONS
+setAllLayersList(ALL_LAYERS)
 
 
 FORCEDEBUGGING = False
@@ -79,16 +83,27 @@ FORCEDEBUGGING = False
 SHAREDSITEDEBUG = True
 if getInTestHarness():
     SHAREDSITEDEBUG = False
+############# Warmup Control ########
+WarmedUp = False
+WarmupState = "Auto"
+if "WARMUPSTATE" in os.environ:
+    WarmupState = os.environ["WARMUPSTATE"]
+log.info("WarmupState: %s" % WarmupState)
+
+if WarmupState.lower() == "off":
+    WarmedUp = True
+elif "SERVER_NAME" in os.environ and ("localhost" in os.environ['SERVER_NAME'] and WarmupState.lower() == "auto"):
+    WarmedUp = True
+######################################
 
 ############# Shared values and times ############
 #### Memcache functions dissabled in test mode ###
 appver = "TestHarness Version"
 if "CURRENT_VERSION_ID" in os.environ:
     appver = os.environ["CURRENT_VERSION_ID"]
-instance_first = True
+instance_first = True 
 instance_num = 0
 callCount = 0
-WarmedUp = False
 global_vars = threading.local()
 starttime = datetime.datetime.utcnow()
 systarttime = starttime
@@ -288,7 +303,7 @@ class TypeHierarchyTree:
 
 def GetExamples(node, layers='core'):
     """Returns the examples (if any) for some Unit node."""
-    return node.examples
+    return LoadExamples(node,layers)
 
 def GetExtMappingsRDFa(node, layers='core'):
     """Self-contained chunk of RDFa HTML markup with mappings for this term."""
@@ -409,6 +424,7 @@ class ShowUnit (webapp2.RequestHandler):
     def GetParentStack(self, node, layers='core'):
         """Returns a hiearchical structured used for site breadcrumbs."""
         thing = Unit.GetUnit("Thing")
+        #log.info("GetParentStack for: %s",node)
         if (node not in self.parentStack):
             self.parentStack.append(node)
 
@@ -422,7 +438,7 @@ class ShowUnit (webapp2.RequestHandler):
                 self.GetParentStack(p, layers=layers)
         else:
             # Enumerations are classes that have no declared subclasses
-            sc = Unit.GetUnit("typeOf")
+            sc = Unit.GetUnit("rdf:type")
             for p in GetTargets(sc, node, layers=layers):
                 self.GetParentStack(p, layers=layers)
 
@@ -430,6 +446,7 @@ class ShowUnit (webapp2.RequestHandler):
         if(thing in self.parentStack):
             self.parentStack.remove(thing)
             self.parentStack.append(thing)
+
 
     def ml(self, node, label='', title='', prop='', hashorslash='/'):
         """ml ('make link')
@@ -504,7 +521,6 @@ class ShowUnit (webapp2.RequestHandler):
         #was:        self.write(self.moreInfoBlock(node))
 
         if (node.isClass(layers=layers) and not node.isDataType(layers=layers) and node.id != "DataType"):
-
             self.write("<table class=\"definition-table\">\n        <thead>\n  <tr><th>Property</th><th>Expected Type</th><th>Description</th>               \n  </tr>\n  </thead>\n\n")
 
     def emitCanonicalURL(self,node):
@@ -563,14 +579,14 @@ class ShowUnit (webapp2.RequestHandler):
         subs = []
 
         if(node.isDataType(layers=layers)):
-            subs = GetTargets(Unit.GetUnit("typeOf"), node, layers=layers)
+            subs = GetTargets(Unit.GetUnit("rdf:type"), node, layers=layers)
             subs += GetTargets(Unit.GetUnit("rdfs:subClassOf"), node, layers=layers)
         elif node.isClass(layers=layers):
             subs = GetTargets(Unit.GetUnit("rdfs:subClassOf"), node, layers=layers)
         elif(node.isAttribute(layers=layers)):
             subs = GetTargets(Unit.GetUnit("rdfs:subPropertyOf"), node, layers=layers)
         else:
-            subs = GetTargets(Unit.GetUnit("typeOf"), node, layers=layers)# Enumerations are classes that have no declared subclasses
+            subs = GetTargets(Unit.GetUnit("rdf:type"), node, layers=layers)# Enumerations are classes that have no declared subclasses
 
         for i in range(len(subs)):
             if(i > 0):
@@ -640,7 +656,7 @@ class ShowUnit (webapp2.RequestHandler):
             out.write("<tr typeof=\"rdfs:Property\" resource=\"http://schema.org/%s\">\n    \n      <th class=\"prop-nam\" scope=\"row\">\n\n<code property=\"rdfs:label\">%s</code>\n    </th>\n " % (prop.id, self.ml(prop)))
             out.write("<td class=\"prop-ect\">\n")
             first_range = True
-            for r in ranges:
+            for r in sorted(ranges,key=lambda u: u.id):
                 if (not first_range):
                     out.write(" or <br/> ")
                 first_range = False
@@ -753,6 +769,7 @@ class ShowUnit (webapp2.RequestHandler):
         headerPrinted = False
         di = Unit.GetUnit("domainIncludes")
         ri = Unit.GetUnit("rangeIncludes")
+#        log.info("Incomming for %s" % cl.id)
         for prop in sorted(GetSources(ri, cl, layers=layers), key=lambda u: u.id):
             if (prop.superseded(layers=layers)):
                 continue
@@ -915,10 +932,7 @@ class ShowUnit (webapp2.RequestHandler):
         https://github.com/rvguha/schemaorg/wiki/JsonLd
         """
         accept_header = self.request.headers.get('Accept').split(',')
-        logging.info("accepts: %s" % self.request.headers.get('Accept'))
-
-        if ENABLE_JSONLD_CONTEXT:
-            jsonldcontext = GetJsonLdContext(layers=ALL_LAYERS)
+        log.info("Home page - accepts: %s" % self.request.headers.get('Accept'))            
 
         # Homepage is content-negotiated. HTML or JSON-LD.
         mimereq = {}
@@ -932,6 +946,7 @@ class ShowUnit (webapp2.RequestHandler):
         # print "accept_header: " + str(accept_header) + " mimereq: "+str(mimereq) + "Scores H:{0} XH:{1} J:{2} ".format(html_score,xhtml_score,jsonld_score)
 
         if (ENABLE_JSONLD_CONTEXT and (jsonld_score < html_score and jsonld_score < xhtml_score)):
+            jsonldcontext = GetJsonLdContext(layers=ALL_LAYERS)
             self.response.headers['Content-Type'] = "application/ld+json"
             self.emitCacheHeaders()
             self.response.out.write( jsonldcontext )
@@ -948,7 +963,27 @@ class ShowUnit (webapp2.RequestHandler):
                 #log.info("Served datacache homepage.tpl key: %s" % sitekeyedhomepage)
                 log.debug("Served datacache homepage.tpl key: %s" % sitekeyedhomepage)
             else:
-
+                extDef = Unit.GetUnit(getNss(getHostExt()),True)
+                extComment = ""
+                extVers = ""
+                extName = ""
+                if extDef:
+                    extComment = GetComment(extDef,ALL_LAYERS)
+                    if extComment == "No comment":
+                        extComment = ""
+                    first = True
+                    for ver in GetsoftwareVersions(extDef, ALL_LAYERS):
+                        if first:
+                            first = False
+                        else:
+                            extVers += ", "
+                        extVers += ver
+                    nms = GetTargets(Unit.GetUnit("name", True), extDef, layers=ALL_LAYERS )
+                    if len(nms) > 0:
+                        extName = nms[0]
+                        
+                    
+                    
                 template = JINJA_ENVIRONMENT.get_template('homepage.tpl')
                 template_values = {
                     'ENABLE_HOSTED_EXTENSIONS': ENABLE_HOSTED_EXTENSIONS,
@@ -959,6 +994,9 @@ class ShowUnit (webapp2.RequestHandler):
                     'myport': getHostPort(),
                     'mybasehost': getBaseHost(),
                     'host_ext': getHostExt(),
+                    'extComment': extComment,
+                    'extVers': extVers,
+                    'extName': extName,
                     'ext_contents': self.handleExtensionContents(getHostExt()),
                     'home_page': "True",
                     'debugging': getAppVar('debugging')
@@ -1002,7 +1040,7 @@ class ShowUnit (webapp2.RequestHandler):
                 rdfs_type = 'rdfs:Class'
             elif node.isEnumerationValue():
                 rdfs_type = ""
-                nodeTypes = GetTargets(Unit.GetUnit("typeOf"), node, layers=layers)
+                nodeTypes = GetTargets(Unit.GetUnit("rdf:type"), node, layers=layers)
                 typecount = 0
                 for type in nodeTypes:
                      if typecount > 0:
@@ -1126,7 +1164,7 @@ class ShowUnit (webapp2.RequestHandler):
             children = []
             children = GetSources(Unit.GetUnit("rdfs:subClassOf"), node, ALL_LAYERS)# Normal subclasses
             if(node.isDataType() or node.id == "DataType"):
-                children += GetSources(Unit.GetUnit("typeOf"), node, ALL_LAYERS)# Datatypes
+                children += GetSources(Unit.GetUnit("rdf:type"), node, ALL_LAYERS)# Datatypes
             children = sorted(children, key=lambda u: u.id)
 
             if (len(children) > 0):
@@ -1161,7 +1199,7 @@ class ShowUnit (webapp2.RequestHandler):
 
         if (node.isEnumeration(layers=layers)):
 
-            children = sorted(GetSources(Unit.GetUnit("typeOf"), node, ALL_LAYERS), key=lambda u: u.id)
+            children = sorted(GetSources(Unit.GetUnit("rdf:type"), node, ALL_LAYERS), key=lambda u: u.id)
             if (len(children) > 0):
                 buff = StringIO.StringIO()
                 extbuff = StringIO.StringIO()
@@ -1207,9 +1245,15 @@ class ShowUnit (webapp2.RequestHandler):
               ('JSON-LD', 'jsonld', ''),
             ]
             self.write("<br/><br/><b><a id=\"examples\">Examples</a></b><br/><br/>\n\n")
-            for ex in examples:
+            exNum = 0
+            for ex in sorted(examples, key=lambda u: u.orderId):
+                if not ex.egmeta["layer"] in layers: #Example defined in extension we are not in
+                    continue
+                exNum += 1
+                id="example-%s" % exNum
                 if "id" in ex.egmeta:
-                    self.write('<span id="%s"></span>' % ex.egmeta["id"])
+                    id = ex.egmeta["id"]
+                self.write("<div title=\"%s\"><a id=\"%s\">Example %s</a></div>" % (id,id,exNum))
                 self.write("<div class='ds-selector-tabs ds-selector'>\n")
                 self.write("  <div class='selectors'>\n")
                 for label, example_type, selected in example_labels:
@@ -1442,7 +1486,7 @@ class ShowUnit (webapp2.RequestHandler):
 
         self.emitCacheHeaders()
         schema_node = Unit.GetUnit(node) # e.g. "Person", "CreativeWork".
-        log.debug("Layers: %s",layers)
+        #log.info("Node in layer: %s" % inLayer(layers, schema_node))
         if inLayer(layers, schema_node):
             self.emitExactTermPage(schema_node, layers=layers)
             return True
@@ -1726,6 +1770,8 @@ class ShowUnit (webapp2.RequestHandler):
         dcn = host_ext
         if dcn == None or dcn == "" or dcn =="core":
             dcn = "core"
+        if scheme != "http":
+            dcn = "%s-%s" % (dcn,scheme)
 
         log.debug("sdoapp.py setting current datacache to: %s " % dcn)
         DataCache.setCurrent(dcn)
@@ -1835,7 +1881,10 @@ class ShowUnit (webapp2.RequestHandler):
         setSiteName(self.getExtendedSiteName(layerlist)) # e.g. 'bib.schema.org', 'schema.org'
         log.debug("EXT: set sitename to %s " % getSiteName())
         if(node == "_ah/warmup"):
-            self.warmup()
+            if "localhost" in os.environ['SERVER_NAME'] and WarmupState.lower() == "auto":
+                log.info("Warmup dissabled for localhost instance")
+            else:
+                self.warmup()
             return
         else:  #Do a bit of warming on each call
             global WarmedUp
@@ -2127,6 +2176,7 @@ def makeUrl(ext="",path=""):
         return url
 
 #log.info("STARTING UP... reading schemas.")
+#load_graph(loadExtensions=ENABLE_HOSTED_EXTENSIONS)
 read_schemas(loadExtensions=ENABLE_HOSTED_EXTENSIONS)
 if ENABLE_HOSTED_EXTENSIONS:
     read_extensions(ENABLED_EXTENSIONS)
