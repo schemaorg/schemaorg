@@ -964,7 +964,6 @@ class ShowUnit (webapp2.RequestHandler):
                 log.debug("Served datacache homepage.tpl key: %s" % sitekeyedhomepage)
             else:
                 extDef = Unit.GetUnit(getNss(getHostExt()),True)
-                log.info("extDef %s" % extDef)
                 extComment = ""
                 extVers = ""
                 extName = ""
@@ -1248,7 +1247,6 @@ class ShowUnit (webapp2.RequestHandler):
             self.write("<br/><br/><b><a id=\"examples\">Examples</a></b><br/><br/>\n\n")
             exNum = 0
             for ex in sorted(examples, key=lambda u: u.orderId):
-                log.info("EXAMPLE in %s layers = %s" % (ex.egmeta["layer"],layers))
                 if not ex.egmeta["layer"] in layers: #Example defined in extension we are not in
                     continue
                 exNum += 1
