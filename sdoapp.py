@@ -14,7 +14,8 @@ from markupsafe import Markup, escape # https://pypi.python.org/pypi/MarkupSafe
 
 import parsers
 import threading
-import datetime
+import datetime, time
+from time import gmtime, strftime
 
 from google.appengine.ext import ndb
 from google.appengine.ext import blobstore
@@ -80,12 +81,8 @@ FORCEDEBUGGING = False
 # FORCEDEBUGGING = True
 
 SHAREDSITEDEBUG = True
-if not getInTestHarness():
-    if SHAREDSITEDEBUG:
-        from google.appengine.api import memcache
-else:
+if getInTestHarness():
     SHAREDSITEDEBUG = False
-       
 ############# Warmup Control ########
 WarmedUp = False
 WarmupState = "Auto"
@@ -108,18 +105,32 @@ instance_first = True
 instance_num = 0
 callCount = 0
 global_vars = threading.local()
-systarttime = datetime.datetime.now()
+starttime = datetime.datetime.utcnow()
+systarttime = starttime
+
+if not getInTestHarness():
+    from google.appengine.api import memcache
+
+def tick(): #Keep memcache values fresh so they don't expire
+    if not getInTestHarness():
+        memcache.set(key="SysStart", value=systarttime)
+        memcache.set(key="static-version", value=appver)
 
 #Ensure clean start for any memcached values...
-if SHAREDSITEDEBUG:
-    if memcache.get("static-version") != os.environ["CURRENT_VERSION_ID"]:
+if not getInTestHarness():
+    if memcache.get("static-version") != appver: #We are a new instance of the app
         memcache.flush_all()
-        memcache.set(key="static-version", value=os.environ["CURRENT_VERSION_ID"]) 
-        memcache.add(key="SysStart", value=systarttime) 
-        instance_first = True 
-        log.info("Detected new code version - resetting debug values")
-     
+        memcache.set(key="static-version", value=appver)
+        memcache.add(key="SysStart", value=systarttime)
+        instance_first = True
+        log.info("Detected new code version - resetting memory values")
+    else:
+       systarttime = memcache.get("SysStart")
+       tick()
 
+modtime = systarttime.replace(microsecond=0)
+etagSlug = "24751%s" % modtime.strftime("%y%m%d%H%M%Sa")
+#################################################
 
 def cleanPath(node):
     """Return the substring of a string matching chars approved for use in our URL paths."""
@@ -329,6 +340,7 @@ class ShowUnit (webapp2.RequestHandler):
         """Send cache-related headers via HTTP."""
         self.response.headers['Cache-Control'] = "public, max-age=43200" # 12h
         self.response.headers['Vary'] = "Accept, Accept-Encoding"
+        self.response.headers['Last-Modified'] = modtime.strftime("%a, %d %b %Y %H:%M:%S UTC")
 
     def GetCachedText(self, node, layers='core'):
         """Return page text from node.id cache (if found, otherwise None)."""
@@ -945,6 +957,7 @@ class ShowUnit (webapp2.RequestHandler):
             # TODO: pass in extension, base_domain etc.
             sitekeyedhomepage = "homepage %s" % getSiteName()
             hp = DataCache.get(sitekeyedhomepage)
+            self.emitCacheHeaders()
             if hp != None:
                 self.response.out.write( hp )
                 #log.info("Served datacache homepage.tpl key: %s" % sitekeyedhomepage)
@@ -1473,8 +1486,7 @@ class ShowUnit (webapp2.RequestHandler):
     def handleExactTermPage(self, node, layers='core'):
         """Handle with requests for specific terms like /Person, /fooBar. """
 
-        #self.outputStrings = [] # blank slate
-        log.debug("Looking for node: %s" % node)
+        self.emitCacheHeaders()
         schema_node = Unit.GetUnit(node) # e.g. "Person", "CreativeWork".
         #log.info("Node in layer: %s" % inLayer(layers, schema_node))
         if inLayer(layers, schema_node):
@@ -1525,7 +1537,7 @@ class ShowUnit (webapp2.RequestHandler):
         base_actionprop = Unit.GetUnit( node.rsplit('-')[0] )
         if base_actionprop != None :
             self.response.out.write('<div>Looking for an <a href="/Action">Action</a>-related property? Note that xyz-input and xyz-output have <a href="/docs/actions.html">special meaning</a>. See also: <a href="/%s">%s</a></div> <br/><br/> ' % ( base_actionprop.id, base_actionprop.id ))
-        
+
         self.response.out.write("</div>\n</body>\n</html>\n")
 
         return True
@@ -1680,10 +1692,10 @@ class ShowUnit (webapp2.RequestHandler):
     def handleExtensionContents(self,ext):
         if not ext in ENABLED_EXTENSIONS:
             return ""
-            
+
         if DataCache.get('ExtensionContents',ext):
             return DataCache.get('ExtensionContents',ext)
-        
+
         buff = StringIO.StringIO()
 
         az_types = GetAllTypes(ext)
@@ -1693,10 +1705,10 @@ class ShowUnit (webapp2.RequestHandler):
         az_enums = GetAllEnumerationValues(ext)
         az_enums.sort( key = lambda u: u.id)
 
-        buff.write("<br/><h3>Terms defined or referenced in the '%s' extension.</h3>" % ext)
+        buff.write("<br/><div style=\"text-align: left; margin: 2em\"><h3>Terms defined or referenced in the '%s' extension.</h3>" % ext)
         buff.write(self.listTerms(az_types,"<br/><strong>Types</strong> (%s)<br/>" % len(az_types)))
         buff.write(self.listTerms(az_props,"<br/><br/><strong>Properties</strong> (%s)<br/>" % len(az_props)))
-        buff.write(self.listTerms(az_enums,"<br/><br/><strong>Enumeration values</strong> (%s)<br/>" % len(az_enums)))
+        buff.write(self.listTerms(az_enums,"<br/><br/><strong>Enumeration values</strong> (%s)<br/></div>" % len(az_enums)))
         ret = buff.getvalue()
         DataCache.put('ExtensionContents',ret,ext)
         buff.close()
@@ -1781,7 +1793,57 @@ class ShowUnit (webapp2.RequestHandler):
         return False
 
 
+    def head(self, node):
+
+        self.get(node) #Get the page
+
+        #Clear the request & payload and only put the headers and status back
+        hdrs = self.response.headers.copy()
+        stat = self.response.status
+        self.response.clear()
+        self.response.headers = hdrs
+        self.response.status = stat
+        return
+
     def get(self, node):
+        if not self.setupHostinfo(node):
+            return
+
+        if not node or node == "":
+            node = "/"
+        NotModified = False
+        etag = etagSlug + str(hash(node))
+
+        try:
+            if ( "If-None-Match" in self.request.headers and
+                 self.request.headers["If-None-Match"] == etag ):
+                    NotModified = True
+                    log.debug("Etag do 304")
+            elif ( "If-Unmodified-Since" in self.request.headers and
+                   datetime.datetime.strptime(self.request.headers["If-Unmodified-Since"],"%a, %d %b %Y %H:%M:%S %Z") == modtime ):
+                    NotModified = True
+                    log.debug("Unmod-since do 304")
+        except Exception as e:
+            log.info("ERROR reading request headers: %s" % e)
+            pass
+
+        retHdrs = None
+        if NotModified and DataCache.get(etag):
+            retHdrs = DataCache.get(etag)   #Already cached headers for this request
+        else:
+            self._get(node) #Go build the page
+            self.response.headers.add_header("ETag", etag)
+            retHdrs = self.response.headers.copy()
+            DataCache.put(etag,retHdrs) #Cache these headers for a future 304 return
+
+        if NotModified:
+            self.response.clear()
+            self.response.headers = retHdrs
+            self.response.set_status(304,"Not Modified")
+        return
+
+
+    def _get(self, node):
 
         """Get a schema.org site page generated for this node/term.
 
@@ -1804,9 +1866,7 @@ class ShowUnit (webapp2.RequestHandler):
         """
 
         global_vars.time_start = datetime.datetime.now()
-                
-        if not self.setupHostinfo(node):
-            return
+        tick() #keep system fresh
 
         self.callCount()
 
@@ -1833,7 +1893,7 @@ class ShowUnit (webapp2.RequestHandler):
             global Warmer
             if not WarmedUp:
                 Warmer.stepWarm()
-            
+
         if(node == "_ah/start"):
             log.info("Instance[%s] received Start request at %s" % (modules.get_current_instance_id(), global_vars.time_start) )
             return
@@ -1885,11 +1945,11 @@ class ShowUnit (webapp2.RequestHandler):
                 else:
                     log.info("Error handling 404 under /version/")
                     return
-        log.info("PRODSITEDEBUG: %s" % os.environ['PRODSITEDEBUG'])
+
         if(node == "_siteDebug"):
             if(getBaseHost() != "schema.org" or os.environ['PRODSITEDEBUG'] == "True"):
                 self.siteDebug()
-                return 
+                return
 
         # Pages based on request path matching a Unit in the term graph:
         if self.handleExactTermPage(node, layers=layerlist):
@@ -1936,7 +1996,7 @@ class ShowUnit (webapp2.RequestHandler):
                 self.writeDebugRow("%s calls" % s, memcache.get(s))
             for s in ["http","https"]:
                 self.writeDebugRow("%s calls" % s, memcache.get(s))
-            
+
 
         self.writeDebugRow("This Instance ID",os.environ["INSTANCE_ID"],True)
         self.writeDebugRow("Instance Calls", callCount)
@@ -1954,7 +2014,7 @@ class ShowUnit (webapp2.RequestHandler):
         if head:
             rt = "th"
             cellStyle += " color: #FFFFFF; background: #888888;"
-        
+
         leftcellStyle = cellStyle
         leftcellStyle += " width: 35%"
 
@@ -1971,18 +2031,18 @@ class ShowUnit (webapp2.RequestHandler):
             instance_first = False
             instance_num += 1
             if SHAREDSITEDEBUG:
-                if(memcache.add(key="Instances",value={})):                
+                if(memcache.add(key="Instances",value={})):
                     memcache.add(key="ExitInstances",value={})
                     memcache.add(key="http",value=0)
                     memcache.add(key="https",value=0)
                     memcache.add(key="total",value=0)
                     for i in ALL_LAYERS:
                         memcache.add(key=i,value=0)
-           
+
                 Insts = memcache.get("Instances")
                 Insts[os.environ["INSTANCE_ID"]] = 1
                 memcache.replace("Instances",Insts)
-        
+
         if SHAREDSITEDEBUG:
             memcache.incr("total")
             memcache.incr(getHttpScheme())
@@ -1990,8 +2050,8 @@ class ShowUnit (webapp2.RequestHandler):
                 memcache.incr(getHostExt())
             else:
                 memcache.incr("core")
-                
-                
+
+
     def warmup(self):
         global WarmedUp
         global Warmer
@@ -2002,32 +2062,32 @@ class ShowUnit (webapp2.RequestHandler):
         log.info("Instance[%s] completed Warmup request at %s" % (modules.get_current_instance_id(), global_vars.time_start) )
 
 class WarmupTool():
-    
+
     def __init__(self):
         self.types = []
         self.props = []
         self.enums = []
-        
+
     def stepWarm(self,all=False):
         global WarmedUp
         if WarmedUp:
             return
-        if len (self.types) < len(ALL_LAYERS): 
+        if len (self.types) < len(ALL_LAYERS):
             for l in ALL_LAYERS:
                 if l not in self.types:
-                    self.types.append(l)           
+                    self.types.append(l)
                     GetAllTypes(l)
                     break
         elif len (self.props) < len(ALL_LAYERS):
             for l in ALL_LAYERS:
                 if l not in self.props:
-                    self.props.append(l)           
+                    self.props.append(l)
                     GetAllProperties(l)
                     break
         elif len (self.enums) < len(ALL_LAYERS):
             for l in ALL_LAYERS:
                 if l not in self.enums:
-                    self.enums.append(l)           
+                    self.enums.append(l)
                     GetAllEnumerationValues(l)
                     break
         else:
@@ -2038,8 +2098,8 @@ class WarmupTool():
         while not WarmedUp:
             self.stepWarm(True)
 
-Warmer = WarmupTool()            
-            
+Warmer = WarmupTool()
+
 
 def my_shutdown_hook():
     global instance_num
@@ -2047,7 +2107,7 @@ def my_shutdown_hook():
         Insts = memcache.get("ExitInstances")
         Insts[os.environ["INSTANCE_ID"]] = 1
         memcache.replace("ExitInstances",Insts)
-    
+
         memcache.add("Exits",0)
         memcache.incr("Exits")
     log.info("Instance[%s] shutting down" % modules.get_current_instance_id())
