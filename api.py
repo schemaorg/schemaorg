@@ -453,6 +453,7 @@ def GetTargets(arc, source, layers='core'):
     """All values for a specified arc on specified graph node (within any of the specified layers)."""
     # log.debug("GetTargets checking in layer: %s for unit: %s arc: %s" % (layers, source.id, arc.id))
     targets = {}
+    fred = False
     for triple in source.arcsOut:
         if (triple.arc == arc):
             if (triple.target != None and (layers == EVERYLAYER or triple.layer in layers)):
@@ -492,11 +493,19 @@ def GetArcsOut(source,  layers='core'):
 
 def GetComment(node, layers='core') : 
     """Get the first rdfs:comment we find on this node (or "No comment"), within any of the specified layers."""
-    tx = GetTargets(Unit.GetUnit("rdfs:comment", True), node, layers=layers )
+    tx = GetComments(node, layers)
     if len(tx) > 0:
             return tx[0]
     else:
         return "No comment"
+
+def GetComments(node, layers='core') : 
+    """Get the rdfs:comment(s) we find on this node within any of the specified layers."""
+    return GetTargets(Unit.GetUnit("rdfs:comment", True), node, layers=layers )
+
+def GetsoftwareVersions(node, layers='core') : 
+    """Get the schema:softwareVersion(s) we find on this node (or [] ), within any of the specified layers."""
+    return GetTargets(Unit.GetUnit("softwareVersion", True), node, layers=layers )
 
 def GetImmediateSubtypes(n, layers='core'):
     """Get this type's immediate subtypes, i.e. that are subClassOf this."""
@@ -523,7 +532,7 @@ def GetAllTypes(layers='core'):
     global Utc
     """Return all types in the graph."""
     KEY = "AllTypes:%s" % layers
-    if DataCache.get(KEY,Utc):
+    if DataCache.get(KEY+'x',Utc):
         logging.debug("DataCache HIT: %s" % KEY)
         return DataCache.get(KEY,Utc)
     else:
@@ -625,6 +634,7 @@ def HasMultipleBaseTypes(typenode, layers='core'):
     return len( GetTargets( Unit.GetUnit("rdfs:subClassOf", True), typenode, layers ) ) > 1
 
 EXAMPLES = {}
+ExamplesCount = 0
 
 class Example ():
 
@@ -657,6 +667,9 @@ class Example ():
 
     def __init__ (self, terms, original_html, microdata, rdfa, jsonld, egmeta, layer='core'):
         """Example constructor, registers itself with the relevant Unit(s)."""
+        global EXAMPLES,ExamplesCount
+        ExamplesCount += 1
+        self.orderId = ExamplesCount #Used to maintain consistancy of display order
         self.terms = terms
         self.original_html = original_html
         self.microdata = microdata
@@ -841,7 +854,7 @@ def read_schemas(loadExtensions=False):
 
         files = glob.glob("data/*examples.txt")
 
-        read_examples(files)
+        read_examples(files,'core')
 
         files = glob.glob("data/2015-04-vocab_counts.txt")
         for file in files:
@@ -870,51 +883,46 @@ def read_extensions(extensions):
                 rdfequiv = jf[:-7]+".rdfa"
                 if not rdfequiv in extfiles: #Only add .jsonld files if no equivalent .rdfa
                     extfiles.append(jf)
-                
-                
-                
-            log.info("FILES: %s" % extfiles)
+
+#            log.info("FILES: %s" % extfiles)
             
-            
-            expfiles += glob.glob("data/ext/%s/*examples.txt" % i)
             file_paths = []
-            log.info("extfiles %s" % extfiles)
             for f in extfiles:
                 file_paths.append(full_path(f))
-            log.info("file_paths %s" % file_paths)
             apirdflib.load_graph(i,file_paths)
-            
+            expfiles = glob.glob("data/ext/%s/*examples.txt" % i)
+            read_examples(expfiles,i)
 
         log.info("Extensions found: %s ." % " , ".join(extfiles) )
-        fnstrip_re = re.compile("\/.*")
-        for ext in extfiles:
-            ext_file_path = full_path(ext)
-            extid = ext.replace('data/ext/', '')
-            extid = re.sub(fnstrip_re,'',extid)
-            log.info("Preparing to parse extension data: %s as '%s'" % (ext_file_path, "%s" % extid))
-        read_examples(expfiles)
+#        fnstrip_re = re.compile("\/.*")
+#        for ext in extfiles:
+#            ext_file_path = full_path(ext)
+#            extid = ext.replace('data/ext/', '')
+#            extid = re.sub(fnstrip_re,'',extid)
+#            log.info("Preparing to parse extension data: %s as '%s'" % (ext_file_path, "%s" % extid))
 
     extensionsLoaded = True
 
-def read_examples(files):
+def read_examples(files, layer):
         example_contents = []
         for f in files:
             example_content = read_file(f)
             example_contents.append(example_content)
             log.debug("examples loaded from: %s" % f)
 
-        parser = parsers.ParseExampleFile(None)
+        parser = parsers.ParseExampleFile(None,layer=layer)
         parser.parse(example_contents)
 
 def StripHtmlTags(source):
-    return re.sub('<[^<]+?>', '', source)
+    if source and len(source) > 0:
+        return re.sub('<[^<]+?>', '', source)
+    return ""
 
 def ShortenOnSentence(source,lengthHint=250):
-    if len(source) > lengthHint:
+    if source and len(source) > lengthHint:
         source = source.strip()
         sentEnd = re.compile('[.!?]')
         sentList = sentEnd.split(source)
-        log.info("source '%s'" % source)
         com=""
         count = 0
         while count < len(sentList):

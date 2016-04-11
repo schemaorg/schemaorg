@@ -20,16 +20,17 @@ def MakeParserOfType (format, webapp):
 
 class ParseExampleFile :
 
-    def __init__ (self, webapp):
+    def __init__ (self, webapp, layer=""):
         logging.basicConfig(level=logging.INFO) # dev_appserver.py --log_level debug .
-
         self.webapp = webapp
+        self.layer = layer
         self.initFields()
 
     def initFields(self):
         self.currentStr = []
         self.terms = []
         self.egmeta = {}
+        self.egmeta["layer"] = self.layer
         self.preMarkupStr = ""
         self.microdataStr = ""
         self.rdfaStr = ""
@@ -69,8 +70,6 @@ class ParseExampleFile :
                 api.Example.AddExample(self.terms, self.preMarkupStr, self.microdataStr, self.rdfaStr, self.jsonStr, self.egmeta)
                 self.initFields()
                 typelist = re.split(':', line)
-                self.terms = []
-                self.egmeta = {}
                 logging.debug("TYPE INFO: '%s' " % line );
                 tdata = egid.sub(self.process_example_id, typelist[1]) # strips IDs, records them in egmeta["id"]
                 ttl = tdata.split(',')

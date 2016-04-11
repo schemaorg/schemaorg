@@ -8,7 +8,7 @@ import jinja2
 import logging
 import StringIO
 import json
-from apirdflib import load_graph
+from apirdflib import load_graph, getNss, getRevNss
 
 from markupsafe import Markup, escape # https://pypi.python.org/pypi/MarkupSafe
 
@@ -24,7 +24,7 @@ from google.appengine.api import modules
 from google.appengine.api import runtime
 
 from api import inLayer, read_file, full_path, read_schemas, read_extensions, read_examples, namespaces, DataCache
-from api import Unit, GetTargets, GetSources
+from api import Unit, GetTargets, GetSources, GetComments, GetsoftwareVersions
 from api import GetComment, all_terms, GetAllTypes, GetAllProperties, GetAllEnumerationValues, LoadExamples
 from api import GetParentList, GetImmediateSubtypes, HasMultipleBaseTypes
 from api import GetJsonLdContext, ShortenOnSentence, StripHtmlTags
@@ -70,7 +70,7 @@ ENABLE_HOSTED_EXTENSIONS = True
 EXTENSION_SUFFIX = "" # e.g. "*"
 
 ENABLED_EXTENSIONS = ['auto', 'bib', 'health-lifesci', 'pending', 'meta'  ]
-ALL_LAYERS = ['core']
+ALL_LAYERS = ['core',""]
 
 ALL_LAYERS += ENABLED_EXTENSIONS
 setAllLayersList(ALL_LAYERS)
@@ -86,11 +86,27 @@ if not getInTestHarness():
 else:
     SHAREDSITEDEBUG = False
        
+############# Warmup Control ########
+WarmedUp = False
+WarmupState = "Auto"
+if "WARMUPSTATE" in os.environ:
+    WarmupState = os.environ["WARMUPSTATE"]
+log.info("WarmupState: %s" % WarmupState)
 
+if WarmupState.lower() == "off":
+    WarmedUp = True
+elif "SERVER_NAME" in os.environ and ("localhost" in os.environ['SERVER_NAME'] and WarmupState.lower() == "auto"):
+    WarmedUp = True
+######################################
+
+############# Shared values and times ############
+#### Memcache functions dissabled in test mode ###
+appver = "TestHarness Version"
+if "CURRENT_VERSION_ID" in os.environ:
+    appver = os.environ["CURRENT_VERSION_ID"]
 instance_first = True 
 instance_num = 0
 callCount = 0
-WarmedUp = False
 global_vars = threading.local()
 systarttime = datetime.datetime.now()
 
@@ -396,7 +412,7 @@ class ShowUnit (webapp2.RequestHandler):
     def GetParentStack(self, node, layers='core'):
         """Returns a hiearchical structured used for site breadcrumbs."""
         thing = Unit.GetUnit("Thing")
-        log.info("GetParentStack for: %s",node)
+        #log.info("GetParentStack for: %s",node)
         if (node not in self.parentStack):
             self.parentStack.append(node)
 
@@ -628,7 +644,7 @@ class ShowUnit (webapp2.RequestHandler):
             out.write("<tr typeof=\"rdfs:Property\" resource=\"http://schema.org/%s\">\n    \n      <th class=\"prop-nam\" scope=\"row\">\n\n<code property=\"rdfs:label\">%s</code>\n    </th>\n " % (prop.id, self.ml(prop)))
             out.write("<td class=\"prop-ect\">\n")
             first_range = True
-            for r in ranges:
+            for r in sorted(ranges,key=lambda u: u.id):
                 if (not first_range):
                     out.write(" or <br/> ")
                 first_range = False
@@ -741,7 +757,7 @@ class ShowUnit (webapp2.RequestHandler):
         headerPrinted = False
         di = Unit.GetUnit("domainIncludes")
         ri = Unit.GetUnit("rangeIncludes")
-        log.info("Incomming for %s" % cl.id)
+#        log.info("Incomming for %s" % cl.id)
         for prop in sorted(GetSources(ri, cl, layers=layers), key=lambda u: u.id):
             if (prop.superseded(layers=layers)):
                 continue
@@ -904,7 +920,7 @@ class ShowUnit (webapp2.RequestHandler):
         https://github.com/rvguha/schemaorg/wiki/JsonLd
         """
         accept_header = self.request.headers.get('Accept').split(',')
-        log.info("accepts: %s" % self.request.headers.get('Accept'))            
+        log.info("Home page - accepts: %s" % self.request.headers.get('Accept'))            
 
         # Homepage is content-negotiated. HTML or JSON-LD.
         mimereq = {}
@@ -934,7 +950,28 @@ class ShowUnit (webapp2.RequestHandler):
                 #log.info("Served datacache homepage.tpl key: %s" % sitekeyedhomepage)
                 log.debug("Served datacache homepage.tpl key: %s" % sitekeyedhomepage)
             else:
-
+                extDef = Unit.GetUnit(getNss(getHostExt()),True)
+                log.info("extDef %s" % extDef)
+                extComment = ""
+                extVers = ""
+                extName = ""
+                if extDef:
+                    extComment = GetComment(extDef,ALL_LAYERS)
+                    if extComment == "No comment":
+                        extComment = ""
+                    first = True
+                    for ver in GetsoftwareVersions(extDef, ALL_LAYERS):
+                        if first:
+                            first = False
+                        else:
+                            extVers += ", "
+                        extVers += ver
+                    nms = GetTargets(Unit.GetUnit("name", True), extDef, layers=ALL_LAYERS )
+                    if len(nms) > 0:
+                        extName = nms[0]
+                        
+                    
+                    
                 template = JINJA_ENVIRONMENT.get_template('homepage.tpl')
                 template_values = {
                     'ENABLE_HOSTED_EXTENSIONS': ENABLE_HOSTED_EXTENSIONS,
@@ -945,6 +982,9 @@ class ShowUnit (webapp2.RequestHandler):
                     'myport': getHostPort(),
                     'mybasehost': getBaseHost(),
                     'host_ext': getHostExt(),
+                    'extComment': extComment,
+                    'extVers': extVers,
+                    'extName': extName,
                     'ext_contents': self.handleExtensionContents(getHostExt()),
                     'home_page': "True",
                     'debugging': getAppVar('debugging')
@@ -1193,9 +1233,16 @@ class ShowUnit (webapp2.RequestHandler):
               ('JSON-LD', 'jsonld', ''),
             ]
             self.write("<br/><br/><b><a id=\"examples\">Examples</a></b><br/><br/>\n\n")
-            for ex in examples:
+            exNum = 0
+            for ex in sorted(examples, key=lambda u: u.orderId):
+                log.info("EXAMPLE in %s layers = %s" % (ex.egmeta["layer"],layers))
+                if not ex.egmeta["layer"] in layers: #Example defined in extension we are not in
+                    continue
+                exNum += 1
+                id="example-%s" % exNum
                 if "id" in ex.egmeta:
-                    self.write('<span id="%s"></span>' % ex.egmeta["id"])
+                    id = ex.egmeta["id"]
+                self.write("<div title=\"%s\"><a id=\"%s\">Example %s</a></div>" % (id,id,exNum))
                 self.write("<div class='ds-selector-tabs ds-selector'>\n")
                 self.write("  <div class='selectors'>\n")
                 for label, example_type, selected in example_labels:
@@ -1482,31 +1529,6 @@ class ShowUnit (webapp2.RequestHandler):
         self.response.out.write("</div>\n</body>\n</html>\n")
 
         return True
-
-#    def handleJSONSchemaTree(self, node, layerlist='core'):
-#        """Handle a request for a JSON-LD tree representation of the schemas (RDFS-based)."""
-#
-#        self.response.headers['Content-Type'] = "application/ld+json"
-#        self.emitCacheHeaders()
-#
-#        if DataCache.get('JSONLDThingTree'):
-#            self.response.out.write( DataCache.get('JSONLDThingTree') )
-#            log.debug("Serving recycled JSONLDThingTree.")
-#            return True
-#        else:
-#            uThing = Unit.GetUnit("Thing")
-#            mainroot = TypeHierarchyTree()
-#            mainroot.traverseForJSONLD(Unit.GetUnit("Thing"), layers=layerlist)
-#            thing_tree = mainroot.toJSON()
-#            self.response.out.write( thing_tree )
-#            log.debug("Serving fresh JSONLDThingTree.")
-#            DataCache.put("JSONLDThingTree",thing_tree)
-#            return True
-#        return False
-
-
-
-    # if (node == "version/2.0/" or node == "version/latest/" or "version/" in node) ...
 
     def handleFullReleasePage(self, node,  layerlist='core'):
 
@@ -1801,7 +1823,10 @@ class ShowUnit (webapp2.RequestHandler):
         setSiteName(self.getExtendedSiteName(layerlist)) # e.g. 'bib.schema.org', 'schema.org'
         log.debug("EXT: set sitename to %s " % getSiteName())
         if(node == "_ah/warmup"):
-            self.warmup()
+            if "localhost" in os.environ['SERVER_NAME'] and WarmupState.lower() == "auto":
+                log.info("Warmup dissabled for localhost instance")
+            else:
+                self.warmup()
             return
         else:  #Do a bit of warming on each call
             global WarmedUp

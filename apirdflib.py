@@ -28,6 +28,8 @@ revNss = {}
 NSSLoaded = False
 allLayersList = []
 
+context_data = "data/internal-context" #Local file containing context to be used loding .jsonld files
+
 
 def loadNss():
     global NSSLoaded
@@ -37,18 +39,24 @@ def loadNss():
         NSSLoaded = True
         for i in allLayersList:
             if i != "core":
-                nss.update({i:"http://%s.schema.org" % i})
+                nss.update({i:"http://%s.schema.org/" % i})
         revNss = {v: k for k, v in nss.items()}
                
 def getNss(val):
     global nss
     loadNss()
-    return nss[val]
+    try:
+        return nss[val]
+    except KeyError:
+        return ""
     
 def getRevNss(val):
     global revNss
     loadNss()
-    return revNss[val]
+    try:
+        return revNss[val]
+    except KeyError:
+        return ""
 ##############################    
 
 
@@ -81,22 +89,24 @@ def load_graph(context, files):
             g.parse(file=open(full_path(f),"r"),format=format)
             STORE.bind(context,uri)
         elif(format == "json-ld"):
-            STORE.parse(file=open(full_path(f),"r"),format=format)
-							
+            STORE.parse(file=open(full_path(f),"r"),format=format, context=context_data)
+
 def rdfGetTriples(id):
 	"""All triples with node as subject."""
 	targets = []
 	fullId = id
+
+#	log.info("rdfgetTriples(%s)" % fullId)
 	if	':' in id: #Includes full path or namespaces
 		fullId = id
 	else:
 		fullId = VOCAB + "/" + id
 	source = URIRef(fullId)
+	#log.info("rdfgetTriples(%s)" % source)
 	
 	first = True
 	unit = None
 	
-#	log.info("Getting triples for %s" % source)
 	homeSetTo = None
 	typeOfInLayers = []
 
@@ -107,11 +117,12 @@ def rdfGetTriples(id):
 		ROWSLOCK.release()
 		
 	for row in res:
+#		if source == "http://meta.schema.org/":
+#		log.info("Triple: %s %s %s %s" % (source, row.p, row.o, row.g))
 		layer = str(getRevNss(str(row.g)))
 		if first:
 			first = False
 			unit = api.Unit.GetUnitNoLoad(id,True)
-#		log.info("Triples ?s: %s ?p %s ?o %s - %s" % (source,row.p,row.o,layer))
 		s = stripID(source)
 		p = stripID(row.p)
 		if p == "rdf:type": 
@@ -170,7 +181,6 @@ def rdfGetSourceTriples(target):
 		api.Triple.AddTriple(unit, prop, obj, layer)
 	
 def stripID (str):
-    #log.info("%s %s " % (len('http://schema.org'), len('http://www.w3.org/2000/01/rdf-schema#')))
     l = len(str)
     if (l > 16 and (str[:17] == 'http://schema.org')):
         return str[18:]
