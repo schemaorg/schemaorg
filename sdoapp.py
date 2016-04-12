@@ -14,6 +14,7 @@ from markupsafe import Markup, escape # https://pypi.python.org/pypi/MarkupSafe
 
 import parsers
 import threading
+import itertools
 import datetime, time
 from time import gmtime, strftime
 
@@ -26,7 +27,7 @@ from google.appengine.api import runtime
 
 from api import inLayer, read_file, full_path, read_schemas, read_extensions, read_examples, namespaces, DataCache
 from api import Unit, GetTargets, GetSources, GetComments, GetsoftwareVersions
-from api import GetComment, all_terms, GetAllTypes, GetAllProperties, GetAllEnumerationValues, LoadExamples
+from api import GetComment, all_terms, GetAllTypes, GetAllProperties, GetAllEnumerationValues, GetAllTerms, LoadExamples
 from api import GetParentList, GetImmediateSubtypes, HasMultipleBaseTypes
 from api import GetJsonLdContext, ShortenOnSentence, StripHtmlTags, MD
 from api import setInTestHarness, getInTestHarness, setAllLayersList
@@ -1693,25 +1694,72 @@ class ShowUnit (webapp2.RequestHandler):
             return DataCache.get('ExtensionContents',ext)
 
         buff = StringIO.StringIO()
+        
+        az_terms = GetAllTerms(ext) #Returns sorted by id results.
+        az_terms.sort(key = lambda u: u.category)
+        
+        if len(az_terms) > 0:
+            buff.write("<br/><div style=\"text-align: left; margin: 2em\"><h3>Terms defined or referenced in the '%s' extension.</h3>" % ext)            
+        
+            keys = []
+            groups = []
+            for k,g in itertools.groupby(az_terms, key = lambda u: u.category):
+                keys.append(k)
+                groups.append(list(g))
 
-        az_types = GetAllTypes(ext)
-        az_types.sort( key=lambda u: u.id)
-        az_props = GetAllProperties(ext)
-        az_props.sort( key = lambda u: u.id)
-        az_enums = GetAllEnumerationValues(ext)
-        az_enums.sort( key = lambda u: u.id)
+            i = 0
+            while i < len(groups):
+                groups[i] = sorted(groups[i],key = lambda u: u.id)
+                i += 1
+        
+            g=0
+            while g < len(groups):
+                if g > 0:
+                    buff.write("<br/>")
+                buff.write(self.listTerms(groups[g],"<br/>%s Types (%s)<br/>" % 
+                                         (keys[g],self.countTypes(groups[g],select="type",layers=ext)),select="type",layers=ext))
+                buff.write(self.listTerms(groups[g],"<br/>%s Properties (%s)<br/>" % 
+                                         (keys[g],self.countTypes(groups[g],select="prop",layers=ext)),select="prop",layers=ext))
+                buff.write(self.listTerms(groups[g],"<br/>%s Enumeration values (%s)<br/>" % 
+                                         (keys[g],self.countTypes(groups[g],select="enum",layers=ext)),select="enum",layers=ext))
+                g += 1
+            buff.write("</div>")
 
-        buff.write("<br/><div style=\"text-align: left; margin: 2em\"><h3>Terms defined or referenced in the '%s' extension.</h3>" % ext)
-        buff.write(self.listTerms(az_types,"<br/><strong>Types</strong> (%s)<br/>" % len(az_types)))
-        buff.write(self.listTerms(az_props,"<br/><br/><strong>Properties</strong> (%s)<br/>" % len(az_props)))
-        buff.write(self.listTerms(az_enums,"<br/><br/><strong>Enumeration values</strong> (%s)<br/></div>" % len(az_enums)))
         ret = buff.getvalue()
         DataCache.put('ExtensionContents',ret,ext)
         buff.close()
         return ret
+    
+    def countTypes(self,interms,select="",layers='core'):
+        ret = 0
+        for t in interms:
+            if select == "type" and t.isClass(layers):
+                ret += 1
+            elif select == "prop" and t.isAttribute(layers):
+                ret += 1
+            elif select == "enum" and t.isEnumerationValue(layers):
+                ret +=1
+            elif select == "":
+                ret += 1
+        return ret
+            
 
-    def listTerms(self,terms,prefix=""):
+    def listTerms(self,interms,prefix="",select=None,layers='core'):
         buff = StringIO.StringIO()
+        terms = interms
+        if select:
+            terms = []
+            for t in interms:
+                use = False
+                if select == "type":
+                    use = t.isClass(layers)
+                elif select == "prop":
+                    use = t.isAttribute(layers)
+                elif select == "enum":
+                    use = t.isEnumerationValue(layers)
+                if use:
+                    terms.append(t)
+                    
         if(len(terms) > 0):
             buff.write(prefix)
             first = True
