@@ -132,6 +132,8 @@ def rdfGetTriples(id):
 				log.info("WARNING Cannot set %s home to %s - already set to: %s" % (s,layer,unit.home))
 			unit.home = layer
 			homeSetTo = layer
+		elif(p == "category"):
+			unit.category = row.o
 
 		prop = api.Unit.GetUnit(p,True)
 
