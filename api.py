@@ -64,50 +64,50 @@ all_terms = {}
 # Enables all these prefixes without explicit declaration when
 # using schema.org's JSON-LD context file.
 #
-namespaces = """        "cat": "http://www.w3.org/ns/dcat#",
-        "qb": "http://purl.org/linked-data/cube#",
-        "org": "http://www.w3.org/ns/org#",
+namespaces = """        "schema": "http://schema.org/",
+        "cat": "http://www.w3.org/ns/dcat#",
+        "cc": "http://creativecommons.org/ns#",
+        "cnt": "http://www.w3.org/2008/content#",
+        "ctag": "http://commontag.org/ns#",
+        "dc": "http://purl.org/dc/terms/",
+        "dcat": "http://www.w3.org/ns/dcat#",
+        "dcterms": "http://purl.org/dc/terms/",
+        "describedby": "http://www.w3.org/2007/05/powder-s#describedby",
+        "earl": "http://www.w3.org/ns/earl#",
+        "foaf": "http://xmlns.com/foaf/0.1/",
+        "gldp": "http://www.w3.org/ns/people#",
+        "gr": "http://purl.org/goodrelations/v1#",
         "grddl": "http://www.w3.org/2003/g/data-view#",
+        "ht": "http://www.w3.org/2006/http#",
+        "ical": "http://www.w3.org/2002/12/cal/icaltzd#",
+        "license": "http://www.w3.org/1999/xhtml/vocab#license",
         "ma": "http://www.w3.org/ns/ma-ont#",
+        "og": "http://ogp.me/ns#",
+        "org": "http://www.w3.org/ns/org#",
+        "org": "http://www.w3.org/ns/org#",
         "owl": "http://www.w3.org/2002/07/owl#",
+        "prov": "http://www.w3.org/ns/prov#",
+        "ptr": "http://www.w3.org/2009/pointers#",
+        "qb": "http://purl.org/linked-data/cube#",
         "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
         "rdfa": "http://www.w3.org/ns/rdfa#",
         "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+        "rev": "http://purl.org/stuff/rev#",
         "rif": "http://www.w3.org/2007/rif#",
+        "role": "http://www.w3.org/1999/xhtml/vocab#role",
         "rr": "http://www.w3.org/ns/r2rml#",
+        "sd": "http://www.w3.org/ns/sparql-service-description#",
+        "sioc": "http://rdfs.org/sioc/ns#",
         "skos": "http://www.w3.org/2004/02/skos/core#",
         "skosxl": "http://www.w3.org/2008/05/skos-xl#",
-        "wdr": "http://www.w3.org/2007/05/powder#",
+        "v": "http://rdf.data-vocabulary.org/#",
+        "vcard": "http://www.w3.org/2006/vcard/ns#",
         "void": "http://rdfs.org/ns/void#",
+        "wdr": "http://www.w3.org/2007/05/powder#",
         "wdrs": "http://www.w3.org/2007/05/powder-s#",
         "xhv": "http://www.w3.org/1999/xhtml/vocab#",
         "xml": "http://www.w3.org/XML/1998/namespace",
         "xsd": "http://www.w3.org/2001/XMLSchema#",
-        "prov": "http://www.w3.org/ns/prov#",
-        "sd": "http://www.w3.org/ns/sparql-service-description#",
-        "org": "http://www.w3.org/ns/org#",
-        "gldp": "http://www.w3.org/ns/people#",
-        "cnt": "http://www.w3.org/2008/content#",
-        "dcat": "http://www.w3.org/ns/dcat#",
-        "earl": "http://www.w3.org/ns/earl#",
-        "ht": "http://www.w3.org/2006/http#",
-        "ptr": "http://www.w3.org/2009/pointers#",
-        "cc": "http://creativecommons.org/ns#",
-        "ctag": "http://commontag.org/ns#",
-        "dc": "http://purl.org/dc/terms/",
-        "dcterms": "http://purl.org/dc/terms/",
-        "foaf": "http://xmlns.com/foaf/0.1/",
-        "gr": "http://purl.org/goodrelations/v1#",
-        "ical": "http://www.w3.org/2002/12/cal/icaltzd#",
-        "og": "http://ogp.me/ns#",
-        "rev": "http://purl.org/stuff/rev#",
-        "sioc": "http://rdfs.org/sioc/ns#",
-        "v": "http://rdf.data-vocabulary.org/#",
-        "vcard": "http://www.w3.org/2006/vcard/ns#",
-        "schema": "http://schema.org/",
-        "describedby": "http://www.w3.org/2007/05/powder-s#describedby",
-        "license": "http://www.w3.org/1999/xhtml/vocab#license",
-        "role": "http://www.w3.org/1999/xhtml/vocab#role",
 """
 
 
@@ -232,8 +232,7 @@ class Unit ():
         if self.typeFlags.has_key('c'):
             return self.typeFlags['c']
         isClass = self.typeOf(Unit.GetUnit("rdfs:Class"), layers=layers)
-        if isClass:
-            self.typeFlags['c'] = isClass
+        self.typeFlags['c'] = isClass
         return isClass
 
     def isAttribute(self, layers='core'):
@@ -241,8 +240,7 @@ class Unit ():
         if self.typeFlags.has_key('p'):
             return self.typeFlags['p']
         isProp = self.typeOf(Unit.GetUnit("rdf:Property"), layers=layers)
-        if isProp:
-            self.typeFlags['p'] = isProp
+        self.typeFlags['p'] = isProp
         return isProp
 
     def isEnumeration(self, layers='core'):
@@ -250,8 +248,7 @@ class Unit ():
         if self.typeFlags.has_key('e'):
             return self.typeFlags['e']
         isE = self.subClassOf(Unit.GetUnit("Enumeration"), layers=EVERYLAYER)
-        if isE:
-            self.typeFlags['e'] = isE
+        self.typeFlags['e'] = isE
         return isE
 
     def isEnumerationValue(self, layers='core'):
@@ -264,8 +261,8 @@ class Unit ():
         for t in types:
           if t.subClassOf(Unit.GetUnit("Enumeration"), layers=EVERYLAYER):
             found_enum = True
-        if found_enum:
-            self.typeFlags['ev'] = found_enum
+            break
+        self.typeFlags['ev'] = found_enum
         return found_enum
 
     def isDataType(self, layers='core'):
@@ -275,17 +272,23 @@ class Unit ():
       DataType and its children do not descend from Thing, so we need to
       treat it specially.
       """
+      if self.typeFlags.has_key('d'):
+          return self.typeFlags['d']
+          
+      ret = False
       if (self.directInstanceOf(Unit.GetUnit("DataType"), layers=layers)):
-          return True
+          ret = True
+      else:
+          subs = GetTargets(Unit.GetUnit("rdf:type"), self, layers=layers)
+          subs += GetTargets(Unit.GetUnit("rdfs:subClassOf"), self, layers=layers)
 
-      subs = GetTargets(Unit.GetUnit("rdf:type"), self, layers=layers)
-      subs += GetTargets(Unit.GetUnit("rdfs:subClassOf"), self, layers=layers)
-
-      for p in subs:
-          if p.isDataType(layers=layers):
-              return True
-
-      return False
+          for p in subs:
+              if p.isDataType(layers=layers):
+                  ret = True
+                  break
+      
+      self.typeFlags['d'] = ret
+      return ret
 
 
 
@@ -575,6 +578,29 @@ def GetAllTypes(layers='core'):
         DataCache.put(KEY,subbed.keys(),Utc)
         return subbed.keys()
 
+def GetAllDataTypes(layers='core'):
+    global Utc
+    """Return all types in the graph."""
+    KEY = "AllDataTypes:%s" % layers
+    if DataCache.get(KEY+'x',Utc):
+        logging.debug("DataCache HIT: %s" % KEY)
+        return DataCache.get(KEY,Utc)
+    else:
+        logging.debug("DataCache MISS: %s" % KEY)
+        mynode = Unit.GetUnit("DataType", True)
+        subbed = {}
+        todo = [mynode]
+        while todo:
+            current = todo.pop()
+            subs = GetImmediateSubtypes(current, EVERYLAYER)
+            if inLayer(layers,current):
+                subbed[current] = 1
+            for sc in subs:
+                if subbed.get(sc.id) == None:
+                    todo.append(sc)
+        DataCache.put(KEY,subbed.keys(),Utc)
+        return subbed.keys()
+
 def GetAllEnumerationValues(layers='core'):
     global Utc
     KEY = "AllEnums:%s" % layers
@@ -621,10 +647,12 @@ def GetAllProperties(layers='core'):
         DataCache.put(KEY,sorted_all_properties,Utc)
         return sorted_all_properties
 
-def GetAllTerms(layers='core'):
+def GetAllTerms(layers='core',includeDataTypes=False):
     ret = GetAllTypes(layers)
     ret.extend(GetAllEnumerationValues(layers))
     ret.extend(GetAllProperties(layers))
+    if includeDataTypes:
+        ret.extend(GetAllDataTypes(layers))
     return sorted(ret,key=lambda u: u.id)
     
 def GetParentList(start_unit, end_unit=None, path=[], layers='core'):
@@ -764,30 +792,37 @@ def GetJsonLdContext(layers='core'):
         return DataCache.get('JSONLDCONTEXT')
     else:
         global namespaces
-        jsonldcontext = "{\"@context\":    {\n"
+        jsonldcontext = "{\n  \"@context\": {\n"
         jsonldcontext += "        \"type\": \"@type\",\n"
         jsonldcontext += "        \"id\": \"@id\",\n"
-        jsonldcontext += namespaces
         jsonldcontext += "        \"@vocab\": \"http://schema.org/\",\n"
+        jsonldcontext += namespaces
 
         url = Unit.GetUnit("URL")
         date = Unit.GetUnit("Date")
         datetime = Unit.GetUnit("DateTime")
 
-        properties = sorted(GetSources(Unit.GetUnit("rdf:type",True), Unit.GetUnit("rdf:Property",True), layers=layers), key=lambda u: u.id)
-        for p in properties:
-            range = GetTargets(Unit.GetUnit("rangeIncludes"), p, layers=layers)
-            type = None
+#        properties = sorted(GetSources(Unit.GetUnit("rdf:type",True), Unit.GetUnit("rdf:Property",True), layers=getAllLayersList()), key=lambda u: u.id)
+#        for p in properties:
+        for t in GetAllTerms(EVERYLAYER,includeDataTypes=True):
+            if t.isClass(EVERYLAYER) or t.isEnumeration(EVERYLAYER) or t.isEnumerationValue(EVERYLAYER) or t.isDataType(EVERYLAYER):
+                jsonldcontext += "        \"" + t.id + "\": {\"@id\": \"schema:" + t.id + "\"},"
+            elif t.isAttribute(EVERYLAYER):
+                range = GetTargets(Unit.GetUnit("rangeIncludes"), t, layers=EVERYLAYER)
+                type = None
 
-            if url in range:
-                type = "@id"
-            elif date in range:
-                type = "Date"
-            elif datetime in range:
-                type = "DateTime"
+                if url in range:
+                    type = "@id"
+                elif date in range:
+                    type = "Date"
+                elif datetime in range:
+                    type = "DateTime"
 
-            if type:
-                jsonldcontext += "        \"" + p.id + "\": { \"@type\": \"" + type + "\" },"
+                typins = ""
+                if type:
+                    typins = ", \"@type\": \"" + type + "\""
+
+                jsonldcontext += "        \"" + t.id + "\": { \"@id\": \"schema:" + t.id + "\"" + typins + "},"
 
         jsonldcontext += "}}\n"
         jsonldcontext = jsonldcontext.replace("},}}","}\n    }\n}")

@@ -536,7 +536,7 @@ class BasicJSONLDTests(unittest.TestCase):
     def test_issuedBy_jsonld(self):
        import json
        ctx = json.loads(GetJsonLdContext())
-       self.assertFalse( "issuedBy" in ctx["@context"] , "issuedBy should be defined." )
+       self.assertTrue( "issuedBy" in ctx["@context"] , "issuedBy should be defined." )
 
     def test_dateModified_jsonld(self):
        import json
