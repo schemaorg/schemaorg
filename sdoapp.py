@@ -340,7 +340,6 @@ class ShowUnit (webapp2.RequestHandler):
         """Send cache-related headers via HTTP."""
         self.response.headers['Cache-Control'] = "public, max-age=43200" # 12h
         self.response.headers['Vary'] = "Accept, Accept-Encoding"
-        self.response.headers['Last-Modified'] = modtime.strftime("%a, %d %b %Y %H:%M:%S UTC")
 
     def GetCachedText(self, node, layers='core'):
         """Return page text from node.id cache (if found, otherwise None)."""
@@ -640,11 +639,11 @@ class ShowUnit (webapp2.RequestHandler):
             if (prop.superseded(layers=layers)):
                 continue
             supersedes = prop.supersedes(layers=layers)
-            olderprops = prop.supersedes_all(layers=layers)
+            olderprops = sorted(prop.supersedes_all(layers=layers),key=lambda u: u.id)
             inverseprop = prop.inverseproperty(layers=layers)
-            subprops = prop.subproperties(layers=layers)
-            superprops = prop.superproperties(layers=layers)
-            ranges = GetTargets(ri, prop, layers=layers)
+            subprops = sorted(prop.subproperties(layers=layers),key=lambda u: u.id)
+            superprops = sorted(prop.superproperties(layers=layers),key=lambda u: u.id)
+            ranges = sorted(GetTargets(ri, prop, layers=layers),key=lambda u: u.id)
             comment = GetComment(prop, layers=layers)
             if (not headerPrinted):
                 class_head = self.ml(cl)
@@ -775,9 +774,9 @@ class ShowUnit (webapp2.RequestHandler):
                 continue
             supersedes = prop.supersedes(layers=layers)
             inverseprop = prop.inverseproperty(layers=layers)
-            subprops = prop.subproperties(layers=layers)
-            superprops = prop.superproperties(layers=layers)
-            ranges = GetTargets(di, prop, layers=layers)
+            subprops = sorted(prop.subproperties(layers=layers),key=lambda u: u.id)
+            superprops = sorted(prop.superproperties(layers=layers),key=lambda u: u.id)
+            ranges = sorted(GetTargets(di, prop, layers=layers),key=lambda u: u.id)
             comment = GetComment(prop, layers=layers)
 
             if (not headerPrinted):
@@ -843,11 +842,11 @@ class ShowUnit (webapp2.RequestHandler):
 
         newerprop = node.supersededBy(layers=layers) # None of one. e.g. we're on 'seller'(new) page, we get 'vendor'(old)
         olderprop = node.supersedes(layers=layers) # None or one
-        olderprops = node.supersedes_all(layers=layers) # list, e.g. 'seller' has 'vendor', 'merchant'.
+        olderprops = sorted(node.supersedes_all(layers=layers),key=lambda u: u.id) # list, e.g. 'seller' has 'vendor', 'merchant'.
 
         inverseprop = node.inverseproperty(layers=layers)
-        subprops = node.subproperties(layers=layers)
-        superprops = node.superproperties(layers=layers)
+        subprops = sorted(node.subproperties(layers=layers),key=lambda u: u.id)
+        superprops = sorted(node.superproperties(layers=layers),key=lambda u: u.id)
 
 
         if (inverseprop != None):
@@ -1863,11 +1862,11 @@ class ShowUnit (webapp2.RequestHandler):
             if ( "If-None-Match" in self.request.headers and
                  self.request.headers["If-None-Match"] == etag ):
                     NotModified = True
-                    log.debug("Etag do 304")
+                    log.debug("Etag - do 304")
             elif ( "If-Unmodified-Since" in self.request.headers and
                    datetime.datetime.strptime(self.request.headers["If-Unmodified-Since"],"%a, %d %b %Y %H:%M:%S %Z") == modtime ):
                     NotModified = True
-                    log.debug("Unmod-since do 304")
+                    log.debug("Unmod-since - do 304")
         except Exception as e:
             log.info("ERROR reading request headers: %s" % e)
             pass
@@ -1877,7 +1876,9 @@ class ShowUnit (webapp2.RequestHandler):
             retHdrs = DataCache.get(etag)   #Already cached headers for this request
         else:
             self._get(node) #Go build the page
-            self.response.headers.add_header("ETag", etag)
+            if self.response.status.startswith("200"):
+                self.response.headers.add_header("ETag", etag)
+                self.response.headers['Last-Modified'] = modtime.strftime("%a, %d %b %Y %H:%M:%S UTC")
             retHdrs = self.response.headers.copy()
             DataCache.put(etag,retHdrs) #Cache these headers for a future 304 return
 
