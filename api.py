@@ -165,6 +165,8 @@ class Unit ():
         self.home = None
         self.subtypes = None
         self.sourced = False
+        self.category = " "
+        self.typeFlags = {}
 
     def __str__(self):
         return self.id
@@ -227,24 +229,43 @@ class Unit ():
 
     def isClass(self, layers='core'):
         """Does this unit represent a class/type?"""
-        return self.typeOf(Unit.GetUnit("rdfs:Class"), layers=layers)
+        if self.typeFlags.has_key('c'):
+            return self.typeFlags['c']
+        isClass = self.typeOf(Unit.GetUnit("rdfs:Class"), layers=layers)
+        if isClass:
+            self.typeFlags['c'] = isClass
+        return isClass
 
     def isAttribute(self, layers='core'):
         """Does this unit represent an attribute/property?"""
-        return self.typeOf(Unit.GetUnit("rdf:Property"), layers=layers)
+        if self.typeFlags.has_key('p'):
+            return self.typeFlags['p']
+        isProp = self.typeOf(Unit.GetUnit("rdf:Property"), layers=layers)
+        if isProp:
+            self.typeFlags['p'] = isProp
+        return isProp
 
     def isEnumeration(self, layers='core'):
         """Does this unit represent an enumerated type?"""
-        return self.subClassOf(Unit.GetUnit("Enumeration"), layers=layers)
+        if self.typeFlags.has_key('e'):
+            return self.typeFlags['e']
+        isE = self.subClassOf(Unit.GetUnit("Enumeration"), layers=EVERYLAYER)
+        if isE:
+            self.typeFlags['e'] = isE
+        return isE
 
     def isEnumerationValue(self, layers='core'):
         """Does this unit represent a member of an enumerated type?"""
+        if self.typeFlags.has_key('ev'):
+            return self.typeFlags['ev']
         types = GetTargets(Unit.GetUnit("rdf:type"), self , layers=layers)
         log.debug("isEnumerationValue() called on %s, found %s types. layers: %s" % (self.id, str( len( types ) ), layers ) )
         found_enum = False
         for t in types:
-          if t.subClassOf(Unit.GetUnit("Enumeration"), layers=layers):
+          if t.subClassOf(Unit.GetUnit("Enumeration"), layers=EVERYLAYER):
             found_enum = True
+        if found_enum:
+            self.typeFlags['ev'] = found_enum
         return found_enum
 
     def isDataType(self, layers='core'):
@@ -305,6 +326,9 @@ class Unit ():
 
         return ret
 
+    def category(self):
+        return self.category
+        
     def getHomeLayer(self,defaultToCore=False):
         ret = self.home
         if ret == None:
@@ -597,6 +621,12 @@ def GetAllProperties(layers='core'):
         DataCache.put(KEY,sorted_all_properties,Utc)
         return sorted_all_properties
 
+def GetAllTerms(layers='core'):
+    ret = GetAllTypes(layers)
+    ret.extend(GetAllEnumerationValues(layers))
+    ret.extend(GetAllProperties(layers))
+    return sorted(ret,key=lambda u: u.id)
+    
 def GetParentList(start_unit, end_unit=None, path=[], layers='core'):
 
         """
