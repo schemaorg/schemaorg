@@ -1,113 +1,62 @@
-[
-  {
-    "@id": "http://www.salzburgerfestspiele.at/#2015",
-    "@type": [
-      "http://schema.org/Event"
-    ],
-    "http://schema.org/endDate": [
-      {
-        "@type": "http://www.w3.org/2001/XMLSchema#date",
-        "@value": "2015-08-30"
-      }
-    ],
-    "http://schema.org/name": [
-      {
-        "@language": "en",
-        "@value": "Salzburg Festival 2015"
-      },
-      {
-        "@language": "de",
-        "@value": "Salzburger Festspiele 2015"
-      }
-    ],
-    "http://schema.org/startDate": [
-      {
-        "@type": "http://www.w3.org/2001/XMLSchema#date",
-        "@value": "2015-07-18"
-      }
-    ],
-    "http://schema.org/subEvent": [
-      {
-        "@id": "http://www.salzburgerfestspiele.at/opera/eroberung-2015"
-      }
-    ],
-    "http://schema.org/superEvent": [
-      {
-        "@id": "http://www.salzburgerfestspiele.at/"
-      }
-    ]
-  },
-  {
-    "@id": "http://www.salzburgerfestspiele.at/opera/eroberung-2015",
-    "@type": [
-      "http://schema.org/Event"
-    ],
-    "http://schema.org/endDate": [
-      {
-        "@type": "http://www.w3.org/2001/XMLSchema#dateTime",
-        "@value": "2015-07-20T22:00:00"
-      }
-    ],
-    "http://schema.org/name": [
-      {
-        "@language": "de",
-        "@value": "Wolfgang Rihm, Die Eroberung von Mexico"
-      }
-    ],
-    "http://schema.org/startDate": [
-      {
-        "@type": "http://www.w3.org/2001/XMLSchema#dateTime",
-        "@value": "2015-07-20T20:00:00"
-      }
-    ]
-  },
-  {
-    "@id": "http://www.salzburgerfestspiele.at/#2014",
-    "@type": [
-      "http://schema.org/Event"
-    ],
-    "http://schema.org/endDate": [
-      {
-        "@type": "http://www.w3.org/2001/XMLSchema#date",
-        "@value": "2015-08-28"
-      }
-    ],
-    "http://schema.org/name": [
-      {
-        "@language": "en",
-        "@value": "Salzburg Festival 2014"
-      },
-      {
-        "@language": "de",
-        "@value": "Salzburger Festspiele 2014"
-      }
-    ],
-    "http://schema.org/startDate": [
-      {
-        "@type": "http://www.w3.org/2001/XMLSchema#date",
-        "@value": "2014-07-21"
-      }
-    ],
-    "http://schema.org/superEvent": [
-      {
-        "@id": "http://www.salzburgerfestspiele.at/"
-      }
-    ]
-  },
-  {
-    "@id": "http://www.salzburgerfestspiele.at/",
-    "@type": [
-      "http://schema.org/EventSeries"
-    ],
-    "http://schema.org/name": [
-      {
-        "@language": "de",
-        "@value": "Salzburger Festspiele"
-      },
-      {
-        "@language": "en",
-        "@value": "Salzburg Festival"
-      }
-    ]
+[{
+  "@context" : "http://schema.org",  
+  "@type": "Event", 
+  "@id": "http://www.salzburgerfestspiele.at/2015",
+  "startDate": "2015-07-18T16:00",
+  "endDate": "2015-08-30T23:00",
+  "name": [
+    {
+      "@language": "en",
+      "@value": "Salzburg Festival 2015"
+    },
+    {
+      "@language": "de",
+      "@value": "Salzburger Festspiele 2015"
+    }
+  ],
+  "subEvent": "http://www.salzburgerfestspiele.at/opera/eroberung-2015",
+  "superEvent": "http://www.salzburgerfestspiele.at/"
+},
+{
+  "@id": "http://www.salzburgerfestspiele.at/opera/eroberung-2015",
+  "@type": "Event",
+  "startDate": "2015-07-20T20:00",
+  "endDate": "2015-07-20T22:00",
+  "name": {
+    "@language": "de",
+    "@value": "Wolfgang Rihm, Die Eroberung von Mexico"
   }
-]
+},
+{
+  "@id": "http://www.salzburgerfestspiele.at/2014",
+  "@type": "Event",
+  "startDate": "2014-07-21T16:00",
+  "endDate": "2015-08-28T23:00",
+  "name": [
+    {
+      "@language": "en",
+      "@value": "Salzburg Festival 2014"
+    },
+    {
+      "@language": "de",
+      "@value": "Salzburger Festspiele 2014"
+    }
+  ],
+  "http://schema.org/superEvent": {
+    "@id": "http://www.salzburgerfestspiele.at/"
+  }
+},
+{
+  "@id": "http://www.salzburgerfestspiele.at/",
+  "@type": "EventSeries",
+  "name": [
+    {
+      "@language": "de",
+      "@value": "Salzburger Festspiele"
+    },
+    {
+      "@language": "en",
+      "@value": "Salzburg Festival"
+    }
+  ]
+}]
