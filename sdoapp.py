@@ -1070,6 +1070,9 @@ class ShowUnit (webapp2.RequestHandler):
                 'desc' : desc,
                 'sitemode': sitemode,
                 'sitename': getSiteName(),
+                'mybasehost': getBaseHost(),
+                'myhost': getHost(), # danbri wip
+                'myport': getHostPort(),
                 'staticPath': makeUrl("",""),
                 'menu_sel': "Schemas",
                 'rdfs_type': rdfs_type,
