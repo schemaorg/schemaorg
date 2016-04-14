@@ -231,7 +231,7 @@ class Unit ():
         """Does this unit represent a class/type?"""
         if self.typeFlags.has_key('c'):
             return self.typeFlags['c']
-        isClass = self.typeOf(Unit.GetUnit("rdfs:Class"), layers=layers)
+        isClass = self.typeOf(Unit.GetUnit("rdfs:Class"), layers=EVERYLAYER)
         self.typeFlags['c'] = isClass
         return isClass
 
@@ -239,7 +239,7 @@ class Unit ():
         """Does this unit represent an attribute/property?"""
         if self.typeFlags.has_key('p'):
             return self.typeFlags['p']
-        isProp = self.typeOf(Unit.GetUnit("rdf:Property"), layers=layers)
+        isProp = self.typeOf(Unit.GetUnit("rdf:Property"), layers=EVERYLAYER)
         self.typeFlags['p'] = isProp
         return isProp
 
@@ -255,7 +255,7 @@ class Unit ():
         """Does this unit represent a member of an enumerated type?"""
         if self.typeFlags.has_key('ev'):
             return self.typeFlags['ev']
-        types = GetTargets(Unit.GetUnit("rdf:type"), self , layers=layers)
+        types = GetTargets(Unit.GetUnit("rdf:type"), self , layers=EVERYLAYER)
         log.debug("isEnumerationValue() called on %s, found %s types. layers: %s" % (self.id, str( len( types ) ), layers ) )
         found_enum = False
         for t in types:
@@ -1022,6 +1022,7 @@ class MarkdownTool():
     def parse(self,source,preservePara=False):
         if not source or len(source) == 0:
             return ""
+        source = source.strip()
         source = source.replace("\\n","\n")
         ret = self._md.reset().convert(source)
         if not preservePara:
