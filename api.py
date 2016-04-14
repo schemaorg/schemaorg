@@ -481,13 +481,17 @@ def GetTargets(arc, source, layers='core'):
     # log.debug("GetTargets checking in layer: %s for unit: %s arc: %s" % (layers, source.id, arc.id))
     targets = {}
     fred = False
-    for triple in source.arcsOut:
-        if (triple.arc == arc):
-            if (triple.target != None and (layers == EVERYLAYER or triple.layer in layers)):
-                targets[triple.target] = 1
-            elif (triple.text != None and (layers == EVERYLAYER or triple.layer in layers)):
-                targets[triple.text] = 1
-    return targets.keys()
+    try:
+        for triple in source.arcsOut:
+            if (triple.arc == arc):
+                if (triple.target != None and (layers == EVERYLAYER or triple.layer in layers)):
+                    targets[triple.target] = 1
+                elif (triple.text != None and (layers == EVERYLAYER or triple.layer in layers)):
+                    targets[triple.text] = 1
+        return targets.keys()
+    except Exception as e:
+        log.debug("GetTargets caught exception %s" % e)
+        return []
 
 def GetSources(arc, target, layers='core'):
     """All source nodes for a specified arc pointing to a specified node (within any of the specified layers)."""

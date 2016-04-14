@@ -1156,8 +1156,8 @@ class ShowUnit (webapp2.RequestHandler):
             self.emitClassExtensionProperties(p,layers)
 
         elif (Unit.isAttribute(node, layers=layers)):
-            self.emitAttributeProperties(node, layers=layers)
             self.write(self.moreInfoBlock(node))
+            self.emitAttributeProperties(node, layers=layers)
 
         if (node.isClass(layers=layers)):
             children = []
@@ -1228,10 +1228,32 @@ class ShowUnit (webapp2.RequestHandler):
 
         ackorgs = GetTargets(Unit.GetUnit("dc:source"), node, layers=layers)
         if (len(ackorgs) > 0):
-            self.write("<h4  id=\"acks\">Acknowledgements</h4>\n")
+            sources = []
+            acknowledgements =[]
             for ao in ackorgs:
                 acks = sorted(GetTargets(Unit.GetUnit("rdfs:comment"), ao, layers))
-                for ack in acks:
+                if len(acks) == 0:
+                    val = str(ao)
+                    if val.startswith("http://") or val.startswith("https://"):
+                        val = "[%s](%s)" % (val,val) #Put into markdown format
+                    sources.append(val)
+                else:
+                    for ack in acks:
+                        acknowledgements.append(ack)
+
+            if len(sources) > 0:
+                s = ""
+                if len(sources) > 1:
+                    s = "s"
+                self.write("<h4  id=\"acks\">Source%s</h4>\n" % s)
+                for so in sorted(sources):
+                    self.write(MD.parse(so,True))
+            if len(acknowledgements) > 0:
+                s = ""
+                if len(acknowledgements) > 1:
+                    s = "s"
+                self.write("<h4  id=\"acks\">Acknowledgement%s</h4>\n" % s)
+                for ack in sorted(acknowledgements):
                     self.write(MD.parse(str(ack),True))
 
         examples = GetExamples(node, layers=layers)
