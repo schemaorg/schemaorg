@@ -1,62 +1,45 @@
 [{
+  "@context" : "http://schema.org",
+  "@type" : "EventSeries",
+  "@id" : "http://www.olympic.org/olympic-games",
+  "name" : "Olympic Games",
+  "hasPart" : "http://www.olympic.org/rio-2016-summer-olympics",
+  "hasPart" : "http://www.olympic.org/london-2012-summer-olympics"
+},
+{
+  "@context" : "http://schema.org",  
+  "@type" : "Event", 
+  "@id" : "http://www.olympic.org/rio-2016-summer-olympics",
+  "name" : "The Rio 2016 Summer Olympics",
+  "startDate" : "2016-08-05",
+  "endDate" : "2016-08-21",
+  "url" : "http://www.rio2016.com",
+  "offers" : {
+     "@type" : "Offer",
+     "url" : "http://www.rio2016.com/en/tourist-information"
+  },
+  "superEvent" : "http://www.olympic.org/olympic-games",
+  "subEvent" : "http://www.rio2016.com/en/rowing"
+},
+{
+  "@context" : "http://schema.org",  
+  "@type" : "Event", 
+  "@id" : "http://www.rio2016.com/en/rowing",
+  "location" : {
+     "@type" : "Place",
+     "name" : "Lagoa Stadium",
+     "address" : "Av. Borges de Medeiros, 1524 - Lagoa, Rio de Janeiro - RJ, 22470-003, Brazil"
+  },
+  "startDate" : "2016-08-06",
+  "endDate" : "2016-08-13",
+  "superEvent": "http://www.olympic.org/rio-2016-summer-olympics"
+},
+{
   "@context" : "http://schema.org",  
   "@type": "Event", 
-  "@id": "http://www.salzburgerfestspiele.at/2015",
-  "startDate": "2015-07-18T16:00",
-  "endDate": "2015-08-30T23:00",
-  "name": [
-    {
-      "@language": "en",
-      "@value": "Salzburg Festival 2015"
-    },
-    {
-      "@language": "de",
-      "@value": "Salzburger Festspiele 2015"
-    }
-  ],
-  "subEvent": "http://www.salzburgerfestspiele.at/opera/eroberung-2015",
-  "superEvent": "http://www.salzburgerfestspiele.at/"
-},
-{
-  "@id": "http://www.salzburgerfestspiele.at/opera/eroberung-2015",
-  "@type": "Event",
-  "startDate": "2015-07-20T20:00",
-  "endDate": "2015-07-20T22:00",
-  "name": {
-    "@language": "de",
-    "@value": "Wolfgang Rihm, Die Eroberung von Mexico"
-  }
-},
-{
-  "@id": "http://www.salzburgerfestspiele.at/2014",
-  "@type": "Event",
-  "startDate": "2014-07-21T16:00",
-  "endDate": "2015-08-28T23:00",
-  "name": [
-    {
-      "@language": "en",
-      "@value": "Salzburg Festival 2014"
-    },
-    {
-      "@language": "de",
-      "@value": "Salzburger Festspiele 2014"
-    }
-  ],
-  "http://schema.org/superEvent": {
-    "@id": "http://www.salzburgerfestspiele.at/"
-  }
-},
-{
-  "@id": "http://www.salzburgerfestspiele.at/",
-  "@type": "EventSeries",
-  "name": [
-    {
-      "@language": "de",
-      "@value": "Salzburger Festspiele"
-    },
-    {
-      "@language": "en",
-      "@value": "Salzburg Festival"
-    }
-  ]
+  "@id" : "http://www.olympic.org/london-2012-summer-olympics",
+  "name" : "The London 2012 Summer Olympics",
+  "startDate" : "2012-07-27",
+  "endDate" : "2012-08-12",
+  "superEvent" : "http://www.olympic.org/olympic-games"
 }]
