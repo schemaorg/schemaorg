@@ -10674,5 +10674,75 @@ Typical unit code(s): C62 for persons.</span>
     <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms">GoodRelationsProperty</a></span>
 </div>
 
+<h1>DigitalDocument</h1>
+
+<div typeof="rdfs:Class" resource="http://schema.org/DigitalDocument">
+  <span class="h" property="rdfs:label">DigitalDocument</span>
+  <span property="rdfs:comment">An electronic file or document.</span>
+  <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/CreativeWork">CreativeWork</a></span>
+</div>
+<div typeof="rdfs:Class" resource="http://schema.org/PresentationDigitalDocument">
+  <span class="h" property="rdfs:label">PresentationDigitalDocument</span>
+  <span property="rdfs:comment">A file containing slides or used for a presentation.</span>
+  <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/DigitalDocument">DigitalDocument</a></span>
+</div>
+<div typeof="rdfs:Class" resource="http://schema.org/SpreadsheetDigitalDocument">
+  <span class="h" property="rdfs:label">SpreadsheetDigitalDocument</span>
+  <span property="rdfs:comment">A spreadsheet file.</span>
+  <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/DigitalDocument">DigitalDocument</a></span>
+</div>
+<div typeof="rdfs:Class" resource="http://schema.org/TextDigitalDocument">
+  <span class="h" property="rdfs:label">TextDigitalDocument</span>
+  <span property="rdfs:comment">A file composed primarily of text.</span>
+  <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/DigitalDocument">DigitalDocument</a></span>
+</div>
+<div typeof="rdfs:Class" resource="http://schema.org/NoteDigitalDocument">
+  <span class="h" property="rdfs:label">NoteDigitalDocument</span>
+  <span property="rdfs:comment">A file containing a note, primarily for the author.</span>
+  <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/DigitalDocument">DigitalDocument</a></span>
+</div>
+<div typeof="rdfs:Class" resource="http://schema.org/DigitalDocumentPermission">
+  <span class="h" property="rdfs:label">DigitalDocumentPermission</span>
+  <span property="rdfs:comment">A permission for a particular person or group to access a particular file.</span>
+  <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Intangible">Intangible</a></span>
+</div>
+<div typeof="rdfs:Class" resource="http://schema.org/DigitalDocumentPermissionType">
+  <span class="h" property="rdfs:label">DigitalDocumentPermissionType</span>
+  <span property="rdfs:comment">A type of permission which can be granted for accessing a digital document.</span>
+  <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Enumeration">Enumeration</a></span>
+</div>
+<div typeof="http://schema.org/DigitalDocumentPermissionType" resource="http://schema.org/CommentPermission">
+  <span class="h" property="rdfs:label">CommentPermission</span>
+  <span property="rdfs:comment">Permission to add comments to the document.</span>
+</div>
+<div typeof="http://schema.org/DigitalDocumentPermissionType" resource="http://schema.org/ReadPermission">
+  <span class="h" property="rdfs:label">ReadPermission</span>
+  <span property="rdfs:comment">Permission to read or view the document.</span>
+</div>
+<div typeof="http://schema.org/DigitalDocumentPermissionType" resource="http://schema.org/WritePermission">
+  <span class="h" property="rdfs:label">WritePermission</span>
+  <span property="rdfs:comment">Permission to write or edit the document.</span>
+</div>
+<div typeof="rdf:Property" resource="http://schema.org/hasDigitalDocumentPermission">
+  <span class="h" property="rdfs:label">hasDigitalDocumentPermission</span>
+  <span property="rdfs:comment">A permission related to the access to this document (e.g. permission to read or write an electronic document). For a public document, specify a grantee with an Audience with audienceType equal to \"public\".</span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/DigitalDocument">DigitalDocument</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/DigitalDocumentPermission">DigitalDocumentPermission</a></span>
+</div>
+<div typeof="rdf:Property" resource="http://schema.org/grantee">
+  <span class="h" property="rdfs:label">grantee</span>
+  <span property="rdfs:comment">The person, organization, or audience that has been granted this permission.</span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/DigitalDocumentPermission">DigitalDocumentPermission</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Person">Person</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Organization">Organization</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Audience">Audience</a></span>
+</div>
+<div typeof="rdf:Property" resource="http://schema.org/permissionType">
+  <span class="h" property="rdfs:label">permissionType</span>
+  <span property="rdfs:comment">The type of permission granted the person, organization, or audience.</span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/DigitalDocumentPermission">DigitalDocumentPermission</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/DigitalDocumentPermissionType">DocumentPermissionType</a></span>
+</div>
+
 </body>
 </html>
