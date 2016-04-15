@@ -29,3 +29,55 @@ approaches of schema.org. If that's not too discouraging, do let us know if you 
 interesting uses for it or have ideas for improvements.
 
 See also wiki: https://github.com/schemaorg/schemaorg/wiki/Contributing
+
+External Software
+=================
+
+In addition to AppEngine and Python itself, this repository
+contains copies of the following opensource libraries in the 
+lib/ directory tree.
+
+1.) html5lib/
+
+https://pypi.python.org/pypi/html5lib (MIT License)
+
+2.) isodate/
+
+https://pypi.python.org/pypi/isodate (BSD License)
+
+3.) markdown/
+
+https://pypi.python.org/pypi/Markdown (BSD License)
+
+4.) pyparsing.py
+
+From  lib/pyparsing.py 
+
+    # Copyright (c) 2003-2015  Paul T. McGuire
+    #
+    # Permission is hereby granted, free of charge, to any person obtaining
+    # a copy of this software and associated documentation files (the
+    # "Software"), to deal in the Software without restriction, including
+    # without limitation the rights to use, copy, modify, merge, publish,
+    # distribute, sublicense, and/or sell copies of the Software, and to
+    # permit persons to whom the Software is furnished to do so, subject to
+    # the following conditions:
+    #
+    # The above copyright notice and this permission notice shall be
+    # included in all copies or substantial portions of the Software.
+    #
+    # THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+    # EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+    # MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+    # IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+    # CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+    # TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+    # SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+5.) rdflib/ and rdflib_jsonld/
+
+https://github.com/RDFLib 
+    https://github.com/RDFLib/rdflib/blob/master/LICENSE
+
+https://github.com/RDFLib/rdflib-jsonld
+    https://github.com/RDFLib/rdflib-jsonld/blob/master/LICENSE.md

@@ -3,16 +3,12 @@
 
 import os
 import re
-#import webapp2
-#import jinja2 # used for templates
 import logging
 import threading
 import parsers
 
-#from google.appengine.ext import ndb
-#from google.appengine.ext import blobstore
-#from google.appengine.api import users
-#from google.appengine.ext.webapp import blobstore_handlers
+import apirdflib
+#from apirdflib import rdfGetTargets, rdfGetSources
 
 
 logging.basicConfig(level=logging.INFO) # dev_appserver.py --log_level debug .
@@ -32,7 +28,17 @@ def getInTestHarness():
     global INTESTHARNESS
     return INTESTHARNESS
 
+AllLayersList = []
+def setAllLayersList(val):
+    global AllLayersList
+    AllLayersList = val
+    #Copy it into apirdflib 
+    apirdflib.allLayersList = val
 
+def getAllLayersList():
+    global AllLayersList
+    return AllLayersList
+    
 EVERYLAYER = "!EVERYLAYER!"
 sitename = "schema.org"
 sitemode = "mainsite" # whitespaced list for CSS tags,
@@ -58,50 +64,50 @@ all_terms = {}
 # Enables all these prefixes without explicit declaration when
 # using schema.org's JSON-LD context file.
 #
-namespaces = """        "cat": "http://www.w3.org/ns/dcat#",
-        "qb": "http://purl.org/linked-data/cube#",
-        "org": "http://www.w3.org/ns/org#",
+namespaces = """        "schema": "http://schema.org/",
+        "cat": "http://www.w3.org/ns/dcat#",
+        "cc": "http://creativecommons.org/ns#",
+        "cnt": "http://www.w3.org/2008/content#",
+        "ctag": "http://commontag.org/ns#",
+        "dc": "http://purl.org/dc/terms/",
+        "dcat": "http://www.w3.org/ns/dcat#",
+        "dcterms": "http://purl.org/dc/terms/",
+        "describedby": "http://www.w3.org/2007/05/powder-s#describedby",
+        "earl": "http://www.w3.org/ns/earl#",
+        "foaf": "http://xmlns.com/foaf/0.1/",
+        "gldp": "http://www.w3.org/ns/people#",
+        "gr": "http://purl.org/goodrelations/v1#",
         "grddl": "http://www.w3.org/2003/g/data-view#",
+        "ht": "http://www.w3.org/2006/http#",
+        "ical": "http://www.w3.org/2002/12/cal/icaltzd#",
+        "license": "http://www.w3.org/1999/xhtml/vocab#license",
         "ma": "http://www.w3.org/ns/ma-ont#",
+        "og": "http://ogp.me/ns#",
+        "org": "http://www.w3.org/ns/org#",
+        "org": "http://www.w3.org/ns/org#",
         "owl": "http://www.w3.org/2002/07/owl#",
+        "prov": "http://www.w3.org/ns/prov#",
+        "ptr": "http://www.w3.org/2009/pointers#",
+        "qb": "http://purl.org/linked-data/cube#",
         "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
         "rdfa": "http://www.w3.org/ns/rdfa#",
         "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+        "rev": "http://purl.org/stuff/rev#",
         "rif": "http://www.w3.org/2007/rif#",
+        "role": "http://www.w3.org/1999/xhtml/vocab#role",
         "rr": "http://www.w3.org/ns/r2rml#",
+        "sd": "http://www.w3.org/ns/sparql-service-description#",
+        "sioc": "http://rdfs.org/sioc/ns#",
         "skos": "http://www.w3.org/2004/02/skos/core#",
         "skosxl": "http://www.w3.org/2008/05/skos-xl#",
-        "wdr": "http://www.w3.org/2007/05/powder#",
+        "v": "http://rdf.data-vocabulary.org/#",
+        "vcard": "http://www.w3.org/2006/vcard/ns#",
         "void": "http://rdfs.org/ns/void#",
+        "wdr": "http://www.w3.org/2007/05/powder#",
         "wdrs": "http://www.w3.org/2007/05/powder-s#",
         "xhv": "http://www.w3.org/1999/xhtml/vocab#",
         "xml": "http://www.w3.org/XML/1998/namespace",
         "xsd": "http://www.w3.org/2001/XMLSchema#",
-        "prov": "http://www.w3.org/ns/prov#",
-        "sd": "http://www.w3.org/ns/sparql-service-description#",
-        "org": "http://www.w3.org/ns/org#",
-        "gldp": "http://www.w3.org/ns/people#",
-        "cnt": "http://www.w3.org/2008/content#",
-        "dcat": "http://www.w3.org/ns/dcat#",
-        "earl": "http://www.w3.org/ns/earl#",
-        "ht": "http://www.w3.org/2006/http#",
-        "ptr": "http://www.w3.org/2009/pointers#",
-        "cc": "http://creativecommons.org/ns#",
-        "ctag": "http://commontag.org/ns#",
-        "dc": "http://purl.org/dc/terms/",
-        "dcterms": "http://purl.org/dc/terms/",
-        "foaf": "http://xmlns.com/foaf/0.1/",
-        "gr": "http://purl.org/goodrelations/v1#",
-        "ical": "http://www.w3.org/2002/12/cal/icaltzd#",
-        "og": "http://ogp.me/ns#",
-        "rev": "http://purl.org/stuff/rev#",
-        "sioc": "http://rdfs.org/sioc/ns#",
-        "v": "http://rdf.data-vocabulary.org/#",
-        "vcard": "http://www.w3.org/2006/vcard/ns#",
-        "schema": "http://schema.org/",
-        "describedby": "http://www.w3.org/2007/05/powder-s#describedby",
-        "license": "http://www.w3.org/1999/xhtml/vocab#license",
-        "role": "http://www.w3.org/1999/xhtml/vocab#role",
 """
 
 
@@ -155,19 +161,18 @@ class Unit ():
         NodeIDMap[id] = self
         self.arcsIn = []
         self.arcsOut = []
-        self.examples = []
-        self.usage = 0
+        self.examples = None
         self.home = None
         self.subtypes = None
+        self.sourced = False
+        self.category = " "
+        self.typeFlags = {}
 
     def __str__(self):
         return self.id
 
     def GetImmediateSubtypes(self, layers='core'):
       return GetImmediateSubtypes(self, layers=layers)
-
-    def setUsage(self, count):
-        self.usage = count
 
     @staticmethod
     def GetUnit (id, createp=False):
@@ -176,14 +181,29 @@ class Unit ():
         Argument:
         createp -- should we create node if we don't find it? (default: False)
         """
+        ret = None
+        if (id in NodeIDMap):
+            return NodeIDMap[id]
+        
+        ret = apirdflib.rdfGetTriples(id)
+
+        if (ret == None and createp != False):
+            return Unit(id)
+        
+        return ret
+
+    @staticmethod
+    def GetUnitNoLoad(id, createp=False):
         if (id in NodeIDMap):
             return NodeIDMap[id]
         if (createp != False):
             return Unit(id)
+        return None
+
 
     def typeOf(self, type,  layers='core'):
         """Boolean, true if the unit has an rdf:type matching this type."""
-        types = GetTargets( Unit.GetUnit("typeOf"), self, layers )
+        types = GetTargets( Unit.GetUnit("rdf:type"), self, layers )
         return (type in types)
 
     # Function needs rewriting to use GetTargets(arc,src,layers) and recurse
@@ -202,31 +222,47 @@ class Unit ():
 
     def directInstanceOf(self, type, layers='core'):
         """Boolean, true if the unit has a direct typeOf (aka rdf:type) property matching this type, direct or implied (in specified layer(s))."""
-        mytypes = GetTargets( Unit.GetUnit("typeOf"), self, layers )
+        mytypes = GetTargets( Unit.GetUnit("rdf:type"), self, layers )
         if type in mytypes:
             return True
         return False # TODO: consider an API for implied types too?
 
     def isClass(self, layers='core'):
         """Does this unit represent a class/type?"""
-        return self.typeOf(Unit.GetUnit("rdfs:Class"), layers=layers)
+        if self.typeFlags.has_key('c'):
+            return self.typeFlags['c']
+        isClass = self.typeOf(Unit.GetUnit("rdfs:Class"), layers=EVERYLAYER)
+        self.typeFlags['c'] = isClass
+        return isClass
 
     def isAttribute(self, layers='core'):
         """Does this unit represent an attribute/property?"""
-        return self.typeOf(Unit.GetUnit("rdf:Property"), layers=layers)
+        if self.typeFlags.has_key('p'):
+            return self.typeFlags['p']
+        isProp = self.typeOf(Unit.GetUnit("rdf:Property"), layers=EVERYLAYER)
+        self.typeFlags['p'] = isProp
+        return isProp
 
     def isEnumeration(self, layers='core'):
         """Does this unit represent an enumerated type?"""
-        return self.subClassOf(Unit.GetUnit("Enumeration"), layers=layers)
+        if self.typeFlags.has_key('e'):
+            return self.typeFlags['e']
+        isE = self.subClassOf(Unit.GetUnit("Enumeration"), layers=EVERYLAYER)
+        self.typeFlags['e'] = isE
+        return isE
 
     def isEnumerationValue(self, layers='core'):
         """Does this unit represent a member of an enumerated type?"""
-        types = GetTargets(Unit.GetUnit("typeOf"), self , layers=layers)
+        if self.typeFlags.has_key('ev'):
+            return self.typeFlags['ev']
+        types = GetTargets(Unit.GetUnit("rdf:type"), self , layers=EVERYLAYER)
         log.debug("isEnumerationValue() called on %s, found %s types. layers: %s" % (self.id, str( len( types ) ), layers ) )
         found_enum = False
         for t in types:
-          if t.subClassOf(Unit.GetUnit("Enumeration"), layers=layers):
+          if t.subClassOf(Unit.GetUnit("Enumeration"), layers=EVERYLAYER):
             found_enum = True
+            break
+        self.typeFlags['ev'] = found_enum
         return found_enum
 
     def isDataType(self, layers='core'):
@@ -236,17 +272,23 @@ class Unit ():
       DataType and its children do not descend from Thing, so we need to
       treat it specially.
       """
+      if self.typeFlags.has_key('d'):
+          return self.typeFlags['d']
+          
+      ret = False
       if (self.directInstanceOf(Unit.GetUnit("DataType"), layers=layers)):
-          return True
+          ret = True
+      else:
+          subs = GetTargets(Unit.GetUnit("rdf:type"), self, layers=layers)
+          subs += GetTargets(Unit.GetUnit("rdfs:subClassOf"), self, layers=layers)
 
-      subs = GetTargets(Unit.GetUnit("typeOf"), self, layers=layers)
-      subs += GetTargets(Unit.GetUnit("rdfs:subClassOf"), self, layers=layers)
-
-      for p in subs:
-          if p.isDataType(layers=layers):
-              return True
-
-      return False
+          for p in subs:
+              if p.isDataType(layers=layers):
+                  ret = True
+                  break
+      
+      self.typeFlags['d'] = ret
+      return ret
 
 
 
@@ -287,6 +329,9 @@ class Unit ():
 
         return ret
 
+    def category(self):
+        return self.category
+        
     def getHomeLayer(self,defaultToCore=False):
         ret = self.home
         if ret == None:
@@ -335,7 +380,7 @@ class Unit ():
         return None
 
     def UsageStr (self) :
-        str = self.usage
+        str = GetUsage(self.id)
         if (str == '1') :
             return "Between 10 and 100 domains"
         elif (str == '2'):
@@ -377,6 +422,7 @@ class Triple ():
         source.arcsOut.append(self)
         self.arc = arc
         self.layer = layer
+        self.id = self
 
         if (target != None):
             self.target = target
@@ -399,8 +445,8 @@ class Triple ():
     @staticmethod
     def AddTriple(source, arc, target, layer='core'):
         """AddTriple stores a thing-valued new Triple within source Unit."""
-
         if (source == None or arc == None or target == None):
+            log.info("Bailing")
             return
         else:
 
@@ -434,17 +480,24 @@ def GetTargets(arc, source, layers='core'):
     """All values for a specified arc on specified graph node (within any of the specified layers)."""
     # log.debug("GetTargets checking in layer: %s for unit: %s arc: %s" % (layers, source.id, arc.id))
     targets = {}
-    for triple in source.arcsOut:
-        if (triple.arc == arc):
-            if (triple.target != None and (layers == EVERYLAYER or triple.layer in layers)):
-                targets[triple.target] = 1
-            elif (triple.text != None and (layers == EVERYLAYER or triple.layer in layers)):
-                targets[triple.text] = 1
-    return targets.keys()
+    fred = False
+    try:
+        for triple in source.arcsOut:
+            if (triple.arc == arc):
+                if (triple.target != None and (layers == EVERYLAYER or triple.layer in layers)):
+                    targets[triple.target] = 1
+                elif (triple.text != None and (layers == EVERYLAYER or triple.layer in layers)):
+                    targets[triple.text] = 1
+        return targets.keys()
+    except Exception as e:
+        log.debug("GetTargets caught exception %s" % e)
+        return []
 
 def GetSources(arc, target, layers='core'):
     """All source nodes for a specified arc pointing to a specified node (within any of the specified layers)."""
-#    log.debug("GetSources checking in layer: %s for unit: %s arc: %s" % (layers, target.id, arc.id))
+    #log.debug("GetSources checking in layer: %s for unit: %s arc: %s" % (layers, target.id, arc.id))
+    if(target.sourced == False):
+	    apirdflib.rdfGetSourceTriples(target)
     sources = {}
     for triple in target.arcsIn:
         if (triple.arc == arc and (layers == EVERYLAYER or triple.layer in layers)):
@@ -465,25 +518,33 @@ def GetArcsOut(source,  layers='core'):
     for triple in source.arcsOut:
         if (layers == EVERYLAYER or triple.layer in layers):
             arcs[triple.arc] = 1
-    return arcs.keys()
+    return arcs.keys() 
 
-# Utility API
+# Utility API 
 
-def GetComment(node, layers='core') :
+def GetComment(node, layers='core') : 
     """Get the first rdfs:comment we find on this node (or "No comment"), within any of the specified layers."""
-    tx = GetTargets(Unit.GetUnit("rdfs:comment"), node, layers=layers )
+    tx = GetComments(node, layers)
     if len(tx) > 0:
-            return tx[0]
+            return MD.parse(tx[0])
     else:
         return "No comment"
+
+def GetComments(node, layers='core') : 
+    """Get the rdfs:comment(s) we find on this node within any of the specified layers."""
+    return GetTargets(Unit.GetUnit("rdfs:comment", True), node, layers=layers )
+
+def GetsoftwareVersions(node, layers='core') : 
+    """Get the schema:softwareVersion(s) we find on this node (or [] ), within any of the specified layers."""
+    return GetTargets(Unit.GetUnit("softwareVersion", True), node, layers=layers )
 
 def GetImmediateSubtypes(n, layers='core'):
     """Get this type's immediate subtypes, i.e. that are subClassOf this."""
     if n==None:
         return None
-    subs = GetSources( Unit.GetUnit("rdfs:subClassOf"), n, layers=layers)
+    subs = GetSources( Unit.GetUnit("rdfs:subClassOf", True), n, layers=layers)
     if (n.isDataType() or n.id == "DataType"):
-        subs += GetSources( Unit.GetUnit("typeOf"), n, layers=layers)
+        subs += GetSources( Unit.GetUnit("rdf:type", True), n, layers=layers)
     subs.sort(key=lambda x: x.id)
     return subs
 
@@ -491,9 +552,9 @@ def GetImmediateSupertypes(n, layers='core'):
     """Get this type's immediate supertypes, i.e. that we are subClassOf."""
     if n==None:
         return None
-    sups = GetTargets( Unit.GetUnit("rdfs:subClassOf"), n, layers=layers)
+    sups = GetTargets( Unit.GetUnit("rdfs:subClassOf", True), n, layers=layers)
     if (n.isDataType() or n.id == "DataType"):
-        sups += GetTargets( Unit.GetUnit("typeOf"), n, layers=layers)
+        sups += GetTargets( Unit.GetUnit("rdf:type", True), n, layers=layers)
     sups.sort(key=lambda x: x.id)
     return sups
 
@@ -502,12 +563,35 @@ def GetAllTypes(layers='core'):
     global Utc
     """Return all types in the graph."""
     KEY = "AllTypes:%s" % layers
-    if DataCache.get(KEY,Utc):
+    if DataCache.get(KEY+'x',Utc):
         logging.debug("DataCache HIT: %s" % KEY)
         return DataCache.get(KEY,Utc)
     else:
         logging.debug("DataCache MISS: %s" % KEY)
-        mynode = Unit.GetUnit("Thing")
+        mynode = Unit.GetUnit("Thing", True)
+        subbed = {}
+        todo = [mynode]
+        while todo:
+            current = todo.pop()
+            subs = GetImmediateSubtypes(current, EVERYLAYER)
+            if inLayer(layers,current):
+                subbed[current] = 1
+            for sc in subs:
+                if subbed.get(sc.id) == None:
+                    todo.append(sc)
+        DataCache.put(KEY,subbed.keys(),Utc)
+        return subbed.keys()
+
+def GetAllDataTypes(layers='core'):
+    global Utc
+    """Return all types in the graph."""
+    KEY = "AllDataTypes:%s" % layers
+    if DataCache.get(KEY+'x',Utc):
+        logging.debug("DataCache HIT: %s" % KEY)
+        return DataCache.get(KEY,Utc)
+    else:
+        logging.debug("DataCache MISS: %s" % KEY)
+        mynode = Unit.GetUnit("DataType", True)
         subbed = {}
         todo = [mynode]
         while todo:
@@ -529,7 +613,7 @@ def GetAllEnumerationValues(layers='core'):
         return DataCache.get(KEY,Utc)
     else:
         logging.debug("DataCache MISS: %s" % KEY)
-        mynode = Unit.GetUnit("Enumeration")
+        mynode = Unit.GetUnit("Enumeration", True)
         enums = {}
         subbed = {}
         todo = [mynode]
@@ -538,7 +622,7 @@ def GetAllEnumerationValues(layers='core'):
             subs = GetImmediateSubtypes(current, EVERYLAYER)
             subbed[current] = 1
             for sc in subs:
-                vals = GetSources( Unit.GetUnit("typeOf"), sc, layers=EVERYLAYER)
+                vals = GetSources( Unit.GetUnit("rdf:type", True), sc, layers=EVERYLAYER)
                 for val in vals:
                     if inLayer(layers,val):
                         enums[val] = 1
@@ -558,7 +642,7 @@ def GetAllProperties(layers='core'):
     else:
         logging.debug("DataCache MISS: %s" % KEY)
         mynode = Unit.GetUnit("Thing")
-        props = GetSources(Unit.GetUnit("typeOf"), Unit.GetUnit("rdf:Property"), layers=EVERYLAYER)
+        props = GetSources(Unit.GetUnit("rdf:type", True), Unit.GetUnit("rdf:Property", True), layers=EVERYLAYER)
         res = []
         for prop in props:
             if inLayer(layers,prop):
@@ -567,6 +651,14 @@ def GetAllProperties(layers='core'):
         DataCache.put(KEY,sorted_all_properties,Utc)
         return sorted_all_properties
 
+def GetAllTerms(layers='core',includeDataTypes=False):
+    ret = GetAllTypes(layers)
+    ret.extend(GetAllEnumerationValues(layers))
+    ret.extend(GetAllProperties(layers))
+    if includeDataTypes:
+        ret.extend(GetAllDataTypes(layers))
+    return sorted(ret,key=lambda u: u.id)
+    
 def GetParentList(start_unit, end_unit=None, path=[], layers='core'):
 
         """
@@ -601,8 +693,10 @@ def GetParentList(start_unit, end_unit=None, path=[], layers='core'):
 
 def HasMultipleBaseTypes(typenode, layers='core'):
     """True if this unit represents a type with more than one immediate supertype."""
-    return len( GetTargets( Unit.GetUnit("rdfs:subClassOf"), typenode, layers ) ) > 1
+    return len( GetTargets( Unit.GetUnit("rdfs:subClassOf", True), typenode, layers ) ) > 1
 
+EXAMPLES = {}
+ExamplesCount = 0
 
 class Example ():
 
@@ -613,7 +707,7 @@ class Example ():
        mentions, i.e. stored in term.examples).
        """
        # todo: fix partial examples: if (len(terms) > 0 and len(original_html) > 0 and (len(microdata) > 0 or len(rdfa) > 0 or len(jsonld) > 0)):
-       typeinfo = "".join( [" %s " % t.id for t in terms] )
+       typeinfo = "".join( [" %s " % t for t in terms] )
        if "FakeEntryNeeded" in typeinfo or terms==[]:
            return
        if (len(terms) > 0 and len(original_html) > 0 and len(microdata) > 0 and len(rdfa) > 0 and len(jsonld) > 0):
@@ -635,6 +729,9 @@ class Example ():
 
     def __init__ (self, terms, original_html, microdata, rdfa, jsonld, egmeta, layer='core'):
         """Example constructor, registers itself with the relevant Unit(s)."""
+        global EXAMPLES,ExamplesCount
+        ExamplesCount += 1
+        self.orderId = ExamplesCount #Used to maintain consistancy of display order
         self.terms = terms
         self.original_html = original_html
         self.microdata = microdata
@@ -644,14 +741,28 @@ class Example ():
         self.layer = layer
         for term in terms:
             if "id" in egmeta:
-              logging.debug("Created Example with ID %s and type %s" % ( egmeta["id"], term.id ))
-            term.examples.append(self)
+              logging.debug("Created Example with ID %s and type %s" % ( egmeta["id"], term ))
+            
+            if(EXAMPLES.get(term, None) == None):
+                EXAMPLES[term] = []
+            EXAMPLES.get(term).append(self)
 
-
-
-def GetExamples(node, layers='core'):
+def LoadExamples(node, layers='core'):
     """Returns the examples (if any) for some Unit node."""
+    #log.info("Getting examples for: %s" % node.id)
+    if(node.examples == None):
+       node.examples = EXAMPLES.get(node.id)
+       if(node.examples == None):
+          node.examples = []
     return node.examples
+
+USAGECOUNTS = {}
+
+def StoreUsage(id,count):
+	USAGECOUNTS[id] = count
+
+def GetUsage(id):
+	return USAGECOUNTS.get(id,0)
 
 def GetExtMappingsRDFa(node, layers='core'):
     """Self-contained chunk of RDFa HTML markup with mappings for this term."""
@@ -685,34 +796,41 @@ def GetJsonLdContext(layers='core'):
         return DataCache.get('JSONLDCONTEXT')
     else:
         global namespaces
-        jsonldcontext = "{\"@context\":    {\n"
+        jsonldcontext = "{\n  \"@context\": {\n"
         jsonldcontext += "        \"type\": \"@type\",\n"
         jsonldcontext += "        \"id\": \"@id\",\n"
-        jsonldcontext += namespaces
         jsonldcontext += "        \"@vocab\": \"http://schema.org/\",\n"
+        jsonldcontext += namespaces
 
         url = Unit.GetUnit("URL")
         date = Unit.GetUnit("Date")
         datetime = Unit.GetUnit("DateTime")
 
-        properties = sorted(GetSources(Unit.GetUnit("typeOf"), Unit.GetUnit("rdf:Property"), layers=layers), key=lambda u: u.id)
-        for p in properties:
-            range = GetTargets(Unit.GetUnit("rangeIncludes"), p, layers=layers)
-            type = None
+#        properties = sorted(GetSources(Unit.GetUnit("rdf:type",True), Unit.GetUnit("rdf:Property",True), layers=getAllLayersList()), key=lambda u: u.id)
+#        for p in properties:
+        for t in GetAllTerms(EVERYLAYER,includeDataTypes=True):
+            if t.isClass(EVERYLAYER) or t.isEnumeration(EVERYLAYER) or t.isEnumerationValue(EVERYLAYER) or t.isDataType(EVERYLAYER):
+                jsonldcontext += "        \"" + t.id + "\": {\"@id\": \"schema:" + t.id + "\"},"
+            elif t.isAttribute(EVERYLAYER):
+                range = GetTargets(Unit.GetUnit("rangeIncludes"), t, layers=EVERYLAYER)
+                type = None
 
-            if url in range:
-                type = "@id"
-            elif date in range:
-                type = "Date"
-            elif datetime in range:
-                type = "DateTime"
+                if url in range:
+                    type = "@id"
+                elif date in range:
+                    type = "Date"
+                elif datetime in range:
+                    type = "DateTime"
 
-            if type:
-                jsonldcontext += "        \"" + p.id + "\": { \"@type\": \"" + type + "\" },"
+                typins = ""
+                if type:
+                    typins = ", \"@type\": \"" + type + "\""
+
+                jsonldcontext += "        \"" + t.id + "\": { \"@id\": \"schema:" + t.id + "\"" + typins + "},"
 
         jsonldcontext += "}}\n"
         jsonldcontext = jsonldcontext.replace("},}}","}\n    }\n}")
-        jsonldcontext = jsonldcontext.replace("},","},\n")
+        jsonldcontext = jsonldcontext.replace("},","},\n") 
         DataCache.put('JSONLDCONTEXT',jsonldcontext)
         log.debug("DataCache: added JSONLDCONTEXT")
         return jsonldcontext
@@ -728,15 +846,12 @@ def inLayer(layerlist, node):
     """Does a unit get its type mentioned in a layer?"""
     if (node is None):
         return False
-    log.debug("Looking in %s for %s" % (layerlist, node.id ))
-    if len(GetTargets(Unit.GetUnit("typeOf"), node, layers=layerlist) ) > 0:
+    if len(GetTargets(Unit.GetUnit("rdf:type"), node, layers=layerlist) ) > 0:
         log.debug("Found typeOf for node %s in layers: %s"  % (node.id, layerlist ))
         return True
     if len(GetTargets(Unit.GetUnit("rdfs:subClassOf"), node, layers=layerlist) ) > 0:
-        log.info("Found rdfs:subClassOf")
     # TODO: should we really test for any mention of a term, not just typing?
         return True
-    log.debug("inLayer: Failed to find in %s for %s" % (layerlist, node.id))
     return False
 
 def read_file (filename):
@@ -792,24 +907,25 @@ def read_schemas(loadExtensions=False):
     import re
 
     global schemasInitialized
+    schemasInitialized = True
     if (not schemasInitialized or DYNALOAD):
         log.info("(re)loading core and annotations.")
         files = glob.glob("data/*.rdfa")
+        jfiles = glob.glob("data/*.jsonld")
+        for jf in jfiles: 
+            rdfequiv = jf[:-7]+".rdfa"
+            if not rdfequiv in files: #Only add .jsonld files if no equivalent .rdfa
+                files.append(jf)
         file_paths = []
         for f in files:
             file_paths.append(full_path(f))
-        parser = parsers.MakeParserOfType('rdfa', None)
-        items = parser.parse(file_paths, "core")
-
-#set default home for those in core that do not have one
-        setHomeValues(items,"core",True)
+        apirdflib.load_graph('core',file_paths)
 
         files = glob.glob("data/*examples.txt")
 
-        read_examples(files)
+        read_examples(files,'core')
 
         files = glob.glob("data/2015-04-vocab_counts.txt")
-
         for file in files:
             usage_data = read_file(file)
             parser = parsers.UsageFileParser(None)
@@ -825,47 +941,57 @@ def read_extensions(extensions):
     global extensionsLoaded
     extfiles = []
     expfiles = []
+
     if not extensionsLoaded: #2nd load will throw up errors and duplicate terms
-        log.info("(re)scanning for extensions.")
+        log.info("(re)scanning for extensions %s " % extensions)
         for i in extensions:
-            extfiles += glob.glob("data/ext/%s/*.rdfa" % i)
-            expfiles += glob.glob("data/ext/%s/*examples.txt" % i)
+            all_layers[i] = "1"
+            extfiles = glob.glob("data/ext/%s/*.rdfa" % i)
+            jextfiles = glob.glob("data/ext/%s/*.jsonld" % i)
+            for jf in jextfiles: 
+                rdfequiv = jf[:-7]+".rdfa"
+                if not rdfequiv in extfiles: #Only add .jsonld files if no equivalent .rdfa
+                    extfiles.append(jf)
+
+#            log.info("FILES: %s" % extfiles)
+            
+            file_paths = []
+            for f in extfiles:
+                file_paths.append(full_path(f))
+            apirdflib.load_graph(i,file_paths)
+            expfiles = glob.glob("data/ext/%s/*examples.txt" % i)
+            read_examples(expfiles,i)
 
         log.info("Extensions found: %s ." % " , ".join(extfiles) )
-        fnstrip_re = re.compile("\/.*")
-        for ext in extfiles:
-            ext_file_path = full_path(ext)
-            extid = ext.replace('data/ext/', '')
-            extid = re.sub(fnstrip_re,'',extid)
-            log.info("Preparing to parse extension data: %s as '%s'" % (ext_file_path, "%s" % extid))
-            parser = parsers.MakeParserOfType('rdfa', None)
-            all_layers[extid] = "1"
-            extitems = parser.parse([ext_file_path], layer="%s" % extid) # put schema triples in a layer
-            setHomeValues(extitems,extid,False)
-
-        read_examples(expfiles)
+#        fnstrip_re = re.compile("\/.*")
+#        for ext in extfiles:
+#            ext_file_path = full_path(ext)
+#            extid = ext.replace('data/ext/', '')
+#            extid = re.sub(fnstrip_re,'',extid)
+#            log.info("Preparing to parse extension data: %s as '%s'" % (ext_file_path, "%s" % extid))
 
     extensionsLoaded = True
 
-def read_examples(files):
+def read_examples(files, layer):
         example_contents = []
         for f in files:
             example_content = read_file(f)
             example_contents.append(example_content)
             log.debug("examples loaded from: %s" % f)
 
-        parser = parsers.ParseExampleFile(None)
+        parser = parsers.ParseExampleFile(None,layer=layer)
         parser.parse(example_contents)
 
 def StripHtmlTags(source):
-    return re.sub('<[^<]+?>', '', source)
+    if source and len(source) > 0:
+        return re.sub('<[^<]+?>', '', source)
+    return ""
 
 def ShortenOnSentence(source,lengthHint=250):
-    if len(source) > lengthHint:
+    if source and len(source) > lengthHint:
         source = source.strip()
         sentEnd = re.compile('[.!?]')
         sentList = sentEnd.split(source)
-        log.info("source '%s'" % source)
         com=""
         count = 0
         while count < len(sentList):
@@ -886,3 +1012,24 @@ def ShortenOnSentence(source,lengthHint=250):
             com += ".."
         source = com
     return source
+    
+class MarkdownTool():
+    def __init__ (self):
+        import markdown
+        from markdown.extensions.wikilinks import WikiLinkExtension
+        self._md = markdown.Markdown(extensions=[WikiLinkExtension(base_url='/', end_url='', html_class='localLink')])
+        
+    def parse(self,source,preservePara=False):
+        if not source or len(source) == 0:
+            return ""
+        source = source.strip()
+        source = source.replace("\\n","\n")
+        ret = self._md.reset().convert(source)
+        if not preservePara:
+            #Remove wrapping <p> </p> that Markdown adds by default
+            if len(ret) > 7 and ret.startswith("<p>") and ret.endswith("</p>"):
+                ret = ret[3:len(ret)-4]
+        return ret
+
+MD = MarkdownTool()
+

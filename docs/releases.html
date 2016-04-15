@@ -160,8 +160,11 @@ Version 2.x (working name 'sdo-deimos'). This release is under development. See 
 <li><a href="https://github.com/schemaorg/schemaorg/issues/888">Fix to #888</a>: Added <a href="/PreSale">PreSale</a> to the <a href="/ItemAvailability">ItemAvailability</a> enumerated values.</li>
 <li><a href="https://github.com/schemaorg/schemaorg/pull/962">Fix to #962</a>: Broadened definition of <a href="/sponsor">sponsor</a> property.</li>
 <li><a href="https://github.com/schemaorg/schemaorg/pull/922">Fix to #922</a>: Finalized first release of <a href="http://auto.schema.org/">auto.schema.org</a>.</li>
+<li><a href="https://github.com/schemaorg/schemaorg/issues/961">Fix to #961</a>: Improved wording of <a href="/validThrough">validThrough</a>, and added <a href="/JobPosting">JobPosting</a> to allow markup for job posting closing dates.</li>
+<li><a href="https://github.com/schemaorg/schemaorg/issues/1059">Fix to #1059</a>: Created hosted extensions for 'meta' vocabulary and for 'proposed' vocabulary under review. Moved Class, Property, domainIncludes, rangeIncludes, inverseOf, supersededBy into meta.</li>
+<li><a href="https://github.com/schemaorg/schemaorg/issues/1061">Fix to #1061</a>: Added <a href="/ClaimReview">ClaimReview</a> proposal for fact-checking reviews to 'pending' extension.</li>
+<li><a href="https://github.com/schemaorg/schemaorg/issues/1020">Fix to #1020</a>: Added new subtypes of <a href="/CreativeWork">CreativeWork</a>: <a href="/Message">Message</a> and <a href="/Conversation">Conversation</a>. Marked <a href="/EmailMessage">EmailMessage</a> as a subtype of <a href="/Message">Message</a>.</li>
 <li>...</li>
-
 </ul>
 
 <h3>Site improvements</h3>
@@ -171,6 +174,11 @@ Version 2.x (working name 'sdo-deimos'). This release is under development. See 
 
 <h3>Quick fixes and Examples</h3>
 <ul>
+<li><a href="https://github.com/schemaorg/schemaorg/issues/1066">Fix to #1066</a>: Cleanup around <a href="/Dataset">Dataset</a> / <a href="/DataCatalog">DataCatalog</a> association: renamed containedDataCatalog as <a href="/containedInDataCatalog">containedInDataCatalog</a>, marked it as inverse of <a href="/dataset">dataset</a> and improved wording of both definitions.</li>
+<li><a href="https://github.com/schemaorg/schemaorg/issues/1073">Fix to #1073</a>: Removed redundant types listed for <a href="/branchCode">branchCode</a> - <a href="/Place">Place</a> already covered <a href="/LocalBusiness">LocalBusiness</a> and <a href="/Store">Store</a>.</li>
+<li><a href="https://github.com/schemaorg/schemaorg/issues/1081">Fix to #1081</a>: Added <a href="/AudiobookFormat">AudiobookFormat</a> to the <a href="/BookFormatType">BookFormatType</a>, for consistency. Note that the bib extension also has a <a href="http://bib.schema.org/Audiobook">dedicated type</a> for describing audio books.</li>
+<li><a href="https://github.com/schemaorg/schemaorg/issues/950">Fix to #950</a>: isBasedOnUrl now called isBasedOn; isBasedOnUrl still exists but is marked as supersededBy isBasedOn. Extended range to include (for now just) CreativeWork, Product.</li>
+<li><a href="https://github.com/schemaorg/schemaorg/issues/1057">Fix to #929</a>: Marked <a href="/subEvent">subEvent</a> and <a href="/superEvent">superEvent</a> as inverses of each other.</li>
 <li><a href="https://github.com/schemaorg/schemaorg/issues/929">Fix to #929</a>: the <a href="/colleague">colleague</a> property now also expects URL values (and for JSON-LD therefore expects things not strings by default).</li>
 <li>Various typo fixes (including <a href="https://github.com/schemaorg/schemaorg/pull/1014">#1014</a>.</li>
 <li><a href="https://github.com/schemaorg/schemaorg/pull/984">Fix to #984</a>: bug fixes for bib.schema.org/Chapter example.</li>
