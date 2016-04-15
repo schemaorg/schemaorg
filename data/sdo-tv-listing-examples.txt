@@ -301,3 +301,44 @@ JSON:
   }
 }
 </script>
+
+PRE-MARKUP:
+A radio station on 1030 AM.
+
+MICRODATA:
+<div itemscope itemtype="http://schema.org/BroadcastService">
+  <span itemprop="name">WBZ-AM</span>
+  <span itemprop="broadcastDisplayName">WBZ NewsRadio</span>
+  <div itemprop="broadcastFrequency" itemscope itemtype="http://schema.org/BroadcastFrequencySpecification">
+    <meta itemprop="broadcastFrequencyValue" content="1030" />
+    <meta itemprop="broadcastFrequencyModulation" content="AM" />
+  </div>
+</div>
+
+RDFA:
+
+<div vocab="http://schema.org/" typeof="BroadcastService">
+  <span property="name">WBZ-AM</span>
+  <span property="broadcastDisplayName">WBZ NewsRadio</span>
+  <div property="broadcastFrequency" typeof="BroadcastFrequencySpecification">
+    <meta property="broadcastFrequencyValue" content="1030" />
+    <meta property="broadcastFrequencyModulation" content="AM" />
+  </span>
+</div>
+
+
+JSON:
+<script type="application/ld+json">
+{
+  "@context":"http://schema.org",
+  "@type":"BroadcastService",
+  "name": "WBZ-AM",
+  "broadcastDisplayName": "WBZ NewsRadio",
+  "broadcastFrequency": {
+    "@type": "BroadcastFrequencySpecification",
+    "broadcastFrequencyValue": 1030,
+    "broadcastFrequencyModulation": "AM"
+  }
+}
+</script>
+
