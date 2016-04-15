@@ -269,9 +269,9 @@ MICRODATA:
 <div itemscope itemtype="http://schema.org/BroadcastService">
   <span itemprop="name">WXKS-FM</span>
   <span itemprop="broadcastDisplayName">Kiss 108</span>
-  <div itemprop="broadcastFrequency" itemscope itemtype="http://schema.org/QuantitativeValue">
-    <meta itemprop="value" content="107.9" />
-    <meta itemprop="unitCode" content="MHZ" />
+  <div itemprop="broadcastFrequency" itemscope itemtype="http://schema.org/BroadcastFrequencySpecification">
+    <meta itemprop="broadcastFrequencyValue" content="107.9" />
+    <meta itemprop="broadcastSignalModulation" content="FM" />
   </div>
 </div>
 
@@ -280,9 +280,9 @@ RDFA:
 <div vocab="http://schema.org/" typeof="BroadcastService">
   <span property="name">WXKS-FM</span>
   <span property="broadcastDisplayName">Kiss 108</span>
-  <div property="broadcastFrequency" typeof="QuantitativeValue">
-    <meta property="value" content="107.9" />
-    <meta property="unitCode" content="MHZ" />
+  <div property="broadcastFrequency" typeof="BroadcastFrequencySpecification">
+    <meta property="broadcastFrequencyValue" content="107.9" />
+    <meta property="broadcastSignalModulation" content="FM" />
   </span>
 </div>
 
@@ -295,9 +295,9 @@ JSON:
   "name": "WXKS-FM",
   "broadcastDisplayName": "Kiss 108",
   "broadcastFrequency": {
-    "@type": "QuantitativeValue",
-    "value": 107.9,
-    "unitCode": "MHZ"
+    "@type": "BroadcastFrequencySpecification",
+    "broadcastFrequencyValue": 107.9,
+    "broadcastSignalModulation": "FM"
   }
 }
 </script>
@@ -311,7 +311,7 @@ MICRODATA:
   <span itemprop="broadcastDisplayName">WBZ NewsRadio</span>
   <div itemprop="broadcastFrequency" itemscope itemtype="http://schema.org/BroadcastFrequencySpecification">
     <meta itemprop="broadcastFrequencyValue" content="1030" />
-    <meta itemprop="broadcastFrequencyModulation" content="AM" />
+    <meta itemprop="broadcastSignalModulation" content="AM" />
   </div>
 </div>
 
@@ -322,7 +322,7 @@ RDFA:
   <span property="broadcastDisplayName">WBZ NewsRadio</span>
   <div property="broadcastFrequency" typeof="BroadcastFrequencySpecification">
     <meta property="broadcastFrequencyValue" content="1030" />
-    <meta property="broadcastFrequencyModulation" content="AM" />
+    <meta property="broadcastSignalModulation" content="AM" />
   </span>
 </div>
 
@@ -337,7 +337,7 @@ JSON:
   "broadcastFrequency": {
     "@type": "BroadcastFrequencySpecification",
     "broadcastFrequencyValue": 1030,
-    "broadcastFrequencyModulation": "AM"
+    "broadcastSignalModulation": "AM"
   }
 }
 </script>
