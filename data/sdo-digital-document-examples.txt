@@ -1,7 +1,7 @@
-TYPES: #document-1 Document,ReadPermission,WritePermission
+TYPES: #digitaldocument-1 DigitalDocument,ReadPermission,WritePermission
 PRE-MARKUP:
 
-A document everyone can read, but only one person can edit.
+A digital document everyone can read, but only one person can edit.
 
 MICRODATA:
 
@@ -15,12 +15,12 @@ JSON:
 
 <script type="application/ld+json">
 {
-  "@type": "Document",
+  "@type": "DigitalDocument",
   "name": "New schema.org types proposal",
   "author": "Alice",
-  "hasDocumentPermission": [
+  "hasDigitalDocumentPermission": [
     {
-      "@type": "DocumentPermissionType",
+      "@type": "DigitalDocumentPermissionType",
       "permissionType": "http://schema.org/WritePermission",
       "grantee": {
         "@type": "Person",
@@ -28,7 +28,7 @@ JSON:
       }
     },
     {
-      "@type": "DocumentPermissionType",
+      "@type": "DigitalDocumentPermissionType",
       "permissionType": "http://schema.org/ReadPermission",
       "grantee": {
         "@type": "Audience",
