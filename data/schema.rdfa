@@ -1218,7 +1218,13 @@
 
     <div typeof="rdfs:Class" resource="http://schema.org/Language">
       <span class="h" property="rdfs:label">Language</span>
-      <span property="rdfs:comment">Natural languages such as Spanish, Tamil, Hindi, English, etc. and programming languages such as Scheme and Lisp.</span>
+      <span property="rdfs:comment">Natural languages such as Spanish, Tamil, Hindi, English, etc. Formal language code tags expressed in [BCP 47](https://en.wikipedia.org/wiki/IETF_language_tag) can be used via the [[alternateName]] property. The Language type previously also covered programming languages such as Scheme and Lisp, which are now best represented using [[ComputerLanguage]].</span>
+       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Intangible">Intangible</a></span>
+    </div>
+
+    <div typeof="rdfs:Class" resource="http://schema.org/ComputerLanguage">
+      <span class="h" property="rdfs:label">ComputerLanguageLanguage</span>
+      <span property="rdfs:comment">This type covers computer programming languages such as Scheme and Lisp, as well as other language-like computer representations. Natural languages are best represented with the [[Language]] type.</span>
        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Intangible">Intangible</a></span>
     </div>
 
@@ -6451,7 +6457,8 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
       <span class="h" property="rdfs:label">programmingLanguage</span>
       <span property="rdfs:comment">The computer programming language.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/SoftwareSourceCode">SoftwareSourceCode</a></span>
-      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Language">Language</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/ComputerLanguage">ComputerLanguage</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/programmingModel">
       <span class="h" property="rdfs:label">programmingModel</span>
