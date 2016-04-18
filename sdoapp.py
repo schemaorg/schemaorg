@@ -1821,6 +1821,7 @@ class ShowUnit (webapp2.RequestHandler):
         myport = "80"
         if len(split) > 1:
             myport = split[1]
+        setHostPort(myport)
 
         if host_ext != None:
             # e.g. "bib"
@@ -1828,6 +1829,7 @@ class ShowUnit (webapp2.RequestHandler):
             if host_ext == "www":
                 # www is special case that cannot be an extension - need to redirect to basehost
                 mybasehost = mybasehost[4:]
+                setBaseHost(mybasehost)
                 return self.redirectToBase(node)
             elif not host_ext in ENABLED_EXTENSIONS:
                 host_ext = ""
@@ -1836,7 +1838,6 @@ class ShowUnit (webapp2.RequestHandler):
 
         setHostExt(host_ext)
         setBaseHost(mybasehost)
-        setHostPort(myport)
 
         dcn = host_ext
         if dcn == None or dcn == "" or dcn =="core":
@@ -1857,8 +1858,8 @@ class ShowUnit (webapp2.RequestHandler):
 
     def redirectToBase(self,node=""):
         uri = makeUrl("",node)
-        self.response = webapp2.redirect(uri, True, 301)
         log.info("Redirecting [301] to: %s" % uri)
+        self.response = webapp2.redirect(uri, True, 301)
         return False
 
 
