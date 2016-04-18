@@ -31,7 +31,7 @@ See the draft <b><a href="{{staticPath}}/docs/releases.html">releases</a></b> pa
   {{ ext.overview(name=extName, abbrev=host_ext) }}
   <p>
 	  {{extComment |safe}}
-      <br/><br/>Extension Version: {{extVers}}
+<!--      <br/><br/>Extension Version: {{extVers}} -->
   </p>
 
 {% elif ENABLE_HOSTED_EXTENSIONS and host_ext == "bib" %}
