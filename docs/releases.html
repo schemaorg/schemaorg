@@ -83,7 +83,7 @@
 
 <h1>Releases</h1>
 
-<p>This page lists schema.org releases, most recent first. New developments are <a href="https://github.com/schemaorg/schemaorg">discussed on Github</a>.</p>
+<p>This page lists schema.org releases, most recent first. New developments are <a href="https://github.com/schemaorg/schemaorg">discussed on Github</a>. See <a href="howwework.html">how we work</a> for more background.</p>
 
 <br/>
 
@@ -147,7 +147,7 @@ td.release  {
 <span id="v2.3"></span>
 <td>
 <div>
-Version 2.3 (working name 'sdo-deimos'). This is a release candidate, 2016-04-18. See <a href="https://github.com/schemaorg/schemaorg/issues/1">planning pages</a>, specifically <a href="https://github.com/schemaorg/schemaorg/issues/911">#911</a> for details.
+Version 2.3 (working name 'sdo-deimos'). This is a release candidate, 2016-04-20. See <a href="https://github.com/schemaorg/schemaorg/issues/1">planning pages</a>, specifically <a href="https://github.com/schemaorg/schemaorg/issues/911">#911</a> for details.
 </div>
 </td>
 
@@ -169,7 +169,7 @@ Version 2.3 (working name 'sdo-deimos'). This is a release candidate, 2016-04-18
 
 <h3>auto.schema.org</h3>
 <ul>
-  <li><a href="https://github.com/schemaorg/schemaorg/pull/922">Issue #922</a>: Finalized first release of <a href="http://auto.schema.org/">auto.schema.org</a>. Removed "pre-final preview release" description.</li>
+  <li><a href="https://githu.com/schemaorg/schemaorg/pull/922">Issue #922</a>: Finalized first release of <a href="http://auto.schema.org/">auto.schema.org</a>. Removed "pre-final preview release" description.</li>
 </ul>
 
 <h3>bib.schema.org</h3>
@@ -180,11 +180,10 @@ Version 2.3 (working name 'sdo-deimos'). This is a release candidate, 2016-04-18
 <h3>pending.schema.org</h3>
 <ul>
 <!-- <li><a href=""></a></li> -->
+<li><a href=""></a></li>
 <li><a href="https://github.com/schemaorg/schemaorg/issues/1050">Issue #1050</a>: Added <a href="/contentReferenceTime">contentReferenceTime</a>.</li>
-<li><a href="https://github.com/schemaorg/schemaorg/issues/1062">Issue #1062</a> Added <a href="/HealthInsurancePlan">HealthInsurancePlan</a>, a US health insurance schema.</li>
-<li><a href=""></a></li>
-<li><a href=""></a></li>
-<li><a href=""></a></li>
+<li><a href="https://github.com/schemaorg/schemaorg/issues/1062">Issue #1062</a>: Added <a href="/HealthInsurancePlan">HealthInsurancePlan</a>, a US health insurance schema.</li>
+<li><a href="https://github.com/schemaorg/schemaorg/issues/1100">Issue #1110</a>: Added <a href="/accessMode">accessMode</a>, <a href="/accessModeSufficient">accessModeSufficient</a> and <a href="/accessibilitySummary">accessibilitySummary</a>.</li>
 <li><a href="https://github.com/schemaorg/schemaorg/issues/447">Issue #447</a>: Added <a href="/EventSeries">EventSeries</a>.</li>
 <li><a href="https://github.com/schemaorg/schemaorg/issues/1061">Issue #1061</a>: Added <a href="/ClaimReview">ClaimReview</a> for fact-checking reviews.</li>
 <li><a href="https://github.com/schemaorg/schemaorg/issues/1059">Issue 1059</a>: Created <a href="http://pending.schema.org/">pending.schema.org</a> to enable publication of work-in-progress drafts for wider review.</li>
@@ -193,7 +192,12 @@ Version 2.3 (working name 'sdo-deimos'). This is a release candidate, 2016-04-18
 
 <h3>Site improvements</h3>
 <ul>
-<li>...</li>
+<li id="g256"><a href="https://github.com/schemaorg/schemaorg/issues/256">Issue #256</a>: Implementation of HTTP HEAD for all pages.</li>
+<li id="g1095"><a href="https://github.com/schemaorg/schemaorg/pull/1095">Issue #1095</a>: ETag and Last-Modified headers only for successful page requests.</li>
+<li id="g1098"><a href="https://github.com/schemaorg/schemaorg/pull/1098">Issue #1098</a>: Added categorization of terms listed on extension home page.</li>
+<li id="g990"><a href="https://github.com/schemaorg/schemaorg/issues/990">Issue #990</a>: JSON-LD <a href="howwework.html#jsonldcontext">context file</a> should enumerate all terms. This will make it easier to combine the use of schema.org with other vocabularies and extensions.</li>
+<li id="g1075"><a href="https://github.com/schemaorg/schemaorg/pull/1075">Issue #1075</a>: Added markdown format processing of comment fields. This makes the schema editing process easier, especially for cross-referencing related terms.</li>
+<li id="g178"><a href="https://github.com/schemaorg/schemaorg/issues/178">Issue 178</a>: Integrated rdflib python library. This improves our ability to parse RDFa and JSON-LD schema definitions, and makes unit tests easier to run.</li>
 </ul>
 
 <h3>Quick fixes and Examples</h3>
@@ -207,7 +211,6 @@ Version 2.3 (working name 'sdo-deimos'). This is a release candidate, 2016-04-18
 <li>[core] <a href="https://github.com/schemaorg/schemaorg/issues/1057">Issue #929</a>: Marked <a href="/subEvent">subEvent</a> and <a href="/superEvent">superEvent</a> as inverses of each other.</li>
 <li>[core] <a href="https://github.com/schemaorg/schemaorg/issues/929">Issue #929</a>: the <a href="/colleague">colleague</a> property now also expects URL values (and for JSON-LD therefore expects things not strings by default).</li>
 <li>[core] Various typo fixes (including <a href="https://github.com/schemaorg/schemaorg/pull/1014">#1014</a>.</li>
-<li>[bib] <a href="https://github.com/schemaorg/schemaorg/pull/984">Issue #984</a>: bug fixes for bib.schema.org/Chapter example.</li>
 <li>[core] <a href="https://github.com/schemaorg/schemaorg/issues/966">Issue #966</a>: Fixed bug in <a href="/PropertyValue">PropertyValue</a> JSON-LD example.</li>
 <li>[core] <a href="https://github.com/schemaorg/schemaorg/issues/912">Issue #912</a>: <a href="https://github.com/schemaorg/schemaorg/issues/912">Added</a> education/learning examples (from Phil Barker / LRMI):
 <a href="/learningResourceType">learningResourceType</a>,
@@ -230,6 +233,7 @@ Version 2.3 (working name 'sdo-deimos'). This is a release candidate, 2016-04-18
 <li>[core] <a href="https://github.com/schemaorg/schemaorg/issues/997">Issue #997</a>: <a href="https://github.com/schemaorg/schemaorg/pull/998">Expanded sharedContent to coverage of SocialMediaPosting example</a>.</li>
 <li>[core] <a href="https://github.com/schemaorg/schemaorg/issues/992">Issue #992</a>: Removed an example from QAPage since the example didn't illustrate the term's use.</li>
 <li>[core] <a href="https://github.com/schemaorg/schemaorg/pull/836">Issue #836</a>: Markup fixes to examples of <a href="/PropertyValue">PropertyValue</a>.</li>
+<li>[bib] <a href="https://github.com/schemaorg/schemaorg/pull/984">Issue #984</a>: bug fixes for bib.schema.org/Chapter example.</li>
 </ul>
 
 </td>
