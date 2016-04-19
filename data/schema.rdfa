@@ -3580,7 +3580,8 @@
 
     <div typeof="rdf:Property" resource="http://schema.org/actor">
       <span class="h" property="rdfs:label">actor</span>
-      <span property="rdfs:comment">An actor, e.g. in tv, radio, movie, video games etc. Actors can be associated with individual items or with a series, episode, clip.</span>
+      <span property="rdfs:comment">An actor, e.g. in tv, radio, movie, video games etc., or in an event. Actors can be associated with individual items or with a series, episode, clip.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Event">Event</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Movie">Movie</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/VideoObject">VideoObject</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/VideoGame">VideoGame</a></span>
@@ -4426,8 +4427,9 @@
 
     <div typeof="rdf:Property" resource="http://schema.org/contributor">
       <span class="h" property="rdfs:label">contributor</span>
-      <span property="rdfs:comment">A secondary contributor to the CreativeWork.</span>
+      <span property="rdfs:comment">A secondary contributor to the CreativeWork or Event.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CreativeWork">CreativeWork</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Event">Event</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Organization">Organization</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Person">Person</a></span>
     </div>
@@ -4635,8 +4637,9 @@
 
     <div typeof="rdf:Property" resource="http://schema.org/director">
       <span class="h" property="rdfs:label">director</span>
-      <span property="rdfs:comment">A director of e.g. tv, radio, movie, video games etc. content. Directors can be associated with individual items or with a series, episode, clip.</span>
+      <span property="rdfs:comment">A director of e.g. tv, radio, movie, video gaming etc. content, or of an event. Directors can be associated with individual items or with a series, episode, clip.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Movie">Movie</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Event">Event</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/VideoObject">VideoObject</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/VideoGame">VideoGame</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Episode">Episode</a></span>
@@ -8992,8 +8995,9 @@ postponing for 1.6.
  </div>
   <div typeof="rdf:Property" resource="http://schema.org/translator">
       <span class="h" property="rdfs:label">translator</span>
-      <span property="rdfs:comment">Organization or person who adapts a creative work to different languages, regional differences and technical requirements of a target market.</span>
+      <span property="rdfs:comment">Organization or person who adapts a creative work to different languages, regional differences and technical requirements of a target market, or that translates during some event.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CreativeWork">CreativeWork</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Event">Event</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Person">Person</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Organization">Organization</a></span>
  </div>
@@ -9212,8 +9216,9 @@ postponing for 1.6.
 </div>
 <div typeof="rdf:Property" resource="http://schema.org/composer">
   <span class="h" property="rdfs:label">composer</span>
-  <span property="rdfs:comment">The person or organization who wrote the composition.</span>
+  <span property="rdfs:comment">The person or organization who wrote a composition, or who is the composer of a work performed at some event.</span>
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MusicComposition">MusicComposition</a></span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Event">Event</a></span>
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Person">Person</a></span>
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Organization">Organization</a></span>
   <link property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#MBZ"/>
