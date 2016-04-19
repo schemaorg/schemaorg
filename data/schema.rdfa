@@ -3606,8 +3606,8 @@
 
     <div typeof="rdfs:Class" resource="http://schema.org/PriceSpecification">
       <span class="h" property="rdfs:label">PriceSpecification</span>
-      <span property="rdfs:comment">A structured value representing a monetary amount. Typically, only the subclasses of this type are used for markup.</span>
-       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/StructuredValue">StructuredValue</a></span>
+      <span property="rdfs:comment">A structured value representing a price or price range. Typically, only the subclasses of this type are used for markup. It is recommended to use [[MonetaryAmount]] to describe independent amounts of money such as a salary, credit card limits, etc.</span>
+      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/StructuredValue">StructuredValue</a></span>
        <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsClass">GoodRelationsClass</a></span></div>
 
     <div typeof="rdfs:Class" resource="http://schema.org/DeliveryChargeSpecification">
@@ -5371,6 +5371,7 @@
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/EmployeeRole">EmployeeRole</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number">Number</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/PriceSpecification">PriceSpecification</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/MonetaryAmount">MonetaryAmount</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/benefits">
       <span class="h" property="rdfs:label">benefits</span>
@@ -7638,9 +7639,9 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/DietarySupplement">DietarySupplement</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/MaximumDoseSchedule">MaximumDoseSchedule</a></span>
     </div>
-    <div typeof="rdf:Property" resource="http://schema.org/maxAmount">
-      <span class="h" property="rdfs:label">maxAmount</span>
-      <span property="rdfs:comment">The highest amount if the amount is a range.</span>
+    <div typeof="rdf:Property" resource="http://schema.org/maxAmountOfMoney">
+      <span class="h" property="rdfs:label">maxAmountOfMoney</span>
+      <span property="rdfs:comment">The highest amount of money if the amount is a range.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MonetaryAmount">MonetaryAmount</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number">Number</a></span>
     </div>
@@ -7735,9 +7736,9 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Person">Person</a></span>
       <link property="http://schema.org/supersededBy" href="http://schema.org/seller"/>
     </div>
-    <div typeof="rdf:Property" resource="http://schema.org/minAmount">
-      <span class="h" property="rdfs:label">minAmount</span>
-      <span property="rdfs:comment">The lowest amount if the amount is a range.</span>
+    <div typeof="rdf:Property" resource="http://schema.org/minAmountOfMoney">
+      <span class="h" property="rdfs:label">minAmountOfMoney</span>
+      <span property="rdfs:comment">The lowest amount of money if the amount is a range.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MonetaryAmount">MonetaryAmount</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number">Number</a></span>
     </div>
@@ -7834,6 +7835,7 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
       <span property="rdfs:comment">The total financial value of the person as calculated by subtracting assets from liabilities.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Person">Person</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/PriceSpecification">PriceSpecification</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/MonetaryAmount">MonetaryAmount</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/nonEqual">
       <span class="h" property="rdfs:label">nonEqual</span>
@@ -9817,6 +9819,7 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
       <span property="rdfs:comment">The date when the item becomes valid.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Offer">Offer</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/PriceSpecification">PriceSpecification</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MonetaryAmount">PriceSpecification</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Demand">Demand</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/OpeningHoursSpecification">OpeningHoursSpecification</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Permit">Permit</a></span>
@@ -9830,9 +9833,10 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/validThrough">
       <span class="h" property="rdfs:label">validThrough</span>
-      <span property="rdfs:comment">The end of the validity of offer, price specification, or opening hours data.</span>
+      <span property="rdfs:comment">The date after when the item is not valid. For example the end of an offer, salary period, or a period of opening hours.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Offer">Offer</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/PriceSpecification">PriceSpecification</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MonetaryAmount">PriceSpecification</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Demand">Demand</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/OpeningHoursSpecification">OpeningHoursSpecification</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/DateTime">DateTime</a></span>
@@ -11965,7 +11969,8 @@ postponing for 1.6.
   <!-- Money Value and associated properties -->
   <div typeof="rdfs:Class" resource="http://schema.org/DatedMoneySpecification">
     <span class="h" property="rdfs:label">DatedMoneySpecification</span>
-    <span property="rdfs:comment">A DatedMoneySpecification represents monetary values with optional start and end dates. For example, this could represent an employee's salary over a specific period of time.</span>
+    <link property="http://schema.org/supersededBy" href="http://schema.org/MonetaryAmount"/>
+    <span property="rdfs:comment">A DatedMoneySpecification represents monetary values with optional start and end dates. For example, this could represent an employee's salary over a specific period of time. __Note:__ This type has been superseded by [[MonetaryAmount]] use of that type is recommended</span>
     <span>
       Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/StructuredValue">StructuredValue</a>
     </span>
@@ -11977,11 +11982,15 @@ postponing for 1.6.
     <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/DatedMoneySpecification">DatedMoneySpecification</a></span>
     <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/LoanOrCredit">LoanOrCredit</a></span>
     <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/InvestmentOrDeposit">InvestmentOrDeposit</a></span>
-    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MonetaryAmount">MonetaryAmount</a></span>
     <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/MonetaryAmount">MonetaryAmount</a></span>
     <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number">Number</a></span>
   </div>
-  
+  <div typeof="rdf:Property" resource="http://schema.org/amountOfMoney">
+    <span class="h" property="rdfs:label">amount</span>
+    <span property="rdfs:comment">The amount of money.</span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MonetaryAmount">MonetaryAmount</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number">Number</a></span>
+  </div>
   <div typeof="rdf:Property" resource="http://schema.org/currency">
     <span class="h" property="rdfs:label">currency</span>
     <span property="rdfs:comment">The currency in which the monetary amount is expressed (in 3-letter &lt;a href=&#39;http://en.wikipedia.org/wiki/ISO_4217&#39;"&gt;ISO 4217&lt;/a&gt; format).</span>
@@ -12096,7 +12105,8 @@ postponing for 1.6.
   <span class="h" property="rdfs:label">totalPaymentDue</span>
   <span property="rdfs:comment">The total amount due.</span>
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Invoice">Invoice</a></span>
-  <span>Domain: <a property="http://schema.org/rangeIncludes" href="http://schema.org/PriceSpecification">PriceSpecification</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/PriceSpecification">PriceSpecification</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/MonetaryAmount">MonetaryAmount</a></span>
 </div>
 
 <div typeof="rdf:Property" resource="http://schema.org/minimumPaymentDue">
@@ -12104,6 +12114,7 @@ postponing for 1.6.
   <span property="rdfs:comment">The minimum payment required at this time.</span>
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Invoice">Invoice</a></span>
   <span>Domain: <a property="http://schema.org/rangeIncludes" href="http://schema.org/PriceSpecification">PriceSpecification</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/MonetaryAmount">MonetaryAmount</a></span>
 </div>
 <div typeof="rdf:Property" resource="http://schema.org/accountId">
   <span class="h" property="rdfs:label">accountId</span>
@@ -12723,7 +12734,7 @@ Typical unit code(s): C62 for persons.</span>
 
   <div typeof="rdfs:Class" resource="http://schema.org/MonetaryAmount">
     <span class="h" property="rdfs:label">MonetaryAmount</span>
-    <span property="rdfs:comment">A monetary value or range.</span>
+    <span property="rdfs:comment">A monetary value or range. This type can be used to describe an amount of money such as $50 USD, or a range as in describing a bank account being suitable for a balance between £1,000 and £1,000,000 GBP, or the value of a salary, etc. It is recommended to use [[PriceSpecification]] Types to describe the price of an Offer, Invoice, etc.</span>
     <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/StructuredValue">StructuredValue</a></span>
     <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO">FIBO</a></span>
   </div>
