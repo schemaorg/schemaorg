@@ -24,11 +24,38 @@
       });
 </script>
 
-<style>
+<style type="text/css">
+table.grid {
+	font-family: verdana,arial,sans-serif;
+	font-size:11px;
+	color:#333333;
+	border-width: 1px;
+	border-color: #666666;
+	border-collapse: collapse;
+    table-layout: fixed;
+}
 
-  .tag    { color: #000; }    /* div, span, etc   */
-  .atn    { color: #000; }    /* href, datetime,  */
-  .custom { color: #660003; } /* itemscope, itemtype, etc,. */
+table.grid th {
+	border-width: 1px;
+	padding: 8px;
+	border-style: solid;
+	border-color: #666666;
+	background-color: #dedede;
+}
+table.grid td {
+	border-width: 1px;
+	padding: 8px;
+	border-style: solid;
+	border-color: #666666;
+	background-color: #ffffff;
+	vertical-align: top;
+}
+
+td.release  {
+  width: 100px;
+  font-size: 12px;
+  font-weight: bold;
+}
 
 </style>
 
@@ -87,41 +114,6 @@
 
 <br/>
 
-<style type="text/css">
-table.grid {
-	font-family: verdana,arial,sans-serif;
-	font-size:11px;
-	color:#333333;
-	border-width: 1px;
-	border-color: #666666;
-	border-collapse: collapse;
-    table-layout: fixed;
-}
-
-table.grid th {
-	border-width: 1px;
-	padding: 8px;
-	border-style: solid;
-	border-color: #666666;
-	background-color: #dedede;
-}
-table.grid td {
-	border-width: 1px;
-	padding: 8px;
-	border-style: solid;
-	border-color: #666666;
-	background-color: #ffffff;
-	vertical-align: top;
-}
-
-td.release  {
-  width: 100px;
-  font-size: 12px;
-  font-weight: bold;
-}
-
-</style>
-
 <table class="grid">
 <tr>
     <th>Release</th>
@@ -156,63 +148,69 @@ Version 2.3 (working name 'sdo-deimos'). This is a release candidate, 2016-04-20
 
 <h4>Core changes</h4>
 <ul>
-<li><a href="https://github.com/schemaorg/schemaorg/issues/845">Issue #845</a>: Added vocabulary for suitability to restricted diets in Recipe (<a href="/suitableForDiet">suitableForDiet</a>, <a href="/RestrictedDiet">RestrictedDiet</a>).</li>
-<li><a href="https://github.com/schemaorg/schemaorg/issues/1005">Issue #1005</a>: Generalized some properties from Product to <a href="https://github.com/schemaorg/schemaorg/pull/1006">apply also to Service</a> - <a href="/audience">audience</a>, <a href="/brand">brand</a>, <a href="/logo">logo</a>, <a href="/isRelatedTo">isRelatedTo</a>, <a href="/isSimilarTo">isSimilarTo</a>.</li>
-<li><a href="https://github.com/schemaorg/schemaorg/issues/880">Issue #880</a>: Added <a href="/disambiguatingDescription">disambiguatingDescription</a> to explicitly indicate short <a href="https://en.wikipedia.org/wiki/Phobos">Wikipedia-like</a> disambiguating descriptions.</li>
-<li><a href="https://github.com/schemaorg/schemaorg/issues/888">Issue #888</a>: Added <a href="/PreSale">PreSale</a> to the <a href="/ItemAvailability">ItemAvailability</a> enumerated values.</li>
-<li><a href="https://github.com/schemaorg/schemaorg/pull/962">Issue #962</a>: Broadened definition of <a href="/sponsor">sponsor</a> property.</li>
-<li><a href="https://github.com/schemaorg/schemaorg/issues/961">Issue #961</a>: Improved wording of <a href="/validThrough">validThrough</a>, and added <a href="/JobPosting">JobPosting</a> to allow markup for job posting closing dates.</li>
-<li><a href="https://github.com/schemaorg/schemaorg/issues/1059">Issue #1059</a>: Created hosted extensions for 'meta' vocabulary and for 'proposed' vocabulary under review. Moved Class, Property, domainIncludes, rangeIncludes, inverseOf, supersededBy into meta.</li>
-<li><a href="https://github.com/schemaorg/schemaorg/issues/1020">Issue #1020</a>: Added new subtypes of <a href="/CreativeWork">CreativeWork</a>: <a href="/Message">Message</a> and <a href="/Conversation">Conversation</a>. Marked <a href="/EmailMessage">EmailMessage</a> as a subtype of <a href="/Message">Message</a>.</li>
-<li><a href="https://github.com/schemaorg/schemaorg/issues/1079">Issue 1079</a>: Created <a href="/ComputerLanguage">ComputerLanguage</a>, amended <a href="/programmingLanguage">programmingLanguage</a> to expect it (and Text); amended <a href="/Language">Language</a> to focus on natural languages. Noted that BCP 47 should be used for natural language tagging, via <a href="/alternateName">alternateName</a> property. Amended <a href="/availableLanguage">availableLanguage</a> to indicate that Text values are expected, that BCP 47 is encouraged, and to cross-reference with <a href="/inLanguage">inLanguage</a>.</li>
+<li id="g845"><a href="https://github.com/schemaorg/schemaorg/issues/845">Issue #845</a>: Added vocabulary for suitability to restricted diets in Recipe (<a href="/suitableForDiet">suitableForDiet</a>, <a href="/RestrictedDiet">RestrictedDiet</a>).</li>
+<li id="g1005"><a href="https://github.com/schemaorg/schemaorg/issues/1005">Issue #1005</a>: Generalized some properties from Product to <a href="https://github.com/schemaorg/schemaorg/pull/1006">apply also to Service</a> - <a href="/audience">audience</a>, <a href="/brand">brand</a>, <a href="/logo">logo</a>, <a href="/isRelatedTo">isRelatedTo</a>, <a href="/isSimilarTo">isSimilarTo</a>.</li>
+<li id="g880"><a href="https://github.com/schemaorg/schemaorg/issues/880">Issue #880</a>: Added <a href="/disambiguatingDescription">disambiguatingDescription</a> to explicitly indicate short <a href="https://en.wikipedia.org/wiki/Phobos">Wikipedia-like</a> disambiguating descriptions.</li>
+<li id="g1048"><a href="https://github.com/schemaorg/schemaorg/issues/1048">Issue #1048</a>: Added <a href="/DigitalDocument">DigitalDocument</a> and subtypes <a href="/SpreadsheetDigitalDocument">SpreadsheetDigitalDocument</a>,
+<a href="/PresentationDigitalDocument">PresentationDigitalDocument</a>, <a href="/TextDigitalDocument">TextDigitalDocument</a>, <a href="/NoteDigitalDocument">NoteDigitalDocument</a>. Also
+a <a href="/hasDigitalDocumentPermission">hasDigitalDocumentPermission</a> property of these whose value is a <a href="/DigitalDocumentPermission">DigitalDocumentPermission</a> type. A <a href="/permissionType">permissionType</a> property of each DigitalDocumentPermission has
+values that are from a <a href="/DigitalDocumentPermissionType">DigitalDocumentPermissionType</a> enumeration: <a href="/CommentPermission">CommentPermission</a>, <a href="/ReadPermission">ReadPermission</a>, <a href="/WritePermission">WritePermission</a>.
+The <a href="/grantee">grantee</a> property indicates in each case the person, organization, contact point, or audience that has been granted that permission.
+</li>
+<li id="g888"><a href="https://github.com/schemaorg/schemaorg/issues/888">Issue #888</a>: Added <a href="/PreSale">PreSale</a> to the <a href="/ItemAvailability">ItemAvailability</a> enumerated values.</li>
+<li id="g962"><a href="https://github.com/schemaorg/schemaorg/pull/962">Issue #962</a>: Broadened definition of <a href="/sponsor">sponsor</a> property.</li>
+<li id="g961"><a href="https://github.com/schemaorg/schemaorg/issues/961">Issue #961</a>: Improved wording of <a href="/validThrough">validThrough</a>, and added <a href="/JobPosting">JobPosting</a> to allow markup for job posting closing dates.</li>
+<li id="g1020"><a href="https://github.com/schemaorg/schemaorg/issues/1020">Issue #1020</a>: Added new subtypes of <a href="/CreativeWork">CreativeWork</a>: <a href="/Message">Message</a> and <a href="/Conversation">Conversation</a>. Marked <a href="/EmailMessage">EmailMessage</a> as a subtype of <a href="/Message">Message</a>.</li>
+<li id="g1079"><a href="https://github.com/schemaorg/schemaorg/issues/1079">Issue 1079</a>: Created <a href="/ComputerLanguage">ComputerLanguage</a>, amended <a href="/programmingLanguage">programmingLanguage</a> to expect it (and Text); amended <a href="/Language">Language</a> to focus on natural languages. Noted that BCP 47 should be used for natural language tagging, via <a href="/alternateName">alternateName</a> property. Amended <a href="/availableLanguage">availableLanguage</a> to indicate that Text values are expected, that BCP 47 is encouraged, and to cross-reference with <a href="/inLanguage">inLanguage</a>.</li>
 </ul>
 
 <h3>auto.schema.org</h3>
 <ul>
-  <li><a href="https://githu.com/schemaorg/schemaorg/pull/922">Issue #922</a>: Finalized first release of <a href="http://auto.schema.org/">auto.schema.org</a>. Removed "pre-final preview release" description.</li>
+  <li id="g922"><a href="https://githu.com/schemaorg/schemaorg/pull/922">Issue #922</a>: Finalized first release of <a href="http://auto.schema.org/">auto.schema.org</a>. Removed "pre-final preview release" description.</li>
 </ul>
 
 <h3>bib.schema.org</h3>
 <ul>
-<li><a href="https://github.com/schemaorg/schemaorg/pull/911">Issue #911</a>: Finalized first release of <a href="http://bib.schema.org/">bib.schema.org</a>. Removed "pre-final preview release" description.</li>
+<li id="g911"><a href="https://github.com/schemaorg/schemaorg/pull/911">Issue #911</a>: Finalized first release of <a href="http://bib.schema.org/">bib.schema.org</a>. Removed "pre-final preview release" description.</li>
 </ul>
 
 <h3>pending.schema.org</h3>
 <ul>
-<!-- <li><a href=""></a></li> -->
-<li><a href=""></a></li>
-<li><a href="https://github.com/schemaorg/schemaorg/issues/1050">Issue #1050</a>: Added <a href="/contentReferenceTime">contentReferenceTime</a>.</li>
-<li><a href="https://github.com/schemaorg/schemaorg/issues/1062">Issue #1062</a>: Added <a href="/HealthInsurancePlan">HealthInsurancePlan</a>, a US health insurance schema.</li>
-<li><a href="https://github.com/schemaorg/schemaorg/issues/1100">Issue #1110</a>: Added <a href="/accessMode">accessMode</a>, <a href="/accessModeSufficient">accessModeSufficient</a> and <a href="/accessibilitySummary">accessibilitySummary</a>.</li>
-<li><a href="https://github.com/schemaorg/schemaorg/issues/447">Issue #447</a>: Added <a href="/EventSeries">EventSeries</a>.</li>
-<li><a href="https://github.com/schemaorg/schemaorg/issues/1061">Issue #1061</a>: Added <a href="/ClaimReview">ClaimReview</a> for fact-checking reviews.</li>
-<li><a href="https://github.com/schemaorg/schemaorg/issues/1059">Issue 1059</a>: Created <a href="http://pending.schema.org/">pending.schema.org</a> to enable publication of work-in-progress drafts for wider review.</li>
-<li>...</li>
+<li id="g1050"><a href="https://github.com/schemaorg/schemaorg/issues/1050">Issue #1050</a>: Added <a href="/contentReferenceTime">contentReferenceTime</a>.</li>
+<li id="g1062"><a href="https://github.com/schemaorg/schemaorg/issues/1062">Issue #1062</a>: Added <a href="/HealthInsurancePlan">HealthInsurancePlan</a>, a US health insurance schema.</li>
+<li id="g1110"><a href="https://github.com/schemaorg/schemaorg/issues/1100">Issue #1110</a>: Added <a href="/accessMode">accessMode</a>, <a href="/accessModeSufficient">accessModeSufficient</a> and <a href="/accessibilitySummary">accessibilitySummary</a>.</li>
+<li id="g447"><a href="https://github.com/schemaorg/schemaorg/issues/447">Issue #447</a>: Added <a href="/EventSeries">EventSeries</a>.</li>
+<li id="g271"><a href="https://github.com/schemaorg/schemaorg/issues/271">Issue #271</a>: Added <a href="/Quotation">Quotation</a> and <a href="/spokenByCharacter">spokenByCharacter</a>.</li>
+<li id="g1061"><a href="https://github.com/schemaorg/schemaorg/issues/1061">Issue #1061</a>: Added <a href="/ClaimReview">ClaimReview</a> and <a href="/claimReviewed">claimReviewed</a> for fact-checking reviews.</li>
+<li id="g1059"><a href="https://github.com/schemaorg/schemaorg/issues/1059">Issue 1059</a>: Created <a href="http://pending.schema.org/">pending.schema.org</a> to enable publication of <a href="howwework.html">work-in-progress</a> drafts for wider review.</li>
+<li id="g1045"><a href="https://github.com/schemaorg/schemaorg/issues/1045">Issue 1045</a>: Added <a href="/LinkRole">LinkRole</a> as a subtype of <a href="/Role">Role</a>, and a <a href="/linkRelationship">linkRelationship</a> property.</li>
 </ul>
 
 <h3>Site improvements</h3>
 <ul>
+<li id="g1059"><a href="https://github.com/schemaorg/schemaorg/issues/1059">Issue #1059</a>: Created hosted extensions for 'meta' vocabulary and for 'proposed' vocabulary under review. Moved Class, Property, domainIncludes, rangeIncludes, inverseOf, supersededBy into meta.</li>
 <li id="g256"><a href="https://github.com/schemaorg/schemaorg/issues/256">Issue #256</a>: Implementation of HTTP HEAD for all pages.</li>
 <li id="g1095"><a href="https://github.com/schemaorg/schemaorg/pull/1095">Issue #1095</a>: ETag and Last-Modified headers only for successful page requests.</li>
 <li id="g1098"><a href="https://github.com/schemaorg/schemaorg/pull/1098">Issue #1098</a>: Added categorization of terms listed on extension home page.</li>
 <li id="g990"><a href="https://github.com/schemaorg/schemaorg/issues/990">Issue #990</a>: JSON-LD <a href="howwework.html#jsonldcontext">context file</a> should enumerate all terms. This will make it easier to combine the use of schema.org with other vocabularies and extensions.</li>
 <li id="g1075"><a href="https://github.com/schemaorg/schemaorg/pull/1075">Issue #1075</a>: Added markdown format processing of comment fields. This makes the schema editing process easier, especially for cross-referencing related terms.</li>
 <li id="g178"><a href="https://github.com/schemaorg/schemaorg/issues/178">Issue 178</a>: Integrated rdflib python library. This improves our ability to parse RDFa and JSON-LD schema definitions, and makes unit tests easier to run.</li>
+<li><
 </ul>
 
 <h3>Quick fixes and Examples</h3>
 <ul>
-<li>[core] <a href="https://github.com/schemaorg/schemaorg/issues/1097">Issue #1097</a>: <a href="/partOfOrder">partOfOrder</a> and <a href="/partOfSystem">partOfSystem</a> are no longer marked as sub-properties of <a href="/isPartOf">isPartOf</a> since they are not relations between <a href="/CreativeWork">creative works</a>.</li>
-<li>[core] <a href="https://github.com/schemaorg/schemaorg/pull/1102">#Issue 1102</a>: Examples fixed to avoid 'content' attribute on <code>span</code> element in Microdata.</li>
-<li>[core] <a href="https://github.com/schemaorg/schemaorg/issues/1066">Issue #1066</a>: Cleanup around <a href="/Dataset">Dataset</a> / <a href="/DataCatalog">DataCatalog</a> association: renamed containedDataCatalog as <a href="/containedInDataCatalog">containedInDataCatalog</a>, marked it as inverse of <a href="/dataset">dataset</a> and improved wording of both definitions.</li>
-<li>[core] <a href="https://github.com/schemaorg/schemaorg/issues/1073">Issue #1073</a>: Removed redundant types listed for <a href="/branchCode">branchCode</a> - <a href="/Place">Place</a> already covered <a href="/LocalBusiness">LocalBusiness</a> and <a href="/Store">Store</a>.</li>
-<li>[core] <a href="https://github.com/schemaorg/schemaorg/issues/1081">Issue #1081</a>: Added <a href="/AudiobookFormat">AudiobookFormat</a> to the <a href="/BookFormatType">BookFormatType</a>, for consistency. Note that the bib extension also has a <a href="http://bib.schema.org/Audiobook">dedicated type</a> for describing audio books.</li>
-<li>[core] <a href="https://github.com/schemaorg/schemaorg/issues/950">Issue #950</a>: isBasedOnUrl now called isBasedOn; isBasedOnUrl still exists but is marked as supersededBy isBasedOn. Extended range to include (for now just) CreativeWork, Product.</li>
-<li>[core] <a href="https://github.com/schemaorg/schemaorg/issues/1057">Issue #929</a>: Marked <a href="/subEvent">subEvent</a> and <a href="/superEvent">superEvent</a> as inverses of each other.</li>
-<li>[core] <a href="https://github.com/schemaorg/schemaorg/issues/929">Issue #929</a>: the <a href="/colleague">colleague</a> property now also expects URL values (and for JSON-LD therefore expects things not strings by default).</li>
-<li>[core] Various typo fixes (including <a href="https://github.com/schemaorg/schemaorg/pull/1014">#1014</a>.</li>
-<li>[core] <a href="https://github.com/schemaorg/schemaorg/issues/966">Issue #966</a>: Fixed bug in <a href="/PropertyValue">PropertyValue</a> JSON-LD example.</li>
-<li>[core] <a href="https://github.com/schemaorg/schemaorg/issues/912">Issue #912</a>: <a href="https://github.com/schemaorg/schemaorg/issues/912">Added</a> education/learning examples (from Phil Barker / LRMI):
+<li id="g1097">[core] <a href="https://github.com/schemaorg/schemaorg/issues/1097">Issue #1097</a>: <a href="/partOfOrder">partOfOrder</a> and <a href="/partOfSystem">partOfSystem</a> are no longer marked as sub-properties of <a href="/isPartOf">isPartOf</a> since they are not relations between <a href="/CreativeWork">creative works</a>.</li>
+<li id="g1102">[core] <a href="https://github.com/schemaorg/schemaorg/pull/1102">#Issue 1102</a>: Examples fixed to avoid 'content' attribute on <code>span</code> element in Microdata.</li>
+<li id="g1066">[core] <a href="https://github.com/schemaorg/schemaorg/issues/1066">Issue #1066</a>: Cleanup around <a href="/Dataset">Dataset</a> / <a href="/DataCatalog">DataCatalog</a> association: renamed containedDataCatalog as <a href="/containedInDataCatalog">containedInDataCatalog</a>, marked it as inverse of <a href="/dataset">dataset</a> and improved wording of both definitions.</li>
+<li id="g1073">[core] <a href="https://github.com/schemaorg/schemaorg/issues/1073">Issue #1073</a>: Removed redundant types listed for <a href="/branchCode">branchCode</a> - <a href="/Place">Place</a> already covered <a href="/LocalBusiness">LocalBusiness</a> and <a href="/Store">Store</a>.</li>
+<li id="g1081">[core] <a href="https://github.com/schemaorg/schemaorg/issues/1081">Issue #1081</a>: Added <a href="/AudiobookFormat">AudiobookFormat</a> to the <a href="/BookFormatType">BookFormatType</a>, for consistency. Note that the bib extension also has a <a href="http://bib.schema.org/Audiobook">dedicated type</a> for describing audio books.</li>
+<li id="g950">[core] <a href="https://github.com/schemaorg/schemaorg/issues/950">Issue #950</a>: isBasedOnUrl now called isBasedOn; isBasedOnUrl still exists but is marked as supersededBy isBasedOn. Extended range to include (for now just) CreativeWork, Product.</li>
+<li id="g1057">[core] <a href="https://github.com/schemaorg/schemaorg/issues/1057">Issue #929</a>: Marked <a href="/subEvent">subEvent</a> and <a href="/superEvent">superEvent</a> as inverses of each other.</li>
+<li id="g929">[core] <a href="https://github.com/schemaorg/schemaorg/issues/929">Issue #929</a>: the <a href="/colleague">colleague</a> property now also expects URL values (and for JSON-LD therefore expects things not strings by default).</li>
+<li id="g1014">[core] Various typo fixes (including <a href="https://github.com/schemaorg/schemaorg/pull/1014">#1014</a>.</li>
+<li id="g966">[core] <a href="https://github.com/schemaorg/schemaorg/issues/966">Issue #966</a>: Fixed bug in <a href="/PropertyValue">PropertyValue</a> JSON-LD example.</li>
+<li id="g912">[core] <a href="https://github.com/schemaorg/schemaorg/issues/912">Issue #912</a>: <a href="https://github.com/schemaorg/schemaorg/issues/912">Added</a> education/learning examples (from Phil Barker / LRMI):
 <a href="/learningResourceType">learningResourceType</a>,
 <a href="/educationalAlignment">educationalAlignment</a>,
 <a href="/AlignmentObject">AlignmentObject</a>,
@@ -226,14 +224,14 @@ Version 2.3 (working name 'sdo-deimos'). This is a release candidate, 2016-04-20
 <a href="/timeRequired">timeRequired</a>,
 <a href="/educationalRole">educationalRole</a>.
 </li>
-<li>[core] <a href="https://github.com/schemaorg/schemaorg/issues/919">Issue #919</a>: <a href="https://github.com/schemaorg/schemaorg/pull/920">Fixed</a> Javascript errors caused by bad markup in 404 pages (published 2015-12-10).</li>
-<li>[core] <a href="https://github.com/schemaorg/schemaorg/issues/899">Issue #899</a>: <a href="https://github.com/schemaorg/schemaorg/pull/901">Bugfix</a> for a few pages that were returning 500 error codes (published 2015-12-10).</li>
-<li>[core] <a href="https://github.com/schemaorg/schemaorg/issues/904">Issue #904</a>: <a href="https://github.com/schemaorg/schemaorg/pull/925">Simplified</a> JSON-LD examples for <a href="http://schema.org/Periodical">Periodical</a> (published 2015-12-10).</li>
-<li>[core] <a href="https://github.com/schemaorg/schemaorg/issues/1015">Issue #1015</a>: <a href="https://github.com/schemaorg/schemaorg/pull/954">Fixed spelling of "content" in FoodEstablishment example</a>.</li>
-<li>[core] <a href="https://github.com/schemaorg/schemaorg/issues/997">Issue #997</a>: <a href="https://github.com/schemaorg/schemaorg/pull/998">Expanded sharedContent to coverage of SocialMediaPosting example</a>.</li>
-<li>[core] <a href="https://github.com/schemaorg/schemaorg/issues/992">Issue #992</a>: Removed an example from QAPage since the example didn't illustrate the term's use.</li>
-<li>[core] <a href="https://github.com/schemaorg/schemaorg/pull/836">Issue #836</a>: Markup fixes to examples of <a href="/PropertyValue">PropertyValue</a>.</li>
-<li>[bib] <a href="https://github.com/schemaorg/schemaorg/pull/984">Issue #984</a>: bug fixes for bib.schema.org/Chapter example.</li>
+<li id="g919">[core] <a href="https://github.com/schemaorg/schemaorg/issues/919">Issue #919</a>: <a href="https://github.com/schemaorg/schemaorg/pull/920">Fixed</a> Javascript errors caused by bad markup in 404 pages (published 2015-12-10).</li>
+<li id="g899">[core] <a href="https://github.com/schemaorg/schemaorg/issues/899">Issue #899</a>: <a href="https://github.com/schemaorg/schemaorg/pull/901">Bugfix</a> for a few pages that were returning 500 error codes (published 2015-12-10).</li>
+<li id="g904">[core] <a href="https://github.com/schemaorg/schemaorg/issues/904">Issue #904</a>: <a href="https://github.com/schemaorg/schemaorg/pull/925">Simplified</a> JSON-LD examples for <a href="http://schema.org/Periodical">Periodical</a> (published 2015-12-10).</li>
+<li id="g1015">[core] <a href="https://github.com/schemaorg/schemaorg/issues/1015">Issue #1015</a>: <a href="https://github.com/schemaorg/schemaorg/pull/954">Fixed spelling of "content" in FoodEstablishment example</a>.</li>
+<li id="g997">[core] <a href="https://github.com/schemaorg/schemaorg/issues/997">Issue #997</a>: <a href="https://github.com/schemaorg/schemaorg/pull/998">Expanded sharedContent to coverage of SocialMediaPosting example</a>.</li>
+<li id="g992">[core] <a href="https://github.com/schemaorg/schemaorg/issues/992">Issue #992</a>: Removed an example from QAPage since the example didn't illustrate the term's use.</li>
+<li id="g836">[core] <a href="https://github.com/schemaorg/schemaorg/pull/836">Issue #836</a>: Markup fixes to examples of <a href="/PropertyValue">PropertyValue</a>.</li>
+<li id="g984">[bib] <a href="https://github.com/schemaorg/schemaorg/pull/984">Issue #984</a>: bug fixes for bib.schema.org/Chapter example.</li>
 </ul>
 
 </td>
