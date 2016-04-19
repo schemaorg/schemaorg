@@ -902,6 +902,9 @@ class ShowUnit (webapp2.RequestHandler):
         
         if not out:
             out = self
+        newerprop = node.supersededBy(layers=layers) # None of one. e.g. we're on 'seller'(new) page, we get 'vendor'(old)
+        olderprop = node.supersedes(layers=layers) # None or one
+        olderprops = sorted(node.supersedes_all(layers=layers),key=lambda u: u.id) # list, e.g. 'seller' has 'vendor', 'merchant'.
             
 
         # Supersedes
