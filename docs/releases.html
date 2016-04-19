@@ -154,32 +154,41 @@ Version 2.3 (working name 'sdo-deimos'). This is a release candidate, 2016-04-18
 <td>
 <h3>Vocabulary</h3>
 
-<h4>Core</h4>
+<h4>Core changes</h4>
 <ul>
 <li><a href="https://github.com/schemaorg/schemaorg/issues/845">Issue #845</a>: Added vocabulary for suitability to restricted diets in Recipe (<a href="/suitableForDiet">suitableForDiet</a>, <a href="/RestrictedDiet">RestrictedDiet</a>).</li>
-<li><a href="https://github.com/schemaorg/schemaorg/issues/1005">Issue #1005</a>: Generalized some properties from Product to <a href="https://github.com/schemaorg/schemaorg/pull/1006">apply also to Service</a>.</li>
+<li><a href="https://github.com/schemaorg/schemaorg/issues/1005">Issue #1005</a>: Generalized some properties from Product to <a href="https://github.com/schemaorg/schemaorg/pull/1006">apply also to Service</a> - <a href="/audience">audience</a>, <a href="/brand">brand</a>, <a href="/logo">logo</a>, <a href="/isRelatedTo">isRelatedTo</a>, <a href="/isSimilarTo">isSimilarTo</a>.</li>
 <li><a href="https://github.com/schemaorg/schemaorg/issues/880">Issue #880</a>: Added <a href="/disambiguatingDescription">disambiguatingDescription</a> to explicitly indicate short <a href="https://en.wikipedia.org/wiki/Phobos">Wikipedia-like</a> disambiguating descriptions.</li>
 <li><a href="https://github.com/schemaorg/schemaorg/issues/888">Issue #888</a>: Added <a href="/PreSale">PreSale</a> to the <a href="/ItemAvailability">ItemAvailability</a> enumerated values.</li>
 <li><a href="https://github.com/schemaorg/schemaorg/pull/962">Issue #962</a>: Broadened definition of <a href="/sponsor">sponsor</a> property.</li>
 <li><a href="https://github.com/schemaorg/schemaorg/issues/961">Issue #961</a>: Improved wording of <a href="/validThrough">validThrough</a>, and added <a href="/JobPosting">JobPosting</a> to allow markup for job posting closing dates.</li>
 <li><a href="https://github.com/schemaorg/schemaorg/issues/1059">Issue #1059</a>: Created hosted extensions for 'meta' vocabulary and for 'proposed' vocabulary under review. Moved Class, Property, domainIncludes, rangeIncludes, inverseOf, supersededBy into meta.</li>
 <li><a href="https://github.com/schemaorg/schemaorg/issues/1020">Issue #1020</a>: Added new subtypes of <a href="/CreativeWork">CreativeWork</a>: <a href="/Message">Message</a> and <a href="/Conversation">Conversation</a>. Marked <a href="/EmailMessage">EmailMessage</a> as a subtype of <a href="/Message">Message</a>.</li>
-<li><a href="https://github.com/schemaorg/schemaorg/issues/1079">Issue 1079</a>: Created <a href="/ComputerLanguage">ComputerLanguage</a>, amended <a href="/programmingLanguage">programmingLanguage</a> to expect it (and Text); amended <a href="/Language">Language</a> to focus on natural languages. Noted that BCP 47 should be used for natural language tagging, via <a href="/alternateName">alternateName</a> property.</li>
+<li><a href="https://github.com/schemaorg/schemaorg/issues/1079">Issue 1079</a>: Created <a href="/ComputerLanguage">ComputerLanguage</a>, amended <a href="/programmingLanguage">programmingLanguage</a> to expect it (and Text); amended <a href="/Language">Language</a> to focus on natural languages. Noted that BCP 47 should be used for natural language tagging, via <a href="/alternateName">alternateName</a> property. Amended <a href="/availableLanguage">availableLanguage</a> to indicate that Text values are expected, that BCP 47 is encouraged, and to cross-reference with <a href="/inLanguage">inLanguage</a>.</li>
+</li>
 </ul>
 
 <h3>auto.schema.org</h3>
 <ul>
-  <li><a href="https://github.com/schemaorg/schemaorg/pull/922">Issue #922</a>: Finalized first release of <a href="http://auto.schema.org/">auto.schema.org</a>.</li>
+  <li><a href="https://github.com/schemaorg/schemaorg/pull/922">Issue #922</a>: Finalized first release of <a href="http://auto.schema.org/">auto.schema.org</a>. Removed "pre-final preview release" description.</li>
 </ul>
 
 <h3>bib.schema.org</h3>
 <ul>
-<li>No changes.</li>
+<li><a href="https://github.com/schemaorg/schemaorg/pull/911">Issue #911</a>: Finalized first release of <a href="http://bib.schema.org/">bib.schema.org</a>. Removed "pre-final preview release" description.</li>
 </ul>
 
 <h3>pending.schema.org</h3>
 <ul>
-<li><a href="https://github.com/schemaorg/schemaorg/issues/1061">Issue #1061</a>: Added <a href="/ClaimReview">ClaimReview</a> proposal for fact-checking reviews to 'pending' extension.</li>
+<!-- <li><a href=""></a></li> -->
+<li><a href="https://github.com/schemaorg/schemaorg/issues/1050">Issue #1050</a>: Added <a href="/contentReferenceTime">contentReferenceTime</a>.</li>
+<li><a href="https://github.com/schemaorg/schemaorg/issues/1062">Issue #1062</a> Added <a href="/HealthInsurancePlan">HealthInsurancePlan</a>, a US health insurance schema.</li>
+<li><a href=""></a></li>
+<li><a href=""></a></li>
+<li><a href=""></a></li>
+<li><a href="https://github.com/schemaorg/schemaorg/issues/447">Issue #447</a>: Added <a href="/EventSeries">EventSeries</a>.</li>
+<li><a href="https://github.com/schemaorg/schemaorg/issues/1061">Issue #1061</a>: Added <a href="/ClaimReview">ClaimReview</a> for fact-checking reviews.</li>
+<li><a href="https://github.com/schemaorg/schemaorg/issues/1059">Issue 1059</a>: Created <a href="http://pending.schema.org/">pending.schema.org</a> to enable publication of work-in-progress drafts for wider review.</li>
 <li>...</li>
 </ul>
 
@@ -190,6 +199,8 @@ Version 2.3 (working name 'sdo-deimos'). This is a release candidate, 2016-04-18
 
 <h3>Quick fixes and Examples</h3>
 <ul>
+<li>[core] <a href="https://github.com/schemaorg/schemaorg/issues/1097">Issue #1097</a>: <a href="/partOfOrder">partOfOrder</a> and <a href="/partOfSystem">partOfSystem</a> are no longer marked as sub-properties of <a href="/isPartOf">isPartOf</a> since they are not relations between <a href="/CreativeWork">creative works</a>.</li>
+<li>[core] <a href="https://github.com/schemaorg/schemaorg/pull/1102">#Issue 1102</a>: Examples fixed to avoid 'content' attribute on <code>span</code> element in Microdata.</li>
 <li>[core] <a href="https://github.com/schemaorg/schemaorg/issues/1066">Issue #1066</a>: Cleanup around <a href="/Dataset">Dataset</a> / <a href="/DataCatalog">DataCatalog</a> association: renamed containedDataCatalog as <a href="/containedInDataCatalog">containedInDataCatalog</a>, marked it as inverse of <a href="/dataset">dataset</a> and improved wording of both definitions.</li>
 <li>[core] <a href="https://github.com/schemaorg/schemaorg/issues/1073">Issue #1073</a>: Removed redundant types listed for <a href="/branchCode">branchCode</a> - <a href="/Place">Place</a> already covered <a href="/LocalBusiness">LocalBusiness</a> and <a href="/Store">Store</a>.</li>
 <li>[core] <a href="https://github.com/schemaorg/schemaorg/issues/1081">Issue #1081</a>: Added <a href="/AudiobookFormat">AudiobookFormat</a> to the <a href="/BookFormatType">BookFormatType</a>, for consistency. Note that the bib extension also has a <a href="http://bib.schema.org/Audiobook">dedicated type</a> for describing audio books.</li>
