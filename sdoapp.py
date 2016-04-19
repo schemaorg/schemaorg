@@ -1822,21 +1822,24 @@ class ShowUnit (webapp2.RequestHandler):
         if len(split) > 1:
             myport = split[1]
 
+        setHostExt(host_ext)
+        setBaseHost(mybasehost)
+        setHostPort(myport)
+
         if host_ext != None:
             # e.g. "bib"
             log.debug("HOST: Found %s in %s" % ( host_ext, hostString ))
             if host_ext == "www":
                 # www is special case that cannot be an extension - need to redirect to basehost
                 mybasehost = mybasehost[4:]
+                setBaseHost(mybasehost)
                 return self.redirectToBase(node)
             elif not host_ext in ENABLED_EXTENSIONS:
                 host_ext = ""
             else:
                 mybasehost = mybasehost[len(host_ext) + 1:]
-
-        setHostExt(host_ext)
-        setBaseHost(mybasehost)
-        setHostPort(myport)
+            setHostExt(host_ext)
+            setBaseHost(mybasehost)
 
         dcn = host_ext
         if dcn == None or dcn == "" or dcn =="core":
