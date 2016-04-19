@@ -181,6 +181,10 @@ class TypeHierarchyTree:
         """Generate a hierarchical tree view of the types. hashorslash is used for relative link prefixing."""
 
         log.debug("traverseForHTML: node=%s hashorslash=%s" % ( node.id, hashorslash ))
+
+        if node.superseded(layers=layers):
+            return False
+
         localBuff = False
         if buff == None:
             localBuff = True
@@ -840,10 +844,6 @@ class ShowUnit (webapp2.RequestHandler):
         domains = sorted(GetTargets(di, node, layers=layers), key=lambda u: u.id)
         first_range = True
 
-        newerprop = node.supersededBy(layers=layers) # None of one. e.g. we're on 'seller'(new) page, we get 'vendor'(old)
-        olderprop = node.supersedes(layers=layers) # None or one
-        olderprops = sorted(node.supersedes_all(layers=layers),key=lambda u: u.id) # list, e.g. 'seller' has 'vendor', 'merchant'.
-
         inverseprop = node.inverseproperty(layers=layers)
         subprops = sorted(node.subproperties(layers=layers),key=lambda u: u.id)
         superprops = sorted(node.superproperties(layers=layers),key=lambda u: u.id)
@@ -894,6 +894,15 @@ class ShowUnit (webapp2.RequestHandler):
                 tt = "%s: ''%s''" % ( spp.id, c)
                 out.write("\n    <tr><td><code>%s</code></td></tr>\n" % (self.ml(spp, spp.id, tt,hashorslash)))
             out.write("\n</table>\n\n")
+            
+        self.emitSupersedes(node,layers=layers,out=out,hashorslash=hashorslash)
+
+    def emitSupersedes(self, node, layers="core", out=None, hashorslash="/"):
+        """Write out Supersedes and/or Superseded by for this term"""
+        
+        if not out:
+            out = self
+            
 
         # Supersedes
         if (olderprops != None and len(olderprops) > 0):
@@ -1157,6 +1166,9 @@ class ShowUnit (webapp2.RequestHandler):
             self.emitClassExtensionSuperclasses(node,layers)
 
             self.emitClassExtensionProperties(p,layers)
+            
+            self.emitSupersedes(node,layers=layers)
+            
 
         elif (Unit.isAttribute(node, layers=layers)):
             self.write(self.moreInfoBlock(node))
@@ -1175,6 +1187,8 @@ class ShowUnit (webapp2.RequestHandler):
 
                 firstext=True
                 for c in children:
+                    if c.superseded(layers=layers):
+                        continue
                     if inLayer(layers, c):
                         buff.write("<li> %s </li>" % (self.ml(c)))
                     else:
