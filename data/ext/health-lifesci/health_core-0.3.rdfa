@@ -24,6 +24,14 @@
 <p> <span property="schema:softwareVersion">health-lifesci.schema.org Version 0.2</span> </p>
 <hr/>
 
+<h2>Annotations on core terms</h2>
+
+<div typeof="rdf:Property" resource="http://schema.org/sponsor">
+  <!-- a core term but annotated in health-lifesci to work with MedicalStudy. -->
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MedicalStudy"> health:MedicalStudy</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Organization"> schema:Organization</a></span>
+</div>
+
 <h2>Classes</h2>
 
 <div typeof="rdfs:Class" resource="http://schema.org/AnatomicalStructure">
@@ -1588,15 +1596,6 @@
   <link property="http://schema.org/isPartOf" href="http://health-lifesci.schema.org" />
 </div>
 
-<div typeof="rdf:Property" resource="http://schema.org/totalTime">
-  <span class="h" property="rdfs:label"> health:totalTime</span>
-  <span property="rdfs:comment">The total time it takes to prepare and cook the recipe, in <a href='http://en.wikipedia.org/wiki/ISO_8601'>ISO 8601 duration format</a>.</span>
-  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MedicalProcedure"> health:MedicalProcedure</a></span>
-  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Recipe"> schema:Recipe</a></span>
-  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Duration"> schema:Duration</a></span>
-  <link property="http://schema.org/isPartOf" href="http://health-lifesci.schema.org" />
-</div>
-
 <div typeof="rdf:Property" resource="http://schema.org/frequency">
   <span class="h" property="rdfs:label">health:frequency</span>
   <span property="rdfs:comment">How often the dose is taken, e.g. &#39;daily&#39;.</span>
@@ -1696,24 +1695,6 @@
   <span property="rdfs:comment">A diagnostic test or procedure offered by this lab.</span>
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/DiagnosticLab"> health:DiagnosticLab</a></span>
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/MedicalTest"> health:MedicalTest</a></span>
-  <link property="http://schema.org/isPartOf" href="http://health-lifesci.schema.org" />
-</div>
-
-<div typeof="rdf:Property" resource="http://schema.org/birthPlace">
-  <span class="h" property="rdfs:label"> health:birthPlace</span>
-  <span property="rdfs:comment">The place where the person was born.</span>
-  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Birth">health:Birth</a></span>
-  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Person"> schema:Person</a></span>
-  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Place"> schema:Place</a></span>
-  <link property="http://schema.org/isPartOf" href="http://health-lifesci.schema.org" />
-</div>
-
-<div typeof="rdf:Property" resource="http://schema.org/deathPlace">
-  <span class="h" property="rdfs:label">health:deathPlace</span>
-  <span property="rdfs:comment">The place where the person died.</span>
-  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Death"> health:Death</a></span>
-  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Person"> schema:Person</a></span>
-  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Place"> schema:Place</a></span>
   <link property="http://schema.org/isPartOf" href="http://health-lifesci.schema.org" />
 </div>
 
@@ -2719,14 +2700,6 @@
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Artery">health:Vessel</a></span>
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Artery">health:Nerve</a></span>
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/AnatomicalStructure"> health:AnatomicalStructure </a></span>
-</div>
-
-<div typeof="rdf:Property" resource="http://schema.org/sponsor">
-<!--  <span class="h" property="rdfs:label"> health:sponsor</span>
-  <span property="rdfs:comment">Sponsor of the study.</span> -->
-  <link property="http://schema.org/isPartOf" href="http://health-lifesci.schema.org" />
-  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MedicalStudy"> health:MedicalStudy</a></span>
-  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Organization"> schema:Organization</a></span>
 </div>
 
 <div typeof="rdf:Property" resource="http://schema.org/stageAsNumber">
