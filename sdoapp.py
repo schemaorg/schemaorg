@@ -81,9 +81,9 @@ if not getInTestHarness():
         from google.appengine.api import memcache
 else:
     SHAREDSITEDEBUG = False
-       
 
-instance_first = True 
+
+instance_first = True
 instance_num = 0
 callCount = 0
 WarmedUp = False
@@ -94,11 +94,11 @@ systarttime = datetime.datetime.now()
 if SHAREDSITEDEBUG:
     if memcache.get("static-version") != os.environ["CURRENT_VERSION_ID"]:
         memcache.flush_all()
-        memcache.set(key="static-version", value=os.environ["CURRENT_VERSION_ID"]) 
-        memcache.add(key="SysStart", value=systarttime) 
-        instance_first = True 
+        memcache.set(key="static-version", value=os.environ["CURRENT_VERSION_ID"])
+        memcache.add(key="SysStart", value=systarttime)
+        instance_first = True
         log.info("Detected new code version - resetting debug values")
-     
+
 
 
 def cleanPath(node):
@@ -1474,7 +1474,7 @@ class ShowUnit (webapp2.RequestHandler):
         base_actionprop = Unit.GetUnit( node.rsplit('-')[0] )
         if base_actionprop != None :
             self.response.out.write('<div>Looking for an <a href="/Action">Action</a>-related property? Note that xyz-input and xyz-output have <a href="/docs/actions.html">special meaning</a>. See also: <a href="/%s">%s</a></div> <br/><br/> ' % ( base_actionprop.id, base_actionprop.id ))
-        
+
         self.response.out.write("</div>\n</body>\n</html>\n")
 
         return True
@@ -1654,10 +1654,10 @@ class ShowUnit (webapp2.RequestHandler):
     def handleExtensionContents(self,ext):
         if not ext in ENABLED_EXTENSIONS:
             return ""
-            
+
         if DataCache.get('ExtensionContents',ext):
             return DataCache.get('ExtensionContents',ext)
-        
+
         buff = StringIO.StringIO()
 
         az_types = GetAllTypes(ext)
@@ -1715,18 +1715,25 @@ class ShowUnit (webapp2.RequestHandler):
         if len(split) > 1:
             myport = split[1]
 
+        setHostExt(host_ext)
+        setBaseHost(mybasehost)
+        setHostPort(myport)
+
         if host_ext != None:
             # e.g. "bib"
             log.debug("HOST: Found %s in %s" % ( host_ext, hostString ))
             if host_ext == "www":
                 # www is special case that cannot be an extension - need to redirect to basehost
                 mybasehost = mybasehost[4:]
+                setBaseHost(mybasehost)
                 return self.redirectToBase(node)
             elif not host_ext in ENABLED_EXTENSIONS:
                 host_ext = ""
             else:
                 mybasehost = mybasehost[len(host_ext) + 1:]
-
+            setHostExt(host_ext)
+            setBaseHost(mybasehost)
+            
         setHostExt(host_ext)
         setBaseHost(mybasehost)
         setHostPort(myport)
@@ -1776,7 +1783,7 @@ class ShowUnit (webapp2.RequestHandler):
         """
 
         global_vars.time_start = datetime.datetime.now()
-                
+
         if not self.setupHostinfo(node):
             return
 
@@ -1802,7 +1809,7 @@ class ShowUnit (webapp2.RequestHandler):
             global Warmer
             if not WarmedUp:
                 Warmer.stepWarm()
-            
+
         if(node == "_ah/start"):
             log.info("Instance[%s] received Start request at %s" % (modules.get_current_instance_id(), global_vars.time_start) )
             return
@@ -1858,7 +1865,7 @@ class ShowUnit (webapp2.RequestHandler):
         if(node == "_siteDebug"):
             if(getBaseHost() != "schema.org" or os.environ['PRODSITEDEBUG'] == "True"):
                 self.siteDebug()
-                return 
+                return
 
         # Pages based on request path matching a Unit in the term graph:
         if self.handleExactTermPage(node, layers=layerlist):
@@ -1905,7 +1912,7 @@ class ShowUnit (webapp2.RequestHandler):
                 self.writeDebugRow("%s calls" % s, memcache.get(s))
             for s in ["http","https"]:
                 self.writeDebugRow("%s calls" % s, memcache.get(s))
-            
+
 
         self.writeDebugRow("This Instance ID",os.environ["INSTANCE_ID"],True)
         self.writeDebugRow("Instance Calls", callCount)
@@ -1923,7 +1930,7 @@ class ShowUnit (webapp2.RequestHandler):
         if head:
             rt = "th"
             cellStyle += " color: #FFFFFF; background: #888888;"
-        
+
         leftcellStyle = cellStyle
         leftcellStyle += " width: 35%"
 
@@ -1940,18 +1947,18 @@ class ShowUnit (webapp2.RequestHandler):
             instance_first = False
             instance_num += 1
             if SHAREDSITEDEBUG:
-                if(memcache.add(key="Instances",value={})):                
+                if(memcache.add(key="Instances",value={})):
                     memcache.add(key="ExitInstances",value={})
                     memcache.add(key="http",value=0)
                     memcache.add(key="https",value=0)
                     memcache.add(key="total",value=0)
                     for i in ALL_LAYERS:
                         memcache.add(key=i,value=0)
-           
+
                 Insts = memcache.get("Instances")
                 Insts[os.environ["INSTANCE_ID"]] = 1
                 memcache.replace("Instances",Insts)
-        
+
         if SHAREDSITEDEBUG:
             memcache.incr("total")
             memcache.incr(getHttpScheme())
@@ -1959,8 +1966,8 @@ class ShowUnit (webapp2.RequestHandler):
                 memcache.incr(getHostExt())
             else:
                 memcache.incr("core")
-                
-                
+
+
     def warmup(self):
         global WarmedUp
         global Warmer
@@ -1971,32 +1978,32 @@ class ShowUnit (webapp2.RequestHandler):
         log.info("Instance[%s] completed Warmup request at %s" % (modules.get_current_instance_id(), global_vars.time_start) )
 
 class WarmupTool():
-    
+
     def __init__(self):
         self.types = []
         self.props = []
         self.enums = []
-        
+
     def stepWarm(self,all=False):
         global WarmedUp
         if WarmedUp:
             return
-        if len (self.types) < len(ALL_LAYERS): 
+        if len (self.types) < len(ALL_LAYERS):
             for l in ALL_LAYERS:
                 if l not in self.types:
-                    self.types.append(l)           
+                    self.types.append(l)
                     GetAllTypes(l)
                     break
         elif len (self.props) < len(ALL_LAYERS):
             for l in ALL_LAYERS:
                 if l not in self.props:
-                    self.props.append(l)           
+                    self.props.append(l)
                     GetAllProperties(l)
                     break
         elif len (self.enums) < len(ALL_LAYERS):
             for l in ALL_LAYERS:
                 if l not in self.enums:
-                    self.enums.append(l)           
+                    self.enums.append(l)
                     GetAllEnumerationValues(l)
                     break
         else:
@@ -2007,8 +2014,8 @@ class WarmupTool():
         while not WarmedUp:
             self.stepWarm(True)
 
-Warmer = WarmupTool()            
-            
+Warmer = WarmupTool()
+
 
 def my_shutdown_hook():
     global instance_num
@@ -2016,7 +2023,7 @@ def my_shutdown_hook():
         Insts = memcache.get("ExitInstances")
         Insts[os.environ["INSTANCE_ID"]] = 1
         memcache.replace("ExitInstances",Insts)
-    
+
         memcache.add("Exits",0)
         memcache.incr("Exits")
     log.info("Instance[%s] shutting down" % modules.get_current_instance_id())
