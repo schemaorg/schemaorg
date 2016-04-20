@@ -1,4 +1,4 @@
-TYPES: #fiboex-1 CreditCard
+onTYPES: #fiboex-1 CreditCard, MonetaryAmount, UnitPriceSpecification
 
 PRE-MARKUP:
 
@@ -16,8 +16,8 @@ MICRODATA:
     <span itemprop="loanCollateral">Requires a minimum $300 security deposit.</span>
     <span itemprop="amount" itemscope itemtype="http://schema.org/MonetaryAmount">When you apply, you provide a minimum security deposit of at least 
       <span itemprop="currency" content="USD">$</span>
-      <span itemprop="minAmount">300</span>, or up to $
-      <span itemprop="maxAmount" content="10000">10,000</span>.
+      <span itemprop="minValue">300</span>, or up to $
+      <span itemprop="maxValue" content="10000">10,000</span>.
     </span>
     <span itemprop="offers" itemscope itemtype="http://schema.org/Offer">
       <meta itemprop="offeredBy" content="Wells Fargo"/>
@@ -42,8 +42,8 @@ RDFA:
     <span property="loanCollateral">Requires a minimum $300 security deposit.</span>
     <span property="amount" typeof="MonetaryAmount">When you apply, you provide a minimum security deposit of at least 
       <span property="currency" content="USD">$</span>
-      <span property="minAmount">300</span>, or up to $
-      <span property="maxAmount" content="10000">10,000</span>.
+      <span property="minValue">300</span>, or up to $
+      <span property="maxValue" content="10000">10,000</span>.
     </span>
     <span property="offers" typeof="Offer">
       <meta property="offeredBy" content="Wells Fargo"/>
@@ -72,8 +72,8 @@ JSON:
   "loanCollateral": "Requires a minimum $300 security deposit.",
   "amount": {
       "@type": "MonetaryAmount",
-      "minAmount": "300",
-      "maxAmount": "10000",
+      "minValue": "300",
+      "maxValue": "10000",
       "currency": "USD"
   },
   "offers": {
@@ -150,13 +150,13 @@ MICRODATA:
   The lifetime limit for this loan combined with all other education-related debt is
   <div itemprop="amount" itemscope itemtype="http://schema.org/MonetaryAmount">
     <span itemprop="currency" content="USD">$</span>
-    <span itemprop="amount" content="180000">180,000</span>
+    <span itemprop="value" content="180000">180,000</span>
     <span itemprop="name">for law and business</span>,
   </div>
   and
   <div itemprop="amount" itemscope itemtype="http://schema.org/MonetaryAmount">
     <span itemprop="currency" content="USD">$</span>
-    <span itemprop="amount" content="120000">120,000</span>
+    <span itemprop="value" content="120000">120,000</span>
     <span itemprop="name">for other fields of study</span>.
   </div>
 </div>
@@ -194,13 +194,13 @@ RDFA:
   The lifetime limit for this loan combined with all other education-related debt is
   <div property="amount" typeof="MonetaryAmount">
     <span property="currency" content="USD">$</span>
-    <span property="amount" content="180000">180,000</span>
+    <span property="value" content="180000">180,000</span>
     <span property="name">for law and business</span>,
   </div>
   and
   <div property="amount" typeof="MonetaryAmount">
     <span property="currency" content="USD">$</span>
-    <span property="amount" content="120000">120,000</span>
+    <span property="value" content="120000">120,000</span>
     <span property="name">for other fields of study</span>.
   </div>
 </div>
@@ -238,13 +238,13 @@ JSON:
   {
     "@type": "MonetaryAmount",
     "name":"debt for law and business",
-    "amount":"180000",
+    "value":"180000",
     "currency":"USD"
   },
   {
     "@type": "MonetaryAmount",
     "name":"debt for other fields of study than law and business",
-    "amount":"120000",
+    "value":"120000",
     "currency":"USD"
   }
   ]
@@ -607,21 +607,21 @@ MICRODATA:
             <td><a itemprop="provider" href="https://www.rcibank.co.uk">RCI Bank</a></td>
             <td itemprop="name">Freedom Savings Account</td>
             <td itemprop="interestRate" itemscope itemtype="http://schema.org/QuantitativeValue"><span itemprop="value">1.65</span>% <span itemprop="valueReference">Variable</span></td>
-            <td itemprop="amount" itemscope itemtype="http://schema.org/MonetaryAmount"><meta itemprop="currency" content="GBP"/>&#163;<span itemprop="minAmount" content="100">100</span> to &#163;<span itemprop="maxAmount" content="1000000">1,000,000</span></td>
+            <td itemprop="amount" itemscope itemtype="http://schema.org/MonetaryAmount"><meta itemprop="currency" content="GBP"/>&#163;<span itemprop="minValue" content="100">100</span> to &#163;<span itemprop="maxValue" content="1000000">1,000,000</span></td>
             <td><span itemprop="availableChannel">Internet</span>, <span itemprop="availableChannel">Post</span>, <span itemprop="availableChannel">Telephone</span></td>
         </tr>
         <tr itemprop="itemListElement" itemscope itemtype="http://schema.org/DepositAccount">
             <td><a itemprop="provider" href="https://sbiukonlinesavings.com/">State Bank of India</a></td>
             <td itemprop="name">Online Instant Access Savings Issue 4</td>
             <td itemprop="interestRate" itemscope itemtype="http://schema.org/QuantitativeValue"><span itemprop="value">1.25</span>% <span itemprop="valueReference">Variable</span></td>
-            <td itemprop="amount" itemscope itemtype="http://schema.org/MonetaryAmount"><meta itemprop="currency" content="GBP"/>&#163;<span itemprop="minAmount" content="500">500</span> to &#163;<span itemprop="maxAmount" content="1000000">1,000,000</span></td>
+            <td itemprop="amount" itemscope itemtype="http://schema.org/MonetaryAmount"><meta itemprop="currency" content="GBP"/>&#163;<span itemprop="minValue" content="500">500</span> to &#163;<span itemprop="maxValue" content="1000000">1,000,000</span></td>
             <td><span itemprop="availableChannel">Internet</span>, <span itemprop="availableChannel">In Branch</span></td>
         </tr>
         <tr itemprop="itemListElement" itemscope itemtype="http://schema.org/DepositAccount">
             <td><a itemprop="provider" href="http://www.aldermore.co.uk/">Aldermore</a></td>
             <td itemprop="name">Easy Access Issue 9</td>
             <td itemprop="interestRate" itemscope itemtype="http://schema.org/QuantitativeValue"><span itemprop="value">1.25</span>% <span itemprop="valueReference">Variable</span></td>
-            <td itemprop="amount" itemscope itemtype="http://schema.org/MonetaryAmount"><meta itemprop="currency" content="GBP"/>&#163;<span itemprop="minAmount" content="1000">1,000</span> to &#163;<span itemprop="maxAmount" content="1000000">1,000,000</span></td>
+            <td itemprop="amount" itemscope itemtype="http://schema.org/MonetaryAmount"><meta itemprop="currency" content="GBP"/>&#163;<span itemprop="minValue" content="1000">1,000</span> to &#163;<span itemprop="maxValue" content="1000000">1,000,000</span></td>
             <td><span itemprop="availableChannel">Internet</span>, <span itemprop="availableChannel">Post</span>, <span itemprop="availableChannel">Telephone</span></td>
         </tr>
     </table>
@@ -643,21 +643,21 @@ RDFA:
             <td><a property="provider" href="https://www.rcibank.co.uk">RCI Bank</a></td>
             <td property="name">Freedom Savings Account</td>
             <td property="interestRate" typeof="QuantitativeValue"><span property="value">1.65</span>% <span property="valueReference">Variable</span></td>
-            <td property="amount" typeof="MonetaryAmount"><meta property="currency" content="GBP"/>&#163;<span property="minAmount" content="100">100</span> to &#163;<span property="maxAmount" content="1000000">1,000,000</span></td>
+            <td property="amount" typeof="MonetaryAmount"><meta property="currency" content="GBP"/>&#163;<span property="minValue" content="100">100</span> to &#163;<span property="maxValue" content="1000000">1,000,000</span></td>
             <td><span property="availableChannel">Internet</span>, <span property="availableChannel">Post</span>, <span property="availableChannel">Telephone</span></td>
         </tr>
         <tr property="itemListElement" typeof="DepositAccount">
             <td><a property="provider" href="https://sbiukonlinesavings.com/">State Bank of India</a></td>
             <td property="name">Online Instant Access Savings Issue 4</td>
             <td property="interestRate" typeof="QuantitativeValue"><span property="value">1.25</span>% <span property="valueReference">Variable</span></td>
-            <td property="amount" typeof="MonetaryAmount"><meta property="currency" content="GBP"/>&#163;<span property="minAmount" content="500">500</span> to &#163;<span property="maxAmount" content="1000000">1,000,000</span></td>
+            <td property="amount" typeof="MonetaryAmount"><meta property="currency" content="GBP"/>&#163;<span property="minValue" content="500">500</span> to &#163;<span property="maxValue" content="1000000">1,000,000</span></td>
             <td><span property="availableChannel">Internet</span>, <span property="availableChannel">In Branch</span></td>
         </tr>
         <tr property="itemListElement" typeof="DepositAccount">
             <td><a property="provider" href="http://www.aldermore.co.uk/">Aldermore</a></td>
             <td property="name">Easy Access Issue 9</td>
             <td property="interestRate" typeof="QuantitativeValue"><span property="value">1.25</span>% <span property="valueReference">Variable</span></td>
-            <td property="amount" typeof="MonetaryAmount"><meta property="currency" content="GBP"/>&#163;<span property="minAmount" content="1000">1,000</span> to &#163;<span property="maxAmount" content="1000000">1,000,000</span></td>
+            <td property="amount" typeof="MonetaryAmount"><meta property="currency" content="GBP"/>&#163;<span property="minValue" content="1000">1,000</span> to &#163;<span property="maxValue" content="1000000">1,000,000</span></td>
             <td><span property="availableChannel">Internet</span>, <span property="availableChannel">Post</span>, <span property="availableChannel">Telephone</span></td>
         </tr>
     </table>
@@ -690,8 +690,8 @@ JSON:
             "amount": {
                 "@type": "MonetaryAmount",
                 "currency": "GBP",
-                "minAmount": "100",
-                "maxAmount": "1000000"
+                "minValue": "100",
+                "maxValue": "1000000"
             },
             "availableChannel": ["Internet","Post","Telephone"]
         },
@@ -710,8 +710,8 @@ JSON:
             "amount": {
                 "@type": "MonetaryAmount",
                 "currency": "GBP",
-                "minAmount": "500",
-                "maxAmount": "1000000"
+                "minValue": "500",
+                "maxValue": "1000000"
             },
             "availableChannel": ["Internet","In Branch"]
         },
@@ -730,8 +730,8 @@ JSON:
             "amount": {
                 "@type": "MonetaryAmount",
                 "currency": "GBP",
-                "minAmount": "1000",
-                "maxAmount": "1000000"
+                "minValue": "1000",
+                "maxValue": "1000000"
             },
             "availableChannel": ["Internet","Post","Telephone"]
         }
@@ -1054,7 +1054,7 @@ MICRODATA:
     <div itemscope itemtype="http://schema.org/FinancialProduct">
       <h3 itemprop="name">Term Life Insurance</h3>
       <p itemprop="description">For most people, the primary reason to purchase life insurance is to help provide for dependents in the case of your death and the resulting loss of income. To determine a coverage amount, estimate what your family members would need after you’re gone to meet immediate, ongoing, and future financial obligations including funeral, rent or mortgage, other every day bills, college, and retirement.</p>
-      <div itemprop="amount" itemscope itemtype="http://schema.org/MonetaryAmount">Coverage amounts <span itemprop="currency" content="USD">$</span><span itemprop="minAmount" content="100000">100,000</span> - $<span itemprop="maxAmount" content="1000000">1,000,000</span></div>
+      <div itemprop="amount" itemscope itemtype="http://schema.org/MonetaryAmount">Coverage amounts <span itemprop="currency" content="USD">$</span><span itemprop="minValue" content="100000">100,000</span> - $<span itemprop="maxValue" content="1000000">1,000,000</span></div>
       <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">Available through <a itemprop="offeredBy" href="http://www.icinsure.com/acce/">Life Insurance Central</a></div>
     </div>
 </body>
@@ -1066,7 +1066,7 @@ RDFA:
     <div typeof="FinancialProduct">
       <h3 property="name">Term Life Insurance</h3>
       <p property="description">For most people, the primary reason to purchase life insurance is to help provide for dependents in the case of your death and the resulting loss of income. To determine a coverage amount, estimate what your family members would need after you’re gone to meet immediate, ongoing, and future financial obligations including funeral, rent or mortgage, other every day bills, college, and retirement.</p>
-      <div property="amount" typeof="MonetaryAmount">Coverage amounts <span property="currency" content="USD">$</span><span property="minAmount" content="100000">100,000</span> - $<span property="maxAmount" content="1000000">1,000,000</span></div>
+      <div property="amount" typeof="MonetaryAmount">Coverage amounts <span property="currency" content="USD">$</span><span property="minValue" content="100000">100,000</span> - $<span property="maxValue" content="1000000">1,000,000</span></div>
       <div property="offers" typeof="Offer">Available through <a property="offeredBy" href="http://www.icinsure.com/acce/">Life Insurance Central</a></div>
     </div>
 </body>
@@ -1082,8 +1082,8 @@ JSON:
   "amount": {
     "@type": "MonetaryAmount",
     "currency": "USD",
-    "minAmount": "100000",
-    "maxAmount": "1000000"
+    "minValue": "100000",
+    "maxValue": "1000000"
   },
   "offers": {
     "@type": "Offer",
@@ -1112,7 +1112,7 @@ MICRODATA:
   <div itemscope itemtype="http://schema.org/InvestmentOrDeposit">
     <h1 itemprop="name">Guaranteed Interest Fund</h1>
     <p itemprop="description">This type of secure investment grows your money at a guaranteed rate of interest for a fixed period. It is ideal for investors looking for capital security.</p>
-    <div itemprop="amount" itemscope itemtype="http://schema.org/MonetaryAmount">Amount to be invested <span itemprop="currency" content="USD">$</span><span itemprop="minAmount" content="25000">25,000</span> to $<span itemprop="maxAmount" content="99000">99,999</span></div>
+    <div itemprop="amount" itemscope itemtype="http://schema.org/MonetaryAmount">Amount to be invested <span itemprop="currency" content="USD">$</span><span itemprop="minValue" content="25000">25,000</span> to $<span itemprop="maxValue" content="99000">99,999</span></div>
     <div>Guaranteed interest rate <span itemprop="interestRate" content="1.25">1.25%</span></div>
   </div>
 </body>
@@ -1123,7 +1123,7 @@ RDFA:
   <div typeof="http://schema.org/InvestmentOrDeposit">
     <h1 property="name">Guaranteed Interest Fund</h1>
     <p property="description">This type of secure investment grows your money at a guaranteed rate of interest for a fixed period. It is ideal for investors looking for capital security.</p>
-    <div property="amount" typeof="http://schema.org/MonetaryAmount">Amount to be invested <span property="currency" content="USD">$</span><span property="minAmount" content="25000">25,000</span> to $<span property="maxAmount" content="99000">99,999</span></div>
+    <div property="amount" typeof="http://schema.org/MonetaryAmount">Amount to be invested <span property="currency" content="USD">$</span><span property="minValue" content="25000">25,000</span> to $<span property="maxValue" content="99000">99,999</span></div>
     <div>Guaranteed interest rate <span property="interestRate" content="1.25">1.25%</span></div>
   </div>
 </body>
@@ -1139,8 +1139,8 @@ JSON:
   "amount": {
     "@type": "MonetaryAmount",
     "currency": "USD",
-    "minAmount": "25000",
-    "maxAmount": "90000"
+    "minValue": "25000",
+    "maxValue": "90000"
   },
   "interestRate": "1.25"
 }

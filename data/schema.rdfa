@@ -7639,12 +7639,6 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/DietarySupplement">DietarySupplement</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/MaximumDoseSchedule">MaximumDoseSchedule</a></span>
     </div>
-    <div typeof="rdf:Property" resource="http://schema.org/maxAmountOfMoney">
-      <span class="h" property="rdfs:label">maxAmountOfMoney</span>
-      <span property="rdfs:comment">The highest amount of money if the amount is a range.</span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MonetaryAmount">MonetaryAmount</a></span>
-      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number">Number</a></span>
-    </div>
     <div typeof="rdf:Property" resource="http://schema.org/maxPrice">
       <span class="h" property="rdfs:label">maxPrice</span>
       <span property="rdfs:comment">The highest price if the price is a range.</span>
@@ -7656,6 +7650,7 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
       <span property="rdfs:comment">The upper value of some characteristic or property.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/QuantitativeValue">QuantitativeValue</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/PropertyValue">PropertyValue</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MonetaryAmount">MonetaryAmount</a></span>
 	  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/PropertyValueSpecification">PropertyValueSpecification</a></span>
 
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number">Number</a></span>
@@ -7736,12 +7731,6 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Person">Person</a></span>
       <link property="http://schema.org/supersededBy" href="http://schema.org/seller"/>
     </div>
-    <div typeof="rdf:Property" resource="http://schema.org/minAmountOfMoney">
-      <span class="h" property="rdfs:label">minAmountOfMoney</span>
-      <span property="rdfs:comment">The lowest amount of money if the amount is a range.</span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MonetaryAmount">MonetaryAmount</a></span>
-      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number">Number</a></span>
-    </div>
     <div typeof="rdf:Property" resource="http://schema.org/minPrice">
       <span class="h" property="rdfs:label">minPrice</span>
       <span property="rdfs:comment">The lowest price if the price is a range.</span>
@@ -7753,6 +7742,7 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
       <span property="rdfs:comment">The lower value of some characteristic or property.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/QuantitativeValue">QuantitativeValue</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/PropertyValue">PropertyValue</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MonetaryAmount">MonetaryAmount</a></span>
 	  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/PropertyValueSpecification">PropertyValueSpecification</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number">Number</a></span>
     </div>
@@ -9850,10 +9840,11 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
     <div typeof="rdf:Property" resource="http://schema.org/value">
       <span class="h" property="rdfs:label">value</span>
       <span property="rdfs:comment">The value of the quantitative value or property value node.&lt;br/&gt;
-	For QuantitativeValue, the recommended type for values is &apos;Number&apos;. &lt;br/&gt;
-	For PropertyValue, it can be &apos;Text;&apos;, &apos;Number&apos;, &apos;Boolean&apos;, or &apos;StructuredValue&apos;. &lt;br/&gt;.</span>
+	For QuantitativeValue and MonetaryValue, the recommended type for values is &apos;Number&apos;. &lt;br/&gt;
+	For PropertyValue, it can be &apos;Text;&apos;, &apos;Number&apos;, &apos;Boolean&apos;, or &apos;StructuredValue&apos;.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/QuantitativeValue">QuantitativeValue</a></span>
 	  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/PropertyValue">PropertyValue</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MonetaryAmount">MonetaryAmount</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number">Number</a></span>
 	  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
 	  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Boolean">Boolean</a></span>
@@ -11983,12 +11974,6 @@ postponing for 1.6.
     <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/LoanOrCredit">LoanOrCredit</a></span>
     <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/InvestmentOrDeposit">InvestmentOrDeposit</a></span>
     <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/MonetaryAmount">MonetaryAmount</a></span>
-    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number">Number</a></span>
-  </div>
-  <div typeof="rdf:Property" resource="http://schema.org/amountOfMoney">
-    <span class="h" property="rdfs:label">amount</span>
-    <span property="rdfs:comment">The amount of money.</span>
-    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MonetaryAmount">MonetaryAmount</a></span>
     <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number">Number</a></span>
   </div>
   <div typeof="rdf:Property" resource="http://schema.org/currency">
