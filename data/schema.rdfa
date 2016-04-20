@@ -2370,21 +2370,9 @@
 
     <div typeof="rdfs:Class" resource="http://schema.org/DayOfWeek">
       <span class="h" property="rdfs:label">DayOfWeek</span>
-      <span property="rdfs:comment">The day of the week, e.g. used to specify to which day the opening hours of an OpeningHoursSpecification refer.
-&lt;br /&gt;
-    Commonly used values:&lt;br /&gt;
-&lt;br /&gt;
-    http://purl.org/goodrelations/v1#Monday &lt;br /&gt;
-    http://purl.org/goodrelations/v1#Tuesday &lt;br /&gt;
-    http://purl.org/goodrelations/v1#Wednesday &lt;br /&gt;
-    http://purl.org/goodrelations/v1#Thursday &lt;br /&gt;
-    http://purl.org/goodrelations/v1#Friday &lt;br /&gt;
-    http://purl.org/goodrelations/v1#Saturday &lt;br /&gt;
-    http://purl.org/goodrelations/v1#Sunday &lt;br /&gt;
-    http://purl.org/goodrelations/v1#PublicHolidays &lt;br /&gt;
-        </span>
-       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Enumeration">Enumeration</a></span>
-       <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsClass">GoodRelationsClass</a></span>
+      <span property="rdfs:comment">The day of the week, e.g. used to specify to which day the opening hours of an OpeningHoursSpecification refer.</span>
+      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Enumeration">Enumeration</a></span>
+      <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsClass">GoodRelationsClass</a></span>
     </div>
 
     <div typeof="rdfs:Class" resource="http://schema.org/PriceSpecification">
@@ -2436,9 +2424,14 @@
 
     <div typeof="rdfs:Class" resource="http://schema.org/OpeningHoursSpecification">
       <span class="h" property="rdfs:label">OpeningHoursSpecification</span>
-      <span property="rdfs:comment">A structured value providing information about the opening hours of a place or a certain service inside a place.</span>
-       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/StructuredValue">StructuredValue</a></span>
-       <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsClass">GoodRelationsClass</a></span>
+      <span property="rdfs:comment">A structured value providing information about the opening hours of a place or a certain service inside a place.
+&lt;br /&gt;
+The place is &lt;b&gt;open&lt;/b&gt; if the &lt;a href=&quot;/opens&quot;&gt;opens&lt;/a&gt; property is specified, and &lt;b&gt;closed&lt;/b&gt; otherwise.
+&lt;br /&gt;
+If the value for the &lt;a href=&quot;/closes&quot;&gt;closes&lt;/a&gt; property is less than the value for the &lt;a href=&quot;/opens&quot;&gt;opens&lt;/a&gt; property then the hour range is assumed to span over the next day.
+      </span>
+      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/StructuredValue">StructuredValue</a></span>
+      <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsClass">GoodRelationsClass</a></span>
     </div>
 
     <div typeof="rdfs:Class" resource="http://schema.org/OwnershipInfo">
@@ -6033,7 +6026,7 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/openingHours">
       <span class="h" property="rdfs:label">openingHours</span>
-      <span property="rdfs:comment">The opening hours for a business. Opening hours can be specified as a weekly time range, starting with days, then times per day. Multiple days can be listed with commas &#39;,&#39; separating each day. Day or time ranges are specified using a hyphen &#39;-&#39;.&lt;br /&gt;- Days are specified using the following two-letter combinations: &lt;code&gt;Mo&lt;/code&gt;, &lt;code&gt;Tu&lt;/code&gt;, &lt;code&gt;We&lt;/code&gt;, &lt;code&gt;Th&lt;/code&gt;, &lt;code&gt;Fr&lt;/code&gt;, &lt;code&gt;Sa&lt;/code&gt;, &lt;code&gt;Su&lt;/code&gt;.&lt;br /&gt;- Times are specified using 24:00 time. For example, 3pm is specified as &lt;code&gt;15:00&lt;/code&gt;. &lt;br /&gt;- Here is an example: &lt;code&gt;&amp;lt;time itemprop=&amp;quot;openingHours&amp;quot; datetime=&amp;quot;Tu,Th 16:00-20:00&amp;quot;&amp;gt;Tuesdays and Thursdays 4-8pm&amp;lt;/time&amp;gt;&lt;/code&gt;. &lt;br /&gt;- If a business is open 7 days a week, then it can be specified as &lt;code&gt;&amp;lt;time itemprop=&amp;quot;openingHours&amp;quot; datetime=&amp;quot;Mo-Su&amp;quot;&amp;gt;Monday through Sunday, all day&amp;lt;/time&amp;gt;&lt;/code&gt;.</span>
+      <span property="rdfs:comment">The general opening hours for a business. Opening hours can be specified as a weekly time range, starting with days, then times per day. Multiple days can be listed with commas &#39;,&#39; separating each day. Day or time ranges are specified using a hyphen &#39;-&#39;.&lt;br /&gt;- Days are specified using the following two-letter combinations: &lt;code&gt;Mo&lt;/code&gt;, &lt;code&gt;Tu&lt;/code&gt;, &lt;code&gt;We&lt;/code&gt;, &lt;code&gt;Th&lt;/code&gt;, &lt;code&gt;Fr&lt;/code&gt;, &lt;code&gt;Sa&lt;/code&gt;, &lt;code&gt;Su&lt;/code&gt;.&lt;br /&gt;- Times are specified using 24:00 time. For example, 3pm is specified as &lt;code&gt;15:00&lt;/code&gt;. &lt;br /&gt;- Here is an example: &lt;code&gt;&amp;lt;time itemprop=&amp;quot;openingHours&amp;quot; datetime=&amp;quot;Tu,Th 16:00-20:00&amp;quot;&amp;gt;Tuesdays and Thursdays 4-8pm&amp;lt;/time&amp;gt;&lt;/code&gt;. &lt;br /&gt;- If a business is open 7 days a week, then it can be specified as &lt;code&gt;&amp;lt;time itemprop=&amp;quot;openingHours&amp;quot; datetime=&amp;quot;Mo-Su&amp;quot;&amp;gt;Monday through Sunday, all day&amp;lt;/time&amp;gt;&lt;/code&gt;.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/LocalBusiness">LocalBusiness</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CivicStructure">CivicStructure</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
@@ -6041,6 +6034,15 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
     <div typeof="rdf:Property" resource="http://schema.org/openingHoursSpecification">
       <span class="h" property="rdfs:label">openingHoursSpecification</span>
       <span property="rdfs:comment">The opening hours of a certain place.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Place">Place</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/OpeningHoursSpecification">OpeningHoursSpecification</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/specialOpeningHoursSpecification">
+      <span class="h" property="rdfs:label">specialOpeningHoursSpecification</span>
+      <span property="rdfs:comment">The special opening hours of a certain place.
+&lt;br /&gt;
+Use this to explicitly override general opening hours brought in scope by &lt;a href=&quot;/openingHoursSpecification&quot;&gt;openingHoursSpecification&lt;/a&gt; or &lt;a href=&quot;/openingHours&quot;&gt;openingHours&lt;/a&gt;.
+      </span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Place">Place</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/OpeningHoursSpecification">OpeningHoursSpecification</a></span>
     </div>
@@ -10660,6 +10662,44 @@ Typical unit code(s): C62 for persons.</span>
   <span class="h" property="rdfs:label">DataFeedItem</span>
   <span property="rdfs:comment">A single item within a larger data feed.</span>
   <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Intangible">Intangible</a></span>
+</div>
+
+<h1>Day of Week</h1>
+
+<div typeof="http://schema.org/DayOfWeek" resource="http://schema.org/Monday">
+  <span class="h" property="rdfs:label">Monday</span>
+  <span property="rdfs:comment">The day of the week between Sunday and Tuesday.</span>
+  <span>Same as: <a property="schema:sameAs" href="http://www.wikidata.org/entity/Q105">Monday</a></span>
+</div>
+<div typeof="http://schema.org/DayOfWeek" resource="http://schema.org/Tuesday">
+  <span class="h" property="rdfs:label">Tuesday</span>
+  <span property="rdfs:comment">The day of the week between Monday and Wednesday.</span>
+  <span>Same as: <a property="schema:sameAs" href="http://www.wikidata.org/entity/Q127">Tuesday</a></span>
+</div>
+<div typeof="http://schema.org/DayOfWeek" resource="http://schema.org/Wednesday">
+  <span class="h" property="rdfs:label">Wednesday</span>
+  <span property="rdfs:comment">The day of the week between Tuesday and Thursday.</span>
+  <span>Same as: <a property="schema:sameAs" href="http://www.wikidata.org/entity/Q128">Wednesday</a></span>
+</div>
+<div typeof="http://schema.org/DayOfWeek" resource="http://schema.org/Thursday">
+  <span class="h" property="rdfs:label">Thursday</span>
+  <span property="rdfs:comment">The day of the week between Wednesday and Friday.</span>
+  <span>Same as: <a property="schema:sameAs" href="http://www.wikidata.org/entity/Q129">Thursday</a></span>
+</div>
+<div typeof="http://schema.org/DayOfWeek" resource="http://schema.org/Friday">
+  <span class="h" property="rdfs:label">Friday</span>
+  <span property="rdfs:comment">The day of the week between Thursday and Saturday.</span>
+  <span>Same as: <a property="schema:sameAs" href="http://www.wikidata.org/entity/Q130">Friday</a></span>
+</div>
+<div typeof="http://schema.org/DayOfWeek" resource="http://schema.org/Saturday">
+  <span class="h" property="rdfs:label">Saturday</span>
+  <span property="rdfs:comment">The day of the week between Friday and Sunday.</span>
+  <span>Same as: <a property="schema:sameAs" href="http://www.wikidata.org/entity/Q131">Saturday</a></span>
+</div>
+<div typeof="http://schema.org/DayOfWeek" resource="http://schema.org/Sunday">
+  <span class="h" property="rdfs:label">Sunday</span>
+  <span property="rdfs:comment">The day of the week between Saturday and Monday.</span>
+  <span>Same as: <a property="schema:sameAs" href="http://www.wikidata.org/entity/Q132">Sunday</a></span>
 </div>
 
 <!-- Compound price extension from GoodRelations -->
