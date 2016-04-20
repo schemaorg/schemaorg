@@ -4,4 +4,5 @@
 appcfg.py update .   -A webschemas
 
 # then the release-specific one
-appcfg.py update .   -A sdo-deimos
+### not so needed: 
+### appcfg.py update .   -A sdo-deimos
