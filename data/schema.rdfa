@@ -76,6 +76,35 @@
        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Place">Place</a></span>
     </div>
 
+    <div typeof="rdfs:Class" resource="http://schema.org/Dentist">
+      <span class="h" property="rdfs:label"> Dentist</span>
+      <span property="rdfs:comment">A dentist.</span>
+      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MedicalBusiness"> MedicalBusiness</a></span>
+      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/ProfessionalService"> schema:ProfessionalService</a></span>
+    </div>
+
+    <div typeof="rdfs:Class" resource="http://schema.org/Hospital">
+      <span class="h" property="rdfs:label">Hospital</span>
+      <span property="rdfs:comment">A hospital.</span>
+      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/CivicStructure">CivicStructure</a></span>
+      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/EmergencyService">EmergencyService</a></span>
+      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MedicalOrganization">MedicalOrganization</a></span>
+      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MedicalBusiness">MedicalBusiness</a></span>
+    </div>
+
+    <div typeof="rdfs:Class" resource="http://schema.org/Physician">
+      <span class="h" property="rdfs:label">Physician</span>
+      <span property="rdfs:comment">A doctor's office.</span>
+      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MedicalOrganization"> health:MedicalOrganization</a></span>
+      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MedicalBusiness"> health:MedicalBusiness</a></span>
+    </div>
+        <div typeof="rdfs:Class" resource="http://schema.org/Pharmacy">
+      <span class="h" property="rdfs:label">Pharmacy</span>
+      <span property="rdfs:comment">A pharmacy or drugstore.</span>
+      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MedicalOrganization">MedicalOrganization</a></span>
+      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MedicalBusiness">MedicalBusiness</a></span>
+    </div>
+
     <div typeof="rdfs:Class" resource="http://schema.org/FinancialService">
       <span class="h" property="rdfs:label">FinancialService</span>
       <span property="rdfs:comment">Financial services business.</span>
@@ -4084,7 +4113,7 @@
     <div typeof="rdf:Property" resource="http://schema.org/branchOf">
       <span class="h" property="rdfs:label">branchOf</span>
       <link property="http://schema.org/supersededBy" href="http://schema.org/parentOrganization"/>
-      <span property="rdfs:comment">The larger organization that this local business is a branch of, if any.</span>
+      <span property="rdfs:comment">The larger organization that this local business is a branch of, if any. Not to be confused with (anatomical)[[branch]].</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/LocalBusiness">LocalBusiness</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Organization">Organization</a></span>
     </div>
@@ -9445,8 +9474,22 @@ postponing for 1.6.
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Place">Place</a></span>
 </div>
 
+<div typeof="rdf:Property" resource="http://schema.org/birthPlace">
+  <span class="h" property="rdfs:label">birthPlace</span>
+  <span property="rdfs:comment">The place where the person was born.</span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Birth">Birth</a></span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Person">Person</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Place">Place</a></span>
+</div>
 
-<!-- <p>Moved to health extension but to be discussed: Person birthPlace, deathPlace. (check old historical-info proposal, make a converged design later).</p> -->
+<div typeof="rdf:Property" resource="http://schema.org/deathPlace">
+  <span class="h" property="rdfs:label">deathPlace</span>
+  <span property="rdfs:comment">The place where the person died.</span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Death">Death</a></span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Person">Person</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Place">Place</a></span>
+</div>
+
 <p>NOTE: Added foundingLocation (Place) to Organization.</p>
 
 </div>
@@ -10417,6 +10460,13 @@ Typical unit code(s): C62 for persons.</span>
     a few common restrictions are enumerated via &lt;a href="/suitableForDiet"&gt;suitableForDiet&lt;/a&gt;.
     The &lt;a href="/keywords"&gt;keywords&lt;/a&gt; property can also be used to add more detail.</span>
    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/CreativeWork">CreativeWork</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/totalTime">
+  <span class="h" property="rdfs:label"> health:totalTime</span>
+  <span property="rdfs:comment">The total time it takes to prepare and cook the recipe, in <a href='http://en.wikipedia.org/wiki/ISO_8601'>ISO 8601 duration format</a>.</span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Recipe">Recipe</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Duration">Duration</a></span>
 </div>
 
 <div typeof="rdf:Property" resource="http://schema.org/cookTime">
