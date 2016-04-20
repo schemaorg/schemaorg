@@ -83,14 +83,6 @@
   <link property="http://schema.org/isPartOf" href="http://health-lifesci.schema.org" />
 </div>
 
-<div typeof="rdfs:Class" resource="http://schema.org/Dentist">
-  <span class="h" property="rdfs:label"> health:Dentist</span>
-  <span property="rdfs:comment">A dentist.</span>
-  <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MedicalBusiness"> health:MedicalBusiness</a></span>
-  <link property="http://schema.org/isPartOf" href="http://health-lifesci.schema.org" />
-  <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/ProfessionalService"> schema:ProfessionalService</a></span>
-</div>
-
 <div typeof="rdfs:Class" resource="http://schema.org/DiagnosticLab">
   <span class="h" property="rdfs:label"> health:DiagnosticLab</span>
   <span property="rdfs:comment">A medical laboratory that offers on-site or off-site diagnostic services.</span>
@@ -1038,16 +1030,6 @@
   <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MedicalBusiness"> health:MedicalBusiness</a></span>
 </div>
 
-<div typeof="rdfs:Class" resource="http://schema.org/Hospital">
-  <span class="h" property="rdfs:label"> health:Hospital</span>
-  <span property="rdfs:comment">A hospital.</span>
-  <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/CivicStructure"> schema:CivicStructure</a></span>
-  <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/EmergencyService"> schema:EmergencyService</a></span>
-  <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MedicalOrganization"> health:MedicalOrganization</a></span>
-  <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MedicalBusiness"> health:MedicalBusiness</a></span>
-  <link property="http://schema.org/isPartOf" href="http://health-lifesci.schema.org" />
-</div>
-
 <div typeof="rdfs:Class" resource="http://schema.org/MedicalCode">
   <span class="h" property="rdfs:label"> health:MedicalCode</span>
   <span property="rdfs:comment">A code for a medical entity.</span>
@@ -1177,7 +1159,7 @@
 
 <div typeof="rdfs:Class" resource="http://schema.org/MedicalBusiness">
   <span class="h" property="rdfs:label"> health:MedicalBusiness</span>
-  <span property="rdfs:comment">A particular physical or virtual business of an organization for medical purposes. Examples of MedicalBusiness include differents busness run by health professionals.</span>
+  <span property="rdfs:comment">A particular physical or virtual business of an organization for medical purposes. Examples of MedicalBusiness include differents business run by health professionals.</span>
   <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/LocalBusiness">schema:LocalBusiness</a></span>
   <link property="http://schema.org/isPartOf" href="http://health-lifesci.schema.org" />
 </div>
@@ -1369,14 +1351,6 @@
   <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Person"> schema:Person</a></span>
 </div>
 
-<div typeof="rdfs:Class" resource="http://schema.org/Pharmacy">
-  <span class="h" property="rdfs:label"> health:Pharmacy</span>
-  <span property="rdfs:comment">A pharmacy or drugstore.</span>
-  <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MedicalOrganization"> health:MedicalOrganization</a></span>
-  <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MedicalBusiness"> health:MedicalBusiness</a></span>
-  <link property="http://schema.org/isPartOf" href="http://health-lifesci.schema.org" />
-</div>
-
 <div typeof="rdfs:Class" resource="http://schema.org/PhysicalExam">
   <span class="h" property="rdfs:label"> health:PhysicalExam</span>
   <span property="rdfs:comment">A type of physical examination of a patient performed by a physician. </span>
@@ -1389,14 +1363,6 @@
   <span class="h" property="rdfs:label"> health:PhysicalTherapy</span>
   <span property="rdfs:comment">A process of progressive physical care and rehabilitation aimed at improving a health condition.</span>
   <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MedicalTherapy">health:MedicalTherapy</a></span>
-  <link property="http://schema.org/isPartOf" href="http://health-lifesci.schema.org" />
-</div>
-
-<div typeof="rdfs:Class" resource="http://schema.org/Physician">
-  <span class="h" property="rdfs:label"> health:Physician</span>
-  <span property="rdfs:comment">A doctor's office.</span>
-  <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MedicalOrganization"> health:MedicalOrganization</a></span>
-  <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MedicalBusiness"> health:MedicalBusiness</a></span>
   <link property="http://schema.org/isPartOf" href="http://health-lifesci.schema.org" />
 </div>
 
@@ -1650,7 +1616,7 @@
 
 <div typeof="rdf:Property" resource="http://schema.org/branch">
   <span class="h" property="rdfs:label"> health:branch</span>
-  <span property="rdfs:comment">The branches that delineate from the nerve bundle.</span>
+  <span property="rdfs:comment">The branches that delineate from the nerve bundle. Not to be confused with [[branchOf]].</span>
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Nerve"> health:Nerve</a></span>
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/AnatomicalStructure"> health:AnatomicalStructure </a></span>
   <link property="http://schema.org/supersededBy" href="http://schema.org/nerveBranch"/>
