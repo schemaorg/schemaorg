@@ -748,7 +748,9 @@ class ShowUnit (webapp2.RequestHandler):
         for prop in sorted(GetSources(di, cl, ALL_LAYERS), key=lambda u: u.id):
             if (prop.superseded(layers=layers)):
                 continue
-            if inLayer(layers,prop):
+            if inLayer(layers,prop): #Already in the correct layer - no need to report
+                continue
+            if inLayer("meta",prop): #Suppress mentioning properties from the 'meta' extension. 
                 continue
             log.debug("ClassExtensionfFound %s " % (prop))
 
