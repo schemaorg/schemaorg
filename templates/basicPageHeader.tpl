@@ -9,7 +9,7 @@
 				</h1>
 				</div>
 				<div id="cse-search-form" style="width: 400px;"></div>
-<script type="text/javascript" src="//www.google.com/jsapi"></script> 
+<script type="text/javascript" src="//www.google.com/jsapi"></script>
 <script type="text/javascript">
 google.load('search', '1', {language : 'en', style : google.loader.themes.ESPRESSO});
 google.setOnLoadCallback(function() {
@@ -52,5 +52,13 @@ customSearchControl.draw('cse-search-form', options);
 	</div>
 </div>
 <div style="padding: 14px; float: right;" id="languagebox"></div>
-<!-- Header end from basicPageHeader.tpl -->
 
+
+{% if mybasehost in [ "webschemas.org", "localhost"] %}
+<div id="pertermwebschemasnote" style="    padding: 0.7em; background-color:#ffb6c1; color: #000;"><b>Note</b>: you are viewing the <a href="http://webschemas.org/">webschemas.org</a> development
+	version of <a href="http://schema.org/">schema.org</a>. See <a href="/docs/howwework.html">How we work</a> for more details.
+</div>
+
+{% endif %}
+
+<!-- Header end from basicPageHeader.tpl -->

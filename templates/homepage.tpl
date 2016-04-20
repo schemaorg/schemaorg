@@ -19,15 +19,22 @@
 
 {% if mybasehost in [ "sdo-deimos.appspot.com", "sdo-phobos.appspot.com", "sdo-ganymede.appspot.com", "sdo-gozer.appspot.com", "sdo-tully.appspot.com", "sdo-lenny.appspot.com", "webschemas.org", "sdo-scripts.appspot.com", "localhost" ] %}
 
-<p id="lli" class="layerinfo">
+<!--<p id="lli" class="layerinfo">
 Note: This is {{ mybasehost }}. you are viewing an unstable work-in-progress preview of <a href="http://schema.org/">schema.org</a>.
 See the draft <b><a href="{{staticPath}}/docs/releases.html">releases</a></b> page to learn more about this version.
-</p>
+</p>-->
 
 {% endif %}
 
 
-{% if ENABLE_HOSTED_EXTENSIONS and host_ext == "bib" %}
+{% if ENABLE_HOSTED_EXTENSIONS and extComment != "" %}
+  {{ ext.overview(name=extName, abbrev=host_ext) }}
+  <p>
+	  {{extComment |safe}}
+<!--      <br/><br/>Extension Version: {{extVers}} -->
+  </p>
+
+{% elif ENABLE_HOSTED_EXTENSIONS and host_ext == "bib" %}
   {{ ext.overview(name="Bibliographic Extension", abbrev="bib") }}
   <p>
   You are viewing the Bibliographic Extension within <a href="http://schema.org/">schema.org</a>.
