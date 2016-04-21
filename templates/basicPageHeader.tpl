@@ -55,10 +55,14 @@ customSearchControl.draw('cse-search-form', options);
 
 
 {% if mybasehost in [ "webschemas.org", "localhost"] %}
-<div id="pertermwebschemasnote" style="    padding: 0.7em; background-color:#ffb6c1; color: #000;"><b>Note</b>: you are viewing the <a href="http://webschemas.org/">webschemas.org</a> development
-	version of <a href="http://schema.org/">schema.org</a>. See <a href="/docs/howwework.html">How we work</a> for more details.
+<div id="pertermwebschemasnote" style="padding: 0.7em; background-color:#ffb6c1; color: #000; border: 1px solid #000; border-bottom: none;"><b>Note</b>: you are viewing the <a href="http://webschemas.org/">webschemas.org</a> development
+	version of <a href="http://schema.org/">schema.org</a>.  See <a href="/docs/howwework.html">How we work</a> for more details.
 </div>
+{% endif %}
 
+{% if "pending" in sitename %}
+<div id="pertermwebschemasnote" style="padding: 0.7em; background-color:#fff7f8; color: #000; border: 1px solid #000;"><b>pending section</b>: these terms are <a href="/docs/howwework.html#pending">pending</a> wider review. Feedback is welcomed!
+</div>
 {% endif %}
 
 <!-- Header end from basicPageHeader.tpl -->
