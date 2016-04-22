@@ -28,12 +28,6 @@ See the draft <b><a href="{{staticPath}}/docs/releases.html">releases</a></b> pa
 
 {% if ENABLE_HOSTED_EXTENSIONS and extComment != "" %}
   {{ ext.overview() }}
-  <p>
-	  {{extComment |safe}}
-	  {% if extVers != "" %}
-	  <p>{{extVers |safe}}</p>
-	  {% endif %}
-  </p>
 
 {% elif ENABLE_HOSTED_EXTENSIONS and host_ext == "test001" %}
   {{ ext.overview(name="Test Extension", abbrev="test1") }}
