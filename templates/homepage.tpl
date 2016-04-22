@@ -27,29 +27,13 @@ See the draft <b><a href="{{staticPath}}/docs/releases.html">releases</a></b> pa
 
 
 {% if ENABLE_HOSTED_EXTENSIONS and extComment != "" %}
-  {{ ext.overview(name=extName, abbrev=host_ext) }}
+  {{ ext.overview() }}
   <p>
 	  {{extComment |safe}}
-<!--      <br/><br/>Extension Version: {{extVers}} -->
+	  {% if extVers != "" %}
+	  <p>{{extVers |safe}}</p>
+	  {% endif %}
   </p>
-
-{% elif ENABLE_HOSTED_EXTENSIONS and host_ext == "bib" %}
-  {{ ext.overview(name="Bibliographic Extension", abbrev="bib") }}
-  <p>
-  You are viewing the Bibliographic Extension within <a href="http://schema.org/">schema.org</a>.
-  It defines terms such as <a href="/Audiobook">Audiobook</a>, <a href="/Thesis">Thesis</a>, <a href="/ComicStory">ComicStory</a>, and  <a href="/workTranslation">workTranslation</a>.
-   For more details see the W3C BibExtend Community Group's <a href="http://www.w3.org/community/schemabibex/wiki/Bib.schema.org-1.0">wiki</a>.
-  </p>
-
-{% elif ENABLE_HOSTED_EXTENSIONS and host_ext == "auto" %}
-  {{ ext.overview(name="Auto Extension", abbrev="auto") }}
-
-  <p>  You are viewing the Auto Extension within <a href="http://schema.org/">schema.org</a>.
-  It defines terms such as <a href="/MotorizedBicycle">MotorizedBicycle</a> and adds terms to <a href="/Car">Car</a>. For more details
-  see the W3C <a href="https://www.w3.org/community/gao/">Automotive Ontology Working Group</a>.
-</p>
-
-  <p><br/></p>
 
 {% elif ENABLE_HOSTED_EXTENSIONS and host_ext == "test001" %}
   {{ ext.overview(name="Test Extension", abbrev="test1") }}

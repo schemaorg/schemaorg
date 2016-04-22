@@ -976,53 +976,13 @@ class ShowUnit (webapp2.RequestHandler):
                 #log.info("Served datacache homepage.tpl key: %s" % sitekeyedhomepage)
                 log.debug("Served datacache homepage.tpl key: %s" % sitekeyedhomepage)
             else:
-                extDef = Unit.GetUnit(getNss(getHostExt()),True)
-                extComment = ""
-                extVers = ""
-                extName = ""
-                if extDef:
-                    extComment = GetComment(extDef,ALL_LAYERS)
-                    if extComment == "No comment":
-                        extComment = ""
-                    extDDs = GetTargets(Unit.GetUnit("disambiguatingDescription", True), extDef, layers=ALL_LAYERS )
-                    if len(extDDs) > 0:
-                        extDD = extDDs[0] # from data/site-ui-extensions.rdfa
-                    else:
-                        extDD = ""
-                    first = True
-                    for ver in GetsoftwareVersions(extDef, ALL_LAYERS):
-                        if first:
-                            first = False
-                        else:
-                            extVers += ", "
-                        extVers += ver
-                    nms = GetTargets(Unit.GetUnit("name", True), extDef, layers=ALL_LAYERS )
-                    if len(nms) > 0:
-                        extName = nms[0]
 
 
-                template = JINJA_ENVIRONMENT.get_template('homepage.tpl')
                 template_values = {
-                    'ENABLE_HOSTED_EXTENSIONS': ENABLE_HOSTED_EXTENSIONS,
-                    'SCHEMA_VERSION': SCHEMA_VERSION,
-                    'sitename': getSiteName(),
-                    'staticPath': makeUrl("",""),
-                    'myhost': getHost(),
-                    'myport': getHostPort(),
-                    'mybasehost': getBaseHost(),
-                    'host_ext': getHostExt(),
-                    'extComment': extComment,
-                    'extDD': extDD,
-                    'extVers': extVers,
-                    'extName': extName,
                     'ext_contents': self.handleExtensionContents(getHostExt()),
                     'home_page': "True",
-                    'debugging': getAppVar('debugging')
                 }
-
-                # We don't want JINJA2 doing any cachine of included sub-templates.
-
-                page = template.render(template_values)
+                page = templateRender('homepage.tpl',template_values)
                 self.response.out.write( page )
                 log.debug("Served and cached fresh homepage.tpl key: %s " % sitekeyedhomepage)
                 #log.info("Served and cached fresh homepage.tpl key: %s " % sitekeyedhomepage)
@@ -1083,21 +1043,14 @@ class ShowUnit (webapp2.RequestHandler):
             if anode:
                 desc = self.getMetaDescription(node, layers=layers, lengthHint=200)
 
-            template = JINJA_ENVIRONMENT.get_template('genericTermPageHeader.tpl')
             template_values = {
                 'entry': str(entry),
                 'desc' : desc,
-                'sitemode': sitemode,
-                'sitename': getSiteName(),
-                'mybasehost': getBaseHost(),
-                'myhost': getHost(), # danbri wip
-                'myport': getHostPort(),
-                'staticPath': makeUrl("",""),
                 'menu_sel': "Schemas",
                 'rdfs_type': rdfs_type,
                 'ext_mappings': ext_mappings
             }
-            out = template.render(template_values)
+            out = templateRender('genericTermPageHeader.tpl',template_values)
             DataCache.put(generated_page_id,out)
             log.debug("Served and cached fresh genericTermPageHeader.tpl for %s" % generated_page_id )
 
@@ -1139,16 +1092,6 @@ class ShowUnit (webapp2.RequestHandler):
 
         self.emitSchemaorgHeaders(node, ext_mappings, sitemode, getSiteName(), layers)
 
-        if ( ENABLE_HOSTED_EXTENSIONS and ("core" not in layers or len(layers)>1) ):
-            ll = " ".join(layers).replace("core","")
-
-            target=""
-            if inLayer("core", node):
-                target = node.id
-
-
-            s = "<p id='lli' class='layerinfo %s'><a href=\"https://github.com/schemaorg/schemaorg/wiki/ExtensionList\">extension shown</a>: %s [<a href='%s'>x</a>]</p>\n" % (ll, ll, makeUrl("",target))
-            self.write(s)
 
         cached = self.GetCachedText(node, layers)
         if (cached != None):
@@ -1396,10 +1339,7 @@ class ShowUnit (webapp2.RequestHandler):
             for ex in sorted(ENABLED_EXTENSIONS):
                 extensions.append("<a href=\"%s\">%s.schema.org</a>" % (makeUrl(ex,""),ex))
 
-            template = JINJA_ENVIRONMENT.get_template('schemas.tpl')
-            page = template.render({'sitename': getSiteName(),
-                                    'staticPath': makeUrl("",""),
-                                    'counts': self.getCounts(),
+            page = templateRender('schemas.tpl',{'counts': self.getCounts(),
                                     'extensions': extensions,
                                     'menu_sel': "Schemas"})
 
@@ -1490,15 +1430,13 @@ class ShowUnit (webapp2.RequestHandler):
 
             full_button = "Core plus all extensions"
 
-            page = template.render({ 'thing_tree': thing_tree,
+            page = templateRender('full.tpl',{ 'thing_tree': thing_tree,
                                     'full_thing_tree': full_thing_tree,
                                     'ext_thing_tree': ext_thing_tree,
                                     'datatype_tree': datatype_tree,
                                     'local_button': local_button,
                                     'full_button': full_button,
                                     'ext_button': ext_button,
-                                    'sitename': getSiteName(),
-                                    'staticPath': makeUrl("",""),
                                     'menu_sel': "Schemas"})
 
             self.response.out.write( page )
@@ -1556,10 +1494,10 @@ class ShowUnit (webapp2.RequestHandler):
                     #self.response.out.write("<li><a href='%s'>%s</a></li>" % (makeUrl(x,schema_node.id), x) )
 
                 template = JINJA_ENVIRONMENT.get_template('wrongExt.tpl')
-                page = template.render({ 'target': schema_node.id,
+                page = templateRender('wrongExt.tpl', 
+                                        {'target': schema_node.id,
                                         'extensions': extensions,
-                                        'sitename': "schema.org",
-                                        'staticPath': makeUrl("","")})
+                                        'sitename': "schema.org"})
 
                 self.response.out.write( page )
                 log.debug("Serving fresh wrongExtPage.")
@@ -1617,11 +1555,9 @@ class ShowUnit (webapp2.RequestHandler):
                 return True
             else:
                 log.debug("Serving tocversionPage from cache.")
-                template = JINJA_ENVIRONMENT.get_template('tocVersionPage.tpl')
-                page = template.render({ "releases": releaselog.keys(),
-                                         "menu_sel": "Schemas",
-                                         "sitename": getSiteName(),
-                                         'staticPath': makeUrl("","")})
+                page = templateRender('tocVersionPage.tpl',
+                        {"releases": releaselog.keys(),
+                         "menu_sel": "Schemas"})
 
                 self.response.out.write( page )
                 log.debug("Serving fresh tocVersionPage.")
@@ -1670,7 +1606,6 @@ class ShowUnit (webapp2.RequestHandler):
             log.debug("Serving recycled FullReleasePage.")
             return True
         else:
-            template = JINJA_ENVIRONMENT.get_template('fullReleasePage.tpl')
             mainroot = TypeHierarchyTree()
             mainroot.traverseForHTML(Unit.GetUnit("Thing"), hashorslash="#term_", layers=layerlist)
             thing_tree = mainroot.toHTML()
@@ -1720,14 +1655,14 @@ class ShowUnit (webapp2.RequestHandler):
                 az_prop_meta[pt]['rangelist'] = rangeList.toHTML()
                 az_prop_meta[pt]['domainlist'] = domainList.toHTML()
 
-            page = template.render({ "base_href": base_href, 'thing_tree': thing_tree,
+            page = templateRender('fullReleasePage.tpl',
+                    {"base_href": base_href, 
+                    'thing_tree': thing_tree,
                     'liveversion': SCHEMA_VERSION,
                     'requested_version': requested_version,
                     'releasedate': releaselog[str(SCHEMA_VERSION)],
                     'az_props': az_props, 'az_types': az_types,
                     'az_prop_meta': az_prop_meta, 'az_type_meta': az_type_meta,
-                    'sitename': getSiteName(),
-                    'staticPath': makeUrl("",""),
                     'menu_sel': "Documentation"})
 
             self.response.out.write( page )
@@ -2064,9 +1999,7 @@ class ShowUnit (webapp2.RequestHandler):
 
     def siteDebug(self):
         global STATS
-        template = JINJA_ENVIRONMENT.get_template('siteDebug.tpl')
-        page = template.render({'sitename': getSiteName(),
-                                'staticPath': makeUrl("","")})
+        page = templateRender('siteDebug.tpl')
 
         self.response.out.write( page )
         ext = getHostExt()
@@ -2198,7 +2131,59 @@ class WarmupTool():
 
 Warmer = WarmupTool()
 
+def templateRender(templateName,values=None):
+    global sitemode #,sitename
+    extDef = Unit.GetUnit(getNss(getHostExt()),True)
+    extComment = ""
+    extVers = ""
+    extName = ""
+    log.info("EXDEF '%s'" % extDef)
+    if extDef:
+        extComment = GetComment(extDef,ALL_LAYERS)
+        if extComment == "No comment":
+            extComment = ""
+        extDDs = GetTargets(Unit.GetUnit("disambiguatingDescription", True), extDef, layers=ALL_LAYERS )
+        if len(extDDs) > 0:
+            extDD = MD.parse(extDDs[0]) 
+        else:
+            extDD = ""
+        first = True
+        for ver in GetsoftwareVersions(extDef, ALL_LAYERS):
+            if first:
+                first = False
+                extVers = "<em>(Extension version: "
+            else:
+                extVers += ", "
+            extVers += MD.parse(ver)
+        if len(extVers) :
+            extVers += ")</em>"
+        nms = GetTargets(Unit.GetUnit("name", True), extDef, layers=ALL_LAYERS )
+        if len(nms) > 0:
+            extName = nms[0]
+    
+    defvars = {
+        'ENABLE_HOSTED_EXTENSIONS': ENABLE_HOSTED_EXTENSIONS,
+        'SCHEMA_VERSION': SCHEMA_VERSION,
+        'sitemode': sitemode,
+        'sitename': getSiteName(),
+        'staticPath': makeUrl("",""),
+        'myhost': getHost(),
+        'myport': getHostPort(),
+        'mybasehost': getBaseHost(),
+        'host_ext': getHostExt(),
+        'extComment': extComment,
+        'extDD': extDD,
+        'extVers': extVers,
+        'extName': extName,
+        'debugging': getAppVar('debugging')
+    }
 
+    if values:
+        defvars.update(values)
+    template = JINJA_ENVIRONMENT.get_template(templateName)
+    return template.render(defvars)
+    
+    
 def my_shutdown_hook():
     global instance_num
     if SHAREDSITEDEBUG:
