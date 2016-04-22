@@ -53,17 +53,18 @@ customSearchControl.draw('cse-search-form', options);
 </div>
 <div style="padding: 14px; float: right;" id="languagebox"></div>
 
-<!--<div id="pertermwebschemasnote" style="padding: 0.7em; background-color:#d9edf7; color: #000; border: 1px solid #bce8f1;"><b>Note</b>: you are viewing the <a href="http://webschemas.org/">webschemas.org</a> development
--->
 {% if mybasehost in [ "webschemas.org", "localhost"] %}
-<div id="pertermwebschemasnote" class="devnote"><b>Note</b>: you are viewing the <a href="http://webschemas.org/">webschemas.org</a> development
-	version of <a href="http://schema.org/">schema.org</a>.  See <a href="/docs/howwework.html">How we work</a> for more details.
+<div class="devnote"><b>Note</b>: you are viewing the
+	<a href="http://webschemas.org/">webschemas.org</a> development
+	version of <a href="http://schema.org/">schema.org</a>.
+	See <a href="/docs/howwework.html">How we work</a> for more details.
 </div>
 {% endif %}
 
-{% if "pending" in sitename %}
-<div id="pertermwebschemasnote" class="pendnote"><b>pending section</b>: these terms are <a href="/docs/howwework.html#pending">pending</a> wider review. Feedback is welcomed!
-</div>
+{% if sitename != "schema.org" %}
+<div class="pendnote">
+	<b><a href="{{staticPath}}">core</a></b> + <b>{{host_ext}}</b>
+	({{extName}}): {{extDD|safe}}</div>
 {% endif %}
 
 <!-- Header end from basicPageHeader.tpl -->

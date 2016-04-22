@@ -101,7 +101,7 @@ elif "SERVER_NAME" in os.environ and ("localhost" in os.environ['SERVER_NAME'] a
 appver = "TestHarness Version"
 if "CURRENT_VERSION_ID" in os.environ:
     appver = os.environ["CURRENT_VERSION_ID"]
-instance_first = True 
+instance_first = True
 instance_num = 0
 callCount = 0
 global_vars = threading.local()
@@ -750,7 +750,7 @@ class ShowUnit (webapp2.RequestHandler):
                 continue
             if inLayer(layers,prop): #Already in the correct layer - no need to report
                 continue
-            if inLayer("meta",prop): #Suppress mentioning properties from the 'meta' extension. 
+            if inLayer("meta",prop): #Suppress mentioning properties from the 'meta' extension.
                 continue
             log.debug("ClassExtensionfFound %s " % (prop))
 
@@ -896,18 +896,18 @@ class ShowUnit (webapp2.RequestHandler):
                 tt = "%s: ''%s''" % ( spp.id, c)
                 out.write("\n    <tr><td><code>%s</code></td></tr>\n" % (self.ml(spp, spp.id, tt,hashorslash)))
             out.write("\n</table>\n\n")
-            
+
         self.emitSupersedes(node,layers=layers,out=out,hashorslash=hashorslash)
 
     def emitSupersedes(self, node, layers="core", out=None, hashorslash="/"):
         """Write out Supersedes and/or Superseded by for this term"""
-        
+
         if not out:
             out = self
         newerprop = node.supersededBy(layers=layers) # None of one. e.g. we're on 'seller'(new) page, we get 'vendor'(old)
         olderprop = node.supersedes(layers=layers) # None or one
         olderprops = sorted(node.supersedes_all(layers=layers),key=lambda u: u.id) # list, e.g. 'seller' has 'vendor', 'merchant'.
-            
+
 
         # Supersedes
         if (olderprops != None and len(olderprops) > 0):
@@ -945,7 +945,7 @@ class ShowUnit (webapp2.RequestHandler):
         https://github.com/rvguha/schemaorg/wiki/JsonLd
         """
         accept_header = self.request.headers.get('Accept').split(',')
-        log.info("Home page - accepts: %s" % self.request.headers.get('Accept'))            
+        log.info("Home page - accepts: %s" % self.request.headers.get('Accept'))
 
         # Homepage is content-negotiated. HTML or JSON-LD.
         mimereq = {}
@@ -984,6 +984,11 @@ class ShowUnit (webapp2.RequestHandler):
                     extComment = GetComment(extDef,ALL_LAYERS)
                     if extComment == "No comment":
                         extComment = ""
+                    extDDs = GetTargets(Unit.GetUnit("disambiguatingDescription", True), extDef, layers=ALL_LAYERS )
+                    if len(extDDs) > 0:
+                        extDD = extDDs[0] # from data/site-ui-extensions.rdfa
+                    else:
+                        extDD = ""
                     first = True
                     for ver in GetsoftwareVersions(extDef, ALL_LAYERS):
                         if first:
@@ -994,9 +999,8 @@ class ShowUnit (webapp2.RequestHandler):
                     nms = GetTargets(Unit.GetUnit("name", True), extDef, layers=ALL_LAYERS )
                     if len(nms) > 0:
                         extName = nms[0]
-                        
-                    
-                    
+
+
                 template = JINJA_ENVIRONMENT.get_template('homepage.tpl')
                 template_values = {
                     'ENABLE_HOSTED_EXTENSIONS': ENABLE_HOSTED_EXTENSIONS,
@@ -1008,6 +1012,7 @@ class ShowUnit (webapp2.RequestHandler):
                     'mybasehost': getBaseHost(),
                     'host_ext': getHostExt(),
                     'extComment': extComment,
+                    'extDD': extDD,
                     'extVers': extVers,
                     'extName': extName,
                     'ext_contents': self.handleExtensionContents(getHostExt()),
@@ -1171,9 +1176,9 @@ class ShowUnit (webapp2.RequestHandler):
             self.emitClassExtensionSuperclasses(node,layers)
 
             self.emitClassExtensionProperties(p,layers)
-            
+
             self.emitSupersedes(node,layers=layers)
-            
+
 
         elif (Unit.isAttribute(node, layers=layers)):
             self.write(self.moreInfoBlock(node))
@@ -1738,13 +1743,13 @@ class ShowUnit (webapp2.RequestHandler):
             return DataCache.get('ExtensionContents',ext)
 
         buff = StringIO.StringIO()
-        
+
         az_terms = GetAllTerms(ext) #Returns sorted by id results.
         az_terms.sort(key = lambda u: u.category)
-        
+
         if len(az_terms) > 0:
-            buff.write("<br/><div style=\"text-align: left; margin: 2em\"><h3>Terms defined or referenced in the '%s' extension.</h3>" % ext)            
-        
+            buff.write("<br/><div style=\"text-align: left; margin: 2em\"><h3>Terms defined or referenced in the '%s' extension.</h3>" % ext)
+
             keys = []
             groups = []
             for k,g in itertools.groupby(az_terms, key = lambda u: u.category):
@@ -1755,16 +1760,16 @@ class ShowUnit (webapp2.RequestHandler):
             while i < len(groups):
                 groups[i] = sorted(groups[i],key = lambda u: u.id)
                 i += 1
-        
+
             g=0
             while g < len(groups):
                 if g > 0:
                     buff.write("<br/>")
-                buff.write(self.listTerms(groups[g],"<br/>%s Types (%s)<br/>" % 
+                buff.write(self.listTerms(groups[g],"<br/>%s Types (%s)<br/>" %
                                          (keys[g],self.countTypes(groups[g],select="type",layers=ext)),select="type",layers=ext))
-                buff.write(self.listTerms(groups[g],"<br/>%s Properties (%s)<br/>" % 
+                buff.write(self.listTerms(groups[g],"<br/>%s Properties (%s)<br/>" %
                                          (keys[g],self.countTypes(groups[g],select="prop",layers=ext)),select="prop",layers=ext))
-                buff.write(self.listTerms(groups[g],"<br/>%s Enumeration values (%s)<br/>" % 
+                buff.write(self.listTerms(groups[g],"<br/>%s Enumeration values (%s)<br/>" %
                                          (keys[g],self.countTypes(groups[g],select="enum",layers=ext)),select="enum",layers=ext))
                 g += 1
             buff.write("</div>")
@@ -1773,7 +1778,7 @@ class ShowUnit (webapp2.RequestHandler):
         DataCache.put('ExtensionContents',ret,ext)
         buff.close()
         return ret
-    
+
     def countTypes(self,interms,select="",layers='core'):
         ret = 0
         for t in interms:
@@ -1786,7 +1791,7 @@ class ShowUnit (webapp2.RequestHandler):
             elif select == "":
                 ret += 1
         return ret
-            
+
 
     def listTerms(self,interms,prefix="",select=None,layers='core'):
         buff = StringIO.StringIO()
@@ -1803,7 +1808,7 @@ class ShowUnit (webapp2.RequestHandler):
                     use = t.isEnumerationValue(layers)
                 if use:
                     terms.append(t)
-                    
+
         if(len(terms) > 0):
             buff.write(prefix)
             first = True

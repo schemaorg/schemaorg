@@ -9,7 +9,6 @@
 
 </head>
 <body>
-
 {% include 'basicPageHeader.tpl' with context %}
 
   <div id="mainContent">
