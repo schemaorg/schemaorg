@@ -1,0 +1,128 @@
+<div>
+    <!--
+    issue: https://github.com/schemaorg/schemaorg/issues/1127
+    description: mission, Project, Goal, Objective, Task
+    -->
+
+
+<div typeof="rdf:Property" resource="http://schema.org/mission">
+  <span class="h" property="rdfs:label">mission</span>
+  <span property="rdfs:comment">The Mission of an Organization</span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Organization">Organization</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+</div>
+
+
+<div typeof="rdfs:Class" resource="http://schema.org/Project">
+    <span class="h" property="rdfs:label">Project</span>
+    <span property="rdfs:comment">A Project.</span>
+    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/CreativeWork"></a></span>
+</div>
+
+<div typeof="rdfs:Class" resource="http://schema.org/Goal">
+    <span class="h" property="rdfs:label">Goal</span>
+    <span property="rdfs:comment">A Goal.</span>
+    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/CreativeWork"></a></span>
+</div>
+
+<div typeof="rdfs:Class" resource="http://schema.org/Objective">
+    <span class="h" property="rdfs:label">Objective</span>
+    <span property="rdfs:comment">An Objective.</span>
+    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/CreativeWork"></a></span>
+</div>
+
+<div typeof="rdfs:Class" resource="http://schema.org/Task">
+    <span class="h" property="rdfs:label">Task</span>
+    <span property="rdfs:comment">A Task.</span>
+    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/CreativeWork"></a></span>
+</div>
+
+
+
+<div typeof="rdf:Property" resource="http://schema.org/partOfProject">
+  <span class="h" property="rdfs:label">partOfProject</span>
+  <span property="rdfs:comment">The Project of a Thing (e.g. Goal, Objective, Task)</span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Project">Project</a></span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Goal">Goal</a></span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Objective">Objective</a></span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Task">Task</a></span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Thing">Thing</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Project">Project</a></span>
+  <link property="http://schema.org/inverseOf" href="http://schema.org/containsProject" />  
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/containsProject">
+  <span class="h" property="rdfs:label">containsProject</span>
+  <span property="rdfs:comment">Indicates a Project that is a part of a Thing (e.g. Project, Organization)</span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Organization">Organization</a></span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Project">Project</a></span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Thing">Thing</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Project">Project</a></span>
+  <link property="http://schema.org/inverseOf" href="http://schema.org/partOfProject" />  
+</div>
+
+
+<div typeof="rdf:Property" resource="http://schema.org/partOfGoal">
+  <span class="h" property="rdfs:label">partOfGoal</span>
+  <span property="rdfs:comment">The Goal of a Thing (e.g. Goal, Objective, Task)</span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Goal">Objective</a></span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Objective">Objective</a></span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Task">Task</a></span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Thing">Thing</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Goal">Goal</a></span>
+  <link property="http://schema.org/inverseOf" href="http://schema.org/containsGoal" />  
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/containsGoal">
+  <span class="h" property="rdfs:label">containsGoal</span>
+  <span property="rdfs:comment">Indicates a Goal that is part of a Thing (e.g. Project, Goal)</span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Project">Project</a></span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Goal">Goal</a></span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Organization">Organization</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Goal">Goal</a></span>
+  <link property="http://schema.org/inverseOf" href="http://schema.org/partOfGoal" />  
+</div>
+
+
+<div typeof="rdf:Property" resource="http://schema.org/partOfObjective">
+  <span class="h" property="rdfs:label">partOfObjective</span>
+  <span property="rdfs:comment">The Objective of a Thing (e.g. Objective, Task)</span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Objective">Objective</a></span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Task">Task</a></span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Thing">Thing</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Objective">Objective</a></span>
+  <link property="http://schema.org/inverseOf" href="http://schema.org/containsObjective" />  
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/containsObjective">
+  <span class="h" property="rdfs:label">containsObjective</span>
+  <span property="rdfs:comment">Indicates an Objective that is part of a Thing (e.g. Goal, Objective, Project)</span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Goal">Goal</a></span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Objective">Objective</a></span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Project">Project</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Objective">Objective</a></span>
+  <link property="http://schema.org/inverseOf" href="http://schema.org/partOfObjective" />  
+</div>
+
+
+<div typeof="rdf:Property" resource="http://schema.org/partOfTask">
+  <span class="h" property="rdfs:label">partOfTask</span>
+  <span property="rdfs:comment">The Task of a Thing (e.g. Task)</span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Task">Task</a></span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Thing">Thing</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Objective">Objective</a></span>
+  <link property="http://schema.org/inverseOf" href="http://schema.org/containsObjective" />  
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/containsTask">
+  <span class="h" property="rdfs:label">containsTask</span>
+  <span property="rdfs:comment">Indicates a Task that is part of a Thing (e.g. Objective, Goal, Project)</span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Objective">Objective</a></span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Goal">Goal</a></span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Project">Project</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Task">Task</a></span>
+</div>
+
+
+
+</div>
