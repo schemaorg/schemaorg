@@ -11223,16 +11223,16 @@ PRE-MARKUP:
 <div>
   <h1>Middle of Nowhere Foods</h1>
   <h2>Opening hours</h2>
-  <p>Normally open daily 9am-2pm except on:</p>
+  <p>Normally open daily <time datetime="09:00">9am</time>-<time datetime="14:00">2pm</time> except on:</p>
   <ul>
     <li>
-      <span>24 December 2013</span> and
-      <span>25 December 2013</span>:
-      <span>9am-11am</span>
+      <time datetime="2013-12-24">24 December 2013</time> and
+      <time datetime="2013-12-25">25 December 2013</time>:
+      <time datetime="09:00">9am</time>-<time datetime="11:00">11am</time>
     </li>
     <li>
-      <span>1st January 2014</span>:
-      <span>Noon-2pm</span>
+      <time datetime="2014-01-01">1st January 2014</time>:
+      <time datetime="12:00">Noon</time>-<time datetime="14:00">2pm</time>
     </li>
   </ul>
 </div>
@@ -11242,16 +11242,18 @@ MICRODATA:
 <div itemscope itemtype="http://schema.org/Store">
   <h1 itemprop="name">Middle of Nowhere Foods</h1>
   <h2>Opening hours</h2>
-    <p>Normally open <time itemprop="openingHours" datetime="Mo,Tu,We,Th,Fr,Sa,Su 09:00-14:00">daily 9am-2pm</time> except on:</p>
+    <meta itemprop="openingHours" content="Mo,Tu,We,Th,Fr,Sa,Su 09:00-14:00">
+    <p>Normally open daily <time datetime="09:00">9am</time>-<time datetime="14:00">2pm</time> except on:</p>
   <ul>
     <li itemprop="openingHoursSpecification" itemscope itemtype="http://schema.org/OpeningHoursSpecification">
-      <span itemprop="validFrom" content="2013-12-24">24 December 2013</span> and
-      <span itemprop="validThrough" content="2013-12-25">25 December 2013</span>:
-      <span itemprop="opens" content="09:00">9am</span>-<span itemprop="closes" content="11:00">11am</span></li>
+      <time itemprop="validFrom" datetime="2013-12-24">24 December 2013</time> and
+      <time itemprop="validThrough" datetime="2013-12-25">25 December 2013</time>:
+      <time itemprop="opens" datetime="09:00">9am</time>-<time itemprop="closes" datetime="11:00">11am</time>
+    </li>
     <li itemprop="openingHoursSpecification" itemscope itemtype="http://schema.org/OpeningHoursSpecification">
-      <span itemprop="validFrom" content="2014-01-01">1st January 2014</span>
-      <span itemprop="validThrough" content="2014-01-01"></span>:
-      <span itemprop="opens" content="12:00">Noon</span>-<span itemprop="closes" content="14:00">2pm</span></li>
+      <time itemprop="validFrom validThrough" datetime="2014-01-01">1st January 2014</time>:
+      <time itemprop="opens" datetime="12:00">Noon</time>-<time itemprop="closes" datetime="14:00">2pm</time>
+    </li>
   </ul>
 </div>
 
@@ -11260,17 +11262,17 @@ RDFA:
 <div vocab="http://schema.org/" typeof="Store">
   <h1 property="name">Middle of Nowhere Foods</h1>
   <h2>Opening hours</h2>
-  <p>Normally open <time property="openingHours" datetime="Mo,Tu,We,Th,Fr,Sa,Su 09:00-14:00">daily 9am-2pm</time> except on:</p>
+  <meta property="openingHours" content="Mo,Tu,We,Th,Fr,Sa,Su 09:00-14:00">
+  <p>Normally open daily <time datetime="09:00">9am</time>-<time datetime="14:00">2pm</time> except on:</p>
   <ul>
-    <li property="openingHoursSpecification"  typeof="OpeningHoursSpecification">
-      <span property="validFrom" content="2013-12-24">24 December 2013</span> and
-      <span property="validThrough" content="2013-12-25">25 December 2013</span>:
-      <span property="opens" content="09:00">9am</span>-<span property="closes" content="11:00">11am</span>
+    <li property="openingHoursSpecification" typeof="OpeningHoursSpecification">
+      <time property="validFrom" datetime="2013-12-24">24 December 2013</time> and
+      <time property="validThrough" datetime="2013-12-25">25 December 2013</time>:
+      <time property="opens" datetime="09:00">9am</time>-<time property="closes" datetime="11:00">11am</time>
     </li>
-    <li property="openingHoursSpecification"  typeof="OpeningHoursSpecification">
-      <span property="validFrom" content="2014-01-01">1st January 2014</span>
-      <span property="validThrough" content="2014-01-01"></span>:
-      <span property="opens" content="12:00">Noon</span>-<span property="closes" content="14:00">2pm</span>
+    <li property="openingHoursSpecification" typeof="OpeningHoursSpecification">
+      <time property="validFrom validThrough" datetime="2014-01-01">1st January 2014</time>:
+      <time property="opens" datetime="12:00">Noon</time>-<time property="closes" datetime="14:00">2pm</time>
     </li>
   </ul>
 </div>
@@ -11284,13 +11286,22 @@ JSON:
   "name": "Middle of Nowhere Foods",
   "openingHours": "Mo,Tu,We,Th,Fr,Sa,Su 09:00-14:00",
   "openingHoursSpecification":
-  {
-    "@type": "OpeningHoursSpecification",
-    "validFrom": "2013-12-24",
-    "validThrough": "2013-12-25",
-    "opens": "12:00",
-    "closes": "14:00"
-  }
+  [
+    {
+      "@type": "OpeningHoursSpecification",
+      "validFrom": "2013-12-24",
+      "validThrough": "2013-12-25",
+      "opens": "09:00",
+      "closes": "11:00"
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      "validFrom": "2014-01-01",
+      "validThrough": "2014-01-01",
+      "opens": "12:00",
+      "closes": "14:00"      
+    }
+  ]
 }
 </script>
 
