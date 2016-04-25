@@ -48,7 +48,8 @@
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Task">Task</a></span>
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Thing">Thing</a></span>
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Project">Project</a></span>
-  <link property="http://schema.org/inverseOf" href="http://schema.org/containsProject" />  
+  <link property="http://schema.org/inverseOf" href="http://schema.org/containsProject" />
+  <link property="rdfs:subPropertyOf" href="http://schema.org/isPartOf" />
 </div>
 
 <div typeof="rdf:Property" resource="http://schema.org/containsProject">
@@ -59,6 +60,7 @@
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Thing">Thing</a></span>
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Project">Project</a></span>
   <link property="http://schema.org/inverseOf" href="http://schema.org/partOfProject" />  
+  <link property="rdfs:subPropertyOf" href="http://schema.org/hasPart" />
 </div>
 
 
@@ -71,6 +73,7 @@
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Thing">Thing</a></span>
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Goal">Goal</a></span>
   <link property="http://schema.org/inverseOf" href="http://schema.org/containsGoal" />  
+  <link property="rdfs:subPropertyOf" href="http://schema.org/isPartOf" />
 </div>
 
 <div typeof="rdf:Property" resource="http://schema.org/containsGoal">
@@ -81,6 +84,7 @@
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Organization">Organization</a></span>
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Goal">Goal</a></span>
   <link property="http://schema.org/inverseOf" href="http://schema.org/partOfGoal" />  
+  <link property="rdfs:subPropertyOf" href="http://schema.org/hasPart" />
 </div>
 
 
@@ -92,6 +96,7 @@
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Thing">Thing</a></span>
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Objective">Objective</a></span>
   <link property="http://schema.org/inverseOf" href="http://schema.org/containsObjective" />  
+  <link property="rdfs:subPropertyOf" href="http://schema.org/isPartOf" />
 </div>
 
 <div typeof="rdf:Property" resource="http://schema.org/containsObjective">
@@ -102,6 +107,7 @@
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Project">Project</a></span>
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Objective">Objective</a></span>
   <link property="http://schema.org/inverseOf" href="http://schema.org/partOfObjective" />  
+  <link property="rdfs:subPropertyOf" href="http://schema.org/hasPart" />
 </div>
 
 
@@ -112,6 +118,7 @@
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Thing">Thing</a></span>
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Objective">Objective</a></span>
   <link property="http://schema.org/inverseOf" href="http://schema.org/containsObjective" />  
+  <link property="rdfs:subPropertyOf" href="http://schema.org/isPartOf" />
 </div>
 
 <div typeof="rdf:Property" resource="http://schema.org/containsTask">
@@ -121,6 +128,8 @@
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Goal">Goal</a></span>
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Project">Project</a></span>
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Task">Task</a></span>
+  <link property="http://schema.org/inverseOf" href="http://schema.org/partOfTask" />  
+  <link property="rdfs:subPropertyOf" href="http://schema.org/hasPart" />
 </div>
 
 
