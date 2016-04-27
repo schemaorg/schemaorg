@@ -714,14 +714,14 @@ separately. Full details are documented <a href="https://www.w3.org/wiki/WebSche
 and <a href="https://github.com/rvguha/schemaorg/issues/88">in Github</a>, alongside an <a href="https://www.w3.org/wiki/images/7/7e/ProviderSellerVocabularyRe-DesignProposal.pdf">overview document</a>.
 The <a href="/provider">provider</a> property describes a service provider, service operator, or service performer, while
 <a href="/seller">seller</a> describe the entities which sell or offer a service on behalf of an actual service provider. We
-introduce a more general <a href="/broker">broker</a> property (replacing the over-specific <a href="bookingAgent">bookingAgent</a>),
+introduce a more general <a href="/broker">broker</a> property (replacing the over-specific <a href="/bookingAgent">bookingAgent</a>),
 as well as deprecating <a href="/vendor">vendor</a> and <a href="/merchant">merchant</a> in favour of <a href="/seller">seller</a>.
 Regarding <a href="/Flight">flights</a> and <a href="/ParcelDelivery">parcel delivery</a>, <a href="/carrier">carrier</a> is
 superseded by <a href="/provider">provider</a>. Please also note that <a href="/flightNumber">flightNumber</a> should now be written in full (i.e. "UA110" rather than just "110").
 See the <a href="https://www.w3.org/wiki/WebSchemas/SellerVendorCleanup#Implementation_Details">supporting documents</a> for details.
 </p>
 
-<p>Finally, <a href="/episodeNumber">episodeNumber</a>, <a href="seasonNumber">seasonNumber</a> and
+<p>Finally, <a href="/episodeNumber">episodeNumber</a>, <a href="/seasonNumber">seasonNumber</a> and
 <a href="/clipNumber">clipNumber</a> (for TV/Radio) have been harmonized with the periodicals design
 (<a href="/issueNumber">issueNumber</a> and <a href="/volumeNumber">volumeNumber</a>). In each case, both <a href="/Integer">Integer</a>
 and <a href="/Text">Text</a> values are anticipated. A common superproperty, <a href="/position">position</a> can also be used. This
@@ -740,7 +740,7 @@ that <a href="http://www.yandex.com/">Yandex</a> is now a schema.org Sponsor and
 
 <tr id="v1.8">
 <td class="release">1.8<br/>(2014-07-28)</td>
-<td>Added <a href="/WebSite">WebSite</a> type; broadened <a href="isPartOf">isPartOf</a> property.</td>
+<td>Added <a href="/WebSite">WebSite</a> type; broadened <a href="/isPartOf">isPartOf</a> property.</td>
 <td>
 Added a new CreativeWork type, <a href="/WebSite">WebSite</a>: "A WebSite is a set of related web pages and other items typically
 served from a single web domain and accessible via URLs."  Also adopts the suggestion made by the <a href="http://www.w3.org/community/schemabibex/BibExtend">BibExtend</a> group and other
@@ -761,8 +761,8 @@ Several <a href="http://github.com/rvguha/schemaorg/pull/71">markup fixes</a> fr
     reasonable value. It also adds an <a href="http://schema.org/organizer">organizer</a> property to
     <a href="/Event">Event</a>. Changes around <a href="/Map">Map</a>: we add and prefer a '<a href="/hasMap">hasMap</a>' property
 which supersedes the older 'map' property, and we add a <a href="/mapType">mapType</a> property which comes with some enumerated values:
-<a href="ParkingMap">ParkingMap</a>, <a href="SeatingMap">SeatingMap</a>, <a href="TransitMap">TransitMap</a>,
-<a href="VenueMap">VenueMap</a>. A Map might be (but needn't be) also an <a href="/ImageObject">ImageObject</a>.
+<a href="/ParkingMap">ParkingMap</a>, <a href="/SeatingMap">SeatingMap</a>, <a href="/TransitMap">TransitMap</a>,
+<a href="/VenueMap">VenueMap</a>. A Map might be (but needn't be) also an <a href="/ImageObject">ImageObject</a>.
     (<a href="http://lists.w3.org/Archives/Public/public-vocabs/2014Jul/0012.html">announcement</a>)</td>
 </tr>
 
