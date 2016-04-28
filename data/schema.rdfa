@@ -2013,6 +2013,32 @@
        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/CreativeWorkSeries">CreativeWorkSeries</a></span>
     </div>
 
+    <div typeof="rdfs:Class" resource="http://schema.org/EventSeries">
+      <span class="h" property="rdfs:label">EventSeries</span>
+      <span property="rdfs:comment">
+        A series of &lt;a href="/Event"&gt;events&lt;/a&gt;. Included events can relate with the series
+        using the &lt;a href="/superEvent"&gt;superEvent&lt;/a&gt; property.
+
+        An EventSeries is a collection of events that share some unifying characteristic. For example,
+        "The Olympic Games" is a series, which is repeated regularly. The "2012 London Olympics" can be
+        presented both as an &lt;a href="/Event"&gt;Event&lt;/a&gt; in the series "Olympic Games", and
+        as an &lt;a href="/EventSeries"&gt;EventSeries&lt;/a&gt; that included a number of sporting
+        competitions as Events.
+
+        The nature of the association between the events in an &lt;a href="/EventSeries"&gt;EventSeries&lt;/a&gt;
+        can vary, but typical examples could include a thematic event series (e.g. topical meetups or classes),
+        or a series of regular events that share a location, attendee group and/or organizers.
+
+        EventSeries has been defined as a kind of Event to make it easy for publishers to use it in an Event
+        context without worrying about which kinds of series are really event-like enough to call an Event.
+        In general an EventSeries may seem more Event-like when the period of time is compact and when aspects
+        such as location are fixed, but it may also sometimes prove useful to describe a longer-term series as
+        an Event.
+      </span>
+      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Series">Series</a></span>
+      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Event">Event</a></span>
+    </div>
+
     <div typeof="rdfs:Class" resource="http://schema.org/Table">
       <span class="h" property="rdfs:label">Table</span>
       <span property="rdfs:comment">A table on a Web page.</span>
@@ -7151,7 +7177,9 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
       <span class="h" property="rdfs:label">subEvent</span>
       <span property="rdfs:comment">An Event that is part of this event. For example, a conference event includes many presentations, each of which is a subEvent of the conference.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Event">Event</a></span>
-      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Event">Event</a></span>
+      <span>Range: <a property="http://schema.org/domainIncludes" href="http://schema.org/EventSeries">EventSeries</a></span>
+      <span>Category: <span property="schema:category">issue-447</span></span>
+      <span>Source:  <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/447">#447</a></span>
       <link property="http://schema.org/inverseOf" href="http://schema.org/superEvent"/>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/subEvents">
@@ -7213,7 +7241,7 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
       <span property="rdfs:comment">An event that this event is a part of. For example, a collection of individual music performances might each have a music festival as their superEvent.</span>
       <link property="http://schema.org/inverseOf" href="http://schema.org/subEvent"/>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Event">Event</a></span>
-      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Event">Event</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/EventSeries">EventSeries</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/supportingData">
       <span class="h" property="rdfs:label">supportingData</span>
