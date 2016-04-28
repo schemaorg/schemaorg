@@ -189,19 +189,19 @@ definitions. Finally, all changes to the site and its underlying software are no
  </p>
 
  <p>It is also important to understand what schema.org does <em>not</em> define or dictate. In particular schema.org does not define any notion of 'mandatory' property.
-Different sites and page naturally have different amounts of information available; these details cannot be anticipated by schema designers. Similarly, the information needs of consuming services may also vary. We do not attempt to reach consensus at schema.org on what an ideal description of some type (Person, Place, TVSeries etc.) ought to contain - this makes consensus significantly easier to achieve. The schema.org site does contain many practical markup examples, which give rough hints about common and useful patterns for combining schema.org terms.</p>
+Different sites and pages naturally have different amounts of information available; these details cannot be anticipated by schema designers. Similarly, the information needs of consuming services may also vary. We do not attempt to reach consensus at schema.org on what an ideal description of some type (Person, Place, TVSeries etc.) ought to contain - this makes consensus significantly easier to achieve. The schema.org site does contain many practical markup examples, which give rough hints about common and useful patterns for combining schema.org terms.</p>
 
 <p>
 Each release can include several kinds of change:
 <ul>
-<li>Bug fixes and minor improvements (e.g. typos, markup errors in examples)</li>
+<li>Bug fixes and minor improvements (e.g. typos, markup errors in examples).</li>
 <li>New examples.</li>
 <li>Adjustments to the textual descriptions of terms (i.e. types, properties and
   enumerated values).</li>
 <li>Adjustments to the examples that accompany each term, and to the indexing of which terms an example should show up against. Although examples are
   not formally part of the schema definitions, they play a central role in schema.org's widescale adoption and are versioned as part of the release.</li>
 <li>Adjustments to the machine-readable claims we make about each term: supertype(s), superproperties, inverses, and the associations that link types and properties together.
-  For each property we maintain a list of one or more types that it is expected to be applied to (technically, "<a href="/domainIncludes">domainIncludes</a>"), alongside one or more types that are expected as its values (expressed using "<a href="/rangeIncludes">rangeIncludes</a>"). We may also mark some properties as "<a href="/supsededBy">supersededBy</a>" others. It is exceptionally rare for a property, type or enumerated value to be deleted/removed without leaving it in the system as 'supersededBy' another. Additional machine-readable metadata in RDFS/OWL is also used to  express mappings internally and to external vocabularies. These mappings also evolve.
+  For each property we maintain a list of one or more types that it is expected to be applied to (technically, "<a href="/domainIncludes">domainIncludes</a>"), alongside one or more types that are expected as its values (expressed using "<a href="/rangeIncludes">rangeIncludes</a>"). We may also mark some properties as "<a href="/supsededBy">supersededBy</a>" others. It is exceptionally rare for a property, type or enumerated value to be deleted/removed without leaving it in the system as "supersededBy" another. Additional machine-readable metadata in RDFS/OWL is also used to  express mappings internally and to external vocabularies. These mappings also evolve.
 </li>
 <li>Term descriptions and definitions can be moved between schema.org's core and its hosted extensions. Each schema.org term is marked as being "<a href="/isPartOf">partOf</a>" either the core
   or exactly one extension, and terms can move in either direction. Terms can be generalized for wider use and moved into the core, or migrated from the core into a hosted extension. In both cases, textual definitions and machine-readable definitions may be adjusted.
