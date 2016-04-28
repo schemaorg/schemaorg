@@ -76,6 +76,35 @@
        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Place">Place</a></span>
     </div>
 
+    <div typeof="rdfs:Class" resource="http://schema.org/Dentist">
+      <span class="h" property="rdfs:label"> Dentist</span>
+      <span property="rdfs:comment">A dentist.</span>
+      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MedicalBusiness"> MedicalBusiness</a></span>
+      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/ProfessionalService"> schema:ProfessionalService</a></span>
+    </div>
+
+    <div typeof="rdfs:Class" resource="http://schema.org/Hospital">
+      <span class="h" property="rdfs:label">Hospital</span>
+      <span property="rdfs:comment">A hospital.</span>
+      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/CivicStructure">CivicStructure</a></span>
+      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/EmergencyService">EmergencyService</a></span>
+      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MedicalOrganization">MedicalOrganization</a></span>
+      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MedicalBusiness">MedicalBusiness</a></span>
+    </div>
+
+    <div typeof="rdfs:Class" resource="http://schema.org/Physician">
+      <span class="h" property="rdfs:label">Physician</span>
+      <span property="rdfs:comment">A doctor's office.</span>
+      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MedicalOrganization"> health:MedicalOrganization</a></span>
+      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MedicalBusiness"> health:MedicalBusiness</a></span>
+    </div>
+        <div typeof="rdfs:Class" resource="http://schema.org/Pharmacy">
+      <span class="h" property="rdfs:label">Pharmacy</span>
+      <span property="rdfs:comment">A pharmacy or drugstore.</span>
+      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MedicalOrganization">MedicalOrganization</a></span>
+      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MedicalBusiness">MedicalBusiness</a></span>
+    </div>
+
     <div typeof="rdfs:Class" resource="http://schema.org/FinancialService">
       <span class="h" property="rdfs:label">FinancialService</span>
       <span property="rdfs:comment">Financial services business.</span>
@@ -444,6 +473,11 @@
     <div typeof="http://schema.org/BookFormatType" resource="http://schema.org/Paperback">
       <span class="h" property="rdfs:label">Paperback</span>
       <span property="rdfs:comment">Book format: Paperback.</span>
+    </div>
+
+    <div typeof="http://schema.org/BookFormatType" resource="http://schema.org/AudiobookFormat">
+      <span class="h" property="rdfs:label">AudiobookFormat</span>
+      <span property="rdfs:comment">Book format: Audiobook. This is an enumerated value for use with the bookFormat property. There is also a type 'Audiobook' in the bib extension which includes Audiobook specific properties.</span>
     </div>
 
     <div typeof="rdfs:Class" resource="http://schema.org/BookStore">
@@ -1213,7 +1247,13 @@
 
     <div typeof="rdfs:Class" resource="http://schema.org/Language">
       <span class="h" property="rdfs:label">Language</span>
-      <span property="rdfs:comment">Natural languages such as Spanish, Tamil, Hindi, English, etc. and programming languages such as Scheme and Lisp.</span>
+      <span property="rdfs:comment">Natural languages such as Spanish, Tamil, Hindi, English, etc. Formal language code tags expressed in [BCP 47](https://en.wikipedia.org/wiki/IETF_language_tag) can be used via the [[alternateName]] property. The Language type previously also covered programming languages such as Scheme and Lisp, which are now best represented using [[ComputerLanguage]].</span>
+       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Intangible">Intangible</a></span>
+    </div>
+
+    <div typeof="rdfs:Class" resource="http://schema.org/ComputerLanguage">
+      <span class="h" property="rdfs:label">ComputerLanguageLanguage</span>
+      <span property="rdfs:comment">This type covers computer programming languages such as Scheme and Lisp, as well as other language-like computer representations. Natural languages are best represented with the [[Language]] type.</span>
        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Intangible">Intangible</a></span>
     </div>
 
@@ -1659,15 +1699,6 @@
        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/LocalBusiness">LocalBusiness</a></span>
     </div>
 
-    <div typeof="rdfs:Class" resource="http://schema.org/Recipe">
-      <span class="h" property="rdfs:label">Recipe</span>
-      <span property="rdfs:comment">A recipe. For dietary restrictions covered by the recipe,
-      a few common restrictions are enumerated via &lt;a href="/suitableForDiet"&gt;suitableForDiet&lt;/a&gt;.
-      The &lt;a href="/keywords"&gt;keywords&lt;/a&gt; property can also be used to add more detail.
-      </span>
-       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/CreativeWork">CreativeWork</a></span>
-    </div>
-
     <div typeof="rdfs:Class" resource="http://schema.org/RecyclingCenter">
       <span class="h" property="rdfs:label">RecyclingCenter</span>
       <span property="rdfs:comment">A recycling center.</span>
@@ -1934,7 +1965,6 @@
       <span class="h" property="rdfs:label">Series</span>
       <span property="rdfs:comment">
           A Series in schema.org is a group of related items, typically but not necessarily of the same kind. </span>
-      <link property="http://schema.org/supersededBy" href="http://schema.org/CreativeWorkSeries"/>
        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/CreativeWork">CreativeWork</a></span>
     </div>
 
@@ -2281,6 +2311,23 @@
        <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsClass">GoodRelationsClass</a></span>
     </div>
 
+    <div typeof="rdfs:Class" resource="http://schema.org/CreditCard">
+      <span class="h" property="rdfs:label">CreditCard</span>
+      <span property="rdfs:comment">A card payment method of a particular brand or name.  Used to mark up a particular payment method and/or the financial product/service that supplies the card account.&lt;br /&gt;
+    Commonly used values:&lt;br /&gt;
+&lt;br /&gt;
+    http://purl.org/goodrelations/v1#AmericanExpress &lt;br /&gt;
+    http://purl.org/goodrelations/v1#DinersClub &lt;br /&gt;
+    http://purl.org/goodrelations/v1#Discover &lt;br /&gt;
+    http://purl.org/goodrelations/v1#JCB &lt;br /&gt;
+    http://purl.org/goodrelations/v1#MasterCard &lt;br /&gt;
+    http://purl.org/goodrelations/v1#VISA &lt;br /&gt;
+       </span>
+       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/PaymentCard">PaymentCard</a></span>
+       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/LoanOrCredit">LoanOrCredit</a></span>
+       <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsClass">GoodRelationsClass</a></span>
+       <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO">FIBO</a></span></div>
+
     <div typeof="rdfs:Class" resource="http://schema.org/BusinessFunction">
       <span class="h" property="rdfs:label">BusinessFunction</span>
       <span property="rdfs:comment">The business function specifies the type of activity or access (i.e., the bundle of rights) offered by the organization or business person through the offer. Typical are sell, rental or lease, maintenance or repair, manufacture / produce, recycle / dispose, engineering / construction, or installation. Proprietary specifications of access rights are also instances of this class.
@@ -2320,46 +2367,20 @@
        <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsClass">GoodRelationsClass</a></span>
     </div>
 
-    <div typeof="rdfs:Class" resource="http://schema.org/CreditCard">
-      <span class="h" property="rdfs:label">CreditCard</span>
-      <span property="rdfs:comment">A credit or debit card type as a standardized procedure for transferring the monetary amount for a purchase.
-&lt;br /&gt;
-    Commonly used values:&lt;br /&gt;
-&lt;br /&gt;
-    http://purl.org/goodrelations/v1#AmericanExpress &lt;br /&gt;
-    http://purl.org/goodrelations/v1#DinersClub &lt;br /&gt;
-    http://purl.org/goodrelations/v1#Discover &lt;br /&gt;
-    http://purl.org/goodrelations/v1#JCB &lt;br /&gt;
-    http://purl.org/goodrelations/v1#MasterCard &lt;br /&gt;
-    http://purl.org/goodrelations/v1#VISA &lt;br /&gt;
-        </span>
-       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/PaymentMethod">PaymentMethod</a></span>
-       <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsClass">GoodRelationsClass</a></span>
-    </div>
-
     <div typeof="rdfs:Class" resource="http://schema.org/DayOfWeek">
       <span class="h" property="rdfs:label">DayOfWeek</span>
       <span property="rdfs:comment">The day of the week, e.g. used to specify to which day the opening hours of an OpeningHoursSpecification refer.
-&lt;br /&gt;
-    Commonly used values:&lt;br /&gt;
-&lt;br /&gt;
-    http://purl.org/goodrelations/v1#Monday &lt;br /&gt;
-    http://purl.org/goodrelations/v1#Tuesday &lt;br /&gt;
-    http://purl.org/goodrelations/v1#Wednesday &lt;br /&gt;
-    http://purl.org/goodrelations/v1#Thursday &lt;br /&gt;
-    http://purl.org/goodrelations/v1#Friday &lt;br /&gt;
-    http://purl.org/goodrelations/v1#Saturday &lt;br /&gt;
-    http://purl.org/goodrelations/v1#Sunday &lt;br /&gt;
-    http://purl.org/goodrelations/v1#PublicHolidays &lt;br /&gt;
-        </span>
-       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Enumeration">Enumeration</a></span>
-       <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsClass">GoodRelationsClass</a></span>
+
+Originally, URLs from [GoodRelations](http://purl.org/goodrelations/v1) were used (for [[Monday]], [[Tuesday]], [[Wednesday]], [[Thursday]], [[Friday]], [[Saturday]], [[Sunday]] plus a special entry for [[PublicHolidays]]); these have now been integrated directly into schema.org.
+      </span>
+      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Enumeration">Enumeration</a></span>
+      <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsClass">GoodRelationsClass</a></span>
     </div>
 
     <div typeof="rdfs:Class" resource="http://schema.org/PriceSpecification">
       <span class="h" property="rdfs:label">PriceSpecification</span>
-      <span property="rdfs:comment">A structured value representing a monetary amount. Typically, only the subclasses of this type are used for markup.</span>
-       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/StructuredValue">StructuredValue</a></span>
+      <span property="rdfs:comment">A structured value representing a price or price range. Typically, only the subclasses of this type are used for markup. It is recommended to use [[MonetaryAmount]] to describe independent amounts of money such as a salary, credit card limits, etc.</span>
+      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/StructuredValue">StructuredValue</a></span>
        <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsClass">GoodRelationsClass</a></span>
     </div>
 
@@ -2405,9 +2426,14 @@
 
     <div typeof="rdfs:Class" resource="http://schema.org/OpeningHoursSpecification">
       <span class="h" property="rdfs:label">OpeningHoursSpecification</span>
-      <span property="rdfs:comment">A structured value providing information about the opening hours of a place or a certain service inside a place.</span>
-       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/StructuredValue">StructuredValue</a></span>
-       <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsClass">GoodRelationsClass</a></span>
+      <span property="rdfs:comment">A structured value providing information about the opening hours of a place or a certain service inside a place.
+&lt;br /&gt;
+The place is &lt;b&gt;open&lt;/b&gt; if the &lt;a href=&quot;/opens&quot;&gt;opens&lt;/a&gt; property is specified, and &lt;b&gt;closed&lt;/b&gt; otherwise.
+&lt;br /&gt;
+If the value for the &lt;a href=&quot;/closes&quot;&gt;closes&lt;/a&gt; property is less than the value for the &lt;a href=&quot;/opens&quot;&gt;opens&lt;/a&gt; property then the hour range is assumed to span over the next day.
+      </span>
+      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/StructuredValue">StructuredValue</a></span>
+      <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsClass">GoodRelationsClass</a></span>
     </div>
 
     <div typeof="rdfs:Class" resource="http://schema.org/OwnershipInfo">
@@ -2829,13 +2855,13 @@
 
     <div typeof="rdfs:Class" resource="http://schema.org/AllocateAction">
       <span class="h" property="rdfs:label">AllocateAction</span>
-      <span property="rdfs:comment">The act of __organizing__ tasks/objects/events by associating resources to it.</span>
+      <span property="rdfs:comment">The act of organizing tasks/objects/events by associating resources to it.</span>
        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/OrganizeAction">OrganizeAction</a></span>
     </div>
 
     <div typeof="rdfs:Class" resource="http://schema.org/AcceptAction">
       <span class="h" property="rdfs:label">AcceptAction</span>
-      <span property="rdfs:comment">The [[act]] of __committing__ to/adopting an object. Related actions:\n\n* [[RejectAction]]: The antonym of AcceptAction.</span>
+      <span property="rdfs:comment">The act of committing to/adopting an object.&lt;p&gt;Related actions:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;&lt;a href=&quot;http://schema.org/RejectAction&quot;&gt;RejectAction&lt;/a&gt;: The antonym of AcceptAction&lt;/li&gt;&lt;/ul&gt;.</span>
        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/AllocateAction">AllocateAction</a></span>
     </div>
 
@@ -3150,13 +3176,11 @@
       <span property="rdfs:comment">The act of playing/exercising/training/performing for enjoyment, leisure, recreation, Competition or exercise.&lt;p&gt;Related actions:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;&lt;a href=&quot;http://schema.org/ListenAction&quot;&gt;ListenAction&lt;/a&gt;: Unlike ListenAction (which is under ConsumeAction), PlayAction refers to performing for an audience or at an event, rather than consuming music.&lt;/li&gt;&lt;li&gt;&lt;a href=&quot;http://schema.org/WatchAction&quot;&gt;WatchAction&lt;/a&gt;: Unlike WatchAction (which is under ConsumeAction), PlayAction refers to showing/displaying for an audience or at an event, rather than consuming visual content&lt;/li&gt;&lt;/ul&gt;.</span>
        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Action">Action</a></span>
     </div>
-
     <div typeof="rdfs:Class" resource="http://schema.org/ExerciseAction">
       <span class="h" property="rdfs:label">ExerciseAction</span>
       <span property="rdfs:comment">The act of participating in exertive activity for the purposes of improving health and fitness.</span>
        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/PlayAction">PlayAction</a></span>
     </div>
-
     <div typeof="rdfs:Class" resource="http://schema.org/FilmAction">
       <span class="h" property="rdfs:label">FilmAction</span>
       <span property="rdfs:comment">The act of capturing sound and moving images on film, video, or digitally.</span>
@@ -3522,6 +3546,7 @@
       <span property="rdfs:comment">The payment method(s) accepted by seller for this offer.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Offer">Offer</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Demand">Demand</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/LoanOrCredit">LoanOrCredit</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/PaymentMethod">PaymentMethod</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/acceptsReservations">
@@ -3578,7 +3603,8 @@
 
     <div typeof="rdf:Property" resource="http://schema.org/actor">
       <span class="h" property="rdfs:label">actor</span>
-      <span property="rdfs:comment">An actor, e.g. in tv, radio, movie, video games etc. Actors can be associated with individual items or with a series, episode, clip.</span>
+      <span property="rdfs:comment">An actor, e.g. in tv, radio, movie, video games etc., or in an event. Actors can be associated with individual items or with a series, episode, clip.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Event">Event</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Movie">Movie</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/VideoObject">VideoObject</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/VideoGame">VideoGame</a></span>
@@ -3949,10 +3975,11 @@
 
     <div typeof="rdf:Property" resource="http://schema.org/availableLanguage">
       <span class="h" property="rdfs:label">availableLanguage</span>
-      <span property="rdfs:comment">A language someone may use with the item.</span>
+      <span property="rdfs:comment">A language someone may use with the item. Please use one of the language codes from the &lt;a href=&#39;http://tools.ietf.org/html/bcp47&#39;&gt;IETF BCP 47 standard&lt;/a&gt;. See also [[inLanguage]].</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ContactPoint">ContactPoint</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ServiceChannel">ServiceChannel</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Language">Language</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
     </div>
 
     <div typeof="rdf:Property" resource="http://schema.org/availableThrough">
@@ -3989,6 +4016,7 @@
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/EmployeeRole">EmployeeRole</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number">Number</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/PriceSpecification">PriceSpecification</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/MonetaryAmount">MonetaryAmount</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/benefits">
       <span class="h" property="rdfs:label">benefits</span>
@@ -4079,7 +4107,7 @@
     <div typeof="rdf:Property" resource="http://schema.org/branchOf">
       <span class="h" property="rdfs:label">branchOf</span>
       <link property="http://schema.org/supersededBy" href="http://schema.org/parentOrganization"/>
-      <span property="rdfs:comment">The larger organization that this local business is a branch of, if any.</span>
+      <span property="rdfs:comment">The larger organization that this local business is a branch of, if any. Not to be confused with (anatomical)[[branch]].</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/LocalBusiness">LocalBusiness</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Organization">Organization</a></span>
     </div>
@@ -4094,9 +4122,9 @@
       <span property="rdfs:comment">A short textual code (also called "store code") that uniquely identifies a place of business. The code is typically assigned by the parentOrganization and used in structured URLs.
 &lt;br /&gt;&lt;br /&gt; For example, in the URL http://www.starbucks.co.uk/store-locator/etc/detail/3047 the code "3047" is a branchCode for a particular branch.
       </span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/LocalBusiness">LocalBusiness</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Place">Place</a></span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Store">Store</a></span>
+<!--      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/LocalBusiness">LocalBusiness</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Store">Store</a></span> -->
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/brand">
@@ -4183,14 +4211,22 @@
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/catalog">
       <span class="h" property="rdfs:label">catalog</span>
-      <link property="http://schema.org/supersededBy" href="http://schema.org/includedDataCatalog"/>
-      <span property="rdfs:comment">A data catalog which contains a dataset.</span>
+      <link property="http://schema.org/supersededBy" href="http://schema.org/includedInDataCatalog"/>
+      <span property="rdfs:comment">A data catalog which contains this dataset.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Dataset">Dataset</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/DataCatalog">DataCatalog</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/includedDataCatalog">
       <span class="h" property="rdfs:label">includedDataCatalog</span>
-      <span property="rdfs:comment">A data catalog contained in the dataset.</span>
+      <span property="rdfs:comment">A data catalog which contains this dataset (this property was previously 'catalog', preferred name is now 'includedInDataCatalog').</span>
+      <link property="http://schema.org/supersededBy" href="http://schema.org/includedInDataCatalog"/>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Dataset">Dataset</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/DataCatalog">DataCatalog</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/includedInDataCatalog">
+      <span class="h" property="rdfs:label">includedInDataCatalog</span>
+      <span property="rdfs:comment">A data catalog which contains this dataset.</span>
+      <link property="http://schema.org/inverseOf" href="http://schema.org/dataset"/>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Dataset">Dataset</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/DataCatalog">DataCatalog</a></span>
     </div>
@@ -4201,8 +4237,6 @@
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Service">Service</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Offer">Offer</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Invoice">Invoice</a></span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/PhysicalActivity">PhysicalActivity</a></span>
-      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/PhysicalActivityCategory">health:PhysicalActivityCategory</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Thing">Thing</a></span>
     </div>
@@ -4414,8 +4448,9 @@
 
     <div typeof="rdf:Property" resource="http://schema.org/contributor">
       <span class="h" property="rdfs:label">contributor</span>
-      <span property="rdfs:comment">A secondary contributor to the CreativeWork.</span>
+      <span property="rdfs:comment">A secondary contributor to the CreativeWork or Event.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CreativeWork">CreativeWork</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Event">Event</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Organization">Organization</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Person">Person</a></span>
     </div>
@@ -4494,9 +4529,10 @@
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/dataset">
       <span class="h" property="rdfs:label">dataset</span>
-      <span property="rdfs:comment">A dataset contained in a catalog.</span>
+      <span property="rdfs:comment">A dataset contained in this catalog.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/DataCatalog">DataCatalog</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Dataset">Dataset</a></span>
+      <link property="http://schema.org/inverseOf" href="http://schema.org/includedInDataCatalog"/>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/dateCreated">
       <span class="h" property="rdfs:label">dateCreated</span>
@@ -4621,8 +4657,9 @@
 
     <div typeof="rdf:Property" resource="http://schema.org/director">
       <span class="h" property="rdfs:label">director</span>
-      <span property="rdfs:comment">A director of e.g. tv, radio, movie, video games etc. content. Directors can be associated with individual items or with a series, episode, clip.</span>
+      <span property="rdfs:comment">A director of e.g. tv, radio, movie, video gaming etc. content, or of an event. Directors can be associated with individual items or with a series, episode, clip.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Movie">Movie</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Event">Event</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/VideoObject">VideoObject</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/VideoGame">VideoGame</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Episode">Episode</a></span>
@@ -5125,9 +5162,23 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/gender">
       <span class="h" property="rdfs:label">gender</span>
-      <span property="rdfs:comment">Gender of the person.</span>
+      <span property="rdfs:comment">Gender of the person. While http://schema.org/Male and http://schema.org/Female may be used, text strings are also acceptable for people who do not identify as a binary gender.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Person">Person</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/GenderType">GenderType</a></span>
+    </div>
+    <div typeof="rdfs:Class" resource="http://schema.org/GenderType">
+      <span class="h" property="rdfs:label">GenderType</span>
+      <span property="rdfs:comment">An enumeration of genders.</span>
+       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Enumeration">Enumeration</a></span>
+    </div>
+    <div typeof="http://schema.org/GenderType" resource="http://schema.org/Female">
+      <span class="h" property="rdfs:label">Female</span>
+      <span property="rdfs:comment">The female gender.</span>
+    </div>
+    <div typeof="http://schema.org/GenderType" resource="http://schema.org/Male">
+      <span class="h" property="rdfs:label">Male</span>
+      <span property="rdfs:comment">The male gender.</span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/genre">
       <span class="h" property="rdfs:label">genre</span>
@@ -5331,7 +5382,7 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
 
     <div typeof="rdf:Property" resource="http://schema.org/inLanguage">
       <span class="h" property="rdfs:label">inLanguage</span>
-      <span property="rdfs:comment">The language of the content or performance or used in an action. Please use one of the language codes from the &lt;a href=&#39;http://tools.ietf.org/html/bcp47&#39;&gt;IETF BCP 47 standard&lt;/a&gt;.</span>
+      <span property="rdfs:comment">The language of the content or performance or used in an action. Please use one of the language codes from the &lt;a href=&#39;http://tools.ietf.org/html/bcp47&#39;&gt;IETF BCP 47 standard&lt;/a&gt;. See also [[availableLanguage]].</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CreativeWork">CreativeWork</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Event">Event</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CommunicateAction">CommunicateAction</a></span>
@@ -5395,7 +5446,22 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
       <span property="rdfs:comment">A resource that was used in the creation of this resource. This term can be repeated for multiple sources. For example, http://example.com/great-multiplication-intro.html.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CreativeWork">CreativeWork</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/URL">URL</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/CreativeWork">CreativeWork</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Product">Product</a></span>
+      <link property="http://schema.org/supersededBy" href="http://schema.org/isBasedOn"/>
+      <!-- is there a case for Thing here...? -->
     </div>
+
+    <div typeof="rdf:Property" resource="http://schema.org/isBasedOn">
+      <span class="h" property="rdfs:label">isBasedOnUrl</span>
+      <span property="rdfs:comment">A resource that was used in the creation of this resource. This term can be repeated for multiple sources. For example, http://example.com/great-multiplication-intro.html.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CreativeWork">CreativeWork</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/URL">URL</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/CreativeWork">CreativeWork</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Product">Product</a></span>
+      <!-- is there a case for Thing here...? -->
+    </div>
+
     <div typeof="rdf:Property" resource="http://schema.org/isbn">
       <span class="h" property="rdfs:label">isbn</span>
       <span property="rdfs:comment">The ISBN of the book.</span>
@@ -5696,10 +5762,7 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
 
 <div typeof="rdf:Property" resource="http://schema.org/mainEntityOfPage">
       <span class="h" property="rdfs:label">mainEntityOfPage</span>
-      <span property="rdfs:comment">Indicates a page (or other CreativeWork) for which this thing is the main entity being described.
-      &lt;br /&gt;&lt;br /&gt;
-      See &lt;a href="/docs/datamodel.html#mainEntityBackground"&gt;background notes&lt;/a&gt; for details.
-      </span>
+      <span property="rdfs:comment">Indicates a page (or other CreativeWork) for which this thing is the main entity being described. See &lt;a href="/docs/datamodel.html#mainEntityBackground"&gt;background notes&lt;/a&gt; for details.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Thing">Thing</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/CreativeWork">CreativeWork</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/URL">URL</a></span>
@@ -5756,6 +5819,7 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
       <span property="rdfs:comment">The upper value of some characteristic or property.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/QuantitativeValue">QuantitativeValue</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/PropertyValue">PropertyValue</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MonetaryAmount">MonetaryAmount</a></span>
 	  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/PropertyValueSpecification">PropertyValueSpecification</a></span>
 
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number">Number</a></span>
@@ -5827,6 +5891,7 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
       <span property="rdfs:comment">The lower value of some characteristic or property.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/QuantitativeValue">QuantitativeValue</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/PropertyValue">PropertyValue</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MonetaryAmount">MonetaryAmount</a></span>
 	  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/PropertyValueSpecification">PropertyValueSpecification</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number">Number</a></span>
     </div>
@@ -5892,6 +5957,7 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
       <span property="rdfs:comment">The total financial value of the organization or person as calculated by subtracting assets from liabilities.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Person">Person</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/PriceSpecification">PriceSpecification</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/MonetaryAmount">MonetaryAmount</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/nonEqual">
       <span class="h" property="rdfs:label">nonEqual</span>
@@ -5967,7 +6033,7 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/openingHours">
       <span class="h" property="rdfs:label">openingHours</span>
-      <span property="rdfs:comment">The opening hours for a business. Opening hours can be specified as a weekly time range, starting with days, then times per day. Multiple days can be listed with commas &#39;,&#39; separating each day. Day or time ranges are specified using a hyphen &#39;-&#39;.&lt;br /&gt;- Days are specified using the following two-letter combinations: &lt;code&gt;Mo&lt;/code&gt;, &lt;code&gt;Tu&lt;/code&gt;, &lt;code&gt;We&lt;/code&gt;, &lt;code&gt;Th&lt;/code&gt;, &lt;code&gt;Fr&lt;/code&gt;, &lt;code&gt;Sa&lt;/code&gt;, &lt;code&gt;Su&lt;/code&gt;.&lt;br /&gt;- Times are specified using 24:00 time. For example, 3pm is specified as &lt;code&gt;15:00&lt;/code&gt;. &lt;br /&gt;- Here is an example: &lt;code&gt;&amp;lt;time itemprop=&amp;quot;openingHours&amp;quot; datetime=&amp;quot;Tu,Th 16:00-20:00&amp;quot;&amp;gt;Tuesdays and Thursdays 4-8pm&amp;lt;/time&amp;gt;&lt;/code&gt;. &lt;br /&gt;- If a business is open 7 days a week, then it can be specified as &lt;code&gt;&amp;lt;time itemprop=&amp;quot;openingHours&amp;quot; datetime=&amp;quot;Mo-Su&amp;quot;&amp;gt;Monday through Sunday, all day&amp;lt;/time&amp;gt;&lt;/code&gt;.</span>
+      <span property="rdfs:comment">The general opening hours for a business. Opening hours can be specified as a weekly time range, starting with days, then times per day. Multiple days can be listed with commas &#39;,&#39; separating each day. Day or time ranges are specified using a hyphen &#39;-&#39;.&lt;br /&gt;- Days are specified using the following two-letter combinations: &lt;code&gt;Mo&lt;/code&gt;, &lt;code&gt;Tu&lt;/code&gt;, &lt;code&gt;We&lt;/code&gt;, &lt;code&gt;Th&lt;/code&gt;, &lt;code&gt;Fr&lt;/code&gt;, &lt;code&gt;Sa&lt;/code&gt;, &lt;code&gt;Su&lt;/code&gt;.&lt;br /&gt;- Times are specified using 24:00 time. For example, 3pm is specified as &lt;code&gt;15:00&lt;/code&gt;. &lt;br /&gt;- Here is an example: &lt;code&gt;&amp;lt;time itemprop=&amp;quot;openingHours&amp;quot; datetime=&amp;quot;Tu,Th 16:00-20:00&amp;quot;&amp;gt;Tuesdays and Thursdays 4-8pm&amp;lt;/time&amp;gt;&lt;/code&gt;. &lt;br /&gt;- If a business is open 7 days a week, then it can be specified as &lt;code&gt;&amp;lt;time itemprop=&amp;quot;openingHours&amp;quot; datetime=&amp;quot;Mo-Su&amp;quot;&amp;gt;Monday through Sunday, all day&amp;lt;/time&amp;gt;&lt;/code&gt;.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/LocalBusiness">LocalBusiness</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CivicStructure">CivicStructure</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
@@ -5975,6 +6041,15 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
     <div typeof="rdf:Property" resource="http://schema.org/openingHoursSpecification">
       <span class="h" property="rdfs:label">openingHoursSpecification</span>
       <span property="rdfs:comment">The opening hours of a certain place.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Place">Place</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/OpeningHoursSpecification">OpeningHoursSpecification</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/specialOpeningHoursSpecification">
+      <span class="h" property="rdfs:label">specialOpeningHoursSpecification</span>
+      <span property="rdfs:comment">The special opening hours of a certain place.
+&lt;br /&gt;
+Use this to explicitly override general opening hours brought in scope by &lt;a href=&quot;/openingHoursSpecification&quot;&gt;openingHoursSpecification&lt;/a&gt; or &lt;a href=&quot;/openingHours&quot;&gt;openingHours&lt;/a&gt;.
+      </span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Place">Place</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/OpeningHoursSpecification">OpeningHoursSpecification</a></span>
     </div>
@@ -6110,7 +6185,6 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
       <span property="rdfs:comment">The overall order the items in this delivery were included in.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ParcelDelivery">ParcelDelivery</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Order">Order</a></span>
-      <link property="rdfs:subPropertyOf" href="http://schema.org/isPartOf" />
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/partOfSeason">
       <span class="h" property="rdfs:label">partOfSeason</span>
@@ -6429,7 +6503,8 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
       <span class="h" property="rdfs:label">programmingLanguage</span>
       <span property="rdfs:comment">The computer programming language.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/SoftwareSourceCode">SoftwareSourceCode</a></span>
-      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Language">Language</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/ComputerLanguage">ComputerLanguage</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/programmingModel">
       <span class="h" property="rdfs:label">programmingModel</span>
@@ -6514,6 +6589,7 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
       <span class="h" property="rdfs:label">recipient</span>
       <span property="rdfs:comment">A sub property of participant. The participant who is at the receiving end of the action.</span>
       <link property="rdfs:subPropertyOf" href="http://schema.org/participant" />
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Message">Message</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CommunicateAction">CommunicateAction</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/AuthorizeAction">AuthorizeAction</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/DonateAction">DonateAction</a></span>
@@ -6838,6 +6914,7 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
       <span class="h" property="rdfs:label">sender</span>
       <span property="rdfs:comment">A sub property of participant. The participant who is at the sending end of the action.</span>
       <link property="rdfs:subPropertyOf" href="http://schema.org/participant" />
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Message">Message</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ReceiveAction">ReceiveAction</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Audience">Audience</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Organization">Organization</a></span>
@@ -6941,18 +7018,6 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/URL">URL</a></span>
     </div>
 
-   <div typeof="rdf:Property" resource="http://schema.org/mainEntityOfPage">
-      <span class="h" property="rdfs:label">mainEntityOfPage</span>
-      <span property="rdfs:comment">Indicates a page (or other CreativeWork) for which this thing is the main entity being described.
-      &lt;br /&gt;&lt;br /&gt;
-      See &lt;a href="/docs/datamodel.html#mainEntityBackground"&gt;background notes&lt;/a&gt; for details.
-      </span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Thing">Thing</a></span>
-      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/CreativeWork">CreativeWork</a></span>
-      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/URL">URL</a></span>
-      <link property="http://schema.org/inverseOf" href="http://schema.org/mainEntity"/>
-   </div>
-
     <div typeof="rdf:Property" resource="http://schema.org/significantLinks">
       <span class="h" property="rdfs:label">significantLinks</span>
       <link property="http://schema.org/supersededBy" href="http://schema.org/significantLink"/>
@@ -7010,25 +7075,12 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
     <div typeof="rdf:Property" resource="http://schema.org/sponsor">
       <span class="h" property="rdfs:label">sponsor</span>
       <span property="rdfs:comment">A person or organization that supports a thing through a pledge, promise, or financial contribution. e.g. a sponsor of a Medical Study or a corporate sponsor of an event.</span>
-	  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Person">Person</a></span>
-	  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Organization">Organization</a></span>
-	  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Event">Event</a></span>
+  	  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Person">Person</a></span>
+	    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Organization">Organization</a></span>
+	    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Event">Event</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Organization">Organization</a></span>
-	  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Person">Person</a></span>
+  	  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Person">Person</a></span>
     </div>
-
-
-    <!-- schemed TODO -->
-    <!-- move to health-lifesci ext?
-
-    <div typeof="rdf:Property" resource="http://schema.org/profession">
-      <span class="h" property="rdfs:label">profession</span>
-      <span property="rdfs:comment">A profession exercised by a person or other entity.</span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Person">Person</a></span>
-	  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Organization">Organization</a></span>
-      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Specialty">Specialty</a></span>
-    </div>
-    -->
 
     <div typeof="rdf:Property" resource="http://schema.org/sportsActivityLocation">
       <span class="h" property="rdfs:label">sportsActivityLocation</span>
@@ -7366,6 +7418,7 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
       <span property="rdfs:comment">The date when the item becomes valid.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Offer">Offer</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/PriceSpecification">PriceSpecification</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MonetaryAmount">PriceSpecification</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Demand">Demand</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/OpeningHoursSpecification">OpeningHoursSpecification</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Permit">Permit</a></span>
@@ -7379,9 +7432,10 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/validThrough">
       <span class="h" property="rdfs:label">validThrough</span>
-      <span property="rdfs:comment">The end of the validity of an offer, price specification, opening hours specification, demand or job posting.</span>
+      <span property="rdfs:comment">The date after when the item is not valid. For example the end of an offer, salary period, or a period of opening hours.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Offer">Offer</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/PriceSpecification">PriceSpecification</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MonetaryAmount">PriceSpecification</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Demand">Demand</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/JobPosting">JobPosting</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/OpeningHoursSpecification">OpeningHoursSpecification</a></span>
@@ -7395,9 +7449,12 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/value">
       <span class="h" property="rdfs:label">value</span>
-      <span property="rdfs:comment">The value of the quantitative value or property value node. For QuantitativeValue, the recommended type for values is &apos;Number&apos;. For PropertyValue, it can be &apos;Text;&apos;, &apos;Number&apos;, &apos;Boolean&apos;, or &apos;StructuredValue&apos;.</span>
+      <span property="rdfs:comment">The value of the quantitative value or property value node.&lt;br/&gt;
+	For QuantitativeValue and MonetaryValue, the recommended type for values is &apos;Number&apos;. &lt;br/&gt;
+	For PropertyValue, it can be &apos;Text;&apos;, &apos;Number&apos;, &apos;Boolean&apos;, or &apos;StructuredValue&apos;.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/QuantitativeValue">QuantitativeValue</a></span>
 	  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/PropertyValue">PropertyValue</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MonetaryAmount">MonetaryAmount</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number">Number</a></span>
 	  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
 	  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Boolean">Boolean</a></span>
@@ -7610,13 +7667,9 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
     </div>
 
     <div typeof="http://schema.org/Organization" resource="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms">
-      <span property="rdfs:label">GoodRelationsProperties</span>
-      <span property="rdfs:comment">This class contains derivatives of properties from the GoodRelations Vocabulary for E-Commerce, created by Martin Hepp. GoodRelations is a data model for sharing e-commerce data on the Web that can be expressed in a variety of syntaxes, including RDFa and HTML5 Microdata. More information about GoodRelations can be found at http://purl.org/goodrelations/.</span>
-    </div>
-
-    <div typeof="http://schema.org/Organization" resource="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms">
       <span property="rdfs:label">GoodRelationsTerms</span>
-      <span property="rdfs:comment">This term [uses](http://blog.schema.org/2012/11/good-relations-and-schemaorg.html) terminology from the _GoodRelations Vocabulary_ for E-Commerce, created by Martin Hepp. GoodRelations is a data model for sharing e-commerce data on the Web that can be expressed in a variety of syntaxes, including RDFa and HTML5 Microdata. More information about GoodRelations can be found at [http://purl.org/goodrelations/](http://purl.org/goodrelations/).</span>
+      <span property="rdfs:comment">This term &lt;a href="http://blog.schema.org/2012/11/good-relations-and-schemaorg.html">uses&lt;/a&gt; terminology from the GoodRelations Vocabulary for E-Commerce, created by Martin Hepp. GoodRelations is a data model for sharing e-commerce data on the Web. More information about GoodRelations can be found at &lt;a href=&quot;
+        http://purl.org/goodrelations/&quot;&gt;http://purl.org/goodrelations/&lt;/a&gt;.</span>
     </div>
 
     <div typeof="http://schema.org/Organization" resource="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_LRMIClass">
@@ -7631,12 +7684,12 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
 
     <div typeof="http://schema.org/Organization" resource="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_bibex">
       <span property="rdfs:label">BibExTerm</span>
-      <span property="rdfs:comment">The W3C &lt;a href="http://www.w3.org/community/schemabibex/"&gt;Schema Bib Extend&lt;/a&gt; (BibEx) group led the work to improve schema.org for bibliographic information, including terms for periodicals, articles and multi-volume works. The design was inspired in places (e.g. pageStart, pageEnd, pagination) by the &lt;a href="http://bibliontology.com/"&gt;Bibliographic Ontology&lt;/a&gt;, 'bibo'.</span>
+      <span property="rdfs:comment">The W3C [Schema Bib Extend](http://www.w3.org/community/schemabibex/) (BibEx) group led the work to improve schema.org for bibliographic information, including terms for periodicals, articles and multi-volume works. The design was inspired in places (e.g. [[pageStart]], [[pageEnd]], [[pagination]]) by the [Bibliographic Ontology](http://bibliontology.com/), 'bibo'.</span>
     </div>
 
 	<div typeof="http://schema.org/Organization" resource="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group">
 	  <span property="rdfs:label">AutomotiveOntologyWGClass</span>
-	  <span property="rdfs:comment">This element is based on the work of the Automotive Ontology Working Group, see &lt;a href=&quot;http://www.automotive-ontology.org&quot;&gt;http://www.automotive-ontology.org&lt;/a&gt; for details. Many class and property definitions are inspired by or based on abstracts from Wikipedia, the free encyclopedia.</span>
+	  <span property="rdfs:comment">This element is based on the work of the Automotive Ontology Working Group, see [www.automotive-ontology.org](http://www.automotive-ontology.org) for details. Many class and property definitions are inspired by or based on abstracts from Wikipedia, the free encyclopedia.</span>
 	</div>
     <hr />
 
@@ -8093,8 +8146,8 @@ postponing for 1.6.
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/icaoCode">
-      <span class="h" property="rdfs:label">iacoCode</span>
-      <span property="rdfs:comment">IACO identifier for an airport.</span>
+      <span class="h" property="rdfs:label">icaoCode</span>
+      <span property="rdfs:comment">ICAO identifier for an airport.</span>
       <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Airport">Airport</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
     </div>
@@ -8358,7 +8411,7 @@ postponing for 1.6.
     <div typeof="rdfs:Class" resource="http://schema.org/EmailMessage">
       <span class="h" property="rdfs:label">EmailMessage</span>
       <span property="rdfs:comment">An email message.</span>
-      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/CreativeWork">CreativeWork</a></span>
+      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Message">Message</a></span>
     </div>
 
   <hr />
@@ -8643,7 +8696,7 @@ postponing for 1.6.
 
     <div typeof="rdfs:Class" resource="http://schema.org/Periodical">
       <span class="h" property="rdfs:label">Periodical</span>
-      <span property="rdfs:comment">A publication in any medium issued in successive parts bearing numerical or chronological designations and intended, such as a magazine, scholarly journal, or newspaper to continue indefinitely.&lt;br/&gt;&lt;br/&gt;See also &lt;a href="http://blog.schema.org/2014/09/schemaorg-support-for-bibliographic_2.html"&gt;blog post&lt;/a&gt;.</span>
+      <span property="rdfs:comment">A publication in any medium issued in successive parts bearing numerical or chronological designations and intended, such as a magazine, scholarly journal, or newspaper to continue indefinitely.\n\nSee also [blog post](http://blog.schema.org/2014/09/schemaorg-support-for-bibliographic_2.html).</span>
       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/CreativeWorkSeries">CreativeWorkSeries</a></span>
        <link property="owl:equivalentClass" href="http://purl.org/ontology/bibo/Periodical"/>
        <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_bibex">BibEx</a></span>
@@ -8867,7 +8920,7 @@ postponing for 1.6.
 </div>
 <div typeof="rdfs:Class" resource="http://schema.org/Game">
   <span class="h" property="rdfs:label">Game</span>
-  <span property="rdfs:comment">The Game type represents things which are games. These are typically rule-governed recreational activities, e.g. role-playing games in which players assume the role of characters in a fictional setting. See also &lt;a href="https://github.com/rvguha/schemaorg/issues/169"&gt;open issues list&lt;/a&gt;.</span>
+  <span property="rdfs:comment">The Game type represents things which are games. These are typically rule-governed recreational activities, e.g. role-playing games in which players assume the role of characters in a fictional setting.</span>
    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/CreativeWork">CreativeWork</a></span>
 </div>
 
@@ -8957,8 +9010,9 @@ postponing for 1.6.
  </div>
   <div typeof="rdf:Property" resource="http://schema.org/translator">
       <span class="h" property="rdfs:label">translator</span>
-      <span property="rdfs:comment">Organization or person who adapts a creative work to different languages, regional differences and technical requirements of a target market.</span>
+      <span property="rdfs:comment">Organization or person who adapts a creative work to different languages, regional differences and technical requirements of a target market, or that translates during some event.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CreativeWork">CreativeWork</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Event">Event</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Person">Person</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Organization">Organization</a></span>
  </div>
@@ -9177,8 +9231,9 @@ postponing for 1.6.
 </div>
 <div typeof="rdf:Property" resource="http://schema.org/composer">
   <span class="h" property="rdfs:label">composer</span>
-  <span property="rdfs:comment">The person or organization who wrote the composition.</span>
+  <span property="rdfs:comment">The person or organization who wrote a composition, or who is the composer of a work performed at some event.</span>
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MusicComposition">MusicComposition</a></span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Event">Event</a></span>
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Person">Person</a></span>
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Organization">Organization</a></span>
   <link property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#MBZ"/>
@@ -9344,14 +9399,6 @@ postponing for 1.6.
 </div>
 -->
 
-<!--
-<div typeof="rdf:Property" resource="http://schema.org/recordedAt">
-  <span class="h" property="rdfs:label">recordedAt</span>
-  <span property="rdfs:comment">The event where the work was recorded. Used primarily with video, audio, and photography.</span>
-  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CreativeWork">CreativeWork</a></span>
-  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Event">Event</a></span>
-</div> -->
-
 <div typeof="rdf:Property" resource="http://schema.org/releasedEvent">
   <span class="h" property="rdfs:label">releasedEvent</span>
   <span property="rdfs:comment">The place and time the release was issued, expressed as a PublicationEvent.</span>
@@ -9413,8 +9460,20 @@ postponing for 1.6.
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Place">Place</a></span>
 </div>
 
+<div typeof="rdf:Property" resource="http://schema.org/birthPlace">
+  <span class="h" property="rdfs:label">birthPlace</span>
+  <span property="rdfs:comment">The place where the person was born.</span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Person">Person</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Place">Place</a></span>
+</div>
 
-<!-- <p>Moved to health extension but to be discussed: Person birthPlace, deathPlace. (check old historical-info proposal, make a converged design later).</p> -->
+<div typeof="rdf:Property" resource="http://schema.org/deathPlace">
+  <span class="h" property="rdfs:label">deathPlace</span>
+  <span property="rdfs:comment">The place where the person died.</span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Person">Person</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Place">Place</a></span>
+</div>
+
 <p>NOTE: Added foundingLocation (Place) to Organization.</p>
 
 </div>
@@ -9517,30 +9576,28 @@ postponing for 1.6.
   <!-- Money Value and associated properties -->
   <div typeof="rdfs:Class" resource="http://schema.org/DatedMoneySpecification">
     <span class="h" property="rdfs:label">DatedMoneySpecification</span>
-    <span property="rdfs:comment">A DatedMoneySpecification represents monetary values with optional start and end dates. For example, this could represent an employee's salary over a specific period of time.</span>
+    <link property="http://schema.org/supersededBy" href="http://schema.org/MonetaryAmount"/>
+    <span property="rdfs:comment">A DatedMoneySpecification represents monetary values with optional start and end dates. For example, this could represent an employee's salary over a specific period of time. __Note:__ This type has been superseded by [[MonetaryAmount]] use of that type is recommended</span>
     <span>
       Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/StructuredValue">StructuredValue</a>
     </span>
   </div>
+
   <div typeof="rdf:Property" resource="http://schema.org/amount">
     <span class="h" property="rdfs:label">amount</span>
     <span property="rdfs:comment">The amount of money.</span>
-    <span>
-      domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/DatedMoneySpecification">DatedMoneySpecification</a>
-    </span>
-    <span>
-      Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number">Number</a>
-    </span>
+    <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/DatedMoneySpecification">DatedMoneySpecification</a></span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/LoanOrCredit">LoanOrCredit</a></span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/InvestmentOrDeposit">InvestmentOrDeposit</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/MonetaryAmount">MonetaryAmount</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number">Number</a></span>
   </div>
   <div typeof="rdf:Property" resource="http://schema.org/currency">
     <span class="h" property="rdfs:label">currency</span>
     <span property="rdfs:comment">The currency in which the monetary amount is expressed (in 3-letter &lt;a href=&#39;http://en.wikipedia.org/wiki/ISO_4217&#39;"&gt;ISO 4217&lt;/a&gt; format).</span>
-    <span>
-      domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/DatedMoneySpecification">DatedMoneySpecification</a>
-    </span>
-    <span>
-      Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a>
-    </span>
+    <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/DatedMoneySpecification">DatedMoneySpecification</a></span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MonetaryAmount">MonetaryAmount</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
   </div>
   <div typeof="rdf:Property" resource="http://schema.org/startDate">
     <!--
@@ -9649,7 +9706,8 @@ postponing for 1.6.
   <span class="h" property="rdfs:label">totalPaymentDue</span>
   <span property="rdfs:comment">The total amount due.</span>
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Invoice">Invoice</a></span>
-  <span>Domain: <a property="http://schema.org/rangeIncludes" href="http://schema.org/PriceSpecification">PriceSpecification</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/PriceSpecification">PriceSpecification</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/MonetaryAmount">MonetaryAmount</a></span>
 </div>
 
 <div typeof="rdf:Property" resource="http://schema.org/minimumPaymentDue">
@@ -9657,6 +9715,7 @@ postponing for 1.6.
   <span property="rdfs:comment">The minimum payment required at this time.</span>
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Invoice">Invoice</a></span>
   <span>Domain: <a property="http://schema.org/rangeIncludes" href="http://schema.org/PriceSpecification">PriceSpecification</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/MonetaryAmount">MonetaryAmount</a></span>
 </div>
 <div typeof="rdf:Property" resource="http://schema.org/accountId">
   <span class="h" property="rdfs:label">accountId</span>
@@ -10112,6 +10171,7 @@ Typical unit code(s): C62 for persons.</span>
     <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Vehicle">Vehicle</a></span>
     <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
 </div>
+
 <h1>InteractionCounter</h1>
 
 <div typeof="rdfs:Class" resource="http://schema.org/InteractionCounter">
@@ -10192,7 +10252,6 @@ Typical unit code(s): C62 for persons.</span>
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/LiveBlogPosting">LiveBlogPosting</a></span>
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/BlogPosting">BlogPosting</a></span>
 </div>
-
 
 <div typeof="rdfs:Class" resource="http://schema.org/PaymentStatusType">
   <span class="h" property="rdfs:label">PaymentStatusType</span>
@@ -10313,70 +10372,31 @@ Typical unit code(s): C62 for persons.</span>
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Mass"> Mass </a></span>
 </div>
 
-<div typeof="http://schema.org/PhysicalActivityCategory" resource="http://schema.org/AerobicActivity">
-  <span class="h" property="rdfs:label">AerobicActivity</span>
-  <span property="rdfs:comment">Physical activity of relatively low intensity that depends primarily on the aerobic energy-generating process; during activity, the aerobic metabolism uses oxygen to adequately meet energy demands during exercise.</span>
-</div>
-
-<div typeof="http://schema.org/PhysicalActivityCategory" resource="http://schema.org/AnaerobicActivity">
-  <span class="h" property="rdfs:label">AnaerobicActivity</span>
-  <span property="rdfs:comment">Physical activity that is of high-intensity which utilizes the anaerobic metabolism of the body.</span>
-</div>
-
-<div typeof="http://schema.org/PhysicalActivityCategory" resource="http://schema.org/Balance">
-  <span class="h" property="rdfs:label">Balance</span>
-  <span property="rdfs:comment">Physical activity that is engaged to help maintain posture and balance.</span>
-</div>
-
-<div typeof="http://schema.org/PhysicalActivityCategory" resource="http://schema.org/Flexibility">
-  <span class="h" property="rdfs:label">Flexibility</span>
-  <span property="rdfs:comment">Physical activity that is engaged in to improve joint and muscle flexibility.</span>
-</div>
-
-<div typeof="http://schema.org/PhysicalActivityCategory" resource="http://schema.org/LeisureTimeActivity">
-  <span class="h" property="rdfs:label">LeisureTimeActivity</span>
-  <span property="rdfs:comment">Any physical activity engaged in for recreational purposes. Examples may include ballroom dancing, roller skating, canoeing, fishing, etc.</span>
-</div>
-
-<div typeof="http://schema.org/PhysicalActivityCategory" resource="http://schema.org/OccupationalActivity">
-  <span class="h" property="rdfs:label">OccupationalActivity</span>
-  <span property="rdfs:comment">Any physical activity engaged in for job-related purposes. Examples may include waiting tables, maid service, carrying a mailbag, picking fruits or vegetables, construction work, etc.</span>
-</div>
-
-<div typeof="http://schema.org/PhysicalActivityCategory" resource="http://schema.org/StrengthTraining">
-  <span class="h" property="rdfs:label">StrengthTraining</span>
-  <span property="rdfs:comment">Physical activity that is engaged in to improve muscle and bone strength. Also referred to as resistance training.</span>
-</div>
-
-
-<div typeof="rdfs:Class" resource="http://schema.org/ExercisePlan">
-  <span class="h" property="rdfs:label">ExercisePlan</span>
-  <span property="rdfs:comment">Fitness-related activity designed for a specific health-related purpose, including defined exercise routines as well as activity prescribed by a clinician.</span>
-  <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/CreativeWork"> CreativeWork </a></span>
-  <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/PhysicalActivity"> PhysicalActivity </a></span>
-</div>
-
 <div typeof="rdfs:Class" resource="http://schema.org/Enumeration">
   <span class="h" property="rdfs:label">Enumeration</span>
   <span property="rdfs:comment">Lists or enumerations&#x2014;for example, a list of cuisines or music genres, etc.</span>
   <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Intangible">Intangible</a></span>
 </div>
 
-<div typeof="rdfs:Class" resource="http://schema.org/PhysicalActivity">
-  <span class="h" property="rdfs:label">PhysicalActivity</span>
-  <span property="rdfs:comment">Any bodily activity that enhances or maintains physical fitness and overall health and wellness. Includes activity that is part of daily living and routine, structured exercise, and exercise prescribed as part of a medical treatment or recovery plan.</span>
-</div>
-
-<div typeof="rdfs:Class" resource="http://schema.org/PhysicalActivityCategory">
-  <span class="h" property="rdfs:label">PhysicalActivityCategory</span>
-  <span property="rdfs:comment">Categories of physical activity, organized by physiologic classification.</span>
-  <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Enumeration"> Enumeration </a></span>
-</div>
-
 <div typeof="rdfs:Class" resource="http://schema.org/NutritionInformation">
   <span class="h" property="rdfs:label">NutritionInformation</span>
   <span property="rdfs:comment">Nutritional information about the recipe.</span>
   <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/StructuredValue">StructuredValue</a></span>
+</div>
+
+<div typeof="rdfs:Class" resource="http://schema.org/Recipe">
+  <span class="h" property="rdfs:label">Recipe</span>
+  <span property="rdfs:comment">A recipe. For dietary restrictions covered by the recipe,
+    a few common restrictions are enumerated via &lt;a href="/suitableForDiet"&gt;suitableForDiet&lt;/a&gt;.
+    The &lt;a href="/keywords"&gt;keywords&lt;/a&gt; property can also be used to add more detail.</span>
+   <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/CreativeWork">CreativeWork</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/totalTime">
+  <span class="h" property="rdfs:label"> health:totalTime</span>
+  <span property="rdfs:comment">The total time it takes to prepare and cook the recipe, in <a href='http://en.wikipedia.org/wiki/ISO_8601'>ISO 8601 duration format</a>.</span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Recipe">Recipe</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Duration">Duration</a></span>
 </div>
 
 <div typeof="rdf:Property" resource="http://schema.org/cookTime">
@@ -10393,72 +10413,6 @@ Typical unit code(s): C62 for persons.</span>
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text"> Text </a></span>
 </div>
 
-<div typeof="rdf:Property" resource="http://schema.org/workload">
-  <span class="h" property="rdfs:label">workload</span>
-  <span property="rdfs:comment">Quantitative measure of the physiologic output of the exercise; also referred to as energy expenditure.</span>
-  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ExercisePlan"> ExercisePlan</a></span>
-  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Energy">schema:Energy</a></span>
-  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/QualitativeValue"> QualitativeValue </a></span>
-</div>
-
-   <div typeof="rdf:Property" resource="http://schema.org/exercisePlan">
-      <span class="h" property="rdfs:label">exercisePlan</span>
-      <span property="rdfs:comment">A sub property of instrument. The exercise plan used on this action.</span>
-      <link property="rdfs:subPropertyOf" href="http://schema.org/instrument" />
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ExerciseAction"> ExerciseAction</a></span>
-      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/ExercisePlan"> ExercisePlan</a></span>
-    </div>
-    <div typeof="rdf:Property" resource="http://schema.org/exerciseType">
-      <span class="h" property="rdfs:label">exerciseType</span>
-      <span property="rdfs:comment">Type(s) of exercise or activity, such as strength training, flexibility training, aerobics, cardiac rehabilitation, etc.</span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ExercisePlan"> ExercisePlan</a></span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ExerciseAction"> ExerciseAction</a></span>
-      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text"> Text</a></span>
-    </div>
-
-    <div typeof="rdf:Property" resource="http://schema.org/repetitions">
-      <span class="h" property="rdfs:label">repetitions</span>
-      <span property="rdfs:comment">Number of times one should repeat the activity.</span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ExercisePlan"> ExercisePlan</a></span>
-      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number">Number</a></span>
-      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/QualitativeValue"> QualitativeValue </a></span>
-    </div>
-   <div typeof="rdf:Property" resource="http://schema.org/restPeriods">
-      <span class="h" property="rdfs:label">restPeriods</span>
-      <span property="rdfs:comment">How often one should break from the activity.</span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ExercisePlan"> ExercisePlan</a></span>
-      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text"> Text</a></span>
-      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/QualitativeValue"> QualitativeValue </a></span>
-    </div>
-
-    <div typeof="rdf:Property" resource="http://schema.org/activityDuration">
-      <span class="h" property="rdfs:label">activityDuration</span>
-      <span property="rdfs:comment">Length of time to engage in the activity.</span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ExercisePlan"> ExercisePlan</a></span>
-      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Duration"> Duration</a></span>
-  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/QualitativeValue"> QualitativeValue </a></span>
-    </div>
-    <div typeof="rdf:Property" resource="http://schema.org/activityFrequency">
-      <span class="h" property="rdfs:label">activityFrequency</span>
-      <span property="rdfs:comment">How often one should engage in the activity.</span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ExercisePlan"> ExercisePlan</a></span>
-      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text"> Text</a></span>
-	  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/QualitativeValue"> QualitativeValue </a></span>
-    </div>
-    <div typeof="rdf:Property" resource="http://schema.org/additionalVariable">
-      <span class="h" property="rdfs:label">additionalVariable</span>
-      <span property="rdfs:comment">Any additional component of the exercise prescription that may need to be articulated to the patient. This may include the order of exercises, the number of repetitions of movement, quantitative distance, progressions over time, etc.</span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ExercisePlan"> ExercisePlan</a></span>
-      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text"> Text</a></span>
-    </div>
-
-<div typeof="rdf:Property" resource="http://schema.org/intensity">
-  <span class="h" property="rdfs:label">intensity</span>
-  <span property="rdfs:comment">Quantitative measure gauging the degree of force involved in the exercise, for example, heartbeats per minute. May include the velocity of the movement.</span>
-  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ExercisePlan"> ExercisePlan</a></span>
-  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/QualitativeValue"> QualitativeValue </a></span>
-  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
-</div>
 
 <div typeof="rdf:Property" resource="http://schema.org/fatContent">
   <span class="h" property="rdfs:label">fatContent</span>
@@ -10556,7 +10510,6 @@ Typical unit code(s): C62 for persons.</span>
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/NutritionInformation"> NutritionInformation</a></span>
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Mass"> Mass</a></span>
 </div>
->>>>>>> 2aa14f0de5c921638e687d6f1a3e11c41009f8db
 
 <h1>DataFeed</h1>
 
@@ -10577,6 +10530,237 @@ Typical unit code(s): C62 for persons.</span>
   <span class="h" property="rdfs:label">DataFeedItem</span>
   <span property="rdfs:comment">A single item within a larger data feed.</span>
   <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Intangible">Intangible</a></span>
+</div>
+
+<h1>Day of Week</h1>
+
+<div typeof="http://schema.org/DayOfWeek" resource="http://schema.org/PublicHolidays">
+  <span class="h" property="rdfs:label">PublicHolidays</span>
+  <span property="rdfs:comment">This stands for any day that is a public holiday. While not technically a "day of the week", it can be used to with [[OpeningHoursSpecification]].</span>
+  <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsClass">GoodRelationsClass</a></span>
+</div>
+
+<div typeof="http://schema.org/DayOfWeek" resource="http://schema.org/Monday">
+  <span class="h" property="rdfs:label">Monday</span>
+  <span property="rdfs:comment">The day of the week between Sunday and Tuesday.</span>
+  <span>Same as: <a property="schema:sameAs" href="http://www.wikidata.org/entity/Q105">Monday</a></span>
+</div>
+<div typeof="http://schema.org/DayOfWeek" resource="http://schema.org/Tuesday">
+  <span class="h" property="rdfs:label">Tuesday</span>
+  <span property="rdfs:comment">The day of the week between Monday and Wednesday.</span>
+  <span>Same as: <a property="schema:sameAs" href="http://www.wikidata.org/entity/Q127">Tuesday</a></span>
+</div>
+<div typeof="http://schema.org/DayOfWeek" resource="http://schema.org/Wednesday">
+  <span class="h" property="rdfs:label">Wednesday</span>
+  <span property="rdfs:comment">The day of the week between Tuesday and Thursday.</span>
+  <span>Same as: <a property="schema:sameAs" href="http://www.wikidata.org/entity/Q128">Wednesday</a></span>
+</div>
+<div typeof="http://schema.org/DayOfWeek" resource="http://schema.org/Thursday">
+  <span class="h" property="rdfs:label">Thursday</span>
+  <span property="rdfs:comment">The day of the week between Wednesday and Friday.</span>
+  <span>Same as: <a property="schema:sameAs" href="http://www.wikidata.org/entity/Q129">Thursday</a></span>
+</div>
+<div typeof="http://schema.org/DayOfWeek" resource="http://schema.org/Friday">
+  <span class="h" property="rdfs:label">Friday</span>
+  <span property="rdfs:comment">The day of the week between Thursday and Saturday.</span>
+  <span>Same as: <a property="schema:sameAs" href="http://www.wikidata.org/entity/Q130">Friday</a></span>
+</div>
+<div typeof="http://schema.org/DayOfWeek" resource="http://schema.org/Saturday">
+  <span class="h" property="rdfs:label">Saturday</span>
+  <span property="rdfs:comment">The day of the week between Friday and Sunday.</span>
+  <span>Same as: <a property="schema:sameAs" href="http://www.wikidata.org/entity/Q131">Saturday</a></span>
+</div>
+<div typeof="http://schema.org/DayOfWeek" resource="http://schema.org/Sunday">
+  <span class="h" property="rdfs:label">Sunday</span>
+  <span property="rdfs:comment">The day of the week between Saturday and Monday.</span>
+  <span>Same as: <a property="schema:sameAs" href="http://www.wikidata.org/entity/Q132">Sunday</a></span>
+</div>
+
+<!-- Compound price extension from GoodRelations -->
+<div typeof="rdfs:Class" resource="http://schema.org/CompoundPriceSpecification">
+        <span class="h" property="rdfs:label">CompoundPriceSpecification</span>
+        <span property="rdfs:comment">A compound price specification is one that bundles multiple prices that all apply in combination for different dimensions of consumption. Use the name property of the attached unit price specification for indicating the dimension of a price component (e.g. "electricity" or "final cleaning").</span>
+        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/PriceSpecification">PriceSpecification</a></span>
+        <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsClass">GoodRelationsClass</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/priceComponent">
+    <span class="h" property="rdfs:label">priceComponent</span>
+    <span property="rdfs:comment">This property links to all UnitPriceSpecification nodes that apply in parallel for the CompoundPriceSpecification node.</span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CompoundPriceSpecification">CompoundPriceSpecification</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/UnitPriceSpecification">UnitPriceSpecification</a></span>
+    <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsProperties">GoodRelationsProperty</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/referenceQuantity">
+    <span class="h" property="rdfs:label">referenceQuantity</span>
+    <span property="rdfs:comment">The reference quantity for which a certain price applies, e.g. 1 EUR per 4 kWh of electricity. This property is a replacement for unitOfMeasurement for the advanced cases where the price does not relate to a standard unit.</span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/UnitPriceSpecification">UnitPriceSpecification</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/QuantitativeValue">QuantitativeValue</a></span>
+    <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsProperties">GoodRelationsProperty</a></span>
+</div>
+<h1>FIBO - Finance inspired</h1>
+
+<div typeof="http://schema.org/Organization" resource="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO">
+    <span property="rdfs:label">FIBO</span>
+    <span property="rdfs:comment">This element is based on the work of the Financial Industry Business Ontology project (see &lt;a href="http://www.fibo.org/schema"&gt;http://www.fibo.org/schema&lt;/a&gt; for details), in support of the W3C Financial Industry Business Ontology Community Group ( &lt;a href="http://www.fibo.org/community""&gt;http://www.fibo.org/community&lt;/a&gt;). Many class and property definitions are inspired by or based on &lt;a href="http://www.fibo.org"&gt;http://www.fibo.org&lt;/a&gt;.</span>
+  </div>
+
+  <div typeof="rdfs:Class" resource="http://schema.org/MonetaryAmount">
+    <span class="h" property="rdfs:label">MonetaryAmount</span>
+    <span property="rdfs:comment">A monetary value or range. This type can be used to describe an amount of money such as $50 USD, or a range as in describing a bank account being suitable for a balance between £1,000 and £1,000,000 GBP, or the value of a salary, etc. It is recommended to use [[PriceSpecification]] Types to describe the price of an Offer, Invoice, etc.</span>
+    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/StructuredValue">StructuredValue</a></span>
+    <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO">FIBO</a></span>
+  </div>
+
+  <div typeof="rdf:Property" resource="http://schema.org/leiCode">
+    <span class="h" property="rdfs:label">leiCode</span>
+    <span property="rdfs:comment">An organization identifier that uniquely identifies a legal entity as defined in ISO 17442.</span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Organization">Organization</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+    <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO">FIBO</a></span>
+  </div>
+
+
+  <div typeof="rdfs:Class" resource="http://schema.org/FinancialProduct">
+    <span class="h" property="rdfs:label">FinancialProduct</span>
+    <span property="rdfs:comment">A product provided to consumers and businesses by financial institutions such as banks, insurance companies, brokerage firms, consumer finance companies, and investment companies which comprise the financial services industry.</span>
+    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Service">Service</a></span>
+    <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO">FIBO</a></span>
+  </div>
+
+    <div typeof="rdf:Property" resource="http://schema.org/annualPercentageRate">
+      <span class="h" property="rdfs:label">annualPercentageRate</span>
+      <span property="rdfs:comment">The annual rate that is charged for borrowing (or made by investing), expressed as a single percentage number that represents the actual yearly cost of funds over the term of a loan. This includes any fees or additional costs associated with the transaction.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/FinancialProduct">FinancialProduct</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/QuantitativeValue">QuantitativeValue</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number">Number</a></span>
+      <span>Source: <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO">FIBO</a></span>
+    </div>
+
+    <div typeof="rdf:Property" resource="http://schema.org/feesAndCommissionsSpecification">
+      <span class="h" property="rdfs:label">feesAndCommissionsSpecification</span>
+      <span property="rdfs:comment">Description of fees, commissions, and other terms applied either to a class of financial product, or by a financial service organization.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/FinancialProduct">FinancialProduct</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/FinancialService">FinancialService</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/URL">URL</a></span>
+      <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO">FIBO</a></span>
+    </div>
+
+    <div typeof="rdf:Property" resource="http://schema.org/interestRate">
+      <span class="h" property="rdfs:label">interestRate</span>
+      <span property="rdfs:comment">The interest rate, charged or paid, applicable to the financial product. Note: This is different from the calculated annualPercentageRate.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/FinancialProduct">FinancialProduct</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/QuantitativeValue">QuantitativeValue</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number">Number</a></span>
+      <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO">FIBO</a></span>
+    </div>
+
+    <div typeof="rdfs:Class" resource="http://schema.org/BankAccount">
+      <span class="h" property="rdfs:label">BankAccount</span>
+      <span property="rdfs:comment">A product or service offered by a bank whereby one may deposit, withdraw or transfer money and in some cases be paid interest.</span>
+      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/FinancialProduct">FinancialProduct</a></span>
+      <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO">FIBO</a></span>
+    </div>
+
+	<div typeof="rdfs:Class" resource="http://schema.org/DepositAccount">
+	<span class="h" property="rdfs:label">DepositAccount</span>
+	<span property="rdfs:comment">A type of Bank Account with a main purpose of depositing funds to gain interest or other benefits.</span>
+	<span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/BankAccount">BankAccount</a></span>
+	<span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/InvestmentOrDeposit">InvestmentOrDeposit</a></span>
+	<span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO">FIBO</a></span>
+	</div>
+
+	<div typeof="rdfs:Class" resource="http://schema.org/LoanOrCredit">
+	  <span class="h" property="rdfs:label">LoanOrCredit</span>
+	  <span property="rdfs:comment">A financial product for the loaning of an amount of money under agreed terms and charges.</span>
+	  <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/FinancialProduct">FinancialProduct</a></span>
+	  <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO">FIBO</a></span>
+	</div>
+
+	<div typeof="rdf:Property" resource="http://schema.org/loanTerm">
+	  <span class="h" property="rdfs:label">loanTerm</span>
+	  <span property="rdfs:comment">The duration of the loan or credit agreement.</span>
+	  <span>Subproperty of: <a property="rdfs:subPropertyOf" href="http://schema.org/duration">duration</a></span>
+	  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/LoanOrCredit">LoanOrCredit</a></span>
+	  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/QuantitativeValue">QuantitativeValue</a></span>
+	  <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO">FIBO</a></span>
+	</div>
+
+	<div typeof="rdf:Property" resource="http://schema.org/requiredCollateral">
+	  <span class="h" property="rdfs:label">requiredCollateral</span>
+	  <span property="rdfs:comment">Assets required to secure loan or credit repayments. It may take form of third party pledge, goods, financial instruments (cash, securities, etc.)</span>
+	  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/LoanOrCredit">LoanOrCredit</a></span>
+	  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Thing">Thing</a></span>
+	  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+	  <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO">FIBO</a></span>
+	</div>
+
+    <div typeof="rdfs:Class" resource="http://schema.org/PaymentCard">
+      <span class="h" property="rdfs:label">PaymentCard</span>
+      <span property="rdfs:comment">A payment method using a credit, debit, store or other card to associate the payment with an account.</span>
+    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/FinancialProduct">FinancialProduct</a></span>
+    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/PaymentMethod">PaymentMethod</a></span>
+      <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO">FIBO</a></span>
+    </div>
+
+	<div typeof="rdfs:Class" resource="http://schema.org/InvestmentOrDeposit">
+	  <span class="h" property="rdfs:label">InvestmentOrDeposit</span>
+	  <span property="rdfs:comment">A type of financial product that typically requires the client to transfer funds to a financial service in return for potential beneficial financial return.</span>
+	  <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/FinancialProduct">FinancialProduct</a></span>
+	  <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO">FIBO</a></span>
+	</div>
+
+	<div typeof="rdfs:Class" resource="http://schema.org/PaymentService">
+	  <span class="h" property="rdfs:label">PaymentService</span>
+	  <span property="rdfs:comment">A Service to transfer funds from a person or organization to a beneficiary person or organization.</span>
+	  <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/FinancialProduct">FinancialProduct</a></span>
+	  <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO">FIBO</a></span>
+	</div>
+
+	<div typeof="rdfs:Class" resource="http://schema.org/CurrencyConversionService">
+	  <span class="h" property="rdfs:label">CurrencyConversionService</span>
+	  <span property="rdfs:comment">A service to convert funds from one currency to another currency.</span>
+	  <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/FinancialProduct">FinancialProduct</a></span>
+	  <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO">FIBO</a></span>
+	</div>
+
+<h1>Conversation</h1>
+
+<div typeof="rdfs:Class" resource="http://schema.org/Conversation">
+  <span class="h" property="rdfs:label">Conversation</span>
+  <span property="rdfs:comment">One or more messages between organizations or people on a particular topic. Individual messages can be linked to the conversation with isPartOf or hasPart properties.</span>
+  <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/CreativeWork">CreativeWork</a></span>
+</div>
+<div typeof="rdfs:Class" resource="http://schema.org/Message">
+  <span class="h" property="rdfs:label">Message</span>
+  <span property="rdfs:comment">A single message from a sender to one or more organizations or people.</span>
+  <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/CreativeWork">CreativeWork</a></span>
+</div>
+<div typeof="rdf:Property" resource="http://schema.org/dateRead">
+  <span class="h" property="rdfs:label">dateRead</span>
+  <span property="rdfs:comment">The date/time at which the message has been read by the recipient if a single recipient exists.</span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Message">Message</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/DateTime">DateTime</a></span>
+</div>
+<div typeof="rdf:Property" resource="http://schema.org/dateReceived">
+  <span class="h" property="rdfs:label">dateReceived</span>
+  <span property="rdfs:comment">The date/time the message was received if a single recipient exists.</span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Message">Message</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/DateTime">DateTime</a></span>
+</div>
+<div typeof="rdf:Property" resource="http://schema.org/dateSent">
+  <span class="h" property="rdfs:label">dateSent</span>
+  <span property="rdfs:comment">The date/time at which the message was sent.</span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Message">Message</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/DateTime">DateTime</a></span>
+</div>
+<div typeof="rdf:Property" resource="http://schema.org/messageAttachment">
+  <span class="h" property="rdfs:label">messageAttachment</span>
+  <span property="rdfs:comment">A CreativeWork attached to the message.</span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Message">Message</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/CreativeWork">CreativeWork</a></span>
 </div>
 
 <!-- Compound price extension from GoodRelations -->
@@ -10601,6 +10785,77 @@ Typical unit code(s): C62 for persons.</span>
     <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/UnitPriceSpecification">UnitPriceSpecification</a></span>
     <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/QuantitativeValue">QuantitativeValue</a></span>
     <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms">GoodRelationsProperty</a></span>
+</div>
+
+<h1>DigitalDocument</h1>
+
+<div typeof="rdfs:Class" resource="http://schema.org/DigitalDocument">
+  <span class="h" property="rdfs:label">DigitalDocument</span>
+  <span property="rdfs:comment">An electronic file or document.</span>
+  <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/CreativeWork">CreativeWork</a></span>
+</div>
+<div typeof="rdfs:Class" resource="http://schema.org/PresentationDigitalDocument">
+  <span class="h" property="rdfs:label">PresentationDigitalDocument</span>
+  <span property="rdfs:comment">A file containing slides or used for a presentation.</span>
+  <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/DigitalDocument">DigitalDocument</a></span>
+</div>
+<div typeof="rdfs:Class" resource="http://schema.org/SpreadsheetDigitalDocument">
+  <span class="h" property="rdfs:label">SpreadsheetDigitalDocument</span>
+  <span property="rdfs:comment">A spreadsheet file.</span>
+  <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/DigitalDocument">DigitalDocument</a></span>
+</div>
+<div typeof="rdfs:Class" resource="http://schema.org/TextDigitalDocument">
+  <span class="h" property="rdfs:label">TextDigitalDocument</span>
+  <span property="rdfs:comment">A file composed primarily of text.</span>
+  <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/DigitalDocument">DigitalDocument</a></span>
+</div>
+<div typeof="rdfs:Class" resource="http://schema.org/NoteDigitalDocument">
+  <span class="h" property="rdfs:label">NoteDigitalDocument</span>
+  <span property="rdfs:comment">A file containing a note, primarily for the author.</span>
+  <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/DigitalDocument">DigitalDocument</a></span>
+</div>
+<div typeof="rdfs:Class" resource="http://schema.org/DigitalDocumentPermission">
+  <span class="h" property="rdfs:label">DigitalDocumentPermission</span>
+  <span property="rdfs:comment">A permission for a particular person or group to access a particular file.</span>
+  <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Intangible">Intangible</a></span>
+</div>
+<div typeof="rdfs:Class" resource="http://schema.org/DigitalDocumentPermissionType">
+  <span class="h" property="rdfs:label">DigitalDocumentPermissionType</span>
+  <span property="rdfs:comment">A type of permission which can be granted for accessing a digital document.</span>
+  <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Enumeration">Enumeration</a></span>
+</div>
+<div typeof="http://schema.org/DigitalDocumentPermissionType" resource="http://schema.org/CommentPermission">
+  <span class="h" property="rdfs:label">CommentPermission</span>
+  <span property="rdfs:comment">Permission to add comments to the document.</span>
+</div>
+<div typeof="http://schema.org/DigitalDocumentPermissionType" resource="http://schema.org/ReadPermission">
+  <span class="h" property="rdfs:label">ReadPermission</span>
+  <span property="rdfs:comment">Permission to read or view the document.</span>
+</div>
+<div typeof="http://schema.org/DigitalDocumentPermissionType" resource="http://schema.org/WritePermission">
+  <span class="h" property="rdfs:label">WritePermission</span>
+  <span property="rdfs:comment">Permission to write or edit the document.</span>
+</div>
+<div typeof="rdf:Property" resource="http://schema.org/hasDigitalDocumentPermission">
+  <span class="h" property="rdfs:label">hasDigitalDocumentPermission</span>
+  <span property="rdfs:comment">A permission related to the access to this document (e.g. permission to read or write an electronic document). For a public document, specify a grantee with an Audience with audienceType equal to "public".</span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/DigitalDocument">DigitalDocument</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/DigitalDocumentPermission">DigitalDocumentPermission</a></span>
+</div>
+<div typeof="rdf:Property" resource="http://schema.org/grantee">
+  <span class="h" property="rdfs:label">grantee</span>
+  <span property="rdfs:comment">The person, organization, contact point, or audience that has been granted this permission.</span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/DigitalDocumentPermission">DigitalDocumentPermission</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Person">Person</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Organization">Organization</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Audience">Audience</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/ContactPoint">ContactPoint</a></span>
+</div>
+<div typeof="rdf:Property" resource="http://schema.org/permissionType">
+  <span class="h" property="rdfs:label">permissionType</span>
+  <span property="rdfs:comment">The type of permission granted the person, organization, or audience.</span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/DigitalDocumentPermission">DigitalDocumentPermission</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/DigitalDocumentPermissionType">DocumentPermissionType</a></span>
 </div>
 
 </body>
