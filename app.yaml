@@ -24,6 +24,12 @@ handlers:
   upload: docs/favicon.ico
   mime_type: image/x-icon
 
+# To avoid: "Could not guess mimetype for docs/schemaorg.owl.  Using application/octet-stream."
+- url: /docs/schemaorg.owl
+  static_files: docs/schemaorg.owl
+  upload: docs/schemaorg.owl
+  mime_type: application/rdf+xml
+
 - url: /docs/schema_org_rdfa.html
   static_files: data/schema.rdfa
   upload: data/schema.rdfa
