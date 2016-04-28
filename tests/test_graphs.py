@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import unittest
 import os
 from os import getenv
@@ -196,6 +198,18 @@ class SDOGraphSetupTestCase(unittest.TestCase):
   def test_readSchemaFromRDFa(self):
     self.assertTrue(True, False, "We should know how to locally get /docs/schema_org_rdfa.html but this requires fixes to api.py.")
 
+  #@unittest.expectedFailure
+  def test_simpleLabels(self):
+     s = ""
+     complexLabels = self.rdflib_data.query(
+        "select distinct ?term ?label where { ?term rdfs:label ?label  FILTER regex(?label,'[^a-zA-Z0-9_ ]','i'). } " )
+     for row in complexLabels:
+       s += (" term %s has complex label: %s\n" % (row["term"],row["label"]))
+     self.assertTrue(len(complexLabels ) == 0,
+       "No complex term labels expected; alphanumeric only please. Found: %s Details: %s\n"% (len(complexLabels), s) )
+     # Whitespace is tolerated, for now.
+     # we don't deal well with non definitional uses of rdfs:label yet - non terms are flagged up.
+     # https://github.com/schemaorg/schemaorg/issues/1136
 
     #
     # TODO: https://github.com/schemaorg/schemaorg/issues/662
