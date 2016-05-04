@@ -101,7 +101,6 @@ def MdComments(g):#Process Markdown
 
 
 
-
 outGraph = rdflib.Dataset()
 simpleFormat = False
 if args.format == "xml" or args.format == "nt" or args.format == "turtle":
@@ -123,7 +122,7 @@ for g in gs:
     if id in skiplist: #Skip because we have been asked to
         continue
         
-    print "%s: Processing: %s  (%s)" % (sys.argv[0],id,len(g))
+    print "%s: Processing: %s  (%s) with markdownprocess=%s" % (sys.argv[0],id,len(g), args.markdownprocess)
     if args.markdownprocess == "Yes":
         MdComments(g)
     if simpleFormat:
