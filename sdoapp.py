@@ -742,9 +742,9 @@ class ShowUnit (webapp2.RequestHandler):
 
         di = Unit.GetUnit("domainIncludes")
 
-        
+
         exts = {}
-        
+
         for prop in sorted(GetSources(di, cl, ALL_LAYERS), key=lambda u: u.id):
             if (prop.superseded(layers=layers)):
                 continue
@@ -757,7 +757,7 @@ class ShowUnit (webapp2.RequestHandler):
             if not ext in exts.keys():
                 exts[ext] = []
             exts[ext].append(prop)
-            
+
         for e in sorted(exts.keys()):
             log.info("%s EXTS %s: %s" % (cl, e,exts[e]))
             count = 0
@@ -1503,7 +1503,7 @@ class ShowUnit (webapp2.RequestHandler):
                     #self.response.out.write("<li><a href='%s'>%s</a></li>" % (makeUrl(x,schema_node.id), x) )
 
                 template = JINJA_ENVIRONMENT.get_template('wrongExt.tpl')
-                page = templateRender('wrongExt.tpl', 
+                page = templateRender('wrongExt.tpl',
                                         {'target': schema_node.id,
                                         'extensions': extensions,
                                         'sitename': "schema.org"})
@@ -1565,7 +1565,7 @@ class ShowUnit (webapp2.RequestHandler):
             else:
                 log.debug("Serving tocversionPage from cache.")
                 page = templateRender('tocVersionPage.tpl',
-                        {"releases": releaselog.keys(),
+                        {"releases": sorted(releaselog.iterkeys()),
                          "menu_sel": "Schemas"})
 
                 self.response.out.write( page )
@@ -1665,7 +1665,7 @@ class ShowUnit (webapp2.RequestHandler):
                 az_prop_meta[pt]['domainlist'] = domainList.toHTML()
 
             page = templateRender('fullReleasePage.tpl',
-                    {"base_href": base_href, 
+                    {"base_href": base_href,
                     'thing_tree': thing_tree,
                     'liveversion': SCHEMA_VERSION,
                     'requested_version': requested_version,
@@ -2153,7 +2153,7 @@ def templateRender(templateName,values=None):
             extComment = ""
         extDDs = GetTargets(Unit.GetUnit("disambiguatingDescription", True), extDef, layers=ALL_LAYERS )
         if len(extDDs) > 0:
-            extDD = MD.parse(extDDs[0]) 
+            extDD = MD.parse(extDDs[0])
         else:
             extDD = ""
         first = True
@@ -2169,7 +2169,7 @@ def templateRender(templateName,values=None):
         nms = GetTargets(Unit.GetUnit("name", True), extDef, layers=ALL_LAYERS )
         if len(nms) > 0:
             extName = nms[0]
-    
+
     defvars = {
         'ENABLE_HOSTED_EXTENSIONS': ENABLE_HOSTED_EXTENSIONS,
         'SCHEMA_VERSION': SCHEMA_VERSION,
@@ -2191,8 +2191,8 @@ def templateRender(templateName,values=None):
         defvars.update(values)
     template = JINJA_ENVIRONMENT.get_template(templateName)
     return template.render(defvars)
-    
-    
+
+
 def my_shutdown_hook():
     global instance_num
     if SHAREDSITEDEBUG:
