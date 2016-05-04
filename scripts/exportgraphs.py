@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 import unittest
 import os
+from os import path, getenv
+from os.path import expanduser
 import logging # https://docs.python.org/2/library/logging.html#logging-levels
 import glob
 import argparse
@@ -9,6 +11,10 @@ sys.path.append( os.getcwd() )
 sys.path.insert( 1, 'lib' ) #Pickup libs, rdflib etc., from shipped lib directory
 # Ensure that the google.appengine.* packages are available
 # in tests as well as all bundled third-party packages.
+
+sdk_path = getenv('APP_ENGINE',  expanduser("~") + '/google-cloud-sdk/platform/google_appengine/')
+sys.path.insert(0, sdk_path) # add AppEngine SDK to path
+
 import dev_appserver
 dev_appserver.fix_sys_path()
 
@@ -95,7 +101,6 @@ def MdComments(g):#Process Markdown
 
 
 
-
 outGraph = rdflib.Dataset()
 simpleFormat = False
 if args.format == "xml" or args.format == "nt" or args.format == "turtle":
@@ -117,7 +122,7 @@ for g in gs:
     if id in skiplist: #Skip because we have been asked to
         continue
         
-    print "%s: Processing: %s  (%s)" % (sys.argv[0],id,len(g))
+    print "%s: Processing: %s  (%s) with markdownprocess=%s" % (sys.argv[0],id,len(g), args.markdownprocess)
     if args.markdownprocess == "Yes":
         MdComments(g)
     if simpleFormat:
