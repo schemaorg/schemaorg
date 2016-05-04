@@ -82,6 +82,7 @@ FORCEDEBUGGING = False
 SHAREDSITEDEBUG = True
 if getInTestHarness():
     SHAREDSITEDEBUG = False
+
 ############# Warmup Control ########
 WarmedUp = False
 WarmupState = "Auto"
@@ -100,6 +101,8 @@ elif "SERVER_NAME" in os.environ and ("localhost" in os.environ['SERVER_NAME'] a
 appver = "TestHarness Version"
 if "CURRENT_VERSION_ID" in os.environ:
     appver = os.environ["CURRENT_VERSION_ID"]
+
+
 instance_first = True
 instance_num = 0
 callCount = 0
@@ -130,6 +133,7 @@ if not getInTestHarness():
 modtime = systarttime.replace(microsecond=0)
 etagSlug = "24751%s" % modtime.strftime("%y%m%d%H%M%Sa")
 #################################################
+
 
 def cleanPath(node):
     """Return the substring of a string matching chars approved for use in our URL paths."""
@@ -1809,6 +1813,11 @@ class ShowUnit (webapp2.RequestHandler):
             setHostExt(host_ext)
             setBaseHost(mybasehost)
 
+
+        setHostExt(host_ext)
+        setBaseHost(mybasehost)
+        setHostPort(myport)
+
         dcn = host_ext
         if dcn == None or dcn == "" or dcn =="core":
             dcn = "core"
@@ -1909,6 +1918,9 @@ class ShowUnit (webapp2.RequestHandler):
 
         global_vars.time_start = datetime.datetime.now()
         tick() #keep system fresh
+
+        if not self.setupHostinfo(node):
+            return
 
         self.callCount()
 
