@@ -51,6 +51,10 @@ DYNALOAD = True # permits read_schemas to be re-invoked live.
 
 debugging = False
 
+def getMasterStore():
+    return apirdflib.STORE
+    
+    
 # Core API: we have a single schema graph built from triples and units.
 
 NodeIDMap = {}
