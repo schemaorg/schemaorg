@@ -69,7 +69,7 @@ ENABLE_HOSTED_EXTENSIONS = True
 
 EXTENSION_SUFFIX = "" # e.g. "*"
 
-ENABLED_EXTENSIONS = ['auto', 'bib', 'health-lifesci', 'pending', 'meta'  ]
+ENABLED_EXTENSIONS = ['auto', 'bib', 'health-lifesci', 'pending', 'meta', 'fibo' ]
 ALL_LAYERS = ['core',""]
 
 ALL_LAYERS += ENABLED_EXTENSIONS
