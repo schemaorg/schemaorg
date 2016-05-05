@@ -1128,7 +1128,8 @@ ISBN-10: <span itemprop="isbn">0316769487</span>
 Reviews:
 
 <div itemprop="review" itemscope itemtype="http://schema.org/Review">
-  <span itemprop="reviewRating">5</span> stars -
+  <div itemprop="reviewRating" itemscope itemtype="http://schema.org/Rating">
+  <span itemprop="ratingValue">5</span></div> stars -
   <b>"<span itemprop="name">A masterpiece of literature</span>"</b>
   by <span itemprop="author">John Doe</span>,
   Written on <meta itemprop="datePublished" content="2006-05-04">May 4, 2006
@@ -1137,7 +1138,8 @@ Reviews:
 </div>
 
 <div itemprop="review" itemscope itemtype="http://schema.org/Review">
-  <span itemprop="reviewRating">4</span> stars -
+  <div itemprop="reviewRating" itemscope itemtype="http://schema.org/Rating">
+  <span itemprop="ratingValue">4</span></div> stars -
   <b>"<span itemprop="name">A good read.</span>" </b>
   by <span itemprop="author">Bob Smith</span>,
   Written on <meta itemprop="datePublished" content="2006-06-15">June 15, 2006
@@ -1187,7 +1189,8 @@ ISBN-10: <span property="isbn">0316769487</span>
 Reviews:
 
 <div property="review" typeof="Review">
-  <span property="reviewRating">5</span> stars -
+  <div property="reviewRating" typeof="Rating">
+  <span property="ratingValue">5</span></div> stars -
   <b>"<span property="name">A masterpiece of literature</span>"</b>
   by <span property="author">John Doe</span>,
   Written on <meta property="datePublished" content="2006-05-04">May 4, 2006
@@ -1196,7 +1199,8 @@ Reviews:
 </div>
 
 <div property="review" typeof="Review">
-  <span property="reviewRating">4</span> stars -
+  <div property="reviewRating" typeof="Rating">
+  <span property="ratingValue">4</span></div> stars -
   <b>"<span property="name">A good read.</span>" </b>
   by <span property="author">Bob Smith</span>,
   Written on <meta property="datePublished" content="2006-06-15">June 15, 2006
@@ -1254,7 +1258,10 @@ JSON:
 	      "datePublished": "2006-06-15",
 	      "name": "A good read.",
 	      "reviewBody": "Catcher in the Rye is a fun book. It's a good book to read.",
-	      "reviewRating": "4"
+	      "reviewRating": {
+            "@type": "Rating",
+            "ratingValue": "4"
+        }
 	    }
 	  ]
   	}
