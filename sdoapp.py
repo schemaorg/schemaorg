@@ -485,9 +485,10 @@ class ShowUnit (webapp2.RequestHandler):
         extflag = ""
         tooltip = ""
         if home != "core" and home != "":
-            extclass = "class=\"ext ext-%s\" " % home
+            if home != "meta":
+                extclass = "class=\"ext ext-%s\" " % home
             extflag = EXTENSION_SUFFIX
-            tooltip = "title=\"Extended schema: %s.schema.org\" " % home
+            tooltip = "title=\"Defined in extension: %s.schema.org\" " % home
 
         rdfalink = ''
         if prop:
@@ -856,9 +857,24 @@ class ShowUnit (webapp2.RequestHandler):
 
         di = Unit.GetUnit("domainIncludes")
         ri = Unit.GetUnit("rangeIncludes")
-        ranges = sorted(GetTargets(ri, node, layers=layers), key=lambda u: u.id)
-        domains = sorted(GetTargets(di, node, layers=layers), key=lambda u: u.id)
-        first_range = True
+        rges = sorted(GetTargets(ri, node, layers=ALL_LAYERS), key=lambda u: u.id)
+        doms = sorted(GetTargets(di, node, layers=ALL_LAYERS), key=lambda u: u.id)
+        ranges = []
+        eranges = []
+        for r in rges:
+            log.info("range %s - %s" % (r.id,r.getHomeLayer()))
+            if inLayer(layers, r):
+                ranges.append(r)
+            else:
+                eranges.append(r) 
+        domains = []
+        edomains = []
+        for d in doms:
+            log.info("domain %s - %s" % (d.id,d.getHomeLayer()))
+            if inLayer(layers, d):
+                domains.append(d)
+            else:
+                edomains.append(d) 
 
         inverseprop = node.inverseproperty(layers=layers)
         subprops = sorted(node.subproperties(layers=layers),key=lambda u: u.id)
@@ -872,6 +888,7 @@ class ShowUnit (webapp2.RequestHandler):
         out.write("<table class=\"definition-table\">\n")
         out.write("<thead>\n  <tr>\n    <th>Values expected to be one of these types</th>\n  </tr>\n</thead>\n\n  <tr>\n    <td>\n      ")
 
+        first_range = True
         for r in ranges:
             if (not first_range):
                 out.write("<br/>")
@@ -879,8 +896,21 @@ class ShowUnit (webapp2.RequestHandler):
             tt = "The '%s' property has values that include instances of the '%s' type." % (node.id, r.id)
             out.write(" <code>%s</code> " % (self.ml(r, r.id, tt, prop="rangeIncludes", hashorslash=hashorslash) +"\n"))
         out.write("    </td>\n  </tr>\n</table>\n\n")
-        first_domain = True
 
+        if len(eranges) > 0:
+            first_range = True
+            out.write("<table class=\"definition-table\">\n")
+            out.write("  <thead>\n    <tr>\n      <th>Expected values defined in extensions</th>\n    </tr>\n</thead>\n<tr>\n  <td>")
+            for r in eranges:
+                if (not first_range):
+                    out.write("<br/>")
+                first_range = False
+                defin = "defined in the <a href=\"%s\">%s</a> extension" % (makeUrl(r.getHomeLayer(),""),r.getHomeLayer())
+                tt = "The '%s' property has values that include instances of the '%s' type." % (node.id, r.id)
+                out.write("\n    <code>%s</code> - %s" % (self.ml(d, r.id, tt, prop="domainIncludes",hashorslash=hashorslash),defin ))
+            out.write("      </td>\n    </tr>\n</table>\n\n")
+
+        first_domain = True
         out.write("<table class=\"definition-table\">\n")
         out.write("  <thead>\n    <tr>\n      <th>Used on these types</th>\n    </tr>\n</thead>\n<tr>\n  <td>")
         for d in domains:
@@ -890,6 +920,19 @@ class ShowUnit (webapp2.RequestHandler):
             tt = "The '%s' property is used on the '%s' type." % (node.id, d.id)
             out.write("\n    <code>%s</code> " % (self.ml(d, d.id, tt, prop="domainIncludes",hashorslash=hashorslash)+"\n" ))
         out.write("      </td>\n    </tr>\n</table>\n\n")
+
+        if len(edomains) > 0:
+            first_domain = True
+            out.write("<table class=\"definition-table\">\n")
+            out.write("  <thead>\n    <tr>\n      <th>Used on types defined in extensions</th>\n    </tr>\n</thead>\n<tr>\n  <td>")
+            for d in edomains:
+                if (not first_domain):
+                    out.write("<br/>")
+                first_domain = False
+                defin = "defined in the <a href=\"%s\">%s</a> extension" % (makeUrl(d.getHomeLayer(),""),d.getHomeLayer())
+                tt = "The '%s' property is used on the '%s' type." % (node.id, d.id)
+                out.write("\n    <code>%s</code> - %s" % (self.ml(d, d.id, tt, prop="domainIncludes",hashorslash=hashorslash),defin ))
+            out.write("      </td>\n    </tr>\n</table>\n\n")
 
         if (subprops != None and len(subprops) > 0):
             out.write("<table class=\"definition-table\">\n")
@@ -1502,12 +1545,15 @@ class ShowUnit (webapp2.RequestHandler):
                 # self.response.out.write("Layers should be listed here. %s " %  all_terms[node.id] )
 
                 extensions = []
-                for x in all_terms[schema_node.id]:
-                    x = x.replace("#","")
-                    ext = {}
-                    ext['href'] = makeUrl(x,schema_node.id)
-                    ext['text'] = x
-                    extensions.append(ext)
+                ext = {}
+                ext['href'] = makeUrl(schema_node.getHomeLayer(),schema_node.id)
+                ext['text'] = schema_node.getHomeLayer()
+#                for x in all_terms[schema_node.id]:
+#                    x = x.replace("#","")
+#                    ext = {}
+#                    ext['href'] = makeUrl(x,schema_node.id)
+#                    ext['text'] = x
+                extensions.append(ext)
                     #self.response.out.write("<li><a href='%s'>%s</a></li>" % (makeUrl(x,schema_node.id), x) )
 
                 template = JINJA_ENVIRONMENT.get_template('wrongExt.tpl')
