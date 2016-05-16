@@ -260,7 +260,7 @@ class Unit ():
         if self.typeFlags.has_key('ev'):
             return self.typeFlags['ev']
         types = GetTargets(Unit.GetUnit("rdf:type"), self , layers=EVERYLAYER)
-        log.debug("isEnumerationValue() called on %s, found %s types. layers: %s" % (self.id, str( len( types ) ), layers ) )
+        #log.debug("isEnumerationValue() called on %s, found %s types. layers: %s" % (self.id, str( len( types ) ), layers ) )
         found_enum = False
         for t in types:
           if t.subClassOf(Unit.GetUnit("Enumeration"), layers=EVERYLAYER):
@@ -568,10 +568,10 @@ def GetAllTypes(layers='core'):
     """Return all types in the graph."""
     KEY = "AllTypes:%s" % layers
     if DataCache.get(KEY+'x',Utc):
-        logging.debug("DataCache HIT: %s" % KEY)
+        #logging.debug("DataCache HIT: %s" % KEY)
         return DataCache.get(KEY,Utc)
     else:
-        logging.debug("DataCache MISS: %s" % KEY)
+        #logging.debug("DataCache MISS: %s" % KEY)
         mynode = Unit.GetUnit("Thing", True)
         subbed = {}
         todo = [mynode]
@@ -591,10 +591,10 @@ def GetAllDataTypes(layers='core'):
     """Return all types in the graph."""
     KEY = "AllDataTypes:%s" % layers
     if DataCache.get(KEY+'x',Utc):
-        logging.debug("DataCache HIT: %s" % KEY)
+        #logging.debug("DataCache HIT: %s" % KEY)
         return DataCache.get(KEY,Utc)
     else:
-        logging.debug("DataCache MISS: %s" % KEY)
+        #logging.debug("DataCache MISS: %s" % KEY)
         mynode = Unit.GetUnit("DataType", True)
         subbed = {}
         todo = [mynode]
@@ -613,10 +613,10 @@ def GetAllEnumerationValues(layers='core'):
     global Utc
     KEY = "AllEnums:%s" % layers
     if DataCache.get(KEY,Utc):
-        logging.debug("DataCache HIT: %s" % KEY)
+        #logging.debug("DataCache HIT: %s" % KEY)
         return DataCache.get(KEY,Utc)
     else:
-        logging.debug("DataCache MISS: %s" % KEY)
+        #logging.debug("DataCache MISS: %s" % KEY)
         mynode = Unit.GetUnit("Enumeration", True)
         enums = {}
         subbed = {}
@@ -641,10 +641,10 @@ def GetAllProperties(layers='core'):
     global Utc
     KEY = "AllProperties:%s" % layers
     if DataCache.get(KEY,Utc):
-        logging.debug("DataCache HIT: %s" % KEY)
+        #logging.debug("DataCache HIT: %s" % KEY)
         return DataCache.get(KEY,Utc)
     else:
-        logging.debug("DataCache MISS: %s" % KEY)
+        #logging.debug("DataCache MISS: %s" % KEY)
         mynode = Unit.GetUnit("Thing")
         props = GetSources(Unit.GetUnit("rdf:type", True), Unit.GetUnit("rdf:Property", True), layers=EVERYLAYER)
         res = []
@@ -744,9 +744,6 @@ class Example ():
         self.egmeta = egmeta
         self.layer = layer
         for term in terms:
-            if "id" in egmeta:
-              logging.debug("Created Example with ID %s and type %s" % ( egmeta["id"], term ))
-            
             if(EXAMPLES.get(term, None) == None):
                 EXAMPLES[term] = []
             EXAMPLES.get(term).append(self)
@@ -796,7 +793,7 @@ def GetJsonLdContext(layers='core'):
 
     # Caching assumes the context is neutral w.r.t. our hostname.
     if DataCache.get('JSONLDCONTEXT'):
-        log.debug("DataCache: recycled JSONLDCONTEXT")
+        #log.debug("DataCache: recycled JSONLDCONTEXT")
         return DataCache.get('JSONLDCONTEXT')
     else:
         global namespaces
@@ -836,7 +833,7 @@ def GetJsonLdContext(layers='core'):
         jsonldcontext = jsonldcontext.replace("},}}","}\n    }\n}")
         jsonldcontext = jsonldcontext.replace("},","},\n") 
         DataCache.put('JSONLDCONTEXT',jsonldcontext)
-        log.debug("DataCache: added JSONLDCONTEXT")
+        #log.debug("DataCache: added JSONLDCONTEXT")
         return jsonldcontext
 
 
@@ -851,7 +848,7 @@ def inLayer(layerlist, node):
     if (node is None):
         return False
     if len(GetTargets(Unit.GetUnit("rdf:type"), node, layers=layerlist) ) > 0:
-        log.debug("Found typeOf for node %s in layers: %s"  % (node.id, layerlist ))
+        #log.debug("Found typeOf for node %s in layers: %s"  % (node.id, layerlist ))
         return True
     if len(GetTargets(Unit.GetUnit("rdfs:subClassOf"), node, layers=layerlist) ) > 0:
     # TODO: should we really test for any mention of a term, not just typing?
@@ -865,7 +862,7 @@ def read_file (filename):
     file_path = full_path(filename)
 
     import codecs
-    log.debug("READING FILE: filename=%s file_path=%s " % (filename, file_path ) )
+    #log.debug("READING FILE: filename=%s file_path=%s " % (filename, file_path ) )
     for line in codecs.open(file_path, 'r', encoding="utf8").readlines():
         strs.append(line)
     return "".join(strs)

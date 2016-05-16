@@ -44,7 +44,7 @@ sitemode = "mainsite" # whitespaced list for CSS tags,
             # e.g. "mainsite testsite" when off expected domains
             # "extensionsite" when in an extension (e.g. blue?)
 
-releaselog = { "2.0": "2015-05-13", "2.1": "2015-08-06", "2.2": "2015-11-05", "3.0": "2016-04-04" }
+releaselog = { "2.0": "2015-05-13", "2.1": "2015-08-06", "2.2": "2015-11-05", "3.0": "2016-05-04" }
 
 silent_skip_list =  [ "favicon.ico" ] # Do nothing for now
 
@@ -345,7 +345,8 @@ class ShowUnit (webapp2.RequestHandler):
 
     def emitCacheHeaders(self):
         """Send cache-related headers via HTTP."""
-        self.response.headers['Cache-Control'] = "public, max-age=43200" # 12h
+        self.response.headers['Cache-Control'] = "public, max-age=600" # 10m
+        #self.response.headers['Cache-Control'] = "public, max-age=43200" # 12h
         self.response.headers['Vary'] = "Accept, Accept-Encoding"
 
     def GetCachedText(self, node, layers='core'):
@@ -957,8 +958,11 @@ class ShowUnit (webapp2.RequestHandler):
         https://github.com/rvguha/schemaorg/issues/5
         https://github.com/rvguha/schemaorg/wiki/JsonLd
         """
-        accept_header = self.request.headers.get('Accept').split(',')
-        log.info("Home page - accepts: %s" % self.request.headers.get('Accept'))
+        accept_header = self.request.headers.get('Accept')
+        if accept_header:
+            accept_header = accept_header.split(',')
+        else:
+            accept_header = ""
 
         # Homepage is content-negotiated. HTML or JSON-LD.
         mimereq = {}
@@ -983,11 +987,11 @@ class ShowUnit (webapp2.RequestHandler):
             # TODO: pass in extension, base_domain etc.
             sitekeyedhomepage = "homepage %s" % getSiteName()
             hp = DataCache.get(sitekeyedhomepage)
+            self.response.headers['Content-Type'] = "text/html"
             self.emitCacheHeaders()
             if hp != None:
                 self.response.out.write( hp )
                 #log.info("Served datacache homepage.tpl key: %s" % sitekeyedhomepage)
-                log.debug("Served datacache homepage.tpl key: %s" % sitekeyedhomepage)
             else:
 
 
@@ -2109,9 +2113,9 @@ class ShowUnit (webapp2.RequestHandler):
         global Warmer
         if WarmedUp:
             return
-        log.info("Instance[%s] received Warmup request at %s" % (modules.get_current_instance_id(), global_vars.time_start) )
+        log.debug("Instance[%s] received Warmup request at %s" % (modules.get_current_instance_id(), datetime.datetime.utcnow()) )
         Warmer.warmAll()
-        log.info("Instance[%s] completed Warmup request at %s" % (modules.get_current_instance_id(), global_vars.time_start) )
+        log.debug("Instance[%s] completed Warmup request at %s" % (modules.get_current_instance_id(), datetime.datetime.utcnow()) )
 
 class WarmupTool():
 
@@ -2119,6 +2123,7 @@ class WarmupTool():
         self.types = []
         self.props = []
         self.enums = []
+        self.context = False
 
     def stepWarm(self,all=False):
         global WarmedUp
@@ -2142,6 +2147,9 @@ class WarmupTool():
                     self.enums.append(l)
                     GetAllEnumerationValues(l)
                     break
+        elif not self.context:
+            self.context = True
+            GetJsonLdContext(layers=ALL_LAYERS)
         else:
             WarmedUp = True
 
@@ -2158,7 +2166,7 @@ def templateRender(templateName,values=None):
     extComment = ""
     extVers = ""
     extName = ""
-    log.info("EXDEF '%s'" % extDef)
+    #log.info("EXDEF '%s'" % extDef)
     if extDef:
         extComment = GetComment(extDef,ALL_LAYERS)
         if extComment == "No comment":
@@ -2221,11 +2229,11 @@ runtime.set_shutdown_hook(my_shutdown_hook)
 ThreadVars = threading.local()
 def getAppVar(var):
     ret = getattr(ThreadVars, var, None)
-    log.debug("got var %s as %s" % (var,ret))
+    #log.debug("got var %s as %s" % (var,ret))
     return ret
 
 def setAppVar(var,val):
-    log.debug("Setting var %s to %s" % (var,val))
+    #log.debug("Setting var %s to %s" % (var,val))
     setattr(ThreadVars,var,val)
 
 def setHttpScheme(val):
