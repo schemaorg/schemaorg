@@ -16,7 +16,7 @@
 	<h1>Schema.org Extensions</h1>
 
 	<p>
-		The term '{{ target }}' is not in the schema.org core vocabulary, but is described by the following extension(s):
+		The term '{{ target }}' is not in the schema.org core vocabulary, but is defined in an <a href="/docs/extension.html">extension</a>:
 	</p> 
 	<ul>
 	{% for ext in extensions %}
