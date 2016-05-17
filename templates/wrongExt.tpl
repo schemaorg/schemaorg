@@ -20,7 +20,7 @@
 	</p> 
 	<ul>
 	{% for ext in extensions %}
-		  <li><a href="{{ext['href']}}">{{ext['text']}}</a></li>
+		  <li><a href="{{ext['href']}}">{{ext['text']}}: {{ target }}</a></li>
 	{% endfor %}
 	</ul>
 
