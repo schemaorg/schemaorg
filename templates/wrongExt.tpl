@@ -24,6 +24,10 @@
 	{% endfor %}
 	</ul>
 
+        <p><strong>Note:</strong> extension terms can be used in schema.org markup in the normal manner; it is not necessary for markup publishers to indicate which extension  a term is currently in. Terms may move between extensions over time (e.g. from <a href="http://pending.schema.org/">pending</a> to the core) without the need for the corresponding markup to change.
+        </p>
+        <br/>
+
   </div>
 
 </body>
