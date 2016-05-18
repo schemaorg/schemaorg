@@ -110,4 +110,61 @@ RDFA:
 JSON:
 <!--TODO--> 
 
+TYPES: #Course3 Course, CourseInstance, hasCourseInstance
+
+PRE-MARKUP:
+<!--A self-paced distance learning course (no events)-->
+<!--Based on http://www.train4publishing.co.uk/courses/distance-learning/basic-proofreading -->
+[Course]
+  name: Basic Proofreading
+  description:  The distance learning training course that takes you from 
+        complete beginner to...
+  hasCourseInstance [CourseInstance]:
+    courseMode: online
+    courseMode: distance learning
+    offers [Offer]:
+      price:    395
+      priceCurrency:    GBP
+  hasCourseInstance [CourseInstance]:
+    courseMode: posted
+    courseMode: distance learning
+    offers [Offer]:
+      price:    440
+      priceCurrency:    GBP
+
+
+MICRODATA:
+<!--TODO-->
+
+RDFA:
+
+<body vocab="http://schema.org/">
+<!--A self-paced distance learning course (no events)-->
+<!--Based on http://www.train4publishing.co.uk/courses/distance-learning/basic-proofreading -->
+<div typeof="Course">
+  <h1 property="name">Basic Proofreading</h1>
+  <p property="description">The distance learning training course that takes you 
+        from complete beginner to PQB qualified proofreader in one step.</p>
+  <div rel="hasCourseInstance" typeOf="CourseInstance">
+    <meta property="courseMode" content="distance learning" />
+    <span property="courseMode">Online</span>,
+    <div rel="offers" typeOf="Offer">
+      cost:<meta property="priceCurrency" content="GBP" />
+           £<span property="price">395</span>
+    </div>
+  </div>
+  <div rel="hasCourseInstance" typeOf="CourseInstance">
+    <meta property="courseMode" content="distance learning" />
+    <span property="courseMode">Posted</span>,
+    <div rel="offers" typeOf="Offer">
+      cost:<meta property="priceCurrency" content="GBP" />
+           £<span property="price">440</span>
+    </div>
+  </div>	
+</div>
+</body>
+
+JSON:
+<!--TODO-->
+
 
