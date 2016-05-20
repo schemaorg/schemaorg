@@ -191,14 +191,20 @@ class PageStoreTool():
         self.tlocal.CurrentStoreSet = current
         log.info("Setting CurrentStoreSet: %s",current)
         
-    def put(self, key, val):
-        fullKey = self.getCurrent() + ":" + key
+    def put(self, key, val,cache=None):
+        ca = self.getCurrent()
+        if cache != None:
+            ca = cache
+        fullKey = ca + ":" + key
         #log.info("[%s]PageStore storing %s" % (os.environ["INSTANCE_ID"],fullKey))
         ent = PageEntity(id = fullKey, content = val)
         ent.put()
         
-    def get(self, key):
-        fullKey = self.getCurrent() + ":" + key
+    def get(self, key,cache=None):
+        ca = self.getCurrent()
+        if cache != None:
+            ca = cache
+        fullKey = ca + ":" + key
         ent = PageEntity.get_by_id(fullKey)
         if(ent):
             #log.info("[%s]PageStore returning %s" % (os.environ["INSTANCE_ID"],fullKey))
