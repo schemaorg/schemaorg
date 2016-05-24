@@ -252,3 +252,165 @@ JSON:
   }
 }
 </script>
+
+TYPES: #creativework-4 AggregateReview
+
+PRE-MARKUP:
+
+A message from Dom Portwood to Peter Gibbons about TPS reports.
+
+MICRODATA:
+
+<div itemscope itemtype="http://schema.org/Service">
+  Service: <meta itemprop="name">Hair coloring</meta>
+  <div itemscope itemprop="provider" itemtype="http://schema.org/HairSalon">
+    Provider: <meta itemprop="name">Local Neighborhood Salon</meta>
+    <div itemscope itemprop="review" itemtype="http://schema.org/Review">
+      Salon Review: <meta itemprop="description">Review of the Local Neighborhood Salon</meta>
+    </div>
+  </div>
+  Service Reviews:
+  <div itemscope itemprop="review" itemtype="http://schema.org/AggregateReview">
+    Number of reviews: <meta itemprop="reviewCount">2</meta>
+    <div itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+      <meta itemprop="position" content="1" </meta>
+      <div itemscope itemprop="item" itemtype="http://schema.org/Review">
+        <div itemscope itemprop="creator" itemtype="http://schema.org/Person">
+	  Author: <meta itemprop="name">Tara B.</meta>
+	</div>
+	Created: <meta itemprop="dateCreated">2016-05-24</meta>
+	Description: <meta itemprop="description">I love my new color!</meta>
+	<div itemscope itemprop="reviewRating" itemtype="http://schema.org/Rating">
+	  <meta itemprop="worstRating" content="1" />
+	  <meta itemprop="bestRating" content="5" />
+	  Rating: <meta itemprop="ratingValue">5</meta>
+	</div>
+      </div>
+    </div>
+    <div itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+      <meta itemprop="position" content="2" </meta>
+      <div itemscope itemprop="item" itemtype="http://schema.org/Review">
+        <div itemscope itemprop="creator" itemtype="http://schema.org/Person">
+	  Author: <meta itemprop="name">Laura L.</meta>
+	</div>
+	Created: <meta itemprop="dateCreated">2016-05-22</meta>
+	Description: <meta itemprop="description">Color did not last</meta>
+	<div itemscope itemprop="reviewRating" itemtype="http://schema.org/Rating">
+	  <meta itemprop="worstRating" content="1" />
+	  <meta itemprop="bestRating" content="5" />
+	  Rating: <meta itemprop="ratingValue">2</meta>
+	</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+RDFA:
+
+
+<div vocab="http://schema.org/" typeof="Service">
+  Service: <meta property="name">Hair coloring</meta>
+  <div property="provider" typeof="HairSalon">
+    Provider: <meta property="name">Local Neighborhood Salon</meta>
+    <div property="review" typeof="Review">
+      Salon Review: <meta property="description">Review of the Local Neighborhood Salon</meta>
+    </div>
+  </div>
+  Service Reviews:
+  <div property="review" typeof="AggregateReview">
+    Number of reviews: <meta property="reviewCount">2</meta>
+    <div property="itemListElement" typeof="ListItem">
+      <meta property="position" content="1" </meta>
+      <div property="item" typeof="Review">
+        <div property="creator" typeof="Person">
+          Author: <meta property="name">Tara B.</meta>
+        </div>
+        Created: <meta property="dateCreated">2016-05-24</meta>
+        Description: <meta property="description">I love my new color!</meta>
+        <div property="reviewRating" typeof="Rating">
+          <meta property="worstRating" content="1" />
+          <meta property="bestRating" content="5" />
+          Rating: <meta property="ratingValue">5</meta>
+        </div>
+      </div>
+    </div>
+    <div property="itemListElement" typeof="ListItem">
+      <meta property="position" content="2" </meta>
+      <div property="item" typeof="Review">
+        <div property="creator" typeof="Person">
+          Author: <meta property="name">Laura L.</meta>
+        </div>
+        Created: <meta property="dateCreated">2016-05-22</meta>
+        Description: <meta property="description">Color did not last</meta>
+        <div property="reviewRating" typeof="Rating">
+          <meta property="worstRating" content="1" />
+          <meta property="bestRating" content="5" />
+          Rating: <meta property="ratingValue">2</meta>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org/",
+  "@type": "Service",
+  "name": "Hair coloring",
+  "provider": {
+    "@type": "HairSalon",
+    "name": "Local Neighborhood Salon",
+    "review": {
+      "@type": "Review",
+      "description": "Review of Local Neighborhood Salon"
+    }
+  },
+  "review": {
+    "@type": "AggregateReview",
+    "reviewCount": 2,
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@type": "Review",
+          "creator": {
+            "@type": "Person",
+            "name": "Tara B."
+          },
+          "dateCreated": "2016-05-24",
+          "description": "I love my new color!",
+          "reviewRating": {
+            "@type": "Rating",
+            "worstRating": 1,
+            "bestRating": 5,
+            "ratingValue": "5"
+          }
+        }
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "item": {
+          "@type": "Review",
+          "creator": {
+            "@type": "Person",
+            "name": "Laura L."
+          },
+          "dateCreated": "2016-05-22",
+          "description": "Color did not last",
+          "reviewRating": {
+            "@type": "Rating",
+            "worstRating": 1,
+            "bestRating": 5,
+            "ratingValue": "2"
+          }
+        }
+      }
+    ]
+  }
+}
+</script>
