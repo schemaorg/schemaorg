@@ -32,11 +32,11 @@ $(document).ready(function(){
 });
 </script>
 </head>
-<body style="text-align: left;">
+<body style="text-align: center;">
 
 {% include 'basicPageHeader.tpl' with context %}
 
-<div style="margin-left: 8%; margin-right: 8%">
+<div style="text-align: left; margin-left: 8%; margin-right: 8%">
 
 <h3>Full Hierarchy</h3>
 

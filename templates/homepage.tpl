@@ -9,7 +9,6 @@
 
 </head>
 <body>
-
 {% include 'basicPageHeader.tpl' with context %}
 
   <div id="mainContent">
@@ -19,31 +18,20 @@
 
 {% if mybasehost in [ "sdo-deimos.appspot.com", "sdo-phobos.appspot.com", "sdo-ganymede.appspot.com", "sdo-gozer.appspot.com", "sdo-tully.appspot.com", "sdo-lenny.appspot.com", "webschemas.org", "sdo-scripts.appspot.com", "localhost" ] %}
 
-<p id="lli" class="layerinfo">
+<!--<p id="lli" class="layerinfo">
 Note: This is {{ mybasehost }}. you are viewing an unstable work-in-progress preview of <a href="http://schema.org/">schema.org</a>.
 See the draft <b><a href="{{staticPath}}/docs/releases.html">releases</a></b> page to learn more about this version.
-</p>
+</p>-->
 
 {% endif %}
 
 
-{% if ENABLE_HOSTED_EXTENSIONS and host_ext == "bib" %}
-  {{ ext.overview(name="Bibliographic Extension", abbrev="bib") }}
-  <p>
-  You are viewing the Bibliographic Extension within <a href="http://schema.org/">schema.org</a>.
-  It defines terms such as <a href="/Audiobook">Audiobook</a>, <a href="/Thesis">Thesis</a>, <a href="/ComicStory">ComicStory</a>, and  <a href="/workTranslation">workTranslation</a>.
-   For more details see the W3C BibExtend Community Group's <a href="http://www.w3.org/community/schemabibex/wiki/Bib.schema.org-1.0">wiki</a>.
-  </p>
+{% if ENABLE_HOSTED_EXTENSIONS and extComment != "" %}
+  {{ ext.overview() }}
 
-{% elif ENABLE_HOSTED_EXTENSIONS and host_ext == "auto" %}
-  {{ ext.overview(name="Auto Extension", abbrev="auto") }}
-
-  <p>  You are viewing the Auto Extension within <a href="http://schema.org/">schema.org</a>.
-  It defines terms such as <a href="/MotorizedBicycle">MotorizedBicycle</a> and adds terms to <a href="/Car">Car</a>. For more details
-  see the W3C <a href="https://www.w3.org/community/gao/">Automotive Ontology Working Group</a>.
+<p>
+  {{extComment |safe}}
 </p>
-
-  <p><br/></p>
 
 {% elif ENABLE_HOSTED_EXTENSIONS and host_ext == "test001" %}
   {{ ext.overview(name="Test Extension", abbrev="test1") }}

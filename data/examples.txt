@@ -1113,7 +1113,7 @@ by <a itemprop="author" href="/author/jd_salinger.html">J.D. Salinger</a>
 </div>
 
 <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-  Price: <span itemprop="price" content="6.99">$6.99</span>
+  Price: $<span itemprop="price">6.99</span>
   <meta itemprop="priceCurrency" content="USD" />
   <link itemprop="availability" href="http://schema.org/InStock">In Stock
 </div>
@@ -1172,7 +1172,8 @@ by <a property="author" href="/author/jd_salinger.html">J.D. Salinger</a>
 </div>
 
 <div property="offers" typeof="Offer">
-  Price: <meta property="priceCurrency" content="USD" />$<meta property="price" content="6.99" />6.99  
+  Price: $<span property="price">6.99</span>
+  <meta property="priceCurrency" content="USD" />
   <link property="availability" href="http://schema.org/InStock">In Stock
 </div>
 
@@ -1503,7 +1504,7 @@ MICRODATA:
 
 <div itemprop="track" itemscope itemtype="http://schema.org/MusicRecording">
   <span itemprop="name">Rope</span>
-  <meta itemprop="url" content ="foo-fighters-rope.html">
+  <link itemprop="url" href="foo-fighters-rope.html">
   Length: <meta itemprop="duration" content="PT4M5S">4:05 -
   14300 plays
   <div itemprop="interactionCount" itemscope itemtype="http://schema.org/InteractionCounter">
@@ -1518,7 +1519,7 @@ MICRODATA:
 
 <div itemprop="track" itemscope itemtype="http://schema.org/MusicRecording">
   <span itemprop="name">Everlong</span>
-  <meta itemprop="url" content ="foo-fighters-everlong.html">
+  <link itemprop="url" href="foo-fighters-everlong.html">
   Length: <meta itemprop="duration" content="PT6M33S">6:33 -
   11700 plays
   <div itemprop="interactionCount" itemscope itemtype="http://schema.org/InteractionCounter">
@@ -1677,64 +1678,57 @@ JSON:
 {
   "@context": "http://schema.org",
   "@type": "MusicGroup",
-  "event": [
-    {
-      "@type": "Event",
-      "location": "Memphis, TN, US",
-      "offers": "ticketmaster.com/foofighters/may20-2011",
-      "startDate": "2011-05-20",
-      "url": "foo-fighters-may20-fedexforum"
-    },
-    {
-      "@type": "Event",
-      "location": "Council Bluffs, IA, US",
-      "offers": "ticketmaster.com/foofighters/may23-2011",
-      "startDate": "2011-05-23",
-      "url": "foo-fighters-may23-midamericacenter"
-    }
-  ],
+  "event": [{
+    "@type": "Event",
+    "location": "Memphis, TN, US",
+    "offers": "ticketmaster.com/foofighters/may20-2011",
+    "startDate": "2011-05-20",
+    "url": "foo-fighters-may20-fedexforum"
+  }, {
+    "@type": "Event",
+    "location": "Council Bluffs, IA, US",
+    "offers": "ticketmaster.com/foofighters/may23-2011",
+    "startDate": "2011-05-23",
+    "url": "foo-fighters-may23-midamericacenter"
+  }],
   "image": [
     "foofighters-1.jpg",
     "foofighters-2.jpg",
     "foofighters-3.jpg"
   ],
-  "interactionStatistic: {
+  "interactionStatistic": {
     "@type": "InteractionCounter",
     "interactionType": "http://schema.org/CommentAction",
-    "userInteractionCount": "18",
+    "userInteractionCount": "18"
   },
   "name": "Foo Fighters",
-  "track": [
-    {
-      "@type": "MusicRecording",
-      "audio": "foo-fighters-rope-play.html",
-      "duration": "PT4M5S",
-      "inAlbum": "foo-fighters-wasting-light.html",
-      "interactionStatistic: {
-        "@type": "InteractionCounter",
-        "interactionType": "http://schema.org/ListenAction",
-        "userInteractionCount": "14300",
-      }
+  "track": [{
+    "@type": "MusicRecording",
+    "audio": "foo-fighters-rope-play.html",
+    "duration": "PT4M5S",
+    "inAlbum": "foo-fighters-wasting-light.html",
+    "interactionStatistic": {
+      "@type": "InteractionCounter",
+      "interactionType": "http://schema.org/ListenAction",
+      "userInteractionCount": "14300"
     },
-      "name": "Rope",
-      "offers": "foo-fighters-rope-buy.html",
-      "url": "foo-fighters-rope.html"
+    "name": "Rope",
+    "offers": "foo-fighters-rope-buy.html",
+    "url": "foo-fighters-rope.html"
+  }, {
+    "@type": "MusicRecording",
+    "audio": "foo-fighters-everlong-play.html",
+    "duration": "PT6M33S",
+    "inAlbum": "foo-fighters-color-and-shape.html",
+    "name": "Everlong",
+    "interactionStatistic": {
+      "@type": "InteractionCounter",
+      "interactionType": "http://schema.org/ListenAction",
+      "userInteractionCount": "11700"
     },
-    {
-      "@type": "MusicRecording",
-      "audio": "foo-fighters-everlong-play.html",
-      "duration": "PT6M33S",
-      "inAlbum": "foo-fighters-color-and-shape.html",
-      "name": "Everlong",
-      "interactionStatistic: {
-        "@type": "InteractionCounter",
-        "interactionType": "http://schema.org/ListenAction",
-        "userInteractionCount": "11700",
-      },
-      "offers": "foo-fighters-everlong-buy.html",
-      "url": "foo-fighters-everlong.html"
-    }
-  ],
+    "offers": "foo-fighters-everlong-buy.html",
+    "url": "foo-fighters-everlong.html"
+  }],
   "video": {
     "@type": "VideoObject",
     "description": "Catch this exclusive interview with Dave Grohl and the Foo Fighters about their new album, Rope.",
@@ -2166,7 +2160,7 @@ MICRODATA:
   <div itemprop="track" itemscope itemtype="http://schema.org/MusicRecording">
     1.<span itemprop="name">Sweet Home Alabama</span> -
     <span itemprop="byArtist">Lynard Skynard</span>
-    <meta content="sweet-home-alabama" itemprop="url" />
+    <link href="sweet-home-alabama" itemprop="url" />
     <meta content="PT4M45S" itemprop="duration" />
     <meta content="Second Helping" itemprop="inAlbum" />
    </div>
@@ -2174,7 +2168,7 @@ MICRODATA:
   <div itemprop="track" itemscope itemtype="http://schema.org/MusicRecording">
     2.<span itemprop="name">Shook you all Night Long</span> -
     <span itemprop="byArtist">AC/DC</span>
-    <meta content="shook-you-all-night-long" itemprop="url" />
+  <link href="shook-you-all-night-long" itemprop="url" />
     <meta content="PT3M32S" itemprop="duration" />
     <meta content="Back In Black" itemprop="inAlbum" />
   </div>
@@ -2182,7 +2176,7 @@ MICRODATA:
   <div itemprop="track" itemscope itemtype="http://schema.org/MusicRecording">
     3.<span itemprop="name">Sharp Dressed Man</span> -
     <span itemprop="byArtist">ZZ Top</span>
-    <meta content="sharp-dressed-man" itemprop="url" />
+    <link href="sharp-dressed-man" itemprop="url" />
     <meta content="PT4M13S" itemprop="duration" />
     <meta content="Eliminator" itemprop="inAlbum" />
  </div>
@@ -2190,7 +2184,7 @@ MICRODATA:
   <div itemprop="track" itemscope itemtype="http://schema.org/MusicRecording">
     4.<span itemprop="name">Old Time Rock and Roll</span> -
     <span itemprop="byArtist">Bob Seger</span>
-    <meta content="old-time-rock-and-roll" itemprop="url" />
+    <link href="old-time-rock-and-roll" itemprop="url" />
     <meta content="PT3M12S" itemprop="duration" />
     <meta content="Stranger In Town" itemprop="inAlbum" />
   </div>
@@ -2198,7 +2192,7 @@ MICRODATA:
   <div itemprop="track" itemscope itemtype="http://schema.org/MusicRecording">
     5.<span itemprop="name">Hurt So Good</span> -
     <span itemprop="byArtist">John Cougar</span>
-    <meta content="hurt-so-good" itemprop="url" />
+    <link href="hurt-so-good" itemprop="url" />
     <meta content="PT3M39S" itemprop="duration" />
     <meta content="American Fool" itemprop="inAlbum" />
   </div>
@@ -2627,7 +2621,7 @@ MICRODATA:
 
 <div itemscope itemtype="http://schema.org/MusicAlbum">
   <h1 itemprop="name"> King of Limbs </h1>
-  <meta content="/artist/radiohead/album/the-king-of-limbs" itemprop="url" />
+  <link href="/artist/radiohead/album/the-king-of-limbs" itemprop="url" />
   <img alt="Blurry, spooky cover art"
   src="king-of-limbs.jpg" itemprop="image" />
   <meta content="8" itemprop="numTracks" />
@@ -2640,13 +2634,13 @@ MICRODATA:
   <h3>Sample Tracks</h3>
     <div itemprop="track" itemscope itemtype="http://schema.org/MusicRecording">
       <span itemprop="name">Bloom</span>
-      <meta content="/artist/radiohead/album/the-king-of-limbs/track/bloom" itemprop="url" />
+      <link href="/artist/radiohead/album/the-king-of-limbs/track/bloom" itemprop="url" />
       <meta content="PT5M14S" itemprop="duration" />5:14
     </div>
     <div itemprop="track" itemscope itemtype="http://schema.org/MusicRecording">
       <span itemprop="name">Morning Mr Magpie</span>
-      <meta content="/artist/radiohead/album/the-king-of-limbs/track/morning-mr-magpie" itemprop="url" />
-      <meta content="PT4M40S" itemprop="duration" />4:40
+      <link href="/artist/radiohead/album/the-king-of-limbs/track/morning-mr-magpie" itemprop="url" />
+    <meta content="PT4M40S" itemprop="duration" />4:40
   </div>
 </div>
 
@@ -8038,7 +8032,7 @@ MICRODATA:
   <div itemprop="validIn" itemscope itemtype="http://schema.org/AdministrativeArea">
     <span itemprop="name">New York</span>
   </div>
-  <time itemprop="validFor" content="P1Y">1 year</time>
+  <time itemprop="validFor" datetime="P1Y">1 year</time>
 </div>
 
 RDFA:
@@ -8054,7 +8048,7 @@ RDFA:
   <div property="validIn" typeof="AdministrativeArea">
     <span property="name">New York</span>
   </div>
-  <time property="validFor" content="P1Y">1 year</time>
+  <time property="validFor" datetime="P1Y">1 year</time>
 </div>
 
 JSON:
@@ -8122,7 +8116,8 @@ JSON:
     "name": "Urgent Care Clinic",
     "availableLanguage": {
       "@type": "Language",
-      "name": "Spanish"
+      "name": "Spanish",
+      "alternateName": "es"
     },
     "serviceLocation": {
       "@type": "Hospital",
@@ -8421,7 +8416,7 @@ RDFA:
   <div class="event-price">
     <meta property="priceCurrency" content="USD" />$
     <meta property="price" content="13.00" />13.00
-  </div>   
+  </div>
   <a property="url" href="http://www.ticketfly.com/purchase/309433">Tickets</a>
   </span>
 </div>
@@ -10108,7 +10103,7 @@ MICRODATA:
 <div itemscope itemtype="http://schema.org/Restaurant">
   <h1 itemprop="name">Fondue for Fun and Fantasy</h1>
   <p itemprop="description">Fantastic and fun for all your cheesy occasions.</p>
-  <p>Open: <time itemprop="openingHours" datetime="Mo,Tu,We,Th,Fr,Sa,Su 11:30-23:00">Daily from 11:30am till 11pm</time></p>
+  <p>Open: <span itemprop="openingHours" content="Mo,Tu,We,Th,Fr,Sa,Su 11:30-23:00">Daily from 11:30am till 11pm</span></p>
   <p>Phone: <span itemprop="telephone" content="+155501003333">555-0100-3333</span></p>
   <p>View <a itemprop="menu" href="http://example.com/menu">our menu</a>.</p>
 </div>
@@ -10118,7 +10113,7 @@ RDFA:
 <div vocab="http://schema.org/" typeof="Restaurant">
   <h1 property="name">Fondue for Fun and Fantasy</h1>
   <p property="description">Fantastic and fun for all your cheesy occasions.</p>
-  <p>Open: <time property="openingHours" datetime="Mo,Tu,We,Th,Fr,Sa,Su 11:30-23:00">Daily from 11:30am till 11pm</time></p>
+  <p>Open: <span property="openingHours" content="Mo,Tu,We,Th,Fr,Sa,Su 11:30-23:00">Daily from 11:30am till 11pm</span></p>
   <p>Phone: <span property="telephone" content="+155501003333">555-0100-3333</span></p>
   <p>View <a property="menu" href="http://example.com/menu">our menu</a>.</p>
 </div>
@@ -10144,16 +10139,16 @@ PRE-MARKUP:
 <div>
   <h1>Middle of Nowhere Foods</h1>
   <h2>Opening hours</h2>
-  <p>Normally open daily 9am-2pm except on:</p>
+  <p>Normally open daily <time datetime="09:00">9am</time>-<time datetime="14:00">2pm</time> except on:</p>
   <ul>
     <li>
-      <span>24 December 2013</span> and
-      <span>25 December 2013</span>:
-      <span>9am-11am</span>
+      <time datetime="2013-12-24">24 December 2013</time> and
+      <time datetime="2013-12-25">25 December 2013</time>:
+      <time datetime="09:00">9am</time>-<time datetime="11:00">11am</time>
     </li>
     <li>
-      <span>1st January 2014</span>:
-      <span>Noon-2pm</span>
+      <time datetime="2014-01-01">1st January 2014</time>:
+      <time datetime="12:00">Noon</time>-<time datetime="14:00">2pm</time>
     </li>
   </ul>
 </div>
@@ -10163,16 +10158,18 @@ MICRODATA:
 <div itemscope itemtype="http://schema.org/Store">
   <h1 itemprop="name">Middle of Nowhere Foods</h1>
   <h2>Opening hours</h2>
-    <p>Normally open <time itemprop="openingHours" datetime="Mo,Tu,We,Th,Fr,Sa,Su 09:00-14:00">daily 9am-2pm</time> except on:</p>
+    <meta itemprop="openingHours" content="Mo,Tu,We,Th,Fr,Sa,Su 09:00-14:00">
+    <p>Normally open daily <time datetime="09:00">9am</time>-<time datetime="14:00">2pm</time> except on:</p>
   <ul>
     <li itemprop="openingHoursSpecification" itemscope itemtype="http://schema.org/OpeningHoursSpecification">
-      <span itemprop="validFrom" content="2013-12-24">24 December 2013</span> and
-      <span itemprop="validThrough" content="2013-12-25">25 December 2013</span>:
-      <span itemprop="opens" content="09:00">9am</span>-<span itemprop="closes" content="11:00">11am</span></li>
+      <time itemprop="validFrom" datetime="2013-12-24">24 December 2013</time> and
+      <time itemprop="validThrough" datetime="2013-12-25">25 December 2013</time>:
+      <time itemprop="opens" datetime="09:00">9am</time>-<time itemprop="closes" datetime="11:00">11am</time>
+    </li>
     <li itemprop="openingHoursSpecification" itemscope itemtype="http://schema.org/OpeningHoursSpecification">
-      <span itemprop="validFrom" content="2014-01-01">1st January 2014</span>
-      <span itemprop="validThrough" content="2014-01-01"></span>:
-      <span itemprop="opens" content="12:00">Noon</span>-<span itemprop="closes" content="14:00">2pm</span></li>
+      <time itemprop="validFrom validThrough" datetime="2014-01-01">1st January 2014</time>:
+      <time itemprop="opens" datetime="12:00">Noon</time>-<time itemprop="closes" datetime="14:00">2pm</time>
+    </li>
   </ul>
 </div>
 
@@ -10181,17 +10178,17 @@ RDFA:
 <div vocab="http://schema.org/" typeof="Store">
   <h1 property="name">Middle of Nowhere Foods</h1>
   <h2>Opening hours</h2>
-  <p>Normally open <time property="openingHours" datetime="Mo,Tu,We,Th,Fr,Sa,Su 09:00-14:00">daily 9am-2pm</time> except on:</p>
+  <meta property="openingHours" content="Mo,Tu,We,Th,Fr,Sa,Su 09:00-14:00">
+  <p>Normally open daily <time datetime="09:00">9am</time>-<time datetime="14:00">2pm</time> except on:</p>
   <ul>
     <li property="openingHoursSpecification" typeof="OpeningHoursSpecification">
-      <span property="validFrom" content="2013-12-24">24 December 2013</span> and
-      <span property="validThrough" content="2013-12-25">25 December 2013</span>:
-      <span property="opens" content="09:00">9am</span>-<span property="closes" content="11:00">11am</span>
+      <time property="validFrom" datetime="2013-12-24">24 December 2013</time> and
+      <time property="validThrough" datetime="2013-12-25">25 December 2013</time>:
+      <time property="opens" datetime="09:00">9am</time>-<time property="closes" datetime="11:00">11am</time>
     </li>
     <li property="openingHoursSpecification" typeof="OpeningHoursSpecification">
-      <span property="validFrom" content="2014-01-01">1st January 2014</span>
-      <span property="validThrough" content="2014-01-01"></span>:
-      <span property="opens" content="12:00">Noon</span>-<span property="closes" content="14:00">2pm</span>
+      <time property="validFrom validThrough" datetime="2014-01-01">1st January 2014</time>:
+      <time property="opens" datetime="12:00">Noon</time>-<time property="closes" datetime="14:00">2pm</time>
     </li>
   </ul>
 </div>
@@ -10205,13 +10202,22 @@ JSON:
   "name": "Middle of Nowhere Foods",
   "openingHours": "Mo,Tu,We,Th,Fr,Sa,Su 09:00-14:00",
   "openingHoursSpecification":
-  {
-    "@type": "OpeningHoursSpecification",
-    "validFrom": "2013-12-24",
-    "validThrough": "2013-12-25",
-    "opens": "12:00",
-    "closes": "14:00"
-  }
+  [
+    {
+      "@type": "OpeningHoursSpecification",
+      "validFrom": "2013-12-24",
+      "validThrough": "2013-12-25",
+      "opens": "09:00",
+      "closes": "11:00"
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      "validFrom": "2014-01-01",
+      "validThrough": "2014-01-01",
+      "opens": "12:00",
+      "closes": "14:00"
+    }
+  ]
 }
 </script>
 
@@ -10233,7 +10239,7 @@ MICRODATA:
   <h1 itemprop="name">Philippa's Pharmacy</h1>
   <p itemprop="description">A superb collection of fine pharmaceuticals for your beauty and healthcare
     convenience, a department of Delia's Drugstore.</p>
-  <p>Open: <time itemprop="openingHours" datetime="Mo,Tu,We,Th 09:00-12:00">Monday-Thursday 9am-noon</time></p>
+  <p>Open: <span itemprop="openingHours" content="Mo,Tu,We,Th 09:00-12:00">Monday-Thursday 9am-noon</span></p>
   <p>Phone: <span itemprop="telephone" content="+18005551234">(800)555-1234</span></p>
 </div>
 
@@ -10243,7 +10249,7 @@ RDFA:
   <h1 property="name">Philippa's Pharmacy</h1>
   <p property="description">A superb collection of fine pharmaceuticals for your beauty and healthcare
     convenience, a department of Delia's Drugstore.</p>
-  <p>Open: <time property="openingHours" datetime="Mo,Tu,We,Th 09:00-12:00">Monday-Thursday 9am-noon</time></p>
+  <p>Open: <span property="openingHours" content="Mo,Tu,We,Th 09:00-12:00">Monday-Thursday 9am-noon</span></p>
   <p>Phone: <span property="telephone" content="+18005551234">(800)555-1234</span></p>
 </div>
 
@@ -10292,7 +10298,7 @@ MICRODATA:
     <h1 itemprop="name">Delia's Daily Supplies</h1>
     <p itemprop="description">For your daily newspapers, candies, snacks and (via our in-store pharmacy)
       drugs and healthcare products to keep you and your family happy, healthy and supplied with all your daily needs.</p>
-    <p>Open: <time itemprop="openingHours" datetime="Mo-Fr 07:00-23:00">Monday-Friday 7am-11pm </time></p>
+    <p>Open: <span itemprop="openingHours" content="Mo-Fr 07:00-23:00">Monday-Friday 7am-11pm </span></p>
     <p>Phone: <span itemprop="telephone" content="+1 8005551234">800-555-1234</span></p>
   </div>
 
@@ -10300,7 +10306,7 @@ MICRODATA:
     <h2 itemprop="name">Philippa's Pharmacy</h2>
     <p itemprop="description">A superb collection of fine pharmaceuticals for your beauty and healthcare needs,
       a department of Delia's Drugstore. Call our desk to speak to the on-duty pharmacist any morning Monday-Thursday.</p>
-    <p>Open: <time itemprop="openingHours" datetime="Mo-Th 09:00-12:00">Monday-Thursday 9am-noon</time></p>
+    <p>Open: <span itemprop="openingHours" content="Mo-Th 09:00-12:00">Monday-Thursday 9am-noon</span></p>
     <p>Phone: <span itemprop="telephone" content="+155501001111">555-0100-1111</span></p>
   </div>
 </div>
@@ -10312,7 +10318,7 @@ RDFA:
       <h1 property="name">Delia's Daily Supplies</h1>
       <p property="description">For your daily newspapers, candies, snacks and (via our in-store pharmacy)
           drugs and healthcare products to keep you and your family happy, healthy and supplied with all your daily needs.</p>
-      <p>Open: <time property="openingHours" datetime="Mo-Fr 07:00-23:00">Monday-Friday 7am-11pm </time></p>
+      <p>Open: <span property="openingHours" content="Mo-Fr 07:00-23:00">Monday-Friday 7am-11pm</span></p>
       <p>Phone: <span property="telephone" content="+1 8005551234">800-555-1234</span></p>
   </div>
 
@@ -10320,7 +10326,7 @@ RDFA:
       <h2 property="name">Philippa's Pharmacy</h2>
       <p property="description">A superb collection of fine pharmaceuticals for your beauty and healthcare needs,
           a department of Delia's Drugstore. Call our desk to speak to the on-duty pharmacist any morning Monday-Thursday.</p>
-      <p>Open: <time property="openingHours" datetime="Mo-Th 09:00-12:00">Monday-Thursday 9am-noon</time></p>
+      <p>Open: <span property="openingHours" content="Mo-Th 09:00-12:00">Monday-Thursday 9am-noon</span></p>
       <p>Phone: <span property="telephone" content="+155501001111">555-0100-1111</span></p>
   </div>
 </div>
@@ -10387,7 +10393,7 @@ MICRODATA:
     <h1 itemprop="name">Delia's Daily Supplies</h1>
     <p itemprop="description">For your daily newspapers, candies, snacks and (via our in-store pharmacy)
       drugs and healthcare products to keep you and your family happy, healthy and supplied with all your daily needs.</p>
-    <p>Open: <time itemprop="openingHours" datetime="Mo-Fr 07:00-23:00">Monday-Friday 7am-11pm </time></p>
+    <p>Open: <span itemprop="openingHours" content="Mo-Fr 07:00-23:00">Monday-Friday 7am-11pm </span></p>
     <p>Phone: <span itemprop="telephone" content="+155501001110">555-0100-1110</span></p>
   </div>
 
@@ -10395,7 +10401,7 @@ MICRODATA:
     <h2 itemprop="name">Philippa's Pharmacy</h2>
     <p itemprop="description">A superb collection of fine pharmaceuticals for your beauty and healthcare needs,
       a department of Delia's Drugstore. Call our desk to speak to the on-duty pharmacist any morning Monday-Thursday.</p>
-    <p>Open: <time itemprop="openingHours" datetime="Mo-Th 09:00-12:00">Monday-Thursday 9am-noon</time></p>
+    <p>Open: <span itemprop="openingHours" content="Mo-Th 09:00-12:00">Monday-Thursday 9am-noon</span></p>
     <p>Phone: <span itemprop="telephone" content="+155501001111">555-0100-1111</span></p>
   </div>
 
@@ -10403,7 +10409,7 @@ MICRODATA:
   <div itemprop="department" itemscope itemtype="http://schema.org/DryCleaningOrLaundry">
     <h2 itemprop="name">Larry's Laundromat</h2>
     <p itemprop="description">Keep your clothes clean while you do your daily shopping!</p>
-    <p>Open: <time itemprop="openingHours" datetime="Mo-Fr 13:00-17:30">Open weekdays 1pm-5:30pm.</time></p>
+    <p>Open: <span itemprop="openingHours" content="Mo-Fr 13:00-17:30">Open weekdays 1pm-5:30pm.</span></p>
     <p>Phone: <span itemprop="telephone" content="+155501002121">555-0100-2121</span></p>
     <p>A branch of <span itemprop="parentOrganization" itemscope itemtype="http://schema.org/Corporation">
     <a itemprop="url" href="http://example.com/"><span itemprop="name">Larry's International</span></a></span>.</p>
@@ -10417,7 +10423,7 @@ RDFA:
     <h1 property="name">Delia's Daily Supplies</h1>
     <p property="description">For your daily newspapers, candies, snacks and (via our in-store pharmacy)
         drugs and healthcare products to keep you and your family happy, healthy and supplied with all your daily needs.</p>
-    <p>Open: <time property="openingHours" datetime="Mo-Fr 07:00-23:00">Monday-Friday 7am-11pm </time></p>
+    <p>Open: <span property="openingHours" content="Mo-Fr 07:00-23:00">Monday-Friday 7am-11pm</span></p>
     <p>Phone: <span property="telephone" content="+155501001110">555-0100-1110</span></p>
   </div>
 
@@ -10425,14 +10431,14 @@ RDFA:
     <h2 property="name">Philippa's Pharmacy</h2>
     <p property="description">A superb collection of fine pharmaceuticals for your beauty and healthcare needs,
         a department of Delia's Drugstore. Call our desk to speak to the on-duty pharmacist any morning Monday-Thursday.</p>
-    <p>Open: <time property="openingHours" datetime="Mo-Th 09:00-12:00">Monday-Thursday 9am-noon</time></p>
+    <p>Open: <span property="openingHours" content="Mo-Th 09:00-12:00">Monday-Thursday 9am-noon</span></p>
     <p>Phone: <span property="telephone" content="+155501001111">555-0100-1111</span></p>
   </div>
 
   <div property="department" typeof="DryCleaningOrLaundry">
     <h2 property="name">Larry's Laundromat</h2>
     <p property="description">Keep your clothes clean while you do your daily shopping!</p>
-    <p>Open: <time property="openingHours" datetime="Mo-Fr 13:00-17:30">Open weekdays 1pm-5:30pm.</time></p>
+    <p>Open: <span property="openingHours" content="Mo-Fr 13:00-17:30">Open weekdays 1pm-5:30pm.</span></p>
     <p>Phone: <span property="telephone" content="+155501002121">555-0100-2121</span></p>
     <p>A branch of <span property="parentOrganization" typeof="Corporation">
     <a property="url" href="http://example.com/"><span property="name">Larry's International</span></a></span>.</p>
@@ -10510,7 +10516,7 @@ MICRODATA:
     <h1 itemprop="name">Delia's Daily Supplies</h1>
     <p itemprop="description">For your daily newspapers, candies, snacks and (via our in-store pharmacy)
       drugs and healthcare products to keep you and your family happy, healthy and supplied with all your daily needs.</p>
-    <p>Open: <time itemprop="openingHours" datetime="Mo-Fr 07:00-23:00">Monday-Friday 7am-11pm </time></p>
+    <p>Open: <span itemprop="openingHours" content="Mo-Fr 07:00-23:00">Monday-Friday 7am-11pm</span></p>
     <p>Phone: <span itemprop="telephone" content="+155501001110">555-0100-1110</span></p>
   </div>
 
@@ -10523,7 +10529,7 @@ MICRODATA:
  <div itemprop="department" itemscope itemtype="http://schema.org/Pharmacy">
    <h2 itemprop="name">Philippa's Pharmacy</h2>
    <p itemprop="description">A superb collection of fine pharmaceuticals...</p>
-   <p>Open: <time itemprop="openingHours" datetime="Mo-Th 09:00-12:00">Monday-Thursday 9am-noon</time></p>
+   <p>Open: <span itemprop="openingHours" content="Mo-Th 09:00-12:00">Monday-Thursday 9am-noon</span></p>
    <p>Phone: <span itemprop="telephone" content="+155501001111">555-0100-1111</span></p>
  </div>
 </div>
@@ -10535,7 +10541,7 @@ RDFA:
     <h1 property="name">Delia's Daily Supplies</h1>
     <p property="description">For your daily newspapers, candies, snacks and (via our in-store pharmacy)
     drugs and healthcare products to keep you and your family happy, healthy and supplied with all your daily needs.</p>
-    <p>Open: <time property="openingHours" datetime="Mo-Fr 07:00-23:00">Monday-Friday 7am-11pm </time></p>
+    <p>Open: <span property="openingHours" content="Mo-Fr 07:00-23:00">Monday-Friday 7am-11pm </content></p>
     <p>Phone: <span property="telephone" content="+155501001110">555-0100-1110</span></p>
   </div>
 
@@ -10548,7 +10554,7 @@ RDFA:
   <div property="department" typeof="Pharmacy">
     <h2 property="name">Philippa's Pharmacy</h2>
     <p property="description">A superb collection of fine pharmaceuticals...</p>
-    <p>Open: <time property="openingHours" datetime="Mo-Th 09:00-12:00">Monday-Thursday 9am-noon</time></p>
+    <p>Open: <span property="openingHours" content="Mo-Th 09:00-12:00">Monday-Thursday 9am-noon</span></p>
     <p>Phone: <span property="telephone" content="+155501001111">555-0100-1111</span></p>
   </div>
 </div>
@@ -10622,7 +10628,7 @@ MICRODATA:
     <h1 itemprop="name">Delia's Daily Supplies</h1>
     <p itemprop="description">For your daily newspapers, candies, snacks and (via our in-store pharmacy)
       drugs and healthcare products to keep you and your family happy, healthy and supplied with all your daily needs.</p>
-    <p>Open: <time itemprop="openingHours" datetime="Mo-Fr 07:00-23:00">Monday-Friday 7am-11pm </time></p>
+    <p>Open: <span itemprop="openingHours" content="Mo-Fr 07:00-23:00">Monday-Friday 7am-11pm</span></p>
     <p>Phone: <span itemprop="telephone" content="+155501001110">555-0100-1110</span></p>
   </div>
 
@@ -10635,7 +10641,7 @@ MICRODATA:
   <div itemprop="department" itemscope itemtype="http://schema.org/Pharmacy">
     <h2 itemprop="name">Philippa's Pharmacy</h2>
     <p itemprop="description">A superb collection of fine pharmaceuticals...</p>
-    <p>Open: <time itemprop="openingHours" datetime="Mo-Th 09:00-12:00">Monday-Thursday 9am-noon</time></p>
+    <p>Open: <span itemprop="openingHours" content="Mo-Th 09:00-12:00">Monday-Thursday 9am-noon</span></p>
     <p>Phone: <span itemprop="telephone" content="+155501001111">555-0100-1111</span></p>
     <address itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
       <span itemprop="streetAddress">Unit 42b, Land of Bargains Shopping Paradise, 12 Highway 101</span>,
@@ -10652,7 +10658,7 @@ RDFA:
     <h1 property="name">Delia's Daily Supplies</h1>
     <p property="description">For your daily newspapers, candies, snacks and (via our in-store pharmacy)
     drugs and healthcare products to keep you and your family happy, healthy and supplied with all your daily needs.</p>
-    <p>Open: <time property="openingHours" datetime="Mo-Fr 07:00-23:00">Monday-Friday 7am-11pm </time></p>
+    <p>Open: <span property="openingHours" content="Mo-Fr 07:00-23:00">Monday-Friday 7am-11pm</span></p>
     <p>Phone: <span property="telephone" content="+155501001110">555-0100-1110</span></p>
   </div>
 
@@ -10665,7 +10671,7 @@ RDFA:
   <div property="department" typeof="Pharmacy">
     <h2 property="name">Philippa's Pharmacy</h2>
     <p property="description">A superb collection of fine pharmaceuticals...</p>
-    <p>Open: <time property="openingHours" datetime="Mo-Th 09:00-12:00">Monday-Thursday 9am-noon</time></p>
+    <p>Open: <span property="openingHours" content="Mo-Th 09:00-12:00">Monday-Thursday 9am-noon</span></p>
     <p>Phone: <span property="telephone" content="+155501001111">555-0100-1111</span></p>
     <address property="address" typeof="PostalAddress">
       <span property="streetAddress">Unit 42b, Land of Bargains Shopping Paradise, 12 Highway 101</span>,
@@ -11307,7 +11313,7 @@ RDFA:
     <div property="offers" typeof="http://schema.org/Offer">
       <meta property="schema:priceCurrency" content="RUB">руб
       <meta property="schema:price" content="4399.00">4 399,00
-      <link property="schema:itemCondition" href="http://schema.org/NewCondition">    
+      <link property="schema:itemCondition" href="http://schema.org/NewCondition">
     </div>...
     <div property="itemListElement" typeof="Product">
     ...
@@ -11813,7 +11819,7 @@ TYPES: Person, disambiguatingDescription
 PRE-MARKUP:
 
 George Bush, the 41st President of the United States is the father of George W. Bush, the 43rd President of the United States.
-  
+
 
 MICRODATA:
 
