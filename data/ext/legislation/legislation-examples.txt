@@ -159,7 +159,7 @@ JSON:
     "passedBy": "Council of the European Union",
     "dateLegislation": "1979-12-20",
     "dateEntryIntoForce": "1979-12-21",
-    "legalForce": "InForce",
+    "legalForce": { "@id": "http://schema.org/InForce" },
     "about" : [ 
       {
         "@id": "http://eurovoc.europa.eu/1896",
@@ -172,15 +172,33 @@ JSON:
         "name": "Approximation of laws"
       }
     ],
-    "changes": "31971L0354.html",
+    "changes": {
+      "@id": "31971L0354.html",
+      "@type": "Legislation"
+    },
     "changedBy": [
-      "31980L0181R%252801%2529.html",
-      "31980L0181R%252802%2529.html"
+      {
+        "@id": "31980L0181R%252801%2529.html",
+        "@type": "Legislation"
+      },
+      {
+        "@id": "31980L0181R%252802%2529.html",
+        "@type": "Legislation"
+      }
     ],
-    "basedOn": "11957E100.html",
+    "basedOn": {
+      "@id": "11957E100.html",
+      "@type": "Legislation"
+    },
     "consolidatedBy" : [
-      "31980L0181-20090527.html",
-      "31980L0181-20000209.html"
+      {
+        "@id": "31980L0181-20090527.html",
+        "@type": "Legislation"
+      },
+      {
+        "@id": "31980L0181-20000209.html",
+        "@type": "Legislation"
+      }
     ]
   }
 </script>
@@ -320,13 +338,13 @@ JSON:
           {
             "@type": "LegislationObject",
             "@id": "customs-code-en.html",       
-            "legalValue": "Official",
+            "legalValue": { "@id": "http://schema.org/Official" },
             "encodingFormat": "HTML"
           },
           {
             "@type": "LegislationObject",
             "@id": "customs-code-en.pdf",       
-            "legalValue": "Definitive",
+            "legalValue": { "@id": "http://schema.org/Definitive" },
             "encodingFormat": "PDF"
           }
         ]
@@ -339,13 +357,13 @@ JSON:
           {
             "@type": "LegislationObject",
             "@id": "customs-code-fr.html",       
-            "legalValue": "Official",
+            "legalValue": { "@id": "http://schema.org/Official" },
             "encodingFormat": "HTML"
           },
           {
             "@type": "LegislationObject",
             "@id": "customs-code-fr.pdf",       
-            "legalValue": "Definitive",
+            "legalValue": { "@id": "http://schema.org/Definitive" },
             "encodingFormat": "PDF"
           }
         ]
