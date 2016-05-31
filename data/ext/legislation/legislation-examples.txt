@@ -2,58 +2,188 @@ TYPES: Legislation
 
 PRE-MARKUP:
 
-<h1>A complete Legislation example</h1>
+<h1>An example of Legislation metadata</h1>
 <div>
   <h2>Council Directive 80/181/EEC of 20 December 1979 on the approximation of the laws of the Member States relating to units of measurement and on the repeal of Directive 71/354/EEC</h2>
-  <div>Form : Directive</div>
-  <div>Date of document : 20 December 1979</div>
-  <div>Date of effect : 21/12/1979</div>
+  <ul>
+    <li>Number : 80/181/EEC</li>
+    <li>Form : Directive</li>
+    <li>Author : Council of the European Union</li>
+    <li>Date of document : 20 December 1979</li>
+    <li>Date of effect : 21/12/1979</li>
+    <li>Currently in force ? YES</li>
+  </ul>
   <div>
     Subject matter :
     <ul>
-      <li>Internal market - Principles</li>
+      <li>Metrology</li>
       <li>Approximation of laws</li>
     </ul>
   </div>
   <div>
     Amendment to :
     <ul>
-      <li>31971L0354</li>
+      <li><a href="31971L0354.html">31971L0354</a></li>
     </ul>
   </div>
   <div>
     Amended by :
     <ul>
-      <li>31980L0181R(01)</li>
-      <li>31980L0181R(02)</li>
+      <li><a href="31980L0181R%2801%29.html">31980L0181R(01)</a></li>
+      <li><a href="31980L0181R%2802%29.html">31980L0181R(02)</a></li>
     </ul>
   </div>
   <div>
     Legal basis :
     <ul>
-      <li>11957E100</li>
+      <li><a href="11957E100.html">11957E100</a></li>
     </ul>
   </div>
   <div>
     All consolidated versions :
     <ul>
-      <li>27/05/2009</li>
-      <li>09/02/2000</li>
+      <li><a href="31980L0181-20090527.html">Version of 27/05/2009</a></li>
+      <li><a href="31980L0181-20000209.html">Version of 09/02/2000</a></li>
     </ul>
   </div>
 </div>
 
 MICRODATA:
 
-TODO
+<h1>An example of Legislation metadata</h1>
+<div itemscope itemid="http://data.europa.eu/eli/dir/1980/181/oj" itemtype="http://schema.org/Legislation">
+  <h2 itemprop="http://schema.org/name">Council Directive 80/181/EEC of 20 December 1979 on the approximation of the laws of the Member States relating to units of measurement and on the repeal of Directive 71/354/EEC</h2>
+  <ul>
+    <li>Number : <span itemprop="http://schema.org/legislationIdentifier">80/181/EEC</span></li>
+    <li>Form : <span itemprop="http://schema.org/legislationType">Directive</span></li>
+    <li>Author : <span itemprop="http://schema.org/passedBy">Council of the European Union</span></li>
+    <li>Date of document : <span itemprop="http://schema.org/dateLegislation" content="1979-12-20">20/12/1979</span></li>
+    <li>Date of effect : <span itemprop="http://schema.org/dateEntryIntoForce" content="1979-12-21">21/12/1979</span></li>
+    <link itemprop="http://schema.org/legalForce" href="http://schema.org/InForce" />
+    <li>Currently in force ? YES</li>
+  </ul>
+  <div>
+    Subject matter :
+    <ul>
+      <li itemprop="http://schema.org/about" itemscope itemid="http://eurovoc.europa.eu/1896" itemtype="http://schema.org/Thing"><span itemprop="http://schema.org/name">Metrology</span></li>
+      <li itemprop="http://schema.org/about" itemscope itemid="http://eurovoc.europa.eu/2897" itemtype="http://schema.org/Thing"><span itemprop="http://schema.org/name">Approximation of laws</span></li>
+    </ul>
+  </div>
+  <div>
+    Amendment to :
+    <ul>
+      <li><a itemprop="http://schema.org/changes" itemtype="http://schema.org/Legislation" href="31971L0354.html">31971L0354</a></li>
+    </ul>
+  </div>
+  <div>
+    Amended by :
+    <ul>
+      <li><a itemprop="http://schema.org/changedBy" itemtype="http://schema.org/Legislation" href="31980L0181R%2801%29.html">31980L0181R(01)</a></li>
+      <li><a itemprop="http://schema.org/changedBy" itemtype="http://schema.org/Legislation" href="31980L0181R%2802%29.html">31980L0181R(02)</a></li>
+    </ul>
+  </div>
+  <div>
+    Legal basis :
+    <ul>
+      <li><a itemprop="http://schema.org/basedOn" itemtype="http://schema.org/Legislation" href="11957E100.html">11957E100</a></li>
+    </ul>
+  </div>
+  <div>
+    All consolidated versions :
+    <ul>
+      <li><a itemprop="http://schema.org/consolidatedBy" itemtype="http://schema.org/Legislation" href="31980L0181-20090527.html">Version of 27/05/2009</a></li>
+      <li><a itemprop="http://schema.org/consolidatedBy" itemtype="http://schema.org/Legislation" href="31980L0181-20000209.html">Version of 09/02/2000</a></li>
+    </ul>
+  </div>
+</div>
 
 RDFA:
 
-TODO
+<h1>An example of Legislation metadata</h1>
+<div vocab="http://schema.org/" resource="http://data.europa.eu/eli/dir/1980/181/oj" typeof="Legislation">
+  <h2 property="name">Council Directive 80/181/EEC of 20 December 1979 on the approximation of the laws of the Member States relating to units of measurement and on the repeal of Directive 71/354/EEC</h2>
+  <ul>
+    <li>Number : <span property="legislationIdentifier">80/181/EEC</span></li>
+    <li>Form : <span property="legislationType">Directive</span></li>
+    <li>Author : <span property="passedBy">Council of the European Union</span></li>
+    <li>Date of document : <span property="dateLegislation" content="1979-12-20">20/12/1979</span></li>
+    <li>Date of effect : <span property="dateEntryIntoForce" content="1979-12-21">21/12/1979</span></li>
+    <link property="legalForce" href="http://schema.org/InForce" />
+    <li>Currently in force ? YES</li>
+  </ul>
+  <div>
+    Subject matter :
+    <ul>
+      <li property="about" resource="http://eurovoc.europa.eu/1896" typeof="Thing"><span property="name">Metrology</span></li>
+      <li property="about" resource="http://eurovoc.europa.eu/2897" typeof="Thing"><span property="name">Approximation of laws</span></li>
+    </ul>
+  </div>
+  <div>
+    Amendment to :
+    <ul>
+      <li><a property="changes" typeof="Legislation" href="31971L0354.html">31971L0354</a></li>
+    </ul>
+  </div>
+  <div>
+    Amended by :
+    <ul>
+      <li><a property="changedBy" typeof="Legislation" href="31980L0181R%2801%29.html">31980L0181R(01)</a></li>
+      <li><a property="changedBy" typeof="Legislation" href="31980L0181R%2802%29.html">31980L0181R(02)</a></li>
+    </ul>
+  </div>
+  <div>
+    Legal basis :
+    <ul>
+      <li><a property="basedOn" typeof="Legislation" href="11957E100.html">11957E100</a></li>
+    </ul>
+  </div>
+  <div>
+    All consolidated versions :
+    <ul>
+      <li><a property="consolidatedBy" typeof="Legislation" href="31980L0181-20090527.html">Version of 27/05/2009</a></li>
+      <li><a property="consolidatedBy" typeof="Legislation" href="31980L0181-20000209.html">Version of 09/02/2000</a></li>
+    </ul>
+  </div>
+</div>
 
 JSON:
 
-TODO
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org/",
+    "@type": "Legislation",
+    "@id": "http://data.europa.eu/eli/dir/1980/181/oj",
+    "legislationIdentifier": "80/181/EEC",
+    "name": "Council Directive 80/181/EEC of 20 December 1979 on the approximation of the laws of the Member States relating to units of measurement and on the repeal of Directive 71/354/EEC",
+    "legislationType": "Directive",
+    "passedBy": "Council of the European Union",
+    "dateLegislation": "1979-12-20",
+    "dateEntryIntoForce": "1979-12-21",
+    "legalForce": "InForce",
+    "about" : [ 
+      {
+        "@id": "http://eurovoc.europa.eu/1896",
+        "@type": "Thing",
+        "name": "Metrology"
+      },
+      {
+        "@id": "http://eurovoc.europa.eu/2897",
+        "@type": "Thing",
+        "name": "Approximation of laws"
+      }
+    ],
+    "changes": "31971L0354.html",
+    "changedBy": [
+      "31980L0181R%252801%2529.html",
+      "31980L0181R%252802%2529.html"
+    ],
+    "basedOn": "11957E100.html",
+    "consolidatedBy" : [
+      "31980L0181-20090527.html",
+      "31980L0181-20000209.html"
+    ]
+  }
+</script>
 
 TYPES: Legislation
 
