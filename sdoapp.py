@@ -25,7 +25,7 @@ from google.appengine.ext.webapp import blobstore_handlers
 from google.appengine.api import modules
 from google.appengine.api import runtime
 
-from api import inLayer, read_file, full_path, read_schemas, read_extensions, read_examples, namespaces, DataCache, PageStore
+from api import inLayer, read_file, full_path, read_schemas, read_extensions, read_examples, namespaces, DataCache, PageStore, HeaderStore
 from api import Unit, GetTargets, GetSources, GetComments, GetsoftwareVersions
 from api import GetComment, all_terms, GetAllTypes, GetAllProperties, GetAllEnumerationValues, GetAllTerms, LoadExamples
 from api import GetParentList, GetImmediateSubtypes, HasMultipleBaseTypes
@@ -105,7 +105,12 @@ def cleanCaches():
         if len(ret):
             ret += " - "
         ret += str(r)
-    log.info("cleanCaches returning %s", ret)
+    r = HeaderStore.initialise()
+    if r:
+        if len(ret):
+            ret += " - "
+        ret += str(r)
+    log.debug("cleanCaches returning %s", ret)
     return ret
 
 ############# Shared values and times ############
@@ -121,10 +126,39 @@ callCount = 0
 global_vars = threading.local()
 starttime = datetime.datetime.utcnow()
 systarttime = starttime
+modtime = starttime
+etagSlug = ""
 
 if not getInTestHarness():
     from google.appengine.api import memcache
 
+class SlugEntity(ndb.Model):
+    slug = ndb.StringProperty()
+    modtime = ndb.DateTimeProperty()
+
+def setmodiftime(sttime):
+    global modtime, etagSlug
+    if not getInTestHarness():
+        modtime = sttime.replace(microsecond=0)
+        etagSlug = "24751%s" % modtime.strftime("%y%m%d%H%M%Sa")
+        log.debug("set slug: %s" % etagSlug)
+        slug = SlugEntity(id="ETagSlug",slug=etagSlug, modtime=modtime)
+        slug.put()
+
+def getmodiftime():
+    global modtime, etagSlug
+    if not getInTestHarness():
+        slug = SlugEntity.get_by_id("ETagSlug")
+        modtime = slug.modtime
+        etagSlug = str(slug.slug)
+    return modtime
+
+def getslug():
+    global etagSlug
+    getmodiftime()
+    return etagSlug
+
+    
 def tick(): #Keep memcache values fresh so they don't expire
     if not getInTestHarness():
         memcache.set(key="SysStart", value=systarttime)
@@ -134,18 +168,17 @@ def tick(): #Keep memcache values fresh so they don't expire
 if not getInTestHarness():
     if memcache.get("static-version") != appver: #We are a new instance of the app
         memcache.flush_all()
+        systarttime = datetime.datetime.utcnow()
         memcache.set(key="static-version", value=appver)
         memcache.add(key="SysStart", value=systarttime)
         instance_first = True
-        log.info("Detected new code version - resetting memory values")
+        log.info("Detected new code version - resetting memory values %s" % systarttime)
         cleanmsg = cleanCaches()
         log.info("Clean count(s): %s" % cleanmsg)
     else:
        systarttime = memcache.get("SysStart")
        tick()
-
-modtime = systarttime.replace(microsecond=0)
-etagSlug = "24751%s" % modtime.strftime("%y%m%d%H%M%Sa")
+    setmodiftime(systarttime)
 #################################################
 
 def cleanPath(node):
@@ -1010,7 +1043,7 @@ class ShowUnit (webapp2.RequestHandler):
         if (ENABLE_JSONLD_CONTEXT and (jsonld_score < html_score and jsonld_score < xhtml_score)):
             jsonldcontext = GetJsonLdContext(layers=ALL_LAYERS)
             self.response.headers['Content-Type'] = "application/ld+json"
-            self.emitCacheHeaders()
+            #self.emitCacheHeaders()
             self.response.out.write( jsonldcontext )
             return True
         else:
@@ -1876,6 +1909,7 @@ class ShowUnit (webapp2.RequestHandler):
         log.debug("sdoapp.py setting current datacache to: %s " % dcn)
         DataCache.setCurrent(dcn)
         PageStore.setCurrent(dcn)
+        HeaderStore.setCurrent(dcn)
 
 
         debugging = False
@@ -1910,40 +1944,47 @@ class ShowUnit (webapp2.RequestHandler):
 
         if not node or node == "":
             node = "/"
+            
         NotModified = False
-        etag = etagSlug + str(hash(node))
+        etag = getslug() + str(hash(node))
+        jetag = etag + "json"
+        passedTag = etag
 
         try:
             if ( "If-None-Match" in self.request.headers and
-                 self.request.headers["If-None-Match"] == etag ):
+                 (self.request.headers["If-None-Match"] == etag or
+                  self.request.headers["If-None-Match"] == jetag)):
                     NotModified = True
+                    passedTag = self.request.headers["If-None-Match"]
                     log.debug("Etag - do 304")
             elif ( "If-Unmodified-Since" in self.request.headers and
-                   datetime.datetime.strptime(self.request.headers["If-Unmodified-Since"],"%a, %d %b %Y %H:%M:%S %Z") == modtime ):
+                   datetime.datetime.strptime(self.request.headers["If-Unmodified-Since"],"%a, %d %b %Y %H:%M:%S %Z") == getmodiftime() ):
                     NotModified = True
                     log.debug("Unmod-since - do 304")
         except Exception as e:
             log.info("ERROR reading request headers: %s" % e)
             pass
 
-        retHdrs = None
-        if NotModified and DataCache.get(etag):
-            retHdrs = DataCache.get(etag)   #Already cached headers for this request
+        retHdrs = HeaderStore.get(passedTag)   #Already cached headers for this request?
+        if NotModified and retHdrs:
+            self.response.clear()
+            self.response.headers = retHdrs
+            self.response.set_status(304,"Not Modified")
         else:
             enableCaching = self._get(node) #Go build the page
             #log.info("_get result: %s" % enableCaching)
+            
+            tagsuff = ""
+            if ( "content-type" in self.response.headers and
+                 "json" in self.response.headers["content-type"] ):
+                  tagsuff = "json"
+
             if enableCaching:
                 if self.response.status.startswith("200"):
-                    self.response.headers.add_header("ETag", etag)
-                    self.response.headers['Last-Modified'] = modtime.strftime("%a, %d %b %Y %H:%M:%S UTC")
+                    self.response.headers.add_header("ETag", etag + tagsuff)
+                    self.response.headers['Last-Modified'] = getmodiftime().strftime("%a, %d %b %Y %H:%M:%S UTC")
                     retHdrs = self.response.headers.copy()
-                    DataCache.put(etag,retHdrs) #Cache these headers for a future 304 return
-
-                if NotModified:
-                    self.response.clear()
-                    self.response.headers = retHdrs
-                    self.response.set_status(304,"Not Modified")
-        return
+                    HeaderStore.put(etag + tagsuff,retHdrs) #Cache these headers for a future 304 return
 
 
     def _get(self, node):
@@ -2007,11 +2048,7 @@ class ShowUnit (webapp2.RequestHandler):
             return False
 
         if (node in ["", "/"]):
-            if self.handleHomepage(node):
-                return True
-            else:
-                log.info("Error handling homepage: %s" % node)
-                return False
+            return self.handleHomepage(node)
 
         if node in ["docs/jsonldcontext.json.txt", "docs/jsonldcontext.json"]:
             if self.handleJSONContext(node):
@@ -2060,6 +2097,7 @@ class ShowUnit (webapp2.RequestHandler):
                 return False #Treat as a dynamic page - suppress Etags etc.
 
         if(node == "_cacheFlush"):
+            setmodiftime(datetime.datetime.utcnow()) #Resets etags and modtime
             counts = cleanCaches()
             inf = "<div style=\"clear: both; float: left; text-align: left; font-size: xx-small; color: #888 ; margin: 1em; line-height: 100%;\">"
             inf +=  counts
