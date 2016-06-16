@@ -52,7 +52,8 @@ if __name__ == '__main__':
     # we'll work with simple string URIs to keep a clear notion of identity.
 
     # relative to scripts/ directory.
-    med_rdfa = '../data/ext/health-lifesci/health_core-0.3.rdfa'
+#    med_rdfa = '../data/ext/health-lifesci/health_core-0.3.rdfa'
+    med_rdfa = '../data/ext/health-lifesci/med-health-core.rdfa' # ignores activities .rdfa file in same dir
     sdo_core_rdfa = '../data/releases/2.2/schema.rdfa'
 
     newhealth_g = Graph()
@@ -86,3 +87,5 @@ if __name__ == '__main__':
 
 
     #print sdo_corev22_g.serialize(format="nt", encoding="utf-8")
+
+# note: breastfeedingWarning was dropped between 2.2 and 3.0 ext
