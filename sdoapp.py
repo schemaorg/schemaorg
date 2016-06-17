@@ -488,8 +488,6 @@ class ShowUnit (webapp2.RequestHandler):
         * title = optional title attribute on the link
         * prop = an optional property value to apply to the A element
         """
-        if(node.id == "DataType"):  #Special case
-            return "<a href=\"%s\">%s</a>" % (node.id, node.id)
 
         if label=='':
           label = node.id
@@ -497,6 +495,14 @@ class ShowUnit (webapp2.RequestHandler):
           title = " title=\"%s\"" % (title)
         if prop:
             prop = " property=\"%s\"" % (prop)
+
+        rdfalink = ''
+        if prop:
+            rdfalink = '<link %s href="http://schema.org/%s" />' % (prop,label)
+
+        if(node.id == "DataType"):  #Special case
+            return "%s<a href=\"%s\">%s</a>" % (rdfalink,node.id, node.id)
+
         urlprefix = ""
         home = node.getHomeLayer()
 
@@ -515,9 +521,6 @@ class ShowUnit (webapp2.RequestHandler):
             extflag = EXTENSION_SUFFIX
             tooltip = "title=\"Defined in extension: %s.schema.org\" " % home
 
-        rdfalink = ''
-        if prop:
-            rdfalink = '<link %s href="http://schema.org/%s" />' % (prop,label)
 
 
         return "%s<a %s %s href=\"%s%s%s\"%s>%s</a>%s" % (rdfalink,tooltip, extclass, urlprefix, hashorslash, node.id, title, label, extflag)
@@ -535,9 +538,9 @@ class ShowUnit (webapp2.RequestHandler):
 
     def emitUnitHeaders(self, node, layers='core'):
         """Write out the HTML page headers for this node."""
-        self.write("<h1 property=\"rdfs:label\" class=\"page-title\">\n")
+        self.write("<h1 property=\"rdfs:label\" class=\"page-title\">")
         self.write(node.id)
-        self.write("</h1>")
+        self.write("</h1>\n")
         home = node.home
         if home != "core" and home != "":
             self.write("Defined in the %s.schema.org extension.<br/>" % home)
@@ -570,6 +573,9 @@ class ShowUnit (webapp2.RequestHandler):
         if (node.isAttribute(layers=layers)):
             cstack.append(Unit.GetUnit("Property"))
             cstack.append(Unit.GetUnit("Thing"))
+        elif(node.isDataType(layers=layers) and node.id != "DataType"):
+            cstack.append(Unit.GetUnit("DataType"))
+            
 
         enuma = node.isEnumerationValue(layers=layers)
 
@@ -580,16 +586,26 @@ class ShowUnit (webapp2.RequestHandler):
                 continue
            count = 0
            while(len(self.crumbStacks[row]) > 0):
+                propertyval = None
                 n = self.crumbStacks[row].pop()
+                
+                if((len(self.crumbStacks[row]) == 1) and 
+                    not ":" in n.id) : #penultimate crumb that is not a non-schema reference
+                    if node.isAttribute(layers=layers):
+                        if n.isAttribute(layers=layers): #Can only be a subproperty of a property
+                            propertyval = "rdfs:subPropertyOf"
+                    else:
+                        propertyval = "rdfs:subClassOf"  
+                
                 if(count > 0):
-                    if((len(self.crumbStacks[row]) == 0) and enuma):
+                    if((len(self.crumbStacks[row]) == 0) and enuma): #final crumb
                         thisrow += " :: "
                     else:
                         thisrow += " &gt; "
                 elif n.id == "Class": # If Class is first breadcrum suppress it
                         continue
                 count += 1
-                thisrow += "%s" % (self.ml(n))
+                thisrow += "%s" % (self.ml(n,prop=propertyval))
            crumbsout.append(thisrow)
 
         self.write("<h4>")
@@ -612,7 +628,7 @@ class ShowUnit (webapp2.RequestHandler):
         subs = []
 
         if(node.isDataType(layers=layers)):
-            subs = GetTargets(Unit.GetUnit("rdf:type"), node, layers=layers)
+            #subs = GetTargets(Unit.GetUnit("rdf:type"), node, layers=layers)
             subs += GetTargets(Unit.GetUnit("rdfs:subClassOf"), node, layers=layers)
         elif node.isClass(layers=layers):
             subs = GetTargets(Unit.GetUnit("rdfs:subClassOf"), node, layers=layers)
@@ -678,11 +694,12 @@ class ShowUnit (webapp2.RequestHandler):
             subprops = sorted(prop.subproperties(layers=layers),key=lambda u: u.id)
             superprops = sorted(prop.superproperties(layers=layers),key=lambda u: u.id)
             ranges = sorted(GetTargets(ri, prop, layers=layers),key=lambda u: u.id)
+            doms = sorted(GetTargets(di, prop, layers=layers), key=lambda u: u.id)
             comment = GetComment(prop, layers=layers)
             if (not headerPrinted):
                 class_head = self.ml(cl)
                 if subclass:
-                    class_head = self.ml(cl, prop="rdfs:subClassOf")
+                    class_head = self.ml(cl)
                 out.write("<tr class=\"supertype\">\n     <th class=\"supertype-name\" colspan=\"3\">Properties from %s</th>\n  \n</tr>\n\n<tbody class=\"supertype\">\n  " % (class_head))
                 headerPrinted = True
 
@@ -695,6 +712,8 @@ class ShowUnit (webapp2.RequestHandler):
                 first_range = False
                 out.write(self.ml(r, prop='rangeIncludes'))
                 out.write("&nbsp;")
+            for d in doms:
+                out.write("<link property=\"domainIncludes\" href=\"http://schema.org/%s\">" % d.id)
             out.write("</td>")
             out.write("<td class=\"prop-desc\" property=\"rdfs:comment\">%s" % (comment))
             if (len(olderprops) > 0):
@@ -708,7 +727,7 @@ class ShowUnit (webapp2.RequestHandler):
             propcount += 1
 
         if subclass: # in case the superclass has no defined attributes
-            out.write("<tr><td colspan=\"3\"><meta property=\"rdfs:subClassOf\" content=\"%s\"></td></tr>" % (cl.id))
+            out.write("<tr><td colspan=\"3\"></td></tr>")
 
         return propcount
 
@@ -956,24 +975,24 @@ class ShowUnit (webapp2.RequestHandler):
                 out.write("\n    <code>%s</code> - %s" % (self.ml(d, d.id, tt, prop="domainIncludes",hashorslash=hashorslash),defin ))
             out.write("      </td>\n    </tr>\n</table>\n\n")
 
+        # Sub-properties
         if (subprops != None and len(subprops) > 0):
             out.write("<table class=\"definition-table\">\n")
             out.write("  <thead>\n    <tr>\n      <th>Sub-properties</th>\n    </tr>\n</thead>\n")
-            for sbp in subprops:
-                c = ShortenOnSentence(StripHtmlTags( GetComment(sbp,layers=layers) ),60)
-                tt = "%s: ''%s''" % ( sbp.id, c)
-                out.write("\n    <tr><td><code>%s</code></td></tr>\n" % (self.ml(sbp, sbp.id, tt, hashorslash=hashorslash)))
+            for sp in subprops:
+                c = ShortenOnSentence(StripHtmlTags( GetComment(sp,layers=layers) ),60)
+                tt = "%s: ''%s''" % ( sp.id, c)
+                out.write("\n    <tr><td><code>%s</code></td></tr>\n" % (self.ml(sp, sp.id, tt, hashorslash=hashorslash)))
             out.write("\n</table>\n\n")
 
         # Super-properties
         if (superprops != None and  len(superprops) > 0):
             out.write("<table class=\"definition-table\">\n")
             out.write("  <thead>\n    <tr>\n      <th>Super-properties</th>\n    </tr>\n</thead>\n")
-            for spp in superprops:
-                c = ShortenOnSentence(StripHtmlTags( GetComment(spp,layers=layers) ),60)
-                c = re.sub(r'<[^>]*>', '', c) # This is not a sanitizer, we trust our input.
-                tt = "%s: ''%s''" % ( spp.id, c)
-                out.write("\n    <tr><td><code>%s</code></td></tr>\n" % (self.ml(spp, spp.id, tt,hashorslash)))
+            for sp in superprops:
+                c = ShortenOnSentence(StripHtmlTags( GetComment(sp,layers=layers) ),60)
+                tt = "%s: ''%s''" % ( sp.id, c)
+                out.write("\n    <tr><td><code>%s</code></td></tr>\n" % (self.ml(sp, sp.id, tt, hashorslash=hashorslash)))
             out.write("\n</table>\n\n")
 
         self.emitSupersedes(node,layers=layers,out=out,hashorslash=hashorslash)
@@ -984,7 +1003,7 @@ class ShowUnit (webapp2.RequestHandler):
         if not out:
             out = self
         newerprop = node.supersededBy(layers=layers) # None of one. e.g. we're on 'seller'(new) page, we get 'vendor'(old)
-        olderprop = node.supersedes(layers=layers) # None or one
+        #olderprop = node.supersedes(layers=layers) # None or one
         olderprops = sorted(node.supersedes_all(layers=layers),key=lambda u: u.id) # list, e.g. 'seller' has 'vendor', 'merchant'.
 
 
@@ -994,17 +1013,19 @@ class ShowUnit (webapp2.RequestHandler):
             out.write("  <thead>\n    <tr>\n      <th>Supersedes</th>\n    </tr>\n</thead>\n")
 
             for o in olderprops:
-                c = GetComment(o, layers=layers)
+                c = ShortenOnSentence(StripHtmlTags( GetComment(o,layers=layers) ),60)
                 tt = "%s: ''%s''" % ( o.id, c)
-                out.write("\n    <tr><td><code>%s</code></td></tr>\n" % (self.ml(o, o.id, tt, hashorslash)))
+                out.write("\n    <tr><td><code>%s</code></td></tr>\n" % (self.ml(o, o.id, tt)))
+                log.info("Super %s" % o.id)
             out.write("\n</table>\n\n")
 
         # supersededBy (at most one direct successor)
         if (newerprop != None):
             out.write("<table class=\"definition-table\">\n")
             out.write("  <thead>\n    <tr>\n      <th><a href=\"/supersededBy\">supersededBy</a></th>\n    </tr>\n</thead>\n")
-            tt="supersededBy: %s" % newerprop.id
-            out.write("\n    <tr><td><code>%s</code></td></tr>\n" % (self.ml(newerprop, newerprop.id, tt,hashorslash)))
+            c = ShortenOnSentence(StripHtmlTags( GetComment(newerprop,layers=layers) ),60)
+            tt = "%s: ''%s''" % ( newerprop.id, c)
+            out.write("\n    <tr><td><code>%s</code></td></tr>\n" % (self.ml(newerprop, newerprop.id, tt)))
             out.write("\n</table>\n\n")
 
     def rep(self, markup):

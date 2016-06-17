@@ -402,17 +402,16 @@ class Unit ():
           return self.typeFlags['d']
           
       ret = False
-      if (self.directInstanceOf(Unit.GetUnit("DataType"), layers=layers)):
+      if (self.directInstanceOf(Unit.GetUnit("DataType"), layers=layers) or
+            self.id == "DataType"):
           ret = True
       else:
-          subs = GetTargets(Unit.GetUnit("rdf:type"), self, layers=layers)
-          subs += GetTargets(Unit.GetUnit("rdfs:subClassOf"), self, layers=layers)
+          subs = GetTargets(Unit.GetUnit("rdfs:subClassOf"), self, layers=layers)
 
           for p in subs:
               if p.isDataType(layers=layers):
                   ret = True
                   break
-      
       self.typeFlags['d'] = ret
       return ret
 
