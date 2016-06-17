@@ -6,6 +6,8 @@ import re
 import logging
 import threading
 import parsers
+from google.appengine.ext import ndb
+
 
 import apirdflib
 #from apirdflib import rdfGetTargets, rdfGetSources
@@ -49,6 +51,7 @@ DYNALOAD = True # permits read_schemas to be re-invoked live.
 #   loader=jinja2.FileSystemLoader(os.path.join(os.path.dirname(__file__), 'templates')),
 #    extensions=['jinja2.ext.autoescape'], autoescape=True)
 
+NDBPAGESTORE = True #True - uses NDB shared (accross instances) store for page cache - False uses in memory local cache
 debugging = False
 
 def getMasterStore():
@@ -118,12 +121,15 @@ namespaces = """        "schema": "http://schema.org/",
 class DataCacheTool():
 
     def __init__ (self):
-        self._DataCache = {}
         self.tlocal = threading.local()
         self.tlocal.CurrentDataCache = "core"
+        self.initialise()
+
+    def initialise(self):
+        self._DataCache = {}
         self._DataCache[self.tlocal.CurrentDataCache] = {}
-
-
+        return
+        
     def getCache(self,cache=None):
         if cache == None:
             cache = self.getCurrent()
@@ -152,6 +158,122 @@ class DataCacheTool():
         return self._DataCache.keys()
 
 DataCache = DataCacheTool()
+
+class PageEntity(ndb.Model):
+    content = ndb.TextProperty()
+    
+class PageStoreTool():
+    def __init__ (self):
+        self.tlocal = threading.local()
+        self.tlocal.CurrentStoreSet = "core"
+
+    def initialise(self):
+        import time
+        log.info("[%s]PageStore initialising Data Store" % (os.environ["INSTANCE_ID"]))
+        loops = 0
+        ret = 0
+        while loops < 5:
+            keys = PageEntity.query().fetch(keys_only=True)
+            count = len(keys)
+            log.info("[%s]PageStore deleting %s keys" % (os.environ["INSTANCE_ID"], count))
+            if count == 0:
+                break
+            ndb.delete_multi(keys) 
+            ret += count
+            loops += 1
+            time.sleep(1)
+        return str(ret)
+            
+    def getCurrent(self):
+        return self.tlocal.CurrentStoreSet
+        
+    def setCurrent(self,current):
+        self.tlocal.CurrentStoreSet = current
+        log.info("PageStore setting CurrentStoreSet: %s",current)
+        
+    def put(self, key, val,cache=None):
+        ca = self.getCurrent()
+        if cache != None:
+            ca = cache
+        fullKey = ca + ":" + key
+        #log.info("[%s]PageStore storing %s" % (os.environ["INSTANCE_ID"],fullKey))
+        ent = PageEntity(id = fullKey, content = val)
+        ent.put()
+        
+    def get(self, key,cache=None):
+        ca = self.getCurrent()
+        if cache != None:
+            ca = cache
+        fullKey = ca + ":" + key
+        ent = PageEntity.get_by_id(fullKey)
+        if(ent):
+            #log.info("[%s]PageStore returning %s" % (os.environ["INSTANCE_ID"],fullKey))
+            return ent.content
+        else:
+            #log.info("PageStore '%s' not found" % fullKey)
+            return None
+    
+class HeaderEntity(ndb.Model):
+    content = ndb.PickleProperty()
+    
+class HeaderStoreTool():
+    def __init__ (self):
+        self.tlocal = threading.local()
+        self.tlocal.CurrentStoreSet = "core"
+
+    def initialise(self):
+        import time
+        log.info("[%s]HeaderStore initialising Data Store" % (os.environ["INSTANCE_ID"]))
+        loops = 0
+        ret = 0
+        while loops < 5:
+            keys = HeaderEntity.query().fetch(keys_only=True)
+            count = len(keys)
+            log.info("[%s]HeaderStore deleting %s keys" % (os.environ["INSTANCE_ID"], count))
+            if count == 0:
+                break
+            ndb.delete_multi(keys) 
+            ret += count
+            loops += 1
+            time.sleep(1)
+        return str(ret)
+            
+    def getCurrent(self):
+        return self.tlocal.CurrentStoreSet
+        
+    def setCurrent(self,current):
+        self.tlocal.CurrentStoreSet = current
+        log.info("HeaderStore setting CurrentStoreSet: %s",current)
+        
+    def put(self, key, val,cache=None):
+        ca = self.getCurrent()
+        if cache != None:
+            ca = cache
+        fullKey = ca + ":" + key
+        ent = HeaderEntity(id = fullKey, content = val)
+        ent.put()
+        
+    def get(self, key,cache=None):
+        ca = self.getCurrent()
+        if cache != None:
+            ca = cache
+        fullKey = ca + ":" + key
+        ent = HeaderEntity.get_by_id(fullKey)
+        if(ent):
+            return ent.content
+        else:
+            return None
+
+PageStore = None
+HeaderStore = None
+log.info("NDB PageStore & HeaderStore enabled: %s" % NDBPAGESTORE)
+if  NDBPAGESTORE:
+    PageStore = PageStoreTool()
+    HeaderStore = HeaderStoreTool()
+else:
+    PageStore = DataCacheTool()
+    HeaderStore = DataCacheTool()
+    
 
 
 class Unit ():
@@ -280,17 +402,16 @@ class Unit ():
           return self.typeFlags['d']
           
       ret = False
-      if (self.directInstanceOf(Unit.GetUnit("DataType"), layers=layers)):
+      if (self.directInstanceOf(Unit.GetUnit("DataType"), layers=layers) or
+            self.id == "DataType"):
           ret = True
       else:
-          subs = GetTargets(Unit.GetUnit("rdf:type"), self, layers=layers)
-          subs += GetTargets(Unit.GetUnit("rdfs:subClassOf"), self, layers=layers)
+          subs = GetTargets(Unit.GetUnit("rdfs:subClassOf"), self, layers=layers)
 
           for p in subs:
               if p.isDataType(layers=layers):
                   ret = True
                   break
-      
       self.typeFlags['d'] = ret
       return ret
 
