@@ -1062,11 +1062,10 @@ class ShowUnit (webapp2.RequestHandler):
         # print "accept_header: " + str(accept_header) + " mimereq: "+str(mimereq) + "Scores H:{0} XH:{1} J:{2} ".format(html_score,xhtml_score,jsonld_score)
 
         if (ENABLE_JSONLD_CONTEXT and (jsonld_score < html_score and jsonld_score < xhtml_score)):
-            jsonldcontext = GetJsonLdContext(layers=ALL_LAYERS)
-            self.response.headers['Content-Type'] = "application/ld+json"
-            #self.emitCacheHeaders()
-            self.response.out.write( jsonldcontext )
-            return True
+            self.response.set_status(302,"Found")
+            self.response.headers['Location'] = makeUrl("","docs/jsonldcontext.json")
+            self.emitCacheHeaders()
+            return False #don't cache this redirect
         else:
             # Serve a homepage from template
             # the .tpl has responsibility for extension homepages
@@ -1091,7 +1090,7 @@ class ShowUnit (webapp2.RequestHandler):
                 #log.info("Served and cached fresh homepage.tpl key: %s " % sitekeyedhomepage)
                 PageStore.put(sitekeyedhomepage, page)
                 #            self.response.out.write( open("static/index.html", 'r').read() )
-            return True
+            return False # - Not caching homepage 
         log.info("Warning: got here how?")
         return False
 
@@ -1420,15 +1419,20 @@ class ShowUnit (webapp2.RequestHandler):
             self.error(404)
             self.response.out.write('<title>404 Not Found.</title><a href="/">404 Not Found (JSON-LD Context not enabled.)</a><br/><br/>')
             return True
-
-        if (node=="docs/jsonldcontext.json.txt"):
+            
+        jsonldcontext = ""
+        if PageStore.get("JSONLDCONTEXT"):
+            jsonldcontext = PageStore.get("JSONLDCONTEXT")
+        else:
             jsonldcontext = GetJsonLdContext(layers=ALL_LAYERS)
+            PageStore.put("JSONLDCONTEXT",jsonldcontext)
+            
+        if (node=="docs/jsonldcontext.json.txt"):
             self.response.headers['Content-Type'] = "text/plain"
             self.emitCacheHeaders()
             self.response.out.write( jsonldcontext )
             return True
         if (node=="docs/jsonldcontext.json"):
-            jsonldcontext = GetJsonLdContext(layers=ALL_LAYERS)
             self.response.headers['Content-Type'] = "application/ld+json"
             self.emitCacheHeaders()
             self.response.out.write( jsonldcontext )
