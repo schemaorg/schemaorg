@@ -436,7 +436,7 @@
     <div typeof="rdfs:Class" resource="http://schema.org/BlogPosting">
       <span class="h" property="rdfs:label">BlogPosting</span>
       <span property="rdfs:comment">A blog post.</span>
-       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Article">Article</a></span>
+       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/SocialMediaPosting">SocialMediaPosting</a></span>
     </div>
 
     <div typeof="rdfs:Class" resource="http://schema.org/Landform">
@@ -3702,6 +3702,7 @@ If the value for the &lt;a href=&quot;/closes&quot;&gt;closes&lt;/a&gt; property
       <span property="rdfs:comment">An organization that this person is affiliated with. For example, a school/university, a club, or a team.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Person">Person</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Organization">Organization</a></span>
+      <link property="rdfs:subPropertyOf" href="http://schema.org/memberOf" />
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/agent">
       <span class="h" property="rdfs:label">agent</span>
@@ -4120,6 +4121,7 @@ If the value for the &lt;a href=&quot;/closes&quot;&gt;closes&lt;/a&gt; property
       <span property="rdfs:comment">The larger organization that this local business is a branch of, if any.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Organization">Organization</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Organization">Organization</a></span>
+      <link property="http://schema.org/inverseOf" href="http://schema.org/subOrganization"/>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/branchCode">
       <span class="h" property="rdfs:label">branchCode</span>
@@ -4127,8 +4129,6 @@ If the value for the &lt;a href=&quot;/closes&quot;&gt;closes&lt;/a&gt; property
 &lt;br /&gt;&lt;br /&gt; For example, in the URL http://www.starbucks.co.uk/store-locator/etc/detail/3047 the code "3047" is a branchCode for a particular branch.
       </span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Place">Place</a></span>
-<!--      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/LocalBusiness">LocalBusiness</a></span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Store">Store</a></span> -->
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/brand">
@@ -5189,6 +5189,7 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
       <span property="rdfs:comment">Genre of the creative work or group.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CreativeWork">CreativeWork</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/URL">URL</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/geo">
       <span class="h" property="rdfs:label">geo</span>
@@ -5964,7 +5965,7 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
 
     <div typeof="rdf:Property" resource="http://schema.org/netWorth">
       <span class="h" property="rdfs:label">netWorth</span>
-      <span property="rdfs:comment">The total financial value of the organization or person as calculated by subtracting assets from liabilities.</span>
+      <span property="rdfs:comment">The total financial value of the person as calculated by subtracting assets from liabilities.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Person">Person</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/PriceSpecification">PriceSpecification</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/MonetaryAmount">MonetaryAmount</a></span>
@@ -6547,6 +6548,7 @@ Use this to explicitly override general opening hours brought in scope by &lt;a 
       <span property="rdfs:comment">The publisher of the creative work.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CreativeWork">CreativeWork</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Organization">Organization</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Person">Person</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/publishingPrinciples">
       <span class="h" property="rdfs:label">publishingPrinciples</span>
@@ -6828,13 +6830,13 @@ Use this to explicitly override general opening hours brought in scope by &lt;a 
     <div typeof="rdf:Property" resource="http://schema.org/sampleType">
       <span class="h" property="rdfs:label">sampleType</span>
       <link property="http://schema.org/supersededBy" href="http://schema.org/codeSampleType"/>
-      <span property="rdfs:comment">Full (compile ready) solution, code snippet, inline code, scripts, template.</span>
+      <span property="rdfs:comment">What type of code sample: full (compile ready) solution, code snippet, inline code, scripts, template.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/SoftwareSourceCode">SoftwareSourceCode</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/codeSampleType">
       <span class="h" property="rdfs:label">codeSampleType</span>
-      <span property="rdfs:comment">Full (compile ready) solution, code snippet, inline code, scripts, template.</span>
+      <span property="rdfs:comment">What type of code sample: full (compile ready) solution, code snippet, inline code, scripts, template.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/SoftwareSourceCode">SoftwareSourceCode</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
     </div>
@@ -6855,7 +6857,8 @@ Use this to explicitly override general opening hours brought in scope by &lt;a 
       <span class="h" property="rdfs:label">videoFormat</span>
       <span property="rdfs:comment">The type of screening or video broadcast used (e.g. IMAX, 3D, SD, HD, etc.).</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ScreeningEvent">ScreeningEvent</a></span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/TelevisionStation">TelevisionStation</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/BroadcastEvent">BroadcastEvent</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/BroadcastService">BroadcastService</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/screenshot">
@@ -7172,6 +7175,7 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
       <span property="rdfs:comment">A relationship between two organizations where the first includes the second, e.g., as a subsidiary. See also: the more specific &#39;department&#39; property.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Organization">Organization</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Organization">Organization</a></span>
+      <link property="http://schema.org/inverseOf" href="http://schema.org/parentOrganization"/>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/subtitleLanguage">
       <span class="h" property="rdfs:label">subtitleLanguage</span>
@@ -9749,6 +9753,7 @@ postponing for 1.6.
   <span class="h" property="rdfs:label">paymentStatus</span>
   <span property="rdfs:comment">The status of payment; whether the invoice has been paid or not.</span>
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Invoice">Invoice</a></span>
+  <span>Domain: <a property="http://schema.org/rangeIncludes" href="http://schema.org/PaymentStatusType">PaymentStatusType</a></span>
   <span>Domain: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
 </div>
 
@@ -10404,16 +10409,16 @@ Typical unit code(s): C62 for persons.</span>
 
 <div typeof="rdf:Property" resource="http://schema.org/totalTime">
   <span class="h" property="rdfs:label">totalTime</span>
-  <span property="rdfs:comment">The total time it takes to prepare and cook the recipe, in <a href='http://en.wikipedia.org/wiki/ISO_8601'>ISO 8601 duration format</a>.</span>
+  <span property="rdfs:comment">The total time it takes to prepare and cook the recipe, in [ISO 8601 duration format](http://en.wikipedia.org/wiki/ISO_8601).</span>
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Recipe">Recipe</a></span>
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Duration">Duration</a></span>
 </div>
 
 <div typeof="rdf:Property" resource="http://schema.org/cookTime">
   <span class="h" property="rdfs:label">cookTime</span>
-  <span property="rdfs:comment">The time it takes to actually cook the dish, in <a href='http://en.wikipedia.org/wiki/ISO_8601'>ISO 8601 duration format</a>.</span>
-  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Recipe"> Recipe</a></span>
-  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Duration"> Duration</a></span>
+  <span property="rdfs:comment">The time it takes to actually cook the dish, in [ISO 8601 duration format](http://en.wikipedia.org/wiki/ISO_8601).</span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Recipe">Recipe</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Duration">Duration</a></span>
 </div>
 
 <div typeof="rdf:Property" resource="http://schema.org/cookingMethod">
@@ -10443,7 +10448,7 @@ Typical unit code(s): C62 for persons.</span>
 <div typeof="rdf:Property" resource="http://schema.org/foodEvent">
   <span class="h" property="rdfs:label">foodEvent</span>
   <span property="rdfs:comment">A sub property of location. The specific food event where the action occurred.</span>
-  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CookAction"> CookAction</a></span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CookAction">CookAction</a></span>
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/FoodEvent">FoodEvent</a></span>
   <span>SubProperty of: <a property="rdfs:subPropertyOf" href="http://schema.org/location"> location</a></span>
 </div>
@@ -10452,12 +10457,12 @@ Typical unit code(s): C62 for persons.</span>
   <span class="h" property="rdfs:label">nutrition</span>
   <span property="rdfs:comment">Nutrition information about the recipe.</span>
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Recipe"> Recipe</a></span>
-  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/NutritionInformation"> NutritionInformation</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/NutritionInformation">NutritionInformation</a></span>
 </div>
 
 <div typeof="rdf:Property" resource="http://schema.org/prepTime">
   <span class="h" property="rdfs:label">prepTime</span>
-  <span property="rdfs:comment">The length of time it takes to prepare the recipe, in <a href='http://en.wikipedia.org/wiki/ISO_8601'>ISO 8601 duration format</a>.</span>
+  <span property="rdfs:comment">The length of time it takes to prepare the recipe, in [ISO 8601 duration format](http://en.wikipedia.org/wiki/ISO_8601).</span>
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Recipe"> Recipe</a></span>
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Duration"> Duration</a></span>
 </div>
@@ -10465,8 +10470,8 @@ Typical unit code(s): C62 for persons.</span>
 <div typeof="rdf:Property" resource="http://schema.org/recipeCategory">
   <span class="h" property="rdfs:label">recipeCategory</span>
   <span property="rdfs:comment">The category of the recipe&#x2014;for example, appetizer, entree, etc.</span>
-  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Recipe"> Recipe</a></span>
-  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text"> Text </a></span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Recipe">Recipe</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
 </div>
 
 <div typeof="rdf:Property" resource="http://schema.org/recipeCuisine">
