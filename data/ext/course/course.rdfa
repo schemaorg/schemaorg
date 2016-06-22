@@ -9,6 +9,8 @@
 ## Source Documents
 * | Course Extension Schema GDoc: https://goo.gl/2Sxxy3
 * | Use Cases GDoc: https://goo.gl/DnTTsb
+* CredentialType Enumerations are derived from:
+  * https://github.com/CredentialTransparencyInitiative/vocabularies/blob/master/credentialType.ttl
 -->
 
 <!-- <schema.org/Course> -->
@@ -89,12 +91,12 @@
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Duration">Duration</a></span>
 </div-->
 
-<div typeof="rdf:Property" resource="http://schema.org/grantsCredential">
+<div typeof="rdf:Property" resource="http://schema.org/credentialOffered">
   <span class="h" property="rdfs:label">grantsCredential</span>
-  <span property="rdfs:comment">A Credential granted upon successfully completing the Course.</span>
+  <span property="rdfs:comment">A Credential offered for successful completion of this Course or CourseInstance.</span>
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Course">Course</a></span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Course">CourseInstance</a></span>
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Credential">Credential</a></span>
-  <!-- TODO: define Credential > [Certificate, ] -->
 </div>
 
 <div typeof="rdf:Property" resource="http://schema.org/hasCourseInstance">
@@ -141,6 +143,277 @@
 <!-- CreativeWork.inLanguage d:[CreativeWork, ] r:Language -->
 
 <!-- <schema.org/CourseInstance> -->
+
+<!-- <schema.org/Credential , schema.org/CredentialInstance -->
+
+<div typeof="rdfs:Class" resource="http://schema.org/Credential">
+    <span class="h" property="rdfs:label">Credential</span>
+    <span property="rdfs:comment">A type of Credential.
+    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/CreativeWork">CreativeWork</a></span>
+</div>
+
+<div typeof="rdfs:Class" resource="http://schema.org/CredentialInstance">
+    <span class="h" property="rdfs:label">CredentialInstance</span>
+    <span property="rdfs:comment">An instance of a Credential which has been issued to a Person or Organization</span>
+    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/CreativeWork">CreativeWork</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/credential">
+  <span class="h" property="rdfs:label">credential</span>
+  <span property="rdfs:comment">A Credential or a CredentialInstance</span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Person">Person</a></span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Organization">Organization</a></span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CredentialInstance">CredentialInstance</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Credential">Credential</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/CredentialInstance">CredentialInstance</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/credentialIssuer">
+  <span class="h" property="rdfs:label">credentialIssuer</span>
+  <span property="rdfs:comment">An issuer of a Credential</span>
+  <link property="rdfs:subPropertyOf" href="http://schema.org/participant" />
+  <!-- <link property="rdfs:subPropertyOf href="http://schema.org/sender" /> TODO (adj domain?) -->
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Credential">Credential</a></span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CredentialInstance">CredentialInstance</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Person">Person</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Organization">Organization</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/CredentialInstance">CredentialInstance</a></span>
+</div>
+
+<!-- see: schema:credential (~ owl:inverseOf schema:credential) -->
+<div typeof="rdf:Property" resource="http://schema.org/credentialIssuee">
+  <span class="h" property="rdfs:label">credentialIssuee</span>
+  <span property="rdfs:comment">An issuee of a CredentialInstance</span>
+  <link property="rdfs:subPropertyOf" href="http://schema.org/participant" />
+  <!-- <link property="rdfs:subPropertyOf" href="http://schema.org/recipient" /> TODO (adj domain?) -->
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Credential">Credential</a></span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CredentialInstance">CredentialInstance</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Person">Person</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Organization">Organization</a></span>
+</div>
+
+<!--
+
+CredentialInstance(
+    name="Agent at large",
+    dateCreated=Datetime("2016-07-22T11:42:00-0500"),
+    credential=Credential(name="Credential 2"),
+    credentialIssuee=Person(name="Bob"),
+    credentialIssuer=Organization(
+        name="Org X"
+    )
+)
+
+CredentialInstance(
+    name="Agent at large",
+    dateCreated=Datetime("2016-07-22T11:42:00-0500"),
+    credential=Credential(name="Credential 2 (credential chain)"),
+    credentialIssuee=Person(name="Bob"),
+    credentialIssuer=CredentialInstance(
+        name="CA Cert XYZ",
+        credentialIssuer=Organization(
+            name="Org X"
+        )
+    )
+
+-->
+
+<div typeof="rdfs:Class" resource="http://schema.org/CredentialType">
+    <span class="h" property="rdfs:label">CredentialType</span>
+    <span property="rdfs:comment">A type of Credential</span>
+    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Enumeration">Enumeration</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/credentialType">
+  <span class="h" property="rdfs:label">credentialType</span>
+  <span property="rdfs:comment">The type of Credential</span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Credential">Credential</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/CredentialType">CredentialType</a></span>
+</div>
+
+
+<div typeof="rdfs:Class" resource="http://schema.org/Apprenticeship">
+    <span class="h" property="rdfs:label">Apprenticeship</span>
+    <span property="rdfs:comment">A Apprenticeship</span>
+    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Credential">Credential</a></span>
+</div>
+
+<div typeof="rdfs:Class" resource="http://schema.org/ApprenticeshipType">
+    <span class="h" property="rdfs:label">ApprenticeshipType</span>
+    <span property="rdfs:comment">A type of a Apprenticeship</span>
+    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/CredentialType">CredentialType</a></span>
+</div>
+
+<!-- TODO:
+<div typeof="rdfs:Class" resource="http://schema.org/_Apprenticeship">
+    <span class="h" property="rdfs:label">_Apprenticeship</span>
+    <span property="rdfs:comment">A _Apprenticeship ApprenticeshipType</span>
+    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/ApprenticeshipType">ApprenticeshipType</a></span>
+</div>
+-->
+
+
+<div typeof="rdfs:Class" resource="http://schema.org/Certificate">
+    <span class="h" property="rdfs:label">Certificate</span>
+    <span property="rdfs:comment">A Certificate</span>
+    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Credential">Credential</a></span>
+</div>
+
+<div typeof="rdfs:Class" resource="http://schema.org/CertificateType">
+    <span class="h" property="rdfs:label">CertificateType</span>
+    <span property="rdfs:comment">A type of a Certificate</span>
+    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/CredentialType">CredentialType</a></span>
+</div>
+
+<div typeof="rdfs:Class" resource="http://schema.org/JobSkillsCertificate">
+    <span class="h" property="rdfs:label">JobSkillsCertificate</span>
+    <span property="rdfs:comment">A Job Skills CertificateType</span>
+    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/CertificateType">CertificateType</a></span>
+</div>
+
+<div typeof="rdfs:Class" resource="http://schema.org/IndustryJobCertificate">
+    <span class="h" property="rdfs:label">IndustryJobCertificate</span>
+    <span property="rdfs:comment">An Industry Job CertificateType</span>
+    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/CertificateType">CertificateType</a></span>
+</div>
+
+
+
+<div typeof="rdfs:Class" resource="http://schema.org/Certification">
+    <span class="h" property="rdfs:label">Certification</span>
+    <span property="rdfs:comment">A Certification. In contrast to a Certificate, Certification often implies a need for re-certification. (see: validFor, validFrom, validIn, validThrough, validUntil)</span>
+    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Certification">Certification</a></span>
+</div>
+
+<div typeof="rdfs:Class" resource="http://schema.org/CertificationType">
+    <span class="h" property="rdfs:label">CertificationType</span>
+    <span property="rdfs:comment">A type of a Certification</span>
+    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/CredentialType">CredentialType</a></span>
+</div>
+
+
+
+<div typeof="rdfs:Class" resource="http://schema.org/AcademicDegree">
+    <span class="h" property="rdfs:label">AcademicDegree</span>
+    <span property="rdfs:comment">An AcademicDegree offered by a degree-granting institution.</span>
+    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Credential">Credential</a></span>
+</div>
+
+<div typeof="rdfs:Class" resource="http://schema.org/AcademicDegreeType">
+    <span class="h" property="rdfs:label">AcademicDegreeType</span>
+    <span property="rdfs:comment">A type of an AcademicDegree</span>
+    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/CredentialType">CredentialType</a></span>
+</div>
+
+<div typeof="rdfs:Class" resource="http://schema.org/SecondarySchoolDegree">
+    <span class="h" property="rdfs:label">SecondarySchoolDegree</span>
+    <span property="rdfs:comment">A Secondary School Degree AcademicDegreeType</span>
+    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/AcademicDegreeType">AcademicDegreeType</a></span>
+</div>
+
+<div typeof="rdfs:Class" resource="http://schema.org/AssociateDegree">
+    <span class="h" property="rdfs:label">AssociateDegree</span>
+    <span property="rdfs:comment">An Associate Degree AcademicDegreeType</span>
+    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/AcademicDegreeType">AcademicDegreeType</a></span>
+</div>
+
+<div typeof="rdfs:Class" resource="http://schema.org/BachelorDegree">
+    <span class="h" property="rdfs:label">BachelorDegree</span>
+    <span property="rdfs:comment">A Bachelor Degree AcademicDegreeType</span>
+    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/AcademicDegreeType">AcademicDegreeType</a></span>
+</div>
+
+<div typeof="rdfs:Class" resource="http://schema.org/GraduateDegree">
+    <span class="h" property="rdfs:label">GraduateDegree</span>
+    <span property="rdfs:comment">A Graduate Degree AcademicDegreeType</span>
+    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/AcademicDegreeType">AcademicDegreeType</a></span>
+</div>
+
+<div typeof="rdfs:Class" resource="http://schema.org/DoctorateDegree">
+    <span class="h" property="rdfs:label">DoctorateDegree</span>
+    <span property="rdfs:comment">A Doctorate Degree AcademicDegreeType</span>
+    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/AcademicDegreeType">AcademicDegreeType</a></span>
+</div>
+
+<div typeof="rdfs:Class" resource="http://schema.org/NanoDegree">
+    <span class="h" property="rdfs:label">NanoDegree</span>
+    <span property="rdfs:comment">A Nanodegree AcademicDegreeType</span>
+    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/AcademicDegreeType">AcademicDegreeType</a></span>
+</div>
+
+
+<div typeof="rdfs:Class" resource="http://schema.org/Diploma">
+    <span class="h" property="rdfs:label">Diploma</span>
+    <span property="rdfs:comment">A Diploma is a Certificate (? TODO) received for completion of an AcademicDegree</span>
+    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/AcademicDegree">AcademicDegree</a></span>
+    <!-- TODO: <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Certificate">Certificate</a></span> -->
+    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/CredentialInstance">CredentialInstance</a></span>
+</div>
+
+
+<div typeof="rdfs:Class" resource="http://schema.org/MilitaryCredential">
+    <span class="h" property="rdfs:label">MilitaryCredential</span>
+    <span property="rdfs:comment">A MilitaryCredential CredentialType</span>
+    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/CredentialType">CredentialType</a></span>
+</div>
+
+<div typeof="rdfs:Class" resource="http://schema.org/MicroCredential">
+    <span class="h" property="rdfs:label">MicroCredential</span>
+    <span property="rdfs:comment">A MicroCredential CredentialType</span>
+    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/CredentialType">CredentialType</a></span>
+</div>
+
+<div typeof="rdfs:Class" resource="http://schema.org/DigitalBadgeCredential">
+    <span class="h" property="rdfs:label">DigitalBadgeCredential</span>
+    <span property="rdfs:comment">A DigitalBadgeCredential CredentialType</span>
+    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/CredentialType">CredentialType</a></span>
+</div>
+
+
+
+
+<!-- schema.org/License and schema.org/LicenseType(s) 
+
+- included here for consistency with CTI credType
+- there may be another W3C Community Group
+  for non-Course types of Credentials like these
+-->
+
+<div typeof="rdfs:Class" resource="http://schema.org/License">
+    <span class="h" property="rdfs:label">License</span>
+    <span property="rdfs:comment">A Credential which grants legal permission. (see: validFor, validFrom, validIn, validThrough, validUntil)</span>
+    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Credential">Credential</a></span>
+</div>
+
+<div typeof="rdfs:Class" resource="http://schema.org/LicenseType">
+    <span class="h" property="rdfs:label">LicenseType</span>
+    <span property="rdfs:comment">A type of a License</span>
+    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/CredentialType">CredentialType</a></span>
+</div>
+
+<div typeof="rdfs:Class" resource="http://schema.org/OccupationalLicense">
+    <span class="h" property="rdfs:label">OccupationalLicense</span>
+    <span property="rdfs:comment">A License granting permission to legally practice in an Occupational capacity</span>
+    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/LicenseType">LicenseType</a></span>
+</div>
+
+<div typeof="rdfs:Class" resource="http://schema.org/LawLicense">
+    <span class="h" property="rdfs:label">LawLicense</span>
+    <span property="rdfs:comment">A License granting permission to legally practice Law</span>
+    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/OccupationalLicense">OccupationalLicense</a></span>
+</div>
+
+<div typeof="rdfs:Class" resource="http://schema.org/MedicalLicense">
+    <span class="h" property="rdfs:label">MedicalLicense</span>
+    <span property="rdfs:comment">A License granting permission to legally practice Medicine</span>
+    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/OccupationalLicense">OccupationalLicense</a></span>
+</div>
+
+<div typeof="rdfs:Class" resource="http://schema.org/TeachingLicense">
+    <span class="h" property="rdfs:label">TeachingLicense</span>
+    <span property="rdfs:comment">A License granting permission to legally practice Teaching</span>
+    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/OccupationalLicense">OccupationalLicense</a></span>
+</div>
 
 <!-- -->
 </div>
