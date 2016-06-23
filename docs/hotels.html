@@ -99,6 +99,7 @@
 
 <p>In schema.org, an offer for a hotel room is using the same patterns as an offer for any other type of product or service, e.g. a TV set or a welding service. In other words, a hotel room is equivalent to a <a href= "../Product">http://schema.org/Product</a>  (but without all the properties of that type that make sense only for typical commodity products), and an offer for hotel rooms is a <a href="../Offer">http://schema.org/Offer</a>. Prices and terms and conditions are thus not properties of the hotel or hotel room, but of the offer for a certain room or room category.</p>
 
+<p>In the case of rental accommodations, it is important to attach the <a href= "../businessFunction">businessFunction</a> property with the value <a href="http://purl.org/goodrelations/v1#LeaseOut">LeaseOut</a> to the offer, unless you want to sell the property. This allows reusing and extending the same types for dwellings for real estate offers in schema.org.</p>
 <h3>Basic Model</h3>
 <p>The diagram shown below illustrates the basic pattern for describing hotel room offers and offers for other forms of accommodations.</p> 
 <p>All actual accommodations are subclasses of <a href="../Place">http://schema.org/Place</a>. Instead of making them subclasses of <a href="../Product">http://schema.org/Product</a> (which is just anything that can be included in an offer), <a href="../Accommodation">accommodation</a> has been added to the range of <a href="../itemOffered">itemOffered</a> and <a href="../typeOfGood">typeOfGood</a>, and to the domain of <a href="../offers">offers</a>. All types of lodging businesses are subclasses of <a href="../Place">http://schema.org/Place</a> and of <a href="../LocalBusiness">http://schema.org/LocalBusiness</a>.</p>
@@ -499,6 +500,7 @@ enjoying your morning coffee.&lt;/span&gt;
   &lt;span itemprop=&quot;name&quot;&gt;Single Room&lt;/span&gt;
   &lt;span itemprop=&quot;description&quot;&gt;Our single rooms are cosy and comfortable.&lt;/span&gt;
   Rate: &lt;span itemprop=&quot;offers&quot; itemscope itemtype=&quot;http://schema.org/Offer&quot;&gt;
+    &lt;link itemprop=&quot;businessFunction&quot; href=&quot;http://purl.org/goodrelations/v1#LeaseOut&quot; /&gt;
     &lt;span itemprop=&quot;priceSpecification&quot; itemscope itemtype=&quot;http://schema.org/UnitPriceSpecification&quot;&gt;
       &lt;meta itemprop=&quot;price&quot; content=&quot;99.00&quot;&gt;$99.00
       &lt;meta itemprop=&quot;priceCurrency&quot; content=&quot;USD&quot;&gt;
@@ -518,6 +520,7 @@ enjoying your morning coffee.&lt;/span&gt;
       &lt;meta itemprop=&quot;unitCode&quot; content=&quot;IE&quot;&gt;people
   &lt;/span&gt;
   Rate: &lt;span itemprop=&quot;offers&quot; itemscope itemtype=&quot;http://schema.org/Offer&quot;&gt;
+    &lt;link itemprop=&quot;businessFunction&quot; href=&quot;http://purl.org/goodrelations/v1#LeaseOut&quot; /&gt;
     &lt;span itemprop=&quot;priceSpecification&quot; itemscope itemtype=&quot;http://schema.org/UnitPriceSpecification&quot;&gt;
       &lt;meta itemprop=&quot;price&quot; content=&quot;49.00&quot;&gt;$49.00
       &lt;meta itemprop=&quot;priceCurrency&quot; content=&quot;USD&quot;&gt;
@@ -534,6 +537,7 @@ enjoying your morning coffee.&lt;/span&gt;
   &lt;span itemprop=&quot;name&quot;&gt;Single Room&lt;/span&gt;
   &lt;span itemprop=&quot;description&quot;&gt;Our single rooms are cosy and comfortable.&lt;/span&gt;
   Rate: &lt;span itemprop=&quot;offers&quot; itemscope itemtype=&quot;http://schema.org/Offer&quot;&gt;
+    &lt;link itemprop=&quot;businessFunction&quot; href=&quot;http://purl.org/goodrelations/v1#LeaseOut&quot; /&gt;
     &lt;span itemprop=&quot;priceSpecification&quot; itemscope itemtype=&quot;http://schema.org/UnitPriceSpecification&quot;&gt;
       &lt;meta itemprop=&quot;minPrice&quot; content=&quot;99.00&quot;&gt;$99.00 - 
       &lt;meta itemprop=&quot;maxPrice&quot; content=&quot;179.00&quot;&gt;179.00
@@ -551,6 +555,7 @@ enjoying your morning coffee.&lt;/span&gt;
   &lt;span itemprop=&quot;name&quot;&gt;Single Room&lt;/span&gt;
   &lt;span itemprop=&quot;description&quot;&gt;Our single rooms are cosy and comfortable.&lt;/span&gt;
   Rate: &lt;span itemprop=&quot;offers&quot; itemscope itemtype=&quot;http://schema.org/Offer&quot;&gt;
+    &lt;link itemprop=&quot;businessFunction&quot; href=&quot;http://purl.org/goodrelations/v1#LeaseOut&quot; /&gt;
     &lt;span itemprop=&quot;priceSpecification&quot; itemscope itemtype=&quot;http://schema.org/UnitPriceSpecification&quot;&gt;
       Price valid if booked between: &lt;meta itemprop=&quot;validFrom&quot; content=&quot;2015-10-01&quot;&gt;October 1 -
       &lt;meta itemprop=&quot;validThrough&quot; content=&quot;2015-12-31&quot;&gt;December 31, 2015
@@ -567,6 +572,7 @@ enjoying your morning coffee.&lt;/span&gt;
   &lt;span itemprop=&quot;name&quot;&gt;Single Room&lt;/span&gt;
   &lt;span itemprop=&quot;description&quot;&gt;Our single rooms are cosy and comfortable.&lt;/span&gt;
   Rate: &lt;span itemprop=&quot;offers&quot; itemscope itemtype=&quot;http://schema.org/Offer&quot;&gt;
+    &lt;link itemprop=&quot;businessFunction&quot; href=&quot;http://purl.org/goodrelations/v1#LeaseOut&quot; /&gt;
     Must be booked at least &lt;span itemprop=&quot;advanceBookingRequirement&quot; 
     itemscope itemtype=&quot;http://schema.org/QuantitativeValue&quot;&gt;
       &lt;span itemprop=&quot;minValue&quot;&gt;7&lt;/span&gt;
@@ -586,6 +592,7 @@ enjoying your morning coffee.&lt;/span&gt;
   &lt;span itemprop=&quot;name&quot;&gt;Single Room&lt;/span&gt;
   &lt;span itemprop=&quot;description&quot;&gt;Our single rooms are cosy and comfortable.&lt;/span&gt;
   Rate: &lt;span itemprop=&quot;offers&quot; itemscope itemtype=&quot;http://schema.org/Offer&quot;&gt;
+    &lt;link itemprop=&quot;businessFunction&quot; href=&quot;http://purl.org/goodrelations/v1#LeaseOut&quot; /&gt;
     For stays between: &lt;meta itemprop=&quot;availabilityStarts&quot; content=&quot;2016-01-15&quot;&gt;January 15 -
     &lt;meta itemprop=&quot;availabilityEnds&quot; content=&quot;2016-01-31&quot;&gt;31, 2016
     &lt;span itemprop=&quot;priceSpecification&quot; itemscope itemtype=&quot;http://schema.org/UnitPriceSpecification&quot;&gt;
@@ -603,6 +610,7 @@ enjoying your morning coffee.&lt;/span&gt;
   &lt;span itemprop=&quot;description&quot;&gt;Our single rooms are cosy and comfortable.&lt;/span&gt;
   Rate:
   &lt;span itemprop=&quot;offers&quot; itemscope itemtype=&quot;http://schema.org/Offer&quot;&gt;
+    &lt;link itemprop=&quot;businessFunction&quot; href=&quot;http://purl.org/goodrelations/v1#LeaseOut&quot; /&gt;
     Summer &lt;meta itemprop=&quot;availabilityStarts&quot; content=&quot;2016-06-01&quot;&gt; (June 1 - 
     &lt;meta itemprop=&quot;availabilityEnds&quot; content=&quot;2016-10-31&quot;&gt;October 31)
     &lt;span itemprop=&quot;priceSpecification&quot; itemscope itemtype=&quot;http://schema.org/UnitPriceSpecification&quot;&gt;
@@ -612,6 +620,7 @@ enjoying your morning coffee.&lt;/span&gt;
     &lt;/span&gt;
   &lt;/span&gt;
   &lt;span itemprop=&quot;offers&quot; itemscope itemtype=&quot;http://schema.org/Offer&quot;&gt;
+    &lt;link itemprop=&quot;businessFunction&quot; href=&quot;http://purl.org/goodrelations/v1#LeaseOut&quot; /&gt;
     Winter &lt;meta itemprop=&quot;availabilityStarts&quot; content=&quot;2016-11-01&quot;&gt; (November 1 - 
     &lt;meta itemprop=&quot;availabilityEnds&quot; content=&quot;2017-05-31&quot;&gt;May 31)
     &lt;span itemprop=&quot;priceSpecification&quot; itemscope itemtype=&quot;http://schema.org/UnitPriceSpecification&quot;&gt;
@@ -629,6 +638,7 @@ enjoying your morning coffee.&lt;/span&gt;
   &lt;span itemprop=&quot;name&quot;&gt;Seaside Apartment&lt;/span&gt;
   &lt;span itemprop=&quot;description&quot;&gt;Our seaside apartments are perfect for small families with children.&lt;/span&gt;
   Rate: &lt;span itemprop=&quot;offers&quot; itemscope itemtype=&quot;http://schema.org/Offer&quot;&gt;
+    &lt;link itemprop=&quot;businessFunction&quot; href=&quot;http://purl.org/goodrelations/v1#LeaseOut&quot; /&gt;
     &lt;span itemprop=&quot;priceSpecification&quot; itemscope itemtype=&quot;http://schema.org/CompoundPriceSpecification&quot;&gt;
       &lt;span itemprop=&quot;priceComponent&quot; itemscope itemtype=&quot;http://schema.org/UnitPriceSpecification&quot;&gt;
         &lt;meta itemprop=&quot;price&quot; content=&quot;400.00&quot;&gt;$400.00
@@ -664,6 +674,7 @@ enjoying your morning coffee.&lt;/span&gt;
     &lt;span itemprop=&quot;name&quot;&gt;children&lt;/span&gt;
   &lt;/span&gt;
   Rate: &lt;span itemprop=&quot;offers&quot; itemscope itemtype=&quot;http://schema.org/Offer&quot;&gt;
+    &lt;link itemprop=&quot;businessFunction&quot; href=&quot;http://purl.org/goodrelations/v1#LeaseOut&quot; /&gt;
     &lt;span itemprop=&quot;priceSpecification&quot; itemscope itemtype=&quot;http://schema.org/UnitPriceSpecification&quot;&gt;
       &lt;meta itemprop=&quot;price&quot; content=&quot;249.00&quot;&gt;$249.00
       &lt;meta itemprop=&quot;priceCurrency&quot; content=&quot;USD&quot;&gt;
@@ -679,6 +690,7 @@ enjoying your morning coffee.&lt;/span&gt;
   &lt;span itemprop=&quot;name&quot;&gt;Single Room&lt;/span&gt;
   &lt;span itemprop=&quot;description&quot;&gt;Our single rooms are cosy and comfortable.&lt;/span&gt;
   Rate: &lt;span itemprop=&quot;offers&quot; itemscope itemtype=&quot;http://schema.org/Offer&quot;&gt;
+    &lt;link itemprop=&quot;businessFunction&quot; href=&quot;http://purl.org/goodrelations/v1#LeaseOut&quot; /&gt;
     &lt;span itemprop=&quot;priceSpecification&quot; itemscope itemtype=&quot;http://schema.org/UnitPriceSpecification&quot;&gt;
       &lt;meta itemprop=&quot;price&quot; content=&quot;99.00&quot;&gt;$99.00
       &lt;meta itemprop=&quot;priceCurrency&quot; content=&quot;USD&quot;&gt;
@@ -700,6 +712,7 @@ enjoying your morning coffee.&lt;/span&gt;
 <p><strong>Example:</strong> Room with breakfast included</p>
 <pre class="prettyprint lang-html linenums">
 &lt;div itemscope itemtype=&quot;http://schema.org/Offer&quot;&gt;
+  &lt;link itemprop=&quot;businessFunction&quot; href=&quot;http://purl.org/goodrelations/v1#LeaseOut&quot; /&gt;
   &lt;span itemprop=&quot;name&quot;&gt;Single room with breakfast&lt;/span&gt;
   &lt;span itemprop=&quot;priceSpecification&quot; itemscope itemtype=&quot;http://schema.org/UnitPriceSpecification&quot;&gt;
     &lt;meta itemprop=&quot;price&quot; content=&quot;99.00&quot;&gt;$99.00
@@ -730,3 +743,4 @@ enjoying your morning coffee.&lt;/span&gt;
 </div>
 </body>
 </html>
+
