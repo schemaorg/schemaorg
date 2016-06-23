@@ -8134,8 +8134,6 @@ postponing for 1.6.
       <span class="h" property="rdfs:label">mealService</span>
       <span property="rdfs:comment">Description of the meals that will be provided or available for purchase.</span>
       <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Flight">Flight</a></span>
-      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/LodgingBusiness">LodgingBusiness</a></span>
-      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Accommodation">Accommodation</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/estimatedFlightDuration">
@@ -10977,6 +10975,13 @@ For more specific types of accommodations not defined in schema.org, one can use
 
 <!-- Values etc. -->
 
+<div typeof="rdfs:Class" resource="http://schema.org/FoodService">
+    <span class="h" property="rdfs:label">FoodService</span>
+    <span property="rdfs:comment">A food service, like breakfast, lunch, or dinner.</span>
+    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Service">Service</a></span>
+    <span>Source:  <a property="dc:source" href="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology">STI Accommodation Ontology</a></span>
+</div>
+
 <div typeof="rdfs:Class" resource="http://schema.org/AccommodationFeature">
     <span class="h" property="rdfs:label">AccommodationFeature</span>
     <span property="rdfs:comment">An accommodation feature is a structured value representing the feature of an accommodation as a property-value pair of varying degrees of formality.</span>
@@ -11042,16 +11047,6 @@ For more specific types of accommodations not defined in schema.org, one can use
     <span>Source:  <a property="dc:source" href="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology">STI Accommodation Ontology</a></span>
 </div>
 
-<div typeof="rdf:Property" resource="http://schema.org/occupancyAdults">
-    <span class="h" property="rdfs:label">occupancyAdults</span>
-    <span property="rdfs:comment">The allowed total occupancy of adults for the accommodation or lodging business in persons. The exact definition of what constitutes an adult varies across regions and will typically not match the legal definition of being an adult. 
-Typical unit code(s): IE for person or C62 for no unit</span>
-    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Accommodation">Accommodation</a></span>
-    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/LodgingBusiness">LodgingBusiness</a></span>
-    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/QuantitativeValue">QuantitativeValue</a></span>
-    <span>Source:  <a property="dc:source" href="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology">STI Accommodation Ontology</a></span>
-</div>
-
 <div typeof="rdf:Property" resource="http://schema.org/bed">
     <span class="h" property="rdfs:label">bed</span>
     <span property="rdfs:comment">The type of bed or beds included in the accommodation. For the single case of just one bed of a certain type, you use bed directly with a text or a BedType instance. If you want to indicate the quantity of a certain BedType, use an instance of BedDetails. For more detailed information, use the feature property.</span>
@@ -11076,16 +11071,6 @@ Typical unit code(s): ROM for room or C62 for no unit. The type of room can be p
     <span>Source:  <a property="dc:source" href="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology">STI Accommodation Ontology</a></span>
 </div>
 
-<div typeof="rdf:Property" resource="http://schema.org/occupancyMinors">
-    <span class="h" property="rdfs:label">occupancyMinors</span>
-    <span property="rdfs:comment">The allowed total occupancy of minors for the accommodation or lodging business in persons. The exact definition of what constitutes a minor varies across regions and will typically not match the legal definition of being a minor. 
-Typical unit code(s): C62 for person</span>
-    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Accommodation">Accommodation</a></span>
-    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/LodgingBusiness">LodgingBusiness</a></span>
-    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/QuantitativeValue">QuantitativeValue</a></span>
-    <span>Source:  <a property="dc:source" href="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology">STI Accommodation Ontology</a></span>
-</div>
-
 <div typeof="rdf:Property" resource="http://schema.org/accommodationSize">
     <span class="h" property="rdfs:label">accommodationSize</span>
     <span property="rdfs:comment">The size of the accommodation, e.g. in square meter or squarefoot.
@@ -11097,10 +11082,12 @@ Typical unit code(s): MTK for square meter, FTK for square foot, or YDK for squa
 
 <div typeof="rdf:Property" resource="http://schema.org/occupancy">
     <span class="h" property="rdfs:label">occupancy</span>
-    <span property="rdfs:comment">The allowed total occupancy for the accommodation or lodging business in persons (including infants etc). For individual accommodations, this is not necessarily the legal maximum but defines the permitted usage as per the contractual agreement (e.g. a double room used by a single person).
+    <span property="rdfs:comment">The allowed total occupancy for the accommodation in persons (including infants etc). For individual accommodations, this is not necessarily the legal maximum but defines the permitted usage as per the contractual agreement (e.g. a double room used by a single person).
 Typical unit code(s): C62 for person</span>
-    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Accommodation">Accommodation</a></span>
-    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/LodgingBusiness">LodgingBusiness</a></span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/HotelRoom">HotelRoom</a></span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Apartment">Apartment</a></span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Suite">Suite</a></span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/SingleFamilyHome">SingleFamilyHome</a></span>
     <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/QuantitativeValue">QuantitativeValue</a></span>
     <span>Source:  <a property="dc:source" href="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology">STI Accommodation Ontology</a></span>
 </div>
