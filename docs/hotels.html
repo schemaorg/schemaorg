@@ -82,12 +82,10 @@
   <div id="mainContent">
 
 <h1>Markup for Hotels</h1>
-
+<p>Author: Martin Hepp</p>
 <p>This page provides background information on the use of schema.org for marking up hotels and other forms of accommodations. For feature requests, please use the <a href="https://github.com/schemaorg/schemaorg">Github repository</a>.</p>
 
-<br/>
-
-<!-- add toc here later on-->
+<!-- Maybe add toc here later on-->
 
 <h2 id="overview">Overview</h2>
 
@@ -99,11 +97,11 @@
     <li>An <strong><a href="../Offer">offer</a></strong> to let a hotel room (or other forms of accommodations) for a particular amount of money and for a given type of usage (e.g. occupancy), typically further constrained by advance booking requirements and other terms and conditions.
 </ul>
 
-<p>In schema.org, an offer for a hotel room is using the same patterns as an offer for any other type of product or service, e.g. a TV set or a welding service. In other words, the hotel room is a special form of a <a href= "../Product">http://schema.org/Product</a> and an offer for hotel rooms is a <a href="../Offer">http://schema.org/Offer</a>. Prices and terms and conditions are thus not properties of the hotel or hotel room, but of the offer for a certain room or room category.</p>
+<p>In schema.org, an offer for a hotel room is using the same patterns as an offer for any other type of product or service, e.g. a TV set or a welding service. In other words, a hotel room is equivalent to a <a href= "../Product">http://schema.org/Product</a>  (but without all the properties of that type that make sense only for typical commodity products), and an offer for hotel rooms is a <a href="../Offer">http://schema.org/Offer</a>. Prices and terms and conditions are thus not properties of the hotel or hotel room, but of the offer for a certain room or room category.</p>
 
 <h3>Basic Model</h3>
 <p>The diagram shown below illustrates the basic pattern for describing hotel room offers and offers for other forms of accommodations.</p> 
-<p>All actual accommodations are subclasses of <a href="../Place">http://schema.org/Place</a> and of <a href="../Product">http://schema.org/Product</a> (which is just anything that can be included in an offer). All types of lodging businesses are subclasses of <a href="../Place">http://schema.org/Place</a> and of <a href="../LocalBusiness">http://schema.org/LocalBusiness</a>.</p>
+<p>All actual accommodations are subclasses of <a href="../Place">http://schema.org/Place</a>. Instead of making them subclasses of <a href="../Product">http://schema.org/Product</a> (which is just anything that can be included in an offer), <a href="../Accommodation">accommodation</a> has been added to the range of <a href="../itemOffered">itemOffered</a> and <a href="../typeOfGood">typeOfGood</a>, and to the domain of <a href="../offers">offers</a>. All types of lodging businesses are subclasses of <a href="../Place">http://schema.org/Place</a> and of <a href="../LocalBusiness">http://schema.org/LocalBusiness</a>.</p>
 
 <p>The relationship between an accommodation and the local business it belongs to is represented via the <a href="../containedInPlace">containedInPlace</a> (from hotel room to hotel) or <a href="../containsPlace">containsPlace</a> (from hotel to hotel room) properties. The relationship between the offer and the room included in the offer can be represented via either the <a href="../offers">offers</a> property (from the room to the offer) or via <a href="../itemOffered">itemsOffered</a> (from the offer to the room).</p>
 <p>The relationship between the lodging business and its offers for rooms is represented via the <a href="../makesOffer">makesOffer</a> property (from the hotel to the offer) or via the <a href="../offeredBy">offeredBy</a> property (from the offer to the hotel).</p>
@@ -116,7 +114,7 @@
 
 <ul>
     <li><a href="../BedAndBreakfast">BedAndBreakfast</a></li>
-    <li><a href="../CampingSite">CampingSite</a></li>
+    <li><a href="../Campground">Campground</a></li>
     <li><a href="../Hostel">Hostel</a></li>
     <li><a href="../Hotel">Hotel</a></li>
     <li><a href="../Motel">Motel</a></li>
@@ -160,13 +158,15 @@ enjoying your morning coffee.&lt;/span&gt;
   &lt;/div&gt;
   Phone: &lt;span itemprop=&quot;telephone&quot;&gt;+43 512 8000-0&lt;/span&gt;
   &lt;img itemprop=&quot;photo&quot; src=&quot;../media/hotel_front.png&quot; alt=&quot;Front view of the hotel&quot; /&gt;
-  Star rating: &lt;meta itemprop=&quot;starRating&quot; content=&quot;4&quot;&gt;****
+  Star rating: &lt;span itemprop=&quot;starRating&quot; itemscope itemtype=&quot;http://schema.org/Rating&quot;&gt;
+    &lt;meta itemprop=&quot;ratingValue&quot; content=&quot;4&quot;&gt;****
+  &lt;/span&gt;
   Room rates: &lt;span itemprop=&quot;priceRange&quot;&gt;$100 - $240&lt;/span&gt;
 &lt;/div&gt;</pre>
 
 <p>See the page for <a href="../Hotel">http://schema.org/Hotel</a> for a complete list of additional properties for describing the hotel. Popular properties are also explained in more detail below.</p>
 
-<p><strong>Note:</strong> In the following, we focus on hotel-related examples, but the basic patterns for other types of lodging businesses are the same. Simply use the more specific types (e.g. <a href="../CampingSite">CampingSite</a> or <a href="MeetingRoom">MeetingRoom</a>).</p>
+<p><strong>Note:</strong> In the following, we focus on hotel-related examples, but the basic patterns for other types of lodging businesses are the same. Simply use the more specific types (e.g. <a href="../Campground">Campground</a> or <a href="MeetingRoom">MeetingRoom</a>).</p>
 
 <h2 id="hotel_info">Information about the Hotel</h2>
 <p>If your Web site contains provide more detailed information about your hotel, you can use many additional properties for marking them up with schema.org. Below, we highlight a few prominent properties.</p>
@@ -210,11 +210,13 @@ enjoying your morning coffee.&lt;/span&gt;
   &lt;span itemprop=&quot;description&quot;&gt;A beautifully located business hotel right in the
 heart of the alps. Watch the sun rise over the scenic Inn valley while
 enjoying your morning coffee.&lt;/span&gt;
-  Star rating: &lt;meta itemprop=&quot;starRating&quot; content=&quot;4&quot;&gt;****
+  Star rating: &lt;span itemprop=&quot;starRating&quot; itemscope itemtype=&quot;http://schema.org/Rating&quot;&gt;
+    &lt;meta itemprop=&quot;ratingValue&quot; content=&quot;4&quot;&gt;****
+  &lt;/span&gt;
   Room rates: &lt;span itemprop=&quot;priceRange&quot;&gt;$100 - $240&lt;/span&gt;
 &lt;/div&gt;</pre>
     <h4>Advanced: Type of Star Rating</h4>
-    <p>If available, it makes sense to specify the origin of the star rating, e.g. the name of the awarding institution. In this case, use a <a href="../PropertyValue">property value</a> and its <a href="../name">name</a> property for indicating the type of the rating (e.g. HOTREC, DEHOGA, WHR, or Hotelstars).
+    <p>If available, it makes sense to specify the origin of the star rating, e.g. the name of the awarding institution. In this case, use a <a href="../Rating">rating</a> and its <a href="../name">name</a> property for indicating the type of the rating (e.g. HOTREC, DEHOGA, WHR, or Hotelstars).
     <p><strong>Example:</strong> 4-star hotel rated by the DEHOGA</p>
         <pre class="prettyprint lang-html linenums">
 &lt;div itemscope itemtype=&quot;http://schema.org/Hotel&quot;&gt;
@@ -222,10 +224,10 @@ enjoying your morning coffee.&lt;/span&gt;
   &lt;span itemprop=&quot;description&quot;&gt;A beautifully located business hotel right in the
 heart of the alps. Watch the sun rise over the scenic Inn valley while
 enjoying your morning coffee.&lt;/span&gt;
-  Star rating: &lt;link itemprop=&quot;starRating&quot; itemscope itemtype=&quot;http://schema.org/PropertyValue&quot;&gt;
+  Star rating: &lt;span itemprop=&quot;starRating&quot; itemscope itemtype=&quot;http://schema.org/Rating&quot;&gt;
     &lt;meta itemprop=&quot;name&quot; content=&quot;DEHOGA&quot;&gt;
-    &lt;meta itemprop=&quot;value&quot; content=&quot;4&quot;&gt;****
-  &lt;/link&gt;
+    &lt;meta itemprop=&quot;ratingValue&quot; content=&quot;4&quot;&gt;****
+  &lt;/span&gt;
   Room rates: &lt;span itemprop=&quot;priceRange&quot;&gt;$100 - $240&lt;/span&gt;
 &lt;/div&gt;</pre>
     <h3>Photos and Logo</h3>
@@ -364,7 +366,7 @@ enjoying your morning coffee.&lt;/span&gt;
   &lt;li itemprop=&quot;feature&quot; itemscope itemtype=&quot;http://schema.org/AccommodationFeature&quot;&gt;
     &lt;span itemprop=&quot;name&quot;&gt;Sauna&lt;/span&gt;
     &lt;meta itemprop=&quot;value&quot; content=&quot;True&quot;&gt;
-    &lt;div itemprop=&quot;availabilityTimes&quot; itemtype=&quot;http://schema.org/OpeningHoursSpecification&quot;&gt;
+    &lt;div itemprop=&quot;hoursAvailable&quot; itemtype=&quot;http://schema.org/OpeningHoursSpecification&quot;&gt;
       &lt;link itemprop=&quot;dayOfWeek&quot; href=&quot;http://purl.org/goodrelations/v1#Thursday&quot; /&gt;(Open Thursdays 
       &lt;time itemprop=&quot;opens&quot; content=&quot;16:00:00&quot;&gt; 4:00 PM&lt;/time&gt; - 
       &lt;time itemprop=&quot;closes&quot; content=&quot;21:00:00&quot;&gt; 9:00 PM&lt;/time&gt;)
@@ -466,9 +468,9 @@ enjoying your morning coffee.&lt;/span&gt;
 &lt;/div&gt;</pre>
 
 <h3>Features and Services</h3>
-<p>Room features, like &quot;mini-bar&quot;, &quot;wifi&quot; or &quot;air conditioning&quot; can be expressed using the <a href="../feature">feature</a> property and an <a href="../AccommodationFeature">AccommodationFeature</a> entity, which is a special form of a <a href="../PropertyValue">property-value</a>. The <a href="../feature">feature</a> property does not make a statement on whether the room feature is free or for an additional charge. If you want to state explicitly that the room feature is included in the room price, you can use <a href="../includedFeature">includedFeature</a>. If you want to stress that the feature has an extra cost, use <a href="../optionalFeature">optionalFeature</a>.
+<p>Room features, like &quot;mini-bar&quot;, &quot;wifi&quot; or &quot;air conditioning&quot; can be expressed using the <a href="../feature">feature</a> property and an <a href="../AccommodationFeature">AccommodationFeature</a> entity, which is a special form of a <a href="../PropertyValue">property-value</a>. The <a href="../feature">feature</a> property does not make a statement on whether the room feature is free or for an additional charge.</p>
 
-<h4>General Features</h4>
+<h4>Room Features</h4>
 <p><strong>Example:</strong> The rooms have a mini-bar and wifi. Charges may or may not apply for those.</p>
 <pre class="prettyprint lang-html linenums">
 &lt;div itemscope itemtype=&quot;http://schema.org/HotelRoom&quot;&gt;
@@ -486,34 +488,7 @@ enjoying your morning coffee.&lt;/span&gt;
    &lt;/li&gt;
  &lt;/ul&gt;
 &lt;/div&gt;</pre>
-<h4>Free Features and Services</h4>
-<p><strong>Example:</strong> The rooms have free wifi.</p>
-<pre class="prettyprint lang-html linenums">
-&lt;div itemscope itemtype=&quot;http://schema.org/HotelRoom&quot;&gt;
- &lt;span itemprop=&quot;name&quot;&gt;Double Room&lt;/span&gt;
- &lt;span itemprop=&quot;description&quot;&gt;Our double rooms are spacious and comfortable.&lt;/span&gt;
-  Room Features:
- &lt;ul&gt;
-   &lt;li itemprop=&quot;includedFeature&quot; itemscope itemtype=&quot;http://schema.org/AccommodationFeature&quot;&gt;
-     Free &lt;span itemprop=&quot;name&quot;&gt;Wifi&lt;/span&gt;
-     &lt;meta itemprop=&quot;value&quot; content=&quot;True&quot;&gt;
-   &lt;/li&gt;
- &lt;/ul&gt;
-&lt;/div&gt;</pre>
-<h4>Optional Features and Services</h4>
-<p><strong>Example:</strong> The rooms have wifi, but the usage is not included in the room-rate.</p>
-<pre class="prettyprint lang-html linenums">
-&lt;div itemscope itemtype=&quot;http://schema.org/HotelRoom&quot;&gt;
- &lt;span itemprop=&quot;name&quot;&gt;Double Room&lt;/span&gt;
- &lt;span itemprop=&quot;description&quot;&gt;Our double rooms are spacious and comfortable.&lt;/span&gt;
-  Room Features:
- &lt;ul&gt;
-   &lt;li itemprop=&quot;optionalFeature&quot; itemscope itemtype=&quot;http://schema.org/AccommodationFeature&quot;&gt;
-     &lt;span itemprop=&quot;name&quot;&gt;Wifi&lt;/span&gt; (extra charges apply)
-     &lt;meta itemprop=&quot;value&quot; content=&quot;True&quot;&gt;
-   &lt;/li&gt;
- &lt;/ul&gt;
-&lt;/div&gt;</pre>
+
 <p><strong>Note:</strong> For modeling the fees of optional room features, you can link the <a href="../Offer">offer</a> for the room to an offer for the feature or service via the <a href="../addOn">addOn</a> property.</p>
 <h2 id="pricing">Offers and Pricing</h2>
     <p>A key principle in schema.org is that things do not have prices, but that offers to grant you some rights on the things do have instead. Thus, all commercial aspects of a hotel offer belong to the <a href="../Offer">offer</a> type in schema.org. In the following, we show the use of relevant schema.org elements.</p>
@@ -672,19 +647,21 @@ enjoying your morning coffee.&lt;/span&gt;
   &lt;/span&gt;
 &lt;/div&gt;</pre>
     <h3>Occupancy</h3>
-    <p>The occupancy for a given room rate can be indicated via <a href="../occupancy">occupancy</a> (total occupancy) or <a href="../occupancyAdults">occupancyAdults</a> and <a href="occupancyMinors">occupancyMinors</a> for adults and minors individually.</p>
+    <p>The occupancy for a given room rate can be indicated via <a href="../occupancy">occupancy</a> (total occupancy). For details (e.g. number of adults vs. number of children), you can use the <a href="../name">name</a> property of the <a href="../QuantitativeValue">value</a>.</p>
     <p><strong>Example:</strong> USD 249 per night for a suite with up to two adults and two children</p>
     <pre class="prettyprint lang-html linenums">
 &lt;div itemscope itemtype=&quot;http://schema.org/Suite&quot;&gt;
   &lt;span itemprop=&quot;name&quot;&gt;Deluxe Suite&lt;/span&gt;
   &lt;span itemprop=&quot;description&quot;&gt;Our deluxe suites are ideal for longer stays or families.&lt;/span&gt;
-  Occupancy: &lt;span itemprop=&quot;occupancyAdults&quot; itemscope itemtype=&quot;http://schema.org/QuantitativeValue&quot;&gt;
+  Occupancy: &lt;span itemprop=&quot;occupancy&quot; itemscope itemtype=&quot;http://schema.org/QuantitativeValue&quot;&gt;
       Up to &lt;span itemprop=&quot;maxValue&quot;&gt;2&lt;/span&gt;
-      &lt;meta itemprop=&quot;unitCode&quot; content=&quot;IE&quot;&gt; adults
+      &lt;meta itemprop=&quot;unitCode&quot; content=&quot;IE&quot;&gt; 
+      &lt;span itemprop=&quot;name&quot;&gt;adults&lt;/span&gt;
   &lt;/span&gt; and
-  &lt;span itemprop=&quot;occupancyMinors&quot; itemscope itemtype=&quot;http://schema.org/QuantitativeValue&quot;&gt;
+  &lt;span itemprop=&quot;occupancy&quot; itemscope itemtype=&quot;http://schema.org/QuantitativeValue&quot;&gt;
     &lt;span itemprop=&quot;maxValue&quot;&gt;2&lt;/span&gt;
-    &lt;meta itemprop=&quot;unitCode&quot; content=&quot;IE&quot;&gt; children
+    &lt;meta itemprop=&quot;unitCode&quot; content=&quot;IE&quot;&gt; 
+    &lt;span itemprop=&quot;name&quot;&gt;children&lt;/span&gt;
   &lt;/span&gt;
   Rate: &lt;span itemprop=&quot;offers&quot; itemscope itemtype=&quot;http://schema.org/Offer&quot;&gt;
     &lt;span itemprop=&quot;priceSpecification&quot; itemscope itemtype=&quot;http://schema.org/UnitPriceSpecification&quot;&gt;
@@ -719,18 +696,26 @@ enjoying your morning coffee.&lt;/span&gt;
     <h3>Fees for Optional Services</h3>
     <p>Price information for optional services should be put into an additional <a href="../Offer">offer</a> and linked to from the base offer via the <a href="../addOn">addOn</a> property.</p>
 <h2 id="meals">Meals and Food Services</h2>
-<p>Information about meals can be attached to either the <a href="../LodgingBusiness">lodging business</a> or an individual <a href="../HotelRoom">hotel room</a> via the <a href="../mealService">mealService</a> property.
+<p>Information about meals can be attached to  the <a href="../Offer">offer</a> by creating a product bundle with multiple <a href="../TypeAndQuantityNode">TypeAndQuantityNode</a> elements and <a href="../FoodService">FoodService</a>.</p>
 <p><strong>Example:</strong> Room with breakfast included</p>
 <pre class="prettyprint lang-html linenums">
-&lt;div itemscope itemtype=&quot;http://schema.org/HotelRoom&quot;&gt;
-  &lt;span itemprop=&quot;name&quot;&gt;Single Room&lt;/span&gt;
-  &lt;span itemprop=&quot;description&quot;&gt;Our single rooms are cosy and comfortable.&lt;/span&gt;
-  &lt;span itemprop=&quot;mealService&quot;&gt;Breakfast included&lt;/span&gt;
-  Rate: &lt;span itemprop=&quot;offers&quot; itemscope itemtype=&quot;http://schema.org/Offer&quot;&gt;
-    &lt;span itemprop=&quot;priceSpecification&quot; itemscope itemtype=&quot;http://schema.org/UnitPriceSpecification&quot;&gt;
-      &lt;meta itemprop=&quot;price&quot; content=&quot;99.00&quot;&gt;$99.00
-      &lt;meta itemprop=&quot;priceCurrency&quot; content=&quot;USD&quot;&gt;
-      &lt;meta itemprop=&quot;unitCode&quot; content=&quot;DAY&quot;&gt;per night
+&lt;div itemscope itemtype=&quot;http://schema.org/Offer&quot;&gt;
+  &lt;span itemprop=&quot;name&quot;&gt;Single room with breakfast&lt;/span&gt;
+  &lt;span itemprop=&quot;priceSpecification&quot; itemscope itemtype=&quot;http://schema.org/UnitPriceSpecification&quot;&gt;
+    &lt;meta itemprop=&quot;price&quot; content=&quot;99.00&quot;&gt;$99.00
+    &lt;meta itemprop=&quot;priceCurrency&quot; content=&quot;USD&quot;&gt;
+    &lt;meta itemprop=&quot;unitCode&quot; content=&quot;DAY&quot;&gt;per night
+  &lt;/span&gt;
+  &lt;span itemprop=&quot;includesObject&quot; itemscope itemtype=&quot;TypeAndQuantityNode&quot;&gt;
+    &lt;span itemprop=&quot;typeOfGood&quot; itemscope itemtype=&quot;http://schema.org/HotelRoom&quot;&gt;
+      &lt;span itemprop=&quot;name&quot;&gt;Single Room&lt;/span&gt;
+      &lt;span itemprop=&quot;description&quot;&gt;Our single rooms are cosy and comfortable.&lt;/span&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;       
+  &lt;span itemprop=&quot;includesObject&quot; itemscope itemtype=&quot;TypeAndQuantityNode&quot;&gt;
+    &lt;span itemprop=&quot;typeOfGood&quot; itemscope itemtype=&quot;http://schema.org/FoodService&quot;&gt;
+      &lt;span itemprop=&quot;name&quot;&gt;Breakfast&lt;/span&gt;
+      &lt;span itemprop=&quot;description&quot;&gt;Our famous healthy starter breakfast is included.&lt;/span&gt;
     &lt;/span&gt;
   &lt;/span&gt;
 &lt;/div&gt;</pre>
