@@ -32,7 +32,8 @@ enjoying your morning coffee.</span>
   </div>
   Phone: <span itemprop="telephone">+43 512 8000-0</span>
   <img itemprop="photo" src="../media/hotel_front.png" alt="Front view of the hotel" />
-  Star rating: <meta itemprop="starRating" content="4">****
+  Star rating: <span itemprop="starRating" itemscope itemtype="http://schema.org/Rating">
+    <meta itemprop="ratingValue" content="4">****</span>
   Room rates: <span itemprop="priceRange">$100 - $240</span>
 </div>
 
@@ -51,7 +52,8 @@ enjoying your morning coffee.</span>
   </div>
   Phone: <span property="telephone">+43 512 8000-0</span>
   <img property="photo" src="../media/hotel_front.png" alt="Front view of the hotel" />
-  Star rating: <meta property="starRating" content="4">****
+  Star rating: <span property="starRating" typeof="Rating">
+    <meta property="ratingValue" content="4">****</span>
   Room rates: <span property="priceRange">$100 - $240</span>
 </div>
 
@@ -73,7 +75,8 @@ enjoying your morning coffee.",
                },
   "telephone" :  "+43 512 8000-0",
   "photo" : "http://www.acme-innsbruck.at//media/hotel_front.png",
-  "starRating" : "4",
+  "starRating" : { "@type" : "Rating",
+                   "ratingValue" : "4"},
   "priceRange" : "$100 - $240"
 }
 </script>
@@ -95,7 +98,8 @@ MICRODATA:
   <span itemprop="description">A beautifully located business hotel right in the
 heart of the alps. Watch the sun rise over the scenic Inn valley while
 enjoying your morning coffee.</span>
-  Star rating: <meta itemprop="starRating" content="4">****
+  Star rating: <span itemprop="starRating" itemscope itemtype="http://schema.org/Rating">
+    <meta itemprop="ratingValue" content="4">****</span>
   Room rates: <span itemprop="priceRange">$100 - $240</span>
 </div>
 
@@ -122,10 +126,10 @@ MICRODATA:
   <span itemprop="description">A beautifully located business hotel right in the
 heart of the alps. Watch the sun rise over the scenic Inn valley while
 enjoying your morning coffee.</span>
-  Star rating: <link itemprop="starRating" itemscope itemtype="http://schema.org/PropertyValue">
+  Star rating: <span itemprop="starRating" itemscope itemtype="http://schema.org/Rating">
     <meta itemprop="name" content="DEHOGA">
-    <meta itemprop="value" content="4">****
-  </link>
+    <meta itemprop="ratingValue" content="4">****
+  </span>
   Room rates: <span itemprop="priceRange">$100 - $240</span>
 </div>
 
