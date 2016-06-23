@@ -980,12 +980,12 @@
     </div>
 
        <div typeof="rdfs:Class" resource="http://schema.org/GeoCircle">
-       	<span class="h" property="rdfs:label">GeoCircle</span>
-       	<span property="rdfs:comment">A GeoCircle is a GeoShape representing a circular geographic area. As it is a GeoShape
+        <span class="h" property="rdfs:label">GeoCircle</span>
+        <span property="rdfs:comment">A GeoCircle is a GeoShape representing a circular geographic area. As it is a GeoShape
           it provides the simple textual property 'circle', but also allows the combination of postalCode alongside geoRadius.
           The center of the circle can be indicated via the 'geoMidpoint' property, or more approximately using 'address', 'postalCode'.
        </span>
-       	<span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/GeoShape">GeoShape</a></span>
+        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/GeoShape">GeoShape</a></span>
        </div>
 
        <div typeof="rdf:Property" resource="http://schema.org/geoRadius">
@@ -1085,8 +1085,9 @@
 
     <div typeof="rdfs:Class" resource="http://schema.org/Hotel">
       <span class="h" property="rdfs:label">Hotel</span>
-      <span property="rdfs:comment">A hotel.</span>
-       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/LodgingBusiness">LodgingBusiness</a></span>
+      <span property="rdfs:comment">A hotel is an establishment that provides lodging paid on a short-term basis (Source: Wikipedia, the free encyclopedia, see http://en.wikipedia.org/wiki/Hotel).</span>
+      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/LodgingBusiness">LodgingBusiness</a></span>
+      <span>Source:  <a property="dc:source" href="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology">STI Accommodation Ontology</a></span>  
     </div>
 
     <div typeof="rdfs:Class" resource="http://schema.org/HousePainter">
@@ -2113,7 +2114,7 @@
       <span property="rdfs:comment">UserInteraction and its subtypes is an old way of talking about users interacting with pages. It is generally better to use
           &lt;a href="/Action"&gt;Action&lt;/a&gt;-based vocabulary, alongside types such as &lt;a href="/Comment"&gt;Comment&lt;/a&gt;.
       </span>
-	  <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Event">Event</a></span>
+      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Event">Event</a></span>
       <link property="http://schema.org/supersededBy" href="http://schema.org/InteractionCounter"/>
    </div>
 
@@ -3908,6 +3909,7 @@ If the value for the &lt;a href=&quot;/closes&quot;&gt;closes&lt;/a&gt; property
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Product">Product</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Service">Service</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/PlayAction">PlayAction</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/LodgingBusiness">LodgingBusiness</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Audience">Audience</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/audienceType">
@@ -3983,6 +3985,7 @@ If the value for the &lt;a href=&quot;/closes&quot;&gt;closes&lt;/a&gt; property
       <span property="rdfs:comment">A language someone may use with the item. Please use one of the language codes from the &lt;a href=&#39;http://tools.ietf.org/html/bcp47&#39;&gt;IETF BCP 47 standard&lt;/a&gt;. See also [[inLanguage]].</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ContactPoint">ContactPoint</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ServiceChannel">ServiceChannel</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/LodgingBusiness">LodgingBusiness</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Language">Language</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
     </div>
@@ -5039,7 +5042,7 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
       <span property="rdfs:comment">exif data for this object.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ImageObject">ImageObject</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
-	  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/PropertyValue">PropertyValue</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/PropertyValue">PropertyValue</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/expectedArrivalFrom">
       <span class="h" property="rdfs:label">expectedArrivalFrom</span>
@@ -5826,7 +5829,6 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/PropertyValue">PropertyValue</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MonetaryAmount">MonetaryAmount</a></span>
 	  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/PropertyValueSpecification">PropertyValueSpecification</a></span>
-
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number">Number</a></span>
     </div>
 
@@ -7403,9 +7405,9 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/QuantitativeValue">QuantitativeValue</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/TypeAndQuantityNode">TypeAndQuantityNode</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/UnitPriceSpecification">UnitPriceSpecification</a></span>
-	  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/PropertyValue">PropertyValue</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/PropertyValue">PropertyValue</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
-	  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/URL">URL</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/URL">URL</a></span>
     </div>
 
     <div typeof="rdf:Property" resource="http://schema.org/uploadDate">
@@ -7436,6 +7438,7 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Demand">Demand</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/OpeningHoursSpecification">OpeningHoursSpecification</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Permit">Permit</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/AccommodationFeature">AccommodationFeature</a></span>      
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/DateTime">DateTime</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/validIn">
@@ -7453,6 +7456,7 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Demand">Demand</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/JobPosting">JobPosting</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/OpeningHoursSpecification">OpeningHoursSpecification</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/AccommodationFeature">AccommodationFeature</a></span>      
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/DateTime">DateTime</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/validUntil">
@@ -7470,9 +7474,9 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
 	  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/PropertyValue">PropertyValue</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MonetaryAmount">MonetaryAmount</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number">Number</a></span>
-	  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
-	  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Boolean">Boolean</a></span>
-	  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/StructuredValue">StructuredValue</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Boolean">Boolean</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/StructuredValue">StructuredValue</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/valueAddedTaxIncluded">
       <span class="h" property="rdfs:label">valueAddedTaxIncluded</span>
@@ -7485,7 +7489,7 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
       <span property="rdfs:comment">A pointer to a secondary value that provides additional information on the original value, e.g. a reference temperature.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/QualitativeValue">QualitativeValue</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/QuantitativeValue">QuantitativeValue</a></span>
-	  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/PropertyValue">PropertyValue</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/PropertyValue">PropertyValue</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Enumeration">Enumeration</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/StructuredValue">StructuredValue</a></span>
       <!-- Note: The following is logically redundant, but it will give prominence to the most useful types for user -->
@@ -8130,6 +8134,8 @@ postponing for 1.6.
       <span class="h" property="rdfs:label">mealService</span>
       <span property="rdfs:comment">Description of the meals that will be provided or available for purchase.</span>
       <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Flight">Flight</a></span>
+      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/LodgingBusiness">LodgingBusiness</a></span>
+      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Accommodation">Accommodation</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/estimatedFlightDuration">
@@ -8265,12 +8271,14 @@ postponing for 1.6.
       <span class="h" property="rdfs:label">checkinTime</span>
       <span property="rdfs:comment">The earliest someone may check into a lodging establishment.</span>
       <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/LodgingReservation">LodgingReservation</a></span>
+      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/LodgingBusiness">LodgingBusiness</a></span>    
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/DateTime">DateTime</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/checkoutTime">
       <span class="h" property="rdfs:label">checkoutTime</span>
       <span property="rdfs:comment">The latest someone may check out of a lodging establishment.</span>
       <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/LodgingReservation">LodgingReservation</a></span>
+      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/LodgingBusiness">LodgingBusiness</a></span>        
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/DateTime">DateTime</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/lodgingUnitType">
@@ -10601,10 +10609,10 @@ Typical unit code(s): C62 for persons.</span>
 
 <!-- Compound price extension from GoodRelations -->
 <div typeof="rdfs:Class" resource="http://schema.org/CompoundPriceSpecification">
-        <span class="h" property="rdfs:label">CompoundPriceSpecification</span>
-        <span property="rdfs:comment">A compound price specification is one that bundles multiple prices that all apply in combination for different dimensions of consumption. Use the name property of the attached unit price specification for indicating the dimension of a price component (e.g. "electricity" or "final cleaning").</span>
-        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/PriceSpecification">PriceSpecification</a></span>
-        <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsClass">GoodRelationsClass</a></span>
+    <span class="h" property="rdfs:label">CompoundPriceSpecification</span>
+    <span property="rdfs:comment">A compound price specification is one that bundles multiple prices that all apply in combination for different dimensions of consumption. Use the name property of the attached unit price specification for indicating the dimension of a price component (e.g. "electricity" or "final cleaning").</span>
+    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/PriceSpecification">PriceSpecification</a></span>
+    <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsClass">GoodRelationsClass</a></span>
 </div>
 
 <div typeof="rdf:Property" resource="http://schema.org/priceComponent">
@@ -10879,6 +10887,282 @@ Typical unit code(s): C62 for persons.</span>
   <span property="rdfs:comment">The type of permission granted the person, organization, or audience.</span>
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/DigitalDocumentPermission">DigitalDocumentPermission</a></span>
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/DigitalDocumentPermissionType">DocumentPermissionType</a></span>
+</div>
+
+<h1>Hotels</h1>
+ <!-- Hotel Extension from the STI Accommodation Ontology -->
+
+<div typeof="http://schema.org/Organization" resource="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology">
+    <span property="rdfs:label">STI Accommodation Ontology</span>
+    <span property="rdfs:comment">This element is based on the STI Accommodation Ontology, see &lt;a href=&quot;http://ontologies.sti-innsbruck.at/acco/ns.html&quot;&gt;http://ontologies.sti-innsbruck.at/acco/ns.html&lt;/a&gt; for details. 
+    Many class and property definitions are inspired by or based on abstracts from Wikipedia, the free encyclopedia.</span>
+</div>
+    
+<!-- Classes -->
+
+<!-- Additional types of lodging business -->
+<div typeof="rdfs:Class" resource="http://schema.org/Resort">
+    <span class="h" property="rdfs:label">Resort</span>
+    <span property="rdfs:comment">A resort is a place used for relaxation or recreation, attracting visitors for holidays or vacations. Resorts are places, towns or sometimes commercial establishment operated by a single company (Source: Wikipedia, the free encyclopedia, see &lt;a href=&quot;http://en.wikipedia.org/wiki/Resort&quot;&gt;http://en.wikipedia.org/wiki/Resort&lt;/a&gt;).</span>
+    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/LodgingBusiness">LodgingBusiness</a></span>
+    <span>Source:  <a property="dc:source" href="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology">STI Accommodation Ontology</a></span>
+</div>
+
+<div typeof="rdfs:Class" resource="http://schema.org/CampingSite">
+    <span class="h" property="rdfs:label">CampingSite</span>
+    <span property="rdfs:comment">A camping site, campsite, or campground is a place used for overnight stay in the outdoors. In British English a campsite is an area, usually divided into a number of pitches, where people can camp overnight using tents or camper vans or caravans; this British English use of the word is synonymous with the American English expression campground. In American English the term campsite generally means an area where an individual, family, group, or military unit can pitch a tent or parks a camper; a campground may contain many campsites (Source: Wikipedia, the free encyclopedia, see &lt;a href=&quot;http://en.wikipedia.org/wiki/Campsite&quot;&gt;http://en.wikipedia.org/wiki/Campsite&lt;/a&gt;).</span>
+    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/LodgingBusiness">LodgingBusiness</a></span>
+    <span>Source:  <a property="dc:source" href="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology">STI Accommodation Ontology</a></span>
+</div>
+
+<!-- Accommodations -->
+<div typeof="rdfs:Class" resource="http://schema.org/Accommodation">
+    <span class="h" property="rdfs:label">Accommodation</span>
+    <span property="rdfs:comment">An accommodation is a place that can accommodate human beings, e.g. a hotel room, a camping pitch, or a meeting room. Many accommodations are for overnight stays, but this is not a mandatory requirement.
+For more specific types of accommodations not defined in schema.org, one can use additionalType with external vocabularies.
+</span>
+    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Place">Place</a></span>
+    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Product">Product</a></span>
+    <span>Source:  <a property="dc:source" href="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology">STI Accommodation Ontology</a></span>
+</div>
+
+<div typeof="rdfs:Class" resource="http://schema.org/Room">
+    <span class="h" property="rdfs:label">Room</span>
+    <span property="rdfs:comment">A room is a distinguishable space within a structure, usually separated from other spaces by interior walls. (Source: Wikipedia, the free encyclopedia, see &lt;a href=&quot;http://en.wikipedia.org/wiki/Room&quot;&gt;http://en.wikipedia.org/wiki/Room&lt;/a&gt;).</span>
+    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Accommodation">Accommodation</a></span>
+    <span>Source:  <a property="dc:source" href="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology">STI Accommodation Ontology</a></span>
+</div>
+
+<div typeof="rdfs:Class" resource="http://schema.org/HotelRoom">
+    <span class="h" property="rdfs:label">Hotel Room</span>
+    <span property="rdfs:comment">A hotel room is a single room in a hotel.</span>
+    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Room">Room</a></span>
+    <span>Source:  <a property="dc:source" href="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology">STI Accommodation Ontology</a></span>
+</div>
+
+<div typeof="rdfs:Class" resource="http://schema.org/MeetingRoom">
+    <span class="h" property="rdfs:label">MeetingRoom</span>
+    <span property="rdfs:comment">A meeting room, conference room, or conference hall is a room provided for singular events such as business conferences and meetings (Source: Wikipedia, the free encyclopedia, see &lt;a href=&quot;http://en.wikipedia.org/wiki/Conference_hall&quot;&gt;http://en.wikipedia.org/wiki/Conference_hall&lt;/a&gt;).</span>
+    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Room">Room</a></span>
+    <span>Source:  <a property="dc:source" href="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology">STI Accommodation Ontology</a></span>
+</div>
+
+<div typeof="rdfs:Class" resource="http://schema.org/CampingPitch">
+    <span class="h" property="rdfs:label">CampingPitch</span>
+    <span property="rdfs:comment">A camping pitch is an individual place for overnight stay in the outdoors, typically being part of a larger camping site.</span>
+    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Accommodation">Accommodation</a></span>
+    <span>Source:  <a property="dc:source" href="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology">STI Accommodation Ontology</a></span>
+</div>
+
+<div typeof="rdfs:Class" resource="http://schema.org/Suite">
+    <span class="h" property="rdfs:label">Suite</span>
+    <span property="rdfs:comment">A suite in a hotel or other public accommodation, denotes a class of luxury accommodations, the key feature of which is multiple rooms (Source: Wikipedia, the free encyclopedia, see &lt;a href=&quot;http://en.wikipedia.org/wiki/Suite_(hotel)&quot;&gt;http://en.wikipedia.org/wiki/Suite_(hotel)&lt;/a&gt;).</span>
+    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Accommodation">Accommodation</a></span>
+    <span>Source:  <a property="dc:source" href="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology">STI Accommodation Ontology</a></span>
+</div>
+
+<div typeof="rdfs:Class" resource="http://schema.org/House">
+    <span class="h" property="rdfs:label">House</span>
+    <span property="rdfs:comment">A house is a building or structure that has the ability to be occupied for habitation by humans or other creatures (Source: Wikipedia, the free encyclopedia, see &lt;a href=&quot;http://en.wikipedia.org/wiki/House&quot;&gt;http://en.wikipedia.org/wiki/House&lt;/a&gt;).</span>
+    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Accommodation">Accommodation</a></span>
+    <span>Source:  <a property="dc:source" href="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology">STI Accommodation Ontology</a></span>
+</div>
+
+<div typeof="rdfs:Class" resource="http://schema.org/Apartment">
+    <span class="h" property="rdfs:label">Apartment</span>
+    <span property="rdfs:comment">An apartment (in American English) or flat (in British English) is a self-contained housing unit (a type of residential real estate) that occupies only part of a building (Source: Wikipedia, the free encyclopedia, see &lt;a href=&quot;http://en.wikipedia.org/wiki/Apartment&quot;&gt;http://en.wikipedia.org/wiki/Apartment&lt;/a&gt;).</span>
+    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Accommodation">Accommodation</a></span>
+    <span>Source:  <a property="dc:source" href="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology">STI Accommodation Ontology</a></span>
+</div>
+
+<!-- Values etc. -->
+
+<div typeof="rdfs:Class" resource="http://schema.org/AccommodationFeature">
+    <span class="h" property="rdfs:label">AccommodationFeature</span>
+    <span property="rdfs:comment">An accommodation feature is a structured value representing the feature of an accommodation as a property-value pair of varying degrees of formality.</span>
+    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/PropertyValue">PropertyValue</a></span>
+    <span>Source:  <a property="dc:source" href="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology">STI Accommodation Ontology</a></span>
+</div>
+
+<div typeof="rdfs:Class" resource="http://schema.org/BedDetails">
+    <span class="h" property="rdfs:label">BedDetails</span>
+    <span property="rdfs:comment">An entity holding detailed information about the available bed types, e.g. the quantity of twin beds for a hotel room. For the single case of just one bed of a certain type, you can use bed directly with a text or a BedType instances.</span>
+    <span>Source:  <a property="dc:source" href="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology">STI Accommodation Ontology</a></span>
+</div>
+
+<div typeof="rdfs:Class" resource="http://schema.org/BedType">
+    <span class="h" property="rdfs:label">BedType</span>
+    <span property="rdfs:comment">A type of bed. This is used for indicating the bed or beds available in an accommodation.</span>
+    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/QualitativeValue">QualitativeValue</a></span>
+    <span>Source:  <a property="dc:source" href="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology">STI Accommodation Ontology</a></span>
+</div>
+
+<!-- Properties -->
+<div typeof="rdf:Property" resource="http://schema.org/feature">
+    <span class="h" property="rdfs:label">feature</span>
+    <span property="rdfs:comment">A feature (e.g. a characteristic or service) of the Accommodation. This generic property does not make a statement about whether the feature is included in the offer for the main accommodation or available at extra costs.</span>       
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Accommodation">Accommodation</a></span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/LodgingBusiness">LodgingBusiness</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/AccommodationFeature">AccommodationFeature</a></span>
+    <span>Source:  <a property="dc:source" href="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology">STI Accommodation Ontology</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/optionalFeature">
+    <span class="h" property="rdfs:label">optionalFeature</span>
+    <span property="rdfs:comment">A feature (e.g. a characteristic or service) of the Accommodation that is generally available but not included in the offer for the main accommodation, i.e. at  extra costs.</span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Accommodation">Accommodation</a></span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/LodgingBusiness">LodgingBusiness</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/AccommodationFeature">AccommodationFeature</a></span>
+    <span>Source:  <a property="dc:source" href="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology">STI Accommodation Ontology</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/includedFeature">
+    <span class="h" property="rdfs:label">includedFeature</span>
+    <span property="rdfs:comment">A feature (e.g. a characteristic or service) of the Accommodation that is included in the offer for the main accommodation, i.e. at no extra costs.</span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Accommodation">Accommodation</a></span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/LodgingBusiness">LodgingBusiness</a></span>    
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/AccommodationFeature">AccommodationFeature</a></span>
+    <span>Source:  <a property="dc:source" href="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology">STI Accommodation Ontology</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/typeOfBed">
+    <span class="h" property="rdfs:label">typeOfBed</span>
+    <span property="rdfs:comment">The type of bed to which the BedDetail refers, i.e. the type of bed available in the quantity indicated by quantity.</span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/BedDetails">BedDetails</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/BedType">BedType</a></span>
+    <span>Source:  <a property="dc:source" href="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology">STI Accommodation Ontology</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/permittedUsage">
+    <span class="h" property="rdfs:label">permittedUsage</span>
+    <span property="rdfs:comment">Indications regarding the usage of the accommodation, e.g. the type of objects that you are allowed to put on the camping pitch, like a tent, car, boat, or mobile home.</span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Accommodation">Accommodation</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+    <span>Source:  <a property="dc:source" href="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology">STI Accommodation Ontology</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/occupancyAdults">
+    <span class="h" property="rdfs:label">occupancyAdults</span>
+    <span property="rdfs:comment">The allowed total occupancy of adults for the accommodation or lodging business in persons. The exact definition of what constitutes an adult varies across regions and will typically not match the legal definition of being an adult. 
+Typical unit code(s): IE for person or C62 for no unit</span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Accommodation">Accommodation</a></span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/LodgingBusiness">LodgingBusiness</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/QuantitativeValue">QuantitativeValue</a></span>
+    <span>Source:  <a property="dc:source" href="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology">STI Accommodation Ontology</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/bed">
+    <span class="h" property="rdfs:label">bed</span>
+    <span property="rdfs:comment">The type of bed or beds included in the accommodation. For the single case of just one bed of a certain type, you use bed directly with a text or a BedType instance. If you want to indicate the quantity of a certain BedType, use an instance of BedDetails. For more detailed information, use the feature property.</span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Apartment">Apartment</a></span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/HotelRoom">HotelRoom</a></span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/House">House</a></span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Suite">Suite</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>  
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/BedDetails">BedDetails</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/BedType">BedType</a></span>  
+    <span>Source:  <a property="dc:source" href="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology">STI Accommodation Ontology</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/numberOfRooms">
+    <span class="h" property="rdfs:label">numberOfRooms</span>
+    <span property="rdfs:comment">The number of rooms (excluding bathrooms and closets) of the acccommodation or lodging business. 
+Typical unit code(s): ROM for room or C62 for no unit. The type of room can be put in the unitText property of the QuantitativeValue.</span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Accommodation">Accommodation</a></span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/LodgingBusiness">LodgingBusiness</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number">Number</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/QuantitativeValue">QuantitativeValue</a></span>
+    <span>Source:  <a property="dc:source" href="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology">STI Accommodation Ontology</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/occupancyMinors">
+    <span class="h" property="rdfs:label">occupancyMinors</span>
+    <span property="rdfs:comment">The allowed total occupancy of minors for the accommodation or lodging business in persons. The exact definition of what constitutes a minor varies across regions and will typically not match the legal definition of being a minor. 
+Typical unit code(s): C62 for person</span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Accommodation">Accommodation</a></span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/LodgingBusiness">LodgingBusiness</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/QuantitativeValue">QuantitativeValue</a></span>
+    <span>Source:  <a property="dc:source" href="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology">STI Accommodation Ontology</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/accommodationSize">
+    <span class="h" property="rdfs:label">accommodationSize</span>
+    <span property="rdfs:comment">The size of the accommodation, e.g. in square meter or squarefoot.
+Typical unit code(s): MTK for square meter, FTK for square foot, or YDK for square yard </span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Accommodation">Accommodation</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/QuantitativeValue">QuantitativeValue</a></span>
+    <span>Source:  <a property="dc:source" href="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology">STI Accommodation Ontology</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/occupancy">
+    <span class="h" property="rdfs:label">occupancy</span>
+    <span property="rdfs:comment">The allowed total occupancy for the accommodation or lodging business in persons (including infants etc). For individual accommodations, this is not necessarily the legal maximum but defines the permitted usage as per the contractual agreement (e.g. a double room used by a single person).
+Typical unit code(s): C62 for person</span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Accommodation">Accommodation</a></span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/LodgingBusiness">LodgingBusiness</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/QuantitativeValue">QuantitativeValue</a></span>
+    <span>Source:  <a property="dc:source" href="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology">STI Accommodation Ontology</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/availabilityTimes">
+    <span class="h" property="rdfs:label">availabilityTimes</span>
+    <span property="rdfs:comment">Indicates the times of availability of a particular accommodation or lodging business feature. Example: The sauna is available from 8:00 - 10:00 a.m. on weekdays.</span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/AccommodationFeature">AccommodationFeature</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/OpeningHoursSpecification">OpeningHoursSpecification</a></span>
+    <span>Source:  <a property="dc:source" href="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology">STI Accommodation Ontology</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/gated">
+    <span class="h" property="rdfs:label">gated</span>
+    <span property="rdfs:comment">Indicates whether the resort or camping site is gated, i.e. access is controlled via a fence and some form of gate.</span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Resort">Resort</a></span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CampingSite">CampingSite</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Boolean">Boolean</a></span>
+    <span>Source:  <a property="dc:source" href="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology">STI Accommodation Ontology</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/petsAllowed">
+    <span class="h" property="rdfs:label">petsAllowed</span>
+    <span property="rdfs:comment">Indicates whether pets are allowed to enter the accommodation or lodging business.</span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Accommodation">Accommodation</a></span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/LodgingBusiness">LodgingBusiness</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Boolean">Boolean</a></span>
+    <span>Source:  <a property="dc:source" href="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology">STI Accommodation Ontology</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/smokingAllowed">
+    <span class="h" property="rdfs:label">smokingAllowed</span>
+    <span property="rdfs:comment">Indicates whether it is allowed to smoke in the place, e.g. in the restaurant, hotel or hotel room.</span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Place">Place</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Boolean">Boolean</a></span>
+    <span>Source:  <a property="dc:source" href="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology">STI Accommodation Ontology</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/numberOfBeds">
+    <span class="h" property="rdfs:label">numberOfBeds</span>
+    <span property="rdfs:comment">The quantity of the given bed type available in the HotelRoom, Suite, House, or Apartment.</span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/BedDetails">BedDetails</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number">Number</a></span>
+    <span>Source:  <a property="dc:source" href="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology">STI Accommodation Ontology</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/starRating">
+    <span class="h" property="rdfs:label">starRating</span>
+    <span property="rdfs:comment">An official rating for the lodging business, e.g. from national associations or standards bodies. Use the name property of a PropertyValue for indicating the type of the rating (e.g. HOTREC, DEHOGA, WHR, or Hotelstars).</span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/LodgingBusiness">LodgingBusiness</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number">Number</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/PropertyValue">PropertyValue</a></span>
+    <span>Source:  <a property="dc:source" href="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology">STI Accommodation Ontology</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/roomNumber">
+    <span class="h" property="rdfs:label">roomNumber</span>
+    <span property="rdfs:comment">The number of the room in a building.</span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Room">Hotel</a></span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Suite">Suite</a></span>    
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+    <span>Source:  <a property="dc:source" href="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology">STI Accommodation Ontology</a></span>
 </div>
 
 </body>
