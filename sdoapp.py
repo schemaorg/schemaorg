@@ -828,11 +828,13 @@ class ShowUnit (webapp2.RequestHandler):
         """Write out a table of incoming properties for a per-type page."""
         if not out:
             out = self
+            
+        layers=ALL_LAYERS # Show incomming properties from all layers
 
         headerPrinted = False
         di = Unit.GetUnit("domainIncludes")
         ri = Unit.GetUnit("rangeIncludes")
-#        log.info("Incomming for %s" % cl.id)
+        #log.info("Incomming for %s" % cl.id)
         for prop in sorted(GetSources(ri, cl, layers=layers), key=lambda u: u.id):
             if (prop.superseded(layers=layers)):
                 continue
