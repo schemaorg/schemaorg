@@ -1,0 +1,297 @@
+TYPES: #lrmi-1 learningResourceType, educationalAlignment, AlignmentObject, educationalFramework, alignmentType, targetName, targetUrl, audience, EducationalAudience, educationalRole
+
+PRE-MARKUP:
+ 
+<!-- A lesson plan for US second grade teachers. -->
+<div>
+  <h1>Designing a treasure map</h1>
+  <p>Resource type: lesson plan, learning activity</p>
+  <p>Target audience: teachers</p>
+  <p>Educational level: US Grade 2</p>
+  <p>Link to lesson plan: <a href="http://example.org/lessonplan">http://example.org/lessonplan</a></p>
+</div>
+
+MICRODATA:
+
+<!-- A lesson plan for US second grade teachers. -->
+<div itemscope itemtype="http://schema.org/CreativeWork">
+    <h1 itemprop="name">Designing a treasure map</h1>
+    <p>Resource type: 
+      <span itemprop="learningResourceType">lesson plan</span>, 
+      <span itemprop="learningResourceType">learning activity</span>
+    </p>
+    <p>Target audience: 
+      <span itemprop="audience" itemscope itemtype="http://schema.org/EducationalAudience">
+        <span itemprop="educationalRole">teacher</span></span>s.
+    </p>
+    <p itemprop="educationalAlignment" itemscope itemtype="http://schema.org/AlignmentObject">
+        <span itemprop="alignmentType">Educational level</span>: 
+        <span itemprop="educationalFramework">US Grade Levels</span> 
+        <span itemprop="targetName">2</span>
+        <link itemprop="targetUrl" href="http://purl.org/ASN/scheme/ASNEducationLevel/2" />
+    </p>
+    <p>Link to lesson plan: <a itemprop="url" href="http://example.org/lessonplan">http://example.org/lessonplan</a></p>
+</div>
+
+RDFA:
+
+<!-- A list of the issues for a single volume of a given periodical. -->
+<div vocab="http://schema.org/" typeof="CreativeWork">
+    <h1 property="name">Designing a treasure map</h1>
+    <p>Resource type: 
+    <span property="learningResourceType"> lesson plan</span>,
+    <span property="learningResourceType"> learning activity</span>
+    </p>
+    <p>Target audience:
+      <span rel="audience" typeof="EducationalAudience">
+        <span property="educationalRole">teacher</span>s
+      </span>
+    </p>
+    <p rel="educationalAlignment" typeof="AlignmentObject">
+        <span property="alignmentType">Educational level</span>:
+        <span property="educationalFramework">US Grade Levels</span>
+        <span property="targetName">2</span>
+        <span rel="targetUrl" resource="http://purl.org/ASN/scheme/ASNEducationLevel/2"></span>
+    </p>
+    <p>Link to lesson plan: <a property="url" href="http://example.org/lessonplan">http://example.org/lessonplan</a></p>
+</div>
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org/",
+  "@type": "CreativeWork",
+  "name": "Designing a treasure map",
+  "learningResourceType": [
+    "lesson plan",
+    "learning activity"
+    ],
+  "audience": {
+    "@type": "EducationalAudience",
+    "educationalRole": "teacher"
+  },
+  "educationalAlignment": {
+    "@type": "AlignmentObject",
+    "alignmentType": "Educational level",
+    "educationalFramework": "US Grade Levels",
+    "targetName": "2",
+    "targetUrl": {
+      "@id": "http://purl.org/ASN/scheme/ASNEducationLevel/2"
+     }
+  },
+  "url": "http://example.org/lessonplan"
+}
+</script>
+
+TYPES: #lrmi-2 typicalAgeRange, timeRequired, educationalAlignment, AlignmentObject, educationalFramework, alignmentType, targetName, targetUrl
+ 
+PRE-MARKUP:
+<div>
+    <h1>The Declaration of Arbroath</h1>
+    <p>A lesson plan for teachers with associated video. 
+       Typical length of lesson, 1 hour. 
+       Recommended for children aged 10-12 years old.
+    </p>
+    <p>Subject: Wars of Scottish independence</p>
+    <p>Alignment to curriculum:</p>
+    <ul>
+        <li>England 
+            National Curriculum: KS 3 History: The middle ages (12th to 15th century)
+        </li>
+        <li>Scotland 
+            SCQF: Level 2
+            Curriculum for Excellence: Social studies: people past events and societies
+        </li>
+    </ul>
+    <p>Link to lesson plan: <a href="http://example.org/lessonplan">http://example.org/lessonplan</a></p>
+    <video>
+        <source src="http://example.org/movie.mp4" type="video/mp4" />
+        Duration 03:12
+    </video>
+    <p>This example is based on <a href="http://www.bbc.co.uk/education/clips/z3sjtfr">Declaration of Arbroath</a> from BBC Bitesize</p>
+
+</div>
+
+MICRODATA:
+<div itemscope itemtype="http://schema.org/WebPage">
+    <h1 itemprop="name">The Declaration of Arbroath</h1>
+    <p>A <span itemprop="learningResourceType">lesson plan</span> 
+       for <span itemprop="audience" 
+                 itemscope itemtype="http://schema.org/EducationalAudience">
+           <span itemprop="educationalRole">teacher</span></span>s with associated video. 
+       Typical length of lesson, <span itemprop="timeRequired">1 hour</span>. 
+       Recommended for children aged <span itemprop="typicalAgeRange">10-12</span> years old.
+    </p>
+    <p>Subject: <span itemprop="about">Wars of Scottish independence</span></p>
+    <p>Alignment to curriculum:</p>
+    <ul>
+        <li>England 
+            <span itemprop="educationalAlignment"
+                  itemscope itemtype="http://schema.org/AlignmentObject">
+                <meta itemprop="alignmentType" content="educationalLevel" />
+                <span itemprop="educationalFramework">National Curriculum</span>:
+                <span itemprop="targetName">KS 3</span>
+                <link itemprop="targetUrl" href="http://example.org/ENC/levels/KS3">
+            </span>
+            <span itemprop="educationalAlignment"
+                  itemscope itemtype="http://schema.org/AlignmentObject">
+                <meta itemprop="alignmentType" content="educationalSubject" />
+                <meta itemprop="educationalFramework" content="National Curriculum" />
+                <span itemprop="targetName">History: The middle ages (12th to 15th century)</span>
+                <link itemprop="targetUrl" href="http://example.org/ENC/subjects/3102">
+            </span>
+        </li>
+        <li>Scotland 
+            <span itemprop="educationalAlignment"
+                  itemscope itemtype="http://schema.org/AlignmentObject">
+                <meta itemprop="alignmentType" content="educationalLevel" />
+                <span itemprop="educationalFramework">SCQF</span>:
+                <span itemprop="targetName">Level 2</span>
+                <link itemprop="targetUrl" href="http://example.org/SCQF/levels/2">
+            </span>
+            <span itemprop="educationalAlignment"
+                  itemscope itemtype="http://schema.org/AlignmentObject">
+                <meta itemprop="alignmentType" content="educationalSubject" />
+                <span itemprop="educationalFramework"> Curriculum for Excellence</span>:
+                <span itemprop="targetName">Social studies: people past events and societies</span>
+                <link itemprop="targetUrl" href="http://example.org/CFE/subjects/3362">
+            </span>
+        </li>
+    </ul>
+    <p>Link to lesson plan: <a itemprop="url" href="http://example.org/lessonplan">http://example.org/lessonplan</a></p>
+    <video itemprop="video" itemscope itemtype="http://schema.org/VideoObject">
+        <source itemprop="url" src="http://example.org/movie.mp4" type="video/mp4">
+        <span itemprop="name">Video Title</span>
+        <span itemprop="description">Video description</span>
+        <span itemprop="uploadDate">2000-01-01</span>
+        <img itemprop="thumbnailUrl" src="http://example.org/thubnail.mp4" alt="thumbnail" >
+        Duration: <span itemprop="duration">03:12</span>        
+    </video>
+    <p>This example is based on <a itemprop="isBasedOnUrl" href="http://www.bbc.co.uk/education/clips/z3sjtfr">Declaration of Arbroath</a> from BBC Bitesize</p>
+</div>
+
+RDFA:
+<div vocab="http://schema.org/" typeof="WebPage">
+    <h1 property="name">The Declaration of Arbroath</h1>
+    <p>A <span property="learningResourceType">lesson plan</span> 
+       for <span rel="audience" 
+                 typeof="EducationalAudience">
+           <span property="educationalRole">teacher</span></span>s with associated video. 
+       Typical length of lesson, <span property="timeRequired">1 hour</span>. 
+       Recommended for children aged <span property="typicalAgeRange">10-12</span> years old.
+    </p>
+    <p>Subject: <span property="about">Wars of Scottish independence</span></p>
+    <p>Alignment to curriculum:</p>
+    <ul>
+        <li>England 
+            <span rel="educationalAlignment"
+                  typeof="http://schema.org/AlignmentObject">
+                <meta property="alignmentType" content="educationalLevel" />
+                <span property="educationalFramework">National Curriculum</span>:
+                <span property="targetName">KS 3</span>
+                <link property="targetUrl" href="http://example.org/ENC/levels/KS3" />
+            </span>
+            <span rel="educationalAlignment"
+                  typeof="http://schema.org/AlignmentObject">
+                <meta property="alignmentType" content="educationalSubject" />
+                <meta property="educationalFramework" content="National Curriculum" />
+                <span property="targetName">History: The middle ages (12th to 15th century)</span>
+                <link property="targetUrl" href="http://example.org/ENC/subjects/3102" />
+            </span>
+        </li>
+        <li>Scotland 
+            <span rel="educationalAlignment"
+                  typeof="http://schema.org/AlignmentObject">
+                <meta property="alignmentType" content="educationalLevel" />
+                <span property="educationalFramework">SCQF</span>:
+                <span property="targetName">Level 2</span>
+                <link property="targetUrl" href="http://example.org/SCQF/levels/2" />
+            </span>
+            <span rel="educationalAlignment"
+                  typeof="http://schema.org/AlignmentObject">
+                <meta property="alignmentType" content="educationalSubject" />
+                <span property="educationalFramework"> Curriculum for Excellence</span>: 
+                <span property="targetName">Social studies: people past events and societies</span>
+                <link property="targetUrl" href="http://example.org/CFE/subjects/3362" />
+            </span>
+        </li>
+    </ul>
+    <p>Link to lesson plan: <a property="url" href="http://example.org/lessonplan">http://example.org/lessonplan</a></p>
+    <video rel="video" typeof="http://schema.org/VideoObject">
+        <source property="url" src="http://example.org/movie.mp4" type="video/mp4" />
+        <span property="name">Video Title</span>
+        <span property="description">Video description</span>
+        <span property="uploadDate">2000-01-01</span>
+        <img property="thumbnailUrl" src="http://example.org/thubnail.mp4" alt="thumbnail" />
+        Duration: <span property="duration">03:12</span> 
+    </video>
+    <p>This example is based on <a property="isBasedOnUrl" href="http://www.bbc.co.uk/education/clips/z3sjtfr">Declaration of Arbroath</a> from BBC Bitesize</p>
+</div>
+
+JSON:
+<script type="application/ld+json">
+
+{
+  "@context":  "http://schema.org/",
+  "@type": "WebPage",
+  "name": "The Declaration of Arbroath",
+  "about": "Wars of Scottish independence",
+  "learningResourceType": "lesson plan",
+  "timeRequired": "1 hour",
+  "typicalAgeRange": "10-12",
+  "audience": {
+      "@type": "EducationalAudience",
+      "educationalRole": "teacher"
+  },
+  "educationalAlignment": [
+    {
+      "@type": "AlignmentObject",
+      "alignmentType": "educationalSubject",
+      "educationalFramework": " Curriculum for Excellence",
+      "targetName": "Social studies: people past events and societies",
+      "targetUrl": "http://example.org/CFE/subjects/3362"      
+    },
+    {
+      "@type": "AlignmentObject",
+      "alignmentType": "educationalLevel",
+      "educationalFramework": "SCQF",
+      "targetName": "Level 2",
+      "targetUrl":  "http://example.org/SCQF/levels/2"      
+    },
+    {
+      "@type": "AlignmentObject",
+      "alignmentType": "educationalLevel",
+      "educationalFramework": "National Curriculum",
+      "targetName": "KS 3",
+      "targetUrl": "http://example.org/ENC/levels/KS3"
+    },
+    {
+      "@type": "AlignmentObject",
+      "alignmentType": "educationalSubject",
+      "educationalFramework": "National Curriculum",
+      "targetName": "History: The middle ages (12th to 15th century)",
+      "targetUrl" : "http://example.org/ENC/subjects/3102"
+    }
+  ],
+  "url" : "http://example.org/lessonplan",
+
+  "video": {
+    "@type": "VideoObject",
+    "description": "Video description",
+    "duration": "03:12",
+    "name": "Video Title",
+    "thumbnailUrl": "http://example.org/thubnail.mp4",
+    "uploadDate": "2000-01-01",
+    "url" : "http://example.org/movie.mp4"
+  },
+  "isBasedOnUrl": "http://www.bbc.co.uk/education/clips/z3sjtfr"
+}
+</script>
+
+TYPES:  FakeEntryNeeded, FixMeSomeDay
+PRE-MARKUP:
+MICRODATA:
+RDFA:
+JSON:
+

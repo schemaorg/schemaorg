@@ -57,13 +57,15 @@
 
   <div id="mainContent" class="faq">
 
-<h1>Extension Mechanism</h1>
+<h1>Schema.org Extensions</h1>
 
-<p><b>Status Note:</b>
-<br/>This page introduces the new extension mechanism adopted in May
-    2015. Documentation on the old 'slash-based' extension mechanism
-    can be found <a href="old_extension.html">here</a>.
-</p>
+
+<p>We have two kinds of named extension to schema.org: 'hosted' and 'external'.  This is in addition to the ongoing practice of extending
+  schema.org via the changes and improvements included in every <a href="/docs/release.html">release</a>.
+
+<p>Hosted extensions are managed and reviewed as part of the schema.org project itself.
+External extensions are managed and reviewed by other groups. See the <a href="/docs/schemas.html">schemas page</a> for a listing.</p>
+
 
 <hr />
 
@@ -153,7 +155,7 @@ The extension type is taken from  http://bibliograph.net/Microform, (which on th
         &lt;span property="author"&gt;J.R.R Tolkien&lt;/span&gt; and was originally published
         in the &lt;span property="publisher" typeof="Organization"&gt;
             &lt;span property="location"&gt;United Kingdom&lt;/span&gt; by
-            &lt;span property="name"&gt;George Allen & Unwin&lt;/span&gt;
+            &lt;span property="name"&gt;George Allen &amp; Unwin&lt;/span&gt;
         &lt;/span&gt; in &lt;time property="datePublished"&gt;1954&lt;/time&gt;.
         The book has been republished many times, including editions by
         &lt;span property="workExample" typeof="Book"&gt;
@@ -187,7 +189,7 @@ The example above puts all data into the extension namespace. Although this can 
         &lt;span property="author"&gt;J.R.R Tolkien&lt;/span&gt; and was originally published
         in the &lt;span property="publisher" typeof="Organization"&gt;
             &lt;span property="location"&gt;United Kingdom&lt;/span&gt; by
-            &lt;span property="name"&gt;George Allen & Unwin&lt;/span&gt;
+            &lt;span property="name"&gt;George Allen &amp; Unwin&lt;/span&gt;
         &lt;/span&gt; in &lt;time property="datePublished"&gt;1954&lt;/time&gt;.
         The book has been republished many times, including editions by
         &lt;span property="workExample" typeof="Book"&gt;
@@ -226,7 +228,7 @@ Here is that last approach written in JSON-LD (it works today, but would be even
      "@type": "Organization",
   },
   "location": "United Kingdom",
-  "name": "George Allen & Unwin",
+  "name": "George Allen &amp; Unwin",
  },
   "datePublished": "1954",
   "workExample": {
@@ -258,7 +260,7 @@ Here is that last approach written in JSON-LD (it works today, but would be even
     "gtin13": "5011476100885",
     "@type": "TradeItem",
     "tradeItemDescription": "Deliciously crunchy Os, packed with 4 whole grains. Say Yes to Cheerios",
-    "healthClaimDescription": "8 Vitamins & Iron, Source of Calcium & High in Fibre",
+    "healthClaimDescription": "8 Vitamins &amp; Iron, Source of Calcium &amp; High in Fibre",
     "hasAllergenRelatedInformation": {
         "@type": "gs1:AllergenRelatedInformation",
         "allergenStatement": "May contain nut traces"
@@ -315,6 +317,16 @@ This example shows a possible encoding of the GS1 schemas overlaid onto schema.o
     "@context": "http://schema.org/",   "@vocab": "http://gs1.schema.org/", it would be possible to simply write "@context": "http://gs1.schema.org/".
 
 </p>
+
+
+<p><b>Historical Note:</b>
+<br/>This page introduces the new extension mechanism adopted in May
+    2015. Documentation on the old 'slash-based' extension mechanism
+    <a href="old_extension.html">has been archived</a>.
+</p>
+
+
+</div>
 
 <div id="footer"><p>
   <a href="../docs/terms.html">Terms and conditions</a></p>
