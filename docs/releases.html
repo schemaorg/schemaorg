@@ -133,14 +133,43 @@ td.release  {
 -->
 
 <tr>
-<td class="release"><!-- TODO <a href="/version/3.0/">3.0</a> --><br/>sdo-deimos<br/>(2016-04-xx)</td>
+<td>&nbsp;</td>
+<td class="prerelease">Early Access Fixes</td>
+<td>
+<p>Changes that will be included in the next full release, but which have been published immediately:</p>
+<ul>
+<li id="g1159"><a href="https://github.com/schemaorg/schemaorg/pull/1159">Issue #1159</a>: Fixed <a href="https://github.com/schemaorg/schemaorg/issues/1157">problems with W3C validator</a>, caching, and <a href="https://github.com/schemaorg/schemaorg/issues/1158">misclassification</a> of <a href="/manufacturer">manufacturer</a> property which in in core rather than health-lifesci extension.</li>
+<li id="g1165"><a href="https://github.com/schemaorg/schemaorg/issues/1165">Issue #1165</a>: Improved wording for term pages that are not in core, to avoid publishers worrying that they need to change their markup.</li>
+<li id="g1136"><a href="https://github.com/schemaorg/schemaorg/issues/1136">Issue #1136</a>: Fixed term labels to always be alphanumeric (no 'bib:' prefixes etc.)</li>
+<li id="g1168"><a href="https://github.com/schemaorg/schemaorg/pull/1168">Issue #1168</a>: Fixed unit tests to run against extension schema data as well as core.</li>
+<li id="g1169"><a href="https://github.com/schemaorg/schemaorg/issues/1169">Issue #1169</a>: Fixes for property/type associations in health-lifesci and pending drafts, identified by improved unit tests.</li>
+<li id="g1174"><a href="https://github.com/schemaorg/schemaorg/issues/1174">Issue #1174</a>: Fix for missing definition for 'ingredients'.</li>
+</ul>
+</td>
+</tr>
+
+<tr>
+<td class="release"><a href="/version/3.0/">3.0</a><br/>sdo-deimos<br/>(2016-05-04)</td>
 <span id="v.next"></span>
 <span id="sdo-deimos"></span>
 <span id="v3.0"></span>
 <td>
-<div>
-Version 3.0 (working name 'sdo-deimos'). This is a release candidate, 2016-04-20. See <a href="https://github.com/schemaorg/schemaorg/issues/1">planning pages</a>, specifically <a href="https://github.com/schemaorg/schemaorg/issues/911">#911</a> for details.
-</div>
+<p>
+Version 3.0 (working name 'sdo-deimos'). See <a href="https://github.com/schemaorg/schemaorg/issues/1">planning pages</a>, specifically <a href="https://github.com/schemaorg/schemaorg/issues/911">#911</a> for details.
+</p>
+<p>This release introduces three new <a href="/docs/extension.html">extensions</a>.
+<ul>
+<li>The <a href="http://meta.schema.org/">meta.schema.org</a> extension contains terms primarily designed to support the implementation of the Schema.org vocabulary itself.</li>
+<li>The <a href="http://pending.schema.org/">pending.schema.org</a> extension is a staging area for work-in-progress terms which have yet to be accepted into the core vocabulary. Pending terms are subject to change and should be used with caution.</li>
+<li>The <a href="http://health-lifesci.schema.org/">health-lifesci.schema.org</a> extension is a new home for our existing <a href="/docs/meddocs.html">Medical and healthcare</a> related terms, as well as potential future collaborative work. </li>
+</ul>
+</p>
+<p>The initial releases of <a href="http://bib.schema.org/">bib.schema.org</a> and <a href="http://auto.schema.org">auto.schema.org</a> have also been finalized.
+</p>
+<p>In addition to numerous vocabulary-related improvements, we have added a new "<a href="/docs/howwework.html">How we work</a>" document providing an overview of the project's approach to schema development, collaboration, versioning and change review.
+In particular it documents the use of the new <a href="http://pending.schema.org/">pending</a> extension, which gives earlier access to proposed new schema designs,
+as well the parallel <a href="http://webschemas.org/">webschemas.org</a> site which shows the latest work-in-progress version of the entire schema.org site.
+</p>
 </td>
 
 <td>
@@ -171,7 +200,7 @@ The <a href="/grantee">grantee</a> property indicates in each case the person, o
 
 <h3>auto.schema.org</h3>
 <ul>
-  <li id="g922"><a href="https://githu.com/schemaorg/schemaorg/pull/922">Issue #922</a>: Finalized first release of <a href="http://auto.schema.org/">auto.schema.org</a>. Removed "pre-final preview release" description.</li>
+  <li id="g922"><a href="https://github.com/schemaorg/schemaorg/pull/922">Issue #922</a>: Finalized first release of <a href="http://auto.schema.org/">auto.schema.org</a>. Removed "pre-final preview release" description.</li>
 </ul>
 
 <h3>bib.schema.org</h3>
@@ -197,6 +226,7 @@ The <a href="/grantee">grantee</a> property indicates in each case the person, o
 <li id="g1045"><a href="https://github.com/schemaorg/schemaorg/issues/1045">Issue #1045</a>: Added <a href="/LinkRole">LinkRole</a> as a subtype of <a href="/Role">Role</a>, and a <a href="/linkRelationship">linkRelationship</a> property.</li>
 <li id="g243"><a href="https://github.com/schemaorg/schemaorg/issues/243">Issues #243</a>: Added <a href="/WorkersUnion">WorkersUnion</a>.</li>
 <li id="g1004"><a href="https://github.com/schemaorg/schemaorg/issues/1004">Issue #1004</a>: Added <a href="/broadcastFrequency">broadcastFrequency</a> to <a href="/BroadcastService">BroadcastService</a> to specify the over the air frequency.</li>
+<li id="g195"><a href="https://github.com/schemaorg/schemaorg/issues/195">Issue #195</a>: Added snapshot of the evolving <a href="/Course">Course</a>-related terms being developed by the <a href="https://lists.w3.org/Archives/Public/public-schema-course-extend/">Course Extension</a> community group.</li>
 </ul>
 
 <h3>Site improvements</h3>
@@ -339,8 +369,8 @@ per <a href="https://github.com/schemaorg/schemaorg/issues/784">#784</a>. Added 
 <ul>
 <li><a href="https://github.com/schemaorg/schemaorg/issues/764">Issue #764</a> Added example for <a href="/makesOffer">makesOffer</a>.</li>
 <li><a href="https://github.com/schemaorg/schemaorg/issues/733">Issue #733</a> Added example showing library availability for <a href="/Book">Book</a>. Also added example for <a href="/Library">Library</a> and linked it to <a href="/openingHoursSpecification">openingHoursSpecification</a> as a good example for that too.</li>
-<li><a href="https://github.com/schemaorg/schemaorg/pull/785">Bulk update to examples</a>: Various fixes to html syntax, missing quotes and &lt;meta&gt; tags that sholud be &lt;link&gt; tags.</li>
-<li><a href="https://github.com/schemaorg/schemaorg/issues/478">Issue #478</a>: Replaced &lt;meta&gt; tags that sholud be &lt;link&gt; tags in periodical examples.</li>
+<li><a href="https://github.com/schemaorg/schemaorg/pull/785">Bulk update to examples</a>: Various fixes to html syntax, missing quotes and &lt;meta&gt; tags that should be &lt;link&gt; tags.</li>
+<li><a href="https://github.com/schemaorg/schemaorg/issues/478">Issue #478</a>: Replaced &lt;meta&gt; tags that should be &lt;link&gt; tags in periodical examples.</li>
 <li>Several small markup fixes to various examples.</li>
 </ul>
 
@@ -822,7 +852,7 @@ Introduces vocabulary that enables websites to describe the actions they enable 
 </tr>
 
 <tr id="v1.1">
-<td class="release">1.1<br/>(2014-04-04)</td>
+<td class="release">1.1<br/>(2014-05-04)</td>
 <td>Reservations, Q/A and more.</td>
 <td>
 <p>Added a Reservation schema. Question/Answer sites. Order changes. Added EmailMessage.</p>

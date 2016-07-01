@@ -7,11 +7,7 @@ PRE-MARKUP:
 MICRODATA:
 
 <div itemscope itemtype="http://schema.org/WebSite">
-<<<<<<< HEAD
-    <link itemprop="url" href="http://example.com/"/>
-=======
     <link itemprop="url" href="http://www.example.com/"/>
->>>>>>> 1102989... Attribute should be href, not content.
     <form itemprop="potentialAction" itemscope itemtype="http://schema.org/SearchAction">
 	  <meta itemprop="target" content="http://example.com/search?q={query}"/>
       <input itemprop="query-input" type="text" name="query"/>
@@ -22,21 +18,12 @@ MICRODATA:
 RDFA:
 
 <div vocab="http://schema.org/" typeof="WebSite">
-<<<<<<< HEAD
-   <link property="url" href="http://example.com/"/>
-   <form property="potentialAction" typeof="SearchAction">
-      <meta property="target" content="http://example.com/search?q={query}"/>
-      <input property="query-input" type="text" name="query"/>
-      <input type="submit"/>
-  </form>
-=======
     <meta property="url" href="http://www.example.com/"/>
     <form property="potentialAction" typeof="http://schema.org/SearchAction">
       <meta property="target" content="http://www.example.com/search?q={query}"/>
       <input property="query-input" type="text" name="query">
       <input type="submit">
     </form>
->>>>>>> 1102989... Attribute should be href, not content.
 </div>
 
 JSON:

@@ -1,0 +1,54 @@
+@prefix ns1: <http://schema.org/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+ns1:Class a rdfs:Class ;
+    rdfs:label "Class" ;
+    ns1:isPartOf <http://meta.schema.org/> ;
+    rdfs:comment "A class, also often called a 'Type'; equivalent to rdfs:Class." ;
+    rdfs:subClassOf ns1:Intangible .
+
+ns1:Property a rdfs:Class ;
+    rdfs:label "Property" ;
+    ns1:isPartOf <http://meta.schema.org/> ;
+    rdfs:comment "A property, used to indicate attributes and relationships of some Thing; equivalent to rdf:Property." ;
+    rdfs:subClassOf ns1:Intangible .
+
+ns1:category a rdf:Property ;
+    ns1:domainIncludes ns1:Class,
+        ns1:Property .
+
+ns1:domainIncludes a rdf:Property ;
+    rdfs:label "domainIncludes" ;
+    ns1:domainIncludes ns1:Property ;
+    ns1:isPartOf <http://meta.schema.org/> ;
+    ns1:rangeIncludes ns1:Class ;
+    rdfs:comment "Relates a property to a class that is (one of) the type(s) the property is expected to be used on." .
+
+ns1:inverseOf a rdf:Property ;
+    rdfs:label "inverseOf" ;
+    ns1:domainIncludes ns1:Property ;
+    ns1:isPartOf <http://meta.schema.org/> ;
+    ns1:rangeIncludes ns1:Property ;
+    rdfs:comment "Relates a property to a property that is its inverse. Inverse properties relate the same pairs of items to each other, but in reversed direction. For example, the 'alumni' and 'alumniOf' properties are inverseOf each other. Some properties don't have explicit inverses; in these situations RDFa and JSON-LD syntax for reverse properties can be used." .
+
+ns1:rangeIncludes a rdf:Property ;
+    rdfs:label "rangeIncludes" ;
+    ns1:domainIncludes ns1:Property ;
+    ns1:isPartOf <http://meta.schema.org/> ;
+    ns1:rangeIncludes ns1:Class ;
+    rdfs:comment "Relates a property to a class that constitutes (one of) the expected type(s) for values of the property." .
+
+ns1:supersededBy a rdf:Property ;
+    rdfs:label "supersededBy" ;
+    ns1:domainIncludes ns1:Class,
+        ns1:Enumeration,
+        ns1:Property ;
+    ns1:isPartOf <http://meta.schema.org/> ;
+    ns1:rangeIncludes ns1:Class,
+        ns1:Enumeration,
+        ns1:Property ;
+    rdfs:comment "Relates a term (i.e. a property, class or enumeration) to one that supersedes it." .
+

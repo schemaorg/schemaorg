@@ -51,7 +51,7 @@ class ParseExampleFile :
 
     def process_example_id(self, m):
         self.egmeta["id"] = m.group(1)
-        logging.debug("Storing ID: %s" % self.egmeta["id"] )
+        #logging.debug("Storing ID: %s" % self.egmeta["id"] )
         return ''
 
     def parse (self, contents):
@@ -70,12 +70,12 @@ class ParseExampleFile :
                 api.Example.AddExample(self.terms, self.preMarkupStr, self.microdataStr, self.rdfaStr, self.jsonStr, self.egmeta)
                 self.initFields()
                 typelist = re.split(':', line)
-                logging.debug("TYPE INFO: '%s' " % line );
+                #logging.debug("TYPE INFO: '%s' " % line );
                 tdata = egid.sub(self.process_example_id, typelist[1]) # strips IDs, records them in egmeta["id"]
                 ttl = tdata.split(',')
                 for ttli in ttl:
                     ttli = re.sub(' ', '', ttli)
-                    logging.debug("TTLI: %s " % ttli); # danbri tmp
+                    #logging.debug("TTLI: %s " % ttli); # danbri tmp
                     self.terms.append(ttli)
             else:
                 tokens = ["PRE-MARKUP:", "MICRODATA:", "RDFA:", "JSON:"]
@@ -89,8 +89,6 @@ class ParseExampleFile :
         self.nextPart('TYPES:') # should flush on each block of examples
         api.Example.AddExample(self.terms, self.preMarkupStr, self.microdataStr, self.rdfaStr, self.jsonStr, self.egmeta) # should flush last one
         #logging.info("Final AddExample called with terms %s " % self.terms)
-        for t in self.terms:
-            logging.debug("Adding %s" % "".join( [" ; %s " % t for t in self.terms] ) )
 
 
 class UsageFileParser:

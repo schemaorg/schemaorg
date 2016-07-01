@@ -94,11 +94,11 @@ that are useful for publishers and consumers of schema.org data.
 <h2>Properties</h2>
 
 
-<p id="#propaz">
+<p id="propaz">
 <b>A-Z:</b>
 <small>
 {% for term in az_props %}
-<a href="term_{{term}}">{{term}}</a>
+<a href="#term_{{term}}">{{term}}</a>
 {% endfor %}
 </small>
 </p>

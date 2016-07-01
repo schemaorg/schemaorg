@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import unittest
 import os
 from os import getenv
@@ -18,6 +20,7 @@ from parsers import *
 
 #Setup testharness state BEFORE importing sdoapp
 setInTestHarness(True)
+os.environ["WARMUPSTATE"] = "off"
 from sdoapp import *
 
 schema_path = './data/schema.rdfa'
@@ -37,24 +40,18 @@ setInTestHarness(True)
 class SDOGraphSetupTestCase(unittest.TestCase):
 
   @classmethod
-  def parseRDFaFilesWithRDFLib(self):
-      """Parse data/*rdfa into a data object and an error object with rdflib.
-      We glob so that work-in-progress schemas can be stored separately. For
-      final publication, a single schema file is used. Note that this does
-      not yet load or test any extension schemas beneath data/ext/*."""
-
+  def loadGraphs(self):
       from rdflib import Graph
       import rdflib
-      log.info("rdflib: %s - %s" % (rdflib.__version__,rdflib.__date__))
-      files = glob.glob("data/*.rdfa")
-      log.info("Found %s files via data/*rdfa." % len(files))
-      self.rdflib_errors = Graph()
       self.rdflib_data = Graph()
-      for f in files:
-        log.info("Files to parse: %s" % f )
-        log.info("Parsing URL %s with rdflib RDFa parser. " % f)
-        self.rdflib_data.parse(f, format='rdfa', pgraph=self.rdflib_errors)
-        # log.info(self.rdflib_errors.serialize(format="nt"))
+      store = getMasterStore()
+      graphs = list(store.graphs())
+      log.info("Loading test graph from MasterStore")
+      for g in graphs:
+          id = str(g.identifier)
+          if not id.startswith("http://"):#skip some internal graphs
+              continue
+          self.rdflib_data += g
 
   @classmethod
   def setUpClass(self):
@@ -65,21 +62,11 @@ class SDOGraphSetupTestCase(unittest.TestCase):
       from rdflib import Graph
     except Exception as e:
       raise unittest.SkipTest("Need rdflib installed to do graph tests: %s" % e)
+    SDOGraphSetupTestCase.loadGraphs()
 
-    read_schemas() # built-in parsers.
-    self.schemasInitialized = schemasInitialized
-    log.info("SDOGraphSetupTestCase reading schemas using built-in parsers.")
-
-    log.info("Attempting to parse data/*rdfa with rdflib.")
-    SDOGraphSetupTestCase.parseRDFaFilesWithRDFLib()
-
-  def test_schemasInitializedForGraph(self):
-    self.assertTrue(self.schemasInitialized,
-                     "Schemas should be initialized during setup to be loaded into a graph for testing.")
-
-  def test_rdflib_happy(self):
-    self.assertEqual(len(self.rdflib_errors), 0,
-                     "rdflib should have zero errors. %s" % self.rdflib_errors.serialize(format="nt"))
+  def test_graphsLoaded(self):
+    self.assertTrue(len(self.rdflib_data) > 0,
+                     "Graph rdflib_data should have some triples in it.")
 
   # SPARQLResult http://rdflib.readthedocs.org/en/latest/apidocs/rdflib.plugins.sparql.html
   # "A list of dicts (solution mappings) is returned"
@@ -196,6 +183,18 @@ class SDOGraphSetupTestCase(unittest.TestCase):
   def test_readSchemaFromRDFa(self):
     self.assertTrue(True, False, "We should know how to locally get /docs/schema_org_rdfa.html but this requires fixes to api.py.")
 
+  #@unittest.expectedFailure
+  def test_simpleLabels(self):
+     s = ""
+     complexLabels = self.rdflib_data.query(
+        "select distinct ?term ?label where { ?term rdfs:label ?label  FILTER regex(?label,'[^a-zA-Z0-9_ ]','i'). } " )
+     for row in complexLabels:
+       s += (" term %s has complex label: %s\n" % (row["term"],row["label"]))
+     self.assertTrue(len(complexLabels ) == 0,
+       "No complex term labels expected; alphanumeric only please. Found: %s Details: %s\n"% (len(complexLabels), s) )
+     # Whitespace is tolerated, for now.
+     # we don't deal well with non definitional uses of rdfs:label yet - non terms are flagged up.
+     # https://github.com/schemaorg/schemaorg/issues/1136
 
     #
     # TODO: https://github.com/schemaorg/schemaorg/issues/662

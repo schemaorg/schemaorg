@@ -83,7 +83,8 @@ def main(test_path, args):
         import appengine_config
         (appengine_config)
     except ImportError:
-        print "Note: unable to import appengine_config."
+        #print "Note: unable to import appengine_config."
+        print "..."
 
     # Discover and run tests.
     #suite = unittest.loader.TestLoader().discover(test_path)
