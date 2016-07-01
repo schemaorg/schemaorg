@@ -65,12 +65,12 @@ First copy snapshot into place:
 
 * cp data/schema.rdfa data/releases/2.2/schema.rdfa
 
-Then generate N-Triples etc. versions:
-
-* scripts/buildreleasefiles.sh 3.1 - Check listed extensions is correct update if not
-
 * Now the HTML snapshot itself. Assuming a local server (e.g. from 'dev_appserver .') we can do:
  * curl http://localhost:8080/version/latest/> data/releases/2.2/schema-all.html
+
+Then generate N-Triples etc. versions:
+* scripts/buildreleasefiles.sh 3.1 - Check listed extensions is correct update if not
+
 * Inspect snapshot, add to git and push to repo.
  * ls -l data/releases/2.2/
  * git add data/releases/2.2/*
@@ -79,9 +79,6 @@ Then generate N-Triples etc. versions:
   * Inspect /version/{x.y}/ on those sites manually; check for newly added terms etc.
  * TODO: more QA and automation would be highly appropriate here.
 
-
-# NQuads
-Use of rdfa2nq with extensions:
 
 
 TODO: list optional tasks post-launch (blog, email, refresh dydra sparql db etc.).
