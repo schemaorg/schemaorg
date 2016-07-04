@@ -64,8 +64,8 @@ INTESTHARNESS = False #Used to indicate we are being called from tests - use set
 EXTENSION_SUFFIX = "" # e.g. "*"
 
 #ENABLED_EXTENSIONS = [ 'admin', 'auto', 'bib' ]
-ENABLED_EXTENSIONS = [ 'auto', 'bib', 'legislation' ]
-ALL_LAYERS = [ 'core', 'auto', 'bib', 'legislation' ]
+ENABLED_EXTENSIONS = [ 'auto', 'bib', 'legal' ]
+ALL_LAYERS = [ 'core', 'auto', 'bib', 'legal' ]
 
 
 FORCEDEBUGGING = False
