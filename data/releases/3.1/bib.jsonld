@@ -14,13 +14,13 @@
       },
       "http://schema.org/domainIncludes": [
         {
-          "@id": "http://schema.org/ComicIssue"
+          "@id": "http://schema.org/ComicStory"
         },
         {
           "@id": "http://schema.org/VisualArtwork"
         },
         {
-          "@id": "http://schema.org/ComicStory"
+          "@id": "http://schema.org/ComicIssue"
         }
       ],
       "http://schema.org/isPartOf": {
@@ -76,13 +76,6 @@
       }
     },
     {
-      "@id": "http://schema.org/duration",
-      "@type": "rdf:Property",
-      "http://schema.org/domainIncludes": {
-        "@id": "http://schema.org/Audiobook"
-      }
-    },
-    {
       "@id": "http://schema.org/GraphicNovel",
       "@type": "http://schema.org/BookFormatType",
       "http://schema.org/category": {
@@ -99,25 +92,24 @@
       }
     },
     {
-      "@id": "http://schema.org/variantCover",
+      "@id": "http://schema.org/translationOfWork",
       "@type": "rdf:Property",
-      "http://schema.org/category": {
-        "@language": "en",
-        "@value": "Comics"
-      },
       "http://schema.org/domainIncludes": {
-        "@id": "http://schema.org/ComicIssue"
+        "@id": "http://schema.org/CreativeWork"
+      },
+      "http://schema.org/inverseOf": {
+        "@id": "http://schema.org/workTranslation"
       },
       "http://schema.org/isPartOf": {
         "@id": "http://bib.schema.org"
       },
       "http://schema.org/rangeIncludes": {
-        "@id": "http://schema.org/Text"
+        "@id": "http://schema.org/CreativeWork"
       },
-      "rdfs:comment": "A description of the variant cover\n    for the issue, if the issue is a variant printing. For example, \"Bryan Hitch\n    Variant Cover\" or \"2nd Printing Variant\".",
+      "rdfs:comment": "The work that this work has been translated from. e.g. 物种起源 is a translationOf “On the Origin of Species”",
       "rdfs:label": {
         "@language": "en",
-        "@value": "variantCover"
+        "@value": "translationOfWork"
       }
     },
     {
@@ -129,10 +121,10 @@
       },
       "http://schema.org/domainIncludes": [
         {
-          "@id": "http://schema.org/ComicIssue"
+          "@id": "http://schema.org/ComicStory"
         },
         {
-          "@id": "http://schema.org/ComicStory"
+          "@id": "http://schema.org/ComicIssue"
         },
         {
           "@id": "http://schema.org/VisualArtwork"
@@ -205,10 +197,10 @@
       },
       "rdfs:subClassOf": [
         {
-          "@id": "http://schema.org/ComicStory"
+          "@id": "http://schema.org/CoverArt"
         },
         {
-          "@id": "http://schema.org/CoverArt"
+          "@id": "http://schema.org/ComicStory"
         }
       ]
     },
@@ -242,10 +234,10 @@
       },
       "http://schema.org/rangeIncludes": [
         {
-          "@id": "http://schema.org/Person"
+          "@id": "http://schema.org/Organization"
         },
         {
-          "@id": "http://schema.org/Organization"
+          "@id": "http://schema.org/Person"
         }
       ],
       "rdfs:comment": "An agent associated with the publication event.",
@@ -276,21 +268,25 @@
       }
     },
     {
-      "@id": "http://schema.org/Newspaper",
-      "@type": "rdfs:Class",
-      "http://purl.org/dc/terms/source": {
-        "@id": "http://www.productontology.org/id/Newspaper"
+      "@id": "http://schema.org/variantCover",
+      "@type": "rdf:Property",
+      "http://schema.org/category": {
+        "@language": "en",
+        "@value": "Comics"
+      },
+      "http://schema.org/domainIncludes": {
+        "@id": "http://schema.org/ComicIssue"
       },
       "http://schema.org/isPartOf": {
         "@id": "http://bib.schema.org"
       },
-      "rdfs:comment": "A publication containing information about varied topics that are pertinent to general information, a geographic area, or a specific subject matter (i.e. business, culture, education). Often published daily.",
+      "http://schema.org/rangeIncludes": {
+        "@id": "http://schema.org/Text"
+      },
+      "rdfs:comment": "A description of the variant cover\n    for the issue, if the issue is a variant printing. For example, \"Bryan Hitch\n    Variant Cover\" or \"2nd Printing Variant\".",
       "rdfs:label": {
         "@language": "en",
-        "@value": "Newspaper"
-      },
-      "rdfs:subClassOf": {
-        "@id": "http://schema.org/Periodical"
+        "@value": "variantCover"
       }
     },
     {
@@ -313,24 +309,19 @@
       }
     },
     {
-      "@id": "http://schema.org/Audiobook",
+      "@id": "http://schema.org/Chapter",
       "@type": "rdfs:Class",
       "http://schema.org/isPartOf": {
         "@id": "http://bib.schema.org"
       },
-      "rdfs:comment": "An audiobook.",
+      "rdfs:comment": "One of the sections into which a book is divided. A chapter usually has a section number or a name.",
       "rdfs:label": {
         "@language": "en",
-        "@value": "Audiobook"
+        "@value": "Chapter"
       },
-      "rdfs:subClassOf": [
-        {
-          "@id": "http://schema.org/AudioObject"
-        },
-        {
-          "@id": "http://schema.org/Book"
-        }
-      ]
+      "rdfs:subClassOf": {
+        "@id": "http://schema.org/CreativeWork"
+      }
     },
     {
       "@id": "http://schema.org/ComicSeries",
@@ -360,13 +351,13 @@
       },
       "http://schema.org/domainIncludes": [
         {
-          "@id": "http://schema.org/ComicIssue"
+          "@id": "http://schema.org/VisualArtwork"
         },
         {
           "@id": "http://schema.org/ComicStory"
         },
         {
-          "@id": "http://schema.org/VisualArtwork"
+          "@id": "http://schema.org/ComicIssue"
         }
       ],
       "http://schema.org/isPartOf": {
@@ -414,48 +405,21 @@
       }
     },
     {
-      "@id": "http://schema.org/penciler",
-      "@type": "rdf:Property",
-      "http://schema.org/category": {
-        "@language": "en",
-        "@value": "Comics"
-      },
-      "http://schema.org/domainIncludes": [
-        {
-          "@id": "http://schema.org/VisualArtwork"
-        },
-        {
-          "@id": "http://schema.org/ComicIssue"
-        },
-        {
-          "@id": "http://schema.org/ComicStory"
-        }
-      ],
-      "http://schema.org/isPartOf": {
-        "@id": "http://bib.schema.org"
-      },
-      "http://schema.org/rangeIncludes": {
-        "@id": "http://schema.org/Person"
-      },
-      "rdfs:comment": "The individual who draws the primary narrative artwork.",
-      "rdfs:label": {
-        "@language": "en",
-        "@value": "penciler"
-      }
-    },
-    {
-      "@id": "http://schema.org/Chapter",
+      "@id": "http://schema.org/Newspaper",
       "@type": "rdfs:Class",
+      "http://purl.org/dc/terms/source": {
+        "@id": "http://www.productontology.org/id/Newspaper"
+      },
       "http://schema.org/isPartOf": {
         "@id": "http://bib.schema.org"
       },
-      "rdfs:comment": "One of the sections into which a book is divided. A chapter usually has a section number or a name.",
+      "rdfs:comment": "A publication containing information about varied topics that are pertinent to general information, a geographic area, or a specific subject matter (i.e. business, culture, education). Often published daily.",
       "rdfs:label": {
         "@language": "en",
-        "@value": "Chapter"
+        "@value": "Newspaper"
       },
       "rdfs:subClassOf": {
-        "@id": "http://schema.org/CreativeWork"
+        "@id": "http://schema.org/Periodical"
       }
     },
     {
@@ -474,31 +438,30 @@
       }
     },
     {
+      "@id": "http://schema.org/Audiobook",
+      "@type": "rdfs:Class",
+      "http://schema.org/isPartOf": {
+        "@id": "http://bib.schema.org"
+      },
+      "rdfs:comment": "An audiobook.",
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "Audiobook"
+      },
+      "rdfs:subClassOf": [
+        {
+          "@id": "http://schema.org/AudioObject"
+        },
+        {
+          "@id": "http://schema.org/Book"
+        }
+      ]
+    },
+    {
       "@id": "http://schema.org/pagination",
       "@type": "rdf:Property",
       "http://schema.org/domainIncludes": {
         "@id": "http://schema.org/Chapter"
-      }
-    },
-    {
-      "@id": "http://schema.org/translationOfWork",
-      "@type": "rdf:Property",
-      "http://schema.org/domainIncludes": {
-        "@id": "http://schema.org/CreativeWork"
-      },
-      "http://schema.org/inverseOf": {
-        "@id": "http://schema.org/workTranslation"
-      },
-      "http://schema.org/isPartOf": {
-        "@id": "http://bib.schema.org"
-      },
-      "http://schema.org/rangeIncludes": {
-        "@id": "http://schema.org/CreativeWork"
-      },
-      "rdfs:comment": "The work that this work has been translated from. e.g. 物种起源 is a translationOf “On the Origin of Species”",
-      "rdfs:label": {
-        "@language": "en",
-        "@value": "translationOfWork"
       }
     },
     {
@@ -520,6 +483,13 @@
       }
     },
     {
+      "@id": "http://schema.org/duration",
+      "@type": "rdf:Property",
+      "http://schema.org/domainIncludes": {
+        "@id": "http://schema.org/Audiobook"
+      }
+    },
+    {
       "@id": "file:///Users/wallisr/Development/schemaorg/BuldRel/schemaorg/data/ext/bib/bsdo-1.0.rdfa",
       "http://schema.org/softwareVersion": {
         "@language": "en",
@@ -535,10 +505,10 @@
       },
       "http://schema.org/domainIncludes": [
         {
-          "@id": "http://schema.org/ComicIssue"
+          "@id": "http://schema.org/VisualArtwork"
         },
         {
-          "@id": "http://schema.org/VisualArtwork"
+          "@id": "http://schema.org/ComicIssue"
         },
         {
           "@id": "http://schema.org/ComicStory"
@@ -582,6 +552,36 @@
       },
       "rdfs:subPropertyOf": {
         "@id": "http://schema.org/actor"
+      }
+    },
+    {
+      "@id": "http://schema.org/penciler",
+      "@type": "rdf:Property",
+      "http://schema.org/category": {
+        "@language": "en",
+        "@value": "Comics"
+      },
+      "http://schema.org/domainIncludes": [
+        {
+          "@id": "http://schema.org/VisualArtwork"
+        },
+        {
+          "@id": "http://schema.org/ComicIssue"
+        },
+        {
+          "@id": "http://schema.org/ComicStory"
+        }
+      ],
+      "http://schema.org/isPartOf": {
+        "@id": "http://bib.schema.org"
+      },
+      "http://schema.org/rangeIncludes": {
+        "@id": "http://schema.org/Person"
+      },
+      "rdfs:comment": "The individual who draws the primary narrative artwork.",
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "penciler"
       }
     },
     {

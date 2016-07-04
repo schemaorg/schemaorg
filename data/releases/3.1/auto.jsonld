@@ -13,10 +13,10 @@
       },
       "http://schema.org/domainIncludes": [
         {
-          "@id": "http://schema.org/Car"
+          "@id": "http://schema.org/BusOrCoach"
         },
         {
-          "@id": "http://schema.org/BusOrCoach"
+          "@id": "http://schema.org/Car"
         }
       ],
       "http://schema.org/isPartOf": {
@@ -29,22 +29,19 @@
       "rdfs:label": "roofLoad"
     },
     {
-      "@id": "http://schema.org/weightTotal",
-      "@type": "rdf:Property",
+      "@id": "http://schema.org/Motorcycle",
+      "@type": "rdfs:Class",
       "http://purl.org/dc/terms/source": {
         "@id": "http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group"
-      },
-      "http://schema.org/domainIncludes": {
-        "@id": "http://schema.org/Vehicle"
       },
       "http://schema.org/isPartOf": {
         "@id": "http://auto.schema.org"
       },
-      "http://schema.org/rangeIncludes": {
-        "@id": "http://schema.org/QuantitativeValue"
-      },
-      "rdfs:comment": "<p>The permitted total weight of the loaded vehicle, including passengers and cargo and the weight of the empty vehicle.<br />\n    Typical unit code(s): KGM for kilogram, LBR for pound<br /></p>\n<pre><code>Note 1: You can indicate additional information in the &lt;a href=\"name\"&gt;name&lt;/a&gt; of the &lt;a href=\"QuantitativeValue\"&gt;QuantitativeValue&lt;/a&gt; node.&lt;br /&gt;\nNote 2: You may also link to a &lt;a href=\"QualitativeValue\"&gt;QualitativeValue&lt;/a&gt; node that provides additional information using &lt;a href=\"valueReference\"&gt;valueReference&lt;/a&gt;.&lt;br /&gt;\nNote 3: Note that you can use &lt;a href=\"minValue\"&gt;minValue&lt;/a&gt; and &lt;a href=\"maxValue\"&gt;maxValue&lt;/a&gt; to indicate ranges.\n</code></pre>",
-      "rdfs:label": "weightTotal"
+      "rdfs:comment": "A motorcycle or motorbike is a single-track, two-wheeled motor vehicle.",
+      "rdfs:label": "Motorcycle",
+      "rdfs:subClassOf": {
+        "@id": "http://schema.org/Vehicle"
+      }
     },
     {
       "@id": "http://schema.org/enginePower",
@@ -63,6 +60,24 @@
       },
       "rdfs:comment": "<p>The power of the vehicle's engine.\n    Typical unit code(s): KWT for kilowatt, BHP for brake horsepower, N12 for metric horsepower (PS, with 1 PS = 735,49875 W) <br /></p>\n<pre><code>Note 1: There are many different ways of measuring an engine's power. For an overview, see  http://en.wikipedia.org/wiki/Horsepower#Engine_power_test_codes. &lt;br /&gt;\nNote 2: You can link to information about how the given value has been determined using the &lt;a href=\"valueReference\"&gt;valueReference&lt;/a&gt; property.&lt;br /&gt;\nNote 3: You can use &lt;a href=\"minValue\"&gt;minValue&lt;/a&gt; and &lt;a href=\"maxValue\"&gt;maxValue&lt;/a&gt; to indicate ranges.\n</code></pre>",
       "rdfs:label": "enginePower"
+    },
+    {
+      "@id": "http://schema.org/tongueWeight",
+      "@type": "rdf:Property",
+      "http://purl.org/dc/terms/source": {
+        "@id": "http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group"
+      },
+      "http://schema.org/domainIncludes": {
+        "@id": "http://schema.org/Vehicle"
+      },
+      "http://schema.org/isPartOf": {
+        "@id": "http://auto.schema.org"
+      },
+      "http://schema.org/rangeIncludes": {
+        "@id": "http://schema.org/QuantitativeValue"
+      },
+      "rdfs:comment": "<p>The permitted vertical load (TWR) of a trailer attached to the vehicle. Also referred to as Tongue Load Rating (TLR) or Vertical Load Rating (VLR).<br />\n        Typical unit code(s): KGM for kilogram, LBR for pound<br /></p>\n<pre><code>Note 1: You can indicate additional information in the &lt;a href=\"name\"&gt;name&lt;/a&gt; of the &lt;a href=\"QuantitativeValue\"&gt;QuantitativeValue&lt;/a&gt; node.&lt;br /&gt;\nNote 2: You may also link to a &lt;a href=\"QualitativeValue\"&gt;QualitativeValue&lt;/a&gt; node that provides additional information using &lt;a href=\"valueReference\"&gt;valueReference&lt;/a&gt;.&lt;br /&gt;\nNote 3: Note that you can use &lt;a href=\"minValue\"&gt;minValue&lt;/a&gt; and &lt;a href=\"maxValue\"&gt;maxValue&lt;/a&gt; to indicate ranges.\n</code></pre>",
+      "rdfs:label": "tongueWeight"
     },
     {
       "@id": "http://schema.org/fuelCapacity",
@@ -130,24 +145,6 @@
       ],
       "rdfs:comment": "The type of engine or engines powering the vehicle.",
       "rdfs:label": "engineType"
-    },
-    {
-      "@id": "http://schema.org/emissionsCO2",
-      "@type": "rdf:Property",
-      "http://purl.org/dc/terms/source": {
-        "@id": "http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group"
-      },
-      "http://schema.org/domainIncludes": {
-        "@id": "http://schema.org/Vehicle"
-      },
-      "http://schema.org/isPartOf": {
-        "@id": "http://auto.schema.org"
-      },
-      "http://schema.org/rangeIncludes": {
-        "@id": "http://schema.org/Number"
-      },
-      "rdfs:comment": "The CO2 emissions in g/km. When used in combination with a QuantitativeValue, put \"g/km\" into the unitText property of that value, since there is no UN/CEFACT Common Code for \"g/km\".",
-      "rdfs:label": "emissionsCO2"
     },
     {
       "@id": "http://schema.org/accelerationTime",
@@ -242,19 +239,22 @@
       }
     },
     {
-      "@id": "http://schema.org/Motorcycle",
-      "@type": "rdfs:Class",
+      "@id": "http://schema.org/weightTotal",
+      "@type": "rdf:Property",
       "http://purl.org/dc/terms/source": {
         "@id": "http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group"
+      },
+      "http://schema.org/domainIncludes": {
+        "@id": "http://schema.org/Vehicle"
       },
       "http://schema.org/isPartOf": {
         "@id": "http://auto.schema.org"
       },
-      "rdfs:comment": "A motorcycle or motorbike is a single-track, two-wheeled motor vehicle.",
-      "rdfs:label": "Motorcycle",
-      "rdfs:subClassOf": {
-        "@id": "http://schema.org/Vehicle"
-      }
+      "http://schema.org/rangeIncludes": {
+        "@id": "http://schema.org/QuantitativeValue"
+      },
+      "rdfs:comment": "<p>The permitted total weight of the loaded vehicle, including passengers and cargo and the weight of the empty vehicle.<br />\n    Typical unit code(s): KGM for kilogram, LBR for pound<br /></p>\n<pre><code>Note 1: You can indicate additional information in the &lt;a href=\"name\"&gt;name&lt;/a&gt; of the &lt;a href=\"QuantitativeValue\"&gt;QuantitativeValue&lt;/a&gt; node.&lt;br /&gt;\nNote 2: You may also link to a &lt;a href=\"QualitativeValue\"&gt;QualitativeValue&lt;/a&gt; node that provides additional information using &lt;a href=\"valueReference\"&gt;valueReference&lt;/a&gt;.&lt;br /&gt;\nNote 3: Note that you can use &lt;a href=\"minValue\"&gt;minValue&lt;/a&gt; and &lt;a href=\"maxValue\"&gt;maxValue&lt;/a&gt; to indicate ranges.\n</code></pre>",
+      "rdfs:label": "weightTotal"
     },
     {
       "@id": "http://schema.org/CarUsageType",
@@ -285,13 +285,13 @@
       },
       "http://schema.org/rangeIncludes": [
         {
-          "@id": "http://schema.org/URL"
-        },
-        {
           "@id": "http://schema.org/QualitativeValue"
         },
         {
           "@id": "http://schema.org/Text"
+        },
+        {
+          "@id": "http://schema.org/URL"
         }
       ],
       "rdfs:comment": "Indicates the design and body style of the vehicle (e.g. station wagon, hatchback, etc.).",
@@ -355,7 +355,7 @@
       "rdfs:label": "RentalVehicleUsage"
     },
     {
-      "@id": "http://schema.org/tongueWeight",
+      "@id": "http://schema.org/emissionsCO2",
       "@type": "rdf:Property",
       "http://purl.org/dc/terms/source": {
         "@id": "http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group"
@@ -367,10 +367,10 @@
         "@id": "http://auto.schema.org"
       },
       "http://schema.org/rangeIncludes": {
-        "@id": "http://schema.org/QuantitativeValue"
+        "@id": "http://schema.org/Number"
       },
-      "rdfs:comment": "<p>The permitted vertical load (TWR) of a trailer attached to the vehicle. Also referred to as Tongue Load Rating (TLR) or Vertical Load Rating (VLR).<br />\n        Typical unit code(s): KGM for kilogram, LBR for pound<br /></p>\n<pre><code>Note 1: You can indicate additional information in the &lt;a href=\"name\"&gt;name&lt;/a&gt; of the &lt;a href=\"QuantitativeValue\"&gt;QuantitativeValue&lt;/a&gt; node.&lt;br /&gt;\nNote 2: You may also link to a &lt;a href=\"QualitativeValue\"&gt;QualitativeValue&lt;/a&gt; node that provides additional information using &lt;a href=\"valueReference\"&gt;valueReference&lt;/a&gt;.&lt;br /&gt;\nNote 3: Note that you can use &lt;a href=\"minValue\"&gt;minValue&lt;/a&gt; and &lt;a href=\"maxValue\"&gt;maxValue&lt;/a&gt; to indicate ranges.\n</code></pre>",
-      "rdfs:label": "tongueWeight"
+      "rdfs:comment": "The CO2 emissions in g/km. When used in combination with a QuantitativeValue, put \"g/km\" into the unitText property of that value, since there is no UN/CEFACT Common Code for \"g/km\".",
+      "rdfs:label": "emissionsCO2"
     },
     {
       "@id": "http://schema.org/meetsEmissionStandard",
@@ -389,10 +389,10 @@
           "@id": "http://schema.org/QualitativeValue"
         },
         {
-          "@id": "http://schema.org/URL"
+          "@id": "http://schema.org/Text"
         },
         {
-          "@id": "http://schema.org/Text"
+          "@id": "http://schema.org/URL"
         }
       ],
       "rdfs:comment": "Indicates that the vehicle meets the respective emission standard.",

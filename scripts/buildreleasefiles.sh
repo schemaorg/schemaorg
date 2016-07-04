@@ -65,8 +65,8 @@ echo
 echo "Creating core: "
 dump core extensions schema
 echo
-echo "Creating all_layers: "
-dump "" "" all_layers
+echo "Creating all-layers: "
+dump "" "" all-layers
 for e in $EXTENSIONS
 do
 	echo
