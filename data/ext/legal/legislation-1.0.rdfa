@@ -113,7 +113,7 @@
 <div typeof="http://schema.org/LegalValueLevel" resource="http://schema.org/Authoritative">
   <link property="http://schema.org/isPartOf" href="http://legal.schema.org" />
   <span class="h" property="rdfs:label">Authoritative</span>
-  <span property="rdfs:comment">Indicates that the publisher gives some special status to the publication of the document. ("The Queens Printer" version of a UK Act of Parliament, or the PDF version of a Directive published by the EU Office of Publications). Something "authoritative" is considered to be also "Official".</span>
+  <span property="rdfs:comment">Indicates that the publisher gives some special status to the publication of the document. ("The Queens Printer" version of a UK Act of Parliament, or the PDF version of a Directive published by the EU Office of Publications). Something "Authoritative" is considered to be also "&lt;a href=&quot;/Official&quot;&gt;Official&lt;/a&gt;".</span>
   <span>Source:  <a property="dc:source" href="http://data.europa.eu/eli/ontology#LegalValue-authoritative">eli:LegalValue-authoritative</a></span>
   <span>Source:  <a property="dc:source" href="http://publications.europa.eu/mdr/eli/index.html">ELI</a></span>
 </div>
@@ -122,7 +122,7 @@
   <link property="http://schema.org/isPartOf" href="http://legal.schema.org" />
   <span class="h" property="rdfs:label">Definitive</span>
   <span property="rdfs:comment">Indicates a document for which the text is conclusively what the law says and is legally binding. (e.g. The digitally signed version of an Official Journal.)
-  Something "Definitive" is considered to be also "Authoritative".</span>
+  Something "Definitive" is considered to be also "&lt;a href=&quot;/Authoritative&quot;&gt;Authoritative&lt;/a&gt;".</span>
   <span>Source:  <a property="dc:source" href="http://data.europa.eu/eli/ontology#LegalValue-definitive">eli:LegalValue-definitive</a></span>
   <span>Source:  <a property="dc:source" href="http://publications.europa.eu/mdr/eli/index.html">ELI</a></span>
 </div>
@@ -230,7 +230,7 @@
 <div typeof="rdf:Property" resource="http://schema.org/changes">
 	<link property="http://schema.org/isPartOf" href="http://legal.schema.org" />
 	<span class="h" property="rdfs:label">legal:changes</span>
-	<span property="rdfs:comment">Another legislation that this legislation changes. This encompasses the notions of amendment, replacement, correction, repeal, or other types of change. This may be a direct change (textual or non-textual amendment) or a consequential or indirect change. The property is to be used to express the existence of a change relationship between two acts rather than the existence of a consolidated version of the text that shows the result of the change. For consolidation relationships, use the "consolidates" property.</span>
+	<span property="rdfs:comment">Another legislation that this legislation changes. This encompasses the notions of amendment, replacement, correction, repeal, or other types of change. This may be a direct change (textual or non-textual amendment) or a consequential or indirect change. The property is to be used to express the existence of a change relationship between two acts rather than the existence of a consolidated version of the text that shows the result of the change. For consolidation relationships, use the &lt;a href=&quot;/consolidates&quot;&gt;consolidates&lt;/a&gt; property.</span>
 	<span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Legislation">legal:Legislation</a></span>
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Legislation">legal:Legislation</a></span>
   <span>Source:  <a property="dc:source" href="http://data.europa.eu/eli/ontology#changes">eli:changes</a></span>
@@ -241,7 +241,7 @@
 <div typeof="rdf:Property" resource="http://schema.org/changedBy">
 	<link property="http://schema.org/isPartOf" href="http://legal.schema.org" />
 	<span class="h" property="rdfs:label">legal:changedBy</span>
-	<span property="rdfs:comment">Another legislation that changes this legislation. This encompasses the notions of amendment, replacement, correction, repeal, or other types of change. This may be a direct change (textual or non-textual amendment) or a consequential or indirect change. The property is to be used to express the existence of a change relationship between two acts rather than the existence of a consolidated version of the text that shows the result of the change. For consolidation relationships, use the "consolidatedBy" property.</span>
+	<span property="rdfs:comment">Another legislation that changes this legislation. This encompasses the notions of amendment, replacement, correction, repeal, or other types of change. This may be a direct change (textual or non-textual amendment) or a consequential or indirect change. The property is to be used to express the existence of a change relationship between two acts rather than the existence of a consolidated version of the text that shows the result of the change. For consolidation relationships, use the &lt;a href=&quot;/consolidatedBy&quot;&gt;consolidatedBy&lt;/a&gt; property.</span>
 	<span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Legislation">legal:Legislation</a></span>
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Legislation">legal:Legislation</a></span>
   <span>Source:  <a property="dc:source" href="http://data.europa.eu/eli/ontology#changes">eli:changed_by</a></span>
@@ -343,7 +343,7 @@
 <div typeof="rdf:Property" resource="http://schema.org/applies">
 	<link property="http://schema.org/isPartOf" href="http://legal.schema.org" />
 	<span class="h" property="rdfs:label">legal:applies</span>
-	<span property="rdfs:comment">Indicates that this legislation (or part of a legislation) somehow transfers another legislation in a different legislative context. This is an informative link, and it has no legal value. For legally-binding links of transposition, use the property transposes. For example an informative consolidated law of a European Union's member state "applies" the consolidated version of the European Directive implemented in it.</span>
+	<span property="rdfs:comment">Indicates that this legislation (or part of a legislation) somehow transfers another legislation in a different legislative context. This is an informative link, and it has no legal value. For legally-binding links of transposition, use the &lt;a href=&quot;/transposes&quot;&gt;transposes&lt;/a&gt; property. For example an informative consolidated law of a European Union's member state "applies" the consolidated version of the European Directive implemented in it.</span>
 	<span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Legislation">legal:Legislation</a></span>
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Legislation">legal:Legislation</a></span>
   <span>Source:  <a property="dc:source" href="http://data.europa.eu/eli/ontology#implements">eli:implements</a></span>
@@ -354,7 +354,7 @@
 <div typeof="rdf:Property" resource="http://schema.org/appliedBy">
 	<link property="http://schema.org/isPartOf" href="http://legal.schema.org" />
 	<span class="h" property="rdfs:label">legal:appliedBy</span>
-	<span property="rdfs:comment">Indicates that this legislation (or part of a legislation) is somehow transfered by another legislation in a different legislative context. This is an informative link, and it has no legal value. For legally-binding links of transposition, use the property transposedBy. For example the informative consolidated version of the European Directive is somehow "applied by" an informative consolidated law in a European Union's member state.</span>
+	<span property="rdfs:comment">Indicates that this legislation (or part of a legislation) is somehow transfered by another legislation in a different legislative context. This is an informative link, and it has no legal value. For legally-binding links of transposition, use the property &lt;a href=&quot;/transposedBy&quot;&gt;transposedBy&lt;/a&gt;. For example the informative consolidated version of the European Directive is somehow "applied by" an informative consolidated law in a European Union's member state.</span>
 	<span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Legislation">legal:Legislation</a></span>
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Legislation">legal:Legislation</a></span>
   <span>Source:  <a property="dc:source" href="http://data.europa.eu/eli/ontology#implemented_by">eli:implemented_by</a></span>
