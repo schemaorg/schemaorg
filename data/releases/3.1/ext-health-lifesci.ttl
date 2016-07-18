@@ -1,6 +1,6 @@
 @prefix ns1: <http://schema.org/> .
-@prefix ns2: <http://www.w3.org/2002/07/owl#> .
-@prefix ns3: <http://www.w3.org/ns/rdfa#> .
+@prefix ns2: <http://www.w3.org/ns/rdfa#> .
+@prefix ns3: <http://www.w3.org/2002/07/owl#> .
 @prefix ns4: <http://purl.org/dc/terms/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
@@ -30,7 +30,7 @@ ns1:Artery a rdfs:Class ;
     ns1:isPartOf <http://health-lifesci.schema.org> ;
     rdfs:comment "A type of blood vessel that specifically carries blood away from the heart." ;
     rdfs:subClassOf ns1:Vessel ;
-    ns2:equivalentClass <http://purl.bioontology.org/ontology/SNOMEDCT/51114001> .
+    ns3:equivalentClass <http://purl.bioontology.org/ontology/SNOMEDCT/51114001> .
 
 ns1:BloodTest a rdfs:Class ;
     rdfs:label "BloodTest" ;
@@ -95,7 +95,7 @@ ns1:Drug a rdfs:Class ;
     ns1:isPartOf <http://health-lifesci.schema.org> ;
     rdfs:comment "A chemical or biologic substance, used as a medical therapy, that has a physiological effect on an organism. Here the term drug is used interchangeably with the term medicine although clinical knowledge make a clear difference between them." ;
     rdfs:subClassOf ns1:Substance ;
-    ns2:equivalentClass <http://purl.bioontology.org/ontology/SNOMEDCT/410942007> .
+    ns3:equivalentClass <http://purl.bioontology.org/ontology/SNOMEDCT/410942007> .
 
 ns1:DrugClass a rdfs:Class ;
     rdfs:label "DrugClass" ;
@@ -250,7 +250,7 @@ ns1:MedicalDevice a rdfs:Class ;
     ns1:isPartOf <http://health-lifesci.schema.org> ;
     rdfs:comment "Any object used in a medical capacity, such as to diagnose or treat a patient." ;
     rdfs:subClassOf ns1:MedicalEntity ;
-    ns2:equivalentClass <http://purl.bioontology.org/ontology/SNOMEDCT/63653004> .
+    ns3:equivalentClass <http://purl.bioontology.org/ontology/SNOMEDCT/63653004> .
 
 ns1:MedicalDevicePurpose a rdfs:Class ;
     rdfs:label "MedicalDevicePurpose" ;
@@ -329,7 +329,7 @@ ns1:MedicalProcedure a rdfs:Class ;
     ns1:isPartOf <http://health-lifesci.schema.org> ;
     rdfs:comment "A process of care used in either a diagnostic, therapeutic, preventive or palliative capacity that relies on invasive (surgical), non-invasive, or other techniques." ;
     rdfs:subClassOf ns1:MedicalEntity ;
-    ns2:equivalentClass <http://purl.bioontology.org/ontology/SNOMEDCT/50731006> .
+    ns3:equivalentClass <http://purl.bioontology.org/ontology/SNOMEDCT/50731006> .
 
 ns1:MedicalProcedureType a rdfs:Class ;
     rdfs:label "MedicalProcedureType" ;
@@ -485,7 +485,7 @@ ns1:Patient a rdfs:Class ;
     rdfs:comment "A patient is any person recipient of health care services." ;
     rdfs:subClassOf ns1:MedicalAudience,
         ns1:Person ;
-    ns2:equivalentClass <http://purl.bioontology.org/ontology/SNOMEDCT/116154003> .
+    ns3:equivalentClass <http://purl.bioontology.org/ontology/SNOMEDCT/116154003> .
 
 ns1:Pharmacy a rdfs:Class ;
     rdfs:subClassOf ns1:MedicalBusiness .
@@ -553,7 +553,7 @@ ns1:Substance a rdfs:Class ;
     ns1:isPartOf <http://health-lifesci.schema.org> ;
     rdfs:comment "Any matter of defined composition that has discrete existence, whose origin may be biological, mineral or chemical." ;
     rdfs:subClassOf ns1:MedicalEntity ;
-    ns2:equivalentClass <http://purl.bioontology.org/ontology/SNOMEDCT/105590001> .
+    ns3:equivalentClass <http://purl.bioontology.org/ontology/SNOMEDCT/105590001> .
 
 ns1:SuperficialAnatomy a rdfs:Class ;
     rdfs:label "SuperficialAnatomy" ;
@@ -565,16 +565,16 @@ ns1:SurgicalProcedure a ns1:MedicalProcedureType,
         rdfs:Class ;
     rdfs:label "SurgicalProcedure" ;
     ns1:isPartOf <http://health-lifesci.schema.org> ;
-    rdfs:comment "A type of medical procedure that involves invasive surgical techniques." ;
+    rdfs:comment "A medical procedure involving an incision with instruments; performed for diagnose, or therapeutic purposes." ;
     rdfs:subClassOf ns1:MedicalProcedure ;
-    ns2:equivalentClass <http://purl.bioontology.org/ontology/SNOMEDCT/387713003> .
+    ns3:equivalentClass <http://purl.bioontology.org/ontology/SNOMEDCT/387713003> .
 
 ns1:TherapeuticProcedure a rdfs:Class ;
     rdfs:label "TherapeuticProcedure" ;
     ns1:isPartOf <http://health-lifesci.schema.org> ;
     rdfs:comment "A medical procedure intended primarily for therapeutic purposes, aimed at improving a health condition." ;
     rdfs:subClassOf ns1:MedicalProcedure ;
-    ns2:equivalentClass <http://purl.bioontology.org/ontology/SNOMEDCT/277132007> .
+    ns3:equivalentClass <http://purl.bioontology.org/ontology/SNOMEDCT/277132007> .
 
 ns1:TreatmentIndication a rdfs:Class ;
     rdfs:label "TreatmentIndication" ;
@@ -606,9 +606,9 @@ ns1:VitalSign a rdfs:Class ;
     rdfs:comment "Vital signs are measures of various physiological functions in order to assess the most basic body functions." ;
     rdfs:subClassOf ns1:MedicalSign .
 
-<file:///Users/wallisr/Development/schemaorg/BuldRel/schemaorg/data/ext/health-lifesci/med-health-core.rdfa> ns3:usesVocabulary <http://schema.org> .
+<file:///Users/wallisr/Development/schemaorg/BuldRel/schemaorg/data/ext/health-lifesci/med-health-core.rdfa> ns2:usesVocabulary <http://schema.org> .
 
-<file:///Users/wallisr/Development/schemaorg/BuldRel/schemaorg/data/ext/health-lifesci/physical-activity-and-exercise.rdfa> ns3:usesVocabulary <http://schema.org> .
+<file:///Users/wallisr/Development/schemaorg/BuldRel/schemaorg/data/ext/health-lifesci/physical-activity-and-exercise.rdfa> ns2:usesVocabulary <http://schema.org> .
 
 ns1:Abdomen a ns1:PhysicalExam ;
     rdfs:label "Abdomen" ;

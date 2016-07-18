@@ -25,20 +25,23 @@
       "rdfs:label": "includesHealthPlanFormulary"
     },
     {
-      "@id": "http://schema.org/HealthInsurancePlan",
-      "@type": "rdfs:Class",
+      "@id": "http://schema.org/healthPlanId",
+      "@type": "rdf:Property",
       "http://purl.org/dc/terms/source": {
         "@id": "https://github.com/schemaorg/schemaorg/issues/1062"
       },
       "http://schema.org/category": "issue-1062",
+      "http://schema.org/domainIncludes": {
+        "@id": "http://schema.org/HealthInsurancePlan"
+      },
       "http://schema.org/isPartOf": {
         "@id": "http://pending.schema.org"
       },
-      "rdfs:comment": "A US-style health insurance plan, including PPOs, EPOs, and HMOs.",
-      "rdfs:label": "HealthInsurancePlan",
-      "rdfs:subClassOf": {
-        "@id": "http://schema.org/Intangible"
-      }
+      "http://schema.org/rangeIncludes": {
+        "@id": "http://schema.org/Text"
+      },
+      "rdfs:comment": "The 14-character, HIOS-generated Plan ID number. (Plan IDs must be unique, even across different markets.)",
+      "rdfs:label": "healthPlanId"
     },
     {
       "@id": "http://schema.org/grantsCredential",
@@ -74,13 +77,13 @@
       },
       "http://schema.org/rangeIncludes": [
         {
+          "@id": "http://schema.org/Course"
+        },
+        {
           "@id": "http://schema.org/Text"
         },
         {
           "@id": "http://schema.org/AlignmentObject"
-        },
-        {
-          "@id": "http://schema.org/Course"
         }
       ],
       "rdfs:comment": "Requirements for taking the Course. May be completion of another Course or a textual description like \"permission of instructor\". Requirements may be a pre-requisite competency, referenced using AlignmentObject.",
@@ -117,19 +120,19 @@
       "rdfs:label": "accessibilitySummary"
     },
     {
-      "@id": "http://schema.org/Course",
+      "@id": "http://schema.org/HealthPlanCostSharingSpecification",
       "@type": "rdfs:Class",
       "http://purl.org/dc/terms/source": {
-        "@id": "https://github.com/schemaorg/schemaorg/issues/195"
+        "@id": "https://github.com/schemaorg/schemaorg/issues/1062"
       },
-      "http://schema.org/category": "issue-195",
+      "http://schema.org/category": "issue-1062",
       "http://schema.org/isPartOf": {
         "@id": "http://pending.schema.org"
       },
-      "rdfs:comment": "A description of an educational course which may be offered as distinct instances at different times and places, or through different media or modes of study. An educational course is a sequence of one or more educational events and/or creative works which aims to build knowledge, competence or ability of learners.",
-      "rdfs:label": "Course",
+      "rdfs:comment": "A description of costs to the patient under a given network or formulary.",
+      "rdfs:label": "HealthPlanCostSharingSpecification",
       "rdfs:subClassOf": {
-        "@id": "http://schema.org/CreativeWork"
+        "@id": "http://schema.org/Intangible"
       }
     },
     {
@@ -152,23 +155,20 @@
       "rdfs:label": "healthPlanMarketingUrl"
     },
     {
-      "@id": "http://schema.org/healthPlanId",
-      "@type": "rdf:Property",
+      "@id": "http://schema.org/HealthInsurancePlan",
+      "@type": "rdfs:Class",
       "http://purl.org/dc/terms/source": {
         "@id": "https://github.com/schemaorg/schemaorg/issues/1062"
       },
       "http://schema.org/category": "issue-1062",
-      "http://schema.org/domainIncludes": {
-        "@id": "http://schema.org/HealthInsurancePlan"
-      },
       "http://schema.org/isPartOf": {
         "@id": "http://pending.schema.org"
       },
-      "http://schema.org/rangeIncludes": {
-        "@id": "http://schema.org/Text"
-      },
-      "rdfs:comment": "The 14-character, HIOS-generated Plan ID number. (Plan IDs must be unique, even across different markets.)",
-      "rdfs:label": "healthPlanId"
+      "rdfs:comment": "A US-style health insurance plan, including PPOs, EPOs, and HMOs.",
+      "rdfs:label": "HealthInsurancePlan",
+      "rdfs:subClassOf": {
+        "@id": "http://schema.org/Intangible"
+      }
     },
     {
       "@id": "http://schema.org/EventSeries",
@@ -222,23 +222,20 @@
       }
     },
     {
-      "@id": "http://schema.org/healthPlanCopay",
-      "@type": "rdf:Property",
+      "@id": "http://schema.org/BroadcastFrequencySpecification",
+      "@type": "rdfs:Class",
       "http://purl.org/dc/terms/source": {
-        "@id": "https://github.com/schemaorg/schemaorg/issues/1062"
+        "@id": "https://github.com/schemaorg/schemaorg/issues/1004"
       },
-      "http://schema.org/category": "issue-1062",
-      "http://schema.org/domainIncludes": {
-        "@id": "http://schema.org/HealthPlanCostSharingSpecification"
-      },
+      "http://schema.org/category": "issue-1004",
       "http://schema.org/isPartOf": {
         "@id": "http://pending.schema.org"
       },
-      "http://schema.org/rangeIncludes": {
-        "@id": "http://schema.org/PriceSpecification"
-      },
-      "rdfs:comment": "Whether The copay amount.",
-      "rdfs:label": "healthPlanCopay"
+      "rdfs:comment": "The frequency in MHz and the modulation used for a particular BroadcastService.",
+      "rdfs:label": "BroadcastFrequencySpecification",
+      "rdfs:subClassOf": {
+        "@id": "http://schema.org/Intangible"
+      }
     },
     {
       "@id": "http://schema.org/healthPlanCostSharing",
@@ -343,10 +340,10 @@
       "http://schema.org/category": "issue-1062",
       "http://schema.org/domainIncludes": [
         {
-          "@id": "http://schema.org/MedicalOrganization"
+          "@id": "http://schema.org/HealthPlanNetwork"
         },
         {
-          "@id": "http://schema.org/HealthPlanNetwork"
+          "@id": "http://schema.org/MedicalOrganization"
         }
       ],
       "http://schema.org/isPartOf": {
@@ -397,10 +394,10 @@
       },
       "http://schema.org/rangeIncludes": [
         {
-          "@id": "http://schema.org/Text"
+          "@id": "http://schema.org/Number"
         },
         {
-          "@id": "http://schema.org/Number"
+          "@id": "http://schema.org/Text"
         }
       ],
       "rdfs:comment": "The number of credits offered for the Course toward an academic goal.",
@@ -440,10 +437,10 @@
       },
       "http://schema.org/rangeIncludes": [
         {
-          "@id": "http://schema.org/Person"
+          "@id": "http://schema.org/Organization"
         },
         {
-          "@id": "http://schema.org/Organization"
+          "@id": "http://schema.org/Person"
         }
       ],
       "rdfs:comment": "The (e.g. fictional) character, Person or Organization to whom the quotation is attributed within the containing CreativeWork.",
@@ -590,19 +587,19 @@
       "rdfs:label": "broadcastFrequency"
     },
     {
-      "@id": "http://schema.org/HealthPlanCostSharingSpecification",
+      "@id": "http://schema.org/Course",
       "@type": "rdfs:Class",
       "http://purl.org/dc/terms/source": {
-        "@id": "https://github.com/schemaorg/schemaorg/issues/1062"
+        "@id": "https://github.com/schemaorg/schemaorg/issues/195"
       },
-      "http://schema.org/category": "issue-1062",
+      "http://schema.org/category": "issue-195",
       "http://schema.org/isPartOf": {
         "@id": "http://pending.schema.org"
       },
-      "rdfs:comment": "A description of costs to the patient under a given network or formulary.",
-      "rdfs:label": "HealthPlanCostSharingSpecification",
+      "rdfs:comment": "A description of an educational course which may be offered as distinct instances at different times and places, or through different media or modes of study. An educational course is a sequence of one or more educational events and/or creative works which aims to build knowledge, competence or ability of learners.",
+      "rdfs:label": "Course",
       "rdfs:subClassOf": {
-        "@id": "http://schema.org/Intangible"
+        "@id": "http://schema.org/CreativeWork"
       }
     },
     {
@@ -625,20 +622,23 @@
       "rdfs:label": "benefitsSummaryUrl"
     },
     {
-      "@id": "http://schema.org/HealthPlanNetwork",
-      "@type": "rdfs:Class",
+      "@id": "http://schema.org/variablesMeasured",
+      "@type": "rdf:Property",
       "http://purl.org/dc/terms/source": {
-        "@id": "https://github.com/schemaorg/schemaorg/issues/1062"
+        "@id": "https://github.com/schemaorg/schemaorg/issues/1083"
       },
-      "http://schema.org/category": "issue-1062",
+      "http://schema.org/category": "issue-1083",
+      "http://schema.org/domainIncludes": {
+        "@id": "http://schema.org/Dataset"
+      },
       "http://schema.org/isPartOf": {
         "@id": "http://pending.schema.org"
       },
-      "rdfs:comment": "A US-style health insurance plan network.",
-      "rdfs:label": "HealthPlanNetwork",
-      "rdfs:subClassOf": {
-        "@id": "http://schema.org/Intangible"
-      }
+      "http://schema.org/rangeIncludes": {
+        "@id": "http://schema.org/Text"
+      },
+      "rdfs:comment": "The variables that are measured in some dataset, either described as text or as pairs of identifier and description using PropertyValue.",
+      "rdfs:label": "variablesMeasured"
     },
     {
       "@id": "http://schema.org/Quotation",
@@ -690,6 +690,25 @@
       "rdfs:subClassOf": {
         "@id": "http://schema.org/Event"
       }
+    },
+    {
+      "@id": "http://schema.org/healthPlanCopay",
+      "@type": "rdf:Property",
+      "http://purl.org/dc/terms/source": {
+        "@id": "https://github.com/schemaorg/schemaorg/issues/1062"
+      },
+      "http://schema.org/category": "issue-1062",
+      "http://schema.org/domainIncludes": {
+        "@id": "http://schema.org/HealthPlanCostSharingSpecification"
+      },
+      "http://schema.org/isPartOf": {
+        "@id": "http://pending.schema.org"
+      },
+      "http://schema.org/rangeIncludes": {
+        "@id": "http://schema.org/PriceSpecification"
+      },
+      "rdfs:comment": "Whether The copay amount.",
+      "rdfs:label": "healthPlanCopay"
     },
     {
       "@id": "http://schema.org/accessModeSufficient",
@@ -824,20 +843,23 @@
       "rdfs:label": "healthPlanCopayOption"
     },
     {
-      "@id": "http://schema.org/BroadcastFrequencySpecification",
-      "@type": "rdfs:Class",
+      "@id": "http://schema.org/previewUrl",
+      "@type": "rdf:Property",
       "http://purl.org/dc/terms/source": {
-        "@id": "https://github.com/schemaorg/schemaorg/issues/1004"
+        "@id": "https://github.com/schemaorg/schemaorg/issues/195"
       },
-      "http://schema.org/category": "issue-1004",
+      "http://schema.org/category": "issue-195",
+      "http://schema.org/domainIncludes": {
+        "@id": "http://schema.org/Course"
+      },
       "http://schema.org/isPartOf": {
         "@id": "http://pending.schema.org"
       },
-      "rdfs:comment": "The frequency in MHz and the modulation used for a particular BroadcastService.",
-      "rdfs:label": "BroadcastFrequencySpecification",
-      "rdfs:subClassOf": {
-        "@id": "http://schema.org/Intangible"
-      }
+      "http://schema.org/rangeIncludes": {
+        "@id": "http://schema.org/URL"
+      },
+      "rdfs:comment": "A link to a site where a preview of the course is offered.",
+      "rdfs:label": "previewUrl"
     },
     {
       "@id": "http://schema.org/courseMode",
@@ -878,25 +900,6 @@
       "rdfs:label": "linkRelationship"
     },
     {
-      "@id": "http://schema.org/previewUrl",
-      "@type": "rdf:Property",
-      "http://purl.org/dc/terms/source": {
-        "@id": "https://github.com/schemaorg/schemaorg/issues/195"
-      },
-      "http://schema.org/category": "issue-195",
-      "http://schema.org/domainIncludes": {
-        "@id": "http://schema.org/Course"
-      },
-      "http://schema.org/isPartOf": {
-        "@id": "http://pending.schema.org"
-      },
-      "http://schema.org/rangeIncludes": {
-        "@id": "http://schema.org/URL"
-      },
-      "rdfs:comment": "A link to a site where a preview of the course is offered.",
-      "rdfs:label": "previewUrl"
-    },
-    {
       "@id": "http://schema.org/hasCourseInstance",
       "@type": "rdf:Property",
       "http://purl.org/dc/terms/source": {
@@ -930,33 +933,30 @@
       },
       "http://schema.org/rangeIncludes": [
         {
-          "@id": "http://schema.org/QuantitativeValue"
+          "@id": "http://schema.org/Number"
         },
         {
-          "@id": "http://schema.org/Number"
+          "@id": "http://schema.org/QuantitativeValue"
         }
       ],
       "rdfs:comment": "The frequency in MHz for a particular broadcast.",
       "rdfs:label": "broadcastFrequencyValue"
     },
     {
-      "@id": "http://schema.org/isAcceptingNewPatients",
-      "@type": "rdf:Property",
+      "@id": "http://schema.org/HealthPlanNetwork",
+      "@type": "rdfs:Class",
       "http://purl.org/dc/terms/source": {
         "@id": "https://github.com/schemaorg/schemaorg/issues/1062"
       },
       "http://schema.org/category": "issue-1062",
-      "http://schema.org/domainIncludes": {
-        "@id": "http://schema.org/MedicalOrganization"
-      },
       "http://schema.org/isPartOf": {
         "@id": "http://pending.schema.org"
       },
-      "http://schema.org/rangeIncludes": {
-        "@id": "http://schema.org/Boolean"
-      },
-      "rdfs:comment": "Whether the provider is accepting new patients.",
-      "rdfs:label": "isAcceptingNewPatients"
+      "rdfs:comment": "A US-style health insurance plan network.",
+      "rdfs:label": "HealthPlanNetwork",
+      "rdfs:subClassOf": {
+        "@id": "http://schema.org/Intangible"
+      }
     },
     {
       "@id": "http://schema.org/usesHealthPlanIdStandard",
@@ -973,10 +973,10 @@
       },
       "http://schema.org/rangeIncludes": [
         {
-          "@id": "http://schema.org/URL"
+          "@id": "http://schema.org/Text"
         },
         {
-          "@id": "http://schema.org/Text"
+          "@id": "http://schema.org/URL"
         }
       ],
       "rdfs:comment": "The standard for interpreting thePlan ID. The preferred is \"HIOS\". See the Centers for Medicare &amp; Medicaid Services for more details.",
@@ -1045,6 +1045,25 @@
       },
       "rdfs:comment": "A short summary of the specific claims reviewed in a ClaimReview.",
       "rdfs:label": "claimReviewed"
+    },
+    {
+      "@id": "http://schema.org/isAcceptingNewPatients",
+      "@type": "rdf:Property",
+      "http://purl.org/dc/terms/source": {
+        "@id": "https://github.com/schemaorg/schemaorg/issues/1062"
+      },
+      "http://schema.org/category": "issue-1062",
+      "http://schema.org/domainIncludes": {
+        "@id": "http://schema.org/MedicalOrganization"
+      },
+      "http://schema.org/isPartOf": {
+        "@id": "http://pending.schema.org"
+      },
+      "http://schema.org/rangeIncludes": {
+        "@id": "http://schema.org/Boolean"
+      },
+      "rdfs:comment": "Whether the provider is accepting new patients.",
+      "rdfs:label": "isAcceptingNewPatients"
     }
   ],
   "@id": "http://pending.schema.org/#3.1"

@@ -2026,7 +2026,7 @@ ns1:MaximumDoseSchedule a rdfs:Class ;
 
 ns1:MediaObject a rdfs:Class ;
     rdfs:label "MediaObject" ;
-    rdfs:comment "An image, video, or audio object embedded in a web page. Note that a creative work may have many media objects associated with it on the same web page. For example, a page about a single song (MusicRecording) may have a music video (VideoObject), and a high and low bandwidth audio stream (2 AudioObject's)." ;
+    rdfs:comment "A media object, such as an image, video, or audio object embedded in a web page or a downloadable dataset i.e. DataDownload. Note that a creative work may have many media objects associated with it on the same web page. For example, a page about a single song (MusicRecording) may have a music video (VideoObject), and a high and low bandwidth audio stream (2 AudioObject's)." ;
     rdfs:subClassOf ns1:CreativeWork .
 
 ns1:MedicalAudience a rdfs:Class ;
@@ -3510,7 +3510,7 @@ ns1:SurgicalProcedure a ns1:MedicalProcedureType,
         rdfs:Class ;
     rdfs:label "SurgicalProcedure" ;
     ns1:isPartOf <http://health-lifesci.schema.org> ;
-    rdfs:comment "A medical procedure involving an incision with instruments; performed for diagnose, or therapeutic purposes." ;
+    rdfs:comment "A type of medical procedure that involves invasive surgical techniques." ;
     rdfs:subClassOf ns1:MedicalProcedure ;
     ns3:equivalentClass <http://purl.bioontology.org/ontology/SNOMEDCT/387713003> .
 
@@ -6650,12 +6650,6 @@ ns1:containedIn a rdf:Property ;
     ns1:supersededBy ns1:containedInPlace ;
     rdfs:comment "The basic containment relation between a place and one that contains it." .
 
-ns1:contentLocation a rdf:Property ;
-    rdfs:label "contentLocation" ;
-    ns1:domainIncludes ns1:CreativeWork ;
-    ns1:rangeIncludes ns1:Place ;
-    rdfs:comment "The location depicted or described in the content. For example, the location in a photograph or painting." .
-
 ns1:contentRating a rdf:Property ;
     rdfs:label "contentRating" ;
     ns1:domainIncludes ns1:CreativeWork ;
@@ -6902,6 +6896,13 @@ ns1:dataFeedElement a rdf:Property ;
         ns1:Text,
         ns1:Thing ;
     rdfs:comment "An item within in a data feed. Data feeds may have many elements." .
+
+ns1:datasetTimeInterval a rdf:Property ;
+    rdfs:label "datasetTimeInterval" ;
+    ns1:domainIncludes ns1:Dataset ;
+    ns1:rangeIncludes ns1:DateTime ;
+    ns1:supersededBy ns1:temporalCoverage ;
+    rdfs:comment "The range of temporal applicability of a dataset, e.g. for a 2011 census dataset, the year 2011 (in ISO 8601 time interval format)." .
 
 ns1:dateCreated a rdf:Property ;
     rdfs:label "dateCreated" ;
@@ -7778,8 +7779,9 @@ ns1:fiberContent a rdf:Property ;
 ns1:fileFormat a rdf:Property ;
     rdfs:label "fileFormat" ;
     ns1:domainIncludes ns1:CreativeWork ;
-    ns1:rangeIncludes ns1:Text ;
-    rdfs:comment "Media type (aka MIME format, see <a href=\"http://www.iana.org/assignments/media-types/media-types.xhtml\">IANA site</a>) of the content e.g. application/zip of a SoftwareApplication binary. In cases where a CreativeWork has several media type representations, 'encoding' can be used to indicate each MediaObject alongside particular fileFormat information." .
+    ns1:rangeIncludes ns1:Text,
+        ns1:URL ;
+    rdfs:comment "Media type (typically MIME format, see <a href=\"http://www.iana.org/assignments/media-types/media-types.xhtml\">IANA site</a>) of the content e.g. application/zip of a SoftwareApplication binary. In cases where a CreativeWork has several media type representations, 'encoding' can be used to indicate each MediaObject alongside particular fileFormat information. Unregistered or niche file formats can be indicated instead via the most appropriate URL, e.g. defining Web page or a Wikipedia entry." .
 
 ns1:fileSize a rdf:Property ;
     rdfs:label "fileSize" ;
@@ -7947,6 +7949,17 @@ ns1:functionalClass a rdf:Property ;
     ns1:rangeIncludes ns1:MedicalEntity,
         ns1:Text ;
     rdfs:comment "The degree of mobility the joint allows." .
+
+ns1:funder a rdf:Property ;
+    rdfs:label "funder" ;
+    ns1:domainIncludes ns1:CreativeWork,
+        ns1:Event,
+        ns1:Organization,
+        ns1:Person ;
+    ns1:rangeIncludes ns1:Organization,
+        ns1:Person ;
+    rdfs:comment "A person or organization that supports (sponsors) something through some kind of financial contribution." ;
+    rdfs:subPropertyOf ns1:sponsor .
 
 ns1:gameItem a rdf:Property ;
     rdfs:label "gameItem" ;
@@ -11319,7 +11332,9 @@ ns1:spatial a rdf:Property ;
     rdfs:label "spatial" ;
     ns1:domainIncludes ns1:Dataset ;
     ns1:rangeIncludes ns1:Place ;
-    rdfs:comment "The range of spatial applicability of a dataset, e.g. for a dataset of New York weather, the state of New York." .
+    ns1:supersededBy ns1:spatialCoverage ;
+    rdfs:comment "The range of spatial applicability of a dataset, e.g. for a dataset of New York weather, the state of New York." ;
+    ns3:equivalentProperty ns2:spatial .
 
 ns1:specialCommitments a rdf:Property ;
     rdfs:label "specialCommitments" ;
@@ -11362,16 +11377,6 @@ ns1:spokenByCharacter a rdf:Property ;
     ns1:rangeIncludes ns1:Organization,
         ns1:Person ;
     rdfs:comment "The (e.g. fictional) character, Person or Organization to whom the quotation is attributed within the containing CreativeWork." .
-
-ns1:sponsor a rdf:Property ;
-    rdfs:label "sponsor" ;
-    ns1:domainIncludes ns1:Event,
-        ns1:MedicalStudy,
-        ns1:Organization,
-        ns1:Person ;
-    ns1:rangeIncludes ns1:Organization,
-        ns1:Person ;
-    rdfs:comment "A person or organization that supports a thing through a pledge, promise, or financial contribution. e.g. a sponsor of a Medical Study or a corporate sponsor of an event." .
 
 ns1:sport a rdf:Property ;
     rdfs:label "sport" ;
@@ -11709,7 +11714,7 @@ ns1:temporal a rdf:Property ;
     rdfs:label "temporal" ;
     ns1:domainIncludes ns1:Dataset ;
     ns1:rangeIncludes ns1:DateTime ;
-    ns1:supersededBy ns1:datasetTimeInterval ;
+    ns1:supersededBy ns1:temporalCoverage ;
     rdfs:comment "The range of temporal applicability of a dataset, e.g. for a 2011 census dataset, the year 2011 (in ISO 8601 time interval format)." .
 
 ns1:text a rdf:Property ;
@@ -12151,6 +12156,15 @@ ns1:valueRequired a rdf:Property ;
     ns1:domainIncludes ns1:PropertyValueSpecification ;
     ns1:rangeIncludes ns1:Boolean ;
     rdfs:comment "Whether the property must be filled in to complete the action.  Default is false." .
+
+ns1:variablesMeasured a rdf:Property ;
+    rdfs:label "variablesMeasured" ;
+    ns2:source <https://github.com/schemaorg/schemaorg/issues/1083> ;
+    ns1:category "issue-1083" ;
+    ns1:domainIncludes ns1:Dataset ;
+    ns1:isPartOf <http://pending.schema.org> ;
+    ns1:rangeIncludes ns1:Text ;
+    rdfs:comment "The variables that are measured in some dataset, either described as text or as pairs of identifier and description using PropertyValue." .
 
 ns1:variantCover a rdf:Property ;
     rdfs:label "variantCover"@en ;
@@ -12595,18 +12609,18 @@ ns1:containsSeason a rdf:Property ;
     rdfs:comment "A season that is part of the media series." ;
     rdfs:subPropertyOf ns1:hasPart .
 
+ns1:contentLocation a rdf:Property ;
+    rdfs:label "contentLocation" ;
+    ns1:domainIncludes ns1:CreativeWork ;
+    ns1:rangeIncludes ns1:Place ;
+    rdfs:comment "The location depicted or described in the content. For example, the location in a photograph or painting." .
+
 ns1:dataset a rdf:Property ;
     rdfs:label "dataset" ;
     ns1:domainIncludes ns1:DataCatalog ;
     ns1:inverseOf ns1:includedInDataCatalog ;
     ns1:rangeIncludes ns1:Dataset ;
     rdfs:comment "A dataset contained in this catalog." .
-
-ns1:datasetTimeInterval a rdf:Property ;
-    rdfs:label "datasetTimeInterval" ;
-    ns1:domainIncludes ns1:Dataset ;
-    ns1:rangeIncludes ns1:DateTime ;
-    rdfs:comment "The range of temporal applicability of a dataset, e.g. for a 2011 census dataset, the year 2011 (in ISO 8601 time interval format)." .
 
 ns1:description a rdf:Property ;
     rdfs:label "description" ;
@@ -12974,6 +12988,27 @@ ns1:softwareRequirements a rdf:Property ;
         ns1:URL ;
     rdfs:comment "Component dependency requirements for application. This includes runtime environments and shared libraries that are not included in the application distribution package, but required to run the application (Examples: DirectX, Java or .NET runtime)." .
 
+ns1:spatialCoverage a rdf:Property ;
+    rdfs:label "spatialCoverage" ;
+    ns1:domainIncludes ns1:CreativeWork ;
+    ns1:rangeIncludes ns1:Place ;
+    rdfs:comment """The spatialCoverage of a CreativeWork indicates the place(s) which are the focus of the content. It is a subproperty of
+      contentLocation intended primarily for more technical and detailed materials. For example with a Dataset, it indicates
+      areas that the dataset describes: a dataset of New York weather would have spatialCoverage which was the place: the state of New York.""" ;
+    rdfs:subPropertyOf ns1:contentLocation ;
+    ns3:equivalentProperty ns2:spatial .
+
+ns1:sponsor a rdf:Property ;
+    rdfs:label "sponsor" ;
+    ns1:domainIncludes ns1:CreativeWork,
+        ns1:Event,
+        ns1:MedicalStudy,
+        ns1:Organization,
+        ns1:Person ;
+    ns1:rangeIncludes ns1:Organization,
+        ns1:Person ;
+    rdfs:comment "A person or organization that supports a thing through a pledge, promise, or financial contribution. e.g. a sponsor of a Medical Study or a corporate sponsor of an event." .
+
 ns1:subOrganization a rdf:Property ;
     rdfs:label "subOrganization" ;
     ns1:domainIncludes ns1:Organization ;
@@ -13130,6 +13165,17 @@ ns1:subEvent a rdf:Property ;
     ns1:inverseOf ns1:superEvent ;
     ns1:rangeIncludes ns1:Event ;
     rdfs:comment "An Event that is part of this event. For example, a conference event includes many presentations, each of which is a subEvent of the conference." .
+
+ns1:temporalCoverage a rdf:Property ;
+    rdfs:label "temporalCoverage" ;
+    ns1:domainIncludes ns1:CreativeWork ;
+    ns1:rangeIncludes ns1:DateTime,
+        ns1:Text,
+        ns1:URL ;
+    rdfs:comment """The temporalCoverage of a CreativeWork indicates the period that the content applies to, i.e. that it describes, either as a DateTime or as a textual string indicating a time period in <a href="https://en.wikipedia.org/wiki/ISO_8601#Time_intervals">ISO 8601 time interval format</a>. In
+      the case of a Dataset it will typically indicate the relevant time period in a precise notation (e.g. for a 2011 census dataset, the year 2011 would be written "2011/2012"). Other forms of content e.g. ScholarlyArticle, Book, TVSeries or TVEpisode may indicate their temporalCoverage in broader terms - textually or via well-known URL.
+      Written works such as books may sometimes have precise temporal coverage too, e.g. a work set in 1939 - 1945 can be indicated in ISO 8601 interval format format via "1939/1945".""" ;
+    ns3:equivalentProperty ns2:temporal .
 
 ns1:workFeatured a rdf:Property ;
     rdfs:label "workFeatured" ;

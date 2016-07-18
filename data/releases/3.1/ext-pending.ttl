@@ -497,3 +497,12 @@ ns1:usesHealthPlanIdStandard a rdf:Property ;
         ns1:URL ;
     rdfs:comment "The standard for interpreting thePlan ID. The preferred is \"HIOS\". See the Centers for Medicare &amp; Medicaid Services for more details." .
 
+ns1:variablesMeasured a rdf:Property ;
+    rdfs:label "variablesMeasured" ;
+    ns2:source <https://github.com/schemaorg/schemaorg/issues/1083> ;
+    ns1:category "issue-1083" ;
+    ns1:domainIncludes ns1:Dataset ;
+    ns1:isPartOf <http://pending.schema.org> ;
+    ns1:rangeIncludes ns1:Text ;
+    rdfs:comment "The variables that are measured in some dataset, either described as text or as pairs of identifier and description using PropertyValue." .
+

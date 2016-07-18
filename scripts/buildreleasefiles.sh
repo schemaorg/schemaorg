@@ -71,7 +71,7 @@ for e in $EXTENSIONS
 do
 	echo
 	echo "Creating $e"
-	dump "$e" "ALL" $e
+	dump "$e" "ALL" "ext-$e"
 done
 
 
