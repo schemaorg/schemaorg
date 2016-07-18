@@ -65,6 +65,13 @@
       }
     },
     {
+      "@id": "http://schema.org/duration",
+      "@type": "rdf:Property",
+      "http://schema.org/domainIncludes": {
+        "@id": "http://schema.org/Audiobook"
+      }
+    },
+    {
       "@id": "http://schema.org/pagination",
       "@type": "rdf:Property",
       "http://schema.org/domainIncludes": {
@@ -101,13 +108,13 @@
       },
       "http://schema.org/domainIncludes": [
         {
+          "@id": "http://schema.org/ComicIssue"
+        },
+        {
           "@id": "http://schema.org/VisualArtwork"
         },
         {
           "@id": "http://schema.org/ComicStory"
-        },
-        {
-          "@id": "http://schema.org/ComicIssue"
         }
       ],
       "http://schema.org/isPartOf": {
@@ -148,10 +155,10 @@
       },
       "http://schema.org/rangeIncludes": [
         {
-          "@id": "http://schema.org/Organization"
+          "@id": "http://schema.org/Person"
         },
         {
-          "@id": "http://schema.org/Person"
+          "@id": "http://schema.org/Organization"
         }
       ],
       "rdfs:comment": "An agent responsible for rendering a translated work from a source work",
@@ -315,10 +322,10 @@
           "@id": "http://schema.org/ComicStory"
         },
         {
-          "@id": "http://schema.org/ComicIssue"
+          "@id": "http://schema.org/VisualArtwork"
         },
         {
-          "@id": "http://schema.org/VisualArtwork"
+          "@id": "http://schema.org/ComicIssue"
         }
       ],
       "http://schema.org/isPartOf": {
@@ -342,13 +349,13 @@
       },
       "http://schema.org/domainIncludes": [
         {
+          "@id": "http://schema.org/VisualArtwork"
+        },
+        {
           "@id": "http://schema.org/ComicIssue"
         },
         {
           "@id": "http://schema.org/ComicStory"
-        },
-        {
-          "@id": "http://schema.org/VisualArtwork"
         }
       ],
       "http://schema.org/isPartOf": {
@@ -414,33 +421,18 @@
       }
     },
     {
-      "@id": "http://schema.org/penciler",
-      "@type": "rdf:Property",
-      "http://schema.org/category": {
-        "@language": "en",
-        "@value": "Comics"
-      },
-      "http://schema.org/domainIncludes": [
-        {
-          "@id": "http://schema.org/ComicStory"
-        },
-        {
-          "@id": "http://schema.org/ComicIssue"
-        },
-        {
-          "@id": "http://schema.org/VisualArtwork"
-        }
-      ],
+      "@id": "http://schema.org/Collection",
+      "@type": "rdfs:Class",
       "http://schema.org/isPartOf": {
         "@id": "http://bib.schema.org"
       },
-      "http://schema.org/rangeIncludes": {
-        "@id": "http://schema.org/Person"
-      },
-      "rdfs:comment": "The individual who draws the primary narrative artwork.",
+      "rdfs:comment": "A created collection of Creative Works or other artefacts.",
       "rdfs:label": {
         "@language": "en",
-        "@value": "penciler"
+        "@value": "Collection"
+      },
+      "rdfs:subClassOf": {
+        "@id": "http://schema.org/CreativeWork"
       }
     },
     {
@@ -462,21 +454,6 @@
           "@id": "http://schema.org/AudioObject"
         }
       ]
-    },
-    {
-      "@id": "http://schema.org/Collection",
-      "@type": "rdfs:Class",
-      "http://schema.org/isPartOf": {
-        "@id": "http://bib.schema.org"
-      },
-      "rdfs:comment": "A created collection of Creative Works or other artefacts.",
-      "rdfs:label": {
-        "@language": "en",
-        "@value": "Collection"
-      },
-      "rdfs:subClassOf": {
-        "@id": "http://schema.org/CreativeWork"
-      }
     },
     {
       "@id": "http://schema.org/GraphicNovel",
@@ -513,13 +490,6 @@
       }
     },
     {
-      "@id": "http://schema.org/duration",
-      "@type": "rdf:Property",
-      "http://schema.org/domainIncludes": {
-        "@id": "http://schema.org/Audiobook"
-      }
-    },
-    {
       "@id": "file:///Users/wallisr/Development/schemaorg/BuldRel/schemaorg/data/ext/bib/bsdo-1.0.rdfa",
       "http://schema.org/softwareVersion": {
         "@language": "en",
@@ -535,13 +505,13 @@
       },
       "http://schema.org/domainIncludes": [
         {
-          "@id": "http://schema.org/VisualArtwork"
+          "@id": "http://schema.org/ComicIssue"
         },
         {
           "@id": "http://schema.org/ComicStory"
         },
         {
-          "@id": "http://schema.org/ComicIssue"
+          "@id": "http://schema.org/VisualArtwork"
         }
       ],
       "http://schema.org/isPartOf": {
@@ -582,6 +552,36 @@
       },
       "rdfs:subPropertyOf": {
         "@id": "http://schema.org/actor"
+      }
+    },
+    {
+      "@id": "http://schema.org/penciler",
+      "@type": "rdf:Property",
+      "http://schema.org/category": {
+        "@language": "en",
+        "@value": "Comics"
+      },
+      "http://schema.org/domainIncludes": [
+        {
+          "@id": "http://schema.org/ComicIssue"
+        },
+        {
+          "@id": "http://schema.org/ComicStory"
+        },
+        {
+          "@id": "http://schema.org/VisualArtwork"
+        }
+      ],
+      "http://schema.org/isPartOf": {
+        "@id": "http://bib.schema.org"
+      },
+      "http://schema.org/rangeIncludes": {
+        "@id": "http://schema.org/Person"
+      },
+      "rdfs:comment": "The individual who draws the primary narrative artwork.",
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "penciler"
       }
     },
     {

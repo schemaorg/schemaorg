@@ -1459,6 +1459,27 @@ class ShowUnit (webapp2.RequestHandler):
 
             return True
 
+    def handleDumpsPage(self, node,  layerlist='core'):
+        self.response.headers['Content-Type'] = "text/html"
+        self.emitCacheHeaders()
+
+        if PageStore.get('DumpsPage'):
+            self.response.out.write( PageStore.get('DumpsPage') )
+            log.debug("Serving recycled DumpsPage.")
+            return True
+        else:
+            extensions = sorted(ENABLED_EXTENSIONS)
+
+            page = templateRender('dumps.tpl',{'extensions': extensions,
+                                    'version': SCHEMA_VERSION,
+                                    'menu_sel': "Schemas"})
+
+            self.response.out.write( page )
+            log.debug("Serving fresh DumpsPage.")
+            PageStore.put("DumpsPage",page)
+
+            return True
+
     def getCounts(self):
         text = ""
         text += "The core vocabulary currently consists of %s Types, " % len(GetAllTypes("core"))
@@ -2090,6 +2111,12 @@ class ShowUnit (webapp2.RequestHandler):
                 return True
             else:
                 log.info("Error handling schemas.html : %s " % node)
+                return False
+        if (node == "docs/dumps.html"): 
+            if self.handleDumpsPage(node, layerlist=layerlist):
+                return True
+            else:
+                log.info("Error handling dumps.html : %s " % node)
                 return False
 
 
