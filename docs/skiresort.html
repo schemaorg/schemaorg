@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Markup for SkiResort, SkiLift and SkiSlope - schema.org</title>
+    <meta name="description" content="Schema.org is a set of extensible schemas that enables webmasters to embed
+    structured data on their web pages for use by search engines and other applications." />
+    <link rel="stylesheet" type="text/css" href="/docs/schemaorg.css" />
+    <link href="/docs/prettify.css" type="text/css" rel="stylesheet" />
+    <script type="text/javascript" src="/docs/prettify.js"></script>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+      $(document).ready(function(){
+        prettyPrint();
+        setTimeout(function(){
+
+    $('.atn').each(function(i) {
+      if (($(this).text() == 'itemscope') || ($(this).text() == 'itemtype') || ($(this).text() == 'itemprop') || ($(this).text() == 'itemid') || ($(this).text() == 'time') || ($(this).text() == 'datetime') || ($(this).text() == 'vocab') || ($(this).text() == 'property') || ($(this).text() == 'typeOf') || ($(this).text() == 'rel'))
+        $(this).addClass('custom');
+    });
+
+        }, 500);
+      });
+</script>
+
+<style>
+
+  .tag    { color: #000; }    /* div, span, etc   */
+  .atn    { color: #000; }    /* href, datetime,  */
+  .custom { color: #660003; } /* itemscope, itemtype, etc,. */
+
+</style>
+
+</head>
+<body>
+    <div id="container">
+        <div id="intro">
+            <div id="pageHeader">
+              <div class="wrapper">
+                <div id="sitename">
+                <h1>
+                    <a href="/">schema.org</a>
+                </h1>
+                </div>
+
+<div id="cse-search-form" style="width: 400px;"></div>
+
+<script type="text/javascript" src="//www.google.com/jsapi"></script>
+<script type="text/javascript">
+  google.load('search', '1', {language : 'en', style : google.loader.themes.ESPRESSO});
+  google.setOnLoadCallback(function() {
+    var customSearchControl = new google.search.CustomSearchControl('013516846811604855281:nj5laplixaa');
+    customSearchControl.setResultSetSize(google.search.Search.FILTERED_CSE_RESULTSET);
+    var options = new google.search.DrawOptions();
+    options.enableSearchboxOnly("../docs/search_results.html", null, false, '#');
+    customSearchControl.draw('cse-search-form', options);
+  }, true);
+</script>
+
+
+              </div>
+            </div>
+        </div>
+    </div>
+
+            <div id="selectionbar">
+               <div class="wrapper">
+                <ul>
+                    <li class="activelink">
+                      <a href="../docs/documents.html">Documentation</a></li>
+                    <li>
+                      <a href="../docs/schemas.html">Schemas</a></li>
+                    <li>
+                      <a href="../.">Home</a></li>
+                </ul>
+                </div>
+
+            </div>
+        <div style="padding: 14px; float: right;" id="languagebox"></div>
+
+  <div id="mainContent">
+
+<h1>Markup for SkiResort, SkiLift and SkiSlope</h1>
+<p>Author: Elias Kärle, Daniel Ackstaller and Jonas Stock</p>
+<p>This page provides background information on the use of schema.org for marking up ski resorts, ski lifts and ski slopes. For feature requests, please use the <a href="https://github.com/schemaorg/schemaorg">Github repository</a>.</p>
+
+<!-- Maybe add toc here later on-->
+
+<h2 id="overview">Overview</h2>
+
+<p>When modeling ski resort related information in Web content with schema.org, there are three core objetcs:</p>
+
+<ul>
+    <li>A <strong><a href="../SkiResort">ski resort</a></strong>, which is an area dedicated for skiing and accessed by skiing infrastructure.</li>
+    <li>A <strong><a href="../SkiLift">ski lift</a></strong>The means of transport which takes people to the top of a mountain or the top of a skiing slope.</li>
+    <li>A <strong><a href="../SkiSlope">ski slope</a></strong>, the area where people with ski or snowboards can make practice their winter sport.
+</ul>
+
+<h3>Basic Model</h3>
+<p>The diagram shown below illustrates the basic pattern for describing ski lifts and ski slopes within a ski resort.</p>
+
+<p>A <a href="../SkiResort">ski resort</a> is a <a href="../SportsLocation">sports location</a> as well as <a href="../SkiLift">ski lift</a> and <a href="../SkiSlope">ski slope</a>. The ski resort class only adds two new properties, <a href="../hasLift">hasLift</a> which points to one or more <a href="../SkiLift">ski lifts</a> and <a href="../hasSlope">hasSlope</a>, which points to one or more <a href="../SkiSlope">ski slopes</a>.</p>
+
+
+<img alt="Schema.org pattern for describing ski resorts, ski lifts and ski slopes" width="960" border="0" src="sdo-skiresort.png" title="Schema.org pattern for describing ski resorts, ski lifts and ski slopes." />
+
+<h2 id="minimal">Minimal Example</h2>
+<p>In the example below we see a very simple annotation of a ski resort with one ski lift and three ski slopes.</p>
+<!-- START OF CODE SNIPPET -->
+<!-- HTML generated using hilite.me --><div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><table><tr><td><pre style="margin: 0; line-height: 125%"> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30</pre></td><td><pre style="margin: 0; line-height: 125%"><span style="color: #007700">&lt;div</span> <span style="color: #0000CC">itemtype=</span><span style="background-color: #fff0f0">&quot;http://schema.org/SkiResort&quot;</span> <span style="color: #0000CC">itemid=</span><span style="background-color: #fff0f0">&quot;http://www.stanzach.at/familienskilifte.html&quot;</span> <span style="color: #0000CC">itemscope</span><span style="color: #007700">&gt;</span>
+  <span style="color: #007700">&lt;meta</span> <span style="color: #0000CC">itemprop=</span><span style="background-color: #fff0f0">&quot;name&quot;</span> <span style="color: #0000CC">content=</span><span style="background-color: #fff0f0">&quot;Familienskilifte Stanzach&quot;</span> <span style="color: #007700">/&gt;</span>
+  <span style="color: #007700">&lt;link</span> <span style="color: #0000CC">itemprop=</span><span style="background-color: #fff0f0">&quot;sameAs&quot;</span> <span style="color: #0000CC">href=</span><span style="background-color: #fff0f0">&quot;http://www.naturpark-lechtal.at/winter/ski-und-snowboard/ski-und-snowboard.html?aid=55&quot;</span> <span style="color: #007700">/&gt;</span>
+  <span style="color: #007700">&lt;link</span> <span style="color: #0000CC">itemprop=</span><span style="background-color: #fff0f0">&quot;sameAs&quot;</span> <span style="color: #0000CC">href=</span><span style="background-color: #fff0f0">&quot;http://www.lechtal.at/winter/winter-aktiv-lechtal/skifahrenimlechtal/skigebiete/familienskigebiet-stanzach.html&quot;</span> <span style="color: #007700">/&gt;</span>
+  <span style="color: #007700">&lt;link</span> <span style="color: #0000CC">itemprop=</span><span style="background-color: #fff0f0">&quot;image&quot;</span> <span style="color: #0000CC">href=</span><span style="background-color: #fff0f0">&quot;http://www.naturpark-lechtal.at/index.php?rex_resize=990c__300h__p1230074.jpg&quot;</span> <span style="color: #007700">/&gt;</span>
+  <span style="color: #007700">&lt;div</span> <span style="color: #0000CC">itemprop=</span><span style="background-color: #fff0f0">&quot;hasLift&quot;</span> <span style="color: #0000CC">itemtype=</span><span style="background-color: #fff0f0">&quot;http://schema.org/SkiLift&quot;</span> <span style="color: #0000CC">itemscope</span><span style="color: #007700">&gt;</span>
+    <span style="color: #007700">&lt;meta</span> <span style="color: #0000CC">itemprop=</span><span style="background-color: #fff0f0">&quot;length&quot;</span> <span style="color: #0000CC">content=</span><span style="background-color: #fff0f0">&quot;550&quot;</span> <span style="color: #007700">/&gt;</span>
+    <span style="color: #007700">&lt;meta</span> <span style="color: #0000CC">itemprop=</span><span style="background-color: #fff0f0">&quot;capacity&quot;</span> <span style="color: #0000CC">content=</span><span style="background-color: #fff0f0">&quot;2&quot;</span> <span style="color: #007700">/&gt;</span>
+    <span style="color: #007700">&lt;meta</span> <span style="color: #0000CC">itemprop=</span><span style="background-color: #fff0f0">&quot;numberOfStops&quot;</span> <span style="color: #0000CC">content=</span><span style="background-color: #fff0f0">&quot;2&quot;</span> <span style="color: #007700">/&gt;</span>
+    <span style="color: #007700">&lt;meta</span> <span style="color: #0000CC">itemprop=</span><span style="background-color: #fff0f0">&quot;elevationEnd&quot;</span> <span style="color: #0000CC">content=</span><span style="background-color: #fff0f0">&quot;1190&quot;</span> <span style="color: #007700">/&gt;</span>
+    <span style="color: #007700">&lt;meta</span> <span style="color: #0000CC">itemprop=</span><span style="background-color: #fff0f0">&quot;elevationStart&quot;</span> <span style="color: #0000CC">content=</span><span style="background-color: #fff0f0">&quot;940&quot;</span> <span style="color: #007700">/&gt;</span>
+    <span style="color: #007700">&lt;meta</span> <span style="color: #0000CC">itemprop=</span><span style="background-color: #fff0f0">&quot;name&quot;</span> <span style="color: #0000CC">content=</span><span style="background-color: #fff0f0">&quot;Stoamandllift&quot;</span> <span style="color: #007700">/&gt;</span>
+    <span style="color: #007700">&lt;meta</span> <span style="color: #0000CC">itemprop=</span><span style="background-color: #fff0f0">&quot;liftType&quot;</span> <span style="color: #0000CC">content=</span><span style="background-color: #fff0f0">&quot;T-bar lift&quot;</span> <span style="color: #007700">/&gt;</span>
+  <span style="color: #007700">&lt;/div&gt;</span>
+  <span style="color: #007700">&lt;div</span> <span style="color: #0000CC">itemprop=</span><span style="background-color: #fff0f0">&quot;hasSlope&quot;</span> <span style="color: #0000CC">itemtype=</span><span style="background-color: #fff0f0">&quot;http://schema.org/SkiSlope&quot;</span> <span style="color: #0000CC">itemscope</span><span style="color: #007700">&gt;</span>
+    <span style="color: #007700">&lt;meta</span> <span style="color: #0000CC">itemprop=</span><span style="background-color: #fff0f0">&quot;name&quot;</span> <span style="color: #0000CC">content=</span><span style="background-color: #fff0f0">&quot;Familienabfahrt&quot;</span> <span style="color: #007700">/&gt;</span>
+    <span style="color: #007700">&lt;meta</span> <span style="color: #0000CC">itemprop=</span><span style="background-color: #fff0f0">&quot;difficulty&quot;</span> <span style="color: #0000CC">content=</span><span style="background-color: #fff0f0">&quot;blue&quot;</span> <span style="color: #007700">/&gt;</span>
+    <span style="color: #007700">&lt;meta</span> <span style="color: #0000CC">itemprop=</span><span style="background-color: #fff0f0">&quot;slopeNumber&quot;</span> <span style="color: #0000CC">content=</span><span style="background-color: #fff0f0">&quot;1a&quot;</span> <span style="color: #007700">/&gt;</span>
+  <span style="color: #007700">&lt;/div&gt;</span>
+  <span style="color: #007700">&lt;div</span> <span style="color: #0000CC">itemprop=</span><span style="background-color: #fff0f0">&quot;hasSlope&quot;</span> <span style="color: #0000CC">itemtype=</span><span style="background-color: #fff0f0">&quot;http://schema.org/SkiSlope&quot;</span> <span style="color: #0000CC">itemscope</span><span style="color: #007700">&gt;</span>
+    <span style="color: #007700">&lt;meta</span> <span style="color: #0000CC">itemprop=</span><span style="background-color: #fff0f0">&quot;name&quot;</span> <span style="color: #0000CC">content=</span><span style="background-color: #fff0f0">&quot;Rennstrecke&quot;</span> <span style="color: #007700">/&gt;</span>
+    <span style="color: #007700">&lt;meta</span> <span style="color: #0000CC">itemprop=</span><span style="background-color: #fff0f0">&quot;difficulty&quot;</span> <span style="color: #0000CC">content=</span><span style="background-color: #fff0f0">&quot;red&quot;</span> <span style="color: #007700">/&gt;</span>
+    <span style="color: #007700">&lt;meta</span> <span style="color: #0000CC">itemprop=</span><span style="background-color: #fff0f0">&quot;slopeNumber&quot;</span> <span style="color: #0000CC">content=</span><span style="background-color: #fff0f0">&quot;1b&quot;</span> <span style="color: #007700">/&gt;</span>
+  <span style="color: #007700">&lt;/div&gt;</span>
+  <span style="color: #007700">&lt;div</span> <span style="color: #0000CC">itemprop=</span><span style="background-color: #fff0f0">&quot;hasSlope&quot;</span> <span style="color: #0000CC">itemtype=</span><span style="background-color: #fff0f0">&quot;http://schema.org/SkiSlope&quot;</span> <span style="color: #0000CC">itemscope</span><span style="color: #007700">&gt;</span>
+    <span style="color: #007700">&lt;meta</span> <span style="color: #0000CC">itemprop=</span><span style="background-color: #fff0f0">&quot;name&quot;</span> <span style="color: #0000CC">content=</span><span style="background-color: #fff0f0">&quot;Wald Verbindungslift&quot;</span> <span style="color: #007700">/&gt;</span>
+    <span style="color: #007700">&lt;meta</span> <span style="color: #0000CC">itemprop=</span><span style="background-color: #fff0f0">&quot;difficulty&quot;</span> <span style="color: #0000CC">content=</span><span style="background-color: #fff0f0">&quot;Skiroute&quot;</span> <span style="color: #007700">/&gt;</span>
+    <span style="color: #007700">&lt;meta</span> <span style="color: #0000CC">itemprop=</span><span style="background-color: #fff0f0">&quot;slopeNumber&quot;</span> <span style="color: #0000CC">content=</span><span style="background-color: #fff0f0">&quot;2&quot;</span> <span style="color: #007700">/&gt;</span>
+  <span style="color: #007700">&lt;/div&gt;</span>
+<span style="color: #007700">&lt;/div&gt;</span>
+</pre></td></tr></table></div>
+<!-- END OF CODE SNIPPET -->
+
+<p>See the page for <a href="../SkiResort">http://schema.org/SkiResort</a> for a complete list of additional properties for describing the ski resort.</p>
+
+<!--
+<h2 id="info">Information about ...</h2>
+<p>...</p>
+-->
+
+<h2>Acknowledgments</h2>
+<p>The idea for that extension was born during on of the <a href="http://oc.sti2.at">OC meetings</a> at the <a href="http://www.sti2.at">STI Innsbruck</a>. Thanks to all the OC members and <a href="https://en.wikipedia.org/wiki/Dieter_Fensel">Prof. Dieter Fensel</a> for their valuable input and discussion.</p>
+<br/>
+<br/>
+</div>
+<div id="footer"><p>
+  <a href="../docs/terms.html">Terms and conditions</a></p>
+</div>
+</body>
+</html>
