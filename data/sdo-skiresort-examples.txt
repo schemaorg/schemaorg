@@ -1,0 +1,121 @@
+TYPES:  #skiresort-1 SkiResort, SkiLift, SkiSlope
+
+PRE-MARKUP:
+
+An example of possible JSON-LD for a ski resort called "Familienskilifte Stanzach" with a ski lift "Stoamandllift" and a ski slope "1a blaue Piste", "1b rote Piste" and "2 Wald Verbindungslift".
+
+MICRODATA:
+
+<div itemtype="http://schema.org/SkiResort" itemid="http://www.stanzach.at/familienskilifte.html" itemscope>
+  <meta itemprop="name" content="Familienskilifte Stanzach" />
+  <link itemprop="sameAs" href="http://www.naturpark-lechtal.at/winter/ski-und-snowboard/ski-und-snowboard.html?aid=55" />
+  <link itemprop="sameAs" href="http://www.lechtal.at/winter/winter-aktiv-lechtal/skifahrenimlechtal/skigebiete/familienskigebiet-stanzach.html" />
+  <link itemprop="image" href="http://www.naturpark-lechtal.at/index.php?rex_resize=990c__300h__p1230074.jpg" />
+  <div itemprop="hasLift" itemtype="http://schema.org/SkiLift" itemscope>
+    <meta itemprop="length" content="550" />
+    <meta itemprop="capacity" content="2" />
+    <meta itemprop="numberOfStops" content="2" />
+    <meta itemprop="elevationEnd" content="1190" />
+    <meta itemprop="elevationStart" content="940" />
+    <meta itemprop="name" content="Stoamandllift" />
+    <meta itemprop="liftType" content="T-bar lift" />
+  </div>
+  <div itemprop="hasSlope" itemtype="http://schema.org/SkiSlope" itemscope>
+    <meta itemprop="name" content="Familienabfahrt" />
+    <meta itemprop="difficulty" content="blue" />
+    <meta itemprop="slopeNumber" content="1a" />
+  </div>
+  <div itemprop="hasSlope" itemtype="http://schema.org/SkiSlope" itemscope>
+    <meta itemprop="name" content="Rennstrecke" />
+    <meta itemprop="difficulty" content="red" />
+    <meta itemprop="slopeNumber" content="1b" />
+  </div>
+  <div itemprop="hasSlope" itemtype="http://schema.org/SkiSlope" itemscope>
+    <meta itemprop="name" content="Wald Verbindungslift" />
+    <meta itemprop="difficulty" content="Skiroute" />
+    <meta itemprop="slopeNumber" content="2" />
+  </div>
+</div>
+
+RDFA:
+
+<div typeof="schema:SkiResort" about="http://www.stanzach.at/familienskilifte.html">
+  <div property="schema:name" content="Familienskilifte Stanzach"></div>
+  <div rel="schema:sameAs" resource="http://www.naturpark-lechtal.at/winter/ski-und-snowboard/ski-und-snowboard.html?aid=55"></div>
+  <div rel="schema:sameAs" resource="http://www.lechtal.at/winter/winter-aktiv-lechtal/skifahrenimlechtal/skigebiete/familienskigebiet-stanzach.html"></div>
+  <div rel="schema:image" resource="http://www.naturpark-lechtal.at/index.php?rex_resize=990c__300h__p1230074.jpg"></div>
+  <div rel="schema:hasLift">
+    <div typeof="schema:SkiLift">
+      <div property="schema:name" content="Stoamandllift"></div>
+      <div property="schema:elevationStart" content="940"></div>
+      <div property="schema:elevationEnd" content="1190"></div>
+      <div property="schema:numberOfStops" content="2"></div>
+      <div property="schema:liftType" content="T-bar lift"></div>
+      <div property="schema:length" content="550"></div>
+      <div property="schema:capacity" content="2"></div>
+    </div>
+  </div>
+  <div rel="schema:hasSlope">
+    <div typeof="schema:SkiSlope">
+      <div property="schema:difficulty" content="blue"></div>
+      <div property="schema:slopeNumber" content="1a"></div>
+      <div property="schema:name" content="Familienabfahrt"></div>
+    </div>
+  </div>
+  <div rel="schema:hasSlope">
+    <div typeof="schema:SkiSlope">
+      <div property="schema:difficulty" content="red"></div>
+      <div property="schema:name" content="Rennstrecke"></div>
+      <div property="schema:slopeNumber" content="1b"></div>
+    </div>
+  </div>
+  <div rel="schema:hasSlope">
+    <div typeof="schema:SkiSlope">
+      <div property="schema:slopeNumber" content="2"></div>
+      <div property="schema:name" content="Wald Verbindungslift"></div>
+      <div property="schema:difficulty" content="Skiroute"></div>
+    </div>
+  </div>
+</div>
+
+JSON:
+
+<script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "SkiResort",
+    "@id": "http://www.stanzach.at/familienskilifte.html",
+    "name": "Familienskilifte Stanzach",
+    "sameAs": [
+        "http://www.naturpark-lechtal.at/winter/ski-und-snowboard/ski-und-snowboard.html?aid=55",
+        "http://www.lechtal.at/winter/winter-aktiv-lechtal/skifahrenimlechtal/skigebiete/familienskigebiet-stanzach.html"
+    ],
+    "image": "http://www.naturpark-lechtal.at/index.php?rex_resize=990c__300h__p1230074.jpg",
+    "hasLift": {
+        "@type": "SkiLift",
+        "name": "Stoamandllift",
+        "liftType": "T-bar lift",
+        "capacity": "2",
+        "elevationStart": "940",
+        "elevationEnd": "1190",
+        "length": "550",
+        "numberOfStops": "2"
+    },
+    "hasSlope": [{
+        "@type": "SkiSlope",
+        "name": "Familienabfahrt",
+        "slopeNumber": "1a",
+        "difficulty": "blue"
+    },{
+        "@type": "SkiSlope",
+        "name": "Rennstrecke",
+        "slopeNumber": "1b",
+        "difficulty": "red"
+    },{
+        "@type": "SkiSlope",
+        "name": "Wald Verbindungslift",
+        "slopeNumber": "2",
+        "difficulty": "Skiroute"
+    }]
+}
+</script>
