@@ -15,9 +15,11 @@
   <div id="mainContent" class="faq">
 
 
-<h1>Vocabulary Defintion Files</h1>
+<h1>Vocabulary Definition Files</h1>
 
 <p>To assist developers, files containing the definition of the core Schema.org vocabulary and its extensions are available for download in common RDF formats.</p>
+
+<p>Older releases can be found (under data/releases/) at <a href="https://github.com/schemaorg/schemaorg">GitHub</a>.
 
 <p>Select the file and format required and click Download.  
 <br/>Note: File <em>schema</em> contains the definition of the core vocabulary, <em>all-layers</em> contains definitions for the core and all the extensions.</p>
