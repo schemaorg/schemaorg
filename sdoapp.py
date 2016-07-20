@@ -10,7 +10,7 @@ import StringIO
 import json
 from apirdflib import load_graph, getNss, getRevNss
 
-from markupsafe import Markup, escape # https://pypi.python.org/pypi/MarkupSafe
+#from markupsafe import Markup, escape # https://pypi.python.org/pypi/MarkupSafe
 
 import parsers
 import threading
@@ -158,7 +158,7 @@ def getslug():
     getmodiftime()
     return etagSlug
 
-    
+
 def tick(): #Keep memcache values fresh so they don't expire
     if not getInTestHarness():
         memcache.set(key="SysStart", value=systarttime)
@@ -575,7 +575,7 @@ class ShowUnit (webapp2.RequestHandler):
             cstack.append(Unit.GetUnit("Thing"))
         elif(node.isDataType(layers=layers) and node.id != "DataType"):
             cstack.append(Unit.GetUnit("DataType"))
-            
+
 
         enuma = node.isEnumerationValue(layers=layers)
 
@@ -588,15 +588,15 @@ class ShowUnit (webapp2.RequestHandler):
            while(len(self.crumbStacks[row]) > 0):
                 propertyval = None
                 n = self.crumbStacks[row].pop()
-                
-                if((len(self.crumbStacks[row]) == 1) and 
+
+                if((len(self.crumbStacks[row]) == 1) and
                     not ":" in n.id) : #penultimate crumb that is not a non-schema reference
                     if node.isAttribute(layers=layers):
                         if n.isAttribute(layers=layers): #Can only be a subproperty of a property
                             propertyval = "rdfs:subPropertyOf"
                     else:
-                        propertyval = "rdfs:subClassOf"  
-                
+                        propertyval = "rdfs:subClassOf"
+
                 if(count > 0):
                     if((len(self.crumbStacks[row]) == 0) and enuma): #final crumb
                         thisrow += " :: "
@@ -908,14 +908,14 @@ class ShowUnit (webapp2.RequestHandler):
             if inLayer(layers, r):
                 ranges.append(r)
             else:
-                eranges.append(r) 
+                eranges.append(r)
         domains = []
         edomains = []
         for d in doms:
             if inLayer(layers, d):
                 domains.append(d)
             else:
-                edomains.append(d) 
+                edomains.append(d)
 
         inverseprop = node.inverseproperty(layers=layers)
         subprops = sorted(node.subproperties(layers=layers),key=lambda u: u.id)
@@ -1656,7 +1656,7 @@ class ShowUnit (webapp2.RequestHandler):
         base_actionprop = Unit.GetUnit( node.rsplit('-')[0] )
         if base_actionprop != None :
             self.response.out.write('<div>Looking for an <a href="/Action">Action</a>-related property? Note that xyz-input and xyz-output have <a href="/docs/actions.html">special meaning</a>. See also: <a href="/%s">%s</a></div> <br/><br/> ' % ( base_actionprop.id, base_actionprop.id ))
-        
+
         if extrainfo:
             self.response.out.write("<div>%s</div>" % extrainfo)
 
@@ -1987,7 +1987,7 @@ class ShowUnit (webapp2.RequestHandler):
 
         if not node or node == "":
             node = "/"
-            
+
         NotModified = False
         etag = getslug() + str(hash(node))
         jetag = etag + "json"
@@ -2016,7 +2016,7 @@ class ShowUnit (webapp2.RequestHandler):
         else:
             enableCaching = self._get(node) #Go build the page
             #log.info("_get result: %s" % enableCaching)
-            
+
             tagsuff = ""
             if ( "content-type" in self.response.headers and
                  "json" in self.response.headers["content-type"] ):
@@ -2050,7 +2050,7 @@ class ShowUnit (webapp2.RequestHandler):
         Last resort is a 404 error if we do not exactly match a term's id.
 
         See also https://webapp-improved.appspot.com/guide/request.html#guide-request
-        
+
         Return True to enable browser caching ETag/Last-Modified - False for no cache
         """
         global_vars.time_start = datetime.datetime.now()
@@ -2099,20 +2099,20 @@ class ShowUnit (webapp2.RequestHandler):
                 log.info("Error handling JSON-LD context: %s" % node)
                 return False
 
-        if (node == "docs/full.html"): 
+        if (node == "docs/full.html"):
             if self.handleFullHierarchyPage(node, layerlist=layerlist):
                 return True
             else:
                 log.info("Error handling full.html : %s " % node)
                 return False
 
-        if (node == "docs/schemas.html"): 
+        if (node == "docs/schemas.html"):
             if self.handleSchemasPage(node, layerlist=layerlist):
                 return True
             else:
                 log.info("Error handling schemas.html : %s " % node)
                 return False
-        if (node == "docs/dumps.html"): 
+        if (node == "docs/dumps.html"):
             if self.handleDumpsPage(node, layerlist=layerlist):
                 return True
             else:
@@ -2152,7 +2152,7 @@ class ShowUnit (webapp2.RequestHandler):
             inf += "</div>"
             self.handle404Failure(node,extrainfo=inf)
             return False
-            
+
 
         # Pages based on request path matching a Unit in the term graph:
         if self.handleExactTermPage(node, layers=layerlist):
@@ -2273,7 +2273,7 @@ class WarmupTool():
 
     def stepWarm(self, unit=None, layer=None):
         global WarmedUp
-        if not layer: 
+        if not layer:
             layer = getHostExt()
             if layer == "":
                 layer = "core"
