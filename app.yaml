@@ -44,6 +44,9 @@ handlers:
 - url: /docs/schemas.html
   script: sdoapp.app
 
+- url: /docs/dumps.html
+  script: sdoapp.app
+
 - url: /docs/tree.json.*
   script: sdoapp.app
 
@@ -58,8 +61,12 @@ handlers:
 - url: /search_files
   static_dir: static/search_files
 
+- url: /releases/*/
+  static_dir: data/releases/
+
 - url: /.*
   script: sdoapp.app
+
 
 
 
