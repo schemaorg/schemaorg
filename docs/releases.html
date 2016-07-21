@@ -132,20 +132,78 @@ td.release  {
 </tr>
 -->
 
+
 <tr>
-<td>&nbsp;</td>
-<td class="prerelease">Early Access Fixes</td>
+<td class="release"><a href="/version/3.1/">(TODO: expected as 3.1)</a><br/>sdo-makemake<br/>(2016-XX-XX)</td>
+<span id="v.next"></span>
+<span id="sdo-makemake"></span>
+<span id="v3.1"></span>
 <td>
-<p>Changes that will be included in the next full release, but which have been published immediately:</p>
+<p>
+Version 3.1 (working name 'sdo-makemake'). See <a href="https://github.com/schemaorg/schemaorg/issues/1">planning pages</a>, specifically <a href="https://github.com/schemaorg/schemaorg/issues/1212">#1212</a> for details.
+</p>
+<p>This release is primarily concerned with bug fixes.</p>
+</td>
+
+<td>
+
+<h3>Site Improvements</h3>
+
+<h3>Vocabulary</h3>
+<ul>
+<li id="g1203"><a href="https://github.com/schemaorg/schemaorg/issues/1203">Issue #1203</a>: <a href="https://github.com/schemaorg/schemaorg/pull/1215">Fixes</a> accidental rollbacks in <a href="#v3.0">3.0</a>.
+See <a href="https://github.com/schemaorg/schemaorg/issues/1203">Github</a> for comprehensive analysis and details. Restored several definitions:
+<a href="/paymentStatus">paymentStatus</a> lacked <a href="/PaymentStatusType">PaymentStatusType</a> from <a href="#g518">#518</a>;
+<a href="/breastfeedingWarning">breastfeedingWarning</a>, <a href="/healthCondition">healthCondition</a>, <a href="/prescriptionStatus">prescriptionStatus</a>
+and <a href="/secondaryPrevention">secondaryPrevention</a> have been migrated into <a href="http://health-lifesci.schema.org/">health-lifesci.schema.org</a> as <a href="https://github.com/schemaorg/schemaorg/pull/11">planned</a>;
+<a href="/SocialMediaPosting">SocialMediaPosting</a> has supertype of <a href="/BlogPost">BlogPost</a> (from <a href="#g526">#526</a>) rather than <a href="/Article">Article</a>;
+<a href="/genre">genre</a> expects URL values (from <a href="#g346">#346</a>);
+<a href="/affiliation">affiliation</a> is a sub-property of <a href="/memberOf">memberOf</a> (per <a href="#g596">#596</a>);
+<a href="/cookTime">cookTime</a>, <a href="/prepTime">prepTime</a> and <a href="/totalTime">totalTime</a> definitions hyperlink to <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a> details;
+<a href="/publisher">publisher</a> property can reference <a href="/Person">Person</a> (fix for <a href="https://github.com/schemaorg/schemaorg/issues/1198">#1198</a>, restoring <a href="#g611">#611</a>);
+<a href="/videoFormat">videoFormat</a> is again expected on <a href="/BroadcastEvent">BroadcastEvent</a>, <a href="/ScreeningEvent">ScreeningEvent</a> (and <a href="/BroadcastService">BroadcastService</a>),
+rather than <a href="/TelevisionStation">TelevisionStation</a> (per <a href="g#577">#577</a>);
+<a href="/parentOrganization">parentOrganization</a> and <a href="/subOrganization">subOrganization</a> are noted as mutual inverses (per <a href="#g535">#g535</a>);
+<a href="/codeSampleType">codeSampleType</a> description improved per <a href="#g343">#343</a>;
+<a href="/netWorth">netWorth</a> definition now correctly omits <a href="/Organization">Organization</a> (per <a href="#g585">#585</a>).
+</li>
+
+<h3>Site improvements</h3>
+<li id="g1083"><a href="https://github.com/schemaorg/schemaorg/issues/1083">Issue #1083</a>: Improvements primarily around Dataset, generalized <a href="/spatial">spatial</a> property of <a href="/Dataset">Dataset</a> to become <a href="/spatialCoverage">spatialCoverage</a> of any <a href="/CreativeWork">CreativeWork</a>; similarly generalized <a href="/temporal">temporal</a> as <a href="/temporalCoverage">temporalCoverage</a>.
+  Indicated that <a href="/spatialCoverage">spatialCoverage</a> is a subproperty of <a href="/contentLocation">contentLocation</a>.
+  <a href="https://github.com/schemaorg/schemaorg/issues/383">Broadened</a> <a href="/sponsor">sponsor</a> to apply to creative works such as datasets, and added a more specific subproperty to indicate
+  <a href="/funder">funder</a>. <a href="https://github.com/schemaorg/schemaorg/issues/1190">Amended</a> definition of <a href="/MediaObject">MediaObject</a> to match its use as a supertype of
+  <a href="/DataDownload">DataDownload</a>. <a href="https://github.com/schemaorg/schemaorg/issues/1191">Amended</a> <a href="/fileFormat">fileFormat</a> to allow URL as a way of indicating niche or unregistered file formats (common for scientific datasets). Added a draft <a href="http://pending.webschemas.org/variablesMeasured">variablesMeasured</a> property to the 
+  <a href="http://pending.webschemas.org/">pending extension</a>.
+</li>
+</ul>
+
+<ul>
+<li id="g1213"><a href="https://github.com/schemaorg/schemaorg/pull/1213">Issue #1213</a>: Fixes for <a href="https://github.com/schemaorg/schemaorg/issues/1171">site performance problems</a>.</li>
+<li id="g1214"><a href="https://github.com/schemaorg/schemaorg/pull/1214">Issue 1214</a>: Fix for <a href="https://github.com/schemaorg/schemaorg/pull/1211">RDFa formatting errors</a> in per-term pages.</li>
+<li id="g1248"><a href="https://github.com/schemaorg/schemaorg/pull/1248">Issue 1248</a>: Fix for <a href="https://github.com/schemaorg/schemaorg/issues/1249">Need easy way to download rdf definition files</a>. Introduces a <a href="/docs/dumps.html">Vocabulary definition download</a> page providing access to RDF representations of the vocabulary and extensions in Triple, Quad, JSON-LD, and Turtle format.</li>
+</ul>
+
+<h3>Quick fixes and Examples</h3>
+
+<ul>
+<li id="g1151"><a href="https://github.com/schemaorg/schemaorg/issues/1151">Issue #1151</a>: Broadened <a href="/version">version</a> to allow textual values as well as numbers.</li>
+</ul>
+
+<p>The following Early Access fixes have already been published since 3.0:</p>
 <ul>
 <li id="g1159"><a href="https://github.com/schemaorg/schemaorg/pull/1159">Issue #1159</a>: Fixed <a href="https://github.com/schemaorg/schemaorg/issues/1157">problems with W3C validator</a>, caching, and <a href="https://github.com/schemaorg/schemaorg/issues/1158">misclassification</a> of <a href="/manufacturer">manufacturer</a> property which in in core rather than health-lifesci extension.</li>
+<li id="g1165"><a href="https://github.com/schemaorg/schemaorg/issues/1165">Issue #1165</a>: Improved wording for term pages that are not in core, to avoid publishers worrying that they need to change their markup.</li>
+<li id="g1136"><a href="https://github.com/schemaorg/schemaorg/issues/1136">Issue #1136</a>: Fixed term labels to always be alphanumeric (no 'bib:' prefixes etc.)</li>
+<li id="g1168"><a href="https://github.com/schemaorg/schemaorg/pull/1168">Issue #1168</a>: Fixed unit tests to run against extension schema data as well as core.</li>
+<li id="g1169"><a href="https://github.com/schemaorg/schemaorg/issues/1169">Issue #1169</a>: Fixes for property/type associations in health-lifesci and pending drafts, identified by improved unit tests.</li>
+<li id="g1174"><a href="https://github.com/schemaorg/schemaorg/issues/1174">Issue #1174</a>: Fix for missing definition for 'ingredients'.</li>
 </ul>
 </td>
 </tr>
 
 <tr>
 <td class="release"><a href="/version/3.0/">3.0</a><br/>sdo-deimos<br/>(2016-05-04)</td>
-<span id="v.next"></span>
 <span id="sdo-deimos"></span>
 <span id="v3.0"></span>
 <td>
@@ -282,7 +340,6 @@ The <a href="/grantee">grantee</a> property indicates in each case the person, o
 
 <tr>
 <td class="release">
-<span id="v.next"></span>
 <span id="sdo-phobos"></span>
 <span id="v2.2"></span>
 <a href="/version/2.2/">2.2</a><br/>sdo-phobos<br/>(2015-11-05)</td>
@@ -385,19 +442,19 @@ per <a href="https://github.com/schemaorg/schemaorg/issues/784">#784</a>. Added 
 
 <h3>Vocabulary</h3>
 <ul>
-<li><a href="https://github.com/schemaorg/schemaorg/issues/611">Issue #611</a>: Added <a href="/Person">Person</a> as expected value for <a href="/publisher">publisher</a> property.</li>
-<li><a href="https://github.com/schemaorg/schemaorg/issues/596">Issue #596</a>: Documented that <a href="/affiliation">affiliation</a> is a  sub-property of <a href="/memberOf">memberOf</a>.</li>
-<li><a href="https://github.com/schemaorg/schemaorg/issues/207">Issue #207</a>: Added a <a href="/Bridge">Bridge</a> type under <a href="/CivicStructure">CivicStructure</a>.</li>
-<li><a href="https://github.com/schemaorg/schemaorg/issues/346">Issue #346</a>: Added <a href="/URL">URL</a> as expected value for <a href="/genre">genre</a> property.</li>
-<li><a href="https://github.com/schemaorg/schemaorg/issues/374">Issue #374</a>: Added <a href="/Report">Report</a> type under <a href="/Article">Article</a>, and a <a href="/reportNumber">reportNumber</a> property.</li>
-<li><a href="https://github.com/schemaorg/schemaorg/issues/577">Issue #577</a>: Amended <a href="/videoFormat">videoFormat</a> to indicate that it is expected on <a href="/BroadcastEvent">BroadcastEvent</a> and <a href="/ScreeningEvent">ScreeningEvent</a>, rather than <a href="/TelevisionStation">TelevisionStation</a>.</li>
-<li><a href="https://github.com/schemaorg/schemaorg/issues/535">Issue #535</a>: Broadened domain of <a href="/parentOrganization">parentOrganization</a> to allow any <a href="/Organization">Organization</a>, rather than only <a href="/LocalBusiness">LocalBusiness</a>. Noted <a href="/parentOrganization">parentOrganization</a> and <a href="/subOrganization">subOrganization</a> as inverses.</li>
-<li id="lyrics"><a href="https://github.com/schemaorg/schemaorg/issues/531">Issue #531</a>: Added the <a href="/lyrics">lyrics</a> property to MusicComposition.</li>
-<li id="paymentDuePaymentStatus" ><a href="https://github.com/schemaorg/schemaorg/issues/518">Issue #518</a>: Renamed <a href="/paymentDue">paymentDue</a> property to <a href="/paymentDueDate">paymentDueDate</a>. Changed <a href="/paymentStatus">paymentStatus</a> property to expect an enumerated value of type <a href="/PaymentStatusType">PaymentStatusType</a> in addition to <a href="/Text">Text</a>. The options are: PaymentComplete, PaymentDue, PaymentPastDue, PaymentDeclined and PaymentAutomaticallyApplied.</li>
-<li><a href="https://github.com/schemaorg/schemaorg/issues/137">Issue #137</a>: Deprecated <a href="/UserInteraction">UserInteraction</a> and its children in favor of a new type: <a
+<li id="g611"><a href="https://github.com/schemaorg/schemaorg/issues/611">Issue #611</a>: Added <a href="/Person">Person</a> as expected value for <a href="/publisher">publisher</a> property.</li>
+<li id="g596"><a href="https://github.com/schemaorg/schemaorg/issues/596">Issue #596</a>: Documented that <a href="/affiliation">affiliation</a> is a  sub-property of <a href="/memberOf">memberOf</a>.</li>
+<li id="g207"><a href="https://github.com/schemaorg/schemaorg/issues/207">Issue #207</a>: Added a <a href="/Bridge">Bridge</a> type under <a href="/CivicStructure">CivicStructure</a>.</li>
+<li id="g346"><a href="https://github.com/schemaorg/schemaorg/issues/346">Issue #346</a>: Added <a href="/URL">URL</a> as expected value for <a href="/genre">genre</a> property.</li>
+<li id="g374"><a href="https://github.com/schemaorg/schemaorg/issues/374">Issue #374</a>: Added <a href="/Report">Report</a> type under <a href="/Article">Article</a>, and a <a href="/reportNumber">reportNumber</a> property.</li>
+<li id="g577"><a href="https://github.com/schemaorg/schemaorg/issues/577">Issue #577</a>: Amended <a href="/videoFormat">videoFormat</a> to indicate that it is expected on <a href="/BroadcastEvent">BroadcastEvent</a> and <a href="/ScreeningEvent">ScreeningEvent</a>, rather than <a href="/TelevisionStation">TelevisionStation</a>.</li>
+<li id="g535"><a href="https://github.com/schemaorg/schemaorg/issues/535">Issue #535</a>: Broadened domain of <a href="/parentOrganization">parentOrganization</a> to allow any <a href="/Organization">Organization</a>, rather than only <a href="/LocalBusiness">LocalBusiness</a>. Noted <a href="/parentOrganization">parentOrganization</a> and <a href="/subOrganization">subOrganization</a> as inverses.</li>
+<li id="g531"><a href="https://github.com/schemaorg/schemaorg/issues/531">Issue #531</a>: Added the <a href="/lyrics">lyrics</a> property to MusicComposition.</li>
+<li id="g518" ><a href="https://github.com/schemaorg/schemaorg/issues/518">Issue #518</a>: Renamed <a href="/paymentDue">paymentDue</a> property to <a href="/paymentDueDate">paymentDueDate</a>. Changed <a href="/paymentStatus">paymentStatus</a> property to expect an enumerated value of type <a href="/PaymentStatusType">PaymentStatusType</a> in addition to <a href="/Text">Text</a>. The options are: PaymentComplete, PaymentDue, PaymentPastDue, PaymentDeclined and PaymentAutomaticallyApplied.</li>
+<li id="g137"><a href="https://github.com/schemaorg/schemaorg/issues/137">Issue #137</a>: Deprecated <a href="/UserInteraction">UserInteraction</a> and its children in favor of a new type: <a
 href="/InteractionCounter">InteractionCounter</a>. InteractionCounter allows for reporting aggregated statistics by service and type. Thanks elf Pavlik for collaboration.</li>
-<li id="liveblogposting" ><a href="https://github.com/schemaorg/schemaorg/issues/526">Issue #526</a>: Added new types <a href="/LiveBlogPosting">LiveBlogPosting</a>, <a href="/SocialMediaPosting">SocialMediaPosting</a>, and <a href="/DiscussionForumPosting">DiscussionForumPosting</a>, alongside supporting properties.</li>
-<li id="a11yhazardvalues" ><a href="https://github.com/schemaorg/schemaorg/issues/334">Issue #334</a>: Updated the controlled values for <a href="/accessibilityHazard">accessibilityHazard</a> shown in examples to follow latest community recommendations: 'noFlashing' is now 'noFlashingHazard', 'noMotionSimulation' is 'noMotionSimulationHazard', and 'noSound' is 'noSoundHazard'.</li>
+<li id="g526" ><a href="https://github.com/schemaorg/schemaorg/issues/526">Issue #526</a>: Added new types <a href="/LiveBlogPosting">LiveBlogPosting</a>, <a href="/SocialMediaPosting">SocialMediaPosting</a>, and <a href="/DiscussionForumPosting">DiscussionForumPosting</a>, alongside supporting properties.</li>
+<li id="g334" ><a href="https://github.com/schemaorg/schemaorg/issues/334">Issue #334</a>: Updated the controlled values for <a href="/accessibilityHazard">accessibilityHazard</a> shown in examples to follow latest community recommendations: 'noFlashing' is now 'noFlashingHazard', 'noMotionSimulation' is 'noMotionSimulationHazard', and 'noSound' is 'noSoundHazard'.</li>
 </ul>
 
 <h3>Site improvements</h3>

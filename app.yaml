@@ -2,7 +2,7 @@
 #application: webschemas
 application: sdo-fibo
 
-version: 3
+version: 1
 runtime: python27
 api_version: 1
 threadsafe: true
@@ -45,6 +45,9 @@ handlers:
 - url: /docs/schemas.html
   script: sdoapp.app
 
+- url: /docs/dumps.html
+  script: sdoapp.app
+
 - url: /docs/tree.json.*
   script: sdoapp.app
 
@@ -59,8 +62,12 @@ handlers:
 - url: /search_files
   static_dir: static/search_files
 
+- url: /releases/*/
+  static_dir: data/releases/
+
 - url: /.*
   script: sdoapp.app
+
 
 
 

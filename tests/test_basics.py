@@ -504,7 +504,7 @@ class SimpleSchemaIntegrityTests(unittest.TestCase):
 class DataTypeTests(unittest.TestCase):
     def test_booleanDataType(self):
       self.assertTrue( Unit.GetUnit("Boolean").isDataType())
-      self.assertFalse(Unit.GetUnit("DataType").isDataType())
+      self.assertTrue(Unit.GetUnit("DataType").isDataType())
       self.assertFalse(Unit.GetUnit("Thing").isDataType())
       self.assertFalse(Unit.GetUnit("Duration").isDataType())
 
