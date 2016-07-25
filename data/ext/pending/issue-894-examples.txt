@@ -1,0 +1,311 @@
+TYPES: #enumval-1 EnumerationValue, enumerationvalueCode,
+
+PRE-MARKUP:
+
+<div>
+   <h1>Library of Congress Resource Type: <b>Manuscript</b></h1>
+   Code: <b>Man</b>
+</div>
+
+
+MICRODATA:
+
+<div itemscope itemtype="http://schema.org/EnumerationValue">
+   <h1>Library of Congress Resource Type: <b><span itemprop="name">Manuscript</span></b></h1>
+   Code: <b><span itemprop="enumerationvalueCode">Man</span></b>
+   <link itemprop="partOfEnumerationValueSet" href="http://id.loc.gov/vocabulary/resourceTypes"/>
+</div>
+
+RDFA:
+
+<div vocab="http://schema.org/" typeof="EnumerationValue">
+   <h1>Library of Congress Resource Type: <b><span property="name">Manuscript</span></b></h1>
+   Code: <b><span property="enumerationvalueCode">Man</span></b>
+   <link property="partOfEnumerationValueSet" href="http://id.loc.gov/vocabulary/resourceTypes"/>
+</div>
+
+JSON:
+
+{
+ "@context": "http://schema.org/",
+ "@type": "EnumerationValue",
+ "enumerationvalueCode": "Man",
+ "partOfEnumerationValueSet": "http://id.loc.gov/vocabulary/resourceTypes"
+}
+
+TYPES: #enumval-2 EnumerationValue, EnumerationValueSet, hasEnumerationValue, partOfEnumerationValueSet
+
+PRE-MARKUP:
+
+<div>
+	 <h1 >Defined Values in The Mammal Classification List</h1>
+	 <ul>
+		<li>Carnivore - A mammal that feeds on other animals</li>
+	 </ul>
+</div>
+
+MICRODATA:
+
+<div itemscope itemtype="http://schema.org/EnumerationValueSet" id="C1">
+	 <h1>Defined Values in <span itemprop="name">The Mammal Classification List</span></h1>
+	 <ul>
+		<li itemprop="hasEnumerationValue" itemscope itemtype="http://schema.org/EnumerationValue">
+			<span itemprop="name">Carnivore</span> - <span itemprop="description">A mammal that feeds on other animals</span>
+			<link itemprop="partOfEnumerationValueSet" href="#C1"/>
+		</li>
+	 </ul>
+</div>
+
+RDFA:
+
+<div vocab="http://schema.org/" typeof="EnumerationValueSet" id="C1">
+	 <h1>Defined Values in <span property="name">The Mammal Classification List</span></h1>
+	 <ul>
+		<li property="hasEnumerationValue" typeof="EnumerationValue">
+			<span property="name">Carnivore</span> - <span property="description">A mammal that feeds on other animals</span>
+			<link property="partOfEnumerationValueSet" href="#C1"/>
+		</li>
+	 </ul>
+</div>
+
+JSON:
+
+{
+ "@context": "http://schema.org/",
+ "@type": "EnumerationValueSet",
+ "@id": "_C1",
+ "name": "The Mammal Classification List",
+ "hasEnumerationValue": {
+	"@type": "EnumerationValue",
+	"name": "Carnivore",
+	"description": "A mammal that feeds on other animals",
+	"partOfEnumerationValueSet": "_C1"
+	}
+}
+
+TYPES: #enumval-3 EnumerationValue, EnumerationValueSet, partOfEnumerationValueSet
+
+PRE-MARKUP:
+
+<div>
+	<div>
+	 <h1><a href="http://openjurist.org/dictionary/Ballentine">Ballentine&apos;s Law Dictionary</a></h1>
+	</div>
+	<div>
+		<h2>Dictionary term</h2>
+		Name: calendar year</br>
+		Description: The period from January 1st to December 31st, inclusive, of any year.</br>
+		In Dictionary: Ballentine&apos;s Law Dictionary	
+	</div>
+	<div>
+		<h2>Dictionary term</h2>
+		Name: schema</br>
+		Description: A representation of a plan or theory in the form of an outline or model.</br>	
+		In Dictionary: Ballentine&apos;s Law Dictionary	
+	</div>
+</div>
+
+MICRODATA:
+
+<div>
+	<div itemscope itemtype="http://schema.org/EnumerationValueSet">
+	<meta itemprop="alernateType" content="http://schema.org/Book">
+	 <h1><a itemprop="itemid" href="http://openjurist.org/dictionary/Ballentine"><span itemprop="name">Ballentine&apos;s Law Dictionary</span></a></h1>
+	</div>
+	<div itemscope itemtype="http://schema.org/EnumerationValue">
+		<h2>Dictionary term</h2>
+		<link itemprop="url" href="http://openjurist.org/dictionary/Ballentine/term/calendar-year"/>
+		Name: <span itemprop="name">calendar year</span></br>
+		Description: <span itemprop="description">The period from January 1st to December 31st, inclusive, of any year.</span></br>
+		In Dictionary: Ballentine&apos;s Law Dictionary	
+		<link itemprop="partOfEnumerationValueSet" href="http://openjurist.org/dictionary/Ballentine">	
+	</div>
+	<div itemscope itemtype="http://schema.org/EnumerationValue">
+		<h2>Dictionary term</h2>
+		<link itemprop="url" href="http://openjurist.org/dictionary/Ballentine/term/schema"/>
+		Name: <span itemprop="name">schema</span></br>
+		Description: <span itemprop="description">A representation of a plan or theory in the form of an outline or model.</span></br>	
+		In Dictionary: Ballentine&apos;s Law Dictionary
+		<link itemprop="partOfEnumerationValueSet" href="http://openjurist.org/dictionary/Ballentine">	
+	</div>
+</div>
+
+RDFA:
+
+<div  vocab="http://schema.org/">
+	<div typeof"EnumerationValueSet Book">
+	 <h1><a property="itemid" href="http://openjurist.org/dictionary/Ballentine"><span property="name">Ballentine&apos;s Law Dictionary</span></a></h1>
+	</div>
+	<div typeof="EnumerationValue">
+		<h2>Dictionary term</h2>
+		<link property="url" href="http://openjurist.org/dictionary/Ballentine/term/calendar-year"/>
+		Name: <span property="name">calendar year</span></br>
+		Description: <span property="description">The period from January 1st to December 31st, inclusive, of any year.</span></br>
+		In Dictionary: Ballentine&apos;s Law Dictionary	
+		<link property="partOfEnumerationValueSet" href="http://openjurist.org/dictionary/Ballentine">	
+	</div>
+	<div typeof="EnumerationValue">
+		<h2>Dictionary term</h2>
+		<link propery="url" href="http://openjurist.org/dictionary/Ballentine/term/schema"/>
+		Name: <span property="name">schema</span></br>
+		Description: <span property="description">A representation of a plan or theory in the form of an outline or model.</span></br>	
+		In Dictionary: Ballentine&apos;s Law Dictionary
+		<link property="partOfEnumerationValueSet" href="http://openjurist.org/dictionary/Ballentine">	
+	</div>
+</div>
+
+JSON:
+
+[
+	{
+		"@context": "http://schema.org/"
+	},
+	{
+		"@type": ["EnumerationValueSet","Book"],
+		"@id": "http://openjurist.org/dictionary/Ballentine",
+		"name": "Ballentine's Law Dictionary"
+	},
+	{
+		"@type": "EnumerationValue",
+		"@id": "http://openjurist.org/dictionary/Ballentine/term/calendar-year",
+		"name": "calendar year",
+		"description": "The period from January 1st to December 31st, inclusive, of any year.",
+		"partOfEnumerationValueSet": "http://openjurist.org/dictionary/Ballentine"
+	},
+	{
+		"@type": "EnumerationValue",
+		"@id": "http://openjurist.org/dictionary/Ballentine/term/schema",
+		"name": "schema",
+		"description": "A representation of a plan or theory in the form of an outline or model.",
+		"partOfEnumerationValueSet": "http://openjurist.org/dictionary/Ballentine"
+	}
+]
+
+TYPES: #enumval-4 EnumerationValue, partOfEnumerationValueSet, enumerationValueCode
+
+PRE-MARKUP:
+
+<div>
+	<h1>Occupation Term defined by <a href="http://onetonline.org">O*Net Online</a></h1>
+	<h2>51-6042.00 - Shoe Machine Operators and Tenders</h2>
+	Operate or tend a variety of machines to join, decorate, reinforce, or finish shoes and shoe parts.
+</div>
+
+MICRODATA:
+
+<div itemscope itemtype="http://schema.org/EnumerationValue">
+	<h1>Occupation Term defined by <a itemprop="partOfEnumerationValueSet" href="http://onetonline.org">O*Net Online</a></h1>
+	<h2><span itemprop="enumerationValueCode">51-6042.00</span> - <span itemprop="name">Shoe Machine Operators and Tenders</span></h2>
+	<span itemprop="description">Operate or tend a variety of machines to join, decorate, reinforce, or finish shoes and shoe parts.</span>
+</div>
+
+RDFA:
+
+<div vocab="http://schema.org/" typeof="EnumerationValue">
+	<h1>Occupation Term defined by <a property="partOfEnumerationValueSet" href="http://onetonline.org">O*Net Online</a></h1>
+	<h2><span property="enumerationValueCode">51-6042.00</span> - <span property="name">Shoe Machine Operators and Tenders</span></h2>
+	<span property="description">Operate or tend a variety of machines to join, decorate, reinforce, or finish shoes and shoe parts.</span>
+</div>
+
+JSON:
+
+{
+ "@context": "http://schema.org/",
+ "@type": "EnumerationValue",
+ "name": "Shoe Machine Operators and Tenders",
+ "enumerationValueCode": "51-6042.00",
+ "description": "Operate or tend a variety of machines to join, decorate, reinforce, or finish shoes and shoe parts.",
+ "partOfEnumerationValueSet": "http://onetonline.org"
+}
+
+TYPES: #enumval-5 EnumerationValue, EnumerationValueSet, partOfEnumerationValueSet, enumerationValueCode, hasEnumerationValue
+
+PRE-MARKUP:
+
+<div>
+	<h1>ISO 639-2: Codes for the Representation of Names of Languages<h1>
+	<h2>Listing of codes:</h2>
+	<ul>
+		<li>...</li>
+		<li>cze</li>
+		<li>...</li>
+	</ul>
+</div>
+<div>
+	<h2>Czech; tchèque; Tschechisch</h2>
+	<h3>From: ISO 639-2: Codes for the Representation of Names of Languages</h3>
+	English: Czech</br>
+	French: tchèque</br>
+	German: Tschechisch</br>
+</div>
+
+MICRODATA:
+
+<div itemscope itemtype="http://schema.org/EnumerationValueSet" itemid="http://id.loc.gov/vocabulary/iso639-2">
+	<h1 itemprop="name">ISO 639-2: Codes for the Representation of Names of Languages<h1>
+	<h2>Listing of codes:</h2>
+	<ul>
+		<li>...</li>
+		<li><span itemprop="hasEnumerationValue" itemid="http://id.loc.gov/vocabulary/iso639-2/cze">cze</span></li>
+		<li>...</li>
+	</ul>
+</div>
+<div itemscope itemtype="http://schema.org/EnumerationValue" itemid="http://id.loc.gov/vocabulary/iso639-2/cze">
+	<meta itemprop="enumerationValueCode" content="cze">
+	<h2>Czech; tchèque; Tschechisch</h2>
+	<link itemprop="partOfEnumerationValueSet" href="http://id.loc.gov/vocabulary/iso639-2">
+	<h3>From: ISO 639-2: Codes for the Representation of Names of Languages</h3>
+	<span itemprop="name" xml:lang="en" content="Czech">English: Czech</span></br>
+	<span itemprop="name" xml:lang="fr" content="tchèque">French: tchèque</span></br>
+	<span itemprop="name" xml:lang="de" content="Tschechisch">German: Tschechisch</span></br>
+</div>
+
+	
+RDFA:
+
+<div vocab="http://schema.org/" typeof="EnumerationValueSet" resource="http://id.loc.gov/vocabulary/iso639-2">
+	<h1 property="name">ISO 639-2: Codes for the Representation of Names of Languages<h1>
+	<h2>Listing of codes:</h2>
+	<ul>
+		<li>...</li>
+		<li><span property="hasEnumerationValue" resource="http://id.loc.gov/vocabulary/iso639-2/cze">cze</span></li>
+		<li>...</li>
+	</ul>
+</div>
+<div vocab="http://schema.org/" typeof="EnumerationValueSet" resource=="http://id.loc.gov/vocabulary/iso639-2/cze">
+	<meta property="enumerationValueCode" content="cze">
+	<h2>Czech; tchèque; Tschechisch</h2>
+	<link property="partOfEnumerationValueSet" href="http://id.loc.gov/vocabulary/iso639-2">
+	<h3>From: ISO 639-2: Codes for the Representation of Names of Languages</h3>
+	<span property="name" xml:lang="en" content="Czech">English: Czech</span></br>
+	<span property="name" xml:lang="fr" content="tchèque">French: tchèque</span></br>
+	<span property="name" xml:lang="de" content="Tschechisch">German: Tschechisch</span></br>
+</div>
+
+JSON:
+
+[
+	{
+		"@context": "http://schema.org/"
+	},
+	{
+		"@type": "EnumerationValueSet",
+		"@id": "http://id.loc.gov/vocabulary/iso639-2",
+		"name": "ISO 639-2: Codes for the Representation of Names of Languages"
+		"hasEnumerationValue": "http://id.loc.gov/vocabulary/iso639-2/cze"
+	},
+	{
+		"@type": "EnumerationValue",
+		"@id": "http://id.loc.gov/vocabulary/iso639-2/cze",
+		"enumerationValueCode": "cze",
+		"name": {
+			"en": "Czech",
+			"fr": "tchèque",
+			"de": "Tschechisch"
+		},
+		"partOfEnumerationValueSet": "http://id.loc.gov/vocabulary/iso639-2"		
+	}
+		
+
+
+
