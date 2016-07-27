@@ -919,9 +919,9 @@ class ShowUnit (webapp2.RequestHandler):
             else:
                 edomains.append(d) 
 
-        inverseprop = node.inverseproperty(layers=layers)
-        subprops = sorted(node.subproperties(layers=layers),key=lambda u: u.id)
-        superprops = sorted(node.superproperties(layers=layers),key=lambda u: u.id)
+        inverseprop = node.inverseproperty(layers=ALL_LAYERS)
+        subprops = sorted(node.subproperties(layers=ALL_LAYERS),key=lambda u: u.id)
+        superprops = sorted(node.superproperties(layers=ALL_LAYERS),key=lambda u: u.id)
 
 
         if (inverseprop != None):
