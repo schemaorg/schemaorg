@@ -950,7 +950,7 @@ class ShowUnit (webapp2.RequestHandler):
                 first_range = False
                 defin = "defined in the <a href=\"%s\">%s</a> extension" % (makeUrl(r.getHomeLayer(),""),r.getHomeLayer())
                 tt = "The '%s' property has values that include instances of the '%s' type." % (node.id, r.id)
-                out.write("\n    <code>%s</code> - %s" % (self.ml(d, r.id, tt, prop="domainIncludes",hashorslash=hashorslash),defin ))
+                out.write("\n    <code>%s</code> - %s" % (self.ml(r, r.id, tt, prop="domainIncludes",hashorslash=hashorslash),defin ))
             out.write("      </td>\n    </tr>\n</table>\n\n")
 
         first_domain = True
