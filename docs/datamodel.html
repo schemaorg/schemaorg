@@ -90,13 +90,13 @@
 </p>
 
 <p>
-The data model used is very generic and derived from RDF Schema (which in turn was
-derived from CycL, which in turn ...).
+The data model used is very generic and derived from <a href="https://en.wikipedia.org/wiki/RDF_Schema">RDF Schema</a> (which in turn was
+derived from <a href="https://en.wikipedia.org/wiki/CycL">CycL</a>, which in turn ...).
 </p>
 <ol>
-<li> We have a set of types, arranged in a multiple inheritance hierarchy
-where each type may be a sub class of multiple types.
-<li> We have a set of properties:
+<li> We have a set of <b>types</b>, arranged in a <b>multiple inheritance hierarchy</b>
+where each type may be a sub-class of multiple types.
+<li> We have a set of <b>properties</b>:
   <ol>
     <li> each property may have one or more types as its domains. The property may be used
       for instances of any of these types.
@@ -112,7 +112,8 @@ which are there purely to act as the domain/range of some properties.
 </p>
 <p>
 Like many other systems, the schema presented here can be extended (with
-a few types like Type and Property and a few properties like domainIncludes and rangeIncludes)
+a few types like <a href="http://meta.schema.org/Class">Class</a> and <a href="http://meta.schema.org/Property">Property</a>
+and a few properties like <a href="http://meta.schema.org/domainIncludes">domainIncludes</a> and <a href="http://meta.schema.org/rangeIncludes">rangeIncludes</a>)
 to allow for reflection, i.e., for the schema to be represented in terms of itself.
 </p>
 
@@ -127,23 +128,82 @@ Now-obsolete snapshots of <a href='https://web.archive.org/web/20150414142113/ht
 data dumps were previously published. See also <a href="http://topbraid.org/schema/">TopBraid's version</a>.
 </p>
 
+<p>See the "<a href="/docs/developers.html">developers</a>" page for more information on machine-readable views of schema.org.</p>
+
 <p>
- The type hierarchy presented on this site is not intended to be a
-'global ontology' of the world.  It only covers the types of entities
-for which we (Microsoft, Yahoo!, Google and Yandex), think we can
-provide some special treatment for, through our search engines, in the
-near future.
+The type hierarchy presented on this site is not intended to be a 'global ontology' of the world.
+When founded in 2011 it was strictly focussed around the types of entities
+for which the project's founders (Microsoft, Yahoo!, Google and Yandex), could reasonably expect to
+provide some special treatment for via search engines. As the project has <a href="http://queue.acm.org/detail.cfm?id=2857276">evolved</a>,
+introducing more community collaboration and extension mechanisms, its scope has expanded gradually.
+However it is still the case that schema.org is not intended as a universal ontology. We expect it to be used
+alongside other vocabulary that shares our basic datamodel and our use of underlying standards like JSON-LD, Microdata
+and RDFa.
 </p>
 
-<h2>Conformance</h2>
+<h2 id="conformance">Conformance</h2>
+
+<!--
+2011-2016
 <p>
- While we would like all the markup we get to follow the schema, in practice, we expect a lot
+While we would like all the markup we get to follow the schema, in practice, we expect a lot
 of data that does not. We expect schema.org properties to be used with new types. We also expect
 that often, where we expect a property value of type Person, Place, Organization or some other
 subClassOf Thing, we will get a text string. In the spirit of "some data is better than none",
 we will accept this markup and do the best we can.
 </p>
+-->
 
+<p>
+Although it might be helpful for search applications if structured data markup always followed schema.org very
+strictly, in practice this is unrealistic. Our schemas also continue to evolve in response to
+feedback, discussion and new applications of the data. Where possible we amend existing definitions incrementally
+rather than introducing lots of new properties for similar use cases. We have consequently based schema.org on a
+very flexible datamodel, and take a pragmatic view of conformance.
+</p>
+
+<p>
+We expect schema.org properties to be used with new types, both from schema.org and from external extensions.
+We also expect that often, where we expect a property value of type Person, Place, Organization or some other
+subClassOf Thing, we will get a text string, even if our schemas don't formally document that expectation.
+In the spirit of "some data is better than none", search engines will often accept this markup and do the best we can.
+Similarly, some types such as <a href="/Role">Role</a> can be used with all properties, and we encourage
+this kind of experimentation amongst data consumers.
+</p>
+
+<p>
+Applications of schema.org can address conformance in several ways. Tools such as validators can check for
+application-specific patterns, such as the data structures required for some specific functionality.
+They may also check compliance with underlying formats (JSON-LD, Microdata, RDFa etc.), or offer additional
+hints that go beyond formal conformance (e.g. checking for readability issues or implausible data).
+</p>
+
+<p>
+While it is appropriate and useful for such checkers to warn about published data that may be difficult or ambiguous
+for consumers, they are not obliged to treat unexpected structures as errors. Schema.org's underlying datamodel
+is naturally flexible, and provides an <a href="extension.html">extensible</a> basis for rich structured data.
+We encourage both publishers and consumers to continue to explore and <a href="https://www.w3.org/community/schemaorg/">share</a>
+new vocabulary ideas for <a href="schema.org/docs/releases.html">evolving</a> schema.org.
+</p>
+
+<p id="mtes">
+It is not an error for a schema.org entity description to include properties from several independent types, e.g. something
+might simultaneously be both a <a href="/Book">Book</a> and a <a href="/Product">Product</a> and be usefully described with
+properties from both types. It is useful but not required for the relevant types to be included in such a description. This
+flexibility allows schema.org types to be developed with some decentralization, and for vocabulary to be re-used and combined
+in useful ways. When we list the expected types associated with a property (or vice-versa) we aim to indicate the main ways
+in which these terms will be combined in practice. This aspect of schema.org is naturally imperfect. For example the
+schemas for <a href="/Volcano">Volcano</a> suggest that since volcanoes are places, they may have fax numbers. Similarly,
+we list the unlikely (but not infeasible) possibility of a <a href="/Country">Country</a> having "opening hours".
+We do not attempt to perfect this aspect of schema.org's structure, and instead rely heavily on an extensive collection of
+illustrative examples that capture common and useful combinations of schema.org terms. The type/properties associations of
+schema.org are closer to "guidelines" than to formal rules, and improvements to the guidelines are
+always <a href="https://www.w3.org/community/schemaorg/">welcome</a>.
+</p>
+
+<p>
+See also: <a href="https://en.wikipedia.org/wiki/Robustness_principle">Postel's Law</a>
+</p>
 
 <h2>Mapping to RDFa Lite </h2>
 
