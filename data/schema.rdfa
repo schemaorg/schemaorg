@@ -5186,7 +5186,7 @@ The place is __open__ if the [[opens]] property is specified, and __closed__ oth
       <span property="rdfs:comment">The hours during which this service or contact is available.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ContactPoint">ContactPoint</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Service">Service</a></span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/AccommodationFeature">AccommodationFeature</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/LocationFeatureSpecification">LocationFeatureSpecification</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/OpeningHoursSpecification">OpeningHoursSpecification</a></span>
     </div>
 
@@ -7314,7 +7314,7 @@ The place is __open__ if the [[opens]] property is specified, and __closed__ oth
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Demand">Demand</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/OpeningHoursSpecification">OpeningHoursSpecification</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Permit">Permit</a></span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/AccommodationFeature">AccommodationFeature</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/LocationFeatureSpecification">LocationFeatureSpecification</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/DateTime">DateTime</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/validIn">
@@ -7332,7 +7332,7 @@ The place is __open__ if the [[opens]] property is specified, and __closed__ oth
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Demand">Demand</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/JobPosting">JobPosting</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/OpeningHoursSpecification">OpeningHoursSpecification</a></span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/AccommodationFeature">AccommodationFeature</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/LocationFeatureSpecification">LocationFeatureSpecification</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/DateTime">DateTime</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/validUntil">
@@ -10830,8 +10830,8 @@ See also the &lt;a href=&quot;/docs/hotels.html&quot;&gt;dedicated document on t
     <span>Source:  <a property="dc:source" href="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology">STI Accommodation Ontology</a></span>
 </div>
 
-<div typeof="rdfs:Class" resource="http://schema.org/AccommodationFeature">
-    <span class="h" property="rdfs:label">AccommodationFeature</span>
+<div typeof="rdfs:Class" resource="http://schema.org/LocationFeatureSpecification">
+    <span class="h" property="rdfs:label">LocationFeatureSpecification</span>
     <span property="rdfs:comment">An accommodation feature is a structured value representing the feature of an accommodation as a property-value pair of varying degrees of formality.</span>
     <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/PropertyValue">PropertyValue</a></span>
     <span>Source:  <a property="dc:source" href="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology">STI Accommodation Ontology</a></span>
@@ -10844,12 +10844,12 @@ See also the &lt;a href=&quot;/docs/hotels.html&quot;&gt;dedicated document on t
 </div>
 
 <!-- Properties -->
-<div typeof="rdf:Property" resource="http://schema.org/feature">
-    <span class="h" property="rdfs:label">feature</span>
-    <span property="rdfs:comment">A feature (e.g. a characteristic or service) of the Accommodation. This generic property does not make a statement about whether the feature is included in the offer for the main accommodation or available at extra costs.</span>
+<div typeof="rdf:Property" resource="http://schema.org/amenityFeature">
+    <span class="h" property="rdfs:label">amenityFeature</span>
+    <span property="rdfs:comment">An amenity feature (e.g. a characteristic or service) of the Accommodation. This generic property does not make a statement about whether the feature is included in an offer for the main accommodation or available at extra costs.</span>
     <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Accommodation">Accommodation</a></span>
     <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/LodgingBusiness">LodgingBusiness</a></span>
-    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/AccommodationFeature">AccommodationFeature</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/LocationFeatureSpecification">LocationFeatureSpecification</a></span>
     <span>Source:  <a property="dc:source" href="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology">STI Accommodation Ontology</a></span>
 </div>
 
