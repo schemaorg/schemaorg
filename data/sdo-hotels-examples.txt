@@ -268,7 +268,7 @@ This example is in microdata only.
 JSON:
 This example is in microdata only.
 
-TYPES: feature, AccommodationFeature
+TYPES: feature, LocationFeatureSpecification
 
 PRE-MARKUP:
 This example is in microdata only.
@@ -281,11 +281,11 @@ heart of the alps. Watch the sun rise over the scenic Inn valley while
 enjoying your morning coffee.</span>
   Hotel Features:
   <ul>
-  <li itemprop="feature" itemscope itemtype="http://schema.org/AccommodationFeature">
+  <li itemprop="amenityFeature" itemscope itemtype="http://schema.org/LocationFeatureSpecification">
     <span itemprop="name">Sauna</span>
     <meta itemprop="value" content="True">
   </li>
-  <li itemprop="feature" itemscope itemtype="http://schema.org/AccommodationFeature">
+  <li itemprop="amenityFeature" itemscope itemtype="http://schema.org/LocationFeatureSpecification">
     <span itemprop="name">Gym</span>
     <meta itemprop="value" content="True">
   </li>
@@ -298,7 +298,7 @@ This example is in microdata only.
 JSON:
 This example is in microdata only.
 
-TYPES: feature, AccommodationFeature, hoursAvailable
+TYPES: feature, LocationFeatureSpecification, hoursAvailable
 
 PRE-MARKUP:
 This example is in microdata only.
@@ -311,12 +311,12 @@ heart of the alps. Watch the sun rise over the scenic Inn valley while
 enjoying your morning coffee.</span>
   Hotel Features:
   <ul>
-  <li itemprop="feature" itemscope itemtype="http://schema.org/AccommodationFeature">
+  <li itemprop="amenityLocationFeatureSpecification itemscope itemtype="http://schema.org/LocationFeatureSpecification">
     <span itemprop="name">Sauna</span>
     <meta itemprop="value" content="True">
     <div itemprop="hoursAvailable" itemtype="http://schema.org/OpeningHoursSpecification">
-      <link itemprop="dayOfWeek" href="http://purl.org/goodrelations/v1#Thursday" />(Open Thursdays 
-      <time itemprop="opens" content="16:00:00"> 4:00 PM</time> - 
+      <link itemprop="dayOfWeek" href="http://purl.org/goodrelations/v1#Thursday" />(Open Thursdays
+      <time itemprop="opens" content="16:00:00"> 4:00 PM</time> -
       <time itemprop="closes" content="21:00:00"> 9:00 PM</time>)
     </div>
   </li>
@@ -400,7 +400,7 @@ enjoying your morning coffee.</span>
   Phone: <span itemprop="telephone">+43 512 8000-0</span>
   <div itemprop="containsPlace" itemscope itemtype="http://schema.org/HotelRoom">
     <span itemprop="name">Standard Double Room</span>
-    <span itemprop="description">Our standard double rooms include a double bed, a 
+    <span itemprop="description">Our standard double rooms include a double bed, a
   full bathroom with tub, shower and toilet</span>
     <img itemprop="photo" src="../media/single_room1.png" />
     Available rates:
@@ -409,7 +409,7 @@ enjoying your morning coffee.</span>
     <span itemprop="description">Terms and conditions go here...</span>
     <link itemprop="businessFunction" href="http://purl.org/goodrelations/v1#LeaseOut" />
       <span itemprop="priceSpecification" itemscope itemtype="http://schema.org/UnitPriceSpecification">
-      <meta itemprop="priceCurrency" content="EUR"> € 
+      <meta itemprop="priceCurrency" content="EUR"> €
       <span itemprop="price">99</span>
       <meta itemprop="unitCode" content="DAY"> per room per day
       To save this rate, book by
