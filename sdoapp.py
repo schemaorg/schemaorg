@@ -1472,7 +1472,7 @@ class ShowUnit (webapp2.RequestHandler):
         else:
             extensions = sorted(ENABLED_EXTENSIONS)
 
-            page = templateRender('dumps.tpl',{'extensions': extensions,
+            page = templateRender('developers.tpl',{'extensions': extensions,
                                     'version': SCHEMA_VERSION,
                                     'menu_sel': "Schemas"})
 
@@ -2114,11 +2114,11 @@ class ShowUnit (webapp2.RequestHandler):
             else:
                 log.info("Error handling schemas.html : %s " % node)
                 return False
-        if (node == "docs/dumps.html"): 
+        if (node == "docs/developers.html"): 
             if self.handleDumpsPage(node, layerlist=layerlist):
                 return True
             else:
-                log.info("Error handling dumps.html : %s " % node)
+                log.info("Error handling developers.html : %s " % node)
                 return False
 
 
