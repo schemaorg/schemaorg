@@ -10835,14 +10835,7 @@ See also the &lt;a href=&quot;/docs/hotels.html&quot;&gt;dedicated document on t
 
 <div typeof="rdfs:Class" resource="http://schema.org/BedDetails">
     <span class="h" property="rdfs:label">BedDetails</span>
-    <span property="rdfs:comment">An entity holding detailed information about the available bed types, e.g. the quantity of twin beds for a hotel room. For the single case of just one bed of a certain type, you can use bed directly with a text or a BedType instances.</span>
-    <span>Source:  <a property="dc:source" href="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology">STI Accommodation Ontology</a></span>
-</div>
-
-<div typeof="rdfs:Class" resource="http://schema.org/BedType">
-    <span class="h" property="rdfs:label">BedType</span>
-    <span property="rdfs:comment">A type of bed. This is used for indicating the bed or beds available in an accommodation.</span>
-    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/QualitativeValue">QualitativeValue</a></span>
+    <span property="rdfs:comment">An entity holding detailed information about the available bed types, e.g. the quantity of twin beds for a hotel room. For the single case of just one bed of a certain type, you can use bed directly with a text. See also [[BedType]] (under development).</span>
     <span>Source:  <a property="dc:source" href="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology">STI Accommodation Ontology</a></span>
 </div>
 
@@ -10861,18 +10854,17 @@ See also the &lt;a href=&quot;/docs/hotels.html&quot;&gt;dedicated document on t
     <span property="rdfs:comment">The type of bed to which the BedDetail refers, i.e. the type of bed available in the quantity indicated by quantity.</span>
     <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/BedDetails">BedDetails</a></span>
     <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
-    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/BedType">BedType</a></span>
     <span>Source:  <a property="dc:source" href="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology">STI Accommodation Ontology</a></span>
 </div>
 
 <div typeof="rdf:Property" resource="http://schema.org/bed">
     <span class="h" property="rdfs:label">bed</span>
-    <span property="rdfs:comment">The type of bed or beds included in the accommodation. For the single case of just one bed of a certain type, you use bed directly with a text or a BedType instance. If you want to indicate the quantity of a certain BedType, use an instance of BedDetails. For more detailed information, use the feature property.</span>
+    <span property="rdfs:comment">The type of bed or beds included in the accommodation. For the single case of just one bed of a certain type, you use bed directly with a text.
+      If you want to indicate the quantity of a certain kind of bed, use an instance of BedDetails. For more detailed information, use the amenityFeature property.</span>
     <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/HotelRoom">HotelRoom</a></span>
     <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Suite">Suite</a></span>
     <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
     <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/BedDetails">BedDetails</a></span>
-    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/BedType">BedType</a></span>
     <span>Source:  <a property="dc:source" href="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology">STI Accommodation Ontology</a></span>
 </div>
 
