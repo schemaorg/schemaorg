@@ -84,7 +84,7 @@
 
 
     <div typeof="rdfs:Class" resource="http://schema.org/Dentist">
-      <span class="h" property="rdfs:label"> Dentist</span>
+      <span class="h" property="rdfs:label">Dentist</span>
       <span property="rdfs:comment">A dentist.</span>
       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MedicalOrganization">MedicalOrganization</a></span>
       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/ProfessionalService"> schema:ProfessionalService</a></span>
@@ -1221,7 +1221,7 @@ See also the &lt;a href=&quot;/docs/hotels.html&quot;&gt;dedicated document on t
     </div>
 
     <div typeof="rdfs:Class" resource="http://schema.org/ComputerLanguage">
-      <span class="h" property="rdfs:label">ComputerLanguageLanguage</span>
+      <span class="h" property="rdfs:label">ComputerLanguage</span>
       <span property="rdfs:comment">This type covers computer programming languages such as Scheme and Lisp, as well as other language-like computer representations. Natural languages are best represented with the [[Language]] type.</span>
        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Intangible">Intangible</a></span>
     </div>
@@ -5313,7 +5313,7 @@ The place is __open__ if the [[opens]] property is specified, and __closed__ oth
     </div>
 
     <div typeof="rdf:Property" resource="http://schema.org/isBasedOn">
-      <span class="h" property="rdfs:label">isBasedOnUrl</span>
+      <span class="h" property="rdfs:label">isBasedOn</span>
       <span property="rdfs:comment">A resource that was used in the creation of this resource. This term can be repeated for multiple sources. For example, http://example.com/great-multiplication-intro.html.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CreativeWork">CreativeWork</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/URL">URL</a></span>
@@ -5898,7 +5898,7 @@ The place is __open__ if the [[opens]] property is specified, and __closed__ oth
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/AggregateOffer">AggregateOffer</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Offer">Offer</a></span>
     </div>
-    <div typeof="rdf:Property" resource="http://schema.org/">
+    <div typeof="rdf:Property" resource="http://schema.org/openingHours">
       <span class="h" property="rdfs:label">openingHours</span>
       <span property="rdfs:comment">The general opening hours for a business. Opening hours can be specified as a weekly time range, starting with days, then times per day. Multiple days can be listed with commas ',' separating each day. Day or time ranges are specified using a hyphen '-'.\n\n* Days are specified using the following two-letter combinations: ```Mo```, ```Tu```, ```We```, ```Th```, ```Fr```, ```Sa```, ```Su```.\n* Times are specified using 24:00 time. For example, 3pm is specified as ```15:00```. \n* Here is an example: &lt;code&gt;&amp;lt;time itemprop="openingHours" datetime=&amp;quot;Tu,Th 16:00-20:00&amp;quot;&amp;gt;Tuesdays and Thursdays 4-8pm&amp;lt;/time&amp;gt;&lt;/code&gt;.\n* If a business is open 7 days a week, then it can be specified as &lt;code&gt;&amp;lt;time itemprop=&amp;quot;openingHours&amp;quot; datetime=&amp;quot;Mo-Su&amp;quot;&amp;gt;Monday through Sunday, all day&amp;lt;/time&amp;gt;&lt;/code&gt;.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/LocalBusiness">LocalBusiness</a></span>
@@ -8836,15 +8836,15 @@ postponing for 1.6.
   <span property="rdfs:comment">Game server status: Online. Server is available.</span>
 </div>
 <div typeof="http://schema.org/GameServerStatus" resource="http://schema.org/OnlineFull">
-  <span class="h" property="rdfs:label">OnlineFull </span>
+  <span class="h" property="rdfs:label">OnlineFull</span>
   <span property="rdfs:comment">Game server status: OnlineFull. Server is online but unavailable. The maximum number of players has reached.</span>
 </div>
 <div typeof="http://schema.org/GameServerStatus" resource="http://schema.org/OfflineTemporarily">
-  <span class="h" property="rdfs:label">OfflineTemporarily </span>
+  <span class="h" property="rdfs:label">OfflineTemporarily</span>
   <span property="rdfs:comment">Game server status: OfflineTemporarily. Server is offline now but it can be online soon.</span>
 </div>
 <div typeof="http://schema.org/GameServerStatus" resource="http://schema.org/OfflinePermanently">
-  <span class="h" property="rdfs:label">OfflinePermanently </span>
+  <span class="h" property="rdfs:label">OfflinePermanently</span>
   <span property="rdfs:comment">Game server status: OfflinePermanently. Server is offline and not available.</span>
 </div>
 
@@ -9695,7 +9695,7 @@ Standards bodies should promote a standard prefix for the identifiers of propert
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Event">Event</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/broadcastTimezone">
-      <span class="h" property="rdfs:label">timezone</span>
+      <span class="h" property="rdfs:label">broadcastTimezone</span>
       <span property="rdfs:comment">The timezone in [ISO 8601 format](http://en.wikipedia.org/wiki/ISO_8601) for which the service bases its broadcasts</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/BroadcastService">BroadcastService</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
@@ -9830,7 +9830,7 @@ Standards bodies should promote a standard prefix for the identifiers of propert
 </div>
 
 <div typeof="rdf:Property" resource="http://schema.org/vehicleIdentificationNumber"><!-- formerly vin -->
-    <span class="h" property="rdfs:label">vin</span>
+    <span class="h" property="rdfs:label">vehicleIdentificationNumber</span>
     <span property="rdfs:comment">The Vehicle Identification Number (VIN) is a unique serial number used by the automotive industry to identify individual motor vehicles.</span>
      <link property="rdfs:subPropertyOf" href="http://schema.org/serialNumber" />
     <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Vehicle">Vehicle</a></span>
@@ -10090,7 +10090,7 @@ Standards bodies should promote a standard prefix for the identifiers of propert
 </div>
 
 <div typeof="rdfs:Class" resource="http://schema.org/LiveBlogPosting">
-  <span class="h" property="rdfs:label">LiveBlog</span>
+  <span class="h" property="rdfs:label">LiveBlogPosting</span>
   <span property="rdfs:comment">A blog post intended to provide a rolling textual coverage of an ongoing event through continuous updates.</span>
   <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/BlogPosting">BlogPosting</a></span>
 </div>
@@ -10764,7 +10764,7 @@ See also the &lt;a href=&quot;/docs/hotels.html&quot;&gt;dedicated document on t
 </div>
 
 <div typeof="rdfs:Class" resource="http://schema.org/HotelRoom">
-    <span class="h" property="rdfs:label">Hotel Room</span>
+    <span class="h" property="rdfs:label">HotelRoom</span>
     <span property="rdfs:comment">A hotel room is a single room in a hotel.
 &lt;br /&gt;&lt;br /&gt;
 See also the &lt;a href=&quot;/docs/hotels.html&quot;&gt;dedicated document on the use of schema.org for marking up hotels and other forms of accommodations&lt;/a&gt;.
