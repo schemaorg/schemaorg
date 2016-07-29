@@ -19,16 +19,26 @@ schema:AboutPage a rdfs:Class ;
 
 schema:AcceptAction a rdfs:Class ;
     rdfs:label "AcceptAction" ;
-    rdfs:comment "The act of committing to/adopting an object.<p>Related actions:</p><ul><li><a href=\"http://schema.org/RejectAction\">RejectAction</a>: The antonym of AcceptAction</li></ul>." ;
+    rdfs:comment """<p>The act of committing to/adopting an object.</p>
+<p>Related actions:</p>
+<ul>
+<li><a class="localLink" href="/RejectAction">RejectAction</a>: The antonym of AcceptAction.</li>
+</ul>""" ;
     rdfs:subClassOf schema:AllocateAction .
+
+schema:Accommodation a rdfs:Class ;
+    rdfs:label "Accommodation" ;
+    dct:source <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology> ;
+    rdfs:comment """An accommodation is a place that can accommodate human beings, e.g. a hotel room, a camping pitch, or a meeting room. Many accommodations are for overnight stays, but this is not a mandatory requirement.
+For more specific types of accommodations not defined in schema.org, one can use additionalType with external vocabularies.
+<br /><br />
+See also the <a href="/docs/hotels.html">dedicated document on the use of schema.org for marking up hotels and other forms of accommodations</a>.""" ;
+    rdfs:subClassOf schema:Place .
 
 schema:AccountingService a rdfs:Class ;
     rdfs:label "AccountingService" ;
-    rdfs:comment """Accountancy business.
-        <br><br>
-        As a <a href="/LocalBusiness">LocalBusiness</a> it can be
-        described as a <a href="/provider">provider</a> of one or more
-        <a href="/Service">Service(s)</a>.""" ;
+    rdfs:comment """Accountancy business.</p>
+<p>As a <a class="localLink" href="/LocalBusiness">LocalBusiness</a> it can be described as a <a class="localLink" href="/provider">provider</a> of one or more <a class="localLink" href="/Service">Service</a>(s).""" ;
     rdfs:subClassOf schema:FinancialService .
 
 schema:AchieveAction a rdfs:Class ;
@@ -39,9 +49,8 @@ schema:AchieveAction a rdfs:Class ;
 schema:Action a rdfs:Class ;
     rdfs:label "Action" ;
     dct:source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_ActionCollabClass> ;
-    rdfs:comment """An action performed by a direct agent and indirect participants upon a direct object. Optionally happens at a location with the help of an inanimate instrument. The execution of the action may produce a result. Specific action sub-type documentation specifies the exact expectation of each argument/role.
-      <br/><br/>See also <a href="http://blog.schema.org/2014/04/announcing-schemaorg-actions.html">blog post</a>
-      and <a href="http://schema.org/docs/actions.html">Actions overview document</a>.""" ;
+    rdfs:comment """An action performed by a direct agent and indirect participants upon a direct object. Optionally happens at a location with the help of an inanimate instrument. The execution of the action may produce a result. Specific action sub-type documentation specifies the exact expectation of each argument/role.</p>
+<p>See also <a href="http://blog.schema.org/2014/04/announcing-schemaorg-actions.html">blog post</a> and <a href="http://schema.org/docs/actions.html">Actions overview document</a>.""" ;
     rdfs:subClassOf schema:Thing .
 
 schema:ActionStatusType a rdfs:Class ;
@@ -133,6 +142,12 @@ schema:Answer a rdfs:Class ;
     rdfs:comment "An answer offered to a question; perhaps correct, perhaps opinionated or wrong." ;
     rdfs:subClassOf schema:Comment .
 
+schema:Apartment a rdfs:Class ;
+    rdfs:label "Apartment" ;
+    dct:source <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology> ;
+    rdfs:comment "An apartment (in American English) or flat (in British English) is a self-contained housing unit (a type of residential real estate) that occupies only part of a building (Source: Wikipedia, the free encyclopedia, see <a href=\"http://en.wikipedia.org/wiki/Apartment\">http://en.wikipedia.org/wiki/Apartment</a>)." ;
+    rdfs:subClassOf schema:Accommodation .
+
 schema:ApartmentComplex a rdfs:Class ;
     rdfs:label "ApartmentComplex" ;
     rdfs:comment "Residence type: Apartment complex." ;
@@ -145,7 +160,11 @@ schema:AppendAction a rdfs:Class ;
 
 schema:ApplyAction a rdfs:Class ;
     rdfs:label "ApplyAction" ;
-    rdfs:comment "The act of registering to an organization/service without the guarantee to receive it. <p>Related actions:</p><ul><li><a href=\"http://schema.org/RegisterAction\">RegisterAction</a>: Unlike RegisterAction, ApplyAction has no guarantees that the application will be accepted</li></ul>." ;
+    rdfs:comment """<p>The act of registering to an organization/service without the guarantee to receive it.</p>
+<p>Related actions:</p>
+<ul>
+<li><a class="localLink" href="/RegisterAction">RegisterAction</a>: Unlike RegisterAction, ApplyAction has no guarantees that the application will be accepted.</li>
+</ul>""" ;
     rdfs:subClassOf schema:OrganizeAction .
 
 schema:ApprovedIndication a rdfs:Class ;
@@ -161,7 +180,7 @@ schema:Aquarium a rdfs:Class ;
 
 schema:ArriveAction a rdfs:Class ;
     rdfs:label "ArriveAction" ;
-    rdfs:comment "The act of arriving at a place. An agent arrives at a destination from an fromLocation, optionally with participants." ;
+    rdfs:comment "The act of arriving at a place. An agent arrives at a destination from a fromLocation, optionally with participants." ;
     rdfs:subClassOf schema:MoveAction .
 
 schema:ArtGallery a rdfs:Class ;
@@ -179,14 +198,17 @@ schema:Artery a rdfs:Class ;
 schema:Article a rdfs:Class ;
     rdfs:label "Article" ;
     dct:source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_rNews> ;
-    rdfs:comment """<p>An article, such as a news article or piece of investigative report. Newspapers and magazines have articles of many different types and this is intended to cover them all.</p>
-<pre><code>  &lt;br/&gt;&lt;br/&gt;See also &lt;a href="http://blog.schema.org/2014/09/schemaorg-support-for-bibliographic_2.html"&gt;blog post&lt;/a&gt;.
-</code></pre>""" ;
+    rdfs:comment """An article, such as a news article or piece of investigative report. Newspapers and magazines have articles of many different types and this is intended to cover them all.</p>
+<p>See also <a href="http://blog.schema.org/2014/09/schemaorg-support-for-bibliographic_2.html">blog post</a>.""" ;
     rdfs:subClassOf schema:CreativeWork .
 
 schema:AskAction a rdfs:Class ;
     rdfs:label "AskAction" ;
-    rdfs:comment "The act of posing a question / favor to someone.<p>Related actions:</p><ul><li><a href=\"http://schema.org/ReplyAction\">ReplyAction</a>: Appears generally as a response to AskAction</li></ul>." ;
+    rdfs:comment """<p>The act of posing a question / favor to someone.</p>
+<p>Related actions:</p>
+<ul>
+<li><a class="localLink" href="/ReplyAction">ReplyAction</a>: Appears generally as a response to AskAction.</li>
+</ul>""" ;
     rdfs:subClassOf schema:CommunicateAction .
 
 schema:AssessAction a rdfs:Class ;
@@ -208,8 +230,8 @@ schema:Atlas a rdfs:Class ;
 
 schema:Attorney a rdfs:Class ;
     rdfs:label "Attorney" ;
-    rdfs:comment """Professional service: Attorney. <br><br>
-        This type is deprecated - <a href="/LegalService">LegalService</a> is more inclusive and less ambiguous.""" ;
+    rdfs:comment """Professional service: Attorney. </p>
+<p>This type is deprecated - <a class="localLink" href="/LegalService">LegalService</a> is more inclusive and less ambiguous.""" ;
     rdfs:subClassOf schema:LegalService .
 
 schema:Audience a rdfs:Class ;
@@ -314,12 +336,32 @@ schema:BeautySalon a rdfs:Class ;
 
 schema:BedAndBreakfast a rdfs:Class ;
     rdfs:label "BedAndBreakfast" ;
-    rdfs:comment "Bed and breakfast." ;
+    rdfs:comment """Bed and breakfast.
+<br /><br />
+See also the <a href="/docs/hotels.html">dedicated document on the use of schema.org for marking up hotels and other forms of accommodations</a>.""" ;
     rdfs:subClassOf schema:LodgingBusiness .
+
+schema:BedDetails a rdfs:Class ;
+    rdfs:label "BedDetails" ;
+    dct:source <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology> ;
+    rdfs:comment "An entity holding detailed information about the available bed types, e.g. the quantity of twin beds for a hotel room. For the single case of just one bed of a certain type, you can use bed directly with a text. See also <a class=\"localLink\" href=\"/BedType\">BedType</a> (under development)." .
+
+schema:BedType a rdfs:Class ;
+    rdfs:label "BedType" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1262>,
+        <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology> ;
+    schema:category "issue-1262" ;
+    schema:isPartOf <http://pending.schema.org> ;
+    rdfs:comment "A type of bed. This is used for indicating the bed or beds available in an accommodation." ;
+    rdfs:subClassOf schema:QualitativeValue .
 
 schema:BefriendAction a rdfs:Class ;
     rdfs:label "BefriendAction" ;
-    rdfs:comment "The act of forming a personal connection with someone (object) mutually/bidirectionally/symmetrically.<p>Related actions:</p><ul><li><a href=\"http://schema.org/FollowAction\">FollowAction</a>: Unlike FollowAction, BefriendAction implies that the connection is reciprocal</li></ul>." ;
+    rdfs:comment """<p>The act of forming a personal connection with someone (object) mutually/bidirectionally/symmetrically.</p>
+<p>Related actions:</p>
+<ul>
+<li><a class="localLink" href="/FollowAction">FollowAction</a>: Unlike FollowAction, BefriendAction implies that the connection is reciprocal.</li>
+</ul>""" ;
     rdfs:subClassOf schema:InteractAction .
 
 schema:BikeStore a rdfs:Class ;
@@ -391,7 +433,11 @@ schema:Boolean a schema:DataType,
 
 schema:BorrowAction a rdfs:Class ;
     rdfs:label "BorrowAction" ;
-    rdfs:comment "The act of obtaining an object under an agreement to return it at a later date. Reciprocal of LendAction.<p>Related actions:</p><ul><li><a href=\"http://schema.org/LendAction\">LendAction</a>: Reciprocal of BorrowAction</li></ul>." ;
+    rdfs:comment """<p>The act of obtaining an object under an agreement to return it at a later date. Reciprocal of LendAction.</p>
+<p>Related actions:</p>
+<ul>
+<li><a class="localLink" href="/LendAction">LendAction</a>: Reciprocal of BorrowAction.</li>
+</ul>""" ;
     rdfs:subClassOf schema:TransferAction .
 
 schema:BowlingAlley a rdfs:Class ;
@@ -413,14 +459,8 @@ schema:Brand a rdfs:Class ;
 
 schema:BreadcrumbList a rdfs:Class ;
     rdfs:label "BreadcrumbList" ;
-    rdfs:comment """A BreadcrumbList is an ItemList consisting of a chain of linked Web pages, typically described using at least their URL and their name, and typically ending with the current page.
-      <br />
-      <br />
-      The 'position' property is used to reconstruct the order of the items in a BreadcrumbList.
-      The convention is that a breadcrumb list has an itemListOrder of ItemListOrderAscending (lower values listed first), and that the
-      first items in this list correspond to the "top" or beginning of the breadcrumb trail, e.g. with a site or section homepage.
-      The specific values of 'position' are not assigned meaning for a BreadcrumbList, but they should be integers, e.g. beginning
-      with '1' for the first item in the list.""" ;
+    rdfs:comment """A BreadcrumbList is an ItemList consisting of a chain of linked Web pages, typically described using at least their URL and their name, and typically ending with the current page.</p>
+<p>The <a class="localLink" href="/position">position</a> property is used to reconstruct the order of the items in a BreadcrumbList The convention is that a breadcrumb list has an <a class="localLink" href="/itemListOrder">itemListOrder</a> of <a class="localLink" href="/ItemListOrderAscending">ItemListOrderAscending</a> (lower values listed first), and that the first items in this list correspond to the "top" or beginning of the breadcrumb trail, e.g. with a site or section homepage. The specific values of 'position' are not assigned meaning for a BreadcrumbList, but they should be integers, e.g. beginning with '1' for the first item in the list.""" ;
     rdfs:subClassOf schema:ItemList .
 
 schema:Brewery a rdfs:Class ;
@@ -470,7 +510,8 @@ schema:BusOrCoach a rdfs:Class ;
 
 schema:BusReservation a rdfs:Class ;
     rdfs:label "BusReservation" ;
-    rdfs:comment "A reservation for bus travel.Note: This type is for information about actual reservations, e.g. in confirmation emails or HTML pages with individual confirmations of reservations. For offers of tickets, use http://schema.org/Offer." ;
+    rdfs:comment """A reservation for bus travel. </p>
+<p>Note: This type is for information about actual reservations, e.g. in confirmation emails or HTML pages with individual confirmations of reservations. For offers of tickets, use <a class="localLink" href="/Offer">Offer</a>.""" ;
     rdfs:subClassOf schema:Reservation .
 
 schema:BusStation a rdfs:Class ;
@@ -496,14 +537,14 @@ schema:BusinessAudience a rdfs:Class ;
 schema:BusinessEntityType a rdfs:Class ;
     rdfs:label "BusinessEntityType" ;
     dct:source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsClass> ;
-    rdfs:comment """A business entity type is a conceptual entity representing the legal form, the size, the main line of business, the position in the value chain, or any combination thereof, of an organization or business person.
-<br />
-    Commonly used values:<br />
-<br />
-    http://purl.org/goodrelations/v1#Business <br />
-    http://purl.org/goodrelations/v1#Enduser <br />
-    http://purl.org/goodrelations/v1#PublicInstitution <br />
-    http://purl.org/goodrelations/v1#Reseller <br />""" ;
+    rdfs:comment """<p>A business entity type is a conceptual entity representing the legal form, the size, the main line of business, the position in the value chain, or any combination thereof, of an organization or business person.</p>
+<p>Commonly used values:</p>
+<ul>
+<li>http://purl.org/goodrelations/v1#Business</li>
+<li>http://purl.org/goodrelations/v1#Enduser</li>
+<li>http://purl.org/goodrelations/v1#PublicInstitution</li>
+<li>http://purl.org/goodrelations/v1#Reseller</li>
+</ul>""" ;
     rdfs:subClassOf schema:Enumeration .
 
 schema:BusinessEvent a rdfs:Class ;
@@ -514,18 +555,18 @@ schema:BusinessEvent a rdfs:Class ;
 schema:BusinessFunction a rdfs:Class ;
     rdfs:label "BusinessFunction" ;
     dct:source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsClass> ;
-    rdfs:comment """The business function specifies the type of activity or access (i.e., the bundle of rights) offered by the organization or business person through the offer. Typical are sell, rental or lease, maintenance or repair, manufacture / produce, recycle / dispose, engineering / construction, or installation. Proprietary specifications of access rights are also instances of this class.
-<br />
-    Commonly used values:<br />
-<br />
-    http://purl.org/goodrelations/v1#ConstructionInstallation <br />
-    http://purl.org/goodrelations/v1#Dispose <br />
-    http://purl.org/goodrelations/v1#LeaseOut <br />
-    http://purl.org/goodrelations/v1#Maintain <br />
-    http://purl.org/goodrelations/v1#ProvideService <br />
-    http://purl.org/goodrelations/v1#Repair <br />
-    http://purl.org/goodrelations/v1#Sell <br />
-    http://purl.org/goodrelations/v1#Buy <br />""" ;
+    rdfs:comment """<p>The business function specifies the type of activity or access (i.e., the bundle of rights) offered by the organization or business person through the offer. Typical are sell, rental or lease, maintenance or repair, manufacture / produce, recycle / dispose, engineering / construction, or installation. Proprietary specifications of access rights are also instances of this class.</p>
+<p>Commonly used values:</p>
+<ul>
+<li>http://purl.org/goodrelations/v1#ConstructionInstallation</li>
+<li>http://purl.org/goodrelations/v1#Dispose</li>
+<li>http://purl.org/goodrelations/v1#LeaseOut</li>
+<li>http://purl.org/goodrelations/v1#Maintain</li>
+<li>http://purl.org/goodrelations/v1#ProvideService</li>
+<li>http://purl.org/goodrelations/v1#Repair</li>
+<li>http://purl.org/goodrelations/v1#Sell</li>
+<li>http://purl.org/goodrelations/v1#Buy</li>
+</ul>""" ;
     rdfs:subClassOf schema:Enumeration .
 
 schema:BuyAction a rdfs:Class ;
@@ -545,8 +586,20 @@ schema:CafeOrCoffeeShop a rdfs:Class ;
 
 schema:Campground a rdfs:Class ;
     rdfs:label "Campground" ;
-    rdfs:comment "A campground." ;
-    rdfs:subClassOf schema:CivicStructure .
+    dct:source <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology> ;
+    rdfs:comment """A camping site, campsite, or campground is a place used for overnight stay in the outdoors. In British English a campsite is an area, usually divided into a number of pitches, where people can camp overnight using tents or camper vans or caravans; this British English use of the word is synonymous with the American English expression campground. In American English the term campsite generally means an area where an individual, family, group, or military unit can pitch a tent or parks a camper; a campground may contain many campsites (Source: Wikipedia, the free encyclopedia, see <a href="http://en.wikipedia.org/wiki/Campsite">http://en.wikipedia.org/wiki/Campsite</a>).
+<br /><br />
+See also the <a href="/docs/hotels.html">dedicated document on the use of schema.org for marking up hotels and other forms of accommodations</a>.""" ;
+    rdfs:subClassOf schema:CivicStructure,
+        schema:LodgingBusiness .
+
+schema:CampingPitch a rdfs:Class ;
+    rdfs:label "CampingPitch" ;
+    dct:source <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology> ;
+    rdfs:comment """A camping pitch is an individual place for overnight stay in the outdoors, typically being part of a larger camping site.
+<br /><br />
+See also the <a href="/docs/hotels.html">dedicated document on the use of schema.org for marking up hotels and other forms of accommodations</a>.""" ;
+    rdfs:subClassOf schema:Accommodation .
 
 schema:Canal a rdfs:Class ;
     rdfs:label "Canal" ;
@@ -555,7 +608,11 @@ schema:Canal a rdfs:Class ;
 
 schema:CancelAction a rdfs:Class ;
     rdfs:label "CancelAction" ;
-    rdfs:comment "The act of asserting that a future event/action is no longer going to happen.<p>Related actions:</p><ul><li><a href=\"http://schema.org/ConfirmAction\">ConfirmAction</a>: The antonym of CancelAction</li></ul>." ;
+    rdfs:comment """<p>The act of asserting that a future event/action is no longer going to happen.</p>
+<p>Related actions:</p>
+<ul>
+<li><a class="localLink" href="/ConfirmAction">ConfirmAction</a>: The antonym of CancelAction.</li>
+</ul>""" ;
     rdfs:subClassOf schema:PlanAction .
 
 schema:Car a rdfs:Class ;
@@ -610,7 +667,13 @@ schema:CheckInAction a rdfs:Class ;
 
 schema:CheckOutAction a rdfs:Class ;
     rdfs:label "CheckOutAction" ;
-    rdfs:comment "The act of an agent communicating (service provider, social media, etc) their departure of a previously reserved service (e.g. flight check in) or place (e.g. hotel).<p>Related actions:</p><ul><li><a href=\"http://schema.org/CheckInAction\">CheckInAction</a>: The antonym of CheckOutAction.</li><li><a href=\"http://schema.org/DepartAction\">DepartAction</a>: Unlike DepartAction, CheckOutAction implies that the agent is informing/confirming the end of a previously reserved service.</li><li><a href=\"http://schema.org/CancelAction\">CancelAction</a>: Unlike CancelAction, CheckOutAction implies that the agent is informing/confirming the end of a previously reserved service</li></ul>." ;
+    rdfs:comment """<p>The act of an agent communicating (service provider, social media, etc) their departure of a previously reserved service (e.g. flight check in) or place (e.g. hotel).</p>
+<p>Related actions:</p>
+<ul>
+<li><a class="localLink" href="/CheckInAction">CheckInAction</a>: The antonym of CheckOutAction.</li>
+<li><a class="localLink" href="/DepartAction">DepartAction</a>: Unlike DepartAction, CheckOutAction implies that the agent is informing/confirming the end of a previously reserved service.</li>
+<li><a class="localLink" href="/CancelAction">CancelAction</a>: Unlike CancelAction, CheckOutAction implies that the agent is informing/confirming the end of a previously reserved service.</li>
+</ul>""" ;
     rdfs:subClassOf schema:CommunicateAction .
 
 schema:CheckoutPage a rdfs:Class ;
@@ -749,7 +812,7 @@ schema:ComicStory a rdfs:Class ;
 
 schema:Comment a rdfs:Class ;
     rdfs:label "Comment" ;
-    rdfs:comment "A comment on an item - for example, a comment on a blog post. The comment's content is expressed via the \"text\" property, and its topic via \"about\", properties shared with all CreativeWorks." ;
+    rdfs:comment "A comment on an item - for example, a comment on a blog post. The comment's content is expressed via the <a class=\"localLink\" href=\"/text\">text</a> property, and its topic via <a class=\"localLink\" href=\"/about\">about</a>, properties shared with all CreativeWorks." ;
     rdfs:subClassOf schema:CreativeWork .
 
 schema:CommentAction a rdfs:Class ;
@@ -769,7 +832,7 @@ schema:CompoundPriceSpecification a rdfs:Class ;
     rdfs:subClassOf schema:PriceSpecification .
 
 schema:ComputerLanguage a rdfs:Class ;
-    rdfs:label "ComputerLanguageLanguage" ;
+    rdfs:label "ComputerLanguage" ;
     rdfs:comment "This type covers computer programming languages such as Scheme and Lisp, as well as other language-like computer representations. Natural languages are best represented with the <a class=\"localLink\" href=\"/Language\">Language</a> type." ;
     rdfs:subClassOf schema:Intangible .
 
@@ -780,7 +843,11 @@ schema:ComputerStore a rdfs:Class ;
 
 schema:ConfirmAction a rdfs:Class ;
     rdfs:label "ConfirmAction" ;
-    rdfs:comment "The act of notifying someone that a future event/action is going to happen as expected.<p>Related actions:</p><ul><li><a href=\"http://schema.org/CancelAction\">CancelAction</a>: The antonym of ConfirmAction</li></ul>." ;
+    rdfs:comment """<p>The act of notifying someone that a future event/action is going to happen as expected.</p>
+<p>Related actions:</p>
+<ul>
+<li><a class="localLink" href="/CancelAction">CancelAction</a>: The antonym of ConfirmAction.</li>
+</ul>""" ;
     rdfs:subClassOf schema:InformAction .
 
 schema:ConsumeAction a rdfs:Class ;
@@ -885,43 +952,25 @@ schema:CreativeWorkSeason a rdfs:Class ;
 
 schema:CreativeWorkSeries a rdfs:Class ;
     rdfs:label "CreativeWorkSeries" ;
-    rdfs:comment """<p>A CreativeWorkSeries in schema.org is a group of related items, typically but not necessarily of the same kind.
-          CreativeWorkSeries are usually organized into some order, often chronological. Unlike <a href="/ItemList">ItemList</a> which
-          is a general purpose data structure for lists of things, the emphasis with
-          CreativeWorkSeries is on published materials (written e.g. books and periodicals,
-          or media such as tv, radio and games).</p>
-<pre><code>      &lt;br/&gt;&lt;br/&gt;
-
-      Specific subtypes are available for describing &lt;a href="/TVSeries"&gt;TVSeries&lt;/a&gt;, &lt;a href="/RadioSeries"&gt;RadioSeries&lt;/a&gt;,
-      &lt;a href="/MovieSeries"&gt;MovieSeries&lt;/a&gt;,
-      &lt;a href="/BookSeries"&gt;BookSeries&lt;/a&gt;,
-      &lt;a href="/Periodical"&gt;Periodical&lt;/a&gt;
-      and &lt;a href="/VideoGameSeries"&gt;VideoGameSeries&lt;/a&gt;. In each case,
-      the &lt;a href="/hasPart"&gt;hasPart&lt;/a&gt; / &lt;a href="/isPartOf"&gt;isPartOf&lt;/a&gt; properties
-      can be used to relate the CreativeWorkSeries to its parts. The general CreativeWorkSeries type serves largely
-      just to organize these more specific and practical subtypes.
-
-      &lt;br/&gt;&lt;br/&gt;
-
-      It is common for properties applicable to an item from the series to be usefully applied to the containing group.
-      Schema.org attempts to anticipate some of these cases, but publishers should be free to apply
-      properties of the series parts to the series as a whole wherever they seem appropriate.
-</code></pre>""" ;
+    rdfs:comment """A CreativeWorkSeries in schema.org is a group of related items, typically but not necessarily of the same kind. CreativeWorkSeries are usually organized into some order, often chronological. Unlike <a class="localLink" href="/ItemList">ItemList</a> which is a general purpose data structure for lists of things, the emphasis with CreativeWorkSeries is on published materials (written e.g. books and periodicals, or media such as tv, radio and games).</p>
+<p>Specific subtypes are available for describing <a class="localLink" href="/TVSeries">TVSeries</a>, <a class="localLink" href="/RadioSeries">RadioSeries</a>, <a class="localLink" href="/MovieSeries">MovieSeries</a>, <a class="localLink" href="/BookSeries">BookSeries</a>, <a class="localLink" href="/Periodical">Periodical</a> and <a class="localLink" href="/VideoGameSeries">VideoGameSeries</a>. In each case, the <a class="localLink" href="/hasPart">hasPart</a> / <a class="localLink" href="/isPartOf">isPartOf</a> properties can be used to relate the CreativeWorkSeries to its parts. The general CreativeWorkSeries type serves largely just to organize these more specific and practical subtypes.</p>
+<p>It is common for properties applicable to an item from the series to be usefully applied to the containing group. Schema.org attempts to anticipate some of these cases, but publishers should be free to apply properties of the series parts to the series as a whole wherever they seem appropriate.""" ;
     rdfs:subClassOf schema:CreativeWork .
 
 schema:CreditCard a rdfs:Class ;
     rdfs:label "CreditCard" ;
     dct:source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO>,
         <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsClass> ;
-    rdfs:comment """A card payment method of a particular brand or name.  Used to mark up a particular payment method and/or the financial product/service that supplies the card account.<br />
-    Commonly used values:<br />
-<br />
-    http://purl.org/goodrelations/v1#AmericanExpress <br />
-    http://purl.org/goodrelations/v1#DinersClub <br />
-    http://purl.org/goodrelations/v1#Discover <br />
-    http://purl.org/goodrelations/v1#JCB <br />
-    http://purl.org/goodrelations/v1#MasterCard <br />
-    http://purl.org/goodrelations/v1#VISA <br />""" ;
+    rdfs:comment """<p>A card payment method of a particular brand or name.  Used to mark up a particular payment method and/or the financial product/service that supplies the card account.</p>
+<p>Commonly used values:</p>
+<ul>
+<li>http://purl.org/goodrelations/v1#AmericanExpress</li>
+<li>http://purl.org/goodrelations/v1#DinersClub</li>
+<li>http://purl.org/goodrelations/v1#Discover</li>
+<li>http://purl.org/goodrelations/v1#JCB</li>
+<li>http://purl.org/goodrelations/v1#MasterCard</li>
+<li>http://purl.org/goodrelations/v1#VISA</li>
+</ul>""" ;
     rdfs:subClassOf schema:LoanOrCredit,
         schema:PaymentCard .
 
@@ -993,7 +1042,7 @@ schema:Dataset a rdfs:Class ;
 schema:Date a schema:DataType,
         rdfs:Class ;
     rdfs:label "Date" ;
-    rdfs:comment "A date value in <a href='http://en.wikipedia.org/wiki/ISO_8601'>ISO 8601 date format</a>." .
+    rdfs:comment "A date value in <a href=\"http://en.wikipedia.org/wiki/ISO_8601\">ISO 8601 date format</a>." .
 
 schema:DateTime a schema:DataType,
         rdfs:Class ;
@@ -1047,18 +1096,18 @@ schema:DeliveryEvent a rdfs:Class ;
 schema:DeliveryMethod a rdfs:Class ;
     rdfs:label "DeliveryMethod" ;
     dct:source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsClass> ;
-    rdfs:comment """A delivery method is a standardized procedure for transferring the product or service to the destination of fulfillment chosen by the customer. Delivery methods are characterized by the means of transportation used, and by the organization or group that is the contracting party for the sending organization or person.
-<br />
-    Commonly used values:<br />
-<br />
-    http://purl.org/goodrelations/v1#DeliveryModeDirectDownload <br />
-    http://purl.org/goodrelations/v1#DeliveryModeFreight <br />
-    http://purl.org/goodrelations/v1#DeliveryModeMail <br />
-    http://purl.org/goodrelations/v1#DeliveryModeOwnFleet <br />
-    http://purl.org/goodrelations/v1#DeliveryModePickUp <br />
-    http://purl.org/goodrelations/v1#DHL <br />
-    http://purl.org/goodrelations/v1#FederalExpress <br />
-    http://purl.org/goodrelations/v1#UPS <br />""" ;
+    rdfs:comment """<p>A delivery method is a standardized procedure for transferring the product or service to the destination of fulfillment chosen by the customer. Delivery methods are characterized by the means of transportation used, and by the organization or group that is the contracting party for the sending organization or person.</p>
+<p>Commonly used values:</p>
+<ul>
+<li>http://purl.org/goodrelations/v1#DeliveryModeDirectDownload</li>
+<li>http://purl.org/goodrelations/v1#DeliveryModeFreight</li>
+<li>http://purl.org/goodrelations/v1#DeliveryModeMail</li>
+<li>http://purl.org/goodrelations/v1#DeliveryModeOwnFleet</li>
+<li>http://purl.org/goodrelations/v1#DeliveryModePickUp</li>
+<li>http://purl.org/goodrelations/v1#DHL</li>
+<li>http://purl.org/goodrelations/v1#FederalExpress</li>
+<li>http://purl.org/goodrelations/v1#UPS</li>
+</ul>""" ;
     rdfs:subClassOf schema:Enumeration .
 
 schema:Demand a rdfs:Class ;
@@ -1068,7 +1117,7 @@ schema:Demand a rdfs:Class ;
     rdfs:subClassOf schema:Intangible .
 
 schema:Dentist a rdfs:Class ;
-    rdfs:label " Dentist" ;
+    rdfs:label "Dentist" ;
     rdfs:comment "A dentist." ;
     rdfs:subClassOf schema:MedicalBusiness,
         schema:MedicalOrganization,
@@ -1252,7 +1301,7 @@ schema:DryCleaningOrLaundry a rdfs:Class ;
 
 schema:Duration a rdfs:Class ;
     rdfs:label "Duration" ;
-    rdfs:comment "Quantity: Duration (use  <a href='http://en.wikipedia.org/wiki/ISO_8601'>ISO 8601 duration format</a>)." ;
+    rdfs:comment "Quantity: Duration (use <a href=\"http://en.wikipedia.org/wiki/ISO_8601\">ISO 8601 duration format</a>)." ;
     rdfs:subClassOf schema:Quantity .
 
 schema:EatAction a rdfs:Class ;
@@ -1348,6 +1397,22 @@ schema:Enumeration a rdfs:Class ;
     rdfs:comment "Lists or enumerations—for example, a list of cuisines or music genres, etc." ;
     rdfs:subClassOf schema:Intangible .
 
+schema:EnumerationValue a rdfs:Class ;
+    rdfs:label "EnumerationValue" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/894> ;
+    schema:category "issue-894" ;
+    schema:isPartOf <http://pending.schema.org> ;
+    rdfs:comment "An enumeration value." ;
+    rdfs:subClassOf schema:Enumeration .
+
+schema:EnumerationValueSet a rdfs:Class ;
+    rdfs:label "EnumerationValueSet" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/894> ;
+    schema:category "issue-894" ;
+    schema:isPartOf <http://pending.schema.org> ;
+    rdfs:comment "A set of enumerated values." ;
+    rdfs:subClassOf schema:CreativeWork .
+
 schema:Episode a rdfs:Class ;
     rdfs:label "Episode" ;
     rdfs:comment "A media episode (e.g. TV, radio, video game) which can be part of a series or season." ;
@@ -1355,13 +1420,14 @@ schema:Episode a rdfs:Class ;
 
 schema:Event a rdfs:Class ;
     rdfs:label "Event" ;
-    rdfs:comment "An event happening at a certain time and location, such as a concert, lecture, or festival. Ticketing information may be added via the 'offers' property. Repeated events may be structured as separate Event objects." ;
+    rdfs:comment "An event happening at a certain time and location, such as a concert, lecture, or festival. Ticketing information may be added via the <a class=\"localLink\" href=\"/offers\">offers</a> property. Repeated events may be structured as separate Event objects." ;
     rdfs:subClassOf schema:Thing ;
     owl:equivalentClass <http://purl.org/dc/dcmitype/Event> .
 
 schema:EventReservation a rdfs:Class ;
     rdfs:label "EventReservation" ;
-    rdfs:comment "A reservation for an event like a concert, sporting event, or lecture.Note: This type is for information about actual reservations, e.g. in confirmation emails or HTML pages with individual confirmations of reservations. For offers of tickets, use http://schema.org/Offer." ;
+    rdfs:comment """A reservation for an event like a concert, sporting event, or lecture.</p>
+<p>Note: This type is for information about actual reservations, e.g. in confirmation emails or HTML pages with individual confirmations of reservations. For offers of tickets, use <a class="localLink" href="/Offer">Offer</a>.""" ;
     rdfs:subClassOf schema:Reservation .
 
 schema:EventSeries a rdfs:Class ;
@@ -1441,7 +1507,11 @@ schema:FinancialService a rdfs:Class ;
 
 schema:FindAction a rdfs:Class ;
     rdfs:label "FindAction" ;
-    rdfs:comment "The act of finding an object.<p>Related actions:</p><ul><li><a href=\"http://schema.org/SearchAction\">SearchAction</a>: FindAction is generally lead by a SearchAction, but not necessarily</li></ul>." ;
+    rdfs:comment """<p>TThe act of finding an object.</p>
+<p>Related actions:</p>
+<ul>
+<li><a class="localLink" href="/SearchAction">SearchAction</a>: FindAction is generally lead by a SearchAction, but not necessarily.</li>
+</ul>""" ;
     rdfs:subClassOf schema:Action .
 
 schema:FireStation a rdfs:Class ;
@@ -1457,7 +1527,8 @@ schema:Flight a rdfs:Class ;
 
 schema:FlightReservation a rdfs:Class ;
     rdfs:label "FlightReservation" ;
-    rdfs:comment "A reservation for air travel.Note: This type is for information about actual reservations, e.g. in confirmation emails or HTML pages with individual confirmations of reservations. For offers of tickets, use http://schema.org/Offer." ;
+    rdfs:comment """A reservation for air travel.</p>
+<p>Note: This type is for information about actual reservations, e.g. in confirmation emails or HTML pages with individual confirmations of reservations. For offers of tickets, use <a class="localLink" href="/Offer">Offer</a>.""" ;
     rdfs:subClassOf schema:Reservation .
 
 schema:Float a rdfs:Class ;
@@ -1472,7 +1543,15 @@ schema:Florist a rdfs:Class ;
 
 schema:FollowAction a rdfs:Class ;
     rdfs:label "FollowAction" ;
-    rdfs:comment "The act of forming a personal connection with someone/something (object) unidirectionally/asymmetrically to get updates polled from.<p>Related actions:</p><ul><li><a href=\"http://schema.org/BefriendAction\">BefriendAction</a>: Unlike BefriendAction, FollowAction implies that the connection is <em>not</em> necessarily reciprocal.</li><li><a href=\"http://schema.org/SubscribeAction\">SubscribeAction</a>: Unlike SubscribeAction, FollowAction implies that the follower acts as an active agent constantly/actively polling for updates.</li><li><a href=\"http://schema.org/RegisterAction\">RegisterAction</a>: Unlike RegisterAction, FollowAction implies that the agent is interested in continuing receiving updates from the object.</li><li><a href=\"http://schema.org/JoinAction\">JoinAction</a>: Unlike JoinAction, FollowAction implies that the agent is interested in getting updates from the object.</li><li><a href=\"http://schema.org/TrackAction\">TrackAction</a>: Unlike TrackAction, FollowAction refers to the polling of updates of all aspects of animate objects rather than the location of inanimate objects (e.g. you track a package, but you don't follow it)</li></ul>." ;
+    rdfs:comment """<p>The act of forming a personal connection with someone/something (object) unidirectionally/asymmetrically to get updates polled from.</p>
+<p>Related actions:</p>
+<ul>
+<li><a class="localLink" href="/BefriendAction">BefriendAction</a>: Unlike BefriendAction, FollowAction implies that the connection is <em>not</em> necessarily reciprocal.</li>
+<li><a class="localLink" href="/SubscribeAction">SubscribeAction</a>: Unlike SubscribeAction, FollowAction implies that the follower acts as an active agent constantly/actively polling for updates.</li>
+<li><a class="localLink" href="/RegisterAction">RegisterAction</a>: Unlike RegisterAction, FollowAction implies that the agent is interested in continuing receiving updates from the object.</li>
+<li><a class="localLink" href="/JoinAction">JoinAction</a>: Unlike JoinAction, FollowAction implies that the agent is interested in getting updates from the object.</li>
+<li><a class="localLink" href="/TrackAction">TrackAction</a>: Unlike TrackAction, FollowAction refers to the polling of updates of all aspects of animate objects rather than the location of inanimate objects (e.g. you track a package, but you don't follow it).</li>
+</ul>""" ;
     rdfs:subClassOf schema:InteractAction .
 
 schema:FoodEstablishment a rdfs:Class ;
@@ -1489,6 +1568,12 @@ schema:FoodEvent a rdfs:Class ;
     rdfs:label "FoodEvent" ;
     rdfs:comment "Event type: Food event." ;
     rdfs:subClassOf schema:Event .
+
+schema:FoodService a rdfs:Class ;
+    rdfs:label "FoodService" ;
+    dct:source <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology> ;
+    rdfs:comment "A food service, like breakfast, lunch, or dinner." ;
+    rdfs:subClassOf schema:Service .
 
 schema:FurnitureStore a rdfs:Class ;
     rdfs:label "FurnitureStore" ;
@@ -1560,7 +1645,12 @@ schema:GeoShape a rdfs:Class ;
 
 schema:GiveAction a rdfs:Class ;
     rdfs:label "GiveAction" ;
-    rdfs:comment "The act of transferring ownership of an object to a destination. Reciprocal of TakeAction.<p>Related actions:</p><ul><li><a href=\"http://schema.org/TakeAction\">TakeAction</a>: Reciprocal of GiveAction.</li><li><a href=\"http://schema.org/SendAction\">SendAction</a>: Unlike SendAction, GiveAction implies that ownership is being transferred (e.g. I may send my laptop to you, but that doesn't mean I'm giving it to you)</li></ul>." ;
+    rdfs:comment """<p>The act of transferring ownership of an object to a destination. Reciprocal of TakeAction.</p>
+<p>Related actions:</p>
+<ul>
+<li><a class="localLink" href="/TakeAction">TakeAction</a>: Reciprocal of GiveAction.</li>
+<li><a class="localLink" href="/SendAction">SendAction</a>: Unlike SendAction, GiveAction implies that ownership is being transferred (e.g. I may send my laptop to you, but that doesn't mean I'm giving it to you).</li>
+</ul>""" ;
     rdfs:subClassOf schema:TransferAction .
 
 schema:GolfCourse a rdfs:Class ;
@@ -1673,13 +1763,9 @@ schema:HobbyShop a rdfs:Class ;
 
 schema:HomeAndConstructionBusiness a rdfs:Class ;
     rdfs:label "HomeAndConstructionBusiness" ;
-    rdfs:comment """A construction business.
-        <br><br>
-        A HomeAndConstructionBusiness is a LocalBusiness that provides services around homes and buildings.
-          <br><br>
-          As a <a href="/LocalBusiness">LocalBusiness</a> it can be
-          described as a <a href="/provider">provider</a> of one or more
-          <a href="/Service">Service(s)</a>.""" ;
+    rdfs:comment """A construction business.</p>
+<p>A HomeAndConstructionBusiness is a <a class="localLink" href="/LocalBusiness">LocalBusiness</a> that provides services around homes and buildings.</p>
+<p>As a <a class="localLink" href="/LocalBusiness">LocalBusiness</a> it can be described as a <a class="localLink" href="/provider">provider</a> of one or more <a class="localLink" href="/Service">Service</a>(s).""" ;
     rdfs:subClassOf schema:LocalBusiness .
 
 schema:HomeGoodsStore a rdfs:Class ;
@@ -1696,13 +1782,32 @@ schema:Hospital a rdfs:Class ;
 
 schema:Hostel a rdfs:Class ;
     rdfs:label "Hostel" ;
-    rdfs:comment "A hostel - cheap accommodation, often in shared dormitories." ;
+    rdfs:comment """A hostel - cheap accommodation, often in shared dormitories.
+<br /><br />
+See also the <a href="/docs/hotels.html">dedicated document on the use of schema.org for marking up hotels and other forms of accommodations</a>.""" ;
     rdfs:subClassOf schema:LodgingBusiness .
 
 schema:Hotel a rdfs:Class ;
     rdfs:label "Hotel" ;
-    rdfs:comment "A hotel." ;
+    dct:source <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology> ;
+    rdfs:comment """A hotel is an establishment that provides lodging paid on a short-term basis (Source: Wikipedia, the free encyclopedia, see http://en.wikipedia.org/wiki/Hotel).
+<br /><br />
+See also the <a href="/docs/hotels.html">dedicated document on the use of schema.org for marking up hotels and other forms of accommodations</a>.""" ;
     rdfs:subClassOf schema:LodgingBusiness .
+
+schema:HotelRoom a rdfs:Class ;
+    rdfs:label "HotelRoom" ;
+    dct:source <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology> ;
+    rdfs:comment """A hotel room is a single room in a hotel.
+<br /><br />
+See also the <a href="/docs/hotels.html">dedicated document on the use of schema.org for marking up hotels and other forms of accommodations</a>.""" ;
+    rdfs:subClassOf schema:Room .
+
+schema:House a rdfs:Class ;
+    rdfs:label "House" ;
+    dct:source <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology> ;
+    rdfs:comment "A house is a building or structure that has the ability to be occupied for habitation by humans or other creatures (Source: Wikipedia, the free encyclopedia, see <a href=\"http://en.wikipedia.org/wiki/House\">http://en.wikipedia.org/wiki/House</a>)." ;
+    rdfs:subClassOf schema:Accommodation .
 
 schema:HousePainter a rdfs:Class ;
     rdfs:label "HousePainter" ;
@@ -1847,7 +1952,13 @@ schema:JobPosting a rdfs:Class ;
 
 schema:JoinAction a rdfs:Class ;
     rdfs:label "JoinAction" ;
-    rdfs:comment "An agent joins an event/group with participants/friends at a location.<p>Related actions:</p><ul><li><a href=\"http://schema.org/RegisterAction\">RegisterAction</a>: Unlike RegisterAction, JoinAction refers to joining a group/team of people.</li><li><a href=\"http://schema.org/SubscribeAction\">SubscribeAction</a>: Unlike SubscribeAction, JoinAction does not imply that you'll be receiving updates.</li><li><a href=\"http://schema.org/FollowAction\">FollowAction</a>: Unlike FollowAction, JoinAction does not imply that you'll be polling for updates</li></ul>." ;
+    rdfs:comment """<p>An agent joins an event/group with participants/friends at a location.</p>
+<p>Related actions:</p>
+<ul>
+<li><a class="localLink" href="/RegisterAction">RegisterAction</a>: Unlike RegisterAction, JoinAction refers to joining a group/team of people.</li>
+<li><a class="localLink" href="/SubscribeAction">SubscribeAction</a>: Unlike SubscribeAction, JoinAction does not imply that you'll be receiving updates.</li>
+<li><a class="localLink" href="/FollowAction">FollowAction</a>: Unlike FollowAction, JoinAction does not imply that you'll be polling for updates.</li>
+</ul>""" ;
     rdfs:subClassOf schema:InteractAction .
 
 schema:Joint a rdfs:Class ;
@@ -1878,16 +1989,18 @@ schema:Language a rdfs:Class ;
 
 schema:LeaveAction a rdfs:Class ;
     rdfs:label "LeaveAction" ;
-    rdfs:comment "An agent leaves an event / group with participants/friends at a location.<p>Related actions:</p><ul><li><a href=\"http://schema.org/JoinAction\">JoinAction</a>: The antonym of LeaveAction.</li><li><a href=\"http://schema.org/UnRegisterAction\">UnRegisterAction</a>: Unlike UnRegisterAction, LeaveAction implies leaving a group/team of people rather than a service</li></ul>." ;
+    rdfs:comment """<p>An agent leaves an event / group with participants/friends at a location.</p>
+<p>Related actions:</p>
+<ul>
+<li><a class="localLink" href="/JoinAction">JoinAction</a>: The antonym of LeaveAction.</li>
+<li><a class="localLink" href="/UnRegisterAction">UnRegisterAction</a>: Unlike UnRegisterAction, LeaveAction implies leaving a group/team of people rather than a service.</li>
+</ul>""" ;
     rdfs:subClassOf schema:InteractAction .
 
 schema:LegalService a rdfs:Class ;
     rdfs:label "LegalService" ;
-    rdfs:comment """A LegalService is a business that provides legally-oriented services, advice and representation, e.g. law firms.
-        <br><br>
-        As a <a href="/LocalBusiness">LocalBusiness</a> it can be
-        described as a <a href="/provider">provider</a> of one or more
-        <a href="/Service">Service(s)</a>.""" ;
+    rdfs:comment """A LegalService is a business that provides legally-oriented services, advice and representation, e.g. law firms.</p>
+<p>As a <a class="localLink" href="/LocalBusiness">LocalBusiness</a> it can be described as a <a class="localLink" href="/provider">provider</a> of one or more <a class="localLink" href="/Service">Service</a>(s).""" ;
     rdfs:subClassOf schema:LocalBusiness .
 
 schema:LegislativeBuilding a rdfs:Class ;
@@ -1897,7 +2010,11 @@ schema:LegislativeBuilding a rdfs:Class ;
 
 schema:LendAction a rdfs:Class ;
     rdfs:label "LendAction" ;
-    rdfs:comment "The act of providing an object under an agreement that it will be returned at a later date. Reciprocal of BorrowAction.<p>Related actions:</p><ul><li><a href=\"http://schema.org/BorrowAction\">BorrowAction</a>: Reciprocal of LendAction</li></ul>." ;
+    rdfs:comment """<p>The act of providing an object under an agreement that it will be returned at a later date. Reciprocal of BorrowAction.</p>
+<p>Related actions:</p>
+<ul>
+<li><a class="localLink" href="/BorrowAction">BorrowAction</a>: Reciprocal of LendAction.</li>
+</ul>""" ;
     rdfs:subClassOf schema:TransferAction .
 
 schema:Library a rdfs:Class ;
@@ -1951,7 +2068,7 @@ schema:LiteraryEvent a rdfs:Class ;
     rdfs:subClassOf schema:Event .
 
 schema:LiveBlogPosting a rdfs:Class ;
-    rdfs:label "LiveBlog" ;
+    rdfs:label "LiveBlogPosting" ;
     rdfs:comment "A blog post intended to provide a rolling textual coverage of an ongoing event through continuous updates." ;
     rdfs:subClassOf schema:BlogPosting .
 
@@ -1966,6 +2083,12 @@ schema:LocalBusiness a rdfs:Class ;
     rdfs:comment "A particular physical business or branch of an organization. Examples of LocalBusiness include a restaurant, a particular branch of a restaurant chain, a branch of a bank, a medical practice, a club, a bowling alley, etc." ;
     rdfs:subClassOf schema:Organization,
         schema:Place .
+
+schema:LocationFeatureSpecification a rdfs:Class ;
+    rdfs:label "LocationFeatureSpecification" ;
+    dct:source <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology> ;
+    rdfs:comment "Specifies a location feature by providing a structured value representing a feature of an accommodation as a property-value pair of varying degrees of formality." ;
+    rdfs:subClassOf schema:PropertyValue .
 
 schema:LockerDelivery a rdfs:Class ;
     rdfs:label "LockerDelivery" ;
@@ -1984,7 +2107,8 @@ schema:LodgingBusiness a rdfs:Class ;
 
 schema:LodgingReservation a rdfs:Class ;
     rdfs:label "LodgingReservation" ;
-    rdfs:comment "A reservation for lodging at a hotel, motel, inn, etc.Note: This type is for information about actual reservations, e.g. in confirmation emails or HTML pages with individual confirmations of reservations." ;
+    rdfs:comment """A reservation for lodging at a hotel, motel, inn, etc.</p>
+<p>Note: This type is for information about actual reservations, e.g. in confirmation emails or HTML pages with individual confirmations of reservations.""" ;
     rdfs:subClassOf schema:Reservation .
 
 schema:LoseAction a rdfs:Class ;
@@ -2288,6 +2412,14 @@ schema:MedicineSystem a rdfs:Class ;
     rdfs:comment "Systems of medical practice." ;
     rdfs:subClassOf schema:MedicalEnumeration .
 
+schema:MeetingRoom a rdfs:Class ;
+    rdfs:label "MeetingRoom" ;
+    dct:source <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology> ;
+    rdfs:comment """A meeting room, conference room, or conference hall is a room provided for singular events such as business conferences and meetings (Source: Wikipedia, the free encyclopedia, see <a href="http://en.wikipedia.org/wiki/Conference_hall">http://en.wikipedia.org/wiki/Conference_hall</a>).
+<br /><br />
+See also the <a href="/docs/hotels.html">dedicated document on the use of schema.org for marking up hotels and other forms of accommodations</a>.""" ;
+    rdfs:subClassOf schema:Room .
+
 schema:MensClothingStore a rdfs:Class ;
     rdfs:label "MensClothingStore" ;
     rdfs:comment "A men's clothing store." ;
@@ -2326,7 +2458,9 @@ schema:Mosque a rdfs:Class ;
 
 schema:Motel a rdfs:Class ;
     rdfs:label "Motel" ;
-    rdfs:comment "A motel." ;
+    rdfs:comment """A motel.
+<br /><br />
+See also the <a href="/docs/hotels.html">dedicated document on the use of schema.org for marking up hotels and other forms of accommodations</a>.""" ;
     rdfs:subClassOf schema:LodgingBusiness .
 
 schema:Motorcycle a rdfs:Class ;
@@ -2360,7 +2494,11 @@ schema:Mountain a rdfs:Class ;
 
 schema:MoveAction a rdfs:Class ;
     rdfs:label "MoveAction" ;
-    rdfs:comment "The act of an agent relocating to a place.<p>Related actions:</p><ul><li><a href=\"http://schema.org/TransferAction\">TransferAction</a>: Unlike TransferAction, the subject of the move is a living Person or Organization rather than an inanimate object</li></ul>." ;
+    rdfs:comment """<p>The act of an agent relocating to a place.</p>
+<p>Related actions:</p>
+<ul>
+<li><a class="localLink" href="/TransferAction">TransferAction</a>: Unlike TransferAction, the subject of the move is a living Person or Organization rather than an inanimate object.</li>
+</ul>""" ;
     rdfs:subClassOf schema:Action .
 
 schema:Movie a rdfs:Class ;
@@ -2537,12 +2675,8 @@ schema:OceanBodyOfWater a rdfs:Class ;
 schema:Offer a rdfs:Class ;
     rdfs:label "Offer" ;
     dct:source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms> ;
-    rdfs:comment """An offer to transfer some rights to an item or to provide a service&#x2014;for example, an offer to sell tickets to an event, to rent the DVD of a movie, to stream a TV show over the internet, to repair a motorcycle, or to loan a book.
-      <br/><br/>
-      For <a href="http://www.gs1.org/barcodes/technical/idkeys/gtin">GTIN</a>-related fields, see
-      <a href="http://www.gs1.org/barcodes/support/check_digit_calculator">Check Digit calculator</a>
-      and <a href="http://www.gs1us.org/resources/standards/gtin-validation-guide">validation guide</a>
-      from <a href="http://www.gs1.org/">GS1</a>.""" ;
+    rdfs:comment """An offer to transfer some rights to an item or to provide a service — for example, an offer to sell tickets to an event, to rent the DVD of a movie, to stream a TV show over the internet, to repair a motorcycle, or to loan a book.</p>
+<p>For <a href="http://www.gs1.org/barcodes/technical/idkeys/gtin">GTIN</a>-related fields, see <a href="http://www.gs1.org/barcodes/support/check_digit_calculator">Check Digit calculator</a> and <a href="http://www.gs1us.org/resources/standards/gtin-validation-guide">validation guide</a> from <a href="http://www.gs1.org/">GS1</a>.""" ;
     rdfs:subClassOf schema:Intangible .
 
 schema:OfferCatalog a rdfs:Class ;
@@ -2568,11 +2702,9 @@ schema:OnDemandEvent a rdfs:Class ;
 schema:OpeningHoursSpecification a rdfs:Class ;
     rdfs:label "OpeningHoursSpecification" ;
     dct:source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsClass> ;
-    rdfs:comment """A structured value providing information about the opening hours of a place or a certain service inside a place.
-<br />
-The place is <b>open</b> if the <a href="/opens">opens</a> property is specified, and <b>closed</b> otherwise.
-<br />
-If the value for the <a href="/closes">closes</a> property is less than the value for the <a href="/opens">opens</a> property then the hour range is assumed to span over the next day.""" ;
+    rdfs:comment """A structured value providing information about the opening hours of a place or a certain service inside a place.</p>
+<p>The place is <strong>open</strong> if the <a class="localLink" href="/opens">opens</a> property is specified, and <strong>closed</strong> otherwise.</p>
+<p>If the value for the <a class="localLink" href="/closes">closes</a> property is less than the value for the <a class="localLink" href="/opens">opens</a> property then the hour range is assumed to span over the next day.""" ;
     rdfs:subClassOf schema:StructuredValue .
 
 schema:Optician a rdfs:Class ;
@@ -2652,13 +2784,13 @@ schema:ParcelDelivery a rdfs:Class ;
 schema:ParcelService a rdfs:Class ;
     rdfs:label "ParcelService" ;
     dct:source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsClass> ;
-    rdfs:comment """A private parcel service as the delivery mode available for a certain offer.
-<br />
-    Commonly used values:<br />
-<br />
-    http://purl.org/goodrelations/v1#DHL <br />
-    http://purl.org/goodrelations/v1#FederalExpress <br />
-    http://purl.org/goodrelations/v1#UPS <br />""" ;
+    rdfs:comment """<p>A private parcel service as the delivery mode available for a certain offer.</p>
+<p>Commonly used values:</p>
+<ul>
+<li>http://purl.org/goodrelations/v1#DHL</li>
+<li>http://purl.org/goodrelations/v1#FederalExpress</li>
+<li>http://purl.org/goodrelations/v1#UPS</li>
+</ul>""" ;
     rdfs:subClassOf schema:DeliveryMethod .
 
 schema:ParentAudience a rdfs:Class ;
@@ -2716,19 +2848,19 @@ schema:PaymentChargeSpecification a rdfs:Class ;
 schema:PaymentMethod a rdfs:Class ;
     rdfs:label "PaymentMethod" ;
     dct:source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsClass> ;
-    rdfs:comment """A payment method is a standardized procedure for transferring the monetary amount for a purchase. Payment methods are characterized by the legal and technical structures used, and by the organization or group carrying out the transaction.
-<br />
-    Commonly used values:<br />
-<br />
-    http://purl.org/goodrelations/v1#ByBankTransferInAdvance <br />
-    http://purl.org/goodrelations/v1#ByInvoice <br />
-    http://purl.org/goodrelations/v1#Cash <br />
-    http://purl.org/goodrelations/v1#CheckInAdvance <br />
-    http://purl.org/goodrelations/v1#COD <br />
-    http://purl.org/goodrelations/v1#DirectDebit <br />
-    http://purl.org/goodrelations/v1#GoogleCheckout <br />
-    http://purl.org/goodrelations/v1#PayPal <br />
-    http://purl.org/goodrelations/v1#PaySwarm <br />""" ;
+    rdfs:comment """<p>A payment method is a standardized procedure for transferring the monetary amount for a purchase. Payment methods are characterized by the legal and technical structures used, and by the organization or group carrying out the transaction.</p>
+<p>Commonly used values:</p>
+<ul>
+<li>http://purl.org/goodrelations/v1#ByBankTransferInAdvance</li>
+<li>http://purl.org/goodrelations/v1#ByInvoice</li>
+<li>http://purl.org/goodrelations/v1#Cash</li>
+<li>http://purl.org/goodrelations/v1#CheckInAdvance</li>
+<li>http://purl.org/goodrelations/v1#COD</li>
+<li>http://purl.org/goodrelations/v1#DirectDebit</li>
+<li>http://purl.org/goodrelations/v1#GoogleCheckout</li>
+<li>http://purl.org/goodrelations/v1#PayPal</li>
+<li>http://purl.org/goodrelations/v1#PaySwarm</li>
+</ul>""" ;
     rdfs:subClassOf schema:Enumeration .
 
 schema:PaymentService a rdfs:Class ;
@@ -2856,7 +2988,12 @@ schema:PlanAction a rdfs:Class ;
 
 schema:PlayAction a rdfs:Class ;
     rdfs:label "PlayAction" ;
-    rdfs:comment "The act of playing/exercising/training/performing for enjoyment, leisure, recreation, Competition or exercise.<p>Related actions:</p><ul><li><a href=\"http://schema.org/ListenAction\">ListenAction</a>: Unlike ListenAction (which is under ConsumeAction), PlayAction refers to performing for an audience or at an event, rather than consuming music.</li><li><a href=\"http://schema.org/WatchAction\">WatchAction</a>: Unlike WatchAction (which is under ConsumeAction), PlayAction refers to showing/displaying for an audience or at an event, rather than consuming visual content</li></ul>." ;
+    rdfs:comment """<p>The act of playing/exercising/training/performing for enjoyment, leisure, recreation, Competition or exercise.</p>
+<p>Related actions:</p>
+<ul>
+<li><a class="localLink" href="/ListenAction">ListenAction</a>: Unlike ListenAction (which is under ConsumeAction), PlayAction refers to performing for an audience or at an event, rather than consuming music.</li>
+<li><a class="localLink" href="/WatchAction">WatchAction</a>: Unlike WatchAction (which is under ConsumeAction), PlayAction refers to showing/displaying for an audience or at an event, rather than consuming visual content.</li>
+</ul>""" ;
     rdfs:subClassOf schema:Action .
 
 schema:Playground a rdfs:Class ;
@@ -2939,23 +3076,10 @@ schema:ProductModel a rdfs:Class ;
 
 schema:ProfessionalService a rdfs:Class ;
     rdfs:label "ProfessionalService" ;
-    rdfs:comment """Original definition: "provider of professional services."
-        <br><br>
-        The general <a href="/ProfessionalService">ProfessionalService</a> type
-        for local businesses was deprecated due to confusion with <a href="/Service">Service</a>.
-        For reference, the types that it included were: <a href="/Dentist">Dentist</a>,
-        <a href="/AccountingService">AccountingService</a>,
-        <a href="/Attorney">Attorney</a>,
-        <a href="/Notary">Notary</a>, as well as types for several kinds of
-        <a href="/HomeAndConstructionBusiness">HomeAndConstructionBusiness</a>:
-        <a href="/Electrician">Electrician</a>,
-        <a href="/GeneralContractor">GeneralContractor</a>,
-        <a href="/HousePainter">HousePainter</a>,
-        <a href="/Locksmith">Locksmith</a>,
-        <a href="/Plumber">Plumber</a>,
-        <a href="/Plumber">RoofingContractor</a>.
-        <a href="/LegalService">LegalService</a> was introduced as a more
-        inclusive supertype of <a href="/Attorney">Attorney</a>.""" ;
+    rdfs:comment """Original definition: "provider of professional services."</p>
+<p>The general <a class="localLink" href="/ProfessionalService">ProfessionalService</a> type for local businesses was deprecated due to confusion with <a class="localLink" href="/Service">Service</a>. For reference, the types that it included were: <a class="localLink" href="/Dentist">Dentist</a>,
+        <a class="localLink" href="/AccountingService">AccountingService</a>, <a class="localLink" href="/Attorney">Attorney</a>, <a class="localLink" href="/Notary">Notary</a>, as well as types for several kinds of <a class="localLink" href="/HomeAndConstructionBusiness">HomeAndConstructionBusiness</a>: <a class="localLink" href="/Electrician">Electrician</a>, <a class="localLink" href="/GeneralContractor">GeneralContractor</a>,
+        <a class="localLink" href="/HousePainter">HousePainter</a>, <a class="localLink" href="/Locksmith">Locksmith</a>, <a class="localLink" href="/Plumber">Plumber</a>, <a class="localLink" href="/RoofingContractor">RoofingContractor</a>. <a class="localLink" href="/LegalService">LegalService</a> was introduced as a more inclusive supertype of <a class="localLink" href="/Attorney">Attorney</a>.""" ;
     rdfs:subClassOf schema:LocalBusiness .
 
 schema:ProfilePage a rdfs:Class ;
@@ -2977,9 +3101,8 @@ schema:Property a rdfs:Class ;
 schema:PropertyValue a rdfs:Class ;
     rdfs:label "PropertyValue" ;
     dct:source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsClass> ;
-    rdfs:comment """A property-value pair, e.g. representing a feature of a product or place. Use the 'name' property for the name of the property. If there is an additional human-readable version of the value, put that into the 'description' property.
-        <br/><br/>
-        Always use specific schema.org properties when a) they exist and b) you can populate them. Using PropertyValue as a substitute will typically not trigger the same effect as using the original, specific property.""" ;
+    rdfs:comment """A property-value pair, e.g. representing a feature of a product or place. Use the 'name' property for the name of the property. If there is an additional human-readable version of the value, put that into the 'description' property.</p>
+<p>Always use specific schema.org properties when a) they exist and b) you can populate them. Using PropertyValue as a substitute will typically not trigger the same effect as using the original, specific property.""" ;
     rdfs:subClassOf schema:StructuredValue .
 
 schema:PropertyValueSpecification a rdfs:Class ;
@@ -3007,9 +3130,8 @@ schema:PublicationEvent a rdfs:Class ;
 schema:PublicationIssue a rdfs:Class ;
     rdfs:label "PublicationIssue" ;
     dct:source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_bibex> ;
-    rdfs:comment """<p>A part of a successively published publication such as a periodical or publication volume, often numbered, usually containing a grouping of works such as articles.</p>
-<pre><code>  &lt;br/&gt;&lt;br/&gt;See also &lt;a href="http://blog.schema.org/2014/09/schemaorg-support-for-bibliographic_2.html"&gt;blog post&lt;/a&gt;.
-</code></pre>""" ;
+    rdfs:comment """A part of a successively published publication such as a periodical or publication volume, often numbered, usually containing a grouping of works such as articles.</p>
+<p><a href="http://blog.schema.org/2014/09/schemaorg-support-for-bibliographic_2.html">blog post</a>.""" ;
     rdfs:subClassOf schema:CreativeWork ;
     owl:equivalentClass <http://purl.org/ontology/bibo/Issue> .
 
@@ -3029,7 +3151,7 @@ schema:QAPage a rdfs:Class ;
 schema:QualitativeValue a rdfs:Class ;
     rdfs:label "QualitativeValue" ;
     dct:source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsClass> ;
-    rdfs:comment "A predefined value for a product characteristic, e.g. the power cord plug type \"US\" or the garment sizes \"S\", \"M\", \"L\", and \"XL\"." ;
+    rdfs:comment "A predefined value for a product characteristic, e.g. the power cord plug type 'US' or the garment sizes 'S', 'M', 'L', and 'XL'." ;
     rdfs:subClassOf schema:Enumeration .
 
 schema:QuantitativeValue a rdfs:Class ;
@@ -3125,14 +3247,17 @@ schema:RealEstateAgent a rdfs:Class ;
 
 schema:ReceiveAction a rdfs:Class ;
     rdfs:label "ReceiveAction" ;
-    rdfs:comment "The act of physically/electronically taking delivery of an object thathas been transferred from an origin to a destination. Reciprocal of SendAction.<p>Related actions:</p><ul><li><a href=\"http://schema.org/SendAction\">SendAction</a>: The reciprocal of ReceiveAction.</li><li><a href=\"http://schema.org/TakeAction\">TakeAction</a>: Unlike TakeAction, ReceiveAction does not imply that the ownership has been transfered (e.g. I can receive a package, but it does not mean the package is now mine)</li></ul>." ;
+    rdfs:comment """<p>The act of physically/electronically taking delivery of an object thathas been transferred from an origin to a destination. Reciprocal of SendAction.</p>
+<p>Related actions:</p>
+<ul>
+<li><a class="localLink" href="/SendAction">SendAction</a>: The reciprocal of ReceiveAction.</li>
+<li><a class="localLink" href="/TakeAction">TakeAction</a>: Unlike TakeAction, ReceiveAction does not imply that the ownership has been transfered (e.g. I can receive a package, but it does not mean the package is now mine).</li>
+</ul>""" ;
     rdfs:subClassOf schema:TransferAction .
 
 schema:Recipe a rdfs:Class ;
     rdfs:label "Recipe" ;
-    rdfs:comment """A recipe. For dietary restrictions covered by the recipe,
-    a few common restrictions are enumerated via <a href="/suitableForDiet">suitableForDiet</a>.
-    The <a href="/keywords">keywords</a> property can also be used to add more detail.""" ;
+    rdfs:comment "A recipe. For dietary restrictions covered by the recipe, a few common restrictions are enumerated via <a class=\"localLink\" href=\"/suitableForDiet\">suitableForDiet</a>. The <a class=\"localLink\" href=\"/keywords\">keywords</a> property can also be used to add more detail." ;
     rdfs:subClassOf schema:CreativeWork .
 
 schema:RecommendedDoseSchedule a rdfs:Class ;
@@ -3148,12 +3273,22 @@ schema:RecyclingCenter a rdfs:Class ;
 
 schema:RegisterAction a rdfs:Class ;
     rdfs:label "RegisterAction" ;
-    rdfs:comment "The act of registering to be a user of a service, product or web page.<p>Related actions:</p><ul><li><a href=\"http://schema.org/JoinAction\">JoinAction</a>: Unlike JoinAction, RegisterAction implies you are registering to be a user of a service, <em>not</em> a group/team of people.</li><li><a href=\"http://schema.org/FollowAction\">FollowAction</a>: Unlike FollowAction, RegisterAction doesn't imply that the agent is expecting to poll for updates from the object.</li><li><a href=\"http://schema.org/SubscribeAction\">SubscribeAction</a>: Unlike SubscribeAction, RegisterAction doesn't imply that the agent is expecting updates from the object</li></ul>." ;
+    rdfs:comment """<p>The act of registering to be a user of a service, product or web page.</p>
+<p>Related actions:</p>
+<ul>
+<li><a class="localLink" href="/JoinAction">JoinAction</a>: Unlike JoinAction, RegisterAction implies you are registering to be a user of a service, <em>not</em> a group/team of people.</li>
+<li>[FollowAction]]: Unlike FollowAction, RegisterAction doesn't imply that the agent is expecting to poll for updates from the object.</li>
+<li><a class="localLink" href="/SubscribeAction">SubscribeAction</a>: Unlike SubscribeAction, RegisterAction doesn't imply that the agent is expecting updates from the object.</li>
+</ul>""" ;
     rdfs:subClassOf schema:InteractAction .
 
 schema:RejectAction a rdfs:Class ;
     rdfs:label "RejectAction" ;
-    rdfs:comment "The act of rejecting to/adopting an object.<p>Related actions:</p><ul><li><a href=\"http://schema.org/AcceptAction\">AcceptAction</a>: The antonym of RejectAction</li></ul>." ;
+    rdfs:comment """<p>The act of rejecting to/adopting an object.</p>
+<p>Related actions:</p>
+<ul>
+<li><a class="localLink" href="/AcceptAction">AcceptAction</a>: The antonym of RejectAction.</li>
+</ul>""" ;
     rdfs:subClassOf schema:AllocateAction .
 
 schema:RentAction a rdfs:Class ;
@@ -3163,7 +3298,8 @@ schema:RentAction a rdfs:Class ;
 
 schema:RentalCarReservation a rdfs:Class ;
     rdfs:label "RentalCarReservation" ;
-    rdfs:comment "A reservation for a rental car.Note: This type is for information about actual reservations, e.g. in confirmation emails or HTML pages with individual confirmations of reservations." ;
+    rdfs:comment """A reservation for a rental car.</p>
+<p>Note: This type is for information about actual reservations, e.g. in confirmation emails or HTML pages with individual confirmations of reservations.""" ;
     rdfs:subClassOf schema:Reservation .
 
 schema:ReplaceAction a rdfs:Class ;
@@ -3173,7 +3309,11 @@ schema:ReplaceAction a rdfs:Class ;
 
 schema:ReplyAction a rdfs:Class ;
     rdfs:label "ReplyAction" ;
-    rdfs:comment "The act of responding to a question/message asked/sent by the object. Related to <a href=\"AskAction\">AskAction</a>.<p>Related actions:</p><ul><li><a href=\"http://schema.org/AskAction\">AskAction</a>: Appears generally as an origin of a ReplyAction</li></ul>." ;
+    rdfs:comment """<p>The act of responding to a question/message asked/sent by the object. Related to <a class="localLink" href="/AskAction">AskAction</a></p>
+<p>Related actions:</p>
+<ul>
+<li><a class="localLink" href="/AskAction">AskAction</a>: Appears generally as an origin of a ReplyAction.</li>
+</ul>""" ;
     rdfs:subClassOf schema:CommunicateAction .
 
 schema:Report a rdfs:Class ;
@@ -3189,7 +3329,8 @@ schema:ReportedDoseSchedule a rdfs:Class ;
 
 schema:Reservation a rdfs:Class ;
     rdfs:label "Reservation" ;
-    rdfs:comment "Describes a reservation for travel, dining or an event. Some reservations require tickets.Note: This type is for information about actual reservations, e.g. in confirmation emails or HTML pages with individual confirmations of reservations. For offers of tickets, restaurant reservations, flights, or rental cars, use http://schema.org/Offer." ;
+    rdfs:comment """Describes a reservation for travel, dining or an event. Some reservations require tickets. </p>
+<p>Note: This type is for information about actual reservations, e.g. in confirmation emails or HTML pages with individual confirmations of reservations. For offers of tickets, restaurant reservations, flights, or rental cars, use <a class="localLink" href="/Offer">Offer</a>.""" ;
     rdfs:subClassOf schema:Intangible .
 
 schema:ReservationPackage a rdfs:Class ;
@@ -3204,7 +3345,11 @@ schema:ReservationStatusType a rdfs:Class ;
 
 schema:ReserveAction a rdfs:Class ;
     rdfs:label "ReserveAction" ;
-    rdfs:comment "Reserving a concrete object.<p>Related actions:</p><ul><li><a href=\"http://schema.org/ScheduleAction\">ScheduleAction</a>: Unlike ScheduleAction, ReserveAction reserves concrete objects (e.g. a table, a hotel) towards a time slot / spatial allocation</li></ul>." ;
+    rdfs:comment """<p>Reserving a concrete object.</p>
+<p>Related actions:</p>
+<ul>
+<li><a class="localLink" href="/ScheduleAction">ScheduleAction</a></a>: Unlike ScheduleAction, ReserveAction reserves concrete objects (e.g. a table, a hotel) towards a time slot / spatial allocation.</li>
+</ul>""" ;
     rdfs:subClassOf schema:PlanAction .
 
 schema:Reservoir a rdfs:Class ;
@@ -3216,6 +3361,14 @@ schema:Residence a rdfs:Class ;
     rdfs:label "Residence" ;
     rdfs:comment "The place where a person lives." ;
     rdfs:subClassOf schema:Place .
+
+schema:Resort a rdfs:Class ;
+    rdfs:label "Resort" ;
+    dct:source <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology> ;
+    rdfs:comment """A resort is a place used for relaxation or recreation, attracting visitors for holidays or vacations. Resorts are places, towns or sometimes commercial establishment operated by a single company (Source: Wikipedia, the free encyclopedia, see <a href="http://en.wikipedia.org/wiki/Resort">http://en.wikipedia.org/wiki/Resort</a>).
+<br /><br />
+See also the <a href="/docs/hotels.html">dedicated document on the use of schema.org for marking up hotels and other forms of accommodations</a>.""" ;
+    rdfs:subClassOf schema:LodgingBusiness .
 
 schema:Restaurant a rdfs:Class ;
     rdfs:label "Restaurant" ;
@@ -3254,15 +3407,22 @@ schema:RiverBodyOfWater a rdfs:Class ;
 
 schema:Role a rdfs:Class ;
     rdfs:label "Role" ;
-    rdfs:comment """<p>Represents additional information about a relationship or property. For example a Role can be used to say that a 'member' role linking some SportsTeam to a player occurred during a particular time period. Or that a Person's 'actor' role in a Movie was for some particular characterName. Such properties can be attached to a Role entity, which is then associated with the main entities using ordinary properties like 'member' or 'actor'.</p>
-<pre><code>  &lt;br/&gt;&lt;br/&gt;See also &lt;a href="http://blog.schema.org/2014/06/introducing-role.html"&gt;blog post&lt;/a&gt;.
-</code></pre>""" ;
+    rdfs:comment """Represents additional information about a relationship or property. For example a Role can be used to say that a 'member' role linking some SportsTeam to a player occurred during a particular time period. Or that a Person's 'actor' role in a Movie was for some particular characterName. Such properties can be attached to a Role entity, which is then associated with the main entities using ordinary properties like 'member' or 'actor'.</p>
+<p>See also <a href="http://blog.schema.org/2014/06/introducing-role.html">blog post</a>.""" ;
     rdfs:subClassOf schema:Intangible .
 
 schema:RoofingContractor a rdfs:Class ;
     rdfs:label "RoofingContractor" ;
     rdfs:comment "A roofing contractor." ;
     rdfs:subClassOf schema:HomeAndConstructionBusiness .
+
+schema:Room a rdfs:Class ;
+    rdfs:label "Room" ;
+    dct:source <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology> ;
+    rdfs:comment """A room is a distinguishable space within a structure, usually separated from other spaces by interior walls. (Source: Wikipedia, the free encyclopedia, see <a href="http://en.wikipedia.org/wiki/Room">http://en.wikipedia.org/wiki/Room</a>).
+<br /><br />
+See also the <a href="/docs/hotels.html">dedicated document on the use of schema.org for marking up hotels and other forms of accommodations</a>.""" ;
+    rdfs:subClassOf schema:Accommodation .
 
 schema:RsvpAction a rdfs:Class ;
     rdfs:label "RsvpAction" ;
@@ -3281,7 +3441,11 @@ schema:SaleEvent a rdfs:Class ;
 
 schema:ScheduleAction a rdfs:Class ;
     rdfs:label "ScheduleAction" ;
-    rdfs:comment "Scheduling future actions, events, or tasks.<p>Related actions:</p><ul><li><a href=\"http://schema.org/ReserveAction\">ReserveAction</a>: Unlike ReserveAction, ScheduleAction allocates future actions (e.g. an event, a task, etc) towards a time slot / spatial allocation</li></ul>." ;
+    rdfs:comment """<p>Scheduling future actions, events, or tasks.</p>
+<p>Related actions:</p>
+<ul>
+<li><a class="localLink" href="/ReserveAction">ReserveAction</a>: Unlike ReserveAction, ScheduleAction allocates future actions (e.g. an event, a task, etc) towards a time slot / spatial allocation.</li>
+</ul>""" ;
     rdfs:subClassOf schema:PlanAction .
 
 schema:ScholarlyArticle a rdfs:Class ;
@@ -3311,7 +3475,11 @@ schema:SeaBodyOfWater a rdfs:Class ;
 
 schema:SearchAction a rdfs:Class ;
     rdfs:label "SearchAction" ;
-    rdfs:comment "The act of searching for an object.<p>Related actions:</p><ul><li><a href=\"http://schema.org/FindAction\">FindAction</a>: SearchAction generally leads to a FindAction, but not necessarily</li></ul>." ;
+    rdfs:comment """<p>The act of searching for an object.</p>
+<p>Related actions:</p>
+<ul>
+<li><a class="localLink" href="/FindAction">FindAction</a>: SearchAction generally leads to a FindAction, but not necessarily.</li>
+</ul>""" ;
     rdfs:subClassOf schema:Action .
 
 schema:SearchResultsPage a rdfs:Class ;
@@ -3342,7 +3510,11 @@ schema:SellAction a rdfs:Class ;
 
 schema:SendAction a rdfs:Class ;
     rdfs:label "SendAction" ;
-    rdfs:comment "The act of physically/electronically dispatching an object for transfer from an origin to a destination.<p>Related actions:</p><ul><li><a href=\"http://schema.org/ReceiveAction\">ReceiveAction</a>: The reciprocal of SendAction.</li><li><a href=\"http://schema.org/GiveAction\">GiveAction</a>: Unlike GiveAction, SendAction does not imply the transfer of ownership (e.g. I can send you my laptop, but I'm not necessarily giving it to you)</li></ul>." ;
+    rdfs:comment """<p>The act of physically/electronically dispatching an object for transfer from an origin to a destination.Related actions:</p>
+<ul>
+<li><a class="localLink" href="/ReceiveAction">ReceiveAction</a>: The reciprocal of SendAction.</li>
+<li><a class="localLink" href="/GiveAction">GiveAction</a>: Unlike GiveAction, SendAction does not imply the transfer of ownership (e.g. I can send you my laptop, but I'm not necessarily giving it to you).</li>
+</ul>""" ;
     rdfs:subClassOf schema:TransferAction .
 
 schema:Series a rdfs:Class ;
@@ -3378,7 +3550,7 @@ schema:ShoppingCenter a rdfs:Class ;
 schema:SingleFamilyResidence a rdfs:Class ;
     rdfs:label "SingleFamilyResidence" ;
     rdfs:comment "Residence type: Single-family home." ;
-    rdfs:subClassOf schema:Residence .
+    rdfs:subClassOf schema:House .
 
 schema:SiteNavigationElement a rdfs:Class ;
     rdfs:label "SiteNavigationElement" ;
@@ -3485,7 +3657,13 @@ schema:StructuredValue a rdfs:Class ;
 
 schema:SubscribeAction a rdfs:Class ;
     rdfs:label "SubscribeAction" ;
-    rdfs:comment "The act of forming a personal connection with someone/something (object) unidirectionally/asymmetrically to get updates pushed to.<p>Related actions:</p><ul><li><a href=\"http://schema.org/FollowAction\">FollowAction</a>: Unlike FollowAction, SubscribeAction implies that the subscriber acts as a passive agent being constantly/actively pushed for updates.</li><li><a href=\"http://schema.org/RegisterAction\">RegisterAction</a>: Unlike RegisterAction, SubscribeAction implies that the agent is interested in continuing receiving updates from the object.</li><li><a href=\"http://schema.org/JoinAction\">JoinAction</a>: Unlike JoinAction, SubscribeAction implies that the agent is interested in continuing receiving updates from the object</li></ul>." ;
+    rdfs:comment """<p>The act of forming a personal connection with someone/something (object) unidirectionally/asymmetrically to get updates pushed to.</p>
+<p>Related actions:</p>
+<ul>
+<li><a class="localLink" href="/FollowAction">FollowAction</a>: Unlike FollowAction, SubscribeAction implies that the subscriber acts as a passive agent being constantly/actively pushed for updates.</li>
+<li><a class="localLink" href="/RegisterAction">RegisterAction</a>: Unlike RegisterAction, SubscribeAction implies that the agent is interested in continuing receiving updates from the object.</li>
+<li><a class="localLink" href="/JoinAction">JoinAction</a>: Unlike JoinAction, SubscribeAction implies that the agent is interested in continuing receiving updates from the object.</li>
+</ul>""" ;
     rdfs:subClassOf schema:InteractAction .
 
 schema:Substance a rdfs:Class ;
@@ -3500,6 +3678,14 @@ schema:SubwayStation a rdfs:Class ;
     rdfs:comment "A subway station." ;
     rdfs:subClassOf schema:CivicStructure .
 
+schema:Suite a rdfs:Class ;
+    rdfs:label "Suite" ;
+    dct:source <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology> ;
+    rdfs:comment """A suite in a hotel or other public accommodation, denotes a class of luxury accommodations, the key feature of which is multiple rooms (Source: Wikipedia, the free encyclopedia, see <a href="http://en.wikipedia.org/wiki/Suite_(hotel)">http://en.wikipedia.org/wiki/Suite_(hotel)</a>).
+<br /><br />
+See also the <a href="/docs/hotels.html">dedicated document on the use of schema.org for marking up hotels and other forms of accommodations</a>.""" ;
+    rdfs:subClassOf schema:Accommodation .
+
 schema:SuperficialAnatomy a rdfs:Class ;
     rdfs:label "SuperficialAnatomy" ;
     schema:isPartOf <http://health-lifesci.schema.org> ;
@@ -3510,7 +3696,7 @@ schema:SurgicalProcedure a schema:MedicalProcedureType,
         rdfs:Class ;
     rdfs:label "SurgicalProcedure" ;
     schema:isPartOf <http://health-lifesci.schema.org> ;
-    rdfs:comment "A type of medical procedure that involves invasive surgical techniques." ;
+    rdfs:comment "A medical procedure involving an incision with instruments; performed for diagnose, or therapeutic purposes." ;
     rdfs:subClassOf schema:MedicalProcedure ;
     owl:equivalentClass <http://purl.bioontology.org/ontology/SNOMEDCT/387713003> .
 
@@ -3553,7 +3739,12 @@ schema:Table a rdfs:Class ;
 
 schema:TakeAction a rdfs:Class ;
     rdfs:label "TakeAction" ;
-    rdfs:comment "The act of gaining ownership of an object from an origin. Reciprocal of GiveAction.<p>Related actions:</p><ul><li><a href=\"http://schema.org/GiveAction\">GiveAction</a>: The reciprocal of TakeAction.</li><li><a href=\"http://schema.org/ReceiveAction\">ReceiveAction</a>: Unlike ReceiveAction, TakeAction implies that ownership has been transfered</li></ul>." ;
+    rdfs:comment """<p>The act of gaining ownership of an object from an origin. Reciprocal of GiveAction.</p>
+<p>Related actions:</p>
+<ul>
+<li><a class="localLink" href="/GiveAction">GiveAction</a>: The reciprocal of TakeAction.</li>
+<li><a class="localLink" href="/ReceiveAction">ReceiveAction</a>: Unlike ReceiveAction, TakeAction implies that ownership has been transfered.</li>
+</ul>""" ;
     rdfs:subClassOf schema:TransferAction .
 
 schema:TattooParlor a rdfs:Class ;
@@ -3569,7 +3760,8 @@ schema:Taxi a rdfs:Class ;
 
 schema:TaxiReservation a rdfs:Class ;
     rdfs:label "TaxiReservation" ;
-    rdfs:comment "A reservation for a taxi.Note: This type is for information about actual reservations, e.g. in confirmation emails or HTML pages with individual confirmations of reservations. For offers of tickets, use http://schema.org/Offer." ;
+    rdfs:comment """A reservation for a taxi.</p>
+<p>Note: This type is for information about actual reservations, e.g. in confirmation emails or HTML pages with individual confirmations of reservations. For offers of tickets, use <a class="localLink" href="/Offer">Offer</a>.""" ;
     rdfs:subClassOf schema:Reservation .
 
 schema:TaxiService a rdfs:Class ;
@@ -3682,7 +3874,12 @@ schema:ToyStore a rdfs:Class ;
 
 schema:TrackAction a rdfs:Class ;
     rdfs:label "TrackAction" ;
-    rdfs:comment "An agent tracks an object for updates.<p>Related actions:</p><ul><li><a href=\"http://schema.org/FollowAction\">FollowAction</a>: Unlike FollowAction, TrackAction refers to the interest on the location of innanimates objects.</li><li><a href=\"http://schema.org/SubscribeAction\">SubscribeAction</a>: Unlike SubscribeAction, TrackAction refers to  the interest on the location of innanimate objects</li></ul>." ;
+    rdfs:comment """<p>An agent tracks an object for updates.</p>
+<p>Related actions:</p>
+<ul>
+<li><a class="localLink" href="/FollowAction">FollowAction</a>: Unlike FollowAction, TrackAction refers to the interest on the location of innanimates objects.</li>
+<li><a class="localLink" href="/SubscribeAction">SubscribeAction</a>: Unlike SubscribeAction, TrackAction refers to  the interest on the location of innanimate objects.</li>
+</ul>""" ;
     rdfs:subClassOf schema:FindAction .
 
 schema:TradeAction a rdfs:Class ;
@@ -3692,7 +3889,8 @@ schema:TradeAction a rdfs:Class ;
 
 schema:TrainReservation a rdfs:Class ;
     rdfs:label "TrainReservation" ;
-    rdfs:comment "A reservation for train travel.Note: This type is for information about actual reservations, e.g. in confirmation emails or HTML pages with individual confirmations of reservations. For offers of tickets, use http://schema.org/Offer." ;
+    rdfs:comment """A reservation for train travel.</p>
+<p>Note: This type is for information about actual reservations, e.g. in confirmation emails or HTML pages with individual confirmations of reservations. For offers of tickets, use <a class="localLink" href="/Offer">Offer</a>.""" ;
     rdfs:subClassOf schema:Reservation .
 
 schema:TrainStation a rdfs:Class ;
@@ -3739,7 +3937,12 @@ schema:URL a rdfs:Class ;
 
 schema:UnRegisterAction a rdfs:Class ;
     rdfs:label "UnRegisterAction" ;
-    rdfs:comment "The act of un-registering from a service.<p>Related actions:</p><ul><li><a href=\"http://schema.org/RegisterAction\">RegisterAction</a>: antonym of UnRegisterAction.</li><li><a href=\"http://schema.org/Leave\">Leave</a>: Unlike LeaveAction, UnRegisterAction implies that you are unregistering from a service you werer previously registered, rather than leaving a team/group of people</li></ul>." ;
+    rdfs:comment """<p>The act of un-registering from a service.</p>
+<p>Related actions:</p>
+<ul>
+<li><a class="localLink" href="/RegisterAction">RegisterAction</a>: antonym of UnRegisterAction.</li>
+<li><a class="localLink" href="/Leave">Leave</a>: Unlike LeaveAction, UnRegisterAction implies that you are unregistering from a service you werer previously registered, rather than leaving a team/group of people.</li>
+</ul>""" ;
     rdfs:subClassOf schema:InteractAction .
 
 schema:UnitPriceSpecification a rdfs:Class ;
@@ -3761,72 +3964,62 @@ schema:UseAction a rdfs:Class ;
 schema:UserBlocks a rdfs:Class ;
     rdfs:label "UserBlocks" ;
     schema:supersededBy schema:InteractionCounter ;
-    rdfs:comment """UserInteraction and its subtypes is an old way of talking about users interacting with pages. It is generally better to use
-          <a href="/Action">Action</a>-based vocabulary, alongside types such as <a href="/Comment">Comment</a>.""" ;
+    rdfs:comment "UserInteraction and its subtypes is an old way of talking about users interacting with pages. It is generally better to use <a class=\"localLink\" href=\"/Action\">Action</a>-based vocabulary, alongside types such as <a class=\"localLink\" href=\"/Comment\">Comment</a>." ;
     rdfs:subClassOf schema:UserInteraction .
 
 schema:UserCheckins a rdfs:Class ;
     rdfs:label "UserCheckins" ;
     schema:supersededBy schema:InteractionCounter ;
-    rdfs:comment """UserInteraction and its subtypes is an old way of talking about users interacting with pages. It is generally better to use
-          <a href="/Action">Action</a>-based vocabulary, alongside types such as <a href="/Comment">Comment</a>.""" ;
+    rdfs:comment "UserInteraction and its subtypes is an old way of talking about users interacting with pages. It is generally better to use <a class=\"localLink\" href=\"/Action\">Action</a>-based vocabulary, alongside types such as <a class=\"localLink\" href=\"/Comment\">Comment</a>." ;
     rdfs:subClassOf schema:UserInteraction .
 
 schema:UserComments a rdfs:Class ;
     rdfs:label "UserComments" ;
     dct:source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_rNews> ;
     schema:supersededBy schema:InteractionCounter ;
-    rdfs:comment """UserInteraction and its subtypes is an old way of talking about users interacting with pages. It is generally better to use
-          <a href="/Action">Action</a>-based vocabulary, alongside types such as <a href="/Comment">Comment</a>.""" ;
+    rdfs:comment "UserInteraction and its subtypes is an old way of talking about users interacting with pages. It is generally better to use <a class=\"localLink\" href=\"/Action\">Action</a>-based vocabulary, alongside types such as <a class=\"localLink\" href=\"/Comment\">Comment</a>." ;
     rdfs:subClassOf schema:UserInteraction .
 
 schema:UserDownloads a rdfs:Class ;
     rdfs:label "UserDownloads" ;
     schema:supersededBy schema:InteractionCounter ;
-    rdfs:comment """UserInteraction and its subtypes is an old way of talking about users interacting with pages. It is generally better to use
-          <a href="/Action">Action</a>-based vocabulary, alongside types such as <a href="/Comment">Comment</a>.""" ;
+    rdfs:comment "UserInteraction and its subtypes is an old way of talking about users interacting with pages. It is generally better to use <a class=\"localLink\" href=\"/Action\">Action</a>-based vocabulary, alongside types such as <a class=\"localLink\" href=\"/Comment\">Comment</a>." ;
     rdfs:subClassOf schema:UserInteraction .
 
 schema:UserInteraction a rdfs:Class ;
     rdfs:label "UserInteraction" ;
     schema:supersededBy schema:InteractionCounter ;
-    rdfs:comment """UserInteraction and its subtypes is an old way of talking about users interacting with pages. It is generally better to use
-          <a href="/Action">Action</a>-based vocabulary, alongside types such as <a href="/Comment">Comment</a>.""" ;
+    rdfs:comment "UserInteraction and its subtypes is an old way of talking about users interacting with pages. It is generally better to use <a class=\"localLink\" href=\"/Action\">Action</a>-based vocabulary, alongside types such as <a class=\"localLink\" href=\"/Comment\">Comment</a>." ;
     rdfs:subClassOf schema:Event .
 
 schema:UserLikes a rdfs:Class ;
     rdfs:label "UserLikes" ;
     schema:supersededBy schema:InteractionCounter ;
-    rdfs:comment """UserInteraction and its subtypes is an old way of talking about users interacting with pages. It is generally better to use
-          <a href="/Action">Action</a>-based vocabulary, alongside types such as <a href="/Comment">Comment</a>.""" ;
+    rdfs:comment "UserInteraction and its subtypes is an old way of talking about users interacting with pages. It is generally better to use <a class=\"localLink\" href=\"/Action\">Action</a>-based vocabulary, alongside types such as <a class=\"localLink\" href=\"/Comment\">Comment</a>." ;
     rdfs:subClassOf schema:UserInteraction .
 
 schema:UserPageVisits a rdfs:Class ;
     rdfs:label "UserPageVisits" ;
     schema:supersededBy schema:InteractionCounter ;
-    rdfs:comment """UserInteraction and its subtypes is an old way of talking about users interacting with pages. It is generally better to use
-          <a href="/Action">Action</a>-based vocabulary, alongside types such as <a href="/Comment">Comment</a>.""" ;
+    rdfs:comment "UserInteraction and its subtypes is an old way of talking about users interacting with pages. It is generally better to use <a class=\"localLink\" href=\"/Action\">Action</a>-based vocabulary, alongside types such as <a class=\"localLink\" href=\"/Comment\">Comment</a>." ;
     rdfs:subClassOf schema:UserInteraction .
 
 schema:UserPlays a rdfs:Class ;
     rdfs:label "UserPlays" ;
     schema:supersededBy schema:InteractionCounter ;
-    rdfs:comment """UserInteraction and its subtypes is an old way of talking about users interacting with pages. It is generally better to use
-          <a href="/Action">Action</a>-based vocabulary, alongside types such as <a href="/Comment">Comment</a>.""" ;
+    rdfs:comment "UserInteraction and its subtypes is an old way of talking about users interacting with pages. It is generally better to use <a class=\"localLink\" href=\"/Action\">Action</a>-based vocabulary, alongside types such as <a class=\"localLink\" href=\"/Comment\">Comment</a>." ;
     rdfs:subClassOf schema:UserInteraction .
 
 schema:UserPlusOnes a rdfs:Class ;
     rdfs:label "UserPlusOnes" ;
     schema:supersededBy schema:InteractionCounter ;
-    rdfs:comment """UserInteraction and its subtypes is an old way of talking about users interacting with pages. It is generally better to use
-          <a href="/Action">Action</a>-based vocabulary, alongside types such as <a href="/Comment">Comment</a>.""" ;
+    rdfs:comment "UserInteraction and its subtypes is an old way of talking about users interacting with pages. It is generally better to use <a class=\"localLink\" href=\"/Action\">Action</a>-based vocabulary, alongside types such as <a class=\"localLink\" href=\"/Comment\">Comment</a>." ;
     rdfs:subClassOf schema:UserInteraction .
 
 schema:UserTweets a rdfs:Class ;
     rdfs:label "UserTweets" ;
     schema:supersededBy schema:InteractionCounter ;
-    rdfs:comment """UserInteraction and its subtypes is an old way of talking about users interacting with pages. It is generally better to use
-          <a href="/Action">Action</a>-based vocabulary, alongside types such as <a href="/Comment">Comment</a>.""" ;
+    rdfs:comment "UserInteraction and its subtypes is an old way of talking about users interacting with pages. It is generally better to use <a class=\"localLink\" href=\"/Action\">Action</a>-based vocabulary, alongside types such as <a class=\"localLink\" href=\"/Comment\">Comment</a>." ;
     rdfs:subClassOf schema:UserInteraction .
 
 schema:Vehicle a rdfs:Class ;
@@ -3870,7 +4063,7 @@ schema:VideoGameClip a rdfs:Class ;
 
 schema:VideoGameSeries a rdfs:Class ;
     rdfs:label "VideoGameSeries" ;
-    rdfs:comment "A <a href=\"/VideoGame\">video game</a> series." ;
+    rdfs:comment "A video game series." ;
     rdfs:subClassOf schema:CreativeWorkSeries .
 
 schema:VideoObject a rdfs:Class ;
@@ -3945,13 +4138,13 @@ schema:WarrantyPromise a rdfs:Class ;
 schema:WarrantyScope a rdfs:Class ;
     rdfs:label "WarrantyScope" ;
     dct:source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsClass> ;
-    rdfs:comment """A range of of services that will be provided to a customer free of charge in case of a defect or malfunction of a product.
-<br />
-    Commonly used values:<br />
-<br />
-    http://purl.org/goodrelations/v1#Labor-BringIn <br />
-    http://purl.org/goodrelations/v1#PartsAndLabor-BringIn <br />
-    http://purl.org/goodrelations/v1#PartsAndLabor-PickUp <br />""" ;
+    rdfs:comment """<p>A range of of services that will be provided to a customer free of charge in case of a defect or malfunction of a product.</p>
+<p>Commonly used values:</p>
+<ul>
+<li>http://purl.org/goodrelations/v1#Labor-BringIn</li>
+<li>http://purl.org/goodrelations/v1#PartsAndLabor-BringIn</li>
+<li>http://purl.org/goodrelations/v1#PartsAndLabor-PickUp</li>
+</ul>""" ;
     rdfs:subClassOf schema:Enumeration .
 
 schema:WatchAction a rdfs:Class ;
@@ -4022,13 +4215,13 @@ schema:Zoo a rdfs:Class ;
     rdfs:comment "A zoo." ;
     rdfs:subClassOf schema:CivicStructure .
 
-<file:///Users/wallisr/Development/schemaorg/BuldRel/schemaorg/data/ext/bib/bsdo-1.0.rdfa> schema:softwareVersion "bib.schema.org Version 0.1"@en .
+<file:///Users/danbri/sdo/official/schemaorg/data/ext/bib/bsdo-1.0.rdfa> schema:softwareVersion "bib.schema.org Version 0.1"@en .
 
-<file:///Users/wallisr/Development/schemaorg/BuldRel/schemaorg/data/ext/bib/comics.rdfa> schema:softwareVersion "bib extension - version 0.1"@en .
+<file:///Users/danbri/sdo/official/schemaorg/data/ext/bib/comics.rdfa> schema:softwareVersion "bib extension - version 0.1"@en .
 
-<file:///Users/wallisr/Development/schemaorg/BuldRel/schemaorg/data/ext/health-lifesci/med-health-core.rdfa> rdfa:usesVocabulary <http://schema.org> .
+<file:///Users/danbri/sdo/official/schemaorg/data/ext/health-lifesci/med-health-core.rdfa> rdfa:usesVocabulary <http://schema.org> .
 
-<file:///Users/wallisr/Development/schemaorg/BuldRel/schemaorg/data/ext/health-lifesci/physical-activity-and-exercise.rdfa> rdfa:usesVocabulary <http://schema.org> .
+<file:///Users/danbri/sdo/official/schemaorg/data/ext/health-lifesci/physical-activity-and-exercise.rdfa> rdfa:usesVocabulary <http://schema.org> .
 
 schema:Abdomen a schema:PhysicalExam ;
     rdfs:label "Abdomen" ;
@@ -4070,7 +4263,7 @@ schema:Anesthesia a schema:MedicalSpecialty ;
     rdfs:comment "A specific branch of medical science that pertains to study of anesthetics and their application." .
 
 schema:Appearance a schema:PhysicalExam ;
-    rdfs:label "Appearance " ;
+    rdfs:label "Appearance" ;
     schema:isPartOf <http://health-lifesci.schema.org> ;
     rdfs:comment "Appearance assessment with clinical examination." .
 
@@ -4662,11 +4855,11 @@ schema:OccupationalTherapy a schema:MedicalSpecialty ;
     rdfs:subClassOf schema:MedicalTherapy .
 
 schema:OfflinePermanently a schema:GameServerStatus ;
-    rdfs:label "OfflinePermanently " ;
+    rdfs:label "OfflinePermanently" ;
     rdfs:comment "Game server status: OfflinePermanently. Server is offline and not available." .
 
 schema:OfflineTemporarily a schema:GameServerStatus ;
-    rdfs:label "OfflineTemporarily " ;
+    rdfs:label "OfflineTemporarily" ;
     rdfs:comment "Game server status: OfflineTemporarily. Server is offline now but it can be online soon." .
 
 schema:OnSitePickup a schema:DeliveryMethod ;
@@ -4684,7 +4877,7 @@ schema:Online a schema:GameServerStatus ;
     rdfs:comment "Game server status: Online. Server is available." .
 
 schema:OnlineFull a schema:GameServerStatus ;
-    rdfs:label "OnlineFull " ;
+    rdfs:label "OnlineFull" ;
     rdfs:comment "Game server status: OnlineFull. Server is online but unavailable. The maximum number of players has reached." .
 
 schema:OnlineOnly a schema:ItemAvailability ;
@@ -5223,10 +5416,11 @@ schema:accelerationTime a rdf:Property ;
     schema:domainIncludes schema:Vehicle ;
     schema:isPartOf <http://auto.schema.org> ;
     schema:rangeIncludes schema:QuantitativeValue ;
-    rdfs:comment """<p>The time needed to accelerate the vehicle from a given start velocity to a given target velocity.<br />
-    Typical unit code(s): SEC for seconds<br /></p>
-<pre><code>Note: There are unfortunately no standard unit codes for seconds/0..100 km/h or seconds/0..60 mph. Simply use "SEC" for seconds and indicate the velocities in the &lt;a href="name"&gt;name&lt;/a&gt; of the &lt;a href="QuantitativeValue"&gt;QuantitativeValue&lt;/a&gt;, or use &lt;a href="valueReference"&gt;valueReference&lt;/a&gt; with a &lt;a href="QuantitativeValue"&gt;QuantitativeValue&lt;/a&gt; of 0..60 mph or 0..100 km/h to specify the reference speeds.
-</code></pre>""" .
+    rdfs:comment """<p>The time needed to accelerate the vehicle from a given start velocity to a given target velocity.</p>
+<p>Typical unit code(s): SEC for seconds</p>
+<ul>
+<li>Note: There are unfortunately no standard unit codes for seconds/0..100 km/h or seconds/0..60 mph. Simply use "SEC" for seconds and indicate the velocities in the <a class="localLink" href="/name">name</a> of the <a class="localLink" href="/QuantitativeValue">QuantitativeValue</a>, or use <a class="localLink" href="/valueReference">valueReference</a> with a <a class="localLink" href="/QuantitativeValue">QuantitativeValue</a> of 0..60 mph or 0..100 km/h to specify the reference speeds.</li>
+</ul>""" .
 
 schema:acceptedAnswer a rdf:Property ;
     rdfs:label "acceptedAnswer" ;
@@ -5431,7 +5625,7 @@ schema:additionalProperty a rdf:Property ;
         schema:QualitativeValue,
         schema:QuantitativeValue ;
     schema:rangeIncludes schema:PropertyValue ;
-    rdfs:comment """A property-value pair representing an additional characteristics of the entitity, e.g. a product feature or another characteristic for which there is no matching property in schema.org. <br /><br /></p>
+    rdfs:comment """A property-value pair representing an additional characteristics of the entitity, e.g. a product feature or another characteristic for which there is no matching property in schema.org.</p>
 <p>Note: Publishers should be aware that applications designed to use specific schema.org properties (e.g. http://schema.org/width, http://schema.org/color, http://schema.org/gtin13, ...) will typically expect such data to be provided using those properties, rather than using the generic property/value mechanism.""" .
 
 schema:additionalType a rdf:Property ;
@@ -5466,7 +5660,7 @@ schema:addressCountry a rdf:Property ;
         schema:PostalAddress ;
     schema:rangeIncludes schema:Country,
         schema:Text ;
-    rdfs:comment "The country. For example, USA. You can also provide the two-letter <a href='http://en.wikipedia.org/wiki/ISO_3166-1'>ISO 3166-1 alpha-2 country code</a>." .
+    rdfs:comment "The country. For example, USA. You can also provide the two-letter <a href=\"http://en.wikipedia.org/wiki/ISO_3166-1\">ISO 3166-1 alpha-2 country code</a>." .
 
 schema:addressLocality a rdf:Property ;
     rdfs:label "addressLocality" ;
@@ -5597,6 +5791,14 @@ schema:alternativeHeadline a rdf:Property ;
     schema:rangeIncludes schema:Text ;
     rdfs:comment "A secondary title of the CreativeWork." .
 
+schema:amenityFeature a rdf:Property ;
+    rdfs:label "amenityFeature" ;
+    dct:source <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology> ;
+    schema:domainIncludes schema:Accommodation,
+        schema:LodgingBusiness ;
+    schema:rangeIncludes schema:LocationFeatureSpecification ;
+    rdfs:comment "An amenity feature (e.g. a characteristic or service) of the Accommodation. This generic property does not make a statement about whether the feature is included in an offer for the main accommodation or available at extra costs." .
+
 schema:amount a rdf:Property ;
     rdfs:label "amount" ;
     schema:domainIncludes schema:DatedMoneySpecification,
@@ -5654,14 +5856,14 @@ schema:applicationCategory a rdf:Property ;
     schema:domainIncludes schema:SoftwareApplication ;
     schema:rangeIncludes schema:Text,
         schema:URL ;
-    rdfs:comment "Type of software application, e.g. \"Game, Multimedia\"." .
+    rdfs:comment "Type of software application, e.g. 'Game, Multimedia'." .
 
 schema:applicationSubCategory a rdf:Property ;
     rdfs:label "applicationSubCategory" ;
     schema:domainIncludes schema:SoftwareApplication ;
     schema:rangeIncludes schema:Text,
         schema:URL ;
-    rdfs:comment "Subcategory of the application, e.g. \"Arcade Game\"." .
+    rdfs:comment "Subcategory of the application, e.g. 'Arcade Game'." .
 
 schema:applicationSuite a rdf:Property ;
     rdfs:label "applicationSuite" ;
@@ -5854,10 +6056,11 @@ schema:audio a rdf:Property ;
 
 schema:author a rdf:Property ;
     rdfs:label "author" ;
-    schema:domainIncludes schema:CreativeWork ;
+    schema:domainIncludes schema:CreativeWork,
+        schema:Rating ;
     schema:rangeIncludes schema:Organization,
         schema:Person ;
-    rdfs:comment "The author of this content. Please note that author is special in that HTML 5 provides a special mechanism for indicating authorship via the rel tag. That is equivalent to this and may be used interchangeably." .
+    rdfs:comment "The author of this content or rating. Please note that author is special in that HTML 5 provides a special mechanism for indicating authorship via the rel tag. That is equivalent to this and may be used interchangeably." .
 
 schema:availability a rdf:Property ;
     rdfs:label "availability" ;
@@ -5921,10 +6124,11 @@ schema:availableIn a rdf:Property ;
 schema:availableLanguage a rdf:Property ;
     rdfs:label "availableLanguage" ;
     schema:domainIncludes schema:ContactPoint,
+        schema:LodgingBusiness,
         schema:ServiceChannel ;
     schema:rangeIncludes schema:Language,
         schema:Text ;
-    rdfs:comment "A language someone may use with the item. Please use one of the language codes from the <a href='http://tools.ietf.org/html/bcp47'>IETF BCP 47 standard</a>. See also <a class=\"localLink\" href=\"/inLanguage\">inLanguage</a>." .
+    rdfs:comment "A language someone may use with the item. Please use one of the language codes from the <a href=\"http://tools.ietf.org/html/bcp47\">IETF BCP 47 standard</a>. See also <a class=\"localLink\" href=\"/inLanguage\">inLanguage</a>" .
 
 schema:availableService a rdf:Property ;
     rdfs:label "availableService" ;
@@ -5990,6 +6194,17 @@ schema:baseSalary a rdf:Property ;
         schema:Number,
         schema:PriceSpecification ;
     rdfs:comment "The base salary of the job or of an employee in an EmployeeRole." .
+
+schema:bed a rdf:Property ;
+    rdfs:label "bed" ;
+    dct:source <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology> ;
+    schema:domainIncludes schema:HotelRoom,
+        schema:Suite ;
+    schema:rangeIncludes schema:BedDetails,
+        schema:BedType,
+        schema:Text ;
+    rdfs:comment """The type of bed or beds included in the accommodation. For the single case of just one bed of a certain type, you use bed directly with a text.
+      If you want to indicate the quantity of a certain kind of bed, use an instance of BedDetails. For more detailed information, use the amenityFeature property.""" .
 
 schema:benefits a rdf:Property ;
     rdfs:label "benefits" ;
@@ -6156,8 +6371,8 @@ schema:branchCode a rdf:Property ;
     rdfs:label "branchCode" ;
     schema:domainIncludes schema:Place ;
     schema:rangeIncludes schema:Text ;
-    rdfs:comment """A short textual code (also called "store code") that uniquely identifies a place of business. The code is typically assigned by the parentOrganization and used in structured URLs.
-<br /><br /> For example, in the URL http://www.starbucks.co.uk/store-locator/etc/detail/3047 the code "3047" is a branchCode for a particular branch.""" .
+    rdfs:comment """A short textual code (also called "store code") that uniquely identifies a place of business. The code is typically assigned by the parentOrganization and used in structured URLs.</p>
+<p>For example, in the URL http://www.starbucks.co.uk/store-locator/etc/detail/3047 the code "3047" is a branchCode for a particular branch.""" .
 
 schema:branchOf a rdf:Property ;
     rdfs:label "branchOf" ;
@@ -6251,10 +6466,10 @@ schema:broadcastSignalModulation a rdf:Property ;
     rdfs:comment "The modulation (e.g. FM, AM, etc) used by a particular broadcast service" .
 
 schema:broadcastTimezone a rdf:Property ;
-    rdfs:label "timezone" ;
+    rdfs:label "broadcastTimezone" ;
     schema:domainIncludes schema:BroadcastService ;
     schema:rangeIncludes schema:Text ;
-    rdfs:comment "The timezone in <a href='http://en.wikipedia.org/wiki/ISO_8601'>ISO 8601 format</a> for which the service bases its broadcasts." .
+    rdfs:comment "The timezone in <a href=\"http://en.wikipedia.org/wiki/ISO_8601\">ISO 8601 format</a> for which the service bases its broadcasts" .
 
 schema:broadcaster a rdf:Property ;
     rdfs:label "broadcaster" ;
@@ -6266,7 +6481,7 @@ schema:browserRequirements a rdf:Property ;
     rdfs:label "browserRequirements" ;
     schema:domainIncludes schema:WebApplication ;
     schema:rangeIncludes schema:Text ;
-    rdfs:comment "Specifies browser requirements in human-readable text. For example,\"requires HTML5 support\"." .
+    rdfs:comment "Specifies browser requirements in human-readable text. For example, 'requires HTML5 support'." .
 
 schema:busName a rdf:Property ;
     rdfs:label "busName" ;
@@ -6334,9 +6549,9 @@ schema:cargoVolume a rdf:Property ;
     dct:source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group> ;
     schema:domainIncludes schema:Vehicle ;
     schema:rangeIncludes schema:QuantitativeValue ;
-    rdfs:comment """The available volume for cargo or luggage. For automobiles, this is usually the trunk volume.<br />
-Typical unit code(s): LTR for liters, FTQ for cubic foot/feet<br /></p>
-<p>Note: You can use <a href="minValue">minValue</a> and <a href="maxValue">maxValue</a> to indicate ranges.""" .
+    rdfs:comment """The available volume for cargo or luggage. For automobiles, this is usually the trunk volume.</p>
+<p>Typical unit code(s): LTR for liters, FTQ for cubic foot/feet</p>
+<p>Note: You can use <a class="localLink" href="/minValue">minValue</a> and <a class="localLink" href="/maxValue">maxValue</a> to indicate ranges.""" .
 
 schema:carrier a rdf:Property ;
     rdfs:label "carrier" ;
@@ -6423,13 +6638,15 @@ schema:cheatCode a rdf:Property ;
 
 schema:checkinTime a rdf:Property ;
     rdfs:label "checkinTime" ;
-    schema:domainIncludes schema:LodgingReservation ;
+    schema:domainIncludes schema:LodgingBusiness,
+        schema:LodgingReservation ;
     schema:rangeIncludes schema:DateTime ;
     rdfs:comment "The earliest someone may check into a lodging establishment." .
 
 schema:checkoutTime a rdf:Property ;
     rdfs:label "checkoutTime" ;
-    schema:domainIncludes schema:LodgingReservation ;
+    schema:domainIncludes schema:LodgingBusiness,
+        schema:LodgingReservation ;
     schema:rangeIncludes schema:DateTime ;
     rdfs:comment "The latest someone may check out of a lodging establishment." .
 
@@ -6589,7 +6806,8 @@ schema:commentText a rdf:Property ;
 schema:commentTime a rdf:Property ;
     rdfs:label "commentTime" ;
     schema:domainIncludes schema:UserComments ;
-    schema:rangeIncludes schema:Date ;
+    schema:rangeIncludes schema:Date,
+        schema:DateTime ;
     rdfs:comment "The time at which the UserComment was made." .
 
 schema:composer a rdf:Property ;
@@ -6872,14 +7090,14 @@ schema:currenciesAccepted a rdf:Property ;
     rdfs:label "currenciesAccepted" ;
     schema:domainIncludes schema:LocalBusiness ;
     schema:rangeIncludes schema:Text ;
-    rdfs:comment "The currency accepted (in <a href='http://en.wikipedia.org/wiki/ISO_4217'>ISO 4217 currency format</a>)." .
+    rdfs:comment "The currency accepted (in <a href=\"http://en.wikipedia.org/wiki/ISO_4217\">ISO 4217 currency format</a>)." .
 
 schema:currency a rdf:Property ;
     rdfs:label "currency" ;
     schema:domainIncludes schema:DatedMoneySpecification,
         schema:MonetaryAmount ;
     schema:rangeIncludes schema:Text ;
-    rdfs:comment "The currency in which the monetary amount is expressed (in 3-letter <a href='http://en.wikipedia.org/wiki/ISO_4217'\">ISO 4217</a> format)." .
+    rdfs:comment "The currency in which the monetary amount is expressed (in 3-letter <a href=\"http://en.wikipedia.org/wiki/ISO_4217\">ISO 4217</a> format)." .
 
 schema:customer a rdf:Property ;
     rdfs:label "customer" ;
@@ -7428,8 +7646,8 @@ schema:eligibleRegion a rdf:Property ;
     schema:rangeIncludes schema:GeoShape,
         schema:Place,
         schema:Text ;
-    rdfs:comment """The ISO 3166-1 (ISO 3166-1 alpha-2) or ISO 3166-2 code, the place, or the GeoShape for the geo-political region(s) for which the offer or delivery charge specification is valid.
-      <br><br> See also <a href="/ineligibleRegion">ineligibleRegion</a>.""" ;
+    rdfs:comment """The ISO 3166-1 (ISO 3166-1 alpha-2) or ISO 3166-2 code, the place, or the GeoShape for the geo-political region(s) for which the offer or delivery charge specification is valid.</p>
+<p>See also <a class="localLink" href="/ineligibleRegion">ineligibleRegion</a>.""" ;
     rdfs:subPropertyOf schema:areaServed .
 
 schema:eligibleTransactionVolume a rdf:Property ;
@@ -7508,8 +7726,9 @@ schema:endDate a rdf:Property ;
         schema:DatedMoneySpecification,
         schema:Event,
         schema:Role ;
-    schema:rangeIncludes schema:Date ;
-    rdfs:comment "The end date and time of the item (in <a href='http://en.wikipedia.org/wiki/ISO_8601'>ISO 8601 date format</a>)." .
+    schema:rangeIncludes schema:Date,
+        schema:DateTime ;
+    rdfs:comment "The end date and time of the item (in <a href=\"http://en.wikipedia.org/wiki/ISO_8601\">ISO 8601 date format</a>)." .
 
 schema:endTime a rdf:Property ;
     rdfs:label "endTime" ;
@@ -7541,11 +7760,10 @@ schema:engineDisplacement a rdf:Property ;
     schema:domainIncludes schema:EngineSpecification ;
     schema:isPartOf <http://auto.schema.org> ;
     schema:rangeIncludes schema:QuantitativeValue ;
-    rdfs:comment """<p>The volume swept by all of the pistons inside the cylinders of an internal combustion engine in a single movement. <br />
-    Typical unit code(s): CMQ for cubic centimeter, LTR for liters, INQ for cubic inches<br /></p>
-<pre><code>Note 1: You can link to information about how the given value has been determined using the &lt;a href="valueReference"&gt;valueReference&lt;/a&gt; property.&lt;br /&gt;
-Note 2: You can use &lt;a href="minValue"&gt;minValue&lt;/a&gt; and &lt;a href="maxValue"&gt;maxValue&lt;/a&gt; to indicate ranges.
-</code></pre>""" .
+    rdfs:comment """The volume swept by all of the pistons inside the cylinders of an internal combustion engine in a single movement. </p>
+<p>Typical unit code(s): CMQ for cubic centimeter, LTR for liters, INQ for cubic inches
+<em> Note 1: You can link to information about how the given value has been determined using the <a class="localLink" href="/valueReference">valueReference</a> property.
+</em> Note 2: You can use <a class="localLink" href="/minValue">minValue</a> and <a class="localLink" href="/maxValue">maxValue</a> to indicate ranges.""" .
 
 schema:enginePower a rdf:Property ;
     rdfs:label "enginePower" ;
@@ -7554,11 +7772,12 @@ schema:enginePower a rdf:Property ;
     schema:isPartOf <http://auto.schema.org> ;
     schema:rangeIncludes schema:QuantitativeValue ;
     rdfs:comment """<p>The power of the vehicle's engine.
-    Typical unit code(s): KWT for kilowatt, BHP for brake horsepower, N12 for metric horsepower (PS, with 1 PS = 735,49875 W) <br /></p>
-<pre><code>Note 1: There are many different ways of measuring an engine's power. For an overview, see  http://en.wikipedia.org/wiki/Horsepower#Engine_power_test_codes. &lt;br /&gt;
-Note 2: You can link to information about how the given value has been determined using the &lt;a href="valueReference"&gt;valueReference&lt;/a&gt; property.&lt;br /&gt;
-Note 3: You can use &lt;a href="minValue"&gt;minValue&lt;/a&gt; and &lt;a href="maxValue"&gt;maxValue&lt;/a&gt; to indicate ranges.
-</code></pre>""" .
+    Typical unit code(s): KWT for kilowatt, BHP for brake horsepower, N12 for metric horsepower (PS, with 1 PS = 735,49875 W)</p>
+<ul>
+<li>Note 1: There are many different ways of measuring an engine's power. For an overview, see  <a href="http://en.wikipedia.org/wiki/Horsepower#Engine_power_test_codes">http://en.wikipedia.org/wiki/Horsepower#Engine_power_test_codes</a>.</li>
+<li>Note 2: You can link to information about how the given value has been determined using the <a class="localLink" href="/valueReference">valueReference</a> property.</li>
+<li>Note 3: You can use <a class="localLink" href="/minValue">minValue</a> and <a class="localLink" href="/maxValue">maxValue</a> to indicate ranges.</li>
+</ul>""" .
 
 schema:engineType a rdf:Property ;
     rdfs:label "engineType" ;
@@ -7576,6 +7795,15 @@ schema:entertainmentBusiness a rdf:Property ;
     schema:rangeIncludes schema:EntertainmentBusiness ;
     rdfs:comment "A sub property of location. The entertainment business where the action occurred." ;
     rdfs:subPropertyOf schema:location .
+
+schema:enumerationValueCode a rdf:Property ;
+    rdfs:label "enumerationValueCode" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/894> ;
+    schema:category "issue-894" ;
+    schema:domainIncludes schema:EnumerationValue ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:Text ;
+    rdfs:comment "A short textual code that uniquely identifies the value. The code is typically used in structured URLs." .
 
 schema:epidemiology a rdf:Property ;
     rdfs:label "epidemiology" ;
@@ -7781,7 +8009,7 @@ schema:fileFormat a rdf:Property ;
     schema:domainIncludes schema:CreativeWork ;
     schema:rangeIncludes schema:Text,
         schema:URL ;
-    rdfs:comment "Media type (typically MIME format, see <a href=\"http://www.iana.org/assignments/media-types/media-types.xhtml\">IANA site</a>) of the content e.g. application/zip of a SoftwareApplication binary. In cases where a CreativeWork has several media type representations, 'encoding' can be used to indicate each MediaObject alongside particular fileFormat information. Unregistered or niche file formats can be indicated instead via the most appropriate URL, e.g. defining Web page or a Wikipedia entry." .
+    rdfs:comment "Media type, typically MIME format (see <a href=\"http://www.iana.org/assignments/media-types/media-types.xhtml\">IANA site</a>) of the content e.g. application/zip of a SoftwareApplication binary. In cases where a CreativeWork has several media type representations, 'encoding' can be used to indicate each MediaObject alongside particular fileFormat information. Unregistered or niche file formats can be indicated instead via the most appropriate URL, e.g. defining Web page or a Wikipedia entry." .
 
 schema:fileSize a rdf:Property ;
     rdfs:label "fileSize" ;
@@ -7808,6 +8036,14 @@ schema:flightNumber a rdf:Property ;
     schema:domainIncludes schema:Flight ;
     schema:rangeIncludes schema:Text ;
     rdfs:comment "The unique identifier for a flight including the airline IATA code. For example, if describing United flight 110, where the IATA code for United is 'UA', the flightNumber is 'UA110'." .
+
+schema:floorSize a rdf:Property ;
+    rdfs:label "floorSize" ;
+    dct:source <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology> ;
+    schema:domainIncludes schema:Accommodation ;
+    schema:rangeIncludes schema:QuantitativeValue ;
+    rdfs:comment """The size of the accommodation, e.g. in square meter or squarefoot.
+Typical unit code(s): MTK for square meter, FTK for square foot, or YDK for square yard""" .
 
 schema:followee a rdf:Property ;
     rdfs:label "followee" ;
@@ -7900,30 +8136,32 @@ schema:fuelCapacity a rdf:Property ;
     schema:domainIncludes schema:Vehicle ;
     schema:isPartOf <http://auto.schema.org> ;
     schema:rangeIncludes schema:QuantitativeValue ;
-    rdfs:comment """The capacity of the fuel tank or in the case of electric cars, the battery. If there are multiple components for storage, this should indicate the total of all storage of the same type.<br />
-    Typical unit code(s): LTR for liters, GLL of US gallons, GLI for UK / imperial gallons, AMH for ampere-hours (for electrical vehicles)""" .
+    rdfs:comment """The capacity of the fuel tank or in the case of electric cars, the battery. If there are multiple components for storage, this should indicate the total of all storage of the same type.</p>
+<p>Typical unit code(s): LTR for liters, GLL of US gallons, GLI for UK / imperial gallons, AMH for ampere-hours (for electrical vehicles).""" .
 
 schema:fuelConsumption a rdf:Property ;
     rdfs:label "fuelConsumption" ;
     dct:source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group> ;
     schema:domainIncludes schema:Vehicle ;
     schema:rangeIncludes schema:QuantitativeValue ;
-    rdfs:comment """The amount of fuel consumed for traveling a particular distance or temporal duration with the given vehicle (e.g. liters per 100 km).<br />
-Note 1: There are unfortunately no standard unit codes for liters per 100 km.<br />
-Use <a href="unitText">unitText</a> to indicate the unit of measurement, e.g. L/100 km.
-Note 2: There are two ways of indicating the fuel consumption, <a href="fuelConsumption">fuelConsumption</a> (e.g. 8 liters per 100 km) and <a href="fuelEfficiency">fuelEfficiency</a> (e.g. 30 miles per gallon). They are reciprocal.<br />
-Note 3: Often, the absolute value is useful only when related to driving speed ("at 80 km/h") or usage pattern ("city traffic"). You can use <a href="valueReference">valueReference</a> to link the value for the fuel consumption to another value.""" .
+    rdfs:comment """<p>The amount of fuel consumed for traveling a particular distance or temporal duration with the given vehicle (e.g. liters per 100 km).</p>
+<ul>
+<li>Note 1: There are unfortunately no standard unit codes for liters per 100 km.  Use <a class="localLink" href="/unitText">unitText</a> to indicate the unit of measurement, e.g. L/100 km.</li>
+<li>Note 2: There are two ways of indicating the fuel consumption, <a class="localLink" href="/fuelConsumption">fuelConsumption</a> (e.g. 8 liters per 100 km) and <a class="localLink" href="/fuelEfficiency">fuelEfficiency</a> (e.g. 30 miles per gallon). They are reciprocal.</li>
+<li>Note 3: Often, the absolute value is useful only when related to driving speed ("at 80 km/h") or usage pattern ("city traffic"). You can use <a class="localLink" href="/valueReference">valueReference</a> to link the value for the fuel consumption to another value.</li>
+</ul>""" .
 
 schema:fuelEfficiency a rdf:Property ;
     rdfs:label "fuelEfficiency" ;
     dct:source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group> ;
     schema:domainIncludes schema:Vehicle ;
     schema:rangeIncludes schema:QuantitativeValue ;
-    rdfs:comment """The distance traveled per unit of fuel used; most commonly miles per gallon (mpg) or kilometers per liter (km/L).<br />
-Note 1: There are unfortunately no standard unit codes for miles per gallon or kilometers per liter.<br />
-Use <a href="unitText">unitText</a> to indicate the unit of measurement, e.g. mpg or km/L.
-Note 2: There are two ways of indicating the fuel consumption, <a href="fuelConsumption">fuelConsumption</a> (e.g. 8 liters per 100 km) and <a href="fuelEfficiency">fuelEfficiency</a> (e.g. 30 miles per gallon). They are reciprocal.<br />
-Note 3: Often, the absolute value is useful only when related to driving speed ("at 80 km/h") or usage pattern ("city traffic"). You can use <a href="valueReference">valueReference</a> to link the value for the fuel economy to another value.""" .
+    rdfs:comment """<p>The distance traveled per unit of fuel used; most commonly miles per gallon (mpg) or kilometers per liter (km/L).</p>
+<ul>
+<li>Note 1: There are unfortunately no standard unit codes for miles per gallon or kilometers per liter. Use <a class="localLink" href="/unitText">unitText</a> to indicate the unit of measurement, e.g. mpg or km/L.</li>
+<li>Note 2: There are two ways of indicating the fuel consumption, <a class="localLink" href="/fuelConsumption">fuelConsumption</a> (e.g. 8 liters per 100 km) and <a class="localLink" href="/fuelEfficiency">fuelEfficiency</a> (e.g. 30 miles per gallon). They are reciprocal.</li>
+<li>Note 3: Often, the absolute value is useful only when related to driving speed ("at 80 km/h") or usage pattern ("city traffic"). You can use <a class="localLink" href="/valueReference">valueReference</a> to link the value for the fuel economy to another value.</li>
+</ul>""" .
 
 schema:fuelType a rdf:Property ;
     rdfs:label "fuelType" ;
@@ -8087,7 +8325,7 @@ schema:gtin12 a rdf:Property ;
         schema:Offer,
         schema:Product ;
     schema:rangeIncludes schema:Text ;
-    rdfs:comment "The <a href=\"http://ocp.gs1.org/sites/glossary/en-gb/Pages/GTIN-12.aspx\">GTIN-12</a> code of the product, or the product to which the offer refers. The GTIN-12 is the 12-digit GS1 Identification Key composed of a U.P.C. Company Prefix, Item Reference, and Check Digit used to identify trade items. See <a href=\"http://www.gs1.org/barcodes/technical/idkeys/gtin\">GS1 GTIN Summary</a> for more details." .
+    rdfs:comment "The <a href=\"http://apps.gs1.org/GDD/glossary/Pages/GTIN-12.aspx\">GTIN-12</a> code of the product, or the product to which the offer refers. The GTIN-12 is the 12-digit GS1 Identification Key composed of a U.P.C. Company Prefix, Item Reference, and Check Digit used to identify trade items. See <a href=\"http://www.gs1.org/barcodes/technical/idkeys/gtin\">GS1 GTIN Summary</a> for more details." .
 
 schema:gtin13 a rdf:Property ;
     rdfs:label "gtin13" ;
@@ -8096,7 +8334,7 @@ schema:gtin13 a rdf:Property ;
         schema:Offer,
         schema:Product ;
     schema:rangeIncludes schema:Text ;
-    rdfs:comment "The <a href=\"http://ocp.gs1.org/sites/glossary/en-gb/Pages/GTIN-13.aspx\">GTIN-13</a> code of the product, or the product to which the offer refers. This is equivalent to 13-digit ISBN codes and EAN UCC-13. Former 12-digit UPC codes can be converted into a GTIN-13 code by simply adding a preceeding zero. See <a href=\"http://www.gs1.org/barcodes/technical/idkeys/gtin\">GS1 GTIN Summary</a> for more details." .
+    rdfs:comment "The <a href=\"http://apps.gs1.org/GDD/glossary/Pages/GTIN-13.aspx\">GTIN-13</a> code of the product, or the product to which the offer refers. This is equivalent to 13-digit ISBN codes and EAN UCC-13. Former 12-digit UPC codes can be converted into a GTIN-13 code by simply adding a preceeding zero. See <a href=\"http://www.gs1.org/barcodes/technical/idkeys/gtin\">GS1 GTIN Summary</a> for more details." .
 
 schema:gtin14 a rdf:Property ;
     rdfs:label "gtin14" ;
@@ -8105,7 +8343,7 @@ schema:gtin14 a rdf:Property ;
         schema:Offer,
         schema:Product ;
     schema:rangeIncludes schema:Text ;
-    rdfs:comment "The <a href=\"http://ocp.gs1.org/sites/glossary/en-gb/Pages/GTIN-14.aspx\">GTIN-14</a> code of the product, or the product to which the offer refers. See <a href=\"http://www.gs1.org/barcodes/technical/idkeys/gtin\">GS1 GTIN Summary</a> for more details." .
+    rdfs:comment "The <a href=\"http://apps.gs1.org/GDD/glossary/Pages/GTIN-14.aspx\">GTIN-14</a> code of the product, or the product to which the offer refers. See <a href=\"http://www.gs1.org/barcodes/technical/idkeys/gtin\">GS1 GTIN Summary</a> for more details." .
 
 schema:gtin8 a rdf:Property ;
     rdfs:label "gtin8" ;
@@ -8114,7 +8352,7 @@ schema:gtin8 a rdf:Property ;
         schema:Offer,
         schema:Product ;
     schema:rangeIncludes schema:Text ;
-    rdfs:comment "The <a href=\"http://ocp.gs1.org/sites/glossary/en-gb/Pages/GTIN-8.aspx\">GTIN-8</a> code of the product, or the product to which the offer refers. This code is also known as EAN/UCC-8 or 8-digit EAN. See <a href=\"http://www.gs1.org/barcodes/technical/idkeys/gtin\">GS1 GTIN Summary</a> for more details." .
+    rdfs:comment "The <a href=\"http://apps.gs1.org/GDD/glossary/Pages/GTIN-8.aspx\">GTIN-8</a> code of the product, or the product to which the offer refers. This code is also known as EAN/UCC-8 or 8-digit EAN. See <a href=\"http://www.gs1.org/barcodes/technical/idkeys/gtin\">GS1 GTIN Summary</a> for more details." .
 
 schema:guideline a rdf:Property ;
     rdfs:label "guideline" ;
@@ -8158,6 +8396,16 @@ schema:hasDigitalDocumentPermission a rdf:Property ;
     schema:domainIncludes schema:DigitalDocument ;
     schema:rangeIncludes schema:DigitalDocumentPermission ;
     rdfs:comment "A permission related to the access to this document (e.g. permission to read or write an electronic document). For a public document, specify a grantee with an Audience with audienceType equal to \"public\"." .
+
+schema:hasEnumerationValue a rdf:Property ;
+    rdfs:label "hasEnumerationValue" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/894> ;
+    schema:category "issue-894" ;
+    schema:domainIncludes schema:EnumerationValueSet ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:Text ;
+    rdfs:comment "Value contained in value set." ;
+    rdfs:subPropertyOf schema:hasPart .
 
 schema:hasOfferCatalog a rdf:Property ;
     rdfs:label "hasOfferCatalog" ;
@@ -8227,7 +8475,7 @@ schema:healthPlanCopayOption a rdf:Property ;
     rdfs:comment "Whether the copay is before or after deductible, etc. TODO: Is this a closed set?" .
 
 schema:healthPlanCostSharing a rdf:Property ;
-    rdfs:label "offersPrescriptionByMail" ;
+    rdfs:label "healthPlanCostSharing" ;
     dct:source <https://github.com/schemaorg/schemaorg/issues/1062> ;
     schema:category "issue-1062" ;
     schema:domainIncludes schema:HealthPlanFormulary,
@@ -8368,6 +8616,7 @@ schema:hostingOrganization a rdf:Property ;
 schema:hoursAvailable a rdf:Property ;
     rdfs:label "hoursAvailable" ;
     schema:domainIncludes schema:ContactPoint,
+        schema:LocationFeatureSpecification,
         schema:Service ;
     schema:rangeIncludes schema:OpeningHoursSpecification ;
     rdfs:comment "The hours during which this service or contact is available." .
@@ -8543,8 +8792,8 @@ schema:ineligibleRegion a rdf:Property ;
     schema:rangeIncludes schema:GeoShape,
         schema:Place,
         schema:Text ;
-    rdfs:comment """The ISO 3166-1 (ISO 3166-1 alpha-2) or ISO 3166-2 code, the place, or the GeoShape for the geo-political region(s) for which the offer or delivery charge specification is not valid, e.g. a region where the transaction is not allowed.
-      <br><br> See also <a href="/eligibleRegion">eligibleRegion</a>.""" .
+    rdfs:comment """The ISO 3166-1 (ISO 3166-1 alpha-2) or ISO 3166-2 code, the place, or the GeoShape for the geo-political region(s) for which the offer or delivery charge specification is not valid, e.g. a region where the transaction is not allowed.</p>
+<p>See also <a class="localLink" href="/eligibleRegion">eligibleRegion</a>.""" .
 
 schema:infectiousAgent a rdf:Property ;
     rdfs:label "infectiousAgent" ;
@@ -8630,7 +8879,7 @@ schema:interactionType a rdf:Property ;
     rdfs:label "interactionType" ;
     schema:domainIncludes schema:InteractionCounter ;
     schema:rangeIncludes schema:Action ;
-    rdfs:comment "The Action representing the type of interaction. For up votes, +1s, etc. use <a href=\"/LikeAction\";>LikeAction</a>. For down votes use <a href=\"/DislikeAction\">DislikeAction</a>. Otherwise, use the most specific Action." .
+    rdfs:comment "The Action representing the type of interaction. For up votes, +1s, etc. use <a class=\"localLink\" href=\"/LikeAction\">LikeAction</a>. For down votes use <a class=\"localLink\" href=\"/DislikeAction\">DislikeAction</a>. Otherwise, use the most specific Action." .
 
 schema:interactivityType a rdf:Property ;
     rdfs:label "interactivityType" ;
@@ -8834,11 +9083,9 @@ schema:itemListElement a rdf:Property ;
     schema:rangeIncludes schema:ListItem,
         schema:Text,
         schema:Thing ;
-    rdfs:comment """For itemListElement values, you can use simple strings (e.g. "Peter", "Paul", "Mary"), existing entities, or use ListItem.
-    <br/><br/>
-    Text values are best if the elements in the list are plain strings. Existing entities are best for a simple, unordered list of existing things in your data. ListItem is used with ordered lists when you want to provide additional context about the element in that list or when the same item might be in different places in different lists.
-    <br/><br/>
-    Note: The order of elements in your mark-up is not sufficient for indicating the order or elements.  Use ListItem with a 'position' property in such cases.""" .
+    rdfs:comment """For itemListElement values, you can use simple strings (e.g. "Peter", "Paul", "Mary"), existing entities, or use ListItem.</p>
+<p>Text values are best if the elements in the list are plain strings. Existing entities are best for a simple, unordered list of existing things in your data. ListItem is used with ordered lists when you want to provide additional context about the element in that list or when the same item might be in different places in different lists.</p>
+<p>Note: The order of elements in your mark-up is not sufficient for indicating the order or elements.  Use ListItem with a 'position' property in such cases.""" .
 
 schema:itemListOrder a rdf:Property ;
     rdfs:label "itemListOrder" ;
@@ -9259,8 +9506,8 @@ schema:mileageFromOdometer a rdf:Property ;
     dct:source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group> ;
     schema:domainIncludes schema:Vehicle ;
     schema:rangeIncludes schema:QuantitativeValue ;
-    rdfs:comment """The total distance travelled by the particular vehicle since its initial production, as read from its odometer.<br />
-Typical unit code(s): KMT for kilometers, SMI for statute miles""" .
+    rdfs:comment """The total distance travelled by the particular vehicle since its initial production, as read from its odometer.</p>
+<p>Typical unit code(s): KMT for kilometers, SMI for statute miles""" .
 
 schema:minPrice a rdf:Property ;
     rdfs:label "minPrice" ;
@@ -9498,8 +9745,15 @@ schema:numberOfAxles a rdf:Property ;
     schema:domainIncludes schema:Vehicle ;
     schema:rangeIncludes schema:Number,
         schema:QuantitativeValue ;
-    rdfs:comment """The number of axles.<br />
-Typical unit code(s): C62""" .
+    rdfs:comment """The number of axles.</p>
+<p>Typical unit code(s): C62""" .
+
+schema:numberOfBeds a rdf:Property ;
+    rdfs:label "numberOfBeds" ;
+    dct:source <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology> ;
+    schema:domainIncludes schema:BedDetails ;
+    schema:rangeIncludes schema:Number ;
+    rdfs:comment "The quantity of the given bed type available in the HotelRoom, Suite, House, or Apartment." .
 
 schema:numberOfDoors a rdf:Property ;
     rdfs:label "numberOfDoors" ;
@@ -9507,8 +9761,8 @@ schema:numberOfDoors a rdf:Property ;
     schema:domainIncludes schema:Vehicle ;
     schema:rangeIncludes schema:Number,
         schema:QuantitativeValue ;
-    rdfs:comment """The number of doors.<br />
-Typical unit code(s): C62""" .
+    rdfs:comment """The number of doors.</p>
+<p>Typical unit code(s): C62""" .
 
 schema:numberOfEmployees a rdf:Property ;
     rdfs:label "numberOfEmployees" ;
@@ -9532,8 +9786,8 @@ schema:numberOfForwardGears a rdf:Property ;
     schema:domainIncludes schema:Vehicle ;
     schema:rangeIncludes schema:Number,
         schema:QuantitativeValue ;
-    rdfs:comment """The total number of forward gears available for the transmission system of the vehicle.<br />
-Typical unit code(s): C62""" .
+    rdfs:comment """The total number of forward gears available for the transmission system of the vehicle.</p>
+<p>Typical unit code(s): C62""" .
 
 schema:numberOfItems a rdf:Property ;
     rdfs:label "numberOfItems" ;
@@ -9560,8 +9814,20 @@ schema:numberOfPreviousOwners a rdf:Property ;
     schema:domainIncludes schema:Vehicle ;
     schema:rangeIncludes schema:Number,
         schema:QuantitativeValue ;
-    rdfs:comment """The number of owners of the vehicle, including the current one.<br />
-Typical unit code(s): C62""" .
+    rdfs:comment """The number of owners of the vehicle, including the current one.</p>
+<p>Typical unit code(s): C62""" .
+
+schema:numberOfRooms a rdf:Property ;
+    rdfs:label "numberOfRooms" ;
+    dct:source <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology> ;
+    schema:domainIncludes schema:Apartment,
+        schema:House,
+        schema:SingleFamilyResidence,
+        schema:Suite ;
+    schema:rangeIncludes schema:Number,
+        schema:QuantitativeValue ;
+    rdfs:comment """The number of rooms (excluding bathrooms and closets) of the acccommodation or lodging business.
+Typical unit code(s): ROM for room or C62 for no unit. The type of room can be put in the unitText property of the QuantitativeValue.""" .
 
 schema:numberOfSeasons a rdf:Property ;
     rdfs:label "numberOfSeasons" ;
@@ -9582,6 +9848,17 @@ schema:nutrition a rdf:Property ;
     schema:domainIncludes schema:Recipe ;
     schema:rangeIncludes schema:NutritionInformation ;
     rdfs:comment "Nutrition information about the recipe." .
+
+schema:occupancy a rdf:Property ;
+    rdfs:label "occupancy" ;
+    dct:source <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology> ;
+    schema:domainIncludes schema:Apartment,
+        schema:HotelRoom,
+        schema:SingleFamilyResidence,
+        schema:Suite ;
+    schema:rangeIncludes schema:QuantitativeValue ;
+    rdfs:comment """The allowed total occupancy for the accommodation in persons (including infants etc). For individual accommodations, this is not necessarily the legal maximum but defines the permitted usage as per the contractual agreement (e.g. a double room used by a single person).
+Typical unit code(s): C62 for person""" .
 
 schema:occupationalCategory a rdf:Property ;
     rdfs:label "occupationalCategory" ;
@@ -9619,7 +9896,13 @@ schema:openingHours a rdf:Property ;
     schema:domainIncludes schema:CivicStructure,
         schema:LocalBusiness ;
     schema:rangeIncludes schema:Text ;
-    rdfs:comment "The general opening hours for a business. Opening hours can be specified as a weekly time range, starting with days, then times per day. Multiple days can be listed with commas ',' separating each day. Day or time ranges are specified using a hyphen '-'.<br />- Days are specified using the following two-letter combinations: <code>Mo</code>, <code>Tu</code>, <code>We</code>, <code>Th</code>, <code>Fr</code>, <code>Sa</code>, <code>Su</code>.<br />- Times are specified using 24:00 time. For example, 3pm is specified as <code>15:00</code>. <br />- Here is an example: <code>&lt;span itemprop=&quot;openingHours&quot; content=&quot;Tu,Th 16:00-20:00&quot;&gt;Tuesdays and Thursdays 4-8pm&lt;/span&gt;</code>. <br />- If a business is open 7 days a week, then it can be specified as <code>&lt;span itemprop=&quot;openingHours&quot; content=&quot;Mo-Su&quot;&gt;Monday through Sunday, all day&lt;/span&gt;</code>." .
+    rdfs:comment """<p>The general opening hours for a business. Opening hours can be specified as a weekly time range, starting with days, then times per day. Multiple days can be listed with commas ',' separating each day. Day or time ranges are specified using a hyphen '-'.</p>
+<ul>
+<li>Days are specified using the following two-letter combinations: <code>Mo</code>, <code>Tu</code>, <code>We</code>, <code>Th</code>, <code>Fr</code>, <code>Sa</code>, <code>Su</code>.</li>
+<li>Times are specified using 24:00 time. For example, 3pm is specified as <code>15:00</code>. </li>
+<li>Here is an example: <code>&lt;time itemprop="openingHours" datetime=&quot;Tu,Th 16:00-20:00&quot;&gt;Tuesdays and Thursdays 4-8pm&lt;/time&gt;</code>.</li>
+<li>If a business is open 7 days a week, then it can be specified as <code>&lt;time itemprop=&quot;openingHours&quot; datetime=&quot;Mo-Su&quot;&gt;Monday through Sunday, all day&lt;/time&gt;</code>.</li>
+</ul>""" .
 
 schema:openingHoursSpecification a rdf:Property ;
     rdfs:label "openingHoursSpecification" ;
@@ -9835,6 +10118,16 @@ schema:parents a rdf:Property ;
     schema:supersededBy schema:parent ;
     rdfs:comment "A parents of the person." .
 
+schema:partOfEnumerationValueSet a rdf:Property ;
+    rdfs:label "partOfEnumerationValueSet" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/894> ;
+    schema:category "issue-894" ;
+    schema:domainIncludes schema:EnumerationValue ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:Text ;
+    rdfs:comment "The set (enumeration) of values of which contains this value." ;
+    rdfs:subPropertyOf schema:isPartOf .
+
 schema:partOfEpisode a rdf:Property ;
     rdfs:label "partOfEpisode" ;
     schema:domainIncludes schema:Clip ;
@@ -9914,13 +10207,14 @@ schema:payload a rdf:Property ;
     schema:domainIncludes schema:Vehicle ;
     schema:isPartOf <http://auto.schema.org> ;
     schema:rangeIncludes schema:QuantitativeValue ;
-    rdfs:comment """<p>The permitted weight of passengers and cargo, EXCLUDING the weight of the empty vehicle. <br />
-    Typical unit code(s): KGM for kilogram, LBR for pound<br /></p>
-<pre><code>Note 1: Many databases specify the permitted TOTAL weight instead, which is the sum of &lt;a href="weight"&gt;weight&lt;/a&gt; and &lt;a href="payload"&gt;payload&lt;/a&gt;.&lt;br /&gt;
-Note 2: You can indicate additional information in the &lt;a href="name"&gt;name&lt;/a&gt; of the &lt;a href="QuantitativeValue"&gt;QuantitativeValue&lt;/a&gt; node.&lt;br /&gt;
-Note 3: You may also link to a &lt;a href="QualitativeValue"&gt;QualitativeValue&lt;/a&gt; node that provides additional information using &lt;a href="valueReference"&gt;valueReference&lt;/a&gt;.&lt;br /&gt;
-Note 4: Note that you can use &lt;a href="minValue"&gt;minValue&lt;/a&gt; and &lt;a href="maxValue"&gt;maxValue&lt;/a&gt; to indicate ranges.
-</code></pre>""" .
+    rdfs:comment """<p>The permitted weight of passengers and cargo, EXCLUDING the weight of the empty vehicle.</p>
+<p>Typical unit code(s): KGM for kilogram, LBR for pound</p>
+<ul>
+<li>Note 1: Many databases specify the permitted TOTAL weight instead, which is the sum of <a class="localLink" href="/weight">weight</a> and <a class="localLink" href="/payload">payload</a></li>
+<li>Note 2: You can indicate additional information in the <a class="localLink" href="/name">name</a> of the <a class="localLink" href="/QuantitativeValue">QuantitativeValue</a> node.</li>
+<li>Note 3: You may also link to a <a class="localLink" href="/QualitativeValue">QualitativeValue</a> node that provides additional information using <a class="localLink" href="/valueReference">valueReference</a>.</li>
+<li>Note 4: Note that you can use <a class="localLink" href="/minValue">minValue</a> and <a class="localLink" href="/maxValue">maxValue</a> to indicate ranges.</li>
+</ul>""" .
 
 schema:paymentAccepted a rdf:Property ;
     rdfs:label "paymentAccepted" ;
@@ -10004,6 +10298,22 @@ schema:permitAudience a rdf:Property ;
     schema:domainIncludes schema:Permit ;
     schema:rangeIncludes schema:Audience ;
     rdfs:comment "The target audience for this permit." .
+
+schema:permittedUsage a rdf:Property ;
+    rdfs:label "permittedUsage" ;
+    dct:source <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology> ;
+    schema:domainIncludes schema:Accommodation ;
+    schema:rangeIncludes schema:Text ;
+    rdfs:comment "Indications regarding the permitted usage of the accommodation." .
+
+schema:petsAllowed a rdf:Property ;
+    rdfs:label "petsAllowed" ;
+    dct:source <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology> ;
+    schema:domainIncludes schema:Accommodation,
+        schema:LodgingBusiness ;
+    schema:rangeIncludes schema:Boolean,
+        schema:Text ;
+    rdfs:comment "Indicates whether pets are allowed to enter the accommodation or lodging business. More detailed information can be put in a text value." .
 
 schema:phase a rdf:Property ;
     rdfs:label "phase" ;
@@ -10201,34 +10511,22 @@ schema:price a rdf:Property ;
         schema:TradeAction ;
     schema:rangeIncludes schema:Number,
         schema:Text ;
-    rdfs:comment """The offer price of a product, or of a price component when attached to PriceSpecification and its subtypes.
-<br />
-<br />
-      Usage guidelines:
-<br />
+    rdfs:comment """<p>The offer price of a product, or of a price component when attached to PriceSpecification and its subtypes.</p>
+<p>Usage guidelines:</p>
 <ul>
-<li>Use the <a href="/priceCurrency">priceCurrency</a> property (with <a href="http://en.wikipedia.org/wiki/ISO_4217#Active_codes">ISO 4217 codes</a> e.g. "USD") instead of
-      including <a href="http://en.wikipedia.org/wiki/Dollar_sign#Currencies_that_use_the_dollar_or_peso_sign">ambiguous symbols</a> such as '$' in the value.
-</li>
-<li>
-      Use '.' (Unicode 'FULL STOP' (U+002E)) rather than ',' to indicate a decimal point. Avoid using these symbols as a readability separator.
-</li>
-<li>
-      Note that both <a href="http://www.w3.org/TR/xhtml-rdfa-primer/#using-the-content-attribute">RDFa</a> and Microdata syntax allow the use of a "content=" attribute for publishing simple machine-readable values
-      alongside more human-friendly formatting.
-</li>
-<li>
-      Use values from 0123456789 (Unicode 'DIGIT ZERO' (U+0030) to 'DIGIT NINE' (U+0039)) rather than superficially similiar Unicode symbols.
-</li>
+<li>Use the <a class="localLink" href="/priceCurrency">priceCurrency</a> property (with <a href="http://en.wikipedia.org/wiki/ISO_4217#Active_codes">ISO 4217 codes</a> e.g. "USD") instead of
+      including <a href="http://en.wikipedia.org/wiki/Dollar_sign#Currencies_that_use_the_dollar_or_peso_sign">ambiguous symbols</a> such as '$' in the value.</li>
+<li>Use '.' (Unicode 'FULL STOP' (U+002E)) rather than ',' to indicate a decimal point. Avoid using these symbols as a readability separator.</li>
+<li>Note that both <a href="http://www.w3.org/TR/xhtml-rdfa-primer/#using-the-content-attribute">RDFa</a> and Microdata syntax allow the use of a "content=" attribute for publishing simple machine-readable values alongside more human-friendly formatting.</li>
+<li>Use values from 0123456789 (Unicode 'DIGIT ZERO' (U+0030) to 'DIGIT NINE' (U+0039)) rather than superficially similiar Unicode symbols.</li>
 </ul>""" .
 
 schema:priceComponent a rdf:Property ;
     rdfs:label "priceComponent" ;
-    dct:source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsProperties>,
-        <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms> ;
+    dct:source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms> ;
     schema:domainIncludes schema:CompoundPriceSpecification ;
     schema:rangeIncludes schema:UnitPriceSpecification ;
-    rdfs:comment "This property links to all UnitPriceSpecification nodes that apply in parallel for the CompoundPriceSpecification node." .
+    rdfs:comment "This property links to all <a class=\"localLink\" href=\"/UnitPriceSpecification\">UnitPriceSpecification</a> nodes that apply in parallel for the <a class=\"localLink\" href=\"/CompoundPriceSpecification\">CompoundPriceSpecification</a> node." .
 
 schema:priceCurrency a rdf:Property ;
     rdfs:label "priceCurrency" ;
@@ -10237,7 +10535,7 @@ schema:priceCurrency a rdf:Property ;
         schema:Reservation,
         schema:Ticket ;
     schema:rangeIncludes schema:Text ;
-    rdfs:comment "The currency (in 3-letter ISO 4217 format) of the price or a price component, when attached to PriceSpecification and its subtypes." .
+    rdfs:comment "The currency (in 3-letter ISO 4217 format) of the price or a price component, when attached to <a class=\"localLink\" href=\"/PriceSpecification\">PriceSpecification</a> and its subtypes." .
 
 schema:priceRange a rdf:Property ;
     rdfs:label "priceRange" ;
@@ -10349,7 +10647,7 @@ schema:productID a rdf:Property ;
     rdfs:label "productID" ;
     schema:domainIncludes schema:Product ;
     schema:rangeIncludes schema:Text ;
-    rdfs:comment "The product identifier, such as ISBN. For example: <code>&lt;meta itemprop='productID' content='isbn:123-456-789'/&gt;</code>." .
+    rdfs:comment "The product identifier, such as ISBN. For example: <code>meta itemprop=\"productID\" content=\"isbn:123-456-789\"</code>." .
 
 schema:productSupported a rdf:Property ;
     rdfs:label "productSupported" ;
@@ -10561,7 +10859,8 @@ schema:ratingCount a rdf:Property ;
 schema:ratingValue a rdf:Property ;
     rdfs:label "ratingValue" ;
     schema:domainIncludes schema:Rating ;
-    schema:rangeIncludes schema:Text ;
+    schema:rangeIncludes schema:Number,
+        schema:Text ;
     rdfs:comment "The rating for the content." .
 
 schema:readBy a rdf:Property ;
@@ -10690,7 +10989,7 @@ schema:regionsAllowed a rdf:Property ;
     rdfs:label "regionsAllowed" ;
     schema:domainIncludes schema:MediaObject ;
     schema:rangeIncludes schema:Place ;
-    rdfs:comment "The regions where the media is allowed. If not specified, then it's assumed to be allowed everywhere. Specify the countries in <a href='http://en.wikipedia.org/wiki/ISO_3166'>ISO 3166 format</a>." .
+    rdfs:comment "The regions where the media is allowed. If not specified, then it's assumed to be allowed everywhere. Specify the countries in <a href=\"http://en.wikipedia.org/wiki/ISO_3166\">ISO 3166 format</a>." .
 
 schema:relatedAnatomy a rdf:Property ;
     rdfs:label "relatedAnatomy" ;
@@ -10920,7 +11219,7 @@ schema:reviewRating a rdf:Property ;
     rdfs:label "reviewRating" ;
     schema:domainIncludes schema:Review ;
     schema:rangeIncludes schema:Rating ;
-    rdfs:comment "The rating given in this review. Note that reviews can themselves be rated. The <code>reviewRating</code> applies to rating given by the review. The <code>aggregateRating</code> property applies to the review itself, as a creative work." .
+    rdfs:comment "The rating given in this review. Note that reviews can themselves be rated. The <code>reviewRating</code> applies to rating given by the review. The <a class=\"localLink\" href=\"/aggregateRating\">aggregateRating</a> property applies to the review itself, as a creative work." .
 
 schema:reviewedBy a rdf:Property ;
     rdfs:label "reviewedBy" ;
@@ -10961,12 +11260,13 @@ schema:roofLoad a rdf:Property ;
         schema:Car ;
     schema:isPartOf <http://auto.schema.org> ;
     schema:rangeIncludes schema:QuantitativeValue ;
-    rdfs:comment """<p>The permitted total weight of cargo and installations (e.g. a roof rack) on top of the vehicle.<br />
-    Typical unit code(s): KGM for kilogram, LBR for pound<br /></p>
-<pre><code>Note 1: You can indicate additional information in the &lt;a href="name"&gt;name&lt;/a&gt; of the &lt;a href="QuantitativeValue"&gt;QuantitativeValue&lt;/a&gt; node.&lt;br /&gt;
-Note 2: You may also link to a &lt;a href="QualitativeValue"&gt;QualitativeValue&lt;/a&gt; node that provides additional information using &lt;a href="valueReference"&gt;valueReference&lt;/a&gt;.&lt;br /&gt;
-Note 3: Note that you can use &lt;a href="minValue"&gt;minValue&lt;/a&gt; and &lt;a href="maxValue"&gt;maxValue&lt;/a&gt; to indicate ranges.
-</code></pre>""" .
+    rdfs:comment """<p>The permitted total weight of cargo and installations (e.g. a roof rack) on top of the vehicle.</p>
+<p>Typical unit code(s): KGM for kilogram, LBR for pound</p>
+<ul>
+<li>Note 1: You can indicate additional information in the <a class="localLink" href="/name">name</a> of the <a class="localLink" href="/QuantitativeValue">QuantitativeValue</a> node.</li>
+<li>Note 2: You may also link to a <a class="localLink" href="/QualitativeValue">QualitativeValue</a> node that provides additional information using <a class="localLink" href="/valueReference">valueReference</a></li>
+<li>Note 3: Note that you can use <a class="localLink" href="/minValue">minValue</a> and <a class="localLink" href="/maxValue">maxValue</a> to indicate ranges.</li>
+</ul>""" .
 
 schema:rsvpResponse a rdf:Property ;
     rdfs:label "rsvpResponse" ;
@@ -11009,7 +11309,7 @@ schema:salaryCurrency a rdf:Property ;
     schema:domainIncludes schema:EmployeeRole,
         schema:JobPosting ;
     schema:rangeIncludes schema:Text ;
-    rdfs:comment "The currency (coded using ISO 4217, http://en.wikipedia.org/wiki/ISO_4217 ) used for the main salary information in this job posting or for this employee." .
+    rdfs:comment "The currency (coded using <a href=\"http://en.wikipedia.org/wiki/ISO_4217\">ISO 4217</a> ) used for the main salary information in this job posting or for this employee." .
 
 schema:sameAs a rdf:Property ;
     rdfs:label "sameAs" ;
@@ -11104,8 +11404,8 @@ schema:seatingCapacity a rdf:Property ;
     schema:isPartOf <http://auto.schema.org> ;
     schema:rangeIncludes schema:Number,
         schema:QuantitativeValue ;
-    rdfs:comment """The number of persons that can be seated (e.g. in a vehicle), both in terms of the physical space available, and in terms of limitations set by law.<br />
-    Typical unit code(s): C62 for persons""" .
+    rdfs:comment """The number of persons that can be seated (e.g. in a vehicle), both in terms of the physical space available, and in terms of limitations set by law.</p>
+<p>Typical unit code(s): C62 for persons""" .
 
 schema:seatingType a rdf:Property ;
     rdfs:label "seatingType" ;
@@ -11115,7 +11415,7 @@ schema:seatingType a rdf:Property ;
     rdfs:comment "The type/class of the seat." .
 
 schema:secondaryPrevention a rdf:Property ;
-    rdfs:label " secondaryPrevention" ;
+    rdfs:label "secondaryPrevention" ;
     schema:domainIncludes schema:MedicalCondition ;
     schema:isPartOf <http://health-lifesci.schema.org> ;
     schema:rangeIncludes schema:MedicalTherapy ;
@@ -11284,6 +11584,13 @@ schema:sku a rdf:Property ;
     schema:rangeIncludes schema:Text ;
     rdfs:comment "The Stock Keeping Unit (SKU), i.e. a merchant-specific identifier for a product or service, or the product to which the offer refers." .
 
+schema:smokingAllowed a rdf:Property ;
+    rdfs:label "smokingAllowed" ;
+    dct:source <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology> ;
+    schema:domainIncludes schema:Place ;
+    schema:rangeIncludes schema:Boolean ;
+    rdfs:comment "Indicates whether it is allowed to smoke in the place, e.g. in the restaurant, hotel or hotel room." .
+
 schema:sodiumContent a rdf:Property ;
     rdfs:label "sodiumContent" ;
     schema:domainIncludes schema:NutritionInformation ;
@@ -11346,9 +11653,8 @@ schema:specialOpeningHoursSpecification a rdf:Property ;
     rdfs:label "specialOpeningHoursSpecification" ;
     schema:domainIncludes schema:Place ;
     schema:rangeIncludes schema:OpeningHoursSpecification ;
-    rdfs:comment """The special opening hours of a certain place.
-<br />
-Use this to explicitly override general opening hours brought in scope by <a href="/openingHoursSpecification">openingHoursSpecification</a> or <a href="/openingHours">openingHours</a>.""" .
+    rdfs:comment """The special opening hours of a certain place.</p>
+<p>Use this to explicitly override general opening hours brought in scope by <a class="localLink" href="/openingHoursSpecification">openingHoursSpecification</a> or <a class="localLink" href="/openingHours">openingHours</a>.""" .
 
 schema:specialty a rdf:Property ;
     rdfs:label "specialty" ;
@@ -11362,11 +11668,10 @@ schema:speed a rdf:Property ;
     schema:domainIncludes schema:Vehicle ;
     schema:isPartOf <http://auto.schema.org> ;
     schema:rangeIncludes schema:QuantitativeValue ;
-    rdfs:comment """<p>The speed range of the vehicle. If the vehicle is powered by an engine, the upper limit of the speed range (indicated by <a href="maxValue">maxValue</a>) should be the maximum speed achievable under regular conditions.<br />
-    Typical unit code(s): KMH for km/h, HM for mile per hour (0.447 04 m/s), KNT for knot<br /></p>
-<pre><code>Note 1: Use &lt;a href="minValue"&gt;minValue&lt;/a&gt; and &lt;a href="maxValue"&gt;maxValue&lt;/a&gt; to indicate the range. Typically, the minimal value is zero.&lt;br /&gt;
-Note 2: There are many different ways of measuring the speed range. You can link to information about how the given value has been determined using the &lt;a href="valueReference"&gt;valueReference&lt;/a&gt; property.
-</code></pre>""" .
+    rdfs:comment """The speed range of the vehicle. If the vehicle is powered by an engine, the upper limit of the speed range (indicated by <a class="localLink" href="/maxValue">maxValue</a> should be the maximum speed achievable under regular conditions.</p>
+<p>Typical unit code(s): KMH for km/h, HM for mile per hour (0.447 04 m/s), KNT for knot</p>
+<p><em>Note 1: Use <a class="localLink" href="/minValue">minValue</a> and <a class="localLink" href="/maxValue">maxValue</a> to indicate the range. Typically, the minimal value is zero.
+</em> Note 2: There are many different ways of measuring the speed range. You can link to information about how the given value has been determined using the <a class="localLink" href="/valueReference">valueReference</a> property.""" .
 
 schema:spokenByCharacter a rdf:Property ;
     rdfs:label "spokenByCharacter" ;
@@ -11426,6 +11731,14 @@ schema:stageAsNumber a rdf:Property ;
     schema:rangeIncludes schema:Number ;
     rdfs:comment "The stage represented as a number, e.g. 3." .
 
+schema:starRating a rdf:Property ;
+    rdfs:label "starRating" ;
+    dct:source <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology> ;
+    schema:domainIncludes schema:FoodEstablishment,
+        schema:LodgingBusiness ;
+    schema:rangeIncludes schema:Rating ;
+    rdfs:comment "An official rating for a lodging business or food establishment, e.g. from national associations or standards bodies. Use the author property to indicate the rating organization, e.g. as an Organization with name such as (e.g. HOTREC, DEHOGA, WHR, or Hotelstars)." .
+
 schema:startDate a rdf:Property ;
     rdfs:label "startDate" ;
     schema:domainIncludes schema:CreativeWorkSeason,
@@ -11433,8 +11746,9 @@ schema:startDate a rdf:Property ;
         schema:DatedMoneySpecification,
         schema:Event,
         schema:Role ;
-    schema:rangeIncludes schema:Date ;
-    rdfs:comment "The start date and time of the item (in <a href='http://en.wikipedia.org/wiki/ISO_8601'>ISO 8601 date format</a>)." .
+    schema:rangeIncludes schema:Date,
+        schema:DateTime ;
+    rdfs:comment "The start date and time of the item (in <a href=\"http://en.wikipedia.org/wiki/ISO_8601\">ISO 8601 date format</a>)." .
 
 schema:startTime a rdf:Property ;
     rdfs:label "startTime" ;
@@ -11571,7 +11885,7 @@ schema:subtitleLanguage a rdf:Property ;
         schema:TVEpisode ;
     schema:rangeIncludes schema:Language,
         schema:Text ;
-    rdfs:comment "Languages in which subtitles/captions are available, in <a href='http://tools.ietf.org/html/bcp47'>IETF BCP 47 standard format.</a>" .
+    rdfs:comment "Languages in which subtitles/captions are available, in <a href=\"http://tools.ietf.org/html/bcp47\">IETF BCP 47 standard format</a>." .
 
 schema:subtype a rdf:Property ;
     rdfs:label "subtype" ;
@@ -11796,12 +12110,13 @@ schema:tongueWeight a rdf:Property ;
     schema:domainIncludes schema:Vehicle ;
     schema:isPartOf <http://auto.schema.org> ;
     schema:rangeIncludes schema:QuantitativeValue ;
-    rdfs:comment """<p>The permitted vertical load (TWR) of a trailer attached to the vehicle. Also referred to as Tongue Load Rating (TLR) or Vertical Load Rating (VLR).<br />
-        Typical unit code(s): KGM for kilogram, LBR for pound<br /></p>
-<pre><code>Note 1: You can indicate additional information in the &lt;a href="name"&gt;name&lt;/a&gt; of the &lt;a href="QuantitativeValue"&gt;QuantitativeValue&lt;/a&gt; node.&lt;br /&gt;
-Note 2: You may also link to a &lt;a href="QualitativeValue"&gt;QualitativeValue&lt;/a&gt; node that provides additional information using &lt;a href="valueReference"&gt;valueReference&lt;/a&gt;.&lt;br /&gt;
-Note 3: Note that you can use &lt;a href="minValue"&gt;minValue&lt;/a&gt; and &lt;a href="maxValue"&gt;maxValue&lt;/a&gt; to indicate ranges.
-</code></pre>""" .
+    rdfs:comment """<p>The permitted vertical load (TWR) of a trailer attached to the vehicle. Also referred to as Tongue Load Rating (TLR) or Vertical Load Rating (VLR)</p>
+<p>Typical unit code(s): KGM for kilogram, LBR for pound</p>
+<ul>
+<li>Note 1: You can indicate additional information in the <a class="localLink" href="/name">name</a> of the <a class="localLink" href="/QuantitativeValue">QuantitativeValue</a> node.</li>
+<li>Note 2: You may also link to a <a class="localLink" href="/QualitativeValue">QualitativeValue</a> node that provides additional information using <a class="localLink" href="/valueReference">valueReference</a>.</li>
+<li>Note 3: Note that you can use <a class="localLink" href="/minValue">minValue</a> and <a class="localLink" href="/maxValue">maxValue</a> to indicate ranges.</li>
+</ul>""" .
 
 schema:torque a rdf:Property ;
     rdfs:label "torque" ;
@@ -11809,11 +12124,12 @@ schema:torque a rdf:Property ;
     schema:domainIncludes schema:EngineSpecification ;
     schema:isPartOf <http://auto.schema.org> ;
     schema:rangeIncludes schema:QuantitativeValue ;
-    rdfs:comment """<p>The torque (turning force) of the vehicle's engine.<br />
-        Typical unit code(s): NU for newton metre (N m), F17 for pound-force per foot, or F48 for pound-force per inch<br /></p>
-<pre><code>Note 1: You can link to information about how the given value has been determined (e.g. reference RPM) using the &lt;a href="valueReference"&gt;valueReference&lt;/a&gt; property.&lt;br /&gt;
-Note 2: You can use &lt;a href="minValue"&gt;minValue&lt;/a&gt; and &lt;a href="maxValue"&gt;maxValue&lt;/a&gt; to indicate ranges.
-</code></pre>""" .
+    rdfs:comment """<p>The torque (turning force) of the vehicle's engine.</p>
+<p>Typical unit code(s): NU for newton metre (N m), F17 for pound-force per foot, or F48 for pound-force per inch</p>
+<ul>
+<li>Note 1: You can link to information about how the given value has been determined (e.g. reference RPM) using the <a class="localLink" href="/valueReference">valueReference</a> property.</li>
+<li>Note 2: You can use <a class="localLink" href="/minValue">minValue</a> and <a class="localLink" href="/maxValue">maxValue</a> to indicate ranges.</li>
+</ul>""" .
 
 schema:totalPaymentDue a rdf:Property ;
     rdfs:label "totalPaymentDue" ;
@@ -11876,12 +12192,11 @@ schema:trailerWeight a rdf:Property ;
     schema:domainIncludes schema:Vehicle ;
     schema:isPartOf <http://auto.schema.org> ;
     schema:rangeIncludes schema:QuantitativeValue ;
-    rdfs:comment """<p>The permitted weight of a trailer attached to the vehicle.<br />
-    Typical unit code(s): KGM for kilogram, LBR for pound<br /></p>
-<pre><code>Note 1: You can indicate additional information in the &lt;a href="name"&gt;name&lt;/a&gt; of the &lt;a href="QuantitativeValue"&gt;QuantitativeValue&lt;/a&gt; node.&lt;br /&gt;
-Note 2: You may also link to a &lt;a href="QualitativeValue"&gt;QualitativeValue&lt;/a&gt; node that provides additional information using &lt;a href="valueReference"&gt;valueReference&lt;/a&gt;.&lt;br /&gt;
-Note 3: Note that you can use &lt;a href="minValue"&gt;minValue&lt;/a&gt; and &lt;a href="maxValue"&gt;maxValue&lt;/a&gt; to indicate ranges.
-</code></pre>""" .
+    rdfs:comment """The permitted weight of a trailer attached to the vehicle.</p>
+<p>Typical unit code(s): KGM for kilogram, LBR for pound
+<em> Note 1: You can indicate additional information in the <a class="localLink" href="/name">name</a> of the <a class="localLink" href="/QuantitativeValue">QuantitativeValue</a> node.
+</em> Note 2: You may also link to a <a class="localLink" href="/QualitativeValue">QualitativeValue</a> node that provides additional information using <a class="localLink" href="/valueReference">valueReference</a>.
+* Note 3: Note that you can use <a class="localLink" href="/minValue">minValue</a> and <a class="localLink" href="/maxValue">maxValue</a> to indicate ranges.""" .
 
 schema:trainName a rdf:Property ;
     rdfs:label "trainName" ;
@@ -11939,12 +12254,21 @@ schema:tributary a rdf:Property ;
     schema:rangeIncludes schema:AnatomicalStructure ;
     rdfs:comment "The anatomical or organ system that the vein flows into; a larger structure that the vein connects to." .
 
+schema:typeOfBed a rdf:Property ;
+    rdfs:label "typeOfBed" ;
+    dct:source <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology> ;
+    schema:domainIncludes schema:BedDetails ;
+    schema:rangeIncludes schema:BedType,
+        schema:Text ;
+    rdfs:comment "The type of bed to which the BedDetail refers, i.e. the type of bed available in the quantity indicated by quantity." .
+
 schema:typeOfGood a rdf:Property ;
     rdfs:label "typeOfGood" ;
     dct:source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms> ;
     schema:domainIncludes schema:OwnershipInfo,
         schema:TypeAndQuantityNode ;
-    schema:rangeIncludes schema:Product ;
+    schema:rangeIncludes schema:Product,
+        schema:Service ;
     rdfs:comment "The product that this structured value is referring to." .
 
 schema:typicalAgeRange a rdf:Property ;
@@ -12061,6 +12385,7 @@ schema:validFrom a rdf:Property ;
     rdfs:label "validFrom" ;
     dct:source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms> ;
     schema:domainIncludes schema:Demand,
+        schema:LocationFeatureSpecification,
         schema:MonetaryAmount,
         schema:Offer,
         schema:OpeningHoursSpecification,
@@ -12080,6 +12405,7 @@ schema:validThrough a rdf:Property ;
     dct:source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms> ;
     schema:domainIncludes schema:Demand,
         schema:JobPosting,
+        schema:LocationFeatureSpecification,
         schema:MonetaryAmount,
         schema:Offer,
         schema:OpeningHoursSpecification,
@@ -12103,9 +12429,11 @@ schema:value a rdf:Property ;
         schema:Number,
         schema:StructuredValue,
         schema:Text ;
-    rdfs:comment """The value of the quantitative value or property value node.<br/>
-    For QuantitativeValue and MonetaryValue, the recommended type for values is 'Number'. <br/>
-    For PropertyValue, it can be 'Text;', 'Number', 'Boolean', or 'StructuredValue'.""" .
+    rdfs:comment """<p>The value of the quantitative value or property value node.</p>
+<ul>
+<li>For <a class="localLink" href="/QuantitativeValue">QuantitativeValue</a> and <a class="localLink" href="/MonetaryAmount">MonetaryAmount</a>, the recommended type for values is 'Number'.</li>
+<li>For <a class="localLink" href="/PropertyValue">PropertyValue</a>, it can be 'Text;', 'Number', 'Boolean', or 'StructuredValue'.</li>
+</ul>""" .
 
 schema:valueAddedTaxIncluded a rdf:Property ;
     rdfs:label "valueAddedTaxIncluded" ;
@@ -12199,7 +12527,7 @@ schema:vehicleEngine a rdf:Property ;
     rdfs:comment "Information about the engine or engines of the vehicle." .
 
 schema:vehicleIdentificationNumber a rdf:Property ;
-    rdfs:label "vin" ;
+    rdfs:label "vehicleIdentificationNumber" ;
     dct:source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group> ;
     schema:domainIncludes schema:Vehicle ;
     schema:rangeIncludes schema:Text ;
@@ -12233,8 +12561,8 @@ schema:vehicleSeatingCapacity a rdf:Property ;
     schema:domainIncludes schema:Vehicle ;
     schema:rangeIncludes schema:Number,
         schema:QuantitativeValue ;
-    rdfs:comment """The number of passengers that can be seated in the vehicle, both in terms of the physical space available, and in terms of limitations set by law.<br />
-Typical unit code(s): C62 for persons.""" .
+    rdfs:comment """The number of passengers that can be seated in the vehicle, both in terms of the physical space available, and in terms of limitations set by law.</p>
+<p>Typical unit code(s): C62 for persons.""" .
 
 schema:vehicleSpecialUsage a rdf:Property ;
     rdfs:label "vehicleSpecialUsage" ;
@@ -12266,7 +12594,8 @@ schema:vendor a rdf:Property ;
 schema:version a rdf:Property ;
     rdfs:label "version" ;
     schema:domainIncludes schema:CreativeWork ;
-    schema:rangeIncludes schema:Number ;
+    schema:rangeIncludes schema:Number,
+        schema:Text ;
     rdfs:comment "The version of the CreativeWork embodied by a specified resource." .
 
 schema:video a rdf:Property ;
@@ -12348,12 +12677,13 @@ schema:weightTotal a rdf:Property ;
     schema:domainIncludes schema:Vehicle ;
     schema:isPartOf <http://auto.schema.org> ;
     schema:rangeIncludes schema:QuantitativeValue ;
-    rdfs:comment """<p>The permitted total weight of the loaded vehicle, including passengers and cargo and the weight of the empty vehicle.<br />
-    Typical unit code(s): KGM for kilogram, LBR for pound<br /></p>
-<pre><code>Note 1: You can indicate additional information in the &lt;a href="name"&gt;name&lt;/a&gt; of the &lt;a href="QuantitativeValue"&gt;QuantitativeValue&lt;/a&gt; node.&lt;br /&gt;
-Note 2: You may also link to a &lt;a href="QualitativeValue"&gt;QualitativeValue&lt;/a&gt; node that provides additional information using &lt;a href="valueReference"&gt;valueReference&lt;/a&gt;.&lt;br /&gt;
-Note 3: Note that you can use &lt;a href="minValue"&gt;minValue&lt;/a&gt; and &lt;a href="maxValue"&gt;maxValue&lt;/a&gt; to indicate ranges.
-</code></pre>""" .
+    rdfs:comment """<p>The permitted total weight of the loaded vehicle, including passengers and cargo and the weight of the empty vehicle.</p>
+<p>Typical unit code(s): KGM for kilogram, LBR for pound</p>
+<ul>
+<li>Note 1: You can indicate additional information in the <a class="localLink" href="/name">name</a> of the <a class="localLink" href="/QuantitativeValue">QuantitativeValue</a> node.</li>
+<li>Note 2: You may also link to a <a class="localLink" href="/QualitativeValue">QualitativeValue</a> node that provides additional information using <a class="localLink" href="/valueReference">valueReference</a>.</li>
+<li>Note 3: Note that you can use <a class="localLink" href="/minValue">minValue</a> and <a class="localLink" href="/maxValue">maxValue</a> to indicate ranges.</li>
+</ul>""" .
 
 schema:wheelbase a rdf:Property ;
     rdfs:label "wheelbase" ;
@@ -12361,8 +12691,8 @@ schema:wheelbase a rdf:Property ;
     schema:domainIncludes schema:Vehicle ;
     schema:isPartOf <http://auto.schema.org> ;
     schema:rangeIncludes schema:QuantitativeValue ;
-    rdfs:comment """The distance between the centers of the front and rear wheels. <br />
-    Typical unit code(s): CMT for centimeters, MTR for meters, INH for inches, FOT for foot/feet""" .
+    rdfs:comment """The distance between the centers of the front and rear wheels.</p>
+<p>Typical unit code(s): CMT for centimeters, MTR for meters, INH for inches, FOT for foot/feet""" .
 
 schema:width a rdf:Property ;
     rdfs:label "width" ;
@@ -12527,6 +12857,7 @@ schema:attendee a rdf:Property ;
 schema:audience a rdf:Property ;
     rdfs:label "audience" ;
     schema:domainIncludes schema:CreativeWork,
+        schema:LodgingBusiness,
         schema:PlayAction,
         schema:Product,
         schema:Service ;
@@ -12654,7 +12985,7 @@ schema:duration a rdf:Property ;
         schema:MusicRecording,
         schema:MusicRelease ;
     schema:rangeIncludes schema:Duration ;
-    rdfs:comment "The duration of the item (movie, audio recording, event, etc.) in <a href='http://en.wikipedia.org/wiki/ISO_8601'>ISO 8601 date format</a>." .
+    rdfs:comment "The duration of the item (movie, audio recording, event, etc.) in <a href=\"http://en.wikipedia.org/wiki/ISO_8601\">ISO 8601 date format</a>." .
 
 schema:employee a rdf:Property ;
     rdfs:label "employee" ;
@@ -12740,7 +13071,7 @@ schema:inLanguage a rdf:Property ;
         schema:WriteAction ;
     schema:rangeIncludes schema:Language,
         schema:Text ;
-    rdfs:comment "The language of the content or performance or used in an action. Please use one of the language codes from the <a href='http://tools.ietf.org/html/bcp47'>IETF BCP 47 standard</a>. See also <a class=\"localLink\" href=\"/availableLanguage\">availableLanguage</a>." .
+    rdfs:comment "The language of the content or performance or used in an action. Please use one of the language codes from the <a href=\"http://tools.ietf.org/html/bcp47\">IETF BCP 47 standard</a>. See also <a class=\"localLink\" href=\"/availableLanguage\">availableLanguage</a>." .
 
 schema:incentiveCompensation a rdf:Property ;
     rdfs:label "incentiveCompensation" ;
@@ -12756,12 +13087,14 @@ schema:interactionStatistic a rdf:Property ;
 
 schema:isAccessibleForFree a rdf:Property ;
     rdfs:label "isAccessibleForFree" ;
-    schema:domainIncludes schema:PublicationEvent ;
+    schema:domainIncludes schema:CreativeWork,
+        schema:Event,
+        schema:PublicationEvent ;
     schema:rangeIncludes schema:Boolean ;
     rdfs:comment "A flag to signal that the publication is accessible for free." .
 
 schema:isBasedOn a rdf:Property ;
-    rdfs:label "isBasedOnUrl" ;
+    rdfs:label "isBasedOn" ;
     schema:domainIncludes schema:CreativeWork ;
     schema:rangeIncludes schema:CreativeWork,
         schema:Product,
@@ -13079,7 +13412,7 @@ schema:workTranslation a rdf:Property ;
 
 <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_WikiDoc> a schema:Organization ;
     rdfs:label "WikiDoc" ;
-    rdfs:comment "This class contains information contributed by <a href=http://wikidoc.org>WikiDoc</a>." .
+    rdfs:comment "This class contains information contributed by <a href=\"http://wikidoc.org&gt;WikiDoc\">http://wikidoc.org&gt;WikiDoc</a>." .
 
 schema:actor a rdf:Property ;
     rdfs:label "actor" ;
@@ -13123,7 +13456,7 @@ schema:image a rdf:Property ;
     schema:domainIncludes schema:Thing ;
     schema:rangeIncludes schema:ImageObject,
         schema:URL ;
-    rdfs:comment "An image of the item. This can be a <a href=\"http://schema.org/URL\">URL</a> or a fully described <a href=\"http://schema.org/ImageObject\">ImageObject</a>." .
+    rdfs:comment "An image of the item. This can be a <a class=\"localLink\" href=\"/URL\">URL</a> or a fully described <a class=\"localLink\" href=\"/ImageObject\">ImageObject</a>." .
 
 schema:memberOf a rdf:Property ;
     rdfs:label "memberOf" ;
@@ -13224,7 +13557,7 @@ schema:member a rdf:Property ;
 
 <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_ActionCollabClass> a schema:Organization ;
     rdfs:label "ActionCollabClass" ;
-    rdfs:comment "The schema.org Actions mechanism benefited from extensive discussions across the Web standards community around W3C, in particular from the <a href=\"http://purl.org/hydra/\"> Hydra project</a>'s community group." .
+    rdfs:comment "The schema.org Actions mechanism benefited from extensive discussions across the Web standards community around W3C, in particular from the <a href=\"http://purl.org/hydra/\">Hydra project</a>'s community group." .
 
 <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_DatasetClass> a schema:Organization ;
     rdfs:label "DatasetClass" ;
@@ -13238,13 +13571,6 @@ schema:hasPart a rdf:Property ;
     schema:rangeIncludes schema:CreativeWork ;
     rdfs:comment "Indicates a CreativeWork that is (in some sense) a part of this CreativeWork." .
 
-schema:isPartOf a rdf:Property ;
-    rdfs:label "isPartOf" ;
-    schema:domainIncludes schema:CreativeWork ;
-    schema:inverseOf schema:hasPart ;
-    schema:rangeIncludes schema:CreativeWork ;
-    rdfs:comment "Indicates a CreativeWork that this CreativeWork is (in some sense) part of." .
-
 schema:position a rdf:Property ;
     rdfs:label "position" ;
     schema:domainIncludes schema:CreativeWork,
@@ -13252,6 +13578,13 @@ schema:position a rdf:Property ;
     schema:rangeIncludes schema:Integer,
         schema:Text ;
     rdfs:comment "The position of an item in a series or sequence of items." .
+
+schema:isPartOf a rdf:Property ;
+    rdfs:label "isPartOf" ;
+    schema:domainIncludes schema:CreativeWork ;
+    schema:inverseOf schema:hasPart ;
+    schema:rangeIncludes schema:CreativeWork ;
+    rdfs:comment "Indicates a CreativeWork that this CreativeWork is (in some sense) part of." .
 
 schema:instrument a rdf:Property ;
     rdfs:label "instrument" ;
@@ -13267,7 +13600,7 @@ schema:object a rdf:Property ;
 
 <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_rNews> a schema:Organization ;
     rdfs:label "rNews" ;
-    rdfs:comment "This class contains derivatives of IPTC rNews properties. rNews is a data model of publishing metadata with serializations currently available for RDFa as well as HTML5 Microdata. More information about the IPTC and rNews can be found at <a href=http://rnews.org>rnews.org</a>." .
+    rdfs:comment "This class contains derivatives of IPTC rNews properties. rNews is a data model of publishing metadata with serializations currently available for RDFa as well as HTML5 Microdata. More information about the IPTC and rNews can be found at <a href=\"http://rnews.org\">rnews.org</a>." .
 
 schema:location a rdf:Property ;
     rdfs:label "location" ;
@@ -13292,11 +13625,16 @@ schema:participant a rdf:Property ;
 
 <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO> a schema:Organization ;
     rdfs:label "FIBO" ;
-    rdfs:comment "This element is based on the work of the Financial Industry Business Ontology project (see <a href=\"http://www.fibo.org/schema\">http://www.fibo.org/schema</a> for details), in support of the W3C Financial Industry Business Ontology Community Group ( <a href=\"http://www.fibo.org/community\"\">http://www.fibo.org/community</a>). Many class and property definitions are inspired by or based on <a href=\"http://www.fibo.org\">http://www.fibo.org</a>." .
+    rdfs:comment "This element is based on the work of the Financial Industry Business Ontology project (see <a href=\"http://www.fibo.org/schema\">http://www.fibo.org/schema</a> for details), in support of the W3C Financial Industry Business Ontology Community Group (<a href=\"http://www.fibo.org/community\">http://www.fibo.org/community</a>). Many class and property definitions are inspired by or based on <a href=\"http://www.fibo.org\">http://www.fibo.org</a>." .
 
 <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsClass> a schema:Organization ;
     rdfs:label "GoodRelationsClass" ;
     rdfs:comment "This class is derived from the GoodRelations Vocabulary for E-Commerce, created by Martin Hepp. GoodRelations is a data model for sharing e-commerce data on the Web that can be expressed in a variety of syntaxes, including RDFa and HTML5 Microdata. More information about GoodRelations can be found at <a href=\"http://purl.org/goodrelations/\">http://purl.org/goodrelations/</a>." .
+
+<https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology> a schema:Organization ;
+    rdfs:label "STI Accommodation Ontology" ;
+    rdfs:comment """This element is based on the STI Accommodation Ontology, see <a href="http://ontologies.sti-innsbruck.at/acco/ns.html">http://ontologies.sti-innsbruck.at/acco/ns.html</a> for details.
+    Many class and property definitions are inspired by or based on abstracts from Wikipedia, the free encyclopedia.""" .
 
 <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#MBZ> a schema:Organization ;
     rdfs:label "MBZ" ;
@@ -13310,6 +13648,5 @@ schema:participant a rdf:Property ;
 
 <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms> a schema:Organization ;
     rdfs:label "GoodRelationsTerms" ;
-    rdfs:comment """This term <a href="http://blog.schema.org/2012/11/good-relations-and-schemaorg.html">uses</a> terminology from the GoodRelations Vocabulary for E-Commerce, created by Martin Hepp. GoodRelations is a data model for sharing e-commerce data on the Web. More information about GoodRelations can be found at <a href="
-        http://purl.org/goodrelations/">http://purl.org/goodrelations/</a>.""" .
+    rdfs:comment "This term <a href=\"http://blog.schema.org/2012/11/good-relations-and-schemaorg.html\">uses</a> terminology from the GoodRelations Vocabulary for E-Commerce, created by Martin Hepp. GoodRelations is a data model for sharing e-commerce data on the Web. More information about GoodRelations can be found at <a href=\"http://purl.org/goodrelations/\">http://purl.org/goodrelations/</a>." .
 

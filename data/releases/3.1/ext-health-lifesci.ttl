@@ -565,7 +565,7 @@ schema:SurgicalProcedure a schema:MedicalProcedureType,
         rdfs:Class ;
     rdfs:label "SurgicalProcedure" ;
     schema:isPartOf <http://health-lifesci.schema.org> ;
-    rdfs:comment "A type of medical procedure that involves invasive surgical techniques." ;
+    rdfs:comment "A medical procedure involving an incision with instruments; performed for diagnose, or therapeutic purposes." ;
     rdfs:subClassOf schema:MedicalProcedure ;
     owl:equivalentClass <http://purl.bioontology.org/ontology/SNOMEDCT/387713003> .
 
@@ -606,9 +606,9 @@ schema:VitalSign a rdfs:Class ;
     rdfs:comment "Vital signs are measures of various physiological functions in order to assess the most basic body functions." ;
     rdfs:subClassOf schema:MedicalSign .
 
-<file:///Users/wallisr/Development/schemaorg/BuldRel/schemaorg/data/ext/health-lifesci/med-health-core.rdfa> rdfa:usesVocabulary <http://schema.org> .
+<file:///Users/danbri/sdo/official/schemaorg/data/ext/health-lifesci/med-health-core.rdfa> rdfa:usesVocabulary <http://schema.org> .
 
-<file:///Users/wallisr/Development/schemaorg/BuldRel/schemaorg/data/ext/health-lifesci/physical-activity-and-exercise.rdfa> rdfa:usesVocabulary <http://schema.org> .
+<file:///Users/danbri/sdo/official/schemaorg/data/ext/health-lifesci/physical-activity-and-exercise.rdfa> rdfa:usesVocabulary <http://schema.org> .
 
 schema:Abdomen a schema:PhysicalExam ;
     rdfs:label "Abdomen" ;
@@ -636,7 +636,7 @@ schema:Anesthesia a schema:MedicalSpecialty ;
     rdfs:comment "A specific branch of medical science that pertains to study of anesthetics and their application." .
 
 schema:Appearance a schema:PhysicalExam ;
-    rdfs:label "Appearance " ;
+    rdfs:label "Appearance" ;
     schema:isPartOf <http://health-lifesci.schema.org> ;
     rdfs:comment "Appearance assessment with clinical examination." .
 
@@ -2335,7 +2335,7 @@ schema:safetyConsideration a rdf:Property ;
     rdfs:comment "Any potential safety concern associated with the supplement. May include interactions with other drugs and foods, pregnancy, breastfeeding, known adverse reactions, and documented efficacy of the supplement." .
 
 schema:secondaryPrevention a rdf:Property ;
-    rdfs:label " secondaryPrevention" ;
+    rdfs:label "secondaryPrevention" ;
     schema:domainIncludes schema:MedicalCondition ;
     schema:isPartOf <http://health-lifesci.schema.org> ;
     schema:rangeIncludes schema:MedicalTherapy ;

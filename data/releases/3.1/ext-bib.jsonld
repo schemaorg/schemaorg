@@ -6,22 +6,33 @@
   },
   "@graph": [
     {
-      "@id": "http://schema.org/ComicSeries",
-      "@type": "rdfs:Class",
+      "@id": "http://schema.org/colorist",
+      "@type": "rdf:Property",
       "http://schema.org/category": {
         "@language": "en",
         "@value": "Comics"
       },
+      "http://schema.org/domainIncludes": [
+        {
+          "@id": "http://schema.org/ComicStory"
+        },
+        {
+          "@id": "http://schema.org/VisualArtwork"
+        },
+        {
+          "@id": "http://schema.org/ComicIssue"
+        }
+      ],
       "http://schema.org/isPartOf": {
         "@id": "http://bib.schema.org"
       },
-      "rdfs:comment": "A sequential publication of comic stories under a\n    unifying title, for example \"The Amazing Spider-Man\" or \"Groo the\n    Wanderer\".",
+      "http://schema.org/rangeIncludes": {
+        "@id": "http://schema.org/Person"
+      },
+      "rdfs:comment": "The individual who adds color to inked drawings.",
       "rdfs:label": {
         "@language": "en",
-        "@value": "ComicSeries"
-      },
-      "rdfs:subClassOf": {
-        "@id": "http://schema.org/Periodical"
+        "@value": "colorist"
       }
     },
     {
@@ -65,17 +76,19 @@
       }
     },
     {
-      "@id": "http://schema.org/duration",
-      "@type": "rdf:Property",
-      "http://schema.org/domainIncludes": {
-        "@id": "http://schema.org/Audiobook"
-      }
-    },
-    {
-      "@id": "http://schema.org/pagination",
-      "@type": "rdf:Property",
-      "http://schema.org/domainIncludes": {
-        "@id": "http://schema.org/Chapter"
+      "@id": "http://schema.org/GraphicNovel",
+      "@type": "http://schema.org/BookFormatType",
+      "http://schema.org/category": {
+        "@language": "en",
+        "@value": "Comics"
+      },
+      "http://schema.org/isPartOf": {
+        "@id": "http://bib.schema.org"
+      },
+      "rdfs:comment": "Book format: GraphicNovel. May represent a bound collection of ComicIssue instances.",
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "GraphicNovel"
       }
     },
     {
@@ -111,10 +124,10 @@
           "@id": "http://schema.org/ComicIssue"
         },
         {
-          "@id": "http://schema.org/VisualArtwork"
+          "@id": "http://schema.org/ComicStory"
         },
         {
-          "@id": "http://schema.org/ComicStory"
+          "@id": "http://schema.org/VisualArtwork"
         }
       ],
       "http://schema.org/isPartOf": {
@@ -184,10 +197,10 @@
       },
       "rdfs:subClassOf": [
         {
-          "@id": "http://schema.org/CoverArt"
+          "@id": "http://schema.org/ComicStory"
         },
         {
-          "@id": "http://schema.org/ComicStory"
+          "@id": "http://schema.org/CoverArt"
         }
       ]
     },
@@ -221,10 +234,10 @@
       },
       "http://schema.org/rangeIncludes": [
         {
-          "@id": "http://schema.org/Person"
+          "@id": "http://schema.org/Organization"
         },
         {
-          "@id": "http://schema.org/Organization"
+          "@id": "http://schema.org/Person"
         }
       ],
       "rdfs:comment": "An agent associated with the publication event.",
@@ -311,33 +324,29 @@
       }
     },
     {
-      "@id": "http://schema.org/colorist",
-      "@type": "rdf:Property",
+      "@id": "file:///Users/danbri/sdo/official/schemaorg/data/ext/bib/bsdo-1.0.rdfa",
+      "http://schema.org/softwareVersion": {
+        "@language": "en",
+        "@value": "bib.schema.org Version 0.1"
+      }
+    },
+    {
+      "@id": "http://schema.org/ComicSeries",
+      "@type": "rdfs:Class",
       "http://schema.org/category": {
         "@language": "en",
         "@value": "Comics"
       },
-      "http://schema.org/domainIncludes": [
-        {
-          "@id": "http://schema.org/ComicStory"
-        },
-        {
-          "@id": "http://schema.org/VisualArtwork"
-        },
-        {
-          "@id": "http://schema.org/ComicIssue"
-        }
-      ],
       "http://schema.org/isPartOf": {
         "@id": "http://bib.schema.org"
       },
-      "http://schema.org/rangeIncludes": {
-        "@id": "http://schema.org/Person"
-      },
-      "rdfs:comment": "The individual who adds color to inked drawings.",
+      "rdfs:comment": "A sequential publication of comic stories under a\n    unifying title, for example \"The Amazing Spider-Man\" or \"Groo the\n    Wanderer\".",
       "rdfs:label": {
         "@language": "en",
-        "@value": "colorist"
+        "@value": "ComicSeries"
+      },
+      "rdfs:subClassOf": {
+        "@id": "http://schema.org/Periodical"
       }
     },
     {
@@ -349,13 +358,13 @@
       },
       "http://schema.org/domainIncludes": [
         {
+          "@id": "http://schema.org/ComicStory"
+        },
+        {
           "@id": "http://schema.org/VisualArtwork"
         },
         {
           "@id": "http://schema.org/ComicIssue"
-        },
-        {
-          "@id": "http://schema.org/ComicStory"
         }
       ],
       "http://schema.org/isPartOf": {
@@ -396,7 +405,7 @@
       }
     },
     {
-      "@id": "file:///Users/wallisr/Development/schemaorg/BuldRel/schemaorg/data/ext/bib/comics.rdfa",
+      "@id": "file:///Users/danbri/sdo/official/schemaorg/data/ext/bib/comics.rdfa",
       "http://schema.org/softwareVersion": {
         "@language": "en",
         "@value": "bib extension - version 0.1"
@@ -456,19 +465,10 @@
       ]
     },
     {
-      "@id": "http://schema.org/GraphicNovel",
-      "@type": "http://schema.org/BookFormatType",
-      "http://schema.org/category": {
-        "@language": "en",
-        "@value": "Comics"
-      },
-      "http://schema.org/isPartOf": {
-        "@id": "http://bib.schema.org"
-      },
-      "rdfs:comment": "Book format: GraphicNovel. May represent a bound collection of ComicIssue instances.",
-      "rdfs:label": {
-        "@language": "en",
-        "@value": "GraphicNovel"
+      "@id": "http://schema.org/pagination",
+      "@type": "rdf:Property",
+      "http://schema.org/domainIncludes": {
+        "@id": "http://schema.org/Chapter"
       }
     },
     {
@@ -490,10 +490,10 @@
       }
     },
     {
-      "@id": "file:///Users/wallisr/Development/schemaorg/BuldRel/schemaorg/data/ext/bib/bsdo-1.0.rdfa",
-      "http://schema.org/softwareVersion": {
-        "@language": "en",
-        "@value": "bib.schema.org Version 0.1"
+      "@id": "http://schema.org/duration",
+      "@type": "rdf:Property",
+      "http://schema.org/domainIncludes": {
+        "@id": "http://schema.org/Audiobook"
       }
     },
     {
@@ -566,10 +566,10 @@
           "@id": "http://schema.org/ComicIssue"
         },
         {
-          "@id": "http://schema.org/ComicStory"
+          "@id": "http://schema.org/VisualArtwork"
         },
         {
-          "@id": "http://schema.org/VisualArtwork"
+          "@id": "http://schema.org/ComicStory"
         }
       ],
       "http://schema.org/isPartOf": {

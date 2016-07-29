@@ -7,6 +7,15 @@
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
+schema:BedType a rdfs:Class ;
+    rdfs:label "BedType" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1262>,
+        <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology> ;
+    schema:category "issue-1262" ;
+    schema:isPartOf <http://pending.schema.org> ;
+    rdfs:comment "A type of bed. This is used for indicating the bed or beds available in an accommodation." ;
+    rdfs:subClassOf schema:QualitativeValue .
+
 schema:BroadcastFrequencySpecification a rdfs:Class ;
     rdfs:label "BroadcastFrequencySpecification" ;
     dct:source <https://github.com/schemaorg/schemaorg/issues/1004> ;
@@ -46,6 +55,22 @@ schema:Distillery a rdfs:Class ;
     schema:isPartOf <http://pending.schema.org> ;
     rdfs:comment "A distillery." ;
     rdfs:subClassOf schema:FoodEstablishment .
+
+schema:EnumerationValue a rdfs:Class ;
+    rdfs:label "EnumerationValue" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/894> ;
+    schema:category "issue-894" ;
+    schema:isPartOf <http://pending.schema.org> ;
+    rdfs:comment "An enumeration value." ;
+    rdfs:subClassOf schema:Enumeration .
+
+schema:EnumerationValueSet a rdfs:Class ;
+    rdfs:label "EnumerationValueSet" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/894> ;
+    schema:category "issue-894" ;
+    schema:isPartOf <http://pending.schema.org> ;
+    rdfs:comment "A set of enumerated values." ;
+    rdfs:subClassOf schema:CreativeWork .
 
 schema:EventSeries a rdfs:Class ;
     rdfs:label "EventSeries" ;
@@ -154,6 +179,9 @@ schema:accessibilitySummary a rdf:Property ;
     schema:isPartOf <http://pending.schema.org> ;
     schema:rangeIncludes schema:Text ;
     rdfs:comment "A human-readable summary of specific accessibility features or deficiencies, consistent with the other accessibility metadata but expressing subtleties such as \"short descriptions are present but long descriptions will be needed for non-visual users\" or \"short descriptions are present and no long descriptions are needed.\"" .
+
+schema:bed a rdf:Property ;
+    schema:rangeIncludes schema:BedType .
 
 schema:benefitsSummaryUrl a rdf:Property ;
     rdfs:label "benefitsSummaryUrl" ;
@@ -266,6 +294,15 @@ schema:coursePrerequisites a rdf:Property ;
         schema:Text ;
     rdfs:comment "Requirements for taking the Course. May be completion of another Course or a textual description like \"permission of instructor\". Requirements may be a pre-requisite competency, referenced using AlignmentObject." .
 
+schema:enumerationValueCode a rdf:Property ;
+    rdfs:label "enumerationValueCode" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/894> ;
+    schema:category "issue-894" ;
+    schema:domainIncludes schema:EnumerationValue ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:Text ;
+    rdfs:comment "A short textual code that uniquely identifies the value. The code is typically used in structured URLs." .
+
 schema:grantsCredential a rdf:Property ;
     rdfs:label "grantsCredential" ;
     dct:source <https://github.com/schemaorg/schemaorg/issues/195> ;
@@ -283,6 +320,16 @@ schema:hasCourseInstance a rdf:Property ;
     schema:isPartOf <http://pending.schema.org> ;
     schema:rangeIncludes schema:CourseInstance ;
     rdfs:comment "An offering of the course at a specific time and place or through specific media or mode of study or to a specific section of students." .
+
+schema:hasEnumerationValue a rdf:Property ;
+    rdfs:label "hasEnumerationValue" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/894> ;
+    schema:category "issue-894" ;
+    schema:domainIncludes schema:EnumerationValueSet ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:Text ;
+    rdfs:comment "Value contained in value set." ;
+    rdfs:subPropertyOf schema:hasPart .
 
 schema:healthPlanCoinsuranceOption a rdf:Property ;
     rdfs:label "healthPlanCoinsuranceOption" ;
@@ -321,7 +368,7 @@ schema:healthPlanCopayOption a rdf:Property ;
     rdfs:comment "Whether the copay is before or after deductible, etc. TODO: Is this a closed set?" .
 
 schema:healthPlanCostSharing a rdf:Property ;
-    rdfs:label "offersPrescriptionByMail" ;
+    rdfs:label "healthPlanCostSharing" ;
     dct:source <https://github.com/schemaorg/schemaorg/issues/1062> ;
     schema:category "issue-1062" ;
     schema:domainIncludes schema:HealthPlanFormulary,
@@ -461,6 +508,16 @@ schema:offersPrescriptionByMail a rdf:Property ;
     schema:rangeIncludes schema:Boolean ;
     rdfs:comment "Whether prescriptions can be delivered by mail." .
 
+schema:partOfEnumerationValueSet a rdf:Property ;
+    rdfs:label "partOfEnumerationValueSet" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/894> ;
+    schema:category "issue-894" ;
+    schema:domainIncludes schema:EnumerationValue ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:Text ;
+    rdfs:comment "The set (enumeration) of values of which contains this value." ;
+    rdfs:subPropertyOf schema:isPartOf .
+
 schema:previewUrl a rdf:Property ;
     rdfs:label "previewUrl" ;
     dct:source <https://github.com/schemaorg/schemaorg/issues/195> ;
@@ -488,6 +545,9 @@ schema:spokenByCharacter a rdf:Property ;
     schema:rangeIncludes schema:Organization,
         schema:Person ;
     rdfs:comment "The (e.g. fictional) character, Person or Organization to whom the quotation is attributed within the containing CreativeWork." .
+
+schema:typeOfBed a rdf:Property ;
+    schema:rangeIncludes schema:BedType .
 
 schema:usesHealthPlanIdStandard a rdf:Property ;
     rdfs:label "usesHealthPlanIdStandard" ;
