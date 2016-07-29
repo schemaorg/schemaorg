@@ -15,7 +15,14 @@
   <div id="mainContent" class="faq">
 
 
-<h1>Vocabulary Definition Files</h1>
+<h2>Schema.org for Developers</h2>
+
+<p>
+This is a placeholder page for developer-oriented information about schema.org. In particular it gives access to machine-readable representations of our schemas.
+</p>
+
+
+<h2>Vocabulary Definition Files</h2>
 
 <p>To assist developers, files containing the definition of the core Schema.org vocabulary and its extensions are available for download in common RDF formats.</p>
 
