@@ -22,7 +22,7 @@ This is a placeholder page for developer-oriented information about schema.org. 
 </p>
 
 
-<h2>Vocabulary Definition Files</h2>
+<h2 id="defs">Vocabulary Definition Files</h2>
 
 <p>To assist developers, files containing the definition of the core Schema.org vocabulary and its extensions are available for download in common RDF formats.</p>
 
