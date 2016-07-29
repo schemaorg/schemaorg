@@ -95,14 +95,15 @@ derived from <a href="https://en.wikipedia.org/wiki/CycL">CycL</a>, which in tur
 </p>
 <ol>
 <li> We have a set of <b>types</b>, arranged in a <b>multiple inheritance hierarchy</b>
-where each type may be a sub-class of multiple types.
+where each type may be a sub-class of multiple types.</li>
 <li> We have a set of <b>properties</b>:
   <ol>
     <li> each property may have one or more types as its domains. The property may be used
-      for instances of any of these types.
+      for instances of any of these types.</li>
     <li> each property may have one or more types as its ranges. The value(s) of the property should
-      be instances of at least one of these types.
+      be instances of at least one of these types.</li>
   </ol>
+</li>
 </ol>
 <p>
 The decision to allow multiple domains and ranges was purely pragmatic. While the
@@ -207,11 +208,11 @@ See also: <a href="https://en.wikipedia.org/wiki/Robustness_principle">Postel's 
 
 <h2>Mapping to RDFa Lite </h2>
 
- Our use of Microdata maps easily into <a href=http://www.w3.org/TR/rdfa-lite/>RDFa Lite</a>.
-In fact, all of Schema.org can be used
-with the RDFa Lite syntax. The RDFa Lite version of the markup looks almost isomorphic
+Our use of Microdata maps easily into <a href="http://www.w3.org/TR/rdfa-lite/">RDFa Lite</a>, and
+many of our examples now show both variations (alongside the newer <a href="https://en.wikipedia.org/wiki/JSON-LD">JSON-LD</a> syntax).
+All of Schema.org can be used with the RDFa Lite syntax. The RDFa Lite version of the markup looks almost isomorphic
 to the Microdata version. The following sample demonstrates the use of RDFa Lite to
-mark up a <a href=../Product>Product</a> type example:
+mark up a <a href="/Product">Product</a> type example:
 
 <pre  class="prettyprint lang-html linenums">
 &lt;div vocab="http://schema.org/" typeof="Product"&gt;
