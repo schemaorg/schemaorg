@@ -6,6 +6,8 @@ import re
 import logging
 import threading
 import parsers
+from google.appengine.ext import ndb
+
 
 import apirdflib
 #from apirdflib import rdfGetTargets, rdfGetSources
@@ -49,6 +51,7 @@ DYNALOAD = True # permits read_schemas to be re-invoked live.
 #   loader=jinja2.FileSystemLoader(os.path.join(os.path.dirname(__file__), 'templates')),
 #    extensions=['jinja2.ext.autoescape'], autoescape=True)
 
+NDBPAGESTORE = True #True - uses NDB shared (accross instances) store for page cache - False uses in memory local cache
 debugging = False
 
 def getMasterStore():
@@ -118,12 +121,15 @@ namespaces = """        "schema": "http://schema.org/",
 class DataCacheTool():
 
     def __init__ (self):
-        self._DataCache = {}
         self.tlocal = threading.local()
         self.tlocal.CurrentDataCache = "core"
+        self.initialise()
+
+    def initialise(self):
+        self._DataCache = {}
         self._DataCache[self.tlocal.CurrentDataCache] = {}
-
-
+        return
+        
     def getCache(self,cache=None):
         if cache == None:
             cache = self.getCurrent()
@@ -143,7 +149,7 @@ class DataCacheTool():
         self.tlocal.CurrentDataCache = current
         if(self._DataCache.get(current) == None):
             self._DataCache[current] = {}
-        log.info("Setting _CurrentDataCache: %s",current)
+        log.debug("Setting _CurrentDataCache: %s",current)
 
     def getCurrent(self):
         return self.tlocal.CurrentDataCache
@@ -152,6 +158,122 @@ class DataCacheTool():
         return self._DataCache.keys()
 
 DataCache = DataCacheTool()
+
+class PageEntity(ndb.Model):
+    content = ndb.TextProperty()
+    
+class PageStoreTool():
+    def __init__ (self):
+        self.tlocal = threading.local()
+        self.tlocal.CurrentStoreSet = "core"
+
+    def initialise(self):
+        import time
+        log.info("[%s]PageStore initialising Data Store" % (os.environ["INSTANCE_ID"]))
+        loops = 0
+        ret = 0
+        while loops < 5:
+            keys = PageEntity.query().fetch(keys_only=True)
+            count = len(keys)
+            log.info("[%s]PageStore deleting %s keys" % (os.environ["INSTANCE_ID"], count))
+            if count == 0:
+                break
+            ndb.delete_multi(keys) 
+            ret += count
+            loops += 1
+            time.sleep(1)
+        return str(ret)
+            
+    def getCurrent(self):
+        return self.tlocal.CurrentStoreSet
+        
+    def setCurrent(self,current):
+        self.tlocal.CurrentStoreSet = current
+        log.debug("PageStore setting CurrentStoreSet: %s",current)
+        
+    def put(self, key, val,cache=None):
+        ca = self.getCurrent()
+        if cache != None:
+            ca = cache
+        fullKey = ca + ":" + key
+        #log.info("[%s]PageStore storing %s" % (os.environ["INSTANCE_ID"],fullKey))
+        ent = PageEntity(id = fullKey, content = val)
+        ent.put()
+        
+    def get(self, key,cache=None):
+        ca = self.getCurrent()
+        if cache != None:
+            ca = cache
+        fullKey = ca + ":" + key
+        ent = PageEntity.get_by_id(fullKey)
+        if(ent):
+            #log.info("[%s]PageStore returning %s" % (os.environ["INSTANCE_ID"],fullKey))
+            return ent.content
+        else:
+            #log.info("PageStore '%s' not found" % fullKey)
+            return None
+    
+class HeaderEntity(ndb.Model):
+    content = ndb.PickleProperty()
+    
+class HeaderStoreTool():
+    def __init__ (self):
+        self.tlocal = threading.local()
+        self.tlocal.CurrentStoreSet = "core"
+
+    def initialise(self):
+        import time
+        log.info("[%s]HeaderStore initialising Data Store" % (os.environ["INSTANCE_ID"]))
+        loops = 0
+        ret = 0
+        while loops < 5:
+            keys = HeaderEntity.query().fetch(keys_only=True)
+            count = len(keys)
+            log.info("[%s]HeaderStore deleting %s keys" % (os.environ["INSTANCE_ID"], count))
+            if count == 0:
+                break
+            ndb.delete_multi(keys) 
+            ret += count
+            loops += 1
+            time.sleep(1)
+        return str(ret)
+            
+    def getCurrent(self):
+        return self.tlocal.CurrentStoreSet
+        
+    def setCurrent(self,current):
+        self.tlocal.CurrentStoreSet = current
+        log.debug("HeaderStore setting CurrentStoreSet: %s",current)
+        
+    def put(self, key, val,cache=None):
+        ca = self.getCurrent()
+        if cache != None:
+            ca = cache
+        fullKey = ca + ":" + key
+        ent = HeaderEntity(id = fullKey, content = val)
+        ent.put()
+        
+    def get(self, key,cache=None):
+        ca = self.getCurrent()
+        if cache != None:
+            ca = cache
+        fullKey = ca + ":" + key
+        ent = HeaderEntity.get_by_id(fullKey)
+        if(ent):
+            return ent.content
+        else:
+            return None
+
+PageStore = None
+HeaderStore = None
+log.info("NDB PageStore & HeaderStore enabled: %s" % NDBPAGESTORE)
+if  NDBPAGESTORE:
+    PageStore = PageStoreTool()
+    HeaderStore = HeaderStoreTool()
+else:
+    PageStore = DataCacheTool()
+    HeaderStore = DataCacheTool()
+    
 
 
 class Unit ():
@@ -260,7 +382,7 @@ class Unit ():
         if self.typeFlags.has_key('ev'):
             return self.typeFlags['ev']
         types = GetTargets(Unit.GetUnit("rdf:type"), self , layers=EVERYLAYER)
-        log.debug("isEnumerationValue() called on %s, found %s types. layers: %s" % (self.id, str( len( types ) ), layers ) )
+        #log.debug("isEnumerationValue() called on %s, found %s types. layers: %s" % (self.id, str( len( types ) ), layers ) )
         found_enum = False
         for t in types:
           if t.subClassOf(Unit.GetUnit("Enumeration"), layers=EVERYLAYER):
@@ -280,17 +402,16 @@ class Unit ():
           return self.typeFlags['d']
           
       ret = False
-      if (self.directInstanceOf(Unit.GetUnit("DataType"), layers=layers)):
+      if (self.directInstanceOf(Unit.GetUnit("DataType"), layers=layers) or
+            self.id == "DataType"):
           ret = True
       else:
-          subs = GetTargets(Unit.GetUnit("rdf:type"), self, layers=layers)
-          subs += GetTargets(Unit.GetUnit("rdfs:subClassOf"), self, layers=layers)
+          subs = GetTargets(Unit.GetUnit("rdfs:subClassOf"), self, layers=layers)
 
           for p in subs:
               if p.isDataType(layers=layers):
                   ret = True
                   break
-      
       self.typeFlags['d'] = ret
       return ret
 
@@ -568,10 +689,10 @@ def GetAllTypes(layers='core'):
     """Return all types in the graph."""
     KEY = "AllTypes:%s" % layers
     if DataCache.get(KEY+'x',Utc):
-        logging.debug("DataCache HIT: %s" % KEY)
+        #logging.debug("DataCache HIT: %s" % KEY)
         return DataCache.get(KEY,Utc)
     else:
-        logging.debug("DataCache MISS: %s" % KEY)
+        #logging.debug("DataCache MISS: %s" % KEY)
         mynode = Unit.GetUnit("Thing", True)
         subbed = {}
         todo = [mynode]
@@ -591,10 +712,10 @@ def GetAllDataTypes(layers='core'):
     """Return all types in the graph."""
     KEY = "AllDataTypes:%s" % layers
     if DataCache.get(KEY+'x',Utc):
-        logging.debug("DataCache HIT: %s" % KEY)
+        #logging.debug("DataCache HIT: %s" % KEY)
         return DataCache.get(KEY,Utc)
     else:
-        logging.debug("DataCache MISS: %s" % KEY)
+        #logging.debug("DataCache MISS: %s" % KEY)
         mynode = Unit.GetUnit("DataType", True)
         subbed = {}
         todo = [mynode]
@@ -613,10 +734,10 @@ def GetAllEnumerationValues(layers='core'):
     global Utc
     KEY = "AllEnums:%s" % layers
     if DataCache.get(KEY,Utc):
-        logging.debug("DataCache HIT: %s" % KEY)
+        #logging.debug("DataCache HIT: %s" % KEY)
         return DataCache.get(KEY,Utc)
     else:
-        logging.debug("DataCache MISS: %s" % KEY)
+        #logging.debug("DataCache MISS: %s" % KEY)
         mynode = Unit.GetUnit("Enumeration", True)
         enums = {}
         subbed = {}
@@ -641,10 +762,10 @@ def GetAllProperties(layers='core'):
     global Utc
     KEY = "AllProperties:%s" % layers
     if DataCache.get(KEY,Utc):
-        logging.debug("DataCache HIT: %s" % KEY)
+        #logging.debug("DataCache HIT: %s" % KEY)
         return DataCache.get(KEY,Utc)
     else:
-        logging.debug("DataCache MISS: %s" % KEY)
+        #logging.debug("DataCache MISS: %s" % KEY)
         mynode = Unit.GetUnit("Thing")
         props = GetSources(Unit.GetUnit("rdf:type", True), Unit.GetUnit("rdf:Property", True), layers=EVERYLAYER)
         res = []
@@ -744,9 +865,6 @@ class Example ():
         self.egmeta = egmeta
         self.layer = layer
         for term in terms:
-            if "id" in egmeta:
-              logging.debug("Created Example with ID %s and type %s" % ( egmeta["id"], term ))
-            
             if(EXAMPLES.get(term, None) == None):
                 EXAMPLES[term] = []
             EXAMPLES.get(term).append(self)
@@ -796,7 +914,7 @@ def GetJsonLdContext(layers='core'):
 
     # Caching assumes the context is neutral w.r.t. our hostname.
     if DataCache.get('JSONLDCONTEXT'):
-        log.debug("DataCache: recycled JSONLDCONTEXT")
+        #log.debug("DataCache: recycled JSONLDCONTEXT")
         return DataCache.get('JSONLDCONTEXT')
     else:
         global namespaces
@@ -836,7 +954,7 @@ def GetJsonLdContext(layers='core'):
         jsonldcontext = jsonldcontext.replace("},}}","}\n    }\n}")
         jsonldcontext = jsonldcontext.replace("},","},\n") 
         DataCache.put('JSONLDCONTEXT',jsonldcontext)
-        log.debug("DataCache: added JSONLDCONTEXT")
+        #log.debug("DataCache: added JSONLDCONTEXT")
         return jsonldcontext
 
 
@@ -851,7 +969,7 @@ def inLayer(layerlist, node):
     if (node is None):
         return False
     if len(GetTargets(Unit.GetUnit("rdf:type"), node, layers=layerlist) ) > 0:
-        log.debug("Found typeOf for node %s in layers: %s"  % (node.id, layerlist ))
+        #log.debug("Found typeOf for node %s in layers: %s"  % (node.id, layerlist ))
         return True
     if len(GetTargets(Unit.GetUnit("rdfs:subClassOf"), node, layers=layerlist) ) > 0:
     # TODO: should we really test for any mention of a term, not just typing?
@@ -865,7 +983,7 @@ def read_file (filename):
     file_path = full_path(filename)
 
     import codecs
-    log.debug("READING FILE: filename=%s file_path=%s " % (filename, file_path ) )
+    #log.debug("READING FILE: filename=%s file_path=%s " % (filename, file_path ) )
     for line in codecs.open(file_path, 'r', encoding="utf8").readlines():
         strs.append(line)
     return "".join(strs)

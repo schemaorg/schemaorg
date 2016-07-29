@@ -52,7 +52,8 @@ if __name__ == '__main__':
     # we'll work with simple string URIs to keep a clear notion of identity.
 
     # relative to scripts/ directory.
-    med_rdfa = '../data/ext/health-lifesci/health_core-0.3.rdfa'
+#    med_rdfa = '../data/ext/health-lifesci/health_core-0.3.rdfa'
+    med_rdfa = '../data/ext/health-lifesci/med-health-core.rdfa' # ignores activities .rdfa file in same dir
     sdo_core_rdfa = '../data/releases/2.2/schema.rdfa'
 
     newhealth_g = Graph()
@@ -72,17 +73,20 @@ if __name__ == '__main__':
     core_enumvals = set(enumeratedValuesInGraph(sdo_corev22_g))
 
     print "Comparing ext/health-lifesci and v2.2 core.\n\n"
-    print "Type terms that are in 2.2 core and 2.3 ext/health-lifesci: %s \n\n" % core_types.intersection(new_health_types)
-    print "Type terms in the ext/health-lifesci but not 2.2 core: %s \n\n" % new_health_types.difference(core_types)
+#    print "Type terms that are in 2.2 core and 2.3 ext/health-lifesci: %s \n\n" % core_types.intersection(new_health_types)
+#    print "Type terms in the ext/health-lifesci but not 2.2 core: %s \n\n" % new_health_types.difference(core_types)
     print "\n\n"
 
     print "Property terms that are in 2.2 core and 2.3 ext/health-lifesci: %s \n\n" % core_props.intersection(new_health_props)
     print "Property terms in the ext/health-lifesci but not 2.2 core: %s \n\n" % new_health_props.difference(core_props)
+    print "Property terms in 2.2 core but not in ext/health-lifesci: %s \n\n" %  core_props.difference( new_health_props) 
     print "\n\n"
 
-    print "Enumuerated Value terms that are in 2.2 core and 2.3 ext/health-lifesci: %s \n\n" % core_enumvals.intersection(new_health_enumvals)
-    print "Enumerated Value in the ext/health-lifesci but not 2.2 core: %s \n\n" % new_health_enumvals.difference(new_health_enumvals)
+#    print "Enumuerated Value terms that are in 2.2 core and 2.3 ext/health-lifesci: %s \n\n" % core_enumvals.intersection(new_health_enumvals)
+#    print "Enumerated Value in the ext/health-lifesci but not 2.2 core: %s \n\n" % new_health_enumvals.difference(new_health_enumvals)
     print "\n\n"
 
 
     #print sdo_corev22_g.serialize(format="nt", encoding="utf-8")
+
+# note: breastfeedingWarning was dropped between 2.2 and 3.0 ext
