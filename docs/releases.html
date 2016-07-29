@@ -134,7 +134,7 @@ td.release  {
 
 
 <tr>
-<td class="release"><a href="/version/3.1/">(TODO: expected as 3.1)</a><br/>sdo-makemake<br/>(2016-XX-XX)</td>
+<td class="release"><a href="/version/3.1/">3.1</a><br/>sdo-makemake<br/>(2016-08-XX)</td>
 <span id="v.next"></span>
 <span id="sdo-makemake"></span>
 <span id="v3.1"></span>
@@ -142,16 +142,19 @@ td.release  {
 <p>
 Version 3.1 (working name 'sdo-makemake'). See <a href="https://github.com/schemaorg/schemaorg/issues/1">planning pages</a>, specifically <a href="https://github.com/schemaorg/schemaorg/issues/1212">#1212</a> for details.
 </p>
-<p>This release is primarily concerned with bug fixes.</p>
+<p>This release is primarily concerned with hotel/accomodation voacbulary, improvements around dataset, and bug fixes.</p>
 </td>
 
 <td>
-
-<h3>Site Improvements</h3>
-
 <h3>Vocabulary</h3>
 <ul>
-<li id="g1203"><a href="https://github.com/schemaorg/schemaorg/issues/1203">Issue #1203</a>: <a href="https://github.com/schemaorg/schemaorg/pull/1215">Fixes</a> accidental rollbacks in <a href="#v3.0">3.0</a>.
+<li id="g915"><a href="https://github.com/schemaorg/schemaorg/issues/915">Issue #915</a>: Added substantial vocabulary for hotels and related accomodation, alongside
+  a <a href="/docs/hotels.html">dedicated documentation page</a>. New vocabulary includes
+  <a href="http://webschemas.org/LodgingBusiness">LodgingBusiness</a>,
+  <a href="http://webschemas.org/Accommodation">Accommodation</a>, which can be used (via <a href="http://schema.org/docs/datamodel.html">multiple typing</a>)
+  alongside the existing <a href="/Offer">Offer</a> type.
+</li>
+<li id="g1203"><a href="https://github.com/schemaorg/schemaorg/issues/1203">Issue #1203</a>: <a href="https://github.com/schemaorg/schemaorg/pull/1215">Fixes</a> for accidental rollbacks in <a href="#v3.0">3.0</a>.
 See <a href="https://github.com/schemaorg/schemaorg/issues/1203">Github</a> for comprehensive analysis and details. Restored several definitions:
 <a href="/paymentStatus">paymentStatus</a> lacked <a href="/PaymentStatusType">PaymentStatusType</a> from <a href="#g518">#518</a>;
 <a href="/breastfeedingWarning">breastfeedingWarning</a>, <a href="/healthCondition">healthCondition</a>, <a href="/prescriptionStatus">prescriptionStatus</a>
@@ -165,9 +168,13 @@ and <a href="/secondaryPrevention">secondaryPrevention</a> have been migrated in
 rather than <a href="/TelevisionStation">TelevisionStation</a> (per <a href="g#577">#577</a>);
 <a href="/parentOrganization">parentOrganization</a> and <a href="/subOrganization">subOrganization</a> are noted as mutual inverses (per <a href="#g535">#g535</a>);
 <a href="/codeSampleType">codeSampleType</a> description improved per <a href="#g343">#343</a>;
-<a href="/netWorth">netWorth</a> definition now correctly omits <a href="/Organization">Organization</a> (per <a href="#g585">#585</a>).</li>
-<li id="g900"><a href="https://github.com/schemaorg/schemaorg/issues/900">Issue #900</a>: Extended <a href="/isAccessibleForFree">isAccessibleForFree</a> to be expected potentially on any event or CreativeWork.</li>
-<li id="g996"><a href="https://github.com/schemaorg/schemaorg/issues/996">Issue #996</a>: Added DateTime to expected values for startDate, endDate, commentTime.</li>
+<a href="/netWorth">netWorth</a> definition now correctly omits <a href="/Organization">Organization</a> (per <a href="#g585">#585</a>).
+</li>
+<li id="g900"><a href="https://github.com/schemaorg/schemaorg/issues/900">Issue #900</a>: Extended <a href="/isAccessibleForFree">isAccessibleForFree</a> to be expected potentially on any <a href="/Event">Event</a> or
+  <a href="/CreativeWork">CreativeWork</a>.</li>
+<li id="g996"><a href="https://github.com/schemaorg/schemaorg/issues/996">Issue #996</a>:
+  Added <a href="/DateTime">DateTime</a> to expected values for <a href="/startDate">startDate</a>, <a href="/endDate">endDate</a>, <a href="/commentTime">commentTime</a>.
+</li>
 </ul>
 
 <h3>Site improvements</h3>
@@ -179,8 +186,10 @@ rather than <a href="/TelevisionStation">TelevisionStation</a> (per <a href="g#5
   <a href="/DataDownload">DataDownload</a>. <a href="https://github.com/schemaorg/schemaorg/issues/1191">Amended</a> <a href="/fileFormat">fileFormat</a> to allow URL as a way of indicating niche or unregistered file formats (common for scientific datasets). Added a draft <a href="http://pending.webschemas.org/variablesMeasured">variablesMeasured</a> property to the
   <a href="http://pending.webschemas.org/">pending extension</a>.
 </li>
-<li id="g1234"><a href="https://github.com/schemaorg/schemaorg/issues/1234">Issue #1234</a>: <a href="https://github.com/schemaorg/schemaorg/pull/1242">Enhanced</a> incoming properties display (Instances of [...] may appear as values for the following properties) to include properties from extensions.</li>
-<li id="g479"><a href="https://github.com/schemaorg/schemaorg/issues/479">Issue #479</a>: Updated and clarified the <a href="/docs/datamodel.html">datamodel</a> document, including conformance section.</li>
+<li id="g1234"><a href="https://github.com/schemaorg/schemaorg/issues/1234">Issue #1234</a>: <a href="https://github.com/schemaorg/schemaorg/pull/1242">Enhanced</a> incoming properties display (Instances of [...] may appear as values for the following properties) to include properties from extensions.
+</li>
+<li id="g479"><a href="https://github.com/schemaorg/schemaorg/issues/479">Issue #479</a>: Updated and clarified the <a href="/docs/datamodel.html">datamodel</a> document, including conformance section.
+</li>
 </ul>
 
 <ul>
