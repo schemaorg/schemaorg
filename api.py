@@ -149,7 +149,7 @@ class DataCacheTool():
         self.tlocal.CurrentDataCache = current
         if(self._DataCache.get(current) == None):
             self._DataCache[current] = {}
-        #log.info("Setting _CurrentDataCache: %s",current)
+        log.debug("Setting _CurrentDataCache: %s",current)
 
     def getCurrent(self):
         return self.tlocal.CurrentDataCache
@@ -189,7 +189,7 @@ class PageStoreTool():
         
     def setCurrent(self,current):
         self.tlocal.CurrentStoreSet = current
-        #log.info("PageStore setting CurrentStoreSet: %s",current)
+        log.debug("PageStore setting CurrentStoreSet: %s",current)
         
     def put(self, key, val,cache=None):
         ca = self.getCurrent()
@@ -243,7 +243,7 @@ class HeaderStoreTool():
         
     def setCurrent(self,current):
         self.tlocal.CurrentStoreSet = current
-        #log.info("HeaderStore setting CurrentStoreSet: %s",current)
+        log.debug("HeaderStore setting CurrentStoreSet: %s",current)
         
     def put(self, key, val,cache=None):
         ca = self.getCurrent()

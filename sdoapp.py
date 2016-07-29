@@ -828,11 +828,13 @@ class ShowUnit (webapp2.RequestHandler):
         """Write out a table of incoming properties for a per-type page."""
         if not out:
             out = self
+            
+        layers=ALL_LAYERS # Show incomming properties from all layers
 
         headerPrinted = False
         di = Unit.GetUnit("domainIncludes")
         ri = Unit.GetUnit("rangeIncludes")
-#        log.info("Incomming for %s" % cl.id)
+        #log.info("Incomming for %s" % cl.id)
         for prop in sorted(GetSources(ri, cl, layers=layers), key=lambda u: u.id):
             if (prop.superseded(layers=layers)):
                 continue
@@ -917,9 +919,9 @@ class ShowUnit (webapp2.RequestHandler):
             else:
                 edomains.append(d) 
 
-        inverseprop = node.inverseproperty(layers=layers)
-        subprops = sorted(node.subproperties(layers=layers),key=lambda u: u.id)
-        superprops = sorted(node.superproperties(layers=layers),key=lambda u: u.id)
+        inverseprop = node.inverseproperty(layers=ALL_LAYERS)
+        subprops = sorted(node.subproperties(layers=ALL_LAYERS),key=lambda u: u.id)
+        superprops = sorted(node.superproperties(layers=ALL_LAYERS),key=lambda u: u.id)
 
 
         if (inverseprop != None):
@@ -948,7 +950,7 @@ class ShowUnit (webapp2.RequestHandler):
                 first_range = False
                 defin = "defined in the <a href=\"%s\">%s</a> extension" % (makeUrl(r.getHomeLayer(),""),r.getHomeLayer())
                 tt = "The '%s' property has values that include instances of the '%s' type." % (node.id, r.id)
-                out.write("\n    <code>%s</code> - %s" % (self.ml(d, r.id, tt, prop="domainIncludes",hashorslash=hashorslash),defin ))
+                out.write("\n    <code>%s</code> - %s" % (self.ml(r, r.id, tt, prop="domainIncludes",hashorslash=hashorslash),defin ))
             out.write("      </td>\n    </tr>\n</table>\n\n")
 
         first_domain = True
@@ -1463,6 +1465,27 @@ class ShowUnit (webapp2.RequestHandler):
 
             return True
 
+    def handleDumpsPage(self, node,  layerlist='core'):
+        self.response.headers['Content-Type'] = "text/html"
+        self.emitCacheHeaders()
+
+        if PageStore.get('DumpsPage'):
+            self.response.out.write( PageStore.get('DumpsPage') )
+            log.debug("Serving recycled DumpsPage.")
+            return True
+        else:
+            extensions = sorted(ENABLED_EXTENSIONS)
+
+            page = templateRender('developers.tpl',{'extensions': extensions,
+                                    'version': SCHEMA_VERSION,
+                                    'menu_sel': "Schemas"})
+
+            self.response.out.write( page )
+            log.debug("Serving fresh DumpsPage.")
+            PageStore.put("DumpsPage",page)
+
+            return True
+
     def getCounts(self):
         text = ""
         text += "The core vocabulary currently consists of %s Types, " % len(GetAllTypes("core"))
@@ -1584,6 +1607,7 @@ class ShowUnit (webapp2.RequestHandler):
     def handleExactTermPage(self, node, layers='core'):
         """Handle with requests for specific terms like /Person, /fooBar. """
 
+        self.response.headers['Content-Type'] = "text/html"
         self.emitCacheHeaders()
         schema_node = Unit.GetUnit(node) # e.g. "Person", "CreativeWork".
         #log.info("Node in layer: %s" % inLayer(layers, schema_node))
@@ -2012,7 +2036,7 @@ class ShowUnit (webapp2.RequestHandler):
                     HeaderStore.put(etag + tagsuff,retHdrs) #Cache these headers for a future 304 return
 
 
-    def _get(self, node):
+    def _get(self, node, doWarm=True):
 
         """Get a schema.org site page generated for this node/term.
 
@@ -2035,7 +2059,6 @@ class ShowUnit (webapp2.RequestHandler):
         
         Return True to enable browser caching ETag/Last-Modified - False for no cache
         """
-
         global_vars.time_start = datetime.datetime.now()
         tick() #keep system fresh
 
@@ -2043,8 +2066,6 @@ class ShowUnit (webapp2.RequestHandler):
             return False
 
         self.callCount()
-
-        self.emitHTTPHeaders(node)
 
         if (node in silent_skip_list):
             return False
@@ -2062,11 +2083,13 @@ class ShowUnit (webapp2.RequestHandler):
             else:
                 self.warmup()
             return False
-        else:  #Do a bit of warming on each call
+        elif doWarm:  #Do a bit of warming on each call
             global WarmedUp
             global Warmer
             if not WarmedUp:
-                Warmer.stepWarm()
+                Warmer.stepWarm(self)
+
+        self.emitHTTPHeaders(node) #Ensure we have the right basic header values
 
         if(node == "_ah/start"):
             log.info("Instance[%s] received Start request at %s" % (modules.get_current_instance_id(), global_vars.time_start) )
@@ -2082,18 +2105,24 @@ class ShowUnit (webapp2.RequestHandler):
                 log.info("Error handling JSON-LD context: %s" % node)
                 return False
 
-        if (node == "docs/full.html"): # DataCache.getDataCache.get
+        if (node == "docs/full.html"): 
             if self.handleFullHierarchyPage(node, layerlist=layerlist):
                 return True
             else:
                 log.info("Error handling full.html : %s " % node)
                 return False
 
-        if (node == "docs/schemas.html"): # DataCache.getDataCache.get
+        if (node == "docs/schemas.html"): 
             if self.handleSchemasPage(node, layerlist=layerlist):
                 return True
             else:
                 log.info("Error handling schemas.html : %s " % node)
+                return False
+        if (node == "docs/developers.html"): 
+            if self.handleDumpsPage(node, layerlist=layerlist):
+                return True
+            else:
+                log.info("Error handling developers.html : %s " % node)
                 return False
 
 
@@ -2236,49 +2265,59 @@ class ShowUnit (webapp2.RequestHandler):
         if WarmedUp:
             return
         log.debug("Instance[%s] received Warmup request at %s" % (modules.get_current_instance_id(), datetime.datetime.utcnow()) )
-        Warmer.warmAll()
+        Warmer.warmAll(self)
         log.debug("Instance[%s] completed Warmup request at %s" % (modules.get_current_instance_id(), datetime.datetime.utcnow()) )
 
 class WarmupTool():
 
     def __init__(self):
-        self.types = []
-        self.props = []
-        self.enums = []
-        self.context = False
+        self.pageList = ["docs/schemas.html","docs/full.html","docs/tree.jsonld"]
+        self.warmPages = {}
+        for l in ALL_LAYERS:
+            self.warmPages[l] = []
+        self.warmedLayers = []
 
-    def stepWarm(self,all=False):
+    def stepWarm(self, unit=None, layer=None):
         global WarmedUp
-        if WarmedUp:
+        if not layer: 
+            layer = getHostExt()
+            if layer == "":
+                layer = "core"
+        if not unit or WarmedUp:
             return
-        if len (self.types) < len(ALL_LAYERS):
-            for l in ALL_LAYERS:
-                if l not in self.types:
-                    self.types.append(l)
-                    GetAllTypes(l)
-                    break
-        elif len (self.props) < len(ALL_LAYERS):
-            for l in ALL_LAYERS:
-                if l not in self.props:
-                    self.props.append(l)
-                    GetAllProperties(l)
-                    break
-        elif len (self.enums) < len(ALL_LAYERS):
-            for l in ALL_LAYERS:
-                if l not in self.enums:
-                    self.enums.append(l)
-                    GetAllEnumerationValues(l)
-                    break
-        elif not self.context:
-            self.context = True
-            GetJsonLdContext(layers=ALL_LAYERS)
-        else:
-            WarmedUp = True
+        if layer in self.warmedLayers: #Done all for this layer
+            return
+        warmedPages = False
+        for p in self.pageList:
+            if p not in self.warmPages[layer]:
+                log.info("Warming page %s in layer %s" % (p,layer))
+                unit._get(p,doWarm=False)
+                unit.response.clear()
+                self.warmPages[layer].append(p)
+                if len(self.warmPages[layer]) == len(self.pageList):
+                    warmedPages = True
+                break
+        if warmedPages: #Must be all warmed for this layer
+            log.info("All warmed in layer %s" % layer)
+            self.warmedLayers.append(layer)
+            self.checkAll()
 
-    def warmAll(self):
+    def checkAll(self):
+        global WarmedUp
+        allDone = True
+        for l in ALL_LAYERS:
+            if l != "" and l not in self.warmedLayers:
+                allDone = False
+                break
+        if allDone:
+            WarmedUp = True
+            log.info("All layers warmed!")
+
+    def warmAll(self,unit):
         global WarmedUp
         while not WarmedUp:
-            self.stepWarm(True)
+            for l in ALL_LAYERS:
+                self.stepWarm(layer=l,unit=unit)
 
 Warmer = WarmupTool()
 
