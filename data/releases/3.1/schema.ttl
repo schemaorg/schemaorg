@@ -305,7 +305,8 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 schema:BedDetails a rdfs:Class ;
     rdfs:label "BedDetails" ;
     dct:source <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology> ;
-    rdfs:comment "An entity holding detailed information about the available bed types, e.g. the quantity of twin beds for a hotel room. For the single case of just one bed of a certain type, you can use bed directly with a text. See also <a class=\"localLink\" href=\"/BedType\">BedType</a> (under development)." .
+    rdfs:comment "An entity holding detailed information about the available bed types, e.g. the quantity of twin beds for a hotel room. For the single case of just one bed of a certain type, you can use bed directly with a text. See also <a class=\"localLink\" href=\"/BedType\">BedType</a> (under development)." ;
+    rdfs:subClassOf schema:Intangible .
 
 schema:BefriendAction a rdfs:Class ;
     rdfs:label "BefriendAction" ;
@@ -4121,7 +4122,8 @@ schema:amenityFeature a rdf:Property ;
     rdfs:label "amenityFeature" ;
     dct:source <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology> ;
     schema:domainIncludes schema:Accommodation,
-        schema:LodgingBusiness ;
+        schema:LodgingBusiness,
+        schema:Place ;
     schema:rangeIncludes schema:LocationFeatureSpecification ;
     rdfs:comment "An amenity feature (e.g. a characteristic or service) of the Accommodation. This generic property does not make a statement about whether the feature is included in an offer for the main accommodation or available at extra costs." .
 
@@ -5189,7 +5191,7 @@ schema:deliveryLeadTime a rdf:Property ;
     schema:domainIncludes schema:Demand,
         schema:Offer ;
     schema:rangeIncludes schema:QuantitativeValue ;
-    rdfs:comment "The typical delay between the receipt of the order and the goods leaving the warehouse." .
+    rdfs:comment "The typical delay between the receipt of the order and the goods either leaving the warehouse or being prepared for pickup, in case the delivery method is on site pickup." .
 
 schema:deliveryMethod a rdf:Property ;
     rdfs:label "deliveryMethod" ;
