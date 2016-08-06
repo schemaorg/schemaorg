@@ -1714,7 +1714,6 @@ class ShowUnit (webapp2.RequestHandler):
             version_rdfa = "data/releases/%s/schema.rdfa" % requested_version
             version_allhtml = "data/releases/%s/schema-all.html" % requested_version
             version_nt = "data/releases/%s/schema.nt" % requested_version
-
             if requested_format=="":
                 self.response.out.write( open(version_allhtml, 'r').read() )
                 return True
@@ -1738,7 +1737,7 @@ class ShowUnit (webapp2.RequestHandler):
         else:
             log.info("Unreleased version requested. We only understand requests for latest if unreleased.")
 
-            if requested_version != "latest":
+            if requested_version != "build-latest":
                 return False
                 log.info("giving up to 404.")
             else:
@@ -1799,12 +1798,18 @@ class ShowUnit (webapp2.RequestHandler):
                 az_prop_meta[pt]['rangelist'] = rangeList.toHTML()
                 az_prop_meta[pt]['domainlist'] = domainList.toHTML()
 
+            if requested_version == "build-latest":
+                requested_version = SCHEMA_VERSION
+                releasedate = "XXXX-XX-XX    (UNRELEASED PREVIEW VERSION)"
+            else:
+                releasedate = releaselog[str(SCHEMA_VERSION)]
+
             page = templateRender('fullReleasePage.tpl',
                     {"base_href": base_href,
                     'thing_tree': thing_tree,
                     'liveversion': SCHEMA_VERSION,
                     'requested_version': requested_version,
-                    'releasedate': releaselog[str(SCHEMA_VERSION)],
+                    'releasedate': releasedate,
                     'az_props': az_props, 'az_types': az_types,
                     'az_prop_meta': az_prop_meta, 'az_type_meta': az_type_meta,
                     'menu_sel': "Documentation"})
@@ -1993,7 +1998,7 @@ class ShowUnit (webapp2.RequestHandler):
 
         if not node or node == "":
             node = "/"
-            
+
         NotModified = False
         etag = getslug() + str(hash(node))
         jetag = etag + "json"
@@ -2037,7 +2042,6 @@ class ShowUnit (webapp2.RequestHandler):
 
 
     def _get(self, node, doWarm=True):
-
         """Get a schema.org site page generated for this node/term.
 
         Web content is written directly via self.response.
@@ -2134,7 +2138,18 @@ class ShowUnit (webapp2.RequestHandler):
                 log.info("Error handling JSON-LD schema tree: %s " % node)
                 return False
 
-        if (node == "version/3.0/" or node == "version/latest/" or "version/" in node):
+        currentVerPath = "version/%s" % SCHEMA_VERSION
+
+        if(node.startswith("version/latest")):
+            newurl = "%s%s" % (currentVerPath,node[14:])
+            log.info("REDIRECTING TO: %s" % newurl)
+            self.response.set_status(302,"Found")
+            self.response.headers['Location'] = makeUrl("",newurl)
+            self.emitCacheHeaders()
+            return False #don't cache this redirect
+
+        #Match nodes of pattern 'version/*' 'version/*/' or 'version/'
+        if (re.match(r'^version/[^/]*$', str(node)) or re.match(r'^version/[^/]*/$', str(node)) or node == "version/") :
             if self.handleFullReleasePage(node, layerlist=layerlist):
                 return True
             else:

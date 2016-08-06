@@ -7,7 +7,7 @@
     structured data on their web pages for use by search engines and other applications." />
     <link rel="stylesheet" type="text/css" href="/docs/schemaorg.css" />
 </head>
-<body>
+<body onload="updatetext()">
 
 {% include 'basicPageHeader.tpl' with context %}
 
@@ -34,22 +34,24 @@ This is a placeholder page for developer-oriented information about schema.org. 
 <p>
 	<table padding="2">
 	<tr><td>
-			File: <select id="filename">
-				<option value="{{staticPath}}/releases/{{version}}/schema">schema</option>
-				<option value="{{staticPath}}/releases/{{version}}/all-layers">all-layers</option>
+			File: <select id="filename"  onchange="updatetext()">
+				<option value="{{staticPath}}/version/latest/schema">schema</option>
+				<option value="{{staticPath}}/version/latest/all-layers">all-layers</option>
 				{% for ext in extensions %}
-					<option value="{{staticPath}}/releases/{{version}}/ext-{{ ext | safe }}">{{ ext | safe }}</option>
+					<option value="{{staticPath}}/version/latest/ext-{{ ext | safe }}">{{ ext | safe }}</option>
 				{% endfor %}
 			</select>
 	</td>
 	<td>
-		Format:  <select id="fileext">
+		Format:  <select id="fileext" onchange="updatetext()">
 				<option value=".nt">Triples</option>
 				<option value=".nq">Quads</option>
 				<option value=".jsonld">JSON-LD</option>
 				<option value=".ttl">Turtle</option>
 		</select>
 	</td></tr>
+	<tr><td colspan="2">
+		<div id="label"></div>
 	<tr><td colspan="2" align="centre">
 		<input type="button" onclick="dowloadfunc();" value="Download"></input>
 	</td></tr>
@@ -63,6 +65,11 @@ This is a placeholder page for developer-oriented information about schema.org. 
   <a href="../docs/terms.html">Terms and conditions</a></p>
 </div>
 <script>
+function updatetext(){
+	file = document.getElementById("filename").value + document.getElementById("fileext").value;
+	document.getElementById("label").innerHTML = file
+}
+
 function dowloadfunc(){
 	path = document.getElementById("filename").value;
 	ext = document.getElementById("fileext").value;
