@@ -1120,9 +1120,9 @@ schema:Demand a rdfs:Class ;
 schema:Dentist a rdfs:Class ;
     rdfs:label "Dentist" ;
     rdfs:comment "A dentist." ;
-    rdfs:subClassOf schema:MedicalBusiness,
-        schema:MedicalOrganization,
-        schema:ProfessionalService .
+    rdfs:subClassOf schema:LocalBusiness,
+        schema:MedicalBusiness,
+        schema:MedicalOrganization .
 
 schema:DepartAction a rdfs:Class ;
     rdfs:label "DepartAction" ;
@@ -3697,7 +3697,7 @@ schema:SurgicalProcedure a schema:MedicalProcedureType,
         rdfs:Class ;
     rdfs:label "SurgicalProcedure" ;
     schema:isPartOf <http://health-lifesci.schema.org> ;
-    rdfs:comment "A medical procedure involving an incision with instruments; performed for diagnose, or therapeutic purposes." ;
+    rdfs:comment "A type of medical procedure that involves invasive surgical techniques." ;
     rdfs:subClassOf schema:MedicalProcedure ;
     owl:equivalentClass <http://purl.bioontology.org/ontology/SNOMEDCT/387713003> .
 

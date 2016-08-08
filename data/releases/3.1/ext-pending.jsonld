@@ -63,28 +63,31 @@
       "rdfs:label": "grantsCredential"
     },
     {
-      "@id": "http://schema.org/broadcastFrequency",
+      "@id": "http://schema.org/coursePrerequisites",
       "@type": "rdf:Property",
       "http://purl.org/dc/terms/source": {
-        "@id": "https://github.com/schemaorg/schemaorg/issues/1004"
+        "@id": "https://github.com/schemaorg/schemaorg/issues/195"
       },
-      "http://schema.org/category": "issue-1004",
+      "http://schema.org/category": "issue-195",
       "http://schema.org/domainIncludes": {
-        "@id": "http://schema.org/BroadcastService"
+        "@id": "http://schema.org/Course"
       },
       "http://schema.org/isPartOf": {
         "@id": "http://pending.schema.org"
       },
       "http://schema.org/rangeIncludes": [
         {
+          "@id": "http://schema.org/Course"
+        },
+        {
           "@id": "http://schema.org/Text"
         },
         {
-          "@id": "http://schema.org/BroadcastFrequencySpecification"
+          "@id": "http://schema.org/AlignmentObject"
         }
       ],
-      "rdfs:comment": "The frequency used for over-the-air broadcasts.",
-      "rdfs:label": "broadcastFrequency"
+      "rdfs:comment": "Requirements for taking the Course. May be completion of another Course or a textual description like \"permission of instructor\". Requirements may be a pre-requisite competency, referenced using AlignmentObject.",
+      "rdfs:label": "coursePrerequisites"
     },
     {
       "@id": "http://schema.org/courseCredits",
@@ -248,6 +251,25 @@
       }
     },
     {
+      "@id": "http://schema.org/enumerationValueCode",
+      "@type": "rdf:Property",
+      "http://purl.org/dc/terms/source": {
+        "@id": "https://github.com/schemaorg/schemaorg/issues/894"
+      },
+      "http://schema.org/category": "issue-894",
+      "http://schema.org/domainIncludes": {
+        "@id": "http://schema.org/EnumerationValue"
+      },
+      "http://schema.org/isPartOf": {
+        "@id": "http://pending.schema.org"
+      },
+      "http://schema.org/rangeIncludes": {
+        "@id": "http://schema.org/Text"
+      },
+      "rdfs:comment": "A short textual code that uniquely identifies the value. The code is typically used in structured URLs.",
+      "rdfs:label": "enumerationValueCode"
+    },
+    {
       "@id": "http://schema.org/healthPlanCostSharing",
       "@type": "rdf:Property",
       "http://purl.org/dc/terms/source": {
@@ -256,10 +278,10 @@
       "http://schema.org/category": "issue-1062",
       "http://schema.org/domainIncludes": [
         {
-          "@id": "http://schema.org/HealthPlanNetwork"
+          "@id": "http://schema.org/HealthPlanFormulary"
         },
         {
-          "@id": "http://schema.org/HealthPlanFormulary"
+          "@id": "http://schema.org/HealthPlanNetwork"
         }
       ],
       "http://schema.org/isPartOf": {
@@ -365,23 +387,23 @@
       }
     },
     {
-      "@id": "http://schema.org/hasCourseInstance",
+      "@id": "http://schema.org/instructor",
       "@type": "rdf:Property",
       "http://purl.org/dc/terms/source": {
         "@id": "https://github.com/schemaorg/schemaorg/issues/195"
       },
       "http://schema.org/category": "issue-195",
       "http://schema.org/domainIncludes": {
-        "@id": "http://schema.org/Course"
+        "@id": "http://schema.org/CourseInstance"
       },
       "http://schema.org/isPartOf": {
         "@id": "http://pending.schema.org"
       },
       "http://schema.org/rangeIncludes": {
-        "@id": "http://schema.org/CourseInstance"
+        "@id": "http://schema.org/Person"
       },
-      "rdfs:comment": "An offering of the course at a specific time and place or through specific media or mode of study or to a specific section of students.",
-      "rdfs:label": "hasCourseInstance"
+      "rdfs:comment": "A person assigned to instruct or provide instructional assistance for the CourseInstance.",
+      "rdfs:label": "instructor"
     },
     {
       "@id": "http://schema.org/courseCreditsUnit",
@@ -452,30 +474,14 @@
       },
       "http://schema.org/rangeIncludes": [
         {
-          "@id": "http://schema.org/Person"
+          "@id": "http://schema.org/Organization"
         },
         {
-          "@id": "http://schema.org/Organization"
+          "@id": "http://schema.org/Person"
         }
       ],
       "rdfs:comment": "The (e.g. fictional) character, Person or Organization to whom the quotation is attributed within the containing CreativeWork.",
       "rdfs:label": "spokenByCharacter"
-    },
-    {
-      "@id": "http://schema.org/ClaimReview",
-      "@type": "rdfs:Class",
-      "http://purl.org/dc/terms/source": {
-        "@id": "https://github.com/schemaorg/schemaorg/issues/1061"
-      },
-      "http://schema.org/category": "issue-1061",
-      "http://schema.org/isPartOf": {
-        "@id": "http://pending.schema.org"
-      },
-      "rdfs:comment": "A fact-checking review of claims made (or reported) in some creative work (referenced via itemReviewed).",
-      "rdfs:label": "ClaimReview",
-      "rdfs:subClassOf": {
-        "@id": "http://schema.org/Review"
-      }
     },
     {
       "@id": "http://schema.org/usesHealthPlanIdStandard",
@@ -575,6 +581,30 @@
       "rdfs:label": "healthPlanNetworkTier"
     },
     {
+      "@id": "http://schema.org/healthPlanNetworkId",
+      "@type": "rdf:Property",
+      "http://purl.org/dc/terms/source": {
+        "@id": "https://github.com/schemaorg/schemaorg/issues/1062"
+      },
+      "http://schema.org/category": "issue-1062",
+      "http://schema.org/domainIncludes": [
+        {
+          "@id": "http://schema.org/MedicalOrganization"
+        },
+        {
+          "@id": "http://schema.org/HealthPlanNetwork"
+        }
+      ],
+      "http://schema.org/isPartOf": {
+        "@id": "http://pending.schema.org"
+      },
+      "http://schema.org/rangeIncludes": {
+        "@id": "http://schema.org/Text"
+      },
+      "rdfs:comment": "Name or unique ID of network. (Networks are often reused across different insurance plans).",
+      "rdfs:label": "healthPlanNetworkId"
+    },
+    {
       "@id": "http://schema.org/healthPlanDrugTier",
       "@type": "rdf:Property",
       "http://purl.org/dc/terms/source": {
@@ -583,10 +613,10 @@
       "http://schema.org/category": "issue-1062",
       "http://schema.org/domainIncludes": [
         {
-          "@id": "http://schema.org/HealthInsurancePlan"
+          "@id": "http://schema.org/HealthPlanFormulary"
         },
         {
-          "@id": "http://schema.org/HealthPlanFormulary"
+          "@id": "http://schema.org/HealthInsurancePlan"
         }
       ],
       "http://schema.org/isPartOf": {
@@ -618,31 +648,28 @@
       "rdfs:label": "offersPrescriptionByMail"
     },
     {
-      "@id": "http://schema.org/coursePrerequisites",
+      "@id": "http://schema.org/broadcastFrequency",
       "@type": "rdf:Property",
       "http://purl.org/dc/terms/source": {
-        "@id": "https://github.com/schemaorg/schemaorg/issues/195"
+        "@id": "https://github.com/schemaorg/schemaorg/issues/1004"
       },
-      "http://schema.org/category": "issue-195",
+      "http://schema.org/category": "issue-1004",
       "http://schema.org/domainIncludes": {
-        "@id": "http://schema.org/Course"
+        "@id": "http://schema.org/BroadcastService"
       },
       "http://schema.org/isPartOf": {
         "@id": "http://pending.schema.org"
       },
       "http://schema.org/rangeIncludes": [
         {
-          "@id": "http://schema.org/Course"
-        },
-        {
-          "@id": "http://schema.org/AlignmentObject"
+          "@id": "http://schema.org/BroadcastFrequencySpecification"
         },
         {
           "@id": "http://schema.org/Text"
         }
       ],
-      "rdfs:comment": "Requirements for taking the Course. May be completion of another Course or a textual description like \"permission of instructor\". Requirements may be a pre-requisite competency, referenced using AlignmentObject.",
-      "rdfs:label": "coursePrerequisites"
+      "rdfs:comment": "The frequency used for over-the-air broadcasts.",
+      "rdfs:label": "broadcastFrequency"
     },
     {
       "@id": "http://schema.org/Course",
@@ -843,33 +870,30 @@
       },
       "http://schema.org/rangeIncludes": [
         {
-          "@id": "http://schema.org/QualitativeValue"
+          "@id": "http://schema.org/Text"
         },
         {
-          "@id": "http://schema.org/Text"
+          "@id": "http://schema.org/QualitativeValue"
         }
       ],
       "rdfs:comment": "The modulation (e.g. FM, AM, etc) used by a particular broadcast service",
       "rdfs:label": "broadcastSignalModulation"
     },
     {
-      "@id": "http://schema.org/enumerationValueCode",
-      "@type": "rdf:Property",
+      "@id": "http://schema.org/ClaimReview",
+      "@type": "rdfs:Class",
       "http://purl.org/dc/terms/source": {
-        "@id": "https://github.com/schemaorg/schemaorg/issues/894"
+        "@id": "https://github.com/schemaorg/schemaorg/issues/1061"
       },
-      "http://schema.org/category": "issue-894",
-      "http://schema.org/domainIncludes": {
-        "@id": "http://schema.org/EnumerationValue"
-      },
+      "http://schema.org/category": "issue-1061",
       "http://schema.org/isPartOf": {
         "@id": "http://pending.schema.org"
       },
-      "http://schema.org/rangeIncludes": {
-        "@id": "http://schema.org/Text"
-      },
-      "rdfs:comment": "A short textual code that uniquely identifies the value. The code is typically used in structured URLs.",
-      "rdfs:label": "enumerationValueCode"
+      "rdfs:comment": "A fact-checking review of claims made (or reported) in some creative work (referenced via itemReviewed).",
+      "rdfs:label": "ClaimReview",
+      "rdfs:subClassOf": {
+        "@id": "http://schema.org/Review"
+      }
     },
     {
       "@id": "http://schema.org/accessMode",
@@ -990,25 +1014,6 @@
       }
     },
     {
-      "@id": "http://schema.org/linkRelationship",
-      "@type": "rdf:Property",
-      "http://purl.org/dc/terms/source": {
-        "@id": "https://github.com/schemaorg/schemaorg/issues/1045"
-      },
-      "http://schema.org/category": "issue-1045",
-      "http://schema.org/domainIncludes": {
-        "@id": "http://schema.org/LinkRole"
-      },
-      "http://schema.org/isPartOf": {
-        "@id": "http://pending.schema.org"
-      },
-      "http://schema.org/rangeIncludes": {
-        "@id": "http://schema.org/Text"
-      },
-      "rdfs:comment": "Indicates the relationship type of a Web link.",
-      "rdfs:label": "linkRelationship"
-    },
-    {
       "@id": "http://schema.org/EnumerationValue",
       "@type": "rdfs:Class",
       "http://purl.org/dc/terms/source": {
@@ -1025,25 +1030,6 @@
       }
     },
     {
-      "@id": "http://schema.org/instructor",
-      "@type": "rdf:Property",
-      "http://purl.org/dc/terms/source": {
-        "@id": "https://github.com/schemaorg/schemaorg/issues/195"
-      },
-      "http://schema.org/category": "issue-195",
-      "http://schema.org/domainIncludes": {
-        "@id": "http://schema.org/CourseInstance"
-      },
-      "http://schema.org/isPartOf": {
-        "@id": "http://pending.schema.org"
-      },
-      "http://schema.org/rangeIncludes": {
-        "@id": "http://schema.org/Person"
-      },
-      "rdfs:comment": "A person assigned to instruct or provide instructional assistance for the CourseInstance.",
-      "rdfs:label": "instructor"
-    },
-    {
       "@id": "http://schema.org/broadcastFrequencyValue",
       "@type": "rdf:Property",
       "http://purl.org/dc/terms/source": {
@@ -1058,14 +1044,33 @@
       },
       "http://schema.org/rangeIncludes": [
         {
-          "@id": "http://schema.org/Number"
+          "@id": "http://schema.org/QuantitativeValue"
         },
         {
-          "@id": "http://schema.org/QuantitativeValue"
+          "@id": "http://schema.org/Number"
         }
       ],
       "rdfs:comment": "The frequency in MHz for a particular broadcast.",
       "rdfs:label": "broadcastFrequencyValue"
+    },
+    {
+      "@id": "http://schema.org/healthPlanDrugOption",
+      "@type": "rdf:Property",
+      "http://purl.org/dc/terms/source": {
+        "@id": "https://github.com/schemaorg/schemaorg/issues/1062"
+      },
+      "http://schema.org/category": "issue-1062",
+      "http://schema.org/domainIncludes": {
+        "@id": "http://schema.org/HealthInsurancePlan"
+      },
+      "http://schema.org/isPartOf": {
+        "@id": "http://pending.schema.org"
+      },
+      "http://schema.org/rangeIncludes": {
+        "@id": "http://schema.org/Text"
+      },
+      "rdfs:comment": "TODO.",
+      "rdfs:label": "healthPlanDrugOption"
     },
     {
       "@id": "http://schema.org/isAcceptingNewPatients",
@@ -1115,38 +1120,33 @@
       }
     },
     {
-      "@id": "http://schema.org/healthPlanNetworkId",
+      "@id": "http://schema.org/hasCourseInstance",
       "@type": "rdf:Property",
       "http://purl.org/dc/terms/source": {
-        "@id": "https://github.com/schemaorg/schemaorg/issues/1062"
+        "@id": "https://github.com/schemaorg/schemaorg/issues/195"
       },
-      "http://schema.org/category": "issue-1062",
-      "http://schema.org/domainIncludes": [
-        {
-          "@id": "http://schema.org/HealthPlanNetwork"
-        },
-        {
-          "@id": "http://schema.org/MedicalOrganization"
-        }
-      ],
+      "http://schema.org/category": "issue-195",
+      "http://schema.org/domainIncludes": {
+        "@id": "http://schema.org/Course"
+      },
       "http://schema.org/isPartOf": {
         "@id": "http://pending.schema.org"
       },
       "http://schema.org/rangeIncludes": {
-        "@id": "http://schema.org/Text"
+        "@id": "http://schema.org/CourseInstance"
       },
-      "rdfs:comment": "Name or unique ID of network. (Networks are often reused across different insurance plans).",
-      "rdfs:label": "healthPlanNetworkId"
+      "rdfs:comment": "An offering of the course at a specific time and place or through specific media or mode of study or to a specific section of students.",
+      "rdfs:label": "hasCourseInstance"
     },
     {
-      "@id": "http://schema.org/healthPlanDrugOption",
+      "@id": "http://schema.org/linkRelationship",
       "@type": "rdf:Property",
       "http://purl.org/dc/terms/source": {
-        "@id": "https://github.com/schemaorg/schemaorg/issues/1062"
+        "@id": "https://github.com/schemaorg/schemaorg/issues/1045"
       },
-      "http://schema.org/category": "issue-1062",
+      "http://schema.org/category": "issue-1045",
       "http://schema.org/domainIncludes": {
-        "@id": "http://schema.org/HealthInsurancePlan"
+        "@id": "http://schema.org/LinkRole"
       },
       "http://schema.org/isPartOf": {
         "@id": "http://pending.schema.org"
@@ -1154,8 +1154,8 @@
       "http://schema.org/rangeIncludes": {
         "@id": "http://schema.org/Text"
       },
-      "rdfs:comment": "TODO.",
-      "rdfs:label": "healthPlanDrugOption"
+      "rdfs:comment": "Indicates the relationship type of a Web link.",
+      "rdfs:label": "linkRelationship"
     },
     {
       "@id": "http://schema.org/claimReviewed",
