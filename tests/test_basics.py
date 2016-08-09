@@ -513,7 +513,7 @@ class MarkDownTest(unittest.TestCase):
         from api import MD
         markstring = "This is _em_, __strong__, ___strong em___"
         html = MD.parse(markstring,True)
-        self.assertFalse(html != "<p>This is <em>em</em>, <strong>strong</strong>, <strong><em>strong em</em></strong></p>", "Markdown string not formatted correctly")
+        self.assertFalse(html != "<p>This is <em>em</em>, <strong>strong</strong>, <strong><em>strong em</em></strong></p>\n", "Markdown string not formatted correctly")
 
 class HasMultipleBaseTypesTests(unittest.TestCase):
 
