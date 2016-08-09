@@ -3697,7 +3697,7 @@ schema:SurgicalProcedure a schema:MedicalProcedureType,
         rdfs:Class ;
     rdfs:label "SurgicalProcedure" ;
     schema:isPartOf <http://health-lifesci.schema.org> ;
-    rdfs:comment "A type of medical procedure that involves invasive surgical techniques." ;
+    rdfs:comment "A medical procedure involving an incision with instruments; performed for diagnose, or therapeutic purposes." ;
     rdfs:subClassOf schema:MedicalProcedure ;
     owl:equivalentClass <http://purl.bioontology.org/ontology/SNOMEDCT/387713003> .
 
@@ -9822,7 +9822,8 @@ schema:numberOfPreviousOwners a rdf:Property ;
 schema:numberOfRooms a rdf:Property ;
     rdfs:label "numberOfRooms" ;
     dct:source <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology> ;
-    schema:domainIncludes schema:Apartment,
+    schema:domainIncludes schema:Accomodation,
+        schema:Apartment,
         schema:House,
         schema:SingleFamilyResidence,
         schema:Suite ;
