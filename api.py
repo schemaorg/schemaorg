@@ -1134,19 +1134,25 @@ def ShortenOnSentence(source,lengthHint=250):
             com += ".."
         source = com
     return source
-    
+
 class MarkdownTool():
     def __init__ (self):
         import markdown
         from markdown.extensions.wikilinks import WikiLinkExtension
         self._md = markdown.Markdown(extensions=[WikiLinkExtension(base_url='/', end_url='', html_class='localLink')])
+        self.parselock = threading.Lock() 
         
     def parse(self,source,preservePara=False):
         if not source or len(source) == 0:
             return ""
         source = source.strip()
         source = source.replace("\\n","\n")
-        ret = self._md.reset().convert(source)
+    	try:
+    		self.parselock.acquire()
+    		ret = self._md.reset().convert(source)
+    	finally:
+    		self.parselock.release()
+        
         if not preservePara:
             #Remove wrapping <p> </p> that Markdown adds by default
             if len(ret) > 7 and ret.startswith("<p>") and ret.endswith("</p>"):
