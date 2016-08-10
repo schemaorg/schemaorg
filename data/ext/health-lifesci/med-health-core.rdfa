@@ -876,7 +876,7 @@
 </div>
 
 <div typeof="http://schema.org/PhysicalExam" resource="http://schema.org/Appearance">
-  <span class="h" property="rdfs:label">Appearance </span>
+  <span class="h" property="rdfs:label">Appearance</span>
   <span property="rdfs:comment">Appearance assessment with clinical examination.</span>
 <link property="http://schema.org/isPartOf" href="http://health-lifesci.schema.org" />
 </div>
@@ -2846,6 +2846,43 @@
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Drug">Drug</a></span>
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/URL">URL</a></span>
+  <link property="http://schema.org/isPartOf" href="http://health-lifesci.schema.org" />
+</div>
+
+<h3>Additional properties (dropped in 3.0 migration, restored here)</h3>
+
+<div typeof="rdf:Property" resource="http://schema.org/breastfeedingWarning">
+  <span class="h" property="rdfs:label">breastfeedingWarning</span>
+  <span property="rdfs:comment">Any precaution, guidance, contraindication, etc. related to this drug's use by breastfeeding mothers.</span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Drug">Drug</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+  <link property="http://schema.org/isPartOf" href="http://health-lifesci.schema.org" />
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/secondaryPrevention">
+  <span class="h" property="rdfs:label">secondaryPrevention</span>
+  <span property="rdfs:comment">A preventative therapy used to prevent reoccurrence of the medical condition after an initial episode of the condition.</span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MedicalCondition">MedicalCondition</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/MedicalTherapy">MedicalTherapy</a></span>
+  <link property="http://schema.org/isPartOf" href="http://health-lifesci.schema.org" />
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/prescriptionStatus">
+  <span class="h" property="rdfs:label">prescriptionStatus</span>
+  <span property="rdfs:comment">Indicates the status of drug prescription eg. local catalogs classifications or whether the drug is available by prescription or over-the-counter, etc.</span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Drug">Drug</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/DrugPrescriptionStatus">DrugPrescriptionStatus</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+  <link property="http://schema.org/isPartOf" href="http://health-lifesci.schema.org" />
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/healthCondition">
+  <span class="h" property="rdfs:label">healthCondition</span>
+  <span property="rdfs:comment">Specifying the health condition(s) of a patient, medical study, or other target audience.</span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Patient">Patient</a></span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/PeopleAudience">PeopleAudience</a></span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MedicalStudy">MedicalStudy</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/MedicalCondition">MedicalCondition</a></span>
   <link property="http://schema.org/isPartOf" href="http://health-lifesci.schema.org" />
 </div>
 

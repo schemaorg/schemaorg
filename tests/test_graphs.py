@@ -201,6 +201,22 @@ class SDOGraphSetupTestCase(unittest.TestCase):
     #
     # self.assertEqual(len(ndi1_results), 0, "No domainIncludes or rangeIncludes value should lack a type. Found: %s " % len(ndi1_results ) )
 
+  def test_labelMatchesTermId(self):
+    nri1= ('''select ?term ?label where { 
+       ?term rdfs:label ?label.
+       BIND(STR(?term) AS ?strVal)
+       FILTER(STRLEN(?strVal) >= 18 && SUBSTR(?strVal, 1, 18) = "http://schema.org/")
+       FILTER(SUBSTR(?strVal, 19) != STR(?label))
+    }
+    ORDER BY ?term  ''')
+    nri1_results = self.rdflib_data.query(nri1)
+    if len(nri1_results):
+        log.info("Label matching errors:")
+        for row in nri1_results:
+            log.info("Term '%s' has none-matching label: '%s'" % (row["term"],row["label"]))
+    self.assertEqual(len(nri1_results), 0, "Term should have matching rdfs:label. Found: %s" % len(nri1_results))
+
+
 def tearDownModule():
     global warnings
     if len(warnings) > 0:

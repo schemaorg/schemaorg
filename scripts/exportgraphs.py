@@ -106,6 +106,10 @@ simpleFormat = False
 if args.format == "xml" or args.format == "nt" or args.format == "turtle":
     simpleFormat = True
     outGraph = rdflib.Graph()
+    outGraph.bind('owl', 'http://www.w3.org/2002/07/owl#')
+    outGraph.bind('rdfa', 'http://www.w3.org/ns/rdfa#')
+    outGraph.bind('dct', 'http://purl.org/dc/terms/')
+    outGraph.bind('schema', 'http://schema.org/')
 
 gs = sorted(list(store.graphs()),key=lambda u: u.identifier)
 

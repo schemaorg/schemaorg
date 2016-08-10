@@ -28,7 +28,7 @@ if __name__ == '__main__':
 	in_first.bind('schema', sdons)
 	in_second.bind('schema', sdons)
 
-#	print in_both.serialize(format="n3")
+	print in_both.serialize(format="n3")
 
-	print in_first.serialize(format="n3")
+#	print in_first.serialize(format="n3")
 #	print in_second.serialize(format="n3")

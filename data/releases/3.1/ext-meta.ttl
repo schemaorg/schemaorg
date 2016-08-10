@@ -1,0 +1,57 @@
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfa: <http://www.w3.org/ns/rdfa#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix schema: <http://schema.org/> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+schema:Class a rdfs:Class ;
+    rdfs:label "Class" ;
+    schema:isPartOf <http://meta.schema.org/> ;
+    rdfs:comment "A class, also often called a 'Type'; equivalent to rdfs:Class." ;
+    rdfs:subClassOf schema:Intangible .
+
+schema:Property a rdfs:Class ;
+    rdfs:label "Property" ;
+    schema:isPartOf <http://meta.schema.org/> ;
+    rdfs:comment "A property, used to indicate attributes and relationships of some Thing; equivalent to rdf:Property." ;
+    rdfs:subClassOf schema:Intangible .
+
+schema:category a rdf:Property ;
+    schema:domainIncludes schema:Class,
+        schema:Property .
+
+schema:domainIncludes a rdf:Property ;
+    rdfs:label "domainIncludes" ;
+    schema:domainIncludes schema:Property ;
+    schema:isPartOf <http://meta.schema.org/> ;
+    schema:rangeIncludes schema:Class ;
+    rdfs:comment "Relates a property to a class that is (one of) the type(s) the property is expected to be used on." .
+
+schema:inverseOf a rdf:Property ;
+    rdfs:label "inverseOf" ;
+    schema:domainIncludes schema:Property ;
+    schema:isPartOf <http://meta.schema.org/> ;
+    schema:rangeIncludes schema:Property ;
+    rdfs:comment "Relates a property to a property that is its inverse. Inverse properties relate the same pairs of items to each other, but in reversed direction. For example, the 'alumni' and 'alumniOf' properties are inverseOf each other. Some properties don't have explicit inverses; in these situations RDFa and JSON-LD syntax for reverse properties can be used." .
+
+schema:rangeIncludes a rdf:Property ;
+    rdfs:label "rangeIncludes" ;
+    schema:domainIncludes schema:Property ;
+    schema:isPartOf <http://meta.schema.org/> ;
+    schema:rangeIncludes schema:Class ;
+    rdfs:comment "Relates a property to a class that constitutes (one of) the expected type(s) for values of the property." .
+
+schema:supersededBy a rdf:Property ;
+    rdfs:label "supersededBy" ;
+    schema:domainIncludes schema:Class,
+        schema:Enumeration,
+        schema:Property ;
+    schema:isPartOf <http://meta.schema.org/> ;
+    schema:rangeIncludes schema:Class,
+        schema:Enumeration,
+        schema:Property ;
+    rdfs:comment "Relates a term (i.e. a property, class or enumeration) to one that supersedes it." .
+
