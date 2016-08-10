@@ -8,4 +8,4 @@ appcfg.py update .   -A webschemas
 ### 
 ##### appcfg.py update .   -A sdo-deimos
 
-appcfg.py update .   -A sdo-makemake
+appcfg.py update .   -A sdo-callisto
