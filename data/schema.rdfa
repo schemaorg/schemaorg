@@ -18,17 +18,19 @@
   <body>
     <h1>Schema.org core schema</h1>
 
-    <p>This is the RDFa representation of the schema.org schema, the underlying representation of the schema.org vocabulary.</p>
+    <p>This is an RDFa-based representation of the schema.org schema, the underlying representation of the schema.org vocabulary.</p>
 
     <p>It is represented in a form based on W3C RDF/RDFS. We encourage proposals for schema.org improvements to be expressed
-      in this same style. For Discussion please use the W3C <a href="mailto:public-vocabs@w3.org">Web schemas</a> group.</p>
+      in this same style. See the <a href="http://schema.org/docs/howwework.html">how we work</a> document for information on collaboration.</p>
     <p>
-    See <a href="http://schema.org/docs/datamodel.html">datamodel</a> for more details.
+    See <a href="http://schema.org/docs/datamodel.html">datamodel</a> for more details,
+    the <a href="http://schema.org/docs/developers.html">developers</a> page for alternate formats.
     </p>
     <p>
       Note: the style of RDFa used here may change in the future. To see the substantive content of the schema, view the
       HTML source markup. We use a simple subset of RDFa for syntax, including prefixes that are declared in the
-      <a href="http://www.w3.org/2011/rdfa-context/rdfa-1.1">RDFa initial context</a>.
+      <a href="http://www.w3.org/2011/rdfa-context/rdfa-1.1">RDFa initial context</a>. We also use Markdown syntax within comments to
+      make hypertext documentation easier to edit. Other <a href="http://schema.org/docs/developers.html#formats">formats</a> are available.
     </p>
 
     <hr />
@@ -84,10 +86,10 @@
 
 
     <div typeof="rdfs:Class" resource="http://schema.org/Dentist">
-      <span class="h" property="rdfs:label"> Dentist</span>
+      <span class="h" property="rdfs:label">Dentist</span>
       <span property="rdfs:comment">A dentist.</span>
       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MedicalOrganization">MedicalOrganization</a></span>
-      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/ProfessionalService"> schema:ProfessionalService</a></span>
+      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/LocalBusiness">LocalBusiness</a></span>
     </div>
 
     <div typeof="rdfs:Class" resource="http://schema.org/Hospital">
@@ -1221,7 +1223,7 @@ See also the &lt;a href=&quot;/docs/hotels.html&quot;&gt;dedicated document on t
     </div>
 
     <div typeof="rdfs:Class" resource="http://schema.org/ComputerLanguage">
-      <span class="h" property="rdfs:label">ComputerLanguageLanguage</span>
+      <span class="h" property="rdfs:label">ComputerLanguage</span>
       <span property="rdfs:comment">This type covers computer programming languages such as Scheme and Lisp, as well as other language-like computer representations. Natural languages are best represented with the [[Language]] type.</span>
        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Intangible">Intangible</a></span>
     </div>
@@ -3777,8 +3779,9 @@ The place is __open__ if the [[opens]] property is specified, and __closed__ oth
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/author">
       <span class="h" property="rdfs:label">author</span>
-      <span property="rdfs:comment">The author of this content. Please note that author is special in that HTML 5 provides a special mechanism for indicating authorship via the rel tag. That is equivalent to this and may be used interchangeably.</span>
+      <span property="rdfs:comment">The author of this content or rating. Please note that author is special in that HTML 5 provides a special mechanism for indicating authorship via the rel tag. That is equivalent to this and may be used interchangeably.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CreativeWork">CreativeWork</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Rating">Rating</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Organization">Organization</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Person">Person</a></span>
     </div>
@@ -4205,6 +4208,7 @@ The place is __open__ if the [[opens]] property is specified, and __closed__ oth
       <span property="rdfs:comment">The time at which the UserComment was made.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/UserComments">UserComments</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Date">Date</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/DateTime">DateTime</a></span>
     </div>
 
 
@@ -4451,7 +4455,7 @@ The place is __open__ if the [[opens]] property is specified, and __closed__ oth
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/deliveryLeadTime">
       <span class="h" property="rdfs:label">deliveryLeadTime</span>
-      <span property="rdfs:comment">The typical delay between the receipt of the order and the goods leaving the warehouse.</span>
+      <span property="rdfs:comment">The typical delay between the receipt of the order and the goods either leaving the warehouse or being prepared for pickup, in case the delivery method is on site pickup.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Offer">Offer</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Demand">Demand</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/QuantitativeValue">QuantitativeValue</a></span>
@@ -5001,6 +5005,8 @@ The place is __open__ if the [[opens]] property is specified, and __closed__ oth
     <div typeof="rdf:Property" resource="http://schema.org/isAccessibleForFree">
       <span class="h" property="rdfs:label">isAccessibleForFree</span>
       <span property="rdfs:comment">A flag to signal that the publication is accessible for free.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CreativeWork">CreativeWork</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Event">Event</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/PublicationEvent">PublicationEvent</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Boolean">Boolean</a></span>
     </div>
@@ -5182,7 +5188,7 @@ The place is __open__ if the [[opens]] property is specified, and __closed__ oth
       <span property="rdfs:comment">The hours during which this service or contact is available.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ContactPoint">ContactPoint</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Service">Service</a></span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/AccommodationFeature">AccommodationFeature</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/LocationFeatureSpecification">LocationFeatureSpecification</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/OpeningHoursSpecification">OpeningHoursSpecification</a></span>
     </div>
 
@@ -5309,7 +5315,7 @@ The place is __open__ if the [[opens]] property is specified, and __closed__ oth
     </div>
 
     <div typeof="rdf:Property" resource="http://schema.org/isBasedOn">
-      <span class="h" property="rdfs:label">isBasedOnUrl</span>
+      <span class="h" property="rdfs:label">isBasedOn</span>
       <span property="rdfs:comment">A resource that was used in the creation of this resource. This term can be repeated for multiple sources. For example, http://example.com/great-multiplication-intro.html.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CreativeWork">CreativeWork</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/URL">URL</a></span>
@@ -5443,7 +5449,9 @@ The place is __open__ if the [[opens]] property is specified, and __closed__ oth
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Demand">Demand</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Product">Product</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Service">Service</a></span>
+<!-- #1264
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Accommodation">Accommodation</a></span>
+    -->
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/itemReviewed">
       <span class="h" property="rdfs:label">itemReviewed</span>
@@ -5890,11 +5898,11 @@ The place is __open__ if the [[opens]] property is specified, and __closed__ oth
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Event">Event</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Product">Product</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Service">Service</a></span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Accommodation">Accommodation</a></span>
+<!--      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Accommodation">Accommodation</a></span> #1264 -->
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/AggregateOffer">AggregateOffer</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Offer">Offer</a></span>
     </div>
-    <div typeof="rdf:Property" resource="http://schema.org/">
+    <div typeof="rdf:Property" resource="http://schema.org/openingHours">
       <span class="h" property="rdfs:label">openingHours</span>
       <span property="rdfs:comment">The general opening hours for a business. Opening hours can be specified as a weekly time range, starting with days, then times per day. Multiple days can be listed with commas ',' separating each day. Day or time ranges are specified using a hyphen '-'.\n\n* Days are specified using the following two-letter combinations: ```Mo```, ```Tu```, ```We```, ```Th```, ```Fr```, ```Sa```, ```Su```.\n* Times are specified using 24:00 time. For example, 3pm is specified as ```15:00```. \n* Here is an example: &lt;code&gt;&amp;lt;time itemprop="openingHours" datetime=&amp;quot;Tu,Th 16:00-20:00&amp;quot;&amp;gt;Tuesdays and Thursdays 4-8pm&amp;lt;/time&amp;gt;&lt;/code&gt;.\n* If a business is open 7 days a week, then it can be specified as &lt;code&gt;&amp;lt;time itemprop=&amp;quot;openingHours&amp;quot; datetime=&amp;quot;Mo-Su&amp;quot;&amp;gt;Monday through Sunday, all day&amp;lt;/time&amp;gt;&lt;/code&gt;.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/LocalBusiness">LocalBusiness</a></span>
@@ -6988,6 +6996,7 @@ The place is __open__ if the [[opens]] property is specified, and __closed__ oth
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CreativeWorkSeason">CreativeWorkSeason</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CreativeWorkSeries">CreativeWorkSeries</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Date">Date</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/DateTime">DateTime</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/startTime">
       <span class="h" property="rdfs:label">startTime</span>
@@ -7256,7 +7265,9 @@ The place is __open__ if the [[opens]] property is specified, and __closed__ oth
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/TypeAndQuantityNode">TypeAndQuantityNode</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Product">Product</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Service">Service</a></span>
+      <!-- #1264
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Accommodation">Accommodation</a></span>
+    -->
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/typicalAgeRange">
       <span class="h" property="rdfs:label">typicalAgeRange</span>
@@ -7305,7 +7316,7 @@ The place is __open__ if the [[opens]] property is specified, and __closed__ oth
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Demand">Demand</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/OpeningHoursSpecification">OpeningHoursSpecification</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Permit">Permit</a></span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/AccommodationFeature">AccommodationFeature</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/LocationFeatureSpecification">LocationFeatureSpecification</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/DateTime">DateTime</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/validIn">
@@ -7323,7 +7334,7 @@ The place is __open__ if the [[opens]] property is specified, and __closed__ oth
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Demand">Demand</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/JobPosting">JobPosting</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/OpeningHoursSpecification">OpeningHoursSpecification</a></span>
-      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/AccommodationFeature">AccommodationFeature</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/LocationFeatureSpecification">LocationFeatureSpecification</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/DateTime">DateTime</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/validUntil">
@@ -8831,15 +8842,15 @@ postponing for 1.6.
   <span property="rdfs:comment">Game server status: Online. Server is available.</span>
 </div>
 <div typeof="http://schema.org/GameServerStatus" resource="http://schema.org/OnlineFull">
-  <span class="h" property="rdfs:label">OnlineFull </span>
+  <span class="h" property="rdfs:label">OnlineFull</span>
   <span property="rdfs:comment">Game server status: OnlineFull. Server is online but unavailable. The maximum number of players has reached.</span>
 </div>
 <div typeof="http://schema.org/GameServerStatus" resource="http://schema.org/OfflineTemporarily">
-  <span class="h" property="rdfs:label">OfflineTemporarily </span>
+  <span class="h" property="rdfs:label">OfflineTemporarily</span>
   <span property="rdfs:comment">Game server status: OfflineTemporarily. Server is offline now but it can be online soon.</span>
 </div>
 <div typeof="http://schema.org/GameServerStatus" resource="http://schema.org/OfflinePermanently">
-  <span class="h" property="rdfs:label">OfflinePermanently </span>
+  <span class="h" property="rdfs:label">OfflinePermanently</span>
   <span property="rdfs:comment">Game server status: OfflinePermanently. Server is offline and not available.</span>
 </div>
 
@@ -9496,6 +9507,7 @@ postponing for 1.6.
     </span>
     <span>
       Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Date">Date</a>
+      Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/DateTime">DateTime</a>
     </span>
   </div>
 </div>
@@ -9689,7 +9701,7 @@ Standards bodies should promote a standard prefix for the identifiers of propert
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Event">Event</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/broadcastTimezone">
-      <span class="h" property="rdfs:label">timezone</span>
+      <span class="h" property="rdfs:label">broadcastTimezone</span>
       <span property="rdfs:comment">The timezone in [ISO 8601 format](http://en.wikipedia.org/wiki/ISO_8601) for which the service bases its broadcasts</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/BroadcastService">BroadcastService</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
@@ -9824,7 +9836,7 @@ Standards bodies should promote a standard prefix for the identifiers of propert
 </div>
 
 <div typeof="rdf:Property" resource="http://schema.org/vehicleIdentificationNumber"><!-- formerly vin -->
-    <span class="h" property="rdfs:label">vin</span>
+    <span class="h" property="rdfs:label">vehicleIdentificationNumber</span>
     <span property="rdfs:comment">The Vehicle Identification Number (VIN) is a unique serial number used by the automotive industry to identify individual motor vehicles.</span>
      <link property="rdfs:subPropertyOf" href="http://schema.org/serialNumber" />
     <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Vehicle">Vehicle</a></span>
@@ -10084,7 +10096,7 @@ Standards bodies should promote a standard prefix for the identifiers of propert
 </div>
 
 <div typeof="rdfs:Class" resource="http://schema.org/LiveBlogPosting">
-  <span class="h" property="rdfs:label">LiveBlog</span>
+  <span class="h" property="rdfs:label">LiveBlogPosting</span>
   <span property="rdfs:comment">A blog post intended to provide a rolling textual coverage of an ongoing event through continuous updates.</span>
   <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/BlogPosting">BlogPosting</a></span>
 </div>
@@ -10758,7 +10770,7 @@ See also the &lt;a href=&quot;/docs/hotels.html&quot;&gt;dedicated document on t
 </div>
 
 <div typeof="rdfs:Class" resource="http://schema.org/HotelRoom">
-    <span class="h" property="rdfs:label">Hotel Room</span>
+    <span class="h" property="rdfs:label">HotelRoom</span>
     <span property="rdfs:comment">A hotel room is a single room in a hotel.
 &lt;br /&gt;&lt;br /&gt;
 See also the &lt;a href=&quot;/docs/hotels.html&quot;&gt;dedicated document on the use of schema.org for marking up hotels and other forms of accommodations&lt;/a&gt;.
@@ -10820,33 +10832,28 @@ See also the &lt;a href=&quot;/docs/hotels.html&quot;&gt;dedicated document on t
     <span>Source:  <a property="dc:source" href="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology">STI Accommodation Ontology</a></span>
 </div>
 
-<div typeof="rdfs:Class" resource="http://schema.org/AccommodationFeature">
-    <span class="h" property="rdfs:label">AccommodationFeature</span>
-    <span property="rdfs:comment">An accommodation feature is a structured value representing the feature of an accommodation as a property-value pair of varying degrees of formality.</span>
+<div typeof="rdfs:Class" resource="http://schema.org/LocationFeatureSpecification">
+    <span class="h" property="rdfs:label">LocationFeatureSpecification</span>
+    <span property="rdfs:comment">Specifies a location feature by providing a structured value representing a feature of an accommodation as a property-value pair of varying degrees of formality.</span>
     <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/PropertyValue">PropertyValue</a></span>
     <span>Source:  <a property="dc:source" href="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology">STI Accommodation Ontology</a></span>
 </div>
 
 <div typeof="rdfs:Class" resource="http://schema.org/BedDetails">
     <span class="h" property="rdfs:label">BedDetails</span>
-    <span property="rdfs:comment">An entity holding detailed information about the available bed types, e.g. the quantity of twin beds for a hotel room. For the single case of just one bed of a certain type, you can use bed directly with a text or a BedType instances.</span>
-    <span>Source:  <a property="dc:source" href="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology">STI Accommodation Ontology</a></span>
-</div>
-
-<div typeof="rdfs:Class" resource="http://schema.org/BedType">
-    <span class="h" property="rdfs:label">BedType</span>
-    <span property="rdfs:comment">A type of bed. This is used for indicating the bed or beds available in an accommodation.</span>
-    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/QualitativeValue">QualitativeValue</a></span>
+    <span property="rdfs:comment">An entity holding detailed information about the available bed types, e.g. the quantity of twin beds for a hotel room. For the single case of just one bed of a certain type, you can use bed directly with a text. See also [[BedType]] (under development).</span>
+    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Intangible">Intangible</a></span>
     <span>Source:  <a property="dc:source" href="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology">STI Accommodation Ontology</a></span>
 </div>
 
 <!-- Properties -->
-<div typeof="rdf:Property" resource="http://schema.org/feature">
-    <span class="h" property="rdfs:label">feature</span>
-    <span property="rdfs:comment">A feature (e.g. a characteristic or service) of the Accommodation. This generic property does not make a statement about whether the feature is included in the offer for the main accommodation or available at extra costs.</span>
+<div typeof="rdf:Property" resource="http://schema.org/amenityFeature">
+    <span class="h" property="rdfs:label">amenityFeature</span>
+    <span property="rdfs:comment">An amenity feature (e.g. a characteristic or service) of the Accommodation. This generic property does not make a statement about whether the feature is included in an offer for the main accommodation or available at extra costs.</span>
     <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Accommodation">Accommodation</a></span>
     <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/LodgingBusiness">LodgingBusiness</a></span>
-    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/AccommodationFeature">AccommodationFeature</a></span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Place">Place</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/LocationFeatureSpecification">LocationFeatureSpecification</a></span>
     <span>Source:  <a property="dc:source" href="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology">STI Accommodation Ontology</a></span>
 </div>
 
@@ -10855,18 +10862,17 @@ See also the &lt;a href=&quot;/docs/hotels.html&quot;&gt;dedicated document on t
     <span property="rdfs:comment">The type of bed to which the BedDetail refers, i.e. the type of bed available in the quantity indicated by quantity.</span>
     <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/BedDetails">BedDetails</a></span>
     <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
-    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/BedType">BedType</a></span>
     <span>Source:  <a property="dc:source" href="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology">STI Accommodation Ontology</a></span>
 </div>
 
 <div typeof="rdf:Property" resource="http://schema.org/bed">
     <span class="h" property="rdfs:label">bed</span>
-    <span property="rdfs:comment">The type of bed or beds included in the accommodation. For the single case of just one bed of a certain type, you use bed directly with a text or a BedType instance. If you want to indicate the quantity of a certain BedType, use an instance of BedDetails. For more detailed information, use the feature property.</span>
+    <span property="rdfs:comment">The type of bed or beds included in the accommodation. For the single case of just one bed of a certain type, you use bed directly with a text.
+      If you want to indicate the quantity of a certain kind of bed, use an instance of BedDetails. For more detailed information, use the amenityFeature property.</span>
     <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/HotelRoom">HotelRoom</a></span>
     <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Suite">Suite</a></span>
     <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
     <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/BedDetails">BedDetails</a></span>
-    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/BedType">BedType</a></span>
     <span>Source:  <a property="dc:source" href="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology">STI Accommodation Ontology</a></span>
 </div>
 
@@ -10875,7 +10881,7 @@ See also the &lt;a href=&quot;/docs/hotels.html&quot;&gt;dedicated document on t
     <span property="rdfs:comment">The number of rooms (excluding bathrooms and closets) of the acccommodation or lodging business.
 Typical unit code(s): ROM for room or C62 for no unit. The type of room can be put in the unitText property of the QuantitativeValue.</span>
     <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/House">House</a></span>
-    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/House">House</a></span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Accommodation">Accommodation</a></span>
     <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Apartment">Apartment</a></span>
     <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Suite">Suite</a></span>
     <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/SingleFamilyResidence">SingleFamilyResidence</a></span>
@@ -10943,8 +10949,9 @@ Typical unit code(s): C62 for person</span>
 
 <div typeof="rdf:Property" resource="http://schema.org/starRating">
     <span class="h" property="rdfs:label">starRating</span>
-    <span property="rdfs:comment">An official rating for the lodging business, e.g. from national associations or standards bodies. Use the name property for indicating the type of the rating (e.g. HOTREC, DEHOGA, WHR, or Hotelstars).</span>
+    <span property="rdfs:comment">An official rating for a lodging business or food establishment, e.g. from national associations or standards bodies. Use the author property to indicate the rating organization, e.g. as an Organization with name such as (e.g. HOTREC, DEHOGA, WHR, or Hotelstars).</span>
     <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/LodgingBusiness">LodgingBusiness</a></span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/FoodEstablishment">FoodEstablishment</a></span>
     <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Rating">Rating</a></span>
     <span>Source:  <a property="dc:source" href="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology">STI Accommodation Ontology</a></span>
 </div>

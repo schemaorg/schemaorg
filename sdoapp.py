@@ -44,7 +44,7 @@ sitemode = "mainsite" # whitespaced list for CSS tags,
             # e.g. "mainsite testsite" when off expected domains
             # "extensionsite" when in an extension (e.g. blue?)
 
-releaselog = { "2.0": "2015-05-13", "2.1": "2015-08-06", "2.2": "2015-11-05", "3.0": "2016-05-04" }
+releaselog = { "2.0": "2015-05-13", "2.1": "2015-08-06", "2.2": "2015-11-05", "3.0": "2016-05-04", "3.1": "2016-08-09" }
 
 silent_skip_list =  [ "favicon.ico" ] # Do nothing for now
 
@@ -828,11 +828,13 @@ class ShowUnit (webapp2.RequestHandler):
         """Write out a table of incoming properties for a per-type page."""
         if not out:
             out = self
+            
+        layers=ALL_LAYERS # Show incomming properties from all layers
 
         headerPrinted = False
         di = Unit.GetUnit("domainIncludes")
         ri = Unit.GetUnit("rangeIncludes")
-#        log.info("Incomming for %s" % cl.id)
+        #log.info("Incomming for %s" % cl.id)
         for prop in sorted(GetSources(ri, cl, layers=layers), key=lambda u: u.id):
             if (prop.superseded(layers=layers)):
                 continue
@@ -917,9 +919,9 @@ class ShowUnit (webapp2.RequestHandler):
             else:
                 edomains.append(d) 
 
-        inverseprop = node.inverseproperty(layers=layers)
-        subprops = sorted(node.subproperties(layers=layers),key=lambda u: u.id)
-        superprops = sorted(node.superproperties(layers=layers),key=lambda u: u.id)
+        inverseprop = node.inverseproperty(layers=ALL_LAYERS)
+        subprops = sorted(node.subproperties(layers=ALL_LAYERS),key=lambda u: u.id)
+        superprops = sorted(node.superproperties(layers=ALL_LAYERS),key=lambda u: u.id)
 
 
         if (inverseprop != None):
@@ -948,7 +950,7 @@ class ShowUnit (webapp2.RequestHandler):
                 first_range = False
                 defin = "defined in the <a href=\"%s\">%s</a> extension" % (makeUrl(r.getHomeLayer(),""),r.getHomeLayer())
                 tt = "The '%s' property has values that include instances of the '%s' type." % (node.id, r.id)
-                out.write("\n    <code>%s</code> - %s" % (self.ml(d, r.id, tt, prop="domainIncludes",hashorslash=hashorslash),defin ))
+                out.write("\n    <code>%s</code> - %s" % (self.ml(r, r.id, tt, prop="domainIncludes",hashorslash=hashorslash),defin ))
             out.write("      </td>\n    </tr>\n</table>\n\n")
 
         first_domain = True
@@ -1062,11 +1064,10 @@ class ShowUnit (webapp2.RequestHandler):
         # print "accept_header: " + str(accept_header) + " mimereq: "+str(mimereq) + "Scores H:{0} XH:{1} J:{2} ".format(html_score,xhtml_score,jsonld_score)
 
         if (ENABLE_JSONLD_CONTEXT and (jsonld_score < html_score and jsonld_score < xhtml_score)):
-            jsonldcontext = GetJsonLdContext(layers=ALL_LAYERS)
-            self.response.headers['Content-Type'] = "application/ld+json"
-            #self.emitCacheHeaders()
-            self.response.out.write( jsonldcontext )
-            return True
+            self.response.set_status(302,"Found")
+            self.response.headers['Location'] = makeUrl("","docs/jsonldcontext.json")
+            self.emitCacheHeaders()
+            return False #don't cache this redirect
         else:
             # Serve a homepage from template
             # the .tpl has responsibility for extension homepages
@@ -1091,7 +1092,7 @@ class ShowUnit (webapp2.RequestHandler):
                 #log.info("Served and cached fresh homepage.tpl key: %s " % sitekeyedhomepage)
                 PageStore.put(sitekeyedhomepage, page)
                 #            self.response.out.write( open("static/index.html", 'r').read() )
-            return True
+            return False # - Not caching homepage 
         log.info("Warning: got here how?")
         return False
 
@@ -1420,15 +1421,20 @@ class ShowUnit (webapp2.RequestHandler):
             self.error(404)
             self.response.out.write('<title>404 Not Found.</title><a href="/">404 Not Found (JSON-LD Context not enabled.)</a><br/><br/>')
             return True
-
-        if (node=="docs/jsonldcontext.json.txt"):
+            
+        jsonldcontext = ""
+        if PageStore.get("JSONLDCONTEXT"):
+            jsonldcontext = PageStore.get("JSONLDCONTEXT")
+        else:
             jsonldcontext = GetJsonLdContext(layers=ALL_LAYERS)
+            PageStore.put("JSONLDCONTEXT",jsonldcontext)
+            
+        if (node=="docs/jsonldcontext.json.txt"):
             self.response.headers['Content-Type'] = "text/plain"
             self.emitCacheHeaders()
             self.response.out.write( jsonldcontext )
             return True
         if (node=="docs/jsonldcontext.json"):
-            jsonldcontext = GetJsonLdContext(layers=ALL_LAYERS)
             self.response.headers['Content-Type'] = "application/ld+json"
             self.emitCacheHeaders()
             self.response.out.write( jsonldcontext )
@@ -1470,7 +1476,7 @@ class ShowUnit (webapp2.RequestHandler):
         else:
             extensions = sorted(ENABLED_EXTENSIONS)
 
-            page = templateRender('dumps.tpl',{'extensions': extensions,
+            page = templateRender('developers.tpl',{'extensions': extensions,
                                     'version': SCHEMA_VERSION,
                                     'menu_sel': "Schemas"})
 
@@ -1708,7 +1714,6 @@ class ShowUnit (webapp2.RequestHandler):
             version_rdfa = "data/releases/%s/schema.rdfa" % requested_version
             version_allhtml = "data/releases/%s/schema-all.html" % requested_version
             version_nt = "data/releases/%s/schema.nt" % requested_version
-
             if requested_format=="":
                 self.response.out.write( open(version_allhtml, 'r').read() )
                 return True
@@ -1732,7 +1737,7 @@ class ShowUnit (webapp2.RequestHandler):
         else:
             log.info("Unreleased version requested. We only understand requests for latest if unreleased.")
 
-            if requested_version != "latest":
+            if requested_version != "build-latest":
                 return False
                 log.info("giving up to 404.")
             else:
@@ -1793,12 +1798,18 @@ class ShowUnit (webapp2.RequestHandler):
                 az_prop_meta[pt]['rangelist'] = rangeList.toHTML()
                 az_prop_meta[pt]['domainlist'] = domainList.toHTML()
 
+            if requested_version == "build-latest":
+                requested_version = SCHEMA_VERSION
+                releasedate = "XXXX-XX-XX    (UNRELEASED PREVIEW VERSION)"
+            else:
+                releasedate = releaselog[str(SCHEMA_VERSION)]
+
             page = templateRender('fullReleasePage.tpl',
                     {"base_href": base_href,
                     'thing_tree': thing_tree,
                     'liveversion': SCHEMA_VERSION,
                     'requested_version': requested_version,
-                    'releasedate': releaselog[str(SCHEMA_VERSION)],
+                    'releasedate': releasedate,
                     'az_props': az_props, 'az_types': az_types,
                     'az_prop_meta': az_prop_meta, 'az_type_meta': az_type_meta,
                     'menu_sel': "Documentation"})
@@ -1987,7 +1998,7 @@ class ShowUnit (webapp2.RequestHandler):
 
         if not node or node == "":
             node = "/"
-            
+
         NotModified = False
         etag = getslug() + str(hash(node))
         jetag = etag + "json"
@@ -2031,7 +2042,6 @@ class ShowUnit (webapp2.RequestHandler):
 
 
     def _get(self, node, doWarm=True):
-
         """Get a schema.org site page generated for this node/term.
 
         Web content is written directly via self.response.
@@ -2112,11 +2122,11 @@ class ShowUnit (webapp2.RequestHandler):
             else:
                 log.info("Error handling schemas.html : %s " % node)
                 return False
-        if (node == "docs/dumps.html"): 
+        if (node == "docs/developers.html"): 
             if self.handleDumpsPage(node, layerlist=layerlist):
                 return True
             else:
-                log.info("Error handling dumps.html : %s " % node)
+                log.info("Error handling developers.html : %s " % node)
                 return False
 
 
@@ -2128,7 +2138,18 @@ class ShowUnit (webapp2.RequestHandler):
                 log.info("Error handling JSON-LD schema tree: %s " % node)
                 return False
 
-        if (node == "version/3.0/" or node == "version/latest/" or "version/" in node):
+        currentVerPath = "version/%s" % SCHEMA_VERSION
+
+        if(node.startswith("version/latest")):
+            newurl = "%s%s" % (currentVerPath,node[14:])
+            log.info("REDIRECTING TO: %s" % newurl)
+            self.response.set_status(302,"Found")
+            self.response.headers['Location'] = makeUrl("",newurl)
+            self.emitCacheHeaders()
+            return False #don't cache this redirect
+
+        #Match nodes of pattern 'version/*' 'version/*/' or 'version/'
+        if (re.match(r'^version/[^/]*$', str(node)) or re.match(r'^version/[^/]*/$', str(node)) or node == "version/") :
             if self.handleFullReleasePage(node, layerlist=layerlist):
                 return True
             else:

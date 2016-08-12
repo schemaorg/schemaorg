@@ -59,10 +59,11 @@ schema:accelerationTime a rdf:Property ;
     schema:domainIncludes schema:Vehicle ;
     schema:isPartOf <http://auto.schema.org> ;
     schema:rangeIncludes schema:QuantitativeValue ;
-    rdfs:comment """<p>The time needed to accelerate the vehicle from a given start velocity to a given target velocity.<br />
-    Typical unit code(s): SEC for seconds<br /></p>
-<pre><code>Note: There are unfortunately no standard unit codes for seconds/0..100 km/h or seconds/0..60 mph. Simply use "SEC" for seconds and indicate the velocities in the &lt;a href="name"&gt;name&lt;/a&gt; of the &lt;a href="QuantitativeValue"&gt;QuantitativeValue&lt;/a&gt;, or use &lt;a href="valueReference"&gt;valueReference&lt;/a&gt; with a &lt;a href="QuantitativeValue"&gt;QuantitativeValue&lt;/a&gt; of 0..60 mph or 0..100 km/h to specify the reference speeds.
-</code></pre>""" .
+    rdfs:comment """<p>The time needed to accelerate the vehicle from a given start velocity to a given target velocity.</p>
+<p>Typical unit code(s): SEC for seconds</p>
+<ul>
+<li>Note: There are unfortunately no standard unit codes for seconds/0..100 km/h or seconds/0..60 mph. Simply use "SEC" for seconds and indicate the velocities in the <a class="localLink" href="/name">name</a> of the <a class="localLink" href="/QuantitativeValue">QuantitativeValue</a>, or use <a class="localLink" href="/valueReference">valueReference</a> with a <a class="localLink" href="/QuantitativeValue">QuantitativeValue</a> of 0..60 mph or 0..100 km/h to specify the reference speeds.</li>
+</ul>""" .
 
 schema:acrissCode a rdf:Property ;
     rdfs:label "acrissCode" ;
@@ -97,11 +98,10 @@ schema:engineDisplacement a rdf:Property ;
     schema:domainIncludes schema:EngineSpecification ;
     schema:isPartOf <http://auto.schema.org> ;
     schema:rangeIncludes schema:QuantitativeValue ;
-    rdfs:comment """<p>The volume swept by all of the pistons inside the cylinders of an internal combustion engine in a single movement. <br />
-    Typical unit code(s): CMQ for cubic centimeter, LTR for liters, INQ for cubic inches<br /></p>
-<pre><code>Note 1: You can link to information about how the given value has been determined using the &lt;a href="valueReference"&gt;valueReference&lt;/a&gt; property.&lt;br /&gt;
-Note 2: You can use &lt;a href="minValue"&gt;minValue&lt;/a&gt; and &lt;a href="maxValue"&gt;maxValue&lt;/a&gt; to indicate ranges.
-</code></pre>""" .
+    rdfs:comment """The volume swept by all of the pistons inside the cylinders of an internal combustion engine in a single movement. </p>
+<p>Typical unit code(s): CMQ for cubic centimeter, LTR for liters, INQ for cubic inches
+<em> Note 1: You can link to information about how the given value has been determined using the <a class="localLink" href="/valueReference">valueReference</a> property.
+</em> Note 2: You can use <a class="localLink" href="/minValue">minValue</a> and <a class="localLink" href="/maxValue">maxValue</a> to indicate ranges.""" .
 
 schema:enginePower a rdf:Property ;
     rdfs:label "enginePower" ;
@@ -110,11 +110,12 @@ schema:enginePower a rdf:Property ;
     schema:isPartOf <http://auto.schema.org> ;
     schema:rangeIncludes schema:QuantitativeValue ;
     rdfs:comment """<p>The power of the vehicle's engine.
-    Typical unit code(s): KWT for kilowatt, BHP for brake horsepower, N12 for metric horsepower (PS, with 1 PS = 735,49875 W) <br /></p>
-<pre><code>Note 1: There are many different ways of measuring an engine's power. For an overview, see  http://en.wikipedia.org/wiki/Horsepower#Engine_power_test_codes. &lt;br /&gt;
-Note 2: You can link to information about how the given value has been determined using the &lt;a href="valueReference"&gt;valueReference&lt;/a&gt; property.&lt;br /&gt;
-Note 3: You can use &lt;a href="minValue"&gt;minValue&lt;/a&gt; and &lt;a href="maxValue"&gt;maxValue&lt;/a&gt; to indicate ranges.
-</code></pre>""" .
+    Typical unit code(s): KWT for kilowatt, BHP for brake horsepower, N12 for metric horsepower (PS, with 1 PS = 735,49875 W)</p>
+<ul>
+<li>Note 1: There are many different ways of measuring an engine's power. For an overview, see  <a href="http://en.wikipedia.org/wiki/Horsepower#Engine_power_test_codes">http://en.wikipedia.org/wiki/Horsepower#Engine_power_test_codes</a>.</li>
+<li>Note 2: You can link to information about how the given value has been determined using the <a class="localLink" href="/valueReference">valueReference</a> property.</li>
+<li>Note 3: You can use <a class="localLink" href="/minValue">minValue</a> and <a class="localLink" href="/maxValue">maxValue</a> to indicate ranges.</li>
+</ul>""" .
 
 schema:engineType a rdf:Property ;
     rdfs:label "engineType" ;
@@ -132,8 +133,8 @@ schema:fuelCapacity a rdf:Property ;
     schema:domainIncludes schema:Vehicle ;
     schema:isPartOf <http://auto.schema.org> ;
     schema:rangeIncludes schema:QuantitativeValue ;
-    rdfs:comment """The capacity of the fuel tank or in the case of electric cars, the battery. If there are multiple components for storage, this should indicate the total of all storage of the same type.<br />
-    Typical unit code(s): LTR for liters, GLL of US gallons, GLI for UK / imperial gallons, AMH for ampere-hours (for electrical vehicles)""" .
+    rdfs:comment """The capacity of the fuel tank or in the case of electric cars, the battery. If there are multiple components for storage, this should indicate the total of all storage of the same type.</p>
+<p>Typical unit code(s): LTR for liters, GLL of US gallons, GLI for UK / imperial gallons, AMH for ampere-hours (for electrical vehicles).""" .
 
 schema:meetsEmissionStandard a rdf:Property ;
     rdfs:label "meetsEmissionStandard" ;
@@ -159,13 +160,14 @@ schema:payload a rdf:Property ;
     schema:domainIncludes schema:Vehicle ;
     schema:isPartOf <http://auto.schema.org> ;
     schema:rangeIncludes schema:QuantitativeValue ;
-    rdfs:comment """<p>The permitted weight of passengers and cargo, EXCLUDING the weight of the empty vehicle. <br />
-    Typical unit code(s): KGM for kilogram, LBR for pound<br /></p>
-<pre><code>Note 1: Many databases specify the permitted TOTAL weight instead, which is the sum of &lt;a href="weight"&gt;weight&lt;/a&gt; and &lt;a href="payload"&gt;payload&lt;/a&gt;.&lt;br /&gt;
-Note 2: You can indicate additional information in the &lt;a href="name"&gt;name&lt;/a&gt; of the &lt;a href="QuantitativeValue"&gt;QuantitativeValue&lt;/a&gt; node.&lt;br /&gt;
-Note 3: You may also link to a &lt;a href="QualitativeValue"&gt;QualitativeValue&lt;/a&gt; node that provides additional information using &lt;a href="valueReference"&gt;valueReference&lt;/a&gt;.&lt;br /&gt;
-Note 4: Note that you can use &lt;a href="minValue"&gt;minValue&lt;/a&gt; and &lt;a href="maxValue"&gt;maxValue&lt;/a&gt; to indicate ranges.
-</code></pre>""" .
+    rdfs:comment """<p>The permitted weight of passengers and cargo, EXCLUDING the weight of the empty vehicle.</p>
+<p>Typical unit code(s): KGM for kilogram, LBR for pound</p>
+<ul>
+<li>Note 1: Many databases specify the permitted TOTAL weight instead, which is the sum of <a class="localLink" href="/weight">weight</a> and <a class="localLink" href="/payload">payload</a></li>
+<li>Note 2: You can indicate additional information in the <a class="localLink" href="/name">name</a> of the <a class="localLink" href="/QuantitativeValue">QuantitativeValue</a> node.</li>
+<li>Note 3: You may also link to a <a class="localLink" href="/QualitativeValue">QualitativeValue</a> node that provides additional information using <a class="localLink" href="/valueReference">valueReference</a>.</li>
+<li>Note 4: Note that you can use <a class="localLink" href="/minValue">minValue</a> and <a class="localLink" href="/maxValue">maxValue</a> to indicate ranges.</li>
+</ul>""" .
 
 schema:roofLoad a rdf:Property ;
     rdfs:label "roofLoad" ;
@@ -174,12 +176,13 @@ schema:roofLoad a rdf:Property ;
         schema:Car ;
     schema:isPartOf <http://auto.schema.org> ;
     schema:rangeIncludes schema:QuantitativeValue ;
-    rdfs:comment """<p>The permitted total weight of cargo and installations (e.g. a roof rack) on top of the vehicle.<br />
-    Typical unit code(s): KGM for kilogram, LBR for pound<br /></p>
-<pre><code>Note 1: You can indicate additional information in the &lt;a href="name"&gt;name&lt;/a&gt; of the &lt;a href="QuantitativeValue"&gt;QuantitativeValue&lt;/a&gt; node.&lt;br /&gt;
-Note 2: You may also link to a &lt;a href="QualitativeValue"&gt;QualitativeValue&lt;/a&gt; node that provides additional information using &lt;a href="valueReference"&gt;valueReference&lt;/a&gt;.&lt;br /&gt;
-Note 3: Note that you can use &lt;a href="minValue"&gt;minValue&lt;/a&gt; and &lt;a href="maxValue"&gt;maxValue&lt;/a&gt; to indicate ranges.
-</code></pre>""" .
+    rdfs:comment """<p>The permitted total weight of cargo and installations (e.g. a roof rack) on top of the vehicle.</p>
+<p>Typical unit code(s): KGM for kilogram, LBR for pound</p>
+<ul>
+<li>Note 1: You can indicate additional information in the <a class="localLink" href="/name">name</a> of the <a class="localLink" href="/QuantitativeValue">QuantitativeValue</a> node.</li>
+<li>Note 2: You may also link to a <a class="localLink" href="/QualitativeValue">QualitativeValue</a> node that provides additional information using <a class="localLink" href="/valueReference">valueReference</a></li>
+<li>Note 3: Note that you can use <a class="localLink" href="/minValue">minValue</a> and <a class="localLink" href="/maxValue">maxValue</a> to indicate ranges.</li>
+</ul>""" .
 
 schema:seatingCapacity a rdf:Property ;
     rdfs:label "seatingCapacity" ;
@@ -188,8 +191,8 @@ schema:seatingCapacity a rdf:Property ;
     schema:isPartOf <http://auto.schema.org> ;
     schema:rangeIncludes schema:Number,
         schema:QuantitativeValue ;
-    rdfs:comment """The number of persons that can be seated (e.g. in a vehicle), both in terms of the physical space available, and in terms of limitations set by law.<br />
-    Typical unit code(s): C62 for persons""" .
+    rdfs:comment """The number of persons that can be seated (e.g. in a vehicle), both in terms of the physical space available, and in terms of limitations set by law.</p>
+<p>Typical unit code(s): C62 for persons""" .
 
 schema:speed a rdf:Property ;
     rdfs:label "speed" ;
@@ -197,11 +200,10 @@ schema:speed a rdf:Property ;
     schema:domainIncludes schema:Vehicle ;
     schema:isPartOf <http://auto.schema.org> ;
     schema:rangeIncludes schema:QuantitativeValue ;
-    rdfs:comment """<p>The speed range of the vehicle. If the vehicle is powered by an engine, the upper limit of the speed range (indicated by <a href="maxValue">maxValue</a>) should be the maximum speed achievable under regular conditions.<br />
-    Typical unit code(s): KMH for km/h, HM for mile per hour (0.447 04 m/s), KNT for knot<br /></p>
-<pre><code>Note 1: Use &lt;a href="minValue"&gt;minValue&lt;/a&gt; and &lt;a href="maxValue"&gt;maxValue&lt;/a&gt; to indicate the range. Typically, the minimal value is zero.&lt;br /&gt;
-Note 2: There are many different ways of measuring the speed range. You can link to information about how the given value has been determined using the &lt;a href="valueReference"&gt;valueReference&lt;/a&gt; property.
-</code></pre>""" .
+    rdfs:comment """The speed range of the vehicle. If the vehicle is powered by an engine, the upper limit of the speed range (indicated by <a class="localLink" href="/maxValue">maxValue</a> should be the maximum speed achievable under regular conditions.</p>
+<p>Typical unit code(s): KMH for km/h, HM for mile per hour (0.447 04 m/s), KNT for knot</p>
+<p><em>Note 1: Use <a class="localLink" href="/minValue">minValue</a> and <a class="localLink" href="/maxValue">maxValue</a> to indicate the range. Typically, the minimal value is zero.
+</em> Note 2: There are many different ways of measuring the speed range. You can link to information about how the given value has been determined using the <a class="localLink" href="/valueReference">valueReference</a> property.""" .
 
 schema:tongueWeight a rdf:Property ;
     rdfs:label "tongueWeight" ;
@@ -209,12 +211,13 @@ schema:tongueWeight a rdf:Property ;
     schema:domainIncludes schema:Vehicle ;
     schema:isPartOf <http://auto.schema.org> ;
     schema:rangeIncludes schema:QuantitativeValue ;
-    rdfs:comment """<p>The permitted vertical load (TWR) of a trailer attached to the vehicle. Also referred to as Tongue Load Rating (TLR) or Vertical Load Rating (VLR).<br />
-        Typical unit code(s): KGM for kilogram, LBR for pound<br /></p>
-<pre><code>Note 1: You can indicate additional information in the &lt;a href="name"&gt;name&lt;/a&gt; of the &lt;a href="QuantitativeValue"&gt;QuantitativeValue&lt;/a&gt; node.&lt;br /&gt;
-Note 2: You may also link to a &lt;a href="QualitativeValue"&gt;QualitativeValue&lt;/a&gt; node that provides additional information using &lt;a href="valueReference"&gt;valueReference&lt;/a&gt;.&lt;br /&gt;
-Note 3: Note that you can use &lt;a href="minValue"&gt;minValue&lt;/a&gt; and &lt;a href="maxValue"&gt;maxValue&lt;/a&gt; to indicate ranges.
-</code></pre>""" .
+    rdfs:comment """<p>The permitted vertical load (TWR) of a trailer attached to the vehicle. Also referred to as Tongue Load Rating (TLR) or Vertical Load Rating (VLR)</p>
+<p>Typical unit code(s): KGM for kilogram, LBR for pound</p>
+<ul>
+<li>Note 1: You can indicate additional information in the <a class="localLink" href="/name">name</a> of the <a class="localLink" href="/QuantitativeValue">QuantitativeValue</a> node.</li>
+<li>Note 2: You may also link to a <a class="localLink" href="/QualitativeValue">QualitativeValue</a> node that provides additional information using <a class="localLink" href="/valueReference">valueReference</a>.</li>
+<li>Note 3: Note that you can use <a class="localLink" href="/minValue">minValue</a> and <a class="localLink" href="/maxValue">maxValue</a> to indicate ranges.</li>
+</ul>""" .
 
 schema:torque a rdf:Property ;
     rdfs:label "torque" ;
@@ -222,11 +225,12 @@ schema:torque a rdf:Property ;
     schema:domainIncludes schema:EngineSpecification ;
     schema:isPartOf <http://auto.schema.org> ;
     schema:rangeIncludes schema:QuantitativeValue ;
-    rdfs:comment """<p>The torque (turning force) of the vehicle's engine.<br />
-        Typical unit code(s): NU for newton metre (N m), F17 for pound-force per foot, or F48 for pound-force per inch<br /></p>
-<pre><code>Note 1: You can link to information about how the given value has been determined (e.g. reference RPM) using the &lt;a href="valueReference"&gt;valueReference&lt;/a&gt; property.&lt;br /&gt;
-Note 2: You can use &lt;a href="minValue"&gt;minValue&lt;/a&gt; and &lt;a href="maxValue"&gt;maxValue&lt;/a&gt; to indicate ranges.
-</code></pre>""" .
+    rdfs:comment """<p>The torque (turning force) of the vehicle's engine.</p>
+<p>Typical unit code(s): NU for newton metre (N m), F17 for pound-force per foot, or F48 for pound-force per inch</p>
+<ul>
+<li>Note 1: You can link to information about how the given value has been determined (e.g. reference RPM) using the <a class="localLink" href="/valueReference">valueReference</a> property.</li>
+<li>Note 2: You can use <a class="localLink" href="/minValue">minValue</a> and <a class="localLink" href="/maxValue">maxValue</a> to indicate ranges.</li>
+</ul>""" .
 
 schema:trailerWeight a rdf:Property ;
     rdfs:label "trailerWeight" ;
@@ -234,12 +238,11 @@ schema:trailerWeight a rdf:Property ;
     schema:domainIncludes schema:Vehicle ;
     schema:isPartOf <http://auto.schema.org> ;
     schema:rangeIncludes schema:QuantitativeValue ;
-    rdfs:comment """<p>The permitted weight of a trailer attached to the vehicle.<br />
-    Typical unit code(s): KGM for kilogram, LBR for pound<br /></p>
-<pre><code>Note 1: You can indicate additional information in the &lt;a href="name"&gt;name&lt;/a&gt; of the &lt;a href="QuantitativeValue"&gt;QuantitativeValue&lt;/a&gt; node.&lt;br /&gt;
-Note 2: You may also link to a &lt;a href="QualitativeValue"&gt;QualitativeValue&lt;/a&gt; node that provides additional information using &lt;a href="valueReference"&gt;valueReference&lt;/a&gt;.&lt;br /&gt;
-Note 3: Note that you can use &lt;a href="minValue"&gt;minValue&lt;/a&gt; and &lt;a href="maxValue"&gt;maxValue&lt;/a&gt; to indicate ranges.
-</code></pre>""" .
+    rdfs:comment """The permitted weight of a trailer attached to the vehicle.</p>
+<p>Typical unit code(s): KGM for kilogram, LBR for pound
+<em> Note 1: You can indicate additional information in the <a class="localLink" href="/name">name</a> of the <a class="localLink" href="/QuantitativeValue">QuantitativeValue</a> node.
+</em> Note 2: You may also link to a <a class="localLink" href="/QualitativeValue">QualitativeValue</a> node that provides additional information using <a class="localLink" href="/valueReference">valueReference</a>.
+* Note 3: Note that you can use <a class="localLink" href="/minValue">minValue</a> and <a class="localLink" href="/maxValue">maxValue</a> to indicate ranges.""" .
 
 schema:vehicleSpecialUsage a rdf:Property ;
     rdfs:label "vehicleSpecialUsage" ;
@@ -253,12 +256,13 @@ schema:weightTotal a rdf:Property ;
     schema:domainIncludes schema:Vehicle ;
     schema:isPartOf <http://auto.schema.org> ;
     schema:rangeIncludes schema:QuantitativeValue ;
-    rdfs:comment """<p>The permitted total weight of the loaded vehicle, including passengers and cargo and the weight of the empty vehicle.<br />
-    Typical unit code(s): KGM for kilogram, LBR for pound<br /></p>
-<pre><code>Note 1: You can indicate additional information in the &lt;a href="name"&gt;name&lt;/a&gt; of the &lt;a href="QuantitativeValue"&gt;QuantitativeValue&lt;/a&gt; node.&lt;br /&gt;
-Note 2: You may also link to a &lt;a href="QualitativeValue"&gt;QualitativeValue&lt;/a&gt; node that provides additional information using &lt;a href="valueReference"&gt;valueReference&lt;/a&gt;.&lt;br /&gt;
-Note 3: Note that you can use &lt;a href="minValue"&gt;minValue&lt;/a&gt; and &lt;a href="maxValue"&gt;maxValue&lt;/a&gt; to indicate ranges.
-</code></pre>""" .
+    rdfs:comment """<p>The permitted total weight of the loaded vehicle, including passengers and cargo and the weight of the empty vehicle.</p>
+<p>Typical unit code(s): KGM for kilogram, LBR for pound</p>
+<ul>
+<li>Note 1: You can indicate additional information in the <a class="localLink" href="/name">name</a> of the <a class="localLink" href="/QuantitativeValue">QuantitativeValue</a> node.</li>
+<li>Note 2: You may also link to a <a class="localLink" href="/QualitativeValue">QualitativeValue</a> node that provides additional information using <a class="localLink" href="/valueReference">valueReference</a>.</li>
+<li>Note 3: Note that you can use <a class="localLink" href="/minValue">minValue</a> and <a class="localLink" href="/maxValue">maxValue</a> to indicate ranges.</li>
+</ul>""" .
 
 schema:wheelbase a rdf:Property ;
     rdfs:label "wheelbase" ;
@@ -266,6 +270,6 @@ schema:wheelbase a rdf:Property ;
     schema:domainIncludes schema:Vehicle ;
     schema:isPartOf <http://auto.schema.org> ;
     schema:rangeIncludes schema:QuantitativeValue ;
-    rdfs:comment """The distance between the centers of the front and rear wheels. <br />
-    Typical unit code(s): CMT for centimeters, MTR for meters, INH for inches, FOT for foot/feet""" .
+    rdfs:comment """The distance between the centers of the front and rear wheels.</p>
+<p>Typical unit code(s): CMT for centimeters, MTR for meters, INH for inches, FOT for foot/feet""" .
 

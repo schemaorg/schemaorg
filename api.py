@@ -1134,24 +1134,46 @@ def ShortenOnSentence(source,lengthHint=250):
             com += ".."
         source = com
     return source
-    
+
+WIKILINKPATTERN = r'\[\[([\w0-9_ -]+)\]\]'
+
 class MarkdownTool():
     def __init__ (self):
-        import markdown
-        from markdown.extensions.wikilinks import WikiLinkExtension
-        self._md = markdown.Markdown(extensions=[WikiLinkExtension(base_url='/', end_url='', html_class='localLink')])
+        import markdown2
+        from markdown2 import Markdown
+        #from markdown.extensions.wikilinks import WikiLinkExtension
+        #self._md = markdown2.Markdown(extensions=[WikiLinkExtension(base_url='/', end_url='', html_class='localLink')])
+        self._md = Markdown()
+        self.wclass = "localLink"
+        self.wpre = "/"
+        self.wpost = ""
+        self.parselock = threading.Lock() 
         
     def parse(self,source,preservePara=False):
         if not source or len(source) == 0:
             return ""
         source = source.strip()
         source = source.replace("\\n","\n")
-        ret = self._md.reset().convert(source)
+    	try:
+    		self.parselock.acquire()
+    		ret = self._md.convert(source)
+    	finally:
+    		self.parselock.release()
+        
         if not preservePara:
-            #Remove wrapping <p> </p> that Markdown adds by default
-            if len(ret) > 7 and ret.startswith("<p>") and ret.endswith("</p>"):
-                ret = ret[3:len(ret)-4]
-        return ret
+            #Remove wrapping <p> </p>\n that Markdown2 adds by default
+            if len(ret) > 7 and ret.startswith("<p>") and ret.endswith("</p>\n"):
+                ret = ret[3:len(ret)-5]
+        
+        return self.parseWiklinks(ret)
+    
+    def parseWiklinks(self,source):
+        return re.sub(WIKILINKPATTERN, self.wikilinkReplace, source)
+        
+    def wikilinkReplace(self,match):
+        t = match.group(1)
+        return '<a class="%s" href="%s%s%s">%s</a>' % (self.wclass,self.wpre,t,self.wpost,t)
+        
 
 MD = MarkdownTool()
 

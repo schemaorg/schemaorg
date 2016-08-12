@@ -82,9 +82,10 @@
   <div id="mainContent">
 
 <h1>Markup for Hotels</h1>
-<p>Author: Martin Hepp</p>
+
 <p>This page provides background information on the use of schema.org for marking up hotels and other forms of accommodations. For feature requests, please use the <a href="https://github.com/schemaorg/schemaorg">Github repository</a>.</p>
 
+<p>See also: <a href="#acks">acknowledgements</a></p>
 <!-- Maybe add toc here later on-->
 
 <h2 id="overview">Overview</h2>
@@ -101,7 +102,7 @@
 
 <p>In the case of rental accommodations, it is important to attach the <a href= "../businessFunction">businessFunction</a> property with the value <a href="http://purl.org/goodrelations/v1#LeaseOut">LeaseOut</a> to the offer, unless you want to sell the property. This allows reusing and extending the same types for dwellings for real estate offers in schema.org.</p>
 <h3>Basic Model</h3>
-<p>The diagram shown below illustrates the basic pattern for describing hotel room offers and offers for other forms of accommodations.</p> 
+<p>The diagram shown below illustrates the basic pattern for describing hotel room offers and offers for other forms of accommodations.</p>
 <p>All actual accommodations are subclasses of <a href="../Place">http://schema.org/Place</a>. Instead of making them subclasses of <a href="../Product">http://schema.org/Product</a> (which is just anything that can be included in an offer), <a href="../Accommodation">accommodation</a> has been added to the range of <a href="../itemOffered">itemOffered</a> and <a href="../typeOfGood">typeOfGood</a>, and to the domain of <a href="../offers">offers</a>. All types of lodging businesses are subclasses of <a href="../Place">http://schema.org/Place</a> and of <a href="../LocalBusiness">http://schema.org/LocalBusiness</a>.</p>
 
 <p>The relationship between an accommodation and the local business it belongs to is represented via the <a href="../containedInPlace">containedInPlace</a> (from hotel room to hotel) or <a href="../containsPlace">containsPlace</a> (from hotel to hotel room) properties. The relationship between the offer and the room included in the offer can be represented via either the <a href="../offers">offers</a> property (from the room to the offer) or via <a href="../itemOffered">itemsOffered</a> (from the offer to the room).</p>
@@ -141,7 +142,7 @@
 </ul>
 
 <p>This list might be extended in the future. For other forms, the generic type <a href="../Accommodation">Accommodation</a> can be used. The property <a href="../additionalType">additionalType</a> allows using external identifiers for indicating the exact type in such cases.</p>
-    
+
 <h2 id="minimal">Minimal Example</h2>
 <p>In the most basic form, we can just model the hotel with basic information like photos and star rating and a price range, but without individual room rates and availability information:</p>
 <pre class="prettyprint lang-html linenums">
@@ -217,7 +218,7 @@ enjoying your morning coffee.&lt;/span&gt;
   Room rates: &lt;span itemprop=&quot;priceRange&quot;&gt;$100 - $240&lt;/span&gt;
 &lt;/div&gt;</pre>
     <h4>Advanced: Type of Star Rating</h4>
-    <p>If available, it makes sense to specify the origin of the star rating, e.g. the name of the awarding institution. In this case, use a <a href="../Rating">rating</a> and its <a href="../name">name</a> property for indicating the type of the rating (e.g. HOTREC, DEHOGA, WHR, or Hotelstars).
+    <p>If available, it makes sense to specify the origin of the star rating, e.g. the name of the awarding institution. In this case, use a <a href="../Rating">rating</a> and its <a href="../author">author</a> property for indicating the party making the rating assessment (e.g. HOTREC, DEHOGA, WHR, or Hotelstars).
     <p><strong>Example:</strong> 4-star hotel rated by the DEHOGA</p>
         <pre class="prettyprint lang-html linenums">
 &lt;div itemscope itemtype=&quot;http://schema.org/Hotel&quot;&gt;
@@ -226,7 +227,9 @@ enjoying your morning coffee.&lt;/span&gt;
 heart of the alps. Watch the sun rise over the scenic Inn valley while
 enjoying your morning coffee.&lt;/span&gt;
   Star rating: &lt;span itemprop=&quot;starRating&quot; itemscope itemtype=&quot;http://schema.org/Rating&quot;&gt;
-    &lt;meta itemprop=&quot;name&quot; content=&quot;DEHOGA&quot;&gt;
+    &lt;span itemprop=&quot;author&quot; itemscope itemtype=&quot;http://schema.org/Organization&quot;&gt;
+    &lt;span itemprop=&quot;name&quot;&gt;DEHOGA&lt;/span&gt;
+    &lt;/span&gt;
     &lt;meta itemprop=&quot;ratingValue&quot; content=&quot;4&quot;&gt;****
   &lt;/span&gt;
   Room rates: &lt;span itemprop=&quot;priceRange&quot;&gt;$100 - $240&lt;/span&gt;
@@ -302,12 +305,12 @@ enjoying your morning coffee.&lt;/span&gt;
 heart of the alps. Watch the sun rise over the scenic Inn valley while
 enjoying your morning coffee.&lt;/span&gt;
   Founded: &lt;span itemprop=&quot;foundingDate&quot;&gt;1985&lt;/span&gt;
-  Last Renovation: &lt;span itemprop=&quot;additionalProperty&quot; 
+  Last Renovation: &lt;span itemprop=&quot;additionalProperty&quot;
   itemscope itemtype=&quot;http://schema.org/PropertyValue&quot;&gt;
     &lt;meta itemprop=&quot;name&quot; content=&quot;renovation&quot;&gt;
     &lt;span itemprop=&quot;value&quot;&gt;2001&lt;/span&gt;
-    &lt;span itemprop=&quot;description&quot;&gt;The three-month project involved a complete update 
-    of all guestrooms, guest bathrooms and public spaces, including a redesign of 
+    &lt;span itemprop=&quot;description&quot;&gt;The three-month project involved a complete update
+    of all guestrooms, guest bathrooms and public spaces, including a redesign of
     the hotel&amp;apos;s restaurant.&lt;/span&gt;
   &lt;/span&gt;
 &lt;/div&gt;</pre>
@@ -345,11 +348,11 @@ heart of the alps. Watch the sun rise over the scenic Inn valley while
 enjoying your morning coffee.&lt;/span&gt;
   Hotel Features:
   &lt;ul&gt;
-  &lt;li itemprop=&quot;feature&quot; itemscope itemtype=&quot;http://schema.org/AccommodationFeature&quot;&gt;
+  &lt;li itemprop=&quot;amenityFeature&quot; itemscope itemtype=&quot;http://schema.org/LocationFeatureSpecification&quot;&gt;
     &lt;span itemprop=&quot;name&quot;&gt;Sauna&lt;/span&gt;
     &lt;meta itemprop=&quot;value&quot; content=&quot;True&quot;&gt;
   &lt;/li&gt;
-  &lt;li itemprop=&quot;feature&quot; itemscope itemtype=&quot;http://schema.org/AccommodationFeature&quot;&gt;
+  &lt;li itemprop=&quot;amenityFeature&quot; itemscope itemtype=&quot;http://schema.org/LocationFeatureSpecification&quot;&gt;
     &lt;span itemprop=&quot;name&quot;&gt;Gym&lt;/span&gt;
     &lt;meta itemprop=&quot;value&quot; content=&quot;True&quot;&gt;
   &lt;/li&gt;
@@ -364,12 +367,12 @@ heart of the alps. Watch the sun rise over the scenic Inn valley while
 enjoying your morning coffee.&lt;/span&gt;
   Hotel Features:
   &lt;ul&gt;
-  &lt;li itemprop=&quot;feature&quot; itemscope itemtype=&quot;http://schema.org/AccommodationFeature&quot;&gt;
+  &lt;li itemprop=&quot;amenityFeature&quot; itemscope itemtype=&quot;http://schema.org/LocationFeatureSpecification&quot;&gt;
     &lt;span itemprop=&quot;name&quot;&gt;Sauna&lt;/span&gt;
     &lt;meta itemprop=&quot;value&quot; content=&quot;True&quot;&gt;
     &lt;div itemprop=&quot;hoursAvailable&quot; itemtype=&quot;http://schema.org/OpeningHoursSpecification&quot;&gt;
-      &lt;link itemprop=&quot;dayOfWeek&quot; href=&quot;http://purl.org/goodrelations/v1#Thursday&quot; /&gt;(Open Thursdays 
-      &lt;time itemprop=&quot;opens&quot; content=&quot;16:00:00&quot;&gt; 4:00 PM&lt;/time&gt; - 
+      &lt;link itemprop=&quot;dayOfWeek&quot; href=&quot;http://purl.org/goodrelations/v1#Thursday&quot; /&gt;(Open Thursdays
+      &lt;time itemprop=&quot;opens&quot; content=&quot;16:00:00&quot;&gt; 4:00 PM&lt;/time&gt; -
       &lt;time itemprop=&quot;closes&quot; content=&quot;21:00:00&quot;&gt; 9:00 PM&lt;/time&gt;)
     &lt;/div&gt;
   &lt;/li&gt;
@@ -402,7 +405,7 @@ enjoying your morning coffee.&lt;/span&gt;
       &lt;span itemprop=&quot;name&quot;&gt;German&lt;/span&gt;
     &lt;/li&gt;
   &lt;/ul&gt;
-&lt;/div&gt;</pre>  
+&lt;/div&gt;</pre>
 <h2 id="room_info">Information about Rooms</h2>
 <p>Some hotels just indicate basic information about the number and type of available room categories. In the simplest form, one can use the <a href="../numberOfRooms">numberOfRooms</a> property with the type of room in the <a href="../unitText">unitText</a> property of a <a href="QuantitativeValue">QuantitativeValue</a>, like so:</p>
 <pre class="prettyprint lang-html linenums">
@@ -469,7 +472,7 @@ enjoying your morning coffee.&lt;/span&gt;
 &lt;/div&gt;</pre>
 
 <h3>Features and Services</h3>
-<p>Room features, like &quot;mini-bar&quot;, &quot;wifi&quot; or &quot;air conditioning&quot; can be expressed using the <a href="../feature">feature</a> property and an <a href="../AccommodationFeature">AccommodationFeature</a> entity, which is a special form of a <a href="../PropertyValue">property-value</a>. The <a href="../feature">feature</a> property does not make a statement on whether the room feature is free or for an additional charge.</p>
+<p>Room features, like &quot;mini-bar&quot;, &quot;wifi&quot; or &quot;air conditioning&quot; can be expressed using the <a href="/amenityFeature">amenityFeature</a> property and an <a href="/LocationFeatureSpecification">LocationFeatureSpecification</a> entity, which is a special form of a <a href="../PropertyValue">property-value</a>. The <a href="../feature">feature</a> property does not make a statement on whether the room feature is free or for an additional charge.</p>
 
 <h4>Room Features</h4>
 <p><strong>Example:</strong> The rooms have a mini-bar and wifi. Charges may or may not apply for those.</p>
@@ -479,11 +482,11 @@ enjoying your morning coffee.&lt;/span&gt;
  &lt;span itemprop=&quot;description&quot;&gt;Our double rooms are spacious and comfortable.&lt;/span&gt;
   Room Features:
  &lt;ul&gt;
-   &lt;li itemprop=&quot;feature&quot; itemscope itemtype=&quot;http://schema.org/AccommodationFeature&quot;&gt;
+   &lt;li itemprop=&quot;amenityFeature&quot; itemscope itemtype=&quot;http://schema.org/LocationFeatureSpecification&quot;&gt;
      &lt;span itemprop=&quot;name&quot;&gt;Mini-bar&lt;/span&gt;
      &lt;meta itemprop=&quot;value&quot; content=&quot;True&quot;&gt;
    &lt;/li&gt;
-   &lt;li itemprop=&quot;feature&quot; itemscope itemtype=&quot;http://schema.org/AccommodationFeature&quot;&gt;
+   &lt;li itemprop=&quot;amenityFeature&quot; itemscope itemtype=&quot;http://schema.org/LocationFeatureSpecification&quot;&gt;
      &lt;span itemprop=&quot;name&quot;&gt;Wifi&lt;/span&gt;
      &lt;meta itemprop=&quot;value&quot; content=&quot;True&quot;&gt;
    &lt;/li&gt;
@@ -539,7 +542,7 @@ enjoying your morning coffee.&lt;/span&gt;
   Rate: &lt;span itemprop=&quot;offers&quot; itemscope itemtype=&quot;http://schema.org/Offer&quot;&gt;
     &lt;link itemprop=&quot;businessFunction&quot; href=&quot;http://purl.org/goodrelations/v1#LeaseOut&quot; /&gt;
     &lt;span itemprop=&quot;priceSpecification&quot; itemscope itemtype=&quot;http://schema.org/UnitPriceSpecification&quot;&gt;
-      &lt;meta itemprop=&quot;minPrice&quot; content=&quot;99.00&quot;&gt;$99.00 - 
+      &lt;meta itemprop=&quot;minPrice&quot; content=&quot;99.00&quot;&gt;$99.00 -
       &lt;meta itemprop=&quot;maxPrice&quot; content=&quot;179.00&quot;&gt;179.00
       &lt;meta itemprop=&quot;priceCurrency&quot; content=&quot;USD&quot;&gt;
       &lt;meta itemprop=&quot;unitCode&quot; content=&quot;DAY&quot;&gt;per night
@@ -573,7 +576,7 @@ enjoying your morning coffee.&lt;/span&gt;
   &lt;span itemprop=&quot;description&quot;&gt;Our single rooms are cosy and comfortable.&lt;/span&gt;
   Rate: &lt;span itemprop=&quot;offers&quot; itemscope itemtype=&quot;http://schema.org/Offer&quot;&gt;
     &lt;link itemprop=&quot;businessFunction&quot; href=&quot;http://purl.org/goodrelations/v1#LeaseOut&quot; /&gt;
-    Must be booked at least &lt;span itemprop=&quot;advanceBookingRequirement&quot; 
+    Must be booked at least &lt;span itemprop=&quot;advanceBookingRequirement&quot;
     itemscope itemtype=&quot;http://schema.org/QuantitativeValue&quot;&gt;
       &lt;span itemprop=&quot;minValue&quot;&gt;7&lt;/span&gt;
       &lt;meta itemprop=&quot;unitCode&quot; content=&quot;DAY&quot;&gt; days before the stay
@@ -611,7 +614,7 @@ enjoying your morning coffee.&lt;/span&gt;
   Rate:
   &lt;span itemprop=&quot;offers&quot; itemscope itemtype=&quot;http://schema.org/Offer&quot;&gt;
     &lt;link itemprop=&quot;businessFunction&quot; href=&quot;http://purl.org/goodrelations/v1#LeaseOut&quot; /&gt;
-    Summer &lt;meta itemprop=&quot;availabilityStarts&quot; content=&quot;2016-06-01&quot;&gt; (June 1 - 
+    Summer &lt;meta itemprop=&quot;availabilityStarts&quot; content=&quot;2016-06-01&quot;&gt; (June 1 -
     &lt;meta itemprop=&quot;availabilityEnds&quot; content=&quot;2016-10-31&quot;&gt;October 31)
     &lt;span itemprop=&quot;priceSpecification&quot; itemscope itemtype=&quot;http://schema.org/UnitPriceSpecification&quot;&gt;
       &lt;meta itemprop=&quot;price&quot; content=&quot;69.00&quot;&gt;$69.00
@@ -621,7 +624,7 @@ enjoying your morning coffee.&lt;/span&gt;
   &lt;/span&gt;
   &lt;span itemprop=&quot;offers&quot; itemscope itemtype=&quot;http://schema.org/Offer&quot;&gt;
     &lt;link itemprop=&quot;businessFunction&quot; href=&quot;http://purl.org/goodrelations/v1#LeaseOut&quot; /&gt;
-    Winter &lt;meta itemprop=&quot;availabilityStarts&quot; content=&quot;2016-11-01&quot;&gt; (November 1 - 
+    Winter &lt;meta itemprop=&quot;availabilityStarts&quot; content=&quot;2016-11-01&quot;&gt; (November 1 -
     &lt;meta itemprop=&quot;availabilityEnds&quot; content=&quot;2017-05-31&quot;&gt;May 31)
     &lt;span itemprop=&quot;priceSpecification&quot; itemscope itemtype=&quot;http://schema.org/UnitPriceSpecification&quot;&gt;
       &lt;meta itemprop=&quot;price&quot; content=&quot;99.00&quot;&gt;$99.00
@@ -652,7 +655,7 @@ enjoying your morning coffee.&lt;/span&gt;
         &lt;meta itemprop=&quot;priceCurrency&quot; content=&quot;USD&quot;&gt;
         &lt;!-- C62 is the UN/CEFACT Code for no unit --&gt;
         &lt;meta itemprop=&quot;unitCode&quot; content=&quot;C62&quot;&gt; per stay
-      &lt;/span&gt;      
+      &lt;/span&gt;
     &lt;/span&gt;
   &lt;/span&gt;
 &lt;/div&gt;</pre>
@@ -665,12 +668,12 @@ enjoying your morning coffee.&lt;/span&gt;
   &lt;span itemprop=&quot;description&quot;&gt;Our deluxe suites are ideal for longer stays or families.&lt;/span&gt;
   Occupancy: &lt;span itemprop=&quot;occupancy&quot; itemscope itemtype=&quot;http://schema.org/QuantitativeValue&quot;&gt;
       Up to &lt;span itemprop=&quot;maxValue&quot;&gt;2&lt;/span&gt;
-      &lt;meta itemprop=&quot;unitCode&quot; content=&quot;IE&quot;&gt; 
+      &lt;meta itemprop=&quot;unitCode&quot; content=&quot;IE&quot;&gt;
       &lt;span itemprop=&quot;name&quot;&gt;adults&lt;/span&gt;
   &lt;/span&gt; and
   &lt;span itemprop=&quot;occupancy&quot; itemscope itemtype=&quot;http://schema.org/QuantitativeValue&quot;&gt;
     &lt;span itemprop=&quot;maxValue&quot;&gt;2&lt;/span&gt;
-    &lt;meta itemprop=&quot;unitCode&quot; content=&quot;IE&quot;&gt; 
+    &lt;meta itemprop=&quot;unitCode&quot; content=&quot;IE&quot;&gt;
     &lt;span itemprop=&quot;name&quot;&gt;children&lt;/span&gt;
   &lt;/span&gt;
   Rate: &lt;span itemprop=&quot;offers&quot; itemscope itemtype=&quot;http://schema.org/Offer&quot;&gt;
@@ -724,7 +727,7 @@ enjoying your morning coffee.&lt;/span&gt;
       &lt;span itemprop=&quot;name&quot;&gt;Single Room&lt;/span&gt;
       &lt;span itemprop=&quot;description&quot;&gt;Our single rooms are cosy and comfortable.&lt;/span&gt;
     &lt;/span&gt;
-  &lt;/span&gt;       
+  &lt;/span&gt;
   &lt;span itemprop=&quot;includesObject&quot; itemscope itemtype=&quot;TypeAndQuantityNode&quot;&gt;
     &lt;span itemprop=&quot;typeOfGood&quot; itemscope itemtype=&quot;http://schema.org/FoodService&quot;&gt;
       &lt;span itemprop=&quot;name&quot;&gt;Breakfast&lt;/span&gt;
@@ -732,8 +735,13 @@ enjoying your morning coffee.&lt;/span&gt;
     &lt;/span&gt;
   &lt;/span&gt;
 &lt;/div&gt;</pre>
-<h2>Acknowledgments</h2>
-<p>The elements for describing hotels in schema.org are based on the STI Accommodation Ontology, see <a href="http://ontologies.sti-innsbruck.at/acco/ns.html">http://ontologies.sti-innsbruck.at/acco/ns.html</a> for details. 
+
+<h2 id="acks">Acknowledgments</h2>
+
+<p>Many thanks to <a href="http://www.heppnetz.de/">Martin Hepp</a> for contributing the initial version of this document, and leading the
+design of schema.org's hotel/accomodation vocabulary.</p>
+
+<p>The elements for describing hotels in schema.org are based on the STI Accommodation Ontology, see <a href="http://ontologies.sti-innsbruck.at/acco/ns.html">http://ontologies.sti-innsbruck.at/acco/ns.html</a> for details.
  Many class and property definitions are inspired by or based on abstracts from Wikipedia, the free encyclopedia.</p>
 <br/>
 <br/>
@@ -743,4 +751,3 @@ enjoying your morning coffee.&lt;/span&gt;
 </div>
 </body>
 </html>
-

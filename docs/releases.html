@@ -134,7 +134,7 @@ td.release  {
 
 
 <tr>
-<td class="release"><a href="/version/3.1/">(TODO: expected as 3.1)</a><br/>sdo-makemake<br/>(2016-XX-XX)</td>
+<td class="release"><a href="/version/3.1/">3.1</a><br/>sdo-makemake<br/>(2016-08-09)</td>
 <span id="v.next"></span>
 <span id="sdo-makemake"></span>
 <span id="v3.1"></span>
@@ -142,16 +142,28 @@ td.release  {
 <p>
 Version 3.1 (working name 'sdo-makemake'). See <a href="https://github.com/schemaorg/schemaorg/issues/1">planning pages</a>, specifically <a href="https://github.com/schemaorg/schemaorg/issues/1212">#1212</a> for details.
 </p>
-<p>This release is primarily concerned with bug fixes.</p>
+<p>This release is primarily concerned with hotel/accomodation vocabulary, improvements around dataset, and bug fixes.</p>
 </td>
 
 <td>
-
-<h3>Site Improvements</h3>
-
 <h3>Vocabulary</h3>
 <ul>
-<li id="g1203"><a href="https://github.com/schemaorg/schemaorg/issues/1203">Issue #1203</a>: <a href="https://github.com/schemaorg/schemaorg/pull/1215">Fixes</a> accidental rollbacks in <a href="#v3.0">3.0</a>.
+<li id="g915"><a href="https://github.com/schemaorg/schemaorg/issues/915">Issue #915</a>: Added substantial vocabulary for hotels and related accomodation, alongside
+  a <a href="/docs/hotels.html">dedicated documentation page</a>. New vocabulary includes
+  <a href="http://webschemas.org/LodgingBusiness">LodgingBusiness</a>,
+  <a href="http://webschemas.org/Accommodation">Accommodation</a>,
+  and several subtypes which can be used (via <a href="/docs/datamodel.html">multiple typing</a>)
+  alongside the existing <a href="/Offer">Offer</a> type. Other terms include
+  <a href="/starRating">starRating</a>,
+  <a href="/amenityFeature">amenityFeature</a>,
+  <a href="/LocationFeatureSpecification">LocationFeatureSpecification</a>,
+  <a href="/floorSize">floorSize</a>,
+  <a href="/permittedUsage">permittedUsage</a>,
+  <a href="/petsAllowed">petsAllowed</a>,
+  <a href="/checkinTime">checkinTime</a>,
+  <a href="/checkoutTime">checkoutTime</a>...
+</li>
+<li id="g1203"><a href="https://github.com/schemaorg/schemaorg/issues/1203">Issue #1203</a>: <a href="https://github.com/schemaorg/schemaorg/pull/1215">Fixes</a> for accidental rollbacks in <a href="#v3.0">3.0</a>.
 See <a href="https://github.com/schemaorg/schemaorg/issues/1203">Github</a> for comprehensive analysis and details. Restored several definitions:
 <a href="/paymentStatus">paymentStatus</a> lacked <a href="/PaymentStatusType">PaymentStatusType</a> from <a href="#g518">#518</a>;
 <a href="/breastfeedingWarning">breastfeedingWarning</a>, <a href="/healthCondition">healthCondition</a>, <a href="/prescriptionStatus">prescriptionStatus</a>
@@ -167,27 +179,36 @@ rather than <a href="/TelevisionStation">TelevisionStation</a> (per <a href="g#5
 <a href="/codeSampleType">codeSampleType</a> description improved per <a href="#g343">#343</a>;
 <a href="/netWorth">netWorth</a> definition now correctly omits <a href="/Organization">Organization</a> (per <a href="#g585">#585</a>).
 </li>
-
-<h3>Site improvements</h3>
+<li id="g900"><a href="https://github.com/schemaorg/schemaorg/issues/900">Issue #900</a>: Extended <a href="/isAccessibleForFree">isAccessibleForFree</a> to be expected potentially on any <a href="/Event">Event</a> or
+  <a href="/CreativeWork">CreativeWork</a>.</li>
+<li id="g996"><a href="https://github.com/schemaorg/schemaorg/issues/996">Issue #996</a>:
+  Added <a href="/DateTime">DateTime</a> to expected values for <a href="/startDate">startDate</a>, <a href="/endDate">endDate</a>, <a href="/commentTime">commentTime</a>.
+</li>
 <li id="g1083"><a href="https://github.com/schemaorg/schemaorg/issues/1083">Issue #1083</a>: Improvements primarily around Dataset, generalized <a href="/spatial">spatial</a> property of <a href="/Dataset">Dataset</a> to become <a href="/spatialCoverage">spatialCoverage</a> of any <a href="/CreativeWork">CreativeWork</a>; similarly generalized <a href="/temporal">temporal</a> as <a href="/temporalCoverage">temporalCoverage</a>.
   Indicated that <a href="/spatialCoverage">spatialCoverage</a> is a subproperty of <a href="/contentLocation">contentLocation</a>.
   <a href="https://github.com/schemaorg/schemaorg/issues/383">Broadened</a> <a href="/sponsor">sponsor</a> to apply to creative works such as datasets, and added a more specific subproperty to indicate
   <a href="/funder">funder</a>. <a href="https://github.com/schemaorg/schemaorg/issues/1190">Amended</a> definition of <a href="/MediaObject">MediaObject</a> to match its use as a supertype of
-  <a href="/DataDownload">DataDownload</a>. <a href="https://github.com/schemaorg/schemaorg/issues/1191">Amended</a> <a href="/fileFormat">fileFormat</a> to allow URL as a way of indicating niche or unregistered file formats (common for scientific datasets). Added a draft <a href="http://pending.webschemas.org/variablesMeasured">variablesMeasured</a> property to the 
+  <a href="/DataDownload">DataDownload</a>. <a href="https://github.com/schemaorg/schemaorg/issues/1191">Amended</a> <a href="/fileFormat">fileFormat</a> to allow URL as a way of indicating niche or unregistered file formats (common for scientific datasets). Added a draft <a href="http://pending.webschemas.org/variablesMeasured">variablesMeasured</a> property to the
   <a href="http://pending.webschemas.org/">pending extension</a>.
 </li>
 </ul>
 
+<h3>Site improvements</h3>
 <ul>
+<li id="g1234"><a href="https://github.com/schemaorg/schemaorg/issues/1234">Issue #1234</a>: <a href="https://github.com/schemaorg/schemaorg/pull/1242">Enhanced</a> incoming properties display (Instances of [...] may appear as values for the following properties) to include properties from extensions.</li>
+<li id="g479"><a href="https://github.com/schemaorg/schemaorg/issues/479">Issue #479</a>: Updated and clarified the <a href="/docs/datamodel.html">datamodel</a> document, including conformance section.</li>
 <li id="g1213"><a href="https://github.com/schemaorg/schemaorg/pull/1213">Issue #1213</a>: Fixes for <a href="https://github.com/schemaorg/schemaorg/issues/1171">site performance problems</a>.</li>
-<li id="g1214"><a href="https://github.com/schemaorg/schemaorg/pull/1214">Issue 1214</a>: Fix for <a href="https://github.com/schemaorg/schemaorg/pull/1211">RDFa formatting errors</a> in per-term pages.</li>
-<li id="g1248"><a href="https://github.com/schemaorg/schemaorg/pull/1248">Issue 1248</a>: Fix for <a href="https://github.com/schemaorg/schemaorg/issues/1249">Need easy way to download rdf definition files</a>. Introduces a <a href="/docs/dumps.html">Vocabulary definition download</a> page providing access to RDF representations of the vocabulary and extensions in Triple, Quad, JSON-LD, and Turtle format.</li>
+<li id="g1214"><a href="https://github.com/schemaorg/schemaorg/pull/1214">Issue #1214</a>: Fix for <a href="https://github.com/schemaorg/schemaorg/pull/1211">RDFa formatting errors</a> in per-term pages.</li>
+<li id="g1248"><a href="https://github.com/schemaorg/schemaorg/pull/1248">Issue #1248</a>: Fix for <a href="https://github.com/schemaorg/schemaorg/issues/1249">Need easy way to download rdf definition files</a>. Introduces a <a href="/docs/developers.html#defs">Vocabulary definition download</a> section providing access to RDF representations of the vocabulary and extensions in Triple, Quad, JSON-LD, and Turtle format.</li>
 </ul>
 
 <h3>Quick fixes and Examples</h3>
-
 <ul>
 <li id="g1151"><a href="https://github.com/schemaorg/schemaorg/issues/1151">Issue #1151</a>: Broadened <a href="/version">version</a> to allow textual values as well as numbers.</li>
+<li id="g1257"><a href="https://github.com/schemaorg/schemaorg/issues/1257">Issue #1257</a>: Fixed all labels to match corresponding term IDs exactly.</li>
+<li id="g1260"><a href="https://github.com/schemaorg/schemaorg/issues/1260">Issue #1260</a>: Fixed <a href="/Product">Product</a> example, microdata was missing itemprop attribute.</li>
+<li id="g1201"><a href="https://github.com/schemaorg/schemaorg/issues/1201">Issue #1201</a>: Clarified <a href="/deliveryLeadTime">deliveryLeadTime</a> for the case of on-site pickup.</li>
+<li id="g1283"><a href="https://github.com/schemaorg/schemaorg/issues/1283">Issue #1283</a>: Removed <a href="/Dentist">Dentist</a> from deprecated type <a href="/ProfessionalService">ProfessionalService</a>, added <a href="/LocalBusiness">LocalBusiness</a> as a supertype.</li>
 </ul>
 
 <p>The following Early Access fixes have already been published since 3.0:</p>
@@ -199,6 +220,7 @@ rather than <a href="/TelevisionStation">TelevisionStation</a> (per <a href="g#5
 <li id="g1169"><a href="https://github.com/schemaorg/schemaorg/issues/1169">Issue #1169</a>: Fixes for property/type associations in health-lifesci and pending drafts, identified by improved unit tests.</li>
 <li id="g1174"><a href="https://github.com/schemaorg/schemaorg/issues/1174">Issue #1174</a>: Fix for missing definition for 'ingredients'.</li>
 </ul>
+
 </td>
 </tr>
 

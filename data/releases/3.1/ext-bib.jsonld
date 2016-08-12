@@ -6,22 +6,33 @@
   },
   "@graph": [
     {
-      "@id": "http://schema.org/ComicSeries",
-      "@type": "rdfs:Class",
+      "@id": "http://schema.org/colorist",
+      "@type": "rdf:Property",
       "http://schema.org/category": {
         "@language": "en",
         "@value": "Comics"
       },
+      "http://schema.org/domainIncludes": [
+        {
+          "@id": "http://schema.org/VisualArtwork"
+        },
+        {
+          "@id": "http://schema.org/ComicIssue"
+        },
+        {
+          "@id": "http://schema.org/ComicStory"
+        }
+      ],
       "http://schema.org/isPartOf": {
         "@id": "http://bib.schema.org"
       },
-      "rdfs:comment": "A sequential publication of comic stories under a\n    unifying title, for example \"The Amazing Spider-Man\" or \"Groo the\n    Wanderer\".",
+      "http://schema.org/rangeIncludes": {
+        "@id": "http://schema.org/Person"
+      },
+      "rdfs:comment": "The individual who adds color to inked drawings.",
       "rdfs:label": {
         "@language": "en",
-        "@value": "ComicSeries"
-      },
-      "rdfs:subClassOf": {
-        "@id": "http://schema.org/Periodical"
+        "@value": "colorist"
       }
     },
     {
@@ -65,38 +76,41 @@
       }
     },
     {
-      "@id": "http://schema.org/duration",
-      "@type": "rdf:Property",
-      "http://schema.org/domainIncludes": {
-        "@id": "http://schema.org/Audiobook"
-      }
-    },
-    {
-      "@id": "http://schema.org/pagination",
-      "@type": "rdf:Property",
-      "http://schema.org/domainIncludes": {
-        "@id": "http://schema.org/Chapter"
-      }
-    },
-    {
-      "@id": "http://schema.org/translationOfWork",
-      "@type": "rdf:Property",
-      "http://schema.org/domainIncludes": {
-        "@id": "http://schema.org/CreativeWork"
+      "@id": "http://schema.org/GraphicNovel",
+      "@type": "http://schema.org/BookFormatType",
+      "http://schema.org/category": {
+        "@language": "en",
+        "@value": "Comics"
       },
-      "http://schema.org/inverseOf": {
-        "@id": "http://schema.org/workTranslation"
+      "http://schema.org/isPartOf": {
+        "@id": "http://bib.schema.org"
+      },
+      "rdfs:comment": "Book format: GraphicNovel. May represent a bound collection of ComicIssue instances.",
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "GraphicNovel"
+      }
+    },
+    {
+      "@id": "http://schema.org/variantCover",
+      "@type": "rdf:Property",
+      "http://schema.org/category": {
+        "@language": "en",
+        "@value": "Comics"
+      },
+      "http://schema.org/domainIncludes": {
+        "@id": "http://schema.org/ComicIssue"
       },
       "http://schema.org/isPartOf": {
         "@id": "http://bib.schema.org"
       },
       "http://schema.org/rangeIncludes": {
-        "@id": "http://schema.org/CreativeWork"
+        "@id": "http://schema.org/Text"
       },
-      "rdfs:comment": "The work that this work has been translated from. e.g. 物种起源 is a translationOf “On the Origin of Species”",
+      "rdfs:comment": "A description of the variant cover\n    for the issue, if the issue is a variant printing. For example, \"Bryan Hitch\n    Variant Cover\" or \"2nd Printing Variant\".",
       "rdfs:label": {
         "@language": "en",
-        "@value": "translationOfWork"
+        "@value": "variantCover"
       }
     },
     {
@@ -108,13 +122,13 @@
       },
       "http://schema.org/domainIncludes": [
         {
-          "@id": "http://schema.org/ComicIssue"
-        },
-        {
           "@id": "http://schema.org/VisualArtwork"
         },
         {
           "@id": "http://schema.org/ComicStory"
+        },
+        {
+          "@id": "http://schema.org/ComicIssue"
         }
       ],
       "http://schema.org/isPartOf": {
@@ -221,10 +235,10 @@
       },
       "http://schema.org/rangeIncludes": [
         {
-          "@id": "http://schema.org/Person"
+          "@id": "http://schema.org/Organization"
         },
         {
-          "@id": "http://schema.org/Organization"
+          "@id": "http://schema.org/Person"
         }
       ],
       "rdfs:comment": "An agent associated with the publication event.",
@@ -255,25 +269,24 @@
       }
     },
     {
-      "@id": "http://schema.org/variantCover",
+      "@id": "http://schema.org/translationOfWork",
       "@type": "rdf:Property",
-      "http://schema.org/category": {
-        "@language": "en",
-        "@value": "Comics"
-      },
       "http://schema.org/domainIncludes": {
-        "@id": "http://schema.org/ComicIssue"
+        "@id": "http://schema.org/CreativeWork"
+      },
+      "http://schema.org/inverseOf": {
+        "@id": "http://schema.org/workTranslation"
       },
       "http://schema.org/isPartOf": {
         "@id": "http://bib.schema.org"
       },
       "http://schema.org/rangeIncludes": {
-        "@id": "http://schema.org/Text"
+        "@id": "http://schema.org/CreativeWork"
       },
-      "rdfs:comment": "A description of the variant cover\n    for the issue, if the issue is a variant printing. For example, \"Bryan Hitch\n    Variant Cover\" or \"2nd Printing Variant\".",
+      "rdfs:comment": "The work that this work has been translated from. e.g. 物种起源 is a translationOf “On the Origin of Species”",
       "rdfs:label": {
         "@language": "en",
-        "@value": "variantCover"
+        "@value": "translationOfWork"
       }
     },
     {
@@ -311,33 +324,29 @@
       }
     },
     {
-      "@id": "http://schema.org/colorist",
-      "@type": "rdf:Property",
+      "@id": "file:///Users/danbri/sdo/official/schemaorg/data/ext/bib/bsdo-1.0.rdfa",
+      "http://schema.org/softwareVersion": {
+        "@language": "en",
+        "@value": "bib.schema.org Version 0.1"
+      }
+    },
+    {
+      "@id": "http://schema.org/ComicSeries",
+      "@type": "rdfs:Class",
       "http://schema.org/category": {
         "@language": "en",
         "@value": "Comics"
       },
-      "http://schema.org/domainIncludes": [
-        {
-          "@id": "http://schema.org/ComicStory"
-        },
-        {
-          "@id": "http://schema.org/VisualArtwork"
-        },
-        {
-          "@id": "http://schema.org/ComicIssue"
-        }
-      ],
       "http://schema.org/isPartOf": {
         "@id": "http://bib.schema.org"
       },
-      "http://schema.org/rangeIncludes": {
-        "@id": "http://schema.org/Person"
-      },
-      "rdfs:comment": "The individual who adds color to inked drawings.",
+      "rdfs:comment": "A sequential publication of comic stories under a\n    unifying title, for example \"The Amazing Spider-Man\" or \"Groo the\n    Wanderer\".",
       "rdfs:label": {
         "@language": "en",
-        "@value": "colorist"
+        "@value": "ComicSeries"
+      },
+      "rdfs:subClassOf": {
+        "@id": "http://schema.org/Periodical"
       }
     },
     {
@@ -352,10 +361,10 @@
           "@id": "http://schema.org/VisualArtwork"
         },
         {
-          "@id": "http://schema.org/ComicIssue"
+          "@id": "http://schema.org/ComicStory"
         },
         {
-          "@id": "http://schema.org/ComicStory"
+          "@id": "http://schema.org/ComicIssue"
         }
       ],
       "http://schema.org/isPartOf": {
@@ -396,7 +405,7 @@
       }
     },
     {
-      "@id": "file:///Users/wallisr/Development/schemaorg/BuldRel/schemaorg/data/ext/bib/comics.rdfa",
+      "@id": "file:///Users/danbri/sdo/official/schemaorg/data/ext/bib/comics.rdfa",
       "http://schema.org/softwareVersion": {
         "@language": "en",
         "@value": "bib extension - version 0.1"
@@ -421,18 +430,33 @@
       }
     },
     {
-      "@id": "http://schema.org/Collection",
-      "@type": "rdfs:Class",
+      "@id": "http://schema.org/penciler",
+      "@type": "rdf:Property",
+      "http://schema.org/category": {
+        "@language": "en",
+        "@value": "Comics"
+      },
+      "http://schema.org/domainIncludes": [
+        {
+          "@id": "http://schema.org/ComicStory"
+        },
+        {
+          "@id": "http://schema.org/ComicIssue"
+        },
+        {
+          "@id": "http://schema.org/VisualArtwork"
+        }
+      ],
       "http://schema.org/isPartOf": {
         "@id": "http://bib.schema.org"
       },
-      "rdfs:comment": "A created collection of Creative Works or other artefacts.",
+      "http://schema.org/rangeIncludes": {
+        "@id": "http://schema.org/Person"
+      },
+      "rdfs:comment": "The individual who draws the primary narrative artwork.",
       "rdfs:label": {
         "@language": "en",
-        "@value": "Collection"
-      },
-      "rdfs:subClassOf": {
-        "@id": "http://schema.org/CreativeWork"
+        "@value": "penciler"
       }
     },
     {
@@ -456,19 +480,25 @@
       ]
     },
     {
-      "@id": "http://schema.org/GraphicNovel",
-      "@type": "http://schema.org/BookFormatType",
-      "http://schema.org/category": {
-        "@language": "en",
-        "@value": "Comics"
-      },
+      "@id": "http://schema.org/Collection",
+      "@type": "rdfs:Class",
       "http://schema.org/isPartOf": {
         "@id": "http://bib.schema.org"
       },
-      "rdfs:comment": "Book format: GraphicNovel. May represent a bound collection of ComicIssue instances.",
+      "rdfs:comment": "A created collection of Creative Works or other artefacts.",
       "rdfs:label": {
         "@language": "en",
-        "@value": "GraphicNovel"
+        "@value": "Collection"
+      },
+      "rdfs:subClassOf": {
+        "@id": "http://schema.org/CreativeWork"
+      }
+    },
+    {
+      "@id": "http://schema.org/pagination",
+      "@type": "rdf:Property",
+      "http://schema.org/domainIncludes": {
+        "@id": "http://schema.org/Chapter"
       }
     },
     {
@@ -490,10 +520,10 @@
       }
     },
     {
-      "@id": "file:///Users/wallisr/Development/schemaorg/BuldRel/schemaorg/data/ext/bib/bsdo-1.0.rdfa",
-      "http://schema.org/softwareVersion": {
-        "@language": "en",
-        "@value": "bib.schema.org Version 0.1"
+      "@id": "http://schema.org/duration",
+      "@type": "rdf:Property",
+      "http://schema.org/domainIncludes": {
+        "@id": "http://schema.org/Audiobook"
       }
     },
     {
@@ -552,36 +582,6 @@
       },
       "rdfs:subPropertyOf": {
         "@id": "http://schema.org/actor"
-      }
-    },
-    {
-      "@id": "http://schema.org/penciler",
-      "@type": "rdf:Property",
-      "http://schema.org/category": {
-        "@language": "en",
-        "@value": "Comics"
-      },
-      "http://schema.org/domainIncludes": [
-        {
-          "@id": "http://schema.org/ComicIssue"
-        },
-        {
-          "@id": "http://schema.org/ComicStory"
-        },
-        {
-          "@id": "http://schema.org/VisualArtwork"
-        }
-      ],
-      "http://schema.org/isPartOf": {
-        "@id": "http://bib.schema.org"
-      },
-      "http://schema.org/rangeIncludes": {
-        "@id": "http://schema.org/Person"
-      },
-      "rdfs:comment": "The individual who draws the primary narrative artwork.",
-      "rdfs:label": {
-        "@language": "en",
-        "@value": "penciler"
       }
     },
     {
