@@ -241,9 +241,10 @@ class TypeHierarchyTree:
 
         urlprefix = ""
         home = node.getHomeLayer()
-        gotOutput = False
-        if home in layers:
-            gotOutput = True
+        gotOutput = True
+        if home not in layers:
+            gotOutput = False
+            return gotOutput
 
         if home in ENABLED_EXTENSIONS and home != getHostExt():
             urlprefix = makeUrl(home)
