@@ -216,6 +216,45 @@ class SDOGraphSetupTestCase(unittest.TestCase):
             log.info("Term '%s' has none-matching label: '%s'" % (row["term"],row["label"]))
     self.assertEqual(len(nri1_results), 0, "Term should have matching rdfs:label. Found: %s" % len(nri1_results))
 
+  def test_superTypesExist(self):
+    nri1= ('''select ?term ?super where { 
+       ?term rdfs:subClassOf ?super.
+       ?term rdf:type rdfs:Class.
+       FILTER NOT EXISTS { ?super rdf:type rdfs:Class }
+       
+       BIND(STR(?term) AS ?strVal)
+       FILTER(STRLEN(?strVal) >= 18 && SUBSTR(?strVal, 1, 18) = "http://schema.org/")
+       
+       BIND(STR(?super) AS ?superStrVal)
+       FILTER(STRLEN(?superStrVal) >= 18 && SUBSTR(?superStrVal, 1, 18) = "http://schema.org/")
+    }
+    ORDER BY ?term  ''')
+    nri1_results = self.rdflib_data.query(nri1)
+    if len(nri1_results):
+        log.info("Invalid SuperType errors!!!\n")
+        for row in nri1_results:
+            log.info("Term '%s' has nonexistent supertype: '%s'" % (row["term"],row["super"]))
+    self.assertEqual(len(nri1_results), 0, "Types with nonexistent SuperTypes. Found: %s" % len(nri1_results))
+
+  def test_superPropertiesExist(self):
+    nri1= ('''select ?term ?super where { 
+       ?term rdf:type rdf:Property.
+       ?term rdfs:subPropertyOf ?super.
+       FILTER NOT EXISTS { ?super rdf:type rdf:Property }
+       
+       BIND(STR(?term) AS ?strVal)
+       FILTER(STRLEN(?strVal) >= 18 && SUBSTR(?strVal, 1, 18) = "http://schema.org/")
+
+       BIND(STR(?super) AS ?superStrVal)
+       FILTER(STRLEN(?superStrVal) >= 18 && SUBSTR(?superStrVal, 1, 18) = "http://schema.org/")
+    }
+    ORDER BY ?term  ''')
+    nri1_results = self.rdflib_data.query(nri1)
+    if len(nri1_results):
+        log.info("Invalid Super-Property errors!!!\n")
+        for row in nri1_results:
+            log.info("Term '%s' has nonexistent super-property: '%s'" % (row["term"],row["super"]))
+    self.assertEqual(len(nri1_results), 0, "Properties with nonexistent SuperProperties. Found: %s" % len(nri1_results))
 
 def tearDownModule():
     global warnings
