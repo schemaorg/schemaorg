@@ -147,7 +147,7 @@ MICRODATA:
     <meta itemprop="unitCode" content="ANN">
   </div>
   <p itemprop="description">Experience easier budgeting with predictable monthly payments. Relax knowing you’ll never have to worry about rising interest rates for the life of your loan.</p>
-  <div itemprop="repaymentForm" itemscope itemtype="http://schema.org/RepaymentSpecification" itemref="estPay payNum">
+  <div itemprop="loanRepaymentForm" itemscope itemtype="http://schema.org/RepaymentSpecification" itemref="estPay payNum">
     <meta itemprop="downPayment" content="20">
     <meta itemprop="loanPaymentFrequency" content="Monthly">
   </div>
@@ -164,11 +164,11 @@ MICRODATA:
   </tr>
   <tr>
     <td>Estimated payment</td>
-    <td id="estPay" itemprop="paymentAmount" itemscope itemtype="http://schema.org/MonetaryAmount"><span itemprop="currency" content="USD">$</span><span itemprop="amount">912.11</span></td>
+    <td id="estPay" itemprop="loanPaymentAmount" itemscope itemtype="http://schema.org/MonetaryAmount"><span itemprop="currency" content="USD">$</span><span itemprop="amount">912.11</span></td>
   </tr>
   <tr>
     <td>Months</td>
-    <td id="payNum" itemprop="numberOfPayments">360</td>
+    <td id="payNum" itemprop="numberOfLoanPayments">360</td>
   </tr>
 </table>
 
@@ -182,7 +182,7 @@ RDFA:
     <meta property="unitCode" content="ANN"/>
   </div>
   <p property="description">Experience easier budgeting with predictable monthly payments. Relax knowing you’ll never have to worry about rising interest rates for the life of your loan.</p>
-  <div property="repaymentForm" typeof="RepaymentSpecification" itemref="estPay payNum">
+  <div property="loanRepaymentForm" typeof="RepaymentSpecification" itemref="estPay payNum">
     <meta property="downPayment" content="20"/>
     <meta property="loanPaymentFrequency" content="Monthly"/>
   </div>
@@ -198,11 +198,11 @@ RDFA:
   </tr>
   <tr>
     <td>Estimated payment</td>
-    <td id="estPay" property="paymentAmount" typeof="MonetaryAmount"><span property="currency" content="USD">$</span><span property="amount">912.11</span></td>
+    <td id="estPay" property="loanPaymentAmount" typeof="MonetaryAmount"><span property="currency" content="USD">$</span><span property="amount">912.11</span></td>
   </tr>
   <tr>
     <td>Months</td>
-    <td id="payNum" property="numberOfPayments">360</td>
+    <td id="payNum" property="numberOfLoanPayments">360</td>
   </tr>
 </table>
 </div>
@@ -227,15 +227,15 @@ JSON:
   },
   "interestRate": "3.625",
   "annualPercentageRate": "3.8047",
-  "repaymentForm": {
+  "loanRepaymentForm": {
     "@type": "RepaymentSpecification",
-    "paymentAmount": {
+    "loanPaymentAmount": {
       "@type": "MonetaryAmount",
       "amount": "909.3",
       "currency": "USD"
     },
     "downPayment": "20",
-    "numberOfPayments": "360",
+    "numberOfLoanPayments": "360",
     "loanPaymentFrequency": "Monthly"
   }
 }
