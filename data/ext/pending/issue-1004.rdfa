@@ -1,12 +1,12 @@
 <div>
 <!-- CHANGES 2016-08-17: (based on @njh/@danbri meeting see #1004)
-1. retire BroadcastFrequencySpecification
+1. (nearly) retire BroadcastFrequencySpecification - Nick suggested this was overkill but needs thought.
 2. use existing RadioChannel, add two subtypes:
 3. retire broadcastSignalModulation, use subtypes of RadioChannel instead.
 4. TODO: review situation with properties, update example...
 -->
-<!-- retired per 1. above, 17 Aug. -->
-<!--
+
+<!-- nearly-retired-but-other-bits-reference-it 17 Aug. -->
 <div typeof="rdfs:Class" resource="http://schema.org/BroadcastFrequencySpecification">
    <span class="h" property="rdfs:label">BroadcastFrequencySpecification</span>
    <span property="rdfs:comment">The frequency in MHz and the modulation used for a particular BroadcastService.</span>
@@ -15,7 +15,6 @@
     <span>Source:  <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1004">#1004</a></span>
     <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
  </div>
--->
 
 <!-- added, per 2. above, 17 Aug. -->
 <div typeof="rdfs:Class" resource="http://schema.org/FMRadioChannel">
@@ -60,7 +59,7 @@
    <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
  </div>
 
-<!-- retired 17 Aug. -->
+ <!-- retired 17 Aug. -->
 <!--
  <div typeof="rdf:Property" resource="http://schema.org/broadcastSignalModulation">
    <span class="h" property="rdfs:label">broadcastSignalModulation</span>
