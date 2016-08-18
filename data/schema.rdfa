@@ -5673,6 +5673,21 @@ The place is __open__ if the [[opens]] property is specified, and __closed__ oth
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/URL">URL</a></span>
     </div>
 
+    <div typeof="rdf:Property" resource="http://schema.org/maximumAttendeeCapacity">
+       <span class="h" property="rdfs:label">maximumAttendeeCapacity</span>
+       <span property="rdfs:comment">The total number of individuals that may attend an event or venue.</span>		
+       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Place">Place</a></span>
+       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Event">Event</a></span>
+       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Integer">Integer</a></span>
+    </div>
+
+    <div typeof="rdf:Property" resource="http://schema.org/remainingAttendeeCapacity">
+       <span class="h" property="rdfs:label">remainingAttendeeCapacity</span>
+       <span property="rdfs:comment">The number of attendee places for an event that remain unallocated.</span>
+       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Event">Event</a></span>
+       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Integer">Integer</a></span>
+    </div>
+
     <div typeof="rdf:Property" resource="http://schema.org/maxPrice">
       <span class="h" property="rdfs:label">maxPrice</span>
       <span property="rdfs:comment">The highest price if the price is a range.</span>
