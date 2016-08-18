@@ -5672,7 +5672,13 @@ The place is __open__ if the [[opens]] property is specified, and __closed__ oth
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Place">Place</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/URL">URL</a></span>
     </div>
-
+    <div typeof="rdf:Property" resource="http://schema.org/maximumCapacity">
+      <span class="h" property="rdfs:label">maximumCapacity</span>
+      <span property="rdfs:comment">The total number of individuals that may attend an event or venue.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Place">Place</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Event">Event</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Integer">Integer</a></span>
+    </div>
     <div typeof="rdf:Property" resource="http://schema.org/maxPrice">
       <span class="h" property="rdfs:label">maxPrice</span>
       <span property="rdfs:comment">The highest price if the price is a range.</span>
@@ -6497,7 +6503,12 @@ The place is __open__ if the [[opens]] property is specified, and __closed__ oth
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/URL">URL</a></span>
     </div>
-
+    <div typeof="rdf:Property" resource="http://schema.org/remainingCapacity">
+      <span class="h" property="rdfs:label">remainingCapacity</span>
+      <span property="rdfs:comment">The number of places for an event that remain unallocated.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Event">Event</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Integer">Integer</a></span>
+    </div>
     <div typeof="rdf:Property" resource="http://schema.org/replacee">
       <span class="h" property="rdfs:label">replacee</span>
       <span property="rdfs:comment">A sub property of object. The object that is being replaced.</span>
