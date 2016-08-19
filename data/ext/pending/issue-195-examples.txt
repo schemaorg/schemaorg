@@ -1,4 +1,4 @@
-TYPES: #Course1 Course, CourseInstance, hasCourseInstance
+TYPES: #Course1 Course, CourseInstance, hasCourseInstance, courseMode
 
 PRE-MARKUP:
 
@@ -55,7 +55,7 @@ JSON:
 }
 </script>
 
-TYPES: #Course2 Course, CourseInstance, hasCourseInstance
+TYPES: #Course2 Course, CourseInstance, hasCourseInstance, courseMode
 
 
 PRE-MARKUP:
@@ -132,13 +132,13 @@ RDFA:
           <td property="courseMode">Full Time</td>
           <td property="startDate">29 Aug 2016</td>
           <td property="endDate">23 Jun 2017</td>
-          <td property="location">Halbeath Campus Dunfermline</td>
+          <td  property="location">Halbeath Campus Dunfermline</td>
         </tr>
         <tr rel="hasCourseInstance" typeof="CourseInstance">
           <td property="courseMode">Evenings only and weekends</td>
           <td property="startDate">31 Aug 2016</td>
           <td property="endDate">21 Jun 2017</td>
-          <td property="location">St Brycedale Campus Kirkcaldy</td>
+          <td  property="location">St Brycedale Campus Kirkcaldy</td>
         </tr>
       </tbody>
     </table>  
@@ -154,7 +154,7 @@ JSON:
 }
 </script>
 
-TYPES: #Course3 Course, CourseInstance, hasCourseInstance
+TYPES: #Course3 Course, CourseInstance, hasCourseInstance, courseMode
 
 PRE-MARKUP:
 
@@ -216,6 +216,213 @@ JSON:
 }
 </script>
 
+TYPES: #Course4 educationalCredentialAwarded
+
+PRE-MARKUP:
+
+<body>
+<!-- A college course leading to an HNC in Accounting -->
+<!-- based on http://www.fife.ac.uk/student/courses/course/HCACC -->
+  <h1>Course Details</h1>
+  <h2>HNC Accounting</h2>
+</body>
+
+MICRODATA:
+
+@@@@
+
+RDFA:
+
+<body vocab="http://schema.org/" typeof="Course">
+<!-- A college course leading to an HNC in Accounting -->
+<!-- based on http://www.fife.ac.uk/student/courses/course/HCACC -->
+  <h1>Course Details</h1>
+  <h2 property="name">HNC Accounting</h2>
+  <meta property="educationalCredentialAwarded" content="Higher National Certificate in Accounting" />
+</body>
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org/",
+  "@type": "@@@@",
+   ....etc.
+}
+</script>
+
+TYPES: #Course5 educationalCredentialAwarded
+
+PRE-MARKUP:
+
+<!-- Certificate for a distance learning course -->
+<!--Based on http://www.train4publishing.co.uk/courses/distance-learning/basic-proofreading -->
+<body>
+  <div>
+    <h1>Basic Proofreading</h1>
+    <h2>What is Included?</h2>
+    <h3>Certificate</h3>
+    <p>A completion certificate from PQB showing whether you have achieved a 
+      pass, merit or distinction in your work.</p>
+  </div>
+</body>
+
+MICRODATA:
+
+@@@@
+
+RDFA:
+
+<!-- Certificate for a distance learning course -->
+<!--Based on http://www.train4publishing.co.uk/courses/distance-learning/basic-proofreading -->
+<body vocab="http://schema.org/">
+  <div typeof="Course">
+    <h1 property="name">Basic Proofreading</h1>
+    <h2>What is Included?</h2>
+    <h3>Certificate</h3>
+    <p>A <span property= "educationalCredentialAwarded">completion certificate from 
+      PQB</span> showing whether you have achieved a pass, merit or distinction in your 
+      work.</p>
+  </div>
+</body>
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org/",
+  "@type": "@@@@",
+   ....etc.
+}
+</script>
+
+TYPES: #Course6 instructor, provider
+
+PRE-MARKUP:
+
+<body>
+<!-- A MOOC created by an Institution, offered through a MOOC platform, with named instructor -->
+<!-- Based on https://www.coursera.org/course/datascitoolbox -->
+
+<main>
+  <h1>The Data Scientist's Toolbox</h1>
+  <h2>
+    Johns Hopkins University
+  </h2>
+  <h2>About this Course</h2>
+  <div>
+    <h2>Instructors</h2>
+    <div>
+      <a href="http://example.org/instructor/~315" >
+        <p>Jeff Leek, PhD</p>
+        <div>Associate Professor, Biostatistics</div>
+        <div>Bloomberg School of Public Health </div>
+      </a>
+    </div>            
+  </div>
+</main>
+</body>
+
+
+MICRODATA:
+
+@@@@
+
+RDFA:
+
+<body vocab="http://schema.org/">
+<!-- A MOOC created by an Institution, offered through a MOOC platform, with named instructor -->
+<!-- Based on https://www.coursera.org/course/datascitoolbox -->
+
+<main typeof="Course">
+  <h1 property="name">The Data Scientist's Toolbox</h1>
+  <h2 property="provider" typeof="EducationalOrganization">
+    <span property="name">Johns Hopkins University</span>
+  </h2>
+  <h2>About this Course</h2>
+  <div rel="hasCourseInstance" typeof="CourseInstance">
+    <meta property="courseMode" content="MOOC" />
+    <meta property="courseMode" content="online" />
+    <span rel="offers" typeOf="Offer">
+      <meta property="price" content="0" />
+      <meta property="offeredBy" content="Coursera">
+    </span>
+    <h2  >Instructors</h2>
+    <div property="instructor" typeof="person">
+      <a property="url" href="http://example.org/instructor/~315" >
+        <p  property="name">Jeff Leek, PhD</p>
+        <div property="jobTitle" >Associate Professor, Biostatistics</div>
+        <div  property="worksFor" >Bloomberg School of Public Health </div>
+      </a>
+    </div>            
+  </div>
+</main>
+</body>
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org/",
+  "@type": "@@@@",
+   ....etc.
+}
+</script>
+
+TYPES: #Course6 Course, courseCode, provider
+
+PRE-MARKUP:
+
+<body>
+<!--A Bachellor's programme provided by a University, referencing the course code-->
+<!--based on http://search.ucas.com/course/summary/463149/physics -->
+    <div>
+        <h2>Physics</h2>
+        <div>
+            <a href="/provider/324/university-of-bristol">
+                <span>University of Bristol</span> 
+            </a>
+        </div>
+        <div>
+            Course code: F300
+        </div>
+    </div>
+</body>
+
+MICRODATA:
+
+@@@@
+
+RDFA:
+
+<body vocab="http://schema.org/">
+<!--A Bachellor's programme provided by a University, referencing the course code-->
+<!--based on http://search.ucas.com/course/summary/463149/physics -->
+    <div typeof="Course">
+        <h2 property="name">Physics</h2>
+        <div property="provider" typeOf="CollegeOrUniversity">
+            <a property="url" href="/provider/324/university-of-bristol">
+                <span property="name">University of Bristol</span> 
+            </a>
+        </div>
+        <div>
+            Course code <span property="courseCode">F300</span>
+        </div>
+    </div>
+</body>
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org/",
+  "@type": "@@@@",
+   ....etc.
+}
+</script>
+
+
+
 TYPES: @@@@comma-separated-list-here@@@@ replace @@@@ with content.
 
 PRE-MARKUP:
@@ -239,4 +446,5 @@ JSON:
    ....etc.
 }
 </script>
+
 
