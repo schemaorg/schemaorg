@@ -45,9 +45,9 @@ https://pypi.python.org/pypi/html5lib (MIT License)
 
 https://pypi.python.org/pypi/isodate (BSD License)
 
-3.) markdown/
+3.) markdown2/
 
-https://pypi.python.org/pypi/Markdown (BSD License)
+https://github.com/trentm/python-markdown2 (MIT License)
 
 4.) pyparsing.py
 
