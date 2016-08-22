@@ -1,6 +1,5 @@
-application: schemaorgae
-#application: webschemas
-#application: sdo-deimos
+#application: schemaorgae
+application: webschemas
 
 version: 1
 runtime: python27
@@ -24,6 +23,11 @@ handlers:
   upload: docs/favicon.ico
   mime_type: image/x-icon
 
+- url: /robots.txt
+  static_files: docs/robots.txt
+  upload: docs/robots.txt
+  mime_type: text/plain
+
 # To avoid: "Could not guess mimetype for docs/schemaorg.owl.  Using application/octet-stream."
 - url: /docs/schemaorg.owl
   static_files: docs/schemaorg.owl
@@ -45,6 +49,9 @@ handlers:
 - url: /docs/schemas.html
   script: sdoapp.app
 
+- url: /docs/developers.html
+  script: sdoapp.app
+
 - url: /docs/tree.json.*
   script: sdoapp.app
 
@@ -59,8 +66,25 @@ handlers:
 - url: /search_files
   static_dir: static/search_files
 
+- url: /version/latest/.*
+  script: sdoapp.app
+
+- url: /(version/[^/]*/)$
+  script: sdoapp.app
+
+- url: /(version/([^/]*))$
+  script: sdoapp.app
+
+- url: /version/
+  script: sdoapp.app
+
+- url: /version/*/*
+  static_dir: data/releases/
+  application_readable: True
+
 - url: /.*
   script: sdoapp.app
+
 
 
 
