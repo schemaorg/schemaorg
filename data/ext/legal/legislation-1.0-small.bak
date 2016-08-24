@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bgn="http://bibliograph.net" xmlns:schema="http://schema.org/" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xml:lang="en" lang="en">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>legislation.schema.org - RDFa Lite Reflection</title>
+<style type="text/css">
+      span.h {
+        padding-left: 0px;
+        font-weight: bold;
+      }
+      span {
+        display: block;
+        padding-left: 10px;
+      }
+    </style>
+</head>
+<body>
+<h1>Candidates for schema.org</h1>
+<p></p>
+
+<p vocab="http://schema.org" prefix="legislation:http://legislation.schema.org/">Default vocabulary prefix: 'legislation:'</p>
+<p>
+<span property="schema:softwareVersion">legislation.schema.org Version 0.1</span>
+</p>
+<hr/>
+<h2>Types</h2>
+
+<div typeof="rdfs:Class" resource="http://schema.org/Legislation">
+	<link property="http://schema.org/isPartOf" href="http://legislation.schema.org" />
+	<span class="h" property="rdfs:label">legislation:Legislation</span>
+	<span property="rdfs:comment">A legal text or act or part of a legal act (like an article).</span>
+	<span>Subclass of:<a property="rdfs:subClassOf" href="http://schema.org/CreativeWork">schema:CreativeWork</a></span>
+	<span>Source:  <a property="dc:source" href="http://data.europa.eu/eli/ontology#LegalResource">eli:LegalResource</a></span>
+</div>
+
+<div typeof="rdfs:Class" resource="http://schema.org/LegalForceStatus">
+  <link property="http://schema.org/isPartOf" href="http://legislation.schema.org" />
+  <span class="h" property="rdfs:label">LegalForceStatus</span>
+  <span property="rdfs:comment">A list of possible statuses for the legal force of a legislation.</span>
+  <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Enumeration">Enumeration</a></span>
+  <span>Source:  <a property="dc:source" href="http://data.europa.eu/eli/ontology#InForce">eli:InForce</a></span>
+</div>
+
+<div typeof="http://schema.org/LegalForceStatus" resource="http://schema.org/InForce">
+  <link property="http://schema.org/isPartOf" href="http://legislation.schema.org" />
+  <span class="h" property="rdfs:label">InForce</span>
+  <span property="rdfs:comment">Indicates that a legislation is in force.</span>
+  <span>Source:  <a property="dc:source" href="http://data.europa.eu/eli/ontology#InForce-inForce">eli:InForce-inForce</a></span>
+</div>
+
+<div typeof="http://schema.org/LegalForceStatus" resource="http://schema.org/NotInForce">
+  <link property="http://schema.org/isPartOf" href="http://legislation.schema.org" />
+  <span class="h" property="rdfs:label">NotInForce</span>
+  <span property="rdfs:comment">Indicates that a legislation is currently not in force.</span>
+  <span>Source:  <a property="dc:source" href="http://data.europa.eu/eli/ontology#InForce-inForce">InForce-notInForce</a></span>
+</div>
+
+<div typeof="http://schema.org/LegalForceStatus" resource="http://schema.org/PartiallyInForce">
+  <link property="http://schema.org/isPartOf" href="http://legislation.schema.org" />
+  <span class="h" property="rdfs:label">PartiallyInForce</span>
+  <span property="rdfs:comment">Indicates that parts of the legislation are in force, and parts are not.</span>
+  <span>Source:  <a property="dc:source" href="http://data.europa.eu/eli/ontology#InForce-partiallyInForce">InForce-partiallyInForce</a></span>
+</div>
+
+<hr/>
+<h2>Enumeration Members</h2>
+
+<hr/>
+<h2>Properties</h2>
+
+<div typeof="rdf:Property" resource="http://schema.org/legalForce">
+	<link property="http://schema.org/isPartOf" href="http://legislation.schema.org" />
+	<span class="h" property="rdfs:label">legislation:legalForce</span>
+	<span property="rdfs:comment">Whether the legislation is currently in force or not.</span>
+	<span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Legislation">legislation:Legislation</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/LegalForceStatus">LegalForceStatus</a></span>
+    <span>Source:  <a property="dc:source" href="http://data.europa.eu/eli/ontology#in_force">eli:in_force</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/dateEnteredIntoForce">
+	<link property="http://schema.org/isPartOf" href="http://legislation.schema.org" />
+	<span class="h" property="rdfs:label">legislation:dateEnteredIntoForce</span>
+	<span property="rdfs:comment">The first date any part of the legislation came into force (can be seen as the start date of a validity range)</span>
+	<span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Legislation">legislation:Legislation</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Date">Date</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/DateTime">DateTime</a></span>
+    <span>Source:  <a property="dc:source" href="http://data.europa.eu/eli/ontology#date_entry_into_force">eli:date_entry_into_force</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/dateNoLongerIntoForce">
+	<link property="http://schema.org/isPartOf" href="http://legislation.schema.org" />
+	<span class="h" property="rdfs:label">legislation:dateNoLongerIntoForce</span>
+	<span property="rdfs:comment">The last date any part of the legislation cease to be in force (can be seen as the end date of a validity range)</span>
+	<span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Legislation">legislation:Legislation</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Date">Date</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/DateTime">DateTime</a></span>
+    <span>Source:  <a property="dc:source" href="http://data.europa.eu/eli/ontology#date_no_longer_in_force">eli:date_no_longer_in_force</a></span>
+</div>
+
+
+</body>
+</html>
