@@ -1,0 +1,167 @@
+
+TYPES:  MedicalScholarlyArticle,MedicalGuideline,MedicalGuidelineRecommendation
+
+PRE-MARKUP:
+
+<h1>New guidelines for metformin and diabetes mellitus</h1>
+<p>Dr. John Smith
+<br>Medical University
+<br>2012-03-24</p>
+<p><b>Abstract:</b>
+We review clinical evidence related to the use of metformin for
+treatment of type-2 diabetes mellitus and provide new clinical guideline
+recommendations.</p>
+<p><b>MeSH subject headings:</b> Metformin; Diabetes Mellitus, Type 2</p>
+...
+<h3>Guidelines</h3>
+Recommendation: we recommend monotherapy with metformin as an initial
+pharmacologic therapy to treat most patients with type 2 diabetes
+(Grade: strong recommendation; high-quality evidence).
+
+MICRODATA:
+
+<div itemscope itemtype="http://schema.org/MedicalScholarlyArticle">
+  <link itemprop="audience" href="http://schema.org/Clinician"/>
+  <meta itemprop="publicationType" content="Meta-Analysis"/>
+  <h1><span itemprop="name">New guidelines for metformin and
+      diabetes mellitus</span></h1>
+  <p><span itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <span itemprop="name">Dr. John Smith</span>
+    <br><span itemprop="affiliation">Medical University</span>
+  </span>
+  <br><span itemprop="datePublished">2012-03-24</span></p>
+  <p><b>Abstract:</b>
+  <span itemprop="description">We review clinical evidence related to the use of metformin for
+  treatment of type-2 diabetes mellitus and provide new clinical guideline
+  recommendations.</span></p>
+  <p><b>MeSH subject headings:</b>
+  <span itemprop="about" itemscope itemtype="http://schema.org/Drug">
+    <span itemprop="name">Metformin</span>
+    <span itemprop="code" itemscope
+          itemtype="http://schema.org/MedicalCode"
+          itemid="http://www.ncbi.nlm.nih.gov/mesh/D02.078.370.141.450">
+      <!-- Note: use of itemid is not mandatory, but recommended when an
+           external enumeration is available -->
+      <meta itemprop="code" content="D02.078.370.141.450"/>
+      <meta itemprop="codingSystem" content="MeSH"/>
+    </span>
+  </span>;
+  <span itemprop="about" itemscope itemtype="http://schema.org/MedicalCondition">
+    <span itemprop="name">Diabetes Mellitus, Type 2</span>
+    <span itemprop="code" itemscope
+          itemtype="http://schema.org/MedicalCode"
+          itemid="http://www.ncbi.nlm.nih.gov/mesh/C18.452.394.750.149">
+      <!-- Note: use of itemid is not mandatory, but recommended when an
+           external enumeration is available -->
+      <meta itemprop="code" content="C18.452.394.750.149"/>
+      <meta itemprop="codingSystem" content="MeSH"/>
+    </span>
+  </span></p>
+  ...
+  <h3>Guidelines</h3>
+  <span itemscope itemtype="http://schema.org/MedicalGuidelineRecommendation">
+    Recommendation: we recommend monotherapy with
+    <span itemprop="subject">metformin</span> as an initial pharmacologic therapy
+    to treat most patients with <span itemprop="subject">type 2 diabetes</span>
+    (Grade: <span itemprop="recommendationStrength">strong recommendation</span>;
+    <a itemprop="evidenceLevel" href="http://schema.org/EvidenceLevelA">high-quality
+      evidence</a>).
+  </span>
+</div>
+
+RDFA:
+
+<div vocab="http://schema.org/" typeof="MedicalScholarlyArticle">
+  <link property="audience" href="http://schema.org/Clinician"/>
+  <meta property="publicationType" content="Meta-Analysis"/>
+  <h1><span property="name">New guidelines for metformin and
+      diabetes mellitus</span></h1>
+  <p><span property="author"  typeof="Person">
+    <span property="name">Dr. John Smith</span>
+    <br><span property="affiliation">Medical University</span>
+  </span>
+  <br><span property="datePublished">2012-03-24</span></p>
+  <p><b>Abstract:</b>
+  <span property="description">We review clinical evidence related to the use of metformin for
+  treatment of type-2 diabetes mellitus and provide new clinical guideline
+  recommendations.</span></p>
+  <p><b>MeSH subject headings:</b>
+  <span property="about"  typeof="Drug">
+    <span property="name">Metformin</span>
+    <span property="code"  typeof="MedicalCode"
+          resource="http://www.ncbi.nlm.nih.gov/mesh/D02.078.370.141.450">
+      <!-- Note: use of itemid is not mandatory, but recommended when an
+           external enumeration is available -->
+      <meta property="code" content="D02.078.370.141.450"/>
+      <meta property="codingSystem" content="MeSH"/>
+    </span>
+  </span>;
+  <span property="about"  typeof="MedicalCondition">
+    <span property="name">Diabetes Mellitus, Type 2</span>
+    <span property="code"  typeof="MedicalCode"
+          resource="http://www.ncbi.nlm.nih.gov/mesh/C18.452.394.750.149">
+      <!-- Note: use of itemid is not mandatory, but recommended when an
+           external enumeration is available -->
+      <meta property="code" content="C18.452.394.750.149"/>
+      <meta property="codingSystem" content="MeSH"/>
+    </span>
+  </span>
+  </p>
+  ...
+  <h3>Guidelines</h3>
+  <span  typeof="MedicalGuidelineRecommendation">
+    Recommendation: we recommend monotherapy with
+    <span property="subject">metformin</span> as an initial pharmacologic therapy
+    to treat most patients with <span property="subject">type 2 diabetes</span>
+    (Grade: <span property="recommendationStrength">strong recommendation</span>;
+    <a property="evidenceLevel" href="http://schema.org/EvidenceLevelA">high-quality
+      evidence</a>).
+  </span>
+</div>
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "MedicalScholarlyArticle",
+  "about": [
+    {
+      "@type": "Drug",
+      "code": {
+        "@id": "http://www.ncbi.nlm.nih.gov/mesh/D02.078.370.141.450",
+        "@type": "MedicalCode",
+        "code": "D02.078.370.141.450",
+        "codingSystem": "MeSH"
+      },
+      "name": "Metformin"
+    },
+    {
+      "@type": "MedicalCondition",
+      "name": "Diabetes Mellitus, Type 2"
+    }
+  ],
+  "audience": "http://schema.org/Clinician",
+  "author": {
+    "@type": "Person",
+    "affiliation": "Medical University",
+    "name": "Dr. John Smith"
+  },
+  "code": {
+    "@id": "http://www.ncbi.nlm.nih.gov/mesh/C18.452.394.750.149",
+    "@type": "MedicalCode",
+    "code": "C18.452.394.750.149",
+    "codingSystem": "MeSH"
+  },
+  "datePublished": "2012-03-24",
+  "description": "We review clinical evidence related to the use of metformin for treatment of type-2 diabetes mellitus and provide new clinical guideline recommendations.",
+  "evidenceLevel": "http://schema.org/EvidenceLevelA",
+  "name": "New guidelines for metformin and diabetes mellitus",
+  "publicationType": "Meta-Analysis",
+  "recommendationStrength": "strong recommendation",
+  "subject": [
+    "metformin",
+    "type 2 diabetes"
+  ]
+}
+</script>
