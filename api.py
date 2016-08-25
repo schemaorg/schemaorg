@@ -266,13 +266,24 @@ class HeaderStoreTool():
 
 PageStore = None
 HeaderStore = None
-log.info("NDB PageStore & HeaderStore enabled: %s" % NDBPAGESTORE)
+log.info("NDB PageStore & HeaderStore available: %s" % NDBPAGESTORE)
+
+def enablePageStore(state):
+    global PageStore,HeaderStore
+    if state:
+        log.info("Enabling NDB")
+        PageStore = PageStoreTool()
+        HeaderStore = HeaderStoreTool()
+    else:
+        log.info("Disabling NDB")
+        PageStore = DataCacheTool()
+        HeaderStore = DataCacheTool()
+
 if  NDBPAGESTORE:
-    PageStore = PageStoreTool()
-    HeaderStore = HeaderStoreTool()
+    enablePageStore(True)
 else:
-    PageStore = DataCacheTool()
-    HeaderStore = DataCacheTool()
+    enablePageStore(False)
+    
     
 
 
