@@ -303,6 +303,7 @@ class SDOGraphSetupTestCase(unittest.TestCase):
             log.info("Term '%s' defined ase inverseOf AND supercededBy %s" % (row["term"], row["inverse"]))
     self.assertEqual(len(nri1_results), 0, "Types with inverseOf supercededBy shared target Found: %s" % len(nri1_results))
 
+  @unittest.expectedFailure 
   def test_commentEndWithPeriod(self):
     nri1= ('''select ?term ?com where { 
        ?term rdfs:comment ?com.
