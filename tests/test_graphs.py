@@ -426,39 +426,8 @@ class SDOGraphSetupTestCase(unittest.TestCase):
 
   def test_EnumerationWithoutEnums(self):
     nri1= ('''select ?term where { 
-        { 
-            ?term rdfs:subClassOf <http://schema.org/Enumeration> .
-        }
-        UNION
-        { 
-            ?term rdfs:subClassOf ?s2.
-            ?s2 rdfs:subClassOf <http://schema.org/Enumeration> .
-        }
-        UNION
-        { 
-            ?term rdfs:subClassOf ?s3.
-            ?s3 rdfs:subClassOf ?s2.
-            ?s2 rdfs:subClassOf <http://schema.org/Enumeration> .
-        }
-        UNION
-        { 
-            ?term rdfs:subClassOf ?s4.
-            ?s4 rdfs:subClassOf ?s3.
-            ?s3 rdfs:subClassOf ?s2.
-            ?s2 rdfs:subClassOf <http://schema.org/Enumeration> .
-        }
-        UNION
-        { 
-            ?term rdfs:subClassOf ?s5.
-            ?s5 rdfs:subClassOf ?s3.
-            ?s4 rdfs:subClassOf ?s3.
-            ?s3 rdfs:subClassOf ?s2.
-            ?s2 rdfs:subClassOf <http://schema.org/Enumeration> .
-        }
-        FILTER NOT EXISTS
-        {
-            ?val a ?term.
-        }
+        ?term rdfs:subClassOf/rdfs:subClassOf* <http://schema.org/Enumeration> .
+        FILTER NOT EXISTS { ?enum a ?term. }
         FILTER NOT EXISTS { ?term <http://schema.org/isPartOf> <http://attic.schema.org> .}
     } 
     ORDER BY ?term  ''')
@@ -468,6 +437,7 @@ class SDOGraphSetupTestCase(unittest.TestCase):
         for row in nri1_results:
             log.info("Enumeration Type '%s' has no matching enum values" % (row["term"]))
     self.assertEqual(len(nri1_results), 0, "Enumeration Type without Enumeration value(s)    Found: %s" % len(nri1_results))
+
 
 def tearDownModule():
     global warnings
