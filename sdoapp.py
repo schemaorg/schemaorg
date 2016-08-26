@@ -30,7 +30,7 @@ from api import Unit, GetTargets, GetSources, GetComments, GetsoftwareVersions
 from api import GetComment, all_terms, GetAllTypes, GetAllProperties, GetAllEnumerationValues, GetAllTerms, LoadExamples
 from api import GetParentList, GetImmediateSubtypes, HasMultipleBaseTypes
 from api import GetJsonLdContext, ShortenOnSentence, StripHtmlTags, MD
-from api import setInTestHarness, getInTestHarness, setAllLayersList
+from api import setInTestHarness, getInTestHarness, setAllLayersList, enablePageStore
 
 logging.basicConfig(level=logging.INFO) # dev_appserver.py --log_level debug .
 log = logging.getLogger(__name__)
@@ -63,17 +63,22 @@ JINJA_ENVIRONMENT = jinja2.Environment(
 ENABLE_JSONLD_CONTEXT = True
 ENABLE_CORS = True
 ENABLE_HOSTED_EXTENSIONS = True
+DISABLE_NDB_FOR_LOCALHOST = True
 
 #INTESTHARNESS = True #Used to indicate we are being called from tests - use setInTestHarness() & getInTestHarness() to manage value
 
 EXTENSION_SUFFIX = "" # e.g. "*"
 
-ENABLED_EXTENSIONS = ['auto', 'bib', 'health-lifesci', 'pending', 'meta'  ]
-ALL_LAYERS = ['core',""]
-
+CORE = 'core'
+ATTIC = 'attic'
+ENABLED_EXTENSIONS = [ATTIC, 'auto', 'bib', 'health-lifesci', 'pending', 'meta'  ]
+#### Following 2 lines look odd - leave them as is - just go with it!
+ALL_LAYERS = [CORE,'']
 ALL_LAYERS += ENABLED_EXTENSIONS
+####
+ALL_LAYERS_NO_ATTIC = list(ALL_LAYERS) 
+ALL_LAYERS_NO_ATTIC.remove(ATTIC)
 setAllLayersList(ALL_LAYERS)
-
 
 FORCEDEBUGGING = False
 # FORCEDEBUGGING = True
@@ -225,7 +230,7 @@ class TypeHierarchyTree:
     def toJSON(self):
         return self.txt
 
-    def traverseForHTML(self, node, depth = 1, hashorslash="/", layers='core', buff=None):
+    def traverseForHTML(self, node, depth = 1, hashorslash="/", layers='core', traverseAllLayers=False, buff=None):
 
         """Generate a hierarchical tree view of the types. hashorslash is used for relative link prefixing."""
 
@@ -241,8 +246,9 @@ class TypeHierarchyTree:
 
         urlprefix = ""
         home = node.getHomeLayer()
-        gotOutput = True
-        if home not in layers:
+        gotOutput = False
+
+        if not traverseAllLayers and home not in layers:
             gotOutput = False
             return gotOutput
 
@@ -269,7 +275,7 @@ class TypeHierarchyTree:
                 # handle our subtypes
                 for item in subTypes:
                     subBuff = StringIO.StringIO()
-                    got = self.traverseForHTML(item, depth + 1, hashorslash=hashorslash, layers=layers, buff=subBuff)
+                    got = self.traverseForHTML(item, depth + 1, hashorslash=hashorslash, layers=layers, traverseAllLayers=traverseAllLayers,buff=subBuff)
                     if got:
                         gotOutput = True
                         self.emit2buff(buff,subBuff.getvalue())
@@ -279,11 +285,12 @@ class TypeHierarchyTree:
                 # we are a supertype but we visited this type before, e.g. saw Restaurant via Place then via Organization
                 seen = '  <a href="#%s">+</a> ' % node.id
                 self.emit2buff(buff, ' %s<li class="tbranch" id="%s"><a %s %s href="%s%s%s">%s</a>%s%s' % (" " * 4 * depth, node.id,  tooltip, extclass, urlprefix, hashorslash, node.id, node.id, extflag, seen) )
-
         # leaf nodes
         if len(subTypes) == 0:
-            if node.id not in self.visited:
-                self.emit2buff(buff, '%s<li class="tleaf" id="%s"><a %s %s href="%s%s%s">%s</a>%s%s' % (" " * depth, node.id, tooltip, extclass, urlprefix, hashorslash, node.id, node.id, extflag, "" ))
+            if home  in layers:
+                gotOutput = True
+                if node.id not in self.visited:
+                    self.emit2buff(buff, '%s<li class="tleaf" id="%s"><a %s %s href="%s%s%s">%s</a>%s%s' % (" " * depth, node.id, tooltip, extclass, urlprefix, hashorslash, node.id, node.id, extflag, "" ))
             #else:
                 #self.visited[node.id] = True # never...
                 # we tolerate "VideoGame" appearing under both Game and SoftwareApplication
@@ -544,8 +551,11 @@ class ShowUnit (webapp2.RequestHandler):
         self.write("</h1>\n")
         home = node.home
         if home != "core" and home != "":
-            self.write("Defined in the %s.schema.org extension.<br/>" % home)
-            self.emitCanonicalURL(node)
+            if home == ATTIC:
+                self.write("Defined in the %s.schema.org archive area.<br/><strong>Use of this term is not advised</strong><br/>" % home)
+            else:
+                self.write("Defined in the %s.schema.org extension.<br/>" % home)
+        self.emitCanonicalURL(node)
 
         self.BreadCrumbs(node, layers=layers)
 
@@ -793,11 +803,12 @@ class ShowUnit (webapp2.RequestHandler):
 
         di = Unit.GetUnit("domainIncludes")
 
-
+        targetlayers=self.appropriateLayers(layers)
+        log.info("Appropriate targets %s" % targetlayers)
         exts = {}
 
-        for prop in sorted(GetSources(di, cl, ALL_LAYERS), key=lambda u: u.id):
-            if (prop.superseded(layers=layers)):
+        for prop in sorted(GetSources(di, cl, targetlayers), key=lambda u: u.id):
+            if (prop.superseded(layers=targetlayers)):
                 continue
             if inLayer(layers,prop): #Already in the correct layer - no need to report
                 continue
@@ -830,7 +841,7 @@ class ShowUnit (webapp2.RequestHandler):
         if not out:
             out = self
             
-        layers=ALL_LAYERS # Show incomming properties from all layers
+        targetlayers=self.appropriateLayers(layers) # Show incomming properties from all layers
 
         headerPrinted = False
         di = Unit.GetUnit("domainIncludes")
@@ -839,12 +850,12 @@ class ShowUnit (webapp2.RequestHandler):
         for prop in sorted(GetSources(ri, cl, layers=layers), key=lambda u: u.id):
             if (prop.superseded(layers=layers)):
                 continue
-            supersedes = prop.supersedes(layers=layers)
-            inverseprop = prop.inverseproperty(layers=layers)
-            subprops = sorted(prop.subproperties(layers=layers),key=lambda u: u.id)
-            superprops = sorted(prop.superproperties(layers=layers),key=lambda u: u.id)
-            ranges = sorted(GetTargets(di, prop, layers=layers),key=lambda u: u.id)
-            comment = GetComment(prop, layers=layers)
+            supersedes = prop.supersedes(layers=targetlayers)
+            inverseprop = prop.inverseproperty(layers=targetlayers)
+            subprops = sorted(prop.subproperties(layers=targetlayers),key=lambda u: u.id)
+            superprops = sorted(prop.superproperties(layers=targetlayers),key=lambda u: u.id)
+            ranges = sorted(GetTargets(di, prop, layers=targetlayers),key=lambda u: u.id)
+            comment = GetComment(prop, layers=targetlayers)
 
             if (not headerPrinted):
                 self.write("<br/><br/>Instances of %s may appear as values for the following properties<br/>" % (self.ml(cl)))
@@ -900,11 +911,11 @@ class ShowUnit (webapp2.RequestHandler):
         """Write out properties of this property, for a per-property page."""
         if not out:
             out = self
-
+        targetLayers = self.appropriateLayers(layers)
         di = Unit.GetUnit("domainIncludes")
         ri = Unit.GetUnit("rangeIncludes")
-        rges = sorted(GetTargets(ri, node, layers=ALL_LAYERS), key=lambda u: u.id)
-        doms = sorted(GetTargets(di, node, layers=ALL_LAYERS), key=lambda u: u.id)
+        rges = sorted(GetTargets(ri, node, layers=targetLayers), key=lambda u: u.id)
+        doms = sorted(GetTargets(di, node, layers=targetLayers), key=lambda u: u.id)
         ranges = []
         eranges = []
         for r in rges:
@@ -920,9 +931,9 @@ class ShowUnit (webapp2.RequestHandler):
             else:
                 edomains.append(d) 
 
-        inverseprop = node.inverseproperty(layers=ALL_LAYERS)
-        subprops = sorted(node.subproperties(layers=ALL_LAYERS),key=lambda u: u.id)
-        superprops = sorted(node.superproperties(layers=ALL_LAYERS),key=lambda u: u.id)
+        inverseprop = node.inverseproperty(layers=targetLayers)
+        subprops = sorted(node.subproperties(layers=targetLayers),key=lambda u: u.id)
+        superprops = sorted(node.superproperties(layers=targetLayers),key=lambda u: u.id)
 
 
         if (inverseprop != None):
@@ -1182,8 +1193,10 @@ class ShowUnit (webapp2.RequestHandler):
 
         return desc
 
-
-
+    def appropriateLayers(self,layers="core"):
+        if ATTIC in layers:
+            return ALL_LAYERS
+        return ALL_LAYERS_NO_ATTIC
 
     def emitExactTermPage(self, node, layers="core"):
         """Emit a Web page that exactly matches this node."""
@@ -1198,8 +1211,6 @@ class ShowUnit (webapp2.RequestHandler):
         self.emitSchemaorgHeaders(node, ext_mappings, sitemode, getSiteName(), layers)
 
 
-        #cached = self.GetCachedText(node, layers)
-        #cached = DataCache.get(node.id)
         cached = PageStore.get(node.id)
         if (cached != None):
             log.info("GOT CACHED page for %s", node.id)
@@ -1237,9 +1248,9 @@ class ShowUnit (webapp2.RequestHandler):
 
         if (node.isClass(layers=layers)):
             children = []
-            children = GetSources(Unit.GetUnit("rdfs:subClassOf"), node, ALL_LAYERS)# Normal subclasses
+            children = GetSources(Unit.GetUnit("rdfs:subClassOf"), node, self.appropriateLayers(layers))# Normal subclasses
             if(node.isDataType() or node.id == "DataType"):
-                children += GetSources(Unit.GetUnit("rdf:type"), node, ALL_LAYERS)# Datatypes
+                children += GetSources(Unit.GetUnit("rdf:type"), node, self.appropriateLayers(layers))# Datatypes
             children = sorted(children, key=lambda u: u.id)
 
             if (len(children) > 0):
@@ -1276,7 +1287,7 @@ class ShowUnit (webapp2.RequestHandler):
 
         if (node.isEnumeration(layers=layers)):
 
-            children = sorted(GetSources(Unit.GetUnit("rdf:type"), node, ALL_LAYERS), key=lambda u: u.id)
+            children = sorted(GetSources(Unit.GetUnit("rdf:type"), node, self.appropriateLayers(layers)), key=lambda u: u.id)
             if (len(children) > 0):
                 buff = StringIO.StringIO()
                 extbuff = StringIO.StringIO()
@@ -1412,7 +1423,7 @@ class ShowUnit (webapp2.RequestHandler):
                 continue
             layerlist.append("%s" % str(x))
         layerlist = list(set(layerlist))   # dedup
-        log.debug("layerlist: %s" % layerlist)
+        #log.info("layerlist: %s" % layerlist)
         return layerlist
 
     def handleJSONContext(self, node):
@@ -1454,10 +1465,12 @@ class ShowUnit (webapp2.RequestHandler):
         else:
             extensions = []
             for ex in sorted(ENABLED_EXTENSIONS):
-                extensions.append("<a href=\"%s\">%s.schema.org</a>" % (makeUrl(ex,""),ex))
+                if ex != ATTIC:
+                    extensions.append("<a href=\"%s\">%s.schema.org</a>" % (makeUrl(ex,""),ex))
 
             page = templateRender('schemas.tpl',{'counts': self.getCounts(),
                                     'extensions': extensions,
+                                    'attic': "<a href=\"%s\">%s.schema.org</a>" % (makeUrl(ATTIC,""),ATTIC),
                                     'menu_sel': "Schemas"})
 
             self.response.out.write( page )
@@ -1540,27 +1553,16 @@ class ShowUnit (webapp2.RequestHandler):
             mainroot = TypeHierarchyTree(local_label)
             mainroot.traverseForHTML(uThing, layers=layerlist)
             thing_tree = mainroot.toHTML()
-            #az_enums = GetAllEnumerationValues(layerlist)
-            #az_enums.sort( key = lambda u: u.id)
-            #thing_tree += self.listTerms(az_enums,"<br/><strong>Enumeration Values</strong><br/>")
-
 
             fullmainroot = TypeHierarchyTree("<h3>Core plus all extension vocabularies</h3>")
-            fullmainroot.traverseForHTML(uThing, layers=ALL_LAYERS)
+            fullmainroot.traverseForHTML(uThing, layers=ALL_LAYERS_NO_ATTIC)
             full_thing_tree = fullmainroot.toHTML()
-            #az_enums = GetAllEnumerationValues(ALL_LAYERS)
-            #az_enums.sort( key = lambda u: u.id)
-            #full_thing_tree += self.listTerms(az_enums,"<br/><strong>Enumeration Values</strong><br/>")
 
             ext_thing_tree = None
             if len(extonlylist) > 0:
                 extroot = TypeHierarchyTree("<h3>Extension: %s</h3>" % extlist)
-                extroot.traverseForHTML(uThing, layers=extonlylist)
+                extroot.traverseForHTML(uThing, layers=extonlylist, traverseAllLayers=True)
                 ext_thing_tree = extroot.toHTML()
-                #az_enums = GetAllEnumerationValues(extonlylist)
-                #az_enums.sort( key = lambda u: u.id)
-                #ext_thing_tree += self.listTerms(az_enums,"<br/><strong>Enumeration Values</strong><br/>")
-
 
             dtroot = TypeHierarchyTree("<h4>Data Types</h4>")
             dtroot.traverseForHTML(uDataType, layers=layerlist)
@@ -1627,11 +1629,6 @@ class ShowUnit (webapp2.RequestHandler):
                 ext = {}
                 ext['href'] = makeUrl(schema_node.getHomeLayer(),schema_node.id)
                 ext['text'] = schema_node.getHomeLayer()
-#                for x in all_terms[schema_node.id]:
-#                    x = x.replace("#","")
-#                    ext = {}
-#                    ext['href'] = makeUrl(x,schema_node.id)
-#                    ext['text'] = x
                 extensions.append(ext)
                     #self.response.out.write("<li><a href='%s'>%s</a></li>" % (makeUrl(x,schema_node.id), x) )
 
@@ -2085,6 +2082,9 @@ class ShowUnit (webapp2.RequestHandler):
         if(node == "_ah/warmup"):
             if "localhost" in os.environ['SERVER_NAME'] and WarmupState.lower() == "auto":
                 log.info("Warmup dissabled for localhost instance")
+                if DISABLE_NDB_FOR_LOCALHOST:
+                    log.info("NDB dissabled for localhost instance")
+                    enablePageStore(False)
             else:
                 self.warmup()
             return False
@@ -2373,6 +2373,7 @@ def templateRender(templateName,values=None):
         'sitemode': sitemode,
         'sitename': getSiteName(),
         'staticPath': makeUrl("",""),
+        'extensionPath': makeUrl(getHostExt(),""),
         'myhost': getHost(),
         'myport': getHostPort(),
         'mybasehost': getBaseHost(),

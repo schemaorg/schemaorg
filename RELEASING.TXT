@@ -69,6 +69,7 @@ First copy snapshot into place:
  * curl http://localhost:8080/version/latest/> data/releases/2.2/schema-all.html
 
 Then generate N-Triples etc. versions:
+* Ensure that the EXTENTIONS variable at the top of the script 'scripts/buildreleasefiles.sh' contains all the extensions for this release.
 * scripts/buildreleasefiles.sh 3.1 - Check listed extensions is correct update if not
 
 * Inspect snapshot, add to git and push to repo.
