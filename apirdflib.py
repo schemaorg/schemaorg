@@ -37,8 +37,10 @@ def loadNss():
     global revNss
     if not NSSLoaded:
         NSSLoaded = True
+        log.info("allLayersList: %s"% allLayersList)
         for i in allLayersList:
             if i != "core":
+                log.info("Setting %s to %s" % (i, "http://%s.schema.org/" % i))
                 nss.update({i:"http://%s.schema.org/" % i})
         revNss = {v: k for k, v in nss.items()}
                

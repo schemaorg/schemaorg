@@ -38,10 +38,10 @@ dev_appserver.fix_sys_path()
 
 parser = argparse.ArgumentParser()
 parser.add_argument("-a","--autoext", default="Yes",help="Auto add format based file extension Yes|No. Default Yes")
-parser.add_argument("-e","--exclude", default= [[]],action='append',nargs='*', help="Exclude graph(s) [core|extensions|bib|auto|meta|{etc} (Repeatable)")
+parser.add_argument("-e","--exclude", default= [[]],action='append',nargs='*', help="Exclude graph(s) [core|extensions|all|bib|auto|meta|{etc} (Repeatable) -  'attic' always excluded unless explictly included")
 parser.add_argument("-f","--format", default="nt", choices=['xml','nquads','nt','json-ld','turtle'])
 parser.add_argument("-g","--quadgraphsuffix", help="Suffix for graph elements of quads.  eg. http://bib.schema.org/{suffix}")
-parser.add_argument("-i","--include", default= [[]],action='append',nargs='*', help="Include graph(s) [core|extensions|bib|auto|meta|{etc} (Repeatable) overrides exclude")
+parser.add_argument("-i","--include", default= [[]],action='append',nargs='*', help="Include graph(s) [core|extensions|all|attic|bib|auto|meta|{etc} (Repeatable) overrides exclude - 'attic' always excluded unless explictly individually included")
 parser.add_argument("-m","--markdownprocess", default="Yes", help="Process markdown in comments Yes|No. Default Yes")
 parser.add_argument("-o","--output", required=True, help="output file")
 args = parser.parse_args()
@@ -60,7 +60,7 @@ if args.quadgraphsuffix:
 setInTestHarness(True)
 import sdoapp
 
-skiplist = []
+skiplist = [''] 
 for e in args.exclude:
     for s in e:
         if s == "core":
@@ -68,9 +68,15 @@ for e in args.exclude:
         elif s == "extensions":
             for i in sdoapp.ENABLED_EXTENSIONS:
                 skiplist.append(getNss(i))
+        elif s == "all":
+            skiplist.append("http://schema.org/")
+            for i in sdoapp.ENABLED_EXTENSIONS:
+                skiplist.append(getNss(i))
         else:
             skiplist.append(getNss(s))
-
+if not getNss('attic') in skiplist: #Always skip attic by defualt
+    skiplist.append(getNss('attic'))
+    
 for e in args.include:
     for s in e:
         if s == "core" and "http://schema.org/" in skiplist:
@@ -78,6 +84,11 @@ for e in args.include:
         elif s == "extensions":
             for i in sdoapp.ENABLED_EXTENSIONS:
                 if getNss(i) in skiplist:
+                    skiplist.remove(getNss(i))
+        elif s == "all":
+            skiplist.remove("http://schema.org/")
+            for i in sdoapp.ENABLED_EXTENSIONS:
+                if getNss(i) in skiplist and getNss(i) != "attic":
                     skiplist.remove(getNss(i))
         elif getNss(s) in skiplist:
             skiplist.remove(getNss(s))
