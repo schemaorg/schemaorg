@@ -424,6 +424,7 @@ class SDOGraphSetupTestCase(unittest.TestCase):
             log.info("Term '%s' isPartOf %s extensions" % (row["term"],row["count"]))
     self.assertEqual(len(nri1_results), 0, "Term in +1 extensions  Found: %s" % len(nri1_results))
 
+  @unittest.expectedFailure
   def test_EnumerationWithoutEnums(self):
     nri1= ('''select ?term where { 
         ?term rdfs:subClassOf/rdfs:subClassOf* <http://schema.org/Enumeration> .
