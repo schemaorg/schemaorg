@@ -194,6 +194,8 @@ def stripID (str):
         return "rdfs:" + str[37:]
     elif (l > 42 and (str[:43] == 'http://www.w3.org/1999/02/22-rdf-syntax-ns#')):
         return "rdf:" + str[43:]
+    elif (l > 29 and (str[:30] == 'http://www.w3.org/2002/07/owl#')):
+        return "owl:" + str[30:]
     else:
         return str
 			
