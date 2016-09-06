@@ -32,9 +32,10 @@ from api import inLayer, read_file, full_path, read_schemas, read_extensions, re
 from api import Unit, GetTargets, GetSources, GetComments, GetsoftwareVersions
 from api import GetComment, all_terms, GetAllTypes, GetAllProperties, GetAllEnumerationValues, GetAllTerms, LoadExamples
 from api import GetParentList, GetImmediateSubtypes, HasMultipleBaseTypes
-from api import GetJsonLdContext, ShortenOnSentence, StripHtmlTags, MD
+from api import GetJsonLdContext, ShortenOnSentence, StripHtmlTags
 from api import getQueryGraph
 from api import setInTestHarness, getInTestHarness, setAllLayersList, enablePageStore
+from apimarkdown import Markdown
 
 from sdordf2csv import sdordf2csv
 
@@ -1344,14 +1345,14 @@ class ShowUnit (webapp2.RequestHandler):
                     s = "s"
                 self.write("<h4  id=\"acks\">Source%s</h4>\n" % s)
                 for so in sorted(sources):
-                    self.write(MD.parse(so,True))
+                    self.write(Markdown.parse(so,True))
             if len(acknowledgements) > 0:
                 s = ""
                 if len(acknowledgements) > 1:
                     s = "s"
                 self.write("<h4  id=\"acks\">Acknowledgement%s</h4>\n" % s)
                 for ack in sorted(acknowledgements):
-                    self.write(MD.parse(str(ack),True))
+                    self.write(Markdown.parse(str(ack),True))
 
         examples = GetExamples(node, layers=layers)
         log.debug("Rendering n=%s examples" % len(examples))
@@ -1625,7 +1626,7 @@ class ShowUnit (webapp2.RequestHandler):
             if target:
                 break
             ah = re.sub( r";q=\d?\.\d+", '', ah).rstrip()
-            log.info("ACCEPT %s" % ah)
+            log.debug("ACCEPT %s" % ah)
             if ah == "text/html":
                 return False
             elif ah == "application/ld+json":
@@ -2454,7 +2455,7 @@ def templateRender(templateName,values=None):
             extComment = ""
         extDDs = GetTargets(Unit.GetUnit("disambiguatingDescription", True), extDef, layers=ALL_LAYERS )
         if len(extDDs) > 0:
-            extDD = MD.parse(extDDs[0])
+            extDD = Markdown.parse(extDDs[0])
         else:
             extDD = ""
         first = True
@@ -2464,7 +2465,7 @@ def templateRender(templateName,values=None):
                 extVers = "<em>(Extension version: "
             else:
                 extVers += ", "
-            extVers += MD.parse(ver)
+            extVers += Markdown.parse(ver)
         if len(extVers) :
             extVers += ")</em>"
         nms = GetTargets(Unit.GetUnit("name", True), extDef, layers=ALL_LAYERS )

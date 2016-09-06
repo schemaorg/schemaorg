@@ -11,7 +11,7 @@ from rdflib.serializer import Serializer
 from rdflib.plugins.sparql import prepareQuery
 import threading
 import api
-from api import MD
+from apimarkdown import Markdown
 import StringIO
 
 
@@ -67,10 +67,10 @@ def loadNss():
     global revNss
     if not NSSLoaded:
         NSSLoaded = True
-        log.info("allLayersList: %s"% allLayersList)
+        #log.info("allLayersList: %s"% allLayersList)
         for i in allLayersList:
             if i != "core":
-                log.info("Setting %s to %s" % (i, "http://%s.schema.org/" % i))
+                #log.info("Setting %s to %s" % (i, "http://%s.schema.org/" % i))
                 nss.update({i:"http://%s.schema.org/" % i})
         revNss = {v: k for k, v in nss.items()}
                
@@ -103,7 +103,7 @@ def load_graph(context, files):
     import glob
     import re
 
-    log.info("Loading %s graph." % context)
+    log.debug("Loading %s graph." % context)
     for f in files:
         if(f[-5:] == ".rdfa"):
             format = "rdfa"
@@ -345,14 +345,14 @@ def buildSingleTermGraph(node,excludeAttic=True,markdown=True):
         try:
             RDFLIBLOCK.acquire()
             trips = list(g.triples((None,RDFS.comment,None)))
-            MD.setPre("http://schema.org/")
+            Markdown.setPre("http://schema.org/")
             for (s,p,com) in trips:
-                mcom = MD.parse(com)
+                mcom = Markdown.parse(com)
                 g.remove((s,p,com))
                 g.add((s,p,Literal(mcom)))
         finally:
             RDFLIBLOCK.release()
-            MD.setPre()
+            Markdown.setPre()
     return g
 
 	

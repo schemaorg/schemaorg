@@ -4,7 +4,7 @@ from rdflib.namespace import RDFS, RDF, OWL
 from rdflib.term import URIRef
 import threading
 
-from api import MD
+from apimarkdown import Markdown
 from apirdflib import RDFLIBLOCK
 
 import logging
@@ -332,7 +332,7 @@ class sdordf2csv():
         ret = ', '.join([x.com for x in res])
         #print "SUBTYPES of %s: '%s'" % (term,ret)
         if self.markdown:
-            MD.setPre("http://schema.org/")
-            ret = MD.parse(ret)
-            MD.setPre()
+            Markdown.setPre("http://schema.org/")
+            ret = Markdown.parse(ret)
+            Markdown.setPre()
         return ret

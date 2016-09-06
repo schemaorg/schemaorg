@@ -32,6 +32,7 @@ import threading
 
 from api import inLayer, read_file, full_path, read_schemas, read_extensions, read_examples, namespaces, DataCache, getMasterStore
 from apirdflib import getNss
+from apimarkdown import Markdown
 
 from sdordf2csv import sdordf2csv
 
@@ -120,11 +121,11 @@ class Export():
 
 
     def MdComments(self,g):#Process Markdown
-        MD.setPre("http://schema.org/")
+        Markdown.setPre("http://schema.org/")
         for s,p,o in list(g.triples( (None, RDFS.comment, None) )):
-            no = MD.parse(o)        #g.remove((s,p,o))
+            no = Markdown.parse(o)        #g.remove((s,p,o))
             g.set((s,p,Literal(no)))
-        MD.setPre()
+        Markdown.setPre()
 
     def loadGraphs(self):
         self.outGraph = rdflib.Dataset()
