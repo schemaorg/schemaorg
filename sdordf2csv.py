@@ -121,10 +121,7 @@ class sdordf2csv():
             return
         row = [str(term)]
         row.append(self.graphValueToCSV(subject=term,predicate=RDFS.label,graph=graph))
-        comment = self.getCSVComment(term,graph=self.fullGraph)
-        if self.markdown:
-            MD.parse(comment)
-        row.append(comment)
+        row.append(self.getCSVComment(term,graph=self.fullGraph))
         row.append(self.graphValueToCSV(subject=term,predicate=RDF.type,graph=graph))
         row.append(self.getCSVsuperseds(term,graph=self.fullGraph))
         row.append(self.getCSVSupersededBy(term,graph=self.fullGraph))
@@ -147,10 +144,7 @@ class sdordf2csv():
             return
         row = [str(term)]
         row.append(self.graphValueToCSV(subject=term,predicate=RDFS.label,graph=graph))
-        comment = self.getCSVComment(term,graph=self.fullGraph)
-        if self.markdown:
-            MD.parse(comment)
-        row.append(comment)
+        row.append(self.getCSVComment(term,graph=self.fullGraph))
         row.append(self.getCSVSuperProperties(term,graph=self.fullGraph))
         row.append(self.graphValueToCSV(subject=term,predicate=OWL.equivalentProperty,graph=graph))
         row.append(self.getCSVSubProperties(term,graph=self.fullGraph))
@@ -182,10 +176,7 @@ class sdordf2csv():
             term = URIRef(term)
         row = [str(term)]
         row.append(self.graphValueToCSV(subject=term,predicate=RDFS.label,graph=graph))
-        comment = self.getCSVComment(term,graph=self.fullGraph)
-        if self.markdown:
-            MD.parse(comment)
-        row.append(comment)
+        row.append(self.getCSVComment(term,graph=self.fullGraph))
         row.append(self.getCSVSupertypes(term,graph=self.fullGraph))
         row.append(self.graphValueToCSV(subject=term,predicate=OWL.equivalentClass,graph=graph))
         row.append(self.getCSVTypeProperties(term,graph=self.fullGraph))
@@ -340,4 +331,9 @@ class sdordf2csv():
         res = self.doQuery(graph,query)
         ret = ', '.join([x.com for x in res])
         #print "SUBTYPES of %s: '%s'" % (term,ret)
+        log.info("Markdown %s" % self.markdown)
+        if self.markdown:
+            MD.setPre("http://schema.org/")
+            ret = MD.parse(ret)
+            MD.setPre()
         return ret

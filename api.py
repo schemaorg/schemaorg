@@ -1160,6 +1160,12 @@ class MarkdownTool():
         self.wpre = "/"
         self.wpost = ""
         self.parselock = threading.Lock() 
+    
+    def setPre(self,pre="/"):
+        self.wpre = pre
+        
+    def setPost(self,post=""):
+        self.wpost = post
         
     def parse(self,source,preservePara=False):
         if not source or len(source) == 0:

@@ -4,12 +4,14 @@
 import sys
 sys.path.append('lib')
 import rdflib
+from rdflib import Literal
 from rdflib.term import URIRef
 from rdflib.parser import Parser
 from rdflib.serializer import Serializer
 from rdflib.plugins.sparql import prepareQuery
 import threading
 import api
+from api import MD
 import StringIO
 
 
@@ -211,8 +213,8 @@ def rdfGetSourceTriples(target):
 		obj = api.Unit.GetUnit(stripID(fullId),True)
 		api.Triple.AddTriple(unit, prop, obj, layer)
         
-def serializeSingleTermGrapth(node,format="json-ld",excludeAttic=True):
-    graph = buildSingleTermGraph(node=node,excludeAttic=excludeAttic)
+def serializeSingleTermGrapth(node,format="json-ld",excludeAttic=True,markdown=True):
+    graph = buildSingleTermGraph(node=node,excludeAttic=excludeAttic,markdown=markdown)
     file = StringIO.StringIO()
     kwargs = {'sort_keys': True}
     file.write(graph.serialize(format=format,**kwargs))
@@ -220,7 +222,7 @@ def serializeSingleTermGrapth(node,format="json-ld",excludeAttic=True):
     file.close()
     return data
     
-def buildSingleTermGraph(node,excludeAttic=True):
+def buildSingleTermGraph(node,excludeAttic=True,markdown=True):
     
     g = rdflib.Graph()
     g.bind('owl', 'http://www.w3.org/2002/07/owl#')
@@ -339,7 +341,18 @@ def buildSingleTermGraph(node,excludeAttic=True):
                     g.remove((None,None,rs))
         finally:
             RDFLIBLOCK.release()
-    
+    if markdown:
+        try:
+            RDFLIBLOCK.acquire()
+            trips = list(g.triples((None,RDFS.comment,None)))
+            MD.setPre("http://schema.org/")
+            for (s,p,com) in trips:
+                mcom = MD.parse(com)
+                g.remove((s,p,com))
+                g.add((s,p,Literal(mcom)))
+        finally:
+            RDFLIBLOCK.release()
+            MD.setPre()
     return g
 
 	
