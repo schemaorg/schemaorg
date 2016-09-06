@@ -331,7 +331,6 @@ class sdordf2csv():
         res = self.doQuery(graph,query)
         ret = ', '.join([x.com for x in res])
         #print "SUBTYPES of %s: '%s'" % (term,ret)
-        log.info("Markdown %s" % self.markdown)
         if self.markdown:
             MD.setPre("http://schema.org/")
             ret = MD.parse(ret)
