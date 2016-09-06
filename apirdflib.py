@@ -10,8 +10,8 @@ from rdflib.serializer import Serializer
 from rdflib.plugins.sparql import prepareQuery
 import threading
 import api
+import StringIO
 
-from rdflib import RDF
 
 rdflib.plugin.register("json-ld", Parser, "rdflib_jsonld.parser", "JsonLDParser")
 rdflib.plugin.register("json-ld", Serializer, "rdflib_jsonld.serializer", "JsonLDSerializer")
@@ -29,6 +29,34 @@ NSSLoaded = False
 allLayersList = []
 
 context_data = "data/internal-context" #Local file containing context to be used loding .jsonld files
+
+RDFLIBLOCK = threading.Lock() #rdflib uses generators which are not threadsafe
+
+from rdflib.namespace import RDFS, RDF, OWL
+SCHEMA = rdflib.Namespace('http://schema.org/')
+
+
+QUERYGRAPH = None
+def queryGraph():
+    global QUERYGRAPH
+    if not QUERYGRAPH:
+        try:
+            RDFLIBLOCK.acquire()
+            if not QUERYGRAPH:
+                QUERYGRAPH = rdflib.Graph()
+                gs = list(STORE.graphs())
+                for g in gs:
+                    id = str(g.identifier)
+                    if not id.startswith("http://"):#skip some internal graphs
+                        continue
+                    QUERYGRAPH += g 
+                QUERYGRAPH.bind('owl', 'http://www.w3.org/2002/07/owl#')
+                QUERYGRAPH.bind('rdfa', 'http://www.w3.org/ns/rdfa#')
+                QUERYGRAPH.bind('dct', 'http://purl.org/dc/terms/')
+                QUERYGRAPH.bind('schema', 'http://schema.org/')
+        finally:
+            RDFLIBLOCK.release()
+    return QUERYGRAPH
 
 
 def loadNss():
@@ -62,8 +90,6 @@ def getRevNss(val):
 ##############################    
 
 
-ROWSLOCK = threading.Lock() #rdflib uses generators which are not threadsafe
-
 GETTRIPS = prepareQuery("SELECT ?g ?p ?o  WHERE {GRAPH ?g {?sub ?p ?o }}")
 GGETALL = prepareQuery("SELECT ?g ?s ?p ?o  WHERE {GRAPH ?g {?s ?p ?o }}")
 GETALL = prepareQuery("SELECT ?s ?p ?o  WHERE {?s ?p ?o }")
@@ -74,7 +100,6 @@ def load_graph(context, files):
     import os.path
     import glob
     import re
-
 
     log.info("Loading %s graph." % context)
     for f in files:
@@ -92,6 +117,8 @@ def load_graph(context, files):
             STORE.bind(context,uri)
         elif(format == "json-ld"):
             STORE.parse(file=open(full_path(f),"r"),format=format, context=context_data)
+
+    QUERYGRAPH = None  #In case we have loaded graphs since the last time QUERYGRAPH was set
 
 def rdfGetTriples(id):
 	"""All triples with node as subject."""
@@ -113,10 +140,10 @@ def rdfGetTriples(id):
 	typeOfInLayers = []
 
 	try:
-		ROWSLOCK.acquire()
+		RDFLIBLOCK.acquire()
 		res = list(STORE.query(GETTRIPS, initBindings={'sub':source}))
 	finally:
-		ROWSLOCK.release()
+		RDFLIBLOCK.release()
 		
 	for row in res:
 #		if source == "http://meta.schema.org/":
@@ -170,11 +197,11 @@ def rdfGetSourceTriples(target):
 	q = "SELECT ?g ?s ?p  WHERE {GRAPH ?g {?s ?p %s }}" % targ
 
 	try:
-		ROWSLOCK.acquire()
+		RDFLIBLOCK.acquire()
 		res = list(STORE.query(q))
 		#log.info("RESCOUNT %s" % len(res))
 	finally:
-		ROWSLOCK.release()
+		RDFLIBLOCK.release()
 
 	for row in res:
 		layer = str(getRevNss(str(row.g)))
@@ -183,10 +210,142 @@ def rdfGetSourceTriples(target):
 		prop = api.Unit.GetUnit(p,True)
 		obj = api.Unit.GetUnit(stripID(fullId),True)
 		api.Triple.AddTriple(unit, prop, obj, layer)
+        
+def serializeSingleTermGrapth(node,format="json-ld",excludeAttic=True):
+    graph = buildSingleTermGraph(node=node,excludeAttic=excludeAttic)
+    file = StringIO.StringIO()
+    kwargs = {'sort_keys': True}
+    file.write(graph.serialize(format=format,**kwargs))
+    data = file.getvalue()
+    file.close()
+    return data
+    
+def buildSingleTermGraph(node,excludeAttic=True):
+    
+    g = rdflib.Graph()
+    g.bind('owl', 'http://www.w3.org/2002/07/owl#')
+    g.bind('rdfa', 'http://www.w3.org/ns/rdfa#')
+    g.bind('dct', 'http://purl.org/dc/terms/')
+    g.bind('schema', 'http://schema.org/')
+    
+    full = "http://schema.org/" + node
+    #n = URIRef(full)
+    n = SCHEMA.term(node)
+    n = n
+    full = str(n)
+    q = queryGraph()
+    ret = None
+    
+    #log.info("NAME %s %s"% (n,full))
+    atts = None
+    try:
+        RDFLIBLOCK.acquire()
+        atts = list(q.triples((n,SCHEMA.isPartOf,URIRef("http://attic.schema.org"))))
+    finally:
+        RDFLIBLOCK.release()    
+    if len(atts):
+        #log.info("ATTIC TERM %s" % n)
+        excludeAttic = False
+    #Outgoing triples
+    try:
+        RDFLIBLOCK.acquire()
+        ret = list(q.triples((n,None,None)))
+    finally:
+        RDFLIBLOCK.release()
+    for (s,p,o) in ret:
+        log.info("adding %s %s %s" % (s,p,o))
+        g.add((s,p,o))
+
+    #Incoming triples
+    ret = list(q.triples((None,None,n)))
+    for (s,p,o) in ret:
+        log.info("adding %s %s %s" % (s,p,o))
+        g.add((s,p,o))
+
+    #super classes
+    query='''select * where {
+    ?term (^rdfs:subClassOf*) <%s>.
+    ?term rdfs:subClassOf ?super.
+    ?super ?pred ?obj.
+    }''' % n
+    try:
+        RDFLIBLOCK.acquire()
+        ret = q.query(query)
+    finally:
+        RDFLIBLOCK.release()
+    for row in ret:
+        log.info("adding %s %s %s" % (row.term,RDFS.subClassOf,row.super))
+        g.add((row.term,RDFS.subClassOf,row.super))
+        g.add((row.super,row.pred,row.obj))
+         
+    #poperties with superclasses in domain
+    query='''select * where{
+    ?term (^rdfs:subClassOf*) <%s>.
+    ?prop <http://schema.org/domainIncludes> ?term.
+    ?prop ?pred ?obj.
+    }
+    ''' % n
+    try:
+        RDFLIBLOCK.acquire()
+        ret = q.query(query)
+    finally:
+        RDFLIBLOCK.release()
+    for row in ret:
+        g.add((row.prop,SCHEMA.domainIncludes,row.term))
+        g.add((row.prop,row.pred,row.obj))
+
+    #super properties
+    query='''select * where {
+    ?term (^rdfs:subPropertyOf*) <%s>.
+    ?term rdfs:subPropertyOf ?super.
+    ?super ?pred ?obj.
+    }''' % n
+    try:
+        RDFLIBLOCK.acquire()
+        ret = q.query(query)
+    finally:
+        RDFLIBLOCK.release()
+    for row in ret:
+        log.info("adding %s %s %s" % (row.term,RDFS.subPropertyOf,row.super))
+        g.add((row.term,RDFS.subPropertyOf,row.super))
+        g.add((row.super,row.pred,row.obj))
+
+    #Enumeration for an enumeration value
+    query='''select * where {
+    <%s> a ?type.
+    ?type ?pred ?obj.
+    FILTER NOT EXISTS{?type a rdfs:class}.
+    }''' % n
+    try:
+        RDFLIBLOCK.acquire()
+        ret = q.query(query)
+    finally:
+        RDFLIBLOCK.release()
+    for row in ret:
+        log.info("adding %s %s %s" % (row.type,row.pred,row.obj))
+        g.add((row.type,row.pred,row.obj))
+
+    if excludeAttic: #Remove triples referencing terms part of http://attic.schema.org
+        trips = list(g.triples((None,None,None)))
+        try:
+            RDFLIBLOCK.acquire()
+            for (s,p,o) in trips:
+                atts = list(q.triples((s,SCHEMA.isPartOf,URIRef("http://attic.schema.org"))))
+                if isinstance(o, URIRef):
+                    atts.extend(q.triples((o,SCHEMA.isPartOf,URIRef("http://attic.schema.org"))))
+                for (rs,rp,ro) in atts:
+                    log.info("Removing %s" % rs)
+                    g.remove((rs,None,None))
+                    g.remove((None,None,rs))
+        finally:
+            RDFLIBLOCK.release()
+    
+    return g
+
 	
 def stripID (str):
     l = len(str)
-    if (l > 16 and (str[:17] == 'http://schema.org')):
+    if (l > 17 and (str[:18] == 'http://schema.org/')):
         return str[18:]
     elif (l > 24 and (str[:25] == 'http://purl.org/dc/terms/')):
         return "dc:" + str[25:]
@@ -194,6 +353,8 @@ def stripID (str):
         return "rdfs:" + str[37:]
     elif (l > 42 and (str[:43] == 'http://www.w3.org/1999/02/22-rdf-syntax-ns#')):
         return "rdf:" + str[43:]
+    elif (l > 29 and (str[:30] == 'http://www.w3.org/2002/07/owl#')):
+        return "owl:" + str[30:]
     else:
         return str
 			

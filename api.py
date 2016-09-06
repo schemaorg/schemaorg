@@ -56,8 +56,9 @@ debugging = False
 
 def getMasterStore():
     return apirdflib.STORE
-    
-    
+
+def getQueryGraph():
+    return apirdflib.queryGraph()
 # Core API: we have a single schema graph built from triples and units.
 
 NodeIDMap = {}
@@ -244,7 +245,7 @@ class HeaderStoreTool():
     def setCurrent(self,current):
         self.tlocal.CurrentStoreSet = current
         log.debug("HeaderStore setting CurrentStoreSet: %s",current)
-        
+
     def put(self, key, val,cache=None):
         ca = self.getCurrent()
         if cache != None:
