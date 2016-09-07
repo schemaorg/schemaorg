@@ -10,7 +10,13 @@
 * | Use Cases GDoc: https://goo.gl/DnTTsb
 -->
 
-<!-- Updated 2016-08-18
+<!--
+Updated 2016-09-07:
+
+Terms: Course, courseCode, coursePrerequisites, hasCourseInstance; CourseInstance, courseMode, instructor
+have been moved to data/schema.rdfa i.e. schema.org core.
+
+Updated 2016-08-18:
 
 These proposed by CG chair @philbarker as stabilizing soon:
 * Course + properties: courseCode, coursePrerequisites, hasCourseInstance
@@ -26,77 +32,6 @@ These are now (experimentally) in boilerplate-195.rdfa instead.
 
 
 
-    <!--        Course + properties: courseCode, coursePrerequisites, hasCourseInstance        -->
-
-
-    <div typeof="rdfs:Class" resource="http://schema.org/Course">
-
-        <span class="h" property="rdfs:label">Course</span>
-        <span property="rdfs:comment">A description of an educational course which may be offered as distinct instances at which take place at different times or take place at different locations, or be offered through different media or modes of study. An educational course is a sequence of one or more educational events and/or creative works which aims to build knowledge, competence or ability of learners.</span>
-        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/CreativeWork">CreativeWork</a></span>
-
-    </div>
-
-    <div typeof="rdf:Property" resource="http://schema.org/courseCode">
-
-        <span class="h" property="rdfs:label">courseCode</span>
-        <span property="rdfs:comment">The identifier for the [[Course]] used by the course [[provider]] (e.g. CS101 or 6.001).</span>
-        <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Course">Course</a></span>
-        <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
-
-    </div>
-
-    <div typeof="rdf:Property" resource="http://schema.org/coursePrerequisites">
-
-        <span class="h" property="rdfs:label">coursePrerequisites</span>
-        <span property="rdfs:comment">Requirements for taking the Course. May be completion of another [[Course]] or a textual description like "permission of instructor". Requirements may be a pre-requisite competency, referenced using [[AlignmentObject]].</span>
-        <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Course">Course</a></span>
-        <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
-        <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Course">Course</a></span>
-        <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/AlignmentObject">AlignmentObject</a></span>
-
-    </div>
-
-    <div typeof="rdf:Property" resource="http://schema.org/hasCourseInstance">
-
-        <span class="h" property="rdfs:label">hasCourseInstance</span>
-        <span property="rdfs:comment">An offering of the course at a specific time and place or through specific media or mode of study or to a specific section of students.</span>
-        <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Course">Course</a></span>
-        <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/CourseInstance">CourseInstance</a></span>
-
-    </div>
-
-
-
-
-    <!--        CourseInstance + properties: courseMode, instructor      -->
-
-    <div typeof="rdfs:Class" resource="http://schema.org/CourseInstance">
-
-        <span class="h" property="rdfs:label">CourseInstance</span>
-        <span property="rdfs:comment">An instance of a [[Course]] which is distinct from other instances because it is offered at a different time or location or through different media or modes of study or to a specific section of students.</span>
-        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Event">Event</a></span>
-
-    </div>
-
-    <div typeof="rdf:Property" resource="http://schema.org/courseMode">
-
-        <span class="h" property="rdfs:label">courseMode</span>
-        <span property="rdfs:comment">The medium or means of delivery of the course instance or the mode of study, either as a text label (e.g. "online", "onsite" or "blended"; "synchronous" or "asynchronous"; "full-time" or "part-time") or as a URL reference to a term from a controlled vocabulary (e.g. https://ceds.ed.gov/element/001311#Asynchronous ).</span>
-        <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CourseInstance">CourseInstance</a></span>
-        <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
-        <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/URL">URL</a></span>
-
-    </div>
-
-    <div typeof="rdf:Property" resource="http://schema.org/instructor">
-
-        <span class="h" property="rdfs:label">instructor</span>
-        <span property="rdfs:comment">A person assigned to instruct or provide instructional assistance for the [[CourseInstance]].</span>
-        <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CourseInstance">CourseInstance</a></span>
-        <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Person">Person</a></span>
-
-    </div>
 
 
 <!-- Work in progress.
