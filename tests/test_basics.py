@@ -8,6 +8,8 @@ sys.path.insert( 1, 'lib' ) #Pickup libs, rdflib etc., from shipped lib director
 from api import extensionsLoaded, extensionLoadErrors
 from api import setInTestHarness, getInTestHarness
 from api import EXAMPLES, Triple
+from apimarkdown import Markdown
+
 from google.appengine.ext import deferred 
 
 #Setup testharness state BEFORE importing sdoapp
@@ -510,9 +512,8 @@ class DataTypeTests(unittest.TestCase):
 
 class MarkDownTest(unittest.TestCase):
     def test_emph(self):
-        from api import MD
         markstring = "This is _em_, __strong__, ___strong em___"
-        html = MD.parse(markstring,True)
+        html = Markdown.parse(markstring,True)
         self.assertFalse(html != "<p>This is <em>em</em>, <strong>strong</strong>, <strong><em>strong em</em></strong></p>\n", "Markdown string not formatted correctly")
 
 class HasMultipleBaseTypesTests(unittest.TestCase):
