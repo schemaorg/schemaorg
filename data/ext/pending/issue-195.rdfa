@@ -40,7 +40,7 @@ These are now (experimentally) in boilerplate-195.rdfa instead.
     <div typeof="rdf:Property" resource="http://schema.org/courseCode">
 
         <span class="h" property="rdfs:label">courseCode</span>
-        <span property="rdfs:comment">The identifier used for the [[Course]] (e.g. CS101 or 6.001)</span>
+        <span property="rdfs:comment">The identifier for the [[Course]] used by the course [[provider]] (e.g. CS101 or 6.001).</span>
         <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Course">Course</a></span>
         <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
 
@@ -82,9 +82,10 @@ These are now (experimentally) in boilerplate-195.rdfa instead.
     <div typeof="rdf:Property" resource="http://schema.org/courseMode">
 
         <span class="h" property="rdfs:label">courseMode</span>
-        <span property="rdfs:comment">The medium or means of delivery of the course instance, or the mode of study.</span>
+        <span property="rdfs:comment">The medium or means of delivery of the course instance or the mode of study, either as a text label (e.g. "online", "onsite" or "blended"; "synchronous" or "asynchronous"; "full-time" or "part-time") or as a URL reference to a term from a controlled vocabulary (e.g. https://ceds.ed.gov/element/001311#Asynchronous ).</span>
         <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CourseInstance">CourseInstance</a></span>
         <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+        <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/URL">URL</a></span>
 
     </div>
 
