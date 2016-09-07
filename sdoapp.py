@@ -8,7 +8,10 @@ import jinja2
 import logging
 import StringIO
 import json
-from apirdflib import load_graph, getNss, getRevNss
+import rdflib
+from rdflib.namespace import RDFS, RDF, OWL
+from rdflib.term import URIRef
+from apirdflib import load_graph, getNss, getRevNss, buildSingleTermGraph, serializeSingleTermGrapth
 
 from markupsafe import Markup, escape # https://pypi.python.org/pypi/MarkupSafe
 
@@ -29,8 +32,12 @@ from api import inLayer, read_file, full_path, read_schemas, read_extensions, re
 from api import Unit, GetTargets, GetSources, GetComments, GetsoftwareVersions
 from api import GetComment, all_terms, GetAllTypes, GetAllProperties, GetAllEnumerationValues, GetAllTerms, LoadExamples
 from api import GetParentList, GetImmediateSubtypes, HasMultipleBaseTypes
-from api import GetJsonLdContext, ShortenOnSentence, StripHtmlTags, MD
+from api import GetJsonLdContext, ShortenOnSentence, StripHtmlTags
+from api import getQueryGraph
 from api import setInTestHarness, getInTestHarness, setAllLayersList, enablePageStore
+from apimarkdown import Markdown
+
+from sdordf2csv import sdordf2csv
 
 logging.basicConfig(level=logging.INFO) # dev_appserver.py --log_level debug .
 log = logging.getLogger(__name__)
@@ -79,6 +86,8 @@ ALL_LAYERS += ENABLED_EXTENSIONS
 ALL_LAYERS_NO_ATTIC = list(ALL_LAYERS) 
 ALL_LAYERS_NO_ATTIC.remove(ATTIC)
 setAllLayersList(ALL_LAYERS)
+
+OUTPUTDATATYPES = [".csv",".jsonld",".ttl",".rdf",".xml",".nt"]
 
 FORCEDEBUGGING = False
 # FORCEDEBUGGING = True
@@ -804,7 +813,7 @@ class ShowUnit (webapp2.RequestHandler):
         di = Unit.GetUnit("domainIncludes")
 
         targetlayers=self.appropriateLayers(layers)
-        log.info("Appropriate targets %s" % targetlayers)
+        #log.info("Appropriate targets %s" % targetlayers)
         exts = {}
 
         for prop in sorted(GetSources(di, cl, targetlayers), key=lambda u: u.id):
@@ -1336,14 +1345,14 @@ class ShowUnit (webapp2.RequestHandler):
                     s = "s"
                 self.write("<h4  id=\"acks\">Source%s</h4>\n" % s)
                 for so in sorted(sources):
-                    self.write(MD.parse(so,True))
+                    self.write(Markdown.parse(so,True))
             if len(acknowledgements) > 0:
                 s = ""
                 if len(acknowledgements) > 1:
                     s = "s"
                 self.write("<h4  id=\"acks\">Acknowledgement%s</h4>\n" % s)
                 for ack in sorted(acknowledgements):
-                    self.write(MD.parse(str(ack),True))
+                    self.write(Markdown.parse(str(ack),True))
 
         examples = GetExamples(node, layers=layers)
         log.debug("Rendering n=%s examples" % len(examples))
@@ -1606,10 +1615,46 @@ class ShowUnit (webapp2.RequestHandler):
             return True
         return False
 
+    def checkConneg(self,node):
+        accept_header = self.request.headers.get('Accept')
+        if accept_header:
+            accept_header = accept_header.split(',')
+        else:
+            accept_header = ""
+        target = None
+        for ah in accept_header:
+            if target:
+                break
+            ah = re.sub( r";q=\d?\.\d+", '', ah).rstrip()
+            log.debug("ACCEPT %s" % ah)
+            if ah == "text/html":
+                return False
+            elif ah == "application/ld+json":
+                target = ".jsonld"
+            elif ah == "application/x-turtle":
+                target = ".ttl"
+            elif ah == "application/rdf+xml":
+                target = ".rdf"
+            elif ah == "text/plain":
+                target = ".nt"
+            elif ah == "text/csv":
+                target = ".csv"
+        if target:
+            self.response.set_status(303,"See Other")
+            self.response.headers['Location'] = makeUrl("","%s%s" % (node,target))
+            self.emitCacheHeaders()
+            return True
+        return False
 
     def handleExactTermPage(self, node, layers='core'):
         """Handle with requests for specific terms like /Person, /fooBar. """
-
+        dataext = os.path.splitext(node)
+        if dataext[1] in OUTPUTDATATYPES:
+            ret = self.handleExactTermDataOutput(dataext[0],dataext[1])
+            if ret == True:
+                return True
+        if self.checkConneg(node):
+            return True
         self.response.headers['Content-Type'] = "text/html"
         self.emitCacheHeaders()
         schema_node = Unit.GetUnit(node) # e.g. "Person", "CreativeWork".
@@ -1642,6 +1687,67 @@ class ShowUnit (webapp2.RequestHandler):
                 log.debug("Serving fresh wrongExtPage.")
                 return True
             return False
+
+    def handleExactTermDataOutput(self, node=None, outputtype=None):
+        log.info("handleExactTermDataOutput Node: '%s'  Outputtype: '%s'" % (node, outputtype))
+        ret = False
+        file = None
+        if node and outputtype:
+            schema_node = Unit.GetUnit(node)
+            if schema_node:
+                ret = True
+                index = "%s-%s" % (outputtype,node)
+                data = PageStore.get(index)
+            
+                excludeAttic=True
+                if getHostExt()== ATTIC:
+                    excludeAttic=False
+                if outputtype == ".csv":
+                    self.response.headers['Content-Type'] = "text/csv; charset=utf-8"
+                    if not data:
+                        data = self.emitcsvTerm(schema_node,excludeAttic)
+                else:
+                    format = None
+                    if outputtype == ".jsonld":
+                        self.response.headers['Content-Type'] = "application/ld+json; charset=utf-8"
+                        format = "json-ld"
+                    elif outputtype == ".ttl":
+                        self.response.headers['Content-Type'] = "application/x-turtle; charset=utf-8"
+                        format = "turtle"
+                    elif outputtype == ".rdf" or outputtype == ".xml" :
+                        self.response.headers['Content-Type'] = "application/rdf+xml; charset=utf-8"
+                        format = "xml"
+                    elif outputtype == ".nt":
+                        self.response.headers['Content-Type'] = "text/plain; charset=utf-8"
+                        format = "nt"
+                    
+                    if format:
+                        if not data:
+                            data = serializeSingleTermGrapth(node=node, format=format, excludeAttic=True)
+                            PageStore.put(index,data)
+                if data:
+                    self.emitCacheHeaders()
+                    self.response.out.write( data )
+                    ret = True
+        return ret
+        
+    def emitcsvTerm(self,schema_node,excludeAttic=True):
+        csv = sdordf2csv(queryGraph=getQueryGraph(),fullGraph=getQueryGraph(),markdownComments=True,excludeAttic=excludeAttic)
+        file = StringIO.StringIO()
+        term = "http://schema.org/" + schema_node.id
+        if schema_node.isClass():
+            csv.type2CSV(header=True,out=file)
+            csv.type2CSV(term=term,header=False,out=file)
+        elif schema_node.isAttribute():
+            csv.prop2CSV(header=True,out=file)
+            csv.prop2CSV(term=term,header=False,out=file)
+        elif schema_node.isEnumerationValue():
+            csv.enum2CSV(header=True,out=file)
+            csv.enum2CSV(term=term,header=False,out=file)
+        data = file.getvalue()
+        file.close()
+        return data
+
 
     def handle404Failure(self, node, layers="core", extrainfo=None):
         self.error(404)
@@ -1911,13 +2017,12 @@ class ShowUnit (webapp2.RequestHandler):
         hostString = test
         if test == "":
             hostString = self.request.host
-
         scheme = "http" #Defalt for tests
         if not getInTestHarness():  #Get the actual scheme from the request
             scheme = self.request.scheme
 
         host_ext = re.match( r'([\w\-_]+)[\.:]?', hostString).group(1)
-        log.info("setupHostinfo: scheme=%s hoststring=%s host_ext?=%s" % (scheme, hostString, str(host_ext) ))
+        #log.info("setupHostinfo: scheme=%s hoststring=%s host_ext?=%s" % (scheme, hostString, str(host_ext) ))
 
         setHttpScheme(scheme)
 
@@ -1951,6 +2056,7 @@ class ShowUnit (webapp2.RequestHandler):
         setHostExt(host_ext)
         setBaseHost(mybasehost)
         setHostPort(myport)
+        setArguments(self.request.arguments())
 
         dcn = host_ext
         if dcn == None or dcn == "" or dcn =="core":
@@ -1962,8 +2068,7 @@ class ShowUnit (webapp2.RequestHandler):
         DataCache.setCurrent(dcn)
         PageStore.setCurrent(dcn)
         HeaderStore.setCurrent(dcn)
-
-
+        
         debugging = False
         if "localhost" in hostString or "sdo-phobos.appspot.com" in hostString or FORCEDEBUGGING:
             debugging = True
@@ -2350,7 +2455,7 @@ def templateRender(templateName,values=None):
             extComment = ""
         extDDs = GetTargets(Unit.GetUnit("disambiguatingDescription", True), extDef, layers=ALL_LAYERS )
         if len(extDDs) > 0:
-            extDD = MD.parse(extDDs[0])
+            extDD = Markdown.parse(extDDs[0])
         else:
             extDD = ""
         first = True
@@ -2360,7 +2465,7 @@ def templateRender(templateName,values=None):
                 extVers = "<em>(Extension version: "
             else:
                 extVers += ", "
-            extVers += MD.parse(ver)
+            extVers += Markdown.parse(ver)
         if len(extVers) :
             extVers += ")</em>"
         nms = GetTargets(Unit.GetUnit("name", True), extDef, layers=ALL_LAYERS )
@@ -2449,6 +2554,12 @@ def setHostPort(val):
 
 def getHostPort():
     return getAppVar('myport')
+
+def setArguments(val):
+    setAppVar('myarguments',val)
+
+def getArguments():
+    return getAppVar('myarguments')
 
 def makeUrl(ext="",path=""):
         port = ""

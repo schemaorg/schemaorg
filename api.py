@@ -8,10 +8,9 @@ import threading
 import parsers
 from google.appengine.ext import ndb
 
-
 import apirdflib
 #from apirdflib import rdfGetTargets, rdfGetSources
-
+from apimarkdown import Markdown
 
 logging.basicConfig(level=logging.INFO) # dev_appserver.py --log_level debug .
 log = logging.getLogger(__name__)
@@ -56,8 +55,9 @@ debugging = False
 
 def getMasterStore():
     return apirdflib.STORE
-    
-    
+
+def getQueryGraph():
+    return apirdflib.queryGraph()
 # Core API: we have a single schema graph built from triples and units.
 
 NodeIDMap = {}
@@ -244,7 +244,7 @@ class HeaderStoreTool():
     def setCurrent(self,current):
         self.tlocal.CurrentStoreSet = current
         log.debug("HeaderStore setting CurrentStoreSet: %s",current)
-        
+
     def put(self, key, val,cache=None):
         ca = self.getCurrent()
         if cache != None:
@@ -662,7 +662,7 @@ def GetComment(node, layers='core') :
     """Get the first rdfs:comment we find on this node (or "No comment"), within any of the specified layers."""
     tx = GetComments(node, layers)
     if len(tx) > 0:
-            return MD.parse(tx[0])
+            return Markdown.parse(tx[0])
     else:
         return "No comment"
 
@@ -1095,7 +1095,6 @@ def read_extensions(extensions):
             expfiles = glob.glob("data/ext/%s/*examples.txt" % i)
             read_examples(expfiles,i)
 
-        log.info("Extensions found: %s ." % " , ".join(extfiles) )
 #        fnstrip_re = re.compile("\/.*")
 #        for ext in extfiles:
 #            ext_file_path = full_path(ext)
@@ -1146,45 +1145,4 @@ def ShortenOnSentence(source,lengthHint=250):
         source = com
     return source
 
-WIKILINKPATTERN = r'\[\[([\w0-9_ -]+)\]\]'
-
-class MarkdownTool():
-    def __init__ (self):
-        import markdown2
-        from markdown2 import Markdown
-        #from markdown.extensions.wikilinks import WikiLinkExtension
-        #self._md = markdown2.Markdown(extensions=[WikiLinkExtension(base_url='/', end_url='', html_class='localLink')])
-        self._md = Markdown()
-        self.wclass = "localLink"
-        self.wpre = "/"
-        self.wpost = ""
-        self.parselock = threading.Lock() 
-        
-    def parse(self,source,preservePara=False):
-        if not source or len(source) == 0:
-            return ""
-        source = source.strip()
-        source = source.replace("\\n","\n")
-    	try:
-    		self.parselock.acquire()
-    		ret = self._md.convert(source)
-    	finally:
-    		self.parselock.release()
-        
-        if not preservePara:
-            #Remove wrapping <p> </p>\n that Markdown2 adds by default
-            if len(ret) > 7 and ret.startswith("<p>") and ret.endswith("</p>\n"):
-                ret = ret[3:len(ret)-5]
-        
-        return self.parseWiklinks(ret)
-    
-    def parseWiklinks(self,source):
-        return re.sub(WIKILINKPATTERN, self.wikilinkReplace, source)
-        
-    def wikilinkReplace(self,match):
-        t = match.group(1)
-        return '<a class="%s" href="%s%s%s">%s</a>' % (self.wclass,self.wpre,t,self.wpost,t)
-        
-
-MD = MarkdownTool()
 
