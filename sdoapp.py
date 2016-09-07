@@ -2015,8 +2015,10 @@ class ShowUnit (webapp2.RequestHandler):
 
     def setupHostinfo(self, node, test=""):
         hostString = test
+        args = []
         if test == "":
             hostString = self.request.host
+            args = self.request.arguments()
         scheme = "http" #Defalt for tests
         if not getInTestHarness():  #Get the actual scheme from the request
             scheme = self.request.scheme
@@ -2056,7 +2058,7 @@ class ShowUnit (webapp2.RequestHandler):
         setHostExt(host_ext)
         setBaseHost(mybasehost)
         setHostPort(myport)
-        setArguments(self.request.arguments())
+        setArguments(args)
 
         dcn = host_ext
         if dcn == None or dcn == "" or dcn =="core":
