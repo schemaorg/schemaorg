@@ -1716,7 +1716,7 @@ class ShowUnit (webapp2.RequestHandler):
                         format = "turtle"
                     elif outputtype == ".rdf" or outputtype == ".xml" :
                         self.response.headers['Content-Type'] = "application/rdf+xml; charset=utf-8"
-                        format = "xml"
+                        format = "pretty-xml"
                     elif outputtype == ".nt":
                         self.response.headers['Content-Type'] = "text/plain; charset=utf-8"
                         format = "nt"

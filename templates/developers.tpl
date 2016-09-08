@@ -47,6 +47,7 @@ This is a placeholder page for developer-oriented information about schema.org. 
 				<option value=".nt">Triples</option>
 				<option value=".nq">Quads</option>
 				<option value=".jsonld">JSON-LD</option>
+				<option value=".xml">RDF/XML</option>
 				<option value=".ttl">Turtle</option>
 				<option value=".csv">CSV</option>
 		</select>

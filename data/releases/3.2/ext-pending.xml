@@ -1,0 +1,579 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rdf:RDF
+  xmlns:dct="http://purl.org/dc/terms/"
+  xmlns:schema="http://schema.org/"
+  xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+>
+  <rdfs:Class rdf:about="http://schema.org/FMRadioChannel">
+    <rdfs:subClassOf rdf:resource="http://schema.org/RadioChannel"/>
+    <rdfs:label>FMRadioChannel</rdfs:label>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <schema:category>issue-1004</schema:category>
+    <rdfs:comment>A radio channel that uses FM.</rdfs:comment>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1004"/>
+  </rdfs:Class>
+  <rdfs:Class rdf:about="http://schema.org/PreOrderAction">
+    <rdfs:comment>An agent orders a (not yet released) object/product/service to be delivered/sent.</rdfs:comment>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1125"/>
+    <rdfs:subClassOf rdf:resource="http://schema.org/TradeAction"/>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <schema:category>issue-1125</schema:category>
+    <rdfs:label>PreOrderAction</rdfs:label>
+  </rdfs:Class>
+  <rdf:Property rdf:about="http://schema.org/healthPlanCopayOption">
+    <schema:domainIncludes rdf:resource="http://schema.org/HealthPlanCostSharingSpecification"/>
+    <rdfs:label>healthPlanCopayOption</rdfs:label>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <schema:category>issue-1062</schema:category>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1062"/>
+    <rdfs:comment>Whether the copay is before or after deductible, etc. TODO: Is this a closed set?</rdfs:comment>
+    <schema:rangeIncludes rdf:resource="http://schema.org/Text"/>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://schema.org/hasEnumerationValue">
+    <schema:rangeIncludes rdf:resource="http://schema.org/Text"/>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/894"/>
+    <schema:domainIncludes rdf:resource="http://schema.org/EnumerationValueSet"/>
+    <schema:category>issue-894</schema:category>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <rdfs:comment>Value contained in value set.</rdfs:comment>
+    <rdfs:label>hasEnumerationValue</rdfs:label>
+    <rdfs:subPropertyOf rdf:resource="http://schema.org/hasPart"/>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://schema.org/spokenByCharacter">
+    <schema:category>issue-271</schema:category>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <schema:rangeIncludes rdf:resource="http://schema.org/Person"/>
+    <rdfs:label>spokenByCharacter</rdfs:label>
+    <schema:rangeIncludes rdf:resource="http://schema.org/Organization"/>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/271"/>
+    <rdfs:comment>The (e.g. fictional) character, Person or Organization to whom the quotation is attributed within the containing CreativeWork.</rdfs:comment>
+    <schema:domainIncludes rdf:resource="http://schema.org/Quotation"/>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://schema.org/healthPlanId">
+    <schema:rangeIncludes rdf:resource="http://schema.org/Text"/>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <rdfs:label>healthPlanId</rdfs:label>
+    <schema:category>issue-1062</schema:category>
+    <schema:domainIncludes rdf:resource="http://schema.org/HealthInsurancePlan"/>
+    <rdfs:comment>The 14-character, HIOS-generated Plan ID number. (Plan IDs must be unique, even across different markets.)</rdfs:comment>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1062"/>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://schema.org/healthPlanDrugOption">
+    <schema:domainIncludes rdf:resource="http://schema.org/HealthInsurancePlan"/>
+    <schema:rangeIncludes rdf:resource="http://schema.org/Text"/>
+    <schema:category>issue-1062</schema:category>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1062"/>
+    <rdfs:comment>TODO.</rdfs:comment>
+    <rdfs:label>healthPlanDrugOption</rdfs:label>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://schema.org/instructor">
+    <rdfs:comment><![CDATA[A person assigned to instruct or provide instructional assistance for the <a class="localLink" href="http://schema.org/CourseInstance">CourseInstance</a>.]]></rdfs:comment>
+    <schema:rangeIncludes rdf:resource="http://schema.org/Person"/>
+    <rdfs:label>instructor</rdfs:label>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/195"/>
+    <schema:category>issue-195</schema:category>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <schema:domainIncludes rdf:resource="http://schema.org/CourseInstance"/>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://schema.org/healthPlanCoinsuranceRate">
+    <rdfs:comment>Whether The rate of coinsurance expressed as a number between 0.0 and 1.0.</rdfs:comment>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <rdfs:label>healthPlanCoinsuranceRate</rdfs:label>
+    <schema:rangeIncludes rdf:resource="http://schema.org/Number"/>
+    <schema:category>issue-1062</schema:category>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1062"/>
+    <schema:domainIncludes rdf:resource="http://schema.org/HealthPlanCostSharingSpecification"/>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://schema.org/broadcastFrequencyValue">
+    <schema:domainIncludes rdf:resource="http://schema.org/BroadcastFrequencySpecification"/>
+    <schema:rangeIncludes rdf:resource="http://schema.org/Number"/>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1004"/>
+    <rdfs:comment>The frequency in MHz for a particular broadcast.</rdfs:comment>
+    <schema:rangeIncludes rdf:resource="http://schema.org/QuantitativeValue"/>
+    <schema:category>issue-1004</schema:category>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <rdfs:label>broadcastFrequencyValue</rdfs:label>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://schema.org/benefitsSummaryUrl">
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1062"/>
+    <schema:category>issue-1062</schema:category>
+    <rdfs:comment>The URL that goes directly to the summary of benefits and coverage for the specific standard plan or plan variation.</rdfs:comment>
+    <schema:rangeIncludes rdf:resource="http://schema.org/URL"/>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <schema:domainIncludes rdf:resource="http://schema.org/HealthInsurancePlan"/>
+    <rdfs:label>benefitsSummaryUrl</rdfs:label>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://schema.org/partOfEnumerationValueSet">
+    <schema:domainIncludes rdf:resource="http://schema.org/EnumerationValue"/>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/894"/>
+    <rdfs:comment>The set (enumeration) of values of which contains this value.</rdfs:comment>
+    <schema:category>issue-894</schema:category>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <schema:rangeIncludes rdf:resource="http://schema.org/Text"/>
+    <rdfs:subPropertyOf rdf:resource="http://schema.org/isPartOf"/>
+    <rdfs:label>partOfEnumerationValueSet</rdfs:label>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://schema.org/healthPlanNetworkTier">
+    <schema:rangeIncludes rdf:resource="http://schema.org/Text"/>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <rdfs:comment>The tier(s) for this network.</rdfs:comment>
+    <rdfs:label>healthPlanNetworkTier</rdfs:label>
+    <schema:domainIncludes rdf:resource="http://schema.org/HealthPlanNetwork"/>
+    <schema:category>issue-1062</schema:category>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1062"/>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://schema.org/healthPlanPharmacyCategory">
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <schema:category>issue-1062</schema:category>
+    <rdfs:label>healthPlanPharmacyCategory</rdfs:label>
+    <rdfs:comment>The category or type of pharmacy associated with this cost sharing.</rdfs:comment>
+    <schema:rangeIncludes rdf:resource="http://schema.org/Text"/>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1062"/>
+    <schema:domainIncludes rdf:resource="http://schema.org/HealthPlanCostSharingSpecification"/>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://schema.org/variablesMeasured">
+    <schema:category>issue-1083</schema:category>
+    <rdfs:label>variablesMeasured</rdfs:label>
+    <rdfs:comment>The variables that are measured in some dataset, either described as text or as pairs of identifier and description using PropertyValue.</rdfs:comment>
+    <schema:rangeIncludes rdf:resource="http://schema.org/Text"/>
+    <schema:domainIncludes rdf:resource="http://schema.org/Dataset"/>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1083"/>
+  </rdf:Property>
+  <rdfs:Class rdf:about="http://schema.org/WorkersUnion">
+    <rdfs:label>WorkersUnion</rdfs:label>
+    <rdfs:comment>A Workers Union (also known as a Labor Union, Labour Union, or Trade Union) is an organization that promotes the interests of its worker members by collectively bargaining with management, organizing, and political lobbying.</rdfs:comment>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/243"/>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <schema:category>issue-243</schema:category>
+    <rdfs:subClassOf rdf:resource="http://schema.org/Organization"/>
+  </rdfs:Class>
+  <rdf:Property rdf:about="http://schema.org/healthPlanCostSharing">
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1062"/>
+    <rdfs:comment>Whether The costs to the patient for services under this network or formulary.</rdfs:comment>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <rdfs:label>healthPlanCostSharing</rdfs:label>
+    <schema:domainIncludes rdf:resource="http://schema.org/HealthPlanFormulary"/>
+    <schema:rangeIncludes rdf:resource="http://schema.org/Boolean"/>
+    <schema:domainIncludes rdf:resource="http://schema.org/HealthPlanNetwork"/>
+    <schema:category>issue-1062</schema:category>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://schema.org/broadcastFrequency">
+    <schema:domainIncludes rdf:resource="http://schema.org/BroadcastService"/>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1004"/>
+    <schema:rangeIncludes rdf:resource="http://schema.org/Text"/>
+    <rdfs:comment>The frequency used for over-the-air broadcasts. Numeric values or simple ranges e.g. 87-99. In addition a shortcut idiom is supported for frequences of AM and FM radio channels, e.g. "87 FM".</rdfs:comment>
+    <rdfs:label>broadcastFrequency</rdfs:label>
+    <schema:rangeIncludes rdf:resource="http://schema.org/BroadcastFrequencySpecification"/>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <schema:category>issue-1004</schema:category>
+    <schema:domainIncludes rdf:resource="http://schema.org/BroadcastChannel"/>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://schema.org/healthPlanNetworkId">
+    <schema:category>issue-1062</schema:category>
+    <schema:rangeIncludes rdf:resource="http://schema.org/Text"/>
+    <schema:domainIncludes rdf:resource="http://schema.org/MedicalOrganization"/>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <schema:domainIncludes rdf:resource="http://schema.org/HealthPlanNetwork"/>
+    <rdfs:comment>Name or unique ID of network. (Networks are often reused across different insurance plans).</rdfs:comment>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1062"/>
+    <rdfs:label>healthPlanNetworkId</rdfs:label>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://schema.org/isAcceptingNewPatients">
+    <rdfs:label>isAcceptingNewPatients</rdfs:label>
+    <schema:rangeIncludes rdf:resource="http://schema.org/Boolean"/>
+    <schema:category>issue-1062</schema:category>
+    <rdfs:comment>Whether the provider is accepting new patients.</rdfs:comment>
+    <schema:domainIncludes rdf:resource="http://schema.org/MedicalOrganization"/>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1062"/>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+  </rdf:Property>
+  <rdfs:Class rdf:about="http://schema.org/AMRadioChannel">
+    <rdfs:label>AMRadioChannel</rdfs:label>
+    <rdfs:subClassOf rdf:resource="http://schema.org/RadioChannel"/>
+    <rdfs:comment>A radio channel that uses AM.</rdfs:comment>
+    <schema:category>issue-1004</schema:category>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1004"/>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+  </rdfs:Class>
+  <rdf:Property rdf:about="http://schema.org/healthPlanCopay">
+    <rdfs:label>healthPlanCopay</rdfs:label>
+    <schema:domainIncludes rdf:resource="http://schema.org/HealthPlanCostSharingSpecification"/>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <schema:rangeIncludes rdf:resource="http://schema.org/PriceSpecification"/>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1062"/>
+    <rdfs:comment>Whether The copay amount.</rdfs:comment>
+    <schema:category>issue-1062</schema:category>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://schema.org/accessMode">
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1100"/>
+    <rdfs:comment>The human sensory perceptual system or cognitive faculty through which a person may process or perceive information. Expected values include: auditory, tactile, textual, visual, colorDependent, chartOnVisual, chemOnVisual, diagramOnVisual, mathOnVisual, musicOnVisual, textOnVisual.</rdfs:comment>
+    <rdfs:label>accessMode</rdfs:label>
+    <schema:domainIncludes rdf:resource="http://schema.org/CreativeWork"/>
+    <schema:rangeIncludes rdf:resource="http://schema.org/Text"/>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <schema:category>issue-1110</schema:category>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://schema.org/claimReviewed">
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1061"/>
+    <schema:domainIncludes rdf:resource="http://schema.org/ClaimReview"/>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <schema:rangeIncludes rdf:resource="http://schema.org/Text"/>
+    <rdfs:label>claimReviewed</rdfs:label>
+    <rdfs:comment>A short summary of the specific claims reviewed in a ClaimReview.</rdfs:comment>
+    <schema:category>issue-1061</schema:category>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://schema.org/hasCourseInstance">
+    <schema:rangeIncludes rdf:resource="http://schema.org/CourseInstance"/>
+    <rdfs:comment>An offering of the course at a specific time and place or through specific media or mode of study or to a specific section of students.</rdfs:comment>
+    <schema:category>issue-195</schema:category>
+    <schema:domainIncludes rdf:resource="http://schema.org/Course"/>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <rdfs:label>hasCourseInstance</rdfs:label>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/195"/>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://schema.org/rxcui">
+    <schema:rangeIncludes rdf:resource="http://schema.org/Text"/>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1062"/>
+    <rdfs:label>rxcui</rdfs:label>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <rdfs:comment>The RxCUI drug identifier from RXNORM.</rdfs:comment>
+    <schema:domainIncludes rdf:resource="http://schema.org/Drug"/>
+    <schema:category>issue-1062</schema:category>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://schema.org/contentReferenceTime">
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1050"/>
+    <schema:domainIncludes rdf:resource="http://schema.org/CreativeWork"/>
+    <schema:rangeIncludes rdf:resource="http://schema.org/DateTime"/>
+    <rdfs:label>contentReferenceTime</rdfs:label>
+    <rdfs:comment>The specific time described by a creative work, for works (e.g. articles, video objects etc.) that emphasise a particular moment within an Event.</rdfs:comment>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <schema:category>issue-1050</schema:category>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://schema.org/courseCode">
+    <schema:rangeIncludes rdf:resource="http://schema.org/Text"/>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <schema:category>issue-195</schema:category>
+    <schema:domainIncludes rdf:resource="http://schema.org/Course"/>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/195"/>
+    <rdfs:comment><![CDATA[The identifier for the <a class="localLink" href="http://schema.org/Course">Course</a> used by the course <a class="localLink" href="http://schema.org/provider">provider</a> (e.g. CS101 or 6.001).]]></rdfs:comment>
+    <rdfs:label>courseCode</rdfs:label>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://schema.org/usesHealthPlanIdStandard">
+    <schema:category>issue-1062</schema:category>
+    <schema:domainIncludes rdf:resource="http://schema.org/HealthInsurancePlan"/>
+    <rdfs:comment>The standard for interpreting thePlan ID. The preferred is "HIOS". See the Centers for Medicare &amp;amp; Medicaid Services for more details.</rdfs:comment>
+    <schema:rangeIncludes rdf:resource="http://schema.org/URL"/>
+    <schema:rangeIncludes rdf:resource="http://schema.org/Text"/>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1062"/>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <rdfs:label>usesHealthPlanIdStandard</rdfs:label>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://schema.org/includedInHealthInsurancePlan">
+    <rdfs:comment>The insurance plans that cover this drug.</rdfs:comment>
+    <schema:category>issue-1062</schema:category>
+    <schema:domainIncludes rdf:resource="http://schema.org/Drug"/>
+    <rdfs:label>includedInHealthInsurancePlan</rdfs:label>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1062"/>
+    <schema:rangeIncludes rdf:resource="http://schema.org/HealthInsurancePlan"/>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://schema.org/includesHealthPlanNetwork">
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1062"/>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <rdfs:comment>Networks covered by this plan.</rdfs:comment>
+    <schema:rangeIncludes rdf:resource="http://schema.org/HealthPlanNetwork"/>
+    <schema:category>issue-1062</schema:category>
+    <schema:domainIncludes rdf:resource="http://schema.org/HealthInsurancePlan"/>
+    <rdfs:label>includesHealthPlanNetwork</rdfs:label>
+  </rdf:Property>
+  <rdfs:Class rdf:about="http://schema.org/EventSeries">
+    <rdfs:comment><![CDATA[A series of <a class="localLink" href="http://schema.org/Event">Event</a>s. Included events can relate with the series using the <a class="localLink" href="http://schema.org/superEvent">superEvent</a> property.</p>
+
+<p>An EventSeries is a collection of events that share some unifying characteristic. For example, "The Olympic Games" is a series, which
+is repeated regularly. The "2012 London Olympics" can be presented both as an <a class="localLink" href="http://schema.org/Event">Event</a> in the series "Olympic Games", and as an
+<a class="localLink" href="http://schema.org/EventSeries">EventSeries</a> that included a number of sporting competitions as Events.</p>
+
+<p>The nature of the association between the events in an <a class="localLink" href="http://schema.org/EventSeries">EventSeries</a> can vary, but typical examples could
+include a thematic event series (e.g. topical meetups or classes), or a series of regular events that share a location, attendee group and/or organizers.</p>
+
+<p>EventSeries has been defined as a kind of Event to make it easy for publishers to use it in an Event context without
+worrying about which kinds of series are really event-like enough to call an Event. In general an EventSeries
+may seem more Event-like when the period of time is compact and when aspects such as location are fixed, but
+it may also sometimes prove useful to describe a longer-term series as an Event.]]></rdfs:comment>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <rdfs:subClassOf rdf:resource="http://schema.org/Event"/>
+    <rdfs:label>EventSeries</rdfs:label>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/447"/>
+    <schema:category>issue-447</schema:category>
+  </rdfs:Class>
+  <rdf:Property rdf:about="http://schema.org/healthPlanCoinsuranceOption">
+    <rdfs:comment>Whether the coinsurance applies before or after deductible, etc. TODO: Is this a closed set?</rdfs:comment>
+    <rdfs:label>healthPlanCoinsuranceOption</rdfs:label>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1062"/>
+    <schema:rangeIncludes rdf:resource="http://schema.org/Text"/>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <schema:category>issue-1062</schema:category>
+    <schema:domainIncludes rdf:resource="http://schema.org/HealthPlanCostSharingSpecification"/>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://schema.org/enumerationValueCode">
+    <rdfs:comment>A short textual code that uniquely identifies the value. The code is typically used in structured URLs.</rdfs:comment>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/894"/>
+    <schema:domainIncludes rdf:resource="http://schema.org/EnumerationValue"/>
+    <rdfs:label>enumerationValueCode</rdfs:label>
+    <schema:category>issue-894</schema:category>
+    <schema:rangeIncludes rdf:resource="http://schema.org/Text"/>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://schema.org/educationalCredentialAwarded">
+    <schema:domainIncludes rdf:resource="http://schema.org/Course"/>
+    <schema:rangeIncludes rdf:resource="http://schema.org/Text"/>
+    <schema:category>issue-195</schema:category>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/195"/>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <rdfs:label>educationalCredentialAwarded</rdfs:label>
+    <schema:rangeIncludes rdf:resource="http://schema.org/URL"/>
+    <rdfs:comment>A description of the qualification, award, certificate, diploma or other educational credential awarded as a consequence of successful completion of this course.</rdfs:comment>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://schema.org/includesHealthPlanFormulary">
+    <schema:category>issue-1062</schema:category>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1062"/>
+    <rdfs:comment>Formularies covered by this plan.</rdfs:comment>
+    <schema:domainIncludes rdf:resource="http://schema.org/HealthInsurancePlan"/>
+    <rdfs:label>includesHealthPlanFormulary</rdfs:label>
+    <schema:rangeIncludes rdf:resource="http://schema.org/HealthPlanFormulary"/>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://schema.org/coursePrerequisites">
+    <schema:rangeIncludes rdf:resource="http://schema.org/Course"/>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/195"/>
+    <schema:rangeIncludes rdf:resource="http://schema.org/AlignmentObject"/>
+    <rdfs:label>coursePrerequisites</rdfs:label>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <schema:domainIncludes rdf:resource="http://schema.org/Course"/>
+    <schema:category>issue-195</schema:category>
+    <schema:rangeIncludes rdf:resource="http://schema.org/Text"/>
+    <rdfs:comment><![CDATA[Requirements for taking the Course. May be completion of another <a class="localLink" href="http://schema.org/Course">Course</a> or a textual description like "permission of instructor". Requirements may be a pre-requisite competency, referenced using <a class="localLink" href="http://schema.org/AlignmentObject">AlignmentObject</a>.]]></rdfs:comment>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://schema.org/offersPrescriptionByMail">
+    <schema:category>issue-1062</schema:category>
+    <rdfs:label>offersPrescriptionByMail</rdfs:label>
+    <schema:domainIncludes rdf:resource="http://schema.org/HealthPlanFormulary"/>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1062"/>
+    <rdfs:comment>Whether prescriptions can be delivered by mail.</rdfs:comment>
+    <schema:rangeIncludes rdf:resource="http://schema.org/Boolean"/>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+  </rdf:Property>
+  <rdfs:Class rdf:about="http://schema.org/Distillery">
+    <rdfs:label>Distillery</rdfs:label>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/743"/>
+    <rdfs:subClassOf rdf:resource="http://schema.org/FoodEstablishment"/>
+    <schema:category>issue-743</schema:category>
+    <rdfs:comment>A distillery.</rdfs:comment>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+  </rdfs:Class>
+  <rdf:Property rdf:about="http://schema.org/healthPlanDrugTier">
+    <schema:domainIncludes rdf:resource="http://schema.org/HealthPlanFormulary"/>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1062"/>
+    <rdfs:label>healthPlanDrugTier</rdfs:label>
+    <schema:category>issue-1062</schema:category>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <schema:rangeIncludes rdf:resource="http://schema.org/Text"/>
+    <rdfs:comment>The tier(s) of drugs offered by this formulary or insurance plan.</rdfs:comment>
+    <schema:domainIncludes rdf:resource="http://schema.org/HealthInsurancePlan"/>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://schema.org/linkRelationship">
+    <schema:category>issue-1045</schema:category>
+    <schema:rangeIncludes rdf:resource="http://schema.org/Text"/>
+    <rdfs:comment>Indicates the relationship type of a Web link.</rdfs:comment>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1045"/>
+    <rdfs:label>linkRelationship</rdfs:label>
+    <schema:domainIncludes rdf:resource="http://schema.org/LinkRole"/>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://schema.org/courseMode">
+    <schema:rangeIncludes rdf:resource="http://schema.org/URL"/>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/195"/>
+    <rdfs:comment>The medium or means of delivery of the course instance or the mode of study, either as a text label (e.g. "online", "onsite" or "blended"; "synchronous" or "asynchronous"; "full-time" or "part-time") or as a URL reference to a term from a controlled vocabulary (e.g. https://ceds.ed.gov/element/001311#Asynchronous ).</rdfs:comment>
+    <schema:rangeIncludes rdf:resource="http://schema.org/Text"/>
+    <schema:domainIncludes rdf:resource="http://schema.org/CourseInstance"/>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <schema:category>issue-195</schema:category>
+    <rdfs:label>courseMode</rdfs:label>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://schema.org/accessibilitySummary">
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1100"/>
+    <rdfs:comment>A human-readable summary of specific accessibility features or deficiencies, consistent with the other accessibility metadata but expressing subtleties such as "short descriptions are present but long descriptions will be needed for non-visual users" or "short descriptions are present and no long descriptions are needed."</rdfs:comment>
+    <schema:rangeIncludes rdf:resource="http://schema.org/Text"/>
+    <schema:domainIncludes rdf:resource="http://schema.org/CreativeWork"/>
+    <rdfs:label>accessibilitySummary</rdfs:label>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <schema:category>issue-1110</schema:category>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://schema.org/healthPlanMarketingUrl">
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <rdfs:comment>The URL that goes directly to the plan brochure for the specific standard plan or plan variation.</rdfs:comment>
+    <rdfs:label>healthPlanMarketingUrl</rdfs:label>
+    <schema:category>issue-1062</schema:category>
+    <schema:domainIncludes rdf:resource="http://schema.org/HealthInsurancePlan"/>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1062"/>
+    <schema:rangeIncludes rdf:resource="http://schema.org/URL"/>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://schema.org/accessModeSufficient">
+    <schema:domainIncludes rdf:resource="http://schema.org/CreativeWork"/>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1100"/>
+    <schema:category>issue-1110</schema:category>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <rdfs:label>accessModeSufficient</rdfs:label>
+    <rdfs:comment>A list of single or combined accessModes that are sufficient to understand all the intellectual content of a resource. Expected values include:  auditory, tactile, textual, visual.</rdfs:comment>
+    <schema:rangeIncludes rdf:resource="http://schema.org/Text"/>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://schema.org/bed">
+    <schema:rangeIncludes rdf:resource="http://schema.org/BedType"/>
+  </rdf:Property>
+  <rdfs:Class rdf:about="http://schema.org/EndorsementRating">
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <rdfs:subClassOf rdf:resource="http://schema.org/Rating"/>
+    <schema:category>issue-1293</schema:category>
+    <rdfs:label>EndorsementRating</rdfs:label>
+    <rdfs:comment><![CDATA[An EndorsementRating is a rating that expresses some level of endorsement, for example inclusion in a "critic's pick" blog, a
+  "Like" or "+1" on a social network. It can be considered the <a class="localLink" href="http://schema.org/result">result</a> of an <a class="localLink" href="http://schema.org/EndorseAction">EndorseAction</a> in which the <a class="localLink" href="http://schema.org/object">object</a> of the action is rated positively by
+  some <a class="localLink" href="http://schema.org/agent">agent</a>. As is common elsewhere in schema.org, it is sometimes more useful to describe the results of such an action without explicitly describing the <a class="localLink" href="http://schema.org/Action">Action</a>.</p>
+
+<p>An <a class="localLink" href="http://schema.org/EndorsementRating">EndorsementRating</a> may be part of a numeric scale or organized system, but this is not required: having an explicit type for indicating a positive,
+  endorsement rating is particularly useful in the absence of numeric scales as it helps consumers understand that the rating is broadly positive.]]></rdfs:comment>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1061"/>
+  </rdfs:Class>
+  <rdf:Property rdf:about="http://schema.org/contactPoint">
+    <schema:category>issue-1062</schema:category>
+    <schema:domainIncludes rdf:resource="http://schema.org/HealthInsurancePlan"/>
+    <schema:rangeIncludes rdf:resource="http://schema.org/ContactPoint"/>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://schema.org/typeOfBed">
+    <schema:rangeIncludes rdf:resource="http://schema.org/BedType"/>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://schema.org/inLanguage">
+    <schema:domainIncludes rdf:resource="http://schema.org/LinkRole"/>
+  </rdf:Property>
+  <rdfs:Class rdf:about="http://schema.org/LinkRole">
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <rdfs:comment>A Role that represents a Web link e.g. as expressed via the 'url' property. Its linkRelationship property can indicate URL-based and plain textual link types e.g. those in IANA link registry or others such as 'amphtml'. This structure provides a placeholder where details from HTML's link element can be represented outside of HTML, e.g. in JSON-LD feeds.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="http://schema.org/Role"/>
+    <schema:category>issue-1045</schema:category>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1045"/>
+    <rdfs:label>LinkRole</rdfs:label>
+  </rdfs:Class>
+  <rdfs:Class rdf:about="http://schema.org/BroadcastFrequencySpecification">
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1004"/>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <schema:category>issue-1004</schema:category>
+    <rdfs:label>BroadcastFrequencySpecification</rdfs:label>
+    <rdfs:comment>The frequency in MHz and the modulation used for a particular BroadcastService.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="http://schema.org/Intangible"/>
+  </rdfs:Class>
+  <rdfs:Class rdf:about="http://schema.org/Course">
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/195"/>
+    <rdfs:label>Course</rdfs:label>
+    <rdfs:subClassOf rdf:resource="http://schema.org/CreativeWork"/>
+    <rdfs:comment>A description of an educational course which may be offered as distinct instances at which take place at different times or take place at different locations, or be offered through different media or modes of study. An educational course is a sequence of one or more educational events and/or creative works which aims to build knowledge, competence or ability of learners.</rdfs:comment>
+    <schema:category>issue-195</schema:category>
+  </rdfs:Class>
+  <rdfs:Class rdf:about="http://schema.org/BedType">
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <rdfs:label>BedType</rdfs:label>
+    <rdfs:subClassOf rdf:resource="http://schema.org/QualitativeValue"/>
+    <dct:source rdf:resource="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology"/>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1262"/>
+    <rdfs:comment>A type of bed. This is used for indicating the bed or beds available in an accommodation.</rdfs:comment>
+    <schema:category>issue-1262</schema:category>
+  </rdfs:Class>
+  <rdfs:Class rdf:about="http://schema.org/EnumerationValueSet">
+    <rdfs:subClassOf rdf:resource="http://schema.org/CreativeWork"/>
+    <rdfs:label>EnumerationValueSet</rdfs:label>
+    <schema:category>issue-894</schema:category>
+    <rdfs:comment>A set of enumerated values.</rdfs:comment>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/894"/>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+  </rdfs:Class>
+  <rdfs:Class rdf:about="http://schema.org/ClaimReview">
+    <rdfs:subClassOf rdf:resource="http://schema.org/Review"/>
+    <schema:category>issue-1061</schema:category>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1061"/>
+    <rdfs:comment>A fact-checking review of claims made (or reported) in some creative work (referenced via itemReviewed).</rdfs:comment>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <rdfs:label>ClaimReview</rdfs:label>
+  </rdfs:Class>
+  <rdfs:Class rdf:about="http://schema.org/Quotation">
+    <schema:category>issue-271</schema:category>
+    <rdfs:label>Quotation</rdfs:label>
+    <rdfs:comment><![CDATA[A quotation. Often but not necessarily from some written work, attributable to a real world author and - if associated with a fictional character - to any fictional Person. Use <a class="localLink" href="http://schema.org/isBasedOn">isBasedOn</a> to link to source/origin. The <a class="localLink" href="http://schema.org/recordedIn">recordedIn</a> property can be used to reference a Quotation from an <a class="localLink" href="http://schema.org/Event">Event</a>.]]></rdfs:comment>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/271"/>
+    <rdfs:subClassOf rdf:resource="http://schema.org/CreativeWork"/>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+  </rdfs:Class>
+  <rdfs:Class rdf:about="http://schema.org/HealthInsurancePlan">
+    <schema:category>issue-1062</schema:category>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1062"/>
+    <rdfs:label>HealthInsurancePlan</rdfs:label>
+    <rdfs:subClassOf rdf:resource="http://schema.org/Intangible"/>
+    <rdfs:comment>A US-style health insurance plan, including PPOs, EPOs, and HMOs.</rdfs:comment>
+  </rdfs:Class>
+  <rdf:Property rdf:about="http://schema.org/hasBroadcastChannel">
+    <schema:domainIncludes rdf:resource="http://schema.org/BroadcastService"/>
+    <schema:inverseOf>
+      <rdf:Property rdf:about="http://schema.org/providesBroadcastService">
+        <schema:inverseOf rdf:resource="http://schema.org/hasBroadcastChannel"/>
+      </rdf:Property>
+    </schema:inverseOf>
+    <rdfs:comment>A broadcast channel of a broadcast service.</rdfs:comment>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <rdfs:label>hasBroadcastChannel</rdfs:label>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1004"/>
+    <schema:rangeIncludes rdf:resource="http://schema.org/BroadcastChannel"/>
+    <schema:category>issue-1004</schema:category>
+  </rdf:Property>
+  <rdfs:Class rdf:about="http://schema.org/HealthPlanCostSharingSpecification">
+    <rdfs:comment>A description of costs to the patient under a given network or formulary.</rdfs:comment>
+    <schema:category>issue-1062</schema:category>
+    <rdfs:subClassOf rdf:resource="http://schema.org/Intangible"/>
+    <rdfs:label>HealthPlanCostSharingSpecification</rdfs:label>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1062"/>
+  </rdfs:Class>
+  <rdfs:Class rdf:about="http://schema.org/HealthPlanFormulary">
+    <schema:category>issue-1062</schema:category>
+    <rdfs:subClassOf rdf:resource="http://schema.org/Intangible"/>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1062"/>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <rdfs:label>HealthPlanFormulary</rdfs:label>
+    <rdfs:comment>For a given health insurance plan, the specification for costs and coverage of prescription drugs.</rdfs:comment>
+  </rdfs:Class>
+  <rdfs:Class rdf:about="http://schema.org/HealthPlanNetwork">
+    <rdfs:subClassOf rdf:resource="http://schema.org/Intangible"/>
+    <rdfs:label>HealthPlanNetwork</rdfs:label>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1062"/>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <rdfs:comment>A US-style health insurance plan network.</rdfs:comment>
+    <schema:category>issue-1062</schema:category>
+  </rdfs:Class>
+  <rdfs:Class rdf:about="http://schema.org/EnumerationValue">
+    <rdfs:comment>An enumeration value.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="http://schema.org/Enumeration"/>
+    <rdfs:label>EnumerationValue</rdfs:label>
+    <schema:category>issue-894</schema:category>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/894"/>
+  </rdfs:Class>
+  <rdfs:Class rdf:about="http://schema.org/CourseInstance">
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/195"/>
+    <rdfs:subClassOf rdf:resource="http://schema.org/Event"/>
+    <rdfs:label>CourseInstance</rdfs:label>
+    <schema:category>issue-195</schema:category>
+    <rdfs:comment><![CDATA[An instance of a <a class="localLink" href="http://schema.org/Course">Course</a> which is distinct from other instances because it is offered at a different time or location or through different media or modes of study or to a specific section of students.]]></rdfs:comment>
+  </rdfs:Class>
+</rdf:RDF>

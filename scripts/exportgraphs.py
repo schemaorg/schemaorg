@@ -170,7 +170,10 @@ class Export():
             fname = "%s%s" % (args.output,ext)
             print "%s: Writing to: %s" % (sys.argv[0],fname)
             file = open(fname, "w")
-            file.write(self.outGraph.serialize(format=args.format,**kwargs))
+            format = args.format
+            if format == "xml":
+                format = "pretty-xml"
+            file.write(self.outGraph.serialize(format=format,**kwargs))
 
 
     def outputCSV(self):
@@ -183,17 +186,20 @@ class Export():
         print "%s processing csv types output" % sys.argv[0]
 
         fname = "%s-types%s" % (args.output,ext)
+        log.info("\t%s" % fname)
         print "%s: Writing to: %s" % (sys.argv[0],fname)
         file = open(fname, "w")
         csv.outputCSVtypes(file)
         file.close()
 
         fname = "%s-properties%s" % (args.output,ext)
+        log.info("\t%s" % fname)
         print "%s: Writing to: %s" % (sys.argv[0],fname)
         file = open(fname, "w")
         csv.outputCSVproperties(file)
         file.close()
         fname = "%s-enumvalues%s" % (args.output,ext)
+        log.info("\t%s" % fname)
         print "%s: Writing to: %s" % (sys.argv[0],fname)
         file = open(fname, "w")
         csv.outputCSVenums(file)
