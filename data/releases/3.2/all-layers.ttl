@@ -7192,7 +7192,7 @@ schema:courseCode a rdf:Property ;
     schema:domainIncludes schema:Course ;
     schema:isPartOf <http://pending.schema.org> ;
     schema:rangeIncludes schema:Text ;
-    rdfs:comment "The identifier used for the <a class=\"localLink\" href=\"http://schema.org/Course\">Course</a> (e.g. CS101 or 6.001)" .
+    rdfs:comment "The identifier for the <a class=\"localLink\" href=\"http://schema.org/Course\">Course</a> used by the course <a class=\"localLink\" href=\"http://schema.org/provider\">provider</a> (e.g. CS101 or 6.001)." .
 
 schema:courseMode a rdf:Property ;
     rdfs:label "courseMode" ;
@@ -7200,8 +7200,9 @@ schema:courseMode a rdf:Property ;
     schema:category "issue-195" ;
     schema:domainIncludes schema:CourseInstance ;
     schema:isPartOf <http://pending.schema.org> ;
-    schema:rangeIncludes schema:Text ;
-    rdfs:comment "The medium or means of delivery of the course instance, or the mode of study." .
+    schema:rangeIncludes schema:Text,
+        schema:URL ;
+    rdfs:comment "The medium or means of delivery of the course instance or the mode of study, either as a text label (e.g. \"online\", \"onsite\" or \"blended\"; \"synchronous\" or \"asynchronous\"; \"full-time\" or \"part-time\") or as a URL reference to a term from a controlled vocabulary (e.g. https://ceds.ed.gov/element/001311#Asynchronous )." .
 
 schema:coursePrerequisites a rdf:Property ;
     rdfs:label "coursePrerequisites" ;

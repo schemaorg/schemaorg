@@ -28,10 +28,10 @@
       },
       "http://schema.org/rangeIncludes": [
         {
-          "@id": "http://schema.org/Text"
+          "@id": "http://schema.org/MedicalEntity"
         },
         {
-          "@id": "http://schema.org/MedicalEntity"
+          "@id": "http://schema.org/Text"
         }
       ],
       "rdfs:comment": "Typical preparation that a patient must undergo before having the procedure performed.",
@@ -53,19 +53,13 @@
       "rdfs:label": "alcoholWarning"
     },
     {
-      "@id": "http://schema.org/strengthUnit",
-      "@type": "rdf:Property",
-      "http://schema.org/domainIncludes": {
-        "@id": "http://schema.org/DrugStrength"
-      },
+      "@id": "http://schema.org/CohortStudy",
+      "@type": "http://schema.org/MedicalObservationalStudyDesign",
       "http://schema.org/isPartOf": {
         "@id": "http://health-lifesci.schema.org"
       },
-      "http://schema.org/rangeIncludes": {
-        "@id": "http://schema.org/Text"
-      },
-      "rdfs:comment": "The units of an active ingredient's strength, e.g. mg.",
-      "rdfs:label": "strengthUnit"
+      "rdfs:comment": "Also known as a panel study. A cohort study is a form of longitudinal study used in medicine and social science. It is one type of study design and should be compared with a cross-sectional study.  A cohort is a group of people who share a common characteristic or experience within a defined period (e.g., are born, leave school, lose their job, are exposed to a drug or a vaccine, etc.). The comparison group may be the general population from which the cohort is drawn, or it may be another cohort of persons thought to have had little or no exposure to the substance under investigation, but otherwise similar. Alternatively, subgroups within the cohort may be compared with each other.",
+      "rdfs:label": "CohortStudy"
     },
     {
       "@id": "http://schema.org/MedicalTrialDesign",
@@ -136,19 +130,13 @@
       }
     },
     {
-      "@id": "http://schema.org/postOp",
-      "@type": "rdf:Property",
-      "http://schema.org/domainIncludes": {
-        "@id": "http://schema.org/MedicalDevice"
-      },
+      "@id": "http://schema.org/Neck",
+      "@type": "http://schema.org/PhysicalExam",
       "http://schema.org/isPartOf": {
         "@id": "http://health-lifesci.schema.org"
       },
-      "http://schema.org/rangeIncludes": {
-        "@id": "http://schema.org/Text"
-      },
-      "rdfs:comment": "A description of the postoperative procedures, care, and/or followups for this device.",
-      "rdfs:label": "postOp"
+      "rdfs:comment": "Neck assessment with clinical examination.",
+      "rdfs:label": "Neck"
     },
     {
       "@id": "http://schema.org/PrescriptionOnly",
@@ -170,10 +158,10 @@
       },
       "http://schema.org/rangeIncludes": [
         {
-          "@id": "http://schema.org/QualitativeValue"
+          "@id": "http://schema.org/Number"
         },
         {
-          "@id": "http://schema.org/Number"
+          "@id": "http://schema.org/QualitativeValue"
         }
       ],
       "rdfs:comment": "Number of times one should repeat the activity.",
@@ -199,10 +187,10 @@
       "@type": "rdf:Property",
       "http://schema.org/domainIncludes": [
         {
-          "@id": "http://schema.org/TherapeuticProcedure"
+          "@id": "http://schema.org/MedicalDevice"
         },
         {
-          "@id": "http://schema.org/MedicalDevice"
+          "@id": "http://schema.org/TherapeuticProcedure"
         }
       ],
       "http://schema.org/isPartOf": {
@@ -323,10 +311,10 @@
       },
       "http://schema.org/rangeIncludes": [
         {
-          "@id": "http://schema.org/Text"
+          "@id": "http://schema.org/MedicalEntity"
         },
         {
-          "@id": "http://schema.org/MedicalEntity"
+          "@id": "http://schema.org/Text"
         }
       ],
       "rdfs:comment": "The degree of mobility the joint allows.",
@@ -361,23 +349,23 @@
       },
       "http://schema.org/rangeIncludes": [
         {
-          "@id": "http://schema.org/Text"
+          "@id": "http://schema.org/DrugPrescriptionStatus"
         },
         {
-          "@id": "http://schema.org/DrugPrescriptionStatus"
+          "@id": "http://schema.org/Text"
         }
       ],
       "rdfs:comment": "Indicates the status of drug prescription eg. local catalogs classifications or whether the drug is available by prescription or over-the-counter, etc.",
       "rdfs:label": "prescriptionStatus"
     },
     {
-      "@id": "http://schema.org/CohortStudy",
-      "@type": "http://schema.org/MedicalObservationalStudyDesign",
+      "@id": "http://schema.org/Terminated",
+      "@type": "http://schema.org/MedicalStudyStatus",
       "http://schema.org/isPartOf": {
         "@id": "http://health-lifesci.schema.org"
       },
-      "rdfs:comment": "Also known as a panel study. A cohort study is a form of longitudinal study used in medicine and social science. It is one type of study design and should be compared with a cross-sectional study.  A cohort is a group of people who share a common characteristic or experience within a defined period (e.g., are born, leave school, lose their job, are exposed to a drug or a vaccine, etc.). The comparison group may be the general population from which the cohort is drawn, or it may be another cohort of persons thought to have had little or no exposure to the substance under investigation, but otherwise similar. Alternatively, subgroups within the cohort may be compared with each other.",
-      "rdfs:label": "CohortStudy"
+      "rdfs:comment": "Terminated.",
+      "rdfs:label": "Terminated"
     },
     {
       "@id": "http://schema.org/code",
@@ -457,13 +445,13 @@
       "@type": "rdf:Property",
       "http://schema.org/domainIncludes": [
         {
-          "@id": "http://schema.org/AnatomicalStructure"
-        },
-        {
           "@id": "http://schema.org/SuperficialAnatomy"
         },
         {
           "@id": "http://schema.org/AnatomicalSystem"
+        },
+        {
+          "@id": "http://schema.org/AnatomicalStructure"
         }
       ],
       "http://schema.org/isPartOf": {
@@ -480,10 +468,10 @@
       "@type": "rdf:Property",
       "http://schema.org/domainIncludes": [
         {
-          "@id": "http://schema.org/MedicalProcedure"
+          "@id": "http://schema.org/MedicalStudy"
         },
         {
-          "@id": "http://schema.org/MedicalStudy"
+          "@id": "http://schema.org/MedicalProcedure"
         }
       ],
       "http://schema.org/isPartOf": {
@@ -491,26 +479,29 @@
       },
       "http://schema.org/rangeIncludes": [
         {
-          "@id": "http://schema.org/Text"
+          "@id": "http://schema.org/MedicalEntity"
         },
         {
-          "@id": "http://schema.org/MedicalEntity"
+          "@id": "http://schema.org/Text"
         }
       ],
       "rdfs:comment": "Expected or actual outcomes of the study.",
       "rdfs:label": "outcome"
     },
     {
-      "@id": "http://schema.org/MaximumDoseSchedule",
-      "@type": "rdfs:Class",
+      "@id": "http://schema.org/subTest",
+      "@type": "rdf:Property",
+      "http://schema.org/domainIncludes": {
+        "@id": "http://schema.org/MedicalTestPanel"
+      },
       "http://schema.org/isPartOf": {
         "@id": "http://health-lifesci.schema.org"
       },
-      "rdfs:comment": "The maximum dosing schedule considered safe for a drug or supplement as recommended by an authority or by the drug/supplement's manufacturer. Capture the recommending authority in the recognizingAuthority property of MedicalEntity.",
-      "rdfs:label": "MaximumDoseSchedule",
-      "rdfs:subClassOf": {
-        "@id": "http://schema.org/DoseSchedule"
-      }
+      "http://schema.org/rangeIncludes": {
+        "@id": "http://schema.org/MedicalTest"
+      },
+      "rdfs:comment": "A component test of the panel.",
+      "rdfs:label": "subTest"
     },
     {
       "@id": "http://schema.org/guidelineSubject",
@@ -640,34 +631,23 @@
       }
     },
     {
-      "@id": "http://schema.org/cause",
-      "@type": "rdf:Property",
-      "http://schema.org/domainIncludes": [
-        {
-          "@id": "http://schema.org/MedicalCondition"
-        },
-        {
-          "@id": "http://schema.org/MedicalSignOrSymptom"
-        }
-      ],
+      "@id": "http://schema.org/Fungus",
+      "@type": "http://schema.org/InfectiousAgentClass",
       "http://schema.org/isPartOf": {
         "@id": "http://health-lifesci.schema.org"
       },
-      "http://schema.org/rangeIncludes": {
-        "@id": "http://schema.org/MedicalCause"
-      },
-      "rdfs:comment": "Specifying a cause of something in general. e.g in medicine , one of the causative agent(s) that are most directly responsible for the pathophysiologic process that eventually results in the occurrence.",
-      "rdfs:label": "cause"
+      "rdfs:comment": "Pathogenic fungus.",
+      "rdfs:label": "Fungus"
     },
     {
       "@id": "http://schema.org/contraindication",
       "@type": "rdf:Property",
       "http://schema.org/domainIncludes": [
         {
-          "@id": "http://schema.org/MedicalDevice"
+          "@id": "http://schema.org/MedicalTherapy"
         },
         {
-          "@id": "http://schema.org/MedicalTherapy"
+          "@id": "http://schema.org/MedicalDevice"
         }
       ],
       "http://schema.org/isPartOf": {
@@ -712,15 +692,6 @@
       "rdfs:label": "isAvailableGenerically"
     },
     {
-      "@id": "http://schema.org/Renal",
-      "@type": "http://schema.org/MedicalSpecialty",
-      "http://schema.org/isPartOf": {
-        "@id": "http://health-lifesci.schema.org"
-      },
-      "rdfs:comment": "A specific branch of medical science that pertains to the study of the kidneys and its respective disease states.",
-      "rdfs:label": "Renal"
-    },
-    {
       "@id": "http://schema.org/Gastroenterologic",
       "@type": "http://schema.org/MedicalSpecialty",
       "http://schema.org/isPartOf": {
@@ -730,19 +701,19 @@
       "rdfs:label": "Gastroenterologic"
     },
     {
-      "@id": "http://schema.org/differentialDiagnosis",
-      "@type": "rdf:Property",
-      "http://schema.org/domainIncludes": {
-        "@id": "http://schema.org/MedicalCondition"
-      },
+      "@id": "http://schema.org/TherapeuticProcedure",
+      "@type": "rdfs:Class",
       "http://schema.org/isPartOf": {
         "@id": "http://health-lifesci.schema.org"
       },
-      "http://schema.org/rangeIncludes": {
-        "@id": "http://schema.org/DDxElement"
+      "http://www.w3.org/2002/07/owl#equivalentClass": {
+        "@id": "http://purl.bioontology.org/ontology/SNOMEDCT/277132007"
       },
-      "rdfs:comment": "One of a set of differential diagnoses for the condition. Specifically, a closely-related or competing diagnosis typically considered later in the cognitive process whereby this medical condition is distinguished from others most likely responsible for a similar collection of signs and symptoms to reach the most parsimonious diagnosis or diagnoses in a patient.",
-      "rdfs:label": "differentialDiagnosis"
+      "rdfs:comment": "A medical procedure intended primarily for therapeutic purposes, aimed at improving a health condition.",
+      "rdfs:label": "TherapeuticProcedure",
+      "rdfs:subClassOf": {
+        "@id": "http://schema.org/MedicalProcedure"
+      }
     },
     {
       "@id": "http://schema.org/Diet",
@@ -754,10 +725,10 @@
       "rdfs:label": "Diet",
       "rdfs:subClassOf": [
         {
-          "@id": "http://schema.org/CreativeWork"
+          "@id": "http://schema.org/LifestyleModification"
         },
         {
-          "@id": "http://schema.org/LifestyleModification"
+          "@id": "http://schema.org/CreativeWork"
         }
       ]
     },
@@ -808,10 +779,10 @@
       "@type": "rdf:Property",
       "http://schema.org/domainIncludes": [
         {
-          "@id": "http://schema.org/LymphaticVessel"
+          "@id": "http://schema.org/Vein"
         },
         {
-          "@id": "http://schema.org/Vein"
+          "@id": "http://schema.org/LymphaticVessel"
         }
       ],
       "http://schema.org/isPartOf": {
@@ -819,10 +790,10 @@
       },
       "http://schema.org/rangeIncludes": [
         {
-          "@id": "http://schema.org/AnatomicalStructure"
+          "@id": "http://schema.org/AnatomicalSystem"
         },
         {
-          "@id": "http://schema.org/AnatomicalSystem"
+          "@id": "http://schema.org/AnatomicalStructure"
         }
       ],
       "rdfs:comment": "The anatomical or organ system drained by this vessel; generally refers to a specific part of an organ.",
@@ -859,19 +830,19 @@
       "rdfs:label": "nerve"
     },
     {
-      "@id": "http://schema.org/estimatesRiskOf",
+      "@id": "http://schema.org/relevantSpecialty",
       "@type": "rdf:Property",
       "http://schema.org/domainIncludes": {
-        "@id": "http://schema.org/MedicalRiskEstimator"
+        "@id": "http://schema.org/MedicalEntity"
       },
       "http://schema.org/isPartOf": {
         "@id": "http://health-lifesci.schema.org"
       },
       "http://schema.org/rangeIncludes": {
-        "@id": "http://schema.org/MedicalEntity"
+        "@id": "http://schema.org/MedicalSpecialty"
       },
-      "rdfs:comment": "The condition, complication, or symptom whose risk is being estimated.",
-      "rdfs:label": "estimatesRiskOf"
+      "rdfs:comment": "If applicable, a medical specialty in which this entity is relevant.",
+      "rdfs:label": "relevantSpecialty"
     },
     {
       "@id": "http://schema.org/SpeechPathology",
@@ -917,10 +888,10 @@
       "@type": "rdf:Property",
       "http://schema.org/domainIncludes": [
         {
-          "@id": "http://schema.org/DietarySupplement"
+          "@id": "http://schema.org/Drug"
         },
         {
-          "@id": "http://schema.org/Drug"
+          "@id": "http://schema.org/DietarySupplement"
         }
       ],
       "http://schema.org/isPartOf": {
@@ -948,24 +919,16 @@
       }
     },
     {
-      "@id": "http://schema.org/pathophysiology",
-      "@type": "rdf:Property",
-      "http://schema.org/domainIncludes": [
-        {
-          "@id": "http://schema.org/PhysicalActivity"
-        },
-        {
-          "@id": "http://schema.org/MedicalCondition"
-        }
-      ],
+      "@id": "http://schema.org/MedicalObservationalStudyDesign",
+      "@type": "rdfs:Class",
       "http://schema.org/isPartOf": {
         "@id": "http://health-lifesci.schema.org"
       },
-      "http://schema.org/rangeIncludes": {
-        "@id": "http://schema.org/Text"
-      },
-      "rdfs:comment": "Changes in the normal mechanical, physical, and biochemical functions that are associated with this activity or condition.",
-      "rdfs:label": "pathophysiology"
+      "rdfs:comment": "Design models for observational medical studies. Enumerated type.",
+      "rdfs:label": "MedicalObservationalStudyDesign",
+      "rdfs:subClassOf": {
+        "@id": "http://schema.org/MedicalEnumeration"
+      }
     },
     {
       "@id": "http://schema.org/TripleBlindedTrial",
@@ -1025,19 +988,16 @@
       }
     },
     {
-      "@id": "http://schema.org/stage",
+      "@id": "http://schema.org/manufacturer",
       "@type": "rdf:Property",
-      "http://schema.org/domainIncludes": {
-        "@id": "http://schema.org/MedicalCondition"
-      },
-      "http://schema.org/isPartOf": {
-        "@id": "http://health-lifesci.schema.org"
-      },
-      "http://schema.org/rangeIncludes": {
-        "@id": "http://schema.org/MedicalConditionStage"
-      },
-      "rdfs:comment": "The stage of the condition, if applicable.",
-      "rdfs:label": "stage"
+      "http://schema.org/domainIncludes": [
+        {
+          "@id": "http://schema.org/DietarySupplement"
+        },
+        {
+          "@id": "http://schema.org/Drug"
+        }
+      ]
     },
     {
       "@id": "http://schema.org/MultiCenterTrial",
@@ -1049,13 +1009,19 @@
       "rdfs:label": "MultiCenterTrial"
     },
     {
-      "@id": "http://schema.org/Neck",
-      "@type": "http://schema.org/PhysicalExam",
+      "@id": "http://schema.org/postOp",
+      "@type": "rdf:Property",
+      "http://schema.org/domainIncludes": {
+        "@id": "http://schema.org/MedicalDevice"
+      },
       "http://schema.org/isPartOf": {
         "@id": "http://health-lifesci.schema.org"
       },
-      "rdfs:comment": "Neck assessment with clinical examination.",
-      "rdfs:label": "Neck"
+      "http://schema.org/rangeIncludes": {
+        "@id": "http://schema.org/Text"
+      },
+      "rdfs:comment": "A description of the postoperative procedures, care, and/or followups for this device.",
+      "rdfs:label": "postOp"
     },
     {
       "@id": "http://schema.org/RandomizedTrial",
@@ -1221,13 +1187,13 @@
       "rdfs:label": "MedicalAudience",
       "rdfs:subClassOf": [
         {
-          "@id": "http://schema.org/PeopleAudience"
+          "@id": "http://schema.org/Audience"
         },
         {
           "@id": "http://schema.org/MedicalEnumeration"
         },
         {
-          "@id": "http://schema.org/Audience"
+          "@id": "http://schema.org/PeopleAudience"
         }
       ]
     },
@@ -1477,10 +1443,10 @@
       }
     },
     {
-      "@id": "http://schema.org/availableIn",
+      "@id": "http://schema.org/studyLocation",
       "@type": "rdf:Property",
       "http://schema.org/domainIncludes": {
-        "@id": "http://schema.org/DrugStrength"
+        "@id": "http://schema.org/MedicalStudy"
       },
       "http://schema.org/isPartOf": {
         "@id": "http://health-lifesci.schema.org"
@@ -1488,8 +1454,8 @@
       "http://schema.org/rangeIncludes": {
         "@id": "http://schema.org/AdministrativeArea"
       },
-      "rdfs:comment": "The location in which the strength is available.",
-      "rdfs:label": "availableIn"
+      "rdfs:comment": "The location in which the study is taking/took place.",
+      "rdfs:label": "studyLocation"
     },
     {
       "@id": "http://schema.org/MedicalEvidenceLevel",
@@ -1504,28 +1470,28 @@
       }
     },
     {
-      "@id": "http://schema.org/RecommendedDoseSchedule",
-      "@type": "rdfs:Class",
-      "http://schema.org/isPartOf": {
-        "@id": "http://health-lifesci.schema.org"
-      },
-      "rdfs:comment": "A recommended dosing schedule for a drug or supplement as prescribed or recommended by an authority or by the drug/supplement's manufacturer. Capture the recommending authority in the recognizingAuthority property of MedicalEntity.",
-      "rdfs:label": "RecommendedDoseSchedule",
-      "rdfs:subClassOf": {
-        "@id": "http://schema.org/DoseSchedule"
-      }
-    },
-    {
-      "@id": "http://schema.org/Midwifery",
+      "@id": "http://schema.org/Urologic",
       "@type": "http://schema.org/MedicalSpecialty",
       "http://schema.org/isPartOf": {
         "@id": "http://health-lifesci.schema.org"
       },
-      "rdfs:comment": "A nurse-like health profession that deals with pregnancy, childbirth, and the postpartum period (including care of the newborn), besides sexual and reproductive health of women throughout their lives.",
-      "rdfs:label": "Midwifery",
-      "rdfs:subClassOf": {
-        "@id": "http://schema.org/MedicalBusiness"
-      }
+      "rdfs:comment": "A specific branch of medical science that is concerned with the diagnosis and treatment of diseases pertaining to the urinary tract and the urogenital system.",
+      "rdfs:label": "Urologic"
+    },
+    {
+      "@id": "http://schema.org/drugClass",
+      "@type": "rdf:Property",
+      "http://schema.org/domainIncludes": {
+        "@id": "http://schema.org/Drug"
+      },
+      "http://schema.org/isPartOf": {
+        "@id": "http://health-lifesci.schema.org"
+      },
+      "http://schema.org/rangeIncludes": {
+        "@id": "http://schema.org/DrugClass"
+      },
+      "rdfs:comment": "The class of drug this belongs to (e.g., statins).",
+      "rdfs:label": "drugClass"
     },
     {
       "@id": "http://schema.org/costPerUnit",
@@ -1561,10 +1527,10 @@
       },
       "http://schema.org/rangeIncludes": [
         {
-          "@id": "http://schema.org/URL"
+          "@id": "http://schema.org/Text"
         },
         {
-          "@id": "http://schema.org/Text"
+          "@id": "http://schema.org/URL"
         }
       ],
       "rdfs:comment": "Any FDA or other warnings about the drug (text or URL).",
@@ -1640,19 +1606,16 @@
       }
     },
     {
-      "@id": "http://schema.org/foodWarning",
-      "@type": "rdf:Property",
-      "http://schema.org/domainIncludes": {
-        "@id": "http://schema.org/Drug"
-      },
+      "@id": "http://schema.org/DiagnosticLab",
+      "@type": "rdfs:Class",
       "http://schema.org/isPartOf": {
         "@id": "http://health-lifesci.schema.org"
       },
-      "http://schema.org/rangeIncludes": {
-        "@id": "http://schema.org/Text"
-      },
-      "rdfs:comment": "Any precaution, guidance, contraindication, etc. related to consumption of specific foods while taking this drug.",
-      "rdfs:label": "foodWarning"
+      "rdfs:comment": "A medical laboratory that offers on-site or off-site diagnostic services.",
+      "rdfs:label": "DiagnosticLab",
+      "rdfs:subClassOf": {
+        "@id": "http://schema.org/MedicalOrganization"
+      }
     },
     {
       "@id": "http://schema.org/MedicalSpecialty",
@@ -1774,16 +1737,19 @@
       }
     },
     {
-      "@id": "http://schema.org/MedicalTherapy",
-      "@type": "rdfs:Class",
+      "@id": "http://schema.org/naturalProgression",
+      "@type": "rdf:Property",
+      "http://schema.org/domainIncludes": {
+        "@id": "http://schema.org/MedicalCondition"
+      },
       "http://schema.org/isPartOf": {
         "@id": "http://health-lifesci.schema.org"
       },
-      "rdfs:comment": "Any medical intervention designed to prevent, treat, and cure human diseases and medical conditions, including both curative and palliative therapies. Medical therapies are typically processes of care relying upon pharmacotherapy, behavioral therapy, supportive therapy (with fluid or nutrition for example), or detoxification (e.g. hemodialysis) aimed at improving or preventing a health condition.",
-      "rdfs:label": "MedicalTherapy",
-      "rdfs:subClassOf": {
-        "@id": "http://schema.org/TherapeuticProcedure"
-      }
+      "http://schema.org/rangeIncludes": {
+        "@id": "http://schema.org/Text"
+      },
+      "rdfs:comment": "The expected progression of the condition if it is not treated and allowed to progress naturally.",
+      "rdfs:label": "naturalProgression"
     },
     {
       "@id": "http://schema.org/DietarySupplement",
@@ -1859,13 +1825,13 @@
       "@type": "rdf:Property",
       "http://schema.org/domainIncludes": [
         {
+          "@id": "http://schema.org/Physician"
+        },
+        {
           "@id": "http://schema.org/Hospital"
         },
         {
           "@id": "http://schema.org/MedicalOrganization"
-        },
-        {
-          "@id": "http://schema.org/Physician"
         },
         {
           "@id": "http://schema.org/MedicalClinic"
@@ -1885,10 +1851,10 @@
       "@type": "rdf:Property",
       "http://schema.org/domainIncludes": [
         {
-          "@id": "http://schema.org/TherapeuticProcedure"
+          "@id": "http://schema.org/Drug"
         },
         {
-          "@id": "http://schema.org/Drug"
+          "@id": "http://schema.org/TherapeuticProcedure"
         }
       ],
       "http://schema.org/isPartOf": {
@@ -1925,16 +1891,19 @@
       "rdfs:label": "safetyConsideration"
     },
     {
-      "@id": "http://schema.org/MedicalDevicePurpose",
-      "@type": "rdfs:Class",
+      "@id": "http://schema.org/codeValue",
+      "@type": "rdf:Property",
+      "http://schema.org/domainIncludes": {
+        "@id": "http://schema.org/MedicalCode"
+      },
       "http://schema.org/isPartOf": {
         "@id": "http://health-lifesci.schema.org"
       },
-      "rdfs:comment": "Categories of medical devices, organized by the purpose or intended use of the device.",
-      "rdfs:label": "MedicalDevicePurpose",
-      "rdfs:subClassOf": {
-        "@id": "http://schema.org/MedicalEnumeration"
-      }
+      "http://schema.org/rangeIncludes": {
+        "@id": "http://schema.org/Text"
+      },
+      "rdfs:comment": "The actual code.",
+      "rdfs:label": "codeValue"
     },
     {
       "@id": "http://schema.org/infectiousAgent",
@@ -2019,10 +1988,10 @@
       },
       "http://schema.org/rangeIncludes": [
         {
-          "@id": "http://schema.org/Energy"
+          "@id": "http://schema.org/QualitativeValue"
         },
         {
-          "@id": "http://schema.org/QualitativeValue"
+          "@id": "http://schema.org/Energy"
         }
       ],
       "rdfs:comment": "Quantitative measure of the physiologic output of the exercise; also referred to as energy expenditure.",
@@ -2048,16 +2017,16 @@
       "@type": "rdf:Property",
       "http://schema.org/domainIncludes": [
         {
-          "@id": "http://schema.org/Patient"
+          "@id": "http://schema.org/DrugClass"
         },
         {
-          "@id": "http://schema.org/DrugClass"
+          "@id": "http://schema.org/TherapeuticProcedure"
         },
         {
           "@id": "http://schema.org/MedicalCondition"
         },
         {
-          "@id": "http://schema.org/TherapeuticProcedure"
+          "@id": "http://schema.org/Patient"
         }
       ],
       "http://schema.org/isPartOf": {
@@ -2082,15 +2051,15 @@
       }
     },
     {
-      "@id": "http://schema.org/MedicalCode",
+      "@id": "http://schema.org/MedicalEntity",
       "@type": "rdfs:Class",
       "http://schema.org/isPartOf": {
         "@id": "http://health-lifesci.schema.org"
       },
-      "rdfs:comment": "A code for a medical entity.",
-      "rdfs:label": "MedicalCode",
+      "rdfs:comment": "The most generic type of entity related to health and the practice of medicine.",
+      "rdfs:label": "MedicalEntity",
       "rdfs:subClassOf": {
-        "@id": "http://schema.org/MedicalIntangible"
+        "@id": "http://schema.org/Thing"
       }
     },
     {
@@ -2104,10 +2073,10 @@
       },
       "http://schema.org/rangeIncludes": [
         {
-          "@id": "http://schema.org/Number"
+          "@id": "http://schema.org/QualitativeValue"
         },
         {
-          "@id": "http://schema.org/QualitativeValue"
+          "@id": "http://schema.org/Number"
         }
       ],
       "rdfs:comment": "The value of the dose, e.g. 500.",
@@ -2141,13 +2110,13 @@
       }
     },
     {
-      "@id": "http://schema.org/Terminated",
-      "@type": "http://schema.org/MedicalStudyStatus",
+      "@id": "http://schema.org/Renal",
+      "@type": "http://schema.org/MedicalSpecialty",
       "http://schema.org/isPartOf": {
         "@id": "http://health-lifesci.schema.org"
       },
-      "rdfs:comment": "Terminated.",
-      "rdfs:label": "Terminated"
+      "rdfs:comment": "A specific branch of medical science that pertains to the study of the kidneys and its respective disease states.",
+      "rdfs:label": "Renal"
     },
     {
       "@id": "http://schema.org/Prion",
@@ -2222,13 +2191,13 @@
       "@type": "rdf:Property",
       "http://schema.org/domainIncludes": [
         {
+          "@id": "http://schema.org/Patient"
+        },
+        {
           "@id": "http://schema.org/PeopleAudience"
         },
         {
           "@id": "http://schema.org/MedicalStudy"
-        },
-        {
-          "@id": "http://schema.org/Patient"
         }
       ],
       "http://schema.org/isPartOf": {
@@ -2284,16 +2253,19 @@
       }
     },
     {
-      "@id": "http://schema.org/DiagnosticLab",
-      "@type": "rdfs:Class",
+      "@id": "http://schema.org/foodWarning",
+      "@type": "rdf:Property",
+      "http://schema.org/domainIncludes": {
+        "@id": "http://schema.org/Drug"
+      },
       "http://schema.org/isPartOf": {
         "@id": "http://health-lifesci.schema.org"
       },
-      "rdfs:comment": "A medical laboratory that offers on-site or off-site diagnostic services.",
-      "rdfs:label": "DiagnosticLab",
-      "rdfs:subClassOf": {
-        "@id": "http://schema.org/MedicalOrganization"
-      }
+      "http://schema.org/rangeIncludes": {
+        "@id": "http://schema.org/Text"
+      },
+      "rdfs:comment": "Any precaution, guidance, contraindication, etc. related to consumption of specific foods while taking this drug.",
+      "rdfs:label": "foodWarning"
     },
     {
       "@id": "http://schema.org/risks",
@@ -2347,10 +2319,10 @@
       "rdfs:label": "ExercisePlan",
       "rdfs:subClassOf": [
         {
-          "@id": "http://schema.org/PhysicalActivity"
+          "@id": "http://schema.org/CreativeWork"
         },
         {
-          "@id": "http://schema.org/CreativeWork"
+          "@id": "http://schema.org/PhysicalActivity"
         }
       ]
     },
@@ -2364,10 +2336,10 @@
       "rdfs:label": "PalliativeProcedure",
       "rdfs:subClassOf": [
         {
-          "@id": "http://schema.org/MedicalTherapy"
+          "@id": "http://schema.org/MedicalProcedure"
         },
         {
-          "@id": "http://schema.org/MedicalProcedure"
+          "@id": "http://schema.org/MedicalTherapy"
         }
       ]
     },
@@ -2423,10 +2395,10 @@
       "rdfs:label": "EvidenceLevelB"
     },
     {
-      "@id": "http://schema.org/function",
+      "@id": "http://schema.org/followup",
       "@type": "rdf:Property",
       "http://schema.org/domainIncludes": {
-        "@id": "http://schema.org/AnatomicalStructure"
+        "@id": "http://schema.org/MedicalProcedure"
       },
       "http://schema.org/isPartOf": {
         "@id": "http://health-lifesci.schema.org"
@@ -2434,8 +2406,8 @@
       "http://schema.org/rangeIncludes": {
         "@id": "http://schema.org/Text"
       },
-      "rdfs:comment": "Function of the anatomical structure.",
-      "rdfs:label": "function"
+      "rdfs:comment": "Typical or recommended followup care after the procedure is performed.",
+      "rdfs:label": "followup"
     },
     {
       "@id": "http://schema.org/MedicalCondition",
@@ -2510,37 +2482,48 @@
       "rdfs:label": "SingleCenterTrial"
     },
     {
-      "@id": "http://schema.org/Urologic",
+      "@id": "http://schema.org/RecommendedDoseSchedule",
+      "@type": "rdfs:Class",
+      "http://schema.org/isPartOf": {
+        "@id": "http://health-lifesci.schema.org"
+      },
+      "rdfs:comment": "A recommended dosing schedule for a drug or supplement as prescribed or recommended by an authority or by the drug/supplement's manufacturer. Capture the recommending authority in the recognizingAuthority property of MedicalEntity.",
+      "rdfs:label": "RecommendedDoseSchedule",
+      "rdfs:subClassOf": {
+        "@id": "http://schema.org/DoseSchedule"
+      }
+    },
+    {
+      "@id": "http://schema.org/Patient",
+      "@type": "rdfs:Class",
+      "http://schema.org/isPartOf": {
+        "@id": "http://health-lifesci.schema.org"
+      },
+      "http://www.w3.org/2002/07/owl#equivalentClass": {
+        "@id": "http://purl.bioontology.org/ontology/SNOMEDCT/116154003"
+      },
+      "rdfs:comment": "A patient is any person recipient of health care services.",
+      "rdfs:label": "Patient",
+      "rdfs:subClassOf": [
+        {
+          "@id": "http://schema.org/Person"
+        },
+        {
+          "@id": "http://schema.org/MedicalAudience"
+        }
+      ]
+    },
+    {
+      "@id": "http://schema.org/Midwifery",
       "@type": "http://schema.org/MedicalSpecialty",
       "http://schema.org/isPartOf": {
         "@id": "http://health-lifesci.schema.org"
       },
-      "rdfs:comment": "A specific branch of medical science that is concerned with the diagnosis and treatment of diseases pertaining to the urinary tract and the urogenital system.",
-      "rdfs:label": "Urologic"
-    },
-    {
-      "@id": "http://schema.org/Musculoskeletal",
-      "@type": "http://schema.org/MedicalSpecialty",
-      "http://schema.org/isPartOf": {
-        "@id": "http://health-lifesci.schema.org"
-      },
-      "rdfs:comment": "A specific branch of medical science that pertains to diagnosis and treatment of disorders of muscles, ligaments and skeletal system.",
-      "rdfs:label": "Musculoskeletal"
-    },
-    {
-      "@id": "http://schema.org/drugClass",
-      "@type": "rdf:Property",
-      "http://schema.org/domainIncludes": {
-        "@id": "http://schema.org/Drug"
-      },
-      "http://schema.org/isPartOf": {
-        "@id": "http://health-lifesci.schema.org"
-      },
-      "http://schema.org/rangeIncludes": {
-        "@id": "http://schema.org/DrugClass"
-      },
-      "rdfs:comment": "The class of drug this belongs to (e.g., statins).",
-      "rdfs:label": "drugClass"
+      "rdfs:comment": "A nurse-like health profession that deals with pregnancy, childbirth, and the postpartum period (including care of the newborn), besides sexual and reproductive health of women throughout their lives.",
+      "rdfs:label": "Midwifery",
+      "rdfs:subClassOf": {
+        "@id": "http://schema.org/MedicalBusiness"
+      }
     },
     {
       "@id": "http://schema.org/activeIngredient",
@@ -2550,13 +2533,13 @@
           "@id": "http://schema.org/DietarySupplement"
         },
         {
-          "@id": "http://schema.org/DrugStrength"
+          "@id": "http://schema.org/Drug"
         },
         {
           "@id": "http://schema.org/Substance"
         },
         {
-          "@id": "http://schema.org/Drug"
+          "@id": "http://schema.org/DrugStrength"
         }
       ],
       "http://schema.org/isPartOf": {
@@ -2623,15 +2606,6 @@
       }
     },
     {
-      "@id": "http://schema.org/Skin",
-      "@type": "http://schema.org/PhysicalExam",
-      "http://schema.org/isPartOf": {
-        "@id": "http://health-lifesci.schema.org"
-      },
-      "rdfs:comment": "Skin assessment with clinical examination.",
-      "rdfs:label": "Skin"
-    },
-    {
       "@id": "http://schema.org/ImagingTest",
       "@type": "rdfs:Class",
       "http://schema.org/isPartOf": {
@@ -2642,6 +2616,24 @@
       "rdfs:subClassOf": {
         "@id": "http://schema.org/MedicalTest"
       }
+    },
+    {
+      "@id": "http://schema.org/Skin",
+      "@type": "http://schema.org/PhysicalExam",
+      "http://schema.org/isPartOf": {
+        "@id": "http://health-lifesci.schema.org"
+      },
+      "rdfs:comment": "Skin assessment with clinical examination.",
+      "rdfs:label": "Skin"
+    },
+    {
+      "@id": "http://schema.org/Ultrasound",
+      "@type": "http://schema.org/MedicalImagingTechnique",
+      "http://schema.org/isPartOf": {
+        "@id": "http://health-lifesci.schema.org"
+      },
+      "rdfs:comment": "Ultrasound imaging.",
+      "rdfs:label": "Ultrasound"
     },
     {
       "@id": "http://schema.org/MedicalGuidelineContraindication",
@@ -2762,10 +2754,10 @@
       "@type": "rdf:Property",
       "http://schema.org/domainIncludes": [
         {
-          "@id": "http://schema.org/Patient"
+          "@id": "http://schema.org/DDxElement"
         },
         {
-          "@id": "http://schema.org/DDxElement"
+          "@id": "http://schema.org/Patient"
         }
       ],
       "http://schema.org/isPartOf": {
@@ -2897,19 +2889,24 @@
       "rdfs:label": "PET"
     },
     {
-      "@id": "http://schema.org/trialDesign",
+      "@id": "http://schema.org/proprietaryName",
       "@type": "rdf:Property",
-      "http://schema.org/domainIncludes": {
-        "@id": "http://schema.org/MedicalTrial"
-      },
+      "http://schema.org/domainIncludes": [
+        {
+          "@id": "http://schema.org/Drug"
+        },
+        {
+          "@id": "http://schema.org/DietarySupplement"
+        }
+      ],
       "http://schema.org/isPartOf": {
         "@id": "http://health-lifesci.schema.org"
       },
       "http://schema.org/rangeIncludes": {
-        "@id": "http://schema.org/MedicalTrialDesign"
+        "@id": "http://schema.org/Text"
       },
-      "rdfs:comment": "Specifics about the trial design (enumerated).",
-      "rdfs:label": "trialDesign"
+      "rdfs:comment": "Proprietary name given to the diet plan, typically by its originator or creator.",
+      "rdfs:label": "proprietaryName"
     },
     {
       "@id": "http://schema.org/AnatomicalSystem",
@@ -3037,24 +3034,13 @@
       "rdfs:label": "bodyLocation"
     },
     {
-      "@id": "http://schema.org/Patient",
-      "@type": "rdfs:Class",
+      "@id": "http://schema.org/Musculoskeletal",
+      "@type": "http://schema.org/MedicalSpecialty",
       "http://schema.org/isPartOf": {
         "@id": "http://health-lifesci.schema.org"
       },
-      "http://www.w3.org/2002/07/owl#equivalentClass": {
-        "@id": "http://purl.bioontology.org/ontology/SNOMEDCT/116154003"
-      },
-      "rdfs:comment": "A patient is any person recipient of health care services.",
-      "rdfs:label": "Patient",
-      "rdfs:subClassOf": [
-        {
-          "@id": "http://schema.org/Person"
-        },
-        {
-          "@id": "http://schema.org/MedicalAudience"
-        }
-      ]
+      "rdfs:comment": "A specific branch of medical science that pertains to diagnosis and treatment of disorders of muscles, ligaments and skeletal system.",
+      "rdfs:label": "Musculoskeletal"
     },
     {
       "@id": "http://schema.org/secondaryPrevention",
@@ -3126,10 +3112,10 @@
       },
       "http://schema.org/rangeIncludes": [
         {
-          "@id": "http://schema.org/AnatomicalSystem"
+          "@id": "http://schema.org/SuperficialAnatomy"
         },
         {
-          "@id": "http://schema.org/SuperficialAnatomy"
+          "@id": "http://schema.org/AnatomicalSystem"
         },
         {
           "@id": "http://schema.org/AnatomicalStructure"
@@ -3346,28 +3332,28 @@
       "rdfs:label": "ResultsNotAvailable"
     },
     {
-      "@id": "http://schema.org/arterialBranch",
+      "@id": "http://schema.org/study",
       "@type": "rdf:Property",
       "http://schema.org/domainIncludes": {
-        "@id": "http://schema.org/Artery"
+        "@id": "http://schema.org/MedicalEntity"
       },
       "http://schema.org/isPartOf": {
         "@id": "http://health-lifesci.schema.org"
       },
       "http://schema.org/rangeIncludes": {
-        "@id": "http://schema.org/AnatomicalStructure"
+        "@id": "http://schema.org/MedicalStudy"
       },
-      "rdfs:comment": "The branches that comprise the arterial structure.",
-      "rdfs:label": "arterialBranch"
+      "rdfs:comment": "A medical study or trial related to this entity.",
+      "rdfs:label": "study"
     },
     {
-      "@id": "http://schema.org/CrossSectional",
+      "@id": "http://schema.org/Longitudinal",
       "@type": "http://schema.org/MedicalObservationalStudyDesign",
       "http://schema.org/isPartOf": {
         "@id": "http://health-lifesci.schema.org"
       },
-      "rdfs:comment": "Studies carried out on pre-existing data (usually from 'snapshot' surveys), such as that collected by the Census Bureau. Sometimes called Prevalence Studies.",
-      "rdfs:label": "CrossSectional"
+      "rdfs:comment": "Unlike cross-sectional studies, longitudinal studies track the same people, and therefore the differences observed in those people are less likely to be the result of cultural differences across generations. Longitudinal studies are also used in medicine to uncover predictors of certain diseases.",
+      "rdfs:label": "Longitudinal"
     },
     {
       "@id": "http://schema.org/muscleAction",
@@ -3385,13 +3371,39 @@
       "rdfs:label": "muscleAction"
     },
     {
-      "@id": "http://schema.org/Fungus",
-      "@type": "http://schema.org/InfectiousAgentClass",
+      "@id": "http://schema.org/cause",
+      "@type": "rdf:Property",
+      "http://schema.org/domainIncludes": [
+        {
+          "@id": "http://schema.org/MedicalCondition"
+        },
+        {
+          "@id": "http://schema.org/MedicalSignOrSymptom"
+        }
+      ],
       "http://schema.org/isPartOf": {
         "@id": "http://health-lifesci.schema.org"
       },
-      "rdfs:comment": "Pathogenic fungus.",
-      "rdfs:label": "Fungus"
+      "http://schema.org/rangeIncludes": {
+        "@id": "http://schema.org/MedicalCause"
+      },
+      "rdfs:comment": "Specifying a cause of something in general. e.g in medicine , one of the causative agent(s) that are most directly responsible for the pathophysiologic process that eventually results in the occurrence.",
+      "rdfs:label": "cause"
+    },
+    {
+      "@id": "http://schema.org/strengthUnit",
+      "@type": "rdf:Property",
+      "http://schema.org/domainIncludes": {
+        "@id": "http://schema.org/DrugStrength"
+      },
+      "http://schema.org/isPartOf": {
+        "@id": "http://health-lifesci.schema.org"
+      },
+      "http://schema.org/rangeIncludes": {
+        "@id": "http://schema.org/Text"
+      },
+      "rdfs:comment": "The units of an active ingredient's strength, e.g. mg.",
+      "rdfs:label": "strengthUnit"
     },
     {
       "@id": "http://schema.org/Dentistry",
@@ -3519,16 +3531,13 @@
       }
     },
     {
-      "@id": "http://schema.org/OccupationalTherapy",
-      "@type": "http://schema.org/MedicalSpecialty",
+      "@id": "http://schema.org/Flexibility",
+      "@type": "http://schema.org/PhysicalActivityCategory",
       "http://schema.org/isPartOf": {
         "@id": "http://health-lifesci.schema.org"
       },
-      "rdfs:comment": "A treatment of people with physical, emotional, or social problems, using purposeful activity to help them overcome or learn to deal with their problems.",
-      "rdfs:label": "OccupationalTherapy",
-      "rdfs:subClassOf": {
-        "@id": "http://schema.org/MedicalTherapy"
-      }
+      "rdfs:comment": "Physical activity that is engaged in to improve joint and muscle flexibility.",
+      "rdfs:label": "Flexibility"
     },
     {
       "@id": "http://schema.org/action",
@@ -3603,15 +3612,15 @@
       }
     },
     {
-      "@id": "http://schema.org/DrugPregnancyCategory",
-      "@type": "rdfs:Class",
+      "@id": "http://schema.org/Physiotherapy",
+      "@type": "http://schema.org/MedicalSpecialty",
       "http://schema.org/isPartOf": {
         "@id": "http://health-lifesci.schema.org"
       },
-      "rdfs:comment": "Categories that represent an assessment of the risk of fetal injury due to a drug or pharmaceutical used as directed by the mother during pregnancy.",
-      "rdfs:label": "DrugPregnancyCategory",
+      "rdfs:comment": "The practice of treatment of disease, injury, or deformity by physical methods such as massage, heat treatment, and exercise rather than by drugs or surgery..",
+      "rdfs:label": "Physiotherapy",
       "rdfs:subClassOf": {
-        "@id": "http://schema.org/MedicalEnumeration"
+        "@id": "http://schema.org/MedicalBusiness"
       }
     },
     {
@@ -3797,19 +3806,16 @@
       }
     },
     {
-      "@id": "http://schema.org/subTest",
-      "@type": "rdf:Property",
-      "http://schema.org/domainIncludes": {
-        "@id": "http://schema.org/MedicalTestPanel"
-      },
+      "@id": "http://schema.org/MaximumDoseSchedule",
+      "@type": "rdfs:Class",
       "http://schema.org/isPartOf": {
         "@id": "http://health-lifesci.schema.org"
       },
-      "http://schema.org/rangeIncludes": {
-        "@id": "http://schema.org/MedicalTest"
-      },
-      "rdfs:comment": "A component test of the panel.",
-      "rdfs:label": "subTest"
+      "rdfs:comment": "The maximum dosing schedule considered safe for a drug or supplement as recommended by an authority or by the drug/supplement's manufacturer. Capture the recommending authority in the recognizingAuthority property of MedicalEntity.",
+      "rdfs:label": "MaximumDoseSchedule",
+      "rdfs:subClassOf": {
+        "@id": "http://schema.org/DoseSchedule"
+      }
     },
     {
       "@id": "http://schema.org/doseUnit",
@@ -3827,19 +3833,19 @@
       "rdfs:label": "doseUnit"
     },
     {
-      "@id": "http://schema.org/TherapeuticProcedure",
-      "@type": "rdfs:Class",
+      "@id": "http://schema.org/differentialDiagnosis",
+      "@type": "rdf:Property",
+      "http://schema.org/domainIncludes": {
+        "@id": "http://schema.org/MedicalCondition"
+      },
       "http://schema.org/isPartOf": {
         "@id": "http://health-lifesci.schema.org"
       },
-      "http://www.w3.org/2002/07/owl#equivalentClass": {
-        "@id": "http://purl.bioontology.org/ontology/SNOMEDCT/277132007"
+      "http://schema.org/rangeIncludes": {
+        "@id": "http://schema.org/DDxElement"
       },
-      "rdfs:comment": "A medical procedure intended primarily for therapeutic purposes, aimed at improving a health condition.",
-      "rdfs:label": "TherapeuticProcedure",
-      "rdfs:subClassOf": {
-        "@id": "http://schema.org/MedicalProcedure"
-      }
+      "rdfs:comment": "One of a set of differential diagnoses for the condition. Specifically, a closely-related or competing diagnosis typically considered later in the cognitive process whereby this medical condition is distinguished from others most likely responsible for a similar collection of signs and symptoms to reach the most parsimonious diagnosis or diagnoses in a patient.",
+      "rdfs:label": "differentialDiagnosis"
     },
     {
       "@id": "http://schema.org/origin",
@@ -3870,13 +3876,13 @@
       "@type": "rdf:Property",
       "http://schema.org/domainIncludes": [
         {
-          "@id": "http://schema.org/MedicalProcedure"
+          "@id": "http://schema.org/MedicalDevice"
         },
         {
           "@id": "http://schema.org/TherapeuticProcedure"
         },
         {
-          "@id": "http://schema.org/MedicalDevice"
+          "@id": "http://schema.org/MedicalProcedure"
         }
       ],
       "http://schema.org/isPartOf": {
@@ -3987,19 +3993,16 @@
       "rdfs:label": "phase"
     },
     {
-      "@id": "http://schema.org/naturalProgression",
-      "@type": "rdf:Property",
-      "http://schema.org/domainIncludes": {
-        "@id": "http://schema.org/MedicalCondition"
-      },
+      "@id": "http://schema.org/MedicalTherapy",
+      "@type": "rdfs:Class",
       "http://schema.org/isPartOf": {
         "@id": "http://health-lifesci.schema.org"
       },
-      "http://schema.org/rangeIncludes": {
-        "@id": "http://schema.org/Text"
-      },
-      "rdfs:comment": "The expected progression of the condition if it is not treated and allowed to progress naturally.",
-      "rdfs:label": "naturalProgression"
+      "rdfs:comment": "Any medical intervention designed to prevent, treat, and cure human diseases and medical conditions, including both curative and palliative therapies. Medical therapies are typically processes of care relying upon pharmacotherapy, behavioral therapy, supportive therapy (with fluid or nutrition for example), or detoxification (e.g. hemodialysis) aimed at improving or preventing a health condition.",
+      "rdfs:label": "MedicalTherapy",
+      "rdfs:subClassOf": {
+        "@id": "http://schema.org/TherapeuticProcedure"
+      }
     },
     {
       "@id": "http://schema.org/nerveMotor",
@@ -4069,10 +4072,10 @@
       },
       "http://schema.org/rangeIncludes": [
         {
-          "@id": "http://schema.org/Text"
+          "@id": "http://schema.org/QualitativeValue"
         },
         {
-          "@id": "http://schema.org/QualitativeValue"
+          "@id": "http://schema.org/Text"
         }
       ],
       "rdfs:comment": "Quantitative measure gauging the degree of force involved in the exercise, for example, heartbeats per minute. May include the velocity of the movement.",
@@ -4115,19 +4118,19 @@
       }
     },
     {
-      "@id": "http://schema.org/relevantSpecialty",
+      "@id": "http://schema.org/estimatesRiskOf",
       "@type": "rdf:Property",
       "http://schema.org/domainIncludes": {
-        "@id": "http://schema.org/MedicalEntity"
+        "@id": "http://schema.org/MedicalRiskEstimator"
       },
       "http://schema.org/isPartOf": {
         "@id": "http://health-lifesci.schema.org"
       },
       "http://schema.org/rangeIncludes": {
-        "@id": "http://schema.org/MedicalSpecialty"
+        "@id": "http://schema.org/MedicalEntity"
       },
-      "rdfs:comment": "If applicable, a medical specialty in which this entity is relevant.",
-      "rdfs:label": "relevantSpecialty"
+      "rdfs:comment": "The condition, complication, or symptom whose risk is being estimated.",
+      "rdfs:label": "estimatesRiskOf"
     },
     {
       "@id": "http://schema.org/PreventionIndication",
@@ -4178,39 +4181,34 @@
       "rdfs:label": "FDAcategoryA"
     },
     {
-      "@id": "http://schema.org/proprietaryName",
-      "@type": "rdf:Property",
-      "http://schema.org/domainIncludes": [
-        {
-          "@id": "http://schema.org/Drug"
-        },
-        {
-          "@id": "http://schema.org/DietarySupplement"
-        }
-      ],
-      "http://schema.org/isPartOf": {
-        "@id": "http://health-lifesci.schema.org"
-      },
-      "http://schema.org/rangeIncludes": {
-        "@id": "http://schema.org/Text"
-      },
-      "rdfs:comment": "Proprietary name given to the diet plan, typically by its originator or creator.",
-      "rdfs:label": "proprietaryName"
-    },
-    {
-      "@id": "http://schema.org/recommendationStrength",
+      "@id": "http://schema.org/trialDesign",
       "@type": "rdf:Property",
       "http://schema.org/domainIncludes": {
-        "@id": "http://schema.org/MedicalGuidelineRecommendation"
+        "@id": "http://schema.org/MedicalTrial"
       },
       "http://schema.org/isPartOf": {
         "@id": "http://health-lifesci.schema.org"
       },
       "http://schema.org/rangeIncludes": {
-        "@id": "http://schema.org/Text"
+        "@id": "http://schema.org/MedicalTrialDesign"
       },
-      "rdfs:comment": "Strength of the guideline's recommendation (e.g. 'class I').",
-      "rdfs:label": "recommendationStrength"
+      "rdfs:comment": "Specifics about the trial design (enumerated).",
+      "rdfs:label": "trialDesign"
+    },
+    {
+      "@id": "http://schema.org/distinguishingSign",
+      "@type": "rdf:Property",
+      "http://schema.org/domainIncludes": {
+        "@id": "http://schema.org/DDxElement"
+      },
+      "http://schema.org/isPartOf": {
+        "@id": "http://health-lifesci.schema.org"
+      },
+      "http://schema.org/rangeIncludes": {
+        "@id": "http://schema.org/MedicalSignOrSymptom"
+      },
+      "rdfs:comment": "One of a set of signs and symptoms that can be used to distinguish this diagnosis from others in the differential diagnosis.",
+      "rdfs:label": "distinguishingSign"
     },
     {
       "@id": "http://schema.org/procedure",
@@ -4260,19 +4258,19 @@
       "rdfs:label": "activityDuration"
     },
     {
-      "@id": "http://schema.org/study",
+      "@id": "http://schema.org/arterialBranch",
       "@type": "rdf:Property",
       "http://schema.org/domainIncludes": {
-        "@id": "http://schema.org/MedicalEntity"
+        "@id": "http://schema.org/Artery"
       },
       "http://schema.org/isPartOf": {
         "@id": "http://health-lifesci.schema.org"
       },
       "http://schema.org/rangeIncludes": {
-        "@id": "http://schema.org/MedicalStudy"
+        "@id": "http://schema.org/AnatomicalStructure"
       },
-      "rdfs:comment": "A medical study or trial related to this entity.",
-      "rdfs:label": "study"
+      "rdfs:comment": "The branches that comprise the arterial structure.",
+      "rdfs:label": "arterialBranch"
     },
     {
       "@id": "http://schema.org/physiologicalBenefits",
@@ -4288,21 +4286,6 @@
       },
       "rdfs:comment": "Specific physiologic benefits associated to the plan.",
       "rdfs:label": "physiologicalBenefits"
-    },
-    {
-      "@id": "http://schema.org/studyLocation",
-      "@type": "rdf:Property",
-      "http://schema.org/domainIncludes": {
-        "@id": "http://schema.org/MedicalStudy"
-      },
-      "http://schema.org/isPartOf": {
-        "@id": "http://health-lifesci.schema.org"
-      },
-      "http://schema.org/rangeIncludes": {
-        "@id": "http://schema.org/AdministrativeArea"
-      },
-      "rdfs:comment": "The location in which the study is taking/took place.",
-      "rdfs:label": "studyLocation"
     },
     {
       "@id": "http://schema.org/Balance",
@@ -4458,13 +4441,13 @@
       },
       "http://schema.org/supersededBy": [
         {
-          "@id": "http://schema.org/veinBranch"
-        },
-        {
           "@id": "http://schema.org/nerveBranch"
         },
         {
           "@id": "http://schema.org/arterialBranch"
+        },
+        {
+          "@id": "http://schema.org/veinBranch"
         }
       ],
       "rdfs:comment": "The branches that delineate from the nerve bundle. Not to be confused with <a class=\"localLink\" href=\"http://schema.org/branchOf\">branchOf</a>.",
@@ -4490,13 +4473,13 @@
       "@type": "rdf:Property",
       "http://schema.org/domainIncludes": [
         {
-          "@id": "http://schema.org/AnatomicalSystem"
-        },
-        {
           "@id": "http://schema.org/SuperficialAnatomy"
         },
         {
           "@id": "http://schema.org/AnatomicalStructure"
+        },
+        {
+          "@id": "http://schema.org/AnatomicalSystem"
         }
       ],
       "http://schema.org/isPartOf": {
@@ -4509,19 +4492,19 @@
       "rdfs:label": "associatedPathophysiology"
     },
     {
-      "@id": "http://schema.org/distinguishingSign",
+      "@id": "http://schema.org/recommendationStrength",
       "@type": "rdf:Property",
       "http://schema.org/domainIncludes": {
-        "@id": "http://schema.org/DDxElement"
+        "@id": "http://schema.org/MedicalGuidelineRecommendation"
       },
       "http://schema.org/isPartOf": {
         "@id": "http://health-lifesci.schema.org"
       },
       "http://schema.org/rangeIncludes": {
-        "@id": "http://schema.org/MedicalSignOrSymptom"
+        "@id": "http://schema.org/Text"
       },
-      "rdfs:comment": "One of a set of signs and symptoms that can be used to distinguish this diagnosis from others in the differential diagnosis.",
-      "rdfs:label": "distinguishingSign"
+      "rdfs:comment": "Strength of the guideline's recommendation (e.g. 'class I').",
+      "rdfs:label": "recommendationStrength"
     },
     {
       "@id": "http://schema.org/structuralClass",
@@ -4614,16 +4597,24 @@
       "rdfs:label": "dietFeatures"
     },
     {
-      "@id": "http://schema.org/MedicalObservationalStudyDesign",
-      "@type": "rdfs:Class",
+      "@id": "http://schema.org/pathophysiology",
+      "@type": "rdf:Property",
+      "http://schema.org/domainIncludes": [
+        {
+          "@id": "http://schema.org/MedicalCondition"
+        },
+        {
+          "@id": "http://schema.org/PhysicalActivity"
+        }
+      ],
       "http://schema.org/isPartOf": {
         "@id": "http://health-lifesci.schema.org"
       },
-      "rdfs:comment": "Design models for observational medical studies. Enumerated type.",
-      "rdfs:label": "MedicalObservationalStudyDesign",
-      "rdfs:subClassOf": {
-        "@id": "http://schema.org/MedicalEnumeration"
-      }
+      "http://schema.org/rangeIncludes": {
+        "@id": "http://schema.org/Text"
+      },
+      "rdfs:comment": "Changes in the normal mechanical, physical, and biochemical functions that are associated with this activity or condition.",
+      "rdfs:label": "pathophysiology"
     },
     {
       "@id": "http://schema.org/Pediatric",
@@ -4648,10 +4639,10 @@
       },
       "http://schema.org/rangeIncludes": [
         {
-          "@id": "http://schema.org/Text"
+          "@id": "http://schema.org/QualitativeValue"
         },
         {
-          "@id": "http://schema.org/QualitativeValue"
+          "@id": "http://schema.org/Text"
         }
       ],
       "rdfs:comment": "How often one should engage in the activity.",
@@ -4680,13 +4671,13 @@
       "@type": "rdf:Property",
       "http://schema.org/domainIncludes": [
         {
-          "@id": "http://schema.org/MedicalDevice"
-        },
-        {
           "@id": "http://schema.org/PayAction"
         },
         {
           "@id": "http://schema.org/AllocateAction"
+        },
+        {
+          "@id": "http://schema.org/MedicalDevice"
         }
       ],
       "http://schema.org/isPartOf": {
@@ -4694,10 +4685,10 @@
       },
       "http://schema.org/rangeIncludes": [
         {
-          "@id": "http://schema.org/MedicalDevicePurpose"
+          "@id": "http://schema.org/Thing"
         },
         {
-          "@id": "http://schema.org/Thing"
+          "@id": "http://schema.org/MedicalDevicePurpose"
         }
       ],
       "rdfs:comment": "A goal towards an action is taken. Can be concrete or abstract.",
@@ -4785,15 +4776,15 @@
       "rdfs:label": "availableTest"
     },
     {
-      "@id": "http://schema.org/Physiotherapy",
-      "@type": "http://schema.org/MedicalSpecialty",
+      "@id": "http://schema.org/DrugPregnancyCategory",
+      "@type": "rdfs:Class",
       "http://schema.org/isPartOf": {
         "@id": "http://health-lifesci.schema.org"
       },
-      "rdfs:comment": "The practice of treatment of disease, injury, or deformity by physical methods such as massage, heat treatment, and exercise rather than by drugs or surgery..",
-      "rdfs:label": "Physiotherapy",
+      "rdfs:comment": "Categories that represent an assessment of the risk of fetal injury due to a drug or pharmaceutical used as directed by the mother during pregnancy.",
+      "rdfs:label": "DrugPregnancyCategory",
       "rdfs:subClassOf": {
-        "@id": "http://schema.org/MedicalBusiness"
+        "@id": "http://schema.org/MedicalEnumeration"
       }
     },
     {
@@ -4833,16 +4824,34 @@
       }
     },
     {
-      "@id": "http://schema.org/manufacturer",
+      "@id": "http://schema.org/availableIn",
       "@type": "rdf:Property",
-      "http://schema.org/domainIncludes": [
-        {
-          "@id": "http://schema.org/DietarySupplement"
-        },
-        {
-          "@id": "http://schema.org/Drug"
-        }
-      ]
+      "http://schema.org/domainIncludes": {
+        "@id": "http://schema.org/DrugStrength"
+      },
+      "http://schema.org/isPartOf": {
+        "@id": "http://health-lifesci.schema.org"
+      },
+      "http://schema.org/rangeIncludes": {
+        "@id": "http://schema.org/AdministrativeArea"
+      },
+      "rdfs:comment": "The location in which the strength is available.",
+      "rdfs:label": "availableIn"
+    },
+    {
+      "@id": "http://schema.org/stage",
+      "@type": "rdf:Property",
+      "http://schema.org/domainIncludes": {
+        "@id": "http://schema.org/MedicalCondition"
+      },
+      "http://schema.org/isPartOf": {
+        "@id": "http://health-lifesci.schema.org"
+      },
+      "http://schema.org/rangeIncludes": {
+        "@id": "http://schema.org/MedicalConditionStage"
+      },
+      "rdfs:comment": "The stage of the condition, if applicable.",
+      "rdfs:label": "stage"
     },
     {
       "@id": "http://schema.org/Suspended",
@@ -4881,19 +4890,16 @@
       }
     },
     {
-      "@id": "http://schema.org/codeValue",
-      "@type": "rdf:Property",
-      "http://schema.org/domainIncludes": {
-        "@id": "http://schema.org/MedicalCode"
-      },
+      "@id": "http://schema.org/MedicalDevicePurpose",
+      "@type": "rdfs:Class",
       "http://schema.org/isPartOf": {
         "@id": "http://health-lifesci.schema.org"
       },
-      "http://schema.org/rangeIncludes": {
-        "@id": "http://schema.org/Text"
-      },
-      "rdfs:comment": "The actual code.",
-      "rdfs:label": "codeValue"
+      "rdfs:comment": "Categories of medical devices, organized by the purpose or intended use of the device.",
+      "rdfs:label": "MedicalDevicePurpose",
+      "rdfs:subClassOf": {
+        "@id": "http://schema.org/MedicalEnumeration"
+      }
     },
     {
       "@id": "http://schema.org/expertConsiderations",
@@ -4931,15 +4937,15 @@
       "rdfs:label": "sensoryUnit"
     },
     {
-      "@id": "http://schema.org/MedicalEntity",
+      "@id": "http://schema.org/MedicalCode",
       "@type": "rdfs:Class",
       "http://schema.org/isPartOf": {
         "@id": "http://health-lifesci.schema.org"
       },
-      "rdfs:comment": "The most generic type of entity related to health and the practice of medicine.",
-      "rdfs:label": "MedicalEntity",
+      "rdfs:comment": "A code for a medical entity.",
+      "rdfs:label": "MedicalCode",
       "rdfs:subClassOf": {
-        "@id": "http://schema.org/Thing"
+        "@id": "http://schema.org/MedicalIntangible"
       }
     },
     {
@@ -4987,10 +4993,10 @@
       "rdfs:label": "population"
     },
     {
-      "@id": "http://schema.org/followup",
+      "@id": "http://schema.org/function",
       "@type": "rdf:Property",
       "http://schema.org/domainIncludes": {
-        "@id": "http://schema.org/MedicalProcedure"
+        "@id": "http://schema.org/AnatomicalStructure"
       },
       "http://schema.org/isPartOf": {
         "@id": "http://health-lifesci.schema.org"
@@ -4998,8 +5004,8 @@
       "http://schema.org/rangeIncludes": {
         "@id": "http://schema.org/Text"
       },
-      "rdfs:comment": "Typical or recommended followup care after the procedure is performed.",
-      "rdfs:label": "followup"
+      "rdfs:comment": "Function of the anatomical structure.",
+      "rdfs:label": "function"
     },
     {
       "@id": "http://schema.org/exercisePlan",
@@ -5024,13 +5030,13 @@
       "@type": "rdf:Property",
       "http://schema.org/domainIncludes": [
         {
+          "@id": "http://schema.org/MedicalCondition"
+        },
+        {
           "@id": "http://schema.org/MedicalProcedure"
         },
         {
           "@id": "http://schema.org/MedicalStudy"
-        },
-        {
-          "@id": "http://schema.org/MedicalCondition"
         }
       ],
       "http://schema.org/isPartOf": {
@@ -5038,13 +5044,13 @@
       },
       "http://schema.org/rangeIncludes": [
         {
-          "@id": "http://schema.org/EventStatusType"
-        },
-        {
           "@id": "http://schema.org/Text"
         },
         {
           "@id": "http://schema.org/MedicalStudyStatus"
+        },
+        {
+          "@id": "http://schema.org/EventStatusType"
         }
       ],
       "rdfs:comment": "The status of the study (enumerated).",
@@ -5112,10 +5118,10 @@
       "@type": "rdf:Property",
       "http://schema.org/domainIncludes": [
         {
-          "@id": "http://schema.org/DietarySupplement"
+          "@id": "http://schema.org/MedicalEntity"
         },
         {
-          "@id": "http://schema.org/MedicalEntity"
+          "@id": "http://schema.org/DietarySupplement"
         },
         {
           "@id": "http://schema.org/Drug"
@@ -5126,13 +5132,13 @@
       },
       "http://schema.org/rangeIncludes": [
         {
+          "@id": "http://schema.org/DrugLegalStatus"
+        },
+        {
           "@id": "http://schema.org/Text"
         },
         {
           "@id": "http://schema.org/MedicalEnumeration"
-        },
-        {
-          "@id": "http://schema.org/DrugLegalStatus"
         }
       ],
       "rdfs:comment": "The drug or supplement's legal status, including any controlled substance schedules that apply.",
@@ -5154,13 +5160,13 @@
       "rdfs:label": "subStageSuffix"
     },
     {
-      "@id": "http://schema.org/Longitudinal",
+      "@id": "http://schema.org/CrossSectional",
       "@type": "http://schema.org/MedicalObservationalStudyDesign",
       "http://schema.org/isPartOf": {
         "@id": "http://health-lifesci.schema.org"
       },
-      "rdfs:comment": "Unlike cross-sectional studies, longitudinal studies track the same people, and therefore the differences observed in those people are less likely to be the result of cultural differences across generations. Longitudinal studies are also used in medicine to uncover predictors of certain diseases.",
-      "rdfs:label": "Longitudinal"
+      "rdfs:comment": "Studies carried out on pre-existing data (usually from 'snapshot' surveys), such as that collected by the Census Bureau. Sometimes called Prevalence Studies.",
+      "rdfs:label": "CrossSectional"
     },
     {
       "@id": "http://schema.org/Pharmacy",
@@ -5214,13 +5220,16 @@
       "rdfs:label": "overview"
     },
     {
-      "@id": "http://schema.org/Flexibility",
-      "@type": "http://schema.org/PhysicalActivityCategory",
+      "@id": "http://schema.org/OccupationalTherapy",
+      "@type": "http://schema.org/MedicalSpecialty",
       "http://schema.org/isPartOf": {
         "@id": "http://health-lifesci.schema.org"
       },
-      "rdfs:comment": "Physical activity that is engaged in to improve joint and muscle flexibility.",
-      "rdfs:label": "Flexibility"
+      "rdfs:comment": "A treatment of people with physical, emotional, or social problems, using purposeful activity to help them overcome or learn to deal with their problems.",
+      "rdfs:label": "OccupationalTherapy",
+      "rdfs:subClassOf": {
+        "@id": "http://schema.org/MedicalTherapy"
+      }
     },
     {
       "@id": "http://schema.org/evidenceOrigin",
@@ -5266,13 +5275,13 @@
           "@id": "http://schema.org/Substance"
         },
         {
-          "@id": "http://schema.org/DietarySupplement"
+          "@id": "http://schema.org/DrugStrength"
         },
         {
           "@id": "http://schema.org/Drug"
         },
         {
-          "@id": "http://schema.org/DrugStrength"
+          "@id": "http://schema.org/DietarySupplement"
         }
       ],
       "http://schema.org/isPartOf": {
@@ -5393,15 +5402,6 @@
       "rdfs:label": "Radiography"
     },
     {
-      "@id": "http://schema.org/Ultrasound",
-      "@type": "http://schema.org/MedicalImagingTechnique",
-      "http://schema.org/isPartOf": {
-        "@id": "http://health-lifesci.schema.org"
-      },
-      "rdfs:comment": "Ultrasound imaging.",
-      "rdfs:label": "Ultrasound"
-    },
-    {
       "@id": "http://schema.org/significance",
       "@type": "rdf:Property",
       "http://schema.org/domainIncludes": {
@@ -5421,10 +5421,10 @@
       "@type": "rdf:Property",
       "http://schema.org/domainIncludes": [
         {
-          "@id": "http://schema.org/MedicalCondition"
+          "@id": "http://schema.org/MedicalSignOrSymptom"
         },
         {
-          "@id": "http://schema.org/MedicalSignOrSymptom"
+          "@id": "http://schema.org/MedicalCondition"
         }
       ],
       "http://schema.org/isPartOf": {
@@ -5464,10 +5464,10 @@
       },
       "http://schema.org/rangeIncludes": [
         {
-          "@id": "http://schema.org/MedicalTherapy"
+          "@id": "http://schema.org/MedicalTest"
         },
         {
-          "@id": "http://schema.org/MedicalTest"
+          "@id": "http://schema.org/MedicalTherapy"
         },
         {
           "@id": "http://schema.org/MedicalProcedure"
