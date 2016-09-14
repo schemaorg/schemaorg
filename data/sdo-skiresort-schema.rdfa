@@ -4734,9 +4734,11 @@ If the value for the &lt;a href=&quot;/closes&quot;&gt;closes&lt;/a&gt; property
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/distance">
       <span class="h" property="rdfs:label">distance</span>
-      <span property="rdfs:comment">The distance travelled, e.g. exercising or travelling.</span>
+      <span property="rdfs:comment">The distance travelled or moved, e.g. exercising, travelling or being transported.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ExerciseAction">ExerciseAction</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/TravelAction">TravelAction</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/SkiLift">SkiLift</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/SkiSlope">SkiSlope</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Distance">Distance</a></span>
     </div>
 
@@ -10926,8 +10928,8 @@ Typical unit code(s): C62 for persons.</span>
   <span property="rdfs:comment">A ski lift within a ski resort.</span>
   <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/SportsActivityLocation">SportsActivityLocation</a></span>
 </div>
-<div typeof="rdf:Property" resource="http://schema.org/liftType">
-  <span class="h" property="rdfs:label">liftType</span>
+<div typeof="rdf:Property" resource="http://schema.org/skiLiftType">
+  <span class="h" property="rdfs:label">skiLiftType</span>
   <span property="rdfs:comment">Type of Ski lift; e.g. t-bar lift, cable car or chairlift</span>
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/SkiLift">SkiLift</a></span>
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
@@ -10940,27 +10942,19 @@ Typical unit code(s): C62 for persons.</span>
 </div>
 <div typeof="rdf:Property" resource="http://schema.org/elevationStart">
   <span class="h" property="rdfs:label">elevationStart</span>
-  <span property="rdfs:comment">Elevation at the start of the lift.</span>
+  <span property="rdfs:comment">Elevation at the start or bottom of the lift.</span>
   <link property="rdfs:subPropertyOf" href="http://schema.org/elevation" />
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/SkiLift">SkiLift</a></span>
-  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number">QuantitativeValue</a></span>
-  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Distance</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number">Number</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
 </div>
 <div typeof="rdf:Property" resource="http://schema.org/elevationEnd">
   <span class="h" property="rdfs:label">elevationEnd</span>
-  <span property="rdfs:comment">Elevation at the end of the lift.</span>
+  <span property="rdfs:comment">Elevation at the end or top of the lift.</span>
   <link property="rdfs:subPropertyOf" href="http://schema.org/elevation" />
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/SkiLift">SkiLift</a></span>
-  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number">QuantitativeValue</a></span>
-  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Distance</a></span>
-</div>
-<div typeof="rdf:Property" resource="http://schema.org/length">
-  <span class="h" property="rdfs:label">length</span>
-  <span property="rdfs:comment">The length of the item.</span>
-  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/SkiLift">SkiLift</a></span>
-  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/SkiSlope">SkiSlope</a></span>
-  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/QuantitativeValue">QuantitativeValue</a></span>
-  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Distance">Distance</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number">Number</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
 </div>
 <div typeof="rdf:Property" resource="http://schema.org/numberOfStops">
   <span class="h" property="rdfs:label">numberOfStops</span>
@@ -10977,13 +10971,13 @@ Typical unit code(s): C62 for persons.</span>
 </div>
 <div typeof="rdf:Property" resource="http://schema.org/slopeNumber">
   <span class="h" property="rdfs:label">slopeNumber</span>
-  <span property="rdfs:comment">Number of the slope.</span>
+  <span property="rdfs:comment">The primary key or UID for slopes inside a ski resort.</span>
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/SkiSlope">SkiSlope</a></span>
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number">Number</a></span>
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
 </div>
-<div typeof="rdf:Property" resource="http://schema.org/difficulty">
-  <span class="h" property="rdfs:label">difficulty</span>
+<div typeof="rdf:Property" resource="http://schema.org/skiSlopeDifficulty">
+  <span class="h" property="rdfs:label">skiSlopeDifficulty</span>
   <span property="rdfs:comment">Difficulty of the slope, e.g blue, red, black, skiroute or funpark.</span>
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/SkiSlope">SkiSlope</a></span>
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
