@@ -56,7 +56,7 @@ function dump {
 		ex2="extensions"
 	fi
 	file=$3
-	for form in json-ld turtle nt nquads xml csv
+	for form in json-ld turtle nt nquads rdf csv
 	do
 		echo "\t$file: $form"
 		./scripts/exportgraphs.py -i "$in" -e "$ex1" -e "$ex2" -g "#$VER" -f $form -o $DIR/$file 2>&1 > /dev/null

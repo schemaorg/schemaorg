@@ -5,17 +5,17 @@
   xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
 >
   <rdf:Property rdf:about="http://schema.org/stupidProperty">
+    <schema:isPartOf rdf:resource="http://attic.schema.org"/>
     <rdfs:label>stupidProperty</rdfs:label>
     <rdfs:comment>This is a StupidProperty! - for testing only</rdfs:comment>
-    <schema:isPartOf rdf:resource="http://attic.schema.org"/>
-    <schema:rangeIncludes rdf:resource="http://schema.org/QuantitativeValue"/>
     <schema:domainIncludes rdf:resource="http://schema.org/Vehicle"/>
+    <schema:rangeIncludes rdf:resource="http://schema.org/QuantitativeValue"/>
     <schema:domainIncludes rdf:resource="http://schema.org/StupidType"/>
   </rdf:Property>
   <rdfs:Class rdf:about="http://schema.org/StupidType">
-    <rdfs:comment>A StupidType for testing.</rdfs:comment>
-    <schema:isPartOf rdf:resource="http://attic.schema.org"/>
     <rdfs:subClassOf rdf:resource="http://schema.org/Thing"/>
+    <rdfs:comment>A StupidType for testing.</rdfs:comment>
     <rdfs:label>StupidType</rdfs:label>
+    <schema:isPartOf rdf:resource="http://attic.schema.org"/>
   </rdfs:Class>
 </rdf:RDF>
