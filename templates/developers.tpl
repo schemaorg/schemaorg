@@ -22,6 +22,18 @@ This is a placeholder page for developer-oriented information about schema.org. 
 </p>
 
 
+<h2 id="conneg">Machine Readable Term Definitions</h2>
+
+<p>Machine-readable definitions of individual terms is availble as RDFa, embeded into the term page html. It is also available in other formats by accessing term URLs, using the <a href="https://www.w3.org/TR/swbp-vocab-pub/#negotiation">Linked Data Content Negotiation</a> technique of providing the required type in an HTTP Accept header value.  The same content is also available by providing an appropriate suffix to the term URL.  For example the Triples definition for the <a href="{{staticPath}}/Book">Book</a> Type can bet retrieved with the following URL <a href="{{staticPath}}/Book.nt">{{staticPath}}/Book.nt</a>.</p>
+<p>The currently supported format types, relevant Accept values and url suffixes are:</p>
+	<ul><li>JSON-LD - application/ld+json - .jsonld</li>
+		<li>RDF/XML - application/rdf+xml - .rdf</li>
+		<li>Triples - text/plain - .nt</li>
+		<li>Turtle - application/x-turtle - .ttl</li>
+		<li>CSV - text/csv - .csv</li></ul>
+		
+<p><strong>Note:</strong> This is currently an experimental feature</p>
+
 <h2 id="defs">Vocabulary Definition Files</h2>
 
 <p>To assist developers, files containing the definition of the core Schema.org vocabulary and its extensions are available for download in common RDF formats.</p>
@@ -47,7 +59,7 @@ This is a placeholder page for developer-oriented information about schema.org. 
 				<option value=".nt">Triples</option>
 				<option value=".nq">Quads</option>
 				<option value=".jsonld">JSON-LD</option>
-				<option value=".xml">RDF/XML</option>
+				<option value=".rdf">RDF/XML</option>
 				<option value=".ttl">Turtle</option>
 				<option value=".csv">CSV</option>
 		</select>

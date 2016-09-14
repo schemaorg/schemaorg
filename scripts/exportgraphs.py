@@ -47,7 +47,7 @@ dev_appserver.fix_sys_path()
 parser = argparse.ArgumentParser()
 parser.add_argument("-a","--autoext", default="Yes",help="Auto add format based file extension Yes|No. Default Yes")
 parser.add_argument("-e","--exclude", default= [[]],action='append',nargs='*', help="Exclude graph(s) [core|extensions|all|bib|auto|meta|{etc} (Repeatable) -  'attic' always excluded unless explictly included")
-parser.add_argument("-f","--format", default="nt", choices=['xml','nquads','nt','json-ld','turtle','csv'])
+parser.add_argument("-f","--format", default="nt", choices=['xml', 'rdf', 'nquads','nt','json-ld','turtle','csv'])
 parser.add_argument("-g","--quadgraphsuffix", help="Suffix for graph elements of quads.  eg. http://bib.schema.org/{suffix}")
 parser.add_argument("-i","--include", default= [[]],action='append',nargs='*', help="Include graph(s) [core|extensions|all|attic|bib|auto|meta|{etc} (Repeatable) overrides exclude - 'attic' always excluded unless explictly individually included")
 parser.add_argument("-m","--markdownprocess", default="Yes", help="Process markdown in comments Yes|No. Default Yes")
@@ -55,7 +55,7 @@ parser.add_argument("-o","--output", required=True, help="output file")
 args = parser.parse_args()
 print "%s: Arguments: %s" % (sys.argv[0],args)
 
-exts = {"xml":".xml","nquads":".nq","nt": ".nt","json-ld": ".jsonld", "turtle":".ttl", "csv":".csv"}
+exts = {"xml":".xml","rdf":".rdf","nquads":".nq","nt": ".nt","json-ld": ".jsonld", "turtle":".ttl", "csv":".csv"}
 ext = ""
 if args.autoext == "Yes":
     ext = exts[args.format]
@@ -130,7 +130,7 @@ class Export():
     def loadGraphs(self):
         self.outGraph = rdflib.Dataset()
         simpleFormat = False
-        if args.format == "xml" or args.format == "nt" or args.format == "turtle" or args.format == "csv":
+        if args.format == "rdf" or args.format == "xml" or args.format == "nt" or args.format == "turtle" or args.format == "csv":
             simpleFormat = True
             self.outGraph = rdflib.Graph()
             self.fullGraph = getQueryGraph()
@@ -171,7 +171,7 @@ class Export():
             print "%s: Writing to: %s" % (sys.argv[0],fname)
             file = open(fname, "w")
             format = args.format
-            if format == "xml":
+            if format == "xml" or format == "rdf":
                 format = "pretty-xml"
             file.write(self.outGraph.serialize(format=format,**kwargs))
 

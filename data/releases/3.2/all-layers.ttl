@@ -958,7 +958,6 @@ schema:Course a rdfs:Class ;
     rdfs:label "Course" ;
     dct:source <https://github.com/schemaorg/schemaorg/issues/195> ;
     schema:category "issue-195" ;
-    schema:isPartOf <http://pending.schema.org> ;
     rdfs:comment "A description of an educational course which may be offered as distinct instances at which take place at different times or take place at different locations, or be offered through different media or modes of study. An educational course is a sequence of one or more educational events and/or creative works which aims to build knowledge, competence or ability of learners." ;
     rdfs:subClassOf schema:CreativeWork .
 
@@ -966,7 +965,6 @@ schema:CourseInstance a rdfs:Class ;
     rdfs:label "CourseInstance" ;
     dct:source <https://github.com/schemaorg/schemaorg/issues/195> ;
     schema:category "issue-195" ;
-    schema:isPartOf <http://pending.schema.org> ;
     rdfs:comment "An instance of a <a class=\"localLink\" href=\"http://schema.org/Course\">Course</a> which is distinct from other instances because it is offered at a different time or location or through different media or modes of study or to a specific section of students." ;
     rdfs:subClassOf schema:Event .
 
@@ -3851,7 +3849,7 @@ schema:SurgicalProcedure a schema:MedicalProcedureType,
         rdfs:Class ;
     rdfs:label "SurgicalProcedure" ;
     schema:isPartOf <http://health-lifesci.schema.org> ;
-    rdfs:comment "A medical procedure involving an incision with instruments; performed for diagnose, or therapeutic purposes." ;
+    rdfs:comment "A type of medical procedure that involves invasive surgical techniques." ;
     rdfs:subClassOf schema:MedicalProcedure ;
     owl:equivalentClass <http://purl.bioontology.org/ontology/SNOMEDCT/387713003> .
 
@@ -7190,7 +7188,6 @@ schema:courseCode a rdf:Property ;
     dct:source <https://github.com/schemaorg/schemaorg/issues/195> ;
     schema:category "issue-195" ;
     schema:domainIncludes schema:Course ;
-    schema:isPartOf <http://pending.schema.org> ;
     schema:rangeIncludes schema:Text ;
     rdfs:comment "The identifier for the <a class=\"localLink\" href=\"http://schema.org/Course\">Course</a> used by the course <a class=\"localLink\" href=\"http://schema.org/provider\">provider</a> (e.g. CS101 or 6.001)." .
 
@@ -7199,7 +7196,6 @@ schema:courseMode a rdf:Property ;
     dct:source <https://github.com/schemaorg/schemaorg/issues/195> ;
     schema:category "issue-195" ;
     schema:domainIncludes schema:CourseInstance ;
-    schema:isPartOf <http://pending.schema.org> ;
     schema:rangeIncludes schema:Text,
         schema:URL ;
     rdfs:comment "The medium or means of delivery of the course instance or the mode of study, either as a text label (e.g. \"online\", \"onsite\" or \"blended\"; \"synchronous\" or \"asynchronous\"; \"full-time\" or \"part-time\") or as a URL reference to a term from a controlled vocabulary (e.g. https://ceds.ed.gov/element/001311#Asynchronous )." .
@@ -7209,7 +7205,6 @@ schema:coursePrerequisites a rdf:Property ;
     dct:source <https://github.com/schemaorg/schemaorg/issues/195> ;
     schema:category "issue-195" ;
     schema:domainIncludes schema:Course ;
-    schema:isPartOf <http://pending.schema.org> ;
     schema:rangeIncludes schema:AlignmentObject,
         schema:Course,
         schema:Text ;
@@ -8548,7 +8543,6 @@ schema:hasCourseInstance a rdf:Property ;
     dct:source <https://github.com/schemaorg/schemaorg/issues/195> ;
     schema:category "issue-195" ;
     schema:domainIncludes schema:Course ;
-    schema:isPartOf <http://pending.schema.org> ;
     schema:rangeIncludes schema:CourseInstance ;
     rdfs:comment "An offering of the course at a specific time and place or through specific media or mode of study or to a specific section of students." .
 
@@ -9013,7 +9007,6 @@ schema:instructor a rdf:Property ;
     dct:source <https://github.com/schemaorg/schemaorg/issues/195> ;
     schema:category "issue-195" ;
     schema:domainIncludes schema:CourseInstance ;
-    schema:isPartOf <http://pending.schema.org> ;
     schema:rangeIncludes schema:Person ;
     rdfs:comment "A person assigned to instruct or provide instructional assistance for the <a class=\"localLink\" href=\"http://schema.org/CourseInstance\">CourseInstance</a>." .
 
@@ -13811,7 +13804,7 @@ schema:object a rdf:Property ;
     rdfs:label "object" ;
     schema:domainIncludes schema:Action ;
     schema:rangeIncludes schema:Thing ;
-    rdfs:comment "The object upon the action is carried out, whose state is kept intact or changed. Also known as the semantic roles patient, affected or undergoer (which change their state) or theme (which doesn't). e.g. John read <em>a book</em>." .
+    rdfs:comment "The object upon which the action is carried out, whose state is kept intact or changed. Also known as the semantic roles patient, affected or undergoer (which change their state) or theme (which doesn't). e.g. John read <em>a book</em>." .
 
 <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_rNews> a schema:Organization ;
     rdfs:label "rNews" ;

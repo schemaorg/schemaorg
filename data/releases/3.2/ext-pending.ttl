@@ -41,20 +41,12 @@ schema:ClaimReview a rdfs:Class ;
     rdfs:subClassOf schema:Review .
 
 schema:Course a rdfs:Class ;
-    rdfs:label "Course" ;
     dct:source <https://github.com/schemaorg/schemaorg/issues/195> ;
-    schema:category "issue-195" ;
-    schema:isPartOf <http://pending.schema.org> ;
-    rdfs:comment "A description of an educational course which may be offered as distinct instances at which take place at different times or take place at different locations, or be offered through different media or modes of study. An educational course is a sequence of one or more educational events and/or creative works which aims to build knowledge, competence or ability of learners." ;
-    rdfs:subClassOf schema:CreativeWork .
+    schema:category "issue-195" .
 
 schema:CourseInstance a rdfs:Class ;
-    rdfs:label "CourseInstance" ;
     dct:source <https://github.com/schemaorg/schemaorg/issues/195> ;
-    schema:category "issue-195" ;
-    schema:isPartOf <http://pending.schema.org> ;
-    rdfs:comment "An instance of a <a class=\"localLink\" href=\"http://schema.org/Course\">Course</a> which is distinct from other instances because it is offered at a different time or location or through different media or modes of study or to a specific section of students." ;
-    rdfs:subClassOf schema:Event .
+    schema:category "issue-195" .
 
 schema:Distillery a rdfs:Class ;
     rdfs:label "Distillery" ;
@@ -269,34 +261,16 @@ schema:contentReferenceTime a rdf:Property ;
     rdfs:comment "The specific time described by a creative work, for works (e.g. articles, video objects etc.) that emphasise a particular moment within an Event." .
 
 schema:courseCode a rdf:Property ;
-    rdfs:label "courseCode" ;
     dct:source <https://github.com/schemaorg/schemaorg/issues/195> ;
-    schema:category "issue-195" ;
-    schema:domainIncludes schema:Course ;
-    schema:isPartOf <http://pending.schema.org> ;
-    schema:rangeIncludes schema:Text ;
-    rdfs:comment "The identifier for the <a class=\"localLink\" href=\"http://schema.org/Course\">Course</a> used by the course <a class=\"localLink\" href=\"http://schema.org/provider\">provider</a> (e.g. CS101 or 6.001)." .
+    schema:category "issue-195" .
 
 schema:courseMode a rdf:Property ;
-    rdfs:label "courseMode" ;
     dct:source <https://github.com/schemaorg/schemaorg/issues/195> ;
-    schema:category "issue-195" ;
-    schema:domainIncludes schema:CourseInstance ;
-    schema:isPartOf <http://pending.schema.org> ;
-    schema:rangeIncludes schema:Text,
-        schema:URL ;
-    rdfs:comment "The medium or means of delivery of the course instance or the mode of study, either as a text label (e.g. \"online\", \"onsite\" or \"blended\"; \"synchronous\" or \"asynchronous\"; \"full-time\" or \"part-time\") or as a URL reference to a term from a controlled vocabulary (e.g. https://ceds.ed.gov/element/001311#Asynchronous )." .
+    schema:category "issue-195" .
 
 schema:coursePrerequisites a rdf:Property ;
-    rdfs:label "coursePrerequisites" ;
     dct:source <https://github.com/schemaorg/schemaorg/issues/195> ;
-    schema:category "issue-195" ;
-    schema:domainIncludes schema:Course ;
-    schema:isPartOf <http://pending.schema.org> ;
-    schema:rangeIncludes schema:AlignmentObject,
-        schema:Course,
-        schema:Text ;
-    rdfs:comment "Requirements for taking the Course. May be completion of another <a class=\"localLink\" href=\"http://schema.org/Course\">Course</a> or a textual description like \"permission of instructor\". Requirements may be a pre-requisite competency, referenced using <a class=\"localLink\" href=\"http://schema.org/AlignmentObject\">AlignmentObject</a>." .
+    schema:category "issue-195" .
 
 schema:educationalCredentialAwarded a rdf:Property ;
     rdfs:label "educationalCredentialAwarded" ;
@@ -318,13 +292,8 @@ schema:enumerationValueCode a rdf:Property ;
     rdfs:comment "A short textual code that uniquely identifies the value. The code is typically used in structured URLs." .
 
 schema:hasCourseInstance a rdf:Property ;
-    rdfs:label "hasCourseInstance" ;
     dct:source <https://github.com/schemaorg/schemaorg/issues/195> ;
-    schema:category "issue-195" ;
-    schema:domainIncludes schema:Course ;
-    schema:isPartOf <http://pending.schema.org> ;
-    schema:rangeIncludes schema:CourseInstance ;
-    rdfs:comment "An offering of the course at a specific time and place or through specific media or mode of study or to a specific section of students." .
+    schema:category "issue-195" .
 
 schema:hasEnumerationValue a rdf:Property ;
     rdfs:label "hasEnumerationValue" ;
@@ -478,13 +447,8 @@ schema:includesHealthPlanNetwork a rdf:Property ;
     rdfs:comment "Networks covered by this plan." .
 
 schema:instructor a rdf:Property ;
-    rdfs:label "instructor" ;
     dct:source <https://github.com/schemaorg/schemaorg/issues/195> ;
-    schema:category "issue-195" ;
-    schema:domainIncludes schema:CourseInstance ;
-    schema:isPartOf <http://pending.schema.org> ;
-    schema:rangeIncludes schema:Person ;
-    rdfs:comment "A person assigned to instruct or provide instructional assistance for the <a class=\"localLink\" href=\"http://schema.org/CourseInstance\">CourseInstance</a>." .
+    schema:category "issue-195" .
 
 schema:isAcceptingNewPatients a rdf:Property ;
     rdfs:label "isAcceptingNewPatients" ;

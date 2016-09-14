@@ -794,6 +794,16 @@ schema:Country a rdfs:Class ;
     rdfs:comment "A country." ;
     rdfs:subClassOf schema:AdministrativeArea .
 
+schema:Course a rdfs:Class ;
+    rdfs:label "Course" ;
+    rdfs:comment "A description of an educational course which may be offered as distinct instances at which take place at different times or take place at different locations, or be offered through different media or modes of study. An educational course is a sequence of one or more educational events and/or creative works which aims to build knowledge, competence or ability of learners." ;
+    rdfs:subClassOf schema:CreativeWork .
+
+schema:CourseInstance a rdfs:Class ;
+    rdfs:label "CourseInstance" ;
+    rdfs:comment "An instance of a <a class=\"localLink\" href=\"http://schema.org/Course\">Course</a> which is distinct from other instances because it is offered at a different time or location or through different media or modes of study or to a specific section of students." ;
+    rdfs:subClassOf schema:Event .
+
 schema:Courthouse a rdfs:Class ;
     rdfs:label "Courthouse" ;
     rdfs:comment "A courthouse." ;
@@ -5166,6 +5176,27 @@ schema:course a rdf:Property ;
     rdfs:comment "A sub property of location. The course where this action was taken." ;
     rdfs:subPropertyOf schema:location .
 
+schema:courseCode a rdf:Property ;
+    rdfs:label "courseCode" ;
+    schema:domainIncludes schema:Course ;
+    schema:rangeIncludes schema:Text ;
+    rdfs:comment "The identifier for the <a class=\"localLink\" href=\"http://schema.org/Course\">Course</a> used by the course <a class=\"localLink\" href=\"http://schema.org/provider\">provider</a> (e.g. CS101 or 6.001)." .
+
+schema:courseMode a rdf:Property ;
+    rdfs:label "courseMode" ;
+    schema:domainIncludes schema:CourseInstance ;
+    schema:rangeIncludes schema:Text,
+        schema:URL ;
+    rdfs:comment "The medium or means of delivery of the course instance or the mode of study, either as a text label (e.g. \"online\", \"onsite\" or \"blended\"; \"synchronous\" or \"asynchronous\"; \"full-time\" or \"part-time\") or as a URL reference to a term from a controlled vocabulary (e.g. https://ceds.ed.gov/element/001311#Asynchronous )." .
+
+schema:coursePrerequisites a rdf:Property ;
+    rdfs:label "coursePrerequisites" ;
+    schema:domainIncludes schema:Course ;
+    schema:rangeIncludes schema:AlignmentObject,
+        schema:Course,
+        schema:Text ;
+    rdfs:comment "Requirements for taking the Course. May be completion of another <a class=\"localLink\" href=\"http://schema.org/Course\">Course</a> or a textual description like \"permission of instructor\". Requirements may be a pre-requisite competency, referenced using <a class=\"localLink\" href=\"http://schema.org/AlignmentObject\">AlignmentObject</a>." .
+
 schema:coverageEndTime a rdf:Property ;
     rdfs:label "coverageEndTime" ;
     schema:domainIncludes schema:LiveBlogPosting ;
@@ -6167,6 +6198,12 @@ schema:gtin8 a rdf:Property ;
     schema:rangeIncludes schema:Text ;
     rdfs:comment "The <a href=\"http://apps.gs1.org/GDD/glossary/Pages/GTIN-8.aspx\">GTIN-8</a> code of the product, or the product to which the offer refers. This code is also known as EAN/UCC-8 or 8-digit EAN. See <a href=\"http://www.gs1.org/barcodes/technical/idkeys/gtin\">GS1 GTIN Summary</a> for more details." .
 
+schema:hasCourseInstance a rdf:Property ;
+    rdfs:label "hasCourseInstance" ;
+    schema:domainIncludes schema:Course ;
+    schema:rangeIncludes schema:CourseInstance ;
+    rdfs:comment "An offering of the course at a specific time and place or through specific media or mode of study or to a specific section of students." .
+
 schema:hasDeliveryMethod a rdf:Property ;
     rdfs:label "hasDeliveryMethod" ;
     schema:domainIncludes schema:DeliveryEvent,
@@ -6369,6 +6406,12 @@ schema:installUrl a rdf:Property ;
     schema:domainIncludes schema:SoftwareApplication ;
     schema:rangeIncludes schema:URL ;
     rdfs:comment "URL at which the app may be installed, if different from the URL of the item." .
+
+schema:instructor a rdf:Property ;
+    rdfs:label "instructor" ;
+    schema:domainIncludes schema:CourseInstance ;
+    schema:rangeIncludes schema:Person ;
+    rdfs:comment "A person assigned to instruct or provide instructional assistance for the <a class=\"localLink\" href=\"http://schema.org/CourseInstance\">CourseInstance</a>." .
 
 schema:interactionCount a rdf:Property ;
     rdfs:label "interactionCount" ;
@@ -10123,7 +10166,7 @@ schema:object a rdf:Property ;
     rdfs:label "object" ;
     schema:domainIncludes schema:Action ;
     schema:rangeIncludes schema:Thing ;
-    rdfs:comment "The object upon the action is carried out, whose state is kept intact or changed. Also known as the semantic roles patient, affected or undergoer (which change their state) or theme (which doesn't). e.g. John read <em>a book</em>." .
+    rdfs:comment "The object upon which the action is carried out, whose state is kept intact or changed. Also known as the semantic roles patient, affected or undergoer (which change their state) or theme (which doesn't). e.g. John read <em>a book</em>." .
 
 <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_rNews> a schema:Organization ;
     rdfs:label "rNews" ;
