@@ -1,0 +1,97 @@
+<div>
+
+    <div typeof="rdf:Property" resource="http://schema.org/identifier">
+        <span class="h" property="rdfs:label">identifier</span>
+        <span property="rdfs:comment">The identifier property represents any kind of identifier for any kind of [[Thing]], such as ISBNs, GTIN codes, UUIDs etc. Schema.org provides dedicated properties for representing many of these, either as textual strings or as URL (URI) links.
+
+The [[identifier]] property and its sub-properties is primarily useful in cases where the content is expressed as textual string. Increasingly there are canonical URL/URI representations for each of these. All schema.org syntaxes already have built-in representation for URIs and URLs, e.g. in Microdata 'itemid', in RDFa 1.1, 'resource', in JSON-LD, '@id'. Generally it is preferable to use these unless there may be a specific requirement to explicitly state the kind of identifier, or to provide additional / alternative identifiers (e.g., DOIs).
+
+In some cases the values of the [[identifier]] property indicate a set of (somewhat) interchangeable entities rather than a single distinct real world entity.
+Such sets could be viewed as corresponding to classes, but we do not explore that possibility here. For example [[sku]] and the various product-related GTIN codes.
+However  it does intended to cover broader categorization and classification mechanisms e.g. [[isicV4]] is in some sense an identifier, but it identifies a category code.
+
+In the most complex case, there is sometimes a need to represent the type of an identifier. In this case, a [[PropertyValue]] pair ('name', 'identifier') pair can be used
+when a standard URI form of the identifier is unavailable. We do not currently have a recommended identifier scheme for identifier schemes, but in most cases there is a
+conventional short name for most identifier schemes (which should be used in lowercase form).
+        </span>
+
+        <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Thing">Thing</a></span>
+        <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+        <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/PropertyValue">PropertyValue</a></span>
+    </div>
+
+
+<div typeof="rdf:Property" resource="http://schema.org/isbn">
+  <link property="rdfs:subPropertyOf" href="http://schema.org/identifier" />
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/issn">
+  <link property="rdfs:subPropertyOf" href="http://schema.org/identifier" />
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/gtin8">
+  <link property="rdfs:subPropertyOf" href="http://schema.org/identifier" />
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/gtin12">
+  <link property="rdfs:subPropertyOf" href="http://schema.org/identifier" />
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/gtin13">
+  <link property="rdfs:subPropertyOf" href="http://schema.org/identifier" />
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/gtin14">
+  <link property="rdfs:subPropertyOf" href="http://schema.org/identifier" />
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/productID">
+  <link property="rdfs:subPropertyOf" href="http://schema.org/identifier" />
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/flightNumber">
+  <link property="rdfs:subPropertyOf" href="http://schema.org/identifier" />
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/accountId">
+  <link property="rdfs:subPropertyOf" href="http://schema.org/identifier" />
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/leiCode">
+  <link property="rdfs:subPropertyOf" href="http://schema.org/identifier" />
+</div>
+
+
+<div typeof="rdf:Property" resource="http://schema.org/duns">
+  <link property="rdfs:subPropertyOf" href="http://schema.org/identifier" />
+</div>
+
+
+<div typeof="rdf:Property" resource="http://schema.org/taxID">
+  <link property="rdfs:subPropertyOf" href="http://schema.org/identifier" />
+</div>
+
+
+<div typeof="rdf:Property" resource="http://schema.org/confirmationNumber">
+  <link property="rdfs:subPropertyOf" href="http://schema.org/identifier" />
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/serialNumber">
+  <link property="rdfs:subPropertyOf" href="http://schema.org/identifier" />
+</div>
+
+
+<div typeof="rdf:Property" resource="http://schema.org/sku">
+  <link property="rdfs:subPropertyOf" href="http://schema.org/identifier" />
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/orderNumber">
+  <link property="rdfs:subPropertyOf" href="http://schema.org/identifier" />
+</div>
+
+
+<div typeof="rdf:Property" resource="http://schema.org/globalLocationNumber">
+  <link property="rdfs:subPropertyOf" href="http://schema.org/identifier" />
+</div>
+
+</div>
