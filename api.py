@@ -6,11 +6,22 @@ import re
 import logging
 import threading
 import parsers
+import datetime, time
+
 from google.appengine.ext import ndb
 
 import apirdflib
 #from apirdflib import rdfGetTargets, rdfGetSources
 from apimarkdown import Markdown
+
+def getInstanceId(short=False):
+    ret = ""
+    if "INSTANCE_ID" in os.environ:
+        ret =  os.environ["INSTANCE_ID"]
+    if short:
+        ret = ret[len(ret)-6:]
+    return ret
+
 
 logging.basicConfig(level=logging.INFO) # dev_appserver.py --log_level debug .
 log = logging.getLogger(__name__)
@@ -169,20 +180,20 @@ class PageStoreTool():
 
     def initialise(self):
         import time
-        log.info("[%s]PageStore initialising Data Store" % (os.environ["INSTANCE_ID"]))
+        log.info("[%s]PageStore initialising Data Store" % (getInstanceId()))
         loops = 0
         ret = 0
         while loops < 5:
             keys = PageEntity.query().fetch(keys_only=True)
             count = len(keys)
-            log.info("[%s]PageStore deleting %s keys" % (os.environ["INSTANCE_ID"], count))
+            log.info("[%s]PageStore deleting %s keys" % (getInstanceId(), count))
             if count == 0:
                 break
             ndb.delete_multi(keys) 
             ret += count
             loops += 1
             time.sleep(1)
-        return str(ret)
+        return {"PageStore":ret}
             
     def getCurrent(self):
         return self.tlocal.CurrentStoreSet
@@ -196,8 +207,9 @@ class PageStoreTool():
         if cache != None:
             ca = cache
         fullKey = ca + ":" + key
-        #log.info("[%s]PageStore storing %s" % (os.environ["INSTANCE_ID"],fullKey))
+        #log.info("[%s]PageStore storing %s" % (getInstanceId(),fullKey))
         ent = PageEntity(id = fullKey, content = val)
+        CacheControl.checkLock()
         ent.put()
         
     def get(self, key,cache=None):
@@ -212,7 +224,7 @@ class PageStoreTool():
         else:
             #log.info("PageStore '%s' not found" % fullKey)
             return None
-    
+
 class HeaderEntity(ndb.Model):
     content = ndb.PickleProperty()
     
@@ -223,20 +235,20 @@ class HeaderStoreTool():
 
     def initialise(self):
         import time
-        log.info("[%s]HeaderStore initialising Data Store" % (os.environ["INSTANCE_ID"]))
+        log.info("[%s]HeaderStore initialising Data Store" % (getInstanceId()))
         loops = 0
         ret = 0
         while loops < 5:
             keys = HeaderEntity.query().fetch(keys_only=True)
             count = len(keys)
-            log.info("[%s]HeaderStore deleting %s keys" % (os.environ["INSTANCE_ID"], count))
+            log.info("[%s]HeaderStore deleting %s keys" % (getInstanceId(), count))
             if count == 0:
                 break
             ndb.delete_multi(keys) 
             ret += count
             loops += 1
             time.sleep(1)
-        return str(ret)
+        return {"HeaderStore":ret}
             
     def getCurrent(self):
         return self.tlocal.CurrentStoreSet
@@ -251,6 +263,7 @@ class HeaderStoreTool():
             ca = cache
         fullKey = ca + ":" + key
         ent = HeaderEntity(id = fullKey, content = val)
+        CacheControl.checkLock()
         ent.put()
         
     def get(self, key,cache=None):
@@ -264,18 +277,19 @@ class HeaderStoreTool():
         else:
             return None
 
+
 PageStore = None
 HeaderStore = None
-log.info("NDB PageStore & HeaderStore available: %s" % NDBPAGESTORE)
+log.info("[%s] NDB PageStore & HeaderStore available: %s" % (getInstanceId(short=True),NDBPAGESTORE))
 
 def enablePageStore(state):
     global PageStore,HeaderStore
     if state:
-        log.info("Enabling NDB")
+        log.info("[%s] Enabling NDB" % getInstanceId(short=True))
         PageStore = PageStoreTool()
         HeaderStore = HeaderStoreTool()
     else:
-        log.info("Disabling NDB")
+        log.info("[%s] Disabling NDB" % getInstanceId(short=True))
         PageStore = DataCacheTool()
         HeaderStore = DataCacheTool()
 
@@ -831,7 +845,8 @@ def HasMultipleBaseTypes(typenode, layers='core'):
     """True if this unit represents a type with more than one immediate supertype."""
     return len( GetTargets( Unit.GetUnit("rdfs:subClassOf", True), typenode, layers ) ) > 1
 
-EXAMPLES = {}
+EXAMPLESMAP = {}
+EXAMPLES = []
 ExamplesCount = 0
 
 class Example ():
@@ -864,8 +879,8 @@ class Example ():
            return self.jsonld
 
     def __init__ (self, terms, original_html, microdata, rdfa, jsonld, egmeta, layer='core'):
-        """Example constructor, registers itself with the relevant Unit(s)."""
-        global EXAMPLES,ExamplesCount
+        """Example constructor, registers itself with the ExampleMap of terms to examples."""
+        global EXAMPLES, EXAMPLESMAP, ExamplesCount
         ExamplesCount += 1
         self.orderId = ExamplesCount #Used to maintain consistancy of display order
         self.terms = terms
@@ -875,18 +890,38 @@ class Example ():
         self.jsonld = jsonld
         self.egmeta = egmeta
         self.layer = layer
+        if 'id' in self.egmeta:
+            self.keyvalue = self.egmeta['id']
+        else:
+            self.keyvalue = "%s-gen-%s"% (terms[0],ExamplesCount)
+            self.egmeta['id'] = self.keyvalue
+            
+        #### If in application store examples in NDB shared storage - ExampleStore & ExampleMap
+        #### If not store in local array - EXAMPLES & EXAMPLESMAP
         for term in terms:
-            if(EXAMPLES.get(term, None) == None):
-                EXAMPLES[term] = []
-            EXAMPLES.get(term).append(self)
+            if getInTestHarness():
+                if(EXAMPLESMAP.get(term, None) == None):
+                    EXAMPLESMAP[term] = []
+                EXAMPLESMAP.get(term).append(self)
+            else:
+                ExampleMap.updateMap(term,self.keyvalue)
+                
+        if getInTestHarness():
+            EXAMPLES.append(self)
+        else:
+            ExampleStore.add(self)
 
-def LoadExamples(node, layers='core'):
+def LoadNodeExamples(node, layers='core'):
     """Returns the examples (if any) for some Unit node."""
     #log.info("Getting examples for: %s" % node.id)
     if(node.examples == None):
-       node.examples = EXAMPLES.get(node.id)
-       if(node.examples == None):
-          node.examples = []
+        if getInTestHarness(): #Get from local storage
+            ids = EXAMPLESMAP.get(node.id)
+        else:                  #Get from NDB shared storage
+            ids = ExampleMap.get(node.id)
+        node.examples = []
+        for i in ids:
+            node.examples.append(ExampleStore.get_by_id(i))
     return node.examples
 
 USAGECOUNTS = {}
@@ -1042,7 +1077,7 @@ def read_schemas(loadExtensions=False):
     global schemasInitialized
     schemasInitialized = True
     if (not schemasInitialized or DYNALOAD):
-        log.info("(re)loading core and annotations.")
+        log.debug("[%s] (re)loading core and annotations." % getInstanceId(short=True))
         files = glob.glob("data/*.rdfa")
         jfiles = glob.glob("data/*.jsonld")
         for jf in jfiles: 
@@ -1076,7 +1111,7 @@ def read_extensions(extensions):
     expfiles = []
 
     if not extensionsLoaded: #2nd load will throw up errors and duplicate terms
-        log.info("(re)scanning for extensions %s " % extensions)
+        log.info("[%s] extensions %s " % (getInstanceId(short=True),extensions))
         for i in extensions:
             all_layers[i] = "1"
             extfiles = glob.glob("data/ext/%s/*.rdfa" % i)
@@ -1086,33 +1121,260 @@ def read_extensions(extensions):
                 if not rdfequiv in extfiles: #Only add .jsonld files if no equivalent .rdfa
                     extfiles.append(jf)
 
-#            log.info("FILES: %s" % extfiles)
-            
             file_paths = []
             for f in extfiles:
                 file_paths.append(full_path(f))
             apirdflib.load_graph(i,file_paths)
             expfiles = glob.glob("data/ext/%s/*examples.txt" % i)
             read_examples(expfiles,i)
-
-#        fnstrip_re = re.compile("\/.*")
-#        for ext in extfiles:
-#            ext_file_path = full_path(ext)
-#            extid = ext.replace('data/ext/', '')
-#            extid = re.sub(fnstrip_re,'',extid)
-#            log.info("Preparing to parse extension data: %s as '%s'" % (ext_file_path, "%s" % extid))
-
     extensionsLoaded = True
 
 def read_examples(files, layer):
-        example_contents = []
-        for f in files:
-            example_content = read_file(f)
-            example_contents.append(example_content)
-            log.debug("examples loaded from: %s" % f)
-
         parser = parsers.ParseExampleFile(None,layer=layer)
-        parser.parse(example_contents)
+        first = True
+        for f in files:
+            if not ExamplesLoader.isLoaded(f):
+                ExamplesLoader.loaded(f)
+                if first:
+                    log.info("Loading examples from %s" % layer)
+                    first = False
+                parser.parse(f)
+
+            #log.info("examples loaded from: %s" % f)
+
+class ExamplesLoader(ndb.Model):
+    fileloaded = ndb.BooleanProperty('f')
+    
+    @staticmethod
+    def initialise():
+        import time
+        log.info("[%s]ExamplesLoader initialising Data Store" % (getInstanceId()))
+        loops = 0
+        ret = 0
+        while loops < 5:
+            keys = ExamplesLoader.query().fetch(keys_only=True)
+            count = len(keys)
+            log.info("[%s]ExamplesLoader deleting %s keys" % (getInstanceId(), count))
+            if count == 0:
+                break
+            ndb.delete_multi(keys) 
+            ret += count
+            loops += 1
+            time.sleep(1)
+        return {"ExamplesLoader":ret}
+
+    @staticmethod
+    def loaded(file):
+        if getInTestHarness():
+            return 
+        CacheControl.checkLock()
+        ExamplesLoader(id=file,fileloaded=True).put(use_memcache=False,use_cache=False)
+
+    @staticmethod
+    def isLoaded(file):
+        if getInTestHarness():
+            return False
+        lod = ExamplesLoader.get_by_id(file,use_memcache=False,use_cache=False)
+        if lod:
+            return True
+        return False
+
+
+class ExampleStore(ndb.Model):
+    original_html = ndb.TextProperty('h',indexed=False)
+    microdata = ndb.TextProperty('m',indexed=False)
+    rdfa = ndb.TextProperty('r',indexed=False)
+    jsonld = ndb.TextProperty('j',indexed=False)
+    egmeta = ndb.PickleProperty('e',indexed=False)
+    keyvalue = ndb.StringProperty('o',indexed=False)
+    layer = ndb.StringProperty('l',indexed=False)
+
+    @staticmethod
+    def initialise():
+        import time
+        log.info("[%s]ExampleStore initialising Data Store" % (getInstanceId()))
+        loops = 0
+        ret = 0
+        while loops < 5:
+            keys = ExampleStore.query().fetch(keys_only=True)
+            count = len(keys)
+            log.info("[%s]ExampleStore deleting %s keys" % (getInstanceId(), count))
+            if count == 0:
+                break
+            ndb.delete_multi(keys) 
+            ret += count
+            loops += 1
+            time.sleep(1)
+        return {"ExampleStore":ret}
+
+    @staticmethod
+    def add(example):
+        e = ExampleStore(id=example.keyvalue,
+                original_html=example.original_html,
+                microdata=example.microdata,
+                rdfa=example.rdfa,
+                jsonld=example.jsonld,
+                egmeta=example.egmeta,
+                keyvalue=example.keyvalue,
+                layer=example.layer)
+        CacheControl.checkLock()
+        e.put() 
+
+    def get(self,name):
+        if name == 'original_html':
+           return self.original_html
+        if name == 'microdata':
+           return self.microdata
+        if name == 'rdfa':
+           return self.rdfa
+        if name == 'jsonld':
+           return self.jsonld
+        return ""
+
+    @staticmethod
+    def getEgmeta(id):
+        em = ExampleStore.get_by_id(id)
+        ret = em.emeta
+        if ret:
+            return ret
+        return {}
+
+
+class ExampleMap(ndb.Model):
+    examples = ndb.StringProperty('e',repeated=True,indexed=False)
+    
+    @staticmethod
+    def initialise():
+        import time
+        log.info("[%s]ExampleMap initialising Data Store" % (getInstanceId()))
+        loops = 0
+        ret = 0
+        while loops < 5:
+            keys = ExampleMap.query().fetch(keys_only=True)
+            count = len(keys)
+            log.info("[%s]ExampleMap deleting %s keys" % (getInstanceId(), count))
+            if count == 0:
+                break
+            ndb.delete_multi(keys) 
+            ret += count
+            loops += 1
+            time.sleep(1)
+        return {"ExampleMap":ret}
+
+    @staticmethod
+    def updateMap(term,example):
+        term = str(term)
+        example = str(example)
+        examples = []
+        em = ExampleMap.get_by_id(term)
+        if em:
+            examples = em.examples
+            #log.info("%s - %s" % (term,examples))
+        #else:
+            #log.info("%s - no examples" % term)
+        if not example in examples:
+            examples.append(example)
+        
+        e = ExampleMap(id=term,examples=examples)
+        CacheControl.checkLock()
+        e.put()
+
+    @staticmethod
+    def get(term):
+        em = ExampleMap.get_by_id(term)
+        if em:
+            return em.examples
+        return []
+    
+       
+######################################
+UNQNAME="CacheControl"
+PageCaches = [PageStore,HeaderStore]
+ExampleCaches = [ExampleStore,ExampleMap,ExamplesLoader]
+
+class CacheControl(ndb.Model):
+    flushing = ndb.BooleanProperty()
+    lastaction = ndb.DateTimeProperty(auto_now=True)
+    
+    @staticmethod
+    def clean(pagesonly=False):
+        ret = {}
+        ret["DataCache"] =DataCache.initialise()
+        if not NDBPAGESTORE:
+            ret["PageStore"] = PageStore.initialise()
+            ret["HeaderStore"] = HeaderStore.initialise()
+        
+        ndbret = CacheControl.ndbClean(pagesonly=pagesonly)
+        ret.update(ndbret)
+        
+        return ret
+    
+        
+    @staticmethod
+    def ndbClean(pagesonly=False):
+        NdbCaches = PageCaches
+        if not pagesonly:
+            NdbCaches += ExampleCaches
+        
+        ret = {}
+        if getInTestHarness():
+            return ret
+            
+        flush = False
+        
+        cc = CacheControl.get_by_id(UNQNAME,use_memcache=False,use_cache=False)
+        if not cc:
+            cc = CacheControl(id=UNQNAME,flushing= False)
+            cc.put(use_memcache=False,use_cache=False)
+            flush=True
+        else:
+            if not CacheControl.isFlushing(): 
+                flush = True
+            else:
+                log.info("Flush alrady in progress: %s" % elapsed.seconds)
+            
+        if flush:    
+            cc.flushing=True
+            cc.put(use_memcache=False,use_cache=False)
+            log.info("[%s] Setting Flushing True" % (getInstanceId()))
+            for c in NdbCaches:
+                r =  c.initialise()
+                ret.update(r)
+            cc.flushing= False
+            cc.put(use_memcache=False,use_cache=False)
+            log.info("[%s] Setting Flushing False" % (getInstanceId()))
+        return ret
+        
+    @staticmethod
+    def isFlushing():
+        ret = False
+        cc = CacheControl.get_by_id(UNQNAME,use_memcache=False,use_cache=False)
+        if not cc:
+            cc = CacheControl(id=UNQNAME,flushing=False)
+            cc.put(use_memcache=False,use_cache=False)
+            
+        elapsed = datetime.datetime.now() - cc.lastaction
+        #log.info("[%s] Flushing %s elapsed %s" % (getInstanceId(),cc.flushing, elapsed.seconds))
+        if cc.flushing and elapsed.seconds < 120:#No flush in progress or we have been doing it for + 2mins
+            ret =  True
+            
+        if elapsed.seconds > 120:
+            cc.flushing=False
+            cc.put(use_memcache=False,use_cache=False)
+            ret=False
+            
+        return ret
+        
+    @staticmethod
+    def checkLock():
+        count = 0
+        while CacheControl.isFlushing():
+            count += 1
+            if count > 60:
+                raise Exception("Waiting over 60 seconds for CacheControl Flush lock")
+            time.sleep(1)
+
+###############################
 
 def StripHtmlTags(source):
     if source and len(source) > 0:

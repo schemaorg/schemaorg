@@ -24,6 +24,7 @@ class ParseExampleFile :
         logging.basicConfig(level=logging.INFO) # dev_appserver.py --log_level debug .
         self.webapp = webapp
         self.layer = layer
+        self.file = ""
         self.initFields()
 
     def initFields(self):
@@ -31,6 +32,7 @@ class ParseExampleFile :
         self.terms = []
         self.egmeta = {}
         self.egmeta["layer"] = self.layer
+        self.egmeta["source"] = self.file
         self.preMarkupStr = ""
         self.microdataStr = ""
         self.rdfaStr = ""
@@ -54,41 +56,46 @@ class ParseExampleFile :
         #logging.debug("Storing ID: %s" % self.egmeta["id"] )
         return ''
 
-    def parse (self, contents):
-        content = ""
+    def parse (self, file):
+        self.file = file
         egid = re.compile("""#(\S+)\s+""")
-        for i in range(len(contents)):
-            content += contents[i]
+        logging.debug("Reading file %s" % file)
+        count = 0
+        with open(file, "r") as lines:
+            for line in lines:
+                # Per-example sections begin with e.g.: 'TYPES: #music-2 Person, MusicComposition, Organization'
+                line = line.rstrip()
 
-        lines = re.split('\n|\r', content)
-        for line in lines:
-            # Per-example sections begin with e.g.: 'TYPES: #music-2 Person, MusicComposition, Organization'
-
-            if ((len(line) > 6) and line[:6] == "TYPES:"):
-                self.nextPart('TYPES:')
-                #logging.debug("About to call api.Example.AddExample with terms: %s " % "".join( [" ; %s " % t.id for t in self.terms] ) )
-                api.Example.AddExample(self.terms, self.preMarkupStr, self.microdataStr, self.rdfaStr, self.jsonStr, self.egmeta)
-                self.initFields()
-                typelist = re.split(':', line)
-                #logging.debug("TYPE INFO: '%s' " % line );
-                tdata = egid.sub(self.process_example_id, typelist[1]) # strips IDs, records them in egmeta["id"]
-                ttl = tdata.split(',')
-                for ttli in ttl:
-                    ttli = re.sub(' ', '', ttli)
-                    #logging.debug("TTLI: %s " % ttli); # danbri tmp
-                    self.terms.append(ttli)
-            else:
-                tokens = ["PRE-MARKUP:", "MICRODATA:", "RDFA:", "JSON:"]
-                for tk in tokens:
-                    ltk = len(tk)
-                    if (len(line) > ltk-1 and line[:ltk] == tk):
-                        self.nextPart(tk)
-                        line = line[ltk:]
-                if (len(line) > 0):
-                    self.currentStr.append(line + "\n")
+                if ((len(line) > 6) and line[:6] == "TYPES:"):
+                    count += 1
+                    self.nextPart('TYPES:')
+                    #logging.debug("About to call api.Example.AddExample with terms: %s " % "".join( [" ; %s " % t.id for t in self.terms] ) )
+                    #Create example from what has neen previously collected
+                    #If 1st call there will be no terms which will be regected and no xample created.
+                    api.Example.AddExample(self.terms, self.preMarkupStr, self.microdataStr, self.rdfaStr, self.jsonStr, self.egmeta)
+                    self.initFields()
+                    typelist = re.split(':', line)
+                    #logging.debug("TYPE INFO: '%s' " % line );
+                    tdata = egid.sub(self.process_example_id, typelist[1]) # strips IDs, records them in egmeta["id"]
+                    ttl = tdata.split(',')
+                    for ttli in ttl:
+                        ttli = re.sub(' ', '', ttli)
+                        #logging.debug("TTLI: %s " % ttli); # danbri tmp
+                        if len(ttli) and "@@" not in ttli:
+                            self.terms.append(ttli)
+                else:
+                    tokens = ["PRE-MARKUP:", "MICRODATA:", "RDFA:", "JSON:"]
+                    for tk in tokens:
+                        ltk = len(tk)
+                        if (len(line) > ltk-1 and line[:ltk] == tk):
+                            self.nextPart(tk)
+                            line = line[ltk:]
+                    if (len(line) > 0):
+                        self.currentStr.append(line + "\n")
         self.nextPart('TYPES:') # should flush on each block of examples
+        count += 1
         api.Example.AddExample(self.terms, self.preMarkupStr, self.microdataStr, self.rdfaStr, self.jsonStr, self.egmeta) # should flush last one
-        #logging.info("Final AddExample called with terms %s " % self.terms)
+        logging.debug ("%s examples in %s" % (count,file))
 
 
 class UsageFileParser:

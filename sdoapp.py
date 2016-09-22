@@ -28,13 +28,15 @@ from google.appengine.ext.webapp import blobstore_handlers
 from google.appengine.api import modules
 from google.appengine.api import runtime
 
-from api import inLayer, read_file, full_path, read_schemas, read_extensions, read_examples, namespaces, DataCache, PageStore, HeaderStore
+from api import inLayer, read_file, full_path, read_schemas, read_extensions, read_examples, namespaces
+from api import CacheControl, DataCache, PageStore, HeaderStore, ExampleMap, ExampleStore, ExamplesLoader
 from api import Unit, GetTargets, GetSources, GetComments, GetsoftwareVersions
-from api import GetComment, all_terms, GetAllTypes, GetAllProperties, GetAllEnumerationValues, GetAllTerms, LoadExamples
+from api import GetComment, all_terms, GetAllTypes, GetAllProperties, GetAllEnumerationValues, GetAllTerms, LoadNodeExamples
 from api import GetParentList, GetImmediateSubtypes, HasMultipleBaseTypes
 from api import GetJsonLdContext, ShortenOnSentence, StripHtmlTags
 from api import getQueryGraph
-from api import setInTestHarness, getInTestHarness, setAllLayersList, enablePageStore
+from api import log
+from api import setInTestHarness, getInTestHarness, setAllLayersList, enablePageStore, getInstanceId
 from apimarkdown import Markdown
 
 from sdordf2csv import sdordf2csv
@@ -107,25 +109,6 @@ if WarmupState.lower() == "off":
     WarmedUp = True
 elif "SERVER_NAME" in os.environ and ("localhost" in os.environ['SERVER_NAME'] and WarmupState.lower() == "auto"):
     WarmedUp = True
-######################################
-
-def cleanCaches():
-    ret = ""
-    r = DataCache.initialise()
-    if r:
-        ret += str(r)
-    r = PageStore.initialise()
-    if r:
-        if len(ret):
-            ret += " - "
-        ret += str(r)
-    r = HeaderStore.initialise()
-    if r:
-        if len(ret):
-            ret += " - "
-        ret += str(r)
-    log.debug("cleanCaches returning %s", ret)
-    return ret
 
 ############# Shared values and times ############
 #### Memcache functions dissabled in test mode ###
@@ -187,7 +170,7 @@ if not getInTestHarness():
         memcache.add(key="SysStart", value=systarttime)
         instance_first = True
         log.info("Detected new code version - resetting memory values %s" % systarttime)
-        cleanmsg = cleanCaches()
+        cleanmsg = CacheControl.clean()
         log.info("Clean count(s): %s" % cleanmsg)
     else:
        systarttime = memcache.get("SysStart")
@@ -373,7 +356,7 @@ class TypeHierarchyTree:
 
 def GetExamples(node, layers='core'):
     """Returns the examples (if any) for some Unit node."""
-    return LoadExamples(node,layers)
+    return LoadNodeExamples(node,layers)
 
 def GetExtMappingsRDFa(node, layers='core'):
     """Self-contained chunk of RDFa HTML markup with mappings for this term."""
@@ -1219,10 +1202,13 @@ class ShowUnit (webapp2.RequestHandler):
 
         self.emitSchemaorgHeaders(node, ext_mappings, sitemode, getSiteName(), layers)
 
-
         cached = PageStore.get(node.id)
+        if "_pageFlush" in getArguments():
+            log.info("Reloading page for %s" % node.id)
+            cached = None
+            
         if (cached != None):
-            log.info("GOT CACHED page for %s", node.id)
+            log.info("GOT CACHED page for %s" % node.id)
             self.response.write(cached)
             return
 
@@ -1365,7 +1351,8 @@ class ShowUnit (webapp2.RequestHandler):
             ]
             self.write("<br/><br/><b><a id=\"examples\">Examples</a></b><br/><br/>\n\n")
             exNum = 0
-            for ex in sorted(examples, key=lambda u: u.orderId):
+            for ex in sorted(examples, key=lambda u: u.keyvalue):
+                
                 if not ex.egmeta["layer"] in layers: #Example defined in extension we are not in
                     continue
                 exNum += 1
@@ -1395,7 +1382,7 @@ class ShowUnit (webapp2.RequestHandler):
 	  ga('create', 'UA-52672119-1', 'auto');ga('send', 'pageview');</script>""")
 
         self.write(" \n\n</div>\n</body>\n</html>")
-
+        
         page = "".join(self.outputStrings)
         PageStore.put(node.id,page)
 
@@ -2275,9 +2262,9 @@ class ShowUnit (webapp2.RequestHandler):
 
         if(node == "_cacheFlush"):
             setmodiftime(datetime.datetime.utcnow()) #Resets etags and modtime
-            counts = cleanCaches()
+            counts = CacheControl.clean(pagesonly=True)
             inf = "<div style=\"clear: both; float: left; text-align: left; font-size: xx-small; color: #888 ; margin: 1em; line-height: 100%;\">"
-            inf +=  counts
+            inf +=  str(counts)
             inf += "</div>"
             self.handle404Failure(node,extrainfo=inf)
             return False

@@ -7,7 +7,7 @@ sys.path.insert( 1, 'lib' ) #Pickup libs, rdflib etc., from shipped lib director
 
 from api import extensionsLoaded, extensionLoadErrors
 from api import setInTestHarness, getInTestHarness
-from api import EXAMPLES, Triple
+from api import EXAMPLESMAP, Triple
 from apimarkdown import Markdown
 
 from google.appengine.ext import deferred 
@@ -49,8 +49,8 @@ class SDOBasicsTestCase(unittest.TestCase):
 
   def test_ExtractedPlausibleNumberOfExamples(self):
 
-    example_count = len(EXAMPLES)
-#    for t in api.EXAMPLES:
+    example_count = len(EXAMPLESMAP)
+#    for t in api.EXAMPLESMAP:
 #        example_count = example_count + len(t)
     log.info("Extracted %s examples." % example_count )
     self.assertTrue(example_count > 300 and example_count < 500, "Expect that we extracted 300 < x < 500 examples from data/*examples.txt. Found: %s " % example_count)
