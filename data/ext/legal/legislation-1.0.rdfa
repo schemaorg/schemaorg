@@ -23,6 +23,17 @@
 <p>
 <span property="schema:softwareVersion">legal.schema.org Version 0.1</span>
 </p>
+
+<!--
+
+42 descriptive properties :
+  - 21 reused directly from core
+  - 2 new suggested in core
+  - 19 new in an extension (4 being subproperties of existing properties)
+
+-->
+
+
 <hr/>
 <h2>Types</h2>
 
@@ -62,6 +73,338 @@
   <span>Source:  <a property="dc:source" href="http://data.europa.eu/eli/ontology#LegalValue">eli:LegalValue</a></span>
   <span>Source:  <a property="dc:source" href="http://publications.europa.eu/mdr/eli/index.html">ELI</a></span>
 </div>
+
+<hr/>
+<h2>Properties</h2>
+
+<div typeof="rdf:Property" resource="http://schema.org/legislationIdentifier">
+	<link property="http://schema.org/isPartOf" href="http://legal.schema.org" />
+	<span class="h" property="rdfs:label">legal:legislationIdentifier</span>
+	<span property="rdfs:comment">An identifier for the legislation. For example the CELEX at EU level, the NOR in France, or the ELI (European Legislation Identifier).</span>
+	<span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Legislation">legal:Legislation</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+  <span>Source:  <a property="dc:source" href="http://data.europa.eu/eli/ontology#id_local">eli:id_local</a></span>
+  <span>Source:  <a property="dc:source" href="http://publications.europa.eu/mdr/eli/index.html">ELI</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/legislationType">
+	<link property="http://schema.org/isPartOf" href="http://legal.schema.org" />
+	<span class="h" property="rdfs:label">legal:legislationType</span>
+	<span property="rdfs:comment">The type of the legislation. Examples of values are "law", "act", "directive", "decree", "regulation", "statutory instrument", "loi organique", "règlement grand-ducal", etc., depending on the country.</span>
+	<link property="rdfs:subPropertyOf" href="http://schema.org/genre" />
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Legislation">legal:Legislation</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+  <span>Source:  <a property="dc:source" href="http://data.europa.eu/eli/ontology#type_document">eli:type_document</a></span>
+  <span>Source:  <a property="dc:source" href="http://publications.europa.eu/mdr/eli/index.html">ELI</a></span>
+  <link property="owl:equivalentProperty" href="http://data.europa.eu/eli/ontology#type_document"/>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/legislationPassedBy">
+	<link property="http://schema.org/isPartOf" href="http://legal.schema.org" />
+	<span class="h" property="rdfs:label">legal:legislationPassedBy</span>
+	<span property="rdfs:comment">The person or organization that originally passed or made the law : typically parliament (for primary legislation) or government (for secondary legislation). This indicates the "legal author" of the law, as opposed to its physical author.</span>
+	<link property="rdfs:subPropertyOf" href="http://schema.org/creator" />
+	<span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Legislation">legal:Legislation</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Organization">Organization</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Person">Person</a></span>
+  <span>Source:  <a property="dc:source" href="http://data.europa.eu/eli/ontology#passed_by">eli:passed_by</a></span>
+  <span>Source:  <a property="dc:source" href="http://publications.europa.eu/mdr/eli/index.html">ELI</a></span>
+  <link property="owl:equivalentProperty" href="http://data.europa.eu/eli/ontology#passed_by"/>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/legislationResponsible">
+	<link property="http://schema.org/isPartOf" href="http://legal.schema.org" />
+	<span class="h" property="rdfs:label">legal:legislationResponsible</span>
+	<span property="rdfs:comment">An individual or organization that has some kind of responsibility for the legislation. Typically the ministry who is/was in charge of elaborating the legislation, or the adressee for potential questions about the legislation once it is published.</span>
+	<span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Legislation">legal:Legislation</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Organization">Organization</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Person">Person</a></span>
+  <span>Source:  <a property="dc:source" href="http://data.europa.eu/eli/ontology#responsibility_of">eli:responsibility_of</a></span>
+  <span>Source:  <a property="dc:source" href="http://publications.europa.eu/mdr/eli/index.html">ELI</a></span>
+  <link property="owl:equivalentProperty" href="http://data.europa.eu/eli/ontology#responsibility_of"/>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/legislationDate">
+	<link property="http://schema.org/isPartOf" href="http://legal.schema.org" />
+	<span class="h" property="rdfs:label">legal:legislationDate</span>
+	<span property="rdfs:comment">The date of adoption or signature of the legislation. This is the date at which the text is officially aknowledged to be a legislation, even though it might not even be published or in force.</span>
+	<link property="rdfs:subPropertyOf" href="http://schema.org/dateCreated" />
+	<span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Legislation">legal:Legislation</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Date">Date</a></span>
+  <span>Source:  <a property="dc:source" href="http://data.europa.eu/eli/ontology#date_document">eli:date_document</a></span>
+  <span>Source:  <a property="dc:source" href="http://publications.europa.eu/mdr/eli/index.html">ELI</a></span>
+  <link property="owl:equivalentProperty" href="http://data.europa.eu/eli/ontology#date_document"/>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/legislationLegalForce">
+	<link property="http://schema.org/isPartOf" href="http://legal.schema.org" />
+	<span class="h" property="rdfs:label">legal:legislationLegalForce</span>
+	<span property="rdfs:comment">Whether the legislation is currently in force, not in force, or partially in force.</span>
+	<span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Legislation">legal:Legislation</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/LegalForceStatus">LegalForceStatus</a></span>
+  <span>Source:  <a property="dc:source" href="http://data.europa.eu/eli/ontology#in_force">eli:in_force</a></span>
+  <span>Source:  <a property="dc:source" href="http://publications.europa.eu/mdr/eli/index.html">ELI</a></span>
+  <link property="owl:equivalentProperty" href="http://data.europa.eu/eli/ontology#in_force"/>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/legislationDateEntryIntoForce">
+	<link property="http://schema.org/isPartOf" href="http://legal.schema.org" />
+	<span class="h" property="rdfs:label">legal:legislationDateEntryIntoForce</span>
+	<span property="rdfs:comment">The first date any part of the legislation came into force (can be seen as the start date of a validity range)</span>
+	<span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Legislation">legal:Legislation</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Date">Date</a></span>
+  <span>Source:  <a property="dc:source" href="http://data.europa.eu/eli/ontology#date_entry_into_force">eli:date_entry_into_force</a></span>
+  <span>Source:  <a property="dc:source" href="http://publications.europa.eu/mdr/eli/index.html">ELI</a></span>
+  <link property="owl:equivalentProperty" href="http://data.europa.eu/eli/ontology#date_entry_into_force"/>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/legislationDateNoLongerInForce">
+	<link property="http://schema.org/isPartOf" href="http://legal.schema.org" />
+	<span class="h" property="rdfs:label">legal:legislationDateNoLongerInForce</span>
+	<span property="rdfs:comment">The last date any part of the legislation cease to be in force (can be seen as the end date of a validity range)</span>
+	<span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Legislation">legal:Legislation</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Date">Date</a></span>
+  <span>Source:  <a property="dc:source" href="http://data.europa.eu/eli/ontology#date_no_longer_in_force">eli:date_no_longer_in_force</a></span>
+  <span>Source:  <a property="dc:source" href="http://publications.europa.eu/mdr/eli/index.html">ELI</a></span>
+  <link property="owl:equivalentProperty" href="http://data.europa.eu/eli/ontology#date_no_longer_in_force"/>
+</div>
+
+<!-- ***** LINKS ***** -->
+
+<div typeof="rdf:Property" resource="http://schema.org/legislationChanges">
+	<link property="http://schema.org/isPartOf" href="http://legal.schema.org" />
+	<span class="h" property="rdfs:label">legal:legislationChanges</span>
+	<span property="rdfs:comment">Another legislation that this legislation changes. This encompasses the notions of amendment, replacement, correction, repeal, or other types of change. This may be a direct change (textual or non-textual amendment) or a consequential or indirect change. The property is to be used to express the existence of a change relationship between two acts rather than the existence of a consolidated version of the text that shows the result of the change. For consolidation relationships, use the &lt;a href=&quot;/legislationConsolidates&quot;&gt;legislationConsolidates&lt;/a&gt; property.</span>
+	<span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Legislation">legal:Legislation</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Legislation">legal:Legislation</a></span>
+  <span>Source:  <a property="dc:source" href="http://data.europa.eu/eli/ontology#changes">eli:changes</a></span>
+  <span>Source:  <a property="dc:source" href="http://publications.europa.eu/mdr/eli/index.html">ELI</a></span>
+	<link property="http://schema.org/inverseOf" href="http://schema.org/legislationChangedBy"/>
+  <link property="owl:equivalentProperty" href="http://data.europa.eu/eli/ontology#changes"/>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/legislationChangedBy">
+	<link property="http://schema.org/isPartOf" href="http://legal.schema.org" />
+	<span class="h" property="rdfs:label">legal:legislationChangedBy</span>
+	<span property="rdfs:comment">Another legislation that changes this legislation. This encompasses the notions of amendment, replacement, correction, repeal, or other types of change. This may be a direct change (textual or non-textual amendment) or a consequential or indirect change. The property is to be used to express the existence of a change relationship between two acts rather than the existence of a consolidated version of the text that shows the result of the change. For consolidation relationships, use the &lt;a href=&quot;/legislationConsolidatedBy&quot;&gt;legislationConsolidatedBy&lt;/a&gt; property.</span>
+	<span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Legislation">legal:Legislation</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Legislation">legal:Legislation</a></span>
+  <span>Source:  <a property="dc:source" href="http://data.europa.eu/eli/ontology#changed_by">eli:changed_by</a></span>
+  <span>Source:  <a property="dc:source" href="http://publications.europa.eu/mdr/eli/index.html">ELI</a></span>
+	<link property="http://schema.org/inverseOf" href="http://schema.org/legislationChanges"/>
+  <link property="owl:equivalentProperty" href="http://data.europa.eu/eli/ontology#changed_by"/>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/legislationConsolidates">
+	<link property="http://schema.org/isPartOf" href="http://legal.schema.org" />
+	<span class="h" property="rdfs:label">legal:legislationConsolidates</span>
+	<span property="rdfs:comment">Indicates another legislation taken into account in this consolidated legislation (which is usually the product of an editorial process that revises the legislation). This property should be used multiple times to refer to both the original version or the previous consolidated version, and to the legislations making the change.</span>
+	<span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Legislation">legal:Legislation</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Legislation">legal:Legislation</a></span>
+  <span>Source:  <a property="dc:source" href="http://data.europa.eu/eli/ontology#consolidates">eli:consolidates</a></span>
+  <span>Source:  <a property="dc:source" href="http://publications.europa.eu/mdr/eli/index.html">ELI</a></span>
+	<link property="http://schema.org/inverseOf" href="http://schema.org/legislationConsolidatedBy"/>
+  <link property="owl:equivalentProperty" href="http://data.europa.eu/eli/ontology#consolidates"/>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/legislationConsolidatedBy">
+	<link property="http://schema.org/isPartOf" href="http://legal.schema.org" />
+	<span class="h" property="rdfs:label">legal:legislationConsolidatedBy</span>
+	<span property="rdfs:comment">Indicates a consolidated legislation (which is usually the product of an editorial process that revises the legislation) that take into account this legislation.</span>
+	<span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Legislation">legal:Legislation</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Legislation">legal:Legislation</a></span>
+  <span>Source:  <a property="dc:source" href="http://data.europa.eu/eli/ontology#consolidated_by">eli:consolidated_by</a></span>
+  <span>Source:  <a property="dc:source" href="http://publications.europa.eu/mdr/eli/index.html">ELI</a></span>
+	<link property="http://schema.org/inverseOf" href="http://schema.org/legislationConsolidates"/>
+  <link property="owl:equivalentProperty" href="http://data.europa.eu/eli/ontology#consolidated_by"/>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/legislationTransposes">
+	<link property="http://schema.org/isPartOf" href="http://legal.schema.org" />
+	<span class="h" property="rdfs:label">legal:legislationTransposes</span>
+	<span property="rdfs:comment">Indicates that this legislation (or part of legislation) fulfills the objectives set by another legislation, by passing appropriate implementation measures. Typically, some legislations of European Union's member states or regions transpose European Directives. This indicates a legally binding link between the 2 legislations.</span>
+	<link property="rdfs:subPropertyOf" href="http://schema.org/legislationApplies" />
+	<span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Legislation">legal:Legislation</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Legislation">legal:Legislation</a></span>
+  <span>Source:  <a property="dc:source" href="http://data.europa.eu/eli/ontology#transposes">eli:transposes</a></span>
+  <span>Source:  <a property="dc:source" href="http://publications.europa.eu/mdr/eli/index.html">ELI</a></span>
+	<link property="http://schema.org/inverseOf" href="http://schema.org/legislationTransposedBy"/>
+  <link property="owl:equivalentProperty" href="http://data.europa.eu/eli/ontology#transposes"/>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/legislationTransposedBy">
+	<link property="http://schema.org/isPartOf" href="http://legal.schema.org" />
+	<span class="h" property="rdfs:label">legal:legislationTransposedBy</span>
+	<span property="rdfs:comment">Indicates that the objectives set by this legislation (or part of legislation) are fulfilled by another legislation who passed appropriate implementation measures. Typically, European Directives are transposed by the legislations of European Union's member states or regions. This indicates a legally binding link between the 2 legislations.</span>
+	<link property="rdfs:subPropertyOf" href="http://schema.org/legislationAppliedBy" />
+	<span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Legislation">legal:Legislation</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Legislation">legal:Legislation</a></span>
+  <span>Source:  <a property="dc:source" href="http://data.europa.eu/eli/ontology#transposed_by">eli:transposed_by</a></span>
+  <span>Source:  <a property="dc:source" href="http://publications.europa.eu/mdr/eli/index.html">ELI</a></span>
+	<link property="http://schema.org/inverseOf" href="http://schema.org/legislationTransposes"/>
+  <link property="owl:equivalentProperty" href="http://data.europa.eu/eli/ontology#transposed_by"/>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/legislationApplies">
+	<link property="http://schema.org/isPartOf" href="http://legal.schema.org" />
+	<span class="h" property="rdfs:label">legal:legislationApplies</span>
+	<span property="rdfs:comment">Indicates that this legislation (or part of a legislation) somehow transfers another legislation in a different legislative context. This is an informative link, and it has no legal value. For legally-binding links of transposition, use the &lt;a href=&quot;/legislationTransposes&quot;&gt;legislationTransposes&lt;/a&gt; property. For example an informative consolidated law of a European Union's member state "applies" the consolidated version of the European Directive implemented in it.</span>
+	<span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Legislation">legal:Legislation</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Legislation">legal:Legislation</a></span>
+  <span>Source:  <a property="dc:source" href="http://data.europa.eu/eli/ontology#implements">eli:implements</a></span>
+  <span>Source:  <a property="dc:source" href="http://publications.europa.eu/mdr/eli/index.html">ELI</a></span>
+	<link property="http://schema.org/inverseOf" href="http://schema.org/legislationAppliedBy"/>
+  <link property="owl:equivalentProperty" href="http://data.europa.eu/eli/ontology#implements"/>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/legislationAppliedBy">
+	<link property="http://schema.org/isPartOf" href="http://legal.schema.org" />
+	<span class="h" property="rdfs:label">legal:legislationAppliedBy</span>
+	<span property="rdfs:comment">Indicates that this legislation (or part of a legislation) is somehow transfered by another legislation in a different legislative context. This is an informative link, and it has no legal value. For legally-binding links of transposition, use the property &lt;a href=&quot;/legislationTransposedBy&quot;&gt;legislationTransposedBy&lt;/a&gt;. For example the informative consolidated version of the European Directive is somehow "applied by" an informative consolidated law in a European Union's member state.</span>
+	<span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Legislation">legal:Legislation</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Legislation">legal:Legislation</a></span>
+  <span>Source:  <a property="dc:source" href="http://data.europa.eu/eli/ontology#implemented_by">eli:implemented_by</a></span>
+  <span>Source:  <a property="dc:source" href="http://publications.europa.eu/mdr/eli/index.html">ELI</a></span>
+	<link property="http://schema.org/inverseOf" href="http://schema.org/legislationApplies"/>
+  <link property="owl:equivalentProperty" href="http://data.europa.eu/eli/ontology#implemented_by"/>
+</div>
+
+
+<!-- ***** END LINKS ***** -->
+
+<div typeof="rdf:Property" resource="http://schema.org/legislationPublishedIn">
+  <link property="http://schema.org/isPartOf" href="http://legal.schema.org" />
+  <span class="h" property="rdfs:label">legal:legislationPublishedIn</span>
+  <span property="rdfs:comment">A reference to the Official Journal or other publication in which this legislation was originally published.</span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Legislation">legal:Legislation</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/PublicationIssue">PublicationIssue</a></span>
+  <link property="rdfs:subPropertyOf" href="http://schema.org/partOf" />
+  <span>Source:  <a property="dc:source" href="http://data.europa.eu/eli/ontology#published_in">eli:published_in</a></span>
+  <span>Source:  <a property="dc:source" href="http://publications.europa.eu/mdr/eli/index.html">ELI</a></span>
+  <link property="owl:equivalentProperty" href="http://data.europa.eu/eli/ontology#published_in"/>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/legislationDateVersion">
+	<link property="http://schema.org/isPartOf" href="http://legal.schema.org" />
+	<span class="h" property="rdfs:label">legal:legislationDateVersion</span>
+	<span property="rdfs:comment">The point-in-time at which the provided description of the legislation is valid (e.g. : when looking at the law on the 2016-04-07 (= dateVersion), I get the consolidation of 2015-04-12 of the "National Insurance Contributions Act 2015")</span>
+	<span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Legislation">legal:Legislation</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Date">Date</a></span>
+  <span>Source:  <a property="dc:source" href="http://data.europa.eu/eli/ontology#version_date">eli:version_date</a></span>
+  <span>Source:  <a property="dc:source" href="http://publications.europa.eu/mdr/eli/index.html">ELI</a></span>
+  <link property="owl:equivalentProperty" href="http://data.europa.eu/eli/ontology#version_date"/>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/legislationLegalValue">
+	<link property="http://schema.org/isPartOf" href="http://legal.schema.org" />
+	<span class="h" property="rdfs:label">legal:legislationLegalValue</span>
+	<span property="rdfs:comment">The legal value of this legislation file. The same legislation can be written in multiple files with different legal values. Typically a digitally signed PDF have a "stronger" legal value than the HTML file of the same act.</span>
+	<span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/LegislationObject">legal:LegislationObject</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/LegalValueLevel">legal:LegalValueLevel</a></span>
+  <span>Source:  <a property="dc:source" href="http://data.europa.eu/eli/ontology#legal_value">eli:legal_value</a></span>
+  <span>Source:  <a property="dc:source" href="http://publications.europa.eu/mdr/eli/index.html">ELI</a></span>
+  <link property="owl:equivalentProperty" href="http://data.europa.eu/eli/ontology#legal_value"/>
+</div>
+
+<hr/>
+<h2>Repeating domains of reused properties</h2>
+
+<div typeof="rdf:Property" resource="http://schema.org/isPartOf">
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Legislation">legal:Legislation</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/hasPart">
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Legislation">legal:Legislation</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/workExample">
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Legislation">legal:Legislation</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/exampleOfWork">
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Legislation">legal:Legislation</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/encoding">
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Legislation">legal:Legislation</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/encodesCreativeWork">
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/LegislationObject">legal:LegislationObject</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/encoding">
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Legislation">legal:Legislation</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/spatialCoverage">
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Legislation">legal:Legislation</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/about">
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Legislation">legal:Legislation</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/datePublished">
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Legislation">legal:Legislation</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/isBasedOn">
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Legislation">legal:Legislation</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/isBasisFor">
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Legislation">legal:Legislation</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/citation">
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Legislation">legal:Legislation</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/citedBy">
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Legislation">legal:Legislation</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/inLanguage">
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Legislation">legal:Legislation</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/name">
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Legislation">legal:Legislation</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/alternateName">
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Legislation">legal:Legislation</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/description">
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Legislation">legal:Legislation</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/contentUrl">
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/LegislationObject">legal:LegislationObject</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/publisher">
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Legislation">legal:Legislation</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/encodingFormat">
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/LegislationObject">legal:LegislationObject</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/version">
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Legislation">legal:Legislation</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/copyrightHolder">
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Legislation">legal:Legislation</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/license">
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Legislation">legal:Legislation</a></span>
+</div>
+
 
 <hr/>
 <h2>Enumeration Members</h2>
@@ -128,284 +471,7 @@
 </div>
 
 
-<hr/>
-<h2>Properties</h2>
-
-<div typeof="rdf:Property" resource="http://schema.org/legislationIdentifier">
-	<link property="http://schema.org/isPartOf" href="http://legal.schema.org" />
-	<span class="h" property="rdfs:label">legal:legislationIdentifier</span>
-	<span property="rdfs:comment">An identifier for the legislation. For example the CELEX at EU level, the NOR in France, or the ELI (European Legislation Identifier).</span>
-	<span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Legislation">legal:Legislation</a></span>
-  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
-  <span>Source:  <a property="dc:source" href="http://data.europa.eu/eli/ontology#id_local">eli:id_local</a></span>
-  <span>Source:  <a property="dc:source" href="http://publications.europa.eu/mdr/eli/index.html">ELI</a></span>
-</div>
-
-<div typeof="rdf:Property" resource="http://schema.org/legislationType">
-	<link property="http://schema.org/isPartOf" href="http://legal.schema.org" />
-	<span class="h" property="rdfs:label">legal:legislationType</span>
-	<span property="rdfs:comment">The type of the legislation. Examples of values are "law", "act", "directive", "decree", "regulation", "statutory instrument", "loi organique", "règlement grand-ducal", etc., depending on the country.</span>
-	<span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Legislation">legal:Legislation</a></span>
-  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
-  <span>Source:  <a property="dc:source" href="http://data.europa.eu/eli/ontology#type_document">eli:type_document</a></span>
-  <span>Source:  <a property="dc:source" href="http://publications.europa.eu/mdr/eli/index.html">ELI</a></span>
-</div>
-
-<div typeof="rdf:Property" resource="http://schema.org/relevantArea">
-	<link property="http://schema.org/isPartOf" href="http://legal.schema.org" />
-	<span class="h" property="rdfs:label">legal:relevantArea</span>
-	<span property="rdfs:comment">A place or area associated with the legislation. This covers the notions of jurisdiction, sovereignty, applicability or administrative area.</span>
-	<span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Legislation">legal:Legislation</a></span>
-  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Place">Place</a></span>
-  <span>Source:  <a property="dc:source" href="http://data.europa.eu/eli/ontology#relevant_for">eli:relevant_for</a></span>
-  <span>Source:  <a property="dc:source" href="http://publications.europa.eu/mdr/eli/index.html">ELI</a></span>
-</div>
-
-<div typeof="rdf:Property" resource="http://schema.org/passedBy">
-	<link property="http://schema.org/isPartOf" href="http://legal.schema.org" />
-	<span class="h" property="rdfs:label">legal:passedBy</span>
-	<span property="rdfs:comment">The person or organization that originally passed or made the law : typically parliament (for primary legislation) or government (for secondary legislation). This indicates the "legal author" of the law, as opposed to its physical author.</span>
-	<link property="rdfs:subPropertyOf" href="http://schema.org/creator" />
-	<span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Legislation">legal:Legislation</a></span>
-  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Organization">Organization</a></span>
-  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Person">Person</a></span>
-  <span>Source:  <a property="dc:source" href="http://data.europa.eu/eli/ontology#passed_by">eli:passed_by</a></span>
-  <span>Source:  <a property="dc:source" href="http://publications.europa.eu/mdr/eli/index.html">ELI</a></span>
-</div>
-
-<div typeof="rdf:Property" resource="http://schema.org/responsibilityOf">
-	<link property="http://schema.org/isPartOf" href="http://legal.schema.org" />
-	<span class="h" property="rdfs:label">legal:responsibilityOf</span>
-	<span property="rdfs:comment">An individual or organization that has some kind of responsibility for the legislation. Typically the ministry who is/was in charge of elaborating the legislation, or the adressee for potential questions about the legislation once it is published.</span>
-	<span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Legislation">legal:Legislation</a></span>
-  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Organization">Organization</a></span>
-  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Person">Person</a></span>
-  <span>Source:  <a property="dc:source" href="http://data.europa.eu/eli/ontology#responsibility_of">eli:responsibility_of</a></span>
-  <span>Source:  <a property="dc:source" href="http://publications.europa.eu/mdr/eli/index.html">ELI</a></span>
-</div>
-
-<div typeof="rdf:Property" resource="http://schema.org/dateLegislation">
-	<link property="http://schema.org/isPartOf" href="http://legal.schema.org" />
-	<span class="h" property="rdfs:label">legal:dateLegislation</span>
-	<span property="rdfs:comment">The date of adoption or signature of the legislation. This is the date at which the text is officially aknowledged to be a legislation, even though it might not even be published or in force.</span>
-	<link property="rdfs:subPropertyOf" href="http://schema.org/dateCreated" />
-	<span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Legislation">legal:Legislation</a></span>
-  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Date">Date</a></span>
-  <span>Source:  <a property="dc:source" href="http://data.europa.eu/eli/ontology#date_document">eli:date_document</a></span>
-  <span>Source:  <a property="dc:source" href="http://publications.europa.eu/mdr/eli/index.html">ELI</a></span>
-</div>
-
-<div typeof="rdf:Property" resource="http://schema.org/legalForce">
-	<link property="http://schema.org/isPartOf" href="http://legal.schema.org" />
-	<span class="h" property="rdfs:label">legal:legalForce</span>
-	<span property="rdfs:comment">Whether the legislation is currently in force, not in force, or partially in force.</span>
-	<span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Legislation">legal:Legislation</a></span>
-  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/LegalForceStatus">LegalForceStatus</a></span>
-  <span>Source:  <a property="dc:source" href="http://data.europa.eu/eli/ontology#in_force">eli:in_force</a></span>
-  <span>Source:  <a property="dc:source" href="http://publications.europa.eu/mdr/eli/index.html">ELI</a></span>
-</div>
-
-<div typeof="rdf:Property" resource="http://schema.org/dateEntryIntoForce">
-	<link property="http://schema.org/isPartOf" href="http://legal.schema.org" />
-	<span class="h" property="rdfs:label">legal:dateEntryIntoForce</span>
-	<span property="rdfs:comment">The first date any part of the legislation came into force (can be seen as the start date of a validity range)</span>
-	<span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Legislation">legal:Legislation</a></span>
-  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Date">Date</a></span>
-  <span>Source:  <a property="dc:source" href="http://data.europa.eu/eli/ontology#date_entry_into_force">eli:date_entry_into_force</a></span>
-  <span>Source:  <a property="dc:source" href="http://publications.europa.eu/mdr/eli/index.html">ELI</a></span>
-</div>
-
-<div typeof="rdf:Property" resource="http://schema.org/dateNoLongerInForce">
-	<link property="http://schema.org/isPartOf" href="http://legal.schema.org" />
-	<span class="h" property="rdfs:label">legal:dateNoLongerInForce</span>
-	<span property="rdfs:comment">The last date any part of the legislation cease to be in force (can be seen as the end date of a validity range)</span>
-	<span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Legislation">legal:Legislation</a></span>
-  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Date">Date</a></span>
-  <span>Source:  <a property="dc:source" href="http://data.europa.eu/eli/ontology#date_no_longer_in_force">eli:date_no_longer_in_force</a></span>
-  <span>Source:  <a property="dc:source" href="http://publications.europa.eu/mdr/eli/index.html">ELI</a></span>
-</div>
-
-<!-- ***** LINKS ***** -->
-
-<div typeof="rdf:Property" resource="http://schema.org/changes">
-	<link property="http://schema.org/isPartOf" href="http://legal.schema.org" />
-	<span class="h" property="rdfs:label">legal:changes</span>
-	<span property="rdfs:comment">Another legislation that this legislation changes. This encompasses the notions of amendment, replacement, correction, repeal, or other types of change. This may be a direct change (textual or non-textual amendment) or a consequential or indirect change. The property is to be used to express the existence of a change relationship between two acts rather than the existence of a consolidated version of the text that shows the result of the change. For consolidation relationships, use the &lt;a href=&quot;/consolidates&quot;&gt;consolidates&lt;/a&gt; property.</span>
-	<span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Legislation">legal:Legislation</a></span>
-  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Legislation">legal:Legislation</a></span>
-  <span>Source:  <a property="dc:source" href="http://data.europa.eu/eli/ontology#changes">eli:changes</a></span>
-  <span>Source:  <a property="dc:source" href="http://publications.europa.eu/mdr/eli/index.html">ELI</a></span>
-	<link property="http://schema.org/inverseOf" href="http://schema.org/changedBy"/>
-</div>
-
-<div typeof="rdf:Property" resource="http://schema.org/changedBy">
-	<link property="http://schema.org/isPartOf" href="http://legal.schema.org" />
-	<span class="h" property="rdfs:label">legal:changedBy</span>
-	<span property="rdfs:comment">Another legislation that changes this legislation. This encompasses the notions of amendment, replacement, correction, repeal, or other types of change. This may be a direct change (textual or non-textual amendment) or a consequential or indirect change. The property is to be used to express the existence of a change relationship between two acts rather than the existence of a consolidated version of the text that shows the result of the change. For consolidation relationships, use the &lt;a href=&quot;/consolidatedBy&quot;&gt;consolidatedBy&lt;/a&gt; property.</span>
-	<span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Legislation">legal:Legislation</a></span>
-  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Legislation">legal:Legislation</a></span>
-  <span>Source:  <a property="dc:source" href="http://data.europa.eu/eli/ontology#changes">eli:changed_by</a></span>
-  <span>Source:  <a property="dc:source" href="http://publications.europa.eu/mdr/eli/index.html">ELI</a></span>
-	<link property="http://schema.org/inverseOf" href="http://schema.org/changes"/>
-</div>
-
-<div typeof="rdf:Property" resource="http://schema.org/basisFor">
-	<link property="http://schema.org/isPartOf" href="http://legal.schema.org" />
-	<span class="h" property="rdfs:label">legal:basisFor</span>
-	<span property="rdfs:comment">Indicates another legislation empowered by this legislation. Typically primary legislation is the basis for secondary legislation.</span>
-	<span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Legislation">legal:Legislation</a></span>
-  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Legislation">legal:Legislation</a></span>
-  <span>Source:  <a property="dc:source" href="http://data.europa.eu/eli/ontology#basis_for">eli:basis_for</a></span>
-  <span>Source:  <a property="dc:source" href="http://publications.europa.eu/mdr/eli/index.html">ELI</a></span>
-	<link property="http://schema.org/inverseOf" href="http://schema.org/basedOn"/>
-</div>
-
-<div typeof="rdf:Property" resource="http://schema.org/basedOn">
-	<link property="http://schema.org/isPartOf" href="http://legal.schema.org" />
-	<span class="h" property="rdfs:label">legal:basedOn</span>
-	<span property="rdfs:comment">Indicates another legislation on which this one is based : typically a constitution, a treaty or an enabling act, that empowers this legislation.</span>
-  <link property="rdfs:subPropertyOf" href="http://schema.org/isBasedOn" />
-	<span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Legislation">legal:Legislation</a></span>
-  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Legislation">legal:Legislation</a></span>
-  <span>Source:  <a property="dc:source" href="http://data.europa.eu/eli/ontology#based_on">eli:based_for</a></span>
-  <span>Source:  <a property="dc:source" href="http://publications.europa.eu/mdr/eli/index.html">ELI</a></span>
-	<link property="http://schema.org/inverseOf" href="http://schema.org/basisFor"/>
-</div>
-
-<div typeof="rdf:Property" resource="http://schema.org/cites">
-	<link property="http://schema.org/isPartOf" href="http://legal.schema.org" />
-	<span class="h" property="rdfs:label">legal:cites</span>
-	<span property="rdfs:comment">Indicates another legislation that this legislation cites in its text. This includes verbatim citation and citations in referrals.</span>
-	<link property="rdfs:subPropertyOf" href="http://schema.org/citation" />
-	<span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Legislation">legal:Legislation</a></span>
-  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Legislation">legal:Legislation</a></span>
-  <span>Source:  <a property="dc:source" href="http://data.europa.eu/eli/ontology#cites">eli:cites</a></span>
-  <span>Source:  <a property="dc:source" href="http://publications.europa.eu/mdr/eli/index.html">ELI</a></span>
-	<link property="http://schema.org/inverseOf" href="http://schema.org/citedBy"/>
-</div>
-
-<div typeof="rdf:Property" resource="http://schema.org/citedBy">
-	<link property="http://schema.org/isPartOf" href="http://legal.schema.org" />
-	<span class="h" property="rdfs:label">legal:citedBy</span>
-	<span property="rdfs:comment">Indicates another legislation that cites this one. This includes verbatim citation and citations in referrals.</span>
-	<span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Legislation">legal:Legislation</a></span>
-  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Legislation">legal:Legislation</a></span>
-  <span>Source:  <a property="dc:source" href="http://data.europa.eu/eli/ontology#cited_by">eli:cited_by</a></span>
-  <span>Source:  <a property="dc:source" href="http://publications.europa.eu/mdr/eli/index.html">ELI</a></span>
-	<link property="http://schema.org/inverseOf" href="http://schema.org/cites"/>
-</div>
-
-<div typeof="rdf:Property" resource="http://schema.org/consolidates">
-	<link property="http://schema.org/isPartOf" href="http://legal.schema.org" />
-	<span class="h" property="rdfs:label">legal:consolidates</span>
-	<span property="rdfs:comment">Indicates another legislation taken into account in this consolidated legislation (which is usually the product of an editorial process that revises the legislation). This property should be used multiple times to refer to both the original version or the previous consolidated version, and to the legislations making the change.</span>
-	<span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Legislation">legal:Legislation</a></span>
-  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Legislation">legal:Legislation</a></span>
-  <span>Source:  <a property="dc:source" href="http://data.europa.eu/eli/ontology#consolidates">eli:consolidates</a></span>
-  <span>Source:  <a property="dc:source" href="http://publications.europa.eu/mdr/eli/index.html">ELI</a></span>
-	<link property="http://schema.org/inverseOf" href="http://schema.org/consolidatedBy"/>
-</div>
-
-<div typeof="rdf:Property" resource="http://schema.org/consolidatedBy">
-	<link property="http://schema.org/isPartOf" href="http://legal.schema.org" />
-	<span class="h" property="rdfs:label">legal:consolidatedBy</span>
-	<span property="rdfs:comment">Indicates a consolidated legislation (which is usually the product of an editorial process that revises the legislation) that take into account this legislation.</span>
-	<span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Legislation">legal:Legislation</a></span>
-  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Legislation">legal:Legislation</a></span>
-  <span>Source:  <a property="dc:source" href="http://data.europa.eu/eli/ontology#consolidated_by">eli:consolidated_by</a></span>
-  <span>Source:  <a property="dc:source" href="http://publications.europa.eu/mdr/eli/index.html">ELI</a></span>
-	<link property="http://schema.org/inverseOf" href="http://schema.org/consolidates"/>
-</div>
-
-<div typeof="rdf:Property" resource="http://schema.org/transposes">
-	<link property="http://schema.org/isPartOf" href="http://legal.schema.org" />
-	<span class="h" property="rdfs:label">legal:transposes</span>
-	<span property="rdfs:comment">Indicates that this legislation (or part of legislation) fulfills the objectives set by another legislation, by passing appropriate implementation measures. Typically, some legislations of European Union's member states or regions transpose European Directives. This indicates a legally binding link between the 2 legislations.</span>
-	<link property="rdfs:subPropertyOf" href="http://schema.org/applies" />
-	<span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Legislation">legal:Legislation</a></span>
-  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Legislation">legal:Legislation</a></span>
-  <span>Source:  <a property="dc:source" href="http://data.europa.eu/eli/ontology#transposes">eli:transposes</a></span>
-  <span>Source:  <a property="dc:source" href="http://publications.europa.eu/mdr/eli/index.html">ELI</a></span>
-	<link property="http://schema.org/inverseOf" href="http://schema.org/transposedBy"/>
-</div>
-
-<div typeof="rdf:Property" resource="http://schema.org/transposedBy">
-	<link property="http://schema.org/isPartOf" href="http://legal.schema.org" />
-	<span class="h" property="rdfs:label">legal:transposedBy</span>
-	<span property="rdfs:comment">Indicates that the objectives set by this legislation (or part of legislation) are fulfilled by another legislation who passed appropriate implementation measures. Typically, European Directives are transposed by the legislations of European Union's member states or regions. This indicates a legally binding link between the 2 legislations.</span>
-	<link property="rdfs:subPropertyOf" href="http://schema.org/appliedBy" />
-	<span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Legislation">legal:Legislation</a></span>
-  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Legislation">legal:Legislation</a></span>
-  <span>Source:  <a property="dc:source" href="http://data.europa.eu/eli/ontology#transposed_by">eli:transposed_by</a></span>
-  <span>Source:  <a property="dc:source" href="http://publications.europa.eu/mdr/eli/index.html">ELI</a></span>
-	<link property="http://schema.org/inverseOf" href="http://schema.org/transposes"/>
-</div>
-
-<div typeof="rdf:Property" resource="http://schema.org/applies">
-	<link property="http://schema.org/isPartOf" href="http://legal.schema.org" />
-	<span class="h" property="rdfs:label">legal:applies</span>
-	<span property="rdfs:comment">Indicates that this legislation (or part of a legislation) somehow transfers another legislation in a different legislative context. This is an informative link, and it has no legal value. For legally-binding links of transposition, use the &lt;a href=&quot;/transposes&quot;&gt;transposes&lt;/a&gt; property. For example an informative consolidated law of a European Union's member state "applies" the consolidated version of the European Directive implemented in it.</span>
-	<span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Legislation">legal:Legislation</a></span>
-  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Legislation">legal:Legislation</a></span>
-  <span>Source:  <a property="dc:source" href="http://data.europa.eu/eli/ontology#implements">eli:implements</a></span>
-  <span>Source:  <a property="dc:source" href="http://publications.europa.eu/mdr/eli/index.html">ELI</a></span>
-	<link property="http://schema.org/inverseOf" href="http://schema.org/appliedBy"/>
-</div>
-
-<div typeof="rdf:Property" resource="http://schema.org/appliedBy">
-	<link property="http://schema.org/isPartOf" href="http://legal.schema.org" />
-	<span class="h" property="rdfs:label">legal:appliedBy</span>
-	<span property="rdfs:comment">Indicates that this legislation (or part of a legislation) is somehow transfered by another legislation in a different legislative context. This is an informative link, and it has no legal value. For legally-binding links of transposition, use the property &lt;a href=&quot;/transposedBy&quot;&gt;transposedBy&lt;/a&gt;. For example the informative consolidated version of the European Directive is somehow "applied by" an informative consolidated law in a European Union's member state.</span>
-	<span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Legislation">legal:Legislation</a></span>
-  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Legislation">legal:Legislation</a></span>
-  <span>Source:  <a property="dc:source" href="http://data.europa.eu/eli/ontology#implemented_by">eli:implemented_by</a></span>
-  <span>Source:  <a property="dc:source" href="http://publications.europa.eu/mdr/eli/index.html">ELI</a></span>
-	<link property="http://schema.org/inverseOf" href="http://schema.org/applies"/>
-</div>
-
-
-<!-- ***** END LINKS ***** -->
-
-<div typeof="rdf:Property" resource="http://schema.org/publishedIn">
-  <link property="http://schema.org/isPartOf" href="http://legal.schema.org" />
-  <span class="h" property="rdfs:label">legal:publishedIn</span>
-  <span property="rdfs:comment">A reference to the Official Journal or other publication in which this legislation was originally published.</span>
-  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Legislation">legal:Legislation</a></span>
-  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/PublicationIssue">PublicationIssue</a></span>
-  <span>Source:  <a property="dc:source" href="http://data.europa.eu/eli/ontology#published_in">eli:published_in</a></span>
-  <span>Source:  <a property="dc:source" href="http://publications.europa.eu/mdr/eli/index.html">ELI</a></span>
-</div>
-
-<div typeof="rdf:Property" resource="http://schema.org/legislationVersion">
-	<link property="http://schema.org/isPartOf" href="http://legal.schema.org" />
-	<span class="h" property="rdfs:label">legal:legislationVersion</span>
-	<span property="rdfs:comment">An indication of the version of this legislation. Example of values can be "published in official journal", "made", "consolidated", "proposed", "prospective", "draft", etc., depending on the country.</span>
-	<span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Legislation">legal:Legislation</a></span>
-  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
-  <span>Source:  <a property="dc:source" href="http://data.europa.eu/eli/ontology#version">eli:version</a></span>
-  <span>Source:  <a property="dc:source" href="http://publications.europa.eu/mdr/eli/index.html">ELI</a></span>
-</div>
-
-<div typeof="rdf:Property" resource="http://schema.org/dateVersion">
-	<link property="http://schema.org/isPartOf" href="http://legal.schema.org" />
-	<span class="h" property="rdfs:label">legal:dateVersion</span>
-	<span property="rdfs:comment">The point-in-time at which the provided description of the legislation is valid (e.g. : when looking at the law on the 2016-04-07 (= dateVersion), I get the consolidation of 2015-04-12 of the "National Insurance Contributions Act 2015")</span>
-	<span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Legislation">legal:Legislation</a></span>
-  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Date">Date</a></span>
-  <span>Source:  <a property="dc:source" href="http://data.europa.eu/eli/ontology#version_date">eli:version_date</a></span>
-  <span>Source:  <a property="dc:source" href="http://publications.europa.eu/mdr/eli/index.html">ELI</a></span>
-</div>
-
-<div typeof="rdf:Property" resource="http://schema.org/legalValue">
-	<link property="http://schema.org/isPartOf" href="http://legal.schema.org" />
-	<span class="h" property="rdfs:label">legal:legalValue</span>
-	<span property="rdfs:comment">The legal value of this legislation file. The same legislation can be written in multiple files with different legal values. Typically a digitally signed PDF have a "stronger" legal value than the HTML file of the same act.</span>
-	<span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/LegislationObject">legal:LegislationObject</a></span>
-  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/LegalValueLevel">legal:LegalValueLevel</a></span>
-  <span>Source:  <a property="dc:source" href="http://data.europa.eu/eli/ontology#legal_value">eli:legal_value</a></span>
-  <span>Source:  <a property="dc:source" href="http://publications.europa.eu/mdr/eli/index.html">ELI</a></span>
-</div>
-
+<!-- ***** Source Organization ***** -->
 
 <div typeof="http://schema.org/Organization" resource="http://publications.europa.eu/mdr/eli/index.html">
   <span property="rdfs:label">ELI</span>

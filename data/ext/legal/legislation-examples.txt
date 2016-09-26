@@ -40,6 +40,12 @@ PRE-MARKUP:
     </ul>
   </div>
   <div>
+    Basis for :
+    <ul>
+      <li><a href="12345Z999.html">12345Z999</a></li>
+    </ul>
+  </div>
+  <div>
     All consolidated versions :
     <ul>
       <li><a href="31980L0181-20090527.html">Version of 27/05/2009</a></li>
@@ -56,9 +62,9 @@ MICRODATA:
   <ul>
     <li>Number : <span itemprop="http://schema.org/legislationIdentifier">80/181/EEC</span></li>
     <li>Form : <span itemprop="http://schema.org/legislationType">Directive</span></li>
-    <li>Author : <span itemprop="http://schema.org/passedBy">Council of the European Union</span></li>
-    <li>Date of document : <span itemprop="http://schema.org/dateLegislation" content="1979-12-20">20/12/1979</span></li>
-    <li>Date of effect : <span itemprop="http://schema.org/dateEntryIntoForce" content="1979-12-21">21/12/1979</span></li>
+    <li>Author : <span itemprop="http://schema.org/legislationPassedBy">Council of the European Union</span></li>
+    <li>Date of document : <span itemprop="http://schema.org/legislationDate" content="1979-12-20">20/12/1979</span></li>
+    <li>Date of effect : <span itemprop="http://schema.org/legislationDateEntryIntoForce" content="1979-12-21">21/12/1979</span></li>
     <link itemprop="http://schema.org/legalForce" href="http://schema.org/InForce" />
     <li>Currently in force ? YES</li>
   </ul>
@@ -72,27 +78,33 @@ MICRODATA:
   <div>
     Amendment to :
     <ul>
-      <li><a itemprop="http://schema.org/changes" itemtype="http://schema.org/Legislation" href="31971L0354.html">31971L0354</a></li>
+      <li><a itemprop="http://schema.org/legislationChanges" itemtype="http://schema.org/Legislation" href="31971L0354.html">31971L0354</a></li>
     </ul>
   </div>
   <div>
     Amended by :
     <ul>
-      <li><a itemprop="http://schema.org/changedBy" itemtype="http://schema.org/Legislation" href="31980L0181R%2801%29.html">31980L0181R(01)</a></li>
-      <li><a itemprop="http://schema.org/changedBy" itemtype="http://schema.org/Legislation" href="31980L0181R%2802%29.html">31980L0181R(02)</a></li>
+      <li><a itemprop="http://schema.org/legislationChangedBy" itemtype="http://schema.org/Legislation" href="31980L0181R%2801%29.html">31980L0181R(01)</a></li>
+      <li><a itemprop="http://schema.org/legislationChangedBy" itemtype="http://schema.org/Legislation" href="31980L0181R%2802%29.html">31980L0181R(02)</a></li>
     </ul>
   </div>
   <div>
     Legal basis :
     <ul>
-      <li><a itemprop="http://schema.org/basedOn" itemtype="http://schema.org/Legislation" href="11957E100.html">11957E100</a></li>
+      <li><a itemprop="http://schema.org/isBasedOn" itemtype="http://schema.org/Legislation" href="11957E100.html">11957E100</a></li>
+    </ul>
+  </div>
+  <div>
+    Basis for :
+    <ul>
+      <li><a itemprop="http://schema.org/isBasisFor" itemtype="http://schema.org/Legislation" href="12345Z999.html">12345Z999</a></li>
     </ul>
   </div>
   <div>
     All consolidated versions :
     <ul>
-      <li><a itemprop="http://schema.org/consolidatedBy" itemtype="http://schema.org/Legislation" href="31980L0181-20090527.html">Version of 27/05/2009</a></li>
-      <li><a itemprop="http://schema.org/consolidatedBy" itemtype="http://schema.org/Legislation" href="31980L0181-20000209.html">Version of 09/02/2000</a></li>
+      <li><a itemprop="http://schema.org/legislationConsolidatedBy" itemtype="http://schema.org/Legislation" href="31980L0181-20090527.html">Version of 27/05/2009</a></li>
+      <li><a itemprop="http://schema.org/legislationConsolidatedBy" itemtype="http://schema.org/Legislation" href="31980L0181-20000209.html">Version of 09/02/2000</a></li>
     </ul>
   </div>
 </div>
@@ -105,10 +117,10 @@ RDFA:
   <ul>
     <li>Number : <span property="legislationIdentifier">80/181/EEC</span></li>
     <li>Form : <span property="legislationType">Directive</span></li>
-    <li>Author : <span property="passedBy">Council of the European Union</span></li>
-    <li>Date of document : <span property="dateLegislation" content="1979-12-20">20/12/1979</span></li>
-    <li>Date of effect : <span property="dateEntryIntoForce" content="1979-12-21">21/12/1979</span></li>
-    <link property="legalForce" href="http://schema.org/InForce" />
+    <li>Author : <span property="legislationPassedBy">Council of the European Union</span></li>
+    <li>Date of document : <span property="legislationDate" content="1979-12-20">20/12/1979</span></li>
+    <li>Date of effect : <span property="legislationDateEntryIntoForce" content="1979-12-21">21/12/1979</span></li>
+    <link property="legislationLegalForce" href="http://schema.org/InForce" />
     <li>Currently in force ? YES</li>
   </ul>
   <div>
@@ -121,27 +133,33 @@ RDFA:
   <div>
     Amendment to :
     <ul>
-      <li><a property="changes" typeof="Legislation" href="31971L0354.html">31971L0354</a></li>
+      <li><a property="legislationChanges" typeof="Legislation" href="31971L0354.html">31971L0354</a></li>
     </ul>
   </div>
   <div>
     Amended by :
     <ul>
-      <li><a property="changedBy" typeof="Legislation" href="31980L0181R%2801%29.html">31980L0181R(01)</a></li>
-      <li><a property="changedBy" typeof="Legislation" href="31980L0181R%2802%29.html">31980L0181R(02)</a></li>
+      <li><a property="legislationChangedBy" typeof="Legislation" href="31980L0181R%2801%29.html">31980L0181R(01)</a></li>
+      <li><a property="legislationChangedBy" typeof="Legislation" href="31980L0181R%2802%29.html">31980L0181R(02)</a></li>
     </ul>
   </div>
   <div>
     Legal basis :
     <ul>
-      <li><a property="basedOn" typeof="Legislation" href="11957E100.html">11957E100</a></li>
+      <li><a property="isBasedOn" typeof="Legislation" href="11957E100.html">11957E100</a></li>
+    </ul>
+  </div>
+  <div>
+    Basis for :
+    <ul>
+      <li><a property="isBasisFor" typeof="Legislation" href="12345Z999.html">12345Z999</a></li>
     </ul>
   </div>
   <div>
     All consolidated versions :
     <ul>
-      <li><a property="consolidatedBy" typeof="Legislation" href="31980L0181-20090527.html">Version of 27/05/2009</a></li>
-      <li><a property="consolidatedBy" typeof="Legislation" href="31980L0181-20000209.html">Version of 09/02/2000</a></li>
+      <li><a property="legislationConsolidatedBy" typeof="Legislation" href="31980L0181-20090527.html">Version of 27/05/2009</a></li>
+      <li><a property="legislationConsolidatedBy" typeof="Legislation" href="31980L0181-20000209.html">Version of 09/02/2000</a></li>
     </ul>
   </div>
 </div>
@@ -156,10 +174,10 @@ JSON:
     "legislationIdentifier": "80/181/EEC",
     "name": "Council Directive 80/181/EEC of 20 December 1979 on the approximation of the laws of the Member States relating to units of measurement and on the repeal of Directive 71/354/EEC",
     "legislationType": "Directive",
-    "passedBy": "Council of the European Union",
-    "dateLegislation": "1979-12-20",
-    "dateEntryIntoForce": "1979-12-21",
-    "legalForce": { "@id": "http://schema.org/InForce" },
+    "legislationPassedBy": "Council of the European Union",
+    "legislationDate": "1979-12-20",
+    "legislationDateEntryIntoForce": "1979-12-21",
+    "legislationLegalForce": { "@id": "http://schema.org/InForce" },
     "about" : [ 
       {
         "@id": "http://eurovoc.europa.eu/1896",
@@ -172,11 +190,11 @@ JSON:
         "name": "Approximation of laws"
       }
     ],
-    "changes": {
+    "legislationChanges": {
       "@id": "31971L0354.html",
       "@type": "Legislation"
     },
-    "changedBy": [
+    "legislationChangedBy": [
       {
         "@id": "31980L0181R%252801%2529.html",
         "@type": "Legislation"
@@ -186,11 +204,15 @@ JSON:
         "@type": "Legislation"
       }
     ],
-    "basedOn": {
+    "isBasedOn": {
       "@id": "11957E100.html",
       "@type": "Legislation"
     },
-    "consolidatedBy" : [
+    "isBasisFor": {
+      "@id": "12345Z999.html",
+      "@type": "Legislation"
+    },
+    "legislationConsolidatedBy" : [
       {
         "@id": "31980L0181-20090527.html",
         "@type": "Legislation"
@@ -244,13 +266,13 @@ MICRODATA:
       <ul>
         <li>
           <a itemscope itemprop="http://schema.org/encoding" itemtype="http://schema.org/LegislationObject" itemid="customs-code-en.html" href="customs-code-en.html">
-            <link itemprop="http://schema.org/legalValue" href="http://schema.org/Official" />
+            <link itemprop="http://schema.org/legislationLegalValue" href="http://schema.org/Official" />
             in <span itemprop="http://schema.org/encodingFormat">HTML</span> (informative only)
           </a>
         </li>
         <li>
           <a itemscope itemprop="http://schema.org/encoding" itemtype="http://schema.org/LegislationObject" itemid="customs-code-en.pdf" href="customs-code-en.pdf">
-            <link itemprop="http://schema.org/legalValue" href="http://schema.org/Definitive" />
+            <link itemprop="http://schema.org/legislationLegalValue" href="http://schema.org/Definitive" />
             in <span itemprop="http://schema.org/encodingFormat">PDF</span> (authentic)
           </a>
         </li>
@@ -261,13 +283,13 @@ MICRODATA:
       <ul>
         <li>
           <a itemscope itemprop="http://schema.org/encoding" itemtype="http://schema.org/LegislationObject" itemid="customs-code-fr.html" href="customs-code-fr.html">
-            <link itemprop="http://schema.org/legalValue" href="http://schema.org/Official" />
+            <link itemprop="http://schema.org/legislationLegalValue" href="http://schema.org/Official" />
             en <span itemprop="http://schema.org/encodingFormat">HTML</span> (valeur informative seulement)
           </a>
         </li>
         <li>
           <a itemscope itemprop="http://schema.org/encoding" itemtype="http://schema.org/LegislationObject" itemid="customs-code-fr.pdf" href="customs-code-fr.pdf">
-            <link itemprop="http://schema.org/legalValue" href="http://schema.org/Definitive" />
+            <link itemprop="http://schema.org/legislationLegalValue" href="http://schema.org/Definitive" />
             en <span itemprop="http://schema.org/encodingFormat">PDF</span> (authentique)
           </a>
         </li>
@@ -289,13 +311,13 @@ RDFA:
       <ul>
         <li>
           <a property="encoding" typeof="LegislationObject" href="customs-code-en.html">
-            <link property="legalValue" href="http://schema.org/Official" />
+            <link property="legislationLegalValue" href="http://schema.org/Official" />
             in <span property="encodingFormat">HTML</span> (informative only)
           </a>
         </li>
         <li>
           <a property="encoding" typeof="LegislationObject" href="customs-code-en.pdf">
-            <link property="legalValue" href="http://schema.org/Definitive" />
+            <link property="legislationLegalValue" href="http://schema.org/Definitive" />
             in <span property="encodingFormat">PDF</span> (authentic)
           </a>
         </li>
@@ -306,13 +328,13 @@ RDFA:
       <ul>
         <li>
           <a property="encoding" typeof="LegislationObject" href="customs-code-fr.html">
-            <link property="legalValue" href="http://schema.org/Official" />
+            <link property="legislationLegalValue" href="http://schema.org/Official" />
             en <span property="encodingFormat">HTML</span> (valeur informative seulement)
           </a>
         </li>
         <li>
           <a property="encoding" typeof="LegislationObject" href="customs-code-fr.pdf">
-            <link property="legalValue" href="http://schema.org/Definitive" />
+            <link property="legislationLegalValue" href="http://schema.org/Definitive" />
             en <span property="encodingFormat">PDF</span> (authentique)
           </a>
         </li>
@@ -338,13 +360,13 @@ JSON:
           {
             "@type": "LegislationObject",
             "@id": "customs-code-en.html",       
-            "legalValue": { "@id": "http://schema.org/Official" },
+            "legislationLegalValue": { "@id": "http://schema.org/Official" },
             "encodingFormat": "HTML"
           },
           {
             "@type": "LegislationObject",
             "@id": "customs-code-en.pdf",       
-            "legalValue": { "@id": "http://schema.org/Definitive" },
+            "legislationLegalValue": { "@id": "http://schema.org/Definitive" },
             "encodingFormat": "PDF"
           }
         ]
@@ -357,13 +379,13 @@ JSON:
           {
             "@type": "LegislationObject",
             "@id": "customs-code-fr.html",       
-            "legalValue": { "@id": "http://schema.org/Official" },
+            "legislationLegalValue": { "@id": "http://schema.org/Official" },
             "encodingFormat": "HTML"
           },
           {
             "@type": "LegislationObject",
             "@id": "customs-code-fr.pdf",       
-            "legalValue": { "@id": "http://schema.org/Definitive" },
+            "legislationLegalValue": { "@id": "http://schema.org/Definitive" },
             "encodingFormat": "PDF"
           }
         ]
