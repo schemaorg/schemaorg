@@ -355,7 +355,6 @@ def buildSingleTermGraph(node,excludeAttic=True,markdown=True):
             Markdown.setPre()
     return g
 
-	
 def stripID (str):
     l = len(str)
     if (l > 17 and (str[:18] == 'http://schema.org/')):

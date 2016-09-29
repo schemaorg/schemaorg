@@ -29,13 +29,13 @@ from google.appengine.api import modules
 from google.appengine.api import runtime
 
 from api import inLayer, read_file, full_path, read_schemas, read_extensions, read_examples, namespaces
-from api import CacheControl, DataCache, PageStore, HeaderStore, ExampleMap, ExampleStore, ExamplesLoader
+from api import CacheControl, DataCache, PageStore, HeaderStore, ExampleMap, ExampleStore
 from api import Unit, GetTargets, GetSources, GetComments, GetsoftwareVersions
 from api import GetComment, all_terms, GetAllTypes, GetAllProperties, GetAllEnumerationValues, GetAllTerms, LoadNodeExamples
 from api import GetParentList, GetImmediateSubtypes, HasMultipleBaseTypes
 from api import GetJsonLdContext, ShortenOnSentence, StripHtmlTags
-from api import getQueryGraph
-from api import log
+from api import getMasterStore,getQueryGraph
+from api import loader_instance, load_examples_data
 from api import setInTestHarness, getInTestHarness, setAllLayersList, enablePageStore, getInstanceId
 from apimarkdown import Markdown
 
@@ -103,7 +103,7 @@ WarmedUp = False
 WarmupState = "Auto"
 if "WARMUPSTATE" in os.environ:
     WarmupState = os.environ["WARMUPSTATE"]
-log.info("WarmupState: %s" % WarmupState)
+log.info("[%s] WarmupState: %s" % (getInstanceId(short=True),WarmupState))
 
 if WarmupState.lower() == "off":
     WarmedUp = True
@@ -161,21 +161,42 @@ def tick(): #Keep memcache values fresh so they don't expire
         memcache.set(key="SysStart", value=systarttime)
         memcache.set(key="static-version", value=appver)
 
-#Ensure clean start for any memcached values...
-if not getInTestHarness():
+
+if getInTestHarness():
+    load_examples_data(ENABLED_EXTENSIONS)
+    
+else: #Ensure clean start for any memcached or ndb store values...
     if memcache.get("static-version") != appver: #We are a new instance of the app
         memcache.flush_all()
+        
+        memcache.set(key="app_initialising", value=True)
+        log.info("[%s] Detected new code version - resetting memory values %s" % (getInstanceId(short=True),systarttime))
+        load_start = datetime.datetime.now()
         systarttime = datetime.datetime.utcnow()
         memcache.set(key="static-version", value=appver)
         memcache.add(key="SysStart", value=systarttime)
         instance_first = True
-        log.info("Detected new code version - resetting memory values %s" % systarttime)
         cleanmsg = CacheControl.clean()
         log.info("Clean count(s): %s" % cleanmsg)
+        log.info(("[%s] Cache clean took %s " % (getInstanceId(short=True),(datetime.datetime.now() - load_start))))
+        
+        load_start = datetime.datetime.now()
+        load_examples_data(ENABLED_EXTENSIONS)
+        log.info(("[%s] Examples load took %s " % (getInstanceId(short=True),(datetime.datetime.now() - load_start))))
+        
+        memcache.set(key="app_initialising", value=False)
+        
+        log.debug("[%s] Awake >>>>>>>>>>>>" % (getInstanceId(short=True)))
     else:
-       systarttime = memcache.get("SysStart")
-       tick()
+        time.sleep(0.1) #Give time for the initialisation flag (possibly being set in another thread) to be set
+        while memcache.get("app_initialising"):
+            log.debug("[%s] Waiting for intialisation to end %s" % (getInstanceId(short=True),memcache.get("app_initialising")))
+            time.sleep(0.1)
+        log.debug("[%s] End of waiting !!!!!!!!!!!" % (getInstanceId(short=True)))
+        systarttime = memcache.get("SysStart")
+        tick()
     setmodiftime(systarttime)
+
 #################################################
 
 def cleanPath(node):
@@ -807,7 +828,7 @@ class ShowUnit (webapp2.RequestHandler):
             if inLayer("meta",prop): #Suppress mentioning properties from the 'meta' extension.
                 continue
             ext = prop.getHomeLayer()
-            log.debug("ClassExtensionfFound %s from %s" % (prop, ext))
+            log.debug("ClassExtensionFound %s from %s" % (prop, ext))
             if not ext in exts.keys():
                 exts[ext] = []
             exts[ext].append(prop)
@@ -2175,9 +2196,9 @@ class ShowUnit (webapp2.RequestHandler):
         log.debug("EXT: set sitename to %s " % getSiteName())
         if(node == "_ah/warmup"):
             if "localhost" in os.environ['SERVER_NAME'] and WarmupState.lower() == "auto":
-                log.info("Warmup dissabled for localhost instance")
+                log.info("[%s] Warmup dissabled for localhost instance" % getInstanceId(short=True))
                 if DISABLE_NDB_FOR_LOCALHOST:
-                    log.info("NDB dissabled for localhost instance")
+                    log.info("[%s] NDB dissabled for localhost instance" % getInstanceId(short=True))
                     enablePageStore(False)
             else:
                 self.warmup()
@@ -2567,11 +2588,15 @@ def makeUrl(ext="",path=""):
         url = "%s://%s%s%s%s" % (getHttpScheme(),sub,getBaseHost(),port,p)
         return url
 
-#log.info("STARTING UP... reading schemas.")
-#load_graph(loadExtensions=ENABLE_HOSTED_EXTENSIONS)
-read_schemas(loadExtensions=ENABLE_HOSTED_EXTENSIONS)
-if ENABLE_HOSTED_EXTENSIONS:
-    read_extensions(ENABLED_EXTENSIONS)
-schemasInitialized = True
+schemasInitialized = False
+def load_schema_definitions():
+    #log.info("STARTING UP... reading schemas.")
+    #load_graph(loadExtensions=ENABLE_HOSTED_EXTENSIONS)
+    global schemasInitialized
+    read_schemas(loadExtensions=ENABLE_HOSTED_EXTENSIONS)
+    if ENABLE_HOSTED_EXTENSIONS:
+        read_extensions(ENABLED_EXTENSIONS)
+    schemasInitialized = True
 
+load_schema_definitions()
 app = ndb.toplevel(webapp2.WSGIApplication([("/(.*)", ShowUnit)]))
