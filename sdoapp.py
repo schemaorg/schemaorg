@@ -28,13 +28,15 @@ from google.appengine.ext.webapp import blobstore_handlers
 from google.appengine.api import modules
 from google.appengine.api import runtime
 
-from api import inLayer, read_file, full_path, read_schemas, read_extensions, read_examples, namespaces, DataCache, PageStore, HeaderStore
+from api import inLayer, read_file, full_path, read_schemas, read_extensions, read_examples, namespaces
+from api import CacheControl, DataCache, PageStore, HeaderStore, ExampleMap, ExampleStore
 from api import Unit, GetTargets, GetSources, GetComments, GetsoftwareVersions
-from api import GetComment, all_terms, GetAllTypes, GetAllProperties, GetAllEnumerationValues, GetAllTerms, LoadExamples
+from api import GetComment, all_terms, GetAllTypes, GetAllProperties, GetAllEnumerationValues, GetAllTerms, LoadNodeExamples
 from api import GetParentList, GetImmediateSubtypes, HasMultipleBaseTypes
 from api import GetJsonLdContext, ShortenOnSentence, StripHtmlTags
-from api import getQueryGraph
-from api import setInTestHarness, getInTestHarness, setAllLayersList, enablePageStore
+from api import getMasterStore,getQueryGraph
+from api import loader_instance, load_examples_data
+from api import setInTestHarness, getInTestHarness, setAllLayersList, enablePageStore, getInstanceId
 from apimarkdown import Markdown
 
 from sdordf2csv import sdordf2csv
@@ -101,31 +103,12 @@ WarmedUp = False
 WarmupState = "Auto"
 if "WARMUPSTATE" in os.environ:
     WarmupState = os.environ["WARMUPSTATE"]
-log.info("WarmupState: %s" % WarmupState)
+log.info("[%s] WarmupState: %s" % (getInstanceId(short=True),WarmupState))
 
 if WarmupState.lower() == "off":
     WarmedUp = True
 elif "SERVER_NAME" in os.environ and ("localhost" in os.environ['SERVER_NAME'] and WarmupState.lower() == "auto"):
     WarmedUp = True
-######################################
-
-def cleanCaches():
-    ret = ""
-    r = DataCache.initialise()
-    if r:
-        ret += str(r)
-    r = PageStore.initialise()
-    if r:
-        if len(ret):
-            ret += " - "
-        ret += str(r)
-    r = HeaderStore.initialise()
-    if r:
-        if len(ret):
-            ret += " - "
-        ret += str(r)
-    log.debug("cleanCaches returning %s", ret)
-    return ret
 
 ############# Shared values and times ############
 #### Memcache functions dissabled in test mode ###
@@ -178,21 +161,42 @@ def tick(): #Keep memcache values fresh so they don't expire
         memcache.set(key="SysStart", value=systarttime)
         memcache.set(key="static-version", value=appver)
 
-#Ensure clean start for any memcached values...
-if not getInTestHarness():
+
+if getInTestHarness():
+    load_examples_data(ENABLED_EXTENSIONS)
+    
+else: #Ensure clean start for any memcached or ndb store values...
     if memcache.get("static-version") != appver: #We are a new instance of the app
         memcache.flush_all()
+        
+        memcache.set(key="app_initialising", value=True)
+        log.info("[%s] Detected new code version - resetting memory values %s" % (getInstanceId(short=True),systarttime))
+        load_start = datetime.datetime.now()
         systarttime = datetime.datetime.utcnow()
         memcache.set(key="static-version", value=appver)
         memcache.add(key="SysStart", value=systarttime)
         instance_first = True
-        log.info("Detected new code version - resetting memory values %s" % systarttime)
-        cleanmsg = cleanCaches()
+        cleanmsg = CacheControl.clean()
         log.info("Clean count(s): %s" % cleanmsg)
+        log.info(("[%s] Cache clean took %s " % (getInstanceId(short=True),(datetime.datetime.now() - load_start))))
+        
+        load_start = datetime.datetime.now()
+        load_examples_data(ENABLED_EXTENSIONS)
+        log.info(("[%s] Examples load took %s " % (getInstanceId(short=True),(datetime.datetime.now() - load_start))))
+        
+        memcache.set(key="app_initialising", value=False)
+        
+        log.debug("[%s] Awake >>>>>>>>>>>>" % (getInstanceId(short=True)))
     else:
-       systarttime = memcache.get("SysStart")
-       tick()
+        time.sleep(0.1) #Give time for the initialisation flag (possibly being set in another thread) to be set
+        while memcache.get("app_initialising"):
+            log.debug("[%s] Waiting for intialisation to end %s" % (getInstanceId(short=True),memcache.get("app_initialising")))
+            time.sleep(0.1)
+        log.debug("[%s] End of waiting !!!!!!!!!!!" % (getInstanceId(short=True)))
+        systarttime = memcache.get("SysStart")
+        tick()
     setmodiftime(systarttime)
+
 #################################################
 
 def cleanPath(node):
@@ -373,7 +377,7 @@ class TypeHierarchyTree:
 
 def GetExamples(node, layers='core'):
     """Returns the examples (if any) for some Unit node."""
-    return LoadExamples(node,layers)
+    return LoadNodeExamples(node,layers)
 
 def GetExtMappingsRDFa(node, layers='core'):
     """Self-contained chunk of RDFa HTML markup with mappings for this term."""
@@ -824,7 +828,7 @@ class ShowUnit (webapp2.RequestHandler):
             if inLayer("meta",prop): #Suppress mentioning properties from the 'meta' extension.
                 continue
             ext = prop.getHomeLayer()
-            log.debug("ClassExtensionfFound %s from %s" % (prop, ext))
+            log.debug("ClassExtensionFound %s from %s" % (prop, ext))
             if not ext in exts.keys():
                 exts[ext] = []
             exts[ext].append(prop)
@@ -1219,10 +1223,13 @@ class ShowUnit (webapp2.RequestHandler):
 
         self.emitSchemaorgHeaders(node, ext_mappings, sitemode, getSiteName(), layers)
 
-
         cached = PageStore.get(node.id)
+        if "_pageFlush" in getArguments():
+            log.info("Reloading page for %s" % node.id)
+            cached = None
+            
         if (cached != None):
-            log.info("GOT CACHED page for %s", node.id)
+            log.info("GOT CACHED page for %s" % node.id)
             self.response.write(cached)
             return
 
@@ -1365,7 +1372,8 @@ class ShowUnit (webapp2.RequestHandler):
             ]
             self.write("<br/><br/><b><a id=\"examples\">Examples</a></b><br/><br/>\n\n")
             exNum = 0
-            for ex in sorted(examples, key=lambda u: u.orderId):
+            for ex in sorted(examples, key=lambda u: u.keyvalue):
+                
                 if not ex.egmeta["layer"] in layers: #Example defined in extension we are not in
                     continue
                 exNum += 1
@@ -1395,7 +1403,7 @@ class ShowUnit (webapp2.RequestHandler):
 	  ga('create', 'UA-52672119-1', 'auto');ga('send', 'pageview');</script>""")
 
         self.write(" \n\n</div>\n</body>\n</html>")
-
+        
         page = "".join(self.outputStrings)
         PageStore.put(node.id,page)
 
@@ -2188,9 +2196,9 @@ class ShowUnit (webapp2.RequestHandler):
         log.debug("EXT: set sitename to %s " % getSiteName())
         if(node == "_ah/warmup"):
             if "localhost" in os.environ['SERVER_NAME'] and WarmupState.lower() == "auto":
-                log.info("Warmup dissabled for localhost instance")
+                log.info("[%s] Warmup dissabled for localhost instance" % getInstanceId(short=True))
                 if DISABLE_NDB_FOR_LOCALHOST:
-                    log.info("NDB dissabled for localhost instance")
+                    log.info("[%s] NDB dissabled for localhost instance" % getInstanceId(short=True))
                     enablePageStore(False)
             else:
                 self.warmup()
@@ -2275,9 +2283,9 @@ class ShowUnit (webapp2.RequestHandler):
 
         if(node == "_cacheFlush"):
             setmodiftime(datetime.datetime.utcnow()) #Resets etags and modtime
-            counts = cleanCaches()
+            counts = CacheControl.clean(pagesonly=True)
             inf = "<div style=\"clear: both; float: left; text-align: left; font-size: xx-small; color: #888 ; margin: 1em; line-height: 100%;\">"
-            inf +=  counts
+            inf +=  str(counts)
             inf += "</div>"
             self.handle404Failure(node,extrainfo=inf)
             return False
@@ -2580,11 +2588,15 @@ def makeUrl(ext="",path=""):
         url = "%s://%s%s%s%s" % (getHttpScheme(),sub,getBaseHost(),port,p)
         return url
 
-#log.info("STARTING UP... reading schemas.")
-#load_graph(loadExtensions=ENABLE_HOSTED_EXTENSIONS)
-read_schemas(loadExtensions=ENABLE_HOSTED_EXTENSIONS)
-if ENABLE_HOSTED_EXTENSIONS:
-    read_extensions(ENABLED_EXTENSIONS)
-schemasInitialized = True
+schemasInitialized = False
+def load_schema_definitions():
+    #log.info("STARTING UP... reading schemas.")
+    #load_graph(loadExtensions=ENABLE_HOSTED_EXTENSIONS)
+    global schemasInitialized
+    read_schemas(loadExtensions=ENABLE_HOSTED_EXTENSIONS)
+    if ENABLE_HOSTED_EXTENSIONS:
+        read_extensions(ENABLED_EXTENSIONS)
+    schemasInitialized = True
 
+load_schema_definitions()
 app = ndb.toplevel(webapp2.WSGIApplication([("/(.*)", ShowUnit)]))
