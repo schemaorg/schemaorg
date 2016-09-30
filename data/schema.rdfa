@@ -5043,8 +5043,10 @@ The place is __open__ if the [[opens]] property is specified, and __closed__ oth
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/genre">
       <span class="h" property="rdfs:label">genre</span>
-      <span property="rdfs:comment">Genre of the creative work or group.</span>
+      <span property="rdfs:comment">Genre of the creative work, broadcast channel or group.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CreativeWork">CreativeWork</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/BroadcastChannel">BroadcastChannel</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MusicGroup">MusicGroup</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/URL">URL</a></span>
     </div>
@@ -9191,14 +9193,6 @@ postponing for 1.6.
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MusicComposition">MusicComposition</a></span>
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/MusicRecording">MusicRecording</a></span>
   <link property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#MBZ"/>
-</div>
-
-<p>Additions/changes for existing MusicGroup type: allowing 'genre' to be used on a MusicGroup.</p>
-
-<p>TODO: For discussion - If a MusicGroup can have a genre, why not any Organization?</p>
-
-<div typeof="rdf:Property" resource="http://schema.org/genre">
-  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MusicGroup">MusicGroup</a></span>
 </div>
 
 <p>Deprecating musicGroupMember in favour of member (already done, but site UI is not ideal; TODO: we should update any examples).</p>
