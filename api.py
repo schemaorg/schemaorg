@@ -1,11 +1,15 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 
+import logging
+logging.basicConfig(level=logging.INFO) # dev_appserver.py --log_level debug .
+log = logging.getLogger(__name__)
+
+
 import os
 import os.path
 import glob
 import re
-import logging
 import threading
 import parsers
 import datetime, time
@@ -14,6 +18,7 @@ from google.appengine.ext import ndb
 loader_instance = False
 
 import apirdflib
+
 #from apirdflib import rdfGetTargets, rdfGetSources
 from apimarkdown import Markdown
 
@@ -26,8 +31,6 @@ def getInstanceId(short=False):
     return ret
 
 
-logging.basicConfig(level=logging.INFO) # dev_appserver.py --log_level debug .
-log = logging.getLogger(__name__)
 
 schemasInitialized = False
 extensionsLoaded = False
@@ -288,7 +291,9 @@ def enablePageStore(state):
     if state:
         log.info("[%s] Enabling NDB" % getInstanceId(short=True))
         PageStore = PageStoreTool()
+        log.info("[%s] Created PageStore" % getInstanceId(short=True))
         HeaderStore = HeaderStoreTool()
+        log.info("[%s] Created HeaderStore" % getInstanceId(short=True))
     else:
         log.info("[%s] Disabling NDB" % getInstanceId(short=True))
         PageStore = DataCacheTool()
@@ -1314,4 +1319,5 @@ def ShortenOnSentence(source,lengthHint=250):
         source = com
     return source
 
+log.info("[%s]api loaded" % (getInstanceId(short=True)))
 

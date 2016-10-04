@@ -1,6 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 
+import logging
+logging.basicConfig(level=logging.INFO) # dev_appserver.py --log_level debug .
+log = logging.getLogger(__name__)
+
 import sys
 sys.path.append('lib')
 import rdflib
@@ -14,14 +18,10 @@ import api
 from apimarkdown import Markdown
 import StringIO
 
-
 rdflib.plugin.register("json-ld", Parser, "rdflib_jsonld.parser", "JsonLDParser")
 rdflib.plugin.register("json-ld", Serializer, "rdflib_jsonld.serializer", "JsonLDSerializer")
 
-import logging
-logging.basicConfig(level=logging.INFO) # dev_appserver.py --log_level debug .
-log = logging.getLogger(__name__)
-
+ATTIC = 'attic'
 VOCAB = "http://schema.org"
 STORE = rdflib.Dataset()
 #Namespace mapping#############
@@ -36,7 +36,6 @@ RDFLIBLOCK = threading.Lock() #rdflib uses generators which are not threadsafe
 
 from rdflib.namespace import RDFS, RDF, OWL
 SCHEMA = rdflib.Namespace('http://schema.org/')
-
 
 QUERYGRAPH = None
 def queryGraph():
@@ -59,7 +58,6 @@ def queryGraph():
         finally:
             RDFLIBLOCK.release()
     return QUERYGRAPH
-
 
 def loadNss():
     global NSSLoaded
@@ -90,12 +88,6 @@ def getRevNss(val):
     except KeyError:
         return ""
 ##############################    
-
-
-GETTRIPS = prepareQuery("SELECT ?g ?p ?o  WHERE {GRAPH ?g {?sub ?p ?o }}")
-GGETALL = prepareQuery("SELECT ?g ?s ?p ?o  WHERE {GRAPH ?g {?s ?p ?o }}")
-GETALL = prepareQuery("SELECT ?s ?p ?o  WHERE {?s ?p ?o }")
-GETP = prepareQuery("SELECT DISTINCT ?p   WHERE {GRAPH ?g { ?s ?p ?o }} ORDER BY ?p")
 
 def load_graph(context, files):
     """Read/parse/ingest schemas from data/*.rdfa."""
@@ -132,7 +124,6 @@ def rdfGetTriples(id):
 		fullId = id
 	else:
 		fullId = VOCAB + "/" + id
-	source = URIRef(fullId)
 	#log.info("rdfgetTriples(%s)" % source)
 	
 	first = True
@@ -143,7 +134,8 @@ def rdfGetTriples(id):
 
 	try:
 		RDFLIBLOCK.acquire()
-		res = list(STORE.query(GETTRIPS, initBindings={'sub':source}))
+		q = "SELECT ?g ?p ?o  WHERE {GRAPH ?g {<%s> ?p ?o }}" % fullId
+		res = list(STORE.query(q))
 	finally:
 		RDFLIBLOCK.release()
 		
@@ -154,7 +146,7 @@ def rdfGetTriples(id):
 		if first:
 			first = False
 			unit = api.Unit.GetUnitNoLoad(id,True)
-		s = stripID(source)
+		s = stripID(fullId)
 		p = stripID(row.p)
 		if p == "rdf:type": 
 			typeOfInLayers.append(layer)
@@ -213,6 +205,78 @@ def rdfGetSourceTriples(target):
 		obj = api.Unit.GetUnit(stripID(fullId),True)
 		api.Triple.AddTriple(unit, prop, obj, layer)
         
+def countFilter(extension="ALL",includeAttic=False):
+    excludeAttic = "FILTER NOT EXISTS {?term schema:isPartOf <http://attic.schema.org>}."
+    if includeAttic or extension == ATTIC:
+        excludeAttic = ""
+    
+    extensionSel = ""
+    if extension == "ALL":
+        extensionSel = ""
+    elif extension == "core":
+        extensionSel = "FILTER NOT EXISTS {?term schema:isPartOf ?ex}."
+        excludeAttic = ""
+    else:
+        extensionSel = "FILTER EXISTS {?term schema:isPartOf <http://%s.schema.org>}." % extension
+
+    return extensionSel + "\n" + excludeAttic
+        
+def countTypes(extension="ALL",includeAttic=False):
+    filter = countFilter(extension=extension, includeAttic=includeAttic)
+    query= ('''select (count (?term) as ?cnt) where { 
+         ?term a rdfs:Class. 
+         ?term rdfs:subClassOf* schema:Thing.
+       %s
+    }''') % filter
+    graph = queryGraph()
+    count = 0
+    try:
+        RDFLIBLOCK.acquire()
+        res = graph.query(query)
+        for row in res:
+            count = row.cnt
+    finally:
+        RDFLIBLOCK.release()
+    return count
+
+def countProperties(extension="ALL",includeAttic=False):
+ filter = countFilter(extension=extension, includeAttic=includeAttic)
+ query= ('''select (count (?term) as ?cnt) where { 
+        ?term a rdf:Property.
+        FILTER EXISTS {?term rdfs:label ?l}.
+        BIND(STR(?term) AS ?strVal).
+        FILTER(STRLEN(?strVal) >= 18 && SUBSTR(?strVal, 1, 18) = "http://schema.org/").
+    %s
+ }''') % filter
+ graph = queryGraph()
+ count = 0
+ try:
+     RDFLIBLOCK.acquire()
+     res = graph.query(query)
+     for row in res:
+         count = row.cnt
+ finally:
+     RDFLIBLOCK.release()
+ return count
+        
+def countEnums(extension="ALL",includeAttic=False):
+    filter = countFilter(extension=extension, includeAttic=includeAttic)
+    query= ('''select (count (?term) as ?cnt) where { 
+         ?term a ?type. 
+         ?type rdfs:subClassOf* <http://schema.org/Enumeration>.
+       %s
+    }''') % filter
+    graph = queryGraph()
+    count = 0
+    try:
+        RDFLIBLOCK.acquire()
+        res = graph.query(query)
+        for row in res:
+            count = row.cnt
+    finally:
+        RDFLIBLOCK.release()
+    return count
+    
 def serializeSingleTermGrapth(node,format="json-ld",excludeAttic=True,markdown=True):
     graph = buildSingleTermGraph(node=node,excludeAttic=excludeAttic,markdown=markdown)
     file = StringIO.StringIO()
@@ -255,13 +319,13 @@ def buildSingleTermGraph(node,excludeAttic=True,markdown=True):
     finally:
         RDFLIBLOCK.release()
     for (s,p,o) in ret:
-        log.info("adding %s %s %s" % (s,p,o))
+        #log.info("adding %s %s %s" % (s,p,o))
         g.add((s,p,o))
 
     #Incoming triples
     ret = list(q.triples((None,None,n)))
     for (s,p,o) in ret:
-        log.info("adding %s %s %s" % (s,p,o))
+        #log.info("adding %s %s %s" % (s,p,o))
         g.add((s,p,o))
 
     #super classes
@@ -276,7 +340,7 @@ def buildSingleTermGraph(node,excludeAttic=True,markdown=True):
     finally:
         RDFLIBLOCK.release()
     for row in ret:
-        log.info("adding %s %s %s" % (row.term,RDFS.subClassOf,row.super))
+        #log.info("adding %s %s %s" % (row.term,RDFS.subClassOf,row.super))
         g.add((row.term,RDFS.subClassOf,row.super))
         g.add((row.super,row.pred,row.obj))
          
@@ -308,7 +372,7 @@ def buildSingleTermGraph(node,excludeAttic=True,markdown=True):
     finally:
         RDFLIBLOCK.release()
     for row in ret:
-        log.info("adding %s %s %s" % (row.term,RDFS.subPropertyOf,row.super))
+        #log.info("adding %s %s %s" % (row.term,RDFS.subPropertyOf,row.super))
         g.add((row.term,RDFS.subPropertyOf,row.super))
         g.add((row.super,row.pred,row.obj))
 
@@ -324,7 +388,7 @@ def buildSingleTermGraph(node,excludeAttic=True,markdown=True):
     finally:
         RDFLIBLOCK.release()
     for row in ret:
-        log.info("adding %s %s %s" % (row.type,row.pred,row.obj))
+        #log.info("adding %s %s %s" % (row.type,row.pred,row.obj))
         g.add((row.type,row.pred,row.obj))
 
     if excludeAttic: #Remove triples referencing terms part of http://attic.schema.org
@@ -336,7 +400,7 @@ def buildSingleTermGraph(node,excludeAttic=True,markdown=True):
                 if isinstance(o, URIRef):
                     atts.extend(q.triples((o,SCHEMA.isPartOf,URIRef("http://attic.schema.org"))))
                 for (rs,rp,ro) in atts:
-                    log.info("Removing %s" % rs)
+                    #log.info("Removing %s" % rs)
                     g.remove((rs,None,None))
                     g.remove((None,None,rs))
         finally:
