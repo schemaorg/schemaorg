@@ -1,11 +1,15 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 
+import logging
+logging.basicConfig(level=logging.INFO) # dev_appserver.py --log_level debug .
+log = logging.getLogger(__name__)
+
+
 import os
 import os.path
 import glob
 import re
-import logging
 import threading
 import parsers
 import datetime, time
@@ -14,6 +18,7 @@ from google.appengine.ext import ndb
 loader_instance = False
 
 import apirdflib
+
 #from apirdflib import rdfGetTargets, rdfGetSources
 from apimarkdown import Markdown
 
@@ -26,8 +31,6 @@ def getInstanceId(short=False):
     return ret
 
 
-logging.basicConfig(level=logging.INFO) # dev_appserver.py --log_level debug .
-log = logging.getLogger(__name__)
 
 schemasInitialized = False
 extensionsLoaded = False
@@ -42,6 +45,9 @@ def setInTestHarness(val):
 def getInTestHarness():
     global INTESTHARNESS
     return INTESTHARNESS
+
+if not getInTestHarness():
+    from google.appengine.api import memcache
 
 AllLayersList = []
 def setAllLayersList(val):
@@ -288,7 +294,9 @@ def enablePageStore(state):
     if state:
         log.info("[%s] Enabling NDB" % getInstanceId(short=True))
         PageStore = PageStoreTool()
+        log.info("[%s] Created PageStore" % getInstanceId(short=True))
         HeaderStore = HeaderStoreTool()
+        log.info("[%s] Created HeaderStore" % getInstanceId(short=True))
     else:
         log.info("[%s] Disabling NDB" % getInstanceId(short=True))
         PageStore = DataCacheTool()
@@ -906,15 +914,19 @@ class Example ():
 
 def LoadNodeExamples(node, layers='core'):
     """Returns the examples (if any) for some Unit node."""
-    #log.info("Getting examples for: %s" % node.id)
+    #log.info("Getting examples for: %s %s" % (node.id,node.examples))
     if(node.examples == None):
+        node.examples = []
         if getInTestHarness(): #Get from local storage
-            ids = EXAMPLESMAP.get(node.id)
+           node.examples = EXAMPLES.get(node.id)
+           if(node.examples == None):
+              node.examples = []
         else:                  #Get from NDB shared storage
             ids = ExampleMap.get(node.id)
-        node.examples = []
-        for i in ids:
-            node.examples.append(ExampleStore.get_by_id(i))
+            if not ids:
+                ids = []
+            for i in ids:
+                node.examples.append(ExampleStore.get_by_id(i))
     return node.examples
 
 USAGECOUNTS = {}
@@ -1118,19 +1130,28 @@ def read_extensions(extensions):
     extensionsLoaded = True
 
 def load_examples_data(extensions):
-    load_start = datetime.datetime.now()
+    load = False
+    if getInTestHarness():
+        load = True
+    elif not memcache.get("ExmplesLoaded"):#Useing NDB Storage and not loaded
+        load = True
 
-    files = glob.glob("data/*examples.txt")
-    read_examples(files,'core')
-    for i in extensions:
-        expfiles = glob.glob("data/ext/%s/*examples.txt" % i)
-        read_examples(expfiles,i)
-    
-    if not getInTestHarness(): #Use NDB Storage 
-        ExampleStore.store(EXAMPLES)
-        ExampleMap.store(EXAMPLESMAP) 
+    if load:
+        load_start = datetime.datetime.now()
+        files = glob.glob("data/*examples.txt")
+        read_examples(files,'core')
+        for i in extensions:
+            expfiles = glob.glob("data/ext/%s/*examples.txt" % i)
+            read_examples(expfiles,i)
 
-    log.info("Loaded %s examples mapped to %s terms in %s" % (len(EXAMPLES),len(EXAMPLESMAP),(datetime.datetime.now() - load_start)))
+        if not getInTestHarness(): #Use NDB Storage
+            ExampleStore.store(EXAMPLES)
+            ExampleMap.store(EXAMPLESMAP)
+            memcache.set("ExmplesLoaded",value=True)
+
+        log.info("Loaded %s examples mapped to %s terms in %s" % (len(EXAMPLES),len(EXAMPLESMAP),(datetime.datetime.now() - load_start)))
+    else:
+        log.info("Examples already loaded")
 
 def read_examples(files, layer):
     parser = parsers.ParseExampleFile(None,layer=layer)
@@ -1314,4 +1335,5 @@ def ShortenOnSentence(source,lengthHint=250):
         source = com
     return source
 
+log.info("[%s]api loaded" % (getInstanceId(short=True)))
 
