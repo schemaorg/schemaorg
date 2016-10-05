@@ -2629,5 +2629,7 @@ def load_sources():
         load_schema_definitions()
         LOADEDSOURCES=True
         LOADINGSOURCE=False
-
-app = ndb.toplevel(webapp2.WSGIApplication([("/(.*)", ShowUnit)]))
+if getInTestHarness():
+    load_sources()
+else:
+    app = ndb.toplevel(webapp2.WSGIApplication([("/(.*)", ShowUnit)]))
