@@ -92,6 +92,8 @@ SHAREDSITEDEBUG = True
 if getInTestHarness():
     SHAREDSITEDEBUG = False
 
+LOADEDSOURCES = False
+
 ############# Warmup Control ########
 WarmedUp = False
 WarmupState = "Auto"
@@ -174,8 +176,6 @@ else: #Ensure clean start for any memcached or ndb store values...
         log.info(("[%s] Cache clean took %s " % (getInstanceId(short=True),(datetime.datetime.now() - load_start))))
         
         load_start = datetime.datetime.now()
-        load_examples_data(ENABLED_EXTENSIONS)
-        log.info(("[%s] Examples load took %s " % (getInstanceId(short=True),(datetime.datetime.now() - load_start))))
         
         memcache.set(key="app_initialising", value=False)
         
@@ -1221,10 +1221,6 @@ class ShowUnit (webapp2.RequestHandler):
             log.info("GOT CACHED page for %s" % node.id)
             self.response.write(cached)
             return
-        self.createExactTermPage(node,layers="core")
-
-    def createExactTermPage(self, node, layers="core"):
-
         self.parentStack = []
         self.GetParentStack(node, layers=layers)
 
@@ -1408,7 +1404,6 @@ class ShowUnit (webapp2.RequestHandler):
             # see http://en.wikipedia.org/wiki/Cross-origin_resource_sharing
 
     def setupExtensionLayerlist(self, node):
-        return
         # Identify which extension layer(s) are requested
         # TODO: add subdomain support e.g. bib.schema.org/Globe
         # instead of Globe?ext=bib which is more for debugging.
@@ -1675,7 +1670,6 @@ class ShowUnit (webapp2.RequestHandler):
         self.response.headers['Content-Type'] = "text/html"
         self.emitCacheHeaders()
         schema_node = Unit.GetUnit(node) # e.g. "Person", "CreativeWork".
-        #log.info("Node in layer: %s" % inLayer(layers, schema_node))
         if inLayer(layers, schema_node):
             self.emitExactTermPage(schema_node, layers=layers)
             return True
@@ -2084,7 +2078,7 @@ class ShowUnit (webapp2.RequestHandler):
         if scheme != "http":
             dcn = "%s-%s" % (dcn,scheme)
 
-        log.debug("sdoapp.py setting current datacache to: %s " % dcn)
+        log.info("sdoapp.py setting current datacache to: %s " % dcn)
         DataCache.setCurrent(dcn)
         PageStore.setCurrent(dcn)
         HeaderStore.setCurrent(dcn)
@@ -2149,8 +2143,7 @@ class ShowUnit (webapp2.RequestHandler):
             self.response.set_status(304,"Not Modified")
         else:
             enableCaching = self._get(node) #Go build the page
-            #log.info("_get result: %s" % enableCaching)
-            
+
             tagsuff = ""
             if ( "content-type" in self.response.headers and
                  "json" in self.response.headers["content-type"] ):
@@ -2165,6 +2158,7 @@ class ShowUnit (webapp2.RequestHandler):
 
 
     def _get(self, node, doWarm=True):
+        global LOADEDSOURCES
         """Get a schema.org site page generated for this node/term.
 
         Web content is written directly via self.response.
@@ -2191,15 +2185,15 @@ class ShowUnit (webapp2.RequestHandler):
 
         #log.info("[%s] _get(%s)" % (getInstanceId(short=True),node))
 
-        if not self.setupHostinfo(node):
-            return False
-
         self.callCount()
 
         if (node in silent_skip_list):
             return False
 
-        layerlist = ["core"]
+        if ENABLE_HOSTED_EXTENSIONS:
+            layerlist = self.setupExtensionLayerlist(node) # e.g. ['core', 'bib']
+        else:
+            layerlist = ["core"]
 
         setSiteName(self.getExtendedSiteName(layerlist)) # e.g. 'bib.schema.org', 'schema.org'
         log.debug("EXT: set sitename to %s " % getSiteName())
@@ -2227,6 +2221,13 @@ class ShowUnit (webapp2.RequestHandler):
         if(node == "_ah/start"):
             log.info("Instance[%s] received Start request at %s" % (modules.get_current_instance_id(), global_vars.time_start) )
             return False
+
+        if not PageStore.get(node): #Not stored this page before
+            #log.info("Not stored %s" % node)
+            if not LOADEDSOURCES:
+                log.info("Instance[%s] received request for not stored page: %s" % (getInstanceId(short=True), node) )
+                log.info("Instance[%s] needs to load sources to create it" % (getInstanceId(short=True)) )
+                load_sources() #Get Examples files and schema definitions
 
         if (node in ["", "/"]):
             return self.handleHomepage(node)
@@ -2612,5 +2613,21 @@ def load_schema_definitions():
         read_extensions(ENABLED_EXTENSIONS)
     schemasInitialized = True
 
-load_schema_definitions()
+LOADINGSOURCE = False
+def load_sources():
+    global LOADINGSOURCE, LOADEDSOURCES,LOADEDSOURCES
+    if LOADEDSOURCES:
+        return
+    if LOADINGSOURCE: #Another thread may already be here
+        while LOADINGSOURCE:
+            time.sleep(0.1)
+    else:
+        LOADINGSOURCE = True
+        load_start = datetime.datetime.now()
+        load_examples_data(ENABLED_EXTENSIONS)
+        log.info(("[%s] Examples load took %s " % (getInstanceId(short=True),(datetime.datetime.now() - load_start))))
+        load_schema_definitions()
+        LOADEDSOURCES=True
+        LOADINGSOURCE=False
+
 app = ndb.toplevel(webapp2.WSGIApplication([("/(.*)", ShowUnit)]))
