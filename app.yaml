@@ -1,6 +1,5 @@
-application: schemaorgae
-#application: webschemas
-#application: sdo-deimos
+#application: schemaorgae
+application: webschemas
 
 version: 1
 runtime: python27
@@ -45,6 +44,9 @@ handlers:
 - url: /docs/schemas.html
   script: sdoapp.app
 
+- url: /docs/developers.html
+  script: sdoapp.app
+
 - url: /docs/tree.json.*
   script: sdoapp.app
 
@@ -59,8 +61,25 @@ handlers:
 - url: /search_files
   static_dir: static/search_files
 
+- url: /version/latest/.*
+  script: sdoapp.app
+
+- url: /(version/[^/]*/)$
+  script: sdoapp.app
+
+- url: /(version/([^/]*))$
+  script: sdoapp.app
+
+- url: /version/
+  script: sdoapp.app
+
+- url: /version/*/*
+  static_dir: data/releases/
+  application_readable: True
+
 - url: /.*
   script: sdoapp.app
+
 
 
 

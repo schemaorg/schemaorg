@@ -50,40 +50,27 @@ Of these,
 
  * schema.rdfa is a frozen one-time copy of data/schema.rdfa
  * schema-all.html is generated from this via running the Web app and
-   capturing via curl of /version/ (no numbers),
-   e.g. http://localhost:8080/version/
+   capturing via curl of /version/build-latest,
+   e.g. http://localhost:8080/version/build-latest
    when served locally via "dev_appserver ."
- * the .nt and .nq files are n-triples and n-quads capturing the core
-   and extensions. Use script/rdfa2nq for the latter.
-   scripts/rdfa2nt for the former. TODO: fix the charset warning we're ignoring.
-  * We consider schema.rdfa as immutable; the rest can be fixed and augmented
-   as they are derrived and potentially improvable formats.
-  * we don't preserve snapshots of per-extension RDFa here (or examples etc.)
+   For now, you need to edit this html to remove webschemas.org from heading section.
+
+  * To create .nt, .nq, etc files use scripts/buildreleasefiles.sh   
+
   * README.md should be copied/updated accordingly.  TODO: simplify this file.
 
 Example usage:
-
-# n-triples
 
 First copy snapshot into place:
 
 * cp data/schema.rdfa data/releases/2.2/schema.rdfa
 
-Then generate N-Triples version:
-
-* ./scripts/rdfa2nt data/releases/2.2/schema.rdfa  > data/releases/2.2/schema.nt
-* We ignore a warning here, currently: NTSerializer does not use custom encoding. (TODO)
-
-* Now we generate NQuad (.nq) files for each published extension, manually (some extensions may be multi-file):
- * ./scripts/rdfa2nq data/ext/bib/bsdo-1.0.rdfa http://bib.schema.org/#v2.2 | grep -v file: > data/releases/2.2/ext-bib.nq
- * ./scripts/rdfa2nq data/ext/bib/comics.rdfa http://bib.schema.org/#v2.2 | grep -v file: >> data/releases/2.2/ext-bib.nq
- * ./scripts/rdfa2nq data/ext/auto/auto.rdfa http://auto.schema.org/#v2.2 | grep -v file: >> data/releases/2.2/ext-auto.nq
-* And for the core itself:
- * ./scripts/rdfa2nq data/releases/2.2/schema.rdfa http://schema.org/version/2.1/ | grep -v file: >> data/releases/2.2/core.nq
-* Now concat the lot:
- * find data/releases/2.2/ -name \*.nq -exec cat {} \; > data/releases/2.2/all-layers.nq
 * Now the HTML snapshot itself. Assuming a local server (e.g. from 'dev_appserver .') we can do:
  * curl http://localhost:8080/version/latest/> data/releases/2.2/schema-all.html
+
+Then generate N-Triples etc. versions:
+* scripts/buildreleasefiles.sh 3.1 - Check listed extensions is correct update if not
+
 * Inspect snapshot, add to git and push to repo.
  * ls -l data/releases/2.2/
  * git add data/releases/2.2/*
@@ -92,9 +79,6 @@ Then generate N-Triples version:
   * Inspect /version/{x.y}/ on those sites manually; check for newly added terms etc.
  * TODO: more QA and automation would be highly appropriate here.
 
-
-# NQuads
-Use of rdfa2nq with extensions:
 
 
 TODO: list optional tasks post-launch (blog, email, refresh dydra sparql db etc.).

@@ -11,9 +11,9 @@
 </head>
 <body style="text-align: left;">
 
-{% include 'basicPageHeader.tpl' with context %}
-
 <div style="margin-left: 8%; margin-right: 8%">
+
+{% include 'basicPageHeader.tpl' with context %}
 
 <h1>Schema.org version {{ requested_version }}</h1>
 
@@ -28,17 +28,15 @@
  <dt>Published:</dt>
  <dd>{{ releasedate }}</dd>
 
- <dt>Alternate formats:</dt>
- <dd>
-     {% if requested_version != "latest" %}
+ <dt>Alternate formats: </dt>
+  <dd>
+     {% if requested_version != liveversion %}
      This release is also available in <a href="schema.rdfa">RDFa/RDFS</a>, <a href="schema.nt">N-Triples</a>
      {% endif %}
 
-     {% if requested_version == "latest" %}
-     This release is also available in <a href="http://schema.org/docs/schema_org_rdfa.html">rdfa</a>
+     {% if requested_version == liveversion %}
+     This release is also available in <a href="http://schema.org/docs/schema_org_rdfa.html">rdfa</a>. Plus full core and extension definition files in N-Triples, Quads, JSON-LD, and Turtle formats are available for <a href="/docs/developers.html#defs">download</a>.
      {% endif %}
-
-
 </dd>
 
 <p>
