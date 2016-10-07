@@ -2048,6 +2048,8 @@ class ShowUnit (webapp2.RequestHandler):
                     retHdrs = self.response.headers.copy()
                     HeaderStore.put(etag + tagsuff,retHdrs) #Cache these headers for a future 304 return
 
+            self.response.set_cookie('GOOGAPPUID', getAppEngineVersion())
+
 
     def _get(self, node, doWarm=True):
         """Get a schema.org site page generated for this node/term.
