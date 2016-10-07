@@ -82,6 +82,17 @@ handlers:
   static_dir: data/releases/
   application_readable: True
 
+# Attempt to avoid many warnings of this form:
+#   "Could not guess mimetype for data/releases/3.1/all-layers.jsonld.  Using application/octet-stream."
+#   "Could not guess mimetype for data/releases/3.0/ext-auto.nt.  Using application/octet-stream."
+# using * 
+#
+#- url: /data/releases/*/*.nt # URL path seems required here, we didn't expose /data/ previously.
+#  static_files: data/releases/*/(*.nt)
+#  upload: data/releases/*/\1
+#  mime_type: application/n-triples
+
+
 - url: /.*
   script: sdoapp.app
 
