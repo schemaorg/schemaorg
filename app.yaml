@@ -1,4 +1,5 @@
 #application: schemaorgae
+#application: sdo-rjwtest1
 application: webschemas
 
 version: 1
@@ -6,8 +7,10 @@ runtime: python27
 api_version: 1
 threadsafe: true
 
-automatic_scaling:
-  min_idle_instances: 2
+  
+basic_scaling:
+  max_instances: 10
+  idle_timeout: 10m
 
 inbound_services:
 - warmup
@@ -81,17 +84,6 @@ handlers:
 - url: /version/*/*
   static_dir: data/releases/
   application_readable: True
-
-# Attempt to avoid many warnings of this form:
-#   "Could not guess mimetype for data/releases/3.1/all-layers.jsonld.  Using application/octet-stream."
-#   "Could not guess mimetype for data/releases/3.0/ext-auto.nt.  Using application/octet-stream."
-# using * 
-#
-#- url: /data/releases/*/*.nt # URL path seems required here, we didn't expose /data/ previously.
-#  static_files: data/releases/*/(*.nt)
-#  upload: data/releases/*/\1
-#  mime_type: application/n-triples
-
 
 - url: /.*
   script: sdoapp.app
