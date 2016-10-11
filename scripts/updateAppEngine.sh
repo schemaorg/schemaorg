@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # first the general development site
-appcfg.py update .   -A webschemas
+appcfg.py update .   -A webschemas-g
 
 # then the release-specific one
 ### not so needed: 
