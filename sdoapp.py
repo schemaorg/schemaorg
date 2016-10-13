@@ -701,11 +701,8 @@ class ShowUnit (webapp2.RequestHandler):
         for prop in sorted(GetSources(di, cl, layers=layers), key=lambda u: u.id):
             if (prop.superseded(layers=layers)):
                 continue
-            supersedes = prop.supersedes(layers=layers)
-            olderprops = sorted(prop.supersedes_all(layers=layers),key=lambda u: u.id)
+            olderprops = prop.supersedes_all(layers=layers)
             inverseprop = prop.inverseproperty(layers=layers)
-            subprops = sorted(prop.subproperties(layers=layers),key=lambda u: u.id)
-            superprops = sorted(prop.superproperties(layers=layers),key=lambda u: u.id)
             ranges = sorted(GetTargets(ri, prop, layers=layers),key=lambda u: u.id)
             doms = sorted(GetTargets(di, prop, layers=layers), key=lambda u: u.id)
             comment = GetComment(prop, layers=layers)
@@ -729,7 +726,8 @@ class ShowUnit (webapp2.RequestHandler):
                 out.write("<link property=\"domainIncludes\" href=\"http://schema.org/%s\">" % d.id)
             out.write("</td>")
             out.write("<td class=\"prop-desc\" property=\"rdfs:comment\">%s" % (comment))
-            if (len(olderprops) > 0):
+            if (olderprops and len(olderprops) > 0):
+                olderprops = sorted(olderprops,key=lambda u: u.id)
                 olderlinks = ", ".join([self.ml(o) for o in olderprops])
                 out.write(" Supersedes %s." % olderlinks )
             if (inverseprop != None):
@@ -854,8 +852,6 @@ class ShowUnit (webapp2.RequestHandler):
                 continue
             supersedes = prop.supersedes(layers=targetlayers)
             inverseprop = prop.inverseproperty(layers=targetlayers)
-            subprops = sorted(prop.subproperties(layers=targetlayers),key=lambda u: u.id)
-            superprops = sorted(prop.superproperties(layers=targetlayers),key=lambda u: u.id)
             ranges = sorted(GetTargets(di, prop, layers=targetlayers),key=lambda u: u.id)
             comment = GetComment(prop, layers=targetlayers)
 
