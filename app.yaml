@@ -1,16 +1,20 @@
 #application: schemaorgae
-#application: sdo-rjwtest1
-application: webschemas-g
+application: sdo-rjwtest1
+#application: webschemas-g
 
 version: 1
+module: default
 runtime: python27
 api_version: 1
 threadsafe: true
 
   
-basic_scaling:
-  max_instances: 10
-  idle_timeout: 10m
+automatic_scaling:
+  min_idle_instances: 2
+
+#basic_scaling:
+#  max_instances: 10
+#  idle_timeout: 10m
 
 inbound_services:
 - warmup
@@ -27,8 +31,8 @@ handlers:
   mime_type: image/x-icon
 
 - url: /robots.txt
-  static_files: docs/robots.txt
-  upload: docs/robots.txt
+  static_files: docs/robots-blockall.txt
+  upload: docs/robots-blockall.txt
   mime_type: text/plain
 
 # To avoid: "Could not guess mimetype for docs/schemaorg.owl.  Using application/octet-stream."
