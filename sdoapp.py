@@ -1083,7 +1083,7 @@ class ShowUnit (webapp2.RequestHandler):
             # the .tpl has responsibility for extension homepages
             # TODO: pass in extension, base_domain etc.
             sitekeyedhomepage = "homepage %s" % getSiteName()
-            hp = PageStore.get(sitekeyedhomepage)
+            hp = getPageFromStore(sitekeyedhomepage)
             self.response.headers['Content-Type'] = "text/html"
             self.emitCacheHeaders()
             if hp != None:
@@ -1208,10 +1208,7 @@ class ShowUnit (webapp2.RequestHandler):
 
         self.emitSchemaorgHeaders(node, ext_mappings, sitemode, getSiteName(), layers)
 
-        cached = PageStore.get(node.id)
-        if "_pageFlush" in getArguments():
-            log.info("Reloading page for %s" % node.id)
-            cached = None
+        cached = getPageFromStore(node.id)
             
         if (cached != None):
             log.info("GOT CACHED page for %s" % node.id)
@@ -1436,8 +1433,8 @@ class ShowUnit (webapp2.RequestHandler):
             return True
             
         jsonldcontext = ""
-        if PageStore.get("JSONLDCONTEXT"):
-            jsonldcontext = PageStore.get("JSONLDCONTEXT")
+        if getPageFromStore("JSONLDCONTEXT"):
+            jsonldcontext = getPageFromStore("JSONLDCONTEXT")
         else:
             jsonldcontext = GetJsonLdContext(layers=ALL_LAYERS)
             PageStore.put("JSONLDCONTEXT",jsonldcontext)
@@ -1459,8 +1456,8 @@ class ShowUnit (webapp2.RequestHandler):
         self.response.headers['Content-Type'] = "text/html"
         self.emitCacheHeaders()
 
-        if PageStore.get('SchemasPage'):
-            self.response.out.write( PageStore.get('SchemasPage') )
+        if getPageFromStore('SchemasPage'):
+            self.response.out.write( getPageFromStore('SchemasPage') )
             log.debug("Serving recycled SchemasPage.")
             return True
         else:
@@ -1484,8 +1481,8 @@ class ShowUnit (webapp2.RequestHandler):
         self.response.headers['Content-Type'] = "text/html"
         self.emitCacheHeaders()
 
-        if PageStore.get('DumpsPage'):
-            self.response.out.write( PageStore.get('DumpsPage') )
+        if getPageFromStore('DumpsPage'):
+            self.response.out.write( getPageFromStore('DumpsPage') )
             log.debug("Serving recycled DumpsPage.")
             return True
         else:
@@ -1502,17 +1499,17 @@ class ShowUnit (webapp2.RequestHandler):
             return True
 
     def getCounts(self):
-        typesCount = PageStore.get('typesCount-core')
+        typesCount = getPageFromStore('typesCount-core')
         if not typesCount:
             typesCount = str(countTypes(extension="core"))
             PageStore.put('typesCount-core',typesCount)
 
-        propsCount = PageStore.get('propsCount-core')
+        propsCount = getPageFromStore('propsCount-core')
         if not propsCount:
             propsCount = str(countProperties(extension="core"))
             PageStore.put('propsCount-core',propsCount)
 
-        enumCount = PageStore.get('enumCount-core')
+        enumCount = getPageFromStore('enumCount-core')
         if not enumCount:
             enumCount = str(countEnums(extension="core"))
             PageStore.put('enumCount-core',enumCount)
@@ -1528,8 +1525,8 @@ class ShowUnit (webapp2.RequestHandler):
         self.response.headers['Content-Type'] = "text/html"
         self.emitCacheHeaders()
 
-        if PageStore.get('FullTreePage'):
-            self.response.out.write( PageStore.get('FullTreePage') )
+        if getPageFromStore('FullTreePage'):
+            self.response.out.write( getPageFromStore('FullTreePage') )
             log.debug("Serving recycled FullTreePage.")
             return True
         else:
@@ -1607,8 +1604,8 @@ class ShowUnit (webapp2.RequestHandler):
         self.response.headers['Content-Type'] = "application/ld+json"
         self.emitCacheHeaders()
 
-        if PageStore.get('JSONLDThingTree'):
-            self.response.out.write( PageStore.get('JSONLDThingTree') )
+        if getPageFromStore('JSONLDThingTree'):
+            self.response.out.write( getPageFromStore('JSONLDThingTree') )
             log.debug("Serving recycled JSONLDThingTree.")
             return True
         else:
@@ -1704,7 +1701,7 @@ class ShowUnit (webapp2.RequestHandler):
             if schema_node:
                 ret = True
                 index = "%s.%s" % (outputtype,node)
-                data = PageStore.get(index)
+                data = getPageFromStore(index)
 
                 excludeAttic=True
                 if getHostExt()== ATTIC:
@@ -1805,8 +1802,8 @@ class ShowUnit (webapp2.RequestHandler):
         log.debug("clean_node: %s requested_version: %s " %  (clean_node, requested_version))
         if (clean_node=="version/" or clean_node=="version") and requested_version=="" and requested_format=="":
             log.info("Table of contents should be sent instead, then succeed.")
-            if PageStore.get('tocVersionPage'):
-                self.response.out.write( PageStore.get('tocVersionPage'))
+            if getPageFromStore('tocVersionPage'):
+                self.response.out.write( getPageFromStore('tocVersionPage'))
                 return True
             else:
                 log.debug("Serving tocversionPage from cache.")
@@ -1855,8 +1852,8 @@ class ShowUnit (webapp2.RequestHandler):
                 log.info("generating a live view of this latest release.")
 
 
-        if PageStore.get('FullReleasePage'):
-            self.response.out.write( PageStore.get('FullReleasePage') )
+        if getPageFromStore('FullReleasePage'):
+            self.response.out.write( getPageFromStore('FullReleasePage') )
             log.debug("Serving recycled FullReleasePage.")
             return True
         else:
@@ -1934,8 +1931,8 @@ class ShowUnit (webapp2.RequestHandler):
         if not ext in ENABLED_EXTENSIONS:
             return ""
 
-        if PageStore.get('ExtensionContents',ext):
-            return PageStore.get('ExtensionContents',ext)
+        if getPageFromStore('ExtensionContents',ext):
+            return getPageFromStore('ExtensionContents',ext)
 
         buff = StringIO.StringIO()
 
@@ -2133,6 +2130,12 @@ class ShowUnit (webapp2.RequestHandler):
             pass
 
         retHdrs = HeaderStore.get(passedTag)   #Already cached headers for this request?
+        
+        if retHdrs and "_pageFlush" in getArguments():
+            log.info("Reloading header for %s" % passedTag)
+            HeaderStore.remove(passedTag)
+            retHdrs = None
+        
         if NotModified and retHdrs:
             self.response.clear()
             self.response.headers = retHdrs
@@ -2216,9 +2219,20 @@ class ShowUnit (webapp2.RequestHandler):
 
         if(node == "_ah/start"):
             log.info("Instance[%s] received Start request at %s" % (modules.get_current_instance_id(), global_vars.time_start) )
+            if "localhost" in os.environ['SERVER_NAME'] and WarmupState.lower() == "auto":
+                log.info("[%s] Warmup dissabled for localhost instance" % getInstanceId(short=True))
+                if DISABLE_NDB_FOR_LOCALHOST:
+                    log.info("[%s] NDB dissabled for localhost instance" % getInstanceId(short=True))
+                    enablePageStore(False)
+            else:
+                if not memcache.get("warmedup"):
+                    memcache.set("warmedup", value=True)
+                    self.warmup()
+                else:
+                    log.info("Warmup already actioned")
             return False
 
-        if not PageStore.get(node): #Not stored this page before
+        if not getPageFromStore(node): #Not stored this page before
             #log.info("Not stored %s" % node)
             if not LOADEDSOURCES:
                 log.info("Instance[%s] received request for not stored page: %s" % (getInstanceId(short=True), node) )
@@ -2405,15 +2419,16 @@ class ShowUnit (webapp2.RequestHandler):
         global Warmer
         if WarmedUp:
             return
+        warm_start = datetime.datetime.now()
         log.debug("Instance[%s] received Warmup request at %s" % (modules.get_current_instance_id(), datetime.datetime.utcnow()) )
         Warmer.warmAll(self)
-        log.debug("Instance[%s] completed Warmup request at %s" % (modules.get_current_instance_id(), datetime.datetime.utcnow()) )
+        log.debug("Instance[%s] completed Warmup request at %s elapsed: %s" % (modules.get_current_instance_id(), datetime.datetime.utcnow(),datetime.datetime.now() - warm_start ) )
 
 class WarmupTool():
 
     def __init__(self):
         #self.pageList = ["docs/schemas.html"]
-        self.pageList = ["docs/schemas.html","docs/full.html","docs/tree.jsonld"]
+        self.pageList = ["/","docs/schemas.html","docs/full.html","docs/tree.jsonld"]
         self.warmPages = {}
         for l in ALL_LAYERS:
             self.warmPages[l] = []
@@ -2599,6 +2614,14 @@ def makeUrl(ext="",path=""):
         url = "%s://%s%s%s%s" % (getHttpScheme(),sub,getBaseHost(),port,p)
         return url
 
+def getPageFromStore(id,ext=None):
+        cached = PageStore.get(id,ext)
+        if cached and "_pageFlush" in getArguments():
+            log.info("Reloading page for %s" % id)
+            PageStore.remove(id,ext)
+            cached = None
+        return cached
+    
 schemasInitialized = False
 def load_schema_definitions():
     #log.info("STARTING UP... reading schemas.")

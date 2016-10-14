@@ -162,6 +162,9 @@ class DataCacheTool():
     def get(self,key,cache=None):
         return self.getCache(cache).get(key)
 
+    def remove(self,key,cache=None):
+        return self.getCache(cache).pop(key,None)
+
     def put(self,key,val,cache=None):
         self.getCache(cache)[key] = val
 
@@ -232,6 +235,17 @@ class PageStoreTool():
         else:
             #log.info("PageStore '%s' not found" % fullKey)
             return None
+    def remove(self, key,cache=None):
+        ca = self.getCurrent()
+        if cache != None:
+            ca = cache
+        fullKey = ca + ":" + key
+        ent = PageEntity.get_by_id(fullKey)
+        if(ent):
+            return ent.key.delete()
+        else:
+            #log.info("PageStore '%s' not found" % fullKey)
+            return None
 
 class HeaderEntity(ndb.Model):
     content = ndb.PickleProperty()
@@ -284,6 +298,16 @@ class HeaderStoreTool():
         else:
             return None
 
+    def remove(self, key,cache=None):
+        ca = self.getCurrent()
+        if cache != None:
+            ca = cache
+        fullKey = ca + ":" + key
+        ent = HeaderEntity.get_by_id(fullKey)
+        if(ent):
+            return ent.key.delete()
+        else:
+            return None
 
 PageStore = None
 HeaderStore = None
