@@ -2632,22 +2632,32 @@ def load_schema_definitions():
         read_extensions(ENABLED_EXTENSIONS)
     schemasInitialized = True
 
-LOADINGSOURCE = False
+LOADINGSOURCE = None
+WAITSECS = 360
 def load_sources():
-    global LOADINGSOURCE, LOADEDSOURCES,LOADEDSOURCES
+    global LOADINGSOURCE, LOADEDSOURCES,WAITSECS
     if LOADEDSOURCES:
         return
     if LOADINGSOURCE: #Another thread may already be here
-        while LOADINGSOURCE:
+        elapsedSecs = 0
+        while LOADINGSOURCE and elapsedSecs < WAITSECS:
             time.sleep(0.1)
-    else:
-        LOADINGSOURCE = True
+            elapsed = datetime.datetime.now() - LOADINGSOURCE
+            elapsedSecs = elapsed.total_seconds()
+
+        if elapsedSecs >= WAITSECS: # Clear potential thread block caused by another thread crashing out leaving flags set
+            log.info("LOADINGSOURCE Thread blocked for over %s seconds - clearing lock" % WAITSECS)
+            LOADINGSOURCE = None
+
+    if not LOADEDSOURCES and not LOADINGSOURCE: # Check again in case things have changed in above loop
+        LOADINGSOURCE = datetime.datetime.now()
         load_start = datetime.datetime.now()
         load_examples_data(ENABLED_EXTENSIONS)
         log.info(("[%s] Examples load took %s " % (getInstanceId(short=True),(datetime.datetime.now() - load_start))))
         load_schema_definitions()
         LOADEDSOURCES=True
-        LOADINGSOURCE=False
+        LOADINGSOURCE=None
+
 if getInTestHarness():
     load_sources()
 else:
