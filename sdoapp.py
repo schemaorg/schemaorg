@@ -2642,8 +2642,9 @@ def load_sources():
         elapsedSecs = 0
         while LOADINGSOURCE and elapsedSecs < WAITSECS:
             time.sleep(0.1)
-            elapsed = datetime.datetime.now() - LOADINGSOURCE
-            elapsedSecs = elapsed.total_seconds()
+            if LOADINGSOURCE: #If still loading, check timing and go around again
+                elapsed = datetime.datetime.now() - LOADINGSOURCE
+                elapsedSecs = elapsed.total_seconds()
 
         if elapsedSecs >= WAITSECS: # Clear potential thread block caused by another thread crashing out leaving flags set
             log.info("LOADINGSOURCE Thread blocked for over %s seconds - clearing lock" % WAITSECS)
