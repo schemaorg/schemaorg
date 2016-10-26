@@ -5749,8 +5749,9 @@ The place is __open__ if the [[opens]] property is specified, and __closed__ oth
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/menu">
       <span class="h" property="rdfs:label">menu</span>
-      <span property="rdfs:comment">Either the actual menu or a URL of the menu.</span>
+      <span property="rdfs:comment">Either the actual menu as a structured representation, as text, or a URL of the menu.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/FoodEstablishment">FoodEstablishment</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Menu">Menu</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/URL">URL</a></span>
     </div>
@@ -5914,6 +5915,7 @@ The place is __open__ if the [[opens]] property is specified, and __closed__ oth
       <span property="rdfs:comment">An offer to provide this item&amp;#x2014;for example, an offer to sell a product, rent the DVD of a movie, perform a service, or give away tickets to an event.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CreativeWork">CreativeWork</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Event">Event</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MenuItem">MenuItem</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Product">Product</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Service">Service</a></span>
 <!--      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Accommodation">Accommodation</a></span> #1264 -->
@@ -7096,7 +7098,8 @@ The place is __open__ if the [[opens]] property is specified, and __closed__ oth
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/suitableForDiet">
       <span class="h" property="rdfs:label">suitableForDiet</span>
-      <span property="rdfs:comment">Indicates a dietary restriction or guideline for which this recipe is suitable, e.g. diabetic, halal etc.</span>
+      <span property="rdfs:comment">Indicates a dietary restriction or guideline for which this recipe or menu item is suitable, e.g. diabetic, halal etc.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MenuItem">MenuItem</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Recipe">Recipe</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/RestrictedDiet">RestrictedDiet</a></span>
     </div>
@@ -10321,7 +10324,8 @@ Standards bodies should promote a standard prefix for the identifiers of propert
 
 <div typeof="rdf:Property" resource="http://schema.org/nutrition">
   <span class="h" property="rdfs:label">nutrition</span>
-  <span property="rdfs:comment">Nutrition information about the recipe.</span>
+  <span property="rdfs:comment">Nutrition information about the recipe or menu item.</span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MenuItem">MenuItem</a></span>
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Recipe"> Recipe</a></span>
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/NutritionInformation">NutritionInformation</a></span>
 </div>
@@ -11141,6 +11145,49 @@ Typical unit code(s): C62 for person</span>
 
 </div>
 
+<h2>Menu</h2>
+
+<p>Adding menu markup schema (issue-1288 .rdfa), 2016-10-26.</p>
+
+<!-- Types: Menu, MenuItem, MenuSection; Properties: hasMenuItem, hasMenuSection -->
+
+<div>
+
+    <div typeof="rdfs:Class" resource="http://schema.org/Menu">
+      <span class="h" property="rdfs:label">Menu</span>
+      <span property="rdfs:comment">A structured representation of food or drink items available from a FoodEstablishment.</span>
+      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/CreativeWork">CreativeWork</a></span>
+    </div>
+
+    <div typeof="rdfs:Class" resource="http://schema.org/MenuItem">
+      <span class="h" property="rdfs:label">MenuItem</span>
+      <span property="rdfs:comment">A food or drink item listed in a menu or menu section.</span>
+      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Intangible">CreativeWork</a></span>
+    </div>
+
+    <div typeof="rdfs:Class" resource="http://schema.org/MenuSection">
+      <span class="h" property="rdfs:label">MenuSection</span>
+      <span property="rdfs:comment">A sub-grouping of food or drink items in a menu. E.g. courses (such as 'Dinner', 'Breakfast', etc.), specific type of dishes (such as 'Meat', 'Vegan', 'Drinks', etc.), or some other classification made by the menu provider.</span>
+      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/CreativeWork">CreativeWork</a></span>
+    </div>
+
+    <div typeof="rdf:Property" resource="http://schema.org/hasMenuItem">
+      <span class="h" property="rdfs:label">hasMenuItem</span>
+      <span property="rdfs:comment">A food or drink item contained in a menu or menu section.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Menu">Menu</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MenuSection">MenuSection</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/MenuItem">MenuSection</a></span>
+    </div>
+
+    <div typeof="rdf:Property" resource="http://schema.org/hasMenuSection">
+      <span class="h" property="rdfs:label">hasMenuSection</span>
+      <span property="rdfs:comment">A subgrouping of the menu (by dishes, course, serving time period, etc.).</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Menu">Menu</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MenuSection">MenuSection</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/MenuSection">MenuSection</a></span>
+    </div>
+
+</div>
 
 </body>
 </html>
