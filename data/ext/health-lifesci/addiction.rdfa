@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Schema.org Addiction Proposal</title>
+    <meta charset="UTF-8" />
+    <style type="text/css">
+        span.h {
+            padding-left: 0px;
+            font-weight: bold;
+        }
+        
+        span {
+            display: block;
+            padding-left: 10px;
+        }
+    </style>
+</head>
+
+<body> 
+    
+<h1>Addiction Vocabulary</h1>
+    
+    <div vocab="http://schema.org" prefix="http://health-lifesci.schema.org/">
+        
+    <h2>AddictionTreatmentCenter</h2>
+    
+    <div typeof="rdfs:Class" resource="http://schema.org/AddictionTreatmentCenter">
+        <span class="h" property="rdfs:label">AddictionTreatmentCenter</span>
+        <span property="rdfs:comment">A center offering treatment related to any type of addiction, including substance and process addictions.</span>
+        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MedicalOrganization">MedicalOrganization</a></span>
+        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MedicalBusiness">MedicalBusiness</a></span>
+		<link property="http://schema.org/isPartOf" href="http://health-lifesci.schema.org" />
+    </div>
+    
+    <div typeof="rdf:Property" resource="http://schema.org/accreditedBy">
+      	<span class="h" property="rdfs:label">accreditedBy</span>
+      	<span property="rdfs:comment">Indicates the MedicalOrganization(s) by which an AddictionTreatmentCenter is accredited.</span>
+      	<span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/AddictionTreatmentCenter">AddictionTreatmentCenter</a></span>
+      	<span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/MedicalOrganization">MedicalOrganization</a></span>
+		<link property="http://schema.org/isPartOf" href="http://health-lifesci.schema.org" />
+    </div>
+    
+    <div typeof="rdf:Property" resource="http://schema.org/availableService">
+  		<span class="h" property="rdfs:label">availableService</span>
+  		<span property="rdfs:comment">A medical service available from this provider.</span>
+  		<span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/AddictionTreatmentCenter">AddictionTreatmentCenter</a></span>
+  		<span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/MedicalTherapy">MedicalTherapy</a></span>
+  		<link property="http://schema.org/isPartOf" href="http://health-lifesci.schema.org" />
+	</div>
+    
+    <div typeof="rdf:Property" resource="http://schema.org/onsiteDetox">
+      	<span class="h" property="rdfs:label">onsiteDetox</span>
+      	<span property="rdfs:comment">Indicates whether the center has an onsite detoxification facility.</span>
+      	<span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/AddictionTreatmentCenter">AddictionTreatmentCenter</a></span>
+      	<span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Boolean">Boolean</a></span>
+		<link property="http://schema.org/isPartOf" href="http://health-lifesci.schema.org" />
+    </div>
+    
+    <div typeof="rdf:Property" resource="http://schema.org/typesOfPrograms">
+      	<span class="h" property="rdfs:label">typesOfPrograms</span>
+      	<span property="rdfs:comment">Text describing the types of programs, such as residential/inpatient or intensive outpatient.</span>
+      	<span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/AddictionTreatmentCenter">AddictionTreatmentCenter</a></span>
+      	<span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+		<link property="http://schema.org/isPartOf" href="http://health-lifesci.schema.org" />
+    </div>
+    
+    <h2>AddictionDisorder</h2>
+    
+    <div typeof="rdfs:Class" resource="http://schema.org/AddictionDisorder">
+        <span class="h" property="rdfs:label">AddictionDisorder</span>
+        <span property="rdfs:comment">A substance or process addiction, such as those defined under Substance-Related and Addictive Disorders in <em>DSM-V</em>.</span>
+        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MedicalCondition">MedicalCondition</a></span>
+		<link property="http://schema.org/isPartOf" href="http://health-lifesci.schema.org" />
+    </div>
+
+    <div typeof="rdf:Property" resource="http://schema.org/addictedTo">
+      	<span class="h" property="rdfs:label">addictedTo</span>
+      	<span property="rdfs:comment">Drug or Text indicating the substance or activity to which a patient is addicted.</span>
+      	<span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/AddictionDisorder">AddictionDisorder</a></span>
+      	<span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Drug">Drug</a></span>
+      	<span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+		<link property="http://schema.org/isPartOf" href="http://health-lifesci.schema.org" />
+    </div>
+    
+    <div typeof="rdf:Property" resource="http://schema.org/addictionType">
+      	<span class="h" property="rdfs:label">addictionType</span>
+      	<span property="rdfs:comment">Text describing the particular type of addiction(s) a patient has (e.g., process or substance).</span>
+      	<span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/AddictionDisorder">AddictionDisorder</a></span>
+      	<span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+		<link property="http://schema.org/isPartOf" href="http://health-lifesci.schema.org" />
+    </div>
+    
+    <h2>AddictionMedicine</h2>
+    
+    <div typeof="http://schema.org/MedicalSpecialty" resource="http://schema.org/AddictionMedicine">
+      	<span class="h" property="rdfs:label">AddictionMedicine</span>
+      	<span property="rdfs:comment">A medical specialty that treats the physical aspects of addiction.</span>
+		<link property="http://schema.org/isPartOf" href="http://health-lifesci.schema.org" />
+    </div>
+    
+    <h2>AddictionPsychiatry</h2>
+    
+    <div typeof="http://schema.org/MedicalSpecialty" resource="http://schema.org/AddictionPsychiatry">
+	    <span class="h" property="rdfs:label">AddictionPsychiatry</span>
+    	<span property="rdfs:comment">A medical specialty that treats the psychological aspects of addiction.</span>
+		<link property="http://schema.org/isPartOf" href="http://health-lifesci.schema.org" />
+    </div>
+    </div>
+    
+</body>
+
+</html>

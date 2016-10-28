@@ -1,0 +1,59 @@
+TYPES: #atc AddictionTreatmentCenter, AddictionDisorder, AddictionMedicine, AddictionPsychiatry, accreditedBy, availableService, onsiteDetox, typesOfPrograms, addictedTo, addictionType
+
+PRE-MARKUP:
+
+<div>
+<p>XYZ Recovery Center offers treatment for people suffering from alcohol and drug dependency. We have onsite detox facilities and a full-time medical and psychiatric staff. We offer both residential and intensive outpatient programs, and we are accredited by <a href="http://www.jointcommission.org/">The Joint Commission</a>. We provide treatment to people will all types of substance addiction disorders, including addiction to alcohol, opioids (e.g., heroin and prescription pain-killers), and cocaine.</p>
+</div>
+
+MICRODATA:
+
+No Microdata example.
+
+RDFA:
+
+<div vocab="http://schema.org/" typeof="AddictionTreatmentCenter">
+	<meta property="medicalSpecialty" value="AddictionPsychiatry" />
+	<meta property="medicalSpecialty" value="AddictionMedicine" />
+	<p><span property="name">XYZ Recovery Center</span> offers treatment for people suffering from alcohol and drug dependency. We have <meta property="onsiteDetox" content="true" /> onsite detox facilities and a full-time medical and psychiatric staff. We offer both <span property="typesOfPrograms">residential</span> and <span property="typesOfPrograms">intensive outpatient</span> programs, and we are accredited by <span property="recognizingAuthority" typeof="MedicalOrganization"><a property="url" href="http://www.jointcommission.org/"><span property="name">The Joint Commission</span></a></span>. <span property="makesOffer" typeof="Offer"><span property="itemOffered" typeof="Service">We provide <span property="name">addiction treatment</span> to <span	property="audience" typeof="Patient">people will all types of <span property="healthCondition" typeof="AddictionDisorder"><span property="addictionType">substance</span> abuse disorders, including addiction to <span property="addictedTo">alcohol</span>, <span property="addictedTo">opioids</span> (e.g., <span property="addictedTo">heroin</span> and <span property="addictedTo">prescription pain-killers</span>), and <span property="addictedTo">cocaine</span>.</span></span></span></span></p>
+</div>
+
+JSON:
+
+{
+    "@context": "http://schema.org/",
+    "@type": "AddictionTreatmentCenter",
+    "name": "XYZ Recovery Center",
+    "medicalSpecialty": [ "AddictionPsychiatry", "AddictionMedicine"],
+    "onsiteDetox": "true",
+    "typesOfPrograms": [
+        "intensive outpatient",
+        "residential"
+    ],
+    "recognizingAuthority": {
+        "@type": "MedicalOrganization",
+        "name": "The Joint Commission",
+        "url": "http://www.jointcommission.org/"
+    },
+    "makesOffer": {
+        "@type": "Offer",
+        "itemOffered": {
+            "@type": "Service",
+            "name": "addiction treatment",
+            "audience":     {
+                "@type": "Patient",
+                "healthCondition": {
+                    "@type": "AddictionDisorder",
+                    "addictedTo": [
+                        "cocaine",
+                        "alcohol",
+                        "opioids",
+                        "heroin",
+                        "prescription pain-killers"
+                        ],
+                    "addictionType": "substance"
+                }
+            }
+        }
+    }
+}
