@@ -930,11 +930,14 @@ class Example ():
             self.egmeta['id'] = self.keyvalue
             
         for term in terms:
+                
             if(EXAMPLESMAP.get(term, None) == None):
                 EXAMPLESMAP[term] = []
-            EXAMPLESMAP.get(term).append(self)
+            if not self in EXAMPLESMAP.get(term):
+                EXAMPLESMAP.get(term).append(self)
                 
-        EXAMPLES.append(self)
+        if not self in EXAMPLES:
+            EXAMPLES.append(self)
 
 def LoadNodeExamples(node, layers='core'):
     """Returns the examples (if any) for some Unit node."""
@@ -1178,9 +1181,10 @@ def load_examples_data(extensions):
         log.info("Examples already loaded")
 
 def read_examples(files, layer):
-    parser = parsers.ParseExampleFile(None,layer=layer)
     first = True
     for f in files:
+        parser = parsers.ParseExampleFile(None,layer=layer)
+        #log.info("[%s] Reading: %s" % (getInstanceId(short=True),f))
         if first:
             #log.info("[%s] Loading examples from %s" % (getInstanceId(short=True),layer))
             first = False
