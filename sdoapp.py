@@ -255,8 +255,9 @@ class TypeHierarchyTree:
         gotOutput = False
 
         if not traverseAllLayers and home not in layers:
-            gotOutput = False
-            return gotOutput
+            return False
+        else:
+            gotOutput = True
 
         if home in ENABLED_EXTENSIONS and home != getHostExt():
             urlprefix = makeUrl(home)
@@ -283,7 +284,6 @@ class TypeHierarchyTree:
                     subBuff = StringIO.StringIO()
                     got = self.traverseForHTML(item, depth + 1, hashorslash=hashorslash, layers=layers, traverseAllLayers=traverseAllLayers,buff=subBuff)
                     if got:
-                        gotOutput = True
                         self.emit2buff(buff,subBuff.getvalue())
                     subBuff.close()
                 self.emit2buff(buff, ' %s</ul>' % (" " * 4 * depth))
