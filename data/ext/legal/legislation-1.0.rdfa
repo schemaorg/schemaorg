@@ -81,6 +81,7 @@
 	<link property="http://schema.org/isPartOf" href="http://legal.schema.org" />
 	<span class="h" property="rdfs:label">legal:legislationIdentifier</span>
 	<span property="rdfs:comment">An identifier for the legislation. For example the CELEX at EU level, the NOR in France, or the ELI (European Legislation Identifier).</span>
+  <link property="rdfs:subPropertyOf" href="http://schema.org/identifier" />
 	<span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Legislation">legal:Legislation</a></span>
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
   <span>Source:  <a property="dc:source" href="http://data.europa.eu/eli/ontology#id_local">eli:id_local</a></span>
@@ -145,28 +146,6 @@
   <span>Source:  <a property="dc:source" href="http://data.europa.eu/eli/ontology#in_force">eli:in_force</a></span>
   <span>Source:  <a property="dc:source" href="http://publications.europa.eu/mdr/eli/index.html">ELI</a></span>
   <link property="owl:equivalentProperty" href="http://data.europa.eu/eli/ontology#in_force"/>
-</div>
-
-<div typeof="rdf:Property" resource="http://schema.org/legislationDateEntryIntoForce">
-	<link property="http://schema.org/isPartOf" href="http://legal.schema.org" />
-	<span class="h" property="rdfs:label">legal:legislationDateEntryIntoForce</span>
-	<span property="rdfs:comment">The first date any part of the legislation came into force (can be seen as the start date of a validity range)</span>
-	<span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Legislation">legal:Legislation</a></span>
-  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Date">Date</a></span>
-  <span>Source:  <a property="dc:source" href="http://data.europa.eu/eli/ontology#date_entry_into_force">eli:date_entry_into_force</a></span>
-  <span>Source:  <a property="dc:source" href="http://publications.europa.eu/mdr/eli/index.html">ELI</a></span>
-  <link property="owl:equivalentProperty" href="http://data.europa.eu/eli/ontology#date_entry_into_force"/>
-</div>
-
-<div typeof="rdf:Property" resource="http://schema.org/legislationDateNoLongerInForce">
-	<link property="http://schema.org/isPartOf" href="http://legal.schema.org" />
-	<span class="h" property="rdfs:label">legal:legislationDateNoLongerInForce</span>
-	<span property="rdfs:comment">The last date any part of the legislation cease to be in force (can be seen as the end date of a validity range)</span>
-	<span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Legislation">legal:Legislation</a></span>
-  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Date">Date</a></span>
-  <span>Source:  <a property="dc:source" href="http://data.europa.eu/eli/ontology#date_no_longer_in_force">eli:date_no_longer_in_force</a></span>
-  <span>Source:  <a property="dc:source" href="http://publications.europa.eu/mdr/eli/index.html">ELI</a></span>
-  <link property="owl:equivalentProperty" href="http://data.europa.eu/eli/ontology#date_no_longer_in_force"/>
 </div>
 
 <!-- ***** LINKS ***** -->
@@ -272,18 +251,6 @@
 
 <!-- ***** END LINKS ***** -->
 
-<div typeof="rdf:Property" resource="http://schema.org/legislationPublishedIn">
-  <link property="http://schema.org/isPartOf" href="http://legal.schema.org" />
-  <span class="h" property="rdfs:label">legal:legislationPublishedIn</span>
-  <span property="rdfs:comment">A reference to the Official Journal or other publication in which this legislation was originally published.</span>
-  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Legislation">legal:Legislation</a></span>
-  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/PublicationIssue">PublicationIssue</a></span>
-  <link property="rdfs:subPropertyOf" href="http://schema.org/partOf" />
-  <span>Source:  <a property="dc:source" href="http://data.europa.eu/eli/ontology#published_in">eli:published_in</a></span>
-  <span>Source:  <a property="dc:source" href="http://publications.europa.eu/mdr/eli/index.html">ELI</a></span>
-  <link property="owl:equivalentProperty" href="http://data.europa.eu/eli/ontology#published_in"/>
-</div>
-
 <div typeof="rdf:Property" resource="http://schema.org/legislationDateVersion">
 	<link property="http://schema.org/isPartOf" href="http://legal.schema.org" />
 	<span class="h" property="rdfs:label">legal:legislationDateVersion</span>
@@ -338,6 +305,10 @@
 </div>
 
 <div typeof="rdf:Property" resource="http://schema.org/spatialCoverage">
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Legislation">legal:Legislation</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/temporalCoverage">
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Legislation">legal:Legislation</a></span>
 </div>
 
