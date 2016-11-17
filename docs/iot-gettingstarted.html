@@ -31,7 +31,7 @@ td {
 .code {
     font-family: monospace;
     white-space: pre;
-} 
+}
 
 </style>
 </head>
@@ -670,9 +670,383 @@ ex:vav_1 a brick:VAV;<br>
 
 <h3></h3>
 
-<h3>Nest Weave</h3>
-<p>Documentation of the file format still Nest-internal</p>
+<h3>Nest Weave (Google/Alphabet)</h3>
+<p>Documentation of the file format still Nest-internal.</p>
 <p>Primitive components in Nest Weave are called Traits, which are small units of composable functionality, comprising Properties, Commands, and Events.  Message format is <a href="https://en.wikipedia.org/wiki/Protocol_Buffers">protobuf</a>, and is intended to be highly readable, but does not imply any particular binary format.  </p>
+
+<h3>Assistant-related Home Automation functions (Google)</h3>
+
+
+<p><b>Home Automation Execution Functional Schemata</b></p>
+<p>N.B.  This is a work in progress; please feel free to propose changes or sketch out new functions. </p>
+
+<table class="style0">
+<tbody>
+<tr>
+<td>Function ID</td>
+<td>onOff</td>
+<td></td>
+</tr>
+<tr>
+<td>Status</td>
+<td>proposed</td>
+<td></td>
+</tr>
+<tr>
+<td>Parameter</td>
+<td>Name</td>
+<td>state</td>
+</tr>
+<tr>
+<td></td>
+<td>Type</td>
+<td>string</td>
+</tr>
+<tr>
+<td></td>
+<td>Values</td>
+<td>'on' 'off'</td>
+</tr>
+<tr>
+<td></td>
+<td>Units</td>
+<td>-</td>
+</tr>
+<tr>
+<td></td>
+<td>R/W</td>
+<td>Both</td>
+</tr>
+<tr>
+<td>Devices</td>
+<td>lights, wall plugs, anything with an on/off switch</td>
+<td></td>
+</tr>
+<tr>
+<td>Equates to Weave Schema</td>
+<td>onOff</td>
+<td></td>
+</tr>
+<tr>
+<td>Notes</td>
+<td>This is the base case of a 'semantic function' -- not much to do with on and off other than set the state and query the state.  [Note that devices with more state would have a separate function -- such as reading the Smartthings power draw]</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+<br/>
+
+<table class="style0">
+<tbody>
+<tr>
+<td>Function ID</td>
+<td>powerCycle</td>
+<td></td>
+</tr>
+<tr>
+<td>Status</td>
+<td>proposed</td>
+<td></td>
+</tr>
+<tr>
+<td>Parameter</td>
+<td>Name</td>
+<td>delay</td>
+</tr>
+<tr>
+<td></td>
+<td>Type</td>
+<td>int (optional)</td>
+</tr>
+<tr>
+<td></td>
+<td>Values</td>
+<td>0-?</td>
+</tr>
+<tr>
+<td></td>
+<td>Units</td>
+<td>seconds</td>
+</tr>
+<tr>
+<td></td>
+<td>R/W?</td>
+<td>W</td>
+</tr>
+<tr>
+<td>Devices</td>
+<td>lights, wall plugs, anything with an on/off switch</td>
+<td></td>
+</tr>
+<tr>
+<td>Equates to Weave Schema</td>
+<td>onOff + choreography</td>
+<td></td>
+</tr>
+<tr>
+<td>Notes</td>
+<td>A higher level function with choreography -- set onOff to off, wait n seconds, set onOff to on.  </td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+<br/>
+
+<table class="style0">
+<tbody>
+<tr>
+<td>Function ID</td>
+<td>brightness</td>
+<td></td>
+</tr>
+<tr>
+<td>Status</td>
+<td>proposed</td>
+<td></td>
+</tr>
+<tr>
+<td>Parameter</td>
+<td>Name</td>
+<td>brightness</td>
+</tr>
+<tr>
+<td></td>
+<td>Type</td>
+<td>float</td>
+</tr>
+<tr>
+<td></td>
+<td>Values</td>
+<td>[0.0, 1.0]</td>
+</tr>
+<tr>
+<td></td>
+<td>Units</td>
+<td>-</td>
+</tr>
+<tr>
+<td></td>
+<td>R/W?</td>
+<td>Both</td>
+</tr>
+<tr>
+<td>Devices</td>
+<td>lights</td>
+<td></td>
+</tr>
+<tr>
+<td>Equates to Weave Schema</td>
+<td>brightness</td>
+<td></td>
+</tr>
+<tr>
+<td>Notes</td>
+<td>Using the weave trait range 0.0-1.0.</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+<br/>
+
+
+<table class="style0">
+<tbody>
+<tr>
+<td>Function ID</td>
+<td>brightness</td>
+<td></td>
+</tr>
+<tr>
+<td>Status</td>
+<td>proposed</td>
+<td></td>
+</tr>
+<tr>
+<td>Parameter</td>
+<td>Name</td>
+<td>brightnessRelative</td>
+</tr>
+<tr>
+<td></td>
+<td>Type</td>
+<td>string</td>
+</tr>
+<tr>
+<td></td>
+<td>Values</td>
+<td>UP, DOWN</td>
+</tr>
+<tr>
+<td></td>
+<td>Units</td>
+<td>-</td>
+</tr>
+<tr>
+<td></td>
+<td>R/W?</td>
+<td>W</td>
+</tr>
+<tr>
+<td>Parameter</td>
+<td>Name</td>
+<td>brightnessRelativeWeight (opt)</td>
+</tr>
+<tr>
+<td></td>
+<td>Type</td>
+<td>int</td>
+</tr>
+<tr>
+<td></td>
+<td>Values</td>
+<td>[1,5]</td>
+</tr>
+<tr>
+<td></td>
+<td>Units</td>
+<td>-</td>
+</tr>
+<tr>
+<td></td>
+<td>R/W?</td>
+<td>W</td>
+</tr>
+<tr>
+<td>Devices</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Equates to Weave Schema</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Notes</td>
+<td>This parameter would be used for ambiguous brightness queries, such as "dim the lights"  Optionally support weighting of commands with brightnessRelativeWeight -- 'dim the lights a lot' -&gt; 'DOWN, 5', 'dim the lights a little' -&gt; 'DOWN, 1'.</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+<br/>
+
+<table class="style0">
+<tbody>
+<tr>
+<td>Function ID</td>
+<td>setColor</td>
+<td></td>
+</tr>
+<tr>
+<td>Status</td>
+<td>proposed</td>
+<td></td>
+</tr>
+<tr>
+<td>Parameter</td>
+<td>Name</td>
+<td>colorTarget</td>
+</tr>
+<tr>
+<td></td>
+<td>Type</td>
+<td>string</td>
+</tr>
+<tr>
+<td></td>
+<td>Values</td>
+<td>6 character hex value</td>
+</tr>
+<tr>
+<td></td>
+<td>Units</td>
+<td>000000-FFFFFF</td>
+</tr>
+<tr>
+<td></td>
+<td>R/W?</td>
+<td>R/W</td>
+</tr>
+<tr>
+<td>Devices</td>
+<td>lights, other color-mutable items</td>
+<td></td>
+</tr>
+<tr>
+<td>Equates to Weave Schema</td>
+<td>colorXy (see below)</td>
+<td></td>
+</tr>
+<tr>
+<td>Notes</td>
+<td>We set color by RGB value; backends translate this into the appropriate emittable color based on hardware capabilities.</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+<br/>
+
+<table class="style0">
+<tbody>
+<tr>
+<td>Function ID</td>
+<td>setColor</td>
+<td></td>
+</tr>
+<tr>
+<td>Status</td>
+<td>proposed</td>
+<td></td>
+</tr>
+<tr>
+<td>Parameter</td>
+<td>Name</td>
+<td>colorRelative</td>
+</tr>
+<tr>
+<td></td>
+<td>Type</td>
+<td>string</td>
+</tr>
+<tr>
+<td></td>
+<td>Values</td>
+<td>6 character hex value</td>
+</tr>
+<tr>
+<td></td>
+<td>Units</td>
+<td>000000-FFFFFF</td>
+</tr>
+<tr>
+<td></td>
+<td>R/W?</td>
+<td>W</td>
+</tr>
+<tr>
+<td>Devices</td>
+<td>lights, other color-mutable items</td>
+<td></td>
+</tr>
+<tr>
+<td>Equates to Weave Schema</td>
+<td>colorXy (see below)</td>
+<td></td>
+</tr>
+<tr>
+<td>Notes</td>
+<td>As above, but relative, for functionality like 'make the lights more blue'.  The result is to move the current light setting along the 3d line towards the new target.  </td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+
 
 </body>
 </html>
