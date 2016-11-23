@@ -2610,6 +2610,12 @@ If the value for the &lt;a href=&quot;/closes&quot;&gt;closes&lt;/a&gt; property
        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/PublicationEvent">PublicationEvent</a></span>
     </div>
 
+    <div typeof="rdfs:Class" resource="http://schema.org/BroadcastFrequencySpecification">
+      <span class="h" property="rdfs:label">BroadcastFrequencySpecification</span>
+      <span property="rdfs:comment">The frequency in MHz and the modulation used for a particular BroadcastService.</span>
+       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Intangible">Intangible</a></span>
+    </div>
+
     <div typeof="rdfs:Class" resource="http://schema.org/BroadcastService">
       <span class="h" property="rdfs:label">BroadcastService</span>
       <span property="rdfs:comment">A delivery service through which content is provided via broadcast over the air or online.</span>
@@ -4154,6 +4160,27 @@ If the value for the &lt;a href=&quot;/closes&quot;&gt;closes&lt;/a&gt; property
       <span property="rdfs:comment">The organization owning or operating the broadcast service.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/BroadcastService">BroadcastService</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Organization">Organization</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/broadcastFrequency">
+      <span class="h" property="rdfs:label">broadcastFrequency</span>
+      <span property="rdfs:comment">The frequency used for over-the-air broadcasts.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/BroadcastService">BroadcastService</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/BroadcastFrequencySpecification">BroadcastFrequencySpecification</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/broadcastFrequencyValue">
+      <span class="h" property="rdfs:label">broadcastFrequencyValue</span>
+      <span property="rdfs:comment">The frequency in MHz for a particular broadcast.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/BroadcastFrequencySpecification">BroadcastFrequencySpecification</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number">Number</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/QuantitativeValue">QuantitativeValue</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/broadcastSignalModulation">
+      <span class="h" property="rdfs:label">broadcastSignalModulation</span>
+      <span property="rdfs:comment">The modulation (e.g. FM, AM, etc) used by a particular broadcast service</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/BroadcastFrequencySpecification">BroadcastFrequencySpecification</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/QualitativeValue">QualitativeValue</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/browserRequirements">
       <span class="h" property="rdfs:label">browserRequirements</span>
