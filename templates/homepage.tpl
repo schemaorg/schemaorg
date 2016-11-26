@@ -101,6 +101,8 @@ See the draft <b><a href="/docs/releases.html">releases</a></b> page to learn mo
 </div>
 
 
+{% endif %}
+
 <div id="footer"><p>
   <a href="docs/terms.html">Terms and conditions</a></p>
 </div>
@@ -116,8 +118,6 @@ See the draft <b><a href="/docs/releases.html">releases</a></b> page to learn mo
 
 </script>
 
-
-{% endif %}
 
 
 <p><br/></p>

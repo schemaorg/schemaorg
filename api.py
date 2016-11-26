@@ -274,7 +274,7 @@ class Unit ():
 
     def superproperties(self, layers='core'):
         """Returns super-properties of this one."""
-        if not self.isAttribute():
+        if not self.isAttribute(layers=layers):
           logging.debug("Non-property %s won't have subproperties." % self.id)
           return None
         superprops = GetTargets(Unit.GetUnit("rdfs:subPropertyOf"),self, layers=layers )
@@ -282,7 +282,7 @@ class Unit ():
 
     def subproperties(self, layers='core'):
         """Returns direct subproperties of this property."""
-        if not self.isAttribute():
+        if not self.isAttribute(layers=layers):
           logging.debug("Non-property %s won't have subproperties." % self.id)
           return None
         subprops = GetSources(Unit.GetUnit("rdfs:subPropertyOf"),self, layers=layers )

@@ -32,7 +32,7 @@ sitemode = "mainsite" # whitespaced list for CSS tags,
             # e.g. "mainsite testsite" when off expected domains
             # "extensionsite" when in an extension (e.g. blue?)
 
-releaselog = { "2.0": "2015-05-13" }
+releaselog = { "2.0": "2015-05-13", "2.1": "2015-08-06" }
 #
 host_ext = ""
 myhost = ""
@@ -52,7 +52,7 @@ PageCache = {}
 
 JINJA_ENVIRONMENT = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.join(os.path.dirname(__file__), 'templates')),
-    extensions=['jinja2.ext.autoescape'], autoescape=True)
+    extensions=['jinja2.ext.autoescape'], autoescape=True, cache_size=0)
 
 ENABLE_JSONLD_CONTEXT = True
 ENABLE_CORS = True
@@ -404,10 +404,8 @@ class ShowUnit (webapp2.RequestHandler):
         home = node.home
         if home != "core" and home != "":
             self.write("Defined in the %s.schema.org extension." % home)
-            self.write(" (This is an initial exploratory release.)")
-
-
-
+            self.write(" (This is an initial exploratory release.)<br/>")
+            self.emitCanonicalURL(node)
 
         self.BreadCrumbs(node, layers=layers)
 
@@ -415,7 +413,7 @@ class ShowUnit (webapp2.RequestHandler):
 
         self.write(" <div property=\"rdfs:comment\">%s</div>\n\n" % (comment) + "\n")
 
-        self.write(" <br><div>Usage: %s</div>\n\n" % (node.UsageStr()) + "\n")
+        self.write(" <br/><div>Usage: %s</div>\n\n" % (node.UsageStr()) + "\n")
 
         self.write(self.moreInfoBlock(node))
 
@@ -423,6 +421,10 @@ class ShowUnit (webapp2.RequestHandler):
 
             self.write("<table class=\"definition-table\">\n        <thead>\n  <tr><th>Property</th><th>Expected Type</th><th>Description</th>               \n  </tr>\n  </thead>\n\n")
 
+    def emitCanonicalURL(self,node):
+        cURL = "http://schema.org/" + node.id
+        self.write(" <span class=\"canonicalUrl\">Canonical URL: <a href=\"%s\">%s</a></span>" % (cURL, cURL))
+    
     # Stacks to support multiple inheritance
     crumbStacks = []
     def BreadCrumbs(self, node, layers):
@@ -437,15 +439,18 @@ class ShowUnit (webapp2.RequestHandler):
         enuma = node.isEnumerationValue(layers=layers)
 
         self.write("<h4>")
+        rowcount = 0
         for row in range(len(self.crumbStacks)):
            if(":" in self.crumbStacks[row][len(self.crumbStacks[row])-1].id):
                 continue
            count = 0
+           if rowcount > 0:
+               self.write("<br/>")
            self.write("<span class='breadcrumbs'>")
            while(len(self.crumbStacks[row]) > 0):
                 n = self.crumbStacks[row].pop()
                 if(count > 0):
-                    if((len(self.crumbStacks[row]) == 1) and enuma):
+                    if((len(self.crumbStacks[row]) == 0) and enuma):
                         self.write(" :: ")
                     else:
                         self.write(" &gt; ")
@@ -453,7 +458,8 @@ class ShowUnit (webapp2.RequestHandler):
                         continue
                 count += 1
                 self.write("%s" % (self.ml(n)))
-           self.write("</span><br/>\n")
+           self.write("</span>\n")
+           rowcount += 1
         self.write("</h4>\n")
 
 #Walk up the stack, appending crumbs & create new (duplicating crumbs already identified) if more than one parent found
@@ -844,12 +850,14 @@ class ShowUnit (webapp2.RequestHandler):
             # Serve a homepage from template
             # the .tpl has responsibility for extension homepages
             # TODO: pass in extension, base_domain etc.
-            hp = DataCache.get("homepage")
+            sitekeyedhomepage = "homepage %s" % sitename
+            hp = DataCache.get(sitekeyedhomepage)
             if hp != None:
                 self.response.out.write( hp )
-                log.info("Served datacache homepage.tpl")
-                log.debug("Served datacache homepage.tpl")
+                #log.info("Served datacache homepage.tpl key: %s" % sitekeyedhomepage)
+                log.debug("Served datacache homepage.tpl key: %s" % sitekeyedhomepage)
             else:
+
                 template = JINJA_ENVIRONMENT.get_template('homepage.tpl')
                 template_values = {
                     'ENABLE_HOSTED_EXTENSIONS': ENABLE_HOSTED_EXTENSIONS,
@@ -862,10 +870,14 @@ class ShowUnit (webapp2.RequestHandler):
                     'home_page': "True",
                     'debugging': debugging
                 }
+
+                # We don't want JINJA2 doing any cachine of included sub-templates.
+
                 page = template.render(template_values)
                 self.response.out.write( page )
-                log.debug("Served fresh homepage.tpl")
-                DataCache.put("homepage",page)
+                log.debug("Served and cached fresh homepage.tpl key: %s " % sitekeyedhomepage)
+                #log.info("Served and cached fresh homepage.tpl key: %s " % sitekeyedhomepage)
+                DataCache.put(sitekeyedhomepage, page)
                 #            self.response.out.write( open("static/index.html", 'r').read() )
             return True
         log.info("Warning: got here how?")
@@ -890,7 +902,7 @@ class ShowUnit (webapp2.RequestHandler):
         if is_class:
             rdfs_type = 'rdfs:Class'
 
-        generated_page_id = "genericTermPageHeader-%s" % str(entry)
+        generated_page_id = "genericTermPageHeader-%s-%s" % ( str(entry), sitename )
         gtp = DataCache.get( generated_page_id )
 
         if gtp != None:
@@ -1344,9 +1356,9 @@ class ShowUnit (webapp2.RequestHandler):
             version_nt = "data/releases/%s/schema.nt" % requested_version
 
             if requested_format=="":
-                #self.response.out.write( open(version_allhtml, 'r').read() )
-                #return True
-                log.info("Skipping filesystem for now.")
+                self.response.out.write( open(version_allhtml, 'r').read() )
+                return True
+                # log.info("Skipping filesystem for now.")
 
             if requested_format=="schema.rdfa":
                 self.response.headers['Content-Type'] = "application/octet-stream" # It is HTML but ... not really.
@@ -1463,7 +1475,11 @@ class ShowUnit (webapp2.RequestHandler):
         if host_ext != None:
             # e.g. "bib"
             log.debug("HOST: Found %s in %s" % ( host_ext, hostString ))
-            if not host_ext in ENABLED_EXTENSIONS:
+            if host_ext == "www":
+                # www is special case that cannot be an extension - need to redirect to basehost
+                mybasehost = mybasehost[4:]
+                return self.redirectToBase(node)
+            elif not host_ext in ENABLED_EXTENSIONS:
                 host_ext = ""
             else:
                 mybasehost = mybasehost[len(host_ext) + 1:]
@@ -1472,11 +1488,21 @@ class ShowUnit (webapp2.RequestHandler):
         if dcn == None or dcn == "" or dcn =="core":
             dcn = "core"
 
+        log.debug("sdoapp.py setting current datacache to: %s " % dcn)
         DataCache.setCurrent(dcn)
+
 
         debugging = False
         if "localhost" in hostString or "sdo-ganymede.appspot.com" in hostString:
             debugging = True
+
+        return True
+
+    def redirectToBase(self,node=""):
+        uri = makeUrl("",node)
+        self.response = webapp2.redirect(uri, True, 301)
+        log.info("Redirecting [301] to: %s" % uri)
+        return False
 
 
     def get(self, node):
@@ -1503,7 +1529,8 @@ class ShowUnit (webapp2.RequestHandler):
 
         global debugging, host_ext, myhost, myport, mybasehost, sitename
 
-        self.setupHostinfo(node)
+        if not self.setupHostinfo(node):
+            return
 
         self.emitHTTPHeaders(node)
 
