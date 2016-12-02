@@ -5237,11 +5237,15 @@ The place is __open__ if the [[opens]] property is specified, and __closed__ oth
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Demand">Demand</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/TypeAndQuantityNode">TypeAndQuantityNode</a></span>
     </div>
+	
+	<!-- INDUSTRY PROPERTY EDITED TO APPLY TO MFG EXTENSION -->
     <div typeof="rdf:Property" resource="http://schema.org/industry">
       <span class="h" property="rdfs:label">industry</span>
-      <span property="rdfs:comment">The industry associated with the job position.</span>
+      <span property="rdfs:comment">The industry associated with a job or business.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/JobPosting">JobPosting</a></span>
+	  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ManufacturingOrganization">ManufacturingOrganization</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+	  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Industry">Industry</a></span>
     </div>
 
 
@@ -5352,10 +5356,12 @@ The place is __open__ if the [[opens]] property is specified, and __closed__ oth
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Order">Order</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Boolean">Boolean</a></span>
     </div>
+	<!-- isic PROPERTY EDITED TO INCLUDE INDUSTRY -->
     <div typeof="rdf:Property" resource="http://schema.org/isicV4">
       <span class="h" property="rdfs:label">isicV4</span>
-      <span property="rdfs:comment">The International Standard of Industrial Classification of All Economic Activities (ISIC), Revision 4 code for a particular organization, business person, or place.</span>
+      <span property="rdfs:comment">The International Standard of Industrial Classification of All Economic Activities (ISIC), Revision 4 code for a particular organization, industry, business person, or place.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Organization">Organization</a></span>
+	  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Industry">Industry</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Place">Place</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Person">Person</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
@@ -5820,10 +5826,12 @@ The place is __open__ if the [[opens]] property is specified, and __closed__ oth
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MusicGroup">MusicGroup</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Person">Person</a></span>
     </div>
+	<!-- naics PROPERTY EDITED TO INCLUDE INDUSTRY -->
     <div typeof="rdf:Property" resource="http://schema.org/naics">
       <span class="h" property="rdfs:label">naics</span>
-      <span property="rdfs:comment">The North American Industry Classification System (NAICS) code for a particular organization or business person.</span>
+      <span property="rdfs:comment">The North American Industry Classification System (NAICS) code for a particular organization, industry, or business person.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Organization">Organization</a></span>
+	  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Industry">Industry</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Person">Person</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
     </div>
@@ -9544,7 +9552,6 @@ postponing for 1.6.
 
 <div typeof="rdf:Property" resource="http://schema.org/material">
     <span class="h" property="rdfs:label">material</span>
-    <!--      <link property="http://schema.org/supersededBy" href="http://schema.org/artMedium"/> -->
     <span property="rdfs:comment">A material that something is made from, e.g. leather, wool, cotton, paper.</span>
     <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CreativeWork">CreativeWork</a></span>
     <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Product">Product</a></span>

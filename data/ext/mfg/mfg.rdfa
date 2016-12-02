@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:schema="http://schema.org/" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>mfg.schema.org</title>
+<style type="text/css">
+      span.h {
+        padding-left: 0px;
+        font-weight: bold;
+      }
+      span {
+        display: block;
+        padding-left: 10px;
+      }
+    </style>
+</head>
+<body>
+<h1>Manufacturing extension</h1>
+<p>This is an RDFa representation of the mfg.schema.org extension for manufacturing.</p>
+<p>
+<span property="schema:softwareVersion">mfg extension - version 0.1</span>
+</p>
+<hr/>
+
+<h2>Types</h2>
+
+<div typeof="rdfs:Class" resource="http://schema.org/ManufacturingOrganization">
+	<link property="http://schema.org/isPartOf" href="http://mfg.schema.org" />
+	<span class="h" property="rdfs:label">ManufacturingOrganization</span>
+	<span property="rdfs:comment">An organization that provides manufacturing services and products.</span>
+	<span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Organization">Organization</a></span>
+</div>
+
+<div typeof="rdfs:Class" resource="http://schema.org/Industry">
+	<link property="http://schema.org/isPartOf" href="http://mfg.schema.org" />
+	<span class="h" property="rdfs:label">Industry</span>
+	<span property="rdfs:comment">A basic category or field of business activity.</span>
+	<span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Intangible">Intangible</a></span>
+</div>
+
+<div typeof="rdfs:Class" resource="http://schema.org/ManufacturingService">
+	<link property="http://schema.org/isPartOf" href="http://mfg.schema.org" />
+	<span class="h" property="rdfs:label">ManufacturingService</span>
+	<span property="rdfs:comment">A manufacturing service.</span>
+	<span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Service">Service</a></span>
+</div>
+
+<div typeof="rdfs:Class" resource="http://schema.org/VolumeLevel">
+	<link property="http://schema.org/isPartOf" href="http://mfg.schema.org" />
+	<span class="h" property="rdfs:label">VolumeLevel</span>
+	<span property="rdfs:comment">An enumeration of volume.</span>
+	<span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Enumeration">Enumeration</a></span>
+</div>
+<div typeof="http://schema.org/VolumeLevel" resource="http://schema.org/Low">
+	<link property="http://schema.org/isPartOf" href="http://mfg.schema.org" />
+	<span class="h" property="rdfs:label">Low</span>
+	<span property="rdfs:comment">A low volume level.</span>
+</div>
+<div typeof="http://schema.org/VolumeLevel" resource="http://schema.org/Medium">
+	<link property="http://schema.org/isPartOf" href="http://mfg.schema.org" />
+	<span class="h" property="rdfs:label">Medium</span>
+	<span property="rdfs:comment">A medium volume level.</span>
+</div>
+<div typeof="http://schema.org/VolumeLevel" resource="http://schema.org/High">
+	<link property="http://schema.org/isPartOf" href="http://mfg.schema.org" />
+	<span class="h" property="rdfs:label">High</span>
+	<span property="rdfs:comment">A high volume level.</span>
+</div>
+
+<h2>Properties</h2>
+
+<div typeof="rdf:Property" resource="http://schema.org/marketServed">
+	<link property="http://schema.org/isPartOf" href="http://mfg.schema.org" />
+	<span class="h" property="rdfs:label">marketServed</span>
+	<span property="rdfs:comment">A market to which a manufacturing organization provides services.</span>
+	<span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ManufacturingOrganization">ManufacturingOrganization</a></span>
+	<span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Continent">Continent</a></span>
+	<span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/mfgServiceProvided">
+	<link property="http://schema.org/isPartOf" href="http://mfg.schema.org" />
+	<span class="h" property="rdfs:label">mfgServiceProvided</span>
+	<span property="rdfs:comment">A manufacturing service provided by a manufacturing organization.</span>
+	<span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ManufacturingOrganization">ManufacturingOrganization</a></span>
+	<span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/ManufacturingService">ManufacturingService</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/qualityCertification">
+	<link property="http://schema.org/isPartOf" href="http://mfg.schema.org" />
+	<span class="h" property="rdfs:label">qualityCertification</span>
+	<span property="rdfs:comment">A certification of quality given to a manufacturing organization, such as QS9000.</span>
+	<span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ManufacturingOrganization">ManufacturingOrganization</a></span>
+	<span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/hasProduct">
+	<link property="http://schema.org/isPartOf" href="http://mfg.schema.org" />
+	<span class="h" property="rdfs:label">hasProduct</span>
+	<span property="rdfs:comment">A product produced and/or made available by an organization.</span>
+	<span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ManufacturingOrganization">ManufacturingOrganization</a></span>
+	<span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Product">Product</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/nace">
+	<link property="http://schema.org/isPartOf" href="http://mfg.schema.org" />
+    <span class="h" property="rdfs:label">nace</span>
+    <span property="rdfs:comment">The Statistical Classification of Economic Activities in the European Community (NACE) code for a particular organization, industry, or business person.</span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Organization">Organization</a></span>
+	<span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Industry">Industry</a></span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Person">Person</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/anzsic">
+	<link property="http://schema.org/isPartOf" href="http://mfg.schema.org" />
+    <span class="h" property="rdfs:label">anzsic</span>
+    <span property="rdfs:comment">The Australian and New Zealand Standard Industrial Classification (ANZSIC) code for a particular organization, industry, or business person.</span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Organization">Organization</a></span>
+	<span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Industry">Industry</a></span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Person">Person</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/sic">
+	<link property="http://schema.org/isPartOf" href="http://mfg.schema.org" />
+    <span class="h" property="rdfs:label">sic</span>
+    <span property="rdfs:comment">The Standard Industrial Classification (SIC) code for a particular organization, industry, or business person.</span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Organization">Organization</a></span>
+	<span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Industry">Industry</a></span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Person">Person</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/icb">
+	<link property="http://schema.org/isPartOf" href="http://mfg.schema.org" />
+    <span class="h" property="rdfs:label">icb</span>
+    <span property="rdfs:comment">The Industry Classification Benchmark (ICB) code for a particular organization, industry, or business person.</span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Organization">Organization</a></span>
+	<span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Industry">Industry</a></span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Person">Person</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/gics">
+	<link property="http://schema.org/isPartOf" href="http://mfg.schema.org" />
+    <span class="h" property="rdfs:label">gics</span>
+    <span property="rdfs:comment">The Global Industry Classification Standard (GICS) code for a particular organization, industry, or business person.</span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Organization">Organization</a></span>
+	<span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Industry">Industry</a></span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Person">Person</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/uksic">
+	<link property="http://schema.org/isPartOf" href="http://mfg.schema.org" />
+    <span class="h" property="rdfs:label">uksic</span>
+    <span property="rdfs:comment">The United Kingdom Standard Industrial Classification of Economic Activities (UKSIC) code for a particular organization, industry, or business person.</span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Organization">Organization</a></span>
+	<span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Industry">Industry</a></span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Person">Person</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/trbc">
+	<link property="http://schema.org/isPartOf" href="http://mfg.schema.org" />
+    <span class="h" property="rdfs:label">trbc</span>
+    <span property="rdfs:comment">The Thomson Reuters Business Classification (TRBC) code for a particular organization, industry, or business person.</span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Organization">Organization</a></span>
+	<span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Industry">Industry</a></span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Person">Person</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/sni">
+	<link property="http://schema.org/isPartOf" href="http://mfg.schema.org" />
+    <span class="h" property="rdfs:label">sni</span>
+    <span property="rdfs:comment">The Swedish Standard Industrial Classification (SNI) code for a particular organization, industry, or business person.</span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Organization">Organization</a></span>
+	<span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Industry">Industry</a></span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Person">Person</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/productionVolume">
+	<link property="http://schema.org/isPartOf" href="http://mfg.schema.org" />
+	<span class="h" property="rdfs:label">productionVolume</span>
+	<span property="rdfs:comment">The level of volume produced through a given manufacturing service. (Low, Medium, High)</span>
+	<span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ManufacturingService">ManufacturingService</a></span>
+	<span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/VolumeLevel">VolumeLevel</a></span>	
+	<span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/mfgMaterial">
+	<link property="http://schema.org/isPartOf" href="http://mfg.schema.org" />
+	<link property="rdfs:subPropertyOf" href="http://schema.org/material" />
+    <span class="h" property="rdfs:label">mfgMaterial</span>
+    <span property="rdfs:comment">A material used within a given manufacturing service or process.</span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ManufacturingService">ManufacturingService</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/URL">URL</a></span>
+</div>
+
+</body>
+</html>

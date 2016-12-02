@@ -74,7 +74,7 @@ EXTENSION_SUFFIX = "" # e.g. "*"
 
 CORE = 'core'
 ATTIC = 'attic'
-ENABLED_EXTENSIONS = [ATTIC, 'auto', 'bib', 'health-lifesci', 'pending', 'meta', 'iot' ]
+ENABLED_EXTENSIONS = [ATTIC, 'auto', 'bib', 'health-lifesci', 'pending', 'meta', 'iot', 'mfg' ]
 #### Following 2 lines look odd - leave them as is - just go with it!
 ALL_LAYERS = [CORE,'']
 ALL_LAYERS += ENABLED_EXTENSIONS
