@@ -176,7 +176,7 @@ else: #Ensure clean start for any memcached or ndb store values...
         log.info(("[%s] Cache clean took %s " % (getInstanceId(short=True),(datetime.datetime.now() - load_start))))
         
         load_start = datetime.datetime.now()
-        
+        tick()
         memcache.set(key="app_initialising", value=False)
         
         log.debug("[%s] Awake >>>>>>>>>>>>" % (getInstanceId(short=True)))
@@ -186,8 +186,8 @@ else: #Ensure clean start for any memcached or ndb store values...
             log.debug("[%s] Waiting for intialisation to end %s" % (getInstanceId(short=True),memcache.get("app_initialising")))
             time.sleep(0.1)
         log.debug("[%s] End of waiting !!!!!!!!!!!" % (getInstanceId(short=True)))
-        systarttime = memcache.get("SysStart")
         tick()
+        systarttime = memcache.get("SysStart")
     setmodiftime(systarttime)
     
 #################################################
