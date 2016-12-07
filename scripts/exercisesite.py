@@ -66,6 +66,8 @@ log = logging.getLogger(__name__)
 import sdoapp
 from sdoapp import ENABLED_EXTENSIONS 
 
+STATICPAGES = ["","docs/schemas.html","docs/full.html"]
+
 class Exercise():
     def __init__(self):
         self.setSkips()
@@ -133,10 +135,12 @@ class Exercise():
             if id not in self.skiplist:
                 print "%s: Processing: %s  (%s) " % (sys.argv[0],id,len(g))
                 self.exercise(g)
+                self.exerciseStatics(g.identifier)
 
     def exercise(self, graph):
         types = {}
         props = {}
+        exts = []
         for (s,p,o) in graph.triples((None,RDF.type,RDFS.Class)):
             if s.startswith("http://schema.org"):
                 types.update({s:graph.identifier})
@@ -150,9 +154,14 @@ class Exercise():
 
         for p in sorted(props.keys()):
             self.access(p,props[p])
-            
+
+    def exerciseStatics(self, graph):
+        for s in STATICPAGES:
+            self.access(s,graph)
+
     def access(self, id, ext):
-        id = id[18:]
+        if id.startswith("http://schema.org"):
+            id = id[18:]
         ext = getRevNss(str(ext))
         if ext == "core":
             ext = ""
