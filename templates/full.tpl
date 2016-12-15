@@ -6,7 +6,11 @@
     <meta name="description" content="Schema.org is a set of extensible schemas that enables webmasters to embed
     structured data on their web pages for use by search engines and other applications." />
     <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
+    <script type="text/javascript" src="//d3js.org/d3.v3.min.js"></script>
+    <script src="//wafi.iit.cnr.it/webvis/libs/jigmaps/zip.js"></script>
+    <script src="//wafi.iit.cnr.it/webvis/libs/jigmaps/tree_utils.js"></script>
     <link rel="stylesheet" type="text/css" href="/docs/schemaorg.css" />
+    <link rel="stylesheet" type="text/css" href="sunburst.css" />
 
 <script type="text/javascript">
 $(document).ready(function(){
@@ -58,19 +62,10 @@ Schema.org is defined as two hierarchies: one for textual property values, and o
 		{% endif %}
 	</div>
 </div>
-	
 
-<div id="thing_tree">
-{{ thing_tree | safe }}
-</div>
-<div class="display: none" id="full_thing_tree">
-{{ full_thing_tree | safe }}
-</div>
-{% if ext_button != "" %}
-	<div class="display: none" id="ext_thing_tree">
-	{{ ext_thing_tree | safe }}
-	</div>
-{% endif %}
+<svg></svg>
+<script type="text/javascript" src="sunburst.js"></script>
+
 <div id="datatype_tree">
 {{ datatype_tree | safe }}
 </div>
