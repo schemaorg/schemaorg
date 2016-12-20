@@ -7476,6 +7476,13 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
 	  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/PropertyValueSpecification">PropertyValueSpecification</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number">Number</a></span>
     </div>
+    <div typeof="rdf:Property" resource="http://schema.org/minimumRequiredPurchasePrice">
+      <span class="h" property="rdfs:label">minimumRequiredPurchasePrice</span>
+      <span property="rdfs:comment">The minimum purchase required to qualify for this delivery area, delivery method, and delivery charge combination.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/DeliveryChargeSpecification">DeliveryChargeSpecification</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number">Number</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+    </div>
     <div typeof="rdf:Property" resource="http://schema.org/model">
       <span class="h" property="rdfs:label">model</span>
       <span property="rdfs:comment">The model of the product. Use with the URL of a ProductModel or a textual representation of the model identifier. The URL of the ProductModel can be from an external source. It is recommended to additionally provide strong product identifiers via the gtin8/gtin13/gtin14 and mpn properties.</span>
