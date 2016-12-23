@@ -90,7 +90,12 @@
       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Organization">Organization</a></span>
       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/LocalBusiness">LocalBusiness</a></span>
     </div> 
-
+      <div typeof="rdf:Property" resource="http://schema.org/providesMedicalCare">
+        <span class="h" property="rdfs:label">providesMedicalCare</span>
+        <span property="rdfs:comment">A boolean indicating whether the community provides medical care or not.</span>
+        <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/SeniorHousingCommunity">SeniorHousingCommunity</a></span>
+        <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Boolean">Boolean</a></span>
+    </div> 
     <div typeof="rdf:Property" resource="http://schema.org/CareLicenseNumber">
         <span class="h" property="rdfs:label">CareLicenseNumber</span>
         <span property="rdfs:comment">The license number (alphanumeric) provided by the regulating agency to the senior housing community indicating that they are licensed to provide care.</span>
@@ -108,28 +113,30 @@
         <span class="h" property="rdfs:label">seniorCareServices</span>
         <span property="rdfs:comment">The type of care provided to the residents of the housing community. Examples include assistance with activities of daily living, memory care programming etc.</span>
         <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/SeniorHousingCommunity">SeniorHousingCommunity</a></span>
-        <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/SeniorCareService">CareService</a></span>
+        <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/SeniorCareService">SeniorCareService</a></span>
     </div>
 
     <div typeof="rdf:Class" resource="http://schema.org/SeniorCareService">
         <span class="h" property="rdfs:label">SeniorCareService</span>
         <span property="rdfs:comment">Care Service provided by the the senior housing community including assistance with activities of daily living, specialized memory care programs and end of life hospice care.</span>
+        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Enumeration">Enumeration</a></span>
     </div>
 
-    <div typeof="rdf:Class" resource="http://schema.org/AssistedLivingCare">
+    <div typeof="http://schema.org/SeniorCareService" resource="http://schema.org/AssistedLivingCare">
         <span class="h" property="rdfs:label">AssistedLivingCare</span>
         <span property="rdfs:comment">Non medical care that includes assistance with activities of daily living.</span>
+        
         <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/SeniorCareService">SeniorCareService</a></span>
     </div>
-    <div typeof="rdf:Class" resource="http://schema.org/MemoryCare">
+    <div typeof="http://schema.org/SeniorCareService" resource="http://schema.org/MemoryCare">
         <span class="h" property="rdfs:label">MemoryCare</span>
         <span property="rdfs:comment">Support for people with Alzheimer’s and other dementia-related diseases.</span>
-        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/SeniorCareService">SeniorCareService</a></span>
+        
     </div>
-    <div typeof="rdf:Class" resource="http://schema.org/HospiceCare">
+    <div typeof="http://schema.org/SeniorCareService" resource="http://schema.org/HospiceCare">
         <span class="h" property="rdfs:label">HospiceCare</span>
         <span property="rdfs:comment">End of life support for people</span>
-        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/SeniorCareService">SeniorCareService</a></span>
+        
     </div>
     
     <div typeof="rdfs:Class" resource="http://schema.org/AssistedLivingCommunity">
