@@ -188,6 +188,11 @@ else: #Ensure clean start for any memcached or ndb store values...
         log.debug("[%s] End of waiting !!!!!!!!!!!" % (getInstanceId(short=True)))
         tick()
         systarttime = memcache.get("SysStart")
+
+    if(not systarttime): #Occationally memcache will loose the value and result in systarttime becomming Null value
+         systarttime = datetime.datetime.utcnow()
+         tick()
+            
     setmodiftime(systarttime)
     
 #################################################
