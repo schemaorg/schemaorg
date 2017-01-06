@@ -8,8 +8,6 @@ before_script:
   - wget $SDK_URL -nv -O google_appengine.zip
   - unzip -q google_appengine.zip
   - rm google_appengine.zip
-  - export PATH=$PATH:$TRAVIS_BUILD_DIR/google_appengine/
-  - echo $PATH
-  - pwd
+  - export PYTHONPATH=$PYTHONPATH:$TRAVIS_BUILD_DIR/google_appengine/
 
 script: python scripts/run_tests.py
