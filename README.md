@@ -58,9 +58,6 @@ Github Branch naming
 
 http://schema.org/docs/releases.html lists releases by working codename and release name.
 
-We began using Ghostbusters character names (http://en.wikipedia.org/wiki/Ghostbusters#Cast)
-sdo-stantz, sdo-venkman, sdo-stantz; inspired by http://schema.org/Role discussions.
-
 e.g. successor to http://schema.org/docs/releases.html#v1.91 was code-named sdo-venkman, 
 and eventually became http://schema.org/docs/releases.html#v1.92
 
