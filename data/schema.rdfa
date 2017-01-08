@@ -3263,6 +3263,12 @@ The place is __open__ if the [[opens]] property is specified, and __closed__ oth
       <span property="rdfs:comment">Scheduling future actions, events, or tasks.\n\nRelated actions:\n\n* [[ReserveAction]]: Unlike ReserveAction, ScheduleAction allocates future actions (e.g. an event, a task, etc) towards a time slot / spatial allocation.</span>
        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/PlanAction">PlanAction</a></span>
     </div>
+    
+    <div typeof="rdfs:Class" resource="http://schema.org/OrderItem">
+      <span class="h" property="rdfs:label">OrderItem</span>
+      <span property="rdfs:comment">An order item is a line of an order. It includes the quantity and details of a bought offer.</span>
+       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Intangible">Intangible</a></span>
+    </div>
 
     <div typeof="rdfs:Class" resource="http://schema.org/SearchAction">
       <span class="h" property="rdfs:label">SearchAction</span>
@@ -8972,6 +8978,44 @@ postponing for 1.6.
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/URL">URL</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Place">Place</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/PostalAddress">PostalAddress</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/orderItem">
+        <span class="h" property="rdfs:label">orderItem</span>
+        <span property="rdfs:comment">A list of associated order items (order lines).</span>
+        <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Order">Order</a></span>
+        <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/OrderItem">OrderItem</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/quantity">
+      <span class="h" property="rdfs:label">quantity</span>
+      <span property="rdfs:comment">The quantity of offers ordered.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/OrderItem">OrderItem</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number">Number</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/acceptedOffer">
+      <span class="h" property="rdfs:label">acceptedOffer</span>
+      <span property="rdfs:comment">The offer(s) -- e.g., product, quantity and price combinations -- included in the order.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Order">Order</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/OrderItem">OrderItem</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Offer">Offer</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/orderItemStatus">
+      <span class="h" property="rdfs:label">orderItemStatus</span>
+      <span property="rdfs:comment">The current status of the order item.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/OrderItem">OrderItem</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/OrderStatus">OrderStatus</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/orderItemNumber">
+      <span class="h" property="rdfs:label">orderItemNumber</span>
+      <span property="rdfs:comment">The identifier of the order item.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/OrderItem">OrderItem</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/parcelDelivery">
+      <span class="h" property="rdfs:label">parcelDelivery</span>
+      <span property="rdfs:comment">The delivery of the parcel related to this order or order item.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Order">Order</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/OrderItem">OrderItem</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/ParcelDelivery">ParcelDelivery</a></span>
     </div>
 
 <div>
