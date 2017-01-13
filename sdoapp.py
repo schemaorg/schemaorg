@@ -1656,6 +1656,10 @@ class ShowUnit (webapp2.RequestHandler):
         return False
 
     def handleExactTermPage(self, node, layers='core'):
+
+        if node.startswith("http://schema.org/"): #Special case will map full schema URI to the term name
+            node = node[18:]
+
         """Handle with requests for specific terms like /Person, /fooBar. """
         dataext = os.path.splitext(node)
         if dataext[1] in OUTPUTDATATYPES:
