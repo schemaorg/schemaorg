@@ -564,7 +564,7 @@ class ShowUnit (webapp2.RequestHandler):
                 self.write("Defined in the %s.schema.org extension.<br/>" % home)
         self.emitCanonicalURL(node)
 
-        self.BreadCrumbs(node, layers=layers)
+        self.BreadCrumbs(node, layers=ALL_LAYERS)
 
         comment = GetComment(node, layers)
 
