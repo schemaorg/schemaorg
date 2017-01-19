@@ -142,6 +142,11 @@ def getmodiftime():
     global modtime, etagSlug
     if not getInTestHarness():
         slug = SlugEntity.get_by_id("ETagSlug")
+        if not slug:#Occationally memcache will loose the value and result in  becomming Null value
+            systarttime = datetime.datetime.utcnow()
+            tick()
+            setmodiftime(systarttime)#Will store it again
+            slug = SlugEntity.get_by_id("ETagSlug")
         modtime = slug.modtime
         etagSlug = str(slug.slug)
     return modtime
