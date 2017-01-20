@@ -109,7 +109,6 @@ class SiteMap():
             self.skiplist.append(getNss('attic'))
 
     def openFile(self):
-        print "openFile"
         hdr = """<?xml version="1.0" encoding="utf-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 """
@@ -117,7 +116,6 @@ class SiteMap():
         self.file.write(hdr)
         
     def closeFile(self):
-        print "closeFile"
         self.file.write("\n</urlset>")
         print "Wrote %s entries to %s" % (self.count,args.output)
         self.file.close()
