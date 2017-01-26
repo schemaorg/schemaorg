@@ -1,0 +1,42 @@
+{
+  "@context": {
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#"
+  },
+  "@graph": [
+    {
+      "@id": "http://schema.org/StupidType",
+      "@type": "rdfs:Class",
+      "http://schema.org/isPartOf": {
+        "@id": "http://attic.schema.org"
+      },
+      "rdfs:comment": "A StupidType for testing.",
+      "rdfs:label": "StupidType",
+      "rdfs:subClassOf": {
+        "@id": "http://schema.org/Thing"
+      }
+    },
+    {
+      "@id": "http://schema.org/stupidProperty",
+      "@type": "rdf:Property",
+      "http://schema.org/domainIncludes": [
+        {
+          "@id": "http://schema.org/Vehicle"
+        },
+        {
+          "@id": "http://schema.org/StupidType"
+        }
+      ],
+      "http://schema.org/isPartOf": {
+        "@id": "http://attic.schema.org"
+      },
+      "http://schema.org/rangeIncludes": {
+        "@id": "http://schema.org/QuantitativeValue"
+      },
+      "rdfs:comment": "This is a StupidProperty! - for testing only",
+      "rdfs:label": "stupidProperty"
+    }
+  ],
+  "@id": "http://attic.schema.org/#3.2"
+}

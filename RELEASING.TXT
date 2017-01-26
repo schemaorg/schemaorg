@@ -69,7 +69,10 @@ First copy snapshot into place:
  * curl http://localhost:8080/version/latest/> data/releases/2.2/schema-all.html
 
 Then generate N-Triples etc. versions:
+* Ensure that the EXTENTIONS variable at the top of the script 'scripts/buildreleasefiles.sh' contains all the extensions for this release.
 * scripts/buildreleasefiles.sh 3.1 - Check listed extensions is correct update if not
+
+* Run './scripts/buildsitemap.py' make sure sitemap is up to date
 
 * Inspect snapshot, add to git and push to repo.
  * ls -l data/releases/2.2/
@@ -135,6 +138,7 @@ e.g. see http://webschemas.org/docs/qa.html
 There is often some final tweaking, bugs, etc. When things settle down, a
 final round of sanity-check tests is useful:
 
+* Run again './scripts/buildsitemap.py' make sure sitemap is up to date
 * Run again: PYTHONPATH=/usr/local/google_appengine ./scripts/run_tests.py
 * Run again 'git status', confirm no uncommited files or changes.
 * Run again: './scripts/updateAppEngine.sh' for development/upstream site sync.

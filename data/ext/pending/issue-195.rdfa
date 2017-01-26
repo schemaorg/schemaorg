@@ -10,176 +10,42 @@
 * | Use Cases GDoc: https://goo.gl/DnTTsb
 -->
 
-<!-- THIS SNAPSHOT BASED ON
-   https://raw.githubusercontent.com/philbarker/schemaorg-1/feature/ext-course/data/ext/course/course.rdfa
-   Sections marked "NOTE" are amended for schema.org pending extension version.
-   Each definition also marked as being isPartOf pending.schema.org, and associated with a github issue.
-   -->
+<!--
+Updated 2016-09-07:
 
-<!-- <schema.org/Course> -->
-<div typeof="rdfs:Class" resource="http://schema.org/Course">
-    <span class="h" property="rdfs:label">Course</span>
-    <span property="rdfs:comment">A description of an educational course which may be offered as distinct instances at different times and places, or through different media or modes of study. An educational course is a sequence of one or more educational events and/or creative works which aims to build knowledge, competence or ability of learners.</span>
-    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/CreativeWork">CreativeWork</a></span>
-    <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
-    <span>Category: <span property="schema:category">issue-195</span></span>
-    <span>Source:  <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/195">#195</a></span>
-</div>
+Terms: Course, courseCode, coursePrerequisites, hasCourseInstance; CourseInstance, courseMode, instructor
+have been moved to data/schema.rdfa i.e. schema.org core.
 
-<div typeof="rdf:Property" resource="http://schema.org/courseCode">
-  <span class="h" property="rdfs:label">courseCode</span>
-  <span property="rdfs:comment">The identifier used for the Course (e.g. CS101 or 6.001)</span>
-  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Course">Course</a></span>
-  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
-  <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
-  <span>Category: <span property="schema:category">issue-195</span></span>
-  <span>Source:  <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/195">#195</a></span>
-</div>
+Updated 2016-08-18:
 
-<!--div typeof="rdf:Property" resource="http://schema.org/provider">
-  <span class="h" property="rdfs:label">provider</span>
-  <span property="rdfs:comment">The organization offering the Course (e.g. a university).</span>
-  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Course">Course</a></span>
-  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Organization">Organization</a></span>
-</div-->
+These proposed by CG chair @philbarker as stabilizing soon:
+* Course + properties: courseCode, coursePrerequisites, hasCourseInstance
+* CourseInstance + properties: courseMode, instructor
 
-<!--div typeof="rdf:Property" resource="http://schema.org/providingDepartment">
-  <span class="h" property="rdfs:label">providingDepartment</span>
-  <span property="rdfs:comment">The department (within the offeringInstitution) offering the Course (e.g. the Computer Science department of a university).</span>
-  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Course">Course</a></span>
-  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Organization">Organization</a></span>
-</div-->
+Definitions here copied in from https://github.com/philbarker/schemaorg-1/tree/feature/ext-course/data/ext/course
+Also note that the related issue https://github.com/schemaorg/schemaorg/issues/1209 is merged into core.
 
-<!--div typeof="rdf:Property" resource="http://schema.org/subjectOfStudy">
-  <span class="h" property="rdfs:label">subjectOfStudy</span>
-  <span property="rdfs:comment">The primary subject being studied (e.g. "Computer Science" or "Pottery")</span>
-  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Course">Course</a></span>
-  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/AlignmentObject">AlignmentObject</a></span>
-</div-->
+While these are in pending each term has a few lines of boilerplate used by pending.schema.org / pending.webschemas.org.
 
-
-<div typeof="rdf:Property" resource="http://schema.org/courseCredits">
-  <span class="h" property="rdfs:label">courseCredits</span>
-  <span property="rdfs:comment">The number of credits offered for the Course toward an academic goal.</span>
-  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Course">Course</a></span>
-  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
-  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number">Number</a></span>
-  <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
-  <span>Category: <span property="schema:category">issue-195</span></span>
-  <span>Source:  <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/195">#195</a></span>
-</div>
-
-<div typeof="rdf:Property" resource="http://schema.org/courseCreditsUnit">
-  <span class="h" property="rdfs:label">courseCreditsUnit</span>
-  <span property="rdfs:comment">The type of credit associated with the credits earned for the Course. (e.g. TODO NoCredit, Quarter, Semester, CarnegieUnits, ContinuingEducationUnits, ClockHours, Other)</span>
-  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Course">Course</a></span>
-  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
-  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/URL">URL</a></span>
-  <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
-  <span>Category: <span property="schema:category">issue-195</span></span>
-  <span>Source:  <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/195">#195</a></span>
-  <!-- TODO: As enums, should these be named CourseCreditUnit Classes or defined URLs (of instances of CourseCreditUnit)?
-  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/CourseCreditUnit">CourseCreditUnit</a></span>
-  -->
-</div>
-
-<div typeof="rdf:Property" resource="http://schema.org/coursePrerequisites">
-  <span class="h" property="rdfs:label">coursePrerequisites</span>
-  <span property="rdfs:comment">Requirements for taking the Course. May be completion of another Course or a textual description like "permission of instructor". Requirements may be a pre-requisite competency, referenced using AlignmentObject.</span>
-  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Course">Course</a></span>
-  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
-  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Course">Course</a></span>
-  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/AlignmentObject">AlignmentObject</a></span>
-  <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
-  <span>Category: <span property="schema:category">issue-195</span></span>
-  <span>Source:  <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/195">#195</a></span>
-</div>
-
-<!--div typeof="rdf:Property" resource="http://schema.org/estimatedWorkload">
-  <span class="h" property="rdfs:label">estimatedWorkload</span>
-  <span property="rdfs:comment">A description of the estimated workload (e.g. actual hours per week).</span>
-  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Course">Course</a></span>
-  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
-</div-->
-
-<!--div typeof="rdf:Property" resource="http://schema.org/timeRequired">
-  <span class="h" property="rdfs:label">timeRequired</span>
-  <span property="rdfs:comment">The total time the Course will require.</span>
-  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Course">Course</a></span>
-  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Duration">Duration</a></span>
-</div-->
-
-<div typeof="rdf:Property" resource="http://schema.org/grantsCredential">
-  <span class="h" property="rdfs:label">grantsCredential</span>
-  <span property="rdfs:comment">A Credential granted upon successfully completing the Course.</span>
-  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Course">Course</a></span>
-<!--  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Credential">Credential</a></span> -->
-  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Thing">Thing</a></span>
-  <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
-  <span>Category: <span property="schema:category">issue-195</span></span>
-  <span>Source:  <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/195">#195</a></span>
-    <!-- TODO: define Credential > [Certificate, ] -->
-</div>
-
-<div typeof="rdf:Property" resource="http://schema.org/hasCourseInstance">
-  <span class="h" property="rdfs:label">hasCourseInstance</span>
-  <span property="rdfs:comment">An offering of the course at a specific time and place or through specific media or mode of study or to a specific section of students.</span>
-  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Course">Course</a></span>
-  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/CourseInstance">CourseInstance</a></span>
-  <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
-  <span>Category: <span property="schema:category">issue-195</span></span>
-  <span>Source:  <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/195">#195</a></span>
-</div>
-
-<div typeof="rdf:Property" resource="http://schema.org/courseMode">
-  <span class="h" property="rdfs:label">courseMode</span>
-  <span property="rdfs:comment">The medium or means of delivery of the course, or the mode of study.</span>
-<!--  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Course">Course</a></span>
+These are now (experimentally) in boilerplate-195.rdfa instead.
 -->
-  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CourseInstance">CourseInstance</a></span>
-  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
-  <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
-  <span>Category: <span property="schema:category">issue-195</span></span>
-  <span>Source:  <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/195">#195</a></span>
-</div>
 
 
-<div typeof="rdf:Property" resource="http://schema.org/previewUrl">
-  <span class="h" property="rdfs:label">previewUrl</span>
-  <span property="rdfs:comment">A link to a site where a preview of the course is offered.</span>
-  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Course">Course</a></span>
-  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/URL">URL</a></span>
-  <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
-  <span>Category: <span property="schema:category">issue-195</span></span>
-  <span>Source:  <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/195">#195</a></span>
-</div>
 
-<!-- </schema.org/Course> -->
 
-<!-- <schema.org/CourseInstance> -->
-<div typeof="rdfs:Class" resource="http://schema.org/CourseInstance">
-    <span class="h" property="rdfs:label">CourseInstance</span>
-    <span property="rdfs:comment">An instance of a Course offered at a specific time and place or through specific media or mode of study or to a specific section of students.</span>
-    <!-- TODO: link to schema.org Course (HTML-encode .comment) -->
-    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Event">Event</a></span>
-    <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
-    <span>Category: <span property="schema:category">issue-195</span></span>
-    <span>Source:  <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/195">#195</a></span>
-</div>
 
-<div typeof="rdf:Property" resource="http://schema.org/instructor">
-  <span class="h" property="rdfs:label">instructor</span>
-  <span property="rdfs:comment">A person assigned to instruct or provide instructional assistance for the CourseInstance.</span>
-  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CourseInstance">CourseInstance</a></span>
-  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Person">Person</a></span>
-  <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
-  <span>Category: <span property="schema:category">issue-195</span></span>
-  <span>Source:  <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/195">#195</a></span>
-</div>
+<!-- Work in progress.
+We show /educationalCredentialAwarded in the examples but it is still under discussion
+(more so than the above which are relatively stable). -->
 
-<!-- CreativeWork.inLanguage d:[CreativeWork, ] r:Language -->
+    <div typeof="rdf:Property" resource="http://schema.org/educationalCredentialAwarded">
 
-<!-- <schema.org/CourseInstance> -->
+        <span class="h" property="rdfs:label">educationalCredentialAwarded</span>
+        <span property="rdfs:comment">A description of the qualification, award, certificate, diploma or other educational credential awarded as a consequence of successful completion of this course.</span>
+        <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Course">Course</a></span>
+        <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/URL">URL</a></span>
+        <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
 
-<!-- -->
+    </div>
+
 </div>

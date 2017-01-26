@@ -98,14 +98,33 @@
     <li>An <strong><a href="../Offer">offer</a></strong> to let a hotel room (or other forms of accommodations) for a particular amount of money and for a given type of usage (e.g. occupancy), typically further constrained by advance booking requirements and other terms and conditions.
 </ul>
 
-<p>In schema.org, an offer for a hotel room is using the same patterns as an offer for any other type of product or service, e.g. a TV set or a welding service. In other words, a hotel room is equivalent to a <a href= "../Product">http://schema.org/Product</a>  (but without all the properties of that type that make sense only for typical commodity products), and an offer for hotel rooms is a <a href="../Offer">http://schema.org/Offer</a>. Prices and terms and conditions are thus not properties of the hotel or hotel room, but of the offer for a certain room or room category.</p>
+<p>In schema.org, an offer for a hotel room is using the same patterns as an offer for any other type of product or service, e.g. a TV set or a welding service. However, a hotel room is not a subclass of <a href= "../Product">Product</a> or <a href= "../Service">Service</a>.  To enable on offer to be described, use is made of the Multi-Typed Entity (MTE) feature of Schema.org.
+</p>
+<p>	
+When defining an instance of an <a href="../Accommodation">Accommodation</a>, that is offered by a <a href="../LodgingBusiness">LodgingBusiness</a>, it is described as being both a the appropriate Type for the accomodation <em>and</em> a <a href= "../Product">Product</a>.  Thus for example a <a href="../Hotel">Hotel</a> will make an <a href="../Offer">Offer</a>, or offers, for a <a href="../HotelRoom">HotelRoom</a>, that is also identified as a <a href= "../Product">Product</a>. Prices and terms and conditions are thus not properties of the hotel or hotel room, but of the offer for a certain room or room category.</p>
 
-<p>In the case of rental accommodations, it is important to attach the <a href= "../businessFunction">businessFunction</a> property with the value <a href="http://purl.org/goodrelations/v1#LeaseOut">LeaseOut</a> to the offer, unless you want to sell the property. This allows reusing and extending the same types for dwellings for real estate offers in schema.org.</p>
+The markup for MTE's is very simple:
+<ul>
+	<li> Microdata:
+		<pre class="prettyprint lang-html linenums">&lt;div itemscope itemtype="http://schema.org/HotelRoom http://schema.org/Product"&gt;</pre>
+	</li>
+	<li> RDFa:
+		<pre class="prettyprint lang-html linenums">&lt;div vocab="http://schema.org/" typeof="HotelRoom Product"&gt;</pre>
+	</li>
+	<li> JSON-LD:
+		<pre class="prettyprint lang-html linenums">"@context": "http://schema.org/",
+"@type": ["HotelRoom","Product"],</pre>
+	</li>
+</ul>
+			
+
+
+<p>In the case of rental accommodations, it is important to attach the <a href= "../businessFunction">businessFunction</a> property with the value <a href="http://purl.org/goodrelations/v1#LeaseOut">LeaseOut</a> to the <a href="../Offer">offer</a>, unless you want to sell the property. This allows reusing and extending the same types for dwellings for real estate offers in schema.org.</p>
 <h3>Basic Model</h3>
 <p>The diagram shown below illustrates the basic pattern for describing hotel room offers and offers for other forms of accommodations.</p>
-<p>All actual accommodations are subclasses of <a href="../Place">http://schema.org/Place</a>. Instead of making them subclasses of <a href="../Product">http://schema.org/Product</a> (which is just anything that can be included in an offer), <a href="../Accommodation">accommodation</a> has been added to the range of <a href="../itemOffered">itemOffered</a> and <a href="../typeOfGood">typeOfGood</a>, and to the domain of <a href="../offers">offers</a>. All types of lodging businesses are subclasses of <a href="../Place">http://schema.org/Place</a> and of <a href="../LocalBusiness">http://schema.org/LocalBusiness</a>.</p>
+<p>All accommodation Types are subclasses of <a href="../Place">http://schema.org/Place</a>. To use them as the subject of an offer, you should use the MTE techneque of assigining your instances to be both an Accomodation subclass and a Product.  All types of lodging businesses are subclasses of <a href="../LocalBusiness">http://schema.org/LocalBusiness</a> which itself is a subclass of <a href="../Place">http://schema.org/Place</a> and <a href="../Organization">http://schema.org/Organization</a>.</p>
 
-<p>The relationship between an accommodation and the local business it belongs to is represented via the <a href="../containedInPlace">containedInPlace</a> (from hotel room to hotel) or <a href="../containsPlace">containsPlace</a> (from hotel to hotel room) properties. The relationship between the offer and the room included in the offer can be represented via either the <a href="../offers">offers</a> property (from the room to the offer) or via <a href="../itemOffered">itemsOffered</a> (from the offer to the room).</p>
+<p>The relationship between an accommodation and the local business it belongs to is represented via the <a href="../containedInPlace">containedInPlace</a> (from hotel room to hotel) or <a href="../containsPlace">containsPlace</a> (from hotel to hotel room) properties. The relationship between the offer and the room included in the offer can be represented via either the <a href="../offers">offers</a> property (from the room product to the offer) or via <a href="../itemOffered">itemsOffered</a> (from the offer to the room).</p>
 <p>The relationship between the lodging business and its offers for rooms is represented via the <a href="../makesOffer">makesOffer</a> property (from the hotel to the offer) or via the <a href="../offeredBy">offeredBy</a> property (from the offer to the hotel).</p>
 <p>When the offer includes more than just the bare room (e.g. meals) or multiple nights we use the <a href="../includesObject">includesObject</a> property and one or more <a href="../TypeAndQuantityNode">TypeAndQuantityNode</a> nodes.
 
@@ -472,7 +491,7 @@ enjoying your morning coffee.&lt;/span&gt;
 &lt;/div&gt;</pre>
 
 <h3>Features and Services</h3>
-<p>Room features, like &quot;mini-bar&quot;, &quot;wifi&quot; or &quot;air conditioning&quot; can be expressed using the <a href="/amenityFeature">amenityFeature</a> property and an <a href="/LocationFeatureSpecification">LocationFeatureSpecification</a> entity, which is a special form of a <a href="../PropertyValue">property-value</a>. The <a href="../feature">feature</a> property does not make a statement on whether the room feature is free or for an additional charge.</p>
+<p>Room features, like &quot;mini-bar&quot;, &quot;wifi&quot; or &quot;air conditioning&quot; can be expressed using the <a href="/amenityFeature">amenityFeature</a> property and an <a href="/LocationFeatureSpecification">LocationFeatureSpecification</a> entity, which is a special form of a <a href="../PropertyValue">property-value</a>. The <a href="../amenityFeature">amenityFeature</a> property does not make a statement on whether the room feature is free or for an additional charge.</p>
 
 <h4>Room Features</h4>
 <p><strong>Example:</strong> The rooms have a mini-bar and wifi. Charges may or may not apply for those.</p>
@@ -495,11 +514,11 @@ enjoying your morning coffee.&lt;/span&gt;
 
 <p><strong>Note:</strong> For modeling the fees of optional room features, you can link the <a href="../Offer">offer</a> for the room to an offer for the feature or service via the <a href="../addOn">addOn</a> property.</p>
 <h2 id="pricing">Offers and Pricing</h2>
-    <p>A key principle in schema.org is that things do not have prices, but that offers to grant you some rights on the things do have instead. Thus, all commercial aspects of a hotel offer belong to the <a href="../Offer">offer</a> type in schema.org. In the following, we show the use of relevant schema.org elements.</p>
+    <p>A key principle in schema.org is that things do not have prices, but that offers to grant you some rights on the things do have instead. Thus, all commercial aspects of a hotel offer belong to the <a href="../Offer">offer</a> type in schema.org. In the following, we show the use of relevant schema.org elements. Note the use of MTEs, asignining the accomodation instance to also be a <a href="../Product">http://schema.org/Product</a>.</p>
     <h3>Basic Pattern</h3>
     <p><strong>Example:</strong> Single room for $ 99 per night</p>
     <pre class="prettyprint lang-html linenums">
-&lt;div itemscope itemtype=&quot;http://schema.org/HotelRoom&quot;&gt;
+&lt;div itemscope itemtype=&quot;http://schema.org/HotelRoom http://schema.org/Product&quot;&gt;
   &lt;span itemprop=&quot;name&quot;&gt;Single Room&lt;/span&gt;
   &lt;span itemprop=&quot;description&quot;&gt;Our single rooms are cosy and comfortable.&lt;/span&gt;
   Rate: &lt;span itemprop=&quot;offers&quot; itemscope itemtype=&quot;http://schema.org/Offer&quot;&gt;
@@ -515,7 +534,7 @@ enjoying your morning coffee.&lt;/span&gt;
     <p>You can indicate room prices per room or per person by choosing the appropriate unit code. &quot;IE&quot; is the UN/CEFACT Common Code for persons and &quot;DAY&quot; the code for days / nights. For price information per person you should indicate the occupancy as a single value.</p>
     <p><strong>Example:</strong> Double room for $ 49 per night per person based on double occupancy</p>
     <pre class="prettyprint lang-html linenums">
-&lt;div itemscope itemtype=&quot;http://schema.org/HotelRoom&quot;&gt;
+&lt;div itemscope itemtype=&quot;http://schema.org/HotelRoom http://schema.org/Product&quot;&gt;
   &lt;span itemprop=&quot;name&quot;&gt;Double Room&lt;/span&gt;
   &lt;span itemprop=&quot;description&quot;&gt;Our double rooms are spacious and comfortable.&lt;/span&gt;
   Occupancy: &lt;span itemprop=&quot;occupancy&quot; itemscope itemtype=&quot;http://schema.org/QuantitativeValue&quot;&gt;
@@ -536,7 +555,7 @@ enjoying your morning coffee.&lt;/span&gt;
     <p>You can use the <a href="../minPrice">minPrice</a> and <a href="../maxPrice">maxPrice</a> properties to indicate price ranges for rooms.</p>
     <p><strong>Example:</strong> Single rooms cost between $ 99 and $ 179 per night.</p>
     <pre class="prettyprint lang-html linenums">
-&lt;div itemscope itemtype=&quot;http://schema.org/HotelRoom&quot;&gt;
+&lt;div itemscope itemtype=&quot;http://schema.org/HotelRoom http://schema.org/Product&quot;&gt;
   &lt;span itemprop=&quot;name&quot;&gt;Single Room&lt;/span&gt;
   &lt;span itemprop=&quot;description&quot;&gt;Our single rooms are cosy and comfortable.&lt;/span&gt;
   Rate: &lt;span itemprop=&quot;offers&quot; itemscope itemtype=&quot;http://schema.org/Offer&quot;&gt;
@@ -554,7 +573,7 @@ enjoying your morning coffee.&lt;/span&gt;
     <h4>Booking Period</h4>
     <p><strong>Example:</strong> A rate is valid only when the booking is made between October 1 and December 31, 2015.</p>
     <pre class="prettyprint lang-html linenums">
-&lt;div itemscope itemtype=&quot;http://schema.org/HotelRoom&quot;&gt;
+&lt;div itemscope itemtype=&quot;http://schema.org/HotelRoom http://schema.org/Product&quot;&gt;
   &lt;span itemprop=&quot;name&quot;&gt;Single Room&lt;/span&gt;
   &lt;span itemprop=&quot;description&quot;&gt;Our single rooms are cosy and comfortable.&lt;/span&gt;
   Rate: &lt;span itemprop=&quot;offers&quot; itemscope itemtype=&quot;http://schema.org/Offer&quot;&gt;
@@ -571,7 +590,7 @@ enjoying your morning coffee.&lt;/span&gt;
     <h4>Advance Booking Requirement</h4>
     <p><strong>Example:</strong> A room must be booked seven days in advance.</p>
     <pre class="prettyprint lang-html linenums">
-&lt;div itemscope itemtype=&quot;http://schema.org/HotelRoom&quot;&gt;
+&lt;div itemscope itemtype=&quot;http://schema.org/HotelRoom http://schema.org/Product&quot;&gt;
   &lt;span itemprop=&quot;name&quot;&gt;Single Room&lt;/span&gt;
   &lt;span itemprop=&quot;description&quot;&gt;Our single rooms are cosy and comfortable.&lt;/span&gt;
   Rate: &lt;span itemprop=&quot;offers&quot; itemscope itemtype=&quot;http://schema.org/Offer&quot;&gt;
@@ -591,7 +610,7 @@ enjoying your morning coffee.&lt;/span&gt;
     <h4>Eligible Dates</h4>
     <p><strong>Example:</strong> A rate is valid only for stays between January 15-31, 2016.</p>
     <pre class="prettyprint lang-html linenums">
-&lt;div itemscope itemtype=&quot;http://schema.org/HotelRoom&quot;&gt;
+&lt;div itemscope itemtype=&quot;http://schema.org/HotelRoom http://schema.org/Product&quot;&gt;
   &lt;span itemprop=&quot;name&quot;&gt;Single Room&lt;/span&gt;
   &lt;span itemprop=&quot;description&quot;&gt;Our single rooms are cosy and comfortable.&lt;/span&gt;
   Rate: &lt;span itemprop=&quot;offers&quot; itemscope itemtype=&quot;http://schema.org/Offer&quot;&gt;
@@ -608,7 +627,7 @@ enjoying your morning coffee.&lt;/span&gt;
     <h4>Seasonal Pricing</h4>
     <p><strong>Example:</strong> Different prices for summer and winter</p>
     <pre class="prettyprint lang-html linenums">
-&lt;div itemscope itemtype=&quot;http://schema.org/HotelRoom&quot;&gt;
+&lt;div itemscope itemtype=&quot;http://schema.org/HotelRoom http://schema.org/Product&quot;&gt;
   &lt;span itemprop=&quot;name&quot;&gt;Single Room&lt;/span&gt;
   &lt;span itemprop=&quot;description&quot;&gt;Our single rooms are cosy and comfortable.&lt;/span&gt;
   Rate:
@@ -637,7 +656,7 @@ enjoying your morning coffee.&lt;/span&gt;
     <p>For some types of accommodations, the price has multiple components, e.g. a weekly fee and a flat cleaning and service fee for a vacation home. The <a href="../CompoundPriceSpecification">CompoundPriceSpecification</a> type serves this purpose.</p>
     <p><strong>Example:</strong> 400 USD per week plus a cleaning fee of 100 USD per stay</p>
     <pre class="prettyprint lang-html linenums">
-&lt;div itemscope itemtype=&quot;http://schema.org/Apartment&quot;&gt;
+&lt;div itemscope itemtype=&quot;http://schema.org/Apartment http://schema.org/Product&quot;&gt;
   &lt;span itemprop=&quot;name&quot;&gt;Seaside Apartment&lt;/span&gt;
   &lt;span itemprop=&quot;description&quot;&gt;Our seaside apartments are perfect for small families with children.&lt;/span&gt;
   Rate: &lt;span itemprop=&quot;offers&quot; itemscope itemtype=&quot;http://schema.org/Offer&quot;&gt;
@@ -663,7 +682,7 @@ enjoying your morning coffee.&lt;/span&gt;
     <p>The occupancy for a given room rate can be indicated via <a href="../occupancy">occupancy</a> (total occupancy). For details (e.g. number of adults vs. number of children), you can use the <a href="../name">name</a> property of the <a href="../QuantitativeValue">value</a>.</p>
     <p><strong>Example:</strong> USD 249 per night for a suite with up to two adults and two children</p>
     <pre class="prettyprint lang-html linenums">
-&lt;div itemscope itemtype=&quot;http://schema.org/Suite&quot;&gt;
+&lt;div itemscope itemtype=&quot;http://schema.org/Suite http://schema.org/Product&quot;&gt;
   &lt;span itemprop=&quot;name&quot;&gt;Deluxe Suite&lt;/span&gt;
   &lt;span itemprop=&quot;description&quot;&gt;Our deluxe suites are ideal for longer stays or families.&lt;/span&gt;
   Occupancy: &lt;span itemprop=&quot;occupancy&quot; itemscope itemtype=&quot;http://schema.org/QuantitativeValue&quot;&gt;
@@ -689,7 +708,7 @@ enjoying your morning coffee.&lt;/span&gt;
     <h3>Minimum Duration of Stay</h3>
     <p><strong>Example:</strong> The room rate is valid only for stays of at least three nights.</p>
     <pre class="prettyprint lang-html linenums">
-&lt;div itemscope itemtype=&quot;http://schema.org/HotelRoom&quot;&gt;
+&lt;div itemscope itemtype=&quot;http://schema.org/HotelRoom http://schema.org/Product &quot;&gt;
   &lt;span itemprop=&quot;name&quot;&gt;Single Room&lt;/span&gt;
   &lt;span itemprop=&quot;description&quot;&gt;Our single rooms are cosy and comfortable.&lt;/span&gt;
   Rate: &lt;span itemprop=&quot;offers&quot; itemscope itemtype=&quot;http://schema.org/Offer&quot;&gt;

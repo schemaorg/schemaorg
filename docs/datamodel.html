@@ -174,7 +174,7 @@ and we encourage this kind of experimentation amongst data consumers.
 
 <h3 id="toolmakers">Notes for toolmakers and schema authors</h3>
 
-<p><em>This section is oriented towards extension authors and tool makers, i.e. creators of applications that 
+<p><em>This section is oriented towards extension authors and tool makers, i.e. creators of applications that
 consume, check or transform schema.org-based data. Most publishers and webmasters needn't worry about these details</em>.</p>
 
 <p>
@@ -265,8 +265,11 @@ some other enclosing tag.
 </p>
 
 
+<h2 id="bgnotes">Background notes</h2>
 
-<h2 id="mainEntityBackground">mainEntity(OfPage)</h2>
+<p>The following sections provide additional information for some of schema.org's more general/abstract terms.</p>
+
+<h3 id="mainEntityBackground">mainEntity(OfPage) property</h3>
 
 <p>Background information on <a href="/mainEntityOfPage">mainEntityOfPage</a> / <a href="/mainEntity">mainEntity</a> properties.</p>
 
@@ -283,6 +286,27 @@ some other enclosing tag.
 <p><a href="/about">about</a> is similar to mainEntity, with two key differences. First, about can refer to multiple entities/topics, while mainEntity should be used for only the primary one. Second, some pages have a primary entity that itself describes some other entity. For example, one web page may display a news article about a particular person. Another page may display a product review for a particular product. In these cases, mainEntity for the pages should refer to the news article or review, respectively, while about would more properly refer to the person or product.</p>
 
 <br/><br/>
+
+
+
+<h3 id="identifierBg">"identifier" property</h3>
+
+<p>Background information on the 'identifier' property and its sub0properties.</p>
+
+<p>The <a href="/identifier">identifier</a> property and its sub-properties are primarily useful in cases where the content is expressed as a textual string. Increasingly there are canonical URL/URI representations for each of these. All schema.org syntaxes already have built-in representation for URIs and URLs, e.g. in Microdata 'itemid', in RDFa 1.1, 'resource', in JSON-LD, '@id'. Generally it is preferable to use these unless there is a specific requirement to explicitly state the kind of identifier, or to provide additional / alternative identifiers (e.g., DOIs). Such requirements are common e.g. for scientific dataset description.</p>
+
+<p>In some cases the values of the <a href="/identifier">identifier</a> property indicate a set of (somewhat) interchangeable entities rather than a single distinct real world entity.
+Such sets could be viewed as corresponding to classes, but we do not explore that possibility here. For example <a href="/sku">sku</a> and the various product-related GTIN codes.
+However <a href="/identifier">identifier</a> is not intended to cover broader categorization and classification mechanisms. For example, although the <a href="/isicV4">isicV4</a> property has values that are in some sense identifiers,
+we do not treat <a href="/isicV4">isicV4</a> as a subproperty of <a href="/identifier">identifier</a> since it serves to identify a category not an individual Thing (specifically, <a href="/Person">Person</a>). Similarly, very many
+schema.org properties can have values that are written as URLs, but we do not treat those properties as specializations of <a href="/identifier">identifier</a>.</p>
+
+<p>
+In the most complex case, there is sometimes a need to represent the type of an identifier. In this case, a <a href="/PropertyValue">PropertyValue</a> pair ('name', 'identifier') pair can be used
+when a standard URI form of the identifier is unavailable. We do not currently have a recommended identifier scheme for identifier schemes, but in most cases there is a
+conventional short name for most identifier schemes (which should be used in lowercase form).
+</p>
+
   </div>
 
 

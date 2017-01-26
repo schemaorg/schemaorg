@@ -1,0 +1,1117 @@
+{
+  "@context": {
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#"
+  },
+  "@graph": [
+    {
+      "@id": "http://schema.org/includesHealthPlanFormulary",
+      "@type": "rdf:Property",
+      "http://purl.org/dc/terms/source": {
+        "@id": "https://github.com/schemaorg/schemaorg/issues/1062"
+      },
+      "http://schema.org/category": "issue-1062",
+      "http://schema.org/domainIncludes": {
+        "@id": "http://schema.org/HealthInsurancePlan"
+      },
+      "http://schema.org/isPartOf": {
+        "@id": "http://pending.schema.org"
+      },
+      "http://schema.org/rangeIncludes": {
+        "@id": "http://schema.org/HealthPlanFormulary"
+      },
+      "rdfs:comment": "Formularies covered by this plan.",
+      "rdfs:label": "includesHealthPlanFormulary"
+    },
+    {
+      "@id": "http://schema.org/healthPlanId",
+      "@type": "rdf:Property",
+      "http://purl.org/dc/terms/source": {
+        "@id": "https://github.com/schemaorg/schemaorg/issues/1062"
+      },
+      "http://schema.org/category": "issue-1062",
+      "http://schema.org/domainIncludes": {
+        "@id": "http://schema.org/HealthInsurancePlan"
+      },
+      "http://schema.org/isPartOf": {
+        "@id": "http://pending.schema.org"
+      },
+      "http://schema.org/rangeIncludes": {
+        "@id": "http://schema.org/Text"
+      },
+      "rdfs:comment": "The 14-character, HIOS-generated Plan ID number. (Plan IDs must be unique, even across different markets.)",
+      "rdfs:label": "healthPlanId"
+    },
+    {
+      "@id": "http://schema.org/broadcastFrequency",
+      "@type": "rdf:Property",
+      "http://purl.org/dc/terms/source": {
+        "@id": "https://github.com/schemaorg/schemaorg/issues/1004"
+      },
+      "http://schema.org/category": "issue-1004",
+      "http://schema.org/domainIncludes": [
+        {
+          "@id": "http://schema.org/BroadcastService"
+        },
+        {
+          "@id": "http://schema.org/BroadcastChannel"
+        }
+      ],
+      "http://schema.org/isPartOf": {
+        "@id": "http://pending.schema.org"
+      },
+      "http://schema.org/rangeIncludes": [
+        {
+          "@id": "http://schema.org/Text"
+        },
+        {
+          "@id": "http://schema.org/BroadcastFrequencySpecification"
+        }
+      ],
+      "rdfs:comment": "The frequency used for over-the-air broadcasts. Numeric values or simple ranges e.g. 87-99. In addition a shortcut idiom is supported for frequences of AM and FM radio channels, e.g. \"87 FM\".",
+      "rdfs:label": "broadcastFrequency"
+    },
+    {
+      "@id": "http://schema.org/accessibilitySummary",
+      "@type": "rdf:Property",
+      "http://purl.org/dc/terms/source": {
+        "@id": "https://github.com/schemaorg/schemaorg/issues/1100"
+      },
+      "http://schema.org/category": "issue-1110",
+      "http://schema.org/domainIncludes": {
+        "@id": "http://schema.org/CreativeWork"
+      },
+      "http://schema.org/isPartOf": {
+        "@id": "http://pending.schema.org"
+      },
+      "http://schema.org/rangeIncludes": {
+        "@id": "http://schema.org/Text"
+      },
+      "rdfs:comment": "A human-readable summary of specific accessibility features or deficiencies, consistent with the other accessibility metadata but expressing subtleties such as \"short descriptions are present but long descriptions will be needed for non-visual users\" or \"short descriptions are present and no long descriptions are needed.\"",
+      "rdfs:label": "accessibilitySummary"
+    },
+    {
+      "@id": "http://schema.org/Course",
+      "@type": "rdfs:Class",
+      "http://purl.org/dc/terms/source": {
+        "@id": "https://github.com/schemaorg/schemaorg/issues/195"
+      },
+      "http://schema.org/category": "issue-195"
+    },
+    {
+      "@id": "http://schema.org/healthPlanMarketingUrl",
+      "@type": "rdf:Property",
+      "http://purl.org/dc/terms/source": {
+        "@id": "https://github.com/schemaorg/schemaorg/issues/1062"
+      },
+      "http://schema.org/category": "issue-1062",
+      "http://schema.org/domainIncludes": {
+        "@id": "http://schema.org/HealthInsurancePlan"
+      },
+      "http://schema.org/isPartOf": {
+        "@id": "http://pending.schema.org"
+      },
+      "http://schema.org/rangeIncludes": {
+        "@id": "http://schema.org/URL"
+      },
+      "rdfs:comment": "The URL that goes directly to the plan brochure for the specific standard plan or plan variation.",
+      "rdfs:label": "healthPlanMarketingUrl"
+    },
+    {
+      "@id": "http://schema.org/HealthInsurancePlan",
+      "@type": "rdfs:Class",
+      "http://purl.org/dc/terms/source": {
+        "@id": "https://github.com/schemaorg/schemaorg/issues/1062"
+      },
+      "http://schema.org/category": "issue-1062",
+      "http://schema.org/isPartOf": {
+        "@id": "http://pending.schema.org"
+      },
+      "rdfs:comment": "A US-style health insurance plan, including PPOs, EPOs, and HMOs.",
+      "rdfs:label": "HealthInsurancePlan",
+      "rdfs:subClassOf": {
+        "@id": "http://schema.org/Intangible"
+      }
+    },
+    {
+      "@id": "http://schema.org/EventSeries",
+      "@type": "rdfs:Class",
+      "http://purl.org/dc/terms/source": {
+        "@id": "https://github.com/schemaorg/schemaorg/issues/447"
+      },
+      "http://schema.org/category": "issue-447",
+      "http://schema.org/isPartOf": {
+        "@id": "http://pending.schema.org"
+      },
+      "rdfs:comment": "A series of <a class=\"localLink\" href=\"http://schema.org/Event\">Event</a>s. Included events can relate with the series using the <a class=\"localLink\" href=\"http://schema.org/superEvent\">superEvent</a> property.</p>\n\n<p>An EventSeries is a collection of events that share some unifying characteristic. For example, \"The Olympic Games\" is a series, which\nis repeated regularly. The \"2012 London Olympics\" can be presented both as an <a class=\"localLink\" href=\"http://schema.org/Event\">Event</a> in the series \"Olympic Games\", and as an\n<a class=\"localLink\" href=\"http://schema.org/EventSeries\">EventSeries</a> that included a number of sporting competitions as Events.</p>\n\n<p>The nature of the association between the events in an <a class=\"localLink\" href=\"http://schema.org/EventSeries\">EventSeries</a> can vary, but typical examples could\ninclude a thematic event series (e.g. topical meetups or classes), or a series of regular events that share a location, attendee group and/or organizers.</p>\n\n<p>EventSeries has been defined as a kind of Event to make it easy for publishers to use it in an Event context without\nworrying about which kinds of series are really event-like enough to call an Event. In general an EventSeries\nmay seem more Event-like when the period of time is compact and when aspects such as location are fixed, but\nit may also sometimes prove useful to describe a longer-term series as an Event.",
+      "rdfs:label": "EventSeries",
+      "rdfs:subClassOf": {
+        "@id": "http://schema.org/Event"
+      }
+    },
+    {
+      "@id": "http://schema.org/includedInHealthInsurancePlan",
+      "@type": "rdf:Property",
+      "http://purl.org/dc/terms/source": {
+        "@id": "https://github.com/schemaorg/schemaorg/issues/1062"
+      },
+      "http://schema.org/category": "issue-1062",
+      "http://schema.org/domainIncludes": {
+        "@id": "http://schema.org/Drug"
+      },
+      "http://schema.org/isPartOf": {
+        "@id": "http://pending.schema.org"
+      },
+      "http://schema.org/rangeIncludes": {
+        "@id": "http://schema.org/HealthInsurancePlan"
+      },
+      "rdfs:comment": "The insurance plans that cover this drug.",
+      "rdfs:label": "includedInHealthInsurancePlan"
+    },
+    {
+      "@id": "http://schema.org/WorkersUnion",
+      "@type": "rdfs:Class",
+      "http://purl.org/dc/terms/source": {
+        "@id": "https://github.com/schemaorg/schemaorg/issues/243"
+      },
+      "http://schema.org/category": "issue-243",
+      "http://schema.org/isPartOf": {
+        "@id": "http://pending.schema.org"
+      },
+      "rdfs:comment": "A Workers Union (also known as a Labor Union, Labour Union, or Trade Union) is an organization that promotes the interests of its worker members by collectively bargaining with management, organizing, and political lobbying.",
+      "rdfs:label": "WorkersUnion",
+      "rdfs:subClassOf": {
+        "@id": "http://schema.org/Organization"
+      }
+    },
+    {
+      "@id": "http://schema.org/BroadcastFrequencySpecification",
+      "@type": "rdfs:Class",
+      "http://purl.org/dc/terms/source": {
+        "@id": "https://github.com/schemaorg/schemaorg/issues/1004"
+      },
+      "http://schema.org/category": "issue-1004",
+      "http://schema.org/isPartOf": {
+        "@id": "http://pending.schema.org"
+      },
+      "rdfs:comment": "The frequency in MHz and the modulation used for a particular BroadcastService.",
+      "rdfs:label": "BroadcastFrequencySpecification",
+      "rdfs:subClassOf": {
+        "@id": "http://schema.org/Intangible"
+      }
+    },
+    {
+      "@id": "http://schema.org/enumerationValueCode",
+      "@type": "rdf:Property",
+      "http://purl.org/dc/terms/source": {
+        "@id": "https://github.com/schemaorg/schemaorg/issues/894"
+      },
+      "http://schema.org/category": "issue-894",
+      "http://schema.org/domainIncludes": {
+        "@id": "http://schema.org/EnumerationValue"
+      },
+      "http://schema.org/isPartOf": {
+        "@id": "http://pending.schema.org"
+      },
+      "http://schema.org/rangeIncludes": {
+        "@id": "http://schema.org/Text"
+      },
+      "rdfs:comment": "A short textual code that uniquely identifies the value. The code is typically used in structured URLs.",
+      "rdfs:label": "enumerationValueCode"
+    },
+    {
+      "@id": "http://schema.org/broadcastFrequencyValue",
+      "@type": "rdf:Property",
+      "http://purl.org/dc/terms/source": {
+        "@id": "https://github.com/schemaorg/schemaorg/issues/1004"
+      },
+      "http://schema.org/category": "issue-1004",
+      "http://schema.org/domainIncludes": {
+        "@id": "http://schema.org/BroadcastFrequencySpecification"
+      },
+      "http://schema.org/isPartOf": {
+        "@id": "http://pending.schema.org"
+      },
+      "http://schema.org/rangeIncludes": [
+        {
+          "@id": "http://schema.org/Number"
+        },
+        {
+          "@id": "http://schema.org/QuantitativeValue"
+        }
+      ],
+      "rdfs:comment": "The frequency in MHz for a particular broadcast.",
+      "rdfs:label": "broadcastFrequencyValue"
+    },
+    {
+      "@id": "http://schema.org/healthPlanCostSharing",
+      "@type": "rdf:Property",
+      "http://purl.org/dc/terms/source": {
+        "@id": "https://github.com/schemaorg/schemaorg/issues/1062"
+      },
+      "http://schema.org/category": "issue-1062",
+      "http://schema.org/domainIncludes": [
+        {
+          "@id": "http://schema.org/HealthPlanFormulary"
+        },
+        {
+          "@id": "http://schema.org/HealthPlanNetwork"
+        }
+      ],
+      "http://schema.org/isPartOf": {
+        "@id": "http://pending.schema.org"
+      },
+      "http://schema.org/rangeIncludes": {
+        "@id": "http://schema.org/Boolean"
+      },
+      "rdfs:comment": "Whether The costs to the patient for services under this network or formulary.",
+      "rdfs:label": "healthPlanCostSharing"
+    },
+    {
+      "@id": "http://schema.org/Distillery",
+      "@type": "rdfs:Class",
+      "http://purl.org/dc/terms/source": {
+        "@id": "https://github.com/schemaorg/schemaorg/issues/743"
+      },
+      "http://schema.org/category": "issue-743",
+      "http://schema.org/isPartOf": {
+        "@id": "http://pending.schema.org"
+      },
+      "rdfs:comment": "A distillery.",
+      "rdfs:label": "Distillery",
+      "rdfs:subClassOf": {
+        "@id": "http://schema.org/FoodEstablishment"
+      }
+    },
+    {
+      "@id": "http://schema.org/healthPlanPharmacyCategory",
+      "@type": "rdf:Property",
+      "http://purl.org/dc/terms/source": {
+        "@id": "https://github.com/schemaorg/schemaorg/issues/1062"
+      },
+      "http://schema.org/category": "issue-1062",
+      "http://schema.org/domainIncludes": {
+        "@id": "http://schema.org/HealthPlanCostSharingSpecification"
+      },
+      "http://schema.org/isPartOf": {
+        "@id": "http://pending.schema.org"
+      },
+      "http://schema.org/rangeIncludes": {
+        "@id": "http://schema.org/Text"
+      },
+      "rdfs:comment": "The category or type of pharmacy associated with this cost sharing.",
+      "rdfs:label": "healthPlanPharmacyCategory"
+    },
+    {
+      "@id": "http://schema.org/HealthPlanFormulary",
+      "@type": "rdfs:Class",
+      "http://purl.org/dc/terms/source": {
+        "@id": "https://github.com/schemaorg/schemaorg/issues/1062"
+      },
+      "http://schema.org/category": "issue-1062",
+      "http://schema.org/isPartOf": {
+        "@id": "http://pending.schema.org"
+      },
+      "rdfs:comment": "For a given health insurance plan, the specification for costs and coverage of prescription drugs.",
+      "rdfs:label": "HealthPlanFormulary",
+      "rdfs:subClassOf": {
+        "@id": "http://schema.org/Intangible"
+      }
+    },
+    {
+      "@id": "http://schema.org/healthPlanCoinsuranceOption",
+      "@type": "rdf:Property",
+      "http://purl.org/dc/terms/source": {
+        "@id": "https://github.com/schemaorg/schemaorg/issues/1062"
+      },
+      "http://schema.org/category": "issue-1062",
+      "http://schema.org/domainIncludes": {
+        "@id": "http://schema.org/HealthPlanCostSharingSpecification"
+      },
+      "http://schema.org/isPartOf": {
+        "@id": "http://pending.schema.org"
+      },
+      "http://schema.org/rangeIncludes": {
+        "@id": "http://schema.org/Text"
+      },
+      "rdfs:comment": "Whether the coinsurance applies before or after deductible, etc. TODO: Is this a closed set?",
+      "rdfs:label": "healthPlanCoinsuranceOption"
+    },
+    {
+      "@id": "http://schema.org/LinkRole",
+      "@type": "rdfs:Class",
+      "http://purl.org/dc/terms/source": {
+        "@id": "https://github.com/schemaorg/schemaorg/issues/1045"
+      },
+      "http://schema.org/category": "issue-1045",
+      "http://schema.org/isPartOf": {
+        "@id": "http://pending.schema.org"
+      },
+      "rdfs:comment": "A Role that represents a Web link e.g. as expressed via the 'url' property. Its linkRelationship property can indicate URL-based and plain textual link types e.g. those in IANA link registry or others such as 'amphtml'. This structure provides a placeholder where details from HTML's link element can be represented outside of HTML, e.g. in JSON-LD feeds.",
+      "rdfs:label": "LinkRole",
+      "rdfs:subClassOf": {
+        "@id": "http://schema.org/Role"
+      }
+    },
+    {
+      "@id": "http://schema.org/AMRadioChannel",
+      "@type": "rdfs:Class",
+      "http://purl.org/dc/terms/source": {
+        "@id": "https://github.com/schemaorg/schemaorg/issues/1004"
+      },
+      "http://schema.org/category": "issue-1004",
+      "http://schema.org/isPartOf": {
+        "@id": "http://pending.schema.org"
+      },
+      "rdfs:comment": "A radio channel that uses AM.",
+      "rdfs:label": "AMRadioChannel",
+      "rdfs:subClassOf": {
+        "@id": "http://schema.org/RadioChannel"
+      }
+    },
+    {
+      "@id": "http://schema.org/typeOfBed",
+      "@type": "rdf:Property",
+      "http://schema.org/rangeIncludes": {
+        "@id": "http://schema.org/BedType"
+      }
+    },
+    {
+      "@id": "http://schema.org/variablesMeasured",
+      "@type": "rdf:Property",
+      "http://purl.org/dc/terms/source": {
+        "@id": "https://github.com/schemaorg/schemaorg/issues/1083"
+      },
+      "http://schema.org/category": "issue-1083",
+      "http://schema.org/domainIncludes": {
+        "@id": "http://schema.org/Dataset"
+      },
+      "http://schema.org/isPartOf": {
+        "@id": "http://pending.schema.org"
+      },
+      "http://schema.org/rangeIncludes": {
+        "@id": "http://schema.org/Text"
+      },
+      "rdfs:comment": "The variables that are measured in some dataset, either described as text or as pairs of identifier and description using PropertyValue.",
+      "rdfs:label": "variablesMeasured"
+    },
+    {
+      "@id": "http://schema.org/healthPlanNetworkId",
+      "@type": "rdf:Property",
+      "http://purl.org/dc/terms/source": {
+        "@id": "https://github.com/schemaorg/schemaorg/issues/1062"
+      },
+      "http://schema.org/category": "issue-1062",
+      "http://schema.org/domainIncludes": [
+        {
+          "@id": "http://schema.org/MedicalOrganization"
+        },
+        {
+          "@id": "http://schema.org/HealthPlanNetwork"
+        }
+      ],
+      "http://schema.org/isPartOf": {
+        "@id": "http://pending.schema.org"
+      },
+      "http://schema.org/rangeIncludes": {
+        "@id": "http://schema.org/Text"
+      },
+      "rdfs:comment": "Name or unique ID of network. (Networks are often reused across different insurance plans).",
+      "rdfs:label": "healthPlanNetworkId"
+    },
+    {
+      "@id": "http://schema.org/contactPoint",
+      "@type": "rdf:Property",
+      "http://schema.org/category": "issue-1062",
+      "http://schema.org/domainIncludes": {
+        "@id": "http://schema.org/HealthInsurancePlan"
+      },
+      "http://schema.org/rangeIncludes": {
+        "@id": "http://schema.org/ContactPoint"
+      }
+    },
+    {
+      "@id": "http://schema.org/hasBroadcastChannel",
+      "@type": "rdf:Property",
+      "http://purl.org/dc/terms/source": {
+        "@id": "https://github.com/schemaorg/schemaorg/issues/1004"
+      },
+      "http://schema.org/category": "issue-1004",
+      "http://schema.org/domainIncludes": {
+        "@id": "http://schema.org/BroadcastService"
+      },
+      "http://schema.org/inverseOf": {
+        "@id": "http://schema.org/providesBroadcastService"
+      },
+      "http://schema.org/isPartOf": {
+        "@id": "http://pending.schema.org"
+      },
+      "http://schema.org/rangeIncludes": {
+        "@id": "http://schema.org/BroadcastChannel"
+      },
+      "rdfs:comment": "A broadcast channel of a broadcast service.",
+      "rdfs:label": "hasBroadcastChannel"
+    },
+    {
+      "@id": "http://schema.org/rxcui",
+      "@type": "rdf:Property",
+      "http://purl.org/dc/terms/source": {
+        "@id": "https://github.com/schemaorg/schemaorg/issues/1062"
+      },
+      "http://schema.org/category": "issue-1062",
+      "http://schema.org/domainIncludes": {
+        "@id": "http://schema.org/Drug"
+      },
+      "http://schema.org/isPartOf": {
+        "@id": "http://pending.schema.org"
+      },
+      "http://schema.org/rangeIncludes": {
+        "@id": "http://schema.org/Text"
+      },
+      "rdfs:comment": "The RxCUI drug identifier from RXNORM.",
+      "rdfs:label": "rxcui"
+    },
+    {
+      "@id": "http://schema.org/spokenByCharacter",
+      "@type": "rdf:Property",
+      "http://purl.org/dc/terms/source": {
+        "@id": "https://github.com/schemaorg/schemaorg/issues/271"
+      },
+      "http://schema.org/category": "issue-271",
+      "http://schema.org/domainIncludes": {
+        "@id": "http://schema.org/Quotation"
+      },
+      "http://schema.org/isPartOf": {
+        "@id": "http://pending.schema.org"
+      },
+      "http://schema.org/rangeIncludes": [
+        {
+          "@id": "http://schema.org/Organization"
+        },
+        {
+          "@id": "http://schema.org/Person"
+        }
+      ],
+      "rdfs:comment": "The (e.g. fictional) character, Person or Organization to whom the quotation is attributed within the containing CreativeWork.",
+      "rdfs:label": "spokenByCharacter"
+    },
+    {
+      "@id": "http://schema.org/includesHealthPlanNetwork",
+      "@type": "rdf:Property",
+      "http://purl.org/dc/terms/source": {
+        "@id": "https://github.com/schemaorg/schemaorg/issues/1062"
+      },
+      "http://schema.org/category": "issue-1062",
+      "http://schema.org/domainIncludes": {
+        "@id": "http://schema.org/HealthInsurancePlan"
+      },
+      "http://schema.org/isPartOf": {
+        "@id": "http://pending.schema.org"
+      },
+      "http://schema.org/rangeIncludes": {
+        "@id": "http://schema.org/HealthPlanNetwork"
+      },
+      "rdfs:comment": "Networks covered by this plan.",
+      "rdfs:label": "includesHealthPlanNetwork"
+    },
+    {
+      "@id": "http://schema.org/healthPlanCoinsuranceRate",
+      "@type": "rdf:Property",
+      "http://purl.org/dc/terms/source": {
+        "@id": "https://github.com/schemaorg/schemaorg/issues/1062"
+      },
+      "http://schema.org/category": "issue-1062",
+      "http://schema.org/domainIncludes": {
+        "@id": "http://schema.org/HealthPlanCostSharingSpecification"
+      },
+      "http://schema.org/isPartOf": {
+        "@id": "http://pending.schema.org"
+      },
+      "http://schema.org/rangeIncludes": {
+        "@id": "http://schema.org/Number"
+      },
+      "rdfs:comment": "Whether The rate of coinsurance expressed as a number between 0.0 and 1.0.",
+      "rdfs:label": "healthPlanCoinsuranceRate"
+    },
+    {
+      "@id": "http://schema.org/PreOrderAction",
+      "@type": "rdfs:Class",
+      "http://purl.org/dc/terms/source": {
+        "@id": "https://github.com/schemaorg/schemaorg/issues/1125"
+      },
+      "http://schema.org/category": "issue-1125",
+      "http://schema.org/isPartOf": {
+        "@id": "http://pending.schema.org"
+      },
+      "rdfs:comment": "An agent orders a (not yet released) object/product/service to be delivered/sent.",
+      "rdfs:label": "PreOrderAction",
+      "rdfs:subClassOf": {
+        "@id": "http://schema.org/TradeAction"
+      }
+    },
+    {
+      "@id": "http://schema.org/healthPlanNetworkTier",
+      "@type": "rdf:Property",
+      "http://purl.org/dc/terms/source": {
+        "@id": "https://github.com/schemaorg/schemaorg/issues/1062"
+      },
+      "http://schema.org/category": "issue-1062",
+      "http://schema.org/domainIncludes": {
+        "@id": "http://schema.org/HealthPlanNetwork"
+      },
+      "http://schema.org/isPartOf": {
+        "@id": "http://pending.schema.org"
+      },
+      "http://schema.org/rangeIncludes": {
+        "@id": "http://schema.org/Text"
+      },
+      "rdfs:comment": "The tier(s) for this network.",
+      "rdfs:label": "healthPlanNetworkTier"
+    },
+    {
+      "@id": "http://schema.org/providesBroadcastService",
+      "@type": "rdf:Property",
+      "http://schema.org/inverseOf": {
+        "@id": "http://schema.org/hasBroadcastChannel"
+      }
+    },
+    {
+      "@id": "http://schema.org/healthPlanDrugTier",
+      "@type": "rdf:Property",
+      "http://purl.org/dc/terms/source": {
+        "@id": "https://github.com/schemaorg/schemaorg/issues/1062"
+      },
+      "http://schema.org/category": "issue-1062",
+      "http://schema.org/domainIncludes": [
+        {
+          "@id": "http://schema.org/HealthPlanFormulary"
+        },
+        {
+          "@id": "http://schema.org/HealthInsurancePlan"
+        }
+      ],
+      "http://schema.org/isPartOf": {
+        "@id": "http://pending.schema.org"
+      },
+      "http://schema.org/rangeIncludes": {
+        "@id": "http://schema.org/Text"
+      },
+      "rdfs:comment": "The tier(s) of drugs offered by this formulary or insurance plan.",
+      "rdfs:label": "healthPlanDrugTier"
+    },
+    {
+      "@id": "http://schema.org/EnumerationValueSet",
+      "@type": "rdfs:Class",
+      "http://purl.org/dc/terms/source": {
+        "@id": "https://github.com/schemaorg/schemaorg/issues/894"
+      },
+      "http://schema.org/category": "issue-894",
+      "http://schema.org/isPartOf": {
+        "@id": "http://pending.schema.org"
+      },
+      "rdfs:comment": "A set of enumerated values.",
+      "rdfs:label": "EnumerationValueSet",
+      "rdfs:subClassOf": {
+        "@id": "http://schema.org/CreativeWork"
+      }
+    },
+    {
+      "@id": "http://schema.org/coursePrerequisites",
+      "@type": "rdf:Property",
+      "http://purl.org/dc/terms/source": {
+        "@id": "https://github.com/schemaorg/schemaorg/issues/195"
+      },
+      "http://schema.org/category": "issue-195"
+    },
+    {
+      "@id": "http://schema.org/HealthPlanCostSharingSpecification",
+      "@type": "rdfs:Class",
+      "http://purl.org/dc/terms/source": {
+        "@id": "https://github.com/schemaorg/schemaorg/issues/1062"
+      },
+      "http://schema.org/category": "issue-1062",
+      "http://schema.org/isPartOf": {
+        "@id": "http://pending.schema.org"
+      },
+      "rdfs:comment": "A description of costs to the patient under a given network or formulary.",
+      "rdfs:label": "HealthPlanCostSharingSpecification",
+      "rdfs:subClassOf": {
+        "@id": "http://schema.org/Intangible"
+      }
+    },
+    {
+      "@id": "http://schema.org/hasEnumerationValue",
+      "@type": "rdf:Property",
+      "http://purl.org/dc/terms/source": {
+        "@id": "https://github.com/schemaorg/schemaorg/issues/894"
+      },
+      "http://schema.org/category": "issue-894",
+      "http://schema.org/domainIncludes": {
+        "@id": "http://schema.org/EnumerationValueSet"
+      },
+      "http://schema.org/isPartOf": {
+        "@id": "http://pending.schema.org"
+      },
+      "http://schema.org/rangeIncludes": {
+        "@id": "http://schema.org/Text"
+      },
+      "rdfs:comment": "Value contained in value set.",
+      "rdfs:label": "hasEnumerationValue",
+      "rdfs:subPropertyOf": {
+        "@id": "http://schema.org/hasPart"
+      }
+    },
+    {
+      "@id": "http://schema.org/benefitsSummaryUrl",
+      "@type": "rdf:Property",
+      "http://purl.org/dc/terms/source": {
+        "@id": "https://github.com/schemaorg/schemaorg/issues/1062"
+      },
+      "http://schema.org/category": "issue-1062",
+      "http://schema.org/domainIncludes": {
+        "@id": "http://schema.org/HealthInsurancePlan"
+      },
+      "http://schema.org/isPartOf": {
+        "@id": "http://pending.schema.org"
+      },
+      "http://schema.org/rangeIncludes": {
+        "@id": "http://schema.org/URL"
+      },
+      "rdfs:comment": "The URL that goes directly to the summary of benefits and coverage for the specific standard plan or plan variation.",
+      "rdfs:label": "benefitsSummaryUrl"
+    },
+    {
+      "@id": "http://schema.org/HealthPlanNetwork",
+      "@type": "rdfs:Class",
+      "http://purl.org/dc/terms/source": {
+        "@id": "https://github.com/schemaorg/schemaorg/issues/1062"
+      },
+      "http://schema.org/category": "issue-1062",
+      "http://schema.org/isPartOf": {
+        "@id": "http://pending.schema.org"
+      },
+      "rdfs:comment": "A US-style health insurance plan network.",
+      "rdfs:label": "HealthPlanNetwork",
+      "rdfs:subClassOf": {
+        "@id": "http://schema.org/Intangible"
+      }
+    },
+    {
+      "@id": "http://schema.org/Quotation",
+      "@type": "rdfs:Class",
+      "http://purl.org/dc/terms/source": {
+        "@id": "https://github.com/schemaorg/schemaorg/issues/271"
+      },
+      "http://schema.org/category": "issue-271",
+      "http://schema.org/isPartOf": {
+        "@id": "http://pending.schema.org"
+      },
+      "rdfs:comment": "A quotation. Often but not necessarily from some written work, attributable to a real world author and - if associated with a fictional character - to any fictional Person. Use <a class=\"localLink\" href=\"http://schema.org/isBasedOn\">isBasedOn</a> to link to source/origin. The <a class=\"localLink\" href=\"http://schema.org/recordedIn\">recordedIn</a> property can be used to reference a Quotation from an <a class=\"localLink\" href=\"http://schema.org/Event\">Event</a>.",
+      "rdfs:label": "Quotation",
+      "rdfs:subClassOf": {
+        "@id": "http://schema.org/CreativeWork"
+      }
+    },
+    {
+      "@id": "http://schema.org/contentReferenceTime",
+      "@type": "rdf:Property",
+      "http://purl.org/dc/terms/source": {
+        "@id": "https://github.com/schemaorg/schemaorg/issues/1050"
+      },
+      "http://schema.org/category": "issue-1050",
+      "http://schema.org/domainIncludes": {
+        "@id": "http://schema.org/CreativeWork"
+      },
+      "http://schema.org/isPartOf": {
+        "@id": "http://pending.schema.org"
+      },
+      "http://schema.org/rangeIncludes": {
+        "@id": "http://schema.org/DateTime"
+      },
+      "rdfs:comment": "The specific time described by a creative work, for works (e.g. articles, video objects etc.) that emphasise a particular moment within an Event.",
+      "rdfs:label": "contentReferenceTime"
+    },
+    {
+      "@id": "http://schema.org/EndorsementRating",
+      "@type": "rdfs:Class",
+      "http://purl.org/dc/terms/source": {
+        "@id": "https://github.com/schemaorg/schemaorg/issues/1061"
+      },
+      "http://schema.org/category": "issue-1293",
+      "http://schema.org/isPartOf": {
+        "@id": "http://pending.schema.org"
+      },
+      "rdfs:comment": "An EndorsementRating is a rating that expresses some level of endorsement, for example inclusion in a \"critic's pick\" blog, a\n  \"Like\" or \"+1\" on a social network. It can be considered the <a class=\"localLink\" href=\"http://schema.org/result\">result</a> of an <a class=\"localLink\" href=\"http://schema.org/EndorseAction\">EndorseAction</a> in which the <a class=\"localLink\" href=\"http://schema.org/object\">object</a> of the action is rated positively by\n  some <a class=\"localLink\" href=\"http://schema.org/agent\">agent</a>. As is common elsewhere in schema.org, it is sometimes more useful to describe the results of such an action without explicitly describing the <a class=\"localLink\" href=\"http://schema.org/Action\">Action</a>.</p>\n\n<p>An <a class=\"localLink\" href=\"http://schema.org/EndorsementRating\">EndorsementRating</a> may be part of a numeric scale or organized system, but this is not required: having an explicit type for indicating a positive,\n  endorsement rating is particularly useful in the absence of numeric scales as it helps consumers understand that the rating is broadly positive.",
+      "rdfs:label": "EndorsementRating",
+      "rdfs:subClassOf": {
+        "@id": "http://schema.org/Rating"
+      }
+    },
+    {
+      "@id": "http://schema.org/CourseInstance",
+      "@type": "rdfs:Class",
+      "http://purl.org/dc/terms/source": {
+        "@id": "https://github.com/schemaorg/schemaorg/issues/195"
+      },
+      "http://schema.org/category": "issue-195"
+    },
+    {
+      "@id": "http://schema.org/partOfEnumerationValueSet",
+      "@type": "rdf:Property",
+      "http://purl.org/dc/terms/source": {
+        "@id": "https://github.com/schemaorg/schemaorg/issues/894"
+      },
+      "http://schema.org/category": "issue-894",
+      "http://schema.org/domainIncludes": {
+        "@id": "http://schema.org/EnumerationValue"
+      },
+      "http://schema.org/isPartOf": {
+        "@id": "http://pending.schema.org"
+      },
+      "http://schema.org/rangeIncludes": {
+        "@id": "http://schema.org/Text"
+      },
+      "rdfs:comment": "The set (enumeration) of values of which contains this value.",
+      "rdfs:label": "partOfEnumerationValueSet",
+      "rdfs:subPropertyOf": {
+        "@id": "http://schema.org/isPartOf"
+      }
+    },
+    {
+      "@id": "http://schema.org/healthPlanCopay",
+      "@type": "rdf:Property",
+      "http://purl.org/dc/terms/source": {
+        "@id": "https://github.com/schemaorg/schemaorg/issues/1062"
+      },
+      "http://schema.org/category": "issue-1062",
+      "http://schema.org/domainIncludes": {
+        "@id": "http://schema.org/HealthPlanCostSharingSpecification"
+      },
+      "http://schema.org/isPartOf": {
+        "@id": "http://pending.schema.org"
+      },
+      "http://schema.org/rangeIncludes": {
+        "@id": "http://schema.org/PriceSpecification"
+      },
+      "rdfs:comment": "Whether The copay amount.",
+      "rdfs:label": "healthPlanCopay"
+    },
+    {
+      "@id": "http://schema.org/accessModeSufficient",
+      "@type": "rdf:Property",
+      "http://purl.org/dc/terms/source": {
+        "@id": "https://github.com/schemaorg/schemaorg/issues/1100"
+      },
+      "http://schema.org/category": "issue-1110",
+      "http://schema.org/domainIncludes": {
+        "@id": "http://schema.org/CreativeWork"
+      },
+      "http://schema.org/isPartOf": {
+        "@id": "http://pending.schema.org"
+      },
+      "http://schema.org/rangeIncludes": {
+        "@id": "http://schema.org/Text"
+      },
+      "rdfs:comment": "A list of single or combined accessModes that are sufficient to understand all the intellectual content of a resource. Expected values include:  auditory, tactile, textual, visual.",
+      "rdfs:label": "accessModeSufficient"
+    },
+    {
+      "@id": "http://schema.org/educationalCredentialAwarded",
+      "@type": "rdf:Property",
+      "http://purl.org/dc/terms/source": {
+        "@id": "https://github.com/schemaorg/schemaorg/issues/195"
+      },
+      "http://schema.org/category": "issue-195",
+      "http://schema.org/domainIncludes": {
+        "@id": "http://schema.org/Course"
+      },
+      "http://schema.org/isPartOf": {
+        "@id": "http://pending.schema.org"
+      },
+      "http://schema.org/rangeIncludes": [
+        {
+          "@id": "http://schema.org/Text"
+        },
+        {
+          "@id": "http://schema.org/URL"
+        }
+      ],
+      "rdfs:comment": "A description of the qualification, award, certificate, diploma or other educational credential awarded as a consequence of successful completion of this course.",
+      "rdfs:label": "educationalCredentialAwarded"
+    },
+    {
+      "@id": "http://schema.org/ClaimReview",
+      "@type": "rdfs:Class",
+      "http://purl.org/dc/terms/source": {
+        "@id": "https://github.com/schemaorg/schemaorg/issues/1061"
+      },
+      "http://schema.org/category": "issue-1061",
+      "http://schema.org/isPartOf": {
+        "@id": "http://pending.schema.org"
+      },
+      "rdfs:comment": "A fact-checking review of claims made (or reported) in some creative work (referenced via itemReviewed).",
+      "rdfs:label": "ClaimReview",
+      "rdfs:subClassOf": {
+        "@id": "http://schema.org/Review"
+      }
+    },
+    {
+      "@id": "http://schema.org/accessMode",
+      "@type": "rdf:Property",
+      "http://purl.org/dc/terms/source": {
+        "@id": "https://github.com/schemaorg/schemaorg/issues/1100"
+      },
+      "http://schema.org/category": "issue-1110",
+      "http://schema.org/domainIncludes": {
+        "@id": "http://schema.org/CreativeWork"
+      },
+      "http://schema.org/isPartOf": {
+        "@id": "http://pending.schema.org"
+      },
+      "http://schema.org/rangeIncludes": {
+        "@id": "http://schema.org/Text"
+      },
+      "rdfs:comment": "The human sensory perceptual system or cognitive faculty through which a person may process or perceive information. Expected values include: auditory, tactile, textual, visual, colorDependent, chartOnVisual, chemOnVisual, diagramOnVisual, mathOnVisual, musicOnVisual, textOnVisual.",
+      "rdfs:label": "accessMode"
+    },
+    {
+      "@id": "http://schema.org/courseMode",
+      "@type": "rdf:Property",
+      "http://purl.org/dc/terms/source": {
+        "@id": "https://github.com/schemaorg/schemaorg/issues/195"
+      },
+      "http://schema.org/category": "issue-195"
+    },
+    {
+      "@id": "http://schema.org/courseCode",
+      "@type": "rdf:Property",
+      "http://purl.org/dc/terms/source": {
+        "@id": "https://github.com/schemaorg/schemaorg/issues/195"
+      },
+      "http://schema.org/category": "issue-195"
+    },
+    {
+      "@id": "http://schema.org/healthPlanDrugOption",
+      "@type": "rdf:Property",
+      "http://purl.org/dc/terms/source": {
+        "@id": "https://github.com/schemaorg/schemaorg/issues/1062"
+      },
+      "http://schema.org/category": "issue-1062",
+      "http://schema.org/domainIncludes": {
+        "@id": "http://schema.org/HealthInsurancePlan"
+      },
+      "http://schema.org/isPartOf": {
+        "@id": "http://pending.schema.org"
+      },
+      "http://schema.org/rangeIncludes": {
+        "@id": "http://schema.org/Text"
+      },
+      "rdfs:comment": "TODO.",
+      "rdfs:label": "healthPlanDrugOption"
+    },
+    {
+      "@id": "http://schema.org/healthPlanCopayOption",
+      "@type": "rdf:Property",
+      "http://purl.org/dc/terms/source": {
+        "@id": "https://github.com/schemaorg/schemaorg/issues/1062"
+      },
+      "http://schema.org/category": "issue-1062",
+      "http://schema.org/domainIncludes": {
+        "@id": "http://schema.org/HealthPlanCostSharingSpecification"
+      },
+      "http://schema.org/isPartOf": {
+        "@id": "http://pending.schema.org"
+      },
+      "http://schema.org/rangeIncludes": {
+        "@id": "http://schema.org/Text"
+      },
+      "rdfs:comment": "Whether the copay is before or after deductible, etc. TODO: Is this a closed set?",
+      "rdfs:label": "healthPlanCopayOption"
+    },
+    {
+      "@id": "http://schema.org/bed",
+      "@type": "rdf:Property",
+      "http://schema.org/rangeIncludes": {
+        "@id": "http://schema.org/BedType"
+      }
+    },
+    {
+      "@id": "http://schema.org/BedType",
+      "@type": "rdfs:Class",
+      "http://purl.org/dc/terms/source": [
+        {
+          "@id": "https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology"
+        },
+        {
+          "@id": "https://github.com/schemaorg/schemaorg/issues/1262"
+        }
+      ],
+      "http://schema.org/category": "issue-1262",
+      "http://schema.org/isPartOf": {
+        "@id": "http://pending.schema.org"
+      },
+      "rdfs:comment": "A type of bed. This is used for indicating the bed or beds available in an accommodation.",
+      "rdfs:label": "BedType",
+      "rdfs:subClassOf": {
+        "@id": "http://schema.org/QualitativeValue"
+      }
+    },
+    {
+      "@id": "http://schema.org/EnumerationValue",
+      "@type": "rdfs:Class",
+      "http://purl.org/dc/terms/source": {
+        "@id": "https://github.com/schemaorg/schemaorg/issues/894"
+      },
+      "http://schema.org/category": "issue-894",
+      "http://schema.org/isPartOf": {
+        "@id": "http://pending.schema.org"
+      },
+      "rdfs:comment": "An enumeration value.",
+      "rdfs:label": "EnumerationValue",
+      "rdfs:subClassOf": {
+        "@id": "http://schema.org/Enumeration"
+      }
+    },
+    {
+      "@id": "http://schema.org/instructor",
+      "@type": "rdf:Property",
+      "http://purl.org/dc/terms/source": {
+        "@id": "https://github.com/schemaorg/schemaorg/issues/195"
+      },
+      "http://schema.org/category": "issue-195"
+    },
+    {
+      "@id": "http://schema.org/offersPrescriptionByMail",
+      "@type": "rdf:Property",
+      "http://purl.org/dc/terms/source": {
+        "@id": "https://github.com/schemaorg/schemaorg/issues/1062"
+      },
+      "http://schema.org/category": "issue-1062",
+      "http://schema.org/domainIncludes": {
+        "@id": "http://schema.org/HealthPlanFormulary"
+      },
+      "http://schema.org/isPartOf": {
+        "@id": "http://pending.schema.org"
+      },
+      "http://schema.org/rangeIncludes": {
+        "@id": "http://schema.org/Boolean"
+      },
+      "rdfs:comment": "Whether prescriptions can be delivered by mail.",
+      "rdfs:label": "offersPrescriptionByMail"
+    },
+    {
+      "@id": "http://schema.org/claimReviewed",
+      "@type": "rdf:Property",
+      "http://purl.org/dc/terms/source": {
+        "@id": "https://github.com/schemaorg/schemaorg/issues/1061"
+      },
+      "http://schema.org/category": "issue-1061",
+      "http://schema.org/domainIncludes": {
+        "@id": "http://schema.org/ClaimReview"
+      },
+      "http://schema.org/isPartOf": {
+        "@id": "http://pending.schema.org"
+      },
+      "http://schema.org/rangeIncludes": {
+        "@id": "http://schema.org/Text"
+      },
+      "rdfs:comment": "A short summary of the specific claims reviewed in a ClaimReview.",
+      "rdfs:label": "claimReviewed"
+    },
+    {
+      "@id": "http://schema.org/usesHealthPlanIdStandard",
+      "@type": "rdf:Property",
+      "http://purl.org/dc/terms/source": {
+        "@id": "https://github.com/schemaorg/schemaorg/issues/1062"
+      },
+      "http://schema.org/category": "issue-1062",
+      "http://schema.org/domainIncludes": {
+        "@id": "http://schema.org/HealthInsurancePlan"
+      },
+      "http://schema.org/isPartOf": {
+        "@id": "http://pending.schema.org"
+      },
+      "http://schema.org/rangeIncludes": [
+        {
+          "@id": "http://schema.org/URL"
+        },
+        {
+          "@id": "http://schema.org/Text"
+        }
+      ],
+      "rdfs:comment": "The standard for interpreting thePlan ID. The preferred is \"HIOS\". See the Centers for Medicare &amp; Medicaid Services for more details.",
+      "rdfs:label": "usesHealthPlanIdStandard"
+    },
+    {
+      "@id": "http://schema.org/inLanguage",
+      "@type": "rdf:Property",
+      "http://schema.org/domainIncludes": {
+        "@id": "http://schema.org/LinkRole"
+      }
+    },
+    {
+      "@id": "http://schema.org/hasCourseInstance",
+      "@type": "rdf:Property",
+      "http://purl.org/dc/terms/source": {
+        "@id": "https://github.com/schemaorg/schemaorg/issues/195"
+      },
+      "http://schema.org/category": "issue-195"
+    },
+    {
+      "@id": "http://schema.org/FMRadioChannel",
+      "@type": "rdfs:Class",
+      "http://purl.org/dc/terms/source": {
+        "@id": "https://github.com/schemaorg/schemaorg/issues/1004"
+      },
+      "http://schema.org/category": "issue-1004",
+      "http://schema.org/isPartOf": {
+        "@id": "http://pending.schema.org"
+      },
+      "rdfs:comment": "A radio channel that uses FM.",
+      "rdfs:label": "FMRadioChannel",
+      "rdfs:subClassOf": {
+        "@id": "http://schema.org/RadioChannel"
+      }
+    },
+    {
+      "@id": "http://schema.org/linkRelationship",
+      "@type": "rdf:Property",
+      "http://purl.org/dc/terms/source": {
+        "@id": "https://github.com/schemaorg/schemaorg/issues/1045"
+      },
+      "http://schema.org/category": "issue-1045",
+      "http://schema.org/domainIncludes": {
+        "@id": "http://schema.org/LinkRole"
+      },
+      "http://schema.org/isPartOf": {
+        "@id": "http://pending.schema.org"
+      },
+      "http://schema.org/rangeIncludes": {
+        "@id": "http://schema.org/Text"
+      },
+      "rdfs:comment": "Indicates the relationship type of a Web link.",
+      "rdfs:label": "linkRelationship"
+    },
+    {
+      "@id": "http://schema.org/isAcceptingNewPatients",
+      "@type": "rdf:Property",
+      "http://purl.org/dc/terms/source": {
+        "@id": "https://github.com/schemaorg/schemaorg/issues/1062"
+      },
+      "http://schema.org/category": "issue-1062",
+      "http://schema.org/domainIncludes": {
+        "@id": "http://schema.org/MedicalOrganization"
+      },
+      "http://schema.org/isPartOf": {
+        "@id": "http://pending.schema.org"
+      },
+      "http://schema.org/rangeIncludes": {
+        "@id": "http://schema.org/Boolean"
+      },
+      "rdfs:comment": "Whether the provider is accepting new patients.",
+      "rdfs:label": "isAcceptingNewPatients"
+    }
+  ],
+  "@id": "http://pending.schema.org/#3.2"
+}

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rdf:RDF
+  xmlns:schema="http://schema.org/"
+  xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+>
+  <rdf:Property rdf:about="http://schema.org/stupidProperty">
+    <schema:isPartOf rdf:resource="http://attic.schema.org"/>
+    <rdfs:label>stupidProperty</rdfs:label>
+    <rdfs:comment>This is a StupidProperty! - for testing only</rdfs:comment>
+    <schema:domainIncludes rdf:resource="http://schema.org/Vehicle"/>
+    <schema:rangeIncludes rdf:resource="http://schema.org/QuantitativeValue"/>
+    <schema:domainIncludes rdf:resource="http://schema.org/StupidType"/>
+  </rdf:Property>
+  <rdfs:Class rdf:about="http://schema.org/StupidType">
+    <rdfs:subClassOf rdf:resource="http://schema.org/Thing"/>
+    <rdfs:comment>A StupidType for testing.</rdfs:comment>
+    <rdfs:label>StupidType</rdfs:label>
+    <schema:isPartOf rdf:resource="http://attic.schema.org"/>
+  </rdfs:Class>
+</rdf:RDF>
