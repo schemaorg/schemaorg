@@ -12,6 +12,7 @@ load    'schema_context.rb'
 ::RSpec.configure do |c|
   c.filter_run focus: true
   c.run_all_when_everything_filtered = true
+  c.example_status_persistence_file_path = "rspec-failures.txt"
 end
 
 EXAMPLES = Dir.glob File.expand_path("../data/*", __FILE__)
