@@ -9,5 +9,8 @@ before_script:
   - unzip -q google_appengine.zip
   - rm google_appengine.zip
   - export PYTHONPATH=$PYTHONPATH:$TRAVIS_BUILD_DIR/google_appengine/
-
-script: python scripts/run_tests.py
+  - rvm install 2.4.0
+script:
+  - python scripts/run_tests.py
+  - bundle exec rake
+sudo: false
