@@ -21,12 +21,29 @@ RSpec::Matchers.define :lint_cleanly do
   match do |example|
     example = example
     begin
-      g = RDF::Graph.load(example)
+      capture_stderr, $stderr = $stderr, StringIO.new
+      g = RDF::Graph.load(example, base_uri: "http://example.org/")
       @messages = g.lint
-      expect(@messages).to be_empty
+      $stderr.rewind
+      captured_output = $stderr.read
+      if @messages.empty?
+        if captured_output.empty?
+          true
+        else
+          pending("parsing warning") if ENV['SOFT_LINT']
+          @messages = {"parsing warning" => {message: [captured_output]}}
+          false
+        end
+      else
+        pending("lint error") if ENV['SOFT_LINT']
+        false
+      end
     rescue
-      @messages = {exception: {message: [$!.message]}}
+      @exception = $!
+      pending("parsing error: #{$!}") if ENV['SOFT_LINT']
       false
+    ensure
+      $stderr = capture_stderr
     end
   end
 
