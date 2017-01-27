@@ -7,18 +7,38 @@ rescue LoadError
 end
 
 task :default => [:examples, :vocab, :context, :spec]
+
+desc "Clean generated files"
+task :clean do
+  %x{rm -rf #{File.expand_path("../spec/data", __FILE__)}}
+  %x{rm -f #{File.expand_path("../spec/schema.rb", __FILE__)}}
+  %x{rm -f #{File.expand_path("../spec/schema_context.rb", __FILE__)}}
+  %x{rm -f #{File.expand_path("../spec/examples_spec.rb", __FILE__)}}
+end
+
 desc "Create schema example index"
 task :examples  do
   %x{rm -rf #{File.expand_path("../spec/data", __FILE__)}}
   %x{mkdir #{File.expand_path("../spec/data", __FILE__)}}
   number = 0
-  Dir.glob(File.expand_path("../data/*examples.txt", __FILE__)).each do |file|
+  lineno = 1
+  spec = File.open(File.expand_path("../spec/examples_spec.rb", __FILE__), "w")
+  spec.write %{$:.unshift "."
+require 'spec_helper'
+
+describe "Examples" do
+  before(:all) {RDF::Reasoner.apply(:rdfs, :owl, :schema)}
+}
+  Dir.glob(File.expand_path("../../data/*examples.txt", __FILE__)).each do |file|
+    spec.write("\n  # Examples from #{file.split('/').last}\n")
     s = StringScanner.new(File.read(file))
     types = body = format = nil
 
     while !s.eos?
+      #require 'byebug'; byebug
       # Scan each format until TYPES is found again, or EOF
       body = s.scan_until(/^(TYPES|PRE-MARKUP|MICRODATA|RDFA|JSON|JSONLD):/)
+      body_lines = body.to_s.count("\n")
       if body.nil?
         body = s.rest
         s.terminate
@@ -38,9 +58,11 @@ task :examples  do
           name ||= "#{types.split(/,\s*/).join('-')}-#{number}"
         end
         # Write example out for reading later
-        path = "#{name}-#{format}.html"
-        File.open(File.expand_path("../spec/data/#{path}", __FILE__), "w") {|f| f.write(body)}
+        path = File.expand_path("../spec/data/#{name}-#{format}.html", __FILE__)
+        File.open(path, "w") {|f| f.write(body)}
+        spec.write(%{  specify("#{file.split('/').last}[#{lineno}] - #{name} (#{format})") {expect("#{path}").to lint_cleanly}\n})
       end
+      lineno += body_lines
 
       case s.matched
       when "TYPES:"
@@ -54,14 +76,16 @@ task :examples  do
       when "JSONLD:"      then format = :jsonld
       end
     end
+
   end
+  spec.write %{end\n}
 end
 
 desc "Create custom pre-compiled vocabulary"
 task vocab: "spec/schema.rb"
 
 file "spec/schema.rb" => :do_build do
-  rel = Dir.glob(File.expand_path("../data/releases/*", __FILE__)).last
+  rel = Dir.glob(File.expand_path("../../data/releases/*", __FILE__)).last
   puts "Generate spec/schema.rb"
   cmd = "bundle exec rdf"
   cmd += " serialize --uri http://schema.org/ --output-format vocabulary"

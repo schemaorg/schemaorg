@@ -2,7 +2,7 @@ language: python
 
 python:
   - "2.7"
-
+env: SOFT_LINT=true
 before_script:
   - SDK_URL=https://storage.googleapis.com/appengine-sdks/featured/google_appengine_1.9.49.zip
   - wget $SDK_URL -nv -O google_appengine.zip
@@ -10,8 +10,8 @@ before_script:
   - rm google_appengine.zip
   - export PYTHONPATH=$PYTHONPATH:$TRAVIS_BUILD_DIR/google_appengine/
   - rvm install 2.4.0
-  - bundle install
+  - bundle --gemfile=scripts/Gemfile install
 script:
   - python scripts/run_tests.py
-  - bundle exec rake
+  - (cd scripts; bundle exec rake)
 sudo: false
