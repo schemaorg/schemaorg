@@ -39,7 +39,7 @@ RSpec::Matchers.define :lint_cleanly do
         false
       end
     rescue
-      @exception = $!
+      @messages = {"parsing warning" => {exception: [$!.to_s]}}
       pending("parsing error: #{$!}") if ENV['SOFT_LINT']
       false
     ensure
