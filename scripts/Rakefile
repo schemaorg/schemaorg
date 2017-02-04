@@ -21,9 +21,8 @@ task :examples  do
   %x{rm -rf #{File.expand_path("../spec/data", __FILE__)}}
   %x{mkdir #{File.expand_path("../spec/data", __FILE__)}}
   number = 0
-  lineno = 1
   spec = File.open(File.expand_path("../spec/examples_spec.rb", __FILE__), "w")
-  spec.write %{$:.unshift "."
+  spec.write %{$:.unshift File.expand_path("..", __FILE__)
 require 'spec_helper'
 
 describe "Examples" do
@@ -31,6 +30,7 @@ describe "Examples" do
 }
   Dir.glob(File.expand_path("../../data/*examples.txt", __FILE__)).each do |file|
     spec.write("\n  # Examples from #{file.split('/').last}\n")
+    lineno = 1
     s = StringScanner.new(File.read(file))
     types = body = format = nil
 
@@ -59,6 +59,7 @@ describe "Examples" do
         end
         # Write example out for reading later
         path = File.expand_path("../spec/data/#{name}-#{format}.html", __FILE__)
+        next if body.sub(/\s*/m, '').empty?
         File.open(path, "w") {|f| f.write(body)}
         spec.write(%{  specify("#{file.split('/').last}[#{lineno}] - #{name} (#{format})") {expect("#{path}").to lint_cleanly}\n})
       end
