@@ -169,27 +169,37 @@ else: #Ensure clean start for any memcached or ndb store values...
     if memcache.get("static-version") != appver: #We are a new instance of the app
         memcache.flush_all()
         
-        memcache.set(key="app_initialising", value=True)
-        log.info("[%s] Detected new code version - resetting memory values %s" % (getInstanceId(short=True),systarttime))
         load_start = datetime.datetime.now()
         systarttime = datetime.datetime.utcnow()
+        memcache.set(key="app_initialising", value=systarttime)
+        log.info("[%s] Detected new code version - resetting memory values %s" % (getInstanceId(short=True),systarttime))
         memcache.set(key="static-version", value=appver)
         memcache.add(key="SysStart", value=systarttime)
         instance_first = True
         cleanmsg = CacheControl.clean()
         log.info("Clean count(s): %s" % cleanmsg)
         log.info(("[%s] Cache clean took %s " % (getInstanceId(short=True),(datetime.datetime.now() - load_start))))
-        
         load_start = datetime.datetime.now()
         tick()
-        memcache.set(key="app_initialising", value=False)
+        memcache.set(key="app_initialising", value=0)
         
         log.debug("[%s] Awake >>>>>>>>>>>>" % (getInstanceId(short=True)))
     else:
-        time.sleep(0.1) #Give time for the initialisation flag (possibly being set in another thread/instance) to be set
-        while memcache.get("app_initialising"):
+        time.sleep(0.5) #Give time for the initialisation flag (possibly being set in another thread/instance) to be set
+        while True:
+            initStart = memcache.get("app_initialising")
+            if not initStart: #Initialised or value missing
+                break
+                
+            elapsed = datetime.datetime.utcnow() - initStart 
+            
+            if elapsed.seconds > 300: #Been waiting 5 mins - something must be wrong!
+                log.info("%s] Waited %s seconds for intialisation to end - proceeding anyway!"  % (getInstanceId(short=True),elapsed.seconds))
+                memcache.delete("app_initialising")
+                break
+                
             log.debug("[%s] Waiting for intialisation to end %s" % (getInstanceId(short=True),memcache.get("app_initialising")))
-            time.sleep(0.1)
+            time.sleep(1)
         log.debug("[%s] End of waiting !!!!!!!!!!!" % (getInstanceId(short=True)))
         tick()
         systarttime = memcache.get("SysStart")
