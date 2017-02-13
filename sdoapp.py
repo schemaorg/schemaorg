@@ -182,7 +182,7 @@ else: #Ensure clean start for any memcached or ndb store values...
         load_start = datetime.datetime.now()
         tick()
         memcache.set(key="app_initialising", value=False)
-        log.debug("[%s] Awake >>>>>>>>>>>>" % (getInstanceId(short=True)))
+        log.debug("[%s] Awake >>>>>>>>>>>." % (getInstanceId(short=True)))
     else:
         time.sleep(0.5) #Give time for the initialisation flag (possibly being set in another thread/instance) to be set
         waittime = 300
@@ -198,7 +198,7 @@ else: #Ensure clean start for any memcached or ndb store values...
         if waittime <= 0:
             log.info("%s] Waited 300 seconds for intialisation to end - proceeding anyway!"  % (getInstanceId(short=True)))
 
-        log.debug("[%s] End of waiting !!!!!!!!!!!" % (getInstanceId(short=True)))
+        log.debug("[%s] End of waiting !!!!!!!!!!." % (getInstanceId(short=True)))
         tick()
         systarttime = memcache.get("SysStart")
 
