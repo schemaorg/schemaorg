@@ -1,0 +1,67 @@
+<div>
+
+<!-- work in progress, exploring one possible way of modeling news article categories via types.
+will be proposed via 'pending' when more settled on a design. Here for now we use explicit types
+rather than properties + enumerations, so that native syntax eg. @type can be exploited. @danbri
+-->
+
+  <div typeof="rdfs:Class" resource="http://schema.org/AnalysisNewsArticle">
+    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/NewsArticle">NewsArticle</a></span>
+    <span class="h" property="rdfs:label">AnalysisNewsArticle</span>
+    <span property="rdfs:comment">A [[NewsArticle]] emphasizing interpretation of the news based on evidence, including data, as well as anticipating how events might unfold based on past events.</span>
+    <span property="schema:category">issue-1525</span>
+    <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1525">#1525</a>
+    <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
+  </div>
+
+
+  <div typeof="rdfs:Class" resource="http://schema.org/PerspectiveNewsArticle">
+    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/NewsArticle">NewsArticle</a></span>
+    <span class="h" property="rdfs:label">PerspectiveNewsArticle</span>
+    <span property="rdfs:comment">A [[NewsArticle]] emphasizing discussion of news topics with a point of view, including narratives by individuals regarding their own experiences.</span>
+    <span property="schema:category">issue-1525</span>
+    <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1525">#1525</a>
+    <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
+  </div>
+
+  <div typeof="rdfs:Class" resource="http://schema.org/OpinionNewsArticle">
+    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/NewsArticle">NewsArticle</a></span>
+    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/BlogPosting">BlogPosting</a></span>
+    <span class="h" property="rdfs:label">OpinionNewsArticle</span>
+    <span property="rdfs:comment">A [[NewsArticle]] and [[BlogPosting]] consisting of a column or [[Blog]] entry in the Opinions section of a news publication.</span>
+    <span property="schema:category">issue-1525</span>
+    <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1525">#1525</a>
+    <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
+  </div>
+
+  <div typeof="rdfs:Class" resource="http://schema.org/ReviewNewsArticle">
+    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/NewsArticle">NewsArticle</a></span>
+    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Review">Review</a></span>
+    <span class="h" property="rdfs:label">ReviewNewsArticle</span>
+    <span property="rdfs:comment">A [[NewsArticle]] and [[Review]] providing a professional critic's assessment of a service, product, performance, or artistic or literary work.</span>
+    <span property="schema:category">issue-1525</span>
+    <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1525">#1525</a>
+    <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
+  </div>
+
+  <div typeof="rdfs:Class" resource="http://schema.org/BackgroundNewsArticle">
+    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/NewsArticle">NewsArticle</a></span>
+    <span class="h" property="rdfs:label">BackgroundNewsArticle</span>
+    <span property="rdfs:comment">A [[NewsArticle]] providing historical context, definition and detail on a specific topic (aka "explainer" or "backgrounder").</span>
+    <span property="schema:category">issue-1525</span>
+    <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1525">#1525</a>
+    <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
+  </div>
+
+  <div typeof="rdfs:Class" resource="http://schema.org/BackgroundNewsArticle">
+    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/NewsArticle">NewsArticle</a></span>
+    <span class="h" property="rdfs:label">BackgroundNewsArticle</span>
+    <span property="rdfs:comment">A [[NewsArticle]] providing historical context, definition and detail on a specific topic (aka "explainer" or "backgrounder").</span>
+    <span property="schema:category">issue-1525</span>
+    <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1525">#1525</a>
+    <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
+  </div>
+
+ <!-- a few more to add, + acks -->
+
+</div>
