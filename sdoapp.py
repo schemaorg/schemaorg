@@ -171,7 +171,7 @@ else: #Ensure clean start for any memcached or ndb store values...
         
         load_start = datetime.datetime.now()
         systarttime = datetime.datetime.utcnow()
-        memcache.set(key="app_initialising", value=True)
+        memcache.set(key="app_initialising", value=True, time=300)  #Give the system 5 mins - auto remove flag in case of crash
         log.info("[%s] Detected new code version - resetting memory values %s" % (getInstanceId(short=True),systarttime))
         memcache.set(key="static-version", value=appver)
         memcache.add(key="SysStart", value=systarttime)
@@ -185,7 +185,8 @@ else: #Ensure clean start for any memcached or ndb store values...
         log.debug("[%s] Awake >>>>>>>>>>>." % (getInstanceId(short=True)))
     else:
         time.sleep(0.5) #Give time for the initialisation flag (possibly being set in another thread/instance) to be set
-        waittime = 300
+        WAITCOUNT = 180
+        waittime = WAITCOUNT
         while waittime > 0:
             waittime -= 1
             flag = memcache.get("app_initialising") 
@@ -193,10 +194,10 @@ else: #Ensure clean start for any memcached or ndb store values...
                 break
                 
             log.debug("[%s] Waited %s seconds for intialisation to end memcahce value = %s" % (getInstanceId(short=True),
-                                                    (300 - waittime),memcache.get("app_initialising")))
+                                                    (WAITCOUNT - waittime),memcache.get("app_initialising")))
             time.sleep(1)
         if waittime <= 0:
-            log.info("%s] Waited 300 seconds for intialisation to end - proceeding anyway!"  % (getInstanceId(short=True)))
+            log.info("[%s] Waited %s seconds for intialisation to end - proceeding anyway!"  % (getInstanceId(short=True),WAITCOUNT))
 
         log.debug("[%s] End of waiting !!!!!!!!!!." % (getInstanceId(short=True)))
         tick()
@@ -2254,6 +2255,12 @@ class ShowUnit (webapp2.RequestHandler):
                     log.info("Warmup already actioned")
             return False
 
+        if(node == "_ah/stop"):
+            log.info("Instance[%s] received Stop request at %s" % (modules.get_current_instance_id(), global_vars.time_start) )
+            log.info("Flushing memcache")
+            memcache.flush_all()
+            return False
+
         if not getPageFromStore(node): #Not stored this page before
             #log.info("Not stored %s" % node)
             if not LOADEDSOURCES:
@@ -2441,10 +2448,16 @@ class ShowUnit (webapp2.RequestHandler):
         global Warmer
         if WarmedUp:
             return
+            
         warm_start = datetime.datetime.now()
         log.debug("Instance[%s] received Warmup request at %s" % (modules.get_current_instance_id(), datetime.datetime.utcnow()) )
-        Warmer.warmAll(self)
-        log.debug("Instance[%s] completed Warmup request at %s elapsed: %s" % (modules.get_current_instance_id(), datetime.datetime.utcnow(),datetime.datetime.now() - warm_start ) )
+        if memcache.get("Warming"):
+            log.debug("Instance[%s] detected system already warming" % (modules.get_current_instance_id()) )
+        else:
+            memcache.set("Warming",True,time=300)            
+            Warmer.warmAll(self)
+            log.debug("Instance[%s] completed Warmup request at %s elapsed: %s" % (modules.get_current_instance_id(), datetime.datetime.utcnow(),datetime.datetime.now() - warm_start ) )
+            memcache.set("Warming",False)            
 
 class WarmupTool():
 
