@@ -2571,8 +2571,9 @@ def my_shutdown_hook():
     global instance_num
     if SHAREDSITEDEBUG:
         Insts = memcache.get("ExitInstances")
-        Insts[os.environ["INSTANCE_ID"]] = 1
-        memcache.replace("ExitInstances",Insts)
+        if Insts:
+            Insts[os.environ["INSTANCE_ID"]] = 1
+            memcache.replace("ExitInstances",Insts)
 
         memcache.add("Exits",0)
         memcache.incr("Exits")
