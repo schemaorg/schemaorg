@@ -142,19 +142,90 @@ td.release  {
 <span id="v3.2"></span>
 <td>
 <p>
-Version 3.2(?) (working name 'sdo-callisto'). See <a href="https://github.com/schemaorg/schemaorg/issues/1">planning pages</a>, specifically <a href="https://github.com/schemaorg/schemaorg/issues/1292">#1292</a> for details.
+Version 3.2 (working name 'sdo-callisto'). See <a href="https://github.com/schemaorg/schemaorg/issues/1">planning pages</a>, specifically <a href="https://github.com/schemaorg/schemaorg/issues/1292">#1292</a> for details.
 </p>
 <p>This release is under discussion.</p>
 </td>
 
 <td>
-<h3>Vocabulary</h3>
+<h2>Vocabulary</h2>
+
+<h3>Core changes</h3>
 <ul>
 <li id="g1209"><a href="https://github.com/schemaorg/schemaorg/issues/1209">Issue #1209</a>: Added <a href="/maximumAttendeeCapacity">maximumAttendeeCapacity</a> and <a href="/remainingAttendeeCapacity">remainingAttendeeCapacity</a> for describing places and events.</li>
 <li id="g1361"><a href="https://github.com/schemaorg/schemaorg/issues/1361">Issue #1361</a>: Broadened <a href="/about">about</a> property to be applicable on <a href="/Event">events</a>.</li>
 <li id="g1364"><a href="https://github.com/schemaorg/schemaorg/issues/1364">Issue #1364</a>: Broadened <a href="/genre">genre</a> property to be applicable on <a href="/BroadcastChannel">BroadcastChannel</a>.</li>
 <li>TODO: /identifier, /Course</li>
 </ul>
+
+<h3>Additions to <a href="http://pending.schema.org/">Pending</a> section</h3>
+
+<ul>
+<li id="g1125"><a href="https://github.com/schemaorg/schemaorg/issues/1125">Issue #1125</a> Added <a href="/PreOrderAction">PreOrderAction</a> (a subtype of TradeAction)</li>
+<li id="g1253"><a href="https://github.com/schemaorg/schemaorg/issues/1253">Issue #1253</a>: Added several terms <a href="http://www.fibo.org/schema ">proposed</a> by the FIBO project and its <a href="https://www.w3.org/community/fibo/">community group</a>.
+  <ul>
+    <li>Types: <a href="/BrokerageAccount">BrokerageAccount</a>,
+    <a href="/ExchangeRateSpecification">ExchangeRateSpecification</a>,
+    <a href="/InvestmentFund">InvestmentFund</a>,
+    <a hrefw="/MoneyTransfer">MoneyTransfer</a>,
+    <a href="/MortgageLoan">MortgageLoan</a>,
+    <a href="/RepaymentSpecification">RepaymentSpecification</a>.</li>
+  <li>Properties: <a href="/accountMinimumInflow">accountMinimumInflow</a>,
+    <a href="/accountOverdraftLimit">accountOverdraftLimit</a>,
+    <a href="/amount">amount</a>,
+    <a href="/bankAccountType">bankAccountType</a>,
+    <a href="/beneficiaryBank">beneficiaryBank</a>,
+    <a href="/cashBack">cashBack</a>,
+    <a href="/contactlessPayment">contactlessPayment</a>,
+    <a href="/currency">currency</a>,
+    <a href="/currentExchangeRate">currentExchangeRate</a>,
+    <a href="/domiciledMortgage">domiciledMortgage</a>,
+    <a href="/downPayment">downPayment</a>,
+    <a href="/earlyPrepaymentPenalty">earlyPrepaymentPenalty</a>,
+    <a href="/exchangeRate">exchangeRate</a>,
+    <a href="/exchangeRateSpread">exchangeRateSpread</a>,
+    <a href="/floorLimit">floorLimit</a>,
+    <a href="/gracePeriod">gracePeriod</a>,
+    <a href="/loanMortgageMandateAmount">loanMortgageMandateAmount</a>,
+    <a href="/loanPaymentAmount">loanPaymentAmount</a>,
+    <a href="/loanPaymentFrequency">loanPaymentFrequency</a>,
+    <a href="/loanRepaymentForm">loanRepaymentForm</a>,
+    <a href="/loanType">loanType</a>,
+    <a href="/monthlyMinimumRepaymentAmount">monthlyMinimumRepaymentAmount</a>,
+    <a href="/numberOfLoanPayments">numberOfLoanPayments</a>,
+    <a href="/recourseLoan">recourseLoan</a>,
+    <a href="/renegotiableLoan">renegotiableLoan</a>.</li>
+  </ul>
+</li>
+<li id="g1262"><a href="https://github.com/schemaorg/schemaorg/issues/1262">Issue #1262</a>: Added <a href="/BedType">BedType</a>.</li>
+<li id="g1293"><a href="https://github.com/schemaorg/schemaorg/issues/1293">Issue #1293</a>: Added <a href="/EndorsementRating">EndorsementRating</a>.</li>
+<li id="#g1375"><a href="https://github.com/schemaorg/schemaorg/issues/1375">Issue #1375</a> Added <a href="/GeospatialGeometry">GeospatialGeometry</a> and some draft
+definitions for associated properties, an informal collaboration with the W3C <a href="https://www.w3.org/2015/spatial/wiki/Main_Page">Spatial Data on the Web</a> Working Group.
+Initial properties are: <a href="/geospatiallyContains">geospatiallyContains</a>, <a href="/geospatiallyCoveredBy">geospatiallyCoveredBy</a>, <a href="/geospatiallyCovers">geospatiallyCovers</a>, <a href="/geospatiallyCrosses">geospatiallyCrosses</a>, <a href="/geospatiallyDisjoint">geospatiallyDisjoint</a>, <a href="/geospatiallyEquals">geospatiallyEquals</a>, <a href="/geospatiallyIntersects">geospatiallyIntersects</a>, <a href="/geospatiallyOverlaps">geospatiallyOverlaps</a>, <a href="/geospatiallyTouches">geospatiallyTouches</a>, <a href="/geospatiallyWithin">geospatiallyWithin</a>.</li>
+
+<li id="g1389"><a href="https://github.com/schemaorg/schemaorg/issues/1389">Issue #1389</a>: Added new type <a href="/SpeakableSpecification">SpeakableSpecification</a>, with properties
+<a href="/cssSelector">cssSelector</a> and <a href="/xpath">xpath</a>, alongside a property on <a href="/WebPage">WebPage</a>
+called <a href="/speakable">speakable</a> to refer to a <a href="/SpeakableSpecification">SpeakableSpecification</a>. The purpose
+(documented primarily on the <a href="/speakable">speakable</a> property)
+is to indicate sections of a document that are highlighted as particularly suitable for being spoken/read.
+These sections are indicated via URL/ID values, XPath and/or CSS selectors.
+</li>
+<li id="g1397"><a href="https://github.com/schemaorg/schemaorg/issues/1397">Issue #1397</a>: Added <a href="/CompleteDataFeed">CompleteDateFeed</a> to indicate completeness of feeds.</li>
+<li id="g1423"><a href="https://github.com/schemaorg/schemaorg/issues/1423">Issue #1423</a>: Added a draft <a href="/WebAPI">WebAPI</a>.</li>
+<li id="g1425"><a href="https://github.com/schemaorg/schemaorg/issues/1425">Issue #1425</a>: Added a draft <a href="/measurementTechnique">measurementTechnique</a> property, to support richer <a href="/Dataset">Dataset</a> description particularly for scientific data.</li>
+<li id="g1495"><a href="https://github.com/schemaorg/schemaorg/issues/1495">Issue #1495</a>: Added a <a href="/Consortium">Consortium</a> type, as well as a <a href="/LibrarySystem">LibrarySystem</a> type to represent a particular kind of Library consortium.</li>
+<li id="g743"><a href="https://github.com/schemaorg/schemaorg/issues/743">Issue #743</a>: Added a <a href="/Distillery">Distillery</a> type.</li>
+<li id="g894"><a href="https://github.com/schemaorg/schemaorg/issues/894">Issue #894</a>: Added <a href="/CategoryCode">CategoryCode</a>, <a href="/CategoryCodeSet">CategoryCodeSet</a>, <a href="/codeValue">codeValue</a> and <a href="/inCodeSet">inCodeSet</a> to explore better description of enumerated value lists.</li>
+</ul>
+
+<h3>Archived into Attic section</h3>
+
+
+<ul>
+  <li>The proposed <a href="/variablesMeasured">variablesMeasured</a> property has been removed from Pending. A non-plural <a href="/variableMeasured">variableMeasured</a> property replaced it.</li>
+</ul>
+
+<!-- TO FIX: underdocumented in pending: Properties (4) bed, inLanguage, providesBroadcastService, typeOfBed -->
 
 <h3>Site improvements</h3>
 <ul>
