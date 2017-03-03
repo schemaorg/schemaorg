@@ -5748,7 +5748,7 @@ The place is __open__ if the [[opens]] property is specified, and __closed__ oth
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CreativeWork">CreativeWork</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Thing">Thing</a></span>
     </div>
-    <div typeof="rdf:Property" resource="http://schema.org/menu">
+    <div typeof="rdf:Property" resource="http://schema.org/hasMenu">
       <span class="h" property="rdfs:label">menu</span>
       <span property="rdfs:comment">Either the actual menu as a structured representation, as text, or a URL of the menu.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/FoodEstablishment">FoodEstablishment</a></span>
@@ -5756,6 +5756,18 @@ The place is __open__ if the [[opens]] property is specified, and __closed__ oth
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/URL">URL</a></span>
     </div>
+
+    <div typeof="rdf:Property" resource="http://schema.org/menu">
+      <span class="h" property="rdfs:label">menu</span>
+      <span property="rdfs:comment">Either the actual menu as a structured representation, as text, or a URL of the menu.</span>
+      <link property="http://schema.org/supersededBy" href="http://schema.org/hasMenu"/>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/FoodEstablishment">FoodEstablishment</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Menu">Menu</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/URL">URL</a></span>
+    </div>
+
+
     <div typeof="rdf:Property" resource="http://schema.org/merchant">
       <span class="h" property="rdfs:label">merchant</span>
       <span property="rdfs:comment">'merchant' is an out-dated term for 'seller'.</span>
@@ -11191,7 +11203,6 @@ Typical unit code(s): C62 for person</span>
       <span property="rdfs:comment">A structured representation of food or drink items available from a FoodEstablishment.</span>
       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/CreativeWork">CreativeWork</a></span>
     </div>
-    <!-- we might consider moving the menu property to be hasMenu, but only if there is a strong call to do so. -->
 
     <div typeof="rdfs:Class" resource="http://schema.org/MenuItem">
       <span class="h" property="rdfs:label">MenuItem</span>
