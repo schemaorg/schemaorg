@@ -5550,6 +5550,7 @@ The place is __open__ if the [[opens]] property is specified, and __closed__ oth
       <link property="rdfs:subPropertyOf" href="http://schema.org/participant" />
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/BorrowAction">BorrowAction</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Person">Person</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Organization">Organization</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/lesser">
       <span class="h" property="rdfs:label">lesser</span>
@@ -5747,13 +5748,26 @@ The place is __open__ if the [[opens]] property is specified, and __closed__ oth
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CreativeWork">CreativeWork</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Thing">Thing</a></span>
     </div>
-    <div typeof="rdf:Property" resource="http://schema.org/menu">
-      <span class="h" property="rdfs:label">menu</span>
-      <span property="rdfs:comment">Either the actual menu or a URL of the menu.</span>
+    <div typeof="rdf:Property" resource="http://schema.org/hasMenu">
+      <span class="h" property="rdfs:label">hasMenu</span>
+      <span property="rdfs:comment">Either the actual menu as a structured representation, as text, or a URL of the menu.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/FoodEstablishment">FoodEstablishment</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Menu">Menu</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/URL">URL</a></span>
     </div>
+
+    <div typeof="rdf:Property" resource="http://schema.org/menu">
+      <span class="h" property="rdfs:label">menu</span>
+      <span property="rdfs:comment">Either the actual menu as a structured representation, as text, or a URL of the menu.</span>
+      <link property="http://schema.org/supersededBy" href="http://schema.org/hasMenu"/>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/FoodEstablishment">FoodEstablishment</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Menu">Menu</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/URL">URL</a></span>
+    </div>
+
+
     <div typeof="rdf:Property" resource="http://schema.org/merchant">
       <span class="h" property="rdfs:label">merchant</span>
       <span property="rdfs:comment">'merchant' is an out-dated term for 'seller'.</span>
@@ -5914,6 +5928,7 @@ The place is __open__ if the [[opens]] property is specified, and __closed__ oth
       <span property="rdfs:comment">An offer to provide this item&amp;#x2014;for example, an offer to sell a product, rent the DVD of a movie, perform a service, or give away tickets to an event.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CreativeWork">CreativeWork</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Event">Event</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MenuItem">MenuItem</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Product">Product</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Service">Service</a></span>
 <!--      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Accommodation">Accommodation</a></span> #1264 -->
@@ -7096,7 +7111,8 @@ The place is __open__ if the [[opens]] property is specified, and __closed__ oth
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/suitableForDiet">
       <span class="h" property="rdfs:label">suitableForDiet</span>
-      <span property="rdfs:comment">Indicates a dietary restriction or guideline for which this recipe is suitable, e.g. diabetic, halal etc.</span>
+      <span property="rdfs:comment">Indicates a dietary restriction or guideline for which this recipe or menu item is suitable, e.g. diabetic, halal etc.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MenuItem">MenuItem</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Recipe">Recipe</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/RestrictedDiet">RestrictedDiet</a></span>
     </div>
@@ -8724,6 +8740,7 @@ postponing for 1.6.
       <span>domainIncludes: <a property="http://schema.org/domainIncludes" href="http://schema.org/Reservation">Reservation</a></span>
       <span>domainIncludes: <a property="http://schema.org/domainIncludes" href="http://schema.org/Order">Order</a></span>
       <span>domainIncludes: <a property="http://schema.org/domainIncludes" href="http://schema.org/Invoice">Invoice</a></span>
+      <span>domainIncludes: <a property="http://schema.org/domainIncludes" href="http://schema.org/Service">Service</a></span>
       <span>rangeIncludes: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Person">Person</a></span>
       <span>rangeIncludes: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Organization">Organization</a></span>
     </div>
@@ -10321,7 +10338,8 @@ Standards bodies should promote a standard prefix for the identifiers of propert
 
 <div typeof="rdf:Property" resource="http://schema.org/nutrition">
   <span class="h" property="rdfs:label">nutrition</span>
-  <span property="rdfs:comment">Nutrition information about the recipe.</span>
+  <span property="rdfs:comment">Nutrition information about the recipe or menu item.</span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MenuItem">MenuItem</a></span>
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Recipe"> Recipe</a></span>
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/NutritionInformation">NutritionInformation</a></span>
 </div>
@@ -11140,6 +11158,128 @@ Typical unit code(s): C62 for person</span>
 </div>
 
 </div>
+
+
+
+
+
+
+<h2>ClaimReview</h2>
+
+<div>
+<!-- fact-checking reviews proposal, issue 1061 -->
+
+<div typeof="rdfs:Class" resource="http://schema.org/ClaimReview">
+  <span>Category: <span property="schema:category">issue-1061</span></span>
+  <span class="h" property="rdfs:label">ClaimReview</span>
+  <span property="rdfs:comment">A fact-checking review of claims made (or reported) in some creative work (referenced via itemReviewed).</span>
+  <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Review">Review</a></span>
+  <span>Source:  <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1061">#1061</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/claimReviewed">
+  <span>Category: <span property="schema:category">issue-1061</span></span>
+  <span class="h" property="rdfs:label">claimReviewed</span>
+  <span property="rdfs:comment">A short summary of the specific claims reviewed in a ClaimReview.</span>
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ClaimReview">ClaimReview</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+  <span>Source:  <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1061">#1061</a></span>
+</div>
+
+</div>
+
+
+
+<h2>Menu</h2>
+
+<p>Adding menu markup schema (issue-1288 .rdfa), 2016-10-26.</p>
+
+<!-- Types: Menu, MenuItem, MenuSection; Properties: hasMenuItem, hasMenuSection -->
+
+<div>
+
+    <div typeof="rdfs:Class" resource="http://schema.org/Menu">
+      <span class="h" property="rdfs:label">Menu</span>
+      <span property="rdfs:comment">A structured representation of food or drink items available from a FoodEstablishment.</span>
+      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/CreativeWork">CreativeWork</a></span>
+    </div>
+
+    <div typeof="rdfs:Class" resource="http://schema.org/MenuItem">
+      <span class="h" property="rdfs:label">MenuItem</span>
+      <span property="rdfs:comment">A food or drink item listed in a menu or menu section.</span>
+      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Intangible">CreativeWork</a></span>
+    </div>
+
+    <div typeof="rdfs:Class" resource="http://schema.org/MenuSection">
+      <span class="h" property="rdfs:label">MenuSection</span>
+      <span property="rdfs:comment">A sub-grouping of food or drink items in a menu. E.g. courses (such as 'Dinner', 'Breakfast', etc.), specific type of dishes (such as 'Meat', 'Vegan', 'Drinks', etc.), or some other classification made by the menu provider.</span>
+      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/CreativeWork">CreativeWork</a></span>
+    </div>
+
+    <div typeof="rdf:Property" resource="http://schema.org/hasMenuItem">
+      <span class="h" property="rdfs:label">hasMenuItem</span>
+      <span property="rdfs:comment">A food or drink item contained in a menu or menu section.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Menu">Menu</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MenuSection">MenuSection</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/MenuItem">MenuSection</a></span>
+    </div>
+
+    <div typeof="rdf:Property" resource="http://schema.org/hasMenuSection">
+      <span class="h" property="rdfs:label">hasMenuSection</span>
+      <span property="rdfs:comment">A subgrouping of the menu (by dishes, course, serving time period, etc.).</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Menu">Menu</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MenuSection">MenuSection</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/MenuSection">MenuSection</a></span>
+    </div>
+
+<!-- moved to pending per #1541
+    <div typeof="rdf:Property" resource="http://schema.org/menuAddOn">
+      <span class="h" property="rdfs:label">menuAddOn</span>
+      <span property="rdfs:comment">Additional menu item(s) such as a side dish of salad or side order of fries that can be added to this menu item. Additionally it can be a menu section containing allowed add-on menu items for this menu item.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MenuItem">Menu</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/MenuSection">MenuItem</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/MenuSection">MenuSection</a></span>
+    </div>
+-->
+
+<h2>Digital Publishing Accessibility</h2>
+
+<p>"Proposal of accessMode, accessModeSufficient, and accessibilitySummary properties for e.g. epubs"</p>
+
+    <div typeof="rdf:Property" resource="http://schema.org/accessMode">
+      <span>Category: <span property="schema:category">issue-1110</span></span>
+      <span class="h" property="rdfs:label">accessMode</span>
+      <span property="rdfs:comment">The human sensory perceptual system or cognitive faculty through which a person may process or perceive information. Expected values include: auditory, tactile, textual, visual, colorDependent, chartOnVisual, chemOnVisual, diagramOnVisual, mathOnVisual, musicOnVisual, textOnVisual.
+      </span>
+      <span>domainIncludes: <a property="http://schema.org/domainIncludes" href="http://schema.org/CreativeWork">CreativeWork</a></span>
+      <span>rangeIncludes: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+      <span>Source:  <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1100">#1100</a></span>
+    </div>
+
+    <div typeof="rdf:Property" resource="http://schema.org/accessModeSufficient">
+      <span>Category: <span property="schema:category">issue-1110</span></span>
+      <span class="h" property="rdfs:label">accessModeSufficient</span>
+      <span property="rdfs:comment">A list of single or combined accessModes that are sufficient to understand all the intellectual content of a resource. Expected values include:  auditory, tactile, textual, visual.
+      </span>
+      <span>domainIncludes: <a property="http://schema.org/domainIncludes" href="http://schema.org/CreativeWork">CreativeWork</a></span>
+      <span>rangeIncludes: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+      <span>Source:  <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1100">#1100</a></span>
+    </div>
+
+    <div typeof="rdf:Property" resource="http://schema.org/accessibilitySummary">
+      <span>Category: <span property="schema:category">issue-1110</span></span>
+      <span class="h" property="rdfs:label">accessibilitySummary</span>
+      <span property="rdfs:comment">A human-readable summary of specific accessibility features or deficiencies, consistent with the other accessibility metadata but expressing subtleties such as "short descriptions are present but long descriptions will be needed for non-visual users" or "short descriptions are present and no long descriptions are needed."</span>
+      <span>domainIncludes: <a property="http://schema.org/domainIncludes" href="http://schema.org/CreativeWork">CreativeWork</a></span>
+      <span>rangeIncludes: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+      <span>Source:  <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1100">#1100</a></span>
+    </div>
+
+
+
+
+</div>
+
 
 
 </body>

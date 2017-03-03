@@ -142,6 +142,11 @@ def getmodiftime():
     global modtime, etagSlug
     if not getInTestHarness():
         slug = SlugEntity.get_by_id("ETagSlug")
+        if not slug:#Occationally memcache will loose the value and result in  becomming Null value
+            systarttime = datetime.datetime.utcnow()
+            tick()
+            setmodiftime(systarttime)#Will store it again
+            slug = SlugEntity.get_by_id("ETagSlug")
         modtime = slug.modtime
         etagSlug = str(slug.slug)
     return modtime
@@ -164,30 +169,44 @@ else: #Ensure clean start for any memcached or ndb store values...
     if memcache.get("static-version") != appver: #We are a new instance of the app
         memcache.flush_all()
         
-        memcache.set(key="app_initialising", value=True)
-        log.info("[%s] Detected new code version - resetting memory values %s" % (getInstanceId(short=True),systarttime))
         load_start = datetime.datetime.now()
         systarttime = datetime.datetime.utcnow()
+        memcache.set(key="app_initialising", value=True, time=300)  #Give the system 5 mins - auto remove flag in case of crash
+        log.info("[%s] Detected new code version - resetting memory values %s" % (getInstanceId(short=True),systarttime))
         memcache.set(key="static-version", value=appver)
         memcache.add(key="SysStart", value=systarttime)
         instance_first = True
         cleanmsg = CacheControl.clean()
         log.info("Clean count(s): %s" % cleanmsg)
         log.info(("[%s] Cache clean took %s " % (getInstanceId(short=True),(datetime.datetime.now() - load_start))))
-        
         load_start = datetime.datetime.now()
-        
-        memcache.set(key="app_initialising", value=False)
-        
-        log.debug("[%s] Awake >>>>>>>>>>>>" % (getInstanceId(short=True)))
-    else:
-        time.sleep(0.1) #Give time for the initialisation flag (possibly being set in another thread/instance) to be set
-        while memcache.get("app_initialising"):
-            log.debug("[%s] Waiting for intialisation to end %s" % (getInstanceId(short=True),memcache.get("app_initialising")))
-            time.sleep(0.1)
-        log.debug("[%s] End of waiting !!!!!!!!!!!" % (getInstanceId(short=True)))
-        systarttime = memcache.get("SysStart")
         tick()
+        memcache.set(key="app_initialising", value=False)
+        log.debug("[%s] Awake >>>>>>>>>>>." % (getInstanceId(short=True)))
+    else:
+        time.sleep(0.5) #Give time for the initialisation flag (possibly being set in another thread/instance) to be set
+        WAITCOUNT = 180
+        waittime = WAITCOUNT
+        while waittime > 0:
+            waittime -= 1
+            flag = memcache.get("app_initialising") 
+            if not flag or flag == False: #Initialised or value missing
+                break
+                
+            log.debug("[%s] Waited %s seconds for intialisation to end memcahce value = %s" % (getInstanceId(short=True),
+                                                    (WAITCOUNT - waittime),memcache.get("app_initialising")))
+            time.sleep(1)
+        if waittime <= 0:
+            log.info("[%s] Waited %s seconds for intialisation to end - proceeding anyway!"  % (getInstanceId(short=True),WAITCOUNT))
+
+        log.debug("[%s] End of waiting !!!!!!!!!!." % (getInstanceId(short=True)))
+        tick()
+        systarttime = memcache.get("SysStart")
+
+    if(not systarttime): #Occationally memcache will loose the value and result in systarttime becomming Null value
+         systarttime = datetime.datetime.utcnow()
+         tick()
+            
     setmodiftime(systarttime)
     
 #################################################
@@ -255,8 +274,9 @@ class TypeHierarchyTree:
         gotOutput = False
 
         if not traverseAllLayers and home not in layers:
-            gotOutput = False
-            return gotOutput
+            return False
+        else:
+            gotOutput = True
 
         if home in ENABLED_EXTENSIONS and home != getHostExt():
             urlprefix = makeUrl(home)
@@ -283,7 +303,6 @@ class TypeHierarchyTree:
                     subBuff = StringIO.StringIO()
                     got = self.traverseForHTML(item, depth + 1, hashorslash=hashorslash, layers=layers, traverseAllLayers=traverseAllLayers,buff=subBuff)
                     if got:
-                        gotOutput = True
                         self.emit2buff(buff,subBuff.getvalue())
                     subBuff.close()
                 self.emit2buff(buff, ' %s</ul>' % (" " * 4 * depth))
@@ -559,7 +578,7 @@ class ShowUnit (webapp2.RequestHandler):
                 self.write("Defined in the %s.schema.org extension.<br/>" % home)
         self.emitCanonicalURL(node)
 
-        self.BreadCrumbs(node, layers=layers)
+        self.BreadCrumbs(node, layers=ALL_LAYERS)
 
         comment = GetComment(node, layers)
 
@@ -1651,6 +1670,10 @@ class ShowUnit (webapp2.RequestHandler):
         return False
 
     def handleExactTermPage(self, node, layers='core'):
+
+        if node.startswith("http://schema.org/"): #Special case will map full schema URI to the term name
+            node = node[18:]
+
         """Handle with requests for specific terms like /Person, /fooBar. """
         dataext = os.path.splitext(node)
         if dataext[1] in OUTPUTDATATYPES:
@@ -2232,6 +2255,12 @@ class ShowUnit (webapp2.RequestHandler):
                     log.info("Warmup already actioned")
             return False
 
+        if(node == "_ah/stop"):
+            log.info("Instance[%s] received Stop request at %s" % (modules.get_current_instance_id(), global_vars.time_start) )
+            log.info("Flushing memcache")
+            memcache.flush_all()
+            return False
+
         if not getPageFromStore(node): #Not stored this page before
             #log.info("Not stored %s" % node)
             if not LOADEDSOURCES:
@@ -2419,10 +2448,16 @@ class ShowUnit (webapp2.RequestHandler):
         global Warmer
         if WarmedUp:
             return
+            
         warm_start = datetime.datetime.now()
         log.debug("Instance[%s] received Warmup request at %s" % (modules.get_current_instance_id(), datetime.datetime.utcnow()) )
-        Warmer.warmAll(self)
-        log.debug("Instance[%s] completed Warmup request at %s elapsed: %s" % (modules.get_current_instance_id(), datetime.datetime.utcnow(),datetime.datetime.now() - warm_start ) )
+        if memcache.get("Warming"):
+            log.debug("Instance[%s] detected system already warming" % (modules.get_current_instance_id()) )
+        else:
+            memcache.set("Warming",True,time=300)            
+            Warmer.warmAll(self)
+            log.debug("Instance[%s] completed Warmup request at %s elapsed: %s" % (modules.get_current_instance_id(), datetime.datetime.utcnow(),datetime.datetime.now() - warm_start ) )
+            memcache.set("Warming",False)            
 
 class WarmupTool():
 
@@ -2536,8 +2571,9 @@ def my_shutdown_hook():
     global instance_num
     if SHAREDSITEDEBUG:
         Insts = memcache.get("ExitInstances")
-        Insts[os.environ["INSTANCE_ID"]] = 1
-        memcache.replace("ExitInstances",Insts)
+        if Insts:
+            Insts[os.environ["INSTANCE_ID"]] = 1
+            memcache.replace("ExitInstances",Insts)
 
         memcache.add("Exits",0)
         memcache.incr("Exits")
