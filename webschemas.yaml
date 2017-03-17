@@ -1,0 +1,101 @@
+#application: schemaorgae
+application: webschemas-g
+
+version: 3-2
+module: default
+runtime: python27
+api_version: 1
+threadsafe: true
+
+  
+#automatic_scaling:
+#  min_idle_instances: 2
+
+basic_scaling:
+  max_instances: 10
+  idle_timeout: 10m
+
+inbound_services:
+- warmup
+
+env_variables:
+  PRODSITEDEBUG: 'False'
+  WARMUPSTATE: 'Auto' # 'Off', 'On', 'Auto' - Off for localhost, On elsewhere
+
+handlers:
+
+- url: /favicon.ico
+  static_files: docs/favicon.ico
+  upload: docs/favicon.ico
+  mime_type: image/x-icon
+
+- url: /robots.txt
+  static_files: docs/robots-blockall.txt
+  upload: docs/robots-blockall.txt
+  mime_type: text/plain
+
+# To avoid: "Could not guess mimetype for docs/schemaorg.owl.  Using application/octet-stream."
+- url: /docs/schemaorg.owl
+  static_files: docs/schemaorg.owl
+  upload: docs/schemaorg.owl
+  mime_type: application/rdf+xml
+
+- url: /docs/schema_org_rdfa.html
+  static_files: data/schema.rdfa
+  upload: data/schema.rdfa
+  application_readable: True
+  mime_type: text/html
+
+- url: /docs/jsonldcontext.json.*
+  script: sdoapp.app
+
+- url: /docs/full.*.html
+  script: sdoapp.app
+
+- url: /docs/schemas.html
+  script: sdoapp.app
+
+- url: /docs/developers.html
+  script: sdoapp.app
+
+- url: /docs/tree.json.*
+  script: sdoapp.app
+
+- url: /docs
+  static_dir: docs
+
+#- url: /
+#  static_files: static/index.html
+#  upload: static/index.html
+#  application_readable: True
+
+- url: /search_files
+  static_dir: static/search_files
+
+- url: /version/latest/.*
+  script: sdoapp.app
+
+- url: /(version/[^/]*/)$
+  script: sdoapp.app
+
+- url: /(version/([^/]*))$
+  script: sdoapp.app
+
+- url: /version/
+  script: sdoapp.app
+
+- url: /version/*/*
+  static_dir: data/releases/
+  application_readable: True
+
+- url: /.*
+  script: sdoapp.app
+
+
+
+
+libraries:
+- name: webapp2
+  version: 2.5.2
+- name: jinja2
+  version: 2.6

@@ -45,7 +45,6 @@ Or you can jump directly to a commonly used type:
 <br />
 We also have a small set of <a href="{{staticPath}}/DataType">primitive data types</a> for numbers, text, etc. More details about the data model, etc. are available <a href="{{staticPath}}/docs/datamodel.html">here</a>.
 <br />
-<br />
 
  <h2 id="ext">Extensions</h2>
 
@@ -64,12 +63,13 @@ For example in the <a href="http://auto.schema.org/">auto</a> extension there is
 and in the <a href="http://bib.schema.org/">bibliographic extension</a> we have a property <a href="/publisherImprint">publisherImprint</a>.
 </p>
 
-<br/>Using the <a href="{{staticPath}}/docs/extension.html">extension mechanism</a> the core vocabulary is extended by the following hosted extensions:
+<p>Using the <a href="{{staticPath}}/docs/extension.html">extension mechanism</a> the core vocabulary is extended by the following hosted extensions:
 <ul>
 {% for ext in extensions %}
 	<li>{{ ext | safe }}</li>
 {% endfor %}
 </ul>
+</p>
 
 <p><b>Note</b>: the 'pending' and 'meta' hosted extensions are part of schema.org's schema development process.</p>
 <p id="ext_pending">
@@ -84,13 +84,16 @@ and in the <a href="http://bib.schema.org/">bibliographic extension</a> we have 
 The 'meta' extension is primarily for vocabulary used internally within schema.org to support technical definitions and
 schema.org site functionality. These terms are not intended for general usage in the public Web.</p>
 </p>
+<p id="attic"><strong>Attic</strong> ({{attic | safe}}) is a special extension area where terms are archived when deprecated from the core and other extensions, or removed from <a href="http://pending.schema.org">pending</a> as not accepted into the full vocabulary. References to terms in the attic area are not normally displayed unless accessed via the term identifier or via the {{attic | safe}} home page. Implementors and data publishers are cautioned not to use terms in the attic area.
+</p> 
+
 <p>
 Unlike other core and extension terms, these extensions may be updated at any time without the need for a full <a href="/docs/releases.html">release</a>.
 </p>
 
 <h3 id="extext">External Extensions</h3>
 
-<p>The schema.org <a href="/about.html#cgsg">steering group</a> does not officially approve external extensions - they are fully independent.
+<p>The schema.org <a href="/docs/about.html#cgsg">steering group</a> does not officially approve external extensions - they are fully independent.
   We list here some notable extensions that extend schema.org in interesting and useful ways.</p>
 
 <ul>

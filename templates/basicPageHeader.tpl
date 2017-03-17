@@ -63,7 +63,7 @@ customSearchControl.draw('cse-search-form', options);
 
 {% if sitename != "schema.org" %}
 <div class="pendnote">
-	<b><a href="{{staticPath}}">core</a></b> + <b>{{host_ext}}</b>
+	<b><a href="{{staticPath}}">core</a></b> + <a href="{{extensionPath}}">{{host_ext}}</a>
 	({{extName}}): {{extDD|safe}}</div>
 {% endif %}
 

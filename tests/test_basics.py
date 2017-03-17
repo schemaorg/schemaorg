@@ -7,7 +7,9 @@ sys.path.insert( 1, 'lib' ) #Pickup libs, rdflib etc., from shipped lib director
 
 from api import extensionsLoaded, extensionLoadErrors
 from api import setInTestHarness, getInTestHarness
-from api import EXAMPLES, Triple
+from api import EXAMPLESMAP, Triple
+from apimarkdown import Markdown
+
 from google.appengine.ext import deferred 
 
 #Setup testharness state BEFORE importing sdoapp
@@ -47,8 +49,8 @@ class SDOBasicsTestCase(unittest.TestCase):
 
   def test_ExtractedPlausibleNumberOfExamples(self):
 
-    example_count = len(EXAMPLES)
-#    for t in api.EXAMPLES:
+    example_count = len(EXAMPLESMAP)
+#    for t in api.EXAMPLESMAP:
 #        example_count = example_count + len(t)
     log.info("Extracted %s examples." % example_count )
     self.assertTrue(example_count > 300 and example_count < 500, "Expect that we extracted 300 < x < 500 examples from data/*examples.txt. Found: %s " % example_count)
@@ -510,9 +512,8 @@ class DataTypeTests(unittest.TestCase):
 
 class MarkDownTest(unittest.TestCase):
     def test_emph(self):
-        from api import MD
         markstring = "This is _em_, __strong__, ___strong em___"
-        html = MD.parse(markstring,True)
+        html = Markdown.parse(markstring,True)
         self.assertFalse(html != "<p>This is <em>em</em>, <strong>strong</strong>, <strong><em>strong em</em></strong></p>\n", "Markdown string not formatted correctly")
 
 class HasMultipleBaseTypesTests(unittest.TestCase):
