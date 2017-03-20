@@ -1,4 +1,5 @@
 @prefix dct: <http://purl.org/dc/terms/> .
+@prefix ns1: <http://www.w3.org/2004/02/skos/core#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfa: <http://www.w3.org/ns/rdfa#> .
@@ -588,7 +589,7 @@ schema:Cemetery a rdfs:Class ;
 
 schema:CheckAction a rdfs:Class ;
     rdfs:label "CheckAction" ;
-    rdfs:comment "An agent inspects/determines/investigates/inquire or examine an object's accuracy/quality/condition or state." ;
+    rdfs:comment "An agent inspects, determines, investigates, inquires, or examines an object's accuracy, quality, condition, or state." ;
     rdfs:subClassOf schema:FindAction .
 
 schema:CheckInAction a rdfs:Class ;
@@ -658,6 +659,13 @@ schema:CivicStructure a rdfs:Class ;
     rdfs:label "CivicStructure" ;
     rdfs:comment "A public structure, such as a town hall or concert hall." ;
     rdfs:subClassOf schema:Place .
+
+schema:ClaimReview a rdfs:Class ;
+    rdfs:label "ClaimReview" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1061> ;
+    schema:category "issue-1061" ;
+    rdfs:comment "A fact-checking review of claims made (or reported) in some creative work (referenced via itemReviewed)." ;
+    rdfs:subClassOf schema:Review .
 
 schema:Clip a rdfs:Class ;
     rdfs:label "Clip" ;
@@ -1257,7 +1265,7 @@ schema:FinancialService a rdfs:Class ;
 
 schema:FindAction a rdfs:Class ;
     rdfs:label "FindAction" ;
-    rdfs:comment """<p>TThe act of finding an object.</p>
+    rdfs:comment """<p>The act of finding an object.</p>
 
 <p>Related actions:</p>
 
@@ -1778,7 +1786,8 @@ schema:LocalBusiness a rdfs:Class ;
     rdfs:label "LocalBusiness" ;
     rdfs:comment "A particular physical business or branch of an organization. Examples of LocalBusiness include a restaurant, a particular branch of a restaurant chain, a branch of a bank, a medical practice, a club, a bowling alley, etc." ;
     rdfs:subClassOf schema:Organization,
-        schema:Place .
+        schema:Place ;
+    ns1:closeMatch <http://www.w3.org/ns/regorg#RegisteredOrganization> .
 
 schema:LocationFeatureSpecification a rdfs:Class ;
     rdfs:label "LocationFeatureSpecification" ;
@@ -1855,6 +1864,21 @@ schema:MensClothingStore a rdfs:Class ;
     rdfs:label "MensClothingStore" ;
     rdfs:comment "A men's clothing store." ;
     rdfs:subClassOf schema:Store .
+
+schema:Menu a rdfs:Class ;
+    rdfs:label "Menu" ;
+    rdfs:comment "A structured representation of food or drink items available from a FoodEstablishment." ;
+    rdfs:subClassOf schema:CreativeWork .
+
+schema:MenuItem a rdfs:Class ;
+    rdfs:label "MenuItem" ;
+    rdfs:comment "A food or drink item listed in a menu or menu section." ;
+    rdfs:subClassOf schema:Intangible .
+
+schema:MenuSection a rdfs:Class ;
+    rdfs:label "MenuSection" ;
+    rdfs:comment "A sub-grouping of food or drink items in a menu. E.g. courses (such as 'Dinner', 'Breakfast', etc.), specific type of dishes (such as 'Meat', 'Vegan', 'Drinks', etc.), or some other classification made by the menu provider." ;
+    rdfs:subClassOf schema:CreativeWork .
 
 schema:Message a rdfs:Class ;
     rdfs:label "Message" ;
@@ -4003,7 +4027,8 @@ schema:ZoneBoardingPolicy a schema:BoardingPolicyType ;
 schema:about a rdf:Property ;
     rdfs:label "about" ;
     schema:domainIncludes schema:CommunicateAction,
-        schema:CreativeWork ;
+        schema:CreativeWork,
+        schema:Event ;
     schema:rangeIncludes schema:Thing ;
     rdfs:comment "The subject matter of the content." .
 
@@ -4043,6 +4068,22 @@ schema:accessCode a rdf:Property ;
     schema:rangeIncludes schema:Text ;
     rdfs:comment "Password, PIN, or access code needed for delivery (e.g. from a locker)." .
 
+schema:accessMode a rdf:Property ;
+    rdfs:label "accessMode" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1100> ;
+    schema:category "issue-1110" ;
+    schema:domainIncludes schema:CreativeWork ;
+    schema:rangeIncludes schema:Text ;
+    rdfs:comment "The human sensory perceptual system or cognitive faculty through which a person may process or perceive information. Expected values include: auditory, tactile, textual, visual, colorDependent, chartOnVisual, chemOnVisual, diagramOnVisual, mathOnVisual, musicOnVisual, textOnVisual." .
+
+schema:accessModeSufficient a rdf:Property ;
+    rdfs:label "accessModeSufficient" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1100> ;
+    schema:category "issue-1110" ;
+    schema:domainIncludes schema:CreativeWork ;
+    schema:rangeIncludes schema:Text ;
+    rdfs:comment "A list of single or combined accessModes that are sufficient to understand all the intellectual content of a resource. Expected values include:  auditory, tactile, textual, visual." .
+
 schema:accessibilityAPI a rdf:Property ;
     rdfs:label "accessibilityAPI" ;
     schema:domainIncludes schema:CreativeWork ;
@@ -4067,11 +4108,20 @@ schema:accessibilityHazard a rdf:Property ;
     schema:rangeIncludes schema:Text ;
     rdfs:comment "A characteristic of the described resource that is physiologically dangerous to some users. Related to WCAG 2.0 guideline 2.3 (<a href=\"http://www.w3.org/wiki/WebSchemas/Accessibility\">WebSchemas wiki lists possible values</a>)." .
 
+schema:accessibilitySummary a rdf:Property ;
+    rdfs:label "accessibilitySummary" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1100> ;
+    schema:category "issue-1110" ;
+    schema:domainIncludes schema:CreativeWork ;
+    schema:rangeIncludes schema:Text ;
+    rdfs:comment "A human-readable summary of specific accessibility features or deficiencies, consistent with the other accessibility metadata but expressing subtleties such as \"short descriptions are present but long descriptions will be needed for non-visual users\" or \"short descriptions are present and no long descriptions are needed.\"" .
+
 schema:accountId a rdf:Property ;
     rdfs:label "accountId" ;
     schema:domainIncludes schema:Invoice ;
     schema:rangeIncludes schema:Text ;
-    rdfs:comment "The identifier for the account the payment will be applied to." .
+    rdfs:comment "The identifier for the account the payment will be applied to." ;
+    rdfs:subPropertyOf schema:identifier .
 
 schema:accountablePerson a rdf:Property ;
     rdfs:label "accountablePerson" ;
@@ -4972,6 +5022,14 @@ schema:citation a rdf:Property ;
         schema:Text ;
     rdfs:comment "A citation or reference to another creative work, such as another publication, web page, scholarly article, etc." .
 
+schema:claimReviewed a rdf:Property ;
+    rdfs:label "claimReviewed" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1061> ;
+    schema:category "issue-1061" ;
+    schema:domainIncludes schema:ClaimReview ;
+    schema:rangeIncludes schema:Text ;
+    rdfs:comment "A short summary of the specific claims reviewed in a ClaimReview." .
+
 schema:clipNumber a rdf:Property ;
     rdfs:label "clipNumber" ;
     schema:domainIncludes schema:Clip ;
@@ -5061,7 +5119,8 @@ schema:confirmationNumber a rdf:Property ;
     schema:domainIncludes schema:Invoice,
         schema:Order ;
     schema:rangeIncludes schema:Text ;
-    rdfs:comment "A number that confirms the given order or payment has been received." .
+    rdfs:comment "A number that confirms the given order or payment has been received." ;
+    rdfs:subPropertyOf schema:identifier .
 
 schema:contactOption a rdf:Property ;
     rdfs:label "contactOption" ;
@@ -5578,7 +5637,8 @@ schema:duns a rdf:Property ;
     schema:domainIncludes schema:Organization,
         schema:Person ;
     schema:rangeIncludes schema:Text ;
-    rdfs:comment "The Dun &amp; Bradstreet DUNS number for identifying an organization or business person." .
+    rdfs:comment "The Dun &amp; Bradstreet DUNS number for identifying an organization or business person." ;
+    rdfs:subPropertyOf schema:identifier .
 
 schema:durationOfWarranty a rdf:Property ;
     rdfs:label "durationOfWarranty" ;
@@ -5929,7 +5989,8 @@ schema:flightNumber a rdf:Property ;
     rdfs:label "flightNumber" ;
     schema:domainIncludes schema:Flight ;
     schema:rangeIncludes schema:Text ;
-    rdfs:comment "The unique identifier for a flight including the airline IATA code. For example, if describing United flight 110, where the IATA code for United is 'UA', the flightNumber is 'UA110'." .
+    rdfs:comment "The unique identifier for a flight including the airline IATA code. For example, if describing United flight 110, where the IATA code for United is 'UA', the flightNumber is 'UA110'." ;
+    rdfs:subPropertyOf schema:identifier .
 
 schema:floorSize a rdf:Property ;
     rdfs:label "floorSize" ;
@@ -6092,11 +6153,12 @@ schema:gender a rdf:Property ;
 
 schema:genre a rdf:Property ;
     rdfs:label "genre" ;
-    schema:domainIncludes schema:CreativeWork,
+    schema:domainIncludes schema:BroadcastChannel,
+        schema:CreativeWork,
         schema:MusicGroup ;
     schema:rangeIncludes schema:Text,
         schema:URL ;
-    rdfs:comment "Genre of the creative work or group." .
+    rdfs:comment "Genre of the creative work, broadcast channel or group." .
 
 schema:geo a rdf:Property ;
     rdfs:label "geo" ;
@@ -6138,7 +6200,8 @@ schema:globalLocationNumber a rdf:Property ;
         schema:Person,
         schema:Place ;
     schema:rangeIncludes schema:Text ;
-    rdfs:comment "The <a href=\"http://www.gs1.org/gln\">Global Location Number</a> (GLN, sometimes also referred to as International Location Number or ILN) of the respective organization, person, or place. The GLN is a 13-digit number used to identify parties and physical locations." .
+    rdfs:comment "The <a href=\"http://www.gs1.org/gln\">Global Location Number</a> (GLN, sometimes also referred to as International Location Number or ILN) of the respective organization, person, or place. The GLN is a 13-digit number used to identify parties and physical locations." ;
+    rdfs:subPropertyOf schema:identifier .
 
 schema:grantee a rdf:Property ;
     rdfs:label "grantee" ;
@@ -6169,7 +6232,8 @@ schema:gtin12 a rdf:Property ;
         schema:Offer,
         schema:Product ;
     schema:rangeIncludes schema:Text ;
-    rdfs:comment "The <a href=\"http://apps.gs1.org/GDD/glossary/Pages/GTIN-12.aspx\">GTIN-12</a> code of the product, or the product to which the offer refers. The GTIN-12 is the 12-digit GS1 Identification Key composed of a U.P.C. Company Prefix, Item Reference, and Check Digit used to identify trade items. See <a href=\"http://www.gs1.org/barcodes/technical/idkeys/gtin\">GS1 GTIN Summary</a> for more details." .
+    rdfs:comment "The <a href=\"http://apps.gs1.org/GDD/glossary/Pages/GTIN-12.aspx\">GTIN-12</a> code of the product, or the product to which the offer refers. The GTIN-12 is the 12-digit GS1 Identification Key composed of a U.P.C. Company Prefix, Item Reference, and Check Digit used to identify trade items. See <a href=\"http://www.gs1.org/barcodes/technical/idkeys/gtin\">GS1 GTIN Summary</a> for more details." ;
+    rdfs:subPropertyOf schema:identifier .
 
 schema:gtin13 a rdf:Property ;
     rdfs:label "gtin13" ;
@@ -6178,7 +6242,8 @@ schema:gtin13 a rdf:Property ;
         schema:Offer,
         schema:Product ;
     schema:rangeIncludes schema:Text ;
-    rdfs:comment "The <a href=\"http://apps.gs1.org/GDD/glossary/Pages/GTIN-13.aspx\">GTIN-13</a> code of the product, or the product to which the offer refers. This is equivalent to 13-digit ISBN codes and EAN UCC-13. Former 12-digit UPC codes can be converted into a GTIN-13 code by simply adding a preceeding zero. See <a href=\"http://www.gs1.org/barcodes/technical/idkeys/gtin\">GS1 GTIN Summary</a> for more details." .
+    rdfs:comment "The <a href=\"http://apps.gs1.org/GDD/glossary/Pages/GTIN-13.aspx\">GTIN-13</a> code of the product, or the product to which the offer refers. This is equivalent to 13-digit ISBN codes and EAN UCC-13. Former 12-digit UPC codes can be converted into a GTIN-13 code by simply adding a preceeding zero. See <a href=\"http://www.gs1.org/barcodes/technical/idkeys/gtin\">GS1 GTIN Summary</a> for more details." ;
+    rdfs:subPropertyOf schema:identifier .
 
 schema:gtin14 a rdf:Property ;
     rdfs:label "gtin14" ;
@@ -6187,7 +6252,8 @@ schema:gtin14 a rdf:Property ;
         schema:Offer,
         schema:Product ;
     schema:rangeIncludes schema:Text ;
-    rdfs:comment "The <a href=\"http://apps.gs1.org/GDD/glossary/Pages/GTIN-14.aspx\">GTIN-14</a> code of the product, or the product to which the offer refers. See <a href=\"http://www.gs1.org/barcodes/technical/idkeys/gtin\">GS1 GTIN Summary</a> for more details." .
+    rdfs:comment "The <a href=\"http://apps.gs1.org/GDD/glossary/Pages/GTIN-14.aspx\">GTIN-14</a> code of the product, or the product to which the offer refers. See <a href=\"http://www.gs1.org/barcodes/technical/idkeys/gtin\">GS1 GTIN Summary</a> for more details." ;
+    rdfs:subPropertyOf schema:identifier .
 
 schema:gtin8 a rdf:Property ;
     rdfs:label "gtin8" ;
@@ -6196,7 +6262,8 @@ schema:gtin8 a rdf:Property ;
         schema:Offer,
         schema:Product ;
     schema:rangeIncludes schema:Text ;
-    rdfs:comment "The <a href=\"http://apps.gs1.org/GDD/glossary/Pages/GTIN-8.aspx\">GTIN-8</a> code of the product, or the product to which the offer refers. This code is also known as EAN/UCC-8 or 8-digit EAN. See <a href=\"http://www.gs1.org/barcodes/technical/idkeys/gtin\">GS1 GTIN Summary</a> for more details." .
+    rdfs:comment "The <a href=\"http://apps.gs1.org/GDD/glossary/Pages/GTIN-8.aspx\">GTIN-8</a> code of the product, or the product to which the offer refers. This code is also known as EAN/UCC-8 or 8-digit EAN. See <a href=\"http://www.gs1.org/barcodes/technical/idkeys/gtin\">GS1 GTIN Summary</a> for more details." ;
+    rdfs:subPropertyOf schema:identifier .
 
 schema:hasCourseInstance a rdf:Property ;
     rdfs:label "hasCourseInstance" ;
@@ -6216,6 +6283,20 @@ schema:hasDigitalDocumentPermission a rdf:Property ;
     schema:domainIncludes schema:DigitalDocument ;
     schema:rangeIncludes schema:DigitalDocumentPermission ;
     rdfs:comment "A permission related to the access to this document (e.g. permission to read or write an electronic document). For a public document, specify a grantee with an Audience with audienceType equal to \"public\"." .
+
+schema:hasMenuItem a rdf:Property ;
+    rdfs:label "hasMenuItem" ;
+    schema:domainIncludes schema:Menu,
+        schema:MenuSection ;
+    schema:rangeIncludes schema:MenuItem ;
+    rdfs:comment "A food or drink item contained in a menu or menu section." .
+
+schema:hasMenuSection a rdf:Property ;
+    rdfs:label "hasMenuSection" ;
+    schema:domainIncludes schema:Menu,
+        schema:MenuSection ;
+    schema:rangeIncludes schema:MenuSection ;
+    rdfs:comment "A subgrouping of the menu (by dishes, course, serving time period, etc.)." .
 
 schema:hasOfferCatalog a rdf:Property ;
     rdfs:label "hasOfferCatalog" ;
@@ -6525,6 +6606,7 @@ schema:isbn a rdf:Property ;
     schema:domainIncludes schema:Book ;
     schema:rangeIncludes schema:Text ;
     rdfs:comment "The ISBN of the book." ;
+    rdfs:subPropertyOf schema:identifier ;
     owl:equivalentProperty <http://purl.org/ontology/bibo/isbn> .
 
 schema:isicV4 a rdf:Property ;
@@ -6549,6 +6631,7 @@ schema:issn a rdf:Property ;
     schema:domainIncludes schema:Periodical ;
     schema:rangeIncludes schema:Text ;
     rdfs:comment "The International Standard Serial Number (ISSN) that identifies this periodical. You can repeat this property to (for example) identify different formats of this periodical." ;
+    rdfs:subPropertyOf schema:identifier ;
     owl:equivalentProperty <http://purl.org/ontology/bibo/issn> .
 
 schema:issueNumber a rdf:Property ;
@@ -6712,15 +6795,18 @@ schema:legalName a rdf:Property ;
 
 schema:leiCode a rdf:Property ;
     rdfs:label "leiCode" ;
-    dct:source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO> ;
+    dct:source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO>,
+        <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#GLEIF> ;
     schema:domainIncludes schema:Organization ;
     schema:rangeIncludes schema:Text ;
-    rdfs:comment "An organization identifier that uniquely identifies a legal entity as defined in ISO 17442." .
+    rdfs:comment "An organization identifier that uniquely identifies a legal entity as defined in ISO 17442." ;
+    rdfs:subPropertyOf schema:identifier .
 
 schema:lender a rdf:Property ;
     rdfs:label "lender" ;
     schema:domainIncludes schema:BorrowAction ;
-    schema:rangeIncludes schema:Person ;
+    schema:rangeIncludes schema:Organization,
+        schema:Person ;
     rdfs:comment "A sub property of participant. The person that lends the object being borrowed." ;
     rdfs:subPropertyOf schema:participant .
 
@@ -6925,9 +7011,11 @@ schema:mentions a rdf:Property ;
 schema:menu a rdf:Property ;
     rdfs:label "menu" ;
     schema:domainIncludes schema:FoodEstablishment ;
-    schema:rangeIncludes schema:Text,
+    schema:rangeIncludes schema:Menu,
+        schema:Text,
         schema:URL ;
-    rdfs:comment "Either the actual menu or a URL of the menu." .
+    schema:supersededBy schema:hasMenu ;
+    rdfs:comment "Either the actual menu as a structured representation, as text, or a URL of the menu." .
 
 schema:merchant a rdf:Property ;
     rdfs:label "merchant" ;
@@ -7241,9 +7329,10 @@ schema:numberedPosition a rdf:Property ;
 
 schema:nutrition a rdf:Property ;
     rdfs:label "nutrition" ;
-    schema:domainIncludes schema:Recipe ;
+    schema:domainIncludes schema:MenuItem,
+        schema:Recipe ;
     schema:rangeIncludes schema:NutritionInformation ;
-    rdfs:comment "Nutrition information about the recipe." .
+    rdfs:comment "Nutrition information about the recipe or menu item." .
 
 schema:occupancy a rdf:Property ;
     rdfs:label "occupancy" ;
@@ -7273,6 +7362,7 @@ schema:offers a rdf:Property ;
     schema:domainIncludes schema:AggregateOffer,
         schema:CreativeWork,
         schema:Event,
+        schema:MenuItem,
         schema:Product,
         schema:Service ;
     schema:rangeIncludes schema:Offer ;
@@ -7358,7 +7448,8 @@ schema:orderNumber a rdf:Property ;
     rdfs:label "orderNumber" ;
     schema:domainIncludes schema:Order ;
     schema:rangeIncludes schema:Text ;
-    rdfs:comment "The identifier of the transaction." .
+    rdfs:comment "The identifier of the transaction." ;
+    rdfs:subPropertyOf schema:identifier .
 
 schema:orderQuantity a rdf:Property ;
     rdfs:label "orderQuantity" ;
@@ -7830,7 +7921,8 @@ schema:productID a rdf:Property ;
     rdfs:label "productID" ;
     schema:domainIncludes schema:Product ;
     schema:rangeIncludes schema:Text ;
-    rdfs:comment "The product identifier, such as ISBN. For example: <code>meta itemprop=\"productID\" content=\"isbn:123-456-789\"</code>." .
+    rdfs:comment "The product identifier, such as ISBN. For example: <code>meta itemprop=\"productID\" content=\"isbn:123-456-789\"</code>." ;
+    rdfs:subPropertyOf schema:identifier .
 
 schema:productSupported a rdf:Property ;
     rdfs:label "productSupported" ;
@@ -8516,7 +8608,8 @@ schema:sku a rdf:Property ;
         schema:Offer,
         schema:Product ;
     schema:rangeIncludes schema:Text ;
-    rdfs:comment "The Stock Keeping Unit (SKU), i.e. a merchant-specific identifier for a product or service, or the product to which the offer refers." .
+    rdfs:comment "The Stock Keeping Unit (SKU), i.e. a merchant-specific identifier for a product or service, or the product to which the offer refers." ;
+    rdfs:subPropertyOf schema:identifier .
 
 schema:smokingAllowed a rdf:Property ;
     rdfs:label "smokingAllowed" ;
@@ -8726,9 +8819,10 @@ schema:suggestedMinAge a rdf:Property ;
 
 schema:suitableForDiet a rdf:Property ;
     rdfs:label "suitableForDiet" ;
-    schema:domainIncludes schema:Recipe ;
+    schema:domainIncludes schema:MenuItem,
+        schema:Recipe ;
     schema:rangeIncludes schema:RestrictedDiet ;
-    rdfs:comment "Indicates a dietary restriction or guideline for which this recipe is suitable, e.g. diabetic, halal etc." .
+    rdfs:comment "Indicates a dietary restriction or guideline for which this recipe or menu item is suitable, e.g. diabetic, halal etc." .
 
 schema:supportingData a rdf:Property ;
     rdfs:label "supportingData" ;
@@ -8787,7 +8881,8 @@ schema:taxID a rdf:Property ;
     schema:domainIncludes schema:Organization,
         schema:Person ;
     schema:rangeIncludes schema:Text ;
-    rdfs:comment "The Tax / Fiscal ID of the organization or person, e.g. the TIN in the US or the CIF/NIF in Spain." .
+    rdfs:comment "The Tax / Fiscal ID of the organization or person, e.g. the TIN in the US or the CIF/NIF in Spain." ;
+    rdfs:subPropertyOf schema:identifier .
 
 schema:telephone a rdf:Property ;
     rdfs:label "telephone" ;
@@ -9472,6 +9567,7 @@ schema:attendee a rdf:Property ;
 schema:audience a rdf:Property ;
     rdfs:label "audience" ;
     schema:domainIncludes schema:CreativeWork,
+        schema:Event,
         schema:LodgingBusiness,
         schema:PlayAction,
         schema:Product,
@@ -9505,7 +9601,8 @@ schema:broker a rdf:Property ;
     rdfs:label "broker" ;
     schema:domainIncludes schema:Invoice,
         schema:Order,
-        schema:Reservation ;
+        schema:Reservation,
+        schema:Service ;
     schema:rangeIncludes schema:Organization,
         schema:Person ;
     rdfs:comment "An entity that arranges for an exchange between a buyer and a seller.  In most cases a broker never acquires or releases ownership of a product or service involved in an exchange.  If it is not clear whether an entity is a broker, seller, or buyer, the latter two terms are preferred." .
@@ -9666,6 +9763,14 @@ schema:gameServer a rdf:Property ;
     schema:inverseOf schema:game ;
     schema:rangeIncludes schema:GameServer ;
     rdfs:comment "The server on which  it is possible to play the game." .
+
+schema:hasMenu a rdf:Property ;
+    rdfs:label "hasMenu" ;
+    schema:domainIncludes schema:FoodEstablishment ;
+    schema:rangeIncludes schema:Menu,
+        schema:Text,
+        schema:URL ;
+    rdfs:comment "Either the actual menu as a structured representation, as text, or a URL of the menu." .
 
 schema:inLanguage a rdf:Property ;
     rdfs:label "inLanguage" ;
@@ -9881,7 +9986,8 @@ schema:serialNumber a rdf:Property ;
         schema:IndividualProduct,
         schema:Offer ;
     schema:rangeIncludes schema:Text ;
-    rdfs:comment "The serial number or any alphanumeric identifier of a particular product. When attached to an offer, it is a shortcut for the serial number of the product included in the offer." .
+    rdfs:comment "The serial number or any alphanumeric identifier of a particular product. When attached to an offer, it is a shortcut for the serial number of the product included in the offer." ;
+    rdfs:subPropertyOf schema:identifier .
 
 schema:serviceArea a rdf:Property ;
     rdfs:label "serviceArea" ;
@@ -9991,6 +10097,12 @@ schema:workExample a rdf:Property ;
     schema:rangeIncludes schema:CreativeWork ;
     rdfs:comment "Example/instance/realization/derivation of the concept of this creative work. eg. The paperback edition, first edition, or eBook." .
 
+<http://www.w3.org/ns/regorg#RegisteredOrganization> ns1:closeMatch schema:LocalBusiness .
+
+<http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#GLEIF> a schema:Organization ;
+    rdfs:label "GLEIF" ;
+    rdfs:comment "The implementation and use of Legal Entity Identifier (LEI) is supported by Global Legal Entity Identifier Foundation <a href=\"https://www.gleif.org\">https://www.gleif.org</a>." .
+
 schema:competitor a rdf:Property ;
     rdfs:label "competitor" ;
     schema:domainIncludes schema:SportsEvent ;
@@ -10042,7 +10154,7 @@ schema:parentOrganization a rdf:Property ;
     schema:domainIncludes schema:Organization ;
     schema:inverseOf schema:subOrganization ;
     schema:rangeIncludes schema:Organization ;
-    rdfs:comment "The larger organization that this local business is a branch of, if any." .
+    rdfs:comment "The larger organization that this organization is a <a class=\"localLink\" href=\"http://schema.org/subOrganization\">subOrganization</a> of, if any." .
 
 schema:result a rdf:Property ;
     rdfs:label "result" ;
@@ -10196,6 +10308,15 @@ schema:participant a rdf:Property ;
 <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO> a schema:Organization ;
     rdfs:label "FIBO" ;
     rdfs:comment "This element is based on the work of the Financial Industry Business Ontology project (see <a href=\"http://www.fibo.org/schema\">http://www.fibo.org/schema</a> for details), in support of the W3C Financial Industry Business Ontology Community Group (<a href=\"http://www.fibo.org/community\">http://www.fibo.org/community</a>). Many class and property definitions are inspired by or based on <a href=\"http://www.fibo.org\">http://www.fibo.org</a>." .
+
+schema:identifier a rdf:Property ;
+    rdfs:label "identifier" ;
+    schema:domainIncludes schema:Thing ;
+    schema:rangeIncludes schema:PropertyValue,
+        schema:Text,
+        schema:URL ;
+    rdfs:comment "The identifier property represents any kind of identifier for any kind of <a class=\"localLink\" href=\"http://schema.org/Thing\">Thing</a>, such as ISBNs, GTIN codes, UUIDs etc. Schema.org provides dedicated properties for representing many of these, either as textual strings or as URL (URI) links. See <a href=\"/docs/datamodel.html#identifierBg\">background notes</a> for more details." ;
+    owl:equivalentProperty dct:identifier .
 
 <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology> a schema:Organization ;
     rdfs:label "STI Accommodation Ontology" ;

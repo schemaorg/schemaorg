@@ -137,10 +137,10 @@
       },
       "http://schema.org/rangeIncludes": [
         {
-          "@id": "http://schema.org/Text"
+          "@id": "http://schema.org/URL"
         },
         {
-          "@id": "http://schema.org/URL"
+          "@id": "http://schema.org/Text"
         },
         {
           "@id": "http://schema.org/QualitativeValue"
@@ -148,24 +148,6 @@
       ],
       "rdfs:comment": "The type of engine or engines powering the vehicle.",
       "rdfs:label": "engineType"
-    },
-    {
-      "@id": "http://schema.org/emissionsCO2",
-      "@type": "rdf:Property",
-      "http://purl.org/dc/terms/source": {
-        "@id": "http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group"
-      },
-      "http://schema.org/domainIncludes": {
-        "@id": "http://schema.org/Vehicle"
-      },
-      "http://schema.org/isPartOf": {
-        "@id": "http://auto.schema.org"
-      },
-      "http://schema.org/rangeIncludes": {
-        "@id": "http://schema.org/Number"
-      },
-      "rdfs:comment": "The CO2 emissions in g/km. When used in combination with a QuantitativeValue, put \"g/km\" into the unitText property of that value, since there is no UN/CEFACT Common Code for \"g/km\".",
-      "rdfs:label": "emissionsCO2"
     },
     {
       "@id": "http://schema.org/accelerationTime",
@@ -245,16 +227,19 @@
       "rdfs:label": "acrissCode"
     },
     {
-      "@id": "http://schema.org/TaxiVehicleUsage",
-      "@type": "http://schema.org/CarUsageType",
+      "@id": "http://schema.org/BusOrCoach",
+      "@type": "rdfs:Class",
       "http://purl.org/dc/terms/source": {
         "@id": "http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group"
       },
       "http://schema.org/isPartOf": {
         "@id": "http://auto.schema.org"
       },
-      "rdfs:comment": "Indicates the usage of the car as a taxi.",
-      "rdfs:label": "TaxiVehicleUsage"
+      "rdfs:comment": "A bus (also omnibus or autobus) is a road vehicle designed to carry passengers. Coaches are luxury busses, usually in service for long distance travel.",
+      "rdfs:label": "BusOrCoach",
+      "rdfs:subClassOf": {
+        "@id": "http://schema.org/Vehicle"
+      }
     },
     {
       "@id": "http://schema.org/Motorcycle",
@@ -300,13 +285,13 @@
       },
       "http://schema.org/rangeIncludes": [
         {
+          "@id": "http://schema.org/URL"
+        },
+        {
           "@id": "http://schema.org/Text"
         },
         {
           "@id": "http://schema.org/QualitativeValue"
-        },
-        {
-          "@id": "http://schema.org/URL"
         }
       ],
       "rdfs:comment": "Indicates the design and body style of the vehicle (e.g. station wagon, hatchback, etc.).",
@@ -346,6 +331,18 @@
       }
     },
     {
+      "@id": "http://schema.org/TaxiVehicleUsage",
+      "@type": "http://schema.org/CarUsageType",
+      "http://purl.org/dc/terms/source": {
+        "@id": "http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group"
+      },
+      "http://schema.org/isPartOf": {
+        "@id": "http://auto.schema.org"
+      },
+      "rdfs:comment": "Indicates the usage of the car as a taxi.",
+      "rdfs:label": "TaxiVehicleUsage"
+    },
+    {
       "@id": "http://schema.org/RentalVehicleUsage",
       "@type": "http://schema.org/CarUsageType",
       "http://purl.org/dc/terms/source": {
@@ -358,19 +355,22 @@
       "rdfs:label": "RentalVehicleUsage"
     },
     {
-      "@id": "http://schema.org/BusOrCoach",
-      "@type": "rdfs:Class",
+      "@id": "http://schema.org/emissionsCO2",
+      "@type": "rdf:Property",
       "http://purl.org/dc/terms/source": {
         "@id": "http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group"
+      },
+      "http://schema.org/domainIncludes": {
+        "@id": "http://schema.org/Vehicle"
       },
       "http://schema.org/isPartOf": {
         "@id": "http://auto.schema.org"
       },
-      "rdfs:comment": "A bus (also omnibus or autobus) is a road vehicle designed to carry passengers. Coaches are luxury busses, usually in service for long distance travel.",
-      "rdfs:label": "BusOrCoach",
-      "rdfs:subClassOf": {
-        "@id": "http://schema.org/Vehicle"
-      }
+      "http://schema.org/rangeIncludes": {
+        "@id": "http://schema.org/Number"
+      },
+      "rdfs:comment": "The CO2 emissions in g/km. When used in combination with a QuantitativeValue, put \"g/km\" into the unitText property of that value, since there is no UN/CEFACT Common Code for \"g/km\".",
+      "rdfs:label": "emissionsCO2"
     },
     {
       "@id": "http://schema.org/meetsEmissionStandard",
@@ -389,10 +389,10 @@
           "@id": "http://schema.org/URL"
         },
         {
-          "@id": "http://schema.org/Text"
+          "@id": "http://schema.org/QualitativeValue"
         },
         {
-          "@id": "http://schema.org/QualitativeValue"
+          "@id": "http://schema.org/Text"
         }
       ],
       "rdfs:comment": "Indicates that the vehicle meets the respective emission standard.",

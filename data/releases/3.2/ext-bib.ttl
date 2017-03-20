@@ -92,9 +92,9 @@ schema:Thesis a rdfs:Class ;
     rdfs:comment "A thesis or dissertation document submitted in support of candidature for an academic degree or professional qualification." ;
     rdfs:subClassOf schema:CreativeWork .
 
-<file:///Users/wallisr/Development/Schema/Outputs/schemaorg/data/ext/bib/bsdo-1.0.rdfa> schema:softwareVersion "bib.schema.org Version 0.1"@en .
+<file:///Users/danbri/sdo/official/schemaorg/data/ext/bib/bsdo-1.0.rdfa> schema:softwareVersion "bib.schema.org Version 0.1"@en .
 
-<file:///Users/wallisr/Development/Schema/Outputs/schemaorg/data/ext/bib/comics.rdfa> schema:softwareVersion "bib extension - version 0.1"@en .
+<file:///Users/danbri/sdo/official/schemaorg/data/ext/bib/comics.rdfa> schema:softwareVersion "bib extension - version 0.1"@en .
 
 schema:GraphicNovel a schema:BookFormatType ;
     rdfs:label "GraphicNovel"@en ;
@@ -203,13 +203,6 @@ schema:readBy a rdf:Property ;
     schema:rangeIncludes schema:Person ;
     rdfs:comment "A person who reads (performs) the audiobook." ;
     rdfs:subPropertyOf schema:actor .
-
-schema:translator a rdf:Property ;
-    rdfs:label "translator"@en ;
-    schema:domainIncludes schema:CreativeWork ;
-    schema:rangeIncludes schema:Organization,
-        schema:Person ;
-    rdfs:comment "An agent responsible for rendering a translated work from a source work" .
 
 schema:variantCover a rdf:Property ;
     rdfs:label "variantCover"@en ;
