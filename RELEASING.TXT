@@ -66,7 +66,7 @@ First copy snapshot into place:
 * cp data/schema.rdfa data/releases/2.2/schema.rdfa
 
 * Now the HTML snapshot itself. Assuming a local server (e.g. from 'dev_appserver .') we can do:
- * curl http://localhost:8080/version/latest/> data/releases/2.2/schema-all.html
+ * curl http://localhost:8080/version/build-latest > data/releases/3.2/schema-all.html (taking care with the version number, of course)
 
 Then generate N-Triples etc. versions:
 * Ensure that the EXTENTIONS variable at the top of the script 'scripts/buildreleasefiles.sh' contains all the extensions for this release.
