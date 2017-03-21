@@ -45,10 +45,10 @@
       "@type": "rdf:Property",
       "http://purl.org/dc/terms/source": [
         {
-          "@id": "http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO"
+          "@id": "https://github.com/schemaorg/schemaorg/issues/1253"
         },
         {
-          "@id": "https://github.com/schemaorg/schemaorg/issues/1253"
+          "@id": "http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO"
         }
       ],
       "http://schema.org/category": "issue-1253",
@@ -127,10 +127,10 @@
       },
       "http://schema.org/rangeIncludes": [
         {
-          "@id": "http://schema.org/Place"
+          "@id": "http://schema.org/GeospatialGeometry"
         },
         {
-          "@id": "http://schema.org/GeospatialGeometry"
+          "@id": "http://schema.org/Place"
         }
       ],
       "rdfs:comment": "Represents spatial relations in which two geometries (or the places they represent) are topologically disjoint: they have no point in common. They form a set of disconnected geometries.\" (a symmetric relationship, as defined in <a href=\"https://en.wikipedia.org/wiki/DE-9IM\">DE-9IM</a>)",
@@ -153,20 +153,33 @@
       }
     },
     {
-      "@id": "http://schema.org/GeospatialGeometry",
-      "@type": "rdfs:Class",
+      "@id": "http://schema.org/geospatiallyTouches",
+      "@type": "rdf:Property",
       "http://purl.org/dc/terms/source": {
         "@id": "https://github.com/schemaorg/schemaorg/issues/1375"
       },
       "http://schema.org/category": "issue-1375",
+      "http://schema.org/domainIncludes": [
+        {
+          "@id": "http://schema.org/GeospatialGeometry"
+        },
+        {
+          "@id": "http://schema.org/Place"
+        }
+      ],
       "http://schema.org/isPartOf": {
         "@id": "http://pending.schema.org"
       },
-      "rdfs:comment": "(Eventually to be defined as) a supertype of GeoShape designed to accommodate definitions from Geo-Spatial best practices.",
-      "rdfs:label": "GeospatialGeometry",
-      "rdfs:subClassOf": {
-        "@id": "http://schema.org/Intangible"
-      }
+      "http://schema.org/rangeIncludes": [
+        {
+          "@id": "http://schema.org/Place"
+        },
+        {
+          "@id": "http://schema.org/GeospatialGeometry"
+        }
+      ],
+      "rdfs:comment": "Represents spatial relations in which two geometries (or the places they represent) touch: they have at least one boundary point in common, but no interior points.\" (a symmetric relationship, as defined in <a href=\"https://en.wikipedia.org/wiki/DE-9IM\">DE-9IM</a> )",
+      "rdfs:label": "geospatiallyTouches"
     },
     {
       "@id": "http://schema.org/SpeakableSpecification",
@@ -185,33 +198,28 @@
       }
     },
     {
-      "@id": "http://schema.org/cashBack",
+      "@id": "http://schema.org/variableMeasured",
       "@type": "rdf:Property",
-      "http://purl.org/dc/terms/source": [
-        {
-          "@id": "https://github.com/schemaorg/schemaorg/issues/1253"
-        },
-        {
-          "@id": "http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO"
-        }
-      ],
-      "http://schema.org/category": "issue-1253",
+      "http://purl.org/dc/terms/source": {
+        "@id": "https://github.com/schemaorg/schemaorg/issues/1083"
+      },
+      "http://schema.org/category": "issue-1083",
       "http://schema.org/domainIncludes": {
-        "@id": "http://schema.org/PaymentCard"
+        "@id": "http://schema.org/Dataset"
       },
       "http://schema.org/isPartOf": {
         "@id": "http://pending.schema.org"
       },
       "http://schema.org/rangeIncludes": [
         {
-          "@id": "http://schema.org/Number"
+          "@id": "http://schema.org/PropertyValue"
         },
         {
-          "@id": "http://schema.org/Boolean"
+          "@id": "http://schema.org/Text"
         }
       ],
-      "rdfs:comment": "A cardholder benefit that pays the cardholder a small percentage of their net expenditures.",
-      "rdfs:label": "cashBack"
+      "rdfs:comment": "The variableMeasured property can indicate (repeated as necessary) the  variables that are measured in some dataset, either described as text or as pairs of identifier and description using PropertyValue.",
+      "rdfs:label": "variableMeasured"
     },
     {
       "@id": "http://schema.org/AMRadioChannel",
@@ -264,10 +272,10 @@
       "http://schema.org/category": "issue-1375",
       "http://schema.org/domainIncludes": [
         {
-          "@id": "http://schema.org/GeospatialGeometry"
+          "@id": "http://schema.org/Place"
         },
         {
-          "@id": "http://schema.org/Place"
+          "@id": "http://schema.org/GeospatialGeometry"
         }
       ],
       "http://schema.org/isPartOf": {
@@ -275,10 +283,10 @@
       },
       "http://schema.org/rangeIncludes": [
         {
-          "@id": "http://schema.org/GeospatialGeometry"
+          "@id": "http://schema.org/Place"
         },
         {
-          "@id": "http://schema.org/Place"
+          "@id": "http://schema.org/GeospatialGeometry"
         }
       ],
       "rdfs:comment": "Represents a relationship between two geometries (or the places they represent), relating a geometry to another that covers it. As defined in <a href=\"https://en.wikipedia.org/wiki/DE-9IM\">DE-9IM</a>.",
@@ -417,6 +425,25 @@
       }
     },
     {
+      "@id": "http://schema.org/healthPlanCopay",
+      "@type": "rdf:Property",
+      "http://purl.org/dc/terms/source": {
+        "@id": "https://github.com/schemaorg/schemaorg/issues/1062"
+      },
+      "http://schema.org/category": "issue-1062",
+      "http://schema.org/domainIncludes": {
+        "@id": "http://schema.org/HealthPlanCostSharingSpecification"
+      },
+      "http://schema.org/isPartOf": {
+        "@id": "http://pending.schema.org"
+      },
+      "http://schema.org/rangeIncludes": {
+        "@id": "http://schema.org/PriceSpecification"
+      },
+      "rdfs:comment": "Whether The copay amount.",
+      "rdfs:label": "healthPlanCopay"
+    },
+    {
       "@id": "http://schema.org/educationalCredentialAwarded",
       "@type": "rdf:Property",
       "http://purl.org/dc/terms/source": {
@@ -456,10 +483,10 @@
       "http://schema.org/category": "issue-1375",
       "http://schema.org/domainIncludes": [
         {
-          "@id": "http://schema.org/Place"
+          "@id": "http://schema.org/GeospatialGeometry"
         },
         {
-          "@id": "http://schema.org/GeospatialGeometry"
+          "@id": "http://schema.org/Place"
         }
       ],
       "http://schema.org/isPartOf": {
@@ -467,10 +494,10 @@
       },
       "http://schema.org/rangeIncludes": [
         {
-          "@id": "http://schema.org/GeospatialGeometry"
+          "@id": "http://schema.org/Place"
         },
         {
-          "@id": "http://schema.org/Place"
+          "@id": "http://schema.org/GeospatialGeometry"
         }
       ],
       "rdfs:comment": "Represents a relationship between two geometries (or the places they represent), relating a geometry to one that contains it, i.e. it is inside (i.e. within) its interior. As defined in <a href=\"https://en.wikipedia.org/wiki/DE-9IM\">DE-9IM</a>.",
@@ -502,6 +529,22 @@
         "@id": "https://github.com/schemaorg/schemaorg/issues/195"
       },
       "http://schema.org/category": "issue-195"
+    },
+    {
+      "@id": "http://schema.org/GeospatialGeometry",
+      "@type": "rdfs:Class",
+      "http://purl.org/dc/terms/source": {
+        "@id": "https://github.com/schemaorg/schemaorg/issues/1375"
+      },
+      "http://schema.org/category": "issue-1375",
+      "http://schema.org/isPartOf": {
+        "@id": "http://pending.schema.org"
+      },
+      "rdfs:comment": "(Eventually to be defined as) a supertype of GeoShape designed to accommodate definitions from Geo-Spatial best practices.",
+      "rdfs:label": "GeospatialGeometry",
+      "rdfs:subClassOf": {
+        "@id": "http://schema.org/Intangible"
+      }
     },
     {
       "@id": "http://schema.org/BedType",
@@ -549,20 +592,30 @@
       "rdfs:label": "usesHealthPlanIdStandard"
     },
     {
-      "@id": "http://schema.org/CompleteDataFeed",
-      "@type": "rdfs:Class",
-      "http://purl.org/dc/terms/source": {
-        "@id": "https://github.com/schemaorg/schemaorg/issues/1397"
-      },
-      "http://schema.org/category": "issue-1397",
+      "@id": "http://schema.org/exchangeRate",
+      "@type": "rdf:Property",
+      "http://purl.org/dc/terms/source": [
+        {
+          "@id": "http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO"
+        },
+        {
+          "@id": "https://github.com/schemaorg/schemaorg/issues/1253"
+        }
+      ],
+      "http://schema.org/category": "issue-1253",
       "http://schema.org/isPartOf": {
         "@id": "http://pending.schema.org"
       },
-      "rdfs:comment": "A <a class=\"localLink\" href=\"http://schema.org/CompleteDataFeed\">CompleteDataFeed</a> is a <a class=\"localLink\" href=\"http://schema.org/DataFeed\">DataFeed</a> whose standard representation includes content for every item currently in the feed.</p>\n\n<p>This is the equivalent of Atom's element as defined in Feed Paging and Archiving <a href=\"https://tools.ietf.org/html/rfc5005\">RFC 5005</a>, For example (and as defined for Atom), when using data from a feed that represents a collection of items that varies over time (e.g. \"Top Twenty Records\") there is no need to have newer entries mixed in alongside older, obsolete entries. By marking this feed as a CompleteDataFeed, old entries can be safely discarded when the feed is refreshed, since we can assume the feed has provided descriptions for all current items.",
-      "rdfs:label": "CompleteDataFeed",
-      "rdfs:subClassOf": {
-        "@id": "http://schema.org/DataFeed"
-      }
+      "http://schema.org/rangeIncludes": [
+        {
+          "@id": "http://schema.org/UnitPriceSpecification"
+        },
+        {
+          "@id": "http://schema.org/ExchangeRateSpecification"
+        }
+      ],
+      "rdfs:comment": "The price of a currency in terms of another currency.",
+      "rdfs:label": "exchangeRate"
     },
     {
       "@id": "http://schema.org/beneficiaryBank",
@@ -584,10 +637,10 @@
       },
       "http://schema.org/rangeIncludes": [
         {
-          "@id": "http://schema.org/BankOrCreditUnion"
+          "@id": "http://schema.org/Text"
         },
         {
-          "@id": "http://schema.org/Text"
+          "@id": "http://schema.org/BankOrCreditUnion"
         }
       ],
       "rdfs:comment": "A bank or bank’s branch, financial institution or international financial institution operating the beneficiary’s bank account or releasing funds for the beneficiary",
@@ -613,23 +666,26 @@
       "rdfs:label": "codeValue"
     },
     {
-      "@id": "http://schema.org/healthPlanId",
+      "@id": "http://schema.org/hasCategoryCode",
       "@type": "rdf:Property",
       "http://purl.org/dc/terms/source": {
-        "@id": "https://github.com/schemaorg/schemaorg/issues/1062"
+        "@id": "https://github.com/schemaorg/schemaorg/issues/894"
       },
-      "http://schema.org/category": "issue-1062",
+      "http://schema.org/category": "issue-894",
       "http://schema.org/domainIncludes": {
-        "@id": "http://schema.org/HealthInsurancePlan"
+        "@id": "http://schema.org/CategoryCodeSet"
       },
       "http://schema.org/isPartOf": {
         "@id": "http://pending.schema.org"
       },
       "http://schema.org/rangeIncludes": {
-        "@id": "http://schema.org/Text"
+        "@id": "http://schema.org/CategoryCode"
       },
-      "rdfs:comment": "The 14-character, HIOS-generated Plan ID number. (Plan IDs must be unique, even across different markets.)",
-      "rdfs:label": "healthPlanId"
+      "rdfs:comment": "A Category code contained in this code set.",
+      "rdfs:label": "hasCategoryCode",
+      "rdfs:subPropertyOf": {
+        "@id": "http://schema.org/hasPart"
+      }
     },
     {
       "@id": "http://schema.org/LibrarySystem",
@@ -668,10 +724,10 @@
       "@type": "rdf:Property",
       "http://purl.org/dc/terms/source": [
         {
-          "@id": "http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO"
+          "@id": "https://github.com/schemaorg/schemaorg/issues/1253"
         },
         {
-          "@id": "https://github.com/schemaorg/schemaorg/issues/1253"
+          "@id": "http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO"
         }
       ],
       "http://schema.org/category": "issue-1253",
@@ -712,10 +768,10 @@
       },
       "http://schema.org/rangeIncludes": [
         {
-          "@id": "http://schema.org/Number"
+          "@id": "http://schema.org/MonetaryAmount"
         },
         {
-          "@id": "http://schema.org/MonetaryAmount"
+          "@id": "http://schema.org/Number"
         }
       ],
       "rdfs:comment": "The minimum payment is the lowest amount of money that one is required to pay on a credit card statement each month.",
@@ -779,10 +835,10 @@
       },
       "http://schema.org/rangeIncludes": [
         {
-          "@id": "http://schema.org/URL"
+          "@id": "http://schema.org/CreativeWork"
         },
         {
-          "@id": "http://schema.org/CreativeWork"
+          "@id": "http://schema.org/URL"
         }
       ],
       "rdfs:comment": "Further documentation describing the Web API in more detail.",
@@ -813,38 +869,43 @@
       "rdfs:label": "loanMortgageMandateAmount"
     },
     {
-      "@id": "http://schema.org/accountOverdraftLimit",
+      "@id": "http://schema.org/geospatiallyOverlaps",
       "@type": "rdf:Property",
-      "http://purl.org/dc/terms/source": [
+      "http://purl.org/dc/terms/source": {
+        "@id": "https://github.com/schemaorg/schemaorg/issues/1375"
+      },
+      "http://schema.org/category": "issue-1375",
+      "http://schema.org/domainIncludes": [
         {
-          "@id": "https://github.com/schemaorg/schemaorg/issues/1253"
+          "@id": "http://schema.org/GeospatialGeometry"
         },
         {
-          "@id": "http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO"
+          "@id": "http://schema.org/Place"
         }
       ],
-      "http://schema.org/category": "issue-1253",
-      "http://schema.org/domainIncludes": {
-        "@id": "http://schema.org/BankAccount"
-      },
       "http://schema.org/isPartOf": {
         "@id": "http://pending.schema.org"
       },
-      "http://schema.org/rangeIncludes": {
-        "@id": "http://schema.org/MonetaryAmount"
-      },
-      "rdfs:comment": "An overdraft is an extension of credit from a lending institution when an account reaches zero. An overdraft allows the individual to continue withdrawing money even if the account has no funds in it. Basically the bank allows people to borrow a set amount of money.",
-      "rdfs:label": "accountOverdraftLimit"
+      "http://schema.org/rangeIncludes": [
+        {
+          "@id": "http://schema.org/GeospatialGeometry"
+        },
+        {
+          "@id": "http://schema.org/Place"
+        }
+      ],
+      "rdfs:comment": "Represents a relationship between two geometries (or the places they represent), relating a geometry to another that geospatially overlaps it, i.e. they have some but not all points in common. As defined in <a href=\"https://en.wikipedia.org/wiki/DE-9IM\">DE-9IM</a>.",
+      "rdfs:label": "geospatiallyOverlaps"
     },
     {
       "@id": "http://schema.org/contactlessPayment",
       "@type": "rdf:Property",
       "http://purl.org/dc/terms/source": [
         {
-          "@id": "http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO"
+          "@id": "https://github.com/schemaorg/schemaorg/issues/1253"
         },
         {
-          "@id": "https://github.com/schemaorg/schemaorg/issues/1253"
+          "@id": "http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO"
         }
       ],
       "http://schema.org/category": "issue-1253",
@@ -973,10 +1034,10 @@
       "http://schema.org/category": "issue-1062",
       "http://schema.org/domainIncludes": [
         {
-          "@id": "http://schema.org/HealthPlanFormulary"
+          "@id": "http://schema.org/HealthInsurancePlan"
         },
         {
-          "@id": "http://schema.org/HealthInsurancePlan"
+          "@id": "http://schema.org/HealthPlanFormulary"
         }
       ],
       "http://schema.org/isPartOf": {
@@ -1021,10 +1082,10 @@
       "http://schema.org/category": "issue-1004",
       "http://schema.org/domainIncludes": [
         {
-          "@id": "http://schema.org/BroadcastService"
+          "@id": "http://schema.org/BroadcastChannel"
         },
         {
-          "@id": "http://schema.org/BroadcastChannel"
+          "@id": "http://schema.org/BroadcastService"
         }
       ],
       "http://schema.org/isPartOf": {
@@ -1061,38 +1122,43 @@
       "rdfs:label": "benefitsSummaryUrl"
     },
     {
-      "@id": "http://schema.org/variableMeasured",
+      "@id": "http://schema.org/cashBack",
       "@type": "rdf:Property",
-      "http://purl.org/dc/terms/source": {
-        "@id": "https://github.com/schemaorg/schemaorg/issues/1083"
-      },
-      "http://schema.org/category": "issue-1083",
+      "http://purl.org/dc/terms/source": [
+        {
+          "@id": "https://github.com/schemaorg/schemaorg/issues/1253"
+        },
+        {
+          "@id": "http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO"
+        }
+      ],
+      "http://schema.org/category": "issue-1253",
       "http://schema.org/domainIncludes": {
-        "@id": "http://schema.org/Dataset"
+        "@id": "http://schema.org/PaymentCard"
       },
       "http://schema.org/isPartOf": {
         "@id": "http://pending.schema.org"
       },
       "http://schema.org/rangeIncludes": [
         {
-          "@id": "http://schema.org/Text"
+          "@id": "http://schema.org/Boolean"
         },
         {
-          "@id": "http://schema.org/PropertyValue"
+          "@id": "http://schema.org/Number"
         }
       ],
-      "rdfs:comment": "The variableMeasured property can indicate (repeated as necessary) the  variables that are measured in some dataset, either described as text or as pairs of identifier and description using PropertyValue.",
-      "rdfs:label": "variableMeasured"
+      "rdfs:comment": "A cardholder benefit that pays the cardholder a small percentage of their net expenditures.",
+      "rdfs:label": "cashBack"
     },
     {
       "@id": "http://schema.org/BrokerageAccount",
       "@type": "rdfs:Class",
       "http://purl.org/dc/terms/source": [
         {
-          "@id": "http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO"
+          "@id": "https://github.com/schemaorg/schemaorg/issues/1253"
         },
         {
-          "@id": "https://github.com/schemaorg/schemaorg/issues/1253"
+          "@id": "http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO"
         }
       ],
       "http://schema.org/category": "issue-1253",
@@ -1106,52 +1172,28 @@
       }
     },
     {
-      "@id": "http://schema.org/geospatiallyContains",
+      "@id": "http://schema.org/broadcastFrequencyValue",
       "@type": "rdf:Property",
       "http://purl.org/dc/terms/source": {
-        "@id": "https://github.com/schemaorg/schemaorg/issues/1375"
+        "@id": "https://github.com/schemaorg/schemaorg/issues/1004"
       },
-      "http://schema.org/category": "issue-1375",
-      "http://schema.org/domainIncludes": [
-        {
-          "@id": "http://schema.org/GeospatialGeometry"
-        },
-        {
-          "@id": "http://schema.org/Place"
-        }
-      ],
+      "http://schema.org/category": "issue-1004",
+      "http://schema.org/domainIncludes": {
+        "@id": "http://schema.org/BroadcastFrequencySpecification"
+      },
       "http://schema.org/isPartOf": {
         "@id": "http://pending.schema.org"
       },
       "http://schema.org/rangeIncludes": [
         {
-          "@id": "http://schema.org/GeospatialGeometry"
+          "@id": "http://schema.org/Number"
         },
         {
-          "@id": "http://schema.org/Place"
+          "@id": "http://schema.org/QuantitativeValue"
         }
       ],
-      "rdfs:comment": "Represents a relationship between two geometries (or the places they represent), relating a containing geometry to a contained geometry. \"a contains b iff no points of b lie in the exterior of a, and at least one point of the interior of b lies in the interior of a\". As defined in <a href=\"https://en.wikipedia.org/wiki/DE-9IM\">DE-9IM</a>.",
-      "rdfs:label": "geospatiallyContains"
-    },
-    {
-      "@id": "http://schema.org/isAcceptingNewPatients",
-      "@type": "rdf:Property",
-      "http://purl.org/dc/terms/source": {
-        "@id": "https://github.com/schemaorg/schemaorg/issues/1062"
-      },
-      "http://schema.org/category": "issue-1062",
-      "http://schema.org/domainIncludes": {
-        "@id": "http://schema.org/MedicalOrganization"
-      },
-      "http://schema.org/isPartOf": {
-        "@id": "http://pending.schema.org"
-      },
-      "http://schema.org/rangeIncludes": {
-        "@id": "http://schema.org/Boolean"
-      },
-      "rdfs:comment": "Whether the provider is accepting new patients.",
-      "rdfs:label": "isAcceptingNewPatients"
+      "rdfs:comment": "The frequency in MHz for a particular broadcast.",
+      "rdfs:label": "broadcastFrequencyValue"
     },
     {
       "@id": "http://schema.org/linkRelationship",
@@ -1181,10 +1223,10 @@
       "http://schema.org/category": "issue-1375",
       "http://schema.org/domainIncludes": [
         {
-          "@id": "http://schema.org/Place"
+          "@id": "http://schema.org/GeospatialGeometry"
         },
         {
-          "@id": "http://schema.org/GeospatialGeometry"
+          "@id": "http://schema.org/Place"
         }
       ],
       "http://schema.org/isPartOf": {
@@ -1202,26 +1244,23 @@
       "rdfs:label": "geospatiallyCrosses"
     },
     {
-      "@id": "http://schema.org/hasCategoryCode",
+      "@id": "http://schema.org/healthPlanId",
       "@type": "rdf:Property",
       "http://purl.org/dc/terms/source": {
-        "@id": "https://github.com/schemaorg/schemaorg/issues/894"
+        "@id": "https://github.com/schemaorg/schemaorg/issues/1062"
       },
-      "http://schema.org/category": "issue-894",
+      "http://schema.org/category": "issue-1062",
       "http://schema.org/domainIncludes": {
-        "@id": "http://schema.org/CategoryCodeSet"
+        "@id": "http://schema.org/HealthInsurancePlan"
       },
       "http://schema.org/isPartOf": {
         "@id": "http://pending.schema.org"
       },
       "http://schema.org/rangeIncludes": {
-        "@id": "http://schema.org/CategoryCode"
+        "@id": "http://schema.org/Text"
       },
-      "rdfs:comment": "A Category code contained in this code set.",
-      "rdfs:label": "hasCategoryCode",
-      "rdfs:subPropertyOf": {
-        "@id": "http://schema.org/hasPart"
-      }
+      "rdfs:comment": "The 14-character, HIOS-generated Plan ID number. (Plan IDs must be unique, even across different markets.)",
+      "rdfs:label": "healthPlanId"
     },
     {
       "@id": "http://schema.org/geospatiallyIntersects",
@@ -1232,10 +1271,10 @@
       "http://schema.org/category": "issue-1375",
       "http://schema.org/domainIncludes": [
         {
-          "@id": "http://schema.org/Place"
+          "@id": "http://schema.org/GeospatialGeometry"
         },
         {
-          "@id": "http://schema.org/GeospatialGeometry"
+          "@id": "http://schema.org/Place"
         }
       ],
       "http://schema.org/isPartOf": {
@@ -1243,10 +1282,10 @@
       },
       "http://schema.org/rangeIncludes": [
         {
-          "@id": "http://schema.org/Place"
+          "@id": "http://schema.org/GeospatialGeometry"
         },
         {
-          "@id": "http://schema.org/GeospatialGeometry"
+          "@id": "http://schema.org/Place"
         }
       ],
       "rdfs:comment": "Represents spatial relations in which two geometries (or the places they represent) have at least one point in common. As defined in <a href=\"https://en.wikipedia.org/wiki/DE-9IM\">DE-9IM</a>.",
@@ -1307,10 +1346,10 @@
       "@type": "rdf:Property",
       "http://purl.org/dc/terms/source": [
         {
-          "@id": "http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO"
+          "@id": "https://github.com/schemaorg/schemaorg/issues/1253"
         },
         {
-          "@id": "https://github.com/schemaorg/schemaorg/issues/1253"
+          "@id": "http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO"
         }
       ],
       "http://schema.org/category": "issue-1253",
@@ -1346,10 +1385,10 @@
       },
       "http://schema.org/rangeIncludes": [
         {
-          "@id": "http://schema.org/Place"
+          "@id": "http://schema.org/GeospatialGeometry"
         },
         {
-          "@id": "http://schema.org/GeospatialGeometry"
+          "@id": "http://schema.org/Place"
         }
       ],
       "rdfs:comment": "Represents a relationship between two geometries (or the places they represent), relating a covering geometry to a covered geometry. \"Every point of b is a point of (the interior or boundary of) a\". As defined in <a href=\"https://en.wikipedia.org/wiki/DE-9IM\">DE-9IM</a>.",
@@ -1360,10 +1399,10 @@
       "@type": "rdf:Property",
       "http://purl.org/dc/terms/source": [
         {
-          "@id": "http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO"
+          "@id": "https://github.com/schemaorg/schemaorg/issues/1253"
         },
         {
-          "@id": "https://github.com/schemaorg/schemaorg/issues/1253"
+          "@id": "http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO"
         }
       ],
       "http://schema.org/category": "issue-1253",
@@ -1476,12 +1515,20 @@
       "rdfs:label": "healthPlanNetworkTier"
     },
     {
-      "@id": "http://schema.org/Course",
+      "@id": "http://schema.org/HealthPlanCostSharingSpecification",
       "@type": "rdfs:Class",
       "http://purl.org/dc/terms/source": {
-        "@id": "https://github.com/schemaorg/schemaorg/issues/195"
+        "@id": "https://github.com/schemaorg/schemaorg/issues/1062"
       },
-      "http://schema.org/category": "issue-195"
+      "http://schema.org/category": "issue-1062",
+      "http://schema.org/isPartOf": {
+        "@id": "http://pending.schema.org"
+      },
+      "rdfs:comment": "A description of costs to the patient under a given network or formulary.",
+      "rdfs:label": "HealthPlanCostSharingSpecification",
+      "rdfs:subClassOf": {
+        "@id": "http://schema.org/Intangible"
+      }
     },
     {
       "@id": "http://schema.org/Quotation",
@@ -1516,33 +1563,23 @@
       }
     },
     {
-      "@id": "http://schema.org/geospatiallyTouches",
+      "@id": "http://schema.org/isAcceptingNewPatients",
       "@type": "rdf:Property",
       "http://purl.org/dc/terms/source": {
-        "@id": "https://github.com/schemaorg/schemaorg/issues/1375"
+        "@id": "https://github.com/schemaorg/schemaorg/issues/1062"
       },
-      "http://schema.org/category": "issue-1375",
-      "http://schema.org/domainIncludes": [
-        {
-          "@id": "http://schema.org/GeospatialGeometry"
-        },
-        {
-          "@id": "http://schema.org/Place"
-        }
-      ],
+      "http://schema.org/category": "issue-1062",
+      "http://schema.org/domainIncludes": {
+        "@id": "http://schema.org/MedicalOrganization"
+      },
       "http://schema.org/isPartOf": {
         "@id": "http://pending.schema.org"
       },
-      "http://schema.org/rangeIncludes": [
-        {
-          "@id": "http://schema.org/GeospatialGeometry"
-        },
-        {
-          "@id": "http://schema.org/Place"
-        }
-      ],
-      "rdfs:comment": "Represents spatial relations in which two geometries (or the places they represent) touch: they have at least one boundary point in common, but no interior points.\" (a symmetric relationship, as defined in <a href=\"https://en.wikipedia.org/wiki/DE-9IM\">DE-9IM</a> )",
-      "rdfs:label": "geospatiallyTouches"
+      "http://schema.org/rangeIncludes": {
+        "@id": "http://schema.org/Boolean"
+      },
+      "rdfs:comment": "Whether the provider is accepting new patients.",
+      "rdfs:label": "isAcceptingNewPatients"
     },
     {
       "@id": "http://schema.org/healthPlanDrugOption",
@@ -1568,10 +1605,10 @@
       "@type": "rdf:Property",
       "http://purl.org/dc/terms/source": [
         {
-          "@id": "http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO"
+          "@id": "https://github.com/schemaorg/schemaorg/issues/1253"
         },
         {
-          "@id": "https://github.com/schemaorg/schemaorg/issues/1253"
+          "@id": "http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO"
         }
       ],
       "http://schema.org/category": "issue-1253",
@@ -1618,13 +1655,13 @@
           "@id": "http://schema.org/PropertyValue"
         },
         {
-          "@id": "http://schema.org/DataDownload"
+          "@id": "http://schema.org/Dataset"
         },
         {
           "@id": "http://schema.org/DataCatalog"
         },
         {
-          "@id": "http://schema.org/Dataset"
+          "@id": "http://schema.org/DataDownload"
         }
       ],
       "http://schema.org/isPartOf": {
@@ -1632,10 +1669,10 @@
       },
       "http://schema.org/rangeIncludes": [
         {
-          "@id": "http://schema.org/URL"
+          "@id": "http://schema.org/Text"
         },
         {
-          "@id": "http://schema.org/Text"
+          "@id": "http://schema.org/URL"
         }
       ],
       "rdfs:comment": "A technique or technology used in a <a class=\"localLink\" href=\"http://schema.org/Dataset\">Dataset</a> (or <a class=\"localLink\" href=\"http://schema.org/DataDownload\">DataDownload</a>, <a class=\"localLink\" href=\"http://schema.org/DataCatalog\">DataCatalog</a>),\ncorresponding to the method used for measuring the corresponding variable(s) (described using <a class=\"localLink\" href=\"http://schema.org/variableMeasured\">variableMeasured</a>). This is oriented towards scientific and scholarly dataset publication but may have broader applicability; it is not intended as a full representation of measurement, but rather as a high level summary for dataset discovery.</p>\n\n<p>For example, if <a class=\"localLink\" href=\"http://schema.org/variableMeasured\">variableMeasured</a> is: molecule concentration, <a class=\"localLink\" href=\"http://schema.org/measurementTechnique\">measurementTechnique</a> could be: \"mass spectrometry\" or \"nmr spectroscopy\" or \"colorimetry\" or \"immunofluorescence\".</p>\n\n<p>If the <a class=\"localLink\" href=\"http://schema.org/variableMeasured\">variableMeasured</a> is \"depression rating\", the <a class=\"localLink\" href=\"http://schema.org/measurementTechnique\">measurementTechnique</a> could be \"Zung Scale\" or \"HAM-D\" or \"Beck Depression Inventory\".</p>\n\n<p>If there are several <a class=\"localLink\" href=\"http://schema.org/variableMeasured\">variableMeasured</a> properties recorded for some given data object, use a <a class=\"localLink\" href=\"http://schema.org/PropertyValue\">PropertyValue</a> for each <a class=\"localLink\" href=\"http://schema.org/variableMeasured\">variableMeasured</a> and attach the corresponding <a class=\"localLink\" href=\"http://schema.org/measurementTechnique\">measurementTechnique</a>.",
@@ -1674,20 +1711,12 @@
       }
     },
     {
-      "@id": "http://schema.org/HealthPlanCostSharingSpecification",
+      "@id": "http://schema.org/Course",
       "@type": "rdfs:Class",
       "http://purl.org/dc/terms/source": {
-        "@id": "https://github.com/schemaorg/schemaorg/issues/1062"
+        "@id": "https://github.com/schemaorg/schemaorg/issues/195"
       },
-      "http://schema.org/category": "issue-1062",
-      "http://schema.org/isPartOf": {
-        "@id": "http://pending.schema.org"
-      },
-      "rdfs:comment": "A description of costs to the patient under a given network or formulary.",
-      "rdfs:label": "HealthPlanCostSharingSpecification",
-      "rdfs:subClassOf": {
-        "@id": "http://schema.org/Intangible"
-      }
+      "http://schema.org/category": "issue-195"
     },
     {
       "@id": "http://schema.org/InvestmentFund",
@@ -1711,38 +1740,43 @@
       }
     },
     {
-      "@id": "http://schema.org/broadcastFrequencyValue",
+      "@id": "http://schema.org/geospatiallyContains",
       "@type": "rdf:Property",
       "http://purl.org/dc/terms/source": {
-        "@id": "https://github.com/schemaorg/schemaorg/issues/1004"
+        "@id": "https://github.com/schemaorg/schemaorg/issues/1375"
       },
-      "http://schema.org/category": "issue-1004",
-      "http://schema.org/domainIncludes": {
-        "@id": "http://schema.org/BroadcastFrequencySpecification"
-      },
+      "http://schema.org/category": "issue-1375",
+      "http://schema.org/domainIncludes": [
+        {
+          "@id": "http://schema.org/GeospatialGeometry"
+        },
+        {
+          "@id": "http://schema.org/Place"
+        }
+      ],
       "http://schema.org/isPartOf": {
         "@id": "http://pending.schema.org"
       },
       "http://schema.org/rangeIncludes": [
         {
-          "@id": "http://schema.org/QuantitativeValue"
+          "@id": "http://schema.org/Place"
         },
         {
-          "@id": "http://schema.org/Number"
+          "@id": "http://schema.org/GeospatialGeometry"
         }
       ],
-      "rdfs:comment": "The frequency in MHz for a particular broadcast.",
-      "rdfs:label": "broadcastFrequencyValue"
+      "rdfs:comment": "Represents a relationship between two geometries (or the places they represent), relating a containing geometry to a contained geometry. \"a contains b iff no points of b lie in the exterior of a, and at least one point of the interior of b lies in the interior of a\". As defined in <a href=\"https://en.wikipedia.org/wiki/DE-9IM\">DE-9IM</a>.",
+      "rdfs:label": "geospatiallyContains"
     },
     {
       "@id": "http://schema.org/loanPaymentAmount",
       "@type": "rdf:Property",
       "http://purl.org/dc/terms/source": [
         {
-          "@id": "http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO"
+          "@id": "https://github.com/schemaorg/schemaorg/issues/1253"
         },
         {
-          "@id": "https://github.com/schemaorg/schemaorg/issues/1253"
+          "@id": "http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO"
         }
       ],
       "http://schema.org/category": "issue-1253",
@@ -1813,10 +1847,10 @@
       },
       "http://schema.org/rangeIncludes": [
         {
-          "@id": "http://schema.org/URL"
+          "@id": "http://schema.org/Text"
         },
         {
-          "@id": "http://schema.org/Text"
+          "@id": "http://schema.org/URL"
         }
       ],
       "rdfs:comment": "The type of a bank account.",
@@ -1897,30 +1931,20 @@
       "rdfs:label": "speakable"
     },
     {
-      "@id": "http://schema.org/exchangeRate",
-      "@type": "rdf:Property",
-      "http://purl.org/dc/terms/source": [
-        {
-          "@id": "https://github.com/schemaorg/schemaorg/issues/1253"
-        },
-        {
-          "@id": "http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO"
-        }
-      ],
-      "http://schema.org/category": "issue-1253",
+      "@id": "http://schema.org/CompleteDataFeed",
+      "@type": "rdfs:Class",
+      "http://purl.org/dc/terms/source": {
+        "@id": "https://github.com/schemaorg/schemaorg/issues/1397"
+      },
+      "http://schema.org/category": "issue-1397",
       "http://schema.org/isPartOf": {
         "@id": "http://pending.schema.org"
       },
-      "http://schema.org/rangeIncludes": [
-        {
-          "@id": "http://schema.org/ExchangeRateSpecification"
-        },
-        {
-          "@id": "http://schema.org/UnitPriceSpecification"
-        }
-      ],
-      "rdfs:comment": "The price of a currency in terms of another currency.",
-      "rdfs:label": "exchangeRate"
+      "rdfs:comment": "A <a class=\"localLink\" href=\"http://schema.org/CompleteDataFeed\">CompleteDataFeed</a> is a <a class=\"localLink\" href=\"http://schema.org/DataFeed\">DataFeed</a> whose standard representation includes content for every item currently in the feed.</p>\n\n<p>This is the equivalent of Atom's element as defined in Feed Paging and Archiving <a href=\"https://tools.ietf.org/html/rfc5005\">RFC 5005</a>, For example (and as defined for Atom), when using data from a feed that represents a collection of items that varies over time (e.g. \"Top Twenty Records\") there is no need to have newer entries mixed in alongside older, obsolete entries. By marking this feed as a CompleteDataFeed, old entries can be safely discarded when the feed is refreshed, since we can assume the feed has provided descriptions for all current items.",
+      "rdfs:label": "CompleteDataFeed",
+      "rdfs:subClassOf": {
+        "@id": "http://schema.org/DataFeed"
+      }
     },
     {
       "@id": "http://schema.org/coursePrerequisites",
@@ -1935,10 +1959,10 @@
       "@type": "rdf:Property",
       "http://purl.org/dc/terms/source": [
         {
-          "@id": "https://github.com/schemaorg/schemaorg/issues/1253"
+          "@id": "http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO"
         },
         {
-          "@id": "http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO"
+          "@id": "https://github.com/schemaorg/schemaorg/issues/1253"
         }
       ],
       "http://schema.org/category": "issue-1253",
@@ -1955,33 +1979,28 @@
       "rdfs:label": "numberOfLoanPayments"
     },
     {
-      "@id": "http://schema.org/geospatiallyOverlaps",
+      "@id": "http://schema.org/accountOverdraftLimit",
       "@type": "rdf:Property",
-      "http://purl.org/dc/terms/source": {
-        "@id": "https://github.com/schemaorg/schemaorg/issues/1375"
-      },
-      "http://schema.org/category": "issue-1375",
-      "http://schema.org/domainIncludes": [
+      "http://purl.org/dc/terms/source": [
         {
-          "@id": "http://schema.org/GeospatialGeometry"
+          "@id": "https://github.com/schemaorg/schemaorg/issues/1253"
         },
         {
-          "@id": "http://schema.org/Place"
+          "@id": "http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO"
         }
       ],
+      "http://schema.org/category": "issue-1253",
+      "http://schema.org/domainIncludes": {
+        "@id": "http://schema.org/BankAccount"
+      },
       "http://schema.org/isPartOf": {
         "@id": "http://pending.schema.org"
       },
-      "http://schema.org/rangeIncludes": [
-        {
-          "@id": "http://schema.org/GeospatialGeometry"
-        },
-        {
-          "@id": "http://schema.org/Place"
-        }
-      ],
-      "rdfs:comment": "Represents a relationship between two geometries (or the places they represent), relating a geometry to another that geospatially overlaps it, i.e. they have some but not all points in common. As defined in <a href=\"https://en.wikipedia.org/wiki/DE-9IM\">DE-9IM</a>.",
-      "rdfs:label": "geospatiallyOverlaps"
+      "http://schema.org/rangeIncludes": {
+        "@id": "http://schema.org/MonetaryAmount"
+      },
+      "rdfs:comment": "An overdraft is an extension of credit from a lending institution when an account reaches zero. An overdraft allows the individual to continue withdrawing money even if the account has no funds in it. Basically the bank allows people to borrow a set amount of money.",
+      "rdfs:label": "accountOverdraftLimit"
     },
     {
       "@id": "http://schema.org/contentReferenceTime",
@@ -2011,23 +2030,28 @@
       "http://schema.org/category": "issue-195"
     },
     {
-      "@id": "http://schema.org/healthPlanCopay",
+      "@id": "http://schema.org/recourseLoan",
       "@type": "rdf:Property",
-      "http://purl.org/dc/terms/source": {
-        "@id": "https://github.com/schemaorg/schemaorg/issues/1062"
-      },
-      "http://schema.org/category": "issue-1062",
+      "http://purl.org/dc/terms/source": [
+        {
+          "@id": "http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO"
+        },
+        {
+          "@id": "https://github.com/schemaorg/schemaorg/issues/1253"
+        }
+      ],
+      "http://schema.org/category": "issue-1253",
       "http://schema.org/domainIncludes": {
-        "@id": "http://schema.org/HealthPlanCostSharingSpecification"
+        "@id": "http://schema.org/LoanOrCredit"
       },
       "http://schema.org/isPartOf": {
         "@id": "http://pending.schema.org"
       },
       "http://schema.org/rangeIncludes": {
-        "@id": "http://schema.org/PriceSpecification"
+        "@id": "http://schema.org/Boolean"
       },
-      "rdfs:comment": "Whether The copay amount.",
-      "rdfs:label": "healthPlanCopay"
+      "rdfs:comment": "The only way you get the money back in the event of default is the security. Recourse is where you still have the opportunity to go back to the borrower for the rest of the money.",
+      "rdfs:label": "recourseLoan"
     },
     {
       "@id": "http://schema.org/LinkRole",
@@ -2155,10 +2179,10 @@
       "http://schema.org/category": "issue-1375",
       "http://schema.org/domainIncludes": [
         {
-          "@id": "http://schema.org/Place"
+          "@id": "http://schema.org/GeospatialGeometry"
         },
         {
-          "@id": "http://schema.org/GeospatialGeometry"
+          "@id": "http://schema.org/Place"
         }
       ],
       "http://schema.org/isPartOf": {
@@ -2180,10 +2204,10 @@
       "@type": "rdf:Property",
       "http://purl.org/dc/terms/source": [
         {
-          "@id": "http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO"
+          "@id": "https://github.com/schemaorg/schemaorg/issues/1253"
         },
         {
-          "@id": "https://github.com/schemaorg/schemaorg/issues/1253"
+          "@id": "http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO"
         }
       ],
       "http://schema.org/category": "issue-1253",
@@ -2195,10 +2219,10 @@
       },
       "http://schema.org/rangeIncludes": [
         {
-          "@id": "http://schema.org/Text"
+          "@id": "http://schema.org/URL"
         },
         {
-          "@id": "http://schema.org/URL"
+          "@id": "http://schema.org/Text"
         }
       ],
       "rdfs:comment": "The type of a loan or credit.",
@@ -2210,30 +2234,6 @@
       "http://schema.org/domainIncludes": {
         "@id": "http://schema.org/LinkRole"
       }
-    },
-    {
-      "@id": "http://schema.org/recourseLoan",
-      "@type": "rdf:Property",
-      "http://purl.org/dc/terms/source": [
-        {
-          "@id": "http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO"
-        },
-        {
-          "@id": "https://github.com/schemaorg/schemaorg/issues/1253"
-        }
-      ],
-      "http://schema.org/category": "issue-1253",
-      "http://schema.org/domainIncludes": {
-        "@id": "http://schema.org/LoanOrCredit"
-      },
-      "http://schema.org/isPartOf": {
-        "@id": "http://pending.schema.org"
-      },
-      "http://schema.org/rangeIncludes": {
-        "@id": "http://schema.org/Boolean"
-      },
-      "rdfs:comment": "The only way you get the money back in the event of default is the security. Recourse is where you still have the opportunity to go back to the borrower for the rest of the money.",
-      "rdfs:label": "recourseLoan"
     },
     {
       "@id": "http://schema.org/healthPlanNetworkId",
@@ -2314,10 +2314,10 @@
       },
       "http://schema.org/rangeIncludes": [
         {
-          "@id": "http://schema.org/URL"
+          "@id": "http://schema.org/CategoryCodeSet"
         },
         {
-          "@id": "http://schema.org/CategoryCodeSet"
+          "@id": "http://schema.org/URL"
         }
       ],
       "rdfs:comment": "A <a class=\"localLink\" href=\"http://schema.org/CategoryCodeSet\">CategoryCodeSet</a> that contains this catagory code.",
