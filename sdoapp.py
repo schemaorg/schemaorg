@@ -53,6 +53,7 @@ silent_skip_list =  [ "favicon.ico" ] # Do nothing for now
 
 all_layers = {}
 ext_re = re.compile(r'([^\w,])+')
+validNode_re = re.compile(r'[^\w\-_\/\.]')
 
 #TODO: Modes:
 # mainsite
@@ -2208,6 +2209,10 @@ class ShowUnit (webapp2.RequestHandler):
         #log.info("[%s] _get(%s)" % (getInstanceId(short=True),node))
 
         self.callCount()
+
+        if re.search( validNode_re, str(node)): #invalid node name
+            self.handle404Failure(node)
+            return False
 
         if (node in silent_skip_list):
             return False
