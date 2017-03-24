@@ -1,6 +1,12 @@
 <div>
-<!-- Short description here, issue @@@@ -->
+<!-- CHANGES 2016-08-17: (based on @njh/@danbri meeting see #1004)
+1. (nearly) retire BroadcastFrequencySpecification - Nick suggested this was overkill but needs thought.
+2. use existing RadioChannel, add two subtypes:
+3. retire broadcastSignalModulation, use subtypes of RadioChannel instead.
+4. TODO: review situation with properties, update example...
+-->
 
+<!-- nearly-retired-but-other-bits-reference-it 17 Aug. -->
 <div typeof="rdfs:Class" resource="http://schema.org/BroadcastFrequencySpecification">
    <span class="h" property="rdfs:label">BroadcastFrequencySpecification</span>
    <span property="rdfs:comment">The frequency in MHz and the modulation used for a particular BroadcastService.</span>
@@ -10,10 +16,31 @@
     <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
  </div>
 
+<!-- added, per 2. above, 17 Aug. -->
+<div typeof="rdfs:Class" resource="http://schema.org/FMRadioChannel">
+   <span class="h" property="rdfs:label">FMRadioChannel</span>
+   <span property="rdfs:comment">A radio channel that uses FM.</span>
+    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/RadioChannel">RadioChannel</a></span>
+    <span>Category: <span property="schema:category">issue-1004</span></span>
+    <span>Source:  <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1004">#1004</a></span>
+    <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
+ </div>
+ <div typeof="rdfs:Class" resource="http://schema.org/AMRadioChannel">
+    <span class="h" property="rdfs:label">AMRadioChannel</span>
+    <span property="rdfs:comment">A radio channel that uses AM.</span>
+     <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/RadioChannel">RadioChannel</a></span>
+     <span>Category: <span property="schema:category">issue-1004</span></span>
+     <span>Source:  <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1004">#1004</a></span>
+     <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
+  </div>
+
  <div typeof="rdf:Property" resource="http://schema.org/broadcastFrequency">
    <span class="h" property="rdfs:label">broadcastFrequency</span>
-   <span property="rdfs:comment">The frequency used for over-the-air broadcasts.</span>
+   <span property="rdfs:comment">The frequency used for over-the-air broadcasts. Numeric values or simple ranges e.g. 87-99. In addition a shortcut idiom is supported for frequences of AM and FM radio channels, e.g. "87 FM".</span>
    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/BroadcastService">BroadcastService</a></span>
+   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/BroadcastChannel">BroadcastChannel</a></span>
+
+   <!-- what to do here? -->
    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/BroadcastFrequencySpecification">BroadcastFrequencySpecification</a></span>
    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
    <span>Category: <span property="schema:category">issue-1004</span></span>
@@ -32,6 +59,26 @@
    <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
  </div>
 
+
+ <!-- added assertion of the inverse explicitly. -->
+ <div typeof="rdf:Property" resource="http://schema.org/providesBroadcastService">
+   <link property="http://schema.org/inverseOf" href="http://schema.org/hasBroadcastChannel"/>
+ </div>
+
+ <div typeof="rdf:Property" resource="http://schema.org/hasBroadcastChannel">
+   <span class="h" property="rdfs:label">hasBroadcastChannel</span>
+   <span property="rdfs:comment">A broadcast channel of a broadcast service.</span>
+   <link property="http://schema.org/inverseOf" href="http://schema.org/providesBroadcastService"/>
+   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/BroadcastService">BroadcastService</a></span>
+   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/BroadcastChannel">BroadcastChannel</a></span>
+   <span>Category: <span property="schema:category">issue-1004</span></span>
+   <span>Source:  <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1004">#1004</a></span>
+   <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
+ </div>
+
+
+ <!-- retired 17 Aug. -->
+<!--
  <div typeof="rdf:Property" resource="http://schema.org/broadcastSignalModulation">
    <span class="h" property="rdfs:label">broadcastSignalModulation</span>
    <span property="rdfs:comment">The modulation (e.g. FM, AM, etc) used by a particular broadcast service</span>
@@ -42,5 +89,6 @@
    <span>Source:  <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1004">#1004</a></span>
    <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
  </div>
+-->
 
 </div>

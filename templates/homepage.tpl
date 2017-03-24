@@ -16,7 +16,7 @@
 
 {% import 'ext.tpl' as ext with context %}
 
-{% if mybasehost in [ "sdo-deimos.appspot.com", "sdo-phobos.appspot.com", "sdo-ganymede.appspot.com", "sdo-gozer.appspot.com", "sdo-tully.appspot.com", "sdo-lenny.appspot.com", "webschemas.org", "sdo-scripts.appspot.com", "localhost" ] %}
+{% if mybasehost in [ "sdo-deimos.appspot.com", "sdo-phobos.appspot.com", "sdo-ganymede.appspot.com", "sdo-gozer.appspot.com", "sdo-callisto.appspot.com", "webschemas.org", "sdo-scripts.appspot.com", "localhost" ] %}
 
 <!--<p id="lli" class="layerinfo">
 Note: This is {{ mybasehost }}. you are viewing an unstable work-in-progress preview of <a href="http://schema.org/">schema.org</a>.
@@ -62,8 +62,8 @@ See the draft <b><a href="{{staticPath}}/docs/releases.html">releases</a></b> pa
     already use these vocabularies to power rich, extensible experiences.
 </p>
 <p>
-    Schema.org is sponsored by Google, Microsoft, Yahoo and Yandex.
-    The vocabularies are developed by an open <a href="https://www.w3.org/community/schemaorg">community</a> process,
+    Founded by Google, Microsoft, Yahoo and Yandex,
+    Schema.org vocabularies are developed by an open <a href="https://www.w3.org/community/schemaorg">community</a> process,
     using the <a
     href="http://lists.w3.org/Archives/Public/public-schemaorg">public-schemaorg@w3.org</a>
      mailing list and through <a href="http://github.com/schemaorg/schemaorg">GitHub</a>.
@@ -72,8 +72,8 @@ See the draft <b><a href="{{staticPath}}/docs/releases.html">releases</a></b> pa
 <p>
    A shared vocabulary makes it easier for webmasters and developers to decide
    on a schema and get the maximum benefit for their efforts.
-   It is in this spirit that the sponsors, together with the
-   larger community have come together, to provide a shared collection of schemas.
+   It is in this spirit that the founders, together with the
+   larger community have come together - to provide a shared collection of schemas.
  </p>
 
 <p>
