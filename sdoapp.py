@@ -38,7 +38,7 @@ from apimarkdown import Markdown
 
 from sdordf2csv import sdordf2csv
 
-SCHEMA_VERSION=3.2-fx.1
+SCHEMA_VERSION="3.2"
 
 FEEDBACK_FORM_BASE_URL='https://docs.google.com/a/google.com/forms/d/1krxHlWJAO3JgvHRZV9Rugkr9VYnMdrI10xbGsWt733c/viewform?entry.1174568178&entry.41124795={0}&entry.882602760={1}'
 # {0}: term URL, {1} category of term.
@@ -118,7 +118,7 @@ def getAppEngineVersion():
     if not getInTestHarness():
         from google.appengine.api.modules.modules import get_current_version_name
         ret = get_current_version_name()
-        log.info("AppEngineVersion '%s'" % ret)
+        #log.info("AppEngineVersion '%s'" % ret)
     return ret
 
 
@@ -592,8 +592,9 @@ class ShowUnit (webapp2.RequestHandler):
         comment = GetComment(node, layers)
 
         self.write(" <div property=\"rdfs:comment\">%s</div>\n\n" % (comment) + "\n")
-
-        self.write(" <br/><div>Usage: %s</div>\n\n" % (node.UsageStr()) + "\n")
+        usage = node.UsageStr()
+        if len(usage):
+            self.write(" <br/><div>Usage: %s</div>\n\n" % (usage) + "\n")
 
         #was:        self.write(self.moreInfoBlock(node))
 
@@ -1786,23 +1787,23 @@ class ShowUnit (webapp2.RequestHandler):
         return data
 
 
-    def handle404Failure(self, node, layers="core", extrainfo=None):
+    def handle404Failure(self, node, layers="core", extrainfo=None, suggest=True):
         self.error(404)
-        self.emitSchemaorgHeaders("404%20Missing")
+        self.emitSchemaorgHeaders("404 Not Found")
         self.response.out.write('<h3>404 Not Found.</h3><p><br/>Page not found. Please <a href="/">try the homepage.</a><br/><br/></p>')
 
+        if suggest:
+            clean_node = cleanPath(node)
 
-        clean_node = cleanPath(node)
+            log.debug("404: clean_node: clean_node: %s node: %s" % (clean_node, node))
 
-        log.debug("404: clean_node: clean_node: %s node: %s" % (clean_node, node))
+            base_term = Unit.GetUnit( node.rsplit('/')[0] )
+            if base_term != None :
+                self.response.out.write('<div>Perhaps you meant: <a href="/%s">%s</a></div> <br/><br/> ' % ( base_term.id, base_term.id ))
 
-        base_term = Unit.GetUnit( node.rsplit('/')[0] )
-        if base_term != None :
-            self.response.out.write('<div>Perhaps you meant: <a href="/%s">%s</a></div> <br/><br/> ' % ( base_term.id, base_term.id ))
-
-        base_actionprop = Unit.GetUnit( node.rsplit('-')[0] )
-        if base_actionprop != None :
-            self.response.out.write('<div>Looking for an <a href="/Action">Action</a>-related property? Note that xyz-input and xyz-output have <a href="/docs/actions.html">special meaning</a>. See also: <a href="/%s">%s</a></div> <br/><br/> ' % ( base_actionprop.id, base_actionprop.id ))
+            base_actionprop = Unit.GetUnit( node.rsplit('-')[0] )
+            if base_actionprop != None :
+                self.response.out.write('<div>Looking for an <a href="/Action">Action</a>-related property? Note that xyz-input and xyz-output have <a href="/docs/actions.html">special meaning</a>. See also: <a href="/%s">%s</a></div> <br/><br/> ' % ( base_actionprop.id, base_actionprop.id ))
         
         if extrainfo:
             self.response.out.write("<div>%s</div>" % extrainfo)
@@ -2221,10 +2222,6 @@ class ShowUnit (webapp2.RequestHandler):
 
         self.callCount()
 
-        if re.search( validNode_re, str(node)): #invalid node name
-            self.handle404Failure(node)
-            return False
-
         if (node in silent_skip_list):
             return False
 
@@ -2235,6 +2232,11 @@ class ShowUnit (webapp2.RequestHandler):
 
         setSiteName(self.getExtendedSiteName(layerlist)) # e.g. 'bib.schema.org', 'schema.org'
         log.debug("EXT: set sitename to %s " % getSiteName())
+
+        if re.search( validNode_re, str(node)): #invalid node name
+            self.handle404Failure(node,suggest=False)
+            return False
+
         if(node == "_ah/warmup"):
             if "localhost" in os.environ['SERVER_NAME'] and WarmupState.lower() == "auto":
                 log.info("[%s] Warmup dissabled for localhost instance" % getInstanceId(short=True))
