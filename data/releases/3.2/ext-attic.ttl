@@ -21,3 +21,11 @@ schema:stupidProperty a rdf:Property ;
     schema:rangeIncludes schema:QuantitativeValue ;
     rdfs:comment "This is a StupidProperty! - for testing only" .
 
+schema:variablesMeasured a rdf:Property ;
+    rdfs:label "variablesMeasured" ;
+    schema:domainIncludes schema:Dataset ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:PropertyValue,
+        schema:Text ;
+    rdfs:comment "Originally named <a class=\"localLink\" href=\"http://schema.org/variablesMeasured\">variablesMeasured</a>, The <a class=\"localLink\" href=\"http://schema.org/variableMeasured\">variableMeasured</a> property can indicate (repeated as necessary) the  variables that are measured in some dataset, either described as text or as pairs of identifier and description using PropertyValue." .
+

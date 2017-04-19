@@ -583,7 +583,7 @@ class Unit ():
         elif (str == '10'):
             return "Over 1,000,000 domains"
         else:
-            return "Fewer than 10 domains"
+            return ""
 
 # NOTE: each Triple is in exactly one layer, by default 'core'. When we
 # read_schemas() from data/ext/{x}/*.rdfa each schema triple is given a

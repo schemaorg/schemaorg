@@ -38,7 +38,7 @@ from apimarkdown import Markdown
 
 from sdordf2csv import sdordf2csv
 
-SCHEMA_VERSION=3.2
+SCHEMA_VERSION="3.2"
 
 FEEDBACK_FORM_BASE_URL='https://docs.google.com/a/google.com/forms/d/1krxHlWJAO3JgvHRZV9Rugkr9VYnMdrI10xbGsWt733c/viewform?entry.1174568178&entry.41124795={0}&entry.882602760={1}'
 # {0}: term URL, {1} category of term.
@@ -47,12 +47,13 @@ sitemode = "mainsite" # whitespaced list for CSS tags,
             # e.g. "mainsite testsite" when off expected domains
             # "extensionsite" when in an extension (e.g. blue?)
 
-releaselog = { "2.0": "2015-05-13", "2.1": "2015-08-06", "2.2": "2015-11-05", "3.0": "2016-05-04", "3.1": "2016-08-09" }
+releaselog = { "2.0": "2015-05-13", "2.1": "2015-08-06", "2.2": "2015-11-05", "3.0": "2016-05-04", "3.1": "2016-08-09", "3.2": "2017-03-23" }
 
 silent_skip_list =  [ "favicon.ico" ] # Do nothing for now
 
 all_layers = {}
 ext_re = re.compile(r'([^\w,])+')
+validNode_re = re.compile(r'[^\w\-_\/\.]')
 
 #TODO: Modes:
 # mainsite
@@ -111,6 +112,14 @@ elif "SERVER_NAME" in os.environ and ("localhost" in os.environ['SERVER_NAME'] a
 appver = "TestHarness Version"
 if "CURRENT_VERSION_ID" in os.environ:
     appver = os.environ["CURRENT_VERSION_ID"]
+
+def getAppEngineVersion():
+    ret = ""
+    if not getInTestHarness():
+        from google.appengine.api.modules.modules import get_current_version_name
+        ret = get_current_version_name()
+        #log.info("AppEngineVersion '%s'" % ret)
+    return ret
 
 
 instance_first = True
@@ -171,7 +180,7 @@ else: #Ensure clean start for any memcached or ndb store values...
         
         load_start = datetime.datetime.now()
         systarttime = datetime.datetime.utcnow()
-        memcache.set(key="app_initialising", value=True)
+        memcache.set(key="app_initialising", value=True, time=300)  #Give the system 5 mins - auto remove flag in case of crash
         log.info("[%s] Detected new code version - resetting memory values %s" % (getInstanceId(short=True),systarttime))
         memcache.set(key="static-version", value=appver)
         memcache.add(key="SysStart", value=systarttime)
@@ -185,7 +194,8 @@ else: #Ensure clean start for any memcached or ndb store values...
         log.debug("[%s] Awake >>>>>>>>>>>." % (getInstanceId(short=True)))
     else:
         time.sleep(0.5) #Give time for the initialisation flag (possibly being set in another thread/instance) to be set
-        waittime = 300
+        WAITCOUNT = 180
+        waittime = WAITCOUNT
         while waittime > 0:
             waittime -= 1
             flag = memcache.get("app_initialising") 
@@ -193,10 +203,10 @@ else: #Ensure clean start for any memcached or ndb store values...
                 break
                 
             log.debug("[%s] Waited %s seconds for intialisation to end memcahce value = %s" % (getInstanceId(short=True),
-                                                    (300 - waittime),memcache.get("app_initialising")))
+                                                    (WAITCOUNT - waittime),memcache.get("app_initialising")))
             time.sleep(1)
         if waittime <= 0:
-            log.info("%s] Waited 300 seconds for intialisation to end - proceeding anyway!"  % (getInstanceId(short=True)))
+            log.info("[%s] Waited %s seconds for intialisation to end - proceeding anyway!"  % (getInstanceId(short=True),WAITCOUNT))
 
         log.debug("[%s] End of waiting !!!!!!!!!!." % (getInstanceId(short=True)))
         tick()
@@ -582,8 +592,9 @@ class ShowUnit (webapp2.RequestHandler):
         comment = GetComment(node, layers)
 
         self.write(" <div property=\"rdfs:comment\">%s</div>\n\n" % (comment) + "\n")
-
-        self.write(" <br/><div>Usage: %s</div>\n\n" % (node.UsageStr()) + "\n")
+        usage = node.UsageStr()
+        if len(usage):
+            self.write(" <br/><div>Usage: %s</div>\n\n" % (usage) + "\n")
 
         #was:        self.write(self.moreInfoBlock(node))
 
@@ -1401,8 +1412,9 @@ class ShowUnit (webapp2.RequestHandler):
 	  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 	  ga('create', 'UA-52672119-1', 'auto');ga('send', 'pageview');</script>""")
 
-        self.write(" \n\n</div>\n</body>\n</html>")
-        
+ 
+        self.write(" \n\n</div>\n</body>\n<!--AppEngineVersion %s -->\n</html>" % getAppEngineVersion())
+  
         page = "".join(self.outputStrings)
         PageStore.put(node.id,page)
 
@@ -1775,28 +1787,28 @@ class ShowUnit (webapp2.RequestHandler):
         return data
 
 
-    def handle404Failure(self, node, layers="core", extrainfo=None):
+    def handle404Failure(self, node, layers="core", extrainfo=None, suggest=True):
         self.error(404)
-        self.emitSchemaorgHeaders("404%20Missing")
+        self.emitSchemaorgHeaders("404 Not Found")
         self.response.out.write('<h3>404 Not Found.</h3><p><br/>Page not found. Please <a href="/">try the homepage.</a><br/><br/></p>')
 
+        if suggest:
+            clean_node = cleanPath(node)
 
-        clean_node = cleanPath(node)
+            log.debug("404: clean_node: clean_node: %s node: %s" % (clean_node, node))
 
-        log.debug("404: clean_node: clean_node: %s node: %s" % (clean_node, node))
+            base_term = Unit.GetUnit( node.rsplit('/')[0] )
+            if base_term != None :
+                self.response.out.write('<div>Perhaps you meant: <a href="/%s">%s</a></div> <br/><br/> ' % ( base_term.id, base_term.id ))
 
-        base_term = Unit.GetUnit( node.rsplit('/')[0] )
-        if base_term != None :
-            self.response.out.write('<div>Perhaps you meant: <a href="/%s">%s</a></div> <br/><br/> ' % ( base_term.id, base_term.id ))
-
-        base_actionprop = Unit.GetUnit( node.rsplit('-')[0] )
-        if base_actionprop != None :
-            self.response.out.write('<div>Looking for an <a href="/Action">Action</a>-related property? Note that xyz-input and xyz-output have <a href="/docs/actions.html">special meaning</a>. See also: <a href="/%s">%s</a></div> <br/><br/> ' % ( base_actionprop.id, base_actionprop.id ))
+            base_actionprop = Unit.GetUnit( node.rsplit('-')[0] )
+            if base_actionprop != None :
+                self.response.out.write('<div>Looking for an <a href="/Action">Action</a>-related property? Note that xyz-input and xyz-output have <a href="/docs/actions.html">special meaning</a>. See also: <a href="/%s">%s</a></div> <br/><br/> ' % ( base_actionprop.id, base_actionprop.id ))
         
         if extrainfo:
             self.response.out.write("<div>%s</div>" % extrainfo)
 
-        self.response.out.write("</div>\n</body>\n</html>\n")
+        self.response.out.write("</div>\n</body>\n<!--AppEngineVersion %s -->\n</html>\n"  % getAppEngineVersion())
 
         return True
 
@@ -2177,6 +2189,8 @@ class ShowUnit (webapp2.RequestHandler):
                     retHdrs = self.response.headers.copy()
                     HeaderStore.put(etag + tagsuff,retHdrs) #Cache these headers for a future 304 return
 
+            self.response.set_cookie('GOOGAPPUID', getAppEngineVersion())
+
 
     def _get(self, node, doWarm=True):
         global LOADEDSOURCES
@@ -2218,6 +2232,11 @@ class ShowUnit (webapp2.RequestHandler):
 
         setSiteName(self.getExtendedSiteName(layerlist)) # e.g. 'bib.schema.org', 'schema.org'
         log.debug("EXT: set sitename to %s " % getSiteName())
+
+        if re.search( validNode_re, str(node)): #invalid node name
+            self.handle404Failure(node,suggest=False)
+            return False
+
         if(node == "_ah/warmup"):
             if "localhost" in os.environ['SERVER_NAME'] and WarmupState.lower() == "auto":
                 log.info("[%s] Warmup dissabled for localhost instance" % getInstanceId(short=True))
@@ -2252,6 +2271,12 @@ class ShowUnit (webapp2.RequestHandler):
                     self.warmup()
                 else:
                     log.info("Warmup already actioned")
+            return False
+
+        if(node == "_ah/stop"):
+            log.info("Instance[%s] received Stop request at %s" % (modules.get_current_instance_id(), global_vars.time_start) )
+            log.info("Flushing memcache")
+            memcache.flush_all()
             return False
 
         if not getPageFromStore(node): #Not stored this page before
@@ -2390,7 +2415,7 @@ class ShowUnit (webapp2.RequestHandler):
         for c in DataCache.keys():
            self.writeDebugRow("Instance DataCache[%s] size" % c, len(DataCache.getCache(c) ))
         self.response.out.write("</tbody><table><br/>\n")
-        self.response.out.write( "</div>\n<body>\n</html>" )
+        self.response.out.write("</div>\n</body>\n<!--AppEngineVersion %s -->\n</html>\n"  % getAppEngineVersion())
 
     def writeDebugRow(self,term,value,head=False):
         rt = "td"
@@ -2441,10 +2466,16 @@ class ShowUnit (webapp2.RequestHandler):
         global Warmer
         if WarmedUp:
             return
+            
         warm_start = datetime.datetime.now()
         log.debug("Instance[%s] received Warmup request at %s" % (modules.get_current_instance_id(), datetime.datetime.utcnow()) )
-        Warmer.warmAll(self)
-        log.debug("Instance[%s] completed Warmup request at %s elapsed: %s" % (modules.get_current_instance_id(), datetime.datetime.utcnow(),datetime.datetime.now() - warm_start ) )
+        if memcache.get("Warming"):
+            log.debug("Instance[%s] detected system already warming" % (modules.get_current_instance_id()) )
+        else:
+            memcache.set("Warming",True,time=300)            
+            Warmer.warmAll(self)
+            log.debug("Instance[%s] completed Warmup request at %s elapsed: %s" % (modules.get_current_instance_id(), datetime.datetime.utcnow(),datetime.datetime.now() - warm_start ) )
+            memcache.set("Warming",False)            
 
 class WarmupTool():
 
@@ -2545,7 +2576,8 @@ def templateRender(templateName,values=None):
         'extDD': extDD,
         'extVers': extVers,
         'extName': extName,
-        'debugging': getAppVar('debugging')
+        'debugging': getAppVar('debugging'),
+        'appengineVersion': getAppEngineVersion()
     }
 
     if values:
@@ -2558,8 +2590,9 @@ def my_shutdown_hook():
     global instance_num
     if SHAREDSITEDEBUG:
         Insts = memcache.get("ExitInstances")
-        Insts[os.environ["INSTANCE_ID"]] = 1
-        memcache.replace("ExitInstances",Insts)
+        if Insts:
+            Insts[os.environ["INSTANCE_ID"]] = 1
+            memcache.replace("ExitInstances",Insts)
 
         memcache.add("Exits",0)
         memcache.incr("Exits")
