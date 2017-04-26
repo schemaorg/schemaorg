@@ -1483,21 +1483,24 @@ See also the &lt;a href=&quot;/docs/hotels.html&quot;&gt;dedicated document on t
       <span class="h" property="rdfs:label">NewsArticle</span>
       <span property="rdfs:comment">A NewsArticle is an article whose content reports news, or provides background context and supporting materials for understanding the news.
 
-News articles are most typically created and published by a [[NewsMediaOrganization]] but are also published independently, e.g. in blogs. These publications also often publish news-related materials such as [[SponsoredContentArticle]], [[SatiricalArticle]], as well as opinion articles and analysis.
+News articles are most typically created and published by a [[NewsMediaOrganization]] but are also published independently, e.g. in blogs. These publications also often publish materials such as [[OpinionNewsArticle]]s, [[AnalysisNewsArticle]]s, [[SponsoredContentArticle]]s, [[SatiricalArticle]]s.
 
-Note: some of the news-related types listed here are under-development i.e. have a 'pending' status within schema.org. Specifically, [[NewsMediaOrganization]], [[SponsoredContentArticle]], [[SatiricalArticle]]. See also [[BasicNewsArticle]], [[AnalysisNewsArticle]], [[PerspectiveNewsArticle]], [[OpinionNewsArticle]], [[ReviewNewsArticle]], [[BackgroundNewsArticle]] as well as the proposed subproperties of [[publishingPrinciples]].
+Note: some of the terms listed here are under-development i.e. have a 'pending' status within schema.org. Specifically, [[NewsMediaOrganization]], [[BasicNewsArticle]], [[AnalysisNewsArticle]], [[OpinionNewsArticle]], [[ReviewNewsArticle]], [[BackgroundNewsArticle]], [[SponsoredContentArticle]], [[SatiricalArticle]], as well as the proposed subproperties of [[publishingPrinciples]].
 
-An Article can be considered a NewsArticle even if contains inaccuracies, mixes opinion with factual claims, or diverges in other ways from ideal journalistic best practice. [[BasicNewsArticle]] represents a more restricted sense of "news" corresponding to journalistic best practices. NewsArticles can include various kinds of best practice declaration that explicitly indicate the standards, policies and transparency mechanisms that a [[news media organization]] has adopted, see [[publishingPrinciples]] and its subproperties.
+An Article can be considered a [[NewsArticle]] even if contains inaccuracies, mixes opinion with factual claims, or diverges in other ways from ideal journalistic best practice. [[BasicNewsArticle]] represents a more restricted sense of "news" corresponding to journalistic best practices. NewsArticles can include various kinds of best practice declaration that explicitly indicate the standards, policies and transparency mechanisms that a [[news media organization]] has adopted, see [[publishingPrinciples]] and its subproperties.
 
-Related Vocabulary: scholarly and scientific coverage of, and background to, the news can also be described using [[ScholarlyArticle]] or [[Book]]. Educational materials that also support background understanding of the news can be described using schema.org's education-oriented markup, see [[AlignmentObject]], [[learningResourceType]], [[typicalAgeRange]], [[typicalAgeRange]], [[educationalRole]] and nearby. Other forms of learning  are supported by [[Course]] and [[CourseInstance]] markup, alongside the full range of [[CreativeWorks]] e.g. video, blogpost etc. The [[BackgroundArticle]] type emphasises background knowledge in a news-oriented setting, e.g. an in-depth article on topics such as Climate Change or the European Union.
+Related Vocabulary: scholarly and scientific coverage of, and background to, the news can also be described using [[ScholarlyArticle]] or [[Book]]. Educational materials that also support background understanding of the news can be described using schema.org's education-oriented markup, see [[AlignmentObject]], [[learningResourceType]], [[typicalAgeRange]], [[typicalAgeRange]], [[educationalRole]] and nearby. Other forms of learning  are supported by [[Course]] and [[CourseInstance]] markup, alongside the full range of [[CreativeWorks]] e.g. [[VideoObject]], [[BlogPosting]] etc. The [[BackgroundArticle]] type emphasises background knowledge in a news-oriented setting, e.g. an in-depth article on topics such as Climate Change or the European Union.
 
 Schema.org provides for fact-checking markup via the [[ClaimReview]] type, as well as providing for non-textual content via TV and Radio markup; e.g.
 [[TVEpisode]], [[TVSeries]]. News-publishing organizations also often publish [[Review]]s, most typically [[CriticReview]]s; these are always considered [[CreativeWorks]] and can often also be described as [[Article]]s or [[NewsArticle]]s (i.e. markup can include multiple types). The [[ReviewNewsArticle]] type directly represents the common case of news articles that are also critic reviews.
 
 Real-time coverage of breaking news can be described using [[LiveBlogPosting]], or for a [[BroadcastEvent]], use of the [[isLiveBroadcast]] property.
-        <!-- TODO: how to indicate TV/Radio news series?) -->
-      </span>
 
+The general case of indicating different kinds of news content for TV/Radio and media is not yet fully addressed. An interim solution is to use [[NewsArticle]] subtypes as additional types alongside types such as [[RadioClip]] that represent news items,
+on the basis that they have textual content even when that content is not explicitly manifested in the text of an article/document.
+
+Finally, while a few dedicated types are included within schema.org to describe specific kinds of news and news-related articles, note that the [genre] property can also be combined with the much longer list of [IPTC news codes](http://cv.iptc.org/newscodes/genre/) URLs.
+</span>
        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Article">Article</a></span>
        <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_rNews">rNews</a></span>
     </div>
@@ -6442,7 +6445,10 @@ The place is __open__ if the [[opens]] property is specified, and __closed__ oth
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/publishingPrinciples">
       <span class="h" property="rdfs:label">publishingPrinciples</span>
-      <span property="rdfs:comment">The publishingPrinciples property indicates (typically via [[URL]]) a document describing the editorial principles of an [[Organization]] (or individual e.g. a [[Person]] writing a blog) that relate to their activities as a publisher, e.g. ethics or diversity policies. When applied to a [[CreativeWork]] (e.g. [[NewsArticle]]) the principles are those of the party primarily responsible for the creation of the [[CreativeWork]].</span>
+      <span property="rdfs:comment">The publishingPrinciples property indicates (typically via [[URL]]) a document describing the editorial principles of an [[Organization]] (or individual e.g. a [[Person]] writing a blog) that relate to their activities as a publisher, e.g. ethics or diversity policies. When applied to a [[CreativeWork]] (e.g. [[NewsArticle]]) the principles are those of the party primarily responsible for the creation of the [[CreativeWork]].
+
+While such policies are most typically expressed in natural language, sometimes related information (e.g. indicating a [[funder]]) can be expressed using schema.org terminology.
+</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CreativeWork">CreativeWork</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Organization">Organization</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Person">Person</a></span>

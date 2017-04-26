@@ -16,12 +16,12 @@
 
   <div typeof="rdfs:Class" resource="http://schema.org/BasicNewsArticle">
     <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/NewsArticle">NewsArticle</a></span>
-    <span class="h" property="rdfs:label">BasicArticle</span>
-    <span property="rdfs:comment">The BasicNewsArticle type is a subtype of [[NewsArticle]] representing only those which are the result of core journalistic news reporting practice.
+    <span class="h" property="rdfs:label">BasicNewsArticle</span>
+    <span property="rdfs:comment">The [[BasicNewsArticle]] type is a subtype of [[NewsArticle]] representing only those which are the result of core journalistic news reporting conventions.
 
-In practice many news publishers produce a wide variety of article types, many of which might be considered NewsArticle but not BasicNewsArticle. For example, opinion pieces, sponsored or satirical articles, analysis, or articles that combine several of these elements.
+In practice many news publishers produce a wide variety of article types, many of which might be considered [[NewsArticle]] but not [[BasicNewsArticle]]. For example, opinion pieces, analysis, sponsored or satirical articles, or articles that combine several of these elements.
 
-The BasicNewsArticle type represents a stricter notion of "news" as a work of journalism, with articles based on factual information either observed or verified by the author, or reported and verified from knowledgeable sources.  This often includes perspectives from multiple viewpoints on a particular issue (distinguishing news reports from public relations or propaganda).  News reports in the BasicNewsArticle sense de-emphasize the opinion of the author, with commentary and value judgements typically expressed elsewhere.
+The [[BasicNewsArticle]] type represents a stricter notion of "news" as a work of journalism, with articles based on factual information either observed or verified by the author, or reported and verified from knowledgeable sources.  This often includes perspectives from multiple viewpoints on a particular issue (distinguishing news reports from public relations or propaganda).  News reports in the [[BasicNewsArticle]] sense de-emphasize the opinion of the author, with commentary and value judgements typically expressed elsewhere.
 </span>
     <span property="schema:category">issue-1525</span>
     <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1525">#1525</a>
@@ -37,20 +37,10 @@ The BasicNewsArticle type represents a stricter notion of "news" as a work of jo
     <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
   </div>
 
-
-  <div typeof="rdfs:Class" resource="http://schema.org/PerspectiveNewsArticle">
-    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/NewsArticle">NewsArticle</a></span>
-    <span class="h" property="rdfs:label">PerspectiveNewsArticle</span>
-    <span property="rdfs:comment">A [[NewsArticle]] emphasizing discussion of news topics with a point of view, including narratives by individuals regarding their own experiences.</span>
-    <span property="schema:category">issue-1525</span>
-    <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1525">#1525</a>
-    <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
-  </div>
-
   <div typeof="rdfs:Class" resource="http://schema.org/OpinionNewsArticle">
     <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/NewsArticle">NewsArticle</a></span>
     <span class="h" property="rdfs:label">OpinionNewsArticle</span>
-    <span property="rdfs:comment">A [[NewsArticle]] consisting of a column or [[Blog]]/[[BlogPosting]] entry in the Opinions section of a news publication.</span>
+    <span property="rdfs:comment">An [[OpinionNewsArticle]] is a [[NewsArticle]] that primarily expresses opinions rather than journalistic reporting of news and events. For example, a [[NewsArticle]] consisting of a column or [[Blog]]/[[BlogPosting]] entry in the Opinions section of a news publication. </span>
     <span property="schema:category">issue-1525</span>
     <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1525">#1525</a>
     <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
@@ -85,37 +75,38 @@ The BasicNewsArticle type represents a stricter notion of "news" as a work of jo
     <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
   </div>
 
-
-
   <div typeof="rdfs:Class" resource="http://schema.org/SatiricalArticle">
     <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Article">Article</a></span>
     <span class="h" property="rdfs:label">SatiricalArticle</span>
-    <span property="rdfs:comment">An [[Article]] whose content is primarily satirical in nature, i.e. unlikely to be literally true. A satirical article is often but not necessarily also a [[NewsArticle]]; [[ScholarlyArticle]]s are also sometimes satirized.</span>
+    <span property="rdfs:comment">An [[Article]] whose content is primarily satirical in nature, i.e. unlikely to be literally true. A satirical article is sometimes but not necessarily also a [[NewsArticle]]. [[ScholarlyArticle]]s are also sometimes satirized.</span>
     <span property="schema:category">issue-1525</span>
     <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1525">#1525</a>
     <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
   </div>
 
-
-SatiricalArticle
-
 <!-- PROPERTIES -->
 
     <div typeof="rdf:Property" resource="http://schema.org/ethicsPolicy">
         <span class="h" property="rdfs:label">ethicsPolicy</span>
-        <span property="rdfs:comment">Statement about ethics policy for journalism.</span>
+        <span property="rdfs:comment">Statement about ethics policy, e.g. of a [[NewsMediaOrganization]] regarding journalistic and publishing practices.</span>
         <link property="rdfs:subPropertyOf" href="http://schema.org/publishingPrinciples" />
         <span property="schema:category">issue-1525</span><a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1525">#1525</a>
+
+        <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/NewsMediaOrganization">NewsMediaOrganization</a></span>
+
+        <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Organization">Organization</a></span>
     </div>
 
     <div typeof="rdf:Property" resource="http://schema.org/diversityPolicy">
         <span class="h" property="rdfs:label">diversityPolicy</span>
-        <span property="rdfs:comment">Statement on diversity policy. This is also signalled independently as a Diversity indicator.</span>
+        <span property="rdfs:comment">Statement on diversity policy by an [[Organization]] e.g. a [[NewsMediaOrganization]].</span>
         <link property="rdfs:subPropertyOf" href="http://schema.org/publishingPrinciples" />
         <span property="schema:category">issue-1525</span><a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1525">#1525</a>
+        <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/NewsMediaOrganization">NewsMediaOrganization</a></span>
+        <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Organization">Organization</a></span>
     </div>
 
-   <!-- some are for news media orgs specifically (todo: check how web ui shows this)... -->
+   <!-- some are for news media orgs more specifically ... -->
 
     <div typeof="rdf:Property" resource="http://schema.org/correctionsPolicy">
         <span class="h" property="rdfs:label">correctionsPolicy</span>
