@@ -1,0 +1,191 @@
+<div>
+
+  <div typeof="rdfs:Class" resource="http://schema.org/NewsMediaOrganization">
+    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Organization">Organization</a></span>
+    <span class="h" property="rdfs:label">NewsMediaOrganization</span>
+    <span property="rdfs:comment">A News/Media organization such as a newspaper or TV station.</span>
+    <span property="schema:category">issue-1525</span>
+    <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1525">#1525</a>
+    <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
+  </div>
+
+
+
+<!-- work in progress, exploring one possible way of modeling news article categories via types. -->
+
+
+  <div typeof="rdfs:Class" resource="http://schema.org/BasicNewsArticle">
+    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/NewsArticle">NewsArticle</a></span>
+    <span class="h" property="rdfs:label">BasicNewsArticle</span>
+    <span property="rdfs:comment">The [[BasicNewsArticle]] type is a subtype of [[NewsArticle]] representing only those [[NewsArticle]]s which are the result of core journalistic news reporting conventions.
+
+In practice many news publishers produce a wide variety of article types, many of which might be considered [[NewsArticle]] but not [[BasicNewsArticle]]. For example, opinion pieces, analysis, sponsored or satirical articles, or articles that combine several of these elements.
+
+The [[BasicNewsArticle]] type represents a stricter notion of "news" as a work of journalism, with articles based on factual information either observed or verified by the author, or reported and verified from knowledgeable sources.  This often includes perspectives from multiple viewpoints on a particular issue (distinguishing news reports from public relations or propaganda).  News reports in the [[BasicNewsArticle]] sense de-emphasize the opinion of the author, with commentary and value judgements typically expressed elsewhere.
+</span>
+    <span property="schema:category">issue-1525</span>
+    <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1525">#1525</a>
+    <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
+  </div>
+
+  <div typeof="rdfs:Class" resource="http://schema.org/AnalysisNewsArticle">
+    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/NewsArticle">NewsArticle</a></span>
+    <span class="h" property="rdfs:label">AnalysisNewsArticle</span>
+    <span property="rdfs:comment">An AnalysisNewsArticle is a [[NewsArticle]] emphasizing interpretation of the news based on evidence, including data, as well as anticipating how events might unfold based on past events.</span>
+    <span property="schema:category">issue-1525</span>
+    <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1525">#1525</a>
+    <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
+  </div>
+
+  <div typeof="rdfs:Class" resource="http://schema.org/OpinionNewsArticle">
+    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/NewsArticle">NewsArticle</a></span>
+    <span class="h" property="rdfs:label">OpinionNewsArticle</span>
+    <span property="rdfs:comment">An [[OpinionNewsArticle]] is a [[NewsArticle]] that primarily expresses opinions rather than journalistic reporting of news and events. For example, a [[NewsArticle]] consisting of a column or [[Blog]]/[[BlogPosting]] entry in the Opinions section of a news publication. </span>
+    <span property="schema:category">issue-1525</span>
+    <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1525">#1525</a>
+    <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
+  </div>
+
+  <div typeof="rdfs:Class" resource="http://schema.org/ReviewNewsArticle">
+    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/NewsArticle">NewsArticle</a></span>
+    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/CriticReview">CriticReview</a></span>
+    <span class="h" property="rdfs:label">ReviewNewsArticle</span>
+    <span property="rdfs:comment">A [[NewsArticle]] and [[CriticReview]] providing a professional critic's assessment of a service, product, performance, or artistic or literary work.</span>
+    <span property="schema:category">issue-1525</span>
+    <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1525">#1525</a>
+    <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
+  </div>
+
+  <div typeof="rdfs:Class" resource="http://schema.org/BackgroundNewsArticle">
+    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/NewsArticle">NewsArticle</a></span>
+    <span class="h" property="rdfs:label">BackgroundNewsArticle</span>
+    <span property="rdfs:comment">A [[NewsArticle]] providing historical context, definition and detail on a specific topic (aka "explainer" or "backgrounder"). Other kinds of background material from a non-news setting are often described using [[Book]] or [[Article]], in particular [[ScholarlyArticle]]. See also [[NewsArticle]] for related vocabulary from a learning/education perspective.</span>
+    <span property="schema:category">issue-1525</span>
+    <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1525">#1525</a>
+    <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
+  </div>
+
+
+  <div typeof="rdfs:Class" resource="http://schema.org/SponsoredContentArticle">
+    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Article">Article</a></span>
+    <span class="h" property="rdfs:label">SponsoredContentArticle</span>
+    <span property="rdfs:comment">An [[Article]] whose content is commercially sponsored.</span>
+    <span property="schema:category">issue-1525</span>
+    <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1525">#1525</a>
+    <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
+  </div>
+
+  <div typeof="rdfs:Class" resource="http://schema.org/SatiricalArticle">
+    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Article">Article</a></span>
+    <span class="h" property="rdfs:label">SatiricalArticle</span>
+    <span property="rdfs:comment">An [[Article]] whose content is primarily satirical in nature, i.e. unlikely to be literally true. A satirical article is sometimes but not necessarily also a [[NewsArticle]]. [[ScholarlyArticle]]s are also sometimes satirized.</span>
+    <span property="schema:category">issue-1525</span>
+    <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1525">#1525</a>
+    <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
+  </div>
+
+<!-- PROPERTIES -->
+
+    <div typeof="rdf:Property" resource="http://schema.org/ethicsPolicy">
+        <span class="h" property="rdfs:label">ethicsPolicy</span>
+        <span property="rdfs:comment">Statement about ethics policy, e.g. of a [[NewsMediaOrganization]] regarding journalistic and publishing practices.</span>
+        <link property="rdfs:subPropertyOf" href="http://schema.org/publishingPrinciples" />
+        <span property="schema:category">issue-1525</span><a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1525">#1525</a>
+
+        <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/NewsMediaOrganization">NewsMediaOrganization</a></span>
+        <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Organization">Organization</a></span>
+        <span property="schema:category">issue-1525</span>
+        <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1525">#1525</a>
+        <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
+    </div>
+
+    <div typeof="rdf:Property" resource="http://schema.org/diversityPolicy">
+        <span class="h" property="rdfs:label">diversityPolicy</span>
+        <span property="rdfs:comment">Statement on diversity policy by an [[Organization]] e.g. a [[NewsMediaOrganization]].</span>
+        <link property="rdfs:subPropertyOf" href="http://schema.org/publishingPrinciples" />
+        <span property="schema:category">issue-1525</span><a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1525">#1525</a>
+        <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/NewsMediaOrganization">NewsMediaOrganization</a></span>
+        <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Organization">Organization</a></span>
+        <span property="schema:category">issue-1525</span>
+        <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1525">#1525</a>
+        <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
+    </div>
+
+   <!-- some are for news media orgs more specifically ... -->
+
+    <div typeof="rdf:Property" resource="http://schema.org/correctionsPolicy">
+        <span class="h" property="rdfs:label">correctionsPolicy</span>
+        <span property="rdfs:comment">Statement on corrections policy.</span>
+        <link property="rdfs:subPropertyOf" href="http://schema.org/publishingPrinciples" />
+        <span property="schema:category">issue-1525</span><a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1525">#1525</a>
+        <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/NewsMediaOrganization">NewsMediaOrganization</a></span>
+        <span property="schema:category">issue-1525</span>
+        <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1525">#1525</a>
+        <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
+    </div>
+
+    <!-- todo: ownerFundingGrants vs existing 'funder' -->
+
+    <div typeof="rdf:Property" resource="http://schema.org/masthead">
+        <span class="h" property="rdfs:label">masthead</span>
+        <span property="rdfs:comment">A link to the masthead page or a page listing top management of a [[NewsMediaOrganization]]</span>
+        <link property="rdfs:subPropertyOf" href="http://schema.org/publishingPrinciples" />
+        <span property="schema:category">issue-1525</span><a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1525">#1525</a>
+        <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/NewsMediaOrganization">NewsMediaOrganization</a></span>
+        <span property="schema:category">issue-1525</span>
+        <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1525">#1525</a>
+        <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
+    </div>
+
+    <div typeof="rdf:Property" resource="http://schema.org/missionCoveragePrioritiesPolicy">
+        <span class="h" property="rdfs:label">missionCoveragePrioritiesPolicy</span>
+        <span property="rdfs:comment">Statement on where a [[NewsMediaOrganization]] stands based on past coverage on issues, and whether it has a public agenda.</span>
+        <link property="rdfs:subPropertyOf" href="http://schema.org/publishingPrinciples" />
+        <span property="schema:category">issue-1525</span><a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1525">#1525</a>
+        <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/NewsMediaOrganization">NewsMediaOrganization</a></span>
+        <span property="schema:category">issue-1525</span>
+        <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1525">#1525</a>
+        <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
+    </div>
+
+    <div typeof="rdf:Property" resource="http://schema.org/verificationFactCheckingPolicy">
+        <span class="h" property="rdfs:label">verificationFactCheckingPolicy</span>
+        <span property="rdfs:comment">Disclosure about verification and fact-checking processes for a [[NewsMediaOrganization]].</span>
+        <link property="rdfs:subPropertyOf" href="http://schema.org/publishingPrinciples" />
+        <span property="schema:category">issue-1525</span><a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1525">#1525</a>
+        <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/NewsMediaOrganization">NewsMediaOrganization</a></span>
+        <span property="schema:category">issue-1525</span>
+        <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1525">#1525</a>
+        <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
+    </div>
+
+    <div typeof="rdf:Property" resource="http://schema.org/sourcingAndInterviewsPolicy">
+        <span class="h" property="rdfs:label">sourcingAndInterviewsPolicy</span>
+        <span property="rdfs:comment">Statement about policy on use of unnamed sources for a [[NewsMediaOrganization]].</span>
+        <link property="rdfs:subPropertyOf" href="http://schema.org/publishingPrinciples" />
+        <span property="schema:category">issue-1525</span><a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1525">#1525</a>
+        <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/NewsMediaOrganization">NewsMediaOrganization</a></span>
+        <span property="schema:category">issue-1525</span>
+        <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1525">#1525</a>
+        <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
+    </div>
+
+
+    <div typeof="rdf:Property" resource="http://schema.org/actionableFeedbackPolicy">
+        <span class="h" property="rdfs:label">actionableFeedbackPolicy</span>
+        <span property="rdfs:comment">For a [[NewsMediaOrganization]], a statement on how the newsroom engages the public -- digitally or otherwise - as part of community engagement practices related to before, during and after stories are published.</span>
+        <link property="rdfs:subPropertyOf" href="http://schema.org/publishingPrinciples" />
+        <span property="schema:category">issue-1525</span><a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1525">#1525</a>
+        <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/NewsMediaOrganization">NewsMediaOrganization</a></span>
+        <span property="schema:category">issue-1525</span>
+        <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1525">#1525</a>
+        <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
+    </div>
+
+
+ <!-- + acks -->
+
+
+<!-- see also https://github.com/schemaorg/schemaorg/issues/1601 -->
+
+</div>
