@@ -2,7 +2,7 @@ Welcome to Schema.org
 =====================
 
 
-This is the Schema.org project repository. It contains all the schemas, examples and software use to publish schema.org. For the site itself, please see http://schema.org/ instead.
+This is the Schema.org project repository. It contains all the schemas, examples and software used to publish schema.org. For the site itself, please see http://schema.org/ instead.
 
 Issues and proposals are managed here by participants of the W3C Schema.org Community Group.
 See https://www.w3.org/community/schemaorg/ for the group. If you are interested to participate please
