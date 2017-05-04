@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Markup for News - schema.org</title>
+    <meta name="description" content="Schema.org is a set of extensible schemas that enables webmasters to embed
+    structured data on their web pages for use by search engines and other applications." />
+    <link rel="stylesheet" type="text/css" href="/docs/schemaorg.css" />
+    <link href="/docs/prettify.css" type="text/css" rel="stylesheet" />
+    <script type="text/javascript" src="/docs/prettify.js"></script>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+      $(document).ready(function(){
+        prettyPrint();
+        setTimeout(function(){
+
+    $('.atn').each(function(i) {
+      if (($(this).text() == 'itemscope') || ($(this).text() == 'itemtype') || ($(this).text() == 'itemprop') || ($(this).text() == 'itemid') || ($(this).text() == 'time') || ($(this).text() == 'datetime') || ($(this).text() == 'vocab') || ($(this).text() == 'property') || ($(this).text() == 'typeOf') || ($(this).text() == 'rel'))
+        $(this).addClass('custom');
+    });
+
+        }, 500);
+      });
+</script>
+
+<style>
+
+  .tag    { color: #000; }    /* div, span, etc   */
+  .atn    { color: #000; }    /* href, datetime,  */
+  .custom { color: #660003; } /* itemscope, itemtype, etc,. */
+
+</style>
+
+</head>
+<body>
+    <div id="container">
+        <div id="intro">
+            <div id="pageHeader">
+              <div class="wrapper">
+                <div id="sitename">
+                <h1>
+                    <a href="/">schema.org</a>
+                </h1>
+                </div>
+
+<div id="cse-search-form" style="width: 400px;"></div>
+
+<script type="text/javascript" src="//www.google.com/jsapi"></script>
+<script type="text/javascript">
+  google.load('search', '1', {language : 'en', style : google.loader.themes.ESPRESSO});
+  google.setOnLoadCallback(function() {
+    var customSearchControl = new google.search.CustomSearchControl('013516846811604855281:nj5laplixaa');
+    customSearchControl.setResultSetSize(google.search.Search.FILTERED_CSE_RESULTSET);
+    var options = new google.search.DrawOptions();
+    options.enableSearchboxOnly("../docs/search_results.html", null, false, '#');
+    customSearchControl.draw('cse-search-form', options);
+  }, true);
+</script>
+
+
+              </div>
+            </div>
+        </div>
+    </div>
+
+            <div id="selectionbar">
+               <div class="wrapper">
+                <ul>
+                    <li class="activelink">
+                      <a href="../docs/documents.html">Documentation</a></li>
+                    <li>
+                      <a href="../docs/schemas.html">Schemas</a></li>
+                    <li>
+                      <a href="../.">Home</a></li>
+                </ul>
+                </div>
+
+            </div>
+        <div style="padding: 14px; float: right;" id="languagebox"></div>
+
+  <div id="mainContent">
+
+<h1>Markup for News</h1>
+
+<p>This page provides background information on the use of schema.org for marking up News content and related matters.</p>
+
+<h3>Status</h3>
+<p>The purpose for creating this supporting documentation was to address the need for an overview of the various terms across
+schema.org, including proposed new terms that are "pending" wider review and implementation feedback.</p>
+
+<h3>Describing News content with Schema.org</h3>
+
+<p>As of early 2017, the central term within schema.org for News content is <a href="/NewsArticle">NewsArticle</a>. This document provides more context on that definition and introduces some additional terms that can help clarify different kinds of News and News-related content. It also indicates some other areas of schema.org terminology that are related in various ways to News.</p>
+
+<blockquote>
+A NewsArticle is an article whose content reports news, or provides background context and supporting materials for understanding the news.
+</blockquote>
+
+<p>Note: some of the terms listed here are under-development i.e. have a 'pending' status within schema.org. Specifically, <a class="localLink" href="/NewsMediaOrganization">NewsMediaOrganization</a>, <a class="localLink" href="/BasicNewsArticle">BasicNewsArticle</a>, <a class="localLink" href="/AnalysisNewsArticle">AnalysisNewsArticle</a>, <a class="localLink" href="/OpinionNewsArticle">OpinionNewsArticle</a>, <a class="localLink" href="/ReviewNewsArticle">ReviewNewsArticle</a>, <a class="localLink" href="/BackgroundNewsArticle">BackgroundNewsArticle</a>, <a class="localLink" href="/SponsoredContentArticle">SponsoredContentArticle</a>, <a class="localLink" href="/SatiricalArticle">SatiricalArticle</a>, as well as the proposed subproperties of <a class="localLink" href="/publishingPrinciples">publishingPrinciples</a>.</p>
+
+<p>
+What <em>is</em> a "NewsArticle"? An Article can be considered a <a class="localLink" href="/NewsArticle">NewsArticle</a> even if contains inaccuracies, mixes opinion with factual claims, or diverges in other ways from ideal journalistic best practice. <a class="localLink" href="/BasicNewsArticle">BasicNewsArticle</a> represents a more restricted sense of "news" corresponding to journalistic best practices. NewsArticles can include various kinds of best practice declaration that explicitly indicate the standards, policies and transparency mechanisms that a news source has adopted, see <a class="localLink" href="/publishingPrinciples">publishingPrinciples</a> and its subproperties.</p>
+
+<p>
+Related Vocabulary: scholarly and scientific coverage of, and background to, the news can also be described using <a class="localLink" href="/ScholarlyArticle">ScholarlyArticle</a> or <a class="localLink" href="/Book">Book</a>. Educational materials that also support background understanding of the news can be described using schema.org's education-oriented markup, see <a class="localLink" href="/AlignmentObject">AlignmentObject</a>, <a class="localLink" href="/learningResourceType">learningResourceType</a>, <a class="localLink" href="/typicalAgeRange">typicalAgeRange</a>, <a class="localLink" href="/typicalAgeRange">typicalAgeRange</a>, <a class="localLink" href="/educationalRole">educationalRole</a> and nearby. Other forms of learning  are supported by <a class="localLink" href="/Course">Course</a> and <a class="localLink" href="/CourseInstance">CourseInstance</a> markup, alongside the full range of <a class="localLink" href="/CreativeWorks">CreativeWorks</a> e.g. <a class="localLink" href="/VideoObject">VideoObject</a>, <a class="localLink" href="/BlogPosting">BlogPosting</a> etc. The <a class="localLink" href="/BackgroundArticle">BackgroundArticle</a> type emphasises background knowledge in a news-oriented setting, e.g. an in-depth article on topics such as Climate Change or the European Union.
+</p>
+
+<p>
+Schema.org provides for fact-checking markup via the <a class="localLink" href="/ClaimReview">ClaimReview</a> type, as well as providing for non-textual content via TV and Radio markup; e.g.
+<a class="localLink" href="/TVEpisode">TVEpisode</a>, <a class="localLink" href="/TVSeries">TVSeries</a>. News-publishing organizations also often publish <a class="localLink" href="/Review">Review</a>s, most typically <a class="localLink" href="/CriticReview">CriticReview</a>s; these are always considered <a class="localLink" href="/CreativeWorks">CreativeWorks</a> and can often also be described as <a class="localLink" href="/Article">Article</a>s or <a class="localLink" href="/NewsArticle">NewsArticle</a>s (i.e. markup can include multiple types). The <a class="localLink" href="/ReviewNewsArticle">ReviewNewsArticle</a> type directly represents the common case of news articles that are also critic reviews.
+</p>
+
+<p>
+Real-time coverage of breaking news can be described using <a class="localLink" href="/LiveBlogPosting">LiveBlogPosting</a>, or for a <a class="localLink" href="/BroadcastEvent">BroadcastEvent</a>, use of the <a class="localLink" href="/isLiveBroadcast">isLiveBroadcast</a> property.</p>
+
+<p>
+The general case of indicating different kinds of news content for TV/Radio and media is not yet fully addressed. An interim solution is to use <a class="localLink" href="/NewsArticle">NewsArticle</a> subtypes as additional types alongside types such as <a class="localLink" href="/RadioClip">RadioClip</a> that represent news items,
+on the basis that they have textual content even when that content is not explicitly manifested in the text of an article/document.
+</p>
+
+<p>
+Finally, while a few dedicated types are included within schema.org to describe specific kinds of news and news-related articles, note that the <a class="localLink" href="/genre">genre</a> property can also be combined with the much longer list of <a href="http://cv.iptc.org/newscodes/genre/">IPTC news codes</a> URLs. This pattern can also be used with other kinds of <a href="/CreativeWork">CreativeWork</a>, including those around TV/Radio, broadcast and media formats mentioned above.
+</p>
+
+</div>
+
+<div id="footer"><p><a href="/docs/terms.html">Terms and conditions</a></p></div>
+</body>
+</html>
