@@ -20,8 +20,8 @@ PRE-MARKUP:
 </body>
 
 MICRODATA:
+No Microdata
 
-@@@@
 
 RDFA:
 
@@ -50,8 +50,14 @@ JSON:
 <script type="application/ld+json">
 {
   "@context": "http://schema.org/",
-  "@type": "@@@@",
-   ....etc.
+  "@type": "schema:Course",
+  "description": "In this course you will get an introduction to the main tools and ideas in the data scientist's toolbox...",
+  "hasCourseInstance": {
+    "@type": "CourseInstance",
+    "courseMode": ["MOOC","online"],
+    "endDate": "March 21",
+    "startDate": "February 15"
+  }
 }
 </script>
 
@@ -78,13 +84,13 @@ PRE-MARKUP:
           <th scope="col" >Based at</th>
         </tr>
         <tr>
-          <td>Full Time</td>
+          <td>Full-time</td>
           <td>29 Aug 2016</td>
           <td>23 Jun 2017</td>
           <td>St Brycedale Campus Kirkcaldy</td>
         </tr>
         <tr>
-          <td>Full Time</td>
+          <td>Full-time</td>
           <td>29 Aug 2016</td>
           <td>23 Jun 2017</td>
           <td>Halbeath Campus Dunfermline</td>
@@ -100,8 +106,9 @@ PRE-MARKUP:
 </body>
 
 MICRODATA:
+No Microdata
 
-@@@@
+
 
 RDFA:
 
@@ -123,19 +130,20 @@ RDFA:
           <th scope="col" >Based at</th>
         </tr>
         <tr rel="hasCourseInstance" typeof="CourseInstance">
-          <td property="courseMode">Full Time</td>
+          <td property="courseMode">full-time</td>
           <td property="startDate">29 Aug 2016</td>
           <td property="endDate">23 Jun 2017</td>
           <td property="location">St Brycedale Campus Kirkcaldy</td>
         </tr>
         <tr rel="hasCourseInstance" typeof="CourseInstance">
-          <td property="courseMode">Full Time</td>
+          <td property="courseMode">full-time</td>
           <td property="startDate">29 Aug 2016</td>
           <td property="endDate">23 Jun 2017</td>
           <td  property="location">Halbeath Campus Dunfermline</td>
         </tr>
         <tr rel="hasCourseInstance" typeof="CourseInstance">
-          <td property="courseMode">Evenings only and weekends</td>
+          <td><meta property="courseMode" content="part-time">
+              Evenings only and weekends</td>
           <td property="startDate">31 Aug 2016</td>
           <td property="endDate">21 Jun 2017</td>
           <td  property="location">St Brycedale Campus Kirkcaldy</td>
@@ -149,8 +157,32 @@ JSON:
 <script type="application/ld+json">
 {
   "@context": "http://schema.org/",
-  "@type": "@@@@",
-   ....etc.
+  "@id": "./",
+  "@type": "Course",
+  "name": "HNC Accounting",
+  "description": "This course is designed for those wishing to take up \r\n       a career in Accounting and Financial Administration within a range of \r\n       organisations....",
+  "hasCourseInstance": [
+    {
+      "@type": "CourseInstance",
+      "courseMode": "part-time",
+      "endDate": "21 Jun 2017",
+      "location": "St Brycedale Campus Kirkcaldy",
+      "startDate": "31 Aug 2016"
+    },
+    {
+      "@type": "CourseInstance",
+      "courseMode": "full-time",
+      "endDate": "23 Jun 2017",
+      "location": "Halbeath Campus Dunfermline",
+      "startDate": "29 Aug 2016"
+    },
+    {
+      "courseMode": "full-time",
+      "endDate": "23 Jun 2017",
+      "location": "St Brycedale Campus Kirkcaldy",
+      "startDate": "29 Aug 2016"
+    }
+  ]
 }
 </script>
 
@@ -175,8 +207,9 @@ PRE-MARKUP:
 </body>
 
 MICRODATA:
+No Microdata
 
-@@@@
+
 
 RDFA:
 
@@ -211,8 +244,35 @@ JSON:
 <script type="application/ld+json">
 {
   "@context": "http://schema.org/",
-  "@type": "@@@@",
-   ....etc.
+  "@type": "Course",
+  "name": "Basic Proofreading",
+  "description": "The distance learning training course that takes you \r\n        from complete beginner to PQB qualified proofreader in one step.",
+  "hasCourseInstance": [
+    {
+      "@type": "CourseInstance",
+      "courseMode": [
+        "distance learning",
+        "Online"
+      ],
+      "offers": {
+        "@type": "Offer",
+        "price": "395",
+        "priceCurrency": "GBP"
+      }
+    },
+    {
+      "@type": "CourseInstance",
+      "courseMode": [
+        "Posted",
+        "distance learning"
+      ],
+      "offers": {
+        "@type": "Offer",
+        "price": "440",
+        "priceCurrency": "GBP"
+      }
+    }
+  ]
 }
 </script>
 
@@ -228,8 +288,9 @@ PRE-MARKUP:
 </body>
 
 MICRODATA:
+No Microdata
 
-@@@@
+
 
 RDFA:
 
@@ -246,8 +307,9 @@ JSON:
 <script type="application/ld+json">
 {
   "@context": "http://schema.org/",
-  "@type": "@@@@",
-   ....etc.
+  "@type": "schema:Course",
+  "educationalCredentialAwarded": "Higher National Certificate in Accounting",
+  "name": "HNC Accounting"
 }
 </script>
 
@@ -268,8 +330,9 @@ PRE-MARKUP:
 </body>
 
 MICRODATA:
+No Microdata
 
-@@@@
+
 
 RDFA:
 
@@ -291,8 +354,9 @@ JSON:
 <script type="application/ld+json">
 {
   "@context": "http://schema.org/",
-  "@type": "@@@@",
-   ....etc.
+  "@type": "Course",
+  "educationalCredentialAwarded": "completion certificate from \r\n      PQB",
+  "name": "Basic Proofreading"
 }
 </script>
 
@@ -325,8 +389,9 @@ PRE-MARKUP:
 
 
 MICRODATA:
+No Microdata
 
-@@@@
+
 
 RDFA:
 
@@ -364,8 +429,31 @@ JSON:
 <script type="application/ld+json">
 {
   "@context": "http://schema.org/",
-  "@type": "@@@@",
-   ....etc.
+  "@type": "schema:Course",
+  "schema:hasCourseInstance": {
+    "@type": "schema:CourseInstance",
+    "schema:courseMode": [
+      "MOOC",
+      "online"
+    ],
+    "schema:instructor": {
+      "@type": "schema:person",
+      "schema:jobTitle": "Associate Professor, Biostatistics",
+      "schema:name": "Jeff Leek, PhD",
+      "schema:url": "instructor/~315",
+      "schema:worksFor": "Bloomberg School of Public Health "
+    },
+    "schema:offers": {
+      "@type": "schema:Offer",
+      "schema:offeredBy": "Coursera",
+      "schema:price": "0"
+    }
+  },
+  "schema:name": "The Data Scientist's Toolbox",
+  "schema:provider": {
+    "@type": "schema:EducationalOrganization",
+    "schema:name": "Johns Hopkins University"
+  }
 }
 </script>
 
@@ -390,8 +478,9 @@ PRE-MARKUP:
 </body>
 
 MICRODATA:
+No Microdata
 
-@@@@
+
 
 RDFA:
 
@@ -416,35 +505,35 @@ JSON:
 <script type="application/ld+json">
 {
   "@context": "http://schema.org/",
-  "@type": "@@@@",
-   ....etc.
+  "@type": "schema:Course",
+  "schema:courseCode": "F300",
+  "schema:name": "Physics",
+  "schema:provider": {
+    "@type": "schema:CollegeOrUniversity",
+    "schema:name": "University of Bristol",
+    "schema:url": "provider/324/university-of-bristol"
+  }
 }
 </script>
 
 
 
-TYPES: @@@@comma-separated-list-here@@@@ replace @@@@ with content.
+TYPES: comma-separated-list-here replace  with content.
 
 PRE-MARKUP:
+No Pre-markup
 
-@@@@
+
 
 MICRODATA:
+No Microdata
 
-@@@@
+
 
 RDFA:
+No RDFa
 
-@@@@
 
 JSON:
-
-<script type="application/ld+json">
-{
-  "@context": "http://schema.org/",
-  "@type": "@@@@",
-   ....etc.
-}
-</script>
-
+No JSON-LD
 

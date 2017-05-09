@@ -72,6 +72,15 @@ class URIOpener :
 		@keyword additional_headers: additional HTTP request headers to be added to the call
 		"""		
 		try :
+			import sys
+			import urllib
+
+			platform = sys.platform
+			if platform == 'Windows' or platform == 'win32' or platform == 'nt' or platform == 'win64':
+				# Running on Windows which doesn't like file URLs not prefixed with 'file:'
+				if not name.startswith('http://') and not name.startswith('https://'):			
+					name = 'file:' + urllib.pathname2url(name)
+
 			# Note the removal of the fragment ID. This is necessary, per the HTTP spec
 			req = Request(url=name.split('#')[0])
 

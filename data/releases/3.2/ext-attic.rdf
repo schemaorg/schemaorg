@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rdf:RDF
+  xmlns:schema="http://schema.org/"
+  xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+>
+  <rdf:Property rdf:about="http://schema.org/stupidProperty">
+    <schema:isPartOf rdf:resource="http://attic.schema.org"/>
+    <rdfs:label>stupidProperty</rdfs:label>
+    <rdfs:comment>This is a StupidProperty! - for testing only</rdfs:comment>
+    <schema:domainIncludes rdf:resource="http://schema.org/Vehicle"/>
+    <schema:domainIncludes rdf:resource="http://schema.org/StupidType"/>
+    <schema:rangeIncludes rdf:resource="http://schema.org/QuantitativeValue"/>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://schema.org/variablesMeasured">
+    <rdfs:label>variablesMeasured</rdfs:label>
+    <schema:rangeIncludes rdf:resource="http://schema.org/Text"/>
+    <schema:domainIncludes rdf:resource="http://schema.org/Dataset"/>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <schema:rangeIncludes rdf:resource="http://schema.org/PropertyValue"/>
+    <rdfs:comment><![CDATA[Originally named <a class="localLink" href="http://schema.org/variablesMeasured">variablesMeasured</a>, The <a class="localLink" href="http://schema.org/variableMeasured">variableMeasured</a> property can indicate (repeated as necessary) the  variables that are measured in some dataset, either described as text or as pairs of identifier and description using PropertyValue.]]></rdfs:comment>
+  </rdf:Property>
+  <rdfs:Class rdf:about="http://schema.org/StupidType">
+    <schema:isPartOf rdf:resource="http://attic.schema.org"/>
+    <rdfs:comment>A StupidType for testing.</rdfs:comment>
+    <rdfs:label>StupidType</rdfs:label>
+    <rdfs:subClassOf rdf:resource="http://schema.org/Thing"/>
+  </rdfs:Class>
+</rdf:RDF>

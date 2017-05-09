@@ -31,6 +31,7 @@ For more details, see the <a href="http://{{ mybasehost }}:{{ myport }}/">homepa
   <li>myport: {{ myport }} </li>
   <li>mybasehost: {{ mybasehost }} </li>
   <li>debugging: {{ debugging }} </li>
+  <li>AppEngine Version: {{ appengineVersion }} </li>
  </ul>
 </div>
 

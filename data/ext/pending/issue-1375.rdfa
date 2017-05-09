@@ -1,0 +1,108 @@
+<div>
+
+    <div typeof="rdfs:Class" resource="http://schema.org/GeospatialGeometry">
+       <span class="h" property="rdfs:label">GeospatialGeometry</span>
+       <span property="rdfs:comment">(Eventually to be defined as) a supertype of GeoShape designed to accommodate definitions from Geo-Spatial best practices.</span>
+
+       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Intangible">Intangible</a></span>
+       <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
+       <span>Category: <span property="schema:category">issue-1375</span></span>
+       <span>Source:  <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1375">#1375</a></span>
+    </div>
+    <!-- todo, move boilerplate into separate file -->
+
+
+    <div typeof="rdf:Property" resource="http://schema.org/geospatiallyEquals">
+        <span class="h" property="rdfs:label">geospatiallyEquals</span>
+        <span property="rdfs:comment">Represents spatial relations in which two geometries (or the places they represent) are topologically equal, as defined in [DE-9IM](https://en.wikipedia.org/wiki/DE-9IM). "Two geometries are topologically equal if their interiors intersect and no part of the interior or boundary of one geometry intersects the exterior of the other" (a symmetric relationship)</span>
+        <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/GeospatialGeometry">GeospatialGeometry</a></span>
+        <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Place">Place</a></span>
+        <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/GeospatialGeometry">GeospatialGeometry</a></span>
+        <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Place">Place</a></span>
+    </div>
+
+    <div typeof="rdf:Property" resource="http://schema.org/geospatiallyDisjoint">
+        <span class="h" property="rdfs:label">geospatiallyDisjoint</span>
+        <span property="rdfs:comment">Represents spatial relations in which two geometries (or the places they represent) are topologically disjoint: they have no point in common. They form a set of disconnected geometries." (a symmetric relationship, as defined in [DE-9IM](https://en.wikipedia.org/wiki/DE-9IM))</span>
+        <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/GeospatialGeometry">GeospatialGeometry</a></span>
+        <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Place">Place</a></span>
+        <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/GeospatialGeometry">GeospatialGeometry</a></span>
+        <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Place">Place</a></span>
+    </div>
+
+    <div typeof="rdf:Property" resource="http://schema.org/geospatiallyTouches">
+        <span class="h" property="rdfs:label">geospatiallyTouches</span>
+        <span property="rdfs:comment">Represents spatial relations in which two geometries (or the places they represent) touch: they have at least one boundary point in common, but no interior points." (a symmetric relationship, as defined in [DE-9IM](https://en.wikipedia.org/wiki/DE-9IM) )</span>
+        <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/GeospatialGeometry">GeospatialGeometry</a></span>
+        <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Place">Place</a></span>
+        <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/GeospatialGeometry">GeospatialGeometry</a></span>
+        <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Place">Place</a></span>
+    </div>
+
+    <div typeof="rdf:Property" resource="http://schema.org/geospatiallyContains">
+        <span class="h" property="rdfs:label">geospatiallyContains</span>
+        <span property="rdfs:comment">Represents a relationship between two geometries (or the places they represent), relating a containing geometry to a contained geometry. "a contains b iff no points of b lie in the exterior of a, and at least one point of the interior of b lies in the interior of a". As defined in [DE-9IM](https://en.wikipedia.org/wiki/DE-9IM).</span>
+        <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/GeospatialGeometry">GeospatialGeometry</a></span>
+        <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Place">Place</a></span>
+        <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/GeospatialGeometry">GeospatialGeometry</a></span>
+        <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Place">Place</a></span>
+    </div>
+
+    <div typeof="rdf:Property" resource="http://schema.org/geospatiallyCovers">
+        <span class="h" property="rdfs:label">geospatiallyCovers</span>
+        <span property="rdfs:comment">Represents a relationship between two geometries (or the places they represent), relating a covering geometry to a covered geometry. "Every point of b is a point of (the interior or boundary of) a". As defined in [DE-9IM](https://en.wikipedia.org/wiki/DE-9IM).</span>
+        <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/GeospatialGeometry">GeospatialGeometry</a></span>
+        <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Place">Place</a></span>
+        <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/GeospatialGeometry">GeospatialGeometry</a></span>
+        <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Place">Place</a></span>
+    </div>
+
+    <div typeof="rdf:Property" resource="http://schema.org/geospatiallyIntersects">
+        <span class="h" property="rdfs:label">geospatiallyIntersects</span>
+        <span property="rdfs:comment">Represents spatial relations in which two geometries (or the places they represent) have at least one point in common. As defined in [DE-9IM](https://en.wikipedia.org/wiki/DE-9IM).</span>
+        <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/GeospatialGeometry">GeospatialGeometry</a></span>
+        <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Place">Place</a></span>
+        <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/GeospatialGeometry">GeospatialGeometry</a></span>
+        <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Place">Place</a></span>
+    </div>
+
+    <div typeof="rdf:Property" resource="http://schema.org/geospatiallyWithin">
+        <span class="h" property="rdfs:label">geospatiallyWithin</span>
+        <span property="rdfs:comment">Represents a relationship between two geometries (or the places they represent), relating a geometry to one that contains it, i.e. it is inside (i.e. within) its interior. As defined in [DE-9IM](https://en.wikipedia.org/wiki/DE-9IM).</span>
+        <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/GeospatialGeometry">GeospatialGeometry</a></span>
+        <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Place">Place</a></span>
+        <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/GeospatialGeometry">GeospatialGeometry</a></span>
+        <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Place">Place</a></span>
+    </div>
+
+
+    <div typeof="rdf:Property" resource="http://schema.org/geospatiallyCoveredBy">
+        <span class="h" property="rdfs:label">geospatiallyCoveredBy</span>
+        <span property="rdfs:comment">Represents a relationship between two geometries (or the places they represent), relating a geometry to another that covers it. As defined in [DE-9IM](https://en.wikipedia.org/wiki/DE-9IM).</span>
+        <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/GeospatialGeometry">GeospatialGeometry</a></span>
+        <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Place">Place</a></span>
+        <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/GeospatialGeometry">GeospatialGeometry</a></span>
+        <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Place">Place</a></span>
+    </div>
+
+    <div typeof="rdf:Property" resource="http://schema.org/geospatiallyCrosses">
+        <span class="h" property="rdfs:label">geospatiallyCrosses</span>
+        <span property="rdfs:comment">Represents a relationship between two geometries (or the places they represent), relating a geometry to another that crosses it: "a crosses b: they have some but not all interior points in common, and the dimension of the intersection is less than that of at least one of them". As defined in [DE-9IM](https://en.wikipedia.org/wiki/DE-9IM).</span>
+        <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/GeospatialGeometry">GeospatialGeometry</a></span>
+        <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Place">Place</a></span>
+        <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/GeospatialGeometry">GeospatialGeometry</a></span>
+        <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Place">Place</a></span>
+    </div>
+
+
+
+    <div typeof="rdf:Property" resource="http://schema.org/geospatiallyOverlaps">
+        <span class="h" property="rdfs:label">geospatiallyOverlaps</span>
+        <span property="rdfs:comment">Represents a relationship between two geometries (or the places they represent), relating a geometry to another that geospatially overlaps it, i.e. they have some but not all points in common. As defined in [DE-9IM](https://en.wikipedia.org/wiki/DE-9IM).</span>
+        <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/GeospatialGeometry">GeospatialGeometry</a></span>
+        <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Place">Place</a></span>
+        <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/GeospatialGeometry">GeospatialGeometry</a></span>
+        <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Place">Place</a></span>
+    </div>
+
+</div>

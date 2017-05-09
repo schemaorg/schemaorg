@@ -122,44 +122,164 @@ td.release  {
 </tr>
 
 <!-- optional 'early access' section, used between formal releases. -->
-<!--
 <tr>
 <td>&nbsp;</td>
 <td class="prerelease">Early Access Fixes</td>
 <td>
 <p>Changes that will be included in the next full release, but which have been published immediately:</p>
+<h2>Vocabulary</h2>
+<h3>Pending changes</h3>
+<ul>
+<li id="g1582"><a href="https://github.com/schemaorg/schemaorg/issues/1582">Issue #1582</a>: Added <a href="/docs/financial.html">dedicated documentation page</a> describing background and examples for banking and finance terms.</li>
+</ul>
 </td>
 </tr>
--->
 
 
 
 
 <tr>
-<td class="release"><a href="/version/3.2/">3.2</a><br/>sdo-callisto<br/>(2016-0X-XX)</td>
+<td class="release"><a href="/version/3.2/">3.2</a><br/>sdo-callisto<br/>(2017-03-23)</td>
 <span id="v.next"></span>
 <span id="sdo-callisto"></span>
 <span id="v3.2"></span>
 <td>
 <p>
-Version 3.2(?) (working name 'sdo-callisto'). See <a href="https://github.com/schemaorg/schemaorg/issues/1">planning pages</a>, specifically <a href="https://github.com/schemaorg/schemaorg/issues/1292">#1292</a> for details.
+Version 3.2 (working name 'sdo-callisto'). See <a href="https://github.com/schemaorg/schemaorg/issues/1">planning pages</a>, specifically <a href="https://github.com/schemaorg/schemaorg/issues/1292">#1292</a> for details.
 </p>
-<p>This release is under discussion.</p>
+<p>This release introduces new core vocabulary including mechanisms for describing fact-check reviews, courses, and menus. It also introduces
+a number of newly-proposed terms via the "pending" area, to encourage discussion, implementation feedback and other improvements.</p>
 </td>
 
 <td>
-<h3>Vocabulary</h3>
+<h2>Vocabulary</h2>
+
+<h3>Core changes</h3>
 <ul>
 <li id="g1209"><a href="https://github.com/schemaorg/schemaorg/issues/1209">Issue #1209</a>: Added <a href="/maximumAttendeeCapacity">maximumAttendeeCapacity</a> and <a href="/remainingAttendeeCapacity">remainingAttendeeCapacity</a> for describing places and events.</li>
+<li id="g1361"><a href="https://github.com/schemaorg/schemaorg/issues/1361">Issue #1361</a>: Broadened <a href="/about">about</a> property to be applicable on <a href="/Event">events</a>.</li>
+<li id="g1364"><a href="https://github.com/schemaorg/schemaorg/issues/1364">Issue #1364</a>: Broadened <a href="/genre">genre</a> property to be applicable on <a href="/BroadcastChannel">BroadcastChannel</a>.</li>
+<li id="g1488"><a href="https://github.com/schemaorg/schemaorg/issues/1488">Issue #1488</a>: Added <a href="/identifier">identifier</a> as a common super-property of numerous identifying properties.</li>
+<li id="g1288"><a href="https://github.com/schemaorg/schemaorg/issues/1288">Issue #1288</a>: Added
+types <a href="/Menu">Menu</a>, <a href="/MenuItem">MenuItem</a>, <a href="/MenuSection">MenuSection</a>, and
+properties <a href="/hasMenuItem">hasMenuItem</a>, <a href="/hasMenuSection">hasMenuSection</a>. A proposed
+<a href="/menuAddOn">menuAddOn</a> property has also been added to Pending for further design discussion and implementor feedback.
+Introduced <a href="/hasMenu">hasMenu</a> property that supersedes <a href="/menu">menu</a>, both for consistency
+with the other new menu properties, and to avoid a property and type having essentially the same name.
+</li>
+
+<li>Moved to Core from Pending:
+  <ul>
+
+    <li id="g195"><a href="https://github.com/schemaorg/schemaorg/issues/195">Issue #195</a>: Added Course-description terms:
+    <a href="/Course">Course</a>, <a href="/courseCode">courseCode</a>, <a href="/coursePrerequisites">coursePrerequisites</a>,
+    <a href="/hasCourseInstance">hasCourseInstance</a>, <a href="/CourseInstance">CourseInstance</a>,
+    <a href="/courseMode">courseMode</a>, <a href="/instructor">instructor</a>. Thanks to the
+    <a href="https://www.w3.org/community/schema-course-extend/">Schema Course Extension community group</a> at W3C,
+    initiated by <a href="http://lrmi.dublincore.net/">LRMI</a> and led by Phil Barker. </li>
+
+    <li id="g1061b"><a href="https://github.com/schemaorg/schemaorg/issues/1061">Issue #1061</a>: Migrated <a href="/ClaimReview">ClaimReview</a> and <a href="/claimReviewed">claimReviewed</a> for fact-checking reviews into Core section.</li>
+
+    <li id="g1100b"><a href="https://github.com/schemaorg/schemaorg/issues/1100">Issue #1100</a>: Added <a href="/accessMode">accessMode</a>,
+      <a href="/accessModeSufficient">accessModeSufficient</a>, <a href="/accessibilitySummary">accessibilitySummary</a> properties to support <a href="http://www.idpf.org/epub/latest/accessibility">accessible digital publishing</a>. This proposal came from the digital publishing community, and specifically from the Epub 3.1 Accessibility Working Group.
+    </li>
+  </ul>
+</li>
 </ul>
+
+<h3>Additions to <a href="http://pending.schema.org/">Pending</a> section</h3>
+
+<ul>
+<li id="g1541"><a href="https://github.com/schemaorg/schemaorg/issues/1541">Issue #1541</a>: Add a <a href="/menuAddOn">menuAddOn</a> property (originally proposed with other <a href="#g1288">menu-related terms</a>).</li>
+<li id="g1125"><a href="https://github.com/schemaorg/schemaorg/issues/1125">Issue #1125</a> Added <a href="/PreOrderAction">PreOrderAction</a> (a subtype of TradeAction)</li>
+<li id="g1253"><a href="https://github.com/schemaorg/schemaorg/issues/1253">Issue #1253</a>: Added several terms <a href="http://www.fibo.org/schema ">proposed</a> by the FIBO project and its <a href="https://www.w3.org/community/fibo/">community group</a>.
+  <ul>
+    <li>Types: <a href="/BrokerageAccount">BrokerageAccount</a>,
+    <a href="/ExchangeRateSpecification">ExchangeRateSpecification</a>,
+    <a href="/InvestmentFund">InvestmentFund</a>,
+    <a hrefw="/MoneyTransfer">MoneyTransfer</a>,
+    <a href="/MortgageLoan">MortgageLoan</a>,
+    <a href="/RepaymentSpecification">RepaymentSpecification</a>.</li>
+  <li>Properties: <a href="/accountMinimumInflow">accountMinimumInflow</a>,
+    <a href="/accountOverdraftLimit">accountOverdraftLimit</a>,
+    <a href="/amount">amount</a>,
+    <a href="/bankAccountType">bankAccountType</a>,
+    <a href="/beneficiaryBank">beneficiaryBank</a>,
+    <a href="/cashBack">cashBack</a>,
+    <a href="/contactlessPayment">contactlessPayment</a>,
+    <a href="/currency">currency</a>,
+    <a href="/currentExchangeRate">currentExchangeRate</a>,
+    <a href="/domiciledMortgage">domiciledMortgage</a>,
+    <a href="/downPayment">downPayment</a>,
+    <a href="/earlyPrepaymentPenalty">earlyPrepaymentPenalty</a>,
+    <a href="/exchangeRate">exchangeRate</a>,
+    <a href="/exchangeRateSpread">exchangeRateSpread</a>,
+    <a href="/floorLimit">floorLimit</a>,
+    <a href="/gracePeriod">gracePeriod</a>,
+    <a href="/loanMortgageMandateAmount">loanMortgageMandateAmount</a>,
+    <a href="/loanPaymentAmount">loanPaymentAmount</a>,
+    <a href="/loanPaymentFrequency">loanPaymentFrequency</a>,
+    <a href="/loanRepaymentForm">loanRepaymentForm</a>,
+    <a href="/loanType">loanType</a>,
+    <a href="/monthlyMinimumRepaymentAmount">monthlyMinimumRepaymentAmount</a>,
+    <a href="/numberOfLoanPayments">numberOfLoanPayments</a>,
+    <a href="/recourseLoan">recourseLoan</a>,
+    <a href="/renegotiableLoan">renegotiableLoan</a>.</li>
+  </ul>
+</li>
+<li id="g1262"><a href="https://github.com/schemaorg/schemaorg/issues/1262">Issue #1262</a>: Added <a href="/BedType">BedType</a>.</li>
+<li id="g1293"><a href="https://github.com/schemaorg/schemaorg/issues/1293">Issue #1293</a>: Added <a href="/EndorsementRating">EndorsementRating</a>.</li>
+<li id="#g1375"><a href="https://github.com/schemaorg/schemaorg/issues/1375">Issue #1375</a> Added <a href="/GeospatialGeometry">GeospatialGeometry</a> and some draft
+definitions for associated properties, an informal collaboration with the W3C <a href="https://www.w3.org/2015/spatial/wiki/Main_Page">Spatial Data on the Web</a> Working Group.
+Initial properties are: <a href="/geospatiallyContains">geospatiallyContains</a>, <a href="/geospatiallyCoveredBy">geospatiallyCoveredBy</a>, <a href="/geospatiallyCovers">geospatiallyCovers</a>, <a href="/geospatiallyCrosses">geospatiallyCrosses</a>, <a href="/geospatiallyDisjoint">geospatiallyDisjoint</a>, <a href="/geospatiallyEquals">geospatiallyEquals</a>, <a href="/geospatiallyIntersects">geospatiallyIntersects</a>, <a href="/geospatiallyOverlaps">geospatiallyOverlaps</a>, <a href="/geospatiallyTouches">geospatiallyTouches</a>, <a href="/geospatiallyWithin">geospatiallyWithin</a>.</li>
+
+<li id="g1389"><a href="https://github.com/schemaorg/schemaorg/issues/1389">Issue #1389</a>: Added new type <a href="/SpeakableSpecification">SpeakableSpecification</a>, with properties
+<a href="/cssSelector">cssSelector</a> and <a href="/xpath">xpath</a>, alongside a property on <a href="/WebPage">WebPage</a>
+called <a href="/speakable">speakable</a> to refer to a <a href="/SpeakableSpecification">SpeakableSpecification</a>. The purpose
+(documented primarily on the <a href="/speakable">speakable</a> property)
+is to indicate sections of a document that are highlighted as particularly suitable for being spoken/read.
+These sections are indicated via URL/ID values, XPath and/or CSS selectors.
+</li>
+<li id="g1397"><a href="https://github.com/schemaorg/schemaorg/issues/1397">Issue #1397</a>: Added <a href="/CompleteDataFeed">CompleteDateFeed</a> to indicate completeness of feeds.</li>
+<li id="g1423"><a href="https://github.com/schemaorg/schemaorg/issues/1423">Issue #1423</a>: Added a draft <a href="/WebAPI">WebAPI</a>.</li>
+<li id="g1425"><a href="https://github.com/schemaorg/schemaorg/issues/1425">Issue #1425</a>: Added a draft <a href="/measurementTechnique">measurementTechnique</a> property, to support richer <a href="/Dataset">Dataset</a> description particularly for scientific data.</li>
+<li id="g1495"><a href="https://github.com/schemaorg/schemaorg/issues/1495">Issue #1495</a>: Added a <a href="/Consortium">Consortium</a> type, as well as a <a href="/LibrarySystem">LibrarySystem</a> type to represent a particular kind of Library consortium.</li>
+<li id="g743"><a href="https://github.com/schemaorg/schemaorg/issues/743">Issue #743</a>: Added a <a href="/Distillery">Distillery</a> type.</li>
+<li id="g894"><a href="https://github.com/schemaorg/schemaorg/issues/894">Issue #894</a>: Added <a href="/CategoryCode">CategoryCode</a>, <a href="/CategoryCodeSet">CategoryCodeSet</a>, <a href="/codeValue">codeValue</a> and <a href="/inCodeSet">inCodeSet</a> to explore better description of enumerated value lists.</li>
+<li id="g1004"><a href="https://github.com/schemaorg/schemaorg/issues/1004">Issue #1004</a>: Added <a href="/broadcastFrequency">broadcastFrequency</a>, <a href="/broadcastFrequencyValue">broadcastFrequencyValue</a>
+and <a href="/BroadcastFrequencySpecification">BroadcastFrequencySpecification</a> for describing (primarily radio but also TV) frequencies. Also supporting
+types <a href="/FMRadioChannel">FMRadioChannel</a>, <a href="/AMRadioChannel">AMRadioChannel</a>,
+and property <a href="/hasBroadcastChannel">hasBroadcastChannel</a> (inverse: <a href="/providesBroadcastService">providesBroadcastService</a>).</li>
+
+</ul>
+
+<h3>Archived into Attic section</h3>
+
+<ul>
+  <li>The proposed <a href="/variablesMeasured">variablesMeasured</a> property has been removed from Pending. A non-plural <a href="/variableMeasured">variableMeasured</a> property replaced it.</li>
+  <li>broadcastSignalModulation was retired 2016-08-17 from Pending section.</li>
+  <li>The Courses proposal while in Pending originally had additional terms - courseCredits, courseCreditsUnit, grantsCredential, previewUrl - which should be archived here.</li>
+</ul>
+
+<!-- TO FIX: underdocumented in pending: Properties (4) bed, inLanguage, providesBroadcastService, typeOfBed -->
 
 <h3>Site improvements</h3>
 <ul>
 <li id="g1027"><a href="https://github.com/schemaorg/schemaorg/issues/1027">Issue #1027</a>: Published a basic <a href="/robots.txt">robots.txt</a> file to avoid a template file being indexed by search engines.</li>
+<li id="g1272"><a href="https://github.com/schemaorg/schemaorg/issues/1272">Issue #1272</a>: Created an Internet of Things (IoT) <a href="http://iot.webschemas.org">section</a>,
+	<!-- @@ use schema.org for release -->
+<a href="https://groups.google.com/forum/#!forum/sdo-iot-sync">mailing list</a> and <a href="http://iot.webschemas.org/docs/iot-gettingstarted.html">discussion document</a>. At this stage no specific schemas are proposed, only some basic infrastructure for collaboration and schema review.
+</li>
+<li id="g1398"><a href="https://github.com/schemaorg/schemaorg/issues/1398">Issue #1398</a>: Added HTML anchor to support links to the "incoming" section of pages documenting types (see <a href="http://schema.org/QuantitativeValue#incoming">example</a>).</li>
+<li id="g1483"><a href="https://github.com/schemaorg/schemaorg/issues/1483">Issue #1483</a>: Added a sitemap.xml file.</li>
+<li id="g53"><a href="https://github.com/schemaorg/schemaorg/issues/53">Issue #53</a>: Added <a href="https://travis-ci.org/schemaorg/schemaorg">Travis-CI</a> monitoring for test cases and syntax checking of examples.</li>
+<li id="g1351"><a href="https://github.com/schemaorg/schemaorg/pull/1351">Issue #1351</a>: Improvements to the output formats of downloads section in <a href="/docs/developers.html">developers page</a>.</li>
 </ul>
 
 <h3>Quick fixes and Examples</h3>
 <ul>
+<li id="g1560"><a href="https://github.com/schemaorg/schemaorg/pull/1475">Issue #1475</a>: Clarified that <a href="/Event">Event</a> can have an <a href="/audience">audience</a> property.</li>
+<li id="g1494"><a href="https://github.com/schemaorg/schemaorg/issues/1494">Issue #1494</a>: Broadened <a href="/lender">lender</a> to allow organizations as possible values.</li>
 <li id="g1294"><a href="https://github.com/schemaorg/schemaorg/issues/1294">Issue #1294</a>: Restored <a href="/material">material</a>
 as a super-property of <a href="/artMaterial">artMaterial</a> that can be used with any <a href="/Product">Product</a> or <a href="/CreativeWork">CreativeWork</a>.
 Also marked <a href="/artworkSurface">artworkSurface</a> as another specialized sub-property of <a href="/material">material</a>.
@@ -170,11 +290,12 @@ materials to be described in more detail.
 <li id="g1162"><a href="https://github.com/schemaorg/schemaorg/issues/1162">Issue #1162</a>: Updated text for <a href="/sameAs">sameAs</a> - Freebase mention <a href="http://research.google.com/pubs/pub44818.html">migrated</a> to reference <a href="http://wikidata.org">Wikidata</a>.</li>
 </ul>
 
-
+<!--
 <p>The following Early Access fixes have already been published since 3.1:</p>
 <ul>
 <li>...</li>
 </ul>
+-->
 
 </td>
 </tr>
