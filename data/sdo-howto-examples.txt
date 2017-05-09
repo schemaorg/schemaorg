@@ -1,0 +1,188 @@
+TYPES: #howto-1 HowTo, estimatedCost, totalTime, tool, resource, steps, HowToSection, HowToStep, HowToAction, HowToTip, afterMedia, beforeMedia, duringMedia
+
+PRE-MARKUP:
+
+<div>
+  <strong><span>Change a Flat Tire</span></strong>
+  <div>About <span>$20</span></div>
+  <div>About <span>30 minutes</span></div>
+  <div>Necessary Items:</div>
+  <div>Spare tire</div>
+  <div>Lug wrench</div>
+  <div>Jack</div>
+  <div>Wheel wedges</div>
+  <div>Flares</div>
+  <div id="steps">
+    <div>Preparation</div>
+    <div>
+      <div>
+        <span><img href="lit-flares.jpg" /></span>
+        Turn on your hazard lights and set the flares.
+      </div>
+      <div>
+        You're going to need space and want to be visible.</div>
+      <div>
+        <div>
+          Position your wheel wedges in front of the front tires if a rear tire is flat, or behind the rear tires if a front tire is flat.
+        </div>
+        <div>
+          You don't want the car to move while you're working on it.
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="steps">
+    <div>Raise the car</div>
+    <div>
+      <div>
+        Position the jack underneath the car, next to the flat tire.
+      </div>
+    </div>
+    <div>
+      <div>
+        <span><img href="car-on-ground.jpg" /></span>
+        Raise the jack until the flat tire is just barely off of the ground.
+        <span><img href="car-raised.jpg" /></span>
+      </div>
+      <div>
+        It doesn't need to be too high.
+      </div>
+    </div>
+    <div>
+      <div>
+        Remove the hubcap and loosen the lug nuts.
+      </div>
+    </div>
+    <div>
+      <div>
+        <span><img href="replacing-tire.mp4" /></span>
+        Remove the flat tire and put the spare tire on the exposed lug bolts.
+      </div>
+    </div>
+    <div>
+      <div>
+        Tighten the lug nuts by hand.
+      </div>
+      <div>
+        Don't use the wrench just yet.
+      </div>
+    </div>
+  </div>
+  <div id="steps">
+    <div>Finishing up</div>
+    <div>
+      <div>
+        Lower the jack and tighten the lug nuts with the wrench.
+      </div>
+    </div>
+    <div>
+      <div>
+        Replace the hubcap.
+      </div>
+    </div>
+    <div>
+      <div>
+        Put the equipment and the flat tire away.
+      </div>
+    </div>
+  </div>
+</div>
+
+
+MICRODATA:
+
+<div itemscope itemtype="http://schema.org/HowTo">
+  <strong><span itemprop="name">Change a Flat Tire</span></strong>
+  <div>About <span itemprop="estimatedCost">$20</span></div>
+  <div>About <span itemprop="totalTime">30 minutes</span></div>
+  <div>Necessary Items:</div>
+  <div itemprop="tool" itemscope itemtype="http://schema.org/HowToItem">Spare tire</div>
+  <div itemprop="tool" itemscope itemtype="http://schema.org/HowToItem">Lug wrench</div>
+  <div itemprop="tool" itemscope itemtype="http://schema.org/HowToItem">Jack</div>
+  <div itemprop="tool" itemscope itemtype="http://schema.org/HowToItem">Wheel wedges</div>
+  <div itemprop="resource" itemscope itemtype="http://schema.org/HowToItem">Flares</div>
+  <div id="steps" itemprop="steps" itemscope itemtype="http://schema.org/HowToSection">
+    <div itemprop="name">Preparation</div>
+    <div itemprop="itemListElement" itemscope itemtype="http://schema.org/HowToStep">
+      <div itemprop="itemListElement" itemscope itemtype="http://schema.org/HowToAction">
+        <span itemprop="duringMedia"><img itemprop="image" href="lit-flares.jpg" /></span>
+        Turn on your hazard lights and set the flares.
+      </div>
+      <div itemprop="itemListElement" itemscope itemtype="http://schema.org/HowToTip">
+        You're going to need space and want to be visible.</div>
+      <div itemprop="itemListElement" itemscope itemtype="http://schema.org/HowToStep">
+        <div itemprop="itemListElement" itemscope itemtype="http://schema.org/HowToAction">
+          Position your wheel wedges in front of the front tires if a rear tire is flat, or behind the rear tires if a front tire is flat.
+        </div>
+        <div itemprop="itemListElement" itemscope itemtype="http://schema.org/HowToTip">
+          You don't want the car to move while you're working on it.
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="steps" itemprop="steps" itemscope itemtype="http://schema.org/HowToSection">
+    <div itemprop="name">Raise the car</div>
+    <div itemprop="itemListElement" itemscope itemtype="http://schema.org/HowToStep">
+      <div itemprop="itemListElement" itemscope itemtype="http://schema.org/HowToAction">
+        Position the jack underneath the car, next to the flat tire.
+      </div>
+    </div>
+    <div itemprop="itemListElement" itemscope itemtype="http://schema.org/HowToStep">
+      <div itemprop="itemListElement" itemscope itemtype="http://schema.org/HowToAction">
+        <span itemprop="beforeMedia"><img itemprop="image" href="car-on-ground.jpg" /></span>
+        Raise the jack until the flat tire is just barely off of the ground.
+        <span itemprop="afterMedia"><img itemprop="image" href="car-raised.jpg" /></span>
+      </div>
+      <div itemprop="itemListElement" itemscope itemtype="http://schema.org/HowToTip">
+        It doesn't need to be too high.
+      </div>
+    </div>
+    <div itemprop="itemListElement" itemscope itemtype="http://schema.org/HowToStep">
+      <div itemprop="itemListElement" itemscope itemtype="http://schema.org/HowToAction">
+        Remove the hubcap and loosen the lug nuts.
+      </div>
+    </div>
+    <div itemprop="itemListElement" itemscope itemtype="http://schema.org/HowToStep">
+      <div itemprop="itemListElement" itemscope itemtype="http://schema.org/HowToAction">
+        <span itemprop="duringMedia"><img itemprop="image" href="replacing-tire.mp4" /></span>
+        Remove the flat tire and put the spare tire on the exposed lug bolts.
+      </div>
+    </div>
+    <div itemprop="itemListElement" itemscope itemtype="http://schema.org/HowToStep">
+      <div itemprop="itemListElement" itemscope itemtype="http://schema.org/HowToAction">
+        Tighten the lug nuts by hand.
+      </div>
+      <div itemprop="itemListElement" itemscope itemtype="http://schema.org/HowToTip">
+        Don't use the wrench just yet.
+      </div>
+    </div>
+  </div>
+  <div id="steps" itemprop="steps" itemscope itemtype="http://schema.org/HowToSection">
+    <div itemprop="name">Finishing up</div>
+    <div itemprop="itemListElement" itemscope itemtype="http://schema.org/HowToStep">
+      <div itemprop="itemListElement" itemscope itemtype="http://schema.org/HowToAction">
+        Lower the jack and tighten the lug nuts with the wrench.
+      </div>
+    </div>
+    <div itemprop="itemListElement" itemscope itemtype="http://schema.org/HowToStep">
+      <div itemprop="itemListElement" itemscope itemtype="http://schema.org/HowToAction">
+        Replace the hubcap.
+      </div>
+    </div>
+    <div itemprop="itemListElement" itemscope itemtype="http://schema.org/HowToStep">
+      <div itemprop="itemListElement" itemscope itemtype="http://schema.org/HowToAction">
+        Put the equipment and the flat tire away.
+      </div>
+    </div>
+  </div>
+</div>
+
+
+RDFA:
+
+No RDFA
+
+
+JSON:
+
+No JSON

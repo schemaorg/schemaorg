@@ -10303,14 +10303,7 @@ Standards bodies should promote a standard prefix for the identifiers of propert
 <div typeof="rdfs:Class" resource="http://schema.org/Recipe">
   <span class="h" property="rdfs:label">Recipe</span>
   <span property="rdfs:comment">A recipe. For dietary restrictions covered by the recipe, a few common restrictions are enumerated via [[suitableForDiet]]. The [[keywords]] property can also be used to add more detail.</span>
-   <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/CreativeWork">CreativeWork</a></span>
-</div>
-
-<div typeof="rdf:Property" resource="http://schema.org/totalTime">
-  <span class="h" property="rdfs:label">totalTime</span>
-  <span property="rdfs:comment">The total time it takes to prepare and cook the recipe, in [ISO 8601 duration format](http://en.wikipedia.org/wiki/ISO_8601).</span>
-  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Recipe">Recipe</a></span>
-  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Duration">Duration</a></span>
+   <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/HowTo">HowTo</a></span>
 </div>
 
 <div typeof="rdf:Property" resource="http://schema.org/cookTime">
@@ -10318,6 +10311,7 @@ Standards bodies should promote a standard prefix for the identifiers of propert
   <span property="rdfs:comment">The time it takes to actually cook the dish, in [ISO 8601 duration format](http://en.wikipedia.org/wiki/ISO_8601).</span>
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Recipe">Recipe</a></span>
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Duration">Duration</a></span>
+  <span>SubProperty of: <a property="rdfs:subPropertyOf" href="http://schema.org/performTime">performTime</a></span>
 </div>
 
 <div typeof="rdf:Property" resource="http://schema.org/cookingMethod">
@@ -10360,13 +10354,6 @@ Standards bodies should promote a standard prefix for the identifiers of propert
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/NutritionInformation">NutritionInformation</a></span>
 </div>
 
-<div typeof="rdf:Property" resource="http://schema.org/prepTime">
-  <span class="h" property="rdfs:label">prepTime</span>
-  <span property="rdfs:comment">The length of time it takes to prepare the recipe, in [ISO 8601 duration format](http://en.wikipedia.org/wiki/ISO_8601).</span>
-  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Recipe"> Recipe</a></span>
-  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Duration"> Duration</a></span>
-</div>
-
 <div typeof="rdf:Property" resource="http://schema.org/recipeCategory">
   <span class="h" property="rdfs:label">recipeCategory</span>
   <span property="rdfs:comment">The category of the recipe&#x2014;for example, appetizer, entree, etc.</span>
@@ -10394,14 +10381,17 @@ Standards bodies should promote a standard prefix for the identifiers of propert
   <span property="rdfs:comment">A single ingredient used in the recipe, e.g. sugar, flour or garlic.</span>
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Recipe"> Recipe</a></span>
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text"> Text </a></span>
+  <span>SubProperty of: <a property="rdfs:subPropertyOf" href="http://schema.org/resource">resource</a></span>
 </div>
 
 <div typeof="rdf:Property" resource="http://schema.org/recipeInstructions">
   <span class="h" property="rdfs:label">recipeInstructions</span>
-  <span property="rdfs:comment">A step or instruction involved in making the recipe.</span>
+  <span property="rdfs:comment">A step in making the recipe, in the form of a single item (document, video, etc.) or an ordered list with HowToStep and/or HowToSection items.</span>
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Recipe"> Recipe</a></span>
-  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/ItemList">schema:ItemList</a></span>
-  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text"> Text </a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/CreativeWork">CreativeWork</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/ItemList">ItemList</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+  <span>SubProperty of: <a property="rdfs:subPropertyOf" href="http://schema.org/steps">steps</a></span>
 </div>
 
 <div typeof="rdf:Property" resource="http://schema.org/recipeYield">
@@ -10409,6 +10399,8 @@ Standards bodies should promote a standard prefix for the identifiers of propert
   <span property="rdfs:comment">The quantity produced by the recipe (for example, number of people served, number of servings, etc).</span>
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Recipe"> Recipe</a></span>
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text"> Text </a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/QuantitativeValue">QuantitativeValue</a></span>
+  <span>SubProperty of: <a property="rdfs:subPropertyOf" href="http://schema.org/yield">yield</a></span>
 </div>
 
 <div typeof="rdf:Property" resource="http://schema.org/recipe">
@@ -11008,6 +11000,177 @@ Typical unit code(s): C62 for person</span>
     <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/FoodEstablishment">FoodEstablishment</a></span>
     <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Rating">Rating</a></span>
     <span>Source:  <a property="dc:source" href="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology">STI Accommodation Ontology</a></span>
+</div>
+
+<h1>HowTo</h1>
+
+<div typeof="rdfs:Class" resource="http://schema.org/HowTo">
+    <span class="h" property="rdfs:label">HowTo</span>
+    <span property="rdfs:comment">Instructions that explain how to achieve a result by performing a sequence of steps.</span>
+    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/CreativeWork">CreativeWork</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/estimatedCost">
+    <span class="h" property="rdfs:label">estimatedCost</span>
+    <span property="rdfs:comment">The estimated cost of resource(s) consumed when performing these instructions.</span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/HowTo">HowTo</a></span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/HowToResource">HowToResource</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/MonetaryAmount">MonetaryAmount</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/performTime">
+    <span class="h" property="rdfs:label">performTime</span>
+    <span property="rdfs:comment">The length of time it takes to perform the instructions or action (not including initial resource preparation time), in [ISO 8601 duration format](http://en.wikipedia.org/wiki/ISO_8601).</span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/HowTo">HowTo</a></span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/HowToAction">HowToAction</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Duration">Duration</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/prepTime">
+    <span class="h" property="rdfs:label">prepTime</span>
+    <span property="rdfs:comment">The length of time it takes to prepare the items to be used in instructions or an action, in [ISO 8601 duration format](http://en.wikipedia.org/wiki/ISO_8601).</span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/HowTo">HowTo</a></span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/HowToAction">HowToAction</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Duration">Duration</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/resource">
+    <span class="h" property="rdfs:label">resource</span>
+    <span property="rdfs:comment">A resource consumed when performing instructions or an action.</span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/HowTo">HowTo</a></span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/HowToAction">HowToAction</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/HowToResource">HowToResource</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/steps">
+    <span class="h" property="rdfs:label">steps</span>
+    <span property="rdfs:comment">The steps in the form of a single item (text, document, video, etc.) or an ordered list with HowToStep and/or HowToSection items.</span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/HowTo">HowTo</a></span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/HowToSection">HowToSection</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/CreativeWork">CreativeWork</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/ItemList">ItemList</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/tool">
+    <span class="h" property="rdfs:label">tool</span>
+    <span property="rdfs:comment">A tool used (but not consumed) when performing instructions or an action.</span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/HowTo">HowTo</a></span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/HowToAction">HowToAction</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/HowToTool">HowToTool</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/totalTime">
+    <span class="h" property="rdfs:label">totalTime</span>
+    <span property="rdfs:comment">The total time required to perform instructions or an action (including initially resource preparation time), in [ISO 8601 duration format](http://en.wikipedia.org/wiki/ISO_8601).</span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/HowTo">HowTo</a></span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/HowToAction">HowToAction</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Duration">Duration</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/yield">
+    <span class="h" property="rdfs:label">yield</span>
+    <span property="rdfs:comment">The quantity that results by performing these instructions. For example, a paper airplane, 10 personalized candles.</span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/HowTo">HowTo</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/QuantitativeValue">QuantitativeValue</a></span>
+</div>
+
+<h1>HowToAction</h1>
+
+<div typeof="rdfs:Class" resource="http://schema.org/HowToAction">
+    <span class="h" property="rdfs:label">HowToAction</span>
+    <span property="rdfs:comment">An action in the instructions for how to achieve a result. It specifies what to do.</span>
+    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/ListItem">ListItem</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/afterMedia">
+    <span class="h" property="rdfs:label">afterMedia</span>
+    <span property="rdfs:comment">A media object representing the circumstances after performing this action.</span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/HowToAction">HowToAction</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/MediaObject">MediaObject</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/beforeMedia">
+    <span class="h" property="rdfs:label">beforeMedia</span>
+    <span property="rdfs:comment">A media object representing the circumstances before performing this action.</span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/HowToAction">HowToAction</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/MediaObject">MediaObject</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/duringMedia">
+    <span class="h" property="rdfs:label">duringMedia</span>
+    <span property="rdfs:comment">A media object representing the circumstances while performing this action.</span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/HowToAction">HowToAction</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/MediaObject">MediaObject</a></span>
+</div>
+
+<h1>HowToItem</h1>
+
+<div typeof="rdfs:Class" resource="http://schema.org/HowToItem">
+    <span class="h" property="rdfs:label">HowToItem</span>
+    <span property="rdfs:comment">An item used as either a resource or tool when performing instructions to achieve a result.</span>
+    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/ListItem">ListItem</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/requiredQuantity">
+    <span class="h" property="rdfs:label">requiredQuantity</span>
+    <span property="rdfs:comment">The required quantity of the item(s).</span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/HowToItem">HowToItem</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number">Number</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/QuantitativeValue">QuantitativeValue</a></span>
+</div>
+
+<h1>HowToResource</h1>
+
+<div typeof="rdfs:Class" resource="http://schema.org/HowToResource">
+    <span class="h" property="rdfs:label">HowToResource</span>
+    <span property="rdfs:comment">A resource consumed when performing the instructions to achieve a result.</span>
+    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/HowToItem">HowToItem</a></span>
+</div>
+
+<h1>HowToSection</h1>
+
+<div typeof="rdfs:Class" resource="http://schema.org/HowToSection">
+    <span class="h" property="rdfs:label">HowToSection</span>
+    <span property="rdfs:comment">A sub-grouping of steps in the instructions (e.g. steps for making a pie crust within a pie recipe).</span>
+    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/ItemList">ItemList</a></span>
+</div>
+
+<h1>HowToStep</h1>
+
+<div typeof="rdfs:Class" resource="http://schema.org/HowToStep">
+    <span class="h" property="rdfs:label">HowToStep</span>
+    <span property="rdfs:comment">A step in the instructions for how to achieve a result.</span>
+    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/ItemList">ItemList</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/element">
+    <span class="h" property="rdfs:label">element</span>
+    <span property="rdfs:comment">A HowToAction or HowToTip part of a step.</span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/HowToStep">HowToStep</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/HowToAction">HowToAction</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/HowToTip">HowToTip</a></span>
+</div>
+
+<h1>HowToTip</h1>
+
+<div typeof="rdfs:Class" resource="http://schema.org/HowToTip">
+    <span class="h" property="rdfs:label">HowToTip</span>
+    <span property="rdfs:comment">A tip in the instructions for how to achieve a result. It provides supplementary information about a technique, resource, author's preference, etc. It can explain what could be done, or what not to do, but doesn't specify what should be done (see HowToAction).</span>
+    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/ListItem">ListItem</a></span>
+</div>
+
+<h1>HowToTool</h1>
+
+<div typeof="rdfs:Class" resource="http://schema.org/HowToTool">
+    <span class="h" property="rdfs:label">HowToTool</span>
+    <span property="rdfs:comment">A tool used (but not consumed) when performing instructions to achieve a result.</span>
+    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/HowToItem">HowToItem</a></span>
 </div>
 
 
