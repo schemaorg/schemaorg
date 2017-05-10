@@ -64,6 +64,7 @@ JINJA_ENVIRONMENT = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.join(os.path.dirname(__file__), 'templates')),
     extensions=['jinja2.ext.autoescape'], autoescape=True, cache_size=0)
 
+CANONICALSCHEME = "http"
 ENABLE_JSONLD_CONTEXT = True
 ENABLE_CORS = True
 ENABLE_HOSTED_EXTENSIONS = True
@@ -548,7 +549,7 @@ class ShowUnit (webapp2.RequestHandler):
             port = ""
             if getHostPort() != "80":
                 port = ":%s" % getHostPort()
-            urlprefix = makeUrl(home)
+            urlprefix = makeUrl(home,full=True)
 
         extclass = ""
         extflag = ""
@@ -558,8 +559,6 @@ class ShowUnit (webapp2.RequestHandler):
                 extclass = "class=\"ext ext-%s\" " % home
             extflag = EXTENSION_SUFFIX
             tooltip = "title=\"Defined in extension: %s.schema.org\" " % home
-
-
 
         return "%s<a %s %s href=\"%s%s%s\"%s>%s</a>%s" % (rdfalink,tooltip, extclass, urlprefix, hashorslash, node.id, title, label, extflag)
         #return "<a %s %s href=\"%s%s%s\"%s%s>%s</a>%s" % (tooltip, extclass, urlprefix, hashorslash, node.id, prop, title, label, extflag)
@@ -602,7 +601,7 @@ class ShowUnit (webapp2.RequestHandler):
             self.write("<table class=\"definition-table\">\n        <thead>\n  <tr><th>Property</th><th>Expected Type</th><th>Description</th>               \n  </tr>\n  </thead>\n\n")
 
     def emitCanonicalURL(self,node):
-        cURL = "http://schema.org/" + node.id
+        cURL = "%s://schema.org/%s" % (CANONICALSCHEME,node.id)
         self.write(" <span class=\"canonicalUrl\">Canonical URL: <a href=\"%s\">%s</a></span>" % (cURL, cURL))
 
     # Stacks to support multiple inheritance
@@ -1554,14 +1553,14 @@ class ShowUnit (webapp2.RequestHandler):
     def handleFullHierarchyPage(self, node,  layerlist='core'):
         self.response.headers['Content-Type'] = "text/html"
         self.emitCacheHeaders()
-
-        if getPageFromStore('FullTreePage'):
-            self.response.out.write( getPageFromStore('FullTreePage') )
-            log.debug("Serving recycled FullTreePage.")
+        label = 'FullTreePage - %s' % getHostExt()
+     
+        if getPageFromStore(label):
+            self.response.out.write( getPageFromStore(label) )
+            log.debug("Serving recycled %s." % label)
             return True
         else:
             template = JINJA_ENVIRONMENT.get_template('full.tpl')
-
 
             extlist=""
             extonlylist=[]
@@ -1623,8 +1622,8 @@ class ShowUnit (webapp2.RequestHandler):
                                     'menu_sel': "Schemas"})
 
             self.response.out.write( page )
-            log.debug("Serving fresh FullTreePage.")
-            PageStore.put("FullTreePage",page)
+            log.debug("Serving fresh %s." % label)
+            PageStore.put(label,page)
 
             return True
 
@@ -1710,7 +1709,7 @@ class ShowUnit (webapp2.RequestHandler):
 
                 extensions = []
                 ext = {}
-                ext['href'] = makeUrl(schema_node.getHomeLayer(),schema_node.id)
+                ext['href'] = makeUrl(schema_node.getHomeLayer(),schema_node.id,full=True)
                 ext['text'] = schema_node.getHomeLayer()
                 extensions.append(ext)
                     #self.response.out.write("<li><a href='%s'>%s</a></li>" % (makeUrl(x,schema_node.id), x) )
@@ -2105,6 +2104,8 @@ class ShowUnit (webapp2.RequestHandler):
         if scheme != "http":
             dcn = "%s-%s" % (dcn,scheme)
 
+        dcn = "" #Forcing single cache
+        log.info("Forcing single cache.  !!!!!!!!!!!!!!!!")
         log.info("sdoapp.py setting current datacache to: %s " % dcn)
         DataCache.setCurrent(dcn)
         PageStore.setCurrent(dcn)
@@ -2652,7 +2653,7 @@ def setArguments(val):
 def getArguments():
     return getAppVar('myarguments')
 
-def makeUrl(ext="",path=""):
+def makeUrl(ext="",path="",full=False,scheme=None):
         port = ""
         sub = ""
         p = ""
@@ -2666,7 +2667,13 @@ def makeUrl(ext="",path=""):
             else:
                 p = "/%s" % path
 
-        url = "%s://%s%s%s%s" % (getHttpScheme(),sub,getBaseHost(),port,p)
+        if full:
+            if not scheme:
+                scheme = getHttpScheme()
+ 
+            url = "%s://%s%s%s%s" % (scheme,sub,getBaseHost(),port,p)
+        else:
+            url = "%s" % (p)
         return url
 
 def getPageFromStore(id,ext=None):
