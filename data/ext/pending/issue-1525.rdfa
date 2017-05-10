@@ -23,14 +23,15 @@
 <!-- work in progress, exploring one possible way of modeling news article categories via types. -->
 
 
-  <div typeof="rdfs:Class" resource="http://schema.org/BasicNewsArticle">
+  <div typeof="rdfs:Class" resource="http://schema.org/ReportageNewsArticle">
     <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/NewsArticle">NewsArticle</a></span>
-    <span class="h" property="rdfs:label">BasicNewsArticle</span>
-    <span property="rdfs:comment">The [[BasicNewsArticle]] type is a subtype of [[NewsArticle]] representing only those [[NewsArticle]]s which are the result of journalistic news reporting conventions.
+    <span class="h" property="rdfs:label">ReportageNewsArticle</span>
+    <span property="rdfs:comment">The [[ReportageNewsArticle]] type is a subtype of [[NewsArticle]] representing
+basic news articles, i.e. only those [[NewsArticle]]s which are the result of journalistic news reporting conventions.
 
-In practice many news publishers produce a wide variety of article types, many of which might be considered [[NewsArticle]] but not [[BasicNewsArticle]]. For example, opinion pieces, analysis, sponsored or satirical articles, or articles that combine several of these elements.
+In practice many news publishers produce a wide variety of article types, many of which might be considered a [[NewsArticle]] but not a [[ReportageNewsArticle]]. For example, opinion pieces, reviews, analysis, sponsored or satirical articles, or articles that combine several of these elements.
 
-The [[BasicNewsArticle]] type represents a stricter notion of "news" as a work of journalism, with articles based on factual information either observed or verified by the author, or reported and verified from knowledgeable sources.  This often includes perspectives from multiple viewpoints on a particular issue (distinguishing news reports from public relations or propaganda).  News reports in the [[BasicNewsArticle]] sense de-emphasize the opinion of the author, with commentary and value judgements typically expressed elsewhere.
+The [[ReportageNewsArticle]] type is based on a stricter ideal for "news" as a work of journalism, with articles based on factual information either observed or verified by the author, or reported and verified from knowledgeable sources.  This often includes perspectives from multiple viewpoints on a particular issue (distinguishing news reports from public relations or propaganda).  News reports in the [[ReportageNewsArticle]] sense de-emphasize the opinion of the author, with commentary and value judgements typically expressed elsewhere.
 </span>
     <span property="schema:category">issue-1525</span>
     <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1525">#1525</a>
