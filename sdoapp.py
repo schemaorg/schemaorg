@@ -1148,6 +1148,7 @@ class ShowUnit (webapp2.RequestHandler):
 
         * entry = name of the class or property
         """
+
         rdfs_type = 'rdfs:Property'
         anode = True
         if isinstance(node, str):
@@ -1176,9 +1177,9 @@ class ShowUnit (webapp2.RequestHandler):
         generated_page_id = "genericTermPageHeader-%s-%s" % ( str(entry), getSiteName() )
         gtp = DataCache.get( generated_page_id )
 
-        if gtp != None:
+        if gtp:
             self.response.out.write( gtp )
-            log.debug("Served recycled genericTermPageHeader.tpl for %s" % generated_page_id )
+            log.info("Served recycled genericTermPageHeader.tpl for %s" % generated_page_id )
         else:
 
             desc = entry
@@ -1194,7 +1195,7 @@ class ShowUnit (webapp2.RequestHandler):
             }
             out = templateRender('genericTermPageHeader.tpl',template_values)
             DataCache.put(generated_page_id, out)
-            log.debug("Served and cached fresh genericTermPageHeader.tpl for %s" % generated_page_id )
+            log.info("Served and cached fresh genericTermPageHeader.tpl for %s" % generated_page_id )
 
             self.response.write(out)
 
@@ -1723,7 +1724,11 @@ class ShowUnit (webapp2.RequestHandler):
                 self.response.out.write( page )
                 log.debug("Serving fresh wrongExtPage.")
                 return True
-            return False
+            else:
+                log.debug("No unit identified for node: %s" % node)
+                return False
+
+        log.info("Should not have reached here!!")
 
     def handleExactTermDataOutput(self, node=None, outputtype=None):
         log.info("handleExactTermDataOutput Node: '%s'  Outputtype: '%s'" % (node, outputtype))
