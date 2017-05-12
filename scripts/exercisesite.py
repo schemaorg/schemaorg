@@ -195,7 +195,7 @@ class Exercise():
                 success = True
 
             except urllib2.HTTPError as e:
-              print("got error: {} - {}".format(e.code, e.reason))
+              print("  got error: {} - {}".format(e.code, e.reason))
               if e.code == 500:
                   fivehundred += 1
             

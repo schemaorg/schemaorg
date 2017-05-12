@@ -1174,7 +1174,7 @@ class ShowUnit (webapp2.RequestHandler):
             elif node.isAttribute():
                 rdfs_type = 'rdfs:Property'
 
-        generated_page_id = "genericTermPageHeader-%s-%s" % ( str(entry), getSiteName() )
+        generated_page_id = "GTPH-%s-%s" % ( str(entry), getSiteName() )
         gtp = DataCache.get( generated_page_id )
 
         if gtp:
@@ -1494,7 +1494,7 @@ class ShowUnit (webapp2.RequestHandler):
             extensions = []
             for ex in sorted(ENABLED_EXTENSIONS):
                 if ex != ATTIC:
-                    extensions.append("<a href=\"%s\">%s.schema.org</a>" % (makeUrl(ex,""),ex))
+                    extensions.append("<a href=\"%s\">%s.schema.org</a>" % (makeUrl(ex,"",full=True),ex))
 
             page = templateRender('schemas.tpl',{'counts': self.getCounts(),
                                     'extensions': extensions,
@@ -2109,7 +2109,7 @@ class ShowUnit (webapp2.RequestHandler):
         if scheme != "http":
             dcn = "%s-%s" % (dcn,scheme)
 
-        dcn = "" #Forcing single cache
+        dcn = "single" #Forcing single cache
         log.info("Forcing single cache.  !!!!!!!!!!!!!!!!")
         log.info("sdoapp.py setting current datacache to: %s " % dcn)
         DataCache.setCurrent(dcn)
