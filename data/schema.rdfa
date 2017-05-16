@@ -1487,7 +1487,7 @@ A more detailed overview of [schema.org News markup](/docs/news.html) is also av
 </span>
        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Article">Article</a></span>
        <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_rNews">rNews</a></span>
-       <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP-draws">trustproject</a></span>
+       <span>Source:  <a property="dc:source" href="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP-draws">trustproject</a></span>
 </div>
 
     <div typeof="rdfs:Class" resource="http://schema.org/NightClub">
@@ -3886,6 +3886,15 @@ The place is __open__ if the [[opens]] property is specified, and __closed__ oth
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/PriceSpecification">PriceSpecification</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/MonetaryAmount">MonetaryAmount</a></span>
     </div>
+    <div typeof="rdf:Property" resource="http://schema.org/bccRecipient">
+      <span class="h" property="rdfs:label">bccRecipient</span>
+      <span property="rdfs:comment">A sub property of recipient. The recipient blind copied on a message.</span>
+      <link property="rdfs:subPropertyOf" href="http://schema.org/recipient" />
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Message">Message</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/ContactPoint">ContactPoint</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Organization">Organization</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Person">Person</a></span>
+    </div>
     <div typeof="rdf:Property" resource="http://schema.org/benefits">
       <span class="h" property="rdfs:label">benefits</span>
       <link property="http://schema.org/supersededBy" href="http://schema.org/jobBenefits"/>
@@ -4107,6 +4116,15 @@ The place is __open__ if the [[opens]] property is specified, and __closed__ oth
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Thing">Thing</a></span>
     </div>
 
+    <div typeof="rdf:Property" resource="http://schema.org/ccRecipient">
+      <span class="h" property="rdfs:label">ccRecipient</span>
+      <span property="rdfs:comment">A sub property of recipient. The recipient copied on a message.</span>
+      <link property="rdfs:subPropertyOf" href="http://schema.org/recipient" />
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Message">Message</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/ContactPoint">ContactPoint</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Organization">Organization</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Person">Person</a></span>
+    </div>
     <div typeof="rdf:Property" resource="http://schema.org/childMaxAge">
       <span class="h" property="rdfs:label">childMaxAge</span>
       <span property="rdfs:comment">Maximal age of the child.</span>
@@ -6496,6 +6514,7 @@ While such policies are most typically expressed in natural language, sometimes 
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/SendAction">SendAction</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/TipAction">TipAction</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Audience">Audience</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/ContactPoint">ContactPoint</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Organization">Organization</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Person">Person</a></span>
     </div>
@@ -7262,6 +7281,16 @@ While such policies are most typically expressed in natural language, sometimes 
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Place">Place</a></span>
     </div>
 
+    <div typeof="rdf:Property" resource="http://schema.org/toRecipient">
+      <span class="h" property="rdfs:label">toRecipient</span>
+      <span property="rdfs:comment">A sub property of recipient. The recipient who was directly sent the message.</span>
+      <link property="rdfs:subPropertyOf" href="http://schema.org/recipient" />
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Message">Message</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Audience">Audience</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/ContactPoint">ContactPoint</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Organization">Organization</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Person">Person</a></span>
+    </div>
     <div typeof="rdf:Property" resource="http://schema.org/trackingNumber">
       <span class="h" property="rdfs:label">trackingNumber</span>
       <span property="rdfs:comment">Shipper tracking number.</span>
@@ -7598,7 +7627,7 @@ While such policies are most typically expressed in natural language, sometimes 
 
     <div typeof="http://schema.org/Organization" resource="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP-draws">
         <span property="rdfs:label">The Trust Project</span>
-        <span property="rdfs:comment">This term and associated definitions draws upon the work of [The Trust Project](http://thetrustproject.org/)</span>
+        <span property="rdfs:comment">This term and associated definitions draws upon the work of [The Trust Project](http://thetrustproject.org/).</span>
     </div>
 
     <div typeof="http://schema.org/Organization" resource="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_DatasetClass">
