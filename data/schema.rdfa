@@ -10288,7 +10288,7 @@ Standards bodies should promote a standard prefix for the identifiers of propert
 <div typeof="rdfs:Class" resource="http://schema.org/Recipe">
   <span class="h" property="rdfs:label">Recipe</span>
   <span property="rdfs:comment">A recipe. For dietary restrictions covered by the recipe, a few common restrictions are enumerated via [[suitableForDiet]]. The [[keywords]] property can also be used to add more detail.</span>
-   <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/CreativeWork">CreativeWork</a></span>
+   <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/InstructionSet">InstructionSet</a></span>
 </div>
 
 <div typeof="rdf:Property" resource="http://schema.org/totalTime">
@@ -10385,8 +10385,10 @@ Standards bodies should promote a standard prefix for the identifiers of propert
   <span class="h" property="rdfs:label">recipeInstructions</span>
   <span property="rdfs:comment">A step or instruction involved in making the recipe.</span>
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Recipe"> Recipe</a></span>
-  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/ItemList">schema:ItemList</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/CreativeWork">CreativeWork</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/ItemList">ItemList</a></span>
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text"> Text </a></span>
+  <span>SubProperty of: <a property="rdfs:subPropertyOf" href="http://schema.org/instructions"> instructions</a></span>
 </div>
 
 <div typeof="rdf:Property" resource="http://schema.org/recipeYield">
@@ -10394,6 +10396,8 @@ Standards bodies should promote a standard prefix for the identifiers of propert
   <span property="rdfs:comment">The quantity produced by the recipe (for example, number of people served, number of servings, etc).</span>
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Recipe"> Recipe</a></span>
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text"> Text </a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/QuantitativeValue">QuantitativeValue</a></span>
+  <span>SubProperty of: <a property="rdfs:subPropertyOf" href="http://schema.org/yield"> yield</a></span>
 </div>
 
 <div typeof="rdf:Property" resource="http://schema.org/recipe">
@@ -10993,6 +10997,103 @@ Typical unit code(s): C62 for person</span>
     <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/FoodEstablishment">FoodEstablishment</a></span>
     <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Rating">Rating</a></span>
     <span>Source:  <a property="dc:source" href="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology">STI Accommodation Ontology</a></span>
+</div>
+
+<h1>InstructionSet</h1>
+
+<div typeof="rdfs:Class" resource="http://schema.org/InstructionSet">
+    <span class="h" property="rdfs:label">InstructionSet</span>
+    <span property="rdfs:comment">A set of instructions that teaches how to do something.</span>
+    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/CreativeWork">CreativeWork</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/estimatedCost">
+    <span class="h" property="rdfs:label">estimatedCost</span>
+    <span property="rdfs:comment">Estimated supply cost to complete the instructions.</span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/InstructionSet">InstructionSet</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/MonetaryAmount">MonetaryAmount</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/instructions">
+    <span class="h" property="rdfs:label">instructions</span>
+    <span property="rdfs:comment">A list of instructions either in a single form (document, video, etc.) or an ordered list of InstructionStep items.</span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/InstructionSet">InstructionSet</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/CreativeWork">CreativeWork</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/ItemList">ItemList</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/yield">
+    <span class="h" property="rdfs:label">yield</span>
+    <span property="rdfs:comment">Outcome from the instructions. For example, a paper airplane, 10 personalized candles</span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/InstructionSet">InstructionSet</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/QuantitativeValue">QuantitativeValue</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/supplies">
+    <span class="h" property="rdfs:label">supplies</span>
+    <span property="rdfs:comment">A related list of supplies. The list should contain items of type InstructionSupply.</span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/InstructionSet">InstructionSet</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/ItemList">ItemList</a></span>
+</div>
+
+<h1>InstructionStep</h1>
+
+<div typeof="rdfs:Class" resource="http://schema.org/InstructionStep">
+    <span class="h" property="rdfs:label">InstructionStep</span>
+    <span property="rdfs:comment">A step in a set of instructions.</span>
+    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/ListItem">ListItem</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/instructionDetail">
+    <span class="h" property="rdfs:label">instructionDetail</span>
+    <span property="rdfs:comment">A detailed explanation of the action needed to complete a step.</span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/InstructionStep">InstructionStep</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/CreativeWork">CreativeWork</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/instructionSupplies">
+    <span class="h" property="rdfs:label">instructionSupplies</span>
+    <span property="rdfs:comment">A related list of supplies of this step. The list should contain items of type InstructionSupply.</span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/InstructionStep">InstructionStep</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/ItemList">ItemList</a></span>
+</div>
+
+<h1>InstructionSupply</h1>
+
+<div typeof="rdfs:Class" resource="http://schema.org/InstructionSupply">
+    <span class="h" property="rdfs:label">InstructionSupply</span>
+    <span property="rdfs:comment">Supply item for an instruction set.</span>
+    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/ListItem">ListItem</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/estimatedSupplyCost">
+    <span class="h" property="rdfs:label">estimatedSupplyCost</span>
+    <span property="rdfs:comment">Estimated cost of the supply item(s).</span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/InstructionSupply">InstructionSupply</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/MonetaryAmount">MonetaryAmount</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/requiredQuantity">
+    <span class="h" property="rdfs:label">requiredQuantity</span>
+    <span property="rdfs:comment">Required quantity of the item(s).</span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/InstructionSupply">InstructionSupply</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number">Number</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/QuantitativeValue">QuantitativeValue</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/supplyItem">
+    <span class="h" property="rdfs:label">supplyItem</span>
+    <span property="rdfs:comment">Required. The supply item product.</span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/InstructionSupply">InstructionSupply</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Product">Product</a></span>
 </div>
 
 
