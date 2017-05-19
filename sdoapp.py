@@ -587,7 +587,7 @@ class ShowUnit (webapp2.RequestHandler):
                 self.write("Defined in the %s.schema.org extension.<br/>" % home)
         self.emitCanonicalURL(node)
 
-        self.BreadCrumbs(node, layers=ALL_LAYERS)
+        self.BreadCrumbs(node, layers=self.appropriateLayers(layers=layers))
 
         comment = GetComment(node, layers)
 
@@ -1244,7 +1244,7 @@ class ShowUnit (webapp2.RequestHandler):
             self.response.write(cached)
             return
         self.parentStack = []
-        self.GetParentStack(node, layers=layers)
+        self.GetParentStack(node, layers=self.appropriateLayers(layers=layers))
 
         self.emitUnitHeaders(node,  layers=layers) # writes <h1><table>...
 
@@ -1256,7 +1256,7 @@ class ShowUnit (webapp2.RequestHandler):
             self.write(self.moreInfoBlock(node))
 
             for p in self.parentStack:
-                self.ClassProperties(p, p==self.parentStack[0], layers=layers)
+                self.ClassProperties(p, p==self.parentStack[0], layers=self.appropriateLayers(layers=layers))
             if (not node.isDataType(layers=layers) and node.id != "DataType"):
                 self.write("\n\n</table>\n\n")
             self.emitClassIncomingProperties(node, layers=layers)
