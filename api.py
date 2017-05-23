@@ -999,6 +999,7 @@ def GetJsonLdContext(layers='core'):
         jsonldcontext = "{\n  \"@context\": {\n"
         jsonldcontext += "        \"type\": \"@type\",\n"
         jsonldcontext += "        \"id\": \"@id\",\n"
+        jsonldcontext += "        \"value\": \"@value\",\n"
         jsonldcontext += "        \"@vocab\": \"http://schema.org/\",\n"
         jsonldcontext += namespaces
 
