@@ -191,15 +191,15 @@ class Exercise():
                 sys.stdout.write(url)
                 sys.stdout.flush()
                 r = urllib2.urlopen(url)
-                print "  " + str(datetime.datetime.now()-load_start)
+                print "  %s  %s" % (r.getcode(), str(datetime.datetime.now()-load_start))
                 success = True
 
             except urllib2.HTTPError as e:
-              print("got error: {} - {}".format(e.code, e.reason))
+              print("  got error: {} - {}".format(e.code, e.reason))
               if e.code == 500:
                   fivehundred += 1
             
-            time.sleep(args.pausetime)
+            time.sleep(float(args.pausetime))
 
             if not fivehundred or fivehundred > 5:
                 break
