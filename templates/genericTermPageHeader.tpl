@@ -3,6 +3,7 @@
 <!-- Generated from genericTermPageHeader.tpl -->
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	{% if noindexpage %}<meta name="robots" content="noindex">{% endif %}
     <title>{{ entry }} - {{ sitename }}</title>
     <meta name="description" content="{{ desc }}" />
     <link rel="stylesheet" type="text/css" href="/docs/schemaorg.css" />

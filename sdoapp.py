@@ -96,6 +96,8 @@ if getInTestHarness():
 
 LOADEDSOURCES = False
 
+noindexpages = True
+
 ############# Warmup Control ########
 WarmedUp = False
 WarmupState = "Auto"
@@ -121,7 +123,6 @@ def getAppEngineVersion():
         ret = get_current_version_name()
         #log.info("AppEngineVersion '%s'" % ret)
     return ret
-
 
 instance_first = True
 instance_num = 0
@@ -1191,7 +1192,8 @@ class ShowUnit (webapp2.RequestHandler):
                 'desc' : desc,
                 'menu_sel': "Schemas",
                 'rdfs_type': rdfs_type,
-                'ext_mappings': ext_mappings
+                'ext_mappings': ext_mappings,
+                'noindexpage': noindexpages
             }
             out = templateRender('genericTermPageHeader.tpl',template_values)
             DataCache.put(generated_page_id, out)
@@ -2056,6 +2058,7 @@ class ShowUnit (webapp2.RequestHandler):
 
 
     def setupHostinfo(self, node, test=""):
+        global noindexpages
         hostString = test
         args = []
         if test == "":
@@ -2096,7 +2099,12 @@ class ShowUnit (webapp2.RequestHandler):
                 mybasehost = mybasehost[len(host_ext) + 1:]
             setHostExt(host_ext)
             setBaseHost(mybasehost)
-
+            if mybasehost == "schema.org":
+                noindexpages = False
+            if "FORCEINDEXPAGES" in os.environ:
+                if os.environ["FORCEINDEXPAGES"] == "True":
+                    noindexpages = False
+            log.info("[%s] noindexpages: %s" % (getInstanceId(short=True),noindexpages))
 
         setHostExt(host_ext)
         setBaseHost(mybasehost)
