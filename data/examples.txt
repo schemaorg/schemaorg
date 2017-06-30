@@ -3,7 +3,7 @@ TYPES: #eg-1 Person,PostalAddress,addressRegion,postalCode,address,streetAddress
 PRE-MARKUP:
 
 Jane Doe
-<img src="janedoe.jpg" alt="Photo of Jane Joe"/>
+<img src="janedoe.jpg" alt="Photo of Jane Joe" />
 
 Professor
 20341 Whitworth Institute
@@ -23,7 +23,7 @@ MICRODATA:
 
 <div itemscope itemtype="http://schema.org/Person">
   <span itemprop="name">Jane Doe</span>
-  <img src="janedoe.jpg" itemprop="image" alt="Photo of Jane Joe"/>
+  <img src="janedoe.jpg" itemprop="image" alt="Photo of Jane Joe" />
 
   <span itemprop="jobTitle">Professor</span>
   <div itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
@@ -53,7 +53,7 @@ RDFA:
 
 <div vocab="http://schema.org/" typeof="Person">
   <span property="name">Jane Doe</span>
-  <img src="janedoe.jpg" property="image" alt="Photo of Jane Joe"/>
+  <img src="janedoe.jpg" property="image" alt="Photo of Jane Joe" />
 
   <span property="jobTitle">Professor</span>
   <div property="address" typeof="PostalAddress">
@@ -172,14 +172,14 @@ MICRODATA:
 
 <div itemscope itemtype="http://schema.org/Painting">
   <h1><span itemprop="name">The Madonna with the Long Neck</span></h1>
-  <meta itemprop="genre" content="http://vocab.getty.edu/aat/300021143"/>Late Renaissance painting by
+  <meta itemprop="genre" content="http://vocab.getty.edu/aat/300021143" />Late Renaissance painting by
   <span itemprop="creator">Parmigianino</span>.
 </div>
 
 RDFA:
 <div vocab="http://schema.org/" typeof="Painting">
   <h1><span property="name">The Madonna with the Long Neck</span></h1>
-  <span property="genre" content="http://vocab.getty.edu/aat/300021143">Late Renaissance</span> painting by
+  <meta property="genre" content="http://vocab.getty.edu/aat/300021143" />Late Renaissance painting by
   <span property="creator">Parmigianino</span>.
 </div>
 
@@ -233,9 +233,9 @@ MICRODATA:
   <a itemprop="url" href="http://www.dishdash.com">www.greatfood.com</a>
 
   Hours:
-  <meta itemprop="openingHours" content="Mo-Sa 11:00-14:30">Mon-Sat 11am - 2:30pm
-  <meta itemprop="openingHours" content="Mo-Th 17:00-21:30">Mon-Thu 5pm - 9:30pm
-  <meta itemprop="openingHours" content="Fr-Sa 17:00-22:00">Fri-Sat 5pm - 10:00pm
+  <meta itemprop="openingHours" content="Mo-Sa 11:00-14:30" />Mon-Sat 11am - 2:30pm
+  <meta itemprop="openingHours" content="Mo-Th 17:00-21:30" />Mon-Thu 5pm - 9:30pm
+  <meta itemprop="openingHours" content="Fr-Sa 17:00-22:00" />Fri-Sat 5pm - 10:00pm
 
   Categories:
   <span itemprop="servesCuisine">
@@ -268,9 +268,9 @@ RDFA:
   <a property="url" href="http://www.dishdash.com">www.greatfood.com</a>
 
   Hours:
-  <meta property="openingHours" content="Mo-Sa 11:00-14:30">Mon-Sat 11am - 2:30pm
-  <meta property="openingHours" content="Mo-Th 17:00-21:30">Mon-Thu 5pm - 9:30pm
-  <meta property="openingHours" content="Fr-Sa 17:00-22:00">Fri-Sat 5pm - 10:00pm
+  <meta property="openingHours" content="Mo-Sa 11:00-14:30" />Mon-Sat 11am - 2:30pm
+  <meta property="openingHours" content="Mo-Th 17:00-21:30" />Mon-Thu 5pm - 9:30pm
+  <meta property="openingHours" content="Fr-Sa 17:00-22:00" />Fri-Sat 5pm - 10:00pm
 
   Categories:
   <span property="servesCuisine">
@@ -681,7 +681,7 @@ MICRODATA:
   <span itemprop="name"> Miami Heat at Philadelphia 76ers - Game 3 (Home Game 1) </span>
   </a>
 
-  <meta itemprop="startDate" content="2016-04-21T20:00">
+  <meta itemprop="startDate" content="2016-04-21T20:00" />
     Thu, 04/21/16
     8:00 p.m.
 
@@ -696,7 +696,7 @@ MICRODATA:
   </div>
 
   <div itemprop="offers" itemscope itemtype="http://schema.org/AggregateOffer">
-    Priced from: <span itemprop="priceCurrency" content="USD">$</span><span itemprop="lowPrice">35</span>
+    Priced from: <meta itemprop="priceCurrency" content="USD" />$<span itemprop="lowPrice">35</span>
     <span itemprop="offerCount">1938</span> tickets left
   </div>
 </div>
@@ -709,7 +709,7 @@ RDFA:
   <span property="name"> Miami Heat at Philadelphia 76ers - Game 3 (Home Game 1) </span>
   </a>
 
-  <meta property="startDate" content="2016-04-21T20:00">
+  <meta property="startDate" content="2016-04-21T20:00" />
     Thu, 04/21/16
     8:00 p.m.
 
@@ -724,7 +724,7 @@ RDFA:
   </div>
 
   <div property="offers" typeof="AggregateOffer">
-    Priced from: <span itemprop="priceCurrency" content="USD">$</span><span itemprop="lowPrice">35</span>
+    Priced from: <meta itemprop="priceCurrency" content="USD" />$<span itemprop="lowPrice">35</span>
     <span property="offerCount">1938</span> tickets left
   </div>
 </div>
@@ -798,8 +798,8 @@ MICRODATA:
     <!--price is 1000, a number, with locale-specific thousands separator
     and decimal mark, and the $ character is marked up with the
     machine-readable code "USD" -->
-    <span itemprop="priceCurrency" content="USD">$</span><span
-          itemprop="price" content="1000.00">1,000.00</span>
+    <meta itemprop="priceCurrency" content="USD" />$
+    <meta itemprop="price" content="1000.00" />1,000.00
 
     <link itemprop="availability" href="http://schema.org/InStock" />In stock
   </div>
@@ -814,9 +814,9 @@ MICRODATA:
   <div itemprop="review" itemscope itemtype="http://schema.org/Review">
     <span itemprop="name">Not a happy camper</span> -
     by <span itemprop="author">Ellie</span>,
-    <meta itemprop="datePublished" content="2011-04-01">April 1, 2011
+    <meta itemprop="datePublished" content="2011-04-01" />April 1, 2011
     <div itemprop="reviewRating" itemscope itemtype="http://schema.org/Rating">
-      <meta itemprop="worstRating" content = "1">
+      <meta itemprop="worstRating" content ="1" />
       <span itemprop="ratingValue">1</span>/
       <span itemprop="bestRating">5</span>stars
     </div>
@@ -827,9 +827,9 @@ MICRODATA:
   <div itemprop="review" itemscope itemtype="http://schema.org/Review">
     <span itemprop="name">Value purchase</span> -
     by <span itemprop="author">Lucas</span>,
-    <meta itemprop="datePublished" content="2011-03-25">March 25, 2011
+    <meta itemprop="datePublished" content="2011-03-25" />March 25, 2011
     <div itemprop="reviewRating" itemscope itemtype="http://schema.org/Rating">
-      <meta itemprop="worstRating" content = "1"/>
+      <meta itemprop="worstRating" content="1" />
       <span itemprop="ratingValue">4</span>/
       <span itemprop="bestRating">5</span>stars
     </div>
@@ -854,8 +854,8 @@ RDFA:
     <!--price is 1000, a number, with locale-specific thousands separator
         and decimal mark, and the $ character is marked up with the
         machine-readable code "USD" -->
-    <span property="priceCurrency" content="USD">$</span><span
-      property="price" content="1000.00">1,000.00</span>
+    <meta property="priceCurrency" content="USD" />$
+    <meta property="price" content="1000.00" />1,000.00
     <link property="availability" href="http://schema.org/InStock" />In stock
   </div>
 
@@ -869,9 +869,9 @@ RDFA:
   <div property="review" typeof="Review">
     <span property="name">Not a happy camper</span> -
     by <span property="author">Ellie</span>,
-    <meta property="datePublished" content="2011-04-01">April 1, 2011
+    <meta property="datePublished" content="2011-04-01" />April 1, 2011
     <div property="reviewRating" typeof="Rating">
-      <meta property="worstRating" content = "1">
+      <meta property="worstRating" content="1" />
       <span property="ratingValue">1</span>/
       <span property="bestRating">5</span>stars
     </div>
@@ -882,9 +882,9 @@ RDFA:
   <div property="review" typeof="Review">
     <span property="name">Value purchase</span> -
     by <span property="author">Lucas</span>,
-    <meta property="datePublished" content="2011-03-25">March 25, 2011
+    <meta property="datePublished" content="2011-03-25" />March 25, 2011
     <div property="reviewRating" typeof="Rating">
-      <meta property="worstRating" content = "1"/>
+      <meta property="worstRating" content="1" />
       <span property="ratingValue">4</span>/
       <span property="bestRating">5</span>stars
     </div>
@@ -966,7 +966,7 @@ Sellers:
 MICRODATA:
 
 <div itemscope itemtype="http://schema.org/Product">
-  <img itemprop="image" src="dell-30in-lcd.jpg" alt="A Dell UltraSharp monitor"/>
+  <img itemprop="image" src="dell-30in-lcd.jpg" alt="A Dell UltraSharp monitor" />
   <span itemprop="name">Dell UltraSharp 30" LCD Monitor</span>
 
   <div itemprop="aggregateRating"
@@ -977,7 +977,7 @@ MICRODATA:
   </div>
 
   <div itemprop="offers" itemscope itemtype="http://schema.org/AggregateOffer">
-    <span itemprop="priceCurrency" content="USD">$</span><span itemprop="lowPrice">1250</span>
+    <meta itemprop="priceCurrency" content="USD" />$<span itemprop="lowPrice">1250</span>
     to $<span itemprop="highPrice">1495</span>
     from <span itemprop="offerCount">8</span> sellers
 
@@ -997,7 +997,7 @@ MICRODATA:
 RDFA:
 
 <div vocab="http://schema.org/" typeof="Product">
-  <img property="image" src="dell-30in-lcd.jpg" alt="A Dell UltraSharp monitor"/>
+  <img property="image" src="dell-30in-lcd.jpg" alt="A Dell UltraSharp monitor" />
   <span property="name">Dell UltraSharp 30" LCD Monitor</span>
 
   <div property="aggregateRating"
@@ -1008,7 +1008,7 @@ RDFA:
   </div>
 
   <div property="offers" typeof="AggregateOffer">
-    <span itemprop="priceCurrency" content="USD">$</span><span itemprop="lowPrice">1250</span>
+    <meta itemprop="priceCurrency" content="USD" />$<span itemprop="lowPrice">1250</span>
     to $<span itemprop="highPrice">1495</span>
     from <span property="offerCount">8</span> sellers
 
@@ -1067,7 +1067,7 @@ PRE-MARKUP:
  <a href="category/books-classics">Classics</a>
 
 <img src="catcher-in-the-rye-book-cover.jpg"
-  alt="cover art: red horse, city in background"/>
+  alt="cover art: red horse, city in background" />
 The Catcher in the Rye - Mass Market Paperback
 by <a href="/author/jd_salinger.html">J.D. Salinger</a>
 4 stars - 3077 reviews
@@ -1105,9 +1105,9 @@ MICRODATA:
 <div itemprop="mainEntity" itemscope itemtype="http://schema.org/Book">
 
 <img itemprop="image" src="catcher-in-the-rye-book-cover.jpg"
-     alt="cover art: red horse, city in background"/>
+     alt="cover art: red horse, city in background" />
 <span itemprop="name">The Catcher in the Rye</span> -
- <link itemprop="bookFormat" href="http://schema.org/Paperback">Mass Market Paperback
+ <link itemprop="bookFormat" href="http://schema.org/Paperback" />Mass Market Paperback
 by <a itemprop="author" href="/author/jd_salinger.html">J.D. Salinger</a>
 
 <div itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
@@ -1118,13 +1118,13 @@ by <a itemprop="author" href="/author/jd_salinger.html">J.D. Salinger</a>
 <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
   Price: $<span itemprop="price">6.99</span>
   <meta itemprop="priceCurrency" content="USD" />
-  <link itemprop="availability" href="http://schema.org/InStock">In Stock
+  <link itemprop="availability" href="http://schema.org/InStock" />In Stock
 </div>
 
 Product details
 <span itemprop="numberOfPages">224</span> pages
 Publisher: <span itemprop="publisher">Little, Brown, and Company</span> -
- <meta itemprop="datePublished" content="1991-05-01">May 1, 1991
+ <meta itemprop="datePublished" content="1991-05-01" />May 1, 1991
 Language: <span itemprop="inLanguage">English</span>
 ISBN-10: <span itemprop="isbn">0316769487</span>
 
@@ -1134,7 +1134,7 @@ Reviews:
   <span itemprop="reviewRating">5</span> stars -
   <b>"<span itemprop="name">A masterpiece of literature</span>"</b>
   by <span itemprop="author">John Doe</span>,
-  Written on <meta itemprop="datePublished" content="2006-05-04">May 4, 2006
+  Written on <meta itemprop="datePublished" content="2006-05-04" />May 4, 2006
   <span itemprop="reviewBody">I really enjoyed this book. It captures the essential
   challenge people face as they try make sense of their lives and grow to adulthood.</span>
 </div>
@@ -1143,7 +1143,7 @@ Reviews:
   <span itemprop="reviewRating">4</span> stars -
   <b>"<span itemprop="name">A good read.</span>" </b>
   by <span itemprop="author">Bob Smith</span>,
-  Written on <meta itemprop="datePublished" content="2006-06-15">June 15, 2006
+  Written on <meta itemprop="datePublished" content="2006-06-15" />June 15, 2006
   <span itemprop="reviewBody">Catcher in the Rye is a fun book. It's a good book to read.</span>
 </div>
 
@@ -1164,9 +1164,9 @@ RDFA:
 <div property="mainEntity" typeof="Book">
 
 <img property="image" src="catcher-in-the-rye-book-cover.jpg"
-    alt="cover art: red horse, city in background"/>
+    alt="cover art: red horse, city in background" />
 <span property="name">The Catcher in the Rye</span> -
- <link property="bookFormat" href="http://schema.org/Paperback">Mass Market Paperback
+ <link property="bookFormat" href="http://schema.org/Paperback" />Mass Market Paperback
 by <a property="author" href="/author/jd_salinger.html">J.D. Salinger</a>
 
 <div property="aggregateRating" typeof="AggregateRating">
@@ -1177,13 +1177,13 @@ by <a property="author" href="/author/jd_salinger.html">J.D. Salinger</a>
 <div property="offers" typeof="Offer">
   Price: $<span property="price">6.99</span>
   <meta property="priceCurrency" content="USD" />
-  <link property="availability" href="http://schema.org/InStock">In Stock
+  <link property="availability" href="http://schema.org/InStock" />In Stock
 </div>
 
 Product details
 <span property="numberOfPages">224</span> pages
 Publisher: <span property="publisher">Little, Brown, and Company</span> -
- <meta property="datePublished" content="1991-05-01">May 1, 1991
+ <meta property="datePublished" content="1991-05-01" />May 1, 1991
 Language: <span property="inLanguage">English</span>
 ISBN-10: <span property="isbn">0316769487</span>
 
@@ -1193,7 +1193,7 @@ Reviews:
   <span property="reviewRating">5</span> stars -
   <b>"<span property="name">A masterpiece of literature</span>"</b>
   by <span property="author">John Doe</span>,
-  Written on <meta property="datePublished" content="2006-05-04">May 4, 2006
+  Written on <meta property="datePublished" content="2006-05-04" />May 4, 2006
   <span property="reviewBody">I really enjoyed this book. It captures the essential
   challenge people face as they try make sense of their lives and grow to adulthood.</span>
 </div>
@@ -1202,7 +1202,7 @@ Reviews:
   <span property="reviewRating">4</span> stars -
   <b>"<span property="name">A good read.</span>" </b>
   by <span property="author">Bob Smith</span>,
-  Written on <meta property="datePublished" content="2006-06-15">June 15, 2006
+  Written on <meta property="datePublished" content="2006-06-15" />June 15, 2006
   <span property="reviewBody">Catcher in the Rye is a fun book. It's a good book to read.</span>
 </div>
 
@@ -1302,7 +1302,7 @@ MICRODATA:
 <div itemscope itemtype="http://schema.org/Recipe">
   <span itemprop="name">Mom's World Famous Banana Bread</span>
   By <span itemprop="author">John Smith</span>,
-  <meta itemprop="datePublished" content="2009-05-08">May 8, 2009
+  <meta itemprop="datePublished" content="2009-05-08" />May 8, 2009
   <img itemprop="image" src="bananabread.jpg"
        alt="Banana bread on a plate" />
 
@@ -1310,8 +1310,8 @@ MICRODATA:
   from my mom -- the walnuts add a nice texture and flavor to the banana
   bread.</span>
 
-  Prep Time: <meta itemprop="prepTime" content="PT15M">15 minutes
-  Cook time: <meta itemprop="cookTime" content="PT1H">1 hour
+  Prep Time: <meta itemprop="prepTime" content="PT15M" />15 minutes
+  Cook time: <meta itemprop="cookTime" content="PT1H" />1 hour
   Yield: <span itemprop="recipeYield">1 loaf</span>
   Tags: <link itemprop="suitableForDiet" href="http://schema.org/LowFatDiet" />Low fat
 
@@ -1348,7 +1348,7 @@ RDFA:
 <div vocab="http://schema.org/" typeof="Recipe">
   <span property="name">Mom's World Famous Banana Bread</span>
   By <span property="author">John Smith</span>,
-  <meta property="datePublished" content="2009-05-08">May 8, 2009
+  <meta property="datePublished" content="2009-05-08" />May 8, 2009
   <img property="image" src="bananabread.jpg"
     alt="Banana bread on a plate" />
 
@@ -1356,8 +1356,8 @@ RDFA:
   from my mom -- the walnuts add a nice texture and flavor to the banana
   bread.</span>
 
-  Prep Time: <meta property="prepTime" content="PT15M">15 minutes
-  Cook time: <meta property="cookTime" content="PT1H">1 hour
+  Prep Time: <meta property="prepTime" content="PT15M" />15 minutes
+  Cook time: <meta property="cookTime" content="PT1H" />1 hour
   Yield: <span property="recipeYield">1 loaf</span>
   Tags: <link property="suitableForDiet" href="http://schema.org/LowFatDiet" />Low Fat
 
@@ -1507,8 +1507,8 @@ MICRODATA:
 
 <div itemprop="track" itemscope itemtype="http://schema.org/MusicRecording">
   <span itemprop="name">Rope</span>
-  <link itemprop="url" href="foo-fighters-rope.html">
-  Length: <meta itemprop="duration" content="PT4M5S">4:05 -
+  <link itemprop="url" href="foo-fighters-rope.html" />
+  Length: <meta itemprop="duration" content="PT4M5S" />4:05 -
   14300 plays
   <div itemprop="interactionCount" itemscope itemtype="http://schema.org/InteractionCounter">
     <meta itemprop="interactionType" content="http://schema.org/ListenAction" />
@@ -1522,8 +1522,8 @@ MICRODATA:
 
 <div itemprop="track" itemscope itemtype="http://schema.org/MusicRecording">
   <span itemprop="name">Everlong</span>
-  <link itemprop="url" href="foo-fighters-everlong.html">
-  Length: <meta itemprop="duration" content="PT6M33S">6:33 -
+  <link itemprop="url" href="foo-fighters-everlong.html" />
+  Length: <meta itemprop="duration" content="PT6M33S" />6:33 -
   11700 plays
   <div itemprop="interactionCount" itemscope itemtype="http://schema.org/InteractionCounter">
     <meta itemprop="interactionType" content="http://schema.org/ListenAction" />
@@ -1543,7 +1543,7 @@ MICRODATA:
     <span itemprop="name">FedExForum</span>
   </a>
   <span itemprop="location">Memphis, TN, US</span>
-  <meta itemprop="startDate" content="2011-05-20">May 20
+  <meta itemprop="startDate" content="2011-05-20" />May 20
   <a href="ticketmaster.com/foofighters/may20-2011" itemprop="offers">Buy tickets</a>
 </div>
 
@@ -1552,7 +1552,7 @@ MICRODATA:
     <span itemprop="name">Mid America Center</span>
   </a>
   <span itemprop="location">Council Bluffs, IA, US</span>
-  <meta itemprop="startDate" content="2011-05-23">May 23
+  <meta itemprop="startDate" content="2011-05-23" />May 23
   <a href="ticketmaster.com/foofighters/may23-2011" itemprop="offers">Buy tickets</a>
 </div>
 
@@ -1603,8 +1603,8 @@ RDFA:
 
 <div property="track" typeof="MusicRecording">
   <span property="name">Rope</span>
-  <meta property="url" content ="foo-fighters-rope.html">
-  Length: <meta property="duration" content="PT4M5S">4:05 -
+  <meta property="url" content="foo-fighters-rope.html" />
+  Length: <meta property="duration" content="PT4M5S" />4:05 -
   14300 plays
   <div property="interactionStatistic" typeof="http://schema.org/InteractionCounter">
     <meta property="interactionType" content="http://schema.org/ListenAction" />
@@ -1618,8 +1618,8 @@ RDFA:
 
 <div property="track" typeof="MusicRecording">
   <span property="name">Everlong</span>
-  <meta property="url" content ="foo-fighters-everlong.html">
-  Length: <meta property="duration" content="PT6M33S">6:33 -
+  <meta property="url" content="foo-fighters-everlong.html" />
+  Length: <meta property="duration" content="PT6M33S" />6:33 -
   11700 plays
   <div property="interactionStatistic" typeof="http://schema.org/InteractionCounter">
     <meta property="interactionType" content="http://schema.org/ListenAction" />
@@ -1639,7 +1639,7 @@ RDFA:
     <span property="name">FedExForum</span>
   </a>
   <span property="location">Memphis, TN, US</span>
-  <meta property="startDate" content="2011-05-20">May 20
+  <meta property="startDate" content="2011-05-20" />May 20
   <a href="ticketmaster.com/foofighters/may20-2011" property="offers">Buy tickets</a>
 </div>
 
@@ -1648,7 +1648,7 @@ RDFA:
     <span property="name">Mid America Center</span>
   </a>
   <span property="location">Council Bluffs, IA, US</span>
-  <meta property="startDate" content="2011-05-23">May 23
+  <meta property="startDate" content="2011-05-23" />May 23
   <a href="ticketmaster.com/foofighters/may23-2011" property="offers">Buy tickets</a>
 </div>
 
@@ -2086,7 +2086,7 @@ TYPES:  ImageObject
 PRE-MARKUP:
 
 <h2>Beach in Mexico</h2>
-<img src="mexico-beach.jpg" alt="Sunny, sandy beach."/>
+<img src="mexico-beach.jpg" alt="Sunny, sandy beach." />
 
 By Jane Doe
 Photographed in Puerto Vallarta, Mexico
@@ -2106,7 +2106,7 @@ MICRODATA:
   Photographed in
     <span itemprop="contentLocation">Puerto Vallarta, Mexico</span>
   Date uploaded:
-    <meta itemprop="datePublished" content="2008-01-25">Jan 25, 2008
+    <meta itemprop="datePublished" content="2008-01-25" />Jan 25, 2008
 
   <span itemprop="description">I took this picture while on vacation last year.</span>
 </div>
@@ -2122,7 +2122,7 @@ RDFA:
   Photographed in
     <span property="contentLocation">Puerto Vallarta, Mexico</span>
   Date uploaded:
-    <meta property="datePublished" content="2008-01-25">Jan 25, 2008
+    <meta property="datePublished" content="2008-01-25" />Jan 25, 2008
 
   <span property="description">I took this picture while on vacation last year.</span>
 </div>
@@ -2158,7 +2158,7 @@ MICRODATA:
 
 <div itemscope itemtype="http://schema.org/MusicPlaylist">
   <span itemprop="name">Classic Rock Playlist</span>
-  <meta itemprop="numTracks" content="5"/>
+  <meta itemprop="numTracks" content="5" />
 
   <div itemprop="track" itemscope itemtype="http://schema.org/MusicRecording">
     1.<span itemprop="name">Sweet Home Alabama</span> -
@@ -2205,7 +2205,7 @@ RDFA:
 
 <div vocab="http://schema.org/" typeof="MusicPlaylist">
   <span property="name">Classic Rock Playlist</span>
-  <meta property="numTracks" content="5"/>
+  <meta property="numTracks" content="5" />
 
   <div property="track" typeof="MusicRecording">
     1.<span property="name">Sweet Home Alabama</span> -
@@ -2319,11 +2319,11 @@ MICRODATA:
     <div itemprop="interactionService" itemscope itemid="http://www.twitter.com" itemtype="http://schema.org/Website">
       <meta itemprop="name" content="Twitter" />
     </div>
-    <meta itemprop="interactionType" content="http://schema.org/ShareAction"/>
+    <meta itemprop="interactionType" content="http://schema.org/ShareAction" />
     <meta itemprop="userInteractionCount" content="1203" />
   </div>
   <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
-    <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+    <meta itemprop="interactionType" content="http://schema.org/CommentAction" />
     <meta itemprop="userInteractionCount" content="78" />
   </div>
 </div>
@@ -2338,11 +2338,11 @@ RDFA:
     <div property="interactionService" itemscope itemid="http://www.twitter.com" itemtype="http://schema.org/Website">
       <meta property="name" content="Twitter" />
     </div>
-    <meta property="interactionType" content="http://schema.org/ShareAction"/>
+    <meta property="interactionType" content="http://schema.org/ShareAction" />
     <meta property="userInteractionCount" content="1203" />
   </div>
   <div property="interactionStatistic" typeof="InteractionCounter">
-    <meta property="interactionType" content="http://schema.org/CommentAction"/>
+    <meta property="interactionType" content="http://schema.org/CommentAction" />
     <meta property="userInteractionCount" content="78" />
   </div>
 </div>
@@ -2390,8 +2390,8 @@ MICRODATA:
 <div itemscope itemtype="http://schema.org/CivicStructure">
   <span itemprop="name">Springfield Town Hall</span>
   Hours:
-  <meta itemprop="openingHours" content="Mo-Fr 09:00-17:30">Mon-Fri 9am - 5:30pm
-  <meta itemprop="openingHours" content="Sa 09:00-12:00">Sat 9am - 12pm
+  <meta itemprop="openingHours" content="Mo-Fr 09:00-17:30" />Mon-Fri 9am - 5:30pm
+  <meta itemprop="openingHours" content="Sa 09:00-12:00" />Sat 9am - 12pm
   Closed Sun
 </div>
 
@@ -2400,8 +2400,8 @@ RDFA:
 <div vocab="http://schema.org/" typeof="CivicStructure">
   <span property="name">Springfield Town Hall</span>
   Hours:
-  <meta property="openingHours" content="Mo-Fr 09:00-17:30">Mon-Fri 9am - 5:30pm
-  <meta property="openingHours" content="Sa 09:00-12:00">Sat 9am - 12pm
+  <meta property="openingHours" content="Mo-Fr 09:00-17:30" />Mon-Fri 9am - 5:30pm
+  <meta property="openingHours" content="Sa 09:00-12:00" />Sat 9am - 12pm
   Closed Sun
 </div>
 
@@ -2522,16 +2522,16 @@ MICRODATA:
  </div>
  <div itemprop="containsSeason" itemscope itemtype="http://schema.org/TVSeason">
    <span itemprop="name">Season 1</span> -
-   <meta itemprop="numberOfEpisodes" content="14"/>
-   <meta itemprop="datePublished" content="2005-05-22">May 22, 2005
+   <meta itemprop="numberOfEpisodes" content="14" />
+   <meta itemprop="datePublished" content="2005-05-22" />May 22, 2005
  </div>
  <div itemprop="containsSeason" itemscope itemtype="http://schema.org/TVSeason">
    <span itemprop="name">Season 2</span> -
-   <meta itemprop="numberOfEpisodes" content="27"/>
-   <meta itemprop="datePublished" content="2006-05-14">May 14, 2006
+   <meta itemprop="numberOfEpisodes" content="27" />
+   <meta itemprop="datePublished" content="2006-05-14" />May 14, 2006
    <div itemprop="episode" itemscope itemtype="http://schema.org/TVEpisode">
      <span itemprop="name">Episode 1</span> -
-     <meta itemprop="episodeNumber" content="1"/>
+     <meta itemprop="episodeNumber" content="1" />
    </div>
  </div>
 </div>
@@ -2552,16 +2552,16 @@ RDFA:
  </div>
  <div property="containsSeason" typeof="TVSeason">
    <span property="name">Season 1</span> -
-   <meta property="numberOfEpisodes" content="14"/>
-   <meta property="datePublished" content="2005-05-22">May 22, 2005
+   <meta property="numberOfEpisodes" content="14" />
+   <meta property="datePublished" content="2005-05-22" />May 22, 2005
  </div>
  <div property="containsSeason" typeof="TVSeason">
    <span property="name">Season 2</span> -
-   <meta property="numberOfEpisodes" content="27"/>
-   <meta property="datePublished" content="2006-05-14">May 14, 2006
+   <meta property="numberOfEpisodes" content="27" />
+   <meta property="datePublished" content="2006-05-14" />May 14, 2006
    <div property="episode" typeof="TVEpisode">
      <span property="name">Episode 1</span> -
-     <meta property="episodeNumber" content="1"/>
+     <meta property="episodeNumber" content="1" />
    </div>
  </div>
 </div>
@@ -7840,17 +7840,15 @@ MICRODATA:
         <div itemprop="publishedOn" itemscope itemtype="http://schema.org/BroadcastService">
           <a itemprop="url" href="http://www.bbc.co.uk/bbcone"><span itemprop="name">BBC One</span></a>
         </div> at
-        <span itemprop="startDate"
-          content="2010-05-22T18:15:00+01:00">18:15, 22nd of May 2010</span>
+        <meta itemprop="startDate" content="2010-05-22T18:15:00+01:00" />18:15, 22nd of May 2010
       </div>,
       available on
       <div itemprop="video" itemscope itemtype="http://schema.org/VideoObject">
         <a itemprop="url" href="http://www.bbc.co.uk/iplayer/episode/b00sj9sq">BBC iPlayer</a>
       </div> from
       <div itemprop="publication" itemscope itemtype="http://schema.org/OnDemandEvent">
-        <span itemprop="startDate"
-         content="2012-06-02T19:45:00+01:00">19:45 on the 2nd of June</span> until the
-        <span itemprop="endDate" content="2012-06-09T19:44:00+01:00">9th</span>.
+        <meta itemprop="startDate" content="2012-06-02T19:45:00+01:00" />19:45 on the 2nd of June until the
+        <meta itemprop="endDate" content="2012-06-09T19:44:00+01:00" />9th.
       </div>
     </div>
   </div>
@@ -7872,17 +7870,15 @@ RDFA:
         <div property="publishedOn" typeof="BroadcastService">
           <a property="url" href="http://www.bbc.co.uk/bbcone"><span property="name">BBC One</span></a>
         </div> at
-        <span property="startDate"
-          content="2010-05-22T18:15:00+01:00">18:15, 22nd of May 2010</span>
+        <meta property="startDate" content="2010-05-22T18:15:00+01:00" />18:15, 22nd of May 2010
       </div>,
       available on
       <div property="video" typeof="VideoObject">
         <a property="url" href="http://www.bbc.co.uk/iplayer/episode/b00sj9sq">BBC iPlayer</a>
       </div> from
       <div property="publication" typeof="OnDemandEvent">
-        <span property="startDate"
-         content="2012-06-02T19:45:00+01:00">19:45 on the 2nd of June</span> until the
-        <span property="endDate" content="2012-06-09T19:44:00+01:00">9th</span>.
+        <meta property="startDate" content="2012-06-02T19:45:00+01:00" />19:45 on the 2nd of June until the
+        <meta property="endDate" content="2012-06-09T19:44:00+01:00" />9th.
       </div>
     </div>
   </div>
@@ -7949,13 +7945,11 @@ MICRODATA:
       <div itemprop="publishedOn" itemscope itemtype="http://schema.org/BroadcastService">
         <a itemprop="url" href="http://www.bbc.co.uk/radio4"><span itemprop="name">BBC Radio 4</span></a>
       </div> at
-      <span itemprop="startDate"
-        content="2013-11-07T09:00:00+01:00">09:00, 7th of November 2013</span>
+      <meta itemprop="startDate" content="2013-11-07T09:00:00+01:00" />09:00, 7th of November 2013
     </div>,
     available online from
     <div itemprop="publication" itemscope itemtype="http://schema.org/OnDemandEvent">
-      <span itemprop="startDate"
-       content="2013-11-07T09:45:00+01:00">09:45 on the same day</span>.
+      <meta itemprop="startDate" content="2013-11-07T09:45:00+01:00" />09:45 on the same day.
     </div>
   </div>
 </div>
@@ -7973,13 +7967,11 @@ RDFA:
       <div property="publishedOn" typeof="BroadcastService">
         <a property="url" href="http://www.bbc.co.uk/radio4"><span property="name">BBC Radio 4</span></a>
       </div> at
-      <span property="startDate"
-        content="2013-11-07T09:00:00+01:00">09:00, 7th of November 2013</span>
+      <meta property="startDate" content="2013-11-07T09:00:00+01:00" />09:00, 7th of November 2013
     </div>,
     available online from
     <div property="publication" typeof="OnDemandEvent">
-      <span property="startDate"
-       content="2013-11-07T09:45:00+01:00">09:45 on the same day</span>.
+      <meta property="startDate" content="2013-11-07T09:45:00+01:00" />09:45 on the same day.
     </div>
   </div>
 </div>
@@ -8165,7 +8157,7 @@ MICRODATA:
 
 <div class="event-wrapper" itemscope itemtype="http://schema.org/Event">
 
-  <div class="event-date" itemprop="startDate" content="2013-09-14T21:30">Sat Sep 14</div>
+  <div class="event-date"><meta itemprop="startDate" content="2013-09-14T21:30" />Sat Sep 14</div>
   <div class="event-title" itemprop="name">Typhoon with Radiation City</div>
 
   <div class="event-venue" itemprop="location" itemscope itemtype="http://schema.org/Place">
@@ -8180,18 +8172,18 @@ MICRODATA:
 
   <div class="event-time">9:30 PM</div>
 
- <span itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-  <div class="event-price" itemprop="price" content="13.00">$13.00</div>
-  <span itemprop="priceCurrency" content="USD" />
-  <a itemprop="url" href="http://www.ticketfly.com/purchase/309433">Tickets</a>
- </span>
+  <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+    <div class="event-price"><meta itemprop="priceCurrency" content="USD" />$<meta itemprop="price" content="13.00" />13.00</div>
+    <a itemprop="url" href="http://www.ticketfly.com/purchase/309433">Tickets</a>
+  </div>
+
 </div>
 
 RDFA:
 
 <div vocab="http://schema.org/" class="event-wrapper" typeof="Event">
 
-  <div class="event-date" property="startDate" content="2013-09-14T21:30">Sat Sep 14</div>
+  <div class="event-date"><meta property="startDate" content="2013-09-14T21:30" />Sat Sep 14</div>
   <div class="event-title" property="name">Typhoon with Radiation City</div>
 
   <div class="event-venue" property="location" typeof="Place">
@@ -8206,13 +8198,11 @@ RDFA:
 
   <div class="event-time">9:30 PM</div>
 
- <span property="offers" typeof="Offer">
- <div class="event-price">
-    <meta property="priceCurrency" content="USD" />$
-    <meta property="price" content="13.00" />13.00
- </div>
- <a property="url" href="http://www.ticketfly.com/purchase/309433">Tickets</a>
- </span>
+  <div property="offers" typeof="Offer">
+    <div class="event-price"><meta property="priceCurrency" content="USD" />$<meta property="price" content="13.00" />13.00</div>
+    <a property="url" href="http://www.ticketfly.com/purchase/309433">Tickets</a>
+  </div>
+
 </div>
 
 JSON:
@@ -8250,7 +8240,6 @@ PRE-MARKUP:
 <div class="event-wrapper">
 
   <div class="event-date">Sat Sep 14</div>
-  <div class="event-title">Typhoon with Radiation City</div>
   <div class="event-title">CANCELLED - Typhoon with Radiation City</div>
 
   <div class="event-venue">
@@ -8272,9 +8261,9 @@ MICRODATA:
 
 <div class="event-wrapper" itemscope itemtype="http://schema.org/Event">
 
-  <div class="event-date" itemprop="startDate" content="2013-09-14T21:30">Sat Sep 14</div>
+  <div class="event-date"><meta itemprop="startDate" content="2013-09-14T21:30" />Sat Sep 14</div>
   <div class="event-title" itemprop="name">CANCELLED - Typhoon with Radiation City</div>
-  <meta itemprop="eventStatus" content="http://schema.org/EventCancelled">
+  <meta itemprop="eventStatus" content="http://schema.org/EventCancelled" />
 
   <div class="event-venue" itemprop="location" itemscope itemtype="http://schema.org/Place">
     <span itemprop="name">The Hi-Dive</span>
@@ -8288,20 +8277,20 @@ MICRODATA:
 
   <div class="event-time">9:30 PM</div>
 
- <span itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-  <div class="event-price" itemprop="price" content="13.00">$13.00</div>
-  <span itemprop="priceCurrency" content="USD" />
-  <a itemprop="url" href="http://www.ticketfly.com/purchase/309433">Tickets</a>
- </span>
+  <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+    <div class="event-price"><meta itemprop="priceCurrency" content="USD" />$<meta itemprop="price" content="13.00" />13.00</div>
+    <a itemprop="url" href="http://www.ticketfly.com/purchase/309433">Tickets</a>
+  </div>
+
 </div>
 
 RDFA:
 
 <div vocab="http://schema.org/" class="event-wrapper" typeof="Event">
 
-  <div class="event-date" property="startDate" content="2013-09-14T21:30">Sat Sep 14</div>
+  <div class="event-date"><meta property="startDate" content="2013-09-14T21:30" />Sat Sep 14</div>
   <div class="event-title" property="name">CANCELLED - Typhoon with Radiation City</div>
-  <meta property="eventStatus" content="http://schema.org/EventCancelled">
+  <meta property="eventStatus" content="http://schema.org/EventCancelled" />
 
   <div class="event-venue" property="location" typeof="Place">
     <span property="name">The Hi-Dive</span>
@@ -8315,11 +8304,11 @@ RDFA:
 
   <div class="event-time">9:30 PM</div>
 
- <span property="offers" typeof="Offer">
-  <div class="event-price" property="price" content="13.00">$13.00</div>
-  <span itemprop="priceCurrency" content="USD" />
-  <a property="url" href="http://www.ticketfly.com/purchase/309433">Tickets</a>
- </span>
+  <div property="offers" typeof="Offer">
+    <div class="event-price"><meta property="priceCurrency" content="USD" />$<meta property="price" content="13.00" />13.00</div>
+    <a property="url" href="http://www.ticketfly.com/purchase/309433">Tickets</a>
+  </div>
+
 </div>
 
 JSON:
@@ -8356,9 +8345,11 @@ TYPES:  Event,Place,PostalAddress,Offer
 PRE-MARKUP:
 
 <div class="event-wrapper">
+
   <div class="event-date">Sat Oct 12</div>
   <div><span>(previously scheduled for Sept 14th)</span></div>
   <div class="event-title">Typhoon with Radiation City</div>
+
   <div class="event-venue">
     The Hi-Dive
     <div class="address">
@@ -8366,20 +8357,22 @@ PRE-MARKUP:
       Denver, CO 80209
     </div>
   </div>
+
   <div class="event-time">10:00 PM</div>
- <span>
+
   <div class="event-price">$13.00</div>
   <a href="http://www.ticketfly.com/purchase/309433">Tickets</a>
- </span>
+
 </div>
 
 MICRODATA:
 
 <div class="event-wrapper">
-  <div class="event-date" itemprop="startDate" content="2013-10-12T22:00">Sat Oct 12</div>
+
+  <div class="event-date"><meta itemprop="startDate" content="2013-10-12T22:00" />Sat Oct 12</div>
+  <div><span><meta itemprop="previousStartDate" content="2013-09-14T21:30" />(previously scheduled for Sept 14th)</span></div>
+  <meta itemprop="eventStatus" content="http://schema.org/EventRescheduled" />
   <div class="event-title" itemprop="name">Typhoon with Radiation City</div>
-  <meta itemprop="eventStatus" content="http://schema.org/EventRescheduled">
-  <span itemprop="previousStartDate" content="2013-09-14T21:30">(previously scheduled for Sept 14th)</span>
 
   <div class="event-venue" itemprop="location" itemscope itemtype="http://schema.org/Place">
     <span itemprop="name">The Hi-Dive</span>
@@ -8390,21 +8383,24 @@ MICRODATA:
       <span itemprop="postalCode">80209</span>
     </div>
   </div>
+
   <div class="event-time">10:00 PM</div>
-  <span itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-   <div class="event-price" itemprop="price" content="13.00">$13.00</div>
-     <span itemprop="priceCurrency" content="USD" />
-     <a itemprop="url" href="http://www.ticketfly.com/purchase/309433">Tickets</a>
-  </span>
+
+  <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+    <div class="event-price"><meta itemprop="priceCurrency" content="USD" />$<meta itemprop="price" content="13.00" />13.00</div>
+    <a itemprop="url" href="http://www.ticketfly.com/purchase/309433">Tickets</a>
+  </div>
+
 </div>
 
 RDFA:
 
 <div vocab="http://schema.org/" class="event-wrapper">
-  <div class="event-date" property="startDate" content="2013-10-12T22:00">Sat Oct 12</div>
+
+  <div class="event-date"><meta property="startDate" content="2013-10-12T22:00" />Sat Oct 12</div>
+  <div><span><meta property="previousStartDate" content="2013-09-14T21:30" />(previously scheduled for Sept 14th)</span></div>
   <div class="event-title" property="name">Typhoon with Radiation City</div>
-  <meta property="eventStatus" content="http://schema.org/EventRescheduled">
-  <span property="previousStartDate" content="2013-09-14T21:30">(previously scheduled for Sept 14th)</span>
+  <meta property="eventStatus" content="http://schema.org/EventRescheduled" />
 
   <div class="event-venue" property="location" typeof="Place">
     <span property="name">The Hi-Dive</span>
@@ -8415,14 +8411,14 @@ RDFA:
       <span property="postalCode">80209</span>
     </div>
   </div>
+
   <div class="event-time">10:00 PM</div>
-  <span property="offers" typeof="Offer">
-  <div class="event-price">
-    <meta property="priceCurrency" content="USD" />$
-    <meta property="price" content="13.00" />13.00
+
+  <div property="offers" typeof="Offer">
+    <div class="event-price"><meta property="priceCurrency" content="USD" />$<meta property="price" content="13.00" />13.00</div>
+    <a property="url" href="http://www.ticketfly.com/purchase/309433">Tickets</a>
   </div>
-  <a property="url" href="http://www.ticketfly.com/purchase/309433">Tickets</a>
-  </span>
+
 </div>
 
 JSON:
@@ -8457,8 +8453,10 @@ TYPES:  Event,Place,PostalAddress,Offer,SoldOut
 PRE-MARKUP:
 
 <div class="event-wrapper">
+
   <div class="event-date">Sat Sep 14</div>
   <div class="event-title">SOLD OUT! Typhoon with Radiation City</div>
+
   <div class="event-venue">
     The Hi-Dive
     <div class="address">
@@ -8466,18 +8464,21 @@ PRE-MARKUP:
       Denver, CO 80209
     </div>
   </div>
-  <div class="event-time">10:00 PM</div>
- <span>
-  <div class="event-price">$13.00</div>
-  <a href="http://www.ticketfly.com/purchase/309433">Tickets</a>
- </span>
+
+  <div class="event-time">9:30 PM</div>
+
+  <div>
+    <div class="event-price">$13.00</div>
+    <a href="http://www.ticketfly.com/purchase/309433">Tickets</a>
+  </div>
+
 </div>
 
 MICRODATA:
 
 <div class="event-wrapper" itemscope itemtype="http://schema.org/Event">
 
-  <div class="event-date" itemprop="startDate" content="2013-09-14T21:30">Sat Sep 14</div>
+  <div class="event-date"><meta itemprop="startDate" content="2013-09-14T21:30" />Sat Sep 14</div>
   <div class="event-title" itemprop="name">SOLD OUT! Typhoon with Radiation City</div>
 
   <div class="event-venue" itemprop="location" itemscope itemtype="http://schema.org/Place">
@@ -8492,20 +8493,19 @@ MICRODATA:
 
   <div class="event-time">9:30 PM</div>
 
- <span itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-  <meta itemprop="availability" content="http://schema.org/SoldOut">
-
-  <div class="event-price" itemprop="price" content="13.00">$13.00</div>
-    <span itemprop="priceCurrency" content="USD" />
+  <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+    <meta itemprop="availability" content="http://schema.org/SoldOut" />
+    <div class="event-price"><meta itemprop="priceCurrency" content="USD" />$<meta itemprop="price" content="13.00" />13.00</div>
     <a itemprop="url" href="http://www.ticketfly.com/purchase/309433">Tickets</a>
- </span>
+  </div>
+
 </div>
 
 RDFA:
 
 <div vocab="http://schema.org/" class="event-wrapper" typeof="Event">
 
-  <div class="event-date" property="startDate" content="2013-09-14T21:30">Sat Sep 14</div>
+  <div class="event-date"><meta property="startDate" content="2013-09-14T21:30" />Sat Sep 14</div>
   <div class="event-title" property="name">SOLD OUT! Typhoon with Radiation City</div>
 
   <div class="event-venue" property="location" typeof="Place">
@@ -8520,14 +8520,12 @@ RDFA:
 
   <div class="event-time">9:30 PM</div>
 
- <span property="offers" typeof="Offer">
-  <meta property="availability" content="http://schema.org/SoldOut">
-  <div class="event-price">
-    <meta property="priceCurrency" content="USD" />$
-    <meta property="price" content="13.00" />13.00
+  <div property="offers" typeof="Offer">
+    <meta property="availability" content="http://schema.org/SoldOut" />
+    <div class="event-price"><meta property="priceCurrency" content="USD" />$<meta property="price" content="13.00" />13.00</div>
+    <a property="url" href="http://www.ticketfly.com/purchase/309433">Tickets</a>
   </div>
-  <a property="url" href="http://www.ticketfly.com/purchase/309433">Tickets</a>
- </span>
+
 </div>
 
 JSON:
@@ -8672,19 +8670,19 @@ as suggested by www.a11ymetadata.org.
 </p>
 
 <div itemscope="" itemtype="http://schema.org/Book">
-   <meta itemprop="bookFormat" content="EBook/DAISY3"/>
-   <meta itemprop="accessibilityFeature" content="largePrint/CSSEnabled"/>
-   <meta itemprop="accessibilityFeature" content="highContrast/CSSEnabled"/>
-   <meta itemprop="accessibilityFeature" content="resizeText/CSSEnabled"/>
-   <meta itemprop="accessibilityFeature" content="displayTransformability"/>
-   <meta itemprop="accessibilityFeature" content="longDescription"/>
-   <meta itemprop="accessibilityFeature" content="alternativeText"/>
-   <meta itemprop="accessibilityControl" content="fullKeyboardControl"/>
-   <meta itemprop="accessibilityControl" content="fullMouseControl"/>
-   <meta itemprop="accessibilityHazard" content="noFlashingHazard"/>
-   <meta itemprop="accessibilityHazard" content="noMotionSimulationHazard"/>
-   <meta itemprop="accessibilityHazard" content="noSoundHazard"/>
-   <meta itemprop="accessibilityAPI" content="ARIA"/>
+   <meta itemprop="bookFormat" content="EBook/DAISY3" />
+   <meta itemprop="accessibilityFeature" content="largePrint/CSSEnabled" />
+   <meta itemprop="accessibilityFeature" content="highContrast/CSSEnabled" />
+   <meta itemprop="accessibilityFeature" content="resizeText/CSSEnabled" />
+   <meta itemprop="accessibilityFeature" content="displayTransformability" />
+   <meta itemprop="accessibilityFeature" content="longDescription" />
+   <meta itemprop="accessibilityFeature" content="alternativeText" />
+   <meta itemprop="accessibilityControl" content="fullKeyboardControl" />
+   <meta itemprop="accessibilityControl" content="fullMouseControl" />
+   <meta itemprop="accessibilityHazard" content="noFlashingHazard" />
+   <meta itemprop="accessibilityHazard" content="noMotionSimulationHazard" />
+   <meta itemprop="accessibilityHazard" content="noSoundHazard" />
+   <meta itemprop="accessibilityAPI" content="ARIA" />
 
    <dl>
       <dt>Name:</dt>
@@ -8708,9 +8706,9 @@ as suggested by www.a11ymetadata.org.
       <dt>Copyrighted By:</dt>
       <dd itemprop="copyrightHolder" itemtype="http://schema.org/Organization" itemscope=""><span itemprop="name">Holt, Rinehart and Winston</span></dd>
       <dt>Adult content:</dt>
-      <dd><meta itemprop="isFamilyFriendly" content="true"/>No</dd>
+      <dd><meta itemprop="isFamilyFriendly" content="true" />No</dd>
       <dt>Language:</dt>
-      <dd><meta itemprop="inLanguage" content="en-US"/>English US</dd>
+      <dd><meta itemprop="inLanguage" content="en-US" />English US</dd>
       <dt>Essential Images:</dt>
       <dd>861</dd>
       <dt>Described Images:</dt>
@@ -8746,19 +8744,19 @@ as suggested by www.a11ymetadata.org.
 </p>
 
 <div vocab="http://schema.org/" typeof="Book">
-   <meta property="bookFormat" content="EBook/DAISY3"/>
-   <meta property="accessibilityFeature" content="largePrint/CSSEnabled"/>
-   <meta property="accessibilityFeature" content="highContrast/CSSEnabled"/>
-   <meta property="accessibilityFeature" content="resizeText/CSSEnabled"/>
-   <meta property="accessibilityFeature" content="displayTransformability"/>
-   <meta property="accessibilityFeature" content="longDescription"/>
-   <meta property="accessibilityFeature" content="alternativeText"/>
-   <meta property="accessibilityControl" content="fullKeyboardControl"/>
-   <meta property="accessibilityControl" content="fullMouseControl"/>
-   <meta property="accessibilityHazard" content="noFlashingHazard"/>
-   <meta property="accessibilityHazard" content="noMotionSimulationHazard"/>
-   <meta property="accessibilityHazard" content="noSoundHazard"/>
-   <meta property="accessibilityAPI" content="ARIA"/>
+   <meta property="bookFormat" content="EBook/DAISY3" />
+   <meta property="accessibilityFeature" content="largePrint/CSSEnabled" />
+   <meta property="accessibilityFeature" content="highContrast/CSSEnabled" />
+   <meta property="accessibilityFeature" content="resizeText/CSSEnabled" />
+   <meta property="accessibilityFeature" content="displayTransformability" />
+   <meta property="accessibilityFeature" content="longDescription" />
+   <meta property="accessibilityFeature" content="alternativeText" />
+   <meta property="accessibilityControl" content="fullKeyboardControl" />
+   <meta property="accessibilityControl" content="fullMouseControl" />
+   <meta property="accessibilityHazard" content="noFlashingHazard" />
+   <meta property="accessibilityHazard" content="noMotionSimulationHazard" />
+   <meta property="accessibilityHazard" content="noSoundHazard" />
+   <meta property="accessibilityAPI" content="ARIA" />
 
    <dl>
       <dt>Name:</dt>
@@ -8782,9 +8780,9 @@ as suggested by www.a11ymetadata.org.
       <dt>Copyrighted By:</dt>
       <dd property="copyrightHolder" typeof="Organization"><span property="name">Holt, Rinehart and Winston</span></dd>
       <dt>Adult content:</dt>
-      <dd><meta property="isFamilyFriendly" content="true"/>No</dd>
+      <dd><meta property="isFamilyFriendly" content="true" />No</dd>
       <dt>Language:</dt>
-      <dd><meta property="inLanguage" content="en-US"/>English US</dd>
+      <dd><meta property="inLanguage" content="en-US" />English US</dd>
       <dt>Essential Images:</dt>
       <dd>861</dd>
       <dt>Described Images:</dt>
@@ -8862,28 +8860,28 @@ TYPES: accessibilityFeature, accessibilityHazard, fileFormat
 
 PRE-MARKUP:
 <img src="png"
-  alt="standards. toothbrushes. don't ask" longdesc="927desc.html">
+  alt="standards. toothbrushes. don't ask" longdesc="927desc.html" />
 
 MICRODATA:
 <figure itemscope itemtype="http://schema.org/CreativeWork">
- <meta itemprop="accessibilityFeature" content="textAlternative">
- <meta itemprop="accessibilityFeature" content="longDescription">
- <meta itemprop="accessibilityHazard" content="noFlashingHazard">
- <meta itemprop="accessibilityHazard" content="noMotionSimulationHazard">
- <meta itemprop="fileFormat" content="image/png">
+ <meta itemprop="accessibilityFeature" content="textAlternative" />
+ <meta itemprop="accessibilityFeature" content="longDescription" />
+ <meta itemprop="accessibilityHazard" content="noFlashingHazard" />
+ <meta itemprop="accessibilityHazard" content="noMotionSimulationHazard" />
+ <meta itemprop="fileFormat" content="image/png" />
 <img src="png"
-  alt="standards. toothbrushes. don't ask" longdesc="927desc.html">
+  alt="standards. toothbrushes. don't ask" longdesc="927desc.html" />
 </figure>
 
 RDFA:
 <figure vocab="http://schema.org/" typeof="CreativeWork">
- <meta property="accessibilityFeature" content="textAlternative">
- <meta property="accessibilityFeature" content="longDescription">
- <meta property="accessibilityHazard" content="noFlashingHazard">
- <meta property="accessibilityHazard" content="noMotionSimulationHazard">
- <meta property="fileFormat" content="image/png">
+ <meta property="accessibilityFeature" content="textAlternative" />
+ <meta property="accessibilityFeature" content="longDescription" />
+ <meta property="accessibilityHazard" content="noFlashingHazard" />
+ <meta property="accessibilityHazard" content="noMotionSimulationHazard" />
+ <meta property="fileFormat" content="image/png" />
 <img src="png"
-  alt="standards. toothbrushes. don't ask" longdesc="927desc.html">
+  alt="standards. toothbrushes. don't ask" longdesc="927desc.html" />
 </figure>
 
 JSON:
@@ -8898,42 +8896,42 @@ PRE-MARKUP:
 MICRODATA:
 
 <main itemscope itemtype="http://schema.org/CreativeWork">
-   <meta itemprop="accessibilityHazard" content="FlashingHazard"/>
-   <meta itemprop="accessibilityHazard" content="noMotionSimulationHazard"/>
-   <meta itemprop="accessibilityHazard" content="noSoundHazard"/>
-   <meta itemprop="accessibilityFeature" content="longDescription"/>
-   <meta itemprop="accessibilityFeature" content="alternativeText"/>
-   <meta itemprop="fileFormat" content="text/html"/>
-   <meta itemprop="fileFormat" content="image/png"/>
-   <meta itemprop="fileFormat" content="text/css"/>
-   <meta itemprop="fileFormat" content="text/javascript"/>
-   <meta itemprop="accessibilityAPI" content="ARIA"/>
-   <meta itemprop="accessibilityAPI" content="UIA"/>
-   <meta itemprop="accessibilityControl" content="fullKeyboardControl"/>
-   <meta itemprop="accessibilityControl" content="fullKeyboardControl"/>
-   <meta itemprop="accessibilityControl" content="fullKeyboardControl"/>
-   <meta itemprop="accessibilityControl" content="fullMouseControl"/>
+   <meta itemprop="accessibilityHazard" content="FlashingHazard" />
+   <meta itemprop="accessibilityHazard" content="noMotionSimulationHazard" />
+   <meta itemprop="accessibilityHazard" content="noSoundHazard" />
+   <meta itemprop="accessibilityFeature" content="longDescription" />
+   <meta itemprop="accessibilityFeature" content="alternativeText" />
+   <meta itemprop="fileFormat" content="text/html" />
+   <meta itemprop="fileFormat" content="image/png" />
+   <meta itemprop="fileFormat" content="text/css" />
+   <meta itemprop="fileFormat" content="text/javascript" />
+   <meta itemprop="accessibilityAPI" content="ARIA" />
+   <meta itemprop="accessibilityAPI" content="UIA" />
+   <meta itemprop="accessibilityControl" content="fullKeyboardControl" />
+   <meta itemprop="accessibilityControl" content="fullKeyboardControl" />
+   <meta itemprop="accessibilityControl" content="fullKeyboardControl" />
+   <meta itemprop="accessibilityControl" content="fullMouseControl" />
  <!--...slide content...-->
 </main>
 
 RDFA:
 
 <div vocab="http://schema.org/" typeof="CreativeWork">
-   <meta property="accessibilityHazard" content="FlashingHazard"/>
-   <meta property="accessibilityHazard" content="noMotionSimulationHazard"/>
-   <meta property="accessibilityHazard" content="noSoundHazard"/>
-   <meta property="accessibilityFeature" content="longDescription"/>
-   <meta property="accessibilityFeature" content="alternativeText"/>
-   <meta property="fileFormat" content="text/html"/>
-   <meta property="fileFormat" content="image/png"/>
-   <meta property="fileFormat" content="text/css"/>
-   <meta property="fileFormat" content="text/javascript"/>
-   <meta property="accessibilityAPI" content="ARIA"/>
-   <meta property="accessibilityAPI" content="UIA"/>
-   <meta property="accessibilityControl" content="fullKeyboardControl"/>
-   <meta property="accessibilityControl" content="fullKeyboardControl"/>
-   <meta property="accessibilityControl" content="fullKeyboardControl"/>
-   <meta property="accessibilityControl" content="fullMouseControl"/>
+   <meta property="accessibilityHazard" content="FlashingHazard" />
+   <meta property="accessibilityHazard" content="noMotionSimulationHazard" />
+   <meta property="accessibilityHazard" content="noSoundHazard" />
+   <meta property="accessibilityFeature" content="longDescription" />
+   <meta property="accessibilityFeature" content="alternativeText" />
+   <meta property="fileFormat" content="text/html" />
+   <meta property="fileFormat" content="image/png" />
+   <meta property="fileFormat" content="text/css" />
+   <meta property="fileFormat" content="text/javascript" />
+   <meta property="accessibilityAPI" content="ARIA" />
+   <meta property="accessibilityAPI" content="UIA" />
+   <meta property="accessibilityControl" content="fullKeyboardControl" />
+   <meta property="accessibilityControl" content="fullKeyboardControl" />
+   <meta property="accessibilityControl" content="fullKeyboardControl" />
+   <meta property="accessibilityControl" content="fullMouseControl" />
  <!--...slide content...-->
 </div>
 
@@ -9590,7 +9588,7 @@ potentialAction, with a target of http://example.com/player?id=123. -->
 MICRODATA:
 
 <div itemscope itemtype="http://schema.org/Movie">
-  <meta itemprop="name" content="Footloose">
+  <meta itemprop="name" content="Footloose" />
   <div itemprop="potentialAction" itemscope itemtype="http://schema.org/WatchAction">
     <a itemprop="target" href="http://example.com/player?id=123">Watch <cite>Footloose</cite></a>
   </div>
@@ -9599,7 +9597,7 @@ MICRODATA:
 RDFA:
 
 <div vocab="http://schema.org/" typeof="Movie">
-  <meta property="name" content="Footloose">
+  <meta property="name" content="Footloose" />
   <div property="potentialAction" typeof="WatchAction">
     <a property="target" href="http://example.com/player?id=123">Watch <cite>Footloose</cite></a>
   </div>
@@ -9724,7 +9722,7 @@ PRE-MARKUP:
 
     <div>
       <link href="http://www.jaapvanzweden.com/" />
-      <img src="/examples/jvanzweden_s.jpg" alt="Jaap van Zweden"/>
+      <img src="/examples/jvanzweden_s.jpg" alt="Jaap van Zweden" />
       <div>
         <a href="/examples/Performer.aspx?id=11324">Jaap van Zweden</a>
       </div>
@@ -9740,21 +9738,21 @@ MICRODATA:
 <div itemscope="" itemtype="http://schema.org/MusicEvent">
 
   <div itemprop="location" itemscope="" itemtype="http://schema.org/MusicVenue">
-    <meta itemprop="name" content="Chicago Symphony Center"/>
-    <link itemprop="sameAs" href="http://en.wikipedia.org/wiki/Symphony_Center"/>
-    <meta itemprop="address" content="220 S. Michigan Ave, Chicago, Illinois, USA"/>
+    <meta itemprop="name" content="Chicago Symphony Center" />
+    <link itemprop="sameAs" href="http://en.wikipedia.org/wiki/Symphony_Center" />
+    <meta itemprop="address" content="220 S. Michigan Ave, Chicago, Illinois, USA" />
   </div>
 
   <div itemprop="offers" itemscope="" itemtype="http://schema.org/Offer">
     <link itemprop="url" href="/examples/ticket/12341234" />
     <meta itemprop="price" content="40" />
     <meta itemprop="priceCurrency" content="USD" />
-    <link itemprop="availability" href="http://schema.org/InStock"/>
+    <link itemprop="availability" href="http://schema.org/InStock" />
   </div>
 
   <h2 itemprop="name">Shostakovich Leningrad</h2>
   <div>
-    <div itemprop="startDate" content="2014-05-23T20:00">May<span>23</span></div>
+    <div><meta itemprop="startDate" content="2014-05-23T20:00" />May<span>23</span></div>
     <div>8:00 PM</div>
     <div>
       <strong>Britten, Shostakovich</strong>
@@ -9791,7 +9789,7 @@ MICRODATA:
 
     <div itemprop="performer" itemscope="" itemtype="http://schema.org/Person">
       <link itemprop="sameAs" href="http://www.jaapvanzweden.com/" />
-      <img itemprop="image" src="/examples/jvanzweden_s.jpg" alt="Jaap van Zweden"/>
+      <img itemprop="image" src="/examples/jvanzweden_s.jpg" alt="Jaap van Zweden" />
       <div>
         <a href="/examples/Performer.aspx?id=11324"><span itemprop="name">Jaap van Zweden</span></a>
       </div>
@@ -9808,21 +9806,21 @@ RDFA:
 <div vocab="http://schema.org/" typeof="MusicEvent">
 
   <div property="location" typeof="MusicVenue">
-    <meta property="name" content="Chicago Symphony Center"/>
-    <link property="sameAs" href="http://en.wikipedia.org/wiki/Symphony_Center"/>
-    <meta property="address" content="220 S. Michigan Ave, Chicago, Illinois, USA"/>
+    <meta property="name" content="Chicago Symphony Center" />
+    <link property="sameAs" href="http://en.wikipedia.org/wiki/Symphony_Center" />
+    <meta property="address" content="220 S. Michigan Ave, Chicago, Illinois, USA" />
   </div>
 
   <div property="offers" typeof="Offer">
-    <link property="url" href="/examples/ticket/12341234"/>
+    <link property="url" href="/examples/ticket/12341234" />
     <meta property="priceCurrency" content="USD" />$
     <meta property="price" content="40" />40.00
-    <link property="availability" href="http://schema.org/InStock"/>
+    <link property="availability" href="http://schema.org/InStock" />
   </div>
 
   <h2 property="name">Shostakovich Leningrad</h2>
   <div>
-    <div property="startDate" content="2014-05-23T20:00">May<span>23</span></div>
+    <div><meta property="startDate" content="2014-05-23T20:00" />May<span>23</span></div>
     <div>8:00 PM</div>
     <div>
       <strong>Britten, Shostakovich</strong>
@@ -9836,11 +9834,11 @@ RDFA:
     <h3>Program</h3>
     <ul>
       <li property="workPerformed" typeof="CreativeWork">
-        <link href="http://en.wikipedia.org/wiki/Peter_Grimes" property="sameAs"/>
+        <link href="http://en.wikipedia.org/wiki/Peter_Grimes" property="sameAs" />
         <span property="name"><strong>Britten</strong> Four Sea Interludes and Passacaglia from <em property="name">Peter Grimes</em></span>
   </li>
       <li property="workPerformed" typeof="CreativeWork">
-      <link href="http://en.wikipedia.org/wiki/Symphony_No._7_(Shostakovich)" property="sameAs"/>
+      <link href="http://en.wikipedia.org/wiki/Symphony_No._7_(Shostakovich)" property="sameAs" />
       <span property="name"><strong>Shostakovich</strong> Symphony No. 7 <em>(Leningrad)</em></span>
   </li>
     </ul>
@@ -9849,15 +9847,15 @@ RDFA:
   <div>
     <h3>Performers</h3>
     <div property="performer" typeof="MusicGroup">
-      <img src="/examples/cso_c_logo_s.jpg" alt="Chicago Symphony Orchestra"/>
-      <link href="http://cso.org/" property="sameAs"/>
-      <link href="http://en.wikipedia.org/wiki/Chicago_Symphony_Orchestra" property="sameAs"/>
+      <img src="/examples/cso_c_logo_s.jpg" alt="Chicago Symphony Orchestra" />
+      <link href="http://cso.org/" property="sameAs" />
+      <link href="http://en.wikipedia.org/wiki/Chicago_Symphony_Orchestra" property="sameAs" />
       <a property="name" href="examples/Performer?id=4434">Chicago Symphony Orchestra</a>
     </div>
 
     <div property="performer" typeof="Person">
-      <link href="http://www.jaapvanzweden.com/" property="sameAs"/>
-      <img src="/examples/jvanzweden_s.jpg" alt="Jaap van Zweden" property="image"/>
+      <link href="http://www.jaapvanzweden.com/" property="sameAs" />
+      <img src="/examples/jvanzweden_s.jpg" alt="Jaap van Zweden" property="image" />
       <a property="name" href="/examples/Performer.aspx?id=11324">Jaap van Zweden</a>
       <div>conductor</div>
     </div>
@@ -9930,20 +9928,20 @@ MICRODATA:
 <div itemscope="" itemtype="http://schema.org/TheaterEvent">
   <span itemprop="name">Julius Caesar at Shakespeare's Globe</span>
   <div itemprop="location" itemscope="" itemtype="http://schema.org/PerformingArtsTheater">
-    <meta itemprop="name" content="Shakespeare's Globe"/>
-    <link itemprop="sameAs" href="http://www.shakespearesglobe.com/"/>
-    <meta itemprop="address" content="London, UK"/>
+    <meta itemprop="name" content="Shakespeare's Globe" />
+    <link itemprop="sameAs" href="http://www.shakespearesglobe.com/" />
+    <meta itemprop="address" content="London, UK" />
   </div>
   <div itemprop="offers" itemscope="" itemtype="http://schema.org/Offer">
-    <link itemprop="url" href="/examples/ticket/0012301230123"/>
+    <link itemprop="url" href="/examples/ticket/0012301230123" />
   </div>
-  <span itemprop="startDate" content="2014-10-01T19:30">Wed 01 October 2014 19:30</span>
+  <span><meta itemprop="startDate" content="2014-10-01T19:30" />Wed 01 October 2014 19:30</span>
   <div itemprop="workPerformed" itemscope="" itemtype="http://schema.org/CreativeWork">
-    <link itemprop="sameAs" href="http://en.wikipedia.org/wiki/Julius_Caesar_(play)"/>
-    <link itemprop="sameAs" href="http://worldcat.org/entity/work/id/1807288036"/>
+    <link itemprop="sameAs" href="http://en.wikipedia.org/wiki/Julius_Caesar_(play)" />
+    <link itemprop="sameAs" href="http://worldcat.org/entity/work/id/1807288036" />
     <div itemprop="creator" itemscope="" itemtype="http://schema.org/Person">
-       <meta itemprop="name" content="William Shakespeare"/>
-       <link itemprop="sameAs" href="http://en.wikipedia.org/wiki/William_Shakespeare"/>
+       <meta itemprop="name" content="William Shakespeare" />
+       <link itemprop="sameAs" href="http://en.wikipedia.org/wiki/William_Shakespeare" />
     </div>
   </div>
 </div>
@@ -9953,20 +9951,20 @@ RDFA:
 <div vocab="http://schema.org/" typeof="TheaterEvent">
   <span property="name">Julius Caesar at Shakespeare's Globe</span>
   <div property="location" typeof="PerformingArtsTheater">
-    <meta property="name" content="Shakespeare's Globe"/>
-    <link property="sameAs" href="http://www.shakespearesglobe.com/"/>
-    <meta property="address" content="London, UK"/>
+    <meta property="name" content="Shakespeare's Globe" />
+    <link property="sameAs" href="http://www.shakespearesglobe.com/" />
+    <meta property="address" content="London, UK" />
   </div>
   <div property="offers" typeof="Offer">
-    <link property="url" href="/examples/ticket/0012301230123"/>
+    <link property="url" href="/examples/ticket/0012301230123" />
   </div>
-  <span property="startDate" content="2014-10-01T19:30">Wed 01 October 2014 19:30</span>
+  <span><meta property="startDate" content="2014-10-01T19:30" />Wed 01 October 2014 19:30</span>
   <div property="workPerformed" typeof="CreativeWork">
-    <link property="sameAs" href="http://en.wikipedia.org/wiki/Julius_Caesar_(play)"/>
-    <link property="sameAs" href="http://worldcat.org/entity/work/id/1807288036"/>
+    <link property="sameAs" href="http://en.wikipedia.org/wiki/Julius_Caesar_(play)" />
+    <link property="sameAs" href="http://worldcat.org/entity/work/id/1807288036" />
     <div property="creator" typeof="Person">
-       <meta property="name" content="William Shakespeare"/>
-       <link property="sameAs" href="http://en.wikipedia.org/wiki/William_Shakespeare"/>
+       <meta property="name" content="William Shakespeare" />
+       <link property="sameAs" href="http://en.wikipedia.org/wiki/William_Shakespeare" />
     </div>
   </div>
 </div>
@@ -10109,8 +10107,8 @@ MICRODATA:
 <div itemscope itemtype="http://schema.org/Restaurant">
   <h1 itemprop="name">Fondue for Fun and Fantasy</h1>
   <p itemprop="description">Fantastic and fun for all your cheesy occasions.</p>
-  <p>Open: <span itemprop="openingHours" content="Mo,Tu,We,Th,Fr,Sa,Su 11:30-23:00">Daily from 11:30am till 11pm</span></p>
-  <p>Phone: <span itemprop="telephone" content="+155501003333">555-0100-3333</span></p>
+  <p>Open: <meta itemprop="openingHours" content="Mo,Tu,We,Th,Fr,Sa,Su 11:30-23:00" />Daily from 11:30am till 11pm</p>
+  <p>Phone: <meta itemprop="telephone" content="+155501003333" />555-0100-3333</p>
   <p>View <a itemprop="menu" href="http://example.com/menu">our menu</a>.</p>
 </div>
 
@@ -10119,8 +10117,8 @@ RDFA:
 <div vocab="http://schema.org/" typeof="Restaurant">
   <h1 property="name">Fondue for Fun and Fantasy</h1>
   <p property="description">Fantastic and fun for all your cheesy occasions.</p>
-  <p>Open: <span property="openingHours" content="Mo,Tu,We,Th,Fr,Sa,Su 11:30-23:00">Daily from 11:30am till 11pm</span></p>
-  <p>Phone: <span property="telephone" content="+155501003333">555-0100-3333</span></p>
+  <p>Open: <meta property="openingHours" content="Mo,Tu,We,Th,Fr,Sa,Su 11:30-23:00" />Daily from 11:30am till 11pm</p>
+  <p>Phone: <meta property="telephone" content="+155501003333" />555-0100-3333</p>
   <p>View <a property="menu" href="http://example.com/menu">our menu</a>.</p>
 </div>
 
@@ -10164,7 +10162,7 @@ MICRODATA:
 <div itemscope itemtype="http://schema.org/Store">
   <h1 itemprop="name">Middle of Nowhere Foods</h1>
   <h2>Opening hours</h2>
-    <meta itemprop="openingHours" content="Mo,Tu,We,Th,Fr,Sa,Su 09:00-14:00">
+    <meta itemprop="openingHours" content="Mo,Tu,We,Th,Fr,Sa,Su 09:00-14:00" />
     <p>Normally open daily <time datetime="09:00">9am</time>-<time datetime="14:00">2pm</time> except on:</p>
   <ul>
     <li itemprop="openingHoursSpecification" itemscope itemtype="http://schema.org/OpeningHoursSpecification">
@@ -10184,7 +10182,7 @@ RDFA:
 <div vocab="http://schema.org/" typeof="Store">
   <h1 property="name">Middle of Nowhere Foods</h1>
   <h2>Opening hours</h2>
-  <meta property="openingHours" content="Mo,Tu,We,Th,Fr,Sa,Su 09:00-14:00">
+  <meta property="openingHours" content="Mo,Tu,We,Th,Fr,Sa,Su 09:00-14:00" />
   <p>Normally open daily <time datetime="09:00">9am</time>-<time datetime="14:00">2pm</time> except on:</p>
   <ul>
     <li property="openingHoursSpecification" typeof="OpeningHoursSpecification">
@@ -10245,8 +10243,8 @@ MICRODATA:
   <h1 itemprop="name">Philippa's Pharmacy</h1>
   <p itemprop="description">A superb collection of fine pharmaceuticals for your beauty and healthcare
     convenience, a department of Delia's Drugstore.</p>
-  <p>Open: <span itemprop="openingHours" content="Mo,Tu,We,Th 09:00-12:00">Monday-Thursday 9am-noon</span></p>
-  <p>Phone: <span itemprop="telephone" content="+18005551234">(800)555-1234</span></p>
+  <p>Open: <meta itemprop="openingHours" content="Mo,Tu,We,Th 09:00-12:00" />Monday-Thursday 9am-noon</p>
+  <p>Phone: <meta itemprop="telephone" content="+18005551234" />(800)555-1234</p>
 </div>
 
 RDFA:
@@ -10255,8 +10253,8 @@ RDFA:
   <h1 property="name">Philippa's Pharmacy</h1>
   <p property="description">A superb collection of fine pharmaceuticals for your beauty and healthcare
     convenience, a department of Delia's Drugstore.</p>
-  <p>Open: <span property="openingHours" content="Mo,Tu,We,Th 09:00-12:00">Monday-Thursday 9am-noon</span></p>
-  <p>Phone: <span property="telephone" content="+18005551234">(800)555-1234</span></p>
+  <p>Open: <meta property="openingHours" content="Mo,Tu,We,Th 09:00-12:00" />Monday-Thursday 9am-noon</p>
+  <p>Phone: <meta property="telephone" content="+18005551234" />(800)555-1234</p>
 </div>
 
 JSON:
@@ -10304,16 +10302,16 @@ MICRODATA:
     <h1 itemprop="name">Delia's Daily Supplies</h1>
     <p itemprop="description">For your daily newspapers, candies, snacks and (via our in-store pharmacy)
       drugs and healthcare products to keep you and your family happy, healthy and supplied with all your daily needs.</p>
-    <p>Open: <span itemprop="openingHours" content="Mo-Fr 07:00-23:00">Monday-Friday 7am-11pm </span></p>
-    <p>Phone: <span itemprop="telephone" content="+1 8005551234">800-555-1234</span></p>
+    <p>Open: <meta itemprop="openingHours" content="Mo-Fr 07:00-23:00" />Monday-Friday 7am-11pm</p>
+    <p>Phone: <meta itemprop="telephone" content="+1 8005551234" />800-555-1234</p>
   </div>
 
   <div itemprop="department" itemscope itemtype="http://schema.org/Pharmacy">
     <h2 itemprop="name">Philippa's Pharmacy</h2>
     <p itemprop="description">A superb collection of fine pharmaceuticals for your beauty and healthcare needs,
       a department of Delia's Drugstore. Call our desk to speak to the on-duty pharmacist any morning Monday-Thursday.</p>
-    <p>Open: <span itemprop="openingHours" content="Mo-Th 09:00-12:00">Monday-Thursday 9am-noon</span></p>
-    <p>Phone: <span itemprop="telephone" content="+155501001111">555-0100-1111</span></p>
+    <p>Open: <meta itemprop="openingHours" content="Mo-Th 09:00-12:00" />Monday-Thursday 9am-noon</p>
+    <p>Phone: <meta itemprop="telephone" content="+155501001111" />555-0100-1111</p>
   </div>
 </div>
 
@@ -10324,16 +10322,16 @@ RDFA:
       <h1 property="name">Delia's Daily Supplies</h1>
       <p property="description">For your daily newspapers, candies, snacks and (via our in-store pharmacy)
           drugs and healthcare products to keep you and your family happy, healthy and supplied with all your daily needs.</p>
-      <p>Open: <span property="openingHours" content="Mo-Fr 07:00-23:00">Monday-Friday 7am-11pm</span></p>
-      <p>Phone: <span property="telephone" content="+1 8005551234">800-555-1234</span></p>
+      <p>Open: <meta property="openingHours" content="Mo-Fr 07:00-23:00" />Monday-Friday 7am-11pm</p>
+      <p>Phone: <meta property="telephone" content="+1 8005551234" />800-555-1234</p>
   </div>
 
   <div property="department" typeof="Pharmacy">
       <h2 property="name">Philippa's Pharmacy</h2>
       <p property="description">A superb collection of fine pharmaceuticals for your beauty and healthcare needs,
           a department of Delia's Drugstore. Call our desk to speak to the on-duty pharmacist any morning Monday-Thursday.</p>
-      <p>Open: <span property="openingHours" content="Mo-Th 09:00-12:00">Monday-Thursday 9am-noon</span></p>
-      <p>Phone: <span property="telephone" content="+155501001111">555-0100-1111</span></p>
+      <p>Open: <meta property="openingHours" content="Mo-Th 09:00-12:00" />Monday-Thursday 9am-noon</p>
+      <p>Phone: <meta property="telephone" content="+155501001111" />555-0100-1111</p>
   </div>
 </div>
 
@@ -10399,24 +10397,24 @@ MICRODATA:
     <h1 itemprop="name">Delia's Daily Supplies</h1>
     <p itemprop="description">For your daily newspapers, candies, snacks and (via our in-store pharmacy)
       drugs and healthcare products to keep you and your family happy, healthy and supplied with all your daily needs.</p>
-    <p>Open: <span itemprop="openingHours" content="Mo-Fr 07:00-23:00">Monday-Friday 7am-11pm </span></p>
-    <p>Phone: <span itemprop="telephone" content="+155501001110">555-0100-1110</span></p>
+    <p>Open: <meta itemprop="openingHours" content="Mo-Fr 07:00-23:00" />Monday-Friday 7am-11pm</p>
+    <p>Phone: <meta itemprop="telephone" content="+155501001110" />555-0100-1110</p>
   </div>
 
   <div itemprop="department" itemscope itemtype="http://schema.org/Pharmacy">
     <h2 itemprop="name">Philippa's Pharmacy</h2>
     <p itemprop="description">A superb collection of fine pharmaceuticals for your beauty and healthcare needs,
       a department of Delia's Drugstore. Call our desk to speak to the on-duty pharmacist any morning Monday-Thursday.</p>
-    <p>Open: <span itemprop="openingHours" content="Mo-Th 09:00-12:00">Monday-Thursday 9am-noon</span></p>
-    <p>Phone: <span itemprop="telephone" content="+155501001111">555-0100-1111</span></p>
+    <p>Open: <meta itemprop="openingHours" content="Mo-Th 09:00-12:00" />Monday-Thursday 9am-noon</p>
+    <p>Phone: <meta itemprop="telephone" content="+155501001111" />555-0100-1111</p>
   </div>
 
   <!-- another department -->
   <div itemprop="department" itemscope itemtype="http://schema.org/DryCleaningOrLaundry">
     <h2 itemprop="name">Larry's Laundromat</h2>
     <p itemprop="description">Keep your clothes clean while you do your daily shopping!</p>
-    <p>Open: <span itemprop="openingHours" content="Mo-Fr 13:00-17:30">Open weekdays 1pm-5:30pm.</span></p>
-    <p>Phone: <span itemprop="telephone" content="+155501002121">555-0100-2121</span></p>
+    <p>Open: <meta itemprop="openingHours" content="Mo-Fr 13:00-17:30" />Open weekdays 1pm-5:30pm.</p>
+    <p>Phone: <meta itemprop="telephone" content="+155501002121" />555-0100-2121</p>
     <p>A branch of <span itemprop="parentOrganization" itemscope itemtype="http://schema.org/Corporation">
     <a itemprop="url" href="http://example.com/"><span itemprop="name">Larry's International</span></a></span>.</p>
   </div>
@@ -10429,23 +10427,23 @@ RDFA:
     <h1 property="name">Delia's Daily Supplies</h1>
     <p property="description">For your daily newspapers, candies, snacks and (via our in-store pharmacy)
         drugs and healthcare products to keep you and your family happy, healthy and supplied with all your daily needs.</p>
-    <p>Open: <span property="openingHours" content="Mo-Fr 07:00-23:00">Monday-Friday 7am-11pm</span></p>
-    <p>Phone: <span property="telephone" content="+155501001110">555-0100-1110</span></p>
+    <p>Open: <meta property="openingHours" content="Mo-Fr 07:00-23:00" />Monday-Friday 7am-11pm</p>
+    <p>Phone: <meta property="telephone" content="+155501001110" />555-0100-1110</p>
   </div>
 
   <div property="department" typeof="Pharmacy">
     <h2 property="name">Philippa's Pharmacy</h2>
     <p property="description">A superb collection of fine pharmaceuticals for your beauty and healthcare needs,
         a department of Delia's Drugstore. Call our desk to speak to the on-duty pharmacist any morning Monday-Thursday.</p>
-    <p>Open: <span property="openingHours" content="Mo-Th 09:00-12:00">Monday-Thursday 9am-noon</span></p>
-    <p>Phone: <span property="telephone" content="+155501001111">555-0100-1111</span></p>
+    <p>Open: <meta property="openingHours" content="Mo-Th 09:00-12:00" />Monday-Thursday 9am-noon</p>
+    <p>Phone: <meta property="telephone" content="+155501001111" />555-0100-1111</p>
   </div>
 
   <div property="department" typeof="DryCleaningOrLaundry">
     <h2 property="name">Larry's Laundromat</h2>
     <p property="description">Keep your clothes clean while you do your daily shopping!</p>
-    <p>Open: <span property="openingHours" content="Mo-Fr 13:00-17:30">Open weekdays 1pm-5:30pm.</span></p>
-    <p>Phone: <span property="telephone" content="+155501002121">555-0100-2121</span></p>
+    <p>Open: <meta property="openingHours" content="Mo-Fr 13:00-17:30" />Open weekdays 1pm-5:30pm.</p>
+    <p>Phone: <meta property="telephone" content="+155501002121" />555-0100-2121</p>
     <p>A branch of <span property="parentOrganization" typeof="Corporation">
     <a property="url" href="http://example.com/"><span property="name">Larry's International</span></a></span>.</p>
   </div>
@@ -10522,8 +10520,8 @@ MICRODATA:
     <h1 itemprop="name">Delia's Daily Supplies</h1>
     <p itemprop="description">For your daily newspapers, candies, snacks and (via our in-store pharmacy)
       drugs and healthcare products to keep you and your family happy, healthy and supplied with all your daily needs.</p>
-    <p>Open: <span itemprop="openingHours" content="Mo-Fr 07:00-23:00">Monday-Friday 7am-11pm</span></p>
-    <p>Phone: <span itemprop="telephone" content="+155501001110">555-0100-1110</span></p>
+    <p>Open: <meta itemprop="openingHours" content="Mo-Fr 07:00-23:00" />Monday-Friday 7am-11pm</p>
+    <p>Phone: <meta itemprop="telephone" content="+155501001110" />555-0100-1110</p>
   </div>
 
   <address itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
@@ -10535,8 +10533,8 @@ MICRODATA:
  <div itemprop="department" itemscope itemtype="http://schema.org/Pharmacy">
    <h2 itemprop="name">Philippa's Pharmacy</h2>
    <p itemprop="description">A superb collection of fine pharmaceuticals...</p>
-   <p>Open: <span itemprop="openingHours" content="Mo-Th 09:00-12:00">Monday-Thursday 9am-noon</span></p>
-   <p>Phone: <span itemprop="telephone" content="+155501001111">555-0100-1111</span></p>
+   <p>Open: <meta itemprop="openingHours" content="Mo-Th 09:00-12:00" />Monday-Thursday 9am-noon</p>
+   <p>Phone: <meta itemprop="telephone" content="+155501001111" />555-0100-1111</p>
  </div>
 </div>
 
@@ -10547,8 +10545,8 @@ RDFA:
     <h1 property="name">Delia's Daily Supplies</h1>
     <p property="description">For your daily newspapers, candies, snacks and (via our in-store pharmacy)
     drugs and healthcare products to keep you and your family happy, healthy and supplied with all your daily needs.</p>
-    <p>Open: <span property="openingHours" content="Mo-Fr 07:00-23:00">Monday-Friday 7am-11pm </p>
-    <p>Phone: <span property="telephone" content="+155501001110">555-0100-1110</span></p>
+    <p>Open: <meta property="openingHours" content="Mo-Fr 07:00-23:00" />Monday-Friday 7am-11pm</p>
+    <p>Phone: <meta property="telephone" content="+155501001110" />555-0100-1110</p>
   </div>
 
   <address property="address" typeof="PostalAddress">
@@ -10560,8 +10558,8 @@ RDFA:
   <div property="department" typeof="Pharmacy">
     <h2 property="name">Philippa's Pharmacy</h2>
     <p property="description">A superb collection of fine pharmaceuticals...</p>
-    <p>Open: <span property="openingHours" content="Mo-Th 09:00-12:00">Monday-Thursday 9am-noon</span></p>
-    <p>Phone: <span property="telephone" content="+155501001111">555-0100-1111</span></p>
+    <p>Open: <meta property="openingHours" content="Mo-Th 09:00-12:00" />Monday-Thursday 9am-noon</p>
+    <p>Phone: <meta property="telephone" content="+155501001111" />555-0100-1111</p>
   </div>
 </div>
 
@@ -10634,8 +10632,8 @@ MICRODATA:
     <h1 itemprop="name">Delia's Daily Supplies</h1>
     <p itemprop="description">For your daily newspapers, candies, snacks and (via our in-store pharmacy)
       drugs and healthcare products to keep you and your family happy, healthy and supplied with all your daily needs.</p>
-    <p>Open: <span itemprop="openingHours" content="Mo-Fr 07:00-23:00">Monday-Friday 7am-11pm</span></p>
-    <p>Phone: <span itemprop="telephone" content="+155501001110">555-0100-1110</span></p>
+    <p>Open: <meta itemprop="openingHours" content="Mo-Fr 07:00-23:00" />Monday-Friday 7am-11pm</p>
+    <p>Phone: <meta itemprop="telephone" content="+155501001110" />555-0100-1110</p>
   </div>
 
   <address itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
@@ -10647,8 +10645,8 @@ MICRODATA:
   <div itemprop="department" itemscope itemtype="http://schema.org/Pharmacy">
     <h2 itemprop="name">Philippa's Pharmacy</h2>
     <p itemprop="description">A superb collection of fine pharmaceuticals...</p>
-    <p>Open: <span itemprop="openingHours" content="Mo-Th 09:00-12:00">Monday-Thursday 9am-noon</span></p>
-    <p>Phone: <span itemprop="telephone" content="+155501001111">555-0100-1111</span></p>
+    <p>Open: <meta itemprop="openingHours" content="Mo-Th 09:00-12:00" />Monday-Thursday 9am-noon</p>
+    <p>Phone: <meta itemprop="telephone" content="+155501001111" />555-0100-1111</p>
     <address itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
       <span itemprop="streetAddress">Unit 42b, Land of Bargains Shopping Paradise, 12 Highway 101</span>,
       <span itemprop="addressLocality">Boston</span>,
@@ -10664,8 +10662,8 @@ RDFA:
     <h1 property="name">Delia's Daily Supplies</h1>
     <p property="description">For your daily newspapers, candies, snacks and (via our in-store pharmacy)
     drugs and healthcare products to keep you and your family happy, healthy and supplied with all your daily needs.</p>
-    <p>Open: <span property="openingHours" content="Mo-Fr 07:00-23:00">Monday-Friday 7am-11pm</span></p>
-    <p>Phone: <span property="telephone" content="+155501001110">555-0100-1110</span></p>
+    <p>Open: <meta property="openingHours" content="Mo-Fr 07:00-23:00" />Monday-Friday 7am-11pm</p>
+    <p>Phone: <meta property="telephone" content="+155501001110" />555-0100-1110</p>
   </div>
 
   <address property="address" typeof="PostalAddress">
@@ -10677,8 +10675,8 @@ RDFA:
   <div property="department" typeof="Pharmacy">
     <h2 property="name">Philippa's Pharmacy</h2>
     <p property="description">A superb collection of fine pharmaceuticals...</p>
-    <p>Open: <span property="openingHours" content="Mo-Th 09:00-12:00">Monday-Thursday 9am-noon</span></p>
-    <p>Phone: <span property="telephone" content="+155501001111">555-0100-1111</span></p>
+    <p>Open: <meta property="openingHours" content="Mo-Th 09:00-12:00" />Monday-Thursday 9am-noon</p>
+    <p>Phone: <meta property="telephone" content="+155501001111" />555-0100-1111</p>
     <address property="address" typeof="PostalAddress">
       <span property="streetAddress">Unit 42b, Land of Bargains Shopping Paradise, 12 Highway 101</span>,
       <span property="addressLocality">Boston</span>,
@@ -10989,13 +10987,13 @@ MICRODATA:
 
 <div itemscope itemtype="http://schema.org/CollegeOrUniversity">
   <span itemprop="name">University of Cambridge</span>
-  <link itemprop="sameAs" href="http://en.wikipedia.org/wiki/University_of_Cambridge"/>
+  <link itemprop="sameAs" href="http://en.wikipedia.org/wiki/University_of_Cambridge" />
   <div itemprop="alumni" itemscope
         itemtype="http://schema.org/OrganizationRole">
     <div itemprop="alumni" itemscope
             itemtype="http://schema.org/Person">
       <span itemprop="name">Delia Derbyshire</span>
-      <link itemprop="sameAs" href="http://en.wikipedia.org/wiki/Delia_Derbyshire"/>
+      <link itemprop="sameAs" href="http://en.wikipedia.org/wiki/Delia_Derbyshire" />
     </div>
     <span itemprop="startDate">1959</span>
 </div>
@@ -11004,11 +11002,11 @@ RDFA:
 
 <div vocab="http://schema.org/" typeof="CollegeOrUniversity">
     <span property="name">University of Cambridge</span>
-  <link property="sameAs" href="http://en.wikipedia.org/wiki/University_of_Cambridge"/>
+  <link property="sameAs" href="http://en.wikipedia.org/wiki/University_of_Cambridge" />
   <div property="alumni" typeof="OrganizationRole">
     <div property="alumni" typeof="Person">
       <span property="name">Delia Derbyshire</span>
-      <link property="sameAs" href="http://en.wikipedia.org/wiki/Delia_Derbyshire"/>
+      <link property="sameAs" href="http://en.wikipedia.org/wiki/Delia_Derbyshire" />
     </div>
     <span property="startDate">1959</span>
 </div>
@@ -11047,13 +11045,13 @@ MICRODATA:
 
 <div itemscope itemtype="http://schema.org/Person">
   <span itemprop="name">Delia Derbyshire</span>
-  <link itemprop="sameAs" href="http://en.wikipedia.org/wiki/Delia_Derbyshire"/>
+  <link itemprop="sameAs" href="http://en.wikipedia.org/wiki/Delia_Derbyshire" />
   <div itemprop="alumniOf" itemscope
         itemtype="http://schema.org/OrganizationRole">
     <div itemprop="alumniOf" itemscope
             itemtype="http://schema.org/CollegeOrUniversity">
       <span itemprop="name">University of Cambridge</span>
-      <link itemprop="sameAs" href="http://en.wikipedia.org/wiki/University_of_Cambridge"/>
+      <link itemprop="sameAs" href="http://en.wikipedia.org/wiki/University_of_Cambridge" />
     </div>
     <span itemprop="startDate">1959</span>
 </div>
@@ -11062,11 +11060,11 @@ RDFA:
 
 <div vocab="http://schema.org/" typeof="Person">
   <span property="name">Delia Derbyshire</span>
-  <link property="sameAs" href="http://en.wikipedia.org/wiki/Delia_Derbyshire"/>
+  <link property="sameAs" href="http://en.wikipedia.org/wiki/Delia_Derbyshire" />
   <div property="alumniOf" typeof="OrganizationRole">
     <div property="alumniOf" typeof="CollegeOrUniversity">
       <span property="name">University of Cambridge</span>
-      <link property="sameAs" href="http://en.wikipedia.org/wiki/University_of_Cambridge"/>
+      <link property="sameAs" href="http://en.wikipedia.org/wiki/University_of_Cambridge" />
     </div>
     <span property="startDate">1959</span>
 </div>
@@ -11105,7 +11103,7 @@ MICRODATA:
 
 <div itemscope itemtype="http://schema.org/Movie">
   <span itemprop="name">Ghostbusters</span>
-  <link itemprop="sameAs" href="http://en.wikipedia.org/wiki/Ghostbusters"/>
+  <link itemprop="sameAs" href="http://en.wikipedia.org/wiki/Ghostbusters" />
   <div itemprop="actor" itemscope
         itemtype="http://schema.org/PerformanceRole">
     <div itemprop="actor" itemscope
@@ -11120,7 +11118,7 @@ RDFA:
 
 <div vocab="http://schema.org/" typeof="Movie">
   <span property="name">Ghostbusters</span>
-  <link property="sameAs" href="http://en.wikipedia.org/wiki/Ghostbusters"/>
+  <link property="sameAs" href="http://en.wikipedia.org/wiki/Ghostbusters" />
   <div property="actor" typeof="PerformanceRole">
     <div property="actor" typeof="Person">
       <span property="name">Bill Murray</span>
@@ -11299,7 +11297,7 @@ MICRODATA:
       <span itemprop="name">BRAND 502</span>
     </a>
     <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-      <span itemprop="price">4399</span> <span itemprop="priceCurrency" content="RUB">р.</span>
+      <span itemprop="price">4399</span> <span><meta itemprop="priceCurrency" content="RUB" />р.</span>
     </div>...
     <div itemprop="itemListElement" itemtype="http://schema.org/Product">
     ...
@@ -11319,9 +11317,9 @@ RDFA:
       <span property="name">BRAND 502</span>
     </a>
     <div property="offers" typeof="http://schema.org/Offer">
-      <meta property="schema:priceCurrency" content="RUB">руб
-      <meta property="schema:price" content="4399.00">4 399,00
-      <link property="schema:itemCondition" href="http://schema.org/NewCondition">
+      <meta property="schema:priceCurrency" content="RUB" />руб
+      <meta property="schema:price" content="4399.00" />4 399,00
+      <link property="schema:itemCondition" href="http://schema.org/NewCondition" />
     </div>...
     <div property="itemListElement" typeof="Product">
     ...
@@ -11728,7 +11726,7 @@ MICRODATA:
   <span itemprop="name">King of Limbs</span>
   <span itemprop="byArtist">Radiohead</span>
   <div itemprop="track" itemscope itemtype="http://schema.org/ItemList">
-    <span itemprop="numberOfItems" content=8 />
+    <span itemprop="numberOfItems" content="8" />
     <div itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
       <span itemprop="position">1</span>
       <div itemprop="item" itemscope itemtype="http://schema.org/MusicRecording">
@@ -11756,7 +11754,7 @@ RDFA:
   <span property="name">King of Limbs</span>
   <span property="byArtist">Radiohead</span>
   <div property="track" typeof="ItemList">
-    <meta property="numberOfItems" content=8 />
+    <meta property="numberOfItems" content="8" />
     <div property="itemListElement" typeof="ListItem">
       <span property="position">1</span>
       <div property="item" typeof="http://schema.org/MusicRecording">
