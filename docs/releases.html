@@ -123,19 +123,105 @@ td.release  {
 
 <!-- optional 'early access' section, used between formal releases. -->
 <tr>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td class="prerelease">Early Access Fixes</td>
 <td>
 <p>Changes that will be included in the next full release, but which have been published immediately:</p>
 <h2>Vocabulary</h2>
 <h3>Pending changes</h3>
 <ul>
-<li id="g1582"><a href="https://github.com/schemaorg/schemaorg/issues/1582">Issue #1582</a>: Added <a href="/docs/financial.html">dedicated documentation page</a> describing background and examples for banking and finance terms.</li>
+<li id="g1582hotfix"><a href="https://github.com/schemaorg/schemaorg/issues/1582">Issue #1582</a>: Added <a href="/docs/financial.html">dedicated documentation page</a> describing background and examples for banking and finance terms.</li>
 </ul>
 </td>
 </tr>
 
 
+<tr>
+
+<td class="release"><a href="/version/3.3/@@">3.3</a>(TODO)<br/>sdo-enceladus<br/>(2017-05-@@)</td>
+
+<td>
+<span id="v.next"></span>
+<span id="sdo-enceladus"></span>
+<span id="v3.3"></span>
+
+<p>
+Version 3.3 (working name 'sdo-enceladus'). See <a href="https://github.com/schemaorg/schemaorg/issues/1">planning pages</a>, specifically <a href="https://github.com/schemaorg/schemaorg/issues/1569">#1569</a> for details.
+</p>
+<p>This release introduces pending types around Review, NewsArticle and Article that allow more fine-grained distinctions to be made.
+It adds a <a href="/TouristAttraction">TouristAttraction</a> type to the core, and a draft <a href="/PublicToilet">PublicToilet</a> type
+as a pending proposal. It adds a <a href="/HowTo">HowTo</a> vocabulary that generalizes <a href="/Recipe">Recipe</a>-like structured
+instructions, and adds some useful properties to <a href="/EmailMessage">EmailMessage</a>. It also adds a substantial vocabulary for describing
+<a href="/Legislation">Legislation</a> to the pending section.
+</p>
+</td>
+
+<td>
+<h2>Vocabulary</h2>
+
+<h3>Core changes</h3>
+<ul>
+<li id="g1459"><a href="https://github.com/schemaorg/schemaorg/pull/1459">Issue #1459</a>: Improvements to  <a href="/TouristAttraction">TouristAttraction</a>.
+Add a new property <a href="/touristType">touristType</a> to <a href="/TouristAttraction">TouristAttraction</a>, "Attraction suitable for type(s) of tourist. eg. Children, visitors from a particular country, etc". Extend the domain of <a href="/availableLanguage">availableLanguage</a> to <a href="/TouristAttraction">TouristAttraction</a>, of <a href="/isAccessibleForFree">isAccessibleForFree</a> to <a href="/Place">Place</a>, adapting the definitions accordingly. Add new property <a href="/publicAccess">publicAccess</a> to <a href="/publicAccess">Place</a>. "A flag to signal that the Place is accessible by public visitors.""
+</li>
+<li id="g1525c"><a href="https://github.com/schemaorg/schemaorg/issues1525c">Issue #1525</a>: Expanded definition of <a href="/NewsArticle">NewsArticle</a> from "A news article.", and added a <a href="/docs/news.html">News overview document</a> introducing some
+<a href="#g1525">proposed</a> additional terms, and discussing the relationship between News and related markup for Education/Learning, TV, Radio etc.</li>
+<li id="g647"><a href="https://github.com/schemaorg/schemaorg/issues/647">Issue #647</a>: Add a <a href="/HowTo">HowTo</a> type, building upon and generalizing the existing <a href="/Recipe">Recipe</a> vocabulary. This introduces <a href="/estimatedCost">estimatedCost</a>,
+<a href="/steps">steps</a>, <a href="/supply">supply</a> and <a href="/tool">tool</a> as new properties, and re-uses
+<a href="/performTime">performTime</a>, <a href="/totalTime">prepTime</a>,
+<a href="/totalTime">totalTime</a>. We also introduce <a href="/yield">yield</a>, which generalizes the existing <a href="/recipeYield">recipeYield</a>, and note that <a href="/performTime">performTime</a> generalizes the existing <a href="/cookTime">cookTime</a>. Supporting types <a href="/HowToItem">HowToItem</a> (with a <a href="/requiredQuantity">requiredQuantity</a> property), <a href="/HowToSupply">HowToSupply</a> and <a href="/HowToTool">HowToTool</a>,
+<a href="/HowToSection">HowToSection</a> and <a href="/HowToStep">HowToStep</a> (a kind of <a href="/ItemList">ItemList</a>) are also provided, to allow more explicitly structured <a href="/steps">steps</a> to be described. This effort has had many contributors over the years - thanks to all who have helped!
+</li>
+<li id="g1590"><a href="https://github.com/schemaorg/schemaorg/issues/1590">Issue #1590</a>: Add <a href="/bccRecipient">bccRecipient</a>,
+<a href="/ccRecipient">ccRecipient</a>, and <a href="/toRecepient">toRecipient</a> for use with <a href="/EmailMessage">EmailMessage</a>.</li>
+<li>Moved to Core from Pending:
+  <ul>
+   <li>None proposed.</li>
+  </ul>
+</li>
+</ul>
+
+<h3>Additions to <a href="http://pending.schema.org/">Pending</a> section</h3>
+
+<ul>
+<li id="g1156"><a href="https://github.com/schemaorg/schemaorg/issues/1156">Issue #1156</a>: Add <a href="/Legislation">Legislation</a>,
+<a href="/LegalForceStatus">LegalForceStatus</a>, <a href="/LegislationObject">LegislationObject</a>,
+<a href="/LegalValueLevel">LegalValueLevel</a> and other supporting terms. These terms are based on the <a href="/http://publications.europa.eu/mdr/eli/">European Legislation Identifier (ELI) ontology</a> and the work of the <a href="/http://eur-lex.europa.eu/eli-register/about.html">ELI taskforce</a>. ELI is an initiative of some national legislation publishers endorsed by EU countries and Institutions, to identify, describe and link legislation on the Web.</li>
+<li id="#g1624"><a href="https://github.com/schemaorg/schemaorg/issues/1624">Issue #1624</a>: Add a draft <a href="/PublicToilet">PublicToilet</a> type to the pending section.</li>
+<li id="g1577"><a href="https://github.com/schemaorg/schemaorg/issues/1577">Iussue #1577</a>: Add <a href="/estimatedSalary">estimatedSalary</a> to <a href="/JobPosting">JobPosting</a>.</li>
+<li id="g1589"><a href="https://github.com/schemaorg/schemaorg/issues/1589">Issue #1589</a>: Add <a href="/CriticReview">CriticReview</a> and <a href="/UserReview">UserReview</a> to distinguish common subtypes of <a href="/Review">Review</a>.</li>
+
+<li id="g1525"><a href="https://github.com/schemaorg/schemaorg/issues/1525">Issue #1525</a>: Add subtypes of <a href="/NewsArticle">NewsArticle</a>: <a href="/ReportageNewsArticle">ReportageNewsArticle</a>, <a href="/AnalysisNewsArticle">AnalysisNewsArticle</a>,  <a href="/OpinionNewsArticle">OpinionNewsArticle</a>,  <a href="/ReviewNewsArticle">ReviewNewsArticle</a>,  <a href="/BackgroundNewsArticle">BackgroundNewsArticle</a>
+to distinguish common kinds of <a href="/NewsArticle">NewsArticle</a>. Also add a subtype of <a href="/Article">Article</a>,
+<a href="/SponsoredContentArticle">SponsoredContentArticle</a> and a <a href="/docs/news.html">News overview document</a>.
+Added a subtype of <a href="/Organization">Organization</a>, <a href="/NewsMediaOrganization">NewsMediaOrganization</a>, alongside
+several "best practice"-oriented properties: <a href="/actionableFeedbackPolicy">actionableFeedbackPolicy</a>,
+<a href="/correctionsPolicy">correctionsPolicy</a>,
+<a href="/diversityPolicy">diversityPolicy</a>,
+<a href="/ethicsPolicy">ethicsPolicy</a>,
+<a href="/masthead">masthead</a>,
+<a href="/missionCoveragePrioritiesPolicy">missionCoveragePrioritiesPolicy</a>,
+<a href="/unnamedSourcesPolicy">unnamedSourcesPolicy</a>,
+<a href="/verificationFactCheckingPolicy">verificationFactCheckingPolicy</a>,
+ (apart from ethicsPolicy and diversityPolicy, these are all sub-properties of <a href="/publishingPrinciples">publishingPrinciples</a>). These
+changes were based in large part upon the work of <a href="http://thetrustproject.org/">The Trust Project</a>.
+<span id="tp-news"></span>
+</li>
+<li id="g1541"><a href="https://github.com/schemaorg/schemaorg/issues/1437">Issue #1437</a>: Add <a href="/SatiricalArticle">SatiricalArticle</a> type.</li>
+<li id="g1576"><a href="https://github.com/schemaorg/schemaorg/issues/1576">Issue #1576</a>: Add <a href="/EmployerReview">EmployerReview</a> to indicate reviews that are by a current or former employee, and that are reviews of that organization's role as an employer. Add a corresponding <a href="/UserReview">UserReview</a> type to indicate reviews by users.
+</li>
+
+<!-- <li id="g@@@@"><a href=""></a></li> -->
+</ul>
+
+<h3>Site Improvements</h3>
+<ul>
+  <li id="g1582"><a href="https://github.com/schemaorg/schemaorg/issues/1582">Issue #1582</a>: Added <a href="/docs/financial.html">dedicated documentation page</a> describing background and examples for banking and finance terms.</li>
+</ul>
+
+</td>
+
+</tr>
 
 
 <tr>

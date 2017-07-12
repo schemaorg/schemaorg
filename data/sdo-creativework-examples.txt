@@ -13,10 +13,10 @@ MICRODATA:
 <meta itemprop="sameAs" content="https://en.wikipedia.org/wiki/The_Church_at_Auvers" />
 <span itemprop="name">The Church at Auvers</span>
 by <div itemprop="creator" itemscope itemtype="http://schema.org/Person">
-  <span itemprop="name">Vincent van Gogh</span>
-</div>
+<span itemprop="name">Vincent van Gogh</span>
+</div>,
 depicts a church in <div itemprop="contentLocation" itemscope itemtype="http://schema.org/AdministrativeArea">
-  <span itemprop="name">Auvers-sur-Oise</span>,
+<span itemprop="name">Auvers-sur-Oise</span>,
 </div>
 but was creaetd in <div itemprop="locationCreated" itemscope itemtype="http://schema.org/AdministrativeArea">
 <span itemprop="name">Saint-Rémy-de-Provence</span>.
@@ -237,6 +237,106 @@ JSON:
   "recipient": {
     "@type": "Person",
     "name": "Peter Gibbons"
+  },
+  "about": {
+    "@type": "Thing",
+    "name": "TPS reports"
+  },
+  "datePublished": "2016-02-29",
+  "dateRead": "2016-03-03",
+  "messageAttachment": {
+    "@type": "CreativeWork",
+    "name": "New coversheet"
+  }
+}
+</script>
+
+TYPES: #creativework-4 EmailMessage,toRecipient,bccRecipient,ccRecipient
+
+PRE-MARKUP:
+
+An message from Dom Portwood to Peter Gibbons about TPS reports, cc'ing Bill Lumbergh and bcc'ing tps-consulting@example.com
+
+MICRODATA:
+
+<div itemscope itemtype="http://schema.org/EmailMessage">
+  <div itemscope itemprop="sender" itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Dom Portwood" />
+    <span itemprop="email">dportwood@example.com</span>
+  </div>
+  <div itemscope itemprop="toRecipient" itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Peter Gibbons" />
+    <span itemprop="email">pgibbons@example.com</span>
+  </div>
+  <div itemscope itemprop="ccRecipient" itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Bill Lumbergh" />
+    <span itemprop="email">blumbergh@example.com</span>
+  </div>
+  <div itemscope itemprop="bccRecipient" itemtype="http://schema.org/ContactPoint">
+    <span itemprop="email">tps-consulting@example.com</span>
+  </div>
+  <div itemscope itemprop="about" itemtype="http://schema.org/Thing">
+    <meta itemprop="name" content="TPS reports" />
+  </div>
+  <meta itemprop="datePublished" content="2016-02-29" />
+  <meta itemprop="dateRead" content="2016-03-03" />
+  <div itemscope itemprop="messageAttachement" itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="name" content="New coversheet" />
+  </div>
+</div>
+
+RDFA:
+
+<div vocab="http://schema.org/" typeof="EmailMessage">
+  <div property="sender" typeof="Person">
+    <meta property="name" content="Dom Portwood" />
+    <span property="email">dportwood@example.com</span>
+  </div>
+  <div property="toRecipient" typeof="Person">
+    <meta property="name" content="Peter Gibbons" />
+    <span property="email">pgibbons@example.com</span>
+  </div>
+  <div property="ccRecipient" typeof="Person">
+    <meta property="name" content="Bill Lumbergh" />
+    <span property="email">blumbergh@example.com</span>
+  </div>
+  <div property="bccRecipient" typeof="ContactPoint">
+    <span property="email">tps-consulting@example.com</span>
+  </div>
+  <div property="about" typeof="Thing">
+    <meta property="name" content="TPS reports" />
+  </div>
+  <meta property="datePublished" content="2016-02-29" />
+  <meta property="dateRead" content="2016-03-03" />
+  <div property="messageAttachement" typeof="CreativeWork">
+    <meta property="name" content="New coversheet" />
+  </div>
+</div>
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org/",
+  "@type": "EmailMessage",
+  "sender": {
+    "@type": "Person",
+    "name": "Dom Portwood",
+    "email": "dportwood@example.com"
+  },
+  "toRecipient": {
+    "@type": "Person",
+    "name": "Peter Gibbons",
+    "email": "pgibbons@example.com"
+  },
+  "ccRecipient": {
+    "@type": "Person",
+    "name": "Bill Lumbergh",
+    "email": "blumbergh@example.com"
+  },
+  "ccRecipient": {
+    "@type": "ContactPoint",
+    "email": "tps-consulting@example.com"
   },
   "about": {
     "@type": "Thing",

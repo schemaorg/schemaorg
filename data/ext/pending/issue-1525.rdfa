@@ -2,7 +2,7 @@
 
 <div typeof="http://schema.org/Organization" resource="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP">
     <span property="rdfs:label">The Trust Project</span>
-    <span property="rdfs:comment">This term and its definition is based upon the work of [The Trust Project](http://thetrustproject.org/)</span>
+    <span property="rdfs:comment">This term and its definition is based upon the work of [The Trust Project](http://thetrustproject.org/).</span>
 </div>
 
 <!-- note, see also data/schema.rdfa for SchemaDotOrgSources#TP-draws which uses slightly different language for NewsArticle. -->
@@ -15,7 +15,7 @@
     <span property="schema:category">issue-1525</span>
     <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1525">#1525</a>
     <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
-    <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP-draws">trustproject</a></span>
+    <span>Source:  <a property="dc:source" href="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP">trustproject</a></span>
   </div>
 
 
@@ -23,19 +23,20 @@
 <!-- work in progress, exploring one possible way of modeling news article categories via types. -->
 
 
-  <div typeof="rdfs:Class" resource="http://schema.org/BasicNewsArticle">
+  <div typeof="rdfs:Class" resource="http://schema.org/ReportageNewsArticle">
     <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/NewsArticle">NewsArticle</a></span>
-    <span class="h" property="rdfs:label">BasicNewsArticle</span>
-    <span property="rdfs:comment">The [[BasicNewsArticle]] type is a subtype of [[NewsArticle]] representing only those [[NewsArticle]]s which are the result of journalistic news reporting conventions.
+    <span class="h" property="rdfs:label">ReportageNewsArticle</span>
+    <span property="rdfs:comment">The [[ReportageNewsArticle]] type is a subtype of [[NewsArticle]] representing
+ news articles which are the result of journalistic news reporting conventions.
 
-In practice many news publishers produce a wide variety of article types, many of which might be considered [[NewsArticle]] but not [[BasicNewsArticle]]. For example, opinion pieces, analysis, sponsored or satirical articles, or articles that combine several of these elements.
+In practice many news publishers produce a wide variety of article types, many of which might be considered a [[NewsArticle]] but not a [[ReportageNewsArticle]]. For example, opinion pieces, reviews, analysis, sponsored or satirical articles, or articles that combine several of these elements.
 
-The [[BasicNewsArticle]] type represents a stricter notion of "news" as a work of journalism, with articles based on factual information either observed or verified by the author, or reported and verified from knowledgeable sources.  This often includes perspectives from multiple viewpoints on a particular issue (distinguishing news reports from public relations or propaganda).  News reports in the [[BasicNewsArticle]] sense de-emphasize the opinion of the author, with commentary and value judgements typically expressed elsewhere.
+The [[ReportageNewsArticle]] type is based on a stricter ideal for "news" as a work of journalism, with articles based on factual information either observed or verified by the author, or reported and verified from knowledgeable sources.  This often includes perspectives from multiple viewpoints on a particular issue (distinguishing news reports from public relations or propaganda).  News reports in the [[ReportageNewsArticle]] sense de-emphasize the opinion of the author, with commentary and value judgements typically expressed elsewhere.
 </span>
     <span property="schema:category">issue-1525</span>
     <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1525">#1525</a>
     <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
-    <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP-draws">trustproject</a></span>
+    <span>Source:  <a property="dc:source" href="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP">trustproject</a></span>
   </div>
 
   <div typeof="rdfs:Class" resource="http://schema.org/AnalysisNewsArticle">
@@ -45,7 +46,7 @@ The [[BasicNewsArticle]] type represents a stricter notion of "news" as a work o
     <span property="schema:category">issue-1525</span>
     <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1525">#1525</a>
     <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
-    <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP-draws">trustproject</a></span>
+    <span>Source:  <a property="dc:source" href="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP">trustproject</a></span>
   </div>
 
   <div typeof="rdfs:Class" resource="http://schema.org/OpinionNewsArticle">
@@ -55,7 +56,7 @@ The [[BasicNewsArticle]] type represents a stricter notion of "news" as a work o
     <span property="schema:category">issue-1525</span>
     <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1525">#1525</a>
     <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
-    <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP-draws">trustproject</a></span>
+    <span>Source:  <a property="dc:source" href="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP">trustproject</a></span>
   </div>
 
   <div typeof="rdfs:Class" resource="http://schema.org/ReviewNewsArticle">
@@ -66,7 +67,7 @@ The [[BasicNewsArticle]] type represents a stricter notion of "news" as a work o
     <span property="schema:category">issue-1525</span>
     <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1525">#1525</a>
     <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
-    <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP-draws">trustproject</a></span>
+    <span>Source:  <a property="dc:source" href="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP">trustproject</a></span>
   </div>
 
   <div typeof="rdfs:Class" resource="http://schema.org/BackgroundNewsArticle">
@@ -76,7 +77,7 @@ The [[BasicNewsArticle]] type represents a stricter notion of "news" as a work o
     <span property="schema:category">issue-1525</span>
     <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1525">#1525</a>
     <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
-    <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP-draws">trustproject</a></span>
+    <span>Source:  <a property="dc:source" href="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP">trustproject</a></span>
 </div>
 
 
@@ -87,7 +88,7 @@ The [[BasicNewsArticle]] type represents a stricter notion of "news" as a work o
     <span property="schema:category">issue-1525</span>
     <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1525">#1525</a>
     <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
-    <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP-draws">trustproject</a></span>
+    <span>Source:  <a property="dc:source" href="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP">trustproject</a></span>
 </div>
 
   <div typeof="rdfs:Class" resource="http://schema.org/SatiricalArticle">
@@ -97,16 +98,16 @@ The [[BasicNewsArticle]] type represents a stricter notion of "news" as a work o
     <span property="schema:category">issue-1525</span>
     <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1525">#1525</a>
     <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
-    <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP-draws">trustproject</a></span>
+    <span>Source:  <a property="dc:source" href="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP">trustproject</a></span>
   </div>
 
 <!-- PROPERTIES -->
 
     <div typeof="rdf:Property" resource="http://schema.org/ethicsPolicy">
         <span class="h" property="rdfs:label">ethicsPolicy</span>
-        <span property="rdfs:comment">Statement about ethics policy, e.g. of a [[NewsMediaOrganization]] regarding journalistic and publishing practices.</span>
-        <link property="rdfs:subPropertyOf" href="http://schema.org/publishingPrinciples" />
-        <span property="schema:category">issue-1525</span><a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1525">#1525</a>
+        <span property="rdfs:comment">Statement about ethics policy, e.g. of a [[NewsMediaOrganization]] regarding journalistic and publishing practices, or of a [[Restaurant]], a page describing food source policies.</span>
+<!--        <link property="rdfs:subPropertyOf" href="http://schema.org/publishingPrinciples" /> -->
+      <span property="schema:category">issue-1525</span><a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1525">#1525</a>
 
         <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/NewsMediaOrganization">NewsMediaOrganization</a></span>
         <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Organization">Organization</a></span>
@@ -122,7 +123,7 @@ The [[BasicNewsArticle]] type represents a stricter notion of "news" as a work o
     <div typeof="rdf:Property" resource="http://schema.org/diversityPolicy">
         <span class="h" property="rdfs:label">diversityPolicy</span>
         <span property="rdfs:comment">Statement on diversity policy by an [[Organization]] e.g. a [[NewsMediaOrganization]].</span>
-        <link property="rdfs:subPropertyOf" href="http://schema.org/publishingPrinciples" />
+        <!-- <link property="rdfs:subPropertyOf" href="http://schema.org/publishingPrinciples" /> -->
         <span property="schema:category">issue-1525</span><a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1525">#1525</a>
         <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/NewsMediaOrganization">NewsMediaOrganization</a></span>
         <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Organization">Organization</a></span>
@@ -133,7 +134,7 @@ The [[BasicNewsArticle]] type represents a stricter notion of "news" as a work o
         <span property="schema:category">issue-1525</span>
         <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1525">#1525</a>
         <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
-        <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP-draws">trustproject</a></span>
+        <span>Source:  <a property="dc:source" href="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP">trustproject</a></span>
     </div>
 
    <!-- some are for news media orgs more specifically ... -->
@@ -151,7 +152,7 @@ The [[BasicNewsArticle]] type represents a stricter notion of "news" as a work o
         <span property="schema:category">issue-1525</span>
         <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1525">#1525</a>
         <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
-        <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP-draws">trustproject</a></span>
+        <span>Source:  <a property="dc:source" href="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP">trustproject</a></span>
     </div>
 
     <!-- todo: ownerFundingGrants vs existing 'funder' -->
@@ -169,12 +170,12 @@ The [[BasicNewsArticle]] type represents a stricter notion of "news" as a work o
         <span property="schema:category">issue-1525</span>
         <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1525">#1525</a>
         <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
-        <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP-draws">trustproject</a></span>
+        <span>Source:  <a property="dc:source" href="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP">trustproject</a></span>
     </div>
 
     <div typeof="rdf:Property" resource="http://schema.org/missionCoveragePrioritiesPolicy">
         <span class="h" property="rdfs:label">missionCoveragePrioritiesPolicy</span>
-        <span property="rdfs:comment">Statement on where a [[NewsMediaOrganization]] stands based on past coverage on issues, and whether it has a public agenda.</span>
+        <span property="rdfs:comment">Statement on where an [[Organization]] such as a [[NewsMediaOrganization]] stands based on past coverage on issues, and whether it has a public agenda.</span>
         <link property="rdfs:subPropertyOf" href="http://schema.org/publishingPrinciples" />
         <span property="schema:category">issue-1525</span><a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1525">#1525</a>
         <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/NewsMediaOrganization">NewsMediaOrganization</a></span>
@@ -185,12 +186,12 @@ The [[BasicNewsArticle]] type represents a stricter notion of "news" as a work o
         <span property="schema:category">issue-1525</span>
         <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1525">#1525</a>
         <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
-        <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP-draws">trustproject</a></span>
+        <span>Source:  <a property="dc:source" href="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP">trustproject</a></span>
     </div>
 
     <div typeof="rdf:Property" resource="http://schema.org/verificationFactCheckingPolicy">
         <span class="h" property="rdfs:label">verificationFactCheckingPolicy</span>
-        <span property="rdfs:comment">Disclosure about verification and fact-checking processes for a [[NewsMediaOrganization]].</span>
+        <span property="rdfs:comment">Disclosure about verification and fact-checking processes for a [[NewsMediaOrganization]] or other fact-checking [[Organization]].</span>
         <link property="rdfs:subPropertyOf" href="http://schema.org/publishingPrinciples" />
         <span property="schema:category">issue-1525</span><a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1525">#1525</a>
         <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/NewsMediaOrganization">NewsMediaOrganization</a></span>
@@ -201,12 +202,12 @@ The [[BasicNewsArticle]] type represents a stricter notion of "news" as a work o
         <span property="schema:category">issue-1525</span>
         <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1525">#1525</a>
         <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
-        <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP-draws">trustproject</a></span>
+        <span>Source:  <a property="dc:source" href="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP">trustproject</a></span>
     </div>
 
-    <div typeof="rdf:Property" resource="http://schema.org/sourcingAndInterviewsPolicy">
-        <span class="h" property="rdfs:label">sourcingAndInterviewsPolicy</span>
-        <span property="rdfs:comment">Statement about policy on use of unnamed sources for a [[NewsMediaOrganization]].</span>
+    <div typeof="rdf:Property" resource="http://schema.org/unnamedSourcesPolicy">
+        <span class="h" property="rdfs:label">unnamedSourcesPolicy</span>
+        <span property="rdfs:comment">Statement about policy on use of unnamed sources for a [[NewsMediaOrganization]] or other [[Organization]].</span>
         <link property="rdfs:subPropertyOf" href="http://schema.org/publishingPrinciples" />
         <span property="schema:category">issue-1525</span><a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1525">#1525</a>
         <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/NewsMediaOrganization">NewsMediaOrganization</a></span>
@@ -217,13 +218,13 @@ The [[BasicNewsArticle]] type represents a stricter notion of "news" as a work o
         <span property="schema:category">issue-1525</span>
         <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1525">#1525</a>
         <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
-        <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP-draws">trustproject</a></span>
+        <span>Source:  <a property="dc:source" href="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP">trustproject</a></span>
     </div>
 
 
     <div typeof="rdf:Property" resource="http://schema.org/actionableFeedbackPolicy">
         <span class="h" property="rdfs:label">actionableFeedbackPolicy</span>
-        <span property="rdfs:comment">For a [[NewsMediaOrganization]], a statement on how the newsroom engages the public -- digitally or otherwise - as part of community engagement practices related to before, during and after stories are published.</span>
+        <span property="rdfs:comment">For a [[NewsMediaOrganization]] or other news-related[[Organization]], a statement on how it (e.g. via newsroom) engages the public -- digitally or otherwise - as part of community engagement practices related to before, during and after stories are published.</span>
         <link property="rdfs:subPropertyOf" href="http://schema.org/publishingPrinciples" />
         <span property="schema:category">issue-1525</span><a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1525">#1525</a>
         <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/NewsMediaOrganization">NewsMediaOrganization</a></span>
@@ -234,7 +235,7 @@ The [[BasicNewsArticle]] type represents a stricter notion of "news" as a work o
         <span property="schema:category">issue-1525</span>
         <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1525">#1525</a>
         <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
-        <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP-draws">trustproject</a></span>
+        <span>Source:  <a property="dc:source" href="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP">trustproject</a></span>
     </div>
 
 
