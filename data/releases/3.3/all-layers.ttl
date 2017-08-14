@@ -98,7 +98,7 @@ schema:AdvertiserContentArticle a rdfs:Class ;
         <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP> ;
     schema:category "issue-1525" ;
     schema:isPartOf <http://pending.schema.org> ;
-    rdfs:comment "An <a class=\"localLink\" href=\"http://schema.org/Article\">Article</a> that an external entity has paid to place or to produce to its specifications. Includes <a href=\"https://en.wikipedia.org/wiki/Advertorial\">advertorials</a>, native advertising and other paid content." ;
+    rdfs:comment "An <a class=\"localLink\" href=\"http://schema.org/Article\">Article</a> that an external entity has paid to place or to produce to its specifications. Includes <a href=\"https://en.wikipedia.org/wiki/Advertorial\">advertorials</a>, sponsored content, native advertising and other paid content." ;
     rdfs:subClassOf schema:Article .
 
 schema:AggregateOffer a rdfs:Class ;
@@ -3734,7 +3734,7 @@ schema:ReportageNewsArticle a rdfs:Class ;
 
 <p>The <a class="localLink" href="http://schema.org/ReportageNewsArticle">ReportageNewsArticle</a> type is based on a stricter ideal for "news" as a work of journalism, with articles based on factual information either observed or verified by the author, or reported and verified from knowledgeable sources.  This often includes perspectives from multiple viewpoints on a particular issue (distinguishing news reports from public relations or propaganda).  News reports in the <a class="localLink" href="http://schema.org/ReportageNewsArticle">ReportageNewsArticle</a> sense de-emphasize the opinion of the author, with commentary and value judgements typically expressed elsewhere.</p>
 
-<p>Articles which go deeper into analysis can also be marked with an additional type of <a class="localLink" href="http://schema.org/AnalysisNewsArticle">AnalysisNewsArticle</a>.""" ;
+<p>A <a class="localLink" href="http://schema.org/ReportageNewsArticle">ReportageNewsArticle</a> which goes deeper into analysis can also be marked with an additional type of <a class="localLink" href="http://schema.org/AnalysisNewsArticle">AnalysisNewsArticle</a>.""" ;
     rdfs:subClassOf schema:NewsArticle .
 
 schema:ReportedDoseSchedule a rdfs:Class ;
@@ -3884,8 +3884,8 @@ schema:Schedule a rdfs:Class ;
     dct:source <https://github.com/schemaorg/schemaorg/issues/1457> ;
     schema:category "issue-1457" ;
     schema:isPartOf <http://pending.schema.org> ;
-    rdfs:comment """A schedule defines a repeating time period used to describe a regularly occuring <a class="localLink" href="http://schema.org/Event">Event</a>. At a minimum a schedule will specify <a class="localLink" href="http://schema.org/repeatFrequency">repeatFrequency</a> which describes the interval between occurences of the event. Additional information can be provided to specify the schedule more precisely. 
-      This includes identifying the day(s) of the week or month when the recurring event will take place, in addition to its start and end time. Schedules may also 
+    rdfs:comment """A schedule defines a repeating time period used to describe a regularly occurring <a class="localLink" href="http://schema.org/Event">Event</a>. At a minimum a schedule will specify <a class="localLink" href="http://schema.org/repeatFrequency">repeatFrequency</a> which describes the interval between occurences of the event. Additional information can be provided to specify the schedule more precisely. 
+      This includes identifying the day(s) of the week or month when the recurring event will take place, in addition to its start and end time. Schedules may also
       have start and end dates to indicate when they are active, e.g. to define a limited calendar of events.""" ;
     rdfs:subClassOf schema:Intangible .
 
@@ -4165,7 +4165,7 @@ schema:SurgicalProcedure a schema:MedicalProcedureType,
         rdfs:Class ;
     rdfs:label "SurgicalProcedure" ;
     schema:isPartOf <http://health-lifesci.schema.org> ;
-    rdfs:comment "A medical procedure involving an incision with instruments; performed for diagnose, or therapeutic purposes." ;
+    rdfs:comment "A type of medical procedure that involves invasive surgical techniques." ;
     rdfs:subClassOf schema:MedicalProcedure ;
     owl:equivalentClass <http://purl.bioontology.org/ontology/SNOMEDCT/387713003> .
 
@@ -6158,7 +6158,7 @@ schema:actionableFeedbackPolicy a rdf:Property ;
     schema:isPartOf <http://pending.schema.org> ;
     schema:rangeIncludes schema:CreativeWork,
         schema:URL ;
-    rdfs:comment "For a <a class=\"localLink\" href=\"http://schema.org/NewsMediaOrganization\">NewsMediaOrganization</a> or other news-related<a class=\"localLink\" href=\"http://schema.org/Organization\">Organization</a>, a statement about public engagement activities (for news media, the newsroom’s), including involving the public - digitally or otherwise -- in coverage decisions, reporting and activities after publication." ;
+    rdfs:comment "For a <a class=\"localLink\" href=\"http://schema.org/NewsMediaOrganization\">NewsMediaOrganization</a> or other news-related <a class=\"localLink\" href=\"http://schema.org/Organization\">Organization</a>, a statement about public engagement activities (for news media, the newsroom’s), including involving the public - digitally or otherwise -- in coverage decisions, reporting and activities after publication." ;
     rdfs:subPropertyOf schema:publishingPrinciples .
 
 schema:activeIngredient a rdf:Property ;
@@ -7898,7 +7898,7 @@ schema:dateline a rdf:Property ;
     rdfs:label "dateline" ;
     schema:domainIncludes schema:NewsArticle ;
     schema:rangeIncludes schema:Text ;
-    rdfs:comment "A <a href=\"https://en.wikipedia.org/wiki/Dateline\">dateline</a> is a brief piece of text included in news articles that describes where and when the story occurred, or was written or filed though the date is often omitted. Sometimes only a placename is provided." .
+    rdfs:comment "A <a href=\"https://en.wikipedia.org/wiki/Dateline\">dateline</a> is a brief piece of text included in news articles that describes where and when the story was written or filed though the date is often omitted. Sometimes only a placename is provided." .
 
 schema:dayOfWeek a rdf:Property ;
     rdfs:label "dayOfWeek" ;
@@ -8659,7 +8659,7 @@ schema:ethicsPolicy a rdf:Property ;
     schema:isPartOf <http://pending.schema.org> ;
     schema:rangeIncludes schema:CreativeWork,
         schema:URL ;
-    rdfs:comment "Statement about ethics policy, e.g. of a <a class=\"localLink\" href=\"http://schema.org/NewsMediaOrganization\">NewsMediaOrganization</a> regarding journalistic and publishing practices, or of a <a class=\"localLink\" href=\"http://schema.org/Restaurant\">Restaurant</a>, a page describing food source policies." .
+    rdfs:comment "Statement about ethics policy, e.g. of a <a class=\"localLink\" href=\"http://schema.org/NewsMediaOrganization\">NewsMediaOrganization</a> regarding journalistic and publishing practices, or of a <a class=\"localLink\" href=\"http://schema.org/Restaurant\">Restaurant</a>, a page describing food source policies. In the case of a <a class=\"localLink\" href=\"http://schema.org/NewsMediaOrganization\">NewsMediaOrganization</a>, an ethicsPolicy is typically a statement describing the personal, organizational, and corporate standards of behavior expected by the organization." .
 
 schema:eventSchedule a rdf:Property ;
     rdfs:label "eventSchedule" ;
@@ -8668,11 +8668,11 @@ schema:eventSchedule a rdf:Property ;
     schema:domainIncludes schema:Schedule ;
     schema:isPartOf <http://pending.schema.org> ;
     schema:rangeIncludes schema:Duration ;
-    rdfs:comment """Associates an <a class="localLink" href="http://schema.org/Event">Event</a> with a <a class="localLink" href="http://schema.org/Schedule">Schedule</a>. There are circumstances where it is preferable to share a schedule for a series of 
-      repeating events rather than data on the individual events themselves. For example, a website or application might prefer to publish a schedule for a weekly 
-      gym class rather than provide data on every event. A schedule could be processed by applications to add forthcoming events to a calendar. An <a class="localLink" href="http://schema.org/Event">Event</a> that 
-      is associated with a <a class="localLink" href="http://schema.org/Schedule">Schedule</a> using this property should not have <a class="localLink" href="http://schema.org/startDate">startDate</a> or <a class="localLink" href="http://schema.org/endDate">endDate</a> properties. These are instead defined within the associated 
-      <a class="localLink" href="http://schema.org/Schedule">Schedule</a>, this avoids any ambiguity for clients using the data. The propery might have repeated values to specify different schedules, e.g. for different months 
+    rdfs:comment """Associates an <a class="localLink" href="http://schema.org/Event">Event</a> with a <a class="localLink" href="http://schema.org/Schedule">Schedule</a>. There are circumstances where it is preferable to share a schedule for a series of
+      repeating events rather than data on the individual events themselves. For example, a website or application might prefer to publish a schedule for a weekly
+      gym class rather than provide data on every event. A schedule could be processed by applications to add forthcoming events to a calendar. An <a class="localLink" href="http://schema.org/Event">Event</a> that
+      is associated with a <a class="localLink" href="http://schema.org/Schedule">Schedule</a> using this property should not have <a class="localLink" href="http://schema.org/startDate">startDate</a> or <a class="localLink" href="http://schema.org/endDate">endDate</a> properties. These are instead defined within the associated
+      <a class="localLink" href="http://schema.org/Schedule">Schedule</a>, this avoids any ambiguity for clients using the data. The propery might have repeated values to specify different schedules, e.g. for different months
       or seasons.""" .
 
 schema:eventStatus a rdf:Property ;
@@ -8711,9 +8711,9 @@ schema:exceptDate a rdf:Property ;
     schema:isPartOf <http://pending.schema.org> ;
     schema:rangeIncludes schema:Date,
         schema:DateTime ;
-    rdfs:comment """Defines a <a class="localLink" href="http://schema.org/Date">Date</a> or <a class="localLink" href="http://schema.org/DateTime">DateTime</a> during which a scheduled <a class="localLink" href="http://schema.org/Event">Event</a> will not take place. The property allows exceptions to 
-      a <a class="localLink" href="http://schema.org/Schedule">Schedule</a> to be specified. If an exception is specified as a <a class="localLink" href="http://schema.org/DateTime">DateTime</a> then only the event that would have started at that specific date and time 
-      should be excluded from the schedule. If an exception is specified as a <a class="localLink" href="http://schema.org/Date">Date</a> then any event that is scheduled for that 24 hour period should be 
+    rdfs:comment """Defines a <a class="localLink" href="http://schema.org/Date">Date</a> or <a class="localLink" href="http://schema.org/DateTime">DateTime</a> during which a scheduled <a class="localLink" href="http://schema.org/Event">Event</a> will not take place. The property allows exceptions to
+      a <a class="localLink" href="http://schema.org/Schedule">Schedule</a> to be specified. If an exception is specified as a <a class="localLink" href="http://schema.org/DateTime">DateTime</a> then only the event that would have started at that specific date and time
+      should be excluded from the schedule. If an exception is specified as a <a class="localLink" href="http://schema.org/Date">Date</a> then any event that is scheduled for that 24 hour period should be
       excluded from the schedule. This allows a whole day to be excluded from the schedule without having to itemise every scheduled event.""" .
 
 schema:exchangeRate a rdf:Property ;
@@ -12327,7 +12327,7 @@ schema:repeatFrequency a rdf:Property ;
     schema:isPartOf <http://pending.schema.org> ;
     schema:rangeIncludes schema:Duration,
         schema:Text ;
-    rdfs:comment """Defines the frequency at which <a class="localLink" href="http://schema.org/Events">Events</a> will occur according to a schedule <a class="localLink" href="http://schema.org/Schedule">Schedule</a>. The intervals between 
+    rdfs:comment """Defines the frequency at which <a class="localLink" href="http://schema.org/Events">Events</a> will occur according to a schedule <a class="localLink" href="http://schema.org/Schedule">Schedule</a>. The intervals between
       events should be defined as a <a class="localLink" href="http://schema.org/Duration">Duration</a> of time.""" ;
     rdfs:subPropertyOf <http://health-lifesci.schema.org/frequency> .
 

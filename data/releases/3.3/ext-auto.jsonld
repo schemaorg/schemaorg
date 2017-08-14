@@ -65,24 +65,6 @@
       "rdfs:label": "enginePower"
     },
     {
-      "@id": "http://schema.org/tongueWeight",
-      "@type": "rdf:Property",
-      "http://purl.org/dc/terms/source": {
-        "@id": "http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group"
-      },
-      "http://schema.org/domainIncludes": {
-        "@id": "http://schema.org/Vehicle"
-      },
-      "http://schema.org/isPartOf": {
-        "@id": "http://auto.schema.org"
-      },
-      "http://schema.org/rangeIncludes": {
-        "@id": "http://schema.org/QuantitativeValue"
-      },
-      "rdfs:comment": "<p>The permitted vertical load (TWR) of a trailer attached to the vehicle. Also referred to as Tongue Load Rating (TLR) or Vertical Load Rating (VLR)</p>\n\n<p>Typical unit code(s): KGM for kilogram, LBR for pound</p>\n\n<ul>\n<li>Note 1: You can indicate additional information in the <a class=\"localLink\" href=\"http://schema.org/name\">name</a> of the <a class=\"localLink\" href=\"http://schema.org/QuantitativeValue\">QuantitativeValue</a> node.</li>\n<li>Note 2: You may also link to a <a class=\"localLink\" href=\"http://schema.org/QualitativeValue\">QualitativeValue</a> node that provides additional information using <a class=\"localLink\" href=\"http://schema.org/valueReference\">valueReference</a>.</li>\n<li>Note 3: Note that you can use <a class=\"localLink\" href=\"http://schema.org/minValue\">minValue</a> and <a class=\"localLink\" href=\"http://schema.org/maxValue\">maxValue</a> to indicate ranges.</li>\n</ul>\n",
-      "rdfs:label": "tongueWeight"
-    },
-    {
       "@id": "http://schema.org/fuelCapacity",
       "@type": "rdf:Property",
       "http://purl.org/dc/terms/source": {
@@ -114,10 +96,10 @@
       },
       "http://schema.org/rangeIncludes": [
         {
-          "@id": "http://schema.org/Number"
+          "@id": "http://schema.org/QuantitativeValue"
         },
         {
-          "@id": "http://schema.org/QuantitativeValue"
+          "@id": "http://schema.org/Number"
         }
       ],
       "rdfs:comment": "The number of persons that can be seated (e.g. in a vehicle), both in terms of the physical space available, and in terms of limitations set by law.</p>\n\n<p>Typical unit code(s): C62 for persons",
@@ -140,10 +122,10 @@
           "@id": "http://schema.org/Text"
         },
         {
-          "@id": "http://schema.org/URL"
+          "@id": "http://schema.org/QualitativeValue"
         },
         {
-          "@id": "http://schema.org/QualitativeValue"
+          "@id": "http://schema.org/URL"
         }
       ],
       "rdfs:comment": "The type of engine or engines powering the vehicle.",
@@ -229,10 +211,10 @@
       },
       "http://schema.org/domainIncludes": [
         {
-          "@id": "http://schema.org/Car"
+          "@id": "http://schema.org/BusOrCoach"
         },
         {
-          "@id": "http://schema.org/BusOrCoach"
+          "@id": "http://schema.org/Car"
         }
       ],
       "http://schema.org/isPartOf": {
@@ -245,16 +227,19 @@
       "rdfs:label": "acrissCode"
     },
     {
-      "@id": "http://schema.org/TaxiVehicleUsage",
-      "@type": "http://schema.org/CarUsageType",
+      "@id": "http://schema.org/BusOrCoach",
+      "@type": "rdfs:Class",
       "http://purl.org/dc/terms/source": {
         "@id": "http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group"
       },
       "http://schema.org/isPartOf": {
         "@id": "http://auto.schema.org"
       },
-      "rdfs:comment": "Indicates the usage of the car as a taxi.",
-      "rdfs:label": "TaxiVehicleUsage"
+      "rdfs:comment": "A bus (also omnibus or autobus) is a road vehicle designed to carry passengers. Coaches are luxury busses, usually in service for long distance travel.",
+      "rdfs:label": "BusOrCoach",
+      "rdfs:subClassOf": {
+        "@id": "http://schema.org/Vehicle"
+      }
     },
     {
       "@id": "http://schema.org/Motorcycle",
@@ -346,6 +331,18 @@
       }
     },
     {
+      "@id": "http://schema.org/TaxiVehicleUsage",
+      "@type": "http://schema.org/CarUsageType",
+      "http://purl.org/dc/terms/source": {
+        "@id": "http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group"
+      },
+      "http://schema.org/isPartOf": {
+        "@id": "http://auto.schema.org"
+      },
+      "rdfs:comment": "Indicates the usage of the car as a taxi.",
+      "rdfs:label": "TaxiVehicleUsage"
+    },
+    {
       "@id": "http://schema.org/RentalVehicleUsage",
       "@type": "http://schema.org/CarUsageType",
       "http://purl.org/dc/terms/source": {
@@ -358,19 +355,22 @@
       "rdfs:label": "RentalVehicleUsage"
     },
     {
-      "@id": "http://schema.org/BusOrCoach",
-      "@type": "rdfs:Class",
+      "@id": "http://schema.org/tongueWeight",
+      "@type": "rdf:Property",
       "http://purl.org/dc/terms/source": {
         "@id": "http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group"
+      },
+      "http://schema.org/domainIncludes": {
+        "@id": "http://schema.org/Vehicle"
       },
       "http://schema.org/isPartOf": {
         "@id": "http://auto.schema.org"
       },
-      "rdfs:comment": "A bus (also omnibus or autobus) is a road vehicle designed to carry passengers. Coaches are luxury busses, usually in service for long distance travel.",
-      "rdfs:label": "BusOrCoach",
-      "rdfs:subClassOf": {
-        "@id": "http://schema.org/Vehicle"
-      }
+      "http://schema.org/rangeIncludes": {
+        "@id": "http://schema.org/QuantitativeValue"
+      },
+      "rdfs:comment": "<p>The permitted vertical load (TWR) of a trailer attached to the vehicle. Also referred to as Tongue Load Rating (TLR) or Vertical Load Rating (VLR)</p>\n\n<p>Typical unit code(s): KGM for kilogram, LBR for pound</p>\n\n<ul>\n<li>Note 1: You can indicate additional information in the <a class=\"localLink\" href=\"http://schema.org/name\">name</a> of the <a class=\"localLink\" href=\"http://schema.org/QuantitativeValue\">QuantitativeValue</a> node.</li>\n<li>Note 2: You may also link to a <a class=\"localLink\" href=\"http://schema.org/QualitativeValue\">QualitativeValue</a> node that provides additional information using <a class=\"localLink\" href=\"http://schema.org/valueReference\">valueReference</a>.</li>\n<li>Note 3: Note that you can use <a class=\"localLink\" href=\"http://schema.org/minValue\">minValue</a> and <a class=\"localLink\" href=\"http://schema.org/maxValue\">maxValue</a> to indicate ranges.</li>\n</ul>\n",
+      "rdfs:label": "tongueWeight"
     },
     {
       "@id": "http://schema.org/meetsEmissionStandard",
@@ -386,13 +386,13 @@
       },
       "http://schema.org/rangeIncludes": [
         {
-          "@id": "http://schema.org/URL"
+          "@id": "http://schema.org/Text"
         },
         {
           "@id": "http://schema.org/QualitativeValue"
         },
         {
-          "@id": "http://schema.org/Text"
+          "@id": "http://schema.org/URL"
         }
       ],
       "rdfs:comment": "Indicates that the vehicle meets the respective emission standard.",
