@@ -13,10 +13,10 @@
       },
       "http://schema.org/domainIncludes": [
         {
-          "@id": "http://schema.org/Car"
+          "@id": "http://schema.org/BusOrCoach"
         },
         {
-          "@id": "http://schema.org/BusOrCoach"
+          "@id": "http://schema.org/Car"
         }
       ],
       "http://schema.org/isPartOf": {
@@ -29,22 +29,19 @@
       "rdfs:label": "roofLoad"
     },
     {
-      "@id": "http://schema.org/weightTotal",
-      "@type": "rdf:Property",
+      "@id": "http://schema.org/Motorcycle",
+      "@type": "rdfs:Class",
       "http://purl.org/dc/terms/source": {
         "@id": "http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group"
-      },
-      "http://schema.org/domainIncludes": {
-        "@id": "http://schema.org/Vehicle"
       },
       "http://schema.org/isPartOf": {
         "@id": "http://auto.schema.org"
       },
-      "http://schema.org/rangeIncludes": {
-        "@id": "http://schema.org/QuantitativeValue"
-      },
-      "rdfs:comment": "<p>The permitted total weight of the loaded vehicle, including passengers and cargo and the weight of the empty vehicle.</p>\n\n<p>Typical unit code(s): KGM for kilogram, LBR for pound</p>\n\n<ul>\n<li>Note 1: You can indicate additional information in the <a class=\"localLink\" href=\"http://schema.org/name\">name</a> of the <a class=\"localLink\" href=\"http://schema.org/QuantitativeValue\">QuantitativeValue</a> node.</li>\n<li>Note 2: You may also link to a <a class=\"localLink\" href=\"http://schema.org/QualitativeValue\">QualitativeValue</a> node that provides additional information using <a class=\"localLink\" href=\"http://schema.org/valueReference\">valueReference</a>.</li>\n<li>Note 3: Note that you can use <a class=\"localLink\" href=\"http://schema.org/minValue\">minValue</a> and <a class=\"localLink\" href=\"http://schema.org/maxValue\">maxValue</a> to indicate ranges.</li>\n</ul>\n",
-      "rdfs:label": "weightTotal"
+      "rdfs:comment": "A motorcycle or motorbike is a single-track, two-wheeled motor vehicle.",
+      "rdfs:label": "Motorcycle",
+      "rdfs:subClassOf": {
+        "@id": "http://schema.org/Vehicle"
+      }
     },
     {
       "@id": "http://schema.org/enginePower",
@@ -96,10 +93,10 @@
       },
       "http://schema.org/rangeIncludes": [
         {
-          "@id": "http://schema.org/QuantitativeValue"
+          "@id": "http://schema.org/Number"
         },
         {
-          "@id": "http://schema.org/Number"
+          "@id": "http://schema.org/QuantitativeValue"
         }
       ],
       "rdfs:comment": "The number of persons that can be seated (e.g. in a vehicle), both in terms of the physical space available, and in terms of limitations set by law.</p>\n\n<p>Typical unit code(s): C62 for persons",
@@ -122,10 +119,10 @@
           "@id": "http://schema.org/Text"
         },
         {
-          "@id": "http://schema.org/QualitativeValue"
+          "@id": "http://schema.org/URL"
         },
         {
-          "@id": "http://schema.org/URL"
+          "@id": "http://schema.org/QualitativeValue"
         }
       ],
       "rdfs:comment": "The type of engine or engines powering the vehicle.",
@@ -242,19 +239,22 @@
       }
     },
     {
-      "@id": "http://schema.org/Motorcycle",
-      "@type": "rdfs:Class",
+      "@id": "http://schema.org/weightTotal",
+      "@type": "rdf:Property",
       "http://purl.org/dc/terms/source": {
         "@id": "http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group"
+      },
+      "http://schema.org/domainIncludes": {
+        "@id": "http://schema.org/Vehicle"
       },
       "http://schema.org/isPartOf": {
         "@id": "http://auto.schema.org"
       },
-      "rdfs:comment": "A motorcycle or motorbike is a single-track, two-wheeled motor vehicle.",
-      "rdfs:label": "Motorcycle",
-      "rdfs:subClassOf": {
-        "@id": "http://schema.org/Vehicle"
-      }
+      "http://schema.org/rangeIncludes": {
+        "@id": "http://schema.org/QuantitativeValue"
+      },
+      "rdfs:comment": "<p>The permitted total weight of the loaded vehicle, including passengers and cargo and the weight of the empty vehicle.</p>\n\n<p>Typical unit code(s): KGM for kilogram, LBR for pound</p>\n\n<ul>\n<li>Note 1: You can indicate additional information in the <a class=\"localLink\" href=\"http://schema.org/name\">name</a> of the <a class=\"localLink\" href=\"http://schema.org/QuantitativeValue\">QuantitativeValue</a> node.</li>\n<li>Note 2: You may also link to a <a class=\"localLink\" href=\"http://schema.org/QualitativeValue\">QualitativeValue</a> node that provides additional information using <a class=\"localLink\" href=\"http://schema.org/valueReference\">valueReference</a>.</li>\n<li>Note 3: Note that you can use <a class=\"localLink\" href=\"http://schema.org/minValue\">minValue</a> and <a class=\"localLink\" href=\"http://schema.org/maxValue\">maxValue</a> to indicate ranges.</li>\n</ul>\n",
+      "rdfs:label": "weightTotal"
     },
     {
       "@id": "http://schema.org/CarUsageType",
@@ -285,10 +285,10 @@
       },
       "http://schema.org/rangeIncludes": [
         {
-          "@id": "http://schema.org/QualitativeValue"
+          "@id": "http://schema.org/Text"
         },
         {
-          "@id": "http://schema.org/Text"
+          "@id": "http://schema.org/QualitativeValue"
         },
         {
           "@id": "http://schema.org/URL"
@@ -386,10 +386,10 @@
       },
       "http://schema.org/rangeIncludes": [
         {
-          "@id": "http://schema.org/Text"
+          "@id": "http://schema.org/QualitativeValue"
         },
         {
-          "@id": "http://schema.org/QualitativeValue"
+          "@id": "http://schema.org/Text"
         },
         {
           "@id": "http://schema.org/URL"
