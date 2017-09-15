@@ -47,7 +47,7 @@ sitemode = "mainsite" # whitespaced list for CSS tags,
             # e.g. "mainsite testsite" when off expected domains
             # "extensionsite" when in an extension (e.g. blue?)
 
-releaselog = { "2.0": "2015-05-13", "2.1": "2015-08-06", "2.2": "2015-11-05", "3.0": "2016-05-04", "3.1": "2016-08-09", "3.2": "2017-03-23" }
+releaselog = { "2.0": "2015-05-13", "2.1": "2015-08-06", "2.2": "2015-11-05", "3.0": "2016-05-04", "3.1": "2016-08-09", "3.2": "2017-03-23", "3.3": "2017-08-14" }
 
 silent_skip_list =  [ "favicon.ico" ] # Do nothing for now
 
@@ -81,7 +81,7 @@ ENABLED_EXTENSIONS = [ATTIC, 'auto', 'bib', 'health-lifesci', 'pending', 'meta',
 ALL_LAYERS = [CORE,'']
 ALL_LAYERS += ENABLED_EXTENSIONS
 ####
-ALL_LAYERS_NO_ATTIC = list(ALL_LAYERS) 
+ALL_LAYERS_NO_ATTIC = list(ALL_LAYERS)
 ALL_LAYERS_NO_ATTIC.remove(ATTIC)
 setAllLayersList(ALL_LAYERS)
 
@@ -167,7 +167,7 @@ def getslug():
     getmodiftime()
     return etagSlug
 
-    
+
 def tick(): #Keep memcache values fresh so they don't expire
     if not getInTestHarness():
         memcache.set(key="SysStart", value=systarttime)
@@ -175,11 +175,11 @@ def tick(): #Keep memcache values fresh so they don't expire
 
 if getInTestHarness():
     load_examples_data(ENABLED_EXTENSIONS)
-    
+
 else: #Ensure clean start for any memcached or ndb store values...
     if memcache.get("static-version") != appver: #We are a new instance of the app
         memcache.flush_all()
-        
+
         load_start = datetime.datetime.now()
         systarttime = datetime.datetime.utcnow()
         memcache.set(key="app_initialising", value=True, time=300)  #Give the system 5 mins - auto remove flag in case of crash
@@ -200,10 +200,10 @@ else: #Ensure clean start for any memcached or ndb store values...
         waittime = WAITCOUNT
         while waittime > 0:
             waittime -= 1
-            flag = memcache.get("app_initialising") 
+            flag = memcache.get("app_initialising")
             if not flag or flag == False: #Initialised or value missing
                 break
-                
+
             log.debug("[%s] Waited %s seconds for intialisation to end memcahce value = %s" % (getInstanceId(short=True),
                                                     (WAITCOUNT - waittime),memcache.get("app_initialising")))
             time.sleep(1)
@@ -217,9 +217,9 @@ else: #Ensure clean start for any memcached or ndb store values...
     if(not systarttime): #Occationally memcache will loose the value and result in systarttime becomming Null value
          systarttime = datetime.datetime.utcnow()
          tick()
-            
+
     setmodiftime(systarttime)
-    
+
 #################################################
 
 def cleanPath(node):
@@ -617,7 +617,7 @@ class ShowUnit (webapp2.RequestHandler):
             cstack.append(Unit.GetUnit("Thing"))
         elif(node.isDataType(layers=layers) and node.id != "DataType"):
             cstack.append(Unit.GetUnit("DataType"))
-            
+
 
         enuma = node.isEnumerationValue(layers=layers)
 
@@ -630,15 +630,15 @@ class ShowUnit (webapp2.RequestHandler):
            while(len(self.crumbStacks[row]) > 0):
                 propertyval = None
                 n = self.crumbStacks[row].pop()
-                
-                if((len(self.crumbStacks[row]) == 1) and 
+
+                if((len(self.crumbStacks[row]) == 1) and
                     not ":" in n.id) : #penultimate crumb that is not a non-schema reference
                     if node.isAttribute(layers=layers):
                         if n.isAttribute(layers=layers): #Can only be a subproperty of a property
                             propertyval = "rdfs:subPropertyOf"
                     else:
-                        propertyval = "rdfs:subClassOf"  
-                
+                        propertyval = "rdfs:subClassOf"
+
                 if(count > 0):
                     if((len(self.crumbStacks[row]) == 0) and enuma): #final crumb
                         thisrow += " :: "
@@ -869,7 +869,7 @@ class ShowUnit (webapp2.RequestHandler):
         """Write out a table of incoming properties for a per-type page."""
         if not out:
             out = self
-            
+
         targetlayers=self.appropriateLayers(layers) # Show incomming properties from all layers
 
         headerPrinted = False
@@ -949,14 +949,14 @@ class ShowUnit (webapp2.RequestHandler):
             if inLayer(layers, r):
                 ranges.append(r)
             else:
-                eranges.append(r) 
+                eranges.append(r)
         domains = []
         edomains = []
         for d in doms:
             if inLayer(layers, d):
                 domains.append(d)
             else:
-                edomains.append(d) 
+                edomains.append(d)
 
         inverseprop = node.inverseproperty(layers=targetLayers)
         subprops = sorted(node.subproperties(layers=targetLayers),key=lambda u: u.id)
@@ -1131,7 +1131,7 @@ class ShowUnit (webapp2.RequestHandler):
                 #log.info("Served and cached fresh homepage.tpl key: %s " % sitekeyedhomepage)
                 PageStore.put(sitekeyedhomepage, page)
                 #            self.response.out.write( open("static/index.html", 'r').read() )
-            return False # - Not caching homepage 
+            return False # - Not caching homepage
         log.info("Warning: got here how?")
         return False
 
@@ -1240,7 +1240,7 @@ class ShowUnit (webapp2.RequestHandler):
         self.emitSchemaorgHeaders(node, ext_mappings, sitemode, getSiteName(), layers)
 
         cached = getPageFromStore(node.id)
-            
+
         if (cached != None):
             log.info("GOT CACHED page for %s" % node.id)
             self.response.write(cached)
@@ -1385,7 +1385,7 @@ class ShowUnit (webapp2.RequestHandler):
             self.write("<br/><br/><b><a id=\"examples\">Examples</a></b><br/><br/>\n\n")
             exNum = 0
             for ex in sorted(examples, key=lambda u: u.keyvalue):
-                
+
                 if not ex.egmeta["layer"] in layers: #Example defined in extension we are not in
                     continue
                 exNum += 1
@@ -1414,9 +1414,9 @@ class ShowUnit (webapp2.RequestHandler):
 	  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 	  ga('create', 'UA-52672119-1', 'auto');ga('send', 'pageview');</script>""")
 
- 
+
         self.write(" \n\n</div>\n</body>\n<!--AppEngineVersion %s -->\n</html>" % getAppEngineVersion())
-  
+
         page = "".join(self.outputStrings)
         PageStore.put(node.id,page)
 
@@ -1463,14 +1463,14 @@ class ShowUnit (webapp2.RequestHandler):
             self.error(404)
             self.response.out.write('<title>404 Not Found.</title><a href="/">404 Not Found (JSON-LD Context not enabled.)</a><br/><br/>')
             return True
-            
+
         jsonldcontext = ""
         if getPageFromStore("JSONLDCONTEXT"):
             jsonldcontext = getPageFromStore("JSONLDCONTEXT")
         else:
             jsonldcontext = GetJsonLdContext(layers=ALL_LAYERS)
             PageStore.put("JSONLDCONTEXT",jsonldcontext)
-            
+
         if (node=="docs/jsonldcontext.json.txt"):
             self.response.headers['Content-Type'] = "text/plain"
             self.emitCacheHeaders()
@@ -1557,7 +1557,7 @@ class ShowUnit (webapp2.RequestHandler):
         self.response.headers['Content-Type'] = "text/html"
         self.emitCacheHeaders()
         label = 'FullTreePage - %s' % getHostExt()
-     
+
         if getPageFromStore(label):
             self.response.out.write( getPageFromStore(label) )
             log.debug("Serving recycled %s." % label)
@@ -1764,7 +1764,7 @@ class ShowUnit (webapp2.RequestHandler):
                     elif outputtype == ".nt":
                         self.response.headers['Content-Type'] = "text/plain; charset=utf-8"
                         format = "nt"
-                    
+
                     if format:
                         if not data:
                             data = serializeSingleTermGrapth(node=node, format=format, excludeAttic=True)
@@ -1774,7 +1774,7 @@ class ShowUnit (webapp2.RequestHandler):
                     self.response.out.write( data )
                     ret = True
         return ret
-        
+
     def emitcsvTerm(self,schema_node,excludeAttic=True):
         csv = sdordf2csv(queryGraph=getQueryGraph(),fullGraph=getQueryGraph(),markdownComments=True,excludeAttic=excludeAttic)
         file = StringIO.StringIO()
@@ -1810,7 +1810,7 @@ class ShowUnit (webapp2.RequestHandler):
             base_actionprop = Unit.GetUnit( node.rsplit('-')[0] )
             if base_actionprop != None :
                 self.response.out.write('<div>Looking for an <a href="/Action">Action</a>-related property? Note that xyz-input and xyz-output have <a href="/docs/actions.html">special meaning</a>. See also: <a href="/%s">%s</a></div> <br/><br/> ' % ( base_actionprop.id, base_actionprop.id ))
-        
+
         if extrainfo:
             self.response.out.write("<div>%s</div>" % extrainfo)
 
@@ -2123,7 +2123,7 @@ class ShowUnit (webapp2.RequestHandler):
         DataCache.setCurrent(dcn)
         PageStore.setCurrent(dcn)
         HeaderStore.setCurrent(dcn)
-        
+
         debugging = False
         if "localhost" in hostString or "sdo-phobos.appspot.com" in hostString or FORCEDEBUGGING:
             debugging = True
@@ -2178,12 +2178,12 @@ class ShowUnit (webapp2.RequestHandler):
             pass
 
         retHdrs = HeaderStore.get(passedTag)   #Already cached headers for this request?
-        
+
         if retHdrs and "_pageFlush" in getArguments():
             log.info("Reloading header for %s" % passedTag)
             HeaderStore.remove(passedTag)
             retHdrs = None
-        
+
         if NotModified and retHdrs:
             self.response.clear()
             self.response.headers = retHdrs
@@ -2226,7 +2226,7 @@ class ShowUnit (webapp2.RequestHandler):
         Last resort is a 404 error if we do not exactly match a term's id.
 
         See also https://webapp-improved.appspot.com/guide/request.html#guide-request
-        
+
         Return True to enable browser caching ETag/Last-Modified - False for no cache
         """
         global_vars.time_start = datetime.datetime.now()
@@ -2310,20 +2310,20 @@ class ShowUnit (webapp2.RequestHandler):
                 log.info("Error handling JSON-LD context: %s" % node)
                 return False
 
-        if (node == "docs/full.html"): 
+        if (node == "docs/full.html"):
             if self.handleFullHierarchyPage(node, layerlist=layerlist):
                 return True
             else:
                 log.info("Error handling full.html : %s " % node)
                 return False
 
-        if (node == "docs/schemas.html"): 
+        if (node == "docs/schemas.html"):
             if self.handleSchemasPage(node, layerlist=layerlist):
                 return True
             else:
                 log.info("Error handling schemas.html : %s " % node)
                 return False
-        if (node == "docs/developers.html"): 
+        if (node == "docs/developers.html"):
             if self.handleDumpsPage(node, layerlist=layerlist):
                 return True
             else:
@@ -2374,7 +2374,7 @@ class ShowUnit (webapp2.RequestHandler):
             inf += "</div>"
             self.handle404Failure(node,extrainfo=inf)
             return False
-            
+
 
         # Pages based on request path matching a Unit in the term graph:
         if self.handleExactTermPage(node, layers=layerlist):
@@ -2480,16 +2480,16 @@ class ShowUnit (webapp2.RequestHandler):
         global Warmer
         if WarmedUp:
             return
-            
+
         warm_start = datetime.datetime.now()
         log.debug("Instance[%s] received Warmup request at %s" % (modules.get_current_instance_id(), datetime.datetime.utcnow()) )
         if memcache.get("Warming"):
             log.debug("Instance[%s] detected system already warming" % (modules.get_current_instance_id()) )
         else:
-            memcache.set("Warming",True,time=300)            
+            memcache.set("Warming",True,time=300)
             Warmer.warmAll(self)
             log.debug("Instance[%s] completed Warmup request at %s elapsed: %s" % (modules.get_current_instance_id(), datetime.datetime.utcnow(),datetime.datetime.now() - warm_start ) )
-            memcache.set("Warming",False)            
+            memcache.set("Warming",False)
 
 class WarmupTool():
 
@@ -2503,7 +2503,7 @@ class WarmupTool():
 
     def stepWarm(self, unit=None, layer=None):
         global WarmedUp
-        if not layer: 
+        if not layer:
             layer = getHostExt()
             if layer == "":
                 layer = "core"
@@ -2683,7 +2683,7 @@ def makeUrl(ext="",path="",full=False,scheme=None):
         if full:
             if not scheme:
                 scheme = getHttpScheme()
- 
+
             url = "%s://%s%s%s%s" % (scheme,sub,getBaseHost(),port,p)
         else:
             url = "%s" % (p)
@@ -2696,7 +2696,7 @@ def getPageFromStore(id,ext=None):
             PageStore.remove(id,ext)
             cached = None
         return cached
-    
+
 schemasInitialized = False
 def load_schema_definitions():
     #log.info("STARTING UP... reading schemas.")

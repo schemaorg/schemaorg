@@ -1,6 +1,7 @@
 <div>
 
 <div typeof="http://schema.org/Organization" resource="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP">
+    <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
     <span property="rdfs:label">The Trust Project</span>
     <span property="rdfs:comment">This term and its definition is based upon the work of [The Trust Project](http://thetrustproject.org/).</span>
 </div>
@@ -32,6 +33,8 @@
 In practice many news publishers produce a wide variety of article types, many of which might be considered a [[NewsArticle]] but not a [[ReportageNewsArticle]]. For example, opinion pieces, reviews, analysis, sponsored or satirical articles, or articles that combine several of these elements.
 
 The [[ReportageNewsArticle]] type is based on a stricter ideal for "news" as a work of journalism, with articles based on factual information either observed or verified by the author, or reported and verified from knowledgeable sources.  This often includes perspectives from multiple viewpoints on a particular issue (distinguishing news reports from public relations or propaganda).  News reports in the [[ReportageNewsArticle]] sense de-emphasize the opinion of the author, with commentary and value judgements typically expressed elsewhere.
+
+A [[ReportageNewsArticle]] which goes deeper into analysis can also be marked with an additional type of [[AnalysisNewsArticle]].
 </span>
     <span property="schema:category">issue-1525</span>
     <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1525">#1525</a>
@@ -42,7 +45,7 @@ The [[ReportageNewsArticle]] type is based on a stricter ideal for "news" as a w
   <div typeof="rdfs:Class" resource="http://schema.org/AnalysisNewsArticle">
     <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/NewsArticle">NewsArticle</a></span>
     <span class="h" property="rdfs:label">AnalysisNewsArticle</span>
-    <span property="rdfs:comment">An AnalysisNewsArticle is a [[NewsArticle]] emphasizing interpretation of the news based on evidence, including data, as well as anticipating how events might unfold based on past events.</span>
+    <span property="rdfs:comment">An AnalysisNewsArticle is a [[NewsArticle]] that, while based on factual reporting, incorporates the expertise of the author/producer, offering interpretations and conclusions.</span>
     <span property="schema:category">issue-1525</span>
     <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1525">#1525</a>
     <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
@@ -81,10 +84,10 @@ The [[ReportageNewsArticle]] type is based on a stricter ideal for "news" as a w
 </div>
 
 
-  <div typeof="rdfs:Class" resource="http://schema.org/SponsoredContentArticle">
+  <div typeof="rdfs:Class" resource="http://schema.org/AdvertiserContentArticle">
     <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Article">Article</a></span>
-    <span class="h" property="rdfs:label">SponsoredContentArticle</span>
-    <span property="rdfs:comment">An [[Article]] whose content is commercially sponsored, including branded content and [advertorials](https://en.wikipedia.org/wiki/Advertorial).</span>
+    <span class="h" property="rdfs:label">AdvertiserContentArticle</span>
+    <span property="rdfs:comment">An [[Article]] that an external entity has paid to place or to produce to its specifications. Includes [advertorials](https://en.wikipedia.org/wiki/Advertorial), sponsored content, native advertising and other paid content.</span>
     <span property="schema:category">issue-1525</span>
     <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1525">#1525</a>
     <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
@@ -94,7 +97,7 @@ The [[ReportageNewsArticle]] type is based on a stricter ideal for "news" as a w
   <div typeof="rdfs:Class" resource="http://schema.org/SatiricalArticle">
     <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Article">Article</a></span>
     <span class="h" property="rdfs:label">SatiricalArticle</span>
-    <span property="rdfs:comment">An [[Article]] whose content is primarily satirical in nature, i.e. unlikely to be literally true. A satirical article is sometimes but not necessarily also a [[NewsArticle]]. [[ScholarlyArticle]]s are also sometimes satirized.</span>
+    <span property="rdfs:comment">An [[Article]] whose content is primarily [[satirical]](https://en.wikipedia.org/wiki/Satire) in nature, i.e. unlikely to be literally true. A satirical article is sometimes but not necessarily also a [[NewsArticle]]. [[ScholarlyArticle]]s are also sometimes satirized.</span>
     <span property="schema:category">issue-1525</span>
     <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1525">#1525</a>
     <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
@@ -105,7 +108,7 @@ The [[ReportageNewsArticle]] type is based on a stricter ideal for "news" as a w
 
     <div typeof="rdf:Property" resource="http://schema.org/ethicsPolicy">
         <span class="h" property="rdfs:label">ethicsPolicy</span>
-        <span property="rdfs:comment">Statement about ethics policy, e.g. of a [[NewsMediaOrganization]] regarding journalistic and publishing practices, or of a [[Restaurant]], a page describing food source policies.</span>
+        <span property="rdfs:comment">Statement about ethics policy, e.g. of a [[NewsMediaOrganization]] regarding journalistic and publishing practices, or of a [[Restaurant]], a page describing food source policies. In the case of a [[NewsMediaOrganization]], an ethicsPolicy is typically a statement describing the personal, organizational, and corporate standards of behavior expected by the organization.</span>
 <!--        <link property="rdfs:subPropertyOf" href="http://schema.org/publishingPrinciples" /> -->
       <span property="schema:category">issue-1525</span><a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1525">#1525</a>
 
@@ -122,8 +125,7 @@ The [[ReportageNewsArticle]] type is based on a stricter ideal for "news" as a w
 
     <div typeof="rdf:Property" resource="http://schema.org/diversityPolicy">
         <span class="h" property="rdfs:label">diversityPolicy</span>
-        <span property="rdfs:comment">Statement on diversity policy by an [[Organization]] e.g. a [[NewsMediaOrganization]].</span>
-        <!-- <link property="rdfs:subPropertyOf" href="http://schema.org/publishingPrinciples" /> -->
+        <span property="rdfs:comment">Statement on diversity policy by an [[Organization]] e.g. a [[NewsMediaOrganization]]. For a [[NewsMediaOrganization]], a statement describing the newsroom’s diversity policy on both staffing and sources, typically providing staffing data.</span>
         <span property="schema:category">issue-1525</span><a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1525">#1525</a>
         <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/NewsMediaOrganization">NewsMediaOrganization</a></span>
         <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Organization">Organization</a></span>
@@ -137,15 +139,15 @@ The [[ReportageNewsArticle]] type is based on a stricter ideal for "news" as a w
         <span>Source:  <a property="dc:source" href="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP">trustproject</a></span>
     </div>
 
-   <!-- some are for news media orgs more specifically ... -->
+   <!-- some are oriented towards news media orgs more specifically, but consider also related publishers, e.g. science, fact checkers ... -->
 
     <div typeof="rdf:Property" resource="http://schema.org/correctionsPolicy">
         <span class="h" property="rdfs:label">correctionsPolicy</span>
-        <span property="rdfs:comment">Statement on corrections policy.</span>
+        <span property="rdfs:comment">For an [[Organization]] (e.g. [[NewsMediaOrganization]]), a statement describing (in news media, the newsroom’s) disclosure and correction policy for errors.</span>
         <link property="rdfs:subPropertyOf" href="http://schema.org/publishingPrinciples" />
         <span property="schema:category">issue-1525</span><a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1525">#1525</a>
         <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/NewsMediaOrganization">NewsMediaOrganization</a></span>
-
+        <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Organization">Organization</a></span>
         <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/URL">URL</a></span>
         <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/CreativeWork">CreativeWork</a></span>
 
@@ -159,7 +161,7 @@ The [[ReportageNewsArticle]] type is based on a stricter ideal for "news" as a w
 
     <div typeof="rdf:Property" resource="http://schema.org/masthead">
         <span class="h" property="rdfs:label">masthead</span>
-        <span property="rdfs:comment">A link to the masthead page or a page listing top management of a [[NewsMediaOrganization]]</span>
+        <span property="rdfs:comment">For a [[NewsMediaOrganization]], a link to the masthead page or a page listing top editorial management.</span>
         <link property="rdfs:subPropertyOf" href="http://schema.org/publishingPrinciples" />
         <span property="schema:category">issue-1525</span><a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1525">#1525</a>
         <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/NewsMediaOrganization">NewsMediaOrganization</a></span>
@@ -175,7 +177,7 @@ The [[ReportageNewsArticle]] type is based on a stricter ideal for "news" as a w
 
     <div typeof="rdf:Property" resource="http://schema.org/missionCoveragePrioritiesPolicy">
         <span class="h" property="rdfs:label">missionCoveragePrioritiesPolicy</span>
-        <span property="rdfs:comment">Statement on where an [[Organization]] such as a [[NewsMediaOrganization]] stands based on past coverage on issues, and whether it has a public agenda.</span>
+        <span property="rdfs:comment">For a [[NewsMediaOrganization]], a statement on coverage priorities, including any public agenda or stance on issues.</span>
         <link property="rdfs:subPropertyOf" href="http://schema.org/publishingPrinciples" />
         <span property="schema:category">issue-1525</span><a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1525">#1525</a>
         <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/NewsMediaOrganization">NewsMediaOrganization</a></span>
@@ -207,13 +209,13 @@ The [[ReportageNewsArticle]] type is based on a stricter ideal for "news" as a w
 
     <div typeof="rdf:Property" resource="http://schema.org/unnamedSourcesPolicy">
         <span class="h" property="rdfs:label">unnamedSourcesPolicy</span>
-        <span property="rdfs:comment">Statement about policy on use of unnamed sources for a [[NewsMediaOrganization]] or other [[Organization]].</span>
+        <span property="rdfs:comment">For an [[Organization]] (typically a [[NewsMediaOrganization]]), a statement about policy on use of unnamed sources and the decision process required.</span>
         <link property="rdfs:subPropertyOf" href="http://schema.org/publishingPrinciples" />
         <span property="schema:category">issue-1525</span><a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1525">#1525</a>
         <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/NewsMediaOrganization">NewsMediaOrganization</a></span>
-
-         <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/URL">URL</a></span>
-         <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/CreativeWork">CreativeWork</a></span>
+        <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Organization">Organization</a></span>
+        <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/URL">URL</a></span>
+        <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/CreativeWork">CreativeWork</a></span>
 
         <span property="schema:category">issue-1525</span>
         <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1525">#1525</a>
@@ -224,14 +226,13 @@ The [[ReportageNewsArticle]] type is based on a stricter ideal for "news" as a w
 
     <div typeof="rdf:Property" resource="http://schema.org/actionableFeedbackPolicy">
         <span class="h" property="rdfs:label">actionableFeedbackPolicy</span>
-        <span property="rdfs:comment">For a [[NewsMediaOrganization]] or other news-related[[Organization]], a statement on how it (e.g. via newsroom) engages the public -- digitally or otherwise - as part of community engagement practices related to before, during and after stories are published.</span>
+        <span property="rdfs:comment">For a [[NewsMediaOrganization]] or other news-related [[Organization]], a statement about public engagement activities (for news media, the newsroom’s), including involving the public - digitally or otherwise -- in coverage decisions, reporting and activities after publication.</span>
         <link property="rdfs:subPropertyOf" href="http://schema.org/publishingPrinciples" />
         <span property="schema:category">issue-1525</span><a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1525">#1525</a>
         <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/NewsMediaOrganization">NewsMediaOrganization</a></span>
-
+        <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Organization">Organization</a></span>
         <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/URL">URL</a></span>
         <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/CreativeWork">CreativeWork</a></span>
-
         <span property="schema:category">issue-1525</span>
         <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1525">#1525</a>
         <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
