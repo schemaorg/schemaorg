@@ -1,0 +1,1678 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rdf:RDF
+  xmlns:owl="http://www.w3.org/2002/07/owl#"
+  xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+  xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  xmlns:ns1="http://www.w3.org/2004/02/skos/core#"
+  xmlns:dct="http://purl.org/dc/terms/"
+  xmlns:schema="http://schema.org/"
+>
+  <rdf:Property rdf:about="http://schema.org/offersPrescriptionByMail">
+    <schema:rangeIncludes rdf:resource="http://schema.org/Boolean"/>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <rdfs:comment>Whether prescriptions can be delivered by mail.</rdfs:comment>
+    <schema:domainIncludes rdf:resource="http://schema.org/HealthPlanFormulary"/>
+    <rdfs:label>offersPrescriptionByMail</rdfs:label>
+    <schema:category>issue-1062</schema:category>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1062"/>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://schema.org/legislationLegalValue">
+    <ns1:exactMatch rdf:resource="http://data.europa.eu/eli/ontology#legal_value"/>
+    <dct:source>
+      <schema:Organization rdf:about="http://publications.europa.eu/mdr/eli/index.html">
+        <rdfs:comment><![CDATA[This entry is derived from the <a href="http://publications.europa.eu/mdr/eli/index.html">ELI ontology</a> (European Legislation Identifier). ELI is an initiative of some national legislation publishers endorsed by EU countries and Institutions, to identify, describe and link legislation on the web, and is led by the <a href="http://eur-lex.europa.eu/eli-register/about.html">ELI taskforce</a>.]]></rdfs:comment>
+        <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+        <rdfs:label>ELI</rdfs:label>
+      </schema:Organization>
+    </dct:source>
+    <owl:equivalentProperty rdf:resource="http://data.europa.eu/eli/ontology#legal_value"/>
+    <schema:category>issue-1156</schema:category>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <schema:rangeIncludes rdf:resource="http://schema.org/LegalValueLevel"/>
+    <rdfs:label>legislationLegalValue</rdfs:label>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1156"/>
+    <rdfs:comment>The legal value of this legislation file. The same legislation can be written in multiple files with different legal values. Typically a digitally signed PDF have a "stronger" legal value than the HTML file of the same act.</rdfs:comment>
+    <schema:domainIncludes rdf:resource="http://schema.org/LegislationObject"/>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://schema.org/broadcastFrequency">
+    <schema:domainIncludes rdf:resource="http://schema.org/BroadcastService"/>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1004"/>
+    <schema:domainIncludes rdf:resource="http://schema.org/BroadcastChannel"/>
+    <schema:category>issue-1004</schema:category>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <schema:rangeIncludes rdf:resource="http://schema.org/Text"/>
+    <rdfs:label>broadcastFrequency</rdfs:label>
+    <rdfs:comment>The frequency used for over-the-air broadcasts. Numeric values or simple ranges e.g. 87-99. In addition a shortcut idiom is supported for frequences of AM and FM radio channels, e.g. "87 FM".</rdfs:comment>
+    <schema:rangeIncludes rdf:resource="http://schema.org/BroadcastFrequencySpecification"/>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://schema.org/geospatiallyIntersects">
+    <schema:domainIncludes rdf:resource="http://schema.org/Place"/>
+    <schema:category>issue-1375</schema:category>
+    <rdfs:label>geospatiallyIntersects</rdfs:label>
+    <schema:rangeIncludes rdf:resource="http://schema.org/Place"/>
+    <schema:domainIncludes rdf:resource="http://schema.org/GeospatialGeometry"/>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <rdfs:comment><![CDATA[Represents spatial relations in which two geometries (or the places they represent) have at least one point in common. As defined in <a href="https://en.wikipedia.org/wiki/DE-9IM">DE-9IM</a>.]]></rdfs:comment>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1375"/>
+    <schema:rangeIncludes rdf:resource="http://schema.org/GeospatialGeometry"/>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://schema.org/linkRelationship">
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1045"/>
+    <rdfs:label>linkRelationship</rdfs:label>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <schema:category>issue-1045</schema:category>
+    <schema:domainIncludes rdf:resource="http://schema.org/LinkRole"/>
+    <rdfs:comment>Indicates the relationship type of a Web link.</rdfs:comment>
+    <schema:rangeIncludes rdf:resource="http://schema.org/Text"/>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://schema.org/unnamedSourcesPolicy">
+    <schema:rangeIncludes rdf:resource="http://schema.org/CreativeWork"/>
+    <schema:rangeIncludes rdf:resource="http://schema.org/URL"/>
+    <rdfs:label>unnamedSourcesPolicy</rdfs:label>
+    <schema:domainIncludes rdf:resource="http://schema.org/Organization"/>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <rdfs:comment><![CDATA[For an <a class="localLink" href="http://schema.org/Organization">Organization</a> (typically a <a class="localLink" href="http://schema.org/NewsMediaOrganization">NewsMediaOrganization</a>), a statement about policy on use of unnamed sources and the decision process required.]]></rdfs:comment>
+    <schema:domainIncludes rdf:resource="http://schema.org/NewsMediaOrganization"/>
+    <rdfs:subPropertyOf rdf:resource="http://schema.org/publishingPrinciples"/>
+    <schema:category>issue-1525</schema:category>
+    <dct:source>
+      <schema:Organization rdf:about="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP">
+        <rdfs:comment><![CDATA[This term and its definition is based upon the work of <a href="http://thetrustproject.org/">The Trust Project</a>.]]></rdfs:comment>
+        <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+        <rdfs:label>The Trust Project</rdfs:label>
+      </schema:Organization>
+    </dct:source>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1525"/>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://schema.org/ethicsPolicy">
+    <schema:rangeIncludes rdf:resource="http://schema.org/CreativeWork"/>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1525"/>
+    <schema:category>issue-1525</schema:category>
+    <schema:domainIncludes rdf:resource="http://schema.org/Organization"/>
+    <schema:domainIncludes rdf:resource="http://schema.org/NewsMediaOrganization"/>
+    <rdfs:comment><![CDATA[Statement about ethics policy, e.g. of a <a class="localLink" href="http://schema.org/NewsMediaOrganization">NewsMediaOrganization</a> regarding journalistic and publishing practices, or of a <a class="localLink" href="http://schema.org/Restaurant">Restaurant</a>, a page describing food source policies. In the case of a <a class="localLink" href="http://schema.org/NewsMediaOrganization">NewsMediaOrganization</a>, an ethicsPolicy is typically a statement describing the personal, organizational, and corporate standards of behavior expected by the organization.]]></rdfs:comment>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <schema:rangeIncludes rdf:resource="http://schema.org/URL"/>
+    <rdfs:label>ethicsPolicy</rdfs:label>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://schema.org/amount">
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1253"/>
+    <schema:domainIncludes rdf:resource="http://schema.org/MoneyTransfer"/>
+    <schema:category>issue-1253</schema:category>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://schema.org/byMonthDay">
+    <rdfs:label>byMonthDay</rdfs:label>
+    <schema:category>issue-1457</schema:category>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1457"/>
+    <schema:domainIncludes rdf:resource="http://schema.org/Schedule"/>
+    <rdfs:comment><![CDATA[Defines the day(s) of the month on which a recurring <a class="localLink" href="http://schema.org/Event">Event</a> takes place. Specified as an <a class="localLink" href="http://schema.org/Integer">Integer</a> between 1-31.]]></rdfs:comment>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <schema:rangeIncludes rdf:resource="http://schema.org/Integer"/>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://schema.org/healthPlanId">
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1062"/>
+    <rdfs:label>healthPlanId</rdfs:label>
+    <schema:category>issue-1062</schema:category>
+    <schema:domainIncludes rdf:resource="http://schema.org/HealthInsurancePlan"/>
+    <schema:rangeIncludes rdf:resource="http://schema.org/Text"/>
+    <rdfs:comment>The 14-character, HIOS-generated Plan ID number. (Plan IDs must be unique, even across different markets.)</rdfs:comment>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://schema.org/repeatFrequency">
+    <rdfs:subPropertyOf rdf:resource="http://health-lifesci.schema.org/frequency"/>
+    <schema:domainIncludes rdf:resource="http://schema.org/Schedule"/>
+    <schema:rangeIncludes rdf:resource="http://schema.org/Text"/>
+    <rdfs:label>repeatFrequency</rdfs:label>
+    <schema:rangeIncludes rdf:resource="http://schema.org/Duration"/>
+    <schema:category>issue-1457</schema:category>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1457"/>
+    <rdfs:comment><![CDATA[Defines the frequency at which <a class="localLink" href="http://schema.org/Events">Events</a> will occur according to a schedule <a class="localLink" href="http://schema.org/Schedule">Schedule</a>. The intervals between
+      events should be defined as a <a class="localLink" href="http://schema.org/Duration">Duration</a> of time.]]></rdfs:comment>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://schema.org/eventSchedule">
+    <rdfs:label>eventSchedule</rdfs:label>
+    <schema:domainIncludes rdf:resource="http://schema.org/Schedule"/>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <schema:rangeIncludes rdf:resource="http://schema.org/Duration"/>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1457"/>
+    <schema:category>issue-1457</schema:category>
+    <rdfs:comment><![CDATA[Associates an <a class="localLink" href="http://schema.org/Event">Event</a> with a <a class="localLink" href="http://schema.org/Schedule">Schedule</a>. There are circumstances where it is preferable to share a schedule for a series of
+      repeating events rather than data on the individual events themselves. For example, a website or application might prefer to publish a schedule for a weekly
+      gym class rather than provide data on every event. A schedule could be processed by applications to add forthcoming events to a calendar. An <a class="localLink" href="http://schema.org/Event">Event</a> that
+      is associated with a <a class="localLink" href="http://schema.org/Schedule">Schedule</a> using this property should not have <a class="localLink" href="http://schema.org/startDate">startDate</a> or <a class="localLink" href="http://schema.org/endDate">endDate</a> properties. These are instead defined within the associated
+      <a class="localLink" href="http://schema.org/Schedule">Schedule</a>, this avoids any ambiguity for clients using the data. The propery might have repeated values to specify different schedules, e.g. for different months
+      or seasons.]]></rdfs:comment>
+  </rdf:Property>
+  <rdfs:Class rdf:about="http://schema.org/AMRadioChannel">
+    <rdfs:label>AMRadioChannel</rdfs:label>
+    <schema:category>issue-1004</schema:category>
+    <rdfs:comment>A radio channel that uses AM.</rdfs:comment>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1004"/>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <rdfs:subClassOf rdf:resource="http://schema.org/RadioChannel"/>
+  </rdfs:Class>
+  <rdf:Property rdf:about="http://schema.org/healthPlanCostSharing">
+    <schema:rangeIncludes rdf:resource="http://schema.org/Boolean"/>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <rdfs:label>healthPlanCostSharing</rdfs:label>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1062"/>
+    <schema:domainIncludes rdf:resource="http://schema.org/HealthPlanNetwork"/>
+    <rdfs:comment>Whether The costs to the patient for services under this network or formulary.</rdfs:comment>
+    <schema:domainIncludes rdf:resource="http://schema.org/HealthPlanFormulary"/>
+    <schema:category>issue-1062</schema:category>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://schema.org/cssSelector">
+    <rdfs:comment>A CSS selector.</rdfs:comment>
+    <schema:domainIncludes rdf:resource="http://schema.org/SpeakableSpecification"/>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1389"/>
+    <schema:rangeIncludes rdf:resource="http://schema.org/CssSelectorType"/>
+    <schema:category>issue-1389</schema:category>
+    <rdfs:label>cssSelector</rdfs:label>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+  </rdf:Property>
+  <schema:LegalForceStatus rdf:about="http://schema.org/PartiallyInForce">
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1156"/>
+    <rdfs:comment>Indicates that parts of the legislation are in force, and parts are not.</rdfs:comment>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <dct:source rdf:resource="http://publications.europa.eu/mdr/eli/index.html"/>
+    <rdfs:label>PartiallyInForce</rdfs:label>
+    <ns1:exactMatch rdf:resource="http://data.europa.eu/eli/ontology#InForce-partiallyInForce"/>
+    <schema:category>issue-1156</schema:category>
+  </schema:LegalForceStatus>
+  <rdf:Property rdf:about="http://schema.org/actionableFeedbackPolicy">
+    <dct:source rdf:resource="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP"/>
+    <schema:rangeIncludes rdf:resource="http://schema.org/CreativeWork"/>
+    <schema:category>issue-1525</schema:category>
+    <rdfs:label>actionableFeedbackPolicy</rdfs:label>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <schema:domainIncludes rdf:resource="http://schema.org/NewsMediaOrganization"/>
+    <schema:domainIncludes rdf:resource="http://schema.org/Organization"/>
+    <rdfs:comment><![CDATA[For a <a class="localLink" href="http://schema.org/NewsMediaOrganization">NewsMediaOrganization</a> or other news-related <a class="localLink" href="http://schema.org/Organization">Organization</a>, a statement about public engagement activities (for news media, the newsroom’s), including involving the public - digitally or otherwise -- in coverage decisions, reporting and activities after publication.]]></rdfs:comment>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1525"/>
+    <rdfs:subPropertyOf rdf:resource="http://schema.org/publishingPrinciples"/>
+    <schema:rangeIncludes rdf:resource="http://schema.org/URL"/>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://schema.org/isAcceptingNewPatients">
+    <rdfs:label>isAcceptingNewPatients</rdfs:label>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <schema:rangeIncludes rdf:resource="http://schema.org/Boolean"/>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1062"/>
+    <schema:category>issue-1062</schema:category>
+    <schema:domainIncludes rdf:resource="http://schema.org/MedicalOrganization"/>
+    <rdfs:comment>Whether the provider is accepting new patients.</rdfs:comment>
+  </rdf:Property>
+  <rdfs:Class rdf:about="http://schema.org/UserReview">
+    <rdfs:comment><![CDATA[A review created by an end-user (e.g. consumer, purchaser, attendee etc.), in contrast with <a class="localLink" href="http://schema.org/CriticReview">CriticReview</a>.]]></rdfs:comment>
+    <schema:category>issue-1589</schema:category>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1589"/>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <rdfs:label>UserReview</rdfs:label>
+    <rdfs:subClassOf rdf:resource="http://schema.org/Review"/>
+  </rdfs:Class>
+  <rdf:Property rdf:about="http://schema.org/geospatiallyContains">
+    <rdfs:label>geospatiallyContains</rdfs:label>
+    <schema:domainIncludes rdf:resource="http://schema.org/GeospatialGeometry"/>
+    <rdfs:comment><![CDATA[Represents a relationship between two geometries (or the places they represent), relating a containing geometry to a contained geometry. "a contains b iff no points of b lie in the exterior of a, and at least one point of the interior of b lies in the interior of a". As defined in <a href="https://en.wikipedia.org/wiki/DE-9IM">DE-9IM</a>.]]></rdfs:comment>
+    <schema:domainIncludes rdf:resource="http://schema.org/Place"/>
+    <schema:category>issue-1375</schema:category>
+    <schema:rangeIncludes rdf:resource="http://schema.org/GeospatialGeometry"/>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1375"/>
+    <schema:rangeIncludes rdf:resource="http://schema.org/Place"/>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://schema.org/cashBack">
+    <schema:rangeIncludes rdf:resource="http://schema.org/Number"/>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1253"/>
+    <rdfs:label>cashBack</rdfs:label>
+    <schema:domainIncludes rdf:resource="http://schema.org/PaymentCard"/>
+    <dct:source rdf:resource="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO"/>
+    <schema:rangeIncludes rdf:resource="http://schema.org/Boolean"/>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <rdfs:comment>A cardholder benefit that pays the cardholder a small percentage of their net expenditures.</rdfs:comment>
+    <schema:category>issue-1253</schema:category>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://schema.org/legislationPassedBy">
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1156"/>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <rdfs:subPropertyOf rdf:resource="http://schema.org/creator"/>
+    <schema:rangeIncludes rdf:resource="http://schema.org/Organization"/>
+    <dct:source rdf:resource="http://publications.europa.eu/mdr/eli/index.html"/>
+    <schema:rangeIncludes rdf:resource="http://schema.org/Person"/>
+    <ns1:exactMatch rdf:resource="http://data.europa.eu/eli/ontology#passed_by"/>
+    <schema:category>issue-1156</schema:category>
+    <rdfs:label>legislationPassedBy</rdfs:label>
+    <owl:equivalentProperty rdf:resource="http://data.europa.eu/eli/ontology#passed_by"/>
+    <schema:domainIncludes rdf:resource="http://schema.org/Legislation"/>
+    <rdfs:comment>The person or organization that originally passed or made the law : typically parliament (for primary legislation) or government (for secondary legislation). This indicates the "legal author" of the law, as opposed to its physical author.</rdfs:comment>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://schema.org/numberOfLoanPayments">
+    <dct:source rdf:resource="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO"/>
+    <schema:domainIncludes rdf:resource="http://schema.org/RepaymentSpecification"/>
+    <schema:category>issue-1253</schema:category>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1253"/>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <schema:rangeIncludes rdf:resource="http://schema.org/Number"/>
+    <rdfs:label>numberOfLoanPayments</rdfs:label>
+    <rdfs:comment>The number of payments contractually required at origination to repay the loan. For monthly paying loans this is the number of months from the contractual first payment date to the maturity date.</rdfs:comment>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://schema.org/bankAccountType">
+    <rdfs:comment>The type of a bank account.</rdfs:comment>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1253"/>
+    <schema:rangeIncludes rdf:resource="http://schema.org/URL"/>
+    <schema:category>issue-1253</schema:category>
+    <schema:domainIncludes rdf:resource="http://schema.org/BankAccount"/>
+    <dct:source rdf:resource="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO"/>
+    <schema:rangeIncludes rdf:resource="http://schema.org/Text"/>
+    <rdfs:label>bankAccountType</rdfs:label>
+  </rdf:Property>
+  <schema:LegalValueLevel rdf:about="http://schema.org/Definitive">
+    <rdfs:comment><![CDATA[Indicates a document for which the text is conclusively what the law says and is legally binding. (e.g. The digitally signed version of an Official Journal.)
+  Something "Definitive" is considered to be also "<a href="/Authoritative">Authoritative</a>".]]></rdfs:comment>
+    <ns1:exactMatch rdf:resource="http://data.europa.eu/eli/ontology#LegalValue-definitive"/>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1156"/>
+    <dct:source rdf:resource="http://publications.europa.eu/mdr/eli/index.html"/>
+    <schema:category>issue-1156</schema:category>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <rdfs:label>Definitive</rdfs:label>
+  </schema:LegalValueLevel>
+  <rdf:Property rdf:about="http://schema.org/healthPlanCoinsuranceRate">
+    <schema:category>issue-1062</schema:category>
+    <schema:domainIncludes rdf:resource="http://schema.org/HealthPlanCostSharingSpecification"/>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1062"/>
+    <rdfs:label>healthPlanCoinsuranceRate</rdfs:label>
+    <schema:rangeIncludes rdf:resource="http://schema.org/Number"/>
+    <rdfs:comment>Whether The rate of coinsurance expressed as a number between 0.0 and 1.0.</rdfs:comment>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+  </rdf:Property>
+  <rdfs:Class rdf:about="http://schema.org/AnalysisNewsArticle">
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1525"/>
+    <rdfs:subClassOf rdf:resource="http://schema.org/NewsArticle"/>
+    <dct:source rdf:resource="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP"/>
+    <schema:category>issue-1525</schema:category>
+    <rdfs:label>AnalysisNewsArticle</rdfs:label>
+    <rdfs:comment><![CDATA[An AnalysisNewsArticle is a <a class="localLink" href="http://schema.org/NewsArticle">NewsArticle</a> that, while based on factual reporting, incorporates the expertise of the author/producer, offering interpretations and conclusions.]]></rdfs:comment>
+  </rdfs:Class>
+  <rdf:Property rdf:about="http://schema.org/loanPaymentAmount">
+    <rdfs:comment>The amount of money to pay in a single payment.</rdfs:comment>
+    <schema:domainIncludes rdf:resource="http://schema.org/RepaymentSpecification"/>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1253"/>
+    <schema:category>issue-1253</schema:category>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <dct:source rdf:resource="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO"/>
+    <rdfs:label>loanPaymentAmount</rdfs:label>
+    <schema:rangeIncludes rdf:resource="http://schema.org/MonetaryAmount"/>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://schema.org/legislationLegalForce">
+    <owl:equivalentProperty rdf:resource="http://data.europa.eu/eli/ontology#in_force"/>
+    <rdfs:label>legislationLegalForce</rdfs:label>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1156"/>
+    <ns1:exactMatch rdf:resource="http://data.europa.eu/eli/ontology#in_force"/>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <schema:domainIncludes rdf:resource="http://schema.org/Legislation"/>
+    <rdfs:comment>Whether the legislation is currently in force, not in force, or partially in force.</rdfs:comment>
+    <dct:source rdf:resource="http://publications.europa.eu/mdr/eli/index.html"/>
+    <schema:rangeIncludes rdf:resource="http://schema.org/LegalForceStatus"/>
+    <schema:category>issue-1156</schema:category>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://schema.org/loanPaymentFrequency">
+    <schema:domainIncludes rdf:resource="http://schema.org/RepaymentSpecification"/>
+    <rdfs:label>loanPaymentFrequency</rdfs:label>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1253"/>
+    <schema:category>issue-1253</schema:category>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <rdfs:comment>Frequency of payments due, i.e. number of months between payments. This is defined as a frequency, i.e. the reciprocal of a period of time.</rdfs:comment>
+    <schema:rangeIncludes rdf:resource="http://schema.org/Number"/>
+    <dct:source rdf:resource="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO"/>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://schema.org/rxcui">
+    <schema:rangeIncludes rdf:resource="http://schema.org/Text"/>
+    <rdfs:comment>The RxCUI drug identifier from RXNORM.</rdfs:comment>
+    <schema:category>issue-1062</schema:category>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1062"/>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <schema:domainIncludes rdf:resource="http://schema.org/Drug"/>
+    <rdfs:label>rxcui</rdfs:label>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://schema.org/contactlessPayment">
+    <schema:rangeIncludes rdf:resource="http://schema.org/Boolean"/>
+    <rdfs:comment>A secure method for consumers to purchase products or services via debit, credit or smartcards by using RFID or NFC technology.</rdfs:comment>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <schema:category>issue-1253</schema:category>
+    <schema:domainIncludes rdf:resource="http://schema.org/PaymentCard"/>
+    <dct:source rdf:resource="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO"/>
+    <rdfs:label>contactlessPayment</rdfs:label>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1253"/>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://schema.org/masthead">
+    <dct:source rdf:resource="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP"/>
+    <rdfs:label>masthead</rdfs:label>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <rdfs:comment><![CDATA[For a <a class="localLink" href="http://schema.org/NewsMediaOrganization">NewsMediaOrganization</a>, a link to the masthead page or a page listing top editorial management.]]></rdfs:comment>
+    <schema:domainIncludes rdf:resource="http://schema.org/NewsMediaOrganization"/>
+    <schema:rangeIncludes rdf:resource="http://schema.org/CreativeWork"/>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1525"/>
+    <schema:rangeIncludes rdf:resource="http://schema.org/URL"/>
+    <rdfs:subPropertyOf rdf:resource="http://schema.org/publishingPrinciples"/>
+    <schema:category>issue-1525</schema:category>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://schema.org/geospatiallyTouches">
+    <rdfs:comment><![CDATA[Represents spatial relations in which two geometries (or the places they represent) touch: they have at least one boundary point in common, but no interior points." (a symmetric relationship, as defined in <a href="https://en.wikipedia.org/wiki/DE-9IM">DE-9IM</a> )]]></rdfs:comment>
+    <schema:rangeIncludes rdf:resource="http://schema.org/GeospatialGeometry"/>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1375"/>
+    <schema:category>issue-1375</schema:category>
+    <schema:rangeIncludes rdf:resource="http://schema.org/Place"/>
+    <rdfs:label>geospatiallyTouches</rdfs:label>
+    <schema:domainIncludes rdf:resource="http://schema.org/GeospatialGeometry"/>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <schema:domainIncludes rdf:resource="http://schema.org/Place"/>
+  </rdf:Property>
+  <rdfs:Class rdf:about="http://schema.org/ReportageNewsArticle">
+    <rdfs:label>ReportageNewsArticle</rdfs:label>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <rdfs:subClassOf rdf:resource="http://schema.org/NewsArticle"/>
+    <dct:source rdf:resource="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP"/>
+    <rdfs:comment><![CDATA[The <a class="localLink" href="http://schema.org/ReportageNewsArticle">ReportageNewsArticle</a> type is a subtype of <a class="localLink" href="http://schema.org/NewsArticle">NewsArticle</a> representing
+ news articles which are the result of journalistic news reporting conventions.</p>
+
+<p>In practice many news publishers produce a wide variety of article types, many of which might be considered a <a class="localLink" href="http://schema.org/NewsArticle">NewsArticle</a> but not a <a class="localLink" href="http://schema.org/ReportageNewsArticle">ReportageNewsArticle</a>. For example, opinion pieces, reviews, analysis, sponsored or satirical articles, or articles that combine several of these elements.</p>
+
+<p>The <a class="localLink" href="http://schema.org/ReportageNewsArticle">ReportageNewsArticle</a> type is based on a stricter ideal for "news" as a work of journalism, with articles based on factual information either observed or verified by the author, or reported and verified from knowledgeable sources.  This often includes perspectives from multiple viewpoints on a particular issue (distinguishing news reports from public relations or propaganda).  News reports in the <a class="localLink" href="http://schema.org/ReportageNewsArticle">ReportageNewsArticle</a> sense de-emphasize the opinion of the author, with commentary and value judgements typically expressed elsewhere.</p>
+
+<p>A <a class="localLink" href="http://schema.org/ReportageNewsArticle">ReportageNewsArticle</a> which goes deeper into analysis can also be marked with an additional type of <a class="localLink" href="http://schema.org/AnalysisNewsArticle">AnalysisNewsArticle</a>.]]></rdfs:comment>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1525"/>
+    <schema:category>issue-1525</schema:category>
+  </rdfs:Class>
+  <rdf:Property rdf:about="http://schema.org/accountOverdraftLimit">
+    <rdfs:label>accountOverdraftLimit</rdfs:label>
+    <rdfs:comment>An overdraft is an extension of credit from a lending institution when an account reaches zero. An overdraft allows the individual to continue withdrawing money even if the account has no funds in it. Basically the bank allows people to borrow a set amount of money.</rdfs:comment>
+    <dct:source rdf:resource="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO"/>
+    <schema:domainIncludes rdf:resource="http://schema.org/BankAccount"/>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1253"/>
+    <schema:rangeIncludes rdf:resource="http://schema.org/MonetaryAmount"/>
+    <schema:category>issue-1253</schema:category>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+  </rdf:Property>
+  <rdfs:Class rdf:about="http://schema.org/EndorsementRating">
+    <schema:category>issue-1293</schema:category>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1061"/>
+    <rdfs:subClassOf rdf:resource="http://schema.org/Rating"/>
+    <rdfs:comment><![CDATA[An EndorsementRating is a rating that expresses some level of endorsement, for example inclusion in a "critic's pick" blog, a
+  "Like" or "+1" on a social network. It can be considered the <a class="localLink" href="http://schema.org/result">result</a> of an <a class="localLink" href="http://schema.org/EndorseAction">EndorseAction</a> in which the <a class="localLink" href="http://schema.org/object">object</a> of the action is rated positively by
+  some <a class="localLink" href="http://schema.org/agent">agent</a>. As is common elsewhere in schema.org, it is sometimes more useful to describe the results of such an action without explicitly describing the <a class="localLink" href="http://schema.org/Action">Action</a>.</p>
+
+<p>An <a class="localLink" href="http://schema.org/EndorsementRating">EndorsementRating</a> may be part of a numeric scale or organized system, but this is not required: having an explicit type for indicating a positive,
+  endorsement rating is particularly useful in the absence of numeric scales as it helps consumers understand that the rating is broadly positive.]]></rdfs:comment>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <rdfs:label>EndorsementRating</rdfs:label>
+  </rdfs:Class>
+  <rdfs:Class rdf:about="http://schema.org/PublicToilet">
+    <schema:category>issue-1624</schema:category>
+    <rdfs:comment>A public toilet is a room or small building containing one or more toilets (and possibly also urinals) which is available for use by the general public, or by customers or employees of certain businesses.</rdfs:comment>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <rdfs:label>PublicToilet</rdfs:label>
+    <rdfs:subClassOf rdf:resource="http://schema.org/CivicStructure"/>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1624"/>
+  </rdfs:Class>
+  <rdfs:Class rdf:about="http://schema.org/FMRadioChannel">
+    <rdfs:comment>A radio channel that uses FM.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="http://schema.org/RadioChannel"/>
+    <schema:category>issue-1004</schema:category>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <rdfs:label>FMRadioChannel</rdfs:label>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1004"/>
+  </rdfs:Class>
+  <rdf:Property rdf:about="http://schema.org/educationalCredentialAwarded">
+    <rdfs:label>educationalCredentialAwarded</rdfs:label>
+    <schema:rangeIncludes rdf:resource="http://schema.org/URL"/>
+    <schema:category>issue-195</schema:category>
+    <schema:rangeIncludes rdf:resource="http://schema.org/Text"/>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/195"/>
+    <rdfs:comment>A description of the qualification, award, certificate, diploma or other educational credential awarded as a consequence of successful completion of this course.</rdfs:comment>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <schema:domainIncludes rdf:resource="http://schema.org/Course"/>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://schema.org/variableMeasured">
+    <schema:domainIncludes rdf:resource="http://schema.org/Dataset"/>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <schema:rangeIncludes rdf:resource="http://schema.org/PropertyValue"/>
+    <rdfs:comment>The variableMeasured property can indicate (repeated as necessary) the  variables that are measured in some dataset, either described as text or as pairs of identifier and description using PropertyValue.</rdfs:comment>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1083"/>
+    <schema:rangeIncludes rdf:resource="http://schema.org/Text"/>
+    <rdfs:label>variableMeasured</rdfs:label>
+    <schema:category>issue-1083</schema:category>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://schema.org/geospatiallyEquals">
+    <rdfs:comment><![CDATA[Represents spatial relations in which two geometries (or the places they represent) are topologically equal, as defined in <a href="https://en.wikipedia.org/wiki/DE-9IM">DE-9IM</a>. "Two geometries are topologically equal if their interiors intersect and no part of the interior or boundary of one geometry intersects the exterior of the other" (a symmetric relationship)]]></rdfs:comment>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <rdfs:label>geospatiallyEquals</rdfs:label>
+    <schema:category>issue-1375</schema:category>
+    <schema:domainIncludes rdf:resource="http://schema.org/Place"/>
+    <schema:rangeIncludes rdf:resource="http://schema.org/GeospatialGeometry"/>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1375"/>
+    <schema:domainIncludes rdf:resource="http://schema.org/GeospatialGeometry"/>
+    <schema:rangeIncludes rdf:resource="http://schema.org/Place"/>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://schema.org/loanType">
+    <rdfs:label>loanType</rdfs:label>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <dct:source rdf:resource="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO"/>
+    <schema:rangeIncludes rdf:resource="http://schema.org/Text"/>
+    <schema:domainIncludes rdf:resource="http://schema.org/LoanOrCredit"/>
+    <schema:rangeIncludes rdf:resource="http://schema.org/URL"/>
+    <rdfs:comment>The type of a loan or credit.</rdfs:comment>
+    <schema:category>issue-1253</schema:category>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1253"/>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://schema.org/correctionsPolicy">
+    <schema:domainIncludes rdf:resource="http://schema.org/NewsMediaOrganization"/>
+    <schema:rangeIncludes rdf:resource="http://schema.org/URL"/>
+    <schema:domainIncludes rdf:resource="http://schema.org/Organization"/>
+    <rdfs:label>correctionsPolicy</rdfs:label>
+    <rdfs:comment><![CDATA[For an <a class="localLink" href="http://schema.org/Organization">Organization</a> (e.g. <a class="localLink" href="http://schema.org/NewsMediaOrganization">NewsMediaOrganization</a>), a statement describing (in news media, the newsroom’s) disclosure and correction policy for errors.]]></rdfs:comment>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <rdfs:subPropertyOf rdf:resource="http://schema.org/publishingPrinciples"/>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1525"/>
+    <schema:rangeIncludes rdf:resource="http://schema.org/CreativeWork"/>
+    <schema:category>issue-1525</schema:category>
+    <dct:source rdf:resource="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP"/>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://schema.org/includesHealthPlanFormulary">
+    <rdfs:comment>Formularies covered by this plan.</rdfs:comment>
+    <schema:category>issue-1062</schema:category>
+    <schema:domainIncludes rdf:resource="http://schema.org/HealthInsurancePlan"/>
+    <schema:rangeIncludes rdf:resource="http://schema.org/HealthPlanFormulary"/>
+    <rdfs:label>includesHealthPlanFormulary</rdfs:label>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1062"/>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://schema.org/includesHealthPlanNetwork">
+    <rdfs:label>includesHealthPlanNetwork</rdfs:label>
+    <rdfs:comment>Networks covered by this plan.</rdfs:comment>
+    <schema:category>issue-1062</schema:category>
+    <schema:domainIncludes rdf:resource="http://schema.org/HealthInsurancePlan"/>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1062"/>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <schema:rangeIncludes rdf:resource="http://schema.org/HealthPlanNetwork"/>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://schema.org/loanMortgageMandateAmount">
+    <schema:category>issue-1253</schema:category>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1253"/>
+    <rdfs:label>loanMortgageMandateAmount</rdfs:label>
+    <schema:rangeIncludes rdf:resource="http://schema.org/MonetaryAmount"/>
+    <rdfs:comment>Amount of mortgage mandate that can be converted into a proper mortgage at a later stage.</rdfs:comment>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <schema:domainIncludes rdf:resource="http://schema.org/MortgageLoan"/>
+    <dct:source rdf:resource="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO"/>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://schema.org/geospatiallyCovers">
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1375"/>
+    <schema:rangeIncludes rdf:resource="http://schema.org/GeospatialGeometry"/>
+    <schema:domainIncludes rdf:resource="http://schema.org/GeospatialGeometry"/>
+    <rdfs:comment><![CDATA[Represents a relationship between two geometries (or the places they represent), relating a covering geometry to a covered geometry. "Every point of b is a point of (the interior or boundary of) a". As defined in <a href="https://en.wikipedia.org/wiki/DE-9IM">DE-9IM</a>.]]></rdfs:comment>
+    <schema:domainIncludes rdf:resource="http://schema.org/Place"/>
+    <rdfs:label>geospatiallyCovers</rdfs:label>
+    <schema:category>issue-1375</schema:category>
+    <schema:rangeIncludes rdf:resource="http://schema.org/Place"/>
+  </rdf:Property>
+  <rdfs:Class rdf:about="http://schema.org/ReviewNewsArticle">
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <rdfs:comment><![CDATA[A <a class="localLink" href="http://schema.org/NewsArticle">NewsArticle</a> and <a class="localLink" href="http://schema.org/CriticReview">CriticReview</a> providing a professional critic's assessment of a service, product, performance, or artistic or literary work.]]></rdfs:comment>
+    <rdfs:subClassOf rdf:resource="http://schema.org/CriticReview"/>
+    <dct:source rdf:resource="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP"/>
+    <rdfs:subClassOf rdf:resource="http://schema.org/NewsArticle"/>
+    <rdfs:label>ReviewNewsArticle</rdfs:label>
+    <schema:category>issue-1525</schema:category>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1525"/>
+  </rdfs:Class>
+  <rdf:Property rdf:about="http://schema.org/documentation">
+    <rdfs:comment>Further documentation describing the Web API in more detail.</rdfs:comment>
+    <schema:category>issue-1423</schema:category>
+    <schema:rangeIncludes rdf:resource="http://schema.org/CreativeWork"/>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1423"/>
+    <schema:rangeIncludes rdf:resource="http://schema.org/URL"/>
+    <rdfs:label>documentation</rdfs:label>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <schema:domainIncludes rdf:resource="http://schema.org/WebAPI"/>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://schema.org/currency">
+    <schema:domainIncludes rdf:resource="http://schema.org/LoanOrCredit"/>
+    <schema:category>issue-1253</schema:category>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1253"/>
+    <schema:domainIncludes rdf:resource="http://schema.org/ExchangeRateSpecification"/>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://schema.org/geospatiallyDisjoint">
+    <schema:domainIncludes rdf:resource="http://schema.org/Place"/>
+    <rdfs:comment><![CDATA[Represents spatial relations in which two geometries (or the places they represent) are topologically disjoint: they have no point in common. They form a set of disconnected geometries." (a symmetric relationship, as defined in <a href="https://en.wikipedia.org/wiki/DE-9IM">DE-9IM</a>)]]></rdfs:comment>
+    <schema:rangeIncludes rdf:resource="http://schema.org/GeospatialGeometry"/>
+    <schema:rangeIncludes rdf:resource="http://schema.org/Place"/>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1375"/>
+    <rdfs:label>geospatiallyDisjoint</rdfs:label>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <schema:domainIncludes rdf:resource="http://schema.org/GeospatialGeometry"/>
+    <schema:category>issue-1375</schema:category>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://schema.org/byDay">
+    <schema:domainIncludes rdf:resource="http://schema.org/Schedule"/>
+    <rdfs:label>byDay</rdfs:label>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1457"/>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <schema:category>issue-1457</schema:category>
+    <schema:rangeIncludes rdf:resource="http://schema.org/DayOfWeek"/>
+    <rdfs:comment><![CDATA[Defines the day(s) of the week on which a recurring <a class="localLink" href="http://schema.org/Event">Event</a> takes place]]></rdfs:comment>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://schema.org/legislationResponsible">
+    <owl:equivalentProperty rdf:resource="http://data.europa.eu/eli/ontology#responsibility_of"/>
+    <rdfs:comment>An individual or organization that has some kind of responsibility for the legislation. Typically the ministry who is/was in charge of elaborating the legislation, or the adressee for potential questions about the legislation once it is published.</rdfs:comment>
+    <dct:source rdf:resource="http://publications.europa.eu/mdr/eli/index.html"/>
+    <schema:rangeIncludes rdf:resource="http://schema.org/Person"/>
+    <schema:domainIncludes rdf:resource="http://schema.org/Legislation"/>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <schema:category>issue-1156</schema:category>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1156"/>
+    <rdfs:label>legislationResponsible</rdfs:label>
+    <ns1:exactMatch rdf:resource="http://data.europa.eu/eli/ontology#responsibility_of"/>
+    <schema:rangeIncludes rdf:resource="http://schema.org/Organization"/>
+  </rdf:Property>
+  <rdfs:Class rdf:about="http://schema.org/Distillery">
+    <rdfs:subClassOf rdf:resource="http://schema.org/FoodEstablishment"/>
+    <schema:category>issue-743</schema:category>
+    <rdfs:label>Distillery</rdfs:label>
+    <rdfs:comment>A distillery.</rdfs:comment>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/743"/>
+  </rdfs:Class>
+  <rdf:Property rdf:about="http://schema.org/repeatCount">
+    <schema:rangeIncludes rdf:resource="http://schema.org/Integer"/>
+    <rdfs:label>repeatCount</rdfs:label>
+    <rdfs:comment><![CDATA[Defines the number of times a recurring <a class="localLink" href="http://schema.org/Event">Event</a> will take place]]></rdfs:comment>
+    <schema:domainIncludes rdf:resource="http://schema.org/Schedule"/>
+    <schema:category>issue-1457</schema:category>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1457"/>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://schema.org/geospatiallyWithin">
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1375"/>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <schema:domainIncludes rdf:resource="http://schema.org/Place"/>
+    <rdfs:comment><![CDATA[Represents a relationship between two geometries (or the places they represent), relating a geometry to one that contains it, i.e. it is inside (i.e. within) its interior. As defined in <a href="https://en.wikipedia.org/wiki/DE-9IM">DE-9IM</a>.]]></rdfs:comment>
+    <schema:rangeIncludes rdf:resource="http://schema.org/Place"/>
+    <schema:rangeIncludes rdf:resource="http://schema.org/GeospatialGeometry"/>
+    <rdfs:label>geospatiallyWithin</rdfs:label>
+    <schema:domainIncludes rdf:resource="http://schema.org/GeospatialGeometry"/>
+    <schema:category>issue-1375</schema:category>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://schema.org/missionCoveragePrioritiesPolicy">
+    <rdfs:comment><![CDATA[For a <a class="localLink" href="http://schema.org/NewsMediaOrganization">NewsMediaOrganization</a>, a statement on coverage priorities, including any public agenda or stance on issues.]]></rdfs:comment>
+    <schema:rangeIncludes rdf:resource="http://schema.org/CreativeWork"/>
+    <schema:domainIncludes rdf:resource="http://schema.org/NewsMediaOrganization"/>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1525"/>
+    <rdfs:label>missionCoveragePrioritiesPolicy</rdfs:label>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <dct:source rdf:resource="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP"/>
+    <schema:rangeIncludes rdf:resource="http://schema.org/URL"/>
+    <schema:category>issue-1525</schema:category>
+    <rdfs:subPropertyOf rdf:resource="http://schema.org/publishingPrinciples"/>
+  </rdf:Property>
+  <rdfs:Class rdf:about="http://schema.org/LibrarySystem">
+    <schema:category>issue-1495</schema:category>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <rdfs:label>LibrarySystem</rdfs:label>
+    <rdfs:subClassOf rdf:resource="http://schema.org/Organization"/>
+    <rdfs:comment><![CDATA[A <a class="localLink" href="http://schema.org/LibrarySystem">LibrarySystem</a> is a collaborative system amongst several libraries.]]></rdfs:comment>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1495"/>
+  </rdfs:Class>
+  <rdfs:Class rdf:about="http://schema.org/PreOrderAction">
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <rdfs:label>PreOrderAction</rdfs:label>
+    <rdfs:comment>An agent orders a (not yet released) object/product/service to be delivered/sent.</rdfs:comment>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1125"/>
+    <rdfs:subClassOf rdf:resource="http://schema.org/TradeAction"/>
+    <schema:category>issue-1125</schema:category>
+  </rdfs:Class>
+  <rdf:Property rdf:about="http://schema.org/legislationDate">
+    <rdfs:comment>The date of adoption or signature of the legislation. This is the date at which the text is officially aknowledged to be a legislation, even though it might not even be published or in force.</rdfs:comment>
+    <schema:rangeIncludes rdf:resource="http://schema.org/Date"/>
+    <owl:equivalentProperty rdf:resource="http://data.europa.eu/eli/ontology#date_document"/>
+    <ns1:exactMatch rdf:resource="http://data.europa.eu/eli/ontology#date_document"/>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1156"/>
+    <rdfs:subPropertyOf rdf:resource="http://schema.org/dateCreated"/>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <schema:category>issue-1156</schema:category>
+    <schema:domainIncludes rdf:resource="http://schema.org/Legislation"/>
+    <rdfs:label>legislationDate</rdfs:label>
+    <dct:source rdf:resource="http://publications.europa.eu/mdr/eli/index.html"/>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://schema.org/includedInHealthInsurancePlan">
+    <schema:category>issue-1062</schema:category>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1062"/>
+    <rdfs:label>includedInHealthInsurancePlan</rdfs:label>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <schema:domainIncludes rdf:resource="http://schema.org/Drug"/>
+    <schema:rangeIncludes rdf:resource="http://schema.org/HealthInsurancePlan"/>
+    <rdfs:comment>The insurance plans that cover this drug.</rdfs:comment>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://schema.org/benefitsSummaryUrl">
+    <schema:rangeIncludes rdf:resource="http://schema.org/URL"/>
+    <schema:category>issue-1062</schema:category>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1062"/>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <rdfs:label>benefitsSummaryUrl</rdfs:label>
+    <schema:domainIncludes rdf:resource="http://schema.org/HealthInsurancePlan"/>
+    <rdfs:comment>The URL that goes directly to the summary of benefits and coverage for the specific standard plan or plan variation.</rdfs:comment>
+  </rdf:Property>
+  <rdfs:Class rdf:about="http://schema.org/BackgroundNewsArticle">
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1525"/>
+    <rdfs:subClassOf rdf:resource="http://schema.org/NewsArticle"/>
+    <schema:category>issue-1525</schema:category>
+    <rdfs:label>BackgroundNewsArticle</rdfs:label>
+    <rdfs:comment><![CDATA[A <a class="localLink" href="http://schema.org/NewsArticle">NewsArticle</a> providing historical context, definition and detail on a specific topic (aka "explainer" or "backgrounder"). For example, an in-depth article or frequently-asked-questions (<a href="https://en.wikipedia.org/wiki/FAQ">FAQ</a>) document on topics such as Climate Change or the European Union. Other kinds of background material from a non-news setting are often described using <a class="localLink" href="http://schema.org/Book">Book</a> or <a class="localLink" href="http://schema.org/Article">Article</a>, in particular <a class="localLink" href="http://schema.org/ScholarlyArticle">ScholarlyArticle</a>. See also <a class="localLink" href="http://schema.org/NewsArticle">NewsArticle</a> for related vocabulary from a learning/education perspective.]]></rdfs:comment>
+    <dct:source rdf:resource="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP"/>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+  </rdfs:Class>
+  <rdf:Property rdf:about="http://schema.org/geospatiallyOverlaps">
+    <schema:category>issue-1375</schema:category>
+    <rdfs:comment><![CDATA[Represents a relationship between two geometries (or the places they represent), relating a geometry to another that geospatially overlaps it, i.e. they have some but not all points in common. As defined in <a href="https://en.wikipedia.org/wiki/DE-9IM">DE-9IM</a>.]]></rdfs:comment>
+    <schema:rangeIncludes rdf:resource="http://schema.org/Place"/>
+    <schema:rangeIncludes rdf:resource="http://schema.org/GeospatialGeometry"/>
+    <schema:domainIncludes rdf:resource="http://schema.org/Place"/>
+    <rdfs:label>geospatiallyOverlaps</rdfs:label>
+    <schema:domainIncludes rdf:resource="http://schema.org/GeospatialGeometry"/>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1375"/>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://schema.org/earlyPrepaymentPenalty">
+    <schema:domainIncludes rdf:resource="http://schema.org/RepaymentSpecification"/>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <rdfs:comment>The amount to be paid as a penalty in the event of early payment of the loan.</rdfs:comment>
+    <rdfs:label>earlyPrepaymentPenalty</rdfs:label>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1253"/>
+    <schema:category>issue-1253</schema:category>
+    <dct:source rdf:resource="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO"/>
+    <schema:rangeIncludes rdf:resource="http://schema.org/MonetaryAmount"/>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://schema.org/exchangeRateSpread">
+    <schema:rangeIncludes rdf:resource="http://schema.org/MonetaryAmount"/>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1253"/>
+    <dct:source rdf:resource="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO"/>
+    <rdfs:label>exchangeRateSpread</rdfs:label>
+    <schema:rangeIncludes rdf:resource="http://schema.org/Number"/>
+    <schema:domainIncludes rdf:resource="http://schema.org/ExchangeRateSpecification"/>
+    <rdfs:comment>The difference between the price at which a broker or other intermediary buys and sells foreign currency.</rdfs:comment>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <schema:category>issue-1253</schema:category>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://schema.org/broadcastFrequencyValue">
+    <schema:category>issue-1004</schema:category>
+    <rdfs:label>broadcastFrequencyValue</rdfs:label>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <schema:domainIncludes rdf:resource="http://schema.org/BroadcastFrequencySpecification"/>
+    <rdfs:comment>The frequency in MHz for a particular broadcast.</rdfs:comment>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1004"/>
+    <schema:rangeIncludes rdf:resource="http://schema.org/Number"/>
+    <schema:rangeIncludes rdf:resource="http://schema.org/QuantitativeValue"/>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://schema.org/healthPlanDrugTier">
+    <rdfs:label>healthPlanDrugTier</rdfs:label>
+    <schema:domainIncludes rdf:resource="http://schema.org/HealthInsurancePlan"/>
+    <schema:domainIncludes rdf:resource="http://schema.org/HealthPlanFormulary"/>
+    <rdfs:comment>The tier(s) of drugs offered by this formulary or insurance plan.</rdfs:comment>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <schema:rangeIncludes rdf:resource="http://schema.org/Text"/>
+    <schema:category>issue-1062</schema:category>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1062"/>
+  </rdf:Property>
+  <schema:LegalValueLevel rdf:about="http://schema.org/AuthoritativeLegalValue">
+    <schema:category>issue-1156</schema:category>
+    <rdfs:label>AuthoritativeLegalValue</rdfs:label>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <ns1:exactMatch rdf:resource="http://data.europa.eu/eli/ontology#LegalValue-authoritative"/>
+    <dct:source rdf:resource="http://publications.europa.eu/mdr/eli/index.html"/>
+    <rdfs:comment><![CDATA[Indicates that the publisher gives some special status to the publication of the document. ("The Queens Printer" version of a UK Act of Parliament, or the PDF version of a Directive published by the EU Office of Publications). Something "AuthoritativeLegalValue" is considered to be also <a class="localLink" href="http://schema.org/OfficialLegalValue">OfficialLegalValue</a>".]]></rdfs:comment>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1156"/>
+  </schema:LegalValueLevel>
+  <rdf:Property rdf:about="http://schema.org/geospatiallyCrosses">
+    <schema:category>issue-1375</schema:category>
+    <schema:domainIncludes rdf:resource="http://schema.org/GeospatialGeometry"/>
+    <rdfs:label>geospatiallyCrosses</rdfs:label>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1375"/>
+    <schema:rangeIncludes rdf:resource="http://schema.org/GeospatialGeometry"/>
+    <rdfs:comment><![CDATA[Represents a relationship between two geometries (or the places they represent), relating a geometry to another that crosses it: "a crosses b: they have some but not all interior points in common, and the dimension of the intersection is less than that of at least one of them". As defined in <a href="https://en.wikipedia.org/wiki/DE-9IM">DE-9IM</a>.]]></rdfs:comment>
+    <schema:domainIncludes rdf:resource="http://schema.org/Place"/>
+    <schema:rangeIncludes rdf:resource="http://schema.org/Place"/>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://schema.org/bed">
+    <schema:rangeIncludes rdf:resource="http://schema.org/BedType"/>
+  </rdf:Property>
+  <rdfs:Class rdf:about="http://schema.org/Consortium">
+    <rdfs:subClassOf rdf:resource="http://schema.org/Organization"/>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1559"/>
+    <rdfs:label>Consortium</rdfs:label>
+    <schema:category>issue-1559</schema:category>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <rdfs:comment><![CDATA[A Consortium is a membership <a class="localLink" href="http://schema.org/Organization">Organization</a> whose members are typically Organizations.]]></rdfs:comment>
+  </rdfs:Class>
+  <rdf:Property rdf:about="http://schema.org/verificationFactCheckingPolicy">
+    <schema:rangeIncludes rdf:resource="http://schema.org/CreativeWork"/>
+    <schema:domainIncludes rdf:resource="http://schema.org/NewsMediaOrganization"/>
+    <schema:category>issue-1525</schema:category>
+    <rdfs:comment><![CDATA[Disclosure about verification and fact-checking processes for a <a class="localLink" href="http://schema.org/NewsMediaOrganization">NewsMediaOrganization</a> or other fact-checking <a class="localLink" href="http://schema.org/Organization">Organization</a>.]]></rdfs:comment>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <dct:source rdf:resource="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP"/>
+    <schema:rangeIncludes rdf:resource="http://schema.org/URL"/>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1525"/>
+    <rdfs:label>verificationFactCheckingPolicy</rdfs:label>
+    <rdfs:subPropertyOf rdf:resource="http://schema.org/publishingPrinciples"/>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://schema.org/loanRepaymentForm">
+    <rdfs:label>loanRepaymentForm</rdfs:label>
+    <schema:category>issue-1253</schema:category>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1253"/>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <dct:source rdf:resource="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO"/>
+    <schema:rangeIncludes rdf:resource="http://schema.org/RepaymentSpecification"/>
+    <schema:domainIncludes rdf:resource="http://schema.org/LoanOrCredit"/>
+    <rdfs:comment>A form of paying back money previously borrowed from a lender. Repayment usually takes the form of periodic payments that normally include part principal plus interest in each payment.</rdfs:comment>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://schema.org/healthPlanCoinsuranceOption">
+    <schema:rangeIncludes rdf:resource="http://schema.org/Text"/>
+    <rdfs:comment>Whether the coinsurance applies before or after deductible, etc. TODO: Is this a closed set?</rdfs:comment>
+    <schema:category>issue-1062</schema:category>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1062"/>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <rdfs:label>healthPlanCoinsuranceOption</rdfs:label>
+    <schema:domainIncludes rdf:resource="http://schema.org/HealthPlanCostSharingSpecification"/>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://schema.org/codeValue">
+    <rdfs:comment>A short textual code that uniquely identifies the value.</rdfs:comment>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/894"/>
+    <schema:category>issue-894</schema:category>
+    <rdfs:label>codeValue</rdfs:label>
+    <schema:domainIncludes rdf:resource="http://schema.org/CategoryCode"/>
+    <schema:rangeIncludes rdf:resource="http://schema.org/Text"/>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://schema.org/inCodeSet">
+    <rdfs:subPropertyOf rdf:resource="http://schema.org/isPartOf"/>
+    <rdfs:comment><![CDATA[A <a class="localLink" href="http://schema.org/CategoryCodeSet">CategoryCodeSet</a> that contains this catagory code.]]></rdfs:comment>
+    <schema:category>issue-894</schema:category>
+    <schema:rangeIncludes rdf:resource="http://schema.org/URL"/>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <rdfs:label>inCodeSet</rdfs:label>
+    <schema:domainIncludes rdf:resource="http://schema.org/CategoryCode"/>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/894"/>
+    <schema:rangeIncludes rdf:resource="http://schema.org/CategoryCodeSet"/>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://schema.org/healthPlanDrugOption">
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1062"/>
+    <schema:domainIncludes rdf:resource="http://schema.org/HealthInsurancePlan"/>
+    <schema:rangeIncludes rdf:resource="http://schema.org/Text"/>
+    <rdfs:label>healthPlanDrugOption</rdfs:label>
+    <schema:category>issue-1062</schema:category>
+    <rdfs:comment>TODO.</rdfs:comment>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://schema.org/healthPlanNetworkId">
+    <rdfs:comment>Name or unique ID of network. (Networks are often reused across different insurance plans).</rdfs:comment>
+    <schema:domainIncludes rdf:resource="http://schema.org/HealthPlanNetwork"/>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <schema:domainIncludes rdf:resource="http://schema.org/MedicalOrganization"/>
+    <rdfs:label>healthPlanNetworkId</rdfs:label>
+    <schema:category>issue-1062</schema:category>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1062"/>
+    <schema:rangeIncludes rdf:resource="http://schema.org/Text"/>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://schema.org/downPayment">
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <schema:category>issue-1253</schema:category>
+    <dct:source rdf:resource="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO"/>
+    <schema:rangeIncludes rdf:resource="http://schema.org/MonetaryAmount"/>
+    <rdfs:comment>a type of payment made in cash during the onset of the purchase of an expensive good/service. The payment typically represents only a percentage of the full purchase price.</rdfs:comment>
+    <rdfs:label>downPayment</rdfs:label>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1253"/>
+    <schema:domainIncludes rdf:resource="http://schema.org/RepaymentSpecification"/>
+    <schema:rangeIncludes rdf:resource="http://schema.org/Number"/>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://schema.org/legislationType">
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <schema:category>issue-1156</schema:category>
+    <rdfs:subPropertyOf rdf:resource="http://schema.org/genre"/>
+    <ns1:exactMatch rdf:resource="http://data.europa.eu/eli/ontology#type_document"/>
+    <owl:equivalentProperty rdf:resource="http://data.europa.eu/eli/ontology#type_document"/>
+    <schema:rangeIncludes rdf:resource="http://schema.org/Text"/>
+    <schema:rangeIncludes rdf:resource="http://schema.org/CategoryCode"/>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1156"/>
+    <dct:source rdf:resource="http://publications.europa.eu/mdr/eli/index.html"/>
+    <rdfs:label>legislationType</rdfs:label>
+    <schema:domainIncludes rdf:resource="http://schema.org/Legislation"/>
+    <rdfs:comment>The type of the legislation. Examples of values are "law", "act", "directive", "decree", "regulation", "statutory instrument", "loi organique", "règlement grand-ducal", etc., depending on the country.</rdfs:comment>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://schema.org/currentExchangeRate">
+    <rdfs:label>currentExchangeRate</rdfs:label>
+    <schema:rangeIncludes rdf:resource="http://schema.org/UnitPriceSpecification"/>
+    <rdfs:comment>The current price of a currency.</rdfs:comment>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1253"/>
+    <schema:category>issue-1253</schema:category>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <dct:source rdf:resource="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO"/>
+    <schema:domainIncludes rdf:resource="http://schema.org/ExchangeRateSpecification"/>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://schema.org/gracePeriod">
+    <rdfs:label>gracePeriod</rdfs:label>
+    <rdfs:comment>The period of time after any due date that the borrower has to fulfil its obligations before a default (failure to pay) is deemed to have occurred.</rdfs:comment>
+    <schema:domainIncludes rdf:resource="http://schema.org/LoanOrCredit"/>
+    <dct:source rdf:resource="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO"/>
+    <schema:rangeIncludes rdf:resource="http://schema.org/Duration"/>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1253"/>
+    <schema:category>issue-1253</schema:category>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://schema.org/domiciledMortgage">
+    <rdfs:label>domiciledMortgage</rdfs:label>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1253"/>
+    <schema:category>issue-1253</schema:category>
+    <schema:domainIncludes rdf:resource="http://schema.org/MortgageLoan"/>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <dct:source rdf:resource="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO"/>
+    <schema:rangeIncludes rdf:resource="http://schema.org/Boolean"/>
+    <rdfs:comment>Whether borrower is a resident of the jurisdiction where the property is located.</rdfs:comment>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://schema.org/healthPlanCopayOption">
+    <schema:rangeIncludes rdf:resource="http://schema.org/Text"/>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1062"/>
+    <rdfs:comment>Whether the copay is before or after deductible, etc. TODO: Is this a closed set?</rdfs:comment>
+    <schema:domainIncludes rdf:resource="http://schema.org/HealthPlanCostSharingSpecification"/>
+    <rdfs:label>healthPlanCopayOption</rdfs:label>
+    <schema:category>issue-1062</schema:category>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://schema.org/xpath">
+    <rdfs:comment>An XPath.</rdfs:comment>
+    <rdfs:label>xpath</rdfs:label>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <schema:category>issue-1389</schema:category>
+    <schema:rangeIncludes rdf:resource="http://schema.org/XPathType"/>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1389"/>
+    <schema:domainIncludes rdf:resource="http://schema.org/SpeakableSpecification"/>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://schema.org/menuAddOn">
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1541"/>
+    <schema:rangeIncludes rdf:resource="http://schema.org/MenuSection"/>
+    <schema:category>issue-1541</schema:category>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <schema:rangeIncludes rdf:resource="http://schema.org/MenuItem"/>
+    <rdfs:comment>Additional menu item(s) such as a side dish of salad or side order of fries that can be added to this menu item. Additionally it can be a menu section containing allowed add-on menu items for this menu item.</rdfs:comment>
+    <schema:domainIncludes rdf:resource="http://schema.org/MenuItem"/>
+    <rdfs:label>menuAddOn</rdfs:label>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://schema.org/exceptDate">
+    <rdfs:label>exceptDate</rdfs:label>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <schema:rangeIncludes rdf:resource="http://schema.org/Date"/>
+    <schema:category>issue-1457</schema:category>
+    <rdfs:comment><![CDATA[Defines a <a class="localLink" href="http://schema.org/Date">Date</a> or <a class="localLink" href="http://schema.org/DateTime">DateTime</a> during which a scheduled <a class="localLink" href="http://schema.org/Event">Event</a> will not take place. The property allows exceptions to
+      a <a class="localLink" href="http://schema.org/Schedule">Schedule</a> to be specified. If an exception is specified as a <a class="localLink" href="http://schema.org/DateTime">DateTime</a> then only the event that would have started at that specific date and time
+      should be excluded from the schedule. If an exception is specified as a <a class="localLink" href="http://schema.org/Date">Date</a> then any event that is scheduled for that 24 hour period should be
+      excluded from the schedule. This allows a whole day to be excluded from the schedule without having to itemise every scheduled event.]]></rdfs:comment>
+    <schema:rangeIncludes rdf:resource="http://schema.org/DateTime"/>
+    <schema:domainIncludes rdf:resource="http://schema.org/Schedule"/>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1457"/>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://schema.org/accountMinimumInflow">
+    <schema:category>issue-1253</schema:category>
+    <schema:rangeIncludes rdf:resource="http://schema.org/MonetaryAmount"/>
+    <rdfs:comment>A minimum amount that has to be paid in every month.</rdfs:comment>
+    <schema:domainIncludes rdf:resource="http://schema.org/BankAccount"/>
+    <rdfs:label>accountMinimumInflow</rdfs:label>
+    <dct:source rdf:resource="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO"/>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1253"/>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://schema.org/spokenByCharacter">
+    <schema:rangeIncludes rdf:resource="http://schema.org/Organization"/>
+    <schema:domainIncludes rdf:resource="http://schema.org/Quotation"/>
+    <schema:rangeIncludes rdf:resource="http://schema.org/Person"/>
+    <rdfs:label>spokenByCharacter</rdfs:label>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/271"/>
+    <rdfs:comment>The (e.g. fictional) character, Person or Organization to whom the quotation is attributed within the containing CreativeWork.</rdfs:comment>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <schema:category>issue-271</schema:category>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://schema.org/monthlyMinimumRepaymentAmount">
+    <schema:domainIncludes rdf:resource="http://schema.org/CreditCard"/>
+    <rdfs:comment>The minimum payment is the lowest amount of money that one is required to pay on a credit card statement each month.</rdfs:comment>
+    <schema:rangeIncludes rdf:resource="http://schema.org/MonetaryAmount"/>
+    <schema:category>issue-1253</schema:category>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1253"/>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <rdfs:label>monthlyMinimumRepaymentAmount</rdfs:label>
+    <schema:rangeIncludes rdf:resource="http://schema.org/Number"/>
+    <dct:source rdf:resource="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO"/>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://schema.org/geospatiallyCoveredBy">
+    <schema:domainIncludes rdf:resource="http://schema.org/Place"/>
+    <rdfs:comment><![CDATA[Represents a relationship between two geometries (or the places they represent), relating a geometry to another that covers it. As defined in <a href="https://en.wikipedia.org/wiki/DE-9IM">DE-9IM</a>.]]></rdfs:comment>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1375"/>
+    <schema:rangeIncludes rdf:resource="http://schema.org/GeospatialGeometry"/>
+    <schema:domainIncludes rdf:resource="http://schema.org/GeospatialGeometry"/>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <schema:rangeIncludes rdf:resource="http://schema.org/Place"/>
+    <rdfs:label>geospatiallyCoveredBy</rdfs:label>
+    <schema:category>issue-1375</schema:category>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://schema.org/renegotiableLoan">
+    <schema:domainIncludes rdf:resource="http://schema.org/LoanOrCredit"/>
+    <rdfs:comment>Whether the terms for payment of interest can be renegotiated during the life of the loan.</rdfs:comment>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1253"/>
+    <schema:category>issue-1253</schema:category>
+    <rdfs:label>renegotiableLoan</rdfs:label>
+    <schema:rangeIncludes rdf:resource="http://schema.org/Boolean"/>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <dct:source rdf:resource="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO"/>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://schema.org/byMonth">
+    <schema:category>issue-1457</schema:category>
+    <schema:rangeIncludes rdf:resource="http://schema.org/Integer"/>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <schema:domainIncludes rdf:resource="http://schema.org/Schedule"/>
+    <rdfs:label>byMonth</rdfs:label>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1457"/>
+    <rdfs:comment><![CDATA[Defines the month(s) of the year on which a recurring <a class="localLink" href="http://schema.org/Event">Event</a> takes place. Specified as an <a class="localLink" href="http://schema.org/Integer">Integer</a> between 1-12. January is 1.]]></rdfs:comment>
+  </rdf:Property>
+  <rdfs:Class rdf:about="http://schema.org/EventSeries">
+    <rdfs:subClassOf rdf:resource="http://schema.org/Event"/>
+    <schema:category>issue-447</schema:category>
+    <rdfs:label>EventSeries</rdfs:label>
+    <rdfs:comment><![CDATA[A series of <a class="localLink" href="http://schema.org/Event">Event</a>s. Included events can relate with the series using the <a class="localLink" href="http://schema.org/superEvent">superEvent</a> property.</p>
+
+<p>An EventSeries is a collection of events that share some unifying characteristic. For example, "The Olympic Games" is a series, which
+is repeated regularly. The "2012 London Olympics" can be presented both as an <a class="localLink" href="http://schema.org/Event">Event</a> in the series "Olympic Games", and as an
+<a class="localLink" href="http://schema.org/EventSeries">EventSeries</a> that included a number of sporting competitions as Events.</p>
+
+<p>The nature of the association between the events in an <a class="localLink" href="http://schema.org/EventSeries">EventSeries</a> can vary, but typical examples could
+include a thematic event series (e.g. topical meetups or classes), or a series of regular events that share a location, attendee group and/or organizers.</p>
+
+<p>EventSeries has been defined as a kind of Event to make it easy for publishers to use it in an Event context without
+worrying about which kinds of series are really event-like enough to call an Event. In general an EventSeries
+may seem more Event-like when the period of time is compact and when aspects such as location are fixed, but
+it may also sometimes prove useful to describe a longer-term series as an Event.]]></rdfs:comment>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/447"/>
+  </rdfs:Class>
+  <rdf:Property rdf:about="http://schema.org/speakable">
+    <schema:rangeIncludes rdf:resource="http://schema.org/SpeakableSpecification"/>
+    <rdfs:label>speakable</rdfs:label>
+    <schema:category>issue-1389</schema:category>
+    <schema:domainIncludes rdf:resource="http://schema.org/WebPage"/>
+    <rdfs:comment><![CDATA[Indicates sections of a Web page that are particularly 'speakable' in the sense of being highlighted as being especially appropriate for text-to-speech conversion. Other sections of a page may also be usefully spoken in particular circumstances; the 'speakable' property serves to indicate the parts most likely to be generally useful for speech.</p>
+
+<p>The <em>speakable</em> property can be repeated an arbitrary number of times, with three kinds of possible 'content-locator' values:</p>
+
+<p>1.) <em>id-value</em> URL references - uses <em>id-value</em> of an element in the page being annotated. The simplest use of <em>speakable</em> has (potentially relative) URL values, referencing identified sections of the document concerned.</p>
+
+<p>2.) CSS Selectors - addresses content in the annotated page, eg. via class attribute. Use the <a class="localLink" href="http://schema.org/cssSelector">cssSelector</a> property.</p>
+
+<p>3.)  XPaths - addresses content via XPaths (assuming an XML view of the content). Use the <a class="localLink" href="http://schema.org/xpath">xpath</a> property.</p>
+
+<p>For more sophisticated markup of speakable sections beyond simple ID references, either CSS selectors or XPath expressions to pick out document section(s) as speakable. For this
+we define a supporting type, <a class="localLink" href="http://schema.org/SpeakableSpecification">SpeakableSpecification</a>  which is defined to be a possible value of the <em>speakable</em> property.]]></rdfs:comment>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1389"/>
+    <schema:rangeIncludes rdf:resource="http://schema.org/URL"/>
+    <schema:domainIncludes rdf:resource="http://schema.org/Article"/>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+  </rdf:Property>
+  <rdfs:Class rdf:about="http://schema.org/EmployerReview">
+    <rdfs:comment><![CDATA[An <a class="localLink" href="http://schema.org/EmployerReview">EmployerReview</a> is a review of an <a class="localLink" href="http://schema.org/Organization">Organization</a> regarding its role as an employer, written by a current or former employee of that organization.]]></rdfs:comment>
+    <rdfs:label>EmployerReview</rdfs:label>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1589"/>
+    <rdfs:subClassOf rdf:resource="http://schema.org/Review"/>
+    <schema:category>issue-1576</schema:category>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+  </rdfs:Class>
+  <rdf:Property rdf:about="http://schema.org/hasCategoryCode">
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <rdfs:label>hasCategoryCode</rdfs:label>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/894"/>
+    <schema:rangeIncludes rdf:resource="http://schema.org/CategoryCode"/>
+    <rdfs:comment>A Category code contained in this code set.</rdfs:comment>
+    <rdfs:subPropertyOf rdf:resource="http://schema.org/hasPart"/>
+    <schema:domainIncludes rdf:resource="http://schema.org/CategoryCodeSet"/>
+    <schema:category>issue-894</schema:category>
+  </rdf:Property>
+  <rdfs:Class rdf:about="http://schema.org/WorkersUnion">
+    <schema:category>issue-243</schema:category>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/243"/>
+    <rdfs:comment>A Workers Union (also known as a Labor Union, Labour Union, or Trade Union) is an organization that promotes the interests of its worker members by collectively bargaining with management, organizing, and political lobbying.</rdfs:comment>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <rdfs:label>WorkersUnion</rdfs:label>
+    <rdfs:subClassOf rdf:resource="http://schema.org/Organization"/>
+  </rdfs:Class>
+  <rdf:Property rdf:about="http://schema.org/exchangeRate">
+    <rdfs:comment>The price of a currency in terms of another currency.</rdfs:comment>
+    <schema:rangeIncludes rdf:resource="http://schema.org/ExchangeRateSpecification"/>
+    <schema:rangeIncludes rdf:resource="http://schema.org/UnitPriceSpecification"/>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1253"/>
+    <dct:source rdf:resource="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO"/>
+    <rdfs:label>exchangeRate</rdfs:label>
+    <schema:category>issue-1253</schema:category>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://schema.org/diversityPolicy">
+    <rdfs:label>diversityPolicy</rdfs:label>
+    <schema:domainIncludes rdf:resource="http://schema.org/Organization"/>
+    <schema:rangeIncludes rdf:resource="http://schema.org/CreativeWork"/>
+    <schema:domainIncludes rdf:resource="http://schema.org/NewsMediaOrganization"/>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1525"/>
+    <rdfs:comment><![CDATA[Statement on diversity policy by an <a class="localLink" href="http://schema.org/Organization">Organization</a> e.g. a <a class="localLink" href="http://schema.org/NewsMediaOrganization">NewsMediaOrganization</a>. For a <a class="localLink" href="http://schema.org/NewsMediaOrganization">NewsMediaOrganization</a>, a statement describing the newsroom’s diversity policy on both staffing and sources, typically providing staffing data.]]></rdfs:comment>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <dct:source rdf:resource="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP"/>
+    <schema:rangeIncludes rdf:resource="http://schema.org/URL"/>
+    <schema:category>issue-1525</schema:category>
+  </rdf:Property>
+  <schema:LegalForceStatus rdf:about="http://schema.org/NotInForce">
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1156"/>
+    <rdfs:label>NotInForce</rdfs:label>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <rdfs:comment>Indicates that a legislation is currently not in force.</rdfs:comment>
+    <schema:category>issue-1156</schema:category>
+    <ns1:exactMatch rdf:resource="http://data.europa.eu/eli/ontology#InForce-notInForce"/>
+    <dct:source rdf:resource="http://publications.europa.eu/mdr/eli/index.html"/>
+  </schema:LegalForceStatus>
+  <rdfs:Class rdf:about="http://schema.org/CompleteDataFeed">
+    <rdfs:subClassOf rdf:resource="http://schema.org/DataFeed"/>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1397"/>
+    <rdfs:label>CompleteDataFeed</rdfs:label>
+    <schema:category>issue-1397</schema:category>
+    <rdfs:comment><![CDATA[A <a class="localLink" href="http://schema.org/CompleteDataFeed">CompleteDataFeed</a> is a <a class="localLink" href="http://schema.org/DataFeed">DataFeed</a> whose standard representation includes content for every item currently in the feed.</p>
+
+<p>This is the equivalent of Atom's element as defined in Feed Paging and Archiving <a href="https://tools.ietf.org/html/rfc5005">RFC 5005</a>, For example (and as defined for Atom), when using data from a feed that represents a collection of items that varies over time (e.g. "Top Twenty Records") there is no need to have newer entries mixed in alongside older, obsolete entries. By marking this feed as a CompleteDataFeed, old entries can be safely discarded when the feed is refreshed, since we can assume the feed has provided descriptions for all current items.]]></rdfs:comment>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+  </rdfs:Class>
+  <rdf:Property rdf:about="http://schema.org/legislationIdentifier">
+    <schema:domainIncludes rdf:resource="http://schema.org/Legislation"/>
+    <dct:source rdf:resource="http://publications.europa.eu/mdr/eli/index.html"/>
+    <rdfs:comment>An identifier for the legislation. For example the CELEX at EU level, the NOR in France, or the ELI (European Legislation Identifier).</rdfs:comment>
+    <schema:rangeIncludes rdf:resource="http://schema.org/Text"/>
+    <rdfs:subPropertyOf rdf:resource="http://schema.org/identifier"/>
+    <rdfs:label>legislationIdentifier</rdfs:label>
+    <ns1:closeMatch rdf:resource="http://data.europa.eu/eli/ontology#id_local"/>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1156"/>
+    <schema:category>issue-1156</schema:category>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://schema.org/healthPlanMarketingUrl">
+    <rdfs:comment>The URL that goes directly to the plan brochure for the specific standard plan or plan variation.</rdfs:comment>
+    <rdfs:label>healthPlanMarketingUrl</rdfs:label>
+    <schema:domainIncludes rdf:resource="http://schema.org/HealthInsurancePlan"/>
+    <schema:rangeIncludes rdf:resource="http://schema.org/URL"/>
+    <schema:category>issue-1062</schema:category>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1062"/>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+  </rdf:Property>
+  <schema:LegalForceStatus rdf:about="http://schema.org/InForce">
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1156"/>
+    <rdfs:label>InForce</rdfs:label>
+    <dct:source rdf:resource="http://publications.europa.eu/mdr/eli/index.html"/>
+    <rdfs:comment>Indicates that a legislation is in force.</rdfs:comment>
+    <ns1:exactMatch rdf:resource="http://data.europa.eu/eli/ontology#InForce-inForce"/>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <schema:category>issue-1156</schema:category>
+  </schema:LegalForceStatus>
+  <rdfs:Class rdf:about="http://schema.org/OpinionNewsArticle">
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1525"/>
+    <rdfs:label>OpinionNewsArticle</rdfs:label>
+    <schema:category>issue-1525</schema:category>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <rdfs:comment><![CDATA[An <a class="localLink" href="http://schema.org/OpinionNewsArticle">OpinionNewsArticle</a> is a <a class="localLink" href="http://schema.org/NewsArticle">NewsArticle</a> that primarily expresses opinions rather than journalistic reporting of news and events. For example, a <a class="localLink" href="http://schema.org/NewsArticle">NewsArticle</a> consisting of a column or <a class="localLink" href="http://schema.org/Blog">Blog</a>/<a class="localLink" href="http://schema.org/BlogPosting">BlogPosting</a> entry in the Opinions section of a news publication.]]></rdfs:comment>
+    <rdfs:subClassOf rdf:resource="http://schema.org/NewsArticle"/>
+    <dct:source rdf:resource="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP"/>
+  </rdfs:Class>
+  <rdf:Property rdf:about="http://schema.org/contentReferenceTime">
+    <schema:domainIncludes rdf:resource="http://schema.org/CreativeWork"/>
+    <schema:category>issue-1050</schema:category>
+    <schema:rangeIncludes rdf:resource="http://schema.org/DateTime"/>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <rdfs:label>contentReferenceTime</rdfs:label>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1050"/>
+    <rdfs:comment>The specific time described by a creative work, for works (e.g. articles, video objects etc.) that emphasise a particular moment within an Event.</rdfs:comment>
+  </rdf:Property>
+  <rdfs:Class rdf:about="http://schema.org/BrokerageAccount">
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1253"/>
+    <schema:category>issue-1253</schema:category>
+    <rdfs:comment>An account that allows an investor to deposit funds and place investment orders with a licensed broker or brokerage firm.</rdfs:comment>
+    <dct:source rdf:resource="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO"/>
+    <rdfs:label>BrokerageAccount</rdfs:label>
+    <rdfs:subClassOf rdf:resource="http://schema.org/InvestmentOrDeposit"/>
+  </rdfs:Class>
+  <rdf:Property rdf:about="http://schema.org/measurementTechnique">
+    <schema:domainIncludes rdf:resource="http://schema.org/PropertyValue"/>
+    <schema:category>issue-1425</schema:category>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1425"/>
+    <schema:domainIncludes rdf:resource="http://schema.org/DataCatalog"/>
+    <schema:domainIncludes rdf:resource="http://schema.org/Dataset"/>
+    <schema:domainIncludes rdf:resource="http://schema.org/DataDownload"/>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <schema:rangeIncludes rdf:resource="http://schema.org/Text"/>
+    <rdfs:label>measurementTechnique</rdfs:label>
+    <rdfs:comment><![CDATA[A technique or technology used in a <a class="localLink" href="http://schema.org/Dataset">Dataset</a> (or <a class="localLink" href="http://schema.org/DataDownload">DataDownload</a>, <a class="localLink" href="http://schema.org/DataCatalog">DataCatalog</a>),
+corresponding to the method used for measuring the corresponding variable(s) (described using <a class="localLink" href="http://schema.org/variableMeasured">variableMeasured</a>). This is oriented towards scientific and scholarly dataset publication but may have broader applicability; it is not intended as a full representation of measurement, but rather as a high level summary for dataset discovery.</p>
+
+<p>For example, if <a class="localLink" href="http://schema.org/variableMeasured">variableMeasured</a> is: molecule concentration, <a class="localLink" href="http://schema.org/measurementTechnique">measurementTechnique</a> could be: "mass spectrometry" or "nmr spectroscopy" or "colorimetry" or "immunofluorescence".</p>
+
+<p>If the <a class="localLink" href="http://schema.org/variableMeasured">variableMeasured</a> is "depression rating", the <a class="localLink" href="http://schema.org/measurementTechnique">measurementTechnique</a> could be "Zung Scale" or "HAM-D" or "Beck Depression Inventory".</p>
+
+<p>If there are several <a class="localLink" href="http://schema.org/variableMeasured">variableMeasured</a> properties recorded for some given data object, use a <a class="localLink" href="http://schema.org/PropertyValue">PropertyValue</a> for each <a class="localLink" href="http://schema.org/variableMeasured">variableMeasured</a> and attach the corresponding <a class="localLink" href="http://schema.org/measurementTechnique">measurementTechnique</a>.]]></rdfs:comment>
+    <schema:rangeIncludes rdf:resource="http://schema.org/URL"/>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://schema.org/healthPlanNetworkTier">
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1062"/>
+    <rdfs:label>healthPlanNetworkTier</rdfs:label>
+    <schema:domainIncludes rdf:resource="http://schema.org/HealthPlanNetwork"/>
+    <schema:category>issue-1062</schema:category>
+    <schema:rangeIncludes rdf:resource="http://schema.org/Text"/>
+    <rdfs:comment>The tier(s) for this network.</rdfs:comment>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://schema.org/usesHealthPlanIdStandard">
+    <schema:domainIncludes rdf:resource="http://schema.org/HealthInsurancePlan"/>
+    <schema:rangeIncludes rdf:resource="http://schema.org/URL"/>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1062"/>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <schema:rangeIncludes rdf:resource="http://schema.org/Text"/>
+    <rdfs:label>usesHealthPlanIdStandard</rdfs:label>
+    <schema:category>issue-1062</schema:category>
+    <rdfs:comment>The standard for interpreting thePlan ID. The preferred is "HIOS". See the Centers for Medicare &amp;amp; Medicaid Services for more details.</rdfs:comment>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://schema.org/beneficiaryBank">
+    <rdfs:comment>A bank or bank’s branch, financial institution or international financial institution operating the beneficiary’s bank account or releasing funds for the beneficiary</rdfs:comment>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <dct:source rdf:resource="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO"/>
+    <schema:rangeIncludes rdf:resource="http://schema.org/Text"/>
+    <schema:domainIncludes rdf:resource="http://schema.org/MoneyTransfer"/>
+    <rdfs:label>beneficiaryBank</rdfs:label>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1253"/>
+    <schema:category>issue-1253</schema:category>
+    <schema:rangeIncludes rdf:resource="http://schema.org/BankOrCreditUnion"/>
+  </rdf:Property>
+  <rdfs:Class rdf:about="http://schema.org/SatiricalArticle">
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1525"/>
+    <dct:source rdf:resource="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP"/>
+    <schema:category>issue-1525</schema:category>
+    <rdfs:subClassOf rdf:resource="http://schema.org/Article"/>
+    <rdfs:label>SatiricalArticle</rdfs:label>
+    <rdfs:comment><![CDATA[An <a class="localLink" href="http://schema.org/Article">Article</a> whose content is primarily <a href="https://en.wikipedia.org/wiki/Satire">[satirical]</a> in nature, i.e. unlikely to be literally true. A satirical article is sometimes but not necessarily also a <a class="localLink" href="http://schema.org/NewsArticle">NewsArticle</a>. <a class="localLink" href="http://schema.org/ScholarlyArticle">ScholarlyArticle</a>s are also sometimes satirized.]]></rdfs:comment>
+  </rdfs:Class>
+  <rdf:Property rdf:about="http://schema.org/floorLimit">
+    <schema:domainIncludes rdf:resource="http://schema.org/PaymentCard"/>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1253"/>
+    <schema:rangeIncludes rdf:resource="http://schema.org/MonetaryAmount"/>
+    <schema:category>issue-1253</schema:category>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <rdfs:label>floorLimit</rdfs:label>
+    <rdfs:comment>A floor limit is the amount of money above which credit card transactions must be authorized.</rdfs:comment>
+    <dct:source rdf:resource="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO"/>
+  </rdf:Property>
+  <rdfs:Class rdf:about="http://schema.org/AdvertiserContentArticle">
+    <schema:category>issue-1525</schema:category>
+    <dct:source rdf:resource="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP"/>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1525"/>
+    <rdfs:subClassOf rdf:resource="http://schema.org/Article"/>
+    <rdfs:comment><![CDATA[An <a class="localLink" href="http://schema.org/Article">Article</a> that an external entity has paid to place or to produce to its specifications. Includes <a href="https://en.wikipedia.org/wiki/Advertorial">advertorials</a>, sponsored content, native advertising and other paid content.]]></rdfs:comment>
+    <rdfs:label>AdvertiserContentArticle</rdfs:label>
+  </rdfs:Class>
+  <rdf:Property rdf:about="http://schema.org/healthPlanCopay">
+    <rdfs:label>healthPlanCopay</rdfs:label>
+    <schema:rangeIncludes rdf:resource="http://schema.org/PriceSpecification"/>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <rdfs:comment>Whether The copay amount.</rdfs:comment>
+    <schema:category>issue-1062</schema:category>
+    <schema:domainIncludes rdf:resource="http://schema.org/HealthPlanCostSharingSpecification"/>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1062"/>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://schema.org/inLanguage">
+    <schema:domainIncludes rdf:resource="http://schema.org/LinkRole"/>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://schema.org/recourseLoan">
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1253"/>
+    <schema:category>issue-1253</schema:category>
+    <schema:rangeIncludes rdf:resource="http://schema.org/Boolean"/>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <dct:source rdf:resource="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO"/>
+    <rdfs:label>recourseLoan</rdfs:label>
+    <schema:domainIncludes rdf:resource="http://schema.org/LoanOrCredit"/>
+    <rdfs:comment>The only way you get the money back in the event of default is the security. Recourse is where you still have the opportunity to go back to the borrower for the rest of the money.</rdfs:comment>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://schema.org/healthPlanPharmacyCategory">
+    <schema:domainIncludes rdf:resource="http://schema.org/HealthPlanCostSharingSpecification"/>
+    <rdfs:comment>The category or type of pharmacy associated with this cost sharing.</rdfs:comment>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1062"/>
+    <schema:rangeIncludes rdf:resource="http://schema.org/Text"/>
+    <schema:category>issue-1062</schema:category>
+    <rdfs:label>healthPlanPharmacyCategory</rdfs:label>
+  </rdf:Property>
+  <schema:LegalValueLevel rdf:about="http://schema.org/OfficialLegalValue">
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1156"/>
+    <ns1:exactMatch rdf:resource="http://data.europa.eu/eli/ontology#LegalValue-official"/>
+    <dct:source rdf:resource="http://publications.europa.eu/mdr/eli/index.html"/>
+    <rdfs:comment>All the documents published by an official publisher should have at least the legal value level "OfficialLegalValue". This indicates that the document was published by an organisation with the public task of making it available (e.g. a consolidated version of a EU directive published by the EU Office of Publications).</rdfs:comment>
+    <schema:category>issue-1156</schema:category>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <rdfs:label>OfficialLegalValue</rdfs:label>
+  </schema:LegalValueLevel>
+  <rdf:Property rdf:about="http://schema.org/termsOfService">
+    <schema:domainIncludes rdf:resource="http://schema.org/Service"/>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1423"/>
+    <schema:rangeIncludes rdf:resource="http://schema.org/URL"/>
+    <schema:rangeIncludes rdf:resource="http://schema.org/Text"/>
+    <schema:category>issue-1423</schema:category>
+    <rdfs:comment>Human-readable terms of service documentation.</rdfs:comment>
+    <rdfs:label>termsOfService</rdfs:label>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://schema.org/estimatedSalary">
+    <schema:rangeIncludes rdf:resource="http://schema.org/MonetaryAmount"/>
+    <rdfs:label>estimatedSalary</rdfs:label>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1577"/>
+    <schema:domainIncludes rdf:resource="http://schema.org/JobPosting"/>
+    <rdfs:comment>A property describing the estimated salary for a job posting based on a variety of variables including, but not limited to industry, job title, and location. The estimated salary is usually computed by outside organizations and therefore the hiring organization is not bound to this estimated salary.</rdfs:comment>
+    <schema:rangeIncludes rdf:resource="http://schema.org/PriceSpecification"/>
+    <schema:rangeIncludes rdf:resource="http://schema.org/Number"/>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <schema:category>issue-1577</schema:category>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://schema.org/typeOfBed">
+    <schema:rangeIncludes rdf:resource="http://schema.org/BedType"/>
+  </rdf:Property>
+  <schema:LegalValueLevel rdf:about="http://schema.org/UnofficialLegalValue">
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1156"/>
+    <rdfs:label>UnofficialLegalValue</rdfs:label>
+    <rdfs:comment>Indicates that a document has no particular or special standing (e.g. a republication of a law by a private publisher).</rdfs:comment>
+    <ns1:exactMatch rdf:resource="http://data.europa.eu/eli/ontology#LegalValue-unofficial"/>
+    <dct:source rdf:resource="http://publications.europa.eu/mdr/eli/index.html"/>
+    <schema:category>issue-1156</schema:category>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+  </schema:LegalValueLevel>
+  <rdfs:Class rdf:about="http://schema.org/InvestmentFund">
+    <rdfs:subClassOf rdf:resource="http://schema.org/InvestmentOrDeposit"/>
+    <rdfs:comment>A company or fund that gathers capital from a number of investors to create a pool of money that is then re-invested into stocks, bonds and other assets.</rdfs:comment>
+    <dct:source rdf:resource="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO"/>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1253"/>
+    <schema:category>issue-1253</schema:category>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <rdfs:label>InvestmentFund</rdfs:label>
+  </rdfs:Class>
+  <rdf:Property rdf:about="http://schema.org/contactPoint">
+    <schema:domainIncludes rdf:resource="http://schema.org/HealthInsurancePlan"/>
+    <schema:rangeIncludes rdf:resource="http://schema.org/ContactPoint"/>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://schema.org/legislationDateVersion">
+    <rdfs:label>legislationDateVersion</rdfs:label>
+    <ns1:exactMatch rdf:resource="http://data.europa.eu/eli/ontology#version_date"/>
+    <owl:equivalentProperty rdf:resource="http://data.europa.eu/eli/ontology#version_date"/>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1156"/>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <rdfs:comment>The point-in-time at which the provided description of the legislation is valid (e.g. : when looking at the law on the 2016-04-07 (= dateVersion), I get the consolidation of 2015-04-12 of the "National Insurance Contributions Act 2015")</rdfs:comment>
+    <schema:rangeIncludes rdf:resource="http://schema.org/Date"/>
+    <schema:category>issue-1156</schema:category>
+    <schema:domainIncludes rdf:resource="http://schema.org/Legislation"/>
+    <dct:source rdf:resource="http://publications.europa.eu/mdr/eli/index.html"/>
+  </rdf:Property>
+  <rdfs:Class rdf:about="http://schema.org/LegalValueLevel">
+    <rdfs:label>LegalValueLevel</rdfs:label>
+    <dct:source rdf:resource="http://publications.europa.eu/mdr/eli/index.html"/>
+    <rdfs:comment>A list of possible levels for the legal validity of a legislation.</rdfs:comment>
+    <ns1:closeMatch rdf:resource="http://data.europa.eu/eli/ontology#LegalValue"/>
+    <rdfs:subClassOf rdf:resource="http://schema.org/Enumeration"/>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1156"/>
+    <schema:category>issue-1156</schema:category>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+  </rdfs:Class>
+  <rdfs:Class rdf:about="http://schema.org/Quotation">
+    <schema:category>issue-271</schema:category>
+    <rdfs:label>Quotation</rdfs:label>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <rdfs:subClassOf rdf:resource="http://schema.org/CreativeWork"/>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/271"/>
+    <rdfs:comment><![CDATA[A quotation. Often but not necessarily from some written work, attributable to a real world author and - if associated with a fictional character - to any fictional Person. Use <a class="localLink" href="http://schema.org/isBasedOn">isBasedOn</a> to link to source/origin. The <a class="localLink" href="http://schema.org/recordedIn">recordedIn</a> property can be used to reference a Quotation from an <a class="localLink" href="http://schema.org/Event">Event</a>.]]></rdfs:comment>
+  </rdfs:Class>
+  <rdfs:Class rdf:about="http://schema.org/BroadcastFrequencySpecification">
+    <schema:category>issue-1004</schema:category>
+    <rdfs:subClassOf rdf:resource="http://schema.org/Intangible"/>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <rdfs:comment>The frequency in MHz and the modulation used for a particular BroadcastService.</rdfs:comment>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1004"/>
+    <rdfs:label>BroadcastFrequencySpecification</rdfs:label>
+  </rdfs:Class>
+  <rdfs:Class rdf:about="http://schema.org/BedType">
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1262"/>
+    <rdfs:label>BedType</rdfs:label>
+    <rdfs:comment>A type of bed. This is used for indicating the bed or beds available in an accommodation.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="http://schema.org/QualitativeValue"/>
+    <dct:source rdf:resource="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology"/>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <schema:category>issue-1262</schema:category>
+  </rdfs:Class>
+  <rdf:Property rdf:about="http://schema.org/legislationApplies">
+    <ns1:exactMatch rdf:resource="http://data.europa.eu/eli/ontology#implements"/>
+    <owl:equivalentProperty rdf:resource="http://data.europa.eu/eli/ontology#implements"/>
+    <dct:source rdf:resource="http://publications.europa.eu/mdr/eli/index.html"/>
+    <schema:inverseOf>
+      <rdf:Property rdf:about="http://schema.org/legislationAppliedBy">
+        <owl:equivalentProperty rdf:resource="http://data.europa.eu/eli/ontology#implemented_by"/>
+        <schema:domainIncludes rdf:resource="http://schema.org/Legislation"/>
+        <rdfs:label>legislationAppliedBy</rdfs:label>
+        <schema:rangeIncludes rdf:resource="http://schema.org/Legislation"/>
+        <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+        <schema:category>issue-1156</schema:category>
+        <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1156"/>
+        <ns1:exactMatch rdf:resource="http://data.europa.eu/eli/ontology#implemented_by"/>
+        <rdfs:comment><![CDATA[Indicates that this legislation (or part of a legislation) is somehow transfered by another legislation in a different legislative context. This is an informative link, and it has no legal value. For legally-binding links of transposition, use the property <a href="/legislationTransposedBy">legislationTransposedBy</a>. For example the informative consolidated version of the European Directive is somehow "applied by" an informative consolidated law in a European Union's member state.]]></rdfs:comment>
+        <schema:inverseOf rdf:resource="http://schema.org/legislationApplies"/>
+        <dct:source rdf:resource="http://publications.europa.eu/mdr/eli/index.html"/>
+      </rdf:Property>
+    </schema:inverseOf>
+    <rdfs:comment><![CDATA[Indicates that this legislation (or part of a legislation) somehow transfers another legislation in a different legislative context. This is an informative link, and it has no legal value. For legally-binding links of transposition, use the <a href="/legislationTransposes">legislationTransposes</a> property. For example an informative consolidated law of a European Union's member state "applies" the consolidated version of the European Directive implemented in it.]]></rdfs:comment>
+    <rdfs:label>legislationApplies</rdfs:label>
+    <schema:rangeIncludes rdf:resource="http://schema.org/Legislation"/>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1156"/>
+    <schema:domainIncludes rdf:resource="http://schema.org/Legislation"/>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <schema:category>issue-1156</schema:category>
+  </rdf:Property>
+  <rdfs:Class rdf:about="http://schema.org/HealthInsurancePlan">
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1062"/>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <rdfs:comment>A US-style health insurance plan, including PPOs, EPOs, and HMOs.</rdfs:comment>
+    <rdfs:label>HealthInsurancePlan</rdfs:label>
+    <schema:category>issue-1062</schema:category>
+    <rdfs:subClassOf rdf:resource="http://schema.org/Intangible"/>
+  </rdfs:Class>
+  <rdf:Property rdf:about="http://schema.org/legislationChanges">
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1156"/>
+    <schema:category>issue-1156</schema:category>
+    <schema:domainIncludes rdf:resource="http://schema.org/Legislation"/>
+    <schema:rangeIncludes rdf:resource="http://schema.org/Legislation"/>
+    <rdfs:label>legislationChanges</rdfs:label>
+    <owl:equivalentProperty rdf:resource="http://data.europa.eu/eli/ontology#changes"/>
+    <dct:source rdf:resource="http://publications.europa.eu/mdr/eli/index.html"/>
+    <schema:inverseOf>
+      <rdf:Property rdf:about="http://schema.org/legislationChangedBy">
+        <ns1:exactMatch rdf:resource="http://data.europa.eu/eli/ontology#changed_by"/>
+        <schema:inverseOf rdf:resource="http://schema.org/legislationChanges"/>
+        <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+        <schema:rangeIncludes rdf:resource="http://schema.org/Legislation"/>
+        <schema:category>issue-1156</schema:category>
+        <schema:domainIncludes rdf:resource="http://schema.org/Legislation"/>
+        <dct:source rdf:resource="http://publications.europa.eu/mdr/eli/index.html"/>
+        <owl:equivalentProperty rdf:resource="http://data.europa.eu/eli/ontology#changed_by"/>
+        <rdfs:label>legislationChangedBy</rdfs:label>
+        <rdfs:comment><![CDATA[Another legislation that changes this legislation. This encompasses the notions of amendment, replacement, correction, repeal, or other types of change. This may be a direct change (textual or non-textual amendment) or a consequential or indirect change. The property is to be used to express the existence of a change relationship between two acts rather than the existence of a consolidated version of the text that shows the result of the change. For consolidation relationships, use the <a href="/legislationConsolidatedBy">legislationConsolidatedBy</a> property.]]></rdfs:comment>
+        <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1156"/>
+      </rdf:Property>
+    </schema:inverseOf>
+    <rdfs:comment><![CDATA[Another legislation that this legislation changes. This encompasses the notions of amendment, replacement, correction, repeal, or other types of change. This may be a direct change (textual or non-textual amendment) or a consequential or indirect change. The property is to be used to express the existence of a change relationship between two acts rather than the existence of a consolidated version of the text that shows the result of the change. For consolidation relationships, use the <a href="/legislationConsolidates">legislationConsolidates</a> property.]]></rdfs:comment>
+    <ns1:exactMatch rdf:resource="http://data.europa.eu/eli/ontology#changes"/>
+  </rdf:Property>
+  <rdfs:Class rdf:about="http://schema.org/XPathType">
+    <rdfs:subClassOf rdf:resource="http://schema.org/Text"/>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1672"/>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <schema:category>issue-1672</schema:category>
+    <rdfs:comment>Text representing an XPath (typically but not necessarily version 1.0).</rdfs:comment>
+    <rdfs:label>XPathType</rdfs:label>
+  </rdfs:Class>
+  <rdfs:Class rdf:about="http://schema.org/Schedule">
+    <rdfs:label>Schedule</rdfs:label>
+    <rdfs:comment><![CDATA[A schedule defines a repeating time period used to describe a regularly occurring <a class="localLink" href="http://schema.org/Event">Event</a>. At a minimum a schedule will specify <a class="localLink" href="http://schema.org/repeatFrequency">repeatFrequency</a> which describes the interval between occurences of the event. Additional information can be provided to specify the schedule more precisely. 
+      This includes identifying the day(s) of the week or month when the recurring event will take place, in addition to its start and end time. Schedules may also
+      have start and end dates to indicate when they are active, e.g. to define a limited calendar of events.]]></rdfs:comment>
+    <rdfs:subClassOf rdf:resource="http://schema.org/Intangible"/>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1457"/>
+    <schema:category>issue-1457</schema:category>
+  </rdfs:Class>
+  <rdfs:Class rdf:about="http://schema.org/MortgageLoan">
+    <rdfs:comment>A loan in which property or real estate is used as collateral. (A loan securitized against some real estate.)</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="http://schema.org/LoanOrCredit"/>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1253"/>
+    <schema:category>issue-1253</schema:category>
+    <rdfs:label>MortgageLoan</rdfs:label>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <dct:source rdf:resource="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO"/>
+  </rdfs:Class>
+  <rdfs:Class rdf:about="http://schema.org/LegislationObject">
+    <ns1:closeMatch rdf:resource="http://data.europa.eu/eli/ontology#Format"/>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <schema:category>issue-1156</schema:category>
+    <rdfs:label>LegislationObject</rdfs:label>
+    <rdfs:comment>A specific object or file containing a Legislation. Note that the same Legislation can be published in multiple files. For example, a digitally signed PDF, a plain PDF and an HTML version.</rdfs:comment>
+    <dct:source rdf:resource="http://publications.europa.eu/mdr/eli/index.html"/>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1156"/>
+    <rdfs:subClassOf rdf:resource="http://schema.org/MediaObject"/>
+    <rdfs:subClassOf rdf:resource="http://schema.org/Legislation"/>
+  </rdfs:Class>
+  <rdfs:Class rdf:about="http://schema.org/CssSelectorType">
+    <rdfs:comment>Text representing a CSS selector.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="http://schema.org/Text"/>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1672"/>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <schema:category>issue-1672</schema:category>
+    <rdfs:label>CssSelectorType</rdfs:label>
+  </rdfs:Class>
+  <rdfs:Class rdf:about="http://schema.org/LegalForceStatus">
+    <rdfs:label>LegalForceStatus</rdfs:label>
+    <ns1:exactMatch rdf:resource="http://data.europa.eu/eli/ontology#InForce"/>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <schema:category>issue-1156</schema:category>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1156"/>
+    <rdfs:comment>A list of possible statuses for the legal force of a legislation.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="http://schema.org/Enumeration"/>
+    <dct:source rdf:resource="http://publications.europa.eu/mdr/eli/index.html"/>
+  </rdfs:Class>
+  <rdfs:Class rdf:about="http://schema.org/WebAPI">
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1423"/>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <rdfs:comment>An application programming interface accessible over Web/Internet technologies.</rdfs:comment>
+    <rdfs:label>WebAPI</rdfs:label>
+    <schema:category>issue-1423</schema:category>
+    <rdfs:subClassOf rdf:resource="http://schema.org/Service"/>
+  </rdfs:Class>
+  <rdfs:Class rdf:about="http://schema.org/Legislation">
+    <ns1:closeMatch rdf:resource="http://data.europa.eu/eli/ontology#LegalResource"/>
+    <dct:source rdf:resource="http://publications.europa.eu/mdr/eli/index.html"/>
+    <rdfs:label>Legislation</rdfs:label>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <rdfs:subClassOf rdf:resource="http://schema.org/CreativeWork"/>
+    <rdfs:comment>A legal act (enforceable or not) or a component of a legal act (like an article).</rdfs:comment>
+    <schema:category>issue-1156</schema:category>
+    <ns1:closeMatch rdf:resource="http://data.europa.eu/eli/ontology#LegalExpression"/>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1156"/>
+  </rdfs:Class>
+  <rdfs:Class rdf:about="http://schema.org/CategoryCodeSet">
+    <rdfs:comment>A set of Category Code values.</rdfs:comment>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/894"/>
+    <rdfs:label>CategoryCodeSet</rdfs:label>
+    <schema:category>issue-894</schema:category>
+    <rdfs:subClassOf rdf:resource="http://schema.org/CreativeWork"/>
+  </rdfs:Class>
+  <rdfs:Class rdf:about="http://schema.org/MoneyTransfer">
+    <rdfs:label>MoneyTransfer</rdfs:label>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <dct:source rdf:resource="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO"/>
+    <rdfs:subClassOf rdf:resource="http://schema.org/TransferAction"/>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1253"/>
+    <schema:category>issue-1253</schema:category>
+    <rdfs:comment>The act of transferring money from one place to another place. This may occur electronically or physically.</rdfs:comment>
+  </rdfs:Class>
+  <rdf:Property rdf:about="http://schema.org/legislationTransposes">
+    <owl:equivalentProperty rdf:resource="http://data.europa.eu/eli/ontology#transposes"/>
+    <schema:inverseOf>
+      <rdf:Property rdf:about="http://schema.org/legislationTransposedBy">
+        <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+        <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1156"/>
+        <schema:inverseOf rdf:resource="http://schema.org/legislationTransposes"/>
+        <schema:domainIncludes rdf:resource="http://schema.org/Legislation"/>
+        <rdfs:subPropertyOf rdf:resource="http://schema.org/legislationAppliedBy"/>
+        <rdfs:comment>Indicates that the objectives set by this legislation (or part of legislation) are fulfilled by another legislation who passed appropriate implementation measures. Typically, European Directives are transposed by the legislations of European Union's member states or regions. This indicates a legally binding link between the 2 legislations.</rdfs:comment>
+        <owl:equivalentProperty rdf:resource="http://data.europa.eu/eli/ontology#transposed_by"/>
+        <ns1:exactMatch rdf:resource="http://data.europa.eu/eli/ontology#transposed_by"/>
+        <schema:rangeIncludes rdf:resource="http://schema.org/Legislation"/>
+        <dct:source rdf:resource="http://publications.europa.eu/mdr/eli/index.html"/>
+        <rdfs:label>legislationTransposedBy</rdfs:label>
+        <schema:category>issue-1156</schema:category>
+      </rdf:Property>
+    </schema:inverseOf>
+    <dct:source rdf:resource="http://publications.europa.eu/mdr/eli/index.html"/>
+    <schema:rangeIncludes rdf:resource="http://schema.org/Legislation"/>
+    <rdfs:subPropertyOf rdf:resource="http://schema.org/legislationApplies"/>
+    <schema:category>issue-1156</schema:category>
+    <rdfs:label>legislationTransposes</rdfs:label>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1156"/>
+    <schema:domainIncludes rdf:resource="http://schema.org/Legislation"/>
+    <rdfs:comment>Indicates that this legislation (or part of legislation) fulfills the objectives set by another legislation, by passing appropriate implementation measures. Typically, some legislations of European Union's member states or regions transpose European Directives. This indicates a legally binding link between the 2 legislations.</rdfs:comment>
+    <ns1:exactMatch rdf:resource="http://data.europa.eu/eli/ontology#transposes"/>
+  </rdf:Property>
+  <rdfs:Class rdf:about="http://schema.org/HealthPlanNetwork">
+    <schema:category>issue-1062</schema:category>
+    <rdfs:label>HealthPlanNetwork</rdfs:label>
+    <rdfs:subClassOf rdf:resource="http://schema.org/Intangible"/>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1062"/>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <rdfs:comment>A US-style health insurance plan network.</rdfs:comment>
+  </rdfs:Class>
+  <rdfs:Class rdf:about="http://schema.org/CategoryCode">
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/894"/>
+    <schema:category>issue-894</schema:category>
+    <rdfs:comment>A Category Code.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="http://schema.org/Intangible"/>
+    <rdfs:label>CategoryCode</rdfs:label>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+  </rdfs:Class>
+  <rdfs:Class rdf:about="http://schema.org/RepaymentSpecification">
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1253"/>
+    <schema:category>issue-1253</schema:category>
+    <rdfs:label>RepaymentSpecification</rdfs:label>
+    <dct:source rdf:resource="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO"/>
+    <rdfs:subClassOf rdf:resource="http://schema.org/StructuredValue"/>
+    <rdfs:comment>A structured value representing repayment.</rdfs:comment>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+  </rdfs:Class>
+  <rdfs:Class rdf:about="http://schema.org/NewsMediaOrganization">
+    <dct:source rdf:resource="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP"/>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1525"/>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <rdfs:subClassOf rdf:resource="http://schema.org/Organization"/>
+    <schema:category>issue-1525</schema:category>
+    <rdfs:comment>A News/Media organization such as a newspaper or TV station.</rdfs:comment>
+    <rdfs:label>NewsMediaOrganization</rdfs:label>
+  </rdfs:Class>
+  <rdf:Property rdf:about="http://schema.org/providesBroadcastService">
+    <schema:inverseOf>
+      <rdf:Property rdf:about="http://schema.org/hasBroadcastChannel">
+        <schema:domainIncludes rdf:resource="http://schema.org/BroadcastService"/>
+        <schema:inverseOf rdf:resource="http://schema.org/providesBroadcastService"/>
+        <rdfs:comment>A broadcast channel of a broadcast service.</rdfs:comment>
+        <schema:category>issue-1004</schema:category>
+        <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1004"/>
+        <schema:rangeIncludes rdf:resource="http://schema.org/BroadcastChannel"/>
+        <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+        <rdfs:label>hasBroadcastChannel</rdfs:label>
+      </rdf:Property>
+    </schema:inverseOf>
+  </rdf:Property>
+  <rdfs:Class rdf:about="http://schema.org/SpeakableSpecification">
+    <schema:category>issue-1389</schema:category>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1389"/>
+    <rdfs:subClassOf rdf:resource="http://schema.org/Intangible"/>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <rdfs:comment><![CDATA[A SpeakableSpecification indicates (typically via <a class="localLink" href="http://schema.org/xpath">xpath</a> or <a class="localLink" href="http://schema.org/cssSelector">cssSelector</a>) sections of a document that are highlighted as particularly <a class="localLink" href="http://schema.org/speakable">speakable</a>. Instances of this type are expected to be used primarily as values of the <a class="localLink" href="http://schema.org/speakable">speakable</a> property.]]></rdfs:comment>
+    <rdfs:label>SpeakableSpecification</rdfs:label>
+  </rdfs:Class>
+  <rdfs:Class rdf:about="http://schema.org/ExchangeRateSpecification">
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1253"/>
+    <schema:category>issue-1253</schema:category>
+    <rdfs:subClassOf rdf:resource="http://schema.org/StructuredValue"/>
+    <rdfs:comment>A structured value representing exchange rate.</rdfs:comment>
+    <dct:source rdf:resource="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO"/>
+    <rdfs:label>ExchangeRateSpecification</rdfs:label>
+  </rdfs:Class>
+  <rdf:Property rdf:about="http://schema.org/legislationConsolidates">
+    <schema:rangeIncludes rdf:resource="http://schema.org/Legislation"/>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1156"/>
+    <rdfs:label>legislationConsolidates</rdfs:label>
+    <schema:category>issue-1156</schema:category>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <schema:inverseOf>
+      <rdf:Property rdf:about="http://schema.org/legislationConsolidatedBy">
+        <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1156"/>
+        <schema:category>issue-1156</schema:category>
+        <schema:domainIncludes rdf:resource="http://schema.org/Legislation"/>
+        <schema:rangeIncludes rdf:resource="http://schema.org/Legislation"/>
+        <rdfs:label>legislationConsolidatedBy</rdfs:label>
+        <rdfs:comment>Indicates a consolidated legislation (which is usually the product of an editorial process that revises the legislation) that take into account this legislation.</rdfs:comment>
+        <dct:source rdf:resource="http://publications.europa.eu/mdr/eli/index.html"/>
+        <ns1:exactMatch rdf:resource="http://data.europa.eu/eli/ontology#consolidated_by"/>
+        <schema:inverseOf rdf:resource="http://schema.org/legislationConsolidates"/>
+        <owl:equivalentProperty rdf:resource="http://data.europa.eu/eli/ontology#consolidated_by"/>
+        <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+      </rdf:Property>
+    </schema:inverseOf>
+    <ns1:exactMatch rdf:resource="http://data.europa.eu/eli/ontology#consolidates"/>
+    <owl:equivalentProperty rdf:resource="http://data.europa.eu/eli/ontology#consolidates"/>
+    <dct:source rdf:resource="http://publications.europa.eu/mdr/eli/index.html"/>
+    <rdfs:comment>Indicates another legislation taken into account in this consolidated legislation (which is usually the product of an editorial process that revises the legislation). This property should be used multiple times to refer to both the original version or the previous consolidated version, and to the legislations making the change.</rdfs:comment>
+    <schema:domainIncludes rdf:resource="http://schema.org/Legislation"/>
+  </rdf:Property>
+  <rdfs:Class rdf:about="http://schema.org/LinkRole">
+    <rdfs:label>LinkRole</rdfs:label>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1045"/>
+    <schema:category>issue-1045</schema:category>
+    <rdfs:subClassOf rdf:resource="http://schema.org/Role"/>
+    <rdfs:comment>A Role that represents a Web link e.g. as expressed via the 'url' property. Its linkRelationship property can indicate URL-based and plain textual link types e.g. those in IANA link registry or others such as 'amphtml'. This structure provides a placeholder where details from HTML's link element can be represented outside of HTML, e.g. in JSON-LD feeds.</rdfs:comment>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+  </rdfs:Class>
+  <rdfs:Class rdf:about="http://schema.org/GeospatialGeometry">
+    <rdfs:subClassOf rdf:resource="http://schema.org/Intangible"/>
+    <schema:category>issue-1375</schema:category>
+    <rdfs:label>GeospatialGeometry</rdfs:label>
+    <rdfs:comment>(Eventually to be defined as) a supertype of GeoShape designed to accommodate definitions from Geo-Spatial best practices.</rdfs:comment>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1375"/>
+  </rdfs:Class>
+  <rdfs:Class rdf:about="http://schema.org/HealthPlanFormulary">
+    <schema:category>issue-1062</schema:category>
+    <rdfs:label>HealthPlanFormulary</rdfs:label>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <rdfs:subClassOf rdf:resource="http://schema.org/Intangible"/>
+    <rdfs:comment>For a given health insurance plan, the specification for costs and coverage of prescription drugs.</rdfs:comment>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1062"/>
+  </rdfs:Class>
+  <rdfs:Class rdf:about="http://schema.org/HealthPlanCostSharingSpecification">
+    <rdfs:label>HealthPlanCostSharingSpecification</rdfs:label>
+    <schema:category>issue-1062</schema:category>
+    <rdfs:comment>A description of costs to the patient under a given network or formulary.</rdfs:comment>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1062"/>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <rdfs:subClassOf rdf:resource="http://schema.org/Intangible"/>
+  </rdfs:Class>
+  <rdfs:Class rdf:about="http://schema.org/CriticReview">
+    <rdfs:label>CriticReview</rdfs:label>
+    <rdfs:comment><![CDATA[A <a class="localLink" href="http://schema.org/CriticReview">CriticReview</a> is a more specialized form of Review written or published by a source that is recognized for its reviewing activities. These can include online columns, travel and food guides, TV and radio shows, blogs and other independent Web sites. <a class="localLink" href="http://schema.org/CriticReview">CriticReview</a>s are typically more in-depth and professionally written. For simpler, casually written user/visitor/viewer/customer reviews, it is more appropriate to use the <a class="localLink" href="http://schema.org/UserReview">UserReview</a> type. Review aggregator sites such as Metacritic already separate out the site's user reviews from selected critic reviews that originate from third-party sources.]]></rdfs:comment>
+    <schema:isPartOf rdf:resource="http://pending.schema.org"/>
+    <rdfs:subClassOf rdf:resource="http://schema.org/Review"/>
+    <schema:category>issue-1589</schema:category>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/1589"/>
+  </rdfs:Class>
+</rdf:RDF>

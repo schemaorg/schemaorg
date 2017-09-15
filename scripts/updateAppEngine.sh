@@ -9,3 +9,4 @@ appcfg.py update webschemas.yaml   -A webschemas-g
 ### 
 
 # appcfg.py update .   -A sdo-callisto
+# prod: appcfg.py update schemaorg.yaml -A schemaorgae
