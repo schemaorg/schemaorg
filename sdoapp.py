@@ -2201,7 +2201,7 @@ class ShowUnit (webapp2.RequestHandler):
                     self.response.headers.add_header("ETag", etag + tagsuff)
                     self.response.headers['Last-Modified'] = getmodiftime().strftime("%a, %d %b %Y %H:%M:%S UTC")
                     retHdrs = self.response.headers.copy()
-                    HeaderStore.put(etag + tagsuff,retHdrs) #Cache these headers for a future 304 return
+                    HeaderStore.putIfNewKey(etag + tagsuff,retHdrs) #Cache these headers for a future 304 return
 
             self.response.set_cookie('GOOGAPPUID', getAppEngineVersion())
 

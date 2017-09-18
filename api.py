@@ -291,6 +291,11 @@ class HeaderStoreTool():
         fullKey = ca + ":" + key
         ent = HeaderEntity(id = fullKey, content = val)
         ent.put()
+
+    def putIfNewKey(self, key, val,cache=None):
+        #gets are lightweight puts are not
+        if self.get(key,cache) == None:
+            self.put(key,val,cache)
         
     def get(self, key,cache=None):
         ca = self.getCurrent()
