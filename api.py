@@ -467,9 +467,10 @@ class Unit ():
         types = GetTargets( Unit.GetUnit("rdf:type"), self, layers )
         return (type in types)
 
-    # Function needs rewriting to use GetTargets(arc,src,layers) and recurse
     def subClassOf(self, type, layers='core'):
         """Boolean, true if the unit has an rdfs:subClassOf matching this type, direct or implied (in specified layer(s))."""
+        if not type:
+            return False
         if (self.id == type.id):
             return True
         parents = GetTargets( Unit.GetUnit("rdfs:subClassOf"), self, layers )
