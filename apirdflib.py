@@ -244,7 +244,7 @@ def countTypes(extension="ALL",includeAttic=False):
 	  }''') % filter
 	graph = queryGraph()
 	count = 0
-	res = rdfQueryStore(q,graph)
+	res = rdfQueryStore(query,graph)
 	for row in res:
 		count = row.cnt
 	return count
