@@ -121,7 +121,7 @@ td.release  {
     <th>Description</th>
 </tr>
 
-<!-- optional 'early access' section, used between formal releases. -->
+<!-- optional 'early access' section, used between formal releases.
 <tr>
 <td>&#160;</td>
 <td class="prerelease">Early Access Fixes</td>
@@ -130,15 +130,60 @@ td.release  {
 <h2>Vocabulary</h2>
 <h3>Pending changes</h3>
 <ul>
-<li id="g1582hotfix"><a href="https://github.com/schemaorg/schemaorg/issues/1582">Issue #1582</a>: Added <a href="/docs/financial.html">dedicated documentation page</a> describing background and examples for banking and finance terms.</li>
+<li></li>
 </ul>
 </td>
 </tr>
-
+-->
 
 <tr>
 
-<td class="release"><a href="/version/3.3/@@">3.3</a>(TODO)<br/>sdo-enceladus<br/>(2017-05-@@)</td>
+<td class="release"><a href="/version/3.4/">3.4</a><br/>sdo-telesto<br/>TBD</td>
+
+<td>
+<span id="v.next"></span>
+<span id="sdo-telesto"></span>
+<span id="v3.4"></span>
+
+<p>
+Version 3.4 (working name 'sdo-telesto'). See <a href="https://github.com/schemaorg/schemaorg/issues/1">planning pages</a>.
+</p>
+</td>
+
+<td>
+<h2>Vocabulary</h2>
+
+<h3>Core changes</h3>
+<ul>
+
+</ul>
+
+<h3>Additions to <a href="http://pending.schema.org/">Pending</a> section</h3>
+
+<ul>
+<li id="g1670"><a href="https://github.com/schemaorg/schemaorg/issues/1670">Issue #1670</a>: Add a <a href="/subjectOf">subjectOf</a> to <a href="/Thing">Thing</a> as a reverse property of <a href="/about">about</a>.
+</li>
+<li id="g1689"><a href="https://github.com/schemaorg/schemaorg/issues/1689">Issue #1689</a>: Add <a href="/EmployerAggregateRating">EmployerAggregateRating</a> as a subtype of <a href="/AggregateRating">AggregateRating</a> to differentiate ratings for the entity as an employer and the <a href="/reviewAspect">reviewAspect</a> property to <a href="/Review">Review</a> and <a href="/Rating">Rating</a> to allow authors to specify the facet or relevant part of being reviewed.
+</li>
+<li id="g1698"><a href="https://github.com/schemaorg/schemaorg/issues/1698">Issue #1698</a>: Add a <a href="/Occupation">Occupation</a> type with the supporting properties, many of which existed for <a href="JobPosting">JobPosting</a>. A <a href="/Person">Person's</a> occupation can be specified with <a href="hasOccupation">hasOccupation</a>. The Occupation's <a href="/estimatedSalary">estimatedSalary</a> is expressed as a <a href="/MonetaryAmountDistribution">MonetaryAmountDistribution</a>, a subtype of the new <a href="/QuantitativeValueDistribution">QuantitativeValueDistribution</a> type.
+
+</li>
+
+<!-- <li id="g@@@@"><a href=""></a></li> -->
+</ul>
+
+<h3>Site Improvements</h3>
+<ul>
+
+</ul>
+
+</td>
+
+</tr>
+
+<tr>
+
+<td class="release"><a href="/version/3.3/">3.3</a><br/>sdo-enceladus<br/>2017-08-14</td>
 
 <td>
 <span id="v.next"></span>
@@ -162,7 +207,7 @@ instructions, and adds some useful properties to <a href="/EmailMessage">EmailMe
 <h3>Core changes</h3>
 <ul>
 <li id="g1459"><a href="https://github.com/schemaorg/schemaorg/pull/1459">Issue #1459</a>: Improvements to  <a href="/TouristAttraction">TouristAttraction</a>.
-Add a new property <a href="/touristType">touristType</a> to <a href="/TouristAttraction">TouristAttraction</a>, "Attraction suitable for type(s) of tourist. eg. Children, visitors from a particular country, etc". Extend the domain of <a href="/availableLanguage">availableLanguage</a> to <a href="/TouristAttraction">TouristAttraction</a>, of <a href="/isAccessibleForFree">isAccessibleForFree</a> to <a href="/Place">Place</a>, adapting the definitions accordingly. Add new property <a href="/publicAccess">publicAccess</a> to <a href="/publicAccess">Place</a>. "A flag to signal that the Place is accessible by public visitors.""
+Add a new property <a href="/touristType">touristType</a> to <a href="/TouristAttraction">TouristAttraction</a>, "Attraction suitable for type(s) of tourist. eg. Children, visitors from a particular country, etc". Extend the domain of <a href="/availableLanguage">availableLanguage</a> to <a href="/TouristAttraction">TouristAttraction</a>, of <a href="/isAccessibleForFree">isAccessibleForFree</a> to <a href="/Place">Place</a>, adapting the definitions accordingly. Add new property <a href="/publicAccess">publicAccess</a> to <a href="/publicAccess">Place</a>. "A flag to signal that the Place is accessible by public visitors."
 </li>
 <li id="g1525c"><a href="https://github.com/schemaorg/schemaorg/issues1525c">Issue #1525</a>: Expanded definition of <a href="/NewsArticle">NewsArticle</a> from "A news article.", and added a <a href="/docs/news.html">News overview document</a> introducing some
 <a href="#g1525">proposed</a> additional terms, and discussing the relationship between News and related markup for Education/Learning, TV, Radio etc.</li>
@@ -173,7 +218,7 @@ Add a new property <a href="/touristType">touristType</a> to <a href="/TouristAt
 <a href="/HowToSection">HowToSection</a> and <a href="/HowToStep">HowToStep</a> (a kind of <a href="/ItemList">ItemList</a>) are also provided, to allow more explicitly structured <a href="/steps">steps</a> to be described. This effort has had many contributors over the years - thanks to all who have helped!
 </li>
 <li id="g1590"><a href="https://github.com/schemaorg/schemaorg/issues/1590">Issue #1590</a>: Add <a href="/bccRecipient">bccRecipient</a>,
-<a href="/ccRecipient">ccRecipient</a>, and <a href="/toRecepient">toRecipient</a> for use with <a href="/EmailMessage">EmailMessage</a>.</li>
+<a href="/ccRecipient">ccRecipient</a>, and <a href="/toRecipient">toRecipient</a> for use with <a href="/EmailMessage">EmailMessage</a>.</li>
 <li>Moved to Core from Pending:
   <ul>
    <li>None proposed.</li>
@@ -184,32 +229,36 @@ Add a new property <a href="/touristType">touristType</a> to <a href="/TouristAt
 <h3>Additions to <a href="http://pending.schema.org/">Pending</a> section</h3>
 
 <ul>
+<li id="g1457"><a href="https://github.com/schemaorg/schemaorg/issues/1457">Issue #1457</a>: Add a <a href="/Schedule">Schedule</a> type, with supporting properties:
+<a href="/repeatFrequency">repeatFrequency</a>,
+<a href="/repeatCount">repeatCount</a>,
+<a href="/byDay">byDay</a>,
+<a href="/byMonth">byMonth</a>,
+<a href="/byMonthDay">byMonthDay</a>,
+<a href="/exceptDate">exceptDate</a>,
+<a href="/eventSchedule">eventSchedule</a>. These terms are used alongside the existing <a href="/startTime">startTime</a> and <a href="/endTime">endTime</a> properties.
+The main purpose of this new vocabulary is to capture recurring events in a manner compatible with a subset of the iCalendar approach.
+</li>
 <li id="g1156"><a href="https://github.com/schemaorg/schemaorg/issues/1156">Issue #1156</a>: Add <a href="/Legislation">Legislation</a>,
 <a href="/LegalForceStatus">LegalForceStatus</a>, <a href="/LegislationObject">LegislationObject</a>,
-<a href="/LegalValueLevel">LegalValueLevel</a> and other supporting terms. These terms are based on the <a href="/http://publications.europa.eu/mdr/eli/">European Legislation Identifier (ELI) ontology</a> and the work of the <a href="/http://eur-lex.europa.eu/eli-register/about.html">ELI taskforce</a>. ELI is an initiative of some national legislation publishers endorsed by EU countries and Institutions, to identify, describe and link legislation on the Web.</li>
+<a href="/LegalValueLevel">LegalValueLevel</a> and other supporting terms. These terms are based on the <a href="http://publications.europa.eu/mdr/eli/">European Legislation Identifier (ELI) ontology</a> and the work of the <a href="http://eur-lex.europa.eu/eli-register/about.html">ELI taskforce</a>. ELI is an initiative of some national legislation publishers endorsed by EU countries and Institutions, to identify, describe and link legislation on the Web.</li>
 <li id="#g1624"><a href="https://github.com/schemaorg/schemaorg/issues/1624">Issue #1624</a>: Add a draft <a href="/PublicToilet">PublicToilet</a> type to the pending section.</li>
 <li id="g1577"><a href="https://github.com/schemaorg/schemaorg/issues/1577">Iussue #1577</a>: Add <a href="/estimatedSalary">estimatedSalary</a> to <a href="/JobPosting">JobPosting</a>.</li>
 <li id="g1589"><a href="https://github.com/schemaorg/schemaorg/issues/1589">Issue #1589</a>: Add <a href="/CriticReview">CriticReview</a> and <a href="/UserReview">UserReview</a> to distinguish common subtypes of <a href="/Review">Review</a>.</li>
-
+<li id="g1576"><a href="https://github.com/schemaorg/schemaorg/issues/1576">Issue #1576</a>: Add <a href="/EmployerReview">EmployerReview</a> to indicate reviews that are by a current or former employee, and that are reviews of that organization's role as an employer.</li>
 <li id="g1525"><a href="https://github.com/schemaorg/schemaorg/issues/1525">Issue #1525</a>: Add subtypes of <a href="/NewsArticle">NewsArticle</a>: <a href="/ReportageNewsArticle">ReportageNewsArticle</a>, <a href="/AnalysisNewsArticle">AnalysisNewsArticle</a>,  <a href="/OpinionNewsArticle">OpinionNewsArticle</a>,  <a href="/ReviewNewsArticle">ReviewNewsArticle</a>,  <a href="/BackgroundNewsArticle">BackgroundNewsArticle</a>
 to distinguish common kinds of <a href="/NewsArticle">NewsArticle</a>. Also add a subtype of <a href="/Article">Article</a>,
-<a href="/SponsoredContentArticle">SponsoredContentArticle</a> and a <a href="/docs/news.html">News overview document</a>.
+<a href="/AdvertiserContentArticle">AdvertiserContentArticle</a> and a <a href="/docs/news.html">News overview document</a>.
 Added a subtype of <a href="/Organization">Organization</a>, <a href="/NewsMediaOrganization">NewsMediaOrganization</a>, alongside
 several "best practice"-oriented properties: <a href="/actionableFeedbackPolicy">actionableFeedbackPolicy</a>,
-<a href="/correctionsPolicy">correctionsPolicy</a>,
-<a href="/diversityPolicy">diversityPolicy</a>,
-<a href="/ethicsPolicy">ethicsPolicy</a>,
-<a href="/masthead">masthead</a>,
+<a href="/correctionsPolicy">correctionsPolicy</a>, <a href="/diversityPolicy">diversityPolicy</a>, <a href="/ethicsPolicy">ethicsPolicy</a>, <a href="/masthead">masthead</a>,
 <a href="/missionCoveragePrioritiesPolicy">missionCoveragePrioritiesPolicy</a>,
 <a href="/unnamedSourcesPolicy">unnamedSourcesPolicy</a>,
 <a href="/verificationFactCheckingPolicy">verificationFactCheckingPolicy</a>,
  (apart from ethicsPolicy and diversityPolicy, these are all sub-properties of <a href="/publishingPrinciples">publishingPrinciples</a>). These
 changes were based in large part upon the work of <a href="http://thetrustproject.org/">The Trust Project</a>.
-<span id="tp-news"></span>
-</li>
+<span id="tp-news"></span></li>
 <li id="g1541"><a href="https://github.com/schemaorg/schemaorg/issues/1437">Issue #1437</a>: Add <a href="/SatiricalArticle">SatiricalArticle</a> type.</li>
-<li id="g1576"><a href="https://github.com/schemaorg/schemaorg/issues/1576">Issue #1576</a>: Add <a href="/EmployerReview">EmployerReview</a> to indicate reviews that are by a current or former employee, and that are reviews of that organization's role as an employer. Add a corresponding <a href="/UserReview">UserReview</a> type to indicate reviews by users.
-</li>
 
 <!-- <li id="g@@@@"><a href=""></a></li> -->
 </ul>
@@ -468,7 +517,7 @@ rather than <a href="/TelevisionStation">TelevisionStation</a> (per <a href="g#5
 <li id="g1283"><a href="https://github.com/schemaorg/schemaorg/issues/1283">Issue #1283</a>: Removed <a href="/Dentist">Dentist</a> from deprecated type <a href="/ProfessionalService">ProfessionalService</a>, added <a href="/LocalBusiness">LocalBusiness</a> as a supertype.</li>
 </ul>
 
-<p>The following Early Access fixes have already been published since 3.0:</p>
+<p>The following Early Access fixes were published between 3.0 and 3.1 releases:</p>
 <ul>
 <li id="g1159"><a href="https://github.com/schemaorg/schemaorg/pull/1159">Issue #1159</a>: Fixed <a href="https://github.com/schemaorg/schemaorg/issues/1157">problems with W3C validator</a>, caching, and <a href="https://github.com/schemaorg/schemaorg/issues/1158">misclassification</a> of <a href="/manufacturer">manufacturer</a> property which in in core rather than health-lifesci extension.</li>
 <li id="g1165"><a href="https://github.com/schemaorg/schemaorg/issues/1165">Issue #1165</a>: Improved wording for term pages that are not in core, to avoid publishers worrying that they need to change their markup.</li>

@@ -10441,7 +10441,7 @@ Standards bodies should promote a standard prefix for the identifiers of propert
 <div typeof="rdf:Property" resource="http://schema.org/recipeInstructions">
   <span class="h" property="rdfs:label">recipeInstructions</span>
   <span property="rdfs:comment">A step in making the recipe, in the form of a single item (document, video, etc.) or an ordered list with HowToStep and/or HowToSection items.</span>
-  <span>Subproperty of: <a property="rdfs:subPropertyOf" href="http://schema.org/step">step</a></span>
+  <span>Subproperty of: <a property="rdfs:subPropertyOf" href="http://schema.org/steps">steps</a></span>
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Recipe"> Recipe</a></span>
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/CreativeWork">CreativeWork</a></span>
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/ItemList">ItemList</a></span>
@@ -11112,20 +11112,9 @@ Typical unit code(s): C62 for person</span>
     <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/HowToSupply">HowToSupply</a></span>
 </div>
 
-<div typeof="rdf:Property" resource="http://schema.org/step">
-    <span class="h" property="rdfs:label">step</span>
-    <span property="rdfs:comment">A single step item (as HowToStep, text, document, video, etc.) or a HowToSection.</span>
-    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/HowTo">HowTo</a></span>
-    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/CreativeWork">CreativeWork</a></span>
-    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/HowToSection">HowToSection</a></span>
-    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/HowToStep">HowToStep</a></span>
-    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
-</div>
-
 <div typeof="rdf:Property" resource="http://schema.org/steps">
     <span class="h" property="rdfs:label">steps</span>
-    <span property="rdfs:comment">A single step item (as HowToStep, text, document, video, etc.) or a HowToSection (originally misnamed 'steps'; 'step' is preferred).</span>
-    <link property="http://schema.org/supersededBy" href="http://schema.org/step"/>
+    <span property="rdfs:comment">The steps in the form of a single item (text, document, video, etc.) or an ordered list with HowToStep and/or HowToSection items.</span>
     <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/HowTo">HowTo</a></span>
     <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/HowToSection">HowToSection</a></span>
     <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/CreativeWork">CreativeWork</a></span>
@@ -11165,7 +11154,6 @@ Typical unit code(s): C62 for person</span>
     <span class="h" property="rdfs:label">HowToDirection</span>
     <span property="rdfs:comment">A direction indicating a single action to do in the instructions for how to achieve a result.</span>
     <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/ListItem">ListItem</a></span>
-    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/CreativeWork">CreativeWork</a></span>
 </div>
 
 <div typeof="rdf:Property" resource="http://schema.org/afterMedia">
@@ -11220,7 +11208,6 @@ Typical unit code(s): C62 for person</span>
     <span class="h" property="rdfs:label">HowToSection</span>
     <span property="rdfs:comment">A sub-grouping of steps in the instructions for how to achieve a result (e.g. steps for making a pie crust within a pie recipe).</span>
     <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/ItemList">ItemList</a></span>
-    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/CreativeWork">CreativeWork</a></span>
 </div>
 
 <h1>HowToStep</h1>
@@ -11228,9 +11215,7 @@ Typical unit code(s): C62 for person</span>
 <div typeof="rdfs:Class" resource="http://schema.org/HowToStep">
     <span class="h" property="rdfs:label">HowToStep</span>
     <span property="rdfs:comment">A step in the instructions for how to achieve a result. It is an ordered list with HowToDirection and/or HowToTip items.</span>
-    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/ListItem">ListItem</a></span>
     <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/ItemList">ItemList</a></span>
-    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/CreativeWork">CreativeWork</a></span>
 </div>
 
 <h1>HowToTip</h1>
@@ -11239,7 +11224,6 @@ Typical unit code(s): C62 for person</span>
     <span class="h" property="rdfs:label">HowToTip</span>
     <span property="rdfs:comment">An explanation in the instructions for how to achieve a result. It provides supplementary information about a technique, supply, author's preference, etc. It can explain what could be done, or what should not be done, but doesn't specify what should be done (see HowToDirection).</span>
     <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/ListItem">ListItem</a></span>
-    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/CreativeWork">CreativeWork</a></span>
 </div>
 
 <h1>HowToTool</h1>
