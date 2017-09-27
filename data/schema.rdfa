@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <title>Schema.org master file: RDFS in RDFa</title>
     <meta charset="UTF-8" />
@@ -7711,7 +7711,7 @@ While such policies are most typically expressed in natural language, sometimes 
     </div>
     <div typeof="rdfs:Class" resource="http://schema.org/FoodEstablishmentReservation">
       <span class="h" property="rdfs:label">FoodEstablishmentReservation</span>
-      <span property="rdfs:comment">A reservation to dine at a food-related business.<p>Note: This type is for information about actual reservations, e.g. in confirmation emails or HTML pages with individual confirmations of reservations.</p></span>
+      <span property="rdfs:comment">A reservation to dine at a food-related business.\n\nNote: This type is for information about actual reservations, e.g. in confirmation emails or HTML pages with individual confirmations of reservations.</span>
       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Reservation">Reservation</a></span>
     </div>
     <div typeof="rdfs:Class" resource="http://schema.org/LodgingReservation">
@@ -9281,11 +9281,7 @@ postponing for 1.6.
   <link property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#MBZ"/>
 </div>
 
-<p>Deprecating musicGroupMember in favour of member (already done, but site UI is not ideal; TODO: we should update any examples).</p>
-
 <p>Additions for MusicRecording</p>
-
-<p>TODO: For discussion - do we need something like CreativeWorkContributionRole ?</p>
 
 <div typeof="rdf:Property" resource="http://schema.org/isrcCode">
   <span class="h" property="rdfs:label">isrcCode</span>
@@ -9357,7 +9353,6 @@ postponing for 1.6.
 
 <div typeof="rdf:Property" resource="http://schema.org/releaseOf">
   <span class="h" property="rdfs:label">releaseOf</span>
-  <p>TODO: broaden meaning or add 'album' to name? </p>
   <span property="rdfs:comment">The album this is a release of.</span>
   <link property="http://schema.org/inverseOf" href="http://schema.org/albumRelease"/>
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MusicRelease">MusicRelease</a></span>
@@ -9389,8 +9384,6 @@ postponing for 1.6.
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CreativeWork">CreativeWork</a></span>
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/PublicationEvent">PublicationEvent</a></span>
 </div>
-
-<p>TODO: Add CreativeWorkReleaseRegion - or decide whether PublicationEvent does the job, and rename properties accordingly.</p>
 
 <div typeof="rdfs:Class" resource="http://schema.org/MusicReleaseFormatType">
   <span class="h" property="rdfs:label">MusicReleaseFormatType</span>
@@ -10276,8 +10269,6 @@ Standards bodies should promote a standard prefix for the identifiers of propert
 
 <hr />
 
-<!-- TODO: RETURNED FROM HEALTHEXTENSION -->
-
 <div typeof="rdf:Property" resource="http://schema.org/calories">
   <span class="h" property="rdfs:label">calories</span>
   <span property="rdfs:comment">The number of calories.</span>
@@ -10427,7 +10418,7 @@ Standards bodies should promote a standard prefix for the identifiers of propert
   <span>Subproperty of: <a property="rdfs:subPropertyOf" href="http://schema.org/supply">supply</a></span>
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Recipe">Recipe</a></span>
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
-  <span property="http://schema.org/supersededBy" href="http://schema.org/recipeIngredient"/>
+  <link property="http://schema.org/supersededBy" href="http://schema.org/recipeIngredient"/>
 </div>
 
 <div typeof="rdf:Property" resource="http://schema.org/recipeIngredient">
@@ -10441,7 +10432,7 @@ Standards bodies should promote a standard prefix for the identifiers of propert
 <div typeof="rdf:Property" resource="http://schema.org/recipeInstructions">
   <span class="h" property="rdfs:label">recipeInstructions</span>
   <span property="rdfs:comment">A step in making the recipe, in the form of a single item (document, video, etc.) or an ordered list with HowToStep and/or HowToSection items.</span>
-  <span>Subproperty of: <a property="rdfs:subPropertyOf" href="http://schema.org/steps">steps</a></span>
+  <span>Subproperty of: <a property="rdfs:subPropertyOf" href="http://schema.org/step">step</a></span>
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Recipe"> Recipe</a></span>
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/CreativeWork">CreativeWork</a></span>
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/ItemList">ItemList</a></span>
@@ -10991,7 +10982,7 @@ See also the &lt;a href=&quot;/docs/hotels.html&quot;&gt;dedicated document on t
 
 <div typeof="rdf:Property" resource="http://schema.org/numberOfRooms">
     <span class="h" property="rdfs:label">numberOfRooms</span>
-    <span property="rdfs:comment">The number of rooms (excluding bathrooms and closets) of the acccommodation or lodging business.
+    <span property="rdfs:comment">The number of rooms (excluding bathrooms and closets) of the accommodation or lodging business.
 Typical unit code(s): ROM for room or C62 for no unit. The type of room can be put in the unitText property of the QuantitativeValue.</span>
     <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/House">House</a></span>
     <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Accommodation">Accommodation</a></span>
@@ -11112,9 +11103,20 @@ Typical unit code(s): C62 for person</span>
     <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/HowToSupply">HowToSupply</a></span>
 </div>
 
+<div typeof="rdf:Property" resource="http://schema.org/step">
+    <span class="h" property="rdfs:label">step</span>
+    <span property="rdfs:comment">A single step item (as HowToStep, text, document, video, etc.) or a HowToSection.</span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/HowTo">HowTo</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/CreativeWork">CreativeWork</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/HowToSection">HowToSection</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/HowToStep">HowToStep</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+</div>
+
 <div typeof="rdf:Property" resource="http://schema.org/steps">
     <span class="h" property="rdfs:label">steps</span>
-    <span property="rdfs:comment">The steps in the form of a single item (text, document, video, etc.) or an ordered list with HowToStep and/or HowToSection items.</span>
+    <span property="rdfs:comment">A single step item (as HowToStep, text, document, video, etc.) or a HowToSection (originally misnamed 'steps'; 'step' is preferred).</span>
+    <link property="http://schema.org/supersededBy" href="http://schema.org/step"/>
     <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/HowTo">HowTo</a></span>
     <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/HowToSection">HowToSection</a></span>
     <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/CreativeWork">CreativeWork</a></span>
@@ -11154,6 +11156,7 @@ Typical unit code(s): C62 for person</span>
     <span class="h" property="rdfs:label">HowToDirection</span>
     <span property="rdfs:comment">A direction indicating a single action to do in the instructions for how to achieve a result.</span>
     <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/ListItem">ListItem</a></span>
+    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/CreativeWork">CreativeWork</a></span>
 </div>
 
 <div typeof="rdf:Property" resource="http://schema.org/afterMedia">
@@ -11208,6 +11211,7 @@ Typical unit code(s): C62 for person</span>
     <span class="h" property="rdfs:label">HowToSection</span>
     <span property="rdfs:comment">A sub-grouping of steps in the instructions for how to achieve a result (e.g. steps for making a pie crust within a pie recipe).</span>
     <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/ItemList">ItemList</a></span>
+    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/CreativeWork">CreativeWork</a></span>
 </div>
 
 <h1>HowToStep</h1>
@@ -11215,7 +11219,9 @@ Typical unit code(s): C62 for person</span>
 <div typeof="rdfs:Class" resource="http://schema.org/HowToStep">
     <span class="h" property="rdfs:label">HowToStep</span>
     <span property="rdfs:comment">A step in the instructions for how to achieve a result. It is an ordered list with HowToDirection and/or HowToTip items.</span>
+    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/ListItem">ListItem</a></span>
     <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/ItemList">ItemList</a></span>
+    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/CreativeWork">CreativeWork</a></span>
 </div>
 
 <h1>HowToTip</h1>
@@ -11224,6 +11230,7 @@ Typical unit code(s): C62 for person</span>
     <span class="h" property="rdfs:label">HowToTip</span>
     <span property="rdfs:comment">An explanation in the instructions for how to achieve a result. It provides supplementary information about a technique, supply, author's preference, etc. It can explain what could be done, or what should not be done, but doesn't specify what should be done (see HowToDirection).</span>
     <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/ListItem">ListItem</a></span>
+    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/CreativeWork">CreativeWork</a></span>
 </div>
 
 <h1>HowToTool</h1>

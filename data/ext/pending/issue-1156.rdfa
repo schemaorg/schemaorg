@@ -3,7 +3,18 @@
 
 <!--
 	- 4 new classes
-	- 16 new properties (4 being subproperties of existing properties)
+	- 13 new properties (5 being subproperties of existing properties)
+-->
+
+<!--
+	September 2017 :
+		- deleted inverse properties
+		- Changed definition of "Legislation" to make it clear this is a document
+		- Fixed Range on legislationType (CategoryCode)
+		- Added legislationJurisdiction as a subproperty of spatialCoverage
+		- Fixed Definitive into DefinitiveLegalValue to align with other values
+		- expanded the definition of legislationIdentifier to clarify that it can apply to string or URIs
+		- fixed and adjusted the examples accordingly
 -->
 
 <hr/>
@@ -12,7 +23,7 @@
 <div typeof="rdfs:Class" resource="http://schema.org/Legislation">
 	<span>Category: <span property="schema:category">issue-1156</span></span>
 	<span class="h" property="rdfs:label">Legislation</span>
-	<span property="rdfs:comment">A legal act (enforceable or not) or a component of a legal act (like an article).</span>
+	<span property="rdfs:comment">A legal document such as an act, decree, bill, etc. (enforceable or not) or a component of a legal act (like an article).</span>
 	<span>Subclass of:<a property="rdfs:subClassOf" href="http://schema.org/CreativeWork">schema:CreativeWork</a></span>
 	<link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
 	<span>Source:  <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1156">#1156</a></span>
@@ -67,7 +78,7 @@
 	<span>Category: <span property="schema:category">issue-1156</span></span>
 	<span>Source:  <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1156">#1156</a></span>
 	<span class="h" property="rdfs:label">legislationIdentifier</span>
-	<span property="rdfs:comment">An identifier for the legislation. For example the CELEX at EU level, the NOR in France, or the ELI (European Legislation Identifier).</span>
+	<span property="rdfs:comment">An identifier for the legislation. This can be either a string-based identifier, like the CELEX at EU level or the NOR in France, or a web-based, URL/URI identifier, like an ELI (European Legislation Identifier) or an URN-Lex.</span>
   <link property="rdfs:subPropertyOf" href="http://schema.org/identifier" />
 	<span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Legislation">Legislation</a></span>
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
@@ -84,7 +95,7 @@
 	<link property="rdfs:subPropertyOf" href="http://schema.org/genre" />
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Legislation">Legislation</a></span>
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
-  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/CategoryCode">Text</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/CategoryCode">CategoryCode</a></span>
   <span>Exact Match:  <a property="skos:exactMatch" href="http://data.europa.eu/eli/ontology#type_document">eli:type_document</a></span>
   <span>Source:  <a property="dc:source" href="http://publications.europa.eu/mdr/eli/index.html">ELI</a></span>
   <link property="owl:equivalentProperty" href="http://data.europa.eu/eli/ontology#type_document"/>
@@ -146,6 +157,21 @@
   <link property="owl:equivalentProperty" href="http://data.europa.eu/eli/ontology#in_force"/>
 </div>
 
+<div typeof="rdf:Property" resource="http://schema.org/legislationJurisdiction">
+	<link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
+	<span>Category: <span property="schema:category">issue-1156</span></span>
+	<span>Source:  <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1156">#1156</a></span>
+	<span class="h" property="rdfs:label">legislationJurisdiction</span>
+	<span property="rdfs:comment">The jurisdiction from which the legislation originates.</span>
+	<link property="rdfs:subPropertyOf" href="http://schema.org/spatialCoverage" />
+  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Legislation">Legislation</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Place">Place</a></span>
+  <span>Exact Match:  <a property="skos:exactMatch" href="http://data.europa.eu/eli/ontology#jurisdiction">eli:jurisdiction</a></span>
+  <span>Source:  <a property="dc:source" href="http://publications.europa.eu/mdr/eli/index.html">ELI</a></span>
+  <link property="owl:equivalentProperty" href="http://data.europa.eu/eli/ontology#jurisdiction"/>
+</div>
+
 <!-- ***** LINKS ***** -->
 
 <div typeof="rdf:Property" resource="http://schema.org/legislationChanges">
@@ -158,22 +184,7 @@
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Legislation">Legislation</a></span>
   <span>Exact Match:  <a property="skos:exactMatch" href="http://data.europa.eu/eli/ontology#changes">eli:changes</a></span>
   <span>Source:  <a property="dc:source" href="http://publications.europa.eu/mdr/eli/index.html">ELI</a></span>
-	<link property="http://schema.org/inverseOf" href="http://schema.org/legislationChangedBy"/>
   <link property="owl:equivalentProperty" href="http://data.europa.eu/eli/ontology#changes"/>
-</div>
-
-<div typeof="rdf:Property" resource="http://schema.org/legislationChangedBy">
-	<link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
-	<span>Category: <span property="schema:category">issue-1156</span></span>
-	<span>Source:  <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1156">#1156</a></span>
-	<span class="h" property="rdfs:label">legislationChangedBy</span>
-	<span property="rdfs:comment">Another legislation that changes this legislation. This encompasses the notions of amendment, replacement, correction, repeal, or other types of change. This may be a direct change (textual or non-textual amendment) or a consequential or indirect change. The property is to be used to express the existence of a change relationship between two acts rather than the existence of a consolidated version of the text that shows the result of the change. For consolidation relationships, use the &lt;a href=&quot;/legislationConsolidatedBy&quot;&gt;legislationConsolidatedBy&lt;/a&gt; property.</span>
-	<span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Legislation">Legislation</a></span>
-  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Legislation">Legislation</a></span>
-  <span>Exact Match:  <a property="skos:exactMatch" href="http://data.europa.eu/eli/ontology#changed_by">eli:changed_by</a></span>
-  <span>Source:  <a property="dc:source" href="http://publications.europa.eu/mdr/eli/index.html">ELI</a></span>
-	<link property="http://schema.org/inverseOf" href="http://schema.org/legislationChanges"/>
-  <link property="owl:equivalentProperty" href="http://data.europa.eu/eli/ontology#changed_by"/>
 </div>
 
 <div typeof="rdf:Property" resource="http://schema.org/legislationConsolidates">
@@ -186,22 +197,7 @@
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Legislation">Legislation</a></span>
   <span>Exact Match:  <a property="skos:exactMatch" href="http://data.europa.eu/eli/ontology#consolidates">eli:consolidates</a></span>
   <span>Source:  <a property="dc:source" href="http://publications.europa.eu/mdr/eli/index.html">ELI</a></span>
-	<link property="http://schema.org/inverseOf" href="http://schema.org/legislationConsolidatedBy"/>
   <link property="owl:equivalentProperty" href="http://data.europa.eu/eli/ontology#consolidates"/>
-</div>
-
-<div typeof="rdf:Property" resource="http://schema.org/legislationConsolidatedBy">
-	<link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
-	<span>Category: <span property="schema:category">issue-1156</span></span>
-	<span>Source:  <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1156">#1156</a></span>
-	<span class="h" property="rdfs:label">legislationConsolidatedBy</span>
-	<span property="rdfs:comment">Indicates a consolidated legislation (which is usually the product of an editorial process that revises the legislation) that take into account this legislation.</span>
-	<span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Legislation">Legislation</a></span>
-  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Legislation">Legislation</a></span>
-  <span>Exact Match:  <a property="skos:exactMatch" href="http://data.europa.eu/eli/ontology#consolidated_by">eli:consolidated_by</a></span>
-  <span>Source:  <a property="dc:source" href="http://publications.europa.eu/mdr/eli/index.html">ELI</a></span>
-	<link property="http://schema.org/inverseOf" href="http://schema.org/legislationConsolidates"/>
-  <link property="owl:equivalentProperty" href="http://data.europa.eu/eli/ontology#consolidated_by"/>
 </div>
 
 <div typeof="rdf:Property" resource="http://schema.org/legislationTransposes">
@@ -215,23 +211,7 @@
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Legislation">Legislation</a></span>
   <span>Exact Match:  <a property="skos:exactMatch" href="http://data.europa.eu/eli/ontology#transposes">eli:transposes</a></span>
   <span>Source:  <a property="dc:source" href="http://publications.europa.eu/mdr/eli/index.html">ELI</a></span>
-	<link property="http://schema.org/inverseOf" href="http://schema.org/legislationTransposedBy"/>
   <link property="owl:equivalentProperty" href="http://data.europa.eu/eli/ontology#transposes"/>
-</div>
-
-<div typeof="rdf:Property" resource="http://schema.org/legislationTransposedBy">
-	<link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
-	<span>Category: <span property="schema:category">issue-1156</span></span>
-	<span>Source:  <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1156">#1156</a></span>
-	<span class="h" property="rdfs:label">legislationTransposedBy</span>
-	<span property="rdfs:comment">Indicates that the objectives set by this legislation (or part of legislation) are fulfilled by another legislation who passed appropriate implementation measures. Typically, European Directives are transposed by the legislations of European Union's member states or regions. This indicates a legally binding link between the 2 legislations.</span>
-	<link property="rdfs:subPropertyOf" href="http://schema.org/legislationAppliedBy" />
-	<span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Legislation">Legislation</a></span>
-  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Legislation">Legislation</a></span>
-  <span>Exact Match:  <a property="skos:exactMatch" href="http://data.europa.eu/eli/ontology#transposed_by">eli:transposed_by</a></span>
-  <span>Source:  <a property="dc:source" href="http://publications.europa.eu/mdr/eli/index.html">ELI</a></span>
-	<link property="http://schema.org/inverseOf" href="http://schema.org/legislationTransposes"/>
-  <link property="owl:equivalentProperty" href="http://data.europa.eu/eli/ontology#transposed_by"/>
 </div>
 
 <div typeof="rdf:Property" resource="http://schema.org/legislationApplies">
@@ -244,22 +224,7 @@
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Legislation">Legislation</a></span>
   <span>Exact Match:  <a property="skos:exactMatch" href="http://data.europa.eu/eli/ontology#implements">eli:implements</a></span>
   <span>Source:  <a property="dc:source" href="http://publications.europa.eu/mdr/eli/index.html">ELI</a></span>
-	<link property="http://schema.org/inverseOf" href="http://schema.org/legislationAppliedBy"/>
   <link property="owl:equivalentProperty" href="http://data.europa.eu/eli/ontology#implements"/>
-</div>
-
-<div typeof="rdf:Property" resource="http://schema.org/legislationAppliedBy">
-	<link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
-	<span>Category: <span property="schema:category">issue-1156</span></span>
-	<span>Source:  <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1156">#1156</a></span>
-	<span class="h" property="rdfs:label">legislationAppliedBy</span>
-	<span property="rdfs:comment">Indicates that this legislation (or part of a legislation) is somehow transfered by another legislation in a different legislative context. This is an informative link, and it has no legal value. For legally-binding links of transposition, use the property &lt;a href=&quot;/legislationTransposedBy&quot;&gt;legislationTransposedBy&lt;/a&gt;. For example the informative consolidated version of the European Directive is somehow "applied by" an informative consolidated law in a European Union's member state.</span>
-	<span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Legislation">Legislation</a></span>
-  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Legislation">Legislation</a></span>
-  <span>Exact Match:  <a property="skos:exactMatch" href="http://data.europa.eu/eli/ontology#implemented_by">eli:implemented_by</a></span>
-  <span>Source:  <a property="dc:source" href="http://publications.europa.eu/mdr/eli/index.html">ELI</a></span>
-	<link property="http://schema.org/inverseOf" href="http://schema.org/legislationApplies"/>
-  <link property="owl:equivalentProperty" href="http://data.europa.eu/eli/ontology#implemented_by"/>
 </div>
 
 
@@ -354,18 +319,18 @@
 	<span>Category: <span property="schema:category">issue-1156</span></span>
 	<span>Source:  <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1156">#1156</a></span>
   <span class="h" property="rdfs:label">AuthoritativeLegalValue</span>
-  <span property="rdfs:comment">Indicates that the publisher gives some special status to the publication of the document. ("The Queens Printer" version of a UK Act of Parliament, or the PDF version of a Directive published by the EU Office of Publications). Something "AuthoritativeLegalValue" is considered to be also [[OfficialLegalValue]]".</span>
+  <span property="rdfs:comment">Indicates that the publisher gives some special status to the publication of the document. ("The Queens Printer" version of a UK Act of Parliament, or the PDF version of a Directive published by the EU Office of Publications). Something "Authoritative" is considered to be also [[OfficialLegalValue]]".</span>
   <span>Exact Match:  <a property="skos:exactMatch" href="http://data.europa.eu/eli/ontology#LegalValue-authoritative">eli:LegalValue-authoritative</a></span>
   <span>Source:  <a property="dc:source" href="http://publications.europa.eu/mdr/eli/index.html">ELI</a></span>
 </div>
 
-<div typeof="http://schema.org/LegalValueLevel" resource="http://schema.org/Definitive">
+<div typeof="http://schema.org/LegalValueLevel" resource="http://schema.org/DefinitiveLegalValue">
   <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
 	<span>Category: <span property="schema:category">issue-1156</span></span>
 	<span>Source:  <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1156">#1156</a></span>
-  <span class="h" property="rdfs:label">Definitive</span>
+  <span class="h" property="rdfs:label">DefinitiveLegalValue</span>
   <span property="rdfs:comment">Indicates a document for which the text is conclusively what the law says and is legally binding. (e.g. The digitally signed version of an Official Journal.)
-  Something "Definitive" is considered to be also "&lt;a href=&quot;/Authoritative&quot;&gt;Authoritative&lt;/a&gt;".</span>
+  Something "Definitive" is considered to be also [[AuthoritativeLegalValue]].</span>
   <span>Exact Match:  <a property="skos:exactMatch" href="http://data.europa.eu/eli/ontology#LegalValue-definitive">eli:LegalValue-definitive</a></span>
   <span>Source:  <a property="dc:source" href="http://publications.europa.eu/mdr/eli/index.html">ELI</a></span>
 </div>
