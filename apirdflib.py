@@ -114,6 +114,28 @@ def load_graph(context, files):
 
     QUERYGRAPH = None  #In case we have loaded graphs since the last time QUERYGRAPH was set
 
+def rdfQueryStore(q,graph):
+	res = []
+	try:
+		RDFLIBLOCK.acquire()
+		retrys = 0
+		#Under very heavy loads rdflib has been know to throw exceptions - hense the retry loop
+		while True:
+			try:
+				res = list(graph.query(q))
+				break
+			except Exception as e:
+				log.error("Exception from within rdflib: %s" % e.message)
+				if retrys > 5:
+					log.error("Giving up after %s" % retrys)
+					raise
+				else:
+					log.error("Retrying again after %s retrys" % retrys)
+					retrys += 1
+	finally:
+		RDFLIBLOCK.release()
+	return res
+
 def rdfGetTriples(id):
 	"""All triples with node as subject."""
 	targets = []
@@ -132,13 +154,10 @@ def rdfGetTriples(id):
 	homeSetTo = None
 	typeOfInLayers = []
 
-	try:
-		RDFLIBLOCK.acquire()
-		q = "SELECT ?g ?p ?o  WHERE {GRAPH ?g {<%s> ?p ?o }}" % fullId
-		res = list(STORE.query(q))
-	finally:
-		RDFLIBLOCK.release()
-		
+	q = "SELECT ?g ?p ?o  WHERE {GRAPH ?g {<%s> ?p ?o }}" % fullId
+
+	res = rdfQueryStore(q,STORE)
+
 	for row in res:
 #		if source == "http://meta.schema.org/":
 #		log.info("Triple: %s %s %s %s" % (source, row.p, row.o, row.g))
@@ -190,12 +209,7 @@ def rdfGetSourceTriples(target):
 				
 	q = "SELECT ?g ?s ?p  WHERE {GRAPH ?g {?s ?p %s }}" % targ
 
-	try:
-		RDFLIBLOCK.acquire()
-		res = list(STORE.query(q))
-		#log.info("RESCOUNT %s" % len(res))
-	finally:
-		RDFLIBLOCK.release()
+	res = rdfQueryStore(q,STORE)
 
 	for row in res:
 		layer = str(getRevNss(str(row.g)))
@@ -222,22 +236,18 @@ def countFilter(extension="ALL",includeAttic=False):
     return extensionSel + "\n" + excludeAttic
         
 def countTypes(extension="ALL",includeAttic=False):
-    filter = countFilter(extension=extension, includeAttic=includeAttic)
-    query= ('''select (count (?term) as ?cnt) where { 
-         ?term a rdfs:Class. 
-         ?term rdfs:subClassOf* schema:Thing.
-       %s
-    }''') % filter
-    graph = queryGraph()
-    count = 0
-    try:
-        RDFLIBLOCK.acquire()
-        res = graph.query(query)
-        for row in res:
-            count = row.cnt
-    finally:
-        RDFLIBLOCK.release()
-    return count
+	filter = countFilter(extension=extension, includeAttic=includeAttic)
+	query= ('''select (count (?term) as ?cnt) where { 
+	  ?term a rdfs:Class. 
+	  ?term rdfs:subClassOf* schema:Thing.
+	  %s
+	  }''') % filter
+	graph = queryGraph()
+	count = 0
+	res = rdfQueryStore(query,graph)
+	for row in res:
+		count = row.cnt
+	return count
 
 def countProperties(extension="ALL",includeAttic=False):
  filter = countFilter(extension=extension, includeAttic=includeAttic)
@@ -250,32 +260,24 @@ def countProperties(extension="ALL",includeAttic=False):
  }''') % filter
  graph = queryGraph()
  count = 0
- try:
-     RDFLIBLOCK.acquire()
-     res = graph.query(query)
-     for row in res:
-         count = row.cnt
- finally:
-     RDFLIBLOCK.release()
+ res = rdfQueryStore(query,graph)
+ for row in res:
+    count = row.cnt
  return count
         
 def countEnums(extension="ALL",includeAttic=False):
-    filter = countFilter(extension=extension, includeAttic=includeAttic)
-    query= ('''select (count (?term) as ?cnt) where { 
-         ?term a ?type. 
-         ?type rdfs:subClassOf* <http://schema.org/Enumeration>.
-       %s
-    }''') % filter
-    graph = queryGraph()
-    count = 0
-    try:
-        RDFLIBLOCK.acquire()
-        res = graph.query(query)
-        for row in res:
-            count = row.cnt
-    finally:
-        RDFLIBLOCK.release()
-    return count
+	filter = countFilter(extension=extension, includeAttic=includeAttic)
+	query= ('''select (count (?term) as ?cnt) where { 
+	     ?term a ?type. 
+	     ?type rdfs:subClassOf* <http://schema.org/Enumeration>.
+	   %s
+	}''') % filter
+	graph = queryGraph()
+	count = 0
+	res = rdfQueryStore(query,graph)
+	for row in res:
+		count = row.cnt
+	return count
     
 def serializeSingleTermGrapth(node,format="json-ld",excludeAttic=True,markdown=True):
     graph = buildSingleTermGraph(node=node,excludeAttic=excludeAttic,markdown=markdown)
@@ -329,64 +331,49 @@ def buildSingleTermGraph(node,excludeAttic=True,markdown=True):
         g.add((s,p,o))
 
     #super classes
-    query='''select * where {
-    ?term (^rdfs:subClassOf*) <%s>.
-    ?term rdfs:subClassOf ?super.
-    ?super ?pred ?obj.
-    }''' % n
-    try:
-        RDFLIBLOCK.acquire()
-        ret = q.query(query)
-    finally:
-        RDFLIBLOCK.release()
+	query='''select * where {
+	?term (^rdfs:subClassOf*) <%s>.
+	?term rdfs:subClassOf ?super.
+	?super ?pred ?obj.
+	}''' % n
+
+	ret = rdfQueryStore(query,q)
     for row in ret:
         #log.info("adding %s %s %s" % (row.term,RDFS.subClassOf,row.super))
         g.add((row.term,RDFS.subClassOf,row.super))
         g.add((row.super,row.pred,row.obj))
          
     #poperties with superclasses in domain
-    query='''select * where{
-    ?term (^rdfs:subClassOf*) <%s>.
-    ?prop <http://schema.org/domainIncludes> ?term.
-    ?prop ?pred ?obj.
-    }
-    ''' % n
-    try:
-        RDFLIBLOCK.acquire()
-        ret = q.query(query)
-    finally:
-        RDFLIBLOCK.release()
+	query='''select * where{
+	?term (^rdfs:subClassOf*) <%s>.
+	?prop <http://schema.org/domainIncludes> ?term.
+	?prop ?pred ?obj.
+	}
+	''' % n
+	ret = rdfQueryStore(query,q)
     for row in ret:
         g.add((row.prop,SCHEMA.domainIncludes,row.term))
         g.add((row.prop,row.pred,row.obj))
 
     #super properties
-    query='''select * where {
-    ?term (^rdfs:subPropertyOf*) <%s>.
-    ?term rdfs:subPropertyOf ?super.
-    ?super ?pred ?obj.
-    }''' % n
-    try:
-        RDFLIBLOCK.acquire()
-        ret = q.query(query)
-    finally:
-        RDFLIBLOCK.release()
+	query='''select * where {
+	?term (^rdfs:subPropertyOf*) <%s>.
+	?term rdfs:subPropertyOf ?super.
+	?super ?pred ?obj.
+	}''' % n
+	ret = rdfQueryStore(query,q)
     for row in ret:
         #log.info("adding %s %s %s" % (row.term,RDFS.subPropertyOf,row.super))
         g.add((row.term,RDFS.subPropertyOf,row.super))
         g.add((row.super,row.pred,row.obj))
 
     #Enumeration for an enumeration value
-    query='''select * where {
-    <%s> a ?type.
-    ?type ?pred ?obj.
-    FILTER NOT EXISTS{?type a rdfs:class}.
-    }''' % n
-    try:
-        RDFLIBLOCK.acquire()
-        ret = q.query(query)
-    finally:
-        RDFLIBLOCK.release()
+	query='''select * where {
+	<%s> a ?type.
+	?type ?pred ?obj.
+	FILTER NOT EXISTS{?type a rdfs:class}.
+	}''' % n
+	ret = rdfQueryStore(query,q)
     for row in ret:
         #log.info("adding %s %s %s" % (row.type,row.pred,row.obj))
         g.add((row.type,row.pred,row.obj))

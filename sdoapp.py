@@ -2092,7 +2092,7 @@ class ShowUnit (webapp2.RequestHandler):
                 # www is special case that cannot be an extension - need to redirect to basehost
                 mybasehost = mybasehost[4:]
                 setBaseHost(mybasehost)
-                return self.redirectToBase(node)
+                return self.redirectToBase(node,True)
             elif not host_ext in ENABLED_EXTENSIONS:
                 host_ext = ""
             else:
@@ -2131,10 +2131,10 @@ class ShowUnit (webapp2.RequestHandler):
 
         return True
 
-    def redirectToBase(self,node=""):
-        uri = makeUrl("",node)
-        self.response = webapp2.redirect(uri, True, 301)
+    def redirectToBase(self,node="",full=False):
+        uri = makeUrl("",node,full)
         log.info("Redirecting [301] to: %s" % uri)
+        self.response = webapp2.redirect(uri, True, 301)
         return False
 
 
@@ -2201,7 +2201,7 @@ class ShowUnit (webapp2.RequestHandler):
                     self.response.headers.add_header("ETag", etag + tagsuff)
                     self.response.headers['Last-Modified'] = getmodiftime().strftime("%a, %d %b %Y %H:%M:%S UTC")
                     retHdrs = self.response.headers.copy()
-                    HeaderStore.put(etag + tagsuff,retHdrs) #Cache these headers for a future 304 return
+                    HeaderStore.putIfNewKey(etag + tagsuff,retHdrs) #Cache these headers for a future 304 return
 
             self.response.set_cookie('GOOGAPPUID', getAppEngineVersion())
 
@@ -2581,7 +2581,7 @@ def templateRender(templateName,values=None):
         'sitemode': sitemode,
         'sitename': getSiteName(),
         'staticPath': makeUrl("",""),
-        'extensionPath': makeUrl(getHostExt(),""),
+        'extensionPath': makeUrl(getHostExt(),"",True),
         'myhost': getHost(),
         'myport': getHostPort(),
         'mybasehost': getBaseHost(),
