@@ -1,0 +1,93 @@
+<div>
+  <!-- MediaSubscription and ActionAccessSpecification, issue 1741 -->
+
+    <div typeof="rdfs:Class" resource="http://schema.org/MediaSubscription">
+      <span class="h" property="rdfs:label">MediaSubscription</span>
+      <span property="rdfs:comment">A subscription which allows a user to access media including audio, video, books, etc.</span>
+      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Intangible">Intangible</a></span>
+
+      <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
+      <span property="schema:category">issue-1741</span>
+      <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1741"></a>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/authenticator">
+      <span class="h" property="rdfs:label">authenticator</span>
+      <span property="rdfs:comment">The Organization responsible for authenticating the user's subscription. For example, many media apps require a cable/satellite provider to authenticate your subscription before playing media.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MediaSubscription">MediaSubscription</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Organization">Organization</a></span>
+
+      <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
+      <span property="schema:category">issue-1741</span>
+      <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1741"></a>
+    </div>
+
+    <div typeof="rdfs:Class" resource="http://schema.org/ActionAccessSpecification">
+      <span class="h" property="rdfs:label">ActionAccessSpecification</span>
+      <span property="rdfs:comment">A set of requirements that a must be fulfilled in order to perform an Action.</span>
+      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Intangible">Intangible</a></span>
+
+      <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
+      <span property="schema:category">issue-1741</span>
+      <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1741"></a>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/availabilityStarts">
+      <span class="h" property="rdfs:label">availabilityStarts</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ActionAccessSpecification">ActionAccessSpecification</a></span>
+
+      <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
+      <span property="schema:category">issue-1741</span>
+      <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1741"></a>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/availabilityEnds">
+      <span class="h" property="rdfs:label">availabilityEnds</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ActionAccessSpecification">ActionAccessSpecification</a></span>
+
+      <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
+      <span property="schema:category">issue-1741</span>
+      <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1741"></a>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/category">
+      <span class="h" property="rdfs:label">category</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ActionAccessSpecification">ActionAccessSpecification</a></span>
+
+      <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
+      <span property="schema:category">issue-1741</span>
+      <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1741"></a>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/eligibleRegion">
+      <span class="h" property="rdfs:label">eligibleRegion</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ActionAccessSpecification">ActionAccessSpecification</a></span>
+
+      <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
+      <span property="schema:category">issue-1741</span>
+      <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1741"></a>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/expectsAcceptanceOf">
+      <span class="h" property="rdfs:label">expectsAcceptanceOf</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ActionAccessSpecification">ActionAccessSpecification</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MediaSubscription">MediaSubscription</a></span>
+
+      <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
+      <span property="schema:category">issue-1741</span>
+      <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1741"></a>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/requiresSubscription">
+      <span class="h" property="rdfs:label">requiresSubscription</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ActionAccessSpecification">ActionAccessSpecification</a></span>
+      <span>Range:  <a property="http://schema.org/rangeIncludes"  href="http://schema.org/MediaSubscription">MediaSubscription</a></span>
+      <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
+      <span property="schema:category">issue-1741</span>
+      <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1741"></a>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/actionAccessibilityRequirement">
+      <span class="h" property="rdfs:label">actionAccessibilityRequirement</span>
+      <span property="rdfs:comment">A set of requirements that a must be fulfilled in order to perform an Action. If more than one value is specied, fulfilling one set of requirements will allow the Action to be performed.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ConsumeAction">ConsumeAction</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/ActionAccessSpecification">ActionAccessSpecification</a></span>
+
+      <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
+      <span property="schema:category">issue-1741</span>
+      <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1741"></a>
+    </div>
+
+</div>
