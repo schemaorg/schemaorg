@@ -6,6 +6,26 @@
   },
   "@graph": [
     {
+      "@id": "http://schema.org/variablesMeasured",
+      "@type": "rdf:Property",
+      "http://schema.org/domainIncludes": {
+        "@id": "http://schema.org/Dataset"
+      },
+      "http://schema.org/isPartOf": {
+        "@id": "http://pending.schema.org"
+      },
+      "http://schema.org/rangeIncludes": [
+        {
+          "@id": "http://schema.org/Text"
+        },
+        {
+          "@id": "http://schema.org/PropertyValue"
+        }
+      ],
+      "rdfs:comment": "Originally named <a class=\"localLink\" href=\"http://schema.org/variablesMeasured\">variablesMeasured</a>, The <a class=\"localLink\" href=\"http://schema.org/variableMeasured\">variableMeasured</a> property can indicate (repeated as necessary) the  variables that are measured in some dataset, either described as text or as pairs of identifier and description using PropertyValue.",
+      "rdfs:label": "variablesMeasured"
+    },
+    {
       "@id": "http://schema.org/StupidType",
       "@type": "rdfs:Class",
       "http://schema.org/isPartOf": {

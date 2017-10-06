@@ -93,7 +93,7 @@ Unlike other core and extension terms, these extensions may be updated at any ti
 
 <h3 id="extext">External Extensions</h3>
 
-<p>The schema.org <a href="/about.html#cgsg">steering group</a> does not officially approve external extensions - they are fully independent.
+<p>The schema.org <a href="/docs/about.html#cgsg">steering group</a> does not officially approve external extensions - they are fully independent.
   We list here some notable extensions that extend schema.org in interesting and useful ways.</p>
 
 <ul>

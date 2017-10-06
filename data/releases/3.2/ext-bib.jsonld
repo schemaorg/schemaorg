@@ -65,54 +65,28 @@
       }
     },
     {
-      "@id": "http://schema.org/GraphicNovel",
-      "@type": "http://schema.org/BookFormatType",
-      "http://schema.org/category": {
-        "@language": "en",
-        "@value": "Comics"
-      },
-      "http://schema.org/isPartOf": {
-        "@id": "http://bib.schema.org"
-      },
-      "rdfs:comment": "Book format: GraphicNovel. May represent a bound collection of ComicIssue instances.",
-      "rdfs:label": {
-        "@language": "en",
-        "@value": "GraphicNovel"
-      }
-    },
-    {
-      "@id": "http://schema.org/translationOfWork",
+      "@id": "http://schema.org/pagination",
       "@type": "rdf:Property",
       "http://schema.org/domainIncludes": {
-        "@id": "http://schema.org/CreativeWork"
-      },
-      "http://schema.org/inverseOf": {
-        "@id": "http://schema.org/workTranslation"
+        "@id": "http://schema.org/Chapter"
+      }
+    },
+    {
+      "@id": "http://schema.org/Newspaper",
+      "@type": "rdfs:Class",
+      "http://purl.org/dc/terms/source": {
+        "@id": "http://www.productontology.org/id/Newspaper"
       },
       "http://schema.org/isPartOf": {
         "@id": "http://bib.schema.org"
       },
-      "http://schema.org/rangeIncludes": {
-        "@id": "http://schema.org/CreativeWork"
-      },
-      "rdfs:comment": "The work that this work has been translated from. e.g. 物种起源 is a translationOf “On the Origin of Species”",
+      "rdfs:comment": "A publication containing information about varied topics that are pertinent to general information, a geographic area, or a specific subject matter (i.e. business, culture, education). Often published daily.",
       "rdfs:label": {
         "@language": "en",
-        "@value": "translationOfWork"
-      }
-    },
-    {
-      "@id": "file:///Users/wallisr/Development/Schema/Outputs/schemaorg/data/ext/bib/comics.rdfa",
-      "http://schema.org/softwareVersion": {
-        "@language": "en",
-        "@value": "bib extension - version 0.1"
-      }
-    },
-    {
-      "@id": "file:///Users/wallisr/Development/Schema/Outputs/schemaorg/data/ext/bib/bsdo-1.0.rdfa",
-      "http://schema.org/softwareVersion": {
-        "@language": "en",
-        "@value": "bib.schema.org Version 0.1"
+        "@value": "Newspaper"
+      },
+      "rdfs:subClassOf": {
+        "@id": "http://schema.org/Periodical"
       }
     },
     {
@@ -124,13 +98,13 @@
       },
       "http://schema.org/domainIncludes": [
         {
-          "@id": "http://schema.org/ComicStory"
-        },
-        {
           "@id": "http://schema.org/VisualArtwork"
         },
         {
           "@id": "http://schema.org/ComicIssue"
+        },
+        {
+          "@id": "http://schema.org/ComicStory"
         }
       ],
       "http://schema.org/isPartOf": {
@@ -161,26 +135,6 @@
       "rdfs:label": {
         "@language": "en",
         "@value": "abridged"
-      }
-    },
-    {
-      "@id": "http://schema.org/translator",
-      "@type": "rdf:Property",
-      "http://schema.org/domainIncludes": {
-        "@id": "http://schema.org/CreativeWork"
-      },
-      "http://schema.org/rangeIncludes": [
-        {
-          "@id": "http://schema.org/Organization"
-        },
-        {
-          "@id": "http://schema.org/Person"
-        }
-      ],
-      "rdfs:comment": "An agent responsible for rendering a translated work from a source work",
-      "rdfs:label": {
-        "@language": "en",
-        "@value": "translator"
       }
     },
     {
@@ -324,12 +278,19 @@
       },
       "rdfs:subClassOf": [
         {
-          "@id": "http://schema.org/Book"
+          "@id": "http://schema.org/AudioObject"
         },
         {
-          "@id": "http://schema.org/AudioObject"
+          "@id": "http://schema.org/Book"
         }
       ]
+    },
+    {
+      "@id": "file:///Users/danbri/sdo/official/schemaorg/data/ext/bib/bsdo-1.0.rdfa",
+      "http://schema.org/softwareVersion": {
+        "@language": "en",
+        "@value": "bib.schema.org Version 0.1"
+      }
     },
     {
       "@id": "http://schema.org/colorist",
@@ -343,10 +304,10 @@
           "@id": "http://schema.org/ComicStory"
         },
         {
-          "@id": "http://schema.org/ComicIssue"
+          "@id": "http://schema.org/VisualArtwork"
         },
         {
-          "@id": "http://schema.org/VisualArtwork"
+          "@id": "http://schema.org/ComicIssue"
         }
       ],
       "http://schema.org/isPartOf": {
@@ -417,36 +378,40 @@
       }
     },
     {
-      "@id": "http://schema.org/Newspaper",
-      "@type": "rdfs:Class",
-      "http://purl.org/dc/terms/source": {
-        "@id": "http://www.productontology.org/id/Newspaper"
-      },
-      "http://schema.org/isPartOf": {
-        "@id": "http://bib.schema.org"
-      },
-      "rdfs:comment": "A publication containing information about varied topics that are pertinent to general information, a geographic area, or a specific subject matter (i.e. business, culture, education). Often published daily.",
-      "rdfs:label": {
+      "@id": "file:///Users/danbri/sdo/official/schemaorg/data/ext/bib/comics.rdfa",
+      "http://schema.org/softwareVersion": {
         "@language": "en",
-        "@value": "Newspaper"
-      },
-      "rdfs:subClassOf": {
-        "@id": "http://schema.org/Periodical"
+        "@value": "bib extension - version 0.1"
       }
     },
     {
-      "@id": "http://schema.org/Collection",
-      "@type": "rdfs:Class",
+      "@id": "http://schema.org/penciler",
+      "@type": "rdf:Property",
+      "http://schema.org/category": {
+        "@language": "en",
+        "@value": "Comics"
+      },
+      "http://schema.org/domainIncludes": [
+        {
+          "@id": "http://schema.org/VisualArtwork"
+        },
+        {
+          "@id": "http://schema.org/ComicIssue"
+        },
+        {
+          "@id": "http://schema.org/ComicStory"
+        }
+      ],
       "http://schema.org/isPartOf": {
         "@id": "http://bib.schema.org"
       },
-      "rdfs:comment": "A created collection of Creative Works or other artefacts.",
+      "http://schema.org/rangeIncludes": {
+        "@id": "http://schema.org/Person"
+      },
+      "rdfs:comment": "The individual who draws the primary narrative artwork.",
       "rdfs:label": {
         "@language": "en",
-        "@value": "Collection"
-      },
-      "rdfs:subClassOf": {
-        "@id": "http://schema.org/CreativeWork"
+        "@value": "penciler"
       }
     },
     {
@@ -465,10 +430,55 @@
       }
     },
     {
-      "@id": "http://schema.org/pagination",
+      "@id": "http://schema.org/Collection",
+      "@type": "rdfs:Class",
+      "http://schema.org/isPartOf": {
+        "@id": "http://bib.schema.org"
+      },
+      "rdfs:comment": "A created collection of Creative Works or other artefacts.",
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "Collection"
+      },
+      "rdfs:subClassOf": {
+        "@id": "http://schema.org/CreativeWork"
+      }
+    },
+    {
+      "@id": "http://schema.org/GraphicNovel",
+      "@type": "http://schema.org/BookFormatType",
+      "http://schema.org/category": {
+        "@language": "en",
+        "@value": "Comics"
+      },
+      "http://schema.org/isPartOf": {
+        "@id": "http://bib.schema.org"
+      },
+      "rdfs:comment": "Book format: GraphicNovel. May represent a bound collection of ComicIssue instances.",
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "GraphicNovel"
+      }
+    },
+    {
+      "@id": "http://schema.org/translationOfWork",
       "@type": "rdf:Property",
       "http://schema.org/domainIncludes": {
-        "@id": "http://schema.org/Chapter"
+        "@id": "http://schema.org/CreativeWork"
+      },
+      "http://schema.org/inverseOf": {
+        "@id": "http://schema.org/workTranslation"
+      },
+      "http://schema.org/isPartOf": {
+        "@id": "http://bib.schema.org"
+      },
+      "http://schema.org/rangeIncludes": {
+        "@id": "http://schema.org/CreativeWork"
+      },
+      "rdfs:comment": "The work that this work has been translated from. e.g. 物种起源 is a translationOf “On the Origin of Species”",
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "translationOfWork"
       }
     },
     {
@@ -505,13 +515,13 @@
       },
       "http://schema.org/domainIncludes": [
         {
-          "@id": "http://schema.org/ComicStory"
-        },
-        {
           "@id": "http://schema.org/ComicIssue"
         },
         {
           "@id": "http://schema.org/VisualArtwork"
+        },
+        {
+          "@id": "http://schema.org/ComicStory"
         }
       ],
       "http://schema.org/isPartOf": {
@@ -552,36 +562,6 @@
       },
       "rdfs:subPropertyOf": {
         "@id": "http://schema.org/actor"
-      }
-    },
-    {
-      "@id": "http://schema.org/penciler",
-      "@type": "rdf:Property",
-      "http://schema.org/category": {
-        "@language": "en",
-        "@value": "Comics"
-      },
-      "http://schema.org/domainIncludes": [
-        {
-          "@id": "http://schema.org/ComicIssue"
-        },
-        {
-          "@id": "http://schema.org/ComicStory"
-        },
-        {
-          "@id": "http://schema.org/VisualArtwork"
-        }
-      ],
-      "http://schema.org/isPartOf": {
-        "@id": "http://bib.schema.org"
-      },
-      "http://schema.org/rangeIncludes": {
-        "@id": "http://schema.org/Person"
-      },
-      "rdfs:comment": "The individual who draws the primary narrative artwork.",
-      "rdfs:label": {
-        "@language": "en",
-        "@value": "penciler"
       }
     },
     {

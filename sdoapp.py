@@ -47,12 +47,13 @@ sitemode = "mainsite" # whitespaced list for CSS tags,
             # e.g. "mainsite testsite" when off expected domains
             # "extensionsite" when in an extension (e.g. blue?)
 
-releaselog = { "2.0": "2015-05-13", "2.1": "2015-08-06", "2.2": "2015-11-05", "3.0": "2016-05-04", "3.1": "2016-08-09" }
+releaselog = { "2.0": "2015-05-13", "2.1": "2015-08-06", "2.2": "2015-11-05", "3.0": "2016-05-04", "3.1": "2016-08-09", "3.2": "2017-03-23" }
 
 silent_skip_list =  [ "favicon.ico" ] # Do nothing for now
 
 all_layers = {}
 ext_re = re.compile(r'([^\w,])+')
+validNode_re = re.compile(r'[^\w\-_\/\.]')
 
 #TODO: Modes:
 # mainsite
@@ -111,6 +112,14 @@ elif "SERVER_NAME" in os.environ and ("localhost" in os.environ['SERVER_NAME'] a
 appver = "TestHarness Version"
 if "CURRENT_VERSION_ID" in os.environ:
     appver = os.environ["CURRENT_VERSION_ID"]
+
+def getAppEngineVersion():
+    ret = ""
+    if not getInTestHarness():
+        from google.appengine.api.modules.modules import get_current_version_name
+        ret = get_current_version_name()
+        log.info("AppEngineVersion '%s'" % ret)
+    return ret
 
 
 instance_first = True
@@ -1402,8 +1411,9 @@ class ShowUnit (webapp2.RequestHandler):
 	  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 	  ga('create', 'UA-52672119-1', 'auto');ga('send', 'pageview');</script>""")
 
-        self.write(" \n\n</div>\n</body>\n</html>")
-        
+ 
+        self.write(" \n\n</div>\n</body>\n<!--AppEngineVersion %s -->\n</html>" % getAppEngineVersion())
+  
         page = "".join(self.outputStrings)
         PageStore.put(node.id,page)
 
@@ -1797,7 +1807,7 @@ class ShowUnit (webapp2.RequestHandler):
         if extrainfo:
             self.response.out.write("<div>%s</div>" % extrainfo)
 
-        self.response.out.write("</div>\n</body>\n</html>\n")
+        self.response.out.write("</div>\n</body>\n<!--AppEngineVersion %s -->\n</html>\n"  % getAppEngineVersion())
 
         return True
 
@@ -2178,6 +2188,8 @@ class ShowUnit (webapp2.RequestHandler):
                     retHdrs = self.response.headers.copy()
                     HeaderStore.put(etag + tagsuff,retHdrs) #Cache these headers for a future 304 return
 
+            self.response.set_cookie('GOOGAPPUID', getAppEngineVersion())
+
 
     def _get(self, node, doWarm=True):
         global LOADEDSOURCES
@@ -2208,6 +2220,10 @@ class ShowUnit (webapp2.RequestHandler):
         #log.info("[%s] _get(%s)" % (getInstanceId(short=True),node))
 
         self.callCount()
+
+        if re.search( validNode_re, str(node)): #invalid node name
+            self.handle404Failure(node)
+            return False
 
         if (node in silent_skip_list):
             return False
@@ -2397,7 +2413,7 @@ class ShowUnit (webapp2.RequestHandler):
         for c in DataCache.keys():
            self.writeDebugRow("Instance DataCache[%s] size" % c, len(DataCache.getCache(c) ))
         self.response.out.write("</tbody><table><br/>\n")
-        self.response.out.write( "</div>\n<body>\n</html>" )
+        self.response.out.write("</div>\n</body>\n<!--AppEngineVersion %s -->\n</html>\n"  % getAppEngineVersion())
 
     def writeDebugRow(self,term,value,head=False):
         rt = "td"
@@ -2558,7 +2574,8 @@ def templateRender(templateName,values=None):
         'extDD': extDD,
         'extVers': extVers,
         'extName': extName,
-        'debugging': getAppVar('debugging')
+        'debugging': getAppVar('debugging'),
+        'appengineVersion': getAppEngineVersion()
     }
 
     if values:

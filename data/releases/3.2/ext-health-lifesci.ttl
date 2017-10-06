@@ -225,7 +225,8 @@ schema:MedicalCode a rdfs:Class ;
     rdfs:label "MedicalCode" ;
     schema:isPartOf <http://health-lifesci.schema.org> ;
     rdfs:comment "A code for a medical entity." ;
-    rdfs:subClassOf schema:MedicalIntangible .
+    rdfs:subClassOf schema:CategoryCode,
+        schema:MedicalIntangible .
 
 schema:MedicalCondition a rdfs:Class ;
     rdfs:label "MedicalCondition" ;
@@ -606,9 +607,9 @@ schema:VitalSign a rdfs:Class ;
     rdfs:comment "Vital signs are measures of various physiological functions in order to assess the most basic body functions." ;
     rdfs:subClassOf schema:MedicalSign .
 
-<file:///Users/wallisr/Development/Schema/Outputs/schemaorg/data/ext/health-lifesci/med-health-core.rdfa> rdfa:usesVocabulary <http://schema.org> .
+<file:///Users/danbri/sdo/official/schemaorg/data/ext/health-lifesci/med-health-core.rdfa> rdfa:usesVocabulary <http://schema.org> .
 
-<file:///Users/wallisr/Development/Schema/Outputs/schemaorg/data/ext/health-lifesci/physical-activity-and-exercise.rdfa> rdfa:usesVocabulary <http://schema.org> .
+<file:///Users/danbri/sdo/official/schemaorg/data/ext/health-lifesci/physical-activity-and-exercise.rdfa> rdfa:usesVocabulary <http://schema.org> .
 
 schema:Abdomen a schema:PhysicalExam ;
     rdfs:label "Abdomen" ;
@@ -1489,10 +1490,7 @@ schema:code a rdf:Property ;
 
 schema:codeValue a rdf:Property ;
     rdfs:label "codeValue" ;
-    schema:domainIncludes schema:MedicalCode ;
-    schema:isPartOf <http://health-lifesci.schema.org> ;
-    schema:rangeIncludes schema:Text ;
-    rdfs:comment "The actual code." .
+    schema:domainIncludes schema:MedicalCode .
 
 schema:codingSystem a rdf:Property ;
     rdfs:label "codingSystem" ;

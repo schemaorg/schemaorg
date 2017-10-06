@@ -136,7 +136,7 @@ td.release  {
 
 
 <tr>
-<td class="release"><a href="/version/3.2/">3.2</a><br/>sdo-callisto<br/>(2017-03-XX)</td>
+<td class="release"><a href="/version/3.2/">3.2</a><br/>sdo-callisto<br/>(2017-03-23)</td>
 <span id="v.next"></span>
 <span id="sdo-callisto"></span>
 <span id="v3.2"></span>
@@ -144,7 +144,8 @@ td.release  {
 <p>
 Version 3.2 (working name 'sdo-callisto'). See <a href="https://github.com/schemaorg/schemaorg/issues/1">planning pages</a>, specifically <a href="https://github.com/schemaorg/schemaorg/issues/1292">#1292</a> for details.
 </p>
-<p>This release is under discussion.</p>
+<p>This release introduces new core vocabulary including mechanisms for describing fact-check reviews, courses, and menus. It also introduces
+a number of newly-proposed terms via the "pending" area, to encourage discussion, implementation feedback and other improvements.</p>
 </td>
 
 <td>
@@ -179,9 +180,6 @@ with the other new menu properties, and to avoid a property and type having esse
     <li id="g1100b"><a href="https://github.com/schemaorg/schemaorg/issues/1100">Issue #1100</a>: Added <a href="/accessMode">accessMode</a>,
       <a href="/accessModeSufficient">accessModeSufficient</a>, <a href="/accessibilitySummary">accessibilitySummary</a> properties to support <a href="http://www.idpf.org/epub/latest/accessibility">accessible digital publishing</a>. This proposal came from the digital publishing community, and specifically from the Epub 3.1 Accessibility Working Group.
     </li>
-
-    </li>
-
   </ul>
 </li>
 </ul>
@@ -270,10 +268,14 @@ and property <a href="/hasBroadcastChannel">hasBroadcastChannel</a> (inverse: <a
 <a href="https://groups.google.com/forum/#!forum/sdo-iot-sync">mailing list</a> and <a href="http://iot.webschemas.org/docs/iot-gettingstarted.html">discussion document</a>. At this stage no specific schemas are proposed, only some basic infrastructure for collaboration and schema review.
 </li>
 <li id="g1398"><a href="https://github.com/schemaorg/schemaorg/issues/1398">Issue #1398</a>: Added HTML anchor to support links to the "incoming" section of pages documenting types (see <a href="http://schema.org/QuantitativeValue#incoming">example</a>).</li>
+<li id="g1483"><a href="https://github.com/schemaorg/schemaorg/issues/1483">Issue #1483</a>: Added a sitemap.xml file.</li>
+<li id="g53"><a href="https://github.com/schemaorg/schemaorg/issues/53">Issue #53</a>: Added <a href="https://travis-ci.org/schemaorg/schemaorg">Travis-CI</a> monitoring for test cases and syntax checking of examples.</li>
+<li id="g1351"><a href="https://github.com/schemaorg/schemaorg/pull/1351">Issue #1351</a>: Improvements to the output formats of downloads section in <a href="/docs/developers.html">developers page</a>.</li>
 </ul>
 
 <h3>Quick fixes and Examples</h3>
 <ul>
+<li id="g1560"><a href="https://github.com/schemaorg/schemaorg/pull/1475">Issue #1475</a>: Clarified that <a href="/Event">Event</a> can have an <a href="/audience">audience</a> property.</li>
 <li id="g1494"><a href="https://github.com/schemaorg/schemaorg/issues/1494">Issue #1494</a>: Broadened <a href="/lender">lender</a> to allow organizations as possible values.</li>
 <li id="g1294"><a href="https://github.com/schemaorg/schemaorg/issues/1294">Issue #1294</a>: Restored <a href="/material">material</a>
 as a super-property of <a href="/artMaterial">artMaterial</a> that can be used with any <a href="/Product">Product</a> or <a href="/CreativeWork">CreativeWork</a>.
