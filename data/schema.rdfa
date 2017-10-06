@@ -5890,6 +5890,8 @@ The place is __open__ if the [[opens]] property is specified, and __closed__ oth
       <span property="rdfs:comment">The name of the item.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Thing">Thing</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+      <link property="rdfs:subPropertyOf" href="rdfs:label"></>
+      <link property="owl:equivalentProperty" href="http://purl.org/dc/terms/title"/>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/nationality">
       <span class="h" property="rdfs:label">nationality</span>
@@ -9281,7 +9283,11 @@ postponing for 1.6.
   <link property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#MBZ"/>
 </div>
 
+<p>Deprecating musicGroupMember in favour of member (already done, but site UI is not ideal; TODO: we should update any examples).</p>
+
 <p>Additions for MusicRecording</p>
+
+<p>TODO: For discussion - do we need something like CreativeWorkContributionRole ?</p>
 
 <div typeof="rdf:Property" resource="http://schema.org/isrcCode">
   <span class="h" property="rdfs:label">isrcCode</span>
@@ -9353,6 +9359,7 @@ postponing for 1.6.
 
 <div typeof="rdf:Property" resource="http://schema.org/releaseOf">
   <span class="h" property="rdfs:label">releaseOf</span>
+  <p>TODO: broaden meaning or add 'album' to name? </p>
   <span property="rdfs:comment">The album this is a release of.</span>
   <link property="http://schema.org/inverseOf" href="http://schema.org/albumRelease"/>
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MusicRelease">MusicRelease</a></span>
@@ -9384,6 +9391,8 @@ postponing for 1.6.
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CreativeWork">CreativeWork</a></span>
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/PublicationEvent">PublicationEvent</a></span>
 </div>
+
+<p>TODO: Add CreativeWorkReleaseRegion - or decide whether PublicationEvent does the job, and rename properties accordingly.</p>
 
 <div typeof="rdfs:Class" resource="http://schema.org/MusicReleaseFormatType">
   <span class="h" property="rdfs:label">MusicReleaseFormatType</span>
@@ -10268,6 +10277,8 @@ Standards bodies should promote a standard prefix for the identifiers of propert
 </div>
 
 <hr />
+
+<!-- TODO: RETURNED FROM HEALTHEXTENSION -->
 
 <div typeof="rdf:Property" resource="http://schema.org/calories">
   <span class="h" property="rdfs:label">calories</span>
