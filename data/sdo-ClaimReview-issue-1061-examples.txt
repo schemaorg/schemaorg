@@ -134,3 +134,61 @@ JSON:
     }
 }
 </script>
+
+PRE-MARKUP:
+
+An extended ClaimReview example for fact-check of a TV Clip (JSON-LD only).
+
+The content is Dan's review of Obama's claim about Iran, where the item
+reviewed is a Clip, which is part of a larger VideoObject.
+
+MICRODATA:
+
+TODO
+
+RDFA:
+
+TODO
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "ClaimReview",
+  "datePublished": "2017-07-06",
+  "url": "http://danbri.org/2017/TODO",
+  "author": {
+    "@type": "Person",
+    "url": "http://danbri.org/",
+    "sameAs": "https://twitter.com/danbri"
+  },
+  "claimReviewed": "In the middle of the Cold War, the United States played a
+   role in the overthrow of a democratically-elected Iranian government.",
+  "reviewBody": "This claim is true. The UK also played a role.",
+  "itemReviewed": {
+    "@type": "Clip",
+    "startTime": "350",
+    "endTime": "370",
+    "duration": "20",
+    "isPartOf": {
+        "@type": "VideoObject",
+        "url": "https://www.youtube.com/watch?v=B_889oBKkNU",
+        "name": "Clip from President Obama Speech to Muslim World in Cairo",
+        "transcript": "http://www.nytimes.com/2009/06/04/us/politics/04obama.text.html"
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Barack Obama",
+        "jobTitle": "44th President of the United States of America",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/8/8d/President_Barack_Obama.jpg",
+        "sameAs": [
+          "https://twitter.com/barackobama",
+          "https://www.wikidata.org/wiki/Q76"
+        ]
+    },
+    "datePublished": "2009-06-04",
+    "name": "President Obama Speech to Muslim World in Cairo"
+  }
+}
+</script>
