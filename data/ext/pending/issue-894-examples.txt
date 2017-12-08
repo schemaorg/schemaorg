@@ -33,56 +33,6 @@ JSON:
  "inDefinedTermSet": "http://id.loc.gov/vocabulary/resourceTypes"
 }
 
-TYPES: #defterm-2 DefinedTerm, DefinedTermSet, hasDefinedTerm, inDefinedTermSet
-
-PRE-MARKUP:
-
-<div>
-	 <h1 >Defined Values in The Mammal Classification List</h1>
-	 <ul>
-		<li>Carnivore - A mammal that feeds on other animals</li>
-	 </ul>
-</div>
-
-MICRODATA:
-
-<div itemscope itemtype="http://schema.org/DefinedTermSet" id="C1">
-	 <h1>Defined Values in <span itemprop="name">The Mammal Classification List</span></h1>
-	 <ul>
-		<li itemprop="hasDefinedTerm" itemscope itemtype="http://schema.org/DefinedTerm">
-			<span itemprop="name">Carnivore</span> - <span itemprop="description">A mammal that feeds on other animals</span>
-			<link itemprop="inDefinedTermSet" href="#C1"/>
-		</li>
-	 </ul>
-</div>
-
-RDFA:
-
-<div vocab="http://schema.org/" typeof="DefinedTermSet" id="C1">
-	 <h1>Defined Values in <span property="name">The Mammal Classification List</span></h1>
-	 <ul>
-		<li property="hasDefinedTerm" typeof="DefinedTerm">
-			<span property="name">Carnivore</span> - <span property="description">A mammal that feeds on other animals</span>
-			<link property="inDefinedTermSet" href="#C1"/>
-		</li>
-	 </ul>
-</div>
-
-JSON:
-
-{
- "@context": "http://schema.org/",
- "@type": "DefinedTermSet",
- "@id": "_C1",
- "name": "The Mammal Classification List",
- "hasDefinedTerm": {
-	"@type": "DefinedTerm",
-	"name": "Carnivore",
-	"description": "A mammal that feeds on other animals",
-	"inDefinedTermSet": "_C1"
-	}
-}
-
 TYPES: #defterm-3 DefinedTerm, DefinedTermSet, inDefinedTermSet
 
 PRE-MARKUP:
@@ -218,7 +168,58 @@ JSON:
  "inDefinedTermSet": "http://onetonline.org"
 }
 
-TYPES: #defterm-5 DefinedTerm, DefinedTermSet, inDefinedTermSet, termCode, hasDefinedTerm
+TYPES: #catcode-2 CategoryCode, CategoryCodeSet, hasCategoryCode, inCodeSet
+
+PRE-MARKUP:
+
+<div>
+	 <h1 >Defined Values in The Mammal Classification List</h1>
+	 <ul>
+		<li>Carnivore - A mammal that feeds on other animals</li>
+	 </ul>
+</div>
+
+MICRODATA:
+
+<div itemscope itemtype="http://schema.org/CategoryCodeSet" id="C1">
+	 <h1>Defined Values in <span itemprop="name">The Mammal Classification List</span></h1>
+	 <ul>
+		<li itemprop="hasCategoryCode" itemscope itemtype="http://schema.org/CategoryCode">
+			<span itemprop="name">Carnivore</span> - <span itemprop="description">A mammal that feeds on other animals</span>
+			<link itemprop="inCodeSet" href="#C1"/>
+		</li>
+	 </ul>
+</div>
+
+RDFA:
+
+<div vocab="http://schema.org/" typeof="CategoryCodeSet" id="C1">
+	 <h1>Defined Values in <span property="name">The Mammal Classification List</span></h1>
+	 <ul>
+		<li property="hasCategoryCode" typeof="CategoryCode">
+			<span property="name">Carnivore</span> - <span property="description">A mammal that feeds on other animals</span>
+			<link property="inCodeSet" href="#C1"/>
+		</li>
+	 </ul>
+</div>
+
+JSON:
+
+{
+ "@context": "http://schema.org/",
+ "@type": "CategoryCodeSet",
+ "@id": "_C1",
+ "name": "The Mammal Classification List",
+ "hasCategoryCode": {
+	"@type": "CategoryCode",
+	"name": "Carnivore",
+	"description": "A mammal that feeds on other animals",
+	"inCodeSet": "_C1"
+	}
+}
+
+
+TYPES: #catcode-5 CategoryCode, CategoryCodeSet, inCodeSet, codeValue, hasCategoryCode
 
 PRE-MARKUP:
 
@@ -241,19 +242,19 @@ PRE-MARKUP:
 
 MICRODATA:
 
-<div itemscope itemtype="http://schema.org/DefinedTermSet" itemid="http://id.loc.gov/vocabulary/iso639-2">
+<div itemscope itemtype="http://schema.org/CategoryCodeSet" itemid="http://id.loc.gov/vocabulary/iso639-2">
 	<h1 itemprop="name">ISO 639-2: Codes for the Representation of Names of Languages<h1>
 	<h2>Listing of codes:</h2>
 	<ul>
 		<li>...</li>
-		<li><span itemprop="hasDefinedTerm" itemid="http://id.loc.gov/vocabulary/iso639-2/cze">cze</span></li>
+		<li><span itemprop="hasCategoryCode" itemid="http://id.loc.gov/vocabulary/iso639-2/cze">cze</span></li>
 		<li>...</li>
 	</ul>
 </div>
-<div itemscope itemtype="http://schema.org/DefinedTerm" itemid="http://id.loc.gov/vocabulary/iso639-2/cze">
-	<meta itemprop="termCode" content="cze">
+<div itemscope itemtype="http://schema.org/CategoryCode" itemid="http://id.loc.gov/vocabulary/iso639-2/cze">
+	<meta itemprop="codeValue" content="cze">
 	<h2>Czech; tchèque; Tschechisch</h2>
-	<link itemprop="inDefinedTermSet" href="http://id.loc.gov/vocabulary/iso639-2">
+	<link itemprop="inCodeSet" href="http://id.loc.gov/vocabulary/iso639-2">
 	<h3>From: ISO 639-2: Codes for the Representation of Names of Languages</h3>
 	<span itemprop="name" xml:lang="en" content="Czech">English: Czech</span></br>
 	<span itemprop="name" xml:lang="fr" content="tchèque">French: tchèque</span></br>
@@ -263,19 +264,19 @@ MICRODATA:
 	
 RDFA:
 
-<div vocab="http://schema.org/" typeof="DefinedTermSet" resource="http://id.loc.gov/vocabulary/iso639-2">
+<div vocab="http://schema.org/" typeof="CategoryCodeSet" resource="http://id.loc.gov/vocabulary/iso639-2">
 	<h1 property="name">ISO 639-2: Codes for the Representation of Names of Languages<h1>
 	<h2>Listing of codes:</h2>
 	<ul>
 		<li>...</li>
-		<li><span property="hasDefinedTerm" resource="http://id.loc.gov/vocabulary/iso639-2/cze">cze</span></li>
+		<li><span property="hasCategoryCode" resource="http://id.loc.gov/vocabulary/iso639-2/cze">cze</span></li>
 		<li>...</li>
 	</ul>
 </div>
-<div vocab="http://schema.org/" typeof="DefinedTerm" resource=="http://id.loc.gov/vocabulary/iso639-2/cze">
-	<meta property="termCode" content="cze">
+<div vocab="http://schema.org/" typeof="CategoryCode" resource=="http://id.loc.gov/vocabulary/iso639-2/cze">
+	<meta property="codeValue" content="cze">
 	<h2>Czech; tchèque; Tschechisch</h2>
-	<link property="inDefinedTermSet" href="http://id.loc.gov/vocabulary/iso639-2">
+	<link property="inCodeSet" href="http://id.loc.gov/vocabulary/iso639-2">
 	<h3>From: ISO 639-2: Codes for the Representation of Names of Languages</h3>
 	<span property="name" xml:lang="en" content="Czech">English: Czech</span></br>
 	<span property="name" xml:lang="fr" content="tchèque">French: tchèque</span></br>
@@ -289,23 +290,25 @@ JSON:
 		"@context": "http://schema.org/"
 	},
 	{
-		"@type": "DefinedTermSet",
+		"@type": "CategoryCodeSet",
 		"@id": "http://id.loc.gov/vocabulary/iso639-2",
 		"name": "ISO 639-2: Codes for the Representation of Names of Languages"
-		"hasDefinedTerm": "http://id.loc.gov/vocabulary/iso639-2/cze"
+		"hasCategoryCode": "http://id.loc.gov/vocabulary/iso639-2/cze"
 	},
 	{
-		"@type": "DefinedTerm",
+		"@type": "CategoryCode",
 		"@id": "http://id.loc.gov/vocabulary/iso639-2/cze",
-		"termCode": "cze",
+		"codeValue": "cze",
 		"name": {
 			"en": "Czech",
 			"fr": "tchèque",
 			"de": "Tschechisch"
 		},
-		"inDefinedTermSet": "http://id.loc.gov/vocabulary/iso639-2"		
+		"inCodeSet": "http://id.loc.gov/vocabulary/iso639-2"		
 	}
 		
+
+
 
 
 
