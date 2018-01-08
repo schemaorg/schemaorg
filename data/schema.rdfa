@@ -5405,7 +5405,7 @@ The place is __open__ if the [[opens]] property is specified, and __closed__ oth
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/isPartOf">
       <span class="h" property="rdfs:label">isPartOf</span>
-      <span property="rdfs:comment">Indicates a CreativeWork that this CreativeWork is (in some sense) part of.</span>
+      <span property="rdfs:comment">Indicates an item or CreativeWork that this item, or CreativeWork (in some sense), is part of.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CreativeWork">CreativeWork</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/CreativeWork">CreativeWork</a></span>
       <link property="http://schema.org/inverseOf" href="http://schema.org/hasPart"/>
@@ -5977,6 +5977,7 @@ The place is __open__ if the [[opens]] property is specified, and __closed__ oth
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MenuItem">MenuItem</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Product">Product</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Service">Service</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Trip">Trip</a></span>
 <!--      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Accommodation">Accommodation</a></span> #1264 -->
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/AggregateOffer">AggregateOffer</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Offer">Offer</a></span>
@@ -7766,20 +7767,27 @@ While such policies are most typically expressed in natural language, sometimes 
       <span property="rdfs:comment">The status of a reservation when a request has been sent, but not confirmed.</span>
       <span>type: <a href="http://schema.org/ReservationStatusType">ReservationStatusType</a></span>
     </div>
+    <div typeof="rdfs:Class" resource="http://schema.org/Trip">
+      <span class="h" property="rdfs:label">Trip</span>
+      <span property="rdfs:comment">A trip or journey. An itinerary of visits to one or more places.</span>
+      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Intangible">Intangible</a></span>
+      <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Tourism">Tourism</a></span>
+    </div>
+
     <div typeof="rdfs:Class" resource="http://schema.org/BusTrip">
       <span class="h" property="rdfs:label">BusTrip</span>
       <span property="rdfs:comment">A trip on a commercial bus line.</span>
-      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Intangible">Intangible</a></span>
+      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Trip">Trip</a></span>
     </div>
     <div typeof="rdfs:Class" resource="http://schema.org/TrainTrip">
       <span class="h" property="rdfs:label">TrainTrip</span>
       <span property="rdfs:comment">A trip on a commercial train line.</span>
-      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Intangible">Intangible</a></span>
+      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Trip">Trip</a></span>
     </div>
     <div typeof="rdfs:Class" resource="http://schema.org/Flight">
       <span class="h" property="rdfs:label">Flight</span>
       <span property="rdfs:comment">An airline flight.</span>
-      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Intangible">Intangible</a></span>
+      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Trip">Trip</a></span>
     </div>
     <div typeof="rdfs:Class" resource="http://schema.org/Airline">
       <span class="h" property="rdfs:label">Airline</span>
@@ -7856,10 +7864,8 @@ While such policies are most typically expressed in natural language, sometimes 
       <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Service">Service</a></span>
       <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Invoice">Invoice</a></span>
       <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Reservation">Reservation</a></span>
-      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Flight">Flight</a></span>
+      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Trip">Trip</a></span>
       <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ParcelDelivery">ParcelDelivery</a></span>
-      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/TrainTrip">TrainTrip</a></span>
-      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/BusTrip">BusTrip</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Person">Person</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Organization">Organization</a></span>
     </div>
@@ -8045,17 +8051,13 @@ postponing for 1.6.
     <div typeof="rdf:Property" resource="http://schema.org/departureTime">
       <span class="h" property="rdfs:label">departureTime</span>
       <span property="rdfs:comment">The expected departure time.</span>
-      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/BusTrip">BusTrip</a></span>
-      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Flight">Flight</a></span>
-      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/TrainTrip">TrainTrip</a></span>
+      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Trip">Trip</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/DateTime">DateTime</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/arrivalTime">
       <span class="h" property="rdfs:label">arrivalTime</span>
       <span property="rdfs:comment">The expected arrival time.</span>
-      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/BusTrip">BusTrip</a></span>
-      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Flight">Flight</a></span>
-      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/TrainTrip">TrainTrip</a></span>
+      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Trip">Trip</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/DateTime">DateTime</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/departureAirport">
@@ -8715,7 +8717,7 @@ postponing for 1.6.
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/hasPart">
       <span class="h" property="rdfs:label">hasPart</span>
-      <span property="rdfs:comment">Indicates a CreativeWork that is (in some sense) a part of this CreativeWork.</span>
+      <span property="rdfs:comment">Indicates an item or CreativeWork that is part of this item, or CreativeWork (in some sense).</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CreativeWork">CreativeWork</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/CreativeWork">CreativeWork</a></span>
       <link property="http://schema.org/inverseOf" href="http://schema.org/isPartOf"/>
