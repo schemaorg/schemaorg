@@ -83,6 +83,15 @@ A [[ReportageNewsArticle]] which goes deeper into analysis can also be marked wi
     <span>Source:  <a property="dc:source" href="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP">trustproject</a></span>
 </div>
 
+<div typeof="rdfs:Class" resource="http://schema.org/AskPublicNewsArticle">
+    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/NewsArticle">NewsArticle</a></span>
+    <span class="h" property="rdfs:label">AskPublicNewsArticle</span>
+    <span property="rdfs:comment">A [[NewsArticle]] expressing an open call by a [[NewsMediaOrganization]] asking the public for input, insights, clarifications, anecdotes, documentation, etc., on an issue, for reporting purposes.</span>
+    <span property="schema:category">issue-1525</span>
+    <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1525">#1525</a>
+    <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
+    <span>Source:  <a property="dc:source" href="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP">trustproject</a></span>
+</div>
 
   <div typeof="rdfs:Class" resource="http://schema.org/AdvertiserContentArticle">
     <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Article">Article</a></span>
@@ -157,7 +166,38 @@ A [[ReportageNewsArticle]] which goes deeper into analysis can also be marked wi
         <span>Source:  <a property="dc:source" href="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP">trustproject</a></span>
     </div>
 
-    <!-- todo: ownerFundingGrants vs existing 'funder' -->
+    <div typeof="rdf:Property" resource="http://schema.org/ownershipFundingInfo">
+        <span class="h" property="rdfs:label">ownershipFundingInfo</span>
+        <span property="rdfs:comment">For an [[Organization]] (often but not necessarily a [[NewsMediaOrganization]]), a description of organizational ownership structure; funding and grants. In a news/media setting, this is with particular reference to editorial independence.   Note that the [[funder]] is also available and can be used to make basic funder information machine-readable.</span>
+        <link property="rdfs:subPropertyOf" href="http://schema.org/publishingPrinciples" />
+        <span property="schema:category">issue-1525</span><a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1525">#1525</a>
+        <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/NewsMediaOrganization">NewsMediaOrganization</a></span>
+        <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Organization">Organization</a></span>
+        <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/URL">URL</a></span>
+        <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/CreativeWork">CreativeWork</a></span>
+        <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/AboutPage">AboutPage</a></span>
+        <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+        <span property="schema:category">issue-1525</span>
+        <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1525">#1525</a>
+        <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
+        <span>Source:  <a property="dc:source" href="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP">trustproject</a></span>
+    </div>
+
+    <div typeof="rdf:Property" resource="http://schema.org/diversityStaffingReport">
+        <span class="h" property="rdfs:label">diversityStaffingReport</span>
+        <span property="rdfs:comment">For an [[Organization]] (often but not necessarily a [[NewsMediaOrganization]]), a report on staffing diversity issues. In a news context this might be for example <a href="http://asne.org/newsroom_diversitysurvey">ASNE</a> or <a href="https://www.rtdna.org/article/rtdna_research_women_and_minorities_in_newsrooms">RTDNA</a> (US) reports, or self-reported.</span>
+        <link property="rdfs:subPropertyOf" href="http://schema.org/publishingPrinciples" />
+        <span property="schema:category">issue-1525</span><a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1525">#1525</a>
+        <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/NewsMediaOrganization">NewsMediaOrganization</a></span>
+        <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Organization">Organization</a></span>
+        <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/URL">URL</a></span>
+        <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Article">Article</a></span>
+        <span property="schema:category">issue-1525</span>
+        <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1525">#1525</a>
+        <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
+        <span>Source:  <a property="dc:source" href="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP">trustproject</a></span>
+    </div>
+
 
     <div typeof="rdf:Property" resource="http://schema.org/masthead">
         <span class="h" property="rdfs:label">masthead</span>
