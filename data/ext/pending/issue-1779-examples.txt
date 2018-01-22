@@ -20,7 +20,7 @@ MICRODATA:
     services, and is aimed at those in supervisory and management roles or
     aspiring managers within the wider realm of Facilities Services.</p>
   <div itemprop="credentialType"
-       itemscope itemtype="http://schema.org/TermDefintion">
+       itemscope itemtype="http://schema.org/DefinedTerm">
     <meta itemprop="name" content="Higher National Certificate" />
     <meta itemprop="termCode" content="HNC" />
   </div>
@@ -35,7 +35,7 @@ RDFA:
     the modern Facilities Management industry including both ‘hard’ and ‘soft’
     services, and is aimed at those in supervisory and management roles or
     aspiring managers within the wider realm of Facilities Services.</p>
-  <div property="credentialType" typeof="http://schema.org/TermDefintion">
+  <div property="credentialType" typeof="http://schema.org/DefinedTerm">
     <meta property="name" content="Higher National Certificate" />
     <meta property="termCode" content="HNC" />
   </div>
@@ -54,7 +54,73 @@ JSON:
   services, and is aimed at those in supervisory and management roles or
   aspiring managers within the wider realm of Facilities Services.",
   "credentialType" : {
-    "@type": "TermDefintion",
+    "@type": "DefinedTerm",
+    "name": "Higher National Certificate",
+    "termCode": "HNC"
+  }
+}
+</script>
+
+TYPES: EducationalOccupationalCredential, credentialType
+PRE-MARKUP:
+<h1>Certified Safety Professional</h1>
+<p>Certified Safety Professionals (CSP) are persons
+  who perform at least 50% of professional level safety duties, including
+  making worksite assessments to determine risks, assessing potential hazards
+  and controls, evaluating risks and hazard control measures, investigating
+  incidents, maintaining and evaluating incident and loss records, and
+  preparing emergency response plans.</p>
+
+MICRODATA:
+<div itemscope itemtype="http://schema.org/EducationalOccupationalCredential">
+<h1 itemprop="name">Certified Safety Professional</h1>
+<link itemprop="url" href="https://www.bcsp.org/CSP" />
+<p itemprop="description">Certified Safety Professionals (CSP) are persons
+  who perform at least 50% of professional level safety duties, including
+  making worksite assessments to determine risks, assessing potential hazards
+  and controls, evaluating risks and hazard control measures, investigating
+  incidents, maintaining and evaluating incident and loss records, and
+  preparing emergency response plans.</p>
+  <div itemprop="credentialType"
+       itemscope itemtype="http://schema.org/DefinedTerm">
+    <meta itemprop="name" content="Certification" />
+    <link itemprop="url" href="http://purl.org/ctdl/terms/Certification" />
+    <div itemprop="inDefinedTermSet" itemscope
+         itemtype="http://schema.org/DefinedTermSet">
+      <meta itemprop="name" content="Credential Transparency Description Language"/>
+      <link itemprop="url" content="http://purl.org/ctdl/terms/" />
+    </div>
+  </div>
+  <link itemprop="additionalType" href="http://purl.org/ctdl/terms/Certification">
+</div>
+
+RDFA:
+<div vocab="http://schema.org/" typeof="EducationalOccupationalCredential"
+     typeof="http://purl.org/ctdl/terms/Certification">
+<h1 property="name">Certified Safety Professional</h1>
+<link property="url" href="https://www.bcsp.org/CSP" />
+<p property="description">Certified Safety Professionals (CSP) are persons
+  who perform at least 50% of professional level safety duties, including
+  making worksite assessments to determine risks, assessing potential hazards
+  and controls, evaluating risks and hazard control measures, investigating
+  incidents, maintaining and evaluating incident and loss records, and
+  preparing emergency response plans.</p>
+  <div property="credentialType" typeof="http://schema.org/DefinedTerm">
+    <meta property="name" content="Certification" />
+    <link property="url" href="http://purl.org/ctdl/terms/Certification" />
+    <div property="inDefinedTermSet" typeof="http://schema.org/DefinedTermSet">
+      <meta property="name" content="Credential Transparency Description Language"/>
+      <link property="url" content="http://purl.org/ctdl/terms/" />
+    </div>
+  </div>
+</div>
+
+JSON:<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": ["EducationalOccupationalCredential","http://purl.org/ctdl/terms/Certification"],
+  "credentialType" : {
+    "@type": "DefinedTerm",
     "name": "Higher National Certificate",
     "termCode": "HNC"
   }
