@@ -1,36 +1,44 @@
-TYPES: EducationalOccupationalCredential
+TYPES: EducationalOccupationalCredential, credentialType
 
 PRE-MARKUP:
 <h1>HNC Facilities Management</h1>
-<p>Higher National qualifications provide practical skills and theoretical 
-  knowledge that meet the needs of employers. The HNC in Facilities Management 
-  (SCQF level 7) develops knowledge and skills of the modern Facilities 
-  Management industry including both ‘hard’ and ‘soft’ services, and is aimed 
-  at those in supervisory and management roles or aspiring managers within the 
+<p>Higher National qualifications provide practical skills and theoretical
+  knowledge that meet the needs of employers. The HNC in Facilities Management
+  (SCQF level 7) develops knowledge and skills of the modern Facilities
+  Management industry including both ‘hard’ and ‘soft’ services, and is aimed
+  at those in supervisory and management roles or aspiring managers within the
   wider realm of Facilities Services.</p>
 </div>
 
 MICRODATA:
-
 <div itemscope itemtype="http://schema.org/EducationalOccupationalCredential">
-<h1 itemprop="name">HNC Facilities Management</h1>
-<p itemprop="description">Higher National qualifications provide practical 
-  skills and theoretical knowledge that meet the needs of employers. The HNC 
-  in Facilities Management (SCQF level 7) develops knowledge and skills of the 
-  modern Facilities Management industry including both ‘hard’ and ‘soft’ 
-  services, and is aimed at those in supervisory and management roles or 
-  aspiring managers within the wider realm of Facilities Services.</p>
+  <h1 itemprop="name">HNC Facilities Management</h1>
+  <p itemprop="description">Higher National qualifications provide practical
+    skills and theoretical knowledge that meet the needs of employers. The HNC
+    in Facilities Management (SCQF level 7) develops knowledge and skills of the
+    modern Facilities Management industry including both ‘hard’ and ‘soft’
+    services, and is aimed at those in supervisory and management roles or
+    aspiring managers within the wider realm of Facilities Services.</p>
+  <div itemprop="credentialType"
+       itemscope itemtype="http://schema.org/TermDefintion">
+    <meta itemprop="name" content="Higher National Certificate" />
+    <meta itemprop="termCode" content="HNC" />
+  </div>
 </div>
 
 RDFA:
 <div  vocab="http://schema.org/" typeof="EducationalOccupationalCredential">
-<h1 property="name">HNC Facilities Management</h1>
-<p property="description">Higher National qualifications provide practical 
-  skills and theoretical knowledge that meet the needs of employers. The HNC 
-  in Facilities Management (SCQF level 7) develops knowledge and skills of 
-  the modern Facilities Management industry including both ‘hard’ and ‘soft’ 
-  services, and is aimed at those in supervisory and management roles or 
-  aspiring managers within the wider realm of Facilities Services.</p>
+  <h1 property="name">HNC Facilities Management</h1>
+  <p property="description">Higher National qualifications provide practical
+    skills and theoretical knowledge that meet the needs of employers. The HNC
+    in Facilities Management (SCQF level 7) develops knowledge and skills of
+    the modern Facilities Management industry including both ‘hard’ and ‘soft’
+    services, and is aimed at those in supervisory and management roles or
+    aspiring managers within the wider realm of Facilities Services.</p>
+  <div property="credentialType" typeof="http://schema.org/TermDefintion">
+    <meta property="name" content="Higher National Certificate" />
+    <meta property="termCode" content="HNC" />
+  </div>
 </div>
 
 JSON:
@@ -39,11 +47,16 @@ JSON:
   "@context": "http://schema.org",
   "@type": "EducationalOccupationalCredential",
   "name" : "HNC Facilities Management",
-  "description" : "Higher National qualifications provide practical 
-  skills and theoretical knowledge that meet the needs of employers. The HNC 
-  in Facilities Management (SCQF level 7) develops knowledge and skills of 
-  the modern Facilities Management industry including both ‘hard’ and ‘soft’ 
-  services, and is aimed at those in supervisory and management roles or 
-  aspiring managers within the wider realm of Facilities Services."
+  "description" : "Higher National qualifications provide practical
+  skills and theoretical knowledge that meet the needs of employers. The HNC
+  in Facilities Management (SCQF level 7) develops knowledge and skills of
+  the modern Facilities Management industry including both ‘hard’ and ‘soft’
+  services, and is aimed at those in supervisory and management roles or
+  aspiring managers within the wider realm of Facilities Services.",
+  "credentialType" : {
+    "@type": "TermDefintion",
+    "name": "Higher National Certificate",
+    "termCode": "HNC"
+  }
 }
 </script>
