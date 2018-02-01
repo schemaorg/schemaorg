@@ -94,8 +94,8 @@ MICRODATA:
 </div>
 
 RDFA:
-<div vocab="http://schema.org/" typeof="EducationalOccupationalCredential"
-     typeof="http://purl.org/ctdl/terms/Certification">
+<div vocab="http://schema.org/"
+     typeof="EducationalOccupationalCredential http://purl.org/ctdl/terms/Certification">
 <h1 property="name">Certified Safety Professional</h1>
 <link property="url" href="https://www.bcsp.org/CSP" />
 <p property="description">Certified Safety Professionals (CSP) are persons
@@ -104,12 +104,12 @@ RDFA:
   and controls, evaluating risks and hazard control measures, investigating
   incidents, maintaining and evaluating incident and loss records, and
   preparing emergency response plans.</p>
-  <div property="credentialCategory" typeof="DefinedTerm">
+  <div property="credentialCategory" typeof="DefinedTerm"
+       resource="http://purl.org/ctdl/terms/Certification" />
     <meta property="name" content="Certification" />
-    <link property="url" href="http://purl.org/ctdl/terms/Certification" />
-    <div property="inDefinedTermSet" typeof="http://schema.org/DefinedTermSet">
+    <div property="inDefinedTermSet" typeof="http://schema.org/DefinedTermSet"
+         resource="http://purl.org/ctdl/terms/">
       <meta property="name" content="Credential Transparency Description Language"/>
-      <link property="url" content="http://purl.org/ctdl/terms/" />
     </div>
   </div>
 </div>
@@ -130,7 +130,6 @@ JSON:
   "credentialCategory" : {
     "@type": "DefinedTerm",
     "@id": "http://purl.org/ctdl/terms/Certification",
-    "url": "http://purl.org/ctdl/terms/Certification",
     "name": "Certification",
     "inDefinedTermSet" : {
        "@type": "DefinedTermSet",
