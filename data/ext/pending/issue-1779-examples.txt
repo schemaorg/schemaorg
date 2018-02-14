@@ -1,4 +1,4 @@
-TYPES: EducationalOccupationalCredential, credentialCategory
+TYPES: EducationalOccupationalCredential, credentialCategory, educationalLevel
 
 PRE-MARKUP:
 <h1>HNC Facilities Management</h1>
@@ -18,6 +18,11 @@ MICRODATA:
     modern Facilities Management industry including both ‘hard’ and ‘soft’
     services, and is aimed at those in supervisory and management roles or
     aspiring managers within the wider realm of Facilities Services.</p>
+  <div itemprop="educationalLevel"
+       itemscope itemtype="http://schema.org/DefinedTerm">
+    <meta itemprop="name" content="SCQF Level 7" />
+    <link itemtprop="inDefinedTermSet" href="https://www.sqa.org.uk/sqa/71377.html">
+  </div>
   <div itemprop="credentialCategory"
        itemscope itemtype="http://schema.org/DefinedTerm">
     <meta itemprop="name" content="Higher National Certificate" />
@@ -34,6 +39,10 @@ RDFA:
     the modern Facilities Management industry including both ‘hard’ and ‘soft’
     services, and is aimed at those in supervisory and management roles or
     aspiring managers within the wider realm of Facilities Services.</p>
+  <div property="educationalLevel" typeof="http://schema.org/DefinedTerm">
+    <meta property="name" content="SCQF Level 7" />
+    <link property="inDefinedTermSet" href="https://www.sqa.org.uk/sqa/71377.html">
+  </div>
   <div property="credentialCategory" typeof="http://schema.org/DefinedTerm">
     <meta property="name" content="Higher National Certificate" />
     <meta property="termCode" content="HNC" />
@@ -52,6 +61,11 @@ JSON:
   the modern Facilities Management industry including both ‘hard’ and ‘soft’
   services, and is aimed at those in supervisory and management roles or
   aspiring managers within the wider realm of Facilities Services.",
+  "educationalLevel" : {
+    "@type": "DefinedTerm",
+    "name": "SCQF Level 7",
+    "inDefinedTermSet": "https://www.sqa.org.uk/sqa/71377.html"
+  },
   "credentialCategory" : {
     "@type": "DefinedTerm",
     "name": "Higher National Certificate",
