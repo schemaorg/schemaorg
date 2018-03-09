@@ -9,8 +9,6 @@
 				</h1>
 				</div>
 				<div id="cse-search-form" style="width: 400px;"><gcse:searchbox-only resultsUrl="/docs/search_results.html"></gcse:searchbox-only></div>
-<script type="text/javascript" src="//www.google.com/jsapi"></script>
-
 			</div>
 		</div>
 	</div>
