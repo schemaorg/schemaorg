@@ -8,18 +8,7 @@
 					<a href="/">{{ sitename }}</a>
 				</h1>
 				</div>
-				<div id="cse-search-form" style="width: 400px;"></div>
-<script type="text/javascript" src="//www.google.com/jsapi"></script>
-<script type="text/javascript">
-google.load('search', '1', {language : 'en', style : google.loader.themes.ESPRESSO});
-google.setOnLoadCallback(function() {
-var customSearchControl = new google.search.CustomSearchControl('013516846811604855281:nj5laplixaa');
-customSearchControl.setResultSetSize(google.search.Search.FILTERED_CSE_RESULTSET);
-var options = new google.search.DrawOptions();
-options.enableSearchboxOnly("/docs/search_results.html", null, false, '#');
-customSearchControl.draw('cse-search-form', options);
-}, true);
-</script>
+				<div id="cse-search-form" style="width: 400px;"><gcse:searchbox-only resultsUrl="/docs/search_results.html"></gcse:searchbox-only></div>
 			</div>
 		</div>
 	</div>
