@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+{% include 'headtags.tpl' with context %}
     <title>Schema.org - Full Releases</title>
     <meta name="description" content="Schema.org is a set of extensible schemas that enables webmasters to embed
     structured data on their web pages for use by search engines and other applications." />
-    <link rel="stylesheet" type="text/css" href="/docs/schemaorg.css" />
     <basxe href="{{ base_href }}" ></base>
 </head>
 <body style="text-align: left;">
