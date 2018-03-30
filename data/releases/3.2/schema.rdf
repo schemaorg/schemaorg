@@ -383,8 +383,8 @@
   <rdf:Property rdf:about="http://schema.org/pickupTime">
     <rdfs:label>pickupTime</rdfs:label>
     <schema:rangeIncludes rdf:resource="http://schema.org/DateTime"/>
-    <schema:domainIncludes rdf:resource="http://schema.org/RentalCarReservation"/>
-    <rdfs:comment>When a taxi will pickup a passenger or a rental car can be picked up.</rdfs:comment>
+    <schema:domainIncludes rdf:resource="http://schema.org/RentalVehicleReservation"/>
+    <rdfs:comment>When a taxi will pickup a passenger or a rental vehicle can be picked up.</rdfs:comment>
     <schema:domainIncludes rdf:resource="http://schema.org/TaxiReservation"/>
   </rdf:Property>
   <rdf:Property rdf:about="http://schema.org/maxValue">
@@ -4742,8 +4742,8 @@ Typical unit code(s): ROM for room or C62 for no unit. The type of room can be p
   </rdf:Property>
   <rdf:Property rdf:about="http://schema.org/pickupLocation">
     <schema:rangeIncludes rdf:resource="http://schema.org/Place"/>
-    <schema:domainIncludes rdf:resource="http://schema.org/RentalCarReservation"/>
-    <rdfs:comment>Where a taxi will pick up a passenger or a rental car can be picked up.</rdfs:comment>
+    <schema:domainIncludes rdf:resource="http://schema.org/RentalVehicleReservation"/>
+    <rdfs:comment>Where a taxi will pick up a passenger or a rental vehicle can be picked up.</rdfs:comment>
     <rdfs:label>pickupLocation</rdfs:label>
     <schema:domainIncludes rdf:resource="http://schema.org/TaxiReservation"/>
   </rdf:Property>
@@ -5959,9 +5959,9 @@ Standards bodies should promote a standard prefix for the identifiers of propert
   </rdf:Property>
   <rdf:Property rdf:about="http://schema.org/dropoffTime">
     <schema:rangeIncludes rdf:resource="http://schema.org/DateTime"/>
-    <rdfs:comment>When a rental car can be dropped off.</rdfs:comment>
+    <rdfs:comment>When a rental vehicle can be dropped off.</rdfs:comment>
     <rdfs:label>dropoffTime</rdfs:label>
-    <schema:domainIncludes rdf:resource="http://schema.org/RentalCarReservation"/>
+    <schema:domainIncludes rdf:resource="http://schema.org/RentalVehicleReservation"/>
   </rdf:Property>
   <rdf:Property rdf:about="http://schema.org/nutrition">
     <schema:domainIncludes rdf:resource="http://schema.org/Recipe"/>
@@ -8187,10 +8187,10 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     <rdfs:label>issuedThrough</rdfs:label>
   </rdf:Property>
   <rdf:Property rdf:about="http://schema.org/dropoffLocation">
-    <rdfs:comment>Where a rental car can be dropped off.</rdfs:comment>
+    <rdfs:comment>Where a rental vehicle can be dropped off.</rdfs:comment>
     <schema:rangeIncludes rdf:resource="http://schema.org/Place"/>
     <rdfs:label>dropoffLocation</rdfs:label>
-    <schema:domainIncludes rdf:resource="http://schema.org/RentalCarReservation"/>
+    <schema:domainIncludes rdf:resource="http://schema.org/RentalVehicleReservation"/>
   </rdf:Property>
   <schema:OrderStatus rdf:about="http://schema.org/OrderPaymentDue">
     <rdfs:label>OrderPaymentDue</rdfs:label>
@@ -9459,9 +9459,9 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     <rdfs:label>InsertAction</rdfs:label>
     <rdfs:subClassOf rdf:resource="http://schema.org/AddAction"/>
   </rdfs:Class>
-  <rdfs:Class rdf:about="http://schema.org/RentalCarReservation">
-    <rdfs:label>RentalCarReservation</rdfs:label>
-    <rdfs:comment><![CDATA[A reservation for a rental car.</p>
+  <rdfs:Class rdf:about="http://schema.org/RentalVehicleReservation">
+    <rdfs:label>RentalVehicleReservation</rdfs:label>
+    <rdfs:comment><![CDATA[A reservation for a rental vehicle.</p>
 
 <p>Note: This type is for information about actual reservations, e.g. in confirmation emails or HTML pages with individual confirmations of reservations.]]></rdfs:comment>
     <rdfs:subClassOf rdf:resource="http://schema.org/Reservation"/>
@@ -9712,7 +9712,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     <rdfs:label>Reservation</rdfs:label>
     <rdfs:comment><![CDATA[Describes a reservation for travel, dining or an event. Some reservations require tickets. </p>
 
-<p>Note: This type is for information about actual reservations, e.g. in confirmation emails or HTML pages with individual confirmations of reservations. For offers of tickets, restaurant reservations, flights, or rental cars, use <a class="localLink" href="http://schema.org/Offer">Offer</a>.]]></rdfs:comment>
+<p>Note: This type is for information about actual reservations, e.g. in confirmation emails or HTML pages with individual confirmations of reservations. For offers of tickets, restaurant reservations, flights, or rental vehicles, use <a class="localLink" href="http://schema.org/Offer">Offer</a>.]]></rdfs:comment>
   </rdfs:Class>
   <rdfs:Class rdf:about="http://schema.org/LoseAction">
     <rdfs:subClassOf rdf:resource="http://schema.org/AchieveAction"/>

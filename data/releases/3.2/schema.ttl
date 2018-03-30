@@ -2648,9 +2648,9 @@ schema:RentAction a rdfs:Class ;
     rdfs:comment "The act of giving money in return for temporary use, but not ownership, of an object such as a vehicle or property. For example, an agent rents a property from a landlord in exchange for a periodic payment." ;
     rdfs:subClassOf schema:TradeAction .
 
-schema:RentalCarReservation a rdfs:Class ;
-    rdfs:label "RentalCarReservation" ;
-    rdfs:comment """A reservation for a rental car.</p>
+schema:RentalVehicleReservation a rdfs:Class ;
+    rdfs:label "RentalVehicleReservation" ;
+    rdfs:comment """A reservation for a rental vehicle.</p>
 
 <p>Note: This type is for information about actual reservations, e.g. in confirmation emails or HTML pages with individual confirmations of reservations.""" ;
     rdfs:subClassOf schema:Reservation .
@@ -2681,7 +2681,7 @@ schema:Reservation a rdfs:Class ;
     rdfs:label "Reservation" ;
     rdfs:comment """Describes a reservation for travel, dining or an event. Some reservations require tickets. </p>
 
-<p>Note: This type is for information about actual reservations, e.g. in confirmation emails or HTML pages with individual confirmations of reservations. For offers of tickets, restaurant reservations, flights, or rental cars, use <a class="localLink" href="http://schema.org/Offer">Offer</a>.""" ;
+<p>Note: This type is for information about actual reservations, e.g. in confirmation emails or HTML pages with individual confirmations of reservations. For offers of tickets, restaurant reservations, flights, or rental vehicles, use <a class="localLink" href="http://schema.org/Offer">Offer</a>.""" ;
     rdfs:subClassOf schema:Intangible .
 
 schema:ReservationPackage a rdfs:Class ;
@@ -5621,15 +5621,15 @@ schema:driveWheelConfiguration a rdf:Property ;
 
 schema:dropoffLocation a rdf:Property ;
     rdfs:label "dropoffLocation" ;
-    schema:domainIncludes schema:RentalCarReservation ;
+    schema:domainIncludes schema:RentalVehicleReservation ;
     schema:rangeIncludes schema:Place ;
-    rdfs:comment "Where a rental car can be dropped off." .
+    rdfs:comment "Where a rental vehicle can be dropped off." .
 
 schema:dropoffTime a rdf:Property ;
     rdfs:label "dropoffTime" ;
-    schema:domainIncludes schema:RentalCarReservation ;
+    schema:domainIncludes schema:RentalVehicleReservation ;
     schema:rangeIncludes schema:DateTime ;
-    rdfs:comment "When a rental car can be dropped off." .
+    rdfs:comment "When a rental vehicle can be dropped off." .
 
 schema:duns a rdf:Property ;
     rdfs:label "duns" ;
@@ -7715,17 +7715,17 @@ schema:photos a rdf:Property ;
 
 schema:pickupLocation a rdf:Property ;
     rdfs:label "pickupLocation" ;
-    schema:domainIncludes schema:RentalCarReservation,
+    schema:domainIncludes schema:RentalVehicleReservation,
         schema:TaxiReservation ;
     schema:rangeIncludes schema:Place ;
-    rdfs:comment "Where a taxi will pick up a passenger or a rental car can be picked up." .
+    rdfs:comment "Where a taxi will pick up a passenger or a rental vehicle can be picked up." .
 
 schema:pickupTime a rdf:Property ;
     rdfs:label "pickupTime" ;
-    schema:domainIncludes schema:RentalCarReservation,
+    schema:domainIncludes schema:RentalVehicleReservation,
         schema:TaxiReservation ;
     schema:rangeIncludes schema:DateTime ;
-    rdfs:comment "When a taxi will pickup a passenger or a rental car can be picked up." .
+    rdfs:comment "When a taxi will pickup a passenger or a rental vehicle can be picked up." .
 
 schema:playMode a rdf:Property ;
     rdfs:label "playMode" ;

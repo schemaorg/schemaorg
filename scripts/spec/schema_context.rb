@@ -752,7 +752,7 @@ class JSON::LD::Context
       "RemixAlbum" => TermDefinition.new("RemixAlbum", id: "http://schema.org/RemixAlbum"),
       "Renal" => TermDefinition.new("Renal", id: "http://schema.org/Renal"),
       "RentAction" => TermDefinition.new("RentAction", id: "http://schema.org/RentAction"),
-      "RentalCarReservation" => TermDefinition.new("RentalCarReservation", id: "http://schema.org/RentalCarReservation"),
+      "RentalVehicleReservation" => TermDefinition.new("RentalVehicleReservation", id: "http://schema.org/RentalVehicleReservation"),
       "RentalVehicleUsage" => TermDefinition.new("RentalVehicleUsage", id: "http://schema.org/RentalVehicleUsage"),
       "ReplaceAction" => TermDefinition.new("ReplaceAction", id: "http://schema.org/ReplaceAction"),
       "ReplyAction" => TermDefinition.new("ReplyAction", id: "http://schema.org/ReplyAction"),

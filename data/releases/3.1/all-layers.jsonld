@@ -11104,13 +11104,13 @@
               "@id": "http://schema.org/TaxiReservation"
             },
             {
-              "@id": "http://schema.org/RentalCarReservation"
+              "@id": "http://schema.org/RentalVehicleReservation"
             }
           ],
           "http://schema.org/rangeIncludes": {
             "@id": "http://schema.org/DateTime"
           },
-          "rdfs:comment": "When a taxi will pickup a passenger or a rental car can be picked up.",
+          "rdfs:comment": "When a taxi will pickup a passenger or a rental vehicle can be picked up.",
           "rdfs:label": "pickupTime"
         },
         {
@@ -17020,12 +17020,12 @@
           "@id": "http://schema.org/dropoffLocation",
           "@type": "rdf:Property",
           "http://schema.org/domainIncludes": {
-            "@id": "http://schema.org/RentalCarReservation"
+            "@id": "http://schema.org/RentalVehicleReservation"
           },
           "http://schema.org/rangeIncludes": {
             "@id": "http://schema.org/Place"
           },
-          "rdfs:comment": "Where a rental car can be dropped off.",
+          "rdfs:comment": "Where a rental vehicle can be dropped off.",
           "rdfs:label": "dropoffLocation"
         },
         {
@@ -17387,12 +17387,12 @@
           "@id": "http://schema.org/dropoffTime",
           "@type": "rdf:Property",
           "http://schema.org/domainIncludes": {
-            "@id": "http://schema.org/RentalCarReservation"
+            "@id": "http://schema.org/RentalVehicleReservation"
           },
           "http://schema.org/rangeIncludes": {
             "@id": "http://schema.org/DateTime"
           },
-          "rdfs:comment": "When a rental car can be dropped off.",
+          "rdfs:comment": "When a rental vehicle can be dropped off.",
           "rdfs:label": "dropoffTime"
         },
         {
@@ -22537,13 +22537,13 @@
               "@id": "http://schema.org/TaxiReservation"
             },
             {
-              "@id": "http://schema.org/RentalCarReservation"
+              "@id": "http://schema.org/RentalVehicleReservation"
             }
           ],
           "http://schema.org/rangeIncludes": {
             "@id": "http://schema.org/Place"
           },
-          "rdfs:comment": "Where a taxi will pick up a passenger or a rental car can be picked up.",
+          "rdfs:comment": "Where a taxi will pick up a passenger or a rental vehicle can be picked up.",
           "rdfs:label": "pickupLocation"
         },
         {
@@ -23766,10 +23766,10 @@
           "rdfs:label": "servingSize"
         },
         {
-          "@id": "http://schema.org/RentalCarReservation",
+          "@id": "http://schema.org/RentalVehicleReservation",
           "@type": "rdfs:Class",
-          "rdfs:comment": "A reservation for a rental car.</p>\n<p>Note: This type is for information about actual reservations, e.g. in confirmation emails or HTML pages with individual confirmations of reservations.",
-          "rdfs:label": "RentalCarReservation",
+          "rdfs:comment": "A reservation for a rental vehicle.</p>\n<p>Note: This type is for information about actual reservations, e.g. in confirmation emails or HTML pages with individual confirmations of reservations.",
+          "rdfs:label": "RentalVehicleReservation",
           "rdfs:subClassOf": {
             "@id": "http://schema.org/Reservation"
           }
@@ -24988,7 +24988,7 @@
         {
           "@id": "http://schema.org/Reservation",
           "@type": "rdfs:Class",
-          "rdfs:comment": "Describes a reservation for travel, dining or an event. Some reservations require tickets. </p>\n<p>Note: This type is for information about actual reservations, e.g. in confirmation emails or HTML pages with individual confirmations of reservations. For offers of tickets, restaurant reservations, flights, or rental cars, use <a class=\"localLink\" href=\"/Offer\">Offer</a>.",
+          "rdfs:comment": "Describes a reservation for travel, dining or an event. Some reservations require tickets. </p>\n<p>Note: This type is for information about actual reservations, e.g. in confirmation emails or HTML pages with individual confirmations of reservations. For offers of tickets, restaurant reservations, flights, or rental vehicles, use <a class=\"localLink\" href=\"/Offer\">Offer</a>.",
           "rdfs:label": "Reservation",
           "rdfs:subClassOf": {
             "@id": "http://schema.org/Intangible"
@@ -28209,7 +28209,7 @@
           "http://schema.org/isPartOf": {
             "@id": "http://auto.schema.org"
           },
-          "rdfs:comment": "Indicates the usage of the vehicle as a rental car.",
+          "rdfs:comment": "Indicates the usage of the vehicle as a rental vehicle.",
           "rdfs:label": "RentalVehicleUsage"
         },
         {
