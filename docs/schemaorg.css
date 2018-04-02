@@ -18,8 +18,6 @@ border-bottom: solid 1px #CCCCCC;
 text-align: left;
 }
 #mainContent, #footer {
- max-width: 960px;
- min-width: 350px;
  margin: 0 auto;
 }
 #footer
@@ -28,8 +26,6 @@ text-align: right;
 font-size: x-small;
 }
 #mainContent, #footer, .wrapper {
- max-width: 960px;
- min-width: 350px;
  margin: 0 auto !important;
  padding: 0 40px;
 }
@@ -343,12 +339,6 @@ padding-top: 1em;
 float: right;
 padding: 10px 0;
 }
-#mainContent, #footer, .wrapper {
- max-width: 960px;
- min-width: 350px;
- margin: 0 auto !important;
- padding: 0 40px;
-}
 #sitename {
     max-width: 500px;
     min-width: auto;
@@ -542,3 +532,10 @@ a.ext.ext-attic:hover {
 .tag    { color: #000; }    /* div, span, etc   */
 .atn    { color: #000; }    /* href, datetime,  */
 .custom { color: #660003; } /* itemscope, itemtype, etc,. */
+
+
+@media (min-width: 960px) {
+  #mainContent, #footer, .wrapper {
+    max-width: 960px;
+  }
+}
