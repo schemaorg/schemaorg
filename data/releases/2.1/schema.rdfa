@@ -9767,7 +9767,7 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
 
     <div typeof="rdfs:Class" resource="http://schema.org/Reservation">
       <span class="h" property="rdfs:label">Reservation</span>
-      <span property="rdfs:comment">Describes a reservation for travel, dining or an event. Some reservations require tickets.<p>Note: This type is for information about actual reservations, e.g. in confirmation emails or HTML pages with individual confirmations of reservations. For offers of tickets, restaurant reservations, flights, or rental cars, use http://schema.org/Offer.</p></span>
+      <span property="rdfs:comment">Describes a reservation for travel, dining or an event. Some reservations require tickets.<p>Note: This type is for information about actual reservations, e.g. in confirmation emails or HTML pages with individual confirmations of reservations. For offers of tickets, restaurant reservations, flights, or rental vehicles, use http://schema.org/Offer.</p></span>
       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Intangible">Intangible</a></span>
     </div>
     <div typeof="rdfs:Class" resource="http://schema.org/BusReservation">
@@ -9795,9 +9795,9 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
       <span property="rdfs:comment">A reservation for lodging at a hotel, motel, inn, etc.<p>Note: This type is for information about actual reservations, e.g. in confirmation emails or HTML pages with individual confirmations of reservations.</p></span>
       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Reservation">Reservation</a></span>
     </div>
-    <div typeof="rdfs:Class" resource="http://schema.org/RentalCarReservation">
-      <span class="h" property="rdfs:label">RentalCarReservation</span>
-      <span property="rdfs:comment">A reservation for a rental car.<p>Note: This type is for information about actual reservations, e.g. in confirmation emails or HTML pages with individual confirmations of reservations.</p></span>
+    <div typeof="rdfs:Class" resource="http://schema.org/RentalVehicleReservation">
+      <span class="h" property="rdfs:label">RentalVehicleReservation</span>
+      <span property="rdfs:comment">A reservation for a rental vehicle.<p>Note: This type is for information about actual reservations, e.g. in confirmation emails or HTML pages with individual confirmations of reservations.</p></span>
       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Reservation">Reservation</a></span>
     </div>
     <div typeof="rdfs:Class" resource="http://schema.org/TaxiReservation">
@@ -10293,28 +10293,28 @@ postponing for 1.6.
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/pickupLocation">
       <span class="h" property="rdfs:label">pickupLocation</span>
-      <span property="rdfs:comment">Where a taxi will pick up a passenger or a rental car can be picked up.</span>
-      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/RentalCarReservation">RentalCarReservation</a></span>
+      <span property="rdfs:comment">Where a taxi will pick up a passenger or a rental vehicle can be picked up.</span>
+      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/RentalVehicleReservation">RentalVehicleReservation</a></span>
       <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/TaxiReservation">TaxiReservation</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Place">Place</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/dropoffLocation">
       <span class="h" property="rdfs:label">dropoffLocation</span>
-      <span property="rdfs:comment">Where a rental car can be dropped off.</span>
-      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/RentalCarReservation">RentalCarReservation</a></span>
+      <span property="rdfs:comment">Where a rental vehicle can be dropped off.</span>
+      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/RentalVehicleReservation">RentalVehicleReservation</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Place">Place</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/pickupTime">
       <span class="h" property="rdfs:label">pickupTime</span>
-      <span property="rdfs:comment">When a taxi will pickup a passenger or a rental car can be picked up.</span>
-      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/RentalCarReservation">RentalCarReservation</a></span>
+      <span property="rdfs:comment">When a taxi will pickup a passenger or a rental vehicle can be picked up.</span>
+      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/RentalVehicleReservation">RentalVehicleReservation</a></span>
       <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/TaxiReservation">TaxiReservation</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/DateTime">DateTime</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/dropoffTime">
       <span class="h" property="rdfs:label">dropoffTime</span>
-      <span property="rdfs:comment">When a rental car can be dropped off.</span>
-      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/RentalCarReservation">RentalCarReservation</a></span>
+      <span property="rdfs:comment">When a rental vehicle can be dropped off.</span>
+      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/RentalVehicleReservation">RentalVehicleReservation</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/DateTime">DateTime</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/checkinTime">
@@ -12260,7 +12260,7 @@ Typical unit code(s): C62 for persons </span>
 
 <div typeof="http://schema.org/CarUsageType" resource="http://schema.org/RentalVehicleUsage">
   <span class="h" property="rdfs:label">RentalVehicleUsage</span>
-  <span property="rdfs:comment">Indicates the usage of the vehicle as a rental car.</span>
+  <span property="rdfs:comment">Indicates the usage of the vehicle as a rental vehicle.</span>
   <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group">GAO</a></span>
 </div>
 <div typeof="http://schema.org/CarUsageType" resource="http://schema.org/DrivingSchoolVehicleUsage">

@@ -643,8 +643,8 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     <rdfs:comment>A place offering space for "Recreational Vehicles", Caravans, mobile homes and the like.</rdfs:comment>
   </rdfs:Class>
   <rdf:Property rdf:about="http://schema.org/pickupTime">
-    <schema:domainIncludes rdf:resource="http://schema.org/RentalCarReservation"/>
-    <rdfs:comment>When a taxi will pickup a passenger or a rental car can be picked up.</rdfs:comment>
+    <schema:domainIncludes rdf:resource="http://schema.org/RentalVehicleReservation"/>
+    <rdfs:comment>When a taxi will pickup a passenger or a rental vehicle can be picked up.</rdfs:comment>
     <schema:rangeIncludes rdf:resource="http://schema.org/DateTime"/>
     <schema:domainIncludes rdf:resource="http://schema.org/TaxiReservation"/>
     <rdfs:label>pickupTime</rdfs:label>
@@ -3702,10 +3702,10 @@ we define a supporting type, <a class="localLink" href="http://schema.org/Speaka
     <rdfs:label>exchangeRate</rdfs:label>
   </rdf:Property>
   <rdf:Property rdf:about="http://schema.org/dropoffLocation">
-    <schema:domainIncludes rdf:resource="http://schema.org/RentalCarReservation"/>
+    <schema:domainIncludes rdf:resource="http://schema.org/RentalVehicleReservation"/>
     <schema:rangeIncludes rdf:resource="http://schema.org/Place"/>
     <rdfs:label>dropoffLocation</rdfs:label>
-    <rdfs:comment>Where a rental car can be dropped off.</rdfs:comment>
+    <rdfs:comment>Where a rental vehicle can be dropped off.</rdfs:comment>
   </rdf:Property>
   <rdf:Property rdf:about="http://schema.org/partOfOrder">
     <schema:rangeIncludes rdf:resource="http://schema.org/Order"/>
@@ -6653,11 +6653,11 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     <rdfs:label>deathDate</rdfs:label>
   </rdf:Property>
   <rdf:Property rdf:about="http://schema.org/pickupLocation">
-    <schema:domainIncludes rdf:resource="http://schema.org/RentalCarReservation"/>
+    <schema:domainIncludes rdf:resource="http://schema.org/RentalVehicleReservation"/>
     <rdfs:label>pickupLocation</rdfs:label>
     <schema:rangeIncludes rdf:resource="http://schema.org/Place"/>
     <schema:domainIncludes rdf:resource="http://schema.org/TaxiReservation"/>
-    <rdfs:comment>Where a taxi will pick up a passenger or a rental car can be picked up.</rdfs:comment>
+    <rdfs:comment>Where a taxi will pick up a passenger or a rental vehicle can be picked up.</rdfs:comment>
   </rdf:Property>
   <rdf:Property rdf:about="http://schema.org/supportingData">
     <rdfs:label>supportingData</rdfs:label>
@@ -9406,7 +9406,7 @@ Standards bodies should promote a standard prefix for the identifiers of propert
     <schema:rangeIncludes rdf:resource="http://schema.org/Text"/>
   </rdf:Property>
   <schema:CarUsageType rdf:about="http://schema.org/RentalVehicleUsage">
-    <rdfs:comment>Indicates the usage of the vehicle as a rental car.</rdfs:comment>
+    <rdfs:comment>Indicates the usage of the vehicle as a rental vehicle.</rdfs:comment>
     <rdfs:label>RentalVehicleUsage</rdfs:label>
     <schema:isPartOf rdf:resource="http://auto.schema.org"/>
     <dct:source rdf:resource="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group"/>
@@ -9672,10 +9672,10 @@ Standards bodies should promote a standard prefix for the identifiers of propert
     <rdfs:subClassOf rdf:resource="http://schema.org/HomeAndConstructionBusiness"/>
   </rdfs:Class>
   <rdf:Property rdf:about="http://schema.org/dropoffTime">
-    <rdfs:comment>When a rental car can be dropped off.</rdfs:comment>
+    <rdfs:comment>When a rental vehicle can be dropped off.</rdfs:comment>
     <schema:rangeIncludes rdf:resource="http://schema.org/DateTime"/>
     <rdfs:label>dropoffTime</rdfs:label>
-    <schema:domainIncludes rdf:resource="http://schema.org/RentalCarReservation"/>
+    <schema:domainIncludes rdf:resource="http://schema.org/RentalVehicleReservation"/>
   </rdf:Property>
   <rdf:Property rdf:about="http://schema.org/isrcCode">
     <rdfs:comment>The International Standard Recording Code for the recording.</rdfs:comment>
@@ -12583,10 +12583,10 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     <schema:isPartOf rdf:resource="http://health-lifesci.schema.org"/>
     <rdfs:comment>A recommended dosing schedule for a drug or supplement as prescribed or recommended by an authority or by the drug/supplement's manufacturer. Capture the recommending authority in the recognizingAuthority property of MedicalEntity.</rdfs:comment>
   </rdfs:Class>
-  <rdfs:Class rdf:about="http://schema.org/RentalCarReservation">
-    <rdfs:label>RentalCarReservation</rdfs:label>
+  <rdfs:Class rdf:about="http://schema.org/RentalVehicleReservation">
+    <rdfs:label>RentalVehicleReservation</rdfs:label>
     <rdfs:subClassOf rdf:resource="http://schema.org/Reservation"/>
-    <rdfs:comment><![CDATA[A reservation for a rental car.</p>
+    <rdfs:comment><![CDATA[A reservation for a rental vehicle.</p>
 
 <p>Note: This type is for information about actual reservations, e.g. in confirmation emails or HTML pages with individual confirmations of reservations.]]></rdfs:comment>
   </rdfs:Class>
@@ -13883,7 +13883,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     <rdfs:subClassOf rdf:resource="http://schema.org/Intangible"/>
     <rdfs:comment><![CDATA[Describes a reservation for travel, dining or an event. Some reservations require tickets. </p>
 
-<p>Note: This type is for information about actual reservations, e.g. in confirmation emails or HTML pages with individual confirmations of reservations. For offers of tickets, restaurant reservations, flights, or rental cars, use <a class="localLink" href="http://schema.org/Offer">Offer</a>.]]></rdfs:comment>
+<p>Note: This type is for information about actual reservations, e.g. in confirmation emails or HTML pages with individual confirmations of reservations. For offers of tickets, restaurant reservations, flights, or rental vehicles, use <a class="localLink" href="http://schema.org/Offer">Offer</a>.]]></rdfs:comment>
     <rdfs:label>Reservation</rdfs:label>
   </rdfs:Class>
   <rdfs:Class rdf:about="http://schema.org/BroadcastChannel">

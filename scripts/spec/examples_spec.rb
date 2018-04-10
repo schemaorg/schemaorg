@@ -557,9 +557,9 @@ describe "Examples" do
   specify("examples.txt[9276] - LodgingReservation-184 (microdata)") {expect("/Users/gregg/Projects/schemaorg/scripts/spec/data/LodgingReservation-184-microdata.html").to lint_cleanly}
   specify("examples.txt[9280] - LodgingReservation-184 (rdfa)") {expect("/Users/gregg/Projects/schemaorg/scripts/spec/data/LodgingReservation-184-rdfa.html").to lint_cleanly}
   specify("examples.txt[9284] - LodgingReservation-184 (jsonld)") {expect("/Users/gregg/Projects/schemaorg/scripts/spec/data/LodgingReservation-184-jsonld.html").to lint_cleanly}
-  specify("examples.txt[9334] - RentalCarReservation-185 (microdata)") {expect("/Users/gregg/Projects/schemaorg/scripts/spec/data/RentalCarReservation-185-microdata.html").to lint_cleanly}
-  specify("examples.txt[9338] - RentalCarReservation-185 (rdfa)") {expect("/Users/gregg/Projects/schemaorg/scripts/spec/data/RentalCarReservation-185-rdfa.html").to lint_cleanly}
-  specify("examples.txt[9342] - RentalCarReservation-185 (jsonld)") {expect("/Users/gregg/Projects/schemaorg/scripts/spec/data/RentalCarReservation-185-jsonld.html").to lint_cleanly}
+  specify("examples.txt[9334] - RentalVehicleReservation-185 (microdata)") {expect("/Users/gregg/Projects/schemaorg/scripts/spec/data/RentalVehicleReservation-185-microdata.html").to lint_cleanly}
+  specify("examples.txt[9338] - RentalVehicleReservation-185 (rdfa)") {expect("/Users/gregg/Projects/schemaorg/scripts/spec/data/RentalVehicleReservation-185-rdfa.html").to lint_cleanly}
+  specify("examples.txt[9342] - RentalVehicleReservation-185 (jsonld)") {expect("/Users/gregg/Projects/schemaorg/scripts/spec/data/RentalVehicleReservation-185-jsonld.html").to lint_cleanly}
   specify("examples.txt[9408] - TaxiReservation-186 (microdata)") {expect("/Users/gregg/Projects/schemaorg/scripts/spec/data/TaxiReservation-186-microdata.html").to lint_cleanly}
   specify("examples.txt[9412] - TaxiReservation-186 (rdfa)") {expect("/Users/gregg/Projects/schemaorg/scripts/spec/data/TaxiReservation-186-rdfa.html").to lint_cleanly}
   specify("examples.txt[9416] - TaxiReservation-186 (jsonld)") {expect("/Users/gregg/Projects/schemaorg/scripts/spec/data/TaxiReservation-186-jsonld.html").to lint_cleanly}

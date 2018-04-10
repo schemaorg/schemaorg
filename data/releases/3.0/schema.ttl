@@ -2400,9 +2400,9 @@ ns1:RentAction a rdfs:Class ;
     rdfs:comment "The act of giving money in return for temporary use, but not ownership, of an object such as a vehicle or property. For example, an agent rents a property from a landlord in exchange for a periodic payment." ;
     rdfs:subClassOf ns1:TradeAction .
 
-ns1:RentalCarReservation a rdfs:Class ;
-    rdfs:label "RentalCarReservation" ;
-    rdfs:comment "A reservation for a rental car.Note: This type is for information about actual reservations, e.g. in confirmation emails or HTML pages with individual confirmations of reservations." ;
+ns1:RentalVehicleReservation a rdfs:Class ;
+    rdfs:label "RentalVehicleReservation" ;
+    rdfs:comment "A reservation for a rental vehicle. Note: This type is for information about actual reservations, e.g. in confirmation emails or HTML pages with individual confirmations of reservations." ;
     rdfs:subClassOf ns1:Reservation .
 
 ns1:ReplaceAction a rdfs:Class ;
@@ -2422,7 +2422,7 @@ ns1:Report a rdfs:Class ;
 
 ns1:Reservation a rdfs:Class ;
     rdfs:label "Reservation" ;
-    rdfs:comment "Describes a reservation for travel, dining or an event. Some reservations require tickets.Note: This type is for information about actual reservations, e.g. in confirmation emails or HTML pages with individual confirmations of reservations. For offers of tickets, restaurant reservations, flights, or rental cars, use http://schema.org/Offer." ;
+    rdfs:comment "Describes a reservation for travel, dining or an event. Some reservations require tickets.Note: This type is for information about actual reservations, e.g. in confirmation emails or HTML pages with individual confirmations of reservations. For offers of tickets, restaurant reservations, flights, or rental vehicles, use http://schema.org/Offer." ;
     rdfs:subClassOf ns1:Intangible .
 
 ns1:ReservationPackage a rdfs:Class ;
@@ -5187,15 +5187,15 @@ ns1:driveWheelConfiguration a rdf:Property ;
 
 ns1:dropoffLocation a rdf:Property ;
     rdfs:label "dropoffLocation" ;
-    ns1:domainIncludes ns1:RentalCarReservation ;
+    ns1:domainIncludes ns1:RentalVehicleReservation ;
     ns1:rangeIncludes ns1:Place ;
-    rdfs:comment "Where a rental car can be dropped off." .
+    rdfs:comment "Where a rental vehicle can be dropped off." .
 
 ns1:dropoffTime a rdf:Property ;
     rdfs:label "dropoffTime" ;
-    ns1:domainIncludes ns1:RentalCarReservation ;
+    ns1:domainIncludes ns1:RentalVehicleReservation ;
     ns1:rangeIncludes ns1:DateTime ;
-    rdfs:comment "When a rental car can be dropped off." .
+    rdfs:comment "When a rental vehicle can be dropped off." .
 
 ns1:duns a rdf:Property ;
     rdfs:label "duns" ;
@@ -7132,17 +7132,17 @@ ns1:photos a rdf:Property ;
 
 ns1:pickupLocation a rdf:Property ;
     rdfs:label "pickupLocation" ;
-    ns1:domainIncludes ns1:RentalCarReservation,
+    ns1:domainIncludes ns1:RentalVehicleReservation,
         ns1:TaxiReservation ;
     ns1:rangeIncludes ns1:Place ;
-    rdfs:comment "Where a taxi will pick up a passenger or a rental car can be picked up." .
+    rdfs:comment "Where a taxi will pick up a passenger or a rental vehicle can be picked up." .
 
 ns1:pickupTime a rdf:Property ;
     rdfs:label "pickupTime" ;
-    ns1:domainIncludes ns1:RentalCarReservation,
+    ns1:domainIncludes ns1:RentalVehicleReservation,
         ns1:TaxiReservation ;
     ns1:rangeIncludes ns1:DateTime ;
-    rdfs:comment "When a taxi will pickup a passenger or a rental car can be picked up." .
+    rdfs:comment "When a taxi will pickup a passenger or a rental vehicle can be picked up." .
 
 ns1:playMode a rdf:Property ;
     rdfs:label "playMode" ;
