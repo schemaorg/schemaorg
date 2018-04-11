@@ -9,6 +9,15 @@
     <link href="/docs/prettify.css" type="text/css" rel="stylesheet" />
     <script type="text/javascript" src="/docs/prettify.js"></script>
     <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
+<!-- Enable CSE Search -->
+    <script>
+    (function() {
+      var cx = '013516846811604855281:nj5laplixaa'; // Insert your own Custom Search engine ID here
+      var gcse = document.createElement('script'); gcse.type = 'text/javascript'; gcse.async = true;
+      gcse.src = 'https://cse.google.com/cse.js?cx=' + cx;
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(gcse, s);
+    })();
+    </script>
 
 <script type="text/javascript">
       $(document).ready(function(){
@@ -71,20 +80,7 @@ td.release  {
 				</h1>
 				</div>
 
-<div id="cse-search-form" style="width: 400px;"></div>
-
-<script type="text/javascript" src="//www.google.com/jsapi"></script>
-<script type="text/javascript">
-  google.load('search', '1', {language : 'en', style : google.loader.themes.ESPRESSO});
-  google.setOnLoadCallback(function() {
-    var customSearchControl = new google.search.CustomSearchControl('013516846811604855281:nj5laplixaa');
-    customSearchControl.setResultSetSize(google.search.Search.FILTERED_CSE_RESULTSET);
-    var options = new google.search.DrawOptions();
-    options.enableSearchboxOnly("../docs/search_results.html", null, false, '#');
-    customSearchControl.draw('cse-search-form', options);
-  }, true);
-</script>
-
+                    <div id="cse-search-form" style="width: 400px;"><gcse:searchbox-only resultsUrl="/docs/search_results.html"></gcse:searchbox-only></div>
 
               </div>
             </div>
@@ -138,52 +134,7 @@ td.release  {
 
 <tr>
 
-<td class="release"><a href="/version/3.4/">3.4</a><br/>sdo-telesto<br/>TBD</td>
-
-<td>
-<span id="v.next"></span>
-<span id="sdo-telesto"></span>
-<span id="v3.4"></span>
-
-<p>
-Version 3.4 (working name 'sdo-telesto'). See <a href="https://github.com/schemaorg/schemaorg/issues/1">planning pages</a>. This is a pre-release for review purposes.
-</p>
-</td>
-
-<td>
-<h2>Vocabulary</h2>
-
-<h3>Core changes</h3>
-<ul>
-
-</ul>
-
-<h3>Additions to <a href="http://pending.schema.org/">Pending</a> section</h3>
-
-<ul>
-<li id="g1670"><a href="https://github.com/schemaorg/schemaorg/issues/1670">Issue #1670</a>: Add a <a href="/subjectOf">subjectOf</a> to <a href="/Thing">Thing</a> as a reverse property of <a href="/about">about</a>.
-</li>
-<li id="g1689"><a href="https://github.com/schemaorg/schemaorg/issues/1689">Issue #1689</a>: Add <a href="/EmployerAggregateRating">EmployerAggregateRating</a> as a subtype of <a href="/AggregateRating">AggregateRating</a> to differentiate ratings for the entity as an employer and the <a href="/reviewAspect">reviewAspect</a> property to <a href="/Review">Review</a> and <a href="/Rating">Rating</a> to allow authors to specify the facet or relevant part of being reviewed.
-</li>
-<li id="g1698"><a href="https://github.com/schemaorg/schemaorg/issues/1698">Issue #1698</a>: Add a <a href="/Occupation">Occupation</a> type with the supporting properties, many of which existed for <a href="JobPosting">JobPosting</a>. A <a href="/Person">Person's</a> occupation can be specified with <a href="hasOccupation">hasOccupation</a>. The Occupation's <a href="/estimatedSalary">estimatedSalary</a> is expressed as a <a href="/MonetaryAmountDistribution">MonetaryAmountDistribution</a>, a subtype of the new <a href="/QuantitativeValueDistribution">QuantitativeValueDistribution</a> type.
-</li>
-<li id="g1741"><a href="https://github.com/schemaorg/schemaorg/issues/1741">Issue #1741</a>: Add a <a href="/MediaSubscription">MediaSubscription</a> type with the supporting properties to describe a subscription for viewing media. Also added <a href="ActionAccessSpecification">ActionAccessSpecification</a> to allow authors to specify when a ConsumeAction requires a subscription or a purchase.
-</li>
-<!-- <li id="g@@@@"><a href=""></a></li> -->
-</ul>
-
-<h3>Site Improvements</h3>
-<ul>
-
-</ul>
-
-</td>
-
-</tr>
-
-<tr>
-
-<td class="release"><a href="/version/3.3/">3.3</a><br/>sdo-enceladus<br/>2017-08-14</td>
+<td class="release"><a href="/version/3.3/">3.3</a><br/>sdo-enceladus<br/>2018-08-14</td>
 
 <td>
 <span id="v.next"></span>

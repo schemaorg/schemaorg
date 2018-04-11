@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
+  {% include 'headtags.tpl' with context %}
     <title>Full Hierarchy - {{ sitename }}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Schema.org is a set of extensible schemas that enables webmasters to embed
