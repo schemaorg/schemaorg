@@ -1,5 +1,5 @@
 <!-- Generated from headtags.tpl -->
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta charset="utf-8" >
     <link rel="stylesheet" type="text/css" href="/docs/schemaorg.css" />
     <link href="/docs/prettify.css" type="text/css" rel="stylesheet" />
     <script type="text/javascript" src="/docs/prettify.js"></script>
