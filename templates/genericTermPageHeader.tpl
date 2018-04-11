@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<html lang="en">
 <!-- Generated from genericTermPageHeader.tpl -->
 <head>
-    {% include 'headtags.tpl' with context %}
-
+  {% include 'headtags.tpl' with context %}
 	{% if noindexpage %}<meta name="robots" content="noindex">{% endif %}
     <title>{{ entry }} - {{ sitename }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="{{ desc }}" />
 
 

@@ -1,9 +1,8 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<html lang="en">
 <head>
-
-{% include 'headtags.tpl' with context %}
-
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% include 'headtags.tpl' with context %}
     <title>{{target}} defined in  '{{ targetext }}' extention - {{ sitename }}</title>
     <meta name="description" content="Schema.org is a set of extensible schemas that enables webmasters to embed
     structured data on their web pages for use by search engines and other applications." />
