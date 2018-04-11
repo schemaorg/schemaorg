@@ -1,4 +1,5 @@
-application: schemaorgae
+# application: schemaorgae
+# usage: gcloud app deploy schemaorg.yaml --project schemaorgae
 
 version: 3-3fixes
 module: default
@@ -6,7 +7,7 @@ runtime: python27
 api_version: 1
 threadsafe: true
 
-  
+
 #automatic_scaling:
 #  min_idle_instances: 2
 
@@ -106,7 +107,7 @@ handlers:
   static_files: data/releases/\1
   upload: data/releases/(.*/.*\.rdf)
   application_readable: True
- 
+
 - url: /version/(.*/.*\.nt)
   mime_type: application/n-triples
   static_files: data/releases/\1
