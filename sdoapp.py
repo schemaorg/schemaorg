@@ -1720,6 +1720,7 @@ class ShowUnit (webapp2.RequestHandler):
                 template = JINJA_ENVIRONMENT.get_template('wrongExt.tpl')
                 page = templateRender('wrongExt.tpl',
                                         {'target': schema_node.id,
+                                        'targetext': schema_node.getHomeLayer(),
                                         'extensions': extensions,
                                         'sitename': "schema.org"})
 
