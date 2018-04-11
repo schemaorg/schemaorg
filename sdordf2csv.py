@@ -131,7 +131,7 @@ class sdordf2csv():
         writer.writerow(row)
 
     def prop2CSV(self,term=None,header=True,out=None,graph=None):
-        cols = ["id","label","comment","subPropertyOf","equivalentProperty","subproperties","domainIncludes","rangeIncludes","inversOf","supersedes","supersededBy","isPartOf"]
+        cols = ["id","label","comment","subPropertyOf","equivalentProperty","subproperties","domainIncludes","rangeIncludes","inverseOf","supersedes","supersededBy","isPartOf"]
         if not out:
             return
         writer = csv.writer(out,quoting=csv.QUOTE_ALL,lineterminator='\n')
