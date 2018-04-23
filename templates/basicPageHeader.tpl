@@ -40,7 +40,6 @@
 		</ul>
 	</div>
 </div>
-<div style="padding: 14px; float: right;" id="languagebox"></div>
 
 {% if mybasehost in [ "webschemas.org", "localhost"] %}
 <div class="devnote"><b>Note</b>: you are viewing the
