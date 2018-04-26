@@ -4413,7 +4413,7 @@ The place is __open__ if the [[opens]] property is specified, and __closed__ oth
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/currenciesAccepted">
       <span class="h" property="rdfs:label">currenciesAccepted</span>
-      <span property="rdfs:comment">The currency accepted (in [ISO 4217 currency format](http://en.wikipedia.org/wiki/ISO_4217) - for cryptocurrencies use the [ticker symbol](https://en.wikipedia.org/wiki/List_of_cryptocurrencies).)</span>
+      <span property="rdfs:comment">The currency accepted.\n\nUse standard formats: [ISO 4217 currency format](http://en.wikipedia.org/wiki/ISO_4217) e.g. "USD"; [Ticker symbol](https://en.wikipedia.org/wiki/List_of_cryptocurrencies) for cryptocurrencies e.g. "BTC"; well known names for [Local Exchange Tradings Systems](https://en.wikipedia.org/wiki/Local_exchange_trading_system) (LETS) and other currency types e.g. "Ithaca HOUR".</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/LocalBusiness">LocalBusiness</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
     </div>
@@ -4615,7 +4615,7 @@ Dateline summaries are oriented more towards human readers than towards automate
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/discountCurrency">
       <span class="h" property="rdfs:label">discountCurrency</span>
-      <span property="rdfs:comment">The currency (in 3-letter [ISO 4217](http://en.wikipedia.org/wiki/ISO_4217) format - for cryptocurrencies use the [ticker symbol](https://en.wikipedia.org/wiki/List_of_cryptocurrencies)) of the discount.</span>
+      <span property="rdfs:comment">The currency of the discount.\n\nUse standard formats: [ISO 4217 currency format](http://en.wikipedia.org/wiki/ISO_4217) e.g. "USD"; [Ticker symbol](https://en.wikipedia.org/wiki/List_of_cryptocurrencies) for cryptocurrencies e.g. "BTC"; well known names for [Local Exchange Tradings Systems](https://en.wikipedia.org/wiki/Local_exchange_trading_system) (LETS) and other currency types e.g. "Ithaca HOUR".</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Order">Order</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
     </div>
@@ -6169,7 +6169,7 @@ Dateline summaries are oriented more towards human readers than towards automate
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/paymentAccepted">
       <span class="h" property="rdfs:label">paymentAccepted</span>
-      <span property="rdfs:comment">Cash, credit card, cryptocurrency etc.</span>
+      <span property="rdfs:comment">Cash, Credit Card, Cryptocurrency, Local Exchange Tradings System, etc.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/LocalBusiness">LocalBusiness</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
     </div>
@@ -6302,8 +6302,7 @@ Dateline summaries are oriented more towards human readers than towards automate
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/price">
       <span class="h" property="rdfs:label">price</span>
-      <span property="rdfs:comment">The offer price of a product, or of a price component when attached to PriceSpecification and its subtypes.\n\nUsage guidelines:\n\n* Use the [[priceCurrency]] property (with [ISO 4217 codes](http://en.wikipedia.org/wiki/ISO_4217#Active_codes) e.g. "USD" - for cryptocurrencies use the [ticker symbol](https://en.wikipedia.org/wiki/List_of_cryptocurrencies)) instead of
-      including [ambiguous symbols](http://en.wikipedia.org/wiki/Dollar_sign#Currencies_that_use_the_dollar_or_peso_sign) such as '$' in the value.\n* Use '.' (Unicode 'FULL STOP' (U+002E)) rather than ',' to indicate a decimal point. Avoid using these symbols as a readability separator.\n* Note that both [RDFa](http://www.w3.org/TR/xhtml-rdfa-primer/#using-the-content-attribute) and Microdata syntax allow the use of a "content=" attribute for publishing simple machine-readable values alongside more human-friendly formatting.\n* Use values from 0123456789 (Unicode 'DIGIT ZERO' (U+0030) to 'DIGIT NINE' (U+0039)) rather than superficially similiar Unicode symbols.
+      <span property="rdfs:comment">The offer price of a product, or of a price component when attached to PriceSpecification and its subtypes.\n\nUsage guidelines:\n\n* Use the [[priceCurrency]] property (with standard formats: [ISO 4217 currency format](http://en.wikipedia.org/wiki/ISO_4217) e.g. "USD"; [Ticker symbol](https://en.wikipedia.org/wiki/List_of_cryptocurrencies) for cryptocurrencies e.g. "BTC"; well known names for [Local Exchange Tradings Systems](https://en.wikipedia.org/wiki/Local_exchange_trading_system) (LETS) and other currency types e.g. "Ithaca HOUR") instead of including [ambiguous symbols](http://en.wikipedia.org/wiki/Dollar_sign#Currencies_that_use_the_dollar_or_peso_sign) such as '$' in the value.\n* Use '.' (Unicode 'FULL STOP' (U+002E)) rather than ',' to indicate a decimal point. Avoid using these symbols as a readability separator.\n* Note that both [RDFa](http://www.w3.org/TR/xhtml-rdfa-primer/#using-the-content-attribute) and Microdata syntax allow the use of a "content=" attribute for publishing simple machine-readable values alongside more human-friendly formatting.\n* Use values from 0123456789 (Unicode 'DIGIT ZERO' (U+0030) to 'DIGIT NINE' (U+0039)) rather than superficially similiar Unicode symbols.
       </span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Offer">Offer</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/PriceSpecification">PriceSpecification</a></span>
@@ -7923,7 +7922,7 @@ While such policies are most typically expressed in natural language, sometimes 
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/priceCurrency">
       <span class="h" property="rdfs:label">priceCurrency</span>
-      <span property="rdfs:comment">The currency (in 3-letter [ISO 4217](http://en.wikipedia.org/wiki/ISO_4217) format - for cryptocurrencies use the [ticker symbol](https://en.wikipedia.org/wiki/List_of_cryptocurrencies)) of the price or a price component, when attached to [[PriceSpecification]] and its subtypes.</span>
+      <span property="rdfs:comment">The currency of the price, or a price component when attached to [[PriceSpecification]] and its subtypes.\n\nUse standard formats: [ISO 4217 currency format](http://en.wikipedia.org/wiki/ISO_4217) e.g. "USD"; [Ticker symbol](https://en.wikipedia.org/wiki/List_of_cryptocurrencies) for cryptocurrencies e.g. "BTC"; well known names for [Local Exchange Tradings Systems](https://en.wikipedia.org/wiki/Local_exchange_trading_system) (LETS) and other currency types e.g. "Ithaca HOUR".</span>
       <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Reservation">Reservation</a></span>
       <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Ticket">Ticket</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Offer">Offer</a></span>
@@ -9589,7 +9588,7 @@ postponing for 1.6.
   </div>
   <div typeof="rdf:Property" resource="http://schema.org/currency">
     <span class="h" property="rdfs:label">currency</span>
-    <span property="rdfs:comment">The currency in which the monetary amount is expressed (in 3-letter [ISO 4217](http://en.wikipedia.org/wiki/ISO_4217) format - for cryptocurrencies use the [ticker symbol](https://en.wikipedia.org/wiki/List_of_cryptocurrencies)).</span>
+    <span property="rdfs:comment">The currency in which the monetary amount is expressed.\n\nUse standard formats: [ISO 4217 currency format](http://en.wikipedia.org/wiki/ISO_4217) e.g. "USD"; [Ticker symbol](https://en.wikipedia.org/wiki/List_of_cryptocurrencies) for cryptocurrencies e.g. "BTC"; well known names for [Local Exchange Tradings Systems](https://en.wikipedia.org/wiki/Local_exchange_trading_system) (LETS) and other currency types e.g. "Ithaca HOUR".</span>
     <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/DatedMoneySpecification">DatedMoneySpecification</a></span>
     <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MonetaryAmount">MonetaryAmount</a></span>
     <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
