@@ -4825,9 +4825,11 @@ Dateline summaries are oriented more towards human readers than towards automate
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/encodingFormat">
       <span class="h" property="rdfs:label">encodingFormat</span>
-      <span property="rdfs:comment">mp3, mpeg4, etc.</span>
+        <span property="rdfs:comment">Media type (e.g. mp3, mpeg4, etc.), typically expressed using a MIME format (see [IANA site](http://www.iana.org/assignments/media-types/media-types.xhtml)) of the content e.g. application/zip of a SoftwareApplication binary. In cases where a CreativeWork has several media type representations, 'encoding' can be used to indicate each MediaObject alongside particular encodingFormat information. Unregistered or niche file formats can be indicated instead via the most appropriate URL, e.g. defining Web page or a Wikipedia entry.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CreativeWork">CreativeWork</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MediaObject">MediaObject</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/URL">URL</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/encodings">
       <span class="h" property="rdfs:label">encodings</span>
@@ -4990,6 +4992,7 @@ Dateline summaries are oriented more towards human readers than towards automate
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CreativeWork">CreativeWork</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/URL">URL</a></span>
+      <link property="http://schema.org/supersededBy" href="http://schema.org/encodingFormat"/>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/fileSize">
       <span class="h" property="rdfs:label">fileSize</span>
