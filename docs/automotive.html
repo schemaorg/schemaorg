@@ -90,7 +90,12 @@
               <li><a href="#introduction">Introduction</a></li>
               <li><a href="#overview">Overview</a></li>
               <li><a href="#conceptual_map">Conceptual map</a></li>
-              <li><a href="#hierarchy_of_terms">Hierarchy of terms</a></li>              
+              <li><a href="#hierarchy_of_terms">Hierarchy of terms</a></li>
+                    <ul>
+                        <li><a href="#schemaTypes">Types</a></li>
+                        <li><a href="#schemaProperties">Properties</a></li>
+                        <li><a href="#schemaEnumerations">Enumerations</a></li>
+                    </ul>                            
               <li><a href="#extensions_objects">Basic models</a></li>
                     <ul>
                         <li><a href="#vehicle_type_subtypes">Vehicle type and its subtypes</a></li>
@@ -171,11 +176,15 @@
             </p>
             
             <p class="img-box">
+                <center>
                 <img alt="Mind Map for schema.org automotive extension" src="automotive-img/VehicleHierarchy.png" title="Mind Map for schema.org automotive extension" />
+                </center>
             </p>
 
             <p class="img-box">
-                <img alt="Mind Map for schema.org automotive extension" src="automotive-img/CarHierarchy.png" title="Mind Map for schema.org automotive extension" />
+                <center>
+                <img alt="Mind Map for schema.org automotive extension" src="automotive-img/CarHierarchy.png" title="Mind Map for schema.org automotive extension" style="width: 94%; height: 94%"/>
+                </center>
             </p>
             
             <p>
@@ -188,7 +197,7 @@
             
             <h2 id="hierarchy_of_terms">The complete hierarchy of all terms in the automotive extension (plus their hypernyms)</h2>
             
-            <h3>Types:</h3>            
+            <h3 id="schemaTypes">Types:</h3>            
             
             <ul>
                 <li>
@@ -252,14 +261,9 @@
                 </li>
             </ul>
             
-            <h3>Properties:</h3>
+            <h3 id="schemaProperties">Properties:</h3>
             
-            <ul>
-                <li>
-                    <a href="http://schema.org/Thing">Thing</a>
-                    <ul>
-                        <li>
-                            <a href="http://schema.org/Property">Property</a>
+
                             <ul>
                                 <li>
                                     <a style="color:#0000aa" href="http://auto.schema.org/accelerationTime">accelerationTime</a>
@@ -394,10 +398,60 @@
                                     <a style="color:#0000aa" href="http://auto.schema.org/wheelbase">wheelbase</a>
                                 </li>
                             </ul>
+ 
+
+            <h3 id="schemaEnumerations">Enumerations (per type):</h3>            
+            
+                    <ul>
+                        <li>
+                            <a style="color:#0000aa" href="http://auto.schema.org/CarUsageType">CarUsageType</a> (type)
+
+                                    <ul>
+                                        <li>
+                                            <a style="color:#0000aa" href="http://auto.schema.org/DrivingSchoolVehicleUsage">DrivingSchoolVehicleUsage</a>
+                                        </li>
+                                        <li>
+                                            <a style="color:#0000aa" href="http://auto.schema.org/RentalVehicleUsage">RentalVehicleUsage</a>
+                                        </li>
+                                        <li>
+                                            <a style="color:#0000aa" href="http://auto.schema.org/TaxiVehicleUsage">TaxiVehicleUsage</a>
+                                        </li>
+                                    </ul>
                         </li>
+                        <li>
+                            <a href="http://schema.org/DriveWheelConfigurationValue">DriveWheelConfigurationValue</a> (type)
+     
+                                            <ul>
+                                                <li>
+                                                    <a href="http://schema.org/AllWheelDriveConfiguration">AllWheelDriveConfiguration</a>
+                                                </li>
+                                                <li>
+                                                    <a href="http://schema.org/FourWheelDriveConfiguration">FourWheelDriveConfiguration</a>
+                                                </li>
+                                                <li>
+                                                    <a href="http://schema.org/FrontWheelDriveConfiguration">FrontWheelDriveConfiguration</a>
+                                                </li>
+                                                <li>
+                                                    <a href="http://schema.org/RearWheelDriveConfiguration">RearWheelDriveConfiguration</a>
+                                                </li>
+                                            </ul>
+
+                        </li>
+                        <li>
+                            <a href="http://schema.org/SteeringPositionValue">SteeringPositionValue</a> (type)
+     
+                                            <ul>
+                                                <li>
+                                                    <a href="hhttp://schema.org/LeftHandDriving">LeftHandDriving</a>
+                                                </li>
+                                                <li>
+                                                    <a href="http://schema.org/RightHandDriving">RightHandDriving</a>
+                                                </li>
+                                            </ul>
+
+                        </li>                       
                     </ul>
-                </li>
-            </ul>
+
             
             <h2 id="extensions_objects">The basic models of the objects in the automotive extension</h2>
             
@@ -554,8 +608,8 @@
 &lt;strong&gt;Contact Name: &lt;/strong&gt; &lt;span property=&quot;name givenName&quot;&gt;Brent&lt;/span&gt;
 &nbsp; &lt;div property=&quot;makesOffer&quot; typeof=&quot;Offer&quot;&gt;
 &nbsp; &nbsp; &lt;span property=&quot;priceSpecification&quot; typeof=&quot;UnitPriceSpecification&quot;&gt;
-&nbsp; &nbsp; &nbsp; &lt;meta property=&quot;priceCurrency&quot; content=&quot;USD&quot;&gt;$
-&nbsp; &nbsp; &nbsp; &lt;meta property=&quot;price&quot; content=&quot;18000&quot;&gt;18,000
+&nbsp; &nbsp; &nbsp; &lt;meta property=&quot;price&quot; content=&quot;18000&quot; /&gt;18,000
+&nbsp; &nbsp; &nbsp; &lt;meta property=&quot;priceCurrency&quot; content=&quot;USD&quot; /&gt;$
 &nbsp; &nbsp; &lt;/span&gt;
 &lt;!-- Car Details --&gt;
 &nbsp; &nbsp; &lt;div id=&quot;product&quot; property=&quot;itemOffered&quot; typeof=&quot;Car&quot;&gt;
@@ -584,34 +638,31 @@
             </p>
             
             <pre class="jsonld-markup">
-&lt;script type=&quot;application/ld+json&quot;&gt;
+&lt;script type="application/ld+json"&gt;
 {
-&nbsp; &quot;@context&quot;: &quot;http://schema.org&quot;,
-&nbsp; &quot;@type&quot;: &quot;Person&quot;,
-&nbsp; &quot;name&quot; : &quot;Brent&quot;,
-&nbsp; &quot;makesOffer&quot; : {
-&nbsp; &nbsp; &nbsp; &nbsp; &quot;@type&quot; :&quot;Offer&quot;,
-&nbsp; &nbsp; &nbsp; &nbsp; &quot;priceSpecification&quot; : {
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &quot;@type&quot; : &quot;UnitPriceSpecification&quot;,
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &quot;priceCurrency&quot; : &quot;USD&quot;,
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &quot;price&quot; : &quot;18000&quot; },
-&nbsp; &nbsp; &nbsp; &nbsp; &quot;itemOffered&quot; : {
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &quot;@type&quot; : &quot;Car&quot;,
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &quot;name&quot; : &quot;2009 Volkswagen Golf V GTI MY09 Direct-Shift Gearbox&quot;,
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &quot;description&quot; : &quot;2009 Volkswagen Golf V GTI MY09 Direct-Shift Gearbox in perfect mechanical condition and low kilometres. 
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; It's impressive 2.0 litre turbo engine makes every drive a fun experience. 
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Well looked after by one owner with full service history. 
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; It drives like new and has only done 50,000kms. (...)&quot;,
-&nbsp; &nbsp; &nbsp; &nbsp; &quot;image&quot; : &quot;2009_Volkswagen_Golf_V_GTI_MY09.png&quot;,
-&nbsp; &nbsp; &nbsp; &nbsp; &quot;color&quot; : &quot;Black&quot;,
-&nbsp; &nbsp; &nbsp; &nbsp; &quot;numberOfForwardGears&quot; : &quot;6&quot;,
-&nbsp; &nbsp; &nbsp; &nbsp; &quot;vehicleEngine&quot; : {
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &quot;@type&quot;: &quot;EngineSpecification&quot;,
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &quot;name&quot; : &quot;4 cylinder Petrol Turbo Intercooled 2.0 L (1984 cc)&quot;
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; },
-&nbsp; &nbsp; &nbsp; &nbsp; &quot;numberOfAirbags&quot; : &quot;6&quot;
-&nbsp; &nbsp; &nbsp; &nbsp; }
-&nbsp; &nbsp; }
+  "@context": "http://schema.org",
+  "@type": "Person",
+  "name" : "Brent",
+  "makesOffer" : {
+        "@type" :"Offer",
+        "priceSpecification" : {
+            "@type" : "UnitPriceSpecification",
+            "priceCurrency" : "USD",
+            "price" : "18000" },
+        "itemOffered" : {
+            "@type" : "Car",
+            "name" : "2009 Volkswagen Golf V GTI MY09 Direct-Shift Gearbox",
+            "description" : "2009 Volkswagen Golf V GTI MY09 Direct-Shift Gearbox in perfect mechanical condition and low kilometres. It's impressive 2.0 litre turbo engine makes every drive a fun experience. Well looked after by one owner with full service history. It drives like new and has only done 50,000kms. (...)",
+        "image" : "2009_Volkswagen_Golf_V_GTI_MY09.png",
+        "color" : "Black",
+        "numberOfForwardGears" : "6",
+        "vehicleEngine" : {
+            "@type": "EngineSpecification",
+            "name" : "4 cylinder Petrol Turbo Intercooled 2.0 L (1984 cc)"
+            },
+        "numberOfAirbags" : "6"
+        }
+    }
 }
 &lt;/script&gt;                    
             </pre>
@@ -669,127 +720,127 @@
             <pre class="jsonld-markup">
 &lt;script type=&quot;application/ld+json&quot;&gt;
 {
-&nbsp;&nbsp;&quot;@context&quot;:&quot;http://schema.org/&quot;,
-&nbsp;&nbsp;&quot;@type&quot;:&quot;Car&quot;,
-&nbsp;&nbsp;&quot;name&quot;:&quot;Exemplary Car Model Name&quot;,
-&nbsp;&nbsp;&quot;manufacturer&quot;:&quot;Exemplary Car Manufacturer&quot;, &nbsp;&nbsp;
-&nbsp;&nbsp;&quot;vehicleConfiguration&quot;:&quot;limited edition&quot;,
-&nbsp;&nbsp;&quot;vehicleIdentificationNumber&quot;:&quot;1HTLCZWN0JH503089&quot;,
-&nbsp;&nbsp;&quot;productionDate&quot;:&quot;2017&quot;, &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&quot;modelDate&quot;:&quot;2016&quot;,
-&nbsp;&nbsp;&quot;bodyType&quot;:&quot;hatchback&quot;,
-&nbsp;&nbsp;&quot;steeringPosition&quot;:&quot;LeftHandDriving&quot;, &nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&quot;driveWheelConfiguration&quot;:&quot;RearWheelDriveConfiguration&quot;,
-&nbsp;&nbsp;&quot;color&quot;:&quot;White&quot;, &nbsp;&nbsp;
-&nbsp;&nbsp;&quot;vehicleInteriorType&quot;:&quot;leather&quot;,
-&nbsp;&nbsp;&quot;vehicleInteriorColor&quot;:&quot;beige&quot;, &nbsp;
-&nbsp;&nbsp;&quot;numberOfAirbags&quot; : &quot;6&quot;, &nbsp;&nbsp;
-&nbsp;&nbsp;&quot;numberOfAxles&quot;:&quot;2&quot;,
-&nbsp;&nbsp;&quot;numberOfDoors&quot;: &quot;5&quot;,
-&nbsp;&nbsp;&quot;seatingCapacity&quot;: &quot;5&quot;,&nbsp;
-&nbsp;&nbsp;&quot;cargoVolume&quot;:{
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;@type&quot;:&quot;QuantitativeValue&quot;,
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;value&quot;:&quot;19.4&quot;,
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;unitCode&quot;:&quot;FTQ&quot;}, &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&quot;weightTotal&quot;:{
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;@type&quot;:&quot;QuantitativeValue&quot;,
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;maxValue&quot;:&quot;1425&quot;,
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;unitCode&quot;:&quot;KGM&quot;}, &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  "@context":"http://schema.org/",
+  "@type":"Car",
+  "name":"Exemplary Car Model Name",
+  "manufacturer":"Exemplary Car Manufacturer",   
+  "vehicleConfiguration":"limited edition",
+  "vehicleIdentificationNumber":"1HTLCZWN0JH503089",
+  "productionDate":"2017",      
+  "modelDate":"2016",
+  "bodyType":"hatchback",
+  "steeringPosition":{"@id":"http://schema.org/LeftHandDriving"},    
+  "driveWheelConfiguration":{"@id":"http://schema.org/RearWheelDriveConfiguration"},
+  "color":"White",   
+  "vehicleInteriorType":"leather",
+  "vehicleInteriorColor":"beige",  
+  "numberOfAirbags" : "6",   
+  "numberOfAxles":"2",
+  "numberOfDoors": "5",
+  "seatingCapacity": "5", 
+  "cargoVolume":{
+        "@type":"QuantitativeValue",
+        "value":"19.4",
+        "unitCode":"FTQ"},        
+  "weightTotal":{
+        "@type":"QuantitativeValue",
+        "maxValue":"1425",
+        "unitCode":"KGM"},         
 
-&nbsp;&nbsp;&quot;wheelbase&quot;:{
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;@type&quot;:&quot;QuantitativeValue&quot;,
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;value&quot;:&quot;106.3&quot;,
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;unitCode&quot;:&quot;INH&quot;}, &nbsp;&nbsp;&nbsp;
+  "wheelbase":{
+        "@type":"QuantitativeValue",
+        "value":"106.3",
+        "unitCode":"INH"},    
 
-&nbsp;&nbsp;&quot;vehicleTransmission&quot;: &quot;automatic gearbox&quot;, &nbsp;&nbsp;
-&nbsp;&nbsp;&quot;numberOfForwardGears&quot; : &quot;6&quot;, &nbsp;&nbsp;
+  "vehicleTransmission": "automatic gearbox",   
+  "numberOfForwardGears" : "6",   
 
-&nbsp;&nbsp;&quot;vehicleEngine&quot;:[
-&nbsp;&nbsp;	&nbsp;&nbsp;{
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;@type&quot;:&quot;EngineSpecification&quot;,
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;engineType&quot;:&quot;internal combustion engine&quot;,
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;fuelType&quot;:&quot;petrol&quot;,
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;engineDisplacement&quot;:{
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;@type&quot;:&quot;QuantitativeValue&quot;,
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;value&quot;:&quot;1580&quot;,
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;unitCode&quot;:&quot;CMQ&quot;},
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;torque&quot;:{
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;@type&quot;:&quot;QuantitativeValue&quot;,
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;value&quot;:&quot;109&quot;,
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;unitCode&quot;:&quot;F17&quot;}, &nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;enginePower&quot;:{
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;@type&quot;:&quot;QuantitativeValue&quot;,
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;value&quot;:&quot;104&quot;,
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;unitCode&quot;:&quot;BHP&quot;}},
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;@type&quot;:&quot;EngineSpecification&quot;,
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;engineType&quot;:&quot;electric motor&quot;,
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;torque&quot;:{
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;@type&quot;:&quot;QuantitativeValue&quot;,
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;value&quot;:&quot;125&quot;,
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;unitCode&quot;:&quot;F17&quot;}, &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;enginePower&quot;:{
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;@type&quot;:&quot;QuantitativeValue&quot;,
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;value&quot;:&quot;43&quot;,
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;unitCode&quot;:&quot;BHP&quot;}}
-&nbsp;&nbsp;],&nbsp;
+  "vehicleEngine":[
+      {
+     "@type":"EngineSpecification",
+     "engineType":"internal combustion engine",
+     "fuelType":"petrol",
+     "engineDisplacement":{
+        "@type":"QuantitativeValue",
+        "value":"1580",
+        "unitCode":"CMQ"},
+     "torque":{
+        "@type":"QuantitativeValue",
+        "value":"109",
+        "unitCode":"F17"},   
+     "enginePower":{
+        "@type":"QuantitativeValue",
+        "value":"104",
+        "unitCode":"BHP"}},
+     {
+     "@type":"EngineSpecification",
+     "engineType":"electric motor",
+     "torque":{
+        "@type":"QuantitativeValue",
+        "value":"125",
+        "unitCode":"F17"},       
+     "enginePower":{
+        "@type":"QuantitativeValue",
+        "value":"43",
+        "unitCode":"BHP"}}
+  ], 
 
-&nbsp;&nbsp;&quot;accelerationTime&quot;:{
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;@type&quot;:&quot;QuantitativeValue&quot;,
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;value&quot;:&quot;11.5&quot;,
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;unitCode&quot;:&quot;SEC&quot;,
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;valueReference&quot;:{
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	&quot;@type&quot;:&quot;QuantitativeValue&quot;,
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;unitText&quot;:&quot;0..100 km/h&quot;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}},&nbsp;
+  "accelerationTime":{
+     "@type":"QuantitativeValue",
+     "value":"11.5",
+     "unitCode":"SEC",
+     "valueReference":{
+        "@type":"QuantitativeValue",
+       "unitText":"0..100 km/h"
+     }}, 
 
-&nbsp;&nbsp;&nbsp;&quot;speed&quot;:{
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;@type&quot;:&quot;QuantitativeValue&quot;,
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;maxValue&quot;:&quot;210&quot;,
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;unitCode&quot;:&quot;KMH&quot;}, &nbsp;&nbsp;
+   "speed":{
+        "@type":"QuantitativeValue",
+        "maxValue":"210",
+        "unitCode":"KMH"},   
 
-&nbsp;&nbsp;&quot;fuelCapacity&quot;:[{
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;@type&quot;:&quot;QuantitativeValue&quot;,
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;value&quot;:&quot;11.9&quot;,
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;unitCode&quot;:&quot;GLL&quot;},
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;@type&quot;:&quot;QuantitativeValue&quot;,
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;value&quot;:&quot;6.5&quot;,
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;unitCode&quot;:&quot;AMH&quot;,
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;description&quot;:&quot;Battery Energy 1.56 kWh&quot;}
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;],
+  "fuelCapacity":[{
+        "@type":"QuantitativeValue",
+        "value":"11.9",
+        "unitCode":"GLL"},
+        {
+        "@type":"QuantitativeValue",
+        "value":"6.5",
+        "unitCode":"AMH",
+        "description":"Battery Energy 1.56 kWh"}
+        ],
 
-&nbsp;&nbsp;&quot;fuelConsumption&quot;:{
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;@type&quot;:&quot;QuantitativeValue&quot;,
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;value&quot;:&quot;3.5&quot;,
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;unitText&quot;:&quot;L/100km&quot;},
+  "fuelConsumption":{
+        "@type":"QuantitativeValue",
+        "value":"3.5",
+        "unitText":"L/100km"},
 
-&nbsp;&nbsp;&quot;mileageFromOdometer&quot;:{
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;@type&quot;:&quot;QuantitativeValue&quot;,
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;value&quot;:&quot;1&quot;,
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;unitCode&quot;:&quot;KMT&quot;
-&nbsp;&nbsp;},
+  "mileageFromOdometer":{
+     "@type":"QuantitativeValue",
+     "value":"1",
+     "unitCode":"KMT"
+  },
 
-&nbsp;&nbsp;&quot;emissionsCO2&quot;: &quot;88&quot;, &nbsp;
+  "emissionsCO2": "88",  
 
-&nbsp;&nbsp;&quot;offers&quot;:{
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;@type&quot;:&quot;Offer&quot;,
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;price&quot;:&quot;91800.00&quot;,
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;priceCurrency&quot;:&quot;PLN&quot;,
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;availabilityStarts&quot;:&quot;2017-05-29&quot;,
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;seller&quot;:{
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;@type&quot;:&quot;Organization&quot;,
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;address&quot;:{
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;@type&quot;:&quot;PostalAddress&quot;,
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;addressCountry&quot;:&quot;PL&quot;,
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;streetAddress&quot;:&quot;Borowa 16&quot;,
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;postalCode&quot;:&quot;20-170&quot;,
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;addressLocality&quot;:&quot;Łaziska G&oacute;rne&quot;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;},
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;telephone&quot;:&quot;670 000 070&quot;,
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;name&quot;:&quot;Car Company S.A.&quot;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
-&nbsp;&nbsp;}
+  "offers":{
+     "@type":"Offer",
+     "price":"91800.00",
+     "priceCurrency":"PLN",
+     "availabilityStarts":"2017-05-29",
+     "seller":{
+        "@type":"Organization",
+        "address":{
+           "@type":"PostalAddress",
+           "addressCountry":"PL",
+           "streetAddress":"Borowa 16",
+           "postalCode":"20-170",
+           "addressLocality":"Łaziska Górne"
+        },
+        "telephone":"670 000 070",
+        "name":"Car Company S.A."
+     }
+  }
 }
 &lt;/script&gt;                
             </pre>
@@ -821,15 +872,14 @@ no chassis damaged, no radiators damaged, no airbags deployed&lt;/p&gt;
             <pre class="jsonld-markupx">
 &lt;script type=&quot;application/ld+json&quot;&gt;
 {
-&nbsp;&nbsp;&quot;@context&quot;:&quot;http://schema.org/&quot;,
-&nbsp;&nbsp;&quot;@type&quot;:&quot;Car&quot;,
-&nbsp;&nbsp;&quot;name&quot;:&quot;Exemplary Car Model Name&quot;,
-&nbsp;&nbsp;&quot;knownVehicleDamages&quot;:&quot;excellent condition apart from damaged area car has damage to passenger front corner; no chassis damaged, no radiators damaged, no airbags deployed&quot;,
-&nbsp;&nbsp;&quot;dateVehicleFirstRegistered&quot;:&quot;2008-06-12&quot;,
-&nbsp;&nbsp;&quot;purchaseDate&quot;:&quot;2010-01-17&quot;,
-&nbsp;&nbsp;&quot;numberOfPreviousOwners&quot;:&quot;2&quot;,
-&nbsp;&nbsp;&quot;vehicleSpecialUsage&quot;:&quot;DrivingSchoolVehicleUsage&quot;
-
+  "@context":"http://schema.org/",
+  "@type":"Car",
+  "name":"Exemplary Car Model Name",
+  "knownVehicleDamages":"excellent condition apart from damaged area car has damage to passenger front corner; no chassis damaged, no radiators damaged, no airbags deployed",
+  "dateVehicleFirstRegistered":"2008-06-12",
+  "purchaseDate":"2010-01-17",
+  "numberOfPreviousOwners":"2",
+  "vehicleSpecialUsage":{"@id":"http://schema.org/DrivingSchoolVehicleUsage"}
 }
 &lt;/script&gt;
             </pre>
@@ -866,44 +916,44 @@ no chassis damaged, no radiators damaged, no airbags deployed&lt;/p&gt;
             <pre class="jsonld-markup">
 &lt;script type=&quot;application/ld+json&quot;&gt;
 {
-   &quot;@context&quot;:&quot;http://schema.org/&quot;,
-   &quot;@type&quot;:&quot;Car&quot;,
-   &quot;name&quot;:&quot;Exemplary Car Model Name&quot;,
-   &quot;acrissCode&quot;:&quot;SCAR&quot;,
-   &quot;seatingCapacity&quot;: &quot;5&quot;,
-   &quot;numberOfDoors&quot;: &quot;4&quot;,
-   &quot;vehicleTransmission&quot;: &quot;automatic gearbox&quot;,
-   &quot;cargoVolume&quot;:[{
-         &quot;@type&quot;:&quot;QuantitativeValue&quot;,
-         &quot;value&quot;:&quot;2&quot;,
-         &quot;unitText&quot;:&quot;bags&quot;},
+   "@context":"http://schema.org/",
+   "@type":"Car",
+   "name":"Exemplary Car Model Name",
+   "acrissCode":"SCAR",
+   "seatingCapacity": "5",
+   "numberOfDoors": "4",
+   "vehicleTransmission": "automatic gearbox",
+   "cargoVolume":[{
+         "@type":"QuantitativeValue",
+         "value":"2",
+         "unitText":"bags"},
          {
-         &quot;@type&quot;:&quot;QuantitativeValue&quot;,
-         &quot;value&quot;:&quot;2&quot;,
-         &quot;unitText&quot;:&quot;suitcases&quot;}],
-   &quot;additionalProperty&quot;:{
-        &quot;@type&quot;:&quot;PropertyValue&quot;,
-        &quot;name&quot;:&quot;air conditioning&quot;
+         "@type":"QuantitativeValue",
+         "value":"2",
+         "unitText":"suitcases"}],
+   "additionalProperty":{
+        "@type":"PropertyValue",
+        "name":"air conditioning"
         },
-   &quot;offers&quot;:{
-     &quot;@type&quot;:&quot;Offer&quot;,
-     &quot;offeredBy&quot;: {
-        &quot;@type&quot;: &quot;AutoRental&quot;,
-        &quot;name&quot;:&quot;Rent Car Company&quot;,
-        &quot;image&quot;: &quot;http://AutoRental.com/rent_company.jpg&quot;
+   "offers":{
+     "@type":"Offer",
+     "offeredBy": {
+        "@type": "AutoRental",
+        "name":"Rent Car Company",
+        "image": "http://AutoRental.com/rent_company.jpg"
       },    
-      &quot;priceSpecification&quot;: {
-        &quot;@type&quot;: &quot;UnitPriceSpecification&quot;,
-        &quot;price&quot;: &quot;20&quot;,
-        &quot;priceCurrency&quot;: &quot;EUR&quot;,
-        &quot;referenceQuantity&quot;: {
-          &quot;@type&quot;: &quot;QuantitativeValue&quot;,
-          &quot;value&quot;: &quot;1&quot;,
-          &quot;unitCode&quot;: &quot;DAY&quot;
+      "priceSpecification": {
+        "@type": "UnitPriceSpecification",
+        "price": "20",
+        "priceCurrency": "EUR",
+        "referenceQuantity": {
+          "@type": "QuantitativeValue",
+          "value": "1",
+          "unitCode": "DAY"
         }
       }
   }   
-}   
+}  
 &lt;/script&gt;                
             </pre>
             
