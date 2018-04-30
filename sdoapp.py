@@ -251,7 +251,7 @@ class TypeHierarchyTree:
 
     def __init__(self, prefix=""):
         self.txt = ""
-        self.visited = {}
+        self.visited = []
         self.prefix = prefix
 
     def emit(self, s):
@@ -266,7 +266,7 @@ class TypeHierarchyTree:
     def toJSON(self):
         return self.txt
 
-    def traverseForHTML(self, node, depth = 1, hashorslash="/", layers='core', traverseAllLayers=False, buff=None):
+    def traverseForHTML(self, node, depth = 1, hashorslash="/", layers='core', idprefix="", traverseAllLayers=False, buff=None):
 
         """Generate a hierarchical tree view of the types. hashorslash is used for relative link prefixing."""
 
@@ -302,36 +302,44 @@ class TypeHierarchyTree:
 
         # we are a supertype of some kind
         subTypes = node.GetImmediateSubtypes(layers=ALL_LAYERS)
+        idstring = idprefix + node.id
         if len(subTypes) > 0:
             # and we haven't been here before
             if node.id not in self.visited:
-                self.visited[node.id] = True # remember our visit
-                self.emit2buff(buff, ' %s<li class="tbranch" id="%s"><a %s %s href="%s%s%s">%s</a>%s' % (" " * 4 * depth, node.id,  tooltip, extclass, urlprefix, hashorslash, node.id, node.id, extflag) )
+                self.emit2buff(buff, ' %s<li class="tbranch" id="%s"><a %s %s href="%s%s%s">%s</a>%s' % (" " * 4 * depth, idstring,  tooltip, extclass, urlprefix, hashorslash, node.id, node.id, extflag) )
                 self.emit2buff(buff, ' %s<ul>' % (" " * 4 * depth))
 
                 # handle our subtypes
                 for item in subTypes:
                     subBuff = StringIO.StringIO()
-                    got = self.traverseForHTML(item, depth + 1, hashorslash=hashorslash, layers=layers, traverseAllLayers=traverseAllLayers,buff=subBuff)
+                    got = self.traverseForHTML(item, depth + 1, hashorslash=hashorslash, layers=layers, idprefix=idprefix, traverseAllLayers=traverseAllLayers,buff=subBuff)
                     if got:
                         self.emit2buff(buff,subBuff.getvalue())
                     subBuff.close()
                 self.emit2buff(buff, ' %s</ul>' % (" " * 4 * depth))
             else:
                 # we are a supertype but we visited this type before, e.g. saw Restaurant via Place then via Organization
+                seencount = self.visited.count(node.id)
+                idstring = "%s%s" % (idstring, "+" * seencount)
                 seen = '  <a href="#%s">+</a> ' % node.id
-                self.emit2buff(buff, ' %s<li class="tbranch" id="%s"><a %s %s href="%s%s%s">%s</a>%s%s' % (" " * 4 * depth, node.id,  tooltip, extclass, urlprefix, hashorslash, node.id, node.id, extflag, seen) )
+                self.emit2buff(buff, ' %s<li class="tbranch" id="%s"><a %s %s href="%s%s%s">%s</a>%s%s' % (" " * 4 * depth, idstring,  tooltip, extclass, urlprefix, hashorslash, node.id, node.id, extflag, seen) )
         # leaf nodes
         if len(subTypes) == 0:
             if home  in layers:
                 gotOutput = True
-                if node.id not in self.visited:
-                    self.emit2buff(buff, '%s<li class="tleaf" id="%s"><a %s %s href="%s%s%s">%s</a>%s%s' % (" " * depth, node.id, tooltip, extclass, urlprefix, hashorslash, node.id, node.id, extflag, "" ))
+                seen = ""
+                if node.id in self.visited:
+                    seencount = self.visited.count(node.id)
+                    idstring = "%s%s" % (idstring, "+" * seencount)
+                    seen = '  <a href="#%s">+</a> ' % node.id
+                    
+                self.emit2buff(buff, '%s<li class="tleaf" id="%s"><a %s %s href="%s%s%s">%s</a>%s%s' % (" " * depth, idstring, tooltip, extclass, urlprefix, hashorslash, node.id, node.id, extflag, seen ))
             #else:
                 #self.visited[node.id] = True # never...
                 # we tolerate "VideoGame" appearing under both Game and SoftwareApplication
                 # and would only suppress it if it had its own subtypes. Seems legit.
 
+        self.visited.append(node.id) # remember our visit
         self.emit2buff(buff, ' %s</li>' % (" " * 4 * depth) )
 
         if localBuff:
@@ -480,7 +488,7 @@ class ShowUnit (webapp2.RequestHandler):
                 items.append("'{0}' is mentioned in {1}layer: <a href='{2}'>{3}</a>".format( node.id, ext, makeUrl(l,node.id), l ))
 
         moreinfo = """<div>
-        <div id='infobox' style='text-align: right;'><label role="checkbox" for=morecheck><b><span style="cursor: pointer;">[more...]</span></b></label></div>
+        <div id='infobox' style='text-align: right;' role="checkbox" aria-checked="false"><label for="morecheck"><b><span style="cursor: pointer;">[more...]</span></b></label></div>
         <input type='checkbox' checked="checked" style='display: none' id=morecheck><div id='infomsg' style='background-color: #EEEEEE; text-align: left; padding: 0.5em;'>
         <ul>"""
 
@@ -596,7 +604,7 @@ class ShowUnit (webapp2.RequestHandler):
         if len(usage):
             self.write(" <br/><div>Usage: %s</div>\n\n" % (usage) + "\n")
 
-        #was:        self.write(self.moreInfoBlock(node))
+        self.write(self.moreInfoBlock(node))
 
         if (node.isClass(layers=layers) and not node.isDataType(layers=layers) and node.id != "DataType"):
             self.write("<table class=\"definition-table\">\n        <thead>\n  <tr><th>Property</th><th>Expected Type</th><th>Description</th>               \n  </tr>\n  </thead>\n\n")
@@ -1250,13 +1258,8 @@ class ShowUnit (webapp2.RequestHandler):
 
         self.emitUnitHeaders(node,  layers=layers) # writes <h1><table>...
 
-        if (node.isEnumerationValue(layers=layers)):
-            self.write(self.moreInfoBlock(node))
-
         if (node.isClass(layers=layers)):
             subclass = True
-            self.write(self.moreInfoBlock(node))
-
             for p in self.parentStack:
                 self.ClassProperties(p, p==self.parentStack[0], layers=self.appropriateLayers(layers=layers))
             if (not node.isDataType(layers=layers) and node.id != "DataType"):
@@ -1271,7 +1274,6 @@ class ShowUnit (webapp2.RequestHandler):
 
 
         elif (Unit.isAttribute(node, layers=layers)):
-            self.write(self.moreInfoBlock(node))
             self.emitAttributeProperties(node, layers=layers)
 
         if (node.isClass(layers=layers)):
@@ -1577,7 +1579,7 @@ class ShowUnit (webapp2.RequestHandler):
                     extonlylist.append(i)
                     count += 1
             local_button = ""
-            local_label = "<h3>Core plus %s extension vocabularies</h3>" % extlist
+            local_label = "<h3>Core vocabulary</h3>"
             if count == 0:
                 local_button = "Core vocabulary"
             elif count == 1:
@@ -1596,24 +1598,24 @@ class ShowUnit (webapp2.RequestHandler):
             uDataType = Unit.GetUnit("DataType")
 
             mainroot = TypeHierarchyTree(local_label)
-            mainroot.traverseForHTML(uThing, layers=layerlist)
+            mainroot.traverseForHTML(uThing, layers=layerlist, idprefix="C.")
             thing_tree = mainroot.toHTML()
 
             fullmainroot = TypeHierarchyTree("<h3>Core plus all extension vocabularies</h3>")
-            fullmainroot.traverseForHTML(uThing, layers=ALL_LAYERS_NO_ATTIC)
+            fullmainroot.traverseForHTML(uThing, layers=ALL_LAYERS_NO_ATTIC, idprefix="CE.")
             full_thing_tree = fullmainroot.toHTML()
 
             ext_thing_tree = None
             if len(extonlylist) > 0:
                 extroot = TypeHierarchyTree("<h3>Extension: %s</h3>" % extlist)
-                extroot.traverseForHTML(uThing, layers=extonlylist, traverseAllLayers=True)
+                extroot.traverseForHTML(uThing, layers=extonlylist, traverseAllLayers=True, idprefix="E.")
                 ext_thing_tree = extroot.toHTML()
 
             dtroot = TypeHierarchyTree("<h4>Data Types</h4>")
-            dtroot.traverseForHTML(uDataType, layers=layerlist)
+            dtroot.traverseForHTML(uDataType, layers=layerlist, idprefix="D.")
             datatype_tree = dtroot.toHTML()
 
-            full_button = "Core plus all extensions"
+            full_button = "Core plus all extension vocabularies"
 
             page = templateRender('full.tpl',{ 'thing_tree': thing_tree,
                                     'full_thing_tree': full_thing_tree,
