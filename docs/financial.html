@@ -52,7 +52,7 @@
                                 <a href="/">schema.org</a>
                             </h1>
                         </div>
-                    <div id="cse-search-form" style="width: 400px;"><gcse:searchbox-only resultsUrl="/docs/search_results.html"></gcse:searchbox-only></div>
+                    <div id="cse-search-form" style="width: 400px;"><div class="gcse-searchbox-only" data-resultsUrl="/docs/search_results.html"></div></div>
                     </div>
                 </div>
             </div>
@@ -130,9 +130,9 @@
                 The following diagrams present the conceptual map of the extension. As it was explained before, the map contains elements from both the schema.org "core" and the actual financial extension (at the moment of writing this was placed in pending.schema.org):
             </p>
             
-            <img alt="Mind Map for schema.org financial extension" src="financial-img/1.png" title="Mind Map for schema.org financial extension" border="0" onload="this.width *= 0.55;" />
+            <img alt="Mind Map for schema.org financial extension" src="financial-img/1.png" title="Mind Map for schema.org financial extension" style="border: 0;" onload="this.width *= 0.55;" />
 
-            <img alt="Mind Map for schema.org financial extension" src="financial-img/2.png" title="Mind Map for schema.org financial extension" border="0" onload="this.width *= 0.55;" />
+            <img alt="Mind Map for schema.org financial extension" src="financial-img/2.png" title="Mind Map for schema.org financial extension" style="border: 0;" onload="this.width *= 0.55;" />
             
             <p>
                 The banks are identified by their LEI (Legal Entity Identifier) code: <a href="http://schema.org/leiCode">leiCode</a> (upper diagram above) and terms that were already present in schema.org (see "Basic Models" below). 
@@ -150,7 +150,7 @@
             <h2>The complete hierarchy of all terms in the financial extension</h2>
             
             <p>
-                All of the extension terms are depicted in <span style="color:red">red</span>. The branches already defined in the schema.org are depicted in <span style="color:gray">gray</a>.
+                All of the extension terms are depicted in <span style="color:red">red</span>. The branches already defined in the schema.org are depicted in <span style="color:gray">gray</span>.
             </p>
             
             <h3>Types:</h3>
@@ -177,8 +177,7 @@
                             <ul>
                                 <li>
                                     <a style="color:gray" href="http://pending.schema.org/Service">Service</a>
-                                </li>
-                                <ul>
+                                    <ul>
                                     <li>
                                         <a href="http://pending.schema.org/FinancialProduct">FinancialProduct</a>
                                         <ul>
@@ -222,7 +221,7 @@
                                                 <a href="http://pending.schema.org/PaymentCard">PaymentCard</a> 
                                                 <ul>
                                                     <li>
-                                                        <a href="http://pending.schema.org/CreditCard">CreditCard</a
+                                                        <a href="http://pending.schema.org/CreditCard">CreditCard</a>
                                                     </li>
                                                 </ul>
                                             </li>
@@ -379,7 +378,7 @@
             
             <h3>A bank</h3>
             
-            <img alt="The pattern for the description of the ‘BankOrCreditUnion’ object by the financial extension to schema.org" src="financial-img/3.png" title="The pattern for the description of the ‘BankOrCreditUnion’ object by the financial extension to schema.org" border="0" width="100%" />
+            <img alt="The pattern for the description of the ‘BankOrCreditUnion’ object by the financial extension to schema.org" src="financial-img/3.png" title="The pattern for the description of the ‘BankOrCreditUnion’ object by the financial extension to schema.org" style="border:0; width:100%;" />
 
             <p>
                 The main type for the description of Banks and Credit Unions, <a href="http://schema.org/BankOrCreditUnion">BankOrCreditUnion</a> is a subclass of the following sequence of schema.org classes: <a href="http://schema.org/FinancialService">FinancialService</a> -> <a href="http://schema.org/LocalBusiness">LocalBusiness</a> -> (<a href="http://schema.org/Organization">Organization</a> and <a href="http://schema.org/Place">Place</a>). The institution can be identified by the following schema.org properties: <a href="http://schema.org/name">name</a>, <a href="http://schema.org/contactPoint">contactPoint</a>, <a href="http://schema.org/address">address</a> and the website <a href="http://schema.org/url">url</a>. The extension adds the fundamental global identifier of the financial institution: <a href="http://schema.org/leiCode">leiCode</a>: Legal Entity Identifier (the alphanumeric code or LEI URI) .
@@ -388,7 +387,7 @@
             
             <h3>A financial product</h3>
             
-            <img alt="The pattern for the description of the ‘Financial product’ by the financial extension to schema.org" src="financial-img/4.png" title="The pattern for the description of the ‘Financial product’ by the financial extension to schema.org" border="0" width="100%" />
+            <img alt="The pattern for the description of the ‘Financial product’ by the financial extension to schema.org" src="financial-img/4.png" title="The pattern for the description of the ‘Financial product’ by the financial extension to schema.org" style="border:0; width:100%;" />
             
             <p>
                 The top ‘type’ for the description of the financial products, <a href="http://schema.org/FinancialProduct">FinancialProduct</a>, (which is a subclass of schema.org <a href="http://schema.org/Service">Service</a> type) is sub-classed by the most important specific products: <a href="http://schema.org/BankAccount">BankAccount</a>, <a href="http://schema.org/PaymentCard">PaymentCard</a>, <a href="http://schema.org/LoanOrCredit">LoanOrCredit</a>, <a href="http://schema.org/InvestmentOrDeposit">InvestmentOrDeposit</a>, <a href="http://schema.org/PaymentService">PaymentService</a> and <a href="http://schema.org/CurrencyConversionService">CurrencyConversionService</a>.
@@ -398,16 +397,16 @@
                 Examples of the specific products are illustrated in the following diagrams: 
             </p>
             
-            <img alt="The pattern for the description of the ‘Deposit Account’ by the financial extension to schema.org" src="financial-img/5.png" title="The pattern for the description of the ‘Deposit Account’ by the financial extension to schema.org" border="0" width="100%" />
+            <img alt="The pattern for the description of the ‘Deposit Account’ by the financial extension to schema.org" src="financial-img/5.png" title="The pattern for the description of the ‘Deposit Account’ by the financial extension to schema.org" style="border:0; width:100%;" />
 
             <p>
-                In this example, the <a href="http://schema.org/DepositAccount">DepositAccount</a> (sub-class of the sequence of <a href="http://schema.org/InvestmentOrDeposit">InvestmentOrDeposit</a> -> <a href="http://schema.org/FinancialProduct">FinancialProduct<a>) is described through the following properties: <a href="http://schema.org/amount">amount</a>, <a href="http://schema.org/interestRate">interestRate</a>, <a href="http://schema.org/provider">provider</a> and <a href="http://schema.org/availableChannel">availableChannel</a>. 
+                In this example, the <a href="http://schema.org/DepositAccount">DepositAccount</a> (sub-class of the sequence of <a href="http://schema.org/InvestmentOrDeposit">InvestmentOrDeposit</a> -> <a href="http://schema.org/FinancialProduct">FinancialProduct</a>) is described through the following properties: <a href="http://schema.org/amount">amount</a>, <a href="http://schema.org/interestRate">interestRate</a>, <a href="http://schema.org/provider">provider</a> and <a href="http://schema.org/availableChannel">availableChannel</a>. 
             </p>
             
-            <img alt="The pattern for the description of the ‘Mortgage Loan’ by the financial extension to schema.org" src="financial-img/6.png" title="The pattern for the description of the ‘Mortgage Loan’ by the financial extension to schema.org" border="0" width="100%" />
+            <img alt="The pattern for the description of the ‘Mortgage Loan’ by the financial extension to schema.org" src="financial-img/6.png" title="The pattern for the description of the ‘Mortgage Loan’ by the financial extension to schema.org" style="border:0; width:100%;" />
 
             <p>             
-                In this example, the <a href="http://schema.org/MortgageLoan">MortgageLoan</a> (sub-class of the sequence of <a href="http://schema.org/LoanOrCredit">LoanOrCredit</a> -> <a href="http://schema.org/FinancialProduct">FinancialProduct</a>) is described through the following properties: <a href="http://schema.org/amount">amount</a>, <a href="http://schema.org/interestRate">interestRate</a>, <a href="http://schema.org/annualPercentageRate">annualPercentageRate</a (representing APR), <a href="http://schema.org/loanTerm">loanTerm</a> and <a href="http://schema.org/loanRepaymentForm">loanRepaymentForm</a>. 
+                In this example, the <a href="http://schema.org/MortgageLoan">MortgageLoan</a> (sub-class of the sequence of <a href="http://schema.org/LoanOrCredit">LoanOrCredit</a> -> <a href="http://schema.org/FinancialProduct">FinancialProduct</a>) is described through the following properties: <a href="http://schema.org/amount">amount</a>, <a href="http://schema.org/interestRate">interestRate</a>, <a href="http://schema.org/annualPercentageRate">annualPercentageRate</a> (representing APR), <a href="http://schema.org/loanTerm">loanTerm</a> and <a href="http://schema.org/loanRepaymentForm">loanRepaymentForm</a>. 
             </p>
             
             
@@ -417,7 +416,7 @@
                 For the majority of the financial products, we enter into an area of schema.org relevant to commercial offers and other related terms coming from the GoodRelations Vocabulary for e-commerce:
             </p>
             
-            <img alt="The pattern for the description of the ‘Payment Service’ by the financial extension to schema.org" src="financial-img/7.png" title="The pattern for the description of the ‘Payment Service’ by the financial extension to schema.org" border="0" width="100%" />
+            <img alt="The pattern for the description of the ‘Payment Service’ by the financial extension to schema.org" src="financial-img/7.png" title="The pattern for the description of the ‘Payment Service’ by the financial extension to schema.org" style="border:0; width:100%;" />
             
             <p>
                 In this example, the type <a href="http://schema.org/Offer">Offer</a> is used to describe <a href="http://schema.org/PaymentService">PaymentService</a> (a sub-class of <a href="http://schema.org/FinancialProduct">FinancialProduct</a>) as a service offered to the client. The service can be properly named (<a href="http://schema.org/name">name</a>) and the offered price is expressed through <a href="http://schema.org/PriceSpecification">PriceSpecification</a> allowing for the specification of the price (<a href="http://schema.org/price">price</a>) itself, the currency (<a href="http://schema.org/priceCurrency">priceCurrency</a>) and the quantity (<a href="http://schema.org/eligibleQuantity">eligibleQuantity</a>).
@@ -427,7 +426,7 @@
                 In another popular example, a payment card (<a href="http://schema.org/PaymentCard">PaymentCard</a>) (sub-classed from both <a href="http://schema.org/PaymentMethod">PaymentMethod</a> and <a href="http://schema.org/FinancialProduct">FinancialProduct</a>) can be properly named (<a href="http://schema.org/name">name</a>) and offered to the client using an element of the type <a href="http://schema.org/Offer">Offer</a>, allowing for expression of the offeror (<a href="http://schema.org/offeredBy">offeredBy</a>) and its actual function (<a href="http://schema.org/BusinessFunction">BusinessFunction</a>). 
             </p>
             
-            <img alt="The pattern for the description of the ‘Payment Card’ by the financial extension to schema.org" src="financial-img/8.png" title="The pattern for the description of the ‘Payment Card’ by the financial extension to schema.org" border="0" width="100%" />
+            <img alt="The pattern for the description of the ‘Payment Card’ by the financial extension to schema.org" src="financial-img/8.png" title="The pattern for the description of the ‘Payment Card’ by the financial extension to schema.org" style="border:0; width:100%;" />
             
             
             <h2>Usage Examples</h2>
@@ -449,7 +448,7 @@
             
             <p>
                 PRE-MARKUP:
-                 
+            </p>
 <pre class="">
 &lt;div&gt;
   &lt;h1&gt;ExampleBank&reg; 1st Brokerage Account&lt;/h1&gt;
@@ -459,10 +458,11 @@
   &lt;p&gt;No fees to open or maintain an account. Other account fees, fund expenses, and brokerage commissions may apply. Commissions: $8.95 per online equity trade; commission-free ExampleBank&reg; ETF online trades in your ExampleBank&reg; account&lt;/p&gt;
 &lt;/div&gt;
 </pre>
-            </p>
+        
              
             <p>
                 MICRODATA:
+             </p>
                 
 <pre class="">
 &lt;div itemscope itemtype=&quot;http://schema.org/BrokerageAccount&quot;&gt;
@@ -473,11 +473,10 @@
   &lt;p itemprop=&quot;feesAndCommissionsSpecification&quot;&gt;No fees to open or maintain an account. Other account fees, fund expenses, and brokerage commissions may apply. Commissions: $8.95 per online equity trade; commission-free ExampleBank&reg; ETF online trades in your ExampleBank&reg; account&lt;/p&gt;
 &lt;/div&gt;
 </pre>                
-            </p>
             
             <p>
                 RDFA:
-                
+             </p>    
 <pre class="">
 &lt;div vocab=&quot;http://schema.org/&quot; typeof=&quot;BrokerageAccount&quot;&gt;
   &lt;h1 property=&quot;name&quot;&gt;ExampleBank&reg; 1st Brokerage Account&lt;/h1&gt;
@@ -487,11 +486,11 @@
   &lt;p property=&quot;feesAndCommissionsSpecification&quot;&gt;No fees to open or maintain an account. Other account fees, fund expenses, and brokerage commissions may apply. Commissions: $8.95 per online equity trade; commission-free ExampleBank&reg; ETF online trades in your ExampleBank&reg; account&lt;/p&gt;
 &lt;/div&gt;
 </pre>
-            </p>
+           
             
             <p>
                 JSON-LD:
-         
+             </p>
 <pre class="">
 &lt;script type=&quot;application/ld+json&quot;&gt;
   {
@@ -512,8 +511,6 @@
   }
 &lt;/script&gt;  
 </pre>              
-            </p>
-
             <h3>InvestmentFund</h3>
             
             <p>
@@ -522,7 +519,7 @@
             
             <p>
                 JSON-LD:
-         
+             </p>
 <pre class="">
 &lt;script type=&quot;application/ld+json&quot;&gt;
 {
@@ -540,7 +537,7 @@
 }
 &lt;/script&gt;
 </pre>              
-            </p>
+           
             
             
             <h3>MortgageLoan, RepaymentSpecification</h3>
@@ -555,7 +552,7 @@
             
             <p>
                 JSON-LD:
-                
+             </p>   
 <pre class="">
 &lt;script type=&quot;application/ld+json&quot;&gt;
   {
@@ -589,17 +586,18 @@
   }
 &lt;/script&gt;
 </pre>
-            </p>
+            
             
             
             <h3>CreditCard</h3>
             
             <p>
-                This example illustrates the use of a JSON-LD code snippet to supplement the description of credit cards. The specific card being described is identified by its name (<a href="http://schema.org/name">name</a>). The details of the offer presented by the card are expressed through: <a href="http://schema.org/annualPercentageRate">annualPercentageRate</a>, <a href="http://schema.org/interestRate">interestRate</a>, a percentage of "<a href="http://pending.schema.org/cashBack">cashback</a>" (if applicable), the card grace period (<a href="http://pending.schema.org/gracePeriod">gracePeriod<a/>) and the flag for the contactless payments (<a href="http://schema.org/contactlessPayment">contactlessPayment</a>). The additional properties, like <a href="http://schema.org/offeredBy">offeredBy</a> allow to indicate the issuer of the card and annual cardholder’s cost of the card (<a href="http://schema.org/price">price</a>) – further detailed by its currency (<a href="http://schema.org/currency">currency</a>) and type ("@type").	
+                This example illustrates the use of a JSON-LD code snippet to supplement the description of credit cards. The specific card being described is identified by its name (<a href="http://schema.org/name">name</a>). The details of the offer presented by the card are expressed through: <a href="http://schema.org/annualPercentageRate">annualPercentageRate</a>, <a href="http://schema.org/interestRate">interestRate</a>, a percentage of "<a href="http://pending.schema.org/cashBack">cashback</a>" (if applicable), the card grace period (<a href="http://pending.schema.org/gracePeriod">gracePeriod</a>) and the flag for the contactless payments (<a href="http://schema.org/contactlessPayment">contactlessPayment</a>). The additional properties, like <a href="http://schema.org/offeredBy">offeredBy</a> allow to indicate the issuer of the card and annual cardholder’s cost of the card (<a href="http://schema.org/price">price</a>) – further detailed by its currency (<a href="http://schema.org/currency">currency</a>) and type ("@type").	
             </p>
 
             <p>
             JSON-LD:
+            </p>
             
 <pre class="">
 &lt;script type=&quot;application/ld+json&quot;&gt;
@@ -637,7 +635,7 @@
 }
 &lt;/script&gt;
 </pre>
-            </p>
+            
             
             
             <h3>BankTransfer</h3>
@@ -648,7 +646,7 @@
             
             <p>
                 JSON-LD:
-                
+             </p>   
 <pre class="">
 &lt;script type=&quot;application/ld+json&quot;&gt;
 {
@@ -664,7 +662,7 @@
 }
 &lt;/script&gt;
 </pre>
-            </p>
+            
             
             
             <h2 id="acks">Acknowledgments</h2>
@@ -688,6 +686,6 @@
             </p>
         </div>
 
-        <table style="width: 180px; display: none; top: 51px; left: 1186px; position: absolute;" class="gstl_50 gssb_c" cellspacing="0" cellpadding="0"><tbody><tr><td class="gssb_f"></td><td class="gssb_e" style="width: 100%;"></td></tr></tbody></table>
+        <table style="width: 180px; display: none; top: 51px; left: 1186px; position: absolute; border-spacing: 0;" class="gstl_50 gssb_c"><tbody><tr><td class="gssb_f"></td><td class="gssb_e" style="width: 100%;"></td></tr></tbody></table>
     </body>
 </html>
