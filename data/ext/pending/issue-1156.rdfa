@@ -7,6 +7,12 @@
 -->
 
 <!--
+	October 2017 :
+		- narrowed the range of legislationJurisdiction to AdministrativeArea rather than Place
+		- broaden the range of legislationIdentifier to include URL, to match with the description of the property.
+-->
+
+<!--
 	September 2017 :
 		- deleted inverse properties
 		- Changed definition of "Legislation" to make it clear this is a document
@@ -82,6 +88,7 @@
   <link property="rdfs:subPropertyOf" href="http://schema.org/identifier" />
 	<span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Legislation">Legislation</a></span>
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/URL">URL</a></span>
   <span>Close Match:  <a property="skos:closeMatch" href="http://data.europa.eu/eli/ontology#id_local">eli:id_local</a></span>
   <span>Source:  <a property="dc:source" href="http://publications.europa.eu/mdr/eli/index.html">ELI</a></span>
 </div>
@@ -166,7 +173,7 @@
 	<link property="rdfs:subPropertyOf" href="http://schema.org/spatialCoverage" />
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Legislation">Legislation</a></span>
   <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
-  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Place">Place</a></span>
+  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/AdministrativeArea">AdministrativeArea</a></span>
   <span>Exact Match:  <a property="skos:exactMatch" href="http://data.europa.eu/eli/ontology#jurisdiction">eli:jurisdiction</a></span>
   <span>Source:  <a property="dc:source" href="http://publications.europa.eu/mdr/eli/index.html">ELI</a></span>
   <link property="owl:equivalentProperty" href="http://data.europa.eu/eli/ontology#jurisdiction"/>
