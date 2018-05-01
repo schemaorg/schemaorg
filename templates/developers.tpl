@@ -43,9 +43,9 @@ This is a placeholder page for developer-oriented information about schema.org. 
 <p>Select the file and format required and click Download.  
 <br/>Note: File <em>schema</em> contains the definition of the core vocabulary, <em>all-layers</em> contains definitions for the core and all the extensions.</p>
 
-<p>
-	<table padding="2" width="600">
-	<tr><td width="30%">
+
+	<table style="padding: 2px; width:600px">
+	<tr><td style="width: 30%;">
 			File: <select id="filename"  onchange="updatetext()">
 				<option value="{{staticPath}}/version/latest/schema">schema</option>
 				<option value="{{staticPath}}/version/latest/all-layers">all-layers</option>
@@ -54,7 +54,7 @@ This is a placeholder page for developer-oriented information about schema.org. 
 				{% endfor %}
 			</select>
 	</td>
-	<td width="30%">
+	<td style="width: 30%;">
 		Format:  <select id="fileext" onchange="updatetext()">
 				<option value=".nt">Triples</option>
 				<option value=".nq">Quads</option>
@@ -64,7 +64,7 @@ This is a placeholder page for developer-oriented information about schema.org. 
 				<option value=".csv">CSV</option>
 		</select>
 	</td>
-	<td width="30%">
+	<td style="width: 30%;">
 		<div id ="csvsel">
 			For: <select id="csvfmt" onchange="updatetext()">
 				<option value="-types">Types</option>
@@ -76,12 +76,12 @@ This is a placeholder page for developer-oriented information about schema.org. 
 	</tr>
 	<tr><td colspan="3">
 		<div id="label"></div>
-	<tr><td colspan="3" align="centre">
-		<input type="button" onclick="dowloadfunc();" value="Download"></input>
+	<tr><td colspan="3" style="text-align: center;">
+		<input type="button" onclick="dowloadfunc();" value="Download"/>
 	</td></tr>
 		
 	</table>
-</p>
+
   </div>
 
 

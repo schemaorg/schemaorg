@@ -1,4 +1,4 @@
-<!doctype html>
+<<!doctype html>
 <html>
 <head>
 <title>IoT and Schema.org: Getting Started</title>
@@ -40,7 +40,7 @@ td {
 <h2>IoT and Schema.org: Getting Started</h2>
 <p><b>STATUS</b>: Work in progress document targetting schema.org v3.2 release.</p>
 <p>Editor: Dan Brickley &lt;<a href="mailto:danbri@google.com">danbri@google.com</a>&gt;</p>
-<p>Contributors (alphabetically):  <a href="http://www.synergylabs.org/yuvraj" >Yuvraj Agarwal</a>, <a href="https://nl.linkedin.com/in/lauradaniele">Laura Daniele</a>, <a href="http://joshuagluck.com/">Joshua Gluck</a>, R.V. Guha, <a href="http://research.google.com/pubs/TedHardie.html">Ted Hardie</a>, <a href="https://jbkoh.wordpress.com/">Jason Koh</a>, Ari Keränen, <a href="http://www.theinternetofthings.eu/michael-koster">Michael Koster</a>,<a href="http://www.theinternetofthings.eu/michael-koster">Dave Raggett</a></a>, <a href="http://maxsenges.com/">Max Senges</a></p>
+<p>Contributors (alphabetically):  <a href="http://www.synergylabs.org/yuvraj" >Yuvraj Agarwal</a>, <a href="https://nl.linkedin.com/in/lauradaniele">Laura Daniele</a>, <a href="http://joshuagluck.com/">Joshua Gluck</a>, R.V. Guha, <a href="http://research.google.com/pubs/TedHardie.html">Ted Hardie</a>, <a href="https://jbkoh.wordpress.com/">Jason Koh</a>, Ari Keränen, <a href="http://www.theinternetofthings.eu/michael-koster">Michael Koster</a>,<a href="http://www.theinternetofthings.eu/michael-koster">Dave Raggett</a>, <a href="http://maxsenges.com/">Max Senges</a></p>
 <p>This short document introduces a proposal for the schema.org community to begin work in the "Internet of Things" (IoT) area, building on schema.org's existing success to provide an approach to semantic interoperability that bridges IoT and non-IoT applications. It outlines some possible application areas where schema.org-oriented structured data vocabularies may be useful, gives some examples of related schemas and related standards efforts, before proposing some practical steps for collaborative work.</p>
 
 <h3>The case for IoT + Schema.org</h3>
@@ -78,7 +78,7 @@ td {
 <li>Schema.org has extensive existing vocabulary that covers broadcast and archived television, radio and music content. These schemas have been developed in collaboration with BBC, European Broadcasting Union (EBU), MusicBrainz and others. Many smart home devices will contain content such as personal or purchased media, or metadata relating to files, events, streams and cloud services (e.g. streaming music providers). Schema.org's descriptive vocabulary covers much of this already.</ul></li>
 <li>Sensors and the description of the physical environment.<ul>
 <li>Schema.org already contains basic and sometimes quite detailed vocabulary for describing properties and relationships of places, including businesses, events and other associated entities. It does not yet, however, have much support for the kind of data coming from IoT sensors - e.g. date/time stamped temperature measurements. It is likely that patterns based largely on existing vocabulary could be agreed relatively easily, and there is scope for an extension aligned with other work such as that <a href="https://www.w3.org/2015/spatial/wiki/Main_Page#Semantic_Sensor_Network_Ontology">at W3C</a>. There is also related work on physical accessibility of places, e.g. navigation to support vision impaired users, documentation of wheelchair ramps, availability of assistive technologies, braille menus, and related considerations.</ul></li>
-<li>Energy Efficiency:</ul></li>
+<li>Energy Efficiency:</li>
 </ul>
 <blockquote>Users can offer flexibility to the Smart Grid to manage their smart home devices by means of a Customer Energy Manager (CEM). The CEM is a logical function for optimizing energy consumption and/or production that can reside either in the home gateway or in the cloud. The interoperability of a device with other devices and with the CEM should be guaranteed regardless of their brand/manufacturer, because the user wants to be able to buy any washing machine they want and still have it communicate with the other devices that are already in their home. Some examples scenarios include the scheduling of appliances in certain modes and preferred times using power profiles to optimize energy efficiency and accommodate the user's preferences. For example, the user might want the washing done by 5:00 p.m. with least electrical power costs, or prefer to limit their own energy consumption up to a defined limit. Such scenarios suggest that there would be value in developing common schemas that can express control preferences and policies relating to energy efficiency.</blockquote>
 
@@ -142,7 +142,7 @@ This combination would simultaneously avoid fragmenting further the existing for
 <li>"This specification defines an API that provides access to the vibration mechanism of the hosting device. Vibration is a form of tactile feedback."</ul></li>
 </ul></li>
 <li>"Web of Things" (WoT) - <a href="https://www.w3.org/WoT/">https://www.w3.org/WoT/</a><br>
-This sets out to address the fragmentation of the IoT into incompatible platforms and data silos. The aim is to simplify application development and improve interoperability across different platforms through metadata that describes the interaction model exposed to applications (properties, actions and events), security and communication details for accessing platforms, an</u>d semantic models and constraints for search, validation and composition of services. The approach is based upon the core architecture of the Web with URIs <u>as addresses </u>for thing descriptions, declarative formats for these descriptions, and protocols for accessing things and their descriptions.<ul>
+This sets out to address the fragmentation of the IoT into incompatible platforms and data silos. The aim is to simplify application development and improve interoperability across different platforms through metadata that describes the interaction model exposed to applications (properties, actions and events), security and communication details for accessing platforms, and semantic models and constraints for search, validation and composition of services. The approach is based upon the core architecture of the Web with URIs <u>as addresses</u> for thing descriptions, declarative formats for these descriptions, and protocols for accessing things and their descriptions.<ul>
 <li>Interest Group - <a href="https://www.w3.org/WoT/IG/">https://www.w3.org/WoT/IG/</a> (active with frequent plugfests)</li>
 <li>Community Group - <a href="https://www.w3.org/community/wot/">https://www.w3.org/community/wot/</a> (somewhat active)</li>
 <li>Business Group, Working Group - proposals for these are planned.</ul></li>
@@ -530,8 +530,8 @@ saref-ls:SwitchOnService
 The words that constitute Tagsets are called Tags. For example, "Room Temperature Sensor" is under "Sensor" category in Fig.1. and is broken down into Tags as "Room", "Temperature" and "Sensor". In this simple way, we can achieve both ease of use and expressiveness. Building managers not familiar with the entire schema may annotate a resource such as equipment or a sensor by Tags easily. As each tag represents a meaning, meaning of a collection of tags can be inferred to the most similar Tagset. At the same time, managers or developers who have full knowledge about the schema can represent resources by Tagsets with exact meanings. Managers can define utilize predefined properties to express relationships among Tagsets as presented in Table 1. For example, we can express that a "Space Heater" "hasPoint" "Room Temperature Sensor". </p>
 <p>List 1 shows how Tagsets are defined in a formal way using Turtle syntax. "HVAC_Zone" is a Tagset, which is a subclass of "Location" and consists of Tags as "HVAC" and "Zone". The relationships between a Tagset and Tags are explicitly defined to infer the meaning of a collection of Tags easily as explained before. Usable Tags are also defined in a similar way as in List 2 with a similar taxonomy as Tagset's. We represent an example building with these subsets of the schema in List 3. From this information, we know that example_building is a Building, zone_1 is a HVAC_Zone located in the building. The zone has a vav_1, which is a Variable Air Volume Box (a type of terminal units to provide controlled air to a HVAC zone such as a room) where a one Temperature Sensor functions for both the HVAC Zone and the VAV. </p>
 <p>Actual instances of Brick for five buildings validate its completeness. Brick captures 98 % of 15,700 BMS data points and 615,000 sq-ft of floor space. Illustrative but representative queries are also successfully tested to show the coverage of relationships we need for eight canonical applications. These actual examples are available via the repository.</p>
-<p>. </p>
-<p><img src="insert_image_url_here"></p>
+
+<!-- <p><img src="insert_image_url_here"></p>-->
 
 <p>Fig. 1 A Subset of Brick Tagset Taxonomy</p>
 
@@ -668,7 +668,7 @@ ex:vav_1 a brick:VAV;<br>
 [1] Bhattacharya, Arka, Joern Ploennigs, and David Culler. "<i>Short Paper: Analyzing Metadata Schemas for Buildings: The Good, the Bad, and the Ugly</i>." In Proceedings of the 2nd ACM International Conference on Embedded Systems for Energy-Efficient Built Environments, pp. 33-34. ACM, 2015.<br>
 [2] Bharathan Balaji, Arka Bhattacharya, Gabe Fierro, Jingkun Gao, Joshua Gluck, Dezhi Hong, Aslak Johansen, Jason Koh, Yuvraj Agarwal, Mario Berges, David Culler, Rajesh Gupta, Mikkel Baun Kjærgaard, Joern Ploennigs and Kamin Whitehouse, "<i>Brick v1.0 - Towards a Unified Metadata Schema For Buildings</i>", In Proceedings of the 3rd ACM International Conference on Embedded Systems for Energy-Efficient Built Environments, 2016 (accepted, <a href="https://www.dropbox.com/s/g5ipwtkk44407ob/Brick_BuildSys2016.pdf?dl=0">provisional pdf</a>).</p>
 
-<h3></h3>
+<h3> </h3>
 
 <h3>Nest Weave (Google/Alphabet)</h3>
 <p>Documentation of the file format still Nest-internal.</p>
@@ -1050,3 +1050,4 @@ ex:vav_1 a brick:VAV;<br>
 
 </body>
 </html>
+>
