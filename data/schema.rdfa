@@ -1942,8 +1942,8 @@ A more detailed overview of [schema.org News markup](/docs/news.html) is also av
     <div typeof="rdfs:Class" resource="http://schema.org/Series">
       <span class="h" property="rdfs:label">Series</span>
       <span property="rdfs:comment">
-          A Series in schema.org is a group of related items, typically but not necessarily of the same kind. </span>
-       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/CreativeWork">CreativeWork</a></span>
+          A Series in schema.org is a group of related items, typically but not necessarily of the same kind. See also [[CreativeWorkSeries]], [[EventSeries]].</span>
+       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Intangible">Intangible</a></span>
     </div>
 
     <div typeof="rdfs:Class" resource="http://schema.org/CreativeWorkSeries">
@@ -1951,6 +1951,7 @@ A more detailed overview of [schema.org News markup](/docs/news.html) is also av
       <span property="rdfs:comment">A CreativeWorkSeries in schema.org is a group of related items, typically but not necessarily of the same kind. CreativeWorkSeries are usually organized into some order, often chronological. Unlike [[ItemList]] which is a general purpose data structure for lists of things, the emphasis with CreativeWorkSeries is on published materials (written e.g. books and periodicals, or media such as tv, radio and games).\n\nSpecific subtypes are available for describing [[TVSeries]], [[RadioSeries]], [[MovieSeries]], [[BookSeries]], [[Periodical]] and [[VideoGameSeries]]. In each case, the [[hasPart]] / [[isPartOf]] properties can be used to relate the CreativeWorkSeries to its parts. The general CreativeWorkSeries type serves largely just to organize these more specific and practical subtypes.\n\nIt is common for properties applicable to an item from the series to be usefully applied to the containing group. Schema.org attempts to anticipate some of these cases, but publishers should be free to apply properties of the series parts to the series as a whole wherever they seem appropriate.
 	  </span>
        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/CreativeWork">CreativeWork</a></span>
+       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Series">Series</a></span>
     </div>
 
     <div typeof="rdfs:Class" resource="http://schema.org/TVSeries">
@@ -4413,7 +4414,7 @@ The place is __open__ if the [[opens]] property is specified, and __closed__ oth
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/currenciesAccepted">
       <span class="h" property="rdfs:label">currenciesAccepted</span>
-      <span property="rdfs:comment">The currency accepted (in [ISO 4217 currency format](http://en.wikipedia.org/wiki/ISO_4217)).</span>
+      <span property="rdfs:comment">The currency accepted.\n\nUse standard formats: [ISO 4217 currency format](http://en.wikipedia.org/wiki/ISO_4217) e.g. "USD"; [Ticker symbol](https://en.wikipedia.org/wiki/List_of_cryptocurrencies) for cryptocurrencies e.g. "BTC"; well known names for [Local Exchange Tradings Systems](https://en.wikipedia.org/wiki/Local_exchange_trading_system) (LETS) and other currency types e.g. "Ithaca HOUR".</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/LocalBusiness">LocalBusiness</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
     </div>
@@ -4615,7 +4616,7 @@ Dateline summaries are oriented more towards human readers than towards automate
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/discountCurrency">
       <span class="h" property="rdfs:label">discountCurrency</span>
-      <span property="rdfs:comment">The currency (in 3-letter ISO 4217 format) of the discount.</span>
+      <span property="rdfs:comment">The currency of the discount.\n\nUse standard formats: [ISO 4217 currency format](http://en.wikipedia.org/wiki/ISO_4217) e.g. "USD"; [Ticker symbol](https://en.wikipedia.org/wiki/List_of_cryptocurrencies) for cryptocurrencies e.g. "BTC"; well known names for [Local Exchange Tradings Systems](https://en.wikipedia.org/wiki/Local_exchange_trading_system) (LETS) and other currency types e.g. "Ithaca HOUR".</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Order">Order</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
     </div>
@@ -4825,9 +4826,15 @@ Dateline summaries are oriented more towards human readers than towards automate
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/encodingFormat">
       <span class="h" property="rdfs:label">encodingFormat</span>
-      <span property="rdfs:comment">mp3, mpeg4, etc.</span>
+        <span property="rdfs:comment">Media type typically expressed using a MIME format (see [IANA site](http://www.iana.org/assignments/media-types/media-types.xhtml) and [MDN reference](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types)) e.g. application/zip for a SoftwareApplication binary, audio/mpeg for .mp3 etc.).
+
+In cases where a [[CreativeWork]] has several media type representations, [[encoding]] can be used to indicate each [[MediaObject]] alongside particular [[encodingFormat]] information.
+
+Unregistered or niche encoding and file formats can be indicated instead via the most appropriate URL, e.g. defining Web page or a Wikipedia/Wikidata entry.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CreativeWork">CreativeWork</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MediaObject">MediaObject</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/URL">URL</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/encodings">
       <span class="h" property="rdfs:label">encodings</span>
@@ -4990,6 +4997,7 @@ Dateline summaries are oriented more towards human readers than towards automate
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CreativeWork">CreativeWork</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/URL">URL</a></span>
+      <link property="http://schema.org/supersededBy" href="http://schema.org/encodingFormat"/>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/fileSize">
       <span class="h" property="rdfs:label">fileSize</span>
@@ -5410,7 +5418,7 @@ Dateline summaries are oriented more towards human readers than towards automate
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/isPartOf">
       <span class="h" property="rdfs:label">isPartOf</span>
-      <span property="rdfs:comment">Indicates a CreativeWork that this CreativeWork is (in some sense) part of.</span>
+      <span property="rdfs:comment">Indicates an item or CreativeWork that this item, or CreativeWork (in some sense), is part of.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CreativeWork">CreativeWork</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/CreativeWork">CreativeWork</a></span>
       <link property="http://schema.org/inverseOf" href="http://schema.org/hasPart"/>
@@ -5982,6 +5990,7 @@ Dateline summaries are oriented more towards human readers than towards automate
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MenuItem">MenuItem</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Product">Product</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Service">Service</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Trip">Trip</a></span>
 <!--      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Accommodation">Accommodation</a></span> #1264 -->
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/AggregateOffer">AggregateOffer</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Offer">Offer</a></span>
@@ -6168,7 +6177,7 @@ Dateline summaries are oriented more towards human readers than towards automate
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/paymentAccepted">
       <span class="h" property="rdfs:label">paymentAccepted</span>
-      <span property="rdfs:comment">Cash, credit card, etc.</span>
+      <span property="rdfs:comment">Cash, Credit Card, Cryptocurrency, Local Exchange Tradings System, etc.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/LocalBusiness">LocalBusiness</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
     </div>
@@ -6301,8 +6310,7 @@ Dateline summaries are oriented more towards human readers than towards automate
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/price">
       <span class="h" property="rdfs:label">price</span>
-      <span property="rdfs:comment">The offer price of a product, or of a price component when attached to PriceSpecification and its subtypes.\n\nUsage guidelines:\n\n* Use the [[priceCurrency]] property (with [ISO 4217 codes](http://en.wikipedia.org/wiki/ISO_4217#Active_codes) e.g. "USD") instead of
-      including [ambiguous symbols](http://en.wikipedia.org/wiki/Dollar_sign#Currencies_that_use_the_dollar_or_peso_sign) such as '$' in the value.\n* Use '.' (Unicode 'FULL STOP' (U+002E)) rather than ',' to indicate a decimal point. Avoid using these symbols as a readability separator.\n* Note that both [RDFa](http://www.w3.org/TR/xhtml-rdfa-primer/#using-the-content-attribute) and Microdata syntax allow the use of a "content=" attribute for publishing simple machine-readable values alongside more human-friendly formatting.\n* Use values from 0123456789 (Unicode 'DIGIT ZERO' (U+0030) to 'DIGIT NINE' (U+0039)) rather than superficially similiar Unicode symbols.
+      <span property="rdfs:comment">The offer price of a product, or of a price component when attached to PriceSpecification and its subtypes.\n\nUsage guidelines:\n\n* Use the [[priceCurrency]] property (with standard formats: [ISO 4217 currency format](http://en.wikipedia.org/wiki/ISO_4217) e.g. "USD"; [Ticker symbol](https://en.wikipedia.org/wiki/List_of_cryptocurrencies) for cryptocurrencies e.g. "BTC"; well known names for [Local Exchange Tradings Systems](https://en.wikipedia.org/wiki/Local_exchange_trading_system) (LETS) and other currency types e.g. "Ithaca HOUR") instead of including [ambiguous symbols](http://en.wikipedia.org/wiki/Dollar_sign#Currencies_that_use_the_dollar_or_peso_sign) such as '$' in the value.\n* Use '.' (Unicode 'FULL STOP' (U+002E)) rather than ',' to indicate a decimal point. Avoid using these symbols as a readability separator.\n* Note that both [RDFa](http://www.w3.org/TR/xhtml-rdfa-primer/#using-the-content-attribute) and Microdata syntax allow the use of a "content=" attribute for publishing simple machine-readable values alongside more human-friendly formatting.\n* Use values from 0123456789 (Unicode 'DIGIT ZERO' (U+0030) to 'DIGIT NINE' (U+0039)) rather than superficially similiar Unicode symbols.
       </span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Offer">Offer</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/PriceSpecification">PriceSpecification</a></span>
@@ -7281,7 +7289,7 @@ While such policies are most typically expressed in natural language, sometimes 
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/tickerSymbol">
       <span class="h" property="rdfs:label">tickerSymbol</span>
-      <span property="rdfs:comment">The exchange traded instrument associated with a Corporation object. The tickerSymbol is expressed as an exchange and an instrument name separated by a space character. For the exchange component of the tickerSymbol attribute, we reccommend using the controlled vocaulary of Market Identifier Codes (MIC) specified in ISO15022.</span>
+      <span property="rdfs:comment">The exchange traded instrument associated with a Corporation object. The tickerSymbol is expressed as an exchange and an instrument name separated by a space character. For the exchange component of the tickerSymbol attribute, we recommend using the controlled vocabulary of Market Identifier Codes (MIC) specified in ISO15022.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Corporation">Corporation</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
     </div>
@@ -7771,20 +7779,27 @@ While such policies are most typically expressed in natural language, sometimes 
       <span property="rdfs:comment">The status of a reservation when a request has been sent, but not confirmed.</span>
       <span>type: <a href="http://schema.org/ReservationStatusType">ReservationStatusType</a></span>
     </div>
+    <div typeof="rdfs:Class" resource="http://schema.org/Trip">
+      <span class="h" property="rdfs:label">Trip</span>
+      <span property="rdfs:comment">A trip or journey. An itinerary of visits to one or more places.</span>
+      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Intangible">Intangible</a></span>
+      <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Tourism">Tourism</a></span>
+    </div>
+
     <div typeof="rdfs:Class" resource="http://schema.org/BusTrip">
       <span class="h" property="rdfs:label">BusTrip</span>
       <span property="rdfs:comment">A trip on a commercial bus line.</span>
-      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Intangible">Intangible</a></span>
+      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Trip">Trip</a></span>
     </div>
     <div typeof="rdfs:Class" resource="http://schema.org/TrainTrip">
       <span class="h" property="rdfs:label">TrainTrip</span>
       <span property="rdfs:comment">A trip on a commercial train line.</span>
-      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Intangible">Intangible</a></span>
+      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Trip">Trip</a></span>
     </div>
     <div typeof="rdfs:Class" resource="http://schema.org/Flight">
       <span class="h" property="rdfs:label">Flight</span>
       <span property="rdfs:comment">An airline flight.</span>
-      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Intangible">Intangible</a></span>
+      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Trip">Trip</a></span>
     </div>
     <div typeof="rdfs:Class" resource="http://schema.org/Airline">
       <span class="h" property="rdfs:label">Airline</span>
@@ -7861,10 +7876,8 @@ While such policies are most typically expressed in natural language, sometimes 
       <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Service">Service</a></span>
       <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Invoice">Invoice</a></span>
       <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Reservation">Reservation</a></span>
-      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Flight">Flight</a></span>
+      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Trip">Trip</a></span>
       <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ParcelDelivery">ParcelDelivery</a></span>
-      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/TrainTrip">TrainTrip</a></span>
-      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/BusTrip">BusTrip</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Person">Person</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Organization">Organization</a></span>
     </div>
@@ -7917,7 +7930,7 @@ While such policies are most typically expressed in natural language, sometimes 
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/priceCurrency">
       <span class="h" property="rdfs:label">priceCurrency</span>
-      <span property="rdfs:comment">The currency (in 3-letter ISO 4217 format) of the price or a price component, when attached to [[PriceSpecification]] and its subtypes.</span>
+      <span property="rdfs:comment">The currency of the price, or a price component when attached to [[PriceSpecification]] and its subtypes.\n\nUse standard formats: [ISO 4217 currency format](http://en.wikipedia.org/wiki/ISO_4217) e.g. "USD"; [Ticker symbol](https://en.wikipedia.org/wiki/List_of_cryptocurrencies) for cryptocurrencies e.g. "BTC"; well known names for [Local Exchange Tradings Systems](https://en.wikipedia.org/wiki/Local_exchange_trading_system) (LETS) and other currency types e.g. "Ithaca HOUR".</span>
       <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Reservation">Reservation</a></span>
       <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Ticket">Ticket</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Offer">Offer</a></span>
@@ -8050,17 +8063,13 @@ postponing for 1.6.
     <div typeof="rdf:Property" resource="http://schema.org/departureTime">
       <span class="h" property="rdfs:label">departureTime</span>
       <span property="rdfs:comment">The expected departure time.</span>
-      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/BusTrip">BusTrip</a></span>
-      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Flight">Flight</a></span>
-      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/TrainTrip">TrainTrip</a></span>
+      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Trip">Trip</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/DateTime">DateTime</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/arrivalTime">
       <span class="h" property="rdfs:label">arrivalTime</span>
       <span property="rdfs:comment">The expected arrival time.</span>
-      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/BusTrip">BusTrip</a></span>
-      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Flight">Flight</a></span>
-      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/TrainTrip">TrainTrip</a></span>
+      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Trip">Trip</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/DateTime">DateTime</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/departureAirport">
@@ -8722,7 +8731,7 @@ postponing for 1.6.
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/hasPart">
       <span class="h" property="rdfs:label">hasPart</span>
-      <span property="rdfs:comment">Indicates a CreativeWork that is (in some sense) a part of this CreativeWork.</span>
+      <span property="rdfs:comment">Indicates an item or CreativeWork that is part of this item, or CreativeWork (in some sense).</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CreativeWork">CreativeWork</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/CreativeWork">CreativeWork</a></span>
       <link property="http://schema.org/inverseOf" href="http://schema.org/isPartOf"/>
@@ -9587,7 +9596,7 @@ postponing for 1.6.
   </div>
   <div typeof="rdf:Property" resource="http://schema.org/currency">
     <span class="h" property="rdfs:label">currency</span>
-    <span property="rdfs:comment">The currency in which the monetary amount is expressed (in 3-letter [ISO 4217](http://en.wikipedia.org/wiki/ISO_4217) format).</span>
+    <span property="rdfs:comment">The currency in which the monetary amount is expressed.\n\nUse standard formats: [ISO 4217 currency format](http://en.wikipedia.org/wiki/ISO_4217) e.g. "USD"; [Ticker symbol](https://en.wikipedia.org/wiki/List_of_cryptocurrencies) for cryptocurrencies e.g. "BTC"; well known names for [Local Exchange Tradings Systems](https://en.wikipedia.org/wiki/Local_exchange_trading_system) (LETS) and other currency types e.g. "Ithaca HOUR".</span>
     <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/DatedMoneySpecification">DatedMoneySpecification</a></span>
     <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MonetaryAmount">MonetaryAmount</a></span>
     <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
