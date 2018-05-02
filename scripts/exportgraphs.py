@@ -192,18 +192,16 @@ class Export():
         csv.outputCSVtypes(file)
         file.close()
 
+        print "%s processing csv properties output" % sys.argv[0]
+
         fname = "%s-properties%s" % (args.output,ext)
         log.info("\t%s" % fname)
         print "%s: Writing to: %s" % (sys.argv[0],fname)
         file = open(fname, "w")
         csv.outputCSVproperties(file)
         file.close()
-        fname = "%s-enumvalues%s" % (args.output,ext)
-        log.info("\t%s" % fname)
-        print "%s: Writing to: %s" % (sys.argv[0],fname)
-        file = open(fname, "w")
-        csv.outputCSVenums(file)
-        file.close()
+
+
                 
 if __name__ == "__main__":
     ex = Export()

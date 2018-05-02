@@ -1782,15 +1782,12 @@ class ShowUnit (webapp2.RequestHandler):
         csv = sdordf2csv(queryGraph=getQueryGraph(),fullGraph=getQueryGraph(),markdownComments=True,excludeAttic=excludeAttic)
         file = StringIO.StringIO()
         term = "http://schema.org/" + schema_node.id
-        if schema_node.isClass():
+        if schema_node.isClass() or schema_node.isEnumerationValue():
             csv.type2CSV(header=True,out=file)
             csv.type2CSV(term=term,header=False,out=file)
         elif schema_node.isAttribute():
             csv.prop2CSV(header=True,out=file)
             csv.prop2CSV(term=term,header=False,out=file)
-        elif schema_node.isEnumerationValue():
-            csv.enum2CSV(header=True,out=file)
-            csv.enum2CSV(term=term,header=False,out=file)
         data = file.getvalue()
         file.close()
         return data

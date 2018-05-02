@@ -24,8 +24,8 @@ This is a placeholder page for developer-oriented information about schema.org. 
 
 <h2 id="conneg">Machine Readable Term Definitions</h2>
 
-<p>Machine-readable definitions of individual terms is availble as RDFa, embeded into the term page html. It is also available in other formats by accessing term URLs, using the <a href="https://www.w3.org/TR/swbp-vocab-pub/#negotiation">Linked Data Content Negotiation</a> technique of providing the required type in an HTTP Accept header value.  The same content is also available by providing an appropriate suffix to the term URL.  For example the Triples definition for the <a href="{{staticPath}}/Book">Book</a> Type can bet retrieved with the following URL <a href="{{staticPath}}/Book.nt">{{staticPath}}/Book.nt</a>.</p>
-<p>The currently supported format types, relevant Accept values and url suffixes are:</p>
+<p>Machine-readable definitions of individual terms are availble as RDFa, embeded into the term page html. It is also available in other formats by accessing term URLs, using the <a href="https://www.w3.org/TR/swbp-vocab-pub/#negotiation">Linked Data Content Negotiation</a> technique of providing the required type in an HTTP Accept header value.  The same content is also available by providing an appropriate suffix to the term URL.  For example the Triples definition for the <a href="{{staticPath}}/Book">Book</a> Type can bet retrieved with the following URL <a href="{{staticPath}}/Book.nt">{{staticPath}}/Book.nt</a>.</p>
+<p>The currently supported format types, relevant Accept values, and url suffixes are:</p>
 	<ul><li>JSON-LD - application/ld+json - .jsonld</li>
 		<li>RDF/XML - application/rdf+xml - .rdf</li>
 		<li>Triples - text/plain - .nt</li>
@@ -40,8 +40,8 @@ This is a placeholder page for developer-oriented information about schema.org. 
 
 <p>Older releases can be found (under data/releases/) at <a href="https://github.com/schemaorg/schemaorg">GitHub</a>.
 
-<p>Select the file and format required and click Download.  
-<br/>Note: File <em>schema</em> contains the definition of the core vocabulary, <em>all-layers</em> contains definitions for the core and all the extensions.</p>
+<p>Select the file and format required and click Download.  The CSV format downloads are split accross two files: <em>Types</em> includes definitions of Types and Enumeration Values, including lists of associated properties; <em>Properties</em> contains property definitions.<br/>
+<br/><strong>Note:</strong> File <em>schema</em> contains the definition of the core vocabulary; <em>bib</em> contains only the definitions for the bib.schema.org extension; <em>all-layers</em> contains definitions for the core plus all the extensions.</p>
 
 
 	<table style="padding: 2px; width:600px">
@@ -69,7 +69,7 @@ This is a placeholder page for developer-oriented information about schema.org. 
 			For: <select id="csvfmt" onchange="updatetext()">
 				<option value="-types">Types</option>
 				<option value="-properties">Properties</option>
-				<option value="-enumvalues">Enumeration Values</option>
+				<!-- <option value="-enumvalues">Enumeration Values</option> -->
 			</select>
 		</div>
 	</td>

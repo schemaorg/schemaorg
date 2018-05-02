@@ -45,9 +45,10 @@ class sdordf2csv():
         if self.excludeAttic:
             atticfilter = "FILTER NOT EXISTS {?term schema:isPartOf <http://attic.schema.org>}."
         query= ('''select ?term where { 
-           ?term a rdfs:Class.
+           ?term a ?type.
            BIND(STR(?term) AS ?strVal)
-           FILTER(STRLEN(?strVal) >= 18 && SUBSTR(?strVal, 1, 18) = "http://schema.org/")
+           FILTER NOT EXISTS {?term a rdf:Property}.
+           FILTER(STRLEN(?strVal) >= 18 && SUBSTR(?strVal, 1, 18) = "http://schema.org/").
            %s
         }
         ORDER BY ?term
@@ -79,57 +80,6 @@ class sdordf2csv():
         for t in props:
             self.prop2CSV(term=t.term,header=False,out=file,graph=self.queryGraph)
 
-    def outputCSVenums(self,file):
-        atticfilter = ""
-        if self.excludeAttic:
-            atticfilter = "FILTER NOT EXISTS {?term schema:isPartOf <http://attic.schema.org>.}"
-        query= ('''select ?term where{
-         ?term a ?type. 
-         ?type rdfs:subClassOf* <http://schema.org/Enumeration>.
-         %s 
-        }
-        ORDER BY ?term''') % atticfilter
-        allenums = list(self.fullGraph.query(query))
-
-        query= ('''select DISTINCT ?term where{
-         ?term ?p ?o. 
-         FILTER NOT EXISTS {?term a rdfs:Class}. 
-         FILTER NOT EXISTS {?term a rdf:Property}.
-         %s 
-        }
-        ORDER BY ?term''') % atticfilter
-        terms = list(self.queryGraph.query(query))
-        enums = []
-        for t in terms:
-            if t in allenums:
-                enums.append(t)
-        self.enum2CSV(header=True,out=file)
-        for t in enums:
-            self.enum2CSV(term=t.term,header=False,out=file,graph=self.queryGraph)
-        
-    def enum2CSV(self,term=None,header=True,out=None,graph=None):
-        cols = ["id","label","comment","enumerationtype","supersedes","supersededBy","isPartOf"]
-        if not out:
-            return
-        writer = csv.writer(out,quoting=csv.QUOTE_ALL,lineterminator='\n')
-        if header:
-            writer.writerow(cols)
-            return
-        if not graph:
-            graph = self.queryGraph
-        if term == None or graph == None:
-            return
-        row = [str(term)]
-        row.append(self.graphValueToCSV(subject=term,predicate=RDFS.label,graph=graph))
-        row.append(self.getCSVComment(term,graph=self.fullGraph))
-        row.append(self.graphValueToCSV(subject=term,predicate=RDF.type,graph=graph))
-        row.append(self.getCSVsuperseds(term,graph=self.fullGraph))
-        row.append(self.getCSVSupersededBy(term,graph=self.fullGraph))
-        row.append(self.graphValueToCSV(subject=term,predicate=URIRef("http://schema.org/isPartOf"),graph=graph))
-
-        row=[s.encode('utf-8') for s in row]
-        writer.writerow(row)
-
     def prop2CSV(self,term=None,header=True,out=None,graph=None):
         cols = ["id","label","comment","subPropertyOf","equivalentProperty","subproperties","domainIncludes","rangeIncludes","inverseOf","supersedes","supersededBy","isPartOf"]
         if not out:
@@ -160,7 +110,7 @@ class sdordf2csv():
         #print term
 
     def type2CSV(self,term=None,header=True,out=None,graph=None):
-        cols = ["id","label","comment","subTypeOf","equivalentClass","properties","subTypes","supersedes","supersededBy","isPartOf"]
+        cols = ["id","label","comment","subTypeOf","enumerationtype","equivalentClass","properties","subTypes","supersedes","supersededBy","isPartOf"]
         if not out:
             return
         writer = csv.writer(out,quoting=csv.QUOTE_ALL,lineterminator='\n')
@@ -174,10 +124,16 @@ class sdordf2csv():
             
         if not isinstance(term, URIRef):
             term = URIRef(term)
+
+        enumType = self.graphValueToCSV(subject=term,predicate=RDF.type,graph=graph)
+        if enumType.endswith("#Class"):
+            enumType = ""
+
         row = [str(term)]
         row.append(self.graphValueToCSV(subject=term,predicate=RDFS.label,graph=graph))
         row.append(self.getCSVComment(term,graph=self.fullGraph))
         row.append(self.getCSVSupertypes(term,graph=self.fullGraph))
+        row.append(enumType)
         row.append(self.graphValueToCSV(subject=term,predicate=OWL.equivalentClass,graph=graph))
         row.append(self.getCSVTypeProperties(term,graph=self.fullGraph))
         row.append(self.getCSVSubtypes(term,graph=self.fullGraph))
@@ -217,7 +173,7 @@ class sdordf2csv():
         atticfilter = ""
         if self.excludeAttic:
             atticfilter = "FILTER NOT EXISTS {?prop schema:isPartOf <http://attic.schema.org>.}"
-        query='''select * where{
+        query='''select DISTINCT ?prop where{
          ?term (^rdfs:subClassOf*) <%s>.
          ?prop <http://schema.org/domainIncludes> ?term.
          %s
