@@ -146,7 +146,9 @@ MICRODATA:
 	        <meta itemprop="position" content="1"/>
         	<div itemprop="itemListElement" itemscope itemtype="http://schema.org/HowToDirection">
 		    <meta itemprop="position" content="1"/>
-		    <img itemprop="duringMedia" src="position-jack.mp4" />
+		    <div itemprop="duringMedia" itemscope itemtype="http://schema.org/MediaObject">
+		    	<img itemprop="contentUrl" src="position-jack.mp4" />
+		    </div>
 		    <div itemprop="text">Position the jack underneath the car, next to the flat tire.</div>
         	</div>
 	</div>
@@ -154,9 +156,13 @@ MICRODATA:
 	        <meta itemprop="position" content="2"/>
 	        <div itemprop="itemListElement" itemscope itemtype="http://schema.org/HowToDirection">
 		    <meta itemprop="position" content="1"/>
-		    <img itemprop="beforeMedia" src="car-on-ground.jpg" />
+		    <div itemprop="duringMedia" itemscope itemtype="http://schema.org/ImageObject">
+		    	<img itemprop="contentUrl" src="car-on-ground.jpg" />
+		    </div>
 	            <div itemprop="text">Raise the jack until the flat tire is just barely off of the ground.</div>
-		    <img itemprop="afterMedia" src="car-raised.jpg" />
+		    <div itemprop="duringMedia" itemscope itemtype="http://schema.org/ImageObject">
+		    	<img itemprop="contentUrl" src="car-raised.jpg" />
+		    </div>
 	        </div>
 	        <div itemprop="itemListElement" itemscope itemtype="http://schema.org/HowToTip">
 		    <meta itemprop="position" content="2"/>
@@ -274,7 +280,7 @@ RDFA:
 		<div property="itemListElement" typeof="HowToDirection">
 		    <meta property="position" content="1"/>
 		    <div property="duringMedia" typeof="MediaObject">
-		    	<img property="url" src="position-jack.mp4" />
+		    	<img property="contentUrl" src="position-jack.mp4" />
 		    </div>
 		    <div property="text">Position the jack underneath the car, next to the flat tire.</div>
 		</div>
@@ -283,12 +289,12 @@ RDFA:
 	        <meta property="position" content="2"/>
 	        <div property="itemListElement" typeof="HowToDirection">
 		    <meta property="position" content="1"/>
-		    <div property="beforeMedia" typeof="MediaObject">
-	            	<img property="url" src="car-on-ground.jpg" />
+		    <div property="beforeMedia" typeof="ImageObject">
+	            	<img property="contentUrl" src="car-on-ground.jpg" />
 		    </div>
 	            <div property="text">Raise the jack until the flat tire is just barely off of the ground.</div>
-		    <div property="afterMedia" typeof="MediaObject">
-	            	<img property="url" src="car-raised.jpg" />
+		    <div property="afterMedia" typeof="ImageObject">
+	            	<img property="contentUrl" src="car-raised.jpg" />
 		    </div>
 	        </div>
 	        <div property="itemListElement" typeof="HowToTip">
@@ -442,7 +448,7 @@ JSON:
 							"position": "1",
 							"duringMedia": {
 							    "@type": "MediaObject",
-							    "url": "position-jack.mp4"
+							    "contentUrl": "position-jack.mp4"
 							},
 							"text": "Position the jack underneath the car, next to the flat tire."
 						}
@@ -456,12 +462,12 @@ JSON:
 							"@type": "HowToDirection",
 							"position": "1",
 							"beforeMedia": {
-							    "@type": "MediaObject",
-							    "url": "car-on-ground.jpg"
+							    "@type": "ImageObject",
+							    "contentUrl": "car-on-ground.jpg"
 							},
 							"afterMedia": {
-							    "@type": "MediaObject",
-							    "url": "car-raised.jpg"
+							    "@type": "ImageObject",
+							    "contentUrl": "car-raised.jpg"
 							},
 							"text": "Raise the jack until the flat tire is just barely off of the ground."
 						},
