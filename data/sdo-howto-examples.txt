@@ -16,7 +16,7 @@ PRE-MARKUP:
     <div>Preparation</div>
     <div>
       <div>
-        <span><img href="lit-flares.jpg" /></span>
+        <span><img src="lit-flares.jpg" /></span>
         Turn on your hazard lights and set the flares.
       </div>
       <div>
@@ -40,9 +40,9 @@ PRE-MARKUP:
     </div>
     <div>
       <div>
-        <span><img href="car-on-ground.jpg" /></span>
+        <span><img src="car-on-ground.jpg" /></span>
         Raise the jack until the flat tire is just barely off of the ground.
-        <span><img href="car-raised.jpg" /></span>
+        <span><img src="car-raised.jpg" /></span>
       </div>
       <div>
         It doesn't need to be too high.
@@ -55,7 +55,7 @@ PRE-MARKUP:
     </div>
     <div>
       <div>
-        <span><img href="replacing-tire.mp4" /></span>
+        <span><img src="replacing-tire.mp4" /></span>
         Remove the flat tire and put the spare tire on the exposed lug bolts.
       </div>
     </div>
@@ -120,8 +120,6 @@ MICRODATA:
 	        <meta itemprop="position" content="1"/>
 	        <div itemprop="itemListElement" itemscope itemtype="http://schema.org/HowToDirection">
 		    <meta itemprop="position" content="1"/>
-		    <meta itemprop="duringMedia" content="lit-flares.jpg" />
-	            <img href="lit-flares.jpg" />
 	            <div itemprop="text">Turn on your hazard lights and set the flares.</div>
 	        </div>
 	        <div itemprop="itemListElement" itemscope itemtype="http://schema.org/HowToTip">
@@ -148,6 +146,7 @@ MICRODATA:
 	        <meta itemprop="position" content="1"/>
         	<div itemprop="itemListElement" itemscope itemtype="http://schema.org/HowToDirection">
 		    <meta itemprop="position" content="1"/>
+		    <img itemprop="duringMedia" src="position-jack.mp4" />
 		    <div itemprop="text">Position the jack underneath the car, next to the flat tire.</div>
         	</div>
 	</div>
@@ -155,10 +154,9 @@ MICRODATA:
 	        <meta itemprop="position" content="2"/>
 	        <div itemprop="itemListElement" itemscope itemtype="http://schema.org/HowToDirection">
 		    <meta itemprop="position" content="1"/>
-		    <meta itemprop="beforeMedia" content="car-on-ground.jpg" />
-	            <img href="car-on-ground.jpg" />
+		    <img itemprop="beforeMedia" src="car-on-ground.jpg" />
 	            <div itemprop="text">Raise the jack until the flat tire is just barely off of the ground.</div>
-	            <img itemprop="afterMedia" href="car-raised.jpg" />
+		    <img itemprop="afterMedia" src="car-raised.jpg" />
 	        </div>
 	        <div itemprop="itemListElement" itemscope itemtype="http://schema.org/HowToTip">
 		    <meta itemprop="position" content="2"/>
@@ -176,8 +174,6 @@ MICRODATA:
 	        <meta itemprop="position" content="4"/>
 		<div itemprop="itemListElement" itemscope itemtype="http://schema.org/HowToDirection">
 		    <meta itemprop="position" content="1"/>
-		    <meta itemprop="duringMedia" content="replacing-tire.mp4" />
-		    <img href="replacing-tire.mp4" />
 		    <div itemprop="text">Remove the flat tire and put the spare tire on the exposed lug bolts.</div>
 		</div>
 	</div>
@@ -251,8 +247,6 @@ RDFA:
 	        <meta property="position" content="1"/>
 	        <div property="itemListElement" typeof="HowToDirection">
 		    <meta property="position" content="1"/>
-		    <meta property="duringMedia" content="lit-flares.jpg" />
-	            <img href="lit-flares.jpg" />
 	            <div property="text">Turn on your hazard lights and set the flares.</div>
 	        </div>
 	        <div property="itemListElement" typeof="HowToTip">
@@ -279,6 +273,9 @@ RDFA:
 	        <meta property="position" content="1"/>
 		<div property="itemListElement" typeof="HowToDirection">
 		    <meta property="position" content="1"/>
+		    <div property="duringMedia" typeof="MediaObject">
+		    	<img property="url" src="position-jack.mp4" />
+		    </div>
 		    <div property="text">Position the jack underneath the car, next to the flat tire.</div>
 		</div>
 	</div>
@@ -286,11 +283,13 @@ RDFA:
 	        <meta property="position" content="2"/>
 	        <div property="itemListElement" typeof="HowToDirection">
 		    <meta property="position" content="1"/>
-		    <meta property="beforeMedia" content="car-on-ground.jpg" />
-	            <img href="car-on-ground.jpg" />
+		    <div property="beforeMedia" typeof="MediaObject">
+	            	<img property="url" src="car-on-ground.jpg" />
+		    </div>
 	            <div property="text">Raise the jack until the flat tire is just barely off of the ground.</div>
-		    <meta property="afterMedia" content="car-raised.jpg" />
-	            <img href="car-raised.jpg" />
+		    <div property="afterMedia" typeof="MediaObject">
+	            	<img property="url" src="car-raised.jpg" />
+		    </div>
 	        </div>
 	        <div property="itemListElement" typeof="HowToTip">
 		    <meta property="position" content="2"/>
@@ -308,8 +307,6 @@ RDFA:
 	        <meta property="position" content="4"/>
 		<div property="itemListElement" typeof="HowToDirection">
 		    <meta property="position" content="1"/>
-		    <meta property="duringMedia" content="replacing-tire.mp4" />
-		    <img href="replacing-tire.mp4" />
 		    <div property="text">Remove the flat tire and put the spare tire on the exposed lug bolts.</div>
 		</div>
 	</div>
@@ -404,7 +401,6 @@ JSON:
 						{
 							"@type": "HowToDirection",
 							"position": "1",
-							"duringMedia": "lit-flares.jpg",
 							"text": "Turn on your hazard lights and set the flares."
 						},
 						{
@@ -421,7 +417,6 @@ JSON:
 						{
 							"@type": "HowToDirection",
 							"position": "1",
-							"duringMedia": "lit-flares.jpg",
 							"text": "Position your wheel wedges in front of the front tires if a rear tire is flat, or behind the rear tires if a front tire is flat"
 						},
 						{
@@ -445,6 +440,10 @@ JSON:
 						{
 							"@type": "HowToDirection",
 							"position": "1",
+							"duringMedia": {
+							    "@type": "MediaObject",
+							    "url": "position-jack.mp4"
+							},
 							"text": "Position the jack underneath the car, next to the flat tire."
 						}
 					]
@@ -456,8 +455,14 @@ JSON:
 						{
 							"@type": "HowToDirection",
 							"position": "1",
-							"beforeMedia": "car-on-ground.jpg",
-							"afterMedia": "car-raised.jpg",
+							"beforeMedia": {
+							    "@type": "MediaObject",
+							    "url": "car-on-ground.jpg"
+							},
+							"afterMedia": {
+							    "@type": "MediaObject",
+							    "url": "car-raised.jpg"
+							},
 							"text": "Raise the jack until the flat tire is just barely off of the ground."
 						},
 						{
@@ -485,7 +490,6 @@ JSON:
 						{
 							"@type": "HowToDirection",
 							"position": "1",
-							"duringMedia": "replacing-tire.mp4",
 							"text": "Remove the flat tire and put the spare tire on the exposed lug bolts."
 						}
 					]
