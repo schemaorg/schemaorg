@@ -146,9 +146,7 @@ MICRODATA:
 	        <meta itemprop="position" content="1"/>
         	<div itemprop="itemListElement" itemscope itemtype="http://schema.org/HowToDirection">
 		    <meta itemprop="position" content="1"/>
-		    <div itemprop="duringMedia" itemscope itemtype="http://schema.org/MediaObject">
-		    	<img itemprop="contentUrl" src="position-jack.mp4" />
-		    </div>
+		    <img itemprop="duringMedia" src="position-jack.mp4" />
 		    <div itemprop="text">Position the jack underneath the car, next to the flat tire.</div>
         	</div>
 	</div>
@@ -156,11 +154,11 @@ MICRODATA:
 	        <meta itemprop="position" content="2"/>
 	        <div itemprop="itemListElement" itemscope itemtype="http://schema.org/HowToDirection">
 		    <meta itemprop="position" content="1"/>
-		    <div itemprop="duringMedia" itemscope itemtype="http://schema.org/ImageObject">
+		    <div itemprop="beforeMedia" itemscope itemtype="http://schema.org/ImageObject">
 		    	<img itemprop="contentUrl" src="car-on-ground.jpg" />
 		    </div>
 	            <div itemprop="text">Raise the jack until the flat tire is just barely off of the ground.</div>
-		    <div itemprop="duringMedia" itemscope itemtype="http://schema.org/ImageObject">
+		    <div itemprop="afterMedia" itemscope itemtype="http://schema.org/ImageObject">
 		    	<img itemprop="contentUrl" src="car-raised.jpg" />
 		    </div>
 	        </div>
@@ -279,9 +277,7 @@ RDFA:
 	        <meta property="position" content="1"/>
 		<div property="itemListElement" typeof="HowToDirection">
 		    <meta property="position" content="1"/>
-		    <div property="duringMedia" typeof="MediaObject">
-		    	<img property="contentUrl" src="position-jack.mp4" />
-		    </div>
+		    <img property="duringMedia" src="position-jack.mp4" />
 		    <div property="text">Position the jack underneath the car, next to the flat tire.</div>
 		</div>
 	</div>
@@ -446,10 +442,7 @@ JSON:
 						{
 							"@type": "HowToDirection",
 							"position": "1",
-							"duringMedia": {
-							    "@type": "MediaObject",
-							    "contentUrl": "position-jack.mp4"
-							},
+							"duringMedia": "position-jack.mp4",
 							"text": "Position the jack underneath the car, next to the flat tire."
 						}
 					]
