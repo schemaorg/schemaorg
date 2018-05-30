@@ -142,6 +142,11 @@ td.release  {
 
 <p>
 Version 3.4 (working name 'sdo-telesto'). See <a href="https://github.com/schemaorg/schemaorg/issues/1891">planning pages</a>.
+Clarifications around Series. Introduced an example showing ClaimReview of a clip within a larger media object.
+A lot of Small fixes and maintainence edits. Numerous additions to the pending area, including employment and occupation vocabulary,
+a Claim type to help explore richer modeling around fact-checks, tourism-related vocabulary.  Other pending area improvements
+include amendments to the legislation vocabulary, Trust Project additions, and the proposal of an inverse of
+the <a href="/about">about</a> property, <a href="/subjectOf">subjectOf</a>.
 </p>
 </td>
 
@@ -169,7 +174,7 @@ Version 3.4 (working name 'sdo-telesto'). See <a href="https://github.com/schema
 <h3>Changes in <a href="http://pending.schema.org/">Pending</a> section</h3>
 
 <ul>
-<li id="g1670"><a href="https://github.com/schemaorg/schemaorg/issues/1670">Issue #1670</a>: Add a <a href="/subjectOf">subjectOf</a> to <a href="/Thing">Thing</a> as a reverse property of <a href="/about">about</a>.
+<li id="g1670"><a href="https://github.com/schemaorg/schemaorg/issues/1670">Issue #1670</a>: Add a <a href="/subjectOf">subjectOf</a> to <a href="/Thing">Thing</a> as an inverse property of <a href="/about">about</a>.
 </li>
 <li id="g1689"><a href="https://github.com/schemaorg/schemaorg/issues/1689">Issue #1689</a>: Add <a href="/EmployerAggregateRating">EmployerAggregateRating</a> as a subtype of <a href="/AggregateRating">AggregateRating</a> to differentiate ratings for the entity as an employer and the <a href="/reviewAspect">reviewAspect</a> property to <a href="/Review">Review</a> and <a href="/Rating">Rating</a> to allow authors to specify the facet or relevant part of being reviewed.
 </li>
@@ -187,8 +192,6 @@ Second phase of additions included knowsAbout, knowsLanguage proposals (<a href=
 <li id="g1773"><a href="https://github.com/schemaorg/schemaorg/issues/1773">Issue #1773</a>: Add a <a href="/MediaSubscription">MediaSubscription</a> type with the supporting properties to describe a subscription for viewing media. Also added <a href="ActionAccessSpecification">ActionAccessSpecification</a> to allow authors to specify when a ConsumeAction requires a subscription or a purchase.</li>
 <li id="g1744"><a href="https://github.com/schemaorg/schemaorg/issues/1744">Issue #1744</a>: Improvements around Legislation vocabulary. Changed definition of "Legislation" to make it clear that it is a document. Deleted numerous inverse properties. Fixed Range on legislationType (CategoryCode). Added legislationJurisdiction as a subproperty of spatialCoverage. Fixed Definitive into DefinitiveLegalValue to align with other values. Expanded the definition of legislationIdentifier to clarify that it can apply to string or URIs. Fixed and adjusted the examples accordingly.</li>
 <li id="g1709"><a href="https://github.com/schemaorg/schemaorg/issues/1709">Issue #1709</a>: Added an Occupation type and examples, to represent professions.</li>
-<li id="g1689"><a href="https://github.com/schemaorg/schemaorg/issues/1689">Issue #1689</a>: Added Added EmployerAggregateRating and reviewAspect.</li>
-<li id="g1670"><a href="https://github.com/schemaorg/schemaorg/issues/1670">Issue #1670</a>: Added subjectOf as a named inverse of schema.org/about.</li>
 <li id="g1389b"><a href="https://github.com/schemaorg/schemaorg/issues/1389">Issue #1389</a>: Updated SpeakableSpecification-related properties, 'xpath' and 'cssSelector' to explain how they relate to 'WebPageElement'. Allowed both properties to be expected on that type.</li>
 
 <!-- <li id="g@@@@"><a href=""></a></li> -->
