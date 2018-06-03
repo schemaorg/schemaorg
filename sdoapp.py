@@ -611,7 +611,15 @@ class ShowUnit (webapp2.RequestHandler):
 
     def emitCanonicalURL(self,node):
         cURL = "%s://schema.org/%s" % (CANONICALSCHEME,node.id)
-        self.write(" <span class=\"canonicalUrl\">Canonical URL: <a href=\"%s\">%s</a></span>" % (cURL, cURL))
+        if CANONICALSCHEME == "http":
+            other = "https"
+        else:
+            other = "http"
+        sa = '\n<link  property="sameAs" href="%s://schema.org/%s" />' % (other,node.id)
+        
+        self.write(" <span class=\"canonicalUrl\">Canonical URL: <a href=\"%s\">%s</a></span> " % (cURL, cURL))
+        self.write(" (<a href=\"/docs/faq.html#19\" title=\"http/https help\">?</a>)")
+        self.write(sa)
 
     # Stacks to support multiple inheritance
     crumbStacks = []

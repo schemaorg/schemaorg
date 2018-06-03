@@ -23,6 +23,8 @@ rdflib.plugin.register("json-ld", Serializer, "rdflib_jsonld.serializer", "JsonL
 
 ATTIC = 'attic'
 VOCAB = "http://schema.org"
+VOCABLEN = len(VOCAB)
+ALTVOCAB = "https://schema.org"
 STORE = rdflib.Dataset()
 #Namespace mapping#############
 nss = {'core': 'http://schema.org/'}
@@ -55,10 +57,18 @@ def queryGraph():
                 QUERYGRAPH.bind('rdfa', 'http://www.w3.org/ns/rdfa#')
                 QUERYGRAPH.bind('dct', 'http://purl.org/dc/terms/')
                 QUERYGRAPH.bind('schema', 'http://schema.org/')
+                altSameAs(QUERYGRAPH)
         finally:
             RDFLIBLOCK.release()
     return QUERYGRAPH
 
+def altSameAs(graph):
+    sameAs = URIRef("%s/sameAs" % VOCAB)
+    for sub in graph.subjects(None,None):
+        if sub.startswith(VOCAB):
+            #log.info("%s >>>> %s " % (sub,"%s%s" % (ALTVOCAB,sub[VOCABLEN:])))
+            graph.add( (sub,sameAs,URIRef("%s%s" % (ALTVOCAB,sub[VOCABLEN:]))) )
+            
 def loadNss():
     global NSSLoaded
     global nss
