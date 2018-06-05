@@ -354,7 +354,7 @@ class TypeHierarchyTree:
         if node.id in self.visited:
             # self.emit("skipping %s - already visited" % node.id)
             return
-        self.visited[node.id] = True
+        self.visited.append(node.id)
         p1 = " " * 4 * depth
         if emit_debug:
             self.emit("%s# @id: %s last_at_this_level: %s" % (p1, node.id, last_at_this_level))
