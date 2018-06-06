@@ -1078,6 +1078,7 @@ def GetJsonLdContext(layers='core'):
         jsonldcontext = "{\n  \"@context\": {\n"
         jsonldcontext += "        \"type\": \"@type\",\n"
         jsonldcontext += "        \"id\": \"@id\",\n"
+        jsonldcontext += "        \"HTML\": { \"@id\": \"rdf:HTML\" },\n"
         jsonldcontext += "        \"@vocab\": \"http://schema.org/\",\n"
         jsonldcontext += namespaces
 
