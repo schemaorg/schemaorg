@@ -555,6 +555,23 @@ class AdvancedJSONLDTests(unittest.TestCase):
 #      self.assertTrue( HasMultipleBaseTypes( Unit.GetUnit("LocalBusiness") ) , "LocalBusiness is subClassOf Place + Organization." )
 
 
+class TraverseTreeTests(unittest.TestCase):
+    
+    def test_html_tree(self):
+        uThing = Unit.GetUnit("Thing")
+        mainroot = TypeHierarchyTree("local_label")
+        mainroot.traverseForHTML(uThing, layers="core", idprefix="C.")
+        html = mainroot.toHTML()
+        self.assertTrue( html != None and len(html) > 0, "traverseForHTML should return content")
+
+    def test_jsonld_tree(self):
+        uThing = Unit.GetUnit("Thing")
+        mainroot = TypeHierarchyTree()
+        mainroot.traverseForJSONLD(Unit.GetUnit("Thing"), layers="core")
+        thing_tree = mainroot.toJSON()
+        self.assertTrue( thing_tree != None and len(thing_tree) > 0, "traverseForJSONLD should return content")
+
+
 # TODO: Unwritten tests
 #
 # * different terms should not have identical comments
