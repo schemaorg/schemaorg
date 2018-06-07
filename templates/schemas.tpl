@@ -19,7 +19,13 @@
 The schemas are a set of 'types', each associated with a set of properties. The types are arranged in a hierarchy.<br/>
 {{ counts | safe }}<br/>
 
-<br />Browse the full hierarchy:
+<br />Developer info / Download Machine Readable files (RDF, JSON-LD, etc):
+<ul>
+  <li><a href="{{staticPath}}/docs/developers.html">Schema.org for Developers</a>
+</ul>
+<br />
+
+<br />Browse the full hierarchy in HTML:
 <ul>
   <li><a href="{{staticPath}}/Thing">One page per type</a></li>
   <li><a href="full.html">Full list of types, shown on one page</a></li>
