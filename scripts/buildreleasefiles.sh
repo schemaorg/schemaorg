@@ -75,4 +75,7 @@ do
 	dump "$e" "ALL" "ext-$e"
 done
 
+echo "Building OWL file"
+./scripts/buildowlfile.py
+
 
