@@ -24,7 +24,8 @@ class MarkdownTool():
     def setPost(self,post=""):
         self.wpost = post
         
-    def parse(self,source,preservePara=False):
+    def parse(self,source,preservePara=False,local=True):
+        self.local = local
         if not source or len(source) == 0:
             return ""
         source = source.strip()
@@ -52,7 +53,10 @@ class MarkdownTool():
         
     def wikilinkReplace(self,match):
         t = match.group(1)
-        return '<a class="%s" href="%s%s%s">%s</a>' % (self.wclass,self.wpre,t,self.wpost,t)
+        if self.local:
+            return '<a class="%s" href="%s%s%s">%s</a>' % (self.wclass,self.wpre,t,self.wpost,t)
+        else:
+            return '<a href="%s%s%s">%s</a>' % (self.wpre,t,self.wpost,t)
         
 
 Markdown = MarkdownTool()
