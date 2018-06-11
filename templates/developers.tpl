@@ -82,16 +82,6 @@ This is a placeholder page for developer-oriented information about schema.org. 
 		
 	</table>
     
-    <h3 style="margin-left: 50px;" id="owl">OWL Definition</h3>
-           <p>As an experimental feature, an OWL definition file <a href="{{staticPath}}/docs/schemaorg.owl">schemaorg.owl</a> is available. It includes 
-            the core and all current extensions to the vocabulary.</p>
-    <p>The structure of the file differs from the above vocabulary definition files, in that <code>schema:domainIncludes</code> &amp; <code>schema:rangIncludes</code> 
-        values are translated into <code>rdfs:domain</code> &amp; <code>rdfs:range</code> values using <code>owl:unionOf</code> to capture the multiplicity of values. 
-        Included in the range values are the, implicit within the vocabulary, default values of <a href="{{staticPath}}/Text">Text</a>, <a href="{{staticPath}}/URL">URL</a>, 
-        and <a href="{{staticPath}}/Role">Role</a>.</p>
-    <p>This file has been made available to enable the representation of the vocabulary in some Owl-based modeling tools. It is not to be considered to be a definition of 
-        the vocabulary.  As an experimental feature, there are no expectations as to its interpretation by any third party tools</p>
-
   </div>
 
 
