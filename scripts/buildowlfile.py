@@ -86,6 +86,7 @@ from rdflib.term import URIRef
 DOMAININC = URIRef("http://schema.org/domainIncludes")
 RANGEINC = URIRef("http://schema.org/rangeIncludes")
 INVERSEOF = URIRef("http://schema.org/inverseOf")
+SUPERSEDEDBY = URIRef("http://schema.org/supersededBy")
 DEFAULTRANGES = ["http://schema.org/Text","http://schema.org/URL","http://schema.org/Role"]
 DATATYPES = ["http://schema.org/Boolean",
             "http://schema.org/Date",
@@ -274,12 +275,16 @@ class OwlBuild():
                 sub = Element("owl:inverseOf")
                 sub.set("rdf:resource",o)
                 children.append(sub)
+            elif p == SUPERSEDEDBY:
+                sub = Element("schema:supersededBy")
+                sub.set("rdf:resource",o)
+                children.append(sub)
             elif p == DOMAININC:
                 domains[o] = True
-                if o not in DATATYPES:
-                    datatypeonly = False
             elif p == RANGEINC:
                 ranges.append(str(o))
+                if str(o) not in DATATYPES:
+                    datatypeonly = False
             elif p == URIRef("http://schema.org/isPartOf"):
                 ext = str(o)
                 
