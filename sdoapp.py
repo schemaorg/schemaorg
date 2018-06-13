@@ -70,6 +70,11 @@ ENABLE_CORS = True
 ENABLE_HOSTED_EXTENSIONS = True
 DISABLE_NDB_FOR_LOCALHOST = True
 
+WORKINGHOSTS = ["schema.org","schemaorg.appspot.com",
+                "webschemas.org","webschemas-g.appspot.com",
+                "sdo-test.appspot.com",
+                "localhost"]
+
 #INTESTHARNESS = True #Used to indicate we are being called from tests - use setInTestHarness() & getInTestHarness() to manage value
 
 EXTENSION_SUFFIX = "" # e.g. "*"
@@ -2064,10 +2069,10 @@ class ShowUnit (webapp2.RequestHandler):
         buff.close()
         return ret
 
-
     def setupHostinfo(self, node, test=""):
         global noindexpages
         hostString = test
+        host_ext = ""
         args = []
         if test == "":
             hostString = self.request.host
@@ -2076,11 +2081,13 @@ class ShowUnit (webapp2.RequestHandler):
         scheme = "http" #Defalt for tests
         if not getInTestHarness():  #Get the actual scheme from the request
             scheme = self.request.scheme
-
-        host_ext = re.match( r'([\w\-_]+)[\.:]?', hostString).group(1)
-        #log.info("setupHostinfo: scheme=%s hoststring=%s host_ext?=%s" % (scheme, hostString, str(host_ext) ))
-
         setHttpScheme(scheme)
+
+        match = re.match( r'([\w\-_]+)[\.:]?', hostString)
+        host_ext = str(match.group(1))
+        match0 = str(match.group(0))
+        if host_ext + ":" == match0: #Special case for URLs with no subdomains - eg. localhost
+            host_ext = ""
 
         split = hostString.rsplit(':')
         myhost = split[0]
@@ -2088,31 +2095,43 @@ class ShowUnit (webapp2.RequestHandler):
         myport = "80"
         if len(split) > 1:
             myport = split[1]
+        setHostPort(myport)
+
+
+        log.info("setupHostinfo: data: scheme='%s' hoststring='%s' host_ext='%s'" % (scheme, hostString, str(host_ext) ))
+
+        if host_ext != "":
+            if host_ext in ENABLED_EXTENSIONS:
+                mybasehost = mybasehost[len(host_ext) + 1:]
+
+            elif host_ext == "www":
+                mybasehost = mybasehost[4:]
+                setBaseHost(mybasehost)
+                log.info("Host extention '%s' - redirecting to '%s'" % (host_ext,mybasehost))
+                return self.redirectToBase(node,True)
+            else:
+                tempbase = mybasehost[len(host_ext)+1:]
+                if tempbase in WORKINGHOSTS: #Known hosts so can control extention values
+                    mybasehost = tempbase
+                    setHostExt("")
+                    setBaseHost(mybasehost)
+                    log.info("Host extention '%s' not enabled - redirecting to '%s'" % (host_ext,mybasehost)) 
+                    return self.redirectToBase(node,True)
+
+                else:                        #Unknown host so host_ext may be just part of the host string
+                    host_ext = ""
+
+        log.info("setupHostinfo: calculated: basehost='%s' host_ext='%s'" % (mybasehost, host_ext ))
 
         setHostExt(host_ext)
         setBaseHost(mybasehost)
-        setHostPort(myport)
 
-        if host_ext != None:
-            # e.g. "bib"
-            log.debug("HOST: Found %s in %s" % ( host_ext, hostString ))
-            if host_ext == "www":
-                # www is special case that cannot be an extension - need to redirect to basehost
-                mybasehost = mybasehost[4:]
-                setBaseHost(mybasehost)
-                return self.redirectToBase(node,True)
-            elif not host_ext in ENABLED_EXTENSIONS:
-                host_ext = ""
-            else:
-                mybasehost = mybasehost[len(host_ext) + 1:]
-            setHostExt(host_ext)
-            setBaseHost(mybasehost)
-            if mybasehost == "schema.org":
+        if mybasehost == "schema.org":
+            noindexpages = False
+        if "FORCEINDEXPAGES" in os.environ:
+            if os.environ["FORCEINDEXPAGES"] == "True":
                 noindexpages = False
-            if "FORCEINDEXPAGES" in os.environ:
-                if os.environ["FORCEINDEXPAGES"] == "True":
-                    noindexpages = False
-            log.info("[%s] noindexpages: %s" % (getInstanceId(short=True),noindexpages))
+        log.info("[%s] noindexpages: %s" % (getInstanceId(short=True),noindexpages))
 
         setHostExt(host_ext)
         setBaseHost(mybasehost)
