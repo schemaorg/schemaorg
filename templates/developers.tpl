@@ -81,11 +81,11 @@ This is a placeholder page for developer-oriented information about schema.org. 
 	</td></tr>
 
 	</table>
-    <h2 style="margin-left: 50px;" id="experiments">Experimental/Unsupported</h2>
+    <h2  id="experiments">Experimental/Unsupported</h2>
 
    <p>The following representations are <em>experimental</em> and may change or be removed in future releases.</p>
 
-   <h3 id="d3rdfs">D3 RDFS in JSON-LD</h3>
+   <h3 style="margin-left: 50px;" id="d3rdfs">D3 RDFS in JSON-LD</h3>
 
    <p>
     A simplification of the Schema.org type hierarchy, in which each type has at most one super-type, represented
@@ -99,7 +99,7 @@ This is a placeholder page for developer-oriented information about schema.org. 
 
 
 
-   <h3 id="owl">OWL</h3>
+   <h3 style="margin-left: 50px;" id="owl">OWL</h3>
     <p>As an experimental feature, an <a href="https://en.wikipedia.org/wiki/Web_Ontology_Language">OWL</a> definition file <a href="{{staticPath}}/docs/schemaorg.owl">schemaorg.owl</a> is available. It includes
         the core and all current extensions to the vocabulary.</p>
     <p>The structure of the file differs from the above vocabulary definition files, in that <code>schema:domainIncludes</code> and <code>schema:rangeIncludes</code>
