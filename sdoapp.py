@@ -2071,6 +2071,7 @@ class ShowUnit (webapp2.RequestHandler):
 
     def setupHostinfo(self, node, test=""):
         global noindexpages
+        node = str(node)
         hostString = test
         host_ext = ""
         args = []
@@ -2161,7 +2162,8 @@ class ShowUnit (webapp2.RequestHandler):
     def redirectToBase(self,node="",full=False):
         uri = makeUrl("",node,full)
         log.info("Redirecting [301] to: %s" % uri)
-        self.response = webapp2.redirect(uri, True, 301)
+        if not getInTestHarness():
+            self.response = webapp2.redirect(uri, True, 301)
         return False
 
 
