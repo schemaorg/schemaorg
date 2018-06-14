@@ -31,7 +31,7 @@ This is a placeholder page for developer-oriented information about schema.org. 
 		<li>Triples - text/plain - .nt</li>
 		<li>Turtle - application/x-turtle - .ttl</li>
 		<li>CSV - text/csv - .csv</li></ul>
-		
+
 <p><strong>Note:</strong> This is currently an experimental feature</p>
 
 <h2 id="defs">Vocabulary Definition Files</h2>
@@ -79,17 +79,36 @@ This is a placeholder page for developer-oriented information about schema.org. 
 	<tr><td colspan="3" style="text-align: center;">
 		<input type="button" onclick="dowloadfunc();" value="Download"/>
 	</td></tr>
-		
+
 	</table>
-    <h3 style="margin-left: 50px;" id="owl">OWL Definition</h3>
-           <p>As an experimental feature, an OWL definition file <a href="{{staticPath}}/docs/schemaorg.owl">schemaorg.owl</a> is available. It includes 
-            the core and all current extensions to the vocabulary.</p>
-    <p>The structure of the file differs from the above vocabulary definition files, in that <code>schema:domainIncludes</code> &amp; <code>schema:rangIncludes</code> 
-        values are translated into <code>rdfs:domain</code> &amp; <code>rdfs:range</code> values using <code>owl:unionOf</code> to capture the multiplicity of values. 
-        Included in the range values are the, implicit within the vocabulary, default values of <a href="{{staticPath}}/Text">Text</a>, <a href="{{staticPath}}/URL">URL</a>, 
+    <h3 style="margin-left: 50px;" id="experiments">Experimental/Unsupported</h3>
+
+   <p>The following representations are <em>experimental</em> and may change or be removed in future releases.</p>
+
+   <h4 id="d3rdfs">D3 RDFS in JSON-LD</h4>
+
+   <p>
+    A simplification of the Schema.org type hierarchy, in which each type has at most one super-type, represented
+    in a hybrid format that combines JSON-LD, <a href="https://en.wikipedia.org/wiki/RDF_Schema">RDFS</a> and <a href="https://d3js.org/">D3</a>: <a href="{{staticPath}}/docs/tree.jsonld">tree.jsonld</a>.
+  </p>
+  <p>
+    This file is made available to support developers using the <a href="https://d3js.org/">D3</a> JavaScript library for manipulating documents based on data.
+    It uses JSON-LD to declare that D3's default "children" JSON field represents "subClassOf" relationships, but expressed in the
+    reverse direction (<a href="https://bl.ocks.org/danbri/1c121ea8bd2189cf411c">example usage</a>).
+
+
+
+
+   <h4 id="owl">OWL</h4>
+    <p>As an experimental feature, an <a href="https://en.wikipedia.org/wiki/Web_Ontology_Language">OWL</a> definition file <a href="{{staticPath}}/docs/schemaorg.owl">schemaorg.owl</a> is available. It includes
+        the core and all current extensions to the vocabulary.</p>
+    <p>The structure of the file differs from the above vocabulary definition files, in that <code>schema:domainIncludes</code> &amp; <code>schema:rangIncludes</code>
+        values are converted into <code>rdfs:domain</code> &amp; <code>rdfs:range</code> values using <code>owl:unionOf</code> to capture the multiplicity of values.
+        Included in the range values are the, implicit within the vocabulary, default values of <a href="{{staticPath}}/Text">Text</a>, <a href="{{staticPath}}/URL">URL</a>,
         and <a href="{{staticPath}}/Role">Role</a>.</p>
-    <p>This file has been made available to enable the representation of the vocabulary in some Owl-based modeling tools. It is not to be considered to be a definition of 
-        the vocabulary.  As an experimental feature, there are no expectations as to its interpretation by any third party tools.</p>
+    <p>This file has been made available to enable the representation of the vocabulary in some OWL-based modeling tools.
+      The mapping into OWL is an approximation, and should not be considered an authoritative definition for Schema.org's terms; see <a href="{{staticPath}}/docs/datamodel.html">datamodel page</a> for details.
+      As an experimental feature, there are no expectations as to its interpretation by any third party tools.</p>
     <br/>
 
   </div>
@@ -110,14 +129,14 @@ function getschemafilename(){
 }
 
 function updatetext(){
-	
+
 	if(document.getElementById("fileext").value == ".csv"){
 		document.getElementById("csvsel").style.display = 'block';
 	}
 	else{
 		document.getElementById("csvsel").style.display = 'none';
 	}
-	
+
 	document.getElementById("label").innerHTML = getschemafilename();
 }
 
