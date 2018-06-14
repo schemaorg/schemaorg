@@ -38,7 +38,7 @@ from apimarkdown import Markdown
 
 from sdordf2csv import sdordf2csv
 
-SCHEMA_VERSION="3.3"
+SCHEMA_VERSION="3.4"
 
 FEEDBACK_FORM_BASE_URL='https://docs.google.com/a/google.com/forms/d/1krxHlWJAO3JgvHRZV9Rugkr9VYnMdrI10xbGsWt733c/viewform?entry.1174568178&entry.41124795={0}&entry.882602760={1}'
 # {0}: term URL, {1} category of term.
@@ -47,7 +47,7 @@ sitemode = "mainsite" # whitespaced list for CSS tags,
             # e.g. "mainsite testsite" when off expected domains
             # "extensionsite" when in an extension (e.g. blue?)
 
-releaselog = { "2.0": "2015-05-13", "2.1": "2015-08-06", "2.2": "2015-11-05", "3.0": "2016-05-04", "3.1": "2016-08-09", "3.2": "2017-03-23", "3.3": "2017-08-14" }
+releaselog = { "2.0": "2015-05-13", "2.1": "2015-08-06", "2.2": "2015-11-05", "3.0": "2016-05-04", "3.1": "2016-08-09", "3.2": "2017-03-23", "3.3": "2017-08-14", "3.4": "2018-06-15" }
 
 silent_skip_list =  [ "favicon.ico" ] # Do nothing for now
 
@@ -337,7 +337,7 @@ class TypeHierarchyTree:
                     seencount = self.visited.count(node.id)
                     idstring = "%s%s" % (idstring, "+" * seencount)
                     seen = '  <a href="#%s">+</a> ' % node.id
-                    
+
                 self.emit2buff(buff, '%s<li class="tleaf" id="%s"><a %s %s href="%s%s%s">%s</a>%s%s' % (" " * depth, idstring, tooltip, extclass, urlprefix, hashorslash, node.id, node.id, extflag, seen ))
             #else:
                 #self.visited[node.id] = True # never...
@@ -621,7 +621,7 @@ class ShowUnit (webapp2.RequestHandler):
         else:
             other = "http"
         sa = '\n<link  property="sameAs" href="%s://schema.org/%s" />' % (other,node.id)
-        
+
         self.write(" <span class=\"canonicalUrl\">Canonical URL: <a href=\"%s\">%s</a></span> " % (cURL, cURL))
         self.write(" (<a href=\"/docs/faq.html#19\" title=\"http/https help\">?</a>)")
         self.write(sa)
@@ -2116,7 +2116,7 @@ class ShowUnit (webapp2.RequestHandler):
                     mybasehost = tempbase
                     setHostExt("")
                     setBaseHost(mybasehost)
-                    log.info("Host extention '%s' not enabled - redirecting to '%s'" % (host_ext,mybasehost)) 
+                    log.info("Host extention '%s' not enabled - redirecting to '%s'" % (host_ext,mybasehost))
                     return self.redirectToBase(node,True)
 
                 else:                        #Unknown host so host_ext may be just part of the host string
