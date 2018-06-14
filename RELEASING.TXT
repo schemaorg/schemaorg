@@ -147,14 +147,28 @@ final round of sanity-check tests is useful:
 
 4.) Publish from a clean checkout of 'master' branch to schema.org.
 
+Using gcloud app deploy
+~~~~~~~~~~~~~~~~~~~~~~~
+
+gcloud app deploy --no-promote --project schemaorgae --version=3.4 schemaorg.yaml
+
+Note: the --no-promote flage deploys the version but does not transfer traffic to it.
+This can then be done when required via the appengine console, versions screen: 
+   https://console.cloud.google.com/appengine/versions?project=schemaorgae&serviceId=default&versionssize=50
+
+===========OLD============
 Either by editing app.yaml to make sure 'application: schemaorgae' is active,
-or by passing the name of the live appengine ID on the commandline. Currently
-@rvguha (as Steering Group chair) and @danbri (as Community Group chair and
+or by passing the name of the live appengine ID on the commandline. 
+===========OLD============
+
+Currently @rvguha (as Steering Group chair) and @danbri (as Community Group chair and
 webmaster / dogsbody) have write access to the corresponding appengine account.
 
+===========OLD============
  * e.g. update schemaorg.yaml then:  appcfg.py update schemaorg.yaml -A schemaorgae
  * Count to thirty. Log into appengine and you should see a new version.
- * Send 5% of traffic to this version to catch any errors, then move to 100%.
+* Send 5% of traffic to this version to catch any errors, then move to 100%.
+===========OLD============
 
 Note that appengine versions are visible using URLs with this pattern:
 
