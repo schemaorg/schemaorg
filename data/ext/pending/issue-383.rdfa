@@ -1,0 +1,126 @@
+<div>
+<!--
+# Schema.org improvements for project/grant/funding and related.
+* | Issue: #383 -->
+
+<!-- acks
+<div typeof="http://schema.org/Organization" resource="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FundInfoCollab">
+    <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
+    <span property="rdfs:label">Ideas developed during a Wikibase Workshop and the RDA conference. </span>
+    <span property="rdfs:comment">This term and its definition draws upon collaborations during the 2018 RDA conference, and from a Wikibase/Wikidata event hosted at Wikimedia Germany.</span>
+</div>
+
+  <div typeof="rdfs:Class" resource="http://schema.org/Grant">
+    <span class="h" property="rdfs:label">Grant</span>
+    <span property="rdfs:comment">A grant, typically financial or otherwise quantifiable, of resources. Typically a [[funder]] sponsors some [[MonetaryAmount]] to an [[Organization]] or [[Person]],
+    sometimes not necessarily through a dedicated or long-lived [[Project]], resulting in one or more outputs, or [[fundedItem]]s.
+
+For financial sponsorship, indicate the [[funder]] of a [[MonetaryGrant]]). For non-financial support, indicate [[sponsor]] of [[Grant]]s of resources (e.g. office space).
+
+Grants support  activities directed towards some agreed collective goals, often but not always organized as [[Project]]s. Long-lived projects are sometimes sponsored by a variety of grants over time, but it is also common for a project to be associated with a single grant.
+
+The amount of a [[Grant]] is represented using [[amount]] as a [[MonetaryAmount]].
+    </span>
+    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Intangible">Intangible</a></span>
+    <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
+    <span property="schema:category">issue-383</span>
+    <span>Source:  <a property="dc:source" href="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FundInfoCollab">FundInfoCollab</a></span>
+  </div>
+
+  <div typeof="rdfs:Class" resource="http://schema.org/MonetaryGrant">
+    <span class="h" property="rdfs:label">MonetaryGrant</span>
+    <span property="rdfs:comment">A monetary grant.</span>
+    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Grant">Grant</a></span>
+    <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
+    <span property="schema:category">issue-383</span>
+    <span>Source:  <a property="dc:source" href="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FundInfoCollab">FundInfoCollab</a></span>
+  </div>
+
+<div typeof="rdf:Property" resource="http://schema.org/fundedItem">
+    <span class="h" property="rdfs:label">fundedItem</span>
+    <span property="rdfs:comment">Indicates an item funded or sponsored through a [[Grant]].</span>
+    <span property="schema:category">issue-1688</span><a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1950">#1950</a>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Grant">Grant</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/CorrectionComment">CorrectionComment</a></span>
+
+    <span property="schema:category">issue-383</span>
+    <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/383">#383</a>
+    <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
+    <span>Source:  <a property="dc:source" href="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP">trustproject</a></span>
+</div>
+
+ <!-- attach the existing 'amount' and 'funder' property here -->
+ <div typeof="rdf:Property" resource="http://schema.org/amount">
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MonetaryGrant">MonetaryGrant</a></span>
+ </div>
+
+ <div typeof="rdf:Property" resource="http://schema.org/funder">
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MonetaryGrant">MonetaryGrant</a></span>
+ </div>
+
+ <div typeof="rdf:Property" resource="http://schema.org/sponsor">
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Grant">Grant</a></span>
+ </div>
+
+ <div typeof="rdfs:Class" resource="http://schema.org/MonetaryGrant">
+   <span class="h" property="rdfs:label">MonetaryGrant</span>
+   <span property="rdfs:comment">A monetary grant.</span>
+   <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Grant">Grant</a></span>
+   <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
+   <span property="schema:category">issue-383</span>
+   <span>Source:  <a property="dc:source" href="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FundInfoCollab">FundInfoCollab</a></span>
+ </div>
+
+ <div typeof="rdfs:Class" resource="http://schema.org/Project">
+   <span class="h" property="rdfs:label">Project</span>
+   <span property="rdfs:comment">An enterprise (potentially individual but typically collaborative), planned to achieve a particular aim.
+Use properties from [[Organization]], [[subOrganization]]/[[parentOrganization]] to indicate project sub-structures.
+   </span>
+   <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Organization">Organization</a></span>
+   <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
+   <span property="schema:category">issue-383</span>
+   <span>Source:  <a property="dc:source" href="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FundInfoCollab">FundInfoCollab</a></span>
+ </div>
+
+
+<!--
+ <div typeof="rdfs:Class" resource="http://schema.org/Project">
+   <span class="h" property="rdfs:label">Project</span>
+   <span property="rdfs:comment">An enterprise (potentially individual but typically collaborative), planned to achieve a particular aim.</span>
+   <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Organization">Organization</a></span>
+   <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
+   <span property="schema:category">issue-383</span>
+   <span>Source:  <a property="dc:source" href="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FundInfoCollab">FundInfoCollab</a></span>
+ </div>
+-->
+
+ <div typeof="rdfs:Class" resource="http://schema.org/ParticipationRole">
+   <span class="h" property="rdfs:label">ParticipationRole</span>
+   <span property="rdfs:comment">A [[ParticipationRole]] is a [[Role]] indicating participation in some activity. For example, being a [[member]] of a [[Project]], or [[attendee]] of an [[Event]]. Description of participation follows the [[Role]] pattern of using the same property name (member, attendee etc.) pointing to/from the [[ParticipationRole]].
+   </span>
+   <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Role">Role</a></span>
+   <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
+   <span property="schema:category">issue-383</span>
+   <span>Source:  <a property="dc:source" href="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FundInfoCollab">FundInfoCollab</a></span>
+ </div>
+
+ <!-- issues to work out from schema issue,
+
+Q: is a Grant always something formal that involves a contract and exchanging money?
+ in other words, can we use Grant for something sometimes more informal, such as project?
+
+Notes excerpted from post-March Github discussion (we should re-read it all though):
+ * Existing vocab: sponsor
+ * make sponsor work with Grant or whatever we add.
+ * currently schema.org json-ld for 'identifier' is an @id i.e. relative URIs per https://schema.org/docs/jsonldcontext.json
+   unless textual syntax used. So      "identifier": "1448821" would be turned into some URL. Bug?
+ * Note we already have sponsor as a property on Event, CreativeWork, Organization & Person. Would this work instead of ‘funder’? - or maybe funder could be a sub-property of sponsor.
+ * funder is a sub-property of sponsor
+ * how to indicate a "funding scheme"? A new Intangible type? @dcodings argues for a strict separation to avoid confusing programmes vs projects, even if sometimes a project
+   might have ability to disperse funds in pursuit of its goals.
+* TODO: add fundedItem or figure out expressivity.
+
+ -->
+
+
+</div>
