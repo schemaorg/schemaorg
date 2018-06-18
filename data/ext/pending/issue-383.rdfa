@@ -8,7 +8,7 @@
     <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
     <span property="rdfs:label">Ideas developed during a Wikibase Workshop and the RDA conference. </span>
     <span property="rdfs:comment">This term and its definition draws upon collaborations during the 2018 RDA conference, and from a Wikibase/Wikidata event hosted at Wikimedia Germany.</span>
-</div>
+</div> -->
 
   <div typeof="rdfs:Class" resource="http://schema.org/Grant">
     <span class="h" property="rdfs:label">Grant</span>
@@ -110,17 +110,17 @@ Q: is a Grant always something formal that involves a contract and exchanging mo
  in other words, can we use Grant for something sometimes more informal, such as project?
 
 Notes excerpted from post-March Github discussion (we should re-read it all though):
- * Existing vocab: sponsor
- * make sponsor work with Grant or whatever we add.
+ * Noting existence vocab: sponsor, with a more specialized sub-property 'funder'.
+ * We need to make existing sponsor/funder work with Grant and any other new terms.
+ * We need to associate existing MonetaryAmount with new vocabulary.
  * currently schema.org json-ld for 'identifier' is an @id i.e. relative URIs per https://schema.org/docs/jsonldcontext.json
-   unless textual syntax used. So      "identifier": "1448821" would be turned into some URL. Bug?
- * Note we already have sponsor as a property on Event, CreativeWork, Organization & Person. Would this work instead of ‘funder’? - or maybe funder could be a sub-property of sponsor.
- * funder is a sub-property of sponsor
+   unless textual syntax used. So      "identifier": "1448821" would be turned into some URL. Open a bug?
  * how to indicate a "funding scheme"? A new Intangible type? @dcodings argues for a strict separation to avoid confusing programmes vs projects, even if sometimes a project
    might have ability to disperse funds in pursuit of its goals.
 * TODO: add fundedItem or figure out expressivity.
-
- -->
-
+* From Berlin June workshop, clear that we want to be clear about whether we're using words like "funder" to mean
+  the ultimate source of the money (e.g. European Commission) versus the agencies that manage and disburse it. We also
+  want to make sure it applies to non-public-sector scenarios in which the money-providing entity might be small enough to manage/disperse its own monies directly.
+  We may be able to handle this by using relationships more than types, and in the small case, both relationships might be applicable. -->
 
 </div>
