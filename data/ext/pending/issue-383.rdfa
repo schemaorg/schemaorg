@@ -10,6 +10,28 @@
     <span property="rdfs:comment">This term and its definition draws upon collaborations during the 2018 RDA conference, and from a Wikibase/Wikidata event hosted at Wikimedia Germany.</span>
 </div> -->
 
+<!-- funding schema
+a list or formalization
+of the criteria
+research, art, ...
+standard grant schema covers ideas that must be excellent,
+not directly tied to immediate, young ppl below 30, ...
+Programme/Program
+e.g. peter murray rust
+funded under the JISC Respositories Scheme
+eLib phase III etc
+has a pr
+
+funding scheme conflates two aspects, one that is the policy aspect
+is in fact a set of ideas
+eg 17 world development goals
+but also in fact an organizational thing
+typically but not always some concrete bureaucracy
+in EU, the framework prog is a single policy articulated in many funding schemes
+
+add a type for an Org or Project called FundingProgreamme
+-->
+
   <div typeof="rdfs:Class" resource="http://schema.org/Grant">
     <span class="h" property="rdfs:label">Grant</span>
     <span property="rdfs:comment">A grant, typically financial or otherwise quantifiable, of resources. Typically a [[funder]] sponsors some [[MonetaryAmount]] to an [[Organization]] or [[Person]],
@@ -72,7 +94,7 @@ The amount of a [[Grant]] is represented using [[amount]] as a [[MonetaryAmount]
  <div typeof="rdfs:Class" resource="http://schema.org/Project">
    <span class="h" property="rdfs:label">Project</span>
    <span property="rdfs:comment">An enterprise (potentially individual but typically collaborative), planned to achieve a particular aim.
-Use properties from [[Organization]], [[subOrganization]]/[[parentOrganization]] to indicate project sub-structures.
+Use properties from [[Organization]], [[subOrganization]]/[[parentOrganization]] to indicate project sub-structures. <!-- example Q737 -->
    </span>
    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Organization">Organization</a></span>
    <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
@@ -81,26 +103,81 @@ Use properties from [[Organization]], [[subOrganization]]/[[parentOrganization]]
  </div>
 
 
-<!--
- <div typeof="rdfs:Class" resource="http://schema.org/Project">
-   <span class="h" property="rdfs:label">Project</span>
-   <span property="rdfs:comment">An enterprise (potentially individual but typically collaborative), planned to achieve a particular aim.</span>
-   <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Organization">Organization</a></span>
+  <div typeof="rdfs:Class" resource="http://schema.org/FundingScheme">
+    <span class="h" property="rdfs:label">FundingScheme</span>
+    <span property="rdfs:comment">A FundingScheme combines organizational, project and policy aspects of grant-based funding
+    that sets guidelines, principles and mechanisms to support other kinds of projects and activities.
+    Funding is typically organized via [[Grant]] funding.
+    Examples of funding schemes: Swiss Priority Programmes (SPPs); EU Framework 7 (FP7); Horizon 2020; the NIH-R01 Grant Program;
+    Wellcome institutional strategic support fund. For large scale public sector funding, the management and administration of grant awards is often
+    handled by other, dedicated, organizations - [[FundingAgency]]s such as ERC, REA, ...</span>
+    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Project">Project</a></span>
+    <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
+    <span property="schema:category">issue-383</span>
+    <span>Source:  <a property="dc:source" href="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FundInfoCollab">FundInfoCollab</a></span>
+  </div>
+  <div typeof="rdfs:Class" resource="http://schema.org/FundingAgency">
+    <span class="h" property="rdfs:label">FundingAgency</span>
+    <span property="rdfs:comment">A FundingAgency is an organization that implements one or more [[FundingScheme]]s and manages
+    the granting process (via [[Grant]]s, typically [[MonetaryGrant]]s).
+    A funding agency is not always required for grant funding, e.g. philanthropic giving, corporate sponsorship etc.
+    <!-- move some of this to grant type -->
+    Examples of funding agencies include ERC, REA, NIH, Bill and Melinda Gates Foundation...
+    </span>
+    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Project">Project</a></span>
+    <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
+    <span property="schema:category">issue-383</span>
+    <span>Source:  <a property="dc:source" href="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FundInfoCollab">FundInfoCollab</a></span>
+  </div>
+
+
+ <div typeof="rdfs:Class" resource="http://schema.org/ResearchProject">
+   <span class="h" property="rdfs:label">Project (maps to Wikidata's notion of ...)</span>
+   <span property="rdfs:comment">A Research project.</span>
+   <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Project">Project</a></span>
    <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
    <span property="schema:category">issue-383</span>
    <span>Source:  <a property="dc:source" href="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FundInfoCollab">FundInfoCollab</a></span>
  </div>
--->
 
+<!--
  <div typeof="rdfs:Class" resource="http://schema.org/ParticipationRole">
    <span class="h" property="rdfs:label">ParticipationRole</span>
-   <span property="rdfs:comment">A [[ParticipationRole]] is a [[Role]] indicating participation in some activity. For example, being a [[member]] of a [[Project]], or [[attendee]] of an [[Event]]. Description of participation follows the [[Role]] pattern of using the same property name (member, attendee etc.) pointing to/from the [[ParticipationRole]].
+   <span property="rdfs:comment">(sketched proposal for discussion:) ... A [[ParticipationRole]] is a [[Role]] indicating participation in some activity. For example, being a [[member]] of a [[Project]], or [[attendee]] of an [[Event]]. Description of participation follows the [[Role]] pattern of using the same property name (member, attendee etc.) pointing to/from the [[ParticipationRole]].
    </span>
    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Role">Role</a></span>
    <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
    <span property="schema:category">issue-383</span>
    <span>Source:  <a property="dc:source" href="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FundInfoCollab">FundInfoCollab</a></span>
  </div>
+
+<!-- considering instead Action as a different structure for reifing the complex pattern ...
+ <div typeof="rdfs:Class" resource="http://schema.org/ParticipateAction">
+   <span class="h" property="rdfs:label">ParticipateAction</span>
+   <span property="rdfs:comment">(sketched proposal for discussion:).
+   [[agent]] participates in a collaborative endeavour;
+   [[participant]] covers others involved (?org/proj/etc) in the endeavour
+    [[instrument]] - grant(s)
+    [[object]]
+   </span>
+   <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Role">Role</a></span>
+   <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
+   <span property="schema:category">issue-383</span>
+   <span>Source:  <a property="dc:source" href="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FundInfoCollab">FundInfoCollab</a></span>
+ </div>
+-->
+
+
+ <div typeof="rdfs:Class" resource="http://schema.org/Participation">
+   <span class="h" property="rdfs:label">Participation</span>
+   <span property="rdfs:comment"></span>
+   <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Intangible">Intangible</a></span>
+   <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
+   <span property="schema:category">issue-383</span>
+   <span>Source:  <a property="dc:source" href="https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FundInfoCollab">FundInfoCollab</a></span>
+ </div>
+
+ -->
 
  <!-- issues to work out from schema issue,
 
