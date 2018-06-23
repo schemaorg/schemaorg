@@ -4867,15 +4867,15 @@ schema:Zoo a rdfs:Class ;
     rdfs:comment "A zoo." ;
     rdfs:subClassOf schema:CivicStructure .
 
-<file:///Users/wallisr/Development/Schema/master/schemaorg/data/ext/bib/bsdo-1.0.rdfa> schema:softwareVersion "bib.schema.org Version 0.1"@en .
+<file:///Users/wallisr/Development/Schema/tourismFix/schemaorg/data/ext/bib/bsdo-1.0.rdfa> schema:softwareVersion "bib.schema.org Version 0.1"@en .
 
-<file:///Users/wallisr/Development/Schema/master/schemaorg/data/ext/bib/comics.rdfa> schema:softwareVersion "bib extension - version 0.1"@en .
+<file:///Users/wallisr/Development/Schema/tourismFix/schemaorg/data/ext/bib/comics.rdfa> schema:softwareVersion "bib extension - version 0.1"@en .
 
-<file:///Users/wallisr/Development/Schema/master/schemaorg/data/ext/health-lifesci/med-health-core.rdfa> rdfa:usesVocabulary <http://schema.org> .
+<file:///Users/wallisr/Development/Schema/tourismFix/schemaorg/data/ext/health-lifesci/med-health-core.rdfa> rdfa:usesVocabulary <http://schema.org> .
 
-<file:///Users/wallisr/Development/Schema/master/schemaorg/data/ext/health-lifesci/physical-activity-and-exercise.rdfa> rdfa:usesVocabulary <http://schema.org> .
+<file:///Users/wallisr/Development/Schema/tourismFix/schemaorg/data/ext/health-lifesci/physical-activity-and-exercise.rdfa> rdfa:usesVocabulary <http://schema.org> .
 
-<file:///Users/wallisr/Development/Schema/master/schemaorg/data/schema.rdfa> dct:source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#IIT-CNR.it>,
+<file:///Users/wallisr/Development/Schema/tourismFix/schemaorg/data/schema.rdfa> dct:source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#IIT-CNR.it>,
         <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Tourism> .
 
 <http://meta.schema.org/> rdfs:label "meta" ;
@@ -15166,6 +15166,14 @@ schema:partOfSeries a rdf:Property ;
     rdfs:comment "The series to which this episode or season belongs." ;
     rdfs:subPropertyOf schema:isPartOf .
 
+schema:partOfTrip a rdf:Property ;
+    rdfs:label "partOfTrip" ;
+    schema:category "issue-1810" ;
+    schema:domainIncludes schema:Trip ;
+    schema:inverseOf schema:subTrip ;
+    schema:rangeIncludes schema:Trip ;
+    rdfs:comment "Identifies that this <a class=\"localLink\" href=\"http://schema.org/Trip\">Trip</a> is a subTrip of another Trip.  For example Day 1, Day 2, etc. of a multi-day trip." .
+
 schema:paymentDueDate a rdf:Property ;
     rdfs:label "paymentDueDate" ;
     schema:domainIncludes schema:Invoice,
@@ -15358,6 +15366,14 @@ schema:subOrganization a rdf:Property ;
     schema:inverseOf schema:parentOrganization ;
     schema:rangeIncludes schema:Organization ;
     rdfs:comment "A relationship between two organizations where the first includes the second, e.g., as a subsidiary. See also: the more specific 'department' property." .
+
+schema:subTrip a rdf:Property ;
+    rdfs:label "subTrip" ;
+    schema:category "issue-1810" ;
+    schema:domainIncludes schema:Trip ;
+    schema:inverseOf schema:partOfTrip ;
+    schema:rangeIncludes schema:Trip ;
+    rdfs:comment "Identifies a <a class=\"localLink\" href=\"http://schema.org/Trip\">Trip</a> that is a subTrip of this Trip.  For example Day 1, Day 2, etc. of a multi-day trip." .
 
 schema:subjectOf a rdf:Property ;
     rdfs:label "subjectOf" ;
@@ -15680,12 +15696,9 @@ schema:workExample a rdf:Property ;
 schema:hasPart a rdf:Property ;
     rdfs:label "hasPart" ;
     dct:source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_bibex> ;
-    schema:category "issue-1810" ;
-    schema:domainIncludes schema:CreativeWork,
-        schema:Trip ;
+    schema:domainIncludes schema:CreativeWork ;
     schema:inverseOf schema:isPartOf ;
-    schema:rangeIncludes schema:CreativeWork,
-        schema:Trip ;
+    schema:rangeIncludes schema:CreativeWork ;
     rdfs:comment "Indicates an item or CreativeWork that is part of this item, or CreativeWork (in some sense)." .
 
 schema:position a rdf:Property ;
@@ -15698,12 +15711,9 @@ schema:position a rdf:Property ;
 
 schema:isPartOf a rdf:Property ;
     rdfs:label "isPartOf" ;
-    schema:category "issue-1810" ;
-    schema:domainIncludes schema:CreativeWork,
-        schema:Trip ;
+    schema:domainIncludes schema:CreativeWork ;
     schema:inverseOf schema:hasPart ;
-    schema:rangeIncludes schema:CreativeWork,
-        schema:Trip ;
+    schema:rangeIncludes schema:CreativeWork ;
     rdfs:comment "Indicates an item or CreativeWork that this item, or CreativeWork (in some sense), is part of." .
 
 <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#IIT-CNR.it> a schema:Organization ;

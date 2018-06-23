@@ -53,18 +53,26 @@
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/TouristTrip">TouristTrip</a></span>
       <span>Category: <span property="schema:category">issue-1810</span></span>
     </div>
-<!-- Extending domain & range of hasPart property - already defined in core -->
-    <div typeof="rdf:Property" resource="http://schema.org/hasPart">
-      <span class="h" property="rdfs:label">hasPart</span>
+    
+    <div typeof="rdf:Property" resource="http://schema.org/subTrip">
+      <span class="h" property="rdfs:label">subTrip</span>
+      <span property="rdfs:comment">Identifies a [[Trip]] that is a subTrip of this Trip.  For example Day 1, Day 2, etc. of a multi-day trip.</span>
+      <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Trip">Trip</a></span>
       <span>rangeIncludes: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Trip">Trip</a></span>
+      <link property="http://schema.org/inverseOf" href="http://schema.org/partOfTrip"/>
+      <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Tourism">Tourism</a></span>
       <span>Category: <span property="schema:category">issue-1810</span></span>
     </div>
-<!-- Extending domain  & range of hasPart property - already defined in core -->
-    <div typeof="rdf:Property" resource="http://schema.org/isPartOf">
-      <span class="h" property="rdfs:label">isPartOf</span>
+
+    <div typeof="rdf:Property" resource="http://schema.org/partOfTrip">
+      <span class="h" property="rdfs:label">partOfTrip</span>
+      <span property="rdfs:comment">Identifies that this [[Trip]] is a subTrip of another Trip.  For example Day 1, Day 2, etc. of a multi-day trip.</span>
+      <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Trip">Trip</a></span>
       <span>rangeIncludes: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Trip">Trip</a></span>
+      <link property="http://schema.org/inverseOf" href="http://schema.org/subTrip"/>
+      <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Tourism">Tourism</a></span>
       <span>Category: <span property="schema:category">issue-1810</span></span>
     </div>
 
