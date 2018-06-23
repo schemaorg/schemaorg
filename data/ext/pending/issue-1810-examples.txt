@@ -409,7 +409,7 @@ PRE-MARKUP:
     Australia and New Zealand
   </h1>
   <p>
-    This trip is modeled as two distinct Tourist Trips using the hasPart property.
+    This trip is modeled as two distinct Tourist Trips using the subTrip property.
   </p>
   <div class="has-part-wrapper">
     <div>
@@ -436,12 +436,12 @@ MICRODATA:
 <div>
   <div itemtype="http://schema.org/TouristTrip" itemscope>
     <meta itemprop="name" content="Australia and New Zealand" />
-    <meta itemprop="description" content="This trip is modeled as two distinct Tourist Trips using the hasPart property." />
-    <div itemprop="hasPart" itemtype="http://schema.org/TouristTrip" itemscope>
+    <meta itemprop="description" content="This trip is modeled as two distinct Tourist Trips using the subTrip property." />
+    <div itemprop="subTrip" itemtype="http://schema.org/TouristTrip" itemscope>
       <meta itemprop="name" content="Australia" />
       <meta itemprop="description" content="This is a trip on its own." />
     </div>
-    <div itemprop="hasPart" itemtype="http://schema.org/TouristTrip" itemscope>
+    <div itemprop="subTrip" itemtype="http://schema.org/TouristTrip" itemscope>
       <meta itemprop="name" content="New Zealand" />
       <meta itemprop="description" content="This is another trip nested inside the main one." />
     </div>
@@ -453,14 +453,14 @@ RDFA:
 <div>
   <div vocab="http://schema.org/" typeof="TouristTrip">
     <div property="name" content="Australia and New Zealand"></div>
-    <div property="description" content="This trip is modeled as two distinct Tourist Trips using the hasPart property."></div>
-    <div rel="hasPart">
+    <div property="description" content="This trip is modeled as two distinct Tourist Trips using the subTrip property."></div>
+    <div rel="subTrip">
       <div typeof="TouristTrip">
         <div property="name" content="Australia"></div>
         <div property="description" content="This is a trip on its own."></div>
       </div>
     </div>
-    <div rel="hasPart">
+    <div rel="subTrip">
       <div typeof="TouristTrip">
         <div property="description" content="This is another trip nested inside the main one."></div>
         <div property="name" content="New Zealand"></div>
@@ -475,8 +475,8 @@ JSON:
   "@context": "http://schema.org",
   "@type": "TouristTrip",
   "name": "Australia and New Zealand",
-  "description": "This trip is modeled as two distinct Tourist Trips using the hasPart property.",
-  "hasPart": [
+  "description": "This trip is modeled as two distinct Tourist Trips using the subTrip property.",
+  "subTrip": [
       {
         "@type": "TouristTrip",
         "name": "Australia",

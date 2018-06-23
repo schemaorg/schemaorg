@@ -13,10 +13,10 @@
       },
       "http://schema.org/domainIncludes": [
         {
-          "@id": "http://schema.org/BusOrCoach"
+          "@id": "http://schema.org/Car"
         },
         {
-          "@id": "http://schema.org/Car"
+          "@id": "http://schema.org/BusOrCoach"
         }
       ],
       "http://schema.org/isPartOf": {
@@ -96,10 +96,10 @@
       },
       "http://schema.org/rangeIncludes": [
         {
-          "@id": "http://schema.org/Number"
+          "@id": "http://schema.org/QuantitativeValue"
         },
         {
-          "@id": "http://schema.org/QuantitativeValue"
+          "@id": "http://schema.org/Number"
         }
       ],
       "rdfs:comment": "The number of persons that can be seated (e.g. in a vehicle), both in terms of the physical space available, and in terms of limitations set by law.<br/><br/>\n\nTypical unit code(s): C62 for persons",
@@ -119,10 +119,10 @@
       },
       "http://schema.org/rangeIncludes": [
         {
-          "@id": "http://schema.org/QualitativeValue"
+          "@id": "http://schema.org/URL"
         },
         {
-          "@id": "http://schema.org/URL"
+          "@id": "http://schema.org/QualitativeValue"
         },
         {
           "@id": "http://schema.org/Text"
@@ -211,10 +211,10 @@
       },
       "http://schema.org/domainIncludes": [
         {
-          "@id": "http://schema.org/Car"
+          "@id": "http://schema.org/BusOrCoach"
         },
         {
-          "@id": "http://schema.org/BusOrCoach"
+          "@id": "http://schema.org/Car"
         }
       ],
       "http://schema.org/isPartOf": {
@@ -285,17 +285,31 @@
       },
       "http://schema.org/rangeIncludes": [
         {
+          "@id": "http://schema.org/URL"
+        },
+        {
           "@id": "http://schema.org/Text"
         },
         {
           "@id": "http://schema.org/QualitativeValue"
-        },
-        {
-          "@id": "http://schema.org/URL"
         }
       ],
       "rdfs:comment": "Indicates the design and body style of the vehicle (e.g. station wagon, hatchback, etc.).",
       "rdfs:label": "bodyType"
+    },
+    {
+      "@id": "http://schema.org/vehicleSpecialUsage",
+      "@type": "rdf:Property",
+      "http://purl.org/dc/terms/source": {
+        "@id": "http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group"
+      },
+      "http://schema.org/isPartOf": {
+        "@id": "http://auto.schema.org"
+      },
+      "http://schema.org/rangeIncludes": {
+        "@id": "http://schema.org/CarUsageType"
+      },
+      "rdfs:label": "vehicleSpecialUsage"
     },
     {
       "@id": "http://schema.org/trailerWeight",
@@ -386,13 +400,13 @@
       },
       "http://schema.org/rangeIncludes": [
         {
-          "@id": "http://schema.org/QualitativeValue"
-        },
-        {
           "@id": "http://schema.org/Text"
         },
         {
           "@id": "http://schema.org/URL"
+        },
+        {
+          "@id": "http://schema.org/QualitativeValue"
         }
       ],
       "rdfs:comment": "Indicates that the vehicle meets the respective emission standard.",
@@ -453,18 +467,16 @@
       "rdfs:label": "speed"
     },
     {
-      "@id": "http://schema.org/vehicleSpecialUsage",
-      "@type": "rdf:Property",
+      "@id": "http://schema.org/DrivingSchoolVehicleUsage",
+      "@type": "http://schema.org/CarUsageType",
       "http://purl.org/dc/terms/source": {
         "@id": "http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group"
       },
       "http://schema.org/isPartOf": {
         "@id": "http://auto.schema.org"
       },
-      "http://schema.org/rangeIncludes": {
-        "@id": "http://schema.org/CarUsageType"
-      },
-      "rdfs:label": "vehicleSpecialUsage"
+      "rdfs:comment": "Indicates the usage of the vehicle for driving school.",
+      "rdfs:label": "DrivingSchoolVehicleUsage"
     },
     {
       "@id": "http://schema.org/torque",
@@ -483,18 +495,6 @@
       },
       "rdfs:comment": "The torque (turning force) of the vehicle's engine.<br/><br/>\n\nTypical unit code(s): NU for newton metre (N m), F17 for pound-force per foot, or F48 for pound-force per inch<br/><br/>\n\n<ul>\n<li>Note 1: You can link to information about how the given value has been determined (e.g. reference RPM) using the <a class=\"localLink\" href=\"http://schema.org/valueReference\">valueReference</a> property.</li>\n<li>Note 2: You can use <a class=\"localLink\" href=\"http://schema.org/minValue\">minValue</a> and <a class=\"localLink\" href=\"http://schema.org/maxValue\">maxValue</a> to indicate ranges.</li>\n</ul>\n",
       "rdfs:label": "torque"
-    },
-    {
-      "@id": "http://schema.org/DrivingSchoolVehicleUsage",
-      "@type": "http://schema.org/CarUsageType",
-      "http://purl.org/dc/terms/source": {
-        "@id": "http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group"
-      },
-      "http://schema.org/isPartOf": {
-        "@id": "http://auto.schema.org"
-      },
-      "rdfs:comment": "Indicates the usage of the vehicle for driving school.",
-      "rdfs:label": "DrivingSchoolVehicleUsage"
     }
   ],
   "@id": "http://auto.schema.org/#3.4"
