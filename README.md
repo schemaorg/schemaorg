@@ -23,8 +23,7 @@ Proposing schemas
 
 We are always interested in practical suggestions for improvements to schema.org, and our collection of schemas has been [growing gradually](http://schema.org/docs/releases.html) since our launch in 2011.
 
-We try to prioritize simple fixes and improvements to our existing schemas, examples and documentation over the addition of new vocabulary,
-and we are most likely to add new schemas when there is evidence that some large-scale consuming application will make use of the data.
+We try to [prioritize](https://lists.w3.org/Archives/Public/public-schemaorg/2015Dec/0016.html) simple fixes and improvements to our existing schemas, examples and documentation over the addition of new vocabulary, and we are most likely to add new schemas when there is evidence that some (preferably large-scale) consuming application will make use of the data. Consuming applications need not be search engines; opensource software tools, marked-enriched approaches to Web analytics, browser add-ons or cloud tools are all rich areas to explore. The important thing is that there should be some reasonable expectation of data consumers making good use of the changes. It is not sufficient to justify additions on the basis that search engines generally try to use Schema.org-based structured data. Smaller changes, and backwards-compatible changes, are easier to incorporate.
 
 Note that Schema.org does *not* attempt to capture the full detail of Web content; it is necessarily a simplification of a more complex reality. This means that there will be many cases where adding more detail to Schema.org will look possible. However, in the interests of keeping Schema.org simple and usable for publishers and webmasters, we will often choose not to add such detail. Schema.org uses Web standards such as JSON-LD, Microdata and RDFa to
 allow for [independent extension](http://schema.org/docs/extension.html) (for example, see [GS1's vocabulary](http://gs1.org/voc)).
