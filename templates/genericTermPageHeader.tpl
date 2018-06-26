@@ -57,7 +57,7 @@
   
 
 </style>
-
+<link rel="canonical" href="https://schema.org/{{ entry }}" />
 </head>
 <body class="{{ sitemode }}">
 

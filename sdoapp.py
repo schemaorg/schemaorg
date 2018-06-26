@@ -38,7 +38,7 @@ from apimarkdown import Markdown
 
 from sdordf2csv import sdordf2csv
 
-SCHEMA_VERSION="3.3"
+SCHEMA_VERSION="3.4"
 
 FEEDBACK_FORM_BASE_URL='https://docs.google.com/a/google.com/forms/d/1krxHlWJAO3JgvHRZV9Rugkr9VYnMdrI10xbGsWt733c/viewform?entry.1174568178&entry.41124795={0}&entry.882602760={1}'
 # {0}: term URL, {1} category of term.
@@ -47,7 +47,7 @@ sitemode = "mainsite" # whitespaced list for CSS tags,
             # e.g. "mainsite testsite" when off expected domains
             # "extensionsite" when in an extension (e.g. blue?)
 
-releaselog = { "2.0": "2015-05-13", "2.1": "2015-08-06", "2.2": "2015-11-05", "3.0": "2016-05-04", "3.1": "2016-08-09", "3.2": "2017-03-23", "3.3": "2017-08-14" }
+releaselog = { "2.0": "2015-05-13", "2.1": "2015-08-06", "2.2": "2015-11-05", "3.0": "2016-05-04", "3.1": "2016-08-09", "3.2": "2017-03-23", "3.3": "2017-08-14", "3.4": "2018-06-15" }
 
 silent_skip_list =  [ "favicon.ico" ] # Do nothing for now
 
@@ -69,6 +69,11 @@ ENABLE_JSONLD_CONTEXT = True
 ENABLE_CORS = True
 ENABLE_HOSTED_EXTENSIONS = True
 DISABLE_NDB_FOR_LOCALHOST = True
+
+WORKINGHOSTS = ["schema.org","schemaorg.appspot.com",
+                "webschemas.org","webschemas-g.appspot.com",
+                "sdo-test.appspot.com",
+                "localhost"]
 
 #INTESTHARNESS = True #Used to indicate we are being called from tests - use setInTestHarness() & getInTestHarness() to manage value
 
@@ -332,7 +337,7 @@ class TypeHierarchyTree:
                     seencount = self.visited.count(node.id)
                     idstring = "%s%s" % (idstring, "+" * seencount)
                     seen = '  <a href="#%s">+</a> ' % node.id
-                    
+
                 self.emit2buff(buff, '%s<li class="tleaf" id="%s"><a %s %s href="%s%s%s">%s</a>%s%s' % (" " * depth, idstring, tooltip, extclass, urlprefix, hashorslash, node.id, node.id, extflag, seen ))
             #else:
                 #self.visited[node.id] = True # never...
@@ -354,7 +359,7 @@ class TypeHierarchyTree:
         if node.id in self.visited:
             # self.emit("skipping %s - already visited" % node.id)
             return
-        self.visited[node.id] = True
+        self.visited.append(node.id)
         p1 = " " * 4 * depth
         if emit_debug:
             self.emit("%s# @id: %s last_at_this_level: %s" % (p1, node.id, last_at_this_level))
@@ -611,7 +616,15 @@ class ShowUnit (webapp2.RequestHandler):
 
     def emitCanonicalURL(self,node):
         cURL = "%s://schema.org/%s" % (CANONICALSCHEME,node.id)
-        self.write(" <span class=\"canonicalUrl\">Canonical URL: <a href=\"%s\">%s</a></span>" % (cURL, cURL))
+        if CANONICALSCHEME == "http":
+            other = "https"
+        else:
+            other = "http"
+        sa = '\n<link  property="sameAs" href="%s://schema.org/%s" />' % (other,node.id)
+
+        self.write(" <span class=\"canonicalUrl\">Canonical URL: <a href=\"%s\">%s</a></span> " % (cURL, cURL))
+        #self.write(" (<a href=\"/docs/faq.html#19\" title=\"http/https help\">?</a>)")
+        self.write(sa)
 
     # Stacks to support multiple inheritance
     crumbStacks = []
@@ -1782,15 +1795,12 @@ class ShowUnit (webapp2.RequestHandler):
         csv = sdordf2csv(queryGraph=getQueryGraph(),fullGraph=getQueryGraph(),markdownComments=True,excludeAttic=excludeAttic)
         file = StringIO.StringIO()
         term = "http://schema.org/" + schema_node.id
-        if schema_node.isClass():
+        if schema_node.isClass() or schema_node.isEnumerationValue():
             csv.type2CSV(header=True,out=file)
             csv.type2CSV(term=term,header=False,out=file)
         elif schema_node.isAttribute():
             csv.prop2CSV(header=True,out=file)
             csv.prop2CSV(term=term,header=False,out=file)
-        elif schema_node.isEnumerationValue():
-            csv.enum2CSV(header=True,out=file)
-            csv.enum2CSV(term=term,header=False,out=file)
         data = file.getvalue()
         file.close()
         return data
@@ -2059,10 +2069,11 @@ class ShowUnit (webapp2.RequestHandler):
         buff.close()
         return ret
 
-
     def setupHostinfo(self, node, test=""):
         global noindexpages
+        node = str(node)
         hostString = test
+        host_ext = ""
         args = []
         if test == "":
             hostString = self.request.host
@@ -2071,11 +2082,13 @@ class ShowUnit (webapp2.RequestHandler):
         scheme = "http" #Defalt for tests
         if not getInTestHarness():  #Get the actual scheme from the request
             scheme = self.request.scheme
-
-        host_ext = re.match( r'([\w\-_]+)[\.:]?', hostString).group(1)
-        #log.info("setupHostinfo: scheme=%s hoststring=%s host_ext?=%s" % (scheme, hostString, str(host_ext) ))
-
         setHttpScheme(scheme)
+
+        match = re.match( r'([\w\-_]+)[\.:]?', hostString)
+        host_ext = str(match.group(1))
+        match0 = str(match.group(0))
+        if host_ext + ":" == match0: #Special case for URLs with no subdomains - eg. localhost
+            host_ext = ""
 
         split = hostString.rsplit(':')
         myhost = split[0]
@@ -2083,31 +2096,43 @@ class ShowUnit (webapp2.RequestHandler):
         myport = "80"
         if len(split) > 1:
             myport = split[1]
+        setHostPort(myport)
+
+
+        log.info("setupHostinfo: data: scheme='%s' hoststring='%s' host_ext='%s'" % (scheme, hostString, str(host_ext) ))
+
+        if host_ext != "":
+            if host_ext in ENABLED_EXTENSIONS:
+                mybasehost = mybasehost[len(host_ext) + 1:]
+
+            elif host_ext == "www":
+                mybasehost = mybasehost[4:]
+                setBaseHost(mybasehost)
+                log.info("Host extention '%s' - redirecting to '%s'" % (host_ext,mybasehost))
+                return self.redirectToBase(node,True)
+            else:
+                tempbase = mybasehost[len(host_ext)+1:]
+                if tempbase in WORKINGHOSTS: #Known hosts so can control extention values
+                    mybasehost = tempbase
+                    setHostExt("")
+                    setBaseHost(mybasehost)
+                    log.info("Host extention '%s' not enabled - redirecting to '%s'" % (host_ext,mybasehost))
+                    return self.redirectToBase(node,True)
+
+                else:                        #Unknown host so host_ext may be just part of the host string
+                    host_ext = ""
+
+        log.info("setupHostinfo: calculated: basehost='%s' host_ext='%s'" % (mybasehost, host_ext ))
 
         setHostExt(host_ext)
         setBaseHost(mybasehost)
-        setHostPort(myport)
 
-        if host_ext != None:
-            # e.g. "bib"
-            log.debug("HOST: Found %s in %s" % ( host_ext, hostString ))
-            if host_ext == "www":
-                # www is special case that cannot be an extension - need to redirect to basehost
-                mybasehost = mybasehost[4:]
-                setBaseHost(mybasehost)
-                return self.redirectToBase(node,True)
-            elif not host_ext in ENABLED_EXTENSIONS:
-                host_ext = ""
-            else:
-                mybasehost = mybasehost[len(host_ext) + 1:]
-            setHostExt(host_ext)
-            setBaseHost(mybasehost)
-            if mybasehost == "schema.org":
+        if mybasehost == "schema.org":
+            noindexpages = False
+        if "FORCEINDEXPAGES" in os.environ:
+            if os.environ["FORCEINDEXPAGES"] == "True":
                 noindexpages = False
-            if "FORCEINDEXPAGES" in os.environ:
-                if os.environ["FORCEINDEXPAGES"] == "True":
-                    noindexpages = False
-            log.info("[%s] noindexpages: %s" % (getInstanceId(short=True),noindexpages))
+        log.info("[%s] noindexpages: %s" % (getInstanceId(short=True),noindexpages))
 
         setHostExt(host_ext)
         setBaseHost(mybasehost)
@@ -2137,7 +2162,8 @@ class ShowUnit (webapp2.RequestHandler):
     def redirectToBase(self,node="",full=False):
         uri = makeUrl("",node,full)
         log.info("Redirecting [301] to: %s" % uri)
-        self.response = webapp2.redirect(uri, True, 301)
+        if not getInTestHarness():
+            self.response = webapp2.redirect(uri, True, 301)
         return False
 
 

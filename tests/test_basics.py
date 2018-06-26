@@ -189,9 +189,9 @@ class SchemaBasicAPITestCase(unittest.TestCase):
 
       u.setupHostinfo(thing,"fred.localhost:8080")
       self.assertEqual( getHostExt(), "", "host_ext should be empty for host fred.localhost:8080.")
-      self.assertEqual( getBaseHost(), "fred.localhost", "baseHost should be 'fred.localhost' for host fred.localhost:8080.")
+      self.assertEqual( getBaseHost(), "localhost", "baseHost should be 'localhost' for host fred.localhost:8080.")
       self.assertEqual( getHostPort(), "8080", "HostPort should be '8080' for host fred.localhost:8080.")
-      self.assertEqual( makeUrl("tst",full=True), "http://tst.fred.localhost:8080", "URL should be 'http://tst.fred.localhost:8080' for host fred.localhost:8080.")
+      self.assertEqual( makeUrl("tst",full=True), "http://tst.localhost:8080", "URL should be 'http://tst.localhost:8080' for host fred.localhost:8080.")
 
       u.setupHostinfo(thing,"schema.org")
       self.assertEqual( getHostExt(), "", "host_ext should be empty for host schema.org.")
@@ -207,9 +207,9 @@ class SchemaBasicAPITestCase(unittest.TestCase):
 
       u.setupHostinfo(thing,"fred.schema.org:8080")
       self.assertEqual( getHostExt(), "", "host_ext should be empty for host fred.schema.org:8080.")
-      self.assertEqual( getBaseHost(), "fred.schema.org", "baseHost should be 'fred.schema.org' for host fred.schema.org:8080.")
+      self.assertEqual( getBaseHost(), "schema.org", "baseHost should be 'schema.org' for host fred.schema.org:8080.")
       self.assertEqual( getHostPort(), "8080", "HostPort should be '8080' for host fred.schema.org:8080.")
-      self.assertEqual( makeUrl("tst",full=True), "http://tst.fred.schema.org:8080", "URL should be 'http://tst.fred.schema.org:8080' for host fred.schema.org:8080.")
+      self.assertEqual( makeUrl("tst",full=True), "http://tst.schema.org:8080", "URL should be 'http://tst.schema.org:8080' for host fred.schema.org:8080.")
 
       u.setupHostinfo(thing,"webschemas.org")
       self.assertEqual( getHostExt(), "", "host_ext should be empty for host webschemas.org.")
@@ -225,9 +225,9 @@ class SchemaBasicAPITestCase(unittest.TestCase):
 
       u.setupHostinfo(thing,"fred.webschemas.org:8080")
       self.assertEqual( getHostExt(), "", "host_ext should be empty for host fred.webschemas.org:8080.")
-      self.assertEqual( getBaseHost(), "fred.webschemas.org", "baseHost should be 'fred.webschemas.org' for host fred.webschemas.org:8080.")
+      self.assertEqual( getBaseHost(), "webschemas.org", "baseHost should be 'webschemas.org' for host fred.webschemas.org:8080.")
       self.assertEqual( getHostPort(), "8080", "HostPort should be '8080' for host fred.webschemas.org:8080.")
-      self.assertEqual( makeUrl("tst",full=True), "http://tst.fred.webschemas.org:8080", "URL should be 'http://tst.fred.webschemas.org:8080' for host fred.webschemas.org:8080.")
+      self.assertEqual( makeUrl("tst",full=True), "http://tst.webschemas.org:8080", "URL should be 'http://tst.webschemas.org:8080' for host fred.webschemas.org:8080.")
       
       u.setupHostinfo(thing,"sdo-ganymede.appspot.com")
       self.assertEqual( getHostExt(), "", "host_ext should be empty for host sdo-ganymede.appspot.com.")
@@ -241,6 +241,7 @@ class SchemaBasicAPITestCase(unittest.TestCase):
       self.assertEqual( getHostPort(), "80", "HostPort should be '80' for host bib.sdo-ganymede.appspot.com.")
       self.assertEqual( makeUrl("tst",full=True), "http://tst.sdo-ganymede.appspot.com", "URL should be 'http://tst.sdo-ganymede.appspot.com' for host bib.sdo-ganymede.appspot.com.")
 
+      #As sdo-ganymede.appspot.com is not in the WORKINGHOSTS list, the unenabled 'fred' extension can not be identified as a false extention & therefore not redirected out of path
       u.setupHostinfo(thing,"fred.sdo-ganymede.appspot.com")
       self.assertEqual( getHostExt(), "", "host_ext should be empty for host fred.sdo-ganymede.appspot.com.")
       self.assertEqual( getBaseHost(), "fred.sdo-ganymede.appspot.com", "baseHost should be 'fred.sdo-ganymede.appspot.com' for host fred.sdo-ganymede.appspot.com.")
@@ -553,6 +554,23 @@ class AdvancedJSONLDTests(unittest.TestCase):
        self.assertTrue( "sameAs" in ctx["@context"] , "sameAs should be defined." )
 
 #      self.assertTrue( HasMultipleBaseTypes( Unit.GetUnit("LocalBusiness") ) , "LocalBusiness is subClassOf Place + Organization." )
+
+
+class TraverseTreeTests(unittest.TestCase):
+    
+    def test_html_tree(self):
+        uThing = Unit.GetUnit("Thing")
+        mainroot = TypeHierarchyTree("local_label")
+        mainroot.traverseForHTML(uThing, layers="core", idprefix="C.")
+        html = mainroot.toHTML()
+        self.assertTrue( html != None and len(html) > 0, "traverseForHTML should return content")
+
+    def test_jsonld_tree(self):
+        uThing = Unit.GetUnit("Thing")
+        mainroot = TypeHierarchyTree()
+        mainroot.traverseForJSONLD(Unit.GetUnit("Thing"), layers="core")
+        thing_tree = mainroot.toJSON()
+        self.assertTrue( thing_tree != None and len(thing_tree) > 0, "traverseForJSONLD should return content")
 
 
 # TODO: Unwritten tests
