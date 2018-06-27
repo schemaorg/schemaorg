@@ -143,7 +143,7 @@ MICRODATA:
 
 RDFA:
 <div vocab="http://schema.org/"
-     typeof="EducationalOccupationalCredential http://purl.org/ctdl/terms/Certification">
+     typeof="EducationalOccupationalCredential">
 <h1 property="name">Certified Safety Professional</h1>
 <link property="url" href="https://www.bcsp.org/CSP" />
 <p property="description">Certified Safety Professionals (CSP) are persons
@@ -153,7 +153,7 @@ RDFA:
   incidents, maintaining and evaluating incident and loss records, and
   preparing emergency response plans.</p>
   <div property="credentialCategory" typeof="DefinedTerm"
-       resource="http://purl.org/ctdl/terms/Certification" />
+       resource="http://purl.org/ctdl/terms/Certification">
     <meta property="name" content="Certification" />
     <div property="inDefinedTermSet" typeof="http://schema.org/DefinedTermSet"
          resource="http://purl.org/ctdl/terms/">
@@ -166,7 +166,7 @@ JSON:
 <script type="application/ld+json">
 {
   "@context": "http://schema.org",
-  "@type": ["EducationalOccupationalCredential","http://purl.org/ctdl/terms/Certification"],
+  "@type": ["EducationalOccupationalCredential"],
   "name": "Certified Safety Professional",
   "url": "https://www.bcsp.org/CSP",
   "description": "Certified Safety Professionals (CSP) are persons
@@ -191,25 +191,38 @@ JSON:
 TYPES: EducationalOccupationalCredential, Occupation, educationRequirements
 
 PRE-MARKUP:
-
-See JSON example.
+<h1>Occupation: Research Scientist</h1>
+<h2>educationRequirements"</h2>
+<p>PhD or equivalent<p>
 
 MICRODATA:
+<div itemscope itemtype="http://schema.org/Occupation">
+ <h1>Occupation: <span itemprop="name"> Research Scientist</span></h1>
+ <h2>qualifications</h2>
+ <p itemprop="educationRequirements" itemscope
+    itemtype="http://schema.org/EducationalOccupationalCredential">
+  <span itemprop="educationalLevel">PhD or equivalent</span>
+ </p>
+</div>
 
-TODO
 
 RDFA:
-
-TODO
+<div vocab="http://schema.org/" typeof="http://schema.org/Occupation">
+ <h1>Occupation: <span property="name"> Research Scientist</span></h1>
+ <h2>qualifications</h2>
+ <p property="educationRequirements"
+    typeof="http://schema.org/EducationalOccupationalCredential">
+  <span property="educationalLevel">PhD or equivalent</span>
+ </p>
+</div>
 
 JSON:
-
 <script type="application/ld+json">
 {
   "@context": "http://schema.org/",
   "@type": "Occupation",
   "name": "Research Scientist",
-  "educationRequirements": {
+  "qualifications": {
     "@type": "EducationalOccupationalCredential",
     "educationalLevel": "PhD or equivalent"
   }
