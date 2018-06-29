@@ -6,6 +6,16 @@
     <meta name="description" content="Schema.org is a set of extensible schemas that enables webmasters to embed
     structured data on their web pages for use by search engines and other applications." />
     <link rel="stylesheet" type="text/css" href="schemaorg.css" />
+<!-- Enable CSE Search -->
+    <script>
+    (function() {
+      var cx = '013516846811604855281:nj5laplixaa'; // Insert your own Custom Search engine ID here
+      var gcse = document.createElement('script'); gcse.type = 'text/javascript'; gcse.async = true;
+      gcse.src = 'https://cse.google.com/cse.js?cx=' + cx;
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(gcse, s);
+    })();
+    </script>
+
 </head>
 <body>
     <div id="container">
@@ -18,20 +28,7 @@
 				</h1>
 				</div>
 
-<div id="cse-search-form" style="width: 400px;"></div>
-
-<script type="text/javascript" src="//www.google.com/jsapi"></script>
-<script type="text/javascript">
-  google.load('search', '1', {language : 'en', style : google.loader.themes.ESPRESSO});
-  google.setOnLoadCallback(function() {
-    var customSearchControl = new google.search.CustomSearchControl('013516846811604855281:nj5laplixaa');
-    customSearchControl.setResultSetSize(google.search.Search.FILTERED_CSE_RESULTSET);
-    var options = new google.search.DrawOptions();
-    options.enableSearchboxOnly("../docs/search_results.html", null, false, '#');
-    customSearchControl.draw('cse-search-form', options);
-  }, true);
-</script>
-
+                    <div id="cse-search-form" style="width: 400px;"><div class="gcse-searchbox-only" data-resultsUrl="/docs/search_results.html"></div></div>
 
               </div>
             </div>
@@ -51,7 +48,6 @@
                 </div>
 
             </div>
-        <div style="padding: 14px; float: right;" id="languagebox"></div>
 
   <div id="mainContent" class="faq">
 
@@ -157,7 +153,7 @@ examples to see how the details compare.</p>
 
 <p>This specifies that the item contained in the div is in fact a Movie, as defined in the schema.org type hierarchy. Item types are provided as URLs, in this case <code>http://schema.org/Movie</code>.
 
-<p class="backtotop" align="right"><a href="#top">Back to top</a></p>
+<p class="backtotop" style="text-align:right;"><a href="#top">Back to top</a></p>
 
 <h3 id="microdata_itemprop">1c. itemprop</h3>
 <p>What additional information can we give search engines about the movie Avatar? Movies have interesting properties such as actors, director, ratings. To label properties of an item, use the <code>itemprop</code> attribute. For example, to identify the director of a movie, add <code>itemprop="director"</code> to the element enclosing the director's name. (There's a full list of all the properties you can associate with a movie at http://schema.org/Movie.)</p>
@@ -220,7 +216,7 @@ examples to see how the details compare.</p>
 
   <li><strong>Expected types vs text.</strong> When browsing the schema.org types, you will notice that many properties have "expected types". This means that the value of the property can itself be an embedded item (see section 1d: embedded items). But this is not a requirement&mdash;it's fine to include just regular text or a URL. In addition, whenever an expected type is specified, it is also fine to embed an item that is a child type of the expected type. For example, if the expected type is Place, it's also OK to embed a LocalBusiness.</li>
 
-  <li><strong>Using the url property.</strong> Some web pages are about a specific item. For example, you may have a web page about a single person, which you could mark up using the Person item type. Other pages have a collection of items described on them. For example, your company site could have a page listing employees, with a link to a profile page for each person. For pages like this with a collection of items, you should mark up each item separately (in this case as a series of Persons) and add the url property to the link to the corresponding page for each item, like this:</p>
+  <li><strong>Using the url property.</strong> Some web pages are about a specific item. For example, you may have a web page about a single person, which you could mark up using the Person item type. Other pages have a collection of items described on them. For example, your company site could have a page listing employees, with a link to a profile page for each person. For pages like this with a collection of items, you should mark up each item separately (in this case as a series of Persons) and add the url property to the link to the corresponding page for each item, like this:
 
 <pre>
 &lt;div itemscope itemtype="http://schema.org/Person"&gt;

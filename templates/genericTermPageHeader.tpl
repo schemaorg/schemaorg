@@ -1,14 +1,13 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<html lang="en">
 <!-- Generated from genericTermPageHeader.tpl -->
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  {% include 'headtags.tpl' with context %}
+	{% if noindexpage %}<meta name="robots" content="noindex">{% endif %}
     <title>{{ entry }} - {{ sitename }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="{{ desc }}" />
-    <link rel="stylesheet" type="text/css" href="/docs/schemaorg.css" />
-    <link href="/docs/prettify.css" type="text/css" rel="stylesheet" />
-    <script type="text/javascript" src="/docs/prettify.js"></script>
-    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
+
 
 <script type="text/javascript">
       $(document).ready(function(){
@@ -58,7 +57,7 @@
   
 
 </style>
-
+<link rel="canonical" href="https://schema.org/{{ entry }}" />
 </head>
 <body class="{{ sitemode }}">
 

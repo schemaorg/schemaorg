@@ -55,7 +55,7 @@ Of these,
    when served locally via "dev_appserver ."
    For now, you need to edit this html to remove webschemas.org from heading section.
 
-  * To create .nt, .nq, etc files use scripts/buildreleasefiles.sh   
+  * To create .nt, .nq, etc files use scripts/buildreleasefiles.sh
 
   * README.md should be copied/updated accordingly.  TODO: simplify this file.
 
@@ -67,9 +67,11 @@ First copy snapshot into place:
 
 * Now the HTML snapshot itself. Assuming a local server (e.g. from 'dev_appserver .') we can do:
  * curl http://localhost:8080/version/build-latest > data/releases/3.2/schema-all.html (taking care with the version number, of course)
-
+ or this, to use webschemas: curl https://webschemas.org/version/build-latest > data/releases/3.4/schema-all.html
+ * clean up the html including the bit that says you're in a developer view etc.
+ 
 Then generate N-Triples etc. versions:
-* Ensure that the EXTENTIONS variable at the top of the script 'scripts/buildreleasefiles.sh' contains all the extensions for this release.
+* Ensure that the EXTENSIONS variable at the top of the script 'scripts/buildreleasefiles.sh' contains all the extensions for this release.
 * scripts/buildreleasefiles.sh 3.1 - Check listed extensions is correct update if not
 
 * Run './scripts/buildsitemap.py' make sure sitemap is up to date
@@ -143,42 +145,36 @@ final round of sanity-check tests is useful:
 * Run again 'git status', confirm no uncommited files or changes.
 * Run again: './scripts/updateAppEngine.sh' for development/upstream site sync.
 
-3.) Merge release branch into master
-
-3a.) Get changes into master branch on github
-
-Use GitHub Web UI to create a pull request. For example to merge the
-release branch sdo-phobos into master, we set the base branch 'master' and
-compare 'sdo-phobos'. If you get this backwards you should see nothing to do,
-because there ought to be no changes in master that we lack in the later
-sdo-phobos branch.
-
-Note also that if someone else has already (e.g. mistakenly) filed a pull request
-between the same pair of branches, Github will try to recycle that one (including
-their description) instead of give you a new one with proper name, description.
-Workaround is to close that PR (keeping track of any open issue it raises).
-
-Result should be "danbri  wants to merge 205 commits into master from sdo-phobos"
-or similar. Check the Commits and Files changed tabs. If it looks plausible
-(e.g. Showing  55 changed files  with 79,679 additions and 820 deletions.) we
-can proceed with merging.
-
-3b) Get merged changes back into your working colorOpacity
-
-I do 'git checkout master'; 'git pull --all'. You may know of other
-incantations. See also http://xkcd.com/1597/
+3.) Previously: "Merge release branch into master"; now we develop in "master."
 
 4.) Publish from a clean checkout of 'master' branch to schema.org.
 
+Using gcloud app deploy
+~~~~~~~~~~~~~~~~~~~~~~~
+
+gcloud app deploy --no-promote --project schemaorgae --version=3.4 schemaorg.yaml
+
+Note: the --no-promote flage deploys the version but does not transfer traffic to it.
+This can then be done when required via the appengine console, versions screen:
+   https://console.cloud.google.com/appengine/versions?project=schemaorgae&serviceId=default&versionssize=50
+
+===========OLD============
 Either by editing app.yaml to make sure 'application: schemaorgae' is active,
-or by passing the name of the live appengine ID on the commandline. Currently
-@rvguha (as Steering Group chair) and @danbri (as Community Group chair and
+or by passing the name of the live appengine ID on the commandline.
+===========OLD============
+
+Currently @rvguha (as Steering Group chair) and @danbri (as Community Group chair and
 webmaster / dogsbody) have write access to the corresponding appengine account.
 
- * e.g. run: appcfg.py update . -A schemaorgae
- * inspect console output for something like:
-  * 03:35 PM Completed update of app: schemaorgae, version: 1
- * Count to ten. Check http://schema.org/ and the 'releases' link.
+===========OLD============
+ * e.g. update schemaorg.yaml then:  appcfg.py update schemaorg.yaml -A schemaorgae
+ * Count to thirty. Log into appengine and you should see a new version.
+* Send 5% of traffic to this version to catch any errors, then move to 100%.
+===========OLD============
+
+Note that appengine versions are visible using URLs with this pattern:
+
+http://3-3.schemaorgae.appspot.com/docs/releases.html
 
 5.) Related post-release tasks.
 
