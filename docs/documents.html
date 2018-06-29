@@ -6,6 +6,15 @@
     <meta name="description" content="Schema.org is a set of extensible schemas that enables webmasters to embed
     structured data on their web pages for use by search engines and other applications." />
     <link rel="stylesheet" type="text/css" href="schemaorg.css" />
+<!-- Enable CSE Search -->
+    <script>
+    (function() {
+      var cx = '013516846811604855281:nj5laplixaa'; // Insert your own Custom Search engine ID here
+      var gcse = document.createElement('script'); gcse.type = 'text/javascript'; gcse.async = true;
+      gcse.src = 'https://cse.google.com/cse.js?cx=' + cx;
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(gcse, s);
+    })();
+    </script>
 
 </head>
 <body>
@@ -19,20 +28,7 @@
 				</h1>
 				</div>
 
-<div id="cse-search-form" style="width: 400px;"></div>
-
-<script type="text/javascript" src="//www.google.com/jsapi"></script>
-<script type="text/javascript">
-  google.load('search', '1', {language : 'en', style : google.loader.themes.ESPRESSO});
-  google.setOnLoadCallback(function() {
-    var customSearchControl = new google.search.CustomSearchControl('013516846811604855281:nj5laplixaa');
-    customSearchControl.setResultSetSize(google.search.Search.FILTERED_CSE_RESULTSET);
-    var options = new google.search.DrawOptions();
-    options.enableSearchboxOnly("../docs/search_results.html", null, false, '#');
-    customSearchControl.draw('cse-search-form', options);
-  }, true);
-</script>
-
+                    <div id="cse-search-form" style="width: 400px;"><div class="gcse-searchbox-only" data-resultsUrl="/docs/search_results.html"></div></div>
 
               </div>
             </div>
@@ -52,7 +48,6 @@
                 </div>
 
             </div>
-        <div style="padding: 14px; float: right;" id="languagebox"></div>
 
   <div id="mainContent" class="faq">
 
@@ -76,6 +71,8 @@
   <li><a href="http://blog.schema.org/2012/05/schemaorg-markup-for-external-lists.html">External Enumerations</a>: How to use external controlled lists to add detail.</li>
   <li><a href="meddocs.html">Health and medical types</a>: notes on the health and medical types under <a href="/MedicalEntity">MedicalEntity</a>.</li>
   <li><a href="hotels.html">Hotels</a>: Background information and examples on the types and properties for marking up hotels and other accommodations using e.g. <a href="/Hotel">Hotel</a> and <a href="/HotelRoom">HotelRoom</a>.</li>
+  <li><a href="automotive.html">Autos</a>: background information on marking up automobiles.</li>
+  <li><a href="financial.html">Banks and Financial Institutions</a>: Background information and examples on the types and properties for marking up banks and their products e.g. <a href="/MortgageLoan">MortgageLoan</a> and <a href="/ExchangeRateSpecification">ExchangeRateSpecification</a>.</li>
   <li><a href="http://blog.schema.org">Schema.org Blog</a></li>
   <li>
       <div>Since April 2015, the W3C <a href="http://www.w3.org/community/schemaorg">Schema.org Community Group</a> is the main forum for schema collaboration, and provides the

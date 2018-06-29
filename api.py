@@ -42,6 +42,12 @@ INTESTHARNESS = False
 def setInTestHarness(val):
     global INTESTHARNESS
     INTESTHARNESS = val
+    if val:
+        storestate = False
+    else:
+        storestate = True   
+    enablePageStore(storestate)
+    
 def getInTestHarness():
     global INTESTHARNESS
     return INTESTHARNESS
@@ -180,7 +186,6 @@ class DataCacheTool():
     def keys(self):
         return self._DataCache.keys()
 
-DataCache = DataCacheTool()
 
 class PageEntity(ndb.Model):
     content = ndb.TextProperty()
@@ -286,6 +291,11 @@ class HeaderStoreTool():
         fullKey = ca + ":" + key
         ent = HeaderEntity(id = fullKey, content = val)
         ent.put()
+
+    def putIfNewKey(self, key, val,cache=None):
+        #gets are lightweight puts are not
+        if self.get(key,cache) == None:
+            self.put(key,val,cache)
         
     def get(self, key,cache=None):
         ca = self.getCurrent()
@@ -309,22 +319,89 @@ class HeaderStoreTool():
         else:
             return None
 
+class DataEntity(ndb.Model):
+    content = ndb.PickleProperty()
+    
+class DataStoreTool():
+    def __init__ (self):
+        self.tlocal = threading.local()
+        self.tlocal.CurrentStoreSet = "core"
+
+    def initialise(self):
+        import time
+        log.info("[%s]DataStore initialising Data Store" % (getInstanceId(short=True)))
+        loops = 0
+        ret = 0
+        while loops < 10:
+            keys = DataEntity.query().fetch(keys_only=True)
+            count = len(keys)
+            if count == 0:
+                break
+            log.info("[%s]DataStore deleting %s keys" % (getInstanceId(short=True), count))
+            ndb.delete_multi(keys,use_memcache=False,use_cache=False) 
+            ret += count
+            loops += 1
+            time.sleep(0.01)
+        return {"DataStore":ret}
+            
+    def getCurrent(self):
+        return self.tlocal.CurrentStoreSet
+        
+    def setCurrent(self,current):
+        self.tlocal.CurrentStoreSet = current
+        log.debug("DataStore setting CurrentStoreSet: %s",current)
+
+    def put(self, key, val,cache=None):
+        ca = self.getCurrent()
+        if cache != None:
+            ca = cache
+        fullKey = ca + ":" + key
+        ent = DataEntity(id = fullKey, content = val)
+        ent.put()
+        
+    def get(self, key,cache=None):
+        ca = self.getCurrent()
+        if cache != None:
+            ca = cache
+        fullKey = ca + ":" + key
+        ent = DataEntity.get_by_id(fullKey)
+        if(ent):
+            return ent.content
+        else:
+            return None
+
+    def remove(self, key,cache=None):
+        ca = self.getCurrent()
+        if cache != None:
+            ca = cache
+        fullKey = ca + ":" + key
+        ent = DataEntity.get_by_id(fullKey)
+        if(ent):
+            return ent.key.delete()
+        else:
+            return None
+            
 PageStore = None
 HeaderStore = None
+DataCache = None
 log.info("[%s] NDB PageStore & HeaderStore available: %s" % (getInstanceId(short=True),NDBPAGESTORE))
 
 def enablePageStore(state):
-    global PageStore,HeaderStore
+    global PageStore,HeaderStore,DataCache
+    log.info("enablePageStore(%s)" % state)
     if state:
         log.info("[%s] Enabling NDB" % getInstanceId(short=True))
         PageStore = PageStoreTool()
         log.info("[%s] Created PageStore" % getInstanceId(short=True))
         HeaderStore = HeaderStoreTool()
         log.info("[%s] Created HeaderStore" % getInstanceId(short=True))
+        DataCache = DataStoreTool()
+        log.info("[%s] Created DataStore" % getInstanceId(short=True))
     else:
         log.info("[%s] Disabling NDB" % getInstanceId(short=True))
         PageStore = DataCacheTool()
         HeaderStore = DataCacheTool()
+        DataCache = DataCacheTool()
 
 if  NDBPAGESTORE:
     enablePageStore(True)
@@ -390,9 +467,10 @@ class Unit ():
         types = GetTargets( Unit.GetUnit("rdf:type"), self, layers )
         return (type in types)
 
-    # Function needs rewriting to use GetTargets(arc,src,layers) and recurse
     def subClassOf(self, type, layers='core'):
         """Boolean, true if the unit has an rdfs:subClassOf matching this type, direct or implied (in specified layer(s))."""
+        if not type:
+            return False
         if (self.id == type.id):
             return True
         parents = GetTargets( Unit.GetUnit("rdfs:subClassOf"), self, layers )
@@ -583,7 +661,7 @@ class Unit ():
         elif (str == '10'):
             return "Over 1,000,000 domains"
         else:
-            return "Fewer than 10 domains"
+            return ""
 
 # NOTE: each Triple is in exactly one layer, by default 'core'. When we
 # read_schemas() from data/ext/{x}/*.rdfa each schema triple is given a
@@ -742,13 +820,14 @@ def GetImmediateSupertypes(n, layers='core'):
     return sups
 
 Utc = "util_cache"
+UtilCache = DataCacheTool()
 def GetAllTypes(layers='core'):
     global Utc
     """Return all types in the graph."""
     KEY = "AllTypes:%s" % layers
-    if DataCache.get(KEY+'x',Utc):
+    if UtilCache.get(KEY+'x',Utc):
         #logging.debug("DataCache HIT: %s" % KEY)
-        return DataCache.get(KEY,Utc)
+        return UtilCache.get(KEY,Utc)
     else:
         #logging.debug("DataCache MISS: %s" % KEY)
         mynode = Unit.GetUnit("Thing", True)
@@ -762,16 +841,16 @@ def GetAllTypes(layers='core'):
             for sc in subs:
                 if subbed.get(sc.id) == None:
                     todo.append(sc)
-        DataCache.put(KEY,subbed.keys(),Utc)
+        UtilCache.put(KEY,subbed.keys(),Utc)
         return subbed.keys()
 
 def GetAllDataTypes(layers='core'):
     global Utc
     """Return all types in the graph."""
     KEY = "AllDataTypes:%s" % layers
-    if DataCache.get(KEY+'x',Utc):
+    if UtilCache.get(KEY+'x',Utc):
         #logging.debug("DataCache HIT: %s" % KEY)
-        return DataCache.get(KEY,Utc)
+        return UtilCache.get(KEY,Utc)
     else:
         #logging.debug("DataCache MISS: %s" % KEY)
         mynode = Unit.GetUnit("DataType", True)
@@ -785,15 +864,15 @@ def GetAllDataTypes(layers='core'):
             for sc in subs:
                 if subbed.get(sc.id) == None:
                     todo.append(sc)
-        DataCache.put(KEY,subbed.keys(),Utc)
+        UtilCache.put(KEY,subbed.keys(),Utc)
         return subbed.keys()
 
 def GetAllEnumerationValues(layers='core'):
     global Utc
     KEY = "AllEnums:%s" % layers
-    if DataCache.get(KEY,Utc):
+    if UtilCache.get(KEY,Utc):
         #logging.debug("DataCache HIT: %s" % KEY)
-        return DataCache.get(KEY,Utc)
+        return UtilCache.get(KEY,Utc)
     else:
         #logging.debug("DataCache MISS: %s" % KEY)
         mynode = Unit.GetUnit("Enumeration", True)
@@ -811,7 +890,7 @@ def GetAllEnumerationValues(layers='core'):
                         enums[val] = 1
                 if subbed.get(sc.id) == None:
                     todo.append(sc)
-        DataCache.put(KEY,enums.keys(),Utc)
+        UtilCache.put(KEY,enums.keys(),Utc)
         return enums.keys()
 
 
@@ -819,9 +898,9 @@ def GetAllProperties(layers='core'):
     """Return all properties in the graph."""
     global Utc
     KEY = "AllProperties:%s" % layers
-    if DataCache.get(KEY,Utc):
+    if UtilCache.get(KEY,Utc):
         #logging.debug("DataCache HIT: %s" % KEY)
-        return DataCache.get(KEY,Utc)
+        return UtilCache.get(KEY,Utc)
     else:
         #logging.debug("DataCache MISS: %s" % KEY)
         mynode = Unit.GetUnit("Thing")
@@ -831,7 +910,7 @@ def GetAllProperties(layers='core'):
             if inLayer(layers,prop):
                 res.append(prop)
         sorted_all_properties = sorted(res, key=lambda u: u.id)
-        DataCache.put(KEY,sorted_all_properties,Utc)
+        UtilCache.put(KEY,sorted_all_properties,Utc)
         return sorted_all_properties
 
 def GetAllTerms(layers='core',includeDataTypes=False):
@@ -999,6 +1078,7 @@ def GetJsonLdContext(layers='core'):
         jsonldcontext = "{\n  \"@context\": {\n"
         jsonldcontext += "        \"type\": \"@type\",\n"
         jsonldcontext += "        \"id\": \"@id\",\n"
+        jsonldcontext += "        \"HTML\": { \"@id\": \"rdf:HTML\" },\n"
         jsonldcontext += "        \"@vocab\": \"http://schema.org/\",\n"
         jsonldcontext += namespaces
 
@@ -1307,11 +1387,12 @@ class CacheControl():
     @staticmethod
     def clean(pagesonly=False):
         ret = {}
-        ret["DataCache"] = DataCache.initialise()
+
         if not NDBPAGESTORE:
             ret["PageStore"] = PageStore.initialise()
             ret["HeaderStore"] = HeaderStore.initialise()
-        
+            ret["DataCache"] = DataCache.initialise()
+
         ndbret = CacheControl.ndbClean()
         ret.update(ndbret)
         

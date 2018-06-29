@@ -9,6 +9,15 @@
     <link href="prettify.css" type="text/css" rel="stylesheet" />
     <script type="text/javascript" src="prettify.js"></script>
     <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
+<!-- Enable CSE Search -->
+    <script>
+    (function() {
+      var cx = '013516846811604855281:nj5laplixaa'; // Insert your own Custom Search engine ID here
+      var gcse = document.createElement('script'); gcse.type = 'text/javascript'; gcse.async = true;
+      gcse.src = 'https://cse.google.com/cse.js?cx=' + cx;
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(gcse, s);
+    })();
+    </script>
 
 <script type="text/javascript">
       $(document).ready(function(){
@@ -40,20 +49,7 @@
 				</h1>
 				</div>
 
-<div id="cse-search-form" style="width: 400px;"></div>
-
-<script type="text/javascript" src="//www.google.com/jsapi"></script>
-<script type="text/javascript">
-  google.load('search', '1', {language : 'en', style : google.loader.themes.ESPRESSO});
-  google.setOnLoadCallback(function() {
-    var customSearchControl = new google.search.CustomSearchControl('013516846811604855281:nj5laplixaa');
-    customSearchControl.setResultSetSize(google.search.Search.FILTERED_CSE_RESULTSET);
-    var options = new google.search.DrawOptions();
-    options.enableSearchboxOnly("../docs/search_results.html", null, false, '#');
-    customSearchControl.draw('cse-search-form', options);
-  }, true);
-</script>
-
+                    <div id="cse-search-form" style="width: 400px;"><div class="gcse-searchbox-only" data-resultsUrl="/docs/search_results.html"></div></div>
 
               </div>
             </div>
@@ -73,7 +69,6 @@
                 </div>
 
             </div>
-        <div style="padding: 14px; float: right;" id="languagebox"></div>
 
   <div id="mainContent">
 
@@ -112,7 +107,7 @@ which describes the organizational structure of the project.
   <li>A "live" hosted extension dedicated to "pending" new vocabulary proposals is maintained as part of this process at <a href="http://pending.webschemas.org/">pending.webschemas.org</a>, and can be updated (including to <a href="http://pending.schema.org/">pending.schema.org</a>) by the <a href="#webmaster">project webmaster</a> immediately, rather than
     waiting for a full official release. This serves to highlight possible new vocabulary improvements but may not always reflect wider consensus in the community and steering groups.</li>
   <li>Periodically, snapshots of the community's <em>rough consensus</em> are published as release candidates by the project webmaster, for review by the <a href="about.html#cgsg">steering group</a>.</li>
-  <li>After steering group <a href="#w3rel">review</a> and approval, the schema.org site is updated with the new release by the project webmaster.</li>
+  <li>After steering group <a href="#w3rel">review</a> and approval, if no concerns are raised within 10 business days, the schema.org site is updated with the new release by the project webmaster.</li>
 </ul>
 
 
@@ -191,7 +186,7 @@ definitions. Finally, all changes to the site and its underlying software are no
  <p>It is also important to understand what schema.org does <em>not</em> define or dictate. In particular schema.org does not define any notion of 'mandatory' property.
 Different sites and pages naturally have different amounts of information available; these details cannot be anticipated by schema designers. Similarly, the information needs of consuming services may also vary. We do not attempt to reach consensus at schema.org on what an ideal description of some type (Person, Place, TVSeries etc.) ought to contain - this makes consensus significantly easier to achieve. The schema.org site does contain many practical markup examples, which give rough hints about common and useful patterns for combining schema.org terms.</p>
 
-<p>
+
 Each release can include several kinds of change:
 <ul>
 <li>Bug fixes and minor improvements (e.g. typos, markup errors in examples).</li>
@@ -201,13 +196,12 @@ Each release can include several kinds of change:
 <li>Adjustments to the examples that accompany each term, and to the indexing of which terms an example should show up against. Although examples are
   not formally part of the schema definitions, they play a central role in schema.org's widescale adoption and are versioned as part of the release.</li>
 <li>Adjustments to the machine-readable claims we make about each term: supertype(s), superproperties, inverses, and the associations that link types and properties together.
-  For each property we maintain a list of one or more types that it is expected to be applied to (technically, "<a href="/domainIncludes">domainIncludes</a>"), alongside one or more types that are expected as its values (expressed using "<a href="/rangeIncludes">rangeIncludes</a>"). We may also mark some properties as "<a href="/supsededBy">supersededBy</a>" others. It is exceptionally rare for a property, type or enumerated value to be deleted/removed without leaving it in the system as "supersededBy" another. Additional machine-readable metadata in RDFS/OWL is also used to  express mappings internally and to external vocabularies. These mappings also evolve.
+  For each property we maintain a list of one or more types that it is expected to be applied to (technically, "<a href="/domainIncludes">domainIncludes</a>"), alongside one or more types that are expected as its values (expressed using "<a href="/rangeIncludes">rangeIncludes</a>"). We may also mark some properties as "<a href="/supersededBy">supersededBy</a>" others. It is exceptionally rare for a property, type or enumerated value to be deleted/removed without leaving it in the system as "supersededBy" another. Additional machine-readable metadata in RDFS/OWL is also used to  express mappings internally and to external vocabularies. These mappings also evolve.
 </li>
 <li>Term descriptions and definitions can be moved between schema.org's core and its hosted extensions. Each schema.org term is marked as being "<a href="/isPartOf">partOf</a>" either the core
   or exactly one extension, and terms can move in either direction. Terms can be generalized for wider use and moved into the core, or migrated from the core into a hosted extension. In both cases, textual definitions and machine-readable definitions may be adjusted.
 </li>
 </ul>
-</p>
 
 <p>
 Schema.org property names are considered "global" across the entire project (including the core and all hosted vocabularies such as "<a href="http://auto.schema.org/">auto</a>", "<a href="http://bib.schema.org/">bib</a>" etc.).
@@ -354,9 +348,8 @@ encouraging discussion amongst their contributors.
         the wider community, and implemented with the approval of the steering committee.</li>
       <li>Faciliate wide-ranging community and industry involvement during schema design discussions, e.g. via W3C, Github.</li>
     </ul>
-  </dd>
-  <p>The current schema.org webmaster is Dan Brickley, who serves in this capacity on behalf of the schema.org project rather than on behalf of his employer, Google.</p>
-</dd>
+    The current schema.org webmaster is Dan Brickley, who serves in this capacity on behalf of the schema.org project rather than on behalf of his employer, Google.
+ </dd>
  <dt id="w3rel">How is this work related to W3C? How does the steering group mechanism work in practice?</dt>
  <dd>
    <p>
@@ -364,7 +357,7 @@ encouraging discussion amongst their contributors.
    standards produced by W3C (JSON-LD, RDFa, CSVW) as well as by WHATWG (Microdata). Schema.org is focussed on using these aspects of the Web platform
    for descriptive purposes within structured data, rather than on developing the underlying infrastructure, protocols and technical formats of the Web itself.
    The project is not governed by W3C, the W3C advisory group or the <a href="http://www.w3.org/Consortium/Process/">W3C Process</a>; rather, it is part of a wider network of informal collaboration in the Web standards community. Participants in community group and Github discussions are expected to respect the <a href="https://www.w3.org/Consortium/cepc/">W3C code of
-   ethics and professional conduct</a>, as well as each other. Attention is also drawn to the <a href="http://schema.org/docs/terms.html">terms of service</a> document which includes copyright (CC BY-SA 3.0) and W3C RF commitments from schema.org's sponsors (i.e. the founding search engines).
+   ethics and professional conduct</a>, as well as each other. Attention is also drawn to the <a href="http://schema.org/docs/terms.html">terms of service</a> document which includes copyright (CC BY-SA 3.0) and W3C RF commitments from schema.org's founders (i.e. the founding search engines).
  </p>
  <p>In terms of workflow, the primary difference between schema.org and W3C's recommendation track process is an emphasis on incremental publication of releases (several
    releases per year) approved by a small <a href="about.html#cgsg">steering group</a> whose role is to evaluate and approve release candidates prepared by the project <a href="#webmaster">webmaster</a> on the basis of wider discussion. Releases are <a href="/docs/releases.html">published</a> to the official site by the <a href="#webmaster">project webmaster</a> following the review and approval of the <a href="about.html#cgsg">steering group</a>.
@@ -398,7 +391,7 @@ encouraging discussion amongst their contributors.
    by a thread on the <a href="https://lists.w3.org/Archives/Public/public-schemaorg/">public-schemaorg@w3.org mailing list</a>. Simple and modestly sized change proposals, and changes that are likely to be used tend to reach a rough consensus most easily. More complex topics (e.g. our designs around <a href="/Action">Action</a> and <a href="/Role">Role</a>) can take substantively longer.
  </p>
  </dd>
- <dt id="sponsorgetinvolved">I work for one of the Schema.org-founding sponsor search engines. How can I get involved? How can I propose new schemas or other improvements?</dt>
+ <dt id="sponsorgetinvolved">I work for one of the Schema.org-founding search engines (originally known as "sponsors"). How can I get involved? How can I propose new schemas or other improvements?</dt>
  <dd>See <a href="#getinvolved">previous question</a>.</dd>
  <dt id="grouplist">Where are all the schema.org-related W3C community groups listed?</dt>
  <dd>See the <a href="https://www.w3.org/community/schemaorg/how-we-work/">how we work</a> materials over in our W3C group for a list.</dd>

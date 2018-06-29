@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<html lang="en">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  {% include 'headtags.tpl' with context %}
     <title>Home - {{ sitename }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Schema.org is a set of extensible schemas that enables webmasters to embed
     structured data on their web pages for use by search engines and other applications." />
     <link rel="stylesheet" type="text/css" href="/docs/schemaorg.css">
-
 </head>
 <body>
 {% include 'basicPageHeader.tpl' with context %}
@@ -62,8 +62,8 @@ See the draft <b><a href="{{staticPath}}/docs/releases.html">releases</a></b> pa
     already use these vocabularies to power rich, extensible experiences.
 </p>
 <p>
-    Schema.org is sponsored by Google, Microsoft, Yahoo and Yandex.
-    The vocabularies are developed by an open <a href="https://www.w3.org/community/schemaorg">community</a> process,
+    Founded by Google, Microsoft, Yahoo and Yandex,
+    Schema.org vocabularies are developed by an open <a href="https://www.w3.org/community/schemaorg">community</a> process,
     using the <a
     href="http://lists.w3.org/Archives/Public/public-schemaorg">public-schemaorg@w3.org</a>
      mailing list and through <a href="http://github.com/schemaorg/schemaorg">GitHub</a>.
@@ -72,8 +72,8 @@ See the draft <b><a href="{{staticPath}}/docs/releases.html">releases</a></b> pa
 <p>
    A shared vocabulary makes it easier for webmasters and developers to decide
    on a schema and get the maximum benefit for their efforts.
-   It is in this spirit that the sponsors, together with the
-   larger community have come together, to provide a shared collection of schemas.
+   It is in this spirit that the founders, together with the
+   larger community have come together - to provide a shared collection of schemas.
  </p>
 
 <p>

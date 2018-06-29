@@ -66,6 +66,8 @@ log = logging.getLogger(__name__)
 import sdoapp
 from sdoapp import ENABLED_EXTENSIONS 
 
+STATICPAGES = ["","docs/schemas.html","docs/full.html"]
+
 class Exercise():
     def __init__(self):
         self.setSkips()
@@ -133,10 +135,12 @@ class Exercise():
             if id not in self.skiplist:
                 print "%s: Processing: %s  (%s) " % (sys.argv[0],id,len(g))
                 self.exercise(g)
+                self.exerciseStatics(g.identifier)
 
     def exercise(self, graph):
         types = {}
         props = {}
+        exts = []
         for (s,p,o) in graph.triples((None,RDF.type,RDFS.Class)):
             if s.startswith("http://schema.org"):
                 types.update({s:graph.identifier})
@@ -150,9 +154,14 @@ class Exercise():
 
         for p in sorted(props.keys()):
             self.access(p,props[p])
-            
+
+    def exerciseStatics(self, graph):
+        for s in STATICPAGES:
+            self.access(s,graph)
+
     def access(self, id, ext):
-        id = id[18:]
+        if id.startswith("http://schema.org"):
+            id = id[18:]
         ext = getRevNss(str(ext))
         if ext == "core":
             ext = ""
@@ -182,15 +191,15 @@ class Exercise():
                 sys.stdout.write(url)
                 sys.stdout.flush()
                 r = urllib2.urlopen(url)
-                print "  " + str(datetime.datetime.now()-load_start)
+                print "  %s  %s" % (r.getcode(), str(datetime.datetime.now()-load_start))
                 success = True
 
             except urllib2.HTTPError as e:
-              print("got error: {} - {}".format(e.code, e.reason))
+              print("  got error: {} - {}".format(e.code, e.reason))
               if e.code == 500:
                   fivehundred += 1
             
-            time.sleep(args.pausetime)
+            time.sleep(float(args.pausetime))
 
             if not fivehundred or fivehundred > 5:
                 break

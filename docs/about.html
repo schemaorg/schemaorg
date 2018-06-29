@@ -7,6 +7,16 @@
     structured data on their web pages for use by search engines and other applications." />
     <link rel="stylesheet" type="text/css" href="schemaorg.css" />
 
+<!-- Enable CSE Search -->
+    <script>
+    (function() {
+      var cx = '013516846811604855281:nj5laplixaa'; // Insert your own Custom Search engine ID here
+      var gcse = document.createElement('script'); gcse.type = 'text/javascript'; gcse.async = true;
+      gcse.src = 'https://cse.google.com/cse.js?cx=' + cx;
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(gcse, s);
+    })();
+    </script>
+
 </head>
 <body>
     <div id="container">
@@ -19,20 +29,7 @@
 				</h1>
 				</div>
 
-<div id="cse-search-form" style="width: 400px;"></div>
-
-<script type="text/javascript" src="//www.google.com/jsapi"></script>
-<script type="text/javascript">
-  google.load('search', '1', {language : 'en', style : google.loader.themes.ESPRESSO});
-  google.setOnLoadCallback(function() {
-    var customSearchControl = new google.search.CustomSearchControl('013516846811604855281:nj5laplixaa');
-    customSearchControl.setResultSetSize(google.search.Search.FILTERED_CSE_RESULTSET);
-    var options = new google.search.DrawOptions();
-    options.enableSearchboxOnly("../docs/search_results.html", null, false, '#');
-    customSearchControl.draw('cse-search-form', options);
-  }, true);
-</script>
-
+				<div id="cse-search-form" style="width: 400px;"><div class="gcse-searchbox-only" data-resultsUrl="/docs/search_results.html"></div></div>
 
               </div>
             </div>
@@ -52,7 +49,6 @@
                 </div>
 
             </div>
-        <div style="padding: 14px; float: right;" id="languagebox"></div>
 
   <div id="mainContent" class="faq">
 
@@ -60,7 +56,7 @@
     <p>
 Schema.org is a collaborative, community activity with a mission to create,
 maintain, and promote schemas for structured data on the Internet. In addition
-to people from the sponsoring companies (Google, Microsoft, Yahoo and Yandex), there is  substantial participation by the
+to people from the founding companies (Google, Microsoft, Yahoo and Yandex), there is  substantial participation by the
 larger Web community, through public mailing lists such as <a href="https://lists.w3.org/Archives/Public/public-vocabs/">public-vocabs@w3.org</a>
 and through <a href="http://github.com/schemaorg/schemaorg">GitHub</a>. See the <a href="/docs/releases.html">releases</a> page for more details.
  </p>
@@ -71,31 +67,32 @@ and through <a href="http://github.com/schemaorg/schemaorg">GitHub</a>. See the 
 
  <p>
     The day to day operations of Schema.org, including decisions regarding the schema, are handled by a steering group,
-    which includes representatives of the sponsor companies, a representative of the W3C and a small
+    which includes representatives of the founding companies, a representative of the W3C and a small
     number of  individuals who have contributed substantially to Schema.org. Discussions of the steering group
     are public.
  </p>
 
-<h3>The People</h3>
+<h2>The People</h2>
 <br/>
 
 <p>
     A number of people have made substantial contributions to Schema.org over the years. These include:
+</p>
 
     <ul>
-      <li> Dan Brickley runs the daily operations for schema.org. He is on the steering group and Google's representative.</li>
+      <li> <a href="http://twitter.com/danbri">Dan Brickley</a> runs the daily operations for schema.org. He is on the steering group and Google's representative.</li>
 
       <li> Stéphane Corlosquet was responsible for the integration of schema.org into Drupal and has been an active contributor via GitHub and serves on the steering group.</li>
 
       <li> Jason Douglas coordinates the integration of schema.org into Google's search products.</li>
 
-      <li> R.V.Guha initiated schema.org and is one of its co-founders. He currently heads the steering group.</li>
+      <li> R.V.Guha of Google initiated schema.org and is one of its co-founders. He currently heads the steering group.</li>
 
       <li> Sam Goto of Google did much of the work being schema.org's Actions vocabulary.</li>
 
       <li> Vicki Tardif Holland of Google has worked on vocabularies for a lot of major topics on Schema.org. Together with Dan Brickley, she serves on the steering group and takes care of much of the day to day running of schema.org.</li>
 
-      <li> <a href="http://www.heppnetz.de/">Martin Hepp</a>, author of GoodRelations has worked closely with the community to <a href="http://blog.schema.org/2012/11/good-relations-and-schemaorg.html">integrate</a> GoodRelations into schema.org. He serves on the steering group. </li>
+      <li> <a href="http://www.heppnetz.de/">Martin Hepp</a>, author of GoodRelations has worked closely with the community to <a href="http://blog.schema.org/2012/11/good-relations-and-schemaorg.html">integrate</a> GoodRelations into schema.org. He served on the steering group 2014-2017. </li>
 
       <li> Charlie Jiang was the representative from Microsoft from 2011 to 2013.</li>
 
@@ -136,9 +133,8 @@ and through <a href="http://github.com/schemaorg/schemaorg">GitHub</a>. See the 
       </li>
 
      </ul>
-</p>
 
-<h3 id="cgsg">Community Group and Steering Group</h3>
+<h2 id="cgsg">Community Group and Steering Group</h2>
 
 <br/>
 
@@ -184,8 +180,6 @@ It is Github-based in the sense that its GitHub repository - <a href="https://gi
 
 <p>Note also that other W3C Community Groups exist that are focussed partially or entirely on schema.org improvements, e.g. <a href="https://www.w3.org/community/schemed/">health and medicine</a>,  <a href="https://www.w3.org/community/sport-schema/">sports</a>,  <a href="https://www.w3.org/community/architypes/">archives</a>,
 <a href="https://www.w3.org/community/schemabibex/">libraries and bibliography</a>, <a href="https://www.w3.org/community/gao/">autos</a>... ...these groups have their own ways of working, and coordinate via the main Schema.org Community Group and its Github repository.
-</p>
-
 </p>
 
 <br/><br/>
