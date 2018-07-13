@@ -1,3 +1,7 @@
+import logging
+logging.basicConfig(level=logging.INFO) # dev_appserver.py --log_level debug .
+log = logging.getLogger(__name__)
+
 import markdown2
 from markdown2 import Markdown
 import re
@@ -26,8 +30,8 @@ class MarkdownTool():
         source = source.strip()
         source = source.replace("\\n","\n")
     	try:
-    		self.parselock.acquire()
-    		ret = self._md.convert(source)
+            self.parselock.acquire()
+            ret = self._md.convert(source)
     	finally:
     		self.parselock.release()
         
@@ -35,6 +39,11 @@ class MarkdownTool():
             #Remove wrapping <p> </p>\n that Markdown2 adds by default
             if len(ret) > 7 and ret.startswith("<p>") and ret.endswith("</p>\n"):
                 ret = ret[3:len(ret)-5]
+            
+            ret = ret.replace("<p>","")
+            ret = ret.replace("</p>","<br/><br/>")
+            if ret.endswith("<br/><br/>"):
+                ret = ret[:len(ret)-10]
         
         return self.parseWiklinks(ret)
     

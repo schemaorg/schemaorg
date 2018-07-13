@@ -9,6 +9,15 @@
     <link href="prettify.css" type="text/css" rel="stylesheet" />
     <script type="text/javascript" src="prettify.js"></script>
     <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
+<!-- Enable CSE Search -->
+    <script>
+    (function() {
+      var cx = '013516846811604855281:nj5laplixaa'; // Insert your own Custom Search engine ID here
+      var gcse = document.createElement('script'); gcse.type = 'text/javascript'; gcse.async = true;
+      gcse.src = 'https://cse.google.com/cse.js?cx=' + cx;
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(gcse, s);
+    })();
+    </script>
 
 <script type="text/javascript">
       $(document).ready(function(){
@@ -40,20 +49,7 @@
 				</h1>
 				</div>
 
-<div id="cse-search-form" style="width: 400px;"></div>
-
-<script type="text/javascript" src="//www.google.com/jsapi"></script>
-<script type="text/javascript">
-  google.load('search', '1', {language : 'en', style : google.loader.themes.ESPRESSO});
-  google.setOnLoadCallback(function() {
-    var customSearchControl = new google.search.CustomSearchControl('013516846811604855281:nj5laplixaa');
-    customSearchControl.setResultSetSize(google.search.Search.FILTERED_CSE_RESULTSET);
-    var options = new google.search.DrawOptions();
-    options.enableSearchboxOnly("../docs/search_results.html", null, false, '#');
-    customSearchControl.draw('cse-search-form', options);
-  }, true);
-</script>
-
+                    <div id="cse-search-form" style="width: 400px;"><div class="gcse-searchbox-only" data-resultsUrl="/docs/search_results.html"></div></div>
 
               </div>
             </div>
@@ -73,7 +69,6 @@
                 </div>
 
             </div>
-        <div style="padding: 14px; float: right;" id="languagebox"></div>
 
   <div id="mainContent">
 
@@ -191,7 +186,7 @@ definitions. Finally, all changes to the site and its underlying software are no
  <p>It is also important to understand what schema.org does <em>not</em> define or dictate. In particular schema.org does not define any notion of 'mandatory' property.
 Different sites and pages naturally have different amounts of information available; these details cannot be anticipated by schema designers. Similarly, the information needs of consuming services may also vary. We do not attempt to reach consensus at schema.org on what an ideal description of some type (Person, Place, TVSeries etc.) ought to contain - this makes consensus significantly easier to achieve. The schema.org site does contain many practical markup examples, which give rough hints about common and useful patterns for combining schema.org terms.</p>
 
-<p>
+
 Each release can include several kinds of change:
 <ul>
 <li>Bug fixes and minor improvements (e.g. typos, markup errors in examples).</li>
@@ -201,13 +196,12 @@ Each release can include several kinds of change:
 <li>Adjustments to the examples that accompany each term, and to the indexing of which terms an example should show up against. Although examples are
   not formally part of the schema definitions, they play a central role in schema.org's widescale adoption and are versioned as part of the release.</li>
 <li>Adjustments to the machine-readable claims we make about each term: supertype(s), superproperties, inverses, and the associations that link types and properties together.
-  For each property we maintain a list of one or more types that it is expected to be applied to (technically, "<a href="/domainIncludes">domainIncludes</a>"), alongside one or more types that are expected as its values (expressed using "<a href="/rangeIncludes">rangeIncludes</a>"). We may also mark some properties as "<a href="/supsededBy">supersededBy</a>" others. It is exceptionally rare for a property, type or enumerated value to be deleted/removed without leaving it in the system as "supersededBy" another. Additional machine-readable metadata in RDFS/OWL is also used to  express mappings internally and to external vocabularies. These mappings also evolve.
+  For each property we maintain a list of one or more types that it is expected to be applied to (technically, "<a href="/domainIncludes">domainIncludes</a>"), alongside one or more types that are expected as its values (expressed using "<a href="/rangeIncludes">rangeIncludes</a>"). We may also mark some properties as "<a href="/supersededBy">supersededBy</a>" others. It is exceptionally rare for a property, type or enumerated value to be deleted/removed without leaving it in the system as "supersededBy" another. Additional machine-readable metadata in RDFS/OWL is also used to  express mappings internally and to external vocabularies. These mappings also evolve.
 </li>
 <li>Term descriptions and definitions can be moved between schema.org's core and its hosted extensions. Each schema.org term is marked as being "<a href="/isPartOf">partOf</a>" either the core
   or exactly one extension, and terms can move in either direction. Terms can be generalized for wider use and moved into the core, or migrated from the core into a hosted extension. In both cases, textual definitions and machine-readable definitions may be adjusted.
 </li>
 </ul>
-</p>
 
 <p>
 Schema.org property names are considered "global" across the entire project (including the core and all hosted vocabularies such as "<a href="http://auto.schema.org/">auto</a>", "<a href="http://bib.schema.org/">bib</a>" etc.).
@@ -354,9 +348,8 @@ encouraging discussion amongst their contributors.
         the wider community, and implemented with the approval of the steering committee.</li>
       <li>Faciliate wide-ranging community and industry involvement during schema design discussions, e.g. via W3C, Github.</li>
     </ul>
-  </dd>
-  <p>The current schema.org webmaster is Dan Brickley, who serves in this capacity on behalf of the schema.org project rather than on behalf of his employer, Google.</p>
-</dd>
+    The current schema.org webmaster is Dan Brickley, who serves in this capacity on behalf of the schema.org project rather than on behalf of his employer, Google.
+ </dd>
  <dt id="w3rel">How is this work related to W3C? How does the steering group mechanism work in practice?</dt>
  <dd>
    <p>

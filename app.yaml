@@ -1,12 +1,11 @@
-application: schemaorgae
+#application: schemaorgae
 #application: webschemas
 
-version: 1
+#version: 1
 module: default
 runtime: python27
 api_version: 1
 threadsafe: true
-
   
 #automatic_scaling: #Only applicable for appengine accounts with billing enabled
 #  min_idle_instances: 2
@@ -83,6 +82,48 @@ handlers:
 
 - url: /version/
   script: sdoapp.app
+
+- url: /version/(.*/.*\.rdfa)
+  mime_type: text/html
+  static_files: data/releases/\1
+  upload: data/releases/(.*/.*\.rdfa)
+  application_readable: True
+
+- url: /version/(.*/.*\.ttl)
+  mime_type: application/x-turtle
+  static_files: data/releases/\1
+  upload: data/releases/(.*/.*\.ttl)
+  application_readable: True
+
+- url: /version/(.*/.*\.jsonld)
+  mime_type: application/ld+json
+  static_files: data/releases/\1
+  upload: data/releases/(.*/.*\.jsonld)
+  application_readable: True
+
+- url: /version/(.*/.*\.rdf)
+  mime_type: application/rdf+xml
+  static_files: data/releases/\1
+  upload: data/releases/(.*/.*\.rdf)
+  application_readable: True
+ 
+- url: /version/(.*/.*\.nt)
+  mime_type: application/n-triples
+  static_files: data/releases/\1
+  upload: data/releases/(.*/.*\.nt)
+  application_readable: True
+
+- url: /version/(.*/.*\.nq)
+  mime_type: application/n-quads
+  static_files: data/releases/\1
+  upload: data/releases/(.*/.*\.nq)
+  application_readable: True
+
+- url: /version/(.*/.*\.csv)
+  mime_type: text/csv
+  static_files: data/releases/\1
+  upload: data/releases/(.*/.*\.csv)
+  application_readable: True
 
 - url: /version/*/*
   static_dir: data/releases/

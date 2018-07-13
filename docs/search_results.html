@@ -7,6 +7,14 @@
     <meta name="description" content="Schema.org is a set of extensible schemas that enables webmasters to embed
     structured data on their web pages for use by search engines and other applications." />
     <link rel="stylesheet" type="text/css" href="schemaorg.css" />
+<script>
+(function() {
+  var cx = '013516846811604855281:nj5laplixaa'; // Insert your own Custom Search engine ID here
+  var gcse = document.createElement('script'); gcse.type = 'text/javascript'; gcse.async = true;
+  gcse.src = 'https://cse.google.com/cse.js?cx=' + cx;
+  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(gcse, s);
+})();
+</script>
 </head>
 <body>
     <div id="container">
@@ -19,35 +27,7 @@
 				</h1>
 				</div>
 
-<div id="cse-search-form" style="width: 400px;"></div>
-<script src="//www.google.com/jsapi" type="text/javascript"></script>
-<script type="text/javascript">
-  function parseQueryFromUrl () {
-    var queryParamName = "q";
-    var search = window.location.href.split('#')[1];
-    var parts = search.split('&');
-    for (var i = 0; i < parts.length; i++) {
-      var keyvaluepair = parts[i].split('=');
-      if (decodeURIComponent(keyvaluepair[0]) == queryParamName) {
-        return decodeURIComponent(keyvaluepair[1].replace(/\+/g, ' '));
-      }
-    }
-    return '';
-  }
-  google.load('search', '1', {language : 'en', style : google.loader.themes.ESPRESSO});
-  google.setOnLoadCallback(function() {
-    var customSearchControl = new google.search.CustomSearchControl('013516846811604855281:nj5laplixaa');
-    customSearchControl.setResultSetSize(google.search.Search.FILTERED_CSE_RESULTSET);
-    var options = new google.search.DrawOptions();
-    options.setSearchFormRoot('cse-search-form');
-    customSearchControl.draw('cse', options);
-    var queryFromUrl = parseQueryFromUrl();
-    if (queryFromUrl) {
-      customSearchControl.execute(queryFromUrl);
-    }
-  }, true);
-</script>
-
+<div id="cse-search-form" style="width: 400px;"><div class="gcse-searchbox"></div></div>
 <style type="text/css">
   input.gsc-input {
     border-color: #660000;
@@ -230,10 +210,9 @@
                 </div>
 
             </div>
-        <div style="padding: 14px; float: right;" id="languagebox"></div>
 
   <div id="mainContent">
-    <div id="cse" style="width: 600px;">Loading</div>
+    <div class="gcse-searchresults"></div>
   </div>
 
 

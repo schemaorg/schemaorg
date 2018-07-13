@@ -9,6 +9,16 @@
     <link href="/docs/prettify.css" type="text/css" rel="stylesheet" />
     <script type="text/javascript" src="/docs/prettify.js"></script>
     <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
+<!-- Enable CSE Search -->
+    <script>
+    (function() {
+      var cx = '013516846811604855281:nj5laplixaa'; // Insert your own Custom Search engine ID here
+      var gcse = document.createElement('script'); gcse.type = 'text/javascript'; gcse.async = true;
+      gcse.src = 'https://cse.google.com/cse.js?cx=' + cx;
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(gcse, s);
+    })();
+    </script>
+
 
 <script type="text/javascript">
       $(document).ready(function(){
@@ -44,20 +54,7 @@
                 </h1>
                 </div>
 
-<div id="cse-search-form" style="width: 400px;"></div>
-
-<script type="text/javascript" src="//www.google.com/jsapi"></script>
-<script type="text/javascript">
-  google.load('search', '1', {language : 'en', style : google.loader.themes.ESPRESSO});
-  google.setOnLoadCallback(function() {
-    var customSearchControl = new google.search.CustomSearchControl('013516846811604855281:nj5laplixaa');
-    customSearchControl.setResultSetSize(google.search.Search.FILTERED_CSE_RESULTSET);
-    var options = new google.search.DrawOptions();
-    options.enableSearchboxOnly("../docs/search_results.html", null, false, '#');
-    customSearchControl.draw('cse-search-form', options);
-  }, true);
-</script>
-
+                    <div id="cse-search-form" style="width: 400px;"><div class="gcse-searchbox-only" data-resultsUrl="/docs/search_results.html"></div></div>
 
               </div>
             </div>
@@ -77,7 +74,6 @@
                 </div>
 
             </div>
-        <div style="padding: 14px; float: right;" id="languagebox"></div>
 
   <div id="mainContent">
 
@@ -105,13 +101,13 @@ schema.org, including proposed new terms that are "pending" wider review and imp
 <p>An Article can be considered a <a href="/NewsArticle">NewsArticle</a> even if contains inaccuracies, mixes opinion with factual claims, or diverges in other ways from ideal journalistic best practice. <a href="/ReportageNewsArticle">ReportageNewsArticle</a> represents a more restricted sense of "news" corresponding to journalistic best practices. NewsArticles can include various kinds of best practice declaration that explicitly indicate the standards, policies and transparency mechanisms that a news source has adopted, see <a href="/publishingPrinciples">publishingPrinciples</a> and its subproperties.</p>
 
 <p>
-Related Vocabulary: scholarly and scientific coverage of, and background to, the news can also be described using <a href="/ScholarlyArticle">ScholarlyArticle</a> or <a href="/Book">Book</a>. Educational materials that also support background understanding of the news can be described using schema.org's education-oriented markup, see <a href="/AlignmentObject">AlignmentObject</a>, <a href="/learningResourceType">learningResourceType</a>, <a href="/typicalAgeRange">typicalAgeRange</a>, <a href="/typicalAgeRange">typicalAgeRange</a>, <a href="/educationalRole">educationalRole</a> and nearby. Other forms of learning  are supported by <a href="/Course">Course</a> and <a href="/CourseInstance">CourseInstance</a> markup, alongside the full range of <a href="/CreativeWorks">CreativeWorks</a> e.g. <a href="/VideoObject">VideoObject</a>, <a href="/BlogPosting">BlogPosting</a> etc. The <a href="/BackgroundArticle">BackgroundArticle</a> type emphasises background knowledge in a news-oriented setting, e.g. an in-depth article on topics such as Climate Change or the European Union.
+Related Vocabulary: scholarly and scientific coverage of, and background to, the news can also be described using <a href="/ScholarlyArticle">ScholarlyArticle</a> or <a href="/Book">Book</a>. Educational materials that also support background understanding of the news can be described using schema.org's education-oriented markup, see <a href="/AlignmentObject">AlignmentObject</a>, <a href="/learningResourceType">learningResourceType</a>, <a href="/typicalAgeRange">typicalAgeRange</a>, <a href="/typicalAgeRange">typicalAgeRange</a>, <a href="/educationalRole">educationalRole</a> and nearby. Other forms of learning  are supported by <a href="/Course">Course</a> and <a href="/CourseInstance">CourseInstance</a> markup, alongside the full range of <a href="/CreativeWork">CreativeWorks</a> e.g. <a href="/VideoObject">VideoObject</a>, <a href="/BlogPosting">BlogPosting</a> etc. The <a href="/BackgroundNewsArticle">BackgroundNewsArticle</a> type emphasises background knowledge in a news-oriented setting, e.g. an in-depth article on topics such as Climate Change or the European Union.
 </p>
 
 <p>
 Schema.org provides <a href="/ClaimReview">ClaimReview</a> to identify fact-checking summaries, e.g. of a NewsArticle or of specific claims.
 It also supports Non-textual content via TV and Radio markup; e.g. <a href="/TVEpisode">TVEpisode</a>, <a href="/TVSeries">TVSeries</a>,
-as well as through <a href="/MediaObject">MediaObject</a>. News-publishing organizations also often publish <a href="/Review">Review</a>s, most typically <a href="/CriticReview">CriticReview</a>s; these are always considered <a href="/CreativeWorks">CreativeWorks</a> and can often also be described as <a href="/Article">Article</a>s or <a href="/NewsArticle">NewsArticle</a>s (i.e. markup can include multiple types). The <a href="/ReviewNewsArticle">ReviewNewsArticle</a> type directly represents the common case of news articles that are also critic reviews.
+as well as through <a href="/MediaObject">MediaObject</a>. News-publishing organizations also often publish <a href="/Review">Review</a>s, most typically <a href="/CriticReview">CriticReview</a>s; these are always considered <a href="/CreativeWork">CreativeWorks</a> and can often also be described as <a href="/Article">Article</a>s or <a href="/NewsArticle">NewsArticle</a>s (i.e. markup can include multiple types). The <a href="/ReviewNewsArticle">ReviewNewsArticle</a> type directly represents the common case of news articles that are also critic reviews.
 </p>
 
 <p>
@@ -133,7 +129,6 @@ IPTC rNews initiative. In addition there are several proposed/pending "best prac
 <a href="/ethicsPolicy">ethicsPolicy</a>,
 <a href="/masthead">masthead</a>,
 <a href="/missionCoveragePrioritiesPolicy">missionCoveragePrioritiesPolicy</a>,
-<a href="/sourcingAndInterviewsPolicy">sourcingAndInterviewsPolicy</a>,
 <a href="/verificationFactCheckingPolicy">verificationFactCheckingPolicy</a>,
  (apart from ethicsPolicy and diversityPolicy, these are all sub-properties of <a href="/publishingPrinciples">publishingPrinciples</a>).
 </p>

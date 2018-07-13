@@ -1,7 +1,11 @@
 #application: schemaorgae
-application: webschemas-g
+#application: webschemas-g
 
-version: 1
+# new commandline:
+#  gcloud app deploy webschemas.yaml --project webschemas-g 
+
+
+#version: 1
 module: default
 runtime: python27
 api_version: 1
@@ -27,42 +31,62 @@ handlers:
 - url: /favicon.ico
   static_files: docs/favicon.ico
   upload: docs/favicon.ico
+  secure: always
+  redirect_http_response_code: 301
   mime_type: image/x-icon
 
 - url: /robots.txt
   static_files: docs/robots-blockall.txt
   upload: docs/robots-blockall.txt
+  secure: always
+  redirect_http_response_code: 301
   mime_type: text/plain
 
 # To avoid: "Could not guess mimetype for docs/schemaorg.owl.  Using application/octet-stream."
 - url: /docs/schemaorg.owl
   static_files: docs/schemaorg.owl
   upload: docs/schemaorg.owl
+  secure: always
+  redirect_http_response_code: 301
   mime_type: application/rdf+xml
 
 - url: /docs/schema_org_rdfa.html
   static_files: data/schema.rdfa
   upload: data/schema.rdfa
   application_readable: True
+  secure: always
+  redirect_http_response_code: 301
   mime_type: text/html
 
 - url: /docs/jsonldcontext.json.*
   script: sdoapp.app
+  secure: always
+  redirect_http_response_code: 301
 
 - url: /docs/full.*.html
   script: sdoapp.app
+  secure: always
+  redirect_http_response_code: 301
 
 - url: /docs/schemas.html
   script: sdoapp.app
+  secure: always
+  redirect_http_response_code: 301
 
 - url: /docs/developers.html
   script: sdoapp.app
+  secure: always
+  redirect_http_response_code: 301
 
 - url: /docs/tree.json.*
   script: sdoapp.app
+  secure: always
+  redirect_http_response_code: 301
 
 - url: /docs
   static_dir: docs
+  secure: always
+  redirect_http_response_code: 301
 
 #- url: /
 #  static_files: static/index.html
@@ -71,25 +95,95 @@ handlers:
 
 - url: /search_files
   static_dir: static/search_files
+  secure: always
+  redirect_http_response_code: 301
 
 - url: /version/latest/.*
   script: sdoapp.app
+  secure: always
+  redirect_http_response_code: 301
 
 - url: /(version/[^/]*/)$
   script: sdoapp.app
+  secure: always
+  redirect_http_response_code: 301
 
 - url: /(version/([^/]*))$
   script: sdoapp.app
+  secure: always
+  redirect_http_response_code: 301
 
 - url: /version/
   script: sdoapp.app
+  secure: always
+  redirect_http_response_code: 301
+
+- url: /version/(.*/.*\.rdfa)
+  mime_type: text/html
+  static_files: data/releases/\1
+  upload: data/releases/(.*/.*\.rdfa)
+  application_readable: True
+  secure: always
+  redirect_http_response_code: 301
+
+- url: /version/(.*/.*\.ttl)
+  mime_type: application/x-turtle
+  static_files: data/releases/\1
+  upload: data/releases/(.*/.*\.ttl)
+  application_readable: True
+  secure: always
+  redirect_http_response_code: 301
+
+- url: /version/(.*/.*\.jsonld)
+  mime_type: application/ld+json
+  static_files: data/releases/\1
+  upload: data/releases/(.*/.*\.jsonld)
+  application_readable: True
+  secure: always
+  redirect_http_response_code: 301
+
+- url: /version/(.*/.*\.rdf)
+  mime_type: application/rdf+xml
+  static_files: data/releases/\1
+  upload: data/releases/(.*/.*\.rdf)
+  application_readable: True
+  secure: always
+  redirect_http_response_code: 301
+ 
+- url: /version/(.*/.*\.nt)
+  mime_type: application/n-triples
+  static_files: data/releases/\1
+  upload: data/releases/(.*/.*\.nt)
+  application_readable: True
+  secure: always
+  redirect_http_response_code: 301
+
+- url: /version/(.*/.*\.nq)
+  mime_type: application/n-quads
+  static_files: data/releases/\1
+  upload: data/releases/(.*/.*\.nq)
+  application_readable: True
+  secure: always
+  redirect_http_response_code: 301
+
+- url: /version/(.*/.*\.csv)
+  mime_type: text/csv
+  static_files: data/releases/\1
+  upload: data/releases/(.*/.*\.csv)
+  application_readable: True
+  secure: always
+  redirect_http_response_code: 301
 
 - url: /version/*/*
   static_dir: data/releases/
   application_readable: True
+  secure: always
+  redirect_http_response_code: 301
 
 - url: /.*
   script: sdoapp.app
+  secure: always
+  redirect_http_response_code: 301
 
 
 

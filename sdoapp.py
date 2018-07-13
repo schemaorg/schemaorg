@@ -38,7 +38,7 @@ from apimarkdown import Markdown
 
 from sdordf2csv import sdordf2csv
 
-SCHEMA_VERSION="3.3"
+SCHEMA_VERSION="3.4"
 
 FEEDBACK_FORM_BASE_URL='https://docs.google.com/a/google.com/forms/d/1krxHlWJAO3JgvHRZV9Rugkr9VYnMdrI10xbGsWt733c/viewform?entry.1174568178&entry.41124795={0}&entry.882602760={1}'
 # {0}: term URL, {1} category of term.
@@ -47,7 +47,7 @@ sitemode = "mainsite" # whitespaced list for CSS tags,
             # e.g. "mainsite testsite" when off expected domains
             # "extensionsite" when in an extension (e.g. blue?)
 
-releaselog = { "2.0": "2015-05-13", "2.1": "2015-08-06", "2.2": "2015-11-05", "3.0": "2016-05-04", "3.1": "2016-08-09", "3.2": "2017-03-23", "3.3": "2017-08-14" }
+releaselog = { "2.0": "2015-05-13", "2.1": "2015-08-06", "2.2": "2015-11-05", "3.0": "2016-05-04", "3.1": "2016-08-09", "3.2": "2017-03-23", "3.3": "2017-08-14", "3.4": "2018-06-15" }
 
 silent_skip_list =  [ "favicon.ico" ] # Do nothing for now
 
@@ -69,6 +69,11 @@ ENABLE_JSONLD_CONTEXT = True
 ENABLE_CORS = True
 ENABLE_HOSTED_EXTENSIONS = True
 DISABLE_NDB_FOR_LOCALHOST = True
+
+WORKINGHOSTS = ["schema.org","schemaorg.appspot.com",
+                "webschemas.org","webschemas-g.appspot.com",
+                "sdo-test.appspot.com",
+                "localhost"]
 
 #INTESTHARNESS = True #Used to indicate we are being called from tests - use setInTestHarness() & getInTestHarness() to manage value
 
@@ -251,7 +256,7 @@ class TypeHierarchyTree:
 
     def __init__(self, prefix=""):
         self.txt = ""
-        self.visited = {}
+        self.visited = []
         self.prefix = prefix
 
     def emit(self, s):
@@ -266,7 +271,7 @@ class TypeHierarchyTree:
     def toJSON(self):
         return self.txt
 
-    def traverseForHTML(self, node, depth = 1, hashorslash="/", layers='core', traverseAllLayers=False, buff=None):
+    def traverseForHTML(self, node, depth = 1, hashorslash="/", layers='core', idprefix="", traverseAllLayers=False, buff=None):
 
         """Generate a hierarchical tree view of the types. hashorslash is used for relative link prefixing."""
 
@@ -302,36 +307,44 @@ class TypeHierarchyTree:
 
         # we are a supertype of some kind
         subTypes = node.GetImmediateSubtypes(layers=ALL_LAYERS)
+        idstring = idprefix + node.id
         if len(subTypes) > 0:
             # and we haven't been here before
             if node.id not in self.visited:
-                self.visited[node.id] = True # remember our visit
-                self.emit2buff(buff, ' %s<li class="tbranch" id="%s"><a %s %s href="%s%s%s">%s</a>%s' % (" " * 4 * depth, node.id,  tooltip, extclass, urlprefix, hashorslash, node.id, node.id, extflag) )
+                self.emit2buff(buff, ' %s<li class="tbranch" id="%s"><a %s %s href="%s%s%s">%s</a>%s' % (" " * 4 * depth, idstring,  tooltip, extclass, urlprefix, hashorslash, node.id, node.id, extflag) )
                 self.emit2buff(buff, ' %s<ul>' % (" " * 4 * depth))
 
                 # handle our subtypes
                 for item in subTypes:
                     subBuff = StringIO.StringIO()
-                    got = self.traverseForHTML(item, depth + 1, hashorslash=hashorslash, layers=layers, traverseAllLayers=traverseAllLayers,buff=subBuff)
+                    got = self.traverseForHTML(item, depth + 1, hashorslash=hashorslash, layers=layers, idprefix=idprefix, traverseAllLayers=traverseAllLayers,buff=subBuff)
                     if got:
                         self.emit2buff(buff,subBuff.getvalue())
                     subBuff.close()
                 self.emit2buff(buff, ' %s</ul>' % (" " * 4 * depth))
             else:
                 # we are a supertype but we visited this type before, e.g. saw Restaurant via Place then via Organization
+                seencount = self.visited.count(node.id)
+                idstring = "%s%s" % (idstring, "+" * seencount)
                 seen = '  <a href="#%s">+</a> ' % node.id
-                self.emit2buff(buff, ' %s<li class="tbranch" id="%s"><a %s %s href="%s%s%s">%s</a>%s%s' % (" " * 4 * depth, node.id,  tooltip, extclass, urlprefix, hashorslash, node.id, node.id, extflag, seen) )
+                self.emit2buff(buff, ' %s<li class="tbranch" id="%s"><a %s %s href="%s%s%s">%s</a>%s%s' % (" " * 4 * depth, idstring,  tooltip, extclass, urlprefix, hashorslash, node.id, node.id, extflag, seen) )
         # leaf nodes
         if len(subTypes) == 0:
             if home  in layers:
                 gotOutput = True
-                if node.id not in self.visited:
-                    self.emit2buff(buff, '%s<li class="tleaf" id="%s"><a %s %s href="%s%s%s">%s</a>%s%s' % (" " * depth, node.id, tooltip, extclass, urlprefix, hashorslash, node.id, node.id, extflag, "" ))
+                seen = ""
+                if node.id in self.visited:
+                    seencount = self.visited.count(node.id)
+                    idstring = "%s%s" % (idstring, "+" * seencount)
+                    seen = '  <a href="#%s">+</a> ' % node.id
+
+                self.emit2buff(buff, '%s<li class="tleaf" id="%s"><a %s %s href="%s%s%s">%s</a>%s%s' % (" " * depth, idstring, tooltip, extclass, urlprefix, hashorslash, node.id, node.id, extflag, seen ))
             #else:
                 #self.visited[node.id] = True # never...
                 # we tolerate "VideoGame" appearing under both Game and SoftwareApplication
                 # and would only suppress it if it had its own subtypes. Seems legit.
 
+        self.visited.append(node.id) # remember our visit
         self.emit2buff(buff, ' %s</li>' % (" " * 4 * depth) )
 
         if localBuff:
@@ -346,7 +359,7 @@ class TypeHierarchyTree:
         if node.id in self.visited:
             # self.emit("skipping %s - already visited" % node.id)
             return
-        self.visited[node.id] = True
+        self.visited.append(node.id)
         p1 = " " * 4 * depth
         if emit_debug:
             self.emit("%s# @id: %s last_at_this_level: %s" % (p1, node.id, last_at_this_level))
@@ -480,7 +493,7 @@ class ShowUnit (webapp2.RequestHandler):
                 items.append("'{0}' is mentioned in {1}layer: <a href='{2}'>{3}</a>".format( node.id, ext, makeUrl(l,node.id), l ))
 
         moreinfo = """<div>
-        <div id='infobox' style='text-align: right;'><label role="checkbox" for=morecheck><b><span style="cursor: pointer;">[more...]</span></b></label></div>
+        <div id='infobox' style='text-align: right;' role="checkbox" aria-checked="false"><label for="morecheck"><b><span style="cursor: pointer;">[more...]</span></b></label></div>
         <input type='checkbox' checked="checked" style='display: none' id=morecheck><div id='infomsg' style='background-color: #EEEEEE; text-align: left; padding: 0.5em;'>
         <ul>"""
 
@@ -596,14 +609,22 @@ class ShowUnit (webapp2.RequestHandler):
         if len(usage):
             self.write(" <br/><div>Usage: %s</div>\n\n" % (usage) + "\n")
 
-        #was:        self.write(self.moreInfoBlock(node))
+        self.write(self.moreInfoBlock(node))
 
         if (node.isClass(layers=layers) and not node.isDataType(layers=layers) and node.id != "DataType"):
             self.write("<table class=\"definition-table\">\n        <thead>\n  <tr><th>Property</th><th>Expected Type</th><th>Description</th>               \n  </tr>\n  </thead>\n\n")
 
     def emitCanonicalURL(self,node):
         cURL = "%s://schema.org/%s" % (CANONICALSCHEME,node.id)
-        self.write(" <span class=\"canonicalUrl\">Canonical URL: <a href=\"%s\">%s</a></span>" % (cURL, cURL))
+        if CANONICALSCHEME == "http":
+            other = "https"
+        else:
+            other = "http"
+        sa = '\n<link  property="sameAs" href="%s://schema.org/%s" />' % (other,node.id)
+
+        self.write(" <span class=\"canonicalUrl\">Canonical URL: <a href=\"%s\">%s</a></span> " % (cURL, cURL))
+        #self.write(" (<a href=\"/docs/faq.html#19\" title=\"http/https help\">?</a>)")
+        self.write(sa)
 
     # Stacks to support multiple inheritance
     crumbStacks = []
@@ -1250,13 +1271,8 @@ class ShowUnit (webapp2.RequestHandler):
 
         self.emitUnitHeaders(node,  layers=layers) # writes <h1><table>...
 
-        if (node.isEnumerationValue(layers=layers)):
-            self.write(self.moreInfoBlock(node))
-
         if (node.isClass(layers=layers)):
             subclass = True
-            self.write(self.moreInfoBlock(node))
-
             for p in self.parentStack:
                 self.ClassProperties(p, p==self.parentStack[0], layers=self.appropriateLayers(layers=layers))
             if (not node.isDataType(layers=layers) and node.id != "DataType"):
@@ -1271,7 +1287,6 @@ class ShowUnit (webapp2.RequestHandler):
 
 
         elif (Unit.isAttribute(node, layers=layers)):
-            self.write(self.moreInfoBlock(node))
             self.emitAttributeProperties(node, layers=layers)
 
         if (node.isClass(layers=layers)):
@@ -1577,7 +1592,7 @@ class ShowUnit (webapp2.RequestHandler):
                     extonlylist.append(i)
                     count += 1
             local_button = ""
-            local_label = "<h3>Core plus %s extension vocabularies</h3>" % extlist
+            local_label = "<h3>Core vocabulary</h3>"
             if count == 0:
                 local_button = "Core vocabulary"
             elif count == 1:
@@ -1596,24 +1611,24 @@ class ShowUnit (webapp2.RequestHandler):
             uDataType = Unit.GetUnit("DataType")
 
             mainroot = TypeHierarchyTree(local_label)
-            mainroot.traverseForHTML(uThing, layers=layerlist)
+            mainroot.traverseForHTML(uThing, layers=layerlist, idprefix="C.")
             thing_tree = mainroot.toHTML()
 
             fullmainroot = TypeHierarchyTree("<h3>Core plus all extension vocabularies</h3>")
-            fullmainroot.traverseForHTML(uThing, layers=ALL_LAYERS_NO_ATTIC)
+            fullmainroot.traverseForHTML(uThing, layers=ALL_LAYERS_NO_ATTIC, idprefix="CE.")
             full_thing_tree = fullmainroot.toHTML()
 
             ext_thing_tree = None
             if len(extonlylist) > 0:
                 extroot = TypeHierarchyTree("<h3>Extension: %s</h3>" % extlist)
-                extroot.traverseForHTML(uThing, layers=extonlylist, traverseAllLayers=True)
+                extroot.traverseForHTML(uThing, layers=extonlylist, traverseAllLayers=True, idprefix="E.")
                 ext_thing_tree = extroot.toHTML()
 
             dtroot = TypeHierarchyTree("<h4>Data Types</h4>")
-            dtroot.traverseForHTML(uDataType, layers=layerlist)
+            dtroot.traverseForHTML(uDataType, layers=layerlist, idprefix="D.")
             datatype_tree = dtroot.toHTML()
 
-            full_button = "Core plus all extensions"
+            full_button = "Core plus all extension vocabularies"
 
             page = templateRender('full.tpl',{ 'thing_tree': thing_tree,
                                     'full_thing_tree': full_thing_tree,
@@ -1720,6 +1735,7 @@ class ShowUnit (webapp2.RequestHandler):
                 template = JINJA_ENVIRONMENT.get_template('wrongExt.tpl')
                 page = templateRender('wrongExt.tpl',
                                         {'target': schema_node.id,
+                                        'targetext': schema_node.getHomeLayer(),
                                         'extensions': extensions,
                                         'sitename': "schema.org"})
 
@@ -1779,15 +1795,12 @@ class ShowUnit (webapp2.RequestHandler):
         csv = sdordf2csv(queryGraph=getQueryGraph(),fullGraph=getQueryGraph(),markdownComments=True,excludeAttic=excludeAttic)
         file = StringIO.StringIO()
         term = "http://schema.org/" + schema_node.id
-        if schema_node.isClass():
+        if schema_node.isClass() or schema_node.isEnumerationValue():
             csv.type2CSV(header=True,out=file)
             csv.type2CSV(term=term,header=False,out=file)
         elif schema_node.isAttribute():
             csv.prop2CSV(header=True,out=file)
             csv.prop2CSV(term=term,header=False,out=file)
-        elif schema_node.isEnumerationValue():
-            csv.enum2CSV(header=True,out=file)
-            csv.enum2CSV(term=term,header=False,out=file)
         data = file.getvalue()
         file.close()
         return data
@@ -2056,10 +2069,11 @@ class ShowUnit (webapp2.RequestHandler):
         buff.close()
         return ret
 
-
     def setupHostinfo(self, node, test=""):
         global noindexpages
+        node = str(node)
         hostString = test
+        host_ext = ""
         args = []
         if test == "":
             hostString = self.request.host
@@ -2068,11 +2082,13 @@ class ShowUnit (webapp2.RequestHandler):
         scheme = "http" #Defalt for tests
         if not getInTestHarness():  #Get the actual scheme from the request
             scheme = self.request.scheme
-
-        host_ext = re.match( r'([\w\-_]+)[\.:]?', hostString).group(1)
-        #log.info("setupHostinfo: scheme=%s hoststring=%s host_ext?=%s" % (scheme, hostString, str(host_ext) ))
-
         setHttpScheme(scheme)
+
+        match = re.match( r'([\w\-_]+)[\.:]?', hostString)
+        host_ext = str(match.group(1))
+        match0 = str(match.group(0))
+        if host_ext + ":" == match0: #Special case for URLs with no subdomains - eg. localhost
+            host_ext = ""
 
         split = hostString.rsplit(':')
         myhost = split[0]
@@ -2080,31 +2096,43 @@ class ShowUnit (webapp2.RequestHandler):
         myport = "80"
         if len(split) > 1:
             myport = split[1]
+        setHostPort(myport)
+
+
+        log.info("setupHostinfo: data: scheme='%s' hoststring='%s' host_ext='%s'" % (scheme, hostString, str(host_ext) ))
+
+        if host_ext != "":
+            if host_ext in ENABLED_EXTENSIONS:
+                mybasehost = mybasehost[len(host_ext) + 1:]
+
+            elif host_ext == "www":
+                mybasehost = mybasehost[4:]
+                setBaseHost(mybasehost)
+                log.info("Host extention '%s' - redirecting to '%s'" % (host_ext,mybasehost))
+                return self.redirectToBase(node,True)
+            else:
+                tempbase = mybasehost[len(host_ext)+1:]
+                if tempbase in WORKINGHOSTS: #Known hosts so can control extention values
+                    mybasehost = tempbase
+                    setHostExt("")
+                    setBaseHost(mybasehost)
+                    log.info("Host extention '%s' not enabled - redirecting to '%s'" % (host_ext,mybasehost))
+                    return self.redirectToBase(node,True)
+
+                else:                        #Unknown host so host_ext may be just part of the host string
+                    host_ext = ""
+
+        log.info("setupHostinfo: calculated: basehost='%s' host_ext='%s'" % (mybasehost, host_ext ))
 
         setHostExt(host_ext)
         setBaseHost(mybasehost)
-        setHostPort(myport)
 
-        if host_ext != None:
-            # e.g. "bib"
-            log.debug("HOST: Found %s in %s" % ( host_ext, hostString ))
-            if host_ext == "www":
-                # www is special case that cannot be an extension - need to redirect to basehost
-                mybasehost = mybasehost[4:]
-                setBaseHost(mybasehost)
-                return self.redirectToBase(node)
-            elif not host_ext in ENABLED_EXTENSIONS:
-                host_ext = ""
-            else:
-                mybasehost = mybasehost[len(host_ext) + 1:]
-            setHostExt(host_ext)
-            setBaseHost(mybasehost)
-            if mybasehost == "schema.org":
+        if mybasehost == "schema.org":
+            noindexpages = False
+        if "FORCEINDEXPAGES" in os.environ:
+            if os.environ["FORCEINDEXPAGES"] == "True":
                 noindexpages = False
-            if "FORCEINDEXPAGES" in os.environ:
-                if os.environ["FORCEINDEXPAGES"] == "True":
-                    noindexpages = False
-            log.info("[%s] noindexpages: %s" % (getInstanceId(short=True),noindexpages))
+        log.info("[%s] noindexpages: %s" % (getInstanceId(short=True),noindexpages))
 
         setHostExt(host_ext)
         setBaseHost(mybasehost)
@@ -2131,10 +2159,11 @@ class ShowUnit (webapp2.RequestHandler):
 
         return True
 
-    def redirectToBase(self,node=""):
-        uri = makeUrl("",node)
-        self.response = webapp2.redirect(uri, True, 301)
+    def redirectToBase(self,node="",full=False):
+        uri = makeUrl("",node,full)
         log.info("Redirecting [301] to: %s" % uri)
+        if not getInTestHarness():
+            self.response = webapp2.redirect(uri, True, 301)
         return False
 
 
@@ -2201,7 +2230,7 @@ class ShowUnit (webapp2.RequestHandler):
                     self.response.headers.add_header("ETag", etag + tagsuff)
                     self.response.headers['Last-Modified'] = getmodiftime().strftime("%a, %d %b %Y %H:%M:%S UTC")
                     retHdrs = self.response.headers.copy()
-                    HeaderStore.put(etag + tagsuff,retHdrs) #Cache these headers for a future 304 return
+                    HeaderStore.putIfNewKey(etag + tagsuff,retHdrs) #Cache these headers for a future 304 return
 
             self.response.set_cookie('GOOGAPPUID', getAppEngineVersion())
 
@@ -2581,7 +2610,7 @@ def templateRender(templateName,values=None):
         'sitemode': sitemode,
         'sitename': getSiteName(),
         'staticPath': makeUrl("",""),
-        'extensionPath': makeUrl(getHostExt(),""),
+        'extensionPath': makeUrl(getHostExt(),"",True),
         'myhost': getHost(),
         'myport': getHostPort(),
         'mybasehost': getBaseHost(),

@@ -291,6 +291,11 @@ class HeaderStoreTool():
         fullKey = ca + ":" + key
         ent = HeaderEntity(id = fullKey, content = val)
         ent.put()
+
+    def putIfNewKey(self, key, val,cache=None):
+        #gets are lightweight puts are not
+        if self.get(key,cache) == None:
+            self.put(key,val,cache)
         
     def get(self, key,cache=None):
         ca = self.getCurrent()
@@ -462,9 +467,10 @@ class Unit ():
         types = GetTargets( Unit.GetUnit("rdf:type"), self, layers )
         return (type in types)
 
-    # Function needs rewriting to use GetTargets(arc,src,layers) and recurse
     def subClassOf(self, type, layers='core'):
         """Boolean, true if the unit has an rdfs:subClassOf matching this type, direct or implied (in specified layer(s))."""
+        if not type:
+            return False
         if (self.id == type.id):
             return True
         parents = GetTargets( Unit.GetUnit("rdfs:subClassOf"), self, layers )
@@ -1072,6 +1078,7 @@ def GetJsonLdContext(layers='core'):
         jsonldcontext = "{\n  \"@context\": {\n"
         jsonldcontext += "        \"type\": \"@type\",\n"
         jsonldcontext += "        \"id\": \"@id\",\n"
+        jsonldcontext += "        \"HTML\": { \"@id\": \"rdf:HTML\" },\n"
         jsonldcontext += "        \"@vocab\": \"http://schema.org/\",\n"
         jsonldcontext += namespaces
 
