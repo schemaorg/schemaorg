@@ -15,11 +15,13 @@ sys.path.insert( 1, 'lib' ) #Pickup libs, rdflib etc., from shipped lib director
 #                  expanduser("~") + '/google-cloud-sdk/platform/google_appengine/')
 #sys.path.insert(0, sdk_path)
 
+from testharness import *
+#Setup testharness state BEFORE importing sdo libraries
+setInTestHarness(True)
+
 from api import *
 from parsers import *
 
-#Setup testharness state BEFORE importing sdoapp
-setInTestHarness(True)
 os.environ["WARMUPSTATE"] = "off"
 from sdoapp import *
 

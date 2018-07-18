@@ -17,6 +17,9 @@ import datetime, time
 from google.appengine.ext import ndb
 loader_instance = False
 
+
+from testharness import *
+
 import apirdflib
 
 #from apirdflib import rdfGetTargets, rdfGetSources
@@ -36,22 +39,10 @@ schemasInitialized = False
 extensionsLoaded = False
 extensionLoadErrors = ""
 
-#INTESTHARNESS used to flag we are in a test harness - not called by webApp so somethings will work different!
+#INTESTHARNESS used to flag we are in a test harness - not called by webApp so some things will work different!
 #setInTestHarness(True) should be called from test suites.
-INTESTHARNESS = False
-def setInTestHarness(val):
-    global INTESTHARNESS
-    INTESTHARNESS = val
-    if val:
-        storestate = False
-    else:
-        storestate = True   
-    enablePageStore(storestate)
     
-def getInTestHarness():
-    global INTESTHARNESS
-    return INTESTHARNESS
-
+log.info("IN TESTHARNESS %s" % getInTestHarness())
 if not getInTestHarness():
     from google.appengine.api import memcache
 
@@ -403,14 +394,15 @@ def enablePageStore(state):
         HeaderStore = DataCacheTool()
         DataCache = DataCacheTool()
 
-if  NDBPAGESTORE:
-    enablePageStore(True)
-else:
+if getInTestHarness(): #Override pagestore decision if in testharness
     enablePageStore(False)
-    
-    
+else:
+    if  NDBPAGESTORE:
+        enablePageStore(True)
+    else:
+        enablePageStore(False)
 
-
+    
 class Unit ():
     """
     Unit represents a node in our schema graph. IDs are local,

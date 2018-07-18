@@ -5,15 +5,16 @@ import sys
 sys.path.append( os.getcwd() )
 sys.path.insert( 1, 'lib' ) #Pickup libs, rdflib etc., from shipped lib directory
 
+from testharness import *
+#Setup testharness state BEFORE importing sdo libraries
+setInTestHarness(True)
+
 from api import extensionsLoaded, extensionLoadErrors
-from api import setInTestHarness, getInTestHarness
 from api import EXAMPLESMAP, Triple
 from apimarkdown import Markdown
 
 from google.appengine.ext import deferred 
 
-#Setup testharness state BEFORE importing sdoapp
-setInTestHarness(True)
 from sdoapp import *
 
 schema_path = './data/schema.rdfa'
