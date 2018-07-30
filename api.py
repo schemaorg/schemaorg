@@ -45,6 +45,7 @@ extensionLoadErrors = ""
 log.info("IN TESTHARNESS %s" % getInTestHarness())
 if not getInTestHarness():
     from google.appengine.api import memcache
+    from sdocloudstore import SdoCloud
 
 AllLayersList = []
 def setAllLayersList(val):
@@ -67,7 +68,10 @@ DYNALOAD = True # permits read_schemas to be re-invoked live.
 #   loader=jinja2.FileSystemLoader(os.path.join(os.path.dirname(__file__), 'templates')),
 #    extensions=['jinja2.ext.autoescape'], autoescape=True)
 
-NDBPAGESTORE = True #True - uses NDB shared (accross instances) store for page cache - False uses in memory local cache
+#PAGESTOREMODE = "NDBSHARED" #INMEM (In instance memory)
+PAGESTOREMODE = "CLOUDSTORE" #INMEM (In instance memory)
+                            #NDBSHARED (NDB shared - accross instances)
+                            #CLOUDSTORE - (Cloudstorage files)
 debugging = False
 
 def getMasterStore():
@@ -181,7 +185,7 @@ class DataCacheTool():
 class PageEntity(ndb.Model):
     content = ndb.TextProperty()
     
-class PageStoreTool():
+class NDBPageStoreTool():
     def __init__ (self):
         self.tlocal = threading.local()
         self.tlocal.CurrentStoreSet = "core"
@@ -242,6 +246,60 @@ class PageStoreTool():
         else:
             #log.info("PageStore '%s' not found" % fullKey)
             return None
+
+class CloudPageStoreTool():
+    def __init__ (self):
+        self.init()
+    
+    def init(self):
+        log.info("CloudPageStoreTool.init")
+        self.tlocal = threading.local()
+        self.tlocal.CurrentStoreSet = "core"
+        log.info("CloudPageStoreTool.CurrentStoreSet: %s" % self.tlocal.CurrentStoreSet)
+        
+    def _getTypeFromKey(self,key):
+        name = key
+        typ = None
+        split = key.split(':')
+        if len(split) > 1:
+            name = split[1]
+            typ = split[0]
+            if typ[0] == '.':
+                typ = typ[1:]
+        log.info("%s > %s %s" % (key,name,typ))
+        return name,typ
+
+    def initialise(self):
+        return {"CloudPageStore":SdoCloud.delete_files_in_bucket()}
+            
+    def getCurrent(self):
+        try:
+            if not self.tlocal.CurrentStoreSet:
+                self.tlocal.CurrentStoreSet = "core"
+        except Exception:
+            self.tlocal.CurrentStoreSet = "core"
+        ret = self.tlocal.CurrentStoreSet
+        return ret
+        
+    def setCurrent(self,current):
+        self.tlocal.CurrentStoreSet = current
+        log.debug("CloudPageStore setting CurrentStoreSet: %s",current)
+        
+    def put(self, key, val,cache=None,extrameta=None):
+        fname, ftype = self._getTypeFromKey(key)
+        if not ftype:
+            ftype = "html"
+        SdoCloud.writeFormattedFile(fname,ftype=ftype,content=val,extrameta=extrameta)
+        
+    def get(self, key,cache=None):
+        fname, ftype = self._getTypeFromKey(key)
+        if not ftype:
+            ftype = "html"
+        return SdoCloud.readFormattedFile(fname,ftype=ftype)
+            
+    def remove(self, key,cache=None):
+        SdoCloud.deleteFormattedFile(key)
+
 
 class HeaderEntity(ndb.Model):
     content = ndb.PickleProperty()
@@ -375,33 +433,57 @@ class DataStoreTool():
 PageStore = None
 HeaderStore = None
 DataCache = None
-log.info("[%s] NDB PageStore & HeaderStore available: %s" % (getInstanceId(short=True),NDBPAGESTORE))
+log.info("[%s] PageStore mode: %s" % (getInstanceId(short=True),PAGESTOREMODE))
 
-def enablePageStore(state):
+def enablePageStore(mode):
     global PageStore,HeaderStore,DataCache
-    log.info("enablePageStore(%s)" % state)
-    if state:
+    log.info("enablePageStore(%s)" % mode)
+    if(mode == "NDBSHARED"):
         log.info("[%s] Enabling NDB" % getInstanceId(short=True))
-        PageStore = PageStoreTool()
+        PageStore = NDBPageStoreTool()
+        log.info("[%s] Created PageStore" % getInstanceId(short=True))
+        HeaderStore = HeaderStoreTool()
+        log.info("[%s] Created HeaderStore" % getInstanceId(short=True))
+        DataCache = DataStoreTool()
+        log.info("[%s] Created DataStore" % getInstanceId(short=True))
+        
+    elif(mode == "INMEM"):
+        log.info("[%s] Disabling NDB" % getInstanceId(short=True))
+        PageStore = DataCacheTool()
+        HeaderStore = DataCacheTool()
+        DataCache = DataCacheTool()
+        
+    elif(mode == "CLOUDSTORE"):
+        log.info("[%s] Enabling CloudStore" % getInstanceId(short=True))
+        PageStore = CloudPageStoreTool()
         log.info("[%s] Created PageStore" % getInstanceId(short=True))
         HeaderStore = HeaderStoreTool()
         log.info("[%s] Created HeaderStore" % getInstanceId(short=True))
         DataCache = DataStoreTool()
         log.info("[%s] Created DataStore" % getInstanceId(short=True))
     else:
-        log.info("[%s] Disabling NDB" % getInstanceId(short=True))
-        PageStore = DataCacheTool()
-        HeaderStore = DataCacheTool()
-        DataCache = DataCacheTool()
+        log.error("Invalid storage mode: %s" % mode)
 
 if getInTestHarness(): #Override pagestore decision if in testharness
-    enablePageStore(False)
+    enablePageStore("INMEM")
 else:
-    if  NDBPAGESTORE:
-        enablePageStore(True)
-    else:
-        enablePageStore(False)
+    enablePageStore(PAGESTOREMODE)
 
+
+def prepareCloudstoreDocs():
+    for root, dirs, files in os.walk("docs"):
+        for f in files:
+            fname = os.path.join(root, f)
+            log.info("%s" %( fname ))
+            try:
+                with open(fname, 'r') as f:
+                    content = f.read()
+                    SdoCloud.writeFormattedFile(fname,content=content, location="html", raw=True)
+                f.close()
+            except Exception  as e:
+                log.info("ERROR reading: %s" % e)
+                pass
+            
     
 class Unit ():
     """
@@ -1380,13 +1462,16 @@ class CacheControl():
     def clean(pagesonly=False):
         ret = {}
 
-        if not NDBPAGESTORE:
+        if PAGESTOREMODE == "INMEM":
             ret["PageStore"] = PageStore.initialise()
             ret["HeaderStore"] = HeaderStore.initialise()
             ret["DataCache"] = DataCache.initialise()
 
         ndbret = CacheControl.ndbClean()
         ret.update(ndbret)
+        
+        if PAGESTOREMODE == "CLOUDSTORE":
+            prepareCloudstoreDocs()
         
         return ret
         
