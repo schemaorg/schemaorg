@@ -8,7 +8,7 @@
 					<a href="/">{{ sitename }}</a>
 				</h1>
 				</div>
-				<div id="cse-search-form" style="width: 400px;"><div class="gcse-searchbox-only" data-resultsUrl="/docs/search_results.html"></div></div>
+				<div id="cse-search-form" style="width: 400px;"><div class="gcse-searchbox-only" data-resultsUrl="{{ docsdir }}search_results.html"></div></div>
 			</div>
 		</div>
 	</div>
@@ -21,31 +21,33 @@
 	        {% else %}
 	        <li>
 	        {% endif %}
-				<a href="/docs/documents.html">Documentation</a>
+				<a href="{{ docsdir }}documents.html">Documentation</a>
 			</li>
 	        {% if menu_sel == "Schemas" %}
 	        <li class="activelink">
 	        {% else %}
 	        <li>
 	        {% endif %}
-				<a href="/docs/schemas.html">Schemas</a>
+				<a href="{{ docsdir }}schemas.html">Schemas</a>
 			</li>
 			<li>
 	        {% if home_page == "True" %}
-				<a href="{{staticPath}}/docs/about.html">About</a>
+				<a href="{{ docsdir }}about.html">About</a>
 	        {% else %}
-				<a href="/">Home</a>
+				<a href="{{ homedir }}/">Home</a>
 	        {% endif %}
 			</li>
 		</ul>
 	</div>
 </div>
 
+{% include 'topnotes.tpl' with context %}
+
 {% if mybasehost in [ "webschemas.org", "localhost"] %}
 <div class="devnote"><b>Note</b>: you are viewing the
 	<a href="http://webschemas.org/">webschemas.org</a> development
 	version of <a href="http://schema.org/">schema.org</a>.
-	See <a href="/docs/howwework.html">How we work</a> for more details.
+	See <a href="{{ docsdir }}howwework.html">How we work</a> for more details.
 </div>
 {% endif %}
 

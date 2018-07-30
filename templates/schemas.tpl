@@ -9,7 +9,7 @@
 </head>
 <body>
 
-{% include 'basicPageHeader.tpl' with context %}
+{% include 'docsBasicPageHeader.tpl' with context %}
 
 
   <div id="mainContent" class="faq">

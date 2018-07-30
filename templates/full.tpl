@@ -35,7 +35,7 @@ $(document).ready(function(){
 </head>
 <body style="text-align: center;">
 
-{% include 'basicPageHeader.tpl' with context %}
+{% include 'docsBasicPageHeader.tpl' with context %}
 
 <div style="text-align: left; margin-left: 8%; margin-right: 8%">
 
@@ -52,8 +52,8 @@ Schema.org is defined as two hierarchies: one for textual property values, and o
 <br/>
 <div>Select vocabulary view:<br/>
     <div>
-        <label><input type="radio" name="viewSel" value="local" checked="checked"> {{local_button}}</label>
-        <label><input type="radio" name="viewSel" value="full"> {{full_button}}</label>
+        <label><input type="radio" name="viewSel" value="local"> {{local_button}}</label>
+        <label><input type="radio" name="viewSel" value="full"  checked="checked"> {{full_button}}</label>
 		{% if ext_button != "" %}
         	<label><input type="radio" name="viewSel" value="ext"> {{ext_button}}</label>
 		{% endif %}
