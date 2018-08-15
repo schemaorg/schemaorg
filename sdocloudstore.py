@@ -2,6 +2,7 @@
 import logging
 logging.basicConfig(level=logging.INFO) # dev_appserver.py --log_level debug .
 log = logging.getLogger(__name__)
+import traceback        
 
 import os
 import datetime, time
@@ -81,7 +82,6 @@ class bucketCacheItem():
     
 class SdoCloudStore():
     def __init__(self):
-        log.info("InTestHarness: %s" % getInTestHarness())
         if getInTestHarness():
             self.bucket_name = os.environ.get('BUCKET_NAME',"app_default_bucket")
         else:
@@ -103,12 +103,12 @@ class SdoCloudStore():
         if ftype and ext != ftype:
             filename = filename + '.' + ftype
             
-        log.info("buildNameType: filename:%s ftype: %s  ext: %s" % (filename, ftype, ext))
+        #log.info("buildNameType: filename:%s ftype: %s  ext: %s" % (filename, ftype, ext))
                     
         return filename
         
     def buildBucketFile(self,filename,ftype,location):
-        log.info("buildBucketFile( %s %s %s )" % (filename,ftype,location))
+        #log.info("buildBucketFile( %s %s %s )" % (filename,ftype,location))
         
         filename = self.buildNameType(filename,ftype)
         
@@ -122,7 +122,7 @@ class SdoCloudStore():
 
         mimetype, contentType = mimetypes.guess_type(bucketFile)
 
-        log.info("buildBucketFile: %s %s (%s)" % (bucketFile,mimetype,contentType))
+        #log.info("buildBucketFile: %s %s (%s)" % (bucketFile,mimetype,contentType))
 
         return bucketFile, mimetype
         
@@ -135,6 +135,8 @@ class SdoCloudStore():
     def writeFormattedFile(self, filename, ftype=None, location=None, content="", raw=False, private=False, extrameta=None):
         """Create a file."""
         bucketFile, mtype  = self.buildBucketFile(filename,ftype,location)
+        if ftype != 'html':
+            raw = True
         self.write_file(bucketFile, mtype, content, raw=raw, private=private, extrameta=extrameta)
 
     def write_file(self, bucketFile, mtype=None, content="", raw=False, private=False, extrameta=None):
@@ -143,7 +145,7 @@ class SdoCloudStore():
         log.info('Creating file {} ({})'.format(bucketFile,mtype))
         bucketFile = self.getPath(bucketFile)
         return self._write_file(bucketFile=bucketFile, mtype=mtype, content=content, raw=raw, private=private, extrameta=extrameta)
-        
+
     def _write_file(self, bucketFile, mtype=None, content="", raw=False, private=False, extrameta=None):
         log.info("Attempting to write: %s %s %s" % (bucketFile, mtype, raw))
         # The retry_params specified in the open call will override the default
@@ -157,7 +159,7 @@ class SdoCloudStore():
             extrameta.update(moremeta)
         else:
             extrameta = moremeta
-            
+
         try:
             write_retry_params = cloudstorage.RetryParams(backoff_factor=1.1)
             write_options = {}
@@ -178,6 +180,7 @@ class SdoCloudStore():
                         cloudstorage_file.write(content)
         except Exception as e:
             log.error("File write error: (%s): %s" % (bucketFile,e))
+            log.error(traceback.format_exc())
             return False
         
         setAppVar(CLOUDSTAT,self._stat_file(bucketFile,cache=False))
@@ -223,7 +226,7 @@ class SdoCloudStore():
         return self._stat_file(bucketFile, ftype=ftype, cache=cache)
 
     def _stat_file(self, bucketFile, ftype=None, cache=True):
-        log.info("stat_file(%s,%s,%s)" % (bucketFile, ftype, cache))
+        log.info("_stat_file(%s,%s,%s)" % (bucketFile, ftype, cache))
         ret = None
         if cache:
             item = self.readCache(bucketFile,ftype)
@@ -232,7 +235,7 @@ class SdoCloudStore():
                 log.info("Got from readCache")
             
         if not ret:
-            log.info('Stating file {}'.format(bucketFile))
+            #log.info('Stating file {}'.format(bucketFile))
             try:
                 ret = cloudstorage.stat(bucketFile)
             except cloudstorage.NotFoundError:
@@ -273,7 +276,7 @@ class SdoCloudStore():
 
 
     def _get_file(self, bucketFile, reqtype=None, cache=True):
-        log.info("get_file(%s,%s)" % (bucketFile,cache))
+        log.info("_get_file(%s,%s)" % (bucketFile,cache))
 
         setAppVar(CLOUDSTAT,None)
         
@@ -408,10 +411,10 @@ class SdoCloudStore():
 
 # [START delete_files]
 
-    def delete_files_in_bucket(self):
-        return self.delete_files_in_folder("")
+    def delete_files_in_bucket(self,skip = []):
+        return self.delete_files_in_folder("",skip)
         
-    def delete_files_in_folder(self, folder):
+    def delete_files_in_folder(self, folder, skip=[]):
         bucketFolder = self.getPath(folder)
         log.info("bucketFolder %s" % bucketFolder)
         startdel = datetime.datetime.now()
@@ -423,7 +426,16 @@ class SdoCloudStore():
             count = 0
             for stat in stats:
                 count += 1
-                files.append(stat.filename)
+                fname = stat.filename
+                delete = True
+                if skip:
+                    for s in skip:
+                        if s in fname:
+                            delete = False
+                            log.info("SKIPPING: %s" % fname)
+                            break
+                if delete:
+                    files.append(stat.filename)
                 
             for f in files:
                 delcount += 1

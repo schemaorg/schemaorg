@@ -58,6 +58,7 @@ def getAllLayersList():
     global AllLayersList
     return AllLayersList
     
+JSONLDCONTEXT = "jsonldcontext.json"
 EVERYLAYER = "!EVERYLAYER!"
 sitename = "schema.org"
 sitemode = "mainsite" # whitespaced list for CSS tags,
@@ -68,10 +69,14 @@ DYNALOAD = True # permits read_schemas to be re-invoked live.
 #   loader=jinja2.FileSystemLoader(os.path.join(os.path.dirname(__file__), 'templates')),
 #    extensions=['jinja2.ext.autoescape'], autoescape=True)
 
-#PAGESTOREMODE = "NDBSHARED" #INMEM (In instance memory)
 PAGESTOREMODE = "CLOUDSTORE" #INMEM (In instance memory)
                             #NDBSHARED (NDB shared - accross instances)
                             #CLOUDSTORE - (Cloudstorage files)
+if "PAGESTOREMODE" in os.environ:
+    PAGESTOREMODE = os.environ["PAGESTOREMODE"]
+    log.info("PAGESTOREMODE set to %s from .yaml file" % PAGESTOREMODE)
+log.info("Initialised with PAGESTOREMODE set to %s" % PAGESTOREMODE)
+
 debugging = False
 
 def getMasterStore():
@@ -266,11 +271,12 @@ class CloudPageStoreTool():
             typ = split[0]
             if typ[0] == '.':
                 typ = typ[1:]
-        log.info("%s > %s %s" % (key,name,typ))
+        #log.info("%s > %s %s" % (key,name,typ))
         return name,typ
 
     def initialise(self):
-        return {"CloudPageStore":SdoCloud.delete_files_in_bucket()}
+        SdoCloud.cleanCache()
+        return {"CloudPageStore":SdoCloud.delete_files_in_bucket(skip=["/.status"])}
             
     def getCurrent(self):
         try:
@@ -433,7 +439,7 @@ class DataStoreTool():
 PageStore = None
 HeaderStore = None
 DataCache = None
-log.info("[%s] PageStore mode: %s" % (getInstanceId(short=True),PAGESTOREMODE))
+#log.info("[%s] PageStore mode: %s" % (getInstanceId(short=True),PAGESTOREMODE))
 
 def enablePageStore(mode):
     global PageStore,HeaderStore,DataCache
@@ -471,10 +477,14 @@ else:
 
 
 def prepareCloudstoreDocs():
+    if  getInTestHarness() or "localhost" in os.environ['SERVER_NAME']: #Force new version logic for local versions and tests
+        log.info("Skipping static docs copy for local/test instance")
+        return
+        
+    log.info("Preparing Cloudstorage - copying static docs")
     for root, dirs, files in os.walk("docs"):
         for f in files:
             fname = os.path.join(root, f)
-            log.info("%s" %( fname ))
             try:
                 with open(fname, 'r') as f:
                     content = f.read()
@@ -483,7 +493,13 @@ def prepareCloudstoreDocs():
             except Exception  as e:
                 log.info("ERROR reading: %s" % e)
                 pass
-            
+
+def cloudstoreStoreContent(fname, content, location, raw=False, private=False):
+    SdoCloud.writeFormattedFile(fname,content=content, ftype="", location=location, raw=raw, private=private)          
+    
+def cloudstoreGetContent(fname, location, raw=False):
+    content = SdoCloud.readFormattedFile(fname, ftype="", location=location) 
+    return content         
     
 class Unit ():
     """
@@ -1144,50 +1160,44 @@ def GetJsonLdContext(layers='core'):
     """Generates a basic JSON-LD context file for schema.org."""
 
     # Caching assumes the context is neutral w.r.t. our hostname.
-    if DataCache.get('JSONLDCONTEXT'):
-        #log.debug("DataCache: recycled JSONLDCONTEXT")
-        return DataCache.get('JSONLDCONTEXT')
-    else:
-        global namespaces
-        jsonldcontext = "{\n  \"@context\": {\n"
-        jsonldcontext += "        \"type\": \"@type\",\n"
-        jsonldcontext += "        \"id\": \"@id\",\n"
-        jsonldcontext += "        \"HTML\": { \"@id\": \"rdf:HTML\" },\n"
-        jsonldcontext += "        \"@vocab\": \"http://schema.org/\",\n"
-        jsonldcontext += namespaces
+    jsonldcontext = ""
+    jsonldcontext += "{\n  \"@context\": {\n"
+    jsonldcontext += "        \"type\": \"@type\",\n"
+    jsonldcontext += "        \"id\": \"@id\",\n"
+    jsonldcontext += "        \"HTML\": { \"@id\": \"rdf:HTML\" },\n"
+    jsonldcontext += "        \"@vocab\": \"http://schema.org/\",\n"
+    jsonldcontext += namespaces
 
-        url = Unit.GetUnit("URL")
-        date = Unit.GetUnit("Date")
-        datetime = Unit.GetUnit("DateTime")
+    url = Unit.GetUnit("URL")
+    date = Unit.GetUnit("Date")
+    datetime = Unit.GetUnit("DateTime")
 
 #        properties = sorted(GetSources(Unit.GetUnit("rdf:type",True), Unit.GetUnit("rdf:Property",True), layers=getAllLayersList()), key=lambda u: u.id)
 #        for p in properties:
-        for t in GetAllTerms(EVERYLAYER,includeDataTypes=True):
-            if t.isClass(EVERYLAYER) or t.isEnumeration(EVERYLAYER) or t.isEnumerationValue(EVERYLAYER) or t.isDataType(EVERYLAYER):
-                jsonldcontext += "        \"" + t.id + "\": {\"@id\": \"schema:" + t.id + "\"},"
-            elif t.isAttribute(EVERYLAYER):
-                range = GetTargets(Unit.GetUnit("rangeIncludes"), t, layers=EVERYLAYER)
-                type = None
+    for t in GetAllTerms(EVERYLAYER,includeDataTypes=True):
+        if t.isClass(EVERYLAYER) or t.isEnumeration(EVERYLAYER) or t.isEnumerationValue(EVERYLAYER) or t.isDataType(EVERYLAYER):
+            jsonldcontext += "        \"" + t.id + "\": {\"@id\": \"schema:" + t.id + "\"},"
+        elif t.isAttribute(EVERYLAYER):
+            range = GetTargets(Unit.GetUnit("rangeIncludes"), t, layers=EVERYLAYER)
+            type = None
 
-                if url in range:
-                    type = "@id"
-                elif date in range:
-                    type = "Date"
-                elif datetime in range:
-                    type = "DateTime"
+            if url in range:
+                type = "@id"
+            elif date in range:
+                type = "Date"
+            elif datetime in range:
+                type = "DateTime"
 
-                typins = ""
-                if type:
-                    typins = ", \"@type\": \"" + type + "\""
+            typins = ""
+            if type:
+                typins = ", \"@type\": \"" + type + "\""
 
-                jsonldcontext += "        \"" + t.id + "\": { \"@id\": \"schema:" + t.id + "\"" + typins + "},"
+            jsonldcontext += "        \"" + t.id + "\": { \"@id\": \"schema:" + t.id + "\"" + typins + "},"
 
-        jsonldcontext += "}}\n"
-        jsonldcontext = jsonldcontext.replace("},}}","}\n    }\n}")
-        jsonldcontext = jsonldcontext.replace("},","},\n") 
-        DataCache.put('JSONLDCONTEXT',jsonldcontext)
-        #log.debug("DataCache: added JSONLDCONTEXT")
-        return jsonldcontext
+    jsonldcontext += "}}\n"
+    jsonldcontext = jsonldcontext.replace("},}}","}\n    }\n}")
+    jsonldcontext = jsonldcontext.replace("},","},\n") 
+    return str(jsonldcontext)
 
 
 

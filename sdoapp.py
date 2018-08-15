@@ -129,6 +129,8 @@ def getAppEngineVersion():
         from google.appengine.api.modules.modules import get_current_version_name
         ret = get_current_version_name()
         #log.info("AppEngineVersion '%s'" % ret)
+    else:
+        return "TestVersion"
     return ret
 
 instance_first = True
@@ -180,36 +182,96 @@ def tick(): #Keep memcache values fresh so they don't expire
         memcache.set(key="SysStart", value=systarttime)
         memcache.set(key="static-version", value=appver)
 
-if getInTestHarness():
-    load_examples_data(ENABLED_EXTENSIONS)
-    #prepareCloudstoreDocs()
+TIMESTAMPSTOREMODE = "CLOUDSTORE"
+if "TIMESTAMPSTOREMODE" in os.environ:
+    TIMESTAMPSTOREMODE = os.environ["TIMESTAMPSTOREMODE"]
+    log.info("TIMESTAMPSTOREMODE set to %s from .yaml file" % TIMESTAMPSTOREMODE)
+log.info("Initialised with TIMESTAMPSTOREMODE set to %s" % TIMESTAMPSTOREMODE)
 
-else: #Ensure clean start for any memcached or ndb store values...
+class TimestampEntity(ndb.Model):
+    content = ndb.TextProperty()
+    
+def check4NewVersion():
+    ret = False
     dep = None
     try:
         fpath = os.path.join(os.path.split(__file__)[0], 'admin/deploy_timestamp.txt')
-        log.info("fpath: %s" % fpath)
+        #log.info("fpath: %s" % fpath)
         with open(fpath, 'r') as f:
             dep = f.read()
+            dep = dep.replace("\n","")
         f.close()
     except Exception  as e:
         log.info("ERROR reading: %s" % e)
         pass
 
-    log.info("Dep: %s mem:%s" % (dep, memcache.get("deployed-timestamp")))
-#    if memcache.get("static-version") != appver: #We are a new instance of the app
+    if  getInTestHarness() or "localhost" in os.environ['SERVER_NAME']: #Force new version logic for local versions and tests
+        ret = True 
+        log.info("Assuming new version for local/test instance")
+    else:
+    
+        if TIMESTAMPSTOREMODE == "INMEM":
+            log.info("deployed-timestamp: '%s' mem version: '%s'" % (dep, memcache.get("deployed-timestamp")))
+            if dep != memcache.get("deployed-timestamp"):
+                ret = True
+            
+        elif TIMESTAMPSTOREMODE == "NDBSHARED":
+            ent = TimestampEntity.get_by_id("deployed-timestamp")
+            val = ""
+            if ent:
+                val = ent.content
+            log.info("deployed-timestamp: '%s' ndbshared version: '%s'" % (dep, val))
+            if dep != val:
+                ret = True
+         
+        elif TIMESTAMPSTOREMODE == "CLOUDSTORE":
+            val = cloudstoreGetContent("deployed-timestamp.txt", ".status")
+            log.info("deployed-timestamp: '%s' cloudstore version: '%s'" % (dep, val))
+            if dep != val:
+                ret = True
+    
+    return ret, dep
+            
+def storeNewTimestamp(stamp=None):
+    storeTimestampInfo("deployed-timestamp",stamp)
 
-    if memcache.get("deployed-timestamp") != dep: #We are a new instance of the app
-        msg = "New app instance detected - flushing caches.  (mem='%s' deploy_timestamp='%s')" % (memcache.get("deployed-timestamp"), dep)
+def storeInitialisedTimestamp(stamp=None):
+    storeTimestampInfo("initialised-timestamp",stamp)
+        
+def storeTimestampInfo(tag,stamp=None): 
+    if not stamp:
+        stamp = datetime.datetime.utcnow().strftime("%a %d %b %Y %H:%M:%S UTC")
+        
+    if TIMESTAMPSTOREMODE == "INMEM":
+        log.info("Storing %s version: '%s'" % (tag,stamp))
+        memcache.set(key=tag,value=stamp)
+            
+    elif TIMESTAMPSTOREMODE == "NDBSHARED":
+        log.info("Storing ndbshared %s version: '%s'" % (tag,stamp))
+        ent = TimestampEntity(id = tag, content = stamp)
+        ent.put()
+        
+    elif TIMESTAMPSTOREMODE == "CLOUDSTORE":
+        log.info("Storing cloudstore %s version: '%s'" % (tag,stamp))
+        val = cloudstoreStoreContent("%s.txt" % tag, stamp, ".status", private=True)
+        
+    
+if getInTestHarness():
+    load_examples_data(ENABLED_EXTENSIONS)
+else: #Ensure clean start for any memcached or ndb store values...
+    
+    changed, dep = check4NewVersion()
+    if changed: #We are a new instance of the app
+        msg = "New app instance detected - FLUSHING CACHES.  (deploy_timestamp='%s')" % (dep)
         memcache.flush_all()
-        memcache.set(key="deployed-timestamp", value=dep)
-        #sdo_send_mail(to="rjw@dataliberate.com",subject="[SCHEMAINFO] from 'sdoapp'", msg=msg)
-        log.info(">>>> %s " % msg)
+        storeNewTimestamp(dep)
+
+        sdo_send_mail(to="rjw@dataliberate.com",subject="[SCHEMAINFO] from 'sdoapp'", msg=msg)
+        log.info("%s" % msg)
 
         load_start = datetime.datetime.now()
         systarttime = datetime.datetime.utcnow()
         memcache.set(key="app_initialising", value=True, time=300)  #Give the system 5 mins - auto remove flag in case of crash
-        log.info("[%s] Detected new code version - resetting memory values %s" % (getInstanceId(short=True),systarttime))
         memcache.set(key="static-version", value=appver)
         memcache.add(key="SysStart", value=systarttime)
         instance_first = True
@@ -220,6 +282,7 @@ else: #Ensure clean start for any memcached or ndb store values...
         tick()
         memcache.set(key="app_initialising", value=False)
         log.debug("[%s] Awake >>>>>>>>>>>." % (getInstanceId(short=True)))
+        storeInitialisedTimestamp()
     else:
         time.sleep(0.5) #Give time for the initialisation flag (possibly being set in another thread/instance) to be set
         WAITCOUNT = 180
@@ -465,7 +528,11 @@ class ShowUnit (webapp2.RequestHandler):
 
     def emitCacheHeaders(self):
         """Send cache-related headers via HTTP."""
-        self.response.headers['Cache-Control'] = "public, max-age=600" # 10m
+        if "CACHE_CONTROL" in os.environ:
+            log.info("Setting http cache control to '%s' from .yaml" % os.environ["CACHE_CONTROL"]) 
+            self.response.headers['Cache-Control'] = os.environ["CACHE_CONTROL"] 
+        else:
+            self.response.headers['Cache-Control'] = "public, max-age=600" # 10m
         self.response.headers['Vary'] = "Accept, Accept-Encoding"
 
     def write(self, str):
@@ -1453,7 +1520,6 @@ class ShowUnit (webapp2.RequestHandler):
 
         self.write(" \n\n</div>\n</body>\n<!-- AppEngineVersion %s (%s)-->\n</html>" % (getAppEngineVersion(),appver))
 
-        log.info("outputStrings len: %s" % len(self.outputStrings))
         page = "".join(self.outputStrings)
         setAppVar(CLOUDEXTRAMETA,{'x-goog-meta-sdotermlayer': node.home})
         PageStore.put(node.id,page)
@@ -1474,7 +1540,7 @@ class ShowUnit (webapp2.RequestHandler):
         # 1. get a comma list from ?ext=foo,bar URL notation
         extlist = cleanPath( self.request.get("ext")  )# for debugging
         extlist = re.sub(ext_re, '', extlist).split(',')
-        log.debug("?ext= extension list: %s " % ", ".join(extlist))
+        log.debug("?ext= extension list: '%s' " % ", ".join(extlist))
 
         # 2. Ignore ?ext=, start with 'core' only.
         layerlist = [ "core"]
@@ -1486,7 +1552,7 @@ class ShowUnit (webapp2.RequestHandler):
 
         # Report domain-requested extensions
         for x in extlist:
-            log.debug("Ext filter found: %s" % str(x))
+            #log.debug("Ext filter found: %s" % str(x))
             if x  in ["core", "localhost", ""]:
                 continue
             layerlist.append("%s" % str(x))
@@ -1501,13 +1567,16 @@ class ShowUnit (webapp2.RequestHandler):
             self.error(404)
             self.response.out.write('<title>404 Not Found.</title><a href="/">404 Not Found (JSON-LD Context not enabled.)</a><br/><br/>')
             return True
-
-        jsonldcontext = ""
-        if getPageFromStore("JSONLDCONTEXT"):
-            jsonldcontext = getPageFromStore("JSONLDCONTEXT")
-        else:
+        label = "jsonld:jsonldcontext.jsonld"
+        jsonldcontext = getPageFromStore(label)
+        if not jsonldcontext:
             jsonldcontext = GetJsonLdContext(layers=ALL_LAYERS)
-            PageStore.put("JSONLDCONTEXT",jsonldcontext)
+            
+            PageStore.put(label,jsonldcontext)
+            
+        if PAGESTOREMODE == "CLOUDSTORE":
+            cloudstoreStoreContent("docs/jsonldcontext.json", jsonldcontext, "html")
+            cloudstoreStoreContent("docs/jsonldcontext.json.txt", jsonldcontext, "html")
 
         if (node=="docs/jsonldcontext.json.txt"):
             self.response.headers['Content-Type'] = "text/plain"
@@ -1724,7 +1793,7 @@ class ShowUnit (webapp2.RequestHandler):
 
         if node.startswith("http://schema.org/"): #Special case will map full schema URI to the term name
             node = node[18:]
-
+            
         """Handle with requests for specific terms like /Person, /fooBar. """
         dataext = os.path.splitext(node)
         if dataext[1] in OUTPUTDATATYPES:
@@ -1735,6 +1804,9 @@ class ShowUnit (webapp2.RequestHandler):
             return True
 
         schema_node = Unit.GetUnit(node) # e.g. "Person", "CreativeWork".
+        if not schema_node: #Not a recognised term
+            return False
+            
         if not self.checkNodeExt(schema_node):
             return False
 
@@ -1793,7 +1865,7 @@ class ShowUnit (webapp2.RequestHandler):
             self.redirectToBase(node.id,full=True)
         else:
             log.info("Redirecting to '%s' entity" % home)
-            self.redirectToBase(node.id,ext=home, full=True)
+            self.redirectToExt(node.id,ext=home, full=True)
         return False
 
 
@@ -1805,7 +1877,7 @@ class ShowUnit (webapp2.RequestHandler):
             schema_node = Unit.GetUnit(node)
             if schema_node:
                 ret = True
-                index = "%s.%s" % (outputtype,node)
+                index = "%s:%s" % (outputtype,node)
                 data = getPageFromStore(index)
 
                 excludeAttic=True
@@ -1815,6 +1887,7 @@ class ShowUnit (webapp2.RequestHandler):
                     self.response.headers['Content-Type'] = "text/csv; charset=utf-8"
                     if not data:
                         data = self.emitcsvTerm(schema_node,excludeAttic)
+                        PageStore.put(index,data)
                 else:
                     format = None
                     if outputtype == ".jsonld":
@@ -1858,6 +1931,11 @@ class ShowUnit (webapp2.RequestHandler):
     def handle404Failure(self, node, layers="core", extrainfo=None, suggest=True):
         self.error(404)
         self.emitSchemaorgHeaders("404 Not Found")
+        #404 could be called from any path, so output all potential locations of schemaorg.css
+        self.response.out.write('<link rel="stylesheet" type="text/css" href="../docs/schemaorg.css" />')
+        self.response.out.write('<link rel="stylesheet" type="text/css" href="docs/schemaorg.css" />')
+        self.response.out.write('<link rel="stylesheet" type="text/css" href="/docs/schemaorg.css" />')
+        
         self.response.out.write('<h3>404 Not Found.</h3><p><br/>Page not found. Please <a href="/">try the homepage.</a><br/><br/></p>')
 
         if suggest:
@@ -2033,8 +2111,8 @@ class ShowUnit (webapp2.RequestHandler):
         if not ext in ENABLED_EXTENSIONS:
             return ""
 
-        if getPageFromStore('ExtensionContents',ext):
-            return getPageFromStore('ExtensionContents',ext)
+#        if getPageFromStore('ExtensionContents',ext):
+#            return getPageFromStore('ExtensionContents',ext)
 
         buff = StringIO.StringIO()
 
@@ -2069,7 +2147,7 @@ class ShowUnit (webapp2.RequestHandler):
             buff.write("</div>")
 
         ret = buff.getvalue()
-        PageStore.put('ExtensionContents',ret,ext)
+#        PageStore.put('ExtensionContents',ret,ext)
         buff.close()
         return ret
 
@@ -2195,8 +2273,8 @@ class ShowUnit (webapp2.RequestHandler):
             dcn = "%s-%s" % (dcn,scheme)
 
         dcn = "single" #Forcing single cache
-        log.info("Forcing single cache.  !!!!!!!!!!!!!!!!")
-        log.info("sdoapp.py setting current datacache to: %s " % dcn)
+        #log.info("Forcing single cache.  !!!!!!!!!!!!!!!!")
+        #log.info("sdoapp.py setting current datacache to: %s " % dcn)
         DataCache.setCurrent(dcn)
         PageStore.setCurrent(dcn)
         HeaderStore.setCurrent(dcn)
@@ -2210,6 +2288,13 @@ class ShowUnit (webapp2.RequestHandler):
 
     def redirectToBase(self,node="",full=False):
         uri = makeUrl("",node,full)
+        log.info("Redirecting [301] to: %s" % uri)
+        if not getInTestHarness():
+            self.response = webapp2.redirect(uri, True, 301)
+        return False
+
+    def redirectToExt(self,node="",ext="",full=False):
+        uri = makeUrl(ext,node,full)
         log.info("Redirecting [301] to: %s" % uri)
         if not getInTestHarness():
             self.response = webapp2.redirect(uri, True, 301)
@@ -2288,7 +2373,8 @@ class ShowUnit (webapp2.RequestHandler):
                     retHdrs = self.response.headers.copy()
                     HeaderStore.putIfNewKey(etag + tagsuff,retHdrs) #Cache these headers for a future 304 return
 
-            self.response.set_cookie('GOOGAPPUID', getAppEngineVersion())
+            #self.response.set_cookie('GOOGAPPUID', getAppEngineVersion())
+        log.info("Responding: node: %s status: %s. headers: \n%s" % (node,self.response.status,self.response.headers ))
 
 
     def _get(self, node, doWarm=True):
@@ -2363,7 +2449,7 @@ class ShowUnit (webapp2.RequestHandler):
                 log.info("[%s] Warmup dissabled for localhost instance" % getInstanceId(short=True))
                 if DISABLE_NDB_FOR_LOCALHOST:
                     log.info("[%s] NDB dissabled for localhost instance" % getInstanceId(short=True))
-                    enablePageStore(False)
+                    enablePageStore("INMEM")
             else:
                 if not memcache.get("warmedup"):
                     memcache.set("warmedup", value=True)
@@ -2459,7 +2545,7 @@ class ShowUnit (webapp2.RequestHandler):
             self.handle404Failure(node,extrainfo=inf)
             return False
 
-
+            
         # Pages based on request path matching a Unit in the term graph:
         if self.handleExactTermPage(node, layers=layerlist):
             return True
@@ -2579,7 +2665,7 @@ class WarmupTool():
 
     def __init__(self):
         #self.pageList = ["docs/schemas.html"]
-        self.pageList = ["/","docs/schemas.html","docs/full.html","docs/tree.jsonld","docs/developers.html"]
+        self.pageList = ["/","docs/schemas.html","docs/full.html","docs/tree.jsonld","docs/developers.html","docs/jsonldcontext.json"]
         self.warmPages = {}
         for l in ALL_LAYERS:
             self.warmPages[l] = []
