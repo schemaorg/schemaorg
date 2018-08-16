@@ -28,8 +28,9 @@ $(document).ready(function(){
             $("#ext_thing_tree").show(500);
         }
      });
-	$("#full_thing_tree").hide();
+	$("#thing_tree").hide();
 	$("#ext_thing_tree").hide();
+    $("#full_thing_tree").show();
 });
 </script>
 </head>
