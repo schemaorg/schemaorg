@@ -1351,6 +1351,7 @@ class ShowUnit (webapp2.RequestHandler):
             log.info("GOT CACHED page for %s" % node.id)
             self.response.write(cached)
             return
+        log.info("Building page")
  
         self.write(self.buildSchemaorgHeaders(node, ext_mappings, sitemode, getSiteName(), layers))
  
@@ -1593,7 +1594,7 @@ class ShowUnit (webapp2.RequestHandler):
 
     def handleSchemasPage(self, node,  layerlist='core'):
         if getPageFromStore(node):
-            self.response.out.write( getPageFromStore('SchemasPage') )
+            self.response.out.write( getPageFromStore(node) )
             log.debug("Serving recycled SchemasPage.")
             return True
         else:
@@ -1822,9 +1823,6 @@ class ShowUnit (webapp2.RequestHandler):
             if not ENABLE_HOSTED_EXTENSIONS:
                 return False
             if schema_node is not None and schema_node.id in all_terms:# look for it in other layers
-                log.debug("TODO: layer toc: %s" % all_terms[schema_node.id] )
-                # self.response.out.write("Layers should be listed here. %s " %  all_terms[node.id] )
-
                 extensions = []
                 ext = {}
                 ext['href'] = makeUrl(schema_node.getHomeLayer(),schema_node.id,full=True)
@@ -2320,44 +2318,45 @@ class ShowUnit (webapp2.RequestHandler):
         if not node or node == "":
             node = "/"
 
-        NotModified = False
-        etag = getslug() + str(hash(node))
-        jetag = etag + "json"
-        passedTag = etag
+        NotModified = False        
+        matchTag = self.request.headers.get("If-None-Match",None)
+        unMod = self.request.headers.get("If-Unmodified-Since",None)
+        
+        log.info("matchTag '%s' unMod '%s'" % (matchTag,unMod))
+        
+        hdrIndex = getHostExt()
+        if len(hdrIndex):
+            hdrIndex +=  ":"
+        hdrIndex += node
+        
+        hdrs = HeaderStore.get(hdrIndex)
+        
+        if hdrs:
+            etag = hdrs.get("ETag",None)
+            mod = hdrs.get("Last-Modified",None)
+            log.info("stored etag '%s' mod '%s'" % (etag,mod))
 
-        try:
-            if ( "If-None-Match" in self.request.headers and
-                 (self.request.headers["If-None-Match"] == etag or
-                  self.request.headers["If-None-Match"] == jetag)):
+            if matchTag == etag:
+                NotModified = True
+            elif unMod:
+                unModt = datetime.datetime.strptime(unMod,"%a, %d %b %Y %H:%M:%S %Z")
+                modt = datetime.datetime.strptime(mod,"%a, %d %b %Y %H:%M:%S %Z")
+                if modt <= unModt:
+                    log.info("Last mod '%s' not modified since '%s' " % (mod,unMod))
                     NotModified = True
-                    passedTag = self.request.headers["If-None-Match"]
-                    log.debug("Etag - do 304")
-            elif ( "If-Unmodified-Since" in self.request.headers and
-                   datetime.datetime.strptime(self.request.headers["If-Unmodified-Since"],"%a, %d %b %Y %H:%M:%S %Z") == getmodiftime() ):
-                    NotModified = True
-                    log.debug("Unmod-since - do 304")
-        except Exception as e:
-            log.info("ERROR reading request headers: %s" % e)
-            pass
 
-        retHdrs = HeaderStore.get(passedTag)   #Already cached headers for this request?
-
-        if retHdrs and "_pageFlush" in getArguments():
+        if hdrs and "_pageFlush" in getArguments():
             log.info("Reloading header for %s" % passedTag)
-            HeaderStore.remove(passedTag)
-            retHdrs = None
+            HeaderStore.remove(hdrIndex)
+            hdrs = None
+            NotModified = False
 
-        if NotModified and retHdrs:
+        if NotModified:
             self.response.clear()
-            self.response.headers = retHdrs
+            self.response.headers = hdrs
             self.response.set_status(304,"Not Modified")
         else:
-            enableCaching = self._get(node) #Go build the page
-            tagsuff = ""
-            if ( "content-type" in self.response.headers and
-                 "json" in self.response.headers["content-type"] ):
-                  tagsuff = "json"
-
+            enableCaching = self._get(node) #Go get the page
             if enableCaching:
                 if self.response.status.startswith("200"):
                     stat = getAppVar(CLOUDSTAT)
@@ -2365,13 +2364,13 @@ class ShowUnit (webapp2.RequestHandler):
                     
                     if stat: #Use values from cloud storage
                         self.response.headers.add_header("ETag", stat.etag)
-                        self.response.headers['Last-Modified'] = time.strftime("%a, %d %b %Y %H:%M:%S UTC",time.gmtime(stat.st_ctime))
+                        self.response.headers['Last-Modified'] = time.strftime("%a, %d %b %Y %H:%M:%S GMT",time.gmtime(stat.st_ctime))
                     else:    
-                        self.response.headers.add_header("ETag", etag + tagsuff)
-                        self.response.headers['Last-Modified'] = getmodiftime().strftime("%a, %d %b %Y %H:%M:%S UTC")
+                        self.response.headers.add_header("ETag", getslug() + str(hash(hdrIndex)))
+                        self.response.headers['Last-Modified'] = getmodiftime().strftime("%a, %d %b %Y %H:%M:%S GMT")
 
                     retHdrs = self.response.headers.copy()
-                    HeaderStore.putIfNewKey(etag + tagsuff,retHdrs) #Cache these headers for a future 304 return
+                    HeaderStore.put(hdrIndex,retHdrs) #Cache these headers for a future 304 return
 
             #self.response.set_cookie('GOOGAPPUID', getAppEngineVersion())
         log.info("Responding: node: %s status: %s. headers: \n%s" % (node,self.response.status,self.response.headers ))
