@@ -1593,8 +1593,9 @@ class ShowUnit (webapp2.RequestHandler):
         # see also handleHomepage for conneg'd version.
 
     def handleSchemasPage(self, node,  layerlist='core'):
-        if getPageFromStore(node):
-            self.response.out.write( getPageFromStore(node) )
+        page = getPageFromStore(node)
+        if page:
+            self.response.out.write( page )
             log.debug("Serving recycled SchemasPage.")
             return True
         else:
