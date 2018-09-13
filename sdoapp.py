@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
+from __future__ import with_statement
 
 import logging
 logging.basicConfig(level=logging.INFO) # dev_appserver.py --log_level debug .
@@ -19,6 +20,7 @@ import rdflib
 from markupsafe import Markup, escape # https://pypi.python.org/pypi/MarkupSafe
 
 import threading
+
 import itertools
 import datetime, time
 from time import gmtime, strftime
@@ -43,7 +45,7 @@ from apimarkdown import Markdown
 
 from sdordf2csv import sdordf2csv
 
-SCHEMA_VERSION="3.4"
+SCHEMA_VERSION="3.4."
 
 FEEDBACK_FORM_BASE_URL='https://docs.google.com/a/google.com/forms/d/1krxHlWJAO3JgvHRZV9Rugkr9VYnMdrI10xbGsWt733c/viewform?entry.1174568178&entry.41124795={0}&entry.882602760={1}'
 # {0}: term URL, {1} category of term.
@@ -1220,7 +1222,10 @@ class ShowUnit (webapp2.RequestHandler):
             # the .tpl has responsibility for extension homepages
             # TODO: pass in extension, base_domain etc.
             #sitekeyedhomepage = "homepage %s" % getSiteName()
-            sitekeyedhomepage = "%sindex" % getHostExt()
+            ext = getHostExt()
+            if len(ext):
+                ext += "."
+            sitekeyedhomepage = "%sindex" % ext
             hp = getPageFromStore(sitekeyedhomepage)
             self.response.headers['Content-Type'] = "text/html"
             self.emitCacheHeaders()
@@ -2205,6 +2210,14 @@ class ShowUnit (webapp2.RequestHandler):
             hostString = self.request.host
             args = self.request.arguments()
 
+        ver=None
+        if not getInTestHarness():
+            from google.appengine.api.modules.modules import get_current_version_name
+            ver = get_current_version_name()
+        if hostString.startswith("%s." % ver):
+            log.info("Removing version prefix '%s' from hoststring" % ver)
+            hostString = hostString[len(ver) + 1:]
+
         scheme = "http" #Defalt for tests
         if not getInTestHarness():  #Get the actual scheme from the request
             scheme = self.request.scheme
@@ -2225,12 +2238,17 @@ class ShowUnit (webapp2.RequestHandler):
         setHostPort(myport)
 
 
-        log.info("setupHostinfo: data: scheme='%s' hoststring='%s' host_ext='%s'" % (scheme, hostString, str(host_ext) ))
+        log.info("setupHostinfo: data: scheme='%s' hoststring='%s' initial host_ext='%s'" % (scheme, hostString, str(host_ext) ))
+        
+        ver=None
+        if not getInTestHarness():
+            from google.appengine.api.modules.modules import get_current_version_name
+            ver = get_current_version_name()
 
         if host_ext != "":
             if host_ext in ENABLED_EXTENSIONS:
                 mybasehost = mybasehost[len(host_ext) + 1:]
-
+                
             elif host_ext == "www":
                 mybasehost = mybasehost[4:]
                 setBaseHost(mybasehost)
@@ -2666,12 +2684,25 @@ class WarmupTool():
     def __init__(self):
         #self.pageList = ["docs/schemas.html"]
         self.pageList = ["/","docs/schemas.html","docs/full.html","docs/tree.jsonld","docs/developers.html","docs/jsonldcontext.json"]
+        self.extPageList = ["/"] #Pages warmed in all extentions
         self.warmPages = {}
         for l in ALL_LAYERS:
             self.warmPages[l] = []
         self.warmedLayers = []
 
     def stepWarm(self, unit=None, layer=None):
+        lock = threading.Lock()
+        with lock:
+            realHostExt = getHostExt()
+            if layer:
+                setHostExt(layer)
+        
+            self._stepWarm(unit=unit, layer=layer)
+        
+            setHostExt(realHostExt)
+        
+
+    def _stepWarm(self, unit=None, layer=None):
         global WarmedUp
         if not layer:
             layer = getHostExt()
@@ -2684,10 +2715,11 @@ class WarmupTool():
         warmedPages = False
         for p in self.pageList:
             if p not in self.warmPages[layer]:
-                log.info("Warming page %s in layer %s" % (p,layer))
-                unit._get(p,doWarm=False)
-                unit.response.clear()
                 self.warmPages[layer].append(p)
+                if layer == "core" or p in self.extPageList: #Only warm selected pages in extensions
+                    log.info("Warming page %s in layer %s" % (p,layer))
+                    unit._get(p,doWarm=False)
+                    unit.response.clear()
                 if len(self.warmPages[layer]) == len(self.pageList):
                     warmedPages = True
                 break
