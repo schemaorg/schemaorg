@@ -175,7 +175,9 @@ class Export():
             format = args.format
             if format == "xml" or format == "rdf":
                 format = "pretty-xml"
-            file.write(self.outGraph.serialize(format=format,**kwargs))
+                
+            #file.write(self.outGraph.serialize(format=format,**kwargs))
+            file.write(self.outGraph.serialize(format=format,auto_compact=True))
 
 
     def outputCSV(self):
