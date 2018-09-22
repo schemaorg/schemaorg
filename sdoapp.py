@@ -645,14 +645,14 @@ class ShowUnit (webapp2.RequestHandler):
         if(node.id == "DataType"):  #Special case
             return "%s<a href=\"%s\">%s</a>" % (rdfalink,node.id, node.id)
 
-        urlprefix = ""
+        urlprefix = "."
         home = node.getHomeLayer()
 
-        if home in ENABLED_EXTENSIONS and home != getHostExt():
-            port = ""
-            if getHostPort() != "80":
-                port = ":%s" % getHostPort()
-            urlprefix = makeUrl(home,full=True)
+#        if home in ENABLED_EXTENSIONS and home != getHostExt():
+#            port = ""
+#            if getHostPort() != "80":
+#                port = ":%s" % getHostPort()
+#            urlprefix = makeUrl(home,full=True)
 
         extclass = ""
         extflag = ""
