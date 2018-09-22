@@ -1223,9 +1223,13 @@ class ShowUnit (webapp2.RequestHandler):
             # TODO: pass in extension, base_domain etc.
             #sitekeyedhomepage = "homepage %s" % getSiteName()
             ext = getHostExt()
+            
+            if ext == "core":
+                ext = ""
+                
             if len(ext):
                 ext += "."
-            sitekeyedhomepage = "%sindex" % ext
+            sitekeyedhomepage = "%sindex.html" % ext
             hp = getPageFromStore(sitekeyedhomepage)
             self.response.headers['Content-Type'] = "text/html"
             self.emitCacheHeaders()
@@ -2489,8 +2493,11 @@ class ShowUnit (webapp2.RequestHandler):
 
         if (node in ["", "/"]):
             return self.handleHomepage(node)
-            
-        if (node.startswith("docs/") and getHostExt() != ""): #All docs should operate in core
+        hstext = getHostExt()
+        if hstext == "":
+            hstext = "core"  
+              
+        if (node.startswith("docs/") and hstext != "core"): #All docs should operate in core
             self.redirectToBase(node,True)
             
         if node in ["docs/jsonldcontext.json.txt", "docs/jsonldcontext.json"]:

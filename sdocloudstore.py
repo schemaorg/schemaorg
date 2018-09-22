@@ -29,6 +29,7 @@ cloudstorage.set_default_retry_params(
 BUCKETROOT = "schemaorg"
 DEFAULTCURRENT = "TestData"
 CLOUDCACHEENABLE = False
+CLOUDAUTOAPPENDHTMLEXT = False
 
 class StoreLocation():
     def __init__(self):
@@ -101,7 +102,8 @@ class SdoCloudStore():
         if ext and len(ext) and ext.startswith('.'):
             ext = ext[1:]
         if ftype and ext != ftype:
-            filename = filename + '.' + ftype
+            if ftype != "html" or CLOUDAUTOAPPENDHTMLEXT:
+                filename = filename + '.' + ftype
             
         #log.info("buildNameType: filename:%s ftype: %s  ext: %s" % (filename, ftype, ext))
                     
@@ -121,6 +123,9 @@ class SdoCloudStore():
             bucketFile = filename
 
         mimetype, contentType = mimetypes.guess_type(bucketFile)
+        
+        if not mimetype and ftype == "html":
+            mimetype = "text/html"
 
         #log.info("buildBucketFile: %s %s (%s)" % (bucketFile,mimetype,contentType))
 
