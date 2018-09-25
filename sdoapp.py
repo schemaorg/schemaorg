@@ -266,7 +266,7 @@ else: #Ensure clean start for any memcached or ndb store values...
     
     changed, dep = check4NewVersion()
     if changed: #We are a new instance of the app
-        msg = "New app instance [%s] detected - FLUSHING CACHES.  (deploy_timestamp='%s')" % (GAE_APP_ID,dep)
+        msg = "New app instance [%s] detected - FLUSHING CACHES.  (deploy_timestamp='%s')" % (getInstanceId(),dep)
         memcache.flush_all()
         storeNewTimestamp(dep)
 
