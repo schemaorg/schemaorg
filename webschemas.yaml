@@ -1,17 +1,11 @@
-#application: schemaorgae
-#application: webschemas-g
+# application: webschemas-g
+# usage: gcloud app deploy webschemas.yaml --project webschemas-g
 
-# new commandline:
-#  gcloud app deploy webschemas.yaml --project webschemas-g 
-
-
-#version: 1
-module: default
 runtime: python27
 api_version: 1
 threadsafe: true
 
-  
+
 #automatic_scaling:
 #  min_idle_instances: 2
 
@@ -36,9 +30,9 @@ handlers:
 - url: /favicon.ico
   static_files: docs/favicon.ico
   upload: docs/favicon.ico
+  mime_type: image/x-icon
   secure: always
   redirect_http_response_code: 301
-  mime_type: image/x-icon
 
 - url: /robots.txt
   static_files: docs/robots-blockall.txt
@@ -51,17 +45,17 @@ handlers:
 - url: /docs/schemaorg.owl
   static_files: docs/schemaorg.owl
   upload: docs/schemaorg.owl
+  mime_type: application/rdf+xml
   secure: always
   redirect_http_response_code: 301
-  mime_type: application/rdf+xml
 
 - url: /docs/schema_org_rdfa.html
   static_files: data/schema.rdfa
   upload: data/schema.rdfa
   application_readable: True
+  mime_type: text/html
   secure: always
   redirect_http_response_code: 301
-  mime_type: text/html
 
 - url: /docs/jsonldcontext.json.*
   script: sdoapp.app
@@ -154,7 +148,7 @@ handlers:
   application_readable: True
   secure: always
   redirect_http_response_code: 301
- 
+
 - url: /version/(.*/.*\.nt)
   mime_type: application/n-triples
   static_files: data/releases/\1
