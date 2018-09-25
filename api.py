@@ -21,6 +21,7 @@ loader_instance = False
 from testharness import *
 
 import apirdflib
+from sdoutil import sdo_send_mail
 
 #from apirdflib import rdfGetTargets, rdfGetSources
 from apimarkdown import Markdown
@@ -482,8 +483,10 @@ def prepareCloudstoreDocs():
         return
         
     log.info("Preparing Cloudstorage - copying static docs")
+    count = 0
     for root, dirs, files in os.walk("docs"):
         for f in files:
+            count += 1
             fname = os.path.join(root, f)
             try:
                 with open(fname, 'r') as f:
@@ -493,6 +496,7 @@ def prepareCloudstoreDocs():
             except Exception  as e:
                 log.info("ERROR reading: %s" % e)
                 pass
+    #sdo_send_mail(to="rjw@dataliberate.com",subject="[SCHEMAINFO] from 'api'", msg="prepareCloudstoreDocs: %s" % (count))
 
 def cloudstoreStoreContent(fname, content, location, raw=False, private=False):
     SdoCloud.writeFormattedFile(fname,content=content, ftype="", location=location, raw=raw, private=private)          
