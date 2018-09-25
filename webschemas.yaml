@@ -27,12 +27,21 @@ env_variables:
 
 handlers:
 
+- url: /docs/favicon.ico
+  static_files: docs/favicon.ico
+  upload: docs/favicon.ico
+  mime_type: image/x-icon
+  application_readable: True
+  secure: always
+  redirect_http_response_code: 301
+
 - url: /favicon.ico
   static_files: docs/favicon.ico
   upload: docs/favicon.ico
   mime_type: image/x-icon
   secure: always
   redirect_http_response_code: 301
+
 
 - url: /robots.txt
   static_files: docs/robots-blockall.txt
@@ -41,11 +50,18 @@ handlers:
   redirect_http_response_code: 301
   mime_type: text/plain
 
-# To avoid: "Could not guess mimetype for docs/schemaorg.owl.  Using application/octet-stream."
 - url: /docs/schemaorg.owl
   static_files: docs/schemaorg.owl
   upload: docs/schemaorg.owl
   mime_type: application/rdf+xml
+  secure: always
+  redirect_http_response_code: 301
+
+- url: /docs/favicon.ico
+  static_files: docs/favicon.ico
+  upload: docs/favicon.ico
+  mime_type: image/png
+  application_readable: True
   secure: always
   redirect_http_response_code: 301
 
@@ -84,6 +100,13 @@ handlers:
 
 - url: /docs
   static_dir: docs
+  application_readable: True
+  secure: always
+  redirect_http_response_code: 301
+
+- url: /docs/*
+  static_dir: docs
+  application_readable: True
   secure: always
   redirect_http_response_code: 301
 
