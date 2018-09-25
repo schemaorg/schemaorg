@@ -31,6 +31,8 @@ from google.appengine.api import users
 from google.appengine.ext.webapp import blobstore_handlers
 from google.appengine.api import modules
 from google.appengine.api import runtime
+from google.appengine.api import app_identity
+GAE_APP_ID = app_identity.get_application_id()
 
 
 #Testharness Used to indicate we are being called from tests - use setInTestHarness() & getInTestHarness() to manage value - defauluts to False (we are not in tests)
@@ -264,7 +266,7 @@ else: #Ensure clean start for any memcached or ndb store values...
     
     changed, dep = check4NewVersion()
     if changed: #We are a new instance of the app
-        msg = "New app instance detected - FLUSHING CACHES.  (deploy_timestamp='%s')" % (dep)
+        msg = "New app instance [%s] detected - FLUSHING CACHES.  (deploy_timestamp='%s')" % (GAE_APP_ID,dep)
         memcache.flush_all()
         storeNewTimestamp(dep)
 
