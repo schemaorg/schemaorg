@@ -32,7 +32,10 @@ from google.appengine.ext.webapp import blobstore_handlers
 from google.appengine.api import modules
 from google.appengine.api import runtime
 from google.appengine.api import app_identity
+from google.appengine.api.modules import modules
+
 GAE_APP_ID = app_identity.get_application_id()
+GAE_VERSION_ID = modules.get_current_version_name()
 
 
 #Testharness Used to indicate we are being called from tests - use setInTestHarness() & getInTestHarness() to manage value - defauluts to False (we are not in tests)
@@ -62,7 +65,7 @@ silent_skip_list =  [ "favicon.ico" ] # Do nothing for now
 
 all_layers = {}
 ext_re = re.compile(r'([^\w,])+')
-validNode_re = re.compile(r'[^\w\-_\/\.]')
+validNode_re = re.compile(r'^[\w\/.-]+$')
 
 #TODO: Modes:
 # mainsite
@@ -266,7 +269,7 @@ else: #Ensure clean start for any memcached or ndb store values...
     
     changed, dep = check4NewVersion()
     if changed: #We are a new instance of the app
-        msg = "New app instance [%s] detected - FLUSHING CACHES.  (deploy_timestamp='%s')" % (getInstanceId(),dep)
+        msg = "New app instance [%s:%s] detected - FLUSHING CACHES.  (deploy_timestamp='%s')" % (GAE_VERSION_ID,GAE_APP_ID,dep)
         memcache.flush_all()
         storeNewTimestamp(dep)
 
@@ -1586,9 +1589,9 @@ class ShowUnit (webapp2.RequestHandler):
             
             PageStore.put(label,jsonldcontext)
             
-        if PAGESTOREMODE == "CLOUDSTORE":
-            cloudstoreStoreContent("docs/jsonldcontext.json", jsonldcontext, "html")
-            cloudstoreStoreContent("docs/jsonldcontext.json.txt", jsonldcontext, "html")
+            if PAGESTOREMODE == "CLOUDSTORE":
+                cloudstoreStoreContent("docs/jsonldcontext.json", jsonldcontext, "html")
+                cloudstoreStoreContent("docs/jsonldcontext.json.txt", jsonldcontext, "html")
 
         if (node=="docs/jsonldcontext.json.txt"):
             self.response.headers['Content-Type'] = "text/plain"
@@ -2339,15 +2342,21 @@ class ShowUnit (webapp2.RequestHandler):
     def get(self, node):
         if not self.setupHostinfo(node):
             return
+        log.info("NODE: '%s'" % node)
 
         if not node or node == "":
             node = "/"
+ 
+        if not validNode_re.search(str(node)): #invalid node name
+            log.info("Invalid node name '%s'" % str(node))
+            self.handle404Failure(node,suggest=False)
+            return
 
         NotModified = False        
         matchTag = self.request.headers.get("If-None-Match",None)
         unMod = self.request.headers.get("If-Unmodified-Since",None)
         
-        log.info("matchTag '%s' unMod '%s'" % (matchTag,unMod))
+        #log.info("matchTag '%s' unMod '%s'" % (matchTag,unMod))
         
         hdrIndex = getHostExt()
         if len(hdrIndex):
@@ -2371,7 +2380,7 @@ class ShowUnit (webapp2.RequestHandler):
                     NotModified = True
 
         if hdrs and "_pageFlush" in getArguments():
-            log.info("Reloading header for %s" % passedTag)
+            log.info("Reloading header for %s" % hdrIndex)
             HeaderStore.remove(hdrIndex)
             hdrs = None
             NotModified = False
@@ -2427,7 +2436,7 @@ class ShowUnit (webapp2.RequestHandler):
         global_vars.time_start = datetime.datetime.now()
         tick() #keep system fresh
 
-        #log.info("[%s] _get(%s)" % (getInstanceId(short=True),node))
+        log.info("[%s] _get(%s)" % (getInstanceId(short=True),node))
 
         self.callCount()
 
@@ -2441,10 +2450,6 @@ class ShowUnit (webapp2.RequestHandler):
 
         setSiteName(self.getExtendedSiteName(layerlist)) # e.g. 'bib.schema.org', 'schema.org'
         log.debug("EXT: set sitename to %s " % getSiteName())
-
-        if re.search( validNode_re, str(node)): #invalid node name
-            self.handle404Failure(node,suggest=False)
-            return False
 
         if(node == "_ah/warmup"):
             if "localhost" in os.environ['SERVER_NAME'] and WarmupState.lower() == "auto":
