@@ -22,12 +22,12 @@ env_variables:
   STAYINEXTENTION: 'False'
   PAGESTOREMODE: 'CLOUDSTORE' # 'INMEM' (In instance memory), 'NDBSHARED' (NDB shared - accross instances), 'CLOUDSTORE' (Cloudstorage files)
   TIMESTAMPSTOREMODE: 'CLOUDSTORE' # 'INMEM', 'NDBSHARED', 'CLOUDSTORE' 
-  CACHE_CONTROL: 'public, max-age=600'
-#  CACHE_CONTROL: 'no-cache'
+#  CACHE_CONTROL: 'public, max-age=600'
+  CACHE_CONTROL: 'no-cache'
 
 handlers:
 
-- url: /docs/favicon.ico
+- url: /.*favicon.ico
   static_files: docs/favicon.ico
   upload: docs/favicon.ico
   mime_type: image/x-icon
@@ -35,17 +35,9 @@ handlers:
   secure: always
   redirect_http_response_code: 301
 
-- url: /favicon.ico
-  static_files: docs/favicon.ico
-  upload: docs/favicon.ico
-  mime_type: image/x-icon
-  secure: always
-  redirect_http_response_code: 301
-
-
 - url: /robots.txt
-  static_files: docs/robots-blockall.txt
-  upload: docs/robots-blockall.txt
+  static_files: docs/robots.txt
+  upload: docs/robots.txt
   secure: always
   redirect_http_response_code: 301
   mime_type: text/plain
@@ -54,14 +46,6 @@ handlers:
   static_files: docs/schemaorg.owl
   upload: docs/schemaorg.owl
   mime_type: application/rdf+xml
-  secure: always
-  redirect_http_response_code: 301
-
-- url: /docs/favicon.ico
-  static_files: docs/favicon.ico
-  upload: docs/favicon.ico
-  mime_type: image/png
-  application_readable: True
   secure: always
   redirect_http_response_code: 301
 
@@ -103,12 +87,12 @@ handlers:
   application_readable: True
   secure: always
   redirect_http_response_code: 301
-
-- url: /docs/*
+  
+- url: /.*docs/*
   static_dir: docs
   application_readable: True
   secure: always
-  redirect_http_response_code: 301
+  redirect_http_response_code: 301  
 
 #- url: /
 #  static_files: static/index.html
