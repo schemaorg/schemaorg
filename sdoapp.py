@@ -34,8 +34,8 @@ from google.appengine.api import runtime
 from google.appengine.api import app_identity
 from google.appengine.api.modules import modules
 
-GAE_APP_ID = app_identity.get_application_id()
-GAE_VERSION_ID = modules.get_current_version_name()
+GAE_APP_ID = "appId"
+GAE_VERSION_ID = "versionId"
 
 
 #Testharness Used to indicate we are being called from tests - use setInTestHarness() & getInTestHarness() to manage value - defauluts to False (we are not in tests)
@@ -52,6 +52,10 @@ from sdordf2csv import sdordf2csv
 
 SCHEMA_VERSION="3.4"
 
+if not getInTestHarness():
+    GAE_APP_ID = app_identity.get_application_id()
+    GAE_VERSION_ID = modules.get_current_version_name()
+    
 FEEDBACK_FORM_BASE_URL='https://docs.google.com/a/google.com/forms/d/1krxHlWJAO3JgvHRZV9Rugkr9VYnMdrI10xbGsWt733c/viewform?entry.1174568178&entry.41124795={0}&entry.882602760={1}'
 # {0}: term URL, {1} category of term.
 
