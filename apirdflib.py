@@ -15,6 +15,7 @@ from rdflib.serializer import Serializer
 from rdflib.plugins.sparql import prepareQuery
 import threading
 from testharness import *
+from sdoutil import *
 import api
 from apimarkdown import Markdown
 import StringIO
@@ -431,10 +432,18 @@ def stripID (str):
         return "owl:" + str[30:]
     else:
         return str
+        
+def graphFromFiles(files):
+    if not isinstance(files,list):
+        files = [files]
+    g = rdflib.Graph()
+    for f in infiles:
+        try:
+            g.parse(f)
+            log.info("Loaded : %s" % f)
+        except Exception as e:
+            log.error("graphFromFiles exception %s: %s" % (e,e.message))
+            pass
+    return g
+    
 			
-
-def full_path(filename):
-	"""convert local file name to full path."""
-	import os.path
-	folder = os.path.dirname(os.path.realpath(__file__))
-	return os.path.join(folder, filename)

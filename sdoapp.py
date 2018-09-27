@@ -44,7 +44,7 @@ from testharness import *
 from sdoutil import *
 from api import *
 from apirdflib import load_graph, getNss, getRevNss, buildSingleTermGraph, serializeSingleTermGrapth
-from apirdflib import countTypes, countProperties, countEnums
+from apirdflib import countTypes, countProperties, countEnums, graphFromFiles
 
 from apimarkdown import Markdown
 

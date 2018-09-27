@@ -21,7 +21,7 @@ loader_instance = False
 from testharness import *
 
 import apirdflib
-from sdoutil import sdo_send_mail
+from sdoutil import *
 
 #from apirdflib import rdfGetTargets, rdfGetSources
 from apimarkdown import Markdown
@@ -1276,8 +1276,8 @@ def read_schemas(loadExtensions=False):
     schemasInitialized = True
     if (not schemasInitialized or DYNALOAD):
         log.debug("[%s] (re)loading core and annotations." % getInstanceId(short=True))
-        files = glob.glob("data/*.rdfa")
-        jfiles = glob.glob("data/*.jsonld")
+        files = glob_from_dir("data","*.rdfa")
+        jfiles = glob_from_dir("data","*.jsonld")
         for jf in jfiles: 
             rdfequiv = jf[:-7]+".rdfa"
             if not rdfequiv in files: #Only add .jsonld files if no equivalent .rdfa
@@ -1290,7 +1290,7 @@ def read_schemas(loadExtensions=False):
 
         load_start = datetime.datetime.now()
 
-        files = glob.glob("data/2015-04-vocab_counts.txt")
+        files = glob_from_dir("data","2015-04-vocab_counts.txt")
         for file in files:
             usage_data = read_file(file)
             parser = parsers.UsageFileParser(None)
@@ -1310,8 +1310,8 @@ def read_extensions(extensions):
         log.info("[%s] extensions %s " % (getInstanceId(short=True),extensions))
         for i in extensions:
             all_layers[i] = "1"
-            extfiles = glob.glob("data/ext/%s/*.rdfa" % i)
-            jextfiles = glob.glob("data/ext/%s/*.jsonld" % i)
+            extfiles = glob_from_dir("data/ext/%s/" % i,"*.rdfa")
+            jextfiles = glob_from_dir("data/ext/%s/" % i,"*.jsonld")
             for jf in jextfiles: 
                 rdfequiv = jf[:-7]+".rdfa"
                 if not rdfequiv in extfiles: #Only add .jsonld files if no equivalent .rdfa
@@ -1333,10 +1333,10 @@ def load_examples_data(extensions):
 
     if load:
         load_start = datetime.datetime.now()
-        files = glob.glob("data/*examples.txt")
+        files = glob_from_dir("data","*examples.txt")
         read_examples(files,'core')
         for i in extensions:
-            expfiles = glob.glob("data/ext/%s/*examples.txt" % i)
+            expfiles = glob_from_dir("data/ext/%s" % i,"*examples.txt")
             read_examples(expfiles,i)
 
         if not getInTestHarness(): #Use NDB Storage
@@ -1347,7 +1347,7 @@ def load_examples_data(extensions):
         log.info("Loaded %s examples mapped to %s terms in %s" % (len(EXAMPLES),len(EXAMPLESMAP),(datetime.datetime.now() - load_start)))
     else:
         log.info("Examples already loaded")
-
+        
 def read_examples(files, layer):
     first = True
     for f in files:
@@ -1537,4 +1537,19 @@ def ShortenOnSentence(source,lengthHint=250):
     return source
 
 log.info("[%s]api loaded" % (getInstanceId(short=True)))
+
+###############################
+
+class SdoConfig():
+    myconf = None
+    
+    def __init__(conffile):
+        self.myconf = graphFromFiles(full_path(conffile))
+        
+    def name():
+        pass
+        
+    def baseUri():
+        pass
+        
 
