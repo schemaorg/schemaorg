@@ -1110,8 +1110,8 @@ class Example ():
                 
                 if(EXAMPLESMAP.get(term, None) == None):
                     EXAMPLESMAP[term] = []
-                if not self in EXAMPLESMAP.get(term):
-                    EXAMPLESMAP.get(term).append(self)
+                if not self.keyvalue in EXAMPLESMAP.get(term):
+                    EXAMPLESMAP.get(term).append(self.keyvalue)
                 
             if not EXAMPLES.get(self.keyvalue):
                 EXAMPLES[self.keyvalue] = self
@@ -1122,9 +1122,14 @@ def LoadNodeExamples(node, layers='core'):
     if(node.examples == None):
         node.examples = []
         if getInTestHarness() or EXAMPLESTOREMODE != "NDBSHARED": #Get from local storage
-           node.examples = EXAMPLESMAP.get(node.id)
-           if(node.examples == None):
-              node.examples = []
+            with exlock:
+                examples = EXAMPLESMAP.get(node.id)
+                if examples:
+                    for e in examples:
+                        ex = EXAMPLES.get(e)
+                        if ex:
+                            node.examples.append(ex)
+
         else:                  #Get from NDB shared storage
             ids = ExampleMap.get(node.id)
             if not ids:
