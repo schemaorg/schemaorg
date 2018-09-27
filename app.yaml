@@ -20,10 +20,12 @@ inbound_services:
 - warmup
 
 env_variables:
+#  TARGETSITE: 'localhost'
   PRODSITEDEBUG: 'False'
   WARMUPSTATE: 'Auto' # 'Off', 'On', 'Auto' - Off for localhost, On elsewhere
   STAYINEXTENTION: 'False'
   PAGESTOREMODE: 'CLOUDSTORE' # 'INMEM' (In instance memory), 'NDBSHARED' (NDB shared - accross instances), 'CLOUDSTORE' (Cloudstorage files)
+  EXAMPLESTOREMODE: 'INMEM' # 'INMEM', 'NDBSHARED'
   TIMESTAMPSTOREMODE: 'CLOUDSTORE' # 'INMEM', 'NDBSHARED', 'CLOUDSTORE' 
 #  CACHE_CONTROL: 'public, max-age=600'
   CACHE_CONTROL: 'no-cache'
