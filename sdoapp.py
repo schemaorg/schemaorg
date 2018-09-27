@@ -50,7 +50,7 @@ from apimarkdown import Markdown
 
 from sdordf2csv import sdordf2csv
 
-SCHEMA_VERSION="3.4."
+SCHEMA_VERSION="3.4"
 
 FEEDBACK_FORM_BASE_URL='https://docs.google.com/a/google.com/forms/d/1krxHlWJAO3JgvHRZV9Rugkr9VYnMdrI10xbGsWt733c/viewform?entry.1174568178&entry.41124795={0}&entry.882602760={1}'
 # {0}: term URL, {1} category of term.
@@ -1522,7 +1522,7 @@ class ShowUnit (webapp2.RequestHandler):
                                % (example_type, selected, self.rep(ex.get(example_type))))
                 self.write("</div>\n\n")
 
-        self.write("<p class=\"version\"><b>Schema Version %s</b></p>\n\n" % SCHEMA_VERSION)
+        self.write("<p class=\"version\"><b>Schema Version %s</b></p>\n\n" % SCHEMA_VERSION + ".")
         # TODO: add some version info regarding the extension
 
         # Analytics
@@ -2763,6 +2763,7 @@ Warmer = WarmupTool()
 
 def templateRender(templateName, node, values=None):
     global sitemode #,sitename
+    #log.info("templateRender(%s,%s,%s)" % (templateName, node, values))
     
     if isinstance(node, Unit):
         node = node.id
@@ -2805,7 +2806,7 @@ def templateRender(templateName, node, values=None):
         'SCHEMA_VERSION': SCHEMA_VERSION,
         'sitemode': sitemode,
         'sitename': getSiteName(),
-        'staticPath': makeUrl("","",full=True),
+        'staticPath': homedir,
         'extensionPath': makeUrl(getHostExt(),"",full=True),
         'myhost': getHost(),
         'myport': getHostPort(),
@@ -2817,6 +2818,7 @@ def templateRender(templateName, node, values=None):
         'extDD': extDD,
         'extVers': extVers,
         'extName': extName,
+        'targethost': makeUrl("","",full=True), 
         'debugging': getAppVar('debugging'),
         'appengineVersion': getAppEngineVersion()
     }
@@ -2900,8 +2902,10 @@ def makeUrl(ext="",path="",full=False,scheme=None):
         if full:
             if not scheme:
                 scheme = getHttpScheme()
+            
+            targethost = os.environ.get("TARGETSITE",getBaseHost())
 
-            url = "%s://%s%s%s%s" % (scheme,sub,getBaseHost(),port,p)
+            url = "%s://%s%s%s%s" % (scheme,sub,targethost,port,p)
         else:
             url = "%s" % (p)
         return url

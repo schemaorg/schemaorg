@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 
+from __future__ import with_statement
+
 import logging
 logging.basicConfig(level=logging.INFO) # dev_appserver.py --log_level debug .
 log = logging.getLogger(__name__)
@@ -35,7 +37,7 @@ def getInstanceId(short=False):
     return ret
 
 
-
+EXAMPLESTOREMODE = os.environ.get("EXAMPLESTOREMODE","INMEM")
 schemasInitialized = False
 extensionsLoaded = False
 extensionLoadErrors = ""
@@ -1052,9 +1054,10 @@ def HasMultipleBaseTypes(typenode, layers='core'):
     return len( GetTargets( Unit.GetUnit("rdfs:subClassOf", True), typenode, layers ) ) > 1
 
 EXAMPLESMAP = {}
-EXAMPLES = []
+EXAMPLES = {}
 ExamplesCount = 0
 
+exlock = threading.RLock()
 class Example ():
 
     @staticmethod
@@ -1102,23 +1105,24 @@ class Example ():
             self.keyvalue = "%s-gen-%s"% (terms[0],ExamplesCount)
             self.egmeta['id'] = self.keyvalue
             
-        for term in terms:
+        with exlock:
+            for term in terms:
                 
-            if(EXAMPLESMAP.get(term, None) == None):
-                EXAMPLESMAP[term] = []
-            if not self in EXAMPLESMAP.get(term):
-                EXAMPLESMAP.get(term).append(self)
+                if(EXAMPLESMAP.get(term, None) == None):
+                    EXAMPLESMAP[term] = []
+                if not self in EXAMPLESMAP.get(term):
+                    EXAMPLESMAP.get(term).append(self)
                 
-        if not self in EXAMPLES:
-            EXAMPLES.append(self)
+            if not EXAMPLES.get(self.keyvalue):
+                EXAMPLES[self.keyvalue] = self
 
 def LoadNodeExamples(node, layers='core'):
     """Returns the examples (if any) for some Unit node."""
     #log.info("Getting examples for: %s %s" % (node.id,node.examples))
     if(node.examples == None):
         node.examples = []
-        if getInTestHarness(): #Get from local storage
-           node.examples = EXAMPLES.get(node.id)
+        if getInTestHarness() or EXAMPLESTOREMODE != "NDBSHARED": #Get from local storage
+           node.examples = EXAMPLESMAP.get(node.id)
            if(node.examples == None):
               node.examples = []
         else:                  #Get from NDB shared storage
@@ -1339,7 +1343,7 @@ def load_examples_data(extensions):
             expfiles = glob.glob("data/ext/%s/*examples.txt" % i)
             read_examples(expfiles,i)
 
-        if not getInTestHarness(): #Use NDB Storage
+        if not getInTestHarness() and EXAMPLESTOREMODE == "NDBSHARED": #Use NDB Storage
             ExampleStore.store(EXAMPLES)
             ExampleMap.store(EXAMPLESMAP)
             memcache.set("ExmplesLoaded",value=True)
