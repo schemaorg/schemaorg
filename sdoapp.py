@@ -1522,7 +1522,7 @@ class ShowUnit (webapp2.RequestHandler):
                                % (example_type, selected, self.rep(ex.get(example_type))))
                 self.write("</div>\n\n")
 
-        self.write("<p class=\"version\"><b>Schema Version %s</b></p>\n\n" % SCHEMA_VERSION + ".")
+        self.write("<p class=\"version\"><b>Schema Version %s.</b></p>\n\n" % SCHEMA_VERSION)
         # TODO: add some version info regarding the extension
 
         # Analytics
