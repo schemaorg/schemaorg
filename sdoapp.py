@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
+from __future__ import with_statement
 
 import logging
 logging.basicConfig(level=logging.INFO) # dev_appserver.py --log_level debug .
@@ -19,6 +20,7 @@ import rdflib
 from markupsafe import Markup, escape # https://pypi.python.org/pypi/MarkupSafe
 
 import threading
+
 import itertools
 import datetime, time
 from time import gmtime, strftime
@@ -29,7 +31,17 @@ from google.appengine.api import users
 from google.appengine.ext.webapp import blobstore_handlers
 from google.appengine.api import modules
 from google.appengine.api import runtime
+from google.appengine.api import app_identity
+from google.appengine.api.modules import modules
 
+GAE_APP_ID = "appId"
+GAE_VERSION_ID = "versionId"
+
+
+#Testharness Used to indicate we are being called from tests - use setInTestHarness() & getInTestHarness() to manage value - defauluts to False (we are not in tests)
+
+from testharness import *
+from sdoutil import *
 from api import *
 from apirdflib import load_graph, getNss, getRevNss, buildSingleTermGraph, serializeSingleTermGrapth
 from apirdflib import countTypes, countProperties, countEnums
@@ -40,6 +52,10 @@ from sdordf2csv import sdordf2csv
 
 SCHEMA_VERSION="3.4"
 
+if not getInTestHarness():
+    GAE_APP_ID = app_identity.get_application_id()
+    GAE_VERSION_ID = modules.get_current_version_name()
+    
 FEEDBACK_FORM_BASE_URL='https://docs.google.com/a/google.com/forms/d/1krxHlWJAO3JgvHRZV9Rugkr9VYnMdrI10xbGsWt733c/viewform?entry.1174568178&entry.41124795={0}&entry.882602760={1}'
 # {0}: term URL, {1} category of term.
 
@@ -53,7 +69,7 @@ silent_skip_list =  [ "favicon.ico" ] # Do nothing for now
 
 all_layers = {}
 ext_re = re.compile(r'([^\w,])+')
-validNode_re = re.compile(r'[^\w\-_\/\.]')
+validNode_re = re.compile(r'^[\w\/.-]+$')
 
 #TODO: Modes:
 # mainsite
@@ -74,9 +90,6 @@ WORKINGHOSTS = ["schema.org","schemaorg.appspot.com",
                 "webschemas.org","webschemas-g.appspot.com",
                 "sdo-test.appspot.com",
                 "localhost"]
-
-#INTESTHARNESS = True #Used to indicate we are being called from tests - use setInTestHarness() & getInTestHarness() to manage value
-
 EXTENSION_SUFFIX = "" # e.g. "*"
 
 CORE = 'core'
@@ -127,6 +140,8 @@ def getAppEngineVersion():
         from google.appengine.api.modules.modules import get_current_version_name
         ret = get_current_version_name()
         #log.info("AppEngineVersion '%s'" % ret)
+    else:
+        return "TestVersion"
     return ret
 
 instance_first = True
@@ -178,17 +193,96 @@ def tick(): #Keep memcache values fresh so they don't expire
         memcache.set(key="SysStart", value=systarttime)
         memcache.set(key="static-version", value=appver)
 
+TIMESTAMPSTOREMODE = "CLOUDSTORE"
+if "TIMESTAMPSTOREMODE" in os.environ:
+    TIMESTAMPSTOREMODE = os.environ["TIMESTAMPSTOREMODE"]
+    log.info("TIMESTAMPSTOREMODE set to %s from .yaml file" % TIMESTAMPSTOREMODE)
+log.info("Initialised with TIMESTAMPSTOREMODE set to %s" % TIMESTAMPSTOREMODE)
+
+class TimestampEntity(ndb.Model):
+    content = ndb.TextProperty()
+    
+def check4NewVersion():
+    ret = False
+    dep = None
+    try:
+        fpath = os.path.join(os.path.split(__file__)[0], 'admin/deploy_timestamp.txt')
+        #log.info("fpath: %s" % fpath)
+        with open(fpath, 'r') as f:
+            dep = f.read()
+            dep = dep.replace("\n","")
+        f.close()
+    except Exception  as e:
+        log.info("ERROR reading: %s" % e)
+        pass
+
+    if  getInTestHarness() or "localhost" in os.environ['SERVER_NAME']: #Force new version logic for local versions and tests
+        ret = True 
+        log.info("Assuming new version for local/test instance")
+    else:
+    
+        if TIMESTAMPSTOREMODE == "INMEM":
+            log.info("deployed-timestamp: '%s' mem version: '%s'" % (dep, memcache.get("deployed-timestamp")))
+            if dep != memcache.get("deployed-timestamp"):
+                ret = True
+            
+        elif TIMESTAMPSTOREMODE == "NDBSHARED":
+            ent = TimestampEntity.get_by_id("deployed-timestamp")
+            val = ""
+            if ent:
+                val = ent.content
+            log.info("deployed-timestamp: '%s' ndbshared version: '%s'" % (dep, val))
+            if dep != val:
+                ret = True
+         
+        elif TIMESTAMPSTOREMODE == "CLOUDSTORE":
+            val = cloudstoreGetContent("deployed-timestamp.txt", ".status")
+            log.info("deployed-timestamp: '%s' cloudstore version: '%s'" % (dep, val))
+            if dep != val:
+                ret = True
+    
+    return ret, dep
+            
+def storeNewTimestamp(stamp=None):
+    storeTimestampInfo("deployed-timestamp",stamp)
+
+def storeInitialisedTimestamp(stamp=None):
+    storeTimestampInfo("initialised-timestamp",stamp)
+        
+def storeTimestampInfo(tag,stamp=None): 
+    if not stamp:
+        stamp = datetime.datetime.utcnow().strftime("%a %d %b %Y %H:%M:%S UTC")
+        
+    if TIMESTAMPSTOREMODE == "INMEM":
+        log.info("Storing %s version: '%s'" % (tag,stamp))
+        memcache.set(key=tag,value=stamp)
+            
+    elif TIMESTAMPSTOREMODE == "NDBSHARED":
+        log.info("Storing ndbshared %s version: '%s'" % (tag,stamp))
+        ent = TimestampEntity(id = tag, content = stamp)
+        ent.put()
+        
+    elif TIMESTAMPSTOREMODE == "CLOUDSTORE":
+        log.info("Storing cloudstore %s version: '%s'" % (tag,stamp))
+        val = cloudstoreStoreContent("%s.txt" % tag, stamp, ".status", private=True)
+        
+    
 if getInTestHarness():
     load_examples_data(ENABLED_EXTENSIONS)
-
 else: #Ensure clean start for any memcached or ndb store values...
-    if memcache.get("static-version") != appver: #We are a new instance of the app
+    
+    changed, dep = check4NewVersion()
+    if changed: #We are a new instance of the app
+        msg = "New app instance [%s:%s] detected - FLUSHING CACHES.  (deploy_timestamp='%s')" % (GAE_VERSION_ID,GAE_APP_ID,dep)
         memcache.flush_all()
+        storeNewTimestamp(dep)
+
+        sdo_send_mail(to="rjw@dataliberate.com",subject="[SCHEMAINFO] from 'sdoapp'", msg=msg)
+        log.info("%s" % msg)
 
         load_start = datetime.datetime.now()
         systarttime = datetime.datetime.utcnow()
         memcache.set(key="app_initialising", value=True, time=300)  #Give the system 5 mins - auto remove flag in case of crash
-        log.info("[%s] Detected new code version - resetting memory values %s" % (getInstanceId(short=True),systarttime))
         memcache.set(key="static-version", value=appver)
         memcache.add(key="SysStart", value=systarttime)
         instance_first = True
@@ -199,6 +293,7 @@ else: #Ensure clean start for any memcached or ndb store values...
         tick()
         memcache.set(key="app_initialising", value=False)
         log.debug("[%s] Awake >>>>>>>>>>>." % (getInstanceId(short=True)))
+        storeInitialisedTimestamp()
     else:
         time.sleep(0.5) #Give time for the initialisation flag (possibly being set in another thread/instance) to be set
         WAITCOUNT = 180
@@ -271,11 +366,11 @@ class TypeHierarchyTree:
     def toJSON(self):
         return self.txt
 
-    def traverseForHTML(self, node, depth = 1, hashorslash="/", layers='core', idprefix="", traverseAllLayers=False, buff=None):
+    def traverseForHTML(self, node, depth = 1, hashorslash="/", layers='core', idprefix="", urlprefix="", traverseAllLayers=False, buff=None):
 
         """Generate a hierarchical tree view of the types. hashorslash is used for relative link prefixing."""
 
-        log.debug("traverseForHTML: node=%s hashorslash=%s" % ( node.id, hashorslash ))
+        #log.info("traverseForHTML: node=%s hashorslash=%s" % ( node.id, hashorslash ))
 
         if node.superseded(layers=layers):
             return False
@@ -285,7 +380,6 @@ class TypeHierarchyTree:
             localBuff = True
             buff = StringIO.StringIO()
 
-        urlprefix = ""
         home = node.getHomeLayer()
         gotOutput = False
 
@@ -296,7 +390,7 @@ class TypeHierarchyTree:
 
         if home in ENABLED_EXTENSIONS and home != getHostExt():
             urlprefix = makeUrl(home)
-
+            
         extclass = ""
         extflag = ""
         tooltip=""
@@ -317,7 +411,7 @@ class TypeHierarchyTree:
                 # handle our subtypes
                 for item in subTypes:
                     subBuff = StringIO.StringIO()
-                    got = self.traverseForHTML(item, depth + 1, hashorslash=hashorslash, layers=layers, idprefix=idprefix, traverseAllLayers=traverseAllLayers,buff=subBuff)
+                    got = self.traverseForHTML(item, depth + 1, hashorslash=hashorslash, layers=layers, idprefix=idprefix, urlprefix=urlprefix, traverseAllLayers=traverseAllLayers,buff=subBuff)
                     if got:
                         self.emit2buff(buff,subBuff.getvalue())
                     subBuff.close()
@@ -445,7 +539,11 @@ class ShowUnit (webapp2.RequestHandler):
 
     def emitCacheHeaders(self):
         """Send cache-related headers via HTTP."""
-        self.response.headers['Cache-Control'] = "public, max-age=600" # 10m
+        if "CACHE_CONTROL" in os.environ:
+            log.info("Setting http cache control to '%s' from .yaml" % os.environ["CACHE_CONTROL"]) 
+            self.response.headers['Cache-Control'] = os.environ["CACHE_CONTROL"] 
+        else:
+            self.response.headers['Cache-Control'] = "public, max-age=600" # 10m
         self.response.headers['Vary'] = "Accept, Accept-Encoding"
 
     def write(self, str):
@@ -556,14 +654,14 @@ class ShowUnit (webapp2.RequestHandler):
         if(node.id == "DataType"):  #Special case
             return "%s<a href=\"%s\">%s</a>" % (rdfalink,node.id, node.id)
 
-        urlprefix = ""
+        urlprefix = "."
         home = node.getHomeLayer()
 
-        if home in ENABLED_EXTENSIONS and home != getHostExt():
-            port = ""
-            if getHostPort() != "80":
-                port = ":%s" % getHostPort()
-            urlprefix = makeUrl(home,full=True)
+#        if home in ENABLED_EXTENSIONS and home != getHostExt():
+#            port = ""
+#            if getHostPort() != "80":
+#                port = ":%s" % getHostPort()
+#            urlprefix = makeUrl(home,full=True)
 
         extclass = ""
         extflag = ""
@@ -865,7 +963,7 @@ class ShowUnit (webapp2.RequestHandler):
             if inLayer("meta",prop): #Suppress mentioning properties from the 'meta' extension.
                 continue
             ext = prop.getHomeLayer()
-            log.debug("ClassExtensionFound %s from %s" % (prop, ext))
+
             if not ext in exts.keys():
                 exts[ext] = []
             exts[ext].append(prop)
@@ -1132,7 +1230,15 @@ class ShowUnit (webapp2.RequestHandler):
             # Serve a homepage from template
             # the .tpl has responsibility for extension homepages
             # TODO: pass in extension, base_domain etc.
-            sitekeyedhomepage = "homepage %s" % getSiteName()
+            #sitekeyedhomepage = "homepage %s" % getSiteName()
+            ext = getHostExt()
+            
+            if ext == "core":
+                ext = ""
+                
+            if len(ext):
+                ext += "."
+            sitekeyedhomepage = "%sindex.html" % ext
             hp = getPageFromStore(sitekeyedhomepage)
             self.response.headers['Content-Type'] = "text/html"
             self.emitCacheHeaders()
@@ -1140,16 +1246,15 @@ class ShowUnit (webapp2.RequestHandler):
                 self.response.out.write( hp )
                 #log.info("Served datacache homepage.tpl key: %s" % sitekeyedhomepage)
             else:
-
-
                 template_values = {
                     'ext_contents': self.handleExtensionContents(getHostExt()),
                     'home_page': "True",
                 }
-                page = templateRender('homepage.tpl',template_values)
+                page = templateRender('homepage.tpl', node, template_values)
                 self.response.out.write( page )
                 log.debug("Served and cached fresh homepage.tpl key: %s " % sitekeyedhomepage)
-                #log.info("Served and cached fresh homepage.tpl key: %s " % sitekeyedhomepage)
+
+                setAppVar(CLOUDEXTRAMETA,{'x-goog-meta-sdotermlayer': getHostExt()})                
                 PageStore.put(sitekeyedhomepage, page)
                 #            self.response.out.write( open("static/index.html", 'r').read() )
             return False # - Not caching homepage
@@ -1165,11 +1270,16 @@ class ShowUnit (webapp2.RequestHandler):
         return (getHostExt() + ".schema.org")
 
     def emitSchemaorgHeaders(self, node, ext_mappings='', sitemode="default", sitename="schema.org", layers="core"):
+        self.response.out.write(self.buildSchemaorgHeaders(node, ext_mappings, sitemode, sitename, layers))
+        
+        
+    def buildSchemaorgHeaders(self, node, ext_mappings='', sitemode="default", sitename="schema.org", layers="core"):
         """
         Generates, caches and emits HTML headers for class, property and enumeration pages. Leaves <body> open.
 
         * entry = name of the class or property
         """
+        buff = sdoStringIO()
 
         rdfs_type = 'rdfs:Property'
         anode = True
@@ -1196,31 +1306,24 @@ class ShowUnit (webapp2.RequestHandler):
             elif node.isAttribute():
                 rdfs_type = 'rdfs:Property'
 
-        generated_page_id = "GTPH-%s-%s" % ( str(entry), getSiteName() )
-        gtp = DataCache.get( generated_page_id )
+        desc = entry
+        if anode:
+            desc = self.getMetaDescription(node, layers=layers, lengthHint=200)
 
-        if gtp:
-            self.response.out.write( gtp )
-            log.info("Served recycled genericTermPageHeader.tpl for %s" % generated_page_id )
-        else:
+        template_values = {
+            'entry': str(entry),
+            'desc' : desc,
+            'menu_sel': "Schemas",
+            'rdfs_type': rdfs_type,
+            'ext_mappings': ext_mappings,
+            'noindexpage': noindexpages
+        }
+        out = templateRender('genericTermPageHeader.tpl', node, template_values)
+        buff.write(out)
 
-            desc = entry
-            if anode:
-                desc = self.getMetaDescription(node, layers=layers, lengthHint=200)
-
-            template_values = {
-                'entry': str(entry),
-                'desc' : desc,
-                'menu_sel': "Schemas",
-                'rdfs_type': rdfs_type,
-                'ext_mappings': ext_mappings,
-                'noindexpage': noindexpages
-            }
-            out = templateRender('genericTermPageHeader.tpl',template_values)
-            DataCache.put(generated_page_id, out)
-            log.info("Served and cached fresh genericTermPageHeader.tpl for %s" % generated_page_id )
-
-            self.response.write(out)
+        ret = buff.getvalue()
+        buff.close()
+        return ret
 
     def getMetaDescription(self, node, layers="core",lengthHint=250):
         ins = ""
@@ -1258,7 +1361,7 @@ class ShowUnit (webapp2.RequestHandler):
         if ("schema.org" not in self.request.host and sitemode == "mainsite"):
             sitemode = "mainsite testsite"
 
-        self.emitSchemaorgHeaders(node, ext_mappings, sitemode, getSiteName(), layers)
+#        self.emitSchemaorgHeaders(node, ext_mappings, sitemode, getSiteName(), layers)
 
         cached = getPageFromStore(node.id)
 
@@ -1266,6 +1369,10 @@ class ShowUnit (webapp2.RequestHandler):
             log.info("GOT CACHED page for %s" % node.id)
             self.response.write(cached)
             return
+        log.info("Building page")
+ 
+        self.write(self.buildSchemaorgHeaders(node, ext_mappings, sitemode, getSiteName(), layers))
+ 
         self.parentStack = []
         self.GetParentStack(node, layers=self.appropriateLayers(layers=layers))
 
@@ -1419,7 +1526,7 @@ class ShowUnit (webapp2.RequestHandler):
                                % (example_type, selected, self.rep(ex.get(example_type))))
                 self.write("</div>\n\n")
 
-        self.write("<p class=\"version\"><b>Schema Version %s</b></p>\n\n" % SCHEMA_VERSION)
+        self.write("<p class=\"version\"><b>Schema Version %s.</b></p>\n\n" % SCHEMA_VERSION)
         # TODO: add some version info regarding the extension
 
         # Analytics
@@ -1430,9 +1537,10 @@ class ShowUnit (webapp2.RequestHandler):
 	  ga('create', 'UA-52672119-1', 'auto');ga('send', 'pageview');</script>""")
 
 
-        self.write(" \n\n</div>\n</body>\n<!--AppEngineVersion %s -->\n</html>" % getAppEngineVersion())
+        self.write(" \n\n</div>\n</body>\n<!-- AppEngineVersion %s (%s)-->\n</html>" % (getAppEngineVersion(),appver))
 
         page = "".join(self.outputStrings)
+        setAppVar(CLOUDEXTRAMETA,{'x-goog-meta-sdotermlayer': node.home})
         PageStore.put(node.id,page)
 
 #        self.response.write(self.AddCachedText(node, self.outputStrings, layers))
@@ -1451,7 +1559,7 @@ class ShowUnit (webapp2.RequestHandler):
         # 1. get a comma list from ?ext=foo,bar URL notation
         extlist = cleanPath( self.request.get("ext")  )# for debugging
         extlist = re.sub(ext_re, '', extlist).split(',')
-        log.debug("?ext= extension list: %s " % ", ".join(extlist))
+        log.debug("?ext= extension list: '%s' " % ", ".join(extlist))
 
         # 2. Ignore ?ext=, start with 'core' only.
         layerlist = [ "core"]
@@ -1463,7 +1571,7 @@ class ShowUnit (webapp2.RequestHandler):
 
         # Report domain-requested extensions
         for x in extlist:
-            log.debug("Ext filter found: %s" % str(x))
+            #log.debug("Ext filter found: %s" % str(x))
             if x  in ["core", "localhost", ""]:
                 continue
             layerlist.append("%s" % str(x))
@@ -1478,13 +1586,16 @@ class ShowUnit (webapp2.RequestHandler):
             self.error(404)
             self.response.out.write('<title>404 Not Found.</title><a href="/">404 Not Found (JSON-LD Context not enabled.)</a><br/><br/>')
             return True
-
-        jsonldcontext = ""
-        if getPageFromStore("JSONLDCONTEXT"):
-            jsonldcontext = getPageFromStore("JSONLDCONTEXT")
-        else:
+        label = "jsonld:jsonldcontext.jsonld"
+        jsonldcontext = getPageFromStore(label)
+        if not jsonldcontext:
             jsonldcontext = GetJsonLdContext(layers=ALL_LAYERS)
-            PageStore.put("JSONLDCONTEXT",jsonldcontext)
+            
+            PageStore.put(label,jsonldcontext)
+            
+            if PAGESTOREMODE == "CLOUDSTORE":
+                cloudstoreStoreContent("docs/jsonldcontext.json", jsonldcontext, "html")
+                cloudstoreStoreContent("docs/jsonldcontext.json.txt", jsonldcontext, "html")
 
         if (node=="docs/jsonldcontext.json.txt"):
             self.response.headers['Content-Type'] = "text/plain"
@@ -1500,66 +1611,58 @@ class ShowUnit (webapp2.RequestHandler):
         # see also handleHomepage for conneg'd version.
 
     def handleSchemasPage(self, node,  layerlist='core'):
-        self.response.headers['Content-Type'] = "text/html"
-        self.emitCacheHeaders()
-
-        if getPageFromStore('SchemasPage'):
-            self.response.out.write( getPageFromStore('SchemasPage') )
+        page = getPageFromStore(node)
+        if page:
+            self.response.out.write( page )
             log.debug("Serving recycled SchemasPage.")
             return True
         else:
+            self.response.headers['Content-Type'] = "text/html"
+            self.emitCacheHeaders()
+
             extensions = []
             for ex in sorted(ENABLED_EXTENSIONS):
                 if ex != ATTIC:
                     extensions.append("<a href=\"%s\">%s.schema.org</a>" % (makeUrl(ex,"",full=True),ex))
 
-            page = templateRender('schemas.tpl',{'counts': self.getCounts(),
+            page = templateRender('schemas.tpl', node, {'counts': self.getCounts(),
                                     'extensions': extensions,
                                     'attic': "<a href=\"%s\">%s.schema.org</a>" % (makeUrl(ATTIC,""),ATTIC),
                                     'menu_sel': "Schemas"})
 
             self.response.out.write( page )
             log.debug("Serving fresh SchemasPage.")
-            PageStore.put("SchemasPage",page)
+            PageStore.put(node,page)
 
             return True
 
     def handleDumpsPage(self, node,  layerlist='core'):
         self.response.headers['Content-Type'] = "text/html"
         self.emitCacheHeaders()
+        
+        page = getPageFromStore(node)
 
-        if getPageFromStore('DumpsPage'):
-            self.response.out.write( getPageFromStore('DumpsPage') )
+        if page:
+            self.response.out.write( page)
             log.debug("Serving recycled DumpsPage.")
             return True
         else:
             extensions = sorted(ENABLED_EXTENSIONS)
 
-            page = templateRender('developers.tpl',{'extensions': extensions,
+            page = templateRender('developers.tpl', node, {'extensions': extensions,
                                     'version': SCHEMA_VERSION,
                                     'menu_sel': "Schemas"})
 
             self.response.out.write( page )
             log.debug("Serving fresh DumpsPage.")
-            PageStore.put("DumpsPage",page)
+            PageStore.put(node,page)
 
             return True
 
     def getCounts(self):
-        typesCount = getPageFromStore('typesCount-core')
-        if not typesCount:
-            typesCount = str(countTypes(extension="core"))
-            PageStore.put('typesCount-core',typesCount)
-
-        propsCount = getPageFromStore('propsCount-core')
-        if not propsCount:
-            propsCount = str(countProperties(extension="core"))
-            PageStore.put('propsCount-core',propsCount)
-
-        enumCount = getPageFromStore('enumCount-core')
-        if not enumCount:
-            enumCount = str(countEnums(extension="core"))
-            PageStore.put('enumCount-core',enumCount)
+        typesCount = str(countTypes(extension="core"))
+        propsCount = str(countProperties(extension="core"))
+        enumCount = str(countEnums(extension="core"))
 
         text = ""
         text += "The core vocabulary currently consists of %s Types, " % typesCount
@@ -1569,15 +1672,20 @@ class ShowUnit (webapp2.RequestHandler):
 
 
     def handleFullHierarchyPage(self, node,  layerlist='core'):
-        self.response.headers['Content-Type'] = "text/html"
-        self.emitCacheHeaders()
-        label = 'FullTreePage - %s' % getHostExt()
+        #label = 'FullTreePage - %s' % getHostExt()
+        #label = 'FullTreePage'
+        urlprefix = ''
+        label = node
+        if label.startswith('docs/'):
+            urlprefix = '..'
 
         if getPageFromStore(label):
             self.response.out.write( getPageFromStore(label) )
             log.debug("Serving recycled %s." % label)
             return True
         else:
+            self.response.headers['Content-Type'] = "text/html"
+            self.emitCacheHeaders()
             template = JINJA_ENVIRONMENT.get_template('full.tpl')
 
             extlist=""
@@ -1611,26 +1719,26 @@ class ShowUnit (webapp2.RequestHandler):
             uDataType = Unit.GetUnit("DataType")
 
             mainroot = TypeHierarchyTree(local_label)
-            mainroot.traverseForHTML(uThing, layers=layerlist, idprefix="C.")
+            mainroot.traverseForHTML(uThing, layers=layerlist, idprefix="C.", urlprefix=urlprefix)
             thing_tree = mainroot.toHTML()
 
             fullmainroot = TypeHierarchyTree("<h3>Core plus all extension vocabularies</h3>")
-            fullmainroot.traverseForHTML(uThing, layers=ALL_LAYERS_NO_ATTIC, idprefix="CE.")
+            fullmainroot.traverseForHTML(uThing, layers=ALL_LAYERS_NO_ATTIC, idprefix="CE.", urlprefix=urlprefix)
             full_thing_tree = fullmainroot.toHTML()
 
             ext_thing_tree = None
             if len(extonlylist) > 0:
                 extroot = TypeHierarchyTree("<h3>Extension: %s</h3>" % extlist)
-                extroot.traverseForHTML(uThing, layers=extonlylist, traverseAllLayers=True, idprefix="E.")
+                extroot.traverseForHTML(uThing, layers=extonlylist, traverseAllLayers=True, idprefix="E.", urlprefix=urlprefix)
                 ext_thing_tree = extroot.toHTML()
 
             dtroot = TypeHierarchyTree("<h4>Data Types</h4>")
-            dtroot.traverseForHTML(uDataType, layers=layerlist, idprefix="D.")
+            dtroot.traverseForHTML(uDataType, layers=layerlist, idprefix="D.", urlprefix=urlprefix)
             datatype_tree = dtroot.toHTML()
 
             full_button = "Core plus all extension vocabularies"
 
-            page = templateRender('full.tpl',{ 'thing_tree': thing_tree,
+            page = templateRender('full.tpl', node, { 'thing_tree': thing_tree,
                                     'full_thing_tree': full_thing_tree,
                                     'ext_thing_tree': ext_thing_tree,
                                     'datatype_tree': datatype_tree,
@@ -1647,12 +1755,16 @@ class ShowUnit (webapp2.RequestHandler):
 
     def handleJSONSchemaTree(self, node, layerlist='core'):
         """Handle a request for a JSON-LD tree representation of the schemas (RDFS-based)."""
-
+        
+        if isinstance(node, Unit):
+            node = node.id
+        
         self.response.headers['Content-Type'] = "application/ld+json"
         self.emitCacheHeaders()
 
-        if getPageFromStore('JSONLDThingTree'):
-            self.response.out.write( getPageFromStore('JSONLDThingTree') )
+        page = getPageFromStore(node)
+        if page:
+            self.response.out.write( page )
             log.debug("Serving recycled JSONLDThingTree.")
             return True
         else:
@@ -1662,7 +1774,7 @@ class ShowUnit (webapp2.RequestHandler):
             thing_tree = mainroot.toJSON()
             self.response.out.write( thing_tree )
             log.debug("Serving fresh JSONLDThingTree.")
-            PageStore.put("JSONLDThingTree",thing_tree)
+            PageStore.put(node,thing_tree)
             return True
         return False
 
@@ -1701,7 +1813,7 @@ class ShowUnit (webapp2.RequestHandler):
 
         if node.startswith("http://schema.org/"): #Special case will map full schema URI to the term name
             node = node[18:]
-
+            
         """Handle with requests for specific terms like /Person, /fooBar. """
         dataext = os.path.splitext(node)
         if dataext[1] in OUTPUTDATATYPES:
@@ -1711,9 +1823,17 @@ class ShowUnit (webapp2.RequestHandler):
         if self.checkConneg(node):
             return True
 
+        schema_node = Unit.GetUnit(node) # e.g. "Person", "CreativeWork".
+        if not schema_node: #Not a recognised term
+            return False
+            
+        if not self.checkNodeExt(schema_node):
+            return False
+
         self.response.headers['Content-Type'] = "text/html"
         self.emitCacheHeaders()
-        schema_node = Unit.GetUnit(node) # e.g. "Person", "CreativeWork".
+
+
         if inLayer(layers, schema_node):
             self.emitExactTermPage(schema_node, layers=layers)
             return True
@@ -1722,9 +1842,6 @@ class ShowUnit (webapp2.RequestHandler):
             if not ENABLE_HOSTED_EXTENSIONS:
                 return False
             if schema_node is not None and schema_node.id in all_terms:# look for it in other layers
-                log.debug("TODO: layer toc: %s" % all_terms[schema_node.id] )
-                # self.response.out.write("Layers should be listed here. %s " %  all_terms[node.id] )
-
                 extensions = []
                 ext = {}
                 ext['href'] = makeUrl(schema_node.getHomeLayer(),schema_node.id,full=True)
@@ -1733,7 +1850,7 @@ class ShowUnit (webapp2.RequestHandler):
                     #self.response.out.write("<li><a href='%s'>%s</a></li>" % (makeUrl(x,schema_node.id), x) )
 
                 template = JINJA_ENVIRONMENT.get_template('wrongExt.tpl')
-                page = templateRender('wrongExt.tpl',
+                page = templateRender('wrongExt.tpl', node, 
                                         {'target': schema_node.id,
                                         'targetext': schema_node.getHomeLayer(),
                                         'extensions': extensions,
@@ -1748,6 +1865,27 @@ class ShowUnit (webapp2.RequestHandler):
 
         log.info("Should not have reached here!!")
 
+    def checkNodeExt(self,node):
+        if os.environ['STAYINEXTENTION'] and os.environ['STAYINEXTENTION'] == "True":
+            return True
+            
+        home = node.home
+        ext = getHostExt()
+        log.info("node: '%s' home: '%s' ext: '%s'" % (node,home,ext))
+        if home == CORE and ext == '':
+            return True
+        if home == ext:
+            return True
+            
+        if home == CORE:
+            log.info("Redirecting to core entity")
+            self.redirectToBase(node.id,full=True)
+        else:
+            log.info("Redirecting to '%s' entity" % home)
+            self.redirectToExt(node.id,ext=home, full=True)
+        return False
+
+
     def handleExactTermDataOutput(self, node=None, outputtype=None):
         log.info("handleExactTermDataOutput Node: '%s'  Outputtype: '%s'" % (node, outputtype))
         ret = False
@@ -1756,7 +1894,7 @@ class ShowUnit (webapp2.RequestHandler):
             schema_node = Unit.GetUnit(node)
             if schema_node:
                 ret = True
-                index = "%s.%s" % (outputtype,node)
+                index = "%s:%s" % (outputtype,node)
                 data = getPageFromStore(index)
 
                 excludeAttic=True
@@ -1766,6 +1904,7 @@ class ShowUnit (webapp2.RequestHandler):
                     self.response.headers['Content-Type'] = "text/csv; charset=utf-8"
                     if not data:
                         data = self.emitcsvTerm(schema_node,excludeAttic)
+                        PageStore.put(index,data)
                 else:
                     format = None
                     if outputtype == ".jsonld":
@@ -1809,6 +1948,11 @@ class ShowUnit (webapp2.RequestHandler):
     def handle404Failure(self, node, layers="core", extrainfo=None, suggest=True):
         self.error(404)
         self.emitSchemaorgHeaders("404 Not Found")
+        #404 could be called from any path, so output all potential locations of schemaorg.css
+        self.response.out.write('<link rel="stylesheet" type="text/css" href="../docs/schemaorg.css" />')
+        self.response.out.write('<link rel="stylesheet" type="text/css" href="docs/schemaorg.css" />')
+        self.response.out.write('<link rel="stylesheet" type="text/css" href="/docs/schemaorg.css" />')
+        
         self.response.out.write('<h3>404 Not Found.</h3><p><br/>Page not found. Please <a href="/">try the homepage.</a><br/><br/></p>')
 
         if suggest:
@@ -1860,7 +2004,7 @@ class ShowUnit (webapp2.RequestHandler):
                 return True
             else:
                 log.debug("Serving tocversionPage from cache.")
-                page = templateRender('tocVersionPage.tpl',
+                page = templateRender('tocVersionPage.tpl', node, 
                         {"releases": sorted(releaselog.iterkeys()),
                          "menu_sel": "Schemas"})
 
@@ -1965,7 +2109,7 @@ class ShowUnit (webapp2.RequestHandler):
             else:
                 releasedate = releaselog[str(SCHEMA_VERSION)]
 
-            page = templateRender('fullReleasePage.tpl',
+            page = templateRender('fullReleasePage.tpl', node, 
                     {"base_href": base_href,
                     'thing_tree': thing_tree,
                     'liveversion': SCHEMA_VERSION,
@@ -1984,8 +2128,8 @@ class ShowUnit (webapp2.RequestHandler):
         if not ext in ENABLED_EXTENSIONS:
             return ""
 
-        if getPageFromStore('ExtensionContents',ext):
-            return getPageFromStore('ExtensionContents',ext)
+#        if getPageFromStore('ExtensionContents',ext):
+#            return getPageFromStore('ExtensionContents',ext)
 
         buff = StringIO.StringIO()
 
@@ -2020,7 +2164,7 @@ class ShowUnit (webapp2.RequestHandler):
             buff.write("</div>")
 
         ret = buff.getvalue()
-        PageStore.put('ExtensionContents',ret,ext)
+#        PageStore.put('ExtensionContents',ret,ext)
         buff.close()
         return ret
 
@@ -2079,6 +2223,14 @@ class ShowUnit (webapp2.RequestHandler):
             hostString = self.request.host
             args = self.request.arguments()
 
+        ver=None
+        if not getInTestHarness():
+            from google.appengine.api.modules.modules import get_current_version_name
+            ver = get_current_version_name()
+        if hostString.startswith("%s." % ver):
+            log.info("Removing version prefix '%s' from hoststring" % ver)
+            hostString = hostString[len(ver) + 1:]
+
         scheme = "http" #Defalt for tests
         if not getInTestHarness():  #Get the actual scheme from the request
             scheme = self.request.scheme
@@ -2099,12 +2251,17 @@ class ShowUnit (webapp2.RequestHandler):
         setHostPort(myport)
 
 
-        log.info("setupHostinfo: data: scheme='%s' hoststring='%s' host_ext='%s'" % (scheme, hostString, str(host_ext) ))
+        log.info("setupHostinfo: data: scheme='%s' hoststring='%s' initial host_ext='%s'" % (scheme, hostString, str(host_ext) ))
+        
+        ver=None
+        if not getInTestHarness():
+            from google.appengine.api.modules.modules import get_current_version_name
+            ver = get_current_version_name()
 
         if host_ext != "":
             if host_ext in ENABLED_EXTENSIONS:
                 mybasehost = mybasehost[len(host_ext) + 1:]
-
+                
             elif host_ext == "www":
                 mybasehost = mybasehost[4:]
                 setBaseHost(mybasehost)
@@ -2146,8 +2303,8 @@ class ShowUnit (webapp2.RequestHandler):
             dcn = "%s-%s" % (dcn,scheme)
 
         dcn = "single" #Forcing single cache
-        log.info("Forcing single cache.  !!!!!!!!!!!!!!!!")
-        log.info("sdoapp.py setting current datacache to: %s " % dcn)
+        #log.info("Forcing single cache.  !!!!!!!!!!!!!!!!")
+        #log.info("sdoapp.py setting current datacache to: %s " % dcn)
         DataCache.setCurrent(dcn)
         PageStore.setCurrent(dcn)
         HeaderStore.setCurrent(dcn)
@@ -2161,6 +2318,13 @@ class ShowUnit (webapp2.RequestHandler):
 
     def redirectToBase(self,node="",full=False):
         uri = makeUrl("",node,full)
+        log.info("Redirecting [301] to: %s" % uri)
+        if not getInTestHarness():
+            self.response = webapp2.redirect(uri, True, 301)
+        return False
+
+    def redirectToExt(self,node="",ext="",full=False):
+        uri = makeUrl(ext,node,full)
         log.info("Redirecting [301] to: %s" % uri)
         if not getInTestHarness():
             self.response = webapp2.redirect(uri, True, 301)
@@ -2182,57 +2346,72 @@ class ShowUnit (webapp2.RequestHandler):
     def get(self, node):
         if not self.setupHostinfo(node):
             return
+        log.info("NODE: '%s'" % node)
 
         if not node or node == "":
             node = "/"
+ 
+        if not validNode_re.search(str(node)): #invalid node name
+            log.warning("Invalid node name '%s'" % str(node))
+            self.handle404Failure(node,suggest=False)
+            return
 
-        NotModified = False
-        etag = getslug() + str(hash(node))
-        jetag = etag + "json"
-        passedTag = etag
+        NotModified = False        
+        matchTag = self.request.headers.get("If-None-Match",None)
+        unMod = self.request.headers.get("If-Unmodified-Since",None)
+        
+        #log.info("matchTag '%s' unMod '%s'" % (matchTag,unMod))
+        
+        hdrIndex = getHostExt()
+        if len(hdrIndex):
+            hdrIndex +=  ":"
+        hdrIndex += node
+        
+        hdrs = HeaderStore.get(hdrIndex)
+        
+        if hdrs:
+            etag = hdrs.get("ETag",None)
+            mod = hdrs.get("Last-Modified",None)
+            log.info("stored etag '%s' mod '%s'" % (etag,mod))
 
-        try:
-            if ( "If-None-Match" in self.request.headers and
-                 (self.request.headers["If-None-Match"] == etag or
-                  self.request.headers["If-None-Match"] == jetag)):
+            if matchTag == etag:
+                NotModified = True
+            elif unMod:
+                unModt = datetime.datetime.strptime(unMod,"%a, %d %b %Y %H:%M:%S %Z")
+                modt = datetime.datetime.strptime(mod,"%a, %d %b %Y %H:%M:%S %Z")
+                if modt <= unModt:
+                    log.info("Last mod '%s' not modified since '%s' " % (mod,unMod))
                     NotModified = True
-                    passedTag = self.request.headers["If-None-Match"]
-                    log.debug("Etag - do 304")
-            elif ( "If-Unmodified-Since" in self.request.headers and
-                   datetime.datetime.strptime(self.request.headers["If-Unmodified-Since"],"%a, %d %b %Y %H:%M:%S %Z") == getmodiftime() ):
-                    NotModified = True
-                    log.debug("Unmod-since - do 304")
-        except Exception as e:
-            log.info("ERROR reading request headers: %s" % e)
-            pass
 
-        retHdrs = HeaderStore.get(passedTag)   #Already cached headers for this request?
+        if hdrs and "_pageFlush" in getArguments():
+            log.info("Reloading header for %s" % hdrIndex)
+            HeaderStore.remove(hdrIndex)
+            hdrs = None
+            NotModified = False
 
-        if retHdrs and "_pageFlush" in getArguments():
-            log.info("Reloading header for %s" % passedTag)
-            HeaderStore.remove(passedTag)
-            retHdrs = None
-
-        if NotModified and retHdrs:
+        if NotModified:
             self.response.clear()
-            self.response.headers = retHdrs
+            self.response.headers = hdrs
             self.response.set_status(304,"Not Modified")
         else:
-            enableCaching = self._get(node) #Go build the page
-
-            tagsuff = ""
-            if ( "content-type" in self.response.headers and
-                 "json" in self.response.headers["content-type"] ):
-                  tagsuff = "json"
-
+            enableCaching = self._get(node) #Go get the page
             if enableCaching:
                 if self.response.status.startswith("200"):
-                    self.response.headers.add_header("ETag", etag + tagsuff)
-                    self.response.headers['Last-Modified'] = getmodiftime().strftime("%a, %d %b %Y %H:%M:%S UTC")
-                    retHdrs = self.response.headers.copy()
-                    HeaderStore.putIfNewKey(etag + tagsuff,retHdrs) #Cache these headers for a future 304 return
+                    stat = getAppVar(CLOUDSTAT)
+                    log.info("CLOUDSTAT %s" % stat)
+                    
+                    if stat: #Use values from cloud storage
+                        self.response.headers.add_header("ETag", stat.etag)
+                        self.response.headers['Last-Modified'] = time.strftime("%a, %d %b %Y %H:%M:%S GMT",time.gmtime(stat.st_ctime))
+                    else:    
+                        self.response.headers.add_header("ETag", getslug() + str(hash(hdrIndex)))
+                        self.response.headers['Last-Modified'] = getmodiftime().strftime("%a, %d %b %Y %H:%M:%S GMT")
 
-            self.response.set_cookie('GOOGAPPUID', getAppEngineVersion())
+                    retHdrs = self.response.headers.copy()
+                    HeaderStore.put(hdrIndex,retHdrs) #Cache these headers for a future 304 return
+
+            #self.response.set_cookie('GOOGAPPUID', getAppEngineVersion())
+        log.info("Responding: node: %s status: %s. headers: \n%s" % (node,self.response.status,self.response.headers ))
 
 
     def _get(self, node, doWarm=True):
@@ -2261,7 +2440,7 @@ class ShowUnit (webapp2.RequestHandler):
         global_vars.time_start = datetime.datetime.now()
         tick() #keep system fresh
 
-        #log.info("[%s] _get(%s)" % (getInstanceId(short=True),node))
+        log.info("[%s] _get(%s)" % (getInstanceId(short=True),node))
 
         self.callCount()
 
@@ -2276,16 +2455,12 @@ class ShowUnit (webapp2.RequestHandler):
         setSiteName(self.getExtendedSiteName(layerlist)) # e.g. 'bib.schema.org', 'schema.org'
         log.debug("EXT: set sitename to %s " % getSiteName())
 
-        if re.search( validNode_re, str(node)): #invalid node name
-            self.handle404Failure(node,suggest=False)
-            return False
-
         if(node == "_ah/warmup"):
             if "localhost" in os.environ['SERVER_NAME'] and WarmupState.lower() == "auto":
                 log.info("[%s] Warmup dissabled for localhost instance" % getInstanceId(short=True))
                 if DISABLE_NDB_FOR_LOCALHOST:
                     log.info("[%s] NDB dissabled for localhost instance" % getInstanceId(short=True))
-                    enablePageStore(False)
+                    enablePageStore("INMEM")
             else:
                 if not memcache.get("warmedup"):
                     memcache.set("warmedup", value=True)
@@ -2307,7 +2482,7 @@ class ShowUnit (webapp2.RequestHandler):
                 log.info("[%s] Warmup dissabled for localhost instance" % getInstanceId(short=True))
                 if DISABLE_NDB_FOR_LOCALHOST:
                     log.info("[%s] NDB dissabled for localhost instance" % getInstanceId(short=True))
-                    enablePageStore(False)
+                    enablePageStore("INMEM")
             else:
                 if not memcache.get("warmedup"):
                     memcache.set("warmedup", value=True)
@@ -2322,16 +2497,20 @@ class ShowUnit (webapp2.RequestHandler):
             memcache.flush_all()
             return False
 
-        if not getPageFromStore(node): #Not stored this page before
-            #log.info("Not stored %s" % node)
-            if not LOADEDSOURCES:
-                log.info("Instance[%s] received request for not stored page: %s" % (getInstanceId(short=True), node) )
-                log.info("Instance[%s] needs to load sources to create it" % (getInstanceId(short=True)) )
-                load_sources() #Get Examples files and schema definitions
+        if not LOADEDSOURCES:
+            log.info("Instance[%s] received request for not stored page: %s" % (getInstanceId(short=True), node) )
+            log.info("Instance[%s] needs to load sources to create it" % (getInstanceId(short=True)) )
+            load_sources() #Get Examples files and schema definitions
 
         if (node in ["", "/"]):
             return self.handleHomepage(node)
-
+        hstext = getHostExt()
+        if hstext == "":
+            hstext = "core"  
+              
+        if (node.startswith("docs/") and hstext != "core"): #All docs should operate in core
+            self.redirectToBase(node,True)
+            
         if node in ["docs/jsonldcontext.json.txt", "docs/jsonldcontext.json"]:
             if self.handleJSONContext(node):
                 return True
@@ -2358,8 +2537,6 @@ class ShowUnit (webapp2.RequestHandler):
             else:
                 log.info("Error handling developers.html : %s " % node)
                 return False
-
-
 
         if (node == "docs/tree.jsonld" or node == "docs/tree.json"):
             if self.handleJSONSchemaTree(node, layerlist=ALL_LAYERS):
@@ -2404,7 +2581,7 @@ class ShowUnit (webapp2.RequestHandler):
             self.handle404Failure(node,extrainfo=inf)
             return False
 
-
+            
         # Pages based on request path matching a Unit in the term graph:
         if self.handleExactTermPage(node, layers=layerlist):
             return True
@@ -2420,7 +2597,7 @@ class ShowUnit (webapp2.RequestHandler):
 
     def siteDebug(self):
         global STATS
-        page = templateRender('siteDebug.tpl')
+        page = templateRender('siteDebug.tpl', "_siteDebug" )
 
         self.response.out.write( page )
         ext = getHostExt()
@@ -2524,13 +2701,26 @@ class WarmupTool():
 
     def __init__(self):
         #self.pageList = ["docs/schemas.html"]
-        self.pageList = ["/","docs/schemas.html","docs/full.html","docs/tree.jsonld"]
+        self.pageList = ["/","docs/schemas.html","docs/full.html","docs/tree.jsonld","docs/developers.html","docs/jsonldcontext.json"]
+        self.extPageList = ["/"] #Pages warmed in all extentions
         self.warmPages = {}
         for l in ALL_LAYERS:
             self.warmPages[l] = []
         self.warmedLayers = []
 
     def stepWarm(self, unit=None, layer=None):
+        lock = threading.Lock()
+        with lock:
+            realHostExt = getHostExt()
+            if layer:
+                setHostExt(layer)
+        
+            self._stepWarm(unit=unit, layer=layer)
+        
+            setHostExt(realHostExt)
+        
+
+    def _stepWarm(self, unit=None, layer=None):
         global WarmedUp
         if not layer:
             layer = getHostExt()
@@ -2543,10 +2733,11 @@ class WarmupTool():
         warmedPages = False
         for p in self.pageList:
             if p not in self.warmPages[layer]:
-                log.info("Warming page %s in layer %s" % (p,layer))
-                unit._get(p,doWarm=False)
-                unit.response.clear()
                 self.warmPages[layer].append(p)
+                if layer == "core" or p in self.extPageList: #Only warm selected pages in extensions
+                    log.info("Warming page %s in layer %s" % (p,layer))
+                    unit._get(p,doWarm=False)
+                    unit.response.clear()
                 if len(self.warmPages[layer]) == len(self.pageList):
                     warmedPages = True
                 break
@@ -2574,8 +2765,13 @@ class WarmupTool():
 
 Warmer = WarmupTool()
 
-def templateRender(templateName,values=None):
+def templateRender(templateName, node, values=None):
     global sitemode #,sitename
+    #log.info("templateRender(%s,%s,%s)" % (templateName, node, values))
+    
+    if isinstance(node, Unit):
+        node = node.id
+        
     extDef = Unit.GetUnit(getNss(getHostExt()),True)
     extComment = ""
     extVers = ""
@@ -2603,22 +2799,30 @@ def templateRender(templateName,values=None):
         nms = GetTargets(Unit.GetUnit("name", True), extDef, layers=ALL_LAYERS )
         if len(nms) > 0:
             extName = nms[0]
-
+    if node.startswith("docs/"):
+        docsdir = "./"
+        homedir = ".."
+    else:
+        docsdir = "docs/"
+        homedir = "."
     defvars = {
         'ENABLE_HOSTED_EXTENSIONS': ENABLE_HOSTED_EXTENSIONS,
         'SCHEMA_VERSION': SCHEMA_VERSION,
         'sitemode': sitemode,
         'sitename': getSiteName(),
-        'staticPath': makeUrl("",""),
-        'extensionPath': makeUrl(getHostExt(),"",True),
+        'staticPath': homedir,
+        'extensionPath': makeUrl(getHostExt(),"",full=True),
         'myhost': getHost(),
         'myport': getHostPort(),
         'mybasehost': getBaseHost(),
         'host_ext': getHostExt(),
         'extComment': extComment,
+        'docsdir': docsdir,
+        'homedir': homedir,
         'extDD': extDD,
         'extVers': extVers,
         'extName': extName,
+        'targethost': makeUrl("","",full=True), 
         'debugging': getAppVar('debugging'),
         'appengineVersion': getAppEngineVersion()
     }
@@ -2642,16 +2846,6 @@ def my_shutdown_hook():
     log.info("Instance[%s] shutting down" % modules.get_current_instance_id())
 
 runtime.set_shutdown_hook(my_shutdown_hook)
-
-ThreadVars = threading.local()
-def getAppVar(var):
-    ret = getattr(ThreadVars, var, None)
-    #log.debug("got var %s as %s" % (var,ret))
-    return ret
-
-def setAppVar(var,val):
-    #log.debug("Setting var %s to %s" % (var,val))
-    setattr(ThreadVars,var,val)
 
 def setHttpScheme(val):
     setAppVar('httpScheme',val)
@@ -2712,8 +2906,10 @@ def makeUrl(ext="",path="",full=False,scheme=None):
         if full:
             if not scheme:
                 scheme = getHttpScheme()
+            
+            targethost = os.environ.get("TARGETSITE",getBaseHost())
 
-            url = "%s://%s%s%s%s" % (scheme,sub,getBaseHost(),port,p)
+            url = "%s://%s%s%s%s" % (scheme,sub,targethost,port,p)
         else:
             url = "%s" % (p)
         return url
