@@ -21,7 +21,10 @@ inbound_services:
 
 env_variables:
 #  TARGETSITE: 'localhost'
+
   PRODSITEDEBUG: 'False'
+  CONFIGFILE: 'sdodatacomconfig.json'
+#  CONFIGFILE: 'sdoconfig.json'
   WARMUPSTATE: 'Auto' # 'Off', 'On', 'Auto' - Off for localhost, On elsewhere
   STAYINEXTENTION: 'False'
   PAGESTOREMODE: 'CLOUDSTORE' # 'INMEM' (In instance memory), 'NDBSHARED' (NDB shared - accross instances), 'CLOUDSTORE' (Cloudstorage files)
@@ -73,7 +76,7 @@ handlers:
   script: sdoapp.app
 
 - url: /docs
-  static_dir: docs
+  static_dir: datacoms/docs
   application_readable: True
 
 - url: /admin

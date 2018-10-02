@@ -44,12 +44,14 @@ from testharness import *
 from sdoutil import *
 from api import *
 from apirdflib import load_graph, getNss, getRevNss, buildSingleTermGraph, serializeSingleTermGrapth
-from apirdflib import countTypes, countProperties, countEnums, graphFromFiles
+from apirdflib import countTypes, countProperties, countEnums, graphFromFiles, getPathForPrefix
 
 from apimarkdown import Markdown
 
 from sdordf2csv import sdordf2csv
 
+SdoConfig.load(full_path(os.environ.get("CONFIGFILE","sdoconfig.json")))
+    
 SCHEMA_VERSION="3.4"
 
 if not getInTestHarness():
@@ -76,8 +78,14 @@ validNode_re = re.compile(r'^[\w\/.-]+$')
 # webschemadev
 # known extension (not skiplist'd, eg. demo1 on schema.org)
 
-JINJA_ENVIRONMENT = jinja2.Environment(
-    loader=jinja2.FileSystemLoader(os.path.join(os.path.dirname(__file__), 'templates')),
+TEMPLATESDIR = SdoConfig.template()
+if TEMPLATESDIR:
+    if TEMPLATESDIR.startswith("file://"):
+        TEMPLATESDIR = TEMPLATESDIR[7:]
+else:
+    TEMPLATESDIR = os.path.join(os.path.dirname(__file__), 'templates')
+
+JINJA_ENVIRONMENT = jinja2.Environment(loader=jinja2.FileSystemLoader(TEMPLATESDIR),
     extensions=['jinja2.ext.autoescape'], autoescape=True, cache_size=0)
 
 CANONICALSCHEME = "http"
@@ -371,6 +379,9 @@ class TypeHierarchyTree:
         """Generate a hierarchical tree view of the types. hashorslash is used for relative link prefixing."""
 
         #log.info("traverseForHTML: node=%s hashorslash=%s" % ( node.id, hashorslash ))
+        
+        if not node:
+            return False
 
         if node.superseded(layers=layers):
             return False
@@ -639,6 +650,9 @@ class ShowUnit (webapp2.RequestHandler):
         * title = optional title attribute on the link
         * prop = an optional property value to apply to the A element
         """
+        
+        if ":" in node.id:
+            return self.external_ml(node)
 
         if label=='':
           label = node.id
@@ -675,6 +689,23 @@ class ShowUnit (webapp2.RequestHandler):
         return "%s<a %s %s href=\"%s%s%s\"%s>%s</a>%s" % (rdfalink,tooltip, extclass, urlprefix, hashorslash, node.id, title, label, extflag)
         #return "<a %s %s href=\"%s%s%s\"%s%s>%s</a>%s" % (tooltip, extclass, urlprefix, hashorslash, node.id, prop, title, label, extflag)
 
+    def external_ml(self, node):
+        name = node.id
+        if not ":" in name:
+            return name
+        x = name.split(":")
+        voc = x[0]
+        val = x[1]
+        path = getPathForPrefix(voc)
+        if path:
+            if not path.endswith("#") and not path.endswith("/"):
+                path += "/"
+        else:
+            path = ""
+        return "<a href=\"%s%s\" class=\"externlink\" target=\"_blank\">%s</a>" % (path,val,node.id)
+        
+    
+    
     def makeLinksFromArray(self, nodearray, tooltip=''):
         """Make a comma separate list of links via ml() function.
 
@@ -816,7 +847,7 @@ class ShowUnit (webapp2.RequestHandler):
             out = self
 
         out.write("<ul class='props4type'>")
-        for prop in sorted(GetSources(  Unit.GetUnit("domainIncludes"), cl, layers=layers), key=lambda u: u.id):
+        for prop in sorted(GetSources(  Unit.GetUnit("schema:domainIncludes"), cl, layers=layers), key=lambda u: u.id):
             if (prop.superseded(layers=layers)):
                 continue
             out.write("<li><a href='%s%s'>%s</a></li>" % ( hashorslash, prop.id, prop.id  ))
@@ -829,7 +860,7 @@ class ShowUnit (webapp2.RequestHandler):
             out = self
 
         out.write("<ul class='props2type'>")
-        for prop in sorted(GetSources(  Unit.GetUnit("rangeIncludes"), cl, layers=layers), key=lambda u: u.id):
+        for prop in sorted(GetSources(  Unit.GetUnit("schema:rangeIncludes"), cl, layers=layers), key=lambda u: u.id):
             if (prop.superseded(layers=layers)):
                 continue
             out.write("<li><a href='%s%s'>%s</a></li>" % ( hashorslash, prop.id, prop.id  ))
@@ -841,12 +872,13 @@ class ShowUnit (webapp2.RequestHandler):
             out = self
 
         propcount = 0
-
+        
         headerPrinted = False
-        di = Unit.GetUnit("domainIncludes")
-        ri = Unit.GetUnit("rangeIncludes")
-
-        for prop in sorted(GetSources(di, cl, layers=layers), key=lambda u: u.id):
+        di = Unit.GetUnit("schema:domainIncludes",True)
+        ri = Unit.GetUnit("schema:rangeIncludes",True)
+        props = sorted(GetSources(di, cl, layers=layers), key=lambda u: u.id)
+        
+        for prop in props:
             if (prop.superseded(layers=layers)):
                 continue
             olderprops = prop.supersedes_all(layers=layers)
@@ -854,6 +886,8 @@ class ShowUnit (webapp2.RequestHandler):
             ranges = sorted(GetTargets(ri, prop, layers=layers),key=lambda u: u.id)
             doms = sorted(GetTargets(di, prop, layers=layers), key=lambda u: u.id)
             comment = GetComment(prop, layers=layers)
+            if ":" in prop.id and comment == "No comment":
+                comment = "Term from external vocabulary"
             if (not headerPrinted):
                 class_head = self.ml(cl)
                 if subclass:
@@ -949,13 +983,15 @@ class ShowUnit (webapp2.RequestHandler):
     def _ClassExtensionProperties (self, out, cl, layers="core"):
         """Write out a list of properties not displayed as they are in extensions for a per-type page."""
 
-        di = Unit.GetUnit("domainIncludes")
+        di = Unit.GetUnit("schema:domainIncludes")
 
         targetlayers=self.appropriateLayers(layers)
         #log.info("Appropriate targets %s" % targetlayers)
         exts = {}
 
         for prop in sorted(GetSources(di, cl, targetlayers), key=lambda u: u.id):
+            if ":" in prop.id:
+                continue
             if (prop.superseded(layers=targetlayers)):
                 continue
             if inLayer(layers,prop): #Already in the correct layer - no need to report
@@ -992,10 +1028,13 @@ class ShowUnit (webapp2.RequestHandler):
         targetlayers=self.appropriateLayers(layers) # Show incomming properties from all layers
 
         headerPrinted = False
-        di = Unit.GetUnit("domainIncludes")
-        ri = Unit.GetUnit("rangeIncludes")
-        #log.info("Incomming for %s" % cl.id)
-        for prop in sorted(GetSources(ri, cl, layers=layers), key=lambda u: u.id):
+        di = Unit.GetUnit("schema:domainIncludes")
+        ri = Unit.GetUnit("schema:rangeIncludes")
+        log.info("Incomming for %s" % cl.id)
+        
+        props = sorted(GetSources(ri, cl, layers=layers), key=lambda u: u.id)
+        log.info(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Got %s props" % len(props))
+        for prop in props:
             if (prop.superseded(layers=layers)):
                 continue
             supersedes = prop.supersedes(layers=targetlayers)
@@ -1047,7 +1086,7 @@ class ShowUnit (webapp2.RequestHandler):
             out = self
 
         out.write("<ul class='attrdomainsummary'>")
-        for dt in sorted(GetTargets(Unit.GetUnit("domainIncludes"), node, layers=layers), key=lambda u: u.id):
+        for dt in sorted(GetTargets(Unit.GetUnit("schema:domainIncludes"), node, layers=layers), key=lambda u: u.id):
             out.write("<li><a href='%s%s'>%s</a></li>" % ( hashorslash, dt.id, dt.id  ))
         out.write("</ul>\n\n")
 
@@ -1058,8 +1097,8 @@ class ShowUnit (webapp2.RequestHandler):
         if not out:
             out = self
         targetLayers = self.appropriateLayers(layers)
-        di = Unit.GetUnit("domainIncludes")
-        ri = Unit.GetUnit("rangeIncludes")
+        di = Unit.GetUnit("schema:domainIncludes")
+        ri = Unit.GetUnit("schema:rangeIncludes")
         rges = sorted(GetTargets(ri, node, layers=targetLayers), key=lambda u: u.id)
         doms = sorted(GetTargets(di, node, layers=targetLayers), key=lambda u: u.id)
         ranges = []
@@ -1372,9 +1411,11 @@ class ShowUnit (webapp2.RequestHandler):
         log.info("Building page")
  
         self.write(self.buildSchemaorgHeaders(node, ext_mappings, sitemode, getSiteName(), layers))
- 
+        
         self.parentStack = []
         self.GetParentStack(node, layers=self.appropriateLayers(layers=layers))
+        for i in self.parentStack:
+            log.info("Stack %s" %(i.id))
 
         self.emitUnitHeaders(node,  layers=layers) # writes <h1><table>...
 
@@ -1660,9 +1701,13 @@ class ShowUnit (webapp2.RequestHandler):
             return True
 
     def getCounts(self):
+        log.info("counts")
         typesCount = str(countTypes(extension="core"))
+        log.info("TYPES %s" % typesCount)
         propsCount = str(countProperties(extension="core"))
+        log.info("PROPS %s" % propsCount)
         enumCount = str(countEnums(extension="core"))
+        log.info("ENUMS %s" % enumCount)
 
         text = ""
         text += "The core vocabulary currently consists of %s Types, " % typesCount
@@ -1717,6 +1762,8 @@ class ShowUnit (webapp2.RequestHandler):
 
             uThing = Unit.GetUnit("Thing")
             uDataType = Unit.GetUnit("DataType")
+            
+            log.info(">>>>>>>>>>>>>THING %s" %uThing)
 
             mainroot = TypeHierarchyTree(local_label)
             mainroot.traverseForHTML(uThing, layers=layerlist, idprefix="C.", urlprefix=urlprefix)
@@ -1810,9 +1857,11 @@ class ShowUnit (webapp2.RequestHandler):
         return False
 
     def handleExactTermPage(self, node, layers='core'):
+        
+        baseuri = SdoConfig.baseUri()
 
-        if node.startswith("http://schema.org/"): #Special case will map full schema URI to the term name
-            node = node[18:]
+        if node.startswith(baseuri): #Special case will map full schema URI to the term name
+            node = node[len(baseuri):]
             
         """Handle with requests for specific terms like /Person, /fooBar. """
         dataext = os.path.splitext(node)
@@ -2781,7 +2830,7 @@ def templateRender(templateName, node, values=None):
         extComment = GetComment(extDef,ALL_LAYERS)
         if extComment == "No comment":
             extComment = ""
-        extDDs = GetTargets(Unit.GetUnit("disambiguatingDescription", True), extDef, layers=ALL_LAYERS )
+        extDDs = GetTargets(Unit.GetUnit("schema:disambiguatingDescription", True), extDef, layers=ALL_LAYERS )
         if len(extDDs) > 0:
             extDD = Markdown.parse(extDDs[0])
         else:
@@ -2796,7 +2845,7 @@ def templateRender(templateName, node, values=None):
             extVers += Markdown.parse(ver)
         if len(extVers) :
             extVers += ")</em>"
-        nms = GetTargets(Unit.GetUnit("name", True), extDef, layers=ALL_LAYERS )
+        nms = GetTargets(Unit.GetUnit("schema:name", True), extDef, layers=ALL_LAYERS )
         if len(nms) > 0:
             extName = nms[0]
     if node.startswith("docs/"):
@@ -2809,7 +2858,7 @@ def templateRender(templateName, node, values=None):
         'ENABLE_HOSTED_EXTENSIONS': ENABLE_HOSTED_EXTENSIONS,
         'SCHEMA_VERSION': SCHEMA_VERSION,
         'sitemode': sitemode,
-        'sitename': getSiteName(),
+        'sitename': SdoConfig.getname(),
         'staticPath': homedir,
         'extensionPath': makeUrl(getHostExt(),"",full=True),
         'myhost': getHost(),
@@ -2927,9 +2976,12 @@ def load_schema_definitions():
     #log.info("STARTING UP... reading schemas.")
     #load_graph(loadExtensions=ENABLE_HOSTED_EXTENSIONS)
     global schemasInitialized
-    read_schemas(loadExtensions=ENABLE_HOSTED_EXTENSIONS)
-    if ENABLE_HOSTED_EXTENSIONS:
-        read_extensions(ENABLED_EXTENSIONS)
+    if SdoConfig.isValid():
+       read_schemas(SdoConfig.termFiles()) 
+    else:
+        read_local_schemas(loadExtensions=ENABLE_HOSTED_EXTENSIONS)
+        if ENABLE_HOSTED_EXTENSIONS:
+            read_extensions(ENABLED_EXTENSIONS)
     schemasInitialized = True
 
 LOADINGSOURCE = None

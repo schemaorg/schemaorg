@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Schema.org master file: RDFS in RDFa</title>
+    <meta charset="UTF-8" />
+    <style type="text/css">
+      span.h {
+        padding-left: 0px;
+        font-weight: bold;
+      }
+      span {
+        display: block;
+        padding-left: 10px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <hr />
+
+    <div typeof="rdfs:Class" resource="https://schema.datacommons.org/DCThingy">
+      <span class="h" property="rdfs:label">DCThingy</span>
+       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Thing">Thing</a></span>
+      <span property="rdfs:comment">The most generic type of DC item.</span>
+    </div>
+
+    <div typeof="rdfs:Class" resource="https://schema.datacommons.org/DCWork">
+      <span class="h" property="rdfs:label">DCWork</span>
+      <span property="rdfs:comment">The most generic kind of work.</span>
+       <span>Subclass of: <a property="rdfs:subClassOf" href="https://schema.datacommons.org/DCThingy">DCThingy</a></span>
+    </div>
+
+    <div typeof="rdfs:Class" resource="https://schema.datacommons.org/DCSubWork">
+      <span class="h" property="rdfs:label">DCSubWork</span>
+      <span property="rdfs:comment">A test class.</span>
+       <span>Subclass of: <a property="rdfs:subClassOf" href="https://schema.datacommons.org/DCWork">DCWork</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="https://schema.datacommons.org/workType">
+      <span class="h" property="rdfs:label">workType</span>
+      <span property="rdfs:comment">The Type of DCWork.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="https://schema.datacommons.org/DCWork">DCWork</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/about">
+      <span class="h" property="rdfs:label">about</span>
+      <span property="rdfs:comment">The subject matter of the content.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="https://schema.datacommons.org/DCWork">DCWork</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Thing">Thing</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="https://schema.datacommons.org/dcName">
+      <span class="h" property="rdfs:label">dcName</span>
+      <span property="rdfs:comment">Name of DCThingy</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="https://schema.datacommons.org/DCThingy">DCThingy</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/name">
+      <span class="h" property="rdfs:label">name</span>
+      <span property="rdfs:comment">Name of Thing</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="https://schema.datacommons.org/DCThingy">DCThingy</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+    </div>
+
+
+
+</body>
+</html>

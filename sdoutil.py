@@ -8,6 +8,7 @@ import os
 import os.path
 import fnmatch
 
+SDOCONFIG=None
 
 from google.appengine.api import app_identity
 from google.appengine.api import mail

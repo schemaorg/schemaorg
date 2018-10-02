@@ -605,7 +605,7 @@ class Unit ():
         """Does this unit represent an enumerated type?"""
         if self.typeFlags.has_key('e'):
             return self.typeFlags['e']
-        isE = self.subClassOf(Unit.GetUnit("Enumeration"), layers=EVERYLAYER)
+        isE = self.subClassOf(Unit.GetUnit("schema:Enumeration"), layers=EVERYLAYER)
         self.typeFlags['e'] = isE
         return isE
 
@@ -803,7 +803,7 @@ class Triple ():
     def AddTriple(source, arc, target, layer='core'):
         """AddTriple stores a thing-valued new Triple within source Unit."""
         if (source == None or arc == None or target == None):
-            log.info("Bailing")
+            log.info("Bailing %s %s %s" % (source, arc, target))
             return
         else:
 
@@ -835,15 +835,18 @@ class Triple ():
 
 def GetTargets(arc, source, layers='core'):
     """All values for a specified arc on specified graph node (within any of the specified layers)."""
-    # log.debug("GetTargets checking in layer: %s for unit: %s arc: %s" % (layers, source.id, arc.id))
+    log.info("GetTargets checking in layer: %s for unit: %s arc: %s" % (layers, source, arc))
     targets = {}
     fred = False
     try:
         for triple in source.arcsOut:
+            log.info("triple %s" % triple)
             if (triple.arc == arc):
-                if (triple.target != None and (layers == EVERYLAYER or triple.layer in layers)):
+                #if (triple.target != None and (layers == EVERYLAYER or triple.layer in layers)):
+                if (triple.target != None ):
                     targets[triple.target] = 1
-                elif (triple.text != None and (layers == EVERYLAYER or triple.layer in layers)):
+                #elif (triple.text != None and (layers == EVERYLAYER or triple.layer in layers)):
+                elif (triple.text != None):
                     targets[triple.text] = 1
         return targets.keys()
     except Exception as e:
@@ -852,12 +855,15 @@ def GetTargets(arc, source, layers='core'):
 
 def GetSources(arc, target, layers='core'):
     """All source nodes for a specified arc pointing to a specified node (within any of the specified layers)."""
-    #log.debug("GetSources checking in layer: %s for unit: %s arc: %s" % (layers, target.id, arc.id))
+    log.info("GetSources checking in layer: %s for unit: %s arc: %s" % (layers, target, arc))
     if(target.sourced == False):
-	    apirdflib.rdfGetSourceTriples(target)
+        apirdflib.rdfGetSourceTriples(target)
+
     sources = {}
     for triple in target.arcsIn:
-        if (triple.arc == arc and (layers == EVERYLAYER or triple.layer in layers)):
+        #if (triple.arc == arc and (layers == EVERYLAYER or triple.layer in layers)):
+        log.info("arc %s triplearc: %s" %(arc,triple.arc))
+        if (triple.arc == arc ):
             sources[triple.source] = 1
     return sources.keys()
 
@@ -1277,7 +1283,19 @@ def setHomeValues(items,layer='core',defaultToCore=False):
                 log.info(msg)
                 extensionLoadErrors += msg + '\n'
 
-def read_schemas(loadExtensions=False):
+def read_schemas(files):
+    """Read/parse/ingest schemas from files from config"""
+    load_start = datetime.datetime.now()
+    log.debug("[%s] (re)loading core and annotations." % getInstanceId(short=True))
+
+    for f in files:
+        log.info("read_schemas %s %s" %(f.get("ext"),f.get("file")))
+        apirdflib.load_graph(f.get("ext"),f.get("file"))
+        
+    log.info("[%s] Loaded  graphs in %s" % (getInstanceId(short=True),(datetime.datetime.now() - load_start)))
+
+
+def read_local_schemas(loadExtensions=False):
     """Read/parse/ingest schemas from data/*.rdfa. Also data/*examples.txt"""
     load_start = datetime.datetime.now()
 
@@ -1548,17 +1566,116 @@ def ShortenOnSentence(source,lengthHint=250):
 log.info("[%s]api loaded" % (getInstanceId(short=True)))
 
 ###############################
-
 class SdoConfig():
+    valid = False
     myconf = None
+    name = None
     
-    def __init__(conffile):
-        self.myconf = graphFromFiles(full_path(conffile))
+    @classmethod
+    def load(cls, conffile):
+        SdoConfig.myconf = apirdflib.graphFromFiles(conffile)
+        if len(cls.myconf) > 5:
+            cls.valid = True
+        log.info("SdoConfig.myconf %s %s" % (cls.myconf, len(cls.myconf)))
+        cls.getname()
+    
+    @classmethod
+    def isValid(cls):
+        return cls.valid
         
-    def name():
-        pass
+    @classmethod
+    def getname(cls):
+        q = """SELECT ?name WHERE { ?s a schema:DataFeed;
+                                    schema:name ?name. 
+                                }"""
+        if not cls.name:
+            res = apirdflib.rdfQueryStore(q,cls.myconf)
+            if len(res) >  1:
+                log.error("More than one DataFeed in config file!!")
+            for row in res:
+                log.info("Name %s" % row.name)
+                cls.name = row.name
+                break
+        return cls.name
+
+    @classmethod
+    def template(cls):
+        ret = None
+        temps = cls.files("templates")
+        if temps and len(temps):
+            log.info("TEMP %s" % temps[0])
+            ret = temps[0].get("file")
+        log.info("...... %s " % ret)
+        return ret
         
-    def baseUri():
-        pass
+    @classmethod
+    def baseUri(cls):
+        #log.info(">>>>>>>>>>> %s" % cls.myconf)
+        q = """SELECT ?url WHERE { ?s a schema:DataFeed;
+                                    schema:name "%s";
+                                    schema:url ?url
+                                }""" % cls.name
+        res = apirdflib.rdfQueryStore(q,cls.myconf)
+        ret = None
+        if len(res) >  1:
+            log.error("More than one url for DataFeed '%s' config file!!" % cls.name)
+        for row in res:
+            ret = row.url
+        return ret
+
+    @classmethod
+    def siteUri(cls):
+        return cls.baseUri()
         
+    @classmethod
+    def termFiles(cls):
+        return cls.files(filetype="TERMS")
+        
+    @classmethod
+    def exampleFiles(self):
+        return cls.files(filetype="EXAMPLES")
+        
+    @classmethod
+    def countsFiles(self):
+        return cls.files(filetype="COUNTS")
+        
+    @classmethod
+    def docsFiles(self):
+        return cls.files(filetype="DOCS")
+        
+    @classmethod
+    def files(cls,filetype=None):
+        filter = ""
+        if filetype:
+            filter ='FILTER regex(?type, "%s", "i")' % filetype
+            
+        q = """SELECT DISTINCT ?file ?ext ?type WHERE { ?s a schema:DataFeed;
+                                    schema:name "%s";
+                                    schema:dataFeedElement ?d.
+                                    
+                                ?d schema:name ?ext; 
+                                   schema:fileContent ?type; 
+                                   schema:contentUrl ?file.
+                                 %s
+                                }
+                ORDER BY ?ext ?type ?file
+                                """ % (cls.name,filter)
+                                
+        res = apirdflib.rdfQueryStore(q,cls.myconf)
+        ret = []
+        for row in res:
+            f = str(row.file)
+            if f.startswith("file://"):
+                f = "file://%s" % full_path(f[7:])
+            t = str(row.type)
+            t = t.upper()
+            
+            r = {
+                "ext": str(row.ext),
+                "type": t,
+                "file": f
+            }
+            ret.append(r)
+        return ret
+
 
