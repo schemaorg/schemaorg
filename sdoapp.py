@@ -744,16 +744,22 @@ class ShowUnit (webapp2.RequestHandler):
             self.write("<table class=\"definition-table\">\n        <thead>\n  <tr><th>Property</th><th>Expected Type</th><th>Description</th>               \n  </tr>\n  </thead>\n\n")
 
     def emitCanonicalURL(self,node):
-        cURL = "%s://schema.org/%s" % (CANONICALSCHEME,node.id)
-        if CANONICALSCHEME == "http":
-            other = "https"
+        site = SdoConfig.baseUri()
+        if site != "http://schema.org":
+            cURL = "%s%s" % (site,node.id)
+            self.write(" <span class=\"canonicalUrl\">Canonical URL: <a href=\"%s\">%s</a></span> " % (cURL, cURL))
         else:
-            other = "http"
-        sa = '\n<link  property="sameAs" href="%s://schema.org/%s" />' % (other,node.id)
+            
+            cURL = "%s://schema.org/%s" % (CANONICALSCHEME,node.id)
+            if CANONICALSCHEME == "http":
+                other = "https"
+            else:
+                other = "http"
+            sa = '\n<link  property="sameAs" href="%s://schema.org/%s" />' % (other,node.id)
 
-        self.write(" <span class=\"canonicalUrl\">Canonical URL: <a href=\"%s\">%s</a></span> " % (cURL, cURL))
-        #self.write(" (<a href=\"/docs/faq.html#19\" title=\"http/https help\">?</a>)")
-        self.write(sa)
+            self.write(" <span class=\"canonicalUrl\">Canonical URL: <a href=\"%s\">%s</a></span> " % (cURL, cURL))
+            #self.write(" (<a href=\"/docs/faq.html#19\" title=\"http/https help\">?</a>)")
+            self.write(sa)
 
     # Stacks to support multiple inheritance
     crumbStacks = []
