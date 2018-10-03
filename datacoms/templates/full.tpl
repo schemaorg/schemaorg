@@ -28,9 +28,9 @@ $(document).ready(function(){
             $("#ext_thing_tree").show(500);
         }
      });
-	$("#thing_tree").hide();
+     $("#full_thing_tree").hide();
 	$("#ext_thing_tree").hide();
-    $("#full_thing_tree").show();
+	$("#thing_tree").show();
 });
 </script>
 </head>
@@ -53,8 +53,8 @@ Schema.org is defined as two hierarchies: one for textual property values, and o
 <br/>
 <div>Select vocabulary view:<br/>
     <div>
-        <label><input type="radio" name="viewSel" value="local"> {{local_button}}</label>
-        <label><input type="radio" name="viewSel" value="full"  checked="checked"> {{full_button}}</label>
+        <label><input type="radio" name="viewSel" value="local" checked="checked"> {{local_button}}</label>
+        <label><input type="radio" name="viewSel" value="full"> {{full_button}}</label>
 		{% if ext_button != "" %}
         	<label><input type="radio" name="viewSel" value="ext"> {{ext_button}}</label>
 		{% endif %}

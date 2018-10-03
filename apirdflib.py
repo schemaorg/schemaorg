@@ -271,6 +271,21 @@ def countFilter(extension="ALL",includeAttic=False):
 
     return extensionSel + "\n" + excludeAttic
         
+
+def rdfgettops():
+    query= '''select ?term where { 
+      ?t a rdfs:Class;
+          rdfs:label ?term;
+          rdfs:subClassOf ?super. 
+          FILTER NOT EXISTS { ?super rdfs:subClassOf ?p }
+      }'''
+    res = rdfQueryStore(query,queryGraph())
+    ret = []
+    for row in res:
+        ret.append(str(row.term))
+        log.info("?????????????????? %s " % (row.term))
+    return ret
+        
 def countTypes(extension="ALL",includeAttic=False):
     log.info("countTypes()")
     filter = countFilter(extension=extension, includeAttic=includeAttic)

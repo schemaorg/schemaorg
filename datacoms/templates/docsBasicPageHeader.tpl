@@ -6,7 +6,7 @@
                     <div class="wrapper">
                         <div id="sitename">
                             <h1>
-                                <a href="../">schema.org</a>
+                                <a href="../">schema.datacommons.org</a>
                             </h1>
                         </div>
                         <div id="cse-search-form" style="width: 400px;">

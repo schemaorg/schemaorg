@@ -793,10 +793,12 @@ class Triple ():
         ret = ""
         if self.source != None:
             ret +=  "%s " % self.source
-        if self.target != None:
-            ret += "%s " % self.target
         if self.arc != None:
             ret += "%s " % self.arc
+        if self.target != None:
+            ret += "%s " % self.target
+        if self.text != None:
+            ret += "\"%s\" " % self.text
         return ret
 
     @staticmethod
@@ -932,7 +934,7 @@ def GetAllTypes(layers='core'):
         return UtilCache.get(KEY,Utc)
     else:
         #logging.debug("DataCache MISS: %s" % KEY)
-        mynode = Unit.GetUnit("Thing", True)
+        mynode = Unit.GetUnit("schema:Thing", True)
         subbed = {}
         todo = [mynode]
         while todo:

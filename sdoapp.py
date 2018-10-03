@@ -44,7 +44,7 @@ from testharness import *
 from sdoutil import *
 from api import *
 from apirdflib import load_graph, getNss, getRevNss, buildSingleTermGraph, serializeSingleTermGrapth
-from apirdflib import countTypes, countProperties, countEnums, graphFromFiles, getPathForPrefix
+from apirdflib import countTypes, countProperties, countEnums, graphFromFiles, getPathForPrefix, rdfgettops
 
 from apimarkdown import Markdown
 
@@ -378,7 +378,7 @@ class TypeHierarchyTree:
 
         """Generate a hierarchical tree view of the types. hashorslash is used for relative link prefixing."""
 
-        #log.info("traverseForHTML: node=%s hashorslash=%s" % ( node.id, hashorslash ))
+        log.info("traverseForHTML: node=%s hashorslash=%s" % ( node, hashorslash ))
         
         if not node:
             return False
@@ -451,7 +451,7 @@ class TypeHierarchyTree:
 
         self.visited.append(node.id) # remember our visit
         self.emit2buff(buff, ' %s</li>' % (" " * 4 * depth) )
-
+        
         if localBuff:
             self.emit(buff.getvalue())
             buff.close()
@@ -615,15 +615,32 @@ class ShowUnit (webapp2.RequestHandler):
         moreinfo += "</ul>\n</div>\n</div>\n"
         return moreinfo
 
+    def getParentNames(self, nodeName, layers):
+        
+        ret = [nodeName]
+        node = Unit.GetUnit(nodeName)
+        if node and node.id:
+            sc = Unit.GetUnit("rdfs:subClassOf")
+            targs = GetTargets(sc, node, layers=layers)
+            if targs:
+                for p in targs:
+                    ret.extend(self.getParentNames(p.id, layers=layers))
+            
+            
+        return ret
+        
     def GetParentStack(self, node, layers='core'):
         """Returns a hiearchical structured used for site breadcrumbs."""
-        thing = Unit.GetUnit("Thing")
+        thing = Unit.GetUnit("schema:Thing")
         #log.info("GetParentStack for: %s",node)
+        if not node:
+            return
+            
         if (node not in self.parentStack):
             self.parentStack.append(node)
 
         if (Unit.isAttribute(node, layers=layers)):
-            self.parentStack.append(Unit.GetUnit("Property"))
+            self.parentStack.append(Unit.GetUnit("schema:Property"))
             self.parentStack.append(thing)
 
         sc = Unit.GetUnit("rdfs:subClassOf")
@@ -650,7 +667,9 @@ class ShowUnit (webapp2.RequestHandler):
         * title = optional title attribute on the link
         * prop = an optional property value to apply to the A element
         """
-        
+        if not node:
+            return ""
+            
         if ":" in node.id:
             return self.external_ml(node)
 
@@ -747,7 +766,7 @@ class ShowUnit (webapp2.RequestHandler):
         site = SdoConfig.baseUri()
         if site != "http://schema.org":
             cURL = "%s%s" % (site,node.id)
-            self.write(" <span class=\"canonicalUrl\">Canonical URL: <a href=\"%s\">%s</a></span> " % (cURL, cURL))
+            self.write(" <span class=\"canonicalUrl\">Canonical URL: %s</span> " % (cURL))
         else:
             
             cURL = "%s://schema.org/%s" % (CANONICALSCHEME,node.id)
@@ -769,31 +788,40 @@ class ShowUnit (webapp2.RequestHandler):
         self.crumbStacks.append(cstack)
         self.WalkCrumbs(node,cstack,layers=layers)
         if (node.isAttribute(layers=layers)):
-            cstack.append(Unit.GetUnit("Property"))
-            cstack.append(Unit.GetUnit("Thing"))
-        elif(node.isDataType(layers=layers) and node.id != "DataType"):
-            cstack.append(Unit.GetUnit("DataType"))
+            cstack.append(Unit.GetUnit("schema:Property", True))
+            #cstack.append(Unit.GetUnit("schema:Thing", True))
+        elif(node.isDataType(layers=layers) and node.id != "schema:DataType"):
+            cstack.append(Unit.GetUnit("schema:DataType"))
 
 
         enuma = node.isEnumerationValue(layers=layers)
+        
+        log.info(">>>>>>> crumstacks = %s" % len(self.crumbStacks))
+        log.info(">>>>>>>>>>> len[0]%s" % len(self.crumbStacks[0]))
 
         crumbsout = []
         for row in range(len(self.crumbStacks)):
            thisrow = ""
-           if(":" in self.crumbStacks[row][len(self.crumbStacks[row])-1].id):
+           targ = self.crumbStacks[row][len(self.crumbStacks[row])-1]
+           if not targ:
+                log.info("}}}}}}}}}}}}}}}}}} 0")
                 continue
            count = 0
            while(len(self.crumbStacks[row]) > 0):
+                log.info("}}}}}}}}}}}}}}}}}} 1")
                 propertyval = None
                 n = self.crumbStacks[row].pop()
+                log.info("}}}}}}}}}}}}}}}}}} 2: %s" % n)
 
-                if((len(self.crumbStacks[row]) == 1) and
+                if((len(self.crumbStacks[row]) == 1) and n and 
                     not ":" in n.id) : #penultimate crumb that is not a non-schema reference
+                    log.info("}}}}}}}}}}}}}}}}}} 3")
                     if node.isAttribute(layers=layers):
                         if n.isAttribute(layers=layers): #Can only be a subproperty of a property
                             propertyval = "rdfs:subPropertyOf"
                     else:
                         propertyval = "rdfs:subClassOf"
+                log.info("}}}}}}}}}}}}}}}}}} 4")
 
                 if(count > 0):
                     if((len(self.crumbStacks[row]) == 0) and enuma): #final crumb
@@ -803,8 +831,10 @@ class ShowUnit (webapp2.RequestHandler):
                 elif n.id == "Class": # If Class is first breadcrum suppress it
                         continue
                 count += 1
+                log.info("}}}}}}}}}}}}}}}}}} 5")
                 thisrow += "%s" % (self.ml(n,prop=propertyval))
            crumbsout.append(thisrow)
+           log.info("}}}}}}}}}}}}}}}}}} 6 %s" % thisrow)
 
         self.write("<h4>")
         rowcount = 0
@@ -817,6 +847,7 @@ class ShowUnit (webapp2.RequestHandler):
 
 #Walk up the stack, appending crumbs & create new (duplicating crumbs already identified) if more than one parent found
     def WalkCrumbs(self, node, cstack, layers):
+        log.info(">>>>>>>>>>>>>>>> WalkCrumbs(%s)" % node)
         if "http://" in node.id or "https://" in node.id:  #Suppress external class references
             return
 
@@ -827,12 +858,16 @@ class ShowUnit (webapp2.RequestHandler):
 
         if(node.isDataType(layers=layers)):
             #subs = GetTargets(Unit.GetUnit("rdf:type"), node, layers=layers)
+            log.info(">>>>>>>>>>>>>>>> WalkCrumbs 1" )
             subs += GetTargets(Unit.GetUnit("rdfs:subClassOf"), node, layers=layers)
         elif node.isClass(layers=layers):
+            log.info(">>>>>>>>>>>>>>>> WalkCrumbs 2" )
             subs = GetTargets(Unit.GetUnit("rdfs:subClassOf"), node, layers=layers)
         elif(node.isAttribute(layers=layers)):
+            log.info(">>>>>>>>>>>>>>>> WalkCrumbs 3" )
             subs = GetTargets(Unit.GetUnit("rdfs:subPropertyOf"), node, layers=layers)
         else:
+            log.info(">>>>>>>>>>>>>>>> WalkCrumbs 4" )
             subs = GetTargets(Unit.GetUnit("rdf:type"), node, layers=layers)# Enumerations are classes that have no declared subclasses
 
         for i in range(len(subs)):
@@ -841,6 +876,8 @@ class ShowUnit (webapp2.RequestHandler):
                 tmpStacks.append(t)
                 self.crumbStacks.append(t)
         x = 0
+        log.info(">>>>>>>>>>>>>>>> WalkCrumbs %s" % subs )
+        
         for p in subs:
             self.WalkCrumbs(p,tmpStacks[x],layers=layers)
             x += 1
@@ -883,6 +920,8 @@ class ShowUnit (webapp2.RequestHandler):
         di = Unit.GetUnit("schema:domainIncludes",True)
         ri = Unit.GetUnit("schema:rangeIncludes",True)
         props = sorted(GetSources(di, cl, layers=layers), key=lambda u: u.id)
+        
+        log.info(" props. for (%s) %s" % (cl,props))
         
         for prop in props:
             if (prop.superseded(layers=layers)):
@@ -1039,7 +1078,6 @@ class ShowUnit (webapp2.RequestHandler):
         log.info("Incomming for %s" % cl.id)
         
         props = sorted(GetSources(ri, cl, layers=layers), key=lambda u: u.id)
-        log.info(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Got %s props" % len(props))
         for prop in props:
             if (prop.superseded(layers=layers)):
                 continue
@@ -1110,7 +1148,7 @@ class ShowUnit (webapp2.RequestHandler):
         ranges = []
         eranges = []
         for r in rges:
-            if inLayer(layers, r):
+            if inLayer(layers, r) or ":" in r.id:
                 ranges.append(r)
             else:
                 eranges.append(r)
@@ -1419,9 +1457,10 @@ class ShowUnit (webapp2.RequestHandler):
         self.write(self.buildSchemaorgHeaders(node, ext_mappings, sitemode, getSiteName(), layers))
         
         self.parentStack = []
+
         self.GetParentStack(node, layers=self.appropriateLayers(layers=layers))
         for i in self.parentStack:
-            log.info("Stack %s" %(i.id))
+            log.info("Stack %s" %(i))
 
         self.emitUnitHeaders(node,  layers=layers) # writes <h1><table>...
 
@@ -1764,16 +1803,22 @@ class ShowUnit (webapp2.RequestHandler):
                 ext_button = "Extension %s" % extlist
             elif count > 1:
                 ext_button = "Extensions %s" % extlist
-
-
-            uThing = Unit.GetUnit("Thing")
-            uDataType = Unit.GetUnit("DataType")
             
-            log.info(">>>>>>>>>>>>>THING %s" %uThing)
+            tops = self.gettops()
 
-            mainroot = TypeHierarchyTree(local_label)
-            mainroot.traverseForHTML(uThing, layers=layerlist, idprefix="C.", urlprefix=urlprefix)
-            thing_tree = mainroot.toHTML()
+            uThing = Unit.GetUnit("schema:Thing")
+            uDataType = Unit.GetUnit("schema:DataType")
+            
+            thing_tree = ""
+            first = True
+            for t in sorted(tops):
+                if not first:
+                    local_label = ""
+                first = False
+                top = Unit.GetUnit(t)
+                mainroot = TypeHierarchyTree(local_label)
+                mainroot.traverseForHTML(top, layers=layerlist, idprefix="C.", urlprefix=urlprefix, traverseAllLayers=True)
+                thing_tree += mainroot.toHTML()
 
             fullmainroot = TypeHierarchyTree("<h3>Core plus all extension vocabularies</h3>")
             fullmainroot.traverseForHTML(uThing, layers=ALL_LAYERS_NO_ATTIC, idprefix="CE.", urlprefix=urlprefix)
@@ -1790,7 +1835,7 @@ class ShowUnit (webapp2.RequestHandler):
             datatype_tree = dtroot.toHTML()
 
             full_button = "Core plus all extension vocabularies"
-
+            
             page = templateRender('full.tpl', node, { 'thing_tree': thing_tree,
                                     'full_thing_tree': full_thing_tree,
                                     'ext_thing_tree': ext_thing_tree,
@@ -1806,6 +1851,9 @@ class ShowUnit (webapp2.RequestHandler):
 
             return True
 
+    def gettops(self):
+        return rdfgettops()
+            
     def handleJSONSchemaTree(self, node, layerlist='core'):
         """Handle a request for a JSON-LD tree representation of the schemas (RDFS-based)."""
         
@@ -2822,7 +2870,9 @@ Warmer = WarmupTool()
 
 def templateRender(templateName, node, values=None):
     global sitemode #,sitename
-    #log.info("templateRender(%s,%s,%s)" % (templateName, node, values))
+    log.info("templateRender(%s,%s,%s)" % (templateName, node, values))
+    log.info("getHostExt %s" % getHostExt())
+    
     
     if isinstance(node, Unit):
         node = node.id

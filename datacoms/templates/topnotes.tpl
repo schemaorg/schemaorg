@@ -8,7 +8,7 @@
 </div>
 {% endif %}
 
-{% if sitename != "schema.org" and host_ext != "" %}
+{% if sitename != "schema.org" and host_ext != "" and False %}
 <div class="pendnote">
 	<b><a href="{{staticPath}}">core</a></b> + <a href="{{extensionPath}}">{{host_ext}}</a>
 	({{extName}}): {{extDD|safe}}</div>
