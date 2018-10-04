@@ -893,7 +893,7 @@ def GetComment(node, layers='core') :
     if len(tx) > 0:
             return Markdown.parse(tx[0])
     else:
-        return "No comment"
+        return "-"
 
 def GetComments(node, layers='core') : 
     """Get the rdfs:comment(s) we find on this node within any of the specified layers."""
