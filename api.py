@@ -1354,6 +1354,9 @@ def read_extensions(extensions):
     extensionsLoaded = True
 
 def load_examples_data(extensions):
+    log.info("Skipping examples load")
+    return
+    
     load = False
     if getInTestHarness():
         load = True
