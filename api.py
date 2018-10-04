@@ -617,7 +617,7 @@ class Unit ():
         #log.debug("isEnumerationValue() called on %s, found %s types. layers: %s" % (self.id, str( len( types ) ), layers ) )
         found_enum = False
         for t in types:
-          if t.subClassOf(Unit.GetUnit("Enumeration"), layers=EVERYLAYER):
+          if t.subClassOf(Unit.GetUnit("schema:Enumeration"), layers=EVERYLAYER):
             found_enum = True
             break
         self.typeFlags['ev'] = found_enum
@@ -979,7 +979,7 @@ def GetAllEnumerationValues(layers='core'):
         return UtilCache.get(KEY,Utc)
     else:
         #logging.debug("DataCache MISS: %s" % KEY)
-        mynode = Unit.GetUnit("Enumeration", True)
+        mynode = Unit.GetUnit("schema:Enumeration", True)
         enums = {}
         subbed = {}
         todo = [mynode]

@@ -759,9 +759,6 @@ class ShowUnit (webapp2.RequestHandler):
 
         self.write(self.moreInfoBlock(node))
 
-        if (node.isClass(layers=layers) and not node.isDataType(layers=layers) and node.id != "DataType"):
-            self.write("<table class=\"definition-table\">\n        <thead>\n  <tr><th>Property</th><th>Expected Type</th><th>Description</th>               \n  </tr>\n  </thead>\n\n")
-
     def emitCanonicalURL(self,node):
         site = SdoConfig.baseUri()
         if site != "http://schema.org":
@@ -796,32 +793,24 @@ class ShowUnit (webapp2.RequestHandler):
 
         enuma = node.isEnumerationValue(layers=layers)
         
-        log.info(">>>>>>> crumstacks = %s" % len(self.crumbStacks))
-        log.info(">>>>>>>>>>> len[0]%s" % len(self.crumbStacks[0]))
-
         crumbsout = []
         for row in range(len(self.crumbStacks)):
            thisrow = ""
            targ = self.crumbStacks[row][len(self.crumbStacks[row])-1]
            if not targ:
-                log.info("}}}}}}}}}}}}}}}}}} 0")
                 continue
            count = 0
            while(len(self.crumbStacks[row]) > 0):
-                log.info("}}}}}}}}}}}}}}}}}} 1")
                 propertyval = None
                 n = self.crumbStacks[row].pop()
-                log.info("}}}}}}}}}}}}}}}}}} 2: %s" % n)
 
                 if((len(self.crumbStacks[row]) == 1) and n and 
                     not ":" in n.id) : #penultimate crumb that is not a non-schema reference
-                    log.info("}}}}}}}}}}}}}}}}}} 3")
                     if node.isAttribute(layers=layers):
                         if n.isAttribute(layers=layers): #Can only be a subproperty of a property
                             propertyval = "rdfs:subPropertyOf"
                     else:
                         propertyval = "rdfs:subClassOf"
-                log.info("}}}}}}}}}}}}}}}}}} 4")
 
                 if(count > 0):
                     if((len(self.crumbStacks[row]) == 0) and enuma): #final crumb
@@ -831,10 +820,8 @@ class ShowUnit (webapp2.RequestHandler):
                 elif n.id == "Class": # If Class is first breadcrum suppress it
                         continue
                 count += 1
-                log.info("}}}}}}}}}}}}}}}}}} 5")
                 thisrow += "%s" % (self.ml(n,prop=propertyval))
            crumbsout.append(thisrow)
-           log.info("}}}}}}}}}}}}}}}}}} 6 %s" % thisrow)
 
         self.write("<h4>")
         rowcount = 0
@@ -847,7 +834,6 @@ class ShowUnit (webapp2.RequestHandler):
 
 #Walk up the stack, appending crumbs & create new (duplicating crumbs already identified) if more than one parent found
     def WalkCrumbs(self, node, cstack, layers):
-        log.info(">>>>>>>>>>>>>>>> WalkCrumbs(%s)" % node)
         if "http://" in node.id or "https://" in node.id:  #Suppress external class references
             return
 
@@ -858,16 +844,12 @@ class ShowUnit (webapp2.RequestHandler):
 
         if(node.isDataType(layers=layers)):
             #subs = GetTargets(Unit.GetUnit("rdf:type"), node, layers=layers)
-            log.info(">>>>>>>>>>>>>>>> WalkCrumbs 1" )
             subs += GetTargets(Unit.GetUnit("rdfs:subClassOf"), node, layers=layers)
         elif node.isClass(layers=layers):
-            log.info(">>>>>>>>>>>>>>>> WalkCrumbs 2" )
             subs = GetTargets(Unit.GetUnit("rdfs:subClassOf"), node, layers=layers)
         elif(node.isAttribute(layers=layers)):
-            log.info(">>>>>>>>>>>>>>>> WalkCrumbs 3" )
             subs = GetTargets(Unit.GetUnit("rdfs:subPropertyOf"), node, layers=layers)
         else:
-            log.info(">>>>>>>>>>>>>>>> WalkCrumbs 4" )
             subs = GetTargets(Unit.GetUnit("rdf:type"), node, layers=layers)# Enumerations are classes that have no declared subclasses
 
         for i in range(len(subs)):
@@ -876,7 +858,6 @@ class ShowUnit (webapp2.RequestHandler):
                 tmpStacks.append(t)
                 self.crumbStacks.append(t)
         x = 0
-        log.info(">>>>>>>>>>>>>>>> WalkCrumbs %s" % subs )
         
         for p in subs:
             self.WalkCrumbs(p,tmpStacks[x],layers=layers)
@@ -909,7 +890,7 @@ class ShowUnit (webapp2.RequestHandler):
             out.write("<li><a href='%s%s'>%s</a></li>" % ( hashorslash, prop.id, prop.id  ))
         out.write("</ul>\n\n")
 
-    def ClassProperties (self, cl, subclass=False, layers="core", out=None, hashorslash="/"):
+    def ClassProperties (self, cl, subclass=False, layers="core", node=None, out=None, hashorslash="/"):
         """Write out a table of properties for a per-type page."""
         if not out:
             out = self
@@ -933,6 +914,10 @@ class ShowUnit (webapp2.RequestHandler):
             comment = GetComment(prop, layers=layers)
             if ":" in prop.id and comment == "No comment":
                 comment = "Term from external vocabulary"
+            if not self.tableHdr:
+                if (node.isClass(layers=layers) and not node.isDataType(layers=layers) and node.id != "DataType"):
+                    self.write("<table class=\"definition-table\">\n        <thead>\n  <tr><th>Property</th><th>Expected Type</th><th>Description</th>               \n  </tr>\n  </thead>\n\n")
+                self.tablehdr = True
             if (not headerPrinted):
                 class_head = self.ml(cl)
                 if subclass:
@@ -1463,12 +1448,13 @@ class ShowUnit (webapp2.RequestHandler):
             log.info("Stack %s" %(i))
 
         self.emitUnitHeaders(node,  layers=layers) # writes <h1><table>...
-
+        self.tableHdr = False
+        
         if (node.isClass(layers=layers)):
             subclass = True
             for p in self.parentStack:
-                self.ClassProperties(p, p==self.parentStack[0], layers=self.appropriateLayers(layers=layers))
-            if (not node.isDataType(layers=layers) and node.id != "DataType"):
+                self.ClassProperties(p, p==self.parentStack[0], node = node, layers=self.appropriateLayers(layers=layers))
+            if (self.tableHdr and not node.isDataType(layers=layers) and node.id != "DataType"):
                 self.write("\n\n</table>\n\n")
             self.emitClassIncomingProperties(node, layers=layers)
 
