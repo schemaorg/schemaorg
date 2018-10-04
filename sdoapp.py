@@ -93,7 +93,7 @@ ENABLE_JSONLD_CONTEXT = True
 ENABLE_CORS = True
 ENABLE_HOSTED_EXTENSIONS = True
 DISABLE_NDB_FOR_LOCALHOST = True
-
+ENABLEMOREINFO = False
 WORKINGHOSTS = ["schema.org","schemaorg.appspot.com",
                 "webschemas.org","webschemas-g.appspot.com",
                 "sdo-test.appspot.com",
@@ -757,7 +757,8 @@ class ShowUnit (webapp2.RequestHandler):
         if len(usage):
             self.write(" <br/><div>Usage: %s</div>\n\n" % (usage) + "\n")
 
-        self.write(self.moreInfoBlock(node))
+        if ENABLEMOREINFO:
+            self.write(self.moreInfoBlock(node))
 
     def emitCanonicalURL(self,node):
         site = SdoConfig.baseUri()
