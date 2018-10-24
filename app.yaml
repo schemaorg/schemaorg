@@ -23,8 +23,10 @@ env_variables:
 #  TARGETSITE: 'localhost'
 
   PRODSITEDEBUG: 'False'
-  CONFIGFILE: 'sdodatacomconfig.json'
-#  CONFIGFILE: 'sdoconfig.json'
+  #CONFIGFILE: 'sdodatacomconfig.json'
+  #CONFIGFILE: 'sdoconfig.json'
+  CONFIGFILE: 'https://s3.amazonaws.com/rjwPublicData/datacomconfiglocation.json'
+  #CONFIGFILE: 'datacomconfiglocation.json'
   WARMUPSTATE: 'Auto' # 'Off', 'On', 'Auto' - Off for localhost, On elsewhere
   STAYINEXTENTION: 'False'
   PAGESTOREMODE: 'CLOUDSTORE' # 'INMEM' (In instance memory), 'NDBSHARED' (NDB shared - accross instances), 'CLOUDSTORE' (Cloudstorage files)
@@ -75,9 +77,12 @@ handlers:
 - url: /docs/tree.json.*
   script: sdoapp.app
 
+#- url: /docs
+  #static_dir: datacoms/docs
+  #application_readable: True
+  
 - url: /docs
-  static_dir: datacoms/docs
-  application_readable: True
+  script: sdoapp.app
 
 - url: /admin
   static_dir: admin

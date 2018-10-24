@@ -46,11 +46,10 @@ $(document).ready(function(){
 Schema.org is defined as two hierarchies: one for textual property values, and one for the things that they describe. 
 </p> 
 
-<h4>Thing</h4>
-
 <p>This is the main schema.org hierarchy: a collection of types (or "classes"), each of which has one or more parent types. Although a type may have more than one super-type, here we show each type in one branch of the tree only. There is also a parallel hierarchy for <a href="#datatype_tree">data types</a>.</p>
 
 <br/>
+<!--
 <div>Select vocabulary view:<br/>
     <div>
         <label><input type="radio" name="viewSel" value="local"> {{local_button}}</label>
@@ -60,22 +59,32 @@ Schema.org is defined as two hierarchies: one for textual property values, and o
 		{% endif %}
 	</div>
 </div>
+-->
 	
 
-<div id="thing_tree">
-{{ thing_tree | safe }}
-</div>
-<div class="display: none" id="full_thing_tree">
+{% if thing_tree != "" %}
+    <div id="thing_tree">
+    {{ thing_tree | safe }}
+    </div>
+{% endif %}
+{% if full_thing_tree != ""  %}
+<!--<div class="display: none" id="full_thing_tree">-->
+<div id="full_thing_tree">
 {{ full_thing_tree | safe }}
 </div>
-{% if ext_button != "" %}
-	<div class="display: none" id="ext_thing_tree">
-	{{ ext_thing_tree | safe }}
-	</div>
 {% endif %}
-<div id="datatype_tree">
-{{ datatype_tree | safe }}
-</div>
+{% if ext_thing_tree != ""  %}
+    {% if ext_button != "" %}
+    	<div class="display: none" id="ext_thing_tree">
+    	{{ ext_thing_tree | safe }}
+    	</div>
+    {% endif %}
+{% endif %}
+{% if datatype_tree != "" %}
+    <div id="datatype_tree">
+    {{ datatype_tree | safe }}
+    </div>
+{% endif %}
 
 
 

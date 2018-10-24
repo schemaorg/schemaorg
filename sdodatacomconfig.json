@@ -1,23 +1,43 @@
 {
-    "@context": "http://schema.org",
-    "context": {
-        "fileContent": { "@id": "schema:decsription"}
+    "@context": {
+        "@vocab": "http://configfiles.schema.org/"
     },
     "@type": "DataFeed",
-    "name": "schema.datacommons.org",
-    "url": "https://schema.datacommons.org",
+    "name": "schema.dataCommons.org",
+    "prefix": "schemadc",
+    "siteurl": "https://schema.datacommons.org",
+    "vocaburl": "https://schema.datacommons.org/",
     "dataFeedElement": [
         {
             "@type": "DataDownload",
-            "name": "core",
-            "contentUrl": "file://datacoms/datacom.rdfa",
+            "contentLocation": "https://raw.githubusercontent.com/schemaorg/schemaorg/vocabindi/datacoms/docs",
+            "contentFile": [
+                "favicon.ico",
+                "prettify.css",
+                "prettify.js",
+                "schemaorg.css",
+                "about.html",
+                "documents.html"
+            ],
+            "fileContent": "docs"
+        },
+        {
+            "@type": "DataDownload",
+            "contentLocation": "https://raw.githubusercontent.com/google/datacommons/master/schema",
+            "contentFile": "datacommons.rdfa",
             "fileContent": "terms"
         },
         {
             "@type": "DataDownload",
-            "name": "core",
-            "contentUrl": "file://datacoms/templates",
+            "contentLocation": "https://raw.githubusercontent.com/google/datacommons/master/schema/templates",
             "fileContent": "templates"
+        },
+        {
+            "@type": "DataDownload",
+            "addPrefix": "schema",
+            "addVocaburl": "http://schema.org/",
+            "contentFile": "https://raw.githubusercontent.com/schemaorg/schemaorg/master/data/schema.rdfa",
+            "fileContent": "terms"
         }
     ]
 }
