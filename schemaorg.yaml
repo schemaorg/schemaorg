@@ -1,7 +1,6 @@
 # application: schemaorgae
 # usage: gcloud app deploy schemaorg.yaml --project schemaorgae
 
-module: default
 runtime: python27
 api_version: 1
 threadsafe: true
@@ -18,15 +17,23 @@ inbound_services:
 - warmup
 
 env_variables:
+  TARGETSITE: 'schema.org'
   PRODSITEDEBUG: 'False'
   WARMUPSTATE: 'Auto' # 'Off', 'On', 'Auto' - Off for localhost, On elsewhere
+  STAYINEXTENTION: 'False'
+  PAGESTOREMODE: 'CLOUDSTORE' # 'INMEM' (In instance memory), 'NDBSHARED' (NDB shared - accross instances), 'CLOUDSTORE' (Cloudstorage files)
+  EXAMPLESTOREMODE: 'INMEM' # 'INMEM', 'NDBSHARED'
+  TIMESTAMPSTOREMODE: 'CLOUDSTORE' # 'INMEM', 'NDBSHARED', 'CLOUDSTORE' 
+  CACHE_CONTROL: 'public, max-age=600'
+#  CACHE_CONTROL: 'no-cache'
 
 handlers:
 
-- url: /favicon.ico
+- url: /.*favicon.ico
   static_files: docs/favicon.ico
   upload: docs/favicon.ico
   mime_type: image/x-icon
+  application_readable: True
   secure: always
   redirect_http_response_code: 301
 
@@ -37,7 +44,6 @@ handlers:
   redirect_http_response_code: 301
   mime_type: text/plain
 
-# To avoid: "Could not guess mimetype for docs/schemaorg.owl.  Using application/octet-stream."
 - url: /docs/schemaorg.owl
   static_files: docs/schemaorg.owl
   upload: docs/schemaorg.owl
@@ -80,8 +86,15 @@ handlers:
 
 - url: /docs
   static_dir: docs
+  application_readable: True
   secure: always
   redirect_http_response_code: 301
+  
+- url: /.*docs/*
+  static_dir: docs
+  application_readable: True
+  secure: always
+  redirect_http_response_code: 301  
 
 #- url: /
 #  static_files: static/index.html
@@ -90,6 +103,11 @@ handlers:
 
 - url: /search_files
   static_dir: static/search_files
+  secure: always
+  redirect_http_response_code: 301
+
+- url: /version/build-latest/.*
+  script: sdoapp.app
   secure: always
   redirect_http_response_code: 301
 

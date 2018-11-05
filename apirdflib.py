@@ -14,6 +14,7 @@ from rdflib.parser import Parser
 from rdflib.serializer import Serializer
 from rdflib.plugins.sparql import prepareQuery
 import threading
+from testharness import *
 import api
 from apimarkdown import Markdown
 import StringIO
