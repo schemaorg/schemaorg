@@ -20,6 +20,10 @@ sys.path.insert(0, sdk_path) # add AppEngine SDK to path
 import dev_appserver
 dev_appserver.fix_sys_path()
 
+from testharness import *
+#Setup testharness state BEFORE importing sdo libraries
+setInTestHarness(True)
+
 from api import *
 import rdflib
 from rdflib.term import URIRef, Literal
@@ -67,8 +71,6 @@ if args.quadgraphsuffix:
 logging.basicConfig(level=logging.INFO)
 log = logging.getLogger(__name__)
 
-#Setup testharness state BEFORE importing sdoapp
-setInTestHarness(True)
 import sdoapp
 from sdoapp import ENABLED_EXTENSIONS
 
@@ -173,7 +175,9 @@ class Export():
             format = args.format
             if format == "xml" or format == "rdf":
                 format = "pretty-xml"
-            file.write(self.outGraph.serialize(format=format,**kwargs))
+                
+            #file.write(self.outGraph.serialize(format=format,**kwargs))
+            file.write(self.outGraph.serialize(format=format,auto_compact=True))
 
 
     def outputCSV(self):

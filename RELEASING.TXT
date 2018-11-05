@@ -152,7 +152,11 @@ final round of sanity-check tests is useful:
 Using gcloud app deploy
 ~~~~~~~~~~~~~~~~~~~~~~~
 
-gcloud app deploy --no-promote --project schemaorgae --version=3.4 schemaorg.yaml
+From 3.4.1 onwards use app deploy script (does a bit of housekeeping):
+	scripts/appdeploy.sh --project schemaorgae  --no-promote --version=3-4-1 schemaorg.yaml
+
+
+##### original deploy: gcloud app deploy --no-promote --project schemaorgae --version=3.4 schemaorg.yaml
 
 Note: the --no-promote flage deploys the version but does not transfer traffic to it.
 This can then be done when required via the appengine console, versions screen:
