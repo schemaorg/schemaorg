@@ -116,6 +116,18 @@ LOADEDSOURCES = False
 
 noindexpages = True
 
+SUBDOMAINS = True
+subs = os.environ.get("SUBDOMAINS",None)
+if subs:
+    if subs.lower() == "true":
+        SUBDOMAINS = True
+    elif subs.lower() == "false":
+        SUBDOMAINS = False
+    else:
+        log.info("SUBDOMAINS set to invalid value %s - defaulting to %s" %(subs,SUBDOMAINS))
+log.info("SUBDOMAINS set to %s" % SUBDOMAINS)
+    
+
 ############# Warmup Control ########
 WarmedUp = False
 WarmupState = "Auto"
@@ -692,10 +704,12 @@ class ShowUnit (webapp2.RequestHandler):
         self.write("</h1>\n")
         home = node.home
         if home != "core" and home != "":
+            exthome = "%s.schema.org" % home
+            exthomeurl = uri = makeUrl(home,"/",full=True)
             if home == ATTIC:
-                self.write("Defined in the %s.schema.org archive area.<br/><strong>Use of this term is not advised</strong><br/>" % home)
+                self.write("Defined in the <a href=\"%s\">%s</a> archive area.<br/><strong>Use of this term is not advised</strong><br/>" % (exthomeurl,exthome))
             else:
-                self.write("Defined in the %s.schema.org extension.<br/>" % home)
+                self.write("Defined in the <a href=\"%s\">%s</a> extension.<br/>" % (exthomeurl,exthome))
         self.emitCanonicalURL(node)
 
         self.BreadCrumbs(node, layers=self.appropriateLayers(layers=layers))
@@ -1834,7 +1848,7 @@ class ShowUnit (webapp2.RequestHandler):
         self.emitCacheHeaders()
 
 
-        if inLayer(layers, schema_node):
+        if not SUBDOMAINS or inLayer(layers, schema_node): #If subdomains enabled check we are in the correct one 
             self.emitExactTermPage(schema_node, layers=layers)
             return True
         else:
@@ -1874,17 +1888,28 @@ class ShowUnit (webapp2.RequestHandler):
         log.info("node: '%s' home: '%s' ext: '%s'" % (node,home,ext))
         if home == CORE and ext == '':
             return True
-        if home == ext:
-            return True
             
-        if home == CORE:
-            log.info("Redirecting to core entity")
-            self.redirectToBase(node.id,full=True)
-        else:
-            log.info("Redirecting to '%s' entity" % home)
-            self.redirectToExt(node.id,ext=home, full=True)
-        return False
-
+        if SUBDOMAINS:
+            log.info("Checking for correct subdomain")
+            if home == ext:
+                return True
+            
+            if home == CORE:
+                log.info("Redirecting to core entity")
+                self.redirectToBase(node.id,full=True)
+            else:
+                log.info("Redirecting to '%s' entity" % home)
+                self.redirectToExt(node.id,ext=home, full=True)
+            return False
+            
+        else: #SUBDOMAINS == False
+            if ext == '':
+                return True
+            else:
+                 log.info("SUBDOMAINS dissabled - Redirecting to core entity")
+                 self.redirectToBase(node.id,full=True)
+            return False
+                
 
     def handleExactTermDataOutput(self, node=None, outputtype=None):
         log.info("handleExactTermDataOutput Node: '%s'  Outputtype: '%s'" % (node, outputtype))
@@ -2808,6 +2833,7 @@ def templateRender(templateName, node, values=None):
     defvars = {
         'ENABLE_HOSTED_EXTENSIONS': ENABLE_HOSTED_EXTENSIONS,
         'SCHEMA_VERSION': SCHEMA_VERSION,
+        'SUBDOMAINS': SUBDOMAINS,
         'sitemode': sitemode,
         'sitename': getSiteName(),
         'staticPath': homedir,
