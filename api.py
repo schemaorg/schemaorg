@@ -68,6 +68,8 @@ def getAllLayersList():
     global AllLayersList
     return AllLayersList
     
+VARSUBPATTERN = r'\[\[([\w0-9_ -]+)\]\]'
+
 JSONLDCONTEXT = "jsonldcontext.json"
 EVERYLAYER = "!EVERYLAYER!"
 sitename = "schema.org"
@@ -1253,50 +1255,29 @@ def GetJsonLdContext(layers='core'):
                 done.append(pref)
                 jsonldcontext += "        \"%s\": \"%s\",\n" % (pref,pth)
 
-    url = apirdfterm.VTerm.getTerm("http://schema.org/URL")
-    date = apirdfterm.VTerm.getTerm("http://schema.org/Date")
-    date = apirdfterm.VTerm.getTerm("http://schema.org/DateTime")
-    
     datatypepre = ""    
     if SdoConfig.vocabUri() != "http://schema.org/":
         datatypepre = "schema:"
         
     vocablines = ""
     externalines = ""
+    typins = ""
+    url = apirdfterm.VTerm.getTerm("schema:URL")
     for t in apirdfterm.VTerm.getAllTerms(supressSourceLinks=True):
         if t.isClass() or t.isEnumeration() or t.isEnumerationValue() or t.isDataType():
             line =  "        \"" + t.getId() + "\": {\"@id\": \"" + t.getPrefixedId() + "\"},"
         elif t.isProperty():
             ranges = t.getRanges()
-            l = len(ranges) > 1
-            type = ""
-            if l:
-                type = "["
-            first = True
-            for r in ranges:
-                if first:
-                    first = False
-                else:
-                    type += ","
-                    
-                if r == url:
-                    type += '"@id"'
-                else:
-                    type += '"%s"' % r.getPrefixedId()
-            if l:
-                type += "]"
             
-
-            #if url in ranges:
-                #type = "@id"
-            #elif date in ranges:
-                #type = datatypepre + "Date"
-            #elif datetime in ranges:
-                #type = datatypepre + "DateTime"
-
-            typins = ""
-            if len(type):
-                typins = ", \"@type\": " + type
+            for r in ranges:
+                
+                if r == url: 
+                    typins = ", \"@type\": \"@id\""
+                    break
+                elif r.isDataType():
+                    typins = ""
+                else:
+                    typins = ", \"@type\": \"@id\""
                 
             line = "        \"" + t.getId() + "\": { \"@id\": \"" + t.getPrefixedId() + "\"" + typins + "},"
         
@@ -1341,15 +1322,22 @@ def read_file (filename):
             fd = urllib2.urlopen(filename)
             return fd.read()
         except urllib2.URLError as e:
-            log.info("URLError %s" % e)
+            log.info("read_file URLError %s: %s" % (e,e.message))
+            return None
+        except Exception as e:
+            log.info("read_file Exception %s: %s" % (e,e.message))
             return None
     else:
         file_path = full_path(filename)
         import codecs
-        #log.debug("READING FILE: filename=%s file_path=%s " % (filename, file_path ) )
-        for line in codecs.open(file_path, 'r', encoding="utf8").readlines():
-            strs.append(line)
-        ret = "".join(strs)
+        try:
+            #log.debug("READING FILE: filename=%s file_path=%s " % (filename, file_path ) )
+            for line in codecs.open(file_path, 'r', encoding="utf8").readlines():
+                strs.append(line)
+            ret = "".join(strs)
+        except Exception as e:
+            log.info("read_file Exception %s: %s" % (e,e.message))
+            return None
     return ret
 
 def full_path(filename):
@@ -1392,17 +1380,27 @@ def read_schemas(files):
     log.debug("[%s] (re)loading core and annotations." % getInstanceId(short=True))
 
     for f in files:
-        #log.info("read_schemas '%s' '%s'" %(f.get("ext"),f.get("file")))
-        apirdflib.load_graph(f.get("ext"),f.get("file"),prefix=f.get("prefix"),vocab=f.get("vocaburi"))
+        try:
+            log.info("read_schema '%s' '%s'" %(f.get("ext"),f.get("file")))
+            apirdflib.load_graph(f.get("ext"),f.get("file"),prefix=f.get("prefix"),vocab=f.get("vocaburi"))
+        except Exception as e:
+            log.error("exception loading schema file %s %s: %s" % (f.get("file"),e,e.message))
+            pass
+        
         
     log.info("[%s] Loaded  graphs in %s" % (getInstanceId(short=True),(datetime.datetime.now() - load_start)))
 
 def load_usage_data(files):
     load_start = datetime.datetime.now()
     for f in files:
-        usage_data = read_file(f.get("file"))
-        parser = parsers.UsageFileParser(None)
-        parser.parse(usage_data)
+        try:
+            usage_data = read_file(f.get("file"))
+            parser = parsers.UsageFileParser(None)
+            parser.parse(usage_data)
+        except Exception as e:
+            log.error("exception loading usage data file %s %s: %s" % (f,e,e.message))
+            pass
+        
     log.debug("[%s]Loaded usage data in %s" % (getInstanceId(short=True),(datetime.datetime.now() - load_start)))
     
 
@@ -1512,12 +1510,17 @@ def load_local_examples_data(extensions):
 def read_examples(files, layer):
     first = True
     for f in files:
-        parser = parsers.ParseExampleFile(None,layer=layer)
-        #log.info("[%s] Reading: %s" % (getInstanceId(short=True),f))
-        if first:
-            #log.info("[%s] Loading examples from %s" % (getInstanceId(short=True),layer))
-            first = False
-        parser.parse(f)
+        try:
+            parser = parsers.ParseExampleFile(None,layer=layer)
+            #log.info("[%s] Reading: %s" % (getInstanceId(short=True),f))
+            if first:
+                #log.info("[%s] Loading examples from %s" % (getInstanceId(short=True),layer))
+                first = False
+            parser.parse(f)
+        except Exception as e:
+            log.error("exception loading examples file %s %s: %s" % (f,e,e.message))
+            pass
+        
 
 EXAMPLESTORECACHE = []
 class ExampleStore(ndb.Model):
@@ -1759,7 +1762,21 @@ class SdoConfig():
     myconf = None
     name = None
     attic = None
+    varslist = None
     descs = {}
+    
+    @classmethod
+    def clear(cls):
+        if cls.myconf:
+            cls.myconf.close()
+        cls.valid = False
+        cls.loaded = False
+        cls.myconf = None
+        cls.name = None
+        cls.attic = None
+        cls.varslist = None
+        cls.descs = {}
+    
     
     @classmethod
     def load(cls, conffile):
@@ -1767,10 +1784,16 @@ class SdoConfig():
         if cls.myconf:
             log.info("Found previous config load graph - closing it!")
             cls.myconf.close()
+            
         config = conffile
         while config:
-            SdoConfig.myconf = apirdflib.graphFromFiles(config,prefix="scc",path="http://configfiles.schema.org/")
-            config = cls.loadData()#Returns new config file if a redirect
+            try:
+                SdoConfig.myconf = apirdflib.graphFromFiles(config,prefix="scc",path="http://configfiles.schema.org/")
+                config = cls.loadData()#Returns new config file if a redirect
+            except Exception as e:
+                log.info("Configuration file (%s) read/load exception Exception %s: %s" % (config,e,e.message))
+                pass
+            
             if config:
                 log.info("Found previous config load graph - closing it!")
                 cls.myconf.close() #dump previous graphs to start next on clean.
@@ -1778,6 +1801,9 @@ class SdoConfig():
         if len(cls.myconf) > 0:
             cls.valid = True
             log.info("SdoConfig.myconf valid:%s %s triple count: %s" % (cls.valid, cls.myconf, len(cls.myconf)))
+            
+        else:
+            log.info("No config detected!!!")
     
     @classmethod
     def isValid(cls):
@@ -1892,6 +1918,34 @@ class SdoConfig():
         return cls.files(filetype="DOCS")
         
     @classmethod
+    def loadVars(cls):
+        q = """SELECT ?var ?val WHERE {
+            ?s scc:dataFeedVar ?o.
+            ?o ?var ?val.
+            }"""
+
+        cls.varslist = {}
+        res = apirdflib.rdfQueryStore(q,cls.myconf)
+        for row in res:
+            #log.info(">>> %s ==== %s <<<<<"% (row.var,row.val))
+            cls.varslist[os.path.basename(row.var)] = row.val #the var value will come back as a URI
+ 
+    @classmethod
+    def varsub(cls,s):
+        if not cls.varslist:
+            cls.loadVars()
+        return re.sub(VARSUBPATTERN, cls.varsubReplace, s)
+            
+    @classmethod
+    def varsubReplace(cls,match):
+        ret = ""
+        var = match.group(1)
+        val = cls.varslist.get(var,None)
+        if val:
+            ret = val
+        return ret
+        
+    @classmethod
     def descriptor(cls,extension=None):
         ret = cls.descs.get(extension,None)
         if ret:
@@ -1974,11 +2028,11 @@ class SdoConfig():
         for row in res:
             d = row.dir
             if d:
-                d = str(d)
+                d = str(cls.varsub(d))
             loc = d
             f = row.file
             if f:
-                f = str(f)
+                f = str(cls.varsub(f))
             fpath = f
             if d and f:
                 if not d.endswith('/'):

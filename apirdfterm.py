@@ -150,7 +150,7 @@ class VTerm():
                     tmp.append(t)
                     
             if len(tmp) > 1:
-                log.error("Warning '%s' supersededBy more than 1 term ()%s" % (self.id,len(tmp)))
+                log.debug("Warning '%s' supersededBy more than 1 term ()%s" % (self.id,len(tmp)))
             if len(tmp):
                 self.supersededBy = tmp[0]
         return self.supersededBy
@@ -340,7 +340,7 @@ class VTerm():
         for row in res:
             super = VTerm._getTerm(row.sup,createReference=True)
             if not super:
-                log.error("Failed to get term for %s" % row.sup)
+                log.debug("Failed to get term for %s" % row.sup)
                 continue
             sortedAddUnique(self.supers,super)
         if self.isEnumerationValue():
@@ -366,7 +366,7 @@ class VTerm():
         for row in res:
             sub = VTerm._getTerm(row.sub)
             if not sub:
-                log.error("Failed to get term for %s" % row.sub)
+                log.debug("Failed to get term for %s" % row.sub)
                 continue
             sortedAddUnique(self.subs,sub)
             
@@ -447,7 +447,7 @@ class VTerm():
             elif createReference:
                 term = VTerm(fullId)
             else:
-                log.error("No definition of term %s" % fullId)
+                log.debug("No definition of term %s" % fullId)
         return term
 
     @staticmethod
@@ -535,7 +535,7 @@ class VTerm():
         elif not ttype:
             typesel = ""
         else:
-            log.error("Invalid type value '%s'" % ttype)
+            log.debug("Invalid type value '%s'" % ttype)
             
         laysel = ""
         fil = ""
@@ -592,10 +592,15 @@ class VTerm():
 #############################################        
 def toFullId(termId):
 
-    if	':' in termId: #Includes full path or namespaces
+    if not	':' in termId: #Includes full path or namespaces
+    	fullId = api.SdoConfig.vocabUri() + termId
+    elif termId.startswith("http"):
     	fullId = termId
     else:
-    	fullId = api.SdoConfig.vocabUri() + termId
+        sp = termId.split(':')
+        pre = sp[0]
+        id = sp[1]
+        fullId = "%s%s" % (uriForPrefix(pre),id)
     return fullId
 
 def uriWrap(id):
@@ -651,6 +656,17 @@ def prefixFromUri(uri):
         pref, pth = n
         if uri.startswith(str(pth)):
             return pref
+    log.debug("Requested unknown namespace uri %s" % uri)
+    return None
+    
+def uriForPrefix(pre):
+    pre = str(pre)
+    ns = apirdflib.getNamespaces()
+    for n in ns:
+        pref, pth = n
+        if pre == pref:
+            return pth
+    log.debug("Requested unknown prefix %s:" % pre)
     return None
     
     

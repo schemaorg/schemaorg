@@ -540,6 +540,10 @@ class ShowUnit (webapp2.RequestHandler):
     def moreInfoBlock(self, term, layer='core'):
 
         # if we think we have more info on this term, show a bulleted list of extra items.
+        moreblock = os.environ.get("MOREBLOCK")
+        if not moreblock or (moreblock.lower() == "false"):
+            return ""
+        
 
         # defaults
         bugs = ["No known open issues."]
@@ -1713,13 +1717,8 @@ class ShowUnit (webapp2.RequestHandler):
 
             full_button = "Core plus all extension vocabularies"
 
-            page = templateRender('full.tpl', node, { 'thing_tree': thing_tree,
-                                    'full_thing_tree': full_thing_tree,
-                                    'ext_thing_tree': ext_thing_tree,
+            page = templateRender('full.tpl', node, { 'full_thing_tree': full_thing_tree,
                                     'datatype_tree': datatype_tree,
-                                    'local_button': local_button,
-                                    'full_button': full_button,
-                                    'ext_button': ext_button,
                                     'menu_sel': "Schemas"})
 
             self.response.out.write( page )
@@ -2434,8 +2433,30 @@ class ShowUnit (webapp2.RequestHandler):
             #global Warmer
             #if not WarmedUp:
                 #Warmer.stepWarm(self)
+                
+        
 
         self.emitHTTPHeaders(node) #Ensure we have the right basic header values
+        
+        if(node == "admin/refresh"):
+            log.info("Processing refesh request")
+            load_start = datetime.datetime.now() 
+            memcache.flush_all()        
+            memcache.set(key="app_initialising", value=True, time=300)  #Give the system 5 mins - auto remove flag in case of crash
+            cleanmsg = CacheControl.clean()
+            log.info("Clean count(s): %s" % cleanmsg)
+            log.info(("[%s] Cache clean took %s " % (getInstanceId(short=True),(datetime.datetime.now() - load_start))))
+            memcache.set(key="app_initialising", value=False)
+            storeInitialisedTimestamp()
+            self.emitSchemaorgHeaders("Refresh")
+            #404 could be called from any path, so output all potential locations of schemaorg.css
+            self.response.out.write('<link rel="stylesheet" type="text/css" href="../docs/schemaorg.css" />')
+            self.response.out.write('<link rel="stylesheet" type="text/css" href="docs/schemaorg.css" />')
+            self.response.out.write('<link rel="stylesheet" type="text/css" href="/docs/schemaorg.css" />')
+
+            self.response.out.write('<h3>Refresh Completed</h3><p>Took: %s</p>' % (datetime.datetime.now() - load_start))
+            return False
+            
 
         if(node == "_ah/start"):
             log.info("Instance[%s] received Start request at %s" % (modules.get_current_instance_id(), global_vars.time_start) )
@@ -2969,7 +2990,7 @@ def getPageFromStore(id,ext=None,enableFlush=True):
 
 schemasInitialized = False
 def load_schema_definitions():
-    #log.info("STARTING UP... reading schemas.")
+    log.info("STARTING UP... reading schemas.")
     #load_graph(loadExtensions=ENABLE_HOSTED_EXTENSIONS)
     global schemasInitialized
     if SdoConfig.isValid():
