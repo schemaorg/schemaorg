@@ -94,5 +94,45 @@
         <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/DefinedTerm">DefinedTerm</a></span>
         <span>Source:  <a property="dc:source" href="http://www.bioschemas.org">BioChemEntity</a></span>
     </div>
-    
+
+
+
+
+
+    <div typeof="rdfs:Class" resource="http://schema.org/ChemicalSubstance">
+        <link property="http://schema.org/isPartOf" href="http://bio.schema.org" />
+        <span class="h" property="rdfs:label">ChemicalSubstance</span>
+        <span property="rdfs:comment"></span>
+        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/BioChemEntity">BioChemEntity</a></span>
+        <span>Source:  <a property="dc:source" href="http://bioschemas.org">Bioschemas</a></span>
+    </div>
+
+    <div typeof="rdf:Property" resource="http://schema.org/chemicalRole">
+        <link property="http://schema.org/isPartOf" href="http://bio.schema.org" />
+        <span class="h" property="rdfs:label">chemicalRole</span>
+        <span property="rdfs:comment">A role played by the molecular entity within a chemical contex</span>
+        <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ChemicalSubstance">ChemicalSubstance</a></span>
+        <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/DefinedTerm">DefinedTerm</a></span>
+        <span>Source:  <a property="dc:source" href="http://www.bioschemas.org/ChemicalSubstance">ChemicalSubstance</a></span>
+    </div>
+
+    <div typeof="rdf:Property" resource="http://schema.org/molecularFormula">
+        <link property="http://schema.org/isPartOf" href="http://bio.schema.org" />
+        <span class="h" property="rdfs:label">molecularFormula</span>
+        <span property="rdfs:comment">The empirical formula is the simplest whole number ratio of all the atoms in a molecule</span>
+        <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ChemicalSubstance">ChemicalSubstance</a></span>
+        <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+        <span>Source:  <a property="dc:source" href="http://www.bioschemas.org/ChemicalSubstance">ChemicalSubstance</a></span>
+    </div>
+
+    <div typeof="rdf:Property" resource="http://schema.org/potentialUse">
+        <link property="http://schema.org/isPartOf" href="http://bio.schema.org" />
+        <span class="h" property="rdfs:label">potentialUse</span>
+        <span property="rdfs:comment">Intended use of the molecular entity by humans</span>
+        <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ChemicalSubstance">ChemicalSubstance</a></span>
+        <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MolecularEntity">MolecularEntity</a></span>
+        <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/DefinedTerm">DefinedTerm</a></span>
+        <span>Source:  <a property="dc:source" href="http://www.bioschemas.org/ChemicalSubstance">ChemicalSubstance</a></span>
+    </div>
+
 </div>
