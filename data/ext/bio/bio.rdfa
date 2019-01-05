@@ -275,4 +275,91 @@
         <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/DefinedTerm">DefinedTerm</a></span>
         <span>Source:  <a property="dc:source" href="http://www.bioschemas.org/Gene">Gene</a></span>
     </div>
+
+
+
+
+
+    <div typeof="rdfs:Class" resource="http://schema.org/Enzyme">
+        <link property="http://schema.org/isPartOf" href="http://bio.schema.org" />
+        <span class="h" property="rdfs:label">Enzyme</span>
+        <span property="rdfs:comment"></span>
+        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/BioChemEntity">BioChemEntity</a></span>
+        <span>Source:  <a property="dc:source" href="http://bioschemas.org">Bioschemas</a></span>
+    </div>
+
+    <div typeof="rdf:Property" resource="http://schema.org/hasECNumbers">
+        <link property="http://schema.org/isPartOf" href="http://bio.schema.org" />
+        <span class="h" property="rdfs:label">hasECNumbers</span>
+        <span property="rdfs:comment">Corresponding Enzyme Commission number</span>
+        <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Enzyme">Enzyme</a></span>
+        <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/DefinedTerm">DefinedTerm</a></span>
+        <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+        <span>Source:  <a property="dc:source" href="http://www.bioschemas.org/Enzyme">Enzyme</a></span>
+    </div>
+
+    <div typeof="rdf:Property" resource="http://schema.org/hasKineticRates">
+        <link property="http://schema.org/isPartOf" href="http://bio.schema.org" />
+        <span class="h" property="rdfs:label">hasKineticRates</span>
+        <span property="rdfs:comment"></span>
+        <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Enzyme">Enzyme</a></span>
+        <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+        <span>Source:  <a property="dc:source" href="http://www.bioschemas.org/Enzyme">Enzyme</a></span>
+    </div>
+
+    <div typeof="rdf:Property" resource="http://schema.org/optimalPHs">
+        <link property="http://schema.org/isPartOf" href="http://bio.schema.org" />
+        <span class="h" property="rdfs:label">optimalPHs</span>
+        <span property="rdfs:comment">Optimal PHs</span>
+        <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Enzyme">Enzyme</a></span>
+        <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number">Number</a></span>
+        <span>Source:  <a property="dc:source" href="http://www.bioschemas.org/Enzyme">Enzyme</a></span>
+    </div>
+
+    <div typeof="rdf:Property" resource="http://schema.org/optimalTemperatures">
+        <link property="http://schema.org/isPartOf" href="http://bio.schema.org" />
+        <span class="h" property="rdfs:label">optimalTemperatures</span>
+        <span property="rdfs:comment"></span>
+        <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Enzyme">Enzyme</a></span>
+        <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number">Number</a></span>
+        <span>Source:  <a property="dc:source" href="http://www.bioschemas.org/Enzyme">Enzyme</a></span>
+    </div>
+
+    <div typeof="rdf:Property" resource="http://schema.org/hasCofactor">
+        <link property="http://schema.org/isPartOf" href="http://bio.schema.org" />
+        <span class="h" property="rdfs:label">hasCofactor</span>
+        <span property="rdfs:comment">Cofactor helping this enzyme to function</span>
+        <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Enzyme">Enzyme</a></span>
+        <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/ChemicalSubstance">ChemicalSubstance</a></span>
+        <span>Source:  <a property="dc:source" href="http://www.bioschemas.org/Enzyme">Enzyme</a></span>
+    </div>
+
+    <div typeof="rdf:Property" resource="http://schema.org/hasCoenzyme">
+        <link property="http://schema.org/isPartOf" href="http://bio.schema.org" />
+        <span class="h" property="rdfs:label">hasCoenzyme</span>
+        <span property="rdfs:comment">Conenzymes helping this enzyme in turning substrates into products</span>
+        <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Enzyme">Enzyme</a></span>
+        <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/BioChemEntity">BioChemEntity</a></span>
+        <span>Source:  <a property="dc:source" href="http://www.bioschemas.org/Enzyme">Enzyme</a></span>
+    </div>
+
+    <div typeof="rdf:Property" resource="http://schema.org/hasAssociatedBioChemEntity">
+        <link property="http://schema.org/isPartOf" href="http://bio.schema.org" />
+        <span class="h" property="rdfs:label">hasAssociatedBioChemEntity</span>
+        <span property="rdfs:comment">Used to define the actual protein or RNA</span>
+        <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Enzyme">Enzyme</a></span>
+        <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Protein">Protein</a></span>
+        <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/RNA">RNA</a></span>
+        <span>Source:  <a property="dc:source" href="http://www.bioschemas.org/Enzyme">Enzyme</a></span>
+    </div> 
+
+    <div typeof="rdf:Property" resource="http://schema.org/keyword">
+        <link property="http://schema.org/isPartOf" href="http://bio.schema.org" />
+        <span class="h" property="rdfs:label">keyword</span>
+        <span property="rdfs:comment">Keywords or tags used to describe this content. Multiple entries in a keywords list are typically delimited by commas</span>
+        <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Enzyme">Enzyme</a></span>
+        <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+        <span>Source:  <a property="dc:source" href="http://www.bioschemas.org/Enzyme">Enzyme</a></span>
+    </div> 
+
 </div>
