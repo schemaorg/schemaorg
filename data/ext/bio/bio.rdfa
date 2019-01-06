@@ -431,6 +431,10 @@
         <span>Source:  <a property="dc:source" href="http://www.bioschemas.org/MolecularEntity">MolecularEntity</a></span>
     </div>
 
+
+
+
+
     <div typeof="rdfs:Class" resource="http://schema.org/Protein">
         <link property="http://schema.org/isPartOf" href="http://bio.schema.org" />
         <span class="h" property="rdfs:label">Protein</span>
@@ -457,9 +461,9 @@
         <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/PropertyValue">PropertyValue</a></span>
     </div>
 
-    <div typeof="rdf:Property" resource="http://schema.org/isPartOfSubcellularLocation">
+    <div typeof="rdf:Property" resource="http://schema.org/isLocatedInSubcellularLocation">
         <link property="http://schema.org/isPartOf" href="http://bio.schema.org" />
-        <span class="h" property="rdfs:label">isPartOfSubcellularLocation</span>
+        <span class="h" property="rdfs:label">isLocatedInSubcellularLocation</span>
         <span property="rdfs:comment"Subcellular location where this protein is located; please use PropertyValue if you want to include any evidence.></span>
         <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Protein">Protein</a></span>
         <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/CategoryCode">CategoryCode</a></span>
@@ -475,4 +479,24 @@
         <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/PropertyValue">PropertyValue</a></span>
     </div>
 
+
+
+
+
+    <div typeof="rdfs:Class" resource="http://schema.org/RNA">
+        <link property="http://schema.org/isPartOf" href="http://bio.schema.org" />
+        <span class="h" property="rdfs:label">RNA</span>
+        <span property="rdfs:comment"></span>
+        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/BioChemEntity">BioChemEntity</a></span>
+        <span>Source:  <a property="dc:source" href="http://bioschemas.org">Bioschemas</a></span>
+    </div>
+
+    <div typeof="rdf:Property" resource="http://schema.org/isCodingRNA">
+        <link property="http://schema.org/isPartOf" href="http://bio.schema.org" />
+        <span class="h" property="rdfs:label">isCodingRNA</span>
+        <span property="rdfs:comment">Indicates whether or not this RNA is a coding one.</span>
+        <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/RNA">RNA</a></span>
+        <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Boolean">Boolean</a></span>
+    </div>
+    
 </div>
