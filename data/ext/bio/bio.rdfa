@@ -322,7 +322,7 @@
     <div typeof="rdf:Property" resource="http://schema.org/optimalTemperatures">
         <link property="http://schema.org/isPartOf" href="http://bio.schema.org" />
         <span class="h" property="rdfs:label">optimalTemperatures</span>
-        <span property="rdfs:comment">Optimal temperature as 'value unit', for example '8 Celsius', at which this enzyme performs best.</span>
+        <span property="rdfs:comment">Optimal temperature in the form '<Number> <Temperature unit of measure>', for example '8 Celsius', at which this enzyme performs best.</span>
         <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Enzyme">Enzyme</a></span>
         <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
         <span>Source:  <a property="dc:source" href="http://www.bioschemas.org/Enzyme">Enzyme</a></span>
@@ -407,18 +407,18 @@
     <div typeof="rdf:Property" resource="http://schema.org/molecularWeight">
         <link property="http://schema.org/isPartOf" href="http://bio.schema.org" />
         <span class="h" property="rdfs:label">molecularWeight</span>
-        <span property="rdfs:comment">This is the molecular weight of the entity being described, not of the parent. Unit should be included, for example '0.01 mg'.</span>
+        <span property="rdfs:comment">This is the molecular weight of the entity being described, not of the parent. Units should be included in the form '<Number> <Mass unit of measure>', for example '0.01 mg'.</span>
         <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MolecularEntity">MolecularEntity</a></span>
-        <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+        <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Mass">Mass</a></span>
         <span>Source:  <a property="dc:source" href="http://www.bioschemas.org/MolecularEntity">MolecularEntity</a></span>
     </div>
 
     <div typeof="rdf:Property" resource="http://schema.org/monoisotopicMolecularWeight">
         <link property="http://schema.org/isPartOf" href="http://bio.schema.org" />
         <span class="h" property="rdfs:label">monoisotopicMolecularWeight</span>
-        <span property="rdfs:comment">The monoisotopic mass is the sum of the masses of the atoms in a molecule using the unbound, ground-state, rest mass of the principal (most abundant) isotope for each element instead of the isotopic average mass.</span>
+        <span property="rdfs:comment">The monoisotopic mass is the sum of the masses of the atoms in a molecule using the unbound, ground-state, rest mass of the principal (most abundant) isotope for each element instead of the isotopic average mass. Please include the units the form '<Number> <Mass unit of measure>', for example '0.01 mg'.</span>
         <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MolecularEntity">MolecularEntity</a></span>
-        <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number">Number</a></span>
+        <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Mass">Mass</a></span>
         <span>Source:  <a property="dc:source" href="http://www.bioschemas.org/MolecularEntity">MolecularEntity</a></span>
     </div>
 
@@ -550,7 +550,7 @@
         <span class="h" property="rdfs:label">sequenceOrientation</span>
         <span property="rdfs:comment">One of 1, 0 or -1.</span>
         <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/SequenceAnnotation">SequenceAnnotation</a></span>
-        <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number">Number</a></span>
+        <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Integer">Integer</a></span>
         <span>Source:  <a property="dc:source" href="http://www.bioschemas.org/SequenceAnnotation">SequenceAnnotation</a></span>
     </div>
 
