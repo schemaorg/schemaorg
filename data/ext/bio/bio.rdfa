@@ -326,7 +326,7 @@
         <span class="h" property="rdfs:label">optimalTemperatures</span>
         <span property="rdfs:comment">Optimal temperature in the form '<Number> <Temperature unit of measure>', for example '8 Celsius', at which this enzyme performs best.</span>
         <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Enzyme">Enzyme</a></span>
-        <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+        <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Quantity">Quantity</a></span>
         <span>Source:  <a property="dc:source" href="http://www.bioschemas.org/Enzyme">Enzyme</a></span>
     </div>
 
@@ -353,6 +353,7 @@
         <span class="h" property="rdfs:label">hasAssociatedBioChemEntity</span>
         <span property="rdfs:comment">Used to define the actual protein or RNA.</span>
         <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Enzyme">Enzyme</a></span>
+        <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ProteinStructure">ProteinStructure</a></span>
         <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Protein">Protein</a></span>
         <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/RNA">RNA</a></span>
         <span>Source:  <a property="dc:source" href="http://www.bioschemas.org/Enzyme">Enzyme</a></span>
@@ -543,6 +544,7 @@
         <span class="h" property="rdfs:label">sequenceLocation</span>
         <span property="rdfs:comment">A range/position location where this annotation is located.</span>
         <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/SequenceAnnotation">SequenceAnnotation</a></span>
+        <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ProteinStructure">ProteinStructure</a></span>
         <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/SequenceRange">SequenceRange</a></span>
         <span>Source:  <a property="dc:source" href="http://www.bioschemas.org/SequenceAnnotation">SequenceAnnotation</a></span>
     </div>
@@ -561,7 +563,9 @@
         <span class="h" property="rdfs:label">creationMethod</span>
         <span property="rdfs:comment">Method used to create or obtain this annotation; please use PropertyValue if you want to include any evidence.</span>
         <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/SequenceAnnotation">SequenceAnnotation</a></span>
+        <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ProteinStructure">ProteinStructure</a></span>
         <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/PropertyValue">PropertyValue</a></span>
+        <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
         <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/URL">URL</a></span>
         <span>Source:  <a property="dc:source" href="http://www.bioschemas.org/SequenceAnnotation">SequenceAnnotation</a></span>
     </div>
@@ -617,6 +621,35 @@
 
 
 
+    <div typeof="rdfs:Class" resource="http://schema.org/ProteinStructure">
+        <link property="http://schema.org/isPartOf" href="http://bio.schema.org" />
+        <span class="h" property="rdfs:label">ProteinStructure</span>
+        <span property="rdfs:comment"></span>
+        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/BioChemEntity">BioChemEntity</a></span>
+        <span>Source:  <a property="dc:source" href="http://bioschemas.org">Bioschemas</a></span>
+    </div>
+
+    <div typeof="rdf:Property" resource="http://schema.org/massResolution">
+        <link property="http://schema.org/isPartOf" href="http://bio.schema.org" />
+        <span class="h" property="rdfs:label">massResolution</span>
+        <span property="rdfs:comment">Mass spectometry resolution in the form '<Number> <Temperature unit of measure>', for example '2.85 &#8491;'</span>
+        <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ProteinStructure">ProteinStructure</a></span>
+        <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Quantity">Quantity</a></span>
+        <span>Source:  <a property="dc:source" href="http://www.bioschemas.org/ProteinStructure">ProteinStructure</a></span>
+    </div>
+
+    <div typeof="rdf:Property" resource="http://schema.org/boundMolecule">
+        <link property="http://schema.org/isPartOf" href="http://bio.schema.org" />
+        <span class="h" property="rdfs:label">boundMolecule</span>
+        <span property="rdfs:comment">Molecule, e.g., ligand, bound to this protein structure</span>
+        <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ProteinStructure">ProteinStructure</a></span>
+        <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/CategoryCode">BioChemEntity</a></span>
+        <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/CategoryCode">CategoryCode</a></span>
+        <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/URL">URL</a></span>
+        <span>Source:  <a property="dc:source" href="http://www.bioschemas.org/ProteinStructure">ProteinStructure</a></span>
+    </div>
+
+
 
     <div typeof="rdfs:Class" resource="http://schema.org/Phenotype">
         <link property="http://schema.org/isPartOf" href="http://bio.schema.org" />
@@ -643,4 +676,5 @@
         <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/DefinedTerm">DefinedTerm</a></span>
         <span>Source:  <a property="dc:source" href="http://www.bioschemas.org/Phenotype">Phenotype</a></span>
     </div>
+    
 </div>
