@@ -494,15 +494,17 @@ def prepareCloudstoreDocs():
         log.info("Skipping static docs copy for local/test instance")
         return
         
-    log.info("Preparing Cloudstorage - copying static docs")
+    log.info("Preparing Cloudstorage - copying static docs..")
     count = 0
     filesToCopy = []
     copiedFiles = []
     if SdoConfig.isValid():
+        log.info("... from config defined sources")
         for f in SdoConfig.docsFiles():
             ft = (f.get("location"),f.get("filePart"))
             filesToCopy.append(ft)
     else:
+        log.info("... from local docs location")
         for root, dirs, files in os.walk("docs"):
             for f in files:
                 count += 1
@@ -1747,8 +1749,11 @@ def getTimestampedInfo(tag):
     elif TIMESTAMPSTOREMODE == "CLOUDSTORE":
         tag += ".txt"
         data = cloudstoreGetContent(tag, ".status")
-        val = data.split('\n',1)[0]
-        info = data[len(val):]
+        if data:
+            val = data.split('\n',1)[0]
+            info = data[len(val):]
+        else:
+            val="-1"
         log.info("%s: cloudstore version: '%s'" % (tag, val))
         
     return val, info

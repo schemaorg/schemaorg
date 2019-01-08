@@ -547,7 +547,7 @@ class VTerm():
                 laysel = "schema:isPartOf <%s>;" % uriFromLayer(layer)
 
         if supressSourceLinks:
-            suppress = "FILTER NOT EXISTS { ?s dc:source ?term. }"
+            supress = "FILTER NOT EXISTS { ?s dc:source ?term. }"
             
             
         query = """SELECT ?term ?type ?label ?layer ?sup ?cat WHERE {
@@ -571,7 +571,7 @@ class VTerm():
             %s
         }
         ORDER BY ?term
-        """ % (typsel,laysel,fil,suppress)
+        """ % (typsel,laysel,fil,supress)
         
         #log.info("query %s" % query)
         res = VTerm.query(query)

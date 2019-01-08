@@ -437,6 +437,9 @@ class TypeHierarchyTree:
     # based on http://danbri.org/2013/SchemaD3/examples/4063550/hackathon-schema.js  - thanks @gregg, @sandro
     def traverseForJSONLD(self, node, depth = 0, last_at_this_level = True, supertype="None", layers='core'):
         emit_debug = False
+        if not node or not node.id:
+            log.error("Error None value passed to traverseForJSONLD()")
+            return
         if node.id in self.visited:
             # self.emit("skipping %s - already visited" % node.id)
             return
