@@ -48,9 +48,10 @@
     <div typeof="rdf:Property" resource="http://schema.org/hasBioChemEntityPart">
         <link property="http://schema.org/isPartOf" href="http://bio.schema.org" />
         <span class="h" property="rdfs:label">hasBioChemEntityPart</span>
-        <span property="rdfs:comment">Indicates a BioChemEntity that (in some sense) has this BioChemEntity as a part. Inverse property: isPartOfBioChemEntity.</span>
+        <span property="rdfs:comment">Indicates a BioChemEntity that (in some sense) has this BioChemEntity as a part. Inverse property: [isPartOfBioChemEntity](http://schema.org/isPartOfBioChemEntity).</span>
         <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/BioChemEntity">BioChemEntity</a></span>
         <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/BioChemEntity">BioChemEntity</a></span>
+        <link property="http://schema.org/inverseOf" href="http://schema.org/isPartOfBioChemEntity"/>
         <span>Source:  <a property="dc:source" href="http://www.bioschemas.org">BioChemEntity</a></span>
     </div>
 
@@ -68,9 +69,10 @@
     <div typeof="rdf:Property" resource="http://schema.org/isPartOfBioChemEntity">
         <link property="http://schema.org/isPartOf" href="http://bio.schema.org" />
         <span class="h" property="rdfs:label">isPartOfBioChemEntity</span>
-        <span property="rdfs:comment">Indicates a BioChemEntity that is (in some sense) a part of this BioChemEntity. Inverse property: hasBioChemEntityPart.</span>
+        <span property="rdfs:comment">Indicates a BioChemEntity that is (in some sense) a part of this BioChemEntity. Inverse property: [hasBioChemEntityPart](http://schema.org/hasBioChemEntityPart).</span>
         <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/BioChemEntity">BioChemEntity</a></span>
         <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/BioChemEntity">BioChemEntity</a></span>
+        <link property="http://schema.org/inverseOf" href="http://schema.org/hasBioChemEntityPart"/>
         <span>Source:  <a property="dc:source" href="http://www.bioschemas.org">BioChemEntity</a></span>
     </div>
 
@@ -93,6 +95,15 @@
         <span property="rdfs:comment">A role played by the molecular entity within a biological context.</span>
         <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/BioChemEntity">BioChemEntity</a></span>
         <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/DefinedTerm">DefinedTerm</a></span>
+        <span>Source:  <a property="dc:source" href="http://www.bioschemas.org">BioChemEntity</a></span>
+    </div>
+
+    <div typeof="rdf:Property" resource="http://schema.org/isMatchedBy">
+        <link property="http://schema.org/isPartOf" href="http://bio.schema.org" />
+        <span class="h" property="rdfs:label">isMatchedBy</span>
+        <span property="rdfs:comment">A model matching this BioChemEntity.</span>
+        <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/BioChemEntity">BioChemEntity</a></span>
+        <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/SequenceMatchingModel">SequenceMatchingModel</a></span>
         <span>Source:  <a property="dc:source" href="http://www.bioschemas.org">BioChemEntity</a></span>
     </div>
 
@@ -253,22 +264,24 @@
     <div typeof="rdf:Property" resource="http://schema.org/encodesBioChemEntity">
         <link property="http://schema.org/isPartOf" href="http://bio.schema.org" />
         <span class="h" property="rdfs:label">encodesBioChemEntity</span>
-        <span property="rdfs:comment">Another BioChemEntity encoded by this one. Inverse property: isEncodedByBioChemEntity.</span>
+        <span property="rdfs:comment">Another BioChemEntity encoded by this one. Inverse property: [isEncodedByBioChemEntity](http://schema.org/isEncodedByBioChemEntity).</span>
         <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/DNA">DNA</a></span>
         <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Gene">Gene</a></span>
         <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/RNA">RNA</a></span>
         <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/BioChemEntity">BioChemEntity</a></span>
+        <link property="http://schema.org/inverseOf" href="http://schema.org/isEncodedByBioChemEntity"/>
         <span>Source:  <a property="dc:source" href="http://www.bioschemas.org/Gene">Gene</a></span>
     </div>
 
     <div typeof="rdf:Property" resource="http://schema.org/isEncodedByBioChemEntity">
         <link property="http://schema.org/isPartOf" href="http://bio.schema.org" />
         <span class="h" property="rdfs:label">isEncodedByBioChemEntity</span>
-        <span property="rdfs:comment">Another BioChemEntity encoding by this one. Inverse property: encodesBioChemEntity.</span> 
+        <span property="rdfs:comment">Another BioChemEntity encoding by this one. Inverse property: [encodesBioChemEntity](http://schema.org/encodesBioChemEntity).</span> 
         <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/BioChemEntity">BioChemEntity</a></span>
         <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/DNA">DNA</a></span>
         <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Gene">Gene</a></span>
         <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/RNA">RNA</a></span>
+        <link property="http://schema.org/inverseOf" href="http://schema.org/encodesBioChemEntity"/>
         <span>Source:  <a property="dc:source" href="http://www.bioschemas.org/Gene">Gene</a></span>
     </div>
 
@@ -800,6 +813,68 @@
         <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/HowToSection">HowToSection</a></span>
         <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/HowToStep">HowToStep</a></span>
         <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+    </div>
+
+
+
+
+
+    <div typeof="rdfs:Class" resource="http://schema.org/SequenceMatchingModel">
+        <link property="http://schema.org/isPartOf" href="http://bio.schema.org" />
+        <span class="h" property="rdfs:label">SequenceMatchingModel</span>
+        <span property="rdfs:comment">A model used to determine sequence matches such as domains in proteins.</span>
+        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/CreativeWork">CreativeWork</a></span>
+        <span>Source:  <a property="dc:source" href="http://bioschemas.org">Bioschemas</a></span>
+    </div>
+
+    <div typeof="rdf:Property" resource="http://schema.org/modleDataset">
+        <link property="http://schema.org/isPartOf" href="http://bio.schema.org" />  
+        <span class="h" property="rdfs:label">modelDataset</span>
+        <span property="rdfs:comment">Dataset where this matching model has been recorded.</span>
+        <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/SequenceMatchingModel">SequenceMatchingModel</a></span>
+        <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Dataset">Dataset</a></span>
+        <span>Source:  <a property="dc:source" href="http://www.bioschemas.org/SequenceMatchingModel">SequenceMatchingModel</a></span>
+    </div>    
+
+    <div typeof="rdf:Property" resource="http://schema.org/biologicalType">
+        <link property="http://schema.org/isPartOf" href="http://bio.schema.org" />  
+        <span class="h" property="rdfs:label">biologicalType</span>
+        <span property="rdfs:comment">Biological type targeted by this model, for instance domains or sites in proteins.</span>
+        <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/SequenceMatchingModel">SequenceMatchingModel</a></span>
+        <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/BioChemEntity">BioChemEntity</a></span>
+        <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/CategoryCode">CategoryCode</a></span>
+        <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+        <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/URL">URL</a></span>
+        <span>Source:  <a property="dc:source" href="http://www.bioschemas.org/SequenceMatchingModel">SequenceMatchingModel</a></span>
+    </div>    
+
+    <div typeof="rdf:Property" resource="http://schema.org/modelSignature">
+        <link property="http://schema.org/isPartOf" href="http://bio.schema.org" />  
+        <span class="h" property="rdfs:label">modelSignature</span>
+        <span property="rdfs:comment">Representation of the model such as regular expresion or image.</span>
+        <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/SequenceMatchingModel">SequenceMatchingModel</a></span>
+        <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Image">Image</a></span>
+        <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/PropertyValue">PropertyValue</a></span>
+        <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+        <span>Source:  <a property="dc:source" href="http://www.bioschemas.org/SequenceMatchingModel">SequenceMatchingModel</a></span>
+    </div>    
+
+    <div typeof="rdf:Property" resource="http://schema.org/match">
+        <link property="http://schema.org/isPartOf" href="http://bio.schema.org" />  
+        <span class="h" property="rdfs:label">match</span>
+        <span property="rdfs:comment">Entity matched by this model, for instance proteins where the domain targeted by this model are found. Inverse of: [isMatchedBy](http://schema.org/isMatchedBy).</span>
+        <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/SequenceMatchingModel">SequenceMatchingModel</a></span>
+        <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/todo">BioChemEntity</a></span>
+        <link property="http://schema.org/inverseOf" href="http://schema.org/isMatchedBy"/>
+        <span>Source:  <a property="dc:source" href="http://www.bioschemas.org/SequenceMatchingModel">SequenceMatchingModel</a></span>
+    </div>    
+    
+    <div typeof="rdf:Property" resource="http://schema.org/isBasisFor">
+        <span class="h" property="rdfs:label">isBasisFor</span>
+        <span property="rdfs:comment">A resource that was (somehow) created using this resource as a basis for. Inverse property: [isBasedOn](http://schema.org/isBasedOn).</span>
+        <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CreativeWork">CreativeWork</a></span>
+        <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/CreativeWork">CreativeWork</a></span>
+        <link property="http://schema.org/inverseOf" href="http://schema.org/isBasedOn"/>
     </div>
 
 </div>
