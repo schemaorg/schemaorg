@@ -55,7 +55,7 @@ SCHEMA_VERSION="3.4"
 if not getInTestHarness():
     GAE_APP_ID = app_identity.get_application_id()
     GAE_VERSION_ID = modules.get_current_version_name()
-    
+
 FEEDBACK_FORM_BASE_URL='https://docs.google.com/a/google.com/forms/d/1krxHlWJAO3JgvHRZV9Rugkr9VYnMdrI10xbGsWt733c/viewform?entry.1174568178&entry.41124795={0}&entry.882602760={1}'
 # {0}: term URL, {1} category of term.
 
@@ -94,7 +94,7 @@ EXTENSION_SUFFIX = "" # e.g. "*"
 
 CORE = 'core'
 ATTIC = 'attic'
-ENABLED_EXTENSIONS = [ATTIC, 'auto', 'bib', 'health-lifesci', 'pending', 'meta', 'iot' ]
+ENABLED_EXTENSIONS = [ATTIC, 'auto', 'bib', 'health-lifesci', 'pending', 'meta', 'iot', 'bio' ]
 #### Following 2 lines look odd - leave them as is - just go with it!
 ALL_LAYERS = [CORE,'']
 ALL_LAYERS += ENABLED_EXTENSIONS
@@ -201,7 +201,7 @@ log.info("Initialised with TIMESTAMPSTOREMODE set to %s" % TIMESTAMPSTOREMODE)
 
 class TimestampEntity(ndb.Model):
     content = ndb.TextProperty()
-    
+
 def check4NewVersion():
     ret = False
     dep = None
@@ -217,15 +217,15 @@ def check4NewVersion():
         pass
 
     if  getInTestHarness() or "localhost" in os.environ['SERVER_NAME']: #Force new version logic for local versions and tests
-        ret = True 
+        ret = True
         log.info("Assuming new version for local/test instance")
     else:
-    
+
         if TIMESTAMPSTOREMODE == "INMEM":
             log.info("deployed-timestamp: '%s' mem version: '%s'" % (dep, memcache.get("deployed-timestamp")))
             if dep != memcache.get("deployed-timestamp"):
                 ret = True
-            
+
         elif TIMESTAMPSTOREMODE == "NDBSHARED":
             ent = TimestampEntity.get_by_id("deployed-timestamp")
             val = ""
@@ -234,43 +234,43 @@ def check4NewVersion():
             log.info("deployed-timestamp: '%s' ndbshared version: '%s'" % (dep, val))
             if dep != val:
                 ret = True
-         
+
         elif TIMESTAMPSTOREMODE == "CLOUDSTORE":
             val = cloudstoreGetContent("deployed-timestamp.txt", ".status")
             log.info("deployed-timestamp: '%s' cloudstore version: '%s'" % (dep, val))
             if dep != val:
                 ret = True
-    
+
     return ret, dep
-            
+
 def storeNewTimestamp(stamp=None):
     storeTimestampInfo("deployed-timestamp",stamp)
 
 def storeInitialisedTimestamp(stamp=None):
     storeTimestampInfo("initialised-timestamp",stamp)
-        
-def storeTimestampInfo(tag,stamp=None): 
+
+def storeTimestampInfo(tag,stamp=None):
     if not stamp:
         stamp = datetime.datetime.utcnow().strftime("%a %d %b %Y %H:%M:%S UTC")
-        
+
     if TIMESTAMPSTOREMODE == "INMEM":
         log.info("Storing %s version: '%s'" % (tag,stamp))
         memcache.set(key=tag,value=stamp)
-            
+
     elif TIMESTAMPSTOREMODE == "NDBSHARED":
         log.info("Storing ndbshared %s version: '%s'" % (tag,stamp))
         ent = TimestampEntity(id = tag, content = stamp)
         ent.put()
-        
+
     elif TIMESTAMPSTOREMODE == "CLOUDSTORE":
         log.info("Storing cloudstore %s version: '%s'" % (tag,stamp))
         val = cloudstoreStoreContent("%s.txt" % tag, stamp, ".status", private=True)
-        
-    
+
+
 if getInTestHarness():
     load_examples_data(ENABLED_EXTENSIONS)
 else: #Ensure clean start for any memcached or ndb store values...
-    
+
     changed, dep = check4NewVersion()
     if changed: #We are a new instance of the app
         msg = "New app instance [%s:%s] detected - FLUSHING CACHES.  (deploy_timestamp='%s')" % (GAE_VERSION_ID,GAE_APP_ID,dep)
@@ -390,7 +390,7 @@ class TypeHierarchyTree:
 
         if home in ENABLED_EXTENSIONS and home != getHostExt():
             urlprefix = makeUrl(home)
-            
+
         extclass = ""
         extflag = ""
         tooltip=""
@@ -540,8 +540,8 @@ class ShowUnit (webapp2.RequestHandler):
     def emitCacheHeaders(self):
         """Send cache-related headers via HTTP."""
         if "CACHE_CONTROL" in os.environ:
-            log.info("Setting http cache control to '%s' from .yaml" % os.environ["CACHE_CONTROL"]) 
-            self.response.headers['Cache-Control'] = os.environ["CACHE_CONTROL"] 
+            log.info("Setting http cache control to '%s' from .yaml" % os.environ["CACHE_CONTROL"])
+            self.response.headers['Cache-Control'] = os.environ["CACHE_CONTROL"]
         else:
             self.response.headers['Cache-Control'] = "public, max-age=600" # 10m
         self.response.headers['Vary'] = "Accept, Accept-Encoding"
@@ -1232,10 +1232,10 @@ class ShowUnit (webapp2.RequestHandler):
             # TODO: pass in extension, base_domain etc.
             #sitekeyedhomepage = "homepage %s" % getSiteName()
             ext = getHostExt()
-            
+
             if ext == "core":
                 ext = ""
-                
+
             if len(ext):
                 ext += "."
             sitekeyedhomepage = "%sindex.html" % ext
@@ -1254,7 +1254,7 @@ class ShowUnit (webapp2.RequestHandler):
                 self.response.out.write( page )
                 log.debug("Served and cached fresh homepage.tpl key: %s " % sitekeyedhomepage)
 
-                setAppVar(CLOUDEXTRAMETA,{'x-goog-meta-sdotermlayer': getHostExt()})                
+                setAppVar(CLOUDEXTRAMETA,{'x-goog-meta-sdotermlayer': getHostExt()})
                 PageStore.put(sitekeyedhomepage, page)
                 #            self.response.out.write( open("static/index.html", 'r').read() )
             return False # - Not caching homepage
@@ -1271,8 +1271,8 @@ class ShowUnit (webapp2.RequestHandler):
 
     def emitSchemaorgHeaders(self, node, ext_mappings='', sitemode="default", sitename="schema.org", layers="core"):
         self.response.out.write(self.buildSchemaorgHeaders(node, ext_mappings, sitemode, sitename, layers))
-        
-        
+
+
     def buildSchemaorgHeaders(self, node, ext_mappings='', sitemode="default", sitename="schema.org", layers="core"):
         """
         Generates, caches and emits HTML headers for class, property and enumeration pages. Leaves <body> open.
@@ -1370,9 +1370,9 @@ class ShowUnit (webapp2.RequestHandler):
             self.response.write(cached)
             return
         log.info("Building page")
- 
+
         self.write(self.buildSchemaorgHeaders(node, ext_mappings, sitemode, getSiteName(), layers))
- 
+
         self.parentStack = []
         self.GetParentStack(node, layers=self.appropriateLayers(layers=layers))
 
@@ -1590,9 +1590,9 @@ class ShowUnit (webapp2.RequestHandler):
         jsonldcontext = getPageFromStore(label)
         if not jsonldcontext:
             jsonldcontext = GetJsonLdContext(layers=ALL_LAYERS)
-            
+
             PageStore.put(label,jsonldcontext)
-            
+
             if PAGESTOREMODE == "CLOUDSTORE":
                 cloudstoreStoreContent("docs/jsonldcontext.json", jsonldcontext, "html")
                 cloudstoreStoreContent("docs/jsonldcontext.json.txt", jsonldcontext, "html")
@@ -1639,7 +1639,7 @@ class ShowUnit (webapp2.RequestHandler):
     def handleDumpsPage(self, node,  layerlist='core'):
         self.response.headers['Content-Type'] = "text/html"
         self.emitCacheHeaders()
-        
+
         page = getPageFromStore(node)
 
         if page:
@@ -1755,10 +1755,10 @@ class ShowUnit (webapp2.RequestHandler):
 
     def handleJSONSchemaTree(self, node, layerlist='core'):
         """Handle a request for a JSON-LD tree representation of the schemas (RDFS-based)."""
-        
+
         if isinstance(node, Unit):
             node = node.id
-        
+
         self.response.headers['Content-Type'] = "application/ld+json"
         self.emitCacheHeaders()
 
@@ -1813,7 +1813,7 @@ class ShowUnit (webapp2.RequestHandler):
 
         if node.startswith("http://schema.org/"): #Special case will map full schema URI to the term name
             node = node[18:]
-            
+
         """Handle with requests for specific terms like /Person, /fooBar. """
         dataext = os.path.splitext(node)
         if dataext[1] in OUTPUTDATATYPES:
@@ -1826,7 +1826,7 @@ class ShowUnit (webapp2.RequestHandler):
         schema_node = Unit.GetUnit(node) # e.g. "Person", "CreativeWork".
         if not schema_node: #Not a recognised term
             return False
-            
+
         if not self.checkNodeExt(schema_node):
             return False
 
@@ -1850,7 +1850,7 @@ class ShowUnit (webapp2.RequestHandler):
                     #self.response.out.write("<li><a href='%s'>%s</a></li>" % (makeUrl(x,schema_node.id), x) )
 
                 template = JINJA_ENVIRONMENT.get_template('wrongExt.tpl')
-                page = templateRender('wrongExt.tpl', node, 
+                page = templateRender('wrongExt.tpl', node,
                                         {'target': schema_node.id,
                                         'targetext': schema_node.getHomeLayer(),
                                         'extensions': extensions,
@@ -1868,7 +1868,7 @@ class ShowUnit (webapp2.RequestHandler):
     def checkNodeExt(self,node):
         if os.environ['STAYINEXTENTION'] and os.environ['STAYINEXTENTION'] == "True":
             return True
-            
+
         home = node.home
         ext = getHostExt()
         log.info("node: '%s' home: '%s' ext: '%s'" % (node,home,ext))
@@ -1876,7 +1876,7 @@ class ShowUnit (webapp2.RequestHandler):
             return True
         if home == ext:
             return True
-            
+
         if home == CORE:
             log.info("Redirecting to core entity")
             self.redirectToBase(node.id,full=True)
@@ -1952,7 +1952,7 @@ class ShowUnit (webapp2.RequestHandler):
         self.response.out.write('<link rel="stylesheet" type="text/css" href="../docs/schemaorg.css" />')
         self.response.out.write('<link rel="stylesheet" type="text/css" href="docs/schemaorg.css" />')
         self.response.out.write('<link rel="stylesheet" type="text/css" href="/docs/schemaorg.css" />')
-        
+
         self.response.out.write('<h3>404 Not Found.</h3><p><br/>Page not found. Please <a href="/">try the homepage.</a><br/><br/></p>')
 
         if suggest:
@@ -2004,7 +2004,7 @@ class ShowUnit (webapp2.RequestHandler):
                 return True
             else:
                 log.debug("Serving tocversionPage from cache.")
-                page = templateRender('tocVersionPage.tpl', node, 
+                page = templateRender('tocVersionPage.tpl', node,
                         {"releases": sorted(releaselog.iterkeys()),
                          "menu_sel": "Schemas"})
 
@@ -2109,7 +2109,7 @@ class ShowUnit (webapp2.RequestHandler):
             else:
                 releasedate = releaselog[str(SCHEMA_VERSION)]
 
-            page = templateRender('fullReleasePage.tpl', node, 
+            page = templateRender('fullReleasePage.tpl', node,
                     {"base_href": base_href,
                     'thing_tree': thing_tree,
                     'liveversion': SCHEMA_VERSION,
@@ -2252,7 +2252,7 @@ class ShowUnit (webapp2.RequestHandler):
 
 
         log.info("setupHostinfo: data: scheme='%s' hoststring='%s' initial host_ext='%s'" % (scheme, hostString, str(host_ext) ))
-        
+
         ver=None
         if not getInTestHarness():
             from google.appengine.api.modules.modules import get_current_version_name
@@ -2261,7 +2261,7 @@ class ShowUnit (webapp2.RequestHandler):
         if host_ext != "":
             if host_ext in ENABLED_EXTENSIONS:
                 mybasehost = mybasehost[len(host_ext) + 1:]
-                
+
             elif host_ext == "www":
                 mybasehost = mybasehost[4:]
                 setBaseHost(mybasehost)
@@ -2350,25 +2350,25 @@ class ShowUnit (webapp2.RequestHandler):
 
         if not node or node == "":
             node = "/"
- 
+
         if not validNode_re.search(str(node)): #invalid node name
             log.warning("Invalid node name '%s'" % str(node))
             self.handle404Failure(node,suggest=False)
             return
 
-        NotModified = False        
+        NotModified = False
         matchTag = self.request.headers.get("If-None-Match",None)
         unMod = self.request.headers.get("If-Unmodified-Since",None)
-        
+
         #log.info("matchTag '%s' unMod '%s'" % (matchTag,unMod))
-        
+
         hdrIndex = getHostExt()
         if len(hdrIndex):
             hdrIndex +=  ":"
         hdrIndex += node
-        
+
         hdrs = HeaderStore.get(hdrIndex)
-        
+
         if hdrs:
             etag = hdrs.get("ETag",None)
             mod = hdrs.get("Last-Modified",None)
@@ -2399,11 +2399,11 @@ class ShowUnit (webapp2.RequestHandler):
                 if self.response.status.startswith("200"):
                     stat = getAppVar(CLOUDSTAT)
                     log.info("CLOUDSTAT %s" % stat)
-                    
+
                     if stat: #Use values from cloud storage
                         self.response.headers.add_header("ETag", stat.etag)
                         self.response.headers['Last-Modified'] = time.strftime("%a, %d %b %Y %H:%M:%S GMT",time.gmtime(stat.st_ctime))
-                    else:    
+                    else:
                         self.response.headers.add_header("ETag", getslug() + str(hash(hdrIndex)))
                         self.response.headers['Last-Modified'] = getmodiftime().strftime("%a, %d %b %Y %H:%M:%S GMT")
 
@@ -2506,11 +2506,11 @@ class ShowUnit (webapp2.RequestHandler):
             return self.handleHomepage(node)
         hstext = getHostExt()
         if hstext == "":
-            hstext = "core"  
-              
+            hstext = "core"
+
         if (node.startswith("docs/") and hstext != "core"): #All docs should operate in core
             self.redirectToBase(node,True)
-            
+
         if node in ["docs/jsonldcontext.json.txt", "docs/jsonldcontext.json"]:
             if self.handleJSONContext(node):
                 return True
@@ -2581,7 +2581,7 @@ class ShowUnit (webapp2.RequestHandler):
             self.handle404Failure(node,extrainfo=inf)
             return False
 
-            
+
         # Pages based on request path matching a Unit in the term graph:
         if self.handleExactTermPage(node, layers=layerlist):
             return True
@@ -2714,11 +2714,11 @@ class WarmupTool():
             realHostExt = getHostExt()
             if layer:
                 setHostExt(layer)
-        
+
             self._stepWarm(unit=unit, layer=layer)
-        
+
             setHostExt(realHostExt)
-        
+
 
     def _stepWarm(self, unit=None, layer=None):
         global WarmedUp
@@ -2768,10 +2768,10 @@ Warmer = WarmupTool()
 def templateRender(templateName, node, values=None):
     global sitemode #,sitename
     #log.info("templateRender(%s,%s,%s)" % (templateName, node, values))
-    
+
     if isinstance(node, Unit):
         node = node.id
-        
+
     extDef = Unit.GetUnit(getNss(getHostExt()),True)
     extComment = ""
     extVers = ""
@@ -2822,7 +2822,7 @@ def templateRender(templateName, node, values=None):
         'extDD': extDD,
         'extVers': extVers,
         'extName': extName,
-        'targethost': makeUrl("","",full=True), 
+        'targethost': makeUrl("","",full=True),
         'debugging': getAppVar('debugging'),
         'appengineVersion': getAppEngineVersion()
     }
@@ -2906,7 +2906,7 @@ def makeUrl(ext="",path="",full=False,scheme=None):
         if full:
             if not scheme:
                 scheme = getHttpScheme()
-            
+
             targethost = os.environ.get("TARGETSITE",getBaseHost())
 
             url = "%s://%s%s%s%s" % (scheme,sub,targethost,port,p)
