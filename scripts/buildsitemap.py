@@ -10,7 +10,7 @@ import sys
 import csv
 from time import gmtime, strftime
 
-sys.path.append( os.getcwd() ) 
+sys.path.append( os.getcwd() )
 sys.path.insert( 1, 'lib' ) #Pickup libs, rdflib etc., from shipped lib directory
 # Ensure that the google.appengine.* packages are available
 # in tests as well as all bundled third-party packages.
@@ -21,7 +21,12 @@ sys.path.insert(0, sdk_path) # add AppEngine SDK to path
 import dev_appserver
 dev_appserver.fix_sys_path()
 
+from testharness import *
+#Setup testharness state BEFORE importing sdo libraries
+setInTestHarness(True)
+
 from api import *
+
 import rdflib
 from rdflib.term import URIRef, Literal
 from rdflib.parser import Parser
@@ -30,9 +35,6 @@ from rdflib.plugins.sparql import prepareQuery
 from rdflib.compare import graph_diff
 from rdflib.namespace import RDFS, RDF
 import threading
-
-from api import setInTestHarness
-setInTestHarness(True)
 
 from api import inLayer, read_file, full_path, read_schemas, read_extensions, read_examples, namespaces, DataCache, getMasterStore
 from apirdflib import getNss, getRevNss
@@ -63,7 +65,7 @@ log = logging.getLogger(__name__)
 
 #Setup testharness state BEFORE importing sdoapp
 import sdoapp
-from sdoapp import ENABLED_EXTENSIONS 
+from sdoapp import ENABLED_EXTENSIONS
 
 STATICPAGES = ["docs/schemas.html",
 "docs/full.html",
@@ -88,10 +90,10 @@ class SiteMap():
         self.loadGraphs()
         self.listStatics()
         self.closeFile()
-        
+
 
     def setSkips(self):
-        self.skiplist = [''] 
+        self.skiplist = ['']
         for e in args.exclude:
             for s in e:
                 if s == "core":
@@ -114,12 +116,12 @@ class SiteMap():
 """
         self.file = open(args.output,'w')
         self.file.write(hdr)
-        
+
     def closeFile(self):
         self.file.write("\n</urlset>")
-        print "Wrote %s entries to %s" % (self.count,args.output)
+        print("Wrote %s entries to %s" % (self.count,args.output))
         self.file.close()
-        
+
     def getGraphs(self):
         self.store = getMasterStore()
         self.fullGraph = getQueryGraph()
@@ -143,9 +145,9 @@ class SiteMap():
         for g in gs:
             id = str(g.identifier)
             if not id.startswith("http://"):#skip some internal graphs
-                continue    
+                continue
             if id not in self.skiplist:
-                print "%s: Processing: %s  (%s) " % (sys.argv[0],id,len(g))
+                print("%s: Processing: %s  (%s) " % (sys.argv[0],id,len(g)))
                 self.list(g)
                 self.access("",g.identifier)
 
@@ -159,7 +161,7 @@ class SiteMap():
 
         for t in sorted(types.keys()):
             self.access(t,types[t])
-            
+
         for (s,p,o) in graph.triples((None,RDF.type,RDF.Property)):
             if s.startswith("http://schema.org"):
                 props.update({s:graph.identifier})
@@ -192,34 +194,27 @@ class SiteMap():
         path = "%s%s%s/%s" % (scheme,ext,site,id)
         #log.info(path)
         self.outputEntry(path)
-        
+
     def outputEntry(self,path,update=None):
         if not update:
             update = self.today
-        
+
         entry = """  <url>
    <loc>%s</loc>
    <lastmod>%s</lastmod>
   </url>""" % (path,update)
         self.output(entry)
-        
+
     def output(self,txt):
         self.count +=1
         self.file.write(txt)
 
-    
-        
-    
 
-        
 
-                
+
+
+
+
+
 if __name__ == "__main__":
     ex = SiteMap()
-    
-
-    
-
-
-
-

@@ -9,7 +9,7 @@ import argparse
 import sys
 import csv
 
-sys.path.append( os.getcwd() ) 
+sys.path.append( os.getcwd() )
 sys.path.insert( 1, 'lib' ) #Pickup libs, rdflib etc., from shipped lib directory
 # Ensure that the google.appengine.* packages are available
 # in tests as well as all bundled third-party packages.
@@ -19,6 +19,10 @@ sys.path.insert(0, sdk_path) # add AppEngine SDK to path
 
 import dev_appserver
 dev_appserver.fix_sys_path()
+
+from testharness import *
+#Setup testharness state BEFORE importing sdo libraries
+setInTestHarness(True)
 
 from api import *
 import rdflib
@@ -53,13 +57,13 @@ parser.add_argument("-i","--include", default= [[]],action='append',nargs='*', h
 parser.add_argument("-m","--markdownprocess", default="Yes", help="Process markdown in comments Yes|No. Default Yes")
 parser.add_argument("-o","--output", required=True, help="output file")
 args = parser.parse_args()
-print "%s: Arguments: %s" % (sys.argv[0],args)
+print("%s: Arguments: %s" % (sys.argv[0],args))
 
 exts = {"xml":".xml","rdf":".rdf","nquads":".nq","nt": ".nt","json-ld": ".jsonld", "turtle":".ttl", "csv":".csv"}
 ext = ""
 if args.autoext == "Yes":
     ext = exts[args.format]
-    
+
 graphsuffix =""
 if args.quadgraphsuffix:
     graphsuffix = args.quadgraphsuffix
@@ -67,10 +71,8 @@ if args.quadgraphsuffix:
 logging.basicConfig(level=logging.INFO)
 log = logging.getLogger(__name__)
 
-#Setup testharness state BEFORE importing sdoapp
-setInTestHarness(True)
 import sdoapp
-from sdoapp import ENABLED_EXTENSIONS 
+from sdoapp import ENABLED_EXTENSIONS
 
 class Export():
     def __init__(self):
@@ -79,7 +81,7 @@ class Export():
         self.loadGraphs()
 
     def setSkips(self):
-        self.skiplist = [''] 
+        self.skiplist = ['']
         for e in args.exclude:
             for s in e:
                 if s == "core":
@@ -150,8 +152,8 @@ class Export():
         for g in gs:
             id = str(g.identifier)
             if not id.startswith("http://"):#skip some internal graphs
-                continue    
-            print "%s: Processing: %s  (%s) with markdownprocess=%s" % (sys.argv[0],id,len(g), args.markdownprocess)
+                continue
+            print("%s: Processing: %s  (%s) with markdownprocess=%s" % (sys.argv[0],id,len(g), args.markdownprocess))
             if args.markdownprocess == "Yes":
                 self.MdComments(g)
             if simpleFormat:
@@ -168,47 +170,43 @@ class Export():
         else:
             kwargs = {'sort_keys': True}
             fname = "%s%s" % (args.output,ext)
-            print "%s: Writing to: %s" % (sys.argv[0],fname)
+            print("%s: Writing to: %s" % (sys.argv[0],fname))
             file = open(fname, "w")
             format = args.format
             if format == "xml" or format == "rdf":
                 format = "pretty-xml"
-            file.write(self.outGraph.serialize(format=format,**kwargs))
+                
+            #file.write(self.outGraph.serialize(format=format,**kwargs))
+            file.write(self.outGraph.serialize(format=format,auto_compact=True))
 
 
     def outputCSV(self):
         markdown = False
         if args.markdownprocess == "Yes":
             markdown = True
-        
+
         csv = sdordf2csv(queryGraph=self.outGraph,fullGraph=self.fullGraph,markdownComments=markdown)
-        print "%s processing csv output" % sys.argv[0]
-        print "%s processing csv types output" % sys.argv[0]
+        print("%s processing csv output" % sys.argv[0])
+        print("%s processing csv types output" % sys.argv[0])
 
         fname = "%s-types%s" % (args.output,ext)
         log.info("\t%s" % fname)
-        print "%s: Writing to: %s" % (sys.argv[0],fname)
+        print("%s: Writing to: %s" % (sys.argv[0],fname))
         file = open(fname, "w")
         csv.outputCSVtypes(file)
         file.close()
 
-        print "%s processing csv properties output" % sys.argv[0]
+        print("%s processing csv properties output" % sys.argv[0])
 
         fname = "%s-properties%s" % (args.output,ext)
         log.info("\t%s" % fname)
-        print "%s: Writing to: %s" % (sys.argv[0],fname)
+        print("%s: Writing to: %s" % (sys.argv[0],fname))
         file = open(fname, "w")
         csv.outputCSVproperties(file)
         file.close()
 
 
-                
+
 if __name__ == "__main__":
     ex = Export()
     ex.output()
-
-    
-
-
-
-

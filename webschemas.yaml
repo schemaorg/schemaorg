@@ -1,17 +1,11 @@
-#application: schemaorgae
-#application: webschemas-g
+# application: webschemas-g
+# usage: gcloud app deploy webschemas.yaml --project webschemas-g
 
-# new commandline:
-#  gcloud app deploy webschemas.yaml --project webschemas-g 
-
-
-#version: 1
-module: default
 runtime: python27
 api_version: 1
 threadsafe: true
 
-  
+
 #automatic_scaling:
 #  min_idle_instances: 2
 
@@ -23,50 +17,84 @@ inbound_services:
 - warmup
 
 env_variables:
+  TARGETSITE: 'webschemas.org'
   PRODSITEDEBUG: 'False'
   WARMUPSTATE: 'Auto' # 'Off', 'On', 'Auto' - Off for localhost, On elsewhere
+  STAYINEXTENTION: 'False'
+  PAGESTOREMODE: 'CLOUDSTORE' # 'INMEM' (In instance memory), 'NDBSHARED' (NDB shared - accross instances), 'CLOUDSTORE' (Cloudstorage files)
+  EXAMPLESTOREMODE: 'INMEM' # 'INMEM', 'NDBSHARED'
+  TIMESTAMPSTOREMODE: 'CLOUDSTORE' # 'INMEM', 'NDBSHARED', 'CLOUDSTORE' 
+#  CACHE_CONTROL: 'public, max-age=600'
+  CACHE_CONTROL: 'no-cache'
 
 handlers:
 
-- url: /favicon.ico
+- url: /.*favicon.ico
   static_files: docs/favicon.ico
   upload: docs/favicon.ico
   mime_type: image/x-icon
+  application_readable: True
+  secure: always
+  redirect_http_response_code: 301
 
 - url: /robots.txt
-  static_files: docs/robots-blockall.txt
-  upload: docs/robots-blockall.txt
+  static_files: docs/robots.txt
+  upload: docs/robots.txt
+  secure: always
+  redirect_http_response_code: 301
   mime_type: text/plain
 
-# To avoid: "Could not guess mimetype for docs/schemaorg.owl.  Using application/octet-stream."
 - url: /docs/schemaorg.owl
   static_files: docs/schemaorg.owl
   upload: docs/schemaorg.owl
   mime_type: application/rdf+xml
+  secure: always
+  redirect_http_response_code: 301
 
 - url: /docs/schema_org_rdfa.html
   static_files: data/schema.rdfa
   upload: data/schema.rdfa
   application_readable: True
   mime_type: text/html
+  secure: always
+  redirect_http_response_code: 301
 
 - url: /docs/jsonldcontext.json.*
   script: sdoapp.app
+  secure: always
+  redirect_http_response_code: 301
 
 - url: /docs/full.*.html
   script: sdoapp.app
+  secure: always
+  redirect_http_response_code: 301
 
 - url: /docs/schemas.html
   script: sdoapp.app
+  secure: always
+  redirect_http_response_code: 301
 
 - url: /docs/developers.html
   script: sdoapp.app
+  secure: always
+  redirect_http_response_code: 301
 
 - url: /docs/tree.json.*
   script: sdoapp.app
+  secure: always
+  redirect_http_response_code: 301
 
 - url: /docs
   static_dir: docs
+  application_readable: True
+  secure: always
+  redirect_http_response_code: 301
+  
+- url: /.*docs/*
+  static_dir: docs
+  application_readable: True
+  secure: always
+  redirect_http_response_code: 301  
 
 #- url: /
 #  static_files: static/index.html
@@ -75,67 +103,100 @@ handlers:
 
 - url: /search_files
   static_dir: static/search_files
+  secure: always
+  redirect_http_response_code: 301
+
+- url: /version/build-latest/.*
+  script: sdoapp.app
+  secure: always
+  redirect_http_response_code: 301
 
 - url: /version/latest/.*
   script: sdoapp.app
+  secure: always
+  redirect_http_response_code: 301
 
 - url: /(version/[^/]*/)$
   script: sdoapp.app
+  secure: always
+  redirect_http_response_code: 301
 
 - url: /(version/([^/]*))$
   script: sdoapp.app
+  secure: always
+  redirect_http_response_code: 301
 
 - url: /version/
   script: sdoapp.app
+  secure: always
+  redirect_http_response_code: 301
 
 - url: /version/(.*/.*\.rdfa)
   mime_type: text/html
   static_files: data/releases/\1
   upload: data/releases/(.*/.*\.rdfa)
   application_readable: True
+  secure: always
+  redirect_http_response_code: 301
 
 - url: /version/(.*/.*\.ttl)
   mime_type: application/x-turtle
   static_files: data/releases/\1
   upload: data/releases/(.*/.*\.ttl)
   application_readable: True
+  secure: always
+  redirect_http_response_code: 301
 
 - url: /version/(.*/.*\.jsonld)
   mime_type: application/ld+json
   static_files: data/releases/\1
   upload: data/releases/(.*/.*\.jsonld)
   application_readable: True
+  secure: always
+  redirect_http_response_code: 301
 
 - url: /version/(.*/.*\.rdf)
   mime_type: application/rdf+xml
   static_files: data/releases/\1
   upload: data/releases/(.*/.*\.rdf)
   application_readable: True
- 
+  secure: always
+  redirect_http_response_code: 301
+
 - url: /version/(.*/.*\.nt)
   mime_type: application/n-triples
   static_files: data/releases/\1
   upload: data/releases/(.*/.*\.nt)
   application_readable: True
+  secure: always
+  redirect_http_response_code: 301
 
 - url: /version/(.*/.*\.nq)
   mime_type: application/n-quads
   static_files: data/releases/\1
   upload: data/releases/(.*/.*\.nq)
   application_readable: True
+  secure: always
+  redirect_http_response_code: 301
 
 - url: /version/(.*/.*\.csv)
   mime_type: text/csv
   static_files: data/releases/\1
   upload: data/releases/(.*/.*\.csv)
   application_readable: True
+  secure: always
+  redirect_http_response_code: 301
 
 - url: /version/*/*
   static_dir: data/releases/
   application_readable: True
+  secure: always
+  redirect_http_response_code: 301
 
 - url: /.*
   script: sdoapp.app
+  secure: always
+  redirect_http_response_code: 301
 
 
 

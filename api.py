@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 
+from __future__ import with_statement
+
 import logging
 logging.basicConfig(level=logging.INFO) # dev_appserver.py --log_level debug .
 log = logging.getLogger(__name__)
@@ -17,7 +19,11 @@ import datetime, time
 from google.appengine.ext import ndb
 loader_instance = False
 
+
+from testharness import *
+
 import apirdflib
+from sdoutil import sdo_send_mail
 
 #from apirdflib import rdfGetTargets, rdfGetSources
 from apimarkdown import Markdown
@@ -31,29 +37,18 @@ def getInstanceId(short=False):
     return ret
 
 
-
+EXAMPLESTOREMODE = os.environ.get("EXAMPLESTOREMODE","INMEM")
 schemasInitialized = False
 extensionsLoaded = False
 extensionLoadErrors = ""
 
-#INTESTHARNESS used to flag we are in a test harness - not called by webApp so somethings will work different!
+#INTESTHARNESS used to flag we are in a test harness - not called by webApp so some things will work different!
 #setInTestHarness(True) should be called from test suites.
-INTESTHARNESS = False
-def setInTestHarness(val):
-    global INTESTHARNESS
-    INTESTHARNESS = val
-    if val:
-        storestate = False
-    else:
-        storestate = True   
-    enablePageStore(storestate)
     
-def getInTestHarness():
-    global INTESTHARNESS
-    return INTESTHARNESS
-
+log.info("IN TESTHARNESS %s" % getInTestHarness())
 if not getInTestHarness():
     from google.appengine.api import memcache
+    from sdocloudstore import SdoCloud
 
 AllLayersList = []
 def setAllLayersList(val):
@@ -66,6 +61,7 @@ def getAllLayersList():
     global AllLayersList
     return AllLayersList
     
+JSONLDCONTEXT = "jsonldcontext.json"
 EVERYLAYER = "!EVERYLAYER!"
 sitename = "schema.org"
 sitemode = "mainsite" # whitespaced list for CSS tags,
@@ -76,7 +72,14 @@ DYNALOAD = True # permits read_schemas to be re-invoked live.
 #   loader=jinja2.FileSystemLoader(os.path.join(os.path.dirname(__file__), 'templates')),
 #    extensions=['jinja2.ext.autoescape'], autoescape=True)
 
-NDBPAGESTORE = True #True - uses NDB shared (accross instances) store for page cache - False uses in memory local cache
+PAGESTOREMODE = "CLOUDSTORE" #INMEM (In instance memory)
+                            #NDBSHARED (NDB shared - accross instances)
+                            #CLOUDSTORE - (Cloudstorage files)
+if "PAGESTOREMODE" in os.environ:
+    PAGESTOREMODE = os.environ["PAGESTOREMODE"]
+    log.info("PAGESTOREMODE set to %s from .yaml file" % PAGESTOREMODE)
+log.info("Initialised with PAGESTOREMODE set to %s" % PAGESTOREMODE)
+
 debugging = False
 
 def getMasterStore():
@@ -190,7 +193,7 @@ class DataCacheTool():
 class PageEntity(ndb.Model):
     content = ndb.TextProperty()
     
-class PageStoreTool():
+class NDBPageStoreTool():
     def __init__ (self):
         self.tlocal = threading.local()
         self.tlocal.CurrentStoreSet = "core"
@@ -252,6 +255,61 @@ class PageStoreTool():
             #log.info("PageStore '%s' not found" % fullKey)
             return None
 
+class CloudPageStoreTool():
+    def __init__ (self):
+        self.init()
+    
+    def init(self):
+        log.info("CloudPageStoreTool.init")
+        self.tlocal = threading.local()
+        self.tlocal.CurrentStoreSet = "core"
+        log.info("CloudPageStoreTool.CurrentStoreSet: %s" % self.tlocal.CurrentStoreSet)
+        
+    def _getTypeFromKey(self,key):
+        name = key
+        typ = None
+        split = key.split(':')
+        if len(split) > 1:
+            name = split[1]
+            typ = split[0]
+            if typ[0] == '.':
+                typ = typ[1:]
+        #log.info("%s > %s %s" % (key,name,typ))
+        return name,typ
+
+    def initialise(self):
+        SdoCloud.cleanCache()
+        return {"CloudPageStore":SdoCloud.delete_files_in_bucket(skip=["/.status"])}
+            
+    def getCurrent(self):
+        try:
+            if not self.tlocal.CurrentStoreSet:
+                self.tlocal.CurrentStoreSet = "core"
+        except Exception:
+            self.tlocal.CurrentStoreSet = "core"
+        ret = self.tlocal.CurrentStoreSet
+        return ret
+        
+    def setCurrent(self,current):
+        self.tlocal.CurrentStoreSet = current
+        log.debug("CloudPageStore setting CurrentStoreSet: %s",current)
+        
+    def put(self, key, val,cache=None,extrameta=None):
+        fname, ftype = self._getTypeFromKey(key)
+        if not ftype:
+            ftype = "html"
+        SdoCloud.writeFormattedFile(fname,ftype=ftype,content=val,extrameta=extrameta)
+        
+    def get(self, key,cache=None):
+        fname, ftype = self._getTypeFromKey(key)
+        if not ftype:
+            ftype = "html"
+        return SdoCloud.readFormattedFile(fname,ftype=ftype)
+            
+    def remove(self, key,cache=None):
+        SdoCloud.deleteFormattedFile(key)
+
+
 class HeaderEntity(ndb.Model):
     content = ndb.PickleProperty()
     
@@ -292,10 +350,10 @@ class HeaderStoreTool():
         ent = HeaderEntity(id = fullKey, content = val)
         ent.put()
 
-    def putIfNewKey(self, key, val,cache=None):
+#    def putIfNewKey(self, key, val,cache=None):
         #gets are lightweight puts are not
-        if self.get(key,cache) == None:
-            self.put(key,val,cache)
+#        if self.get(key,cache) == None:
+#            self.put(key,val,cache)
         
     def get(self, key,cache=None):
         ca = self.getCurrent()
@@ -384,33 +442,71 @@ class DataStoreTool():
 PageStore = None
 HeaderStore = None
 DataCache = None
-log.info("[%s] NDB PageStore & HeaderStore available: %s" % (getInstanceId(short=True),NDBPAGESTORE))
+#log.info("[%s] PageStore mode: %s" % (getInstanceId(short=True),PAGESTOREMODE))
 
-def enablePageStore(state):
+def enablePageStore(mode):
     global PageStore,HeaderStore,DataCache
-    log.info("enablePageStore(%s)" % state)
-    if state:
+    log.info("enablePageStore(%s)" % mode)
+    if(mode == "NDBSHARED"):
         log.info("[%s] Enabling NDB" % getInstanceId(short=True))
-        PageStore = PageStoreTool()
+        PageStore = NDBPageStoreTool()
+        log.info("[%s] Created PageStore" % getInstanceId(short=True))
+        HeaderStore = HeaderStoreTool()
+        log.info("[%s] Created HeaderStore" % getInstanceId(short=True))
+        DataCache = DataStoreTool()
+        log.info("[%s] Created DataStore" % getInstanceId(short=True))
+        
+    elif(mode == "INMEM"):
+        log.info("[%s] Disabling NDB" % getInstanceId(short=True))
+        PageStore = DataCacheTool()
+        HeaderStore = DataCacheTool()
+        DataCache = DataCacheTool()
+        
+    elif(mode == "CLOUDSTORE"):
+        log.info("[%s] Enabling CloudStore" % getInstanceId(short=True))
+        PageStore = CloudPageStoreTool()
         log.info("[%s] Created PageStore" % getInstanceId(short=True))
         HeaderStore = HeaderStoreTool()
         log.info("[%s] Created HeaderStore" % getInstanceId(short=True))
         DataCache = DataStoreTool()
         log.info("[%s] Created DataStore" % getInstanceId(short=True))
     else:
-        log.info("[%s] Disabling NDB" % getInstanceId(short=True))
-        PageStore = DataCacheTool()
-        HeaderStore = DataCacheTool()
-        DataCache = DataCacheTool()
+        log.error("Invalid storage mode: %s" % mode)
 
-if  NDBPAGESTORE:
-    enablePageStore(True)
+if getInTestHarness(): #Override pagestore decision if in testharness
+    enablePageStore("INMEM")
 else:
-    enablePageStore(False)
-    
-    
+    enablePageStore(PAGESTOREMODE)
 
 
+def prepareCloudstoreDocs():
+    if  getInTestHarness() or "localhost" in os.environ['SERVER_NAME']: #Force new version logic for local versions and tests
+        log.info("Skipping static docs copy for local/test instance")
+        return
+        
+    log.info("Preparing Cloudstorage - copying static docs")
+    count = 0
+    for root, dirs, files in os.walk("docs"):
+        for f in files:
+            count += 1
+            fname = os.path.join(root, f)
+            try:
+                with open(fname, 'r') as f:
+                    content = f.read()
+                    SdoCloud.writeFormattedFile(fname,content=content, location="html", raw=True)
+                f.close()
+            except Exception  as e:
+                log.info("ERROR reading: %s" % e)
+                pass
+    #sdo_send_mail(to="rjw@dataliberate.com",subject="[SCHEMAINFO] from 'api'", msg="prepareCloudstoreDocs: %s" % (count))
+
+def cloudstoreStoreContent(fname, content, location, raw=False, private=False):
+    SdoCloud.writeFormattedFile(fname,content=content, ftype="", location=location, raw=raw, private=private)          
+    
+def cloudstoreGetContent(fname, location, raw=False):
+    content = SdoCloud.readFormattedFile(fname, ftype="", location=location) 
+    return content         
+    
 class Unit ():
     """
     Unit represents a node in our schema graph. IDs are local,
@@ -958,9 +1054,10 @@ def HasMultipleBaseTypes(typenode, layers='core'):
     return len( GetTargets( Unit.GetUnit("rdfs:subClassOf", True), typenode, layers ) ) > 1
 
 EXAMPLESMAP = {}
-EXAMPLES = []
+EXAMPLES = {}
 ExamplesCount = 0
 
+exlock = threading.RLock()
 class Example ():
 
     @staticmethod
@@ -1008,25 +1105,31 @@ class Example ():
             self.keyvalue = "%s-gen-%s"% (terms[0],ExamplesCount)
             self.egmeta['id'] = self.keyvalue
             
-        for term in terms:
+        with exlock:
+            for term in terms:
                 
-            if(EXAMPLESMAP.get(term, None) == None):
-                EXAMPLESMAP[term] = []
-            if not self in EXAMPLESMAP.get(term):
-                EXAMPLESMAP.get(term).append(self)
+                if(EXAMPLESMAP.get(term, None) == None):
+                    EXAMPLESMAP[term] = []
+                if not self.keyvalue in EXAMPLESMAP.get(term):
+                    EXAMPLESMAP.get(term).append(self.keyvalue)
                 
-        if not self in EXAMPLES:
-            EXAMPLES.append(self)
+            if not EXAMPLES.get(self.keyvalue):
+                EXAMPLES[self.keyvalue] = self
 
 def LoadNodeExamples(node, layers='core'):
     """Returns the examples (if any) for some Unit node."""
     #log.info("Getting examples for: %s %s" % (node.id,node.examples))
     if(node.examples == None):
         node.examples = []
-        if getInTestHarness(): #Get from local storage
-           node.examples = EXAMPLES.get(node.id)
-           if(node.examples == None):
-              node.examples = []
+        if getInTestHarness() or EXAMPLESTOREMODE != "NDBSHARED": #Get from local storage
+            with exlock:
+                examples = EXAMPLESMAP.get(node.id)
+                if examples:
+                    for e in examples:
+                        ex = EXAMPLES.get(e)
+                        if ex:
+                            node.examples.append(ex)
+
         else:                  #Get from NDB shared storage
             ids = ExampleMap.get(node.id)
             if not ids:
@@ -1070,49 +1173,44 @@ def GetJsonLdContext(layers='core'):
     """Generates a basic JSON-LD context file for schema.org."""
 
     # Caching assumes the context is neutral w.r.t. our hostname.
-    if DataCache.get('JSONLDCONTEXT'):
-        #log.debug("DataCache: recycled JSONLDCONTEXT")
-        return DataCache.get('JSONLDCONTEXT')
-    else:
-        global namespaces
-        jsonldcontext = "{\n  \"@context\": {\n"
-        jsonldcontext += "        \"type\": \"@type\",\n"
-        jsonldcontext += "        \"id\": \"@id\",\n"
-        jsonldcontext += "        \"@vocab\": \"http://schema.org/\",\n"
-        jsonldcontext += namespaces
+    jsonldcontext = ""
+    jsonldcontext += "{\n  \"@context\": {\n"
+    jsonldcontext += "        \"type\": \"@type\",\n"
+    jsonldcontext += "        \"id\": \"@id\",\n"
+    jsonldcontext += "        \"HTML\": { \"@id\": \"rdf:HTML\" },\n"
+    jsonldcontext += "        \"@vocab\": \"http://schema.org/\",\n"
+    jsonldcontext += namespaces
 
-        url = Unit.GetUnit("URL")
-        date = Unit.GetUnit("Date")
-        datetime = Unit.GetUnit("DateTime")
+    url = Unit.GetUnit("URL")
+    date = Unit.GetUnit("Date")
+    datetime = Unit.GetUnit("DateTime")
 
 #        properties = sorted(GetSources(Unit.GetUnit("rdf:type",True), Unit.GetUnit("rdf:Property",True), layers=getAllLayersList()), key=lambda u: u.id)
 #        for p in properties:
-        for t in GetAllTerms(EVERYLAYER,includeDataTypes=True):
-            if t.isClass(EVERYLAYER) or t.isEnumeration(EVERYLAYER) or t.isEnumerationValue(EVERYLAYER) or t.isDataType(EVERYLAYER):
-                jsonldcontext += "        \"" + t.id + "\": {\"@id\": \"schema:" + t.id + "\"},"
-            elif t.isAttribute(EVERYLAYER):
-                range = GetTargets(Unit.GetUnit("rangeIncludes"), t, layers=EVERYLAYER)
-                type = None
+    for t in GetAllTerms(EVERYLAYER,includeDataTypes=True):
+        if t.isClass(EVERYLAYER) or t.isEnumeration(EVERYLAYER) or t.isEnumerationValue(EVERYLAYER) or t.isDataType(EVERYLAYER):
+            jsonldcontext += "        \"" + t.id + "\": {\"@id\": \"schema:" + t.id + "\"},"
+        elif t.isAttribute(EVERYLAYER):
+            range = GetTargets(Unit.GetUnit("rangeIncludes"), t, layers=EVERYLAYER)
+            type = None
 
-                if url in range:
-                    type = "@id"
-                elif date in range:
-                    type = "Date"
-                elif datetime in range:
-                    type = "DateTime"
+            if url in range:
+                type = "@id"
+            elif date in range:
+                type = "Date"
+            elif datetime in range:
+                type = "DateTime"
 
-                typins = ""
-                if type:
-                    typins = ", \"@type\": \"" + type + "\""
+            typins = ""
+            if type:
+                typins = ", \"@type\": \"" + type + "\""
 
-                jsonldcontext += "        \"" + t.id + "\": { \"@id\": \"schema:" + t.id + "\"" + typins + "},"
+            jsonldcontext += "        \"" + t.id + "\": { \"@id\": \"schema:" + t.id + "\"" + typins + "},"
 
-        jsonldcontext += "}}\n"
-        jsonldcontext = jsonldcontext.replace("},}}","}\n    }\n}")
-        jsonldcontext = jsonldcontext.replace("},","},\n") 
-        DataCache.put('JSONLDCONTEXT',jsonldcontext)
-        #log.debug("DataCache: added JSONLDCONTEXT")
-        return jsonldcontext
+    jsonldcontext += "}}\n"
+    jsonldcontext = jsonldcontext.replace("},}}","}\n    }\n}")
+    jsonldcontext = jsonldcontext.replace("},","},\n") 
+    return str(jsonldcontext)
 
 
 
@@ -1250,7 +1348,7 @@ def load_examples_data(extensions):
             expfiles = glob.glob("data/ext/%s/*examples.txt" % i)
             read_examples(expfiles,i)
 
-        if not getInTestHarness(): #Use NDB Storage
+        if not getInTestHarness() and EXAMPLESTOREMODE == "NDBSHARED": #Use NDB Storage
             ExampleStore.store(EXAMPLES)
             ExampleMap.store(EXAMPLESMAP)
             memcache.set("ExmplesLoaded",value=True)
@@ -1387,13 +1485,16 @@ class CacheControl():
     def clean(pagesonly=False):
         ret = {}
 
-        if not NDBPAGESTORE:
+        if PAGESTOREMODE == "INMEM":
             ret["PageStore"] = PageStore.initialise()
             ret["HeaderStore"] = HeaderStore.initialise()
             ret["DataCache"] = DataCache.initialise()
 
         ndbret = CacheControl.ndbClean()
         ret.update(ndbret)
+        
+        if PAGESTOREMODE == "CLOUDSTORE":
+            prepareCloudstoreDocs()
         
         return ret
         
@@ -1407,7 +1508,8 @@ class CacheControl():
             return ret
         for c in NdbCaches:
             r =  c.initialise()
-            ret.update(r)
+            if r:
+                ret.update(r)
         return ret
 
 ###############################

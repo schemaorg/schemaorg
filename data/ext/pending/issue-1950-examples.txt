@@ -1,0 +1,34 @@
+TYPES: CorrectionComment, correction
+
+PRE-MARKUP:
+
+An example showing a CorrectionComment associated with an article.
+
+MICRODATA:
+
+TODO
+
+RDFA:
+
+TODO
+
+
+JSON:
+
+<script type="application/ld+json">
+{
+   "@context": "http://schema.org",
+   "@type": "ReportageNewsArticle",
+   "url": "https://www.nytimes.com/2018/01/23/movies/oscars-snubs-surprises.html",
+   "publisher":"...",
+   "datePublished":"...",
+   "dateModified":"...",
+   "Headline":"...",
+   "mainEntityOfPage": "https://www.nytimes.com/2018/01/23/movies/oscars-snubs-surprises.html",
+   "correction": {
+      "@type": "CorrectionComment",
+      "text": "An earlier version of this article misstated the number of times Denzel Washington has been nominated for an Oscar. His nod for 'Roman J. Israel, Esq.' brings the total to nine, not eight.",
+      "datePublished": "2018-01-23"
+   }
+}
+</script>

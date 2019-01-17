@@ -67,9 +67,11 @@ First copy snapshot into place:
 
 * Now the HTML snapshot itself. Assuming a local server (e.g. from 'dev_appserver .') we can do:
  * curl http://localhost:8080/version/build-latest > data/releases/3.2/schema-all.html (taking care with the version number, of course)
-
+ or this, to use webschemas: curl https://webschemas.org/version/build-latest > data/releases/3.4/schema-all.html
+ * clean up the html including the bit that says you're in a developer view etc.
+ 
 Then generate N-Triples etc. versions:
-* Ensure that the EXTENTIONS variable at the top of the script 'scripts/buildreleasefiles.sh' contains all the extensions for this release.
+* Ensure that the EXTENSIONS variable at the top of the script 'scripts/buildreleasefiles.sh' contains all the extensions for this release.
 * scripts/buildreleasefiles.sh 3.1 - Check listed extensions is correct update if not
 
 * Run './scripts/buildsitemap.py' make sure sitemap is up to date
@@ -147,14 +149,32 @@ final round of sanity-check tests is useful:
 
 4.) Publish from a clean checkout of 'master' branch to schema.org.
 
+Using gcloud app deploy
+~~~~~~~~~~~~~~~~~~~~~~~
+
+From 3.4.1 onwards use app deploy script (does a bit of housekeeping):
+	scripts/appdeploy.sh --project schemaorgae  --no-promote --version=3-4-1 schemaorg.yaml
+
+
+##### original deploy: gcloud app deploy --no-promote --project schemaorgae --version=3.4 schemaorg.yaml
+
+Note: the --no-promote flage deploys the version but does not transfer traffic to it.
+This can then be done when required via the appengine console, versions screen:
+   https://console.cloud.google.com/appengine/versions?project=schemaorgae&serviceId=default&versionssize=50
+
+===========OLD============
 Either by editing app.yaml to make sure 'application: schemaorgae' is active,
-or by passing the name of the live appengine ID on the commandline. Currently
-@rvguha (as Steering Group chair) and @danbri (as Community Group chair and
+or by passing the name of the live appengine ID on the commandline.
+===========OLD============
+
+Currently @rvguha (as Steering Group chair) and @danbri (as Community Group chair and
 webmaster / dogsbody) have write access to the corresponding appengine account.
 
+===========OLD============
  * e.g. update schemaorg.yaml then:  appcfg.py update schemaorg.yaml -A schemaorgae
  * Count to thirty. Log into appengine and you should see a new version.
- * Send 5% of traffic to this version to catch any errors, then move to 100%.
+* Send 5% of traffic to this version to catch any errors, then move to 100%.
+===========OLD============
 
 Note that appengine versions are visible using URLs with this pattern:
 
@@ -184,3 +204,8 @@ For example, if we are in 'master' and 'git status' shows it in a clean state,
 > To https://github.com/schemaorg/schemaorg.git
 >  * [new branch]      sdo-deimos -> sdo-deimos
 > Branch sdo-deimos set up to track remote branch sdo-deimos from origin.
+
+TODO:
+
+ * clean up release tags
+ * see also: git log --pretty=fuller --since="2018-06-15"
