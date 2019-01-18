@@ -418,16 +418,15 @@ def buildSingleTermGraph(node,excludeAttic=True,markdown=True):
         g.add((s,p,o))
 
     #super classes
-	query='''select * where {
-	?term (^rdfs:subClassOf*) <%s>.
-	?term rdfs:subClassOf ?super.
+    query='''select * where {
+    ?term (^rdfs:subClassOf*) <%s>.
+    ?term rdfs:subClassOf ?super.
         OPTIONAL {
         	?super ?pred ?obj.
             FILTER (strstarts(str(?super),'%s'))
         }
-	}
+    }
     ''' % (n,api.SdoConfig.vocabUri())
-    
     log.info("Query: %s" % query)
 
     ret = rdfQueryStore(query,q)

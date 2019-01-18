@@ -105,6 +105,7 @@ if TEMPLATESDIR:
         FileBasedTemplates = False
 else:
     TEMPLATESDIR = os.path.join(os.path.dirname(__file__), 'templates')
+    log.info("No Templates directory defined - defaulting to %s" % TEMPLATESDIR)
 
 if FileBasedTemplates:
     JINJA_ENVIRONMENT = jinja2.Environment(loader=jinja2.FileSystemLoader(TEMPLATESDIR),
@@ -2808,23 +2809,24 @@ def templateRender(templateName, node, values=None):
     defvars = {
         'ENABLE_HOSTED_EXTENSIONS': ENABLE_HOSTED_EXTENSIONS,
         'SCHEMA_VERSION': SCHEMA_VERSION,
+        'appengineVersion': getAppEngineVersion(),
+        'debugging': getAppVar('debugging'),
+        'docsdir': docsdir,
+        'extComment': extComment,
+        'extDD': extDD,
+        'extName': extName,
+        'extVers': extVers,
+        'extensionPath': makeUrl(getHostExt(),"",full=True),
+        'homedir': homedir,
+        'host_ext': getHostExt(),
+        'mybasehost': getBaseHost(),
+        'myhost': getHost(),
+        'myport': getHostPort(),
         'sitemode': sitemode,
         'sitename': SdoConfig.getname(),
         'staticPath': homedir,
-        'extensionPath': makeUrl(getHostExt(),"",full=True),
-        'myhost': getHost(),
-        'myport': getHostPort(),
-        'mybasehost': getBaseHost(),
-        'host_ext': getHostExt(),
-        'extComment': extComment,
-        'docsdir': docsdir,
-        'homedir': homedir,
-        'extDD': extDD,
-        'extVers': extVers,
-        'extName': extName,
         'targethost': makeUrl("","",full=True),
-        'debugging': getAppVar('debugging'),
-        'appengineVersion': getAppEngineVersion()
+        'vocabUri': SdoConfig.vocabUri()
     }
 
     if values:
