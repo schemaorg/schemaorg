@@ -4067,6 +4067,7 @@ The place is __open__ if the [[opens]] property is specified, and __closed__ oth
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MusicAlbum">MusicAlbum</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MusicRecording">MusicRecording</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/MusicGroup">MusicGroup</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Person">Person</a></span>
     </div>
 
     <div typeof="rdf:Property" resource="http://schema.org/candidate">
@@ -4864,9 +4865,10 @@ Unregistered or niche encoding and file formats can be indicated instead via the
 
     <div typeof="rdf:Property" resource="http://schema.org/endTime">
       <span class="h" property="rdfs:label">endTime</span>
-      <span property="rdfs:comment">The endTime of something. For a reserved event or service (e.g. FoodEstablishmentReservation), the time that it is expected to end. For actions that span a period of time, when the action was performed. e.g. John wrote a book from January to *December*.\n\nNote that Event uses startDate/endDate instead of startTime/endTime, even when describing dates with times. This situation may be clarified in future revisions.</span>
+      <span property="rdfs:comment">The endTime of something. For a reserved event or service (e.g. FoodEstablishmentReservation), the time that it is expected to end. For actions that span a period of time, when the action was performed. e.g. John wrote a book from January to *December*. For media, including audio and video, it's the time offset of the end of a clip within a larger file.\n\nNote that Event uses startDate/endDate instead of startTime/endTime, even when describing dates with times. This situation may be clarified in future revisions.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Action">Action</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/FoodEstablishmentReservation">FoodEstablishmentReservation</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MediaObject">MediaObject</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/DateTime">DateTime</a></span>
     </div>
    <div typeof="rdf:Property" resource="http://schema.org/entertainmentBusiness">
@@ -7100,9 +7102,10 @@ While such policies are most typically expressed in natural language, sometimes 
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/startTime">
       <span class="h" property="rdfs:label">startTime</span>
-      <span property="rdfs:comment">The startTime of something. For a reserved event or service (e.g. FoodEstablishmentReservation), the time that it is expected to start. For actions that span a period of time, when the action was performed. e.g. John wrote a book from *January* to December.\n\nNote that Event uses startDate/endDate instead of startTime/endTime, even when describing dates with times. This situation may be clarified in future revisions.</span>
+      <span property="rdfs:comment">The startTime of something. For a reserved event or service (e.g. FoodEstablishmentReservation), the time that it is expected to start. For actions that span a period of time, when the action was performed. e.g. John wrote a book from *January* to December. For media, including audio and video, it's the time offset of the start of a clip within a larger file.\n\nNote that Event uses startDate/endDate instead of startTime/endTime, even when describing dates with times. This situation may be clarified in future revisions.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Action">Action</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/FoodEstablishmentReservation">FoodEstablishmentReservation</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MediaObject">MediaObject</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/DateTime">DateTime</a></span>
     </div>
 
