@@ -4722,7 +4722,7 @@ Dateline summaries are oriented more towards human readers than towards automate
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/elevation">
       <span class="h" property="rdfs:label">elevation</span>
-      <span property="rdfs:comment">The elevation of a location ([WGS 84](https://en.wikipedia.org/wiki/World_Geodetic_System)).</span>
+      <span property="rdfs:comment">The elevation of a location ([WGS 84](https://en.wikipedia.org/wiki/World_Geodetic_System)). Values may be of the form 'NUMBER UNIT_OF_MEASUREMENT' (e.g., '1,000 m', '3,200 ft') while numbers alone should be assumed to be a value in meters.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/GeoCoordinates">GeoCoordinates</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/GeoShape">GeoShape</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number">Number</a></span>
@@ -6795,6 +6795,16 @@ While such policies are most typically expressed in natural language, sometimes 
       <span property="rdfs:comment">The number of screens in the movie theater.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MovieTheater">MovieTheater</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number">Number</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/slogan">
+      <span class="h" property="rdfs:label">slogan</span>
+      <span property="rdfs:comment">A slogan or motto associated with the item.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Organization">Organization</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Place">Place</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Product">Product</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Service">Service</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Brand">Brand</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/videoFormat">
       <span class="h" property="rdfs:label">videoFormat</span>
