@@ -1761,6 +1761,7 @@ def getTimestampedInfo(tag):
 
 ###############################
 class SdoConfig():
+    configFile = ""
     nested = 0
     valid = False
     loaded = False
@@ -1803,6 +1804,8 @@ class SdoConfig():
                 log.info("Found previous config load graph - closing it!")
                 cls.myconf.close() #dump previous graphs to start next on clean.
 
+        cls.configFile = config
+
         if len(cls.myconf) > 0:
             cls.valid = True
             log.info("SdoConfig.myconf valid:%s %s triple count: %s" % (cls.valid, cls.myconf, len(cls.myconf)))
@@ -1814,6 +1817,10 @@ class SdoConfig():
     def isValid(cls):
         return cls.valid
         
+    @classmethod
+    def getConfigFile(cls):
+        return cls.configFile
+
     @classmethod
     def getname(cls):
         return cls.name
