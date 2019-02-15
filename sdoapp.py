@@ -54,6 +54,9 @@ from apimarkdown import Markdown
 from sdordf2csv import sdordf2csv
 CONFIGFILE = os.environ.get("CONFIGFILE","sdoconfig.json")
 SdoConfig.load(CONFIGFILE)
+if not SdoConfig.valid:
+    log.error("Invalid config from '%s' or its includes !!" % CONFIGFILE)
+    os.exit()
 
 SCHEMA_VERSION="3.4"
 
@@ -2505,12 +2508,6 @@ class ShowUnit (webapp2.RequestHandler):
             log.info("Flushing memcache")
             memcache.flush_all()
             return False
-
-            ##########################################################################################################
-            #VTerm.getTerm("EBook")
-            #os.exit()
-            ##########################################################################################################
-            
 
         if (node in ["", "/"]):
             return self.handleHomepage(node)

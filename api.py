@@ -1790,14 +1790,15 @@ class SdoConfig():
         if cls.myconf:
             log.info("Found previous config load graph - closing it!")
             cls.myconf.close()
+            cls.myconf = None
             
         config = conffile
         while config:
             try:
                 SdoConfig.myconf = apirdflib.graphFromFiles(config,prefix="scc",path="http://configfiles.schema.org/")
-                config = cls.loadData()#Returns new config file if a redirect
+                config = cls.loadData(configFile=config)#Returns new config file if a redirect
             except Exception as e:
-                log.info("Configuration file (%s) read/load exception Exception %s: %s" % (config,e,e.message))
+                log.info("Configuration file (%s) read/load Exception %s: %s" % (config,e,e.message))
                 pass
             
             if config:
@@ -1811,6 +1812,7 @@ class SdoConfig():
             log.info("SdoConfig.myconf valid:%s %s triple count: %s" % (cls.valid, cls.myconf, len(cls.myconf)))
             
         else:
+            cls.valid = False
             log.info("No config detected!!!")
     
     @classmethod
@@ -1830,13 +1832,13 @@ class SdoConfig():
         return cls.pre
         
     @classmethod
-    def loadData(cls):
+    def loadData(cls,configFile=None):
         redirectq= """SELECT ?loc WHERE {
             ?s a scc:ConfigurationRedirect;
                 scc:configurationLocation ?loc
         }"""
         
-        q = """SELECT ?name ?url ?voc ?pre ?attic WHERE { 
+        q = """SELECT ?name ?url ?voc ?pre ?attic ?include WHERE { 
                                 ?s a scc:DataFeed;
                                     scc:siteurl ?url;
                                     scc:vocaburl ?voc;
@@ -1860,7 +1862,7 @@ class SdoConfig():
                     cls.nested += 1
                     newconfig = str(loc)
                     
-            if not newconfig:                
+            if not newconfig:
                 res = apirdflib.rdfQueryStore(q,cls.myconf)
                 if len(res) >  1:
                     log.error("More than one DataFeed in config file!!")
@@ -1871,10 +1873,56 @@ class SdoConfig():
                     cls.url = str(row.url)
                     cls.voc = str(row.voc)
                     cls.attic = str(row.attic)
+                    cls.loaded = True
                     break
-                cls.loaded = True
+                if cls.loaded:
+                    cls.loadIncludes(configFile)
+                
         return newconfig
 
+    @classmethod
+    def loadIncludes(cls,configFile):
+        if not configFile:
+            return
+        q = """SELECT DISTINCT ?inc WHERE { 
+                                ?s a scc:DataFeed;
+                                    scc:name "%s";
+                                    scc:include ?inc.
+                                  } 
+                                 """ % (cls.name)
+        nameq = """SELECT DISTINCT ?obj WHERE { 
+                                ?s a scc:DataFeed;
+                                    scc:name "%s";
+                                    ?p ?obj.
+                                  } 
+                                 """ % (cls.name)
+        res = apirdflib.rdfQueryStore(q,cls.myconf)
+        inc = ""
+        if len(res):
+            try:
+                for row in list(res):
+                    inc = str(row.inc)
+                    #Include files are placed in same location as main config
+                    if os.path.basename(inc) != inc:
+                        log.error("No path allowed in include file names! %s" % inc)
+                        inc = None 
+                    elif os.path.basename(configFile) != configFile:
+                        inc = os.path.dirname(configFile) + "/" + inc
+                    
+                    if inc:
+                        log.info("Loading Include file: %s" % inc)
+                        graph = apirdflib.graphFromFiles(inc,prefix="scc",path="http://configfiles.schema.org/")
+                        objs = apirdflib.rdfQueryStore(nameq,graph)
+                        if not len(objs):
+                            log.error("No triples for DataFeed '%s' in include file: %s" % (cls.name,inc))
+                        else:
+                            log.info("Include triple count: %s" % len(graph))
+                            cls.myconf += graph
+            except Exception as e:
+                log.info("Configuration include file (%s) read/load Exception %s: %s" % (inc,e,e.message))
+                cls.valid = False
+                pass
+                            
     @classmethod
     def templateDir(cls):
         ret = None
@@ -2008,6 +2056,16 @@ class SdoConfig():
         return ret
         
     @classmethod
+    def stripLocalPathPrefix(cls,path):
+        ret = path
+        if ret and len(ret):
+            if ret.startswith('./'):
+                ret = ret[2:]
+            elif ret.startswith('.'):
+                ret = ret[1:]
+        return ret
+        
+    @classmethod
     def files(cls,filetype=None):
         filter = ""
         if filetype:
@@ -2040,17 +2098,21 @@ class SdoConfig():
         for row in res:
             d = row.dir
             if d:
-                d = str(cls.varsub(d))
+                d = cls.stripLocalPathPrefix(str(cls.varsub(d)))
             loc = d
             f = row.file
             if f:
-                f = str(cls.varsub(f))
+                f = cls.stripLocalPathPrefix(str(cls.varsub(f)))
             fpath = f
             if d and f:
                 if not d.endswith('/'):
                     d += '/'
                 f = d + f
             if f and "://" not in f:
+                if f.startswith('./'):
+                    f = f[2:]
+                elif f.startswith('/'):
+                    f = f[1:]
                 f = "file://%s" % full_path(f)
             t = str(row.type)
             t = t.upper()
