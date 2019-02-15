@@ -19,6 +19,8 @@ inbound_services:
 env_variables:
   TARGETSITE: 'webschemas.org'
   PRODSITEDEBUG: 'False'
+  CONFIGFILE: 'sdoconfig.json'
+  MOREBLOCK: 'True'
   WARMUPSTATE: 'Auto' # 'Off', 'On', 'Auto' - Off for localhost, On elsewhere
   STAYINEXTENTION: 'False'
   PAGESTOREMODE: 'CLOUDSTORE' # 'INMEM' (In instance memory), 'NDBSHARED' (NDB shared - accross instances), 'CLOUDSTORE' (Cloudstorage files)
@@ -100,6 +102,14 @@ handlers:
 #  static_files: static/index.html
 #  upload: static/index.html
 #  application_readable: True
+
+- url: /admin/refresh
+  login: required
+  script: sdoapp.app
+
+- url: /admin
+  static_dir: admin
+  application_readable: True
 
 - url: /search_files
   static_dir: static/search_files

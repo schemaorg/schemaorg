@@ -26,7 +26,7 @@ cloudstorage.set_default_retry_params(
         initial_delay=0.2, max_delay=5.0, backoff_factor=2, max_retry_period=15
         ))
 # [END retries]
-BUCKETROOT = "schemaorg"
+BUCKETROOT = "sdoapp"
 DEFAULTCURRENT = "TestData"
 CLOUDCACHEENABLE = False
 CLOUDAUTOAPPENDHTMLEXT = False
