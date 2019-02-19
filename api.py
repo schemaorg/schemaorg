@@ -10,6 +10,7 @@ log = logging.getLogger(__name__)
 
 import os
 import os.path
+import urllib
 import glob
 import re
 import threading
@@ -23,7 +24,8 @@ loader_instance = False
 from testharness import *
 
 import apirdflib
-from sdoutil import sdo_send_mail
+import apirdfterm
+from sdoutil import *
 
 #from apirdflib import rdfGetTargets, rdfGetSources
 from apimarkdown import Markdown
@@ -36,6 +38,11 @@ def getInstanceId(short=False):
         ret = ret[len(ret)-6:]
     return ret
 
+TIMESTAMPSTOREMODE = "CLOUDSTORE"
+if "TIMESTAMPSTOREMODE" in os.environ:
+    TIMESTAMPSTOREMODE = os.environ["TIMESTAMPSTOREMODE"]
+    log.info("TIMESTAMPSTOREMODE set to %s from .yaml file" % TIMESTAMPSTOREMODE)
+log.info("Initialised with TIMESTAMPSTOREMODE set to %s" % TIMESTAMPSTOREMODE)
 
 EXAMPLESTOREMODE = os.environ.get("EXAMPLESTOREMODE","INMEM")
 schemasInitialized = False
@@ -61,6 +68,8 @@ def getAllLayersList():
     global AllLayersList
     return AllLayersList
     
+VARSUBPATTERN = r'\[\[([\w0-9_ -]+)\]\]'
+
 JSONLDCONTEXT = "jsonldcontext.json"
 EVERYLAYER = "!EVERYLAYER!"
 sitename = "schema.org"
@@ -480,24 +489,51 @@ else:
 
 
 def prepareCloudstoreDocs():
-    if  getInTestHarness() or "localhost" in os.environ['SERVER_NAME']: #Force new version logic for local versions and tests
+    #if  getInTestHarness() or "localhost" in os.environ['SERVER_NAME']: #Force new version logic for local versions and tests
+    if  getInTestHarness(): #Force new version logic for local versions and tests
         log.info("Skipping static docs copy for local/test instance")
         return
         
-    log.info("Preparing Cloudstorage - copying static docs")
+    log.info("Preparing Cloudstorage - copying static docs..")
     count = 0
-    for root, dirs, files in os.walk("docs"):
-        for f in files:
-            count += 1
-            fname = os.path.join(root, f)
-            try:
-                with open(fname, 'r') as f:
-                    content = f.read()
-                    SdoCloud.writeFormattedFile(fname,content=content, location="html", raw=True)
-                f.close()
-            except Exception  as e:
-                log.info("ERROR reading: %s" % e)
-                pass
+    filesToCopy = []
+    copiedFiles = []
+    if SdoConfig.isValid():
+        log.info("... from config defined sources")
+        for f in SdoConfig.docsFiles():
+            ft = (f.get("location"),f.get("filePart"))
+            filesToCopy.append(ft)
+    else:
+        log.info("... from local docs location")
+        for root, dirs, files in os.walk("docs"):
+            for f in files:
+                count += 1
+                fname = os.path.join(root, f)
+                ft = ("docs",fname)
+                filesToCopy.append(ft)
+    
+    for ft in filesToCopy:
+        try:
+            file = ft[0] + "/" + ft[1]
+            fname = "docs/" + ft[1]
+            if file.startswith("file://"):
+                file = file[7:]
+    
+            if "://" in file:
+                content = urllib.urlopen(file).read()
+            else:
+                fd = open(file, 'r')
+                content = fd.read()
+                fd.close()
+                
+            SdoCloud.writeFormattedFile(fname,content=content, location="html", raw=True)
+            copiedFiles.append(fname)
+        except Exception  as e:
+            log.info("ERROR reading: %s" % e)
+            pass
+    info = "".join( ["%s\n" % fl for fl in copiedFiles] )
+    storeTimestampedInfo("staticdocscopy-timestamp",info=info)
+    return 
     #sdo_send_mail(to="rjw@dataliberate.com",subject="[SCHEMAINFO] from 'api'", msg="prepareCloudstoreDocs: %s" % (count))
 
 def cloudstoreStoreContent(fname, content, location, raw=False, private=False):
@@ -605,7 +641,7 @@ class Unit ():
         """Does this unit represent an enumerated type?"""
         if self.typeFlags.has_key('e'):
             return self.typeFlags['e']
-        isE = self.subClassOf(Unit.GetUnit("Enumeration"), layers=EVERYLAYER)
+        isE = self.subClassOf(Unit.GetUnit("schema:Enumeration"), layers=EVERYLAYER)
         self.typeFlags['e'] = isE
         return isE
 
@@ -617,7 +653,7 @@ class Unit ():
         #log.debug("isEnumerationValue() called on %s, found %s types. layers: %s" % (self.id, str( len( types ) ), layers ) )
         found_enum = False
         for t in types:
-          if t.subClassOf(Unit.GetUnit("Enumeration"), layers=EVERYLAYER):
+          if t.subClassOf(Unit.GetUnit("schema:Enumeration"), layers=EVERYLAYER):
             found_enum = True
             break
         self.typeFlags['ev'] = found_enum
@@ -737,27 +773,7 @@ class Unit ():
         return None
 
     def UsageStr (self) :
-        str = GetUsage(self.id)
-        if (str == '1') :
-            return "Between 10 and 100 domains"
-        elif (str == '2'):
-            return "Between 100 and 1000 domains"
-        elif (str == '3'):
-            return "Between 1000 and 10,000 domains"
-        elif (str == '4'):
-            return "Between 10,000 and 50,000 domains"
-        elif (str == '5'):
-            return "Between 50,000 and 100,000 domains"
-        elif (str == '7'):
-            return "Between 100,000 and 250,000 domains"
-        elif (str == '8'):
-            return "Between 250,000 and 500,000 domains"
-        elif (str == '9'):
-            return "Between 500,000 and 1,000,000 domains"
-        elif (str == '10'):
-            return "Over 1,000,000 domains"
-        else:
-            return ""
+        return GetUsage(self.id)
 
 # NOTE: each Triple is in exactly one layer, by default 'core'. When we
 # read_schemas() from data/ext/{x}/*.rdfa each schema triple is given a
@@ -793,17 +809,19 @@ class Triple ():
         ret = ""
         if self.source != None:
             ret +=  "%s " % self.source
-        if self.target != None:
-            ret += "%s " % self.target
         if self.arc != None:
             ret += "%s " % self.arc
+        if self.target != None:
+            ret += "%s " % self.target
+        if self.text != None:
+            ret += "\"%s\" " % self.text
         return ret
 
     @staticmethod
     def AddTriple(source, arc, target, layer='core'):
         """AddTriple stores a thing-valued new Triple within source Unit."""
         if (source == None or arc == None or target == None):
-            log.info("Bailing")
+            log.info("Bailing %s %s %s" % (source, arc, target))
             return
         else:
 
@@ -835,15 +853,18 @@ class Triple ():
 
 def GetTargets(arc, source, layers='core'):
     """All values for a specified arc on specified graph node (within any of the specified layers)."""
-    # log.debug("GetTargets checking in layer: %s for unit: %s arc: %s" % (layers, source.id, arc.id))
+    log.info("GetTargets checking in layer: %s for unit: %s arc: %s" % (layers, source, arc))
     targets = {}
     fred = False
     try:
         for triple in source.arcsOut:
+            log.info("triple %s" % triple)
             if (triple.arc == arc):
-                if (triple.target != None and (layers == EVERYLAYER or triple.layer in layers)):
+                #if (triple.target != None and (layers == EVERYLAYER or triple.layer in layers)):
+                if (triple.target != None ):
                     targets[triple.target] = 1
-                elif (triple.text != None and (layers == EVERYLAYER or triple.layer in layers)):
+                #elif (triple.text != None and (layers == EVERYLAYER or triple.layer in layers)):
+                elif (triple.text != None):
                     targets[triple.text] = 1
         return targets.keys()
     except Exception as e:
@@ -852,12 +873,15 @@ def GetTargets(arc, source, layers='core'):
 
 def GetSources(arc, target, layers='core'):
     """All source nodes for a specified arc pointing to a specified node (within any of the specified layers)."""
-    #log.debug("GetSources checking in layer: %s for unit: %s arc: %s" % (layers, target.id, arc.id))
+    log.info("GetSources checking in layer: %s for unit: %s arc: %s" % (layers, target, arc))
     if(target.sourced == False):
-	    apirdflib.rdfGetSourceTriples(target)
+        apirdflib.rdfGetSourceTriples(target)
+
     sources = {}
     for triple in target.arcsIn:
-        if (triple.arc == arc and (layers == EVERYLAYER or triple.layer in layers)):
+        #if (triple.arc == arc and (layers == EVERYLAYER or triple.layer in layers)):
+        log.info("arc %s triplearc: %s" %(arc,triple.arc))
+        if (triple.arc == arc ):
             sources[triple.source] = 1
     return sources.keys()
 
@@ -885,7 +909,7 @@ def GetComment(node, layers='core') :
     if len(tx) > 0:
             return Markdown.parse(tx[0])
     else:
-        return "No comment"
+        return "-"
 
 def GetComments(node, layers='core') : 
     """Get the rdfs:comment(s) we find on this node within any of the specified layers."""
@@ -926,7 +950,30 @@ def GetAllTypes(layers='core'):
         return UtilCache.get(KEY,Utc)
     else:
         #logging.debug("DataCache MISS: %s" % KEY)
-        mynode = Unit.GetUnit("Thing", True)
+        mynode = Unit.GetUnit("schema:Thing", True)
+        subbed = {}
+        todo = [mynode]
+        while todo:
+            current = todo.pop()
+            subs = GetImmediateSubtypes(current, EVERYLAYER)
+            if inLayer(layers,current):
+                subbed[current] = 1
+            for sc in subs:
+                if subbed.get(sc.id) == None:
+                    todo.append(sc)
+        UtilCache.put(KEY,subbed.keys(),Utc)
+        return subbed.keys()
+
+def oldGetAllTypes(layers='core'):
+    global Utc
+    """Return all types in the graph."""
+    KEY = "AllTypes:%s" % layers
+    if UtilCache.get(KEY+'x',Utc):
+        #logging.debug("DataCache HIT: %s" % KEY)
+        return UtilCache.get(KEY,Utc)
+    else:
+        #logging.debug("DataCache MISS: %s" % KEY)
+        mynode = Unit.GetUnit("schema:Thing", True)
         subbed = {}
         todo = [mynode]
         while todo:
@@ -971,7 +1018,7 @@ def GetAllEnumerationValues(layers='core'):
         return UtilCache.get(KEY,Utc)
     else:
         #logging.debug("DataCache MISS: %s" % KEY)
-        mynode = Unit.GetUnit("Enumeration", True)
+        mynode = Unit.GetUnit("schema:Enumeration", True)
         enums = {}
         subbed = {}
         todo = [mynode]
@@ -1116,27 +1163,27 @@ class Example ():
             if not EXAMPLES.get(self.keyvalue):
                 EXAMPLES[self.keyvalue] = self
 
-def LoadNodeExamples(node, layers='core'):
+def LoadTermExamples(term, layers='core'):
     """Returns the examples (if any) for some Unit node."""
     #log.info("Getting examples for: %s %s" % (node.id,node.examples))
-    if(node.examples == None):
-        node.examples = []
+    if(term.examples == None):
+        term.examples = []
         if getInTestHarness() or EXAMPLESTOREMODE != "NDBSHARED": #Get from local storage
             with exlock:
-                examples = EXAMPLESMAP.get(node.id)
+                examples = EXAMPLESMAP.get(term.id)
                 if examples:
                     for e in examples:
                         ex = EXAMPLES.get(e)
                         if ex:
-                            node.examples.append(ex)
+                            term.examples.append(ex)
 
         else:                  #Get from NDB shared storage
-            ids = ExampleMap.get(node.id)
+            ids = ExampleMap.get(term.id)
             if not ids:
                 ids = []
             for i in ids:
-                node.examples.append(ExampleStore.get_by_id(i))
-    return node.examples
+                term.examples.append(ExampleStore.get_by_id(i))
+    return term.examples
 
 USAGECOUNTS = {}
 
@@ -1144,7 +1191,28 @@ def StoreUsage(id,count):
 	USAGECOUNTS[id] = count
 
 def GetUsage(id):
-	return USAGECOUNTS.get(id,0)
+    str = USAGECOUNTS.get(id,0)
+    if (str == '1') :
+        return "Between 10 and 100 domains"
+    elif (str == '2'):
+        return "Between 100 and 1000 domains"
+    elif (str == '3'):
+        return "Between 1000 and 10,000 domains"
+    elif (str == '4'):
+        return "Between 10,000 and 50,000 domains"
+    elif (str == '5'):
+        return "Between 50,000 and 100,000 domains"
+    elif (str == '7'):
+        return "Between 100,000 and 250,000 domains"
+    elif (str == '8'):
+        return "Between 250,000 and 500,000 domains"
+    elif (str == '9'):
+        return "Between 500,000 and 1,000,000 domains"
+    elif (str == '10'):
+        return "Over 1,000,000 domains"
+    else:
+        return ""
+    
 
 def GetExtMappingsRDFa(node, layers='core'):
     """Self-contained chunk of RDFa HTML markup with mappings for this term."""
@@ -1178,43 +1246,54 @@ def GetJsonLdContext(layers='core'):
     jsonldcontext += "        \"type\": \"@type\",\n"
     jsonldcontext += "        \"id\": \"@id\",\n"
     jsonldcontext += "        \"HTML\": { \"@id\": \"rdf:HTML\" },\n"
-    jsonldcontext += "        \"@vocab\": \"http://schema.org/\",\n"
-    jsonldcontext += namespaces
+    jsonldcontext += "        \"@vocab\": \"%s\",\n" % SdoConfig.vocabUri()
+    ns = apirdflib.getNamespaces()
+    done = []
+    for n in ns:
+        for n in ns:
+            pref, pth = n
+            pref = str(pref)
+            if not pref in done:
+                done.append(pref)
+                jsonldcontext += "        \"%s\": \"%s\",\n" % (pref,pth)
 
-    url = Unit.GetUnit("URL")
-    date = Unit.GetUnit("Date")
-    datetime = Unit.GetUnit("DateTime")
+    datatypepre = ""    
+    if SdoConfig.vocabUri() != "http://schema.org/":
+        datatypepre = "schema:"
+        
+    vocablines = ""
+    externalines = ""
+    typins = ""
+    url = apirdfterm.VTerm.getTerm("schema:URL")
+    for t in apirdfterm.VTerm.getAllTerms(supressSourceLinks=True):
+        if t.isClass() or t.isEnumeration() or t.isEnumerationValue() or t.isDataType():
+            line =  "        \"" + t.getId() + "\": {\"@id\": \"" + t.getPrefixedId() + "\"},"
+        elif t.isProperty():
+            ranges = t.getRanges()
+            
+            for r in ranges:
+                
+                if r == url: 
+                    typins = ", \"@type\": \"@id\""
+                    break
+                elif r.isDataType():
+                    typins = ""
+                else:
+                    typins = ", \"@type\": \"@id\""
+                
+            line = "        \"" + t.getId() + "\": { \"@id\": \"" + t.getPrefixedId() + "\"" + typins + "},"
+        
+        if t.getId().startswith("http"):
+            externalines += line
+        else:
+            vocablines += line
 
-#        properties = sorted(GetSources(Unit.GetUnit("rdf:type",True), Unit.GetUnit("rdf:Property",True), layers=getAllLayersList()), key=lambda u: u.id)
-#        for p in properties:
-    for t in GetAllTerms(EVERYLAYER,includeDataTypes=True):
-        if t.isClass(EVERYLAYER) or t.isEnumeration(EVERYLAYER) or t.isEnumerationValue(EVERYLAYER) or t.isDataType(EVERYLAYER):
-            jsonldcontext += "        \"" + t.id + "\": {\"@id\": \"schema:" + t.id + "\"},"
-        elif t.isAttribute(EVERYLAYER):
-            range = GetTargets(Unit.GetUnit("rangeIncludes"), t, layers=EVERYLAYER)
-            type = None
-
-            if url in range:
-                type = "@id"
-            elif date in range:
-                type = "Date"
-            elif datetime in range:
-                type = "DateTime"
-
-            typins = ""
-            if type:
-                typins = ", \"@type\": \"" + type + "\""
-
-            jsonldcontext += "        \"" + t.id + "\": { \"@id\": \"schema:" + t.id + "\"" + typins + "},"
-
+    jsonldcontext += vocablines
+    jsonldcontext += externalines
     jsonldcontext += "}}\n"
     jsonldcontext = jsonldcontext.replace("},}}","}\n    }\n}")
     jsonldcontext = jsonldcontext.replace("},","},\n") 
     return str(jsonldcontext)
-
-
-
-
 
 #### UTILITIES
 
@@ -1234,14 +1313,34 @@ def inLayer(layerlist, node):
 def read_file (filename):
     """Read a file from disk, return it as a single string."""
     strs = []
-
-    file_path = full_path(filename)
-
-    import codecs
-    #log.debug("READING FILE: filename=%s file_path=%s " % (filename, file_path ) )
-    for line in codecs.open(file_path, 'r', encoding="utf8").readlines():
-        strs.append(line)
-    return "".join(strs)
+    
+    if filename.startswith("file://"):
+        filename = filename[7:]
+        
+    if "://" in filename:
+        import urllib2
+        log.info("URL: %s" % filename)
+        try:
+            fd = urllib2.urlopen(filename)
+            return fd.read()
+        except urllib2.URLError as e:
+            log.info("read_file URLError %s: %s" % (e,e.message))
+            return None
+        except Exception as e:
+            log.info("read_file Exception %s: %s" % (e,e.message))
+            return None
+    else:
+        file_path = full_path(filename)
+        import codecs
+        try:
+            #log.debug("READING FILE: filename=%s file_path=%s " % (filename, file_path ) )
+            for line in codecs.open(file_path, 'r', encoding="utf8").readlines():
+                strs.append(line)
+            ret = "".join(strs)
+        except Exception as e:
+            log.info("read_file Exception %s: %s" % (e,e.message))
+            return None
+    return ret
 
 def full_path(filename):
     """convert local file name to full path."""
@@ -1277,7 +1376,37 @@ def setHomeValues(items,layer='core',defaultToCore=False):
                 log.info(msg)
                 extensionLoadErrors += msg + '\n'
 
-def read_schemas(loadExtensions=False):
+def read_schemas(files):
+    """Read/parse/ingest schemas from files from config"""
+    load_start = datetime.datetime.now()
+    log.debug("[%s] (re)loading core and annotations." % getInstanceId(short=True))
+
+    for f in files:
+        try:
+            log.info("read_schema '%s' '%s'" %(f.get("ext"),f.get("file")))
+            apirdflib.load_graph(f.get("ext"),f.get("file"),prefix=f.get("prefix"),vocab=f.get("vocaburi"))
+        except Exception as e:
+            log.error("exception loading schema file %s %s: %s" % (f.get("file"),e,e.message))
+            pass
+        
+        
+    log.info("[%s] Loaded  graphs in %s" % (getInstanceId(short=True),(datetime.datetime.now() - load_start)))
+
+def load_usage_data(files):
+    load_start = datetime.datetime.now()
+    for f in files:
+        try:
+            usage_data = read_file(f.get("file"))
+            parser = parsers.UsageFileParser(None)
+            parser.parse(usage_data)
+        except Exception as e:
+            log.error("exception loading usage data file %s %s: %s" % (f,e,e.message))
+            pass
+        
+    log.debug("[%s]Loaded usage data in %s" % (getInstanceId(short=True),(datetime.datetime.now() - load_start)))
+    
+
+def read_local_schemas(loadExtensions=False):
     """Read/parse/ingest schemas from data/*.rdfa. Also data/*examples.txt"""
     load_start = datetime.datetime.now()
 
@@ -1285,8 +1414,8 @@ def read_schemas(loadExtensions=False):
     schemasInitialized = True
     if (not schemasInitialized or DYNALOAD):
         log.debug("[%s] (re)loading core and annotations." % getInstanceId(short=True))
-        files = glob.glob("data/*.rdfa")
-        jfiles = glob.glob("data/*.jsonld")
+        files = glob_from_dir("data","*.rdfa")
+        jfiles = glob_from_dir("data","*.jsonld")
         for jf in jfiles: 
             rdfequiv = jf[:-7]+".rdfa"
             if not rdfequiv in files: #Only add .jsonld files if no equivalent .rdfa
@@ -1299,7 +1428,7 @@ def read_schemas(loadExtensions=False):
 
         load_start = datetime.datetime.now()
 
-        files = glob.glob("data/2015-04-vocab_counts.txt")
+        files = glob_from_dir("data","2015-04-vocab_counts.txt")
         for file in files:
             usage_data = read_file(file)
             parser = parsers.UsageFileParser(None)
@@ -1319,8 +1448,8 @@ def read_extensions(extensions):
         log.info("[%s] extensions %s " % (getInstanceId(short=True),extensions))
         for i in extensions:
             all_layers[i] = "1"
-            extfiles = glob.glob("data/ext/%s/*.rdfa" % i)
-            jextfiles = glob.glob("data/ext/%s/*.jsonld" % i)
+            extfiles = glob_from_dir("data/ext/%s/" % i,"*.rdfa")
+            jextfiles = glob_from_dir("data/ext/%s/" % i,"*.jsonld")
             for jf in jextfiles: 
                 rdfequiv = jf[:-7]+".rdfa"
                 if not rdfequiv in extfiles: #Only add .jsonld files if no equivalent .rdfa
@@ -1334,6 +1463,29 @@ def read_extensions(extensions):
     extensionsLoaded = True
 
 def load_examples_data(extensions):
+    if SdoConfig.isValid():
+        load_example_sources(SdoConfig.exampleFiles())
+        if not getInTestHarness() and EXAMPLESTOREMODE == "NDBSHARED": #Use NDB Storage
+            ExampleStore.store(EXAMPLES)
+            ExampleMap.store(EXAMPLESMAP)
+            memcache.set("ExmplesLoaded",value=True)
+    else:
+        load_local_examples_data(extensions)
+        
+def load_example_sources(files):
+    if files:
+        work = []
+        for f in files:
+            #log.info("FILE: %s" % f)
+            work.append(f.get("file"))
+        
+        read_examples(work,f.get("extension"))
+    
+
+def load_local_examples_data(extensions):
+    log.info("Skipping examples load")
+    return
+    
     load = False
     if getInTestHarness():
         load = True
@@ -1342,10 +1494,10 @@ def load_examples_data(extensions):
 
     if load:
         load_start = datetime.datetime.now()
-        files = glob.glob("data/*examples.txt")
+        files = glob_from_dir("data","*examples.txt")
         read_examples(files,'core')
         for i in extensions:
-            expfiles = glob.glob("data/ext/%s/*examples.txt" % i)
+            expfiles = glob_from_dir("data/ext/%s" % i,"*examples.txt")
             read_examples(expfiles,i)
 
         if not getInTestHarness() and EXAMPLESTOREMODE == "NDBSHARED": #Use NDB Storage
@@ -1356,16 +1508,21 @@ def load_examples_data(extensions):
         log.info("Loaded %s examples mapped to %s terms in %s" % (len(EXAMPLES),len(EXAMPLESMAP),(datetime.datetime.now() - load_start)))
     else:
         log.info("Examples already loaded")
-
+        
 def read_examples(files, layer):
     first = True
     for f in files:
-        parser = parsers.ParseExampleFile(None,layer=layer)
-        #log.info("[%s] Reading: %s" % (getInstanceId(short=True),f))
-        if first:
-            #log.info("[%s] Loading examples from %s" % (getInstanceId(short=True),layer))
-            first = False
-        parser.parse(f)
+        try:
+            parser = parsers.ParseExampleFile(None,layer=layer)
+            #log.info("[%s] Reading: %s" % (getInstanceId(short=True),f))
+            if first:
+                #log.info("[%s] Loading examples from %s" % (getInstanceId(short=True),layer))
+                first = False
+            parser.parse(f)
+        except Exception as e:
+            log.error("exception loading examples file %s %s: %s" % (f,e,e.message))
+            pass
+        
 
 EXAMPLESTORECACHE = []
 class ExampleStore(ndb.Model):
@@ -1546,4 +1703,445 @@ def ShortenOnSentence(source,lengthHint=250):
     return source
 
 log.info("[%s]api loaded" % (getInstanceId(short=True)))
+###############################
+class TimestampEntity(ndb.Model):
+    content = ndb.TextProperty()
+    info = ndb.TextProperty()
+
+
+def storeTimestampedInfo(tag,stamp=None,info=None):
+    if not stamp:
+        stamp = datetime.datetime.utcnow().strftime("%a %d %b %Y %H:%M:%S UTC")
+
+    if TIMESTAMPSTOREMODE == "INMEM":
+        log.info("Storing %s stamp: '%s'" % (tag,stamp))
+        if info:
+            stamp = "%s\n%s" %(stamp,info)
+        memcache.set(key=tag,value=stamp)
+
+    elif TIMESTAMPSTOREMODE == "NDBSHARED":
+        log.info("Storing ndbshared %s stamp: '%s'" % (tag,stamp))
+        ent = TimestampEntity(id = tag, content = stamp, info = info)
+        ent.put()
+
+    elif TIMESTAMPSTOREMODE == "CLOUDSTORE":
+        log.info("Storing cloudstore %s stamp: '%s' info: %s" % (tag,stamp,info))
+        if info:
+            stamp = "%s\n%s" %(stamp,info)
+        val = cloudstoreStoreContent("%s.txt" % tag, stamp, ".status", private=True)
+        
+def getTimestampedInfo(tag):
+    info = ""
+    val = ""
+    if TIMESTAMPSTOREMODE == "INMEM":
+        data =  memcache.get(tag)
+        val = data.split('\n',1)[0]
+        info = data[len(val):]
+        log.info("%s mem version: '%s'" % (tag, val))
+
+    elif TIMESTAMPSTOREMODE == "NDBSHARED":
+        ent = TimestampEntity.get_by_id(tag)
+        if ent:
+            val = ent.content
+            info = ent.info
+        log.info("%s: ndbshared version: '%s'" % (tag, val))
+
+    elif TIMESTAMPSTOREMODE == "CLOUDSTORE":
+        tag += ".txt"
+        data = cloudstoreGetContent(tag, ".status")
+        if data:
+            val = data.split('\n',1)[0]
+            info = data[len(val):]
+        else:
+            val="-1"
+        log.info("%s: cloudstore version: '%s'" % (tag, val))
+        
+    return val, info
+    
+
+###############################
+class SdoConfig():
+    configFile = ""
+    nested = 0
+    valid = False
+    loaded = False
+    myconf = None
+    name = None
+    attic = None
+    varslist = None
+    descs = {}
+    
+    @classmethod
+    def clear(cls):
+        if cls.myconf:
+            cls.myconf.close()
+        cls.valid = False
+        cls.loaded = False
+        cls.myconf = None
+        cls.name = None
+        cls.attic = None
+        cls.varslist = None
+        cls.descs = {}
+    
+    
+    @classmethod
+    def load(cls, conffile):
+        log.info("Loading config file from %s" % conffile)
+        if cls.myconf:
+            log.info("Found previous config load graph - closing it!")
+            cls.myconf.close()
+            cls.myconf = None
+            
+        config = conffile
+        while config:
+            try:
+                SdoConfig.myconf = apirdflib.graphFromFiles(config,prefix="scc",path="http://configfiles.schema.org/")
+                config = cls.loadData(configFile=config)#Returns new config file if a redirect
+            except Exception as e:
+                log.info("Configuration file (%s) read/load Exception %s: %s" % (config,e,e.message))
+                pass
+            
+            if config:
+                log.info("Found previous config load graph - closing it!")
+                cls.myconf.close() #dump previous graphs to start next on clean.
+
+        cls.configFile = config
+
+        if len(cls.myconf) > 0:
+            cls.valid = True
+            log.info("SdoConfig.myconf valid:%s %s triple count: %s" % (cls.valid, cls.myconf, len(cls.myconf)))
+            
+        else:
+            cls.valid = False
+            log.info("No config detected!!!")
+    
+    @classmethod
+    def isValid(cls):
+        return cls.valid
+        
+    @classmethod
+    def getConfigFile(cls):
+        return cls.configFile
+
+    @classmethod
+    def getname(cls):
+        return cls.name
+
+    @classmethod
+    def prefix(cls):
+        return cls.pre
+        
+    @classmethod
+    def loadData(cls,configFile=None):
+        redirectq= """SELECT ?loc WHERE {
+            ?s a scc:ConfigurationRedirect;
+                scc:configurationLocation ?loc
+        }"""
+        
+        q = """SELECT ?name ?url ?voc ?pre ?attic ?include WHERE { 
+                                ?s a scc:DataFeed;
+                                    scc:siteurl ?url;
+                                    scc:vocaburl ?voc;
+                                    scc:prefix ?pre;
+                                    scc:name ?name. 
+                                OPTIONAL {
+                                    ?s scc:atticurl ?attic.
+                                  }
+                                }"""
+                            
+        if cls.nested > 5:
+            log.error("Too many nested redirects (%s) - aborting" % cls.nested + 1)
+            return False
+        newconfig = None
+        if not cls.loaded:
+            res = apirdflib.rdfQueryStore(redirectq,cls.myconf)
+            if len(res):
+                for row in res:
+                    loc = row.loc
+                    log.info("Found Redirect to config file: %s" % loc)
+                    cls.nested += 1
+                    newconfig = str(loc)
+                    
+            if not newconfig:
+                res = apirdflib.rdfQueryStore(q,cls.myconf)
+                if len(res) >  1:
+                    log.error("More than one DataFeed in config file!!")
+                    cls.valid = False
+                for row in res:
+                    cls.name = row.name
+                    cls.pre = row.pre
+                    cls.url = str(row.url)
+                    cls.voc = str(row.voc)
+                    cls.attic = str(row.attic)
+                    cls.loaded = True
+                    break
+                if cls.loaded:
+                    cls.loadIncludes(configFile)
+                
+        return newconfig
+
+    @classmethod
+    def loadIncludes(cls,configFile):
+        if not configFile:
+            return
+        q = """SELECT DISTINCT ?inc WHERE { 
+                                ?s a scc:DataFeed;
+                                    scc:name "%s";
+                                    scc:include ?inc.
+                                  } 
+                                 """ % (cls.name)
+        nameq = """SELECT DISTINCT ?obj WHERE { 
+                                ?s a scc:DataFeed;
+                                    scc:name "%s";
+                                    ?p ?obj.
+                                  } 
+                                 """ % (cls.name)
+        res = apirdflib.rdfQueryStore(q,cls.myconf)
+        inc = ""
+        if len(res):
+            try:
+                for row in list(res):
+                    inc = str(row.inc)
+                    #Include files are placed in same location as main config
+                    if os.path.basename(inc) != inc:
+                        log.error("No path allowed in include file names! %s" % inc)
+                        inc = None 
+                    elif os.path.basename(configFile) != configFile:
+                        inc = os.path.dirname(configFile) + "/" + inc
+                    
+                    if inc:
+                        log.info("Loading Include file: %s" % inc)
+                        graph = apirdflib.graphFromFiles(inc,prefix="scc",path="http://configfiles.schema.org/")
+                        objs = apirdflib.rdfQueryStore(nameq,graph)
+                        if not len(objs):
+                            log.error("No triples for DataFeed '%s' in include file: %s" % (cls.name,inc))
+                        else:
+                            log.info("Include triple count: %s" % len(graph))
+                            cls.myconf += graph
+            except Exception as e:
+                log.info("Configuration include file (%s) read/load Exception %s: %s" % (inc,e,e.message))
+                cls.valid = False
+                pass
+                            
+    @classmethod
+    def templateDir(cls):
+        ret = None
+        temps = cls.files("templates")
+        if temps and len(temps):
+            ret = temps[0].get("location")
+        log.info("Templates dir: %s " % ret)
+        return ret
+        
+    @classmethod
+    def baseUri(cls):
+        return cls.url
+
+    @classmethod
+    def siteUri(cls):
+        ret =  cls.baseUri()
+        if ret.endswith("/"):
+            ret = ret[:len(ret)-1]
+        return ret
+        
+    @classmethod
+    def siteUriRoot(cls):
+        m = re.search("^(http[s]*:\/\/)(.*)",cls.siteUri)
+        root = None
+        if m:
+            prto = m.group(1)
+            root = m.group(2)
+        return root
+
+    @classmethod
+    def vocabUri(cls):
+        return cls.voc
+
+    @classmethod
+    def atticUri(cls):
+        return cls.attic
+        
+        
+    @classmethod
+    def termFiles(cls):
+        return cls.files(filetype="TERMS")
+        
+    @classmethod
+    def exampleFiles(cls):
+        return cls.files(filetype="EXAMPLES")
+        
+    @classmethod
+    def countsFiles(cls):
+        return cls.files(filetype="COUNTS")
+        
+    @classmethod
+    def docsFiles(cls):
+        return cls.files(filetype="DOCS")
+        
+    @classmethod
+    def loadVars(cls):
+        q = """SELECT ?var ?val WHERE {
+            ?s scc:dataFeedVar ?o.
+            ?o ?var ?val.
+            }"""
+
+        cls.varslist = {}
+        res = apirdflib.rdfQueryStore(q,cls.myconf)
+        for row in res:
+            #log.info(">>> %s ==== %s <<<<<"% (row.var,row.val))
+            cls.varslist[os.path.basename(row.var)] = row.val #the var value will come back as a URI
+ 
+    @classmethod
+    def varsub(cls,s):
+        if not cls.varslist:
+            cls.loadVars()
+        return re.sub(VARSUBPATTERN, cls.varsubReplace, s)
+            
+    @classmethod
+    def varsubReplace(cls,match):
+        ret = ""
+        var = match.group(1)
+        val = cls.varslist.get(var,None)
+        if val:
+            ret = val
+        return ret
+        
+    @classmethod
+    def descriptor(cls,extension=None):
+        ret = cls.descs.get(extension,None)
+        if ret:
+            return ret
+            
+        ex=""
+        fil=""
+        if extension and len(extension):
+            ex='?v scc:extension "%s".' % extension
+        else:
+            fil="""FILTER ( strlen(?ext) < 1 || NOT EXISTS {?v scc:extension ?ext. } ) """
+                
+            
+        q = """SELECT ?id ?name ?ver ?disam ?com ?ex WHERE {
+                                ?s a scc:DataFeed;
+                                    scc:name "%s";
+                                    scc:extensiondescription ?v.
+                                %s
+                                ?v scc:id ?id;
+                                   scc:name ?name;
+                                   scc:comment ?com.
+                                 OPTIONAL {
+                                   ?v scc:extension ?ext.                  
+                                 } OPTIONAL {
+                                   ?v scc:disambiguatingDescription ?disam.                  
+                                 } OPTIONAL {
+                                   ?v scc:softwareVersion ?ver.                  
+                                 } 
+                                 %s                                  
+        }
+        """ % (cls.name,ex,fil)
+        #log.info("%s" % q)
+        res = apirdflib.rdfQueryStore(q,cls.myconf)
+        #log.info("%s" % len(res))
+        
+        ret = []
+        for row in res:
+            r = {
+                "id": row.id,
+                "name": row.name,
+                "version": row.ver,
+                "brief": row.disam,
+                "comment": row.com,
+                "extension": row.ex
+            }
+            ret.append(r)
+        cls.descs[extension] = ret
+        return ret
+        
+    @classmethod
+    def stripLocalPathPrefix(cls,path):
+        ret = path
+        if ret and len(ret):
+            if ret.startswith('./'):
+                ret = ret[2:]
+            elif ret.startswith('.'):
+                ret = ret[1:]
+        return ret
+        
+    @classmethod
+    def files(cls,filetype=None):
+        filter = ""
+        if filetype:
+            filter ='FILTER regex(?type, "%s", "i")' % filetype
+            
+        q = """SELECT DISTINCT ?file ?dir ?ext ?type ?addpre ?addvoc WHERE { 
+                                ?s a scc:DataFeed;
+                                    scc:name "%s";
+                                    scc:dataFeedElement ?d.
+                                    
+                                ?d scc:fileContent ?type.
+                                
+                                 OPTIONAL {
+                                   ?d scc:extension ?ext.                  
+                                 } OPTIONAL {
+                                   ?d scc:contentLocation ?dir.                  
+                                 }OPTIONAL {
+                                   ?d scc:contentFile ?file.
+                                 }OPTIONAL {
+                                     ?d scc:addPrefix ?addpre;
+                                        scc:addVocaburl ?addvoc.
+                                 }
+                                 %s
+                                }
+                ORDER BY ?ext ?type ?file
+                                """ % (cls.name,filter)
+                                
+        res = apirdflib.rdfQueryStore(q,cls.myconf)
+        ret = []
+        for row in res:
+            d = row.dir
+            if d:
+                d = cls.stripLocalPathPrefix(str(cls.varsub(d)))
+            loc = d
+            f = row.file
+            if f:
+                f = cls.stripLocalPathPrefix(str(cls.varsub(f)))
+            fpath = f
+            if d and f:
+                if not d.endswith('/'):
+                    d += '/'
+                f = d + f
+            if f and "://" not in f:
+                if f.startswith('./'):
+                    f = f[2:]
+                elif f.startswith('/'):
+                    f = f[1:]
+                f = "file://%s" % full_path(f)
+            t = str(row.type)
+            t = t.upper()
+            e = row.ext
+            if e:
+                e = str(e)
+            else:
+                e = ""
+                
+            
+            p = row.addpre
+            if not p or not len(p):
+                p = None
+            v = row.addvoc
+            if not v or not len(v):
+                v = None
+            
+            
+            
+            r = {
+                "ext": e,
+                "type": t,
+                "file": f,
+                "location": loc,
+                "filePart": fpath,
+                "prefix": p,
+                "vocaburi": v
+            }
+            ret.append(r)
+        return ret
+
 

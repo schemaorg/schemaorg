@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 
+from __future__ import with_statement
+
 import logging
 logging.basicConfig(level=logging.INFO) # dev_appserver.py --log_level debug .
 log = logging.getLogger(__name__)
@@ -15,6 +17,7 @@ from rdflib.serializer import Serializer
 from rdflib.plugins.sparql import prepareQuery
 import threading
 from testharness import *
+from sdoutil import *
 import api
 from apimarkdown import Markdown
 import StringIO
@@ -23,8 +26,8 @@ rdflib.plugin.register("json-ld", Parser, "rdflib_jsonld.parser", "JsonLDParser"
 rdflib.plugin.register("json-ld", Serializer, "rdflib_jsonld.serializer", "JsonLDSerializer")
 
 ATTIC = 'attic'
-VOCAB = "http://schema.org"
-VOCABLEN = len(VOCAB)
+VOCAB = None
+VOCABLEN = 0
 ALTVOCAB = "https://schema.org"
 STORE = rdflib.Dataset()
 #Namespace mapping#############
@@ -44,31 +47,33 @@ QUERYGRAPH = None
 def queryGraph():
     global QUERYGRAPH
     if not QUERYGRAPH:
-        try:
-            RDFLIBLOCK.acquire()
+        with RDFLIBLOCK:
             if not QUERYGRAPH:
                 QUERYGRAPH = rdflib.Graph()
                 gs = list(STORE.graphs())
                 for g in gs:
                     id = str(g.identifier)
-                    if not id.startswith("http://"):#skip some internal graphs
+                    if not id.startswith("http://") and not id.startswith("https://"):#skip some internal graphs
                         continue
                     QUERYGRAPH += g 
                 QUERYGRAPH.bind('owl', 'http://www.w3.org/2002/07/owl#')
                 QUERYGRAPH.bind('rdfa', 'http://www.w3.org/ns/rdfa#')
-                QUERYGRAPH.bind('dct', 'http://purl.org/dc/terms/')
+                QUERYGRAPH.bind('dc', 'http://purl.org/dc/terms/')
                 QUERYGRAPH.bind('schema', 'http://schema.org/')
-                altSameAs(QUERYGRAPH)
-        finally:
-            RDFLIBLOCK.release()
+                pre = api.SdoConfig.prefix()
+                path = api.SdoConfig.vocabUri()
+                if pre and path:
+                    QUERYGRAPH.bind(pre, path)
     return QUERYGRAPH
 
 def altSameAs(graph):
-    sameAs = URIRef("%s/sameAs" % VOCAB)
-    for sub in graph.subjects(None,None):
-        if sub.startswith(VOCAB):
+    vocab = api.SdoConfig.baseUri()
+    sameAs = URIRef("%s/sameAs" % vocab)
+    #for sub in graph.subjects(None,None):
+        #if sub.startswith(api.SdoConfig.baseUri()):
             #log.info("%s >>>> %s " % (sub,"%s%s" % (ALTVOCAB,sub[VOCABLEN:])))
-            graph.add( (sub,sameAs,URIRef("%s%s" % (ALTVOCAB,sub[VOCABLEN:]))) )
+            #graph.add( (sub,sameAs,URIRef("%s%s" % (ALTVOCAB,sub[VOCABLEN:]))) )
+            
             
 def loadNss():
     global NSSLoaded
@@ -100,14 +105,18 @@ def getRevNss(val):
         return ""
 ##############################    
 
-def load_graph(context, files):
+def load_graph(context, files,prefix=None,vocab=None):
     """Read/parse/ingest schemas from data/*.rdfa."""
     import os.path
     import glob
     import re
+    if not isinstance(files,list):
+        files = [files]
 
-    log.debug("Loading %s graph." % context)
+    #log.info("Loading %s graph." % context)
     for f in files:
+        if f.startswith("file://"):
+            f = f[7:]
         if(f[-5:] == ".rdfa"):
             format = "rdfa"
         elif(f[-7:] == ".jsonld"):
@@ -118,17 +127,23 @@ def load_graph(context, files):
         if(format == "rdfa"):
             uri = getNss(context)
             g = STORE.graph(URIRef(uri))
-            g.parse(file=open(full_path(f),"r"),format=format)
-            STORE.bind(context,uri)
+            g.parse(f,format=format)
+            if len(context) and context != "core":
+                STORE.bind(context,uri)
         elif(format == "json-ld"):
-            STORE.parse(file=open(full_path(f),"r"),format=format, context=context_data)
+            STORE.parse(f,format=format, context=context_data)
+            
+    namespaceAdd(STORE,prefix=prefix,path=vocab)
+    namespaceAdd(STORE,prefix=api.SdoConfig.prefix(),path=api.SdoConfig.vocabUri())
+        
+    nss = STORE.namespaces()
 
     QUERYGRAPH = None  #In case we have loaded graphs since the last time QUERYGRAPH was set
 
 def rdfQueryStore(q,graph):
-	res = []
-	try:
-		RDFLIBLOCK.acquire()
+    res = []
+
+    with RDFLIBLOCK:
 		retrys = 0
 		#Under very heavy loads rdflib has been know to throw exceptions - hense the retry loop
 		while True:
@@ -143,92 +158,98 @@ def rdfQueryStore(q,graph):
 				else:
 					log.error("Retrying again after %s retrys" % retrys)
 					retrys += 1
-	finally:
-		RDFLIBLOCK.release()
-	return res
+    return res
 
 def rdfGetTriples(id):
-	"""All triples with node as subject."""
-	targets = []
-	fullId = id
+    """All triples with node as subject."""
+    targets = []
+    fullId = id
 
-#	log.info("rdfgetTriples(%s)" % fullId)
-	if	':' in id: #Includes full path or namespaces
-		fullId = id
-	else:
-		fullId = VOCAB + "/" + id
-	#log.info("rdfgetTriples(%s)" % source)
-	
-	first = True
-	unit = None
-	
-	homeSetTo = None
-	typeOfInLayers = []
+    log.info("rdfgetTriples(%s)" % fullId)
+    if	':' in id: #Includes full path or namespaces
+    	fullId = id
+    else:
+    	#fullId = api.SdoConfig.baseUri() + "/" + id
+    	fullId = api.SdoConfig.baseUri() + id
+    log.info("rdfgetTriples(%s)" % fullId)
 
-	q = "SELECT ?g ?p ?o  WHERE {GRAPH ?g {<%s> ?p ?o }}" % fullId
+    first = True
+    unit = None
 
-	res = rdfQueryStore(q,STORE)
+    homeSetTo = None
+    typeOfInLayers = []
 
-	for row in res:
-#		if source == "http://meta.schema.org/":
-#		log.info("Triple: %s %s %s %s" % (source, row.p, row.o, row.g))
-		layer = str(getRevNss(str(row.g)))
-		if first:
-			first = False
-			unit = api.Unit.GetUnitNoLoad(id,True)
-		s = stripID(fullId)
-		p = stripID(row.p)
-		if p == "rdf:type": 
-			typeOfInLayers.append(layer)
-		elif(p == "isPartOf"):
-			if(unit.home != None and unit.home != layer):
-				log.info("WARNING Cannot set %s home to %s - already set to: %s" % (s,layer,unit.home))
-			unit.home = layer
-			homeSetTo = layer
-		elif(p == "category"):
-			unit.category = row.o
+    q = "SELECT ?g ?p ?o  WHERE {GRAPH ?g {<%s> ?p ?o }}" % fullId
+    
+    log.info("%s" % q)
 
-		prop = api.Unit.GetUnit(p,True)
+    res = rdfQueryStore(q,STORE)
 
-		if isinstance(row.o,rdflib.Literal):
-			api.Triple.AddTripleText(unit, prop, row.o, layer)
-		else: 
-			api.Triple.AddTriple(unit, prop, api.Unit.GetUnit(stripID(row.o),True), layer)
-			
-	""" Default Unit.home to core if not specificly set with an 'isPartOf' triple """
-	if(unit and homeSetTo == None):
-		if('core' in typeOfInLayers or len(typeOfInLayers) == 0):
-			unit.home = 'core'
-		else:
-			log.info("WARNING: %s defined in extensions %s but has no 'isPartOf' triple - cannot default home to core!" % (id,typeOfInLayers))
-	return unit
+    log.info("rdfgetTriples RES: %s: %s" % (len(res), res))
+    for row in res:
+    #		if source == "http://meta.schema.org/":
+    #		log.info("Triple: %s %s %s %s" % (source, row.p, row.o, row.g))
+    	layer = str(getRevNss(str(row.g)))
+    	if first:
+    		first = False
+    		unit = api.Unit.GetUnitNoLoad(id,True)
+    	s = stripID(fullId)
+    	p = stripID(row.p)
+    	if p == "rdf:type": 
+    		typeOfInLayers.append(layer)
+    	elif(p == "isPartOf"):
+    		if(unit.home != None and unit.home != layer):
+    			log.info("WARNING Cannot set %s home to %s - already set to: %s" % (s,layer,unit.home))
+    		unit.home = layer
+    		homeSetTo = layer
+    	elif(p == "category"):
+    		unit.category = row.o
+
+    	prop = api.Unit.GetUnit(p,True)
+
+    	if isinstance(row.o,rdflib.Literal):
+    		api.Triple.AddTripleText(unit, prop, row.o, layer)
+    	else: 
+    		api.Triple.AddTriple(unit, prop, api.Unit.GetUnit(stripID(row.o),True), layer)
+		
+    """ Default Unit.home to core if not specificly set with an 'isPartOf' triple """
+    if(unit and homeSetTo == None):
+    	if('core' in typeOfInLayers or len(typeOfInLayers) == 0):
+    		unit.home = 'core'
+    	else:
+    		log.info("WARNING: %s defined in extensions %s but has no 'isPartOf' triple - cannot default home to core!" % (id,typeOfInLayers))
+    return unit
 
 def rdfGetSourceTriples(target):
-	"""All source nodes for a specified arc pointing to a specified node (within any of the specified layers)."""
-	id = target.id
-	target.sourced = True
-	sources = []
-	fullId = id
-	if	':' in id: #Includes full path or namespaces
-		fullId = id
-	else:
-		fullId = VOCAB + "/" + id
-	
-	targ = fullId
-	if fullId.startswith('http://'):
-		targ = "<%s>" % fullId
-				
-	q = "SELECT ?g ?s ?p  WHERE {GRAPH ?g {?s ?p %s }}" % targ
+    """All source nodes for a specified arc pointing to a specified node (within any of the specified layers)."""
+    id = target.id
+    target.sourced = True
+    sources = []
+    log.info("rdfGetSourceTriples(%s)" % id)
+    if	':' in id: #Includes full path or namespaces
+    	fullId = id
+    else:
+    	#fullId = api.SdoConfig.baseUri() + "/" + id
+    	fullId = api.SdoConfig.baseUri() + id
+    targ = fullId
+    if fullId.startswith('http://') or fullId.startswith('https://'):
+    	targ = "<%s>" % fullId
+    log.info("rdfGetSourceTriples(%s)" % targ)
+			
+    q = "SELECT ?g ?s ?p  WHERE {GRAPH ?g {?s ?p %s }}" % targ
+    log.info("%s" % q)
 
-	res = rdfQueryStore(q,STORE)
+    res = rdfQueryStore(q,STORE)
+    log.info("rdfGetSourceTriples: res: %s %s" % (len(res),res))
 
-	for row in res:
-		layer = str(getRevNss(str(row.g)))
-		unit = api.Unit.GetUnit(stripID(row.s))
-		p = stripID(row.p)
-		prop = api.Unit.GetUnit(p,True)
-		obj = api.Unit.GetUnit(stripID(fullId),True)
-		api.Triple.AddTriple(unit, prop, obj, layer)
+    for row in res:
+        log.info("SUB: %s PRED: %s  OBJ: %s" % (stripID(row.s),stripID(row.p),stripID(fullId)))
+    	layer = str(getRevNss(str(row.g)))
+    	unit = api.Unit.GetUnit(stripID(row.s),True)
+    	p = stripID(row.p)
+    	prop = api.Unit.GetUnit(p,True)
+    	obj = api.Unit.GetUnit(stripID(fullId),True)
+    	api.Triple.AddTriple(unit, prop, obj, layer)
         
 def countFilter(extension="ALL",includeAttic=False):
     excludeAttic = "FILTER NOT EXISTS {?term schema:isPartOf <http://attic.schema.org>}."
@@ -246,19 +267,60 @@ def countFilter(extension="ALL",includeAttic=False):
 
     return extensionSel + "\n" + excludeAttic
         
+TOPSTERMS = None
+def rdfgettops():
+    global TOPSTERMS
+    #Terms that are Classes AND  have no superclass OR have a superclass from another vocab 
+    #plus Terms that of another type (not rdfs:Class or rdf:Property) and that type is from another vocab
+    #Note: In schema.org this will also return DataTypes
+    if TOPSTERMS:
+        return TOPSTERMS
+        
+    TOPSTERMS = []
+    query= '''select ?term where { 
+          {
+          ?term a rdfs:Class;
+              rdfs:subClassOf ?super. 
+              FILTER (!strstarts(str(?super),"%s"))
+          } UNION {
+              ?term a rdfs:Class.
+              FILTER NOT EXISTS { ?term rdfs:subClassOf ?p }
+          } UNION {
+              ?term a ?type.
+              FILTER NOT EXISTS { ?term a rdfs:Class }
+              FILTER NOT EXISTS { ?term a rdf:Property }
+              FILTER (!strstarts(str(?type),"%s"))
+          }
+          FILTER (strstarts(str(?term),"%s"))
+      }
+      ORDER BY ?term
+      ''' % (api.SdoConfig.vocabUri(),api.SdoConfig.vocabUri(),api.SdoConfig.vocabUri())
+      
+    #log.info("%s"%query)
+    res = rdfQueryStore(query,queryGraph())
+    #log.info("[%s]"%len(res))
+    for row in res:
+        TOPSTERMS.append(str(row.term))
+    return TOPSTERMS
+        
 def countTypes(extension="ALL",includeAttic=False):
-	filter = countFilter(extension=extension, includeAttic=includeAttic)
-	query= ('''select (count (?term) as ?cnt) where { 
-	  ?term a rdfs:Class. 
-	  ?term rdfs:subClassOf* schema:Thing.
-	  %s
-	  }''') % filter
-	graph = queryGraph()
-	count = 0
-	res = rdfQueryStore(query,graph)
-	for row in res:
-		count = row.cnt
-	return count
+    log.info("countTypes()")
+    filter = countFilter(extension=extension, includeAttic=includeAttic)
+    log.info("countTypes 1")
+    query= ('''select (count (?term) as ?cnt) where { 
+      ?term a rdfs:Class. 
+      ?term rdfs:subClassOf* schema:Thing.
+      %s
+      }''') % filter
+    log.info("countTypes 2")
+    graph = queryGraph()
+    log.info("countTypes 3")
+    count = 0
+    log.info ("QUERY %s" % query)
+    res = rdfQueryStore(query,graph)
+    for row in res:
+        count = row.cnt
+    return count
 
 def countProperties(extension="ALL",includeAttic=False):
  filter = countFilter(extension=extension, includeAttic=includeAttic)
@@ -290,6 +352,22 @@ def countEnums(extension="ALL",includeAttic=False):
 		count = row.cnt
 	return count
     
+def getPathForPrefix(pre):
+    ns = STORE.namespaces()
+    for n in ns:
+        pref, path = n
+        if str(pre) == str(pref):
+            return path
+    return None
+    
+def getPrefixForPath(pth):
+    ns = STORE.namespaces()
+    for n in ns:
+        pref, path = n
+        if str(path) == str(pth):
+            return pref
+    return None
+    
 def serializeSingleTermGrapth(node,format="json-ld",excludeAttic=True,markdown=True):
     graph = buildSingleTermGraph(node=node,excludeAttic=excludeAttic,markdown=markdown)
     file = StringIO.StringIO()
@@ -301,82 +379,103 @@ def serializeSingleTermGrapth(node,format="json-ld",excludeAttic=True,markdown=T
     
 def buildSingleTermGraph(node,excludeAttic=True,markdown=True):
     
-    g = rdflib.Graph()
-    g.bind('owl', 'http://www.w3.org/2002/07/owl#')
-    g.bind('rdfa', 'http://www.w3.org/ns/rdfa#')
-    g.bind('dct', 'http://purl.org/dc/terms/')
-    g.bind('schema', 'http://schema.org/')
-    
-    full = "http://schema.org/" + node
-    #n = URIRef(full)
-    n = SCHEMA.term(node)
-    n = n
-    full = str(n)
     q = queryGraph()
+    g = rdflib.Graph()
+    ns = q.namespaces()
+    for n in ns:
+        prefix, path = n
+        namespaceAdd(g,prefix=prefix,path=path)
+    namespaceAdd(g,api.SdoConfig.prefix(),api.SdoConfig.vocabUri())
+    
+    full = "%s%s" % (api.SdoConfig.vocabUri(), node)
+    n = URIRef(full)
+    full = str(n)
     ret = None
     
-    #log.info("NAME %s %s"% (n,full))
+    log.info("NAME %s %s"% (n,full))
     atts = None
-    try:
-        RDFLIBLOCK.acquire()
-        atts = list(q.triples((n,SCHEMA.isPartOf,URIRef("http://attic.schema.org"))))
-    finally:
-        RDFLIBLOCK.release()    
+    attic = api.SdoConfig.atticUri()
+    if attic:
+        with RDFLIBLOCK:
+            atts = list(q.triples((n,SCHEMA.isPartOf,URIRef(attic))))
     if len(atts):
         #log.info("ATTIC TERM %s" % n)
         excludeAttic = False
+
     #Outgoing triples
-    try:
-        RDFLIBLOCK.acquire()
+    with RDFLIBLOCK:
         ret = list(q.triples((n,None,None)))
-    finally:
-        RDFLIBLOCK.release()
+
     for (s,p,o) in ret:
         #log.info("adding %s %s %s" % (s,p,o))
         g.add((s,p,o))
 
     #Incoming triples
-    ret = list(q.triples((None,None,n)))
+    with RDFLIBLOCK:
+        ret = list(q.triples((None,None,n)))
     for (s,p,o) in ret:
         #log.info("adding %s %s %s" % (s,p,o))
         g.add((s,p,o))
 
     #super classes
-	query='''select * where {
-	?term (^rdfs:subClassOf*) <%s>.
-	?term rdfs:subClassOf ?super.
-	?super ?pred ?obj.
-	}''' % n
+    query='''select * where {
+    ?term (^rdfs:subClassOf*) <%s>.
+    ?term rdfs:subClassOf ?super.
+        OPTIONAL {
+        	?super ?pred ?obj.
+            FILTER (strstarts(str(?super),'%s'))
+        }
+    }
+    ''' % (n,api.SdoConfig.vocabUri())
+    log.info("Query: %s" % query)
 
-	ret = rdfQueryStore(query,q)
+    ret = rdfQueryStore(query,q)
     for row in ret:
         #log.info("adding %s %s %s" % (row.term,RDFS.subClassOf,row.super))
         g.add((row.term,RDFS.subClassOf,row.super))
-        g.add((row.super,row.pred,row.obj))
+        pred = row.pred
+        obj = row.obj
+        if pred and obj:
+            g.add((row.super,row.pred,row.obj))
          
     #poperties with superclasses in domain
 	query='''select * where{
 	?term (^rdfs:subClassOf*) <%s>.
 	?prop <http://schema.org/domainIncludes> ?term.
-	?prop ?pred ?obj.
+        OPTIONAL {
+        	?prop ?pred ?obj.
+            FILTER (strstarts(str(?prop),'%s'))
+        }
 	}
-	''' % n
-	ret = rdfQueryStore(query,q)
+    ''' % (n,api.SdoConfig.vocabUri())
+    log.info("Query: %s" % query)
+    ret = rdfQueryStore(query,q)
     for row in ret:
         g.add((row.prop,SCHEMA.domainIncludes,row.term))
-        g.add((row.prop,row.pred,row.obj))
+        pred = row.pred
+        obj = row.obj
+        if pred and obj:
+            g.add((row.prop,row.pred,row.obj))
 
     #super properties
 	query='''select * where {
 	?term (^rdfs:subPropertyOf*) <%s>.
 	?term rdfs:subPropertyOf ?super.
-	?super ?pred ?obj.
-	}''' % n
-	ret = rdfQueryStore(query,q)
+        OPTIONAL {
+        	?super ?pred ?obj.
+            FILTER (strstarts(str(?super),'%s'))
+        }
+    }
+    ''' % (n,api.SdoConfig.vocabUri())
+    log.info("Query: %s" % query)
+    ret = rdfQueryStore(query,q)
     for row in ret:
         #log.info("adding %s %s %s" % (row.term,RDFS.subPropertyOf,row.super))
         g.add((row.term,RDFS.subPropertyOf,row.super))
-        g.add((row.super,row.pred,row.obj))
+        pred = row.pred
+        obj = row.obj
+        if pred and obj:
+            g.add((row.super,row.pred,row.obj))
 
     #Enumeration for an enumeration value
 	query='''select * where {
@@ -391,34 +490,36 @@ def buildSingleTermGraph(node,excludeAttic=True,markdown=True):
 
     if excludeAttic: #Remove triples referencing terms part of http://attic.schema.org
         trips = list(g.triples((None,None,None)))
-        try:
-            RDFLIBLOCK.acquire()
+        with RDFLIBLOCK:
             for (s,p,o) in trips:
-                atts = list(q.triples((s,SCHEMA.isPartOf,URIRef("http://attic.schema.org"))))
+                atts = list(q.triples((s,SCHEMA.isPartOf,URIRef(attic))))
                 if isinstance(o, URIRef):
-                    atts.extend(q.triples((o,SCHEMA.isPartOf,URIRef("http://attic.schema.org"))))
+                    atts.extend(q.triples((o,SCHEMA.isPartOf,URIRef(attic))))
                 for (rs,rp,ro) in atts:
                     #log.info("Removing %s" % rs)
                     g.remove((rs,None,None))
                     g.remove((None,None,rs))
-        finally:
-            RDFLIBLOCK.release()
     if markdown:
-        try:
-            RDFLIBLOCK.acquire()
+        with RDFLIBLOCK:
             trips = list(g.triples((None,RDFS.comment,None)))
-            Markdown.setPre("http://schema.org/")
+            Markdown.setPre(api.SdoConfig.vocabUri())
             for (s,p,com) in trips:
                 mcom = Markdown.parse(com)
                 g.remove((s,p,com))
                 g.add((s,p,Literal(mcom)))
-        finally:
-            RDFLIBLOCK.release()
-            Markdown.setPre()
+        Markdown.setPre()
     return g
 
 def stripID (str):
     l = len(str)
+    vocab = api.SdoConfig.vocabUri()
+    if vocab != 'http://schema.org/' and vocab != 'https://schema.org/':
+        if l > len(vocab) and str.startswith(vocab):
+            return str[len(vocab):]
+        else:
+            if (l > 17 and (str[:18] == 'http://schema.org/')):
+                return "schema:" + str[18:]
+
     if (l > 17 and (str[:18] == 'http://schema.org/')):
         return str[18:]
     elif (l > 24 and (str[:25] == 'http://purl.org/dc/terms/')):
@@ -431,10 +532,57 @@ def stripID (str):
         return "owl:" + str[30:]
     else:
         return str
+        
+def graphFromFiles(files,prefix=None,path=None):
+    if not isinstance(files,list):
+        files = [files]
+    g = rdflib.Graph()
+    ns = namespaceAdd(g,prefix=prefix,path=path)
+    for f in files:
+        if f.startswith("file://"):
+            f = f[7:]
+            
+        if not "://" in f:
+            f = full_path(f)
+        
+        log.info("Trying %s" % f)
+        try:
+            g.parse(f,format='json-ld')
+            msg = ""
+            if ns:
+                msg = "with added namespace(%s: \"%s\")" % ns 
+            log.info("graphFromFiles loaded : %s %s" % (f,msg))
+        except Exception as e:
+            log.error("graphFromFiles exception %s: %s" % (e,e.message))
+            pass
+    return g
+    
+NSLIST = {}
+def getNamespaces(g=None):
+    
+    if g == None:
+        g = queryGraph()
+        
+    ns = NSLIST.get(g,None)
+    if not ns:
+        ns = list(g.namespaces())
+        NSLIST[g] = ns
+    return ns
+    
+def namespaceAdd(g,prefix=None,path=None):
+    if prefix and path:
+        with RDFLIBLOCK:
+            ns = getNamespaces(g)
+            for n in ns:
+                pref, pth = n
+        
+                if str(prefix) == str(pref): #Already bound
+                    return n
+            ns1 = rdflib.Namespace(path)
+            g.bind(prefix,ns1)
+        return prefix, path
+    return None
+    
+     
+    
 			
-
-def full_path(filename):
-	"""convert local file name to full path."""
-	import os.path
-	folder = os.path.dirname(os.path.realpath(__file__))
-	return os.path.join(folder, filename)

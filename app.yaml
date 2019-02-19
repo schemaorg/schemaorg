@@ -21,7 +21,11 @@ inbound_services:
 
 env_variables:
 #  TARGETSITE: 'localhost'
+
   PRODSITEDEBUG: 'False'
+  #CONFIGFILE: 'https://raw.githubusercontent.com/RichardWallis/datacommons/appupdate/schema/datacomconfig.json'
+  CONFIGFILE: 'sdoconfig.json'
+  MOREBLOCK: 'True'
   WARMUPSTATE: 'Auto' # 'Off', 'On', 'Auto' - Off for localhost, On elsewhere
   STAYINEXTENTION: 'False'
   PAGESTOREMODE: 'CLOUDSTORE' # 'INMEM' (In instance memory), 'NDBSHARED' (NDB shared - accross instances), 'CLOUDSTORE' (Cloudstorage files)
@@ -29,6 +33,7 @@ env_variables:
   TIMESTAMPSTOREMODE: 'CLOUDSTORE' # 'INMEM', 'NDBSHARED', 'CLOUDSTORE' 
 #  CACHE_CONTROL: 'public, max-age=600'
   CACHE_CONTROL: 'no-cache'
+  SUBDOMAINS: 'False' #'False' no subdomains, 'True' for pending.schema.org, bib.schema.org etc. 
 
 handlers:
 
@@ -72,9 +77,16 @@ handlers:
 - url: /docs/tree.json.*
   script: sdoapp.app
 
+- url: /admin/refresh
+  login: required
+  script: sdoapp.app
+
+#- url: /docs
+  #static_dir: datacoms/docs
+  #application_readable: True
+  
 - url: /docs
-  static_dir: docs
-  application_readable: True
+  script: sdoapp.app
 
 - url: /admin
   static_dir: admin
