@@ -403,6 +403,35 @@ class VTerm():
         if VTerm.checkForEnumVal(self):
             self.ttype = VTerm.ENUMERATIONVALUE
                             
+    def getParentPaths(self, cstack=None):
+        with TERMSLOCK:
+            self._pstacks = []
+            if cstack == None:
+                cstack = []
+            self._pstacks.append(cstack)
+            self._getParentPaths(self,cstack)
+            return self._pstacks
+        
+    def _getParentPaths(self, term, cstack):
+        if ":" in term.getId():  #Suppress external class references
+            return
+
+        cstack.append(term)
+        tmpStacks = []
+        tmpStacks.append(cstack)
+        supers = term.getSupers()
+    
+        for i in range(len(supers)):
+            if(i > 0):
+                t = cstack[:]
+                tmpStacks.append(t)
+                self._pstacks.append(t)
+        x = 0
+
+        for p in supers:
+            self._getParentPaths(p,tmpStacks[x])
+            x += 1
+
             
     @staticmethod
     def checkForEnumVal(term):
@@ -609,37 +638,6 @@ class VTerm():
            ret = list(graph.query(q))
        return ret
         
-    def getParentPaths(self, cstack=None):
-        with TERMSLOCK:
-            self._pstacks = []
-            if cstack == None:
-                cstack = []
-            self._pstacks.append(cstack)
-            self._getParentPaths(self,cstack)
-            return self._pstacks
-        
-    def _getParentPaths(self, term, cstack):
-        if ":" in term.getId():  #Suppress external class references
-            return
-
-        cstack.append(term)
-        tmpStacks = []
-        tmpStacks.append(cstack)
-        supers = term.getSupers()
-    
-        for i in range(len(supers)):
-            if(i > 0):
-                t = cstack[:]
-                tmpStacks.append(t)
-                self._pstacks.append(t)
-        x = 0
-
-        for p in supers:
-            self._getParentPaths(p,tmpStacks[x])
-            x += 1
-        
- 
-
 #############################################        
 def toFullId(termId):
 
