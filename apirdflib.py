@@ -165,13 +165,13 @@ def rdfGetTriples(id):
     targets = []
     fullId = id
 
-    log.info("rdfgetTriples(%s)" % fullId)
+    #log.info("rdfgetTriples(%s)" % fullId)
     if	':' in id: #Includes full path or namespaces
     	fullId = id
     else:
     	#fullId = api.SdoConfig.baseUri() + "/" + id
     	fullId = api.SdoConfig.baseUri() + id
-    log.info("rdfgetTriples(%s)" % fullId)
+    #log.info("rdfgetTriples(%s)" % fullId)
 
     first = True
     unit = None
@@ -185,7 +185,7 @@ def rdfGetTriples(id):
 
     res = rdfQueryStore(q,STORE)
 
-    log.info("rdfgetTriples RES: %s: %s" % (len(res), res))
+    #log.info("rdfgetTriples RES: %s: %s" % (len(res), res))
     for row in res:
     #		if source == "http://meta.schema.org/":
     #		log.info("Triple: %s %s %s %s" % (source, row.p, row.o, row.g))
@@ -225,7 +225,7 @@ def rdfGetSourceTriples(target):
     id = target.id
     target.sourced = True
     sources = []
-    log.info("rdfGetSourceTriples(%s)" % id)
+    #log.info("rdfGetSourceTriples(%s)" % id)
     if	':' in id: #Includes full path or namespaces
     	fullId = id
     else:
@@ -234,16 +234,16 @@ def rdfGetSourceTriples(target):
     targ = fullId
     if fullId.startswith('http://') or fullId.startswith('https://'):
     	targ = "<%s>" % fullId
-    log.info("rdfGetSourceTriples(%s)" % targ)
+    #log.info("rdfGetSourceTriples(%s)" % targ)
 			
     q = "SELECT ?g ?s ?p  WHERE {GRAPH ?g {?s ?p %s }}" % targ
-    log.info("%s" % q)
+    #log.info("%s" % q)
 
     res = rdfQueryStore(q,STORE)
-    log.info("rdfGetSourceTriples: res: %s %s" % (len(res),res))
+    #log.info("rdfGetSourceTriples: res: %s %s" % (len(res),res))
 
     for row in res:
-        log.info("SUB: %s PRED: %s  OBJ: %s" % (stripID(row.s),stripID(row.p),stripID(fullId)))
+        #log.info("SUB: %s PRED: %s  OBJ: %s" % (stripID(row.s),stripID(row.p),stripID(fullId)))
     	layer = str(getRevNss(str(row.g)))
     	unit = api.Unit.GetUnit(stripID(row.s),True)
     	p = stripID(row.p)
@@ -304,19 +304,15 @@ def rdfgettops():
     return TOPSTERMS
         
 def countTypes(extension="ALL",includeAttic=False):
-    log.info("countTypes()")
+    #log.info("countTypes()")
     filter = countFilter(extension=extension, includeAttic=includeAttic)
-    log.info("countTypes 1")
     query= ('''select (count (?term) as ?cnt) where { 
       ?term a rdfs:Class. 
       ?term rdfs:subClassOf* schema:Thing.
       %s
       }''') % filter
-    log.info("countTypes 2")
     graph = queryGraph()
-    log.info("countTypes 3")
     count = 0
-    log.info ("QUERY %s" % query)
     res = rdfQueryStore(query,graph)
     for row in res:
         count = row.cnt
@@ -392,7 +388,7 @@ def buildSingleTermGraph(node,excludeAttic=True,markdown=True):
     full = str(n)
     ret = None
     
-    log.info("NAME %s %s"% (n,full))
+    #log.info("NAME %s %s"% (n,full))
     atts = None
     attic = api.SdoConfig.atticUri()
     if attic:
@@ -427,7 +423,7 @@ def buildSingleTermGraph(node,excludeAttic=True,markdown=True):
         }
     }
     ''' % (n,api.SdoConfig.vocabUri())
-    log.info("Query: %s" % query)
+    #log.info("Query: %s" % query)
 
     ret = rdfQueryStore(query,q)
     for row in ret:
@@ -448,7 +444,7 @@ def buildSingleTermGraph(node,excludeAttic=True,markdown=True):
         }
 	}
     ''' % (n,api.SdoConfig.vocabUri())
-    log.info("Query: %s" % query)
+    #log.info("Query: %s" % query)
     ret = rdfQueryStore(query,q)
     for row in ret:
         g.add((row.prop,SCHEMA.domainIncludes,row.term))
@@ -467,7 +463,7 @@ def buildSingleTermGraph(node,excludeAttic=True,markdown=True):
         }
     }
     ''' % (n,api.SdoConfig.vocabUri())
-    log.info("Query: %s" % query)
+    #log.info("Query: %s" % query)
     ret = rdfQueryStore(query,q)
     for row in ret:
         #log.info("adding %s %s %s" % (row.term,RDFS.subPropertyOf,row.super))
@@ -545,7 +541,7 @@ def graphFromFiles(files,prefix=None,path=None):
         if not "://" in f:
             f = full_path(f)
         
-        log.info("Trying %s" % f)
+        #log.info("Trying %s" % f)
         try:
             g.parse(f,format='json-ld')
             msg = ""

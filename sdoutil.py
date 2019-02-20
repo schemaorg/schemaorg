@@ -61,13 +61,16 @@ def full_path(filename):
 def glob_from_dir(adir, pattern, source="local"):
     log.info("glob-from-dir '%s', '%s', %s" % (adir,pattern,source))
     files = []
-    try:
-        if source == "local":
-            for file in os.listdir(adir):
-                if fnmatch.fnmatch(file,pattern):
-                    files.append(adir + "/" + file)
-    except Exception as e:
-        log.error("Exception from within glob_from_dir: %s: %s" % (e,e.message))
+    if os.path.isdir(adir):
+        try:
+            if source == "local":
+                for file in os.listdir(adir):
+                    if fnmatch.fnmatch(file,pattern):
+                        files.append(adir + "/" + file)
+        except Exception as e:
+            log.error("Exception from within glob_from_dir: %s: %s" % (e,e.message))
+    else:
+        log.error("No such directory: %s" % adir)
         
     return files
     

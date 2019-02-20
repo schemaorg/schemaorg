@@ -76,6 +76,10 @@ class VTerm():
         
         if ttype == rdflib.RDFS.Class:
             self.ttype = VTerm.CLASS
+            if self.uri == str(DATATYPEURI): #The base DataType is defined as a Class
+                self.ttype = VTerm.DATATYPE
+            if self.uri == str(ENUMERATIONURI): #The base Enumeration Type is defined as a Class
+                self.ttype = VTerm.ENUMERATION
         elif ttype == rdflib.RDF.Property:
             self.ttype = VTerm.PROPERTY
         elif ttype == ENUMERATIONURI:
@@ -259,7 +263,20 @@ class VTerm():
         return self.equivalents
     def inLayers(self,layers):
         return self.layer in layers
+
+    def subClassOf(self,parent):
+        if self == parent:
+            return True
+        parents = self.getSupers()
+        if parent in parents:
+            return True
+        else:
+            for p in parents:
+                if p.subClassOf(parent):
+                    return True
+        return False
         
+    
                     
     def loadComment(self):
         comments = self.getComments()
@@ -320,7 +337,7 @@ class VTerm():
     def loadsupers(self):
         fullId = toFullId(self.id)
         #log.info("checksupers(%s)" % self.id)
-        if self.ttype == VTerm.CLASS or VTerm.DATATYPE:
+        if self.ttype == VTerm.CLASS or self.ttype == VTerm.DATATYPE:
             sel = "rdfs:subClassOf"
         else:
             sel = "rdfs:subPropertyOf"
@@ -347,10 +364,11 @@ class VTerm():
             sortedAddUnique(self.supers,VTerm._getTerm(self.parent))
             
 
+
     def loadsubs(self):
         fullId = toFullId(self.id)
         #log.info("checksupers(%s)" % self.id)
-        if self.ttype == VTerm.CLASS or VTerm.DATATYPE:
+        if self.ttype == VTerm.CLASS or self.ttype == VTerm.DATATYPE:
             sel = "rdfs:subClassOf"
         else:
             sel = "rdfs:subPropertyOf"
@@ -358,13 +376,12 @@ class VTerm():
         SELECT ?sub WHERE {
                 ?sub %s %s.
          }""" % (uriWrap(sel),uriWrap(fullId))
-         
         #log.info("query %s" % query)
         res = VTerm.query(query)
         #log.info("res %d" % len(res))
         self.subs = []
         for row in res:
-            sub = VTerm._getTerm(row.sub)
+            sub = VTerm._getTerm(row.sub,createReference=True)
             if not sub:
                 log.debug("Failed to get term for %s" % row.sub)
                 continue
@@ -386,6 +403,35 @@ class VTerm():
         if VTerm.checkForEnumVal(self):
             self.ttype = VTerm.ENUMERATIONVALUE
                             
+    def getParentPaths(self, cstack=None):
+        with TERMSLOCK:
+            self._pstacks = []
+            if cstack == None:
+                cstack = []
+            self._pstacks.append(cstack)
+            self._getParentPaths(self,cstack)
+            return self._pstacks
+        
+    def _getParentPaths(self, term, cstack):
+        if ":" in term.getId():  #Suppress external class references
+            return
+
+        cstack.append(term)
+        tmpStacks = []
+        tmpStacks.append(cstack)
+        supers = term.getSupers()
+    
+        for i in range(len(supers)):
+            if(i > 0):
+                t = cstack[:]
+                tmpStacks.append(t)
+                self._pstacks.append(t)
+        x = 0
+
+        for p in supers:
+            self._getParentPaths(p,tmpStacks[x])
+            x += 1
+
             
     @staticmethod
     def checkForEnumVal(term):
@@ -400,7 +446,7 @@ class VTerm():
         
     @staticmethod
     def getTerm(termId,refresh=False,createReference=False):
-        log.info("getTerm(%s,%s,%s)" % (termId,refresh,createReference))
+        #log.info("getTerm(%s,%s,%s)" % (termId,refresh,createReference))
         with TERMSLOCK:
             return VTerm._getTerm(termId,refresh=refresh,createReference=createReference)
 
@@ -411,6 +457,7 @@ class VTerm():
             return None
         termId = str(termId)
         fullId = toFullId(termId)
+        #log.info("_GETTERM termId %s full %s" % (termId,fullId))
         term = VTERMS.get(fullId,None)
         #if term:
             #log.info("GOT %s" % fullId)
@@ -520,6 +567,10 @@ class VTerm():
         return VTerm.getAllTerms(ttype = VTerm.PROPERTY,layer=layer)
 
     @staticmethod
+    def getAllEnumerations(layer=None):
+        return VTerm.getAllTerms(ttype = VTerm.ENUMERATION,layer=layer)
+
+    @staticmethod
     def getAllTerms(ttype=None,layer=None,supressSourceLinks=False):
         typsel = ""
         if ttype == VTerm.CLASS:
@@ -587,8 +638,6 @@ class VTerm():
            ret = list(graph.query(q))
        return ret
         
- 
-
 #############################################        
 def toFullId(termId):
 
