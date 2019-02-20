@@ -451,18 +451,18 @@ class TypeHierarchyTree:
         return gotOutput
 
     # based on http://danbri.org/2013/SchemaD3/examples/4063550/hackathon-schema.js  - thanks @gregg, @sandro
-    def traverseForJSONLD(self, node, depth = 0, last_at_this_level = True, supertype="None", layers='core'):
+    def traverseForJSONLD(self, term, depth = 0, last_at_this_level = True, supertype="None", layers='core'):
         emit_debug = False
-        if not node or not node.id:
+        if not term or not term.getId():
             log.error("Error None value passed to traverseForJSONLD()")
             return
-        if node.id in self.visited:
+        if term.getId() in self.visited:
             # self.emit("skipping %s - already visited" % node.id)
             return
-        self.visited.append(node.id)
+        self.visited.append(term.getId())
         p1 = " " * 4 * depth
         if emit_debug:
-            self.emit("%s# @id: %s last_at_this_level: %s" % (p1, node.id, last_at_this_level))
+            self.emit("%s# @id: %s last_at_this_level: %s" % (p1, term.getId(), last_at_this_level))
         global namespaces;
         ctx = "{}".format(""""@context": {
     "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
@@ -474,22 +474,22 @@ class TypeHierarchyTree:
   },\n""" if last_at_this_level and depth==0 else '' )
 
         unseen_subtypes = []
-        for st in node.GetImmediateSubtypes(layers=layers):
-            if not st.id in self.visited:
+        for st in term.getSubs():
+            if not st.getId() in self.visited:
                 unseen_subtypes.append(st)
         unvisited_subtype_count = len(unseen_subtypes)
-        subtype_count = len( node.GetImmediateSubtypes(layers=layers) )
+        subtype_count = len( term.getSubs() )
 
-        supertx = "{}".format( '"rdfs:subClassOf": "schema:%s", ' % supertype.id if supertype != "None" else '' )
+        supertx = "{}".format( '"rdfs:subClassOf": "schema:%s", ' % supertype.getId() if supertype != "None" else '' )
         maybe_comma = "{}".format("," if unvisited_subtype_count > 0 else "")
-        comment = GetComment(node, layers).strip()
+        comment = term.getComment().strip()
         comment = ShortenOnSentence(StripHtmlTags(comment),60)
 
         def encode4json(s):
             return json.dumps(s)
 
         self.emit('\n%s{\n%s\n%s"@type": "rdfs:Class", %s "description": %s,\n%s"name": "%s",\n%s"@id": "schema:%s",\n%s"layer": "%s"%s'
-                  % (p1, ctx, p1,                 supertx,            encode4json(comment),     p1,   node.id, p1,        node.id, p1, node.getHomeLayer(), maybe_comma))
+                  % (p1, ctx, p1,                 supertx,            encode4json(comment),     p1,   term.getId(), p1,        term.getId(), p1, term.getLayer(), maybe_comma))
 
         i = 1
         if unvisited_subtype_count > 0:
@@ -502,7 +502,7 @@ class TypeHierarchyTree:
                 if i == unvisited_subtype_count:
                     inner_lastness = True
                 i = i + 1
-                self.traverseForJSONLD(t, depth + 1, inner_lastness, supertype=node, layers=layers)
+                self.traverseForJSONLD(t, depth + 1, inner_lastness, supertype=term, layers=layers)
 
             self.emit("%s  ]%s" % (p1,  "{}".format( "" if not last_at_this_level else '' ) ) )
 
@@ -776,10 +776,8 @@ class ShowUnit (webapp2.RequestHandler):
     # Stacks to support multiple inheritance
     crumbStacks = []
     def BreadCrumbs(self, term):
-        self.crumbStacks = []
-        cstack = []
-        self.crumbStacks.append(cstack)
-        self.WalkCrumbs(term,cstack)
+        
+        self.crumbStacks = term.getParentPaths()
         
         if term.isProperty():
             cstack.append(VTerm.getTerm("http://schema.org/Property"))
@@ -3015,18 +3013,19 @@ def getPageFromStore(id,ext=None,enableFlush=True):
         return cached
 
 schemasInitialized = False
-def load_schema_definitions():
-    log.info("STARTING UP... reading schemas.")
-    #load_graph(loadExtensions=ENABLE_HOSTED_EXTENSIONS)
-    global schemasInitialized
-    if SdoConfig.isValid():
-       read_schemas(SdoConfig.termFiles())
-       load_usage_data(SdoConfig.countsFiles())
-    else:
-        read_local_schemas(loadExtensions=ENABLE_HOSTED_EXTENSIONS)
-        if ENABLE_HOSTED_EXTENSIONS:
-            read_extensions(ENABLED_EXTENSIONS)
-    schemasInitialized = True
+def load_schema_definitions(refresh=False):
+    if not schemasInitialized or refresh:
+        log.info("STARTING UP... reading schemas.")
+        #load_graph(loadExtensions=ENABLE_HOSTED_EXTENSIONS)
+        global schemasInitialized
+        if SdoConfig.isValid():
+           read_schemas(SdoConfig.termFiles())
+           load_usage_data(SdoConfig.countsFiles())
+        else:
+            read_local_schemas(loadExtensions=ENABLE_HOSTED_EXTENSIONS)
+            if ENABLE_HOSTED_EXTENSIONS:
+                read_extensions(ENABLED_EXTENSIONS)
+        schemasInitialized = True
 
 LOADINGSOURCE = None
 WAITSECS = 360

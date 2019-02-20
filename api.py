@@ -25,6 +25,7 @@ from testharness import *
 
 import apirdflib
 import apirdfterm
+from apirdfterm import VTerm
 from sdoutil import *
 
 #from apirdflib import rdfGetTargets, rdfGetSources
@@ -949,43 +950,14 @@ def GetAllTypes(layers='core'):
         #logging.debug("DataCache HIT: %s" % KEY)
         return UtilCache.get(KEY,Utc)
     else:
-        #logging.debug("DataCache MISS: %s" % KEY)
-        mynode = Unit.GetUnit("schema:Thing", True)
-        subbed = {}
-        todo = [mynode]
-        while todo:
-            current = todo.pop()
-            subs = GetImmediateSubtypes(current, EVERYLAYER)
-            if inLayer(layers,current):
-                subbed[current] = 1
-            for sc in subs:
-                if subbed.get(sc.id) == None:
-                    todo.append(sc)
-        UtilCache.put(KEY,subbed.keys(),Utc)
-        return subbed.keys()
+        sorted_all_types = []
+        types = VTerm.getAllProperties()
+        for t in types:
+            sorted_all_types.append(t.getId())
+        sorted_all_types.sort()
+        UtilCache.put(KEY,sorted_all_types,Utc)
+        return sorted_all_types
 
-def oldGetAllTypes(layers='core'):
-    global Utc
-    """Return all types in the graph."""
-    KEY = "AllTypes:%s" % layers
-    if UtilCache.get(KEY+'x',Utc):
-        #logging.debug("DataCache HIT: %s" % KEY)
-        return UtilCache.get(KEY,Utc)
-    else:
-        #logging.debug("DataCache MISS: %s" % KEY)
-        mynode = Unit.GetUnit("schema:Thing", True)
-        subbed = {}
-        todo = [mynode]
-        while todo:
-            current = todo.pop()
-            subs = GetImmediateSubtypes(current, EVERYLAYER)
-            if inLayer(layers,current):
-                subbed[current] = 1
-            for sc in subs:
-                if subbed.get(sc.id) == None:
-                    todo.append(sc)
-        UtilCache.put(KEY,subbed.keys(),Utc)
-        return subbed.keys()
 
 def GetAllDataTypes(layers='core'):
     global Utc
@@ -996,16 +968,15 @@ def GetAllDataTypes(layers='core'):
         return UtilCache.get(KEY,Utc)
     else:
         #logging.debug("DataCache MISS: %s" % KEY)
-        mynode = Unit.GetUnit("DataType", True)
+        mynode = apirdfterm.VTerm.getTerm("Datatype")
         subbed = {}
         todo = [mynode]
         while todo:
             current = todo.pop()
-            subs = GetImmediateSubtypes(current, EVERYLAYER)
-            if inLayer(layers,current):
-                subbed[current] = 1
+            subs = current.getSubs()
+            subbed[current] = 1
             for sc in subs:
-                if subbed.get(sc.id) == None:
+                if subbed.get(sc.getId()) == None:
                     todo.append(sc)
         UtilCache.put(KEY,subbed.keys(),Utc)
         return subbed.keys()
@@ -1018,20 +989,18 @@ def GetAllEnumerationValues(layers='core'):
         return UtilCache.get(KEY,Utc)
     else:
         #logging.debug("DataCache MISS: %s" % KEY)
-        mynode = Unit.GetUnit("schema:Enumeration", True)
+        mynode = apirdfterm.VTerm.getTerm("schema:Enumeration")
         enums = {}
         subbed = {}
         todo = [mynode]
         while todo:
             current = todo.pop()
-            subs = GetImmediateSubtypes(current, EVERYLAYER)
+            subs = current.getSubs()
             subbed[current] = 1
             for sc in subs:
-                vals = GetSources( Unit.GetUnit("rdf:type", True), sc, layers=EVERYLAYER)
-                for val in vals:
-                    if inLayer(layers,val):
-                        enums[val] = 1
-                if subbed.get(sc.id) == None:
+                if sc.isEnumerationValue():
+                    enums[sc.getId()] = 1
+                if subbed.get(sc.getId()) == None:
                     todo.append(sc)
         UtilCache.put(KEY,enums.keys(),Utc)
         return enums.keys()
@@ -1045,14 +1014,11 @@ def GetAllProperties(layers='core'):
         #logging.debug("DataCache HIT: %s" % KEY)
         return UtilCache.get(KEY,Utc)
     else:
-        #logging.debug("DataCache MISS: %s" % KEY)
-        mynode = Unit.GetUnit("Thing")
-        props = GetSources(Unit.GetUnit("rdf:type", True), Unit.GetUnit("rdf:Property", True), layers=EVERYLAYER)
-        res = []
-        for prop in props:
-            if inLayer(layers,prop):
-                res.append(prop)
-        sorted_all_properties = sorted(res, key=lambda u: u.id)
+        sorted_all_properties = []
+        props = VTerm.getAllProperties()
+        for p in props:
+            sorted_all_properties.append(p.getId())
+        sorted_all_properties.sort()
         UtilCache.put(KEY,sorted_all_properties,Utc)
         return sorted_all_properties
 
@@ -1064,41 +1030,29 @@ def GetAllTerms(layers='core',includeDataTypes=False):
         ret.extend(GetAllDataTypes(layers))
     return sorted(ret,key=lambda u: u.id)
     
-def GetParentList(start_unit, end_unit=None, path=[], layers='core'):
-
-        """
-        Returns one or more lists, each giving a path from a start unit to a supertype parent unit.
-
-        example:
-
-        for path in GetParentList( Unit.GetUnit("Restaurant") ):
-            pprint.pprint(', '.join([str(x.id) for x in path ]))
-
-        'Restaurant, FoodEstablishment, LocalBusiness, Organization, Thing'
-        'Restaurant, FoodEstablishment, LocalBusiness, Place, Thing'
-        """
-
-        if not end_unit:
-          end_unit = Unit.GetUnit("Thing")
-
-        arc=Unit.GetUnit("rdfs:subClassOf")
-        logging.debug("from %s to %s - path length %d" % (start_unit.id, end_unit.id, len(path) ) )
-        path = path + [start_unit]
-        if start_unit == end_unit:
-            return [path]
-        if not Unit.GetUnit(start_unit.id):
-            return []
-        paths = []
-        for node in GetTargets(arc, start_unit, layers=layers):
-            if node not in path:
-                newpaths = GetParentList(node, end_unit, path, layers=layers)
-                for newpath in newpaths:
-                    paths.append(newpath)
-        return paths
-
-def HasMultipleBaseTypes(typenode, layers='core'):
+    
+def GetParentPathTo(start_term,end_term=None):
+    #Output paths from start_term to only if end_term in path
+    if not end_term:
+        end_term = VTerm.getTerm("Thing")
+    
+    parentsList = start_term.getParentPaths()
+    outList = []
+    for l in parentsList:
+        if end_term in l:
+            path = []
+            for t in l:
+                path.append(t)
+                if t == end_term:
+                    break
+            outList.append(path)
+    return outList
+        
+def HasMultipleBaseTypes(term, layers='core'):
     """True if this unit represents a type with more than one immediate supertype."""
-    return len( GetTargets( Unit.GetUnit("rdfs:subClassOf", True), typenode, layers ) ) > 1
+    t = VTerm.getTerm(term)
+    parents = t.getSupers()
+    return len(parents) > 1
 
 EXAMPLESMAP = {}
 EXAMPLES = {}
@@ -1265,21 +1219,26 @@ def GetJsonLdContext(layers='core'):
     externalines = ""
     typins = ""
     url = apirdfterm.VTerm.getTerm("schema:URL")
+    date = apirdfterm.VTerm.getTerm("schema:Date")
+    datetime = apirdfterm.VTerm.getTerm("schema:DateTime")
     for t in apirdfterm.VTerm.getAllTerms(supressSourceLinks=True):
         if t.isClass() or t.isEnumeration() or t.isEnumerationValue() or t.isDataType():
             line =  "        \"" + t.getId() + "\": {\"@id\": \"" + t.getPrefixedId() + "\"},"
         elif t.isProperty():
-            ranges = t.getRanges()
+            range = t.getRanges()
             
-            for r in ranges:
-                
-                if r == url: 
-                    typins = ", \"@type\": \"@id\""
-                    break
-                elif r.isDataType():
-                    typins = ""
-                else:
-                    typins = ", \"@type\": \"@id\""
+            type = None
+
+            if url in range:
+                type = "@id"
+            elif date in range:
+                type = "Date"
+            elif datetime in range:
+                type = "DateTime"
+
+            typins = ""
+            if type:
+                typins = ", \"@type\": \"" + type + "\""
                 
             line = "        \"" + t.getId() + "\": { \"@id\": \"" + t.getPrefixedId() + "\"" + typins + "},"
         
@@ -1469,8 +1428,8 @@ def load_examples_data(extensions):
             ExampleStore.store(EXAMPLES)
             ExampleMap.store(EXAMPLESMAP)
             memcache.set("ExmplesLoaded",value=True)
-    else:
-        load_local_examples_data(extensions)
+        else:
+            load_local_examples_data(extensions)
         
 def load_example_sources(files):
     if files:
@@ -1483,9 +1442,7 @@ def load_example_sources(files):
     
 
 def load_local_examples_data(extensions):
-    log.info("Skipping examples load")
-    return
-    
+    log.info("Loading Local Examples")
     load = False
     if getInTestHarness():
         load = True
