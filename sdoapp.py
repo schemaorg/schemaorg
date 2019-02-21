@@ -779,11 +779,12 @@ class ShowUnit (webapp2.RequestHandler):
         
         self.crumbStacks = term.getParentPaths()
         
-        if term.isProperty():
-            cstack.append(VTerm.getTerm("http://schema.org/Property"))
-            cstack.append(VTerm.getTerm("http://schema.org/Thing"))
-        elif term.isDataType():
-            cstack.append(VTerm.getTerm("http://schema.org/DataType"))
+        for cstack in self.crumbStacks:
+            if term.isProperty():
+                cstack.append(VTerm.getTerm("http://schema.org/Property"))
+                cstack.append(VTerm.getTerm("http://schema.org/Thing"))
+            elif term.isDataType():
+                cstack.append(VTerm.getTerm("http://schema.org/DataType"))
 
 
         enuma = term.isEnumerationValue()
@@ -942,17 +943,16 @@ class ShowUnit (webapp2.RequestHandler):
        count = 0
        if not out:
            out = self
-
+        
        buff = StringIO.StringIO()
-       sc = Unit.GetUnit("rdfs:subClassOf")
+       
+       #log.info("SUPERS %s" % VTerm.term2str(cl.getSupers()))
 
-       for p in GetTargets(sc, cl, ALL_LAYERS):
+       for p in cl.getSupers():
 
-          if inLayer(layers,p):
+          if not p.isReference() and p.inLayers(layers):
                continue
 
-          if p.id == "http://www.w3.org/2000/01/rdf-schema#Class": #Special case for "DataType"
-              p.id = "Class"
 
           sep = ", "
           if first:
@@ -967,7 +967,7 @@ class ShowUnit (webapp2.RequestHandler):
 
        content = buff.getvalue()
        if(len(content) > 0):
-           if cl.id == "DataType":
+           if cl.getId() == "DataType":
                self.write("<h4>Subclass of:<h4>")
            else:
                self.write("<h4>Available supertypes defined elsewhere</h4>")
@@ -976,23 +976,24 @@ class ShowUnit (webapp2.RequestHandler):
            self.write("</ul>")
        buff.close()
 
-    def emitClassExtensionProperties (self, cl, layers="core", out=None):
-       if not out:
-           out = self
+    """    def emitClassExtensionProperties (self, cl, layers="core", out=None):
+           if not out:
+               out = self
 
-       buff = StringIO.StringIO()
+           buff = StringIO.StringIO()
 
-       for p in self.parentStack:
-           self._ClassExtensionProperties(buff, p, layers=layers)
+           for p in self.parentStack:
+               self._ClassExtensionProperties(buff, p, layers=layers)
 
-       content = buff.getvalue()
-       if(len(content) > 0):
-           self.write("<h4>Available properties in extensions</h4>")
-           self.write("<ul>")
-           self.write(content)
-           self.write("</ul>")
-       buff.close()
-
+           content = buff.getvalue()
+           if(len(content) > 0):
+               self.write("<h4>Available properties in extensions</h4>")
+               self.write("<ul>")
+               self.write(content)
+               self.write("</ul>")
+           buff.close()
+    """
+       
     def _ClassExtensionProperties (self, out, cl, layers="core"):
         """Write out a list of properties not displayed as they are in extensions for a per-type page."""
 
@@ -1409,7 +1410,7 @@ class ShowUnit (webapp2.RequestHandler):
         self.emitUnitHeaders(term) # writes <h1><table>...
         stack = self._removeStackDupes(term.getTermStack())
         setAppVar("tableHdr",False)
-        if term.isClass():
+        if term.isClass() or term.isDataType():
             for p in stack:
                 self.ClassProperties(p, p==[0], out=self, term=term)
             if getAppVar("tableHdr"):
@@ -1418,9 +1419,9 @@ class ShowUnit (webapp2.RequestHandler):
             
             self.emitClassIncomingProperties(term)
 
-            #self.emitClassExtensionSuperclasses(node,layers)
+            self.emitClassExtensionSuperclasses(term,layers)
 
-            #self.emitClassExtensionProperties(p,layers)
+            #self.emitClassExtensionProperties(p,layers) #Not needed since extension defined properties displayed in main listing
 
         elif term.isProperty():
             self.emitAttributeProperties(term)
@@ -1509,7 +1510,7 @@ class ShowUnit (webapp2.RequestHandler):
     def emitchildren(self,term):
             children = term.getSubs()
             
-            log.info("CILDREN: %s" % children)
+            log.info("CHILDREN: %s" % VTerm.term2str(children))
 
             if (len(children) > 0):
                 buff = StringIO.StringIO()
@@ -1572,24 +1573,22 @@ class ShowUnit (webapp2.RequestHandler):
             self.error(404)
             self.response.out.write('<title>404 Not Found.</title><a href="/">404 Not Found (JSON-LD Context not enabled.)</a><br/><br/>')
             return True
-        label = "jsonld:jsonldcontext.jsonld"
+        if (node=="docs/jsonldcontext.json.txt"):
+            label = "jsonldcontext.json.txt"
+            self.response.headers['Content-Type'] = "text/plain"
+        elif (node=="docs/jsonldcontext.json"):
+            label = "jsonldcontext.json"
+            self.response.headers['Content-Type'] = "application/ld+json"
+        else:
+            return False
+        
         jsonldcontext = getPageFromStore(label)
         if not jsonldcontext:
             jsonldcontext = GetJsonLdContext(layers=ALL_LAYERS)
 
             PageStore.put(label,jsonldcontext)
 
-            if PAGESTOREMODE == "CLOUDSTORE":
-                cloudstoreStoreContent("docs/jsonldcontext.json", jsonldcontext, "html")
-                cloudstoreStoreContent("docs/jsonldcontext.json.txt", jsonldcontext, "html")
-
-        if (node=="docs/jsonldcontext.json.txt"):
-            self.response.headers['Content-Type'] = "text/plain"
-            self.emitCacheHeaders()
-            self.response.out.write( jsonldcontext )
-            return True
-        if (node=="docs/jsonldcontext.json"):
-            self.response.headers['Content-Type'] = "application/ld+json"
+        if jsonldcontext:
             self.emitCacheHeaders()
             self.response.out.write( jsonldcontext )
             return True
@@ -1840,7 +1839,6 @@ class ShowUnit (webapp2.RequestHandler):
         home = term.getLayer()
         ext = getHostExt()
         log.info("term: '%s' home: '%s' ext: '%s'" % (term,home,ext))
-        log.info("Supers: %s" % term.getSupers())
         if home == CORE and ext == '':
             return True
 
@@ -1872,7 +1870,7 @@ class ShowUnit (webapp2.RequestHandler):
             term = VTerm.getTerm(node)
             if term:
                 ret = True
-                index = "%s:%s" % (outputtype,node)
+                index = "%s:%s%s" % (outputtype,node,outputtype)
                 data = getPageFromStore(index)
 
                 excludeAttic=True
@@ -1888,6 +1886,9 @@ class ShowUnit (webapp2.RequestHandler):
                     if outputtype == ".jsonld":
                         self.response.headers['Content-Type'] = "application/ld+json; charset=utf-8"
                         format = "json-ld"
+                    elif outputtype == ".json":
+                        self.response.headers['Content-Type'] = "application/json; charset=utf-8"
+                        format = "json"
                     elif outputtype == ".ttl":
                         self.response.headers['Content-Type'] = "application/x-turtle; charset=utf-8"
                         format = "turtle"
@@ -2391,7 +2392,7 @@ class ShowUnit (webapp2.RequestHandler):
                     HeaderStore.put(hdrIndex,retHdrs) #Cache these headers for a future 304 return
 
             #self.response.set_cookie('GOOGAPPUID', getAppEngineVersion())
-        log.info("Responding: node: %s status: %s. headers: \n%s" % (node,self.response.status,self.response.headers ))
+        log.info("Responding:\n%s\nstatus: %s\n%s" % (node,self.response.status,self.response.headers ))
 
 
     def _get(self, node, doWarm=True):
