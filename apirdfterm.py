@@ -336,7 +336,7 @@ class VTerm():
         
     def loadsupers(self):
         fullId = toFullId(self.id)
-        #log.info("checksupers(%s)" % self.id)
+        #log.info("loadsupers(%s)" % self.id)
         if self.ttype == VTerm.CLASS or self.ttype == VTerm.DATATYPE:
             sel = "rdfs:subClassOf"
         else:
@@ -387,7 +387,7 @@ class VTerm():
                 continue
             sortedAddUnique(self.subs,sub)
             
-        if self.ttype == VTerm.ENUMERATION:
+        if self.ttype == VTerm.ENUMERATION or self.ttype == VTerm.DATATYPE:
             subjects = self.loadSubjects("a") #Enumerationvalues have an Enumeration as a type
             for child in subjects:
                 sub = VTerm._getTerm(str(child))
@@ -637,8 +637,27 @@ class VTerm():
        with RDFLIBLOCK:
            ret = list(graph.query(q))
        return ret
-        
-#############################################        
+
+    @staticmethod
+    def term2str(t):
+        terms = t
+        if not isinstance(t, list):
+            terms = [t]
+        ret = []
+        for term in terms:
+            ret.append(str(term))
+        return ret
+
+    @staticmethod
+    def term2id(t):
+        terms = t
+        if not isinstance(t, list):
+            terms = [t]
+        ret = []
+        for term in terms:
+            ret.append(term.getId())
+        return ret
+
 def toFullId(termId):
 
     if not	':' in termId: #Includes full path or namespaces

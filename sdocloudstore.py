@@ -124,10 +124,23 @@ class SdoCloudStore():
 
         mimetype, contentType = mimetypes.guess_type(bucketFile)
         
-        if not mimetype and ftype == "html":
-            mimetype = "text/html"
-
-        #log.info("buildBucketFile: %s %s (%s)" % (bucketFile,mimetype,contentType))
+        if not mimetype:
+            if ftype == "html":
+                mimetype = "text/html; charset=utf-8"
+            elif ftype == "jsonld" or ftype == "json-ld" :
+                mimetype = "application/ld+json; charset=utf-8"
+            elif ftype == "json":
+                mimetype = "application/json; charset=utf-8"
+            elif ftype == "ttl":
+                mimetype = "application/x-turtle; charset=utf-8"
+            elif ftype == "rdf" or ftype == "xml":
+                mimetype = "application/rdf+xml; charset=utf-8"
+            elif ftype == "nt":
+                mimetype = "text/plain"
+            elif ftype == "txt":
+                mimetype = "text/plain"
+                
+        #log.info("buildBucketFile: %s '%s' (%s)" % (bucketFile,mimetype,contentType))
 
         return bucketFile, mimetype
         
@@ -138,6 +151,7 @@ class SdoCloudStore():
         
 # [START write]
     def writeFormattedFile(self, filename, ftype=None, location=None, content="", raw=False, private=False, extrameta=None):
+        #log.info("writeFormattedFile(%s, ftype=%s, location=%s, contentlen=%d, raw=%s, private=%s, extrameta=%s)" % (filename, ftype, location, len(content), raw, private, extrameta))
         """Create a file."""
         bucketFile, mtype  = self.buildBucketFile(filename,ftype,location)
         if ftype != 'html':
@@ -222,7 +236,7 @@ class SdoCloudStore():
 
 # [START stat]
     def statFormattedFile(self, filename, ftype="html", location=None, cache=True):
-        log.info("statFormattedFile(%s,%s,%s,%s)" % (filename, ftype, location, cache))
+        #log.info("statFormattedFile(%s,%s,%s,%s)" % (filename, ftype, location, cache))
         bucketFile, mtype  = self.buildBucketFile(filename,ftype,location)
         return self.stat_file(bucketFile, ftype, cache)
         
@@ -231,7 +245,7 @@ class SdoCloudStore():
         return self._stat_file(bucketFile, ftype=ftype, cache=cache)
 
     def _stat_file(self, bucketFile, ftype=None, cache=True):
-        log.info("_stat_file(%s,%s,%s)" % (bucketFile, ftype, cache))
+        #log.info("_stat_file(%s,%s,%s)" % (bucketFile, ftype, cache))
         ret = None
         if cache:
             item = self.readCache(bucketFile,ftype)
@@ -258,7 +272,7 @@ class SdoCloudStore():
 
 # [START read]
     def readFormattedFile(self, filename, ftype="html", location=None, cache=True):
-        log.info("readFormattedFile(%s,%s,%s,%s)" % (filename,ftype,location,cache))
+        #log.info("readFormattedFile(%s,ftype=%s,location=%s,cache=%s)" % (filename,ftype,location,cache))
         stat, content = self.getFormattedFile(filename, ftype, location, cache)
         return content
 
@@ -269,7 +283,7 @@ class SdoCloudStore():
         
         
     def getFormattedFile(self, filename, ftype="html", location=None, cache=True):
-        log.info("getFormattedFile(%s,%s,%s,%s)" % (filename,ftype,location,cache))
+        #log.info("getFormattedFile(%s,%s,%s,%s)" % (filename,ftype,location,cache))
 
         bucketFile, mtype  = self.buildBucketFile(filename,ftype,location)
         stat, content = self.get_file(bucketFile,reqtype=ftype, cache=cache)
