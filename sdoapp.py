@@ -650,7 +650,7 @@ class ShowUnit (webapp2.RequestHandler):
             return ""
 
         if ":" in term.getId():
-            return self.external_ml(term)
+            return self.external_ml(term,title=title, prop=prop)
 
         if label=='':
           label = term.getLabel()
@@ -687,7 +687,7 @@ class ShowUnit (webapp2.RequestHandler):
         return "%s<a %s %s href=\"%s%s%s\"%s>%s</a>%s" % (rdfalink,tooltip, extclass, urlprefix, hashorslash, term.getId(), title, label, extflag)
         #return "<a %s %s href=\"%s%s%s\"%s%s>%s</a>%s" % (tooltip, extclass, urlprefix, hashorslash, node.id, prop, title, label, extflag)
 
-    def external_ml(self, term):
+    def external_ml(self, term, title='', prop=''):
         #log.info("EXTERNAL!!!! %s %s " % (term.getLabel(),term.getId()))
 
         name = term.getId()
@@ -715,7 +715,15 @@ class ShowUnit (webapp2.RequestHandler):
             if path:
                 if not path.endswith("#") and not path.endswith("/"):
                     path += "/"
-        return "<a href=\"%s%s\" class=\"externlink\" target=\"_blank\">%s:%s</a>" % (path,val,voc,val)
+        if title != '':
+          title = " title=\"%s\"" % str(title)
+        if prop:
+            prop = " property=\"%s\"" % (prop)
+        rdfalink = ''
+        if prop:
+            rdfalink = '<link %s href="%s%s" />' % (prop,api.SdoConfig.vocabUri(),label)
+            
+        return "%s<a %s href=\"%s%s\" class=\"externlink\" target=\"_blank\">%s:%s</a>" % (rdfalink,title,path,val,voc,val)
 
 
 
@@ -743,6 +751,7 @@ class ShowUnit (webapp2.RequestHandler):
             else:
                 self.write("Defined in the <a href=\"%s\">%s</a> extension.<br/>" % (exthomeurl,exthome))
         self.emitCanonicalURL(term)
+        self.emitEquivalents(term)
 
         self.BreadCrumbs(term)
 
@@ -772,6 +781,20 @@ class ShowUnit (webapp2.RequestHandler):
 
             self.write(" <span class=\"canonicalUrl\">Canonical URL: <a href=\"%s\">%s</a></span> " % (cURL, cURL))
             self.write(sa)
+            
+    def emitEquivalents(self,term):
+            equivs = term.getEquivalents()
+            if len(equivs) > 0:
+                if (term.isClass() or term.isDataType()):
+                    label = "Equivalent Class:"
+                else:
+                    label = "Equivalent Property:"
+                for e in equivs:
+                    eq = VTerm.getTerm(e,createReference=True)
+                    log.info("EQUIVALENT %s %s" % (e,eq))
+                    title = eq.getUri()
+                    self.write("<br/><span class=\"equivalents\">%s %s</span> " % (label,self.ml(eq,title=title)))
+        
 
     # Stacks to support multiple inheritance
     crumbStacks = []
