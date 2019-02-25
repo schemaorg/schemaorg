@@ -572,7 +572,9 @@ class ShowUnit (webapp2.RequestHandler):
 
         feedback_url = FEEDBACK_FORM_BASE_URL.format(term.getUri, term.getType())
         items = [
-
+        self.emitCanonicalURL(term),
+        self.emitEquivalents(term),
+        
         "<a href='{0}'>Leave public feedback on this term &#128172;</a>".format(feedback_url),
         "<a href='https://github.com/schemaorg/schemaorg/issues?q=is%3Aissue+is%3Aopen+{0}'>Check for open issues.</a>".format(term.getId())
 
@@ -586,57 +588,16 @@ class ShowUnit (webapp2.RequestHandler):
         <ul>"""
 
         for i in items:
-            moreinfo += "<li>%s</li>" % i
+            if i and len(i):
+                moreinfo += "<li>%s</li>" % i
 
 #          <li>mappings to other terms.</li>
 #          <li>or links to open issues.</li>
 
         moreinfo += "</ul>\n</div>\n</div>\n"
         return moreinfo
-
-    def getParentNames(self, nodeName, layers):
-
-        ret = [nodeName]
-        node = Unit.GetUnit(nodeName)
-        if node and node.id:
-            sc = Unit.GetUnit("rdfs:subClassOf")
-            targs = GetTargets(sc, node, layers=layers)
-            if targs:
-                for p in targs:
-                    ret.extend(self.getParentNames(p.id, layers=layers))
-
-
-        return ret
-
-    def GetParentStack(self, node, layers='core'):
-        """Returns a hiearchical structured used for site breadcrumbs."""
-        thing = Unit.GetUnit("schema:Thing")
-        #log.info("GetParentStack for: %s",node)
-        if not node:
-            return
-
-        if (node not in self.parentStack):
-            self.parentStack.append(node)
-
-        if (Unit.isAttribute(node, layers=layers)):
-            self.parentStack.append(Unit.GetUnit("schema:Property"))
-            self.parentStack.append(thing)
-
-        sc = Unit.GetUnit("rdfs:subClassOf")
-        if GetTargets(sc, node, layers=layers):
-            for p in GetTargets(sc, node, layers=layers):
-                self.GetParentStack(p, layers=layers)
-        else:
-            # Enumerations are classes that have no declared subclasses
-            sc = Unit.GetUnit("rdf:type")
-            for p in GetTargets(sc, node, layers=layers):
-                self.GetParentStack(p, layers=layers)
-
-#Put 'Thing' to the end for multiple inheritance classes
-        if(thing in self.parentStack):
-            self.parentStack.remove(thing)
-            self.parentStack.append(thing)
-
+        
+        
 
     def ml(self, term, label='', title='', prop='', hashorslash='/'):
         """ml ('make link')
@@ -650,7 +611,7 @@ class ShowUnit (webapp2.RequestHandler):
             return ""
 
         if ":" in term.getId():
-            return self.external_ml(term)
+            return self.external_ml(term,title=title, prop=prop)
 
         if label=='':
           label = term.getLabel()
@@ -687,7 +648,7 @@ class ShowUnit (webapp2.RequestHandler):
         return "%s<a %s %s href=\"%s%s%s\"%s>%s</a>%s" % (rdfalink,tooltip, extclass, urlprefix, hashorslash, term.getId(), title, label, extflag)
         #return "<a %s %s href=\"%s%s%s\"%s%s>%s</a>%s" % (tooltip, extclass, urlprefix, hashorslash, node.id, prop, title, label, extflag)
 
-    def external_ml(self, term):
+    def external_ml(self, term, title='', prop=''):
         #log.info("EXTERNAL!!!! %s %s " % (term.getLabel(),term.getId()))
 
         name = term.getId()
@@ -715,7 +676,15 @@ class ShowUnit (webapp2.RequestHandler):
             if path:
                 if not path.endswith("#") and not path.endswith("/"):
                     path += "/"
-        return "<a href=\"%s%s\" class=\"externlink\" target=\"_blank\">%s:%s</a>" % (path,val,voc,val)
+        if title != '':
+          title = " title=\"%s\"" % str(title)
+        if prop:
+            prop = " property=\"%s\"" % (prop)
+        rdfalink = ''
+        if prop:
+            rdfalink = '<link %s href="%s%s" />' % (prop,api.SdoConfig.vocabUri(),label)
+            
+        return "%s<a %s href=\"%s%s\" class=\"externlink\" target=\"_blank\">%s:%s</a>" % (rdfalink,title,path,val,voc,val)
 
 
 
@@ -742,7 +711,11 @@ class ShowUnit (webapp2.RequestHandler):
                 self.write("Defined in the <a href=\"%s\">%s</a> archive area.<br/><strong>Use of this term is not advised</strong><br/>" % (exthomeurl,exthome))
             else:
                 self.write("Defined in the <a href=\"%s\">%s</a> extension.<br/>" % (exthomeurl,exthome))
-        self.emitCanonicalURL(term)
+        if not ENABLEMOREINFO:
+            self.write(self.emitCanonicalURL(term))
+            eq = self.emitEquivalents(term)
+            if eq and len(eq):
+                self.write()
 
         self.BreadCrumbs(term)
 
@@ -757,10 +730,11 @@ class ShowUnit (webapp2.RequestHandler):
             self.write(self.moreInfoBlock(term))
 
     def emitCanonicalURL(self,term):
+        out = ""
         site = SdoConfig.vocabUri()
         if site != "http://schema.org":
             cURL = "%s%s" % (site,term.getId())
-            self.write(" <span class=\"canonicalUrl\">Canonical URL: %s</span> " % (cURL))
+            output = " <span class=\"canonicalUrl\">Canonical URL: %s</span> " % (cURL)
         else:
 
             cURL = "%s://schema.org/%s" % (CANONICALSCHEME,term.getId())
@@ -769,9 +743,27 @@ class ShowUnit (webapp2.RequestHandler):
             else:
                 other = "http"
             sa = '\n<link  property="sameAs" href="%s://schema.org/%s" />' % (other,term.getId())
-
-            self.write(" <span class=\"canonicalUrl\">Canonical URL: <a href=\"%s\">%s</a></span> " % (cURL, cURL))
             self.write(sa)
+
+            output = " <span class=\"canonicalUrl\">Canonical URL: <a href=\"%s\">%s</a></span> " % (cURL, cURL)
+        return output
+            
+    def emitEquivalents(self,term):
+        buff = StringIO.StringIO()
+        equivs = term.getEquivalents()
+        if len(equivs) > 0:
+            if (term.isClass() or term.isDataType()):
+                label = "Equivalent Class:"
+            else:
+                label = "Equivalent Property:"
+            br = ""
+            for e in equivs:
+                eq = VTerm.getTerm(e,createReference=True)
+                log.info("EQUIVALENT %s %s" % (e,eq))
+                title = eq.getUri()
+                buff.write("%s<span class=\"equivalents\">%s %s</span> " % (br,label,self.ml(eq,title=title)))
+                br = "<br/>"
+        return buff.getvalue()
 
     # Stacks to support multiple inheritance
     crumbStacks = []

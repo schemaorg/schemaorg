@@ -31,6 +31,22 @@ VOCABLEN = 0
 ALTVOCAB = "https://schema.org"
 STORE = rdflib.Dataset()
 #Namespace mapping#############
+EXTERNALNAMESPACES = {
+            'xsd':      'hhttp://www.w3.org/2001/XMLSchema#',
+            'skos':     'http://www.w3.org/2004/02/skos/core#',
+            'owl':      'http://www.w3.org/2002/07/owl#',
+            'rdfa':     'http://www.w3.org/ns/rdfa#',
+            'dct':      'http://purl.org/dc/terms/',
+            'foaf':     'http://xmlns.com/foaf/0.1/',
+            'bibo':     'http://purl.org/ontology/bibo/',
+            'dc':       'http://purl.org/dc/elements/1.1/',
+            'dcterms':  'http://purl.org/dc/terms/',
+            'dctype':   'http://purl.org/dc/dcmitype/',
+            'dcat':     'http://www.w3.org/ns/dcat#',
+            'void':     'http://rdfs.org/ns/void#',
+            'snomed':   'http://purl.bioontology.org/ontology/SNOMEDCT/',
+            'eli':      'http://data.europa.eu/eli/ontology#'
+}
 nss = {'core': 'http://schema.org/'}
 revNss = {}
 NSSLoaded = False
@@ -56,10 +72,10 @@ def queryGraph():
                     if not id.startswith("http://") and not id.startswith("https://"):#skip some internal graphs
                         continue
                     QUERYGRAPH += g 
-                QUERYGRAPH.bind('owl', 'http://www.w3.org/2002/07/owl#')
-                QUERYGRAPH.bind('rdfa', 'http://www.w3.org/ns/rdfa#')
-                QUERYGRAPH.bind('dc', 'http://purl.org/dc/terms/')
-                QUERYGRAPH.bind('schema', 'http://schema.org/')
+                    QUERYGRAPH.bind('schema', 'http://schema.org/')
+                    for prefix in EXTERNALNAMESPACES:
+                        QUERYGRAPH.bind(prefix, EXTERNALNAMESPACES[prefix])
+
                 pre = api.SdoConfig.prefix()
                 path = api.SdoConfig.vocabUri()
                 if pre and path:
@@ -135,6 +151,9 @@ def load_graph(context, files,prefix=None,vocab=None):
             
     namespaceAdd(STORE,prefix=prefix,path=vocab)
     namespaceAdd(STORE,prefix=api.SdoConfig.prefix(),path=api.SdoConfig.vocabUri())
+    for prefix in EXTERNALNAMESPACES:
+        namespaceAdd(STORE,prefix=prefix, path=EXTERNALNAMESPACES[prefix])
+    
         
     nss = STORE.namespaces()
 

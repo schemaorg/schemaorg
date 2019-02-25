@@ -37,7 +37,7 @@ class VTerm():
     REFERENCE = "Reference"
     
     
-    def __init__(self,uri,ttype=None,label=None,layer=None,cat=None):
+    def __init__(self,uri,ttype=None,label='',layer=None,cat=None):
         #log.info('%s %s "%s" %s %s' % (uri,ttype,label, layer, cat))
         uri = str(uri)
         self.uri = uri
@@ -724,7 +724,7 @@ def prefixFromUri(uri):
         pref, pth = n
         if uri.startswith(str(pth)):
             return pref
-    log.debug("Requested unknown namespace uri %s" % uri)
+    log.error("Requested unknown namespace uri %s" % uri)
     return None
     
 def uriForPrefix(pre):
@@ -734,7 +734,7 @@ def uriForPrefix(pre):
         pref, pth = n
         if pre == pref:
             return pth
-    log.debug("Requested unknown prefix %s:" % pre)
+    log.error("Requested unknown prefix %s:" % pre)
     return None
     
     
