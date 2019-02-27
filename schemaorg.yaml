@@ -80,12 +80,19 @@ handlers:
   secure: always
   redirect_http_response_code: 301
 
+# Use for /docs when PAGESTOREMODE not set to CLOUDSTORE
+#- url: /docs
+#  static_dir: docs
+#  application_readable: True
+#  secure: always
+#  redirect_http_response_code: 301
+
+# Use for /docs when PAGESTOREMODE  set to CLOUDSTORE
 - url: /docs
-  static_dir: docs
-  application_readable: True
+  script: sdoapp.app
   secure: always
   redirect_http_response_code: 301
-  
+
 - url: /.*docs/*
   static_dir: docs
   application_readable: True
