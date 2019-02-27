@@ -1444,7 +1444,7 @@ class ShowUnit (webapp2.RequestHandler):
               ('RDFa', 'rdfa', ''),
               ('JSON-LD', 'jsonld', ''),
             ]
-            self.write("<br/><br/><b><a id=\"examples\">Examples</a></b><br/><br/>\n\n")
+            self.write("<br/><br/><b><a %s >Examples</a></b><br/><br/>\n\n" % self.showlink("examples"))
             exNum = 0
             for ex in sorted(examples, key=lambda u: u.keyvalue):
 
@@ -1454,7 +1454,7 @@ class ShowUnit (webapp2.RequestHandler):
                 id="example-%s" % exNum
                 if "id" in ex.egmeta:
                     id = ex.egmeta["id"]
-                self.write("<div title=\"%s\"><a id=\"%s\">Example %s</a></div>" % (id,id,exNum))
+                self.write("<div><a %s>Example %s</a></div>" % (self.showlink(id),exNum))
                 self.write("<div class='ds-selector-tabs ds-selector'>\n")
                 self.write("  <div class='selectors'>\n")
                 for label, example_type, selected in example_labels:
@@ -1466,6 +1466,12 @@ class ShowUnit (webapp2.RequestHandler):
                                % (example_type, selected, self.rep(ex.get(example_type))))
                 self.write("</div>\n\n")
         
+    def showlink(self,id):
+        ret = ""
+        if id and len(id):
+            ret = " id=\"%s\" title=\"Link: #%s\" href=\"#%s\" class=\"clickableAnchor\" " % (id,id,id)
+        return ret
+            
         
     def _removeStackDupes(self,stack):
         cleanstack = []
@@ -1511,15 +1517,13 @@ class ShowUnit (webapp2.RequestHandler):
                         continue
                     buff.write("<li> %s </li>" % (self.ml(c)))
 
-                if (len(buff.getvalue()) > 0):
+                if (len(buff.getvalue()) > 0 and not term.isProperty()):
                     if term.isDataType():
-                        self.write("<br/><b>More specific DataTypes</b><ul>")
+                        self.write("<br/><b><a %s>More specific DataTypes</a></b><ul>" % self.showlink("subtypes"))
                     elif term.isClass() or term.isEnumerationValue():
-                        self.write("<br/><b>More specific Types</b><ul>")
-                    elif term.isProperty():
-                        self.write("<br/><b>Sub-properties</b><ul>")
+                        self.write("<br/><b><a %s>More specific Types</a></b><ul>" % self.showlink("subtypes"))
                     elif term.isEnumeration():
-                        self.write("<br/><b>Enumeration members</b><ul>")
+                        self.write("<br/><b><a %s>Enumeration members</a></b><ul>" % self.showlink("enumbers"))
                     self.write(buff.getvalue())
                     self.write("</ul>")
 
