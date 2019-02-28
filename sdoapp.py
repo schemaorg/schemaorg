@@ -710,7 +710,7 @@ class ShowUnit (webapp2.RequestHandler):
             if home == ATTIC:
                 self.write("Defined in the <a href=\"%s\">%s</a> archive area.<br/><strong>Use of this term is not advised</strong><br/>" % (exthomeurl,exthome))
             elif home == 'pending':
-                self.write("This term is proposed for full integration into Schema.org, <a href=\"%s\">pending</a> implementation feedback and adoption from applications and websites.' % (exthomeurl))
+                self.write("This term is proposed for full integration into Schema.org, <a href=\"%s\">pending</a> implementation feedback and adoption from applications and websites." % (exthomeurl))
             else:
                 self.write("Defined in the <a href=\"%s\">%s</a> section.<br/>" % (exthomeurl,exthome))
         if not ENABLEMOREINFO:
