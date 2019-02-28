@@ -707,12 +707,19 @@ class ShowUnit (webapp2.RequestHandler):
         if home != "core" and home != "":
             exthome = "%s.schema.org" % home
             exthomeurl = uri = makeUrl(home,"/",full=True)
-            if home == ATTIC:
-                self.write("Defined in the <a href=\"%s\">%s</a> archive area.<br/><strong>Use of this term is not advised</strong><br/>" % (exthomeurl,exthome))
-            elif home == 'pending':
-                self.write("This term is proposed for full integration into Schema.org, <a href=\"%s\">pending</a> implementation feedback and adoption from applications and websites." % (exthomeurl))
-            else:
-                self.write("Defined in the <a href=\"%s\">%s</a> section.<br/>" % (exthomeurl,exthome))
+            linktext = "Defined in the %s section."
+            lt = SdoConfig.getDescriptor(home,"linktext")
+            if lt:
+                if lt.count("%s") != 1:
+                    log.error("ERROR Linktext '%s' includes %s '%%s' - only 1 permitted" % (lt,lt.count()))
+                else:
+                    linktext = lt
+            t = SdoConfig.getDescriptor(home,"disambiguatingDescription")
+            linkinsert = "<a title=\"%s\" href=\"%s\">%s</a>" % (t,exthomeurl,home)
+            
+            self.write("<span class=\"extlink\">")
+            self.write(linktext % linkinsert)
+            self.write("<br/></span>")
         if not ENABLEMOREINFO:
             self.write(self.emitCanonicalURL(term))
             eq = self.emitEquivalents(term)
@@ -1446,7 +1453,7 @@ class ShowUnit (webapp2.RequestHandler):
               ('RDFa', 'rdfa', ''),
               ('JSON-LD', 'jsonld', ''),
             ]
-            self.write("<br/><br/><b><a %s >Examples</a></b><br/><br/>\n\n" % self.showlink("examples"))
+            self.write("<b><a %s >Examples</a></b><br/><br/>\n\n" % self.showlink("examples"))
             exNum = 0
             for ex in sorted(examples, key=lambda u: u.keyvalue):
 
@@ -1605,7 +1612,8 @@ class ShowUnit (webapp2.RequestHandler):
             extensions = []
             for ex in sorted(ENABLED_EXTENSIONS):
                 if ex != ATTIC:
-                    extensions.append("<a href=\"%s\">%s.schema.org</a>" % (makeUrl(ex,"",full=True),ex))
+                    t = SdoConfig.getDescriptor(ex,"disambiguatingDescription")
+                    extensions.append("<a title=\"%s\" href=\"%s\">%s.schema.org</a>" % (t,makeUrl(ex,"",full=True),ex))
 
             page = templateRender('schemas.tpl', node, {'counts': self.getCounts(),
                                     'extensions': extensions,
@@ -2110,7 +2118,7 @@ class ShowUnit (webapp2.RequestHandler):
         az_terms.sort(key = lambda u: u.category)
 
         if len(az_terms) > 0:
-            buff.write("<br/><div style=\"text-align: left; margin: 2em\"><h3>Terms defined in the '%s' extension.</h3>" % ext)
+            buff.write("<br/><div style=\"text-align: left; margin: 2em\"><h3>Terms defined in the '%s' section.</h3>" % ext)
 
             keys = []
             groups = []
@@ -2788,7 +2796,9 @@ class WarmupTool():
 Warmer = WarmupTool()
 
 def getExtenstionDescriptions():
+    extDisambiguatingDescription = ""
     extComment = ""
+    extlinktext = ""
     extVers = ""
     extName = ""
     extDD = ""
@@ -2799,9 +2809,11 @@ def getExtenstionDescriptions():
             extName = descs[0].get("name")
             extDD = Markdown.parse(descs[0].get("brief"))
             extVers = Markdown.parse(descs[0].get("version"))
+            extlinktext = Markdown.parse(descs[0].get("linktext"))
             extComment = Markdown.parse(descs[0].get("comment"))
+            extDisambiguatingDescription = Markdown.parse(descs[0].get("extDisambiguatingDescription"))
 
-    return extName, extDD, extVers, extComment
+    return extName, extDD, extVers, extlinktext, extComment, extDisambiguatingDescription
 
 def templateRender(templateName, node, values=None):
     global sitemode #,sitename
@@ -2814,7 +2826,7 @@ def templateRender(templateName, node, values=None):
     if isinstance(node, VTerm):
         node = node.getId()
 
-    extName, extDD, extVers, extComment =  getExtenstionDescriptions()
+    extName, extDD, extVers, extlinktext, extComment, extDisambiguatingDescription =  getExtenstionDescriptions()
 
     if node.startswith("docs/"):
         docsdir = "./"
@@ -2828,6 +2840,8 @@ def templateRender(templateName, node, values=None):
         'appengineVersion': getAppEngineVersion(),
         'debugging': getAppVar('debugging'),
         'docsdir': docsdir,
+        'extlinktext': extlinktext,
+        'extDisambiguatingDescription':extDisambiguatingDescription,
         'extComment': extComment,
         'extDD': extDD,
         'extName': extName,

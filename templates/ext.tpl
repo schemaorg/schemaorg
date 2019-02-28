@@ -2,7 +2,7 @@
 {%- macro overview() -%}
 
 <div class="extinfo">
-<h3>Schema.org Hosted Extension: {{ host_ext }}</h3>
+<h3>Schema.org Section: {{ host_ext }}</h3>
 <p>Schema.org is a set of extensible schemas that enables webmasters to embed structured data on their web pages for use by search engines and other applications.
 For more details, see the <a href="http://{{ mybasehost }}:{{ myport }}/">homepage</a>.
 

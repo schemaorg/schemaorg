@@ -1976,7 +1976,7 @@ class SdoConfig():
             fil="""FILTER ( strlen(?ext) < 1 || NOT EXISTS {?v scc:extension ?ext. } ) """
                 
             
-        q = """SELECT ?id ?name ?ver ?disam ?com ?ex WHERE {
+        q = """SELECT ?id ?name ?ver ?disam ?com ?ex ?linktext WHERE {
                                 ?s a scc:DataFeed;
                                     scc:name "%s";
                                     scc:extensiondescription ?v.
@@ -1985,7 +1985,9 @@ class SdoConfig():
                                    scc:name ?name;
                                    scc:comment ?com.
                                  OPTIONAL {
-                                   ?v scc:extension ?ext.                  
+                                   ?v scc:extension ?ex.                  
+                                 }OPTIONAL {
+                                   ?v scc:linktext ?linktext.                  
                                  } OPTIONAL {
                                    ?v scc:disambiguatingDescription ?disam.                  
                                  } OPTIONAL {
@@ -2001,16 +2003,26 @@ class SdoConfig():
         ret = []
         for row in res:
             r = {
-                "id": row.id,
-                "name": row.name,
-                "version": row.ver,
-                "brief": row.disam,
-                "comment": row.com,
-                "extension": row.ex
+                "id": str(row.id),
+                "name": str(row.name),
+                "version": str(row.ver),
+                "brief": str(row.disam),
+                "comment": str(row.com),
+                "linktext": str(row.linktext),
+                "extension": str(row.ex),
+                "disambiguatingDescription": str(row.disam)
             }
             ret.append(r)
         cls.descs[extension] = ret
         return ret
+        
+    @classmethod
+    def getDescriptor(cls,ext,var=""):
+        descriptor = cls.descriptor(extension=ext)
+        if len(descriptor):
+            return descriptor[0].get(var,None)
+        return None
+        
         
     @classmethod
     def stripLocalPathPrefix(cls,path):
