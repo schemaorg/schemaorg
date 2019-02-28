@@ -98,9 +98,9 @@ def urlTemplateLoader(name):
         log.info("URLError %s" % e)
         return None
     return res
-    
-    
-    
+
+
+
 if TEMPLATESDIR:
     if TEMPLATESDIR.startswith("file://"):
         TEMPLATESDIR = TEMPLATESDIR[7:]
@@ -116,7 +116,7 @@ if FileBasedTemplates:
 else:
     JINJA_ENVIRONMENT = jinja2.Environment(loader=jinja2.FunctionLoader(urlTemplateLoader),
     extensions=['jinja2.ext.autoescape'], autoescape=True, cache_size=0)
-    
+
 
 
 CANONICALSCHEME = "http"
@@ -165,7 +165,7 @@ if subs:
     else:
         log.info("SUBDOMAINS set to invalid value %s - defaulting to %s" %(subs,SUBDOMAINS))
 log.info("SUBDOMAINS set to %s" % SUBDOMAINS)
-    
+
 
 ############# Warmup Control ########
 WarmedUp = False
@@ -256,7 +256,7 @@ def check4NewVersion():
         f.close()
     except Exception  as e:
         log.info("ERROR reading: %s" % e)
-        pass    
+        pass
 
     if  getInTestHarness() or "localhost" in os.environ['SERVER_NAME']: #Force new version logic for local versions and tests
         ret = True
@@ -265,7 +265,7 @@ def check4NewVersion():
         stored,info = getTimestampedInfo("deployed-timestamp")
         if stored != dep:
             ret = True
-    
+
     return ret, dep
 
 def storeNewTimestamp(stamp=None):
@@ -562,7 +562,7 @@ class ShowUnit (webapp2.RequestHandler):
         moreblock = os.environ.get("MOREBLOCK")
         if not moreblock or (moreblock.lower() == "false"):
             return ""
-        
+
 
         # defaults
         bugs = ["No known open issues."]
@@ -574,7 +574,7 @@ class ShowUnit (webapp2.RequestHandler):
         items = [
         self.emitCanonicalURL(term),
         self.emitEquivalents(term),
-        
+
         "<a href='{0}'>Leave public feedback on this term &#128172;</a>".format(feedback_url),
         "<a href='https://github.com/schemaorg/schemaorg/issues?q=is%3Aissue+is%3Aopen+{0}'>Check for open issues.</a>".format(term.getId())
 
@@ -596,8 +596,8 @@ class ShowUnit (webapp2.RequestHandler):
 
         moreinfo += "</ul>\n</div>\n</div>\n"
         return moreinfo
-        
-        
+
+
 
     def ml(self, term, label='', title='', prop='', hashorslash='/'):
         """ml ('make link')
@@ -652,17 +652,17 @@ class ShowUnit (webapp2.RequestHandler):
         #log.info("EXTERNAL!!!! %s %s " % (term.getLabel(),term.getId()))
 
         name = term.getId()
-            
+
         if not ":" in name:
             return name
-            
+
         if name.startswith("http") and '#' in name:
             x = name.split("#")
             path = x[0] + "#"
             val = x[1]
             voc = getPrefixForPath(path)
-        
-            
+
+
         elif name.startswith("http"):
             val = os.path.basename(name)
             path = name[:len(name) - len(val)]
@@ -683,7 +683,7 @@ class ShowUnit (webapp2.RequestHandler):
         rdfalink = ''
         if prop:
             rdfalink = '<link %s href="%s%s" />' % (prop,api.SdoConfig.vocabUri(),label)
-            
+
         return "%s<a %s href=\"%s%s\" class=\"externlink\" target=\"_blank\">%s:%s</a>" % (rdfalink,title,path,val,voc,val)
 
 
@@ -709,8 +709,10 @@ class ShowUnit (webapp2.RequestHandler):
             exthomeurl = uri = makeUrl(home,"/",full=True)
             if home == ATTIC:
                 self.write("Defined in the <a href=\"%s\">%s</a> archive area.<br/><strong>Use of this term is not advised</strong><br/>" % (exthomeurl,exthome))
+            elif home == 'pending':
+                self.write("This term is proposed for full integration into Schema.org, <a href=\"%s\">pending</a> implementation feedback and adoption from applications and websites.' % (exthomeurl))
             else:
-                self.write("Defined in the <a href=\"%s\">%s</a> extension.<br/>" % (exthomeurl,exthome))
+                self.write("Defined in the <a href=\"%s\">%s</a> section.<br/>" % (exthomeurl,exthome))
         if not ENABLEMOREINFO:
             self.write(self.emitCanonicalURL(term))
             eq = self.emitEquivalents(term)
@@ -747,7 +749,7 @@ class ShowUnit (webapp2.RequestHandler):
 
             output = " <span class=\"canonicalUrl\">Canonical URL: <a href=\"%s\">%s</a></span> " % (cURL, cURL)
         return output
-            
+
     def emitEquivalents(self,term):
         buff = StringIO.StringIO()
         equivs = term.getEquivalents()
@@ -768,9 +770,9 @@ class ShowUnit (webapp2.RequestHandler):
     # Stacks to support multiple inheritance
     crumbStacks = []
     def BreadCrumbs(self, term):
-        
+
         self.crumbStacks = term.getParentPaths()
-        
+
         for cstack in self.crumbStacks:
             if term.isProperty():
                 cstack.append(VTerm.getTerm("http://schema.org/Property"))
@@ -827,7 +829,7 @@ class ShowUnit (webapp2.RequestHandler):
         tmpStacks = []
         tmpStacks.append(cstack)
         supers = term.getSupers()
-        
+
         for i in range(len(supers)):
             if(i > 0):
                 t = cstack[:]
@@ -864,7 +866,7 @@ class ShowUnit (webapp2.RequestHandler):
                 continue
             out.write("<li><a href='%s%s'>%s</a></li>" % ( hashorslash, prop.id, prop.id  ))
         out.write("</ul>\n\n")
-        
+
     def hideAtticTerm(self,term):
         if getHostExt() == ATTIC:
             return False
@@ -876,7 +878,7 @@ class ShowUnit (webapp2.RequestHandler):
         """Write out a table of properties for a per-type page."""
         if not out:
             out = self
-            
+
         propcount = 0
 
         headerPrinted = False
@@ -935,9 +937,9 @@ class ShowUnit (webapp2.RequestHandler):
        count = 0
        if not out:
            out = self
-        
+
        buff = StringIO.StringIO()
-       
+
        #log.info("SUPERS %s" % VTerm.term2str(cl.getSupers()))
 
        for p in cl.getSupers():
@@ -985,7 +987,7 @@ class ShowUnit (webapp2.RequestHandler):
                self.write("</ul>")
            buff.close()
     """
-       
+
     def _ClassExtensionProperties (self, out, cl, layers="core"):
         """Write out a list of properties not displayed as they are in extensions for a per-type page."""
 
@@ -1074,7 +1076,7 @@ class ShowUnit (webapp2.RequestHandler):
             self.write("</td></tr>")
         if (headerPrinted):
             self.write("</table>\n")
-            
+
     def emitRangeTypesForProperty(self, node, layers="core", out=None, hashorslash="/"):
         """Write out simple HTML summary of this property's expected types."""
         if not out:
@@ -1393,12 +1395,12 @@ class ShowUnit (webapp2.RequestHandler):
             self.response.write(cached)
             return
         log.info("Building page")
-        
+
         ext_mappings = GetExtMappingsRDFa(term)
         self.write(self.buildSiteHeaders(term, ext_mappings, sitemode, getSiteName()))
-        
+
         log.info("Done buildSiteHeaders")
-        
+
         self.emitUnitHeaders(term) # writes <h1><table>...
         stack = self._removeStackDupes(term.getTermStack())
         setAppVar("tableHdr",False)
@@ -1407,8 +1409,8 @@ class ShowUnit (webapp2.RequestHandler):
                 self.ClassProperties(p, p==[0], out=self, term=term)
             if getAppVar("tableHdr"):
                 self.write("\n\n</table>\n\n")
-                
-            
+
+
             self.emitClassIncomingProperties(term)
 
             self.emitClassExtensionSuperclasses(term,layers)
@@ -1417,15 +1419,15 @@ class ShowUnit (webapp2.RequestHandler):
 
         elif term.isProperty():
             self.emitAttributeProperties(term)
-            
+
         elif term.isDataType():
             self.emitClassIncomingProperties(term)
-        
+
         self.emitSupersedes(term)
         self.emitchildren(term)
         self.emitAcksAndSources(term)
         self.emitTermExamples(term)
-        
+
         self.write(" <br/>\n\n</div>\n</body>\n<!-- AppEngineVersion %s (%s)-->\n</html>" % (getAppEngineVersion(),appver))
 
         page = "".join(self.outputStrings)
@@ -1433,7 +1435,7 @@ class ShowUnit (webapp2.RequestHandler):
         PageStore.put(term.getId(),page)
 
         self.response.write(page)
-    
+
     def emitTermExamples(self,term):
         examples = GetExamples(term)
         log.debug("Rendering n=%s examples" % len(examples))
@@ -1465,8 +1467,8 @@ class ShowUnit (webapp2.RequestHandler):
                     self.write("<pre class=\"prettyprint lang-html linenums %s %s\">%s</pre>\n\n"
                                % (example_type, selected, self.rep(ex.get(example_type))))
                 self.write("</div>\n\n")
-        
-        
+
+
     def _removeStackDupes(self,stack):
         cleanstack = []
         i = len(stack)
@@ -1497,11 +1499,11 @@ class ShowUnit (webapp2.RequestHandler):
             self.write("<h4  id=\"acks\">Acknowledgement%s</h4>\n" % s)
             for ack in sorted(acknowledgements):
                 self.write(Markdown.parse(str(ack),True))
-    
-        
+
+
     def emitchildren(self,term):
             children = term.getSubs()
-            
+
             log.info("CHILDREN: %s" % VTerm.term2str(children))
 
             if (len(children) > 0):
@@ -1524,7 +1526,7 @@ class ShowUnit (webapp2.RequestHandler):
                     self.write("</ul>")
 
                 buff.close()
-        
+
     def emitHTTPHeaders(self, node):
         if ENABLE_CORS:
             self.response.headers.add_header("Access-Control-Allow-Origin", "*") # entire site is public.
@@ -1573,7 +1575,7 @@ class ShowUnit (webapp2.RequestHandler):
             self.response.headers['Content-Type'] = "application/ld+json"
         else:
             return False
-        
+
         jsonldcontext = getPageFromStore(label)
         if not jsonldcontext:
             jsonldcontext = GetJsonLdContext(layers=ALL_LAYERS)
@@ -1811,15 +1813,15 @@ class ShowUnit (webapp2.RequestHandler):
                 return True
         if self.checkConneg(node):
             return True
-        log.info("GETTING TERM: %s" % node)    
+        log.info("GETTING TERM: %s" % node)
         term = VTerm.getTerm(node)
 
         if not term:
             return False
-        
+
         if not self.checkNodeExt(term):
             return False
-        
+
         if not SUBDOMAINS or term.inLayers(layers):
             self.emitExactTermPage(term, layers=layers)
             return True
@@ -2100,7 +2102,7 @@ class ShowUnit (webapp2.RequestHandler):
 #            return getPageFromStore('ExtensionContents',ext)
 
         buff = StringIO.StringIO()
-        
+
         az_terms = VTerm.getAllTerms(layer=ext) #Returns sorted by id results.
         az_terms.sort(key = lambda u: u.category)
 
@@ -2373,10 +2375,10 @@ class ShowUnit (webapp2.RequestHandler):
                         self.response.headers['Last-Modified'] = time.strftime("%a, %d %b %Y %H:%M:%S GMT",time.gmtime(stat.st_ctime))
                         self.response.headers['Content-Type'] = stat.content_type
                     else:
-                        if not self.response.headers.get('Content-Type',None):                    
+                        if not self.response.headers.get('Content-Type',None):
                             mimetype, contentType = mimetypes.guess_type(node)
                             self.response.headers['Content-Type'] = mimetype
-                        
+
                         self.response.headers.add_header("ETag", getslug() + str(hash(hdrIndex)))
                         self.response.headers['Last-Modified'] = getmodiftime().strftime("%a, %d %b %Y %H:%M:%S GMT")
 
@@ -2454,15 +2456,15 @@ class ShowUnit (webapp2.RequestHandler):
             #global Warmer
             #if not WarmedUp:
                 #Warmer.stepWarm(self)
-                
-        
+
+
 
         self.emitHTTPHeaders(node) #Ensure we have the right basic header values
-        
+
         if(node == "admin/refresh"):
             log.info("Processing refesh request")
-            load_start = datetime.datetime.now() 
-            memcache.flush_all()        
+            load_start = datetime.datetime.now()
+            memcache.flush_all()
             memcache.set(key="app_initialising", value=True, time=300)  #Give the system 5 mins - auto remove flag in case of crash
             cleanmsg = CacheControl.clean()
             log.info("Clean count(s): %s" % cleanmsg)
@@ -2477,7 +2479,7 @@ class ShowUnit (webapp2.RequestHandler):
 
             self.response.out.write('<h3>Refresh Completed</h3><p>Took: %s</p>' % (datetime.datetime.now() - load_start))
             return False
-            
+
 
         if(node == "_ah/start"):
             log.info("Instance[%s] received Start request at %s" % (modules.get_current_instance_id(), global_vars.time_start) )
@@ -2504,7 +2506,7 @@ class ShowUnit (webapp2.RequestHandler):
             return self.handleHomepage(node)
 
         currentVerPath = "version/%s" % SCHEMA_VERSION
-            
+
         if(node.startswith("version/latest")):
             newurl = "%s%s" % (currentVerPath,node[14:])
             log.info("REDIRECTING TO: %s" % newurl)
@@ -2557,7 +2559,7 @@ class ShowUnit (webapp2.RequestHandler):
         hstext = getHostExt()
         if hstext == "":
             hstext = "core"
-        
+
         if (node.startswith("docs/") and hstext != "core"): #All docs should operate in core
             return self.redirectToBase(node,True)
 
@@ -2596,7 +2598,7 @@ class ShowUnit (webapp2.RequestHandler):
                 return False
         else: #Asking for a sttic file under docs
             return self.handleStaticDoc(node)
-            
+
     def handleStaticDoc(self,node):
         if PAGESTOREMODE == "CLOUDSTORE":
             log.info("Asking for: %s" % node)
@@ -2608,10 +2610,10 @@ class ShowUnit (webapp2.RequestHandler):
             else:
                 self.handle404Failure(node)
                 return False
-            
-            
+
+
         return False
-        
+
     def siteDebug(self):
         global STATS
         page = templateRender('siteDebug.tpl', "_siteDebug" )
@@ -2795,7 +2797,7 @@ def getExtenstionDescriptions():
             extDD = Markdown.parse(descs[0].get("brief"))
             extVers = Markdown.parse(descs[0].get("version"))
             extComment = Markdown.parse(descs[0].get("comment"))
-        
+
     return extName, extDD, extVers, extComment
 
 def templateRender(templateName, node, values=None):
@@ -2809,7 +2811,7 @@ def templateRender(templateName, node, values=None):
     if isinstance(node, VTerm):
         node = node.getId()
 
-    extName, extDD, extVers, extComment =  getExtenstionDescriptions() 
+    extName, extDD, extVers, extComment =  getExtenstionDescriptions()
 
     if node.startswith("docs/"):
         docsdir = "./"
@@ -2844,7 +2846,7 @@ def templateRender(templateName, node, values=None):
         defvars.update(values)
     template = JINJA_ENVIRONMENT.get_template(templateName)
     return template.render(defvars)
-    
+
 def oldtemplateRender(templateName, node, values=None):
     global sitemode #,sitename
     log.info("templateRender(%s,%s,%s)" % (templateName, node, values))
