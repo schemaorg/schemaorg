@@ -1428,8 +1428,8 @@ def load_examples_data(extensions):
             ExampleStore.store(EXAMPLES)
             ExampleMap.store(EXAMPLESMAP)
             memcache.set("ExmplesLoaded",value=True)
-        else:
-            load_local_examples_data(extensions)
+    else:
+        load_local_examples_data(extensions)
         
 def load_example_sources(files):
     if files:
