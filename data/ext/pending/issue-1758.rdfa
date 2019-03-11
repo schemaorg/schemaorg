@@ -1,20 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:schema="http://schema.org/" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xml:lang="en" lang="en">
 
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>archive.schema.org - RDFa Lite Reflection</title>
-<style type="text/css">
-      span.h {
-        padding-left: 0px;
-        font-weight: bold;
-      }
-      span {
-        display: block;
-        padding-left: 10px;
-      }
-    </style>
-</head>
+
 <body>
 <h1>Candidates for schema.org</h1>
 <p></p>
@@ -22,10 +9,10 @@
 <hr/>
 <h2>Types</h2>
 
-<div typeof="rdfs:Class" resource="http://schema.org/Archive">
-	<link property="http://schema.org/isPartOf" href="http://archive.schema.org" />
-	<span class="h" property="rdfs:label">Archive</span>
-	<span property="rdfs:comment">Institution with archival holdings. An Archive, or _Archives_, is an organization which keeps and preserves archival material and potentially makes it accessible to the public.</span>
+<div typeof="rdfs:Class" resource="http://schema.org/ArchiveOrganization">
+	<link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
+	<span class="h" property="rdfs:label">ArchiveOrganization</span>
+	<span property="rdfs:comment">An organization with archival holdings. An organization which keeps and preserves archival material and typically makes it accessible to the public.</span>
 	<span> Subclass of:<a property="rdfs:subClassOf" href="http://schema.org/LocalBusiness">LocalBusiness</a></span>
     <span property="schema:category">issue-1758</span>
     <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1758"></a>
@@ -50,8 +37,8 @@
 
 <div typeof="rdf:Property" resource="http://schema.org/archiveHeld">
 	<span class="h" property="rdfs:label">archiveHeld</span>
-	<span property="rdfs:comment">Collection, fonds, or item held, kept or maintained by an [[Archive]].</span>
-	<span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Archive">Archive</a></span>
+	<span property="rdfs:comment">Collection, fonds, or item held, kept or maintained by an [[ArchiveOrganization]].</span>
+	<span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ArchiveOrganization">ArchiveOrganization</a></span>
 	<span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/ArchiveComponent">ArchiveComponent</a></span>
     <link property="http://schema.org/inverseOf" href="http://schema.org/holdingArchive"/>
 	<link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
@@ -61,15 +48,16 @@
 
 <div typeof="rdf:Property" resource="http://schema.org/holdingArchive">
 	<span class="h" property="rdfs:label">holdingArchive</span>
-	<span property="rdfs:comment">[[Archive]] that holds, keeps or maintains the [[ArchiveComponent]].</span>
+	<span property="rdfs:comment">[[ArchiveOrganization]] that holds, keeps or maintains the [[ArchiveComponent]].</span>
 	<span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ArchiveComponent">ArchiveComponent</a></span>
-	<span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Archive">Archive</a></span>
+	<span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/ArchiveOrganization">ArchiveOrganization</a></span>
     <link property="http://schema.org/inverseOf" href="http://schema.org/archiveHeld"/>
 	<link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
     <span property="schema:category">issue-1758</span>
     <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1758"></a>
 </div>
 
+<!-- Removed pending discussion
 <div typeof="rdf:Property" resource="http://schema.org/accessConditions">
 	<span class="h" property="rdfs:label">accessConditions</span>
 	<span property="rdfs:comment">Details of conditions of access and use of an archive or item.</span>
@@ -79,6 +67,7 @@
     <span property="schema:category">issue-1758</span>
     <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1758"></a>
 </div>
+-->
 
 <div typeof="rdf:Property" resource="http://schema.org/hasPart">
 	<span class="h" property="rdfs:label">hasPart</span>
