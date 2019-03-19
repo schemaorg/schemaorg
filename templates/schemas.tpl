@@ -48,22 +48,21 @@ We also have a small set of <a href="{{staticPath}}/DataType">primitive data typ
 
  <h2 id="ext">Extensions</h2>
 
- <p>As schema.org has grown, we have developed mechanisms for <a href="/docs/extension.html">community extension</a> as a way of adding more detailed descriptive vocabulary that builds on the schema.org core.</p>
+ <p>As schema.org has grown, we have explored various mechanisms for <a href="/docs/extension.html">community extension</a> as
+   a way of adding more detailed descriptive vocabulary that builds on the schema.org core. Some areas of Schema.org were
+   developed as "named extensions", and have dedicated entry pages. We previously called these "hosted" extensions, but
+   they are best considered simply as views into a single collection of schema definitions.
+</p>
 
- <p><b>Hosted Sections</b> are managed and published as part of the schema.org project, with their design often led by one of more dedicated community groups.</p>
-
- <p><b>External Extensions</b> live elsewhere in the Web, typically managed by other organizations with their own processes and collaboration mechanisms.
-   Please consult external documentation for full details of their vocabulary, versioning system and release history.</p>
 
  <h3 id="hosted">Hosted Sections</h3>
 
 <p>
-Specialized terms from sections can be used alongside core schema.org terms like <a href="{{staticPath}}/Event">Event</a> and <a href="{{staticPath}}/Person">Person</a>.
-For example in the <a href="http://auto.schema.org/">auto</a> section there is a property for <a href="{{staticPath}}/emissionsCO2">emissionsCO2</a>,
-and in the <a href="http://bib.schema.org/">bib</a> section we have a property <a href="{{staticPath}}/publisherImprint">publisherImprint</a>.
-</p>
+For example, via the <a href="http://auto.schema.org/">auto</a> section there is a property for <a href="{{staticPath}}/emissionsCO2">emissionsCO2</a>,
+and via the <a href="http://bib.schema.org/">bib</a> section we have a property <a href="{{staticPath}}/publisherImprint">publisherImprint</a>.
+However, from the perspective of a publisher, these are simply schema.org properties. </p>
 
-<p>Using the <a href="{{staticPath}}/docs/extension.html">extension mechanism</a> the core vocabulary is extended by the following hosted sections:</p>
+<p>We have a few of these areas:</p>
 <ul>
 {% for ext in extensions %}
 	<li>{{ ext | safe }}</li>
@@ -85,10 +84,10 @@ The 'meta' section is primarily for vocabulary used internally within schema.org
 schema.org site functionality. These terms are not intended for general usage in the public Web.
 </p>
 <p id="attic"><strong>Attic</strong> ({{attic | safe}}) is a special area where terms are archived when deprecated from the core and other sections, or removed from <a href="http://pending.schema.org">pending</a> as not accepted into the full vocabulary. References to terms in the attic area are not normally displayed unless accessed via the term identifier or via the {{attic | safe}} home page. Implementors and data publishers are cautioned not to use terms in the attic area.
-</p> 
+</p>
 
 <p>
-Unlike other core and section terms, these extensions may be updated at any time without the need for a full <a href="/docs/releases.html">release</a>.
+Unlike other core and section terms, these areas may be updated at any time without the need for a full <a href="/docs/releases.html">release</a>.
 </p>
 
 <h3 id="extext">External Extensions</h3>
