@@ -22,7 +22,7 @@
 	<link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
 	<span class="h" property="rdfs:label">ArchiveComponent</span>
 	<span property="rdfs:comment">An intangible type to be applied to any archive content, carrying with it a set of properties required to describe archival items and collections.</span>
-	<span> Subclass of:<a property="rdfs:subClassOf" href="http://schema.org/Intangible">Intangible</a></span>
+	<span> Subclass of:<a property="rdfs:subClassOf" href="http://schema.org/CreativeWork">CreativeWork</a></span>
     <span property="schema:category">issue-1758</span>
     <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1758"></a>
 </div>
@@ -41,9 +41,9 @@
 	<span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ArchiveOrganization">ArchiveOrganization</a></span>
 	<span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/ArchiveComponent">ArchiveComponent</a></span>
     <link property="http://schema.org/inverseOf" href="http://schema.org/holdingArchive"/>
-	<link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
-    <span property="schema:category">issue-1758</span>
-    <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1758"></a>
+      <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
+      <span>Source:  <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1758">#1758</a></span>
+      <span>Category: <span property="schema:category">issue-1758</span></span>
 </div>
 
 <div typeof="rdf:Property" resource="http://schema.org/holdingArchive">
@@ -52,9 +52,9 @@
 	<span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ArchiveComponent">ArchiveComponent</a></span>
 	<span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/ArchiveOrganization">ArchiveOrganization</a></span>
     <link property="http://schema.org/inverseOf" href="http://schema.org/archiveHeld"/>
-	<link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
-    <span property="schema:category">issue-1758</span>
-    <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1758"></a>
+      <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
+      <span>Source:  <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1758">#1758</a></span>
+      <span>Category: <span property="schema:category">issue-1758</span></span>
 </div>
 
 <!-- Removed pending discussion
@@ -63,37 +63,32 @@
 	<span property="rdfs:comment">Details of conditions of access and use of an archive or item.</span>
 	<span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ArchiveComponent">ArchiveComponent</a></span>
 	<span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
-	<link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
-    <span property="schema:category">issue-1758</span>
-    <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1758"></a>
+      <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
+      <span>Source:  <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1758">#1758</a></span>
+      <span>Category: <span property="schema:category">issue-1758</span></span>
 </div>
--->
-
-<!--
-<div typeof="rdf:Property" resource="http://schema.org/hasPart">
-	<span class="h" property="rdfs:label">hasPart</span>
-	<span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ArchiveComponent">ArchiveComponent</a></span>
-	<span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/ArchiveComponent">ArchiveComponent</a></span>
-</div>
-
-<div typeof="rdf:Property" resource="http://schema.org/isPartOf">
-	<span class="h" property="rdfs:label">isPartOf</span>
-	<span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ArchiveComponent">ArchiveComponent</a></span>
-	<span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/ArchiveComponent">ArchiveComponent</a></span>
-</div>
-
-
-<div typeof="rdf:Property" resource="http://schema.org/location">
-	<span class="h" property="rdfs:label">location</span>
-	<span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ArchiveComponent">ArchiveComponent</a></span>
-</div>
-
 
 <div typeof="rdf:Property" resource="http://schema.org/itemCondition">
 	<span class="h" property="rdfs:label">itemCondition</span>
 	<span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ArchiveComponent">ArchiveComponent</a></span>
 </div>
+
 -->
+
+<div typeof="rdf:Property" resource="http://schema.org/itemLocation">
+	<span class="h" property="rdfs:label">itemLocation</span>
+	<span property="rdfs:comment">Current location of the item.</span>
+    <link property="rdfs:subPropertyOf" href="http://schema.org/location" />
+	<span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ArchiveComponent">ArchiveComponent</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Place">Place</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/PostalAddress">PostalAddress</a></span>
+    <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+      <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
+      <span>Source:  <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1758">#1758</a></span>
+      <span>Category: <span property="schema:category">issue-1758</span></span>
+</div>
+
+
 
 </body>
 </html>
