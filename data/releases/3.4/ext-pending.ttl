@@ -1036,7 +1036,7 @@ schema:estimatedSalary a rdf:Property ;
         schema:MonetaryAmountDistribution,
         schema:Number,
         schema:PriceSpecification ;
-    rdfs:comment "The estimated salary for this occupation in the given occupationLocation." .
+    rdfs:comment "A property describing the estimated salary for a job posting based on a variety of variables including, but not limited to industry, job title, and location. The estimated salary is usually computed by outside organizations and therefore the hiring organization is not bound to this estimated salary." .
 
 schema:ethicsPolicy a rdf:Property ;
     rdfs:label "ethicsPolicy" ;
@@ -2128,6 +2128,12 @@ schema:hasDefinedTerm a rdf:Property ;
     rdfs:comment "A Defined Term contained in this term set." ;
     rdfs:subPropertyOf schema:hasPart .
 
+schema:hasPart a rdf:Property ;
+    rdfs:label "hasPart" ;
+    schema:category "issue-1810" ;
+    schema:domainIncludes schema:Trip ;
+    schema:rangeIncludes schema:Trip .
+
 schema:inDefinedTermSet a rdf:Property ;
     rdfs:label "inDefinedTermSet" ;
     dct:source <https://github.com/schemaorg/schemaorg/issues/894> ;
@@ -2138,6 +2144,12 @@ schema:inDefinedTermSet a rdf:Property ;
         schema:URL ;
     rdfs:comment "A <a class=\"localLink\" href=\"http://schema.org/DefinedTermSet\">DefinedTermSet</a> that contains this term." ;
     rdfs:subPropertyOf schema:isPartOf .
+
+schema:isPartOf a rdf:Property ;
+    rdfs:label "isPartOf" ;
+    schema:category "issue-1810" ;
+    schema:domainIncludes schema:Trip ;
+    schema:rangeIncludes schema:Trip .
 
 schema:legislationApplies a rdf:Property ;
     rdfs:label "legislationApplies" ;
@@ -2151,24 +2163,8 @@ schema:legislationApplies a rdf:Property ;
     owl:equivalentProperty <http://data.europa.eu/eli/ontology#implements> ;
     ns1:exactMatch <http://data.europa.eu/eli/ontology#implements> .
 
-schema:partOfTrip a rdf:Property ;
-    rdfs:label "partOfTrip" ;
-    schema:category "issue-1810" ;
-    schema:domainIncludes schema:Trip ;
-    schema:inverseOf schema:subTrip ;
-    schema:rangeIncludes schema:Trip ;
-    rdfs:comment "Identifies that this <a class=\"localLink\" href=\"http://schema.org/Trip\">Trip</a> is a subTrip of another Trip.  For example Day 1, Day 2, etc. of a multi-day trip." .
-
 schema:providesBroadcastService a rdf:Property ;
     schema:inverseOf schema:hasBroadcastChannel .
-
-schema:subTrip a rdf:Property ;
-    rdfs:label "subTrip" ;
-    schema:category "issue-1810" ;
-    schema:domainIncludes schema:Trip ;
-    schema:inverseOf schema:partOfTrip ;
-    schema:rangeIncludes schema:Trip ;
-    rdfs:comment "Identifies a <a class=\"localLink\" href=\"http://schema.org/Trip\">Trip</a> that is a subTrip of this Trip.  For example Day 1, Day 2, etc. of a multi-day trip." .
 
 schema:subjectOf a rdf:Property ;
     rdfs:label "subjectOf" ;
