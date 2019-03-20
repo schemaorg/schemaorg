@@ -3026,10 +3026,10 @@ def getPageFromStore(id,ext=None,enableFlush=True):
 
 schemasInitialized = False
 def load_schema_definitions(refresh=False):
+    global schemasInitialized
     if not schemasInitialized or refresh:
         log.info("STARTING UP... reading schemas.")
         #load_graph(loadExtensions=ENABLE_HOSTED_EXTENSIONS)
-        global schemasInitialized
         if SdoConfig.isValid():
            read_schemas(SdoConfig.termFiles())
            load_usage_data(SdoConfig.countsFiles())
