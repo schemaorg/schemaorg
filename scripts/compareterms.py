@@ -19,6 +19,10 @@ sys.path.insert(0, sdk_path) # add AppEngine SDK to path
 import dev_appserver
 dev_appserver.fix_sys_path()
 
+from testharness import *
+#Setup testharness state BEFORE importing sdo libraries
+setInTestHarness(True)
+
 from api import *
 import rdflib
 from rdflib import Graph
@@ -39,8 +43,6 @@ from apirdflib import getNss
 import dev_appserver
 dev_appserver.fix_sys_path()
 
-#Setup testharness state BEFORE importing sdoapp
-setInTestHarness(True)
 import sdoapp
 logging.basicConfig(level=logging.INFO)
 log = logging.getLogger(__name__)

@@ -7,6 +7,8 @@ This is the Schema.org project repository. It contains all the schemas, examples
 Issues and proposals are managed here by participants of the [W3C Schema.org Community Group](https://www.w3.org/community/schemaorg/). If you are interested to participate please
 join the group at the [W3C](https://www.w3.org/community/schemaorg/), introduce yourself and find or file issues here that engage your interest. If you are new to Git and GitHub, there's a useful [introduction to Github](https://www.w3.org/2006/tools/wiki/Github) in the W3C Wiki.
 
+There is also a [Travis-CI integration](https://travis-ci.org/schemaorg/schemaorg) to check incoming pull requests.
+
 [Issue #1](https://github.com/schemaorg/schemaorg/issues/1) in Github is an entry point for release planning. It
 should provide an overview of upcoming work, in terms of broad themes, specific issues and release milestones.
 
