@@ -9,15 +9,17 @@
     <link href="/docs/prettify.css" type="text/css" rel="stylesheet" />
     <script type="text/javascript" src="/docs/prettify.js"></script>
     <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
+<!-- ##### Generated insert [CSEScript-start] see scripts/genhtmlinserts.sh ##### --> 
 <!-- Enable CSE Search -->
-    <script>
-    (function() {
-      var cx = '013516846811604855281:nj5laplixaa'; // Insert your own Custom Search engine ID here
-      var gcse = document.createElement('script'); gcse.type = 'text/javascript'; gcse.async = true;
-      gcse.src = 'https://cse.google.com/cse.js?cx=' + cx;
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(gcse, s);
-    })();
-    </script>
+<script>
+(function() {
+var cx = '013516846811604855281:nj5laplixaa'; // Insert your own Custom Search engine ID here
+var gcse = document.createElement('script'); gcse.type = 'text/javascript'; gcse.async = true;
+gcse.src = 'https://cse.google.com/cse.js?cx=' + cx;
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(gcse, s);
+})();
+</script>
+<!-- ##### Generated insert [CSEScript-end] see scripts/genhtmlinserts.sh ##### --> 
 
 <script type="text/javascript">
       $(document).ready(function(){
@@ -43,37 +45,39 @@
 
 </head>
 <body>
-    <div id="container">
-        <div id="intro">
-            <div id="pageHeader">
-              <div class="wrapper">
-                <div id="sitename">
-                <h1>
-                    <a href="/">schema.org</a>
-                </h1>
+<!-- ##### Generated insert [DOCSHDR-start] see scripts/genhtmlinserts.sh ##### --> 
+        <div id="container">
+            <div id="intro">
+                <div id="pageHeader">
+                    <div class="wrapper">
+                        <div id="sitename">
+                            <h1>
+                                <a href="../">schema.org</a>
+                            </h1>
+                        </div>
+                        <div id="cse-search-form" style="width: 400px;">
+                            <div class="gcse-searchbox-only" data-resultsurl="search_results.html"></div>
+                        </div>
+                    </div>
                 </div>
-
-                    <div id="cse-search-form" style="width: 400px;"><div class="gcse-searchbox-only" data-resultsUrl="/docs/search_results.html"></div></div>
-
-              </div>
             </div>
         </div>
-    </div>
-
-            <div id="selectionbar">
-               <div class="wrapper">
+        <div id="selectionbar">
+            <div class="wrapper">
                 <ul>
-                    <li class="activelink">
-                      <a href="../docs/documents.html">Documentation</a></li>
                     <li>
-                      <a href="../docs/schemas.html">Schemas</a></li>
+                        <a href="documents.html" >Documentation</a>
+                    </li>
                     <li>
-                      <a href="../.">Home</a></li>
+                        <a href="schemas.html" >Schemas</a>
+                    </li>
+                    <li>
+                        <a href="../"  >Home</a>
+                    </li>
                 </ul>
-                </div>
-
             </div>
-
+        </div>
+<!-- ##### Generated insert [DOCSHDR-end] see scripts/genhtmlinserts.sh ##### --> 
   <div id="mainContent">
 
 <h1>Markup for Hotels</h1>
@@ -93,10 +97,10 @@
     <li>An <strong><a href="../Offer">offer</a></strong> to let a hotel room (or other forms of accommodations) for a particular amount of money and for a given type of usage (e.g. occupancy), typically further constrained by advance booking requirements and other terms and conditions.
 </ul>
 
-<p>In schema.org, an offer for a hotel room is using the same patterns as an offer for any other type of product or service, e.g. a TV set or a welding service. However, a hotel room is not a subclass of <a href= "../Product">Product</a> or <a href= "../Service">Service</a>.  To enable on offer to be described, use is made of the Multi-Typed Entity (MTE) feature of Schema.org.
+<p>In schema.org, an offer for a hotel room is using the same patterns as an offer for any other type of product or service, e.g. a TV set or a welding service. However, a hotel room is not a subclass of <a href= "../Product">Product</a> or <a href= "../Service">Service</a>.  To enable an offer to be described, use is made of the Multi-Typed Entity (MTE) feature of Schema.org.
 </p>
 <p>	
-When defining an instance of an <a href="../Accommodation">Accommodation</a>, that is offered by a <a href="../LodgingBusiness">LodgingBusiness</a>, it is described as being both a the appropriate Type for the accomodation <em>and</em> a <a href= "../Product">Product</a>.  Thus for example a <a href="../Hotel">Hotel</a> will make an <a href="../Offer">Offer</a>, or offers, for a <a href="../HotelRoom">HotelRoom</a>, that is also identified as a <a href= "../Product">Product</a>. Prices and terms and conditions are thus not properties of the hotel or hotel room, but of the offer for a certain room or room category.</p>
+When defining an instance of an <a href="../Accommodation">Accommodation</a>, that is offered by a <a href="../LodgingBusiness">LodgingBusiness</a>, it is described as being both the appropriate Type for the accomodation <em>and</em> a <a href= "../Product">Product</a>.  Thus for example a <a href="../Hotel">Hotel</a> will make an <a href="../Offer">Offer</a>, or offers, for a <a href="../HotelRoom">HotelRoom</a>, that is also identified as a <a href= "../Product">Product</a>. Prices and terms and conditions are thus not properties of the hotel or hotel room, but of the offer for a certain room or room category.</p>
 
 The markup for MTE's is very simple:
 <ul>
@@ -117,7 +121,7 @@ The markup for MTE's is very simple:
 <p>In the case of rental accommodations, it is important to attach the <a href= "../businessFunction">businessFunction</a> property with the value <a href="http://purl.org/goodrelations/v1#LeaseOut">LeaseOut</a> to the <a href="../Offer">offer</a>, unless you want to sell the property. This allows reusing and extending the same types for dwellings for real estate offers in schema.org.</p>
 <h3>Basic Model</h3>
 <p>The diagram shown below illustrates the basic pattern for describing hotel room offers and offers for other forms of accommodations.</p>
-<p>All accommodation Types are subclasses of <a href="../Place">http://schema.org/Place</a>. To use them as the subject of an offer, you should use the MTE techneque of assigining your instances to be both an Accomodation subclass and a Product.  All types of lodging businesses are subclasses of <a href="../LocalBusiness">http://schema.org/LocalBusiness</a> which itself is a subclass of <a href="../Place">http://schema.org/Place</a> and <a href="../Organization">http://schema.org/Organization</a>.</p>
+<p>All accommodation Types are subclasses of <a href="../Place">http://schema.org/Place</a>. To use them as the subject of an offer, you should use the MTE technique of assigining your instances to be both an Accomodation subclass and a Product.  All types of lodging businesses are subclasses of <a href="../LocalBusiness">http://schema.org/LocalBusiness</a> which itself is a subclass of <a href="../Place">http://schema.org/Place</a> and <a href="../Organization">http://schema.org/Organization</a>.</p>
 
 <p>The relationship between an accommodation and the local business it belongs to is represented via the <a href="../containedInPlace">containedInPlace</a> (from hotel room to hotel) or <a href="../containsPlace">containsPlace</a> (from hotel to hotel room) properties. The relationship between the offer and the room included in the offer can be represented via either the <a href="../offers">offers</a> property (from the room product to the offer) or via <a href="../itemOffered">itemsOffered</a> (from the offer to the room).</p>
 <p>The relationship between the lodging business and its offers for rooms is represented via the <a href="../makesOffer">makesOffer</a> property (from the hotel to the offer) or via the <a href="../offeredBy">offeredBy</a> property (from the offer to the hotel).</p>
@@ -185,7 +189,7 @@ enjoying your morning coffee.&lt;/span&gt;
 <p><strong>Note:</strong> In the following, we focus on hotel-related examples, but the basic patterns for other types of lodging businesses are the same. Simply use the more specific types (e.g. <a href="../Campground">Campground</a> or <a href="/MeetingRoom">MeetingRoom</a>).</p>
 
 <h2 id="hotel_info">Information about the Hotel</h2>
-<p>If your Web site contains provide more detailed information about your hotel, you can use many additional properties for marking them up with schema.org. Below, we highlight a few prominent properties.</p>
+<p>If your Web site provides more detailed information about your hotel, you can use many additional properties for marking them up with schema.org. Below, we highlight a few prominent properties.</p>
     <h3>Geo Position</h3>
         <pre class="prettyprint lang-html linenums">
 &lt;div itemscope itemtype=&quot;http://schema.org/Hotel&quot;&gt;

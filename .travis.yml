@@ -2,7 +2,10 @@ language: python
 
 python:
   - "2.7"
-env: SOFT_LINT=true
+env:
+  global:
+    - SOFT_LINT=true
+    - NOKOGIRI_USE_SYSTEM_LIBRARIES=true
 before_script:
   - SDK_URL=https://storage.googleapis.com/appengine-sdks/featured/google_appengine_1.9.49.zip
   - wget $SDK_URL -nv -O google_appengine.zip
@@ -18,3 +21,4 @@ script:
   - (cd scripts; bundle exec rake)
   - java -jar dist/vnu.jar data/schema.rdfa
 sudo: false
+cache: bundler

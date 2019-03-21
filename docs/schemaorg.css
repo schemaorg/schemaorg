@@ -29,6 +29,7 @@ font-size: x-small;
 body
 {
 color: #3A4956;
+background: #FFF;
 font-family: "Lucida Grande" , "Lucida Sans Unicode" , Verdana, Tahoma, Arial, sans-serif;
 line-height: 160%;
 margin: 0;
@@ -44,7 +45,7 @@ h1
 font: bold 24px Helvetica, Arial, sans-serif;
 color: #990000;
 letter-spacing: -1px;
-margin: 1em 0 0 0;
+margin: 0.25em 0 0 0;
 }
 
 h2 {
@@ -62,14 +63,12 @@ margin: 1em 0 0 0;
 position: relative;
 top: 8px;
 }
-/*
-h3
+
+h4
 {
-//font-size: 12px;
-color: #660000;
-//margin: 1em 0 0 0;
-//position: relative;
-//top: 8px;
+font-size: 100%;
+margin: 0.5em 0 1em 0;
+position: relative;
 }
 */
 hr
@@ -121,7 +120,7 @@ text-decoration: none;
 #cse-search-form {
   float: right;
   margin-top:20px;
-  width: 248px !important;
+  width: 255px !important;
 }
 @media all and (max-width: 720px) {
   #pageHeader {
@@ -346,11 +345,6 @@ padding: 10px 0;
   margin: 0 auto;
   display: block;
 }
-#cse-search-form {
-  float: right;
-  /*margin-top:-20px;*/
-  width: 248px !important;
-}
 gsc-input input.gsc-input { background: #FFF !important;}
 
 @media all and (max-width: 720px) {
@@ -437,6 +431,23 @@ input.gsc-search-button {
   display: block;
 }
 
+/* Clickable Anchor links */
+a.clickableAnchor:link {
+   color: #3A4956 !important;
+   border-bottom: 0px !important;
+   text-decoration: none;
+}
+a.clickableAnchor:visited {
+    color: #3A4956 !important;
+    border-bottom: 0px !important;
+    text-decoration: none;
+}
+a.clickableAnchor:hover {
+   color: #fff !important;
+   background-color: #3A4956 !important;
+   border-bottom: 0px !important;
+   text-decoration: none;
+}
 /* Extension links */
 a.ext:link {
    color: #0000aa !important;
@@ -451,6 +462,22 @@ a.ext:visited {
 a.ext:hover {
    color: #fff !important;
    background-color: #0000cc;
+   text-decoration: none;
+}
+/* External links */
+a.externlink:link {
+   color: #000 !important;
+   border-bottom: dotted 1px #000 !important;
+   text-decoration: none;
+}
+a.externlink:visited {
+   color: #000 !important;
+   border-bottom: dotted 1px #000 !important;
+   text-decoration: none;
+}
+a.externlink:hover {
+   color: #fff !important;
+   background-color: #000;
    text-decoration: none;
 }
 
@@ -524,6 +551,9 @@ a.ext.ext-attic:hover {
   border: 1px solid #faebcc;
 }
 
+.extlink {
+    font-size: 85%;
+}
 .tag    { color: #000; }    /* div, span, etc   */
 .atn    { color: #000; }    /* href, datetime,  */
 .custom { color: #660003; } /* itemscope, itemtype, etc,. */
@@ -540,6 +570,6 @@ a.ext.ext-attic:hover {
 @media (min-width: 960px) {
   #mainContent, #footer, .wrapper {
     max-width: 960px;
-    padding: 0 1em;
+    padding: 0 1em 1em 1em
   }
 }
