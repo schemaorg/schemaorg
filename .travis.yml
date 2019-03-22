@@ -18,7 +18,7 @@ before_script:
   - bundle install --gemfile=scripts/Gemfile
 script:
   - xmllint --noout data/*.rdfa data/ext/*/*.rdfa
-  - scripts/buildreleasefiles.sh "LATEST" "yes"
+  - scripts/buildreleasefiles.sh LATEST yes
   - python scripts/run_tests.py
   - (cd scripts; bundle exec rake)
 sudo: false
