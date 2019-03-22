@@ -15,7 +15,9 @@ fi
 VER=$1
 DIR="./data/releases/$1"
 
-if [ "$#" -eq 2 ] && [ $2 == "yes" ]
+response=""
+
+if [ "$#" -eq 2 ] && [ "$2" == "yes" ]
 then
     response="Y"
 fi
