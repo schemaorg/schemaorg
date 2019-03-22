@@ -21,7 +21,7 @@ response=""
 
 if [ "$#" -eq 2 ] 
 then
-    if [ "$pre" == "yes" ]
+    if [ "$pre" -eq "yes" ]
     then
         response="Y"
     fi
