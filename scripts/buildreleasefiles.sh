@@ -7,16 +7,24 @@ then
 	echo "Not in the schemaorg directory! Aborting"
 	exit 1
 fi
-if [ "$#" -ne 1 ]
+if [ "$#" -lt 1 ]
 then
-  echo "Usage: $0 VERSION" 
+  echo "Usage: $0 VERSION [yes]" 
   exit 1
 fi
 VER=$1
 DIR="./data/releases/$1"
 
-echo "$PROG:\n\tAbout to build release files for version $VER  \n\tIncluding extensions: $EXTENSIONS"
-read -r -p  "Continue? y/n: " response
+if [ "$#" -eq 2 ] && [ $2 == "yes" ]
+then
+    response="Y"
+fi
+
+if [ -z "$response" ]
+then
+    echo "$PROG:\n\tAbout to build release files for version $VER  \n\tIncluding extensions: $EXTENSIONS"
+    read -r -p  "Continue? y/n: " response
+fi
 case $response in
 	[yY])
 		echo
@@ -40,6 +48,7 @@ fi
 
 echo "Cleaning directory"
 rm -f $DIR/*.jsonld 2>&1 > /dev/null
+rm -f $DIR/*.rdf 2>&1 > /dev/null
 rm -f $DIR/*.nq 2>&1 > /dev/null
 rm -f $DIR/*.nt 2>&1 > /dev/null
 rm -f $DIR/*.ttl 2>&1 > /dev/null
@@ -56,12 +65,15 @@ function dump {
 		ex2="extensions"
 	fi
 	file=$3
-	for form in json-ld turtle nt nquads rdf csv
+	forms=""
+    for form in json-ld turtle nt nquads rdf csv
 	do
-		echo "\t$file: $form"
-		./scripts/exportgraphs.py -i "$in" -e "$ex1" -e "$ex2" -g "#$VER" -f $form -o $DIR/$file 2>&1 > /dev/null
-	done
+        forms="$forms -f $form"
+        
+    done
+	./scripts/exportgraphs.py -i "$in" -e "$ex1" -e "$ex2" -g "#$VER" $forms -o $DIR/$file 2>&1 > /dev/null
 }
+
 echo
 echo "Creating core: "
 dump core extensions schema
@@ -74,5 +86,10 @@ do
 	echo "Creating $e"
 	dump "$e" "ALL" "ext-$e"
 done
+
+echo "creating owl file"
+./scripts/buildowlfile.py
+echo done
+
 
 
