@@ -15,9 +15,11 @@ fi
 VER=$1
 DIR="./data/releases/$1"
 
+pre=$2
+echo "$preS"
 response=""
 
-if [ "$#" -eq 2 ] && [ "$2" == "yes" ]
+if [ "$#" -eq 2 ] && [ "$pre" == "yes" ]
 then
     response="Y"
 fi
