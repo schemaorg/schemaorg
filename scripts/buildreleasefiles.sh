@@ -19,9 +19,12 @@ pre=$2
 echo "PRE: $pre"
 response=""
 
-if [ "$#" -eq 2 ] && [ "$pre" == "yes" ]
+if [ "$#" -eq 2 ] 
 then
-    response="Y"
+    if [ "$pre" == "yes" ]
+    then
+        response="Y"
+    fi
 fi
 
 if [ -z "$response" ]
