@@ -87,6 +87,10 @@ do
 	dump "$e" "ALL" "ext-$e"
 done
 
+echo "Creating archive context file"
+
+./scripts/buildarchivecontext.py -o schemaorgcontext.jsonld -d $DIR
+
 echo "creating owl file"
 ./scripts/buildowlfile.py
 echo done
