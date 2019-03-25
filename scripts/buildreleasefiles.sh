@@ -124,7 +124,11 @@ function dump {
         
         done
     else
-        forms=$LIMIT
+        for form in $LIMIT
+    	do
+            forms="$forms -f $form"
+        
+        done
     fi
     
 	./scripts/exportgraphs.py -i "$in" -e "$ex1" -e "$ex2" -g "#$VER" $forms -o $DIR/$file 2>&1 > /dev/null
