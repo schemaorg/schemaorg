@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 EXTENSIONS="attic auto bib health-lifesci pending meta"
 PWD=`pwd`
 PROG="`basename $0`"
