@@ -7116,7 +7116,7 @@ JSON:
   // John sold a Book on amazon.com.
 {
   "@context": "http://schema.org",
-  "@type": "BuyAction",
+  "@type": "SellAction",
   "agent": {
     "@type": "Person",
     "name": "John"
@@ -7125,10 +7125,11 @@ JSON:
     "@type": "Book",
     "name": "Outliers"
   },
-  "location": {
-    "@type": "Product",
+  "participant": {
+    "@type": "Organization",
     "name": "Amazon"
-  }
+  },
+  "location": "Amazon.com"
 }
 </script>
 
