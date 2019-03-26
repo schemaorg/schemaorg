@@ -7636,10 +7636,10 @@ This example is JSON only.
 JSON:
 
 <script type="application/ld+json">
-  // John inserted a movie to his movie queue at the third slot.
+  // John inserted a movie to his movie queue.
 {
   "@context": "http://schema.org",
-  "@type": "InsertedAction",
+  "@type": "InsertAction",
   "agent": {
     "@type": "Person",
     "name": "John"
@@ -7652,8 +7652,7 @@ JSON:
     "@type": "ItemList",
     "name": "List of my favorite movies",
     "url": "http://netflix.com/john/favorite"
-  },
-  "objectLocation": "3"
+  }
 }
 </script>
 
