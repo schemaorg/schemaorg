@@ -10975,63 +10975,6 @@ TYPES:  Role, OrganizationRole, CollegeOrUniversity, EducationalOrganization
 PRE-MARKUP:
 
 A JSON example of an OrganizationRole being used to qualify
-the 'alumni' property. Note that we use startDate to indicate
-when the alumni situation began, which was the date of leaving
-the organization.
-
-MICRODATA:
-
-<div itemscope itemtype="http://schema.org/CollegeOrUniversity">
-  <span itemprop="name">University of Cambridge</span>
-  <link itemprop="sameAs" href="http://en.wikipedia.org/wiki/University_of_Cambridge"/>
-  <div itemprop="alumni" itemscope
-        itemtype="http://schema.org/OrganizationRole">
-    <div itemprop="alumni" itemscope
-            itemtype="http://schema.org/Person">
-      <span itemprop="name">Delia Derbyshire</span>
-      <link itemprop="sameAs" href="http://en.wikipedia.org/wiki/Delia_Derbyshire"/>
-    </div>
-    <span itemprop="startDate">1959</span>
-</div>
-
-RDFA:
-
-<div vocab="http://schema.org/" typeof="CollegeOrUniversity">
-    <span property="name">University of Cambridge</span>
-  <link property="sameAs" href="http://en.wikipedia.org/wiki/University_of_Cambridge"/>
-  <div property="alumni" typeof="OrganizationRole">
-    <div property="alumni" typeof="Person">
-      <span property="name">Delia Derbyshire</span>
-      <link property="sameAs" href="http://en.wikipedia.org/wiki/Delia_Derbyshire"/>
-    </div>
-    <span property="startDate">1959</span>
-</div>
-
-JSON:
-
-<script type="application/ld+json">
-{
-  "@context": "http://schema.org",
-  "@type": "CollegeOrUniversity",
-  "name": "University of Cambridge",
-  "sameAs": "http://en.wikipedia.org/wiki/University_of_Cambridge",
-  "alumni": {
-    "@type": "OrganizationRole",
-    "alumni": {
-      "@type": "Person",
-       "name": "Delia Derbyshire",
-      "sameAs": "http://en.wikipedia.org/wiki/Delia_Derbyshire"
-    },
-    "startDate": "1959"
-  }
-}
-</script>
-
-TYPES:  Role, OrganizationRole, CollegeOrUniversity, EducationalOrganization
-
-PRE-MARKUP:
-
-A JSON example of an OrganizationRole being used to qualify
 the 'alumniOf' property (which is inverseOf 'alumni').
 
 Note that we use startDate to indicate when the alumniOf
