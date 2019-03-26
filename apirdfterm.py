@@ -336,11 +336,7 @@ class VTerm():
         
     def loadsupers(self):
         fullId = toFullId(self.id)
-        #log.info("loadsupers(%s)" % self.id)
-        if self.ttype == VTerm.CLASS or self.ttype == VTerm.DATATYPE:
-            sel = "rdfs:subClassOf"
-        else:
-            sel = "rdfs:subPropertyOf"
+        log.info("loadsupers(%s)" % self.id)
         query = """ 
         SELECT ?sup WHERE {
              {
@@ -368,7 +364,7 @@ class VTerm():
     def loadsubs(self):
         fullId = toFullId(self.id)
         #log.info("checksupers(%s)" % self.id)
-        if self.ttype == VTerm.CLASS or self.ttype == VTerm.DATATYPE:
+        if self.ttype == VTerm.CLASS or self.ttype == VTerm.DATATYPE or self.ttype == VTerm.ENUMERATION:
             sel = "rdfs:subClassOf"
         else:
             sel = "rdfs:subPropertyOf"

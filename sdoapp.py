@@ -903,7 +903,7 @@ class ShowUnit (webapp2.RequestHandler):
                 comment = "Term from external vocabulary"
             if not getAppVar("tableHdr"):
                 setAppVar("tableHdr",True)
-                if (term.isClass() and not term.isDataType() and term.id != "DataType"):
+                if ((term.isClass() or term.isEnumeration()) and not term.isDataType() and term.id != "DataType"):
                     self.write("<table class=\"definition-table\">\n        <thead>\n  <tr><th>Property</th><th>Expected Type</th><th>Description</th>               \n  </tr>\n  </thead>\n\n")
                 self.tablehdr = True
             if (not headerPrinted):
@@ -1406,12 +1406,13 @@ class ShowUnit (webapp2.RequestHandler):
         ext_mappings = GetExtMappingsRDFa(term)
         self.write(self.buildSiteHeaders(term, ext_mappings, sitemode, getSiteName()))
 
-        log.info("Done buildSiteHeaders")
+        #log.info("Done buildSiteHeaders")
+        #log.info("Stak %s" % term.getTermStack())
 
         self.emitUnitHeaders(term) # writes <h1><table>...
         stack = self._removeStackDupes(term.getTermStack())
         setAppVar("tableHdr",False)
-        if term.isClass() or term.isDataType():
+        if term.isClass() or term.isDataType() or term.isEnumeration():
             for p in stack:
                 self.ClassProperties(p, p==[0], out=self, term=term)
             if getAppVar("tableHdr"):
