@@ -7152,13 +7152,16 @@ JSON:
   // John tipped $10 to Steve.
 {
   "@context": "http://schema.org",
-  "@type": "RentAction",
+  "@type": "TipAction",
   "agent": {
     "@type": "Person",
     "name": "John"
   },
-  "price": "10",
-  "priceCurrency": "USD",
+  "object": {
+      "@type": "MonetaryAmount",
+      "currency": "USD",
+      "value": "10"
+  },
   "recipient": {
     "@type": "Person",
     "name": "Steve"
