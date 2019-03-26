@@ -2314,7 +2314,7 @@ MICRODATA:
   by <span itemprop="author">John Doe</span>
   This article has been tweeted 1203 times and contains 78 user comments.
   <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
-    <div itemprop="interactionService" itemscope itemid="http://www.twitter.com" itemtype="http://schema.org/Website">
+    <div itemprop="interactionService" itemscope itemid="http://www.twitter.com" itemtype="http://schema.org/WebSite">
       <meta itemprop="name" content="Twitter" />
     </div>
     <meta itemprop="interactionType" content="http://schema.org/ShareAction"/>
@@ -2333,7 +2333,8 @@ RDFA:
   by <span property="author">John Doe</span>
   This article has been tweeted 1203 times and contains 78 user comments.
   <div property="interactionStatistic" typeof="InteractionCounter">
-    <div property="interactionService" itemscope itemid="http://www.twitter.com" itemtype="http://schema.org/Website">
+    <div property="interactionService" typeof="WebSite">
+      <meta property="url" content="http://www.twitter.com"/>
       <meta property="name" content="Twitter" />
     </div>
     <meta property="interactionType" content="http://schema.org/ShareAction"/>
@@ -2356,7 +2357,7 @@ JSON:
     {
       "@type": "InteractionCounter",
       "interactionService": {
-        "@type": "Website",
+        "@type": "WebSite",
         "name": "Twitter",
         "url": "http://www.twitter.com"
       },
