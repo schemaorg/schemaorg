@@ -53,9 +53,9 @@ function doExtension {
     fi
 
     count=0
-    for ex in *-examples.txt
+    for ex in *examples.txt
     do
-        if [ "$ex" != '*-examples.txt' ]
+        if [ "$ex" != '*examples.txt' ]
         then
             sep=",\n"
             if [ $count -eq 0 ]
