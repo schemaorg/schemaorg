@@ -6605,48 +6605,7 @@ JSON:
 }
 </script>
 
-TYPES:  SelectAction
 
-PRE-MARKUP:
-
-John selected The Internship and The Wedding Crashers from his movie queue.
-
-MICRODATA:
-
-This example is JSON only.
-
-RDFA:
-
-This example is JSON only.
-
-JSON:
-
-<script type="application/ld+json">
-  // John selected The Internship and The Wedding Crashers from his movie queue.
-{
-  "@context": "http://schema.org",
-  "@type": "SelectAction",
-  "agent": {
-    "@type": "Person",
-    "name": "John"
-  },
-  "object": [
-    {
-      "@type": "Movie",
-      "name": "The Internship"
-    },
-    {
-      "@type": "Movie",
-      "name": "The Wedding Crashers"
-    }
-  ],
-  "targetCollection": {
-    "@type": "ItemList",
-    "name": "List of my favorite movies",
-    "url": "http://netflix.com/john/favorite"
-  }
-}
-</script>
 
 TYPES:  PlayAction
 
