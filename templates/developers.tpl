@@ -2,14 +2,14 @@
 <html lang="en">
 <head>
   {% include 'headtags.tpl' with context %}
-    <title>Schemas - schema.org</title>
+    <title>Developers - schema.org</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Schema.org is a set of extensible schemas that enables webmasters to embed
     structured data on their web pages for use by search engines and other applications." />
 </head>
 <body onload="updatetext()">
 
-{% include 'basicPageHeader.tpl' with context %}
+{% include 'docsBasicPageHeader.tpl' with context %}
 
 
   <div id="mainContent" class="faq">
@@ -24,7 +24,7 @@ This is a placeholder page for developer-oriented information about schema.org. 
 
 <h2 id="conneg">Machine Readable Term Definitions</h2>
 
-<p>Machine-readable definitions of individual terms are availble as RDFa, embeded into the term page html. It is also available in other formats by accessing term URLs, using the <a href="https://www.w3.org/TR/swbp-vocab-pub/#negotiation">Linked Data Content Negotiation</a> technique of providing the required type in an HTTP Accept header value.  The same content is also available by providing an appropriate suffix to the term URL.  For example the Triples definition for the <a href="{{staticPath}}/Book">Book</a> Type can bet retrieved with the following URL <a href="{{staticPath}}/Book.nt">{{staticPath}}/Book.nt</a>.</p>
+<p>Machine-readable definitions of individual terms are availble as RDFa, embeded into the term page html. It is also available in other formats by accessing term URLs, using the <a href="https://www.w3.org/TR/swbp-vocab-pub/#negotiation">Linked Data Content Negotiation</a> technique of providing the required type in an HTTP Accept header value.  The same content is also available by providing an appropriate suffix to the term URL.  For example the Triples definition for the <a href="{{staticPath}}/Book">Book</a> Type can bet retrieved with the following URL <a href="{{staticPath}}/Book.nt">Book.nt</a>.</p>
 <p>The currently supported format types, relevant Accept values, and url suffixes are:</p>
 	<ul><li>JSON-LD - application/ld+json - .jsonld</li>
 		<li>RDF/XML - application/rdf+xml - .rdf</li>
@@ -47,10 +47,10 @@ This is a placeholder page for developer-oriented information about schema.org. 
 	<table style="padding: 2px; width:600px">
 	<tr><td style="width: 30%;">
 			File: <select id="filename"  onchange="updatetext()">
-				<option value="{{staticPath}}/version/latest/schema">schema</option>
-				<option value="{{staticPath}}/version/latest/all-layers">all-layers</option>
+				<option value="{{targethost}}/version/latest/schema">schema</option>
+				<option value="{{targethost}}/version/latest/all-layers">all-layers</option>
 				{% for ext in extensions %}
-					<option value="{{staticPath}}/version/latest/ext-{{ ext | safe }}">{{ ext | safe }}</option>
+					<option value="{{targethost}}/version/latest/ext-{{ ext | safe }}">{{ ext | safe }}</option>
 				{% endfor %}
 			</select>
 	</td>

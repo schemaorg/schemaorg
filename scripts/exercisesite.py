@@ -20,6 +20,10 @@ sys.path.insert(0, sdk_path) # add AppEngine SDK to path
 import dev_appserver
 dev_appserver.fix_sys_path()
 
+from testharness import *
+#Setup testharness state BEFORE importing sdo libraries
+setInTestHarness(True)
+
 from api import *
 import rdflib
 from rdflib.term import URIRef, Literal
@@ -29,9 +33,6 @@ from rdflib.plugins.sparql import prepareQuery
 from rdflib.compare import graph_diff
 from rdflib.namespace import RDFS, RDF
 import threading
-
-from api import setInTestHarness
-setInTestHarness(True)
 
 from api import inLayer, read_file, full_path, read_schemas, read_extensions, read_examples, namespaces, DataCache, getMasterStore
 from apirdflib import getNss, getRevNss
