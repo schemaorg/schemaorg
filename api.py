@@ -951,7 +951,7 @@ def GetAllTypes(layers='core'):
         return UtilCache.get(KEY,Utc)
     else:
         sorted_all_types = []
-        types = VTerm.getAllProperties()
+        types = VTerm.getAllTypes()
         for t in types:
             sorted_all_types.append(t.getId())
         sorted_all_types.sort()
