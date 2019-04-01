@@ -2037,8 +2037,8 @@ class ShowUnit (webapp2.RequestHandler):
                 log.info("generating a live view of this latest release.")
 
 
-        if getPageFromStore('FullReleasePage'):
-            self.response.out.write( getPageFromStore('FullReleasePage') )
+        if getPageFromStore('FullReleasePage.html'):
+            self.response.out.write( getPageFromStore('FullReleasePage.html') )
             log.debug("Serving recycled FullReleasePage.")
             return True
         else:
@@ -2105,7 +2105,7 @@ class ShowUnit (webapp2.RequestHandler):
 
             self.response.out.write( page )
             log.debug("Serving fresh FullReleasePage.")
-            PageStore.put("FullReleasePage",page)
+            PageStore.put("FullReleasePage.html",page)
             return True
 
     def handleExtensionContents(self,ext):
