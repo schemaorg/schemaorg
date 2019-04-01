@@ -855,10 +855,12 @@ class ShowUnit (webapp2.RequestHandler):
             out = self
 
         out.write("<ul class='props4type'>")
-        for prop in sorted(GetSources(  Unit.GetUnit("schema:domainIncludes"), cl, layers=layers), key=lambda u: u.id):
-            if (prop.superseded(layers=layers)):
+
+        for prop in VTerm.getTerm(cl).getProperties():
+            if prop.superseded():
                 continue
-            out.write("<li><a href='%s%s'>%s</a></li>" % ( hashorslash, prop.id, prop.id  ))
+            out.write("<li><a href='%s%s'>%s</a></li>" % ( hashorslash, prop.getId(), prop.getId()  ))
+            
         out.write("</ul>\n\n")
 
     def emitSimplePropertiesIntoType(self, cl, layers="core", out=None, hashorslash="/"):
@@ -868,10 +870,11 @@ class ShowUnit (webapp2.RequestHandler):
             out = self
 
         out.write("<ul class='props2type'>")
-        for prop in sorted(GetSources(  Unit.GetUnit("schema:rangeIncludes"), cl, layers=layers), key=lambda u: u.id):
-            if (prop.superseded(layers=layers)):
+        
+        for prop in VTerm.getTerm(cl).getTargetOf():
+            if prop.superseded():
                 continue
-            out.write("<li><a href='%s%s'>%s</a></li>" % ( hashorslash, prop.id, prop.id  ))
+            out.write("<li><a href='%s%s'>%s</a></li>" % ( hashorslash, prop.getId(), prop.getId()  ))
         out.write("</ul>\n\n")
 
     def hideAtticTerm(self,term):
@@ -1090,8 +1093,8 @@ class ShowUnit (webapp2.RequestHandler):
             out = self
 
         out.write("<ul class='attrrangesummary'>")
-        for rt in sorted(GetTargets(Unit.GetUnit("rangeIncludes"), node, layers=layers), key=lambda u: u.id):
-            out.write("<li><a href='%s%s'>%s</a></li>" % ( hashorslash, rt.id, rt.id  ))
+        for rt in VTerm.getTerm(node).getRanges():
+            out.write("<li><a href='%s%s'>%s</a></li>" % ( hashorslash, rt.getId(), rt.getId()  ))
         out.write("</ul>\n\n")
 
 
@@ -1101,8 +1104,8 @@ class ShowUnit (webapp2.RequestHandler):
             out = self
 
         out.write("<ul class='attrdomainsummary'>")
-        for dt in sorted(GetTargets(Unit.GetUnit("schema:domainIncludes"), node, layers=layers), key=lambda u: u.id):
-            out.write("<li><a href='%s%s'>%s</a></li>" % ( hashorslash, dt.id, dt.id  ))
+        for dt in VTerm.getTerm(node).getDomains():
+            out.write("<li><a href='%s%s'>%s</a></li>" % ( hashorslash, dt.getId(), dt.getId()  ))
         out.write("</ul>\n\n")
 
 
@@ -2040,28 +2043,27 @@ class ShowUnit (webapp2.RequestHandler):
             return True
         else:
             mainroot = TypeHierarchyTree()
-            mainroot.traverseForHTML(Unit.GetUnit("Thing"), hashorslash="#term_", layers=layerlist)
+            mainroot.traverseForHTML(VTerm.getTerm("Thing"), hashorslash="#term_", layers=layerlist)
             thing_tree = mainroot.toHTML()
             base_href = "/version/%s/" % requested_version
 
             az_types = GetAllTypes()
-            az_types.sort( key=lambda u: u.id)
+            az_types.sort()
             az_type_meta = {}
 
             az_props = GetAllProperties()
-            az_props.sort( key = lambda u: u.id)
+            az_props.sort()
             az_prop_meta = {}
-
 
             # TYPES
             for t in az_types:
                 props4type = HTMLOutput() # properties applicable for a type
                 props2type = HTMLOutput() # properties that go into a type
-
+                
                 self.emitSimplePropertiesPerType(t, out=props4type, hashorslash="#term_" )
                 self.emitSimplePropertiesIntoType(t, out=props2type, hashorslash="#term_" )
 
-                tcmt = Markup(GetComment(t))
+                tcmt = Markup(VTerm.getTerm(t).getComment())
                 az_type_meta[t]={}
                 az_type_meta[t]['comment'] = tcmt
                 az_type_meta[t]['props4type'] = props4type.toHTML()
@@ -2078,7 +2080,7 @@ class ShowUnit (webapp2.RequestHandler):
                 self.emitRangeTypesForProperty(pt, out=rangeList, hashorslash="#term_" )
                 self.emitDomainTypesForProperty(pt, out=domainList, hashorslash="#term_" )
 
-                cmt = Markup(GetComment(pt))
+                cmt = Markup(VTerm.getTerm(pt).getComment())
                 az_prop_meta[pt] = {}
                 az_prop_meta[pt]['comment'] = cmt
                 az_prop_meta[pt]['attrinfo'] = attrInfo.toHTML()
@@ -2828,10 +2830,13 @@ def templateRender(templateName, node, values=None):
         node = node.getId()
 
     extName, extDD, extVers, extlinktext, extComment, extDisambiguatingDescription =  getExtenstionDescriptions()
-
+    
     if node.startswith("docs/"):
         docsdir = "./"
         homedir = ".."
+    elif node.startswith("version/"):
+        docsdir = "/docs/"
+        homedir = "/"
     else:
         docsdir = "docs/"
         homedir = "."
