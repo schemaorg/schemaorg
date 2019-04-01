@@ -111,10 +111,10 @@
       },
       "http://schema.org/domainIncludes": [
         {
-          "@id": "http://schema.org/ComicStory"
+          "@id": "http://schema.org/ComicIssue"
         },
         {
-          "@id": "http://schema.org/ComicIssue"
+          "@id": "http://schema.org/ComicStory"
         },
         {
           "@id": "http://schema.org/VisualArtwork"
@@ -204,10 +204,10 @@
       },
       "http://schema.org/rangeIncludes": [
         {
-          "@id": "http://schema.org/Organization"
+          "@id": "http://schema.org/Person"
         },
         {
-          "@id": "http://schema.org/Person"
+          "@id": "http://schema.org/Organization"
         }
       ],
       "rdfs:comment": "An agent associated with the publication event.",
@@ -238,21 +238,24 @@
       }
     },
     {
-      "@id": "http://schema.org/Newspaper",
-      "@type": "rdfs:Class",
-      "http://purl.org/dc/terms/source": {
-        "@id": "http://www.productontology.org/id/Newspaper"
+      "@id": "http://schema.org/translationOfWork",
+      "@type": "rdf:Property",
+      "http://schema.org/domainIncludes": {
+        "@id": "http://schema.org/CreativeWork"
+      },
+      "http://schema.org/inverseOf": {
+        "@id": "http://schema.org/workTranslation"
       },
       "http://schema.org/isPartOf": {
         "@id": "http://bib.schema.org"
       },
-      "rdfs:comment": "A publication containing information about varied topics that are pertinent to general information, a geographic area, or a specific subject matter (i.e. business, culture, education). Often published daily.",
+      "http://schema.org/rangeIncludes": {
+        "@id": "http://schema.org/CreativeWork"
+      },
+      "rdfs:comment": "The work that this work has been translated from. e.g. 物种起源 is a translationOf “On the Origin of Species”",
       "rdfs:label": {
         "@language": "en",
-        "@value": "Newspaper"
-      },
-      "rdfs:subClassOf": {
-        "@id": "http://schema.org/Periodical"
+        "@value": "translationOfWork"
       }
     },
     {
@@ -303,13 +306,13 @@
       },
       "http://schema.org/domainIncludes": [
         {
+          "@id": "http://schema.org/VisualArtwork"
+        },
+        {
           "@id": "http://schema.org/ComicStory"
         },
         {
           "@id": "http://schema.org/ComicIssue"
-        },
-        {
-          "@id": "http://schema.org/VisualArtwork"
         }
       ],
       "http://schema.org/isPartOf": {
@@ -333,13 +336,13 @@
       },
       "http://schema.org/domainIncludes": [
         {
-          "@id": "http://schema.org/ComicStory"
-        },
-        {
           "@id": "http://schema.org/VisualArtwork"
         },
         {
           "@id": "http://schema.org/ComicIssue"
+        },
+        {
+          "@id": "http://schema.org/ComicStory"
         }
       ],
       "http://schema.org/isPartOf": {
@@ -373,6 +376,24 @@
       }
     },
     {
+      "@id": "http://schema.org/Newspaper",
+      "@type": "rdfs:Class",
+      "http://purl.org/dc/terms/source": {
+        "@id": "http://www.productontology.org/id/Newspaper"
+      },
+      "http://schema.org/isPartOf": {
+        "@id": "http://bib.schema.org"
+      },
+      "rdfs:comment": "A publication containing information about varied topics that are pertinent to general information, a geographic area, or a specific subject matter (i.e. business, culture, education). Often published daily.",
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "Newspaper"
+      },
+      "rdfs:subClassOf": {
+        "@id": "http://schema.org/Periodical"
+      }
+    },
+    {
       "@id": "http://schema.org/Collection",
       "@type": "rdfs:Class",
       "http://schema.org/isPartOf": {
@@ -403,27 +424,6 @@
       }
     },
     {
-      "@id": "http://schema.org/translationOfWork",
-      "@type": "rdf:Property",
-      "http://schema.org/domainIncludes": {
-        "@id": "http://schema.org/CreativeWork"
-      },
-      "http://schema.org/inverseOf": {
-        "@id": "http://schema.org/workTranslation"
-      },
-      "http://schema.org/isPartOf": {
-        "@id": "http://bib.schema.org"
-      },
-      "http://schema.org/rangeIncludes": {
-        "@id": "http://schema.org/CreativeWork"
-      },
-      "rdfs:comment": "The work that this work has been translated from. e.g. 物种起源 is a translationOf “On the Origin of Species”",
-      "rdfs:label": {
-        "@language": "en",
-        "@value": "translationOfWork"
-      }
-    },
-    {
       "@id": "http://schema.org/Atlas",
       "@type": "rdfs:Class",
       "http://purl.org/dc/terms/source": {
@@ -450,13 +450,13 @@
       },
       "http://schema.org/domainIncludes": [
         {
+          "@id": "http://schema.org/VisualArtwork"
+        },
+        {
           "@id": "http://schema.org/ComicIssue"
         },
         {
           "@id": "http://schema.org/ComicStory"
-        },
-        {
-          "@id": "http://schema.org/VisualArtwork"
         }
       ],
       "http://schema.org/isPartOf": {
@@ -501,13 +501,13 @@
       },
       "http://schema.org/domainIncludes": [
         {
-          "@id": "http://schema.org/VisualArtwork"
-        },
-        {
           "@id": "http://schema.org/ComicIssue"
         },
         {
           "@id": "http://schema.org/ComicStory"
+        },
+        {
+          "@id": "http://schema.org/VisualArtwork"
         }
       ],
       "http://schema.org/isPartOf": {
