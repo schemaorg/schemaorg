@@ -3795,6 +3795,7 @@ The place is __open__ if the [[opens]] property is specified, and __closed__ oth
       <span property="rdfs:comment">An embedded audio object.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CreativeWork">CreativeWork</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/AudioObject">AudioObject</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Clip">Clip</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/author">
       <span class="h" property="rdfs:label">author</span>
@@ -4079,10 +4080,12 @@ The place is __open__ if the [[opens]] property is specified, and __closed__ oth
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/caption">
       <span class="h" property="rdfs:label">caption</span>
-      <span property="rdfs:comment">The caption for this object.</span>
+      <span property="rdfs:comment">The caption for this object. For downloadable machine formats (closed caption, subtitles etc.) use MediaObject and indicate the [[encodingFormat]].</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ImageObject">ImageObject</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/VideoObject">VideoObject</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/AudioObject">AudioObject</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/MediaObject">MediaObject</a></span>
     </div>
 
     <div typeof="rdf:Property" resource="http://schema.org/carrier">
@@ -7507,6 +7510,7 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
       <span property="rdfs:comment">An embedded video object.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CreativeWork">CreativeWork</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/VideoObject">VideoObject</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Clp">Clip</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/videoFrameSize">
       <span class="h" property="rdfs:label">videoFrameSize</span>
