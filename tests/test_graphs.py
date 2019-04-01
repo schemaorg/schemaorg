@@ -331,7 +331,7 @@ class SDOGraphSetupTestCase(unittest.TestCase):
        BIND(STR(?term) AS ?strVal)
        FILTER(STRLEN(?strVal) >= 18 && SUBSTR(?strVal, 1, 18) = "http://schema.org/")
 
-       FILTER regex(str(?label), '^[^A-Z]')
+       FILTER (!regex(str(?label), '^[0-9]*[A-Z].*'))
     }
     ORDER BY ?term  ''')
     nri1_results = self.rdflib_data.query(nri1)
@@ -339,7 +339,7 @@ class SDOGraphSetupTestCase(unittest.TestCase):
         log.info("Type label [A-Z] errors!!!\n")
         for row in nri1_results:
             log.info("Type '%s' has a label without upper case 1st character" % (row["term"]))
-    self.assertEqual(len(nri1_results), 0, "Type label not [A-Z] 1st char Found: %s" % len(nri1_results))
+    self.assertEqual(len(nri1_results), 0, "Type label not [A-Z] 1st non-numeric char Found: %s" % len(nri1_results))
     
   def test_propertyLabelCase(self):
     nri1= ('''select ?term ?label where { 
@@ -349,14 +349,14 @@ class SDOGraphSetupTestCase(unittest.TestCase):
        BIND(STR(?term) AS ?strVal)
        FILTER(STRLEN(?strVal) >= 18 && SUBSTR(?strVal, 1, 18) = "http://schema.org/")
 
-       FILTER regex(str(?label), '^[^a-z]')
+       FILTER (!regex(str(?label), '^[0-9]*[a-z].*'))
     }
     ORDER BY ?term  ''')
     nri1_results = self.rdflib_data.query(nri1)
     if len(nri1_results):
         log.info("Property label [a-z] errors!!!\n")
         for row in nri1_results:
-            log.info("Property '%s' has a label without lower case 1st character" % (row["term"]))
+            log.info("Property '%s' has a label without lower case 1st non-numeric character" % (row["term"]))
     self.assertEqual(len(nri1_results), 0, "Property label not [a-z] 1st char Found: %s" % len(nri1_results))
 
   def test_superTypeInAttic(self):

@@ -6,6 +6,7 @@ import markdown2
 from markdown2 import Markdown
 import re
 import threading
+import sdoutil
 WIKILINKPATTERN = r'\[\[([\w0-9_ -]+)\]\]'
 
 class MarkdownTool():
@@ -18,13 +19,13 @@ class MarkdownTool():
         self.wpost = ""
         self.parselock = threading.Lock() 
     
-    def setPre(self,pre="/"):
+    def setPre(self,pre="./"):
         self.wpre = pre
         
     def setPost(self,post=""):
         self.wpost = post
         
-    def parse(self,source,preservePara=False):
+    def parse(self,source,preservePara=False,wpre=None):
         if not source or len(source) == 0:
             return ""
         source = source.strip()
@@ -45,14 +46,18 @@ class MarkdownTool():
             if ret.endswith("<br/><br/>"):
                 ret = ret[:len(ret)-10]
         
-        return self.parseWiklinks(ret)
+        return self.parseWiklinks(ret,wpre=wpre)
     
-    def parseWiklinks(self,source):
+    def parseWiklinks(self,source,wpre=None):
+        sdoutil.setAppVar("MKDOWNWPRE",wpre)
         return re.sub(WIKILINKPATTERN, self.wikilinkReplace, source)
         
     def wikilinkReplace(self,match):
+        wpre = sdoutil.getAppVar("MKDOWNWPRE")
+        if not wpre:
+            wpre = self.wpre
         t = match.group(1)
-        return '<a class="%s" href="%s%s%s">%s</a>' % (self.wclass,self.wpre,t,self.wpost,t)
+        return '<a class="%s" href="%s%s%s">%s</a>' % (self.wclass,wpre,t,self.wpost,t)
         
 
 Markdown = MarkdownTool()

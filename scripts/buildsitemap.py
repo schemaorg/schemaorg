@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python2.7
 import unittest
 import os
 from os import path, getenv
@@ -39,6 +39,9 @@ import threading
 from api import inLayer, read_file, full_path, read_schemas, read_extensions, read_examples, namespaces, DataCache, getMasterStore
 from apirdflib import getNss, getRevNss
 from apimarkdown import Markdown
+
+os.environ["WARMUPSTATE"] = "off"
+from sdoapp import *
 
 from sdordf2csv import sdordf2csv
 
@@ -82,7 +85,7 @@ STATICPAGES = ["docs/schemas.html",
 
 class SiteMap():
     def __init__(self):
-        self.today = "2017-01-19"
+        self.today = TODAY
         self.count = 0
         self.openFile()
         self.setSkips()
@@ -125,8 +128,8 @@ class SiteMap():
     def getGraphs(self):
         self.store = getMasterStore()
         self.fullGraph = getQueryGraph()
-        read_schemas(loadExtensions=True)
-        read_extensions(sdoapp.ENABLED_EXTENSIONS)
+        #read_schemas(loadExtensions=True)
+        #read_extensions(sdoapp.ENABLED_EXTENSIONS)
         self.graphs = list(self.store.graphs())
 
 
@@ -184,7 +187,7 @@ class SiteMap():
             ext = ext + "."
 
         site = args.site
-        scheme = "http://"
+        scheme = "https://"
         if site.startswith("http://"):
             site = site[7:]
         elif site.startswith("https://"):

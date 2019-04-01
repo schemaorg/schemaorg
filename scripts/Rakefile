@@ -86,7 +86,8 @@ desc "Create custom pre-compiled vocabulary"
 task vocab: "spec/schema.rb"
 
 file "spec/schema.rb" => :do_build do
-  rel = Dir.glob(File.expand_path("../../data/releases/*", __FILE__)).last
+  #rel = Dir.glob(File.expand_path("../../data/releases/*", __FILE__)).last
+  rel = Dir.glob(File.expand_path("../../data/releases/LATEST", __FILE__)).last
   puts "Generate spec/schema.rb"
   cmd = "bundle exec rdf"
   cmd += " serialize --uri http://schema.org/ --output-format vocabulary"
