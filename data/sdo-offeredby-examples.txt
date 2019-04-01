@@ -281,12 +281,14 @@ PRE-MARKUP:
 
 MICRODATA:
 
-<body itemscope itemtype='http://schema.org/Movie' itemid="#schemarecord">
+<body itemscope itemtype='http://schema.org/Movie'>
+<meta itemprop="url" content="#schemarecord"/>
 <link itemprop="additionalType" href="http://schema.org/Product"/>
 <h1 itemprop="name">In search of Haydn [videorecording] / Phil Grabsky Films.com &amp; Seventh Art Productions in association with Sky Art HD ; filmed, written and directed by Phil Grabsky.</h1>
 <h2>Record details</h2>
 <ul>
-	<li><strong>Publisher:</strong> <span itemprop="publisher" itemtype="http://schema.org/Organization"><span itemprop="location">[Brighton, UK] :</span> <span itemprop="name">Seventh Art Productions,</span></span> <span itemprop="datePublished">[2011]</span></li>
+	<li><div itemprop="publisher" itemscope itemtype="http://schema.org/Organization"><strong>Publisher:</strong> <span ><span itemprop="location">[Brighton, UK] :</span> <span itemprop="name">Seventh Art Productions,</span></span> <span itemprop="datePublished">[2011]</span>
+</div></li>
 </ul>
 <table>
 		<tr><td>Subject:</td>
@@ -297,9 +299,9 @@ MICRODATA:
 		</tr>
 </table>
 <table>
-    <tr><th>Location</th><th>Call Number / Copy Notes</th><th>Barcode</th><th>Shelving Location</th><th>Status</th><th>Due Date</th></tr>
-	<tr itemprop="offers" itemtype="http://schema.org/Offer">
-		<td><a itemprop="offeredBy" itemtype="Library" href="/eg/opac/library/MRC"><span itemprop="name">Music Resource Centre</span></a></td>
+    <tr><th>Location</th><th>Call Number / Copy Notes</th><th>Barcode</th><th>Shelving Location</th><th>Status</th></tr>
+	<tr itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+		<td><a itemprop="offeredBy" itemscope itemtype="http://schema.org/Library" href="/eg/opac/library/MRC"><span itemprop="name">Music Resource Centre</span></a></td>
 		<td><span itemprop="sku">ML 410 H4 I5 2011</span></td>
 		<td itemprop="serialNumber">30007008812793</td>
 		<td itemprop="availableAtOrFrom">Circulation</td>
