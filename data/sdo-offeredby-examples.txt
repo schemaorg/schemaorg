@@ -6,25 +6,31 @@ PRE-MARKUP:
 
  <div>
    <h3>Le concerto</h3>
-   <table summary="Bibliographic Details">
-     <tr>
-       <th>Main Author: </th>
-       <td>Ferchault, Guy</td>
-     </tr>
-   </table>
+   <div>
+       Bibliographic Details
+       <table>
+         <tr>
+           <th>Main Author: </th>
+           <td>Ferchault, Guy</td>
+         </tr>
+       </table>
+   </div>
  </div>
 
- <table summary="Holdings details from Anytown City Library">
-   <!-- Example of a copy available for loan -->
-   <tr>
-     <th>Copy </th>
-     <td>Available
-       <div>Barcode: <span>CONC91000937</span></div>
-       <div>Call number: <span>780 R2</span></div>
-       <div>Library: <span>Anytown City Library</span></div>
-     </td>
-   </tr>
- <table>
+ <div>
+     Holdings details from Anytown City Library
+     <table>
+       <!-- Example of a copy available for loan -->
+       <tr>
+         <th>Copy </th>
+         <td>Available
+           <div>Barcode: <span>CONC91000937</span></div>
+           <div>Call number: <span>780 R2</span></div>
+           <div>Library: <span>Anytown City Library</span></div>
+         </td>
+       </tr>
+     <table>
+ </div>
 
 MICRODATA:
 
@@ -33,56 +39,79 @@ MICRODATA:
  <div itemscope itemtype="http://schema.org/Book" itemid="#record">
    <link itemprop="additionalType" href="http://schema.org/Product"/>
    <h3 itemprop="name">Le concerto</h3>
-   <table summary="Bibliographic Details">
-     <tr>
-       <th>Main Author: </th>
-       <td itemprop="author">Ferchault, Guy</td>
-     </tr>
-   </table>
+   <div>
+       Bibliographic Details
+       <table>
+         <tr>
+           <th>Main Author: </th>
+           <td itemprop="author">Ferchault, Guy</td>
+         </tr>
+       </table>
+   </div>
  </div>
 
- <table summary="Holdings details from Anytown City Library">
-   <!-- Example of a copy available for loan -->
-   <tr itemscope itemtype="http://schema.org/Offer">
-     <th>Copy </th>
-     <td>Available
-       <link itemprop="availability" href="http://schema.org/InStock">
-       <div>Barcode: <span itemprop="serialNumber">CONC91000937</span></div>
-       <div>Call number: <span itemprop="sku">780 R2</span></div>
-       <div>Library: <span itemprop="offeredBy" itemtype="http://schema.org/Library" itemid="http://library.anytown.gov.uk" >Anytown City Library</span></div>
-       <link itemprop="businessFunction" href="http://purl.org/goodrelations/v1#LeaseOut">
-       <link itemprop="itemOffered" href="#record">
-     </td>
-   </tr>
- <table>
+ <div>
+     Holdings details from Anytown City Library
+     <table>
+       <!-- Example of a copy available for loan -->
+       <tr itemscope itemtype="http://schema.org/Offer">
+         <th>Copy </th>
+         <td>Available
+           <link itemprop="availability" href="http://schema.org/InStock">
+           <div>Barcode: <span itemprop="serialNumber">CONC91000937</span></div>
+           <div>Call number: <span itemprop="sku">780 R2</span></div>
+           <div>Library: <span itemprop="offeredBy" itemscope itemtype="http://schema.org/Library" itemid="http://library.anytown.gov.uk" >Anytown City Library</span></div>
+           <link itemprop="businessFunction" href="http://purl.org/goodrelations/v1#LeaseOut">
+           <link itemprop="itemOffered" href="#record">
+         </td>
+       </tr>
+     </table>
+ </div>
 
 RDFA:
 
  <!-- Uses both the "Book" and "Product" item types to support Offer relationships -->
- <div vocab="http://schema.org/" resource="#record" typeof="Book Product">
-   <h3 property="name">Le concerto</h3>
-   <table summary="Bibliographic Details">
-     <tr>
-       <th>Main Author: </th>
-       <td property="author">Ferchault, Guy</td>
-     </tr>
-   </table>
- </div>
-
- <table vocab="http://schema.org/" summary="Holdings details from Anytown City Library">
-   <!-- Example of a copy available for loan -->
-   <tr typeof="Offer">
-     <th>Copy </th>
-     <td>Available
-       <link property="availability" href="http://schema.org/InStock">
-       <div>Barcode: <span property="serialNumber">CONC91000937</span></div>
-       <div>Call number: <span property="sku">780 R2</span></div>
-       <div>Library: <span property="offeredBy" typeof="Library" resource="http://library.anytown.gov.uk" >Anytown City Library</span></div>
-       <link property="businessFunction" href="http://purl.org/goodrelations/v1#LeaseOut">
-       <link property="itemOffered" href="#record">
-     </td>
-   </tr>
- <table>
+<div vocab="http://schema.org/" resource="#record" typeof="Book Product">
+    <h3 property="name">
+        Le concerto
+    </h3>
+    <div>
+        Bibliographic Details
+        <table>
+            <tr>
+                <th>
+                    Main Author:
+                </th>
+                <td property="author">
+                    Ferchault, Guy
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+<div>
+    Holdings details from Anytown City Library
+    <table vocab="http://schema.org/">
+        <!-- Example of a copy available for loan -->
+        <tr typeof="Offer">
+            <th>
+                Copy
+            </th>
+            <td>
+                Available
+                <div>
+                    Barcode: <span property="serialNumber">CONC91000937</span>
+                </div>
+                <div>
+                    Call number: <span property="sku">780 R2</span>
+                </div>
+                <div>
+                    Library: <span property="offeredBy" typeof="Library" resource="http://library.anytown.gov.uk">Anytown City Library</span>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
 
 JSON:
 
@@ -252,12 +281,14 @@ PRE-MARKUP:
 
 MICRODATA:
 
-<body itemscope itemtype='http://schema.org/Movie Product' itemid="#schemarecord">
+<body itemscope itemtype='http://schema.org/Movie'>
+<meta itemprop="url" content="#schemarecord"/>
 <link itemprop="additionalType" href="http://schema.org/Product"/>
 <h1 itemprop="name">In search of Haydn [videorecording] / Phil Grabsky Films.com &amp; Seventh Art Productions in association with Sky Art HD ; filmed, written and directed by Phil Grabsky.</h1>
 <h2>Record details</h2>
 <ul>
-	<li><strong>Publisher:</strong> <span itemprop="publisher" itemtype="http://schema.org/Organization"><span itemprop="location">[Brighton, UK] :</span> <span itemprop="name">Seventh Art Productions,</span></span> <span itemprop="datePublished">[2011]</span></li>
+	<li><div itemprop="publisher" itemscope itemtype="http://schema.org/Organization"><strong>Publisher:</strong> <span ><span itemprop="location">[Brighton, UK] :</span> <span itemprop="name">Seventh Art Productions,</span></span> <span itemprop="datePublished">[2011]</span>
+</div></li>
 </ul>
 <table>
 		<tr><td>Subject:</td>
@@ -268,9 +299,9 @@ MICRODATA:
 		</tr>
 </table>
 <table>
-    <tr><th>Location</th><th>Call Number / Copy Notes</th><th>Barcode</th><th>Shelving Location</th><th>Status</th><th>Due Date</th></tr>
-	<tr itemprop="offers" itemtype="http://schema.org/Offer">
-		<td><a itemprop="offeredBy" itemtype="Library" href="/eg/opac/library/MRC"><span itemprop="name">Music Resource Centre</span></a></td>
+    <tr><th>Location</th><th>Call Number / Copy Notes</th><th>Barcode</th><th>Shelving Location</th><th>Status</th></tr>
+	<tr itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+		<td><a itemprop="offeredBy" itemscope itemtype="http://schema.org/Library" href="/eg/opac/library/MRC"><span itemprop="name">Music Resource Centre</span></a></td>
 		<td><span itemprop="sku">ML 410 H4 I5 2011</span></td>
 		<td itemprop="serialNumber">30007008812793</td>
 		<td itemprop="availableAtOrFrom">Circulation</td>
@@ -326,8 +357,7 @@ JSON:
   },
   {
     "@id": "https://laurentian.concat.ca/eg/opac/record/2845929#schemarecord",
-    "@type": "Movie",
-    "additionalType": "Product",
+    "@type": ["Movie","Product"],
     "about": [
         "Composers > Austria > Biography.",
         "Haydn, Joseph, 1732-1809.",
@@ -588,7 +618,7 @@ MICRODATA:
   </div>
   delivers within 5 km of its store
   <div itemprop="makesOffer" itemscope itemtype="http://schema.org/Offer">
-    <div itemprop="availableAtOrFrom" itemscope itemtype="http://schema.org/GeoCircle">
+    <div itemprop="eligibleRegion" itemscope itemtype="http://schema.org/GeoCircle">
       <div itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
         <meta itemprop="streetAddress" content="123 Main Street" />
         <meta itemprop="addressLocality" content="Cambridge" />

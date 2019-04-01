@@ -996,31 +996,24 @@ MICRODATA:
 RDFA:
 
 <div vocab="http://schema.org/" typeof="Product">
-  <img property="image" src="dell-30in-lcd.jpg" alt="A Dell UltraSharp monitor"/>
-  <span property="name">Dell UltraSharp 30" LCD Monitor</span>
-
-  <div property="aggregateRating"
-     typeof="AggregateRating">
-    <span property="ratingValue">87</span>
-    out of <span property="bestRating">100</span>
-    based on <span property="ratingCount">24</span> user ratings
-  </div>
-
-  <div property="offers" typeof="AggregateOffer">
-    <span property="lowPrice">$1250</span>
-    to <span property="highPrice">$1495</span>
-    from <span property="offerCount">8</span> sellers
-
-  Sellers:
-  <div property="offers" typeof="Offer">
-    <a property="url" href="save-a-lot-monitors.com/dell-30.html">
-     Save A Lot Monitors - $1250</a>
-  </div>
-  <div property="offers" typeof="Offer">
-    <a property="url" href="jondoe-gadgets.com/dell-30.html">
-     Jon Doe's Gadgets - $1350</a>
-  </div>
-  ...
+    <img property="image" src="dell-30in-lcd.jpg" alt="A Dell UltraSharp monitor"> <span property="name">Dell UltraSharp 30" LCD Monitor</span>
+    <div property="aggregateRating" typeof="AggregateRating">
+        <span property="ratingValue">87</span> out of 
+        <span property="bestRating">100</span> based on 
+        <span property="ratingCount">24</span> user ratings
+    </div>
+    <div property="offers" typeof="AggregateOffer">
+        <span property="lowPrice">$1250</span> to 
+        <span property="highPrice">$1495</span> from 
+        <span property="offerCount">8</span> sellers Sellers:
+        <div property="offers" typeof="Offer">
+            <a property="url" href="save-a-lot-monitors.com/dell-30.html">Save A Lot Monitors - $1250</a>
+        </div>
+        <div property="offers" typeof="Offer">
+            <a property="url" href="jondoe-gadgets.com/dell-30.html">Jon Doe's Gadgets - $1350</a>
+        </div>
+        ...
+    </div>
 </div>
 
 JSON:
@@ -1420,7 +1413,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-14 VideoObject,MusicGroup,MusicRecording,Event,video,interactionCount,InteractionCounter,duration,interactionStatistic,interactionType
+TYPES: #eg-14 VideoObject,MusicGroup,MusicRecording,Event,video,interactionStatistic,InteractionCounter,duration,interactionStatistic,interactionType
 
 PRE-MARKUP:
 
@@ -1484,259 +1477,194 @@ Showing 1-2 of 18 comments. <a href="foofighters-comments">More</a>
 MICRODATA:
 
 <div itemscope itemtype="http://schema.org/MusicGroup">
-
-<h1 itemprop="name">Foo Fighters</h1>
-
-
-<div itemprop="video" itemscope itemtype="http://schema.org/VideoObject">
-  <h2>Video: <span itemprop="name">Interview with the Foo Fighters</span></h2>
-  <meta itemprop="duration" content="T1M33S" />
-  <meta itemprop="thumbnail" content="foo-fighters-interview-thumb.jpg" />
-  <object ...>
-    <param ...>
-    <embed type="application/x-shockwave-flash" ...>
-  </object>
-  <span itemprop="description">Catch this exclusive interview with
-    Dave Grohl and the Foo Fighters about their new album, Rope.</span>
+    <h1 itemprop="name">
+        Foo Fighters
+    </h1>
+    <div itemprop="subjectOf" itemscope itemtype="http://schema.org/VideoObject">
+        <h2>
+            Video: <span itemprop="name">Interview with the Foo Fighters</span>
+        </h2>
+        <meta itemprop="duration" content="T1M33S">
+        <meta itemprop="thumbnail" content="foo-fighters-interview-thumb.jpg"><object>
+            <param>
+             <embed type="application/x-shockwave-flash">
+        </object> <span itemprop="description">Catch this exclusive interview with Dave Grohl and the Foo Fighters about their new album, Rope.</span>
+        <h3>
+            Comments:
+        </h3>Excited about seeing them in concert next week. -Lawrence , Jan 23 I dig their latest single. -Mary, Jan 19
+        <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+            <meta itemprop="interactionType" content="http://schema.org/CommentAction">
+            <meta itemprop="userInteractionCount" content="18">
+        </div>Showing 1-2 of 18 comments. <a href="foofighters-comments">More</a>
+        </div>
+    <h2>
+        Songs
+    </h2>
+    <div itemprop="track" itemscope itemtype="http://schema.org/MusicRecording">
+        <span itemprop="name">Rope</span>
+        <link itemprop="url" href="foo-fighters-rope.html">Length:
+        <meta itemprop="duration" content="PT4M5S">4:05 - 14300 plays
+        <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+            <meta itemprop="interactionType" content="http://schema.org/ListenAction">
+            <meta itemprop="userInteractionCount" content="14300">
+        </div><a href="foo-fighters-rope-play.html" itemprop="audio">Play</a> <a href="foo-fighters-rope-buy.html" itemprop="offers">Buy</a> From album: <a href="foo-fighters-wasting-light.html" itemprop="inAlbum">Wasting Light</a>
+    </div>
+    <div itemprop="track" itemscope itemtype="http://schema.org/MusicRecording">
+        <span itemprop="name">Everlong</span>
+        <link itemprop="url" href="foo-fighters-everlong.html">Length:
+        <meta itemprop="duration" content="PT6M33S">6:33 - 11700 plays
+        <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+            <meta itemprop="interactionType" content="http://schema.org/ListenAction">
+            <meta itemprop="userInteractionCount" content="11700">
+        </div><a href="foo-fighters-everlong-play.html" itemprop="audio">Play</a> <a href="foo-fighters-everlong-buy.html" itemprop="offers">Buy</a> From album: <a href="foo-fighters-color-and-shape.html" itemprop="inAlbum">The Color And The Shape</a>
+    </div>
+    <h2>
+        Upcoming shows
+    </h2>
+    <div itemprop="event" itemscope itemtype="http://schema.org/Event">
+        <a href="foo-fighters-may20-fedexforum" itemprop="url"><span itemprop="name">FedExForum</span></a> <span itemprop="location">Memphis, TN, US</span>
+        <meta itemprop="startDate" content="2011-05-20">May 20 <a href="ticketmaster.com/foofighters/may20-2011" itemprop="offers">Buy tickets</a>
+    </div>
+    <div itemprop="event" itemscope itemtype="http://schema.org/Event">
+        <a href="foo-fighters-may23-midamericacenter" itemprop="url"><span itemprop="name">Mid America Center</span></a> <span itemprop="location">Council Bluffs, IA, US</span>
+        <meta itemprop="startDate" content="2011-05-23">May 23 <a href="ticketmaster.com/foofighters/may23-2011" itemprop="offers">Buy tickets</a>
+    </div>
+    <h2>
+        <a href="foo-fighters-photos">28 Photos</a>
+    </h2><a href="foofighters-1.jpg" itemprop="image"><img alt="Thumbnail and linked photo of Foo Fighters band" src="foofighters-thumb1.jpg"></a> <a href="foofighters-2.jpg" itemprop="image"><img alt="Thumbnail and linked photo of Foo Fighters band" src="foofighters-thumb2.jpg"></a> <a href="foofighters-3.jpg" itemprop="image"><img alt="Thumbnail and linked photo of Foo Fighters band" src="foofighters-thumb3.jpg"></a>
 </div>
 
-
-<h2>Songs</h2>
-
-<div itemprop="track" itemscope itemtype="http://schema.org/MusicRecording">
-  <span itemprop="name">Rope</span>
-  <link itemprop="url" href="foo-fighters-rope.html">
-  Length: <meta itemprop="duration" content="PT4M5S">4:05 -
-  14300 plays
-  <div itemprop="interactionCount" itemscope itemtype="http://schema.org/InteractionCounter">
-    <meta itemprop="interactionType" content="http://schema.org/ListenAction" />
-    <meta itemprop="userInteractionCount" content="14300" />
-  </div>
-  <a href="foo-fighters-rope-play.html" itemprop="audio">Play</a>
-  <a href="foo-fighters-rope-buy.html" itemprop="offers">Buy</a>
-  From album: <a href="foo-fighters-wasting-light.html"
-    itemprop="inAlbum">Wasting Light</a>
-</div>
-
-<div itemprop="track" itemscope itemtype="http://schema.org/MusicRecording">
-  <span itemprop="name">Everlong</span>
-  <link itemprop="url" href="foo-fighters-everlong.html">
-  Length: <meta itemprop="duration" content="PT6M33S">6:33 -
-  11700 plays
-  <div itemprop="interactionCount" itemscope itemtype="http://schema.org/InteractionCounter">
-    <meta itemprop="interactionType" content="http://schema.org/ListenAction" />
-    <meta itemprop="userInteractionCount" content="11700" />
-  </div>
-  <a href="foo-fighters-everlong-play.html" itemprop="audio">Play</a>
-  <a href="foo-fighters-everlong-buy.html" itemprop="offers">Buy</a>
-  From album: <a href="foo-fighters-color-and-shape.html"
-    itemprop="inAlbum">The Color And The Shape</a>
-</div>
-
-
-<h2>Upcoming shows</h2>
-
-<div itemprop="event" itemscope itemtype="http://schema.org/Event">
-  <a href="foo-fighters-may20-fedexforum" itemprop="url">
-    <span itemprop="name">FedExForum</span>
-  </a>
-  <span itemprop="location">Memphis, TN, US</span>
-  <meta itemprop="startDate" content="2011-05-20">May 20
-  <a href="ticketmaster.com/foofighters/may20-2011" itemprop="offers">Buy tickets</a>
-</div>
-
-<div itemprop="event" itemscope itemtype="http://schema.org/Event">
-  <a href="foo-fighters-may23-midamericacenter" itemprop="url">
-    <span itemprop="name">Mid America Center</span>
-  </a>
-  <span itemprop="location">Council Bluffs, IA, US</span>
-  <meta itemprop="startDate" content="2011-05-23">May 23
-  <a href="ticketmaster.com/foofighters/may23-2011" itemprop="offers">Buy tickets</a>
-</div>
-
-<h2><a href="foo-fighters-photos">28 Photos</a></h2>
-<a href="foofighters-1.jpg" itemprop="image"><img
-alt="Thumbnail and linked photo of Foo Fighters band"
-src="foofighters-thumb1.jpg" /></a>
-<a href="foofighters-2.jpg" itemprop="image"><img
-alt="Thumbnail and linked photo of Foo Fighters band"
-src="foofighters-thumb2.jpg" /></a>
-<a href="foofighters-3.jpg" itemprop="image"><img
-alt="Thumbnail and linked photo of Foo Fighters band"
-src="foofighters-thumb3.jpg" /></a>
-
-
-<h2>Comments:</h2>
-Excited about seeing them in concert next week. -Lawrence , Jan 23
-I dig their latest single. -Mary, Jan 19
-<div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
-  <meta itemprop="interactionType" content="http://schema.org/CommentAction" />
-  <meta itemprop="userInteractionCount" content="18" />
-</div>
-Showing 1-2 of 18 comments. <a href="foofighters-comments">More</a>
-
-</div>
 
 RDFA:
 
 <div vocab="http://schema.org/" typeof="MusicGroup">
-
-<h1 property="name">Foo Fighters</h1>
-
-
-<div property="video" typeof="VideoObject">
-  <h2>Video: <span property="name">Interview with the Foo Fighters</span></h2>
-  <meta property="duration" content="T1M33S" />
-  <meta property="thumbnail" content="foo-fighters-interview-thumb.jpg" />
-  <object ...>
-    <param ...>
-    <embed type="application/x-shockwave-flash" ...>
-  </object>
-  <span property="description">Catch this exclusive interview with
-    Dave Grohl and the Foo Fighters about their new album, Rope.</span>
-</div>
-
-
-<h2>Songs</h2>
-
-<div property="track" typeof="MusicRecording">
-  <span property="name">Rope</span>
-  <meta property="url" content ="foo-fighters-rope.html">
-  Length: <meta property="duration" content="PT4M5S">4:05 -
-  14300 plays
-  <div property="interactionStatistic" typeof="http://schema.org/InteractionCounter">
-    <meta property="interactionType" content="http://schema.org/ListenAction" />
-    <meta property="userInteractionCount" content="14300" />
-  </div>
-  <a href="foo-fighters-rope-play.html" property="audio">Play</a>
-  <a href="foo-fighters-rope-buy.html" property="offers">Buy</a>
-  From album: <a href="foo-fighters-wasting-light.html"
-    property="inAlbum">Wasting Light</a>
-</div>
-
-<div property="track" typeof="MusicRecording">
-  <span property="name">Everlong</span>
-  <meta property="url" content ="foo-fighters-everlong.html">
-  Length: <meta property="duration" content="PT6M33S">6:33 -
-  11700 plays
-  <div property="interactionStatistic" typeof="http://schema.org/InteractionCounter">
-    <meta property="interactionType" content="http://schema.org/ListenAction" />
-    <meta property="userInteractionCount" content="11700" />
-  </div>
-  <a href="foo-fighters-everlong-play.html" property="audio">Play</a>
-  <a href="foo-fighters-everlong-buy.html" property="offers">Buy</a>
-  From album: <a href="foo-fighters-color-and-shape.html"
-    property="inAlbum">The Color And The Shape</a>
-</div>
-
-
-<h2>Upcoming shows</h2>
-
-<div property="event" typeof="Event">
-  <a href="foo-fighters-may20-fedexforum" property="url">
-    <span property="name">FedExForum</span>
-  </a>
-  <span property="location">Memphis, TN, US</span>
-  <meta property="startDate" content="2011-05-20">May 20
-  <a href="ticketmaster.com/foofighters/may20-2011" property="offers">Buy tickets</a>
-</div>
-
-<div property="event" typeof="Event">
-  <a href="foo-fighters-may23-midamericacenter" property="url">
-    <span property="name">Mid America Center</span>
-  </a>
-  <span property="location">Council Bluffs, IA, US</span>
-  <meta property="startDate" content="2011-05-23">May 23
-  <a href="ticketmaster.com/foofighters/may23-2011" property="offers">Buy tickets</a>
-</div>
-
-<h2><a href="foo-fighters-photos">28 Photos</a></h2>
-<a href="foofighters-1.jpg" property="image"><img
-alt="Thumbnail and linked photo of Foo Fighters band"
-src="foofighters-thumb1.jpg" /></a>
-<a href="foofighters-2.jpg" property="image"><img
- alt="Thumbnail and linked photo of Foo Fighters band"
- src="foofighters-thumb2.jpg" /></a>
-<a href="foofighters-3.jpg" property="image"><img
- alt="Thumbnail and linked photo of Foo Fighters band"
- src="foofighters-thumb3.jpg" /></a>
-
-
-<h2>Comments:</h2>
-Excited about seeing them in concert next week. -Lawrence , Jan 23
-I dig their latest single. -Mary, Jan 19
-<div property="interactionStatistic" typeof="http://schema.org/InteractionCounter">
-  <meta property="interactionType" content="http://schema.org/CommentAction" />
-  <meta property="userInteractionCount" content="18" />
-</div>
-Showing 1-2 of 18 comments. <a href="foofighters-comments">More</a>
-
+    <h1 property="name">
+        Foo Fighters
+    </h1>
+    <div property="subjectOf" typeof="VideoObject">
+        <h2>
+            Video: <span property="name">Interview with the Foo Fighters</span>
+        </h2>
+        <meta property="duration" content="T1M33S">
+        <meta property="thumbnail" content="foo-fighters-interview-thumb.jpg"><object>
+            <param>
+             <embed type="application/x-shockwave-flash">
+        </object> <span property="description">Catch this exclusive interview with Dave Grohl and the Foo Fighters about their new album, Rope.</span>
+        <h3>
+            Comments:
+        </h3>Excited about seeing them in concert next week. -Lawrence , Jan 23 I dig their latest single. -Mary, Jan 19
+        <div property="interactionStatistic" typeof="http://schema.org/InteractionCounter">
+            <meta property="interactionType" content="http://schema.org/CommentAction">
+            <meta property="userInteractionCount" content="18">
+        </div>Showing 1-2 of 18 comments. <a href="foofighters-comments">More</a>
+    </div>
+    <h2>
+        Songs
+    </h2>
+    <div property="track" typeof="MusicRecording">
+        <span property="name">Rope</span>
+        <meta property="url" content="foo-fighters-rope.html">Length:
+        <meta property="duration" content="PT4M5S">4:05 - 14300 plays
+        <div property="interactionStatistic" typeof="http://schema.org/InteractionCounter">
+            <meta property="interactionType" content="http://schema.org/ListenAction">
+            <meta property="userInteractionCount" content="14300">
+        </div><a href="foo-fighters-rope-play.html" property="audio">Play</a> <a href="foo-fighters-rope-buy.html" property="offers">Buy</a> From album: <a href="foo-fighters-wasting-light.html" property="inAlbum">Wasting Light</a>
+    </div>
+    <div property="track" typeof="MusicRecording">
+        <span property="name">Everlong</span>
+        <meta property="url" content="foo-fighters-everlong.html">Length:
+        <meta property="duration" content="PT6M33S">6:33 - 11700 plays
+        <div property="interactionStatistic" typeof="http://schema.org/InteractionCounter">
+            <meta property="interactionType" content="http://schema.org/ListenAction">
+            <meta property="userInteractionCount" content="11700">
+        </div><a href="foo-fighters-everlong-play.html" property="audio">Play</a> <a href="foo-fighters-everlong-buy.html" property="offers">Buy</a> From album: <a href="foo-fighters-color-and-shape.html" property="inAlbum">The Color And The Shape</a>
+    </div>
+    <h2>
+        Upcoming shows
+    </h2>
+    <div property="event" typeof="Event">
+        <a href="foo-fighters-may20-fedexforum" property="url"><span property="name">FedExForum</span></a> <span property="location">Memphis, TN, US</span>
+        <meta property="startDate" content="2011-05-20">May 20 <a href="ticketmaster.com/foofighters/may20-2011" property="offers">Buy tickets</a>
+    </div>
+    <div property="event" typeof="Event">
+        <a href="foo-fighters-may23-midamericacenter" property="url"><span property="name">Mid America Center</span></a> <span property="location">Council Bluffs, IA, US</span>
+        <meta property="startDate" content="2011-05-23">May 23 <a href="ticketmaster.com/foofighters/may23-2011" property="offers">Buy tickets</a>
+    </div>
+    <h2>
+        <a href="foo-fighters-photos">28 Photos</a>
+    </h2><a href="foofighters-1.jpg" property="image"><img alt="Thumbnail and linked photo of Foo Fighters band" src="foofighters-thumb1.jpg"></a> <a href="foofighters-2.jpg" property="image"><img alt="Thumbnail and linked photo of Foo Fighters band" src="foofighters-thumb2.jpg"></a> <a href="foofighters-3.jpg" property="image"><img alt="Thumbnail and linked photo of Foo Fighters band" src="foofighters-thumb3.jpg"></a>
 </div>
 
 JSON:
 
 <script type="application/ld+json">
 {
-  "@context": "http://schema.org",
-  "@type": "MusicGroup",
-  "event": [{
-    "@type": "Event",
-    "location": "Memphis, TN, US",
-    "offers": "ticketmaster.com/foofighters/may20-2011",
-    "startDate": "2011-05-20",
-    "url": "foo-fighters-may20-fedexforum"
-  }, {
-    "@type": "Event",
-    "location": "Council Bluffs, IA, US",
-    "offers": "ticketmaster.com/foofighters/may23-2011",
-    "startDate": "2011-05-23",
-    "url": "foo-fighters-may23-midamericacenter"
-  }],
-  "image": [
-    "foofighters-1.jpg",
-    "foofighters-2.jpg",
-    "foofighters-3.jpg"
-  ],
-  "interactionStatistic": {
-    "@type": "InteractionCounter",
-    "interactionType": "http://schema.org/CommentAction",
-    "userInteractionCount": "18"
-  },
-  "name": "Foo Fighters",
-  "track": [{
-    "@type": "MusicRecording",
-    "audio": "foo-fighters-rope-play.html",
-    "duration": "PT4M5S",
-    "inAlbum": "foo-fighters-wasting-light.html",
-    "interactionStatistic": {
-      "@type": "InteractionCounter",
-      "interactionType": "http://schema.org/ListenAction",
-      "userInteractionCount": "14300"
-    },
-    "name": "Rope",
-    "offers": "foo-fighters-rope-buy.html",
-    "url": "foo-fighters-rope.html"
-  }, {
-    "@type": "MusicRecording",
-    "audio": "foo-fighters-everlong-play.html",
-    "duration": "PT6M33S",
-    "inAlbum": "foo-fighters-color-and-shape.html",
-    "name": "Everlong",
-    "interactionStatistic": {
-      "@type": "InteractionCounter",
-      "interactionType": "http://schema.org/ListenAction",
-      "userInteractionCount": "11700"
-    },
-    "offers": "foo-fighters-everlong-buy.html",
-    "url": "foo-fighters-everlong.html"
-  }],
-  "video": {
-    "@type": "VideoObject",
-    "description": "Catch this exclusive interview with Dave Grohl and the Foo Fighters about their new album, Rope.",
-    "duration": "T1M33S",
-    "name": "Interview with the Foo Fighters",
-    "thumbnail": "foo-fighters-interview-thumb.jpg"
-  }
+    "@context": "http://schema.org",
+    "@type": "MusicGroup",
+    "event": [
+        {
+            "@type": "Event",
+            "location": "Memphis, TN, US",
+            "offers": "ticketmaster.com/foofighters/may20-2011",
+            "startDate": "2011-05-20",
+            "url": "foo-fighters-may20-fedexforum"
+        },
+        {
+            "@type": "Event",
+            "location": "Council Bluffs, IA, US",
+            "offers": "ticketmaster.com/foofighters/may23-2011",
+            "startDate": "2011-05-23",
+            "url": "foo-fighters-may23-midamericacenter"
+        }
+    ],
+    "image": [
+        "foofighters-1.jpg",
+        "foofighters-2.jpg",
+        "foofighters-3.jpg"
+    ],
+    "name": "Foo Fighters",
+    "track": [
+        {
+            "@type": "MusicRecording",
+            "audio": "foo-fighters-rope-play.html",
+            "duration": "PT4M5S",
+            "inAlbum": "foo-fighters-wasting-light.html",
+            "interactionStatistic": {
+                "@type": "InteractionCounter",
+                "interactionType": "http://schema.org/ListenAction",
+                "userInteractionCount": "14300"
+            },
+            "name": "Rope",
+            "offers": "foo-fighters-rope-buy.html",
+            "url": "foo-fighters-rope.html"
+        },
+        {
+            "@type": "MusicRecording",
+            "audio": "foo-fighters-everlong-play.html",
+            "duration": "PT6M33S",
+            "inAlbum": "foo-fighters-color-and-shape.html",
+            "name": "Everlong",
+            "interactionStatistic": {
+                "@type": "InteractionCounter",
+                "interactionType": "http://schema.org/ListenAction",
+                "userInteractionCount": "11700"
+            },
+            "offers": "foo-fighters-everlong-buy.html",
+            "url": "foo-fighters-everlong.html"
+        }
+    ],
+    "subjectOf": {
+        "@type": "VideoObject",
+        "description": "Catch this exclusive interview with Dave Grohl and the Foo Fighters about their new album, Rope.",
+        "duration": "T1M33S",
+        "name": "Interview with the Foo Fighters",
+        "thumbnail": "foo-fighters-interview-thumb.jpg",
+        "interactionStatistic": {
+            "@type": "InteractionCounter",
+            "interactionType": "http://schema.org/CommentAction",
+            "userInteractionCount": "18"
+        }
+    }
 }
 </script>
 
@@ -2314,7 +2242,7 @@ MICRODATA:
   by <span itemprop="author">John Doe</span>
   This article has been tweeted 1203 times and contains 78 user comments.
   <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
-    <div itemprop="interactionService" itemscope itemid="http://www.twitter.com" itemtype="http://schema.org/Website">
+    <div itemprop="interactionService" itemscope itemid="http://www.twitter.com" itemtype="http://schema.org/WebSite">
       <meta itemprop="name" content="Twitter" />
     </div>
     <meta itemprop="interactionType" content="http://schema.org/ShareAction"/>
@@ -2333,7 +2261,8 @@ RDFA:
   by <span property="author">John Doe</span>
   This article has been tweeted 1203 times and contains 78 user comments.
   <div property="interactionStatistic" typeof="InteractionCounter">
-    <div property="interactionService" itemscope itemid="http://www.twitter.com" itemtype="http://schema.org/Website">
+    <div property="interactionService" typeof="WebSite">
+      <meta property="url" content="http://www.twitter.com"/>
       <meta property="name" content="Twitter" />
     </div>
     <meta property="interactionType" content="http://schema.org/ShareAction"/>
@@ -2356,7 +2285,7 @@ JSON:
     {
       "@type": "InteractionCounter",
       "interactionService": {
-        "@type": "Website",
+        "@type": "WebSite",
         "name": "Twitter",
         "url": "http://www.twitter.com"
       },
@@ -3365,7 +3294,7 @@ JSON:
     "@type": "Brewery",
     "name": "Dogfish Head"
   },
-  "option": [
+  "actionOption": [
     {
       "@type": "Brewery",
       "name": "Dogfish Head"
@@ -3407,7 +3336,7 @@ JSON:
     "@type": "Brewery",
     "name": "Dogfish Head"
   },
-  "option": "Brewery"
+  "actionOption": "Brewery"
 }
 </script>
 
@@ -3860,8 +3789,8 @@ JSON:
   "@context": "http://schema.org",
   "@type": "ConsumeAction",
   "agent": {
-    "@type": "Muscle",
-    "name": "Biceps"
+    "@type": "Person",
+    "name": "Test Candidate One"
   },
   "object": {
     "@type": "Energy",
@@ -4152,7 +4081,7 @@ JSON:
     "name": "John"
   },
   "object": {
-    "@type": "Code",
+    "@type": "SoftwareSourceCode",
     "name": "The linux kernel"
   }
 }
@@ -4376,7 +4305,7 @@ JSON:
     "name": "John"
   },
   "object": {
-    "@type": "TvEpisode",
+    "@type": "TVEpisode",
     "name": "Friends!"
   }
 }
@@ -4408,7 +4337,7 @@ JSON:
     "name": "John"
   },
   "object": {
-    "@type": "TvSeries",
+    "@type": "TVSeries",
     "name": "The Big Bang Theory"
   }
 }
@@ -4572,7 +4501,7 @@ JSON:
     "name": "John"
   },
   "object": {
-    "@type": "Paining",
+    "@type": "Painting",
     "name": "Les Demoiselles d'Avignon"
   }
 }
@@ -4636,7 +4565,7 @@ JSON:
     "name": "John"
   },
   "object": {
-    "@type": "Paining",
+    "@type": "Painting",
     "name": "Les Demoiselles d'Avignon"
   }
 }
@@ -4767,10 +4696,7 @@ JSON:
     "@type": "Flight",
     "name": "AA123"
   },
-  "result": {
-    "@type": "FlightStatus",
-    "name": "On time"
-  }
+  "result": "On time"
 }
 </script>
 
@@ -4868,7 +4794,8 @@ JSON:
     "name": "fitbit"
   },
   "deliveryMethod": {
-    "@type": "http://purl.org/goodrelations/v1#UPS"
+    "@type": "DeliveryMethod",
+    "@id": "http://purl.org/goodrelations/v1#UPS"
   }
 }
 </script>
@@ -5137,7 +5064,7 @@ JSON:
   "object": {
     "@type": "Flight",
     "flightNumber": "110",
-    "airline": "Aeroflot",
+    "provider": "Aeroflot",
     "departureAirport": "SVO",
     "departureTime": "2014-10-01T15:30:00Z",
     "arrivalTime": "2014-10-02T12:00:00Z",
@@ -5421,7 +5348,7 @@ JSON:
 <script type="application/ld+json">
 {
   "@context": "http://schema.org",
-  "@type": "AskAction",
+  "@type": "ReplyAction",
   "agent": {
     "@type": "Person",
     "name": "John"
@@ -5543,7 +5470,7 @@ JSON:
     "@type": "Person",
     "name": "Steve"
   },
-  "location": {
+  "object": {
     "@type": "Product",
     "name": "Twitter"
   }
@@ -6243,7 +6170,7 @@ JSON:
     "@type": "ExercisePlan",
     "name": "Steve's weight loss plan"
   },
-  "recipient": {
+  "participant": {
     "@type": "Person",
     "name": "Steve"
   },
@@ -6507,38 +6434,6 @@ JSON:
 }
 </script>
 
-TYPES:  EnrollAction
-
-PRE-MARKUP:
-
-John enrolled for SXSW.
-
-MICRODATA:
-
-This example is JSON only.
-
-RDFA:
-
-This example is JSON only.
-
-JSON:
-
-<script type="application/ld+json">
-  // John enrolled for SXSW.
-{
-  "@context": "http://schema.org",
-  "@type": "EnrollAction",
-  "agent": {
-    "@type": "Person",
-    "name": "John"
-  },
-  "object": {
-    "@type": "Event",
-    "name": "SXSW"
-  }
-}
-</script>
-
 TYPES:  ReserveAction
 
 PRE-MARKUP:
@@ -6605,48 +6500,7 @@ JSON:
 }
 </script>
 
-TYPES:  SelectAction
 
-PRE-MARKUP:
-
-John selected The Internship and The Wedding Crashers from his movie queue.
-
-MICRODATA:
-
-This example is JSON only.
-
-RDFA:
-
-This example is JSON only.
-
-JSON:
-
-<script type="application/ld+json">
-  // John selected The Internship and The Wedding Crashers from his movie queue.
-{
-  "@context": "http://schema.org",
-  "@type": "SelectAction",
-  "agent": {
-    "@type": "Person",
-    "name": "John"
-  },
-  "object": [
-    {
-      "@type": "Movie",
-      "name": "The Internship"
-    },
-    {
-      "@type": "Movie",
-      "name": "The Wedding Crashers"
-    }
-  ],
-  "targetCollection": {
-    "@type": "ItemList",
-    "name": "List of my favorite movies",
-    "url": "http://netflix.com/john/favorite"
-  }
-}
-</script>
 
 TYPES:  PlayAction
 
@@ -6771,7 +6625,7 @@ JSON:
   // John performed as a DJ playing Daft Punk on his turntable at Woodstock.
 {
   "@context": "http://schema.org",
-  "@type": "PeformAction",
+  "@type": "PerformAction",
   "agent": {
     "@type": "Person",
     "name": "John"
@@ -6845,10 +6699,7 @@ JSON:
     "@type": "Person",
     "name": "John"
   },
-  "query": {
-    "@type": "Class",
-    "name": "http://schema.org/Hotel"
-  }
+  "query": "Hotels"
 }
 </script>
 
@@ -6976,7 +6827,7 @@ JSON:
   // John ordered a Book on amazon.com.
 {
   "@context": "http://schema.org",
-  "@type": "OrderedAction",
+  "@type": "OrderAction",
   "agent": {
     "@type": "Person",
     "name": "John"
@@ -6986,7 +6837,7 @@ JSON:
     "name": "Outliers"
   },
   "location": {
-    "@type": "Product",
+    "@type": "LocalBusiness",
     "name": "Amazon"
   }
 }
@@ -7116,7 +6967,7 @@ JSON:
   // John sold a Book on amazon.com.
 {
   "@context": "http://schema.org",
-  "@type": "BuyAction",
+  "@type": "SellAction",
   "agent": {
     "@type": "Person",
     "name": "John"
@@ -7125,10 +6976,11 @@ JSON:
     "@type": "Book",
     "name": "Outliers"
   },
-  "location": {
-    "@type": "Product",
+  "participant": {
+    "@type": "Organization",
     "name": "Amazon"
-  }
+  },
+  "location": "Amazon.com"
 }
 </script>
 
@@ -7152,13 +7004,16 @@ JSON:
   // John tipped $10 to Steve.
 {
   "@context": "http://schema.org",
-  "@type": "RentAction",
+  "@type": "TipAction",
   "agent": {
     "@type": "Person",
     "name": "John"
   },
-  "price": "10",
-  "priceCurrency": "USD",
+  "object": {
+      "@type": "MonetaryAmount",
+      "currency": "USD",
+      "value": "10"
+  },
   "recipient": {
     "@type": "Person",
     "name": "Steve"
@@ -7335,9 +7190,12 @@ JSON:
     "@type": "Person",
     "name": "John"
   },
-  "price": "10",
-  "priceCurrency": "USD",
-  "recipient": {
+  "object": {
+      "@type": "MonetaryAmount",
+      "currency": "USD",
+      "value": "10"
+  },
+  "borrower": {
     "@type": "Person",
     "name": "Steve"
   }
@@ -7476,7 +7334,7 @@ JSON:
 }
 </script>
 
-TYPES:  TakeAction
+TYPES:  GiveAction
 
 PRE-MARKUP:
 
@@ -7493,10 +7351,10 @@ This example is JSON only.
 JSON:
 
 <script type="application/ld+json">
-  // John took a book from Steve.
+  // John gave a book to Steve.
 {
   "@context": "http://schema.org",
-  "@type": "TakeAction",
+  "@type": "GiveAction",
   "agent": {
     "@type": "Person",
     "name": "John"
@@ -7636,10 +7494,10 @@ This example is JSON only.
 JSON:
 
 <script type="application/ld+json">
-  // John inserted a movie to his movie queue at the third slot.
+  // John inserted a movie to his movie queue.
 {
   "@context": "http://schema.org",
-  "@type": "InsertedAction",
+  "@type": "InsertAction",
   "agent": {
     "@type": "Person",
     "name": "John"
@@ -7652,8 +7510,7 @@ JSON:
     "@type": "ItemList",
     "name": "List of my favorite movies",
     "url": "http://netflix.com/john/favorite"
-  },
-  "objectLocation": "3"
+  }
 }
 </script>
 
@@ -7904,12 +7761,12 @@ JSON:
             "@type": "BroadcastService",
             "url": "http://www.bbc.co.uk/bbcone"
           },
-          "startDate": "18:15, 22nd of May 2010"
+          "startDate": "2010-05-22T18:15:00+01:00"
         },
         {
           "@type": "OnDemandEvent",
-          "endDate": "9th",
-          "startDate": "19:45 on the 2nd of June"
+          "endDate": "2012-06-09T19:44:00+01:00",
+          "startDate": "2012-06-02T19:45:00+01:00"
         }
       ],
       "url": "http://www.bbc.co.uk/programmes/b00sj9sq",
@@ -7986,28 +7843,28 @@ JSON:
 
 <script type="application/ld+json">
 {
-  "@context": "http://schema.org",
-  "@type": "RadioSeries",
-  "episode": {
-    "@type": "RadioEpisode",
-    "position": "604",
-    "publication": [
-      {
-        "@type": "BroadcastEvent",
-        "publishedOn": {
-          "@type": "BroadcastService",
-          "url": "http://www.bbc.co.uk/radio4"
-        },
-        "startDate": "09:00, 7th of November 2013"
-      },
-      {
-        "@type": "OnDemandEvent",
-        "startDate": "09:45 on the same day"
-      }
-    ],
-    "url": "http://www.bbc.co.uk/programmes/b03ggc19"
-  },
-  "url": "http://www.bbc.co.uk/programmes/b006qykl"
+    "@context": "http://schema.org",
+    "@type": "RadioSeries",
+    "episode": {
+        "@type": "RadioEpisode",
+        "position": "604",
+        "publication": [
+            {
+                "@type": "BroadcastEvent",
+                "publishedOn": {
+                    "@type": "BroadcastService",
+                    "url": "http://www.bbc.co.uk/radio4"
+                },
+                "startDate": "2013-11-07T09:00:00+01:00"
+            },
+            {
+                "@type": "OnDemandEvent",
+                "startDate": "2013-11-07T09:45:00+01:00"
+            }
+        ],
+        "url": "http://www.bbc.co.uk/programmes/b03ggc19"
+    },
+    "url": "http://www.bbc.co.uk/programmes/b006qykl"
 }
 </script>
 
@@ -8049,7 +7906,7 @@ RDFA:
   <div property="validIn" typeof="AdministrativeArea">
     <span property="name">New York</span>
   </div>
-  <time property="validFor" datetime="P1Y">1 year</time>
+  <time property="validFor" datetime="P1Y">1 Year</time>
 </div>
 
 JSON:
@@ -8067,7 +7924,7 @@ JSON:
     "name": "NYC Food Service Establishment Permit Service"
   },
   "name": "NYC Food Service Establishment Permit",
-  "validFor": "",
+  "validFor": "P1Y",
   "validIn": {
     "@type": "AdministrativeArea",
     "name": "New York"
@@ -8100,16 +7957,16 @@ JSON:
   "@type": "GovernmentService",
   "name": "Veterans Affairs Emergency Mental Health",
   "serviceType": "Psychiatric Emergency Services",
-  "operator": {
+  "serviceOperator": {
     "@type": "GovernmentOrganization",
     "name": "US Department of Veterans Affairs"
   },
-  "serviceArea": {
+  "areaServed": {
     "@type": "AdministrativeArea",
     "name": "Massachusetts"
   },
   "audience": {
-    "@type": "CivicAudience",
+    "@type": "Audience",
     "name": "Veterans"
   },
   "availableChannel": {
@@ -8162,27 +8019,24 @@ PRE-MARKUP:
 MICRODATA:
 
 <div class="event-wrapper" itemscope itemtype="http://schema.org/Event">
-
-  <div class="event-date" itemprop="startDate" content="2013-09-14T21:30">Sat Sep 14</div>
-  <div class="event-title" itemprop="name">Typhoon with Radiation City</div>
-
-  <div class="event-venue" itemprop="location" itemscope itemtype="http://schema.org/Place">
-    <span itemprop="name">The Hi-Dive</span>
-    <div class="address" itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
-      <span itemprop="streetAddress">7 S. Broadway</span><br>
-      <span itemprop="addressLocality">Denver</span>,
-      <span itemprop="addressRegion">CO</span>
-      <span itemprop="postalCode">80209</span>
+    <div class="event-date" itemprop="startDate" content="2013-09-14T21:30">
+        Sat Sep 14
     </div>
-  </div>
-
-  <div class="event-time">9:30 PM</div>
-
- <span itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-  <div class="event-price" itemprop="price" content="13.00">$13.00</div>
-  <span itemprop="priceCurrency" content="USD" />
-  <a itemprop="url" href="http://www.ticketfly.com/purchase/309433">Tickets</a>
- </span>
+    <div class="event-title" itemprop="name">
+        Typhoon with Radiation City
+    </div>
+    <div class="event-venue" itemprop="location" itemscope itemtype="http://schema.org/Place">
+        <span itemprop="name">The Hi-Dive</span>
+        <div class="address" itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
+            <span itemprop="streetAddress">7 S. Broadway</span><br>
+            <span itemprop="addressLocality">Denver</span>, <span itemprop="addressRegion">CO</span> <span itemprop="postalCode">80209</span>
+        </div>
+    </div>
+    <div class="event-time">9:30 PM</div>
+    <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+        <div class="event-price" itemprop="price" content="13.00">$13.00</div>
+        <meta itemprop="priceCurrency" content="USD"><a itemprop="url" href="http://www.ticketfly.com/purchase/309433">Tickets</a>
+    </div>
 </div>
 
 RDFA:
@@ -8269,54 +8123,50 @@ PRE-MARKUP:
 MICRODATA:
 
 <div class="event-wrapper" itemscope itemtype="http://schema.org/Event">
-
-  <div class="event-date" itemprop="startDate" content="2013-09-14T21:30">Sat Sep 14</div>
-  <div class="event-title" itemprop="name">CANCELLED - Typhoon with Radiation City</div>
-  <meta itemprop="eventStatus" content="http://schema.org/EventCancelled">
-
-  <div class="event-venue" itemprop="location" itemscope itemtype="http://schema.org/Place">
-    <span itemprop="name">The Hi-Dive</span>
-    <div class="address" itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
-      <span itemprop="streetAddress">7 S. Broadway</span><br>
-      <span itemprop="addressLocality">Denver</span>,
-      <span itemprop="addressRegion">CO</span>
-      <span itemprop="postalCode">80209</span>
+    <div class="event-date" itemprop="startDate" content="2013-09-14T21:30">
+        Sat Sep 14
     </div>
-  </div>
-
-  <div class="event-time">9:30 PM</div>
-
- <span itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-  <div class="event-price" itemprop="price" content="13.00">$13.00</div>
-  <span itemprop="priceCurrency" content="USD" />
-  <a itemprop="url" href="http://www.ticketfly.com/purchase/309433">Tickets</a>
- </span>
+    <div class="event-title" itemprop="name">
+        CANCELLED - Typhoon with Radiation City
+    </div>
+    <meta itemprop="eventStatus" content="http://schema.org/EventCancelled">
+    <div class="event-venue" itemprop="location" itemscope itemtype="http://schema.org/Place">
+        <span itemprop="name">The Hi-Dive</span>
+        <div class="address" itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
+            <span itemprop="streetAddress">7 S. Broadway</span><br>
+            <span itemprop="addressLocality">Denver</span>, <span itemprop="addressRegion">CO</span> <span itemprop="postalCode">80209</span>
+        </div>
+    </div>
+    <div class="event-time">9:30 PM</div>
+    <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+        <div class="event-price" itemprop="price" content="13.00">$13.00</div>
+        <meta itemprop="priceCurrency" content="USD">
+        <a itemprop="url" href="http://www.ticketfly.com/purchase/309433">Tickets</a>
+    </div>
 </div>
 
 RDFA:
 
 <div vocab="http://schema.org/" class="event-wrapper" typeof="Event">
-
-  <div class="event-date" property="startDate" content="2013-09-14T21:30">Sat Sep 14</div>
-  <div class="event-title" property="name">CANCELLED - Typhoon with Radiation City</div>
-  <meta property="eventStatus" content="http://schema.org/EventCancelled">
-
-  <div class="event-venue" property="location" typeof="Place">
-    <span property="name">The Hi-Dive</span>
-    <div class="address" property="address" typeof="PostalAddress">
-      <span property="streetAddress">7 S. Broadway</span><br>
-      <span property="addressLocality">Denver</span>,
-      <span property="addressRegion">CO</span>
-      <span property="postalCode">80209</span>
+    <div class="event-date" property="startDate" content="2013-09-14T21:30">
+        Sat Sep 14
     </div>
-  </div>
-
-  <div class="event-time">9:30 PM</div>
-
- <span property="offers" typeof="Offer">
-  <div class="event-price" property="price">$13.00</div>
-  <a property="url" href="http://www.ticketfly.com/purchase/309433">Tickets</a>
- </span>
+    <div class="event-title" property="name">
+        CANCELLED - Typhoon with Radiation City
+    </div>
+    <meta property="eventStatus" content="http://schema.org/EventCancelled">
+    <div class="event-venue" property="location" typeof="Place">
+        <span property="name">The Hi-Dive</span>
+        <div class="address" property="address" typeof="PostalAddress">
+            <span property="streetAddress">7 S. Broadway</span><br>
+            <span property="addressLocality">Denver</span>, <span property="addressRegion">CO</span> <span property="postalCode">80209</span>
+        </div>
+    </div>
+    <div class="event-time">9:30 PM</div>
+    <div property="offers" typeof="Offer">
+        $<div class="event-price" property="price">13.00</div>
+        <meta property="priceCurrency" content="USD"><a property="url" href="http://www.ticketfly.com/purchase/309433">Tickets</a>
+    </div>
 </div>
 
 JSON:
@@ -8372,27 +8222,28 @@ PRE-MARKUP:
 
 MICRODATA:
 
-<div class="event-wrapper">
-  <div class="event-date" itemprop="startDate" content="2013-10-12T22:00">Sat Oct 12</div>
-  <div class="event-title" itemprop="name">Typhoon with Radiation City</div>
-  <meta itemprop="eventStatus" content="http://schema.org/EventRescheduled">
-  <span itemprop="previousStartDate" content="2013-09-14T21:30">(previously scheduled for Sept 14th)</span>
-
-  <div class="event-venue" itemprop="location" itemscope itemtype="http://schema.org/Place">
-    <span itemprop="name">The Hi-Dive</span>
-    <div class="address" itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
-      <span itemprop="streetAddress">7 S. Broadway</span><br>
-      <span itemprop="addressLocality">Denver</span>,
-      <span itemprop="addressRegion">CO</span>
-      <span itemprop="postalCode">80209</span>
+<div class="event-wrapper" itemscope itemtype="http://schema.org/Event">
+    <div class="event-date" itemprop="startDate" content="2013-10-12T22:00">
+        Sat Oct 12
     </div>
-  </div>
-  <div class="event-time">10:00 PM</div>
-  <span itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-   <div class="event-price" itemprop="price" content="13.00">$13.00</div>
-     <span itemprop="priceCurrency" content="USD" />
-     <a itemprop="url" href="http://www.ticketfly.com/purchase/309433">Tickets</a>
-  </span>
+    <div class="event-title" itemprop="name">
+        Typhoon with Radiation City
+    </div>
+    <meta itemprop="eventStatus" content="http://schema.org/EventRescheduled"><span itemprop="previousStartDate" content="2013-09-14T21:30">(previously scheduled for Sept 14th)</span>
+    <div class="event-venue" itemprop="location" itemscope itemtype="http://schema.org/Place">
+        <span itemprop="name">The Hi-Dive</span>
+        <div class="address" itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
+            <span itemprop="streetAddress">7 S. Broadway</span><br>
+            <span itemprop="addressLocality">Denver</span>, <span itemprop="addressRegion">CO</span> <span itemprop="postalCode">80209</span>
+        </div>
+    </div>
+    <div class="event-time">
+        10:00 PM
+    </div>
+    <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+        <div class="event-price" itemprop="price" content="13.00">$13.00</div>
+        <meta itemprop="priceCurrency" content="USD"><a itemprop="url" href="http://www.ticketfly.com/purchase/309433">Tickets</a>
+    </div>
 </div>
 
 RDFA:
@@ -8473,29 +8324,25 @@ PRE-MARKUP:
 MICRODATA:
 
 <div class="event-wrapper" itemscope itemtype="http://schema.org/Event">
-
-  <div class="event-date" itemprop="startDate" content="2013-09-14T21:30">Sat Sep 14</div>
-  <div class="event-title" itemprop="name">SOLD OUT! Typhoon with Radiation City</div>
-
-  <div class="event-venue" itemprop="location" itemscope itemtype="http://schema.org/Place">
-    <span itemprop="name">The Hi-Dive</span>
-    <div class="address" itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
-      <span itemprop="streetAddress">7 S. Broadway</span><br>
-      <span itemprop="addressLocality">Denver</span>,
-      <span itemprop="addressRegion">CO</span>
-      <span itemprop="postalCode">80209</span>
+    <div class="event-date" itemprop="startDate" content="2013-09-14T21:30">
+        Sat Sep 14
     </div>
-  </div>
-
-  <div class="event-time">9:30 PM</div>
-
- <span itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-  <meta itemprop="availability" content="http://schema.org/SoldOut">
-
-  <div class="event-price" itemprop="price" content="13.00">$13.00</div>
-    <span itemprop="priceCurrency" content="USD" />
-    <a itemprop="url" href="http://www.ticketfly.com/purchase/309433">Tickets</a>
- </span>
+    <div class="event-title" itemprop="name">
+        SOLD OUT! Typhoon with Radiation City
+    </div>
+    <div class="event-venue" itemprop="location" itemscope itemtype="http://schema.org/Place">
+        <span itemprop="name">The Hi-Dive</span>
+        <div class="address" itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
+            <span itemprop="streetAddress">7 S. Broadway</span><br>
+            <span itemprop="addressLocality">Denver</span>, <span itemprop="addressRegion">CO</span> <span itemprop="postalCode">80209</span>
+        </div>
+    </div>
+    <div class="event-time">9:30 PM</div>
+    <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+        <meta itemprop="availability" content="http://schema.org/SoldOut">
+        <div class="event-price" itemprop="price" content="13.00">$13.00</div>
+        <meta itemprop="priceCurrency" content="USD"><a itemprop="url" href="http://www.ticketfly.com/purchase/309433">Tickets</a>
+    </div>
 </div>
 
 RDFA:
@@ -9427,7 +9274,7 @@ JSON:
     "name": "John Smith"
   },
   "reservationFor": {
-    "@type": "Taxi",
+    "@type": "TaxiService",
     "provider": {
       "@type": "Organization",
       "name": "Checker Cab"
@@ -10000,7 +9847,7 @@ JSON:
 </script>
 
 
-TYPES:  SportsEvent, OrderedEvent
+TYPES:  SportsEvent
 
 PRE-MARKUP:
 
@@ -10022,71 +9869,13 @@ JSON:
   "@type": "SportsEvent",
   "name": "2013 World Series",
   "subEvent": {
-    "@type": "OrderedEvent",
+    "@type": "SportsEvent",
     "@id": "http://mlb.com/ws2013g1",
-    "name": "Game 1",
-    "eventOrderPosition": "1",
-    "nextEvent": "http://mlb.com/ws2013g2"
+    "name": "2013 World Series - Game 1"
   }
 }
 </script>
 
-TYPES:  OrderedEvent
-
-PRE-MARKUP:
-
-World Series Event in JSON - first event.
-
-MICRODATA:
-
-n/a
-
-RDFA:
-
-n/a
-
-JSON:
-
-<script type="application/ld+json">
-{
-  "@context": "http://schema.org",
-  "@type": "OrderedEvent",
-  "superEvent": "2013 World Series",
-  "@id": "http://mlb.com/ws2013g1",
-  "name": "Game 1",
-  "eventOrderPosition": "1",
-  "nextEvent": "http://mlb.com/ws2013g2"
-}
-</script>
-
-TYPES:  OrderedEvent
-
-PRE-MARKUP:
-
-World Series Event in JSON - second event.
-
-MICRODATA:
-
-n/a
-
-RDFA:
-
-n/a
-
-JSON:
-
-<script type="application/ld+json">
-{
-  "@context": "http://schema.org",
-  "@type": "OrderedEvent",
-  "superEvent": "2013 World Series",
-  "@id": "http://mlb.com/ws2013g2",
-  "name": "Game 2",
-  "eventOrderPosition": "2",
-  "previousEvent": "http://mlb.com/ws2013g1",
-  "nextEvent": "http://mlb.com/ws2013g3"
-}
-</script>
 
 TYPES:  Restaurant
 
@@ -10107,7 +9896,7 @@ MICRODATA:
   <p itemprop="description">Fantastic and fun for all your cheesy occasions.</p>
   <p>Open: <span itemprop="openingHours" content="Mo,Tu,We,Th,Fr,Sa,Su 11:30-23:00">Daily from 11:30am till 11pm</span></p>
   <p>Phone: <span itemprop="telephone" content="+155501003333">555-0100-3333</span></p>
-  <p>View <a itemprop="menu" href="http://example.com/menu">our menu</a>.</p>
+  <p>View <a itemprop="hasMenu" href="http://example.com/menu">our menu</a>.</p>
 </div>
 
 RDFA:
@@ -10117,7 +9906,7 @@ RDFA:
   <p property="description">Fantastic and fun for all your cheesy occasions.</p>
   <p>Open: <span property="openingHours" content="Mo,Tu,We,Th,Fr,Sa,Su 11:30-23:00">Daily from 11:30am till 11pm</span></p>
   <p>Phone: <span property="telephone" content="+155501003333">555-0100-3333</span></p>
-  <p>View <a property="menu" href="http://example.com/menu">our menu</a>.</p>
+  <p>View <a property="hasMenu" href="http://example.com/menu">our menu</a>.</p>
 </div>
 
 JSON:
@@ -10130,7 +9919,7 @@ JSON:
   "description": "Fantastic and fun for all your cheesy occasions",
   "openingHours": "Mo,Tu,We,Th,Fr,Sa,Su 11:30-23:00",
   "telephone": "+155501003333",
-  "menu": "http://example.com/menu"
+  "hasMenu": "http://example.com/menu"
 }
 </script>
 
@@ -10259,13 +10048,12 @@ JSON:
 
 <script type="application/ld+json">
 {
-  "@context": "http://schema.org",
-  "@type": "Pharmacy",
-  "name": "Philippa's Pharmacy",
-  "description": "A superb collection of fine pharmaceuticals for your beauty and healthcare
-    convenience, a department of Delia's Drugstore.",
-  "openingHours": "Mo,Tu,We,Th 09:00-12:00",
-  "telephone": "+18005551234"
+    "@context": "http://schema.org",
+    "@type": "Pharmacy",
+    "name": "Philippa's Pharmacy",
+    "description": "A superb collection of fine pharmaceuticals for your beauty and healthcare convenience, a department of Delia's Drugstore.",
+    "openingHours": "Mo,Tu,We,Th 09:00-12:00",
+    "telephone": "+18005551234"
 }
 </script>
 
@@ -10543,7 +10331,7 @@ RDFA:
     <h1 property="name">Delia's Daily Supplies</h1>
     <p property="description">For your daily newspapers, candies, snacks and (via our in-store pharmacy)
     drugs and healthcare products to keep you and your family happy, healthy and supplied with all your daily needs.</p>
-    <p>Open: <span property="openingHours" content="Mo-Fr 07:00-23:00">Monday-Friday 7am-11pm </p>
+    <p>Open: <span property="openingHours" content="Mo-Fr 07:00-23:00">Monday-Friday 7am-11pm </span></p>
     <p>Phone: <span property="telephone" content="+155501001110">555-0100-1110</span></p>
   </div>
 
@@ -10975,63 +10763,6 @@ TYPES:  Role, OrganizationRole, CollegeOrUniversity, EducationalOrganization
 PRE-MARKUP:
 
 A JSON example of an OrganizationRole being used to qualify
-the 'alumni' property. Note that we use startDate to indicate
-when the alumni situation began, which was the date of leaving
-the organization.
-
-MICRODATA:
-
-<div itemscope itemtype="http://schema.org/CollegeOrUniversity">
-  <span itemprop="name">University of Cambridge</span>
-  <link itemprop="sameAs" href="http://en.wikipedia.org/wiki/University_of_Cambridge"/>
-  <div itemprop="alumni" itemscope
-        itemtype="http://schema.org/OrganizationRole">
-    <div itemprop="alumni" itemscope
-            itemtype="http://schema.org/Person">
-      <span itemprop="name">Delia Derbyshire</span>
-      <link itemprop="sameAs" href="http://en.wikipedia.org/wiki/Delia_Derbyshire"/>
-    </div>
-    <span itemprop="startDate">1959</span>
-</div>
-
-RDFA:
-
-<div vocab="http://schema.org/" typeof="CollegeOrUniversity">
-    <span property="name">University of Cambridge</span>
-  <link property="sameAs" href="http://en.wikipedia.org/wiki/University_of_Cambridge"/>
-  <div property="alumni" typeof="OrganizationRole">
-    <div property="alumni" typeof="Person">
-      <span property="name">Delia Derbyshire</span>
-      <link property="sameAs" href="http://en.wikipedia.org/wiki/Delia_Derbyshire"/>
-    </div>
-    <span property="startDate">1959</span>
-</div>
-
-JSON:
-
-<script type="application/ld+json">
-{
-  "@context": "http://schema.org",
-  "@type": "CollegeOrUniversity",
-  "name": "University of Cambridge",
-  "sameAs": "http://en.wikipedia.org/wiki/University_of_Cambridge",
-  "alumni": {
-    "@type": "OrganizationRole",
-    "alumni": {
-      "@type": "Person",
-       "name": "Delia Derbyshire",
-      "sameAs": "http://en.wikipedia.org/wiki/Delia_Derbyshire"
-    },
-    "startDate": "1959"
-  }
-}
-</script>
-
-TYPES:  Role, OrganizationRole, CollegeOrUniversity, EducationalOrganization
-
-PRE-MARKUP:
-
-A JSON example of an OrganizationRole being used to qualify
 the 'alumniOf' property (which is inverseOf 'alumni').
 
 Note that we use startDate to indicate when the alumniOf
@@ -11040,48 +10771,48 @@ situation began, which was the date of leaving the organization.
 MICRODATA:
 
 <div itemscope itemtype="http://schema.org/Person">
-  <span itemprop="name">Delia Derbyshire</span>
-  <link itemprop="sameAs" href="http://en.wikipedia.org/wiki/Delia_Derbyshire"/>
-  <div itemprop="alumniOf" itemscope
-        itemtype="http://schema.org/OrganizationRole">
-    <div itemprop="alumniOf" itemscope
-            itemtype="http://schema.org/CollegeOrUniversity">
-      <span itemprop="name">University of Cambridge</span>
-      <link itemprop="sameAs" href="http://en.wikipedia.org/wiki/University_of_Cambridge"/>
+    <span itemprop="name">Delia Derbyshire</span>
+    <link itemprop="sameAs" href="http://en.wikipedia.org/wiki/Delia_Derbyshire">
+    <div itemprop="alumniOf" itemscope itemtype="http://schema.org/OrganizationRole">
+        <div itemprop="alumniOf" itemscope itemtype="http://schema.org/CollegeOrUniversity">
+            <span itemprop="name">University of Cambridge</span>
+            <link itemprop="sameAs" href="http://en.wikipedia.org/wiki/University_of_Cambridge">
+        </div>
+        <span itemprop="startDate">1959</span>
     </div>
-    <span itemprop="startDate">1959</span>
 </div>
 
 RDFA:
 
 <div vocab="http://schema.org/" typeof="Person">
-  <span property="name">Delia Derbyshire</span>
-  <link property="sameAs" href="http://en.wikipedia.org/wiki/Delia_Derbyshire"/>
-  <div property="alumniOf" typeof="OrganizationRole">
-    <div property="alumniOf" typeof="CollegeOrUniversity">
-      <span property="name">University of Cambridge</span>
-      <link property="sameAs" href="http://en.wikipedia.org/wiki/University_of_Cambridge"/>
+    <span property="name">Delia Derbyshire</span>
+    <link property="sameAs" href="http://en.wikipedia.org/wiki/Delia_Derbyshire">
+    <div property="alumniOf" typeof="OrganizationRole">
+        <div property="alumniOf" typeof="CollegeOrUniversity">
+            <span property="name">University of Cambridge</span>
+            <link property="sameAs" href="http://en.wikipedia.org/wiki/University_of_Cambridge">
+        </div>
+        <span property="startDate">1959</span>
     </div>
-    <span property="startDate">1959</span>
 </div>
 
 JSON:
 
 <script type="application/ld+json">
 {
-  "@context": "http://schema.org",
-  "@type": "Person",
-   "name": "Delia Derbyshire",
-   "sameAs": "http://en.wikipedia.org/wiki/Delia_Derbyshire",
-   "alumniOf": {
-     "@type": "OrganizationRole",
-     "alumniOf": {
-       "@type": "CollegeOrUniversity",
-       "name": "University of Cambridge",
-       "sameAs": "http://en.wikipedia.org/wiki/University_of_Cambridge"
-    },
-    "startDate": "1959"
-  }
+    "@context": "http://schema.org",
+    "@type": "Person",
+    "name": "Delia Derbyshire",
+    "sameAs": "http://en.wikipedia.org/wiki/Delia_Derbyshire",
+    "alumniOf": {
+        "@type": "OrganizationRole",
+        "alumniOf": {
+            "@type": "CollegeOrUniversity",
+            "name": "University of Cambridge",
+            "sameAs": "http://en.wikipedia.org/wiki/University_of_Cambridge"
+        },
+        "startDate": "1959"
+    }
 }
 </script>
 
@@ -11153,29 +10884,29 @@ about a 'member' of a 'SportsTeam', including time qualfiers
 MICRODATA:
 
 <div itemscope itemtype="http://schema.org/SportsTeam">
-  <span itemprop="name">San Francisco 49ers</span>
-  <div itemprop="member" itemscope
-        itemtype="http://schema.org/OrganizationRole">
-    <div itemprop="member" itemscope
-            itemtype="http://schema.org/Person">
-      <span itemprop="name">Joe Montana</span>
+    <span itemprop="name">San Francisco 49ers</span>
+    <div itemprop="member" itemscope itemtype="http://schema.org/OrganizationRole">
+        <div itemprop="member" itemscope itemtype="http://schema.org/Person">
+            <span itemprop="name">Joe Montana</span>
+        </div>
+        <span itemprop="startDate">1979</span> 
+        <span itemprop="endDate">1992</span> 
+        <span itemprop="roleName">Quarterback</span>
     </div>
-    <span itemprop="startDate">1979</span>
-    <span itemprop="endDate">1992</span>
-    <span itemprop="roleName">Quarterback</span>
 </div>
 
 RDFA:
 
 <div vocab="http://schema.org/" typeof="SportsTeam">
-  <span property="name">San Francisco 49ers</span>
-  <div property="member" typeof="OrganizationRole">
-    <div property="member" typeof="http://schema.org/Person">
-      <span property="name">Joe Montana</span>
+    <span property="name">San Francisco 49ers</span>
+    <div property="member" typeof="OrganizationRole">
+        <div property="member" typeof="http://schema.org/Person">
+            <span property="name">Joe Montana</span>
+        </div>
+        <span property="startDate">1979</span> 
+        <span property="endDate">1992</span> 
+        <span property="roleName">Quarterback</span>
     </div>
-    <span property="startDate">1979</span>
-    <span property="endDate">1992</span>
-    <span property="roleName">Quarterback</span>
 </div>
 
 JSON:
@@ -11304,47 +11035,44 @@ MICRODATA:
 RDFA:
 
 <div vocab="http://schema.org/" typeof="ItemList">
-  <link property="url" href="http://multivarki.ru?filters%5Bprice%5D%5BLTE%5D=39600" />
-  <span property="numberOfItems">315</span>
-  <div property="itemListElement" typeof="Product">
-    <img property="image" alt="Photo of product"
-     src="http://img01.multivarki.ru.ru/c9/f1/a5fe6642-18d0-47ad-b038-6fca20f1c923.jpeg" />
-    <a property="url" href="http://multivarki.ru/brand_502/">
-      <span property="name">BRAND 502</span>
-    </a>
-    <div property="offers" typeof="http://schema.org/Offer">
-      <meta property="schema:priceCurrency" content="RUB">руб
-      <meta property="schema:price" content="4399.00">4 399,00
-      <link property="schema:itemCondition" href="http://schema.org/NewCondition">
-    </div>...
+    <link property="url" href="http://multivarki.ru?filters%5Bprice%5D%5BLTE%5D=39600"><span property="numberOfItems">315</span>
     <div property="itemListElement" typeof="Product">
-    ...
+        <img property="image" alt="Photo of product" src="http://img01.multivarki.ru.ru/c9/f1/a5fe6642-18d0-47ad-b038-6fca20f1c923.jpeg"> <a property="url" href="http://multivarki.ru/brand_502/"><span property="name">BRAND 502</span></a>
+        <div property="offers" typeof="http://schema.org/Offer">
+            <meta property="schema:priceCurrency" content="RUB">руб
+            <meta property="schema:price" content="4399.00">4 399,00
+            <link property="schema:itemCondition" href="http://schema.org/NewCondition">
+        </div>...
+        <div property="itemListElement" typeof="Product">
+          ...
+        </div>
     </div>
-  </div>
 </div>
 
 JSON:
 
 <script type="application/ld+json">
 {
-  "@context": "http://schema.org",
-  "@type": "ItemList",
-  "url": "http://multivarki.ru?filters%5Bprice%5D%5BLTE%5D=39600",
-  "numberOfItems": "315",
-  "itemListElement": [{
-      "@type": "Product",
-      "image": "http://img01.multivarki.ru.ru/c9/f1/a5fe6642-18d0-47ad-b038-6fca20f1c923.jpeg",
-      "url": "http://multivarki.ru/brand_502/",
-      "name": "Brand 502"
-    },{
-      "@type": "Product",
-      "name": "..."
-    }
-  ],
-    "offers": {
-      "@type": "Offer",
-      "price": "4399 p."
-    }
+    "@context": "http://schema.org",
+    "@type": "ItemList",
+    "url": "http://multivarki.ru?filters%5Bprice%5D%5BLTE%5D=39600",
+    "numberOfItems": "315",
+    "itemListElement": [
+        {
+            "@type": "Product",
+            "image": "http://img01.multivarki.ru.ru/c9/f1/a5fe6642-18d0-47ad-b038-6fca20f1c923.jpeg",
+            "url": "http://multivarki.ru/brand_502/",
+            "name": "Brand 502",
+            "offers": {
+                "@type": "Offer",
+                "price": "4399 p."
+            }
+        },
+        {
+            "@type": "Product",
+            "name": "..."
+        }
+    ]
 }
 </script>
 
@@ -11426,66 +11154,68 @@ MICRODATA:
 
 RDFA:
 
-<div vocab="http://schema.org/" typeof="ItemList CreativeWOrk">
-  <h1 property="name">Top 5 covers of Bob Dylan Songs</h1>
-  <div property="author" typeof="Person">
-    by <span property="name">John Doe</span>
-  </div>
-  <div property="about" typeof="MusicRecording">
-    <div property="byArtist" typeof="MusicGroup">
-      <meta property="name" content="Bob Dylan" />
+<div vocab="http://schema.org/" typeof="ItemList CreativeWork">
+    <h1 property="name">
+        Top 5 covers of Bob Dylan Songs
+    </h1>
+    <div property="author" typeof="Person">
+        by <span property="name">John Doe</span>
     </div>
-  </div>
-  <link property="itemListOrder" href="http://schema.org/ItemListOrderAscending" />
-  <meta property="numberOfItems" content="5" />
-  <div property="itemListElement" typeof="ListItem">
-    <span property="position">5</span>
-    <div property="item" typeof="MusicRecording">
-      <span property="name">If Not For You</span>
-      <div property="byArtist" typeof="MusicGroup">
-        <span property="name">George Harrison</span>
-      </div>
+    <div property="about" typeof="MusicRecording">
+        <div property="byArtist" typeof="MusicGroup">
+            <meta property="name" content="Bob Dylan">
+        </div>
     </div>
-  </div>
-  <div property="itemListElement" typeof="ListItem">
-    <span property="position">4</span>
-    <div property="item" typeof="MusicRecording">
-      <span property="name">The Times They Are A-Changin'</span>
-      <div property="byArtist" typeof="MusicGroup">
-        <span property="name">Tracy Chapman</span>
-      </div>
+    <link property="itemListOrder" href="http://schema.org/ItemListOrderAscending">
+    <meta property="numberOfItems" content="5">
+    <div property="itemListElement" typeof="ListItem">
+        <span property="position">5</span>
+        <div property="item" typeof="MusicRecording">
+            <span property="name">If Not For You</span>
+            <div property="byArtist" typeof="MusicGroup">
+                <span property="name">George Harrison</span>
+            </div>
+        </div>
     </div>
-  </div>
-  <div property="itemListElement" typeof="ListItem">
-    <span property="position">3</span>
-    <div property="item" typeof="MusicRecording">
-      <span property="name">It Ain't Me Babe</span>
-      <div property="byArtist" typeof="MusicGroup">
-        <span property="name">Johnny Cash</span>
-      </div>
-      <div property="byArtist" typeof="MusicGroup">
-        <span property="name">June Carter Cash</span>
-      </div>
+    <div property="itemListElement" typeof="ListItem">
+        <span property="position">4</span>
+        <div property="item" typeof="MusicRecording">
+            <span property="name">The Times They Are A-Changin'</span>
+            <div property="byArtist" typeof="MusicGroup">
+                <span property="name">Tracy Chapman</span>
+            </div>
+        </div>
     </div>
-  </div>
-  <div property="itemListElement" typeof="ListItem">
-    <span property="position">2</span>
-    <div property="item" typeof="MusicRecording">
-      <span property="name">Don't Think Twice It's Alright</span>
-      <div property="byArtist" typeof="MusicGroup">
-        <span property="name">Waylon Jennings</span>
-      </div>
+    <div property="itemListElement" typeof="ListItem">
+        <span property="position">3</span>
+        <div property="item" typeof="MusicRecording">
+            <span property="name">It Ain't Me Babe</span>
+            <div property="byArtist" typeof="MusicGroup">
+                <span property="name">Johnny Cash</span>
+            </div>
+            <div property="byArtist" typeof="MusicGroup">
+                <span property="name">June Carter Cash</span>
+            </div>
+        </div>
     </div>
-  </div>
-  <div property="itemListElement" typeof="ListItem">
-    <span property="position">1</span>
-    <div property="item" typeof="MusicRecording">
-      <span property="name">All Along the Watchtower</span>
-      <div property="byArtist" typeof="MusicGroup">
-        <span property="name">Jimi Hendrix</span>
-      </div>
+    <div property="itemListElement" typeof="ListItem">
+        <span property="position">2</span>
+        <div property="item" typeof="MusicRecording">
+            <span property="name">Don't Think Twice It's Alright</span>
+            <div property="byArtist" typeof="MusicGroup">
+                <span property="name">Waylon Jennings</span>
+            </div>
+        </div>
     </div>
-  </div>
+    <div property="itemListElement" typeof="ListItem">
+        <span property="position">1</span>
+        <div property="item" typeof="MusicRecording">
+            <span property="name">All Along the Watchtower</span>
+            <div property="byArtist" typeof="MusicGroup">
+                <span property="name">Jimi Hendrix</span>
+            </div>
+        </div>
+    </div>
 </div>
 
 
@@ -11664,7 +11394,7 @@ JSON:
 {
   "@context": "http://schema.org",
   "@type": "ItemList",
-  "@url": "http://en.wikipedia.org/wiki/Billboard_200",
+  "url": "http://en.wikipedia.org/wiki/Billboard_200",
   "name": "Top music artists",
   "description": "The artists with the most cumulative weeks at number one according to Billboard 200",
   "itemListElement": [
@@ -11718,29 +11448,28 @@ Tracks:
 MICRODATA:
 
 <div itemscope itemtype="http://schema.org/MusicAlbum">
-  <span itemprop="name">King of Limbs</span>
-  <span itemprop="byArtist">Radiohead</span>
-  <div itemprop="track" itemscope itemtype="http://schema.org/ItemList">
-    <span itemprop="numberOfItems" content=8 />
-    <div itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-      <span itemprop="position">1</span>
-      <div itemprop="item" itemscope itemtype="http://schema.org/MusicRecording">
-        <span itemprop="name">Bloom</span>
-      </div>
+    <span itemprop="name">King of Limbs</span> <span itemprop="byArtist">Radiohead</span>
+    <div itemprop="track" itemscope itemtype="http://schema.org/ItemList">
+        <meta itemprop="numberOfItems" content="8">
+        <div itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+            <span itemprop="position">1</span>
+            <div itemprop="item" itemscope itemtype="http://schema.org/MusicRecording">
+                <span itemprop="name">Bloom</span>
+            </div>
+        </div>
+        <div itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+            <span itemprop="position">2</span>
+            <div itemprop="item" itemscope itemtype="http://schema.org/MusicRecording">
+                <span itemprop="name">Morning Mr. Magpie</span>
+            </div>
+        </div>
+        <div itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+            <span itemprop="position">3</span>
+            <div itemprop="item" itemscope itemtype="http://schema.org/MusicRecording">
+                <span itemprop="name">Little by Little</span>
+            </div>
+        </div>
     </div>
-    <div itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-      <span itemprop="position">2</span>
-      <div itemprop="item" itemscope itemtype="http://schema.org/MusicRecording">
-        <span itemprop="name">Morning Mr. Magpie</span>
-      </div>
-    </div>
-    <div itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-      <span itemprop="position">3</span>
-      <div itemprop="item" itemscope itemtype="http://schema.org/MusicRecording">
-        <span itemprop="name">Little by Little</span>
-      </div>
-    </div>
-  </div>
 </div>
 
 RDFA:
