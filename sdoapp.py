@@ -732,8 +732,8 @@ class ShowUnit (webapp2.RequestHandler):
 
         self.write(" <div property=\"rdfs:comment\">%s</div>\n\n" % (comment) + "\n")
         usage = GetUsage(term.getId())
-        if len(usage):
-            self.write(" <br/><div>Usage: %s</div>\n\n" % (usage) + "\n")
+        #if len(usage):
+        #    self.write(" <br/><div>Usage: %s</div>\n\n" % (usage) + "\n")
 
         if ENABLEMOREINFO:
             self.write(self.moreInfoBlock(term))
