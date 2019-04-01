@@ -58,7 +58,7 @@ if not SdoConfig.valid:
     log.error("Invalid config from '%s' or its includes !!" % CONFIGFILE)
     os.exit()
 
-SCHEMA_VERSION="3.4"
+SCHEMA_VERSION="3.5"
 
 if not getInTestHarness():
     GAE_APP_ID = app_identity.get_application_id()
@@ -71,7 +71,7 @@ sitemode = "mainsite" # whitespaced list for CSS tags,
             # e.g. "mainsite testsite" when off expected domains
             # "extensionsite" when in an extension (e.g. blue?)
 
-releaselog = { "2.0": "2015-05-13", "2.1": "2015-08-06", "2.2": "2015-11-05", "3.0": "2016-05-04", "3.1": "2016-08-09", "3.2": "2017-03-23", "3.3": "2017-08-14", "3.4": "2018-06-15" }
+releaselog = { "2.0": "2015-05-13", "2.1": "2015-08-06", "2.2": "2015-11-05", "3.0": "2016-05-04", "3.1": "2016-08-09", "3.2": "2017-03-23", "3.3": "2017-08-14", "3.4": "2018-06-15", "3.5": "2019-04-01" }
 
 silent_skip_list =  [ "favicon.ico" ] # Do nothing for now
 
@@ -716,7 +716,7 @@ class ShowUnit (webapp2.RequestHandler):
                     linktext = lt
             t = SdoConfig.getDescriptor(home,"disambiguatingDescription")
             linkinsert = "<a title=\"%s\" href=\"%s\">%s</a>" % (t,exthomeurl,home)
-            
+
             self.write("<span class=\"extlink\">")
             self.write(linktext % linkinsert)
             self.write("<br/></span>")
@@ -1475,13 +1475,13 @@ class ShowUnit (webapp2.RequestHandler):
                     self.write("<pre class=\"prettyprint lang-html linenums %s %s\">%s</pre>\n\n"
                                % (example_type, selected, self.rep(ex.get(example_type))))
                 self.write("</div>\n\n")
-        
+
     def showlink(self,id):
         ret = ""
         if id and len(id):
             ret = " id=\"%s\" title=\"Link: #%s\" href=\"#%s\" class=\"clickableAnchor\" " % (id,id,id)
         return ret
-  
+
     def _removeStackDupes(self,stack):
         cleanstack = []
         i = len(stack)
