@@ -6,33 +6,22 @@
   },
   "@graph": [
     {
-      "@id": "http://schema.org/colorist",
-      "@type": "rdf:Property",
+      "@id": "http://schema.org/ComicSeries",
+      "@type": "rdfs:Class",
       "http://schema.org/category": {
         "@language": "en",
         "@value": "Comics"
       },
-      "http://schema.org/domainIncludes": [
-        {
-          "@id": "http://schema.org/ComicStory"
-        },
-        {
-          "@id": "http://schema.org/ComicIssue"
-        },
-        {
-          "@id": "http://schema.org/VisualArtwork"
-        }
-      ],
       "http://schema.org/isPartOf": {
         "@id": "http://bib.schema.org"
       },
-      "http://schema.org/rangeIncludes": {
-        "@id": "http://schema.org/Person"
-      },
-      "rdfs:comment": "The individual who adds color to inked drawings.",
+      "rdfs:comment": "A sequential publication of comic stories under a\n    unifying title, for example \"The Amazing Spider-Man\" or \"Groo the\n    Wanderer\".",
       "rdfs:label": {
         "@language": "en",
-        "@value": "colorist"
+        "@value": "ComicSeries"
+      },
+      "rdfs:subClassOf": {
+        "@id": "http://schema.org/Periodical"
       }
     },
     {
@@ -122,13 +111,13 @@
       },
       "http://schema.org/domainIncludes": [
         {
-          "@id": "http://schema.org/VisualArtwork"
+          "@id": "http://schema.org/ComicStory"
         },
         {
           "@id": "http://schema.org/ComicIssue"
         },
         {
-          "@id": "http://schema.org/ComicStory"
+          "@id": "http://schema.org/VisualArtwork"
         }
       ],
       "http://schema.org/isPartOf": {
@@ -178,10 +167,10 @@
       },
       "rdfs:subClassOf": [
         {
-          "@id": "http://schema.org/CoverArt"
+          "@id": "http://schema.org/ComicStory"
         },
         {
-          "@id": "http://schema.org/ComicStory"
+          "@id": "http://schema.org/CoverArt"
         }
       ]
     },
@@ -215,10 +204,10 @@
       },
       "http://schema.org/rangeIncludes": [
         {
-          "@id": "http://schema.org/Person"
+          "@id": "http://schema.org/Organization"
         },
         {
-          "@id": "http://schema.org/Organization"
+          "@id": "http://schema.org/Person"
         }
       ],
       "rdfs:comment": "An agent associated with the publication event.",
@@ -249,24 +238,21 @@
       }
     },
     {
-      "@id": "http://schema.org/translationOfWork",
-      "@type": "rdf:Property",
-      "http://schema.org/domainIncludes": {
-        "@id": "http://schema.org/CreativeWork"
-      },
-      "http://schema.org/inverseOf": {
-        "@id": "http://schema.org/workTranslation"
+      "@id": "http://schema.org/Newspaper",
+      "@type": "rdfs:Class",
+      "http://purl.org/dc/terms/source": {
+        "@id": "http://www.productontology.org/id/Newspaper"
       },
       "http://schema.org/isPartOf": {
         "@id": "http://bib.schema.org"
       },
-      "http://schema.org/rangeIncludes": {
-        "@id": "http://schema.org/CreativeWork"
-      },
-      "rdfs:comment": "The work that this work has been translated from. e.g. 物种起源 is a translationOf “On the Origin of Species”",
+      "rdfs:comment": "A publication containing information about varied topics that are pertinent to general information, a geographic area, or a specific subject matter (i.e. business, culture, education). Often published daily.",
       "rdfs:label": {
         "@language": "en",
-        "@value": "translationOfWork"
+        "@value": "Newspaper"
+      },
+      "rdfs:subClassOf": {
+        "@id": "http://schema.org/Periodical"
       }
     },
     {
@@ -301,30 +287,41 @@
       },
       "rdfs:subClassOf": [
         {
-          "@id": "http://schema.org/AudioObject"
+          "@id": "http://schema.org/Book"
         },
         {
-          "@id": "http://schema.org/Book"
+          "@id": "http://schema.org/AudioObject"
         }
       ]
     },
     {
-      "@id": "http://schema.org/ComicSeries",
-      "@type": "rdfs:Class",
+      "@id": "http://schema.org/colorist",
+      "@type": "rdf:Property",
       "http://schema.org/category": {
         "@language": "en",
         "@value": "Comics"
       },
+      "http://schema.org/domainIncludes": [
+        {
+          "@id": "http://schema.org/ComicStory"
+        },
+        {
+          "@id": "http://schema.org/ComicIssue"
+        },
+        {
+          "@id": "http://schema.org/VisualArtwork"
+        }
+      ],
       "http://schema.org/isPartOf": {
         "@id": "http://bib.schema.org"
       },
-      "rdfs:comment": "A sequential publication of comic stories under a\n    unifying title, for example \"The Amazing Spider-Man\" or \"Groo the\n    Wanderer\".",
+      "http://schema.org/rangeIncludes": {
+        "@id": "http://schema.org/Person"
+      },
+      "rdfs:comment": "The individual who adds color to inked drawings.",
       "rdfs:label": {
         "@language": "en",
-        "@value": "ComicSeries"
-      },
-      "rdfs:subClassOf": {
-        "@id": "http://schema.org/Periodical"
+        "@value": "colorist"
       }
     },
     {
@@ -336,10 +333,10 @@
       },
       "http://schema.org/domainIncludes": [
         {
-          "@id": "http://schema.org/VisualArtwork"
+          "@id": "http://schema.org/ComicStory"
         },
         {
-          "@id": "http://schema.org/ComicStory"
+          "@id": "http://schema.org/VisualArtwork"
         },
         {
           "@id": "http://schema.org/ComicIssue"
@@ -376,24 +373,6 @@
       }
     },
     {
-      "@id": "http://schema.org/Newspaper",
-      "@type": "rdfs:Class",
-      "http://purl.org/dc/terms/source": {
-        "@id": "http://www.productontology.org/id/Newspaper"
-      },
-      "http://schema.org/isPartOf": {
-        "@id": "http://bib.schema.org"
-      },
-      "rdfs:comment": "A publication containing information about varied topics that are pertinent to general information, a geographic area, or a specific subject matter (i.e. business, culture, education). Often published daily.",
-      "rdfs:label": {
-        "@language": "en",
-        "@value": "Newspaper"
-      },
-      "rdfs:subClassOf": {
-        "@id": "http://schema.org/Periodical"
-      }
-    },
-    {
       "@id": "http://schema.org/Collection",
       "@type": "rdfs:Class",
       "http://schema.org/isPartOf": {
@@ -424,6 +403,27 @@
       }
     },
     {
+      "@id": "http://schema.org/translationOfWork",
+      "@type": "rdf:Property",
+      "http://schema.org/domainIncludes": {
+        "@id": "http://schema.org/CreativeWork"
+      },
+      "http://schema.org/inverseOf": {
+        "@id": "http://schema.org/workTranslation"
+      },
+      "http://schema.org/isPartOf": {
+        "@id": "http://bib.schema.org"
+      },
+      "http://schema.org/rangeIncludes": {
+        "@id": "http://schema.org/CreativeWork"
+      },
+      "rdfs:comment": "The work that this work has been translated from. e.g. 物种起源 is a translationOf “On the Origin of Species”",
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "translationOfWork"
+      }
+    },
+    {
       "@id": "http://schema.org/Atlas",
       "@type": "rdfs:Class",
       "http://purl.org/dc/terms/source": {
@@ -450,13 +450,13 @@
       },
       "http://schema.org/domainIncludes": [
         {
-          "@id": "http://schema.org/VisualArtwork"
+          "@id": "http://schema.org/ComicIssue"
         },
         {
           "@id": "http://schema.org/ComicStory"
         },
         {
-          "@id": "http://schema.org/ComicIssue"
+          "@id": "http://schema.org/VisualArtwork"
         }
       ],
       "http://schema.org/isPartOf": {
@@ -504,10 +504,10 @@
           "@id": "http://schema.org/VisualArtwork"
         },
         {
-          "@id": "http://schema.org/ComicStory"
+          "@id": "http://schema.org/ComicIssue"
         },
         {
-          "@id": "http://schema.org/ComicIssue"
+          "@id": "http://schema.org/ComicStory"
         }
       ],
       "http://schema.org/isPartOf": {
