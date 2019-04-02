@@ -61,7 +61,9 @@ Of these,
 
 Example usage:
 
-First copy snapshot into place:
+First run scripts/buildTermConfig.sh - ensure all config files are referenced.
+
+Next copy snapshot into place:
 
 * cp data/schema.rdfa data/releases/2.2/schema.rdfa
 
@@ -75,6 +77,8 @@ Then generate N-Triples etc. versions:
 * scripts/buildreleasefiles.sh 3.1 - Check listed extensions is correct update if not
 
 * Run './scripts/buildsitemap.py' make sure sitemap is up to date
+
+* Again run scripts/buildTermConfig.sh - ensure all config & docs files are referenced
 
 * Inspect snapshot, add to git and push to repo.
  * ls -l data/releases/2.2/
