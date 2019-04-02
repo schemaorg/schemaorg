@@ -2837,7 +2837,7 @@ def templateRender(templateName, node, values=None):
         homedir = ".."
     elif node.startswith("version/"):
         docsdir = "/docs/"
-        homedir = "/"
+        homedir = ""
     else:
         docsdir = "docs/"
         homedir = "."
