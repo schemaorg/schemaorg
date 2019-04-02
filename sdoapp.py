@@ -2033,8 +2033,9 @@ class ShowUnit (webapp2.RequestHandler):
             if requested_version != "build-latest":
                 return False
                 log.info("giving up to 404.")
-            else:
-                log.info("generating a live view of this latest release.")
+            else:  # build-latest
+                requested_version = SCHEMA_VERSION
+                log.info("generating a live view of this latest release (with SCHEMA_VERSION set as: %s)." % SCHEMA_VERSION)
 
 
         if getPageFromStore('FullReleasePage.html'):
