@@ -2335,7 +2335,7 @@ class ShowUnit (webapp2.RequestHandler):
         if not node or node == "":
             node = "/"
 
-        if not validNode_re.search(str(node)): #invalid node name
+        if not validNode_re.search(str(node)) or os.path.basename(str(node)).count('.') > 1: #invalid node name
             log.warning("Invalid node name '%s'" % str(node))
             self.handle404Failure(node,suggest=False)
             return
@@ -2397,7 +2397,12 @@ class ShowUnit (webapp2.RequestHandler):
                         self.response.headers['Last-Modified'] = getmodiftime().strftime("%a, %d %b %Y %H:%M:%S GMT")
 
                     retHdrs = self.response.headers.copy()
-                    HeaderStore.put(hdrIndex,retHdrs) #Cache these headers for a future 304 return
+                    try:
+                        HeaderStore.put(hdrIndex,retHdrs) #Cache these headers for a future 304 return
+                    except Exception  as e:
+                        log.warning("HeaderStore.put(%s) returned exception: %s" % (hdrIndex,e))
+                        log.info("Abandoning caching of response headers for '%s'" % node)
+                        pass
 
             #self.response.set_cookie('GOOGAPPUID', getAppEngineVersion())
         log.info("Responding:\n%s\nstatus: %s\n%s" % (node,self.response.status,self.response.headers ))
