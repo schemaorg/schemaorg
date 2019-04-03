@@ -784,7 +784,7 @@ class ShowUnit (webapp2.RequestHandler):
             if term.isProperty():
                 cstack.append(VTerm.getTerm("http://schema.org/Property"))
                 cstack.append(VTerm.getTerm("http://schema.org/Thing"))
-            elif term.isDataType():
+            elif term.isDataType() and not term.id == "DataType":
                 cstack.append(VTerm.getTerm("http://schema.org/DataType"))
 
 
