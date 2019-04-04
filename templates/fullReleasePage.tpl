@@ -13,7 +13,7 @@
 
 <div style="margin-left: 8%; margin-right: 8%">
 
-{% include 'docsBasicPageHeader.tpl' with context %}
+{% include 'basicPageHeader.tpl' with context %}
 
 <h1>Schema.org version {{ requested_version }}</h1>
 

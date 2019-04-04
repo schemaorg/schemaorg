@@ -71,7 +71,7 @@ sitemode = "mainsite" # whitespaced list for CSS tags,
             # e.g. "mainsite testsite" when off expected domains
             # "extensionsite" when in an extension (e.g. blue?)
 
-releaselog = { "2.0": "2015-05-13", "2.1": "2015-08-06", "2.2": "2015-11-05", "3.0": "2016-05-04", "3.1": "2016-08-09", "3.2": "2017-03-23", "3.3": "2017-08-14", "3.4": "2018-06-15", "3.5": "2019-04-01" }
+releaselog = { "2.0": "2015-05-13", "2.1": "2015-08-06", "2.2": "2015-11-05", "3.0": "2016-05-04", "3.1": "2016-08-09", "3.2": "2017-03-23", "3.3": "2017-08-14", "3.4": "2018-06-15", "3.5": "2019-04-02" }
 
 silent_skip_list =  [ "favicon.ico" ] # Do nothing for now
 
@@ -1772,9 +1772,8 @@ class ShowUnit (webapp2.RequestHandler):
             log.debug("Serving recycled JSONLDThingTree.")
             return True
         else:
-            uThing = Unit.GetUnit("Thing")
             mainroot = TypeHierarchyTree()
-            mainroot.traverseForJSONLD(Unit.GetUnit("Thing"), layers=layerlist)
+            mainroot.traverseForJSONLD(VTerm.getTerm("Thing"), layers=layerlist)
             thing_tree = mainroot.toJSON()
             self.response.out.write( thing_tree )
             log.debug("Serving fresh JSONLDThingTree.")
@@ -2033,8 +2032,9 @@ class ShowUnit (webapp2.RequestHandler):
             if requested_version != "build-latest":
                 return False
                 log.info("giving up to 404.")
-            else:
-                log.info("generating a live view of this latest release.")
+            else:  # build-latest
+                requested_version = SCHEMA_VERSION
+                log.info("generating a live view of this latest release (with SCHEMA_VERSION set as: %s)." % SCHEMA_VERSION)
 
 
         if getPageFromStore('FullReleasePage.html'):
@@ -2836,7 +2836,7 @@ def templateRender(templateName, node, values=None):
         homedir = ".."
     elif node.startswith("version/"):
         docsdir = "/docs/"
-        homedir = "/"
+        homedir = ""
     else:
         docsdir = "docs/"
         homedir = "."
