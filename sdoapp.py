@@ -2464,6 +2464,8 @@ class ShowUnit (webapp2.RequestHandler):
             log.info("Instance[%s] needs to load sources to create it" % (getInstanceId(short=True)) )
             load_sources() #Get Examples files and schema definitions
 
+        self.emitHTTPHeaders(node) #Ensure we have the right basic header values
+
         if node.startswith("docs/"):
             return self._getDocs(node,layerlist=layerlist)
 
@@ -2485,10 +2487,6 @@ class ShowUnit (webapp2.RequestHandler):
             #global Warmer
             #if not WarmedUp:
                 #Warmer.stepWarm(self)
-
-
-
-        self.emitHTTPHeaders(node) #Ensure we have the right basic header values
 
         if(node == "admin/refresh"):
             log.info("Processing refesh request")
