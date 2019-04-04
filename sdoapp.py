@@ -1231,9 +1231,10 @@ class ShowUnit (webapp2.RequestHandler):
         html_score = mimereq.get('text/html', 5)
         xhtml_score = mimereq.get('application/xhtml+xml', 5)
         jsonld_score = mimereq.get('application/ld+json', 10)
-        # print "accept_header: " + str(accept_header) + " mimereq: "+str(mimereq) + "Scores H:{0} XH:{1} J:{2} ".format(html_score,xhtml_score,jsonld_score)
+        json_score = mimereq.get('application/json', 10)
+        #log.info( "accept_header: " + str(accept_header) + " mimereq: "+str(mimereq) + "Scores H:{0} XH:{1} JL:{2} ".format(html_score,xhtml_score,jsonld_score,json_score))
 
-        if (ENABLE_JSONLD_CONTEXT and (jsonld_score < html_score and jsonld_score < xhtml_score)):
+        if (ENABLE_JSONLD_CONTEXT and ((jsonld_score < html_score and jsonld_score < xhtml_score) or (json_score < html_score and json_score < xhtml_score))):
             self.response.set_status(302,"Found")
             self.response.headers['Location'] = makeUrl("","docs/jsonldcontext.json")
             self.emitCacheHeaders()
