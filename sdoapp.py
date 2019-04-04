@@ -2352,6 +2352,7 @@ class ShowUnit (webapp2.RequestHandler):
         hdrIndex += node
 
         hdrs = HeaderStore.get(hdrIndex)
+        mod = None
 
         if hdrs:
             etag = hdrs.get("ETag",None)
@@ -2379,6 +2380,7 @@ class ShowUnit (webapp2.RequestHandler):
             self.response.set_status(304,"Not Modified")
         else:
             enableCaching = self._get(node) #Go get the page
+
             if enableCaching:
                 if self.response.status.startswith("200"):
                     stat = getAppVar(CLOUDSTAT)
@@ -2396,13 +2398,20 @@ class ShowUnit (webapp2.RequestHandler):
                         self.response.headers.add_header("ETag", getslug() + str(hash(hdrIndex)))
                         self.response.headers['Last-Modified'] = getmodiftime().strftime("%a, %d %b %Y %H:%M:%S GMT")
 
-                    retHdrs = self.response.headers.copy()
-                    try:
-                        HeaderStore.put(hdrIndex,retHdrs) #Cache these headers for a future 304 return
-                    except Exception  as e:
-                        log.warning("HeaderStore.put(%s) returned exception: %s" % (hdrIndex,e))
-                        log.info("Abandoning caching of response headers for '%s'" % node)
-                        pass
+                    store = True
+                    if mod: #Previous hdrs cached for this node
+                        new = self.response.headers.get('Last-Modified',None)
+                        if new and new == mod: #previous cached hdrs has same time as new one
+                            store = False #No point storing it again
+
+                    if store:
+                        retHdrs = self.response.headers.copy()
+                        try:
+                            HeaderStore.put(hdrIndex,retHdrs) #Cache these headers for a future 304 return
+                        except Exception  as e:
+                            log.warning("HeaderStore.put(%s) returned exception: %s" % (hdrIndex,e))
+                            log.info("Abandoning caching of response headers for '%s'" % node)
+                            pass
 
             #self.response.set_cookie('GOOGAPPUID', getAppEngineVersion())
         log.info("Responding:\n%s\nstatus: %s\n%s" % (node,self.response.status,self.response.headers ))
