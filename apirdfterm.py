@@ -722,7 +722,7 @@ def prefixFromUri(uri):
         pref, pth = n
         if uri.startswith(str(pth)):
             return pref
-    log.error("Requested unknown namespace uri %s" % uri)
+    log.warning("Requested unknown namespace uri %s" % uri)
     return None
     
 def uriForPrefix(pre):
@@ -732,7 +732,7 @@ def uriForPrefix(pre):
         pref, pth = n
         if pre == pref:
             return pth
-    log.error("Requested unknown prefix %s:" % pre)
+    log.warning("Requested unknown prefix %s:" % pre)
     return None
     
     
