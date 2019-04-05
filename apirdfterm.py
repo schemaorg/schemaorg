@@ -23,6 +23,7 @@ from apimarkdown import Markdown
 CORELAYER = "core"
 VTERMS={}
 TERMSLOCK = threading.Lock()
+SORTLOCK = threading.Lock()
 from apirdflib import RDFLIBLOCK
 
 DATATYPEURI = URIRef("http://schema.org/DataType")
@@ -674,9 +675,10 @@ def uriWrap(id):
         
 def sortedAddUnique(lst,term):
     if term not in lst:
-        lst.append(term)
-    lst.sort(key=lambda u: u.getId(),reverse=False)
-    
+        with SORTLOCK:
+            lst.append(term)
+            lst.sort(key=lambda u: u.getId(),reverse=False)
+
 LAYERPATTERN = None
 def layerFromUri(uri):
     global LAYERPATTERN
