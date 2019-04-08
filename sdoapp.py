@@ -2336,7 +2336,7 @@ class ShowUnit (webapp2.RequestHandler):
         if not node or node == "":
             node = "/"
 
-        if not validNode_re.search(str(node)) or os.path.basename(str(node)).count('.') > 1: #invalid node name
+        if not validNode_re.search(str(node)) or os.path.basename(str(node)).count('.') > 2: #invalid node name
             log.warning("Invalid node name '%s'" % str(node))
             self.handle404Failure(node,suggest=False)
             return
