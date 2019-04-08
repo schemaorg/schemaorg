@@ -1232,11 +1232,14 @@ class ShowUnit (webapp2.RequestHandler):
         xhtml_score = mimereq.get('application/xhtml+xml', 5)
         jsonld_score = mimereq.get('application/ld+json', 10)
         json_score = mimereq.get('application/json', 10)
-        #log.info( "accept_header: " + str(accept_header) + " mimereq: "+str(mimereq) + "Scores H:{0} XH:{1} JL:{2} ".format(html_score,xhtml_score,jsonld_score,json_score))
+        log.info( "accept_header: " + str(accept_header) + " mimereq: "+str(mimereq) + "Scores H:{0} XH:{1} JL:{2} J:{3}".format(html_score,xhtml_score,jsonld_score,json_score))
 
         if (ENABLE_JSONLD_CONTEXT and ((jsonld_score < html_score and jsonld_score < xhtml_score) or (json_score < html_score and json_score < xhtml_score))):
             self.response.set_status(302,"Found")
-            self.response.headers['Location'] = makeUrl("","docs/jsonldcontext.json")
+            if jsonld_score < json_score:
+                self.response.headers['Location'] = makeUrl("","docs/jsonldcontext.jsonld")
+            else:
+                self.response.headers['Location'] = makeUrl("","docs/jsonldcontext.json")
             self.emitCacheHeaders()
             return False #don't cache this redirect
         else:
@@ -1582,14 +1585,20 @@ class ShowUnit (webapp2.RequestHandler):
             self.error(404)
             self.response.out.write('<title>404 Not Found.</title><a href="/">404 Not Found (JSON-LD Context not enabled.)</a><br/><br/>')
             return True
+        ctype = "text/plain"
         if (node=="docs/jsonldcontext.json.txt"):
-            label = "jsonldcontext.json.txt"
-            self.response.headers['Content-Type'] = "text/plain"
+            label = "txt:jsonldcontext.json.txt"
+            ctype = "text/plain"
         elif (node=="docs/jsonldcontext.json"):
-            label = "jsonldcontext.json"
-            self.response.headers['Content-Type'] = "application/ld+json"
+            label = "json:docs/jsonldcontext.json"
+            ctype = "application/json"
+        elif (node=="docs/jsonldcontext.jsonld"):
+            label = "jsonld:docs/jsonldcontext.jsonld"
+            ctype = "application/ld+json"
         else:
             return False
+
+        self.response.headers['Content-Type'] = ctype
 
         jsonldcontext = getPageFromStore(label)
         if not jsonldcontext:
@@ -2386,7 +2395,6 @@ class ShowUnit (webapp2.RequestHandler):
                 if self.response.status.startswith("200"):
                     stat = getAppVar(CLOUDSTAT)
                     log.info("CLOUDSTAT %s" % stat)
-
                     if stat: #Use values from cloud storage
                         self.response.headers.add_header("ETag", stat.etag)
                         self.response.headers['Last-Modified'] = time.strftime("%a, %d %b %Y %H:%M:%S GMT",time.gmtime(stat.st_ctime))
@@ -2590,7 +2598,7 @@ class ShowUnit (webapp2.RequestHandler):
         if (node.startswith("docs/") and hstext != "core"): #All docs should operate in core
             return self.redirectToBase(node,True)
 
-        if node in ["docs/jsonldcontext.json.txt", "docs/jsonldcontext.json"]:
+        if node in ["docs/jsonldcontext.json.txt", "docs/jsonldcontext.json", "docs/jsonldcontext.jsonld"]:
             if self.handleJSONContext(node):
                 return True
             else:
