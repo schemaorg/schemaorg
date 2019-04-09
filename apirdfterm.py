@@ -23,6 +23,7 @@ from apimarkdown import Markdown
 CORELAYER = "core"
 VTERMS={}
 TERMSLOCK = threading.Lock()
+SORTLOCK = threading.Lock()
 from apirdflib import RDFLIBLOCK
 
 DATATYPEURI = URIRef("http://schema.org/DataType")
@@ -674,9 +675,10 @@ def uriWrap(id):
         
 def sortedAddUnique(lst,term):
     if term not in lst:
-        lst.append(term)
-    lst.sort(key=lambda u: u.getId(),reverse=False)
-    
+        with SORTLOCK:
+            lst.append(term)
+            lst.sort(key=lambda u: u.getId(),reverse=False)
+
 LAYERPATTERN = None
 def layerFromUri(uri):
     global LAYERPATTERN
@@ -720,7 +722,7 @@ def prefixFromUri(uri):
         pref, pth = n
         if uri.startswith(str(pth)):
             return pref
-    log.error("Requested unknown namespace uri %s" % uri)
+    log.warning("Requested unknown namespace uri %s" % uri)
     return None
     
 def uriForPrefix(pre):
@@ -730,7 +732,7 @@ def uriForPrefix(pre):
         pref, pth = n
         if pre == pref:
             return pth
-    log.error("Requested unknown prefix %s:" % pre)
+    log.warning("Requested unknown prefix %s:" % pre)
     return None
     
     
