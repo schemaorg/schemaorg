@@ -1,0 +1,74 @@
+TYPES: JobPosting, Occupation, occupationalCategory
+
+PRE-MARKUP:
+
+<!-- occupationalCategory utilising CategoryCode -->
+<!-- JSONLD only example -->
+
+
+MICRODATA:
+
+<!-- JSONLD only example -->
+
+RDFA:
+
+<!-- JSONLD only example -->
+
+JSON:
+
+<!-- occupationalCategory utilising CategoryCode -->
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org/",
+  "@type": "JobPosting",
+  "name": "Systems Research Engineer",
+  "hiringOrganization": {
+    "@type": "Organization",
+    "name": "ACME Software",
+  },
+  "relevantOccupation": {
+    "@type": "Occupation",
+    "name": "Research Engineer - Electronic, Electrical and Telecommunications Systems",
+    "occupationalCategory": {
+       "@type": "CategoryCode",
+       "inCodeSet": "ISCO-08",
+       "codeValue": "215",
+       "name": "Electrotechnology engineers"
+  }
+}
+</script>
+
+TYPES: Person, jobTitle
+
+PRE-MARKUP:
+
+<!-- jobTitle utilising DefinedTerm -->
+<!-- JSONLD only example -->
+
+
+MICRODATA:
+
+<!-- JSONLD only example -->
+
+RDFA:
+
+<!-- JSONLD only example -->
+
+JSON:
+
+<!-- jobTitle utilising DefinedTerm -->
+<script type="application/ld+json">
+{
+    "@context": "http://schema.org/",
+    "@type": "Person",
+    "name": "A. N. Other",
+    "jobTitle": {
+        "@type": "DefinedTerm",
+        "inDefinedTermSet": "https://targetjobs.co.uk/careers-advice/job-descriptions",
+        "termCode": "277133-aid-workerhumanitarian-worker-job-description",
+        "name": "Aid worker/humanitarian worker",
+        "url": "https://targetjobs.co.uk/careers-advice/job-descriptions/277133-aid-workerhumanitarian-worker-job-description"
+    }
+}
+</script>
+
