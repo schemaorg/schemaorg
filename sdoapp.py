@@ -1799,22 +1799,23 @@ class ShowUnit (webapp2.RequestHandler):
             accept_header = ""
         target = None
         for ah in accept_header:
-            if target:
-                break
-            ah = re.sub( r";q=\d?\.\d+", '', ah).rstrip()
-            log.debug("ACCEPT %s" % ah)
+            ah = re.sub( r";q=\d?\.\d+", '', ah).strip()
+            log.debug("ACCEPT '%s'" % ah)
             if ah == "text/html":
                 return False
             elif ah == "application/ld+json":
                 target = ".jsonld"
-            elif ah == "application/x-turtle":
+            elif ah == "application/x-turtle" or ah == "text/turtle" or ah == "application/turtle":
                 target = ".ttl"
             elif ah == "application/rdf+xml":
                 target = ".rdf"
-            elif ah == "text/plain":
+            elif ah == "text/plain" or ah == "application/n-triples" or ah == "text/n3" or ah == "application/n3":
                 target = ".nt"
             elif ah == "text/csv":
                 target = ".csv"
+            if target:
+                #log.info("GOT: %s" % target)
+                break
         if target:
             self.response.set_status(303,"See Other")
             self.response.headers['Location'] = makeUrl("","%s%s" % (node,target))
