@@ -1563,7 +1563,7 @@ RDFA:
     </h2>
     <div property="track" typeof="MusicRecording">
         <span property="name">Rope</span>
-        <meta property="url" content="foo-fighters-rope.html">Length:
+        <link property="url" href="foo-fighters-rope.html">Length:
         <meta property="duration" content="PT4M5S">4:05 - 14300 plays
         <div property="interactionStatistic" typeof="http://schema.org/InteractionCounter">
             <meta property="interactionType" content="http://schema.org/ListenAction">
@@ -1572,7 +1572,7 @@ RDFA:
     </div>
     <div property="track" typeof="MusicRecording">
         <span property="name">Everlong</span>
-        <meta property="url" content="foo-fighters-everlong.html">Length:
+        <link property="url" href="foo-fighters-everlong.html">Length:
         <meta property="duration" content="PT6M33S">6:33 - 11700 plays
         <div property="interactionStatistic" typeof="http://schema.org/InteractionCounter">
             <meta property="interactionType" content="http://schema.org/ListenAction">
@@ -2136,7 +2136,7 @@ RDFA:
   <div property="track" typeof="MusicRecording">
     1.<span property="name">Sweet Home Alabama</span> -
     <span property="byArtist">Lynard Skynard</span>
-    <meta content="sweet-home-alabama" property="url" />
+    <link href="sweet-home-alabama" property="url" />
     <meta content="PT4M45S" property="duration" />
     <meta content="Second Helping" property="inAlbum" />
    </div>
@@ -2144,7 +2144,7 @@ RDFA:
   <div property="track" typeof="MusicRecording">
     2.<span property="name">Shook you all Night Long</span> -
     <span property="byArtist">AC/DC</span>
-    <meta content="shook-you-all-night-long" property="url" />
+    <link href="shook-you-all-night-long" property="url" />
     <meta content="PT3M32S" property="duration" />
     <meta content="Back In Black" property="inAlbum" />
   </div>
@@ -2152,7 +2152,7 @@ RDFA:
   <div property="track" typeof="MusicRecording">
     3.<span property="name">Sharp Dressed Man</span> -
     <span property="byArtist">ZZ Top</span>
-    <meta content="sharp-dressed-man" property="url" />
+    <link href="sharp-dressed-man" property="url" />
     <meta content="PT4M13S" property="duration" />
     <meta content="Eliminator" property="inAlbum" />
  </div>
@@ -2160,7 +2160,7 @@ RDFA:
   <div property="track" typeof="MusicRecording">
     4.<span property="name">Old Time Rock and Roll</span> -
     <span property="byArtist">Bob Seger</span>
-    <meta content="old-time-rock-and-roll" property="url" />
+    <link href="old-time-rock-and-roll" property="url" />
     <meta content="PT3M12S" property="duration" />
     <meta content="Stranger In Town" property="inAlbum" />
   </div>
@@ -2168,7 +2168,7 @@ RDFA:
   <div property="track" typeof="MusicRecording">
     5.<span property="name">Hurt So Good</span> -
     <span property="byArtist">John Cougar</span>
-    <meta content="hurt-so-good" property="url" />
+    <link href="hurt-so-good" property="url" />
     <meta content="PT3M39S" property="duration" />
     <meta content="American Fool" property="inAlbum" />
   </div>
@@ -2578,7 +2578,7 @@ RDFA:
 
 <div vocab="http://schema.org/" typeof="MusicAlbum">
   <h1 property="name"> King of Limbs </h1>
-  <meta content="/artist/radiohead/album/the-king-of-limbs" property="url" />
+  <link href="/artist/radiohead/album/the-king-of-limbs" property="url" />
   <img alt="Blurry, spooky cover art"
   src="king-of-limbs.jpg" property="image" />
   <meta content="8" property="numTracks" />
@@ -2591,12 +2591,12 @@ RDFA:
   <h3>Sample Tracks</h3>
     <div property="track" typeof="MusicRecording">
       <span property="name">Bloom</span>
-      <meta content="/artist/radiohead/album/the-king-of-limbs/track/bloom" property="url" />
+      <link href="/artist/radiohead/album/the-king-of-limbs/track/bloom" property="url" />
       <meta content="PT5M14S" property="duration" />5:14
     </div>
     <div property="track" typeof="MusicRecording">
       <span property="name">Morning Mr Magpie</span>
-      <meta content="/artist/radiohead/album/the-king-of-limbs/track/morning-mr-magpie" property="url" />
+      <link href="/artist/radiohead/album/the-king-of-limbs/track/morning-mr-magpie" property="url" />
       <meta content="PT4M40S" property="duration" />4:40
   </div>
 </div>
@@ -9930,16 +9930,16 @@ PRE-MARKUP:
 <div>
   <h1>Middle of Nowhere Foods</h1>
   <h2>Opening hours</h2>
-  <p>Normally open daily <time datetime="09:00">9am</time>-<time datetime="14:00">2pm</time> except on:</p>
+  <p>Normally open daily <time datetime="09:00:00">9am</time>-<time datetime="14:00:00">2pm</time> except on:</p>
   <ul>
     <li>
       <time datetime="2013-12-24">24 December 2013</time> and
       <time datetime="2013-12-25">25 December 2013</time>:
-      <time datetime="09:00">9am</time>-<time datetime="11:00">11am</time>
+      <time datetime="09:00:00">9am</time>-<time datetime="11:00:00">11am</time>
     </li>
     <li>
       <time datetime="2014-01-01">1st January 2014</time>:
-      <time datetime="12:00">Noon</time>-<time datetime="14:00">2pm</time>
+      <time datetime="12:00:00">Noon</time>-<time datetime="14:00:00">2pm</time>
     </li>
   </ul>
 </div>
@@ -9950,16 +9950,16 @@ MICRODATA:
   <h1 itemprop="name">Middle of Nowhere Foods</h1>
   <h2>Opening hours</h2>
     <meta itemprop="openingHours" content="Mo,Tu,We,Th,Fr,Sa,Su 09:00-14:00">
-    <p>Normally open daily <time datetime="09:00">9am</time>-<time datetime="14:00">2pm</time> except on:</p>
+    <p>Normally open daily <time datetime="09:00:00">9am</time>-<time datetime="14:00:00">2pm</time> except on:</p>
   <ul>
     <li itemprop="openingHoursSpecification" itemscope itemtype="http://schema.org/OpeningHoursSpecification">
       <time itemprop="validFrom" datetime="2013-12-24">24 December 2013</time> and
       <time itemprop="validThrough" datetime="2013-12-25">25 December 2013</time>:
-      <time itemprop="opens" datetime="09:00">9am</time>-<time itemprop="closes" datetime="11:00">11am</time>
+      <time itemprop="opens" datetime="09:00:00">9am</time>-<time itemprop="closes" datetime="11:00:00">11am</time>
     </li>
     <li itemprop="openingHoursSpecification" itemscope itemtype="http://schema.org/OpeningHoursSpecification">
       <time itemprop="validFrom validThrough" datetime="2014-01-01">1st January 2014</time>:
-      <time itemprop="opens" datetime="12:00">Noon</time>-<time itemprop="closes" datetime="14:00">2pm</time>
+      <time itemprop="opens" datetime="12:00:00">Noon</time>-<time itemprop="closes" datetime="14:00:00">2pm</time>
     </li>
   </ul>
 </div>
@@ -9970,16 +9970,16 @@ RDFA:
   <h1 property="name">Middle of Nowhere Foods</h1>
   <h2>Opening hours</h2>
   <meta property="openingHours" content="Mo,Tu,We,Th,Fr,Sa,Su 09:00-14:00">
-  <p>Normally open daily <time datetime="09:00">9am</time>-<time datetime="14:00">2pm</time> except on:</p>
+  <p>Normally open daily <time datetime="09:00:00">9am</time>-<time datetime="14:00:00">2pm</time> except on:</p>
   <ul>
     <li property="openingHoursSpecification" typeof="OpeningHoursSpecification">
       <time property="validFrom" datetime="2013-12-24">24 December 2013</time> and
       <time property="validThrough" datetime="2013-12-25">25 December 2013</time>:
-      <time property="opens" datetime="09:00">9am</time>-<time property="closes" datetime="11:00">11am</time>
+      <time property="opens" datetime="09:00:00">9am</time>-<time property="closes" datetime="11:00:00">11am</time>
     </li>
     <li property="openingHoursSpecification" typeof="OpeningHoursSpecification">
       <time property="validFrom validThrough" datetime="2014-01-01">1st January 2014</time>:
-      <time property="opens" datetime="12:00">Noon</time>-<time property="closes" datetime="14:00">2pm</time>
+      <time property="opens" datetime="12:00:00">Noon</time>-<time property="closes" datetime="14:00:00">2pm</time>
     </li>
   </ul>
 </div>
@@ -10005,8 +10005,8 @@ JSON:
       "@type": "OpeningHoursSpecification",
       "validFrom": "2014-01-01",
       "validThrough": "2014-01-01",
-      "opens": "12:00",
-      "closes": "14:00"
+      "opens": "12:00:00",
+      "closes": "14:00:00"
     }
   ]
 }
