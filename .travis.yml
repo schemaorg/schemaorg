@@ -2,19 +2,21 @@ language: python
 
 python:
   - "2.7"
+rvm: 2.6
 env:
   global:
     - SOFT_LINT=true
     - NOKOGIRI_USE_SYSTEM_LIBRARIES=true
 before_install:
   - sudo apt-get install -y libxml2-utils
+  - 'gem update --system --conservative || (gem i "rubygems-update:~>2.7" --no-document && update_rubygems)'
+  - 'gem update bundler --conservative'
 before_script:
   - SDK_URL=https://storage.googleapis.com/appengine-sdks/featured/google_appengine_1.9.49.zip
   - wget $SDK_URL -nv -O google_appengine.zip
   - unzip -q google_appengine.zip
   - rm google_appengine.zip
   - export PYTHONPATH=$PYTHONPATH:$TRAVIS_BUILD_DIR/google_appengine/
-  - rvm install 2.4.0
   - bundle install --gemfile=scripts/Gemfile
 script:
   - xmllint --noout data/*.rdfa data/ext/*/*.rdfa
