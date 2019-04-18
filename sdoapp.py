@@ -58,7 +58,7 @@ if not SdoConfig.valid:
     log.error("Invalid config from '%s' or its includes !!" % CONFIGFILE)
     os.exit()
 
-SCHEMA_VERSION="3.5"
+SCHEMA_VERSION="3.6"
 
 if not getInTestHarness():
     GAE_APP_ID = app_identity.get_application_id()
