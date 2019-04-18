@@ -92,15 +92,14 @@ class VTerm():
             self.label = id
         else:
             #log.info("checking parent %s" % ttype)
-            self.parent = str(ttype)
-            p = VTerm._getTerm(self.parent)
-            if p.isEnumeration():
+            self.parent = VTerm._getTerm(str(ttype))
+            if VTerm.isEnumerationAncestor(self.parent):
                 self.ttype = VTerm.ENUMERATIONVALUE
+                log.info("%s is ENUMERATIONVALUE" % self.getId())
             else:
-                self.ttype = p.getType()
-                        
+                self.ttype = self.parent.getType()
+
         #log.info("VTerm %s %s" %(self.ttype,self.id))
-        
     def __str__(self):
         return ("<%s: '%s'>") % (self.ttype,self.id)
     def getType(self):
@@ -119,7 +118,7 @@ class VTerm():
                    self.ttype = VTerm.DATATYPE
                    return True
         return False
-        
+
     def isEnumeration(self):
         return self.ttype == VTerm.ENUMERATION
     def isEnumerationValue(self):
@@ -189,7 +188,7 @@ class VTerm():
                             self.aks.append(ack)
                     else:
                         self.sources.append(ao.getUri())
-            
+
         return self.srcaks
     def getSources(self):
         if not self.sources:
@@ -276,8 +275,7 @@ class VTerm():
                 if p.subClassOf(parent):
                     return True
         return False
-        
-    
+
                     
     def loadComment(self):
         comments = self.getComments()
@@ -358,7 +356,7 @@ class VTerm():
                 continue
             sortedAddUnique(self.supers,super)
         if self.isEnumerationValue():
-            sortedAddUnique(self.supers,VTerm._getTerm(self.parent))
+            sortedAddUnique(self.supers,self.parent)
             
 
 
@@ -384,7 +382,7 @@ class VTerm():
                 continue
             sortedAddUnique(self.subs,sub)
             
-        if self.ttype == VTerm.ENUMERATION or self.ttype == VTerm.DATATYPE:
+        if self.ttype == VTerm.ENUMERATION or self.ttype == VTerm.DATATYPE or VTerm.isEnumerationAncestor(self):
             subjects = self.loadSubjects("a") #Enumerationvalues have an Enumeration as a type
             for child in subjects:
                 sub = VTerm._getTerm(str(child))
@@ -396,7 +394,7 @@ class VTerm():
             if t.id == "http://schema.org/Enumeration":
                 self.ttype = VTerm.ENUMERATION
                 return
-                
+
         if VTerm.checkForEnumVal(self):
             self.ttype = VTerm.ENUMERATIONVALUE
                             
@@ -566,6 +564,17 @@ class VTerm():
     @staticmethod
     def getAllEnumerations(layer=None):
         return VTerm.getAllTerms(ttype = VTerm.ENUMERATION,layer=layer)
+
+    @staticmethod
+    def isEnumerationAncestor(t):
+        if not t:
+            return False
+        if t.isEnumeration():
+            return True
+        for tp in t.getSupers():
+            if VTerm.isEnumerationAncestor(tp):
+                return True
+        return False
 
     @staticmethod
     def getAllTerms(ttype=None,layer=None,supressSourceLinks=False):
@@ -741,10 +750,3 @@ def prefixedIdFromUri(uri):
     if prefix:
         return "%s:%s" % (prefix,os.path.basename(uri))
     return uri
-    
-               
-     
-        
-    
-    
-    

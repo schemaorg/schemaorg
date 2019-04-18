@@ -1544,23 +1544,30 @@ class ShowUnit (webapp2.RequestHandler):
             children = term.getSubs()
 
             log.info("CHILDREN: %s" % VTerm.term2str(children))
+            isEnumAnc = VTerm.isEnumerationAncestor(term)
 
             if (len(children) > 0):
                 buff = StringIO.StringIO()
+                buff2 = StringIO.StringIO()
                 for c in children:
                     if c.superseded() or self.hideAtticTerm(c):
                         continue
-                    buff.write("<li> %s </li>" % (self.ml(c)))
+                    if isEnumAnc and (c.parent == term or term.isEnumeration()):
+                        buff2.write("<li> %s </li>" % (self.ml(c)))
+                    else:
+                        buff.write("<li> %s </li>" % (self.ml(c)))
 
                 if (len(buff.getvalue()) > 0 and not term.isProperty()):
                     if term.isDataType():
                         self.write("<br/><b><a %s>More specific DataTypes</a></b><ul>" % self.showlink("subtypes"))
                     elif term.isClass() or term.isEnumerationValue():
                         self.write("<br/><b><a %s>More specific Types</a></b><ul>" % self.showlink("subtypes"))
-                    elif term.isEnumeration():
-                        self.write("<br/><b><a %s>Enumeration members</a></b><ul>" % self.showlink("enumbers"))
                     self.write(buff.getvalue())
-                    self.write("</ul>")
+
+                if isEnumAnc and len(buff2.getvalue()) > 0:
+                    self.write("<br/><b><a %s>Enumeration members</a></b><ul>" % self.showlink("enumbers"))
+                    self.write(buff2.getvalue())
+                self.write("</ul>")
 
                 buff.close()
 
