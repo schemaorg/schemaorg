@@ -19,7 +19,7 @@
 The schemas are a set of 'types', each associated with a set of properties. The types are arranged in a hierarchy.<br/>
 {{ counts | safe }}<br/>
 
-<br />Browse the full hierarchy:
+<br />Browse the full hierarchy in HTML:
 <ul>
   <li><a href="{{staticPath}}/Thing">One page per type</a></li>
   <li><a href="full.html">Full list of types, shown on one page</a></li>
@@ -45,6 +45,13 @@ Or you can jump directly to a commonly used type:
 <br />
 We also have a small set of <a href="{{staticPath}}/DataType">primitive data types</a> for numbers, text, etc. More details about the data model, etc. are available <a href="{{staticPath}}/docs/datamodel.html">here</a>.
 <br />
+
+<br />Developer information / Download Machine Readable files (RDF, JSON-LD, etc):
+<ul>
+  <li><a href="{{staticPath}}/docs/developers.html">Schema.org for Developers</a>
+</ul>
+<br />
+
 
  <h2 id="ext">Extensions</h2>
 
