@@ -71,7 +71,16 @@ sitemode = "mainsite" # whitespaced list for CSS tags,
             # e.g. "mainsite testsite" when off expected domains
             # "extensionsite" when in an extension (e.g. blue?)
 
-releaselog = { "2.0": "2015-05-13", "2.1": "2015-08-06", "2.2": "2015-11-05", "3.0": "2016-05-04", "3.1": "2016-08-09", "3.2": "2017-03-23", "3.3": "2017-08-14", "3.4": "2018-06-15", "3.5": "2019-04-02", "3.6": "2019-05-01" }
+releaselog = {  "2.0": "2015-05-13", 
+                "2.1": "2015-08-06", 
+                "2.2": "2015-11-05", 
+                "3.0": "2016-05-04", 
+                "3.1": "2016-08-09", 
+                "3.2": "2017-03-23", 
+                "3.3": "2017-08-14", 
+                "3.4": "2018-06-15", 
+                "3.5": "2019-04-01", 
+                "3.6": "2019-05-01" }
 
 silent_skip_list =  [ "favicon.ico" ] # Do nothing for now
 
@@ -166,6 +175,16 @@ if subs:
         log.info("SUBDOMAINS set to invalid value %s - defaulting to %s" %(subs,SUBDOMAINS))
 log.info("SUBDOMAINS set to %s" % SUBDOMAINS)
 
+DEVELOPVERSION = True
+devs = os.environ.get("DEVELOPVERSION",None)
+if devs:
+    if devs.lower() == "true":
+        DEVELOPVERSION = True
+    elif devs.lower() == "false":
+        DEVELOPVERSION = False
+    else:
+        log.info("DEVELOPVERSION set to invalid value %s - defaulting to %s" %(devs,DEVELOPVERSION))
+log.info("DEVELOPVERSION set to %s" % DEVELOPVERSION)
 
 ############# Warmup Control ########
 WarmedUp = False
@@ -2112,7 +2131,8 @@ class ShowUnit (webapp2.RequestHandler):
                     'releasedate': releasedate,
                     'az_props': az_props, 'az_types': az_types,
                     'az_prop_meta': az_prop_meta, 'az_type_meta': az_type_meta,
-                    'menu_sel': "Documentation"})
+                    'menu_sel': "Documentation",
+                    'suppressDevnote': True})
 
             self.response.out.write( page )
             log.debug("Serving fresh FullReleasePage.")
@@ -2866,6 +2886,8 @@ def templateRender(templateName, node, values=None):
         'ENABLE_HOSTED_EXTENSIONS': ENABLE_HOSTED_EXTENSIONS,
         'SCHEMA_VERSION': SCHEMA_VERSION,
         'appengineVersion': getAppEngineVersion(),
+        'developVersion': DEVELOPVERSION,
+        'suppressDevnote': False,
         'debugging': getAppVar('debugging'),
         'docsdir': docsdir,
         'extlinktext': extlinktext,

@@ -1,6 +1,6 @@
 <!-- Header start from topnotes.tpl -->
 
-{% if mybasehost in [ "localhost"] %}
+{% if developVersion and not suppressDevnote %}
 <div class="devnote"><b>Note</b>: you are viewing the
 	<!-- <a href="http://webschemas.org/">webschemas.org</a>--> development
 	version of <a href="{{ sitename }}">{{ sitename }}</a>.
