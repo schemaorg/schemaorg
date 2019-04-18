@@ -71,7 +71,7 @@ sitemode = "mainsite" # whitespaced list for CSS tags,
             # e.g. "mainsite testsite" when off expected domains
             # "extensionsite" when in an extension (e.g. blue?)
 
-releaselog = { "2.0": "2015-05-13", "2.1": "2015-08-06", "2.2": "2015-11-05", "3.0": "2016-05-04", "3.1": "2016-08-09", "3.2": "2017-03-23", "3.3": "2017-08-14", "3.4": "2018-06-15", "3.5": "2019-04-02" }
+releaselog = { "2.0": "2015-05-13", "2.1": "2015-08-06", "2.2": "2015-11-05", "3.0": "2016-05-04", "3.1": "2016-08-09", "3.2": "2017-03-23", "3.3": "2017-08-14", "3.4": "2018-06-15", "3.5": "2019-04-02", "3.6": "2019-05-01" }
 
 silent_skip_list =  [ "favicon.ico" ] # Do nothing for now
 
@@ -860,7 +860,7 @@ class ShowUnit (webapp2.RequestHandler):
             if prop.superseded():
                 continue
             out.write("<li><a href='%s%s'>%s</a></li>" % ( hashorslash, prop.getId(), prop.getId()  ))
-            
+
         out.write("</ul>\n\n")
 
     def emitSimplePropertiesIntoType(self, cl, layers="core", out=None, hashorslash="/"):
@@ -870,7 +870,7 @@ class ShowUnit (webapp2.RequestHandler):
             out = self
 
         out.write("<ul class='props2type'>")
-        
+
         for prop in VTerm.getTerm(cl).getTargetOf():
             if prop.superseded():
                 continue
@@ -2070,7 +2070,7 @@ class ShowUnit (webapp2.RequestHandler):
             for t in az_types:
                 props4type = HTMLOutput() # properties applicable for a type
                 props2type = HTMLOutput() # properties that go into a type
-                
+
                 self.emitSimplePropertiesPerType(t, out=props4type, hashorslash="#term_" )
                 self.emitSimplePropertiesIntoType(t, out=props2type, hashorslash="#term_" )
 
@@ -2852,7 +2852,7 @@ def templateRender(templateName, node, values=None):
         node = node.getId()
 
     extName, extDD, extVers, extlinktext, extComment, extDisambiguatingDescription =  getExtenstionDescriptions()
-    
+
     if node.startswith("docs/"):
         docsdir = "./"
         homedir = ".."
