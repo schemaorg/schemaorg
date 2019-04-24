@@ -172,6 +172,7 @@ class VTerm():
         if not self.srcaks:
             self.srcaks = []
             objs = self.loadObjects("dc:source")
+            objs += self.loadObjects("dct:source") #TODO Findout why dc:source in rdf files cets turned into dct:source when loaded.
             for obj in objs:
                 term = VTerm._getTerm(obj,createReference=True)
                 sortedAddUnique(self.srcaks,term)
@@ -180,6 +181,7 @@ class VTerm():
             self.aks = []
             #An aknowledgement is a 'source' with a comment
             #A source is a source without a comment
+            #log.info(">>>>> getSourcesAndAcks %s" % len(self.srcaks)) 
             if len(self.srcaks):
                 for ao in self.srcaks:
                     acks = ao.getComments()
