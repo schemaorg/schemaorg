@@ -589,7 +589,7 @@ class ShowUnit (webapp2.RequestHandler):
         items = bugs + mappings
 
 
-        feedback_url = FEEDBACK_FORM_BASE_URL.format(term.getUri, term.getType())
+        feedback_url = FEEDBACK_FORM_BASE_URL.format(term.getUri(), term.getType())
         items = [
         self.emitCanonicalURL(term),
         self.emitEquivalents(term),
@@ -758,23 +758,20 @@ class ShowUnit (webapp2.RequestHandler):
             self.write(self.moreInfoBlock(term))
 
     def emitCanonicalURL(self,term):
-        out = ""
+        output = StringIO.StringIO()
         site = SdoConfig.vocabUri()
-        if site != "http://schema.org":
-            cURL = "%s%s" % (site,term.getId())
-            output = " <span class=\"canonicalUrl\">Canonical URL: %s</span> " % (cURL)
+
+        cURL = "%s://schema.org/%s" % (CANONICALSCHEME,term.getId())
+        output.write(" <span class=\"canonicalUrl\">Canonical URL: <a href=\"%s\">%s</a></span> " % (cURL, cURL))
+
+        if CANONICALSCHEME == "http":
+            other = "https"
         else:
+            other = "http"
+        sa = '\n<link  property="sameAs" href="%s://schema.org/%s" />' % (other,term.getId())
+        output.write(sa)
 
-            cURL = "%s://schema.org/%s" % (CANONICALSCHEME,term.getId())
-            if CANONICALSCHEME == "http":
-                other = "https"
-            else:
-                other = "http"
-            sa = '\n<link  property="sameAs" href="%s://schema.org/%s" />' % (other,term.getId())
-            self.write(sa)
-
-            output = " <span class=\"canonicalUrl\">Canonical URL: <a href=\"%s\">%s</a></span> " % (cURL, cURL)
-        return output
+        return output.getvalue()
 
     def emitEquivalents(self,term):
         buff = StringIO.StringIO()
