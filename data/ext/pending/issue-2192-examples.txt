@@ -1,4 +1,4 @@
-TYPES: JobPosting, Occupation, occupationalCategory
+TYPES: Occupation, occupationalCategory
 
 PRE-MARKUP:
 
@@ -18,26 +18,23 @@ JSON:
 
 <!-- occupationalCategory utilising CategoryCode -->
 <script type="application/ld+json">
-{
-  "@context": "http://schema.org/",
-  "@type": "JobPosting",
-  "name": "Systems Research Engineer",
-  "hiringOrganization": {
-    "@type": "Organization",
-    "name": "ACME Software",
-  },
-  "relevantOccupation": {
-    "@type": "Occupation",
-    "name": "Research Engineer - Electronic, Electrical and Telecommunications Systems",
-    "occupationalCategory": {
-       "@type": "CategoryCode",
-       "inCodeSet": "ISCO-08",
-       "codeValue": "215",
-       "name": "Electrotechnology engineers"
-  }
-}
-</script>
-
+    {
+      "@context": "http://schema.org/",
+      "@type": "Occupation",
+      "occupationalCategory": {
+         "@type": "CategoryCode",
+         "inCodeSet": {
+              "@type": "CategoryCodeSet",
+              "name": "O*Net-SOC",
+              "dateModified": "2019",
+              "url": "https://www.onetonline.org/"
+           },
+         "codeValue": "15-1211.00",
+         "name": "Computer Systems Analysts",
+         "url": "https://www.onetonline.org/link/summary/15-1121.00"
+     } 
+    }
+    </script>
 TYPES: Person, jobTitle
 
 PRE-MARKUP:
