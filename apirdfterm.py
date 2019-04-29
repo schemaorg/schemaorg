@@ -95,7 +95,7 @@ class VTerm():
             self.parent = VTerm._getTerm(str(ttype))
             if VTerm.isEnumerationAncestor(self.parent):
                 self.ttype = VTerm.ENUMERATIONVALUE
-                log.info("%s is ENUMERATIONVALUE" % self.getId())
+                #log.info("%s is ENUMERATIONVALUE" % self.getId())
             else:
                 self.ttype = self.parent.getType()
 
@@ -261,7 +261,7 @@ class VTerm():
         if not self.equivalents:
             self.equivalents = self.loadObjects("owl:equivalentClass")
             self.equivalents.extend(self.loadObjects("owl:equivalentProperty"))
-        log.info("equivalents: %s" % self.equivalents)
+        #log.info("equivalents: %s" % self.equivalents)
         return self.equivalents
     def inLayers(self,layers):
         return self.layer in layers
@@ -337,7 +337,7 @@ class VTerm():
         
     def loadsupers(self):
         fullId = toFullId(self.id)
-        log.info("loadsupers(%s)" % self.id)
+        #log.info("loadsupers(%s)" % self.id)
         query = """ 
         SELECT ?sup WHERE {
              {
