@@ -55,7 +55,7 @@ class SDOBasicsTestCase(unittest.TestCase):
 #    for t in api.EXAMPLESMAP:
 #        example_count = example_count + len(t)
     log.info("Extracted %s examples." % example_count )
-    self.assertTrue(example_count > 200 and example_count < 500, "Expect that we extracted 200 < x < 500 examples from data/*examples.txt. Found: %s " % example_count)
+    self.assertTrue(example_count > 200 and example_count < 600, "Expect that we extracted 200 < x < 500 examples from data/*examples.txt. Found: %s " % example_count)
 
 class SupertypePathsTestCase(unittest.TestCase):
     """
