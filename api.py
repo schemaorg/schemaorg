@@ -1218,6 +1218,7 @@ def GetJsonLdContext(layers='core'):
     vocablines = ""
     externalines = ""
     typins = ""
+    text = apirdfterm.VTerm.getTerm("schema:Text")
     url = apirdfterm.VTerm.getTerm("schema:URL")
     date = apirdfterm.VTerm.getTerm("schema:Date")
     datetime = apirdfterm.VTerm.getTerm("schema:DateTime")
@@ -1229,12 +1230,14 @@ def GetJsonLdContext(layers='core'):
             
             type = None
 
-            if url in range:
-                type = "@id"
-            elif date in range:
-                type = "Date"
-            elif datetime in range:
-                type = "DateTime"
+            #If Text in range don't output a @type value
+            if not text in range:
+                if url in range:
+                    type = "@id"
+                elif date in range:
+                    type = "Date"
+                elif datetime in range:
+                    type = "DateTime"
 
             typins = ""
             if type:
