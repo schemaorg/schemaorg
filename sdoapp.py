@@ -2018,22 +2018,11 @@ class ShowUnit (webapp2.RequestHandler):
         # Full release page for: node: 'version/' cleannode: 'version/' requested_version: '' requested_format: '' l: 2
         # /version/
         log.debug("clean_node: %s requested_version: %s " %  (clean_node, requested_version))
+        
         if (clean_node=="version/" or clean_node=="version") and requested_version=="" and requested_format=="":
-            log.info("Table of contents should be sent instead, then succeed.")
-            if getPageFromStore('tocVersionPage'):
-                self.response.out.write( getPageFromStore('tocVersionPage'))
-                return True
-            else:
-                log.debug("Serving tocversionPage from cache.")
-                page = templateRender('tocVersionPage.tpl', node,
-                        {"releases": sorted(releaselog.iterkeys()),
-                         "menu_sel": "Schemas"})
-
-                self.response.out.write( page )
-                log.debug("Serving fresh tocVersionPage.")
-                PageStore.put("tocVersionPage",page)
-                return True
-
+            log.info("Defaulting to current version- %s" % SCHEMA_VERSION)
+            requested_version = SCHEMA_VERSION
+            
         if requested_version in releaselog:
             log.info("Version '%s' was released on %s. Serving from filesystem." % ( node, releaselog[requested_version] ))
 
@@ -2041,21 +2030,13 @@ class ShowUnit (webapp2.RequestHandler):
             version_allhtml = "data/releases/%s/schema-all.html" % requested_version
             version_nt = "data/releases/%s/schema.nt" % requested_version
             if requested_format=="":
-                self.response.out.write( open(version_allhtml, 'r').read() )
-                return True
-                # log.info("Skipping filesystem for now.")
+                return self.redirectToBase("/version/%s/schema-all.html" % requested_version)
 
             if requested_format=="schema.rdfa":
-                self.response.headers['Content-Type'] = "application/octet-stream" # It is HTML but ... not really.
-                self.response.headers['Content-Disposition']= "attachment; filename=schemaorg_%s.rdfa.html" % requested_version
-                self.response.out.write( open(version_rdfa, 'r').read() )
-                return True
+                return self.redirectToBase("/version/%s/schema.rdfa" % requested_version)
 
             if requested_format=="schema.nt":
-                self.response.headers['Content-Type'] = "application/n-triples" # It is HTML but ... not really.
-                self.response.headers['Content-Disposition']= "attachment; filename=schemaorg_%s.rdfa.nt" % requested_version
-                self.response.out.write( open(version_nt, 'r').read() )
-                return True
+                return self.redirectToBase("/version/%s/schema.nt" % requested_version)
 
             if requested_format != "":
                 return False # Turtle, csv etc.
