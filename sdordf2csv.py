@@ -49,7 +49,7 @@ class sdordf2csv():
         atticfilter = ""
         if self.excludeAttic:
             atticfilter = "FILTER NOT EXISTS {?term schema:isPartOf <%s>}." % self.attic
-        query= ('''select ?term where { 
+        query= ('''select DISTINCT ?term where { 
            ?term a ?type.
            FILTER NOT EXISTS {?term a rdf:Property}.
            FILTER (strstarts(str(?term),'%s')).
