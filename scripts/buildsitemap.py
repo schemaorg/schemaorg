@@ -85,7 +85,7 @@ STATICPAGES = ["docs/schemas.html",
 
 class SiteMap():
     def __init__(self):
-        self.today = TODAY
+        self.today = args.date
         self.count = 0
         self.openFile()
         self.setSkips()

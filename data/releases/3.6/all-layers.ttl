@@ -8166,6 +8166,15 @@ schema:coursePrerequisites a rdf:Property ;
         schema:Text ;
     rdfs:comment "Requirements for taking the Course. May be completion of another <a class=\"localLink\" href=\"http://schema.org/Course\">Course</a> or a textual description like \"permission of instructor\". Requirements may be a pre-requisite competency, referenced using <a class=\"localLink\" href=\"http://schema.org/AlignmentObject\">AlignmentObject</a>." .
 
+schema:courseWorkload a rdf:Property ;
+    rdfs:label "courseWorkload" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1909> ;
+    schema:category "issue-1909" ;
+    schema:domainIncludes schema:CourseInstance ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:Text ;
+    rdfs:comment "The amount of work expected of students taking the course, often provided as a figure per week or per month, and may be broken down by type. For example, \"2 hours of lectures, 1 hour of lab work and 3 hours of independent study per week\"." .
+
 schema:coverageEndTime a rdf:Property ;
     rdfs:label "coverageEndTime" ;
     schema:domainIncludes schema:LiveBlogPosting ;
