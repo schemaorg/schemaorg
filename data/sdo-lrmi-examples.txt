@@ -120,7 +120,7 @@ MICRODATA:
        for <span itemprop="audience" 
                  itemscope itemtype="http://schema.org/EducationalAudience">
            <span itemprop="educationalRole">teacher</span></span>s with associated video. 
-       Typical length of lesson, <span itemprop="timeRequired">1 hour</span>. 
+       Typical length of lesson, <span itemprop="timeRequired" content="PT1H">1 hour</span>. 
        Recommended for children aged <span itemprop="typicalAgeRange">10-12</span> years old.
     </p>
     <p>Subject: <span itemprop="about">Wars of Scottish independence</span></p>
@@ -166,9 +166,9 @@ MICRODATA:
         <span itemprop="description">Video description</span>
         <span itemprop="uploadDate">2000-01-01</span>
         <img itemprop="thumbnailUrl" src="http://example.org/thubnail.mp4" alt="thumbnail" >
-        Duration: <span itemprop="duration">03:12</span>        
+        Duration: <span itemprop="duration" content="PT3M12S">03:12</span>       
     </video>
-    <p>This example is based on <a itemprop="isBasedOnUrl" href="http://www.bbc.co.uk/education/clips/z3sjtfr">Declaration of Arbroath</a> from BBC Bitesize</p>
+    <p>This example is based on <a itemprop="isBasedOn" href="http://www.bbc.co.uk/education/clips/z3sjtfr">Declaration of Arbroath</a> from BBC Bitesize</p>
 </div>
 
 RDFA:
@@ -178,7 +178,7 @@ RDFA:
        for <span rel="audience" 
                  typeof="EducationalAudience">
            <span property="educationalRole">teacher</span></span>s with associated video. 
-       Typical length of lesson, <span property="timeRequired">1 hour</span>. 
+       Typical length of lesson, <span property="timeRequired" content="PT1H">1 hour</span>. 
        Recommended for children aged <span property="typicalAgeRange">10-12</span> years old.
     </p>
     <p>Subject: <span property="about">Wars of Scottish independence</span></p>
@@ -224,9 +224,9 @@ RDFA:
         <span property="description">Video description</span>
         <span property="uploadDate">2000-01-01</span>
         <img property="thumbnailUrl" src="http://example.org/thubnail.mp4" alt="thumbnail" />
-        Duration: <span property="duration">03:12</span> 
+        Duration: <span property="duration" content="PT3M12S">03:12</span>
     </video>
-    <p>This example is based on <a property="isBasedOnUrl" href="http://www.bbc.co.uk/education/clips/z3sjtfr">Declaration of Arbroath</a> from BBC Bitesize</p>
+    <p>This example is based on <a property="isBasedOn" href="http://www.bbc.co.uk/education/clips/z3sjtfr">Declaration of Arbroath</a> from BBC Bitesize</p>
 </div>
 
 JSON:
@@ -238,7 +238,7 @@ JSON:
   "name": "The Declaration of Arbroath",
   "about": "Wars of Scottish independence",
   "learningResourceType": "lesson plan",
-  "timeRequired": "1 hour",
+  "timeRequired": "PT1H",
   "typicalAgeRange": "10-12",
   "audience": {
       "@type": "EducationalAudience",
@@ -279,19 +279,14 @@ JSON:
   "video": {
     "@type": "VideoObject",
     "description": "Video description",
-    "duration": "03:12",
+    "duration": "PT3M12S",
     "name": "Video Title",
     "thumbnailUrl": "http://example.org/thubnail.mp4",
     "uploadDate": "2000-01-01",
     "url" : "http://example.org/movie.mp4"
   },
-  "isBasedOnUrl": "http://www.bbc.co.uk/education/clips/z3sjtfr"
+  "isBasedOn": "http://www.bbc.co.uk/education/clips/z3sjtfr"
 }
 </script>
 
-TYPES:  FakeEntryNeeded, FixMeSomeDay
-PRE-MARKUP:
-MICRODATA:
-RDFA:
-JSON:
 

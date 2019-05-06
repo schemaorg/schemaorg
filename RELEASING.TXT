@@ -61,7 +61,9 @@ Of these,
 
 Example usage:
 
-First copy snapshot into place:
+First run scripts/buildTermConfig.sh - ensure all config files are referenced.
+
+Next copy snapshot into place:
 
 * cp data/schema.rdfa data/releases/2.2/schema.rdfa
 
@@ -75,6 +77,8 @@ Then generate N-Triples etc. versions:
 * scripts/buildreleasefiles.sh 3.1 - Check listed extensions is correct update if not
 
 * Run './scripts/buildsitemap.py' make sure sitemap is up to date
+
+* Again run scripts/buildTermConfig.sh - ensure all config & docs files are referenced
 
 * Inspect snapshot, add to git and push to repo.
  * ls -l data/releases/2.2/
@@ -153,7 +157,33 @@ Using gcloud app deploy
 ~~~~~~~~~~~~~~~~~~~~~~~
 
 From 3.4.1 onwards use app deploy script (does a bit of housekeeping):
-	scripts/appdeploy.sh --project schemaorgae  --no-promote --version=3-4-1 schemaorg.yaml
+	scripts/appdeploy.sh --project schemaorgae  --no-promote --version=3-5-1 schemaorg.yaml
+	
+	
+Recommended Method For Making Release Live
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+1) Use app deploy script as above providing a version identifier not in use on schemaorgae appengine.
+
+2) Access that version directly via the URL of following format:
+      https://3-5-1-dot-schemaorgae.appspot.com
+      
+      Note: The application will take a few minutes before responding to its first request.
+            If you get a timeout message, try again in 30 seconds or so.
+
+3) Try a few samples requests to the direct URL 
+
+4) In directory from which the deploy took place run the following script, with the approriate site (-s) value:
+	scripts/exercisesite.py -s https://3-5-1-dot-schemaorgae.appspot.com
+	
+	The script requests a page for each Type and property, causing them to be cached in the application's storage
+	area.  It averages a few seconds per page, the whole process takes 60-90 minutes.
+	
+5) When exercisesite is complete, use the Traffic Spiting feature of the App Engine Console to progressively increase 
+   the percentage of traffic being allocated to the new version (5%, 10%, 25%, 50%, 75%, 100%) with at least a few minutes 
+   between each.
+   
+During all the above steps, monitor the log for the new version, filtering for errors being the min requirement.  Note: receiving occasional errors from requests such as _start, _stop, can be expected.
 
 
 ##### original deploy: gcloud app deploy --no-promote --project schemaorgae --version=3.4 schemaorg.yaml

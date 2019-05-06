@@ -4,6 +4,7 @@ from rdflib.namespace import RDFS, RDF, OWL
 from rdflib.term import URIRef
 import threading
 
+import api
 from apimarkdown import Markdown
 from apirdflib import RDFLIBLOCK
 
@@ -27,6 +28,10 @@ class sdordf2csv():
         
     def setexcludeAttic(self,state):
         self.excludeAttic = state
+        self.attic = api.SdoConfig.atticUri()
+        if not self.attic:
+            self.excludeAttic = False
+            
         
     def setmarkdownComments(self,state):
         self.markdown = state
@@ -43,16 +48,15 @@ class sdordf2csv():
     def outputCSVtypes(self,file):
         atticfilter = ""
         if self.excludeAttic:
-            atticfilter = "FILTER NOT EXISTS {?term schema:isPartOf <http://attic.schema.org>}."
-        query= ('''select ?term where { 
+            atticfilter = "FILTER NOT EXISTS {?term schema:isPartOf <%s>}." % self.attic
+        query= ('''select DISTINCT ?term where { 
            ?term a ?type.
-           BIND(STR(?term) AS ?strVal)
            FILTER NOT EXISTS {?term a rdf:Property}.
-           FILTER(STRLEN(?strVal) >= 18 && SUBSTR(?strVal, 1, 18) = "http://schema.org/").
+           FILTER (strstarts(str(?term),'%s')).
            %s
         }
         ORDER BY ?term
-         ''') % atticfilter
+         ''') % (api.SdoConfig.vocabUri(),atticfilter)
         try:
             RDFLIBLOCK.acquire()
             types = list(self.queryGraph.query(query))
@@ -66,15 +70,14 @@ class sdordf2csv():
     def outputCSVproperties(self,file):
         atticfilter = ""
         if self.excludeAttic:
-            atticfilter = "FILTER NOT EXISTS {?term schema:isPartOf <http://attic.schema.org>}."
+            atticfilter = "FILTER NOT EXISTS {?term schema:isPartOf <%s>}." % self.attic
         query= ('''select ?term where { 
            ?term a rdf:Property.
            FILTER EXISTS {?term rdfs:label ?l}.
-           BIND(STR(?term) AS ?strVal).
-           FILTER(STRLEN(?strVal) >= 18 && SUBSTR(?strVal, 1, 18) = "http://schema.org/").
+           FILTER (strstarts(str(?term),'%s')).
            %s           
         }
-        ORDER BY ?term''') % atticfilter
+        ORDER BY ?term''') % (api.SdoConfig.vocabUri(),atticfilter)
         props = list(self.queryGraph.query(query))
         self.prop2CSV(header=True,out=file)
         for t in props:
@@ -160,10 +163,8 @@ class sdordf2csv():
     def getCSVSupertypes(self,term=None,graph=None):
         query='''select ?sup where{
          <%s> rdfs:subClassOf ?sup.
-         BIND(STR(?sup) AS ?strVal)
-         FILTER(STRLEN(?strVal) >= 18 && SUBSTR(?strVal, 1, 18) = "http://schema.org/")
-        }
-        ORDER BY ?sup''' % term
+        FILTER (strstarts(str(?sup),'%s')).        }
+        ORDER BY ?sup''' % (term,api.SdoConfig.vocabUri())
         
         res = self.doQuery(graph,query)
         ret = ', '.join([x.sup for x in res])
@@ -172,7 +173,7 @@ class sdordf2csv():
     def getCSVTypeProperties(self,term=None,graph=None):
         atticfilter = ""
         if self.excludeAttic:
-            atticfilter = "FILTER NOT EXISTS {?prop schema:isPartOf <http://attic.schema.org>.}"
+            atticfilter = "FILTER NOT EXISTS {?prop schema:isPartOf <%s>.}" % self.attic
         query='''select DISTINCT ?prop where{
          ?term (^rdfs:subClassOf*) <%s>.
          ?prop <http://schema.org/domainIncludes> ?term.
@@ -187,7 +188,7 @@ class sdordf2csv():
     def getCSVSubtypes(self,term=None,graph=None):
         atticfilter = ""
         if self.excludeAttic:
-            atticfilter = "FILTER NOT EXISTS {?sub schema:isPartOf <http://attic.schema.org>.}"
+            atticfilter = "FILTER NOT EXISTS {?sub schema:isPartOf <%s>.}" % self.attic
         query='''select ?sub where{
          ?sub rdfs:subClassOf <%s>.
          %s
@@ -201,7 +202,7 @@ class sdordf2csv():
     def getCSVSupersededBy(self,term=None,graph=None):
         atticfilter = ""
         if self.excludeAttic:
-            atticfilter = "FILTER NOT EXISTS {?sub schema:isPartOf <http://attic.schema.org>.}"
+            atticfilter = "FILTER NOT EXISTS {?sub schema:isPartOf <%s>.}" % self.attic
         query='''select ?sup where{
          <%s> schema:supersededBy ?sup.
          %s
@@ -215,7 +216,7 @@ class sdordf2csv():
     def getCSVsuperseds(self,term=None,graph=None):
         atticfilter = ""
         if self.excludeAttic:
-            atticfilter = "FILTER NOT EXISTS {?sup schema:isPartOf <http://attic.schema.org>.}"
+            atticfilter = "FILTER NOT EXISTS {?sup schema:isPartOf <%s>.}" % self.attic
         query='''select ?sup where{
          ?sup schema:supersededBy <%s>.
          %s
@@ -229,10 +230,8 @@ class sdordf2csv():
     def getCSVSuperProperties(self,term=None,graph=None):
         query='''select ?sup where{
          <%s> rdfs:subPropertyOf ?sup.
-         BIND(STR(?sup) AS ?strVal)
-         FILTER(STRLEN(?strVal) >= 18 && SUBSTR(?strVal, 1, 18) = "http://schema.org/")
-        }
-        ORDER BY ?sup''' % term
+        FILTER (strstarts(str(?sup),'%s'))        }
+        ORDER BY ?sup''' % (term,api.SdoConfig.vocabUri())
         res = self.doQuery(graph,query)
         ret = ', '.join([x.sup for x in res])
         #print "%s subtypeof: '%s'" % (term,ret)
@@ -241,7 +240,7 @@ class sdordf2csv():
     def getCSVSubProperties(self,term=None,graph=None):
         atticfilter = ""
         if self.excludeAttic:
-            atticfilter = "FILTER NOT EXISTS {?sub schema:isPartOf <http://attic.schema.org>.}"
+            atticfilter = "FILTER NOT EXISTS {?sub schema:isPartOf <%s>.}" % self.attic
         query='''select ?sub where{
          ?sub rdfs:subPropertyOf <%s>.
          %s
@@ -255,7 +254,7 @@ class sdordf2csv():
     def getCSVDomainIncludes(self,term=None,graph=None):
         atticfilter = ""
         if self.excludeAttic:
-            atticfilter = "FILTER NOT EXISTS {?type schema:isPartOf <http://attic.schema.org>.}"
+            atticfilter = "FILTER NOT EXISTS {?type schema:isPartOf <%s>.}" % self.attic
         query='''select ?type where{
          <%s> <http://schema.org/domainIncludes> ?type.
          %s
@@ -269,7 +268,7 @@ class sdordf2csv():
     def getCSVRangeIncludes(self,term=None,graph=None):
         atticfilter = ""
         if self.excludeAttic:
-            atticfilter = "FILTER NOT EXISTS {?type schema:isPartOf <http://attic.schema.org>.}"
+            atticfilter = "FILTER NOT EXISTS {?type schema:isPartOf <%s>.}" % self.attic
         query='''select ?type where{
          <%s> <http://schema.org/rangeIncludes> ?type.
          %s
@@ -288,7 +287,7 @@ class sdordf2csv():
         ret = ', '.join([x.com for x in res])
         #print "SUBTYPES of %s: '%s'" % (term,ret)
         if self.markdown:
-            Markdown.setPre("http://schema.org/")
+            Markdown.setPre(api.SdoConfig.vocabUri())
             ret = Markdown.parse(ret)
             Markdown.setPre()
         return ret
