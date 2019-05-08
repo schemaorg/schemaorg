@@ -405,7 +405,7 @@
         <span class="h" property="rdfs:label">hasAssociatedBioChemEntity</span>
         <span property="rdfs:comment">Used to define the actual protein or RNA.</span>
         <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Enzyme">Enzyme</a></span>
-        <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ProteinStructure">ProteinStructure</a></span>
+        <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/BioChemStructure">BioChemStructure</a></span>
         <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Protein">Protein</a></span>
         <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/RNA">RNA</a></span>
         <span>Source:  <a property="dc:source" href="http://www.bioschemas.org/Enzyme">Enzyme</a></span>
@@ -493,7 +493,7 @@
     <div typeof="rdfs:Class" resource="http://schema.org/Protein">
         <link property="http://schema.org/isPartOf" href="http://bio.schema.org" />
         <span class="h" property="rdfs:label">Protein</span>
-        <span property="rdfs:comment">A protein is an organic polymer that is composed of one or more linear polymers of amino acids. &lt;br/&gt;Definition taken from [http://semanticscience.org/resource/SIO_010043](http://semanticscience.org/resource/SIO_010043).</span>
+        <span property="rdfs:comment">Protein is here used in its widest possible definition, as classes of amino acid based molecules. Amyloid-beta Protein in human (UniProt P05067), eukaryota (e.g. an OrthoDB group) or even a single molecule that one can point to are all of type schema:Protein. A protein can thus be a subclass of another protein, e.g. schema:Protein as a UniProt record can have multiple isoforms inside it which would also be schema:Protein. They can be imagined, synthetic, hypothetical or naturally occurring.</span>
         <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/BioChemEntity">BioChemEntity</a></span>
         <span>Source:  <a property="dc:source" href="http://bioschemas.org">Bioschemas</a></span>
     </div>
@@ -556,7 +556,7 @@
         <span class="h" property="rdfs:label">sequenceLocation</span>
         <span property="rdfs:comment">A range/position location where this annotation is located.</span>
         <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/SequenceAnnotation">SequenceAnnotation</a></span>
-        <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ProteinStructure">ProteinStructure</a></span>
+        <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/BioChemStructure">BioChemStructure</a></span>
         <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/SequenceRange">SequenceRange</a></span>
         <span>Source:  <a property="dc:source" href="http://www.bioschemas.org/SequenceAnnotation">SequenceAnnotation</a></span>
     </div>
@@ -575,7 +575,7 @@
         <span class="h" property="rdfs:label">creationMethod</span>
         <span property="rdfs:comment">Method used to create or obtain this annotation; please use PropertyValue if you want to include any evidence.</span>
         <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/SequenceAnnotation">SequenceAnnotation</a></span>
-        <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ProteinStructure">ProteinStructure</a></span>
+        <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/BioChemStructure">BioChemStructure</a></span>
         <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/PropertyValue">PropertyValue</a></span>
         <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
         <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/URL">URL</a></span>
@@ -633,10 +633,10 @@
 
 
 
-    <div typeof="rdfs:Class" resource="http://schema.org/ProteinStructure">
+    <div typeof="rdfs:Class" resource="http://schema.org/BioChemStructure">
         <link property="http://schema.org/isPartOf" href="http://bio.schema.org" />
-        <span class="h" property="rdfs:label">ProteinStructure</span>
-        <span property="rdfs:comment"></span>
+        <span class="h" property="rdfs:label">BioChemStructure</span>
+        <span property="rdfs:comment">WwPDB and related data including modelled and hypothetical data. As well as 3D data for chemicals, e.g. stereo chemistry images in an analyzable format (not pure images).</span>
         <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/BioChemEntity">BioChemEntity</a></span>
         <span>Source:  <a property="dc:source" href="http://bioschemas.org">Bioschemas</a></span>
     </div>
@@ -644,23 +644,23 @@
     <div typeof="rdf:Property" resource="http://schema.org/massResolution">
         <link property="http://schema.org/isPartOf" href="http://bio.schema.org" />
         <span class="h" property="rdfs:label">massResolution</span>
-        <span property="rdfs:comment">Mass spectometry resolution in the form &#39;&amp;lt;Number&amp;gt; &amp;lt;Temperature unit of measure&amp;gt;&#39;, for example &#39;2.85 &#8491;&#39;</span>
-        <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ProteinStructure">ProteinStructure</a></span>
+        <span property="rdfs:comment">Mass spectometry resolution in the form &#39;&amp;lt;Number&amp;gt; &amp;lt;Unit of measure&amp;gt;&#39;, for example &#39;2.85 &#8491;&#39;</span>
+        <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/BioChemStructure">BioChemStructure</a></span>
         <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Quantity">Quantity</a></span>
-        <span>Source:  <a property="dc:source" href="http://www.bioschemas.org/ProteinStructure">ProteinStructure</a></span>
+        <span>Source:  <a property="dc:source" href="http://www.bioschemas.org/BioChemStructure">BioChemStructure</a></span>
     </div>
 
     <div typeof="rdf:Property" resource="http://schema.org/boundMolecule">
         <link property="http://schema.org/isPartOf" href="http://bio.schema.org" />
         <span class="h" property="rdfs:label">boundMolecule</span>
-        <span property="rdfs:comment">Molecule, e.g., ligand, bound to this protein structure</span>
-        <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ProteinStructure">ProteinStructure</a></span>
+        <span property="rdfs:comment">Molecule, e.g., ligand, bound to this BioChem structure</span>
+        <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/BioChemStructure">BioChemStructure</a></span>
         <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/BioChemEntity">BioChemEntity</a></span>
         <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/CategoryCode">CategoryCode</a></span>
         <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/ChemicalSubstance">ChemicalSubstance</a></span>
         <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/MolecularEntity">MolecularEntity</a></span>
         <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/URL">URL</a></span>
-        <span>Source:  <a property="dc:source" href="http://www.bioschemas.org/ProteinStructure">ProteinStructure</a></span>
+        <span>Source:  <a property="dc:source" href="http://www.bioschemas.org/BioChemStructure">BioChemStructure</a></span>
     </div>
 
 
