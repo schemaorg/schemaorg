@@ -1,7 +1,8 @@
 #!/usr/bin/env python
-#
+# coding=UTF-8
 
 import webapp2
+import urllib
 import re
 from google.appengine.ext import db
 from google.appengine.ext import blobstore
@@ -65,9 +66,16 @@ class ParseExampleFile :
         count = 0
         start = datetime.datetime.now()
         
-        fd = codecs.open(file, 'r', encoding="utf8")
-        content = fd.read()
-        fd.close()
+        if file.startswith("file://"):
+            file = file[7:]
+        
+        if "://" in file:
+            content = urllib.urlopen(file).read()
+        else:
+            fd = codecs.open(file, 'r', encoding="utf8")
+            content = fd.read()
+            fd.close()
+        
         lines = re.split('\n|\r', content)
         
         for line in lines:
