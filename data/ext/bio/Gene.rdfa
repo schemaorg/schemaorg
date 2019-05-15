@@ -1,0 +1,132 @@
+<div>
+  <!--
+  # Schema.org Bioschemas extension proposal
+  * | Project: https://bioschemas.org
+  * | MailingList: https://lists.w3.org/Archives/Public/public-bioschemas/
+  * | Issues:
+  * | - https://github.com/BioSchemas/specifications/issues/272
+  -->
+
+  <!-- Work in progress. -->
+
+  <div typeof="rdfs:Class" resource="http://schema.org/Gene">
+      <link property="http://schema.org/isPartOf" href="http://bio.schema.org" />
+      <span class="h" property="rdfs:label">Gene</span>
+      <span property="rdfs:comment"></span>
+      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/BioChemEntity">BioChemEntity</a></span>
+      <span>Source:  <a property="dc:source" href="http://bioschemas.org">Bioschemas</a></span>
+  </div>
+
+  <div typeof="rdf:Property" resource="http://schema.org/hasOrtholog">
+      <link property="http://schema.org/isPartOf" href="http://bio.schema.org" />
+      <span class="h" property="rdfs:label">hasOrtholog</span>
+      <span property="rdfs:comment"></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Gene">Gene</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/BioChemEntity">BioChemEntity</a></span>
+      <span>Source:  <a property="dc:source" href="http://www.bioschemas.org/Gene">Gene</a></span>
+  </div>
+
+  <div typeof="rdf:Property" resource="http://schema.org/hasHomolog">
+      <link property="http://schema.org/isPartOf" href="http://bio.schema.org" />
+      <span class="h" property="rdfs:label">hasHomolog</span>
+      <span property="rdfs:comment"></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Gene">Gene</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/BioChemEntity">BioChemEntity</a></span>
+      <span>Source:  <a property="dc:source" href="http://www.bioschemas.org/Gene">Gene</a></span>
+  </div>
+
+  <div typeof="rdf:Property" resource="http://schema.org/affectsFunction">
+      <link property="http://schema.org/isPartOf" href="http://bio.schema.org" />
+      <span class="h" property="rdfs:label">affectsFunction</span>
+      <span property="rdfs:comment"></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Gene">Gene</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Boolean">Boolean</a></span>
+      <span>Source:  <a property="dc:source" href="http://www.bioschemas.org/Gene">Gene</a></span>
+  </div>
+
+  <div typeof="rdf:Property" resource="http://schema.org/expressedIn">
+      <link property="http://schema.org/isPartOf" href="http://bio.schema.org" />
+      <span class="h" property="rdfs:label">expressedIn</span>
+      <span property="rdfs:comment"></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Gene">Gene</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/BioChemEntity">BioChemEntity</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/DefinedTerm">DefinedTerm</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/AnatomicalSystem">AnatomicalSystem</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/AnatomicalStructure">AnatomicalStructure</a></span>
+      <span>Source:  <a property="dc:source" href="http://www.bioschemas.org/Gene">Gene</a></span>
+  </div>
+
+  <div typeof="rdf:Property" resource="http://schema.org/partOfOperon">
+      <link property="http://schema.org/isPartOf" href="http://bio.schema.org" />
+      <span class="h" property="rdfs:label">partOfOperon</span>
+      <span property="rdfs:comment"></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Gene">Gene</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/DNA">DNA</a></span>
+      <span>Source:  <a property="dc:source" href="http://www.bioschemas.org/Gene">Gene</a></span>
+  </div>
+
+  <div typeof="rdf:Property" resource="http://schema.org/hasStatus">
+      <link property="http://schema.org/isPartOf" href="http://bio.schema.org" />
+      <span class="h" property="rdfs:label">hasStatus</span>
+      <span property="rdfs:comment">One of pseudogene, dead, killed, live, predicted, suppressed.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Gene">Gene</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+      <span>Source:  <a property="dc:source" href="http://www.bioschemas.org/Gene">Gene</a></span>
+  </div>
+
+  <div typeof="rdf:Property" resource="http://schema.org/hasSequence">
+      <link property="http://schema.org/isPartOf" href="http://bio.schema.org" />
+      <span class="h" property="rdfs:label">hasSequence</span>
+      <span property="rdfs:comment">Nucleotide or amino acid sequence.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Gene">Gene</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/DNA">DNA</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/RNA">RNA</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Protein">Protein</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+      <span>Source:  <a property="dc:source" href="http://www.bioschemas.org/Gene">Gene</a></span>
+  </div>
+
+  <div typeof="rdf:Property" resource="http://schema.org/alternativeOf">
+      <link property="http://schema.org/isPartOf" href="http://bio.schema.org" />
+      <span class="h" property="rdfs:label">alternativeOf</span>
+      <span property="rdfs:comment">Another gene which is a variation of this one.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Gene">Gene</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Gene">Gene</a></span>
+      <span>Source:  <a property="dc:source" href="http://www.bioschemas.org/Gene">Gene</a></span>
+  </div>
+
+  <div typeof="rdf:Property" resource="http://schema.org/encodesBioChemEntity">
+      <link property="http://schema.org/isPartOf" href="http://bio.schema.org" />
+      <span class="h" property="rdfs:label">encodesBioChemEntity</span>
+      <span property="rdfs:comment">Another BioChemEntity encoded by this one. Inverse property: [isEncodedByBioChemEntity](http://schema.org/isEncodedByBioChemEntity).</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/DNA">DNA</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Gene">Gene</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/RNA">RNA</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/BioChemEntity">BioChemEntity</a></span>
+      <link property="http://schema.org/inverseOf" href="http://schema.org/isEncodedByBioChemEntity"/>
+      <span>Source:  <a property="dc:source" href="http://www.bioschemas.org/Gene">Gene</a></span>
+  </div>
+
+  <div typeof="rdf:Property" resource="http://schema.org/isEncodedByBioChemEntity">
+      <link property="http://schema.org/isPartOf" href="http://bio.schema.org" />
+      <span class="h" property="rdfs:label">isEncodedByBioChemEntity</span>
+      <span property="rdfs:comment">Another BioChemEntity encoding by this one. Inverse property: [encodesBioChemEntity](http://schema.org/encodesBioChemEntity).</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/BioChemEntity">BioChemEntity</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/DNA">DNA</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Gene">Gene</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/RNA">RNA</a></span>
+      <link property="http://schema.org/inverseOf" href="http://schema.org/encodesBioChemEntity"/>
+      <span>Source:  <a property="dc:source" href="http://www.bioschemas.org/Gene">Gene</a></span>
+  </div>
+
+  <div typeof="rdf:Property" resource="http://schema.org/presentInCollection">
+      <link property="http://schema.org/isPartOf" href="http://bio.schema.org" />
+      <span class="h" property="rdfs:label">presentInCollection</span>
+      <span property="rdfs:comment"></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Gene">Gene</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/DefinedTerm">DefinedTerm</a></span>
+      <span>Source:  <a property="dc:source" href="http://www.bioschemas.org/Gene">Gene</a></span>
+  </div>
+
+</div>
