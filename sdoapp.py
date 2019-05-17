@@ -813,6 +813,7 @@ class ShowUnit (webapp2.RequestHandler):
            if not targ:
                 continue
            count = 0
+           prev = None
            while(len(self.crumbStacks[row]) > 0):
                 propertyval = None
                 n = self.crumbStacks[row].pop()
@@ -826,12 +827,13 @@ class ShowUnit (webapp2.RequestHandler):
                         propertyval = "rdfs:subClassOf"
 
                 if(count > 0):
-                    if((len(self.crumbStacks[row]) == 0) and enuma): #final crumb
+                    if((len(self.crumbStacks[row]) == 0) and enuma and term.getParent() == prev ): #final crumb
                         thisrow += " :: "
                     else:
                         thisrow += " &gt; "
                 count += 1
                 thisrow += "%s" % (self.ml(n,prop=propertyval))
+                prev = n
            crumbsout.append(thisrow)
 
         self.write("<h4>")
@@ -910,6 +912,14 @@ class ShowUnit (webapp2.RequestHandler):
         headerPrinted = False
         props = cl.getProperties()
 
+        log.info(">>>>>>> SUPERS for %s: %s" % (term.getId(),len(term.getSupers())))
+        
+
+        if term.isEnumerationValue() and  len(term.getSupers()) == 0:
+            return propcount
+        
+
+
         for prop in props:
             if prop.superseded() or self.hideAtticTerm(prop):
                 continue
@@ -922,7 +932,7 @@ class ShowUnit (webapp2.RequestHandler):
                 comment = "Term from external vocabulary"
             if not getAppVar("tableHdr"):
                 setAppVar("tableHdr",True)
-                if ((term.isClass() or term.isEnumeration()) and not term.isDataType() and term.id != "DataType"):
+                if ((term.isClass() or term.isEnumeration() or term.isEnumerationValue()) and not term.isDataType() and term.id != "DataType"):
                     self.write("<table class=\"definition-table\">\n        <thead>\n  <tr><th>Property</th><th>Expected Type</th><th>Description</th>               \n  </tr>\n  </thead>\n\n")
                 self.tablehdr = True
             if (not headerPrinted):
@@ -1434,8 +1444,9 @@ class ShowUnit (webapp2.RequestHandler):
 
         self.emitUnitHeaders(term) # writes <h1><table>...
         stack = self._removeStackDupes(term.getTermStack())
+
         setAppVar("tableHdr",False)
-        if term.isClass() or term.isDataType() or term.isEnumeration():
+        if term.isClass() or term.isDataType() or term.isEnumeration() or term.isEnumerationValue():
             for p in stack:
                 self.ClassProperties(p, p==[0], out=self, term=term)
             if getAppVar("tableHdr"):

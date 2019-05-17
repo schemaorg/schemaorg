@@ -91,11 +91,11 @@ class VTerm():
             self.ttype = VTerm.REFERENCE
             self.label = id
         else:
-            #log.info("checking parent %s" % ttype)
+            log.info("checking parent %s" % ttype)
             self.parent = VTerm._getTerm(str(ttype))
             if VTerm.isEnumerationAncestor(self.parent):
                 self.ttype = VTerm.ENUMERATIONVALUE
-                #log.info("%s is ENUMERATIONVALUE" % self.getId())
+                log.info("%s is ENUMERATIONVALUE" % self.getId())
             else:
                 self.ttype = self.parent.getType()
 
@@ -127,6 +127,8 @@ class VTerm():
         return self.ttype == VTerm.REFERENCE
     def getId(self):
         return self.id
+    def getParent(self):
+        return self.parent
     def getPrefixedId(self):
         return prefixedIdFromUri(self.uri)
     def getUri(self):
@@ -357,8 +359,8 @@ class VTerm():
                 log.debug("Failed to get term for %s" % row.sup)
                 continue
             sortedAddUnique(self.supers,super)
-        if self.isEnumerationValue():
-            sortedAddUnique(self.supers,self.parent)
+        #if self.isEnumerationValue():
+            #sortedAddUnique(self.supers,self.parent)
             
 
 
@@ -417,19 +419,21 @@ class VTerm():
         tmpStacks = []
         tmpStacks.append(cstack)
         supers = term.getSupers()
+        if term.getParent():
+            supers.append(term.getParent())
     
         for i in range(len(supers)):
             if(i > 0):
                 t = cstack[:]
                 tmpStacks.append(t)
                 self._pstacks.append(t)
-        x = 0
 
+        x=0
         for p in supers:
             self._getParentPaths(p,tmpStacks[x])
             x += 1
-
             
+
     @staticmethod
     def checkForEnumVal(term):
         if term.ttype ==  VTerm.ENUMERATION:
@@ -571,11 +575,8 @@ class VTerm():
     def isEnumerationAncestor(t):
         if not t:
             return False
-        if t.isEnumeration():
+        if t.isEnumeration() or VTerm.isEnumerationAncestor(t.parent):
             return True
-        for tp in t.getSupers():
-            if VTerm.isEnumerationAncestor(tp):
-                return True
         return False
 
     @staticmethod
