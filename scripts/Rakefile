@@ -28,7 +28,7 @@ require 'spec_helper'
 describe "Examples" do
   before(:all) {RDF::Reasoner.apply(:rdfs, :owl, :schema)}
 }
-  Dir.glob(File.expand_path("../../data/*examples.txt", __FILE__)).each do |file|
+  Dir.glob(File.expand_path("../../data/{.,ext/*}/*examples.txt", __FILE__)).each do |file|
     spec.write("\n  # Examples from #{file.split('/').last}\n")
     lineno = 1
     s = StringScanner.new(File.read(file))
@@ -86,7 +86,8 @@ desc "Create custom pre-compiled vocabulary"
 task vocab: "spec/schema.rb"
 
 file "spec/schema.rb" => :do_build do
-  rel = Dir.glob(File.expand_path("../../data/releases/*", __FILE__)).last
+  #rel = Dir.glob(File.expand_path("../../data/releases/*", __FILE__)).last
+  rel = Dir.glob(File.expand_path("../../data/releases/LATEST", __FILE__)).last
   puts "Generate spec/schema.rb"
   cmd = "bundle exec rdf"
   cmd += " serialize --uri http://schema.org/ --output-format vocabulary"
@@ -113,7 +114,8 @@ file "spec/schema_context.rb" => :do_build do
   File.open("spec/schema_context.rb", "w") do |f|
     # FIXME: you would think this would be someplace in the data directory
     # schema_base + '/releases/' + schema_version + '/schema.jsonld'
-    c = JSON::LD::Context.new().parse("http://schema.org/")
+    c = JSON::LD::Context.parse(File.expand_path("../../data/releases/LATEST/schemaorgcontext.jsonld", __FILE__))
+    c.context_base = 'http://schema.org/'
     f.write c.to_rb
   end
 end

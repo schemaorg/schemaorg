@@ -62,8 +62,7 @@
 <body class="{{ sitemode }}">
 
 {% include 'basicPageHeader.tpl' with context %}
-
-  <div id="mainContent" vocab="http://schema.org/" typeof="{{ rdfs_type }}" resource="http://schema.org/{{ entry }}">
+  <div id="mainContent" vocab="{{ vocabUri }}" typeof="{{ rdfs_type }}" resource="{{ vocabUri }}{{ entry }}">
   {{ ext_mappings | safe }}
 
 <!-- webapp will assemble the rest elsewhere -->

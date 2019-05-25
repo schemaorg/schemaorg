@@ -1,17 +1,11 @@
-#application: schemaorgae
-#application: webschemas-g
+# application: webschemas-g
+# usage: gcloud app deploy webschemas.yaml --project webschemas-g
 
-# new commandline:
-#  gcloud app deploy webschemas.yaml --project webschemas-g 
-
-
-#version: 1
-module: default
 runtime: python27
 api_version: 1
 threadsafe: true
 
-  
+
 #automatic_scaling:
 #  min_idle_instances: 2
 
@@ -23,40 +17,45 @@ inbound_services:
 - warmup
 
 env_variables:
+  TARGETSITE: 'webschemas.org'
   PRODSITEDEBUG: 'False'
+  CONFIGFILE: 'sdoconfig.json'
+  FORCEINDEXPAGES: 'False'
+  DEVELOPVERSION: 'True'
+  MOREBLOCK: 'True'
   WARMUPSTATE: 'Auto' # 'Off', 'On', 'Auto' - Off for localhost, On elsewhere
+  STAYINEXTENTION: 'False'
+  PAGESTOREMODE: 'CLOUDSTORE' # 'INMEM' (In instance memory), 'NDBSHARED' (NDB shared - accross instances), 'CLOUDSTORE' (Cloudstorage files)
+  EXAMPLESTOREMODE: 'INMEM' # 'INMEM', 'NDBSHARED'
+  TIMESTAMPSTOREMODE: 'CLOUDSTORE' # 'INMEM', 'NDBSHARED', 'CLOUDSTORE' 
+#  CACHE_CONTROL: 'public, max-age=600'
+  CACHE_CONTROL: 'no-cache'
+  SUBDOMAINS: 'False' #'False' no subdomains, 'True' for pending.schema.org, bib.schema.org etc. 
 
 handlers:
 
-- url: /favicon.ico
+- url: /.*favicon.ico
   static_files: docs/favicon.ico
   upload: docs/favicon.ico
+  mime_type: image/x-icon
+  application_readable: True
   secure: always
   redirect_http_response_code: 301
-  mime_type: image/x-icon
 
 - url: /robots.txt
-  static_files: docs/robots-blockall.txt
-  upload: docs/robots-blockall.txt
+  static_files: docs/robots.txt
+  upload: docs/robots.txt
   secure: always
   redirect_http_response_code: 301
   mime_type: text/plain
-
-# To avoid: "Could not guess mimetype for docs/schemaorg.owl.  Using application/octet-stream."
-- url: /docs/schemaorg.owl
-  static_files: docs/schemaorg.owl
-  upload: docs/schemaorg.owl
-  secure: always
-  redirect_http_response_code: 301
-  mime_type: application/rdf+xml
 
 - url: /docs/schema_org_rdfa.html
   static_files: data/schema.rdfa
   upload: data/schema.rdfa
   application_readable: True
+  mime_type: text/html
   secure: always
   redirect_http_response_code: 301
-  mime_type: text/html
 
 - url: /docs/jsonldcontext.json.*
   script: sdoapp.app
@@ -83,18 +82,45 @@ handlers:
   secure: always
   redirect_http_response_code: 301
 
+# Use for /docs when PAGESTOREMODE not set to CLOUDSTORE
+#- url: /docs
+#  static_dir: docs
+#  application_readable: True
+#  secure: always
+#  redirect_http_response_code: 301
+
+# Use for /docs when PAGESTOREMODE  set to CLOUDSTORE
 - url: /docs
-  static_dir: docs
+  script: sdoapp.app
   secure: always
   redirect_http_response_code: 301
+  
+- url: /.*docs/*
+  static_dir: docs
+  application_readable: True
+  secure: always
+  redirect_http_response_code: 301  
 
 #- url: /
 #  static_files: static/index.html
 #  upload: static/index.html
 #  application_readable: True
 
+- url: /admin/refresh
+  login: required
+  script: sdoapp.app
+
+- url: /admin
+  static_dir: admin
+  application_readable: True
+
 - url: /search_files
   static_dir: static/search_files
+  secure: always
+  redirect_http_response_code: 301
+
+- url: /version/build-latest/.*
+  script: sdoapp.app
   secure: always
   redirect_http_response_code: 301
 
@@ -149,7 +175,7 @@ handlers:
   application_readable: True
   secure: always
   redirect_http_response_code: 301
- 
+
 - url: /version/(.*/.*\.nt)
   mime_type: application/n-triples
   static_files: data/releases/\1

@@ -1,0 +1,62 @@
+{
+  "@context": {
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#"
+  },
+  "@graph": [
+    {
+      "@id": "http://schema.org/variablesMeasured",
+      "@type": "rdf:Property",
+      "http://schema.org/domainIncludes": {
+        "@id": "http://schema.org/Dataset"
+      },
+      "http://schema.org/isPartOf": {
+        "@id": "http://attic.schema.org"
+      },
+      "http://schema.org/rangeIncludes": [
+        {
+          "@id": "http://schema.org/Text"
+        },
+        {
+          "@id": "http://schema.org/PropertyValue"
+        }
+      ],
+      "rdfs:comment": "Originally named <a class=\"localLink\" href=\"http://schema.org/variablesMeasured\">variablesMeasured</a>, The <a class=\"localLink\" href=\"http://schema.org/variableMeasured\">variableMeasured</a> property can indicate (repeated as necessary) the  variables that are measured in some dataset, either described as text or as pairs of identifier and description using PropertyValue.",
+      "rdfs:label": "variablesMeasured"
+    },
+    {
+      "@id": "http://schema.org/StupidType",
+      "@type": "rdfs:Class",
+      "http://schema.org/isPartOf": {
+        "@id": "http://attic.schema.org"
+      },
+      "rdfs:comment": "A StupidType for testing.",
+      "rdfs:label": "StupidType",
+      "rdfs:subClassOf": {
+        "@id": "http://schema.org/Thing"
+      }
+    },
+    {
+      "@id": "http://schema.org/stupidProperty",
+      "@type": "rdf:Property",
+      "http://schema.org/domainIncludes": [
+        {
+          "@id": "http://schema.org/StupidType"
+        },
+        {
+          "@id": "http://schema.org/Vehicle"
+        }
+      ],
+      "http://schema.org/isPartOf": {
+        "@id": "http://attic.schema.org"
+      },
+      "http://schema.org/rangeIncludes": {
+        "@id": "http://schema.org/QuantitativeValue"
+      },
+      "rdfs:comment": "This is a StupidProperty! - for testing only",
+      "rdfs:label": "stupidProperty"
+    }
+  ],
+  "@id": "http://schema.org/#3.6"
+}

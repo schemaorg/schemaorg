@@ -20,22 +20,26 @@ sys.path.insert(0, sdk_path) # add AppEngine SDK to path
 import dev_appserver
 dev_appserver.fix_sys_path()
 
+from testharness import *
+#Setup testharness state BEFORE importing sdo libraries
+setInTestHarness(True)
+
 from api import *
 import rdflib
 from rdflib.term import URIRef, Literal
 from rdflib.parser import Parser
 from rdflib.serializer import Serializer
-from rdflib.plugins.sparql import prepareQuery
+from rdflib.plugins.sparql import prepareQuery, processUpdate
 from rdflib.compare import graph_diff
 from rdflib.namespace import RDFS, RDF
 import threading
 
-from api import setInTestHarness
-setInTestHarness(True)
-
 from api import inLayer, read_file, full_path, read_schemas, read_extensions, read_examples, namespaces, DataCache, getMasterStore
 from apirdflib import getNss, getRevNss
 from apimarkdown import Markdown
+
+os.environ["WARMUPSTATE"] = "off"
+from sdoapp import *
 
 from sdordf2csv import sdordf2csv
 
@@ -73,6 +77,8 @@ class Exercise():
         self.setSkips()
         self.getGraphs()
         self.loadGraphs()
+        self.exercise(self.outGraph)
+        self.exerciseStatics("")
 
     def setSkips(self):
         self.skiplist = [''] 
@@ -111,31 +117,70 @@ class Exercise():
     def getGraphs(self):
         self.store = getMasterStore()
         self.fullGraph = getQueryGraph()
-        read_schemas(loadExtensions=True)
-        read_extensions(sdoapp.ENABLED_EXTENSIONS)
-        self.graphs = list(self.store.graphs())
 
 
 
     def loadGraphs(self):
-        self.outGraph = rdflib.ConjunctiveGraph()
+        self.fullGraph = getQueryGraph()
+        self.fullGraph.bind('owl', 'http://www.w3.org/2002/07/owl#')
+        self.fullGraph.bind('rdfa', 'http://www.w3.org/ns/rdfa#')
+        self.fullGraph.bind('dct', 'http://purl.org/dc/terms/')
+        self.fullGraph.bind('schema', 'http://schema.org/')
+        
+        self.skipOddTriples(self.fullGraph)
 
-        gs = sorted(list(self.store.graphs()),key=lambda u: u.identifier)
+        for s in self.skiplist:
+            #print(" SKIPPING: %s" % s)
+            self.skipTriples(s,self.fullGraph)
+            
+        self.outGraph = self.fullGraph
 
-        for g in gs: #Put core first
-            if str(g.identifier) == "http://schema.org/":
-                gs.remove(g)
-                gs.insert(0,g)
-                break
+    def skipTriples(self,skip, graph):
+        
+        if not len(skip):
+            return
+        if skip.endswith("/"):
+            skip = skip[:len(skip) -1]
+        print("skip %s" % skip)
 
-        for g in gs:
-            id = str(g.identifier)
-            if not id.startswith("http://"):#skip some internal graphs
-                continue    
-            if id not in self.skiplist:
-                print "%s: Processing: %s  (%s) " % (sys.argv[0],id,len(g))
-                self.exercise(g)
-                self.exerciseStatics(g.identifier)
+        delcore="""PREFIX schema: <http://schema.org/>
+        DELETE {?term ?p ?o}
+        WHERE {
+             ?term ?p ?o.
+                    ?term a ?t.
+                    FILTER NOT EXISTS {?term schema:isPartOf ?x}.
+        }"""
+        
+        delext ="""PREFIX schema: <http://schema.org/>
+        DELETE {?s ?p ?o}
+        WHERE {
+            ?s a ?t;
+            schema:isPartOf <%s>.
+            ?s ?p ?o.
+        }""" % skip
+        
+
+        if skip == "http://schema.org":
+            q = delcore
+        else:
+            q = delext
+        
+        before = len(graph) 
+        
+        processUpdate(graph,q)
+        
+
+    def skipOddTriples(self, graph):
+        
+        delf = """
+        DELETE {?s ?p ?o}
+        WHERE {
+            ?s ?p ?o.
+            FILTER (! strstarts(str(?s), "http://schema.org")).
+        }"""
+        
+        processUpdate(graph,delf)
+        
 
     def exercise(self, graph):
         types = {}
@@ -150,7 +195,7 @@ class Exercise():
             
         for (s,p,o) in graph.triples((None,RDF.type,RDF.Property)):
             if s.startswith("http://schema.org"):
-                props.update({s:graph.identifier})
+                props.update({s:"http://schema.org"})
 
         for p in sorted(props.keys()):
             self.access(p,props[p])
@@ -162,11 +207,12 @@ class Exercise():
     def access(self, id, ext):
         if id.startswith("http://schema.org"):
             id = id[18:]
-        ext = getRevNss(str(ext))
-        if ext == "core":
-            ext = ""
-        else:
-            ext = ext + "."
+        ext = ""
+        #ext = getRevNss(str(ext))
+        #if ext == "core":
+        #    ext = ""
+        #else:
+        #    ext = ext + "."
             
         site = args.site
         scheme = "http://"

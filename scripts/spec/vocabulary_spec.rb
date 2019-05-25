@@ -19,7 +19,7 @@ describe "Vocabulary" do
       "members superseded by member" => [
         %(
           @prefix schema: <http://schema.org/> .
-          <foo> a schema:Organization; schema:members "Manny" .
+          <http://example.com/foo> a schema:Organization; schema:members "Manny" .
         ),
         {
           property: {"schema:members" => ["Term is superseded by schema:member"]},
