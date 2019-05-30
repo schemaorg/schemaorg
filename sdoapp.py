@@ -58,7 +58,7 @@ if not SdoConfig.valid:
     log.error("Invalid config from '%s' or its includes !!" % CONFIGFILE)
     os.exit()
 
-SCHEMA_VERSION="3.6"
+SCHEMA_VERSION="3.7"
 
 if not getInTestHarness():
     GAE_APP_ID = app_identity.get_application_id()
@@ -80,7 +80,8 @@ releaselog = {  "2.0": "2015-05-13",
                 "3.3": "2017-08-14", 
                 "3.4": "2018-06-15", 
                 "3.5": "2019-04-01", 
-                "3.6": "2019-05-01" }
+                "3.6": "2019-05-01", 
+                "3.7": "2019-06-01" }
 
 silent_skip_list =  [ "favicon.ico" ] # Do nothing for now
 
