@@ -95,6 +95,10 @@ class sdordf2csv():
             graph = self.queryGraph
         if term == None or graph == None:
             return
+
+        if not isinstance(term, URIRef):
+            term = URIRef(term)
+
         row = [str(term)]
         row.append(self.graphValueToCSV(subject=term,predicate=RDFS.label,graph=graph))
         row.append(self.getCSVComment(term,graph=self.fullGraph))
@@ -290,4 +294,4 @@ class sdordf2csv():
             Markdown.setPre(api.SdoConfig.vocabUri())
             ret = Markdown.parse(ret)
             Markdown.setPre()
-        return ret
+        return ret.replace('\n','')
