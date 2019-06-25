@@ -1,4 +1,11 @@
 #!/bin/sh
+
+
+# To stage a release on webschemas.org,
+# e.g. 
+# scripts/appdeploy.sh --no-promote --project webschemas-g  --version=3-7 webschemas.yaml
+
+
 PWD=`pwd`
 PROG="`basename $0`"
 if [ `basename $PWD` != "schemaorg" ]
