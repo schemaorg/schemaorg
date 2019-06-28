@@ -5,14 +5,14 @@
         determines the learning progress to achieve an outcome, usually a
         credential like a degree or certificate.</span>
       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Intangible">Intangible</a></span>
-      <span property="schema:category">issue-2889</span><a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/2889">#2889</a>
+      <span property="schema:category">issue-2289</span><a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/2289">#2289</a>
     </div>
     <div typeof="rdfs:Class" resource="http://schema.org/WageBasedTraining">
       <span class="h" property="rdfs:label">WageBasedTraining</span>
       <span property="rdfs:comment">A program with both an educational and
         occupational component.</span>
       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/EducationalOccupationalProgram">EducationalOccupationalProgram</a></span>
-      <span property="schema:category">issue-2889</span><a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/2889">#2889</a>
+      <span property="schema:category">issue-2289</span><a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/2289">#2289</a>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/hasCredential">
       <span class="h" property="rdfs:label">hasCredential</span>
@@ -20,34 +20,47 @@
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Person">Person</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Organization">Organization</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/EducationalOccupationalCredential">EducationalOccupationalCredential</a></span>
-      <span property="schema:category">issue-2889</span><a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/2889">#2889</a>
+      <span property="schema:category">issue-2289</span><a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/2289">#2289</a>
     </div>
-    <div typeof="rdf:Property" resource="http://schema.org/occupationalCredentialAwarded">
-      <span class="h" property="rdfs:label">occupationalCredentialAwarded</span>
-      <span property="rdfs:comment">An occupational credential awarded by the program.</span>
+    <div typeof="rdf:Property" resource="http://schema.org/educationalCredentialAwarded">
+      <span class="h" property="rdfs:label">educationalCredentialAwarded</span
+      <span property="rdfs:comment">A description of the qualification, award, certificate, diploma or other educational credential awarded as a consequence of successful completion of this course or program.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Course">Course</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/EducationalOccupationalProgram">EducationalOccupationalProgram</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/EducationalOccupationalCredential">EducationalOccupationalCredential</a></span>
-      <span property="schema:category">issue-2889</span><a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/2889">#2889</a>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/URL">URL</a></span>
+      <span property="schema:category">issue-2289</span><a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/2289">#2289</a>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/occupationalCredentialAwarded">
+      <span class="h" property="rdfs:label">occupationalCredentialAwarded</span
+      <span property="rdfs:comment">A description of the qualification, award, certificate, diploma or other occupational credential awarded as a consequence of successful completion of this course or program.</span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Course">Course</a></span>
+      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/EducationalOccupationalProgram">EducationalOccupationalProgram</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/EducationalOccupationalCredential">EducationalOccupationalCredential</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/URL">URL</a></span>
+      <span property="schema:category">issue-2289</span><a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/2289">#2289</a>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/occupationalCategory">
       <span class="h" property="rdfs:label">occupationalCategory</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/WageBasedTraining">WageBasedTraining</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/CategoryCode">CategoryCode</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
-      <span property="schema:category">issue-2889</span><a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/2889">#2889</a>
+      <span property="schema:category">issue-2289</span><a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/2289">#2289</a>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/offers">
       <span class="h" property="rdfs:label">offers</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/EducationalOccupationalProgram">EducationalOccupationalProgram</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Offer">Offer</a></span>
-      <span property="schema:category">issue-2889</span><a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/2889">#2889</a>
+      <span property="schema:category">issue-2289</span><a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/2289">#2289</a>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/provider">
       <span class="h" property="rdfs:label">provider</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/EducationalOccupationalProgram">EducationalOccupationalProgram</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Person">Person</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Organization">Organization</a></span>
-      <span property="schema:category">issue-2889</span><a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/2889">#2889</a>
+      <span property="schema:category">issue-2289</span><a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/2289">#2289</a>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/programPrerequisites">
       <span class="h" property="rdfs:label">programPrerequisites</span>
@@ -57,27 +70,27 @@
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Course">Course</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/EducationalOccupationalCredential">EducationalOccupationalCredential</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
-      <span property="schema:category">issue-2889</span><a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/2889">#2889</a>
+      <span property="schema:category">issue-2289</span><a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/2289">#2289</a>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/timeToComplete">
       <span class="h" property="rdfs:label">timeToComplete</span>
       <span property="rdfs:comment">The expected length of time to complete the program if attending full-time.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/EducationalOccupationalProgram">EducationalOccupationalProgram</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Duration">Duration</a></span>
-      <span property="schema:category">issue-2889</span><a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/2889">#2889</a>
+      <span property="schema:category">issue-2289</span><a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/2289">#2289</a>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/trainingSalary">
       <span class="h" property="rdfs:label">trainingSalary</span>
       <span property="rdfs:comment">The estimated salary earned while in the program.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/WageBasedTraining">WageBasedTraining</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/MonetaryAmountDistribution">MonetaryAmountDistribution</a></span>
-      <span property="schema:category">issue-2889</span><a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/2889">#2889</a>
+      <span property="schema:category">issue-2289</span><a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/2289">#2289</a>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/salaryUponCompletion">
       <span class="h" property="rdfs:label">salaryUponCompletion</span>
       <span property="rdfs:comment">The expected salary upon completing the training.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/EducationalOccupationalProgram">EducationalOccupationalProgram</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/MonetaryAmountDistribution">MonetaryAmountDistribution</a></span>
-      <span property="schema:category">issue-2889</span><a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/2889">#2889</a>
+      <span property="schema:category">issue-2289</span><a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/2289">#2289</a>
     </div>
 </div>
