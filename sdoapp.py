@@ -58,7 +58,7 @@ if not SdoConfig.valid:
     log.error("Invalid config from '%s' or its includes !!" % CONFIGFILE)
     os.exit()
 
-SCHEMA_VERSION="3.7"
+SCHEMA_VERSION="3.8"
 
 if not getInTestHarness():
     GAE_APP_ID = app_identity.get_application_id()
@@ -71,17 +71,18 @@ sitemode = "mainsite" # whitespaced list for CSS tags,
             # e.g. "mainsite testsite" when off expected domains
             # "extensionsite" when in an extension (e.g. blue?)
 
-releaselog = {  "2.0": "2015-05-13", 
-                "2.1": "2015-08-06", 
-                "2.2": "2015-11-05", 
-                "3.0": "2016-05-04", 
-                "3.1": "2016-08-09", 
-                "3.2": "2017-03-23", 
-                "3.3": "2017-08-14", 
-                "3.4": "2018-06-15", 
-                "3.5": "2019-04-01", 
-                "3.6": "2019-05-01", 
-                "3.7": "2019-06-01" }
+releaselog = {  "2.0": "2015-05-13",
+                "2.1": "2015-08-06",
+                "2.2": "2015-11-05",
+                "3.0": "2016-05-04",
+                "3.1": "2016-08-09",
+                "3.2": "2017-03-23",
+                "3.3": "2017-08-14",
+                "3.4": "2018-06-15",
+                "3.5": "2019-04-01",
+                "3.6": "2019-05-01",
+                "3.7": "2019-06-01",
+                "3.8": "2019-07-01" }
 
 silent_skip_list =  [ "favicon.ico" ] # Do nothing for now
 
@@ -2019,11 +2020,11 @@ class ShowUnit (webapp2.RequestHandler):
         # Full release page for: node: 'version/' cleannode: 'version/' requested_version: '' requested_format: '' l: 2
         # /version/
         log.debug("clean_node: %s requested_version: %s " %  (clean_node, requested_version))
-        
+
         if (clean_node=="version/" or clean_node=="version") and requested_version=="" and requested_format=="":
             log.info("Defaulting to current version- %s" % SCHEMA_VERSION)
             requested_version = SCHEMA_VERSION
-            
+
         if requested_version in releaselog:
             log.info("Version '%s' was released on %s. Serving from filesystem." % ( node, releaselog[requested_version] ))
 
