@@ -66,7 +66,7 @@ then
         YAML="schemaorg.yaml"
     elif [ "$CONF" = "webschemas" ]
     then
-        PROJECT="webschemas_g"
+        PROJECT="webschemas-g"
         YAML="webscemas.yaml"
     elif [ "$CONF" = "test" ]
     then
