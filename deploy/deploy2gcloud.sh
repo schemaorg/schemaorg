@@ -67,7 +67,7 @@ then
     elif [ "$CONF" = "webschemas" ]
     then
         PROJECT="webschemas-g"
-        YAML="webscemas.yaml"
+        YAML="webschemas.yaml"
     elif [ "$CONF" = "test" ]
     then
         PROJECT="sdo-rjwtest"
