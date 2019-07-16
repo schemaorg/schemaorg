@@ -46,46 +46,18 @@ e.g.
     data/releases/2.1/schema.nt
     data/releases/2.1/schema.rdfa
 
-Of these,
+All these are all created and coppied where appropriate by running the 'scripts/buildreleasefiles.sh' script
+[since version 3.9]
 
- * schema.rdfa is a frozen one-time copy of data/schema.rdfa
- * schema-all.html is generated from this via running the Web app and
-   capturing via curl of /version/build-latest,
-   e.g. http://localhost:8080/version/build-latest
-   when served locally via "dev_appserver ."
-   For now, you need to edit this html to remove webschemas.org from heading section.
-
-  * To create .nt, .nq, etc files use scripts/buildreleasefiles.sh
-
-  * README.md should be copied/updated accordingly.  TODO: simplify this file.
 
 Example usage:
+    scripts/buildreleasefiles.sh 3.9
 
-First run scripts/buildTermConfig.sh - ensure all config files are referenced.
-
-Next copy snapshot into place:
-
-* cp data/schema.rdfa data/releases/2.2/schema.rdfa
-
-* Now the HTML snapshot itself. Assuming a local server (e.g. from 'dev_appserver .') we can do:
- * curl http://localhost:8080/version/build-latest > data/releases/3.2/schema-all.html (taking care with the version number, of course)
- or this, to use webschemas: curl https://webschemas.org/version/build-latest > data/releases/3.4/schema-all.html
- * clean up the html including the bit that says you're in a developer view etc.
- 
-Then generate N-Triples etc. versions:
-* Ensure that the EXTENSIONS variable at the top of the script 'scripts/buildreleasefiles.sh' contains all the extensions for this release.
-* scripts/buildreleasefiles.sh 3.1 - Check listed extensions is correct update if not
-
-* Run './scripts/buildsitemap.py' make sure sitemap is up to date
-
-* Again run scripts/buildTermConfig.sh - ensure all config & docs files are referenced
 
 * Inspect snapshot, add to git and push to repo.
  * ls -l data/releases/2.2/
  * git add data/releases/2.2/*
  * git push
- * update sites: e.g.  ./scripts/updateAppEngine.sh  to update sdo-phobos.appspot.com, webschemas.org
-  * Inspect /version/{x.y}/ on those sites manually; check for newly added terms etc.
  * TODO: more QA and automation would be highly appropriate here.
 
 
