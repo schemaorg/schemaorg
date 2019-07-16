@@ -89,25 +89,6 @@
       "rdfs:label": "loanPaymentFrequency"
     },
     {
-      "@id": "http://schema.org/sdDatePublished",
-      "@type": "rdf:Property",
-      "http://purl.org/dc/terms/source": {
-        "@id": "https://github.com/schemaorg/schemaorg/issues/1886"
-      },
-      "http://schema.org/category": "issue-1886",
-      "http://schema.org/domainIncludes": {
-        "@id": "http://schema.org/CreativeWork"
-      },
-      "http://schema.org/isPartOf": {
-        "@id": "http://pending.schema.org"
-      },
-      "http://schema.org/rangeIncludes": {
-        "@id": "http://schema.org/Date"
-      },
-      "rdfs:comment": "Indicates the date on which the current structured data was generated / published. Typically used alongside <a class=\"localLink\" href=\"http://schema.org/sdPublisher\">sdPublisher</a>",
-      "rdfs:label": "sdDatePublished"
-    },
-    {
       "@id": "http://schema.org/DefinitiveLegalValue",
       "@type": "http://schema.org/LegalValueLevel",
       "http://purl.org/dc/terms/source": [
@@ -164,10 +145,10 @@
       },
       "http://schema.org/rangeIncludes": [
         {
-          "@id": "http://schema.org/Organization"
+          "@id": "http://schema.org/Person"
         },
         {
-          "@id": "http://schema.org/Person"
+          "@id": "http://schema.org/Organization"
         }
       ],
       "http://www.w3.org/2002/07/owl#equivalentProperty": {
@@ -246,10 +227,10 @@
       "@type": "rdf:Property",
       "http://purl.org/dc/terms/source": [
         {
-          "@id": "http://publications.europa.eu/mdr/eli/index.html"
+          "@id": "https://github.com/schemaorg/schemaorg/issues/1156"
         },
         {
-          "@id": "https://github.com/schemaorg/schemaorg/issues/1156"
+          "@id": "http://publications.europa.eu/mdr/eli/index.html"
         }
       ],
       "http://schema.org/category": "issue-1156",
@@ -261,10 +242,10 @@
       },
       "http://schema.org/rangeIncludes": [
         {
-          "@id": "http://schema.org/Text"
+          "@id": "http://schema.org/URL"
         },
         {
-          "@id": "http://schema.org/URL"
+          "@id": "http://schema.org/Text"
         }
       ],
       "http://www.w3.org/2004/02/skos/core#closeMatch": {
@@ -296,23 +277,37 @@
       "rdfs:label": "callSign"
     },
     {
-      "@id": "http://schema.org/timeToComplete",
+      "@id": "http://schema.org/legislationTransposes",
       "@type": "rdf:Property",
-      "http://purl.org/dc/terms/source": {
-        "@id": "https://github.com/schemaorg/schemaorg/issues/2289"
-      },
-      "http://schema.org/category": "issue-2289",
+      "http://purl.org/dc/terms/source": [
+        {
+          "@id": "http://publications.europa.eu/mdr/eli/index.html"
+        },
+        {
+          "@id": "https://github.com/schemaorg/schemaorg/issues/1156"
+        }
+      ],
+      "http://schema.org/category": "issue-1156",
       "http://schema.org/domainIncludes": {
-        "@id": "http://schema.org/EducationalOccupationalProgram"
+        "@id": "http://schema.org/Legislation"
       },
       "http://schema.org/isPartOf": {
         "@id": "http://pending.schema.org"
       },
       "http://schema.org/rangeIncludes": {
-        "@id": "http://schema.org/Duration"
+        "@id": "http://schema.org/Legislation"
       },
-      "rdfs:comment": "The expected length of time to complete the program if attending full-time.",
-      "rdfs:label": "timeToComplete"
+      "http://www.w3.org/2002/07/owl#equivalentProperty": {
+        "@id": "http://data.europa.eu/eli/ontology#transposes"
+      },
+      "http://www.w3.org/2004/02/skos/core#exactMatch": {
+        "@id": "http://data.europa.eu/eli/ontology#transposes"
+      },
+      "rdfs:comment": "Indicates that this legislation (or part of legislation) fulfills the objectives set by another legislation, by passing appropriate implementation measures. Typically, some legislations of European Union's member states or regions transpose European Directives. This indicates a legally binding link between the 2 legislations.",
+      "rdfs:label": "legislationTransposes",
+      "rdfs:subPropertyOf": {
+        "@id": "http://schema.org/legislationApplies"
+      }
     },
     {
       "@id": "http://schema.org/variableMeasured",
@@ -339,72 +334,45 @@
       "rdfs:label": "variableMeasured"
     },
     {
-      "@id": "http://schema.org/NotInForce",
-      "@type": "http://schema.org/LegalForceStatus",
-      "http://purl.org/dc/terms/source": [
-        {
-          "@id": "https://github.com/schemaorg/schemaorg/issues/1156"
-        },
-        {
-          "@id": "http://publications.europa.eu/mdr/eli/index.html"
-        }
-      ],
-      "http://schema.org/category": "issue-1156",
-      "http://schema.org/isPartOf": {
-        "@id": "http://pending.schema.org"
-      },
-      "http://www.w3.org/2004/02/skos/core#exactMatch": {
-        "@id": "http://data.europa.eu/eli/ontology#InForce-notInForce"
-      },
-      "rdfs:comment": "Indicates that a legislation is currently not in force.",
-      "rdfs:label": "NotInForce"
-    },
-    {
-      "@id": "http://schema.org/archiveHeld",
+      "@id": "http://schema.org/broadcastSubChannel",
       "@type": "rdf:Property",
       "http://purl.org/dc/terms/source": {
-        "@id": "https://github.com/schemaorg/schemaorg/issues/1758"
+        "@id": "https://github.com/schemaorg/schemaorg/issues/2111"
       },
-      "http://schema.org/category": {
-        "@language": "en",
-        "@value": "issue-1758"
-      },
+      "http://schema.org/category": "issue-2111",
       "http://schema.org/domainIncludes": {
-        "@id": "http://schema.org/ArchiveOrganization"
-      },
-      "http://schema.org/inverseOf": {
-        "@id": "http://schema.org/holdingArchive"
+        "@id": "http://schema.org/BroadcastFrequencySpecification"
       },
       "http://schema.org/isPartOf": {
         "@id": "http://pending.schema.org"
       },
       "http://schema.org/rangeIncludes": {
-        "@id": "http://schema.org/ArchiveComponent"
+        "@id": "http://schema.org/Text"
       },
-      "rdfs:comment": "Collection, <a href=\"https://en.wikipedia.org/wiki/Fonds\">fonds</a>, or item held, kept or maintained by an <a class=\"localLink\" href=\"http://schema.org/ArchiveOrganization\">ArchiveOrganization</a>.",
-      "rdfs:label": {
-        "@language": "en",
-        "@value": "archiveHeld"
-      }
+      "rdfs:comment": "The subchannel used for the broadcast.",
+      "rdfs:label": "broadcastSubChannel"
     },
     {
-      "@id": "http://schema.org/unnamedSourcesPolicy",
+      "@id": "http://schema.org/qualifications",
       "@type": "rdf:Property",
       "http://purl.org/dc/terms/source": [
         {
-          "@id": "https://github.com/schemaorg/schemaorg/issues/1525"
+          "@id": "https://github.com/schemaorg/schemaorg/issues/1698"
         },
         {
-          "@id": "https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP"
+          "@id": "https://github.com/schemaorg/schemaorg/issues/1779"
         }
       ],
-      "http://schema.org/category": "issue-1525",
+      "http://schema.org/category": [
+        "issue-1698",
+        "issue-1779"
+      ],
       "http://schema.org/domainIncludes": [
         {
-          "@id": "http://schema.org/NewsMediaOrganization"
+          "@id": "http://schema.org/JobPosting"
         },
         {
-          "@id": "http://schema.org/Organization"
+          "@id": "http://schema.org/Occupation"
         }
       ],
       "http://schema.org/isPartOf": {
@@ -412,10 +380,60 @@
       },
       "http://schema.org/rangeIncludes": [
         {
-          "@id": "http://schema.org/URL"
+          "@id": "http://schema.org/EducationalOccupationalCredential"
         },
         {
+          "@id": "http://schema.org/Text"
+        }
+      ],
+      "rdfs:comment": "Specific qualifications required for this role or Occupation.",
+      "rdfs:label": "qualifications"
+    },
+    {
+      "@id": "http://schema.org/FundingAgency",
+      "@type": "rdfs:Class",
+      "http://purl.org/dc/terms/source": {
+        "@id": "https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FundInfoCollab"
+      },
+      "http://schema.org/category": "issue-383",
+      "http://schema.org/isPartOf": {
+        "@id": "http://pending.schema.org"
+      },
+      "rdfs:comment": "A FundingAgency is an organization that implements one or more <a class=\"localLink\" href=\"http://schema.org/FundingScheme\">FundingScheme</a>s and manages\n    the granting process (via <a class=\"localLink\" href=\"http://schema.org/Grant\">Grant</a>s, typically <a class=\"localLink\" href=\"http://schema.org/MonetaryGrant\">MonetaryGrant</a>s).\n    A funding agency is not always required for grant funding, e.g. philanthropic giving, corporate sponsorship etc.<br/><br/>\n\n<pre><code>Examples of funding agencies include ERC, REA, NIH, Bill and Melinda Gates Foundation...\n</code></pre>\n",
+      "rdfs:label": "FundingAgency",
+      "rdfs:subClassOf": {
+        "@id": "http://schema.org/Project"
+      }
+    },
+    {
+      "@id": "http://schema.org/unnamedSourcesPolicy",
+      "@type": "rdf:Property",
+      "http://purl.org/dc/terms/source": [
+        {
+          "@id": "https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP"
+        },
+        {
+          "@id": "https://github.com/schemaorg/schemaorg/issues/1525"
+        }
+      ],
+      "http://schema.org/category": "issue-1525",
+      "http://schema.org/domainIncludes": [
+        {
+          "@id": "http://schema.org/Organization"
+        },
+        {
+          "@id": "http://schema.org/NewsMediaOrganization"
+        }
+      ],
+      "http://schema.org/isPartOf": {
+        "@id": "http://pending.schema.org"
+      },
+      "http://schema.org/rangeIncludes": [
+        {
           "@id": "http://schema.org/CreativeWork"
+        },
+        {
+          "@id": "http://schema.org/URL"
         }
       ],
       "rdfs:comment": "For an <a class=\"localLink\" href=\"http://schema.org/Organization\">Organization</a> (typically a <a class=\"localLink\" href=\"http://schema.org/NewsMediaOrganization\">NewsMediaOrganization</a>), a statement about policy on use of unnamed sources and the decision process required.",
@@ -425,25 +443,23 @@
       }
     },
     {
-      "@id": "http://schema.org/AskPublicNewsArticle",
-      "@type": "rdfs:Class",
-      "http://purl.org/dc/terms/source": [
-        {
-          "@id": "https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP"
-        },
-        {
-          "@id": "https://github.com/schemaorg/schemaorg/issues/1525"
-        }
-      ],
-      "http://schema.org/category": "issue-1525",
+      "@id": "http://schema.org/termCode",
+      "@type": "rdf:Property",
+      "http://purl.org/dc/terms/source": {
+        "@id": "https://github.com/schemaorg/schemaorg/issues/894"
+      },
+      "http://schema.org/category": "issue-894",
+      "http://schema.org/domainIncludes": {
+        "@id": "http://schema.org/DefinedTerm"
+      },
       "http://schema.org/isPartOf": {
         "@id": "http://pending.schema.org"
       },
-      "rdfs:comment": "A <a class=\"localLink\" href=\"http://schema.org/NewsArticle\">NewsArticle</a> expressing an open call by a <a class=\"localLink\" href=\"http://schema.org/NewsMediaOrganization\">NewsMediaOrganization</a> asking the public for input, insights, clarifications, anecdotes, documentation, etc., on an issue, for reporting purposes.",
-      "rdfs:label": "AskPublicNewsArticle",
-      "rdfs:subClassOf": {
-        "@id": "http://schema.org/NewsArticle"
-      }
+      "http://schema.org/rangeIncludes": {
+        "@id": "http://schema.org/Text"
+      },
+      "rdfs:comment": "A code that identifies this <a class=\"localLink\" href=\"http://schema.org/DefinedTerm\">DefinedTerm</a> within a <a class=\"localLink\" href=\"http://schema.org/DefinedTermSet\">DefinedTermSet</a>",
+      "rdfs:label": "termCode"
     },
     {
       "@id": "http://schema.org/masthead",
@@ -516,22 +532,6 @@
       "rdfs:label": "endOffset"
     },
     {
-      "@id": "http://schema.org/ResearchProject",
-      "@type": "rdfs:Class",
-      "http://purl.org/dc/terms/source": {
-        "@id": "https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FundInfoCollab"
-      },
-      "http://schema.org/category": "issue-383",
-      "http://schema.org/isPartOf": {
-        "@id": "http://pending.schema.org"
-      },
-      "rdfs:comment": "A Research project.",
-      "rdfs:label": "ResearchProject",
-      "rdfs:subClassOf": {
-        "@id": "http://schema.org/Project"
-      }
-    },
-    {
       "@id": "http://schema.org/competencyRequired",
       "@type": "rdf:Property",
       "http://purl.org/dc/terms/source": {
@@ -546,13 +546,13 @@
       },
       "http://schema.org/rangeIncludes": [
         {
-          "@id": "http://schema.org/DefinedTerm"
-        },
-        {
           "@id": "http://schema.org/URL"
         },
         {
           "@id": "http://schema.org/Text"
+        },
+        {
+          "@id": "http://schema.org/DefinedTerm"
         }
       ],
       "rdfs:comment": "Knowledge, skill, ability or personal attribute that must be demonstrated by a person or other entity.",
@@ -563,10 +563,10 @@
       "@type": "rdfs:Class",
       "http://purl.org/dc/terms/source": [
         {
-          "@id": "https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP"
+          "@id": "https://github.com/schemaorg/schemaorg/issues/1525"
         },
         {
-          "@id": "https://github.com/schemaorg/schemaorg/issues/1525"
+          "@id": "https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP"
         }
       ],
       "http://schema.org/category": "issue-1525",
@@ -596,22 +596,6 @@
       },
       "rdfs:comment": "RestockingFees ...",
       "rdfs:label": "RestockingFees"
-    },
-    {
-      "@id": "http://schema.org/Claim",
-      "@type": "rdfs:Class",
-      "http://purl.org/dc/terms/source": {
-        "@id": "https://github.com/schemaorg/schemaorg/issues/1828"
-      },
-      "http://schema.org/category": "issue-1828",
-      "http://schema.org/isPartOf": {
-        "@id": "http://pending.schema.org"
-      },
-      "rdfs:comment": "A <a class=\"localLink\" href=\"http://schema.org/Claim\">Claim</a> in Schema.org represents a specific, factually-oriented claim that could be the <a class=\"localLink\" href=\"http://schema.org/itemReviewed\">itemReviewed</a> in a <a class=\"localLink\" href=\"http://schema.org/ClaimReview\">ClaimReview</a>. The content of a claim can be summarized with the <a class=\"localLink\" href=\"http://schema.org/text\">text</a> property. Variations on well known claims can have their common identity indicated via <a class=\"localLink\" href=\"http://schema.org/sameAs\">sameAs</a> links, and summarized with a <a class=\"localLink\" href=\"http://schema.org/name\">name</a>. Ideally, a <a class=\"localLink\" href=\"http://schema.org/Claim\">Claim</a> description includes enough contextual information to minimize the risk of ambiguity or inclarity. In practice, many claims are better understood in the context in which they appear or the interpretations provided by claim reviews.<br/><br/>\n\nBeyond <a class=\"localLink\" href=\"http://schema.org/ClaimReview\">ClaimReview</a>, the Claim type can be associated with related creative works - for example a <a class=\"localLink\" href=\"http://schema.org/ScholaryArticle\">ScholaryArticle</a> or <a class=\"localLink\" href=\"http://schema.org/Question\">Question</a> might be <a class=\"localLink\" href=\"http://schema.org/about\">about</a> some <a class=\"localLink\" href=\"http://schema.org/Claim\">Claim</a>.<br/><br/>\n\nAt this time, Schema.org does not define any types of relationship between claims. This is a natural area for future exploration.",
-      "rdfs:label": "Claim",
-      "rdfs:subClassOf": {
-        "@id": "http://schema.org/CreativeWork"
-      }
     },
     {
       "@id": "http://schema.org/eventSchedule",
@@ -647,10 +631,10 @@
       },
       "http://schema.org/rangeIncludes": [
         {
-          "@id": "http://schema.org/DefinedTerm"
+          "@id": "http://schema.org/Text"
         },
         {
-          "@id": "http://schema.org/Text"
+          "@id": "http://schema.org/DefinedTerm"
         }
       ],
       "rdfs:comment": "The job title of the person (for example, Financial Manager).",
@@ -690,10 +674,10 @@
       "@type": "rdfs:Class",
       "http://purl.org/dc/terms/source": [
         {
-          "@id": "http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO"
+          "@id": "https://github.com/schemaorg/schemaorg/issues/1253"
         },
         {
-          "@id": "https://github.com/schemaorg/schemaorg/issues/1253"
+          "@id": "http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO"
         }
       ],
       "http://schema.org/category": "issue-1253",
@@ -831,16 +815,19 @@
       "http://schema.org/category": "issue-1525",
       "http://schema.org/domainIncludes": [
         {
-          "@id": "http://schema.org/Organization"
+          "@id": "http://schema.org/NewsMediaOrganization"
         },
         {
-          "@id": "http://schema.org/NewsMediaOrganization"
+          "@id": "http://schema.org/Organization"
         }
       ],
       "http://schema.org/isPartOf": {
         "@id": "http://pending.schema.org"
       },
       "http://schema.org/rangeIncludes": [
+        {
+          "@id": "http://schema.org/Text"
+        },
         {
           "@id": "http://schema.org/AboutPage"
         },
@@ -849,9 +836,6 @@
         },
         {
           "@id": "http://schema.org/CreativeWork"
-        },
-        {
-          "@id": "http://schema.org/Text"
         }
       ],
       "rdfs:comment": "For an <a class=\"localLink\" href=\"http://schema.org/Organization\">Organization</a> (often but not necessarily a <a class=\"localLink\" href=\"http://schema.org/NewsMediaOrganization\">NewsMediaOrganization</a>), a description of organizational ownership structure; funding and grants. In a news/media setting, this is with particular reference to editorial independence.   Note that the <a class=\"localLink\" href=\"http://schema.org/funder\">funder</a> is also available and can be used to make basic funder information machine-readable.",
@@ -899,10 +883,10 @@
       },
       "http://schema.org/rangeIncludes": [
         {
-          "@id": "http://schema.org/DefinedTerm"
+          "@id": "http://schema.org/Text"
         },
         {
-          "@id": "http://schema.org/Text"
+          "@id": "http://schema.org/DefinedTerm"
         }
       ],
       "rdfs:comment": "The status of a creative work in terms of its stage in a lifecycle. Example terms include Incomplete, Draft, Published, Obsolete. Some organizations define a set of terms for the stages of their publication lifecycle.",
@@ -955,60 +939,35 @@
       },
       "http://schema.org/rangeIncludes": [
         {
-          "@id": "http://schema.org/EducationalOccupationalCredential"
+          "@id": "http://schema.org/Text"
         },
         {
-          "@id": "http://schema.org/Text"
+          "@id": "http://schema.org/EducationalOccupationalCredential"
         }
       ],
       "rdfs:comment": "Educational background needed for the position or Occupation.",
       "rdfs:label": "educationRequirements"
     },
     {
-      "@id": "http://schema.org/broadcastSubChannel",
-      "@type": "rdf:Property",
-      "http://purl.org/dc/terms/source": {
-        "@id": "https://github.com/schemaorg/schemaorg/issues/2111"
-      },
-      "http://schema.org/category": "issue-2111",
-      "http://schema.org/domainIncludes": {
-        "@id": "http://schema.org/BroadcastFrequencySpecification"
-      },
-      "http://schema.org/isPartOf": {
-        "@id": "http://pending.schema.org"
-      },
-      "http://schema.org/rangeIncludes": {
-        "@id": "http://schema.org/Text"
-      },
-      "rdfs:comment": "The subchannel used for the broadcast.",
-      "rdfs:label": "broadcastSubChannel"
-    },
-    {
-      "@id": "http://schema.org/inCodeSet",
-      "@type": "rdf:Property",
-      "http://purl.org/dc/terms/source": {
-        "@id": "https://github.com/schemaorg/schemaorg/issues/894"
-      },
-      "http://schema.org/category": "issue-894",
-      "http://schema.org/domainIncludes": {
-        "@id": "http://schema.org/CategoryCode"
-      },
-      "http://schema.org/isPartOf": {
-        "@id": "http://pending.schema.org"
-      },
-      "http://schema.org/rangeIncludes": [
+      "@id": "http://schema.org/NotInForce",
+      "@type": "http://schema.org/LegalForceStatus",
+      "http://purl.org/dc/terms/source": [
         {
-          "@id": "http://schema.org/URL"
+          "@id": "https://github.com/schemaorg/schemaorg/issues/1156"
         },
         {
-          "@id": "http://schema.org/CategoryCodeSet"
+          "@id": "http://publications.europa.eu/mdr/eli/index.html"
         }
       ],
-      "rdfs:comment": "A <a class=\"localLink\" href=\"http://schema.org/CategoryCodeSet\">CategoryCodeSet</a> that contains this category code.",
-      "rdfs:label": "inCodeSet",
-      "rdfs:subPropertyOf": {
-        "@id": "http://schema.org/inDefinedTermSet"
-      }
+      "http://schema.org/category": "issue-1156",
+      "http://schema.org/isPartOf": {
+        "@id": "http://pending.schema.org"
+      },
+      "http://www.w3.org/2004/02/skos/core#exactMatch": {
+        "@id": "http://data.europa.eu/eli/ontology#InForce-notInForce"
+      },
+      "rdfs:comment": "Indicates that a legislation is currently not in force.",
+      "rdfs:label": "NotInForce"
     },
     {
       "@id": "http://schema.org/correctionsPolicy",
@@ -1035,10 +994,10 @@
       },
       "http://schema.org/rangeIncludes": [
         {
-          "@id": "http://schema.org/URL"
+          "@id": "http://schema.org/CreativeWork"
         },
         {
-          "@id": "http://schema.org/CreativeWork"
+          "@id": "http://schema.org/URL"
         }
       ],
       "rdfs:comment": "For an <a class=\"localLink\" href=\"http://schema.org/Organization\">Organization</a> (e.g. <a class=\"localLink\" href=\"http://schema.org/NewsMediaOrganization\">NewsMediaOrganization</a>), a statement describing (in news media, the newsroom’s) disclosure and correction policy for errors.",
@@ -1068,10 +1027,10 @@
       "@type": "rdfs:Class",
       "http://purl.org/dc/terms/source": [
         {
-          "@id": "https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP"
+          "@id": "https://github.com/schemaorg/schemaorg/issues/1525"
         },
         {
-          "@id": "https://github.com/schemaorg/schemaorg/issues/1525"
+          "@id": "https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP"
         }
       ],
       "http://schema.org/category": "issue-1525",
@@ -1130,27 +1089,36 @@
       }
     },
     {
-      "@id": "http://schema.org/ExchangeRefund",
-      "@type": "http://schema.org/RefundTypeEnumeration",
+      "@id": "http://schema.org/partOfTrip",
+      "@type": "rdf:Property",
       "http://purl.org/dc/terms/source": {
-        "@id": "https://github.com/schemaorg/schemaorg/issues/2288"
+        "@id": "http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Tourism"
       },
-      "http://schema.org/category": "issue-2288",
+      "http://schema.org/category": "issue-1810",
+      "http://schema.org/domainIncludes": {
+        "@id": "http://schema.org/Trip"
+      },
+      "http://schema.org/inverseOf": {
+        "@id": "http://schema.org/subTrip"
+      },
       "http://schema.org/isPartOf": {
         "@id": "http://pending.schema.org"
       },
-      "rdfs:comment": "A ExchangeRefund ...",
-      "rdfs:label": "ExchangeRefund"
+      "http://schema.org/rangeIncludes": {
+        "@id": "http://schema.org/Trip"
+      },
+      "rdfs:comment": "Identifies that this <a class=\"localLink\" href=\"http://schema.org/Trip\">Trip</a> is a subTrip of another Trip.  For example Day 1, Day 2, etc. of a multi-day trip.",
+      "rdfs:label": "partOfTrip"
     },
     {
       "@id": "http://schema.org/SatiricalArticle",
       "@type": "rdfs:Class",
       "http://purl.org/dc/terms/source": [
         {
-          "@id": "https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP"
+          "@id": "https://github.com/schemaorg/schemaorg/issues/1525"
         },
         {
-          "@id": "https://github.com/schemaorg/schemaorg/issues/1525"
+          "@id": "https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP"
         }
       ],
       "http://schema.org/category": "issue-1525",
@@ -1164,33 +1132,43 @@
       }
     },
     {
-      "@id": "http://schema.org/repeatCount",
+      "@id": "http://schema.org/backstory",
       "@type": "rdf:Property",
-      "http://purl.org/dc/terms/source": {
-        "@id": "https://github.com/schemaorg/schemaorg/issues/1457"
-      },
-      "http://schema.org/category": "issue-1457",
+      "http://purl.org/dc/terms/source": [
+        {
+          "@id": "https://github.com/schemaorg/schemaorg/issues/1688"
+        },
+        {
+          "@id": "https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP"
+        }
+      ],
+      "http://schema.org/category": "issue-1688",
       "http://schema.org/domainIncludes": {
-        "@id": "http://schema.org/Schedule"
+        "@id": "http://schema.org/Article"
       },
       "http://schema.org/isPartOf": {
         "@id": "http://pending.schema.org"
       },
-      "http://schema.org/rangeIncludes": {
-        "@id": "http://schema.org/Integer"
-      },
-      "rdfs:comment": "Defines the number of times a recurring <a class=\"localLink\" href=\"http://schema.org/Event\">Event</a> will take place",
-      "rdfs:label": "repeatCount"
+      "http://schema.org/rangeIncludes": [
+        {
+          "@id": "http://schema.org/Text"
+        },
+        {
+          "@id": "http://schema.org/CreativeWork"
+        }
+      ],
+      "rdfs:comment": "For an <a class=\"localLink\" href=\"http://schema.org/Article\">Article</a>, typically a <a class=\"localLink\" href=\"http://schema.org/NewsArticle\">NewsArticle</a>, the backstory property provides a textual summary giving a brief explanation of why and how an article was created. In a journalistic setting this could include information about reporting process, methods, interviews, data sources, etc.",
+      "rdfs:label": "backstory"
     },
     {
       "@id": "http://schema.org/beneficiaryBank",
       "@type": "rdf:Property",
       "http://purl.org/dc/terms/source": [
         {
-          "@id": "https://github.com/schemaorg/schemaorg/issues/1253"
+          "@id": "http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO"
         },
         {
-          "@id": "http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO"
+          "@id": "https://github.com/schemaorg/schemaorg/issues/1253"
         }
       ],
       "http://schema.org/category": "issue-1253",
@@ -1202,10 +1180,10 @@
       },
       "http://schema.org/rangeIncludes": [
         {
-          "@id": "http://schema.org/BankOrCreditUnion"
+          "@id": "http://schema.org/Text"
         },
         {
-          "@id": "http://schema.org/Text"
+          "@id": "http://schema.org/BankOrCreditUnion"
         }
       ],
       "rdfs:comment": "A bank or bank’s branch, financial institution or international financial institution operating the beneficiary’s bank account or releasing funds for the beneficiary",
@@ -1231,30 +1209,27 @@
       "rdfs:label": "courseWorkload"
     },
     {
-      "@id": "http://schema.org/codeValue",
-      "@type": "rdf:Property",
-      "http://purl.org/dc/terms/source": {
-        "@id": "https://github.com/schemaorg/schemaorg/issues/894"
-      },
-      "http://schema.org/category": "issue-894",
-      "http://schema.org/domainIncludes": [
+      "@id": "http://schema.org/LegalValueLevel",
+      "@type": "rdfs:Class",
+      "http://purl.org/dc/terms/source": [
         {
-          "@id": "http://schema.org/MedicalCode"
+          "@id": "https://github.com/schemaorg/schemaorg/issues/1156"
         },
         {
-          "@id": "http://schema.org/CategoryCode"
+          "@id": "http://publications.europa.eu/mdr/eli/index.html"
         }
       ],
+      "http://schema.org/category": "issue-1156",
       "http://schema.org/isPartOf": {
         "@id": "http://pending.schema.org"
       },
-      "http://schema.org/rangeIncludes": {
-        "@id": "http://schema.org/Text"
+      "http://www.w3.org/2004/02/skos/core#closeMatch": {
+        "@id": "http://data.europa.eu/eli/ontology#LegalValue"
       },
-      "rdfs:comment": "A short textual code that uniquely identifies the value.",
-      "rdfs:label": "codeValue",
-      "rdfs:subPropertyOf": {
-        "@id": "http://schema.org/termCode"
+      "rdfs:comment": "A list of possible levels for the legal validity of a legislation.",
+      "rdfs:label": "LegalValueLevel",
+      "rdfs:subClassOf": {
+        "@id": "http://schema.org/Enumeration"
       }
     },
     {
@@ -1280,22 +1255,6 @@
       }
     },
     {
-      "@id": "http://schema.org/ProductReturnEnumeration",
-      "@type": "rdfs:Class",
-      "http://purl.org/dc/terms/source": {
-        "@id": "https://github.com/schemaorg/schemaorg/issues/2288"
-      },
-      "http://schema.org/category": "issue-2288",
-      "http://schema.org/isPartOf": {
-        "@id": "http://pending.schema.org"
-      },
-      "rdfs:comment": "ProductReturnEnumeration enumerates several kinds of product return policy. Note that this structure may not capture all aspects of the policy.",
-      "rdfs:label": "ProductReturnEnumeration",
-      "rdfs:subClassOf": {
-        "@id": "http://schema.org/Enumeration"
-      }
-    },
-    {
       "@id": "http://schema.org/EducationalOccupationalProgram",
       "@type": "rdfs:Class",
       "http://purl.org/dc/terms/source": {
@@ -1316,10 +1275,10 @@
       "@type": "rdfs:Class",
       "http://purl.org/dc/terms/source": [
         {
-          "@id": "https://github.com/schemaorg/schemaorg/issues/1525"
+          "@id": "https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP"
         },
         {
-          "@id": "https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP"
+          "@id": "https://github.com/schemaorg/schemaorg/issues/1525"
         }
       ],
       "http://schema.org/category": "issue-1525",
@@ -1347,13 +1306,13 @@
       },
       "http://schema.org/rangeIncludes": [
         {
+          "@id": "http://schema.org/AlignmentObject"
+        },
+        {
           "@id": "http://schema.org/EducationalOccupationalCredential"
         },
         {
           "@id": "http://schema.org/Course"
-        },
-        {
-          "@id": "http://schema.org/AlignmentObject"
         },
         {
           "@id": "http://schema.org/Text"
@@ -1363,24 +1322,19 @@
       "rdfs:label": "programPrerequisites"
     },
     {
-      "@id": "http://schema.org/BackgroundNewsArticle",
+      "@id": "http://schema.org/XPathType",
       "@type": "rdfs:Class",
-      "http://purl.org/dc/terms/source": [
-        {
-          "@id": "https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP"
-        },
-        {
-          "@id": "https://github.com/schemaorg/schemaorg/issues/1525"
-        }
-      ],
-      "http://schema.org/category": "issue-1525",
+      "http://purl.org/dc/terms/source": {
+        "@id": "https://github.com/schemaorg/schemaorg/issues/1672"
+      },
+      "http://schema.org/category": "issue-1672",
       "http://schema.org/isPartOf": {
         "@id": "http://pending.schema.org"
       },
-      "rdfs:comment": "A <a class=\"localLink\" href=\"http://schema.org/NewsArticle\">NewsArticle</a> providing historical context, definition and detail on a specific topic (aka \"explainer\" or \"backgrounder\"). For example, an in-depth article or frequently-asked-questions (<a href=\"https://en.wikipedia.org/wiki/FAQ\">FAQ</a>) document on topics such as Climate Change or the European Union. Other kinds of background material from a non-news setting are often described using <a class=\"localLink\" href=\"http://schema.org/Book\">Book</a> or <a class=\"localLink\" href=\"http://schema.org/Article\">Article</a>, in particular <a class=\"localLink\" href=\"http://schema.org/ScholarlyArticle\">ScholarlyArticle</a>. See also <a class=\"localLink\" href=\"http://schema.org/NewsArticle\">NewsArticle</a> for related vocabulary from a learning/education perspective.",
-      "rdfs:label": "BackgroundNewsArticle",
+      "rdfs:comment": "Text representing an XPath (typically but not necessarily version 1.0).",
+      "rdfs:label": "XPathType",
       "rdfs:subClassOf": {
-        "@id": "http://schema.org/NewsArticle"
+        "@id": "http://schema.org/Text"
       }
     },
     {
@@ -1409,10 +1363,10 @@
       "@type": "rdf:Property",
       "http://purl.org/dc/terms/source": [
         {
-          "@id": "https://github.com/schemaorg/schemaorg/issues/1253"
+          "@id": "http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO"
         },
         {
-          "@id": "http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO"
+          "@id": "https://github.com/schemaorg/schemaorg/issues/1253"
         }
       ],
       "http://schema.org/category": "issue-1253",
@@ -1424,10 +1378,10 @@
       },
       "http://schema.org/rangeIncludes": [
         {
-          "@id": "http://schema.org/MonetaryAmount"
+          "@id": "http://schema.org/Number"
         },
         {
-          "@id": "http://schema.org/Number"
+          "@id": "http://schema.org/MonetaryAmount"
         }
       ],
       "rdfs:comment": "a type of payment made in cash during the onset of the purchase of an expensive good/service. The payment typically represents only a percentage of the full purchase price.",
@@ -1472,10 +1426,10 @@
       },
       "http://schema.org/rangeIncludes": [
         {
-          "@id": "http://schema.org/Number"
+          "@id": "http://schema.org/MonetaryAmount"
         },
         {
-          "@id": "http://schema.org/MonetaryAmount"
+          "@id": "http://schema.org/Number"
         }
       ],
       "rdfs:comment": "The minimum payment is the lowest amount of money that one is required to pay on a credit card statement each month.",
@@ -1498,42 +1452,34 @@
       }
     },
     {
-      "@id": "http://schema.org/legislationPassedBy",
+      "@id": "http://schema.org/fundedItem",
       "@type": "rdf:Property",
       "http://purl.org/dc/terms/source": [
         {
-          "@id": "https://github.com/schemaorg/schemaorg/issues/1156"
+          "@id": "https://github.com/schemaorg/schemaorg/issues/383"
         },
         {
-          "@id": "http://publications.europa.eu/mdr/eli/index.html"
+          "@id": "https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP"
+        },
+        {
+          "@id": "https://github.com/schemaorg/schemaorg/issues/1950"
         }
       ],
-      "http://schema.org/category": "issue-1156",
+      "http://schema.org/category": [
+        "issue-383",
+        "issue-1688"
+      ],
       "http://schema.org/domainIncludes": {
-        "@id": "http://schema.org/Legislation"
+        "@id": "http://schema.org/Grant"
       },
       "http://schema.org/isPartOf": {
         "@id": "http://pending.schema.org"
       },
-      "http://schema.org/rangeIncludes": [
-        {
-          "@id": "http://schema.org/Person"
-        },
-        {
-          "@id": "http://schema.org/Organization"
-        }
-      ],
-      "http://www.w3.org/2002/07/owl#equivalentProperty": {
-        "@id": "http://data.europa.eu/eli/ontology#passed_by"
+      "http://schema.org/rangeIncludes": {
+        "@id": "http://schema.org/Thing"
       },
-      "http://www.w3.org/2004/02/skos/core#exactMatch": {
-        "@id": "http://data.europa.eu/eli/ontology#passed_by"
-      },
-      "rdfs:comment": "The person or organization that originally passed or made the law : typically parliament (for primary legislation) or government (for secondary legislation). This indicates the \"legal author\" of the law, as opposed to its physical author.",
-      "rdfs:label": "legislationPassedBy",
-      "rdfs:subPropertyOf": {
-        "@id": "http://schema.org/creator"
-      }
+      "rdfs:comment": "Indicates an item funded or sponsored through a <a class=\"localLink\" href=\"http://schema.org/Grant\">Grant</a>.",
+      "rdfs:label": "fundedItem"
     },
     {
       "@id": "http://schema.org/healthPlanPharmacyCategory",
@@ -1569,10 +1515,10 @@
       },
       "http://schema.org/rangeIncludes": [
         {
-          "@id": "http://schema.org/CreativeWork"
+          "@id": "http://schema.org/URL"
         },
         {
-          "@id": "http://schema.org/URL"
+          "@id": "http://schema.org/CreativeWork"
         }
       ],
       "rdfs:comment": "Further documentation describing the Web API in more detail.",
@@ -1729,10 +1675,10 @@
       "@type": "rdf:Property",
       "http://purl.org/dc/terms/source": [
         {
-          "@id": "https://github.com/schemaorg/schemaorg/issues/1253"
+          "@id": "http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO"
         },
         {
-          "@id": "http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO"
+          "@id": "https://github.com/schemaorg/schemaorg/issues/1253"
         }
       ],
       "http://schema.org/category": "issue-1253",
@@ -1785,10 +1731,10 @@
       "@type": "rdfs:Class",
       "http://purl.org/dc/terms/source": [
         {
-          "@id": "http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO"
+          "@id": "https://github.com/schemaorg/schemaorg/issues/1253"
         },
         {
-          "@id": "https://github.com/schemaorg/schemaorg/issues/1253"
+          "@id": "http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO"
         }
       ],
       "http://schema.org/category": "issue-1253",
@@ -1816,10 +1762,10 @@
       },
       "http://schema.org/rangeIncludes": [
         {
-          "@id": "http://schema.org/DefinedTermSet"
+          "@id": "http://schema.org/URL"
         },
         {
-          "@id": "http://schema.org/URL"
+          "@id": "http://schema.org/DefinedTermSet"
         }
       ],
       "rdfs:comment": "A <a class=\"localLink\" href=\"http://schema.org/DefinedTermSet\">DefinedTermSet</a> that contains this term.",
@@ -1842,6 +1788,22 @@
       "rdfs:label": "WebAPI",
       "rdfs:subClassOf": {
         "@id": "http://schema.org/Service"
+      }
+    },
+    {
+      "@id": "http://schema.org/CriticReview",
+      "@type": "rdfs:Class",
+      "http://purl.org/dc/terms/source": {
+        "@id": "https://github.com/schemaorg/schemaorg/issues/1589"
+      },
+      "http://schema.org/category": "issue-1589",
+      "http://schema.org/isPartOf": {
+        "@id": "http://pending.schema.org"
+      },
+      "rdfs:comment": "A <a class=\"localLink\" href=\"http://schema.org/CriticReview\">CriticReview</a> is a more specialized form of Review written or published by a source that is recognized for its reviewing activities. These can include online columns, travel and food guides, TV and radio shows, blogs and other independent Web sites. <a class=\"localLink\" href=\"http://schema.org/CriticReview\">CriticReview</a>s are typically more in-depth and professionally written. For simpler, casually written user/visitor/viewer/customer reviews, it is more appropriate to use the <a class=\"localLink\" href=\"http://schema.org/UserReview\">UserReview</a> type. Review aggregator sites such as Metacritic already separate out the site's user reviews from selected critic reviews that originate from third-party sources.",
+      "rdfs:label": "CriticReview",
+      "rdfs:subClassOf": {
+        "@id": "http://schema.org/Review"
       }
     },
     {
@@ -1873,10 +1835,10 @@
       "@type": "rdf:Property",
       "http://purl.org/dc/terms/source": [
         {
-          "@id": "http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO"
+          "@id": "https://github.com/schemaorg/schemaorg/issues/1253"
         },
         {
-          "@id": "https://github.com/schemaorg/schemaorg/issues/1253"
+          "@id": "http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO"
         }
       ],
       "http://schema.org/category": "issue-1253",
@@ -1893,39 +1855,58 @@
       "rdfs:label": "floorLimit"
     },
     {
-      "@id": "http://schema.org/XPathType",
+      "@id": "http://schema.org/ProductReturnEnumeration",
       "@type": "rdfs:Class",
       "http://purl.org/dc/terms/source": {
-        "@id": "https://github.com/schemaorg/schemaorg/issues/1672"
+        "@id": "https://github.com/schemaorg/schemaorg/issues/2288"
       },
-      "http://schema.org/category": "issue-1672",
+      "http://schema.org/category": "issue-2288",
       "http://schema.org/isPartOf": {
         "@id": "http://pending.schema.org"
       },
-      "rdfs:comment": "Text representing an XPath (typically but not necessarily version 1.0).",
-      "rdfs:label": "XPathType",
+      "rdfs:comment": "ProductReturnEnumeration enumerates several kinds of product return policy. Note that this structure may not capture all aspects of the policy.",
+      "rdfs:label": "ProductReturnEnumeration",
       "rdfs:subClassOf": {
-        "@id": "http://schema.org/Text"
+        "@id": "http://schema.org/Enumeration"
       }
     },
     {
-      "@id": "http://schema.org/contentReferenceTime",
+      "@id": "http://schema.org/legislationPassedBy",
       "@type": "rdf:Property",
-      "http://purl.org/dc/terms/source": {
-        "@id": "https://github.com/schemaorg/schemaorg/issues/1050"
-      },
-      "http://schema.org/category": "issue-1050",
+      "http://purl.org/dc/terms/source": [
+        {
+          "@id": "http://publications.europa.eu/mdr/eli/index.html"
+        },
+        {
+          "@id": "https://github.com/schemaorg/schemaorg/issues/1156"
+        }
+      ],
+      "http://schema.org/category": "issue-1156",
       "http://schema.org/domainIncludes": {
-        "@id": "http://schema.org/CreativeWork"
+        "@id": "http://schema.org/Legislation"
       },
       "http://schema.org/isPartOf": {
         "@id": "http://pending.schema.org"
       },
-      "http://schema.org/rangeIncludes": {
-        "@id": "http://schema.org/DateTime"
+      "http://schema.org/rangeIncludes": [
+        {
+          "@id": "http://schema.org/Person"
+        },
+        {
+          "@id": "http://schema.org/Organization"
+        }
+      ],
+      "http://www.w3.org/2002/07/owl#equivalentProperty": {
+        "@id": "http://data.europa.eu/eli/ontology#passed_by"
       },
-      "rdfs:comment": "The specific time described by a creative work, for works (e.g. articles, video objects etc.) that emphasise a particular moment within an Event.",
-      "rdfs:label": "contentReferenceTime"
+      "http://www.w3.org/2004/02/skos/core#exactMatch": {
+        "@id": "http://data.europa.eu/eli/ontology#passed_by"
+      },
+      "rdfs:comment": "The person or organization that originally passed or made the law : typically parliament (for primary legislation) or government (for secondary legislation). This indicates the \"legal author\" of the law, as opposed to its physical author.",
+      "rdfs:label": "legislationPassedBy",
+      "rdfs:subPropertyOf": {
+        "@id": "http://schema.org/creator"
+      }
     },
     {
       "@id": "http://schema.org/sdLicense",
@@ -1942,10 +1923,10 @@
       },
       "http://schema.org/rangeIncludes": [
         {
-          "@id": "http://schema.org/CreativeWork"
+          "@id": "http://schema.org/URL"
         },
         {
-          "@id": "http://schema.org/URL"
+          "@id": "http://schema.org/CreativeWork"
         }
       ],
       "rdfs:comment": "A license document that applies to this structured data, typically indicated by URL.",
@@ -2099,10 +2080,10 @@
       },
       "http://schema.org/rangeIncludes": [
         {
-          "@id": "http://schema.org/URL"
+          "@id": "http://schema.org/Article"
         },
         {
-          "@id": "http://schema.org/Article"
+          "@id": "http://schema.org/URL"
         }
       ],
       "rdfs:comment": "For an <a class=\"localLink\" href=\"http://schema.org/Organization\">Organization</a> (often but not necessarily a <a class=\"localLink\" href=\"http://schema.org/NewsMediaOrganization\">NewsMediaOrganization</a>), a report on staffing diversity issues. In a news context this might be for example ASNE or RTDNA (US) reports, or self-reported.",
@@ -2112,66 +2093,27 @@
       }
     },
     {
-      "@id": "http://schema.org/partOfTrip",
-      "@type": "rdf:Property",
+      "@id": "http://schema.org/ExchangeRefund",
+      "@type": "http://schema.org/RefundTypeEnumeration",
       "http://purl.org/dc/terms/source": {
-        "@id": "http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Tourism"
+        "@id": "https://github.com/schemaorg/schemaorg/issues/2288"
       },
-      "http://schema.org/category": "issue-1810",
-      "http://schema.org/domainIncludes": {
-        "@id": "http://schema.org/Trip"
-      },
-      "http://schema.org/inverseOf": {
-        "@id": "http://schema.org/subTrip"
-      },
+      "http://schema.org/category": "issue-2288",
       "http://schema.org/isPartOf": {
         "@id": "http://pending.schema.org"
       },
-      "http://schema.org/rangeIncludes": {
-        "@id": "http://schema.org/Trip"
-      },
-      "rdfs:comment": "Identifies that this <a class=\"localLink\" href=\"http://schema.org/Trip\">Trip</a> is a subTrip of another Trip.  For example Day 1, Day 2, etc. of a multi-day trip.",
-      "rdfs:label": "partOfTrip"
-    },
-    {
-      "@id": "http://schema.org/fundedItem",
-      "@type": "rdf:Property",
-      "http://purl.org/dc/terms/source": [
-        {
-          "@id": "https://github.com/schemaorg/schemaorg/issues/1950"
-        },
-        {
-          "@id": "https://github.com/schemaorg/schemaorg/issues/383"
-        },
-        {
-          "@id": "https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP"
-        }
-      ],
-      "http://schema.org/category": [
-        "issue-1688",
-        "issue-383"
-      ],
-      "http://schema.org/domainIncludes": {
-        "@id": "http://schema.org/Grant"
-      },
-      "http://schema.org/isPartOf": {
-        "@id": "http://pending.schema.org"
-      },
-      "http://schema.org/rangeIncludes": {
-        "@id": "http://schema.org/Thing"
-      },
-      "rdfs:comment": "Indicates an item funded or sponsored through a <a class=\"localLink\" href=\"http://schema.org/Grant\">Grant</a>.",
-      "rdfs:label": "fundedItem"
+      "rdfs:comment": "A ExchangeRefund ...",
+      "rdfs:label": "ExchangeRefund"
     },
     {
       "@id": "http://schema.org/legislationConsolidates",
       "@type": "rdf:Property",
       "http://purl.org/dc/terms/source": [
         {
-          "@id": "https://github.com/schemaorg/schemaorg/issues/1156"
+          "@id": "http://publications.europa.eu/mdr/eli/index.html"
         },
         {
-          "@id": "http://publications.europa.eu/mdr/eli/index.html"
+          "@id": "https://github.com/schemaorg/schemaorg/issues/1156"
         }
       ],
       "http://schema.org/category": "issue-1156",
@@ -2194,49 +2136,39 @@
       "rdfs:label": "legislationConsolidates"
     },
     {
-      "@id": "http://schema.org/backstory",
-      "@type": "rdf:Property",
-      "http://purl.org/dc/terms/source": [
-        {
-          "@id": "https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP"
-        },
-        {
-          "@id": "https://github.com/schemaorg/schemaorg/issues/1688"
-        }
-      ],
-      "http://schema.org/category": "issue-1688",
-      "http://schema.org/domainIncludes": {
-        "@id": "http://schema.org/Article"
-      },
-      "http://schema.org/isPartOf": {
-        "@id": "http://pending.schema.org"
-      },
-      "http://schema.org/rangeIncludes": [
-        {
-          "@id": "http://schema.org/CreativeWork"
-        },
-        {
-          "@id": "http://schema.org/Text"
-        }
-      ],
-      "rdfs:comment": "For an <a class=\"localLink\" href=\"http://schema.org/Article\">Article</a>, typically a <a class=\"localLink\" href=\"http://schema.org/NewsArticle\">NewsArticle</a>, the backstory property provides a textual summary giving a brief explanation of why and how an article was created. In a journalistic setting this could include information about reporting process, methods, interviews, data sources, etc.",
-      "rdfs:label": "backstory"
-    },
-    {
-      "@id": "http://schema.org/EducationalOccupationalCredential",
+      "@id": "http://schema.org/CompleteDataFeed",
       "@type": "rdfs:Class",
       "http://purl.org/dc/terms/source": {
-        "@id": "https://github.com/schemaorg/schemaorg/issues/1779"
+        "@id": "https://github.com/schemaorg/schemaorg/issues/1397"
       },
-      "http://schema.org/category": "issue-1779",
+      "http://schema.org/category": "issue-1397",
       "http://schema.org/isPartOf": {
         "@id": "http://pending.schema.org"
       },
-      "rdfs:comment": "An educational or occupational credential. A diploma, academic degree, certification, qualification, badge, etc., that may be awarded to a person or other entity that meets the requirements defined by the credentialer.",
-      "rdfs:label": "EducationalOccupationalCredential",
+      "rdfs:comment": "A <a class=\"localLink\" href=\"http://schema.org/CompleteDataFeed\">CompleteDataFeed</a> is a <a class=\"localLink\" href=\"http://schema.org/DataFeed\">DataFeed</a> whose standard representation includes content for every item currently in the feed.<br/><br/>\n\nThis is the equivalent of Atom's element as defined in Feed Paging and Archiving <a href=\"https://tools.ietf.org/html/rfc5005\">RFC 5005</a>, For example (and as defined for Atom), when using data from a feed that represents a collection of items that varies over time (e.g. \"Top Twenty Records\") there is no need to have newer entries mixed in alongside older, obsolete entries. By marking this feed as a CompleteDataFeed, old entries can be safely discarded when the feed is refreshed, since we can assume the feed has provided descriptions for all current items.",
+      "rdfs:label": "CompleteDataFeed",
       "rdfs:subClassOf": {
-        "@id": "http://schema.org/CreativeWork"
+        "@id": "http://schema.org/DataFeed"
       }
+    },
+    {
+      "@id": "http://schema.org/repeatCount",
+      "@type": "rdf:Property",
+      "http://purl.org/dc/terms/source": {
+        "@id": "https://github.com/schemaorg/schemaorg/issues/1457"
+      },
+      "http://schema.org/category": "issue-1457",
+      "http://schema.org/domainIncludes": {
+        "@id": "http://schema.org/Schedule"
+      },
+      "http://schema.org/isPartOf": {
+        "@id": "http://pending.schema.org"
+      },
+      "http://schema.org/rangeIncludes": {
+        "@id": "http://schema.org/Integer"
+      },
+      "rdfs:comment": "Defines the number of times a recurring <a class=\"localLink\" href=\"http://schema.org/Event\">Event</a> will take place",
+      "rdfs:label": "repeatCount"
     },
     {
       "@id": "http://schema.org/startOffset",
@@ -2282,36 +2214,30 @@
       "rdfs:label": "hasCredential"
     },
     {
-      "@id": "http://schema.org/legislationTransposes",
+      "@id": "http://schema.org/inCodeSet",
       "@type": "rdf:Property",
-      "http://purl.org/dc/terms/source": [
-        {
-          "@id": "http://publications.europa.eu/mdr/eli/index.html"
-        },
-        {
-          "@id": "https://github.com/schemaorg/schemaorg/issues/1156"
-        }
-      ],
-      "http://schema.org/category": "issue-1156",
+      "http://purl.org/dc/terms/source": {
+        "@id": "https://github.com/schemaorg/schemaorg/issues/894"
+      },
+      "http://schema.org/category": "issue-894",
       "http://schema.org/domainIncludes": {
-        "@id": "http://schema.org/Legislation"
+        "@id": "http://schema.org/CategoryCode"
       },
       "http://schema.org/isPartOf": {
         "@id": "http://pending.schema.org"
       },
-      "http://schema.org/rangeIncludes": {
-        "@id": "http://schema.org/Legislation"
-      },
-      "http://www.w3.org/2002/07/owl#equivalentProperty": {
-        "@id": "http://data.europa.eu/eli/ontology#transposes"
-      },
-      "http://www.w3.org/2004/02/skos/core#exactMatch": {
-        "@id": "http://data.europa.eu/eli/ontology#transposes"
-      },
-      "rdfs:comment": "Indicates that this legislation (or part of legislation) fulfills the objectives set by another legislation, by passing appropriate implementation measures. Typically, some legislations of European Union's member states or regions transpose European Directives. This indicates a legally binding link between the 2 legislations.",
-      "rdfs:label": "legislationTransposes",
+      "http://schema.org/rangeIncludes": [
+        {
+          "@id": "http://schema.org/CategoryCodeSet"
+        },
+        {
+          "@id": "http://schema.org/URL"
+        }
+      ],
+      "rdfs:comment": "A <a class=\"localLink\" href=\"http://schema.org/CategoryCodeSet\">CategoryCodeSet</a> that contains this category code.",
+      "rdfs:label": "inCodeSet",
       "rdfs:subPropertyOf": {
-        "@id": "http://schema.org/legislationApplies"
+        "@id": "http://schema.org/inDefinedTermSet"
       }
     },
     {
@@ -2366,10 +2292,10 @@
       },
       "http://schema.org/rangeIncludes": [
         {
-          "@id": "http://schema.org/URL"
+          "@id": "http://schema.org/CreativeWork"
         },
         {
-          "@id": "http://schema.org/CreativeWork"
+          "@id": "http://schema.org/URL"
         }
       ],
       "rdfs:comment": "For a <a class=\"localLink\" href=\"http://schema.org/NewsMediaOrganization\">NewsMediaOrganization</a>, a statement on coverage priorities, including any public agenda or stance on issues.",
@@ -2414,10 +2340,10 @@
       "http://schema.org/category": "issue-1688",
       "http://schema.org/domainIncludes": [
         {
-          "@id": "http://schema.org/Person"
+          "@id": "http://schema.org/Organization"
         },
         {
-          "@id": "http://schema.org/Organization"
+          "@id": "http://schema.org/Person"
         }
       ],
       "http://schema.org/isPartOf": {
@@ -2425,10 +2351,10 @@
       },
       "http://schema.org/rangeIncludes": [
         {
-          "@id": "http://schema.org/Text"
+          "@id": "http://schema.org/Language"
         },
         {
-          "@id": "http://schema.org/Language"
+          "@id": "http://schema.org/Text"
         }
       ],
       "rdfs:comment": "Of a <a class=\"localLink\" href=\"http://schema.org/Person\">Person</a>, and less typically of an <a class=\"localLink\" href=\"http://schema.org/Organization\">Organization</a>, to indicate a known language. We do not distinguish skill levels or reading/writing/speaking/signing here. Use language codes from the <a href=\"http://tools.ietf.org/html/bcp47\">IETF BCP 47 standard</a>.",
@@ -2439,10 +2365,10 @@
       "@type": "rdf:Property",
       "http://purl.org/dc/terms/source": [
         {
-          "@id": "https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP"
+          "@id": "https://github.com/schemaorg/schemaorg/issues/1950"
         },
         {
-          "@id": "https://github.com/schemaorg/schemaorg/issues/1950"
+          "@id": "https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP"
         }
       ],
       "http://schema.org/category": [
@@ -2460,33 +2386,33 @@
           "@id": "http://schema.org/URL"
         },
         {
-          "@id": "http://schema.org/Text"
+          "@id": "http://schema.org/CorrectionComment"
         },
         {
-          "@id": "http://schema.org/CorrectionComment"
+          "@id": "http://schema.org/Text"
         }
       ],
       "rdfs:comment": "Indicates a correction to a <a class=\"localLink\" href=\"http://schema.org/CreativeWork\">CreativeWork</a>, either via a <a class=\"localLink\" href=\"http://schema.org/CorrectionComment\">CorrectionComment</a>, textually or in another document.",
       "rdfs:label": "correction"
     },
     {
-      "@id": "http://schema.org/linkRelationship",
+      "@id": "http://schema.org/productReturnLink",
       "@type": "rdf:Property",
       "http://purl.org/dc/terms/source": {
-        "@id": "https://github.com/schemaorg/schemaorg/issues/1045"
+        "@id": "https://github.com/schemaorg/schemaorg/issues/2288"
       },
-      "http://schema.org/category": "issue-1045",
+      "http://schema.org/category": "issue-2288",
       "http://schema.org/domainIncludes": {
-        "@id": "http://schema.org/LinkRole"
+        "@id": "http://schema.org/ProductReturnPolicy"
       },
       "http://schema.org/isPartOf": {
         "@id": "http://pending.schema.org"
       },
       "http://schema.org/rangeIncludes": {
-        "@id": "http://schema.org/Text"
+        "@id": "http://schema.org/URL"
       },
-      "rdfs:comment": "Indicates the relationship type of a Web link.",
-      "rdfs:label": "linkRelationship"
+      "rdfs:comment": "Indicates a Web page or service by URL, for product return.",
+      "rdfs:label": "productReturnLink"
     },
     {
       "@id": "http://schema.org/verificationFactCheckingPolicy",
@@ -2508,10 +2434,10 @@
       },
       "http://schema.org/rangeIncludes": [
         {
-          "@id": "http://schema.org/CreativeWork"
+          "@id": "http://schema.org/URL"
         },
         {
-          "@id": "http://schema.org/URL"
+          "@id": "http://schema.org/CreativeWork"
         }
       ],
       "rdfs:comment": "Disclosure about verification and fact-checking processes for a <a class=\"localLink\" href=\"http://schema.org/NewsMediaOrganization\">NewsMediaOrganization</a> or other fact-checking <a class=\"localLink\" href=\"http://schema.org/Organization\">Organization</a>.",
@@ -2537,10 +2463,10 @@
       },
       "http://www.w3.org/2004/02/skos/core#closeMatch": [
         {
-          "@id": "http://data.europa.eu/eli/ontology#LegalExpression"
+          "@id": "http://data.europa.eu/eli/ontology#LegalResource"
         },
         {
-          "@id": "http://data.europa.eu/eli/ontology#LegalResource"
+          "@id": "http://data.europa.eu/eli/ontology#LegalExpression"
         }
       ],
       "rdfs:comment": "A legal document such as an act, decree, bill, etc. (enforceable or not) or a component of a legal act (like an article).",
@@ -2554,10 +2480,10 @@
       "@type": "rdf:Property",
       "http://purl.org/dc/terms/source": [
         {
-          "@id": "https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP"
+          "@id": "https://github.com/schemaorg/schemaorg/issues/1688"
         },
         {
-          "@id": "https://github.com/schemaorg/schemaorg/issues/1688"
+          "@id": "https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP"
         }
       ],
       "http://schema.org/category": "issue-1688",
@@ -2577,10 +2503,10 @@
           "@id": "http://schema.org/Text"
         },
         {
-          "@id": "http://schema.org/Thing"
+          "@id": "http://schema.org/URL"
         },
         {
-          "@id": "http://schema.org/URL"
+          "@id": "http://schema.org/Thing"
         }
       ],
       "rdfs:comment": "Of a <a class=\"localLink\" href=\"http://schema.org/Person\">Person</a>, and less typically of an <a class=\"localLink\" href=\"http://schema.org/Organization\">Organization</a>, to indicate a topic that is known about - suggesting possible expertise but not implying it. We do not distinguish skill levels here, or relate this to educational content, events, objectives or <a class=\"localLink\" href=\"http://schema.org/JobPosting\">JobPosting</a> descriptions.",
@@ -2591,10 +2517,10 @@
       "@type": "rdfs:Class",
       "http://purl.org/dc/terms/source": [
         {
-          "@id": "http://publications.europa.eu/mdr/eli/index.html"
+          "@id": "https://github.com/schemaorg/schemaorg/issues/1156"
         },
         {
-          "@id": "https://github.com/schemaorg/schemaorg/issues/1156"
+          "@id": "http://publications.europa.eu/mdr/eli/index.html"
         }
       ],
       "http://schema.org/category": "issue-1156",
@@ -2611,23 +2537,25 @@
       }
     },
     {
-      "@id": "http://schema.org/termCode",
-      "@type": "rdf:Property",
-      "http://purl.org/dc/terms/source": {
-        "@id": "https://github.com/schemaorg/schemaorg/issues/894"
-      },
-      "http://schema.org/category": "issue-894",
-      "http://schema.org/domainIncludes": {
-        "@id": "http://schema.org/DefinedTerm"
-      },
+      "@id": "http://schema.org/AskPublicNewsArticle",
+      "@type": "rdfs:Class",
+      "http://purl.org/dc/terms/source": [
+        {
+          "@id": "https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP"
+        },
+        {
+          "@id": "https://github.com/schemaorg/schemaorg/issues/1525"
+        }
+      ],
+      "http://schema.org/category": "issue-1525",
       "http://schema.org/isPartOf": {
         "@id": "http://pending.schema.org"
       },
-      "http://schema.org/rangeIncludes": {
-        "@id": "http://schema.org/Text"
-      },
-      "rdfs:comment": "A code that identifies this <a class=\"localLink\" href=\"http://schema.org/DefinedTerm\">DefinedTerm</a> within a <a class=\"localLink\" href=\"http://schema.org/DefinedTermSet\">DefinedTermSet</a>",
-      "rdfs:label": "termCode"
+      "rdfs:comment": "A <a class=\"localLink\" href=\"http://schema.org/NewsArticle\">NewsArticle</a> expressing an open call by a <a class=\"localLink\" href=\"http://schema.org/NewsMediaOrganization\">NewsMediaOrganization</a> asking the public for input, insights, clarifications, anecdotes, documentation, etc., on an issue, for reporting purposes.",
+      "rdfs:label": "AskPublicNewsArticle",
+      "rdfs:subClassOf": {
+        "@id": "http://schema.org/NewsArticle"
+      }
     },
     {
       "@id": "http://schema.org/membershipPointsEarned",
@@ -2644,10 +2572,10 @@
       },
       "http://schema.org/rangeIncludes": [
         {
-          "@id": "http://schema.org/QuantitativeValue"
+          "@id": "http://schema.org/Number"
         },
         {
-          "@id": "http://schema.org/Number"
+          "@id": "http://schema.org/QuantitativeValue"
         }
       ],
       "rdfs:comment": "The number of membership points earned by the member. If necessary, the unitText can be used to express the units the points are issued in. (e.g. stars, miles, etc.)",
@@ -2658,10 +2586,10 @@
       "@type": "rdf:Property",
       "http://purl.org/dc/terms/source": [
         {
-          "@id": "http://publications.europa.eu/mdr/eli/index.html"
+          "@id": "https://github.com/schemaorg/schemaorg/issues/1156"
         },
         {
-          "@id": "https://github.com/schemaorg/schemaorg/issues/1156"
+          "@id": "http://publications.europa.eu/mdr/eli/index.html"
         }
       ],
       "http://schema.org/category": "issue-1156",
@@ -2673,10 +2601,10 @@
       },
       "http://schema.org/rangeIncludes": [
         {
-          "@id": "http://schema.org/Text"
+          "@id": "http://schema.org/AdministrativeArea"
         },
         {
-          "@id": "http://schema.org/AdministrativeArea"
+          "@id": "http://schema.org/Text"
         }
       ],
       "http://www.w3.org/2002/07/owl#equivalentProperty": {
@@ -2692,64 +2620,58 @@
       }
     },
     {
-      "@id": "http://schema.org/qualifications",
+      "@id": "http://schema.org/archiveHeld",
       "@type": "rdf:Property",
-      "http://purl.org/dc/terms/source": [
-        {
-          "@id": "https://github.com/schemaorg/schemaorg/issues/1698"
-        },
-        {
-          "@id": "https://github.com/schemaorg/schemaorg/issues/1779"
-        }
-      ],
-      "http://schema.org/category": [
-        "issue-1698",
-        "issue-1779"
-      ],
-      "http://schema.org/domainIncludes": [
-        {
-          "@id": "http://schema.org/Occupation"
-        },
-        {
-          "@id": "http://schema.org/JobPosting"
-        }
-      ],
+      "http://purl.org/dc/terms/source": {
+        "@id": "https://github.com/schemaorg/schemaorg/issues/1758"
+      },
+      "http://schema.org/category": {
+        "@language": "en",
+        "@value": "issue-1758"
+      },
+      "http://schema.org/domainIncludes": {
+        "@id": "http://schema.org/ArchiveOrganization"
+      },
+      "http://schema.org/inverseOf": {
+        "@id": "http://schema.org/holdingArchive"
+      },
       "http://schema.org/isPartOf": {
         "@id": "http://pending.schema.org"
       },
-      "http://schema.org/rangeIncludes": [
-        {
-          "@id": "http://schema.org/EducationalOccupationalCredential"
-        },
-        {
-          "@id": "http://schema.org/Text"
-        }
-      ],
-      "rdfs:comment": "Specific qualifications required for this role or Occupation.",
-      "rdfs:label": "qualifications"
+      "http://schema.org/rangeIncludes": {
+        "@id": "http://schema.org/ArchiveComponent"
+      },
+      "rdfs:comment": "Collection, <a href=\"https://en.wikipedia.org/wiki/Fonds\">fonds</a>, or item held, kept or maintained by an <a class=\"localLink\" href=\"http://schema.org/ArchiveOrganization\">ArchiveOrganization</a>.",
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "archiveHeld"
+      }
     },
     {
-      "@id": "http://schema.org/LegalValueLevel",
-      "@type": "rdfs:Class",
-      "http://purl.org/dc/terms/source": [
+      "@id": "http://schema.org/codeValue",
+      "@type": "rdf:Property",
+      "http://purl.org/dc/terms/source": {
+        "@id": "https://github.com/schemaorg/schemaorg/issues/894"
+      },
+      "http://schema.org/category": "issue-894",
+      "http://schema.org/domainIncludes": [
         {
-          "@id": "http://publications.europa.eu/mdr/eli/index.html"
+          "@id": "http://schema.org/CategoryCode"
         },
         {
-          "@id": "https://github.com/schemaorg/schemaorg/issues/1156"
+          "@id": "http://schema.org/MedicalCode"
         }
       ],
-      "http://schema.org/category": "issue-1156",
       "http://schema.org/isPartOf": {
         "@id": "http://pending.schema.org"
       },
-      "http://www.w3.org/2004/02/skos/core#closeMatch": {
-        "@id": "http://data.europa.eu/eli/ontology#LegalValue"
+      "http://schema.org/rangeIncludes": {
+        "@id": "http://schema.org/Text"
       },
-      "rdfs:comment": "A list of possible levels for the legal validity of a legislation.",
-      "rdfs:label": "LegalValueLevel",
-      "rdfs:subClassOf": {
-        "@id": "http://schema.org/Enumeration"
+      "rdfs:comment": "A short textual code that uniquely identifies the value.",
+      "rdfs:label": "codeValue",
+      "rdfs:subPropertyOf": {
+        "@id": "http://schema.org/termCode"
       }
     },
     {
@@ -2795,10 +2717,10 @@
       "@type": "rdf:Property",
       "http://purl.org/dc/terms/source": [
         {
-          "@id": "https://github.com/schemaorg/schemaorg/issues/1253"
+          "@id": "http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO"
         },
         {
-          "@id": "http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO"
+          "@id": "https://github.com/schemaorg/schemaorg/issues/1253"
         }
       ],
       "http://schema.org/category": "issue-1253",
@@ -2819,10 +2741,10 @@
       "@type": "rdf:Property",
       "http://purl.org/dc/terms/source": [
         {
-          "@id": "http://publications.europa.eu/mdr/eli/index.html"
+          "@id": "https://github.com/schemaorg/schemaorg/issues/1156"
         },
         {
-          "@id": "https://github.com/schemaorg/schemaorg/issues/1156"
+          "@id": "http://publications.europa.eu/mdr/eli/index.html"
         }
       ],
       "http://schema.org/category": "issue-1156",
@@ -2862,10 +2784,10 @@
       },
       "http://schema.org/rangeIncludes": [
         {
-          "@id": "http://schema.org/Text"
+          "@id": "http://schema.org/QuantitativeValue"
         },
         {
-          "@id": "http://schema.org/QuantitativeValue"
+          "@id": "http://schema.org/Text"
         }
       ],
       "rdfs:comment": "The quantity of the materials being described or an expression of the physical space they occupy.",
@@ -2891,20 +2813,23 @@
       }
     },
     {
-      "@id": "http://schema.org/EmployerReview",
-      "@type": "rdfs:Class",
+      "@id": "http://schema.org/byMonthDay",
+      "@type": "rdf:Property",
       "http://purl.org/dc/terms/source": {
-        "@id": "https://github.com/schemaorg/schemaorg/issues/1589"
+        "@id": "https://github.com/schemaorg/schemaorg/issues/1457"
       },
-      "http://schema.org/category": "issue-1576",
+      "http://schema.org/category": "issue-1457",
+      "http://schema.org/domainIncludes": {
+        "@id": "http://schema.org/Schedule"
+      },
       "http://schema.org/isPartOf": {
         "@id": "http://pending.schema.org"
       },
-      "rdfs:comment": "An <a class=\"localLink\" href=\"http://schema.org/EmployerReview\">EmployerReview</a> is a review of an <a class=\"localLink\" href=\"http://schema.org/Organization\">Organization</a> regarding its role as an employer, written by a current or former employee of that organization.",
-      "rdfs:label": "EmployerReview",
-      "rdfs:subClassOf": {
-        "@id": "http://schema.org/Review"
-      }
+      "http://schema.org/rangeIncludes": {
+        "@id": "http://schema.org/Integer"
+      },
+      "rdfs:comment": "Defines the day(s) of the month on which a recurring <a class=\"localLink\" href=\"http://schema.org/Event\">Event</a> takes place. Specified as an <a class=\"localLink\" href=\"http://schema.org/Integer\">Integer</a> between 1-31.",
+      "rdfs:label": "byMonthDay"
     },
     {
       "@id": "http://schema.org/ethicsPolicy",
@@ -2926,24 +2851,43 @@
       },
       "http://schema.org/rangeIncludes": [
         {
-          "@id": "http://schema.org/URL"
+          "@id": "http://schema.org/CreativeWork"
         },
         {
-          "@id": "http://schema.org/CreativeWork"
+          "@id": "http://schema.org/URL"
         }
       ],
       "rdfs:comment": "Statement about ethics policy, e.g. of a <a class=\"localLink\" href=\"http://schema.org/NewsMediaOrganization\">NewsMediaOrganization</a> regarding journalistic and publishing practices, or of a <a class=\"localLink\" href=\"http://schema.org/Restaurant\">Restaurant</a>, a page describing food source policies. In the case of a <a class=\"localLink\" href=\"http://schema.org/NewsMediaOrganization\">NewsMediaOrganization</a>, an ethicsPolicy is typically a statement describing the personal, organizational, and corporate standards of behavior expected by the organization.",
       "rdfs:label": "ethicsPolicy"
     },
     {
+      "@id": "http://schema.org/timeToComplete",
+      "@type": "rdf:Property",
+      "http://purl.org/dc/terms/source": {
+        "@id": "https://github.com/schemaorg/schemaorg/issues/2289"
+      },
+      "http://schema.org/category": "issue-2289",
+      "http://schema.org/domainIncludes": {
+        "@id": "http://schema.org/EducationalOccupationalProgram"
+      },
+      "http://schema.org/isPartOf": {
+        "@id": "http://pending.schema.org"
+      },
+      "http://schema.org/rangeIncludes": {
+        "@id": "http://schema.org/Duration"
+      },
+      "rdfs:comment": "The expected length of time to complete the program if attending full-time.",
+      "rdfs:label": "timeToComplete"
+    },
+    {
       "@id": "http://schema.org/ReportageNewsArticle",
       "@type": "rdfs:Class",
       "http://purl.org/dc/terms/source": [
         {
-          "@id": "https://github.com/schemaorg/schemaorg/issues/1525"
+          "@id": "https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP"
         },
         {
-          "@id": "https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP"
+          "@id": "https://github.com/schemaorg/schemaorg/issues/1525"
         }
       ],
       "http://schema.org/category": "issue-1525",
@@ -2981,54 +2925,62 @@
       "rdfs:label": "accountMinimumInflow"
     },
     {
-      "@id": "http://schema.org/CriticReview",
+      "@id": "http://schema.org/ProductReturnPolicy",
+      "@type": "rdfs:Class",
+      "http://purl.org/dc/terms/source": {
+        "@id": "https://github.com/schemaorg/schemaorg/issues/2288"
+      },
+      "http://schema.org/category": "issue-2288",
+      "http://schema.org/isPartOf": {
+        "@id": "http://pending.schema.org"
+      },
+      "rdfs:comment": "A ProductReturnPolicy provides information about product return policies associated with an <a class=\"localLink\" href=\"http://schema.org/Organization\">Organization</a> or <a class=\"localLink\" href=\"http://schema.org/Product\">Product</a>.",
+      "rdfs:label": "ProductReturnPolicy",
+      "rdfs:subClassOf": {
+        "@id": "http://schema.org/Intangible"
+      }
+    },
+    {
+      "@id": "http://schema.org/Project",
+      "@type": "rdfs:Class",
+      "http://purl.org/dc/terms/source": {
+        "@id": "https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FundInfoCollab"
+      },
+      "http://schema.org/category": "issue-383",
+      "http://schema.org/isPartOf": {
+        "@id": "http://pending.schema.org"
+      },
+      "rdfs:comment": "An enterprise (potentially individual but typically collaborative), planned to achieve a particular aim.\nUse properties from <a class=\"localLink\" href=\"http://schema.org/Organization\">Organization</a>, <a class=\"localLink\" href=\"http://schema.org/subOrganization\">subOrganization</a>/<a class=\"localLink\" href=\"http://schema.org/parentOrganization\">parentOrganization</a> to indicate project sub-structures.",
+      "rdfs:label": "Project",
+      "rdfs:subClassOf": {
+        "@id": "http://schema.org/Organization"
+      }
+    },
+    {
+      "@id": "http://schema.org/EmployerReview",
       "@type": "rdfs:Class",
       "http://purl.org/dc/terms/source": {
         "@id": "https://github.com/schemaorg/schemaorg/issues/1589"
       },
-      "http://schema.org/category": "issue-1589",
+      "http://schema.org/category": "issue-1576",
       "http://schema.org/isPartOf": {
         "@id": "http://pending.schema.org"
       },
-      "rdfs:comment": "A <a class=\"localLink\" href=\"http://schema.org/CriticReview\">CriticReview</a> is a more specialized form of Review written or published by a source that is recognized for its reviewing activities. These can include online columns, travel and food guides, TV and radio shows, blogs and other independent Web sites. <a class=\"localLink\" href=\"http://schema.org/CriticReview\">CriticReview</a>s are typically more in-depth and professionally written. For simpler, casually written user/visitor/viewer/customer reviews, it is more appropriate to use the <a class=\"localLink\" href=\"http://schema.org/UserReview\">UserReview</a> type. Review aggregator sites such as Metacritic already separate out the site's user reviews from selected critic reviews that originate from third-party sources.",
-      "rdfs:label": "CriticReview",
+      "rdfs:comment": "An <a class=\"localLink\" href=\"http://schema.org/EmployerReview\">EmployerReview</a> is a review of an <a class=\"localLink\" href=\"http://schema.org/Organization\">Organization</a> regarding its role as an employer, written by a current or former employee of that organization.",
+      "rdfs:label": "EmployerReview",
       "rdfs:subClassOf": {
         "@id": "http://schema.org/Review"
       }
-    },
-    {
-      "@id": "http://schema.org/renegotiableLoan",
-      "@type": "rdf:Property",
-      "http://purl.org/dc/terms/source": [
-        {
-          "@id": "http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO"
-        },
-        {
-          "@id": "https://github.com/schemaorg/schemaorg/issues/1253"
-        }
-      ],
-      "http://schema.org/category": "issue-1253",
-      "http://schema.org/domainIncludes": {
-        "@id": "http://schema.org/LoanOrCredit"
-      },
-      "http://schema.org/isPartOf": {
-        "@id": "http://pending.schema.org"
-      },
-      "http://schema.org/rangeIncludes": {
-        "@id": "http://schema.org/Boolean"
-      },
-      "rdfs:comment": "Whether the terms for payment of interest can be renegotiated during the life of the loan.",
-      "rdfs:label": "renegotiableLoan"
     },
     {
       "@id": "http://schema.org/exchangeRateSpread",
       "@type": "rdf:Property",
       "http://purl.org/dc/terms/source": [
         {
-          "@id": "http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO"
+          "@id": "https://github.com/schemaorg/schemaorg/issues/1253"
         },
         {
-          "@id": "https://github.com/schemaorg/schemaorg/issues/1253"
+          "@id": "http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO"
         }
       ],
       "http://schema.org/category": "issue-1253",
@@ -3040,10 +2992,10 @@
       },
       "http://schema.org/rangeIncludes": [
         {
-          "@id": "http://schema.org/Number"
+          "@id": "http://schema.org/MonetaryAmount"
         },
         {
-          "@id": "http://schema.org/MonetaryAmount"
+          "@id": "http://schema.org/Number"
         }
       ],
       "rdfs:comment": "The difference between the price at which a broker or other intermediary buys and sells foreign currency.",
@@ -3074,6 +3026,35 @@
       "rdfs:label": "spokenByCharacter"
     },
     {
+      "@id": "http://schema.org/bankAccountType",
+      "@type": "rdf:Property",
+      "http://purl.org/dc/terms/source": [
+        {
+          "@id": "http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO"
+        },
+        {
+          "@id": "https://github.com/schemaorg/schemaorg/issues/1253"
+        }
+      ],
+      "http://schema.org/category": "issue-1253",
+      "http://schema.org/domainIncludes": {
+        "@id": "http://schema.org/BankAccount"
+      },
+      "http://schema.org/isPartOf": {
+        "@id": "http://pending.schema.org"
+      },
+      "http://schema.org/rangeIncludes": [
+        {
+          "@id": "http://schema.org/Text"
+        },
+        {
+          "@id": "http://schema.org/URL"
+        }
+      ],
+      "rdfs:comment": "The type of a bank account.",
+      "rdfs:label": "bankAccountType"
+    },
+    {
       "@id": "http://schema.org/healthPlanNetworkTier",
       "@type": "rdf:Property",
       "http://purl.org/dc/terms/source": {
@@ -3093,33 +3074,23 @@
       "rdfs:label": "healthPlanNetworkTier"
     },
     {
-      "@id": "http://schema.org/LegislationObject",
-      "@type": "rdfs:Class",
-      "http://purl.org/dc/terms/source": [
-        {
-          "@id": "http://publications.europa.eu/mdr/eli/index.html"
-        },
-        {
-          "@id": "https://github.com/schemaorg/schemaorg/issues/1156"
-        }
-      ],
-      "http://schema.org/category": "issue-1156",
+      "@id": "http://schema.org/byDay",
+      "@type": "rdf:Property",
+      "http://purl.org/dc/terms/source": {
+        "@id": "https://github.com/schemaorg/schemaorg/issues/1457"
+      },
+      "http://schema.org/category": "issue-1457",
+      "http://schema.org/domainIncludes": {
+        "@id": "http://schema.org/Schedule"
+      },
       "http://schema.org/isPartOf": {
         "@id": "http://pending.schema.org"
       },
-      "http://www.w3.org/2004/02/skos/core#closeMatch": {
-        "@id": "http://data.europa.eu/eli/ontology#Format"
+      "http://schema.org/rangeIncludes": {
+        "@id": "http://schema.org/DayOfWeek"
       },
-      "rdfs:comment": "A specific object or file containing a Legislation. Note that the same Legislation can be published in multiple files. For example, a digitally signed PDF, a plain PDF and an HTML version.",
-      "rdfs:label": "LegislationObject",
-      "rdfs:subClassOf": [
-        {
-          "@id": "http://schema.org/Legislation"
-        },
-        {
-          "@id": "http://schema.org/MediaObject"
-        }
-      ]
+      "rdfs:comment": "Defines the day(s) of the week on which a recurring <a class=\"localLink\" href=\"http://schema.org/Event\">Event</a> takes place",
+      "rdfs:label": "byDay"
     },
     {
       "@id": "http://schema.org/credentialCategory",
@@ -3136,10 +3107,10 @@
       },
       "http://schema.org/rangeIncludes": [
         {
-          "@id": "http://schema.org/DefinedTerm"
+          "@id": "http://schema.org/Text"
         },
         {
-          "@id": "http://schema.org/Text"
+          "@id": "http://schema.org/DefinedTerm"
         },
         {
           "@id": "http://schema.org/URL"
@@ -3153,10 +3124,10 @@
       "@type": "rdf:Property",
       "http://purl.org/dc/terms/source": [
         {
-          "@id": "https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP"
+          "@id": "https://github.com/schemaorg/schemaorg/issues/1688"
         },
         {
-          "@id": "https://github.com/schemaorg/schemaorg/issues/1688"
+          "@id": "https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP"
         }
       ],
       "http://schema.org/category": "issue-1688",
@@ -3168,10 +3139,10 @@
       },
       "http://schema.org/rangeIncludes": [
         {
-          "@id": "http://schema.org/CreativeWork"
+          "@id": "http://schema.org/URL"
         },
         {
-          "@id": "http://schema.org/URL"
+          "@id": "http://schema.org/CreativeWork"
         }
       ],
       "rdfs:comment": "For a <a class=\"localLink\" href=\"http://schema.org/NewsMediaOrganization\">NewsMediaOrganization</a> or other news-related <a class=\"localLink\" href=\"http://schema.org/Organization\">Organization</a>, a statement explaining when authors of articles are not named in bylines.",
@@ -3195,25 +3166,6 @@
       "rdfs:subClassOf": {
         "@id": "http://schema.org/Text"
       }
-    },
-    {
-      "@id": "http://schema.org/byMonthDay",
-      "@type": "rdf:Property",
-      "http://purl.org/dc/terms/source": {
-        "@id": "https://github.com/schemaorg/schemaorg/issues/1457"
-      },
-      "http://schema.org/category": "issue-1457",
-      "http://schema.org/domainIncludes": {
-        "@id": "http://schema.org/Schedule"
-      },
-      "http://schema.org/isPartOf": {
-        "@id": "http://pending.schema.org"
-      },
-      "http://schema.org/rangeIncludes": {
-        "@id": "http://schema.org/Integer"
-      },
-      "rdfs:comment": "Defines the day(s) of the month on which a recurring <a class=\"localLink\" href=\"http://schema.org/Event\">Event</a> takes place. Specified as an <a class=\"localLink\" href=\"http://schema.org/Integer\">Integer</a> between 1-31.",
-      "rdfs:label": "byMonthDay"
     },
     {
       "@id": "http://schema.org/loanPaymentAmount",
@@ -3248,10 +3200,10 @@
       "http://schema.org/category": "issue-2289",
       "http://schema.org/domainIncludes": [
         {
-          "@id": "http://schema.org/Course"
+          "@id": "http://schema.org/EducationalOccupationalProgram"
         },
         {
-          "@id": "http://schema.org/EducationalOccupationalProgram"
+          "@id": "http://schema.org/Course"
         }
       ],
       "http://schema.org/isPartOf": {
@@ -3259,13 +3211,13 @@
       },
       "http://schema.org/rangeIncludes": [
         {
-          "@id": "http://schema.org/Text"
-        },
-        {
           "@id": "http://schema.org/URL"
         },
         {
           "@id": "http://schema.org/EducationalOccupationalCredential"
+        },
+        {
+          "@id": "http://schema.org/Text"
         }
       ],
       "rdfs:comment": "A description of the qualification, award, certificate, diploma or other occupational credential awarded as a consequence of successful completion of this course or program.",
@@ -3292,10 +3244,10 @@
       "@type": "rdf:Property",
       "http://purl.org/dc/terms/source": [
         {
-          "@id": "https://github.com/schemaorg/schemaorg/issues/1156"
+          "@id": "http://publications.europa.eu/mdr/eli/index.html"
         },
         {
-          "@id": "http://publications.europa.eu/mdr/eli/index.html"
+          "@id": "https://github.com/schemaorg/schemaorg/issues/1156"
         }
       ],
       "http://schema.org/category": "issue-1156",
@@ -3371,10 +3323,10 @@
       "@type": "rdf:Property",
       "http://purl.org/dc/terms/source": [
         {
-          "@id": "https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP"
+          "@id": "https://github.com/schemaorg/schemaorg/issues/1525"
         },
         {
-          "@id": "https://github.com/schemaorg/schemaorg/issues/1525"
+          "@id": "https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP"
         }
       ],
       "http://schema.org/category": "issue-1525",
@@ -3404,24 +3356,33 @@
       }
     },
     {
-      "@id": "http://schema.org/RepaymentSpecification",
-      "@type": "rdfs:Class",
-      "http://purl.org/dc/terms/source": [
+      "@id": "http://schema.org/gtin",
+      "@type": "rdf:Property",
+      "http://purl.org/dc/terms/source": {
+        "@id": "https://github.com/schemaorg/schemaorg/issues/2288"
+      },
+      "http://schema.org/category": "issue-1244",
+      "http://schema.org/domainIncludes": [
         {
-          "@id": "http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO"
+          "@id": "http://schema.org/Demand"
         },
         {
-          "@id": "https://github.com/schemaorg/schemaorg/issues/1253"
+          "@id": "http://schema.org/Offer"
+        },
+        {
+          "@id": "http://schema.org/Product"
         }
       ],
-      "http://schema.org/category": "issue-1253",
       "http://schema.org/isPartOf": {
         "@id": "http://pending.schema.org"
       },
-      "rdfs:comment": "A structured value representing repayment.",
-      "rdfs:label": "RepaymentSpecification",
-      "rdfs:subClassOf": {
-        "@id": "http://schema.org/StructuredValue"
+      "http://schema.org/rangeIncludes": {
+        "@id": "http://schema.org/Text"
+      },
+      "rdfs:comment": "A Global Trade Item Number (<a href=\"https://www.gs1.org/standards/id-keys/gtin\">GTIN</a>). GTINs identify trade items, including products and services, using numeric identification codes. The <a class=\"localLink\" href=\"http://schema.org/gtin\">gtin</a> property generalizes the earlier <a class=\"localLink\" href=\"http://schema.org/gtin8\">gtin8</a>, <a class=\"localLink\" href=\"http://schema.org/gtin12\">gtin12</a>, <a class=\"localLink\" href=\"http://schema.org/gtin13\">gtin13</a>, and <a class=\"localLink\" href=\"http://schema.org/gtin14\">gtin14</a> properties. The GS1 <a href=\"https://www.gs1.org/standards/Digital-Link/\">digital link specifications</a> express GTINs as URLs. A correct <a class=\"localLink\" href=\"http://schema.org/gtin\">gtin</a> value should be a valid GTIN, which means that it should be an all-numeric string of either 8, 12, 13 or 14 digits, or a \"GS1 Digital Link\" URL based on such a string. The numeric component should also have a <a href=\"https://www.gs1.org/services/check-digit-calculator\">valid GS1 check digit</a> and meet the other rules for valid GTINs. See also <a href=\"http://www.gs1.org/barcodes/technical/idkeys/gtin\">GS1's GTIN Summary</a> and <a href=\"https://en.wikipedia.org/wiki/Global_Trade_Item_Number\">Wikipedia</a> for more details. Left-padding of the gtin values is not required or encouraged.",
+      "rdfs:label": "gtin",
+      "rdfs:subPropertyOf": {
+        "@id": "http://schema.org/identifier"
       }
     },
     {
@@ -3429,10 +3390,10 @@
       "@type": "rdfs:Class",
       "http://purl.org/dc/terms/source": [
         {
-          "@id": "http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Tourism"
+          "@id": "http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#IIT-CNR.it"
         },
         {
-          "@id": "http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#IIT-CNR.it"
+          "@id": "http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Tourism"
         }
       ],
       "http://schema.org/category": "issue-1810",
@@ -3462,6 +3423,35 @@
       }
     },
     {
+      "@id": "http://schema.org/LegislationObject",
+      "@type": "rdfs:Class",
+      "http://purl.org/dc/terms/source": [
+        {
+          "@id": "http://publications.europa.eu/mdr/eli/index.html"
+        },
+        {
+          "@id": "https://github.com/schemaorg/schemaorg/issues/1156"
+        }
+      ],
+      "http://schema.org/category": "issue-1156",
+      "http://schema.org/isPartOf": {
+        "@id": "http://pending.schema.org"
+      },
+      "http://www.w3.org/2004/02/skos/core#closeMatch": {
+        "@id": "http://data.europa.eu/eli/ontology#Format"
+      },
+      "rdfs:comment": "A specific object or file containing a Legislation. Note that the same Legislation can be published in multiple files. For example, a digitally signed PDF, a plain PDF and an HTML version.",
+      "rdfs:label": "LegislationObject",
+      "rdfs:subClassOf": [
+        {
+          "@id": "http://schema.org/Legislation"
+        },
+        {
+          "@id": "http://schema.org/MediaObject"
+        }
+      ]
+    },
+    {
       "@id": "http://schema.org/isAcceptingNewPatients",
       "@type": "rdf:Property",
       "http://purl.org/dc/terms/source": {
@@ -3485,10 +3475,10 @@
       "@type": "rdf:Property",
       "http://purl.org/dc/terms/source": [
         {
-          "@id": "http://publications.europa.eu/mdr/eli/index.html"
+          "@id": "https://github.com/schemaorg/schemaorg/issues/1156"
         },
         {
-          "@id": "https://github.com/schemaorg/schemaorg/issues/1156"
+          "@id": "http://publications.europa.eu/mdr/eli/index.html"
         }
       ],
       "http://schema.org/category": "issue-1156",
@@ -3509,25 +3499,6 @@
       },
       "rdfs:comment": "Indicates that this legislation (or part of a legislation) somehow transfers another legislation in a different legislative context. This is an informative link, and it has no legal value. For legally-binding links of transposition, use the <a href=\"/legislationTransposes\">legislationTransposes</a> property. For example an informative consolidated law of a European Union's member state \"applies\" the consolidated version of the European Directive implemented in it.",
       "rdfs:label": "legislationApplies"
-    },
-    {
-      "@id": "http://schema.org/healthPlanCopayOption",
-      "@type": "rdf:Property",
-      "http://purl.org/dc/terms/source": {
-        "@id": "https://github.com/schemaorg/schemaorg/issues/1062"
-      },
-      "http://schema.org/category": "issue-1062",
-      "http://schema.org/domainIncludes": {
-        "@id": "http://schema.org/HealthPlanCostSharingSpecification"
-      },
-      "http://schema.org/isPartOf": {
-        "@id": "http://pending.schema.org"
-      },
-      "http://schema.org/rangeIncludes": {
-        "@id": "http://schema.org/Text"
-      },
-      "rdfs:comment": "Whether the copay is before or after deductible, etc. TODO: Is this a closed set?",
-      "rdfs:label": "healthPlanCopayOption"
     },
     {
       "@id": "http://schema.org/PartiallyInForce",
@@ -3572,23 +3543,23 @@
       }
     },
     {
-      "@id": "http://schema.org/healthPlanDrugOption",
+      "@id": "http://schema.org/sdDatePublished",
       "@type": "rdf:Property",
       "http://purl.org/dc/terms/source": {
-        "@id": "https://github.com/schemaorg/schemaorg/issues/1062"
+        "@id": "https://github.com/schemaorg/schemaorg/issues/1886"
       },
-      "http://schema.org/category": "issue-1062",
+      "http://schema.org/category": "issue-1886",
       "http://schema.org/domainIncludes": {
-        "@id": "http://schema.org/HealthInsurancePlan"
+        "@id": "http://schema.org/CreativeWork"
       },
       "http://schema.org/isPartOf": {
         "@id": "http://pending.schema.org"
       },
       "http://schema.org/rangeIncludes": {
-        "@id": "http://schema.org/Text"
+        "@id": "http://schema.org/Date"
       },
-      "rdfs:comment": "TODO.",
-      "rdfs:label": "healthPlanDrugOption"
+      "rdfs:comment": "Indicates the date on which the current structured data was generated / published. Typically used alongside <a class=\"localLink\" href=\"http://schema.org/sdPublisher\">sdPublisher</a>",
+      "rdfs:label": "sdDatePublished"
     },
     {
       "@id": "http://schema.org/inStoreReturnsOffered",
@@ -3651,25 +3622,6 @@
       },
       "rdfs:comment": "Whether prescriptions can be delivered by mail.",
       "rdfs:label": "offersPrescriptionByMail"
-    },
-    {
-      "@id": "http://schema.org/byDay",
-      "@type": "rdf:Property",
-      "http://purl.org/dc/terms/source": {
-        "@id": "https://github.com/schemaorg/schemaorg/issues/1457"
-      },
-      "http://schema.org/category": "issue-1457",
-      "http://schema.org/domainIncludes": {
-        "@id": "http://schema.org/Schedule"
-      },
-      "http://schema.org/isPartOf": {
-        "@id": "http://pending.schema.org"
-      },
-      "http://schema.org/rangeIncludes": {
-        "@id": "http://schema.org/DayOfWeek"
-      },
-      "rdfs:comment": "Defines the day(s) of the week on which a recurring <a class=\"localLink\" href=\"http://schema.org/Event\">Event</a> takes place",
-      "rdfs:label": "byDay"
     },
     {
       "@id": "http://schema.org/InForce",
@@ -3747,16 +3699,16 @@
       "http://schema.org/category": "issue-1425",
       "http://schema.org/domainIncludes": [
         {
-          "@id": "http://schema.org/Dataset"
-        },
-        {
           "@id": "http://schema.org/DataDownload"
         },
         {
-          "@id": "http://schema.org/PropertyValue"
+          "@id": "http://schema.org/DataCatalog"
         },
         {
-          "@id": "http://schema.org/DataCatalog"
+          "@id": "http://schema.org/Dataset"
+        },
+        {
+          "@id": "http://schema.org/PropertyValue"
         }
       ],
       "http://schema.org/isPartOf": {
@@ -3764,10 +3716,10 @@
       },
       "http://schema.org/rangeIncludes": [
         {
-          "@id": "http://schema.org/URL"
+          "@id": "http://schema.org/Text"
         },
         {
-          "@id": "http://schema.org/Text"
+          "@id": "http://schema.org/URL"
         }
       ],
       "rdfs:comment": "A technique or technology used in a <a class=\"localLink\" href=\"http://schema.org/Dataset\">Dataset</a> (or <a class=\"localLink\" href=\"http://schema.org/DataDownload\">DataDownload</a>, <a class=\"localLink\" href=\"http://schema.org/DataCatalog\">DataCatalog</a>),\ncorresponding to the method used for measuring the corresponding variable(s) (described using <a class=\"localLink\" href=\"http://schema.org/variableMeasured\">variableMeasured</a>). This is oriented towards scientific and scholarly dataset publication but may have broader applicability; it is not intended as a full representation of measurement, but rather as a high level summary for dataset discovery.<br/><br/>\n\nFor example, if <a class=\"localLink\" href=\"http://schema.org/variableMeasured\">variableMeasured</a> is: molecule concentration, <a class=\"localLink\" href=\"http://schema.org/measurementTechnique\">measurementTechnique</a> could be: \"mass spectrometry\" or \"nmr spectroscopy\" or \"colorimetry\" or \"immunofluorescence\".<br/><br/>\n\nIf the <a class=\"localLink\" href=\"http://schema.org/variableMeasured\">variableMeasured</a> is \"depression rating\", the <a class=\"localLink\" href=\"http://schema.org/measurementTechnique\">measurementTechnique</a> could be \"Zung Scale\" or \"HAM-D\" or \"Beck Depression Inventory\".<br/><br/>\n\nIf there are several <a class=\"localLink\" href=\"http://schema.org/variableMeasured\">variableMeasured</a> properties recorded for some given data object, use a <a class=\"localLink\" href=\"http://schema.org/PropertyValue\">PropertyValue</a> for each <a class=\"localLink\" href=\"http://schema.org/variableMeasured\">variableMeasured</a> and attach the corresponding <a class=\"localLink\" href=\"http://schema.org/measurementTechnique\">measurementTechnique</a>.",
@@ -3869,10 +3821,10 @@
       "@type": "rdfs:Class",
       "http://purl.org/dc/terms/source": [
         {
-          "@id": "http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#IIT-CNR.it"
+          "@id": "http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Tourism"
         },
         {
-          "@id": "http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Tourism"
+          "@id": "http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#IIT-CNR.it"
         }
       ],
       "http://schema.org/category": "issue-1810",
@@ -3903,6 +3855,25 @@
       },
       "rdfs:comment": "The location(s) applicants can apply from. This is usually used for telecommuting jobs where the applicant does not need to be in a physical office. Note: This should not be used for citizenship or work visa requirements.",
       "rdfs:label": "applicantLocationRequirements"
+    },
+    {
+      "@id": "http://schema.org/healthPlanDrugOption",
+      "@type": "rdf:Property",
+      "http://purl.org/dc/terms/source": {
+        "@id": "https://github.com/schemaorg/schemaorg/issues/1062"
+      },
+      "http://schema.org/category": "issue-1062",
+      "http://schema.org/domainIncludes": {
+        "@id": "http://schema.org/HealthInsurancePlan"
+      },
+      "http://schema.org/isPartOf": {
+        "@id": "http://pending.schema.org"
+      },
+      "http://schema.org/rangeIncludes": {
+        "@id": "http://schema.org/Text"
+      },
+      "rdfs:comment": "TODO.",
+      "rdfs:label": "healthPlanDrugOption"
     },
     {
       "@id": "http://schema.org/healthPlanCostSharing",
@@ -3969,41 +3940,19 @@
       "rdfs:label": "returnFees"
     },
     {
-      "@id": "http://schema.org/legislationType",
-      "@type": "rdf:Property",
-      "http://purl.org/dc/terms/source": [
-        {
-          "@id": "https://github.com/schemaorg/schemaorg/issues/1156"
-        },
-        {
-          "@id": "http://publications.europa.eu/mdr/eli/index.html"
-        }
-      ],
-      "http://schema.org/category": "issue-1156",
-      "http://schema.org/domainIncludes": {
-        "@id": "http://schema.org/Legislation"
+      "@id": "http://schema.org/DefinedTermSet",
+      "@type": "rdfs:Class",
+      "http://purl.org/dc/terms/source": {
+        "@id": "https://github.com/schemaorg/schemaorg/issues/894"
       },
+      "http://schema.org/category": "issue-894",
       "http://schema.org/isPartOf": {
         "@id": "http://pending.schema.org"
       },
-      "http://schema.org/rangeIncludes": [
-        {
-          "@id": "http://schema.org/Text"
-        },
-        {
-          "@id": "http://schema.org/CategoryCode"
-        }
-      ],
-      "http://www.w3.org/2002/07/owl#equivalentProperty": {
-        "@id": "http://data.europa.eu/eli/ontology#type_document"
-      },
-      "http://www.w3.org/2004/02/skos/core#exactMatch": {
-        "@id": "http://data.europa.eu/eli/ontology#type_document"
-      },
-      "rdfs:comment": "The type of the legislation. Examples of values are \"law\", \"act\", \"directive\", \"decree\", \"regulation\", \"statutory instrument\", \"loi organique\", \"règlement grand-ducal\", etc., depending on the country.",
-      "rdfs:label": "legislationType",
-      "rdfs:subPropertyOf": {
-        "@id": "http://schema.org/genre"
+      "rdfs:comment": "A set of defined terms for example a set of categories or a classification scheme, a glossary, dictionary or enumeration.",
+      "rdfs:label": "DefinedTermSet",
+      "rdfs:subClassOf": {
+        "@id": "http://schema.org/CreativeWork"
       }
     },
     {
@@ -4029,6 +3978,44 @@
       ],
       "rdfs:comment": "Indicates the party responsible for generating and publishing the current structured data markup, typically in cases where the structured data is derived automatically from existing published content but published on a different site. For example, student projects and open data initiatives often re-publish existing content with more explicitly structured metadata. The\n<a class=\"localLink\" href=\"http://schema.org/sdPublisher\">sdPublisher</a> property helps make such practices more explicit.",
       "rdfs:label": "sdPublisher"
+    },
+    {
+      "@id": "http://schema.org/legislationType",
+      "@type": "rdf:Property",
+      "http://purl.org/dc/terms/source": [
+        {
+          "@id": "http://publications.europa.eu/mdr/eli/index.html"
+        },
+        {
+          "@id": "https://github.com/schemaorg/schemaorg/issues/1156"
+        }
+      ],
+      "http://schema.org/category": "issue-1156",
+      "http://schema.org/domainIncludes": {
+        "@id": "http://schema.org/Legislation"
+      },
+      "http://schema.org/isPartOf": {
+        "@id": "http://pending.schema.org"
+      },
+      "http://schema.org/rangeIncludes": [
+        {
+          "@id": "http://schema.org/CategoryCode"
+        },
+        {
+          "@id": "http://schema.org/Text"
+        }
+      ],
+      "http://www.w3.org/2002/07/owl#equivalentProperty": {
+        "@id": "http://data.europa.eu/eli/ontology#type_document"
+      },
+      "http://www.w3.org/2004/02/skos/core#exactMatch": {
+        "@id": "http://data.europa.eu/eli/ontology#type_document"
+      },
+      "rdfs:comment": "The type of the legislation. Examples of values are \"law\", \"act\", \"directive\", \"decree\", \"regulation\", \"statutory instrument\", \"loi organique\", \"règlement grand-ducal\", etc., depending on the country.",
+      "rdfs:label": "legislationType",
+      "rdfs:subPropertyOf": {
+        "@id": "http://schema.org/genre"
+      }
     },
     {
       "@id": "http://schema.org/appearance",
@@ -4089,13 +4076,13 @@
       },
       "http://schema.org/rangeIncludes": [
         {
+          "@id": "http://schema.org/Place"
+        },
+        {
           "@id": "http://schema.org/PostalAddress"
         },
         {
           "@id": "http://schema.org/Text"
-        },
-        {
-          "@id": "http://schema.org/Place"
         }
       ],
       "rdfs:comment": "Current location of the item.",
@@ -4132,10 +4119,10 @@
       },
       "http://schema.org/rangeIncludes": [
         {
-          "@id": "http://schema.org/URL"
+          "@id": "http://schema.org/CreativeWork"
         },
         {
-          "@id": "http://schema.org/CreativeWork"
+          "@id": "http://schema.org/URL"
         }
       ],
       "rdfs:comment": "Statement on diversity policy by an <a class=\"localLink\" href=\"http://schema.org/Organization\">Organization</a> e.g. a <a class=\"localLink\" href=\"http://schema.org/NewsMediaOrganization\">NewsMediaOrganization</a>. For a <a class=\"localLink\" href=\"http://schema.org/NewsMediaOrganization\">NewsMediaOrganization</a>, a statement describing the newsroom’s diversity policy on both staffing and sources, typically providing staffing data.",
@@ -4204,20 +4191,28 @@
       }
     },
     {
-      "@id": "http://schema.org/FundingAgency",
-      "@type": "rdfs:Class",
-      "http://purl.org/dc/terms/source": {
-        "@id": "https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FundInfoCollab"
+      "@id": "http://schema.org/renegotiableLoan",
+      "@type": "rdf:Property",
+      "http://purl.org/dc/terms/source": [
+        {
+          "@id": "http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO"
+        },
+        {
+          "@id": "https://github.com/schemaorg/schemaorg/issues/1253"
+        }
+      ],
+      "http://schema.org/category": "issue-1253",
+      "http://schema.org/domainIncludes": {
+        "@id": "http://schema.org/LoanOrCredit"
       },
-      "http://schema.org/category": "issue-383",
       "http://schema.org/isPartOf": {
         "@id": "http://pending.schema.org"
       },
-      "rdfs:comment": "A FundingAgency is an organization that implements one or more <a class=\"localLink\" href=\"http://schema.org/FundingScheme\">FundingScheme</a>s and manages\n    the granting process (via <a class=\"localLink\" href=\"http://schema.org/Grant\">Grant</a>s, typically <a class=\"localLink\" href=\"http://schema.org/MonetaryGrant\">MonetaryGrant</a>s).\n    A funding agency is not always required for grant funding, e.g. philanthropic giving, corporate sponsorship etc.<br/><br/>\n\n<pre><code>Examples of funding agencies include ERC, REA, NIH, Bill and Melinda Gates Foundation...\n</code></pre>\n",
-      "rdfs:label": "FundingAgency",
-      "rdfs:subClassOf": {
-        "@id": "http://schema.org/Project"
-      }
+      "http://schema.org/rangeIncludes": {
+        "@id": "http://schema.org/Boolean"
+      },
+      "rdfs:comment": "Whether the terms for payment of interest can be renegotiated during the life of the loan.",
+      "rdfs:label": "renegotiableLoan"
     },
     {
       "@id": "http://schema.org/hasDefinedTerm",
@@ -4240,33 +4235,6 @@
       "rdfs:subPropertyOf": {
         "@id": "http://schema.org/hasPart"
       }
-    },
-    {
-      "@id": "http://schema.org/educationalLevel",
-      "@type": "rdf:Property",
-      "http://purl.org/dc/terms/source": {
-        "@id": "https://github.com/schemaorg/schemaorg/issues/1779"
-      },
-      "http://schema.org/category": "issue-1779",
-      "http://schema.org/domainIncludes": {
-        "@id": "http://schema.org/EducationalOccupationalCredential"
-      },
-      "http://schema.org/isPartOf": {
-        "@id": "http://pending.schema.org"
-      },
-      "http://schema.org/rangeIncludes": [
-        {
-          "@id": "http://schema.org/URL"
-        },
-        {
-          "@id": "http://schema.org/DefinedTerm"
-        },
-        {
-          "@id": "http://schema.org/Text"
-        }
-      ],
-      "rdfs:comment": "The level in terms of progression through an educational or training context. Examples of educational levels include 'beginner', 'intermediate' or 'advanced', and formal sets of level indicators.",
-      "rdfs:label": "educationalLevel"
     },
     {
       "@id": "http://schema.org/healthPlanCoinsuranceRate",
@@ -4317,20 +4285,31 @@
       "rdfs:label": "FullRefund"
     },
     {
-      "@id": "http://schema.org/CompleteDataFeed",
-      "@type": "rdfs:Class",
+      "@id": "http://schema.org/educationalLevel",
+      "@type": "rdf:Property",
       "http://purl.org/dc/terms/source": {
-        "@id": "https://github.com/schemaorg/schemaorg/issues/1397"
+        "@id": "https://github.com/schemaorg/schemaorg/issues/1779"
       },
-      "http://schema.org/category": "issue-1397",
+      "http://schema.org/category": "issue-1779",
+      "http://schema.org/domainIncludes": {
+        "@id": "http://schema.org/EducationalOccupationalCredential"
+      },
       "http://schema.org/isPartOf": {
         "@id": "http://pending.schema.org"
       },
-      "rdfs:comment": "A <a class=\"localLink\" href=\"http://schema.org/CompleteDataFeed\">CompleteDataFeed</a> is a <a class=\"localLink\" href=\"http://schema.org/DataFeed\">DataFeed</a> whose standard representation includes content for every item currently in the feed.<br/><br/>\n\nThis is the equivalent of Atom's element as defined in Feed Paging and Archiving <a href=\"https://tools.ietf.org/html/rfc5005\">RFC 5005</a>, For example (and as defined for Atom), when using data from a feed that represents a collection of items that varies over time (e.g. \"Top Twenty Records\") there is no need to have newer entries mixed in alongside older, obsolete entries. By marking this feed as a CompleteDataFeed, old entries can be safely discarded when the feed is refreshed, since we can assume the feed has provided descriptions for all current items.",
-      "rdfs:label": "CompleteDataFeed",
-      "rdfs:subClassOf": {
-        "@id": "http://schema.org/DataFeed"
-      }
+      "http://schema.org/rangeIncludes": [
+        {
+          "@id": "http://schema.org/URL"
+        },
+        {
+          "@id": "http://schema.org/DefinedTerm"
+        },
+        {
+          "@id": "http://schema.org/Text"
+        }
+      ],
+      "rdfs:comment": "The level in terms of progression through an educational or training context. Examples of educational levels include 'beginner', 'intermediate' or 'advanced', and formal sets of level indicators.",
+      "rdfs:label": "educationalLevel"
     },
     {
       "@id": "http://schema.org/RadioBroadcastService",
@@ -4353,10 +4332,10 @@
       "@type": "rdf:Property",
       "http://purl.org/dc/terms/source": [
         {
-          "@id": "https://github.com/schemaorg/schemaorg/issues/1253"
+          "@id": "http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO"
         },
         {
-          "@id": "http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO"
+          "@id": "https://github.com/schemaorg/schemaorg/issues/1253"
         }
       ],
       "http://schema.org/category": "issue-1253",
@@ -4410,6 +4389,27 @@
       "rdfs:label": "ReturnShippingFees"
     },
     {
+      "@id": "http://schema.org/BackgroundNewsArticle",
+      "@type": "rdfs:Class",
+      "http://purl.org/dc/terms/source": [
+        {
+          "@id": "https://github.com/schemaorg/schemaorg/issues/1525"
+        },
+        {
+          "@id": "https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP"
+        }
+      ],
+      "http://schema.org/category": "issue-1525",
+      "http://schema.org/isPartOf": {
+        "@id": "http://pending.schema.org"
+      },
+      "rdfs:comment": "A <a class=\"localLink\" href=\"http://schema.org/NewsArticle\">NewsArticle</a> providing historical context, definition and detail on a specific topic (aka \"explainer\" or \"backgrounder\"). For example, an in-depth article or frequently-asked-questions (<a href=\"https://en.wikipedia.org/wiki/FAQ\">FAQ</a>) document on topics such as Climate Change or the European Union. Other kinds of background material from a non-news setting are often described using <a class=\"localLink\" href=\"http://schema.org/Book\">Book</a> or <a class=\"localLink\" href=\"http://schema.org/Article\">Article</a>, in particular <a class=\"localLink\" href=\"http://schema.org/ScholarlyArticle\">ScholarlyArticle</a>. See also <a class=\"localLink\" href=\"http://schema.org/NewsArticle\">NewsArticle</a> for related vocabulary from a learning/education perspective.",
+      "rdfs:label": "BackgroundNewsArticle",
+      "rdfs:subClassOf": {
+        "@id": "http://schema.org/NewsArticle"
+      }
+    },
+    {
       "@id": "http://schema.org/recognizedBy",
       "@type": "rdf:Property",
       "http://purl.org/dc/terms/source": {
@@ -4429,20 +4429,23 @@
       "rdfs:label": "recognizedBy"
     },
     {
-      "@id": "http://schema.org/Project",
-      "@type": "rdfs:Class",
+      "@id": "http://schema.org/contentReferenceTime",
+      "@type": "rdf:Property",
       "http://purl.org/dc/terms/source": {
-        "@id": "https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FundInfoCollab"
+        "@id": "https://github.com/schemaorg/schemaorg/issues/1050"
       },
-      "http://schema.org/category": "issue-383",
+      "http://schema.org/category": "issue-1050",
+      "http://schema.org/domainIncludes": {
+        "@id": "http://schema.org/CreativeWork"
+      },
       "http://schema.org/isPartOf": {
         "@id": "http://pending.schema.org"
       },
-      "rdfs:comment": "An enterprise (potentially individual but typically collaborative), planned to achieve a particular aim.\nUse properties from <a class=\"localLink\" href=\"http://schema.org/Organization\">Organization</a>, <a class=\"localLink\" href=\"http://schema.org/subOrganization\">subOrganization</a>/<a class=\"localLink\" href=\"http://schema.org/parentOrganization\">parentOrganization</a> to indicate project sub-structures.",
-      "rdfs:label": "Project",
-      "rdfs:subClassOf": {
-        "@id": "http://schema.org/Organization"
-      }
+      "http://schema.org/rangeIncludes": {
+        "@id": "http://schema.org/DateTime"
+      },
+      "rdfs:comment": "The specific time described by a creative work, for works (e.g. articles, video objects etc.) that emphasise a particular moment within an Event.",
+      "rdfs:label": "contentReferenceTime"
     },
     {
       "@id": "http://schema.org/OfficialLegalValue",
@@ -4549,10 +4552,10 @@
       "@type": "http://schema.org/LegalValueLevel",
       "http://purl.org/dc/terms/source": [
         {
-          "@id": "https://github.com/schemaorg/schemaorg/issues/1156"
+          "@id": "http://publications.europa.eu/mdr/eli/index.html"
         },
         {
-          "@id": "http://publications.europa.eu/mdr/eli/index.html"
+          "@id": "https://github.com/schemaorg/schemaorg/issues/1156"
         }
       ],
       "http://schema.org/category": "issue-1156",
@@ -4607,57 +4610,60 @@
       }
     },
     {
-      "@id": "http://schema.org/DefinedTermSet",
+      "@id": "http://schema.org/ResearchProject",
       "@type": "rdfs:Class",
       "http://purl.org/dc/terms/source": {
-        "@id": "https://github.com/schemaorg/schemaorg/issues/894"
+        "@id": "https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FundInfoCollab"
       },
-      "http://schema.org/category": "issue-894",
+      "http://schema.org/category": "issue-383",
       "http://schema.org/isPartOf": {
         "@id": "http://pending.schema.org"
       },
-      "rdfs:comment": "A set of defined terms for example a set of categories or a classification scheme, a glossary, dictionary or enumeration.",
-      "rdfs:label": "DefinedTermSet",
+      "rdfs:comment": "A Research project.",
+      "rdfs:label": "ResearchProject",
+      "rdfs:subClassOf": {
+        "@id": "http://schema.org/Project"
+      }
+    },
+    {
+      "@id": "http://schema.org/Claim",
+      "@type": "rdfs:Class",
+      "http://purl.org/dc/terms/source": {
+        "@id": "https://github.com/schemaorg/schemaorg/issues/1828"
+      },
+      "http://schema.org/category": "issue-1828",
+      "http://schema.org/isPartOf": {
+        "@id": "http://pending.schema.org"
+      },
+      "rdfs:comment": "A <a class=\"localLink\" href=\"http://schema.org/Claim\">Claim</a> in Schema.org represents a specific, factually-oriented claim that could be the <a class=\"localLink\" href=\"http://schema.org/itemReviewed\">itemReviewed</a> in a <a class=\"localLink\" href=\"http://schema.org/ClaimReview\">ClaimReview</a>. The content of a claim can be summarized with the <a class=\"localLink\" href=\"http://schema.org/text\">text</a> property. Variations on well known claims can have their common identity indicated via <a class=\"localLink\" href=\"http://schema.org/sameAs\">sameAs</a> links, and summarized with a <a class=\"localLink\" href=\"http://schema.org/name\">name</a>. Ideally, a <a class=\"localLink\" href=\"http://schema.org/Claim\">Claim</a> description includes enough contextual information to minimize the risk of ambiguity or inclarity. In practice, many claims are better understood in the context in which they appear or the interpretations provided by claim reviews.<br/><br/>\n\nBeyond <a class=\"localLink\" href=\"http://schema.org/ClaimReview\">ClaimReview</a>, the Claim type can be associated with related creative works - for example a <a class=\"localLink\" href=\"http://schema.org/ScholaryArticle\">ScholaryArticle</a> or <a class=\"localLink\" href=\"http://schema.org/Question\">Question</a> might be <a class=\"localLink\" href=\"http://schema.org/about\">about</a> some <a class=\"localLink\" href=\"http://schema.org/Claim\">Claim</a>.<br/><br/>\n\nAt this time, Schema.org does not define any types of relationship between claims. This is a natural area for future exploration.",
+      "rdfs:label": "Claim",
       "rdfs:subClassOf": {
         "@id": "http://schema.org/CreativeWork"
       }
     },
     {
-      "@id": "http://schema.org/ProductReturnPolicy",
-      "@type": "rdfs:Class",
-      "http://purl.org/dc/terms/source": {
-        "@id": "https://github.com/schemaorg/schemaorg/issues/2288"
-      },
-      "http://schema.org/category": "issue-2288",
-      "http://schema.org/isPartOf": {
-        "@id": "http://pending.schema.org"
-      },
-      "rdfs:comment": "A ProductReturnPolicy provides information about product return policies associated with an <a class=\"localLink\" href=\"http://schema.org/Organization\">Organization</a> or <a class=\"localLink\" href=\"http://schema.org/Product\">Product</a>.",
-      "rdfs:label": "ProductReturnPolicy",
-      "rdfs:subClassOf": {
-        "@id": "http://schema.org/Intangible"
-      }
-    },
-    {
-      "@id": "http://schema.org/AuthoritativeLegalValue",
-      "@type": "http://schema.org/LegalValueLevel",
+      "@id": "http://schema.org/gracePeriod",
+      "@type": "rdf:Property",
       "http://purl.org/dc/terms/source": [
         {
-          "@id": "https://github.com/schemaorg/schemaorg/issues/1156"
+          "@id": "https://github.com/schemaorg/schemaorg/issues/1253"
         },
         {
-          "@id": "http://publications.europa.eu/mdr/eli/index.html"
+          "@id": "http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO"
         }
       ],
-      "http://schema.org/category": "issue-1156",
+      "http://schema.org/category": "issue-1253",
+      "http://schema.org/domainIncludes": {
+        "@id": "http://schema.org/LoanOrCredit"
+      },
       "http://schema.org/isPartOf": {
         "@id": "http://pending.schema.org"
       },
-      "http://www.w3.org/2004/02/skos/core#exactMatch": {
-        "@id": "http://data.europa.eu/eli/ontology#LegalValue-authoritative"
+      "http://schema.org/rangeIncludes": {
+        "@id": "http://schema.org/Duration"
       },
-      "rdfs:comment": "Indicates that the publisher gives some special status to the publication of the document. (\"The Queens Printer\" version of a UK Act of Parliament, or the PDF version of a Directive published by the EU Office of Publications). Something \"Authoritative\" is considered to be also <a class=\"localLink\" href=\"http://schema.org/OfficialLegalValue\">OfficialLegalValue</a>\".",
-      "rdfs:label": "AuthoritativeLegalValue"
+      "rdfs:comment": "The period of time after any due date that the borrower has to fulfil its obligations before a default (failure to pay) is deemed to have occurred.",
+      "rdfs:label": "gracePeriod"
     },
     {
       "@id": "http://schema.org/LinkRole",
@@ -4711,33 +4717,40 @@
       }
     },
     {
-      "@id": "http://schema.org/gtin",
-      "@type": "rdf:Property",
-      "http://purl.org/dc/terms/source": {
-        "@id": "https://github.com/schemaorg/schemaorg/issues/2288"
-      },
-      "http://schema.org/category": "issue-1244",
-      "http://schema.org/domainIncludes": [
+      "@id": "http://schema.org/RepaymentSpecification",
+      "@type": "rdfs:Class",
+      "http://purl.org/dc/terms/source": [
         {
-          "@id": "http://schema.org/Product"
+          "@id": "http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO"
         },
         {
-          "@id": "http://schema.org/Offer"
-        },
-        {
-          "@id": "http://schema.org/Demand"
+          "@id": "https://github.com/schemaorg/schemaorg/issues/1253"
         }
       ],
+      "http://schema.org/category": "issue-1253",
       "http://schema.org/isPartOf": {
         "@id": "http://pending.schema.org"
       },
-      "http://schema.org/rangeIncludes": {
-        "@id": "http://schema.org/Text"
+      "rdfs:comment": "A structured value representing repayment.",
+      "rdfs:label": "RepaymentSpecification",
+      "rdfs:subClassOf": {
+        "@id": "http://schema.org/StructuredValue"
+      }
+    },
+    {
+      "@id": "http://schema.org/EducationalOccupationalCredential",
+      "@type": "rdfs:Class",
+      "http://purl.org/dc/terms/source": {
+        "@id": "https://github.com/schemaorg/schemaorg/issues/1779"
       },
-      "rdfs:comment": "A Global Trade Item Number (<a href=\"https://www.gs1.org/standards/id-keys/gtin\">GTIN</a>). GTINs identify trade items, including products and services, using numeric identification codes. The <a class=\"localLink\" href=\"http://schema.org/gtin\">gtin</a> property generalizes the earlier <a class=\"localLink\" href=\"http://schema.org/gtin8\">gtin8</a>, <a class=\"localLink\" href=\"http://schema.org/gtin12\">gtin12</a>, <a class=\"localLink\" href=\"http://schema.org/gtin13\">gtin13</a>, and <a class=\"localLink\" href=\"http://schema.org/gtin14\">gtin14</a> properties. The GS1 <a href=\"https://www.gs1.org/standards/Digital-Link/\">digital link specifications</a> express GTINs as URLs. A correct <a class=\"localLink\" href=\"http://schema.org/gtin\">gtin</a> value should be a valid GTIN, which means that it should be an all-numeric string of either 8, 12, 13 or 14 digits, or a \"GS1 Digital Link\" URL based on such a string. The numeric component should also have a <a href=\"https://www.gs1.org/services/check-digit-calculator\">valid GS1 check digit</a> and meet the other rules for valid GTINs. See also <a href=\"http://www.gs1.org/barcodes/technical/idkeys/gtin\">GS1's GTIN Summary</a> and <a href=\"https://en.wikipedia.org/wiki/Global_Trade_Item_Number\">Wikipedia</a> for more details. Left-padding of the gtin values is not required or encouraged.",
-      "rdfs:label": "gtin",
-      "rdfs:subPropertyOf": {
-        "@id": "http://schema.org/identifier"
+      "http://schema.org/category": "issue-1779",
+      "http://schema.org/isPartOf": {
+        "@id": "http://pending.schema.org"
+      },
+      "rdfs:comment": "An educational or occupational credential. A diploma, academic degree, certification, qualification, badge, etc., that may be awarded to a person or other entity that meets the requirements defined by the credentialer.",
+      "rdfs:label": "EducationalOccupationalCredential",
+      "rdfs:subClassOf": {
+        "@id": "http://schema.org/CreativeWork"
       }
     },
     {
@@ -4765,33 +4778,23 @@
       "rdfs:label": "broadcastSignalModulation"
     },
     {
-      "@id": "http://schema.org/bankAccountType",
+      "@id": "http://schema.org/healthPlanCopayOption",
       "@type": "rdf:Property",
-      "http://purl.org/dc/terms/source": [
-        {
-          "@id": "https://github.com/schemaorg/schemaorg/issues/1253"
-        },
-        {
-          "@id": "http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO"
-        }
-      ],
-      "http://schema.org/category": "issue-1253",
+      "http://purl.org/dc/terms/source": {
+        "@id": "https://github.com/schemaorg/schemaorg/issues/1062"
+      },
+      "http://schema.org/category": "issue-1062",
       "http://schema.org/domainIncludes": {
-        "@id": "http://schema.org/BankAccount"
+        "@id": "http://schema.org/HealthPlanCostSharingSpecification"
       },
       "http://schema.org/isPartOf": {
         "@id": "http://pending.schema.org"
       },
-      "http://schema.org/rangeIncludes": [
-        {
-          "@id": "http://schema.org/URL"
-        },
-        {
-          "@id": "http://schema.org/Text"
-        }
-      ],
-      "rdfs:comment": "The type of a bank account.",
-      "rdfs:label": "bankAccountType"
+      "http://schema.org/rangeIncludes": {
+        "@id": "http://schema.org/Text"
+      },
+      "rdfs:comment": "Whether the copay is before or after deductible, etc. TODO: Is this a closed set?",
+      "rdfs:label": "healthPlanCopayOption"
     },
     {
       "@id": "http://schema.org/OriginalShippingFees",
@@ -4831,23 +4834,23 @@
       "rdfs:label": "exceptDate"
     },
     {
-      "@id": "http://schema.org/productReturnLink",
+      "@id": "http://schema.org/linkRelationship",
       "@type": "rdf:Property",
       "http://purl.org/dc/terms/source": {
-        "@id": "https://github.com/schemaorg/schemaorg/issues/2288"
+        "@id": "https://github.com/schemaorg/schemaorg/issues/1045"
       },
-      "http://schema.org/category": "issue-2288",
+      "http://schema.org/category": "issue-1045",
       "http://schema.org/domainIncludes": {
-        "@id": "http://schema.org/ProductReturnPolicy"
+        "@id": "http://schema.org/LinkRole"
       },
       "http://schema.org/isPartOf": {
         "@id": "http://pending.schema.org"
       },
       "http://schema.org/rangeIncludes": {
-        "@id": "http://schema.org/URL"
+        "@id": "http://schema.org/Text"
       },
-      "rdfs:comment": "Indicates a Web page or service by URL, for product return.",
-      "rdfs:label": "productReturnLink"
+      "rdfs:comment": "Indicates the relationship type of a Web link.",
+      "rdfs:label": "linkRelationship"
     },
     {
       "@id": "http://schema.org/termsOfService",
@@ -4864,10 +4867,10 @@
       },
       "http://schema.org/rangeIncludes": [
         {
-          "@id": "http://schema.org/Text"
+          "@id": "http://schema.org/URL"
         },
         {
-          "@id": "http://schema.org/URL"
+          "@id": "http://schema.org/Text"
         }
       ],
       "rdfs:comment": "Human-readable terms of service documentation.",
@@ -4907,10 +4910,10 @@
       "@type": "rdf:Property",
       "http://purl.org/dc/terms/source": [
         {
-          "@id": "https://github.com/schemaorg/schemaorg/issues/1253"
+          "@id": "http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO"
         },
         {
-          "@id": "http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO"
+          "@id": "https://github.com/schemaorg/schemaorg/issues/1253"
         }
       ],
       "http://schema.org/category": "issue-1253",
@@ -4922,10 +4925,10 @@
       },
       "http://schema.org/rangeIncludes": [
         {
-          "@id": "http://schema.org/URL"
+          "@id": "http://schema.org/Text"
         },
         {
-          "@id": "http://schema.org/Text"
+          "@id": "http://schema.org/URL"
         }
       ],
       "rdfs:comment": "The type of a loan or credit.",
@@ -4987,10 +4990,10 @@
       },
       "http://schema.org/rangeIncludes": [
         {
-          "@id": "http://schema.org/Text"
+          "@id": "http://schema.org/Duration"
         },
         {
-          "@id": "http://schema.org/Duration"
+          "@id": "http://schema.org/Text"
         }
       ],
       "rdfs:comment": "Defines the frequency at which <a class=\"localLink\" href=\"http://schema.org/Events\">Events</a> will occur according to a schedule <a class=\"localLink\" href=\"http://schema.org/Schedule\">Schedule</a>. The intervals between\n      events should be defined as a <a class=\"localLink\" href=\"http://schema.org/Duration\">Duration</a> of time.",
@@ -5013,28 +5016,25 @@
       "rdfs:label": "StoreCreditRefund"
     },
     {
-      "@id": "http://schema.org/gracePeriod",
-      "@type": "rdf:Property",
+      "@id": "http://schema.org/AuthoritativeLegalValue",
+      "@type": "http://schema.org/LegalValueLevel",
       "http://purl.org/dc/terms/source": [
         {
-          "@id": "https://github.com/schemaorg/schemaorg/issues/1253"
+          "@id": "http://publications.europa.eu/mdr/eli/index.html"
         },
         {
-          "@id": "http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO"
+          "@id": "https://github.com/schemaorg/schemaorg/issues/1156"
         }
       ],
-      "http://schema.org/category": "issue-1253",
-      "http://schema.org/domainIncludes": {
-        "@id": "http://schema.org/LoanOrCredit"
-      },
+      "http://schema.org/category": "issue-1156",
       "http://schema.org/isPartOf": {
         "@id": "http://pending.schema.org"
       },
-      "http://schema.org/rangeIncludes": {
-        "@id": "http://schema.org/Duration"
+      "http://www.w3.org/2004/02/skos/core#exactMatch": {
+        "@id": "http://data.europa.eu/eli/ontology#LegalValue-authoritative"
       },
-      "rdfs:comment": "The period of time after any due date that the borrower has to fulfil its obligations before a default (failure to pay) is deemed to have occurred.",
-      "rdfs:label": "gracePeriod"
+      "rdfs:comment": "Indicates that the publisher gives some special status to the publication of the document. (\"The Queens Printer\" version of a UK Act of Parliament, or the PDF version of a Directive published by the EU Office of Publications). Something \"Authoritative\" is considered to be also <a class=\"localLink\" href=\"http://schema.org/OfficialLegalValue\">OfficialLegalValue</a>\".",
+      "rdfs:label": "AuthoritativeLegalValue"
     },
     {
       "@id": "http://schema.org/CategoryCodeSet",
