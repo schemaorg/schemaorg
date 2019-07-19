@@ -1,4 +1,7 @@
-#!/bin/sh
+#!/bin/bash
+set -e
+set -u
+
 PWD=`pwd`
 PROG="`basename $0`"
 if [ `basename $PWD` != "schemaorg" ]
@@ -74,7 +77,7 @@ function doExtension {
         }"   >> $TARGET
     fi
     )
-        return $output
+        return 
 }
 
 function doDocs {
