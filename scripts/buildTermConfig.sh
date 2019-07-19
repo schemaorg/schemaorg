@@ -101,8 +101,9 @@ function doDocs {
     
     
     done
-    printf '\n            ]
-        }' >> $TARGET
+    printf "
+                ]
+        }" >> $TARGET
 
 }
 
@@ -114,8 +115,9 @@ function doElements {
     do
         doExtension "data/ext/$ext"
     done
-    echo '\n    ]
-}' >> $TARGET
+    echo "
+    ]
+}" >> $TARGET
 
 }
 
