@@ -8,6 +8,8 @@ This type should be used in conjunction with the newly proposed `MolecularEntity
 
 The `ChemicalSubstance` type has been discussed in the Bioschemas community in:
 
+**ToDo:** Add links to most pertinant issues and email threads
+
 - Issue
 - Bioschemas community mailing list thread
   - [
