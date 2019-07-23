@@ -674,6 +674,7 @@ class ShowUnit (webapp2.RequestHandler):
         #log.info("EXTERNAL!!!! %s %s " % (term.getLabel(),term.getId()))
 
         name = term.getId()
+        label = term.getLabel()
 
         if not ":" in name:
             return name
@@ -1438,7 +1439,7 @@ class ShowUnit (webapp2.RequestHandler):
         self.emitUnitHeaders(term) # writes <h1><table>...
         stack = self._removeStackDupes(term.getTermStack())
         setAppVar("tableHdr",False)
-        if term.isClass() or term.isDataType() or term.isEnumeration():
+        if term.isClass() or term.isDataType():
             for p in stack:
                 self.ClassProperties(p, p==[0], out=self, term=term)
             if getAppVar("tableHdr"):
