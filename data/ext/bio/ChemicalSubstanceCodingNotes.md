@@ -32,13 +32,13 @@ We are proposing to add the `ChemicalSubstance` type under a `BioChemEntity` typ
 
 **ToDo:** Complete rationale for properties 
 
-#### chemicalRole
+#### chemicalComposition
 
 *New property*
 
 
 
-#### molecularFormula
+#### chemicalRole
 
 *New property*
 
@@ -47,4 +47,3 @@ We are proposing to add the `ChemicalSubstance` type under a `BioChemEntity` typ
 #### potentialUse
 
 *New property*
-
