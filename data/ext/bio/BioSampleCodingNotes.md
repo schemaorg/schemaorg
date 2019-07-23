@@ -4,7 +4,7 @@ The [Bioschemas](https://bioschemas.org) community would like to propose a new t
 
 ## Background
 
-The BioSample type has been discussed in the Bioschemas community in:
+The `BioSample` type has been discussed in the Bioschemas community in:
 
 - [Issue 306](https://github.com/BioSchemas/specifications/issues/306)
 - Bioschemas community mailing list thread
@@ -32,7 +32,7 @@ Range extended to include `BioSample`.
 
 #### collector
 
-New property
+*New property*
 
 Considered [`creditedTo`](https://schema.org/creditedTo) but felt that the two were distinct from each other in their intended use. 
 
@@ -40,7 +40,7 @@ There are also distinct uses of these terms to refer to different entities, i.e.
 
 #### custodian
 
-New property
+*New property*
 
 Considered `accountablePerson` but range only permitted `schema:Person`. The custodian of a sample is often an `schema:Organization`.
 
@@ -56,7 +56,7 @@ Range extended to include `BioSample`.
 
 #### isControl
 
-New property
+*New property*
 
 #### itemLocation
 
@@ -70,7 +70,7 @@ Potential issue is that the description of `locationCreated` mentions `CreativeW
 
 #### samplingAge
 
-New property 
+*New property* 
 
 Considered `age` but felt that was too generic, particularly with the proposed description of the property.
 
