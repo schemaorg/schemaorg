@@ -24,7 +24,7 @@ We summarise here the design decisions taken to reach this proposal.
 
 ### Type Hierarchy
 
-We are proposing to add the `MolecularEntity` type under a `BioChemEntity` type which inherits from `schema:Thing`. `BioChemEntity` is being proposed as an umbrella type that the various types coming from Bioschemas will be placed under. This is to prevent bloat at the top level of Schema.org. `BioSample` will reuse some of the properties from `BioChemEntity`, e.g. `associatedDisease` and `taxonomicRange`.
+We are proposing to add the `MolecularEntity` type under a `BioChemEntity` type which inherits from `schema:Thing`. `BioChemEntity` is being proposed as an umbrella type that the various types coming from Bioschemas will be placed under. This is to prevent bloat at the top level of Schema.org.
 
 ### Properties
 
