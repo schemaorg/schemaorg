@@ -72,9 +72,13 @@ We are proposing to add the `MolecularEntity` type under a `BioChemEntity` type 
 
 
 
-#### 
-
 #### potentialUse
+
+*New property*
+
+
+
+#### smiles
 
 *New property*
 
