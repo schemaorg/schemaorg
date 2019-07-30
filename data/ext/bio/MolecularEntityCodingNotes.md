@@ -14,6 +14,12 @@ The `MolecularEntity` type has been discussed in the Bioschemas community in:
 
 The proposal is based on the [ChEBI ontology](https://www.ebi.ac.uk/chebi/) and its definition of a molecular entity ([CHEBI:23367](https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI%3A23367)).
 
+The following ontologies were also considered when developing this proposal:
+
+- Chemical Entities of Biological Interest ([ChEBI](https://www.ebi.ac.uk/chebi/))
+- Chemical Information Ontology ([CHEMINF](http://semanticchemistry.github.io/semanticchemistry/)) 
+- SemanticScience Integrated Ontology ([SIO](http://sio.semanticscience.org/))
+
 **ToDo:** Discussion about relationship to `schema:Drug` and `schema:Substance`
 
 ## Proposal

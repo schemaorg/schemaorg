@@ -16,9 +16,15 @@ The Bioschemas community were originally looking for a minimal extension to Sche
 
 This revised version of `BioChemEntity` now serves the purpose of being a parent type for the various types required for the life sciences to support search use cases, and some limited data exchange. We have deliberately chosen to go for a shallow and wide subtree from `BioChemEntity` to avoid focusing on acurate biological modelling, instead focusing on the properties required for search.
 
-**ToDo:** *add links to ontologies used in the design of this type*
+The following ontologies were considered when developing this proposal:
 
-The proposal is based on the SIO, ...
+- Chemical Entities of Biological Interest ([ChEBI](https://www.ebi.ac.uk/chebi/))
+- Chemical Information Ontology ([CHEMINF](http://semanticchemistry.github.io/semanticchemistry/)) 
+- Feature Annotation Location Description Ontology ([FALDO](https://github.com/OBF/FALDO))
+- Gene Ontology ([GO](http://geneontology.org/))
+- Protein Ontology ([PRO](https://proconsortium.org/))
+- SemanticScience Integrated Ontology ([SIO](http://sio.semanticscience.org/))
+- UniProt RDF Schema Ontology ([UniProt](https://www.uniprot.org/core/))
 
 ## Proposal
 

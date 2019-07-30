@@ -12,9 +12,13 @@ The `Gene` type has been discussed in the Bioschemas community in:
 - Bioschemas community mailing list thread
   - [
 
-**ToDo:** *add links to ontologies used in the design of this type*
+The following ontologies were considered when developing this proposal:
 
-The proposal is based on the SIO, ...
+- Feature Annotation Location Description Ontology ([FALDO](https://github.com/OBF/FALDO))
+- Gene Ontology ([GO](http://geneontology.org/))
+- Protein Ontology ([PRO](https://proconsortium.org/))
+- SemanticScience Integrated Ontology ([SIO](http://sio.semanticscience.org/))
+- UniProt RDF Schema Ontology ([UniProt](https://www.uniprot.org/core/))
 
 ## Proposal
 

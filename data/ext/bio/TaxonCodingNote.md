@@ -14,6 +14,8 @@ The `Taxon` type has been discussed in the Bioschemas community in:
 
 The proposal is based on the [Darwin Core standard for Taxons](https://dwc.tdwg.org/terms/#taxon) that is widely used to model taxons.
 
+**ToDo:** Was NCBI Taxon considered in the design?
+
 ## Proposal
 
 The proposed type is available at http://sdo-bioschemas-227516.appspot.com/Taxon (a cached copy is also available on the Bioschemas [website](https://bioschemas.org/types/Taxon/)).
