@@ -1207,7 +1207,7 @@ that are useful for publishers and consumers of schema.org data.
 
              <li class="tbranch" id="EducationalOccupationalProgram"><a title="Extended schema: pending.schema.org"  class="ext ext-pending" href="#term_EducationalOccupationalProgram">EducationalOccupationalProgram</a>
              <ul>
-    <li class="tleaf" id="WageBasedTraining"><a title="Extended schema: pending.schema.org"  class="ext ext-pending" href="#term_WageBasedTraining">WageBasedTraining</a>
+    <li class="tleaf" id="WorkBasedProgram"><a title="Extended schema: pending.schema.org"  class="ext ext-pending" href="#term_WorkBasedProgram">WorkBasedProgram</a>
                  </li>
 
              </ul>
@@ -2372,6 +2372,9 @@ that are useful for publishers and consumers of schema.org data.
    <li class="tleaf" id="MenuItem"><a   href="#term_MenuItem">MenuItem</a>
              </li>
 
+   <li class="tleaf" id="Observation"><a title="Extended schema: pending.schema.org"  class="ext ext-pending" href="#term_Observation">Observation</a>
+             </li>
+
    <li class="tleaf" id="Occupation"><a   href="#term_Occupation">Occupation</a>
              </li>
 
@@ -2592,6 +2595,9 @@ that are useful for publishers and consumers of schema.org data.
              </li>
 
    <li class="tleaf" id="SpeakableSpecification"><a   href="#term_SpeakableSpecification">SpeakableSpecification</a>
+             </li>
+
+   <li class="tleaf" id="StatisticalPopulation"><a title="Extended schema: pending.schema.org"  class="ext ext-pending" href="#term_StatisticalPopulation">StatisticalPopulation</a>
              </li>
 
              <li class="tbranch" id="StructuredValue"><a   href="#term_StructuredValue">StructuredValue</a>
@@ -8858,9 +8864,7 @@ Commonly used values:<br/><br/>
   <h4 id="term_EducationalOccupationalProgram" name="term_EducationalOccupationalProgram">EducationalOccupationalProgram</a></h4>
 
 <p>
-  <div>A program offered by an institution which
-        determines the learning progress to achieve an outcome, usually a
-        credential like a degree or certificate. </div>
+  <div>A program offered by an institution which determines the learning progress to achieve an outcome, usually a credential like a degree or certificate. This would define a discrete set of opportunities (e.g., job, courses) that together constitute a program with a clear start, end, set of requirements, and transition to a new occupational opportunity (e.g., a job), or sometimes a higher educational opportunity (e.g., an advanced degree). </div>
 
   <p>Properties used on this type: <ul class='props4type'><li><a href='#term_educationalCredentialAwarded'>educationalCredentialAwarded</a></li><li><a href='#term_occupationalCredentialAwarded'>occupationalCredentialAwarded</a></li><li><a href='#term_offers'>offers</a></li><li><a href='#term_programPrerequisites'>programPrerequisites</a></li><li><a href='#term_provider'>provider</a></li><li><a href='#term_salaryUponCompletion'>salaryUponCompletion</a></li><li><a href='#term_timeToComplete'>timeToComplete</a></li></ul>
 
@@ -14300,6 +14304,27 @@ Usage guidelines:<br/><br/>
 
 
 <div>
+  <h4 id="term_Observation" name="term_Observation">Observation</a></h4>
+
+<p>
+  <div>Instances of the class <a class="localLink" href="/Observation">Observation</a> are used to specify observations about an entity (which may or may not be an instance of a <a class="localLink" href="/StatisticalPopulation">StatisticalPopulation</a>), at a particular time. The principal properties of an <a class="localLink" href="/Observation">Observation</a> are <a class="localLink" href="/observedNode">observedNode</a>, <a class="localLink" href="/measuredProperty">measuredProperty</a>, <a class="localLink" href="/measuredValue">measuredValue</a> (or <a class="localLink" href="/median">median</a>, etc.) and <a class="localLink" href="/observationDate">observationDate</a> (<a class="localLink" href="/measuredProperty">measuredProperty</a> properties can, but need not always, be W3C RDF Data Cube "measure properties", as in the <a href="https://www.w3.org/TR/vocab-data-cube/#dsd-example">lifeExpectancy example</a>).
+See also <a class="localLink" href="/StatisticalPopulation">StatisticalPopulation</a>, and the <a href="/docs/data-and-datasets.html">data and datasets</a> overview for more details. </div>
+
+  <p>Properties used on this type: <ul class='props4type'><li><a href='#term_marginOfError'>marginOfError</a></li><li><a href='#term_measuredProperty'>measuredProperty</a></li><li><a href='#term_measuredValue'>measuredValue</a></li><li><a href='#term_observationDate'>observationDate</a></li><li><a href='#term_observedNode'>observedNode</a></li></ul>
+
+ </p>
+  <p>Properties whose values are of this type: <ul class='props2type'></ul>
+
+ </p>
+
+  <small><a href="#intro">[^top]</a></small>
+</p>
+
+</div>
+
+
+
+<div>
   <h4 id="term_Occupation" name="term_Occupation">Occupation</a></h4>
 
 <p>
@@ -18228,6 +18253,28 @@ Related actions:<br/><br/>
 
 
 <div>
+  <h4 id="term_StatisticalPopulation" name="term_StatisticalPopulation">StatisticalPopulation</a></h4>
+
+<p>
+  <div>A StatisticalPopulation is a set of instances of a certain given type that satisfy some set of constraints. The property <a class="localLink" href="/populationType">populationType</a> is used to specify the type. Any property that can be used on instances of that type can appear on the statistical population. For example, a <a class="localLink" href="/StatisticalPopulation">StatisticalPopulation</a> representing all <a class="localLink" href="/Person">Person</a>s with a <a class="localLink" href="/homeLocation">homeLocation</a> of East Podunk California, would be described by applying the appropriate <a class="localLink" href="/homeLocation">homeLocation</a> and <a class="localLink" href="/populationType">populationType</a> properties to a <a class="localLink" href="/StatisticalPopulation">StatisticalPopulation</a> item that stands for that set of people.
+The properties <a class="localLink" href="/numConstraints">numConstraints</a> and <a class="localLink" href="/constrainingProperties">constrainingProperties</a> are used to specify which of the populations properties are used to specify the population. Note that the sense of "population" used here is the general sense of a statistical
+population, and does not imply that the population consists of people. For example, a <a class="localLink" href="/populationType">populationType</a> of <a class="localLink" href="/Event">Event</a> or <a class="localLink" href="/NewsArticle">NewsArticle</a> could be used. See also <a class="localLink" href="/Observation">Observation</a>, and the <a href="/docs/data-and-datasets.html">data and datasets</a> overview for more details. </div>
+
+  <p>Properties used on this type: <ul class='props4type'><li><a href='#term_constrainingProperty'>constrainingProperty</a></li><li><a href='#term_numConstraints'>numConstraints</a></li><li><a href='#term_populationType'>populationType</a></li></ul>
+
+ </p>
+  <p>Properties whose values are of this type: <ul class='props2type'></ul>
+
+ </p>
+
+  <small><a href="#intro">[^top]</a></small>
+</p>
+
+</div>
+
+
+
+<div>
   <h4 id="term_SteeringPositionValue" name="term_SteeringPositionValue">SteeringPositionValue</a></h4>
 
 <p>
@@ -20069,27 +20116,6 @@ Related actions:<br/><br/>
 
 
 <div>
-  <h4 id="term_WageBasedTraining" name="term_WageBasedTraining">WageBasedTraining</a></h4>
-
-<p>
-  <div>A program with both an educational and
-        occupational component. </div>
-
-  <p>Properties used on this type: <ul class='props4type'><li><a href='#term_occupationalCategory'>occupationalCategory</a></li><li><a href='#term_trainingSalary'>trainingSalary</a></li></ul>
-
- </p>
-  <p>Properties whose values are of this type: <ul class='props2type'></ul>
-
- </p>
-
-  <small><a href="#intro">[^top]</a></small>
-</p>
-
-</div>
-
-
-
-<div>
   <h4 id="term_WantAction" name="term_WantAction">WantAction</a></h4>
 
 <p>
@@ -20365,6 +20391,26 @@ Commonly used values:<br/><br/>
   <div>A winery. </div>
 
   <p>Properties used on this type: <ul class='props4type'></ul>
+
+ </p>
+  <p>Properties whose values are of this type: <ul class='props2type'></ul>
+
+ </p>
+
+  <small><a href="#intro">[^top]</a></small>
+</p>
+
+</div>
+
+
+
+<div>
+  <h4 id="term_WorkBasedProgram" name="term_WorkBasedProgram">WorkBasedProgram</a></h4>
+
+<p>
+  <div>A program with both an educational and employment component. Typically based at a workplace and structured around work-based learning, with the aim of instilling competencies related to an occupation. WorkBasedProgram is used to distinguish programs such as apprenticeships from school, college or other classroom based educational programs. </div>
+
+  <p>Properties used on this type: <ul class='props4type'><li><a href='#term_occupationalCategory'>occupationalCategory</a></li><li><a href='#term_trainingSalary'>trainingSalary</a></li></ul>
 
  </p>
   <p>Properties whose values are of this type: <ul class='props2type'></ul>
@@ -20949,6 +20995,8 @@ Commonly used values:<br/><br/>
 <a href="#term_confirmationNumber">confirmationNumber</a>
 
 <a href="#term_connectedTo">connectedTo</a>
+
+<a href="#term_constrainingProperty">constrainingProperty</a>
 
 <a href="#term_contactOption">contactOption</a>
 
@@ -21852,6 +21900,8 @@ Commonly used values:<br/><br/>
 
 <a href="#term_maps">maps</a>
 
+<a href="#term_marginOfError">marginOfError</a>
+
 <a href="#term_masthead">masthead</a>
 
 <a href="#term_material">material</a>
@@ -21867,6 +21917,10 @@ Commonly used values:<br/><br/>
 <a href="#term_maximumIntake">maximumIntake</a>
 
 <a href="#term_mealService">mealService</a>
+
+<a href="#term_measuredProperty">measuredProperty</a>
+
+<a href="#term_measuredValue">measuredValue</a>
 
 <a href="#term_measurementTechnique">measurementTechnique</a>
 
@@ -21970,6 +22024,8 @@ Commonly used values:<br/><br/>
 
 <a href="#term_numChildren">numChildren</a>
 
+<a href="#term_numConstraints">numConstraints</a>
+
 <a href="#term_numTracks">numTracks</a>
 
 <a href="#term_numberOfAirbags">numberOfAirbags</a>
@@ -22005,6 +22061,10 @@ Commonly used values:<br/><br/>
 <a href="#term_nutrition">nutrition</a>
 
 <a href="#term_object">object</a>
+
+<a href="#term_observationDate">observationDate</a>
+
+<a href="#term_observedNode">observedNode</a>
 
 <a href="#term_occupancy">occupancy</a>
 
@@ -22179,6 +22239,8 @@ Commonly used values:<br/><br/>
 <a href="#term_polygon">polygon</a>
 
 <a href="#term_population">population</a>
+
+<a href="#term_populationType">populationType</a>
 
 <a href="#term_position">position</a>
 
@@ -27359,6 +27421,25 @@ For example "Available by appointment from the Reading Room" or "Accessible only
   </dd>
      <dt><b>Values</b>:</dt>
      <dd> <ul class='attrrangesummary'><li><a href='#term_AnatomicalStructure'>AnatomicalStructure</a></li></ul>
+
+  </dd>
+ </dl>
+
+  <small><a href="#intro">[^top]</a></small>
+  </p>
+
+
+  <h4 id="term_constrainingProperty" name="term_constrainingProperty">constrainingProperty</a></h4>
+  <p>
+  <div>Indicates a property used as a constraint to define a <a class="localLink" href="/StatisticalPopulation">StatisticalPopulation</a> with respect to the set of entities
+  corresponding to an indicated type (via <a class="localLink" href="/populationType">populationType</a>). </div>
+  <dl>
+     <dt><b>Relevant types</b>:</dt>
+     <dd> <ul class='attrdomainsummary'><li><a href='#term_StatisticalPopulation'>StatisticalPopulation</a></li></ul>
+
+  </dd>
+     <dt><b>Values</b>:</dt>
+     <dd> <ul class='attrrangesummary'><li><a href='#term_https://schema.org/Integer'>https://schema.org/Integer</a></li></ul>
 
   </dd>
  </dl>
@@ -35562,6 +35643,24 @@ Usage guidelines:<br/><br/>
   </p>
 
 
+  <h4 id="term_marginOfError" name="term_marginOfError">marginOfError</a></h4>
+  <p>
+  <div>A marginOfError for an <a class="localLink" href="/Observation">Observation</a>. </div>
+  <dl>
+     <dt><b>Relevant types</b>:</dt>
+     <dd> <ul class='attrdomainsummary'><li><a href='#term_Observation'>Observation</a></li></ul>
+
+  </dd>
+     <dt><b>Values</b>:</dt>
+     <dd> <ul class='attrrangesummary'><li><a href='#term_https://schema.org/DateTime'>https://schema.org/DateTime</a></li></ul>
+
+  </dd>
+ </dl>
+
+  <small><a href="#intro">[^top]</a></small>
+  </p>
+
+
   <h4 id="term_masthead" name="term_masthead">masthead</a></h4>
   <p>
   <div>For a <a class="localLink" href="/NewsMediaOrganization">NewsMediaOrganization</a>, a link to the masthead page or a page listing top editorial management. </div>
@@ -35698,6 +35797,42 @@ Usage guidelines:<br/><br/>
   </dd>
      <dt><b>Values</b>:</dt>
      <dd> <ul class='attrrangesummary'><li><a href='#term_Text'>Text</a></li></ul>
+
+  </dd>
+ </dl>
+
+  <small><a href="#intro">[^top]</a></small>
+  </p>
+
+
+  <h4 id="term_measuredProperty" name="term_measuredProperty">measuredProperty</a></h4>
+  <p>
+  <div>The measuredProperty of an <a class="localLink" href="/Observation">Observation</a>, either a schema.org property, a property from other RDF-compatible systems e.g. W3C RDF Data Cube, or schema.org extensions such as <a href="https://www.gs1.org/voc/?show=properties">GS1's</a>. </div>
+  <dl>
+     <dt><b>Relevant types</b>:</dt>
+     <dd> <ul class='attrdomainsummary'><li><a href='#term_Observation'>Observation</a></li></ul>
+
+  </dd>
+     <dt><b>Values</b>:</dt>
+     <dd> <ul class='attrrangesummary'><li><a href='#term_https://schema.org/Property'>https://schema.org/Property</a></li></ul>
+
+  </dd>
+ </dl>
+
+  <small><a href="#intro">[^top]</a></small>
+  </p>
+
+
+  <h4 id="term_measuredValue" name="term_measuredValue">measuredValue</a></h4>
+  <p>
+  <div>The measuredValue of an <a class="localLink" href="/Observation">Observation</a>. </div>
+  <dl>
+     <dt><b>Relevant types</b>:</dt>
+     <dd> <ul class='attrdomainsummary'><li><a href='#term_Observation'>Observation</a></li></ul>
+
+  </dd>
+     <dt><b>Values</b>:</dt>
+     <dd> <ul class='attrrangesummary'><li><a href='#term_https://schema.org/DataType'>https://schema.org/DataType</a></li></ul>
 
   </dd>
  </dl>
@@ -36633,6 +36768,24 @@ Typical unit code(s): KMT for kilometers, SMI for statute miles </div>
   </p>
 
 
+  <h4 id="term_numConstraints" name="term_numConstraints">numConstraints</a></h4>
+  <p>
+  <div>Indicates the number of constraints (not counting <a class="localLink" href="/populationType">populationType</a>) defined for a particular <a class="localLink" href="/StatisticalPopulation">StatisticalPopulation</a>. This helps applications understand if they have access to a sufficiently complete description of a <a class="localLink" href="/StatisticalPopulation">StatisticalPopulation</a>. </div>
+  <dl>
+     <dt><b>Relevant types</b>:</dt>
+     <dd> <ul class='attrdomainsummary'><li><a href='#term_StatisticalPopulation'>StatisticalPopulation</a></li></ul>
+
+  </dd>
+     <dt><b>Values</b>:</dt>
+     <dd> <ul class='attrrangesummary'><li><a href='#term_https://schema.org/Integer'>https://schema.org/Integer</a></li></ul>
+
+  </dd>
+ </dl>
+
+  <small><a href="#intro">[^top]</a></small>
+  </p>
+
+
   <h4 id="term_numTracks" name="term_numTracks">numTracks</a></h4>
   <p>
   <div>The number of tracks in this album or playlist. </div>
@@ -36966,6 +37119,42 @@ Typical unit code(s): ROM for room or C62 for no unit. The type of room can be p
   </p>
 
 
+  <h4 id="term_observationDate" name="term_observationDate">observationDate</a></h4>
+  <p>
+  <div>The observationDate of an <a class="localLink" href="/Observation">Observation</a>. </div>
+  <dl>
+     <dt><b>Relevant types</b>:</dt>
+     <dd> <ul class='attrdomainsummary'><li><a href='#term_Observation'>Observation</a></li></ul>
+
+  </dd>
+     <dt><b>Values</b>:</dt>
+     <dd> <ul class='attrrangesummary'><li><a href='#term_https://schema.org/DateTime'>https://schema.org/DateTime</a></li></ul>
+
+  </dd>
+ </dl>
+
+  <small><a href="#intro">[^top]</a></small>
+  </p>
+
+
+  <h4 id="term_observedNode" name="term_observedNode">observedNode</a></h4>
+  <p>
+  <div>The observedNode of an <a class="localLink" href="/Observation">Observation</a>, often a <a class="localLink" href="/StatisticalPopulation">StatisticalPopulation</a>. </div>
+  <dl>
+     <dt><b>Relevant types</b>:</dt>
+     <dd> <ul class='attrdomainsummary'><li><a href='#term_Observation'>Observation</a></li></ul>
+
+  </dd>
+     <dt><b>Values</b>:</dt>
+     <dd> <ul class='attrrangesummary'><li><a href='#term_https://schema.org/StatisticalPopulation'>https://schema.org/StatisticalPopulation</a></li></ul>
+
+  </dd>
+ </dl>
+
+  <small><a href="#intro">[^top]</a></small>
+  </p>
+
+
   <h4 id="term_occupancy" name="term_occupancy">occupancy</a></h4>
   <p>
   <div>The allowed total occupancy for the accommodation in persons (including infants etc). For individual accommodations, this is not necessarily the legal maximum but defines the permitted usage as per the contractual agreement (e.g. a double room used by a single person).
@@ -37010,7 +37199,7 @@ Typical unit code(s): C62 for person </div>
 Note: for historical reasons, any textual label and formal code provided as a literal may be assumed to be from O*NET-SOC. </div>
   <dl>
      <dt><b>Relevant types</b>:</dt>
-     <dd> <ul class='attrdomainsummary'><li><a href='#term_JobPosting'>JobPosting</a></li><li><a href='#term_Occupation'>Occupation</a></li><li><a href='#term_WageBasedTraining'>WageBasedTraining</a></li></ul>
+     <dd> <ul class='attrdomainsummary'><li><a href='#term_JobPosting'>JobPosting</a></li><li><a href='#term_Occupation'>Occupation</a></li><li><a href='#term_WorkBasedProgram'>WorkBasedProgram</a></li></ul>
 
   </dd>
      <dt><b>Values</b>:</dt>
@@ -38545,6 +38734,24 @@ Typical unit code(s): KGM for kilogram, LBR for pound<br/><br/>
   </dd>
      <dt><b>Values</b>:</dt>
      <dd> <ul class='attrrangesummary'><li><a href='#term_Text'>Text</a></li></ul>
+
+  </dd>
+ </dl>
+
+  <small><a href="#intro">[^top]</a></small>
+  </p>
+
+
+  <h4 id="term_populationType" name="term_populationType">populationType</a></h4>
+  <p>
+  <div>Indicates the populationType common to all members of a <a class="localLink" href="/StatisticalPopulation">StatisticalPopulation</a>. </div>
+  <dl>
+     <dt><b>Relevant types</b>:</dt>
+     <dd> <ul class='attrdomainsummary'><li><a href='#term_StatisticalPopulation'>StatisticalPopulation</a></li></ul>
+
+  </dd>
+     <dt><b>Values</b>:</dt>
+     <dd> <ul class='attrrangesummary'><li><a href='#term_https://schema.org/Class'>https://schema.org/Class</a></li></ul>
 
   </dd>
  </dl>
@@ -44396,7 +44603,7 @@ Typical unit code(s): KGM for kilogram, LBR for pound
   <div>The estimated salary earned while in the program. </div>
   <dl>
      <dt><b>Relevant types</b>:</dt>
-     <dd> <ul class='attrdomainsummary'><li><a href='#term_WageBasedTraining'>WageBasedTraining</a></li></ul>
+     <dd> <ul class='attrdomainsummary'><li><a href='#term_WorkBasedProgram'>WorkBasedProgram</a></li></ul>
 
   </dd>
      <dt><b>Values</b>:</dt>

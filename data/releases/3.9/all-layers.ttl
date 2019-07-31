@@ -1569,9 +1569,7 @@ schema:EducationalOccupationalProgram a rdfs:Class ;
     dct:source <https://github.com/schemaorg/schemaorg/issues/2289> ;
     schema:category "issue-2289" ;
     schema:isPartOf <http://pending.schema.org> ;
-    rdfs:comment """A program offered by an institution which
-        determines the learning progress to achieve an outcome, usually a
-        credential like a degree or certificate.""" ;
+    rdfs:comment "A program offered by an institution which determines the learning progress to achieve an outcome, usually a credential like a degree or certificate. This would define a discrete set of opportunities (e.g., job, courses) that together constitute a program with a clear start, end, set of requirements, and transition to a new occupational opportunity (e.g., a job), or sometimes a higher educational opportunity (e.g., an advanced degree)." ;
     rdfs:subClassOf schema:Intangible .
 
 schema:EducationalOrganization a rdfs:Class ;
@@ -3223,6 +3221,15 @@ schema:NutritionInformation a rdfs:Class ;
     rdfs:comment "Nutritional information about the recipe." ;
     rdfs:subClassOf schema:StructuredValue .
 
+schema:Observation a rdfs:Class ;
+    rdfs:label "Observation" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/2291> ;
+    schema:category "issue-2291" ;
+    schema:isPartOf <http://pending.schema.org> ;
+    rdfs:comment """Instances of the class <a class="localLink" href="http://schema.org/Observation">Observation</a> are used to specify observations about an entity (which may or may not be an instance of a <a class="localLink" href="http://schema.org/StatisticalPopulation">StatisticalPopulation</a>), at a particular time. The principal properties of an <a class="localLink" href="http://schema.org/Observation">Observation</a> are <a class="localLink" href="http://schema.org/observedNode">observedNode</a>, <a class="localLink" href="http://schema.org/measuredProperty">measuredProperty</a>, <a class="localLink" href="http://schema.org/measuredValue">measuredValue</a> (or <a class="localLink" href="http://schema.org/median">median</a>, etc.) and <a class="localLink" href="http://schema.org/observationDate">observationDate</a> (<a class="localLink" href="http://schema.org/measuredProperty">measuredProperty</a> properties can, but need not always, be W3C RDF Data Cube "measure properties", as in the <a href="https://www.w3.org/TR/vocab-data-cube/#dsd-example">lifeExpectancy example</a>).
+See also <a class="localLink" href="http://schema.org/StatisticalPopulation">StatisticalPopulation</a>, and the <a href="/docs/data-and-datasets.html">data and datasets</a> overview for more details.""" ;
+    rdfs:subClassOf schema:Intangible .
+
 schema:Occupation a rdfs:Class ;
     rdfs:label "Occupation" ;
     dct:source <https://github.com/schemaorg/schemaorg/issues/1698> ;
@@ -4424,6 +4431,16 @@ schema:State a rdfs:Class ;
     rdfs:comment "A state or province of a country." ;
     rdfs:subClassOf schema:AdministrativeArea .
 
+schema:StatisticalPopulation a rdfs:Class ;
+    rdfs:label "StatisticalPopulation" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/2291> ;
+    schema:category "issue-2291" ;
+    schema:isPartOf <http://pending.schema.org> ;
+    rdfs:comment """A StatisticalPopulation is a set of instances of a certain given type that satisfy some set of constraints. The property <a class="localLink" href="http://schema.org/populationType">populationType</a> is used to specify the type. Any property that can be used on instances of that type can appear on the statistical population. For example, a <a class="localLink" href="http://schema.org/StatisticalPopulation">StatisticalPopulation</a> representing all <a class="localLink" href="http://schema.org/Person">Person</a>s with a <a class="localLink" href="http://schema.org/homeLocation">homeLocation</a> of East Podunk California, would be described by applying the appropriate <a class="localLink" href="http://schema.org/homeLocation">homeLocation</a> and <a class="localLink" href="http://schema.org/populationType">populationType</a> properties to a <a class="localLink" href="http://schema.org/StatisticalPopulation">StatisticalPopulation</a> item that stands for that set of people.
+The properties <a class="localLink" href="http://schema.org/numConstraints">numConstraints</a> and <a class="localLink" href="http://schema.org/constrainingProperties">constrainingProperties</a> are used to specify which of the populations properties are used to specify the population. Note that the sense of "population" used here is the general sense of a statistical
+population, and does not imply that the population consists of people. For example, a <a class="localLink" href="http://schema.org/populationType">populationType</a> of <a class="localLink" href="http://schema.org/Event">Event</a> or <a class="localLink" href="http://schema.org/NewsArticle">NewsArticle</a> could be used. See also <a class="localLink" href="http://schema.org/Observation">Observation</a>, and the <a href="/docs/data-and-datasets.html">data and datasets</a> overview for more details.""" ;
+    rdfs:subClassOf schema:Intangible .
+
 schema:SteeringPositionValue a rdfs:Class ;
     rdfs:label "SteeringPositionValue" ;
     dct:source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group> ;
@@ -4964,15 +4981,6 @@ schema:WPSideBar a rdfs:Class ;
     rdfs:comment "A sidebar section of the page." ;
     rdfs:subClassOf schema:WebPageElement .
 
-schema:WageBasedTraining a rdfs:Class ;
-    rdfs:label "WageBasedTraining" ;
-    dct:source <https://github.com/schemaorg/schemaorg/issues/2289> ;
-    schema:category "issue-2289" ;
-    schema:isPartOf <http://pending.schema.org> ;
-    rdfs:comment """A program with both an educational and
-        occupational component.""" ;
-    rdfs:subClassOf schema:EducationalOccupationalProgram .
-
 schema:WantAction a rdfs:Class ;
     rdfs:label "WantAction" ;
     rdfs:comment "The act of expressing a desire about the object. An agent wants an object." ;
@@ -5056,6 +5064,14 @@ schema:Winery a rdfs:Class ;
     rdfs:label "Winery" ;
     rdfs:comment "A winery." ;
     rdfs:subClassOf schema:FoodEstablishment .
+
+schema:WorkBasedProgram a rdfs:Class ;
+    rdfs:label "WorkBasedProgram" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/2289> ;
+    schema:category "issue-2289" ;
+    schema:isPartOf <http://pending.schema.org> ;
+    rdfs:comment "A program with both an educational and employment component. Typically based at a workplace and structured around work-based learning, with the aim of instilling competencies related to an occupation. WorkBasedProgram is used to distinguish programs such as apprenticeships from school, college or other classroom based educational programs." ;
+    rdfs:subClassOf schema:EducationalOccupationalProgram .
 
 schema:WorkersUnion a rdfs:Class ;
     rdfs:label "WorkersUnion" ;
@@ -8081,6 +8097,16 @@ schema:connectedTo a rdf:Property ;
     schema:isPartOf <http://health-lifesci.schema.org> ;
     schema:rangeIncludes schema:AnatomicalStructure ;
     rdfs:comment "Other anatomical structures to which this structure is connected." .
+
+schema:constrainingProperty a rdf:Property ;
+    rdfs:label "constrainingProperty" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/2291> ;
+    schema:category "issue-2291" ;
+    schema:domainIncludes schema:StatisticalPopulation ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes <https://schema.org/Integer> ;
+    rdfs:comment """Indicates a property used as a constraint to define a <a class="localLink" href="http://schema.org/StatisticalPopulation">StatisticalPopulation</a> with respect to the set of entities
+  corresponding to an indicated type (via <a class="localLink" href="http://schema.org/populationType">populationType</a>).""" .
 
 schema:contactOption a rdf:Property ;
     rdfs:label "contactOption" ;
@@ -11349,6 +11375,15 @@ schema:maps a rdf:Property ;
     schema:supersededBy schema:hasMap ;
     rdfs:comment "A URL to a map of the place." .
 
+schema:marginOfError a rdf:Property ;
+    rdfs:label "marginOfError" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/2291> ;
+    schema:category "issue-2291" ;
+    schema:domainIncludes schema:Observation ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes <https://schema.org/DateTime> ;
+    rdfs:comment "A marginOfError for an <a class=\"localLink\" href=\"http://schema.org/Observation\">Observation</a>." .
+
 schema:masthead a rdf:Property ;
     rdfs:label "masthead" ;
     dct:source <https://github.com/schemaorg/schemaorg/issues/1525>,
@@ -11410,6 +11445,24 @@ schema:mealService a rdf:Property ;
     schema:domainIncludes schema:Flight ;
     schema:rangeIncludes schema:Text ;
     rdfs:comment "Description of the meals that will be provided or available for purchase." .
+
+schema:measuredProperty a rdf:Property ;
+    rdfs:label "measuredProperty" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/2291> ;
+    schema:category "issue-2291" ;
+    schema:domainIncludes schema:Observation ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes <https://schema.org/Property> ;
+    rdfs:comment "The measuredProperty of an <a class=\"localLink\" href=\"http://schema.org/Observation\">Observation</a>, either a schema.org property, a property from other RDF-compatible systems e.g. W3C RDF Data Cube, or schema.org extensions such as <a href=\"https://www.gs1.org/voc/?show=properties\">GS1's</a>." .
+
+schema:measuredValue a rdf:Property ;
+    rdfs:label "measuredProperty" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/2291> ;
+    schema:category "issue-2291" ;
+    schema:domainIncludes schema:Observation ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes <https://schema.org/DataType> ;
+    rdfs:comment "The measuredValue of an <a class=\"localLink\" href=\"http://schema.org/Observation\">Observation</a>." .
 
 schema:measurementTechnique a rdf:Property ;
     rdfs:label "measurementTechnique" ;
@@ -11816,6 +11869,15 @@ schema:numChildren a rdf:Property ;
         schema:QuantitativeValue ;
     rdfs:comment "The number of children staying in the unit." .
 
+schema:numConstraints a rdf:Property ;
+    rdfs:label "numConstraints" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/2291> ;
+    schema:category "issue-2291" ;
+    schema:domainIncludes schema:StatisticalPopulation ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes <https://schema.org/Integer> ;
+    rdfs:comment "Indicates the number of constraints (not counting <a class=\"localLink\" href=\"http://schema.org/populationType\">populationType</a>) defined for a particular <a class=\"localLink\" href=\"http://schema.org/StatisticalPopulation\">StatisticalPopulation</a>. This helps applications understand if they have access to a sufficiently complete description of a <a class=\"localLink\" href=\"http://schema.org/StatisticalPopulation\">StatisticalPopulation</a>." .
+
 schema:numTracks a rdf:Property ;
     rdfs:label "numTracks" ;
     schema:domainIncludes schema:MusicPlaylist ;
@@ -11957,6 +12019,24 @@ schema:nutrition a rdf:Property ;
     schema:rangeIncludes schema:NutritionInformation ;
     rdfs:comment "Nutrition information about the recipe or menu item." .
 
+schema:observationDate a rdf:Property ;
+    rdfs:label "observationDate" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/2291> ;
+    schema:category "issue-2291" ;
+    schema:domainIncludes schema:Observation ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes <https://schema.org/DateTime> ;
+    rdfs:comment "The observationDate of an <a class=\"localLink\" href=\"http://schema.org/Observation\">Observation</a>." .
+
+schema:observedNode a rdf:Property ;
+    rdfs:label "observedNode" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/2291> ;
+    schema:category "issue-2291" ;
+    schema:domainIncludes schema:Observation ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes <https://schema.org/StatisticalPopulation> ;
+    rdfs:comment "The observedNode of an <a class=\"localLink\" href=\"http://schema.org/Observation\">Observation</a>, often a <a class=\"localLink\" href=\"http://schema.org/StatisticalPopulation\">StatisticalPopulation</a>." .
+
 schema:occupancy a rdf:Property ;
     rdfs:label "occupancy" ;
     dct:source <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology> ;
@@ -11986,7 +12066,7 @@ schema:occupationalCategory a rdf:Property ;
         "issue-2289" ;
     schema:domainIncludes schema:JobPosting,
         schema:Occupation,
-        schema:WageBasedTraining ;
+        schema:WorkBasedProgram ;
     schema:rangeIncludes schema:CategoryCode,
         schema:Text ;
     rdfs:comment """A category describing the job, preferably using a term from a taxonomy such as <a href="http://www.onetcenter.org/taxonomy.html">BLS O*NET-SOC</a>, <a href="https://www.ilo.org/public/english/bureau/stat/isco/isco08/">ISCO-08</a> or similar, with the property repeated for each applicable value. Ideally the taxonomy should be identified, and both the textual label and formal code for the category should be provided.<br/><br/>
@@ -12571,6 +12651,15 @@ schema:population a rdf:Property ;
     schema:isPartOf <http://health-lifesci.schema.org> ;
     schema:rangeIncludes schema:Text ;
     rdfs:comment "Any characteristics of the population used in the study, e.g. 'males under 65'." .
+
+schema:populationType a rdf:Property ;
+    rdfs:label "populationType" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/2291> ;
+    schema:category "issue-2291" ;
+    schema:domainIncludes schema:StatisticalPopulation ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes <https://schema.org/Class> ;
+    rdfs:comment "Indicates the populationType common to all members of a <a class=\"localLink\" href=\"http://schema.org/StatisticalPopulation\">StatisticalPopulation</a>." .
 
 schema:possibleComplication a rdf:Property ;
     rdfs:label "possibleComplication" ;
@@ -14730,7 +14819,7 @@ schema:trainingSalary a rdf:Property ;
     rdfs:label "trainingSalary" ;
     dct:source <https://github.com/schemaorg/schemaorg/issues/2289> ;
     schema:category "issue-2289" ;
-    schema:domainIncludes schema:WageBasedTraining ;
+    schema:domainIncludes schema:WorkBasedProgram ;
     schema:isPartOf <http://pending.schema.org> ;
     schema:rangeIncludes schema:MonetaryAmountDistribution ;
     rdfs:comment "The estimated salary earned while in the program." .
