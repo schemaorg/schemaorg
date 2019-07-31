@@ -25,16 +25,26 @@ then
 fi
 
 function usage {
-    echo "usage: $(basename $0) [-c config] [-p project] [-v version] [-yyaml file]"
-		echo "(If you pass the option -c [webschemas | schemaorg] it answers most of the questions for you)"
+    echo "usage: $(basename $0) -e -m [-c config] [-p project] [-v version] [-yyaml file]"
+	echo "-e bypasses exercise of site step"
+	echo "-m bypasses migrate traffic to new version step"
+	echo "(If you pass the option -c [webschemas | schemaorg] it answers most of the questions for you)"
 }
 
 PROJECT=""
 VERSION=""
 YAML=""
 CONF=""
-while getopts 'c:p:v:y:' OPTION; do
+EXE="Y"
+MIG="Y"
+while getopts 'c:p:v:y:em' OPTION; do
   case "$OPTION" in
+    e)
+      EXE="N"
+    ;;
+    m)
+        MIG="N"
+    ;;
     y)
         YAML="$OPTARG"
     ;;
@@ -130,7 +140,8 @@ done
 cont="N"
 while [ "$cont" != "Y" ]
 do
-    echo "\nAbout to deploy version '$VERSION' to Gcloud project '$PROJECT' using yaml '$YAML' "
+    echo
+    echo "About to deploy version '$VERSION' to Gcloud project '$PROJECT' using yaml '$YAML' "
     read -r -p "Continue? (y/n): " response
     case $response in
     Y|y)
@@ -144,15 +155,60 @@ do
 done
 
 ################# Deploy steps
+URL="${VERSION}-dot-${PROJECT}.appspot.com"
+FULLURL="https://$URL"
+
+
+echo "Checking for version conflicts"
+
+for ver in `gcloud app versions list --hide-no-traffic --project $PROJECT --uri`
+do
+    if [ "$ver" = "$FULLURL" ]
+    then
+        echo "WARNING!!! Version ${VERSION} is already serving traffic for project ${PROJECT}"
+        echo "This deployment WILL OVERWRITE that version"
+        read -r -p "Continue? (y/n): " response
+        case $response in
+        Y|y)
+            break
+            ;;
+        N|n)
+            echo "Aborting"
+            exit 1
+            ;;
+        *)
+            echo "Aborting"
+            exit 1
+            ;;
+        esac
+    fi
+done
+
 
 scripts/appdeploy.sh --quiet --no-promote --project "$PROJECT" --version="$VERSION" "$YAML"
-echo "\n\nVersion '$VERSION' of project '$PROJECT' deployed \n"
+echo
+echo "Version '$VERSION' of project '$PROJECT' deployed "
 
-URL="${VERSION}-dot-${PROJECT}.appspot.com"
-echo "Starting exercise of site: $URL\n"
+if [ "$EXE" = "Y" ]
+then
+    echo "Starting exercise of site: $URL\n"
 
-scripts/exercisesite.py --site "$URL"
-echo "\n\nSite excercised"
-echo "\nMigrating traffic"
-gcloud app services --quiet --project "$PROJECT" set-traffic --splits="$VERSION"=1
-echo "\nDone"
+    scripts/exercisesite.py --site "$URL"
+    echo
+    echo "Site excercised"
+else
+    echo "Site excercise step skipped"
+fi
+
+if [ "$MIG" = "Y" ]
+then
+    echo
+    echo "Migrating traffic"
+    gcloud app services --quiet --project "$PROJECT" set-traffic --splits="$VERSION"=1
+    echo
+    echo "Done"
+else
+    echo
+    echo "Traffic not migrated - to put $VERSION live use appengine console"
+    echo "Access it via this url: http://$URL"
+fi
