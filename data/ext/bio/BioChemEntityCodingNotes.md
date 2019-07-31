@@ -9,7 +9,7 @@ The `BioChemEntity` type has been discussed in the Bioschemas community in:
 **ToDo:** Add links to most pertinant issues and email threads
 
 - Issue
-  - [Definition] (https://github.com/BioSchemas/specifications/issues/215)
+  - [Definition](https://github.com/BioSchemas/specifications/issues/215)
   - [Relationship to schema.org/Intangible](https://github.com/BioSchemas/specifications/issues/226)
   - [All issues](https://github.com/BioSchemas/specifications/issues?utf8=✓&q=+label%3A"type%3A+BioChemEntity")
 - Bioschemas community mailing list thread
