@@ -97,6 +97,22 @@ then
 fi
 
 echo
+echo "Running Unit Tests... "
+./scripts/run_tests.py 
+if [ $? -eq 0 ]
+then
+    echo
+    echo "  Unit Tests ran succesfully"
+else
+    echo
+    echo "  Unit Tests failed!!"
+    echo "$RES"
+    echo
+    echo "Manually run ./scripts/run_tests.py for more details"
+    echo "Aborting..."
+    exit 1
+fi
+
 echo -n "Preparing by running buildTermConfig.sh... "
 ./scripts/buildTermConfig.sh
 echo " Prepared."
@@ -128,6 +144,7 @@ rm -f $DIR/schema-all.html  2>&1 > /dev/null
 rm -f $DIR/schemaorg.owl  2>&1 > /dev/null
 echo " cleaned."
 sleep 2
+
 
 echo -n "Copying schema.rdfa and README.md into release directory... "
 cp ./data/schema.rdfa $DIR
