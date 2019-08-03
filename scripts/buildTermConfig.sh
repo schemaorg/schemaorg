@@ -2,7 +2,7 @@
 set -e
 set -u
 
-PWD=`pwd`
+PWD="`pwd`"
 PROG="`basename $0`"
 if [ `basename "$PWD"` != "schemaorg" ]
 then
@@ -10,7 +10,7 @@ then
 	exit 1
 fi
 
-TARGET="${PWD}/sdoconfigTermsData.json"
+TARGET="./sdoconfigTermsData.json"
 LOCVARIABLE='[[SCHEMAORGLOC]]/'
 Header="{
     \"@context\": {
