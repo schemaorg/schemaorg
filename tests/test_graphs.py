@@ -426,6 +426,42 @@ class SDOGraphSetupTestCase(unittest.TestCase):
             log.info("Term '%s' isPartOf %s extensions" % (row["term"],row["count"]))
     self.assertEqual(len(nri1_results), 0, "Term in +1 extensions  Found: %s" % len(nri1_results))
 
+  def test_termNothttps(self):
+    nri1= ('''select distinct ?term where {
+      ?term ?p ?o.
+      FILTER strstarts(str(?term),"https://schema.org")
+    }
+    ORDER BY ?term
+     ''')
+    nri1_results = self.rdflib_data.query(nri1)
+    if len(nri1_results):
+        log.info("Term defined as https errors!!!\n")
+        for row in nri1_results:
+            log.info("Term '%s' is defined as https " % (row["term"]))
+    self.assertEqual(len(nri1_results), 0, "Term defined as https  Found: %s" % len(nri1_results))
+
+  def test_targetNothttps(self):
+    nri1= ('''prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+    prefix schema: <http://schema.org/>
+    select ?term ?target where {
+  
+      ?term schema:domainIncludes | 
+            schema:rangeIncludes |
+            rdfs:subClassOf |
+            rdfs:subPropertyOf |
+            schema:supercededBy |
+            schema:inverseOf ?target.
+      filter strstarts(str(?target),"https://schema.org")
+    }
+    ORDER BY ?term
+     ''')
+    nri1_results = self.rdflib_data.query(nri1)
+    if len(nri1_results):
+        log.info("Target defined as https errors!!!\n")
+        for row in nri1_results:
+            log.info("Term '%s' references term %s  as https " % (row["term"],row["target"]))
+    self.assertEqual(len(nri1_results), 0, "Term defined as https  Found: %s" % len(nri1_results))
+
   @unittest.expectedFailure
   def test_EnumerationWithoutEnums(self):
     nri1= ('''select ?term where { 
