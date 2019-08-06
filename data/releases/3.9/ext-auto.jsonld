@@ -29,19 +29,22 @@
       "rdfs:label": "roofLoad"
     },
     {
-      "@id": "http://schema.org/Motorcycle",
-      "@type": "rdfs:Class",
+      "@id": "http://schema.org/weightTotal",
+      "@type": "rdf:Property",
       "http://purl.org/dc/terms/source": {
         "@id": "http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group"
+      },
+      "http://schema.org/domainIncludes": {
+        "@id": "http://schema.org/Vehicle"
       },
       "http://schema.org/isPartOf": {
         "@id": "http://auto.schema.org"
       },
-      "rdfs:comment": "A motorcycle or motorbike is a single-track, two-wheeled motor vehicle.",
-      "rdfs:label": "Motorcycle",
-      "rdfs:subClassOf": {
-        "@id": "http://schema.org/Vehicle"
-      }
+      "http://schema.org/rangeIncludes": {
+        "@id": "http://schema.org/QuantitativeValue"
+      },
+      "rdfs:comment": "The permitted total weight of the loaded vehicle, including passengers and cargo and the weight of the empty vehicle.<br/><br/>\n\nTypical unit code(s): KGM for kilogram, LBR for pound<br/><br/>\n\n<ul>\n<li>Note 1: You can indicate additional information in the <a class=\"localLink\" href=\"http://schema.org/name\">name</a> of the <a class=\"localLink\" href=\"http://schema.org/QuantitativeValue\">QuantitativeValue</a> node.</li>\n<li>Note 2: You may also link to a <a class=\"localLink\" href=\"http://schema.org/QualitativeValue\">QualitativeValue</a> node that provides additional information using <a class=\"localLink\" href=\"http://schema.org/valueReference\">valueReference</a>.</li>\n<li>Note 3: Note that you can use <a class=\"localLink\" href=\"http://schema.org/minValue\">minValue</a> and <a class=\"localLink\" href=\"http://schema.org/maxValue\">maxValue</a> to indicate ranges.</li>\n</ul>\n",
+      "rdfs:label": "weightTotal"
     },
     {
       "@id": "http://schema.org/enginePower",
@@ -119,10 +122,10 @@
           "@id": "http://schema.org/Text"
         },
         {
-          "@id": "http://schema.org/URL"
+          "@id": "http://schema.org/QualitativeValue"
         },
         {
-          "@id": "http://schema.org/QualitativeValue"
+          "@id": "http://schema.org/URL"
         }
       ],
       "rdfs:comment": "The type of engine or engines powering the vehicle.",
@@ -239,22 +242,19 @@
       }
     },
     {
-      "@id": "http://schema.org/weightTotal",
-      "@type": "rdf:Property",
+      "@id": "http://schema.org/Motorcycle",
+      "@type": "rdfs:Class",
       "http://purl.org/dc/terms/source": {
         "@id": "http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group"
-      },
-      "http://schema.org/domainIncludes": {
-        "@id": "http://schema.org/Vehicle"
       },
       "http://schema.org/isPartOf": {
         "@id": "http://auto.schema.org"
       },
-      "http://schema.org/rangeIncludes": {
-        "@id": "http://schema.org/QuantitativeValue"
-      },
-      "rdfs:comment": "The permitted total weight of the loaded vehicle, including passengers and cargo and the weight of the empty vehicle.<br/><br/>\n\nTypical unit code(s): KGM for kilogram, LBR for pound<br/><br/>\n\n<ul>\n<li>Note 1: You can indicate additional information in the <a class=\"localLink\" href=\"http://schema.org/name\">name</a> of the <a class=\"localLink\" href=\"http://schema.org/QuantitativeValue\">QuantitativeValue</a> node.</li>\n<li>Note 2: You may also link to a <a class=\"localLink\" href=\"http://schema.org/QualitativeValue\">QualitativeValue</a> node that provides additional information using <a class=\"localLink\" href=\"http://schema.org/valueReference\">valueReference</a>.</li>\n<li>Note 3: Note that you can use <a class=\"localLink\" href=\"http://schema.org/minValue\">minValue</a> and <a class=\"localLink\" href=\"http://schema.org/maxValue\">maxValue</a> to indicate ranges.</li>\n</ul>\n",
-      "rdfs:label": "weightTotal"
+      "rdfs:comment": "A motorcycle or motorbike is a single-track, two-wheeled motor vehicle.",
+      "rdfs:label": "Motorcycle",
+      "rdfs:subClassOf": {
+        "@id": "http://schema.org/Vehicle"
+      }
     },
     {
       "@id": "http://schema.org/CarUsageType",
@@ -296,6 +296,29 @@
       ],
       "rdfs:comment": "Indicates the design and body style of the vehicle (e.g. station wagon, hatchback, etc.).",
       "rdfs:label": "bodyType"
+    },
+    {
+      "@id": "http://schema.org/vehicleSpecialUsage",
+      "@type": "rdf:Property",
+      "http://purl.org/dc/terms/source": {
+        "@id": "http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group"
+      },
+      "http://schema.org/domainIncludes": {
+        "@id": "http://schema.org/Vehicle"
+      },
+      "http://schema.org/isPartOf": {
+        "@id": "http://auto.schema.org"
+      },
+      "http://schema.org/rangeIncludes": [
+        {
+          "@id": "http://schema.org/Text"
+        },
+        {
+          "@id": "http://schema.org/CarUsageType"
+        }
+      ],
+      "rdfs:comment": "Indicates whether the vehicle has been used for special purposes, like commercial rental, driving school, or as a taxi. The legislation in many countries requires this information to be revealed when offering a car for sale.",
+      "rdfs:label": "vehicleSpecialUsage"
     },
     {
       "@id": "http://schema.org/trailerWeight",
@@ -386,13 +409,13 @@
       },
       "http://schema.org/rangeIncludes": [
         {
-          "@id": "http://schema.org/URL"
+          "@id": "http://schema.org/Text"
         },
         {
           "@id": "http://schema.org/QualitativeValue"
         },
         {
-          "@id": "http://schema.org/Text"
+          "@id": "http://schema.org/URL"
         }
       ],
       "rdfs:comment": "Indicates that the vehicle meets the respective emission standard.",
@@ -453,27 +476,16 @@
       "rdfs:label": "speed"
     },
     {
-      "@id": "http://schema.org/vehicleSpecialUsage",
-      "@type": "rdf:Property",
+      "@id": "http://schema.org/DrivingSchoolVehicleUsage",
+      "@type": "http://schema.org/CarUsageType",
       "http://purl.org/dc/terms/source": {
         "@id": "http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group"
-      },
-      "http://schema.org/domainIncludes": {
-        "@id": "http://schema.org/Vehicle"
       },
       "http://schema.org/isPartOf": {
         "@id": "http://auto.schema.org"
       },
-      "http://schema.org/rangeIncludes": [
-        {
-          "@id": "http://schema.org/Text"
-        },
-        {
-          "@id": "http://schema.org/CarUsageType"
-        }
-      ],
-      "rdfs:comment": "Indicates whether the vehicle has been used for special purposes, like commercial rental, driving school, or as a taxi. The legislation in many countries requires this information to be revealed when offering a car for sale.",
-      "rdfs:label": "vehicleSpecialUsage"
+      "rdfs:comment": "Indicates the usage of the vehicle for driving school.",
+      "rdfs:label": "DrivingSchoolVehicleUsage"
     },
     {
       "@id": "http://schema.org/torque",
@@ -492,18 +504,6 @@
       },
       "rdfs:comment": "The torque (turning force) of the vehicle's engine.<br/><br/>\n\nTypical unit code(s): NU for newton metre (N m), F17 for pound-force per foot, or F48 for pound-force per inch<br/><br/>\n\n<ul>\n<li>Note 1: You can link to information about how the given value has been determined (e.g. reference RPM) using the <a class=\"localLink\" href=\"http://schema.org/valueReference\">valueReference</a> property.</li>\n<li>Note 2: You can use <a class=\"localLink\" href=\"http://schema.org/minValue\">minValue</a> and <a class=\"localLink\" href=\"http://schema.org/maxValue\">maxValue</a> to indicate ranges.</li>\n</ul>\n",
       "rdfs:label": "torque"
-    },
-    {
-      "@id": "http://schema.org/DrivingSchoolVehicleUsage",
-      "@type": "http://schema.org/CarUsageType",
-      "http://purl.org/dc/terms/source": {
-        "@id": "http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group"
-      },
-      "http://schema.org/isPartOf": {
-        "@id": "http://auto.schema.org"
-      },
-      "rdfs:comment": "Indicates the usage of the vehicle for driving school.",
-      "rdfs:label": "DrivingSchoolVehicleUsage"
     }
   ],
   "@id": "http://schema.org/#3.9"

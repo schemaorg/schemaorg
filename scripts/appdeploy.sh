@@ -8,7 +8,7 @@
 
 PWD=`pwd`
 PROG="`basename $0`"
-if [ `basename $PWD` != "schemaorg" ]
+if [ `basename "$PWD"` != "schemaorg" ]
 then
 	echo "$PROG: Not in the schemaorg directory! Aborting"
 	exit 1

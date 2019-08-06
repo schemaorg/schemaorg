@@ -8104,7 +8104,7 @@ schema:constrainingProperty a rdf:Property ;
     schema:category "issue-2291" ;
     schema:domainIncludes schema:StatisticalPopulation ;
     schema:isPartOf <http://pending.schema.org> ;
-    schema:rangeIncludes <https://schema.org/Integer> ;
+    schema:rangeIncludes schema:Integer ;
     rdfs:comment """Indicates a property used as a constraint to define a <a class="localLink" href="http://schema.org/StatisticalPopulation">StatisticalPopulation</a> with respect to the set of entities
   corresponding to an indicated type (via <a class="localLink" href="http://schema.org/populationType">populationType</a>).""" .
 
@@ -9004,7 +9004,7 @@ schema:educationalCredentialAwarded a rdf:Property ;
     schema:rangeIncludes schema:EducationalOccupationalCredential,
         schema:Text,
         schema:URL ;
-    rdfs:comment "A description of the qualification, award, certificate, diploma or other educational credential awarded as a consequence of successful completion of this course." .
+    rdfs:comment "A description of the qualification, award, certificate, diploma or other educational credential awarded as a consequence of successful completion of this course or program." .
 
 schema:educationalFramework a rdf:Property ;
     rdfs:label "educationalFramework" ;
@@ -11381,7 +11381,7 @@ schema:marginOfError a rdf:Property ;
     schema:category "issue-2291" ;
     schema:domainIncludes schema:Observation ;
     schema:isPartOf <http://pending.schema.org> ;
-    schema:rangeIncludes <https://schema.org/DateTime> ;
+    schema:rangeIncludes schema:DateTime ;
     rdfs:comment "A marginOfError for an <a class=\"localLink\" href=\"http://schema.org/Observation\">Observation</a>." .
 
 schema:masthead a rdf:Property ;
@@ -11452,16 +11452,16 @@ schema:measuredProperty a rdf:Property ;
     schema:category "issue-2291" ;
     schema:domainIncludes schema:Observation ;
     schema:isPartOf <http://pending.schema.org> ;
-    schema:rangeIncludes <https://schema.org/Property> ;
+    schema:rangeIncludes schema:Property ;
     rdfs:comment "The measuredProperty of an <a class=\"localLink\" href=\"http://schema.org/Observation\">Observation</a>, either a schema.org property, a property from other RDF-compatible systems e.g. W3C RDF Data Cube, or schema.org extensions such as <a href=\"https://www.gs1.org/voc/?show=properties\">GS1's</a>." .
 
 schema:measuredValue a rdf:Property ;
-    rdfs:label "measuredProperty" ;
+    rdfs:label "measuredValue" ;
     dct:source <https://github.com/schemaorg/schemaorg/issues/2291> ;
     schema:category "issue-2291" ;
     schema:domainIncludes schema:Observation ;
     schema:isPartOf <http://pending.schema.org> ;
-    schema:rangeIncludes <https://schema.org/DataType> ;
+    schema:rangeIncludes schema:DataType ;
     rdfs:comment "The measuredValue of an <a class=\"localLink\" href=\"http://schema.org/Observation\">Observation</a>." .
 
 schema:measurementTechnique a rdf:Property ;
@@ -11875,7 +11875,7 @@ schema:numConstraints a rdf:Property ;
     schema:category "issue-2291" ;
     schema:domainIncludes schema:StatisticalPopulation ;
     schema:isPartOf <http://pending.schema.org> ;
-    schema:rangeIncludes <https://schema.org/Integer> ;
+    schema:rangeIncludes schema:Integer ;
     rdfs:comment "Indicates the number of constraints (not counting <a class=\"localLink\" href=\"http://schema.org/populationType\">populationType</a>) defined for a particular <a class=\"localLink\" href=\"http://schema.org/StatisticalPopulation\">StatisticalPopulation</a>. This helps applications understand if they have access to a sufficiently complete description of a <a class=\"localLink\" href=\"http://schema.org/StatisticalPopulation\">StatisticalPopulation</a>." .
 
 schema:numTracks a rdf:Property ;
@@ -12025,7 +12025,7 @@ schema:observationDate a rdf:Property ;
     schema:category "issue-2291" ;
     schema:domainIncludes schema:Observation ;
     schema:isPartOf <http://pending.schema.org> ;
-    schema:rangeIncludes <https://schema.org/DateTime> ;
+    schema:rangeIncludes schema:DateTime ;
     rdfs:comment "The observationDate of an <a class=\"localLink\" href=\"http://schema.org/Observation\">Observation</a>." .
 
 schema:observedNode a rdf:Property ;
@@ -12034,7 +12034,7 @@ schema:observedNode a rdf:Property ;
     schema:category "issue-2291" ;
     schema:domainIncludes schema:Observation ;
     schema:isPartOf <http://pending.schema.org> ;
-    schema:rangeIncludes <https://schema.org/StatisticalPopulation> ;
+    schema:rangeIncludes schema:StatisticalPopulation ;
     rdfs:comment "The observedNode of an <a class=\"localLink\" href=\"http://schema.org/Observation\">Observation</a>, often a <a class=\"localLink\" href=\"http://schema.org/StatisticalPopulation\">StatisticalPopulation</a>." .
 
 schema:occupancy a rdf:Property ;
@@ -12658,7 +12658,7 @@ schema:populationType a rdf:Property ;
     schema:category "issue-2291" ;
     schema:domainIncludes schema:StatisticalPopulation ;
     schema:isPartOf <http://pending.schema.org> ;
-    schema:rangeIncludes <https://schema.org/Class> ;
+    schema:rangeIncludes schema:Class ;
     rdfs:comment "Indicates the populationType common to all members of a <a class=\"localLink\" href=\"http://schema.org/StatisticalPopulation\">StatisticalPopulation</a>." .
 
 schema:possibleComplication a rdf:Property ;
