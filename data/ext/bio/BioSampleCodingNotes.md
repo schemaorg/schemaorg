@@ -6,9 +6,13 @@ The [Bioschemas](https://bioschemas.org) community would like to propose a new t
 
 The `BioSample` type has been discussed in the Bioschemas community in:
 
-- [Issue 306](https://github.com/BioSchemas/specifications/issues/306)
+- Issues
+  - [Discussion of properties](https://github.com/BioSchemas/specifications/issues/306)
+  - [Human & Museum examples](https://github.com/BioSchemas/specifications/issues/299)
+  - All issues labelled [Sample](https://github.com/BioSchemas/specifications/issues?utf8=%E2%9C%93&q=label%3A%22type%3A+Sample%22+)
 - Bioschemas community mailing list thread
   - [BioSamples type for review](https://lists.w3.org/Archives/Public/public-bioschemas/2019May/0007.html)
+  - All emails containting the term [Sample](https://www.w3.org/Search/Mail/Public/advanced_search?keywords=&hdr-1-name=subject&hdr-1-query=sample&hdr-2-name=from&hdr-2-query=&hdr-3-name=message-id&hdr-3-query=&period_month=&period_year=&index-grp=Public__FULL&index-type=t&type-index=public-bioschemas&resultsperpage=20&sortby=date-asc)
 
 The proposal is an evolution of an earlier prototype of a Sample type developed for exchanging data about samples and deployed on the [EBI BioSamples archive](https://www.ebi.ac.uk/biosamples/). 
 
