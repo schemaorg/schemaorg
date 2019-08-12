@@ -11,7 +11,7 @@ The `ChemicalSubstance` type has been discussed in the Bioschemas community in:
 **ToDo:** Add links to most pertinant issues and email threads
 
 - Issues
-  - [Clarifying ChemicalSubstance vs MolecularEntuty](https://github.com/BioSchemas/specifications/issues/327)
+  - [Clarifying ChemicalSubstance vs MolecularEntity](https://github.com/BioSchemas/specifications/issues/327)
   - All issues labelled [ChemicalSubstance](https://github.com/BioSchemas/specifications/issues?utf8=%E2%9C%93&q=label%3A%22type%3A+ChemicalSubstance%22)
 - Bioschemas community mailing list thread
   - [Difference between ChemicalSubstance and MolecularEntity](https://lists.w3.org/Archives/Public/public-bioschemas/2019Jun/0008.html)
