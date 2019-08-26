@@ -8,9 +8,11 @@ The `Taxon` type has been discussed in the Bioschemas community in:
 
 **ToDo:** Add links to most pertinant issues and email threads
 
-- Issue
+- Issues
+  - [Taxon vs TaxonName](https://github.com/BioSchemas/specifications/issues/309)
+  - All issues labelled [Taxon](https://github.com/BioSchemas/specifications/issues?utf8=✓&q=+label%3A"type%3A+taxon")
 - Bioschemas community mailing list thread
-  - [
+  - All emails containing the term [Taxon](https://www.w3.org/Search/Mail/Public/advanced_search?keywords=&hdr-1-name=subject&hdr-1-query=taxon&hdr-2-name=from&hdr-2-query=&hdr-3-name=message-id&hdr-3-query=&period_month=&period_year=&index-grp=Public__FULL&index-type=t&type-index=public-bioschemas&resultsperpage=20&sortby=date-asc)
 
 The proposal is based on the [Darwin Core standard for Taxons](https://dwc.tdwg.org/terms/#taxon) that is widely used to model taxons.
 
