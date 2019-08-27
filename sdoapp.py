@@ -2861,10 +2861,20 @@ def templateRender(templateName, node, values=None):
     #log.info("getHostExt %s" % getHostExt())
 
 
+    titletype = ""
     if isinstance(node, Unit):
         node = node.id
     if isinstance(node, VTerm):
+        if node.isClass():
+            titletype = "Type"
+        elif node.isProperty():
+            titletype = "Property"
+        elif node.isEnumeration():
+            titletype = "Enumeration type"
+        elif node.isEnumerationValue():
+            titletype = "Enumeration value"
         node = node.getId()
+        
 
     extName, extDD, extVers, extlinktext, extComment, extDisambiguatingDescription =  getExtenstionDescriptions()
 
@@ -2899,6 +2909,7 @@ def templateRender(templateName, node, values=None):
         'myport': getHostPort(),
         'sitemode': sitemode,
         'sitename': SdoConfig.getname(),
+        'titletype': titletype,
         'staticPath': homedir,
         'targethost': makeUrl("","",full=True),
         'vocabUri': SdoConfig.vocabUri()
