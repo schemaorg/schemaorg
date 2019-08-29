@@ -11,7 +11,7 @@ The `BioChemEntity` type has been discussed in the Bioschemas community in:
 - Issues
   - [BioChemEntity definition discussions](https://github.com/BioSchemas/specifications/issues/215)
   - [Relationship to schema.org/Intangible](https://github.com/BioSchemas/specifications/issues/226)
-  - All issues labelled [BioChemEntity](https://github.com/BioSchemas/specifications/issues?utf8=✓&q=+label%3A"type%3A+BioChemEntity")
+  - All issues labelled [BioChemEntity](https://github.com/BioSchemas/specifications/issues?utf8=✓&q=label:"type:+BioChemEntity")
 - Bioschemas community mailing list thread
   - [Discussion](https://lists.w3.org/Archives/Public/public-bioschemas/2017Nov/0001.html) on different representation approaches for a Protein
   - All emails containing the term [BioChemEntity](https://www.w3.org/Search/Mail/Public/advanced_search?keywords=&hdr-1-name=subject&hdr-1-query=biochementity&hdr-2-name=from&hdr-2-query=&hdr-3-name=message-id&hdr-3-query=&period_month=&period_year=&index-grp=Public__FULL&index-type=t&type-index=public-bioschemas&resultsperpage=20&sortby=date-asc)

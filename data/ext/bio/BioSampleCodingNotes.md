@@ -9,7 +9,7 @@ The `BioSample` type has been discussed in the Bioschemas community in:
 - Issues
   - [Discussion on Sample Type properties](https://github.com/BioSchemas/specifications/issues/306)
   - [Human & Museum examples](https://github.com/BioSchemas/specifications/issues/299)
-  - All issues labelled [Sample](https://github.com/BioSchemas/specifications/issues?utf8=%E2%9C%93&q=label%3A%22type%3A+Sample%22+)
+  - All issues labelled [Sample](https://github.com/BioSchemas/specifications/issues?utf8=✓&q=label:"type:+Sample")
 - Bioschemas community mailing list thread
   - [BioSamples type for review](https://lists.w3.org/Archives/Public/public-bioschemas/2019May/0007.html)
   - All emails containing the term [Sample](https://www.w3.org/Search/Mail/Public/advanced_search?keywords=&hdr-1-name=subject&hdr-1-query=sample&hdr-2-name=from&hdr-2-query=&hdr-3-name=message-id&hdr-3-query=&period_month=&period_year=&index-grp=Public__FULL&index-type=t&type-index=public-bioschemas&resultsperpage=20&sortby=date-asc)
