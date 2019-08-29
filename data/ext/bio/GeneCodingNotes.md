@@ -9,7 +9,7 @@ The `Gene` type has been discussed in the Bioschemas community in:
 **ToDo:** Add links to most pertinant issues and email threads
 
 - Issues
-   - [Definition](https://github.com/BioSchemas/specifications/issues/272)
+   - [Gene Definition](https://github.com/BioSchemas/specifications/issues/272)
    - All issues labelled [Gene](https://github.com/BioSchemas/specifications/issues?utf8=%E2%9C%93&q=label%3A%22type%3A+Gene%22)
 - Bioschemas community mailing list thread
   - [MyGene.info use case](https://lists.w3.org/Archives/Public/public-bioschemas/2019May/0003.html)

@@ -7,7 +7,7 @@ The [Bioschemas](https://bioschemas.org) community would like to propose a new t
 The `BioSample` type has been discussed in the Bioschemas community in:
 
 - Issues
-  - [Discussion of properties](https://github.com/BioSchemas/specifications/issues/306)
+  - [Discussion on Sample Type properties](https://github.com/BioSchemas/specifications/issues/306)
   - [Human & Museum examples](https://github.com/BioSchemas/specifications/issues/299)
   - All issues labelled [Sample](https://github.com/BioSchemas/specifications/issues?utf8=%E2%9C%93&q=label%3A%22type%3A+Sample%22+)
 - Bioschemas community mailing list thread

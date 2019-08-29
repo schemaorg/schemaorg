@@ -10,10 +10,11 @@ The `Protein` type has been discussed in the Bioschemas community in:
 
 - Issues
   - [Relationship between Protein and Organism/Taxon](https://github.com/BioSchemas/specifications/issues/222)
+  - [Protein Properties](https://github.com/BioSchemas/specifications/issues/262)
   - All issues labelled [Protein](https://github.com/BioSchemas/specifications/issues?utf8=✓&q=+label%3A"type%3A+protein")
 - Bioschemas community mailing list thread
   - Evolution of Protein w.r.t. BioChemEntity [thread one](https://lists.w3.org/Archives/Public/public-bioschemas/2017Nov/0001.html)[thread two](https://lists.w3.org/Archives/Public/public-bioschemas/2017Nov/0026.html)
-  - All emails containing the term [MolecularEntity](https://www.w3.org/Search/Mail/Public/advanced_search?keywords=&hdr-1-name=subject&hdr-1-query=Protein&hdr-2-name=from&hdr-2-query=&hdr-3-name=message-id&hdr-3-query=&period_month=&period_year=&index-grp=Public__FULL&index-type=t&type-index=public-bioschemas&resultsperpage=20&sortby=date-asc)
+  - All emails containing the term [Protein](https://www.w3.org/Search/Mail/Public/advanced_search?keywords=&hdr-1-name=subject&hdr-1-query=Protein&hdr-2-name=from&hdr-2-query=&hdr-3-name=message-id&hdr-3-query=&period_month=&period_year=&index-grp=Public__FULL&index-type=t&type-index=public-bioschemas&resultsperpage=20&sortby=date-asc)
 
 The following ontologies were considered when developing this proposal:
 
