@@ -40,4 +40,4 @@ Extends the range of the property to include Taxon.
 - parentTaxon: *New property*  
 Based on [`dwc:parentNameUsageID`](https://dwc.tdwg.org/terms/#dwc:parentNameUsageID)
 - taxonRank: *New property*  
-Equivalent to [`dwc:taxonRank`](https://dwc.tdwg.org/terms/#dwc:taxonRank)
+Based on [`dwc:taxonRank`](https://dwc.tdwg.org/terms/#dwc:taxonRank)
