@@ -6,8 +6,6 @@ The [Bioschemas](https://bioschemas.org) community would like to propose a new t
 
 The `Protein` type has been discussed in the Bioschemas community in:
 
-**ToDo:** Add links to most pertinant issues and email threads
-
 - Issues
   - [Relationship between Protein and Organism/Taxon](https://github.com/BioSchemas/specifications/issues/222)
   - [Protein Properties](https://github.com/BioSchemas/specifications/issues/262)
@@ -36,11 +34,7 @@ We are proposing to add the `Protein` type under a `BioChemEntity` type which in
 
 ### Properties
 
-**ToDo:** Complete rationale for properties 
+- hasSequence: *New property* 
 
-#### hasSequence
-
-*New property*
-
-**ToDo:** *How is this different from `hasRepresentation` proposed on BioChemEntity?*
+  **ToDo:** *How is this different from `hasRepresentation` proposed on BioChemEntity?*
 

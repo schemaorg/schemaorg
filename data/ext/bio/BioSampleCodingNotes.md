@@ -30,55 +30,23 @@ An alternative would be for there to be a more generic `Sample` type in Schema.o
 
 ### Properties
 
-#### additionalProperty
-
+- additionalProperty: 
 Range extended to include `BioSample`.
-
-#### collector
-
-*New property*
-
-Considered [`creditedTo`](https://schema.org/creditedTo) but felt that the two were distinct from each other in their intended use. 
-
+- collector: *New property*
+Considered [`creditedTo`](https://schema.org/creditedTo) but felt that the two were distinct from each other in their intended use.  
 There are also distinct uses of these terms to refer to different entities, i.e. who collected the sample versus who it is credited to.
-
-#### custodian
-
-*New property*
-
+- custodian: *New property*
 Considered `accountablePerson` but range only permitted `schema:Person`. The custodian of a sample is often an `schema:Organization`.
-
-#### dateCreated
-
-Range extended to include `BioSample`.
-
+- dateCreated:
+Range extended to include `BioSample`.  
 Potential issue is that the description of `dateCreated` mentions `CreativeWork` which `BioSample` does not inherit from.
-
-#### gender
-
+- gender:
 Range extended to include `BioSample`.
-
-#### isControl
-
-*New property*
-
-#### itemLocation
-
+- isControl: *New property*
+- itemLocation
 Range extended to include `BioSample`.
-
-#### locationCreated
-
-Range extended to include `BioSample`.
-
+- locationCreated
+Range extended to include `BioSample`.  
 Potential issue is that the description of `locationCreated` mentions `CreativeWork` which `BioSample` does not inherit from.
-
-#### samplingAge
-
-*New property* 
-
+- samplingAge: *New property* 
 Considered `age` but felt that was too generic, particularly with the proposed description of the property.
-
-#### 
-
-
-

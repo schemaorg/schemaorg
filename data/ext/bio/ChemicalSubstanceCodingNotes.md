@@ -8,8 +8,6 @@ This type should be used in conjunction with the newly proposed `MolecularEntity
 
 The `ChemicalSubstance` type has been discussed in the Bioschemas community in:
 
-**ToDo:** Add links to most pertinant issues and email threads
-
 - Issues
   - [Clarifying ChemicalSubstance vs MolecularEntity](https://github.com/BioSchemas/specifications/issues/327)
   - All issues labelled [ChemicalSubstance](https://github.com/BioSchemas/specifications/issues?utf8=✓&q=label:"type:+ChemicalSubstance")
@@ -39,20 +37,6 @@ We are proposing to add the `ChemicalSubstance` type under a `BioChemEntity` typ
 
 ### Properties
 
-**ToDo:** Complete rationale for properties 
-
-#### chemicalComposition
-
-*New property*
-
-
-
-#### chemicalRole
-
-*New property*
-
-
-
-#### potentialUse
-
-*New property*
+- chemicalComposition: *New property*
+- chemicalRole: *New property*
+- potentialUse: *New property*

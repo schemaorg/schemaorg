@@ -6,8 +6,6 @@ The [Bioschemas](https://bioschemas.org) community would like to propose a new t
 
 The `MolecularEntity` type has been discussed in the Bioschemas community in:
 
-**ToDo:** Add links to most pertinant issues and email threads
-
 - Issues
   - [Clarifying ChemicalSubstance vs MolecularEntity](https://github.com/BioSchemas/specifications/issues/327)
   - All issues labelled [MolecularEntity](https://github.com/BioSchemas/specifications/issues?utf8=✓&q=label:"type:+MolecularEntity")
@@ -37,57 +35,12 @@ We are proposing to add the `MolecularEntity` type under a `BioChemEntity` type 
 
 ### Properties
 
-**ToDo:** Complete rationale for properties 
-
-#### chemicalRole
-
-*New property*
-
-
-
-#### inChI
-
-*New property*
-
-
-
-#### inChIKey
-
-*New property*
-
-
-
-#### iupacName
-
-*New property*
-
-
-
-#### molecularFormula
-
-*New property*
-
-
-
-#### molecularWeight
-
-*New property*
-
-
-
-#### monoisotopicMolecularWeight
-
-*New property*
-
-
-
-#### potentialUse
-
-*New property*
-
-
-
-#### smiles
-
-*New property*
-
+- chemicalRole: *New property*
+- inChI: *New property*
+- inChIKey: *New property*
+- iupacName: *New property*
+- molecularFormula: *New property*
+- molecularWeight: *New property*
+- monoisotopicMolecularWeight: *New property*
+- potentialUse: *New property*
+- smiles: *New property*

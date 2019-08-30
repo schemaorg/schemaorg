@@ -6,8 +6,6 @@ The [Bioschemas](https://bioschemas.org) community would like to propose a new t
 
 The `Gene` type has been discussed in the Bioschemas community in:
 
-**ToDo:** Add links to most pertinant issues and email threads
-
 - Issues
    - [Gene Definition](https://github.com/BioSchemas/specifications/issues/272)
    - All issues labelled [Gene](https://github.com/BioSchemas/specifications/issues?utf8=✓&q=label:"type:+Gene")
@@ -35,33 +33,10 @@ We are proposing to add the `Gene` type under a `BioChemEntity` type which inher
 
 ### Properties
 
-**ToDo:** Complete rationale for properties 
-
-#### alternativeOf
-
-*New property*
-
+- alternativeOf: *New property*
 This property allows the linking of the many variants of a gene.
-
-#### encodesBioChemEntity
-
-*New property*
-
-
-
-#### expressedIn
-
-*New property*
-
-
-
-#### hasSequence
-
-*New property*
-
+- encodesBioChemEntity: *New property*
+- expressedIn: *New property*
+- hasSequence: *New property*
 **ToDo:** *How is this different from `hasRepresentation` proposed on BioChemEntity?*
-
-#### hasStatus
-
-*New property*
-
+- hasStatus: *New property*

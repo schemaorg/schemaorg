@@ -6,8 +6,6 @@ The [Bioschemas](https://bioschemas.org) community would like to propose a new t
 
 The `Taxon` type has been discussed in the Bioschemas community in:
 
-**ToDo:** Add links to most pertinant issues and email threads
-
 - Issues
   - [Taxon vs TaxonName](https://github.com/BioSchemas/specifications/issues/309)
   - [Taxon Hierarchy](https://github.com/BioSchemas/specifications/issues/324)
@@ -33,29 +31,10 @@ We are proposing to add the `Taxon` type under a `BioChemEntity` type which inhe
 
 ### Properties
 
-**ToDo:** Complete rationale for properties 
-
-#### childTaxon
-
-*New property*
-
-
-
-#### hasDefinedTerm
-
-*Property reuse*
-
+- childTaxon: *New property*
+- hasDefinedTerm: *Property reuse*
 Extends the range of the property to include Taxon.
-
-#### parentTaxon
-
-*New property*
-
+- parentTaxon: *New property*
 **ToDo:** *Is this related to [`dwc:parentNameUsageID`](https://dwc.tdwg.org/terms/#dwc:parentNameUsageID)?*
-
-#### taxonRank
-
-*New property*
-
+- taxonRank: *New property*
 **ToDo:** *Is this equivalent to [`dwc:taxonRank`](https://dwc.tdwg.org/terms/#dwc:taxonRank)?*
-

@@ -6,8 +6,6 @@ The [Bioschemas](https://bioschemas.org) community would like to propose a new t
 
 The `BioChemEntity` type has been discussed in the Bioschemas community in:
 
-**ToDo:** Add links to most pertinant issues and email threads
-
 - Issues
   - [BioChemEntity definition discussions](https://github.com/BioSchemas/specifications/issues/215)
   - [Relationship to schema.org/Intangible](https://github.com/BioSchemas/specifications/issues/226)
@@ -42,75 +40,19 @@ We are proposing to add the `BioChemEntity` type directly under `schema:Thing`. 
 
 ### Properties
 
-**ToDo:** Complete rationale for properties 
-
-#### associatedDisease
-
-*New property*
-
-
-
-#### bioChemInteraction
-
-*New property*
-
-
-
-#### bioChemSimilarity
-
-*New property*
-
-
-
-#### biologicalRole
-
-*New property*
-
-
-
-#### hasBioChemEntityPart
-
-*New property*
-
+- associatedDisease: *New property*
+- bioChemInteraction: *New property*
+- bioChemSimilarity: *New property*
+- biologicalRole: *New property*
+- hasBioChemEntityPart: *New property*
 Enables the capture of sub-parts but keeping the property distinct from `hasPart` which is used for creative works.
-
-####  hasMolecularFunction
-
-*New property*
-
-
-
-#### hasRepresentation
-
-*New property*
-
-
-
-#### isEncodedByBioChemEntity
-
-*New property*
-
+- hasMolecularFunction: *New property*
+- hasRepresentation: *New property*
+- isEncodedByBioChemEntity: *New property*
 Property is generic to not only be used for gene/protein encodings
-
-#### isInvolvedInBiologicalProcess
-
-*New property*
-
-
-
-#### isLocatedInSubcellularLocation
-
-*New property*
-
-
-
-#### isPartOfBioChemEntity
-
-*New property*
-
+- isInvolvedInBiologicalProcess: *New property*
+- isLocatedInSubcellularLocation: *New property*
+- isPartOfBioChemEntity: *New property*
 Inverse of hasBioChemEntity part. Corresponds with `schema:isPartOf`
-
-#### taxonomicRange
-
-*New property*
+- taxonomicRange: *New property*
 
