@@ -58,7 +58,7 @@ if not SdoConfig.valid:
     log.error("Invalid config from '%s' or its includes !!" % CONFIGFILE)
     os.exit()
 
-SCHEMA_VERSION="3.7"
+SCHEMA_VERSION="3.9"
 
 if not getInTestHarness():
     GAE_APP_ID = app_identity.get_application_id()
@@ -71,17 +71,19 @@ sitemode = "mainsite" # whitespaced list for CSS tags,
             # e.g. "mainsite testsite" when off expected domains
             # "extensionsite" when in an extension (e.g. blue?)
 
-releaselog = {  "2.0": "2015-05-13", 
-                "2.1": "2015-08-06", 
-                "2.2": "2015-11-05", 
-                "3.0": "2016-05-04", 
-                "3.1": "2016-08-09", 
-                "3.2": "2017-03-23", 
-                "3.3": "2017-08-14", 
-                "3.4": "2018-06-15", 
-                "3.5": "2019-04-01", 
-                "3.6": "2019-05-01", 
-                "3.7": "2019-06-01" }
+releaselog = {  "2.0": "2015-05-13",
+                "2.1": "2015-08-06",
+                "2.2": "2015-11-05",
+                "3.0": "2016-05-04",
+                "3.1": "2016-08-09",
+                "3.2": "2017-03-23",
+                "3.3": "2017-08-14",
+                "3.4": "2018-06-15",
+                "3.5": "2019-04-01",
+                "3.6": "2019-05-01",
+                "3.7": "2019-06-01",
+                "3.8": "2019-07-01",
+                "3.9": "2019-08-01" }
 
 silent_skip_list =  [ "favicon.ico" ] # Do nothing for now
 
@@ -672,6 +674,7 @@ class ShowUnit (webapp2.RequestHandler):
         #log.info("EXTERNAL!!!! %s %s " % (term.getLabel(),term.getId()))
 
         name = term.getId()
+        label = term.getLabel()
 
         if not ":" in name:
             return name
@@ -1436,7 +1439,7 @@ class ShowUnit (webapp2.RequestHandler):
         self.emitUnitHeaders(term) # writes <h1><table>...
         stack = self._removeStackDupes(term.getTermStack())
         setAppVar("tableHdr",False)
-        if term.isClass() or term.isDataType() or term.isEnumeration():
+        if term.isClass() or term.isDataType():
             for p in stack:
                 self.ClassProperties(p, p==[0], out=self, term=term)
             if getAppVar("tableHdr"):
@@ -2019,11 +2022,11 @@ class ShowUnit (webapp2.RequestHandler):
         # Full release page for: node: 'version/' cleannode: 'version/' requested_version: '' requested_format: '' l: 2
         # /version/
         log.debug("clean_node: %s requested_version: %s " %  (clean_node, requested_version))
-        
+
         if (clean_node=="version/" or clean_node=="version") and requested_version=="" and requested_format=="":
             log.info("Defaulting to current version- %s" % SCHEMA_VERSION)
             requested_version = SCHEMA_VERSION
-            
+
         if requested_version in releaselog:
             log.info("Version '%s' was released on %s. Serving from filesystem." % ( node, releaselog[requested_version] ))
 
@@ -2058,73 +2061,79 @@ class ShowUnit (webapp2.RequestHandler):
             log.debug("Serving recycled FullReleasePage.")
             return True
         else:
-            mainroot = TypeHierarchyTree()
-            mainroot.traverseForHTML(VTerm.getTerm("Thing"), hashorslash="#term_", layers=layerlist)
-            thing_tree = mainroot.toHTML()
-            base_href = "/version/%s/" % requested_version
-
-            az_types = GetAllTypes()
-            az_types.sort()
-            az_type_meta = {}
-
-            az_props = GetAllProperties()
-            az_props.sort()
-            az_prop_meta = {}
-
-            # TYPES
-            for t in az_types:
-                props4type = HTMLOutput() # properties applicable for a type
-                props2type = HTMLOutput() # properties that go into a type
-
-                self.emitSimplePropertiesPerType(t, out=props4type, hashorslash="#term_" )
-                self.emitSimplePropertiesIntoType(t, out=props2type, hashorslash="#term_" )
-
-                tcmt = Markup(VTerm.getTerm(t).getComment())
-                az_type_meta[t]={}
-                az_type_meta[t]['comment'] = tcmt
-                az_type_meta[t]['props4type'] = props4type.toHTML()
-                az_type_meta[t]['props2type'] = props2type.toHTML()
-
-            # PROPERTIES
-            for pt in az_props:
-                attrInfo = HTMLOutput()
-                rangeList = HTMLOutput()
-                domainList = HTMLOutput()
-                # self.emitAttributeProperties(pt, out=attrInfo, hashorslash="#term_" )
-                # self.emitSimpleAttributeProperties(pt, out=rangedomainInfo, hashorslash="#term_" )
-
-                self.emitRangeTypesForProperty(pt, out=rangeList, hashorslash="#term_" )
-                self.emitDomainTypesForProperty(pt, out=domainList, hashorslash="#term_" )
-
-                cmt = Markup(VTerm.getTerm(pt).getComment())
-                az_prop_meta[pt] = {}
-                az_prop_meta[pt]['comment'] = cmt
-                az_prop_meta[pt]['attrinfo'] = attrInfo.toHTML()
-                az_prop_meta[pt]['rangelist'] = rangeList.toHTML()
-                az_prop_meta[pt]['domainlist'] = domainList.toHTML()
-
-            if requested_version == "build-latest":
-                requested_version = SCHEMA_VERSION
-                releasedate = "XXXX-XX-XX    (UNRELEASED PREVIEW VERSION)"
-            else:
-                releasedate = releaselog[str(SCHEMA_VERSION)]
-
-            page = templateRender('fullReleasePage.tpl', node,
-                    {"base_href": base_href,
-                    'thing_tree': thing_tree,
-                    'liveversion': SCHEMA_VERSION,
-                    'requested_version': requested_version,
-                    'releasedate': releasedate,
-                    'az_props': az_props, 'az_types': az_types,
-                    'az_prop_meta': az_prop_meta, 'az_type_meta': az_type_meta,
-                    'menu_sel': "Documentation",
-                    'suppressDevnote': True})
-
+            page = self.buildFullReleasePage(node, requested_version,layerlist)
             self.response.out.write( page )
             log.debug("Serving fresh FullReleasePage.")
             PageStore.put("FullReleasePage.html",page)
             return True
+            
+    def buildFullReleasePage(self, node, requested_version,layerlist):
+        mainroot = TypeHierarchyTree()
+        mainroot.traverseForHTML(VTerm.getTerm("Thing"), hashorslash="#term_", layers=layerlist)
+        thing_tree = mainroot.toHTML()
+        base_href = "/version/%s/" % requested_version
 
+        az_types = GetAllTypes()
+        az_types.sort()
+        az_type_meta = {}
+
+        az_props = GetAllProperties()
+        az_props.sort()
+        az_prop_meta = {}
+
+        # TYPES
+        for t in az_types:
+            props4type = HTMLOutput() # properties applicable for a type
+            props2type = HTMLOutput() # properties that go into a type
+
+            self.emitSimplePropertiesPerType(t, out=props4type, hashorslash="#term_" )
+            self.emitSimplePropertiesIntoType(t, out=props2type, hashorslash="#term_" )
+
+            tcmt = Markup(VTerm.getTerm(t).getComment())
+            az_type_meta[t]={}
+            az_type_meta[t]['comment'] = tcmt
+            az_type_meta[t]['props4type'] = props4type.toHTML()
+            az_type_meta[t]['props2type'] = props2type.toHTML()
+
+        # PROPERTIES
+        for pt in az_props:
+            attrInfo = HTMLOutput()
+            rangeList = HTMLOutput()
+            domainList = HTMLOutput()
+            # self.emitAttributeProperties(pt, out=attrInfo, hashorslash="#term_" )
+            # self.emitSimpleAttributeProperties(pt, out=rangedomainInfo, hashorslash="#term_" )
+
+            self.emitRangeTypesForProperty(pt, out=rangeList, hashorslash="#term_" )
+            self.emitDomainTypesForProperty(pt, out=domainList, hashorslash="#term_" )
+
+            cmt = Markup(VTerm.getTerm(pt).getComment())
+            az_prop_meta[pt] = {}
+            az_prop_meta[pt]['comment'] = cmt
+            az_prop_meta[pt]['attrinfo'] = attrInfo.toHTML()
+            az_prop_meta[pt]['rangelist'] = rangeList.toHTML()
+            az_prop_meta[pt]['domainlist'] = domainList.toHTML()
+
+        if requested_version == "build-latest":
+            requested_version = SCHEMA_VERSION
+            if requested_version in releaselog:
+                releasedate = releaselog[str(SCHEMA_VERSION)]
+            else:
+                releasedate = "XXXX-XX-XX    (UNRELEASED PREVIEW VERSION)"
+        else:
+            releasedate = releaselog[str(SCHEMA_VERSION)]
+
+        page = templateRender('fullReleasePage.tpl', node,
+                {"base_href": base_href,
+                'thing_tree': thing_tree,
+                'liveversion': SCHEMA_VERSION,
+                'requested_version': requested_version,
+                'releasedate': releasedate,
+                'az_props': az_props, 'az_types': az_types,
+                'az_prop_meta': az_prop_meta, 'az_type_meta': az_type_meta,
+                'menu_sel': "Documentation",
+                'suppressDevnote': True})
+        return page
+        
     def handleExtensionContents(self,ext):
         if not ext in ENABLED_EXTENSIONS:
             return ""

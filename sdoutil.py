@@ -22,7 +22,10 @@ def sdo_send_mail(to=None,subject=None,msg=None):
         msg = "Empty message"
     sender = 'manager@{}.appspotmail.com'.format(app_identity.get_application_id())
     log.info("sdo_send_mail To: %s From: %s Subject: %s Msg: %s" % (to,sender,subject,msg))
-    mail.send_mail(sender=sender,to=to,subject=subject,body=msg)
+    try:
+        mail.send_mail(sender=sender,to=to,subject=subject,body=msg)
+    except Exception as e:
+        log.error("Exception from within mail.send_mail: %s: %s" % (e,e.message))
     
 # Wrap io.SringIO to ensure that all things written are of type unicode
 class sdoStringIO(io.StringIO):

@@ -34,23 +34,6 @@ JSON:
 </script>
 
 
-TYPES: #datafeed-4 ReserveAction, LinkRole
-
-PRE-MARKUP:
-
-A restaurant has links to reserve tables. One caters to Japanese speakers.
-
-MICRODATA:
-
-Example is JSON-LD only.
-
-RDFA:
-
-Example is JSON-LD only.
-
-JSON:
-
-<script type="application/ld+json">
 TYPES: #datafeed-3 ReserveAction, LinkRole
 
 PRE-MARKUP:
@@ -71,13 +54,11 @@ JSON:
 {
  "@context": "http://schema.org/",
  "@type": "Article",
- "url": [
-   "http://www.example.com/article",
-   {
+ "url": "http://www.example.com/article",
+ "url": {
      "@type": "LinkRole",
      "url": "http://www.example.com/article-amp",
      "linkRelationship": "amphtml"
    }
- ]
 }
 </script>
