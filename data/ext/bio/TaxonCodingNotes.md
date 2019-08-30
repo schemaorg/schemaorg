@@ -37,8 +37,7 @@ We are proposing to add the `Taxon` type under a `BioChemEntity` type which inhe
 - childTaxon: *New property*
 - hasDefinedTerm: *Property reuse*
 Extends the range of the property to include Taxon.
-- parentTaxon: *New property*
+- parentTaxon: *New property*  
 Based on [`dwc:parentNameUsageID`](https://dwc.tdwg.org/terms/#dwc:parentNameUsageID)
-- taxonRank: *New property*
+- taxonRank: *New property*  
 Equivalent to [`dwc:taxonRank`](https://dwc.tdwg.org/terms/#dwc:taxonRank)
-
