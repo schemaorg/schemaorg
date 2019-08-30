@@ -9,13 +9,16 @@ The `Taxon` type has been discussed in the Bioschemas community in:
 - Issues
   - [Taxon vs TaxonName](https://github.com/BioSchemas/specifications/issues/309)
   - [Taxon Hierarchy](https://github.com/BioSchemas/specifications/issues/324)
+  - [Related ontologies](https://github.com/BioSchemas/specifications/issues/348)
   - All issues labelled [Taxon](https://github.com/BioSchemas/specifications/issues?utf8=✓&q=label:"type:+Taxon")
 - Bioschemas community mailing list thread
   - All emails containing the term [Taxon](https://www.w3.org/Search/Mail/Public/advanced_search?keywords=&hdr-1-name=subject&hdr-1-query=taxon&hdr-2-name=from&hdr-2-query=&hdr-3-name=message-id&hdr-3-query=&period_month=&period_year=&index-grp=Public__FULL&index-type=t&type-index=public-bioschemas&resultsperpage=20&sortby=date-asc)
 
-The proposal is based on the [Darwin Core standard for Taxons](https://dwc.tdwg.org/terms/#taxon) that is widely used to model taxons.
+The proposal is based on the [Darwin Core standard for Taxons](https://dwc.tdwg.org/terms/#taxon) that is widely used to model taxons. Other ontologies considered during the design were:
 
-**ToDo:** Was NCBI Taxon considered in the design?
+- Biodiversity Information Standards (TDWG) [Ontology](https://github.com/tdwg/ontology)
+- NCBI [Taxonomy](https://www.ncbi.nlm.nih.gov/taxonomy)
+- Wikidata
 
 ## Proposal
 
@@ -35,6 +38,7 @@ We are proposing to add the `Taxon` type under a `BioChemEntity` type which inhe
 - hasDefinedTerm: *Property reuse*
 Extends the range of the property to include Taxon.
 - parentTaxon: *New property*
-**ToDo:** *Is this related to [`dwc:parentNameUsageID`](https://dwc.tdwg.org/terms/#dwc:parentNameUsageID)?*
+Based on [`dwc:parentNameUsageID`](https://dwc.tdwg.org/terms/#dwc:parentNameUsageID)
 - taxonRank: *New property*
-**ToDo:** *Is this equivalent to [`dwc:taxonRank`](https://dwc.tdwg.org/terms/#dwc:taxonRank)?*
+Equivalent to [`dwc:taxonRank`](https://dwc.tdwg.org/terms/#dwc:taxonRank)
+
