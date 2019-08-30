@@ -21,11 +21,11 @@ The following ontologies were also considered when developing this proposal:
 - Chemical Information Ontology ([CHEMINF](http://semanticchemistry.github.io/semanticchemistry/)) 
 - SemanticScience Integrated Ontology ([SIO](http://sio.semanticscience.org/))
 
-**ToDo:** Discussion about relationship to `schema:Drug` and `schema:Substance`
-
 ## Proposal
 
 The proposed type is available at http://sdo-bioschemas-227516.appspot.com/MolecularEntity (a cached copy is also available on the Bioschemas [website](https://bioschemas.org/types/MolecularEntity/)).
+
+Schema.org already includes a [`schema:Substance`](https://schema.org/Substance) type which is defined as a subclass of [`schema:MedicalEntity`](https://schema.org/MedicalEntity). A `ChemicalSubstance` and `MolecularEntity` in general are not medical tools and many properties of `MedicalEntity` simply do not apply to the two newly proposed concepts.
 
 We summarise here the design decisions taken to reach this proposal.
 
