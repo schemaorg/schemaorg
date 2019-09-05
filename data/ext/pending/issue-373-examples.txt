@@ -144,3 +144,56 @@ JSON:
  }
 }
 </script>
+
+TYPES: PodcastSeason
+
+PRE-MARKUP:
+
+<div class="season__entry">
+  <h2>
+    <a href="https://serialpodcast.org/season-one">
+      <span>Serial: Season 1</span>
+    </a>
+  </h2>
+  <p>
+    The debut season of Serial contains 12 episodes.
+  </p>
+</div>
+
+MICRODATA:
+
+<div itemscope itemtype="http://schema.org/PodcastSeason" class="season__entry">
+  <h2>
+    <a itemprop="url" href="https://serialpodcast.org/season-one">
+      <span itemprop="name">Serial: Season 1</span>
+    </a>
+  </h2>
+  <meta itemprop="seasonNumber" content="1" />
+  <p itemprop="description">
+    The debut season of Serial contains 12 episodes.
+  </p>
+</div>
+
+RDFA:
+
+TODO
+
+
+JSON:
+
+<script type="application/ld+json">
+{
+   "@context": "http://schema.org/",
+   "@type": "PodcastSeason",
+   "url": "https://serialpodcast.org/season-one",
+   "name": "Serial: Season 1",
+   "seasonNumber": 1,
+   "numberOfEpisodes": 12,      
+   "partOfSeries": {
+     "@type": "PodcastSeries",
+     "name": "Serial",
+     "url": "http://serialpodcast.org/"
+   }
+ }
+}
+</script>
