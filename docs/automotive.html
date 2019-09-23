@@ -3,6 +3,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <title>Markup for Autos - schema.org</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="Schema.org is a set of extensible schemas that enables webmasters to embed structured data on their web pages for use by search engines and other applications." />
         <link rel="stylesheet" type="text/css" href="schemaorg.css" />
         <link href="prettify.css" type="text/css" rel="stylesheet" />
@@ -42,7 +43,21 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(gc
                 text-align: center;
             }
             p.img-box img {
+                max-width:100%;
+                min-width:300px;
+                height: auto;
                 border: 0;
+            }
+            ul {
+                flex-wrap: wrap;
+            }
+            .scroll-ul{
+                max-width:100%;
+                min-width:300px;
+                overflow-x: scroll;
+                height: auto;
+                border: 0;
+                
             }
         </style>
 
@@ -197,6 +212,7 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(gc
             
             <h3 id="schemaTypes">Types:</h3>            
             
+            <div class="scroll-ul">
             <ul>
                 <li>
                     <a href="http://schema.org/Thing">Thing</a>
@@ -258,10 +274,11 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(gc
                     </ul>
                 </li>
             </ul>
-            
+        </div>
             <h3 id="schemaProperties">Properties:</h3>
             
 
+            <div class="scroll-ul">
                             <ul>
                                 <li>
                                     <a style="color:#0000aa" href="http://auto.schema.org/accelerationTime">accelerationTime</a>
@@ -396,10 +413,11 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(gc
                                     <a style="color:#0000aa" href="http://auto.schema.org/wheelbase">wheelbase</a>
                                 </li>
                             </ul>
- 
+                        </div>
 
             <h3 id="schemaEnumerations">Enumerations (per type):</h3>            
             
+            <div class="scroll-ul">
                     <ul>
                         <li>
                             <a style="color:#0000aa" href="http://auto.schema.org/CarUsageType">CarUsageType</a> (type)
@@ -449,7 +467,7 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(gc
 
                         </li>                       
                     </ul>
-
+                </div>
             
             <h2 id="extensions_objects">The basic models of the objects in the automotive extension</h2>
             
