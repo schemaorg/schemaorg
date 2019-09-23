@@ -4400,6 +4400,12 @@ schema:StructuredValue a rdfs:Class ;
     rdfs:comment "Structured values are used when the value of a property has a more complex structure than simply being a textual value or a reference to another thing." ;
     rdfs:subClassOf schema:Intangible .
 
+schema:StupidType a rdfs:Class ;
+    rdfs:label "StupidType" ;
+    schema:isPartOf <http://attic.schema.org> ;
+    rdfs:comment "A StupidType for testing." ;
+    rdfs:subClassOf schema:Thing .
+
 schema:SubscribeAction a rdfs:Class ;
     rdfs:label "SubscribeAction" ;
     rdfs:comment """The act of forming a personal connection with someone/something (object) unidirectionally/asymmetrically to get updates pushed to.<br/><br/>
@@ -8165,6 +8171,15 @@ schema:coursePrerequisites a rdf:Property ;
         schema:Course,
         schema:Text ;
     rdfs:comment "Requirements for taking the Course. May be completion of another <a class=\"localLink\" href=\"http://schema.org/Course\">Course</a> or a textual description like \"permission of instructor\". Requirements may be a pre-requisite competency, referenced using <a class=\"localLink\" href=\"http://schema.org/AlignmentObject\">AlignmentObject</a>." .
+
+schema:courseWorkload a rdf:Property ;
+    rdfs:label "courseWorkload" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1909> ;
+    schema:category "issue-1909" ;
+    schema:domainIncludes schema:CourseInstance ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:Text ;
+    rdfs:comment "The amount of work expected of students taking the course, often provided as a figure per week or per month, and may be broken down by type. For example, \"2 hours of lectures, 1 hour of lab work and 3 hours of independent study per week\"." .
 
 schema:coverageEndTime a rdf:Property ;
     rdfs:label "coverageEndTime" ;
@@ -13951,6 +13966,14 @@ schema:studySubject a rdf:Property ;
     schema:rangeIncludes schema:MedicalEntity ;
     rdfs:comment "A subject of the study, i.e. one of the medical conditions, therapies, devices, drugs, etc. investigated by the study." .
 
+schema:stupidProperty a rdf:Property ;
+    rdfs:label "stupidProperty" ;
+    schema:domainIncludes schema:StupidType,
+        schema:Vehicle ;
+    schema:isPartOf <http://attic.schema.org> ;
+    schema:rangeIncludes schema:QuantitativeValue ;
+    rdfs:comment "This is a StupidProperty! - for testing only" .
+
 schema:subEvents a rdf:Property ;
     rdfs:label "subEvents" ;
     schema:domainIncludes schema:Event ;
@@ -14683,6 +14706,14 @@ schema:variableMeasured a rdf:Property ;
     schema:rangeIncludes schema:PropertyValue,
         schema:Text ;
     rdfs:comment "The variableMeasured property can indicate (repeated as necessary) the  variables that are measured in some dataset, either described as text or as pairs of identifier and description using PropertyValue." .
+
+schema:variablesMeasured a rdf:Property ;
+    rdfs:label "variablesMeasured" ;
+    schema:domainIncludes schema:Dataset ;
+    schema:isPartOf <http://attic.schema.org> ;
+    schema:rangeIncludes schema:PropertyValue,
+        schema:Text ;
+    rdfs:comment "Originally named <a class=\"localLink\" href=\"http://schema.org/variablesMeasured\">variablesMeasured</a>, The <a class=\"localLink\" href=\"http://schema.org/variableMeasured\">variableMeasured</a> property can indicate (repeated as necessary) the  variables that are measured in some dataset, either described as text or as pairs of identifier and description using PropertyValue." .
 
 schema:variantCover a rdf:Property ;
     rdfs:label "variantCover"@en ;

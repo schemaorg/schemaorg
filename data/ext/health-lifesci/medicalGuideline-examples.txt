@@ -17,11 +17,11 @@ MICRODATA:
 <ul>
   <li>Recommendation:
   <span itemscope itemtype="http://schema.org/MedicalGuidelineRecommendation">
-    <span itemprop="subject" itemscope itemtype="http://schema.org/Drug">
+    <span itemprop="guidelineSubject" itemscope itemtype="http://schema.org/Drug">
       <span itemprop="name">NewvoDrug</span>
     </span>
     is indicated for initial treatment of
-    <span itemprop="subject" itemscope itemtype="http://schema.org/MedicalCondition">
+    <span itemprop="guidelineSubject" itemscope itemtype="http://schema.org/MedicalCondition">
       <span itemprop="name">cardiac failure</span>
     </span>
     for all adult patients.
@@ -33,10 +33,10 @@ MICRODATA:
   </li>
   <li>Contraindication:
   <span itemscope itemtype="http://schema.org/MedicalGuidelineContraindication">
-    <span itemprop="subject" itemscope itemtype="http://schema.org/MedicalCondition">
+    <span itemprop="guidelineSubject" itemscope itemtype="http://schema.org/MedicalCondition">
       <span itemprop="name">cardiac failure</span></span> should never
     be treated with
-    <span itemprop="subject" itemscope itemtype="http://schema.org/TherapeuticProcedure">
+    <span itemprop="guidelineSubject" itemscope itemtype="http://schema.org/TherapeuticProcedure">
       <span itemprop="name">appendectomy</span></span> in adults.
     (Class III, <link itemprop="evidenceLevel" href="http://schema.org/EvidenceLevelC"/>
     <span itemprop="evidenceOrigin">standard of care</span></a>)
@@ -49,11 +49,11 @@ RDFA:
 <ul>
   <li>Recommendation:
   <span  typeof="MedicalGuidelineRecommendation">
-    <span property="subject"  typeof="Drug">
+    <span property="guidelineSubject"  typeof="Drug">
       <span property="name">NewvoDrug</span>
     </span>
     is indicated for initial treatment of
-    <span property="subject"  typeof="MedicalCondition">
+    <span property="guidelineSubject"  typeof="MedicalCondition">
       <span property="name">cardiac failure</span>
     </span>
     for all adult patients.
@@ -66,10 +66,10 @@ RDFA:
   </li>
   <li>Contraindication:
   <span  typeof="MedicalGuidelineContraindication">
-    <span property="subject"  typeof="MedicalCondition">
+    <span property="guidelineSubject"  typeof="MedicalCondition">
       <span property="name">cardiac failure</span></span> should never
     be treated with
-    <span property="subject"  typeof="TherapeuticProcedure">
+    <span property="guidelineSubject"  typeof="TherapeuticProcedure">
       <span property="name">appendectomy</span></span> in adults.
     (Class III, <link property="evidenceLevel" href="http://schema.org/EvidenceLevelC"/>
     <span property="evidenceOrigin">standard of care</span></a>)
@@ -87,7 +87,7 @@ JSON:
       "evidenceLevel": "http://schema.org/EvidenceLevelA",
       "evidenceOrigin": "multiple randomized clinical trials",
       "recommendationStrength": "Strong recommendation",
-      "subject": [
+      "guidelineSubject": [
         {
           "@type": "Drug",
           "name": "NewvoDrug"
@@ -102,7 +102,7 @@ JSON:
       "@type": "MedicalGuidelineContraindication",
       "evidenceLevel": "http://schema.org/EvidenceLevelC",
       "evidenceOrigin": "standard of care",
-      "subject": [
+      "guidelineSubject": [
         {
           "@type": "MedicalCondition",
           "name": "cardiac failure"

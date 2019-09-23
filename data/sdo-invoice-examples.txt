@@ -19,7 +19,7 @@ MICRODATA:
 
 <div itemscope itemtype="http://schema.org/Invoice">
   <h1 itemprop="description">January 2015 Visa</h1>
-  <a itemprop="url" href="http://acmebank.com/invoice.pdf" />Invoice PDF</a>
+  <a itemprop="url" href="http://acmebank.com/invoice.pdf">Invoice PDF</a>
   <div itemprop="broker" itemscope itemtype="http://schema.org/BankOrCreditUnion">
     <b itemprop="name">ACME Bank</b>
   </div>
@@ -36,7 +36,7 @@ MICRODATA:
     <span itemprop="price">200.00</span>
     <span itemprop="priceCurrency">USD</span>
   </div>
-  <meta itemprop="billingPeriod" content="2014-12-21/P30D" />starts:2014-12-21 30 days
+  <meta itemprop="billingPeriod" content="P30D" />starts:2014-12-21 30 days
   <link itemprop="paymentStatus" href="http://schema.org/PaymentDue" />
 </div>
 
@@ -53,7 +53,7 @@ RDFA:
   <div property="customer" typeof="Person">
     <b property="name">Jane Doe</b>
   </div>
-  <time property="paymentDueDate">2015-01-30</time>
+  <time property="paymentDueDate">2015-01-30T12:00:00</time>
   <div property="minimumPaymentDue" typeof="PriceSpecification">
     <span property="price">15.00</span>
     <span property="priceCurrency">USD</span>
@@ -62,7 +62,7 @@ RDFA:
     <span property="price">200.00</span>
     <span property="priceCurrency">USD</span>
   </div>
-  <meta property="billingPeriod" content="2014-12-21/P30D" />starts:2014-12-21 30 days
+  <meta property="billingPeriod" content="P30D" />starts:2014-12-21 30 days
   <link property="paymentStatus" href="PaymentDue" />
 </div>
 
@@ -84,7 +84,7 @@ JSON:
       "@type": "Person",
       "name": "Jane Doe"
     },
-    "paymentDueDate": "2015-01-30",
+    "paymentDueDate": "2015-01-30T12:00:00",
     "minimumPaymentDue": {
       "@type": "PriceSpecification",
       "price": 15.00,
@@ -95,7 +95,7 @@ JSON:
       "price": 200.00,
       "priceCurrency": "USD"
     },
-    "billingPeriod": "2014-12-21/P30D",
+    "billingPeriod": "P30D",
     "paymentStatus": "http://schema.org/PaymentDue"
 }
 </script>

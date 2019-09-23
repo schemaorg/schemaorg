@@ -104,8 +104,8 @@ class Export():
                         self.skiplist.append(getNss(i))
                 else:
                     self.skiplist.append(getNss(s))
-        if not getNss('attic') in self.skiplist: #Always skip attic by defualt
-            self.skiplist.append(getNss('attic'))
+        #if not getNss('attic') in self.skiplist: #Always skip attic by defualt
+        #    self.skiplist.append(getNss('attic'))
 
         for e in args.include:
             for s in e:

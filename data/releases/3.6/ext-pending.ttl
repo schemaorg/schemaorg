@@ -896,6 +896,15 @@ schema:correctionsPolicy a rdf:Property ;
     rdfs:comment "For an <a class=\"localLink\" href=\"http://schema.org/Organization\">Organization</a> (e.g. <a class=\"localLink\" href=\"http://schema.org/NewsMediaOrganization\">NewsMediaOrganization</a>), a statement describing (in news media, the newsroom’s) disclosure and correction policy for errors." ;
     rdfs:subPropertyOf schema:publishingPrinciples .
 
+schema:courseWorkload a rdf:Property ;
+    rdfs:label "courseWorkload" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1909> ;
+    schema:category "issue-1909" ;
+    schema:domainIncludes schema:CourseInstance ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:Text ;
+    rdfs:comment "The amount of work expected of students taking the course, often provided as a figure per week or per month, and may be broken down by type. For example, \"2 hours of lectures, 1 hour of lab work and 3 hours of independent study per week\"." .
+
 schema:credentialCategory a rdf:Property ;
     rdfs:label "credentialCategory" ;
     dct:source <https://github.com/schemaorg/schemaorg/issues/1779> ;
