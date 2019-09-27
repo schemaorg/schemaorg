@@ -1,42 +1,3 @@
-#application: schemaorgae
-#application: webschemas
-
-#version: 1
-#module: default
-runtime: python27
-api_version: 1
-threadsafe: true
-  
-automatic_scaling: #Only applicable for appengine accounts with billing enabled
-  min_idle_instances: 1
-
-instance_class: F2
-
-#basic_scaling:
-#  max_instances: 3
-#  idle_timeout: 10m
-
-inbound_services:
-- warmup
-
-env_variables:
-#  TARGETSITE: 'localhost'
-
-  PRODSITEDEBUG: 'False'
-  #CONFIGFILE: 'https://raw.githubusercontent.com/RichardWallis/datacommons/appupdate/schema/datacomconfig.json'
-  CONFIGFILE: 'sdoconfig.json'
-  FORCEINDEXPAGES: 'False'
-  DEVELOPVERSION: 'True'
-  MOREBLOCK: 'True'
-  WARMUPSTATE: 'Auto' # 'Off', 'On', 'Auto' - Off for localhost, On elsewhere
-  STAYINEXTENTION: 'False'
-  PAGESTOREMODE: 'CLOUDSTORE' # 'INMEM' (In instance memory), 'NDBSHARED' (NDB shared - accross instances), 'CLOUDSTORE' (Cloudstorage files)
-  EXAMPLESTOREMODE: 'INMEM' # 'INMEM', 'NDBSHARED'
-  TIMESTAMPSTOREMODE: 'CLOUDSTORE' # 'INMEM', 'NDBSHARED', 'CLOUDSTORE' 
-#  CACHE_CONTROL: 'public, max-age=600'
-  CACHE_CONTROL: 'no-cache'
-  SUBDOMAINS: 'False' #'False' no subdomains, 'True' for pending.schema.org, bib.schema.org etc. 
-
 handlers:
 
 - url: /favicon.ico
@@ -112,58 +73,49 @@ handlers:
 
 - url: /version/(.*/.*\.rdfa)
   mime_type: text/html
-  static_files: data/releases/\1
-  upload: data/releases/(.*/.*\.rdfa)
+  static_files: site/data/releases/\1
+  upload: site/data/releases/(.*/.*\.rdfa)
   application_readable: True
 
 - url: /version/(.*/.*\.ttl)
   mime_type: application/x-turtle
-  static_files: data/releases/\1
-  upload: data/releases/(.*/.*\.ttl)
+  static_files: site/data/releases/\1
+  upload: site/data/releases/(.*/.*\.ttl)
   application_readable: True
 
 - url: /version/(.*/.*\.jsonld)
   mime_type: application/ld+json
-  static_files: data/releases/\1
-  upload: data/releases/(.*/.*\.jsonld)
+  static_files: site/data/releases/\1
+  upload: site/data/releases/(.*/.*\.jsonld)
   application_readable: True
 
 - url: /version/(.*/.*\.rdf)
   mime_type: application/rdf+xml
-  static_files: data/releases/\1
-  upload: data/releases/(.*/.*\.rdf)
+  static_files: site/data/releases/\1
+  upload: site/data/releases/(.*/.*\.rdf)
   application_readable: True
  
 - url: /version/(.*/.*\.nt)
   mime_type: application/n-triples
-  static_files: data/releases/\1
-  upload: data/releases/(.*/.*\.nt)
+  static_files: site/data/releases/\1
+  upload: site/data/releases/(.*/.*\.nt)
   application_readable: True
 
 - url: /version/(.*/.*\.nq)
   mime_type: application/n-quads
-  static_files: data/releases/\1
-  upload: data/releases/(.*/.*\.nq)
+  static_files: site/data/releases/\1
+  upload: site/data/releases/(.*/.*\.nq)
   application_readable: True
 
 - url: /version/(.*/.*\.csv)
   mime_type: text/csv
-  static_files: data/releases/\1
-  upload: data/releases/(.*/.*\.csv)
+  static_files: site/data/releases/\1
+  upload: site/data/releases/(.*/.*\.csv)
   application_readable: True
 
 - url: /version/*/*
-  static_dir: data/releases/
+  static_dir: site/data/releases/
   application_readable: True
 
 - url: /.*
   script: sdoapp.app
-
-
-
-
-libraries:
-- name: webapp2
-  version: 2.5.2
-- name: jinja2
-  version: 2.6
