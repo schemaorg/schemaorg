@@ -926,7 +926,7 @@ class ShowUnit (webapp2.RequestHandler):
                 comment = "Term from external vocabulary"
             if not getAppVar("tableHdr"):
                 setAppVar("tableHdr",True)
-                if ((term.isClass() or term.isEnumeration()) and not term.isDataType() and term.id != "DataType"):
+                if ((term.isClass() or term.isEnumeration() or term.isDataType()) and term.id != "DataType"):
                     self.write("<table class=\"definition-table\">\n        <thead>\n  <tr><th>Property</th><th>Expected Type</th><th>Description</th>               \n  </tr>\n  </thead>\n\n")
                 self.tablehdr = True
             if (not headerPrinted):
