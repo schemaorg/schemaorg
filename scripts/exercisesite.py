@@ -60,7 +60,6 @@ parser.add_argument("-p","--pausetime", default=0, help="Seconds between request
 parser.add_argument("-i","--include", default= [[]],action='append',nargs='*', help="Include graph(s) [core|extensions|all|attic|bib|auto|meta|{etc} (Repeatable) overrides exclude - 'attic' always excluded unless explictly individually included")
 parser.add_argument("-s","--site", required=True, help="site")
 args = parser.parse_args()
-print "%s: Arguments: %s" % (sys.argv[0],args)
 
 pause = 0
 if args.pausetime:
