@@ -4,11 +4,10 @@ import logging # https://docs.python.org/2/library/logging.html#logging-levels
 import sys
 sys.path.append( os.getcwd() )
 sys.path.insert( 1, 'lib' ) #Pickup libs, rdflib etc., from shipped lib directory
-sys.path.insert( 1, '%s/sdopythonapp' % os.getcwd() ) #Pickup sdopythonapp functionality
-sys.path.insert( 1, '%s/sdopythonapp/lib'  % os.getcwd()) #Pickup sdopythonapp libs, rdflib etc., from shipped lib directory
-sys.path.insert( 1, '%s/sdopythonapp/site'  % os.getcwd()) #Pickup sdopythonapp from shipped site
+sys.path.insert( 1, 'sdopythonapp' ) #Pickup sdopythonapp functionality
+sys.path.insert( 1, 'sdopythonapp/lib' ) #Pickup sdopythonapp libs, rdflib etc., from shipped lib directory
+sys.path.insert( 1, 'sdopythonapp/site' ) #Pickup sdopythonapp from shipped site
 
-print ">>>>> %s <<<<" % sys.path
 from testharness import *
 #Setup testharness state BEFORE importing sdo libraries
 setInTestHarness(True)
