@@ -8,6 +8,7 @@ sys.path.insert( 1, 'sdopythonapp' ) #Pickup sdopythonapp functionality
 sys.path.insert( 1, 'sdopythonapp/lib' ) #Pickup sdopythonapp libs, rdflib etc., from shipped lib directory
 sys.path.insert( 1, 'sdopythonapp/site' ) #Pickup sdopythonapp from shipped site
 
+print ">>>>> %s <<<<" % sys.path
 from testharness import *
 #Setup testharness state BEFORE importing sdo libraries
 setInTestHarness(True)
