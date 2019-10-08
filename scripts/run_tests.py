@@ -56,7 +56,6 @@ import unittest
 from os import path, getenv, putenv, getcwd, environ
 from os.path import expanduser
 
-environ['CONFIGFILE'] = "%s/sdoconfig.json" % getcwd()
 
 
 def main(sdk_path, test_path, args):
