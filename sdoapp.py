@@ -84,7 +84,7 @@ releaselog = {  "2.0": "2015-05-13",
                 "3.7": "2019-06-01",
                 "3.8": "2019-07-01",
                 "3.9": "2019-08-01",
-                "4.0": "2019-10-01" }
+                "4.0": "2019-10-15" }
 
 silent_skip_list =  [ "favicon.ico" ] # Do nothing for now
 
@@ -2067,7 +2067,7 @@ class ShowUnit (webapp2.RequestHandler):
             log.debug("Serving fresh FullReleasePage.")
             PageStore.put("FullReleasePage.html",page)
             return True
-            
+
     def buildFullReleasePage(self, node, requested_version,layerlist):
         mainroot = TypeHierarchyTree()
         mainroot.traverseForHTML(VTerm.getTerm("Thing"), hashorslash="#term_", layers=layerlist)
@@ -2134,7 +2134,7 @@ class ShowUnit (webapp2.RequestHandler):
                 'menu_sel': "Documentation",
                 'suppressDevnote': True})
         return page
-        
+
     def handleExtensionContents(self,ext):
         if not ext in ENABLED_EXTENSIONS:
             return ""
@@ -2875,7 +2875,7 @@ def templateRender(templateName, node, values=None):
         elif node.isEnumerationValue():
             titletype = "Enumeration value"
         node = node.getId()
-        
+
 
     extName, extDD, extVers, extlinktext, extComment, extDisambiguatingDescription =  getExtenstionDescriptions()
 
