@@ -16,12 +16,21 @@ This repository only contains the vovcabulary definition, and examples files, su
 
 The core software is included via a sub module 'sdopythonapp'. 
 
-To locally run the application run `./sdopythonapp/runscripts/runpythonlocal.sh`
+Working with a local version of Schema.org
+==========================================
 
-To deploy to a Google appengine run `./sdopythonapp/runscripts/runpythondeploy.sh`
+To work on the vocabulary and run locally firstly clone the repository on a local system:
+    `git clone git clone --recurse-submodules https://github.com/schemaorg/schemaorg.git`
+    
+(If you forget the `--recurse-submodules` option, run the command `git submodule update --init --recursive`)
+
+To locally run the application run `./runpythonapp.sh`
+
+To deploy to a Google appengine run `./deploypythonapp.sh`
 
 There are preconfigured scripts `./scripts/deployschema.org.sh` & `./scripts/deploywebschemas.org.sh` to deploy to the main schema.org sites (with relevant permissions).
 
+Note: If you are informed of an update to the sdopythonapp submodule, use the command `git submodule update --remote` to synchronise with the local version 
 
 
 Internals
