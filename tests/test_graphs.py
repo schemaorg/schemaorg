@@ -10,6 +10,9 @@ import sys
 
 sys.path.append( os.getcwd() )
 sys.path.insert( 1, 'lib' ) #Pickup libs, rdflib etc., from shipped lib directory
+sys.path.insert( 1, 'sdopythonapp' ) #Pickup sdopythonapp functionality
+sys.path.insert( 1, 'sdopythonapp/lib' ) #Pickup sdopythonapp libs, rdflib etc., from shipped lib directory
+sys.path.insert( 1, 'sdopythonapp/site' ) #Pickup sdopythonapp from shipped site
 
 #sdk_path = getenv('APP_ENGINE',
 #                  expanduser("~") + '/google-cloud-sdk/platform/google_appengine/')

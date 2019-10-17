@@ -11,7 +11,7 @@ then
 fi
 
 TARGET="${PWD}/sdoconfigTermsData.json"
-LOCVARIABLE='[[SCHEMAORGLOC]]/'
+LOCVARIABLE='[[VOCABDEFLOC]]/'
 Header="{
     \"@context\": {
         \"@vocab\": \"http://configfiles.schema.org/\"

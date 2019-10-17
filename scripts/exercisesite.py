@@ -9,8 +9,11 @@ import argparse
 import sys
 import csv
 
-sys.path.append( os.getcwd() ) 
+sys.path.append( os.getcwd() )
 sys.path.insert( 1, 'lib' ) #Pickup libs, rdflib etc., from shipped lib directory
+sys.path.insert( 1, 'sdopythonapp' ) #Pickup sdopythonapp functionality
+sys.path.insert( 1, 'sdopythonapp/lib' ) #Pickup sdopythonapp libs, rdflib etc., from shipped lib directory
+sys.path.insert( 1, 'sdopythonapp/site' ) #Pickup sdopythonapp from shipped site
 # Ensure that the google.appengine.* packages are available
 # in tests as well as all bundled third-party packages.
 
@@ -57,7 +60,6 @@ parser.add_argument("-p","--pausetime", default=0, help="Seconds between request
 parser.add_argument("-i","--include", default= [[]],action='append',nargs='*', help="Include graph(s) [core|extensions|all|attic|bib|auto|meta|{etc} (Repeatable) overrides exclude - 'attic' always excluded unless explictly individually included")
 parser.add_argument("-s","--site", required=True, help="site")
 args = parser.parse_args()
-print "%s: Arguments: %s" % (sys.argv[0],args)
 
 pause = 0
 if args.pausetime:
