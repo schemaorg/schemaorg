@@ -26,4 +26,9 @@ then
     exit 1
 fi
 
+echo "Checking sdopythonapp is upto date"
+
+git submodule update --remote
+
+
 sdopythonapp/runscripts/runpythondeploy.sh
