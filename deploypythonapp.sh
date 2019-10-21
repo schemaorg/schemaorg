@@ -31,4 +31,4 @@ echo "Checking sdopythonapp is upto date"
 git submodule update --remote
 
 
-sdopythonapp/runscripts/runpythondeploy.sh
+sdopythonapp/runscripts/runpythondeploy.sh $@
