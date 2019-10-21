@@ -46,7 +46,5 @@ then
     exit 1
 fi
 
-cp schemaorg.yaml sdopythonapp/deployed.yaml
-
-sdopythonapp/runscripts/runpythondeploy.sh $EXE $MIG -p schemaorgae -y deployed.yaml
+sdopythonapp/runscripts/runpythondeploy.sh $EXE $MIG -p schemaorgae -y schemaorg.yaml
 

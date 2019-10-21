@@ -47,7 +47,6 @@ fi
 
 git submodule update --remote
 
-cp webschemas.yaml sdopythonapp/deployed.yaml
 
-sdopythonapp/runscripts/runpythondeploy.sh $EXE $MIG -p webschemas-g -y deployed.yaml
+sdopythonapp/runscripts/runpythondeploy.sh $EXE $MIG -p webschemas-g -y webschemas.yaml
 
