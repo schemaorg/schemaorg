@@ -1,41 +1,24 @@
 <div>
 
-<!--
-<div typeof="rdfs:Class" resource="http://schema.org/OfferForLease">
-  <span>Category: <span property="schema:category">issue-2348</span></span>
-  <span class="h" property="rdfs:label">OfferForLease</span>
-  <span property="rdfs:comment">An [[OfferForLease]] in Schema.org represents an [[Offer]] to lease out something, i.e. an [[Offer]] whose
-  [[businessFunction]] is [lease out](http://purl.org/goodrelations/v1#LeaseOut.). See [Good Relations](https://en.wikipedia.org/wiki/GoodRelations) for
-  background on the underlying concepts.
-  </span>
-  <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Offer">Offer</a></span>
-  <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
-  <span>Source:  <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/2348">#2348</a></span>
-</div>
 
-<div typeof="rdf:Property" resource="http://schema.org/ratingExplanation">
-  <span>Category: <span property="schema:category">issue-2300</span></span>
-  <span class="h" property="rdfs:label">ratingExplanation</span>
-  <span property="rdfs:comment">A short explanation (e.g. one to two sentences) providing background context and other information that led to the conclusion expressed in the rating. This is particularly applicable to ratings associated with "fact check" markup using [[ClaimReview]].</span>
-  <span>domainIncludes: <a property="http://schema.org/domainIncludes" href="http://schema.org/Rating">Rating</a></span>
+<div typeof="rdf:Property" resource="http://schema.org/accommodationCategory">
+  <span>Category: <span property="schema:category">issue-2373</span></span>
+  <span class="h" property="rdfs:label">accommodationCategory</span>
+  <span property="rdfs:comment">Category of an [[Accommodation]], following real estate conventions e.g. RESO (see [PropertySubType](https://ddwiki.reso.org/display/DDW17/PropertySubType+Field), and [PropertyType](https://ddwiki.reso.org/display/DDW17/PropertyType+Field) fields  for suggested values).</span>
+  <span>domainIncludes: <a property="http://schema.org/domainIncludes" href="http://schema.org/Accommodation">Accommodation</a></span>
   <span>rangeIncludes: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
+  <link property="rdfs:subPropertyOf" href="http://schema.org/category" />
   <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
-  <span>Source:  <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/2300">#2300</a></span>
+  <span>Source:  <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/2373">#2373</a></span>
 </div>
 
--->
 
-<!--
-following local [real estate conventions](https://en.wikipedia.org/wiki/Bathroom#Variations_and_terminology).
-
-The simple sum of the number of bathrooms.  For example for a property with two Full Bathrooms and one Half Bathroom, the Bathrooms Total Integer will be 3.
--->
 
 <div typeof="rdf:Property" resource="http://schema.org/numberOfBathroomsTotal">
   <span>Category: <span property="schema:category">issue-2373</span></span>
   <span class="h" property="rdfs:label">numberOfBathroomsTotal</span>
   <span property="rdfs:comment">The total integer number of bathrooms in a some [[Accommodation]], following real estate conventions as [documented in RESO](https://ddwiki.reso.org/display/DDW17/BathroomsTotalInteger+Field): "The simple sum of the number of bathrooms. For example for a property with two Full Bathrooms and one Half Bathroom, the Bathrooms Total Integer will be 3.". See also [[numberOfRooms]].</span>
-  <span>domainIncludes: <a property="http://schema.org/domainIncludes" href="http://schema.org/">Accommodation</a></span>
+  <span>domainIncludes: <a property="http://schema.org/domainIncludes" href="http://schema.org/Accommodation">Accommodation</a></span>
   <span>rangeIncludes: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Integer">Integer</a></span>
   <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
   <span>Source:  <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/2373">#2373</a></span>
@@ -51,23 +34,14 @@ The simple sum of the number of bathrooms.  For example for a property with two 
   <span>Source:  <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/2373">#2373</a></span>
 </div>
 
-<div typeof="rdf:Property" resource="http://schema.org/AccommodationCategory">
-  <span>Category: <span property="schema:category">issue-2373</span></span>
-  <span class="h" property="rdfs:label">AccommodationCategory</span>
-  <span property="rdfs:comment">Category of an [[Accommodation]], following real estate conventions e.g. RESO (see [PropertySubType](https://ddwiki.reso.org/display/DDW17/PropertySubType+Field), [and [PropertyType](https://ddwiki.reso.org/display/DDW17/PropertyType+Field) fields] for suggested values).</span>
-  <span>domainIncludes: <a property="http://schema.org/domainIncludes" href="http://schema.org/Accommodation">Accommodation</a></span>
-  <span>rangeIncludes: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
-  <link property="rdfs:subPropertyOf" href="http://schema.org/category" />
-  <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
-  <span>Source:  <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/2373">#2373</a></span>
-</div>
-
 <div typeof="rdf:Property" resource="http://schema.org/leaseLength">
   <span>Category: <span property="schema:category">issue-2373</span></span>
   <span class="h" property="rdfs:label">leaseLength</span>
-  <span property="rdfs:comment">Length of the lease remaining on some [[Accommodation]].</span>
+  <span property="rdfs:comment">Length of the lease for some [[Accommodation]], either particular to some [[Offer]] or in some cases intrinsic to the property.</span>
   <span>domainIncludes: <a property="http://schema.org/domainIncludes" href="http://schema.org/Accommodation">Accommodation</a></span>
-  <span>rangeIncludes: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number">Number</a></span>
+  <span>domainIncludes: <a property="http://schema.org/domainIncludes" href="http://schema.org/RealEstateListing">RealEstateListing</a></span>
+  <span>rangeIncludes: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Duration">Duration</a></span>
+  <span>rangeIncludes: <a property="http://schema.org/rangeIncludes" href="http://schema.org/QuantitativeValue">QuantitativeValue</a></span>
   <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
   <span>Source:  <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/2373">#2373</a></span>
 </div>
@@ -79,7 +53,7 @@ The simple sum of the number of bathrooms.  For example for a property with two 
   <span property="rdfs:comment">The floor level for an [[Accommodation]] in a multi-storey building. Since counting
   systems [vary internationally](https://en.wikipedia.org/wiki/Storey#Consecutive_number_floor_designations), the local system should be used where possible.</span>
   <span>domainIncludes: <a property="http://schema.org/domainIncludes" href="http://schema.org/Accommodation">Accommodation</a></span>
-  <span>rangeIncludes: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number">Number</a></span>
+  <span>rangeIncludes: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
   <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
   <span>Source:  <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/2373">#2373</a></span>
 </div>
