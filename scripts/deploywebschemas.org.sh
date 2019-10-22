@@ -47,6 +47,6 @@ fi
 
 git submodule update --remote
 
-
+export ROBOTSBLOCK="YES" #ensure we end up with a blocking robots.txtS
 sdopythonapp/runscripts/runpythondeploy.sh $EXE $MIG -p webschemas-g -y webschemas.yaml
 
