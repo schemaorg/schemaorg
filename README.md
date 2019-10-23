@@ -22,7 +22,7 @@ Every month or so, after final review by the Schema.org Steering Group and wider
 
 Regarding CC and opensource licenses for documents and software, see our [FAQ entry](https://schema.org/docs/faq.html#18).
 
-Proposing schemas
+Improving schemas
 =================
 
 We are always interested in practical suggestions for improvements to schema.org, and our collection of schemas has been [growing gradually](http://schema.org/docs/releases.html) since our launch in 2011.
