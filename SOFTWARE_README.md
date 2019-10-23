@@ -20,7 +20,7 @@ Working with a local version of Schema.org
 ==========================================
 
 To work on the vocabulary and run locally firstly clone the repository on a local system:
-    `git clone git clone --recurse-submodules https://github.com/schemaorg/schemaorg.git`
+    `git clone --recurse-submodules https://github.com/schemaorg/schemaorg.git`
     
 (If you forget the `--recurse-submodules` option, run the command `git submodule update --init --recursive`)
 
