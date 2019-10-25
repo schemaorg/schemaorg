@@ -14,7 +14,7 @@ The site codebase is a simple Python application. It uses Google App Engine, and
 
 This repository only contains the vovcabulary definition, and examples files, supporting documetation, and Schema,org specifi tests and build scripts.
 
-The core software is included via a sub module 'sdopythonapp'. 
+The core software is included via a sub module [sdopythonapp](https://github.com/schemaorg/sdopythonapp). 
 
 Working with a local version of Schema.org
 ==========================================
@@ -34,6 +34,8 @@ Note: The pyton application only runs under **_Python 2.7_**
 There are preconfigured scripts `./scripts/deployschema.org.sh` & `./scripts/deploywebschemas.org.sh` to deploy to the main schema.org sites (with relevant permissions).
 
 Note: If you are informed of an update to the sdopythonapp submodule, use the command `git submodule update --remote` to synchronise with the local version 
+
+Note: To run subdomain areas of the application on a local development system eg.  `http://bib.localhost:8080/` the subdomains will need to be added to the local system's host file.  eg. `127.0.0.1 localhost bib.localhost pendin.localhost` etc.
 
 
 Internals
