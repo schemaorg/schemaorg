@@ -20,6 +20,7 @@ Working with a local version of Schema.org
 ==========================================
 
 To work on the vocabulary and run locally firstly clone the repository on a local system:
+
     `git clone --recurse-submodules https://github.com/schemaorg/schemaorg.git`
     
 (If you forget the `--recurse-submodules` option, run the command `git submodule update --init --recursive`)
@@ -27,6 +28,8 @@ To work on the vocabulary and run locally firstly clone the repository on a loca
 To locally run the application run `./runpythonapp.sh`
 
 To deploy to a Google appengine run `./deploypythonapp.sh`
+
+Note: The pyton application only runs under **_Python 2.7_**
 
 There are preconfigured scripts `./scripts/deployschema.org.sh` & `./scripts/deploywebschemas.org.sh` to deploy to the main schema.org sites (with relevant permissions).
 
