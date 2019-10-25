@@ -94,13 +94,13 @@ def main(test_path, args):
     
     import subprocess
     contextCheck = "./scripts/buildarchivecontext.py -o -|cut -d'\"' -f2|sort|uniq -d"
-    #contextCheck = "cat x|cut -d'\"' -f2|sort|uniq -d"
+
     print "Checking jsonldcontext for duplicates"
     dups = subprocess.check_output(contextCheck,shell=True)
     if len(dups):
         print "Duplicate entries in jsonldcontext: %s" % dups
         sys.exit(1)
-    print "No duplicates in jsonldcontext"
+    print "No duplicates in jsonldcontext\n\n"
     
     if vars(args)["skipbasics"]:
         suite = unittest.loader.TestLoader().discover(test_path, pattern="*graphs*.py")
