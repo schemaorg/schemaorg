@@ -13,27 +13,28 @@ chosen in /docs/releases.html (check markup assigns an HTML ID too).
 
 The following steps assume a general healthy freeze (tested / QA as below).
 
-in sdoapp.py:
+in versions.json:
 
-    SCHEMA_VERSION=2.2 # or 2.x, as above.
-
-in sdoapp.py:
-
-  releaselog = { "2.0": "2015-05-13", "2.1": "2015-08-06" }
-
+    "schemaversion": "3.9",
+    "releaseLog": {  
+.
+.
+        "3.8": "2019-07-01",
+        "3.9": "2019-08-01" 
+    }
 becomes
-
-  releaselog = { "2.0": "2015-05-13", "2.1": "2015-08-06", "2.2": "2015-11-05" }
-
+    "schemaversion": "4.0",
+    "releaseLog": {  
+.
+.
+        "3.8": "2019-07-01",
+        "3.9": "2019-08-01", 
+        "4.0": "2019-10-01" 
+    }
 
 ... this should have a release date for the current release and all
 previous releases that are archived under data/releases/{version}/*
 
-TODO: Add a unit test to ensure this.
-
-TODO: Re-order this document to avoid forward references.
-
-Under data/releases/{version}/ we need a versioned-snapshot structure:
 
 e.g.
     data/releases/2.1
@@ -46,52 +47,12 @@ e.g.
     data/releases/2.1/schema.nt
     data/releases/2.1/schema.rdfa
 
-Of these,
+All these are all created and coppied where appropriate by running the 'scripts/buildreleasefiles.sh' script
+[since version 3.9]
 
- * schema.rdfa is a frozen one-time copy of data/schema.rdfa
- * schema-all.html is generated from this via running the Web app and
-   capturing via curl of /version/build-latest,
-   e.g. http://localhost:8080/version/build-latest
-   when served locally via "dev_appserver ."
-   For now, you need to edit this html to remove webschemas.org from heading section.
-
-  * To create .nt, .nq, etc files use scripts/buildreleasefiles.sh
-
-  * README.md should be copied/updated accordingly.  TODO: simplify this file.
 
 Example usage:
-
-First run scripts/buildTermConfig.sh - ensure all config files are referenced.
-
-Next copy snapshot into place:
-
-* cp data/schema.rdfa data/releases/2.2/schema.rdfa
-
-* Now the HTML snapshot itself. Assuming a local server (e.g. from 'dev_appserver .') we can do:
- * curl http://localhost:8080/version/build-latest > data/releases/3.2/schema-all.html (taking care with the version number, of course)
- or this, to use webschemas: curl https://webschemas.org/version/build-latest > data/releases/3.4/schema-all.html
- * clean up the html including the bit that says you're in a developer view etc.
- 
-Then generate N-Triples etc. versions:
-* Ensure that the EXTENSIONS variable at the top of the script 'scripts/buildreleasefiles.sh' contains all the extensions for this release.
-* scripts/buildreleasefiles.sh 3.1 - Check listed extensions is correct update if not
-
-* Run './scripts/buildsitemap.py' make sure sitemap is up to date
-
-* Again run scripts/buildTermConfig.sh - ensure all config & docs files are referenced
-
-* Inspect snapshot, add to git and push to repo.
- * ls -l data/releases/2.2/
- * git add data/releases/2.2/*
- * git push
- * update sites: e.g.  ./scripts/updateAppEngine.sh  to update sdo-phobos.appspot.com, webschemas.org
-  * Inspect /version/{x.y}/ on those sites manually; check for newly added terms etc.
- * TODO: more QA and automation would be highly appropriate here.
-
-
-
-TODO: list optional tasks post-launch (blog, email, refresh dydra sparql db etc.).
-
+    scripts/buildreleasefiles.sh 3.9
 
 
 
@@ -144,73 +105,51 @@ e.g. see http://webschemas.org/docs/qa.html
 There is often some final tweaking, bugs, etc. When things settle down, a
 final round of sanity-check tests is useful:
 
-* Run again './scripts/buildsitemap.py' make sure sitemap is up to date
-* Run again: PYTHONPATH=/usr/local/google_appengine ./scripts/run_tests.py
-* Run again 'git status', confirm no uncommited files or changes.
-* Run again: './scripts/updateAppEngine.sh' for development/upstream site sync.
+* Run again './scripts/buildreleasefiles.py' 
 
-3.) Previously: "Merge release branch into master"; now we develop in "master."
 
-4.) Publish from a clean checkout of 'master' branch to schema.org.
+Using gcloud deployment script
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Using gcloud app deploy
-~~~~~~~~~~~~~~~~~~~~~~~
+Use python deploment script:
 
-From 3.4.1 onwards use app deploy script (does a bit of housekeeping):
-	scripts/appdeploy.sh --project schemaorgae  --no-promote --version=3-5-1 schemaorg.yaml
-	
+        ./scripts/deployschema.org.sh - to deploy to main Schema.org site
+        ./scripts/deploywebschemas.org.sh - to deploy to main webschemas.org site
+        
+        * Choose Local option to deploy local configuration files
+        * Choose Remote option to pull files from a URL (eg. the github repository)
+        
+        * Provide an appropriate version string - different to currently running version
+        * Optionally pass -e to bypass site exercise option
+        * Optionally pass -m to bypass merge of new version
+        
 	
 Recommended Method For Making Release Live
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-1) Use app deploy script as above providing a version identifier not in use on schemaorgae appengine.
+For Webschema.org
+    Use ./scripts/deploywebschemas.org.sh -e
+        No real benefit in exercising low traffic site 
+        
+For Schema.org.
 
-2) Access that version directly via the URL of following format:
-      https://3-5-1-dot-schemaorgae.appspot.com
-      
-      Note: The application will take a few minutes before responding to its first request.
-            If you get a timeout message, try again in 30 seconds or so.
-
-3) Try a few samples requests to the direct URL 
-
-4) In directory from which the deploy took place run the following script, with the approriate site (-s) value:
-	scripts/exercisesite.py -s https://3-5-1-dot-schemaorgae.appspot.com
-	
-	The script requests a page for each Type and property, causing them to be cached in the application's storage
-	area.  It averages a few seconds per page, the whole process takes 60-90 minutes.
-	
-5) When exercisesite is complete, use the Traffic Spiting feature of the App Engine Console to progressively increase 
-   the percentage of traffic being allocated to the new version (5%, 10%, 25%, 50%, 75%, 100%) with at least a few minutes 
-   between each.
-   
-During all the above steps, monitor the log for the new version, filtering for errors being the min requirement.  Note: receiving occasional errors from requests such as _start, _stop, can be expected.
+    Either run ./scripts/deployschema.org.sh 
+        This will put the new site live when site exercise is complete (takes some time)
+    or run ./scripts/deployschema.org.sh -m
+        At some time after site exercise is complete login to console and manually migrate traffic
 
 
-##### original deploy: gcloud app deploy --no-promote --project schemaorgae --version=3.4 schemaorg.yaml
+5.) Tag the code at the current relese state
+* Use a local copy of the relesed version of the 'master' branch:
+    * Either download a new clone, or do a 'git pull' on a local copy and then 'git checkout -b master'
+* Confirm previous tags: 'git tag -l'
+* Tag the local copy eg: 'git tag v3.8-release'
+* Push tagged version to github: 'git push origin v3.8-release'
+Note: If master has moved on from the the released version before tagging
+    * Obtain the last commit identifier before the release from the listing: 'git log master'
+    * Add the commit id to the tag comand. eg: 'git tag v3.8-release 7f86a944e1bd87008cb7b83dc7e19a562ed2d28d'
 
-Note: the --no-promote flage deploys the version but does not transfer traffic to it.
-This can then be done when required via the appengine console, versions screen:
-   https://console.cloud.google.com/appengine/versions?project=schemaorgae&serviceId=default&versionssize=50
-
-===========OLD============
-Either by editing app.yaml to make sure 'application: schemaorgae' is active,
-or by passing the name of the live appengine ID on the commandline.
-===========OLD============
-
-Currently @rvguha (as Steering Group chair) and @danbri (as Community Group chair and
-webmaster / dogsbody) have write access to the corresponding appengine account.
-
-===========OLD============
- * e.g. update schemaorg.yaml then:  appcfg.py update schemaorg.yaml -A schemaorgae
- * Count to thirty. Log into appengine and you should see a new version.
-* Send 5% of traffic to this version to catch any errors, then move to 100%.
-===========OLD============
-
-Note that appengine versions are visible using URLs with this pattern:
-
-http://3-3.schemaorgae.appspot.com/docs/releases.html
-
-5.) Related post-release tasks.
+6.) Related post-release tasks.
 
 * Let the Community Group and Steering Group know.
 * Blog post.

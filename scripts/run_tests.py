@@ -53,8 +53,10 @@ import optparse
 import sys
 import unittest
 #import os
-from os import path, getenv
+from os import path, getenv, putenv, getcwd, environ
 from os.path import expanduser
+
+
 
 def main(sdk_path, test_path, args):
 
@@ -75,7 +77,7 @@ def main(test_path, args):
     sys.path.insert(0, sdk_path) # add AppEngine SDK to path
     import dev_appserver
     dev_appserver.fix_sys_path()
-
+    
     # Loading appengine_config from the current project ensures that any
     # changes to configuration there are available to all tests (e.g.
     # sys.path modifications, namespaces, etc.)
@@ -95,8 +97,12 @@ def main(test_path, args):
     else:
         suite = unittest.loader.TestLoader().discover(test_path, pattern="test*.py")
 
-    unittest.TextTestRunner(verbosity=2).run(suite)
-
+    res = unittest.TextTestRunner(verbosity=2).run(suite)
+    
+    count = len(res.failures) + len(res.errors)
+    sys.exit(count)
+    
+    
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Configurable testing of schema.org.')
     parser.add_argument('--skipbasics', action='store_true', help='Skip basic tests.')

@@ -1,14 +1,17 @@
-#!/bin/sh
-PWD=`pwd`
+#!/bin/bash
+set -e
+set -u
+
+PWD="`pwd`"
 PROG="`basename $0`"
-if [ `basename $PWD` != "schemaorg" ]
+if [ `basename "$PWD"` != "schemaorg" ]
 then
 	echo "$PROG: Not in the schemaorg directory! Aborting"
 	exit 1
 fi
 
 TARGET="${PWD}/sdoconfigTermsData.json"
-LOCVARIABLE='[[SCHEMAORGLOC]]/'
+LOCVARIABLE='[[VOCABDEFLOC]]/'
 Header="{
     \"@context\": {
         \"@vocab\": \"http://configfiles.schema.org/\"
@@ -21,7 +24,7 @@ function doHead {
             \"@type\": \"DataDownload\",
             \"fileContent\": \"${2}\",
             \"contentLocation\": \"${LOCVARIABLE}${1}\",
-            \"contentFile\": [\n" >> $TARGET
+            \"contentFile\": [\n" >> "$TARGET"
     
     }
 
@@ -42,14 +45,14 @@ function doExtension {
                 sep=""
                 output=1
             fi
-            printf "$sep                \"$rdf\"" >> $TARGET
+            printf "$sep                \"$rdf\"" >> "$TARGET"
             count=$((count+1))
         fi
     done
     if [ $count -ne 0 ]
     then
         printf "\n            ]\n
-        }"  >> $TARGET
+        }"  >> "$TARGET"
     fi
 
     count=0
@@ -64,17 +67,17 @@ function doExtension {
                 output=1
                 sep=""
             fi
-            printf "$sep                \"$ex\"" >> $TARGET
+            printf "$sep                \"$ex\"" >> "$TARGET"
             count=$((count+1))
         fi
     done
     if [ $count -ne 0 ]
     then
         printf "\n            ]\n
-        }"   >> $TARGET
+        }"   >> "$TARGET"
     fi
     )
-        return $output
+        return 
 }
 
 function doDocs {
@@ -82,7 +85,7 @@ function doDocs {
             \"@type\": \"DataDownload\",
             \"fileContent\": \"docs\",
             \"contentLocation\": \"${LOCVARIABLE}docs\",
-            \"contentFile\": [" >> $TARGET
+            \"contentFile\": [" >> "$TARGET"
     
             
     count=0
@@ -94,25 +97,27 @@ function doDocs {
         sep=""
     fi 
     count=$((count+1))
-    printf "$sep                \"$i\"" >> $TARGET
+    printf "$sep                \"$i\"" >> "$TARGET"
     
     
     done
-    printf '\n            ]
-        }' >> $TARGET
+    printf "
+                ]
+        }" >> "$TARGET"
 
 }
 
 function doElements {
-    echo "    \"dataFeedElement\": [" >> $TARGET
+    echo "    \"dataFeedElement\": [" >> "$TARGET"
     doDocs
     doExtension data
     for ext in `ls data/ext` 
     do
         doExtension "data/ext/$ext"
     done
-    echo '\n    ]
-}' >> $TARGET
+    echo "
+    ]
+}" >> "$TARGET"
 
 }
 
@@ -121,8 +126,8 @@ printf "{
         \"@vocab\": \"http://configfiles.schema.org/\"
     },
     \"@type\": \"DataFeed\",
-    \"name\": \"schema.org\"," > $TARGET
-echo >> $TARGET
+    \"name\": \"schema.org\"," > "$TARGET"
+echo >> "$TARGET"
 
 doElements
 

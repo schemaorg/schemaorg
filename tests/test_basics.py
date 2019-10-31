@@ -4,6 +4,9 @@ import logging # https://docs.python.org/2/library/logging.html#logging-levels
 import sys
 sys.path.append( os.getcwd() )
 sys.path.insert( 1, 'lib' ) #Pickup libs, rdflib etc., from shipped lib directory
+sys.path.insert( 1, 'sdopythonapp' ) #Pickup sdopythonapp functionality
+sys.path.insert( 1, 'sdopythonapp/lib' ) #Pickup sdopythonapp libs, rdflib etc., from shipped lib directory
+sys.path.insert( 1, 'sdopythonapp/site' ) #Pickup sdopythonapp from shipped site
 
 from testharness import *
 #Setup testharness state BEFORE importing sdo libraries
@@ -15,7 +18,6 @@ from apirdfterm import VTerm
 from apimarkdown import Markdown
 
 from google.appengine.ext import deferred 
-
 from sdoapp import *
 
 schema_path = './data/schema.rdfa'
@@ -587,4 +589,4 @@ class TraverseTreeTests(unittest.TestCase):
 # * check we don't assign more than one example to the same ID
 
 if __name__ == "__main__":
-  unittest.main()
+    unittest.main()

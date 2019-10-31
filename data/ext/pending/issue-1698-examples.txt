@@ -22,12 +22,12 @@ JSON:
   "hasOccupation": {
     "@type": "Occupation",
     "name": "Parapsychologist",
-    "educationRequirements": "PhD in parapsychology",
+    "educationRequirements": "PhD in parapsychology"
   }
 }
 </script>
 
-TYPES: Person, Occupation, Role
+TYPES: Person, Occupation, Role, occupationalCategory
 
 PRE-MARKUP:
 
@@ -52,7 +52,8 @@ JSON:
     {
       "@type": "Role",
       "hasOccupation": {
-        "name": "Patent examiner",
+      "@type": "Occupation",
+      "name": "Patent examiner",
         "occupationalCategory": "23-2099.00"
       },
       "startDate": "1901",
@@ -61,13 +62,13 @@ JSON:
     {
       "@type": "Occupation",
       "name": "Professor of Physics",
-      "educationRequirements": "PhD in Physics",
+      "educationRequirements": "PhD in Physics"
     }
   ]
 }
 </script>
 
-TYPES: JobPosting, Occupation
+TYPES: JobPosting, Occupation, occupationalCategory
 
 PRE-MARKUP:
 
@@ -90,12 +91,23 @@ JSON:
   "name": "Mobile App Developer",
   "hiringOrganization": {
     "@type": "Organization",
-    "name": "ACME Software",
+    "name": "ACME Software"
   },
   "relevantOccupation": {
     "@type": "Occupation",
     "name": "Software Developers, Applications",
-    "occupationalCategory": "15-1132.00"
+    "occupationalCategory": {
+             "@type": "CategoryCode",
+             "inCodeSet": {
+                  "@type": "CategoryCodeSet",
+                  "name": "O*Net-SOC",
+                  "dateModified": "2019",
+                  "url": "https://www.onetonline.org/"
+               },
+             "codeValue": "15-1132.00",
+             "name": "Software Developers, Applications",
+             "url": "https://www.onetonline.org/link/summary/15-1132.00"
+         }
   }
 }
 </script>
@@ -123,7 +135,7 @@ JSON:
   "name": "Nurse Practioner",
   "educationRequirements": "Graduate degree in nursing",
   "occupationalCategory": "29-1171.00",
-  "occupationalLocation": {
+  "occupationLocation": {
     "@type": "Country",
     "name": "USA",
     "sameAs": "https://www.wikidata.org/wiki/Q30"

@@ -3,13 +3,14 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>Markup for Hotels - schema.org</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Schema.org is a set of extensible schemas that enables webmasters to embed
     structured data on their web pages for use by search engines and other applications." />
     <link rel="stylesheet" type="text/css" href="/docs/schemaorg.css" />
     <link href="/docs/prettify.css" type="text/css" rel="stylesheet" />
     <script type="text/javascript" src="/docs/prettify.js"></script>
     <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
-<!-- ##### Generated insert [CSEScript-start] see scripts/genhtmlinserts.sh ##### --> 
+<!-- ##### Generated insert [CSEScript-start] see scripts/genhtmlinserts.sh ##### -->
 <!-- Enable CSE Search -->
 <script>
 (function() {
@@ -19,7 +20,7 @@ gcse.src = 'https://cse.google.com/cse.js?cx=' + cx;
 var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(gcse, s);
 })();
 </script>
-<!-- ##### Generated insert [CSEScript-end] see scripts/genhtmlinserts.sh ##### --> 
+<!-- ##### Generated insert [CSEScript-end] see scripts/genhtmlinserts.sh ##### -->
 
 <script type="text/javascript">
       $(document).ready(function(){
@@ -40,12 +41,17 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(gc
   .tag    { color: #000; }    /* div, span, etc   */
   .atn    { color: #000; }    /* href, datetime,  */
   .custom { color: #660003; } /* itemscope, itemtype, etc,. */
+  img{
+      max-width:100%;
+      min-width:300px;
+      height: auto;
+  }
 
 </style>
 
 </head>
 <body>
-<!-- ##### Generated insert [DOCSHDR-start] see scripts/genhtmlinserts.sh ##### --> 
+<!-- ##### Generated insert [DOCSHDR-start] see scripts/genhtmlinserts.sh ##### -->
         <div id="container">
             <div id="intro">
                 <div id="pageHeader">
@@ -77,7 +83,7 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(gc
                 </ul>
             </div>
         </div>
-<!-- ##### Generated insert [DOCSHDR-end] see scripts/genhtmlinserts.sh ##### --> 
+<!-- ##### Generated insert [DOCSHDR-end] see scripts/genhtmlinserts.sh ##### -->
   <div id="mainContent">
 
 <h1>Markup for Hotels</h1>
@@ -89,7 +95,7 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(gc
 
 <h2 id="overview">Overview</h2>
 
-<p>When modeling hotel-related information in Web content with schema.org, there are three core objetcs:</p>
+<p>When modeling hotel-related information in Web content with schema.org, there are three core objects:</p>
 
 <ul>
     <li>A <strong><a href="../LodgingBusiness">lodging business</a></strong>, e.g. a hotel, hostel, resort, or a camping site): essentially the place and local business that houses the actual units of the establishment (e.g. hotel rooms). The lodging business can encompass multiple buildings but is in most cases a coherent place.</li>
@@ -99,7 +105,7 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(gc
 
 <p>In schema.org, an offer for a hotel room is using the same patterns as an offer for any other type of product or service, e.g. a TV set or a welding service. However, a hotel room is not a subclass of <a href= "../Product">Product</a> or <a href= "../Service">Service</a>.  To enable an offer to be described, use is made of the Multi-Typed Entity (MTE) feature of Schema.org.
 </p>
-<p>	
+<p>
 When defining an instance of an <a href="../Accommodation">Accommodation</a>, that is offered by a <a href="../LodgingBusiness">LodgingBusiness</a>, it is described as being both the appropriate Type for the accomodation <em>and</em> a <a href= "../Product">Product</a>.  Thus for example a <a href="../Hotel">Hotel</a> will make an <a href="../Offer">Offer</a>, or offers, for a <a href="../HotelRoom">HotelRoom</a>, that is also identified as a <a href= "../Product">Product</a>. Prices and terms and conditions are thus not properties of the hotel or hotel room, but of the offer for a certain room or room category.</p>
 
 The markup for MTE's is very simple:
@@ -115,7 +121,7 @@ The markup for MTE's is very simple:
 "@type": ["HotelRoom","Product"],</pre>
 	</li>
 </ul>
-			
+
 
 
 <p>In the case of rental accommodations, it is important to attach the <a href= "../businessFunction">businessFunction</a> property with the value <a href="http://purl.org/goodrelations/v1#LeaseOut">LeaseOut</a> to the <a href="../Offer">offer</a>, unless you want to sell the property. This allows reusing and extending the same types for dwellings for real estate offers in schema.org.</p>

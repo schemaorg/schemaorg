@@ -3,6 +3,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <title>Markup for Banks and Financial Institutions - schema.org</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="Schema.org is a set of extensible schemas that enables webmasters to embed structured data on their web pages for use by search engines and other applications." />
     <link rel="stylesheet" type="text/css" href="/docs/schemaorg.css" />
     <link href="/docs/prettify.css" type="text/css" rel="stylesheet" />
@@ -38,6 +39,23 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(gc
   .tag    { color: #000; }    /* div, span, etc   */
   .atn    { color: #000; }    /* href, datetime,  */
   .custom { color: #660003; } /* itemscope, itemtype, etc,. */
+  img{
+      max-width:100%;
+      min-width:300px;
+      height: auto;
+  }
+  ul {
+      flex-wrap: wrap;
+  }
+  .scroll-ul{
+      max-width:100%;
+      min-width:300px;
+      overflow-x: scroll;
+      height: auto;
+      border: 0;
+      
+  }
+  
 
 </style>
 
@@ -158,6 +176,7 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(gc
             
             <h3>Types:</h3>
             
+            <div class="scroll-ul">
             <ul>
                 <li>
                     <a style="color:gray" href="http://pending.schema.org/Thing">Thing</a>
@@ -253,9 +272,11 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(gc
                     </ul>
                 </li>
             </ul>
+        </div>
             
             <h3>Properties:</h3>
             
+            <div class="scroll-ul">
             <ul>
                 <li>
                     <a style="color:gray" href="http://pending.schema.org/Thing">Thing</a>
@@ -372,6 +393,7 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(gc
                     </ul>
                 </li>
             </ul>
+        </div>
             
             
             <h2>The basic models of the financial objects</h2>

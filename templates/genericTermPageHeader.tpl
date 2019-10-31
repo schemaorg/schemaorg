@@ -4,7 +4,7 @@
 <head>
   {% include 'headtags.tpl' with context %}
 	{% if noindexpage %}<meta name="robots" content="noindex">{% endif %}
-    <title>{{ entry }} - {{ sitename }}</title>
+    <title>{{ entry }} - {{ sitename }} {{ titletype}}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="{{ desc }}" />
 

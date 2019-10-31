@@ -22,7 +22,18 @@ JSON:
   "@type": "Book",
   "name": "Some graphic novel",
   "accessMode": ["textual", "visual"],
-  "accessModeSufficient": ["textual", "visual"],
+  "accessModeSufficient": [ 
+    {
+      "@type": "ItemList", 
+      "itemListElement": ["textual", "visual"], 
+      "description": "Text and images"
+    },
+    {
+      "@type": "ItemList", 
+      "itemListElement": ["textual"], 
+      "description": "Text with textual alternatives and descriptions for images"
+    }
+  ],
   "accessibilitySummary": "Visual elements are not described."
 }
 </script>
