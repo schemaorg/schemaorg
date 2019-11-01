@@ -30,4 +30,6 @@ echo "Checking sdopythonapp is upto date"
 
 git submodule update --remote
 
+export DEFAULTBYPASSSTATICBUILD="YES" #set default to N for build static files
+
 sdopythonapp/runscripts/runpythonlocal.sh 
