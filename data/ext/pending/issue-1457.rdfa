@@ -3,7 +3,7 @@
   Schema.org Recurring Events Proposal
   Issue #1457, https://github.com/schemaorg/schemaorg/issues/1457
 
-  Defines a new type: Schedule which can be associated with an Event.
+  Defines a new type: Schedule which can be associated with an Event
   A Schedule defines a recurring time period similar to an iCal rrule.
 
 -->
@@ -91,6 +91,12 @@
       <span>Source:  <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1457">#1457</a></span>
     </div>
 
+    <div typeof="rdf:Property" resource="http://schema.org/duration">
+        <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Schedule">Schedule</a></span>
+        <span>Source:  <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1457">#1457</a></span>
+        <span>Category: <span property="schema:category">issue-1457</span></span>
+    </div>
+
     <div typeof="rdf:Property" resource="http://schema.org/eventSchedule">
       <span>Category: <span property="schema:category">issue-1457</span></span>
       <span class="h" property="rdfs:label">eventSchedule</span>
@@ -98,10 +104,10 @@
       repeating events rather than data on the individual events themselves. For example, a website or application might prefer to publish a schedule for a weekly
       gym class rather than provide data on every event. A schedule could be processed by applications to add forthcoming events to a calendar. An [[Event]] that
       is associated with a [[Schedule]] using this property should not have [[startDate]] or [[endDate]] properties. These are instead defined within the associated
-      [[Schedule]], this avoids any ambiguity for clients using the data. The property might have repeated values to specify different schedules, e.g. for different months
+      [[Schedule]], this avoids any ambiguity for clients using the data. The propery might have repeated values to specify different schedules, e.g. for different months
       or seasons.</span>
-      <span>domainIncludes: <a property="http://schema.org/domainIncludes" href="http://schema.org/Event">Event</a></span>
-      <span>rangeIncludes: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Schedule">Schedule</a></span>
+      <span>domainIncludes: <a property="http://schema.org/domainIncludes" href="http://schema.org/Schedule">Event</a></span>
+      <span>rangeIncludes: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Duration">Schedule</a></span>
       <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
       <span>Source:  <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1457">#1457</a></span>
     </div>
