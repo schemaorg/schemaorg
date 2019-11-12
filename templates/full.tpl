@@ -33,6 +33,29 @@ $(document).ready(function(){
     $("#full_thing_tree").show();
 });
 </script>
+<style>
+    ul {
+        flex-wrap: wrap;
+    }
+    .scroll-ul{
+        max-width:100%;
+        min-width:300px;
+        overflow-x: scroll;
+        height: auto;
+        border: 0;
+    }
+    @media all and (min-width: 500px ){
+        .scroll-ul {
+            line-height: 160%;
+        }
+    }
+    @media all and (max-width: 500px ){
+        .scroll-ul {
+            line-height: 200%;
+        }
+    }
+</style>
+
 </head>
 <body style="text-align: center;">
 
@@ -63,13 +86,13 @@ Schema.org is defined as two hierarchies: one for textual property values, and o
 	
 
 {% if thing_tree != "" %}
-    <div id="thing_tree">
+    <div class="scroll-ul" id="thing_tree">
     {{ thing_tree | safe }}
     </div>
 {% endif %}
 {% if full_thing_tree != ""  %}
 <!--<div class="display: none" id="full_thing_tree">-->
-<div id="full_thing_tree">
+<div class="scroll-ul" id="full_thing_tree">
 {{ full_thing_tree | safe }}
 </div>
 {% endif %}
@@ -81,7 +104,7 @@ Schema.org is defined as two hierarchies: one for textual property values, and o
     {% endif %}
 {% endif %}
 {% if datatype_tree != "" %}
-    <div id="datatype_tree">
+    <div class="scroll-ul" id="datatype_tree">
     {{ datatype_tree | safe }}
     </div>
 {% endif %}

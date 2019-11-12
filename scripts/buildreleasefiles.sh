@@ -5,18 +5,20 @@ set -u
 EXTENSIONS="attic auto bib health-lifesci pending meta"
 PWD=`pwd`
 PROG="`basename $0`"
-if [ `basename $PWD` != "schemaorg" ]
+if [ `basename "$PWD"` != "schemaorg" ]
 then
 	echo "Not in the schemaorg directory! Aborting"
 	exit 1
 fi
 
 function usage {
-    echo "usage: $(basename $0) [-y] [-e] [-c] [-o] [-limit somevalue] VERSION"
+    echo "usage: $(basename $0) [-y] [-e] [-c] [-o] [s] [m] [-limit somevalue] VERSION"
     echo "    -y   Assume yes to continue"
     echo "    -e   No extentstions (only produce core and all-layers)"
     echo "    -c   No context file"
     echo "    -o   No owl file"
+    echo "    -s   No schema-all.htmlfile"
+    echo "    -m   No sitemap file"
     echo "    -l   \"Output types\" (json-ld|turtle|nt|nquads|rdf|csv)" 
 }
 
@@ -29,9 +31,11 @@ fi
 LIMIT=""
 AUTORUN=0
 CONTEXT=1
+RELS=1
 OWL=1
+MAP=1
 EXTS=1
-while getopts 'yecol:' OPTION; do
+while getopts 'yecsoml:' OPTION; do
   case "$OPTION" in
     y)
         AUTORUN=1
@@ -42,6 +46,12 @@ while getopts 'yecol:' OPTION; do
         CONTEXT=0
     ;;
 
+    s)
+        RELS=0
+    ;;
+    m)
+        MAP=0
+    ;;
     o)
         OWL=0
     ;;
@@ -69,9 +79,12 @@ VER=$1
 DIR="./data/releases/$1"
 
 
+echo 
+echo "$PROG:About to build release files for version $VER"
+echo "      Including extensions: $EXTENSIONS"
+
 if [ $AUTORUN -eq 0 ]
 then
-    echo "$PROG:\n\tAbout to build release files for version $VER  \n\tIncluding extensions: $EXTENSIONS"
     read -r -p  "Continue? y/n: " response
     case $response in
     	[yY])
@@ -83,6 +96,28 @@ then
     esac
 fi
 
+echo
+echo "Running Unit Tests... "
+./scripts/run_tests.py 
+if [ $? -eq 0 ]
+then
+    echo
+    echo "  Unit Tests ran succesfully"
+else
+    echo
+    echo "  Unit Tests failed!!"
+    echo "$RES"
+    echo
+    echo "Manually run ./scripts/run_tests.py for more details"
+    echo "Aborting..."
+    exit 1
+fi
+
+echo -n "Preparing by running buildTermConfig.sh... "
+./scripts/buildTermConfig.sh
+echo " Prepared."
+sleep 3
+
 if [ ! -d  $DIR ]
 then
 	echo "Creating $VER directory"
@@ -93,15 +128,29 @@ fi
 if [ ! -d  $DIR ]
 then
 	echo "Failed to create $DIR! Aborting"
+    exit 1
 fi
-
-echo "Cleaning directory"
+sleep 1
+echo -n "Cleaning directory... "
 rm -f $DIR/*.jsonld 2>&1 > /dev/null
 rm -f $DIR/*.rdf 2>&1 > /dev/null
 rm -f $DIR/*.nq 2>&1 > /dev/null
 rm -f $DIR/*.nt 2>&1 > /dev/null
 rm -f $DIR/*.ttl 2>&1 > /dev/null
 rm -f $DIR/*.csv 2>&1 > /dev/null
+rm -f $DIR/schema.rdfa 2>&1 > /dev/null
+rm -f $DIR/README.md 2>&1 > /dev/null
+rm -f $DIR/schema-all.html  2>&1 > /dev/null
+rm -f $DIR/schemaorg.owl  2>&1 > /dev/null
+echo " cleaned."
+sleep 2
+
+
+echo -n "Copying schema.rdfa and README.md into release directory... "
+cp ./data/schema.rdfa $DIR
+cp ./README.md $DIR
+echo " copied"
+sleep 2
 
 function dump {
 	in=$1
@@ -135,6 +184,9 @@ function dump {
 }
 
 echo
+echo "Creating dump files - this takes a while......."
+sleep 2
+echo
 echo "Creating core: "
 dump core extensions schema "$LIMIT"
 
@@ -157,14 +209,44 @@ if [ $CONTEXT -eq 1 ]
 then
     echo "Creating archive context file"
     ./scripts/buildarchivecontext.py -o schemaorgcontext.jsonld -d $DIR
+    echo 
+    echo "Created archive context file"
+    echo
+    sleep 2
 fi
 
+if [ $RELS -eq 1 ]
+then
+    echo "creating schema-all.html file"
+    ./scripts/buildreleasespage.py -o $DIR/schema-all.html
+    echo
+    echo "created schema-all.html file"
+    echo
+    sleep 2
+fi
 if [ $OWL -eq 1 ]
 then
     echo "creating owl file"
     ./scripts/buildowlfile.py
+    echo
+    echo "created owl file"
+    echo
+    echo -n "Copying owl file to $DIR ... "
+    cp ./docs/schemaorg.owl $DIR
+    echo " copied."
+    sleep 2
 fi
-echo done
+if [ $RELS -eq 1 ]
+then
+    echo
+    echo "Creating sitemap file"
+    ./scripts/buildsitemap.py
+    echo
+    echo "created sitemap file"
+    echo
+    sleep 2
+fi
+echo "Done!"
 
 
 
