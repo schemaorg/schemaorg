@@ -1146,7 +1146,7 @@ See also the &lt;a href=&quot;/docs/hotels.html&quot;&gt;dedicated document on t
 
     <div typeof="http://schema.org/ItemAvailability" resource="http://schema.org/PreOrder">
       <span class="h" property="rdfs:label">PreOrder</span>
-      <span property="rdfs:comment">Indicates that the item is available for pre-order, but will be delivered when generally available.</span>
+      <span property="rdfs:comment">Indicates that the item is available for pre-order.</span>
     </div>
 
     <div typeof="http://schema.org/ItemAvailability" resource="http://schema.org/PreSale">
@@ -4479,7 +4479,7 @@ Dateline summaries are oriented more towards human readers than towards automate
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/datePosted">
       <span class="h" property="rdfs:label">datePosted</span>
-      <span property="rdfs:comment">Publication date for the job posting.</span>
+      <span property="rdfs:comment">Publication date of an online listing.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/JobPosting">JobPosting</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Date">Date</a></span>
     </div>
@@ -5511,14 +5511,17 @@ Unregistered or niche encoding and file formats can be indicated instead via the
 
     <div typeof="rdf:Property" resource="http://schema.org/itemOffered">
       <span class="h" property="rdfs:label">itemOffered</span>
-      <span property="rdfs:comment">The item being offered.</span>
+      <span property="rdfs:comment">An item being offered (or demanded). The transactional nature of the offer or demand is documented using [[businessFunction]], e.g. sell, lease etc. While several common expected types are listed explicitly in this definition, others can be used. Using a second type, such as Product or a subtype of Product, can clarify the nature of the offer.</span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Offer">Offer</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Demand">Demand</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Product">Product</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Service">Service</a></span>
-<!-- #1264
-      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Accommodation">Accommodation</a></span>
-    -->
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/CreativeWork">CreativeWork</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Event">Event</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/MenuItem">MenuItem</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Trip">Trip</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/AggregateOffer">AggregateOffer</a></span>
+      <link property="http://schema.org/inverseOf" href="http://schema.org/offers" />
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/itemReviewed">
       <span class="h" property="rdfs:label">itemReviewed</span>
@@ -5988,16 +5991,18 @@ Unregistered or niche encoding and file formats can be indicated instead via the
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/offers">
       <span class="h" property="rdfs:label">offers</span>
-      <span property="rdfs:comment">An offer to provide this item&amp;#x2014;for example, an offer to sell a product, rent the DVD of a movie, perform a service, or give away tickets to an event.</span>
+      <span property="rdfs:comment">An offer to provide this item&amp;#x2014;for example, an offer to sell a product, rent the DVD of a movie, perform a service, or give away tickets to an event. Use [[businessFunction]] to indicate the kind of transaction offered, i.e. sell, lease, etc. This property can also be used to describe a [[Demand]]. While this property is listed as expected on a number of common types, it can be used in others. In that case, using a second type, such as Product or a subtype of Product, can clarify the nature of the offer.
+      </span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/CreativeWork">CreativeWork</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Event">Event</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/MenuItem">MenuItem</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Product">Product</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Service">Service</a></span>
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Trip">Trip</a></span>
-<!--      <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Accommodation">Accommodation</a></span> #1264 -->
       <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/AggregateOffer">AggregateOffer</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Offer">Offer</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Demand">Demand</a></span>
+      <link property="http://schema.org/inverseOf" href="http://schema.org/itemOffered" />
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/openingHours">
       <span class="h" property="rdfs:label">openingHours</span>
