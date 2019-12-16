@@ -165,7 +165,7 @@ class OwlBuild():
     def prettify(self,elem):
         # log.info("doc: %s" % ET.tostring(elem))
         doc = minidom.parseString(ET.tostring(elem))
-        return doc.toprettyxml(encoding='utf8')
+        return doc.toprettyxml(encoding='UTF-8')
 
             
     def closeFile(self):
