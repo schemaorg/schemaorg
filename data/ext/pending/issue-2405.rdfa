@@ -1,10 +1,13 @@
 <div>
 
+<!-- Guide and Recommendation schema, issue 2405 -->
+
+<!-- EXTENSION CONTENT FOLLOWS -->
+
 <div typeof="rdfs:Class" resource="http://schema.org/Guide">
   <span>Category: <span property="schema:category">issue-2405</span></span>
   <span class="h" property="rdfs:label">Guide</span>
-  <span property="rdfs:comment">[[Guide]] is a page or article that recommend specific products or services, or aspects of a thing for a user to consider. A [[Guide]] may represent a Buying Guide and detail aspects of products or services for a user to consider. A [[Guide]] may represent a Product Guide and recommend specific products or services. A [[Guide]] may represent a Ranked List and recommend specific products or services with ranking.
-  </span>
+  <span property="rdfs:comment">[[Guide]] is a page or article that recommend specific products or services, or aspects of a thing for a user to consider. A [[Guide]] may represent a Buying Guide and detail aspects of products or services for a user to consider. A [[Guide]] may represent a Product Guide and recommend specific products or services. A [[Guide]] may represent a Ranked List and recommend specific products or services with ranking.</span>
   <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/CreativeWork">CreativeWork</a></span>
   <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
   <span>Source:  <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/2405">#2374</a></span>
@@ -13,8 +16,7 @@
 <div typeof="rdfs:Class" resource="http://schema.org/Recommendation">
   <span>Category: <span property="schema:category">issue-2405</span></span>
   <span class="h" property="rdfs:label">Recommendation</span>
-  <span property="rdfs:comment">[[Recommendation]] is a type of [[Review]] that suggests or proposes something as the best option or best course of action. Recommendations may be for products or services, or other concrete things, as in the case of a ranked list or product guide. A [[Guide]] may list multiple recommendations for different categories. For example, in a [[Guide]] about which TVs to buy, the author may have several [[Recommendation]]s.
-  </span>
+  <span property="rdfs:comment">[[Recommendation]] is a type of [[Review]] that suggests or proposes something as the best option or best course of action. Recommendations may be for products or services, or other concrete things, as in the case of a ranked list or product guide. A [[Guide]] may list multiple recommendations for different categories. For example, in a [[Guide]] about which TVs to buy, the author may have several [[Recommendation]]s.</span>
   <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Review">Review</a></span>
   <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
   <span>Source:  <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/2405">#2374</a></span>
@@ -22,25 +24,12 @@
 
 <div typeof="rdf:Property" resource="http://schema.org/reviewAspect">
   <span class="h" property="rdfs:label">reviewAspect</span>
-  <span property="rdfs:comment">This Review or Rating is relevant to this part or facet of the itemReviewed.</span>
-  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Review">Review</a></span>
-  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Rating">Rating</a></span>
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Guide">Guide</a></span>
-  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
-  <span property="schema:category">issue-1689</span>
-  <span>Source:  <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1689"></a>
 </div>
 
 <div typeof="rdf:Property" resource="http://schema.org/category">
   <span class="h" property="rdfs:label">category</span>
-  <span property="rdfs:comment">A category for the item. Greater signs or slashes can be used to informally indicate a category hierarchy.</span>
-  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Product">Product</a></span>
-  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Service">Service</a></span>
-  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Offer">Offer</a></span>
-  <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Invoice">Invoice</a></span>
   <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Recommendation">Recommendation</a></span>
-  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
-  <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Thing">Thing</a></span>
 </div>
 
 </div>
