@@ -10,8 +10,9 @@ then
 	exit 1
 fi
 
-TARGET="${PWD}/sdoconfigTermsData.json"
-LOCVARIABLE='[[SCHEMAORGLOC]]/'
+REALTARGET="${PWD}/sdoconfigTermsData.json"
+TARGET="${REALTARGET}.tmp"
+LOCVARIABLE='[[VOCABDEFLOC]]/'
 Header="{
     \"@context\": {
         \"@vocab\": \"http://configfiles.schema.org/\"
@@ -121,6 +122,8 @@ function doElements {
 
 }
 
+######### Build file
+
 printf "{
     \"@context\": {
         \"@vocab\": \"http://configfiles.schema.org/\"
@@ -132,3 +135,13 @@ echo >> "$TARGET"
 doElements
 
 
+########Only overwite if different
+if [ ! -f "$REALTARGET" ]
+then
+    mv $TARGET $REALTARGET
+elif `cmp -s $REALTARGET $TARGET`
+then
+    rm -f $TARGET
+else
+    mv $TARGET $REALTARGET
+fi

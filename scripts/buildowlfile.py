@@ -10,7 +10,11 @@ import sys
 import csv
 from time import gmtime, strftime
 
-sys.path.append( os.getcwd() ) 
+sys.path.append( os.getcwd() )
+sys.path.insert( 1, 'lib' ) #Pickup libs, rdflib etc., from shipped lib directory
+sys.path.insert( 1, 'sdopythonapp' ) #Pickup sdopythonapp functionality
+sys.path.insert( 1, 'sdopythonapp/lib' ) #Pickup sdopythonapp libs, rdflib etc., from shipped lib directory
+sys.path.insert( 1, 'sdopythonapp/site' ) #Pickup sdopythonapp from shipped site
 sys.path.insert( 1, 'lib' ) #Pickup libs, rdflib etc., from shipped lib directory
 # Ensure that the google.appengine.* packages are available
 # in tests as well as all bundled third-party packages.
@@ -161,7 +165,7 @@ class OwlBuild():
     def prettify(self,elem):
         # log.info("doc: %s" % ET.tostring(elem))
         doc = minidom.parseString(ET.tostring(elem))
-        return doc.toprettyxml(encoding='utf8')
+        return doc.toprettyxml(encoding='UTF-8')
 
             
     def closeFile(self):
