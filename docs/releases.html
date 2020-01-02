@@ -155,31 +155,48 @@ Version 6.0. See <a href="https://github.com/schemaorg/schemaorg/issues/2376">pl
 <p>Other changes in Core section:</p>
 
 <ul>
- <li id="g637"><a href="https://github.com/schemaorg/schemaorg/issues/637">Issue 637</a>: Made [[itemOffered]] and [[offers]] fully [[inverseOf]] each other.</li>
- <li id="g2397"><a href="https://github.com/schemaorg/schemaorg/issues/2397">Issue 2397</a>: Reworded [[datePosted]] to avoid tying this property to overly-specific usecase (i.e. it originally assumed usage only with [[JobPosting]]).</li>
- <li id="g2433"><a href="https://github.com/schemaorg/schemaorg/issues/2433">Issue #2433</a>: Shortened definition of PreOrder from ItemAvailability enum.</li>
- <li id="g2372"><a href="https://github.com/schemaorg/schemaorg/issues/2372">Issue #2372</a>: Noted that other kinds of thing have 'callSign' beyond radio broadcasts, esp. vehicles/boats and non-radio broadcasts. Added [[Vehicle]], [[Person]] and [[BroadcastService]] (the latter also covers the initial type, [[RadioBroadcastService]]).</li>
-
+ <li id="g637"><a href="https://github.com/schemaorg/schemaorg/issues/637">Issue 637</a>: Made <a href="/itemOffered">itemOffered</a> and <a href="/offers">offers</a> fully <a href="/inverseOf">inverseOf</a> each other.</li>
+ <li id="g2397"><a href="https://github.com/schemaorg/schemaorg/issues/2397">Issue 2397</a>: Reworded <a href="/datePosted">datePosted</a> to avoid tying this property to overly-specific usecase (i.e. it originally assumed usage only with <a href="/JobPosting">JobPosting</a>).</li>
+ <li id="g2433"><a href="https://github.com/schemaorg/schemaorg/issues/2433">Issue #2433</a>: Shortened definition of <a href="/PreOrder">PreOrder</a> from <a href="/ItemAvailability">ItemAvailability</a> enumeration.</li>
+ <li id="g2372"><a href="https://github.com/schemaorg/schemaorg/issues/2372">Issue #2372</a>: Noted that other kinds of thing have <a href="/callSign">callSign</a> beyond radio broadcasts, in particular vehicles/boats and non-radio broadcasts. Added <a href="/Vehicle">Vehicle</a>, <a href="/Person">Person</a> and <a href="/BroadcastService">BroadcastService</a> (the latter also covers the initial type, <a href="/RadioBroadcastService">RadioBroadcastService</a>) to <a href="/callSign">callSign</a> accordingly.</li>
+ <li id="2375"><a href="https://github.com/schemaorg/schemaorg/issues/2375">Issue #2375</a>: Added note to descriptions for <a href="/Offer">Offer</a> and <a href="/AggregateOffer">AggregateOffer</a> indicating default <a href="/businessFunction">businessFunction</a>.</li>
+ <li id="2309"><a href="https://github.com/schemaorg/schemaorg/issues/2309">Issue #2309</a>: (implemented in <a href="https://github.com/schemaorg/schemaorg/pull/2380">PR #2380</a>): Extended rangeIncludes of <a href="/datePublished">datePublished</a> to include <a href="/DateTime">DateTime</a>. </li>
+ <li id="g2420"><a href="https://github.com/schemaorg/schemaorg/issues/2420">Issue #2420</a>: Added <a href="/MusicRecording">MusicRecording</a> as an expected value of <a href="/audio">audio</a>.</li>
+ <li id="g2421"><a href="https://github.com/schemaorg/schemaorg/issues/2421">Issue #2421</a>: Added <a href="/Person">Person</a> and [[Organization to the domain for <a href="/interactionStatistic">interactionStatistic</a>.</li>
+ <li id="g2139"><a href="https://github.com/schemaorg/schemaorg/issues/2139">Issue #2139</a>: Added <a href="/MediaGallery">MediaGallery</a> as a super-type of <a href="/ImageGallery">ImageGallery</a> and <a href="/VideoGallery">VideoGallery</a>, to allow for a mixed-media collection page type.</li>
+ <li id="g2382"><a href="https://github.com/schemaorg/schemaorg/issues/2382">Issue #2382</a>: Added <a href="/BroadcastService">BroadcastService</a> to the domain for <a href="/inLanguage">inLanguage</a>.</li>
+ <li id="g1951"><a href="https://github.com/schemaorg/schemaorg/issues/1951">Issue #1951</a>: Added <a href="/SportsEvent">SportsEvent</a> to the domain for <a href="/sport">sport</a>.</li>
 </ul>
 
 <h3>Changes in <a href="http://pending.schema.org/">Pending</a> section:</h3>
 <ul>
-  <li id="2373"><a href="https://github.com/schemaorg/schemaorg/issues/2373">Issue #2373</a>:
-  Improvements around real estate description including the addition of a property [[accommodationFloorPlan]] and type [[FloorPlan]] for use when a number of accomodation entries share a common layout.
-  Added [[numberOfFullBathrooms]] and [[yearBuilt]]. Also noted that [[leaseLength]] is expected on [[Offer]] and that [[datePosted]] can be applied to [[RealEstateListing]].
-  </li>
+  <li id="g2384"><a href="https://github.com/schemaorg/schemaorg/issues/2384">Issue 2384</a>: Adds three properties to <a href="/JobPosting">JobPosting</a> for requirements relating to <a href="/physicalRequirement">physical abilities</a>, <a href="/sensoryRequirement">sensory abilities</a> and <a href="/securityClearanceRequirement">security clearance</a>.</li>
+  <li id="g2396"><a href="https://github.com/schemaorg/schemaorg/issues/2396">Issue #2396</a>: Improvements to provide more information about the employer in <a href="/JobPosting">JobPosting</a>. Adds properties for <a href="/applicationContact">applicationContact</a>, <a href="/employerOverview">employerOverview</a> and allows <a href="/DefinedTerm">DefinedTerm</a> to be used with the <a href="/industry">industry</a> property.</li>
+  <li id="2373"><a href="https://github.com/schemaorg/schemaorg/issues/2373">Issue #2373</a>: Improvements around real estate description including the addition of a property <a href="/accommodationFloorPlan">accommodationFloorPlan</a> and type <a href="/FloorPlan">FloorPlan</a> for use when a number of accomodation entries share a common layout. Added <a href="/numberOfFullBathrooms">numberOfFullBathrooms</a> and <a href="/yearBuilt">yearBuilt</a>. Also noted that <a href="/leaseLength">leaseLength</a> is expected on <a href="/Offer">Offer</a> and that <a href="/datePosted">datePosted</a> can be applied to <a href="/RealEstateListing">RealEstateListing</a>.</li>
+  <li id="g2389"><a href="https://github.com/schemaorg/schemaorg/issues/2389">Issue #2389</a>: Changes to the pending <a href="/Schedule">Schedule</a> type: adds the <a href="/duration">duration</a> property,  extends the range of <a href="/byDay">byDay</a> to allow for iCal-style rule syntax and adds the <a href="/scheduleTimezone">scheduleTimezone</a> property.</li>
+  <li id="g2418"><a href="https://github.com/schemaorg/schemaorg/issues/2418">Issue #2418</a>: Added <a href="/financialAidEligible">financialAidEligible</a> property for the types of financial aid available for an EducationalOccupationalProgram.</li>
+  <li id="g2429"><a href="https://github.com/schemaorg/schemaorg/issues/2429">Issue #2429</a>: Added a number of properties to <a href="/EducationalOccupationalProgram">EducationalOccupationalProgram</a> to help represent information for determining how long a program typically takes, when terms typically run, and when applications are accepted. Specifically: <a href="/applicationDeadline">applicationDeadline</a>, <a href="/applicationStartDate">applicationStartDate</a>, <a href="/educationalProgramMode">educationalProgramMode</a>, <a href="/numberOfCredits">numberOfCredits</a>, <a href="/maximumEnrollment">maximumEnrollment</a>, <a href="/termDuration">termDuration</a>, <a href="/termsPerYear">termsPerYear</a>, <a href="/timeOfDay">timeOfDay</a>, <a href="/typicalCreditsPerTerm">typicalCreditsPerTerm</a>.</li>
+  <li id="g2405"><a href="https://github.com/schemaorg/schemaorg/issues/2405">Issue #2405</a>: Add Guide and Recommended as new types.</li>
+  <li id="g2394"><a href="https://github.com/schemaorg/schemaorg/issues/2394">Issue #2394</a>: Added <a href="/isResizable">isResizable</a> to <a href="/3DModel">3DModel</a>.</li>
 </ul>
 
 
 
 <h3>Changes in <a href="http://bib.schema.org/">bib</a> section:</h3>
 <ul>
+  <li id="2366"><a href="https://github.com/schemaorg/schemaorg/issues/2366">Issue #2366</a>:
+  (implemented in <a href="https://github.com/schemaorg/schemaorg/pull/2367">PR #2367</a>):
+  Added example for <a href="/Audiobook">Audiobook</a> indicating a relationship with a printed counterpart.</li>
 </ul>
 
 
 <h3>Site Improvements</h3>
 <ul>
   <li id="g2025"><a href="https://github.com/schemaorg/schemaorg/issues/2025">Issue 2025</a>: Corrected xml encoding value in <a href="/docs/schemaorg.owl">schemaorg.owl</a> file to be "UTF-8"</li>
+  <li id="1986"><a href="https://github.com/schemaorg/schemaorg/issues/1986">Issue #1986</a>: (implemented in <a href="https://github.com/schemaorg/schemaorg/pull/2378">PR #2378</a>): Added test to check for duplicate entries in jsonldcontext files.
+  <li id="2236"><a href="https://github.com/schemaorg/schemaorg/issues/2236">Issue #2236</a>: (implemented in <a href="https://github.com/schemaorg/schemaorg/pull/2250">PR #2250</a>): Rationalised definitions for enumeration values so they are consistent.  Added tests to confim consistency. </li>
+  <li id="2277"><a href="https://github.com/schemaorg/schemaorg/issues/2277">Issue #2277</a>: (implemented in <a href="https://github.com/schemaorg/schemaorg/pull/2388">PR #2388</a>): Fixed error in definition of <a href="/eventSchedule">eventSchedule</a> property.</li>
+  </li>
 </ul>
 
 </td>
@@ -216,14 +233,9 @@ Version 5.0. See <a href="https://github.com/schemaorg/schemaorg/issues/2370">pl
   <li id="g2322"><a href="https://github.com/schemaorg/schemaorg/issues/2322">Issue 2322</a>: Linked <a href="/skills">skills</a> description to formal definitions of competencies.</li>
 </ul>
 
-<!--
-<h3>Changes in <a href="http://bib.schema.org/">bib</a> section:</h3>
+<!--<h3>Changes in <a href="http://bib.schema.org/">bib</a> section:</h3>
 <ul>
-<li id="g2232"><a href="https://github.com/schemaorg/schemaorg/pull/2232">PR #2232</a>:
-Simplified example for <a href="/Audiobook">Audiobook</a> .
-</li>
-</ul>
--->
+</ul> -->
 
 <h3>Site Improvements</h3>
 <ul>
