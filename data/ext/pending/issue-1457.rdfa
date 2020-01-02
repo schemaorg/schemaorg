@@ -3,7 +3,7 @@
   Schema.org Recurring Events Proposal
   Issue #1457, https://github.com/schemaorg/schemaorg/issues/1457
 
-  Defines a new type: Schedule which can be associated with an Event
+  Defines a new type: Schedule which can be associated with an Event.
   A Schedule defines a recurring time period similar to an iCal rrule.
 
 -->
@@ -13,7 +13,7 @@
     <div typeof="rdfs:Class" resource="http://schema.org/Schedule">
       <span>Category: <span property="schema:category">issue-1457</span></span>
       <span class="h" property="rdfs:label">Schedule</span>
-      <span property="rdfs:comment">A schedule defines a repeating time period used to describe a regularly occurring [[Event]]. At a minimum a schedule will specify [[repeatFrequency]] which describes the interval between occurences of the event. Additional information can be provided to specify the schedule more precisely. 
+      <span property="rdfs:comment">A schedule defines a repeating time period used to describe a regularly occurring [[Event]]. At a minimum a schedule will specify [[repeatFrequency]] which describes the interval between occurences of the event. Additional information can be provided to specify the schedule more precisely.
       This includes identifying the day(s) of the week or month when the recurring event will take place, in addition to its start and end time. Schedules may also
       have start and end dates to indicate when they are active, e.g. to define a limited calendar of events.</span>
       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Intangible">Intangible</a></span>
@@ -98,10 +98,10 @@
       repeating events rather than data on the individual events themselves. For example, a website or application might prefer to publish a schedule for a weekly
       gym class rather than provide data on every event. A schedule could be processed by applications to add forthcoming events to a calendar. An [[Event]] that
       is associated with a [[Schedule]] using this property should not have [[startDate]] or [[endDate]] properties. These are instead defined within the associated
-      [[Schedule]], this avoids any ambiguity for clients using the data. The propery might have repeated values to specify different schedules, e.g. for different months
+      [[Schedule]], this avoids any ambiguity for clients using the data. The property might have repeated values to specify different schedules, e.g. for different months
       or seasons.</span>
-      <span>domainIncludes: <a property="http://schema.org/domainIncludes" href="http://schema.org/Schedule">Event</a></span>
-      <span>rangeIncludes: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Duration">Schedule</a></span>
+      <span>domainIncludes: <a property="http://schema.org/domainIncludes" href="http://schema.org/Event">Event</a></span>
+      <span>rangeIncludes: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Schedule">Schedule</a></span>
       <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
       <span>Source:  <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1457">#1457</a></span>
     </div>
