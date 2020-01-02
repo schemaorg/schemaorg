@@ -50,9 +50,10 @@
     <div typeof="rdf:Property" resource="http://schema.org/byDay">
       <span>Category: <span property="schema:category">issue-1457</span></span>
       <span class="h" property="rdfs:label">byDay</span>
-      <span property="rdfs:comment">Defines the day(s) of the week on which a recurring [[Event]] takes place</span>
+      <span property="rdfs:comment">Defines the day(s) of the week on which a recurring [[Event]] takes place. May be specified using either [[DayOfWeek]], or alternatively [[Text]] conforming to iCal's <a href="https://icalendar.org/iCalendar-RFC-5545/3-8-5-3-recurrence-rule.html">syntax for byDay recurrence rules</a></span>
       <span>domainIncludes: <a property="http://schema.org/domainIncludes" href="http://schema.org/Schedule">Schedule</a></span>
       <span>rangeIncludes: <a property="http://schema.org/rangeIncludes" href="http://schema.org/DayOfWeek">DayOfWeek</a></span>
+      <span>rangeIncludes: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
       <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
       <span>Source:  <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1457">#1457</a></span>
     </div>
@@ -87,6 +88,22 @@
       <span>domainIncludes: <a property="http://schema.org/domainIncludes" href="http://schema.org/Schedule">Schedule</a></span>
       <span>rangeIncludes: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Date">Date</a></span>
       <span>rangeIncludes: <a property="http://schema.org/rangeIncludes" href="http://schema.org/DateTime">DateTime</a></span>
+      <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
+      <span>Source:  <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1457">#1457</a></span>
+    </div>
+
+    <div typeof="rdf:Property" resource="http://schema.org/duration">
+        <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/Schedule">Schedule</a></span>
+        <span>Source:  <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1457">#1457</a></span>
+        <span>Category: <span property="schema:category">issue-1457</span></span>
+    </div>
+
+    <div typeof="rdf:Property" resource="http://schema.org/scheduleTimezone">
+      <span>Category: <span property="schema:category">issue-1457</span></span>
+      <span class="h" property="rdfs:label">scheduleTimezone</span>
+      <span property="rdfs:comment">Indicates the timezone for which the time(s) indicated in the [[Schedule]] are given. The value provided should be among those listed in the <a href="https://www.iana.org/time-zones">IANA Time Zone Database</a>.</span>
+      <span>domainIncludes: <a property="http://schema.org/domainIncludes" href="http://schema.org/Schedule">Schedule</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
       <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
       <span>Source:  <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1457">#1457</a></span>
     </div>

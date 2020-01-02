@@ -29,7 +29,8 @@ JSON:
      "repeatFrequency": "P1W",
      "byDay": "http://schema.org/Wednesday",
      "startTime": "19:00",
-     "endTime": "20:00"
+     "endTime": "20:00",
+     "scheduleTimezone": "Europe/London"
   }
 }
 </script>
@@ -60,7 +61,8 @@ JSON:
      "repeatFrequency": "P1M",
      "byMonthDay": [1,15],
      "startTime": "09:00",
-     "endTime": "10:00"
+     "endTime": "10:00",
+     "scheduleTimezone": "America/Glace_Bay"
   }
 }
 </script>
@@ -93,7 +95,8 @@ JSON:
           "repeatFrequency": "P1D",
           "repeatCount": 10,
           "startTime": "09:00",
-          "endTime": "10:00"
+          "endTime": "10:00",
+          "scheduleTimezone": "Europe/London"
         }
     }
 </script>
@@ -131,7 +134,8 @@ JSON:
         "http://schema.org/Friday"
       ],
       "startTime": "09:00",
-      "endTime": "10:00"
+      "endTime": "10:00",
+      "scheduleTimezone": "America/Glace_Bay"
     },
     {
       "@type": "Schedule",
@@ -144,7 +148,42 @@ JSON:
         "http://schema.org/Friday"
       ],
       "startTime": "14:00",
-      "endTime": "15:00"
+      "endTime": "15:00",
+      "scheduleTimezone": "America/Glace_Bay"
+    }
+  ]
+}
+</script>
+
+TYPES: Event, Schedule, eventSchedule
+
+PRE-MARKUP:
+
+An Event runs on the second Monday of every month, from 6pm-7:30pm. Because this kind of recurrence goes beyond that expressible using <a href="http://schema.org/DayOfWeek">http://schema.org/DayOfWeek</a>, it is specified instead using iCal's <a href="https://icalendar.org/iCalendar-RFC-5545/3-8-5-3-recurrence-rule.html">syntax for byDay recurrence rules</a>.
+
+MICRODATA:
+
+Example is JSON-LD only.
+
+RDFA:
+
+Example is JSON-LD only.
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Event",
+  "name": "Example",
+  "eventSchedule": [
+    {
+      "@type": "Schedule",
+      "repeatFrequency": "P1M",
+      "byDay": "2MO",
+      "startTime": "18:00",
+      "endTime": "19:30",
+      "scheduleTimezone": "Asia/Shanghai"
     }
   ]
 }
