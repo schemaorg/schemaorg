@@ -154,13 +154,18 @@ class SDOGraphSetupTestCase(unittest.TestCase):
 
 
   def test_validRangeIncludes(self):
+    #Properties can only have in their range either a) rdf:Class types b) Types that are EnumValues AND a subclass of rdf:Class type(s)
     nri1= ('''SELECT ?prop ?c1
      WHERE {
          ?prop <http://schema.org/rangeIncludes> ?c1 .
          OPTIONAL{
             ?c1 rdf:type ?c2 .
             ?c1 rdf:type rdfs:Class .
-         }.
+         }OPTIONAL{
+           ?c1 rdf:type ?c2.
+           ?c2 rdf:type*/rdfs:subClassOf <http://schema.org/Enumeration>.
+           ?c2 rdfs:subClassOf/rdf:type rdfs:Class.
+         }
          FILTER (!BOUND(?c2))
         FILTER NOT EXISTS { ?prop <http://schema.org/isPartOf> <http://attic.schema.org> .}
                  }
@@ -171,13 +176,18 @@ class SDOGraphSetupTestCase(unittest.TestCase):
     self.assertEqual(len(nri1_results), 0, "RangeIncludes should define valid type. Found: %s" % len(nri1_results))
 
   def test_validDomainIncludes(self):
+    #Properties can only have in their domain either a) rdf:Class types b) Types that are EnumValues AND a subclass of rdf:Class type(s)
     nri1= ('''SELECT ?prop ?c1
      WHERE {
          ?prop <http://schema.org/domainIncludes> ?c1 .
          OPTIONAL{
             ?c1 rdf:type ?c2 .
             ?c1 rdf:type rdfs:Class .
-         }.
+         }OPTIONAL{
+           ?c1 rdf:type ?c2.
+           ?c2 rdf:type*/rdfs:subClassOf <http://schema.org/Enumeration>.
+           ?c2 rdfs:subClassOf/rdf:type rdfs:Class.
+         }
          FILTER (!BOUND(?c2))
         FILTER NOT EXISTS { ?prop <http://schema.org/isPartOf> <http://attic.schema.org> .}
                  }
@@ -429,6 +439,68 @@ class SDOGraphSetupTestCase(unittest.TestCase):
             log.info("Term '%s' isPartOf %s extensions" % (row["term"],row["count"]))
     self.assertEqual(len(nri1_results), 0, "Term in +1 extensions  Found: %s" % len(nri1_results))
 
+  def test_EnumerationAsType(self):
+    nri1= ('''select ?term where { 
+        ?term a <http://schema.org/Enumeration> .
+        FILTER NOT EXISTS { ?term <http://schema.org/isPartOf> <http://attic.schema.org> .}
+    } 
+    ORDER BY ?term  ''')
+    nri1_results = self.rdflib_data.query(nri1)
+    if len(nri1_results):
+        log.info("Types rdf:type of Enumeration errors!!!\n")
+        for row in nri1_results:
+            log.info("Type '%s' defined as rdf:type Enumeration - should be subClassOf" % (row["term"]))
+    self.assertEqual(len(nri1_results), 0, "Types rdf:type of Enumeration error(s)    Found: %s" % len(nri1_results))
+
+  def test_EnumerationType(self):
+    #An Enumeration is a Class that is a subClassOf schema:Enumeration and no other class
+    nri1= ('''select ?term ?s where { 
+        ?term a rdfs:Class;
+              rdfs:subClassOf <http://schema.org/Enumeration> .
+  		?term rdfs:subClassOf ?s.
+  
+       FILTER  (?s != <http://schema.org/Enumeration>) .
+       FILTER NOT EXISTS { ?term <http://schema.org/isPartOf> <http://attic.schema.org> .}
+    } 
+    ORDER BY ?term''')
+    nri1_results = self.rdflib_data.query(nri1)
+    if len(nri1_results):
+        log.info("Types rdf:type of Enumeration errors!!!\n")
+        for row in nri1_results:
+            log.info("Type '%s' defined as Enumeration - should be subClassOf only schema:Enumeration" % (row["term"]))
+    self.assertEqual(len(nri1_results), 0, "Types Enumeration subclass error(s)    Found: %s" % len(nri1_results))
+
+
+  @unittest.expectedFailure
+  def test_EnumerationValueType(self):
+  #A class cannot be a subClassOf an enumeration value
+  #An enumerationvalue MUST be of type enumeration (a subClassOf schema:Enumeration) or subtype of one.
+    nri1= ('''prefix schema: <http://schema.org/>
+    select ?term ?e where {
+      ?term a rdfs:Class;
+              rdfs:subClassOf ?e.
+      ?e rdf:type*/rdfs:subClassOf schema:Enumeration.
+       }
+    ORDER BY ?term  ''')
+    nri1_results = self.rdflib_data.query(nri1)
+    if len(nri1_results):
+        log.info("Types rdf:type of Enumeration errors!!!\n")
+        for row in nri1_results:
+            log.info("Type '%s' defined as subClassOf Enumeration %s without it being an Enum itself" % (row["term"],row["e"]))
+    self.assertEqual(len(nri1_results), 0, "Non-enumeration types subtype of Enumeration error(s)    Found: %s" % len(nri1_results))
+
+  def test_EnumerationAsType(self):
+    nri1= ('''select ?term where { 
+        ?term a <http://schema.org/Enumeration> .
+    } 
+    ORDER BY ?term  ''')
+    nri1_results = self.rdflib_data.query(nri1)
+    if len(nri1_results):
+        log.info("Types rdf:type of Enumeration errors!!!\n")
+        for row in nri1_results:
+            log.info("Type '%s' defined as rdf:type Enumeration - should be subClassOf1" % (row["term"]))
+    self.assertEqual(len(nri1_results), 0, "Types rdf:type of Enumeration error(s)    Found: %s" % len(nri1_results))
+
   def test_termNothttps(self):
     nri1= ('''select distinct ?term where {
       ?term ?p ?o.
@@ -464,6 +536,7 @@ class SDOGraphSetupTestCase(unittest.TestCase):
         for row in nri1_results:
             log.info("Term '%s' references term %s  as https " % (row["term"],row["target"]))
     self.assertEqual(len(nri1_results), 0, "Term defined as https  Found: %s" % len(nri1_results))
+
 
   @unittest.expectedFailure
   def test_EnumerationWithoutEnums(self):
