@@ -53,9 +53,14 @@ args = parser.parse_args()
 
 
 ret = GetJsonLdContext(layers=ALL_LAYERS)
-fname = "%s/%s" % (args.outputDirectory,args.output)
-print("Writing context to: %s" % fname)
-file = open(fname, "w")
+f = args.output
+if f == "-":
+    file = sys.stdout
+else:
+    fname = "%s/%s" % (args.outputDirectory,f)
+    print("Writing context to: %s" % fname)
+    file = open(fname, "w")
 file.write(ret)
-file.close()
+if file is not sys.stdout:
+    file.close()
 
