@@ -47,6 +47,16 @@ fi
 
 git submodule update --remote
 
+devpath=`which dev_appserver.py`
+if [ ! -z "$devpath" ]
+then
+    echo "Dev App Server located at $devpath"
+    APP_ENGINE=${devpath%%"/bin/dev_appserver.py"}
+    export APP_ENGINE="${APP_ENGINE}/platform/google_appengine/"
+    echo "Setting \$APP_ENGINE to '$APP_ENGINE"
+    echo 
+fi
+
 export ROBOTSBLOCK="YES" #ensure we end up with a blocking robots.txtS
 sdopythonapp/runscripts/runpythondeploy.sh $EXE $MIG -p webschemas-g -y webschemas.yaml
 
