@@ -59,5 +59,4 @@ See also wiki: https://github.com/schemaorg/schemaorg/wiki/Contributing
 External Software
 =================
 
-Checkout [./sdopythonapp/SOFTWARE_README.md](./sdopythonapp/SOFTWARE_README.md) 
-
+Checkout https://github.com/schemaorg/sdopythonapp/blob/master/SOFTWARE_README.md
