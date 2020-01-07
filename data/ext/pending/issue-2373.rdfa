@@ -19,6 +19,7 @@
   <span class="h" property="rdfs:label">numberOfBathroomsTotal</span>
   <span property="rdfs:comment">The total integer number of bathrooms in a some [[Accommodation]], following real estate conventions as [documented in RESO](https://ddwiki.reso.org/display/DDW17/BathroomsTotalInteger+Field): "The simple sum of the number of bathrooms. For example for a property with two Full Bathrooms and one Half Bathroom, the Bathrooms Total Integer will be 3.". See also [[numberOfRooms]].</span>
   <span>domainIncludes: <a property="http://schema.org/domainIncludes" href="http://schema.org/Accommodation">Accommodation</a></span>
+  <span>domainIncludes: <a property="http://schema.org/domainIncludes" href="http://schema.org/FloorPlan">FloorPlan</a></span>
   <span>rangeIncludes: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Integer">Integer</a></span>
   <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
   <span>Source:  <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/2373">#2373</a></span>
@@ -29,6 +30,7 @@
   <span class="h" property="rdfs:label">numberOfFullBathrooms</span>
   <span property="rdfs:comment">Number of full bathrooms - The total number of full and ¾ bathrooms in an [[Accommodation]]. This corresponds to the [BathroomsFull field in RESO](https://ddwiki.reso.org/display/DDW17/BathroomsFull+Field).</span>
   <span>domainIncludes: <a property="http://schema.org/domainIncludes" href="http://schema.org/Accommodation">Accommodation</a></span>
+  <span>domainIncludes: <a property="http://schema.org/domainIncludes" href="http://schema.org/FloorPlan">FloorPlan</a></span>
   <span>rangeIncludes: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number">Number</a></span>
   <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
   <span>Source:  <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/2373">#2373</a></span>
@@ -39,6 +41,7 @@
   <span class="h" property="rdfs:label">yearBuilt</span>
   <span property="rdfs:comment">The year an [[Accommodation]] was constructed. This corresponds to the [YearBuilt field in RESO](https://ddwiki.reso.org/display/DDW17/YearBuilt+Field). </span>
   <span>domainIncludes: <a property="http://schema.org/domainIncludes" href="http://schema.org/Accommodation">Accommodation</a></span>
+  <!-- <span>domainIncludes: <a property="http://schema.org/domainIncludes" href="http://schema.org/FloorPlan">FloorPlan</a></span> -->
   <span>rangeIncludes: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number">Number</a></span>
   <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
   <span>Source:  <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/2373">#2373</a></span>
@@ -50,6 +53,7 @@
   <span class="h" property="rdfs:label">numberOfPartialBathrooms</span>
   <span property="rdfs:comment">Number of partial bathrooms - The total number of half and ¼ bathrooms in an [[Accommodation]]. This corresponds to the [BathroomsPartial field in RESO](https://ddwiki.reso.org/display/DDW17/BathroomsPartial+Field). </span>
   <span>domainIncludes: <a property="http://schema.org/domainIncludes" href="http://schema.org/Accommodation">Accommodation</a></span>
+  <span>domainIncludes: <a property="http://schema.org/domainIncludes" href="http://schema.org/FloorPlan">FloorPlan</a></span>
   <span>rangeIncludes: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number">Number</a></span>
   <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
   <span>Source:  <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/2373">#2373</a></span>
@@ -145,4 +149,6 @@
   <span>domainIncludes: <a property="http://schema.org/domainIncludes" href="http://schema.org/RealEstateListing">RealEstateListing</a></span>
 </div>
 
+<div typeof="rdf:Property" resource="http://schema.org/numberOfRooms">
+    <span>domainIncludes: <a property="http://schema.org/domainIncludes" href="http://schema.org/FloorPlan">FloorPlan</a></span>
 </div>
