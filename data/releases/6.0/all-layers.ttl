@@ -6685,8 +6685,9 @@ schema:accommodationFloorPlan a rdf:Property ;
     schema:category "issue-2373" ;
     schema:domainIncludes schema:Accommodation,
         schema:Residence ;
+    schema:isPartOf <http://pending.schema.org> ;
     schema:rangeIncludes schema:FloorPlan ;
-    rdfs:comment "A floorplan of some <a class=\"localLink\" href=\"http://schema.org/Accomodation\">Accomodation</a>." .
+    rdfs:comment "A floorplan of some <a class=\"localLink\" href=\"http://schema.org/Accommodation\">Accommodation</a>." .
 
 schema:accountId a rdf:Property ;
     rdfs:label "accountId" ;
@@ -10942,6 +10943,7 @@ schema:isPlanForApartment a rdf:Property ;
     dct:source <https://github.com/schemaorg/schemaorg/issues/2373> ;
     schema:category "issue-2373" ;
     schema:domainIncludes schema:FloorPlan ;
+    schema:isPartOf <http://pending.schema.org> ;
     schema:rangeIncludes schema:Accommodation ;
     rdfs:comment "Indicates some accommodation that this floor plan describes." .
 
@@ -11642,6 +11644,16 @@ schema:lyrics a rdf:Property ;
     schema:rangeIncludes schema:CreativeWork ;
     rdfs:comment "The words in the song." .
 
+schema:maintainer a rdf:Property ;
+    rdfs:label "maintainer" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/2311> ;
+    schema:category "issue-2311" ;
+    schema:domainIncludes schema:CreativeWork ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:Organization,
+        schema:Person ;
+    rdfs:comment "A maintainer of a <a class=\"localLink\" href=\"http://schema.org/Dataset\">Dataset</a>, software package (<a class=\"localLink\" href=\"http://schema.org/SoftwareApplication\">SoftwareApplication</a>), or other <a class=\"localLink\" href=\"http://schema.org/Project\">Project</a>. A maintainer is a <a class=\"localLink\" href=\"http://schema.org/Person\">Person</a> or <a class=\"localLink\" href=\"http://schema.org/Organization\">Organization</a> that manages contributions to, and/or publication of, some (typically complex) artifact. It is common for distributions of software and data to be based on \"upstream\" sources. When <a class=\"localLink\" href=\"http://schema.org/maintainer\">maintainer</a> is applied to a specific version of something e.g. a particular version or packaging of a <a class=\"localLink\" href=\"http://schema.org/Dataset\">Dataset</a>, it is always  possible that the upstream source has a different maintainer. The <a class=\"localLink\" href=\"http://schema.org/isBasedOn\">isBasedOn</a> property can be used to indicate such relationships between datasets to make the different maintenance roles clear. Similarly in the case of software, a package may have dedicated maintainers working on integration into software distributions such as Ubuntu, as well as upstream maintainers of the underlying work." .
+
 schema:manufacturer a rdf:Property ;
     rdfs:label "manufacturer" ;
     schema:domainIncludes schema:DietarySupplement,
@@ -12194,6 +12206,7 @@ schema:numberOfAccommodationUnits a rdf:Property ;
     schema:category "issue-2373" ;
     schema:domainIncludes schema:ApartmentComplex,
         schema:FloorPlan ;
+    schema:isPartOf <http://pending.schema.org> ;
     schema:rangeIncludes schema:QuantitativeValue ;
     rdfs:comment "Indicates the total (available plus unavailable) number of accommodation units in an <a class=\"localLink\" href=\"http://schema.org/ApartmentComplex\">ApartmentComplex</a>, or the number of accommodation units for a specific <a class=\"localLink\" href=\"http://schema.org/FloorPlan\">FloorPlan</a> (within its specific <a class=\"localLink\" href=\"http://schema.org/ApartmentComplex\">ApartmentComplex</a>). See also <a class=\"localLink\" href=\"http://schema.org/numberOfAvailableAccommodationUnits\">numberOfAvailableAccommodationUnits</a>." .
 
@@ -12211,6 +12224,7 @@ schema:numberOfAvailableAccommodationUnits a rdf:Property ;
     schema:category "issue-2373" ;
     schema:domainIncludes schema:ApartmentComplex,
         schema:FloorPlan ;
+    schema:isPartOf <http://pending.schema.org> ;
     schema:rangeIncludes schema:QuantitativeValue ;
     rdfs:comment "Indicates the number of available accommodation units in an <a class=\"localLink\" href=\"http://schema.org/ApartmentComplex\">ApartmentComplex</a>, or the number of accommodation units for a specific <a class=\"localLink\" href=\"http://schema.org/FloorPlan\">FloorPlan</a> (within its specific <a class=\"localLink\" href=\"http://schema.org/ApartmentComplex\">ApartmentComplex</a>). See also <a class=\"localLink\" href=\"http://schema.org/numberOfAccommodationUnits\">numberOfAccommodationUnits</a>." .
 
@@ -12228,7 +12242,8 @@ schema:numberOfBathroomsTotal a rdf:Property ;
     rdfs:label "numberOfBathroomsTotal" ;
     dct:source <https://github.com/schemaorg/schemaorg/issues/2373> ;
     schema:category "issue-2373" ;
-    schema:domainIncludes schema:Accommodation ;
+    schema:domainIncludes schema:Accommodation,
+        schema:FloorPlan ;
     schema:isPartOf <http://pending.schema.org> ;
     schema:rangeIncludes schema:Integer ;
     rdfs:comment "The total integer number of bathrooms in a some <a class=\"localLink\" href=\"http://schema.org/Accommodation\">Accommodation</a>, following real estate conventions as <a href=\"https://ddwiki.reso.org/display/DDW17/BathroomsTotalInteger+Field\">documented in RESO</a>: \"The simple sum of the number of bathrooms. For example for a property with two Full Bathrooms and one Half Bathroom, the Bathrooms Total Integer will be 3.\". See also <a class=\"localLink\" href=\"http://schema.org/numberOfRooms\">numberOfRooms</a>." .
@@ -12291,7 +12306,8 @@ schema:numberOfFullBathrooms a rdf:Property ;
     rdfs:label "numberOfFullBathrooms" ;
     dct:source <https://github.com/schemaorg/schemaorg/issues/2373> ;
     schema:category "issue-2373" ;
-    schema:domainIncludes schema:Accommodation ;
+    schema:domainIncludes schema:Accommodation,
+        schema:FloorPlan ;
     schema:isPartOf <http://pending.schema.org> ;
     schema:rangeIncludes schema:Number ;
     rdfs:comment "Number of full bathrooms - The total number of full and ¾ bathrooms in an <a class=\"localLink\" href=\"http://schema.org/Accommodation\">Accommodation</a>. This corresponds to the <a href=\"https://ddwiki.reso.org/display/DDW17/BathroomsFull+Field\">BathroomsFull field in RESO</a>." .
@@ -12322,7 +12338,8 @@ schema:numberOfPartialBathrooms a rdf:Property ;
     rdfs:label "numberOfPartialBathrooms" ;
     dct:source <https://github.com/schemaorg/schemaorg/issues/2373> ;
     schema:category "issue-2373" ;
-    schema:domainIncludes schema:Accommodation ;
+    schema:domainIncludes schema:Accommodation,
+        schema:FloorPlan ;
     schema:isPartOf <http://pending.schema.org> ;
     schema:rangeIncludes schema:Number ;
     rdfs:comment "Number of partial bathrooms - The total number of half and ¼ bathrooms in an <a class=\"localLink\" href=\"http://schema.org/Accommodation\">Accommodation</a>. This corresponds to the <a href=\"https://ddwiki.reso.org/display/DDW17/BathroomsPartial+Field\">BathroomsPartial field in RESO</a>." .
@@ -12349,6 +12366,7 @@ schema:numberOfRooms a rdf:Property ;
     dct:source <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology> ;
     schema:domainIncludes schema:Accommodation,
         schema:Apartment,
+        schema:FloorPlan,
         schema:House,
         schema:LodgingBusiness,
         schema:SingleFamilyResidence,
@@ -16414,7 +16432,6 @@ schema:inLanguage a rdf:Property ;
         schema:LinkRole,
         schema:PronounceableText,
         schema:WriteAction ;
-    schema:isPartOf <http://pending.schema.org> ;
     schema:rangeIncludes schema:Language,
         schema:Text ;
     rdfs:comment "The language of the content or performance or used in an action. Please use one of the language codes from the <a href=\"http://tools.ietf.org/html/bcp47\">IETF BCP 47 standard</a>. See also <a class=\"localLink\" href=\"http://schema.org/availableLanguage\">availableLanguage</a>." .
@@ -16711,7 +16728,8 @@ schema:season a rdf:Property ;
     schema:domainIncludes schema:RadioSeries,
         schema:TVSeries,
         schema:VideoGameSeries ;
-    schema:rangeIncludes schema:CreativeWorkSeason ;
+    schema:rangeIncludes schema:CreativeWorkSeason,
+        schema:URL ;
     schema:supersededBy schema:containsSeason ;
     rdfs:comment "A season in a media series." ;
     rdfs:subPropertyOf schema:hasPart .
@@ -17169,7 +17187,8 @@ schema:isPartOf a rdf:Property ;
     rdfs:label "isPartOf" ;
     schema:domainIncludes schema:CreativeWork ;
     schema:inverseOf schema:hasPart ;
-    schema:rangeIncludes schema:CreativeWork ;
+    schema:rangeIncludes schema:CreativeWork,
+        schema:URL ;
     rdfs:comment "Indicates an item or CreativeWork that this item, or CreativeWork (in some sense), is part of." .
 
 schema:DrugPregnancyCategory a schema:MedicalEnumeration ;

@@ -4310,15 +4310,6 @@ schema:accessibilitySummary a rdf:Property ;
     schema:rangeIncludes schema:Text ;
     rdfs:comment "A human-readable summary of specific accessibility features or deficiencies, consistent with the other accessibility metadata but expressing subtleties such as \"short descriptions are present but long descriptions will be needed for non-visual users\" or \"short descriptions are present and no long descriptions are needed.\"" .
 
-schema:accommodationFloorPlan a rdf:Property ;
-    rdfs:label "accommodationFloorPlan" ;
-    dct:source <https://github.com/schemaorg/schemaorg/issues/2373> ;
-    schema:category "issue-2373" ;
-    schema:domainIncludes schema:Accommodation,
-        schema:Residence ;
-    schema:rangeIncludes schema:FloorPlan ;
-    rdfs:comment "A floorplan of some <a class=\"localLink\" href=\"http://schema.org/Accomodation\">Accomodation</a>." .
-
 schema:accountId a rdf:Property ;
     rdfs:label "accountId" ;
     schema:domainIncludes schema:Invoice ;
@@ -7029,14 +7020,6 @@ schema:isLiveBroadcast a rdf:Property ;
     schema:rangeIncludes schema:Boolean ;
     rdfs:comment "True is the broadcast is of a live event." .
 
-schema:isPlanForApartment a rdf:Property ;
-    rdfs:label "isPlanForApartment" ;
-    dct:source <https://github.com/schemaorg/schemaorg/issues/2373> ;
-    schema:category "issue-2373" ;
-    schema:domainIncludes schema:FloorPlan ;
-    schema:rangeIncludes schema:Accommodation ;
-    rdfs:comment "Indicates some accommodation that this floor plan describes." .
-
 schema:isRelatedTo a rdf:Property ;
     rdfs:label "isRelatedTo" ;
     dct:source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms> ;
@@ -7691,15 +7674,6 @@ schema:numTracks a rdf:Property ;
     schema:rangeIncludes schema:Integer ;
     rdfs:comment "The number of tracks in this album or playlist." .
 
-schema:numberOfAccommodationUnits a rdf:Property ;
-    rdfs:label "numberOfAccommodationUnits" ;
-    dct:source <https://github.com/schemaorg/schemaorg/issues/2373> ;
-    schema:category "issue-2373" ;
-    schema:domainIncludes schema:ApartmentComplex,
-        schema:FloorPlan ;
-    schema:rangeIncludes schema:QuantitativeValue ;
-    rdfs:comment "Indicates the total (available plus unavailable) number of accommodation units in an <a class=\"localLink\" href=\"http://schema.org/ApartmentComplex\">ApartmentComplex</a>, or the number of accommodation units for a specific <a class=\"localLink\" href=\"http://schema.org/FloorPlan\">FloorPlan</a> (within its specific <a class=\"localLink\" href=\"http://schema.org/ApartmentComplex\">ApartmentComplex</a>). See also <a class=\"localLink\" href=\"http://schema.org/numberOfAvailableAccommodationUnits\">numberOfAvailableAccommodationUnits</a>." .
-
 schema:numberOfAirbags a rdf:Property ;
     rdfs:label "numberOfAirbags" ;
     dct:source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group> ;
@@ -7707,15 +7681,6 @@ schema:numberOfAirbags a rdf:Property ;
     schema:rangeIncludes schema:Number,
         schema:Text ;
     rdfs:comment "The number or type of airbags in the vehicle." .
-
-schema:numberOfAvailableAccommodationUnits a rdf:Property ;
-    rdfs:label "numberOfAvailableAccommodationUnits" ;
-    dct:source <https://github.com/schemaorg/schemaorg/issues/2373> ;
-    schema:category "issue-2373" ;
-    schema:domainIncludes schema:ApartmentComplex,
-        schema:FloorPlan ;
-    schema:rangeIncludes schema:QuantitativeValue ;
-    rdfs:comment "Indicates the number of available accommodation units in an <a class=\"localLink\" href=\"http://schema.org/ApartmentComplex\">ApartmentComplex</a>, or the number of accommodation units for a specific <a class=\"localLink\" href=\"http://schema.org/FloorPlan\">FloorPlan</a> (within its specific <a class=\"localLink\" href=\"http://schema.org/ApartmentComplex\">ApartmentComplex</a>). See also <a class=\"localLink\" href=\"http://schema.org/numberOfAccommodationUnits\">numberOfAccommodationUnits</a>." .
 
 schema:numberOfAxles a rdf:Property ;
     rdfs:label "numberOfAxles" ;
@@ -7804,6 +7769,7 @@ schema:numberOfRooms a rdf:Property ;
     dct:source <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology> ;
     schema:domainIncludes schema:Accommodation,
         schema:Apartment,
+        schema:FloorPlan,
         schema:House,
         schema:LodgingBusiness,
         schema:SingleFamilyResidence,
@@ -10479,6 +10445,21 @@ schema:hasMenu a rdf:Property ;
         schema:URL ;
     rdfs:comment "Either the actual menu as a structured representation, as text, or a URL of the menu." .
 
+schema:inLanguage a rdf:Property ;
+    rdfs:label "inLanguage" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/2382> ;
+    schema:category "issue-2382" ;
+    schema:domainIncludes schema:BroadcastService,
+        schema:CommunicateAction,
+        schema:CreativeWork,
+        schema:Event,
+        schema:LinkRole,
+        schema:PronounceableText,
+        schema:WriteAction ;
+    schema:rangeIncludes schema:Language,
+        schema:Text ;
+    rdfs:comment "The language of the content or performance or used in an action. Please use one of the language codes from the <a href=\"http://tools.ietf.org/html/bcp47\">IETF BCP 47 standard</a>. See also <a class=\"localLink\" href=\"http://schema.org/availableLanguage\">availableLanguage</a>." .
+
 schema:incentiveCompensation a rdf:Property ;
     rdfs:label "incentiveCompensation" ;
     schema:domainIncludes schema:JobPosting ;
@@ -10725,7 +10706,8 @@ schema:season a rdf:Property ;
     schema:domainIncludes schema:RadioSeries,
         schema:TVSeries,
         schema:VideoGameSeries ;
-    schema:rangeIncludes schema:CreativeWorkSeason ;
+    schema:rangeIncludes schema:CreativeWorkSeason,
+        schema:URL ;
     schema:supersededBy schema:containsSeason ;
     rdfs:comment "A season in a media series." ;
     rdfs:subPropertyOf schema:hasPart .
@@ -11052,7 +11034,8 @@ schema:isPartOf a rdf:Property ;
     rdfs:label "isPartOf" ;
     schema:domainIncludes schema:CreativeWork ;
     schema:inverseOf schema:hasPart ;
-    schema:rangeIncludes schema:CreativeWork ;
+    schema:rangeIncludes schema:CreativeWork,
+        schema:URL ;
     rdfs:comment "Indicates an item or CreativeWork that this item, or CreativeWork (in some sense), is part of." .
 
 schema:position a rdf:Property ;
