@@ -2253,10 +2253,11 @@ A more detailed overview of [schema.org News markup](/docs/news.html) is also av
        <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsClass">GoodRelationsClass</a></span>
     </div>
 
-    <div typeof="http://schema.org/PaymentCard" resource="http://schema.org/CreditCard">
+    <div typeof="rdfs:Class" resource="http://schema.org/CreditCard">
       <span class="h" property="rdfs:label">CreditCard</span>
       <span property="rdfs:comment">A card payment method of a particular brand or name.  Used to mark up a particular payment method and/or the financial product/service that supplies the card account.\n\nCommonly used values:\n\n* http://purl.org/goodrelations/v1#AmericanExpress\n* http://purl.org/goodrelations/v1#DinersClub\n* http://purl.org/goodrelations/v1#Discover\n* http://purl.org/goodrelations/v1#JCB\n* http://purl.org/goodrelations/v1#MasterCard\n* http://purl.org/goodrelations/v1#VISA
        </span>
+       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/PaymentCard">PaymentCard</a></span>
        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/LoanOrCredit">LoanOrCredit</a></span>
        <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsClass">GoodRelationsClass</a></span>
        <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO">FIBO</a></span></div>
@@ -2339,10 +2340,11 @@ The place is __open__ if the [[opens]] property is specified, and __closed__ oth
        <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsClass">GoodRelationsClass</a></span>
     </div>
 
-    <div typeof="http://schema.org/DeliveryMethod" resource="http://schema.org/ParcelService">
+    <div typeof="rdfs:Class" resource="http://schema.org/ParcelService">
       <span class="h" property="rdfs:label">ParcelService</span>
       <span property="rdfs:comment">A private parcel service as the delivery mode available for a certain offer.\n\nCommonly used values:\n\n* http://purl.org/goodrelations/v1#DHL\n* http://purl.org/goodrelations/v1#FederalExpress\n* http://purl.org/goodrelations/v1#UPS
       </span>
+       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/DeliveryMethod">DeliveryMethod</a></span>
        <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsClass">GoodRelationsClass</a></span>
     </div>
 
@@ -2621,9 +2623,10 @@ The place is __open__ if the [[opens]] property is specified, and __closed__ oth
        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Event">Event</a></span>
     </div>
 
-    <div typeof="http://schema.org/DeliveryMethod" resource="http://schema.org/LockerDelivery">
+    <div typeof="rdfs:Class" resource="http://schema.org/LockerDelivery">
       <span class="h" property="rdfs:label">LockerDelivery</span>
       <span property="rdfs:comment">A DeliveryMethod in which an item is made available via locker.</span>
+       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/DeliveryMethod">DeliveryMethod</a></span>
     </div>
 
     <div typeof="http://schema.org/DeliveryMethod" resource="http://schema.org/OnSitePickup">
@@ -10596,6 +10599,14 @@ Standards bodies should promote a standard prefix for the identifiers of propert
   <span>Same as: <a property="schema:sameAs" href="http://www.wikidata.org/entity/Q132">Sunday</a></span>
 </div>
 
+<!-- Compound price extension from GoodRelations -->
+<div typeof="rdfs:Class" resource="http://schema.org/CompoundPriceSpecification">
+    <span class="h" property="rdfs:label">CompoundPriceSpecification</span>
+    <span property="rdfs:comment">A compound price specification is one that bundles multiple prices that all apply in combination for different dimensions of consumption. Use the name property of the attached unit price specification for indicating the dimension of a price component (e.g. "electricity" or "final cleaning").</span>
+    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/PriceSpecification">PriceSpecification</a></span>
+    <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsClass">GoodRelationsClass</a></span>
+</div>
+
 <div typeof="rdf:Property" resource="http://schema.org/referenceQuantity">
     <span class="h" property="rdfs:label">referenceQuantity</span>
     <span property="rdfs:comment">The reference quantity for which a certain price applies, e.g. 1 EUR per 4 kWh of electricity. This property is a replacement for unitOfMeasurement for the advanced cases where the price does not relate to a standard unit.</span>
@@ -10720,10 +10731,11 @@ Standards bodies should promote a standard prefix for the identifiers of propert
 	  <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO">FIBO</a></span>
 	</div>
 
-    <div typeof="http://schema.org/PaymentMethod" resource="http://schema.org/PaymentCard">
+    <div typeof="rdfs:Class" resource="http://schema.org/PaymentCard">
       <span class="h" property="rdfs:label">PaymentCard</span>
       <span property="rdfs:comment">A payment method using a credit, debit, store or other card to associate the payment with an account.</span>
     <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/FinancialProduct">FinancialProduct</a></span>
+    <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/PaymentMethod">PaymentMethod</a></span>
       <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO">FIBO</a></span>
     </div>
 
