@@ -889,6 +889,26 @@ It is common for properties applicable to an item from the series to be usefully
     rdfs:subClassOf schema:CreativeWork,
         schema:Series .
 
+schema:CreditCard a rdfs:Class ;
+    rdfs:label "CreditCard" ;
+    dct:source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO>,
+        <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsClass> ;
+    rdfs:comment """A card payment method of a particular brand or name.  Used to mark up a particular payment method and/or the financial product/service that supplies the card account.<br/><br/>
+
+Commonly used values:<br/><br/>
+
+<ul>
+<li>http://purl.org/goodrelations/v1#AmericanExpress</li>
+<li>http://purl.org/goodrelations/v1#DinersClub</li>
+<li>http://purl.org/goodrelations/v1#Discover</li>
+<li>http://purl.org/goodrelations/v1#JCB</li>
+<li>http://purl.org/goodrelations/v1#MasterCard</li>
+<li>http://purl.org/goodrelations/v1#VISA</li>
+</ul>
+""" ;
+    rdfs:subClassOf schema:LoanOrCredit,
+        schema:PaymentCard .
+
 schema:Crematorium a rdfs:Class ;
     rdfs:label "Crematorium" ;
     rdfs:comment "A crematorium." ;
@@ -1911,6 +1931,11 @@ schema:LocationFeatureSpecification a rdfs:Class ;
     rdfs:comment "Specifies a location feature by providing a structured value representing a feature of an accommodation as a property-value pair of varying degrees of formality." ;
     rdfs:subClassOf schema:PropertyValue .
 
+schema:LockerDelivery a rdfs:Class ;
+    rdfs:label "LockerDelivery" ;
+    rdfs:comment "A DeliveryMethod in which an item is made available via locker." ;
+    rdfs:subClassOf schema:DeliveryMethod .
+
 schema:Locksmith a rdfs:Class ;
     rdfs:label "Locksmith" ;
     rdfs:comment "A locksmith." ;
@@ -2346,6 +2371,21 @@ schema:ParcelDelivery a rdfs:Class ;
     rdfs:comment "The delivery of a parcel either via the postal service or a commercial service." ;
     rdfs:subClassOf schema:Intangible .
 
+schema:ParcelService a rdfs:Class ;
+    rdfs:label "ParcelService" ;
+    dct:source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsClass> ;
+    rdfs:comment """A private parcel service as the delivery mode available for a certain offer.<br/><br/>
+
+Commonly used values:<br/><br/>
+
+<ul>
+<li>http://purl.org/goodrelations/v1#DHL</li>
+<li>http://purl.org/goodrelations/v1#FederalExpress</li>
+<li>http://purl.org/goodrelations/v1#UPS</li>
+</ul>
+""" ;
+    rdfs:subClassOf schema:DeliveryMethod .
+
 schema:ParentAudience a rdfs:Class ;
     rdfs:label "ParentAudience" ;
     rdfs:comment "A set of characteristics describing parents, who can be interested in viewing some content." ;
@@ -2370,6 +2410,13 @@ schema:PayAction a rdfs:Class ;
     rdfs:label "PayAction" ;
     rdfs:comment "An agent pays a price to a participant." ;
     rdfs:subClassOf schema:TradeAction .
+
+schema:PaymentCard a rdfs:Class ;
+    rdfs:label "PaymentCard" ;
+    dct:source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO> ;
+    rdfs:comment "A payment method using a credit, debit, store or other card to associate the payment with an account." ;
+    rdfs:subClassOf schema:FinancialProduct,
+        schema:PaymentMethod .
 
 schema:PaymentChargeSpecification a rdfs:Class ;
     rdfs:label "PaymentChargeSpecification" ;
@@ -3736,25 +3783,6 @@ schema:CompletedActionStatus a schema:ActionStatusType ;
     rdfs:label "CompletedActionStatus" ;
     rdfs:comment "An action that has already taken place." .
 
-schema:CreditCard a schema:PaymentCard ;
-    rdfs:label "CreditCard" ;
-    dct:source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO>,
-        <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsClass> ;
-    rdfs:comment """A card payment method of a particular brand or name.  Used to mark up a particular payment method and/or the financial product/service that supplies the card account.<br/><br/>
-
-Commonly used values:<br/><br/>
-
-<ul>
-<li>http://purl.org/goodrelations/v1#AmericanExpress</li>
-<li>http://purl.org/goodrelations/v1#DinersClub</li>
-<li>http://purl.org/goodrelations/v1#Discover</li>
-<li>http://purl.org/goodrelations/v1#JCB</li>
-<li>http://purl.org/goodrelations/v1#MasterCard</li>
-<li>http://purl.org/goodrelations/v1#VISA</li>
-</ul>
-""" ;
-    rdfs:subClassOf schema:LoanOrCredit .
-
 schema:DJMixAlbum a schema:MusicAlbumProductionType ;
     rdfs:label "DJMixAlbum" ;
     dct:source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#MBZ> ;
@@ -3911,10 +3939,6 @@ schema:LiveAlbum a schema:MusicAlbumProductionType ;
     dct:source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#MBZ> ;
     rdfs:comment "LiveAlbum." .
 
-schema:LockerDelivery a schema:DeliveryMethod ;
-    rdfs:label "LockerDelivery" ;
-    rdfs:comment "A DeliveryMethod in which an item is made available via locker." .
-
 schema:LowCalorieDiet a schema:RestrictedDiet ;
     rdfs:label "LowCalorieDiet" ;
     rdfs:comment "A diet focused on reduced calorie intake." .
@@ -4016,20 +4040,6 @@ schema:OutOfStock a schema:ItemAvailability ;
 schema:Paperback a schema:BookFormatType ;
     rdfs:label "Paperback" ;
     rdfs:comment "Book format: Paperback." .
-
-schema:ParcelService a schema:DeliveryMethod ;
-    rdfs:label "ParcelService" ;
-    dct:source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsClass> ;
-    rdfs:comment """A private parcel service as the delivery mode available for a certain offer.<br/><br/>
-
-Commonly used values:<br/><br/>
-
-<ul>
-<li>http://purl.org/goodrelations/v1#DHL</li>
-<li>http://purl.org/goodrelations/v1#FederalExpress</li>
-<li>http://purl.org/goodrelations/v1#UPS</li>
-</ul>
-""" .
 
 schema:ParkingMap a schema:MapCategoryType ;
     rdfs:label "ParkingMap" ;
@@ -10127,12 +10137,6 @@ schema:yearsInOperation a rdf:Property ;
     schema:domainIncludes schema:BusinessAudience ;
     schema:rangeIncludes schema:QuantitativeValue ;
     rdfs:comment "The age of the business." .
-
-schema:PaymentCard a schema:PaymentMethod ;
-    rdfs:label "PaymentCard" ;
-    dct:source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO> ;
-    rdfs:comment "A payment method using a credit, debit, store or other card to associate the payment with an account." ;
-    rdfs:subClassOf schema:FinancialProduct .
 
 schema:actionApplication a rdf:Property ;
     rdfs:label "actionApplication" ;
