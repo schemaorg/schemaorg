@@ -155,24 +155,10 @@ Note: If master has moved on from the the released version before tagging
 * Blog post.
 * There's a SPARQL database at DYDRA that can load NQuad dumps from
 https://github.com/schemaorg/schemaorg/blob/sdo-phobos/data/releases/2.2/all-layers.nq
-* Make a new per-release branch, reserve an appspot.com account for it.
-* Configure GitHub with the new default branch.
-  See https://github.com/schemaorg/schemaorg/settings/branches
 * Update issue tracker moving issues to new releases.
  * Close issues that were addressed in this release.
  * Make careful considered adjustment to expected release for the rest. Or
    just tag them all for the next release.
-* Update git release tags (TODO: we have no history of handling this yet).
-
-For example, if we are in 'master' and 'git status' shows it in a clean state,
-
-* git checkout -b sdo-deimos
-* This tells us we can do:
- *     git push --set-upstream origin sdo-deimos
-
-> To https://github.com/schemaorg/schemaorg.git
->  * [new branch]      sdo-deimos -> sdo-deimos
-> Branch sdo-deimos set up to track remote branch sdo-deimos from origin.
 
 TODO:
 
