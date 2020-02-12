@@ -7,7 +7,7 @@ This is the Schema.org project repository. It contains all the schemas, examples
 Note: Much of the supporting software is imported from a sub module: 'sdopythonapp'
 
 Issues and proposals are managed here by participants of the [W3C Schema.org Community Group](https://www.w3.org/community/schemaorg/). If you are interested to participate please
-join the group at the [W3C](https://www.w3.org/community/schemaorg/), introduce yourself and find or file issues here that engage your interest. If you are new to Git and GitHub, there's a useful [introduction to Github](https://w3c.github.io/) in the W3C Wiki.
+join the group at the [W3C](https://www.w3.org/community/schemaorg/), introduce yourself and find or file issues here that engage your interest. If you are new to Git and GitHub, there's a useful introduction to GitHub in the [W3C GitHub Pages](https://w3c.github.io/).
 
 There is also a [Travis-CI integration](https://travis-ci.org/schemaorg/schemaorg) to check incoming pull requests.
 
