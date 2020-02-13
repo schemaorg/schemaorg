@@ -8915,6 +8915,68 @@ JSON:
 }
 </script>
 
+TYPES: BoatReservation, BoatTrip
+
+PRE-MARKUP:
+
+Original:
+Boat Name: Lady Annabelle
+Boat Number: D2345
+Boat Provider: San Francisco Bay Ferries
+Departing: Chase Center Ferry Terminal 2019-11-10T20:30:00
+Arriving: Alameda-Oakland Ferry Terminal 2019-11-11T10:32:00
+Boat Reservation: #10522083
+Passenger: John Smith
+
+
+MICRODATA:
+
+This example is JSON only.
+
+RDFA:
+
+This example is JSON only.
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org”,
+  "@type": "http://schema.org/BoatReservation”,
+  "reservationId": "10522083”,
+  "reservationStatus": "http://schema.org/ReservationConfirmed”,
+  "underName": {
+    "@type": "http://schema.org/Person”,
+    "name": "John Smith”
+  },
+  "reservationFor": {
+    "@type": "http://schema.org/BoatTrip",
+    "name": "Lady Annabelle",
+    "identifier": "D2345",
+    "departureBoatTerminal": {
+      "@type": "http://schema.org/BoatTerminal",
+      "name": "Chase Center Ferry Terminal",
+      "telephone": "4082954153",
+      "url": "www.departure.com",
+      "address": "525 Terry A Francois Blvd, San Francisco, CA 94158"
+    },
+    "departureTime": "2019-11-10T20:30:00",
+    "arrivalBoatTerminal": {
+      "@type": "http://schema.org/BoatTerminal",
+      "name": "Alameda-Oakland Ferry Terminal",
+      "telephone": "2136298401",
+      "url": "www.arrival.com",
+      "address": "101 The Embarcadero #118, San Francisco, CA 94105"
+    },
+    "arrivalTime": "2019-11-11T10:32:00",
+    "provider": {
+      "@type": "http://schema.org/Organization",
+      "name": "San Francisco Bay Ferries"
+    }
+  }
+}
+</script>
+
 TYPES: EventReservation, Ticket, Seat
 
 PRE-MARKUP:

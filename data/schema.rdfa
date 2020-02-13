@@ -526,6 +526,12 @@ See also the &lt;a href=&quot;/docs/hotels.html&quot;&gt;dedicated document on t
        <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/CivicStructure">CivicStructure</a></span>
     </div>
 
+    <div typeof="rdfs:Class" resource="http://schema.org/BoatTerminal">
+      <span class="h" property="rdfs:label">BoatTerminal</span>
+      <span property="rdfs:comment">A terminal for boats, ships, and other water vessels.</span>
+       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/CivicStructure">CivicStructure</a></span>
+    </div>
+
     <div typeof="rdfs:Class" resource="http://schema.org/Event">
       <span class="h" property="rdfs:label">Event</span>
       <span property="rdfs:comment">An event happening at a certain time and location, such as a concert, lecture, or festival. Ticketing information may be added via the [[offers]] property. Repeated events may be structured as separate Event objects.</span>
@@ -7740,6 +7746,11 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
       <span property="rdfs:comment">A reservation for bus travel. \n\nNote: This type is for information about actual reservations, e.g. in confirmation emails or HTML pages with individual confirmations of reservations. For offers of tickets, use [[Offer]].</span>
       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Reservation">Reservation</a></span>
     </div>
+    <div typeof="rdfs:Class" resource="http://schema.org/BoatReservation">
+      <span class="h" property="rdfs:label">BoatReservation</span>
+      <span property="rdfs:comment">A reservation for boat travel. \n\nNote: This type is for information about actual reservations, e.g. in confirmation emails or HTML pages with individual confirmations of reservations. For offers of tickets, use [[Offer]].</span>
+      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Reservation">Reservation</a></span>
+    </div>
     <div typeof="rdfs:Class" resource="http://schema.org/EventReservation">
       <span class="h" property="rdfs:label">EventReservation</span>
       <span property="rdfs:comment">A reservation for an event like a concert, sporting event, or lecture.\n\nNote: This type is for information about actual reservations, e.g. in confirmation emails or HTML pages with individual confirmations of reservations. For offers of tickets, use [[Offer]].</span>
@@ -7815,6 +7826,11 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
     <div typeof="rdfs:Class" resource="http://schema.org/BusTrip">
       <span class="h" property="rdfs:label">BusTrip</span>
       <span property="rdfs:comment">A trip on a commercial bus line.</span>
+      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Trip">Trip</a></span>
+    </div>
+    <div typeof="rdfs:Class" resource="http://schema.org/BoatTrip">
+      <span class="h" property="rdfs:label">BoatTrip</span>
+      <span property="rdfs:comment">A trip on a commercial ferry line.</span>
       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Trip">Trip</a></span>
     </div>
     <div typeof="rdfs:Class" resource="http://schema.org/TrainTrip">
@@ -8260,6 +8276,18 @@ postponing for 1.6.
       <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/BusTrip">BusTrip</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/BusStation">BusStation</a></span>
       <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/BusStop">BusStop</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/arrivalBoatTerminal">
+      <span class="h" property="rdfs:label">arrivalBoatTerminal</span>
+      <span property="rdfs:comment">The terminal or port from which the boat arrives.</span>
+      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/BoatTrip">BoatTrip</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/BoatTerminal">BoatTerminal</a></span>
+    </div>
+    <div typeof="rdf:Property" resource="http://schema.org/arrivalBoatTerminal">
+      <span class="h" property="rdfs:label">departureBoatTerminal</span>
+      <span property="rdfs:comment">The terminal or port from which the boat departs.</span>
+      <span>domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/BoatTrip">BoatTrip</a></span>
+      <span>Range: <a property="http://schema.org/rangeIncludes" href="http://schema.org/BoatTerminal">BoatTerminal</a></span>
     </div>
     <div typeof="rdf:Property" resource="http://schema.org/pickupLocation">
       <span class="h" property="rdfs:label">pickupLocation</span>
