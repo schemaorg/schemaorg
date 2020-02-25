@@ -153,4 +153,63 @@
     <span>domainIncludes: <a property="http://schema.org/domainIncludes" href="http://schema.org/FloorPlan">FloorPlan</a></span>
 </div>
 
+
+<!-- additions from Feb 2020 -->
+
+<!-- Feb 2020 improvements,
+* Add petsAllowed to ApartmentComplex
+* Add petsAllowed, amenityFeature and floorSize to FloorPlan
+* Create an explicit numberOfBedRooms and allow it in Accommodation, ApartmentComplex and FloorPlan.
+* In ApartmentComplex and FloorPlan the value might be a range to allow describing all apartments under that entity, so the value should allow both Number and QuantitativeValue
+* Add a "book a tour" (/tourBookingPage) property - url value allowed on Accommodation and ApartmentComplex
+
++ (todo)
+* CONSIDER allowing numberOfBathroomsTotal, numberOfFullBathrooms, numberOfPartialBathrooms and floorSize on ApartmentComplex
+so long as semantics were clear.
+-->
+
+<div typeof="rdf:Property" resource="http://schema.org/petsAllowed">
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/ApartmentComplex">ApartmentComplex</a></span>
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/FloorPlan">FloorPlan</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/amenityFeature">
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/FloorPlan">FloorPlan</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/amenityFeature">
+    <span>Domain: <a property="http://schema.org/domainIncludes" href="http://schema.org/FloorPlan">FloorPlan</a></span>
+</div>
+
+<!-- numberOfBedrooms -->
+<div typeof="rdf:Property" resource="http://schema.org/numberOfBedrooms">
+  <span>Category: <span property="schema:category">issue-2373</span></span>
+  <span class="h" property="rdfs:label">numberOfBedrooms</span>
+  <span property="rdfs:comment">The total integer number of bedrooms in a some [[Accommodation]], [[ApartmentComplex]] or [[FloorPlan]].</span>
+  <span>domainIncludes: <a property="http://schema.org/domainIncludes" href="http://schema.org/ApartmentComplex">ApartmentComplex</a></span>
+  <span>domainIncludes: <a property="http://schema.org/domainIncludes" href="http://schema.org/Accommodation">Accommodation</a></span>
+  <span>domainIncludes: <a property="http://schema.org/domainIncludes" href="http://schema.org/FloorPlan">FloorPlan</a></span>
+  <span>rangeIncludes: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Number">Number</a></span>
+  <span>rangeIncludes: <a property="http://schema.org/rangeIncludes" href="http://schema.org/QuantitativeValue">QuantitativeValue</a></span>
+  <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
+  <span>Source:  <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/2373">#2373</a></span>
+</div>
+
+<!-- /tourBookingPage -->
+
+<div typeof="rdf:Property" resource="http://schema.org/tourBookingPage">
+  <span>Category: <span property="schema:category">issue-2373</span></span>
+  <span class="h" property="rdfs:label">tourBookingPage</span>
+  <span property="rdfs:comment">A page providing information on how to book a tour of some [[Place]], such as an [[Accommodation]] or [[ApartmentComplex]] in a real estate setting, as well as other kinds of tours as appropriate.</span>
+  <span>domainIncludes: <a property="http://schema.org/domainIncludes" href="http://schema.org/Place">Place</a></span>
+  <span>domainIncludes: <a property="http://schema.org/domainIncludes" href="http://schema.org/Accommodation">Accommodation</a></span>
+  <span>domainIncludes: <a property="http://schema.org/domainIncludes" href="http://schema.org/ApartmentComplex">ApartmentComplex</a></span>
+  <span>rangeIncludes: <a property="http://schema.org/rangeIncludes" href="http://schema.org/URL">URL</a></span>
+  <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
+    <span>Source:  <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/2373">#2373</a></span>
+</div>
+
+
+
+
 </div>
