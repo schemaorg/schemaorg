@@ -43,6 +43,7 @@ do
         ;;
     esac
 done
+
 if [ "$REL" = "Y" ]
 then
     VER=""
@@ -57,6 +58,17 @@ then
     if [ $? -ne 0 ]
     then
         exit $?
+    fi
+elif [ ! -z ${MODE+x} ]
+then
+    if [ "$MODE" == "DEPLOY" ] #ensure these get built in deploymode
+    then
+        echo "Building sitemap and owl files"
+        ./scripts/buildowlfile.py
+        ./scripts/buildsitemap.py
+        echo
+        echo "done"
+        echo
     fi
 fi
 
