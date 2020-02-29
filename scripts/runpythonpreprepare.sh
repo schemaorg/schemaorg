@@ -44,6 +44,8 @@ do
     esac
 done
 
+CONFVER=`grep schemaversion ./versions.json | sed   's|[ \t]*"schemaversion" *: *"\(.*\)".*|\1|g' `
+
 if [ "$REL" = "Y" ]
 then
     VER=""
@@ -52,6 +54,16 @@ then
     do
         read -r -p "Version for release files: " VER
     done
+    
+    if [ "$VER" != "$CONFVER" ]
+    then
+        echo
+        echo "WARNING!! "
+        echo "         Version '$VER' is not the same as defined as schemaversion in versions.json file ($CONFVER)"
+        echo "Fix before continuing!!"
+        echo
+        exit 1
+    fi
         
     ./scripts/buildreleasefiles.sh $VER
     
@@ -67,6 +79,20 @@ then
         ./scripts/buildowlfile.py
         ./scripts/buildsitemap.py
         echo
+        echo "Checking release files"
+        DIR="./data/releases/${CONFVER}"
+        if [ ! ${DIR} ]
+        then
+            echo
+            echo "WARNING!! No release directory for schemaversion '${DIR}' (as defined in versions.json)"
+            echo "Build static files before continuing!!"
+            echo
+            exit 1
+        elif [! -f "${DIR}/schema-all.html"]
+        then
+            echo "creating schema-all.html file"
+            ./scripts/buildreleasespage.py -o $DIR/schema-all.html
+        fi
         echo "done"
         echo
     fi
