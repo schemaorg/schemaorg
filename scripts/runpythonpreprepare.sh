@@ -44,6 +44,7 @@ do
     esac
 done
 
+
 if [ "$REL" = "Y" ]
 then
     VER=""
@@ -67,6 +68,21 @@ then
         ./scripts/buildowlfile.py
         ./scripts/buildsitemap.py
         echo
+        echo "Checking release files"
+        VER=`grep schemaversion ./versions.json | sed   's|[ \t]*"schemaversion" *: *"\(.*\)".*|\1|g' `
+        DIR="./data/releases/${VER}"
+        if [ ! ${DIR} ]
+        then
+            echo
+            echo "WARNING!! No release directory for schemaversion '${DIR}' (as defined in versions.json)"
+            echo "Build static files before continuing!!"
+            echo
+            exit 1
+        elif [! -f "${DIR}/schema-all.html"]
+        then
+            echo "creating schema-all.html file"
+            ./scripts/buildreleasespage.py -o $DIR/schema-all.html
+        fi
         echo "done"
         echo
     fi
