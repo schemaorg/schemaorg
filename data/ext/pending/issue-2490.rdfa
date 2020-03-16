@@ -25,7 +25,7 @@ the kinds of everyday practical information being posted to existing websites du
 
 Several kinds of information can be provided:
 
-We encourage the provision of "name", "text", "datePosted", "expires" and
+We encourage the provision of "name", "text", "datePosted", "expires" (if appropriate) and
 "url" as a simple baseline. It is important to provide a value for "category" where possible, most ideally as a well known
 URL from Wikipedia or Wikidata. In the case of the 2019-2020 Coronavirus pandemic, this should be "https://en.wikipedia.org/w/index.php?title=2019-20\_coronavirus\_pandemic" or "https://www.wikidata.org/wiki/Q81068910".
 
@@ -34,20 +34,20 @@ For a link, provide just the URL of the appropriate page as the property's value
 (e.g. Coronavirus) indicated by the [[category]] property of the [[SpecialAnnouncement]].
 
 
-The basic content of [[SpecialAnnouncement]] is similar to that of an [[RSS]](https://en.wikipedia.org/wiki/RSS) or [[Atom]](https://en.wikipedia.org/wiki/Atom_(Web_standard)) feed. For publishers without such feeds, basic feed-like information can be shared by posting
+The basic content of [[SpecialAnnouncement]] is similar to that of an [RSS](https://en.wikipedia.org/wiki/RSS) or [Atom](https://en.wikipedia.org/wiki/Atom_(Web_standard)) feed. For publishers without such feeds, basic feed-like information can be shared by posting
 [[SpecialAnnouncement]] updates in a page, e.g. using JSON-LD. For sites with Atom/RSS functionality, you can point to a feed
 with the [[webFeed]] property. This can be a simple URL, or an inline [[DataFeed]] object, with [[encodingFormat]] providing
 media type information e.g. "application/rss+xml" or "application/atom+xml".
+
+For an announcement that is about a place, you can use [[about]] (or [[mainEntity]]) to make that relationship explicit.
+For example, the announcement could be "about" a new [[CovidTestingFacility]], and provide contact information, [[location]], [[geo]],
+[[openingHours]] etc.
       </span>
       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/CreativeWork">CreativeWork</a></span>
 
       <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
       <span>Source:  <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/2490">#2490</a></span>
     </div>
-
-For an announcement that is about a place, you can use [[about]] (or [[mainEntity]]) to make that relationship explicit.
-For example, the announcement could be "about" a new [[CovidTestingFacility]], and provide contact information, [[location]], [[geo]],
-[[openingHours]] etc.
 
 <!-- example
 http://med.stanford.edu/news/all-news/2020/03/stanford-offers-drive-through-coronavirus-test.html
