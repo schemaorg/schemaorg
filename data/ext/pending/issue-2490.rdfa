@@ -33,25 +33,21 @@ For several properties, values can either be simple links or an inline descripti
 For a link, provide just the URL of the appropriate page as the property's value. For an inline description, use a [[WebContent]] type, and provide the url as a property of that, alongside at least a simple "[[text]]" summary of the page. We expect that in many cases the page referenced might contain more specialized structured data, e.g. contact info, [[openingHours]], [[Event]], [[FAQPage]] etc. By linking to those pages from a [[SpecialAnnouncement]] you can help make it clearer that the events are related to the situation
 (e.g. Coronavirus) indicated by the [[category]] property of the [[SpecialAnnouncement]].
 
-The basic content of [[SpecialAnnouncement]] is similar to that of an [[RSS]](https://en.wikipedia.org/wiki/RSS) or [[Atom]](https://en.wikipedia.org/wiki/Atom_(Web_standard)) feed. 
 
-"diseasePreventionInfo": "…",
-"gettingTestedInfo": "…",
-"newsUpdatesAndGuidelines": "...",  // could embed normal NewsArticle markup
-"schoolClosuresInfo": "...",
-"publicTransportClosuresInfo": "..."
-"quarantineGuidelines": "...",
-"travelBans": "...", // probably a page or inline blurb
-"diseaseSpreadStatistics": "...", // probably a separate page, using Observation schema
-
-
+The basic content of [[SpecialAnnouncement]] is similar to that of an [[RSS]](https://en.wikipedia.org/wiki/RSS) or [[Atom]](https://en.wikipedia.org/wiki/Atom_(Web_standard)) feed. For publishers without such feeds, basic feed-like information can be shared by posting
+[[SpecialAnnouncement]] updates in a page, e.g. using JSON-LD. For sites with Atom/RSS functionality, you can point to a feed
+with the [[webFeed]] property. This can be a simple URL, or an inline [[DataFeed]] object, with [[encodingFormat]] providing
+media type information e.g. "application/rss+xml" or "application/atom+xml".
       </span>
       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/CreativeWork">CreativeWork</a></span>
 
       <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
       <span>Source:  <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/2490">#2490</a></span>
-
     </div>
+
+For an announcement that is about a place, you can use [[about]] (or [[mainEntity]]) to make that relationship explicit.
+For example, the announcement could be "about" a new [[CovidTestingFacility]], and provide contact information, [[location]], [[geo]],
+[[openingHours]] etc.
 
 <!-- example
 http://med.stanford.edu/news/all-news/2020/03/stanford-offers-drive-through-coronavirus-test.html
@@ -69,21 +65,103 @@ a https://schema.org/MedicalClinic but cotyped with CovidTestingFacility
       <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/MedicalClinic">MedicalClinic</a></span>
       <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
       <span>Source:  <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/2490">#2490</a></span>
-
     </div>
 
-<!--
-    <div typeof="rdf:Property" resource="http://schema.org/@@@@">
-      <span>Category: <span property="schema:category">issue-@@@@</span></span>
-      <span class="h" property="rdfs:label">@@@@</span>
-      <span property="rdfs:comment">@@@@</span>
-      <span>domainIncludes: <a property="http://schema.org/domainIncludes" href="http://schema.org/@@@@">@@@@</a></span>
-      <span>rangeIncludes: <a property="http://schema.org/rangeIncludes" href="http://schema.org/@@@@">@@@@</a></span>
-      <span>rangeIncludes: <a property="http://schema.org/rangeIncludes" href="http://schema.org/@@@@">@@@@</a></span>
-      <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
-      <span>Source:  <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/2490">#2490</a></span>
-    </div>
--->
+<div typeof="rdf:Property" resource="http://schema.org/diseasePreventionInfo">
+  <span>Category: <span property="schema:category">issue-2490</span></span>
+  <span class="h" property="rdfs:label">diseasePreventionInfo</span>
+  <span property="rdfs:comment">Information about disease prevention.</span>
+  <span>domainIncludes: <a property="http://schema.org/domainIncludes" href="http://schema.org/SpecialAnnouncement">SpecialAnnouncement</a></span>
+  <span>rangeIncludes: <a property="http://schema.org/rangeIncludes" href="http://schema.org/URL">URL</a></span>
+  <span>rangeIncludes: <a property="http://schema.org/rangeIncludes" href="http://schema.org/WebContent">WebContent</a></span>
+  <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
+  <span>Source:  <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/2490">#2490</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/gettingTestedInfo">
+  <span>Category: <span property="schema:category">issue-2490</span></span>
+  <span class="h" property="rdfs:label">gettingTestedInfo</span>
+  <span property="rdfs:comment">Information about getting tested (for a [[MedicalCondition]]), e.g. in the context of a pandemic.</span>
+  <span>domainIncludes: <a property="http://schema.org/domainIncludes" href="http://schema.org/SpecialAnnouncement">SpecialAnnouncement</a></span>
+  <span>rangeIncludes: <a property="http://schema.org/rangeIncludes" href="http://schema.org/URL">URL</a></span>
+  <span>rangeIncludes: <a property="http://schema.org/rangeIncludes" href="http://schema.org/WebContent">WebContent</a></span>
+  <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
+  <span>Source:  <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/2490">#2490</a></span>
+</div>
+
+
+
+<div typeof="rdf:Property" resource="http://schema.org/newsUpdatesAndGuidelines">
+  <span>Category: <span property="schema:category">issue-2490</span></span>
+  <span class="h" property="rdfs:label">newsUpdatesAndGuidelines</span>
+  <span property="rdfs:comment">Indicates a page with news updates and guidelines. This could often be (but is not required to be) the main page containing [[SpecialAnnouncement]] markup on a site.</span>
+  <span>domainIncludes: <a property="http://schema.org/domainIncludes" href="http://schema.org/SpecialAnnouncement">SpecialAnnouncement</a></span>
+  <span>rangeIncludes: <a property="http://schema.org/rangeIncludes" href="http://schema.org/URL">URL</a></span>
+  <span>rangeIncludes: <a property="http://schema.org/rangeIncludes" href="http://schema.org/WebContent">WebContent</a></span>
+  <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
+  <span>Source:  <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/2490">#2490</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/schoolClosuresInfo">
+  <span>Category: <span property="schema:category">issue-2490</span></span>
+  <span class="h" property="rdfs:label">schoolClosuresInfo</span>
+  <span property="rdfs:comment">Information about school closures.</span>
+  <span>domainIncludes: <a property="http://schema.org/domainIncludes" href="http://schema.org/SpecialAnnouncement">SpecialAnnouncement</a></span>
+  <span>rangeIncludes: <a property="http://schema.org/rangeIncludes" href="http://schema.org/URL">URL</a></span>
+  <span>rangeIncludes: <a property="http://schema.org/rangeIncludes" href="http://schema.org/WebContent">WebContent</a></span>
+  <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
+  <span>Source:  <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/2490">#2490</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/publicTransportClosuresInfo">
+  <span>Category: <span property="schema:category">issue-2490</span></span>
+  <span class="h" property="rdfs:label">publicTransportClosuresInfo</span>
+  <span property="rdfs:comment">Information about public transport closures.</span>
+  <span>domainIncludes: <a property="http://schema.org/domainIncludes" href="http://schema.org/SpecialAnnouncement">SpecialAnnouncement</a></span>
+  <span>rangeIncludes: <a property="http://schema.org/rangeIncludes" href="http://schema.org/URL">URL</a></span>
+  <span>rangeIncludes: <a property="http://schema.org/rangeIncludes" href="http://schema.org/WebContent">WebContent</a></span>
+  <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
+  <span>Source:  <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/2490">#2490</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/quarantineGuidelines">
+  <span>Category: <span property="schema:category">issue-2490</span></span>
+  <span class="h" property="rdfs:label">quarantineGuidelines</span>
+  <span property="rdfs:comment">Guidelines about quarantine rules, e.g. in the context of a pandemic.</span>
+  <span>domainIncludes: <a property="http://schema.org/domainIncludes" href="http://schema.org/SpecialAnnouncement">SpecialAnnouncement</a></span>
+  <span>rangeIncludes: <a property="http://schema.org/rangeIncludes" href="http://schema.org/URL">URL</a></span>
+  <span>rangeIncludes: <a property="http://schema.org/rangeIncludes" href="http://schema.org/WebContent">WebContent</a></span>
+  <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
+  <span>Source:  <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/2490">#2490</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/travelBans">
+  <span>Category: <span property="schema:category">issue-2490</span></span>
+  <span class="h" property="rdfs:label">travelBans</span>
+  <span property="rdfs:comment">Information about travel bans, e.g. in the context of a pandemic.</span>
+  <span>domainIncludes: <a property="http://schema.org/domainIncludes" href="http://schema.org/SpecialAnnouncement">SpecialAnnouncement</a></span>
+  <span>rangeIncludes: <a property="http://schema.org/rangeIncludes" href="http://schema.org/URL">URL</a></span>
+  <span>rangeIncludes: <a property="http://schema.org/rangeIncludes" href="http://schema.org/WebContent">WebContent</a></span>
+  <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
+  <span>Source:  <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/2490">#2490</a></span>
+</div>
+
+<div typeof="rdf:Property" resource="http://schema.org/diseaseSpreadStatistics">
+  <span>Category: <span property="schema:category">issue-2490</span></span>
+  <span class="h" property="rdfs:label">diseaseSpreadStatistics</span>
+  <span property="rdfs:comment">Statistical information about the spread of a disease, either as [[WebContent]], or
+  described directly as a [[Dataset]], or the specific [[Observation]]s in the dataset. When a [[WebContent]] URL is
+  provided, the page indicated might also contain more such markup.</span>
+  <span>domainIncludes: <a property="http://schema.org/domainIncludes" href="http://schema.org/SpecialAnnouncement">SpecialAnnouncement</a></span>
+
+  <span>rangeIncludes: <a property="http://schema.org/rangeIncludes" href="http://schema.org/URL">URL</a></span>
+  <span>rangeIncludes: <a property="http://schema.org/rangeIncludes" href="http://schema.org/WebContent">WebContent</a></span>
+  <span>rangeIncludes: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Dataset">Dataset</a></span>
+  <span>rangeIncludes: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Observation">Observation</a></span>
+
+  <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
+  <span>Source:  <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/2490">#2490</a></span>
+</div>
 
 
 </div>
