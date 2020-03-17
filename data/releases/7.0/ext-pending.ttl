@@ -142,6 +142,17 @@ schema:CorrectionComment a rdfs:Class ;
     rdfs:comment "A <a class=\"localLink\" href=\"http://schema.org/comment\">comment</a> that corrects <a class=\"localLink\" href=\"http://schema.org/CreativeWork\">CreativeWork</a>." ;
     rdfs:subClassOf schema:Comment .
 
+schema:CovidTestingFacility a rdfs:Class ;
+    rdfs:label "CovidTestingFacility" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/2490> ;
+    schema:category "issue-2490" ;
+    schema:isPartOf <http://pending.schema.org> ;
+    rdfs:comment """A CovidTestingFacility is a <a class="localLink" href="http://schema.org/MedicalClinic">MedicalClinic</a> where testing for the COVID-19 Coronavirus
+      disease is available. If the facility is being made available from an established <a class="localLink" href="http://schema.org/Pharmacy">Pharmacy</a>, <a class="localLink" href="http://schema.org/Hotel">Hotel</a>, or other
+      non-medical organization, multiple types can be listed. This makes it easier to re-use existing schema.org information
+      about that place e.g. contact info, address, opening hours. Note that in an emergency, such information may not always be reliable.""" ;
+    rdfs:subClassOf schema:MedicalClinic .
+
 schema:CriticReview a rdfs:Class ;
     rdfs:label "CriticReview" ;
     dct:source <https://github.com/schemaorg/schemaorg/issues/1589> ;
@@ -205,6 +216,14 @@ schema:EmployerReview a rdfs:Class ;
     schema:isPartOf <http://pending.schema.org> ;
     rdfs:comment "An <a class=\"localLink\" href=\"http://schema.org/EmployerReview\">EmployerReview</a> is a review of an <a class=\"localLink\" href=\"http://schema.org/Organization\">Organization</a> regarding its role as an employer, written by a current or former employee of that organization." ;
     rdfs:subClassOf schema:Review .
+
+schema:EventAttendanceModeEnumeration a rdfs:Class ;
+    rdfs:label "EventAttendanceModeEnumeration" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1842> ;
+    schema:category "issue-1842" ;
+    schema:isPartOf <http://pending.schema.org> ;
+    rdfs:comment "An EventAttendanceModeEnumeration value is one of potentially several modes of organising an event, relating to whether it is online or offline." ;
+    rdfs:subClassOf schema:Enumeration .
 
 schema:EventSeries a rdfs:Class ;
     rdfs:label "EventSeries" ;
@@ -719,6 +738,46 @@ schema:ShortStory a rdfs:Class ;
     rdfs:comment "Short story or tale. A brief work of literature, usually written in narrative prose." ;
     rdfs:subClassOf schema:CreativeWork .
 
+schema:SpecialAnnouncement a rdfs:Class ;
+    rdfs:label "SpecialAnnouncement" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/2490> ;
+    schema:category "issue-2490" ;
+    schema:isPartOf <http://pending.schema.org> ;
+    rdfs:comment """A SpecialAnnouncement combines a simple date-stamped textual information update
+      with contextualized Web links and other structured data.  It represents an information update made by a
+      locally-oriented organization, for example schools, pharmacies, healthcare providers,  community groups, police,
+      local government.<br/><br/>
+
+The motivating scenario for SpecialAnnouncement is the <a href="https://en.wikipedia.org/wiki/2019%E2%80%9320_coronavirus_pandemic">Coronavirus pandemic</a>, and the initial vocabulary is oriented to this urgent situation. Schema.org
+expect to improve the markup iteratively as it is deployed and as feedback emerges from use. In addition to our
+usual <a href="https://github.com/schemaorg/schemaorg/issues/2490">Github entry</a>, feedback comments can also be provided in <a href="https://docs.google.com/document/d/1fpdFFxk8s87CWwACs53SGkYv3aafSxz_DTtOQxMrBJQ/edit#">this document</a>.<br/><br/>
+
+While this schema is designed to communicate urgent crisis-related information, it is not the same as an emergency warning technology like <a href="https://en.wikipedia.org/wiki/Common_Alerting_Protocol">CAP</a>, although there may be overlaps. The intent is to cover
+the kinds of everyday practical information being posted to existing websites during an emergency situation.<br/><br/>
+
+Several kinds of information can be provided:<br/><br/>
+
+We encourage the provision of "name", "text", "datePosted", "expires" (if appropriate) and
+"url" as a simple baseline. It is important to provide a value for "category" where possible, most ideally as a well known
+URL from Wikipedia or Wikidata. In the case of the 2019-2020 Coronavirus pandemic, this should be "https://en.wikipedia.org/w/index.php?title=2019-20_coronavirus_pandemic" or "https://www.wikidata.org/wiki/Q81068910".<br/><br/>
+
+For many of the possible properties, values can either be simple links or an inline description, depending on whether a summary is available. For a link, provide just the URL of the appropriate page as the property's value. For an inline description, use a <a class="localLink" href="http://schema.org/WebContent">WebContent</a> type, and provide the url as a property of that, alongside at least a simple "<a class="localLink" href="http://schema.org/text">text</a>" summary of the page. It is
+unlikely that a single SpecialAnnouncement will need all of the possible properties simultaneously. More options may be added
+later if<br/><br/>
+
+We expect that in many cases the page referenced might contain more specialized structured data, e.g. contact info, <a class="localLink" href="http://schema.org/openingHours">openingHours</a>, <a class="localLink" href="http://schema.org/Event">Event</a>, <a class="localLink" href="http://schema.org/FAQPage">FAQPage</a> etc. By linking to those pages from a <a class="localLink" href="http://schema.org/SpecialAnnouncement">SpecialAnnouncement</a> you can help make it clearer that the events are related to the situation
+(e.g. Coronavirus) indicated by the <a class="localLink" href="http://schema.org/category">category</a> property of the <a class="localLink" href="http://schema.org/SpecialAnnouncement">SpecialAnnouncement</a>.<br/><br/>
+
+The basic content of <a class="localLink" href="http://schema.org/SpecialAnnouncement">SpecialAnnouncement</a> is similar to that of an <a href="https://en.wikipedia.org/wiki/RSS">RSS</a> or <a href="https://en.wikipedia.org/wiki/Atom_(Web_standard)">Atom</a> feed. For publishers without such feeds, basic feed-like information can be shared by posting
+<a class="localLink" href="http://schema.org/SpecialAnnouncement">SpecialAnnouncement</a> updates in a page, e.g. using JSON-LD. For sites with Atom/RSS functionality, you can point to a feed
+with the <a class="localLink" href="http://schema.org/webFeed">webFeed</a> property. This can be a simple URL, or an inline <a class="localLink" href="http://schema.org/DataFeed">DataFeed</a> object, with <a class="localLink" href="http://schema.org/encodingFormat">encodingFormat</a> providing
+media type information e.g. "application/rss+xml" or "application/atom+xml".<br/><br/>
+
+For an announcement that is about a place, you can use <a class="localLink" href="http://schema.org/about">about</a> (or <a class="localLink" href="http://schema.org/mainEntity">mainEntity</a>) to make that relationship explicit.
+For example, the announcement could be "about" a new <a class="localLink" href="http://schema.org/CovidTestingFacility">CovidTestingFacility</a>, and provide contact information, <a class="localLink" href="http://schema.org/location">location</a>, <a class="localLink" href="http://schema.org/geo">geo</a>,
+<a class="localLink" href="http://schema.org/openingHours">openingHours</a> etc.""" ;
+    rdfs:subClassOf schema:CreativeWork .
+
 schema:StatisticalPopulation a rdfs:Class ;
     rdfs:label "StatisticalPopulation" ;
     dct:source <https://github.com/schemaorg/schemaorg/issues/2291> ;
@@ -756,6 +815,14 @@ schema:UserReview a rdfs:Class ;
     schema:isPartOf <http://pending.schema.org> ;
     rdfs:comment "A review created by an end-user (e.g. consumer, purchaser, attendee etc.), in contrast with <a class=\"localLink\" href=\"http://schema.org/CriticReview\">CriticReview</a>." ;
     rdfs:subClassOf schema:Review .
+
+schema:VirtualLocation a rdfs:Class ;
+    rdfs:label "VirtualLocation" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1842> ;
+    schema:category "issue-1842" ;
+    schema:isPartOf <http://pending.schema.org> ;
+    rdfs:comment "An online or virtual location for attending events. For example, one may attend an online seminar or educational event. While a virtual location may be used as the location of an event, virtual locations should not be confused with physical locations in the real world." ;
+    rdfs:subClassOf schema:Intangible .
 
 schema:WebAPI a rdfs:Class ;
     rdfs:label "WebAPI" ;
@@ -922,6 +989,13 @@ schema:MissingContext a schema:MediaManipulationRatingEnumeration ;
     schema:isPartOf <http://pending.schema.org> ;
     rdfs:comment "MissingContext: ..." .
 
+schema:MixedEventAttendanceMode a schema:EventAttendanceModeEnumeration ;
+    rdfs:label "MixedEventAttendanceMode" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1842> ;
+    schema:category "issue-1842" ;
+    schema:isPartOf <http://pending.schema.org> ;
+    rdfs:comment "MixedEventAttendanceMode - an event that is conducted as a combination of both offline and online modes." .
+
 schema:NotInForce a schema:LegalForceStatus ;
     rdfs:label "NotInForce" ;
     dct:source <http://publications.europa.eu/mdr/eli/index.html>,
@@ -939,6 +1013,20 @@ schema:OfficialLegalValue a schema:LegalValueLevel ;
     schema:isPartOf <http://pending.schema.org> ;
     rdfs:comment "All the documents published by an official publisher should have at least the legal value level \"OfficialLegalValue\". This indicates that the document was published by an organisation with the public task of making it available (e.g. a consolidated version of a EU directive published by the EU Office of Publications)." ;
     skos:exactMatch eli:LegalValue-official .
+
+schema:OfflineEventAttendanceMode a schema:EventAttendanceModeEnumeration ;
+    rdfs:label "OfflineEventAttendanceMode" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1842> ;
+    schema:category "issue-1842" ;
+    schema:isPartOf <http://pending.schema.org> ;
+    rdfs:comment "OfflineEventAttendanceMode - an event that is primarily conducted offline." .
+
+schema:OnlineEventAttendanceMode a schema:EventAttendanceModeEnumeration ;
+    rdfs:label "OnlineEventAttendanceMode" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1842> ;
+    schema:category "issue-1842" ;
+    schema:isPartOf <http://pending.schema.org> ;
+    rdfs:comment "OnlineEventAttendanceMode - an event that is primarily conducted online." .
 
 schema:OriginalShippingFees a schema:ReturnFeesEnumeration ;
     rdfs:label "OriginalShippingFees" ;
@@ -1459,6 +1547,30 @@ schema:currentExchangeRate a rdf:Property ;
     schema:rangeIncludes schema:UnitPriceSpecification ;
     rdfs:comment "The current price of a currency." .
 
+schema:diseasePreventionInfo a rdf:Property ;
+    rdfs:label "diseasePreventionInfo" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/2490> ;
+    schema:category "issue-2490" ;
+    schema:domainIncludes schema:SpecialAnnouncement ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:URL,
+        schema:WebContent ;
+    rdfs:comment "Information about disease prevention." .
+
+schema:diseaseSpreadStatistics a rdf:Property ;
+    rdfs:label "diseaseSpreadStatistics" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/2490> ;
+    schema:category "issue-2490" ;
+    schema:domainIncludes schema:SpecialAnnouncement ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:Dataset,
+        schema:Observation,
+        schema:URL,
+        schema:WebContent ;
+    rdfs:comment """Statistical information about the spread of a disease, either as <a class="localLink" href="http://schema.org/WebContent">WebContent</a>, or
+  described directly as a <a class="localLink" href="http://schema.org/Dataset">Dataset</a>, or the specific <a class="localLink" href="http://schema.org/Observation">Observation</a>s in the dataset. When a <a class="localLink" href="http://schema.org/WebContent">WebContent</a> URL is
+  provided, the page indicated might also contain more such markup.""" .
+
 schema:diversityPolicy a rdf:Property ;
     rdfs:label "diversityPolicy" ;
     dct:source <https://github.com/schemaorg/schemaorg/issues/1525>,
@@ -1597,6 +1709,15 @@ schema:ethicsPolicy a rdf:Property ;
         schema:URL ;
     rdfs:comment "Statement about ethics policy, e.g. of a <a class=\"localLink\" href=\"http://schema.org/NewsMediaOrganization\">NewsMediaOrganization</a> regarding journalistic and publishing practices, or of a <a class=\"localLink\" href=\"http://schema.org/Restaurant\">Restaurant</a>, a page describing food source policies. In the case of a <a class=\"localLink\" href=\"http://schema.org/NewsMediaOrganization\">NewsMediaOrganization</a>, an ethicsPolicy is typically a statement describing the personal, organizational, and corporate standards of behavior expected by the organization." .
 
+schema:eventAttendanceMode a rdf:Property ;
+    rdfs:label "eventAttendanceMode" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1842> ;
+    schema:category "issue-1842" ;
+    schema:domainIncludes schema:Event ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:EventAttendanceModeEnumeration ;
+    rdfs:comment "The eventAttendanceMode of an event indicates whether it occurs online, offline, or a mix." .
+
 schema:eventSchedule a rdf:Property ;
     rdfs:label "eventSchedule" ;
     dct:source <https://github.com/schemaorg/schemaorg/issues/1457> ;
@@ -1698,6 +1819,16 @@ schema:gender a rdf:Property ;
         schema:Text ;
     rdfs:comment "Gender of something, typically a <a class=\"localLink\" href=\"http://schema.org/Person\">Person</a>, but possibly also fictional characters, animals, etc. While http://schema.org/Male and http://schema.org/Female may be used, text strings are also acceptable for people who do not identify as a binary gender. The <a class=\"localLink\" href=\"http://schema.org/gender\">gender</a> property can also be used in an extended sense to cover e.g. the gender of sports teams. As with the gender of individuals, we do not try to enumerate all possibilities. A mixed-gender <a class=\"localLink\" href=\"http://schema.org/SportsTeam\">SportsTeam</a> can be indicated with a text value of \"Mixed\"." .
 
+schema:gettingTestedInfo a rdf:Property ;
+    rdfs:label "gettingTestedInfo" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/2490> ;
+    schema:category "issue-2490" ;
+    schema:domainIncludes schema:SpecialAnnouncement ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:URL,
+        schema:WebContent ;
+    rdfs:comment "Information about getting tested (for a <a class=\"localLink\" href=\"http://schema.org/MedicalCondition\">MedicalCondition</a>), e.g. in the context of a pandemic." .
+
 schema:gracePeriod a rdf:Property ;
     rdfs:label "gracePeriod" ;
     dct:source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO>,
@@ -1739,6 +1870,15 @@ schema:hasCredential a rdf:Property ;
     schema:isPartOf <http://pending.schema.org> ;
     schema:rangeIncludes schema:EducationalOccupationalCredential ;
     rdfs:comment "A credential awarded to the Person or Organization." .
+
+schema:hasDriveThroughService a rdf:Property ;
+    rdfs:label "hasDriveThroughService" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/2490> ;
+    schema:category "issue-2490" ;
+    schema:domainIncludes schema:Place ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:Boolean ;
+    rdfs:comment "Indicates whether some facility (e.g. <a class=\"localLink\" href=\"http://schema.org/FoodEstablishment\">FoodEstablishment</a>, <a class=\"localLink\" href=\"http://schema.org/CovidTestingFacility\">CovidTestingFacility</a>) offers a service that can be used by driving through in a car. In the case of <a class=\"localLink\" href=\"http://schema.org/CovidTestingFacility\">CovidTestingFacility</a> such facilities could potentially help with social distancing from other potentially-infected users." .
 
 schema:hasHealthAspect a rdf:Property ;
     rdfs:label "hasHealthAspect" ;
@@ -2331,6 +2471,24 @@ schema:maximumEnrollment a rdf:Property ;
     schema:rangeIncludes schema:Integer ;
     rdfs:comment "The maximum number of students who may be enrolled in the program." .
 
+schema:maximumPhysicalAttendeeCapacity a rdf:Property ;
+    rdfs:label "maximumPhysicalAttendeeCapacity" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1842> ;
+    schema:category "issue-1842" ;
+    schema:domainIncludes schema:Event ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:Integer ;
+    rdfs:comment "The maximum physical attendee capacity of an <a class=\"localLink\" href=\"http://schema.org/Event\">Event</a> whose <a class=\"localLink\" href=\"http://schema.org/eventAttendanceMode\">eventAttendanceMode</a> is <a class=\"localLink\" href=\"http://schema.org/OfflineEventAttendanceMode\">OfflineEventAttendanceMode</a> (or the offline aspects, in the case of a <a class=\"localLink\" href=\"http://schema.org/MixedEventAttendanceMode\">MixedEventAttendanceMode</a>)." .
+
+schema:maximumVirtualAttendeeCapacity a rdf:Property ;
+    rdfs:label "maximumVirtualAttendeeCapacity" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1842> ;
+    schema:category "issue-1842" ;
+    schema:domainIncludes schema:Event ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:Integer ;
+    rdfs:comment "The maximum physical attendee capacity of an <a class=\"localLink\" href=\"http://schema.org/Event\">Event</a> whose <a class=\"localLink\" href=\"http://schema.org/eventAttendanceMode\">eventAttendanceMode</a> is <a class=\"localLink\" href=\"http://schema.org/OnlineEventAttendanceMode\">OnlineEventAttendanceMode</a> (or the online aspects, in the case of a <a class=\"localLink\" href=\"http://schema.org/MixedEventAttendanceMode\">MixedEventAttendanceMode</a>)." .
+
 schema:measuredProperty a rdf:Property ;
     rdfs:label "measuredProperty" ;
     dct:source <https://github.com/schemaorg/schemaorg/issues/2291> ;
@@ -2429,6 +2587,16 @@ schema:monthlyMinimumRepaymentAmount a rdf:Property ;
         schema:Number ;
     rdfs:comment "The minimum payment is the lowest amount of money that one is required to pay on a credit card statement each month." .
 
+schema:newsUpdatesAndGuidelines a rdf:Property ;
+    rdfs:label "newsUpdatesAndGuidelines" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/2490> ;
+    schema:category "issue-2490" ;
+    schema:domainIncludes schema:SpecialAnnouncement ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:URL,
+        schema:WebContent ;
+    rdfs:comment "Indicates a page with news updates and guidelines. This could often be (but is not required to be) the main page containing <a class=\"localLink\" href=\"http://schema.org/SpecialAnnouncement\">SpecialAnnouncement</a> markup on a site." .
+
 schema:noBylinesPolicy a rdf:Property ;
     rdfs:label "noBylinesPolicy" ;
     dct:source <https://github.com/schemaorg/schemaorg/issues/1688>,
@@ -2489,6 +2657,18 @@ schema:numberOfBathroomsTotal a rdf:Property ;
     schema:isPartOf <http://pending.schema.org> ;
     schema:rangeIncludes schema:Integer ;
     rdfs:comment "The total integer number of bathrooms in a some <a class=\"localLink\" href=\"http://schema.org/Accommodation\">Accommodation</a>, following real estate conventions as <a href=\"https://ddwiki.reso.org/display/DDW17/BathroomsTotalInteger+Field\">documented in RESO</a>: \"The simple sum of the number of bathrooms. For example for a property with two Full Bathrooms and one Half Bathroom, the Bathrooms Total Integer will be 3.\". See also <a class=\"localLink\" href=\"http://schema.org/numberOfRooms\">numberOfRooms</a>." .
+
+schema:numberOfBedrooms a rdf:Property ;
+    rdfs:label "numberOfBedrooms" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/2373> ;
+    schema:category "issue-2373" ;
+    schema:domainIncludes schema:Accommodation,
+        schema:ApartmentComplex,
+        schema:FloorPlan ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:Number,
+        schema:QuantitativeValue ;
+    rdfs:comment "The total integer number of bedrooms in a some <a class=\"localLink\" href=\"http://schema.org/Accommodation\">Accommodation</a>, <a class=\"localLink\" href=\"http://schema.org/ApartmentComplex\">ApartmentComplex</a> or <a class=\"localLink\" href=\"http://schema.org/FloorPlan\">FloorPlan</a>." .
 
 schema:numberOfCredits a rdf:Property ;
     rdfs:label "numberOfCredits" ;
@@ -2657,6 +2837,16 @@ schema:programType a rdf:Property ;
         schema:Text ;
     rdfs:comment "The type of educational or occupational program. For example, classroom, internship, alternance, etc.." .
 
+schema:publicTransportClosuresInfo a rdf:Property ;
+    rdfs:label "publicTransportClosuresInfo" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/2490> ;
+    schema:category "issue-2490" ;
+    schema:domainIncludes schema:SpecialAnnouncement ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:URL,
+        schema:WebContent ;
+    rdfs:comment "Information about public transport closures." .
+
 schema:qualifications a rdf:Property ;
     rdfs:label "qualifications" ;
     dct:source <https://github.com/schemaorg/schemaorg/issues/1698>,
@@ -2669,6 +2859,16 @@ schema:qualifications a rdf:Property ;
     schema:rangeIncludes schema:EducationalOccupationalCredential,
         schema:Text ;
     rdfs:comment "Specific qualifications required for this role or Occupation." .
+
+schema:quarantineGuidelines a rdf:Property ;
+    rdfs:label "quarantineGuidelines" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/2490> ;
+    schema:category "issue-2490" ;
+    schema:domainIncludes schema:SpecialAnnouncement ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:URL,
+        schema:WebContent ;
+    rdfs:comment "Guidelines about quarantine rules, e.g. in the context of a pandemic." .
 
 schema:ratingExplanation a rdf:Property ;
     rdfs:label "ratingExplanation" ;
@@ -2782,6 +2982,16 @@ schema:scheduleTimezone a rdf:Property ;
     schema:isPartOf <http://pending.schema.org> ;
     schema:rangeIncludes schema:Text ;
     rdfs:comment "Indicates the timezone for which the time(s) indicated in the <a class=\"localLink\" href=\"http://schema.org/Schedule\">Schedule</a> are given. The value provided should be among those listed in the IANA Time Zone Database." .
+
+schema:schoolClosuresInfo a rdf:Property ;
+    rdfs:label "schoolClosuresInfo" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/2490> ;
+    schema:category "issue-2490" ;
+    schema:domainIncludes schema:SpecialAnnouncement ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:URL,
+        schema:WebContent ;
+    rdfs:comment "Information about school closures." .
 
 schema:sdDatePublished a rdf:Property ;
     rdfs:label "sdDatePublished" ;
@@ -2950,6 +3160,17 @@ schema:totalJobOpenings a rdf:Property ;
     schema:rangeIncludes schema:Integer ;
     rdfs:comment "The number of positions open for this job posting. Use a positive integer. Do not use if the number of positions is unclear or not known." .
 
+schema:tourBookingPage a rdf:Property ;
+    rdfs:label "tourBookingPage" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/2373> ;
+    schema:category "issue-2373" ;
+    schema:domainIncludes schema:Accommodation,
+        schema:ApartmentComplex,
+        schema:Place ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:URL ;
+    rdfs:comment "A page providing information on how to book a tour of some <a class=\"localLink\" href=\"http://schema.org/Place\">Place</a>, such as an <a class=\"localLink\" href=\"http://schema.org/Accommodation\">Accommodation</a> or <a class=\"localLink\" href=\"http://schema.org/ApartmentComplex\">ApartmentComplex</a> in a real estate setting, as well as other kinds of tours as appropriate." .
+
 schema:trainingSalary a rdf:Property ;
     rdfs:label "trainingSalary" ;
     dct:source <https://github.com/schemaorg/schemaorg/issues/2289>,
@@ -2961,6 +3182,16 @@ schema:trainingSalary a rdf:Property ;
     schema:isPartOf <http://pending.schema.org> ;
     schema:rangeIncludes schema:MonetaryAmountDistribution ;
     rdfs:comment "The estimated salary earned while in the program." .
+
+schema:travelBans a rdf:Property ;
+    rdfs:label "travelBans" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/2490> ;
+    schema:category "issue-2490" ;
+    schema:domainIncludes schema:SpecialAnnouncement ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:URL,
+        schema:WebContent ;
+    rdfs:comment "Information about travel bans, e.g. in the context of a pandemic." .
 
 schema:typicalCreditsPerTerm a rdf:Property ;
     rdfs:label "typicalCreditsPerTerm" ;
@@ -3023,8 +3254,9 @@ schema:webFeed a rdf:Property ;
     schema:category "issue-373" ;
     schema:domainIncludes schema:PodcastSeries ;
     schema:isPartOf <http://pending.schema.org> ;
-    schema:rangeIncludes schema:URL ;
-    rdfs:comment "The URL for the feed associated with the podcast series. This is usually RSS or Atom." .
+    schema:rangeIncludes schema:DataFeed,
+        schema:URL ;
+    rdfs:comment "The URL for a feed, e.g. associated with a podcast series, blog, or series of date-stamped updates. This is usually RSS or Atom." .
 
 schema:yearBuilt a rdf:Property ;
     rdfs:label "yearBuilt" ;

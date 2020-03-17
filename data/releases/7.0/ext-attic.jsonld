@@ -51,51 +51,40 @@
       },
       "http://schema.org/rangeIncludes": [
         {
-          "@id": "http://schema.org/Text"
+          "@id": "http://schema.org/PropertyValue"
         },
         {
-          "@id": "http://schema.org/PropertyValue"
+          "@id": "http://schema.org/Text"
         }
       ],
       "rdfs:comment": "Originally named <a class=\"localLink\" href=\"http://schema.org/variablesMeasured\">variablesMeasured</a>, The <a class=\"localLink\" href=\"http://schema.org/variableMeasured\">variableMeasured</a> property can indicate (repeated as necessary) the  variables that are measured in some dataset, either described as text or as pairs of identifier and description using PropertyValue.",
       "rdfs:label": "variablesMeasured"
     },
     {
-      "@id": "http://schema.org/hasProductReturnPolicy",
-      "@type": "rdf:Property",
+      "@id": "http://schema.org/ProductReturnFiniteReturnWindow",
+      "@type": "http://schema.org/ProductReturnEnumeration",
       "http://purl.org/dc/terms/source": {
         "@id": "https://github.com/schemaorg/schemaorg/issues/2288"
       },
       "http://schema.org/category": "issue-2288",
-      "http://schema.org/domainIncludes": [
-        {
-          "@id": "http://schema.org/Product"
-        },
-        {
-          "@id": "http://schema.org/Organization"
-        }
-      ],
       "http://schema.org/isPartOf": {
         "@id": "http://attic.schema.org"
       },
-      "http://schema.org/rangeIncludes": {
-        "@id": "http://schema.org/ProductReturnPolicy"
-      },
       "http://schema.org/supersededBy": {
-        "@id": "http://schema.org/hasMerchantReturnPolicy"
+        "@id": "http://schema.org/MerchantReturnFiniteReturnWindow"
       },
-      "rdfs:comment": "Indicates a ProductReturnPolicy that may be applicable.",
-      "rdfs:label": "hasProductReturnPolicy"
+      "rdfs:comment": "ProductReturnFiniteReturnWindow: there is a finite window for product returns.",
+      "rdfs:label": "ProductReturnFiniteReturnWindow"
     },
     {
       "@id": "http://schema.org/stupidProperty",
       "@type": "rdf:Property",
       "http://schema.org/domainIncludes": [
         {
-          "@id": "http://schema.org/Vehicle"
+          "@id": "http://schema.org/StupidType"
         },
         {
-          "@id": "http://schema.org/StupidType"
+          "@id": "http://schema.org/Vehicle"
         }
       ],
       "http://schema.org/isPartOf": {
@@ -180,20 +169,31 @@
       }
     },
     {
-      "@id": "http://schema.org/ProductReturnFiniteReturnWindow",
-      "@type": "http://schema.org/ProductReturnEnumeration",
+      "@id": "http://schema.org/hasProductReturnPolicy",
+      "@type": "rdf:Property",
       "http://purl.org/dc/terms/source": {
         "@id": "https://github.com/schemaorg/schemaorg/issues/2288"
       },
       "http://schema.org/category": "issue-2288",
+      "http://schema.org/domainIncludes": [
+        {
+          "@id": "http://schema.org/Product"
+        },
+        {
+          "@id": "http://schema.org/Organization"
+        }
+      ],
       "http://schema.org/isPartOf": {
         "@id": "http://attic.schema.org"
       },
-      "http://schema.org/supersededBy": {
-        "@id": "http://schema.org/MerchantReturnFiniteReturnWindow"
+      "http://schema.org/rangeIncludes": {
+        "@id": "http://schema.org/ProductReturnPolicy"
       },
-      "rdfs:comment": "ProductReturnFiniteReturnWindow: there is a finite window for product returns.",
-      "rdfs:label": "ProductReturnFiniteReturnWindow"
+      "http://schema.org/supersededBy": {
+        "@id": "http://schema.org/hasMerchantReturnPolicy"
+      },
+      "rdfs:comment": "Indicates a ProductReturnPolicy that may be applicable.",
+      "rdfs:label": "hasProductReturnPolicy"
     },
     {
       "@id": "http://schema.org/ProductReturnPolicy",

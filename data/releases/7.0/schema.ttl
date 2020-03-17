@@ -3833,6 +3833,10 @@ schema:EventCancelled a schema:EventStatusType ;
     rdfs:label "EventCancelled" ;
     rdfs:comment "The event has been cancelled. If the event has multiple startDate values, all are assumed to be cancelled. Either startDate or previousStartDate may be used to specify the event's cancelled date(s)." .
 
+schema:EventMovedOnline a schema:EventStatusType ;
+    rdfs:label "EventMovedOnline" ;
+    rdfs:comment "Indicates that the event was changed to allow online participation. See <a class=\"localLink\" href=\"http://schema.org/eventAttendanceMode\">eventAttendanceMode</a> for specifics of whether it is now fully or partially online." .
+
 schema:EventPostponed a schema:EventStatusType ;
     rdfs:label "EventPostponed" ;
     rdfs:comment "The event has been postponed and no new date has been set. The event's previousStartDate should be set." .
@@ -4538,6 +4542,7 @@ schema:amenityFeature a rdf:Property ;
     rdfs:label "amenityFeature" ;
     dct:source <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology> ;
     schema:domainIncludes schema:Accommodation,
+        schema:FloorPlan,
         schema:LodgingBusiness,
         schema:Place ;
     schema:rangeIncludes schema:LocationFeatureSpecification ;
@@ -5223,7 +5228,8 @@ schema:catalogNumber a rdf:Property ;
 
 schema:category a rdf:Property ;
     rdfs:label "category" ;
-    dct:source <https://github.com/schemaorg/schemaorg/issues/1741> ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/1741>,
+        <https://github.com/schemaorg/schemaorg/issues/2490> ;
     schema:category "issue-1741" ;
     schema:domainIncludes schema:ActionAccessSpecification,
         schema:Invoice,
@@ -5231,7 +5237,9 @@ schema:category a rdf:Property ;
         schema:PhysicalActivity,
         schema:Product,
         schema:Recommendation,
-        schema:Service ;
+        schema:Service,
+        schema:SpecialAnnouncement,
+        schema:URL ;
     schema:rangeIncludes schema:PhysicalActivityCategory,
         schema:Text,
         schema:Thing ;
@@ -6131,12 +6139,15 @@ schema:encodings a rdf:Property ;
 
 schema:endDate a rdf:Property ;
     rdfs:label "endDate" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/2486> ;
+    schema:category "issue-2486" ;
     schema:domainIncludes schema:CreativeWorkSeason,
         schema:CreativeWorkSeries,
         schema:DatedMoneySpecification,
         schema:EducationalOccupationalProgram,
         schema:Event,
-        schema:Role ;
+        schema:Role,
+        schema:Schedule ;
     schema:rangeIncludes schema:Date,
         schema:DateTime ;
     rdfs:comment "The end date and time of the item (in <a href=\"http://en.wikipedia.org/wiki/ISO_8601\">ISO 8601 date format</a>)." .
@@ -6365,7 +6376,8 @@ schema:flightNumber a rdf:Property ;
 schema:floorSize a rdf:Property ;
     rdfs:label "floorSize" ;
     dct:source <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology> ;
-    schema:domainIncludes schema:Accommodation ;
+    schema:domainIncludes schema:Accommodation,
+        schema:FloorPlan ;
     schema:rangeIncludes schema:QuantitativeValue ;
     rdfs:comment """The size of the accommodation, e.g. in square meter or squarefoot.
 Typical unit code(s): MTK for square meter, FTK for square foot, or YDK for square yard""" .
@@ -8204,6 +8216,8 @@ schema:petsAllowed a rdf:Property ;
     rdfs:label "petsAllowed" ;
     dct:source <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology> ;
     schema:domainIncludes schema:Accommodation,
+        schema:ApartmentComplex,
+        schema:FloorPlan,
         schema:LodgingBusiness ;
     schema:rangeIncludes schema:Boolean,
         schema:Text ;
@@ -9294,12 +9308,15 @@ schema:starRating a rdf:Property ;
 
 schema:startDate a rdf:Property ;
     rdfs:label "startDate" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/2486> ;
+    schema:category "issue-2486" ;
     schema:domainIncludes schema:CreativeWorkSeason,
         schema:CreativeWorkSeries,
         schema:DatedMoneySpecification,
         schema:EducationalOccupationalProgram,
         schema:Event,
-        schema:Role ;
+        schema:Role,
+        schema:Schedule ;
     schema:rangeIncludes schema:Date,
         schema:DateTime ;
     rdfs:comment "The start date and time of the item (in <a href=\"http://en.wikipedia.org/wiki/ISO_8601\">ISO 8601 date format</a>)." .
@@ -11052,7 +11069,8 @@ schema:location a rdf:Property ;
         schema:Organization ;
     schema:rangeIncludes schema:Place,
         schema:PostalAddress,
-        schema:Text ;
+        schema:Text,
+        schema:VirtualLocation ;
     rdfs:comment "The location of for example where the event is happening, an organization is located, or where an action takes place." .
 
 schema:participant a rdf:Property ;
