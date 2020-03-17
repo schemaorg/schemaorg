@@ -11,18 +11,14 @@
   <span>Source:  <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1842">#1842</a></span>
 </div>
 
-
 <div typeof="rdf:Property" resource="http://schema.org/location">
   <span>RangeIncludes: <a property="http://schema.org/rangeIncludes" href="http://schema.org/VirtualLocation">VirtualLocation</a></span>
 </div>
 
-<!-- TODO maximumPhysicalAttendeeCapacity maximumVirtualAttendeeCapacity -->
-
-
 <div typeof="rdf:Property" resource="http://schema.org/maximumPhysicalAttendeeCapacity">
   <span>Category: <span property="schema:category">issue-1842</span></span>
   <span class="h" property="rdfs:label">maximumPhysicalAttendeeCapacity</span>
-  <span property="rdfs:comment">The maximum physical attendee capacity of an [[Event]] whose [[eventAttendanceMode]] is [[OfflineEventAttendanceMode]] (or the offline aspects, in the case of a [[MixedEventAtttendanceMode]]). </span>
+  <span property="rdfs:comment">The maximum physical attendee capacity of an [[Event]] whose [[eventAttendanceMode]] is [[OfflineEventAttendanceMode]] (or the offline aspects, in the case of a [[MixedEventAttendanceMode]]). </span>
   <span>domainIncludes: <a property="http://schema.org/domainIncludes" href="http://schema.org/Event">Event</a></span>
   <span>rangeIncludes: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Integer">Integer</a></span>
   <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
@@ -32,7 +28,7 @@
 <div typeof="rdf:Property" resource="http://schema.org/maximumVirtualAttendeeCapacity">
   <span>Category: <span property="schema:category">issue-1842</span></span>
   <span class="h" property="rdfs:label">maximumVirtualAttendeeCapacity</span>
-  <span property="rdfs:comment">The maximum physical attendee capacity of an [[Event]] whose [[eventAttendanceMode]] is [[OnlineEventAttendanceMode]] (or the online aspects, in the case of a [[MixedEventAtttendanceMode]]). </span>
+  <span property="rdfs:comment">The maximum physical attendee capacity of an [[Event]] whose [[eventAttendanceMode]] is [[OnlineEventAttendanceMode]] (or the online aspects, in the case of a [[MixedEventAttendanceMode]]). </span>
   <span>domainIncludes: <a property="http://schema.org/domainIncludes" href="http://schema.org/Event">Event</a></span>
   <span>rangeIncludes: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Integer">Integer</a></span>
   <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
@@ -42,7 +38,8 @@
 <div typeof="rdf:Property" resource="http://schema.org/eventAttendanceMode">
   <span>Category: <span property="schema:category">issue-1842</span></span>
   <span class="h" property="rdfs:label">eventAttendanceMode</span>
-  <span property="rdfs:comment">The eventAttendanceMode of an event indicates whether it occurs online, offline, or a mix; and whether this has changed. Multiple values may be applicable to a single event.</span>
+  <span property="rdfs:comment">The eventAttendanceMode of an event indicates whether it occurs online, offline, or a mix.</span>
+   <!-- TODO: Multiple values may be applicable to a single event., add later if we have sync vs async distinction. -->
   <span>domainIncludes: <a property="http://schema.org/domainIncludes" href="http://schema.org/Event">Event</a></span>
   <span>rangeIncludes: <a property="http://schema.org/rangeIncludes" href="http://schema.org/EventAttendanceModeEnumeration">EventAttendanceModeEnumeration</a></span>
   <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
@@ -77,16 +74,16 @@
   <span>Source:  <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1842">#1842</a></span>
 </div>
 
-<div typeof="http://schema.org/EventAttendanceModeEnumeration" resource="http://schema.org/MixedEventAtttendanceMode">
+<div typeof="http://schema.org/EventAttendanceModeEnumeration" resource="http://schema.org/MixedEventAttendanceMode">
 <span>Category: <span property="schema:category">issue-1842</span></span>
-  <span class="h" property="rdfs:label">MixedEventAtttendanceMode</span>
-  <span property="rdfs:comment">MixedEventAtttendanceMode - an event that is conducted as a combination of both offline and online modes.</span>
+  <span class="h" property="rdfs:label">MixedEventAttendanceMode</span>
+  <span property="rdfs:comment">MixedEventAttendanceMode - an event that is conducted as a combination of both offline and online modes.</span>
   <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
   <span>Source:  <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/1842">#1842</a></span>
 </div>
 
 <!-- postpone for discussion with EDU/LRMI community. -->
-<!-- 
+<!--
 <div typeof="http://schema.org/EventAttendanceModeEnumeration" resource="http://schema.org/AsyncEventAtttendanceMode">
 <span>Category: <span property="schema:category">issue-1842</span></span>
   <span class="h" property="rdfs:label">AsyncEventAtttendanceMode</span>
@@ -106,15 +103,15 @@
 
 <!-- TODO: integrate this with /courseMode -->
 
-<!-- todo
+<!-- todo, add to event examples
 
 {
 "@context": "https://schema.org/",
 "@type": "Event",
 "name": "Noe Valley Yoga",
 "description": "Yoga at sunrise...blah blah.",
-"onlineOrOffOrBoth": "MixedOnlineOffline",
-"eventStatus": "ChangedToAllowOnlineParticipation",
+"eventAttendanceMode": "MixedEventAttendanceMode",
+"eventStatus": "EventMovedOnline",
 "location": [{
   "@type": "Place",
   "name": "Yoga club"
