@@ -134,7 +134,7 @@ ul {
 </tr>
 
 <tr>
-<td class="release"><a href="/version/7.0/">7.0</a><br/>2020-03-01</td>
+<td class="release"><a href="/version/7.0/">7.0</a><br/>2020-03-17</td>
 <td>
 <span id="v.next"></span>
 <span id="v7.0"></span>
@@ -148,10 +148,14 @@ Version 7.0. See <a href="https://github.com/schemaorg/schemaorg/issues/2453">pl
 <ul>
  <li id="g2448"><a href="https://github.com/schemaorg/schemaorg/issues/2448">Issue #2448</a>: Removed several largely un-used medical health properties whose names were inappropriately general:
      <em>action, background, cause, cost, function, indication, origin, outcome, overview, phase, population, purpose, source, subtype</em>. Note that we do not remove terms casually, but in the current case the usability consequences of keeping them in the system outweighed the benefits of retaining them, even if flagged as archived/superseded.</li>
+ <li id="g1842"><a href="https://github.com/schemaorg/schemaorg/issues/1842">Issue #1842</a>: Introduced a <a href="/VirtualLocation">VirtualLocation</a> type, to support description of <a href="/Event">Event</a>s whose <a href="location">location</a> is online.
+Added <a href="/eventAttendanceMode">eventAttendanceMode</a> to clarify the current attendance mode of an event (online, offline or a mix). Also added a new enumeration value for <a href="/eventStatus">eventStatus</a> for <a href="/Event">Event</a>: <a href="/EventMovedOnline">EventMovedOnline</a>.</li>
 </ul>
 <h3>Changes in <a href="http://pending.schema.org/">Pending</a> section:</h3>
 <ul>
-  <li id="g2460"><a href="https://github.com/schemaorg/schemaorg/issues/2460">Issue #2460</a>:Added properties to EducationalOccupationalProgram to support cases where it is not clear the distinction between classroom-based and work-based programs.</li>
+  <li id="g2490"><a href="https://github.com/schemaorg/schemaorg/issues/2490">Issue #2490</a>: Added (fast track) a <a href="/SpecialAnnouncement">SpecialAnnouncement</a> type with several properties and supporting documentation, as a contribution to the
+    global response to the COVID-19 Coronavirus pandemic. We expect to iterate on this design after implementator and publisher feedback.</li>
+  <li id="g2460"><a href="https://github.com/schemaorg/schemaorg/issues/2460">Issue #2460</a>: Added properties to EducationalOccupationalProgram to support cases where it is not clear the distinction between classroom-based and work-based programs.</li>
   <li id="g2373b"><a href="https://github.com/schemaorg/schemaorg/issues/2373">Issue #2373</a>:
 Added <a href="/petsAllowed">petsAllowed</a> for use with <a href="/ApartmentComplex">ApartmentComplex</a>,
 and <a href="/petsAllowed">petsAllowed</a>, <a href="/amenityFeature">amenityFeature</a> and <a href="/floorSize">floorSize</a>
