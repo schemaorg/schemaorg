@@ -88,7 +88,7 @@ then
             echo "Build static files before continuing!!"
             echo
             exit 1
-        elif [! -f "${DIR}/schema-all.html"]
+        elif [ ! -f "${DIR}/schema-all.html" ]
         then
             echo "creating schema-all.html file"
             ./scripts/buildreleasespage.py -o $DIR/schema-all.html
