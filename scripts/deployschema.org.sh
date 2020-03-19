@@ -46,5 +46,17 @@ then
     exit 1
 fi
 
+devpath=`which dev_appserver.py`
+if [ ! -z "$devpath" ]
+then
+    echo "Dev App Server located at $devpath"
+    APP_ENGINE=${devpath%%"/bin/dev_appserver.py"}
+    export APP_ENGINE="${APP_ENGINE}/platform/google_appengine/"
+    echo "Setting \$APP_ENGINE to '$APP_ENGINE"
+    echo 
+fi
+
+
+export SECUREHTTP="YES" #ensure we end up with a handlers.yaml with https redirects
 sdopythonapp/runscripts/runpythondeploy.sh $EXE $MIG -p schemaorgae -y schemaorg.yaml
 

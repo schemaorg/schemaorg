@@ -465,6 +465,7 @@ class SDOGraphSetupTestCase(unittest.TestCase):
             log.info("Term '%s' references term %s  as https " % (row["term"],row["target"]))
     self.assertEqual(len(nri1_results), 0, "Term defined as https  Found: %s" % len(nri1_results))
 
+
   @unittest.expectedFailure
   def test_EnumerationWithoutEnums(self):
     nri1= ('''select ?term where { 

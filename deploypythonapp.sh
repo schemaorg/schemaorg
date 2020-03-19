@@ -26,9 +26,25 @@ then
     exit 1
 fi
 
-echo "Checking sdopythonapp is upto date"
+if [[ $# -eq 1  && "$1" == "-devapp" ]]
+then
+    echo "Not synchronising 'sdopythonapp' with git"
+else
+    echo "Checking sdopythonapp is upto date"
+    git submodule update --remote
+fi
+echo
 
-git submodule update --remote
+devpath=`which dev_appserver.py`
+if [ ! -z "$devpath" ]
+then
+    echo "Dev App Server located at $devpath"
+    APP_ENGINE=${devpath%%"/bin/dev_appserver.py"}
+    export APP_ENGINE="${APP_ENGINE}/platform/google_appengine/"
+    echo "Setting \$APP_ENGINE to '$APP_ENGINE"
+    echo 
+fi
+
 
 
 sdopythonapp/runscripts/runpythondeploy.sh $@

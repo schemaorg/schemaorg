@@ -8,7 +8,7 @@ Code, schema, examples and supporting documentation should be in a stable state.
 Pay particular attention to release-specific structures and docs/releases.html
 (e.g. no stray '2.x', '2.*' etc. in hidden markup or tables)
 
-In sdoapp.py we declare the current version. This should match the number
+We declare the current version. This should match the number
 chosen in /docs/releases.html (check markup assigns an HTML ID too).
 
 The following steps assume a general healthy freeze (tested / QA as below).
@@ -16,20 +16,20 @@ The following steps assume a general healthy freeze (tested / QA as below).
 in versions.json:
 
     "schemaversion": "3.9",
-    "releaseLog": {  
+    "releaseLog": {
 .
 .
         "3.8": "2019-07-01",
-        "3.9": "2019-08-01" 
+        "3.9": "2019-08-01"
     }
 becomes
     "schemaversion": "4.0",
-    "releaseLog": {  
+    "releaseLog": {
 .
 .
         "3.8": "2019-07-01",
-        "3.9": "2019-08-01", 
-        "4.0": "2019-10-01" 
+        "3.9": "2019-08-01",
+        "4.0": "2019-10-01"
     }
 
 ... this should have a release date for the current release and all
@@ -105,7 +105,7 @@ e.g. see http://webschemas.org/docs/qa.html
 There is often some final tweaking, bugs, etc. When things settle down, a
 final round of sanity-check tests is useful:
 
-* Run again './scripts/buildreleasefiles.py' 
+* Run again './scripts/buildreleasefiles.py'
 
 
 Using gcloud deployment script
@@ -115,25 +115,25 @@ Use python deploment script:
 
         ./scripts/deployschema.org.sh - to deploy to main Schema.org site
         ./scripts/deploywebschemas.org.sh - to deploy to main webschemas.org site
-        
+
         * Choose Local option to deploy local configuration files
         * Choose Remote option to pull files from a URL (eg. the github repository)
-        
+
         * Provide an appropriate version string - different to currently running version
         * Optionally pass -e to bypass site exercise option
         * Optionally pass -m to bypass merge of new version
-        
-	
+
+
 Recommended Method For Making Release Live
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 For Webschema.org
     Use ./scripts/deploywebschemas.org.sh -e
-        No real benefit in exercising low traffic site 
-        
+        No real benefit in exercising low traffic site
+
 For Schema.org.
 
-    Either run ./scripts/deployschema.org.sh 
+    Either run ./scripts/deployschema.org.sh
         This will put the new site live when site exercise is complete (takes some time)
     or run ./scripts/deployschema.org.sh -m
         At some time after site exercise is complete login to console and manually migrate traffic
@@ -155,24 +155,10 @@ Note: If master has moved on from the the released version before tagging
 * Blog post.
 * There's a SPARQL database at DYDRA that can load NQuad dumps from
 https://github.com/schemaorg/schemaorg/blob/sdo-phobos/data/releases/2.2/all-layers.nq
-* Make a new per-release branch, reserve an appspot.com account for it.
-* Configure GitHub with the new default branch.
-  See https://github.com/schemaorg/schemaorg/settings/branches
 * Update issue tracker moving issues to new releases.
  * Close issues that were addressed in this release.
  * Make careful considered adjustment to expected release for the rest. Or
    just tag them all for the next release.
-* Update git release tags (TODO: we have no history of handling this yet).
-
-For example, if we are in 'master' and 'git status' shows it in a clean state,
-
-* git checkout -b sdo-deimos
-* This tells us we can do:
- *     git push --set-upstream origin sdo-deimos
-
-> To https://github.com/schemaorg/schemaorg.git
->  * [new branch]      sdo-deimos -> sdo-deimos
-> Branch sdo-deimos set up to track remote branch sdo-deimos from origin.
 
 TODO:
 

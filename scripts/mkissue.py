@@ -4,4 +4,4 @@
 import sys
 i = int(sys.argv[1])
 print i
-print ('<li id="%i"><a href="https://github.com/schemaorg/schemaorg/issues/%i">Issue #%i</a>:' % (i, i, i))
+print ('<li id="g%i"><a href="https://github.com/schemaorg/schemaorg/issues/%i">Issue #%i</a>:' % (i, i, i))
