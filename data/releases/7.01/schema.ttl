@@ -5683,9 +5683,13 @@ schema:dateModified a rdf:Property ;
 
 schema:datePosted a rdf:Property ;
     rdfs:label "datePosted" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/2490> ;
+    schema:category "issue-2490" ;
     schema:domainIncludes schema:JobPosting,
-        schema:RealEstateListing ;
-    schema:rangeIncludes schema:Date ;
+        schema:RealEstateListing,
+        schema:SpecialAnnouncement ;
+    schema:rangeIncludes schema:Date,
+        schema:DateTime ;
     rdfs:comment "Publication date of an online listing." .
 
 schema:datePublished a rdf:Property ;
