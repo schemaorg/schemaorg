@@ -21,7 +21,7 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(gc
 </script>
 <!-- ##### Generated insert [CSEScript-end] see scripts/genhtmlinserts.sh ##### --> 
 <!-- End headtags.tpl -->
-    <title>Full Release Summary: Schema.org - 7.02 - 2020-04-02</title>
+    <title>Full Release Summary: Schema.org - 7.02 - 2020-03-31</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Schema.org is a set of extensible schemas that enables webmasters to embed
     structured data on their web pages for use by search engines and other applications." />
@@ -90,7 +90,7 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(gc
  <dd><a href="http://schema.org/version/7.02/">http://schema.org/version/7.02/</a></dd>
 
  <dt>Published:</dt>
- <dd>2020-04-02</dd>
+ <dd>2020-03-31</dd>
 
  <dt>Alternate formats: </dt>
   <dd>
@@ -18279,25 +18279,24 @@ the kinds of everyday practical information being posted to existing websites du
 
 Several kinds of information can be provided:<br/><br/>
 
-We encourage the provision of "name", "text", "datePosted", "expires" (if appropriate) and
+We encourage the provision of "name", "text", "datePosted", "expires" (if appropriate), "category" and
 "url" as a simple baseline. It is important to provide a value for "category" where possible, most ideally as a well known
 URL from Wikipedia or Wikidata. In the case of the 2019-2020 Coronavirus pandemic, this should be "https://en.wikipedia.org/w/index.php?title=2019-20_coronavirus_pandemic" or "https://www.wikidata.org/wiki/Q81068910".<br/><br/>
 
 For many of the possible properties, values can either be simple links or an inline description, depending on whether a summary is available. For a link, provide just the URL of the appropriate page as the property's value. For an inline description, use a <a class="localLink" href="/WebContent">WebContent</a> type, and provide the url as a property of that, alongside at least a simple "<a class="localLink" href="/text">text</a>" summary of the page. It is
-unlikely that a single SpecialAnnouncement will need all of the possible properties simultaneously. More options may be added
-later if<br/><br/>
+unlikely that a single SpecialAnnouncement will need all of the possible properties simultaneously.<br/><br/>
 
-We expect that in many cases the page referenced might contain more specialized structured data, e.g. contact info, <a class="localLink" href="/openingHours">openingHours</a>, <a class="localLink" href="/Event">Event</a>, <a class="localLink" href="/FAQPage">FAQPage</a> etc. By linking to those pages from a <a class="localLink" href="/SpecialAnnouncement">SpecialAnnouncement</a> you can help make it clearer that the events are related to the situation
-(e.g. Coronavirus) indicated by the <a class="localLink" href="/category">category</a> property of the <a class="localLink" href="/SpecialAnnouncement">SpecialAnnouncement</a>.<br/><br/>
+We expect that in many cases the page referenced might contain more specialized structured data, e.g. contact info, <a class="localLink" href="/openingHours">openingHours</a>, <a class="localLink" href="/Event">Event</a>, <a class="localLink" href="/FAQPage">FAQPage</a> etc. By linking to those pages from a <a class="localLink" href="/SpecialAnnouncement">SpecialAnnouncement</a> you can help make it clearer that the events are related to the situation (e.g. Coronavirus) indicated by the <a class="localLink" href="/category">category</a> property of the <a class="localLink" href="/SpecialAnnouncement">SpecialAnnouncement</a>.<br/><br/>
+
+Many <a class="localLink" href="/SpecialAnnouncement">SpecialAnnouncement</a>s will relate to particular regions and to identifiable local organizations. Use <a class="localLink" href="/spatialCoverage">spatialCoverage</a> for the region, and <a class="localLink" href="/announcementLocation">announcementLocation</a> to indicate specific <a class="localLink" href="/LocalBusiness">LocalBusiness</a>es and <a class="localLink" href="/CivicStructures">CivicStructures</a>. If the announcement affects both a particular region and a specific location (for example, a library closure that serves an entire region), use both <a class="localLink" href="/spatialCoverage">spatialCoverage</a> and <a class="localLink" href="/announcementLocation">announcementLocation</a>.<br/><br/>
+
+The <a class="localLink" href="/about">about</a> property can be used to indicate entities that are the focus of the announcement. We now recommend using <a class="localLink" href="/about">about</a> only
+for representing non-location entities (e.g. a <a class="localLink" href="/Course">Course</a> or a <a class="localLink" href="/RadioStation">RadioStation</a>). For places, use <a class="localLink" href="/announcementLocation">announcementLocation</a> and <a class="localLink" href="/spatialCoverage">spatialCoverage</a>. Consumers of this markup should be aware that the initial design encouraged the use of /about for locations too.<br/><br/>
 
 The basic content of <a class="localLink" href="/SpecialAnnouncement">SpecialAnnouncement</a> is similar to that of an <a href="https://en.wikipedia.org/wiki/RSS">RSS</a> or <a href="https://en.wikipedia.org/wiki/Atom_(Web_standard)">Atom</a> feed. For publishers without such feeds, basic feed-like information can be shared by posting
 <a class="localLink" href="/SpecialAnnouncement">SpecialAnnouncement</a> updates in a page, e.g. using JSON-LD. For sites with Atom/RSS functionality, you can point to a feed
 with the <a class="localLink" href="/webFeed">webFeed</a> property. This can be a simple URL, or an inline <a class="localLink" href="/DataFeed">DataFeed</a> object, with <a class="localLink" href="/encodingFormat">encodingFormat</a> providing
-media type information e.g. "application/rss+xml" or "application/atom+xml".<br/><br/>
-
-For an announcement that is about a place, you can use <a class="localLink" href="/about">about</a> (or <a class="localLink" href="/mainEntity">mainEntity</a>) to make that relationship explicit.
-For example, the announcement could be "about" a new <a class="localLink" href="/CovidTestingFacility">CovidTestingFacility</a>, and provide contact information, <a class="localLink" href="/location">location</a>, <a class="localLink" href="/geo">geo</a>,
-<a class="localLink" href="/openingHours">openingHours</a> etc. </div>
+media type information e.g. "application/rss+xml" or "application/atom+xml". </div>
 
   <p>Properties used on this type: <ul class='props4type'><li><a href='#term_announcementLocation'>announcementLocation</a></li><li><a href='#term_category'>category</a></li><li><a href='#term_datePosted'>datePosted</a></li><li><a href='#term_diseasePreventionInfo'>diseasePreventionInfo</a></li><li><a href='#term_diseaseSpreadStatistics'>diseaseSpreadStatistics</a></li><li><a href='#term_gettingTestedInfo'>gettingTestedInfo</a></li><li><a href='#term_newsUpdatesAndGuidelines'>newsUpdatesAndGuidelines</a></li><li><a href='#term_publicTransportClosuresInfo'>publicTransportClosuresInfo</a></li><li><a href='#term_quarantineGuidelines'>quarantineGuidelines</a></li><li><a href='#term_schoolClosuresInfo'>schoolClosuresInfo</a></li><li><a href='#term_travelBans'>travelBans</a></li></ul>
 
