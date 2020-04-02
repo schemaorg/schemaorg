@@ -121,7 +121,7 @@ td {
 
 
 <p>The representation defined here is intended to be 1:1 with the original representation and <a href="https://en.wikipedia.org/wiki/Round-trip_format_conversion">round-trippable</a>. The <a href="https://www.cdc.gov/">CDC</a> document
-defines several data fields in a tabular format. These are represented in Schema.org as properties of an object of type CDCPatientDataTable.</p>
+defines several data fields in a tabular format. These are represented in Schema.org as properties of an object of type CDCPMDRecord.</p>
 
 <p id="cdc_authority">
   For all formal matters of interpretation for the properties listed in the table below, please refer to the source CDC documentation for authoritative definitions and official updates. This document (and accompanying schemas) may be updated in the future to track changes from CDC, but we cannot guarantee to do this immediately. Implementors are cautioned to check the CDC site for updates and clarifications. We expect that some aspects of the CDC definitions may change.
@@ -149,11 +149,11 @@ defines several data fields in a tabular format. These are represented in Schema
 <p>The following additions were made to Schema.org (in the Pending area, pending review and implementation feedback):</p>
 
 <ul>
-<li>1 new type: Thing &gt; Intangible &gt; StructuredValue &gt; CDCPatientDataTable</li>
+<li>1 new type: Thing &gt; Intangible &gt; StructuredValue &gt; CDCPMDRecord</li>
 <li>14 new properties: cvdCollectionDate, cvdNumBeds, cvdNumTotBeds, cvdNumBedsOcc, cvdNumICUBeds, cvdNumICUBedsOcc, cvdNumVent, cvdNumVentUse, cvdNumC19HospPats, cvdNumC19MechVentPats, cvdNumC19HOPats, cvdNumC19OverflowPats, cvdNumC19OFMechVentPats, cvdNumC19Died.</li>
 <li>TODO: we need to define a way to associate this structure with the relevant <a href="https://schema.org/Hospital">https://schema.org/Hospital</a>.<ul>
-<li>Add /hospitalStatistics property, linkingHospital to /CDCPatientDataTable</li>
-<li>Add /datePosted to the CDCPatientDataTable type.</li>
+<li>Add /hospitalStatistics property, linkingHospital to /CDCPMDRecord</li>
+<li>Add /datePosted to the CDCPMDRecord type.</li>
 </ul>
 </li>
 </ul>
