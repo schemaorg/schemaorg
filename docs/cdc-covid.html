@@ -149,19 +149,19 @@ defines several data fields in a tabular format. These are represented in Schema
 <p>The following additions were made to Schema.org (in the Pending area, pending review and implementation feedback):</p>
 
 <ul>
-<li>1 new type: Thing &gt; Intangible &gt; StructuredValue &gt; CDCPMDRecord</li>
-<li>14 new properties: cvdCollectionDate, cvdNumBeds, cvdNumTotBeds, cvdNumBedsOcc, cvdNumICUBeds, cvdNumICUBedsOcc, cvdNumVent, cvdNumVentUse, cvdNumC19HospPats, cvdNumC19MechVentPats, cvdNumC19HOPats, cvdNumC19OverflowPats, cvdNumC19OFMechVentPats, cvdNumC19Died.</li>
-<li>TODO: we need to define a way to associate this structure with the relevant <a href="https://schema.org/Hospital">https://schema.org/Hospital</a>.<ul>
-<li>Add /hospitalStatistics property, linkingHospital to /CDCPMDRecord</li>
-<li>Add /datePosted to the CDCPMDRecord type.</li>
-</ul>
-</li>
+
+<li>1 new type: Thing &gt; Intangible &gt; StructuredValue &gt; <a href="/CDCPMDRecord">CDCPMDRecord</a></li>
+
+<li>14 new properties: <a href="/cvdCollectionDate">cvdCollectionDate</a>, <a href="/cvdNumBeds">cvdNumBeds</a>, <a href="/cvdNumTotBeds">cvdNumTotBeds</a>, <a href="/cvdNumBedsOcc">cvdNumBedsOcc</a>, <a href="/cvdNumICUBeds">cvdNumICUBeds</a>, <a href="/cvdNumICUBedsOcc">cvdNumICUBedsOcc</a>, <a href="/cvdNumVent">cvdNumVent</a>, <a href="/cvdNumVentUse">cvdNumVentUse</a>, <a href="/cvdNumC19HospPats">cvdNumC19HospPats</a>, <a href="/cvdNumC19MechVentPats">cvdNumC19MechVentPats</a>, <a href="/cvdNumC19HOPats">cvdNumC19HOPats</a>, <a href="/cvdNumC19OverflowPats">cvdNumC19OverflowPats</a>, <a href="/cvdNumC19OFMechVentPats">cvdNumC19OFMechVentPats</a>, <a href="/cvdNumC19Died">cvdNumC19Died</a>.</li>
+
+<li>In addition, a new <a href="/healthcareReportingData">healthcareReportingData</a> property can be used to relate a <a href="/Hospital">Hospital</a> to a <a href="/CDCPMDRecord">CDCPMDRecord</a>.</li>
+<li>The <a href="/datePosted">datePosted</a> property can also be used on a <a href="/CDCPMDRecord">CDCPMDRecord</a>.</li>
 </ul>
 
 <p>New properties: this adds several new properties (see "Schema.org name" column). Most are Number (with additional application-level constraints summarized in "Notes" column).  </p>
 
 <p>The reason for prefixing each name  with cvd is to avoid clashing with similar or identical names already in use at Schema.org. For example, <a href="https://schema.org/numberOfBeds">https://schema.org/numberOfBeds</a> already exists for describing hotel rooms, apartments etc.; for the COVID-19 case it is simplest to keep things relatively self-contained.</p>
-
+<p><br/></p>
 <table class="style0">
 <thead>
 <tr>
@@ -193,10 +193,10 @@ Original date format for collectiondate was mm/dd/yyyy, which can be ambiguous o
 <br/>
 0 to 10000<br/>
 <br/>
-Must be a whole number <br/>
+Must be a whole number<br/>
 <br/>
 Must be &lt;= numTotBeds </td>
-<td>HOSPITAL INPATIENT BEDS: Inpatient beds, including all staffed, licensed, and overflow (surge) beds used for inpatients .</td>
+<td>HOSPITAL INPATIENT BEDS: Inpatient beds, including all staffed, licensed, and overflow (surge) beds used for inpatients.</td>
 </tr>
 <tr>
 <td>numtotbeds</td>
@@ -205,7 +205,7 @@ Must be &lt;= numTotBeds </td>
 <td>Must be a whole number<br/>
 <br/>
 0 to 10000</td>
-<td>ALL HOSPITAL BEDS: Total number of all Inpatient and outpatient beds, including all staffed,ICU, licensed, and overflow (surge) beds used for inpatients or outpatients </td>
+<td>ALL HOSPITAL BEDS: Total number of all Inpatient and outpatient beds, including all staffed,ICU, licensed, and overflow (surge) beds used for inpatients or outpatients.</td>
 </tr>
 <tr>
 <td>numbedsocc</td>
@@ -249,7 +249,7 @@ Must be &lt;= numICUBeds </td>
 Must be a whole number <br/>
 <br/>
 Must be &lt;= numTotBeds or &lt;= 10,000 </td>
-<td>MECHANICAL VENTILATORS: Total number of ventilators available</td>
+<td>MECHANICAL VENTILATORS: Total number of ventilators available.</td>
 </tr>
 <tr>
 <td>numventuse</td>
@@ -260,7 +260,7 @@ Must be &lt;= numTotBeds or &lt;= 10,000 </td>
 Must be a whole number <br/>
 <br/>
 Must be &lt;= numVent or &lt;= 10,000 </td>
-<td>MECHANICAL VENTILATORS IN USE: Total number of ventilators in use </td>
+<td>MECHANICAL VENTILATORS IN USE: Total number of ventilators in use.</td>
 </tr>
 <tr>
 <td>numc19hosppats</td>
@@ -271,7 +271,7 @@ Must be &lt;= numVent or &lt;= 10,000 </td>
 Must be a whole number <br/>
 <br/>
 Must be &lt;= numBedsOcc </td>
-<td>HOSPITALIZED: Patients currently hospitalized in an inpatient care location who have suspected or confirmed COVID-19</td>
+<td>HOSPITALIZED: Patients currently hospitalized in an inpatient care location who have suspected or confirmed COVID-19.</td>
 </tr>
 <tr>
 <td>numc19mechventpats</td>
@@ -282,7 +282,7 @@ Must be &lt;= numBedsOcc </td>
 Must be a whole number <br/>
 <br/>
 Must be &lt;= numVentUse</td>
-<td>HOSPITALIZED and VENTILATED: Patients hospitalized in an NHSN inpatient care location who have suspected or confirmed COVID-19 and are on a mechanical ventilator </td>
+<td>HOSPITALIZED and VENTILATED: Patients hospitalized in an NHSN inpatient care location who have suspected or confirmed COVID-19 and are on a mechanical ventilator.</td>
 </tr>
 <tr>
 <td>numc19hopats</td>
@@ -290,7 +290,7 @@ Must be &lt;= numVentUse</td>
 <td>Number</td>
 <td>0 to 10000<br/>
 <br/>
-Must be a whole number <br/>
+Must be a whole number<br/>
 <br/>
 Must be &lt;= numBedsOcc </td>
 <td>HOSPITAL ONSET: Patients hospitalized in an NHSN inpatient care location with onset of suspected or confirmed COVID-19 14 or more days after hospitalization.</td>
@@ -327,13 +327,6 @@ Must be a whole number <br/>
 <br/>
 Must be &lt;= 1500</td>
 <td>DEATHS: Patients with suspected or confirmed COVID-19 who died in the hospital, ED, or any overflow location.</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
 </tr>
 </tbody>
 </table>
