@@ -14,13 +14,13 @@
       },
       "http://schema.org/domainIncludes": [
         {
-          "@id": "http://schema.org/ComicIssue"
-        },
-        {
           "@id": "http://schema.org/VisualArtwork"
         },
         {
           "@id": "http://schema.org/ComicStory"
+        },
+        {
+          "@id": "http://schema.org/ComicIssue"
         }
       ],
       "http://schema.org/isPartOf": {
@@ -92,25 +92,24 @@
       }
     },
     {
-      "@id": "http://schema.org/variantCover",
+      "@id": "http://schema.org/translationOfWork",
       "@type": "rdf:Property",
-      "http://schema.org/category": {
-        "@language": "en",
-        "@value": "Comics"
-      },
       "http://schema.org/domainIncludes": {
-        "@id": "http://schema.org/ComicIssue"
+        "@id": "http://schema.org/CreativeWork"
+      },
+      "http://schema.org/inverseOf": {
+        "@id": "http://schema.org/workTranslation"
       },
       "http://schema.org/isPartOf": {
         "@id": "http://bib.schema.org"
       },
       "http://schema.org/rangeIncludes": {
-        "@id": "http://schema.org/Text"
+        "@id": "http://schema.org/CreativeWork"
       },
-      "rdfs:comment": "A description of the variant cover\n    for the issue, if the issue is a variant printing. For example, \"Bryan Hitch\n    Variant Cover\" or \"2nd Printing Variant\".",
+      "rdfs:comment": "The work that this work has been translated from. e.g. 物种起源 is a translationOf “On the Origin of Species”",
       "rdfs:label": {
         "@language": "en",
-        "@value": "variantCover"
+        "@value": "translationOfWork"
       }
     },
     {
@@ -178,10 +177,10 @@
       },
       "rdfs:subClassOf": [
         {
-          "@id": "http://schema.org/ComicStory"
+          "@id": "http://schema.org/CoverArt"
         },
         {
-          "@id": "http://schema.org/CoverArt"
+          "@id": "http://schema.org/ComicStory"
         }
       ]
     },
@@ -215,10 +214,10 @@
       },
       "http://schema.org/rangeIncludes": [
         {
-          "@id": "http://schema.org/Person"
+          "@id": "http://schema.org/Organization"
         },
         {
-          "@id": "http://schema.org/Organization"
+          "@id": "http://schema.org/Person"
         }
       ],
       "rdfs:comment": "An agent associated with the publication event.",
@@ -249,24 +248,25 @@
       }
     },
     {
-      "@id": "http://schema.org/translationOfWork",
+      "@id": "http://schema.org/variantCover",
       "@type": "rdf:Property",
-      "http://schema.org/domainIncludes": {
-        "@id": "http://schema.org/CreativeWork"
+      "http://schema.org/category": {
+        "@language": "en",
+        "@value": "Comics"
       },
-      "http://schema.org/inverseOf": {
-        "@id": "http://schema.org/workTranslation"
+      "http://schema.org/domainIncludes": {
+        "@id": "http://schema.org/ComicIssue"
       },
       "http://schema.org/isPartOf": {
         "@id": "http://bib.schema.org"
       },
       "http://schema.org/rangeIncludes": {
-        "@id": "http://schema.org/CreativeWork"
+        "@id": "http://schema.org/Text"
       },
-      "rdfs:comment": "The work that this work has been translated from. e.g. 物种起源 is a translationOf “On the Origin of Species”",
+      "rdfs:comment": "A description of the variant cover\n    for the issue, if the issue is a variant printing. For example, \"Bryan Hitch\n    Variant Cover\" or \"2nd Printing Variant\".",
       "rdfs:label": {
         "@language": "en",
-        "@value": "translationOfWork"
+        "@value": "variantCover"
       }
     },
     {
@@ -336,13 +336,13 @@
       },
       "http://schema.org/domainIncludes": [
         {
+          "@id": "http://schema.org/VisualArtwork"
+        },
+        {
           "@id": "http://schema.org/ComicStory"
         },
         {
           "@id": "http://schema.org/ComicIssue"
-        },
-        {
-          "@id": "http://schema.org/VisualArtwork"
         }
       ],
       "http://schema.org/isPartOf": {
@@ -453,10 +453,10 @@
           "@id": "http://schema.org/ComicIssue"
         },
         {
-          "@id": "http://schema.org/ComicStory"
+          "@id": "http://schema.org/VisualArtwork"
         },
         {
-          "@id": "http://schema.org/VisualArtwork"
+          "@id": "http://schema.org/ComicStory"
         }
       ],
       "http://schema.org/isPartOf": {
@@ -501,10 +501,10 @@
       },
       "http://schema.org/domainIncludes": [
         {
-          "@id": "http://schema.org/ComicIssue"
+          "@id": "http://schema.org/VisualArtwork"
         },
         {
-          "@id": "http://schema.org/VisualArtwork"
+          "@id": "http://schema.org/ComicIssue"
         },
         {
           "@id": "http://schema.org/ComicStory"

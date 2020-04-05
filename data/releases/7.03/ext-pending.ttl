@@ -1595,6 +1595,24 @@ schema:cvdCollectionDate a rdf:Property ;
         schema:Text ;
     rdfs:comment "collectiondate - Date for which patient counts are reported." .
 
+schema:cvdFacilityCounty a rdf:Property ;
+    rdfs:label "cvdFacilityCounty" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/2521> ;
+    schema:category "issue-2521" ;
+    schema:domainIncludes schema:CDCPMDRecord ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:Text ;
+    rdfs:comment "Name of the County of the NHSN facility that this data record applies to. Use <a class=\"localLink\" href=\"http://schema.org/cvdFacilityId\">cvdFacilityId</a> to identify the facility. To provide other details, <a class=\"localLink\" href=\"http://schema.org/healthcareReportingData\">healthcareReportingData</a> can be used on a <a class=\"localLink\" href=\"http://schema.org/Hospital\">Hospital</a> entry." .
+
+schema:cvdFacilityId a rdf:Property ;
+    rdfs:label "cvdFacilityId" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/2521> ;
+    schema:category "issue-2521" ;
+    schema:domainIncludes schema:CDCPMDRecord ;
+    schema:isPartOf <http://pending.schema.org> ;
+    schema:rangeIncludes schema:Text ;
+    rdfs:comment "Identifier of the NHSN facility that this data record applies to. Use <a class=\"localLink\" href=\"http://schema.org/cvdFacilityCounty\">cvdFacilityCounty</a> to indicate the county. To provide other details, <a class=\"localLink\" href=\"http://schema.org/healthcareReportingData\">healthcareReportingData</a> can be used on a <a class=\"localLink\" href=\"http://schema.org/Hospital\">Hospital</a> entry." .
+
 schema:cvdNumBeds a rdf:Property ;
     rdfs:label "cvdNumBeds" ;
     dct:source <https://github.com/schemaorg/schemaorg/issues/2521> ;
