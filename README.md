@@ -11,11 +11,11 @@ join the group at the [W3C](https://www.w3.org/community/schemaorg/), introduce 
 
 There is also a [Travis-CI integration](https://travis-ci.org/schemaorg/schemaorg) to check incoming pull requests.
 
-[Issue #1](https://github.com/schemaorg/schemaorg/issues/1) in Github is an entry point for release planning. It
+[Issue #1](https://github.com/schemaorg/schemaorg/issues/1) in GitHub is an entry point for release planning. It
 should provide an overview of upcoming work, in terms of broad themes, specific issues and release milestones.
 
 With every release, we change the default Github branch to match the code name for the release.
-[Issue #1](https://github.com/schemaorg/schemaorg/issues/1) will link to per-release entry points, or else navigate issues via label or milestone within Github.
+[Issue #1](https://github.com/schemaorg/schemaorg/issues/1) will link to per-release entry points, or else navigate issues via label or milestone within GitHub.
 Every change to the site comes via discussions here. Substantive changes are recorded in our [release notes](https://schema.org/docs/releases.html).
 A preview of the [draft new release notes](http://webschemas.org/docs/releases.html) can be found as part of the test site for our next release.
 Every month or so, after final review by the Schema.org Steering Group and wider community, we make a formal release.
