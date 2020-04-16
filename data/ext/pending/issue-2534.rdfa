@@ -1,34 +1,39 @@
 <div>
 
+<!--
+Final April 15 redesign notes (see github for history):
+- Simplifying everything
+- BenefitsInfoSpecification goes away
+- serviceType acquires GovernmentBenefitsType as one of its value types (previously CovidBenefitsType)
+- at some later point we will want to make subtypes (or sibling types) per country or state
+-->
+
+<div typeof="rdf:Property" resource="http://schema.org/serviceType">
+<a property="http://schema.org/domainIncludes" href="http://schema.org/GovernmentBenefitsType">GovernmentBenefitsType</a>
+</div>
+
 <div typeof="rdf:Property" resource="http://schema.org/governmentBenefitsInfo">
   <span>Category: <span property="schema:category">issue-2534</span></span>
   <span class="h" property="rdfs:label">governmentBenefitsInfo</span>
-  <span property="rdfs:comment">governmentBenefitsInfo contains information about government benefits.</span>
+  <span property="rdfs:comment">governmentBenefitsInfo provides information about government benefits associated with a SpecialAnnouncement.</span>
   <span>domainIncludes: <a property="http://schema.org/domainIncludes" href="http://schema.org/SpecialAnnouncement">SpecialAnnouncement</a></span>
-  <span>rangeIncludes: <a property="http://schema.org/rangeIncludes" href="http://schema.org/BenefitsInfoSpecification">BenefitsInfoSpecification</a></span>
+  <span>rangeIncludes: <a property="http://schema.org/rangeIncludes" href="http://schema.org/GovernmentService">GovernmentService</a></span>
   <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
   <span>Source:  <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/2534">#2534</a></span>
 </div>
 
-<div typeof="rdfs:Class" resource="http://schema.org/BenefitsInfoSpecification">
-<span>Category: <span property="schema:category">issue-2534</span></span>
-  <span class="h" property="rdfs:label">BenefitsInfoSpecification</span>
-  <span property="rdfs:comment">A BenefitsInfoSpecification provides information about a particular benefit offered.</span>
-  <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Intangible">Intangible</a></span>
-  <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
-  <span>Source:  <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/2534">#2534</a></span>
-</div>
 
-<div typeof="rdfs:Class" resource="http://schema.org/CovidBenefitsType">
+
+<div typeof="rdfs:Class" resource="http://schema.org/GovernmentBenefitsType">
   <span>Category: <span property="schema:category">issue-2534</span></span>
-  <span class="h" property="rdfs:label">CovidBenefitsType</span>
-  <span property="rdfs:comment">CovidBenefitsType enumerates several kinds of government benefits to support the COVID-19 situation. Note that this structure may not capture all benefits offered.</span>
+  <span class="h" property="rdfs:label">GovernmentBenefitsType</span>
+  <span property="rdfs:comment">GovernmentBenefitsType enumerates several kinds of government benefits to support the COVID-19 situation. Note that this structure may not capture all benefits offered.</span>
   <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Enumeration">Enumeration</a></span>
   <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
   <span>Source:  <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/2534">#2534</a></span>
 </div>
 
-<div typeof="http://schema.org/CovidBenefitsType" resource="http://schema.org/UnemploymentSupport">
+<div typeof="http://schema.org/GovernmentBenefitsType" resource="http://schema.org/UnemploymentSupport">
   <span>Category: <span property="schema:category">issue-2534</span></span>
   <span class="h" property="rdfs:label">UnemploymentSupport</span>
   <span property="rdfs:comment">UnemploymentSupport: this is a benefit for unemployment support.</span>
@@ -36,7 +41,7 @@
   <span>Source:  <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/2534">#2534</a></span>
 </div>
 
-<div typeof="http://schema.org/CovidBenefitsType" resource="http://schema.org/BusinessSupport">
+<div typeof="http://schema.org/GovernmentBenefitsType" resource="http://schema.org/BusinessSupport">
   <span>Category: <span property="schema:category">issue-2534</span></span>
   <span class="h" property="rdfs:label">BusinessSupport</span>
   <span property="rdfs:comment">BusinessSupport: this is a benefit for supporting businesses.</span>
@@ -44,7 +49,7 @@
   <span>Source:  <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/2534">#2534</a></span>
 </div>
 
-<div typeof="http://schema.org/CovidBenefitsType" resource="http://schema.org/OneTimePayments">
+<div typeof="http://schema.org/GovernmentBenefitsType" resource="http://schema.org/OneTimePayments">
   <span>Category: <span property="schema:category">issue-2534</span></span>
   <span class="h" property="rdfs:label">OneTimePayments</span>
   <span property="rdfs:comment">OneTimePayments: this is a benefit for one-time payments for individuals.</span>
@@ -52,7 +57,7 @@
   <span>Source:  <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/2534">#2534</a></span>
 </div>
 
-<div typeof="http://schema.org/CovidBenefitsType" resource="http://schema.org/PaidLeave">
+<div typeof="http://schema.org/GovernmentBenefitsType" resource="http://schema.org/PaidLeave">
   <span>Category: <span property="schema:category">issue-2534</span></span>
   <span class="h" property="rdfs:label">PaidLeave</span>
   <span property="rdfs:comment">PaidLeave: this is a benefit for paid leave.</span>
@@ -60,7 +65,7 @@
   <span>Source:  <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/2534">#2534</a></span>
 </div>
 
-<div typeof="http://schema.org/CovidBenefitsType" resource="http://schema.org/ParentalSupport">
+<div typeof="http://schema.org/GovernmentBenefitsType" resource="http://schema.org/ParentalSupport">
   <span>Category: <span property="schema:category">issue-2534</span></span>
   <span class="h" property="rdfs:label">ParentalSupport</span>
   <span property="rdfs:comment">ParentalSupport: this is a benefit for parental support.</span>
@@ -68,7 +73,7 @@
   <span>Source:  <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/2534">#2534</a></span>
 </div>
 
-<div typeof="http://schema.org/CovidBenefitsType" resource="http://schema.org/DisabilitySupport">
+<div typeof="http://schema.org/GovernmentBenefitsType" resource="http://schema.org/DisabilitySupport">
   <span>Category: <span property="schema:category">issue-2534</span></span>
   <span class="h" property="rdfs:label">DisabilitySupport</span>
   <span property="rdfs:comment">DisabilitySupport: this is a benefit for disability support.</span>
@@ -76,7 +81,7 @@
   <span>Source:  <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/2534">#2534</a></span>
 </div>
 
-<div typeof="http://schema.org/CovidBenefitsType" resource="http://schema.org/HealthCare">
+<div typeof="http://schema.org/GovernmentBenefitsType" resource="http://schema.org/HealthCare">
   <span>Category: <span property="schema:category">issue-2534</span></span>
   <span class="h" property="rdfs:label">HealthCare</span>
   <span property="rdfs:comment">HealthCare: this is a benefit for health care.</span>
@@ -84,7 +89,7 @@
   <span>Source:  <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/2534">#2534</a></span>
 </div>
 
-<div typeof="http://schema.org/CovidBenefitsType" resource="http://schema.org/BasicIncome">
+<div typeof="http://schema.org/GovernmentBenefitsType" resource="http://schema.org/BasicIncome">
   <span>Category: <span property="schema:category">issue-2534</span></span>
   <span class="h" property="rdfs:label">BasicIncome</span>
   <span property="rdfs:comment">BasicIncome: this is a benefit for basic income.</span>
@@ -97,7 +102,7 @@
   <span class="h" property="rdfs:label">benefitsType</span>
   <span property="rdfs:comment">Indicates the kind of benefit described.</span>
   <span>domainIncludes: <a property="http://schema.org/domainIncludes" href="http://schema.org/BenefitsInfoSpecification">BenefitsInfoSpecification</a></span>
-  <span>rangeIncludes: <a property="http://schema.org/rangeIncludes" href="http://schema.org/CovidBenefitsType">CovidBenefitsType</a></span>
+  <span>rangeIncludes: <a property="http://schema.org/rangeIncludes" href="http://schema.org/GovernmentBenefitsType">GovernmentBenefitsType</a></span>
   <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
   <span>Source:  <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/2534">#2534</a></span>
 </div>
@@ -125,7 +130,7 @@
 </div>
 
 <div typeof="rdf:Property" resource="http://schema.org/legislationJurisdiction">
-<link property="rdfs:subPropertyOf" href="http://schema.org/legislation" />
+<link property="rdfs:subPropertyOf" href="http://schema.org/jurisdiction" />
 </div>
 
 <div typeof="rdf:Property" resource="http://schema.org/jurisdiction">
