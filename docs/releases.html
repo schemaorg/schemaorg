@@ -156,15 +156,12 @@ improvements relating to the COVID-19 response effort.
 <h3>Changes in <a href="http://pending.schema.org/">Pending</a> section:</h3>
 <ul>
 
-  <li id="g2534"><a href="https://github.com/schemaorg/schemaorg/issues/2534">Issue #2534</a>: Added vocabulary for describing government benefits:
-
-    <a href="/governmentBenefitsInfo">governmentBenefitsInfo</a> (for use on <a href="/SpecialAnnouncement">SpecialAnnouncement</a>),
-    <a href="/BenefitsInfoSpecification">BenefitsInfoSpecification</a>,
-    <a href="/benefitsType">benefitsType</a>, <a href="/benefitsFrom">benefitsFrom</a>,
-    <a href="/beneficiaryType">beneficiaryType</a>,
-    and <a href="/CovidBenefitsType">CovidBenefitsType</a> which enumerates several kinds of government benefits to support the COVID-19 situation.
-    We anticipate adding more structure here in future to better capture per-country systems and new kinds of benefit. As part of this
-    we introduce a <a href="/jurisdiction">jurisdiction</a> property as a superproperty of <a href="/legislationJurisdiction">legislationJurisdiction</a>.
+  <li id="g2534"><a href="https://github.com/schemaorg/schemaorg/issues/2534">Issue #2534</a>: Improved vocabulary for describing government benefits
+    in the context of a <a href="/SpecialAnnouncement">SpecialAnnouncement</a>. A new <a href="/governmentBenefitsInfo">governmentBenefitsInfo</a> property
+    can now reference a <a href="/GovernmentService">GovernmentService</a>. The existing <a href="/serviceType">serviceType</a> property can now
+    optionally use enumerated values from <a href="/GovernmentBenefitsType">GovernmentBenefitsType</a>. This enumerates several kinds of government benefits.
+    While the list is general purpose, our priority is to support the COVID-19 response. We anticipate adding more structure here in future to better capture per-country systems and new kinds of benefit. As part of this work
+    we also introduce a <a href="/jurisdiction">jurisdiction</a> property as a superproperty of <a href="/legislationJurisdiction">legislationJurisdiction</a>.
   </li>
 
   <li id="g2536"><a href="https://github.com/schemaorg/schemaorg/issues/2536">Issue #2536</a>: Fixed a bug in the amended definition for <a href="/category">category</a>.</li>
