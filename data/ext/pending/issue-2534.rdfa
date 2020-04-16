@@ -107,28 +107,6 @@ Final April 15 redesign notes (see github for history):
   <span>Source:  <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/2534">#2534</a></span>
 </div>
 
-#should the range be GovernmentService?
-<div typeof="rdf:Property" resource="http://schema.org/benefitsFrom">
-  <span>Category: <span property="schema:category">issue-2534</span></span>
-  <span class="h" property="rdfs:label">benefitsFrom</span>
-  <span property="rdfs:comment">Indicates the entity which provides the benefit.</span>
-  <span>domainIncludes: <a property="http://schema.org/domainIncludes" href="http://schema.org/BenefitsInfoSpecification">BenefitsInfoSpecification</a></span>
-  <span>rangeIncludes: <a property="http://schema.org/rangeIncludes" href="http://schema.org/GovernmentService">GovernmentService</a></span>
-  <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
-  <span>Source:  <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/2534">#2534</a></span>
-</div>
-
-#should beneficiaryType range be a list of enums too? How do I take properties from audience without rewriting it all?
-<div typeof="rdf:Property" resource="http://schema.org/beneficiaryType">
-  <span>Category: <span property="schema:category">issue-2534</span></span>
-  <span class="h" property="rdfs:label">beneficiaryType</span>
-  <span property="rdfs:comment">Indicates the audience who qualifies for the benefit.</span>
-  <span>domainIncludes: <a property="http://schema.org/domainIncludes" href="http://schema.org/BenefitsInfoSpecification">BenefitsInfoSpecification</a></span>
-  <span>rangeIncludes: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
-  <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
-  <span>Source:  <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/2534">#2534</a></span>
-</div>
-
 <div typeof="rdf:Property" resource="http://schema.org/legislationJurisdiction">
 <link property="rdfs:subPropertyOf" href="http://schema.org/jurisdiction" />
 </div>
@@ -136,9 +114,9 @@ Final April 15 redesign notes (see github for history):
 <div typeof="rdf:Property" resource="http://schema.org/jurisdiction">
   <span>Category: <span property="schema:category">issue-2534</span></span>
   <span class="h" property="rdfs:label">jurisdiction</span>
-  <span property="rdfs:comment">Indicates a legal jurisdiction, e.g. of some legislation, or where some social benefit is applicable.</span>
+  <span property="rdfs:comment">Indicates a legal jurisdiction, e.g. of some legislation, or where some government service is based.</span>
   <span>domainIncludes: <a property="http://schema.org/domainIncludes" href="http://schema.org/Legislation">Legislation</a></span>
-  <span>domainIncludes: <a property="http://schema.org/domainIncludes" href="http://schema.org/BenefitsInfoSpecification">BenefitsInfoSpecification</a></span>
+  <span>domainIncludes: <a property="http://schema.org/domainIncludes" href="http://schema.org/GovernmentService">GovernmentService</a></span>
   <span>rangeIncludes: <a property="http://schema.org/rangeIncludes" href="http://schema.org/AdministrativeArea">AdministrativeArea</a></span>
   <span>rangeIncludes: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
   <span>rangeIncludes: <a property="http://schema.org/rangeIncludes" href="http://schema.org/AdministrativeArea">AdministrativeArea</a></span>
