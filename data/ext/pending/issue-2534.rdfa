@@ -8,10 +8,6 @@ Final April 15 redesign notes (see github for history):
 - at some later point we will want to make subtypes (or sibling types) per country or state
 -->
 
-<div typeof="rdf:Property" resource="http://schema.org/serviceType">
-<a property="http://schema.org/domainIncludes" href="http://schema.org/GovernmentBenefitsType">GovernmentBenefitsType</a>
-</div>
-
 <div typeof="rdf:Property" resource="http://schema.org/governmentBenefitsInfo">
   <span>Category: <span property="schema:category">issue-2534</span></span>
   <span class="h" property="rdfs:label">governmentBenefitsInfo</span>
@@ -22,7 +18,9 @@ Final April 15 redesign notes (see github for history):
   <span>Source:  <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/2534">#2534</a></span>
 </div>
 
-
+<div typeof="rdf:Property" resource="http://schema.org/serviceType">
+  <a property="http://schema.org/rangeIncludes" href="http://schema.org/GovernmentBenefitsType">GovernmentBenefitsType</a>
+</div>
 
 <div typeof="rdfs:Class" resource="http://schema.org/GovernmentBenefitsType">
   <span>Category: <span property="schema:category">issue-2534</span></span>
