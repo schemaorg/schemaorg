@@ -126,6 +126,7 @@ ul {
 <br/>
 
 <div class="scroll-div">
+<span id="v.next"></span>
 <table class="grid">
 <tr>
     <th>Release</th>
@@ -134,10 +135,49 @@ ul {
 </tr>
 
 
+
+<tr>
+<td class="release"><a href="/version/7.04/">7.04</a><br/>2020-04-16</td>
+<td>
+<span id="v7.04"></span>
+<p>
+Version 7.04. See <a href="https://github.com/schemaorg/schemaorg/issues/2522">planning pages</a>. This was a minor release, with
+improvements relating to the COVID-19 response effort.
+</p>
+</td>
+<td>
+<h2>Vocabulary</h2>
+
+<h3>Changes in Core section:</h3>
+<ul>
+  <li id="g2540"><a href="https://github.com/schemaorg/schemaorg/issues/2540">Issue #2540</a>: <a href="/EducationalOrganization">EducationalOrganization</a> has an additional supertype of <a href="/CivicStructure">CivicStructure</a>, clarifying that it can be used with <a href="/announcementLocation">announcementLocation</a>.</li>
+</ul>
+
+<h3>Changes in <a href="http://pending.schema.org/">Pending</a> section:</h3>
+<ul>
+
+  <li id="g2534"><a href="https://github.com/schemaorg/schemaorg/issues/2534">Issue #2534</a>: Improved vocabulary for describing government benefits
+    in the context of a <a href="/SpecialAnnouncement">SpecialAnnouncement</a>. A new <a href="/governmentBenefitsInfo">governmentBenefitsInfo</a> property
+    can now reference a <a href="/GovernmentService">GovernmentService</a>. The existing <a href="/serviceType">serviceType</a> property can now
+    optionally use enumerated values from <a href="/GovernmentBenefitsType">GovernmentBenefitsType</a>. This enumerates several kinds of government benefits.
+    While the list is general purpose, our priority is to support the COVID-19 response. We anticipate adding more structure here in future to better capture per-country systems and new kinds of benefit. As part of this work
+    we also introduce a <a href="/jurisdiction">jurisdiction</a> property as a superproperty of <a href="/legislationJurisdiction">legislationJurisdiction</a>.
+  </li>
+
+  <li id="g2536"><a href="https://github.com/schemaorg/schemaorg/issues/2536">Issue #2536</a>: Fixed a bug in the amended definition for <a href="/category">category</a>.</li>
+
+  <li id="g2526"><a href="https://github.com/schemaorg/schemaorg/issues/2526">Issue #2626</a>: Add a <a href="/Hackathon">Hackathon</a> type.</li>
+
+  <li id="g2493"><a href="https://github.com/schemaorg/schemaorg/issues/2493">Issue #2493</a>: Add <a href="/startTime">startTime</a>/<a href="/endTime">endTime</a> to <a href="/Schedule">Schedule</a>.</li>
+</ul>
+
+</td>
+</tr>
+
+
 <tr>
 <td class="release"><a href="/version/7.03/">7.03</a><br/>2020-04-02</td>
 <td>
-<span id="v.next"></span>
 <span id="v7.03"></span>
 <p>
 Version 7.03. See <a href="https://github.com/schemaorg/schemaorg/issues/2522">planning pages</a>. This was a minor release, with
