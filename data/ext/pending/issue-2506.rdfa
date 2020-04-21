@@ -1,0 +1,197 @@
+<div>
+
+
+
+    <div typeof="rdfs:Class" resource="http://schema.org/OfferShippingDetails">
+      <span>Category: <span property="schema:category">issue-2506</span></span>
+      <span class="h" property="rdfs:label">OfferShippingDetails</span>
+      <span property="rdfs:comment">OfferShippingDetails represents information about shipping destinations.
+
+Multiple of these entities can be used to represent different shipping rates for different destinations:
+
+One entity for Alaska/Hawaii. A different one for continental US.A different one for all France.
+
+Multiple of these entities can be used to represent different shipping costs and delivery times.
+
+Two entities that are identical but differ in rate and time:
+
+e.g. Cheaper and slower: $5 in 5-7days
+or Fast and expensive: $15 in 1-2 days
+</span>
+      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/StructuredValue">StructuredValue</a></span>
+      <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
+      <span>Source:  <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/2506">#2506</a></span>
+    </div>
+
+
+
+    <div typeof="rdfs:Class" resource="http://schema.org/DefinedRegion">
+      <span>Category: <span property="schema:category">issue-2506</span></span>
+      <span class="h" property="rdfs:label">DefinedRegion</span>
+      <span property="rdfs:comment">A DefinedRegion is a geographic area defined by potentially arbitrary (rather than political, administrative or natural geographical) criteria. Properties are provided for defining a region by reference to sets of postal codes.</span>
+      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/StructuredValue">StructuredValue</a></span>
+      <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
+      <span>Source:  <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/2506">#2506</a></span>
+    </div>
+
+
+    <div typeof="rdf:Property" resource="http://schema.org/shippingDestination">
+      <span>Category: <span property="schema:category">issue-2506</span></span>
+      <span class="h" property="rdfs:label">shippingDestination</span>
+      <span property="rdfs:comment">indicates (possibly multiple) shipping destinations. These can be defined in several ways e.g. postalCode ranges.</span>
+      <span>domainIncludes: <a property="http://schema.org/domainIncludes" href="http://schema.org/OfferShippingDetails">OfferShippingDetails</a></span>
+      <span>domainIncludes: <a property="http://schema.org/domainIncludes" href="http://schema.org/ShippingRateSettings">ShippingRateSettings</a></span>
+      <span>domainIncludes: <a property="http://schema.org/domainIncludes" href="http://schema.org/DeliveryTimeSettings">DeliveryTimeSettings</a></span>
+      <span>rangeIncludes: <a property="http://schema.org/rangeIncludes" href="http://schema.org/DefinedRegion">DefinedRegion</a></span>
+      <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
+      <span>Source:  <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/2506">#2506</a></span>
+    </div>
+
+
+    <div typeof="rdf:Property" resource="http://schema.org/shippingRate">
+      <span>Category: <span property="schema:category">issue-2506</span></span>
+      <span class="h" property="rdfs:label">shippingRate</span>
+      <span property="rdfs:comment">The shipping rate is the cost of shipping to the specified destination. Typically, the maxValue and currency values (of the [[MonetaryAmount]]) are most appropriate.</span>
+      <span>domainIncludes: <a property="http://schema.org/domainIncludes" href="http://schema.org/OfferShippingDetails">OfferShippingDetails</a></span>
+      <span>domainIncludes: <a property="http://schema.org/domainIncludes" href="http://schema.org/ShippingRateSettings">ShippingRateSettings</a></span>
+      <span>rangeIncludes: <a property="http://schema.org/rangeIncludes" href="http://schema.org/MonetaryAmount">MonetaryAmount</a></span>
+      <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
+      <span>Source:  <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/2506">#2506</a></span>
+    </div>
+
+
+    <div typeof="rdf:Property" resource="http://schema.org/doesNotShip">
+      <span>Category: <span property="schema:category">issue-2506</span></span>
+      <span class="h" property="rdfs:label">doesNotShip</span>
+      <span property="rdfs:comment">Indicates that the associated [[Offer]] does not ship to this particular shippingDestination.</span>
+      <span>domainIncludes: <a property="http://schema.org/domainIncludes" href="http://schema.org/OfferShippingDetails">OfferShippingDetails</a></span>
+      <span>domainIncludes: <a property="http://schema.org/domainIncludes" href="http://schema.org/ShippingRateSettings">ShippingRateSettings</a></span>
+      <span>rangeIncludes: <a property="http://schema.org/rangeIncludes" href="http://schema.org/MonetaryAmount">MonetaryAmount</a></span>
+      <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
+      <span>Source:  <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/2506">#2506</a></span>
+    </div>
+
+
+    <div typeof="rdf:Property" resource="http://schema.org/deliveryTime">
+      <span>Category: <span property="schema:category">issue-2506</span></span>
+      <span class="h" property="rdfs:label">deliveryTime</span>
+      <span property="rdfs:comment">The total delay between the receipt of the order and the goods reaching the final customer.</span>
+      <span>domainIncludes: <a property="http://schema.org/domainIncludes" href="http://schema.org/DeliveryTimeSettings">DeliveryTimeSettings</a></span>
+      <span>domainIncludes: <a property="http://schema.org/domainIncludes" href="http://schema.org/OfferShippingDetails">OfferShippingDetails</a></span>
+      <span>rangeIncludes: <a property="http://schema.org/rangeIncludes" href="http://schema.org/ShippingDeliveryTime">ShippingDeliveryTime</a></span>
+      <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
+      <span>Source:  <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/2506">#2506</a></span>
+    </div>
+
+
+    <div typeof="rdf:Property" resource="http://schema.org/shippingSettingsLink">
+      <span>Category: <span property="schema:category">issue-2506</span></span>
+      <span class="h" property="rdfs:label">shippingSettingsLink</span>
+      <span property="rdfs:comment">Link to a page containing [[ShippingRateSettings]] and [[DeliveryTimeSettings]] details.</span>
+      <span>domainIncludes: <a property="http://schema.org/domainIncludes" href="http://schema.org/OfferShippingDetails">OfferShippingDetails</a></span>
+      <span>rangeIncludes: <a property="http://schema.org/rangeIncludes" href="http://schema.org/URL">URL</a></span>
+      <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
+      <span>Source:  <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/2506">#2506</a></span>
+    </div>
+
+
+    <div typeof="rdf:Property" resource="http://schema.org/shippingLabel">
+      <span>Category: <span property="schema:category">issue-2506</span></span>
+      <span class="h" property="rdfs:label">shippingLabel</span>
+      <span property="rdfs:comment">Label to match an [[OfferShippingDetails]] with a [[ShippingRateSettings]] (within the context of a [[shippingSettingsLink]] cross-reference).</span>
+      <span>domainIncludes: <a property="http://schema.org/domainIncludes" href="http://schema.org/ShippingRateSettings">ShippingRateSettings</a></span>
+      <span>domainIncludes: <a property="http://schema.org/domainIncludes" href="http://schema.org/OfferShippingDetails">OfferShippingDetails</a></span>
+      <span>rangeIncludes: <a property="http://schema.org/rangeIncludes" href="http://schema.org/URL">URL</a></span>
+      <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
+      <span>Source:  <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/2506">#2506</a></span>
+    </div>
+
+
+    <div typeof="rdf:Property" resource="http://schema.org/transitTimeLabel">
+      <span>Category: <span property="schema:category">issue-2506</span></span>
+      <span class="h" property="rdfs:label">transitTimeLabel</span>
+      <span property="rdfs:comment">Label to match an [[OfferShippingDetails]] with a [[DeliveryTimeSettings]] (within the context of a [[shippingSettingsLink]] cross-reference).</span>
+      <span>domainIncludes: <a property="http://schema.org/domainIncludes" href="http://schema.org/DeliveryTimeSettings">DeliveryTimeSettings</a></span>
+      <span>domainIncludes: <a property="http://schema.org/domainIncludes" href="http://schema.org/OfferShippingDetails">OfferShippingDetails</a></span>
+      <span>rangeIncludes: <a property="http://schema.org/rangeIncludes" href="http://schema.org/URL">URL</a></span>
+      <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
+      <span>Source:  <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/2506">#2506</a></span>
+    </div>
+
+
+    <div typeof="rdfs:Class" resource="http://schema.org/ShippingRateSettings">
+      <span>Category: <span property="schema:category">issue-2506</span></span>
+      <span class="h" property="rdfs:label">ShippingRateSettings</span>
+      <span property="rdfs:comment">A ShippingRateSettings represents re-usable pieces of shipping information. It is designed for publication on an URL that may be referenced via the [[shippingSettingsLink]] property of a [[OfferShippingSpecification]]. Several occurrences can be published, distinguished (and identified/referenced) by their different values for [[shippingLabel]].</span>
+      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/StructuredValue">StructuredValue</a></span>
+      <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
+      <span>Source:  <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/2506">#2506</a></span>
+    </div>
+
+
+    <div typeof="rdf:Property" resource="http://schema.org/freeShippingThreshold">
+      <span>Category: <span property="schema:category">issue-2506</span></span>
+      <span class="h" property="rdfs:label">freeShippingThreshold</span>
+      <span property="rdfs:comment">A monetary value above which the shipping rate becomes free. Intended to be used via an [[OfferShippingSpecification]] with [[shippingSettingsLink]] matching this [[ShippingSettings]].</span>
+      <span>domainIncludes: <a property="http://schema.org/domainIncludes" href="http://schema.org/ShippingRateSettings">ShippingRateSettings</a></span>
+      <span>rangeIncludes: <a property="http://schema.org/rangeIncludes" href="http://schema.org/MonetaryAmount">MonetaryAmount</a></span>
+      <span>rangeIncludes: <a property="http://schema.org/rangeIncludes" href="http://schema.org/DeliveryChargeSpecification">DeliveryChargeSpecification</a></span>
+      <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
+      <span>Source:  <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/2506">#2506</a></span>
+    </div>
+
+
+    <div typeof="rdfs:Class" resource="http://schema.org/DeliveryTimeSettings">
+      <span>Category: <span property="schema:category">issue-2506</span></span>
+      <span class="h" property="rdfs:label">DeliveryTimeSettings</span>
+      <span property="rdfs:comment">A DeliveryTimeSettings represents re-usable pieces of shipping information, relating to timing. It is designed for publication on an URL that may be referenced via the [[shippingSettingsLink]] property of a [[OfferShippingSpecification]]. Several occurrences can be published, distinguished (and identified/referenced) by their different values for [[shippingLabel]].</span>
+      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/StructuredValue">StructuredValue</a></span>
+      <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
+      <span>Source:  <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/2506">#2506</a></span>
+    </div>
+
+
+    <div typeof="rdfs:Class" resource="http://schema.org/ShippingDeliveryTime">
+      <span>Category: <span property="schema:category">issue-2506</span></span>
+      <span class="h" property="rdfs:label">ShippingDeliveryTime</span>
+      <span property="rdfs:comment">ShippingDeliveryTime provides various pieces of information about delivery times for shipping.</span>
+      <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/StructuredValue">StructuredValue</a></span>
+      <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
+      <span>Source:  <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/2506">#2506</a></span>
+    </div>
+
+
+
+    <div typeof="rdf:Property" resource="http://schema.org/handlingTime">
+      <span>Category: <span property="schema:category">issue-2506</span></span>
+      <span class="h" property="rdfs:label">handlingTime</span>
+      <span property="rdfs:comment">The typical delay between the receipt of the order and the goods either leaving the warehouse or being prepared for pickup, in case the delivery method is on site pickup. Typical properties: minValue, maxValue, unitCode (d for DAY). The unitCode is expected to be empty (omitted) or "d" and in both cases assumed to be business days. That is, only counting days when the business operates.</span>
+      <span>domainIncludes: <a property="http://schema.org/domainIncludes" href="http://schema.org/ShippingDeliveryTime">ShippingDeliveryTime</a></span>
+      <span>rangeIncludes: <a property="http://schema.org/rangeIncludes" href="http://schema.org/QuantitativeValue">QuantitativeValue</a></span>
+      <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
+      <span>Source:  <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/2506">#2506</a></span>
+    </div>
+
+
+    <div typeof="rdf:Property" resource="http://schema.org/transitTime">
+      <span>Category: <span property="schema:category">issue-2506</span></span>
+      <span class="h" property="rdfs:label">transitTime</span>
+      <span property="rdfs:comment">The typical delay the order has been sent for delivery and the goods reach the final customer. Typical properties: minValue, maxValue, unitCode (d for DAY).</span>
+      <span>domainIncludes: <a property="http://schema.org/domainIncludes" href="http://schema.org/ShippingDeliveryTime">ShippingDeliveryTime</a></span>
+      <span>rangeIncludes: <a property="http://schema.org/rangeIncludes" href="http://schema.org/QuantitativeValue">QuantitativeValue</a></span>
+      <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
+      <span>Source:  <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/2506">#2506</a></span>
+    </div>
+
+
+    <div typeof="rdf:Property" resource="http://schema.org/cutoffTime">
+      <span>Category: <span property="schema:category">issue-2506</span></span>
+      <span class="h" property="rdfs:label">cutoffTime</span>
+      <span property="rdfs:comment">Order cutoff time allows publishers to describe the time after which they will no longer process orders received on that day. For orders processed after cutoff time, one day gets added to the delivery time estimate. This property is expected to be most typically used via the [[ShippingRateSettings]] publication pattern.</span>
+      <span>domainIncludes: <a property="http://schema.org/domainIncludes" href="http://schema.org/ShippingDeliveryTime">ShippingDeliveryTime</a></span>
+      <span>rangeIncludes: <a property="http://schema.org/rangeIncludes" href="http://schema.org/DateTime">DateTime</a></span>
+      <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
+      <span>Source:  <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/2506">#2506</a></span>
+    </div>
+
+</div>
