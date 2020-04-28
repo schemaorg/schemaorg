@@ -162,7 +162,7 @@ Region = state, canton, prefecture, autonomous community...
       <span property="rdfs:comment">Indicates, as part of an [[OfferShippingDetails]], when shipping to a particular [[shippingDestination]] is not available.</span>
       <span>domainIncludes: <a property="http://schema.org/domainIncludes" href="http://schema.org/OfferShippingDetails">OfferShippingDetails</a></span>
       <span>domainIncludes: <a property="http://schema.org/domainIncludes" href="http://schema.org/ShippingRateSettings">ShippingRateSettings</a></span>
-      <span>rangeIncludes: <a property="http://schema.org/rangeIncludes" href="http://schema.org/MonetaryAmount">MonetaryAmount</a></span>
+      <span>rangeIncludes: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Boolean">Boolean</a></span>
       <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
       <span>Source:  <a property="dc:source" href="https://github.com/schemaorg/schemaorg/issues/2506">#2506</a></span>
     </div>
@@ -228,7 +228,7 @@ Region = state, canton, prefecture, autonomous community...
     <div typeof="rdf:Property" resource="http://schema.org/isUnlabelledFallback">
       <span>Category: <span property="schema:category">issue-2506</span></span>
       <span class="h" property="rdfs:label">isUnlabelledFallback</span>
-      <span property="rdfs:comment">This can be marked 'true' to indicate that some published ShippingRateSettings are intended to apply to all [[OfferShippingDetails]] published by the same vendor, when referenced by a [[shippingSettingsLink]] in those settings. It is not meaningful to use a 'true' value for this property alongside a shippingLabel, since this property is for use with unlabelled ShippingRateSettings.</span>
+      <span property="rdfs:comment">This can be marked 'true' to indicate that some published ShippingRateSettings are intended to apply to all [[OfferShippingDetails]] published by the same merchant, when referenced by a [[shippingSettingsLink]] in those settings. It is not meaningful to use a 'true' value for this property alongside a shippingLabel, since this property is for use with unlabelled ShippingRateSettings.</span>
       <span>domainIncludes: <a property="http://schema.org/domainIncludes" href="http://schema.org/ShippingRateSettings">ShippingRateSettings</a></span>
       <span>rangeIncludes: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Boolean">Boolean</a></span>
       <link property="http://schema.org/isPartOf" href="http://pending.schema.org" />
@@ -293,7 +293,7 @@ Region = state, canton, prefecture, autonomous community...
     <div typeof="rdf:Property" resource="http://schema.org/cutoffTime">
       <span>Category: <span property="schema:category">issue-2506</span></span>
       <span class="h" property="rdfs:label">cutoffTime</span>
-      <span property="rdfs:comment">Order cutoff time allows vendors to describe the time after which they will no longer process orders received on that day. For orders processed after cutoff time, one day gets added to the delivery time estimate. This property is expected to be most typically used via the [[ShippingRateSettings]] publication pattern. The time is indicated using the time notation from the ISO-8601 DateTime format, e.g.
+      <span property="rdfs:comment">Order cutoff time allows merchants to describe the time after which they will no longer process orders received on that day. For orders processed after cutoff time, one day gets added to the delivery time estimate. This property is expected to be most typically used via the [[ShippingRateSettings]] publication pattern. The time is indicated using the time notation from the ISO-8601 DateTime format, e.g.
       14:45:15Z would represent a daily cutoff at 14:45h UTC.</span>
       <span>domainIncludes: <a property="http://schema.org/domainIncludes" href="http://schema.org/ShippingDeliveryTime">ShippingDeliveryTime</a></span>
       <span>rangeIncludes: <a property="http://schema.org/rangeIncludes" href="http://schema.org/Text">Text</a></span>
