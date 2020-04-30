@@ -1,7 +1,7 @@
-TYPES: #lrmi-1 learningResourceType, educationalAlignment, AlignmentObject, educationalFramework, alignmentType, targetName, targetUrl, audience, EducationalAudience, educationalRole
+TYPES: #lrmi-1 learningResourceType, educationalLevel, audience, EducationalAudience, educationalRole
 
 PRE-MARKUP:
- 
+
 <!-- A lesson plan for US second grade teachers. -->
 <div>
   <h1>Designing a treasure map</h1>
@@ -16,19 +16,18 @@ MICRODATA:
 <!-- A lesson plan for US second grade teachers. -->
 <div itemscope itemtype="http://schema.org/CreativeWork">
     <h1 itemprop="name">Designing a treasure map</h1>
-    <p>Resource type: 
-      <span itemprop="learningResourceType">lesson plan</span>, 
+    <p>Resource type:
+      <span itemprop="learningResourceType">lesson plan</span>,
       <span itemprop="learningResourceType">learning activity</span>
     </p>
-    <p>Target audience: 
+    <p>Target audience:
       <span itemprop="audience" itemscope itemtype="http://schema.org/EducationalAudience">
         <span itemprop="educationalRole">teacher</span></span>s.
     </p>
-    <p itemprop="educationalAlignment" itemscope itemtype="http://schema.org/AlignmentObject">
-        <span itemprop="alignmentType">educationalLevel</span>: 
-        <span itemprop="educationalFramework">US Grade Levels</span> 
-        <span itemprop="targetName">2</span>
-        <link itemprop="targetUrl" href="http://purl.org/ASN/scheme/ASNEducationLevel/2" />
+    <p itemprop="educationalLevel" itemscope itemtype="http://schema.org/DefinedTerm">
+        <span itemprop="inDefinedtermSet">US Grade Levels</span>
+        <span itemprop="name">2</span>
+        <link itemprop="url" href="http://purl.org/ASN/scheme/ASNEducationLevel/2" />
     </p>
     <p>Link to lesson plan: <a itemprop="url" href="http://example.org/lessonplan">http://example.org/lessonplan</a></p>
 </div>
@@ -38,7 +37,7 @@ RDFA:
 <!-- A list of the issues for a single volume of a given periodical. -->
 <div vocab="http://schema.org/" typeof="CreativeWork">
     <h1 property="name">Designing a treasure map</h1>
-    <p>Resource type: 
+    <p>Resource type:
     <span property="learningResourceType"> lesson plan</span>,
     <span property="learningResourceType"> learning activity</span>
     </p>
@@ -47,11 +46,10 @@ RDFA:
         <span property="educationalRole">teacher</span>s
       </span>
     </p>
-    <p rel="educationalAlignment" typeof="AlignmentObject">
-        <span property="alignmentType">educationalLevel</span>:
-        <span property="educationalFramework">US Grade Levels</span>
-        <span property="targetName">2</span>
-        <span rel="targetUrl" resource="http://purl.org/ASN/scheme/ASNEducationLevel/2"></span>
+    <p rel="educationalLevel" typeof="DefinedTerm">
+        <span property="inDefinedTermSet">US Grade Levels</span>
+        <span property="name">2</span>
+        <span rel="url" resource="http://purl.org/ASN/scheme/ASNEducationLevel/2"></span>
     </p>
     <p>Link to lesson plan: <a property="url" href="http://example.org/lessonplan">http://example.org/lessonplan</a></p>
 </div>
@@ -71,35 +69,32 @@ JSON:
     "@type": "EducationalAudience",
     "educationalRole": "teacher"
   },
-  "educationalAlignment": {
-    "@type": "AlignmentObject",
-    "alignmentType": "educationalLevel",
-    "educationalFramework": "US Grade Levels",
-    "targetName": "2",
-    "targetUrl": {
-      "@id": "http://purl.org/ASN/scheme/ASNEducationLevel/2"
-     }
+  "educationalLevel": {
+    "@type": "DefinedTerm",
+    "inDefinedTermSet": "US Grade Levels",
+    "name": "2",
+    "url": "http://purl.org/ASN/scheme/ASNEducationLevel/2"
   },
   "url": "http://example.org/lessonplan"
 }
 </script>
 
-TYPES: #lrmi-2 typicalAgeRange, timeRequired, educationalAlignment, AlignmentObject, educationalFramework, alignmentType, targetName, targetUrl
- 
+TYPES: #lrmi-2 typicalAgeRange, timeRequired, educationalAlignment, AlignmentObject, educationalFramework, alignmentType, targetName, targetUrl, educationalLevel
+
 PRE-MARKUP:
 <div>
     <h1>The Declaration of Arbroath</h1>
-    <p>A lesson plan for teachers with associated video. 
-       Typical length of lesson, 1 hour. 
+    <p>A lesson plan for teachers with associated video.
+       Typical length of lesson, 1 hour.
        Recommended for children aged 10-12 years old.
     </p>
     <p>Subject: Wars of Scottish independence</p>
     <p>Alignment to curriculum:</p>
     <ul>
-        <li>England 
+        <li>England
             National Curriculum: KS 3 History: The middle ages (12th to 15th century)
         </li>
-        <li>Scotland 
+        <li>Scotland
             SCQF: Level 2
             Curriculum for Excellence: Social studies: people past events and societies
         </li>
@@ -116,39 +111,46 @@ PRE-MARKUP:
 MICRODATA:
 <div itemscope itemtype="http://schema.org/WebPage">
     <h1 itemprop="name">The Declaration of Arbroath</h1>
-    <p>A <span itemprop="learningResourceType">lesson plan</span> 
-       for <span itemprop="audience" 
+    <p>A <span itemprop="learningResourceType">lesson plan</span>
+       for <span itemprop="audience"
                  itemscope itemtype="http://schema.org/EducationalAudience">
-           <span itemprop="educationalRole">teacher</span></span>s with associated video. 
-       Typical length of lesson, <span itemprop="timeRequired" content="PT1H">1 hour</span>. 
+           <span itemprop="educationalRole">teacher</span></span>s with associated video.
+       Typical length of lesson, <span itemprop="timeRequired" content="PT1H">1 hour</span>.
        Recommended for children aged <span itemprop="typicalAgeRange">10-12</span> years old.
     </p>
     <p>Subject: <span itemprop="about">Wars of Scottish independence</span></p>
     <p>Alignment to curriculum:</p>
     <ul>
-        <li>England 
-            <span itemprop="educationalAlignment"
-                  itemscope itemtype="http://schema.org/AlignmentObject">
-                <meta itemprop="alignmentType" content="educationalLevel" />
-                <span itemprop="educationalFramework">National Curriculum</span>:
-                <span itemprop="targetName">KS 3</span>
-                <link itemprop="targetUrl" href="http://example.org/ENC/levels/KS3">
+        <li>England
+            <span itemprop="educationalLevel"
+                  itemscope itemtype="http://schema.org/DefinedTerm">
+                <span itemprop="inDefinedTermSet"
+                      itemscope
+                      itemtype="http://schema.org/DefinedTermSet">
+                  <span itemprop="name">The National Curriculum for England</span>:
+                  <link itemprop="url" href="https://www.gov.uk/government/collections/national-curriculum" />
+
+                </span>
+                <span itemprop="name">Key Stage 3</span>
             </span>
             <span itemprop="educationalAlignment"
                   itemscope itemtype="http://schema.org/AlignmentObject">
                 <meta itemprop="alignmentType" content="educationalSubject" />
-                <meta itemprop="educationalFramework" content="National Curriculum" />
+                <meta itemprop="educationalFramework" content="The National Curriculum for England" />
                 <span itemprop="targetName">History: The middle ages (12th to 15th century)</span>
                 <link itemprop="targetUrl" href="http://example.org/ENC/subjects/3102">
             </span>
         </li>
-        <li>Scotland 
-            <span itemprop="educationalAlignment"
-                  itemscope itemtype="http://schema.org/AlignmentObject">
-                <meta itemprop="alignmentType" content="educationalLevel" />
-                <span itemprop="educationalFramework">SCQF</span>:
-                <span itemprop="targetName">Level 2</span>
-                <link itemprop="targetUrl" href="http://example.org/SCQF/levels/2">
+        <li>Scotland
+            <span itemprop="educationalLevel"
+                  itemscope itemtype="http://schema.org/DefinedTerm">
+                <span itemprop="inDefinedTermSet"
+                      itemscope
+                      itemtype="http://schema.org/DefinedTermSet">
+                  <span itemprop="name">SCQF</span>
+                  <link itemprop="url" href="https://scqf.org.uk/">
+                </span>:
+                <span itemprop="name">Level 2</span>
             </span>
             <span itemprop="educationalAlignment"
                   itemscope itemtype="http://schema.org/AlignmentObject">
@@ -166,7 +168,7 @@ MICRODATA:
         <span itemprop="description">Video description</span>
         <span itemprop="uploadDate">2000-01-01</span>
         <img itemprop="thumbnailUrl" src="http://example.org/thubnail.mp4" alt="thumbnail" >
-        Duration: <span itemprop="duration" content="PT3M12S">03:12</span>       
+        Duration: <span itemprop="duration" content="PT3M12S">03:12</span>
     </video>
     <p>This example is based on <a itemprop="isBasedOn" href="http://www.bbc.co.uk/education/clips/z3sjtfr">Declaration of Arbroath</a> from BBC Bitesize</p>
 </div>
@@ -174,44 +176,48 @@ MICRODATA:
 RDFA:
 <div vocab="http://schema.org/" typeof="WebPage">
     <h1 property="name">The Declaration of Arbroath</h1>
-    <p>A <span property="learningResourceType">lesson plan</span> 
-       for <span rel="audience" 
+    <p>A <span property="learningResourceType">lesson plan</span>
+       for <span rel="audience"
                  typeof="EducationalAudience">
-           <span property="educationalRole">teacher</span></span>s with associated video. 
-       Typical length of lesson, <span property="timeRequired" content="PT1H">1 hour</span>. 
+           <span property="educationalRole">teacher</span></span>s with associated video.
+       Typical length of lesson, <span property="timeRequired" content="PT1H">1 hour</span>.
        Recommended for children aged <span property="typicalAgeRange">10-12</span> years old.
     </p>
     <p>Subject: <span property="about">Wars of Scottish independence</span></p>
     <p>Alignment to curriculum:</p>
     <ul>
-        <li>England 
-            <span rel="educationalAlignment"
-                  typeof="http://schema.org/AlignmentObject">
-                <meta property="alignmentType" content="educationalLevel" />
-                <span property="educationalFramework">National Curriculum</span>:
-                <span property="targetName">KS 3</span>
-                <link property="targetUrl" href="http://example.org/ENC/levels/KS3" />
+        <li>England
+            <span rel="educationalLevel"
+                  typeof="http://schema.org/DefinedTerm">
+                <span property="inDefinedTermSet"
+                   typeof="http://schema.org/DefinedTermSet">
+                  <span property="name">The National Curriculum for England</span>:
+                  <link property="url" href="https://www.gov.uk/government/collections/national-curriculum"/>
+                </span>:
+                <span property="name">KS 3</span>
             </span>
             <span rel="educationalAlignment"
                   typeof="http://schema.org/AlignmentObject">
                 <meta property="alignmentType" content="educationalSubject" />
-                <meta property="educationalFramework" content="National Curriculum" />
+                <meta property="educationalFramework" content="The National Curriculum for England" />
                 <span property="targetName">History: The middle ages (12th to 15th century)</span>
                 <link property="targetUrl" href="http://example.org/ENC/subjects/3102" />
             </span>
         </li>
-        <li>Scotland 
-            <span rel="educationalAlignment"
-                  typeof="http://schema.org/AlignmentObject">
-                <meta property="alignmentType" content="educationalLevel" />
-                <span property="educationalFramework">SCQF</span>:
-                <span property="targetName">Level 2</span>
-                <link property="targetUrl" href="http://example.org/SCQF/levels/2" />
+        <li>Scotland
+            <span rel="educationalLevel"
+                typeof="http://schema.org/DefinedTerm">
+              <span property="inDefinedTermSet"
+                typeof="http://schema.org/DefinedTermSet" >
+                <span property="name">SCQF</span>
+                <link property="url" href="https://scqf.org.uk/">
+              </span>:
+              <span property="name">Level 2</span>
             </span>
             <span rel="educationalAlignment"
                   typeof="http://schema.org/AlignmentObject">
                 <meta property="alignmentType" content="educationalSubject" />
-                <span property="educationalFramework"> Curriculum for Excellence</span>: 
+                <span property="educationalFramework"> Curriculum for Excellence</span>:
                 <span property="targetName">Social studies: people past events and societies</span>
                 <link property="targetUrl" href="http://example.org/CFE/subjects/3362" />
             </span>
@@ -250,28 +256,34 @@ JSON:
       "alignmentType": "educationalSubject",
       "educationalFramework": " Curriculum for Excellence",
       "targetName": "Social studies: people past events and societies",
-      "targetUrl": "http://example.org/CFE/subjects/3362"      
-    },
-    {
-      "@type": "AlignmentObject",
-      "alignmentType": "educationalLevel",
-      "educationalFramework": "SCQF",
-      "targetName": "Level 2",
-      "targetUrl":  "http://example.org/SCQF/levels/2"      
-    },
-    {
-      "@type": "AlignmentObject",
-      "alignmentType": "educationalLevel",
-      "educationalFramework": "National Curriculum",
-      "targetName": "KS 3",
-      "targetUrl": "http://example.org/ENC/levels/KS3"
+      "targetUrl": "http://example.org/CFE/subjects/3362"
     },
     {
       "@type": "AlignmentObject",
       "alignmentType": "educationalSubject",
-      "educationalFramework": "National Curriculum",
+      "educationalFramework": "The National Curriculum for England",
       "targetName": "History: The middle ages (12th to 15th century)",
       "targetUrl" : "http://example.org/ENC/subjects/3102"
+    }
+  ],
+  "educationalLevel": [
+    {
+      "@type": "DefinedTerm",
+      "name": "Level 2",
+      "inDefinedTermSet": {
+	    "@type": "DefinedTermSet",
+        "name": "SCQF",
+        "url": "https://scqf.org.uk/"
+      }
+    },
+    {
+      "@type": "DefinedTerm",
+      "name": "KS 3",
+      "inDefinedTermSet": {
+	    "@type": "DefinedTermSet",
+        "name": "The National Curriculum for England",
+        "url": "https://www.gov.uk/government/collections/national-curriculum"
+      }
     }
   ],
   "url" : "http://example.org/lessonplan",
