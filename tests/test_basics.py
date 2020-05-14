@@ -20,7 +20,7 @@ from apimarkdown import Markdown
 from google.appengine.ext import deferred 
 from sdoapp import *
 
-schema_path = './data/schema.rdfa'
+schema_path = './data/schema.ttl'
 examples_path = './data/examples.txt'
 
 andstr = "\n AND\n  "
@@ -82,7 +82,7 @@ class SupertypePathsTestCase(unittest.TestCase):
                   GetParentPathTo(VTerm.getTerm("Thing"), VTerm.getTerm("Restaurant"))
                   ), 0, "0 supertype paths from Thing to Restaurant."  )
 
-class SchemaWellformedTestCase(unittest.TestCase):
+"""class SchemaWellformedTestCase(unittest.TestCase):
 
   def test_wellformed(self):
 
@@ -91,7 +91,7 @@ class SchemaWellformedTestCase(unittest.TestCase):
     rootElem = tree.getroot()
     log.debug("Root element of schema file: "+ rootElem.tag)
     self.assertEqual("html", rootElem.tag, "Expected root element of schema to be 'html'.")
-
+"""
 
 class TriplesBasicAPITestCase(unittest.TestCase):
   """Tests that don't assume the schemas are pre-loaded."""
