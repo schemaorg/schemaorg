@@ -1,0 +1,27 @@
+@prefix : <http://schema.org/> .
+@prefix dc: <http://purl.org/dc/terms/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+:assesses a rdf:Property ;
+    rdfs:label "assesses" ;
+    dc:source <https://github.com/schemaorg/schemaorg/issues/2427> ;
+    :category "issue-2427" ;
+    :domainIncludes :CreativeWork,
+        :EducationEvent ;
+    :isPartOf <http://pending.schema.org> ;
+    :rangeIncludes :DefinedTerm,
+        :Text ;
+    rdfs:comment "The item being described is intended to assess the competency or learning outcome defined by the referenced term." .
+
+:teaches a rdf:Property ;
+    rdfs:label "teaches" ;
+    dc:source <https://github.com/schemaorg/schemaorg/issues/2427> ;
+    :category "issue-2427" ;
+    :domainIncludes :CreativeWork,
+        :EducationEvent ;
+    :isPartOf <http://pending.schema.org> ;
+    :rangeIncludes :DefinedTerm,
+        :Text ;
+    rdfs:comment "The item being described is intended to help a person learn the competency or learning outcome defined by the referenced term." .
+

@@ -1,0 +1,15 @@
+@prefix : <http://schema.org/> .
+@prefix dc: <http://purl.org/dc/terms/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+:financialAidEligible a rdf:Property ;
+    rdfs:label "financialAidEligible" ;
+    dc:source <https://github.com/schemaorg/schemaorg/issues/2418> ;
+    :category "issue-2418" ;
+    :domainIncludes :EducationalOccupationalProgram ;
+    :isPartOf <http://pending.schema.org> ;
+    :rangeIncludes :DefinedTerm,
+        :Text ;
+    rdfs:comment "A financial aid type or program which students may use to pay for tuition or fees associated with the program." .
+

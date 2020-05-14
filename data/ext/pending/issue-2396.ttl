@@ -1,0 +1,23 @@
+@prefix : <http://schema.org/> .
+@prefix dc: <http://purl.org/dc/terms/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+:applicationContact a rdf:Property ;
+    rdfs:label "applicationContact" ;
+    dc:source <https://github.com/schemaorg/schemaorg/issues/2396> ;
+    :category "issue-2396" ;
+    :domainIncludes :JobPosting ;
+    :isPartOf <http://pending.schema.org> ;
+    :rangeIncludes :ContactPoint ;
+    rdfs:comment "Contact details for further information relevant to this job posting." .
+
+:employerOverview a rdf:Property ;
+    rdfs:label "employerOverview" ;
+    dc:source <https://github.com/schemaorg/schemaorg/issues/2396> ;
+    :category "issue-2396" ;
+    :domainIncludes :JobPosting ;
+    :isPartOf <http://pending.schema.org> ;
+    :rangeIncludes :Text ;
+    rdfs:comment "A description of the employer, career opportunities and work environment for this position." .
+

@@ -1,0 +1,23 @@
+@prefix : <http://schema.org/> .
+@prefix dc: <http://purl.org/dc/terms/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+:endOffset a rdf:Property ;
+    rdfs:label "endOffset" ;
+    dc:source <https://github.com/schemaorg/schemaorg/issues/2021> ;
+    :category "issue-2021" ;
+    :domainIncludes :Clip ;
+    :isPartOf <http://pending.schema.org> ;
+    :rangeIncludes :Number ;
+    rdfs:comment "The end time of the clip expressed as the number of seconds from the beginning of the work." .
+
+:startOffset a rdf:Property ;
+    rdfs:label "startOffset" ;
+    dc:source <https://github.com/schemaorg/schemaorg/issues/2021> ;
+    :category "issue-2021" ;
+    :domainIncludes :Clip ;
+    :isPartOf <http://pending.schema.org> ;
+    :rangeIncludes :Number ;
+    rdfs:comment "The start time of the clip expressed as the number of seconds from the beginning of the work." .
+
