@@ -13,6 +13,11 @@ handlers:
   application_readable: True
   mime_type: image/x-icon
 
+- url: /
+  static_files: site/docs/static-homepage.html
+  upload: site/docs/static-homepage.html
+  application_readable: True
+
 # To avoid: "Could not guess mimetype for docs/schemaorg.owl.  Using application/octet-stream."
 - url: /docs/schema_org_rdfa.html
   static_files: site/data/schema.rdfa
@@ -38,15 +43,15 @@ handlers:
 - url: /admin/refresh
   login: required
   script: sdoapp.app
-
-# Use for /docs when PAGESTOREMODE not set to CLOUDSTORE
-#- url: /docs
-  #static_dir: docs
-  #application_readable: True
+  
+ #Use for /docs when PAGESTOREMODE not set to CLOUDSTORE
+- url: /docs
+  static_dir: site/docs
+  application_readable: True
   
 # Use for /docs when PAGESTOREMODE set to CLOUDSTORE
-- url: /docs
-  script: sdoapp.app
+#- url: /docs
+  #script: sdoapp.app
 
 - url: /admin
   static_dir: admin

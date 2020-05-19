@@ -18,6 +18,10 @@ handlers:
   secure: always
   redirect_http_response_code: 301
   
+- url: /
+  static_files: site/docs/static-homepage.html
+  upload: site/docs/static-homepage.html
+  application_readable: True
 
 # To avoid: "Could not guess mimetype for docs/schemaorg.owl.  Using application/octet-stream."
 - url: /docs/schema_org_rdfa.html
@@ -59,16 +63,16 @@ handlers:
   secure: always
   redirect_http_response_code: 301
 
-# Use for /docs when PAGESTOREMODE not set to CLOUDSTORE
-#- url: /docs
-  #static_dir: docs
-  #application_readable: True
+ Use for /docs when PAGESTOREMODE not set to CLOUDSTORE
+- url: /docs
+  static_dir: docs
+  application_readable: True
   
 # Use for /docs when PAGESTOREMODE set to CLOUDSTORE
-- url: /docs
-  script: sdoapp.app
-  secure: always
-  redirect_http_response_code: 301
+#- url: /docs
+  #script: sdoapp.app
+  #secure: always
+  #redirect_http_response_code: 301
 
 - url: /admin
   static_dir: admin
