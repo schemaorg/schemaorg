@@ -50,13 +50,12 @@ import threading
 #from apimarkdown import Markdown
 
 parser = argparse.ArgumentParser()
-parser.add_argument("-d","--devsite", required=True, help="Build development site True/False]")
 parser.add_argument("-s","--httpscheme", default="https", help="httpscheme [http|https] (default: https)")
 parser.add_argument("-t","--targetsite", default="", help="Target site (eg. schema.org, webschemas.org, localhost:8080)")
 args = parser.parse_args()
 
 #os.environ["DEVELOPVERSION"] = args.devsite.lower()
-os.environ["DEVELOPVERSION"] = "true"
+os.environ["DEVELOPVERSION"] = "true" #overriden later by css
 os.environ["TARGETSITE"] = args.targetsite
 
 from sdoapp import *
