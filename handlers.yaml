@@ -35,18 +35,27 @@ handlers:
 - url: /docs/tree.json.*
   script: sdoapp.app
 
+
+- url: /docs/.*\.home.html
+  script: sdoapp.app
+
 - url: /admin/refresh
   login: required
   script: sdoapp.app
 
+- url: /docs/devnote.css
+  static_files: site/docs/devnoteshow.css
+  upload: site/docs/devnoteshow.css
+  mime_type: text/css
+
 # Use for /docs when PAGESTOREMODE not set to CLOUDSTORE
-#- url: /docs
-  #static_dir: docs
-  #application_readable: True
+- url: /docs
+  static_dir: site/docs
+  application_readable: True
   
 # Use for /docs when PAGESTOREMODE set to CLOUDSTORE
-- url: /docs
-  script: sdoapp.app
+#- url: /docs
+  #script: sdoapp.app
 
 - url: /admin
   static_dir: admin

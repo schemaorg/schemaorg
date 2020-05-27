@@ -35,7 +35,7 @@
      {% endif %}
 
      {% if requested_version == liveversion %}
-     This release is also available in <a href="http://schema.org/docs/schema_org_rdfa.html">rdfa</a>. Plus full core and extension definition files in N-Triples, Quads, JSON-LD, and Turtle formats are available for <a href="/docs/developers.html#defs">download</a>.
+     This release, full core and extension definition files in N-Triples, Quads, JSON-LD, and Turtle formats, are also available for <a href="/docs/developers.html#defs">download</a>.
      {% endif %}
 </dd>
 
