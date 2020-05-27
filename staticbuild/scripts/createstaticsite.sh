@@ -161,7 +161,7 @@ do
             ;;
         w|W)
             YAML="webschemasorg.yaml"
-            PROJ="-p webschemas_g"
+            PROJ="-p webschemas-g"
             break
             ;;
         o|O)
