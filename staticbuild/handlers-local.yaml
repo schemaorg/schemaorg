@@ -1,8 +1,9 @@
 handlers:
+
 - url: /
   static_files: docs/home.html
   upload: docs/home.html
-  http_headers:
+  http_headers: 
     Access-Control-Allow-Credentials: 'true'
     Access-Control-Allow-Headers: Accept
     Access-Control-Allow-Origin: \*
@@ -10,8 +11,8 @@ handlers:
     Access-Control-Expose-Headers: Link
     Link: "</docs/jsonldcontext.jsonld>; rel=\"alternate\"; type=\"application/ld+json\""
   secure: always
-  redirect_http_response_code: 301
-  
+  redirect_http_response_code: 301  
+
 - url: /favicon.ico
   static_files: docs/favicon.ico
   upload: docs/favicon.ico
@@ -19,8 +20,14 @@ handlers:
   secure: always
   redirect_http_response_code: 301
   
+
 - url: /docs
   static_dir: docs
+  http_headers: 
+    Access-Control-Allow-Credentials: 'true'
+    Access-Control-Allow-Headers: Accept
+    Access-Control-Allow-Origin: \*
+    Access-control-allow-methods: GET
   secure: always
   redirect_http_response_code: 301
   
@@ -32,6 +39,11 @@ handlers:
   mime_type: text/html
   static_files: releases/8.0/\1
   upload: releases/8.0/(.*\.rdfa)
+  http_headers: 
+    Access-Control-Allow-Credentials: 'true'
+    Access-Control-Allow-Headers: Accept
+    Access-Control-Allow-Origin: \*
+    Access-control-allow-methods: GET
   secure: always
   redirect_http_response_code: 301
   
@@ -40,6 +52,11 @@ handlers:
   mime_type: application/x-turtle
   static_files: releases/8.0/\1
   upload: releases/8.0/(.*\.ttl)
+  http_headers: 
+    Access-Control-Allow-Credentials: 'true'
+    Access-Control-Allow-Headers: Accept
+    Access-Control-Allow-Origin: \*
+    Access-control-allow-methods: GET
   secure: always
   redirect_http_response_code: 301
   
@@ -48,6 +65,11 @@ handlers:
   mime_type: application/ld+json
   static_files: releases/8.0/\1
   upload: releases/8.0/(.*\.jsonld)
+  http_headers: 
+    Access-Control-Allow-Credentials: 'true'
+    Access-Control-Allow-Headers: Accept
+    Access-Control-Allow-Origin: \*
+    Access-control-allow-methods: GET
   secure: always
   redirect_http_response_code: 301
   
@@ -56,6 +78,11 @@ handlers:
   mime_type: application/rdf+xml
   static_files: releases/8.0/\1
   upload: releases/8.0/(.*\.rdf)
+  http_headers: 
+    Access-Control-Allow-Credentials: 'true'
+    Access-Control-Allow-Headers: Accept
+    Access-Control-Allow-Origin: \*
+    Access-control-allow-methods: GET
   secure: always
   redirect_http_response_code: 301
   
@@ -64,6 +91,11 @@ handlers:
   mime_type: application/n-triples
   static_files: releases/8.0/\1
   upload: releases/8.0/(.*\.nt)
+  http_headers: 
+    Access-Control-Allow-Credentials: 'true'
+    Access-Control-Allow-Headers: Accept
+    Access-Control-Allow-Origin: \*
+    Access-control-allow-methods: GET
   secure: always
   redirect_http_response_code: 301
   
@@ -72,6 +104,11 @@ handlers:
   mime_type: application/n-quads
   static_files: releases/8.0/\1
   upload: releases/8.0/(.*\.nq)
+  http_headers: 
+    Access-Control-Allow-Credentials: 'true'
+    Access-Control-Allow-Headers: Accept
+    Access-Control-Allow-Origin: \*
+    Access-control-allow-methods: GET
   secure: always
   redirect_http_response_code: 301
   
@@ -80,6 +117,11 @@ handlers:
   mime_type: text/csv
   static_files: releases/8.0/\1
   upload: releases/8.0/(.*\.csv)
+  http_headers: 
+    Access-Control-Allow-Credentials: 'true'
+    Access-Control-Allow-Headers: Accept
+    Access-Control-Allow-Origin: \*
+    Access-control-allow-methods: GET
   secure: always
   redirect_http_response_code: 301
   
@@ -88,6 +130,11 @@ handlers:
   mime_type: text/html
   static_files: releases/8.0/schema-all.html
   upload: releases/8.0/schema-all.html
+  http_headers: 
+    Access-Control-Allow-Credentials: 'true'
+    Access-Control-Allow-Headers: Accept
+    Access-Control-Allow-Origin: \*
+    Access-control-allow-methods: GET
   secure: always
   redirect_http_response_code: 301
   
@@ -99,6 +146,11 @@ handlers:
   mime_type: text/html
   static_files: releases/\1
   upload: releases/(.*/.*\.rdfa)
+  http_headers: 
+    Access-Control-Allow-Credentials: 'true'
+    Access-Control-Allow-Headers: Accept
+    Access-Control-Allow-Origin: \*
+    Access-control-allow-methods: GET
   secure: always
   redirect_http_response_code: 301
   
@@ -107,6 +159,11 @@ handlers:
   mime_type: application/x-turtle
   static_files: releases/\1
   upload: releases/(.*/.*\.ttl)
+  http_headers: 
+    Access-Control-Allow-Credentials: 'true'
+    Access-Control-Allow-Headers: Accept
+    Access-Control-Allow-Origin: \*
+    Access-control-allow-methods: GET
   secure: always
   redirect_http_response_code: 301
   
@@ -115,6 +172,11 @@ handlers:
   mime_type: application/ld+json
   static_files: releases/\1
   upload: releases/(.*/.*\.jsonld)
+  http_headers: 
+    Access-Control-Allow-Credentials: 'true'
+    Access-Control-Allow-Headers: Accept
+    Access-Control-Allow-Origin: \*
+    Access-control-allow-methods: GET
   secure: always
   redirect_http_response_code: 301
   
@@ -123,6 +185,11 @@ handlers:
   mime_type: application/rdf+xml
   static_files: releases/\1
   upload: releases/(.*/.*\.rdf)
+  http_headers: 
+    Access-Control-Allow-Credentials: 'true'
+    Access-Control-Allow-Headers: Accept
+    Access-Control-Allow-Origin: \*
+    Access-control-allow-methods: GET
   secure: always
   redirect_http_response_code: 301
   
@@ -131,6 +198,11 @@ handlers:
   mime_type: application/n-triples
   static_files: releases/\1
   upload: releases/(.*/.*\.nt)
+  http_headers: 
+    Access-Control-Allow-Credentials: 'true'
+    Access-Control-Allow-Headers: Accept
+    Access-Control-Allow-Origin: \*
+    Access-control-allow-methods: GET
   secure: always
   redirect_http_response_code: 301
   
@@ -139,6 +211,11 @@ handlers:
   mime_type: application/n-quads
   static_files: releases/\1
   upload: releases/(.*/.*\.nq)
+  http_headers: 
+    Access-Control-Allow-Credentials: 'true'
+    Access-Control-Allow-Headers: Accept
+    Access-Control-Allow-Origin: \*
+    Access-control-allow-methods: GET
   secure: always
   redirect_http_response_code: 301
   
@@ -147,6 +224,11 @@ handlers:
   mime_type: text/csv
   static_files: releases/\1
   upload: releases/(.*/.*\.csv)
+  http_headers: 
+    Access-Control-Allow-Credentials: 'true'
+    Access-Control-Allow-Headers: Accept
+    Access-Control-Allow-Origin: \*
+    Access-control-allow-methods: GET
   secure: always
   redirect_http_response_code: 301
   
@@ -155,6 +237,11 @@ handlers:
   mime_type: text/html
   static_files: releases/\1/schema-all.html
   upload: releases/.*/.*
+  http_headers: 
+    Access-Control-Allow-Credentials: 'true'
+    Access-Control-Allow-Headers: Accept
+    Access-Control-Allow-Origin: \*
+    Access-control-allow-methods: GET
   secure: always
   redirect_http_response_code: 301
   
@@ -165,6 +252,11 @@ handlers:
 - url: /([a-z])(.*)$
   static_files: terms/properties/\1/\1\2.html
   upload: terms/properties/./.*\.html
+  http_headers: 
+    Access-Control-Allow-Credentials: 'true'
+    Access-Control-Allow-Headers: Accept
+    Access-Control-Allow-Origin: \*
+    Access-control-allow-methods: GET
   secure: always
   redirect_http_response_code: 301
 
@@ -172,6 +264,11 @@ handlers:
 - url: /([0-9A-Z])(.*)$
   static_files: terms/types/\1/\1\2.html
   upload: terms/types/./.*\.html
+  http_headers: 
+    Access-Control-Allow-Credentials: 'true'
+    Access-Control-Allow-Headers: Accept
+    Access-Control-Allow-Origin: \*
+    Access-control-allow-methods: GET
   secure: always
   redirect_http_response_code: 301
   
