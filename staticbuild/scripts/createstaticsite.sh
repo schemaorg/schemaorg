@@ -36,12 +36,12 @@ while [ -z "$VER" ]
 do
     read -r -p "Schema.org release version: " VER
 done
+echo
 
 CONFVER=`grep schemaversion ./versions.json | sed   's|[ \t]*"schemaversion" *: *"\(.*\)".*|\1|g' `
 
 if [ "$VER" != "$CONFVER" ]
 then
-    echo
     echo "WARNING!! "
     echo "         Version '$VER' is not the same as defined as schemaversion in versions.json file ($CONFVER)"
     echo "Fix before continuing!!"
@@ -49,23 +49,26 @@ then
     exit 1
 fi
 
+RECREATE=""
 if [ ! -d data/releases/${VER} ]
 then
-    echo "No version '$VER' in releases directory - build files before continuing"
-    exit 1
+    echo "No version '$VER' in releases directory - need to build files before continuing"
+    echo "Calling release files & generated pages build script..."
+    scripts/buildreleasefiles.sh $VER
+    RECREATE="N"
 fi
 
-CONT=""
-while [ -z "$CONT" ]
+while [ -z "$RECREATE" ]
 do
     echo "Have any of the following changed since last build:"
-    echo "   Vocabulary definitions or contents,"
-    echo "   Examples contents,"
-    read -r -p "   Documentation pages or page templates? (Y|N): " CONT
-    case "$CONT" in
+    echo "   * Vocabulary definitions or contents"
+    echo "   * Examples contents"
+    echo "   * Documentation pages or page templates"
+    read -r -p "(Y|N): " RECREATE
+    case "$RECREATE" in
         y|Y)
             echo "Calling release files & generated pages build script"
-            echo scripts/buildreleasefiles.sh
+            scripts/buildreleasefiles.sh $VER
             break
             ;;
         n|N)
@@ -73,7 +76,7 @@ do
             break
             ;;
         *)
-            CONT=""
+            RECREATE=""
             ;;
     esac
 done
@@ -92,7 +95,7 @@ then
     do
         echo
         echo "A $VER release version already built"
-        read -r -p "  is this a site Change or just a Redeploy? (C|R): " CONT
+        read -r -p "  is this a Site Change or just a Redeploy? (C|R): " CONT
         case "$CONT" in
             c|C)
                 BUILDSITE="Y"
@@ -131,8 +134,18 @@ then
     echo
     echo "Copying non-generated docs..."
     cp -r docs staticbuild/docs
+    echo
     echo "Copying release downloads..."
     cp -r data/releases staticbuild/releases
+    echo
+    echo "Creating version specific yaml include files from templates..."
+    for i in handlers handlers-Local
+    do
+        echo "   ${i}.yaml"
+        sed "s/{{ver}}/$VER/g" staticbuild/${i}-template.yaml > staticbuild/${i}.yaml
+    done
+    echo "Done"
+    
     echo "$VER" > "staticbuild/preversion.txt"
 
 fi
