@@ -4,7 +4,7 @@ handlers:
   static_files: docs/home.html
   upload: docs/home.html
   http_headers: 
-    Access-Control-Allow-Credentials: true
+    Access-Control-Allow-Credentials: 'true'
     Access-Control-Allow-Headers: Accept
     Access-Control-Allow-Origin: \*
     Access-Control-Allow-Methods: GET
@@ -24,7 +24,7 @@ handlers:
 - url: /docs
   static_dir: docs
   http_headers: 
-    Access-Control-Allow-Credentials: true
+    Access-Control-Allow-Credentials: 'true'
     Access-Control-Allow-Headers: Accept
     Access-Control-Allow-Origin: \*
     Access-control-allow-methods: GET
@@ -40,7 +40,7 @@ handlers:
   static_files: releases/8.0/\1
   upload: releases/8.0/(.*\.rdfa)
   http_headers: 
-    Access-Control-Allow-Credentials: true
+    Access-Control-Allow-Credentials: 'true'
     Access-Control-Allow-Headers: Accept
     Access-Control-Allow-Origin: \*
     Access-control-allow-methods: GET
@@ -53,7 +53,7 @@ handlers:
   static_files: releases/8.0/\1
   upload: releases/8.0/(.*\.ttl)
   http_headers: 
-    Access-Control-Allow-Credentials: true
+    Access-Control-Allow-Credentials: 'true'
     Access-Control-Allow-Headers: Accept
     Access-Control-Allow-Origin: \*
     Access-control-allow-methods: GET
@@ -66,7 +66,7 @@ handlers:
   static_files: releases/8.0/\1
   upload: releases/8.0/(.*\.jsonld)
   http_headers: 
-    Access-Control-Allow-Credentials: true
+    Access-Control-Allow-Credentials: 'true'
     Access-Control-Allow-Headers: Accept
     Access-Control-Allow-Origin: \*
     Access-control-allow-methods: GET
@@ -79,7 +79,7 @@ handlers:
   static_files: releases/8.0/\1
   upload: releases/8.0/(.*\.rdf)
   http_headers: 
-    Access-Control-Allow-Credentials: true
+    Access-Control-Allow-Credentials: 'true'
     Access-Control-Allow-Headers: Accept
     Access-Control-Allow-Origin: \*
     Access-control-allow-methods: GET
@@ -92,7 +92,7 @@ handlers:
   static_files: releases/8.0/\1
   upload: releases/8.0/(.*\.nt)
   http_headers: 
-    Access-Control-Allow-Credentials: true
+    Access-Control-Allow-Credentials: 'true'
     Access-Control-Allow-Headers: Accept
     Access-Control-Allow-Origin: \*
     Access-control-allow-methods: GET
@@ -105,7 +105,7 @@ handlers:
   static_files: releases/8.0/\1
   upload: releases/8.0/(.*\.nq)
   http_headers: 
-    Access-Control-Allow-Credentials: true
+    Access-Control-Allow-Credentials: 'true'
     Access-Control-Allow-Headers: Accept
     Access-Control-Allow-Origin: \*
     Access-control-allow-methods: GET
@@ -118,7 +118,7 @@ handlers:
   static_files: releases/8.0/\1
   upload: releases/8.0/(.*\.csv)
   http_headers: 
-    Access-Control-Allow-Credentials: true
+    Access-Control-Allow-Credentials: 'true'
     Access-Control-Allow-Headers: Accept
     Access-Control-Allow-Origin: \*
     Access-control-allow-methods: GET
@@ -131,7 +131,7 @@ handlers:
   static_files: releases/8.0/schema-all.html
   upload: releases/8.0/schema-all.html
   http_headers: 
-    Access-Control-Allow-Credentials: true
+    Access-Control-Allow-Credentials: 'true'
     Access-Control-Allow-Headers: Accept
     Access-Control-Allow-Origin: \*
     Access-control-allow-methods: GET
@@ -147,7 +147,7 @@ handlers:
   static_files: releases/\1
   upload: releases/(.*/.*\.rdfa)
   http_headers: 
-    Access-Control-Allow-Credentials: true
+    Access-Control-Allow-Credentials: 'true'
     Access-Control-Allow-Headers: Accept
     Access-Control-Allow-Origin: \*
     Access-control-allow-methods: GET
@@ -160,7 +160,7 @@ handlers:
   static_files: releases/\1
   upload: releases/(.*/.*\.ttl)
   http_headers: 
-    Access-Control-Allow-Credentials: true
+    Access-Control-Allow-Credentials: 'true'
     Access-Control-Allow-Headers: Accept
     Access-Control-Allow-Origin: \*
     Access-control-allow-methods: GET
@@ -173,7 +173,7 @@ handlers:
   static_files: releases/\1
   upload: releases/(.*/.*\.jsonld)
   http_headers: 
-    Access-Control-Allow-Credentials: true
+    Access-Control-Allow-Credentials: 'true'
     Access-Control-Allow-Headers: Accept
     Access-Control-Allow-Origin: \*
     Access-control-allow-methods: GET
@@ -186,7 +186,7 @@ handlers:
   static_files: releases/\1
   upload: releases/(.*/.*\.rdf)
   http_headers: 
-    Access-Control-Allow-Credentials: true
+    Access-Control-Allow-Credentials: 'true'
     Access-Control-Allow-Headers: Accept
     Access-Control-Allow-Origin: \*
     Access-control-allow-methods: GET
@@ -199,7 +199,7 @@ handlers:
   static_files: releases/\1
   upload: releases/(.*/.*\.nt)
   http_headers: 
-    Access-Control-Allow-Credentials: true
+    Access-Control-Allow-Credentials: 'true'
     Access-Control-Allow-Headers: Accept
     Access-Control-Allow-Origin: \*
     Access-control-allow-methods: GET
@@ -212,7 +212,7 @@ handlers:
   static_files: releases/\1
   upload: releases/(.*/.*\.nq)
   http_headers: 
-    Access-Control-Allow-Credentials: true
+    Access-Control-Allow-Credentials: 'true'
     Access-Control-Allow-Headers: Accept
     Access-Control-Allow-Origin: \*
     Access-control-allow-methods: GET
@@ -225,7 +225,7 @@ handlers:
   static_files: releases/\1
   upload: releases/(.*/.*\.csv)
   http_headers: 
-    Access-Control-Allow-Credentials: true
+    Access-Control-Allow-Credentials: 'true'
     Access-Control-Allow-Headers: Accept
     Access-Control-Allow-Origin: \*
     Access-control-allow-methods: GET
@@ -238,7 +238,7 @@ handlers:
   static_files: releases/\1/schema-all.html
   upload: releases/.*/.*
   http_headers: 
-    Access-Control-Allow-Credentials: true
+    Access-Control-Allow-Credentials: 'true'
     Access-Control-Allow-Headers: Accept
     Access-Control-Allow-Origin: \*
     Access-control-allow-methods: GET
@@ -253,7 +253,7 @@ handlers:
   static_files: terms/properties/\1/\1\2.html
   upload: terms/properties/./.*\.html
   http_headers: 
-    Access-Control-Allow-Credentials: true
+    Access-Control-Allow-Credentials: 'true'
     Access-Control-Allow-Headers: Accept
     Access-Control-Allow-Origin: \*
     Access-control-allow-methods: GET
@@ -265,7 +265,7 @@ handlers:
   static_files: terms/types/\1/\1\2.html
   upload: terms/types/./.*\.html
   http_headers: 
-    Access-Control-Allow-Credentials: true
+    Access-Control-Allow-Credentials: 'true'
     Access-Control-Allow-Headers: Accept
     Access-Control-Allow-Origin: \*
     Access-control-allow-methods: GET
