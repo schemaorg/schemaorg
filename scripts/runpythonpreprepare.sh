@@ -55,7 +55,7 @@ then
         read -r -p "Version for release files: " VER
     done
     
-    if [ "$VER" != "$CONFVER" ]
+    if [ "$VER" != "$CONFVER" ]  && [ "$VER" != "tmp" ]
     then
         echo
         echo "WARNING!! "

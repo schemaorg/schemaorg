@@ -1,0 +1,14 @@
+@prefix : <http://schema.org/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+:nsn a rdf:Property ;
+    rdfs:label "nsn" ;
+    :category "issue-2126" ;
+    :domainIncludes :Product ;
+    :isPartOf <http://pending.schema.org> ;
+    :rangeIncludes :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2126> ;
+    rdfs:comment "Indicates the [NATO stock number](https://en.wikipedia.org/wiki/NATO_Stock_Number) (nsn) of a [[Product]]. " ;
+    rdfs:subPropertyOf :identifier .
+

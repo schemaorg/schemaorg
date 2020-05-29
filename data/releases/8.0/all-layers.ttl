@@ -3300,6 +3300,14 @@ schema:NGO a rdfs:Class ;
     rdfs:comment "Organization: Non-governmental Organization." ;
     rdfs:subClassOf schema:Organization .
 
+schema:NLNonprofitType a rdfs:Class ;
+    rdfs:label "NLNonprofitType" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/2543> ;
+    schema:category "issue-2543" ;
+    schema:isPartOf <http://pending.schema.org> ;
+    rdfs:comment "NLNonprofitType: Non-profit organization type originating from the Netherlands." ;
+    rdfs:subClassOf schema:NonprofitType .
+
 schema:NailSalon a rdfs:Class ;
     rdfs:label "NailSalon" ;
     rdfs:comment "A nail salon." ;
@@ -5097,10 +5105,26 @@ schema:TypeAndQuantityNode a rdfs:Class ;
     rdfs:comment "A structured value indicating the quantity, unit of measurement, and business function of goods included in a bundle offer." ;
     rdfs:subClassOf schema:StructuredValue .
 
+schema:UKNonprofitType a rdfs:Class ;
+    rdfs:label "UKNonprofitType" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/2543> ;
+    schema:category "issue-2543" ;
+    schema:isPartOf <http://pending.schema.org> ;
+    rdfs:comment "UKNonprofitType: Non-profit organization type originating from the United Kingdom." ;
+    rdfs:subClassOf schema:NonprofitType .
+
 schema:URL a rdfs:Class ;
     rdfs:label "URL" ;
     rdfs:comment "Data type: URL." ;
     rdfs:subClassOf schema:Text .
+
+schema:USNonprofitType a rdfs:Class ;
+    rdfs:label "USNonprofitType" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/2543> ;
+    schema:category "issue-2543" ;
+    schema:isPartOf <http://pending.schema.org> ;
+    rdfs:comment "USNonprofitType: Non-profit organization type originating from the United States." ;
+    rdfs:subClassOf schema:NonprofitType .
 
 schema:UnRegisterAction a rdfs:Class ;
     rdfs:label "UnRegisterAction" ;
@@ -5577,7 +5601,7 @@ schema:CausesHealthAspect a schema:HealthAspectEnumeration ;
     schema:isPartOf <http://pending.schema.org> ;
     rdfs:comment "Information about the causes and main actions that gave rise to the topic." .
 
-schema:CharitableIncorporatedOrganization a schema:NonprofitType ;
+schema:CharitableIncorporatedOrganization a schema:UKNonprofitType ;
     rdfs:label "CharitableIncorporatedOrganization" ;
     dct:source <https://github.com/schemaorg/schemaorg/issues/2543> ;
     schema:category "issue-2543" ;
@@ -6030,7 +6054,7 @@ schema:LimitedAvailability a schema:ItemAvailability ;
     rdfs:label "LimitedAvailability" ;
     rdfs:comment "Indicates that the item has limited availability." .
 
-schema:LimitedByGuaranteeCharity a schema:NonprofitType ;
+schema:LimitedByGuaranteeCharity a schema:UKNonprofitType ;
     rdfs:label "LimitedByGuaranteeCharity" ;
     dct:source <https://github.com/schemaorg/schemaorg/issues/2543> ;
     schema:category "issue-2543" ;
@@ -6181,266 +6205,266 @@ schema:NoninvasiveProcedure a schema:MedicalProcedureType ;
     schema:isPartOf <http://health-lifesci.schema.org> ;
     rdfs:comment "A type of medical procedure that involves noninvasive techniques." .
 
-schema:Nonprofit501a a schema:NonprofitType ;
+schema:Nonprofit501a a schema:USNonprofitType ;
     rdfs:label "Nonprofit501a" ;
     dct:source <https://github.com/schemaorg/schemaorg/issues/2543> ;
     schema:category "issue-2543" ;
     schema:isPartOf <http://pending.schema.org> ;
     rdfs:comment "Nonprofit501a: Non-profit type referring to Farmers’ Cooperative Associations." .
 
-schema:Nonprofit501c1 a schema:NonprofitType ;
+schema:Nonprofit501c1 a schema:USNonprofitType ;
     rdfs:label "Nonprofit501c1" ;
     dct:source <https://github.com/schemaorg/schemaorg/issues/2543> ;
     schema:category "issue-2543" ;
     schema:isPartOf <http://pending.schema.org> ;
     rdfs:comment "Nonprofit501c1: Non-profit type referring to Corporations Organized Under Act of Congress, including Federal Credit Unions and National Farm Loan Associations." .
 
-schema:Nonprofit501c10 a schema:NonprofitType ;
+schema:Nonprofit501c10 a schema:USNonprofitType ;
     rdfs:label "Nonprofit501c10" ;
     dct:source <https://github.com/schemaorg/schemaorg/issues/2543> ;
     schema:category "issue-2543" ;
     schema:isPartOf <http://pending.schema.org> ;
     rdfs:comment "Nonprofit501c10: Non-profit type referring to Domestic Fraternal Societies and Associations." .
 
-schema:Nonprofit501c11 a schema:NonprofitType ;
+schema:Nonprofit501c11 a schema:USNonprofitType ;
     rdfs:label "Nonprofit501c11" ;
     dct:source <https://github.com/schemaorg/schemaorg/issues/2543> ;
     schema:category "issue-2543" ;
     schema:isPartOf <http://pending.schema.org> ;
     rdfs:comment "Nonprofit501c11: Non-profit type referring to Teachers' Retirement Fund Associations." .
 
-schema:Nonprofit501c12 a schema:NonprofitType ;
+schema:Nonprofit501c12 a schema:USNonprofitType ;
     rdfs:label "Nonprofit501c12" ;
     dct:source <https://github.com/schemaorg/schemaorg/issues/2543> ;
     schema:category "issue-2543" ;
     schema:isPartOf <http://pending.schema.org> ;
     rdfs:comment "Nonprofit501c12: Non-profit type referring to Benevolent Life Insurance Associations, Mutual Ditch or Irrigation Companies, Mutual or Cooperative Telephone Companies." .
 
-schema:Nonprofit501c13 a schema:NonprofitType ;
+schema:Nonprofit501c13 a schema:USNonprofitType ;
     rdfs:label "Nonprofit501c13" ;
     dct:source <https://github.com/schemaorg/schemaorg/issues/2543> ;
     schema:category "issue-2543" ;
     schema:isPartOf <http://pending.schema.org> ;
     rdfs:comment "Nonprofit501c13: Non-profit type referring to Cemetery Companies." .
 
-schema:Nonprofit501c14 a schema:NonprofitType ;
+schema:Nonprofit501c14 a schema:USNonprofitType ;
     rdfs:label "Nonprofit501c14" ;
     dct:source <https://github.com/schemaorg/schemaorg/issues/2543> ;
     schema:category "issue-2543" ;
     schema:isPartOf <http://pending.schema.org> ;
     rdfs:comment "Nonprofit501c14: Non-profit type referring to State-Chartered Credit Unions, Mutual Reserve Funds." .
 
-schema:Nonprofit501c15 a schema:NonprofitType ;
+schema:Nonprofit501c15 a schema:USNonprofitType ;
     rdfs:label "Nonprofit501c15" ;
     dct:source <https://github.com/schemaorg/schemaorg/issues/2543> ;
     schema:category "issue-2543" ;
     schema:isPartOf <http://pending.schema.org> ;
     rdfs:comment "Nonprofit501c15: Non-profit type referring to Mutual Insurance Companies or Associations." .
 
-schema:Nonprofit501c16 a schema:NonprofitType ;
+schema:Nonprofit501c16 a schema:USNonprofitType ;
     rdfs:label "Nonprofit501c16" ;
     dct:source <https://github.com/schemaorg/schemaorg/issues/2543> ;
     schema:category "issue-2543" ;
     schema:isPartOf <http://pending.schema.org> ;
     rdfs:comment "Nonprofit501c16: Non-profit type referring to Cooperative Organizations to Finance Crop Operations." .
 
-schema:Nonprofit501c17 a schema:NonprofitType ;
+schema:Nonprofit501c17 a schema:USNonprofitType ;
     rdfs:label "Nonprofit501c17" ;
     dct:source <https://github.com/schemaorg/schemaorg/issues/2543> ;
     schema:category "issue-2543" ;
     schema:isPartOf <http://pending.schema.org> ;
     rdfs:comment "Nonprofit501c17: Non-profit type referring to Supplemental Unemployment Benefit Trusts." .
 
-schema:Nonprofit501c18 a schema:NonprofitType ;
+schema:Nonprofit501c18 a schema:USNonprofitType ;
     rdfs:label "Nonprofit501c18" ;
     dct:source <https://github.com/schemaorg/schemaorg/issues/2543> ;
     schema:category "issue-2543" ;
     schema:isPartOf <http://pending.schema.org> ;
     rdfs:comment "Nonprofit501c18: Non-profit type referring to Employee Funded Pension Trust (created before 25 June 1959)." .
 
-schema:Nonprofit501c19 a schema:NonprofitType ;
+schema:Nonprofit501c19 a schema:USNonprofitType ;
     rdfs:label "Nonprofit501c19" ;
     dct:source <https://github.com/schemaorg/schemaorg/issues/2543> ;
     schema:category "issue-2543" ;
     schema:isPartOf <http://pending.schema.org> ;
     rdfs:comment "Nonprofit501c19: Non-profit type referring to Post or Organization of Past or Present Members of the Armed Forces." .
 
-schema:Nonprofit501c2 a schema:NonprofitType ;
+schema:Nonprofit501c2 a schema:USNonprofitType ;
     rdfs:label "Nonprofit501c2" ;
     dct:source <https://github.com/schemaorg/schemaorg/issues/2543> ;
     schema:category "issue-2543" ;
     schema:isPartOf <http://pending.schema.org> ;
     rdfs:comment "Nonprofit501c2: Non-profit type referring to Title-holding Corporations for Exempt Organizations." .
 
-schema:Nonprofit501c20 a schema:NonprofitType ;
+schema:Nonprofit501c20 a schema:USNonprofitType ;
     rdfs:label "Nonprofit501c20" ;
     dct:source <https://github.com/schemaorg/schemaorg/issues/2543> ;
     schema:category "issue-2543" ;
     schema:isPartOf <http://pending.schema.org> ;
     rdfs:comment "Nonprofit501c20: Non-profit type referring to Group Legal Services Plan Organizations." .
 
-schema:Nonprofit501c21 a schema:NonprofitType ;
+schema:Nonprofit501c21 a schema:USNonprofitType ;
     rdfs:label "Nonprofit501c21" ;
     dct:source <https://github.com/schemaorg/schemaorg/issues/2543> ;
     schema:category "issue-2543" ;
     schema:isPartOf <http://pending.schema.org> ;
     rdfs:comment "Nonprofit501c21: Non-profit type referring to Black Lung Benefit Trusts." .
 
-schema:Nonprofit501c22 a schema:NonprofitType ;
+schema:Nonprofit501c22 a schema:USNonprofitType ;
     rdfs:label "Nonprofit501c22" ;
     dct:source <https://github.com/schemaorg/schemaorg/issues/2543> ;
     schema:category "issue-2543" ;
     schema:isPartOf <http://pending.schema.org> ;
     rdfs:comment "Nonprofit501c22: Non-profit type referring to Withdrawal Liability Payment Funds." .
 
-schema:Nonprofit501c23 a schema:NonprofitType ;
+schema:Nonprofit501c23 a schema:USNonprofitType ;
     rdfs:label "Nonprofit501c23" ;
     dct:source <https://github.com/schemaorg/schemaorg/issues/2543> ;
     schema:category "issue-2543" ;
     schema:isPartOf <http://pending.schema.org> ;
     rdfs:comment "Nonprofit501c23: Non-profit type referring to Veterans Organizations." .
 
-schema:Nonprofit501c24 a schema:NonprofitType ;
+schema:Nonprofit501c24 a schema:USNonprofitType ;
     rdfs:label "Nonprofit501c24" ;
     dct:source <https://github.com/schemaorg/schemaorg/issues/2543> ;
     schema:category "issue-2543" ;
     schema:isPartOf <http://pending.schema.org> ;
     rdfs:comment "Nonprofit501c24: Non-profit type referring to Section 4049 ERISA Trusts." .
 
-schema:Nonprofit501c25 a schema:NonprofitType ;
+schema:Nonprofit501c25 a schema:USNonprofitType ;
     rdfs:label "Nonprofit501c25" ;
     dct:source <https://github.com/schemaorg/schemaorg/issues/2543> ;
     schema:category "issue-2543" ;
     schema:isPartOf <http://pending.schema.org> ;
     rdfs:comment "Nonprofit501c25: Non-profit type referring to Real Property Title-Holding Corporations or Trusts with Multiple Parents." .
 
-schema:Nonprofit501c26 a schema:NonprofitType ;
+schema:Nonprofit501c26 a schema:USNonprofitType ;
     rdfs:label "Nonprofit501c26" ;
     dct:source <https://github.com/schemaorg/schemaorg/issues/2543> ;
     schema:category "issue-2543" ;
     schema:isPartOf <http://pending.schema.org> ;
     rdfs:comment "Nonprofit501c26: Non-profit type referring to State-Sponsored Organizations Providing Health Coverage for High-Risk Individuals." .
 
-schema:Nonprofit501c27 a schema:NonprofitType ;
+schema:Nonprofit501c27 a schema:USNonprofitType ;
     rdfs:label "Nonprofit501c27" ;
     dct:source <https://github.com/schemaorg/schemaorg/issues/2543> ;
     schema:category "issue-2543" ;
     schema:isPartOf <http://pending.schema.org> ;
     rdfs:comment "Nonprofit501c27: Non-profit type referring to State-Sponsored Workers' Compensation Reinsurance Organizations." .
 
-schema:Nonprofit501c28 a schema:NonprofitType ;
+schema:Nonprofit501c28 a schema:USNonprofitType ;
     rdfs:label "Nonprofit501c28" ;
     dct:source <https://github.com/schemaorg/schemaorg/issues/2543> ;
     schema:category "issue-2543" ;
     schema:isPartOf <http://pending.schema.org> ;
     rdfs:comment "Nonprofit501c28: Non-profit type referring to National Railroad Retirement Investment Trusts." .
 
-schema:Nonprofit501c3 a schema:NonprofitType ;
+schema:Nonprofit501c3 a schema:USNonprofitType ;
     rdfs:label "Nonprofit501c3" ;
     dct:source <https://github.com/schemaorg/schemaorg/issues/2543> ;
     schema:category "issue-2543" ;
     schema:isPartOf <http://pending.schema.org> ;
     rdfs:comment "Nonprofit501c3: Non-profit type referring to Religious, Educational, Charitable, Scientific, Literary, Testing for Public Safety, to Foster National or International Amateur Sports Competition, or Prevention of Cruelty to Children or Animals Organizations." .
 
-schema:Nonprofit501c4 a schema:NonprofitType ;
+schema:Nonprofit501c4 a schema:USNonprofitType ;
     rdfs:label "Nonprofit501c4" ;
     dct:source <https://github.com/schemaorg/schemaorg/issues/2543> ;
     schema:category "issue-2543" ;
     schema:isPartOf <http://pending.schema.org> ;
     rdfs:comment "Nonprofit501c4: Non-profit type referring to Civic Leagues, Social Welfare Organizations, and Local Associations of Employees." .
 
-schema:Nonprofit501c5 a schema:NonprofitType ;
+schema:Nonprofit501c5 a schema:USNonprofitType ;
     rdfs:label "Nonprofit501c5" ;
     dct:source <https://github.com/schemaorg/schemaorg/issues/2543> ;
     schema:category "issue-2543" ;
     schema:isPartOf <http://pending.schema.org> ;
     rdfs:comment "Nonprofit501c5: Non-profit type referring to Labor, Agricultural and Horticultural Organizations." .
 
-schema:Nonprofit501c6 a schema:NonprofitType ;
+schema:Nonprofit501c6 a schema:USNonprofitType ;
     rdfs:label "Nonprofit501c6" ;
     dct:source <https://github.com/schemaorg/schemaorg/issues/2543> ;
     schema:category "issue-2543" ;
     schema:isPartOf <http://pending.schema.org> ;
     rdfs:comment "Nonprofit501c6: Non-profit type referring to Business Leagues, Chambers of Commerce, Real Estate Boards." .
 
-schema:Nonprofit501c7 a schema:NonprofitType ;
+schema:Nonprofit501c7 a schema:USNonprofitType ;
     rdfs:label "Nonprofit501c7" ;
     dct:source <https://github.com/schemaorg/schemaorg/issues/2543> ;
     schema:category "issue-2543" ;
     schema:isPartOf <http://pending.schema.org> ;
     rdfs:comment "Nonprofit501c7: Non-profit type referring to Social and Recreational Clubs." .
 
-schema:Nonprofit501c8 a schema:NonprofitType ;
+schema:Nonprofit501c8 a schema:USNonprofitType ;
     rdfs:label "Nonprofit501c8" ;
     dct:source <https://github.com/schemaorg/schemaorg/issues/2543> ;
     schema:category "issue-2543" ;
     schema:isPartOf <http://pending.schema.org> ;
     rdfs:comment "Nonprofit501c8: Non-profit type referring to Fraternal Beneficiary Societies and Associations." .
 
-schema:Nonprofit501c9 a schema:NonprofitType ;
+schema:Nonprofit501c9 a schema:USNonprofitType ;
     rdfs:label "Nonprofit501c9" ;
     dct:source <https://github.com/schemaorg/schemaorg/issues/2543> ;
     schema:category "issue-2543" ;
     schema:isPartOf <http://pending.schema.org> ;
     rdfs:comment "Nonprofit501c9: Non-profit type referring to Voluntary Employee Beneficiary Associations." .
 
-schema:Nonprofit501d a schema:NonprofitType ;
+schema:Nonprofit501d a schema:USNonprofitType ;
     rdfs:label "Nonprofit501d" ;
     dct:source <https://github.com/schemaorg/schemaorg/issues/2543> ;
     schema:category "issue-2543" ;
     schema:isPartOf <http://pending.schema.org> ;
     rdfs:comment "Nonprofit501d: Non-profit type referring to Religious and Apostolic Associations." .
 
-schema:Nonprofit501e a schema:NonprofitType ;
+schema:Nonprofit501e a schema:USNonprofitType ;
     rdfs:label "Nonprofit501e" ;
     dct:source <https://github.com/schemaorg/schemaorg/issues/2543> ;
     schema:category "issue-2543" ;
     schema:isPartOf <http://pending.schema.org> ;
     rdfs:comment "Nonprofit501e: Non-profit type referring to Cooperative Hospital Service Organizations." .
 
-schema:Nonprofit501f a schema:NonprofitType ;
+schema:Nonprofit501f a schema:USNonprofitType ;
     rdfs:label "Nonprofit501f" ;
     dct:source <https://github.com/schemaorg/schemaorg/issues/2543> ;
     schema:category "issue-2543" ;
     schema:isPartOf <http://pending.schema.org> ;
     rdfs:comment "Nonprofit501f: Non-profit type referring to Cooperative Service Organizations." .
 
-schema:Nonprofit501k a schema:NonprofitType ;
+schema:Nonprofit501k a schema:USNonprofitType ;
     rdfs:label "Nonprofit501k" ;
     dct:source <https://github.com/schemaorg/schemaorg/issues/2543> ;
     schema:category "issue-2543" ;
     schema:isPartOf <http://pending.schema.org> ;
     rdfs:comment "Nonprofit501k: Non-profit type referring to Child Care Organizations." .
 
-schema:Nonprofit501n a schema:NonprofitType ;
+schema:Nonprofit501n a schema:USNonprofitType ;
     rdfs:label "Nonprofit501n" ;
     dct:source <https://github.com/schemaorg/schemaorg/issues/2543> ;
     schema:category "issue-2543" ;
     schema:isPartOf <http://pending.schema.org> ;
     rdfs:comment "Nonprofit501n: Non-profit type referring to Charitable Risk Pools." .
 
-schema:Nonprofit501q a schema:NonprofitType ;
+schema:Nonprofit501q a schema:USNonprofitType ;
     rdfs:label "Nonprofit501q" ;
     dct:source <https://github.com/schemaorg/schemaorg/issues/2543> ;
     schema:category "issue-2543" ;
     schema:isPartOf <http://pending.schema.org> ;
     rdfs:comment "Nonprofit501q: Non-profit type referring to Credit Counseling Organizations." .
 
-schema:Nonprofit527 a schema:NonprofitType ;
+schema:Nonprofit527 a schema:USNonprofitType ;
     rdfs:label "Nonprofit527" ;
     dct:source <https://github.com/schemaorg/schemaorg/issues/2543> ;
     schema:category "issue-2543" ;
     schema:isPartOf <http://pending.schema.org> ;
     rdfs:comment "Nonprofit527: Non-profit type referring to Political organizations." .
 
-schema:NonprofitANBI a schema:NonprofitType ;
+schema:NonprofitANBI a schema:NLNonprofitType ;
     rdfs:label "NonprofitANBI" ;
     dct:source <https://github.com/schemaorg/schemaorg/issues/2543> ;
     schema:category "issue-2543" ;
     schema:isPartOf <http://pending.schema.org> ;
     rdfs:comment "NonprofitANBI: Non-profit type referring to a Public Benefit Organization (NL)." .
 
-schema:NonprofitSBBI a schema:NonprofitType ;
+schema:NonprofitSBBI a schema:NLNonprofitType ;
     rdfs:label "NonprofitSBBI" ;
     dct:source <https://github.com/schemaorg/schemaorg/issues/2543> ;
     schema:category "issue-2543" ;
@@ -7177,7 +7201,7 @@ schema:TypesHealthAspect a schema:HealthAspectEnumeration ;
     schema:isPartOf <http://pending.schema.org> ;
     rdfs:comment "Categorization and other types related to a topic." .
 
-schema:UKTrust a schema:NonprofitType ;
+schema:UKTrust a schema:UKNonprofitType ;
     rdfs:label "UKTrust" ;
     dct:source <https://github.com/schemaorg/schemaorg/issues/2543> ;
     schema:category "issue-2543" ;
@@ -7196,7 +7220,7 @@ schema:UnemploymentSupport a schema:GovernmentBenefitsType ;
     schema:isPartOf <http://pending.schema.org> ;
     rdfs:comment "UnemploymentSupport: this is a benefit for unemployment support." .
 
-schema:UnincorporatedAssociationCharity a schema:NonprofitType ;
+schema:UnincorporatedAssociationCharity a schema:UKNonprofitType ;
     rdfs:label "UnincorporatedAssociationCharity" ;
     dct:source <https://github.com/schemaorg/schemaorg/issues/2543> ;
     schema:category "issue-2543" ;

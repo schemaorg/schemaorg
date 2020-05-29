@@ -1,0 +1,13 @@
+@prefix : <http://schema.org/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+:ratingExplanation a rdf:Property ;
+    rdfs:label "ratingExplanation" ;
+    :category "issue-2300" ;
+    :domainIncludes :Rating ;
+    :isPartOf <http://pending.schema.org> ;
+    :rangeIncludes :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2300> ;
+    rdfs:comment "A short explanation (e.g. one to two sentences) providing background context and other information that led to the conclusion expressed in the rating. This is particularly applicable to ratings associated with \"fact check\" markup using [[ClaimReview]]." .
+

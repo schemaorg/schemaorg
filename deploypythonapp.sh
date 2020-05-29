@@ -29,6 +29,7 @@ fi
 if [[ $# -eq 1  && "$1" == "-devapp" ]]
 then
     echo "Not synchronising 'sdopythonapp' with git"
+    shift
 else
     echo "Checking sdopythonapp is upto date"
     git submodule update --remote

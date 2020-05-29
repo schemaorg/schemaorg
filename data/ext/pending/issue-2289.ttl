@@ -1,0 +1,115 @@
+@prefix : <http://schema.org/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+:EducationalOccupationalProgram a rdfs:Class ;
+    rdfs:label "EducationalOccupationalProgram" ;
+    :category "issue-2289" ;
+    :isPartOf <http://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2289> ;
+    rdfs:comment "A program offered by an institution which determines the learning progress to achieve an outcome, usually a credential like a degree or certificate. This would define a discrete set of opportunities (e.g., job, courses) that together constitute a program with a clear start, end, set of requirements, and transition to a new occupational opportunity (e.g., a job), or sometimes a higher educational opportunity (e.g., an advanced degree)." ;
+    rdfs:subClassOf :Intangible .
+
+:WorkBasedProgram a rdfs:Class ;
+    rdfs:label "WorkBasedProgram" ;
+    :category "issue-2289" ;
+    :isPartOf <http://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2289> ;
+    rdfs:comment "A program with both an educational and employment component. Typically based at a workplace and structured around work-based learning, with the aim of instilling competencies related to an occupation. WorkBasedProgram is used to distinguish programs such as apprenticeships from school, college or other classroom based educational programs." ;
+    rdfs:subClassOf :EducationalOccupationalProgram .
+
+:educationalCredentialAwarded a rdf:Property ;
+    rdfs:label "educationalCredentialAwarded" ;
+    :category "issue-2289" ;
+    :domainIncludes :Course,
+        :EducationalOccupationalProgram ;
+    :rangeIncludes :EducationalOccupationalCredential,
+        :Text,
+        :URL ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2289> ;
+    rdfs:comment "A description of the qualification, award, certificate, diploma or other educational credential awarded as a consequence of successful completion of this course or program." .
+
+:hasCredential a rdf:Property ;
+    rdfs:label "hasCredential" ;
+    :category "issue-2289" ;
+    :domainIncludes :Organization,
+        :Person ;
+    :isPartOf <http://pending.schema.org> ;
+    :rangeIncludes :EducationalOccupationalCredential ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2289> ;
+    rdfs:comment "A credential awarded to the Person or Organization." .
+
+:occupationalCategory a rdf:Property ;
+    rdfs:label "occupationalCategory" ;
+    :category "issue-2289" ;
+    :domainIncludes :WorkBasedProgram ;
+    :rangeIncludes :CategoryCode,
+        :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2289> .
+
+:occupationalCredentialAwarded a rdf:Property ;
+    rdfs:label "occupationalCredentialAwarded" ;
+    :category "issue-2289" ;
+    :domainIncludes :Course,
+        :EducationalOccupationalProgram ;
+    :isPartOf <http://pending.schema.org> ;
+    :rangeIncludes :EducationalOccupationalCredential,
+        :Text,
+        :URL ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2289> ;
+    rdfs:comment "A description of the qualification, award, certificate, diploma or other occupational credential awarded as a consequence of successful completion of this course or program." .
+
+:offers a rdf:Property ;
+    rdfs:label "offers" ;
+    :category "issue-2289" ;
+    :domainIncludes :EducationalOccupationalProgram ;
+    :rangeIncludes :Offer ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2289> .
+
+:programPrerequisites a rdf:Property ;
+    rdfs:label "programPrerequisites" ;
+    :category "issue-2289" ;
+    :domainIncludes :EducationalOccupationalProgram ;
+    :isPartOf <http://pending.schema.org> ;
+    :rangeIncludes :AlignmentObject,
+        :Course,
+        :EducationalOccupationalCredential,
+        :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2289> ;
+    rdfs:comment "Prerequisites for enrolling in the program." .
+
+:provider a rdf:Property ;
+    rdfs:label "provider" ;
+    :category "issue-2289" ;
+    :domainIncludes :EducationalOccupationalProgram ;
+    :rangeIncludes :Organization,
+        :Person ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2289> .
+
+:salaryUponCompletion a rdf:Property ;
+    rdfs:label "salaryUponCompletion" ;
+    :category "issue-2289" ;
+    :domainIncludes :EducationalOccupationalProgram ;
+    :isPartOf <http://pending.schema.org> ;
+    :rangeIncludes :MonetaryAmountDistribution ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2289> ;
+    rdfs:comment "The expected salary upon completing the training." .
+
+:timeToComplete a rdf:Property ;
+    rdfs:label "timeToComplete" ;
+    :category "issue-2289" ;
+    :domainIncludes :EducationalOccupationalProgram ;
+    :isPartOf <http://pending.schema.org> ;
+    :rangeIncludes :Duration ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2289> ;
+    rdfs:comment "The expected length of time to complete the program if attending full-time." .
+
+:trainingSalary a rdf:Property ;
+    rdfs:label "trainingSalary" ;
+    :category "issue-2289" ;
+    :domainIncludes :WorkBasedProgram ;
+    :isPartOf <http://pending.schema.org> ;
+    :rangeIncludes :MonetaryAmountDistribution ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2289> ;
+    rdfs:comment "The estimated salary earned while in the program." .
+
