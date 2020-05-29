@@ -37,8 +37,8 @@ handlers:
 
 - url: /version/latest/(.*\.rdfa)
   mime_type: text/html
-  static_files: releases/8.0/\1
-  upload: releases/8.0/(.*\.rdfa)
+  static_files: releases/{{ver}}/\1
+  upload: releases/{{ver}}/(.*\.rdfa)
   http_headers: 
     Access-Control-Allow-Credentials: 'true'
     Access-Control-Allow-Headers: Accept
@@ -50,8 +50,8 @@ handlers:
 
 - url: /version/latest/(.*\.ttl)
   mime_type: application/x-turtle
-  static_files: releases/8.0/\1
-  upload: releases/8.0/(.*\.ttl)
+  static_files: releases/{{ver}}/\1
+  upload: releases/{{ver}}/(.*\.ttl)
   http_headers: 
     Access-Control-Allow-Credentials: 'true'
     Access-Control-Allow-Headers: Accept
@@ -63,8 +63,8 @@ handlers:
 
 - url: /version/latest/(.*\.jsonld)
   mime_type: application/ld+json
-  static_files: releases/8.0/\1
-  upload: releases/8.0/(.*\.jsonld)
+  static_files: releases/{{ver}}/\1
+  upload: releases/{{ver}}/(.*\.jsonld)
   http_headers: 
     Access-Control-Allow-Credentials: 'true'
     Access-Control-Allow-Headers: Accept
@@ -76,8 +76,8 @@ handlers:
 
 - url: /version/latest/(.*\.rdf)
   mime_type: application/rdf+xml
-  static_files: releases/8.0/\1
-  upload: releases/8.0/(.*\.rdf)
+  static_files: releases/{{ver}}/\1
+  upload: releases/{{ver}}/(.*\.rdf)
   http_headers: 
     Access-Control-Allow-Credentials: 'true'
     Access-Control-Allow-Headers: Accept
@@ -89,8 +89,8 @@ handlers:
  
 - url: /version/latest/(.*\.nt)
   mime_type: application/n-triples
-  static_files: releases/8.0/\1
-  upload: releases/8.0/(.*\.nt)
+  static_files: releases/{{ver}}/\1
+  upload: releases/{{ver}}/(.*\.nt)
   http_headers: 
     Access-Control-Allow-Credentials: 'true'
     Access-Control-Allow-Headers: Accept
@@ -102,8 +102,8 @@ handlers:
 
 - url: /version/latest/(.*\.nq)
   mime_type: application/n-quads
-  static_files: releases/8.0/\1
-  upload: releases/8.0/(.*\.nq)
+  static_files: releases/{{ver}}/\1
+  upload: releases/{{ver}}/(.*\.nq)
   http_headers: 
     Access-Control-Allow-Credentials: 'true'
     Access-Control-Allow-Headers: Accept
@@ -115,8 +115,8 @@ handlers:
 
 - url: /version/latest/(.*\.csv)
   mime_type: text/csv
-  static_files: releases/8.0/\1
-  upload: releases/8.0/(.*\.csv)
+  static_files: releases/{{ver}}/\1
+  upload: releases/{{ver}}/(.*\.csv)
   http_headers: 
     Access-Control-Allow-Credentials: 'true'
     Access-Control-Allow-Headers: Accept
@@ -128,8 +128,8 @@ handlers:
 
 - url: /version/latest[\/]?
   mime_type: text/html
-  static_files: releases/8.0/schema-all.html
-  upload: releases/8.0/schema-all.html
+  static_files: releases/{{ver}}/schema-all.html
+  upload: releases/{{ver}}/schema-all.html
   http_headers: 
     Access-Control-Allow-Credentials: 'true'
     Access-Control-Allow-Headers: Accept
