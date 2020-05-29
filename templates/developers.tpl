@@ -47,10 +47,10 @@ This is a placeholder page for developer-oriented information about schema.org. 
 	<table style="padding: 2px; width:600px">
 	<tr><td style="width: 30%;">
 			File: <select id="filename"  onchange="updatetext()">
-				<option value="{{targethost}}/version/latest/schema">schema</option>
-				<option value="{{targethost}}/version/latest/all-layers">all-layers</option>
+				<option value="/version/latest/schema">schema</option>
+				<option value="/version/latest/all-layers">all-layers</option>
 				{% for ext in extensions %}
-					<option value="{{targethost}}/version/latest/ext-{{ ext | safe }}">{{ ext | safe }}</option>
+					<option value="/version/latest/ext-{{ ext | safe }}">{{ ext | safe }}</option>
 				{% endfor %}
 			</select>
 	</td>

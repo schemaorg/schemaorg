@@ -2,6 +2,7 @@
     <meta charset="utf-8" >
     <link rel="shortcut icon" type="image/png" href="{{ docsdir }}favicon.ico"/>
     <link rel="stylesheet" type="text/css" href="{{ docsdir }}schemaorg.css" />
+    <link rel="stylesheet" type="text/css" href="{{ docsdir }}devnote.css" />
     <link rel="stylesheet" type="text/css" href="{{ docsdir }}prettify.css" />
     <script type="text/javascript" src="{{ docsdir }}prettify.js"></script>
     

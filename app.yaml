@@ -30,7 +30,8 @@ env_variables:
   MOREBLOCK: 'True'
   WARMUPSTATE: 'Auto' # 'Off', 'On', 'Auto' - Off for localhost, On elsewhere
   STAYINEXTENTION: 'False'
-  PAGESTOREMODE: 'CLOUDSTORE' # 'INMEM' (In instance memory), 'NDBSHARED' (NDB shared - accross instances), 'CLOUDSTORE' (Cloudstorage files)
+  PAGESTOREMODE: 'NDBSHARED' # 'FILESTORE' (write to file system) 'INMEM' (In instance memory), 'NDBSHARED' (NDB shared - accross instances), 'CLOUDSTORE' (Cloudstorage files)
+
   EXAMPLESTOREMODE: 'INMEM' # 'INMEM', 'NDBSHARED'
   TIMESTAMPSTOREMODE: 'CLOUDSTORE' # 'INMEM', 'NDBSHARED', 'CLOUDSTORE' 
 #  CACHE_CONTROL: 'public, max-age=600'
