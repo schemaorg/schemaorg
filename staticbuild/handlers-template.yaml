@@ -49,7 +49,7 @@ handlers:
   
 
 - url: /version/latest/(.*\.ttl)
-  mime_type: application/x-turtle
+  mime_type: text/turtle
   static_files: releases/{{ver}}/\1
   upload: releases/{{ver}}/(.*\.ttl)
   http_headers: 
@@ -156,7 +156,7 @@ handlers:
   
 
 - url: /version/(.*/.*\.ttl)
-  mime_type: application/x-turtle
+  mime_type: text/turtle
   static_files: releases/\1
   upload: releases/(.*/.*\.ttl)
   http_headers: 
