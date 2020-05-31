@@ -33,7 +33,7 @@ This is a placeholder page for developer-oriented information about schema.org. 
 <p>Older releases can be found (under data/releases/) at <a href="https://github.com/schemaorg/schemaorg">GitHub</a>.
 
 <p>Select the file and format required and click Download.  The CSV format downloads are split accross two files: <em>Types</em> includes definitions of Types and Enumeration Values, including lists of associated properties; <em>Properties</em> contains property definitions.<br/>
-<br/><strong>Note:</strong> File <em>schema</em> contains the definition of the core vocabulary; <em>bib</em> contains only the definitions for the bib.schema.org extension; <em>all-layers</em> contains definitions for the core plus all the extensions.</p>
+<br/><strong>Note:</strong> File <em>schema</em> contains the definition of the core vocabulary; <em>bib</em> contains only the definitions for the bib.schema.org extension; <strong><em>all-layers</em></strong> contains definitions for <strong><em>all terms</em></strong> (core plus all extensions).</p>
 
 
 	<table style="padding: 2px; width:600px">
@@ -128,8 +128,19 @@ function updatetext(){
 	else{
 		document.getElementById("csvsel").style.display = 'none';
 	}
+	
+	port = window.location.port
+	if(port == "" || port == 0){
+		port = "";
+	}
+	else{
+		port = ":" + port;
+	}
+	
+	host = window.location.protocol + "//" + window.location.hostname + port;
+	filepath = host + getschemafilename();
 
-	document.getElementById("label").innerHTML = getschemafilename();
+	document.getElementById("label").innerHTML = '<a href="' + filepath + '">' + filepath +'</a>';
 }
 
 function dowloadfunc(){
