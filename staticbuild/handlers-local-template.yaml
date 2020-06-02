@@ -2,6 +2,7 @@ handlers:
 
 - url: /
   static_files: docs/home.html
+  mime_type: text/html
   upload: docs/home.html
   http_headers: 
     Access-Control-Allow-Credentials: 'true'
@@ -13,13 +14,18 @@ handlers:
   secure: always
   redirect_http_response_code: 301  
 
-- url: /favicon.ico
-  static_files: docs/favicon.ico
-  upload: docs/favicon.ico
-  mime_type: image/x-icon
+- url: /docs/jsonldcontext.jsonld
+  static_files: docs/jsonldcontext.jsonld
+  upload: docs/jsonldcontext.jsonld
+  http_headers: 
+    Access-Control-Allow-Credentials: 'true'
+    Access-Control-Allow-Headers: Accept
+    Access-Control-Allow-Origin: "*"
+    Access-Control-Allow-Methods: GET
+    Access-Control-Expose-Headers: Link
+    Link: "</docs/jsonldcontext.jsonld>; rel=\"alternate\"; type=\"application/ld+json\""
   secure: always
-  redirect_http_response_code: 301
-  
+  redirect_http_response_code: 301  
 
 - url: /docs
   static_dir: docs
