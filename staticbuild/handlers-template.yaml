@@ -16,14 +16,37 @@ handlers:
 
 - url: /docs/jsonldcontext.jsonld
   static_files: docs/jsonldcontext.jsonld
+  mime_type: application/ld+json
   upload: docs/jsonldcontext.jsonld
   http_headers: 
     Access-Control-Allow-Credentials: 'true'
     Access-Control-Allow-Headers: Accept
     Access-Control-Allow-Origin: "*"
     Access-Control-Allow-Methods: GET
-    Access-Control-Expose-Headers: Link
-    Link: "</docs/jsonldcontext.jsonld>; rel=\"alternate\"; type=\"application/ld+json\""
+  secure: always
+  redirect_http_response_code: 301  
+
+- url: /docs/jsonldcontext.json
+  static_files: docs/jsonldcontext.json
+  mime_type: application/json
+  upload: docs/jsonldcontext.json
+  http_headers: 
+    Access-Control-Allow-Credentials: 'true'
+    Access-Control-Allow-Headers: Accept
+    Access-Control-Allow-Origin: "*"
+    Access-Control-Allow-Methods: GET
+  secure: always
+  redirect_http_response_code: 301  
+
+- url: /docs/jsonldcontext.json.txt
+  static_files: docs/jsonldcontext.json.txt
+  mime_type: text/plain
+  upload: docs/jsonldcontext.json.txt
+  http_headers: 
+    Access-Control-Allow-Credentials: 'true'
+    Access-Control-Allow-Headers: Accept
+    Access-Control-Allow-Origin: "*"
+    Access-Control-Allow-Methods: GET
   secure: always
   redirect_http_response_code: 301  
 
