@@ -6,7 +6,7 @@ handlers:
   http_headers: 
     Access-Control-Allow-Credentials: 'true'
     Access-Control-Allow-Headers: Accept
-    Access-Control-Allow-Origin: \*
+    Access-Control-Allow-Origin: "*"
     Access-Control-Allow-Methods: GET
     Access-Control-Expose-Headers: Link
     Link: "</docs/jsonldcontext.jsonld>; rel=\"alternate\"; type=\"application/ld+json\""
@@ -26,7 +26,7 @@ handlers:
   http_headers: 
     Access-Control-Allow-Credentials: 'true'
     Access-Control-Allow-Headers: Accept
-    Access-Control-Allow-Origin: \*
+    Access-Control-Allow-Origin: "*"
     Access-control-allow-methods: GET
   secure: always
   redirect_http_response_code: 301
@@ -42,7 +42,7 @@ handlers:
   http_headers: 
     Access-Control-Allow-Credentials: 'true'
     Access-Control-Allow-Headers: Accept
-    Access-Control-Allow-Origin: \*
+    Access-Control-Allow-Origin: "*"
     Access-control-allow-methods: GET
   secure: always
   redirect_http_response_code: 301
@@ -55,7 +55,7 @@ handlers:
   http_headers: 
     Access-Control-Allow-Credentials: 'true'
     Access-Control-Allow-Headers: Accept
-    Access-Control-Allow-Origin: \*
+    Access-Control-Allow-Origin: "*"
     Access-control-allow-methods: GET
   secure: always
   redirect_http_response_code: 301
@@ -68,7 +68,7 @@ handlers:
   http_headers: 
     Access-Control-Allow-Credentials: 'true'
     Access-Control-Allow-Headers: Accept
-    Access-Control-Allow-Origin: \*
+    Access-Control-Allow-Origin: "*"
     Access-control-allow-methods: GET
   secure: always
   redirect_http_response_code: 301
@@ -81,7 +81,7 @@ handlers:
   http_headers: 
     Access-Control-Allow-Credentials: 'true'
     Access-Control-Allow-Headers: Accept
-    Access-Control-Allow-Origin: \*
+    Access-Control-Allow-Origin: "*"
     Access-control-allow-methods: GET
   secure: always
   redirect_http_response_code: 301
@@ -94,7 +94,7 @@ handlers:
   http_headers: 
     Access-Control-Allow-Credentials: 'true'
     Access-Control-Allow-Headers: Accept
-    Access-Control-Allow-Origin: \*
+    Access-Control-Allow-Origin: "*"
     Access-control-allow-methods: GET
   secure: always
   redirect_http_response_code: 301
@@ -107,7 +107,7 @@ handlers:
   http_headers: 
     Access-Control-Allow-Credentials: 'true'
     Access-Control-Allow-Headers: Accept
-    Access-Control-Allow-Origin: \*
+    Access-Control-Allow-Origin: "*"
     Access-control-allow-methods: GET
   secure: always
   redirect_http_response_code: 301
@@ -120,7 +120,7 @@ handlers:
   http_headers: 
     Access-Control-Allow-Credentials: 'true'
     Access-Control-Allow-Headers: Accept
-    Access-Control-Allow-Origin: \*
+    Access-Control-Allow-Origin: "*"
     Access-control-allow-methods: GET
   secure: always
   redirect_http_response_code: 301
@@ -133,7 +133,7 @@ handlers:
   http_headers: 
     Access-Control-Allow-Credentials: 'true'
     Access-Control-Allow-Headers: Accept
-    Access-Control-Allow-Origin: \*
+    Access-Control-Allow-Origin: "*"
     Access-control-allow-methods: GET
   secure: always
   redirect_http_response_code: 301
@@ -149,7 +149,7 @@ handlers:
   http_headers: 
     Access-Control-Allow-Credentials: 'true'
     Access-Control-Allow-Headers: Accept
-    Access-Control-Allow-Origin: \*
+    Access-Control-Allow-Origin: "*"
     Access-control-allow-methods: GET
   secure: always
   redirect_http_response_code: 301
@@ -162,7 +162,7 @@ handlers:
   http_headers: 
     Access-Control-Allow-Credentials: 'true'
     Access-Control-Allow-Headers: Accept
-    Access-Control-Allow-Origin: \*
+    Access-Control-Allow-Origin: "*"
     Access-control-allow-methods: GET
   secure: always
   redirect_http_response_code: 301
@@ -175,7 +175,7 @@ handlers:
   http_headers: 
     Access-Control-Allow-Credentials: 'true'
     Access-Control-Allow-Headers: Accept
-    Access-Control-Allow-Origin: \*
+    Access-Control-Allow-Origin: "*"
     Access-control-allow-methods: GET
   secure: always
   redirect_http_response_code: 301
@@ -188,7 +188,7 @@ handlers:
   http_headers: 
     Access-Control-Allow-Credentials: 'true'
     Access-Control-Allow-Headers: Accept
-    Access-Control-Allow-Origin: \*
+    Access-Control-Allow-Origin: "*"
     Access-control-allow-methods: GET
   secure: always
   redirect_http_response_code: 301
@@ -201,7 +201,7 @@ handlers:
   http_headers: 
     Access-Control-Allow-Credentials: 'true'
     Access-Control-Allow-Headers: Accept
-    Access-Control-Allow-Origin: \*
+    Access-Control-Allow-Origin: "*"
     Access-control-allow-methods: GET
   secure: always
   redirect_http_response_code: 301
@@ -214,7 +214,7 @@ handlers:
   http_headers: 
     Access-Control-Allow-Credentials: 'true'
     Access-Control-Allow-Headers: Accept
-    Access-Control-Allow-Origin: \*
+    Access-Control-Allow-Origin: "*"
     Access-control-allow-methods: GET
   secure: always
   redirect_http_response_code: 301
@@ -227,24 +227,35 @@ handlers:
   http_headers: 
     Access-Control-Allow-Credentials: 'true'
     Access-Control-Allow-Headers: Accept
-    Access-Control-Allow-Origin: \*
+    Access-Control-Allow-Origin: "*"
     Access-control-allow-methods: GET
   secure: always
   redirect_http_response_code: 301
   
 
-- url: /version/(.*)
+- url: /version/(.*)/$
   mime_type: text/html
   static_files: releases/\1/schema-all.html
   upload: releases/.*/.*
-  http_headers: 
+  http_headers:
     Access-Control-Allow-Credentials: 'true'
     Access-Control-Allow-Headers: Accept
-    Access-Control-Allow-Origin: \*
+    Access-Control-Allow-Origin: "*"
     Access-control-allow-methods: GET
   secure: always
   redirect_http_response_code: 301
-  
+
+- url: /version/(.*)$
+  mime_type: text/html
+  static_files: releases/\1/schema-all.html
+  upload: releases/.*/.*
+  http_headers:
+    Access-Control-Allow-Credentials: 'true'
+    Access-Control-Allow-Headers: Accept
+    Access-Control-Allow-Origin: "*"
+    Access-control-allow-methods: GET
+  secure: always
+  redirect_http_response_code: 301  
   
 ######
 ### Term pages
@@ -255,7 +266,7 @@ handlers:
   http_headers: 
     Access-Control-Allow-Credentials: 'true'
     Access-Control-Allow-Headers: Accept
-    Access-Control-Allow-Origin: \*
+    Access-Control-Allow-Origin: "*"
     Access-control-allow-methods: GET
   secure: always
   redirect_http_response_code: 301
@@ -267,7 +278,7 @@ handlers:
   http_headers: 
     Access-Control-Allow-Credentials: 'true'
     Access-Control-Allow-Headers: Accept
-    Access-Control-Allow-Origin: \*
+    Access-Control-Allow-Origin: "*"
     Access-control-allow-methods: GET
   secure: always
   redirect_http_response_code: 301
