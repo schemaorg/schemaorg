@@ -137,13 +137,6 @@ then
     echo
     echo "Copying release downloads..."
     cp -r data/releases staticbuild/releases
-    echo
-    echo "Creating version specific yaml include files from templates..."
-    for i in handlers handlers-Local
-    do
-        echo "   ${i}.yaml"
-        sed "s/{{ver}}/$VER/g" staticbuild/${i}-template.yaml > staticbuild/${i}.yaml
-    done
     echo "Done"
     
     echo "$VER" > "staticbuild/preversion.txt"
@@ -156,6 +149,14 @@ then
     echo
     staticbuild/scripts/prebuild.py
 fi
+echo
+echo "Creating version specific yaml include files from templates..."
+for i in handlers handlers-Local
+do
+    echo "   ${i}.yaml"
+    sed "s/{{ver}}/$VER/g" staticbuild/${i}-template.yaml > staticbuild/${i}.yaml
+done
+
 CONT=""
 while [ -z "$CONT" ]
 do
