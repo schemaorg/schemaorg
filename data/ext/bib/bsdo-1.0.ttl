@@ -1,0 +1,104 @@
+@prefix : <http://schema.org/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+:Atlas a rdfs:Class ;
+    rdfs:label "Atlas"@en ;
+    :isPartOf <http://bib.schema.org> ;
+    :source <http://www.productontology.org/id/Atlas> ;
+    rdfs:comment "A collection or bound volume of maps, charts, plates or tables, physical or in media form illustrating any subject."@en ;
+    rdfs:subClassOf :CreativeWork .
+
+:Audiobook a rdfs:Class ;
+    rdfs:label "Audiobook"@en ;
+    :isPartOf <http://bib.schema.org> ;
+    rdfs:comment "An audiobook."@en ;
+    rdfs:subClassOf :AudioObject,
+        :Book .
+
+:Chapter a rdfs:Class ;
+    rdfs:label "Chapter"@en ;
+    :isPartOf <http://bib.schema.org> ;
+    rdfs:comment "One of the sections into which a book is divided. A chapter usually has a section number or a name."@en ;
+    rdfs:subClassOf :CreativeWork .
+
+:Collection a rdfs:Class ;
+    rdfs:label "Collection"@en ;
+    :isPartOf <http://bib.schema.org> ;
+    rdfs:comment "A created collection of Creative Works or other artefacts. "@en ;
+    rdfs:subClassOf :CreativeWork .
+
+:Newspaper a rdfs:Class ;
+    rdfs:label "Newspaper"@en ;
+    :isPartOf <http://bib.schema.org> ;
+    :source <http://www.productontology.org/id/Newspaper> ;
+    rdfs:comment "A publication containing information about varied topics that are pertinent to general information, a geographic area, or a specific subject matter (i.e. business, culture, education). Often published daily."@en ;
+    rdfs:subClassOf :Periodical .
+
+:Thesis a rdfs:Class ;
+    rdfs:label "Thesis"@en ;
+    :isPartOf <http://bib.schema.org> ;
+    :source <http://www.productontology.org/id/Thesis> ;
+    rdfs:comment "A thesis or dissertation document submitted in support of candidature for an academic degree or professional qualification."@en ;
+    rdfs:subClassOf :CreativeWork .
+
+<file:///Users/wallisr/Development/Schema/ttl/schemaorg/data/ext/bib/bsdo-1.0.rdfa> :softwareVersion "bib.schema.org Version 0.1"@en .
+
+:abridged a rdf:Property ;
+    rdfs:label "abridged"@en ;
+    :domainIncludes :Book ;
+    :isPartOf <http://bib.schema.org> ;
+    :rangeIncludes :Boolean ;
+    rdfs:comment "Indicates whether the book is an abridged edition."@en .
+
+:duration a rdf:Property ;
+    :domainIncludes :Audiobook .
+
+:inSupportOf a rdf:Property ;
+    rdfs:label "inSupportOf"@en ;
+    :domainIncludes :Thesis ;
+    :isPartOf <http://bib.schema.org> ;
+    :rangeIncludes :Text ;
+    rdfs:comment "Qualification, candidature, degree, application that Thesis supports."@en .
+
+:pageEnd a rdf:Property ;
+    :domainIncludes :Chapter .
+
+:pageStart a rdf:Property ;
+    :domainIncludes :Chapter .
+
+:pagination a rdf:Property ;
+    :domainIncludes :Chapter .
+
+:publishedBy a rdf:Property ;
+    rdfs:label "publishedBy"@en ;
+    :domainIncludes :PublicationEvent ;
+    :isPartOf <http://bib.schema.org> ;
+    :rangeIncludes :Organization,
+        :Person ;
+    rdfs:comment "An agent associated with the publication event."@en .
+
+:readBy a rdf:Property ;
+    rdfs:label "readBy"@en ;
+    :domainIncludes :Audiobook ;
+    :isPartOf <http://bib.schema.org> ;
+    :rangeIncludes :Person ;
+    rdfs:comment "A person who reads (performs) the audiobook."@en ;
+    rdfs:subPropertyOf :actor .
+
+:translationOfWork a rdf:Property ;
+    rdfs:label "translationOfWork"@en ;
+    :domainIncludes :CreativeWork ;
+    :inverseOf :workTranslation ;
+    :isPartOf <http://bib.schema.org> ;
+    :rangeIncludes :CreativeWork ;
+    rdfs:comment "The work that this work has been translated from. e.g. 物种起源 is a translationOf “On the Origin of Species”"@en .
+
+:workTranslation a rdf:Property ;
+    rdfs:label "workTranslation"@en ;
+    :domainIncludes :CreativeWork ;
+    :inverseOf :translationOfWork ;
+    :isPartOf <http://bib.schema.org> ;
+    :rangeIncludes :CreativeWork ;
+    rdfs:comment "A work that is a translation of the content of this work. e.g. 西遊記 has an English workTranslation “Journey to the West”,a German workTranslation “Monkeys Pilgerfahrt” and a Vietnamese  translation Tây du ký bình khảo."@en .
+

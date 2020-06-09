@@ -1,0 +1,123 @@
+@prefix schema: <http://schema.org/> .
+@prefix bibo: <http://purl.org/ontology/bibo/> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix dctype: <http://purl.org/dc/dcmitype/> .
+@prefix eli: <http://data.europa.eu/eli/ontology#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfa: <http://www.w3.org/ns/rdfa#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix schema: <http://schema.org/> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix snomed: <http://purl.bioontology.org/ontology/SNOMEDCT/> .
+@prefix void: <http://rdfs.org/ns/void#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+schema:ProductReturnEnumeration a rdfs:Class ;
+    rdfs:label "ProductReturnEnumeration" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/2288> ;
+    schema:category "issue-2288" ;
+    schema:isPartOf <http://attic.schema.org> ;
+    schema:supersededBy schema:MerchantReturnEnumeration ;
+    rdfs:comment "ProductReturnEnumeration enumerates several kinds of product return policy. Note that this structure may not capture all aspects of the policy." ;
+    rdfs:subClassOf schema:Enumeration .
+
+schema:ProductReturnPolicy a rdfs:Class ;
+    rdfs:label "ProductReturnPolicy" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/2288> ;
+    schema:category "issue-2288" ;
+    schema:isPartOf <http://attic.schema.org> ;
+    schema:supersededBy schema:MerchantReturnPolicy ;
+    rdfs:comment "A ProductReturnPolicy provides information about product return policies associated with an <a class=\"localLink\" href=\"http://schema.org/Organization\">Organization</a> or <a class=\"localLink\" href=\"http://schema.org/Product\">Product</a>." ;
+    rdfs:subClassOf schema:Intangible .
+
+schema:StupidType a rdfs:Class ;
+    rdfs:label "StupidType" ;
+    schema:isPartOf <http://attic.schema.org> ;
+    rdfs:comment "A StupidType for testing." ;
+    rdfs:subClassOf schema:Thing .
+
+schema:ProductReturnFiniteReturnWindow a schema:ProductReturnEnumeration ;
+    rdfs:label "ProductReturnFiniteReturnWindow" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/2288> ;
+    schema:category "issue-2288" ;
+    schema:isPartOf <http://attic.schema.org> ;
+    schema:supersededBy schema:MerchantReturnFiniteReturnWindow ;
+    rdfs:comment "ProductReturnFiniteReturnWindow: there is a finite window for product returns." .
+
+schema:ProductReturnNotPermitted a schema:ProductReturnEnumeration ;
+    rdfs:label "ProductReturnNotPermitted" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/2288> ;
+    schema:category "issue-2288" ;
+    schema:isPartOf <http://attic.schema.org> ;
+    schema:supersededBy schema:MerchantReturnNotPermitted ;
+    rdfs:comment "ProductReturnNotPermitted: product returns are not permitted." .
+
+schema:ProductReturnUnlimitedWindow a schema:ProductReturnEnumeration ;
+    rdfs:label "ProductReturnUnlimitedWindow" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/2288> ;
+    schema:category "issue-2288" ;
+    schema:isPartOf <http://attic.schema.org> ;
+    schema:supersededBy schema:MerchantReturnUnlimitedWindow ;
+    rdfs:comment "ProductReturnUnlimitedWindow: there is an unlimited window for product returns." .
+
+schema:ProductReturnUnspecified a schema:ProductReturnEnumeration ;
+    rdfs:label "ProductReturnUnspecified" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/2288> ;
+    schema:category "issue-2288" ;
+    schema:isPartOf <http://attic.schema.org> ;
+    schema:supersededBy schema:MerchantReturnUnspecified ;
+    rdfs:comment "ProductReturnUnspecified: a product return policy is not specified here." .
+
+schema:hasProductReturnPolicy a rdf:Property ;
+    rdfs:label "hasProductReturnPolicy" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/2288> ;
+    schema:category "issue-2288" ;
+    schema:domainIncludes schema:Organization,
+        schema:Product ;
+    schema:isPartOf <http://attic.schema.org> ;
+    schema:rangeIncludes schema:ProductReturnPolicy ;
+    schema:supersededBy schema:hasMerchantReturnPolicy ;
+    rdfs:comment "Indicates a ProductReturnPolicy that may be applicable." .
+
+schema:productReturnDays a rdf:Property ;
+    rdfs:label "productReturnDays" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/2288> ;
+    schema:category "issue-2288" ;
+    schema:domainIncludes schema:ProductReturnPolicy ;
+    schema:isPartOf <http://attic.schema.org> ;
+    schema:rangeIncludes schema:Integer ;
+    schema:supersededBy schema:merchantReturnDays ;
+    rdfs:comment "The productReturnDays property indicates the number of days (from purchase) within which relevant product return policy is applicable." .
+
+schema:productReturnLink a rdf:Property ;
+    rdfs:label "productReturnLink" ;
+    dct:source <https://github.com/schemaorg/schemaorg/issues/2288> ;
+    schema:category "issue-2288" ;
+    schema:domainIncludes schema:ProductReturnPolicy ;
+    schema:isPartOf <http://attic.schema.org> ;
+    schema:rangeIncludes schema:URL ;
+    schema:supersededBy schema:merchantReturnLink ;
+    rdfs:comment "Indicates a Web page or service by URL, for product return." .
+
+schema:stupidProperty a rdf:Property ;
+    rdfs:label "stupidProperty" ;
+    schema:domainIncludes schema:StupidType,
+        schema:Vehicle ;
+    schema:isPartOf <http://attic.schema.org> ;
+    schema:rangeIncludes schema:QuantitativeValue ;
+    rdfs:comment "This is a StupidProperty! - for testing only" .
+
+schema:variablesMeasured a rdf:Property ;
+    rdfs:label "variablesMeasured" ;
+    schema:domainIncludes schema:Dataset ;
+    schema:isPartOf <http://attic.schema.org> ;
+    schema:rangeIncludes schema:PropertyValue,
+        schema:Text ;
+    rdfs:comment "Originally named <a class=\"localLink\" href=\"http://schema.org/variablesMeasured\">variablesMeasured</a>, The <a class=\"localLink\" href=\"http://schema.org/variableMeasured\">variableMeasured</a> property can indicate (repeated as necessary) the  variables that are measured in some dataset, either described as text or as pairs of identifier and description using PropertyValue." .
+

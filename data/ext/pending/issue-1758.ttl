@@ -1,0 +1,52 @@
+@prefix : <http://schema.org/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+:ArchiveComponent a rdfs:Class ;
+    rdfs:label "ArchiveComponent"@en ;
+    :category "issue-1758"@en ;
+    :isPartOf <http://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1758> ;
+    rdfs:comment "An intangible type to be applied to any archive content, carrying with it a set of properties required to describe archival items and collections."@en ;
+    rdfs:subClassOf :CreativeWork .
+
+:ArchiveOrganization a rdfs:Class ;
+    rdfs:label "ArchiveOrganization"@en ;
+    :category "issue-1758"@en ;
+    :isPartOf <http://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1758> ;
+    rdfs:comment "An organization with archival holdings. An organization which keeps and preserves archival material and typically makes it accessible to the public."@en ;
+    rdfs:subClassOf :LocalBusiness .
+
+:itemLocation a rdf:Property ;
+    rdfs:label "itemLocation"@en ;
+    :category "issue-1758"@en ;
+    :domainIncludes :ArchiveComponent ;
+    :isPartOf <http://pending.schema.org> ;
+    :rangeIncludes :Place,
+        :PostalAddress,
+        :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1758> ;
+    rdfs:comment "Current location of the item."@en ;
+    rdfs:subPropertyOf :location .
+
+:archiveHeld a rdf:Property ;
+    rdfs:label "archiveHeld"@en ;
+    :category "issue-1758"@en ;
+    :domainIncludes :ArchiveOrganization ;
+    :inverseOf :holdingArchive ;
+    :isPartOf <http://pending.schema.org> ;
+    :rangeIncludes :ArchiveComponent ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1758> ;
+    rdfs:comment "Collection, [fonds](https://en.wikipedia.org/wiki/Fonds), or item held, kept or maintained by an [[ArchiveOrganization]]."@en .
+
+:holdingArchive a rdf:Property ;
+    rdfs:label "holdingArchive"@en ;
+    :category "issue-1758"@en ;
+    :domainIncludes :ArchiveComponent ;
+    :inverseOf :archiveHeld ;
+    :isPartOf <http://pending.schema.org> ;
+    :rangeIncludes :ArchiveOrganization ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1758> ;
+    rdfs:comment "[[ArchiveOrganization]] that holds, keeps or maintains the [[ArchiveComponent]]."@en .
+

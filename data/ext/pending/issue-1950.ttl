@@ -1,0 +1,30 @@
+@prefix : <http://schema.org/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+:CorrectionComment a rdfs:Class ;
+    rdfs:label "CorrectionComment" ;
+    :category "issue-1950" ;
+    :isPartOf <http://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1950> ;
+    rdfs:comment "A [[comment]] that corrects [[CreativeWork]]." ;
+    rdfs:subClassOf :Comment .
+
+:correction a rdf:Property ;
+    rdfs:label "correction" ;
+    :category "issue-1688",
+        "issue-1950" ;
+    :domainIncludes :CreativeWork ;
+    :isPartOf <http://pending.schema.org> ;
+    :rangeIncludes :CorrectionComment,
+        :Text,
+        :URL ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1950>,
+        <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP> ;
+    rdfs:comment "Indicates a correction to a [[CreativeWork]], either via a [[CorrectionComment]], textually or in another document." .
+
+<https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP> a :Organization ;
+    rdfs:label "The Trust Project" ;
+    :isPartOf <http://pending.schema.org> ;
+    rdfs:comment "This term and its definition is based upon the work of [The Trust Project](http://thetrustproject.org/)." .
+
