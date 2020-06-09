@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rdf:RDF
+  xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+  xmlns:dct="http://purl.org/dc/terms/"
+  xmlns:schema="http://schema.org/"
+>
+  <rdf:Property rdf:about="http://schema.org/variablesMeasured">
+    <rdfs:comment><![CDATA[Originally named <a class="localLink" href="http://schema.org/variablesMeasured">variablesMeasured</a>, The <a class="localLink" href="http://schema.org/variableMeasured">variableMeasured</a> property can indicate (repeated as necessary) the  variables that are measured in some dataset, either described as text or as pairs of identifier and description using PropertyValue.]]></rdfs:comment>
+    <schema:rangeIncludes rdf:resource="http://schema.org/PropertyValue"/>
+    <rdfs:label>variablesMeasured</rdfs:label>
+    <schema:domainIncludes rdf:resource="http://schema.org/Dataset"/>
+    <schema:rangeIncludes rdf:resource="http://schema.org/Text"/>
+    <schema:isPartOf rdf:resource="http://attic.schema.org"/>
+  </rdf:Property>
+  <schema:ProductReturnEnumeration rdf:about="http://schema.org/ProductReturnFiniteReturnWindow">
+    <schema:isPartOf rdf:resource="http://attic.schema.org"/>
+    <schema:supersededBy rdf:resource="http://schema.org/MerchantReturnFiniteReturnWindow"/>
+    <rdfs:comment>ProductReturnFiniteReturnWindow: there is a finite window for product returns.</rdfs:comment>
+    <rdfs:label>ProductReturnFiniteReturnWindow</rdfs:label>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/2288"/>
+    <schema:category>issue-2288</schema:category>
+  </schema:ProductReturnEnumeration>
+  <rdf:Property rdf:about="http://schema.org/productReturnLink">
+    <schema:domainIncludes rdf:resource="http://schema.org/ProductReturnPolicy"/>
+    <schema:rangeIncludes rdf:resource="http://schema.org/URL"/>
+    <schema:isPartOf rdf:resource="http://attic.schema.org"/>
+    <schema:category>issue-2288</schema:category>
+    <schema:supersededBy rdf:resource="http://schema.org/merchantReturnLink"/>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/2288"/>
+    <rdfs:comment>Indicates a Web page or service by URL, for product return.</rdfs:comment>
+    <rdfs:label>productReturnLink</rdfs:label>
+  </rdf:Property>
+  <schema:ProductReturnEnumeration rdf:about="http://schema.org/ProductReturnUnspecified">
+    <schema:category>issue-2288</schema:category>
+    <rdfs:comment>ProductReturnUnspecified: a product return policy is not specified here.</rdfs:comment>
+    <rdfs:label>ProductReturnUnspecified</rdfs:label>
+    <schema:supersededBy rdf:resource="http://schema.org/MerchantReturnUnspecified"/>
+    <schema:isPartOf rdf:resource="http://attic.schema.org"/>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/2288"/>
+  </schema:ProductReturnEnumeration>
+  <schema:ProductReturnEnumeration rdf:about="http://schema.org/ProductReturnNotPermitted">
+    <schema:supersededBy rdf:resource="http://schema.org/MerchantReturnNotPermitted"/>
+    <rdfs:comment>ProductReturnNotPermitted: product returns are not permitted.</rdfs:comment>
+    <schema:category>issue-2288</schema:category>
+    <rdfs:label>ProductReturnNotPermitted</rdfs:label>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/2288"/>
+    <schema:isPartOf rdf:resource="http://attic.schema.org"/>
+  </schema:ProductReturnEnumeration>
+  <rdf:Property rdf:about="http://schema.org/productReturnDays">
+    <schema:rangeIncludes rdf:resource="http://schema.org/Integer"/>
+    <schema:domainIncludes rdf:resource="http://schema.org/ProductReturnPolicy"/>
+    <schema:supersededBy rdf:resource="http://schema.org/merchantReturnDays"/>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/2288"/>
+    <rdfs:comment>The productReturnDays property indicates the number of days (from purchase) within which relevant product return policy is applicable.</rdfs:comment>
+    <schema:isPartOf rdf:resource="http://attic.schema.org"/>
+    <schema:category>issue-2288</schema:category>
+    <rdfs:label>productReturnDays</rdfs:label>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://schema.org/stupidProperty">
+    <schema:domainIncludes rdf:resource="http://schema.org/StupidType"/>
+    <rdfs:comment>This is a StupidProperty! - for testing only</rdfs:comment>
+    <rdfs:label>stupidProperty</rdfs:label>
+    <schema:domainIncludes rdf:resource="http://schema.org/Vehicle"/>
+    <schema:rangeIncludes rdf:resource="http://schema.org/QuantitativeValue"/>
+    <schema:isPartOf rdf:resource="http://attic.schema.org"/>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://schema.org/hasProductReturnPolicy">
+    <schema:domainIncludes rdf:resource="http://schema.org/Organization"/>
+    <schema:category>issue-2288</schema:category>
+    <schema:supersededBy rdf:resource="http://schema.org/hasMerchantReturnPolicy"/>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/2288"/>
+    <rdfs:label>hasProductReturnPolicy</rdfs:label>
+    <schema:rangeIncludes rdf:resource="http://schema.org/ProductReturnPolicy"/>
+    <schema:isPartOf rdf:resource="http://attic.schema.org"/>
+    <schema:domainIncludes rdf:resource="http://schema.org/Product"/>
+    <rdfs:comment>Indicates a ProductReturnPolicy that may be applicable.</rdfs:comment>
+  </rdf:Property>
+  <schema:ProductReturnEnumeration rdf:about="http://schema.org/ProductReturnUnlimitedWindow">
+    <schema:category>issue-2288</schema:category>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/2288"/>
+    <schema:isPartOf rdf:resource="http://attic.schema.org"/>
+    <schema:supersededBy rdf:resource="http://schema.org/MerchantReturnUnlimitedWindow"/>
+    <rdfs:comment>ProductReturnUnlimitedWindow: there is an unlimited window for product returns.</rdfs:comment>
+    <rdfs:label>ProductReturnUnlimitedWindow</rdfs:label>
+  </schema:ProductReturnEnumeration>
+  <rdfs:Class rdf:about="http://schema.org/ProductReturnEnumeration">
+    <schema:category>issue-2288</schema:category>
+    <schema:isPartOf rdf:resource="http://attic.schema.org"/>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/2288"/>
+    <schema:supersededBy rdf:resource="http://schema.org/MerchantReturnEnumeration"/>
+    <rdfs:comment>ProductReturnEnumeration enumerates several kinds of product return policy. Note that this structure may not capture all aspects of the policy.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="http://schema.org/Enumeration"/>
+    <rdfs:label>ProductReturnEnumeration</rdfs:label>
+  </rdfs:Class>
+  <rdfs:Class rdf:about="http://schema.org/ProductReturnPolicy">
+    <schema:isPartOf rdf:resource="http://attic.schema.org"/>
+    <rdfs:label>ProductReturnPolicy</rdfs:label>
+    <rdfs:comment><![CDATA[A ProductReturnPolicy provides information about product return policies associated with an <a class="localLink" href="http://schema.org/Organization">Organization</a> or <a class="localLink" href="http://schema.org/Product">Product</a>.]]></rdfs:comment>
+    <schema:supersededBy rdf:resource="http://schema.org/MerchantReturnPolicy"/>
+    <rdfs:subClassOf rdf:resource="http://schema.org/Intangible"/>
+    <dct:source rdf:resource="https://github.com/schemaorg/schemaorg/issues/2288"/>
+    <schema:category>issue-2288</schema:category>
+  </rdfs:Class>
+  <rdfs:Class rdf:about="http://schema.org/StupidType">
+    <rdfs:label>StupidType</rdfs:label>
+    <rdfs:subClassOf rdf:resource="http://schema.org/Thing"/>
+    <rdfs:comment>A StupidType for testing.</rdfs:comment>
+    <schema:isPartOf rdf:resource="http://attic.schema.org"/>
+  </rdfs:Class>
+</rdf:RDF>

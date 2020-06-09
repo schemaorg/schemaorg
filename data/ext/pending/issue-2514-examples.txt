@@ -1,0 +1,54 @@
+TYPES: SpecialAnnouncement
+
+PRE-MARKUP:
+
+An announcement of where to pick up free lunches for school children in Boston.
+
+
+MICRODATA:
+
+<!-- JSONLD only example -->
+
+RDFA:
+
+<!-- JSONLD only example -->
+
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org/",
+  "@type": "SpecialAnnouncement",
+  "category": "https://www.wikidata.org/wiki/Q81068910",
+  "name": "Breakfast and lunch for school children",
+  "text": "The city of Boston will provide free breakfast and lunch meals will be provided for school age children attending Boston schools.",
+  "datePosted": "2020-03-17",
+  "newsUpdatesAndGuidelines": "https://www.bostonpublicschools.org/Page/8098",
+  "spatialCoverage": {
+    "@type": "City",
+    "name": "Boston, MA"
+  },
+  "announcementLocation": [
+    {
+      "@type": "School",
+      "name": "Charlestown High School",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "240 Medford Street",
+        "addressLocality": "Charlestown",
+        "addressRegion": "Massachusetts"
+      }
+    },
+    {
+      "@type": "School",
+      "name": "East Boston High School",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "86 White Street",
+        "addressLocality": "Charlestown",
+        "addressRegion": "Massachusetts"
+      }
+    }
+  ]
+}

@@ -24,10 +24,9 @@ JSON:
     "name": "Stanford announce COVID-19 testing facility",
     "text": "Stanford Health Care’s same-day primary care program is offering drive-through testing, by appointment, for SARS-CoV-2, the coronavirus that causes COVID-19.",
     "datePosted": "2020-03-16",
-    "
     "url": "http://med.stanford.edu/news/all-news/2020/03/stanford-offers-drive-through-coronavirus-test.html",
     "category": "https://www.wikidata.org/wiki/Q81068910",
-    "about" : {
+    "announcementLocation" : {
         "@type": "CovidTestingFacility",
         "name": "Stanford Health Care",
         "url": "https://stanfordhealthcare.org/"
@@ -69,11 +68,82 @@ JSON:
       "@url": "http://example.org/schools/school/eastergate-cofe-primary-school/closures",
       "encodingFormat": "application/rss+atom"
     },
-    "about" : {
+    "announcementLocation" : {
         "@type": "School",
         "name": "Eastergate School",
         "url": "http://example.org/schools/school/eastergate-cofe-primary-school/",
         "location": "..."
     }
+}
+</script>
+
+TYPES: SpecialAnnouncement
+
+PRE-MARKUP:
+
+An announcement of shelter-in-place for a number of administrative areas.
+
+
+MICRODATA:
+
+<!-- JSONLD only example -->
+
+RDFA:
+
+<!-- JSONLD only example -->
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "SpecialAnnouncement",
+  "name": "Shelter-in-place for 6 California counties",
+  "text": "Shelter-in-place for 6 California counties",
+  "datePosted": "2020-03-17",
+  "category": "https://www.wikidata.org/wiki/Q81068910",
+  "quarantineGuidelines": "http://example.org/california/shelter-in-place/",
+  "spatialCoverage": [
+    {
+      "@type": "AdministrativeArea",
+      "name": "San Francisco County, CA"
+    },
+    {
+      "@type": "AdministrativeArea",
+      "name": "Marin County, CA"
+    },
+    {
+      "@type": "AdministrativeArea",
+      "name": "Santa Clara County, CA"
+    },
+    {
+      "@type": "AdministrativeArea",
+      "name": "Santa Cruz County, CA"
+    },
+    {
+      "@type": "AdministrativeArea",
+      "name": "Santa Clara County, CA"
+    },
+    {
+      "@type": "AdministrativeArea",
+      "name": "San Mateo County, CA"
+    },
+    {
+      "@type": "AdministrativeArea",
+      "name": "Santa Clara County, CA"
+    },
+    {
+      "@type": "AdministrativeArea",
+      "name": "Contra Costa County, CA"
+    },
+    {
+      "@type": "AdministrativeArea",
+      "name": "Alameda County, CA"
+    },
+    {
+      "@type": "City",
+      "name": "Fresno, CA"
+    }
+  ]
 }
 </script>

@@ -126,12 +126,161 @@ ul {
 <br/>
 
 <div class="scroll-div">
+<span id="v.next"></span>
 <table class="grid">
 <tr>
     <th>Release</th>
     <th>Overview</th>
     <th>Description</th>
 </tr>
+
+
+
+<tr>
+<td class="release"><a href="/version/8.0/">8.0</a><br/>2020-05-01</td>
+<td>
+<span id="v8.0"></span>
+<p>
+Version 8.0 See <a href="https://github.com/schemaorg/schemaorg/issues/2528">planning pages</a>. This release consists of additions to the <a href="https://pending.schema.org/">Pending</a> section of schema.org.
+</p>
+</td>
+<td>
+<h2>Vocabulary</h2>
+
+<h3>Changes in Core section:</h3>
+<ul>
+<li>N/A</li>
+</ul>
+
+<h3>Changes in <a href="http://pending.schema.org/">Pending</a> section:</h3>
+<ul>
+  <li id="g2543"><a href="https://github.com/schemaorg/schemaorg/issues/2543">Issue #2543</a>: Add a <a href="/nonprofitStatus">nonprofitStatus</a> property to indicate non-profit organizations, alongside an initial enumeration of non-profit organization types, <a href="/NonprofitType">NonprofitType</a>.</li>
+  <li id="g2506"><a href="https://github.com/schemaorg/schemaorg/issues/2506">Issue #2506</a>: Add vocabulary to help online vendors publish information about their shipping-related policies, associatted with an <a href="/Offer">Offer</a> using the <a href="/shippingDetails">shippingDetails</a> property. Adds <a href="/OfferShippingDetails">OfferShippingDetails</a> and supporting properties (including <a href="/deliveryTime">deliveryTime</a>, <a href="/doesNotShip">doesNotShip</a>, <a href="/shippingDestination">shippingDestination</a>, <a href="/shippingLabel">shippingLabel</a>, <a href="/shippingRate">shippingRate</a>, <a href="/shippingSettingsLink">shippingSettingsLink</a>, <a href="/transitTimeLabel">transitTimeLabel</a>). Also added supporting types <a href="/ShippingDeliveryTime">ShippingDeliveryTime</a>, <a href="/DefinedRegion">DefinedRegion</a>, <a href="/PostalCodeRangeSpecification">PostalCodeRangeSpecification</a>, <a href="/OfferShippingDetails">OfferShippingDetails</a>, <a href="/ShippingRateSettings">ShippingRateSettings</a>.
+  </li>
+  <li id="g2427"><a href="https://github.com/schemaorg/schemaorg/issues/2427">Issue #2427</a>: Simplifies education-related markup for describing what a learning resource <a href="/teaches">teaches</a> or <a href="/assesses">assesses</a>, and its  <a href="/educationalLevel">educationalLevel</a>. Allows these properties to be used for <a href="/EducationEvent">EducationEvents</a>.</li>
+  <li id="g2384b"><a href="https://github.com/schemaorg/schemaorg/issues/2384">Issue #2384</a>: Add property to <a href="/JobPosting">JobPosting</a> for legal requirements relating to <a href="/eligibilityToWorkRequirement ">eligibility to work</a> such as citizenship, visa or other documentation.</li>
+  <li id="g2469"><a href="https://github.com/schemaorg/schemaorg/issues/2469">Issue #2469</a>: Add two properties to represent <a href="https://eidr.org">EIDR</a> identifiers: <a href="/titleEIDR">titleEIDR</a> and <a href="/editEIDR">editEIDR</a>.</li>
+</ul>
+
+</td>
+</tr>
+
+
+
+
+<tr>
+<td class="release"><a href="/version/7.04/">7.04</a><br/>2020-04-16</td>
+<td>
+<span id="v7.04"></span>
+<p>
+Version 7.04. See <a href="https://github.com/schemaorg/schemaorg/issues/2522">planning pages</a>. This was a minor release, with
+improvements relating to the COVID-19 response effort.
+</p>
+</td>
+<td>
+<h2>Vocabulary</h2>
+
+<h3>Changes in Core section:</h3>
+<ul>
+  <li id="g2540"><a href="https://github.com/schemaorg/schemaorg/issues/2540">Issue #2540</a>: <a href="/EducationalOrganization">EducationalOrganization</a> has an additional supertype of <a href="/CivicStructure">CivicStructure</a>, clarifying that it can be used with <a href="/announcementLocation">announcementLocation</a>.</li>
+</ul>
+
+<h3>Changes in <a href="http://pending.schema.org/">Pending</a> section:</h3>
+<ul>
+
+  <li id="g2534"><a href="https://github.com/schemaorg/schemaorg/issues/2534">Issue #2534</a>: Improved vocabulary for describing government benefits
+    in the context of a <a href="/SpecialAnnouncement">SpecialAnnouncement</a>. A new <a href="/governmentBenefitsInfo">governmentBenefitsInfo</a> property
+    can now reference a <a href="/GovernmentService">GovernmentService</a>. The existing <a href="/serviceType">serviceType</a> property can now
+    optionally use enumerated values from <a href="/GovernmentBenefitsType">GovernmentBenefitsType</a>. This enumerates several kinds of government benefits.
+    While the list is general purpose, our priority is to support the COVID-19 response. We anticipate adding more structure here in future to better capture per-country systems and new kinds of benefit. As part of this work
+    we also introduce a <a href="/jurisdiction">jurisdiction</a> property as a superproperty of <a href="/legislationJurisdiction">legislationJurisdiction</a>.
+  </li>
+
+  <li id="g2536"><a href="https://github.com/schemaorg/schemaorg/issues/2536">Issue #2536</a>: Fixed a bug in the amended definition for <a href="/category">category</a>.</li>
+
+  <li id="g2526"><a href="https://github.com/schemaorg/schemaorg/issues/2526">Issue #2626</a>: Add a <a href="/Hackathon">Hackathon</a> type.</li>
+
+  <li id="g2493"><a href="https://github.com/schemaorg/schemaorg/issues/2493">Issue #2493</a>: Add <a href="/startTime">startTime</a>/<a href="/endTime">endTime</a> to <a href="/Schedule">Schedule</a>.</li>
+</ul>
+
+</td>
+</tr>
+
+
+<tr>
+<td class="release"><a href="/version/7.03/">7.03</a><br/>2020-04-02</td>
+<td>
+<span id="v7.03"></span>
+<p>
+Version 7.03. See <a href="https://github.com/schemaorg/schemaorg/issues/2522">planning pages</a>. This was a minor release, with
+improvements relating to the COVID-19 response effort.
+</p>
+</td>
+<td>
+<h2>Vocabulary</h2>
+<h3>Changes in <a href="http://pending.schema.org/">Pending</a> section:</h3>
+<ul>
+  <li id="g2521"><a href="https://github.com/schemaorg/schemaorg/issues/2521">Issue #2521</a>: Adds a <a href="/docs/cdc-covid.html">document</a> and schema definitions capturing a 1:1 representation of a CDC CSV format for hospital reporting.</li>
+  <li id="g2519"><a href="https://github.com/schemaorg/schemaorg/issues/2519">Issue #2519</a>: Clarifies that <a href="/webFeed">webFeed</a> can be expected on the <a href="/SpecialAnnouncement">SpecialAnnouncement</a> type.</li>
+  <li id="g2518"><a href="https://github.com/schemaorg/schemaorg/issues/2518">Issue #2518</a>: Updated pending draft of <a href="/3DModel">3DModel</a> to place it under <a href="/MediaObject">MediaObject</a> rather than clutter <a href="/CreativeWork">CreativeWork</a>.</li>
+</ul>
+
+</td>
+</tr>
+
+<tr>
+<td class="release"><a href="/version/7.02/">7.02</a><br/>2020-03-31</td>
+<td>
+<span id="v7.02"></span>
+<p>
+Version 7.02. See <a href="https://github.com/schemaorg/schemaorg/issues/2517">planning pages</a>. This was a minor release, with
+improvements relating to the COVID-19 response effort.
+</p>
+</td>
+<td>
+<h2>Vocabulary</h2>
+
+
+<h3>Changes in <a href="http://pending.schema.org/">Pending</a> section:</h3>
+<ul>
+  <li id="g2514"><a href="https://github.com/schemaorg/schemaorg/issues/2514">Issue #2514</a>: Added an <a href="/announcementLocation">announcementLocation</a> property, clarifying how a <a href="/SpecialAnnouncement">SpecialAnnouncement</a>
+  can reference both regions and specific places.
+  </li>
+</ul>
+
+</td>
+</tr>
+
+
+<tr>
+<td class="release"><a href="/version/7.01/">7.01</a><br/>2020-03-22</td>
+<td>
+<span id="v7.01"></span>
+<p>
+Version 7.01. See <a href="https://github.com/schemaorg/schemaorg/issues/2501">planning pages</a>. This was a minor release, with
+improvements relating to the COVID-19 response effort.
+</p>
+</td>
+<td>
+<h2>Vocabulary</h2>
+<h3>Core changes</h3>
+<ul>
+  <li>N/A</li>
+</ul>
+
+<h3>Changes in <a href="http://pending.schema.org/">Pending</a> section:</h3>
+<ul>
+  <li id="g2500"><a href="https://github.com/schemaorg/schemaorg/issues/2500">Issue #2500</a>: Added a <a href="/SchoolDistrict">SchoolDistrict</a> type.</li>
+  <li id="g2497"><a href="https://github.com/schemaorg/schemaorg/pull/2497">Issue #2497</a>: Added <a href="/datePosted">datePosted</a> to <a href="/SpecialAnnouncement">SpecialAnnouncement</a> type.</li>
+</ul>
+<h3>Site Improvements</h3>
+<ul>
+  <li id="g2495"><a href="https://github.com/schemaorg/schemaorg/pull/2495">Issue #2495</a>: Added an example for the geographic region of a SpecialAnnouncement.
+</li>
+ </ul>
+</td>
+</tr>
+
 
 <tr>
 <td class="release"><a href="/version/7.0/">7.0</a><br/>2020-03-17</td>
@@ -176,6 +325,10 @@ a new <a href="/tourBookingPage">tourBookingPage</a>.
  </ul>
 </td>
 </tr>
+
+
+
+
 <tr>
 <td class="release"><a href="/version/6.0/">6.0</a><br/>2020-01-21</td>
 <td>

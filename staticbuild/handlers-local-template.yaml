@@ -1,0 +1,317 @@
+handlers:
+
+- url: /
+  static_files: docs/home.html
+  mime_type: text/html
+  upload: docs/home.html
+  http_headers: 
+    Access-Control-Allow-Credentials: 'true'
+    Access-Control-Allow-Headers: Accept
+    Access-Control-Allow-Origin: "*"
+    Access-Control-Allow-Methods: GET
+    Access-Control-Expose-Headers: Link
+    Link: "</docs/jsonldcontext.jsonld>; rel=\"alternate\"; type=\"application/ld+json\""
+  secure: always
+  redirect_http_response_code: 301  
+
+- url: /docs/jsonldcontext.jsonld
+  static_files: docs/jsonldcontext.jsonld
+  mime_type: application/ld+json
+  upload: docs/jsonldcontext.jsonld
+  http_headers: 
+    Access-Control-Allow-Credentials: 'true'
+    Access-Control-Allow-Headers: Accept
+    Access-Control-Allow-Origin: "*"
+    Access-Control-Allow-Methods: GET
+  secure: always
+  redirect_http_response_code: 301  
+
+- url: /docs/jsonldcontext.json
+  static_files: docs/jsonldcontext.json
+  mime_type: application/json
+  upload: docs/jsonldcontext.json
+  http_headers: 
+    Access-Control-Allow-Credentials: 'true'
+    Access-Control-Allow-Headers: Accept
+    Access-Control-Allow-Origin: "*"
+    Access-Control-Allow-Methods: GET
+  secure: always
+  redirect_http_response_code: 301  
+
+- url: /docs/jsonldcontext.json.txt
+  static_files: docs/jsonldcontext.json.txt
+  mime_type: text/plain
+  upload: docs/jsonldcontext.json.txt
+  http_headers: 
+    Access-Control-Allow-Credentials: 'true'
+    Access-Control-Allow-Headers: Accept
+    Access-Control-Allow-Origin: "*"
+    Access-Control-Allow-Methods: GET
+  secure: always
+  redirect_http_response_code: 301  
+
+- url: /docs
+  static_dir: docs
+  http_headers: 
+    Access-Control-Allow-Credentials: 'true'
+    Access-Control-Allow-Headers: Accept
+    Access-Control-Allow-Origin: "*"
+    Access-control-allow-methods: GET
+  secure: always
+  redirect_http_response_code: 301
+  
+
+#####
+### Latest Release files
+
+- url: /version/latest/(.*\.rdfa)
+  mime_type: text/html
+  static_files: releases/{{ver}}/\1
+  upload: releases/{{ver}}/(.*\.rdfa)
+  http_headers: 
+    Access-Control-Allow-Credentials: 'true'
+    Access-Control-Allow-Headers: Accept
+    Access-Control-Allow-Origin: "*"
+    Access-control-allow-methods: GET
+  secure: always
+  redirect_http_response_code: 301
+  
+
+- url: /version/latest/(.*\.ttl)
+  mime_type: text/turtle
+  static_files: releases/{{ver}}/\1
+  upload: releases/{{ver}}/(.*\.ttl)
+  http_headers: 
+    Access-Control-Allow-Credentials: 'true'
+    Access-Control-Allow-Headers: Accept
+    Access-Control-Allow-Origin: "*"
+    Access-control-allow-methods: GET
+  secure: always
+  redirect_http_response_code: 301
+  
+
+- url: /version/latest/(.*\.jsonld)
+  mime_type: application/ld+json
+  static_files: releases/{{ver}}/\1
+  upload: releases/{{ver}}/(.*\.jsonld)
+  http_headers: 
+    Access-Control-Allow-Credentials: 'true'
+    Access-Control-Allow-Headers: Accept
+    Access-Control-Allow-Origin: "*"
+    Access-control-allow-methods: GET
+  secure: always
+  redirect_http_response_code: 301
+  
+
+- url: /version/latest/(.*\.rdf)
+  mime_type: application/rdf+xml
+  static_files: releases/{{ver}}/\1
+  upload: releases/{{ver}}/(.*\.rdf)
+  http_headers: 
+    Access-Control-Allow-Credentials: 'true'
+    Access-Control-Allow-Headers: Accept
+    Access-Control-Allow-Origin: "*"
+    Access-control-allow-methods: GET
+  secure: always
+  redirect_http_response_code: 301
+  
+ 
+- url: /version/latest/(.*\.nt)
+  mime_type: application/n-triples
+  static_files: releases/{{ver}}/\1
+  upload: releases/{{ver}}/(.*\.nt)
+  http_headers: 
+    Access-Control-Allow-Credentials: 'true'
+    Access-Control-Allow-Headers: Accept
+    Access-Control-Allow-Origin: "*"
+    Access-control-allow-methods: GET
+  secure: always
+  redirect_http_response_code: 301
+  
+
+- url: /version/latest/(.*\.nq)
+  mime_type: application/n-quads
+  static_files: releases/{{ver}}/\1
+  upload: releases/{{ver}}/(.*\.nq)
+  http_headers: 
+    Access-Control-Allow-Credentials: 'true'
+    Access-Control-Allow-Headers: Accept
+    Access-Control-Allow-Origin: "*"
+    Access-control-allow-methods: GET
+  secure: always
+  redirect_http_response_code: 301
+  
+
+- url: /version/latest/(.*\.csv)
+  mime_type: text/csv
+  static_files: releases/{{ver}}/\1
+  upload: releases/{{ver}}/(.*\.csv)
+  http_headers: 
+    Access-Control-Allow-Credentials: 'true'
+    Access-Control-Allow-Headers: Accept
+    Access-Control-Allow-Origin: "*"
+    Access-control-allow-methods: GET
+  secure: always
+  redirect_http_response_code: 301
+  
+
+- url: /version/latest[\/]?
+  mime_type: text/html
+  static_files: releases/{{ver}}/schema-all.html
+  upload: releases/{{ver}}/schema-all.html
+  http_headers: 
+    Access-Control-Allow-Credentials: 'true'
+    Access-Control-Allow-Headers: Accept
+    Access-Control-Allow-Origin: "*"
+    Access-control-allow-methods: GET
+  secure: always
+  redirect_http_response_code: 301
+  
+  
+#####
+### Release files
+
+- url: /version/(.*/.*\.rdfa)
+  mime_type: text/html
+  static_files: releases/\1
+  upload: releases/(.*/.*\.rdfa)
+  http_headers: 
+    Access-Control-Allow-Credentials: 'true'
+    Access-Control-Allow-Headers: Accept
+    Access-Control-Allow-Origin: "*"
+    Access-control-allow-methods: GET
+  secure: always
+  redirect_http_response_code: 301
+  
+
+- url: /version/(.*/.*\.ttl)
+  mime_type: text/turtle
+  static_files: releases/\1
+  upload: releases/(.*/.*\.ttl)
+  http_headers: 
+    Access-Control-Allow-Credentials: 'true'
+    Access-Control-Allow-Headers: Accept
+    Access-Control-Allow-Origin: "*"
+    Access-control-allow-methods: GET
+  secure: always
+  redirect_http_response_code: 301
+  
+
+- url: /version/(.*/.*\.jsonld)
+  mime_type: application/ld+json
+  static_files: releases/\1
+  upload: releases/(.*/.*\.jsonld)
+  http_headers: 
+    Access-Control-Allow-Credentials: 'true'
+    Access-Control-Allow-Headers: Accept
+    Access-Control-Allow-Origin: "*"
+    Access-control-allow-methods: GET
+  secure: always
+  redirect_http_response_code: 301
+  
+
+- url: /version/(.*/.*\.rdf)
+  mime_type: application/rdf+xml
+  static_files: releases/\1
+  upload: releases/(.*/.*\.rdf)
+  http_headers: 
+    Access-Control-Allow-Credentials: 'true'
+    Access-Control-Allow-Headers: Accept
+    Access-Control-Allow-Origin: "*"
+    Access-control-allow-methods: GET
+  secure: always
+  redirect_http_response_code: 301
+  
+ 
+- url: /version/(.*/.*\.nt)
+  mime_type: application/n-triples
+  static_files: releases/\1
+  upload: releases/(.*/.*\.nt)
+  http_headers: 
+    Access-Control-Allow-Credentials: 'true'
+    Access-Control-Allow-Headers: Accept
+    Access-Control-Allow-Origin: "*"
+    Access-control-allow-methods: GET
+  secure: always
+  redirect_http_response_code: 301
+  
+
+- url: /version/(.*/.*\.nq)
+  mime_type: application/n-quads
+  static_files: releases/\1
+  upload: releases/(.*/.*\.nq)
+  http_headers: 
+    Access-Control-Allow-Credentials: 'true'
+    Access-Control-Allow-Headers: Accept
+    Access-Control-Allow-Origin: "*"
+    Access-control-allow-methods: GET
+  secure: always
+  redirect_http_response_code: 301
+  
+
+- url: /version/(.*/.*\.csv)
+  mime_type: text/csv
+  static_files: releases/\1
+  upload: releases/(.*/.*\.csv)
+  http_headers: 
+    Access-Control-Allow-Credentials: 'true'
+    Access-Control-Allow-Headers: Accept
+    Access-Control-Allow-Origin: "*"
+    Access-control-allow-methods: GET
+  secure: always
+  redirect_http_response_code: 301
+  
+
+- url: /version/(.*)/$
+  mime_type: text/html
+  static_files: releases/\1/schema-all.html
+  upload: releases/.*/.*
+  http_headers:
+    Access-Control-Allow-Credentials: 'true'
+    Access-Control-Allow-Headers: Accept
+    Access-Control-Allow-Origin: "*"
+    Access-control-allow-methods: GET
+  secure: always
+  redirect_http_response_code: 301
+
+- url: /version/(.*)$
+  mime_type: text/html
+  static_files: releases/\1/schema-all.html
+  upload: releases/.*/.*
+  http_headers:
+    Access-Control-Allow-Credentials: 'true'
+    Access-Control-Allow-Headers: Accept
+    Access-Control-Allow-Origin: "*"
+    Access-control-allow-methods: GET
+  secure: always
+  redirect_http_response_code: 301  
+  
+######
+### Term pages
+   
+- url: /([a-z])(.*)$
+  static_files: terms/properties/\1/\1\2.html
+  upload: terms/properties/./.*\.html
+  http_headers: 
+    Access-Control-Allow-Credentials: 'true'
+    Access-Control-Allow-Headers: Accept
+    Access-Control-Allow-Origin: "*"
+    Access-control-allow-methods: GET
+  secure: always
+  redirect_http_response_code: 301
+
+   
+- url: /([0-9A-Z])(.*)$
+  static_files: terms/types/\1/\1\2.html
+  upload: terms/types/./.*\.html
+  http_headers: 
+    Access-Control-Allow-Credentials: 'true'
+    Access-Control-Allow-Headers: Accept
+    Access-Control-Allow-Origin: "*"
+    Access-control-allow-methods: GET
+  secure: always
+  redirect_http_response_code: 301
+  
+    
+
+

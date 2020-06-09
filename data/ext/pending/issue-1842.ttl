@@ -1,0 +1,71 @@
+@prefix : <http://schema.org/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+:EventAttendanceModeEnumeration a rdfs:Class ;
+    rdfs:label "EventAttendanceModeEnumeration" ;
+    :category "issue-1842" ;
+    :isPartOf <http://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1842> ;
+    rdfs:comment "An EventAttendanceModeEnumeration value is one of potentially several modes of organising an event, relating to whether it is online or offline." ;
+    rdfs:subClassOf :Enumeration .
+
+:VirtualLocation a rdfs:Class ;
+    rdfs:label "VirtualLocation" ;
+    :category "issue-1842" ;
+    :isPartOf <http://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1842> ;
+    rdfs:comment "An online or virtual location for attending events. For example, one may attend an online seminar or educational event. While a virtual location may be used as the location of an event, virtual locations should not be confused with physical locations in the real world." ;
+    rdfs:subClassOf :Intangible .
+
+:MixedEventAttendanceMode a :EventAttendanceModeEnumeration ;
+    rdfs:label "MixedEventAttendanceMode" ;
+    :category "issue-1842" ;
+    :isPartOf <http://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1842> ;
+    rdfs:comment "MixedEventAttendanceMode - an event that is conducted as a combination of both offline and online modes." .
+
+:OfflineEventAttendanceMode a :EventAttendanceModeEnumeration ;
+    rdfs:label "OfflineEventAttendanceMode" ;
+    :category "issue-1842" ;
+    :isPartOf <http://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1842> ;
+    rdfs:comment "OfflineEventAttendanceMode - an event that is primarily conducted offline. " .
+
+:OnlineEventAttendanceMode a :EventAttendanceModeEnumeration ;
+    rdfs:label "OnlineEventAttendanceMode" ;
+    :category "issue-1842" ;
+    :isPartOf <http://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1842> ;
+    rdfs:comment "OnlineEventAttendanceMode - an event that is primarily conducted online. " .
+
+:eventAttendanceMode a rdf:Property ;
+    rdfs:label "eventAttendanceMode" ;
+    :category "issue-1842" ;
+    :domainIncludes :Event ;
+    :isPartOf <http://pending.schema.org> ;
+    :rangeIncludes :EventAttendanceModeEnumeration ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1842> ;
+    rdfs:comment "The eventAttendanceMode of an event indicates whether it occurs online, offline, or a mix." .
+
+:location a rdf:Property ;
+    :rangeIncludes :VirtualLocation .
+
+:maximumPhysicalAttendeeCapacity a rdf:Property ;
+    rdfs:label "maximumPhysicalAttendeeCapacity" ;
+    :category "issue-1842" ;
+    :domainIncludes :Event ;
+    :isPartOf <http://pending.schema.org> ;
+    :rangeIncludes :Integer ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1842> ;
+    rdfs:comment "The maximum physical attendee capacity of an [[Event]] whose [[eventAttendanceMode]] is [[OfflineEventAttendanceMode]] (or the offline aspects, in the case of a [[MixedEventAttendanceMode]]). " .
+
+:maximumVirtualAttendeeCapacity a rdf:Property ;
+    rdfs:label "maximumVirtualAttendeeCapacity" ;
+    :category "issue-1842" ;
+    :domainIncludes :Event ;
+    :isPartOf <http://pending.schema.org> ;
+    :rangeIncludes :Integer ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1842> ;
+    rdfs:comment "The maximum physical attendee capacity of an [[Event]] whose [[eventAttendanceMode]] is [[OnlineEventAttendanceMode]] (or the online aspects, in the case of a [[MixedEventAttendanceMode]]). " .
+
