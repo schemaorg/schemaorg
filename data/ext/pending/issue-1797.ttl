@@ -64,6 +64,7 @@ While a ProductGroup itself is not directly offered for sale, the various varyin
         rdfs:label "hasVariant" ;
 
         :isPartOf <http://pending.schema.org> ;
+        :inverseOf :isVariantOf ;
         :source <https://github.com/schemaorg/schemaorg/issues/1797> ;
         :category "issue-1797" ;
 
@@ -78,7 +79,8 @@ While a ProductGroup itself is not directly offered for sale, the various varyin
 # Updates to existing terms
 
 # 1) we expect isVariantOf to sometimes be a ProductGroup
-:isVariantOf a rdf:Property ; :rangeIncludes :ProductGroup ;
+:isVariantOf a rdf:Property ; :domainIncludes :Product ; :rangeIncludes :ProductGroup .
+
 
 # 2)
 # New text defining :isVariantOf in a way that supports these new terms
