@@ -138,7 +138,7 @@ rm -f $DIR/*.nq 2>&1 > /dev/null
 rm -f $DIR/*.nt 2>&1 > /dev/null
 rm -f $DIR/*.ttl 2>&1 > /dev/null
 rm -f $DIR/*.csv 2>&1 > /dev/null
-rm -f $DIR/schema.rdfa 2>&1 > /dev/null
+rm -f $DIR/schema.ttl 2>&1 > /dev/null
 rm -f $DIR/README.md 2>&1 > /dev/null
 rm -f $DIR/schema-all.html  2>&1 > /dev/null
 rm -f $DIR/schemaorg.owl  2>&1 > /dev/null
@@ -146,8 +146,8 @@ echo " cleaned."
 sleep 2
 
 
-echo -n "Copying schema.rdfa and README.md into release directory... "
-cp ./data/schema.rdfa $DIR
+echo -n "Copying schema.ttl and README.md into release directory... "
+cp ./data/schema.ttl $DIR
 cp ./README.md $DIR
 echo " copied"
 sleep 2

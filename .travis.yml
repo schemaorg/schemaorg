@@ -7,15 +7,6 @@ cache: bundler
 
 jobs:
   include:
-    - stage: xmllint
-      name: "XML Lint RDFa"
-      language: python
-      python: "2.7"
-      before_script:
-        - sudo apt-get install -y libxml2-utils
-      script:
-        - xmllint --noout data/*.rdfa data/ext/*/*.rdfa
-
     - stage: python
       name: "Python tests"
       language: python

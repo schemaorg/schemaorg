@@ -80,7 +80,7 @@ However, from the perspective of a publisher, these are simply schema.org proper
 <p><b>Note</b>: the 'pending' and 'meta' hosted sections are part of schema.org's schema development process.</p>
 <p id="ext_pending">
   We use the 'pending' section as a staging area for new schema.org terms that are under discussion and review.
-  Implementors and publishers are cautioned that terms in the <a href="http://pending.schema.org">pending</a> section
+  Implementors and publishers are cautioned that terms in the <a href="/docs/pending.home.html">pending</a> section
   may lack consensus and that terminology and definitions could still change significantly after community and <a href="/docs/about.html#cgsg">steering group</a> review.
   Consumers of schema.org data who encourage use of such terms are <em>strongly encouraged</em>
   to update implementations and documentation to track any evolving changes, and to share early implementation feedback with the <a href="http://www.w3.org/community/schemaorg">wider community</a>.
@@ -90,7 +90,7 @@ However, from the perspective of a publisher, these are simply schema.org proper
 The 'meta' section is primarily for vocabulary used internally within schema.org to support technical definitions and
 schema.org site functionality. These terms are not intended for general usage in the public Web.
 </p>
-<p id="attic"><strong>Attic</strong> ({{attic | safe}}) is a special area where terms are archived when deprecated from the core and other sections, or removed from <a href="http://pending.schema.org">pending</a> as not accepted into the full vocabulary. References to terms in the attic area are not normally displayed unless accessed via the term identifier or via the {{attic | safe}} home page. Implementors and data publishers are cautioned not to use terms in the attic area.
+<p id="attic"><strong>Attic</strong> ({{attic | safe}}) is a special area where terms are archived when deprecated from the core and other sections, or removed from <a href="/docs/pending.home.html">pending</a> as not accepted into the full vocabulary. References to terms in the attic area are not normally displayed unless accessed via the term identifier or via the {{attic | safe}} home page. Implementors and data publishers are cautioned not to use terms in the attic area.
 </p>
 
 <p>

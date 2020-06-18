@@ -6,25 +6,6 @@
   },
   "@graph": [
     {
-      "@id": "http://schema.org/ProductReturnPolicy",
-      "@type": "rdfs:Class",
-      "http://purl.org/dc/terms/source": {
-        "@id": "https://github.com/schemaorg/schemaorg/issues/2288"
-      },
-      "http://schema.org/category": "issue-2288",
-      "http://schema.org/isPartOf": {
-        "@id": "http://attic.schema.org"
-      },
-      "http://schema.org/supersededBy": {
-        "@id": "http://schema.org/MerchantReturnPolicy"
-      },
-      "rdfs:comment": "A ProductReturnPolicy provides information about product return policies associated with an <a class=\"localLink\" href=\"http://schema.org/Organization\">Organization</a> or <a class=\"localLink\" href=\"http://schema.org/Product\">Product</a>.",
-      "rdfs:label": "ProductReturnPolicy",
-      "rdfs:subClassOf": {
-        "@id": "http://schema.org/Intangible"
-      }
-    },
-    {
       "@id": "http://schema.org/ProductReturnEnumeration",
       "@type": "rdfs:Class",
       "http://purl.org/dc/terms/source": {
@@ -70,30 +51,41 @@
       },
       "http://schema.org/rangeIncludes": [
         {
-          "@id": "http://schema.org/Text"
+          "@id": "http://schema.org/PropertyValue"
         },
         {
-          "@id": "http://schema.org/PropertyValue"
+          "@id": "http://schema.org/Text"
         }
       ],
       "rdfs:comment": "Originally named <a class=\"localLink\" href=\"http://schema.org/variablesMeasured\">variablesMeasured</a>, The <a class=\"localLink\" href=\"http://schema.org/variableMeasured\">variableMeasured</a> property can indicate (repeated as necessary) the  variables that are measured in some dataset, either described as text or as pairs of identifier and description using PropertyValue.",
       "rdfs:label": "variablesMeasured"
     },
     {
-      "@id": "http://schema.org/ProductReturnFiniteReturnWindow",
-      "@type": "http://schema.org/ProductReturnEnumeration",
+      "@id": "http://schema.org/hasProductReturnPolicy",
+      "@type": "rdf:Property",
       "http://purl.org/dc/terms/source": {
         "@id": "https://github.com/schemaorg/schemaorg/issues/2288"
       },
       "http://schema.org/category": "issue-2288",
+      "http://schema.org/domainIncludes": [
+        {
+          "@id": "http://schema.org/Organization"
+        },
+        {
+          "@id": "http://schema.org/Product"
+        }
+      ],
       "http://schema.org/isPartOf": {
         "@id": "http://attic.schema.org"
       },
-      "http://schema.org/supersededBy": {
-        "@id": "http://schema.org/MerchantReturnFiniteReturnWindow"
+      "http://schema.org/rangeIncludes": {
+        "@id": "http://schema.org/ProductReturnPolicy"
       },
-      "rdfs:comment": "ProductReturnFiniteReturnWindow: there is a finite window for product returns.",
-      "rdfs:label": "ProductReturnFiniteReturnWindow"
+      "http://schema.org/supersededBy": {
+        "@id": "http://schema.org/hasMerchantReturnPolicy"
+      },
+      "rdfs:comment": "Indicates a ProductReturnPolicy that may be applicable.",
+      "rdfs:label": "hasProductReturnPolicy"
     },
     {
       "@id": "http://schema.org/stupidProperty",
@@ -114,6 +106,28 @@
       },
       "rdfs:comment": "This is a StupidProperty! - for testing only",
       "rdfs:label": "stupidProperty"
+    },
+    {
+      "@id": "http://schema.org/productReturnLink",
+      "@type": "rdf:Property",
+      "http://purl.org/dc/terms/source": {
+        "@id": "https://github.com/schemaorg/schemaorg/issues/2288"
+      },
+      "http://schema.org/category": "issue-2288",
+      "http://schema.org/domainIncludes": {
+        "@id": "http://schema.org/ProductReturnPolicy"
+      },
+      "http://schema.org/isPartOf": {
+        "@id": "http://attic.schema.org"
+      },
+      "http://schema.org/rangeIncludes": {
+        "@id": "http://schema.org/URL"
+      },
+      "http://schema.org/supersededBy": {
+        "@id": "http://schema.org/merchantReturnLink"
+      },
+      "rdfs:comment": "Indicates a Web page or service by URL, for product return.",
+      "rdfs:label": "productReturnLink"
     },
     {
       "@id": "http://schema.org/productReturnDays",
@@ -166,53 +180,39 @@
       }
     },
     {
-      "@id": "http://schema.org/hasProductReturnPolicy",
-      "@type": "rdf:Property",
+      "@id": "http://schema.org/ProductReturnFiniteReturnWindow",
+      "@type": "http://schema.org/ProductReturnEnumeration",
       "http://purl.org/dc/terms/source": {
         "@id": "https://github.com/schemaorg/schemaorg/issues/2288"
       },
       "http://schema.org/category": "issue-2288",
-      "http://schema.org/domainIncludes": [
-        {
-          "@id": "http://schema.org/Organization"
-        },
-        {
-          "@id": "http://schema.org/Product"
-        }
-      ],
       "http://schema.org/isPartOf": {
         "@id": "http://attic.schema.org"
       },
-      "http://schema.org/rangeIncludes": {
-        "@id": "http://schema.org/ProductReturnPolicy"
-      },
       "http://schema.org/supersededBy": {
-        "@id": "http://schema.org/hasMerchantReturnPolicy"
+        "@id": "http://schema.org/MerchantReturnFiniteReturnWindow"
       },
-      "rdfs:comment": "Indicates a ProductReturnPolicy that may be applicable.",
-      "rdfs:label": "hasProductReturnPolicy"
+      "rdfs:comment": "ProductReturnFiniteReturnWindow: there is a finite window for product returns.",
+      "rdfs:label": "ProductReturnFiniteReturnWindow"
     },
     {
-      "@id": "http://schema.org/productReturnLink",
-      "@type": "rdf:Property",
+      "@id": "http://schema.org/ProductReturnPolicy",
+      "@type": "rdfs:Class",
       "http://purl.org/dc/terms/source": {
         "@id": "https://github.com/schemaorg/schemaorg/issues/2288"
       },
       "http://schema.org/category": "issue-2288",
-      "http://schema.org/domainIncludes": {
-        "@id": "http://schema.org/ProductReturnPolicy"
-      },
       "http://schema.org/isPartOf": {
         "@id": "http://attic.schema.org"
       },
-      "http://schema.org/rangeIncludes": {
-        "@id": "http://schema.org/URL"
-      },
       "http://schema.org/supersededBy": {
-        "@id": "http://schema.org/merchantReturnLink"
+        "@id": "http://schema.org/MerchantReturnPolicy"
       },
-      "rdfs:comment": "Indicates a Web page or service by URL, for product return.",
-      "rdfs:label": "productReturnLink"
+      "rdfs:comment": "A ProductReturnPolicy provides information about product return policies associated with an <a class=\"localLink\" href=\"http://schema.org/Organization\">Organization</a> or <a class=\"localLink\" href=\"http://schema.org/Product\">Product</a>.",
+      "rdfs:label": "ProductReturnPolicy",
+      "rdfs:subClassOf": {
+        "@id": "http://schema.org/Intangible"
+      }
     },
     {
       "@id": "http://schema.org/ProductReturnNotPermitted",

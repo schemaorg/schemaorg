@@ -1,0 +1,24 @@
+@prefix : <http://schema.org/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+:RadioBroadcastService a rdfs:Class ;
+    rdfs:label "RadioBroadcastService" ;
+    :category "issue-2109" ;
+    :isPartOf <http://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2109> ;
+    rdfs:comment "A delivery service through which radio content is provided via broadcast over the air or online." ;
+    rdfs:subClassOf :BroadcastService .
+
+:callSign a rdf:Property ;
+    rdfs:label "callSign" ;
+    :category "issue-2109" ;
+    :domainIncludes :BroadcastService,
+        :Person,
+        :Vehicle ;
+    :isPartOf <http://pending.schema.org> ;
+    :rangeIncludes :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2109> ;
+    rdfs:comment "A [callsign](https://en.wikipedia.org/wiki/Call_sign), as used in broadcasting and radio communications to identify people, radio and TV stations, or vehicles." ;
+    rdfs:subPropertyOf :identifier .
+

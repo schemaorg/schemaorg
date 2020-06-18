@@ -110,7 +110,7 @@ See the draft <b><a href="{{staticPath}}/docs/releases.html">releases</a></b> pa
 
 <p><br/></p>
 
-{{ ext.debugInfo() }}
+{{ ext.debugInfo() | safe }}
 
 </body>
 </html>
