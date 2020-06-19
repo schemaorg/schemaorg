@@ -6540,7 +6540,12 @@ Typical unit code(s): MTK for square meter, FTK for square foot, or YDK for squa
     rdfs:label "isVariantOf" ;
     :domainIncludes :ProductModel ;
     :rangeIncludes :ProductModel ;
-    rdfs:comment "A pointer to a base product from which this product is a variant. It is safe to infer that the variant inherits all product features from the base model, unless defined locally. This is not transitive." .
+    rdfs:comment "Indicates the kind of product that this is a variant of. In the case of [[ProductModel]], this is a pointer (from a ProductModel) to a base product from which this product is a variant. It is safe to infer that the variant inherits all product features from the base model, unless defined locally. This is not transitive. In the case of a [[ProductGroup]], the group description also serves as a template, representing a set of Products that vary on explicitly defined, specific dimensions only (so it defines both a set of variants, as well as which values distinguish amongst those variants). When used with [[ProductGroup]], this property can apply to any [[Product]] included in the group." .
+
+    # NOTE in data/ext/pending/issue-1797.ttl we tentatively amend this by extending the property as follows:
+    # :isVariantOf a rdf:Property ; :domainIncludes :Product ; :rangeIncludes :ProductGroup .
+
+
 
 :isbn a rdf:Property ;
     rdfs:label "isbn" ;
@@ -10533,4 +10538,3 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
     rdfs:comment """This vocabulary was improved through collaboration with the MusicBrainz project
     ([www.musicbrainz.org](http://www.musicbrainz.org)), and is partially inspired by the MusicBrainz and
     [Music Ontology](http://musicontology.com/docs/getting-started.html) schemas.""" .
-
