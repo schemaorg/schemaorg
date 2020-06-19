@@ -59,19 +59,29 @@ While a ProductGroup itself is not directly offered for sale, the various varyin
         :domainIncludes :ProductGroup;
         :rangeIncludes :Text, :DefinedTerm;
 
-        rdfs:comment """Indicates the property or properties by which the variants in a [[ProductGroup]] vary, e.g. their size, color etc. Schema.org properties can be referenced by their short name e.g. "color"; terms defined elsewhere can be referenced with their URIs."" .
+        rdfs:comment """Indicates the property or properties by which the variants in a [[ProductGroup]] vary, e.g. their size, color etc. Schema.org properties can be referenced by their short name e.g. "color"; terms defined elsewhere can be referenced with their URIs.""" .
 
 
 
 :productGroupID a rdf:Property ;
-                rdfs:label "productGroupId" ;
-                :domainIncludes :ProductGroup, :Product;
+                rdfs:label "productGroupID" ;
+                :domainIncludes :ProductGroup;
                 :rangeIncludes :Text;
-                rdfs:comment """Indicates a textual identifier for a ProductGroup. Can be used on a  :ProductGroup, or on a :Product that is one of the variants making up the group.""" ;
-
+                rdfs:comment """Indicates a textual identifier for a ProductGroup.""" ;
                 :isPartOf <http://pending.schema.org> ;
                 :source <https://github.com/schemaorg/schemaorg/issues/1797> ;
                 :category "issue-1797" .
+
+:inProductGroupWithID a rdf:Property ;
+                                rdfs:label "productGroupID" ;
+                                :domainIncludes :Product;
+                                :rangeIncludes :Text;
+                                rdfs:comment """Indicates the [[productGroupID]] for a [[ProductGroup]] that this product [[isVariantOf]]. """ ;
+                                :isPartOf <http://pending.schema.org> ;
+                                :source <https://github.com/schemaorg/schemaorg/issues/1797> ;
+                                :category "issue-1797" .
+                                # we didn't re-use :productGroupID to allow groups to potentially be members of groups.
+                                # 
 
 
 :hasVariant a rdf:Property ;
