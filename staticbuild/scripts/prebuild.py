@@ -58,7 +58,7 @@ args = parser.parse_args()
 os.environ["DEVELOPVERSION"] = "true" #overriden later by css
 os.environ["TARGETSITE"] = args.targetsite
 os.environ["FORCEINDEXPAGES"] = "True" #Supresses <meta name="robots" content="noindex">
-
+os.environ["MOREBLOCK"] = "True" #Display [more..] on term pages
 from sdoapp import *
 from apirdfterm import *
 setHttpScheme(args.httpscheme)
