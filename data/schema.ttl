@@ -314,7 +314,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     :source <https://github.com/schemaorg/schemaorg/issues/1262>,
         <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology> ;
     rdfs:comment "A type of bed. This is used for indicating the bed or beds available in an accommodation." ;
-    rdfs:subClassOf :QualitativeValue .
+    rdfs:subClassOf :Enumeration .
 
 :BefriendAction a rdfs:Class ;
     rdfs:label "BefriendAction" ;
@@ -774,14 +774,13 @@ See also the dedicated [document on the use of schema.org for marking up hotels 
     rdfs:subClassOf :CreativeWork,
         :Series .
 
-:CreditCard a rdfs:Class ;
+:CreditCard a :PaymentCard ;
     rdfs:label "CreditCard" ;
     :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO>,
         <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsClass> ;
     rdfs:comment """A card payment method of a particular brand or name.  Used to mark up a particular payment method and/or the financial product/service that supplies the card account.\\n\\nCommonly used values:\\n\\n* http://purl.org/goodrelations/v1#AmericanExpress\\n* http://purl.org/goodrelations/v1#DinersClub\\n* http://purl.org/goodrelations/v1#Discover\\n* http://purl.org/goodrelations/v1#JCB\\n* http://purl.org/goodrelations/v1#MasterCard\\n* http://purl.org/goodrelations/v1#VISA
        """ ;
-    rdfs:subClassOf :LoanOrCredit,
-        :PaymentCard .
+    rdfs:subClassOf :LoanOrCredit .
 
 :Crematorium a rdfs:Class ;
     rdfs:label "Crematorium" ;
@@ -1005,7 +1004,7 @@ Originally, URLs from [GoodRelations](http://purl.org/goodrelations/v1) were use
     rdfs:label "DriveWheelConfigurationValue" ;
     :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group> ;
     rdfs:comment "A value indicating which roadwheels will receive torque." ;
-    rdfs:subClassOf :QualitativeValue .
+    rdfs:subClassOf :Enumeration .
 
 :DryCleaningOrLaundry a rdfs:Class ;
     rdfs:label "DryCleaningOrLaundry" ;
@@ -1735,10 +1734,9 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     rdfs:comment "Specifies a location feature by providing a structured value representing a feature of an accommodation as a property-value pair of varying degrees of formality." ;
     rdfs:subClassOf :PropertyValue .
 
-:LockerDelivery a rdfs:Class ;
+:LockerDelivery a :DeliveryMethod ;
     rdfs:label "LockerDelivery" ;
-    rdfs:comment "A DeliveryMethod in which an item is made available via locker." ;
-    rdfs:subClassOf :DeliveryMethod .
+    rdfs:comment "A DeliveryMethod in which an item is made available via locker." .
 
 :Locksmith a rdfs:Class ;
     rdfs:label "Locksmith" ;
@@ -2440,7 +2438,7 @@ The place is __open__ if the [[opens]] property is specified, and __closed__ oth
     rdfs:label "QualitativeValue" ;
     :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsClass> ;
     rdfs:comment "A predefined value for a product characteristic, e.g. the power cord plug type 'US' or the garment sizes 'S', 'M', 'L', and 'XL'." ;
-    rdfs:subClassOf :Enumeration .
+    rdfs:subClassOf :Intangible .
 
 :QuantitativeValue a rdfs:Class ;
     rdfs:label "QuantitativeValue" ;
@@ -2884,7 +2882,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     rdfs:label "SteeringPositionValue" ;
     :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group> ;
     rdfs:comment "A value indicating a steering position." ;
-    rdfs:subClassOf :QualitativeValue .
+    rdfs:subClassOf :Enumeration .
 
 :Store a rdfs:Class ;
     rdfs:label "Store" ;
