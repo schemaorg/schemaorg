@@ -48,6 +48,20 @@ Note: If you are informed of an update to the sdopythonapp submodule, use the co
 Note: To run subdomain areas of the application on a local development system eg.  `http://bib.localhost:8080/` the subdomains will need to be added to the local system's host file.  eg. `127.0.0.1 localhost bib.localhost pending.localhost` etc.
 
 
+Docker
+------
+
+If you are using [Docker](https://www.docker.com/) you can alternatively run:
+
+    docker build -t schemaorg .
+    docker run -v `pwd`:/schemaorg --net=host -it schemaorg
+
+then access <http://localhost:8080/>
+
+Note that because the sdopythonapp currently binds to `localhost` inside the
+container, the above needs `--net=host` and will probably only work on Linux.
+
+
 Internals
 =========
 
