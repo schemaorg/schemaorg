@@ -75,22 +75,26 @@ Use properties from [[Organization]], [[subOrganization]]/[[parentOrganization]]
     :inverseOf :funding ;    
     :domainIncludes :Grant ;
     :isPartOf <http://pending.schema.org> ;
-    :rangeIncludes :Thing, :CreativeWork, :Project ;
+    :rangeIncludes :CreativeWork, :Event, :MonetaryGrant, :Organization, :Person ;
     :source <https://github.com/schemaorg/schemaorg/issues/1950>,
         <https://github.com/schemaorg/schemaorg/issues/383>,
         <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP> ;
-    rdfs:comment "Indicates an item funded or sponsored through a [[Grant]]." .
+    rdfs:comment """Indicates an item funded or sponsored through a [[Grant]]. 
+    
+The range of items is not exclusive, as other types of things may have been funded, e.g. equipment described as [[IndividualProduct]]""" .
 
 :funding a rdf:Property ;
     rdfs:label "funding" ;
     :category "issue-383" ;
     :inverseOf :fundedItem ;    
-    :domainIncludes :CreativeWork, :Organization, :Person ;
+    :domainIncludes :CreativeWork, :Event, :MonetaryGrant, :Organization, :Person ;
     :isPartOf <http://pending.schema.org> ;
     :rangeIncludes :Grant ;
     :source <https://github.com/schemaorg/schemaorg/issues/383>,
         <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP> ;
-    rdfs:comment "A [[Grant]] that directly or indirectly provide funding/sponsoring" .
+    rdfs:comment """A [[Grant]] that directly or indirectly provide funding/sponsoring. 
+    
+The domain is not exclusive, as other types of things may have been funded, e.g. equipment described as [[IndividualProduct]]""" .
 
 :funder a rdf:Property ;
     :domainIncludes :MonetaryGrant .
