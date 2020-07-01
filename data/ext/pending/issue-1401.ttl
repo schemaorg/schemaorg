@@ -2,16 +2,16 @@
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 
-schema:Course a rdfs:Class ;
-    rdfs:subClassOf schema:LearningResource.
+:Course a rdfs:Class ;
+    rdfs:subClassOf :LearningResource.
 
-schema:LearningResource a rdfs:Class ;
+:LearningResource a rdfs:Class ;
     rdfs:label "LearningResource" ;
     dc:source <https://github.com/schemaorg/schemaorg/issues/1401> ;
-    schema:category "issue-1401" ;
-    schema:isPartOf <http://pending.schema.org> ;
+    :category "issue-1401" ;
+    :isPartOf <http://pending.schema.org> ;
 
-    rdfs:subClassOf schema:CreativeWork ;
+    rdfs:subClassOf :CreativeWork ;
 
     rdfs:comment """The LearningResource type can be used to indicate [[CreativeWork]]s (whether physical or digital) that have a particular and explicit orientation towards learning, education, skill acquisition and other educational purposes.
 
