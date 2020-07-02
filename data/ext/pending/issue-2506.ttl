@@ -145,11 +145,12 @@ or Fast and expensive: $15 in 1-2 days
 :isUnlabelledFallback a rdf:Property ;
     rdfs:label "isUnlabelledFallback" ;
     :category "issue-2506" ;
-    :domainIncludes :ShippingRateSettings ;
+    :domainIncludes :DeliveryTimeSettings,
+        :ShippingRateSettings ;
     :isPartOf <http://pending.schema.org> ;
     :rangeIncludes :Boolean ;
     :source <https://github.com/schemaorg/schemaorg/issues/2506> ;
-    rdfs:comment "This can be marked 'true' to indicate that some published ShippingRateSettings are intended to apply to all [[OfferShippingDetails]] published by the same merchant, when referenced by a [[shippingSettingsLink]] in those settings. It is not meaningful to use a 'true' value for this property alongside a shippingLabel, since this property is for use with unlabelled ShippingRateSettings." .
+    rdfs:comment "This can be marked 'true' to indicate that some published [[DeliveryTimeSettings]] or [[ShippingRateSettings]] are intended to apply to all [[OfferShippingDetails]] published by the same merchant, when referenced by a [[shippingSettingsLink]] in those settings. It is not meaningful to use a 'true' value for this property alongside a transitTimeLabel (for [[DeliveryTimeSettings]]) or shippingLabel (for [[ShippingRateSettings]]), since this property is for use with unlabelled settings." .
 
 :postalCode a rdf:Property ;
     :category "issue-2506" ;
