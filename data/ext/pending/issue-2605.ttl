@@ -8,9 +8,29 @@
     rdfs:subClassOf :Collection ;
     rdfs:comment """A set of products (either [[ProductGroup]]s or specific variants) that are listed together e.g. in an [[Offer]].""" ;
 
-    :category "issue-2597" ;
+    :category "issue-2605" ;
     :isPartOf <http://pending.schema.org> ;
-    :source <https://github.com/schemaorg/schemaorg/issues/2597> .
+    :source <https://github.com/schemaorg/schemaorg/issues/2605> .
 
-# TODO: how to say that something is in such a collection?
+
+:collectionItem a rdf:Property ;
+                rdfs:label "collectionItem" ;
+                :domainIncludes :ProductCollection;
+                :rangeIncludes :Text;
+                rdfs:comment """Indicates a textual identifier for a ProductGroup.""" ;
+                :isPartOf <http://pending.schema.org> ;
+                :source <https://github.com/schemaorg/schemaorg/issues/2605> ;
+                :category "issue-2605" .
+
+:collectionItem a rdf:Property ;
+        	rdfs:label "collectionItem" ;
+        	:isPartOf <http://pending.schema.org> ;
+        	:source <https://github.com/schemaorg/schemaorg/issues/2605> ;
+        	:category "issue-2605" ;
+        	:domainIncludes :ProductCollection;
+        	:rangeIncludes :Product;
+        	rdfs:comment """Indicates a [[Product]] that is a member of this [[ProductCollection]].""" .
+
+# We likely do not need the reverse of collectionItem, similar to there not being a reverse of Product.offers
+
 # are we ok with this being a creative work vs a pure data structure i.e. intangible
