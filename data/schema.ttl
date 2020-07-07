@@ -63,7 +63,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 :ActionStatusType a rdfs:Class ;
     rdfs:label "ActionStatusType" ;
     rdfs:comment "The status of an Action." ;
-    rdfs:subClassOf :Enumeration .
+    rdfs:subClassOf :StatusEnumeration . # Pending but...
 
 :ActivateAction a rdfs:Class ;
     rdfs:label "ActivateAction" ;
@@ -1150,7 +1150,7 @@ endorsement rating is particularly useful in the absence of numeric scales as it
 :EventStatusType a rdfs:Class ;
     rdfs:label "EventStatusType" ;
     rdfs:comment "EventStatusType is an enumeration type whose instances represent several states that an Event may be in." ;
-    rdfs:subClassOf :Enumeration .
+    rdfs:subClassOf :StatusEnumeration .
 
 :EventVenue a rdfs:Class ;
     rdfs:label "EventVenue" ;
@@ -1292,7 +1292,7 @@ endorsement rating is particularly useful in the absence of numeric scales as it
 :GameServerStatus a rdfs:Class ;
     rdfs:label "GameServerStatus" ;
     rdfs:comment "Status of a game server." ;
-    rdfs:subClassOf :Enumeration .
+    rdfs:subClassOf :StatusEnumeration .
 
 :GardenStore a rdfs:Class ;
     rdfs:label "GardenStore" ;
@@ -2112,7 +2112,7 @@ The place is __open__ if the [[opens]] property is specified, and __closed__ oth
 :OrderStatus a rdfs:Class ;
     rdfs:label "OrderStatus" ;
     rdfs:comment "Enumerated status values for Order." ;
-    rdfs:subClassOf :Enumeration .
+    rdfs:subClassOf :StatusEnumeration .
 
 :Organization a rdfs:Class ;
     rdfs:label "Organization" ;
@@ -2216,7 +2216,7 @@ The place is __open__ if the [[opens]] property is specified, and __closed__ oth
 :PaymentStatusType a rdfs:Class ;
     rdfs:label "PaymentStatusType" ;
     rdfs:comment "A specific payment status. For example, PaymentDue, PaymentComplete, etc." ;
-    rdfs:subClassOf :Enumeration .
+    rdfs:subClassOf :StatusEnumeration .
 
 :PeopleAudience a rdfs:Class ;
     rdfs:label "PeopleAudience" ;
@@ -2589,7 +2589,7 @@ The place is __open__ if the [[opens]] property is specified, and __closed__ oth
 :ReservationStatusType a rdfs:Class ;
     rdfs:label "ReservationStatusType" ;
     rdfs:comment "Enumerated status values for Reservation." ;
-    rdfs:subClassOf :Enumeration .
+    rdfs:subClassOf :StatusEnumeration .
 
 :ReserveAction a rdfs:Class ;
     rdfs:label "ReserveAction" ;
