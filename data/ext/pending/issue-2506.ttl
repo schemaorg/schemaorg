@@ -28,7 +28,7 @@ Region = state, canton, prefecture, autonomous community...
     :category "issue-2506" ;
     :isPartOf <http://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/2506> ;
-    rdfs:comment "A DeliveryTimeSettings represents re-usable pieces of shipping information, relating to timing. It is designed for publication on an URL that may be referenced via the [[shippingSettingsLink]] property of a [[OfferShippingSpecification]]. Several occurrences can be published, distinguished (and identified/referenced) by their different values for [[transitTimeLabel]]." ;
+    rdfs:comment "A DeliveryTimeSettings represents re-usable pieces of shipping information, relating to timing. It is designed for publication on an URL that may be referenced via the [[shippingSettingsLink]] property of a [[OfferShippingDetails]]. Several occurrences can be published, distinguished (and identified/referenced) by their different values for [[transitTimeLabel]]." ;
     rdfs:subClassOf :StructuredValue .
 
 :OfferShippingDetails a rdfs:Class ;
@@ -99,10 +99,9 @@ or Fast and expensive: $15 in 1-2 days
     :category "issue-2506" ;
     :domainIncludes :ShippingDeliveryTime ;
     :isPartOf <http://pending.schema.org> ;
-    :rangeIncludes :Text ;
+    :rangeIncludes :Time ;
     :source <https://github.com/schemaorg/schemaorg/issues/2506> ;
-    rdfs:comment """Order cutoff time allows merchants to describe the time after which they will no longer process orders received on that day. For orders processed after cutoff time, one day gets added to the delivery time estimate. This property is expected to be most typically used via the [[ShippingRateSettings]] publication pattern. The time is indicated using the time notation from the ISO-8601 DateTime format, e.g.
-      14:45:15Z would represent a daily cutoff at 14:45h UTC.""" .
+    rdfs:comment """Order cutoff time allows merchants to describe the time after which they will no longer process orders received on that day. For orders processed after cutoff time, one day gets added to the delivery time estimate. This property is expected to be most typically used via the [[ShippingRateSettings]] publication pattern. The time is indicated using the ISO-8601 Time format, e.g. "23:30:00-05:00" would represent 6:30 pm Eastern Standard Time (EST) which is 5 hours behind Coordinated Universal Time (UTC).""" .
 
 :deliveryTime a rdf:Property ;
     rdfs:label "deliveryTime" ;
@@ -122,7 +121,7 @@ or Fast and expensive: $15 in 1-2 days
     :isPartOf <http://pending.schema.org> ;
     :rangeIncludes :Boolean ;
     :source <https://github.com/schemaorg/schemaorg/issues/2506> ;
-    rdfs:comment "Indicates, as part of an [[OfferShippingDetails]], when shipping to a particular [[shippingDestination]] is not available." .
+    rdfs:comment "Indicates when shipping to a particular [[shippingDestination]] is not available." .
 
 :freeShippingThreshold a rdf:Property ;
     rdfs:label "freeShippingThreshold" ;
@@ -132,7 +131,7 @@ or Fast and expensive: $15 in 1-2 days
     :rangeIncludes :DeliveryChargeSpecification,
         :MonetaryAmount ;
     :source <https://github.com/schemaorg/schemaorg/issues/2506> ;
-    rdfs:comment "A monetary value above which (or equal to) the shipping rate becomes free. Intended to be used via an [[OfferShippingSpecification]] with [[shippingSettingsLink]] matching this [[ShippingRateSettings]]." .
+    rdfs:comment "A monetary value above which (or equal to) the shipping rate becomes free. Intended to be used via an [[OfferShippingDetails]] with [[shippingSettingsLink]] matching this [[ShippingRateSettings]]." .
 
 :handlingTime a rdf:Property ;
     rdfs:label "handlingTime" ;
@@ -146,11 +145,12 @@ or Fast and expensive: $15 in 1-2 days
 :isUnlabelledFallback a rdf:Property ;
     rdfs:label "isUnlabelledFallback" ;
     :category "issue-2506" ;
-    :domainIncludes :ShippingRateSettings ;
+    :domainIncludes :DeliveryTimeSettings,
+        :ShippingRateSettings ;
     :isPartOf <http://pending.schema.org> ;
     :rangeIncludes :Boolean ;
     :source <https://github.com/schemaorg/schemaorg/issues/2506> ;
-    rdfs:comment "This can be marked 'true' to indicate that some published ShippingRateSettings are intended to apply to all [[OfferShippingDetails]] published by the same merchant, when referenced by a [[shippingSettingsLink]] in those settings. It is not meaningful to use a 'true' value for this property alongside a shippingLabel, since this property is for use with unlabelled ShippingRateSettings." .
+    rdfs:comment "This can be marked 'true' to indicate that some published [[DeliveryTimeSettings]] or [[ShippingRateSettings]] are intended to apply to all [[OfferShippingDetails]] published by the same merchant, when referenced by a [[shippingSettingsLink]] in those settings. It is not meaningful to use a 'true' value for this property alongside a transitTimeLabel (for [[DeliveryTimeSettings]]) or shippingLabel (for [[ShippingRateSettings]]), since this property is for use with unlabelled settings." .
 
 :postalCode a rdf:Property ;
     :category "issue-2506" ;
