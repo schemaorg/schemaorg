@@ -314,7 +314,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     :source <https://github.com/schemaorg/schemaorg/issues/1262>,
         <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology> ;
     rdfs:comment "A type of bed. This is used for indicating the bed or beds available in an accommodation." ;
-    rdfs:subClassOf :Enumeration .
+    rdfs:subClassOf :QualitativeValue .
 
 :BefriendAction a rdfs:Class ;
     rdfs:label "BefriendAction" ;
@@ -774,13 +774,14 @@ See also the dedicated [document on the use of schema.org for marking up hotels 
     rdfs:subClassOf :CreativeWork,
         :Series .
 
-:CreditCard a :PaymentCard ;
+:CreditCard a rdfs:Class ;
     rdfs:label "CreditCard" ;
     :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO>,
         <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsClass> ;
     rdfs:comment """A card payment method of a particular brand or name.  Used to mark up a particular payment method and/or the financial product/service that supplies the card account.\\n\\nCommonly used values:\\n\\n* http://purl.org/goodrelations/v1#AmericanExpress\\n* http://purl.org/goodrelations/v1#DinersClub\\n* http://purl.org/goodrelations/v1#Discover\\n* http://purl.org/goodrelations/v1#JCB\\n* http://purl.org/goodrelations/v1#MasterCard\\n* http://purl.org/goodrelations/v1#VISA
        """ ;
-    rdfs:subClassOf :LoanOrCredit .
+    rdfs:subClassOf :LoanOrCredit,
+        :PaymentCard .
 
 :Crematorium a rdfs:Class ;
     rdfs:label "Crematorium" ;
@@ -1004,7 +1005,7 @@ Originally, URLs from [GoodRelations](http://purl.org/goodrelations/v1) were use
     rdfs:label "DriveWheelConfigurationValue" ;
     :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group> ;
     rdfs:comment "A value indicating which roadwheels will receive torque." ;
-    rdfs:subClassOf :Enumeration .
+    rdfs:subClassOf :QualitativeValue .
 
 :DryCleaningOrLaundry a rdfs:Class ;
     rdfs:label "DryCleaningOrLaundry" ;
@@ -1734,9 +1735,10 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     rdfs:comment "Specifies a location feature by providing a structured value representing a feature of an accommodation as a property-value pair of varying degrees of formality." ;
     rdfs:subClassOf :PropertyValue .
 
-:LockerDelivery a :DeliveryMethod ;
+:LockerDelivery a rdfs:Class ;
     rdfs:label "LockerDelivery" ;
-    rdfs:comment "A DeliveryMethod in which an item is made available via locker." .
+    rdfs:comment "A DeliveryMethod in which an item is made available via locker." ;
+    rdfs:subClassOf :DeliveryMethod .
 
 :Locksmith a rdfs:Class ;
     rdfs:label "Locksmith" ;
@@ -2438,7 +2440,7 @@ The place is __open__ if the [[opens]] property is specified, and __closed__ oth
     rdfs:label "QualitativeValue" ;
     :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsClass> ;
     rdfs:comment "A predefined value for a product characteristic, e.g. the power cord plug type 'US' or the garment sizes 'S', 'M', 'L', and 'XL'." ;
-    rdfs:subClassOf :Intangible .
+    rdfs:subClassOf :Enumeration .
 
 :QuantitativeValue a rdfs:Class ;
     rdfs:label "QuantitativeValue" ;
@@ -2501,7 +2503,7 @@ The place is __open__ if the [[opens]] property is specified, and __closed__ oth
 
 :RadioStation a rdfs:Class ;
     rdfs:label "RadioStation" ;
-    rdfs:comment "An organization that runs a radio broadcasting service, traditionally called a 'radio station'. For the concept of a radio broadcasting service, see [[BroadcastService]]." ;
+    rdfs:comment "A radio station." ;
     rdfs:subClassOf :LocalBusiness .
 
 :Rating a rdfs:Class ;
@@ -2882,7 +2884,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     rdfs:label "SteeringPositionValue" ;
     :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group> ;
     rdfs:comment "A value indicating a steering position." ;
-    rdfs:subClassOf :Enumeration .
+    rdfs:subClassOf :QualitativeValue .
 
 :Store a rdfs:Class ;
     rdfs:label "Store" ;
@@ -6399,7 +6401,7 @@ Typical unit code(s): MTK for square meter, FTK for square foot, or YDK for squa
     :domainIncludes :Demand,
         :Offer ;
     :rangeIncludes :TypeAndQuantityNode ;
-    rdfs:comment "This links to a node or nodes indicating the exact quantity of the products included in the offer." .
+    rdfs:comment "This links to a node or nodes indicating the exact quantity of the products included in  an [[Offer]] or [[ProductCollection]]." .
 
 :industry a rdf:Property ;
     rdfs:label "industry" ;
@@ -6541,6 +6543,7 @@ Typical unit code(s): MTK for square meter, FTK for square foot, or YDK for squa
     rdfs:comment "Indicates the kind of product that this is a variant of. In the case of [[ProductModel]], this is a pointer (from a ProductModel) to a base product from which this product is a variant. It is safe to infer that the variant inherits all product features from the base model, unless defined locally. This is not transitive. In the case of a [[ProductGroup]], the group description also serves as a template, representing a set of Products that vary on explicitly defined, specific dimensions only (so it defines both a set of variants, as well as which values distinguish amongst those variants). When used with [[ProductGroup]], this property can apply to any [[Product]] included in the group." .
 
     # NOTE in data/ext/pending/issue-1797.ttl we tentatively amend this by extending the property as follows:
+    # The textual definition for isVariantOf has been minimally updated to accomodate ProductGroup; this could be
     # :isVariantOf a rdf:Property ; :domainIncludes :Product ; :rangeIncludes :ProductGroup .
 
 
