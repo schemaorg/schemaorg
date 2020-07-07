@@ -97,6 +97,10 @@ The range of items is not exclusive, as other types of things may have been fund
 The domain is not exclusive, as other types of things may have been funded, e.g. equipment described as [[IndividualProduct]]""" .
 
 :funder a rdf:Property ;
+    rdfs:comment """This property can also be used to indicate funding from a particular [[FundingScheme]] or [[FundingAgency]].
+
+To indicate a particular [[MonetaryGrant]] which supported the underlying work, combine with property [[funding]]. 
+"""; 
     :domainIncludes :MonetaryGrant .
 
 :sponsor a rdf:Property ;
