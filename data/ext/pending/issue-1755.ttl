@@ -1,0 +1,48 @@
+@prefix : <http://schema.org/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+:BoatReservation a rdfs:Class ;
+    :category "issue-1755" ;
+    :isPartOf <http://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1755> ;
+    rdfs:label "BoatReservation" ;
+    rdfs:comment "A reservation for boat travel.
+
+Note: This type is for information about actual reservations, e.g. in confirmation emails or HTML pages with individual confirmations of reservations. For offers of tickets, use [[Offer]]." ;
+    rdfs:subClassOf :Reservation .
+
+
+:BoatTerminal a rdfs:Class ;
+    :category "issue-1755" ;
+    :isPartOf <http://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1755> ;
+    rdfs:label "BoatTerminal" ;
+    rdfs:comment "A terminal for boats, ships, and other water vessels." ;
+    rdfs:subClassOf :CivicStructure .
+
+:BoatTrip a rdfs:Class ;
+    :category "issue-1755" ;
+    :isPartOf <http://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1755> ;
+    rdfs:label "BoatTrip" ;
+    rdfs:comment "A trip on a commercial ferry line." ;
+    rdfs:subClassOf :Trip .
+
+:arrivalBoatTerminal a rdf:Property ;
+    :category "issue-1755" ;
+    :isPartOf <http://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1755> ;
+    rdfs:label "arrivalBoatTerminal" ;
+    :domainIncludes :BoatTrip ;
+    :rangeIncludes :BoatTerminal ;
+    rdfs:comment "The terminal or port from which the boat arrives." .
+
+:departureBoatTerminal a rdf:Property ;
+    :category "issue-1755" ;
+    :isPartOf <http://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1755> ;
+    rdfs:label "departureBoatTerminal" ;
+    :domainIncludes :BoatTrip ;
+    :rangeIncludes :BoatTerminal ;
+    rdfs:comment "The terminal or port from which the boat departs." .
