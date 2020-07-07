@@ -1,0 +1,11 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+:applicationDeadline a rdf:Property ;
+    rdfs:label "applicationDeadline" ;
+    :category "issue-2419" ;
+    :domainIncludes :EducationalOccupationalProgram ;
+    :rangeIncludes :Date,
+        :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2419> ;
+    rdfs:comment "The date at which the program stops collecting applications for the next enrollment cycle. Flexible application deadlines (for example, a program with rolling admissions) can be described in a textual string, rather than as a DateTime. " .
