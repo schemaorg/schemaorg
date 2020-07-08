@@ -63,7 +63,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 :ActionStatusType a rdfs:Class ;
     rdfs:label "ActionStatusType" ;
     rdfs:comment "The status of an Action." ;
-    rdfs:subClassOf :Enumeration .
+    rdfs:subClassOf :StatusEnumeration . # Pending but...
 
 :ActivateAction a rdfs:Class ;
     rdfs:label "ActivateAction" ;
@@ -1150,7 +1150,7 @@ endorsement rating is particularly useful in the absence of numeric scales as it
 :EventStatusType a rdfs:Class ;
     rdfs:label "EventStatusType" ;
     rdfs:comment "EventStatusType is an enumeration type whose instances represent several states that an Event may be in." ;
-    rdfs:subClassOf :Enumeration .
+    rdfs:subClassOf :StatusEnumeration .
 
 :EventVenue a rdfs:Class ;
     rdfs:label "EventVenue" ;
@@ -1292,7 +1292,7 @@ endorsement rating is particularly useful in the absence of numeric scales as it
 :GameServerStatus a rdfs:Class ;
     rdfs:label "GameServerStatus" ;
     rdfs:comment "Status of a game server." ;
-    rdfs:subClassOf :Enumeration .
+    rdfs:subClassOf :StatusEnumeration .
 
 :GardenStore a rdfs:Class ;
     rdfs:label "GardenStore" ;
@@ -2112,7 +2112,7 @@ The place is __open__ if the [[opens]] property is specified, and __closed__ oth
 :OrderStatus a rdfs:Class ;
     rdfs:label "OrderStatus" ;
     rdfs:comment "Enumerated status values for Order." ;
-    rdfs:subClassOf :Enumeration .
+    rdfs:subClassOf :StatusEnumeration .
 
 :Organization a rdfs:Class ;
     rdfs:label "Organization" ;
@@ -2216,7 +2216,7 @@ The place is __open__ if the [[opens]] property is specified, and __closed__ oth
 :PaymentStatusType a rdfs:Class ;
     rdfs:label "PaymentStatusType" ;
     rdfs:comment "A specific payment status. For example, PaymentDue, PaymentComplete, etc." ;
-    rdfs:subClassOf :Enumeration .
+    rdfs:subClassOf :StatusEnumeration .
 
 :PeopleAudience a rdfs:Class ;
     rdfs:label "PeopleAudience" ;
@@ -2589,7 +2589,7 @@ The place is __open__ if the [[opens]] property is specified, and __closed__ oth
 :ReservationStatusType a rdfs:Class ;
     rdfs:label "ReservationStatusType" ;
     rdfs:comment "Enumerated status values for Reservation." ;
-    rdfs:subClassOf :Enumeration .
+    rdfs:subClassOf :StatusEnumeration .
 
 :ReserveAction a rdfs:Class ;
     rdfs:label "ReserveAction" ;
@@ -6401,7 +6401,7 @@ Typical unit code(s): MTK for square meter, FTK for square foot, or YDK for squa
     :domainIncludes :Demand,
         :Offer ;
     :rangeIncludes :TypeAndQuantityNode ;
-    rdfs:comment "This links to a node or nodes indicating the exact quantity of the products included in the offer." .
+    rdfs:comment "This links to a node or nodes indicating the exact quantity of the products included in  an [[Offer]] or [[ProductCollection]]." .
 
 :industry a rdf:Property ;
     rdfs:label "industry" ;
@@ -6543,6 +6543,7 @@ Typical unit code(s): MTK for square meter, FTK for square foot, or YDK for squa
     rdfs:comment "Indicates the kind of product that this is a variant of. In the case of [[ProductModel]], this is a pointer (from a ProductModel) to a base product from which this product is a variant. It is safe to infer that the variant inherits all product features from the base model, unless defined locally. This is not transitive. In the case of a [[ProductGroup]], the group description also serves as a template, representing a set of Products that vary on explicitly defined, specific dimensions only (so it defines both a set of variants, as well as which values distinguish amongst those variants). When used with [[ProductGroup]], this property can apply to any [[Product]] included in the group." .
 
     # NOTE in data/ext/pending/issue-1797.ttl we tentatively amend this by extending the property as follows:
+    # The textual definition for isVariantOf has been minimally updated to accomodate ProductGroup; this could be
     # :isVariantOf a rdf:Property ; :domainIncludes :Product ; :rangeIncludes :ProductGroup .
 
 
@@ -10538,3 +10539,13 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
     rdfs:comment """This vocabulary was improved through collaboration with the MusicBrainz project
     ([www.musicbrainz.org](http://www.musicbrainz.org)), and is partially inspired by the MusicBrainz and
     [Music Ontology](http://musicontology.com/docs/getting-started.html) schemas.""" .
+
+
+# Added here as it affects many core enums; otherwise it would be in pending
+
+:StatusEnumeration a rdfs:Class ;
+    rdfs:label "StatusEnumeration" ;
+    :category "issue-2604" ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2604> ;
+    rdfs:comment "Lists or enumerations dealing with status types." ;
+    rdfs:subClassOf :Enumeration .
