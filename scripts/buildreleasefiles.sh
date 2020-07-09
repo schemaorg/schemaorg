@@ -103,6 +103,7 @@ fi
 
 echo
 if [ $TESTS -eq 1]
+then
   echo "Running Unit Tests... "
   ./scripts/run_tests.py 
   if [ $? -eq 0 ]
