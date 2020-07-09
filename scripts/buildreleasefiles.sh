@@ -37,7 +37,7 @@ OWL=1
 MAP=1
 EXTS=1
 TESTS=1
-while getopts 'yecsoml:' OPTION; do
+while getopts 'yecstoml:' OPTION; do
   case "$OPTION" in
     y)
         AUTORUN=1
