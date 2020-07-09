@@ -23,6 +23,7 @@ jobs:
       name: "Ruby Linter"
       language: ruby
       rvm: 2.6
+      env: SOFT_LINT=true
       before_install:
         - 'gem update --system --conservative || (gem i "rubygems-update:~>2.7" --no-document && update_rubygems)'
         - 'gem update bundler --conservative'
