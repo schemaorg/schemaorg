@@ -1,0 +1,58 @@
+TYPES: PracticeProblem, problemType, hasPart, assesses, about, educationalAlignment
+
+PRE-MARKUP:
+
+PracticeProblem is an interactive problem testing knowledge, skills, or abilities; can contain multiple questions with answers.
+
+MICRODATA:
+
+<!-- JSON-LD example only -->
+
+RDFA:
+
+<!-- JSON-LD example only -->
+
+JSON:
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org/",
+  "@type": "PracticeProblem",
+  "url": "https://www.ixl.com/math/grade-5/multiplying-fractions-by-whole-numbers-choose-the-model",
+  "educationalAlignment": [
+    {
+      "@type": "AlignmentObject",
+      "alignmentType": "educationalSubject",
+      "targetName": "Mathematics"
+    },
+    {
+      "@type": "AlignmentObject",
+      "alignmentType": "educationalLevel",
+      "targetName": "Fifth grade"
+    }
+  ],
+  "about": "Fractions",
+  "practiceProblemType": "MultipleChoicePracticeProblem",
+  "assesses": "Multiplying fractions by whole numbers",
+  "hasPart": {
+    "@type": "Question",
+    "name": "Choose the model",
+    "text": "Which model represents the product $$4 * \frac{2}{3}$$?",
+    "suggestedAnswer": [
+      {
+        "@type": "Answer",
+        "@id": "answer_1",
+        "image": "https://www.ixl.com/math/…image1.png",
+        "url": "https://www.ixl.com/math/…image1.png"
+      },
+      {
+        "@type": "Answer",
+        "@id": "answer_2",
+        "image": "https://www.ixl.com/math/…image2.png",
+        "url": "https://www.ixl.com/math/…image2.png"
+      }
+    ],
+    "acceptedAnswer": "someosoe#answer_1"
+  }
+}
