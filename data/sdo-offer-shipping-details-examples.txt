@@ -20,38 +20,16 @@ JSON:
         "@type": "OfferShippingDetails",
         "deliveryTime": {
             "@type": "ShippingDeliveryTime",
-            "businessDays": [
-                {
-                    "@type": "OpeningHoursSpecification",
-                    "opens": "09:00:00",
-                    "closes": "18:00:00",
-                    "dayOfWeek": "http://schema.org/Monday"
-                },
-                {
-                    "@type": "OpeningHoursSpecification",
-                    "opens": "09:00:00",
-                    "closes": "18:00:00",
-                    "dayOfWeek": "http://schema.org/Tuesday"
-                },
-                {
-                    "@type": "OpeningHoursSpecification",
-                    "opens": "09:00:00",
-                    "closes": "18:00:00",
-                    "dayOfWeek": "http://schema.org/Wednesday"
-                },
-                {
-                    "@type": "OpeningHoursSpecification",
-                    "opens": "09:00:00",
-                    "closes": "17:00:00",
-                    "dayOfWeek": "http://schema.org/Thursday"
-                },
-                {
-                    "@type": "OpeningHoursSpecification",
-                    "opens": "12:00:00",
-                    "closes": "15:00:00",
-                    "dayOfWeek": "http://schema.org/Friday"
-                }
-            ],
+            "businessDays": {
+                "@type": "OpeningHoursSpecification",
+                "dayOfWeek": [
+                    "http://schema.org/Monday",
+                    "http://schema.org/Tuesday",
+                    "http://schema.org/Wednesday",
+                    "http://schema.org/Thursday",
+                    "http://schema.org/Friday"
+                ]
+            },
             "cutoffTime": "12:00:15Z",
             "handlingTime": {
                 "@type": "QuantitativeValue",
@@ -68,9 +46,8 @@ JSON:
         },
         "shippingRate": {
             "@type": "MonetaryAmount",
-            "currency": "USD",
-            "maxValue": 10,
-            "minValue": 5
+            "value": 4.95,
+            "currency": "USD"
         }
     }
 </script>
