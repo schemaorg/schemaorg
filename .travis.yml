@@ -33,5 +33,5 @@ jobs:
         - unzip -q google_appengine.zip
         - rm google_appengine.zip
         - export PYTHONPATH=$PYTHONPATH:$TRAVIS_BUILD_DIR/google_appengine/
-        - scripts/buildreleasefiles.sh -y -e -l "nquads nt" LATEST
+        - scripts/buildreleasefiles.sh -y -e -o -s -t -l "nquads" LATEST
       script: (cd scripts; bundle exec rake)
