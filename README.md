@@ -14,7 +14,6 @@ There is also a [Travis-CI integration](https://travis-ci.org/schemaorg/schemaor
 [Issue #1](https://github.com/schemaorg/schemaorg/issues/1) in GitHub is an entry point for release planning. It
 should provide an overview of upcoming work, in terms of broad themes, specific issues and release milestones.
 
-With every release, we change the default GitHub branch to match the code name for the release.
 [Issue #1](https://github.com/schemaorg/schemaorg/issues/1) will link to per-release entry points, or else navigate issues via label or milestone within GitHub.
 
 Every change to the site comes via discussions here. Substantive changes are recorded in our [release notes](https://schema.org/docs/releases.html).
