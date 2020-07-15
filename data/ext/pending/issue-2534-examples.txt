@@ -1,0 +1,48 @@
+TYPES: SpecialAnnouncement, governmentBenefitsInfo, GovernmentService, jurisdiction, serviceType, audience, Audience
+
+PRE-MARKUP:
+
+Government benefits coverage for SpecialAnnouncement pertaining to the covid-19 situation.
+
+MICRODATA:
+
+<!-- JSON-LD example only -->
+
+RDFA:
+
+<!-- JSON-LD example only -->
+
+JSON:
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SpecialAnnouncement",
+  "name": "New Paycheck Protection Program for small business",
+  "text": "Example Administration announces a new loan that helps small businesses keep their workforce employed during the Coronavirus (COVID-19) crisis.",
+  "datePosted": "2020-03-30T08:00",
+  "expires": "2020-04-24T23:59",
+  "category": "https://www.wikidata.org/wiki/Q81068910",
+  "spatialCoverage":
+      {
+        "type": "Country",
+        "name": "US"
+      },
+  "governmentBenefitsInfo": {
+    "@type": "GovernmentService",
+    "name": "Paycheck Protection Program",
+    "url":  "https://www.sba.gov/funding-programs/loans/coronavirus-relief-options/paycheck-protection-program-ppp",
+    "provider": {
+      "@type": "GovernmentOrganization",
+      "name": "US Small Business Administration"
+     },
+    "serviceType": "http://schema.org/BusinessSupport",
+    "audience": {
+      "@type": "Audience",
+      "name": "Small businesses"
+     }
+   }
+  }
+}
+</script>

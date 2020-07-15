@@ -24,15 +24,7 @@ This is a placeholder page for developer-oriented information about schema.org. 
 
 <h2 id="conneg">Machine Readable Term Definitions</h2>
 
-<p>Machine-readable definitions of individual terms are availble as RDFa, embeded into the term page html. It is also available in other formats by accessing term URLs, using the <a href="https://www.w3.org/TR/swbp-vocab-pub/#negotiation">Linked Data Content Negotiation</a> technique of providing the required type in an HTTP Accept header value.  The same content is also available by providing an appropriate suffix to the term URL.  For example the Triples definition for the <a href="{{staticPath}}/Book">Book</a> Type can bet retrieved with the following URL <a href="{{staticPath}}/Book.nt">Book.nt</a>.</p>
-<p>The currently supported format types, relevant Accept values, and url suffixes are:</p>
-	<ul><li>JSON-LD - application/ld+json - .jsonld</li>
-		<li>RDF/XML - application/rdf+xml - .rdf</li>
-		<li>Triples - text/plain - .nt</li>
-		<li>Turtle - application/x-turtle - .ttl</li>
-		<li>CSV - text/csv - .csv</li></ul>
-
-<p><strong>Note:</strong> This is currently an experimental feature</p>
+<p>Machine-readable definitions of individual terms are availble as RDFa, embeded into the term page html. </p>
 
 <h2 id="defs">Vocabulary Definition Files</h2>
 
@@ -41,16 +33,16 @@ This is a placeholder page for developer-oriented information about schema.org. 
 <p>Older releases can be found (under data/releases/) at <a href="https://github.com/schemaorg/schemaorg">GitHub</a>.
 
 <p>Select the file and format required and click Download.  The CSV format downloads are split accross two files: <em>Types</em> includes definitions of Types and Enumeration Values, including lists of associated properties; <em>Properties</em> contains property definitions.<br/>
-<br/><strong>Note:</strong> File <em>schema</em> contains the definition of the core vocabulary; <em>bib</em> contains only the definitions for the bib.schema.org extension; <em>all-layers</em> contains definitions for the core plus all the extensions.</p>
+<br/><strong>Note:</strong> File <em>schema</em> contains the definition of the core vocabulary; <em>bib</em> contains only the definitions for the bib.schema.org extension; <strong><em>all-layers</em></strong> contains definitions for <strong><em>all terms</em></strong> (core plus all extensions).</p>
 
 
 	<table style="padding: 2px; width:600px">
 	<tr><td style="width: 30%;">
 			File: <select id="filename"  onchange="updatetext()">
-				<option value="{{targethost}}/version/latest/schema">schema</option>
-				<option value="{{targethost}}/version/latest/all-layers">all-layers</option>
+				<option value="/version/latest/schema">schema</option>
+				<option value="/version/latest/all-layers">all-layers</option>
 				{% for ext in extensions %}
-					<option value="{{targethost}}/version/latest/ext-{{ ext | safe }}">{{ ext | safe }}</option>
+					<option value="/version/latest/ext-{{ ext | safe }}">{{ ext | safe }}</option>
 				{% endfor %}
 			</select>
 	</td>
@@ -136,8 +128,19 @@ function updatetext(){
 	else{
 		document.getElementById("csvsel").style.display = 'none';
 	}
+	
+	port = window.location.port
+	if(port == "" || port == 0){
+		port = "";
+	}
+	else{
+		port = ":" + port;
+	}
+	
+	host = window.location.protocol + "//" + window.location.hostname + port;
+	filepath = host + getschemafilename();
 
-	document.getElementById("label").innerHTML = getschemafilename();
+	document.getElementById("label").innerHTML = '<a href="' + filepath + '">' + filepath +'</a>';
 }
 
 function dowloadfunc(){

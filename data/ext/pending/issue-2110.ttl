@@ -1,0 +1,14 @@
+@prefix : <http://schema.org/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+:subtitleLanguage a rdf:Property ;
+    rdfs:label "subtitleLanguage" ;
+    :category "issue-2110" ;
+    :domainIncludes :BroadcastEvent ;
+    :isPartOf <http://pending.schema.org> ;
+    :rangeIncludes :Language,
+        :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2110> ;
+    rdfs:comment "Languages in which subtitles/captions are available, in [IETF BCP 47 standard format](http://tools.ietf.org/html/bcp47)." .
+

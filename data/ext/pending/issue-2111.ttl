@@ -1,0 +1,23 @@
+@prefix : <http://schema.org/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+:broadcastSignalModulation a rdf:Property ;
+    rdfs:label "broadcastSignalModulation" ;
+    :category "issue-2111" ;
+    :domainIncludes :BroadcastFrequencySpecification ;
+    :isPartOf <http://pending.schema.org> ;
+    :rangeIncludes :QualitativeValue,
+        :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2111> ;
+    rdfs:comment "The modulation (e.g. FM, AM, etc) used by a particular broadcast service" .
+
+:broadcastSubChannel a rdf:Property ;
+    rdfs:label "broadcastSubChannel" ;
+    :category "issue-2111" ;
+    :domainIncludes :BroadcastFrequencySpecification ;
+    :isPartOf <http://pending.schema.org> ;
+    :rangeIncludes :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2111> ;
+    rdfs:comment "The subchannel used for the broadcast." .
+

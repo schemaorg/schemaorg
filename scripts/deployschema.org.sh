@@ -60,3 +60,6 @@ fi
 export SECUREHTTP="YES" #ensure we end up with a handlers.yaml with https redirects
 sdopythonapp/runscripts/runpythondeploy.sh $EXE $MIG -p schemaorgae -y schemaorg.yaml
 
+    
+    
+
