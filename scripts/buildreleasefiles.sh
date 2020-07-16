@@ -102,7 +102,7 @@ then
 fi
 
 echo
-if [ $TESTS -eq 1]
+if [ $TESTS -eq 1 ]
 then
   echo "Running Unit Tests... "
   ./scripts/run_tests.py 
@@ -119,6 +119,8 @@ then
       echo "Aborting..."
       exit 1
   fi
+else
+    echo "Skipping Unit Tests"
 fi
 
 echo -n "Preparing by running buildTermConfig.sh... "
