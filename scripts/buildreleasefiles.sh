@@ -209,8 +209,11 @@ echo "Creating all-layers copies (for backwards compatibility): "
 cd $DIR
 for i in .jsonld .ttl .nt .nq .rdf -properties.csv -types.csv
 do
-    echo "schema$i ->  all-layers$i"
-    cp schema$i all-layers$i
+    if [ -f "schema$i" ]
+    then
+        echo "schema$i ->  all-layers$i"
+        cp schema$i all-layers$i
+    fi
 done
 )
 
