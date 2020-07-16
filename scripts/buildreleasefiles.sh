@@ -12,13 +12,14 @@ then
 fi
 
 function usage {
-    echo "usage: $(basename $0) [-y] [-e] [-c] [-o] [s] [m] [-limit somevalue] VERSION"
+    echo "usage: $(basename $0) [-y] [-e] [-c] [-o] [-s] [-m] [-t] [-limit somevalue] VERSION"
     echo "    -y   Assume yes to continue"
     echo "    -e   No extentstions (only produce core and all-layers)"
     echo "    -c   No context file"
     echo "    -o   No owl file"
     echo "    -s   No schema-all.htmlfile"
     echo "    -m   No sitemap file"
+    echo "    -t   No unit tests"
     echo "    -l   \"Output types\" (json-ld|turtle|nt|nquads|rdf|csv)" 
 }
 
@@ -35,7 +36,8 @@ RELS=1
 OWL=1
 MAP=1
 EXTS=1
-while getopts 'yecsoml:' OPTION; do
+TESTS=1
+while getopts 'yecstoml:' OPTION; do
   case "$OPTION" in
     y)
         AUTORUN=1
@@ -51,6 +53,9 @@ while getopts 'yecsoml:' OPTION; do
     ;;
     m)
         MAP=0
+    ;;
+    t)
+        TESTS=0
     ;;
     o)
         OWL=0
@@ -97,20 +102,25 @@ then
 fi
 
 echo
-echo "Running Unit Tests... "
-./scripts/run_tests.py 
-if [ $? -eq 0 ]
+if [ $TESTS -eq 1 ]
 then
-    echo
-    echo "  Unit Tests ran succesfully"
+  echo "Running Unit Tests... "
+  ./scripts/run_tests.py 
+  if [ $? -eq 0 ]
+  then
+      echo
+      echo "  Unit Tests ran succesfully"
+  else
+      echo
+      echo "  Unit Tests failed!!"
+      echo "$RES"
+      echo
+      echo "Manually run ./scripts/run_tests.py for more details"
+      echo "Aborting..."
+      exit 1
+  fi
 else
-    echo
-    echo "  Unit Tests failed!!"
-    echo "$RES"
-    echo
-    echo "Manually run ./scripts/run_tests.py for more details"
-    echo "Aborting..."
-    exit 1
+    echo "Skipping Unit Tests"
 fi
 
 echo -n "Preparing by running buildTermConfig.sh... "
