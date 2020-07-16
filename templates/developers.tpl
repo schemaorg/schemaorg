@@ -28,12 +28,13 @@ This is a placeholder page for developer-oriented information about schema.org. 
 
 <h2 id="defs">Vocabulary Definition Files</h2>
 
-<p>To assist developers, files containing the definition of the core Schema.org vocabulary and its extensions are available for download in common RDF formats.</p>
+<p>To assist developers, files containing the definition of the current version of the Schema.org vocabulary is available for download in common RDF formats.</p>
 
-<p>Older releases can be found (under data/releases/) at <a href="https://github.com/schemaorg/schemaorg">GitHub</a>.
+<p>Older release versions can be found (under <code>data/releases/</code>) in <a href="https://github.com/schemaorg/schemaorg">GitHub</a>.
 
 <p>Select the file and format required and click Download.  The CSV format downloads are split accross two files: <em>Types</em> includes definitions of Types and Enumeration Values, including lists of associated properties; <em>Properties</em> contains property definitions.<br/>
-<br/><strong>Note:</strong> File <em>schema</em> contains the definition of the core vocabulary; <em>bib</em> contains only the definitions for the bib.schema.org extension; <strong><em>all-layers</em></strong> contains definitions for <strong><em>all terms</em></strong> (core plus all extensions).</p>
+<br/>
+<strong>Note:</strong> [From V9.0 onwards] File <em>schema</em> contains the definition of all terms in, all sections of, the vocabulary.  For backwards compatiility, <em>all-layers</em> also contains definitions for all terms.</p>
 
 
 	<table style="padding: 2px; width:600px">
@@ -41,9 +42,11 @@ This is a placeholder page for developer-oriented information about schema.org. 
 			File: <select id="filename"  onchange="updatetext()">
 				<option value="/version/latest/schema">schema</option>
 				<option value="/version/latest/all-layers">all-layers</option>
+                <!--  Remove from V9.0 as only schema & all0-layers versions built
 				{% for ext in extensions %}
 					<option value="/version/latest/ext-{{ ext | safe }}">{{ ext | safe }}</option>
 				{% endfor %}
+                -->
 			</select>
 	</td>
 	<td style="width: 30%;">

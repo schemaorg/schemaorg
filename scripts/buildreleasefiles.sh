@@ -14,7 +14,7 @@ fi
 function usage {
     echo "usage: $(basename $0) [-y] [-e] [-c] [-o] [-s] [-m] [-t] [-limit somevalue] VERSION"
     echo "    -y   Assume yes to continue"
-    echo "    -e   No extentstions (only produce core and all-layers)"
+#    echo "    -e   No extentstions (only produce core and all-layers)"
     echo "    -c   No context file"
     echo "    -o   No owl file"
     echo "    -s   No schema-all.htmlfile"
@@ -35,7 +35,7 @@ CONTEXT=1
 RELS=1
 OWL=1
 MAP=1
-EXTS=1
+EXTS=0
 TESTS=1
 while getopts 'yecstoml:' OPTION; do
   case "$OPTION" in
@@ -156,9 +156,10 @@ echo " cleaned."
 sleep 2
 
 
-echo -n "Copying schema.ttl and README.md into release directory... "
-cp ./data/schema.ttl $DIR
+echo -n "Copying README.md, SOFTWARE_README.md into release directory... "
+#cp ./data/schema.ttl $DIR - will be overwritten by dump creation
 cp ./README.md $DIR
+cp ./SOFTWARE_README.md $DIR
 echo " copied"
 sleep 2
 
@@ -197,12 +198,21 @@ echo
 echo "Creating dump files - this takes a while......."
 sleep 2
 echo
-echo "Creating core: "
-dump core extensions schema "$LIMIT"
+echo "Creating full dump files: "
+#dump core extensions schema "$LIMIT"
+dump "" "" schema "$LIMIT"
 
 echo
-echo "Creating all-layers: "
-dump "" "" all-layers "$LIMIT"
+echo "Creating all-layers copies (for backwards compatibility): "
+#dump "" "" all-layers "$LIMIT"
+(
+cd $DIR
+for i in .jsonld .ttl .nt .nq .rdf -properties.csv -types.csv
+do
+    echo "schema$i ->  all-layers$i"
+    cp schema$i all-layers$i
+done
+)
 
 if [ $EXTS -eq 1 ]
 then
