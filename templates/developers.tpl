@@ -34,14 +34,14 @@ This is a placeholder page for developer-oriented information about schema.org. 
 
 <p>Select the file and format required and click Download.  The CSV format downloads are split accross two files: <em>Types</em> includes definitions of Types and Enumeration Values, including lists of associated properties; <em>Properties</em> contains property definitions.<br/>
 <br/>
-<strong>Note:</strong> [From V9.0 onwards] File <em>schema</em> contains the definition of all terms in, all sections of, the vocabulary.  For backwards compatiility, <em>all-layers</em> also contains definitions for all terms.</p>
-
+File <em>schemaorg-current</em> contains the definition of all terms in, all sections of, the vocabulary.  The file <em>schemaorg-all</em> contains the definition of all terms in, all sections of, the vocabulary, <strong>plus</strong> terms retired from the vocabulary (<em>See the <a href="/docs/attic.home.html">attic section</a> for details</em>).</p>
+<br/>
 
 	<table style="padding: 2px; width:600px">
 	<tr><td style="width: 30%;">
 			File: <select id="filename"  onchange="updatetext()">
-				<option value="/version/latest/schema">schema</option>
-				<option value="/version/latest/all-layers">all-layers</option>
+				<option value="/version/latest/schemaorg-current">schemaorg-current</option>
+				<option value="/version/latest/schemaorg-all">schemaorg-all</option>
                 <!--  Remove from V9.0 as only schema & all0-layers versions built
 				{% for ext in extensions %}
 					<option value="/version/latest/ext-{{ ext | safe }}">{{ ext | safe }}</option>
@@ -51,11 +51,11 @@ This is a placeholder page for developer-oriented information about schema.org. 
 	</td>
 	<td style="width: 30%;">
 		Format:  <select id="fileext" onchange="updatetext()">
+				<option value=".jsonld">JSON-LD</option>
+				<option value=".ttl">Turtle</option>
 				<option value=".nt">Triples</option>
 				<option value=".nq">Quads</option>
-				<option value=".jsonld">JSON-LD</option>
 				<option value=".rdf">RDF/XML</option>
-				<option value=".ttl">Turtle</option>
 				<option value=".csv">CSV</option>
 		</select>
 	</td>
@@ -70,7 +70,7 @@ This is a placeholder page for developer-oriented information about schema.org. 
 	</td>
 	</tr>
 	<tr><td colspan="3">
-		<div id="label"></div>
+		<div id="label"  style="padding: 5px;"></div>
 	<tr><td colspan="3" style="text-align: center;">
 		<input type="button" onclick="dowloadfunc();" value="Download"/>
 	</td></tr>

@@ -157,7 +157,7 @@ sleep 2
 
 
 echo -n "Copying README.md, SOFTWARE_README.md into release directory... "
-#cp ./data/schema.ttl $DIR - will be overwritten by dump creation
+cp ./data/schema.ttl $DIR 
 cp ./README.md $DIR
 cp ./SOFTWARE_README.md $DIR
 echo " copied"
@@ -198,24 +198,13 @@ echo
 echo "Creating dump files - this takes a while......."
 sleep 2
 echo
-echo "Creating full dump files: "
+echo "Creating full dump files (schemaorg-current): "
 #dump core extensions schema "$LIMIT"
-dump "" "" schema "$LIMIT"
+dump "" "attic" schemaorg-current "$LIMIT"
 
 echo
-echo "Creating all-layers copies (for backwards compatibility): "
-#dump "" "" all-layers "$LIMIT"
-(
-cd $DIR
-for i in .jsonld .ttl .nt .nq .rdf -properties.csv -types.csv
-do
-    if [ -f "schema$i" ]
-    then
-        echo "schema$i ->  all-layers$i"
-        cp schema$i all-layers$i
-    fi
-done
-)
+echo "Creating full + attic dump files (schemaorg-all): "
+dump "attic" "" schemaorg-all "$LIMIT"
 
 if [ $EXTS -eq 1 ]
 then
