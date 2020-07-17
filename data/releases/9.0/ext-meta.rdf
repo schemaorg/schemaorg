@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rdf:RDF
+  xmlns:schema="http://schema.org/"
+  xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  xmlns:owl="http://www.w3.org/2002/07/owl#"
+  xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+>
+  <rdf:Property rdf:about="http://schema.org/supersededBy">
+    <rdfs:comment>Relates a term (i.e. a property, class or enumeration) to one that supersedes it.</rdfs:comment>
+    <schema:rangeIncludes rdf:resource="http://schema.org/Class"/>
+    <schema:rangeIncludes rdf:resource="http://schema.org/Enumeration"/>
+    <schema:domainIncludes rdf:resource="http://schema.org/Enumeration"/>
+    <schema:domainIncludes rdf:resource="http://schema.org/Class"/>
+    <rdfs:label>supersededBy</rdfs:label>
+    <schema:rangeIncludes rdf:resource="http://schema.org/Property"/>
+    <schema:domainIncludes rdf:resource="http://schema.org/Property"/>
+    <schema:isPartOf rdf:resource="http://meta.schema.org"/>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://schema.org/domainIncludes">
+    <rdfs:label>domainIncludes</rdfs:label>
+    <schema:rangeIncludes rdf:resource="http://schema.org/Class"/>
+    <schema:isPartOf rdf:resource="http://meta.schema.org"/>
+    <rdfs:comment>Relates a property to a class that is (one of) the type(s) the property is expected to be used on.</rdfs:comment>
+    <schema:domainIncludes rdf:resource="http://schema.org/Property"/>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://schema.org/inverseOf">
+    <rdfs:comment>Relates a property to a property that is its inverse. Inverse properties relate the same pairs of items to each other, but in reversed direction. For example, the 'alumni' and 'alumniOf' properties are inverseOf each other. Some properties don't have explicit inverses; in these situations RDFa and JSON-LD syntax for reverse properties can be used.</rdfs:comment>
+    <rdfs:label>inverseOf</rdfs:label>
+    <schema:rangeIncludes rdf:resource="http://schema.org/Property"/>
+    <schema:domainIncludes rdf:resource="http://schema.org/Property"/>
+    <schema:isPartOf rdf:resource="http://meta.schema.org"/>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://schema.org/rangeIncludes">
+    <rdfs:label>rangeIncludes</rdfs:label>
+    <rdfs:comment>Relates a property to a class that constitutes (one of) the expected type(s) for values of the property.</rdfs:comment>
+    <schema:domainIncludes rdf:resource="http://schema.org/Property"/>
+    <schema:isPartOf rdf:resource="http://meta.schema.org"/>
+    <schema:rangeIncludes rdf:resource="http://schema.org/Class"/>
+  </rdf:Property>
+  <rdfs:Class rdf:about="http://schema.org/Class">
+    <rdfs:subClassOf rdf:resource="http://schema.org/Intangible"/>
+    <owl:equivalentClass rdf:resource="http://www.w3.org/2000/01/rdf-schema#Class"/>
+    <rdfs:comment>A class, also often called a 'Type'; equivalent to rdfs:Class.</rdfs:comment>
+    <rdfs:label>Class</rdfs:label>
+    <schema:isPartOf rdf:resource="http://meta.schema.org"/>
+  </rdfs:Class>
+  <rdfs:Class rdf:about="http://schema.org/Property">
+    <rdfs:subClassOf rdf:resource="http://schema.org/Intangible"/>
+    <schema:isPartOf rdf:resource="http://meta.schema.org"/>
+    <owl:equivalentClass rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
+    <rdfs:label>Property</rdfs:label>
+    <rdfs:comment>A property, used to indicate attributes and relationships of some Thing; equivalent to rdf:Property.</rdfs:comment>
+  </rdfs:Class>
+</rdf:RDF>
