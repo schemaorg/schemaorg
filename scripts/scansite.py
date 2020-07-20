@@ -21,7 +21,7 @@ host = "schema.org"
 
 #verbose = True
 
-fn = 'data/releases/%s/all-layers.jsonld' % v # Per-release JSON-LD dumps.
+fn = 'data/releases/%s/schemaorg-current.jsonld' % v # Per-release JSON-LD dumps.
 found = []
 checked = 0
 
