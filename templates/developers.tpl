@@ -24,7 +24,7 @@ This is a placeholder page for developer-oriented information about schema.org. 
 
 <h2 id="conneg">Machine Readable Term Definitions</h2>
 
-<p>Machine-readable definitions of individual terms are availble as RDFa, embeded into the term page html. </p>
+<p>Machine-readable definitions of individual terms are available as RDFa, embedded into the term page html. </p>
 
 <h2 id="defs">Vocabulary Definition Files</h2>
 
@@ -32,16 +32,21 @@ This is a placeholder page for developer-oriented information about schema.org. 
 
 <p>Older release versions can be found (under <code>data/releases/</code>) in <a href="https://github.com/schemaorg/schemaorg">GitHub</a>.
 
-<p>Select the file and format required and click Download.  The CSV format downloads are split accross two files: <em>Types</em> includes definitions of Types and Enumeration Values, including lists of associated properties; <em>Properties</em> contains property definitions.<br/>
+<p>Select the file and format required and click Download.  The CSV format downloads are split across two files: <em>Types</em> includes definitions of Types and Enumeration Values, including lists of associated properties; <em>Properties</em> contains property definitions.<br/>
 <br/>
-File <em>schemaorg-current</em> contains the definition of all terms in, all sections of, the vocabulary.  The file <em>schemaorg-all</em> contains the definition of all terms in, all sections of, the vocabulary, <strong>plus</strong> terms retired from the vocabulary (<em>See the <a href="/docs/attic.home.html">attic section</a> for details</em>).</p>
+File <em>schemaorg-current-http</em> contains the definition of all terms in, all sections of, the vocabulary.  The file <em>schemaorg-all-https</em> contains the definition of all terms in, all sections of, the vocabulary, <strong>plus</strong> terms retired from the vocabulary (<em>See the <a href="/docs/attic.home.html">attic section</a> for details</em>).</p>
+
+<p>For those preferring to use https based definitions of Schema.org terms, these equivalent definitions are available in the <em>schemaorg-current-https<em> and <em>schemaorg-all-https<em> files. For more information on using http or https based terms see the <a href="https://schema.org/docs/faq.html#19">FAQ</a> for details.</p>
 <br/>
 
 	<table style="padding: 2px; width:600px">
-	<tr><td style="width: 30%;">
-			File: <select id="filename"  onchange="updatetext()">
-				<option value="/version/latest/schemaorg-current">schemaorg-current</option>
-				<option value="/version/latest/schemaorg-all">schemaorg-all</option>
+	<tr><td style="width: 40%;">
+			File: <br/>
+            <select id="filename"  onchange="updatetext()">
+				<option value="/version/latest/schemaorg-current-http">schemaorg-current-http</option>
+				<option value="/version/latest/schemaorg-all-http">schemaorg-all-http</option>
+				<option value="/version/latest/schemaorg-current-https">schemaorg-current-https</option>
+				<option value="/version/latest/schemaorg-all-https">schemaorg-all-https</option>
                 <!--  Remove from V9.0 as only schema & all0-layers versions built
 				{% for ext in extensions %}
 					<option value="/version/latest/ext-{{ ext | safe }}">{{ ext | safe }}</option>
@@ -50,7 +55,8 @@ File <em>schemaorg-current</em> contains the definition of all terms in, all sec
 			</select>
 	</td>
 	<td style="width: 30%;">
-		Format:  <select id="fileext" onchange="updatetext()">
+		Format: <br/> 
+        <select id="fileext" onchange="updatetext()">
 				<option value=".jsonld">JSON-LD</option>
 				<option value=".ttl">Turtle</option>
 				<option value=".nt">Triples</option>
@@ -61,7 +67,7 @@ File <em>schemaorg-current</em> contains the definition of all terms in, all sec
 	</td>
 	<td style="width: 30%;">
 		<div id ="csvsel">
-			For: <select id="csvfmt" onchange="updatetext()">
+			For: <br/><select id="csvfmt" onchange="updatetext()">
 				<option value="-types">Types</option>
 				<option value="-properties">Properties</option>
 				<!-- <option value="-enumvalues">Enumeration Values</option> -->

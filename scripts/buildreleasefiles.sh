@@ -200,11 +200,29 @@ sleep 2
 echo
 echo "Creating full dump files (schemaorg-current): "
 #dump core extensions schema "$LIMIT"
-dump "" "attic" schemaorg-current "$LIMIT"
+dump "" "attic" schemaorg-current-http "$LIMIT"
 
 echo
 echo "Creating full + attic dump files (schemaorg-all): "
-dump "attic" "" schemaorg-all "$LIMIT"
+dump "attic" "" schemaorg-all-http "$LIMIT"
+
+echo "Creating https versions:"
+(
+    cd $DIR
+    for file in schemaorg-current schemaorg-all 
+    do
+        for ext in .ttl .rdf .jsonld .nq .nt -properties.csv -types.csv
+        do
+            SOURCE="${file}-http${ext}" 
+            TARGET="${file}-https${ext}"
+            if [ -r $SOURCE ]
+            then
+                echo "$SOURCE -> $TARGET"
+                sed 's|http://schema.org|https://schema.org|g' $SOURCE > $TARGET
+            fi
+        done
+    done
+)
 
 if [ $EXTS -eq 1 ]
 then
