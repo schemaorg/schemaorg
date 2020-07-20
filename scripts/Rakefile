@@ -95,7 +95,7 @@ file "spec/schema.rb" => :do_build do
   cmd += " --class-name SCHEMA"
   cmd += " --strict"
   cmd += " -o spec/schema.rb_t"
-  cmd += " #{rel}/schemaorg-current.nq"
+  cmd += " #{rel}/schemaorg-current-http.nq"
   puts "  #{cmd}"
   begin
     %x{#{cmd} && mv spec/schema.rb_t spec/schema.rb}
