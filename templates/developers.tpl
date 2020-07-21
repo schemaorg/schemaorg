@@ -34,9 +34,9 @@ This is a placeholder page for developer-oriented information about schema.org. 
 
 <p>Select the file and format required and click Download.  The CSV format downloads are split across two files: <em>Types</em> includes definitions of Types and Enumeration Values, including lists of associated properties; <em>Properties</em> contains property definitions.<br/>
 <br/>
-File <em>schemaorg-current-http</em> contains the definition of all terms in, all sections of, the vocabulary.  The file <em>schemaorg-all-https</em> contains the definition of all terms in, all sections of, the vocabulary, <strong>plus</strong> terms retired from the vocabulary (<em>See the <a href="/docs/attic.home.html">attic section</a> for details</em>).</p>
+File <em>schemaorg-current-http</em> contains the definition of all terms in, all sections of, the vocabulary.  The file <em>schemaorg-all-http</em> contains the definition of all terms in, all sections of, the vocabulary, <strong>plus</strong> terms retired from the vocabulary (<em>See the <a href="/docs/attic.home.html">attic section</a> for details</em>).</p>
 
-<p>For those preferring to use https based definitions of Schema.org terms, these equivalent definitions are available in the <em>schemaorg-current-https<em> and <em>schemaorg-all-https<em> files. For more information on using http or https based terms see the <a href="https://schema.org/docs/faq.html#19">FAQ</a> for details.</p>
+<p>For those preferring to use https based definitions of Schema.org terms, these equivalent definitions are available in the <em>schemaorg-current-https</em> and <em>schemaorg-all-https</em> files. For more information on using http or https based terms see the <a href="https://schema.org/docs/faq.html#19">FAQ</a> for details.</p>
 <br/>
 
 	<table style="padding: 2px; width:600px">
