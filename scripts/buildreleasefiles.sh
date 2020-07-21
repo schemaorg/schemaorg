@@ -102,6 +102,13 @@ then
 fi
 
 echo
+echo -n "Preparing by running buildTermConfig.sh...  "
+./scripts/buildTermConfig.sh
+echo " Prepared."
+sleep 3
+
+
+echo
 if [ $TESTS -eq 1 ]
 then
   echo "Running Unit Tests... "
@@ -122,11 +129,6 @@ then
 else
     echo "Skipping Unit Tests"
 fi
-
-echo -n "Preparing by running buildTermConfig.sh... "
-./scripts/buildTermConfig.sh
-echo " Prepared."
-sleep 3
 
 if [ ! -d  $DIR ]
 then
