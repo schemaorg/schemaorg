@@ -1,8 +1,8 @@
-TYPES: PracticeProblem, problemType, hasPart, assesses, about, educationalAlignment
+TYPES: Quiz, Question, eduQuestionType, Answer, hasPart, assesses, about, educationalAlignment
 
 PRE-MARKUP:
 
-PracticeProblem is an interactive problem testing knowledge, skills, or abilities; can contain multiple questions with answers.
+Quiz is a test of knowledge, skills, or abilities; it can contain one-to-multiple questions with answers.
 
 MICRODATA:
 
@@ -18,41 +18,46 @@ JSON:
 <script type="application/ld+json">
 {
   "@context": "https://schema.org/",
-  "@type": "PracticeProblem",
-  "url": "https://www.ixl.com/math/grade-5/multiplying-fractions-by-whole-numbers-choose-the-model",
-  "educationalAlignment": [
-    {
-      "@type": "AlignmentObject",
-      "alignmentType": "educationalSubject",
-      "targetName": "Mathematics"
-    },
-    {
-      "@type": "AlignmentObject",
-      "alignmentType": "educationalLevel",
-      "targetName": "Fifth grade"
-    }
-  ],
-  "about": "Fractions",
-  "practiceProblemType": "MultipleChoicePracticeProblem",
-  "assesses": "Multiplying fractions by whole numbers",
+  "@type": "Quiz",
+  "name": "Quiz about fractions",
   "hasPart": {
     "@type": "Question",
+    "url": "https://www.test.example.com/practice-problems-fractions",
+    "educationalAlignment": [
+      {
+        "@type": "AlignmentObject",
+        "alignmentType": "educationalSubject",
+        "targetName": "Mathematics"
+      },
+      {
+        "@type": "AlignmentObject",
+        "alignmentType": "educationalSubject",
+        "targetName": "Algebra"
+      },
+      {
+        "@type": "AlignmentObject",
+        "alignmentType": "educationalLevel",
+        "targetName": "Grade 5 » Number & Operations—Fractions » Apply and extend previous understandings of multiplication and division. » 3",
+        "educationalFramework": "Common Core",
+        "targetUrl": "http://www.corestandards.org/Math/Content/5/NF/B/3/"
+      }
+    ],
+    "about": "Fractions",
+    "educationalLevel": "intermediate",
+    "eduQuestionType": "Multiple choice",
+    "learningResourceType": "Practice problem",
+    "assesses": "Multiplying fractions by whole numbers",
     "name": "Choose the model",
-    "text": "Which model represents the product $$4 * \frac{2}{3}$$?",
+    "comment": {
+      "@type": "Comment",
+      "text": "This is a hint about the question."
+    },
+    "encodingFormat": "text/markdown",
+    "text": "Which model represents the product $$2 * \frac{2}{3}$$?",
     "suggestedAnswer": [
       {
         "@type": "Answer",
-        "@id": "answer_1",
-        "image": "https://www.ixl.com/math/…image1.png",
-        "url": "https://www.ixl.com/math/…image1.png"
-      },
-      {
-        "@type": "Answer",
-        "@id": "answer_2",
-        "image": "https://www.ixl.com/math/…image2.png",
-        "url": "https://www.ixl.com/math/…image2.png"
+        "@id": "http://example.org/fractions/practice-problem#answer_2",
+        "encodingFormat": "text/html",
+        "text": "<img src=\"www.test.com/practice-problems-fractions/…image2.png\" alt=\"Answer 2\" />"
       }
-    ],
-    "acceptedAnswer": "someosoe#answer_1"
-  }
-}
