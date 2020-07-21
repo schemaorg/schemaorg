@@ -2,19 +2,11 @@
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 
-:PracticeProblem a rdfs:Class ;
-    rdfs:label "PracticeProblem" ;
-    :category "issue-2636" ;
-    :isPartOf <http://pending.schema.org> ;
-    :source <https://github.com/schemaorg/schemaorg/issues/2636> ;
-    rdfs:comment "PracticeProblem: An interactive problem testing knowledge, skills, or abilities." ;
-    rdfs:subClassOf :Quiz .
-    
 :problemType a rdf:Property ;
-    rdfs:label "problemType" ;
+    rdfs:label "eduQuestionType" ;
     :category "issue-2636" ;
-    :domainIncludes :PracticeProblem ;
+    :domainIncludes :Question ;
     :isPartOf <http://pending.schema.org> ;
     :rangeIncludes :Text ;
     :source <https://github.com/schemaorg/schemaorg/issues/2636> ;
-    rdfs:comment "The format of the practice problem being given." .
+    rdfs:comment "Property of Question: For questions that are part of learning resources (eg. Quiz), eduQuestionType indicates the format of question being given. Example: "Multiple choice", "Open ended", "Flashcard"." .
