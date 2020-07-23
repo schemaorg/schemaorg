@@ -2,7 +2,7 @@
 
 ## Renaming Master Branch 
 
-In the [Schema.org Github Repository](https://github.com/schemaorg/schemaorg) the previously default branch name of **master** has been replaced with a new default branch name of **main**. (See issue [#2668](https://github.com/schemaorg/schemaorg/issues/2668) for background to this change)
+In the [Schema.org Github Repository](https://github.com/schemaorg/schemaorg) the previously default branch name of **master** has been replaced with a new default branch name of **main**. (_See issue [#2668](https://github.com/schemaorg/schemaorg/issues/2668) for background to this change_)
 
 This work, carried out on 23rd July 2020, should have no impact on developers working from the Github user interface. All non-merged Pull Requests for merges into the *master* branch have been updated to merged into the newly created *main* branch.
 
