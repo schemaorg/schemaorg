@@ -140,13 +140,13 @@ For Schema.org.
 
 
 5.) Tag the code at the current relese state
-* Use a local copy of the relesed version of the 'master' branch:
-    * Either download a new clone, or do a 'git pull' on a local copy and then 'git checkout -b master'
+* Use a local copy of the relesed version of the 'main' branch:
+    * Either download a new clone, or do a 'git pull' on a local copy and then 'git checkout -b main'
 * Confirm previous tags: 'git tag -l'
 * Tag the local copy eg: 'git tag v3.8-release'
 * Push tagged version to github: 'git push origin v3.8-release'
-Note: If master has moved on from the the released version before tagging
-    * Obtain the last commit identifier before the release from the listing: 'git log master'
+Note: If main has moved on from the the released version before tagging
+    * Obtain the last commit identifier before the release from the listing: 'git log main'
     * Add the commit id to the tag comand. eg: 'git tag v3.8-release 7f86a944e1bd87008cb7b83dc7e19a562ed2d28d'
 
 6.) Related post-release tasks.

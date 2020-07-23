@@ -29,6 +29,8 @@ To work on the vocabulary and run locally firstly clone the repository on a loca
     
 (If you forget the `--recurse-submodules` option, run the command `git submodule update --init --recursive`)
 
+**Note:** The default branch name for the schemaorg repository was changed from *master* to *main* (as of 23rd July 2020).  See [MASTER_BRANCH_RENAME.md](MASTER_BRANCH_RENAME.md) for details.
+
 To locally run the application run `./runpythonapp.sh`
 * In most circumstances using value of '**L**' (for local configuration files) and the default '**N**' (for building site static files) will be sufficient.
 * To ensure up to date supplementary files (data dump files, jsonld context, owl file) select '**Y**'.
