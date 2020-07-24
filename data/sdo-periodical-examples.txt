@@ -20,7 +20,7 @@ PRE-MARKUP:
 MICRODATA:
 
 <!-- A list of the issues for a single volume of a given periodical. -->
-<div itemscope itemtype="http://schema.org/Periodical">
+<div itemscope itemtype="https://schema.org/Periodical">
   <h1 itemprop="name">The Lancet</h1>
   <p>Volume 376, July 2010-December 2010</p>
   <p>Published by <span itemprop="publisher">Elsevier</span>
@@ -28,15 +28,15 @@ MICRODATA:
     <li>ISSN: <span itemprop="issn">0140-6736</span></li>
   </ul>
   <h3>Issues:</h3>
-  <div itemprop="hasPart" itemscope itemtype="http://schema.org/PublicationVolume" itemid="#vol376">
+  <div itemprop="hasPart" itemscope itemtype="https://schema.org/PublicationVolume" itemid="#vol376">
     <meta itemprop="volumeNumber" content="376">
     <ul>
-      <li itemprop="hasPart" itemscope itemtype="http://schema.org/PublicationIssue" itemid="#iss9734">No. 
+      <li itemprop="hasPart" itemscope itemtype="https://schema.org/PublicationIssue" itemid="#iss9734">No. 
         <span itemprop="issueNumber">9734</span>
         <time datetime="2010-07-03" itemprop="datePublished">Jul 3, 2010</time>
         p <span itemprop="pageStart">1</span>-<span itemprop="pageEnd">68</span>
       </li>
-      <li itemprop="hasPart" itemscope itemtype="http://schema.org/PublicationIssue" itemid="#iss9735">No.
+      <li itemprop="hasPart" itemscope itemtype="https://schema.org/PublicationIssue" itemid="#iss9735">No.
         <span itemprop="issueNumber">9735</span>
         <time datetime="2010-07-03" itemprop="datePublished">Jul 10, 2010</time>
         p <span itemprop="pageStart">69</span>-<span itemprop="pageEnd">140</span>
@@ -48,7 +48,7 @@ MICRODATA:
 RDFA:
 
 <!-- A list of the issues for a single volume of a given periodical. -->
-<div vocab="http://schema.org/" typeof="Periodical">
+<div vocab="https://schema.org/" typeof="Periodical">
   <h1 property="name">The Lancet</h1>
   <p>Volume 376, July 2010-December 2010</p>
   <p>Published by <span property="publisher">Elsevier</span>
@@ -77,7 +77,7 @@ JSON:
 
 <script type="application/ld+json">
 {
-  "@context": "http://schema.org", 
+  "@context": "https://schema.org", 
   "@type": "Periodical", 
   "issn": "0140-6736", 
   "hasPart": {
@@ -144,18 +144,18 @@ PRE-MARKUP:
 MICRODATA: 
  
 <!-- An article, fully linked to the issue, volume, and periodical in which it was published -->
-<div itemscope itemtype="http://schema.org/ScholarlyArticle">
+<div itemscope itemtype="https://schema.org/ScholarlyArticle">
   <strong>Title:</strong> <span itemprop="name">Be Careful What You Wish For: FRBR, Some Lacunae, A Review</span><br />
   <strong>Author:</strong> <span itemprop="author">Smiraglia, Richard P.</span><br />
   <strong>Subjects:</strong> <span itemprop="about">Catalog</span> ; <span itemprop="about">Works</span> <br />
   <strong>Is Part Of:</strong>
-  <div itemprop="isPartOf" itemscope itemtype="http://schema.org/PublicationIssue" itemid="#issue">
-    <span itemscope itemtype="http://schema.org/Periodical" itemid="#periodical">
+  <div itemprop="isPartOf" itemscope itemtype="https://schema.org/PublicationIssue" itemid="#issue">
+    <span itemscope itemtype="https://schema.org/Periodical" itemid="#periodical">
       <span itemprop="name">Cataloging &amp;amp; Classification Quarterly</span>,
     </span>
     <span itemprop="datePublished">2012</span>,
     Vol.<span itemprop="isPartOf" itemscope
-              itemtype="http://schema.org/PublicationVolume"><link
+              itemtype="https://schema.org/PublicationVolume"><link
               itemprop="isPartOf" href="#periodical" /><span
               itemprop="volumeNumber">50</span></span>(<span
           itemprop="issueNumber">5</span>),
@@ -175,7 +175,7 @@ MICRODATA:
       special issue offer a compendium of the promise of the FRBR
       model.</span>
   </div>
-  <span itemscope itemtype="http://schema.org/Periodical" itemid="#periodical">
+  <span itemscope itemtype="https://schema.org/Periodical" itemid="#periodical">
     <strong>Publisher:</strong>
     <span itemprop="publisher">Taylor &amp;amp; Francis Group</span><br />
     <strong>Source:</strong> Routledge, Taylor &amp;amp; Francis Group<br />
@@ -189,7 +189,7 @@ MICRODATA:
 RDFA:
  
 <!-- An article, fully linked to the issue, volume, and periodical in which it was published -->
-<div vocab="http://schema.org/" typeof="ScholarlyArticle" resource="#article">
+<div vocab="https://schema.org/" typeof="ScholarlyArticle" resource="#article">
   <strong>Title:</strong> <span property="name">Be Careful What You Wish For: FRBR, Some Lacunae, A Review</span><br />
   <strong>Author:</strong> <span property="author">Smiraglia, Richard P.</span><br />
   <strong>Subjects:</strong> <span property="about">Catalog</span> ; <span property="about">Works</span> <br />
@@ -233,7 +233,7 @@ JSON:
 
 <script type="application/ld+json">
 {
-  "@context": "http://schema.org", 
+  "@context": "https://schema.org", 
   "@graph": [
     {
         "@id": "#issue", 
@@ -296,12 +296,12 @@ MICRODATA:
 
 <!-- A trilogy of books with numbered volumes. -->
 <div>
-  <p itemscope itemtype="http://schema.org/Book" itemid="#trilogy">
+  <p itemscope itemtype="https://schema.org/Book" itemid="#trilogy">
     <link itemprop="about" href="http://id.worldcat.org/fast/1020337">
     The <strong itemprop="name">Lord of the Rings</strong> is an 
     <meta itemprop="inLanguage" content="en"/>English-language
     <span itemprop="genre">fictional</span> trilogy by
-    <span itemprop="author" itemscope itemtype="http://schema.org/Person" itemid="#author">
+    <span itemprop="author" itemscope itemtype="https://schema.org/Person" itemid="#author">
       <link itemprop="sameAs" href="http://viaf.org/viaf/95218067">
       <meta itemprop="name" content="Tolkien, J. R. R. (John Ronald Reuel)"/>J. R. R. Tolkien
      (<span itemprop="birthDate">1892</span>-<span itemprop="deathDate">1973</span>).
@@ -314,7 +314,7 @@ MICRODATA:
     The books in the trilogy are:
   </p>
   <ul>
-    <li itemscope itemtype="http://schema.org/Book http://schema.org/PublicationVolume" itemid="#book1">
+    <li itemscope itemtype="https://schema.org/Book https://schema.org/PublicationVolume" itemid="#book1">
       Vol. <span itemprop="volumeNumber">1</span>:
       <link itemprop="about" href="http://id.worldcat.org/fast/1020337">
       <link itemprop="isPartOf" href="#trilogy">
@@ -322,7 +322,7 @@ MICRODATA:
       <meta itemprop="inLanguage" content="en">
       <span itemprop="name">The Fellowship of the Ring</span>
     </li>
-    <li itemscope itemtype="http://schema.org/Book http://schema.org/PublicationVolume" itemid="#book2">
+    <li itemscope itemtype="https://schema.org/Book https://schema.org/PublicationVolume" itemid="#book2">
       Vol. <span itemprop="volumeNumber">2</span>:
       <link itemprop="about" href="http://id.worldcat.org/fast/1020337">
       <link itemprop="isPartOf" href="#trilogy">
@@ -330,7 +330,7 @@ MICRODATA:
       <meta itemprop="inLanguage" content="en">
       <span itemprop="name">The Two Towers</span>
     </li>
-    <li itemscope itemtype="http://schema.org/Book http://schema.org/PublicationVolume" itemid="#book3">
+    <li itemscope itemtype="https://schema.org/Book https://schema.org/PublicationVolume" itemid="#book3">
       Vol. <span itemprop="volumeNumber">3</span>:
       <link itemprop="about" href="http://id.worldcat.org/fast/1020337">
       <link itemprop="isPartOf" href="#trilogy">
@@ -344,7 +344,7 @@ MICRODATA:
 RDFA:
 
 <!-- A trilogy of books with numbered volumes. -->
-<div vocab="http://schema.org/">
+<div vocab="https://schema.org/">
   <p typeof="Book" resource="#trilogy">
     <link property="about" href="http://id.worldcat.org/fast/1020337">
     The <strong property="name">Lord of the Rings</strong> is an 
@@ -394,7 +394,7 @@ JSON:
 
 <script type="application/ld+json">
 {
-  "@context": "http://schema.org", 
+  "@context": "https://schema.org", 
   "@graph": [
     {
       "@id": "#author", 
@@ -477,17 +477,17 @@ MICRODATA:
 <!-- An article citation in MLA format, using a 'flat' approach that simplifies
   markup by not specifying an explicit relationship between the periodical,
   volume, and issue -->
-<div itemscope itemtype="http://schema.org/ScholarlyArticle">
+<div itemscope itemtype="https://schema.org/ScholarlyArticle">
   <span itemprop="author">Carlyle, Allyson.</span>
   &quot;<span itemprop="name">Understanding FRBR as a Conceptual Model: FRBR
     and the Bibliographic Universe</span>&quot;
-  <div itemprop="isPartOf" itemscope itemtype="http://schema.org/Periodical">
+  <div itemprop="isPartOf" itemscope itemtype="https://schema.org/Periodical">
     <em><span itemprop="name">Library Resources and Technical Services</span></em>
   </div>
-  <span itemprop="isPartOf" itemscope itemtype="http://schema.org/PublicationVolume">
+  <span itemprop="isPartOf" itemscope itemtype="https://schema.org/PublicationVolume">
     v. <span itemprop="volumeNumber">50</span>
   </span>,
-  <span itemprop="isPartOf" itemscope itemtype="http://schema.org/PublicationIssue">
+  <span itemprop="isPartOf" itemscope itemtype="https://schema.org/PublicationIssue">
     no. <span itemprop="issueNumber">4</span> 
     (<time datetime="2006-10" itemprop="datePublished">October 2006</time>):
   </span>
@@ -499,7 +499,7 @@ RDFA:
 <!-- An article citation in MLA format, using a 'flat' approach that simplifies
   markup by not specifying an explicit relationship between the periodical,
   volume, and issue -->
-<div vocab="http://schema.org/" typeof="ScholarlyArticle">
+<div vocab="https://schema.org/" typeof="ScholarlyArticle">
   <span property="author">Carlyle, Allyson.</span>
   &quot;<span property="name">Understanding FRBR as a Conceptual Model: FRBR
     and the Bibliographic Universe</span>&quot;
@@ -520,7 +520,7 @@ JSON:
  
 <script type="application/ld+json">
 {
-  "@context": "http://schema.org", 
+  "@context": "https://schema.org", 
   "@graph": [
     {
       "@id": "#issue4",
@@ -586,22 +586,22 @@ PRE-MARKUP:
 
 MICRODATA:
 
-<p itemscope itemtype="http://schema.org/Book" itemid="http://www.freebase.com/m/0h35m">
+<p itemscope itemtype="https://schema.org/Book" itemid="http://www.freebase.com/m/0h35m">
     <em itemprop="name">The Fellowship of the Rings</em> was written by
     <span itemprop="author">J.R.R Tolkien</span> and was originally published
-    in the <span itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    in the <span itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
         <span itemprop="location">United Kingdom</span> by 
         <span itemprop="name">George Allen &amp; Unwin</span>
     </span> in <time itemprop="datePublished">1954</time>.
     The book has been republished many times, including editions by 
-    <span itemprop="workExample" itemscope itemtype="http://schema.org/Book">
-        <span itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <span itemprop="workExample" itemscope itemtype="https://schema.org/Book">
+        <span itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
             <span itemprop="name">HarperCollins</span>
         </span> in <time itemprop="datePublished">1974</time>
         (ISBN: <span itemprop="isbn">0007149212</span>)
     </span> and by 
-    <span itemprop="workExample" itemscope itemtype="http://schema.org/Book">
-        <span itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <span itemprop="workExample" itemscope itemtype="https://schema.org/Book">
+        <span itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
             <span itemprop="name">Ballantine</span>
         </span> in <time itemprop="datePublished">1984</time>
         (ISBN: <span itemprop="isbn">0345296052</span>).
@@ -609,14 +609,14 @@ MICRODATA:
 </p>
 <p>
     The book has also been adapted for the screen several times.
-    <span itemscope itemtype="http://schema.org/Movie">
+    <span itemscope itemtype="https://schema.org/Movie">
         <link itemprop="exampleOfWork" href="http://www.freebase.com/m/0h35m">
         <em itemprop="name">J.R.R. Tolkien's The Lord of the Rings</em>, an
         animated version directed by <span itemprop="director">Ralph Bakshi</span>
         and released in <time itemprop="datePublished">1978</time>, covered the
         events of the novel and parts of its sequel.
     </span>
-    <span itemscope itemtype="http://schema.org/Movie">
+    <span itemscope itemtype="https://schema.org/Movie">
         <link itemprop="exampleOfWork" href="http://www.freebase.com/m/0h35m">
         The movie <em itemprop="name">The Lord of the Rings: The Fellowship of the
         Ring</em>, directed by <span itemprop="director">Peter Jackson</span> and
@@ -628,7 +628,7 @@ MICRODATA:
 
 RDFA:
 
-<div vocab="http://schema.org/">
+<div vocab="https://schema.org/">
     <p typeof="Book" resource="http://www.freebase.com/m/0h35m">
         <em property="name">The Fellowship of the Rings</em> was written by
         <span property="author">J.R.R Tolkien</span> and was originally published
@@ -674,7 +674,7 @@ JSON:
 
 <script type="application/ld+json">
 {
-  "@context":  "http://schema.org/",
+  "@context":  "https://schema.org/",
   "@graph": [
     {
       "@id": "http://www.freebase.com/m/0h35m",
