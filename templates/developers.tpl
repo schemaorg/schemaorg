@@ -32,6 +32,7 @@ This is a placeholder page for developer-oriented information about schema.org. 
 
 <p>Older release versions can be found (under <code>data/releases/</code>) in <a href="https://github.com/schemaorg/schemaorg">GitHub</a>.
 
+<h3>Term Definition Downloads </h3>
 <p>Select the file and format required and click Download.  The CSV format downloads are split across two files: <em>Types</em> includes definitions of Types and Enumeration Values, including lists of associated properties; <em>Properties</em> contains property definitions.<br/>
 <br/>
 File <em>schemaorg-current-http</em> contains the definition of all terms in, all sections of, the vocabulary.  The file <em>schemaorg-all-http</em> contains the definition of all terms in, all sections of, the vocabulary, <strong>plus</strong> terms retired from the vocabulary (<em>See the <a href="/docs/attic.home.html">attic section</a> for details</em>).</p>
@@ -39,7 +40,7 @@ File <em>schemaorg-current-http</em> contains the definition of all terms in, al
 <p>For those preferring to use https based definitions of Schema.org terms, these equivalent definitions are available in the <em>schemaorg-current-https</em> and <em>schemaorg-all-https</em> files. For more information on using http or https based terms see the <a href="https://schema.org/docs/faq.html#19">FAQ</a> for details.</p>
 <br/>
 
-	<table style="padding: 2px; width:600px">
+	<table style="padding: 2px; width:700px;margin-left: auto;margin-right: auto;">
 	<tr><td style="width: 40%;">
 			File: <br/>
             <select id="filename"  onchange="updatetext()">
@@ -82,10 +83,40 @@ File <em>schemaorg-current-http</em> contains the definition of all terms in, al
 	</td></tr>
 
 	</table>
+    <h3>HTTP - HTTPS Term Definition Mappings </h3>
+    <p>
+        As Schema.org supports both <em>http</em> and <em>https</em> URIs for definition identifiers, developers may need to map or inference between them to 
+        operate within a mixed environment.  To aid in that process, a RDF mapping file has been made available below for download.  Within the file each
+        <em>http</em> defined <em>Property</em> in the current version of the vocabulary is related to its <em>https</em> equivalent using <a href="http://www.w3.org/2002/07/owl#equivalentProperty">owl:equivalentProperty<a>, and vice versa. All other terms are related to their <em>https</em> equivalent using <a href="http://www.w3.org/2002/07/owl#equivalentClass">owl:equivalentClass<a>
+            <br/>
+           
+        	<table style="padding: 2px; width:700px;margin-left: auto;margin-right: auto;">
+        	<tr><td style="width: 50%;">
+        			File: <br/>schemaorg-http-https-equivalents
+        	</td>
+        	<td style="width: 50%;">
+        		Format: <br/> 
+                <select id="fileext2" onchange="updatetext()">
+        				<option value=".jsonld">JSON-LD</option>
+        				<option value=".ttl">Turtle</option>
+        				<option value=".nt">Triples</option>
+         			<option value=".rdf">RDF/XML</option>
+        		</select>
+        	</td>
+     </tr>
+        	<tr><td colspan="2">
+        		<div id="label2"  style="padding: 5px;"></div>
+        	<tr><td colspan="3" style="text-align: center;">
+        		<input type="button" onclick="dowloadfunc2();" value="Download"/>
+        	</td></tr>
+
+        	</table>
+           
+    
     <h2  id="experiments">Experimental/Unsupported</h2>
 
    <p>The following representations are <em>experimental</em> and may change or be removed in future releases.</p>
-
+   
    <h3 style="margin-left: 50px;" id="d3rdfs">D3 RDFS in JSON-LD</h3>
 
    <p>
@@ -119,15 +150,20 @@ File <em>schemaorg-current-http</em> contains the definition of all terms in, al
   <a href="../docs/terms.html">Terms and conditions</a></p>
 </div>
 <script>
-function getschemafilename(){
-	path = document.getElementById("filename").value;
-	ext = document.getElementById("fileext").value;
-	csvfmt = ""
-	if( ext == ".csv"){
-		csvfmt = document.getElementById("csvfmt").value;
-	}
-	return (path + csvfmt + ext);
-}
+    function getschemafilename(){
+    	path = document.getElementById("filename").value;
+    	ext = document.getElementById("fileext").value;
+    	csvfmt = ""
+    	if( ext == ".csv"){
+    		csvfmt = document.getElementById("csvfmt").value;
+    	}
+    	return (path + csvfmt + ext);
+    }
+    function getschemafilename2(){
+    	path = "/version/latest/schemaorg-http-https-equivalents";
+    	ext = document.getElementById("fileext2").value;
+    	return (path +  ext);
+    }
 
 function updatetext(){
 
@@ -148,13 +184,19 @@ function updatetext(){
 	
 	host = window.location.protocol + "//" + window.location.hostname + port;
 	filepath = host + getschemafilename();
+	filepath2 = host + getschemafilename2();
 
 	document.getElementById("label").innerHTML = '<a href="' + filepath + '">' + filepath +'</a>';
+	document.getElementById("label2").innerHTML = '<a href="' + filepath2 + '">' + filepath2 +'</a>';
 }
 
 function dowloadfunc(){
 	//alert(path + ext);
 	window.location.href = getschemafilename();
+}
+function dowloadfunc2(){
+	//alert(path + ext);
+	window.location.href = getschemafilename2();
 }
 
 

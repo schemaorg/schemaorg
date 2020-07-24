@@ -236,6 +236,10 @@ then
     done
 fi
 
+echo "Creating http equivalents files"
+./scripts/buildhttpequivs.py -o $DIR/schemaorg-http-https-equivalents 
+
+
 
 if [ $CONTEXT -eq 1 ]
 then
