@@ -1,0 +1,439 @@
+TYPES: Guide
+
+PRE-MARKUP:
+
+BuyingGuide - How to Shop for Hiking Boots
+This is an nested guide example of a buying guide informing readers about the different aspects of hiking boots to consider when determining which one to buy.
+
+Version 1, very simple:
+
+
+MICRODATA:
+
+<!-- JSONLD only example -->
+
+RDFA:
+
+<!-- JSONLD only example -->
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "schema.org",
+  "@type": "Guide",
+  "about": "Hiking Boots",
+  "name": "How to Choose Hiking Boots",
+  "text": "Choosing the right hiking boots is a matchmaking process. Your dream hiking boots need to sync with how and where you hike. ...",
+  "reviewAspect": [
+    "Types",
+    "Components",
+    "Fit"
+}
+</script>
+
+TYPES: Guide
+
+PRE-MARKUP:
+
+BuyingGuide - How to Shop for Hiking Boots
+This is an nested guide example of a buying guide informing readers about the different aspects of hiking boots to consider when determining which one to buy.
+
+Version 2, nested guides:
+
+
+MICRODATA:
+
+<!-- JSONLD only example -->
+
+RDFA:
+
+<!-- JSONLD only example -->
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "schema.org",
+  "@type": "Guide",
+  "about": "Hiking Boots",
+  "name": "How to Choose Hiking Boots",
+  "text": "Choosing the right hiking boots is a matchmaking process. Your dream hiking boots need to sync with how and where you hike. ...",
+  "reviewAspect": [
+    "Types",
+    "Components",
+    "Fit"
+  ],
+  "hasPart": [
+    {
+      "@type": "Guide",
+      "about": "Types"
+      "name": "Types of Hiking Boots"
+      "reviewAspect": [
+       "Hiking shoes",
+       "Day hiking boots",
+       "Backpacking boots"
+     ],
+     "Text": "Hiking shoes: Low-cut models with flexible midsoles are excellent for day hiking. Some ultralight backpackers may even choose trail-running shoes for long-distance journeys…"
+    },
+    {
+      "@type": "Guide",
+      "about": "Components"
+      "name": "Hiking Boot Components"
+      "reviewAspect": [
+       "Hiking Boot Uppers",
+       "Hiking Boot Midsoles",
+       "Hiking Boot Internal Support",
+       "Hiking Boot Outsoles",
+       "Crampon Compatibility",
+     ],
+     "Text": "Hiking Boot Uppers
+Materials impact a boot's weight, breathability, durability and water resistance.
+Full-grain leather: Full-grain leather offers..."
+    },
+    {
+      "@type": "Guide",
+      "about": "Fit"
+      "name": "Hiking Boot Fit"
+     "Text": "Hiking boots should fit snug everywhere, tight nowhere and offer room to wiggle your toes. Try them on at the end of the day (after feet swell) and with the socks you plan to wear.
+Know your size. It's best to have your foot's length, width and arch length measured on a specially calibrated fit .."
+    },
+  ]
+}
+</script>
+
+TYPES: Guide
+
+PRE-MARKUP:
+
+Product Guide - Best TVs
+This guide recommends TVs to buyers with different needs- they pick a best overall, a budget pick, etc.
+
+MICRODATA:
+
+<!-- JSONLD only example -->
+
+RDFA:
+
+<!-- JSONLD only example -->
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "schema.org",
+  "@type": "Guide",
+  "name": "The Best TVs",
+  "category": "TVs",
+  "hasPart": [
+    {
+      "@type": "Recommendation",
+      "category": "Our pick",
+      "name": "The best overall LCD/LED TV",
+      "itemReviewed": {
+        "@type": "Product",
+        "name": "Vizio P-Series F1"
+        "offers": {
+           "@type": "Offer",
+           "price": "$750",
+           "url": "https://wclink.co/link/27778/144709/4/80651?merchant=Best%20Buy"
+         }
+       },
+      "reviewAspect": [
+        {
+          "@type": "PropertyValue",
+          "name": "Available sizes",
+          "value": "55, 65, 77 inches",
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "HDMI ports",
+          "value": "four",
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Smart OS",
+          "value": "SmartCast OS",
+        }
+      ],
+      "reviewBody": "The 2018 Vizio P-Series F1 offers everything you need to enjoy a high-end TV experience today. The TV uses full-array local dimming, which produces superior contrast ratios for SD and HD content but also provides the best HDR experience on an LCD TV. The LCD panel has a native 120 Hz refresh ..."
+    },
+    {
+      "@type": "Recommendation",
+      "category": "Best budget 4K TV",
+      "name": "If you can't spend as much: Best budget 4K TV",
+      "itemReviewed": {
+        "@type": "Product",
+        "name": "TCL 55S517"
+        "offers": {
+           "@type": "Offer",
+           "Price": "$606",
+           "url": "https://wclink.co/link/30228/151537/4/88249?merchant=Walmart"
+         }
+       },
+      "reviewAspect": [
+        {
+          "@type": "PropertyValue",
+          "name": "Available sizes",
+          "value": "43, 49, 55, and 65 inches",
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "HDMI ports",
+          "value": "three",
+        },
+        {
+          "@type": "PropertyValue",
+          "Name": "Smart OS",
+         "Value": "Roku",
+        }
+      ],
+      "reviewBody": "The TCL 5-Series TV offers image quality on a par with much more expensive TVs and it offers media-streaming services and some extra features that costlier TVs don't have. We still think ..."
+    },
+  ]
+}
+</script>
+
+TYPES: Guide
+
+PRE-MARKUP:
+
+Ranked List Guide - Best Cars
+An example of a ranked list guide of best cars with recommendations.
+This guide is focused on a single categorization, overall best midsize cars, and ranks them within that list.
+
+MICRODATA:
+
+<!-- JSONLD only example -->
+
+RDFA:
+
+<!-- JSONLD only example -->
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "schema.org",
+  "@type": "Guide",
+  "category": "Best Midsize Cars",
+  "name": "12 Best Midsize Cars for the Money in 2019",
+  "text": "While manufacturers scramble for a piece of the growing SUV market, many well-known midsize cars continue to offer a lot of features for the money. Most of the twelve models on this list are very familiar to shoppers since they've been around for years. But many of these models have seen recent upgrades that brought advanced safety and infotainment technologies to these well-known names..."
+   "hasPart": [
+    {
+      "@type": "Recommendation",
+      "position": 12,
+      "itemReviewed": {
+        "@type": "Product",
+        "name": "2019 Buick Regal",
+        "url": "https://cars.usnews.com/cars-trucks/buick/regal/2019"
+      },
+      "reviewAspect": [
+        {
+          "@type": "PropertyValue",
+          "name": "price",
+          "value": "$25,070"
+        },
+      ],
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": 7.6,
+        "bestRating": 10,
+        "worstRating": 1,
+      }
+      "reviewBody": "The 2019 Buick Regal has one of the highest price tags on this list, and its cost of ownership continues to be high. It has the highest fuel cost in the ..."
+    },
+    {
+      "@type": "Recommendation",
+      "type": "Best for the Money",
+      "position": 11,
+      "itemReviewed": {
+        "@type": "Product",
+        "name": "2019 Ford Fusion",
+        "url": "https://cars.usnews.com/cars-trucks/ford/fusion/2019"
+      },
+      "reviewAspect": [
+        {
+          "@type": "PropertyValue",
+          "name": "price",
+          "value": "$22,840"
+        },
+      ],
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": 8.2,
+        "bestRating": 10,
+        "worstRating": 1,
+      }
+      "reviewBody": "It's interesting to note that the 2019 Ford Fusion with its gasoline engine has a higher fuel cost than almost all of its competitors. There are plug-in and hybrid versions of the Fusion that do better in this regard. The hybrid in particular..."
+    },  ]
+}
+</script>
+
+TYPES: Recommendation
+
+PRE-MARKUP:
+
+Product Guide - Best TVs
+This guide recommends TVs to buyers with different needs- they pick a best overall, a budget pick, etc.
+
+MICRODATA:
+
+<!-- JSONLD only example -->
+
+RDFA:
+
+<!-- JSONLD only example -->
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "schema.org",
+  "@type": "Guide",
+  "name": "The Best TVs",
+  "category": "TVs",
+  "hasPart": [
+    {
+      "@type": "Recommendation",
+      "category": "Our pick",
+      "name": "The best overall LCD/LED TV",
+      "itemReviewed": {
+        "@type": "Product",
+        "name": "Vizio P-Series F1"
+        "offers": {
+           "@type": "Offer",
+           "price": "$750",
+           "url": "https://wclink.co/link/27778/144709/4/80651?merchant=Best%20Buy"
+         }
+       },
+      "reviewAspect": [
+        {
+          "@type": "PropertyValue",
+          "name": "Available sizes",
+          "value": "55, 65, 77 inches",
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "HDMI ports",
+          "value": "four",
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Smart OS",
+          "value": "SmartCast OS",
+        }
+      ],
+      "reviewBody": "The 2018 Vizio P-Series F1 offers everything you need to enjoy a high-end TV experience today. The TV uses full-array local dimming, which produces superior contrast ratios for SD and HD content but also provides the best HDR experience on an LCD TV. The LCD panel has a native 120 Hz refresh ..."
+    },
+    {
+      "@type": "Recommendation",
+      "category": "Best budget 4K TV",
+      "name": "If you can't spend as much: Best budget 4K TV",
+      "itemReviewed": {
+        "@type": "Product",
+        "name": "TCL 55S517"
+        "offers": {
+           "@type": "Offer",
+           "Price": "$606",
+           "url": "https://wclink.co/link/30228/151537/4/88249?merchant=Walmart"
+         }
+       },
+      "reviewAspect": [
+        {
+          "@type": "PropertyValue",
+          "name": "Available sizes",
+          "value": "43, 49, 55, and 65 inches",
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "HDMI ports",
+          "value": "three",
+        },
+        {
+          "@type": "PropertyValue",
+          "Name": "Smart OS",
+         "Value": "Roku",
+        }
+      ],
+      "reviewBody": "The TCL 5-Series TV offers image quality on a par with much more expensive TVs and it offers media-streaming services and some extra features that costlier TVs don't have. We still think ..."
+    },
+  ]
+}
+</script>
+
+TYPES: Recommendation
+
+PRE-MARKUP:
+
+Ranked List Guide - Best Cars
+An example of a ranked list guide of best cars with recommendations.
+This guide is focused on a single categorization, overall best midsize cars, and ranks them within that list.
+
+MICRODATA:
+
+<!-- JSONLD only example -->
+
+RDFA:
+
+<!-- JSONLD only example -->
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "schema.org",
+  "@type": "Guide",
+  "category": "Best Midsize Cars",
+  "name": "12 Best Midsize Cars for the Money in 2019",
+  "text": "While manufacturers scramble for a piece of the growing SUV market, many well-known midsize cars continue to offer a lot of features for the money. Most of the twelve models on this list are very familiar to shoppers since they've been around for years. But many of these models have seen recent upgrades that brought advanced safety and infotainment technologies to these well-known names..."
+   "hasPart": [
+    {
+      "@type": "Recommendation",
+      "position": 12,
+      "itemReviewed": {
+        "@type": "Product",
+        "name": "2019 Buick Regal",
+        "url": "https://cars.usnews.com/cars-trucks/buick/regal/2019"
+      },
+      "reviewAspect": [
+        {
+          "@type": "PropertyValue",
+          "name": "price",
+          "value": "$25,070"
+        },
+      ],
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": 7.6,
+        "bestRating": 10,
+        "worstRating": 1,
+      }
+      "reviewBody": "The 2019 Buick Regal has one of the highest price tags on this list, and its cost of ownership continues to be high. It has the highest fuel cost in the ..."
+    },
+    {
+      "@type": "Recommendation",
+      "type": "Best for the Money",
+      "position": 11,
+      "itemReviewed": {
+        "@type": "Product",
+        "name": "2019 Ford Fusion",
+        "url": "https://cars.usnews.com/cars-trucks/ford/fusion/2019"
+      },
+      "reviewAspect": [
+        {
+          "@type": "PropertyValue",
+          "name": "price",
+          "value": "$22,840"
+        },
+      ],
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": 8.2,
+        "bestRating": 10,
+        "worstRating": 1,
+      }
+      "reviewBody": "It's interesting to note that the 2019 Ford Fusion with its gasoline engine has a higher fuel cost than almost all of its competitors. There are plug-in and hybrid versions of the Fusion that do better in this regard. The hybrid in particular..."
+    },  ]
+}
+</script>

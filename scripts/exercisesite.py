@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python2.7
 import unittest
 import os
 from os import path, getenv
@@ -9,8 +9,11 @@ import argparse
 import sys
 import csv
 
-sys.path.append( os.getcwd() ) 
+sys.path.append( os.getcwd() )
 sys.path.insert( 1, 'lib' ) #Pickup libs, rdflib etc., from shipped lib directory
+sys.path.insert( 1, 'sdopythonapp' ) #Pickup sdopythonapp functionality
+sys.path.insert( 1, 'sdopythonapp/lib' ) #Pickup sdopythonapp libs, rdflib etc., from shipped lib directory
+sys.path.insert( 1, 'sdopythonapp/site' ) #Pickup sdopythonapp from shipped site
 # Ensure that the google.appengine.* packages are available
 # in tests as well as all bundled third-party packages.
 
@@ -57,7 +60,6 @@ parser.add_argument("-p","--pausetime", default=0, help="Seconds between request
 parser.add_argument("-i","--include", default= [[]],action='append',nargs='*', help="Include graph(s) [core|extensions|all|attic|bib|auto|meta|{etc} (Repeatable) overrides exclude - 'attic' always excluded unless explictly individually included")
 parser.add_argument("-s","--site", required=True, help="site")
 args = parser.parse_args()
-print "%s: Arguments: %s" % (sys.argv[0],args)
 
 pause = 0
 if args.pausetime:
@@ -68,7 +70,7 @@ log = logging.getLogger(__name__)
 
 #Setup testharness state BEFORE importing sdoapp
 import sdoapp
-from sdoapp import ENABLED_EXTENSIONS 
+from sdoapp import ENABLED_EXTENSIONS
 
 STATICPAGES = ["","docs/schemas.html","docs/full.html"]
 
@@ -81,7 +83,7 @@ class Exercise():
         self.exerciseStatics("")
 
     def setSkips(self):
-        self.skiplist = [''] 
+        self.skiplist = ['']
         for e in args.exclude:
             for s in e:
                 if s == "core":
@@ -126,17 +128,17 @@ class Exercise():
         self.fullGraph.bind('rdfa', 'http://www.w3.org/ns/rdfa#')
         self.fullGraph.bind('dct', 'http://purl.org/dc/terms/')
         self.fullGraph.bind('schema', 'http://schema.org/')
-        
+
         self.skipOddTriples(self.fullGraph)
 
         for s in self.skiplist:
             #print(" SKIPPING: %s" % s)
             self.skipTriples(s,self.fullGraph)
-            
+
         self.outGraph = self.fullGraph
 
     def skipTriples(self,skip, graph):
-        
+
         if not len(skip):
             return
         if skip.endswith("/"):
@@ -150,7 +152,7 @@ class Exercise():
                     ?term a ?t.
                     FILTER NOT EXISTS {?term schema:isPartOf ?x}.
         }"""
-        
+
         delext ="""PREFIX schema: <http://schema.org/>
         DELETE {?s ?p ?o}
         WHERE {
@@ -158,29 +160,29 @@ class Exercise():
             schema:isPartOf <%s>.
             ?s ?p ?o.
         }""" % skip
-        
+
 
         if skip == "http://schema.org":
             q = delcore
         else:
             q = delext
-        
-        before = len(graph) 
-        
+
+        before = len(graph)
+
         processUpdate(graph,q)
-        
+
 
     def skipOddTriples(self, graph):
-        
+
         delf = """
         DELETE {?s ?p ?o}
         WHERE {
             ?s ?p ?o.
             FILTER (! strstarts(str(?s), "http://schema.org")).
         }"""
-        
+
         processUpdate(graph,delf)
-        
+
 
     def exercise(self, graph):
         types = {}
@@ -192,7 +194,7 @@ class Exercise():
 
         for t in sorted(types.keys()):
             self.access(t,types[t])
-            
+
         for (s,p,o) in graph.triples((None,RDF.type,RDF.Property)):
             if s.startswith("http://schema.org"):
                 props.update({s:"http://schema.org"})
@@ -213,7 +215,7 @@ class Exercise():
         #    ext = ""
         #else:
         #    ext = ext + "."
-            
+
         site = args.site
         scheme = "http://"
         if site.startswith("http://"):
@@ -224,11 +226,11 @@ class Exercise():
         #log.info("%s  %s  %s  %s" % (scheme,ext,site,id))
         path = "%s%s%s/%s" % (scheme,ext,site,id)
         self.fetch(path)
-    
+
     def fetch(self, url):
         import urllib2
         import time,datetime
-        
+
         success = False
         fivehundred = 0
         while not success:
@@ -237,30 +239,23 @@ class Exercise():
                 sys.stdout.write(url)
                 sys.stdout.flush()
                 r = urllib2.urlopen(url)
-                print "  %s  %s" % (r.getcode(), str(datetime.datetime.now()-load_start))
+                print("  %s  %s" % (r.getcode(), str(datetime.datetime.now()-load_start)))
                 success = True
 
             except urllib2.HTTPError as e:
               print("  got error: {} - {}".format(e.code, e.reason))
               if e.code == 500:
                   fivehundred += 1
-            
+
             time.sleep(float(args.pausetime))
 
             if not fivehundred or fivehundred > 5:
                 break
-            
+
         return
 
-        
 
-                
+
+
 if __name__ == "__main__":
     ex = Exercise()
-    
-
-    
-
-
-
-

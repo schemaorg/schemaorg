@@ -4,6 +4,8 @@ Welcome to Schema.org
 
 This is the Schema.org project repository. It contains all the schemas, examples and software used to publish schema.org. For the site itself, please see [Schema.org](https://schema.org/) instead.
 
+Note: Much of the supporting software is imported from a sub module: 'sdopythonapp'
+
 Issues and proposals are managed here by participants of the [W3C Schema.org Community Group](https://www.w3.org/community/schemaorg/). If you are interested to participate please
 join the group at the [W3C](https://www.w3.org/community/schemaorg/), introduce yourself and find or file issues here that engage your interest. If you are new to Git and GitHub, there's a useful [introduction to Github](https://www.w3.org/2006/tools/wiki/Github) in the W3C Wiki.
 
@@ -12,15 +14,14 @@ There is also a [Travis-CI integration](https://travis-ci.org/schemaorg/schemaor
 [Issue #1](https://github.com/schemaorg/schemaorg/issues/1) in Github is an entry point for release planning. It
 should provide an overview of upcoming work, in terms of broad themes, specific issues and release milestones.
 
-With every release, we change the default Github branch to match the code name for the release.
 [Issue #1](https://github.com/schemaorg/schemaorg/issues/1) will link to per-release entry points, or else navigate issues via label or milestone within Github.
 Every change to the site comes via discussions here. Substantive changes are recorded in our [release notes](https://schema.org/docs/releases.html).
 A preview of the [draft new release notes](http://webschemas.org/docs/releases.html) can be found as part of the test site for our next release.
-Every month or so, after final review by the Schema.org Steering Group, we make a formal release.
+Every month or so, after final review by the Schema.org Steering Group and wider community, we make a formal release.
 
 Regarding CC and opensource licenses for documents and software, see our [FAQ entry](https://schema.org/docs/faq.html#18).
 
-Proposing schemas
+Improving schemas
 =================
 
 We are always interested in practical suggestions for improvements to schema.org, and our collection of schemas has been [growing gradually](http://schema.org/docs/releases.html) since our launch in 2011.
@@ -32,7 +33,7 @@ allow for [independent extension](http://schema.org/docs/extension.html) (for ex
 
 We are also highly unlikely to take on large scale reorganizations of Schema.org's terminology, if they are motivated solely  by considerations of elegance, "proper modeling", ontological purity or conceptual unification. Although the project founders and team are familiar with - and respectful of - the traditions behind such concerns, the scale, scope and nature of Schema.org has required us to trade elegance and global consistency for a somewhat scruffier notion of incremental evolution and a pragmatic tolerance for a style that would be out of place in a formal ontology. Proposals for unifying, cross-domain logic-based knowledge structures may be better received e.g. in the [Ontolog](https://groups.google.com/forum/#!forum/ontolog-forum) community.
 
-We sometimes introduce types without dedicated property associations, simply for markup usability reasons. In a formal ontology, this is often considered poor modeling. However, logically equivalent structures can result in many more errors from publishers/webmasters unfamiliar with the underlying formal concepts behind JSON-LD or RDF/S. Schema.org is not a closed system, and other initiatives e.g. Wikidata or [GS1](http://gs1.org/voc/) have defined many other terms that can be mixed in alongside those we define at schema.org. We also make efforts to align our designs to relevant external standards and initiatives, even when it reduces the global elegance of Schema.org considered alone. For example in a bibliographic or cultural heritage context we may be influenced by initiatives like MARC, BibFrame, and FRBR, while for e-commerce we collaborated with [Good Relations](http://blog.schema.org/2012/11/good-relations-and-schemaorg.html) and GS1. Schema.org's [news](https://schema.org/docs/news.html)-related terms were heavily influenced by incorporating [IPTC's rNews](https://iptc.org/standards/rnews/) design, alongside collaborations with [fact checkers](https://courses.poynter.org/courses/course-v1:newsu+nwsu_ClaimReview2017+2017_1/about), the [Trust Project](https://thetrustproject.org/), and others. Our TV and Music related vocabularies are heavily influenced by working with the [BBC and the European Broadcasting Union](https://www.bbc.co.uk/ontologies/po), alongside [the Music ontology](http://musicontology.com/docs/getting-started.html) and [MusicBrainz](https://musicbrainz.org/doc/LinkedBrainz/RDF); our schemas reflect these prior designs. We prefer to collaborate in this way, improving Schema.org incrementally and working to polish, integrate and blend such designs rather than produce our own pure model in isolation. The result may lack global elegance but brings our work into alignment with related efforts worldwide. 
+We sometimes introduce types without dedicated property associations, simply for markup usability reasons. In a formal ontology, this is often considered poor modeling. However, logically equivalent structures can result in many more errors from publishers/webmasters unfamiliar with the underlying formal concepts behind JSON-LD or RDF/S. Schema.org is not a closed system, and other initiatives e.g. Wikidata or [GS1](http://gs1.org/voc/) have defined many other terms that can be mixed in alongside those we define at schema.org. We also make efforts to align our designs to relevant external standards and initiatives, even when it reduces the global elegance of Schema.org considered alone. For example in a bibliographic or cultural heritage context we may be influenced by initiatives like MARC, BibFrame, and FRBR, while for e-commerce we collaborated with [Good Relations](http://blog.schema.org/2012/11/good-relations-and-schemaorg.html) and GS1. Schema.org's [news](https://schema.org/docs/news.html)-related terms were heavily influenced by incorporating [IPTC's rNews](https://iptc.org/standards/rnews/) design, alongside collaborations with [fact checkers](https://courses.poynter.org/courses/course-v1:newsu+nwsu_ClaimReview2017+2017_1/about), the [Trust Project](https://thetrustproject.org/), and others. Our TV and Music related vocabularies are heavily influenced by working with the [BBC and the European Broadcasting Union](https://www.bbc.co.uk/ontologies/po), alongside [the Music ontology](http://musicontology.com/docs/getting-started.html) and [MusicBrainz](https://musicbrainz.org/doc/LinkedBrainz/RDF); our schemas reflect these prior designs. We prefer to collaborate in this way, improving Schema.org incrementally and working to polish, integrate and blend such designs rather than produce our own pure model in isolation. The result may lack global elegance but brings our work into alignment with related efforts worldwide.
 
 We always welcome issues that track usability and readability issues, but encourage a focus on concrete situations (e.g. how to describe repeating events) rather than global philosophical concerns (e.g. whether a Reservation or Action is "really" an Event). We prioritize local coherence (having sensible ways to describe many common situations) over global elegance (having a global theory in which everything has a sensible place). This doesn't mean we never have cleanups, but they are balanced against (and often outweighed by) other considerations.
 
@@ -44,7 +45,7 @@ When we add terms, often into the "Pending" area, we strongly encourage feedback
  * While many Schema.org improvements have been proposed via Github's "[Pull request](https://help.github.com/articles/about-pull-requests/)" mechanism (see also our list of [PRs](https://github.com/schemaorg/schemaorg/pulls)), please do not undertake any substantial development work without agreeing it with the project team here first.
  * All Pull Requests should reference specific issues that they're fixes or solutions for. This lets the schema.org community discuss problems and topics without it being tied too closely to a specific (and easily outdated) proposed fix.
  * Please note that some changes are much easier to make than others: the wording/phrasing in definitions is relatively easy to amend, whereas the exact spelling of a type or property ('Person', 'startDate' etc.) is much more disruptive to change.
- * There are many other projects developing schemas and ontologies for the Web, e.g. [Wikidata](http://wikidata.org/) or the vocabulary projects in the [Linked Data](http://lov.okfn.org/) community. Many of these projects go into more expressive detail than is possible for a project like Schema.org. To keep Schema.org manageable, we have a strong bias towards designs that are grounded in large scale usage on the Web, in particular [usage](https://github.com/schemaorg/schemaorg/issues/652) by data-consuming applications since these in turn motivate data publishers. Other schema initiatives have different priorities and make different tradeoffs. 
+ * There are many other projects developing schemas and ontologies for the Web, e.g. [Wikidata](http://wikidata.org/) or the vocabulary projects in the [Linked Data](http://lov.okfn.org/) community. Many of these projects go into more expressive detail than is possible for a project like Schema.org. To keep Schema.org manageable, we have a strong bias towards designs that are grounded in large scale usage on the Web, in particular [usage](https://github.com/schemaorg/schemaorg/issues/652) by data-consuming applications since these in turn motivate data publishers. Other schema initiatives have different priorities and make different tradeoffs.
 
 See more on ["How we work"](https://schema.org/docs/howwework.html)
 
@@ -54,7 +55,7 @@ Software
 
 For most collaborators, all you need to know about the software is how to run it. Essentially you will need to have the Python version of Google App Engine SDK running on the platform of your choice. You can then make test builds of schema.org running on your own machine accessible as http://localhost:8080/ or else post them on appspot.com for collaboration. See the [Appengine documentation](https://cloud.google.com/appengine/docs) for details.
 
-More information about the software is also available in [SOFTWARE_README.md](SOFTWARE_README.md)
+More information about the software is also available in [SOFTWARE_README.md](SOFTWARE_README.md) and [STATICBUILD_README.md](./staticbuild/STATICBUILD_README.md)
 
 See also notes in the wiki: https://github.com/schemaorg/schemaorg/wiki/Contributing
 
@@ -90,6 +91,8 @@ e.g. successor to https://schema.org/docs/releases.html#v1.91 was code-named sdo
 and eventually became https://schema.org/docs/releases.html#v1.92
 
 You can therefore see candidate draft release notes in the Git repository at docs/releases.html
+
+**Note:** The default branch name for the schemaorg repository was changed from *master* to *main* (as of 23rd July 2020).  See [MASTER_BRANCH_RENAME.md](MASTER_BRANCH_RENAME.md) for details.
 
 
 Notes

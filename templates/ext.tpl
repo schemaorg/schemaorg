@@ -19,24 +19,7 @@ For more details, see the <a href="http://{{ mybasehost }}:{{ myport }}/">homepa
 
 
 {%- macro debugInfo() -%}
-
-{% if not debugging %}<div style="display: none;">{%- endif %}
-
-<div style="clear: both; float: left; text-align: left; font-size: xx-small; color: #888 ; margin: 1em; line-height: 100%;">
- <ul>
-  <li>SCHEMA_VERSION: {{ SCHEMA_VERSION }} </li>
-  <li>ENABLE_HOSTED_EXTENSIONS:  {{ ENABLE_HOSTED_EXTENSIONS  }} </li>
-  <li>host_ext: {{ host_ext }} </li>
-  <li>myhost: {{ myhost }} </li>
-  <li>myport: {{ myport }} </li>
-  <li>mybasehost: {{ mybasehost }} </li>
-  <li>debugging: {{ debugging }} </li>
-  <li>AppEngine Version: {{ appengineVersion }} </li>
- </ul>
-</div>
-
-{% if not debugging %}</div>{%- endif %}
-
-
-
+  {% if debugging %}
+    {{ debugging | safe }}
+  {% endif %}
 {%- endmacro %}

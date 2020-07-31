@@ -1,0 +1,38 @@
+TYPES: employmentUnit
+
+PRE-MARKUP:
+
+JobPosting for Junior Software Developer in ITS Division C
+of ACME Corp
+
+
+MICRODATA:
+
+<!-- JSONLD only example -->
+
+RDFA:
+
+<!-- JSONLD only example -->
+
+JSON:
+
+<script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "JobPosting",
+    "title": "Junior software developer",
+    "hiringOrganization" : {
+        "@type": "Organization",
+        "@id": "http://www.example.com/acme#Organization",
+        "name": "ACME Corp.",
+        "url": "www.example.com"
+    },
+    "employmentUnit" : {
+        "@type": "Organization",
+        "name": "ITS - Division C",
+        "parentOrganization" : {
+            "@id": "http://www.example.com/acme#Organization"
+        }
+    }
+}
+</script>

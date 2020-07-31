@@ -3,6 +3,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>Schema.org Actions - schema.org</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Schema.org is a set of extensible schemas that enables webmasters to embed
     structured data on their web pages for use by search engines and other applications." />
     <link rel="stylesheet" type="text/css" href="schemaorg.css" />
@@ -113,6 +114,7 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(gc
 
 <h3>Thing &gt; Action</h3>
 
+<div style="overflow-x: scroll; ">
 <table class="style0">
 <tbody>
 <tr>
@@ -133,6 +135,7 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(gc
 </tr>
 </tbody>
 </table>
+</div>
 
 
 <h3>Thing &gt; Intangible &gt; Enumeration &gt; ActionStatusType</h3>
@@ -144,6 +147,7 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(gc
 
 <h4>Example: actionStatus</h4>
 
+<div style="overflow-x: scroll; ">
 <table class="style0">
 <tbody>
 <tr>
@@ -165,6 +169,7 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(gc
 </tr>
 </tbody>
 </table>
+</div>
 
 <h2 id="part-2">Part 2:  Connecting Actions to Things</h2>
 
@@ -172,6 +177,7 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(gc
 
 <h3>Thing</h3>
 
+<div style="overflow-x: scroll; ">
 <table class="style0">
 <tbody>
 <tr>
@@ -192,10 +198,11 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(gc
 </tr>
 </tbody>
 </table>
-
+</div>
 
 <h4>Example: Thing.potentialAction</h4>
 
+<div style="overflow-x: scroll; ">
 <table class="style0">
 <tbody>
 <tr>
@@ -211,7 +218,7 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(gc
 </tr>
 </tbody>
 </table>
-
+</div>
 
 
 
@@ -220,6 +227,7 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(gc
 
 <h4>Example: Action target URL</h4>
 
+<div style="overflow-x: scroll; ">
 <table class="style0">
 <tbody>
 <tr>
@@ -236,11 +244,13 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(gc
 </tr>
 </tbody>
 </table>
+</div>
 
 <p>For some platforms and use cases, however, a simple URL is insufficient for formulating a request and/or processing the result, so we are introducing a new EntryPoint class for specifying that additional context beyond a URL when necessary.</p>
 
 <h3>Action</h3>
 
+<div style="overflow-x: scroll; ">
 <table class="style0">
 <tbody>
 <tr>
@@ -261,10 +271,12 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(gc
 </tr>
 </tbody>
 </table>
+</div>
 
 
 <h3>Thing &gt; Intangible &gt; EntryPoint</h3>
 
+<div style="overflow-x: scroll; ">
 <table class="style0">
 <tbody>
 <tr>
@@ -317,6 +329,7 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(gc
 </tr>
 </tbody>
 </table>
+</div>
 
 
 <h3>Scheme-based encoding of EntryPoint</h3>
@@ -329,6 +342,7 @@ android-app://{package_id}/{scheme}/{host_path}
 <h4>Example: Multiple platform URLs</h4>
 <p>Note: we expect the detail of platform-specific bindings to evolve and be clarified through implementation experience. These examples indicate the general approach rather than the exact information needs of each platform. Also note that the example syntax shown here is not strictly JSON; inline comments have been added for readability.</p>
 
+<div style="overflow-x: scroll; ">
 <table class="style0">
 <tbody>
 <tr>
@@ -378,6 +392,7 @@ android-app://{package_id}/{scheme}/{host_path}
 </tr>
 </tbody>
 </table>
+</div>
 
 
 
@@ -386,6 +401,7 @@ android-app://{package_id}/{scheme}/{host_path}
 <p>Additional information is often required from a user or client in order to formulate a complete request.  To facilitate this process we need the ability to describe within a potential action how to construct these inputs.  Since we need this capability for filling in <i>any</i> property of an Action, we introduce a notion of property annotations using a hypen ("-") delimiter. For example, by specifying a "location-input" property on a potential action we are indicating that "location" is a supported input for completing the action.</p>
 <p>Similarly, it is also helpful to indicate to clients what will be included in the final completed version of an action, so we introduce the corresponding -output annotation for indicating which properties will be present in the completed action.</p>
 
+<div style="overflow-x: scroll; ">
 <table class="style0">
 <tbody>
 <tr>
@@ -414,11 +430,13 @@ android-app://{package_id}/{scheme}/{host_path}
 </tr>
 </tbody>
 </table>
+</div>
 
 
 <h3>Thing &gt; Intangible &gt; PropertyValueSpecification</h3>
 <p>A property value specification.</p>
 
+<div style="overflow-x: scroll; ">
 <table class="style0">
 <tbody>
 <tr>
@@ -533,6 +551,7 @@ Equivalent to HTML's <a href="http://www.w3.org/TR/html5/forms.html#the-min-and-
 </tr>
 </tbody>
 </table>
+</div>
 
 <p>The minValue, maxValue and stepValue properties specify the allowed range and intervals for literal values and are equivalent to HTML's <a href="http://www.w3.org/TR/html5/forms.html#the-min-and-max-attributes">input@min, max, step</a>. It should also be noted that if both a property and its -input annotation are present, the value of the un-annotated property should be treated as the allowed options for input (similar to &lt;select&gt;&lt;option&gt; in HTML) unless the Input indicates that the value is also readonly, in which case the value(s) should all be returned in a manner analogous to hidden inputs in forms.</p>
 <p><b>Textual representations of Input and Output</b><br/>
@@ -557,6 +576,7 @@ Finally, we also allow URI templating (using <a href="http://tools.ietf.org/html
 <h4>Example: Text search deep link with -input</h4>
 <p><span style="color:#666666"><u>description</u></span></p>
 
+<div style="overflow-x: scroll; ">
 <table class="style0">
 <tbody>
 <tr>
@@ -574,6 +594,7 @@ Finally, we also allow URI templating (using <a href="http://tools.ietf.org/html
 </tr>
 </tbody>
 </table>
+</div>
 
 
 <h5>request</h5>
@@ -592,6 +613,7 @@ Finally, we also allow URI templating (using <a href="http://tools.ietf.org/html
 
 <h5>description</h5>
 
+<div style="overflow-x: scroll; ">
 <table class="style0">
 <tbody>
 <tr>
@@ -619,10 +641,12 @@ Finally, we also allow URI templating (using <a href="http://tools.ietf.org/html
 </tr>
 </tbody>
 </table>
+</div>
 
 
 <h5>request</h5>
 
+<div style="overflow-x: scroll; ">
 <table class="style0">
 <tbody>
 <tr>
@@ -631,10 +655,12 @@ Finally, we also allow URI templating (using <a href="http://tools.ietf.org/html
 </tr>
 </tbody>
 </table>
+</div>
 
 
 <h5>response</h5>
 
+<div style="overflow-x: scroll; ">
 <table class="style0">
 <tbody>
 <tr>
@@ -654,12 +680,14 @@ Finally, we also allow URI templating (using <a href="http://tools.ietf.org/html
 </tr>
 </tbody>
 </table>
+</div>
 
 
 <h4>Example: Movie review site API with -input and -output</h4>
 
 <h5>description</h5>
 
+<div style="overflow-x: scroll; ">
 <table class="style0">
 <tbody>
 <tr>
@@ -689,10 +717,12 @@ Finally, we also allow URI templating (using <a href="http://tools.ietf.org/html
 </tr>
 </tbody>
 </table>
+</div>
 
 
 <h5>request</h5>
 
+<div style="overflow-x: scroll; ">
 <table class="style0">
 <tbody>
 <tr>
@@ -715,10 +745,12 @@ Finally, we also allow URI templating (using <a href="http://tools.ietf.org/html
 </tr>
 </tbody>
 </table>
+</div>
 
 
 <h5>response</h5>
 
+<div style="overflow-x: scroll; ">
 <table class="style0">
 <tbody>
 <tr>
@@ -735,6 +767,7 @@ Finally, we also allow URI templating (using <a href="http://tools.ietf.org/html
 </tr>
 </tbody>
 </table>
+</div>
 
 
 </div>

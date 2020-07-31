@@ -2,82 +2,74 @@
 Schema.org Software
 ===================
 
-This document describes the software that underpins schema.org. Most collaborators will only need to be able to run 
+This document describes the software that underpins Schema.org. Most collaborators will only need to be able to run 
 it. At this time we do not solicit active collaboration on the codebase itself from the general public.
 
-* see https://github.com/schemaorg/schemaorg/blob/sdo-phobos/LICENSE for opensource license info (Apache2)
+* see https://github.com/schemaorg/schemaorg/blob/master/LICENSE for open-source license info (Apache2)
 
 Software 
 ========
 
-The site codebase is a simple Python application. It uses Google App Engine, and is designed to allow schema.org contributors to explore new or improved schemas. The code has a bias towards simplicity and minimal dependencies,
-rather than elegance and re-usability. We expect collaboration will focus more on schemas and examples than 
-on our supporting software.
+The site codebase is a simple Python application. It uses Google App Engine, and is designed to allow Schema.org contributors to explore new or improved schemas. The code has a bias towards simplicity and minimal dependencies.
 
-The app reads its schemas and examples from the data/ directory when it starts up. These
-are expressed in simple text formats. Proposals to schema.org can be provided as diffs
-or github pull requests.
+This repository only contains the vocabulary definition, and examples files, supporting documentation, and Schema.org specific tests and build scripts.
+
+The core software is included via a sub module [sdopythonapp](https://github.com/schemaorg/sdopythonapp). 
+
+Working with a local version of Schema.org
+==========================================
+
+Note: The python application only runs under **_Python 2.7_** which should be preinstalled on the local system.
+
+Note: The associated configuration scripts are designed to run in a Linux or similar environment, including MAC-OS. 
+
+To work on the vocabulary and run locally firstly clone the repository on a local system:
+
+    `git clone --recurse-submodules https://github.com/schemaorg/schemaorg.git`
+    
+(If you forget the `--recurse-submodules` option, run the command `git submodule update --init --recursive`)
+
+**Note:** The default branch name for the schemaorg repository was changed from *master* to *main* (as of 23rd July 2020).  See [MASTER_BRANCH_RENAME.md](MASTER_BRANCH_RENAME.md) for details.
+
+To locally run the application run `./runpythonapp.sh`
+* In most circumstances using value of '**L**' (for local configuration files) and the default '**N**' (for building site static files) will be sufficient.
+* To ensure up to date supplementary files (data dump files, jsonld context, owl file) select '**Y**'.
+
+To deploy to a Google appengine run `./deploypythonapp.sh`
+* In most circumstances using value of '**L**' (for local configuration files) and the default '**Y**' (for building site static files) will be sufficient.
+* Version for release should be entered as relevant to the vocabulary release version (eg. 3.8, 3.9, 4.0, 5.0, etc)
+* **Project:** This is entered as a valid name for a Google cloud project that you have write permission to access.
+* **Version:** This is the version of code that is running within the project - this is different from the release version of Schema.org 
+* If a version that is already running in the appengine project is selected, you will be asked to confirm its overwrite.
+* After upload you can choose to **Exercise site** (to pre-load caches) - this should only be necessary for uploading a new version to a busy site. 
+
+There are preconfigured scripts `./scripts/deployschema.org.sh` & `./scripts/deploywebschemas.org.sh` to deploy to the main schema.org sites (with relevant permissions).
+
+Note: If you are informed of an update to the sdopythonapp submodule, use the command `git submodule update --remote` to synchronise with the local version 
+
+Note: To run subdomain areas of the application on a local development system eg.  `http://bib.localhost:8080/` the subdomains will need to be added to the local system's host file.  eg. `127.0.0.1 localhost bib.localhost pending.localhost` etc.
+
 
 Internals
 =========
 
 Internally, the app uses a simple RDF-like graph data model, and has a parser for 
-the RDFa Lite subset that we use to represent schemas. Potential contributors are 
-cautioned that this code is not designed to become a general purpose framework, and
-that we're comfortable with it being hardcoded in various ways around the needs and
-approaches of schema.org. If that's not too discouraging, do let us know if you find
-interesting uses for it or have ideas for improvements.
+the RDFa Lite subset that we use to represent schemas. 
 
 See also wiki: https://github.com/schemaorg/schemaorg/wiki/Contributing
 
-External Software
-=================
+Static Build
+=========
 
-In addition to AppEngine and Python itself, this repository
-contains copies of the following opensource libraries in the 
-lib/ directory tree.
+On sites, such as Schema.org, it has become preferable for robustness and performance reasons to implement a version that requires no runtime processing.   A site that only includes static web pages and files.
 
-1.) html5lib/
+To this end from version v8.0 onwards, an additional step has been introduced to create a snapshot of a current version of the site implemented only using static pages.
 
-https://pypi.python.org/pypi/html5lib (MIT License)
+The intention is that enhancements and developments to the vocabulary and site functionality are produced in the normal way; testing and validating on a locally hosted site using the `./runpythonapp.sh` script or deploying to test appengine instances using the `./deploypythonapp.sh` script.
 
-2.) isodate/
+When a version is ready for deployment to major sites, such as webschemas.org or schema.org, an additional script `./staticbuild/scripts/createstaticsite.sh` should be run.  
 
-https://pypi.python.org/pypi/isodate (BSD License)
+This script confirms the status of the current version (running tests, building download files, owl & sitemap files, etc.); creates a static image of the site; creates version specific yaml configuration files; and controls the deployment to the relevant appengine instance.
 
-3.) markdown2/
+For more information see the [STATICBUILD_README](./staticbuild/STATICBUILD_README..md) file
 
-https://github.com/trentm/python-markdown2 (MIT License)
-
-4.) pyparsing.py
-
-From  lib/pyparsing.py 
-
-    # Copyright (c) 2003-2015  Paul T. McGuire
-    #
-    # Permission is hereby granted, free of charge, to any person obtaining
-    # a copy of this software and associated documentation files (the
-    # "Software"), to deal in the Software without restriction, including
-    # without limitation the rights to use, copy, modify, merge, publish,
-    # distribute, sublicense, and/or sell copies of the Software, and to
-    # permit persons to whom the Software is furnished to do so, subject to
-    # the following conditions:
-    #
-    # The above copyright notice and this permission notice shall be
-    # included in all copies or substantial portions of the Software.
-    #
-    # THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-    # EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-    # MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
-    # IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
-    # CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
-    # TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
-    # SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
-5.) rdflib/ and rdflib_jsonld/
-
-https://github.com/RDFLib 
-    https://github.com/RDFLib/rdflib/blob/master/LICENSE
-
-https://github.com/RDFLib/rdflib-jsonld
-    https://github.com/RDFLib/rdflib-jsonld/blob/master/LICENSE.md

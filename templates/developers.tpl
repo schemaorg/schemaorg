@@ -24,49 +24,50 @@ This is a placeholder page for developer-oriented information about schema.org. 
 
 <h2 id="conneg">Machine Readable Term Definitions</h2>
 
-<p>Machine-readable definitions of individual terms are availble as RDFa, embeded into the term page html. It is also available in other formats by accessing term URLs, using the <a href="https://www.w3.org/TR/swbp-vocab-pub/#negotiation">Linked Data Content Negotiation</a> technique of providing the required type in an HTTP Accept header value.  The same content is also available by providing an appropriate suffix to the term URL.  For example the Triples definition for the <a href="{{staticPath}}/Book">Book</a> Type can bet retrieved with the following URL <a href="{{staticPath}}/Book.nt">Book.nt</a>.</p>
-<p>The currently supported format types, relevant Accept values, and url suffixes are:</p>
-	<ul><li>JSON-LD - application/ld+json - .jsonld</li>
-		<li>RDF/XML - application/rdf+xml - .rdf</li>
-		<li>Triples - text/plain - .nt</li>
-		<li>Turtle - application/x-turtle - .ttl</li>
-		<li>CSV - text/csv - .csv</li></ul>
-
-<p><strong>Note:</strong> This is currently an experimental feature</p>
+<p>Machine-readable definitions of individual terms are available as RDFa, embedded into the term page html. </p>
 
 <h2 id="defs">Vocabulary Definition Files</h2>
 
-<p>To assist developers, files containing the definition of the core Schema.org vocabulary and its extensions are available for download in common RDF formats.</p>
+<p>To assist developers, files containing the definition of the current version of the Schema.org vocabulary is available for download in common RDF formats.</p>
 
-<p>Older releases can be found (under data/releases/) at <a href="https://github.com/schemaorg/schemaorg">GitHub</a>.
+<p>Older release versions can be found (under <code>data/releases/</code>) in <a href="https://github.com/schemaorg/schemaorg">GitHub</a>.
 
-<p>Select the file and format required and click Download.  The CSV format downloads are split accross two files: <em>Types</em> includes definitions of Types and Enumeration Values, including lists of associated properties; <em>Properties</em> contains property definitions.<br/>
-<br/><strong>Note:</strong> File <em>schema</em> contains the definition of the core vocabulary; <em>bib</em> contains only the definitions for the bib.schema.org extension; <em>all-layers</em> contains definitions for the core plus all the extensions.</p>
+<p>Select the file and format required and click Download.  The CSV format downloads are split across two files: <em>Types</em> includes definitions of Types and Enumeration Values, including lists of associated properties; <em>Properties</em> contains property definitions.<br/>
+<br/>
+File <em>schemaorg-current-http</em> contains the definition of all terms in, all sections of, the vocabulary.  The file <em>schemaorg-all-http</em> contains the definition of all terms in, all sections of, the vocabulary, <strong>plus</strong> terms retired from the vocabulary (<em>See the <a href="/docs/attic.home.html">attic section</a> for details</em>).</p>
 
+<p>For those preferring to use https based definitions of Schema.org terms, these equivalent definitions are available in the <em>schemaorg-current-https</em> and <em>schemaorg-all-https</em> files. For more information on using http or https based terms see the <a href="https://schema.org/docs/faq.html#19">FAQ</a> for details.</p>
+<br/>
 
 	<table style="padding: 2px; width:600px">
-	<tr><td style="width: 30%;">
-			File: <select id="filename"  onchange="updatetext()">
-				<option value="{{targethost}}/version/latest/schema">schema</option>
-				<option value="{{targethost}}/version/latest/all-layers">all-layers</option>
+	<tr><td style="width: 40%;">
+			File: <br/>
+            <select id="filename"  onchange="updatetext()">
+				<option value="/version/latest/schemaorg-current-http">schemaorg-current-http</option>
+				<option value="/version/latest/schemaorg-all-http">schemaorg-all-http</option>
+				<option value="/version/latest/schemaorg-current-https">schemaorg-current-https</option>
+				<option value="/version/latest/schemaorg-all-https">schemaorg-all-https</option>
+                <!--  Remove from V9.0 as only schema & all0-layers versions built
 				{% for ext in extensions %}
-					<option value="{{targethost}}/version/latest/ext-{{ ext | safe }}">{{ ext | safe }}</option>
+					<option value="/version/latest/ext-{{ ext | safe }}">{{ ext | safe }}</option>
 				{% endfor %}
+                -->
 			</select>
 	</td>
 	<td style="width: 30%;">
-		Format:  <select id="fileext" onchange="updatetext()">
+		Format: <br/> 
+        <select id="fileext" onchange="updatetext()">
+				<option value=".jsonld">JSON-LD</option>
+				<option value=".ttl">Turtle</option>
 				<option value=".nt">Triples</option>
 				<option value=".nq">Quads</option>
-				<option value=".jsonld">JSON-LD</option>
 				<option value=".rdf">RDF/XML</option>
-				<option value=".ttl">Turtle</option>
 				<option value=".csv">CSV</option>
 		</select>
 	</td>
 	<td style="width: 30%;">
 		<div id ="csvsel">
-			For: <select id="csvfmt" onchange="updatetext()">
+			For: <br/><select id="csvfmt" onchange="updatetext()">
 				<option value="-types">Types</option>
 				<option value="-properties">Properties</option>
 				<!-- <option value="-enumvalues">Enumeration Values</option> -->
@@ -75,7 +76,7 @@ This is a placeholder page for developer-oriented information about schema.org. 
 	</td>
 	</tr>
 	<tr><td colspan="3">
-		<div id="label"></div>
+		<div id="label"  style="padding: 5px;"></div>
 	<tr><td colspan="3" style="text-align: center;">
 		<input type="button" onclick="dowloadfunc();" value="Download"/>
 	</td></tr>
@@ -136,8 +137,19 @@ function updatetext(){
 	else{
 		document.getElementById("csvsel").style.display = 'none';
 	}
+	
+	port = window.location.port
+	if(port == "" || port == 0){
+		port = "";
+	}
+	else{
+		port = ":" + port;
+	}
+	
+	host = window.location.protocol + "//" + window.location.hostname + port;
+	filepath = host + getschemafilename();
 
-	document.getElementById("label").innerHTML = getschemafilename();
+	document.getElementById("label").innerHTML = '<a href="' + filepath + '">' + filepath +'</a>';
 }
 
 function dowloadfunc(){

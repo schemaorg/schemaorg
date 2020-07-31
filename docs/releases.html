@@ -3,6 +3,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>Release listing - schema.org</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content="Schema.org is a set of extensible schemas that enables webmasters to embed
     structured data on their web pages for use by search engines and other applications." />
     <link rel="stylesheet" type="text/css" href="/docs/schemaorg.css" />
@@ -67,6 +68,17 @@ td.release  {
   font-size: 12px;
   font-weight: bold;
 }
+ul {
+    flex-wrap: wrap;
+}
+.scroll-div{
+    max-width:100%;
+    min-width:300px;
+    overflow-x: scroll;
+    height: auto;
+    border: 0;
+
+}
 
 </style>
 
@@ -113,6 +125,8 @@ td.release  {
   are publicly staged on the <a href="http://webschemas.org/">webschemas.org</a> drafting site for review and collaboration. See <a href="howwework.html">how we work</a> for more background.</p>
 <br/>
 
+<div class="scroll-div">
+<span id="v.next"></span>
 <table class="grid">
 <tr>
     <th>Release</th>
@@ -120,24 +134,456 @@ td.release  {
     <th>Description</th>
 </tr>
 
-<!-- optional 'early access' section, used between formal releases.
+
+
 <tr>
-<td>&#160;</td>
-<td class="prerelease">Early Access Fixes</td>
+<td class="release"><a href="/version/9.0/">9.0</a><br/>2020-07-21</td>
 <td>
-<p>Changes that will be included in the next full release, but which have been published immediately:</p>
+<span id="v9.0"></span>
+<p>
+Version 9.0 See <a href="https://github.com/schemaorg/schemaorg/issues/2634">planning pages</a>. This release consists primarily of additions to the <a href="https://pending.schema.org/">Pending</a> section of schema.org,
+alongside minimal edits to core terms to integrate the new vocabulary into the larger system.</p>
+</td>
+<td>
 <h2>Vocabulary</h2>
-<h3>Pending changes</h3>
+
+<h3>Changes in Core section:</h3>
 <ul>
-<li></li>
+<li id="g2604"><a href="https://github.com/schemaorg/schemaorg/issues/2604">Issue #2604</a>: Improvements around enumerations. Some code improvements to present subtyped Enumerations more usefully, and addition of a <a href="/StatusEnumeration">StatusEnumeration</a> type to group numerous enumerations from various kinds of status-related situations.</li>
+<li id="g2512"><a href="https://github.com/schemaorg/schemaorg/issues/2512">Issue #2512</a>: Fixed definition of <a href="/LockerDelivery">LockerDelivery</a> and <a href="/ParcelService">ParcelService</a> to correctly define them as enumeration members of <a href="/DeliveryMethod">DeliveryMethod</a>.</li>
 </ul>
+
+<li id="g2268"><a href="https://github.com/schemaorg/schemaorg/issues/2268">Issue #2268</a>: Defined expected type of several properties in <a href="/ExercisePlan">ExercisePlan</a> to be <a href="/QuantitativeValue">QuantitativeValue</a> instead of the incorrect value of  <a href="/QualitativeValue">QualitativeValue</a>.</li>
+</ul>
+
+<h3>Changes in <a href="http://health-lifesci.schema.org/">health-lifesci</a> section:</h3>
+<ul>
+<li id="g2268"><a href="https://github.com/schemaorg/schemaorg/issues/2268">Issue #2268</a>: Defined expected type of several properties in <a href="/ExercisePlan">ExercisePlan</a> to be <a href="/QuantitativeValue">QuantitativeValue</a> instead of the incorrect value of  <a href="/QualitativeValue">QualitativeValue</a>.</li>
+</ul>
+
+<h3>Changes in <a href="http://pending.schema.org/">Pending</a> section:</h3>
+<ul>
+
+<li id="g1401"><a href="https://github.com/schemaorg/schemaorg/issues/1401">Issue #1401</a>: Add a type <a href="/LearningResource">LearningResource</a>
+  to indicate <a href="/CreativeWork">CreativeWork</a>s that have a particular and explicit orientation towards learning, education, skill acquisition and other educational purposes.</li>
+<li id="g2611"><a href="https://github.com/schemaorg/schemaorg/issues/2611">Issue #2611</a>: Add a <a href="/Quiz">Quiz</a> type, as a kind of <a href="/LearningResource">LearningResource</a>, defined as a "test of knowledge, skills and abilities."</li>
+
+<li id="g2587"><a href="https://github.com/schemaorg/schemaorg/issues/2587">Issue #2587</a>: Add two properties <a href="/size">size</a> and <a href="/pattern">pattern</a> for type <a href="/Product">Product</a> to support common product variant dimensions.</li>
+
+<li id="g1797"><a href="https://github.com/schemaorg/schemaorg/issues/1797">Issue #1797</a>: Add a <a href="/ProductGroup">ProductGroup</a> type to allow modeling of a group of products ("variants") that vary along explicitly defined dimensions. Add properties <a href="/variesBy">variesBy</a> and <a href="/hasVariant">hasVariant</a> for type <a href="/ProductGroup">ProductGroup</a> to explicitly define the variant-identifying properties and the list of variants belonging to the group. Adds existing property <a href="/isVariantOf">isVariantOf</a> to type <a href="/Product">Product</a> to indicate the <a href="/ProductGroup">ProductGroup</a> it is a variant of. Adds property <a href="/productGroupID"><span class="s7">productGroupID</span></a> as explicit identifier for type <a href="/ProductGroup">ProductGroup</a>. Also adds inverse property <a href="/inProductGroupWithID">inProductGroupWithID</a> for type <a href="/Product">Product</a> to identify the product group it is a variant of.</li>
+
+<li id="g2605"><a href="https://github.com/schemaorg/schemaorg/issues/2605">Issue #2605</a>: Clarify the definition of <a href="/Collection">Collection</a> to make clear that it covers a broad range of kind of "Collection". Add a <a href="/ProductCollection">ProductCollection</a> type to allow modeling of a collection of products that are commonly bundled together. Extend the existing property <a href="/includesObject">includesObject</a> for use with the type <a href="/ProductCollection">ProductCollection</a> to indicate the (type and number of) products that are member of the collection.</li>
+
+<li id="g2620"><a href="https://github.com/schemaorg/schemaorg/pull/2620">Issue #2620</a>: Added several new examples.</li>
+
+<li id="g2599"><a href="https://github.com/schemaorg/schemaorg/issues/2599">Issue #2599</a>: Add <a href="/byMonthWeek">byMonthWeek</a> to <a href="/Schedule">Schedule</a> type.</li>
+
+<li id="g1755"><a href="https://github.com/schemaorg/schemaorg/issues/1755">Issue #1755</a>: Add <a href="/BoatReservation">BoatReservation</a>, <a href="/BoatTrip">BoatTrip</a> (and <a href="/arrivalBoatTerminal">arrivalBoatTerminal</a>, <a href="/departureBoatTerminal">departureBoatTerminal</a> properties), <a href="/BoatTerminal">BoatTerminal</a> types.</li>
+
+</ul>
+<h3>Site Improvements</h3>
+<ul>
+
+<li id="g2304"><a href="https://github.com/schemaorg/schemaorg/issues/2304">Issue #2304</a>:
+  (implemented in <a href="https://github.com/schemaorg/schemaorg/pull/2654">PR #2654</a>):Rationalisation of dump files.  Machine readable vocabulary definition files, available from the <a href="https://schema.org/docs/developers.html#defs">Developers area</a>, have been rationalised to include definitions from the core plus all sections of the vocabulary.  Now download file names have been used to reflect this change.  Also introduced two versions of each file, one containing http URIs the other https URIs.</li>
+</ul>
+
 </td>
 </tr>
+
+
+
+
+
+
+<tr>
+<td class="release"><a href="/version/8.0/">8.0</a><br/>2020-05-01</td>
+<td>
+<span id="v8.0"></span>
+<p>
+Version 8.0 See <a href="https://github.com/schemaorg/schemaorg/issues/2528">planning pages</a>. This release consists of additions to the <a href="https://pending.schema.org/">Pending</a> section of schema.org.
+</p>
+</td>
+<td>
+<h2>Vocabulary</h2>
+
+<h3>Changes in Core section:</h3>
+<ul>
+<li>N/A</li>
+</ul>
+
+<h3>Changes in <a href="http://pending.schema.org/">Pending</a> section:</h3>
+<ul>
+  <li id="g2543"><a href="https://github.com/schemaorg/schemaorg/issues/2543">Issue #2543</a>: Add a <a href="/nonprofitStatus">nonprofitStatus</a> property to indicate non-profit organizations, alongside an initial enumeration of non-profit organization types, <a href="/NonprofitType">NonprofitType</a>.</li>
+  <li id="g2506"><a href="https://github.com/schemaorg/schemaorg/issues/2506">Issue #2506</a>: Add vocabulary to help online vendors publish information about their shipping-related policies, associatted with an <a href="/Offer">Offer</a> using the <a href="/shippingDetails">shippingDetails</a> property. Adds <a href="/OfferShippingDetails">OfferShippingDetails</a> and supporting properties (including <a href="/deliveryTime">deliveryTime</a>, <a href="/doesNotShip">doesNotShip</a>, <a href="/shippingDestination">shippingDestination</a>, <a href="/shippingLabel">shippingLabel</a>, <a href="/shippingRate">shippingRate</a>, <a href="/shippingSettingsLink">shippingSettingsLink</a>, <a href="/transitTimeLabel">transitTimeLabel</a>). Also added supporting types <a href="/ShippingDeliveryTime">ShippingDeliveryTime</a>, <a href="/DefinedRegion">DefinedRegion</a>, <a href="/PostalCodeRangeSpecification">PostalCodeRangeSpecification</a>, <a href="/OfferShippingDetails">OfferShippingDetails</a>, <a href="/ShippingRateSettings">ShippingRateSettings</a>.
+  </li>
+  <li id="g2427"><a href="https://github.com/schemaorg/schemaorg/issues/2427">Issue #2427</a>: Simplifies education-related markup for describing what a learning resource <a href="/teaches">teaches</a> or <a href="/assesses">assesses</a>, and its  <a href="/educationalLevel">educationalLevel</a>. Allows these properties to be used for <a href="/EducationEvent">EducationEvents</a>.</li>
+  <li id="g2384b"><a href="https://github.com/schemaorg/schemaorg/issues/2384">Issue #2384</a>: Add property to <a href="/JobPosting">JobPosting</a> for legal requirements relating to <a href="/eligibilityToWorkRequirement ">eligibility to work</a> such as citizenship, visa or other documentation.</li>
+  <li id="g2469"><a href="https://github.com/schemaorg/schemaorg/issues/2469">Issue #2469</a>: Add two properties to represent <a href="https://eidr.org">EIDR</a> identifiers: <a href="/titleEIDR">titleEIDR</a> and <a href="/editEIDR">editEIDR</a>.</li>
+</ul>
+
+</td>
+</tr>
+
+
+
+
+<tr>
+<td class="release"><a href="/version/7.04/">7.04</a><br/>2020-04-16</td>
+<td>
+<span id="v7.04"></span>
+<p>
+Version 7.04. See <a href="https://github.com/schemaorg/schemaorg/issues/2522">planning pages</a>. This was a minor release, with
+improvements relating to the COVID-19 response effort.
+</p>
+</td>
+<td>
+<h2>Vocabulary</h2>
+
+<h3>Changes in Core section:</h3>
+<ul>
+  <li id="g2540"><a href="https://github.com/schemaorg/schemaorg/issues/2540">Issue #2540</a>: <a href="/EducationalOrganization">EducationalOrganization</a> has an additional supertype of <a href="/CivicStructure">CivicStructure</a>, clarifying that it can be used with <a href="/announcementLocation">announcementLocation</a>.</li>
+</ul>
+
+<h3>Changes in <a href="http://pending.schema.org/">Pending</a> section:</h3>
+<ul>
+
+  <li id="g2534"><a href="https://github.com/schemaorg/schemaorg/issues/2534">Issue #2534</a>: Improved vocabulary for describing government benefits
+    in the context of a <a href="/SpecialAnnouncement">SpecialAnnouncement</a>. A new <a href="/governmentBenefitsInfo">governmentBenefitsInfo</a> property
+    can now reference a <a href="/GovernmentService">GovernmentService</a>. The existing <a href="/serviceType">serviceType</a> property can now
+    optionally use enumerated values from <a href="/GovernmentBenefitsType">GovernmentBenefitsType</a>. This enumerates several kinds of government benefits.
+    While the list is general purpose, our priority is to support the COVID-19 response. We anticipate adding more structure here in future to better capture per-country systems and new kinds of benefit. As part of this work
+    we also introduce a <a href="/jurisdiction">jurisdiction</a> property as a superproperty of <a href="/legislationJurisdiction">legislationJurisdiction</a>.
+  </li>
+
+  <li id="g2536"><a href="https://github.com/schemaorg/schemaorg/issues/2536">Issue #2536</a>: Fixed a bug in the amended definition for <a href="/category">category</a>.</li>
+
+  <li id="g2526"><a href="https://github.com/schemaorg/schemaorg/issues/2526">Issue #2626</a>: Add a <a href="/Hackathon">Hackathon</a> type.</li>
+
+  <li id="g2493"><a href="https://github.com/schemaorg/schemaorg/issues/2493">Issue #2493</a>: Add <a href="/startTime">startTime</a>/<a href="/endTime">endTime</a> to <a href="/Schedule">Schedule</a>.</li>
+</ul>
+
+</td>
+</tr>
+
+
+<tr>
+<td class="release"><a href="/version/7.03/">7.03</a><br/>2020-04-02</td>
+<td>
+<span id="v7.03"></span>
+<p>
+Version 7.03. See <a href="https://github.com/schemaorg/schemaorg/issues/2522">planning pages</a>. This was a minor release, with
+improvements relating to the COVID-19 response effort.
+</p>
+</td>
+<td>
+<h2>Vocabulary</h2>
+<h3>Changes in <a href="http://pending.schema.org/">Pending</a> section:</h3>
+<ul>
+  <li id="g2521"><a href="https://github.com/schemaorg/schemaorg/issues/2521">Issue #2521</a>: Adds a <a href="/docs/cdc-covid.html">document</a> and schema definitions capturing a 1:1 representation of a CDC CSV format for hospital reporting.</li>
+  <li id="g2519"><a href="https://github.com/schemaorg/schemaorg/issues/2519">Issue #2519</a>: Clarifies that <a href="/webFeed">webFeed</a> can be expected on the <a href="/SpecialAnnouncement">SpecialAnnouncement</a> type.</li>
+  <li id="g2518"><a href="https://github.com/schemaorg/schemaorg/issues/2518">Issue #2518</a>: Updated pending draft of <a href="/3DModel">3DModel</a> to place it under <a href="/MediaObject">MediaObject</a> rather than clutter <a href="/CreativeWork">CreativeWork</a>.</li>
+</ul>
+
+</td>
+</tr>
+
+<tr>
+<td class="release"><a href="/version/7.02/">7.02</a><br/>2020-03-31</td>
+<td>
+<span id="v7.02"></span>
+<p>
+Version 7.02. See <a href="https://github.com/schemaorg/schemaorg/issues/2517">planning pages</a>. This was a minor release, with
+improvements relating to the COVID-19 response effort.
+</p>
+</td>
+<td>
+<h2>Vocabulary</h2>
+
+
+<h3>Changes in <a href="http://pending.schema.org/">Pending</a> section:</h3>
+<ul>
+  <li id="g2514"><a href="https://github.com/schemaorg/schemaorg/issues/2514">Issue #2514</a>: Added an <a href="/announcementLocation">announcementLocation</a> property, clarifying how a <a href="/SpecialAnnouncement">SpecialAnnouncement</a>
+  can reference both regions and specific places.
+  </li>
+</ul>
+
+</td>
+</tr>
+
+
+<tr>
+<td class="release"><a href="/version/7.01/">7.01</a><br/>2020-03-22</td>
+<td>
+<span id="v7.01"></span>
+<p>
+Version 7.01. See <a href="https://github.com/schemaorg/schemaorg/issues/2501">planning pages</a>. This was a minor release, with
+improvements relating to the COVID-19 response effort.
+</p>
+</td>
+<td>
+<h2>Vocabulary</h2>
+<h3>Core changes</h3>
+<ul>
+  <li>N/A</li>
+</ul>
+
+<h3>Changes in <a href="http://pending.schema.org/">Pending</a> section:</h3>
+<ul>
+  <li id="g2500"><a href="https://github.com/schemaorg/schemaorg/issues/2500">Issue #2500</a>: Added a <a href="/SchoolDistrict">SchoolDistrict</a> type.</li>
+  <li id="g2497"><a href="https://github.com/schemaorg/schemaorg/pull/2497">Issue #2497</a>: Added <a href="/datePosted">datePosted</a> to <a href="/SpecialAnnouncement">SpecialAnnouncement</a> type.</li>
+</ul>
+<h3>Site Improvements</h3>
+<ul>
+  <li id="g2495"><a href="https://github.com/schemaorg/schemaorg/pull/2495">Issue #2495</a>: Added an example for the geographic region of a SpecialAnnouncement.
+</li>
+ </ul>
+</td>
+</tr>
+
+
+<tr>
+<td class="release"><a href="/version/7.0/">7.0</a><br/>2020-03-17</td>
+<td>
+<span id="v.next"></span>
+<span id="v7.0"></span>
+<p>
+Version 7.0. See <a href="https://github.com/schemaorg/schemaorg/issues/2453">planning pages</a>.
+</p>
+</td>
+<td>
+<h2>Vocabulary</h2>
+<h3>Core changes</h3>
+<ul>
+ <li id="g2448"><a href="https://github.com/schemaorg/schemaorg/issues/2448">Issue #2448</a>: Removed several largely un-used medical health properties whose names were inappropriately general:
+     <em>action, background, cause, cost, function, indication, origin, outcome, overview, phase, population, purpose, source, subtype</em>. Note that we do not remove terms casually, but in the current case the usability consequences of keeping them in the system outweighed the benefits of retaining them, even if flagged as archived/superseded.</li>
+ <li id="g1842"><a href="https://github.com/schemaorg/schemaorg/issues/1842">Issue #1842</a>: Introduced a <a href="/VirtualLocation">VirtualLocation</a> type, to support description of <a href="/Event">Event</a>s whose <a href="location">location</a> is online.
+Added <a href="/eventAttendanceMode">eventAttendanceMode</a> to clarify the current attendance mode of an event (online, offline or a mix). Also added a new enumeration value for <a href="/eventStatus">eventStatus</a> for <a href="/Event">Event</a>: <a href="/EventMovedOnline">EventMovedOnline</a>.</li>
+</ul>
+<h3>Changes in <a href="http://pending.schema.org/">Pending</a> section:</h3>
+<ul>
+  <li id="g2490"><a href="https://github.com/schemaorg/schemaorg/issues/2490">Issue #2490</a>: Added (fast track) a <a href="/SpecialAnnouncement">SpecialAnnouncement</a> type with several properties and supporting documentation, as a contribution to the
+    global response to the COVID-19 Coronavirus pandemic. We expect to iterate on this design after implementator and publisher feedback.</li>
+  <li id="g2460"><a href="https://github.com/schemaorg/schemaorg/issues/2460">Issue #2460</a>: Added properties to EducationalOccupationalProgram to support cases where it is not clear the distinction between classroom-based and work-based programs.</li>
+  <li id="g2373b"><a href="https://github.com/schemaorg/schemaorg/issues/2373">Issue #2373</a>:
+Added <a href="/petsAllowed">petsAllowed</a> for use with <a href="/ApartmentComplex">ApartmentComplex</a>,
+and <a href="/petsAllowed">petsAllowed</a>, <a href="/amenityFeature">amenityFeature</a> and <a href="/floorSize">floorSize</a>
+to <a href="/FloorPlan">FloorPlan</a>. Created new properties for <a href="/numberOfBedrooms">numberOfBedrooms</a> and
+a new <a href="/tourBookingPage">tourBookingPage</a>.
+</li>
+ <li id="g2450"><a href="https://github.com/schemaorg/schemaorg/issues/2450">Issue #2450</a>: Added <em>draft</em> type <a href="/MediaReview">MediaReview</a>, and associated <a href="/MediaManipulationRatingEnumeration">MediaManipulationRatingEnumeration</a> with two example values <a href="/AuthenticContent">AuthenticContent</a> and <a href="/MissingContext">MissingContext</a>.  Note that this is Editorial work in progress and not a complete design. See also <a href="https://www.niemanlab.org/2020/01/is-this-video-missing-context-transformed-or-edited-this-effort-wants-to-standardize-how-we-categorize-visual-misinformation/">NiemanLab background article</a> on this work.)
+ </li>
+ <li id="g2454"><a href="https://github.com/schemaorg/schemaorg/issues/2454">Issue #2454</a>: Added <a href="/usageInfo">usageInfo</a>, and
+     <a href="/acquireLicensePage">acquireLicensePage</a> to <a href="/CreativeWork">CreativeWork</a>. </li>
+</ul>
+<h3>Site Improvements</h3>
+<ul>
+  <li>Reinstated 301 redirect to https for http requests.</li>
+  <li id="g2412"><a href="https://github.com/schemaorg/schemaorg/issues/2412">Issue #2412</a>:
+  Implemented in sdopythonapp submodule <a href="https://github.com/schemaorg/sdopythonapp/issues/6">Issue #6</a>:
+  Enhancements to CORS support, providing appropriate responses to HTTP OPTIONS request.</li>
+ </ul>
+</td>
+</tr>
+
+
+
+
+<tr>
+<td class="release"><a href="/version/6.0/">6.0</a><br/>2020-01-21</td>
+<td>
+<span id="v6.0"></span>
+<p>
+Version 6.0. See <a href="https://github.com/schemaorg/schemaorg/issues/2376">planning pages</a>.
+</p>
+</td>
+<td>
+<h2>Vocabulary</h2>
+<h3>Core changes</h3>
+
+<!-- <p>Moved from Pending to Core:</p>-->
+<ul>
+
+
+</ul>
+
+<p>Other changes in Core section:</p>
+
+<ul>
+ <li id="g637"><a href="https://github.com/schemaorg/schemaorg/issues/637">Issue #637</a>: Made <a href="/itemOffered">itemOffered</a> and <a href="/offers">offers</a> fully <a href="/inverseOf">inverseOf</a> each other.</li>
+ <li id="g2397"><a href="https://github.com/schemaorg/schemaorg/issues/2397">Issue #2397</a>: Reworded <a href="/datePosted">datePosted</a> to avoid tying this property to overly-specific usecase (i.e. it originally assumed usage only with <a href="/JobPosting">JobPosting</a>).</li>
+ <li id="g2433"><a href="https://github.com/schemaorg/schemaorg/issues/2433">Issue #2433</a>: Shortened definition of <a href="/PreOrder">PreOrder</a> from <a href="/ItemAvailability">ItemAvailability</a> enumeration.</li>
+ <li id="2375"><a href="https://github.com/schemaorg/schemaorg/issues/2375">Issue #2375</a>: Added note to descriptions for <a href="/Offer">Offer</a> and <a href="/AggregateOffer">AggregateOffer</a> indicating default <a href="/businessFunction">businessFunction</a>.</li>
+ <li id="2309"><a href="https://github.com/schemaorg/schemaorg/issues/2309">Issue #2309</a>: (implemented in <a href="https://github.com/schemaorg/schemaorg/pull/2380">PR #2380</a>): Extended rangeIncludes of <a href="/datePublished">datePublished</a> to include <a href="/DateTime">DateTime</a>. </li>
+ <li id="g2420"><a href="https://github.com/schemaorg/schemaorg/issues/2420">Issue #2420</a>: Added <a href="/MusicRecording">MusicRecording</a> as an expected value of <a href="/audio">audio</a>.</li>
+ <li id="g2421"><a href="https://github.com/schemaorg/schemaorg/issues/2421">Issue #2421</a>: Added <a href="/Person">Person</a> and <a href="/Organization">Organization</a> to the domain for <a href="/interactionStatistic">interactionStatistic</a>.</li>
+ <li id="g2139"><a href="https://github.com/schemaorg/schemaorg/issues/2139">Issue #2139</a>: Added <a href="/MediaGallery">MediaGallery</a> as a super-type of <a href="/ImageGallery">ImageGallery</a> and <a href="/VideoGallery">VideoGallery</a>, to allow for a mixed-media collection page type.</li>
+ <li id="g2382"><a href="https://github.com/schemaorg/schemaorg/issues/2382">Issue #2382</a>: Added <a href="/BroadcastService">BroadcastService</a> to the domain for <a href="/inLanguage">inLanguage</a>.</li>
+ <li id="g1951"><a href="https://github.com/schemaorg/schemaorg/issues/1951">Issue #1951</a>: Added <a href="/SportsEvent">SportsEvent</a> to the domain for <a href="/sport">sport</a>.</li>
+</ul>
+
+<h3>Changes in <a href="http://pending.schema.org/">Pending</a> section:</h3>
+<ul>
+ <li id="g2372"><a href="https://github.com/schemaorg/schemaorg/issues/2372">Issue #2372</a>: Noted that other kinds of thing have <a href="/callSign">callSign</a> beyond radio broadcasts, in particular vehicles/boats and non-radio broadcasts. Added <a href="/Vehicle">Vehicle</a>, <a href="/Person">Person</a> and <a href="/BroadcastService">BroadcastService</a> (the latter also covers the initial type, <a href="/RadioBroadcastService">RadioBroadcastService</a>) to <a href="/callSign">callSign</a> accordingly.
+ </li>
+  <li id="g2384"><a href="https://github.com/schemaorg/schemaorg/issues/2384">Issue #2384</a>: Adds three properties to <a href="/JobPosting">JobPosting</a> for requirements relating to <a href="/physicalRequirement">physical abilities</a>, <a href="/sensoryRequirement">sensory abilities</a> and <a href="/securityClearanceRequirement">security clearance</a>.</li>
+  <li id="g2396"><a href="https://github.com/schemaorg/schemaorg/issues/2396">Issue #2396</a>: Improvements to provide more information about the employer in <a href="/JobPosting">JobPosting</a>. Adds properties for <a href="/applicationContact">applicationContact</a>, <a href="/employerOverview">employerOverview</a> and allows <a href="/DefinedTerm">DefinedTerm</a> to be used with the <a href="/industry">industry</a> property.</li>
+  <li id="2373"><a href="https://github.com/schemaorg/schemaorg/issues/2373">Issue #2373</a>: Improvements around real estate description including the addition of a property <a href="/accommodationFloorPlan">accommodationFloorPlan</a> and type <a href="/FloorPlan">FloorPlan</a> for use when a number of accomodation entries share a common layout. Added <a href="/numberOfFullBathrooms">numberOfFullBathrooms</a> and <a href="/yearBuilt">yearBuilt</a>. Also noted that <a href="/leaseLength">leaseLength</a> is expected on <a href="/Offer">Offer</a> and that <a href="/datePosted">datePosted</a> can be applied to <a href="/RealEstateListing">RealEstateListing</a>.</li>
+  <li id="g2389"><a href="https://github.com/schemaorg/schemaorg/issues/2389">Issue #2389</a>: Changes to the pending <a href="/Schedule">Schedule</a> type: adds the <a href="/duration">duration</a> property,  extends the range of <a href="/byDay">byDay</a> to allow for iCal-style rule syntax and adds the <a href="/scheduleTimezone">scheduleTimezone</a> property.</li>
+  <li id="g2418"><a href="https://github.com/schemaorg/schemaorg/issues/2418">Issue #2418</a>: Added <a href="/financialAidEligible">financialAidEligible</a> property for the types of financial aid available for an EducationalOccupationalProgram.</li>
+  <li id="g2429"><a href="https://github.com/schemaorg/schemaorg/issues/2429">Issue #2429</a>: Added a number of properties to <a href="/EducationalOccupationalProgram">EducationalOccupationalProgram</a> to help represent information for determining how long a program typically takes, when terms typically run, and when applications are accepted. Specifically: <a href="/applicationDeadline">applicationDeadline</a>, <a href="/applicationStartDate">applicationStartDate</a>, <a href="/educationalProgramMode">educationalProgramMode</a>, <a href="/numberOfCredits">numberOfCredits</a>, <a href="/maximumEnrollment">maximumEnrollment</a>, <a href="/termDuration">termDuration</a>, <a href="/termsPerYear">termsPerYear</a>, <a href="/timeOfDay">timeOfDay</a>, <a href="/typicalCreditsPerTerm">typicalCreditsPerTerm</a>.</li>
+  <li id="g2405"><a href="https://github.com/schemaorg/schemaorg/issues/2405">Issue #2405</a>: Add <a href="/Guide">Guide</a> and <a href="/Recommendation">Recommendation</a> as new types.</li>
+  <li id="g2394"><a href="https://github.com/schemaorg/schemaorg/issues/2394">Issue #2394</a>: Added <a href="/isResizable">isResizable</a> to <a href="/3DModel">3DModel</a>.</li>
+  <li id="g2381"><a href="https://github.com/schemaorg/schemaorg/issues/2381">Issue #2381</a>: renamed <a href="/ProductReturnPolicy">ProductReturnPolicy</a> (and related) to <a href="/MerchantReturnPolicy">MerchantReturnPolicy</a>.</li>
+  <li id="2108"><a href="https://github.com/schemaorg/schemaorg/issues/2108">Issue #2108</a>: (implemented in <a href="https://github.com/schemaorg/schemaorg/pull/2352">PR #2352</a>): Introduced new pending type <a href="/PronounceableText">PronounceableText</a> enabling phonetic markup of text values.</li>
+</ul>
+
+<h3>Changes in <a href="http://bib.schema.org/">bib</a> section:</h3>
+<ul>
+  <li id="2366"><a href="https://github.com/schemaorg/schemaorg/issues/2366">Issue #2366</a>:
+  (implemented in <a href="https://github.com/schemaorg/schemaorg/pull/2367">PR #2367</a>):
+  Added example for <a href="/Audiobook">Audiobook</a> indicating a relationship with a printed counterpart.</li>
+</ul>
+
+
+<h3>Site Improvements</h3>
+<ul>
+  <li id="g2025"><a href="https://github.com/schemaorg/schemaorg/issues/2025">Issue #2025</a>: Corrected xml encoding value in <a href="/docs/schemaorg.owl">schemaorg.owl</a> file to be "UTF-8"</li>
+  <li id="1986"><a href="https://github.com/schemaorg/schemaorg/issues/1986">Issue #1986</a>: (implemented in <a href="https://github.com/schemaorg/schemaorg/pull/2378">PR #2378</a>): Added test to check for duplicate entries in jsonldcontext files.</li>
+<!-- reverted,
+  <li id="2236"><a href="https://github.com/schemaorg/schemaorg/issues/2236">Issue #2236</a>: (implemented in <a href="https://github.com/schemaorg/schemaorg/pull/2250">PR #2250</a>): Rationalised definitions for enumeration values so they are consistent.  Added tests to confim consistency. </li>
 -->
+  <li id="2277"><a href="https://github.com/schemaorg/schemaorg/issues/2277">Issue #2277</a>: (implemented in <a href="https://github.com/schemaorg/schemaorg/pull/2388">PR #2388</a>): Fixed error in definition of <a href="/eventSchedule">eventSchedule</a> property.</li>
+</ul>
+
+</td>
+</tr>
+
+<tr>
+<td class="release"><a href="/version/5.0/">5.0</a><br/>2019-11-01</td>
+<td>
+<span id="v5.0"></span>
+<p>
+Version 5.0. See <a href="https://github.com/schemaorg/schemaorg/issues/2370">planning pages</a>.
+</p>
+</td>
+<td>
+<h2>Vocabulary</h2>
+<!-- ><h3>Core changes</h3> -->
+
+<!-- <p>Moved from Pending to Core:</p>-->
+<ul>
+
+</ul>
+
+<!-- <p>Other changes in Core section:</p> -->
+
+<ul>
+</ul>
+
+<h3>Changes in <a href="http://pending.schema.org/">Pending</a> section:</h3>
+<ul>
+  <li id="g2372"><a href="https://github.com/schemaorg/schemaorg/issues/2372">Issue #2372</a>: Extended and redescribed <a href="/callSign">callSign</a> property to cover other common situations where it is applicable.</li>
+  <li id="g2348"><a href="https://github.com/schemaorg/schemaorg/issues/2358">Issue #2358</a>: Introduced a type <a href="/WebContent">WebContent</a> to allow descriptions to abstract away from the differences between url-addressable content in form of <a href="/WebSite">WebSite</a>, <a href="/WebPage">WebPage</a> or <a href="/WebPageElement">WebPageElement</a>.</li>
+  <li id="g2374"><a href="https://github.com/schemaorg/schemaorg/issues/2374">Issue #2374</a>: Introduced <a href="/HealthTopicContent">HealthTopicContent</a> and an enumeration of "aspects" of the different topical aspects found in such content, as well as a property <a href="/hasHealthAspect">hasHealthAspect</a> associating WebContent instances with those identified aspects.</li>
+  <li id="g2373"><a href="https://github.com/schemaorg/schemaorg/issues/2373">Issue #2373</a>: Added properties <a href="/accommodationCategory">accommodationCategory</a>, <a href="/numberOfBathroomsTotal">numberOfBathroomsTotal</a>, <a href="/numberOfFullBathrooms">numberOfFullBathrooms</a>, <a href="/floorLevel">floorLevel</a>, and <a href="/leaseLength">leaseLength</a> to <a href="/Accommodation">Accommodation</a> for detailed real-estate description. <a href="/leaseLength">leaseLength</a> also added to <a href="/RealEstateListing">RealEstateListing</a></li>
+  <li id="g2322"><a href="https://github.com/schemaorg/schemaorg/issues/2322">Issue #2322</a>: Linked <a href="/skills">skills</a> description to formal definitions of competencies.</li>
+</ul>
+
+<!--<h3>Changes in <a href="http://bib.schema.org/">bib</a> section:</h3>
+<ul>
+</ul> -->
+
+<h3>Site Improvements</h3>
+<ul>
+<li id="g2365"><a href="https://github.com/schemaorg/schemaorg/pull/2365">PR #2365</a>:
+Split codebase that underpins the Schema.org site into a separate repository, to simplify interaction with vocabulary definition and documentation files in the <a href="https://github.com/schemaorg/schemaorg">schemaorg repository</a> area.
+</li>
+</ul>
+
+</td>
+</tr>
+
+
+<tr>
+<td class="release"><a href="/version/4.0/">4.0</a><br/>2019-10-15</td>
+<td>
+<span id="v4.0"></span>
+<p>
+Version 4.0. See <a href="https://github.com/schemaorg/schemaorg/issues/2363">planning pages</a>.
+</p>
+</td>
+<td>
+<h2>Vocabulary</h2>
+<!-- ><h3>Core changes</h3> -->
+
+<!-- <p>Moved from Pending to Core:</p>-->
+<ul>
+
+</ul>
+
+<!-- <p>Other changes in Core section:</p> -->
+
+<ul>
+</ul>
+
+<h3>Changes in <a href="http://pending.schema.org/">Pending</a> section:</h3>
+<ul>
+<li id="g2348"><a href="https://github.com/schemaorg/schemaorg/issues/2348">Issue #2348</a>: Added draft types for <a href="/RealEstateListing">RealEstateListing</a>, <a href="/OfferForPurchase">OfferForPurchase</a> and <a href="/OfferForLease">OfferForLease</a>.</li>
+<li id="g2289"><a href="https://github.com/schemaorg/schemaorg/issues/2289">Issue #2289</a>:
+(implemented in <a href="https://github.com/schemaorg/schemaorg/pull/2290">PR #2290</a>):
+Added Types <a href="/EducationalOccupationalProgram">EducationalOccupationalProgram</a>, <a href="/WorkBasedProgram">WorkBasedProgram</a> and associated properties.
+</li>
+<li id="g373"><a href="https://github.com/schemaorg/schemaorg/issues/373">Issue #373</a>:
+(implemented in <a href="https://github.com/schemaorg/schemaorg/pull/2007">PR #2007</a>):
+Added Types <a href="/PodcastSeries">PodcastSeries</a>, <a href="/PodcastSeason">PodcastSeason</a>, <a href="/PodcastEpisode">PodcastEpisode</a> and associated properties.
+</li>
+<li id="g2110"><a href="https://github.com/schemaorg/schemaorg/issues/2110">Issue #2110</a>:
+(implemented in <a href="https://github.com/schemaorg/schemaorg/pull/2142">PR #2142</a>):
+Added property <a href="/subtitleLanguage">subtitleLanguage</a> to <a href="/BroadcastEvent">BroadcastEvent</a> type..
+</li>
+<li id="g2242"><a href="https://github.com/schemaorg/schemaorg/issues/2242">Issue #2341</a>:
+(implemented in <a href="https://github.com/schemaorg/schemaorg/pull/2344">PR #2344</a>):
+Added property <a href="/ineligibleRegion">ineligibleRegion</a> to <a href="/ActionAccessSpecification">ActionAccessSpecification</a> type.
+</li>
+<li id="g2341"><a href="https://github.com/schemaorg/schemaorg/issues/2341">Issue #2242</a>:
+(implemented in <a href="https://github.com/schemaorg/schemaorg/pull/2345">PR #2345</a>):
+Added property <a href="/gender">gender</a> to <a href="/SportsTeam">SportsTeam</a> type.
+</li>
+<li id="g2329"><a href="https://github.com/schemaorg/schemaorg/issues/2329">Issue #2329</a>:
+(implemented in <a href="https://github.com/schemaorg/schemaorg/pull/2330">PR #2330</a>):
+Added property <a href="/totalJobOpenings">totalJobOpenings</a> to <a href="/JobPosting">JobPosting</a> type.
+</li>
+<li id="g2296"><a href="https://github.com/schemaorg/schemaorg/issues/2296">Issue #2296</a>:
+(implemented in <a href="https://github.com/schemaorg/schemaorg/pull/2297">PR #2297</a>):
+Added property <a href="/employmentUnit">employmentUnit</a> to <a href="/JobPosting">JobPosting</a> type.
+</li>
+</ul>
+
+<h3>Changes in <a href="http://bib.schema.org/">bib</a> section:</h3>
+<ul>
+<li id="g2232"><a href="https://github.com/schemaorg/schemaorg/pull/2232">PR #2232</a>:
+Simplified example for <a href="/Audiobook">Audiobook</a> .
+</li>
+</ul>
+
+<h3>Site Improvements</h3>
+<ul>
+<li id="g2331"><a href="https://github.com/schemaorg/schemaorg/issues/2331">Issue #2331</a>:
+(implemented in <a href="https://github.com/schemaorg/schemaorg/pull/2332">PR #2332</a>):
+Fixed mobile usability issues of site - identified by Google Search Console.
+</li>
+<li id="g2312"><a href="https://github.com/schemaorg/schemaorg/pull/2312">PR #2312</a>:
+Fixes typo for rdfs:label URI.
+</li>
+</ul>
+
+</td>
+</tr>
+
 <tr>
 <td class="release"><a href="/version/3.9/">3.9</a><br/>2019-08-01</td>
 <td>
-<span id="v.next"></span>
 <span id="v3.9"></span>
 <p>
 Version 3.9. See <a href="https://github.com/schemaorg/schemaorg/issues/2306">planning pages</a>.
@@ -185,8 +631,7 @@ Added types for educational programs: <a href="/EducationalOccupationalProgram">
 <h3>Site Improvements</h3>
 <ul>
 <li id="g2292"><a href="https://github.com/schemaorg/schemaorg/pull/2292">PR #2292</a>:
-Fixed typo in Jane Doe's name in example for <a href="/Person">Person</a>.</em>'
-</li>
+Fixed typo in Jane Doe's name in example for <a href="/Person">Person</a>.</li>
 <li id="g2285"><a href="https://github.com/schemaorg/schemaorg/pull/2285">PR #2285</a>:
 Corrections to examples identified as errors by Travis CI scripts.
 </li>
@@ -1554,7 +1999,7 @@ the superseded names can still be used, although we encourage consumers and prod
 <li><a href="https://github.com/schemaorg/schemaorg/issues/112">Issue #112</a>: Clarified that <a href="/upvoteCount">upvoteCount</a> and <a href="/downvoteCount">downvoteCount</a> apply to questions, answers and comments (rather than just to questions).</li>
 <li><a href="https://github.com/schemaorg/schemaorg/issues/109">Issue #103</a>: Clarified description of <a href="/StructuredValue">StructuredValue</a>.</li>
 <li><a href="https://github.com/schemaorg/schemaorg/issues/333">Issue #333</a>: Clarified description of <a href="/BreadcrumbList">BreadcrumbList</a>.</li>
-<li><a href="https://github.com/schemaorg/schemaorg/issues/456">Issue 456</a>: Generalized <a href="/numberOfEmployees">numberOfEmployees</a>, to apply to <a href="/Organization">Organization</a> as well as to <a href="/BusinessAudience">BusinessAudience</a>.</li>
+<li><a href="https://github.com/schemaorg/schemaorg/issues/456">Issue #456</a>: Generalized <a href="/numberOfEmployees">numberOfEmployees</a>, to apply to <a href="/Organization">Organization</a> as well as to <a href="/BusinessAudience">BusinessAudience</a>.</li>
 <li><a href="https://github.com/schemaorg/schemaorg/issues/439">Issue #439</a>: Clarified <a href="/numberOfItems">numberOfItems</a> with multi-page pagination.</li>
 <li><a href="https://github.com/gkellogg/schemaorg/commit/290ed07cb2fa274b46c82ea4b6220b13cbe946f8">Fixed</a> the mapping from <a href="/DataCatalog">DataCatalog</a> to <a href="http://www.w3.org/ns/dcat#Catalog">dcat:Catalog</a></li>
 <li><a href="https://github.com/schemaorg/schemaorg/issues/341">Issue #341</a>: Amended <a href="/programmingLanguage">programmingLanguage</a> to expect a <a href="/Language">Language</a> rather than a <a href="/Thing">Thing</a>.</li>
@@ -2121,6 +2566,7 @@ For each of embedURL, contentURL, downloadURL, ensure there is an equivalent pro
 </tr>
 
 </table>
+</div>
 
 <p>Note: this table is not currently complete - it misses 0.92-0.94 and any changes between 2011-06-02 and 2012-04-21(0.91). See also <a href="http://lov.okfn.org/dataset/lov/details/vocabulary_schema.html">Linked Open Vocabularies entry</a>.</p>
 

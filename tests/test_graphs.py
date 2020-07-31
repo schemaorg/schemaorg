@@ -10,6 +10,9 @@ import sys
 
 sys.path.append( os.getcwd() )
 sys.path.insert( 1, 'lib' ) #Pickup libs, rdflib etc., from shipped lib directory
+sys.path.insert( 1, 'sdopythonapp' ) #Pickup sdopythonapp functionality
+sys.path.insert( 1, 'sdopythonapp/lib' ) #Pickup sdopythonapp libs, rdflib etc., from shipped lib directory
+sys.path.insert( 1, 'sdopythonapp/site' ) #Pickup sdopythonapp from shipped site
 
 #sdk_path = getenv('APP_ENGINE',
 #                  expanduser("~") + '/google-cloud-sdk/platform/google_appengine/')
@@ -242,6 +245,32 @@ class SDOGraphSetupTestCase(unittest.TestCase):
         for row in nri1_results:
             log.info("Term '%s' has nonexistent supertype: '%s'" % (row["term"],row["super"]))
     self.assertEqual(len(nri1_results), 0, "Types with nonexistent SuperTypes. Found: %s" % len(nri1_results))
+    
+    def test_propswitoutdomain(self):
+        nri1= (''' select ?term where {
+            ?term a rdf:Property.
+            FILTER NOT EXISTS { ?term <http://schema.org/domainIncludes> ?o .}
+        }
+         ''')
+        nri1_results = self.rdflib_data.query(nri1)
+        if len(nri1_results):
+            log.info("Property without domain errors!!!\n")
+            for row in nri1_results:
+                log.info("Term '%s' has no domainIncludes value(s)" % (row["term"]))
+        self.assertEqual(len(nri1_results), 0, "Property without domain extensions  Found: %s" % len(nri1_results))
+
+    def test_propswitoutrange(self):
+        nri1= (''' select ?term where {
+            ?term a rdf:Property.
+            FILTER NOT EXISTS { ?term <http://schema.org/rangeIncludes> ?o .}
+        }
+         ''')
+        nri1_results = self.rdflib_data.query(nri1)
+        if len(nri1_results):
+            log.info("Property without domain errors!!!\n")
+            for row in nri1_results:
+                log.info("Term '%s' has no rangeIncludes value(s)" % (row["term"]))
+        self.assertEqual(len(nri1_results), 0, "Property without range extensions  Found: %s" % len(nri1_results))
 
   def test_superPropertiesExist(self):
     nri1= ('''select ?term ?super where { 
@@ -461,6 +490,7 @@ class SDOGraphSetupTestCase(unittest.TestCase):
         for row in nri1_results:
             log.info("Term '%s' references term %s  as https " % (row["term"],row["target"]))
     self.assertEqual(len(nri1_results), 0, "Term defined as https  Found: %s" % len(nri1_results))
+
 
   @unittest.expectedFailure
   def test_EnumerationWithoutEnums(self):

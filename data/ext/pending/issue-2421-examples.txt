@@ -1,0 +1,74 @@
+TYPES: #interactionstat-1 Person, InteractionCounter
+
+PRE-MARKUP:
+
+A media creator with a number of likes and follows.
+
+MICRODATA:
+
+<!-- JSON-LD example only -->
+
+RDFA:
+
+<!-- JSON-LD example only -->
+
+JSON:
+
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org/",
+  "@type": "Person",
+  "name": "Jane Doe",
+  "interactionStatistic": [
+    {
+      "@type": "InteractionCounter",
+      "interactionType": "http://schema.org/LikeAction",
+      "userInteractionCount": 1170
+    },
+    {
+      "@type": "InteractionCounter",
+      "interactionType": "http://schema.org/FollowAction",
+      "userInteractionCount": 145098
+    }
+  ]
+}
+</script>
+
+TYPES: #interactionstat-2 Organization, InteractionCounter
+
+PRE-MARKUP:
+
+An organization with a number of likes and follows.
+
+MICRODATA:
+
+<!-- JSON-LD example only -->
+
+RDFA:
+
+<!-- JSON-LD example only -->
+
+JSON:
+
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org/",
+  "@type": "Organization",
+  "name": "ACME",
+  "interactionStatistic": [
+    {
+      "@type": "InteractionCounter",
+      "interactionType": "http://schema.org/LikeAction",
+      "userInteractionCount": 1170
+    },
+    {
+      "@type": "InteractionCounter",
+      "interactionType": "http://schema.org/FollowAction",
+      "userInteractionCount": 145098
+    }
+  ]
+}
+</script>
+

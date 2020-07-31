@@ -8,32 +8,33 @@ Code, schema, examples and supporting documentation should be in a stable state.
 Pay particular attention to release-specific structures and docs/releases.html
 (e.g. no stray '2.x', '2.*' etc. in hidden markup or tables)
 
-In sdoapp.py we declare the current version. This should match the number
+We declare the current version. This should match the number
 chosen in /docs/releases.html (check markup assigns an HTML ID too).
 
 The following steps assume a general healthy freeze (tested / QA as below).
 
-in sdoapp.py:
+in versions.json:
 
-    SCHEMA_VERSION=2.2 # or 2.x, as above.
-
-in sdoapp.py:
-
-  releaselog = { "2.0": "2015-05-13", "2.1": "2015-08-06" }
-
+    "schemaversion": "3.9",
+    "releaseLog": {
+.
+.
+        "3.8": "2019-07-01",
+        "3.9": "2019-08-01"
+    }
 becomes
-
-  releaselog = { "2.0": "2015-05-13", "2.1": "2015-08-06", "2.2": "2015-11-05" }
-
+    "schemaversion": "4.0",
+    "releaseLog": {
+.
+.
+        "3.8": "2019-07-01",
+        "3.9": "2019-08-01",
+        "4.0": "2019-10-01"
+    }
 
 ... this should have a release date for the current release and all
 previous releases that are archived under data/releases/{version}/*
 
-TODO: Add a unit test to ensure this.
-
-TODO: Re-order this document to avoid forward references.
-
-Under data/releases/{version}/ we need a versioned-snapshot structure:
 
 e.g.
     data/releases/2.1
@@ -52,18 +53,6 @@ All these are all created and coppied where appropriate by running the 'scripts/
 
 Example usage:
     scripts/buildreleasefiles.sh 3.9
-
-
-* Inspect snapshot, add to git and push to repo.
- * ls -l data/releases/2.2/
- * git add data/releases/2.2/*
- * git push
- * TODO: more QA and automation would be highly appropriate here.
-
-
-
-TODO: list optional tasks post-launch (blog, email, refresh dydra sparql db etc.).
-
 
 
 
@@ -116,80 +105,48 @@ e.g. see http://webschemas.org/docs/qa.html
 There is often some final tweaking, bugs, etc. When things settle down, a
 final round of sanity-check tests is useful:
 
-* Run again './scripts/buildsitemap.py' make sure sitemap is up to date
-* Run again: PYTHONPATH=/usr/local/google_appengine ./scripts/run_tests.py
-* Run again 'git status', confirm no uncommited files or changes.
-* Run again: './scripts/updateAppEngine.sh' for development/upstream site sync.
+* Run again './scripts/buildreleasefiles.py'
 
-3.) Previously: "Merge release branch into master"; now we develop in "master."
 
-4.) Publish from a clean checkout of 'master' branch to schema.org.
+Using gcloud deployment script
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Using gcloud app deploy
-~~~~~~~~~~~~~~~~~~~~~~~
+Use python deploment script:
 
-From 3.4.1 onwards use app deploy script (does a bit of housekeeping):
-	scripts/appdeploy.sh --project schemaorgae  --no-promote --version=3-5-1 schemaorg.yaml
-	
-	
+        ./scripts/deployschema.org.sh - to deploy to main Schema.org site
+        ./scripts/deploywebschemas.org.sh - to deploy to main webschemas.org site
+
+        * Choose Local option to deploy local configuration files
+        * Choose Remote option to pull files from a URL (eg. the github repository)
+
+        * Provide an appropriate version string - different to currently running version
+        * Optionally pass -e to bypass site exercise option
+        * Optionally pass -m to bypass merge of new version
+
+
 Recommended Method For Making Release Live
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-1) Use app deploy script as above providing a version identifier not in use on schemaorgae appengine.
+For Webschema.org
+    Use ./scripts/deploywebschemas.org.sh -e
+        No real benefit in exercising low traffic site
 
-2) Access that version directly via the URL of following format:
-      https://3-5-1-dot-schemaorgae.appspot.com
-      
-      Note: The application will take a few minutes before responding to its first request.
-            If you get a timeout message, try again in 30 seconds or so.
+For Schema.org.
 
-3) Try a few samples requests to the direct URL 
+    Either run ./scripts/deployschema.org.sh
+        This will put the new site live when site exercise is complete (takes some time)
+    or run ./scripts/deployschema.org.sh -m
+        At some time after site exercise is complete login to console and manually migrate traffic
 
-4) In directory from which the deploy took place run the following script, with the approriate site (-s) value:
-	scripts/exercisesite.py -s https://3-5-1-dot-schemaorgae.appspot.com
-	
-	The script requests a page for each Type and property, causing them to be cached in the application's storage
-	area.  It averages a few seconds per page, the whole process takes 60-90 minutes.
-	
-5) When exercisesite is complete, use the Traffic Spiting feature of the App Engine Console to progressively increase 
-   the percentage of traffic being allocated to the new version (5%, 10%, 25%, 50%, 75%, 100%) with at least a few minutes 
-   between each.
-   
-During all the above steps, monitor the log for the new version, filtering for errors being the min requirement.  Note: receiving occasional errors from requests such as _start, _stop, can be expected.
-
-
-##### original deploy: gcloud app deploy --no-promote --project schemaorgae --version=3.4 schemaorg.yaml
-
-Note: the --no-promote flage deploys the version but does not transfer traffic to it.
-This can then be done when required via the appengine console, versions screen:
-   https://console.cloud.google.com/appengine/versions?project=schemaorgae&serviceId=default&versionssize=50
-
-===========OLD============
-Either by editing app.yaml to make sure 'application: schemaorgae' is active,
-or by passing the name of the live appengine ID on the commandline.
-===========OLD============
-
-Currently @rvguha (as Steering Group chair) and @danbri (as Community Group chair and
-webmaster / dogsbody) have write access to the corresponding appengine account.
-
-===========OLD============
- * e.g. update schemaorg.yaml then:  appcfg.py update schemaorg.yaml -A schemaorgae
- * Count to thirty. Log into appengine and you should see a new version.
-* Send 5% of traffic to this version to catch any errors, then move to 100%.
-===========OLD============
-
-Note that appengine versions are visible using URLs with this pattern:
-
-http://3-3.schemaorgae.appspot.com/docs/releases.html
 
 5.) Tag the code at the current relese state
-* Use a local copy of the relesed version of the 'master' branch:
-    * Either download a new clone, or do a 'git pull' on a local copy and then 'git checkout -b master'
+* Use a local copy of the relesed version of the 'main' branch:
+    * Either download a new clone, or do a 'git pull' on a local copy and then 'git checkout -b main'
 * Confirm previous tags: 'git tag -l'
 * Tag the local copy eg: 'git tag v3.8-release'
 * Push tagged version to github: 'git push origin v3.8-release'
-Note: If master has moved on from the the released version before tagging
-    * Obtain the last commit identifier before the release from the listing: 'git log master'
+Note: If main has moved on from the the released version before tagging
+    * Obtain the last commit identifier before the release from the listing: 'git log main'
     * Add the commit id to the tag comand. eg: 'git tag v3.8-release 7f86a944e1bd87008cb7b83dc7e19a562ed2d28d'
 
 6.) Related post-release tasks.
@@ -198,24 +155,10 @@ Note: If master has moved on from the the released version before tagging
 * Blog post.
 * There's a SPARQL database at DYDRA that can load NQuad dumps from
 https://github.com/schemaorg/schemaorg/blob/sdo-phobos/data/releases/2.2/all-layers.nq
-* Make a new per-release branch, reserve an appspot.com account for it.
-* Configure GitHub with the new default branch.
-  See https://github.com/schemaorg/schemaorg/settings/branches
 * Update issue tracker moving issues to new releases.
  * Close issues that were addressed in this release.
  * Make careful considered adjustment to expected release for the rest. Or
    just tag them all for the next release.
-* Update git release tags (TODO: we have no history of handling this yet).
-
-For example, if we are in 'master' and 'git status' shows it in a clean state,
-
-* git checkout -b sdo-deimos
-* This tells us we can do:
- *     git push --set-upstream origin sdo-deimos
-
-> To https://github.com/schemaorg/schemaorg.git
->  * [new branch]      sdo-deimos -> sdo-deimos
-> Branch sdo-deimos set up to track remote branch sdo-deimos from origin.
 
 TODO:
 

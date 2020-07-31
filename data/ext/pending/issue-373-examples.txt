@@ -1,0 +1,199 @@
+TYPES: PodcastSeries
+
+PRE-MARKUP:
+
+<div class="show__description">
+  <img src="https://.../inquisitive_artwork.png">
+  <h2><a href="http://www.relay.fm/inquisitive"><span>Inquisitive</span></a></h2>
+  <h3>
+    <p>
+      Inquisitive is a show for the naturally curious.
+      Each week, Myke Hurley takes a look at what makes creative
+      people successful and what steps they have taken to get there.
+    </p>
+  </h3>
+  <h5>Subscribe</h5>
+  <ul>
+    <li><a href="http://www.relay.fm//inquisitive/feed">RSS</a></li>
+    <li><a href="https://itunes.apple.com/us/podcast/id909109678">iTunes</a></li>
+  </ul>
+  <h5>Hosted By<spam>Myke Hurley</span></h5>
+</div>
+
+
+MICRODATA:
+
+<div itemscope itemtype="http://schema.org/PodcastSeries" class="show__description">
+  <img itemprop="image" src="https://.../inquisitive_artwork.png">
+  <h2>
+    <a itemprop="url" href="http://www.relay.fm/inquisitive">
+      <span itemprop="name">Inquisitive</span>
+    </a>
+  </h2>
+  <h3>
+    <p itemprop="description">
+      Inquisitive is a show for the naturally curious.
+      Each week, Myke Hurley takes a look at what makes creative
+      people successful and what steps they have taken to get there.
+    </p>
+  </h3>
+  <h5>Subscribe</h5>
+  <ul>
+    <li><a itemprop="webFeed"
+        href="http://www.relay.fm//inquisitive/feed">RSS</a></li>
+    <li><a href="https://itunes.apple.com/us/podcast/id909109678">iTunes</a></li>
+  </ul>
+  <h5>Hosted By<span itemprop="author" >Myke Hurley</span></h5>
+</div>
+
+RDFA:
+
+TODO
+
+
+JSON:
+
+<script type="application/ld+json">
+{
+   "@context": "http://schema.org/",
+   "@type": "PodcastSeries",
+   "image": "https://www.relay.fm/inquisitive_artwork.png",
+   "url": "http://www.relay.fm/inquisitive",
+   "name": "Inquisitive",
+   "description": "Inquisitive is a show for the naturally curious. Each week, Myke Hurley takes a look at what makes creative people successful and what steps they have taken to get there.",
+   "webFeed": "http://www.relay.fm//inquisitive/feed",
+   "author": {
+     "@type": "Person",
+     "name": "Myke Hurley"
+   }
+ }
+}
+</script>
+
+TYPES: PodcastEpisode
+
+PRE-MARKUP:
+
+<div class="episode__entry">
+  <h2>
+    <a href="http://www.relay.fm/inquisitive/27">
+      <span>#27: Behind the App #1: History</span>
+    </a>
+  </h2>
+  <small>February 18th, 2015</small>
+  <small>37 minutes</small>
+  <p>
+    In the first episode of “Behind the App”, a special series of
+    Inquisitive, we take a look at the beginnings of iOS app development,
+    by focusing on the introduction of the iPhone and the App Store.
+  </p>
+  <p>
+    Download:
+    <a href="http://.../Inquisitive_027.mp3">MP3 (25.75 MB)</a>
+  </p>
+</div>
+
+MICRODATA:
+
+<div itemscope itemtype="http://schema.org/PodcastEpisode"  class="episode__entry">
+  <h2>
+    <a itemprop="url" href="http://www.relay.fm/inquisitive/27">
+      <span itemprop="name">#27: Behind the App #1: History</span>
+    </a>
+  </h2>
+  <small itemprop="datePublished" datetime="2015-02-18">February 18th, 2015</small>
+  <small itemprop="timeRequired" datetime="PT37M">37 minutes</small>
+  <p itemprop="description">
+    In the first episode of “Behind the App”, a special series of
+    Inquisitive, we take a look at the beginnings of iOS app development,
+    by focusing on the introduction of the iPhone and the App Store.
+  </p>
+  <p itemprop="associatedMedia" itemscope itemtype="http://schema.org/MediaObject">
+    Download:
+    <a itemprop="contentUrl" href="http://.../Inquisitive_027.mp3">
+      MP3 (<span itemprop="contentSize">25.75 MB</span>)
+    </a>
+  </p>
+</div>
+
+RDFA:
+
+TODO
+
+
+JSON:
+
+<script type="application/ld+json">
+{
+   "@context": "http://schema.org/",
+   "@type": "PodcastEpisode",
+   "url": "http://www.relay.fm/inquisitive/27",
+   "name": "#27: Behind the App #1: History",
+   "datePublished": "2015-02-18",
+   "timeRequired": "PT37M",
+   "description": "In the first episode of “Behind the App”, a special series of Inquisitive, we take a look at the beginnings of iOS app development, by focusing on the introduction of the iPhone and the App Store.",
+   "associatedMedia": {
+     "@type": "MediaObject",
+     "contentUrl": "http://www.relay.fm/inquisitive/Inquisitive_027.mp3"
+   },
+   "partOfSeries": {
+     "@type": "PodcastSeries",
+     "name": "Inquisitive",
+     "url": "http://www.relay.fm/inquisitive"
+   }
+ }
+}
+</script>
+
+TYPES: PodcastSeason
+
+PRE-MARKUP:
+
+<div class="season__entry">
+  <h2>
+    <a href="https://serialpodcast.org/season-one">
+      <span>Serial: Season 1</span>
+    </a>
+  </h2>
+  <p>
+    The debut season of Serial contains 12 episodes.
+  </p>
+</div>
+
+MICRODATA:
+
+<div itemscope itemtype="http://schema.org/PodcastSeason" class="season__entry">
+  <h2>
+    <a itemprop="url" href="https://serialpodcast.org/season-one">
+      <span itemprop="name">Serial: Season 1</span>
+    </a>
+  </h2>
+  <meta itemprop="seasonNumber" content="1" />
+  <p itemprop="description">
+    The debut season of Serial contains 12 episodes.
+  </p>
+</div>
+
+RDFA:
+
+TODO
+
+
+JSON:
+
+<script type="application/ld+json">
+{
+   "@context": "http://schema.org/",
+   "@type": "PodcastSeason",
+   "url": "https://serialpodcast.org/season-one",
+   "name": "Serial: Season 1",
+   "seasonNumber": 1,
+   "numberOfEpisodes": 12,      
+   "partOfSeries": {
+     "@type": "PodcastSeries",
+     "name": "Serial",
+     "url": "http://serialpodcast.org/"
+   }
+ }
+}
+</script>

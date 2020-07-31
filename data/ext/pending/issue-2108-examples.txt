@@ -1,0 +1,61 @@
+TYPES: #PronounceableText-1 PronounceableText, phoneticText
+
+PRE-MARKUP:
+
+See JSON example.
+
+MICRODATA:
+
+TODO
+
+RDFA:
+
+TODO
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org/",
+  "@type": "City",
+  "name": {
+    "@type": "PronounceableText",
+    "inLanguage": "en-US",
+    "textValue": "Worcester",
+    "speechToTextMarkup": "IPA",
+    "phoneticText": "/ˈwʊstɚ/"
+  }
+}
+</script>
+
+
+TYPES: #PronounceableText-2 PronounceableText, phoneticText
+
+PRE-MARKUP:
+
+See JSON example.
+
+MICRODATA:
+
+TODO
+
+RDFA:
+
+TODO
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org/",
+  "@type": "RadioStation",
+  "name": ["WKRP",
+      {
+        "@type": "PronounceableText",
+        "textValue": "WKRP",
+        "speechToTextMarkup": "SSML",
+        "phoneticText": "<speak><say-as interpret-as=\"characters\">WKRP</say-as>"
+      }
+  ]
+}
+</script>
