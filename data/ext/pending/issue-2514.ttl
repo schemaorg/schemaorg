@@ -1,0 +1,15 @@
+@prefix : <http://schema.org/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+:announcementLocation a rdf:Property ;
+    rdfs:label "announcementLocation" ;
+    :category "issue-2514" ;
+    :domainIncludes :SpecialAnnouncement ;
+    :isPartOf <http://pending.schema.org> ;
+    :rangeIncludes :CivicStructure,
+        :LocalBusiness ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2514> ;
+    rdfs:comment "Indicates a specific [[CivicStructure]] or [[LocalBusiness]] associated with the SpecialAnnouncement. For example, a specific testing facility or business with special opening hours. For a larger geographic region like a quarantine of an entire region, use [[spatialCoverage]]." ;
+    rdfs:subPropertyOf :spatialCoverage .
+

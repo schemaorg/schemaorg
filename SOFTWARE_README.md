@@ -12,7 +12,7 @@ Software
 
 The site codebase is a simple Python application. It uses Google App Engine, and is designed to allow Schema.org contributors to explore new or improved schemas. The code has a bias towards simplicity and minimal dependencies.
 
-This repository only contains the vocabulary definition, and examples files, supporting documentation, and Schema,org specific tests and build scripts.
+This repository only contains the vocabulary definition, and examples files, supporting documentation, and Schema.org specific tests and build scripts.
 
 The core software is included via a sub module [sdopythonapp](https://github.com/schemaorg/sdopythonapp). 
 
@@ -28,6 +28,8 @@ To work on the vocabulary and run locally firstly clone the repository on a loca
     `git clone --recurse-submodules https://github.com/schemaorg/schemaorg.git`
     
 (If you forget the `--recurse-submodules` option, run the command `git submodule update --init --recursive`)
+
+**Note:** The default branch name for the schemaorg repository was changed from *master* to *main* (as of 23rd July 2020).  See [MASTER_BRANCH_RENAME.md](MASTER_BRANCH_RENAME.md) for details.
 
 To locally run the application run `./runpythonapp.sh`
 * In most circumstances using value of '**L**' (for local configuration files) and the default '**N**' (for building site static files) will be sufficient.
@@ -56,7 +58,18 @@ the RDFa Lite subset that we use to represent schemas.
 
 See also wiki: https://github.com/schemaorg/schemaorg/wiki/Contributing
 
-External Software
-=================
+Static Build
+=========
 
-Checkout https://github.com/schemaorg/sdopythonapp/blob/master/SOFTWARE_README.md
+On sites, such as Schema.org, it has become preferable for robustness and performance reasons to implement a version that requires no runtime processing.   A site that only includes static web pages and files.
+
+To this end from version v8.0 onwards, an additional step has been introduced to create a snapshot of a current version of the site implemented only using static pages.
+
+The intention is that enhancements and developments to the vocabulary and site functionality are produced in the normal way; testing and validating on a locally hosted site using the `./runpythonapp.sh` script or deploying to test appengine instances using the `./deploypythonapp.sh` script.
+
+When a version is ready for deployment to major sites, such as webschemas.org or schema.org, an additional script `./staticbuild/scripts/createstaticsite.sh` should be run.  
+
+This script confirms the status of the current version (running tests, building download files, owl & sitemap files, etc.); creates a static image of the site; creates version specific yaml configuration files; and controls the deployment to the relevant appengine instance.
+
+For more information see the [STATICBUILD_README](./staticbuild/STATICBUILD_README..md) file
+

@@ -8,4 +8,4 @@ Essentials:
 * Note the Schema.org official site (where schemas are published) [terms of service](https://schema.org/docs/terms.html), including CC license details.
 * Please don't be offended if we [close your issue](https://github.com/schemaorg/schemaorg/issues/2050). We get 100s of suggestions, and they remain in the issue tracker.
 * For software license see the [LICENSE](LICENSE) file.
-* See also our [how we work](http://schema.org/docs/howwework.html) and [repository README](https://github.com/schemaorg/schemaorg/blob/master/README.md) files.
+* See also our [how we work](http://schema.org/docs/howwework.html) and [repository README](https://github.com/schemaorg/schemaorg/blob/main/README.md) files.
