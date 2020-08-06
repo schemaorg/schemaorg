@@ -326,7 +326,7 @@ class OwlBuild():
                 
                 
         if datatypeonly:
-            prop = SubElement(self.dom,"owl:datatypeProperty")            
+            prop = SubElement(self.dom,"owl:DatatypeProperty")            
         else:
             prop = SubElement(self.dom,"owl:ObjectProperty")
         prop.set("rdf:about",uri)
