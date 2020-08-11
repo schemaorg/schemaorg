@@ -36,8 +36,8 @@ MICRODATA:
 
  <!-- Uses both the "Book" and "Product" item types to support Offer relationships -->
 
- <div itemscope itemtype="http://schema.org/Book" itemid="#record">
-   <link itemprop="additionalType" href="http://schema.org/Product"/>
+ <div itemscope itemtype="https://schema.org/Book" itemid="#record">
+   <link itemprop="additionalType" href="https://schema.org/Product"/>
    <h3 itemprop="name">Le concerto</h3>
    <div>
        Bibliographic Details
@@ -54,13 +54,13 @@ MICRODATA:
      Holdings details from Anytown City Library
      <table>
        <!-- Example of a copy available for loan -->
-       <tr itemscope itemtype="http://schema.org/Offer">
+       <tr itemscope itemtype="https://schema.org/Offer">
          <th>Copy </th>
          <td>Available
-           <link itemprop="availability" href="http://schema.org/InStock">
+           <link itemprop="availability" href="https://schema.org/InStock">
            <div>Barcode: <span itemprop="serialNumber">CONC91000937</span></div>
            <div>Call number: <span itemprop="sku">780 R2</span></div>
-           <div>Library: <span itemprop="offeredBy" itemscope itemtype="http://schema.org/Library" itemid="http://library.anytown.gov.uk" >Anytown City Library</span></div>
+           <div>Library: <span itemprop="offeredBy" itemscope itemtype="https://schema.org/Library" itemid="http://library.anytown.gov.uk" >Anytown City Library</span></div>
            <link itemprop="businessFunction" href="http://purl.org/goodrelations/v1#LeaseOut">
            <link itemprop="itemOffered" href="#record">
          </td>
@@ -71,7 +71,7 @@ MICRODATA:
 RDFA:
 
  <!-- Uses both the "Book" and "Product" item types to support Offer relationships -->
-<div vocab="http://schema.org/" resource="#record" typeof="Book Product">
+<div vocab="https://schema.org/" resource="#record" typeof="Book Product">
     <h3 property="name">
         Le concerto
     </h3>
@@ -91,7 +91,7 @@ RDFA:
 </div>
 <div>
     Holdings details from Anytown City Library
-    <table vocab="http://schema.org/">
+    <table vocab="https://schema.org/">
         <!-- Example of a copy available for loan -->
         <tr typeof="Offer">
             <th>
@@ -117,7 +117,7 @@ JSON:
 
 <script type="application/ld+json">
 {
-  "@context":  "http://schema.org/",
+  "@context":  "https://schema.org/",
   "@id": "#record",
   "@type": "Book",
   "additionalType": "Product",
@@ -125,7 +125,7 @@ JSON:
   "author": "Ferchault, Guy",
   "offers":{
       "@type": "Offer",
-      "availability": "http://schema.org/InStock",
+      "availability": "https://schema.org/InStock",
       "serialNumber": "CONC91000937",
       "sku": "780 R2",
       "offeredBy": {
@@ -175,7 +175,7 @@ No Microdata
 
 RDFA:
 
-<body vocab="http://schema.org/" resource="http://example.com/explosive-tennis-balls" typeof="ItemPage">
+<body vocab="https://schema.org/" resource="http://example.com/explosive-tennis-balls" typeof="ItemPage">
   <link property="copyrightHolder publisher" href="#Organization" />
   <main>
     <article resource="#Product" property="mainEntity" typeof="Product">
@@ -216,7 +216,7 @@ RDFA:
 JSON:
 <script type="application/ld+json">
 {
-  "@context":"http://schema.org",
+  "@context":"https://schema.org",
   "@id":"http://example.com/explosive-tennis-balls",
   "@type":"ItemPage",
   "copyrightYear":"2015",
@@ -234,7 +234,7 @@ JSON:
       "@type":"Offer",
       "priceCurrency":"USD",
       "price":"1000.00",
-      "availability":"http://schema.org/InStock",
+      "availability":"https://schema.org/InStock",
       "itemOffered":{"@id":"#Product"},
         "offeredBy":{
           "@id":"#Organization",
@@ -281,13 +281,13 @@ PRE-MARKUP:
 
 MICRODATA:
 
-<body itemscope itemtype='http://schema.org/Movie'>
+<body itemscope itemtype='https://schema.org/Movie'>
 <link itemprop="url" href="#schemarecord"/>
-<link itemprop="additionalType" href="http://schema.org/Product"/>
+<link itemprop="additionalType" href="https://schema.org/Product"/>
 <h1 itemprop="name">In search of Haydn [videorecording] / Phil Grabsky Films.com &amp; Seventh Art Productions in association with Sky Art HD ; filmed, written and directed by Phil Grabsky.</h1>
 <h2>Record details</h2>
 <ul>
-	<li><div itemprop="publisher" itemscope itemtype="http://schema.org/Organization"><strong>Publisher:</strong> <span ><span itemprop="location">[Brighton, UK] :</span> <span itemprop="name">Seventh Art Productions,</span></span> 
+	<li><div itemprop="publisher" itemscope itemtype="https://schema.org/Organization"><strong>Publisher:</strong> <span ><span itemprop="location">[Brighton, UK] :</span> <span itemprop="name">Seventh Art Productions,</span></span> 
 </div>
 <span itemprop="datePublished" content="2011-01-01">[2011]</span></li>
 </ul>
@@ -301,14 +301,14 @@ MICRODATA:
 </table>
 <table>
     <tr><th>Location</th><th>Call Number / Copy Notes</th><th>Barcode</th><th>Shelving Location</th><th>Status</th></tr>
-	<tr itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-		<td><a itemprop="offeredBy" itemscope itemtype="http://schema.org/Library" href="/eg/opac/library/MRC"><span itemprop="name">Music Resource Centre</span></a></td>
+	<tr itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+		<td><a itemprop="offeredBy" itemscope itemtype="https://schema.org/Library" href="/eg/opac/library/MRC"><span itemprop="name">Music Resource Centre</span></a></td>
 		<td><span itemprop="sku">ML 410 H4 I5 2011</span></td>
 		<td itemprop="serialNumber">30007008812793</td>
 		<td itemprop="availableAtOrFrom">Circulation</td>
 		<td>&nbsp;<link itemprop="businessFunction" href="http://purl.org/goodrelations/v1#LeaseOut">
 			<meta itemprop="price" content="0.00">
-			<link itemprop="availability" href="http://schema.org/InStock">
+			<link itemprop="availability" href="https://schema.org/InStock">
 		</td>
 	</tr>
 </table>
@@ -316,7 +316,7 @@ MICRODATA:
 
 RDFA:
 
-<body vocab="http://schema.org" typeof='Movie Product' resource="#schemarecord">
+<body vocab="https://schema.org" typeof='Movie Product' resource="#schemarecord">
 <h1 property="name">In search of Haydn [videorecording] / Phil Grabsky Films.com &amp; Seventh Art Productions in association with Sky Art HD ; filmed, written and directed by Phil Grabsky.</h1>
 <h2>Record details</h2>
 <ul>
@@ -339,7 +339,7 @@ RDFA:
 		<td property="availableAtOrFrom">Circulation</td>
 		<td>&nbsp;<link property="businessFunction" href="http://purl.org/goodrelations/v1#LeaseOut">
 			<meta property="price" content="0.00">
-			<link property="availability" href="http://schema.org/InStock">
+			<link property="availability" href="https://schema.org/InStock">
 		</td>
 	</tr>
 </table>
@@ -349,7 +349,7 @@ JSON:
 
 <script type="application/ld+json">
 {
-"@context":"http://schema.org",
+"@context":"https://schema.org",
 "@graph": [
   {
     "@id": "https://laurentian.concat.ca/eg/opac/library/MRC",
@@ -368,7 +368,7 @@ JSON:
     "name": "In search of Haydn [videorecording] / Phil Grabsky Films.com & Seventh Art Productions in association with Sky Art HD ; filmed, written and directed by Phil Grabsky.",
     "offers": {
       "@type": "Offer",
-      "availability": "http://schema.org/InStock",
+      "availability": "https://schema.org/InStock",
       "businessFunction": "http://purl.org/goodrelations/v1#LeaseOut",
       "availableAtOrFrom": "Circulation",
       "price": "0.00",
@@ -411,50 +411,50 @@ ACME Home Cleaning offers a variety of services in Massachusetts, including:
 
 MICRODATA:
 
-<div itemscope itemtype="http://schema.org/Service">
+<div itemscope itemtype="https://schema.org/Service">
   <meta itemprop="serviceType" content="Home cleaning" />
-  <span itemprop="provider" itemscope itemtype="http://schema.org/LocalBusiness">
+  <span itemprop="provider" itemscope itemtype="https://schema.org/LocalBusiness">
     <span itemprop="name">ACME Home Cleaning</span>
   </span>
   offers a variety of services in
-  <span itemprop="areaServed" itemscope itemtype="http://schema.org/State">
+  <span itemprop="areaServed" itemscope itemtype="https://schema.org/State">
     <span itemprop="name">Massachusetts</span>, including
   </span>
-  <ul itemprop="hasOfferCatalog" itemscope itemtype="http://schema.org/OfferCatalog">
-    <li itemprop="itemListElement" itemscope itemtype="http://schema.org/OfferCatalog">
+  <ul itemprop="hasOfferCatalog" itemscope itemtype="https://schema.org/OfferCatalog">
+    <li itemprop="itemListElement" itemscope itemtype="https://schema.org/OfferCatalog">
       <span itemprop="name">House cleaning</span>
-      <ul itemprop="itemListElement" itemscope itemtype="http://schema.org/OfferCatalog">
-        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/Offer">
-          <div itemprop="itemOffered" itemscope itemtype="http://schema.org/Service">
+      <ul itemprop="itemListElement" itemscope itemtype="https://schema.org/OfferCatalog">
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/Offer">
+          <div itemprop="itemOffered" itemscope itemtype="https://schema.org/Service">
             <span itemprop="name">Apartment light cleaning</span>
           </div>
         </li>
-        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/Offer">
-          <div itemprop="itemOffered" itemscope itemtype="http://schema.org/Service">
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/Offer">
+          <div itemprop="itemOffered" itemscope itemtype="https://schema.org/Service">
             <span itemprop="name">House light cleaning up to 2 bedrooms</span>
           </div>
         </li>
-        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/Offer">
-          <div itemprop="itemOffered" itemscope itemtype="http://schema.org/Service">
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/Offer">
+          <div itemprop="itemOffered" itemscope itemtype="https://schema.org/Service">
             <span itemprop="name">House light cleaning 3+ bedrooms</span>
           </div>
         </li>
       </ul>
-    <li itemprop="itemListElement" itemscope itemtype="http://schema.org/OfferCatalog">
+    <li itemprop="itemListElement" itemscope itemtype="https://schema.org/OfferCatalog">
       <span itemprop="name">One-time services</span>
-      <ul itemprop="itemListElement" itemscope itemtype="http://schema.org/OfferCatalog">
-        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/Offer">
-          <div itemprop="itemOffered" itemscope itemtype="http://schema.org/Service">
+      <ul itemprop="itemListElement" itemscope itemtype="https://schema.org/OfferCatalog">
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/Offer">
+          <div itemprop="itemOffered" itemscope itemtype="https://schema.org/Service">
             <span itemprop="name">Window washing</span>
           </div>
         </li>
-        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/Offer">
-          <div itemprop="itemOffered" itemscope itemtype="http://schema.org/Service">
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/Offer">
+          <div itemprop="itemOffered" itemscope itemtype="https://schema.org/Service">
             <span itemprop="name">Carpet deep cleaning</span>
           </div>
         </li>
-        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/Offer">
-          <div itemprop="itemOffered" itemscope itemtype="http://schema.org/Service">
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/Offer">
+          <div itemprop="itemOffered" itemscope itemtype="https://schema.org/Service">
             <span itemprop="name">Move in/out cleaning</span>
           </div>
         </li>
@@ -466,7 +466,7 @@ MICRODATA:
 
 RDFA:
 
-<div vocab="http://schema.org/" typeof="Service">
+<div vocab="https://schema.org/" typeof="Service">
   <meta property="serviceType" content="Home cleaning" />
   <span property="provider" typeof="LocalBusiness">
     <span property="name">ACME Home Cleaning</span>
@@ -522,7 +522,7 @@ JSON:
 
 <script type="application/ld+json">
 {
-  "@context": "http://schema.org/",
+  "@context": "https://schema.org/",
   "@type": "Service",
   "serviceType": "Weekly home cleaning",
   "provider": {
@@ -609,18 +609,18 @@ delivers within 5 km of its store with a minimum order of $20.
 
 MICRODATA:
 
-<div itemscope itemtype="http://schema.org/FoodEstablishment">
+<div itemscope itemtype="https://schema.org/FoodEstablishment">
   <span itemprop="name">Joe's Pizza</span>
-  <div itemprop="location" itemscope itemtype="http://schema.org/PostalAddress">
+  <div itemprop="location" itemscope itemtype="https://schema.org/PostalAddress">
     <span itemprop="streetAddress">123 Main Street</span>
     <span itemprop="addressLocality">Cambridge</span>
     <span itemprop="addressRegion">MA</span>
     <span itemprop="postalCode">02142</span>
   </div>
   delivers within 5 km of its store
-  <div itemprop="makesOffer" itemscope itemtype="http://schema.org/Offer">
-    <div itemprop="eligibleRegion" itemscope itemtype="http://schema.org/GeoCircle">
-      <div itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
+  <div itemprop="makesOffer" itemscope itemtype="https://schema.org/Offer">
+    <div itemprop="eligibleRegion" itemscope itemtype="https://schema.org/GeoCircle">
+      <div itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
         <meta itemprop="streetAddress" content="123 Main Street" />
         <meta itemprop="addressLocality" content="Cambridge" />
         <meta itemprop="addressRegion" content="MA" />
@@ -630,9 +630,9 @@ MICRODATA:
     </div>
 
     with a minium order of $20.
-    <div itemprop="priceSpecification" itemscope itemtype="http://schema.org/DeliveryChargeSpecification">
+    <div itemprop="priceSpecification" itemscope itemtype="https://schema.org/DeliveryChargeSpecification">
       <meta itemprop="appliesToDeliveryMethod" link="http://purl.org/goodrelations/v1#DeliveryModeOwnFleet">
-      <div itemprop="eligibleTransactionVolume" itemscope itemtype="http://schema.org/PriceSpecification">
+      <div itemprop="eligibleTransactionVolume" itemscope itemtype="https://schema.org/PriceSpecification">
         <meta itemprop="price" content="20.00" />
         <meta itemprop="priceCurrency" content="USD" />
       </div>
@@ -642,7 +642,7 @@ MICRODATA:
 
 RDFA:
 
-<div vocab="http://schema.org/" typeof="FoodEstablishment">
+<div vocab="https://schema.org/" typeof="FoodEstablishment">
   <span property="name">Joe's Pizza</span>
   <div property="location" typeof="PostalAddress">
     <span property="streetAddress">123 Main Street</span>
@@ -674,7 +674,7 @@ RDFA:
 JSON:
 <script type="application/ld+json">
   {
-    "@context": "http://schema.org/",
+    "@context": "https://schema.org/",
     "@type": "FoodEstablishment",
     "name": "Joe's Pizza",
     "location": {
