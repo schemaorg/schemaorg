@@ -10,21 +10,21 @@ import logging
 logging.basicConfig(level=logging.INFO) # dev_appserver.py --log_level debug .
 log = logging.getLogger(__name__)
 
-from schemaexamples import schemaExamples
+from schemaexamples import Example, SchemaExamples
 
 """
 Load examples from file
 write back to another file
 """
 
-schemaExamples.loadExamplesFile("/Users/wallisr/Development/Schema/examples/schemaorg/data/ext/pending/issue-894-examples.txt")
-#print(schemaExamples.examplesForTerm("Event"))
+SchemaExamples.loadExamplesFile("data/ext/pending/issue-894-examples.txt")
+#print(SchemaExamples.examplesForTerm("Event"))
 
 
 #filename = "out" + term.id +".html"
 filename = "SchemaExamples/example-code/out"
 
-exes = sorted(schemaExamples.allExamples(), key=lambda x: (x.exmeta['file'],x.exmeta['filepos']))
+exes = sorted(SchemaExamples.allExamples(), key=lambda x: (x.exmeta['file'],x.exmeta['filepos']))
 f = open(filename,"w")
 for ex in exes:
     f.write(ex.serialize())

@@ -14,8 +14,11 @@ import glob
 import re
 import threading
 
+IDPREFIX = "eg-"
+
 class Example ():
     ExamplesCount = 0
+    MaxId = 0
 
     def __init__ (self, terms, original_html, microdata, rdfa, jsonld, exmeta):
         self.terms = terms
@@ -28,11 +31,16 @@ class Example ():
         self.exmeta = exmeta
         self.keyvalue = self.exmeta.get('id',None)
         if not self.keyvalue:
-            self.keyvalue = "%s-gen-%s"% (terms[0],Example.ExamplesCount)
+            self.keyvalue = "%s-temp-%s"% (terms[0],Example.ExamplesCount)
             self.exmeta['id'] = self.keyvalue
+        else:
+            idnum = self.getIdNum()
+            if idnum > -1:
+                Example.MaxId = max(Example.MaxId,idnum)
+                self.keyvalue = Example.formatId(idnum)
         Example.ExamplesCount += 1
 
-    def key(self):
+    def getKey(self):
         return self.keyvalue
     def setKey(self,key):
         self.keyvalue = key
@@ -70,13 +78,31 @@ class Example ():
         return len(self.rdfa.strip()) > 0
     def hasJsonld(self):
         return len(self.jsonld.strip()) > 0
+        
+    def setMeta(self,name,val):
+        self.exmeta[name] = val
+    def getMeta(self,name):
+        return self.exmeta.get(name,None)
+        
+    def getIdNum(self):
+        idnum = -1
+        if self.keyvalue.startswith(IDPREFIX):
+            try:
+                idnum = int(self.keyvalue[len(IDPREFIX):])
+            except:
+                pass
+        return idnum
+
+    def hasValidId(self):
+        return self.getIdNum() > -1
+        
 
     def serialize(self):
         buff = []
         termnames = ""
         first = True
         idd = "#%s" % self.keyvalue
-        if "-gen-" in idd:
+        if "-temp-" in idd:
             idd = ""
         for t in self.terms:
             if first:
@@ -91,8 +117,23 @@ class Example ():
         buff.append("RDFA:\n%s" % self.getRdfa())
         buff.append("JSON:\n%s" % self.getJsonld())
         return "\n".join(buff)
+        
+    @staticmethod
+    def nextId():
+        Example.MaxId += 1
+        return Example.formatId(Example.MaxId)
+        
+    @staticmethod
+    def formatId(val):
+        return 'eg-{0:04d}'.format(val)
 
-class schemaExamples():
+    @staticmethod
+    def nextIdReset(val=None):
+        if not val:
+            val = 0
+        Example.MaxId = val
+
+class SchemaExamples():
     
     EXAMPLESMAP = {}
     EXAMPLES = {}    
@@ -101,7 +142,7 @@ class schemaExamples():
     
     @staticmethod
     def loadExamplesFile(exfile):
-        return schemaExamples.loadExamplesFiles([exfile])
+        return SchemaExamples.loadExamplesFiles([exfile])
     
 
     @staticmethod
@@ -111,33 +152,33 @@ class schemaExamples():
             for example in parser.parse(f):
                 #log.info("Ex: %s %s" % (example.keyvalue,example.terms))
                 keyvalue = example.keyvalue
-                with schemaExamples.exlock:
-                    if not schemaExamples.EXAMPLES.get(keyvalue,None):
-                        schemaExamples.EXAMPLES[keyvalue] = example
+                with SchemaExamples.exlock:
+                    if not SchemaExamples.EXAMPLES.get(keyvalue,None):
+                        SchemaExamples.EXAMPLES[keyvalue] = example
 
                     for term in example.terms:
                 
-                        if(not schemaExamples.EXAMPLESMAP.get(term, None)):
-                            schemaExamples.EXAMPLESMAP[term] = []
+                        if(not SchemaExamples.EXAMPLESMAP.get(term, None)):
+                            SchemaExamples.EXAMPLESMAP[term] = []
                     
-                        if not keyvalue in schemaExamples.EXAMPLESMAP.get(term):
-                            schemaExamples.EXAMPLESMAP.get(term).append(keyvalue)
+                        if not keyvalue in SchemaExamples.EXAMPLESMAP.get(term):
+                            SchemaExamples.EXAMPLESMAP.get(term).append(keyvalue)
                 
             
     @staticmethod
     def examplesForTerm(term):
         examples = []
-        examps = schemaExamples.EXAMPLESMAP.get(term)
+        examps = SchemaExamples.EXAMPLESMAP.get(term)
         if examps:
             for e in examps:
-                ex = schemaExamples.EXAMPLES.get(e)
+                ex = SchemaExamples.EXAMPLES.get(e)
                 if ex:
                     examples.append(ex)
         return examples
 
     @staticmethod
     def allExamples(sort=False):
-        ret = schemaExamples.EXAMPLES.values()
+        ret = SchemaExamples.EXAMPLES.values()
         if sort:
             return sorted(ret, key=lambda x: (x.exmeta['file'],x.exmeta['filepos']))
         return ret
@@ -145,7 +186,7 @@ class schemaExamples():
             
     @staticmethod
     def count():
-        return len(schemaExamples.EXAMPLES)
+        return len(SchemaExamples.EXAMPLES)
 
 
 class ExampleFileParser():
