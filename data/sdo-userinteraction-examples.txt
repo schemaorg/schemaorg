@@ -1,7 +1,6 @@
-TYPES: #eg-445 InteractionCounter, VideoObject
+TYPES: #interaction-counter-1 InteractionCounter,VideoObject
 
 PRE-MARKUP:
-
 A video has the following interactions:
 YouTube: 512 up votes
 Twitter: 1024 up votes
@@ -13,11 +12,11 @@ MICRODATA:
 
 <div itemid="http://videolectures.net/iswc2013_guha_tunnel/" itemscope itemtype="https://schema.org/VideoObject">
   <h1 itemprop="name">Light at the End of the Tunnel</h1>
-  Author:
+  Author: 
     <div itemprop="author" itemscope itemtype="https://schema.org/Person">
       <span itemprop="name">Ramanathan V. Guha</span>
     </div>
-
+  
   <video controls>
     <source src="http://videolectures.net/iswc2013_guha_tunnel/" />
   </video>
@@ -29,7 +28,7 @@ MICRODATA:
       <link itemprop="interactionType" href="https://schema.org/LikeAction"/>
       <span itemprop="userInteractionCount">512</span>
     </div>
-
+  
   Twitter Favorite Count:
     <div itemprop="interactionStatistic" itemscope itemtype="https://schema.org/InteractionCounter">
       <div itemprop="interactionService" itemscope itemid="https://www.twitter.com" itemtype="https://schema.org/SoftwareApplication">
@@ -38,7 +37,7 @@ MICRODATA:
       <link itemprop="interactionType" href="https://schema.org/LikeAction"/>
       <span itemprop="userInteractionCount" content="1024">1,024</span>
     </div>
-
+  
   Twitter Tweet Count:
     <div itemprop="interactionStatistic" itemscope itemtype="https://schema.org/InteractionCounter">
       <div itemprop="interactionService" itemscope itemid="https://twitter.com" itemtype="https://schema.org/SoftwareApplication">
@@ -47,7 +46,7 @@ MICRODATA:
       <link itemprop="interactionType" href="https://schema.org/ShareAction"/>
       <span itemprop="userInteractionCount" content="2345">2,345</span>
     </div>
-
+  
   Facebook Like Count:
     <div itemprop="interactionStatistic" itemscope itemtype="https://schema.org/InteractionCounter">
       <div itemprop="interactionService" itemscope itemid="https://www.facebook.com" itemtype="https://schema.org/WebSite">
@@ -56,24 +55,24 @@ MICRODATA:
       <link itemprop="interactionType" href="https://schema.org/LikeAction"/>
       <span itemprop="userInteractionCount" content="1024">1024</span>
     </div>
-
+ 
   View Count:
     <div itemprop="interactionStatistic" itemscope itemtype="https://schema.org/InteractionCounter">
       <link itemprop="interactionType" href="https://schema.org/WatchAction"/>
       <span itemprop="userInteractionCount" content="4356">4,356</span>
     </div>
-
+  
 </div>
 
 RDFA:
 
 <div vocab="http://schema./org/" resource="http://videolectures.net/iswc2013_guha_tunnel/" typeof="VideoObject">
   <h1 property="name">Light at the End of the Tunnel</h1>
-  Author:
+  Author: 
     <div property="author" typeof="Person">
       <span property="name">Ramanathan V. Guha</span>
     </div>
-
+  
   <video controls>
     <source src="http://videolectures.net/iswc2013_guha_tunnel/" />
   </video>
@@ -85,7 +84,7 @@ RDFA:
       <link property="interactionType" href="https://schema.org/LikeAction"/>
       <span property="userInteractionCount">512</span>
     </div>
-
+  
   Twitter Favorite Count:
     <div property="interactionStatistic" typeof="InteractionCounter">
       <div property="interactionService" itemscope itemid="https://twitter.com" itemtype="https://schema.org/SoftwareApplication">
@@ -94,7 +93,7 @@ RDFA:
       <link property="interactionType" href="https://schema.org/LikeAction"/>
       <span property="userInteractionCount" content="1024">1024</span>
     </div>
-
+  
   Twitter Tweet Count:
     <div property="interactionStatistic" typeof="InteractionCounter">
       <div property="interactionService" itemscope itemid="https://twitter.com" itemtype="https://schema.org/SoftwareApplication">
@@ -103,7 +102,7 @@ RDFA:
       <link property="interactionType" href="https://schema.org/ShareAction"/>
       <span property="userInteractionCount" content="2345">2345</span>
     </div>
-
+  
   Facebook Like Count:
     <div property="interactionStatistic" typeof="InteractionCounter">
       <div property="interactionService" itemscope itemid="https://www.facebook.com" itemtype="https://schema.org/WebSite">
@@ -112,17 +111,16 @@ RDFA:
       <link property="interactionType" href="https://schema.org/LikeAction"/>
       <span property="userInteractionCount" content="1024">1024</span>
     </div>
-
+  
   View Count:
     <div property="interactionStatistic" typeof="InteractionCounter">
       <link property="interactionType" href="https://schema.org/WatchAction"/>
       <span property="userInteractionCount" content="4356">4356</span>
     </div>
-
+  
 </div>
 
 JSON:
-
 <script type="application/ld+json">
 {
   "@context": "https://schema.org/",
@@ -183,4 +181,3 @@ JSON:
   ]
 }
 </script>
-

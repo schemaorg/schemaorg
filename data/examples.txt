@@ -1,4 +1,4 @@
-TYPES: #eg-001 Person, PostalAddress, addressRegion, postalCode, address, streetAddress, telephone, email, url, addressLocality
+TYPES: #eg-1 Person,PostalAddress,addressRegion,postalCode,address,streetAddress,telephone,email,url,addressLocality
 
 PRE-MARKUP:
 
@@ -105,7 +105,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-002 Place, LocalBusiness, address, streetAddress, addressLocality, PostalAddress, telephone
+TYPES: #eg2  Place,LocalBusiness, address, streetAddress, addressLocality, PostalAddress, telephone
 
 PRE-MARKUP:
 
@@ -161,7 +161,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-003 Painting, genre
+TYPES: #eg-3 Painting,genre
 
 PRE-MARKUP:
 
@@ -177,7 +177,6 @@ MICRODATA:
 </div>
 
 RDFA:
-
 <div vocab="https://schema.org/" typeof="Painting">
   <h1><span property="name">The Madonna with the Long Neck</span></h1>
   <span property="genre" content="http://vocab.getty.edu/aat/300021143">Late Renaissance</span> painting by
@@ -195,7 +194,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-004 Restaurant, AggregateRating, FoodEstablishment, LocalBusiness, aggregateRating, ratingValue, reviewCount
+TYPES: #eg-4 Restaurant,AggregateRating,FoodEstablishment,LocalBusiness,aggregateRating,ratingValue,reviewCount
 
 PRE-MARKUP:
 
@@ -319,7 +318,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-005 Place, GeoCoordinates, latitude, longitude, geo
+TYPES: #eg-5 Place,GeoCoordinates,latitude,longitude,geo
 
 PRE-MARKUP:
 
@@ -369,7 +368,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-006 MediaObject, AudioObject, encodingFormat, contentUrl, description, duration
+TYPES: #eg-6 MediaObject,AudioObject,encodingFormat,contentUrl,description,duration
 
 PRE-MARKUP:
 
@@ -433,7 +432,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-007 Organization, PostalAddress, address, streetAddress, postalCode, addressLocality, faxNumber, telephone
+TYPES: #eg-7 Organization,PostalAddress,address,streetAddress,postalCode,addressLocality,faxNumber,telephone
 
 PRE-MARKUP:
 
@@ -549,7 +548,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-008 NGO
+TYPES: #eg-8 NGO
 
 PRE-MARKUP:
 
@@ -654,7 +653,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-009 Event, Place, PostalAddress, AggregateOffer, location, startDate, address, offers, offerCount
+TYPES:  #eg-9 Event,Place,PostalAddress,AggregateOffer,location,startDate,address,offers,offerCount
 
 PRE-MARKUP:
 
@@ -756,7 +755,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-010 Product, AggregateRating, Offer, Review, Rating, price, aggregateRating, ratingValue, reviewCount, availability, InStock
+TYPES: #eg-10 Product,AggregateRating,Offer,Review,Rating, price,aggregateRating,ratingValue,reviewCount,availability,InStock
 
 PRE-MARKUP:
 
@@ -945,7 +944,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-011 Product, AggregateRating, AggregateOffer, Offer, aggregateRating, image, offers
+TYPES: #eg-11 Product,AggregateRating,AggregateOffer,Offer,aggregateRating,image,offers
 
 PRE-MARKUP:
 
@@ -999,13 +998,13 @@ RDFA:
 <div vocab="https://schema.org/" typeof="Product">
     <img property="image" src="dell-30in-lcd.jpg" alt="A Dell UltraSharp monitor"> <span property="name">Dell UltraSharp 30" LCD Monitor</span>
     <div property="aggregateRating" typeof="AggregateRating">
-        <span property="ratingValue">87</span> out of
-        <span property="bestRating">100</span> based on
+        <span property="ratingValue">87</span> out of 
+        <span property="bestRating">100</span> based on 
         <span property="ratingCount">24</span> user ratings
     </div>
     <div property="offers" typeof="AggregateOffer">
-        <span property="lowPrice">$1250</span> to
-        <span property="highPrice">$1495</span> from
+        <span property="lowPrice">$1250</span> to 
+        <span property="highPrice">$1495</span> from 
         <span property="offerCount">8</span> sellers Sellers:
         <div property="offers" typeof="Offer">
             <a property="url" href="save-a-lot-monitors.com/dell-30.html">Save A Lot Monitors - $1250</a>
@@ -1050,7 +1049,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-012 WebPage, Book, AggregateRating, Offer, Review, CreativeWork, mainEntity
+TYPES:  #eg-12 WebPage,Book,AggregateRating,Offer,Review,CreativeWork,mainEntity
 
 PRE-MARKUP:
 
@@ -1256,7 +1255,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-013 Recipe, NutritionInformation, image, datePublished, prepTime, cookTime, recipeYield, recipeIngredient, calories, fatContent, suitableForDiet, LowFatDiet, RestrictedDiet
+TYPES: #eg-13 Recipe,NutritionInformation, image,datePublished,prepTime,cookTime,recipeYield,recipeIngredient,calories,fatContent, suitableForDiet, LowFatDiet, RestrictedDiet
 
 PRE-MARKUP:
 
@@ -1414,11 +1413,12 @@ JSON:
 }
 </script>
 
-TYPES: #eg-014 VideoObject, MusicGroup, MusicRecording, Event, video, interactionStatistic, InteractionCounter, duration, interactionStatistic, interactionType
+TYPES: #eg-14 VideoObject,MusicGroup,MusicRecording,Event,video,interactionStatistic,InteractionCounter,duration,interactionStatistic,interactionType
 
 PRE-MARKUP:
 
 <h1>Foo Fighters</h1>
+
 
 <h2>Video: Interview with the Foo Fighters</h2>
 <object ...>
@@ -1427,6 +1427,7 @@ PRE-MARKUP:
 </object>
 Catch this exclusive interview with Dave Grohl and the Foo Fighters
  about their new album, Rope.
+
 
 <h2>Songs</h2>
 
@@ -1442,6 +1443,7 @@ Everlong
 <a href="foo-fighters-everlong-buy.html">Buy</a>
 From album: <a href="foo-fighters-color-and-shape.html">The Color And The Shape</a>
 
+
 <h2>Upcoming shows</h2>
 
 <a href="foo-fighters-may20-fedexforum">FedExForum</a>
@@ -1454,6 +1456,7 @@ Council Bluffs, IA, US
 May 23
 <a href="ticketworlds.com/foofighters/may23-2011">Buy tickets</a>
 
+
 <h2><a href="foo-fighters-photos">28 Photos</a></h2>
 <a href="foofighters-1.jpg"><img
 alt="Thumbnail and linked photo of Foo Fighters band"
@@ -1464,6 +1467,7 @@ src="foofighters-thumb2.jpg" /></a>
 <a href="foofighters-3.jpg"><img
 alt="Thumbnail and linked photo of Foo Fighters band"
 src="foofighters-thumb3.jpg" /></a>
+
 
 <h2>Comments:</h2>
 Excited about seeing them in concert next week. -Lawrence , Jan 23
@@ -1529,6 +1533,7 @@ MICRODATA:
         <a href="foo-fighters-photos">28 Photos</a>
     </h2><a href="foofighters-1.jpg" itemprop="image"><img alt="Thumbnail and linked photo of Foo Fighters band" src="foofighters-thumb1.jpg"></a> <a href="foofighters-2.jpg" itemprop="image"><img alt="Thumbnail and linked photo of Foo Fighters band" src="foofighters-thumb2.jpg"></a> <a href="foofighters-3.jpg" itemprop="image"><img alt="Thumbnail and linked photo of Foo Fighters band" src="foofighters-thumb3.jpg"></a>
 </div>
+
 
 RDFA:
 
@@ -1663,7 +1668,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-015 ItemList
+TYPES:  ItemList
 
 PRE-MARKUP:
 
@@ -1711,7 +1716,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-016 Movie
+TYPES:  Movie
 
 PRE-MARKUP:
 
@@ -1844,7 +1849,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-017 Table
+TYPES:  Table
 
 PRE-MARKUP:
 
@@ -1908,7 +1913,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-018 PostalAddress
+TYPES:  PostalAddress
 
 PRE-MARKUP:
 
@@ -1955,7 +1960,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-019 CreativeWork, ContentRating
+TYPES:  CreativeWork,ContentRating
 
 PRE-MARKUP:
 
@@ -2002,7 +2007,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-020 ImageObject
+TYPES:  ImageObject
 
 PRE-MARKUP:
 
@@ -2063,7 +2068,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-021 MusicPlaylist
+TYPES:  MusicPlaylist
 
 PRE-MARKUP:
 
@@ -2222,7 +2227,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-022 InteractionCounter, Article
+TYPES:  InteractionCounter,Article
 
 PRE-MARKUP:
 
@@ -2297,7 +2302,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-023 CivicStructure, Place
+TYPES:  CivicStructure,Place
 
 PRE-MARKUP:
 
@@ -2341,7 +2346,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-024 EducationalOrganization
+TYPES:  EducationalOrganization
 
 PRE-MARKUP:
 
@@ -2416,7 +2421,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-025 TVSeries, TVSeason, TVEpisode
+TYPES:  TVSeries,TVSeason,TVEpisode
 
 PRE-MARKUP:
 
@@ -2531,7 +2536,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-026 MusicAlbum
+TYPES:  MusicAlbum
 
 PRE-MARKUP:
 
@@ -2628,7 +2633,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-027 JobPosting
+TYPES:  JobPosting
 
 PRE-MARKUP:
 
@@ -2843,7 +2848,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-028 IndividualProduct
+TYPES:  IndividualProduct
 
 PRE-MARKUP:
 
@@ -2889,7 +2894,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-029 SomeProducts
+TYPES:  SomeProducts
 
 PRE-MARKUP:
 
@@ -2943,7 +2948,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-030 ProductModel
+TYPES:  ProductModel
 
 PRE-MARKUP:
 
@@ -3012,7 +3017,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-031 Action
+TYPES:  Action
 
 PRE-MARKUP:
 
@@ -3056,7 +3061,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-032 Action
+TYPES:  Action
 
 PRE-MARKUP:
 
@@ -3092,7 +3097,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-033 AchieveAction
+TYPES:  AchieveAction
 
 PRE-MARKUP:
 
@@ -3124,7 +3129,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-034 LoseAction
+TYPES:  LoseAction
 
 PRE-MARKUP:
 
@@ -3160,7 +3165,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-035 TieAction
+TYPES:  TieAction
 
 PRE-MARKUP:
 
@@ -3196,7 +3201,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-036 WinAction
+TYPES:  WinAction
 
 PRE-MARKUP:
 
@@ -3228,7 +3233,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-037 AssessAction
+TYPES:  AssessAction
 
 PRE-MARKUP:
 
@@ -3260,7 +3265,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-038 ChooseAction
+TYPES:  ChooseAction
 
 PRE-MARKUP:
 
@@ -3302,7 +3307,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-039 ChooseAction
+TYPES:  ChooseAction
 
 PRE-MARKUP:
 
@@ -3335,7 +3340,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-040 VoteAction
+TYPES:  VoteAction
 
 PRE-MARKUP:
 
@@ -3367,7 +3372,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-041 IgnoreAction
+TYPES:  IgnoreAction
 
 PRE-MARKUP:
 
@@ -3399,7 +3404,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-042 IgnoreAction
+TYPES:  IgnoreAction
 
 PRE-MARKUP:
 
@@ -3435,7 +3440,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-043 IgnoreAction
+TYPES:  IgnoreAction
 
 PRE-MARKUP:
 
@@ -3474,7 +3479,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-044 ReactAction
+TYPES:  ReactAction
 
 PRE-MARKUP:
 
@@ -3506,7 +3511,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-045 AgreeAction
+TYPES:  AgreeAction
 
 PRE-MARKUP:
 
@@ -3542,7 +3547,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-046 DisagreeAction
+TYPES:  DisagreeAction
 
 PRE-MARKUP:
 
@@ -3582,7 +3587,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-047 DislikeAction
+TYPES:  DislikeAction
 
 PRE-MARKUP:
 
@@ -3618,7 +3623,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-048 EndorseAction
+TYPES:  EndorseAction
 
 PRE-MARKUP:
 
@@ -3650,7 +3655,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-049 LikeAction
+TYPES:  LikeAction
 
 PRE-MARKUP:
 
@@ -3686,7 +3691,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-050 WantAction
+TYPES:  WantAction
 
 PRE-MARKUP:
 
@@ -3722,7 +3727,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-051 ReviewAction
+TYPES:  ReviewAction
 
 PRE-MARKUP:
 
@@ -3762,7 +3767,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-052 ConsumeAction
+TYPES:  ConsumeAction
 
 PRE-MARKUP:
 
@@ -3794,7 +3799,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-053 DrinkAction
+TYPES:  DrinkAction
 
 PRE-MARKUP:
 
@@ -3826,7 +3831,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-054 EatAction
+TYPES:  EatAction
 
 PRE-MARKUP:
 
@@ -3858,7 +3863,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-055 InstallAction
+TYPES:  InstallAction
 
 PRE-MARKUP:
 
@@ -3890,7 +3895,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-056 ListenAction
+TYPES:  ListenAction
 
 PRE-MARKUP:
 
@@ -3922,7 +3927,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-057 ListenAction
+TYPES:  ListenAction
 
 PRE-MARKUP:
 
@@ -3954,7 +3959,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-058 ListenAction
+TYPES:  ListenAction
 
 PRE-MARKUP:
 
@@ -3986,7 +3991,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-059 ReadAction
+TYPES:  ReadAction
 
 PRE-MARKUP:
 
@@ -4018,7 +4023,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-060 ReadAction
+TYPES:  ReadAction
 
 PRE-MARKUP:
 
@@ -4050,7 +4055,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-061 ReadAction
+TYPES:  ReadAction
 
 PRE-MARKUP:
 
@@ -4082,7 +4087,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-062 ReadAction
+TYPES:  ReadAction
 
 PRE-MARKUP:
 
@@ -4114,7 +4119,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-063 UseAction
+TYPES:  UseAction
 
 PRE-MARKUP:
 
@@ -4146,7 +4151,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-064 WearAction
+TYPES:  WearAction
 
 PRE-MARKUP:
 
@@ -4178,7 +4183,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-065 ViewAction
+TYPES:  ViewAction
 
 PRE-MARKUP:
 
@@ -4210,7 +4215,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-066 ViewAction
+TYPES:  ViewAction
 
 PRE-MARKUP:
 
@@ -4242,7 +4247,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-067 ViewAction
+TYPES:  ViewAction
 
 PRE-MARKUP:
 
@@ -4274,7 +4279,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-068 WatchAction
+TYPES:  WatchAction
 
 PRE-MARKUP:
 
@@ -4306,7 +4311,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-069 WatchAction
+TYPES:  WatchAction
 
 PRE-MARKUP:
 
@@ -4338,7 +4343,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-070 WatchAction
+TYPES:  WatchAction
 
 PRE-MARKUP:
 
@@ -4370,7 +4375,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-071 WatchAction
+TYPES:  WatchAction
 
 PRE-MARKUP:
 
@@ -4406,7 +4411,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-072 CreateAction
+TYPES:  CreateAction
 
 PRE-MARKUP:
 
@@ -4438,7 +4443,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-073 CookAction
+TYPES:  CookAction
 
 PRE-MARKUP:
 
@@ -4470,7 +4475,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-074 DrawAction
+TYPES:  DrawAction
 
 PRE-MARKUP:
 
@@ -4502,7 +4507,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-075 FilmAction
+TYPES:  FilmAction
 
 PRE-MARKUP:
 
@@ -4534,7 +4539,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-076 PaintAction
+TYPES:  PaintAction
 
 PRE-MARKUP:
 
@@ -4566,7 +4571,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-077 PhotographAction
+TYPES:  PhotographAction
 
 PRE-MARKUP:
 
@@ -4598,7 +4603,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-078 WriteAction
+TYPES:  WriteAction
 
 PRE-MARKUP:
 
@@ -4630,7 +4635,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-079 FindAction
+TYPES:  FindAction
 
 PRE-MARKUP:
 
@@ -4662,7 +4667,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-080 CheckAction
+TYPES:  CheckAction
 
 PRE-MARKUP:
 
@@ -4695,7 +4700,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-081 CheckAction
+TYPES:  CheckAction
 
 PRE-MARKUP:
 
@@ -4727,7 +4732,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-082 DiscoverAction
+TYPES:  DiscoverAction
 
 PRE-MARKUP:
 
@@ -4759,7 +4764,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-083 TrackAction
+TYPES:  TrackAction
 
 PRE-MARKUP:
 
@@ -4795,7 +4800,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-084 InteractAction
+TYPES:  InteractAction
 
 PRE-MARKUP:
 
@@ -4827,7 +4832,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-085 InteractAction
+TYPES:  InteractAction
 
 PRE-MARKUP:
 
@@ -4859,7 +4864,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-086 BefriendAction
+TYPES:  BefriendAction
 
 PRE-MARKUP:
 
@@ -4891,7 +4896,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-087 CommunicateAction
+TYPES:  CommunicateAction
 
 PRE-MARKUP:
 
@@ -4923,7 +4928,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-088 CommunicateAction
+TYPES:  CommunicateAction
 
 PRE-MARKUP:
 
@@ -4956,7 +4961,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-089 AskAction, Question
+TYPES:  AskAction,Question
 
 PRE-MARKUP:
 
@@ -4992,7 +4997,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-090 CheckInAction
+TYPES:  CheckInAction
 
 PRE-MARKUP:
 
@@ -5031,7 +5036,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-091 CheckInAction
+TYPES:  CheckInAction
 
 PRE-MARKUP:
 
@@ -5079,7 +5084,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-092 CheckInAction
+TYPES:  CheckInAction
 
 PRE-MARKUP:
 
@@ -5115,7 +5120,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-093 CheckOutAction
+TYPES:  CheckOutAction
 
 PRE-MARKUP:
 
@@ -5151,7 +5156,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-094 CommentAction
+TYPES:  CommentAction
 
 PRE-MARKUP:
 
@@ -5187,7 +5192,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-095 InformAction
+TYPES:  InformAction
 
 PRE-MARKUP:
 
@@ -5223,7 +5228,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-096 ConfirmAction
+TYPES:  ConfirmAction
 
 PRE-MARKUP:
 
@@ -5255,7 +5260,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-097 RsvpAction
+TYPES:  RsvpAction
 
 PRE-MARKUP:
 
@@ -5287,7 +5292,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-098 InviteAction
+TYPES:  InviteAction
 
 PRE-MARKUP:
 
@@ -5323,7 +5328,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-099 ReplyAction, Question, Answer
+TYPES:  ReplyAction,Question,Answer
 
 PRE-MARKUP:
 
@@ -5363,7 +5368,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-100 ShareAction
+TYPES:  ShareAction
 
 PRE-MARKUP:
 
@@ -5399,7 +5404,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-101 ShareAction
+TYPES:  ShareAction
 
 PRE-MARKUP:
 
@@ -5436,7 +5441,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-102 FollowAction
+TYPES:  FollowAction
 
 PRE-MARKUP:
 
@@ -5472,7 +5477,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-103 JoinAction
+TYPES:  JoinAction
 
 PRE-MARKUP:
 
@@ -5504,7 +5509,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-104 JoinAction
+TYPES:  JoinAction
 
 PRE-MARKUP:
 
@@ -5536,7 +5541,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-105 JoinAction
+TYPES:  JoinAction
 
 PRE-MARKUP:
 
@@ -5568,7 +5573,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-106 JoinAction
+TYPES:  JoinAction
 
 PRE-MARKUP:
 
@@ -5600,7 +5605,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-107 LeaveAction
+TYPES:  LeaveAction
 
 PRE-MARKUP:
 
@@ -5632,7 +5637,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-108 MarryAction
+TYPES:  MarryAction
 
 PRE-MARKUP:
 
@@ -5664,7 +5669,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-109 RegisterAction
+TYPES:  RegisterAction
 
 PRE-MARKUP:
 
@@ -5696,7 +5701,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-110 RegisterAction
+TYPES:  RegisterAction
 
 PRE-MARKUP:
 
@@ -5728,7 +5733,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-111 RegisterAction
+TYPES:  RegisterAction
 
 PRE-MARKUP:
 
@@ -5760,7 +5765,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-112 SubscribeAction
+TYPES:  SubscribeAction
 
 PRE-MARKUP:
 
@@ -5792,7 +5797,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-113 UnRegisterAction
+TYPES:  UnRegisterAction
 
 PRE-MARKUP:
 
@@ -5824,7 +5829,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-114 MoveAction
+TYPES:  MoveAction
 
 PRE-MARKUP:
 
@@ -5864,7 +5869,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-115 ArriveAction
+TYPES:  ArriveAction
 
 PRE-MARKUP:
 
@@ -5896,7 +5901,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-116 DepartAction
+TYPES:  DepartAction
 
 PRE-MARKUP:
 
@@ -5928,7 +5933,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-117 TravelAction
+TYPES:  TravelAction
 
 PRE-MARKUP:
 
@@ -5960,7 +5965,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-118 TravelAction
+TYPES:  TravelAction
 
 PRE-MARKUP:
 
@@ -6000,7 +6005,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-119 OrganizeAction
+TYPES:  OrganizeAction
 
 PRE-MARKUP:
 
@@ -6032,7 +6037,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-120 OrganizeAction
+TYPES:  OrganizeAction
 
 PRE-MARKUP:
 
@@ -6064,7 +6069,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-121 AllocateAction
+TYPES:  AllocateAction
 
 PRE-MARKUP:
 
@@ -6100,7 +6105,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-122 AcceptAction
+TYPES:  AcceptAction
 
 PRE-MARKUP:
 
@@ -6136,7 +6141,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-123 AssignAction
+TYPES:  AssignAction
 
 PRE-MARKUP:
 
@@ -6176,7 +6181,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-124 AuthorizeAction
+TYPES:  AuthorizeAction
 
 PRE-MARKUP:
 
@@ -6216,7 +6221,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-125 RejectAction
+TYPES:  RejectAction
 
 PRE-MARKUP:
 
@@ -6252,7 +6257,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-126 ApplyAction
+TYPES:  ApplyAction
 
 PRE-MARKUP:
 
@@ -6284,7 +6289,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-127 BookmarkAction
+TYPES:  BookmarkAction
 
 PRE-MARKUP:
 
@@ -6321,7 +6326,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-128 PlanAction
+TYPES:  PlanAction
 
 PRE-MARKUP:
 
@@ -6357,7 +6362,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-129 PlanAction
+TYPES:  PlanAction
 
 PRE-MARKUP:
 
@@ -6393,7 +6398,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-130 CancelAction
+TYPES:  CancelAction
 
 PRE-MARKUP:
 
@@ -6429,7 +6434,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-131 ReserveAction
+TYPES:  ReserveAction
 
 PRE-MARKUP:
 
@@ -6462,7 +6467,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-132 ScheduleAction
+TYPES:  ScheduleAction
 
 PRE-MARKUP:
 
@@ -6495,7 +6500,9 @@ JSON:
 }
 </script>
 
-TYPES: #eg-133 PlayAction
+
+
+TYPES:  PlayAction
 
 PRE-MARKUP:
 
@@ -6531,7 +6538,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-134 ExerciseAction
+TYPES:  ExerciseAction
 
 PRE-MARKUP:
 
@@ -6565,7 +6572,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-135 ExerciseAction
+TYPES:  ExerciseAction
 
 PRE-MARKUP:
 
@@ -6598,7 +6605,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-136 PerformAction
+TYPES:  PerformAction
 
 PRE-MARKUP:
 
@@ -6638,7 +6645,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-137 SearchAction
+TYPES:  SearchAction
 
 PRE-MARKUP:
 
@@ -6667,7 +6674,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-138 SearchAction
+TYPES:  SearchAction
 
 PRE-MARKUP:
 
@@ -6696,7 +6703,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-139 TradeAction
+TYPES:  TradeAction
 
 PRE-MARKUP:
 
@@ -6730,7 +6737,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-140 BuyAction
+TYPES:  BuyAction
 
 PRE-MARKUP:
 
@@ -6766,7 +6773,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-141 DonateAction
+TYPES:  DonateAction
 
 PRE-MARKUP:
 
@@ -6800,7 +6807,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-142 OrderAction
+TYPES:  OrderAction
 
 PRE-MARKUP:
 
@@ -6836,7 +6843,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-143 PayAction
+TYPES:  PayAction
 
 PRE-MARKUP:
 
@@ -6870,7 +6877,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-144 QuoteAction
+TYPES:  QuoteAction
 
 PRE-MARKUP:
 
@@ -6904,7 +6911,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-145 RentAction
+TYPES:  RentAction
 
 PRE-MARKUP:
 
@@ -6940,7 +6947,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-146 SellAction
+TYPES:  SellAction
 
 PRE-MARKUP:
 
@@ -6977,7 +6984,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-147 TipAction
+TYPES:  TipAction
 
 PRE-MARKUP:
 
@@ -7014,7 +7021,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-148 TransferAction
+TYPES:  TransferAction
 
 PRE-MARKUP:
 
@@ -7054,7 +7061,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-149 BorrowAction
+TYPES:  BorrowAction
 
 PRE-MARKUP:
 
@@ -7090,7 +7097,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-150 DownloadAction
+TYPES:  DownloadAction
 
 PRE-MARKUP:
 
@@ -7122,7 +7129,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-151 GiveAction
+TYPES:  GiveAction
 
 PRE-MARKUP:
 
@@ -7158,7 +7165,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-152 LendAction
+TYPES:  LendAction
 
 PRE-MARKUP:
 
@@ -7195,7 +7202,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-153 ReceiveAction
+TYPES:  ReceiveAction
 
 PRE-MARKUP:
 
@@ -7243,7 +7250,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-154 ReturnAction
+TYPES:  ReturnAction
 
 PRE-MARKUP:
 
@@ -7279,7 +7286,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-155 SendAction
+TYPES:  SendAction
 
 PRE-MARKUP:
 
@@ -7327,7 +7334,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-156 GiveAction
+TYPES:  GiveAction
 
 PRE-MARKUP:
 
@@ -7363,7 +7370,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-157 UpdateAction
+TYPES:  UpdateAction
 
 PRE-MARKUP:
 
@@ -7396,7 +7403,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-158 AddAction
+TYPES:  AddAction
 
 PRE-MARKUP:
 
@@ -7433,7 +7440,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-159 AddAction
+TYPES:  AddAction
 
 PRE-MARKUP:
 
@@ -7470,7 +7477,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-160 InsertAction
+TYPES:  InsertAction
 
 PRE-MARKUP:
 
@@ -7507,7 +7514,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-161 AppendAction
+TYPES:  AppendAction
 
 PRE-MARKUP:
 
@@ -7544,7 +7551,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-162 PrependAction
+TYPES:  PrependAction
 
 PRE-MARKUP:
 
@@ -7581,7 +7588,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-163 DeleteAction
+TYPES:  DeleteAction
 
 PRE-MARKUP:
 
@@ -7618,7 +7625,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-164 ReplaceAction
+TYPES:  ReplaceAction
 
 PRE-MARKUP:
 
@@ -7659,7 +7666,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-165 TVSeries, TVSeason, TVEpisode, OnDemandEvent, BroadcastEvent, BroadcastService
+TYPES:  TVSeries,TVSeason,TVEpisode,OnDemandEvent,BroadcastEvent,BroadcastService
 
 PRE-MARKUP:
 
@@ -7774,7 +7781,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-166 RadioSeries, RadioSeason, RadioEpisode, OnDemandEvent, BroadcastEvent, BroadcastService
+TYPES:  RadioSeries,RadioSeason,RadioEpisode,OnDemandEvent,BroadcastEvent,BroadcastService
 
 PRE-MARKUP:
 
@@ -7861,7 +7868,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-167 GovernmentPermit, GovernmentOrganization, GovernmentService, AdministrativeArea
+TYPES:  GovernmentPermit,GovernmentOrganization,GovernmentService,AdministrativeArea
 
 PRE-MARKUP:
 
@@ -7925,7 +7932,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-168 GovernmentService, GovernmentOrganization, AdministrativeArea, CivicAudience, ContactPoint, Language, Hospital
+TYPES:  GovernmentService,GovernmentOrganization,AdministrativeArea,CivicAudience,ContactPoint,Language,Hospital
 
 PRE-MARKUP:
 
@@ -7985,7 +7992,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-169 Event, Place, PostalAddress, Offer
+TYPES:  Event,Place,PostalAddress,Offer
 
 PRE-MARKUP:
 
@@ -8088,7 +8095,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-170 Event, Place, PostalAddress, Offer, EventCancelled
+TYPES:  Event,Place,PostalAddress,Offer,EventCancelled
 
 PRE-MARKUP:
 
@@ -8191,7 +8198,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-171 Event, Place, PostalAddress, Offer
+TYPES:  Event,Place,PostalAddress,Offer
 
 PRE-MARKUP:
 
@@ -8293,7 +8300,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-172 Event, Place, PostalAddress, Offer, SoldOut
+TYPES:  Event,Place,PostalAddress,Offer,SoldOut
 
 PRE-MARKUP:
 
@@ -8396,7 +8403,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-173 Event, Place, PostalAddress, MusicGroup, Offer, LimitedAvailability
+TYPES:  Event,Place,PostalAddress,MusicGroup,Offer,LimitedAvailability
 
 PRE-MARKUP:
 
@@ -8445,7 +8452,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-174 Book, CreativeWork, accessibilityFeature, accessibilityHazard, accessibilityControl, accessibilityAPI
+TYPES:  Book,CreativeWork,accessibilityFeature,accessibilityHazard,accessibilityControl,accessibilityAPI
 
 PRE-MARKUP:
 
@@ -8694,15 +8701,13 @@ JSON:
 }
 </script>
 
-TYPES: #eg-175 accessibilityFeature, accessibilityHazard, encodingFormat
+TYPES: accessibilityFeature, accessibilityHazard, encodingFormat
 
 PRE-MARKUP:
-
 <img src="png"
   alt="standards. toothbrushes. don't ask" longdesc="927desc.html">
 
 MICRODATA:
-
 <figure itemscope itemtype="https://schema.org/CreativeWork">
  <meta itemprop="accessibilityFeature" content="textAlternative">
  <meta itemprop="accessibilityFeature" content="longDescription">
@@ -8714,7 +8719,6 @@ MICRODATA:
 </figure>
 
 RDFA:
-
 <figure vocab="https://schema.org/" typeof="CreativeWork">
  <meta property="accessibilityFeature" content="textAlternative">
  <meta property="accessibilityFeature" content="longDescription">
@@ -8729,10 +8733,9 @@ JSON:
 
 No Json example available
 
-TYPES: #eg-176 encodingFormat, accessibilityHazard, accessibilityFeature, accessibilityControl, accessibilityAPI
+TYPES: encodingFormat, accessibilityHazard, accessibilityFeature, accessibilityControl, accessibilityAPI
 
 PRE-MARKUP:
-
 [A basic presentation in HTML]
 
 MICRODATA:
@@ -8800,7 +8803,8 @@ JSON:
         "fullVoiceControl" , "fullMouseControl" ]
 } </script>
 
-TYPES: #eg-177 TrainReservation, TrainTrip
+
+TYPES: TrainReservation, TrainTrip
 
 PRE-MARKUP:
 
@@ -8814,6 +8818,7 @@ Seating: 1st Class
 Ticket: 123XYZ
 Ticket Token: aztecCode:AB34
 We recommend that you arrive at the station at least 30 minutes prior to your scheduled departure. Allow additional time if you need help with baggage or tickets."
+
 
 MICRODATA:
 
@@ -8859,7 +8864,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-178 BusReservation, BusTrip
+TYPES: BusReservation, BusTrip
 
 PRE-MARKUP:
 
@@ -8868,6 +8873,7 @@ Bolt NYC #123456
 Departing: Port Authority, NYC 2017-01-04T12:30:00-05:00
 Arriving: Boston South Station 2017-01-04T17:10:00-05:00
 Passenger: John Smith
+
 
 MICRODATA:
 
@@ -8909,7 +8915,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-179 EventReservation, Ticket, Seat
+TYPES: EventReservation, Ticket, Seat
 
 PRE-MARKUP:
 
@@ -8979,7 +8985,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-180 Flight, FlightReservation
+TYPES:  Flight, FlightReservation
 
 PRE-MARKUP:
 
@@ -9047,7 +9053,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-181 FoodEstablishmentReservation
+TYPES: FoodEstablishmentReservation
 
 PRE-MARKUP:
 
@@ -9060,6 +9066,7 @@ Wagamama
 1 Tavistock Street
 London
 WC2E 7PG
+
 
 MICRODATA:
 
@@ -9098,7 +9105,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-182 LodgingReservation
+TYPES: LodgingReservation
 
 PRE-MARKUP:
 
@@ -9111,6 +9118,7 @@ San Francisco, CA 94102
 
 check in: 2017-04-11T16:00:00-08:00
 check out: 2017-04-13T11:00:00-08:00
+
 
 MICRODATA:
 
@@ -9150,10 +9158,9 @@ JSON:
 }
 </script>
 
-TYPES: #eg-183 RentalCarReservation
+TYPES: RentalCarReservation
 
 PRE-MARKUP:
-
 Car rental reservation #546323
 Customer: John Smith
 Car: Honda Civic (Economy Class)
@@ -9169,6 +9176,7 @@ Drop off location: Hertz LAX
 Los Angeles, CA 94043
 
 Drop off time: 2017-08-06T20:00:00-07:00
+
 
 MICRODATA:
 
@@ -9231,12 +9239,9 @@ JSON:
   "dropoffTime": "2017-08-06T20:00:00-07:00"
 }
 </script>
-
-
-TYPES: #eg-184 TaxiReservation
+TYPES: TaxiReservation
 
 PRE-MARKUP:
-
 Taxi reservation #546323
 Customer: John Smith
 Taxi service: Checker Cab
@@ -9245,6 +9250,7 @@ Pickup location: Boston Marriott Cambridge
 Cambridge, MA 02142
 
 Pickup time: 2017-08-05T16:00:00-07:00
+
 
 MICRODATA:
 
@@ -9290,7 +9296,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-185 Question, Answer
+TYPES: Question, Answer
 
 PRE-MARKUP:
 
@@ -9413,7 +9419,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-186 WatchAction, Movie
+TYPES: WatchAction, Movie
 
 PRE-MARKUP:
 
@@ -9456,7 +9462,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-187 Restaurant, ViewAction, EntryPoint, SoftwareApplication
+TYPES: Restaurant, ViewAction, EntryPoint, SoftwareApplication
 
 PRE-MARKUP:
 
@@ -9517,7 +9523,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-188 MusicEvent, Event, CreativeWork, MusicGroup, Person
+TYPES:  MusicEvent, Event, CreativeWork, MusicGroup, Person
 
 PRE-MARKUP:
 
@@ -9570,6 +9576,7 @@ PRE-MARKUP:
   </div>
 
 </div>
+
 
 MICRODATA:
 
@@ -9636,6 +9643,8 @@ MICRODATA:
   </div>
 
 </div>
+
+
 
 RDFA:
 
@@ -9750,7 +9759,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-189 Event, TheaterEvent, PerformingArtsTheater, CreativeWork
+TYPES:  Event, TheaterEvent, PerformingArtsTheater, CreativeWork
 
 PRE-MARKUP:
 
@@ -9837,7 +9846,8 @@ JSON:
 }
 </script>
 
-TYPES: #eg-190 SportsEvent
+
+TYPES:  SportsEvent
 
 PRE-MARKUP:
 
@@ -9866,7 +9876,8 @@ JSON:
 }
 </script>
 
-TYPES: #eg-191 Restaurant
+
+TYPES:  Restaurant
 
 PRE-MARKUP:
 
@@ -9912,7 +9923,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-192 Store, OpeningHoursSpecification
+TYPES:  Store, OpeningHoursSpecification
 
 PRE-MARKUP:
 
@@ -10001,7 +10012,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-193 Pharmacy, openingHours, telephone
+TYPES: Pharmacy, openingHours, telephone
 
 PRE-MARKUP:
 
@@ -10046,7 +10057,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-194 Store, Pharmacy
+TYPES:  Store, Pharmacy
 
 PRE-MARKUP:
 
@@ -10131,7 +10142,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-195 Store, DryCleaningOrLaundry, Corporation, Pharmacy
+TYPES:  Store, DryCleaningOrLaundry, Corporation, Pharmacy
 
 PRE-MARKUP:
 
@@ -10260,7 +10271,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-196 Store, PostalAddress, Pharmacy
+TYPES:  Store, PostalAddress, Pharmacy
 
 PRE-MARKUP:
 
@@ -10367,7 +10378,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-197 PostalAddress, Pharmacy, Store
+TYPES:  PostalAddress, Pharmacy, Store
 
 PRE-MARKUP:
 
@@ -10497,7 +10508,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-198 Organization, ContactPoint
+TYPES:  Organization, ContactPoint
 
 PRE-MARKUP:
 
@@ -10524,7 +10535,7 @@ JSON:
     } ] }
 </script>
 
-TYPES: #eg-199 HearingImpairedSupported, TollFree, ContactPoint, Organization
+TYPES: HearingImpairedSupported, TollFree, ContactPoint, Organization
 
 PRE-MARKUP:
 
@@ -10577,7 +10588,7 @@ JSON:
     } ] }
 </script>
 
-TYPES: #eg-200 MusicEvent, Place, Offer
+TYPES:  MusicEvent, Place, Offer
 
 PRE-MARKUP:
 
@@ -10626,7 +10637,7 @@ JSON:
 }]
 </script>
 
-TYPES: #eg-201 MusicEvent, Place, PostalAddress, Offer, MusicGroup, EventRescheduled
+TYPES:  MusicEvent, Place, PostalAddress, Offer, MusicGroup, EventRescheduled
 
 PRE-MARKUP:
 
@@ -10695,7 +10706,7 @@ JSON:
 }]
 </script>
 
-TYPES: #eg-202 Role, OrganizationRole
+TYPES:  Role, OrganizationRole
 
 PRE-MARKUP:
 
@@ -10747,7 +10758,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-203 Role, OrganizationRole, CollegeOrUniversity, EducationalOrganization
+TYPES:  Role, OrganizationRole, CollegeOrUniversity, EducationalOrganization
 
 PRE-MARKUP:
 
@@ -10805,7 +10816,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-204 Role, PerformanceRole
+TYPES:  Role, PerformanceRole
 
 PRE-MARKUP:
 
@@ -10862,7 +10873,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-205 Role, OrganizationRole, Person, SportsTeam, Organization
+TYPES:  Role, OrganizationRole, Person, SportsTeam, Organization
 
 PRE-MARKUP:
 
@@ -10878,8 +10889,8 @@ MICRODATA:
         <div itemprop="member" itemscope itemtype="https://schema.org/Person">
             <span itemprop="name">Joe Montana</span>
         </div>
-        <span itemprop="startDate">1979</span>
-        <span itemprop="endDate">1992</span>
+        <span itemprop="startDate">1979</span> 
+        <span itemprop="endDate">1992</span> 
         <span itemprop="roleName">Quarterback</span>
     </div>
 </div>
@@ -10892,8 +10903,8 @@ RDFA:
         <div property="member" typeof="https://schema.org/Person">
             <span property="name">Joe Montana</span>
         </div>
-        <span property="startDate">1979</span>
-        <span property="endDate">1992</span>
+        <span property="startDate">1979</span> 
+        <span property="endDate">1992</span> 
         <span property="roleName">Quarterback</span>
     </div>
 </div>
@@ -10918,7 +10929,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-206 WebPage, CollegeOrUniversity
+TYPES:  WebPage, CollegeOrUniversity
 
 PRE-MARKUP:
 
@@ -10980,7 +10991,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-207 ItemList, Product, Offer
+TYPES:  ItemList, Product, Offer
 
 PRE-MARKUP:
 
@@ -11060,7 +11071,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-208 ItemList, CreativeWork
+TYPES: ItemList, CreativeWork
 
 PRE-MARKUP:
 
@@ -11202,6 +11213,7 @@ RDFA:
     </div>
 </div>
 
+
 JSON:
 
 <script type="application/ld+json">
@@ -11290,7 +11302,8 @@ JSON:
 }
 </script>
 
-TYPES: #eg-209 ItemList
+
+TYPES: ItemList
 
 PRE-MARKUP:
 
@@ -11369,6 +11382,7 @@ RDFA:
   </div>
 </div>
 
+
 JSON:
 
 <script type="application/ld+json">
@@ -11415,7 +11429,8 @@ JSON:
 }
 </script>
 
-TYPES: #eg-210 ItemList, MusicAlbum
+
+TYPES: ItemList, MusicAlbum
 
 PRE-MARKUP:
 
@@ -11480,6 +11495,7 @@ RDFA:
   </div>
 </div>
 
+
 JSON:
 
 <script type="application/ld+json">
@@ -11524,11 +11540,12 @@ JSON:
 }
 </script>
 
-TYPES: #eg-211 Person, disambiguatingDescription
+TYPES: Person, disambiguatingDescription
 
 PRE-MARKUP:
 
 George Bush, the 41st President of the United States is the father of George W. Bush, the 43rd President of the United States.
+
 
 MICRODATA:
 
@@ -11570,13 +11587,14 @@ JSON:
 }
 </script>
 
-TYPES: #eg-212 skills
+TYPES: skills
 
 PRE-MARKUP:
 
 Junior Software Developer must have Knowledge of computer
 programming principles as defined by the National Initiative for
 Cybersecurity Education (NICE) Cybersecurity Workforce Framework
+
 
 MICRODATA:
 
@@ -11610,4 +11628,3 @@ JSON:
   }
 }
 </script>
-

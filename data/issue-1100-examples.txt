@@ -1,4 +1,4 @@
-TYPES: #eg-320 accessMode, accessModeSufficient, accessibilitySummary, accessibilityFeature
+TYPES: accessMode, accessModeSufficient, accessibilitySummary, accessibilityFeature
 
 PRE-MARKUP:
 
@@ -22,15 +22,15 @@ JSON:
   "@type": "Book",
   "name": "Some graphic novel",
   "accessMode": ["textual", "visual"],
-  "accessModeSufficient": [
+  "accessModeSufficient": [ 
     {
-      "@type": "ItemList",
-      "itemListElement": ["textual", "visual"],
+      "@type": "ItemList", 
+      "itemListElement": ["textual", "visual"], 
       "description": "Text and images"
     },
     {
-      "@type": "ItemList",
-      "itemListElement": ["textual"],
+      "@type": "ItemList", 
+      "itemListElement": ["textual"], 
       "description": "Text with textual alternatives and descriptions for images"
     }
   ],
@@ -38,7 +38,8 @@ JSON:
 }
 </script>
 
-TYPES: #eg-321 accessMode, accessModeSufficient, accessibilitySummary, accessibilityFeature
+
+TYPES: accessMode, accessModeSufficient, accessibilitySummary, accessibilityFeature
 
 PRE-MARKUP:
 
@@ -61,22 +62,29 @@ JSON:
   "@type": "Movie",
   "accessMode": ["auditory", "visual"],
   "accessibilityFeature": ["audioDescription", "captions"],
-  "accessModeSufficient": [
+  "accessModeSufficient": [ 
     {
-      "@type": "ItemList",
-      "itemListElement": ["textual", "visual"],
+      "@type": "ItemList", 
+      "itemListElement": ["textual", "visual"], 
       "description": "Closed captioning"
     },
     {
-      "@type": "ItemList",
-      "itemListElement": ["auditory"],
+      "@type": "ItemList", 
+      "itemListElement": ["auditory"], 
       "description": "Audio description"
     }
   ],
   "accessibilitySummary": "Captions provided in English; short scenes in French have English subtitles instead."
 }
 
-TYPES: #eg-322 accessMode, accessModeSufficient, accessibilitySummary, accessibilityFeature
+
+
+
+
+
+
+
+TYPES: accessMode, accessModeSufficient, accessibilitySummary, accessibilityFeature
 
 PRE-MARKUP:
 
@@ -100,33 +108,32 @@ JSON:
   "name": "Alice in Wonderland",
   "accessMode": ["auditory", "textual", "visual"],
   "accessibilityFeature": ["alternativeText", "synchronizedAudioText"],
-  "accessModeSufficient": [
+  "accessModeSufficient": [ 
     {
-      "@type": "ItemList",
-      "itemListElement": ["textual"],
+      "@type": "ItemList", 
+      "itemListElement": ["textual"], 
       "description": "See the text"
     },
     {
-      "@type": "ItemList",
-      "itemListElement": ["textual", "visual"],
+      "@type": "ItemList", 
+      "itemListElement": ["textual", "visual"], 
       "description": "See the text and images"
     },
     {
-      "@type": "ItemList",
-      "itemListElement": ["auditory"],
+      "@type": "ItemList", 
+      "itemListElement": ["auditory"], 
       "description": "Hear the text and image descriptions"
     },
     {
-      "@type": "ItemList",
-      "itemListElement": ["auditory", "visual"],
+      "@type": "ItemList", 
+      "itemListElement": ["auditory", "visual"], 
       "description": "Hear the text and see the images"
     },
     {
-      "@type": "ItemList",
-      "itemListElement": ["auditory", "visual", "textual"],
+      "@type": "ItemList", 
+      "itemListElement": ["auditory", "visual", "textual"], 
       "description": "Hear the text and see the text and images"
     }
   ],
   "accessibilitySummary": "Short descriptions are provided; long descriptions of the images are not needed for most readers."
 }
-

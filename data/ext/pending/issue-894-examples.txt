@@ -1,4 +1,4 @@
-TYPES: #eg-313 DefinedTerm, termCode
+TYPES: #defterm-1 DefinedTerm, termCode,
 
 PRE-MARKUP:
 
@@ -6,6 +6,7 @@ PRE-MARKUP:
    <h1>Library of Congress Resource Type: <b>Manuscript</b></h1>
    Code: <b>Man</b>
 </div>
+
 
 MICRODATA:
 
@@ -32,7 +33,7 @@ JSON:
  "inDefinedTermSet": "http://id.loc.gov/vocabulary/resourceTypes"
 }
 
-TYPES: #eg-314 DefinedTerm, DefinedTermSet, inDefinedTermSet
+TYPES: #defterm-3 DefinedTerm, DefinedTermSet, inDefinedTermSet
 
 PRE-MARKUP:
 
@@ -44,17 +45,18 @@ PRE-MARKUP:
 		<h2>Dictionary term</h2>
 		Name: calendar year<br/>
 		Description: The period from January 1st to December 31st, inclusive, of any year.<br/>
-		In Dictionary: Ballentine&apos;s Law Dictionary
+		In Dictionary: Ballentine&apos;s Law Dictionary	
 	</div>
 	<div>
 		<h2>Dictionary term</h2>
 		Name: schema<br/>
-		Description: A representation of a plan or theory in the form of an outline or model.<br/>
-		In Dictionary: Ballentine&apos;s Law Dictionary
+		Description: A representation of a plan or theory in the form of an outline or model.<br/>	
+		In Dictionary: Ballentine&apos;s Law Dictionary	
 	</div>
 </div>
 
 MICRODATA:
+
 
 <div>
 	<div itemscope itemtype="https://schema.org/DefinedTermSet">
@@ -66,20 +68,18 @@ MICRODATA:
 		<link itemprop="url" href="http://openjurist.org/dictionary/Ballentine/term/calendar-year"/>
 		Name: <span itemprop="name">calendar year</span><br/>
 		Description: <span itemprop="description">The period from January 1st to December 31st, inclusive, of any year.</span><br/>
-		In Dictionary: Ballentine&apos;s Law Dictionary
-		<link itemprop="inDefinedTermSet" href="http://openjurist.org/dictionary/Ballentine">
+		In Dictionary: Ballentine&apos;s Law Dictionary	
+		<link itemprop="inDefinedTermSet" href="http://openjurist.org/dictionary/Ballentine">	
 	</div>
 	<div itemscope itemtype="https://schema.org/DefinedTerm">
 		<h2>Dictionary term</h2>
 		<link itemprop="url" href="http://openjurist.org/dictionary/Ballentine/term/schema"/>
 		Name: <span itemprop="name">schema</span><br/>
-		Description: <span itemprop="description">A representation of a plan or theory in the form of an outline or model.</span><br/>
+		Description: <span itemprop="description">A representation of a plan or theory in the form of an outline or model.</span><br/>	
 		In Dictionary: Ballentine&apos;s Law Dictionary
-		<link itemprop="inDefinedTermSet" href="http://openjurist.org/dictionary/Ballentine">
+		<link itemprop="inDefinedTermSet" href="http://openjurist.org/dictionary/Ballentine">	
 	</div>
 </div>
-
-
 RDFA:
 
 <div  vocab="https://schema.org/">
@@ -91,16 +91,16 @@ RDFA:
 		<link property="url" href="http://openjurist.org/dictionary/Ballentine/term/calendar-year"/>
 		Name: <span property="name">calendar year</span><br/>
 		Description: <span property="description">The period from January 1st to December 31st, inclusive, of any year.</span><br/>
-		In Dictionary: Ballentine&apos;s Law Dictionary
-		<link property="inDefinedTermSet" href="http://openjurist.org/dictionary/Ballentine">
+		In Dictionary: Ballentine&apos;s Law Dictionary	
+		<link property="inDefinedTermSet" href="http://openjurist.org/dictionary/Ballentine">	
 	</div>
 	<div typeof="DefinedTerm">
 		<h2>Dictionary term</h2>
 		<link propery="url" href="http://openjurist.org/dictionary/Ballentine/term/schema"/>
 		Name: <span property="name">schema</span><br/>
-		Description: <span property="description">A representation of a plan or theory in the form of an outline or model.</span><br/>
+		Description: <span property="description">A representation of a plan or theory in the form of an outline or model.</span><br/>	
 		In Dictionary: Ballentine&apos;s Law Dictionary
-		<link property="inDefinedTermSet" href="http://openjurist.org/dictionary/Ballentine">
+		<link property="inDefinedTermSet" href="http://openjurist.org/dictionary/Ballentine">	
 	</div>
 </div>
 
@@ -131,7 +131,7 @@ JSON:
 	}
 ]
 
-TYPES: #eg-315 DefinedTerm, inDefinedTermSet, termCode
+TYPES: #defterm-4 DefinedTerm, inDefinedTermSet, termCode
 
 PRE-MARKUP:
 
@@ -168,7 +168,7 @@ JSON:
  "inDefinedTermSet": "http://onetonline.org"
 }
 
-TYPES: #eg-316 CategoryCode, CategoryCodeSet, hasCategoryCode, inCodeSet
+TYPES: #catcode-2 CategoryCode, CategoryCodeSet, hasCategoryCode, inCodeSet
 
 PRE-MARKUP:
 
@@ -218,7 +218,8 @@ JSON:
 	}
 }
 
-TYPES: #eg-317 CategoryCode, CategoryCodeSet, inCodeSet, codeValue, hasCategoryCode
+
+TYPES: #catcode-5 CategoryCode, CategoryCodeSet, inCodeSet, codeValue, hasCategoryCode
 
 PRE-MARKUP:
 
@@ -260,6 +261,7 @@ MICRODATA:
 	<span itemprop="name" xml:lang="de" content="Tschechisch">German: Tschechisch</span><br/>
 </div>
 
+	
 RDFA:
 
 <div vocab="https://schema.org/" typeof="CategoryCodeSet" resource="http://id.loc.gov/vocabulary/iso639-2">
@@ -302,6 +304,11 @@ JSON:
 			"fr": "tchèque",
 			"de": "Tschechisch"
 		},
-		"inCodeSet": "http://id.loc.gov/vocabulary/iso639-2"
+		"inCodeSet": "http://id.loc.gov/vocabulary/iso639-2"		
 	}
+		
+
+
+
+
 
