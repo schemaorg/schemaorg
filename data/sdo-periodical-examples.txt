@@ -1,7 +1,7 @@
-TYPES: #bib-1 Article, Periodical, PublicationIssue, PublicationVolume, ScholarlyArticle
- 
+TYPES: #eg-397 Article, Periodical, PublicationIssue, PublicationVolume, ScholarlyArticle
+
 PRE-MARKUP:
- 
+
 <!-- A list of the issues for a single volume of a given periodical. -->
 <div>
  <h1>The Lancet</h1>
@@ -31,7 +31,7 @@ MICRODATA:
   <div itemprop="hasPart" itemscope itemtype="https://schema.org/PublicationVolume" itemid="#vol376">
     <meta itemprop="volumeNumber" content="376">
     <ul>
-      <li itemprop="hasPart" itemscope itemtype="https://schema.org/PublicationIssue" itemid="#iss9734">No. 
+      <li itemprop="hasPart" itemscope itemtype="https://schema.org/PublicationIssue" itemid="#iss9734">No.
         <span itemprop="issueNumber">9734</span>
         <time datetime="2010-07-03" itemprop="datePublished">Jul 3, 2010</time>
         p <span itemprop="pageStart">1</span>-<span itemprop="pageEnd">68</span>
@@ -59,7 +59,7 @@ RDFA:
   <div property="hasPart" typeof="PublicationVolume" resource="#vol376">
     <meta property="volumeNumber" content="376">
     <ul>
-      <li property="hasPart" typeof="PublicationIssue" resource="#issue9734">No. 
+      <li property="hasPart" typeof="PublicationIssue" resource="#issue9734">No.
         <span property="issueNumber">9734</span>
         <time datetime="2010-07-03" property="datePublished">Jul 3, 2010</time>
         p <span property="pageStart">1</span>-<span property="pageEnd">68</span>
@@ -77,38 +77,38 @@ JSON:
 
 <script type="application/ld+json">
 {
-  "@context": "https://schema.org", 
-  "@type": "Periodical", 
-  "issn": "0140-6736", 
+  "@context": "https://schema.org",
+  "@type": "Periodical",
+  "issn": "0140-6736",
   "hasPart": {
-    "@id": "vol376", 
-    "@type": "PublicationVolume", 
-    "volumeNumber": "376", 
+    "@id": "vol376",
+    "@type": "PublicationVolume",
+    "volumeNumber": "376",
     "hasPart": [
       {
-        "@id": "issue9735", 
-        "@type": "PublicationIssue", 
-        "datePublished": "2010-07-03", 
-        "pageEnd": "140", 
-        "pageStart": "69", 
+        "@id": "issue9735",
+        "@type": "PublicationIssue",
+        "datePublished": "2010-07-03",
+        "pageEnd": "140",
+        "pageStart": "69",
         "issueNumber": "9735"
-      }, 
+      },
       {
-        "@id": "issue9734", 
-        "@type": "PublicationIssue", 
-        "datePublished": "2010-07-03", 
-        "pageEnd": "68", 
-        "pageStart": "1", 
+        "@id": "issue9734",
+        "@type": "PublicationIssue",
+        "datePublished": "2010-07-03",
+        "pageEnd": "68",
+        "pageStart": "1",
         "issueNumber": "9734"
       }
     ]
-  }, 
-  "name": "The Lancet", 
+  },
+  "name": "The Lancet",
   "publisher": "Elsevier"
 }
 </script>
 
-TYPES: #bib-2 Article, Periodical, PublicationIssue, PublicationVolume, ScholarlyArticle
+TYPES: #eg-398 Article, Periodical, PublicationIssue, PublicationVolume, ScholarlyArticle
 
 PRE-MARKUP:
 
@@ -140,9 +140,9 @@ PRE-MARKUP:
   <strong>DOI:</strong>
   <a href="https://doi.org/10.1080/01639374.2012.682254">10.1080/01639374.2012.682254</a>
 </div>
- 
-MICRODATA: 
- 
+
+MICRODATA:
+
 <!-- An article, fully linked to the issue, volume, and periodical in which it was published -->
 <div itemscope itemtype="https://schema.org/ScholarlyArticle">
   <strong>Title:</strong> <span itemprop="name">Be Careful What You Wish For: FRBR, Some Lacunae, A Review</span><br />
@@ -185,9 +185,9 @@ MICRODATA:
   <strong>DOI:</strong>
   <a itemprop="sameAs" href="https://doi.org/10.1080/01639374.2012.682254">10.1080/01639374.2012.682254</a>
 </div>
- 
+
 RDFA:
- 
+
 <!-- An article, fully linked to the issue, volume, and periodical in which it was published -->
 <div vocab="https://schema.org/" typeof="ScholarlyArticle" resource="#article">
   <strong>Title:</strong> <span property="name">Be Careful What You Wish For: FRBR, Some Lacunae, A Review</span><br />
@@ -233,47 +233,47 @@ JSON:
 
 <script type="application/ld+json">
 {
-  "@context": "https://schema.org", 
+  "@context": "https://schema.org",
   "@graph": [
     {
-        "@id": "#issue", 
-        "@type": "PublicationIssue", 
-        "issueNumber": "5", 
-        "datePublished": "2012", 
+        "@id": "#issue",
+        "@type": "PublicationIssue",
+        "issueNumber": "5",
+        "datePublished": "2012",
         "isPartOf": {
-            "@id": "#periodical", 
+            "@id": "#periodical",
             "@type": [
-                "PublicationVolume", 
+                "PublicationVolume",
                 "Periodical"
-            ], 
-            "name": "Cataloging & Classification Quarterly", 
+            ],
+            "name": "Cataloging & Classification Quarterly",
             "issn": [
-                "1544-4554", 
+                "1544-4554",
                 "0163-9374"
-            ], 
-            "volumeNumber": "50", 
+            ],
+            "volumeNumber": "50",
             "publisher": "Taylor & Francis Group"
         }
-    }, 
+    },
     {
-        "@type": "ScholarlyArticle", 
-        "isPartOf": "#issue", 
-        "description": "The library catalog as a catalog of works was an infectious idea, which together with research led to reconceptualization in the form of the FRBR conceptual model. Two categories of lacunae emerge--the expression entity, and gaps in the model such as aggregates and dynamic documents. Evidence needed to extend the FRBR model is available in contemporary research on instantiation. The challenge for the bibliographic community is to begin to think of FRBR as a form of knowledge organization system, adding a final dimension to classification. The articles in the present special issue offer a compendium of the promise of the FRBR model.", 
-        "sameAs": "https://doi.org/10.1080/01639374.2012.682254", 
+        "@type": "ScholarlyArticle",
+        "isPartOf": "#issue",
+        "description": "The library catalog as a catalog of works was an infectious idea, which together with research led to reconceptualization in the form of the FRBR conceptual model. Two categories of lacunae emerge--the expression entity, and gaps in the model such as aggregates and dynamic documents. Evidence needed to extend the FRBR model is available in contemporary research on instantiation. The challenge for the bibliographic community is to begin to think of FRBR as a form of knowledge organization system, adding a final dimension to classification. The articles in the present special issue offer a compendium of the promise of the FRBR model.",
+        "sameAs": "https://doi.org/10.1080/01639374.2012.682254",
         "about": [
-            "Works", 
+            "Works",
             "Catalog"
-        ], 
-        "pageEnd": "368", 
-        "pageStart": "360", 
-        "name": "Be Careful What You Wish For: FRBR, Some Lacunae, A Review", 
+        ],
+        "pageEnd": "368",
+        "pageStart": "360",
+        "name": "Be Careful What You Wish For: FRBR, Some Lacunae, A Review",
         "author": "Smiraglia, Richard P."
     }
   ]
 }
 </script>
 
-TYPES: #bib-3 Book, PublicationVolume
+TYPES: #eg-399 Book, PublicationVolume
 
 PRE-MARKUP:
 
@@ -298,7 +298,7 @@ MICRODATA:
 <div>
   <p itemscope itemtype="https://schema.org/Book" itemid="#trilogy">
     <link itemprop="about" href="http://id.worldcat.org/fast/1020337">
-    The <strong itemprop="name">Lord of the Rings</strong> is an 
+    The <strong itemprop="name">Lord of the Rings</strong> is an
     <meta itemprop="inLanguage" content="en"/>English-language
     <span itemprop="genre">fictional</span> trilogy by
     <span itemprop="author" itemscope itemtype="https://schema.org/Person" itemid="#author">
@@ -347,8 +347,8 @@ RDFA:
 <div vocab="https://schema.org/">
   <p typeof="Book" resource="#trilogy">
     <link property="about" href="http://id.worldcat.org/fast/1020337">
-    The <strong property="name">Lord of the Rings</strong> is an 
-    <span property="inLanguage" content="en">English-language</span> 
+    The <strong property="name">Lord of the Rings</strong> is an
+    <span property="inLanguage" content="en">English-language</span>
     <span property="genre">fictional</span> trilogy by
     <span property="author" typeof="Person" resource="#author">
       <link property="sameAs" href="http://viaf.org/viaf/95218067">
@@ -394,71 +394,71 @@ JSON:
 
 <script type="application/ld+json">
 {
-  "@context": "https://schema.org", 
+  "@context": "https://schema.org",
   "@graph": [
     {
-      "@id": "#author", 
-      "@type": "Person", 
-      "birthDate": "1892", 
-      "deathDate": "1973", 
-      "name": "Tolkien, J. R. R. (John Ronald Reuel)", 
+      "@id": "#author",
+      "@type": "Person",
+      "birthDate": "1892",
+      "deathDate": "1973",
+      "name": "Tolkien, J. R. R. (John Ronald Reuel)",
       "sameAs": "http://viaf.org/viaf/95218067"
-    }, 
+    },
     {
-      "@id": "#trilogy", 
-      "@type": "Book", 
-      "about": "http://id.worldcat.org/fast/1020337", 
+      "@id": "#trilogy",
+      "@type": "Book",
+      "about": "http://id.worldcat.org/fast/1020337",
       "hasPart": [
         {
-          "@id": "#book3", 
+          "@id": "#book3",
           "@type": [
-            "Book", 
+            "Book",
             "PublicationVolume"
-          ], 
-          "name": "The Return of the King", 
-          "about": "http://id.worldcat.org/fast/1020337", 
-          "isPartOf": "#trilogy", 
-          "inLanguage": "en", 
-          "volumeNumber": "3", 
+          ],
+          "name": "The Return of the King",
+          "about": "http://id.worldcat.org/fast/1020337",
+          "isPartOf": "#trilogy",
+          "inLanguage": "en",
+          "volumeNumber": "3",
           "author": "#author"
-        }, 
+        },
         {
-          "@id": "#book2", 
+          "@id": "#book2",
           "@type": [
-              "Book", 
+              "Book",
               "PublicationVolume"
-          ], 
-          "name": "The Two Towers", 
-          "about": "http://id.worldcat.org/fast/1020337", 
-          "isPartOf": "#trilogy", 
-          "inLanguage": "en", 
-          "volumeNumber": "2", 
+          ],
+          "name": "The Two Towers",
+          "about": "http://id.worldcat.org/fast/1020337",
+          "isPartOf": "#trilogy",
+          "inLanguage": "en",
+          "volumeNumber": "2",
           "author": "#author"
-        }, 
+        },
         {
-          "@id": "#book1", 
+          "@id": "#book1",
           "@type": [
-            "Book", 
+            "Book",
             "PublicationVolume"
-          ], 
-          "name": "The Fellowship of the Ring", 
-          "about": "http://id.worldcat.org/fast/1020337", 
-          "isPartOf": "#trilogy", 
-          "inLanguage": "en", 
-          "volumeNumber": "1", 
+          ],
+          "name": "The Fellowship of the Ring",
+          "about": "http://id.worldcat.org/fast/1020337",
+          "isPartOf": "#trilogy",
+          "inLanguage": "en",
+          "volumeNumber": "1",
           "author": "#author"
         }
-      ], 
-      "name": "Lord of the Rings", 
-      "inLanguage": "en", 
-      "genre": "fictional", 
+      ],
+      "name": "Lord of the Rings",
+      "inLanguage": "en",
+      "genre": "fictional",
       "author": "#author"
     }
   ]
 }
 </script>
 
-TYPES: #bib-4 PublicationIssue, PublicationVolume, ScholarlyArticle
+TYPES: #eg-400 PublicationIssue, PublicationVolume, ScholarlyArticle
 
 PRE-MARKUP:
 
@@ -467,7 +467,7 @@ PRE-MARKUP:
   volume, and issue -->
 <div>
   Carlyle, Allyson. &quot;Understanding FRBR as a Conceptual Model: FRBR
-    and the Bibliographic Universe.&quot; 
+    and the Bibliographic Universe.&quot;
   <em>Library Resources and Technical Services</em>,
   v. 50, no. 4 (October 2006): 264-273. Print.
 </div>
@@ -488,7 +488,7 @@ MICRODATA:
     v. <span itemprop="volumeNumber">50</span>
   </span>,
   <span itemprop="isPartOf" itemscope itemtype="https://schema.org/PublicationIssue">
-    no. <span itemprop="issueNumber">4</span> 
+    no. <span itemprop="issueNumber">4</span>
     (<time datetime="2006-10" itemprop="datePublished">October 2006</time>):
   </span>
   <span itemprop="pageStart">264</span>-<span itemprop="pageEnd">273</span>
@@ -510,17 +510,17 @@ RDFA:
     v. <span property ="volumeNumber">50</span>
   </span>,
   <span property="isPartOf" typeof="PublicationIssue">
-    no. <span property="issueNumber">4</span> 
+    no. <span property="issueNumber">4</span>
     (<time datetime="2006-10" property="datePublished">October 2006</time>):
   </span>
   <span property="pageStart">264</span>-<span property="pageEnd">273</span>
 Print.</div>
- 
+
 JSON:
- 
+
 <script type="application/ld+json">
 {
-  "@context": "https://schema.org", 
+  "@context": "https://schema.org",
   "@graph": [
     {
       "@id": "#issue4",
@@ -561,7 +561,7 @@ JSON:
 }
 </script>
 
-TYPES: #bib-5 exampleOfWork, workExample
+TYPES: #eg-401 exampleOfWork, workExample
 
 PRE-MARKUP:
 
@@ -590,16 +590,16 @@ MICRODATA:
     <em itemprop="name">The Fellowship of the Rings</em> was written by
     <span itemprop="author">J.R.R Tolkien</span> and was originally published
     in the <span itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
-        <span itemprop="location">United Kingdom</span> by 
+        <span itemprop="location">United Kingdom</span> by
         <span itemprop="name">George Allen &amp; Unwin</span>
     </span> in <time itemprop="datePublished">1954</time>.
-    The book has been republished many times, including editions by 
+    The book has been republished many times, including editions by
     <span itemprop="workExample" itemscope itemtype="https://schema.org/Book">
         <span itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
             <span itemprop="name">HarperCollins</span>
         </span> in <time itemprop="datePublished">1974</time>
         (ISBN: <span itemprop="isbn">0007149212</span>)
-    </span> and by 
+    </span> and by
     <span itemprop="workExample" itemscope itemtype="https://schema.org/Book">
         <span itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
             <span itemprop="name">Ballantine</span>
@@ -633,16 +633,16 @@ RDFA:
         <em property="name">The Fellowship of the Rings</em> was written by
         <span property="author">J.R.R Tolkien</span> and was originally published
         in the <span property="publisher" typeof="Organization">
-            <span property="location">United Kingdom</span> by 
+            <span property="location">United Kingdom</span> by
             <span property="name">George Allen &amp; Unwin</span>
         </span> in <time property="datePublished">1954</time>.
-        The book has been republished many times, including editions by 
+        The book has been republished many times, including editions by
         <span property="workExample" typeof="Book">
             <span property="publisher" typeof="Organization">
                 <span property="name">HarperCollins</span>
             </span> in <time property="datePublished">1974</time>
             (ISBN: <span property="isbn">0007149212</span>)
-        </span> and by 
+        </span> and by
         <span property="workExample" typeof="Book">
             <span property="publisher" typeof="Organization">
                 <span property="name">Ballantine</span>
@@ -730,10 +730,4 @@ JSON:
   ]
 }
 </script>
-
-TYPES:  FakeEntryNeeded, FixMeSomeDay
-PRE-MARKUP:
-MICRODATA:
-RDFA:
-JSON:
 

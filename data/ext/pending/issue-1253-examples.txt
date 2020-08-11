@@ -1,6 +1,7 @@
-TYPES: BrokerageAccount
+TYPES: #eg-231 BrokerageAccount
 
 PRE-MARKUP:
+
 <div>
   <h1>ExampleBank® 1st Brokerage Account</h1>
   <p>Our popular brokerage account lets you invest in everything from stocks and bonds to mutual funds, ETFs, and more. Take advantage of all our research and tools, expert insight, and investment guidance to support your investing decisions.</p>
@@ -8,7 +9,6 @@ PRE-MARKUP:
   <p>$1,000 minimum investment to open an account</p>
   <p>No fees to open or maintain an account. Other account fees, fund expenses, and brokerage commissions may apply. Commissions: $8.95 per online equity trade; commission-free ExampleBank® ETF online trades in your ExampleBank® account</p>
 </div>
-
 
 MICRODATA:
 
@@ -20,7 +20,6 @@ MICRODATA:
   <p itemprop="feesAndCommissionsSpecification">No fees to open or maintain an account. Other account fees, fund expenses, and brokerage commissions may apply. Commissions: $8.95 per online equity trade; commission-free ExampleBank® ETF online trades in your ExampleBank® account</p>
 </div>
 
-
 RDFA:
 
 <div vocab="https://schema.org/" typeof="BrokerageAccount">
@@ -30,7 +29,6 @@ RDFA:
   <p property="amount" typeof="MonetaryAmount"><span property="currency" content="USD">$</span><span property="minAmount" content="1000">1,000</span> minimum investment to open an account</p>
   <p property="feesAndCommissionsSpecification">No fees to open or maintain an account. Other account fees, fund expenses, and brokerage commissions may apply. Commissions: $8.95 per online equity trade; commission-free ExampleBank® ETF online trades in your ExampleBank® account</p>
 </div>
-
 
 JSON:
 
@@ -53,8 +51,7 @@ JSON:
   }
 </script>
 
-
-TYPES: InvestmentFund
+TYPES: #eg-232 InvestmentFund
 
 PRE-MARKUP:
 
@@ -107,8 +104,7 @@ JSON:
 }
 </script>
 
-
-TYPES: MortgageLoan, RepaymentSpecification
+TYPES: #eg-233 MortgageLoan, RepaymentSpecification
 
 PRE-MARKUP:
 
@@ -135,8 +131,6 @@ PRE-MARKUP:
     <td>360</td>
   </tr>
 </table>
-
-
 
 MICRODATA:
 
@@ -171,7 +165,6 @@ MICRODATA:
     <td id="payNum" itemprop="numberOfLoanPayments">360</td>
   </tr>
 </table>
-
 
 RDFA:
 
@@ -241,8 +234,7 @@ JSON:
 }
 </script>
 
-
-TYPES: ExchangeRateSpecification
+TYPES: #eg-234 ExchangeRateSpecification
 
 PRE-MARKUP:
 
@@ -250,23 +242,22 @@ PRE-MARKUP:
 <h1>Middle exchange rates of foreign currencies – table A</h1> <h2>Table No. 047/A/NBP/2016 of 2016-03-0</h2> <div> <table>
   <tr>
     <th>Currency</th>
-    <th>Code</th> 
+    <th>Code</th>
     <th>Mid-rate </th>
   </tr>
   <tr>
     <td>Euro</td>
-    <td>1 EUR</td> 
+    <td>1 EUR</td>
     <td>4.3215</td>
   </tr>
   <tr>
     <td>Brazilian Real</td>
-    <td>1 BRL</td> 
+    <td>1 BRL</td>
     <td>1.0490</td>
   </tr>
 </table>
 </div>
 </body>
-
 
 MICRODATA:
 
@@ -277,12 +268,12 @@ MICRODATA:
   <caption itemprop="name">Table No. 047/A/NBP/2016 of 2016-03-09</caption>
   <tr>
     <th>Currency</th>
-    <th>Code</th> 
+    <th>Code</th>
     <th>Mid-rate </th>
   </tr>
   <tr itemprop="itemListElement" itemscope itemtype="https://schema.org/ExchangeRateSpecification">
     <td itemprop="currency" content="EUR">Euro</td>
-    <td>1 EUR</td> 
+    <td>1 EUR</td>
     <td itemprop="currentExchangeRate" itemscope itemtype="https://schema.org/UnitPriceSpecification">
       <span itemprop="price">4.3215</span>
       <meta itemprop="priceCurrency" content="PLN"/>
@@ -290,7 +281,7 @@ MICRODATA:
   </tr>
   <tr itemprop="itemListElement" itemscope itemtype="https://schema.org/ExchangeRateSpecification">
     <td itemprop="currency" content="BRL">Brazilian Real</td>
-    <td>1 BRL</td> 
+    <td>1 BRL</td>
     <td  itemprop="currentExchangeRate" itemscope itemtype="https://schema.org/UnitPriceSpecification">
       <span itemprop="price">1.0490</span>
       <meta itemprop="priceCurrency" content="PLN"/>
@@ -299,7 +290,6 @@ MICRODATA:
 </table>
 </div>
 </body>
-
 
 RDFA:
 
@@ -310,12 +300,12 @@ RDFA:
   <caption property="name">Table No. 047/A/NBP/2016 of 2016-03-09</caption>
   <tr>
     <th>Currency</th>
-    <th>Code</th> 
+    <th>Code</th>
     <th>Mid-rate </th>
   </tr>
   <tr property="itemListElement" typeof="ExchangeRateSpecification">
     <td property="currency" content="EUR">Euro</td>
-    <td>1 EUR</td> 
+    <td>1 EUR</td>
     <td property="currentExchangeRate" typeof="UnitPriceSpecification">
       <span property="price">4.3215</span>
       <meta property="priceCurrency" content="PLN"/>
@@ -323,7 +313,7 @@ RDFA:
   </tr>
   <tr property="itemListElement" typeof="ExchangeRateSpecification">
     <td property="currency" content="BRL">Brazilian Real</td>
-    <td>1 BRL</td> 
+    <td>1 BRL</td>
     <td  property="currentExchangeRate" typeof="UnitPriceSpecification">
       <span property="price">1.0490</span>
       <meta property="priceCurrency" content="PLN"/>
@@ -367,9 +357,7 @@ JSON:
   }
 </script>
 
-
-
-TYPES: BankTransfer
+TYPES: #eg-235 BankTransfer
 
 PRE-MARKUP:
 
@@ -383,7 +371,7 @@ MICRODATA:
 
 <div itemscope itemtype="https://schema.org/BankTransfer">
   <h1>If you want to donate</h1>
-  Send <span itemprop="amount" itemscope itemtype="https://schema.org/MonetaryAmount"><span itemprop="amount">30</span><span itemprop="currency" content="USD">$</span></span> 
+  Send <span itemprop="amount" itemscope itemtype="https://schema.org/MonetaryAmount"><span itemprop="amount">30</span><span itemprop="currency" content="USD">$</span></span>
   via bank transfer to the <span itemprop="beneficiaryBank">European ExampleBank, London</span>
   Put "<i itemprop="name">Donate wikimedia.org</i>" in the transfer title.
 </div>
@@ -392,7 +380,7 @@ RDFA:
 
 <div vocab="https://schema.org" typeof="BankTransfer">
   <h1>If you want to donate</h1>
-  Send <span property="amount" typeof="MonetaryAmount"><span property="amount">30</span><span property="currency" content="USD">$</span></span> 
+  Send <span property="amount" typeof="MonetaryAmount"><span property="amount">30</span><span property="currency" content="USD">$</span></span>
   via bank transfer to the <span property="beneficiaryBank">European ExampleBank, London</span>
   Put "<i property="name">Donate wikimedia.org</i>" in the transfer title.
 </div>
@@ -412,3 +400,4 @@ JSON:
   "beneficiaryBank": "European ExampleBank, London"
 }
 </script>
+
