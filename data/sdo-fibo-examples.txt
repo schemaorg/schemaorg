@@ -1,4 +1,4 @@
-TYPES: #fiboex-1 CreditCard, MonetaryAmount, UnitPriceSpecification
+TYPES: #eg-0350 CreditCard, MonetaryAmount, UnitPriceSpecification
 
 PRE-MARKUP:
 
@@ -14,14 +14,14 @@ MICRODATA:
 <div itemscope itemtype="https://schema.org/CreditCard">
     <span itemprop="name">Wells Fargo Secured Visa® Credit Card</span>
     <span itemprop="requiredCollateral">Requires a minimum $300 security deposit.</span>
-    <span itemprop="amount" itemscope itemtype="https://schema.org/MonetaryAmount">When you apply, you provide a minimum security deposit of at least 
+    <span itemprop="amount" itemscope itemtype="https://schema.org/MonetaryAmount">When you apply, you provide a minimum security deposit of at least
       <span itemprop="currency" content="USD">$</span>
       <span itemprop="minValue">300</span>, or up to $
       <span itemprop="maxValue" content="10000">10,000</span>.
     </span>
     <span itemprop="offers" itemscope itemtype="https://schema.org/Offer">
       <meta itemprop="offeredBy" content="Wells Fargo"/>
-      <span itemprop="priceSpecification" itemscope itemtype="https://schema.org/UnitPriceSpecification">Annual fee 
+      <span itemprop="priceSpecification" itemscope itemtype="https://schema.org/UnitPriceSpecification">Annual fee
         <span itemprop="priceCurrency" content="USD">$</span>
         <span itemprop="price">25</span>
         <span itemprop="referenceQuantity" itemscope itemtype="https://schema.org/QuantitativeValue">
@@ -29,7 +29,7 @@ MICRODATA:
         </span>
       </span>
     </span>
-    <span>Annual Percentage Rate (APR) Currently, a variable 
+    <span>Annual Percentage Rate (APR) Currently, a variable
       <span itemprop="annualPercentageRate">18.99</span>% APR on purchases. (These APRs do not apply to cash advances.)
     </span>
     <a itemprop="feesAndCommissionsSpecification" href="https://www.wellsfargo.com/credit-cards/secured/terms/">Full terms and conditions</a>
@@ -40,14 +40,14 @@ RDFA:
 <div vocab="https://schema.org/" typeof="CreditCard">
     <span property="name">Wells Fargo Secured Visa® Credit Card</span>
     <span property="requiredCollateral">Requires a minimum $300 security deposit.</span>
-    <span property="amount" typeof="MonetaryAmount">When you apply, you provide a minimum security deposit of at least 
+    <span property="amount" typeof="MonetaryAmount">When you apply, you provide a minimum security deposit of at least
       <span property="currency" content="USD">$</span>
       <span property="minValue">300</span>, or up to $
       <span property="maxValue" content="10000">10,000</span>.
     </span>
     <span property="offers" typeof="Offer">
       <meta property="offeredBy" content="Wells Fargo"/>
-      <span property="priceSpecification" typeof="UnitPriceSpecification">Annual fee 
+      <span property="priceSpecification" typeof="UnitPriceSpecification">Annual fee
         <span property="priceCurrency" content="USD">$</span>
         <span property="price">25</span>
         <span property="referenceQuantity" typeof="QuantitativeValue">
@@ -56,7 +56,7 @@ RDFA:
         </span>
       </span>
     </span>
-    <span>Annual Percentage Rate (APR) Currently, a variable 
+    <span>Annual Percentage Rate (APR) Currently, a variable
       <span property="annualPercentageRate">18.99</span>% APR on purchases. (These APRs do not apply to cash advances.)
     </span>
     <a property="feesAndCommissionsSpecification" href="https://www.wellsfargo.com/credit-cards/secured/terms/">Full terms and conditions</a>
@@ -81,7 +81,7 @@ JSON:
       "offeredBy": {
         "@type": "BankOrCreditUnion",
         "name":"Wells Fargo"
-      },    
+      },
       "priceSpecification": {
         "@type": "UnitPriceSpecification",
         "price": "25",
@@ -98,10 +98,7 @@ JSON:
 }
 </script>
 
-
-
-
-TYPES: #fiboex-2 LoanOrCredit, MonetaryAmount
+TYPES: #eg-0351 LoanOrCredit, MonetaryAmount
 
 PRE-MARKUP:
 
@@ -117,7 +114,6 @@ Competitive Annual Percentage Rate (APR)
 
 The lifetime limit for this loan combined with all other education-related debt is $180,000 for law and business, and $120,000 for other fields of study.
 </div>
-
 
 MICRODATA:
 
@@ -161,7 +157,6 @@ MICRODATA:
   </div>
 </div>
 
-
 RDFA:
 
 <!-- Wells Fargo GraduateSM Student Loan -->
@@ -204,8 +199,6 @@ RDFA:
     <span property="name">for other fields of study</span>.
   </div>
 </div>
-
-
 
 JSON:
 
@@ -251,7 +244,7 @@ JSON:
 }
 </script>
 
-TYPES: #fiboex-3 BankAccount
+TYPES: #eg-0352 BankAccount
 
 PRE-MARKUP:
 
@@ -282,8 +275,7 @@ PRE-MARKUP:
         </li>
     </ul>
     <a href="http://personal.rbs.co.uk/content/dam/rbs_co_uk/currentaccounts/downloads/Reward/Personal%20and%20Private%20Current%20Account%20Fees%20and%20Interest%20Rates.pdf">Account Terms</a>
-<div> 
-
+<div>
 
 MICRODATA:
 
@@ -364,9 +356,7 @@ MICRODATA:
         </li>
     </ul>
     <a href="http://personal.rbs.co.uk/content/dam/rbs_co_uk/currentaccounts/downloads/Reward/Personal%20and%20Private%20Current%20Account%20Fees%20and%20Interest%20Rates.pdf">Account Terms</a>
-</div> 
-
-
+</div>
 
 RDFA:
 
@@ -375,7 +365,7 @@ RDFA:
     <h2>Most popular accounts</h2>
     <ul>
         <li typeof="BankAccount"><b><span property="name">Select Account</span></b><br/>
-            <span property="offers" typeof="Offer"> 
+            <span property="offers" typeof="Offer">
                 <link property="eligibleCustomerType" href="http://purl.org/goodrelations/v1#Enduser"/>
             -   <span property="description">No monthly account fee<br/>- You need to be aged 18 or over, and UK resident to apply</span>
                 <meta property="price" content="0"/>
@@ -449,7 +439,6 @@ RDFA:
     </ul>
     <a href="http://personal.rbs.co.uk/content/dam/rbs_co_uk/currentaccounts/downloads/Reward/Personal%20and%20Private%20Current%20Account%20Fees%20and%20Interest%20Rates.pdf">Account Terms</a>
 </div>
-
 
 JSON:
 
@@ -549,18 +538,18 @@ JSON:
             }
         },
         "feesAndCommissionsSpecification": "http://personal.rbs.co.uk/content/dam/rbs_co_uk/currentaccounts/downloads/Reward/Personal%20and%20Private%20Current%20Account%20Fees%20and%20Interest%20Rates.pdf"
-        
+
     }
-    ]   
+    ]
 }</script>
 
-TYPES: #fiboex-4 DepositAccount, MonetaryAmount
+TYPES: #eg-0353 DepositAccount, MonetaryAmount
 
 PRE-MARKUP:
 
 <body>
     <h1>Easy access accounts Comparison - Ordered by interest rate (AER)</h1>
-    
+
     <div>
         <table>
         <tr>
@@ -591,12 +580,11 @@ PRE-MARKUP:
     </div>
 </body>
 
-
 MICRODATA:
 
 <body itemscope itemtype="https://schema.org/WebPage">
     <h1 itemprop="name">Easy access accounts Comparison - Ordered by interest rate (AER)</h1>
-    
+
     <div itemprop="mainEntity" itemscope itemtype="https://schema.org/ItemList">
         <meta itemprop="name" content="Easy access accounts Comparison List"/>
         <table>
@@ -632,7 +620,7 @@ RDFA:
 
 <body vocab="https://schema.org/" typeof="WebPage">
     <h1 property="name">Easy access accounts Comparison - Ordered by interest rate (AER)</h1>
-    
+
     <div property="mainEntity" typeof="ItemList">
         <meta property="name" content="Easy access accounts Comparison List"/>
         <table>
@@ -740,7 +728,7 @@ JSON:
 }
 </script>
 
-TYPES: #fiboex-5 PaymentCard
+TYPES: #eg-0354 PaymentCard
 
 PRE-MARKUP:
 
@@ -803,7 +791,7 @@ JSON:
 }
 </script>
 
-TYPES: #fiboex-6 PaymentService
+TYPES: #eg-0355 PaymentService
 
 PRE-MARKUP:
 
@@ -848,7 +836,7 @@ MICRODATA:
           <th itemprop="name">Sales within the US</th>
           <td itemprop="offers" itemscope itemtype="https://schema.org/Offer">
             <span itemprop="priceSpecification" itemscope itemtype="https://schema.org/PriceSpecification">
-              <span itemprop="priceCurrency" content="USD">$</span><span itemprop="price">0.30</span> 
+              <span itemprop="priceCurrency" content="USD">$</span><span itemprop="price">0.30</span>
               <span itemprop="eligibleQuantity" itemscope itemtype="https://schema.org/QuantitativeValue">
                     <span itemprop="unitText">per transaction</span>
               </span>
@@ -1027,7 +1015,7 @@ JSON:
   }
 </script>
 
-TYPES: #fiboex-7 FinancialProduct
+TYPES: #eg-0356 FinancialProduct
 
 PRE-MARKUP:
 
@@ -1091,8 +1079,7 @@ JSON:
 }
 </script>
 
-
-TYPES: #fiboex-8 InvestmentOrDeposit
+TYPES: #eg-0357 InvestmentOrDeposit
 
 PRE-MARKUP:
 
@@ -1144,8 +1131,4 @@ JSON:
   "interestRate": "1.25"
 }
 </script>
-
-
-
-
 
