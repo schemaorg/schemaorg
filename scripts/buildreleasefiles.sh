@@ -12,13 +12,14 @@ then
 fi
 
 function usage {
-    echo "usage: $(basename $0) [-y] [-e] [-c] [-o] [s] [m] [-limit somevalue] VERSION"
+    echo "usage: $(basename $0) [-y] [-e] [-c] [-o] [-s] [-m] [-t] [-limit somevalue] VERSION"
     echo "    -y   Assume yes to continue"
-    echo "    -e   No extentstions (only produce core and all-layers)"
+#    echo "    -e   No extentstions (only produce core and all-layers)"
     echo "    -c   No context file"
     echo "    -o   No owl file"
     echo "    -s   No schema-all.htmlfile"
     echo "    -m   No sitemap file"
+    echo "    -t   No unit tests"
     echo "    -l   \"Output types\" (json-ld|turtle|nt|nquads|rdf|csv)" 
 }
 
@@ -34,8 +35,9 @@ CONTEXT=1
 RELS=1
 OWL=1
 MAP=1
-EXTS=1
-while getopts 'yecsoml:' OPTION; do
+EXTS=0
+TESTS=1
+while getopts 'yecstoml:' OPTION; do
   case "$OPTION" in
     y)
         AUTORUN=1
@@ -51,6 +53,9 @@ while getopts 'yecsoml:' OPTION; do
     ;;
     m)
         MAP=0
+    ;;
+    t)
+        TESTS=0
     ;;
     o)
         OWL=0
@@ -97,26 +102,33 @@ then
 fi
 
 echo
-echo "Running Unit Tests... "
-./scripts/run_tests.py 
-if [ $? -eq 0 ]
-then
-    echo
-    echo "  Unit Tests ran succesfully"
-else
-    echo
-    echo "  Unit Tests failed!!"
-    echo "$RES"
-    echo
-    echo "Manually run ./scripts/run_tests.py for more details"
-    echo "Aborting..."
-    exit 1
-fi
-
-echo -n "Preparing by running buildTermConfig.sh... "
+echo -n "Preparing by running buildTermConfig.sh...  "
 ./scripts/buildTermConfig.sh
 echo " Prepared."
 sleep 3
+
+
+echo
+if [ $TESTS -eq 1 ]
+then
+  echo "Running Unit Tests... "
+  ./scripts/run_tests.py 
+  if [ $? -eq 0 ]
+  then
+      echo
+      echo "  Unit Tests ran succesfully"
+  else
+      echo
+      echo "  Unit Tests failed!!"
+      echo "$RES"
+      echo
+      echo "Manually run ./scripts/run_tests.py for more details"
+      echo "Aborting..."
+      exit 1
+  fi
+else
+    echo "Skipping Unit Tests"
+fi
 
 if [ ! -d  $DIR ]
 then
@@ -146,9 +158,10 @@ echo " cleaned."
 sleep 2
 
 
-echo -n "Copying schema.ttl and README.md into release directory... "
-cp ./data/schema.ttl $DIR
+echo -n "Copying README.md, SOFTWARE_README.md into release directory... "
+cp ./data/schema.ttl $DIR 
 cp ./README.md $DIR
+cp ./SOFTWARE_README.md $DIR
 echo " copied"
 sleep 2
 
@@ -187,12 +200,38 @@ echo
 echo "Creating dump files - this takes a while......."
 sleep 2
 echo
-echo "Creating core: "
-dump core extensions schema "$LIMIT"
+echo "Creating full dump files (schemaorg-current): "
+#dump core extensions schema "$LIMIT"
+dump "" "attic" schemaorg-current-http "$LIMIT"
 
 echo
-echo "Creating all-layers: "
-dump "" "" all-layers "$LIMIT"
+echo "Creating full + attic dump files (schemaorg-all): "
+dump "attic" "" schemaorg-all-http "$LIMIT"
+
+echo "Creating https versions:"
+(
+    cd $DIR
+    for file in schemaorg-current schemaorg-all 
+    do
+        for ext in .ttl .rdf .jsonld .nq .nt -properties.csv -types.csv
+        do
+            SOURCE="${file}-http${ext}" 
+            TARGET="${file}-https${ext}"
+            if [ -r $SOURCE ]
+            then
+                echo "$SOURCE -> $TARGET"
+                sed -e 's|http://schema.org|https://schema.org|g' \
+                    -e 's|http://attic.schema.org|https://attic.schema.org|g' \
+                    -e 's|http://auto.schema.org|https://auto.schema.org|g' \
+                    -e 's|http://bib.schema.org|https://bib.schema.org|g' \
+                    -e 's|http://health-lifesci.schema.org|https://health-lifesci.schema.org|g' \
+                    -e 's|http://meta.schema.org|https://meta.schema.org|g' \
+                    -e 's|http://pending.schema.org|https://pending.schema.org|g' \
+                    $SOURCE > $TARGET
+            fi
+        done
+    done
+)
 
 if [ $EXTS -eq 1 ]
 then

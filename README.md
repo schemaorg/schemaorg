@@ -1,6 +1,6 @@
 Welcome to Schema.org
 =====================
-
+   
 
 This is the Schema.org project repository. It contains all the schemas, examples and software used to publish schema.org. For the site itself, please see [Schema.org](https://schema.org/) instead.
 
@@ -91,6 +91,8 @@ e.g. successor to https://schema.org/docs/releases.html#v1.91 was code-named sdo
 and eventually became https://schema.org/docs/releases.html#v1.92
 
 You can therefore see candidate draft release notes in the Git repository at docs/releases.html
+
+**Note:** The default branch name for the schemaorg repository was changed from *master* to *main* (as of 23rd July 2020).  See [MASTER_BRANCH_RENAME.md](MASTER_BRANCH_RENAME.md) for details.
 
 
 Notes

@@ -1,4 +1,4 @@
-TYPES: OfferShippingDetails, deliveryTime, ShippingDeliveryTime, shippingRate
+TYPES: #eg-0392 OfferShippingDetails, deliveryTime, ShippingDeliveryTime, shippingRate
 
 PRE-MARKUP:
 
@@ -16,42 +16,20 @@ JSON:
 
 <script type="application/ld+json">
     {
-        "@context": "http://schema.org",
+        "@context": "https://schema.org",
         "@type": "OfferShippingDetails",
         "deliveryTime": {
             "@type": "ShippingDeliveryTime",
-            "businessDays": [
-                {
-                    "@type": "OpeningHoursSpecification",
-                    "opens": "09:00:00",
-                    "closes": "18:00:00",
-                    "dayOfWeek": "http://schema.org/Monday"
-                },
-                {
-                    "@type": "OpeningHoursSpecification",
-                    "opens": "09:00:00",
-                    "closes": "18:00:00",
-                    "dayOfWeek": "http://schema.org/Tuesday"
-                },
-                {
-                    "@type": "OpeningHoursSpecification",
-                    "opens": "09:00:00",
-                    "closes": "18:00:00",
-                    "dayOfWeek": "http://schema.org/Wednesday"
-                },
-                {
-                    "@type": "OpeningHoursSpecification",
-                    "opens": "09:00:00",
-                    "closes": "17:00:00",
-                    "dayOfWeek": "http://schema.org/Thursday"
-                },
-                {
-                    "@type": "OpeningHoursSpecification",
-                    "opens": "12:00:00",
-                    "closes": "15:00:00",
-                    "dayOfWeek": "http://schema.org/Friday"
-                }
-            ],
+            "businessDays": {
+                "@type": "OpeningHoursSpecification",
+                "dayOfWeek": [
+                    "https://schema.org/Monday",
+                    "https://schema.org/Tuesday",
+                    "https://schema.org/Wednesday",
+                    "https://schema.org/Thursday",
+                    "https://schema.org/Friday"
+                ]
+            },
             "cutoffTime": "12:00:15Z",
             "handlingTime": {
                 "@type": "QuantitativeValue",
@@ -68,9 +46,9 @@ JSON:
         },
         "shippingRate": {
             "@type": "MonetaryAmount",
-            "currency": "USD",
-            "maxValue": 10,
-            "minValue": 5
+            "value": 4.95,
+            "currency": "USD"
         }
     }
 </script>
+
