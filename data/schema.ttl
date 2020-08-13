@@ -4563,7 +4563,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     rdfs:label "billingPeriod" ;
     :domainIncludes :Invoice ;
     :rangeIncludes :Duration ;
-    rdfs:comment "The time interval used to compute the invoice." .
+    rdfs:comment "The time interval used to compute the invoice [[paymentDueDate]]." .
 
 :birthDate a rdf:Property ;
     rdfs:label "birthDate" ;
@@ -6476,6 +6476,12 @@ Typical unit code(s): MTK for square meter, FTK for square foot, or YDK for squa
         :SomeProducts ;
     :rangeIncludes :QuantitativeValue ;
     rdfs:comment "The current approximate inventory level for the item or items." .
+
+:invoiceDate a rdf:Property ;
+    rdfs:label "invoiceDate" ;
+    :domainIncludes :Invoice ;
+    :rangeIncludes :Date, :DateTime ;
+    rdfs:comment "Date the invoice was issued." .
 
 :isAccessoryOrSparePartFor a rdf:Property ;
     rdfs:label "isAccessoryOrSparePartFor" ;
