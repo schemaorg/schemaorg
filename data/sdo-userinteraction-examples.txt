@@ -1,6 +1,7 @@
-TYPES: #interaction-counter-1 InteractionCounter,VideoObject
+TYPES: #eg-0446 InteractionCounter, VideoObject
 
 PRE-MARKUP:
+
 A video has the following interactions:
 YouTube: 512 up votes
 Twitter: 1024 up votes
@@ -10,120 +11,121 @@ Facebook: 1024 likes
 
 MICRODATA:
 
-<div itemid="http://videolectures.net/iswc2013_guha_tunnel/" itemscope itemtype="http://schema.org/VideoObject">
+<div itemid="http://videolectures.net/iswc2013_guha_tunnel/" itemscope itemtype="https://schema.org/VideoObject">
   <h1 itemprop="name">Light at the End of the Tunnel</h1>
-  Author: 
-    <div itemprop="author" itemscope itemtype="http://schema.org/Person">
+  Author:
+    <div itemprop="author" itemscope itemtype="https://schema.org/Person">
       <span itemprop="name">Ramanathan V. Guha</span>
     </div>
-  
+
   <video controls>
     <source src="http://videolectures.net/iswc2013_guha_tunnel/" />
   </video>
   Youtube Like Count:
-    <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
-      <div itemprop="interactionService" itemscope itemid="https://www.youtube.com" itemtype="http://schema.org/WebSite">
+    <div itemprop="interactionStatistic" itemscope itemtype="https://schema.org/InteractionCounter">
+      <div itemprop="interactionService" itemscope itemid="https://www.youtube.com" itemtype="https://schema.org/WebSite">
         <meta itemprop="name" content="YouTube" />
       </div>
-      <link itemprop="interactionType" href="http://schema.org/LikeAction"/>
+      <link itemprop="interactionType" href="https://schema.org/LikeAction"/>
       <span itemprop="userInteractionCount">512</span>
     </div>
-  
+
   Twitter Favorite Count:
-    <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
-      <div itemprop="interactionService" itemscope itemid="https://www.twitter.com" itemtype="http://schema.org/SoftwareApplication">
+    <div itemprop="interactionStatistic" itemscope itemtype="https://schema.org/InteractionCounter">
+      <div itemprop="interactionService" itemscope itemid="https://www.twitter.com" itemtype="https://schema.org/SoftwareApplication">
         <meta itemprop="name" content="Twitter" />
       </div>
       <link itemprop="interactionType" href="https://schema.org/LikeAction"/>
       <span itemprop="userInteractionCount" content="1024">1,024</span>
     </div>
-  
+
   Twitter Tweet Count:
-    <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
-      <div itemprop="interactionService" itemscope itemid="https://twitter.com" itemtype="http://schema.org/SoftwareApplication">
+    <div itemprop="interactionStatistic" itemscope itemtype="https://schema.org/InteractionCounter">
+      <div itemprop="interactionService" itemscope itemid="https://twitter.com" itemtype="https://schema.org/SoftwareApplication">
         <meta itemprop="name" content="Twitter" />
       </div>
-      <link itemprop="interactionType" href="http://schema.org/ShareAction"/>
+      <link itemprop="interactionType" href="https://schema.org/ShareAction"/>
       <span itemprop="userInteractionCount" content="2345">2,345</span>
     </div>
-  
+
   Facebook Like Count:
-    <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
-      <div itemprop="interactionService" itemscope itemid="https://www.facebook.com" itemtype="http://schema.org/WebSite">
+    <div itemprop="interactionStatistic" itemscope itemtype="https://schema.org/InteractionCounter">
+      <div itemprop="interactionService" itemscope itemid="https://www.facebook.com" itemtype="https://schema.org/WebSite">
         <meta itemprop="name" content="Facebook" />
       </div>
-      <link itemprop="interactionType" href="http://schema.org/LikeAction"/>
+      <link itemprop="interactionType" href="https://schema.org/LikeAction"/>
       <span itemprop="userInteractionCount" content="1024">1024</span>
     </div>
- 
+
   View Count:
-    <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
-      <link itemprop="interactionType" href="http://schema.org/WatchAction"/>
+    <div itemprop="interactionStatistic" itemscope itemtype="https://schema.org/InteractionCounter">
+      <link itemprop="interactionType" href="https://schema.org/WatchAction"/>
       <span itemprop="userInteractionCount" content="4356">4,356</span>
     </div>
-  
+
 </div>
 
 RDFA:
 
 <div vocab="http://schema./org/" resource="http://videolectures.net/iswc2013_guha_tunnel/" typeof="VideoObject">
   <h1 property="name">Light at the End of the Tunnel</h1>
-  Author: 
+  Author:
     <div property="author" typeof="Person">
       <span property="name">Ramanathan V. Guha</span>
     </div>
-  
+
   <video controls>
     <source src="http://videolectures.net/iswc2013_guha_tunnel/" />
   </video>
   YouTube Like Count:
     <div property="interactionStatistic" typeof="InteractionCounter">
-      <div property="interactionService" itemscope itemid="https://www.youtube.com" itemtype="http://schema.org/WebSite">
+      <div property="interactionService" itemscope itemid="https://www.youtube.com" itemtype="https://schema.org/WebSite">
         <meta property="name" content="YouTube" />
       </div>
-      <link property="interactionType" href="http://schema.org/LikeAction"/>
+      <link property="interactionType" href="https://schema.org/LikeAction"/>
       <span property="userInteractionCount">512</span>
     </div>
-  
+
   Twitter Favorite Count:
     <div property="interactionStatistic" typeof="InteractionCounter">
-      <div property="interactionService" itemscope itemid="https://twitter.com" itemtype="http://schema.org/SoftwareApplication">
+      <div property="interactionService" itemscope itemid="https://twitter.com" itemtype="https://schema.org/SoftwareApplication">
         <meta property="name" content="Twitter" />
       </div>
-      <link property="interactionType" href="http://schema.org/LikeAction"/>
+      <link property="interactionType" href="https://schema.org/LikeAction"/>
       <span property="userInteractionCount" content="1024">1024</span>
     </div>
-  
+
   Twitter Tweet Count:
     <div property="interactionStatistic" typeof="InteractionCounter">
-      <div property="interactionService" itemscope itemid="https://twitter.com" itemtype="http://schema.org/SoftwareApplication">
+      <div property="interactionService" itemscope itemid="https://twitter.com" itemtype="https://schema.org/SoftwareApplication">
         <meta property="name" content="Twitter" />
       </div>
-      <link property="interactionType" href="http://schema.org/ShareAction"/>
+      <link property="interactionType" href="https://schema.org/ShareAction"/>
       <span property="userInteractionCount" content="2345">2345</span>
     </div>
-  
+
   Facebook Like Count:
     <div property="interactionStatistic" typeof="InteractionCounter">
-      <div property="interactionService" itemscope itemid="https://www.facebook.com" itemtype="http://schema.org/WebSite">
+      <div property="interactionService" itemscope itemid="https://www.facebook.com" itemtype="https://schema.org/WebSite">
         <meta property="name" content="Facebook" />
       </div>
-      <link property="interactionType" href="http://schema.org/LikeAction"/>
+      <link property="interactionType" href="https://schema.org/LikeAction"/>
       <span property="userInteractionCount" content="1024">1024</span>
     </div>
-  
+
   View Count:
     <div property="interactionStatistic" typeof="InteractionCounter">
-      <link property="interactionType" href="http://schema.org/WatchAction"/>
+      <link property="interactionType" href="https://schema.org/WatchAction"/>
       <span property="userInteractionCount" content="4356">4356</span>
     </div>
-  
+
 </div>
 
 JSON:
+
 <script type="application/ld+json">
 {
-  "@context": "http://schema.org/",
+  "@context": "https://schema.org/",
   "@type": "VideoObject",
   "name": "Light at the End of the Tunnel",
   "@id": "http://videolectures.net/iswc2013_guha_tunnel/",
@@ -140,7 +142,7 @@ JSON:
         "name": "YouTube",
         "@id": "https://youtube.com"
       },
-      "interactionType": "http://schema.org/LikeAction",
+      "interactionType": "https://schema.org/LikeAction",
       "userInteractionCount": "512"
     },
     {
@@ -150,7 +152,7 @@ JSON:
         "name": "Twitter",
         "url": "https://www.twitter.com"
       },
-      "interactionType": "http://schema.org/LikeAction",
+      "interactionType": "https://schema.org/LikeAction",
       "userInteractionCount": "1024"
     },
     {
@@ -160,7 +162,7 @@ JSON:
         "name": "Twitter",
         "url": "https://twitter.com"
       },
-      "interactionType": "http://schema.org/ShareAction",
+      "interactionType": "https://schema.org/ShareAction",
       "userInteractionCount": "2345"
     },
     {
@@ -170,14 +172,15 @@ JSON:
         "name": "Facebook",
         "url": "https://www.facebook.com"
       },
-      "interactionType": "http://schema.org/LikeAction",
+      "interactionType": "https://schema.org/LikeAction",
       "userInteractionCount": "1024"
     },
     {
       "@type": "InteractionCounter",
-      "interactionType": "http://schema.org/WatchAction",
+      "interactionType": "https://schema.org/WatchAction",
       "userInteractionCount": "4356"
     }
   ]
 }
 </script>
+

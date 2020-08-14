@@ -63,7 +63,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 :ActionStatusType a rdfs:Class ;
     rdfs:label "ActionStatusType" ;
     rdfs:comment "The status of an Action." ;
-    rdfs:subClassOf :Enumeration .
+    rdfs:subClassOf :StatusEnumeration . # Pending but...
 
 :ActivateAction a rdfs:Class ;
     rdfs:label "ActivateAction" ;
@@ -314,7 +314,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     :source <https://github.com/schemaorg/schemaorg/issues/1262>,
         <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology> ;
     rdfs:comment "A type of bed. This is used for indicating the bed or beds available in an accommodation." ;
-    rdfs:subClassOf :Enumeration .
+    rdfs:subClassOf :QualitativeValue .
 
 :BefriendAction a rdfs:Class ;
     rdfs:label "BefriendAction" ;
@@ -774,13 +774,14 @@ See also the dedicated [document on the use of schema.org for marking up hotels 
     rdfs:subClassOf :CreativeWork,
         :Series .
 
-:CreditCard a :PaymentCard ;
+:CreditCard a rdfs:Class ;
     rdfs:label "CreditCard" ;
     :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO>,
         <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsClass> ;
     rdfs:comment """A card payment method of a particular brand or name.  Used to mark up a particular payment method and/or the financial product/service that supplies the card account.\\n\\nCommonly used values:\\n\\n* http://purl.org/goodrelations/v1#AmericanExpress\\n* http://purl.org/goodrelations/v1#DinersClub\\n* http://purl.org/goodrelations/v1#Discover\\n* http://purl.org/goodrelations/v1#JCB\\n* http://purl.org/goodrelations/v1#MasterCard\\n* http://purl.org/goodrelations/v1#VISA
        """ ;
-    rdfs:subClassOf :LoanOrCredit .
+    rdfs:subClassOf :LoanOrCredit,
+        :PaymentCard .
 
 :Crematorium a rdfs:Class ;
     rdfs:label "Crematorium" ;
@@ -1004,7 +1005,7 @@ Originally, URLs from [GoodRelations](http://purl.org/goodrelations/v1) were use
     rdfs:label "DriveWheelConfigurationValue" ;
     :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group> ;
     rdfs:comment "A value indicating which roadwheels will receive torque." ;
-    rdfs:subClassOf :Enumeration .
+    rdfs:subClassOf :QualitativeValue .
 
 :DryCleaningOrLaundry a rdfs:Class ;
     rdfs:label "DryCleaningOrLaundry" ;
@@ -1149,7 +1150,7 @@ endorsement rating is particularly useful in the absence of numeric scales as it
 :EventStatusType a rdfs:Class ;
     rdfs:label "EventStatusType" ;
     rdfs:comment "EventStatusType is an enumeration type whose instances represent several states that an Event may be in." ;
-    rdfs:subClassOf :Enumeration .
+    rdfs:subClassOf :StatusEnumeration .
 
 :EventVenue a rdfs:Class ;
     rdfs:label "EventVenue" ;
@@ -1291,7 +1292,7 @@ endorsement rating is particularly useful in the absence of numeric scales as it
 :GameServerStatus a rdfs:Class ;
     rdfs:label "GameServerStatus" ;
     rdfs:comment "Status of a game server." ;
-    rdfs:subClassOf :Enumeration .
+    rdfs:subClassOf :StatusEnumeration .
 
 :GardenStore a rdfs:Class ;
     rdfs:label "GardenStore" ;
@@ -2110,7 +2111,7 @@ The place is __open__ if the [[opens]] property is specified, and __closed__ oth
 :OrderStatus a rdfs:Class ;
     rdfs:label "OrderStatus" ;
     rdfs:comment "Enumerated status values for Order." ;
-    rdfs:subClassOf :Enumeration .
+    rdfs:subClassOf :StatusEnumeration .
 
 :Organization a rdfs:Class ;
     rdfs:label "Organization" ;
@@ -2153,12 +2154,11 @@ The place is __open__ if the [[opens]] property is specified, and __closed__ oth
     rdfs:comment "The delivery of a parcel either via the postal service or a commercial service." ;
     rdfs:subClassOf :Intangible .
 
-:ParcelService a rdfs:Class ;
+:ParcelService a :DeliveryMethod ;
     rdfs:label "ParcelService" ;
     :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsClass> ;
     rdfs:comment """A private parcel service as the delivery mode available for a certain offer.\\n\\nCommonly used values:\\n\\n* http://purl.org/goodrelations/v1#DHL\\n* http://purl.org/goodrelations/v1#FederalExpress\\n* http://purl.org/goodrelations/v1#UPS
-      """ ;
-    rdfs:subClassOf :DeliveryMethod .
+      """ .
 
 :ParentAudience a rdfs:Class ;
     rdfs:label "ParentAudience" ;
@@ -2214,7 +2214,7 @@ The place is __open__ if the [[opens]] property is specified, and __closed__ oth
 :PaymentStatusType a rdfs:Class ;
     rdfs:label "PaymentStatusType" ;
     rdfs:comment "A specific payment status. For example, PaymentDue, PaymentComplete, etc." ;
-    rdfs:subClassOf :Enumeration .
+    rdfs:subClassOf :StatusEnumeration .
 
 :PeopleAudience a rdfs:Class ;
     rdfs:label "PeopleAudience" ;
@@ -2438,7 +2438,7 @@ The place is __open__ if the [[opens]] property is specified, and __closed__ oth
     rdfs:label "QualitativeValue" ;
     :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsClass> ;
     rdfs:comment "A predefined value for a product characteristic, e.g. the power cord plug type 'US' or the garment sizes 'S', 'M', 'L', and 'XL'." ;
-    rdfs:subClassOf :Intangible .
+    rdfs:subClassOf :Enumeration .
 
 :QuantitativeValue a rdfs:Class ;
     rdfs:label "QuantitativeValue" ;
@@ -2462,7 +2462,7 @@ The place is __open__ if the [[opens]] property is specified, and __closed__ oth
     rdfs:label "Question" ;
     :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_QAStackExchange> ;
     rdfs:comment "A specific question - e.g. from a user seeking answers online, or collected in a Frequently Asked Questions (FAQ) document." ;
-    rdfs:subClassOf :CreativeWork .
+    rdfs:subClassOf :Comment .
 
 :QuoteAction a rdfs:Class ;
     rdfs:label "QuoteAction" ;
@@ -2501,7 +2501,7 @@ The place is __open__ if the [[opens]] property is specified, and __closed__ oth
 
 :RadioStation a rdfs:Class ;
     rdfs:label "RadioStation" ;
-    rdfs:comment "An organization that runs a radio broadcasting service, traditionally called a 'radio station'. For the concept of a radio broadcasting service, see [[BroadcastService]]." ;
+    rdfs:comment "A radio station." ;
     rdfs:subClassOf :LocalBusiness .
 
 :Rating a rdfs:Class ;
@@ -2574,6 +2574,11 @@ The place is __open__ if the [[opens]] property is specified, and __closed__ oth
     rdfs:comment "A Report generated by governmental or non-governmental organization." ;
     rdfs:subClassOf :Article .
 
+:Researcher a rdfs:Class ;
+    rdfs:label "Researcher" ;
+    rdfs:comment "Researchers." ;
+    rdfs:subClassOf :Audience .
+
 :Reservation a rdfs:Class ;
     rdfs:label "Reservation" ;
     rdfs:comment "Describes a reservation for travel, dining or an event. Some reservations require tickets. \\n\\nNote: This type is for information about actual reservations, e.g. in confirmation emails or HTML pages with individual confirmations of reservations. For offers of tickets, restaurant reservations, flights, or rental cars, use [[Offer]]." ;
@@ -2587,7 +2592,7 @@ The place is __open__ if the [[opens]] property is specified, and __closed__ oth
 :ReservationStatusType a rdfs:Class ;
     rdfs:label "ReservationStatusType" ;
     rdfs:comment "Enumerated status values for Reservation." ;
-    rdfs:subClassOf :Enumeration .
+    rdfs:subClassOf :StatusEnumeration .
 
 :ReserveAction a rdfs:Class ;
     rdfs:label "ReserveAction" ;
@@ -2882,7 +2887,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     rdfs:label "SteeringPositionValue" ;
     :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group> ;
     rdfs:comment "A value indicating a steering position." ;
-    rdfs:subClassOf :Enumeration .
+    rdfs:subClassOf :QualitativeValue .
 
 :Store a rdfs:Class ;
     rdfs:label "Store" ;
@@ -3369,9 +3374,6 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     rdfs:comment "A zoo." ;
     rdfs:subClassOf :CivicStructure .
 
-<file:///Users/wallisr/Development/Schema/ttl/schemaorg/data/schema.rdfa> :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#IIT-CNR.it>,
-        <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Tourism> .
-
 :ActiveActionStatus a :ActionStatusType ;
     rdfs:label "ActiveActionStatus" ;
     rdfs:comment "An in-progress action (e.g, while watching the movie, or driving to a location)." .
@@ -3742,10 +3744,6 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     rdfs:label "RemixAlbum" ;
     :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#MBZ> ;
     rdfs:comment "RemixAlbum." .
-
-:Researcher a :Audience ;
-    rdfs:label "Researcher" ;
-    rdfs:comment "Researchers." .
 
 :ReservationCancelled a :ReservationStatusType ;
     rdfs:label "ReservationCancelled" ;
@@ -5876,7 +5874,7 @@ This property should not be used where the nature of the alignment can be descri
     rdfs:label "familyName" ;
     :domainIncludes :Person ;
     :rangeIncludes :Text ;
-    rdfs:comment "Family name. In the U.S., the last name of an Person. This can be used along with givenName instead of the name property." .
+    rdfs:comment "Family name. In the U.S., the last name of a Person." .
 
 :fatContent a rdf:Property ;
     rdfs:label "fatContent" ;
@@ -6135,7 +6133,7 @@ Typical unit code(s): MTK for square meter, FTK for square foot, or YDK for squa
     rdfs:label "givenName" ;
     :domainIncludes :Person ;
     :rangeIncludes :Text ;
-    rdfs:comment "Given name. In the U.S., the first name of a Person. This can be used along with familyName instead of the name property." .
+    rdfs:comment "Given name. In the U.S., the first name of a Person." .
 
 :globalLocationNumber a rdf:Property ;
     rdfs:label "globalLocationNumber" ;
@@ -6314,7 +6312,7 @@ Typical unit code(s): MTK for square meter, FTK for square foot, or YDK for squa
     rdfs:label "honorificSuffix" ;
     :domainIncludes :Person ;
     :rangeIncludes :Text ;
-    rdfs:comment "An honorific suffix preceding a Person's name such as M.D. /PhD/MSCSW." .
+    rdfs:comment "An honorific suffix following a Person's name such as M.D. /PhD/MSCSW." .
 
 :hostingOrganization a rdf:Property ;
     rdfs:label "hostingOrganization" ;
@@ -6399,7 +6397,7 @@ Typical unit code(s): MTK for square meter, FTK for square foot, or YDK for squa
     :domainIncludes :Demand,
         :Offer ;
     :rangeIncludes :TypeAndQuantityNode ;
-    rdfs:comment "This links to a node or nodes indicating the exact quantity of the products included in the offer." .
+    rdfs:comment "This links to a node or nodes indicating the exact quantity of the products included in  an [[Offer]] or [[ProductCollection]]." .
 
 :industry a rdf:Property ;
     rdfs:label "industry" ;
@@ -6541,6 +6539,7 @@ Typical unit code(s): MTK for square meter, FTK for square foot, or YDK for squa
     rdfs:comment "Indicates the kind of product that this is a variant of. In the case of [[ProductModel]], this is a pointer (from a ProductModel) to a base product from which this product is a variant. It is safe to infer that the variant inherits all product features from the base model, unless defined locally. This is not transitive. In the case of a [[ProductGroup]], the group description also serves as a template, representing a set of Products that vary on explicitly defined, specific dimensions only (so it defines both a set of variants, as well as which values distinguish amongst those variants). When used with [[ProductGroup]], this property can apply to any [[Product]] included in the group." .
 
     # NOTE in data/ext/pending/issue-1797.ttl we tentatively amend this by extending the property as follows:
+    # The textual definition for isVariantOf has been minimally updated to accomodate ProductGroup; this could be
     # :isVariantOf a rdf:Property ; :domainIncludes :Product ; :rangeIncludes :ProductGroup .
 
 
@@ -6717,7 +6716,8 @@ Typical unit code(s): MTK for square meter, FTK for square foot, or YDK for squa
 
 :learningResourceType a rdf:Property ;
     rdfs:label "learningResourceType" ;
-    :domainIncludes :CreativeWork ;
+    :domainIncludes :CreativeWork,
+        :LearningResource ;
     :rangeIncludes :Text ;
     rdfs:comment "The predominant type or kind characterizing the learning resource. For example, 'presentation', 'handout'." .
 
@@ -7467,7 +7467,7 @@ Note: for historical reasons, any textual label and formal code provided as a li
 :parentItem a rdf:Property ;
     rdfs:label "parentItem" ;
     :domainIncludes :Comment ;
-    :rangeIncludes :Question ;
+    :rangeIncludes :Comment ;
     rdfs:comment "The parent of a question, answer or item in general." .
 
 :parentService a rdf:Property ;
@@ -9873,10 +9873,7 @@ Unregistered or niche encoding and file formats can be indicated instead via the
 
 :isAccessibleForFree a rdf:Property ;
     rdfs:label "isAccessibleForFree" ;
-    :domainIncludes :CreativeWork,
-        :Event,
-        :Place,
-        :PublicationEvent ;
+    :domainIncludes :CreativeWork, :Event, :Place;
     :rangeIncludes :Boolean ;
     rdfs:comment "A flag to signal that the item, event, or place is accessible for free." .
 
@@ -10536,3 +10533,13 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
     rdfs:comment """This vocabulary was improved through collaboration with the MusicBrainz project
     ([www.musicbrainz.org](http://www.musicbrainz.org)), and is partially inspired by the MusicBrainz and
     [Music Ontology](http://musicontology.com/docs/getting-started.html) schemas.""" .
+
+
+# Added here as it affects many core enums; otherwise it would be in pending
+
+:StatusEnumeration a rdfs:Class ;
+    rdfs:label "StatusEnumeration" ;
+    :category "issue-2604" ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2604> ;
+    rdfs:comment "Lists or enumerations dealing with status types." ;
+    rdfs:subClassOf :Enumeration .

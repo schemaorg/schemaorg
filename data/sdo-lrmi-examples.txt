@@ -1,4 +1,4 @@
-TYPES: #lrmi-1 learningResourceType, educationalLevel, audience, EducationalAudience, educationalRole
+TYPES: #eg-0379 learningResourceType, educationalLevel, audience, EducationalAudience, educationalRole
 
 PRE-MARKUP:
 
@@ -14,17 +14,17 @@ PRE-MARKUP:
 MICRODATA:
 
 <!-- A lesson plan for US second grade teachers. -->
-<div itemscope itemtype="http://schema.org/CreativeWork">
+<div itemscope itemtype="https://schema.org/CreativeWork">
     <h1 itemprop="name">Designing a treasure map</h1>
     <p>Resource type:
       <span itemprop="learningResourceType">lesson plan</span>,
       <span itemprop="learningResourceType">learning activity</span>
     </p>
     <p>Target audience:
-      <span itemprop="audience" itemscope itemtype="http://schema.org/EducationalAudience">
+      <span itemprop="audience" itemscope itemtype="https://schema.org/EducationalAudience">
         <span itemprop="educationalRole">teacher</span></span>s.
     </p>
-    <p itemprop="educationalLevel" itemscope itemtype="http://schema.org/DefinedTerm">
+    <p itemprop="educationalLevel" itemscope itemtype="https://schema.org/DefinedTerm">
         <span itemprop="inDefinedtermSet">US Grade Levels</span>
         <span itemprop="name">2</span>
         <link itemprop="url" href="http://purl.org/ASN/scheme/ASNEducationLevel/2" />
@@ -35,7 +35,7 @@ MICRODATA:
 RDFA:
 
 <!-- A list of the issues for a single volume of a given periodical. -->
-<div vocab="http://schema.org/" typeof="CreativeWork">
+<div vocab="https://schema.org/" typeof="CreativeWork">
     <h1 property="name">Designing a treasure map</h1>
     <p>Resource type:
     <span property="learningResourceType"> lesson plan</span>,
@@ -58,7 +58,7 @@ JSON:
 
 <script type="application/ld+json">
 {
-  "@context": "http://schema.org/",
+  "@context": "https://schema.org/",
   "@type": "CreativeWork",
   "name": "Designing a treasure map",
   "learningResourceType": [
@@ -79,9 +79,10 @@ JSON:
 }
 </script>
 
-TYPES: #lrmi-2 typicalAgeRange, timeRequired, educationalAlignment, AlignmentObject, educationalFramework, alignmentType, targetName, targetUrl, educationalLevel
+TYPES: #eg-0380 typicalAgeRange, timeRequired, educationalAlignment, AlignmentObject, educationalFramework, alignmentType, targetName, targetUrl, educationalLevel
 
 PRE-MARKUP:
+
 <div>
     <h1>The Declaration of Arbroath</h1>
     <p>A lesson plan for teachers with associated video.
@@ -109,11 +110,12 @@ PRE-MARKUP:
 </div>
 
 MICRODATA:
-<div itemscope itemtype="http://schema.org/WebPage">
+
+<div itemscope itemtype="https://schema.org/WebPage">
     <h1 itemprop="name">The Declaration of Arbroath</h1>
     <p>A <span itemprop="learningResourceType">lesson plan</span>
        for <span itemprop="audience"
-                 itemscope itemtype="http://schema.org/EducationalAudience">
+                 itemscope itemtype="https://schema.org/EducationalAudience">
            <span itemprop="educationalRole">teacher</span></span>s with associated video.
        Typical length of lesson, <span itemprop="timeRequired" content="PT1H">1 hour</span>.
        Recommended for children aged <span itemprop="typicalAgeRange">10-12</span> years old.
@@ -123,10 +125,10 @@ MICRODATA:
     <ul>
         <li>England
             <span itemprop="educationalLevel"
-                  itemscope itemtype="http://schema.org/DefinedTerm">
+                  itemscope itemtype="https://schema.org/DefinedTerm">
                 <span itemprop="inDefinedTermSet"
                       itemscope
-                      itemtype="http://schema.org/DefinedTermSet">
+                      itemtype="https://schema.org/DefinedTermSet">
                   <span itemprop="name">The National Curriculum for England</span>:
                   <link itemprop="url" href="https://www.gov.uk/government/collections/national-curriculum" />
 
@@ -134,7 +136,7 @@ MICRODATA:
                 <span itemprop="name">Key Stage 3</span>
             </span>
             <span itemprop="educationalAlignment"
-                  itemscope itemtype="http://schema.org/AlignmentObject">
+                  itemscope itemtype="https://schema.org/AlignmentObject">
                 <meta itemprop="alignmentType" content="educationalSubject" />
                 <meta itemprop="educationalFramework" content="The National Curriculum for England" />
                 <span itemprop="targetName">History: The middle ages (12th to 15th century)</span>
@@ -143,17 +145,17 @@ MICRODATA:
         </li>
         <li>Scotland
             <span itemprop="educationalLevel"
-                  itemscope itemtype="http://schema.org/DefinedTerm">
+                  itemscope itemtype="https://schema.org/DefinedTerm">
                 <span itemprop="inDefinedTermSet"
                       itemscope
-                      itemtype="http://schema.org/DefinedTermSet">
+                      itemtype="https://schema.org/DefinedTermSet">
                   <span itemprop="name">SCQF</span>
                   <link itemprop="url" href="https://scqf.org.uk/">
                 </span>:
                 <span itemprop="name">Level 2</span>
             </span>
             <span itemprop="educationalAlignment"
-                  itemscope itemtype="http://schema.org/AlignmentObject">
+                  itemscope itemtype="https://schema.org/AlignmentObject">
                 <meta itemprop="alignmentType" content="educationalSubject" />
                 <span itemprop="educationalFramework"> Curriculum for Excellence</span>:
                 <span itemprop="targetName">Social studies: people past events and societies</span>
@@ -162,7 +164,7 @@ MICRODATA:
         </li>
     </ul>
     <p>Link to lesson plan: <a itemprop="url" href="http://example.org/lessonplan">http://example.org/lessonplan</a></p>
-    <video itemprop="video" itemscope itemtype="http://schema.org/VideoObject">
+    <video itemprop="video" itemscope itemtype="https://schema.org/VideoObject">
         <source itemprop="url" src="http://example.org/movie.mp4" type="video/mp4">
         <span itemprop="name">Video Title</span>
         <span itemprop="description">Video description</span>
@@ -174,7 +176,8 @@ MICRODATA:
 </div>
 
 RDFA:
-<div vocab="http://schema.org/" typeof="WebPage">
+
+<div vocab="https://schema.org/" typeof="WebPage">
     <h1 property="name">The Declaration of Arbroath</h1>
     <p>A <span property="learningResourceType">lesson plan</span>
        for <span rel="audience"
@@ -188,16 +191,16 @@ RDFA:
     <ul>
         <li>England
             <span rel="educationalLevel"
-                  typeof="http://schema.org/DefinedTerm">
+                  typeof="https://schema.org/DefinedTerm">
                 <span property="inDefinedTermSet"
-                   typeof="http://schema.org/DefinedTermSet">
+                   typeof="https://schema.org/DefinedTermSet">
                   <span property="name">The National Curriculum for England</span>:
                   <link property="url" href="https://www.gov.uk/government/collections/national-curriculum"/>
                 </span>:
                 <span property="name">KS 3</span>
             </span>
             <span rel="educationalAlignment"
-                  typeof="http://schema.org/AlignmentObject">
+                  typeof="https://schema.org/AlignmentObject">
                 <meta property="alignmentType" content="educationalSubject" />
                 <meta property="educationalFramework" content="The National Curriculum for England" />
                 <span property="targetName">History: The middle ages (12th to 15th century)</span>
@@ -206,16 +209,16 @@ RDFA:
         </li>
         <li>Scotland
             <span rel="educationalLevel"
-                typeof="http://schema.org/DefinedTerm">
+                typeof="https://schema.org/DefinedTerm">
               <span property="inDefinedTermSet"
-                typeof="http://schema.org/DefinedTermSet" >
+                typeof="https://schema.org/DefinedTermSet" >
                 <span property="name">SCQF</span>
                 <link property="url" href="https://scqf.org.uk/">
               </span>:
               <span property="name">Level 2</span>
             </span>
             <span rel="educationalAlignment"
-                  typeof="http://schema.org/AlignmentObject">
+                  typeof="https://schema.org/AlignmentObject">
                 <meta property="alignmentType" content="educationalSubject" />
                 <span property="educationalFramework"> Curriculum for Excellence</span>:
                 <span property="targetName">Social studies: people past events and societies</span>
@@ -224,7 +227,7 @@ RDFA:
         </li>
     </ul>
     <p>Link to lesson plan: <a property="url" href="http://example.org/lessonplan">http://example.org/lessonplan</a></p>
-    <video rel="video" typeof="http://schema.org/VideoObject">
+    <video rel="video" typeof="https://schema.org/VideoObject">
         <source property="url" src="http://example.org/movie.mp4" type="video/mp4" />
         <span property="name">Video Title</span>
         <span property="description">Video description</span>
@@ -236,10 +239,11 @@ RDFA:
 </div>
 
 JSON:
+
 <script type="application/ld+json">
 
 {
-  "@context":  "http://schema.org/",
+  "@context":  "https://schema.org/",
   "@type": "WebPage",
   "name": "The Declaration of Arbroath",
   "about": "Wars of Scottish independence",
@@ -301,9 +305,10 @@ JSON:
 }
 </script>
 
+TYPES: #eg-0381 isBasedOn
 
-TYPES:  #lrmi-3 isBasedOn
 PRE-MARKUP:
+
 <dl>
 <dt>Derivative work</dt>
 <dd><p>In copyright law, a derivative work is an expressive creation that
@@ -314,22 +319,28 @@ PRE-MARKUP:
     Work</p>
 </dd>
 </dl>
+
+
 MICRODATA:
-<dl itemscope itemtype="http://schema.org/CreativeWork">
+
+<dl itemscope itemtype="https://schema.org/CreativeWork">
 <dt itemprop="name">Derivative work</dt>
 <dd><p itemprop="text">In copyright law, a derivative work is an expressive
     creation that includes major elements of a previously created original work.
     An example of a derivative work is L.H.O.O.Q, or Mona Lisa With a Moustache,
     by Marcel Duchamp.</p>
-    <p itemprop="isBasedOn" itemscope itemtype="http://schema.org/CreativeWork">
+    <p itemprop="isBasedOn" itemscope itemtype="https://schema.org/CreativeWork">
     Note: this defintion is based on the <span itemprop="publisher">wikipedia</span>
     article on <span itemprop="name">Derivative Work</span>
     <link itemprop="url" href="https://en.wikipedia.org/wiki/Derivative_work" />
     </p>
 </dd>
 </dl>
+
+
 RDFA:
-<dl vocab="http://schema.org/" typeof="CreativeWork">
+
+<dl vocab="https://schema.org/" typeof="CreativeWork">
 <dt property="name">Derivative work</dt>
 <dd><p property="text">In copyright law, a derivative work is an expressive
     creation that includes major elements of a previously created original work.
@@ -342,10 +353,13 @@ RDFA:
     </p>
 </dd>
 </dl>
+
+
 JSON:
+
 <script type="application/ld+json">
 {
-  "@context":  "http://schema.org/",
+  "@context":  "https://schema.org/",
   "@type": "CreativeWork",
   "name": "Derivative Work",
   "text": "In copyright law, a derivative work is an expressive creation that includes major elements of a previously created original work. An example of a derivative work is L.H.O.O.Q, or Mona Lisa With a Moustache, by Marcel Duchamp.",
@@ -357,3 +371,4 @@ JSON:
   }
 }
 </script>
+
