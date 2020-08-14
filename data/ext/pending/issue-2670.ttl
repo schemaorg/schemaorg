@@ -10,6 +10,7 @@
   rdfs:comment "EnergyConsumptionDetails represents information related to the energy efficiency of a product that consumes energy. The information that can be provided is based on international regulations such as for example [EU directive 2017/1369](https://eur-lex.europa.eu/eli/reg/2017/1369/oj) for energy labeling and the [Energy labeling rule](https://www.ftc.gov/enforcement/rules/rulemaking-regulatory-reform-proceedings/energy-water-use-labeling-consumer) under the Energy Policy and Conservation Act (EPCA) in the US" .
 
 :hasEnergyConsumptionDetails a rdf:Property ;
+  :rdfs:label "hasEnergyConsumptionDetails" ;
   :category "issue-2670" ;
   :domainIncludes :Product ;
   :rangeIncludes :EnergyConsumptionDetails ;
@@ -17,6 +18,7 @@
   rdfs:comment """Defines the energy efficiency Category (also known as "class" or "rating") for a product according to an international energy efficiency standard""" .
 
 :hasEnergyEfficiencyCategory a rdf:Property ;
+  :rdfs:label "hasEnergyEfficiencyCategory" ;
   :category "issue-2670" ;
   :domainIncludes :EnergyConsumptionDetails ;
   :rangeIncludes :EnergyEfficiencyCategory ;
@@ -24,20 +26,23 @@
   rdfs:comment "Defines the energy efficiency Category (which could be either a rating out of range of values or a yes/no certification) for a product according to an international energy efficiency standard" .
 
 :EnergyEfficiencyCategory a rdfs:Class ;
-  rdfs:subClassOf :Enumeration ;
   rdfs:label "EnergyEfficiencyCategory" ;
+  rdfs:subClassOf :Enumeration ;
   :category "issue-2670" ;
   :isPartOf <http://pending.schema.org> ;
   :source <https://github.com/schemaorg/schemaorg/issues/2670> ;
   rdfs:comment """Enumerates energy efficiency levels (also known as "classes" or "ratings") and certifications that are part of several international energy efficiency standards.""" .
 
 :energyEfficiencyScaleMin a rdf:Property ;
+  rdfs:label "energyEfficiencyScaleMin" ;
   :category "issue-2670" ;
   :domainIncludes :EnergyConsumptionDetails ;
   :rangeIncludes :EUEnergyEfficiencyCategory ;
   :source <https://github.com/schemaorg/schemaorg/issues/2670> ;
   rdfs:comment "Specifies the least energy efficient class on the regulated EU energy consumption scale for the product category a product belongs to. For example, energy consumption for televisions placed on the market after January 1, 2020 is scaled from D to A+++." .
-  :energyEfficiencyScaleMax a rdf:Property ;
+
+:energyEfficiencyScaleMax a rdf:Property ;
+  rdfs:label "energyEfficiencyScaleMax" ;
   :category "issue-2670" ;
   :domainIncludes :EnergyConsumptionDetails ;
   :rangeIncludes :EUEnergyEfficiencyCategory ;
