@@ -9,8 +9,7 @@
     :source <https://github.com/schemaorg/schemaorg/issues/1423> ;
     rdfs:comment """An application programming interface accessible over Web/Internet technologies.
 
-The [[documentation]] property gives specific details of the actual endpoint instances, while the [[conformsTo]] property is used to indicate the general standard or specification that the endpoints implement. The [[url]] property indicates a landing page for the API, which is a Web page that can be navigated to in a Web browser to gain access to the API and/or additional information.
-
+The [[documentation]] and [[endpointDescription]] properties give specific details of the actual endpoint instances, while the [[conformsTo]] property is used to indicate the general standard or specification that the endpoints implement. The [[url]] property indicates a landing page for the API, which is a Web page that can be navigated to in a Web browser to gain access to the API and/or additional information.
       """ ;
     rdfs:subClassOf :Service .
 
@@ -22,10 +21,7 @@ The [[documentation]] property gives specific details of the actual endpoint ins
     :rangeIncludes :CreativeWork,
         :URL ;
     :source <https://github.com/schemaorg/schemaorg/issues/1423> ;
-    rdfs:comment """Human-readable documentation of the services available via the [[WebAPI]], including their operations, parameters etc.
-
-[[endpointDescription]] should be used for machine-readable documentation.
-      """ .
+    rdfs:comment "Human-readable documentation of the services available via the [[WebAPI]], including their operations, parameters etc." .
 
 :endpointDescription a rdf:Property ;
     rdfs:label "endpointDescription" ;
@@ -37,8 +33,6 @@ The [[documentation]] property gives specific details of the actual endpoint ins
     rdfs:comment """Machine-readable API definition of the services available via the [[WebAPI]], including their operations, parameters etc.
 
 Machine-readable formats include OpenAPI (Swagger) description, an OGC GetCapabilities response WFS, ISO-19142, WMS, ISO-19128, a SPARQL Service Description, an OpenSearch or WSDL20 document, or a Hydra API description. The [[encodingFormat]] property of the [[CreativeWork]] should be used to indicate the use of such formats via their MIME type.
-
-The [[endpointDescription]] property gives specific details of the actual endpoint instances, while the [[conformsTo]] property is used to indicate the general standard or specification that the endpoints implement.
       """ .
 
 :termsOfService a rdf:Property ;
