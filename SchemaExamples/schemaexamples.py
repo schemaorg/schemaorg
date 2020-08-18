@@ -141,12 +141,9 @@ class SchemaExamples():
     
     
     @staticmethod
-    def loadExamplesFile(exfile):
-        return SchemaExamples.loadExamplesFiles([exfile])
-    
-
-    @staticmethod
     def loadExamplesFiles(exfiles):
+        if isinstance(exfiles, str):
+            exfiles = [exfiles]
         parser = ExampleFileParser()
         for f in exfiles:
             for example in parser.parse(f):

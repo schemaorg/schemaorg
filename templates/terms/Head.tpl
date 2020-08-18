@@ -1,15 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-<!-- Generated from genericTermPageHeader.tpl -->
 <head>
-  {% include 'headtags.tpl' with context %}
-	{% if noindexpage %}<meta name="robots" content="noindex">{% endif %}
-    <title>{{ entry }} - {{ sitename }} {{ titletype}}</title>
+    <title>{{ title }} - {{ sitename }} {{ TERMTYPE }}</title>
+    <meta charset="utf-8" >
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="{{ desc }}" />
-
-
-<script type="text/javascript">
+    <meta name="description" content="Schema.org {{TERMTYPE}}: {{term.label}} - {{term.comment}}" />
+    <link rel="shortcut icon" type="image/png" href="{{docsdir}}/favicon.ico"/>
+    <link rel="stylesheet" type="text/css" href="{{docsdir}}/schemaorg.css" />
+    <link rel="stylesheet" type="text/css" href="{{docsdir}}/prettify.css" />
+    <script src="{{docsdir}}/prettify.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    
+<!-- ##### Generated insert [CSEScript-start] see scripts/genhtmlinserts.sh ##### --> 
+<!-- Enable CSE Search -->
+<script>
+(function() {
+var cx = '013516846811604855281:nj5laplixaa'; // Insert your own Custom Search engine ID here
+var gcse = document.createElement('script'); gcse.type = 'text/javascript'; gcse.async = true;
+gcse.src = 'https://cse.google.com/cse.js?cx=' + cx;
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(gcse, s);
+})();
+</script>
+<!-- ##### Generated insert [CSEScript-end] see scripts/genhtmlinserts.sh ##### --> 
+    
+<script>
       $(document).ready(function(){
         prettyPrint();
         setTimeout(function(){
@@ -53,20 +65,10 @@
   #morecheck {
 	  outline: none;
   }
+  
 #morecheck:checked + div { display: none; }
   
 
 </style>
-<link rel="canonical" href="https://schema.org/{{ entry }}" />
+    
 </head>
-<body class="{{ sitemode }}">
-
-{% include 'basicPageHeader.tpl' with context %}
-  <div id="mainContent" vocab="{{ vocabUri }}" typeof="{{ rdfs_type }}" resource="{{ vocabUri }}{{ entry }}">
-  {{ ext_mappings | safe }}
-
-<!-- webapp will assemble the rest elsewhere -->
-<!-- Will need at least:  </div></body></html> -->
-<!-- end of genericTermPageHeader.tpl -->
-  
-
