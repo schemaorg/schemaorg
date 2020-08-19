@@ -24,7 +24,7 @@ parser.add_argument("-p","--pagesfor",default= [],action='append',nargs='*',  he
 parser.add_argument("-t","--testsite", default=False, action='store_true', help="create test site format")
 args = parser.parse_args()
 
-
+SITENAME="SchemaPages"
 TEMPLATESDIR = "templates"
 TESTSITE=args.testsite
 if args.output:
@@ -120,7 +120,7 @@ jenv.globals.update(sdotermlink=sdotermlink)
 def templateRender(term,examples):
     #Basic varibles configuring UI
     tvars = {
-        'sitename': "SchemaPages",
+        'sitename': SITENAME,
         'title': term.label,
         'menu_sel': "Schemas",
         'home_page': "False",

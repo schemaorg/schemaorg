@@ -13,7 +13,7 @@
     {% if loop.first %}
 	<h4  id="acks">Acknowledgement</h4>
     {% endif %}
-	<p>{{ack |safe}}</p>
+	<p>{{acks |safe}}</p>
     {% if loop.last %}<br/>{% endif %}
 {% endfor %}
 

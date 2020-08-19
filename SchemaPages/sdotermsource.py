@@ -38,6 +38,7 @@ class SdoTermSource():
     ENUMERATION = "Enumeration"
     ENUMERATIONVALUE = "Enumerationvalue"
     REFERENCE = "Reference"
+    TERMCOUNTS=None
     
     SOURCEGRAPH=None
     MARKDOWNPROCESS=True
@@ -127,6 +128,7 @@ class SdoTermSource():
         elif self.ttype == SdoTerm.REFERENCE:
             self.term = SdoReference(self.id,self.uri,self.label)
 
+        self.term.category = self.category
         self.term.acknowledgements = self.getAcknowledgements()
         self.term.comment = self.getComment()
         self.term.equivalents = self.getEquivalents()
@@ -709,6 +711,7 @@ class SdoTermSource():
         term = TERMS.get(tmp.id,None) 
         if not term:  #Already created this term ?     
             term =  SdoTermSource(tmp.id,ttype=tmp.tt,label=tmp.lab,layer=tmp.layer,cat=tmp.cat)
+            
         return term
 
     class TmpTerm:
@@ -791,10 +794,11 @@ class SdoTermSource():
         #log.info("query %s" % query)
         res = SdoTermSource.query(query)
         #log.info("res %d" % len(res))
+
+        terms = []
         if expanded:
             terms = SdoTermSource.termsFromResults(res,termId=None)
         else:
-            terms = []
             for row in res:
                 terms.append(uri2id(str(row.term)))
         
@@ -868,6 +872,82 @@ class SdoTermSource():
         for term in terms:
             ret.append(term.getId())
         return ret
+        
+    @staticmethod
+    def termCounts():
+        if not SdoTermSource.TERMCOUNTS:
+            count = """SELECT (COUNT(?s) as ?count) WHERE {
+                ?s a ?type .
+                FILTER (strStarts(str(?s),"%s"))
+            } """ % VOCABURI
+            res = SdoTermSource.query(count)
+            allterms = int(res[0][0])
+
+            count = """SELECT (COUNT(?s) as ?count) WHERE {
+                ?s a rdfs:Class .
+                FILTER (strStarts(str(?s),"%s"))
+            } """ % VOCABURI
+            res = SdoTermSource.query(count)
+            classes = int(res[0][0])
+            
+            count = """SELECT (COUNT(?s) as ?count) WHERE {
+                ?s a rdf:Property .
+                FILTER (strStarts(str(?s),"%s"))
+            } """ % VOCABURI
+            res = SdoTermSource.query(count)
+            properties = int(res[0][0])
+            
+            count = """SELECT (COUNT(DISTINCT ?s) as ?count) WHERE {
+                ?s rdfs:subClassOf* schema:Enumeration .
+                FILTER (strStarts(str(?s),"%s"))
+            } """ % VOCABURI
+            res = SdoTermSource.query(count)
+            enums = int(res[0][0])
+
+            count = """SELECT (COUNT(DISTINCT ?s) as ?count) WHERE {
+                ?s a ?type .
+                ?type rdfs:subClassOf* schema:Enumeration .
+                FILTER (strStarts(str(?s),"%s"))
+            } """ % VOCABURI
+            res = SdoTermSource.query(count)
+            enumvals = int(res[0][0])
+
+            count = """SELECT (COUNT(DISTINCT ?s) as ?count) WHERE {
+                {
+                    ?s a schema:DataType .
+                }UNION{
+                    ?s rdf:type* schema:DataType .
+                }UNION{
+                    ?s rdfs:subClassOf* ?x .
+                    ?x a schema:DataType .
+                }
+                FILTER (strStarts(str(?s),"%s"))
+           } """ % VOCABURI
+            res = SdoTermSource.query(count)
+            datatypes = int(res[0][0])
+
+            count = """SELECT (COUNT(DISTINCT ?s) as ?count) WHERE {
+                ?s rdfs:subClassOf* ?x .
+                ?x a schema:DataType .
+                FILTER (strStarts(str(?s),"%s"))
+           } """ % VOCABURI
+            res = SdoTermSource.query(count)
+            datatypeclasses = int(res[0][0])
+            
+            types = classes
+            types -= 2 #Eumeration & DataType
+            types -= enums
+            types -= datatypeclasses
+
+            SdoTermSource.TERMCOUNTS = {}
+            SdoTermSource.TERMCOUNTS[SdoTerm.TYPE] = types
+            SdoTermSource.TERMCOUNTS[SdoTerm.PROPERTY] = properties
+            SdoTermSource.TERMCOUNTS[SdoTerm.DATATYPE] = datatypes
+            SdoTermSource.TERMCOUNTS[SdoTerm.ENUMERATION] = enums
+            SdoTermSource.TERMCOUNTS[SdoTerm.ENUMERATIONVALUE] = enumvals
+            SdoTermSource.TERMCOUNTS["All"] = allterms
+        return SdoTermSource.TERMCOUNTS
+            
 
     @staticmethod
     def setMarkdownProcess(x):

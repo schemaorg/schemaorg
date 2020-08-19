@@ -9,7 +9,7 @@
     {% endif %}
     {% include 'terms/Head.tpl' with context %}
 <body>
-    {% include 'terms/PageHeader.tpl' with context %}
+    {% include 'PageHeader.tpl' with context %}
     <div id="mainContent">
 	    {% include 'terms/InfoBlock.tpl' with context %}
 		
@@ -66,5 +66,6 @@
 		{% include 'terms/Examplesblock.tpl' with context %}
 		
     </div> <!-- mainContent -->
+	{% include 'PageFooter.tpl' with context %}
 </body>
 </html>

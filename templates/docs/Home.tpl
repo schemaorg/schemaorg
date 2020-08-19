@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- Generated from Home.tpl -->
+    {% include 'docs/DocsHead.tpl' with context %}
+<body>
+    {% include 'PageHeader.tpl' with context %}
+    <div id="mainContent">
+      <h1>Welcome to Schema.org</h1>
+
+
+        <p>
+            Schema.org is a collaborative, community activity with a mission to create,
+            maintain, and promote schemas for structured data on the
+            Internet, on web pages, in email messages, and beyond.
+        </p>
+
+        <p>
+            Schema.org vocabulary can be used with many different encodings,
+            including RDFa, Microdata and JSON-LD. These vocabularies cover
+            entities, relationships between entities and actions, and can
+            easily be extended through a well-documented extension model. Over 10 million sites use
+            Schema.org to markup their web pages and email messages.
+            Many applications from Google, Microsoft, Pinterest, Yandex and others
+            already use these vocabularies to power rich, extensible experiences.
+        </p>
+        <p>
+            Founded by Google, Microsoft, Yahoo and Yandex,
+            Schema.org vocabularies are developed by an open <a href="https://www.w3.org/community/schemaorg">community</a> process,
+            using the <a
+            href="http://lists.w3.org/Archives/Public/public-schemaorg">public-schemaorg@w3.org</a>
+             mailing list and through <a href="http://github.com/schemaorg/schemaorg">GitHub</a>.
+        </p>
+
+        <p>
+           A shared vocabulary makes it easier for webmasters and developers to decide
+           on a schema and get the maximum benefit for their efforts.
+           It is in this spirit that the founders, together with the
+           larger community have come together - to provide a shared collection of schemas.
+         </p>
+
+        <p>
+            We invite you to <a href="docs/gs.html">get started</a>!
+        </p>
+        <p>
+            View our blog at <a href="http://blog.schema.org">blog.schema.org</a> or see <a href="/docs/releases.html">release history</a> for version 9.0.
+        </p>
+
+        <br/>
+    </div> <!-- mainContent -->
+	{% include 'PageFooter.tpl' with context %}
+</body>
+</html>

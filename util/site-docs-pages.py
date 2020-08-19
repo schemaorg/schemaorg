@@ -23,7 +23,7 @@ parser.add_argument("-p","--pages",default= [],action='append',nargs='*',  help=
 parser.add_argument("-t","--testsite", default=False, action='store_true', help="create test site format")
 args = parser.parse_args()
 
-PAGELIST = ["Home"]
+SITENAME="SchemaPages"
 TEMPLATESDIR = "templates"
 TESTSITE=args.testsite
 if args.output:
@@ -37,17 +37,19 @@ TRIPLESFILESGLOB = []
 for gr in args.graph:
     TRIPLESFILESGLOB.extend(gr)
 PAGES = []
-for pgs in args.pagesfor:
+for pgs in args.pages:
     PAGES.extend(pgs)
-if not len(PAGES):
-    PAGES = PAGELIST
     
 if TESTSITE:
+    OUTPUT = "testsite"
     OUTPUTDIR = "testsite/docs"
+    DOCSDIR = "."
     HREFSUFFIX=".html" 
     HREFPREFIX="../"
 else:
+    OUTPUT = "site"
     OUTPUTDIR = "site/docs"
+    DOCSDIR = "/docs"
     HREFSUFFIX="" 
     HREFPREFIX="/"
 
@@ -75,9 +77,13 @@ jenv = jinja2.Environment(loader=jinja2.FileSystemLoader(TEMPLATESDIR),
     
 
 #Utility function (called from templates) to format the <a href=""> links
+STRCLASSVAL=None
 def sdotermlink(term):
+    global STRCLASSVAL
     classval = ""
     if type(term) == str:
+        if STRCLASSVAL:
+            classval = STRCLASSVAL
         link = term
     elif term.termType == "Reference":
         return '<a href="%s" class="externlink" target="_blank">%s</a>' % (term.uri,term.label)
@@ -97,20 +103,18 @@ jenv.globals.update(sdotermlink=sdotermlink)
 #   term: SDO Term definition either simple (strings only)
 #         or expanded (nested definitions for related terms)
 
-def templateRender(term,examples):
+def templateRender(template,extra_vars=None):
     #Basic varibles configuring UI
     tvars = {
-        'sitename': "SchemaPages",
-        'title': term.label,
-        'menu_sel': "Schemas",
+        'sitename': SITENAME,
         'home_page': "False",
         'href_prefix': "",
-        'docsdir': "docs",
-        'term': term,
-        'examples': examples
+        'docsdir': DOCSDIR + "/"
     }
+    if extra_vars:
+        tvars.update(extra_vars)
     
-    template = jenv.get_template("terms/TermPage.tpl")
+    template = jenv.get_template(template)
     return template.render(tvars)
 
 ###################################################
@@ -129,15 +133,102 @@ def checkFilePath(path):
             if not os.path.isdir(path):
                 raise e
 
-terms = SdoTermSource.getAllTerms()
+def fileName(doc):
+    checkFilePath(OUTPUTDIR)
+    func, filename = PAGELIST.get(doc,None)
+    
+    return OUTPUTDIR + "/" + filename + ".html"
 
-if not len(TERMS):
-    TERMS = SdoTermSource.getAllTerms()
-print("Processing for %s terms" % len(TERMS))
+def schemasPage(page):
+    extra_vars = {
+        'home_page': "False",
+        'title': SITENAME + ' - Schemas',
+        'termcounts': SdoTermSource.termCounts()
+    }
+    return templateRender("docs/Schemas.tpl",extra_vars)
+    
+    
+
+def homePage(page):
+    global STRCLASSVAL
+    title = SITENAME
+    template = "docs/Home.tpl"
+    filt = None
+    overrideclassval = None
+    if page == "PendingHome":
+        title += " - Pending"
+        template = "docs/PendingHome.tpl"
+        filt = "pending"
+        overrideclassval = 'class="ext ext-pending"'
+    elif page == "AtticHome":
+        title += " - Retired"
+        template = "docs/AtticHome.tpl"
+        filt="attic"
+        overrideclassval = 'class="ext ext-attic"'
+    sectionterms={}
+    termcount=0
+    if filt:
+        terms = SdoTermSource.getAllTerms(layer=filt)
+        terms = SdoTermSource.termsFromIds(terms)
+        print("filt=%s %s" % (filt,len(terms)))
+        terms.sort(key = lambda u: (u.category, u.id))
+        first = True
+        cat = None
+        for t in terms:
+            if first or t.category != cat:
+                first = False
+                cat = t.category 
+                ttypes = {}
+                sectionterms[cat] = ttypes
+                ttypes[SdoTerm.TYPE] = []
+                ttypes[SdoTerm.PROPERTY] = []
+                ttypes[SdoTerm.DATATYPE] = []
+                ttypes[SdoTerm.ENUMERATION] = []
+                ttypes[SdoTerm.ENUMERATIONVALUE] = []
+            if t.termType == SdoTerm.REFERENCE:
+                continue
+            ttypes[t.termType].append(t.id)
+            termcount += 1
+    
+    extra_vars = {
+        'home_page': "True",
+        'title': SITENAME,
+        'termcount': termcount,
+        'sectionterms': sectionterms
+    }
+    STRCLASSVAL = overrideclassval
+    ret =  templateRender(template,extra_vars)
+    STRCLASSVAL = None
+    return ret
 
 
 
-import time,datetime
+PAGELIST = {"Home": (homePage,"home"),
+             "PendingHome": (homePage,"pending.home"),
+             "AtticHome": (homePage,"attic.home"),
+             "Schemas": (schemasPage,"schemas")
+         }
+if not len(PAGES):
+    PAGES = PAGELIST.keys()
+
+print("Copying docs static files")
+cmd = "cp -r docs %s" % OUTPUT
+os.system(cmd)
+
+
+for p in PAGES:
+    func, filename = PAGELIST.get(p,None)
+    if func:
+        content = func(p)
+        fn = fileName(p)
+        f = open(fn,"w")
+        f.write(content)
+        f.close()
+        print("Created %s" % fn)
+    else:
+        print("Unknown page name: %s" % p)
+
+"""import time,datetime
 start = datetime.datetime.now()
 lastCount = 0
 for t in TERMS:
@@ -162,6 +253,7 @@ for t in TERMS:
     
 print()
 print ("All terms took %s seconds" % str(datetime.datetime.now()-start)) #diagnostics
+"""
 
 
 
