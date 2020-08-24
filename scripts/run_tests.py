@@ -93,8 +93,21 @@ def main(test_path, args):
     #unittest.TextTestRunner(verbosity=2).run(suite)
     
     import subprocess
-    contextCheck = "./scripts/buildarchivecontext.py -o -|cut -d'\"' -f2|sort|uniq -d"
 
+    httpexamplescheck = "grep -l 'http://schema.org' data/*examples.txt data/ext/*/*examples.txt"
+    print "Checking examples files for use of 'http://schema.org'"
+    out=""
+    try:
+        out = subprocess.check_output(httpexamplescheck,shell=True)
+    except:
+        pass
+    if len(out):
+        print "Examples file(s) found containing 'http://schema.org':\n%s" % out
+        print "Replace with 'https://schema.org and rerun"
+        sys.exit(1)
+    print "No use of 'http://schema.org' discovered in examples\n\n"
+
+    contextCheck = "./scripts/buildarchivecontext.py -o -|cut -d'\"' -f2|sort|uniq -d"
     print "Checking jsonldcontext for duplicates"
     dups = subprocess.check_output(contextCheck,shell=True)
     if len(dups):

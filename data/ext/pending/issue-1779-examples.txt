@@ -1,6 +1,7 @@
-TYPES: EducationalOccupationalCredential, credentialCategory, educationalLevel, competencyRequired
+TYPES: #eg-0259 EducationalOccupationalCredential, credentialCategory, educationalLevel, competencyRequired
 
 PRE-MARKUP:
+
 <h1>HNC Facilities Management</h1>
 <p>Higher National qualifications provide practical skills and theoretical
   knowledge that meet the needs of employers. The HNC in Facilities Management
@@ -14,9 +15,9 @@ PRE-MARKUP:
   <li>[etc]</li>
 </ul>
 
-
 MICRODATA:
-<div itemscope itemtype="http://schema.org/EducationalOccupationalCredential">
+
+<div itemscope itemtype="https://schema.org/EducationalOccupationalCredential">
   <h1 itemprop="name">HNC Facilities Management</h1>
   <p itemprop="description">Higher National qualifications provide practical
     skills and theoretical knowledge that meet the needs of employers. The HNC
@@ -25,19 +26,19 @@ MICRODATA:
     services, and is aimed at those in supervisory and management roles or
     aspiring managers within the wider realm of Facilities Services.</p>
   <div itemprop="educationalLevel"
-       itemscope itemtype="http://schema.org/DefinedTerm">
+       itemscope itemtype="https://schema.org/DefinedTerm">
     <meta itemprop="name" content="SCQF Level 7" />
     <link itemprop="inDefinedTermSet" href="https://www.sqa.org.uk/sqa/71377.html" />
   </div>
   <div itemprop="credentialCategory"
-       itemscope itemtype="http://schema.org/DefinedTerm">
+       itemscope itemtype="https://schema.org/DefinedTerm">
     <meta itemprop="name" content="Higher National Certificate" />
     <meta itemprop="termCode" content="HNC" />
   </div>
   <h2>Mapping to National Occupational Standards</h2>
   <ul>
     <li itemprop="competencyRequired"
-        itemscope itemtype="http://schema.org/DefinedTerm">
+        itemscope itemtype="https://schema.org/DefinedTerm">
       <span itemprop="termCode">ASTFM401</span>
       <span itemprop="name">Understand facilities management and its place in the organisation</span>
       <link itemprop="url" href="https://www.ukstandards.org.uk/PublishedNos/ASTFM401.pdf" />
@@ -48,7 +49,8 @@ MICRODATA:
 </div>
 
 RDFA:
-<div  vocab="http://schema.org/" typeof="EducationalOccupationalCredential">
+
+<div  vocab="https://schema.org/" typeof="EducationalOccupationalCredential">
   <h1 property="name">HNC Facilities Management</h1>
   <p property="description">Higher National qualifications provide practical
     skills and theoretical knowledge that meet the needs of employers. The HNC
@@ -77,9 +79,10 @@ RDFA:
 </div>
 
 JSON:
+
 <script type="application/ld+json">
 {
-  "@context": "http://schema.org",
+  "@context": "https://schema.org",
   "@type": "EducationalOccupationalCredential",
   "name" : "HNC Facilities Management",
   "description" : "Higher National qualifications provide practical skills and theoretical knowledge that meet the needs of employers. The HNC in Facilities Management (SCQF level 7) develops knowledge and skills of the modern Facilities Management industry including both ‘hard’ and ‘soft’ services, and is aimed at those in supervisory and management roles or aspiring managers within the wider realm of Facilities Services.",
@@ -103,8 +106,10 @@ JSON:
 }
 </script>
 
-TYPES: EducationalOccupationalCredential, credentialCategory
+TYPES: #eg-0260 EducationalOccupationalCredential, credentialCategory
+
 PRE-MARKUP:
+
 <h1>Certified Safety Professional</h1>
 <p>Certified Safety Professionals (CSP) are persons
   who perform at least 50% of professional level safety duties, including
@@ -114,7 +119,8 @@ PRE-MARKUP:
   preparing emergency response plans.</p>
 
 MICRODATA:
-<div itemscope itemtype="http://schema.org/EducationalOccupationalCredential">
+
+<div itemscope itemtype="https://schema.org/EducationalOccupationalCredential">
 <h1 itemprop="name">Certified Safety Professional</h1>
 <link itemprop="url" href="https://www.bcsp.org/CSP" />
 <p itemprop="description">Certified Safety Professionals (CSP) are persons
@@ -124,11 +130,11 @@ MICRODATA:
   incidents, maintaining and evaluating incident and loss records, and
   preparing emergency response plans.</p>
   <div itemprop="credentialCategory"
-       itemscope itemtype="http://schema.org/DefinedTerm">
+       itemscope itemtype="https://schema.org/DefinedTerm">
     <meta itemprop="name" content="Certification" />
     <link itemprop="url" href="http://purl.org/ctdl/terms/Certification" />
     <div itemprop="inDefinedTermSet" itemscope
-         itemtype="http://schema.org/DefinedTermSet">
+         itemtype="https://schema.org/DefinedTermSet">
       <meta itemprop="name" content="Credential Transparency Description Language"/>
       <link itemprop="url" content="http://purl.org/ctdl/terms/" />
     </div>
@@ -137,7 +143,8 @@ MICRODATA:
 </div>
 
 RDFA:
-<div vocab="http://schema.org/"
+
+<div vocab="https://schema.org/"
      typeof="EducationalOccupationalCredential">
 <h1 property="name">Certified Safety Professional</h1>
 <link property="url" href="https://www.bcsp.org/CSP" />
@@ -150,7 +157,7 @@ RDFA:
   <div property="credentialCategory" typeof="DefinedTerm"
        resource="http://purl.org/ctdl/terms/Certification">
     <meta property="name" content="Certification" />
-    <div property="inDefinedTermSet" typeof="http://schema.org/DefinedTermSet"
+    <div property="inDefinedTermSet" typeof="https://schema.org/DefinedTermSet"
          resource="http://purl.org/ctdl/terms/">
       <meta property="name" content="Credential Transparency Description Language"/>
     </div>
@@ -158,9 +165,10 @@ RDFA:
 </div>
 
 JSON:
+
 <script type="application/ld+json">
     {
-        "@context": "http://schema.org",
+        "@context": "https://schema.org",
         "@type": [
             "EducationalOccupationalCredential"
         ],
@@ -180,38 +188,41 @@ JSON:
     }
 </script>
 
-TYPES: EducationalOccupationalCredential, Occupation, educationRequirements
+TYPES: #eg-0261 EducationalOccupationalCredential, Occupation, educationRequirements
 
 PRE-MARKUP:
+
 <h1>Occupation: Research Scientist</h1>
 <h2>educationRequirements"</h2>
 <p>PhD or equivalent<p>
 
 MICRODATA:
-<div itemscope itemtype="http://schema.org/Occupation">
+
+<div itemscope itemtype="https://schema.org/Occupation">
  <h1>Occupation: <span itemprop="name"> Research Scientist</span></h1>
  <h2>qualifications</h2>
  <p itemprop="educationRequirements" itemscope
-    itemtype="http://schema.org/EducationalOccupationalCredential">
+    itemtype="https://schema.org/EducationalOccupationalCredential">
   <span itemprop="educationalLevel">PhD or equivalent</span>
  </p>
 </div>
 
-
 RDFA:
-<div vocab="http://schema.org/" typeof="http://schema.org/Occupation">
+
+<div vocab="https://schema.org/" typeof="https://schema.org/Occupation">
  <h1>Occupation: <span property="name"> Research Scientist</span></h1>
  <h2>qualifications</h2>
  <p property="educationRequirements"
-    typeof="http://schema.org/EducationalOccupationalCredential">
+    typeof="https://schema.org/EducationalOccupationalCredential">
   <span property="educationalLevel">PhD or equivalent</span>
  </p>
 </div>
 
 JSON:
+
 <script type="application/ld+json">
 {
-  "@context": "http://schema.org/",
+  "@context": "https://schema.org/",
   "@type": "Occupation",
   "name": "Research Scientist",
   "qualifications": {
@@ -220,3 +231,4 @@ JSON:
   }
 }
 </script>
+

@@ -1,4 +1,4 @@
-TYPES: OfferShippingDetails, deliveryTime, ShippingDeliveryTime, shippingRate
+TYPES: #eg-0392 OfferShippingDetails, deliveryTime, ShippingDeliveryTime, shippingRate
 
 PRE-MARKUP:
 
@@ -16,18 +16,18 @@ JSON:
 
 <script type="application/ld+json">
     {
-        "@context": "http://schema.org",
+        "@context": "https://schema.org",
         "@type": "OfferShippingDetails",
         "deliveryTime": {
             "@type": "ShippingDeliveryTime",
             "businessDays": {
                 "@type": "OpeningHoursSpecification",
                 "dayOfWeek": [
-                    "http://schema.org/Monday",
-                    "http://schema.org/Tuesday",
-                    "http://schema.org/Wednesday",
-                    "http://schema.org/Thursday",
-                    "http://schema.org/Friday"
+                    "https://schema.org/Monday",
+                    "https://schema.org/Tuesday",
+                    "https://schema.org/Wednesday",
+                    "https://schema.org/Thursday",
+                    "https://schema.org/Friday"
                 ]
             },
             "cutoffTime": "12:00:15Z",
@@ -51,3 +51,4 @@ JSON:
         }
     }
 </script>
+

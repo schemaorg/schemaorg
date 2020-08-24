@@ -220,7 +220,14 @@ echo "Creating https versions:"
             if [ -r $SOURCE ]
             then
                 echo "$SOURCE -> $TARGET"
-                sed 's|http://schema.org|https://schema.org|g' $SOURCE > $TARGET
+                sed -e 's|http://schema.org|https://schema.org|g' \
+                    -e 's|http://attic.schema.org|https://attic.schema.org|g' \
+                    -e 's|http://auto.schema.org|https://auto.schema.org|g' \
+                    -e 's|http://bib.schema.org|https://bib.schema.org|g' \
+                    -e 's|http://health-lifesci.schema.org|https://health-lifesci.schema.org|g' \
+                    -e 's|http://meta.schema.org|https://meta.schema.org|g' \
+                    -e 's|http://pending.schema.org|https://pending.schema.org|g' \
+                    $SOURCE > $TARGET
             fi
         done
     done
