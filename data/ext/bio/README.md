@@ -5,13 +5,13 @@ This directory contains a proposal for extending schema.org to include types and
 The proposal consists of the following types and where they sit in the schema.org hierarchy. For each type, we provide details of the major design decisions and domain vocabularies considered. The link takes you to the corresponding document for that type.
 
 - Thing
-  - [BioChemEntity](BioChemEntityCodingNotes.md)
-    - [BioSample](BioSampleCodingNotes.md)
-    - [ChemicalSubstance](ChemicalSubstanceCodingNotes.md)
-    - [Gene](GeneCodingNotes.md)
-    - [MolecularEntity](MolecularEntityCodingNotes.md)
-    - [Protein](ProteinCodingNotes.md)
-  - [Taxon](TaxonCodingNotes.md)
+  - [BioChemEntity](https://github.com/BioSchemas/specifications/tree/master/BioschemasRelease1_Notes/BioChemEntityCodingNotes.md)
+    - [BioSample](https://github.com/BioSchemas/specifications/tree/master/BioschemasRelease1_Notes/BioSampleCodingNotes.md)
+    - [ChemicalSubstance](https://github.com/BioSchemas/specifications/tree/master/BioschemasRelease1_Notes/ChemicalSubstanceCodingNotes.md)
+    - [Gene](https://github.com/BioSchemas/specifications/tree/master/BioschemasRelease1_Notes/GeneCodingNotes.md)
+    - [MolecularEntity](https://github.com/BioSchemas/specifications/tree/master/BioschemasRelease1_Notes/MolecularEntityCodingNotes.md)
+    - [Protein](https://github.com/BioSchemas/specifications/tree/master/BioschemasRelease1_Notes/ProteinCodingNotes.md)
+  - [Taxon](https://github.com/BioSchemas/specifications/tree/master/BioschemasRelease1_Notes/TaxonCodingNotes.md)
 
 A test deployment of the schema.org pages with the Bioschemas extension can be found [here](http://sdo-bioschemas-227516.appspot.com/). Note that this instance has a very limited quota on the number of page requests it can serve. We have also made the types available through the Bioschemas website ([types](https://bioschemas.org/types/)).
 
