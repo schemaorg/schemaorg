@@ -2797,7 +2797,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 :SkiResort a rdfs:Class ;
     rdfs:label "SkiResort" ;
     rdfs:comment "A ski resort." ;
-    rdfs:subClassOf :SportsActivityLocation .
+    rdfs:subClassOf :SportsActivityLocation, :Resort .
 
 :SocialEvent a rdfs:Class ;
     rdfs:label "SocialEvent" ;
@@ -6667,7 +6667,7 @@ Typical unit code(s): MTK for square meter, FTK for square foot, or YDK for squa
 :keywords a rdf:Property ;
     rdfs:label "keywords" ;
     :domainIncludes :CreativeWork ;
-    :rangeIncludes :Text ;
+    :rangeIncludes :Text, :DefinedTerm, :URL ;
     rdfs:comment "Keywords or tags used to describe this content. Multiple entries in a keywords list are typically delimited by commas." .
 
 :knownVehicleDamages a rdf:Property ;
