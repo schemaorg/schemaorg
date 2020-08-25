@@ -58,11 +58,13 @@ Machine-readable formats include OpenAPI (Swagger) description, an OGC GetCapabi
 :conformsTo a rdf:Property ;
     rdfs:label "conformsTo" ;
     :category "issue-1423" ;
-    :domainIncludes :WebAPI ;
+    :domainIncludes :CreativeWork,
+        :WebAPI ;
     :isPartOf <http://pending.schema.org> ;
     :rangeIncludes :URL ;
     :source <https://github.com/schemaorg/schemaorg/issues/1423> ;
-    rdfs:comment "The URL reference of an established standard to which the described API conforms, for example `https://jsonapi.org/format/1.0/`." .
+    rdfs:comment """The URL reference of an established standard to which the [[Thing]] described conforms. Broadly equivalent to Dublin Core's "[conformsTo](https://www.dublincore.org/specifications/dublin-core/dcmi-terms/#http://purl.org/dc/terms/conformsTo]" property.
+      """ .
 
 :accessService a rdf:Property ;
     rdfs:label "accessService" ;
