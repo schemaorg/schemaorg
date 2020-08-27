@@ -1,6 +1,11 @@
-<!-- Footer start from PageFooter.tpl -->
-<div id="footer"><p>
-  <a href="docs/terms.html">Terms and conditions</a></p>
+<!-- Footer start from PageFooter.j2 -->
+    
+    <div id="footer"><p>
+<div id="versioninfo">
+    V{{version}}<br/>
+    {{versiondate}}
+</div>
+  <a href="{{docsdir}}/terms.html">Terms and conditions</a></p>
 </div>
 
 <script>
@@ -13,4 +18,4 @@
   ga('send', 'pageview');
 
 </script>
-<!-- Footer end from PageFooter.tpl -->
+<!-- Footer end from PageFooter.j2 -->

@@ -1,11 +1,12 @@
 {% if term.supersedes|length > 0 %}
 	<table class="definition-table"><thead><tr><th><a href="{{href_prefix}}supersedes.html">supersedes</a></th></tr></thead>
-	<tr><td><code><a href="{{href_prefix}}{{term.supersedes}}.html">{{term.supersedes}}</a></td></tr>
+	<tr><td><code>{% for ss in term.supersedes %}{% if not loop.first %} <br/>{% endif %}
+            {{ sdotermlink(ss)|safe }}{% endfor %}</code></td></tr>
      </table>
 {% endif %}
 {% if term.supersededBy|length > 0 %}
 	<table class="definition-table"><thead><tr><th><a href="{{href_prefix}}supersededBy.html">supersededBy</a></th></tr></thead>
-	<tr><td><code><a href="{{href_prefix}}{{term.supersededBy}}.html">{{term.supersededBy}}</a></td></tr>
+	<tr><td><code>{{ sdotermlink(term.supersededBy)|safe }}</code></td></tr>
      </table>
 {% endif %}
 

@@ -41,6 +41,9 @@ class SdoTerm():
         self.supersededBy = ""
         self.supersedes = ""
         self.termStack = []
+
+    def __str__(self):
+        return ("<%s: '%s' expanded: %s>") % (self.__class__.__name__.upper(),self.id,self.expanded)
         
 
 class SdoType(SdoTerm):
@@ -51,7 +54,6 @@ class SdoType(SdoTerm):
         self.properties = []
         self.allproperties = []
         self.expectedTypeFor = []
-        
     
     
 class SdoProperty(SdoTerm):
@@ -61,7 +63,7 @@ class SdoProperty(SdoTerm):
         self.domainIncludes = []
         self.rangeIncludes = []
         self.inverse = ""
-    
+
     
 class SdoDataType(SdoTerm):
     def __init__(self,Id,uri,label):
@@ -80,7 +82,6 @@ class SdoEnumeration(SdoTerm):
         self.allproperties = []
         self.expectedTypeFor = []
         self.enumerationMembers = []
-
 
 class SdoEnumerationvalue(SdoTerm):
 

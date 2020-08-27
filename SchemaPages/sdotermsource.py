@@ -4,10 +4,8 @@
 from __future__ import with_statement
 
 import logging
-logging.basicConfig(level=logging.INFO) # dev_appserver.py --log_level debug .
+logging.basicConfig(level=logging.INFO) 
 log = logging.getLogger(__name__)
-
-#from testharness import *
 
 import threading
 import os
@@ -55,7 +53,7 @@ class SdoTermSource():
         self.category = cat
         if not cat:
               self.category = ""
-        self.term = None
+        self.termdesc = None
         
         self.parent = None
         self.checkedDataTypeParents = False    
@@ -114,61 +112,63 @@ class SdoTermSource():
                 #raise Exception("Unknown parent type '%s' for term: %s" % (ttype, self.uri))
                 
         if self.ttype == SdoTerm.TYPE:
-            self.term = SdoType(self.id,self.uri,self.label)
+            self.termdesc = SdoType(self.id,self.uri,self.label)
         elif self.ttype == SdoTerm.PROPERTY:
-            self.term = SdoProperty(self.id,self.uri,self.label)
+            self.termdesc = SdoProperty(self.id,self.uri,self.label)
         elif self.ttype == SdoTerm.DATATYPE:
-            self.term = SdoDataType(self.id,self.uri,self.label)
+            self.termdesc = SdoDataType(self.id,self.uri,self.label)
         elif self.ttype == SdoTerm.ENUMERATION:
-            self.term = SdoEnumeration(self.id,self.uri,self.label)
+            self.termdesc = SdoEnumeration(self.id,self.uri,self.label)
         elif self.ttype == SdoTerm.ENUMERATIONVALUE:
-            self.term = SdoEnumerationvalue(self.id,self.uri,self.label)
+            self.termdesc = SdoEnumerationvalue(self.id,self.uri,self.label)
             if self.parent:
-                self.term.enumerationParent = self.parent.id
+                self.termdesc.enumerationParent = self.parent.id
         elif self.ttype == SdoTerm.REFERENCE:
-            self.term = SdoReference(self.id,self.uri,self.label)
+            self.termdesc = SdoReference(self.id,self.uri,self.label)
 
-        self.term.category = self.category
-        self.term.acknowledgements = self.getAcknowledgements()
-        self.term.comment = self.getComment()
-        self.term.equivalents = self.getEquivalents()
-        self.term.pending = self.inLayers("pending")
-        self.term.retired = self.inLayers("attic")
-        self.term.sources = self.getSources()
-        self.term.subs = self.getSubs()
-        self.term.supers = self.getSupers()
-        self.term.supersededBy = self.getSupersededBy()
-        self.term.supersedes = self.getSupersedes()
-        self.term.termStack = self.getTermStack()
-        self.term.superPaths = self.getParentPaths() #MUST be called after supers has been added to self.term
+        self.termdesc.category = self.category
+        self.termdesc.acknowledgements = self.getAcknowledgements()
+        self.termdesc.comment = self.getComment()
+        self.termdesc.equivalents = self.getEquivalents()
+        self.termdesc.pending = self.inLayers("pending")
+        self.termdesc.retired = self.inLayers("attic")
+        self.termdesc.sources = self.getSources()
+        self.termdesc.subs = self.getSubs()
+        self.termdesc.supers = self.getSupers()
+        self.termdesc.supersededBy = self.getSupersededBy()
+        self.termdesc.supersedes = self.getSupersedes()
+        self.termdesc.termStack = self.getTermStack()
+        self.termdesc.superPaths = self.getParentPaths() #MUST be called after supers has been added to self.termdesc
         
         #Class (Type) Building
         if self.ttype == SdoTerm.TYPE or self.ttype == SdoTerm.DATATYPE or self.ttype == SdoTerm.ENUMERATION:
-            self.term.properties = self.getProperties(getall=False)
-            self.term.allproperties = self.getProperties(getall=True)
-            self.term.expectedTypeFor = self.getTargetOf()
+            self.termdesc.properties = self.getProperties(getall=False)
+            self.termdesc.allproperties = self.getProperties(getall=True)
+            self.termdesc.expectedTypeFor = self.getTargetOf()
             if self.ttype == SdoTerm.ENUMERATION:
-                if not len(self.term.properties):
-                    self.term.termStack = []
-            self.term.enumerationMembers = self.getEnumerationMembers()
+                if not len(self.termdesc.properties):
+                    self.termdesc.termStack = []
+            self.termdesc.enumerationMembers = self.getEnumerationMembers()
         elif self.ttype == SdoTerm.PROPERTY:
-            self.term.domainIncludes = self.getDomains()
-            self.term.rangeIncludes = self.getRanges()
-            self.term.inverse = self.getInverseOf()
+            self.termdesc.domainIncludes = self.getDomains()
+            self.termdesc.rangeIncludes = self.getRanges()
+            self.termdesc.inverse = self.getInverseOf()
         elif self.ttype == SdoTerm.ENUMERATIONVALUE:
             pass
         elif self.ttype == SdoTerm.REFERENCE:
-            self.term.label = prefixedIdFromUri(self.uri)
-            self.term.comment = self.getComment()
+            self.termdesc.label = prefixedIdFromUri(self.uri)
+            self.termdesc.comment = self.getComment()
         
         
         
-        TERMS[self.uri] = self.term
+        TERMS[self.uri] = self.termdesc
         
         #log.info("SdoTermSource %s %s" %(self.ttype,self.id))
 
     def __str__(self):
-        return ("<%s: '%s'>") % (self.ttype,self.id)
+        return ("<SdoTermSource: %s '%s'>") % (self.ttype,self.id)
+    def getTermdesc(self):
+        return self.termdesc
     def getType(self):
         return self.ttype
     def isClass(self):
@@ -413,8 +413,8 @@ class SdoTermSource():
     def loadComment(self):
         comments = self.getComments()
         wpre = None
-        name = self.term.id
-        if name.startswith("http"): #Wikilinks in markdown default to current site - extermals need overriding
+        name = self.termdesc.id
+        if name.startswith("http:"): #Wikilinks in markdown default to current site - extermals need overriding
             val = os.path.basename(name)
             wpre = name[:len(name) - len(val)]
         
@@ -531,7 +531,7 @@ class SdoTermSource():
         if cstack == None:
             cstack = []
         self._pstacks.append(cstack)
-        self._getParentPaths(self.term,cstack)
+        self._getParentPaths(self.termdesc,cstack)
         
         inserts = []
         if self.ttype == SdoTerm.PROPERTY:
@@ -543,7 +543,7 @@ class SdoTermSource():
             if base != self.id:
                 basetype = SdoTermSource._getTerm(base)
             else:
-                basetype = self.term
+                basetype = self.termdesc
             if basetype.termType == SdoTerm.DATATYPE:
                 inserts = ["DataType"]
                 
@@ -576,7 +576,7 @@ class SdoTermSource():
 
             x=0
             for p in supers:
-                if not p.startswith("http"):
+                if not (p.startswith("http:") or p.startswith("https:")):
                     sup = SdoTermSource._getTerm(p)
                     self._getParentPaths(sup,tmpStacks[x])
                     x += 1
@@ -595,55 +595,62 @@ class SdoTermSource():
         
 
     @staticmethod
-    def expandTerm(term,depth=0):
+    def expandTerms(terms):
+        ret = []
+        for t in terms:
+            ret.append(SdoTermSource.expandTerm(t))
+        return ret
+        
+    @staticmethod
+    def expandTerm(termdesc,depth=0):
         
         import copy
-        term = copy.copy(term)
+        termdesc = copy.copy(termdesc)
         
-        #log.info("Expanding %s" % term.id)
+        #log.info("Expanding %s" % termdesc.id)
 
-        if not term.expanded:
-            term.expanded = True
+        if not termdesc.expanded:
+            termdesc.expanded = True
             supers = []
-            for path in term.superPaths:
+            for path in termdesc.superPaths:
                 supers.append(SdoTermSource.termsFromIds(path))
-            term.superPaths = supers
+            termdesc.superPaths = supers
                 
                 
-            term.termStack = SdoTermSource.termsFromIds(term.termStack)
-            term.supers = SdoTermSource.termsFromIds(term.supers)
-            term.equivalents = SdoTermSource.termsFromIds(term.equivalents)
+            termdesc.termStack = SdoTermSource.termsFromIds(termdesc.termStack)
+            termdesc.supers = SdoTermSource.termsFromIds(termdesc.supers)
+            termdesc.equivalents = SdoTermSource.termsFromIds(termdesc.equivalents)
         
-            if term.termType == SdoTerm.TYPE or term.termType == SdoTerm.DATATYPE or term.termType == SdoTerm.ENUMERATION:
-                term.properties = SdoTermSource.termsFromIds(term.properties)
-                term.expectedTypeFor = SdoTermSource.termsFromIds(term.expectedTypeFor)
+            if termdesc.termType == SdoTerm.TYPE or termdesc.termType == SdoTerm.DATATYPE or termdesc.termType == SdoTerm.ENUMERATION:
+                termdesc.properties = SdoTermSource.termsFromIds(termdesc.properties)
+                termdesc.expectedTypeFor = SdoTermSource.termsFromIds(termdesc.expectedTypeFor)
 
                 if depth < 2: #Expand the properties but prevent recursion further
                     props = []
-                    for p in term.properties:
+                    for p in termdesc.properties:
                         props.append(SdoTermSource.expandTerm(p,depth=depth +1))
-                    term.properties = props
+                    termdesc.properties = props
                     expects = []
-                    for e in term.expectedTypeFor:
+                    for e in termdesc.expectedTypeFor:
                         expects.append(SdoTermSource.expandTerm(e,depth=depth +1))
-                    term.expectedTypeFor = expects
+                    termdesc.expectedTypeFor = expects
                 
-                if term.termType == SdoTerm.ENUMERATION:
-                    term.enumerationMembers = SdoTermSource.termsFromIds(term.enumerationMembers)
-            elif term.termType == SdoTerm.PROPERTY:
-                term.domainIncludes = SdoTermSource.termsFromIds(term.domainIncludes)
-                term.rangeIncludes = SdoTermSource.termsFromIds(term.rangeIncludes)
-                term.inverse = SdoTermSource.termFromId(term.inverse)
-            elif term.termType == SdoTerm.ENUMERATIONVALUE:
-                term.enumerationParent = SdoTermSource.termFromId(term.enumerationParent)
+                if termdesc.termType == SdoTerm.ENUMERATION:
+                    termdesc.enumerationMembers = SdoTermSource.termsFromIds(termdesc.enumerationMembers)
+            elif termdesc.termType == SdoTerm.PROPERTY:
+                termdesc.domainIncludes = SdoTermSource.termsFromIds(termdesc.domainIncludes)
+                termdesc.rangeIncludes = SdoTermSource.termsFromIds(termdesc.rangeIncludes)
+                termdesc.inverse = SdoTermSource.termFromId(termdesc.inverse)
+            elif termdesc.termType == SdoTerm.ENUMERATIONVALUE:
+                termdesc.enumerationParent = SdoTermSource.termFromId(termdesc.enumerationParent)
 
-            if not depth: #Expand the indivdual terms in the terms' termstack but prevent recursion further.
+            if not depth: #Expand the indivdual termdescs in the terms' termstack but prevent recursion further.
                 stack = []
-                for t in term.termStack:
+                for t in termdesc.termStack:
                     stack.append(SdoTermSource.expandTerm(t,depth=depth +1))
-                term.termStack = stack
+                termdesc.termStack = stack
         
-        return term
+        return termdesc
  
     @staticmethod
     def termFromId(id=""):
@@ -710,8 +717,8 @@ class SdoTermSource():
             
         term = TERMS.get(tmp.id,None) 
         if not term:  #Already created this term ?     
-            term =  SdoTermSource(tmp.id,ttype=tmp.tt,label=tmp.lab,layer=tmp.layer,cat=tmp.cat)
-            
+            t =  SdoTermSource(tmp.id,ttype=tmp.tt,label=tmp.lab,layer=tmp.layer,cat=tmp.cat)
+            term = t.termdesc
         return term
 
     class TmpTerm:
@@ -738,8 +745,14 @@ class SdoTermSource():
         return SdoTermSource.getAllTerms(ttype = SdoTerm.ENUMERATION,layer=layer,expanded=expanded)
 
     @staticmethod
+    def getAllEnumerationvalues(layer=None,expanded=False):
+        return SdoTermSource.getAllTerms(ttype = SdoTerm.ENUMERATIONVALUE,layer=layer,expanded=expanded)
+
+        
+    @staticmethod
     def getAllTerms(ttype=None,layer=None,supressSourceLinks=False,expanded=False):
         typsel = ""
+        extra = ""
         if ttype == SdoTerm.TYPE:
             typsel = "a <%s>;" % rdflib.RDFS.Class
         elif ttype == SdoTerm.PROPERTY:
@@ -747,9 +760,9 @@ class SdoTermSource():
         elif ttype == SdoTerm.DATATYPE:
             typsel = "a <%s>;" % DATATYPEURI
         elif ttype == SdoTerm.ENUMERATION:
-            typsel = "a <%s>;" % ENUMERATIONURI
-        #elif ttype == SdoTerm.ENUMERATIONVALUE:
-            #typsel = "?type <%s>;" % ENUMERATIONURI
+            typsel = "rdfs:subClassOf* <%s>;" % ENUMERATIONURI
+        elif ttype == SdoTerm.ENUMERATIONVALUE:
+            extra = "?type rdfs:subClassOf*  <%s>." % ENUMERATIONURI
         elif not ttype:
             typesel = ""
         else:
@@ -773,6 +786,7 @@ class SdoTermSource():
                 %s
                 %s
                 rdfs:label ?label.
+            %s
             OPTIONAL {
                 ?term schema:isPartOf ?layer.
             }
@@ -789,7 +803,7 @@ class SdoTermSource():
             %s
         }
         ORDER BY ?term
-        """ % (typsel,laysel,fil,supress)
+        """ % (typsel,laysel,extra,fil,supress)
         
         #log.info("query %s" % query)
         res = SdoTermSource.query(query)
@@ -842,6 +856,15 @@ class SdoTermSource():
     @staticmethod
     def sourceGraph():
         return SdoTermSource.SOURCEGRAPH
+    
+    @staticmethod
+    def getNamespaces():
+        list(SdoTermSource.SOURCEGRAPH.namespaces())
+        
+    @staticmethod
+    def vocabUri():
+        return VOCABURI
+    
 
     @staticmethod
     def query(q):
@@ -1007,12 +1030,11 @@ class SdoTermSource():
             if len(res):
                 term = SdoTermSource.termsFromResults(res,termId=fullId)
             elif createReference:
-                term = SdoTermSource(fullId)
+                term = SdoTermSource(fullId).getTermdesc()
             else:
                 log.debug("No definition of term %s" % fullId)
-            term = term.term
-                            
-        if expanded and not term.expanded:
+
+        if term and expanded and not term.expanded:
             exterm = EXPANDEDTERMS.get(fullId,None)
             if not exterm:
                 exterm = SdoTermSource.expandTerm(term)

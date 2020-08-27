@@ -13,7 +13,7 @@
     <div class="superPaths">
     {% for superPath in term.superPaths %}
         {% for super in superPath %} {% if not loop.first %}{% if not loop.last %} -> {% endif %}{% endif %}
-					{% if loop.index > 1 %}{% if loop.last %}{% if TERMTYPE == "Enumeration Value" %} :: {% else %} -> {% endif %}{% endif %}{% endif %}
+					{% if loop.index > 1 %}{% if loop.last %}{% if TERMTYPE == "Enumeration Member" %} :: {% else %} -> {% endif %}{% endif %}{% endif %}
 					{{ sdotermlink(super)|safe }}{% endfor %}
         <br/>
     {% endfor %}

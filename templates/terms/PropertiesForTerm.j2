@@ -11,6 +11,9 @@
         <td class="prop-ect">{% for ect in prop.rangeIncludes %}{% if not loop.first %}&nbsp; or <br/>{% endif %}
             {{ sdotermlink(ect)|safe }}{% endfor %}</td>
         <td class="prop-desc">{{ prop.comment | safe}}
+            {% for ss in prop.supersedes %}{% if loop.first %} Supersedes {% else %}, {% endif %}
+            {{ sdotermlink(ss)|safe }}{% if loop.last%}.{% endif %}{% endfor %}
+            {% if prop.supersededBy %} SupersededBy {{sdotermlink(prop.supersededBy)| safe}}. {%endif %}
             {% if prop.inverse %}<br/>Inverse property: {{ sdotermlink(prop.inverse)|safe }}{% endif %}
         </td>
     </tr>

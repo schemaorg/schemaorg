@@ -1,0 +1,17 @@
+{% macro term_sdotermlink(term,props="") -%}
+    {% if term.pending %}{% set CLASS = "ext ext-pending" %}
+    {% elif term.retired %}{% set CLASS = "ext ext-attic" %}
+    {% else %}{% set CLASS = "core" %}
+    {% endif %}
+    {% if term.id %}{% set name = term.id %}{% else %}{% set name = term %}{% endif %}
+    <a href="{{TERMHREFPREFIX}}{{name}}{{TERMHREFSUFFIX}}" {{props}} class="{{CLASS}}" title="{{name}}">{{name}}</a>
+{%- endmacro %}
+
+{% macro docs_sdotermlink(term,props="") -%}
+    {% if term.pending %}{% set CLASS = "ext ext-pending" %}
+    {% elif term.retired %}{% set CLASS = "ext ext-attic" %}
+    {% else %}{% set CLASS = "core" %}
+    {% endif %}
+    {% if term.id %}{% set name = term.id %}{% else %}{% set name = term %}{% endif %}
+    <a href="{{DOCSHREFPREFIX}}{{name}}{{DOCSHREFSUFFIX}}" {{props}} class="{{CLASS}}" title="{{name}}">{{name}}</a>
+{%- endmacro %}

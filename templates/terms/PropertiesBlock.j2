@@ -12,10 +12,10 @@
 	    <thead>
 	      <tr><th>Property</th><th>Expected Type</th><th>Description</th></tr>
 	  </thead>
-	  {% set propertiesFor = term %}{% include 'terms/PropertiesForTerm.tpl' with context %}
+	  {% set propertiesFor = term %}{% include 'terms/PropertiesForTerm.j2' with context %}
 
 	  {% for t in term.termStack %}
-	      {% set propertiesFor = t %}{% include 'terms/PropertiesForTerm.tpl' with context %}
+	      {% set propertiesFor = t %}{% include 'terms/PropertiesForTerm.j2' with context %}
 	  {% endfor %}
 
 	 </table>

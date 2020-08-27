@@ -1,24 +1,25 @@
+{% from 'macros.j2' import term_sdotermlink as sdotermlink with context %}
 <!DOCTYPE html>
 <html lang="en">
-<!-- Generated from TermPageEx.tpl -->
+<!-- Generated from TermPageEx.j2 -->
     {% if term.termType == "Type" %}{% set TERMTYPE = "Type" %}
     {% elif term.termType == "Property" %}{% set TERMTYPE = "Property" %}
     {% elif term.termType == "Datatype" %}{% set TERMTYPE = "Data Type" %}
     {% elif term.termType == "Enumeration" %}{% set TERMTYPE = "Enumeration" %}
     {% elif term.termType == "Enumerationvalue" %}{% set TERMTYPE = "Enumeration Member" %}
     {% endif %}
-    {% include 'terms/Head.tpl' with context %}
+    {% include 'terms/Head.j2' with context %}
 <body>
-    {% include 'PageHeader.tpl' with context %}
+    {% include 'PageHeader.j2' with context %}
     <div id="mainContent">
-	    {% include 'terms/InfoBlock.tpl' with context %}
+	    {% include 'terms/InfoBlock.j2' with context %}
 		
 		{% if term.termType == "Type" or term.termType == "Datatype" or term.termType == "Enumeration" %}
             <!-- Show properties (if any) associated with term and its supertypes -->
-    	    {% include 'terms/PropertiesBlock.tpl' with context %} 
+    	    {% include 'terms/PropertiesBlock.j2' with context %} 
 		
     		<!-- List properties that have this term as an Expected type -->
-    	    {% include 'terms/TargetFor.tpl' with context %}
+    	    {% include 'terms/TargetFor.j2' with context %}
         {% endif %}
         
         {% if term.termType == "Property" %}
@@ -44,7 +45,7 @@
             <!-- List enumeration members -->
     	    {% set SUBLABEL = "Enumeration members" %}
     	    {% set SUBLIST = term.enumerationMembers %}
-    		    {% include 'terms/Subs.tpl' with context %}
+    		    {% include 'terms/Subs.j2' with context %}
         {% endif %}
 
 		
@@ -56,16 +57,16 @@
             {% elif term.termType == "Property" %}{% set SUBLABEL = "Sub-properties" %}
             {% endif %}
     	    {% set SUBLIST = term.subs %}
-    	    	{% include 'terms/Subs.tpl' with context %}
+    	    	{% include 'terms/Subs.j2' with context %}
         {% endif %}
 			
 		<!-- list source references and acknowledgements -->
-		{% include 'terms/Ackblock.tpl' with context %}
+		{% include 'terms/Ackblock.j2' with context %}
 
 		<!-- list examples  -->
-		{% include 'terms/Examplesblock.tpl' with context %}
+		{% include 'terms/Examplesblock.j2' with context %}
 		
     </div> <!-- mainContent -->
-	{% include 'PageFooter.tpl' with context %}
+	{% include 'PageFooter.j2' with context %}
 </body>
 </html>

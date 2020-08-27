@@ -1,9 +1,10 @@
+{% from 'macros.j2' import docs_sdotermlink as sdotermlink with context %}
 <!DOCTYPE html>
 <html lang="en">
-<!-- Generated from Home.tpl -->
-    {% include 'docs/DocsHead.tpl' with context %}
+<!-- Generated from Home.j2 -->
+    {% include 'docs/DocsHead.j2' with context %}
 <body>
-    {% include 'PageHeader.tpl' with context %}
+    {% include 'PageHeader.j2' with context %}
   <div id="mainContent" class="faq">
 
 
@@ -101,7 +102,7 @@ Unlike other core and section terms, these areas may be updated at any time with
   </div><!-- mainContent -->
 
 
-	{% include 'PageFooter.tpl' with context %}
+	{% include 'PageFooter.j2' with context %}
 
 </body>
 </html>

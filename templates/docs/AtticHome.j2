@@ -1,9 +1,10 @@
+{% from 'macros.j2' import docs_sdotermlink as sdotermlink with context %}
 <!DOCTYPE html>
 <html lang="en">
-<!-- Generated from Home.tpl -->
-    {% include 'docs/DocsHead.tpl' with context %}
+<!-- Generated from Home.j2 -->
+    {% include 'docs/DocsHead.j2' with context %}
 <body>
-    {% include 'PageHeader.tpl' with context %}
+    {% include 'PageHeader.j2' with context %}
     <div id="mainContent">
 <h3>Schema.org Section: attic</h3>
 <p>Schema.org is a set of extensible schemas that enables webmasters to embed structured data on their web pages for use by search engines and other applications.
@@ -41,6 +42,6 @@ Implementors and publishers are gently encouraged not to use terms in the attic 
         {% endfor %}
     {% endfor %}    
     </div> <!-- mainContent -->
-	{% include 'PageFooter.tpl' with context %}
+	{% include 'PageFooter.j2' with context %}
 </body>
 </html>
