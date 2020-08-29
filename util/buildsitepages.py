@@ -2,6 +2,7 @@
 # -*- coding: UTF-8 -*-
 import sys
 import os
+import shutil
 for path in [os.getcwd(),"SchemaPages","SchemaExamples"]:
   sys.path.insert( 1, path ) #Pickup libs from local  directories
   
@@ -15,6 +16,7 @@ from sdotermsource import SdoTermSource
 from sdoterm import *
 from schemaexamples import SchemaExamples
 from localmarkdown import Markdown
+from schemaversion import *
 
 SITENAME="SchemaPages"
 TEMPLATESDIR = "templates"
@@ -22,6 +24,7 @@ TRIPLESFILESGLOB = ["data/*.ttl","data/ext/*/*.ttl"]
 EXAMPLESFILESGLOB = ["data/*examples.txt","data/ext/*/*examples.txt"]
 
 parser = argparse.ArgumentParser()
+parser.add_argument("-c","--clearfirst",default=False, action='store_true', help="clear output directory before creating contents")
 parser.add_argument("-d","--docspages",default= [],action='append',nargs='*',  help="create docs page(repeatable) - ALL = all pages")
 parser.add_argument("-f","--files",default= [],action='append',nargs='*',  help="create files(repeatable) - ALL = all files")
 parser.add_argument("-o","--output", help="output site directory (default: ./site | ./testsite)")
@@ -49,9 +52,26 @@ else:
     OUTPUTDIR = "site"
 DOCSOUTPUTDIR = OUTPUTDIR + "/docs"
 
-if TESTSITE:
+def clear():
+    if args.clearfirst:
+        print("Clearing %s directory" % OUTPUTDIR)
+        for root, dirs, files in os.walk(OUTPUTDIR):
+            for f in files:
+                os.unlink(os.path.join(root, f))
+            for d in dirs:
+                shutil.rmtree(os.path.join(root, d))
+
+"""if TESTSITE:
     DOCSDOCSDIR = "."
     TERMDOCSDIR = "docs/"
+    DOCSHREFSUFFIX=".html" 
+    DOCSHREFPREFIX="../"
+    TERMHREFSUFFIX=".html" 
+    TERMHREFPREFIX=""
+"""
+if TESTSITE:
+    DOCSDOCSDIR = "/docs"
+    TERMDOCSDIR = "/docs"
     DOCSHREFSUFFIX=".html" 
     DOCSHREFPREFIX="../"
     TERMHREFSUFFIX=".html" 
@@ -69,6 +89,7 @@ else:
 ###################################################
 def initdir():
     print("Building site in '%s' directory" % OUTPUTDIR)
+    clear()
     print("Copying docs static files")
     cmd = "cp -r docs %s" % OUTPUTDIR
     os.system(cmd)
@@ -88,27 +109,6 @@ else:
         #Production site uses no suffix in link - mapping to file done in server config
     Markdown.setWikilinkPostPath("")
     HREFSUFFIX="" 
-
-###################################################
-#VERSION INFO LOAD
-###################################################
-versiondata = None
-def loadVersions():
-    global versiondata
-    import json
-    with open('versions.json') as json_file:
-        versiondata = json.load(json_file)
-
-def getVersion():
-    global versiondata
-    if not versiondata:
-        loadVersions()
-    return versiondata['schemaversion']
-def getVersionDate(ver):
-    global versiondata
-    if not versiondata:
-        loadVersions()
-    return versiondata['releaseLog'].get(ver,None)
 
 ###################################################
 #TERMS SOURCE LOAD
@@ -152,7 +152,7 @@ def templateRender(template,extra_vars=None):
     #Basic varibles configuring UI
     tvars = {
         'version': getVersion(),
-        'versiondate': getVersionDate(getVersion()),
+        'versiondate': getCurrentVersionDate(),
         'sitename': SITENAME,
         'TERMHREFPREFIX': TERMHREFPREFIX,
         'TERMHREFSUFFIX': TERMHREFSUFFIX,
@@ -246,7 +246,7 @@ def processFiles():
 
 if __name__ == '__main__':
     initdir()
-    print("Version: %s  Released: %s" % (getVersion(),getVersionDate(getVersion())))
+    print("Version: %s  Released: %s" % (getVersion(),getCurrentVersionDate()))
     loadTerms()
     loadExamples()
     processTerms()
