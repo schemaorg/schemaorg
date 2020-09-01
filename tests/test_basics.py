@@ -2,23 +2,16 @@ import unittest
 import os
 import logging # https://docs.python.org/2/library/logging.html#logging-levels
 import sys
-sys.path.append( os.getcwd() )
-sys.path.insert( 1, 'lib' ) #Pickup libs, rdflib etc., from shipped lib directory
-sys.path.insert( 1, 'sdopythonapp' ) #Pickup sdopythonapp functionality
-sys.path.insert( 1, 'sdopythonapp/lib' ) #Pickup sdopythonapp libs, rdflib etc., from shipped lib directory
-sys.path.insert( 1, 'sdopythonapp/site' ) #Pickup sdopythonapp from shipped site
+for path in [os.getcwd(),"Util","SchemaPages","SchemaExamples"]:
+  sys.path.insert( 1, path ) #Pickup libs from local  directories
 
-from testharness import *
-#Setup testharness state BEFORE importing sdo libraries
-setInTestHarness(True)
+from sdotermsource import SdoTermSource 
+from sdoterm import *
 
-from api import extensionsLoaded, extensionLoadErrors
-from api import EXAMPLESMAP, Triple
-from apirdfterm import VTerm
-from apimarkdown import Markdown
+VOCABURI = SdoTermSource.vocabUri()
+TRIPLESFILESGLOB = ["data/*.ttl","data/ext/*/*.ttl"]
+EXAMPLESFILESGLOB = ["data/*examples.txt","data/ext/*/*examples.txt"]
 
-from google.appengine.ext import deferred 
-from sdoapp import *
 
 schema_path = './data/schema.ttl'
 examples_path = './data/examples.txt'
@@ -31,6 +24,25 @@ logging.basicConfig(level=logging.INFO)
 log = logging.getLogger(__name__)
 
 
+tripfiles = []
+for g in TRIPLESFILESGLOB:
+  tripfiles.extend(glob.glob(g))
+if not len(tripfiles):
+  print("No triples file(s) to load")
+else:
+  SdoTermSource.loadSourceGraph(tripfiles)
+  print ("loaded %s triples - %s terms" % (len(SdoTermSource.sourceGraph()),len(SdoTermSource.getAllTerms())) )
+  
+print("Loading examples files")
+exfiles = []
+for g in EXAMPLESFILESGLOB:
+    exfiles.extend(glob.glob(g))
+if not len(exfiles):
+    print("No examples file(s) to load")
+else:
+    SchemaExamples.loadExamplesFiles(exfiles)
+    print("Loaded %d examples from  %d examples files" % (SchemaExamples.count(),len(exfiles)))
+
 
 # Tests to probe the health of both schemas and code.
 # Note that known failings can be annotated with @unittest.expectedFailure or @skip("reason...")
@@ -39,21 +51,15 @@ class BallparkCountTests(unittest.TestCase):
     def test_alltypes(self):
 
       # ballpark estimates.
-      self.assertTrue( len( GetAllTypes() )  > TYPECOUNT_LOWERBOUND , "Should be > %d types. Got %s" % (TYPECOUNT_LOWERBOUND, len (GetAllTypes()) ))
-      self.assertTrue( len( GetAllTypes() )  < TYPECOUNT_UPPERBOUND , "Should be < %d types. Got %s" % (TYPECOUNT_UPPERBOUND, len (GetAllTypes()) ))
+      self.assertTrue( len( SdoTermSource.getAllTypes() )  > TYPECOUNT_LOWERBOUND , "Should be > %d types. Got %s" % (TYPECOUNT_LOWERBOUND, len (SdoTermSource.getAllTypes()) ))
+      self.assertTrue( len( SdoTermSource.getAllTypes() )  < TYPECOUNT_UPPERBOUND , "Should be < %d types. Got %s" % (TYPECOUNT_UPPERBOUND, len (SdoTermSource.getAllTypes()) ))
 
 
 class SDOBasicsTestCase(unittest.TestCase):
 
-  def test_foundSchema(self):
-    self.assertEqual(True, os.path.exists(schema_path), "Expected schema file: "+ schema_path )
-
-  def test_foundExamples(self):
-    self.assertEqual(True, os.path.exists(examples_path), "Expected examples file: "+ examples_path )
-
   def test_ExtractedPlausibleNumberOfExamples(self):
 
-    example_count = len(EXAMPLESMAP)
+    example_count = SchemaExamples.count()
 #    for t in api.EXAMPLESMAP:
 #        example_count = example_count + len(t)
     log.info("Extracted %s examples." % example_count )
@@ -69,98 +75,24 @@ class SupertypePathsTestCase(unittest.TestCase):
     def test_simplePath(self):
 
       self.assertEqual(  len(
-                  GetParentPathTo(VTerm.getTerm("CreativeWork"), VTerm.getTerm("Thing"))
+                  SdoTermSource.getParentPathTo("CreativeWork","Thing")
                   ), 1, "1 supertype path from CreativeWork to Thing."  )
 
     def test_dualPath(self):
       self.assertEqual(  len(
-                  GetParentPathTo(VTerm.getTerm("Restaurant"), VTerm.getTerm("Thing"))
+                  SdoTermSource.getParentPathTo("Restaurant","Thing")
                   ), 2, "2 supertype paths from Restaurant to Thing."  )
 
     def test_inverseDualPath(self):
       self.assertEqual(  len(
-                  GetParentPathTo(VTerm.getTerm("Thing"), VTerm.getTerm("Restaurant"))
+                  SdoTermSource.getParentPathTo("Thing"), "Restaurant")
                   ), 0, "0 supertype paths from Thing to Restaurant."  )
-
-"""class SchemaWellformedTestCase(unittest.TestCase):
-
-  def test_wellformed(self):
-
-    from xml.etree import ElementTree
-    tree = ElementTree.parse(schema_path)
-    rootElem = tree.getroot()
-    log.debug("Root element of schema file: "+ rootElem.tag)
-    self.assertEqual("html", rootElem.tag, "Expected root element of schema to be 'html'.")
-"""
-
-class TriplesBasicAPITestCase(unittest.TestCase):
-  """Tests that don't assume the schemas are pre-loaded."""
-
-  def test_checkAddedTriples(self):
-     """This test should store a couple of triples and retrieve them for a fictional 'neogeo' extension layer."""
-
-     u_Volcano = Unit.GetUnit("Volcano", createp=True)
-     p_name = Unit.GetUnit("name", createp=True)
-     Triple.AddTripleText(u_Volcano, p_name, "foo", layer="neogeo") # last arg is 'layer' aka extension
-     Triple.AddTripleText(u_Volcano, p_name, "bar", "neogeo") # show both syntax options 
-
-     try:
-       v_names = GetTargets( p_name, u_Volcano, "neogeo")
-       log.info("Looking for: Volcano's 'name' property values, 'foo' and 'bar'. counted: %s" % len(v_names) )
-       for vn in v_names:
-           log.debug("Found a Volcano 'name' value: %s " % vn)
-     except Exception as e:
-       log.info("Failed volcano lookup. %s " % e)
-
-     self.assertTrue ( "foo" in v_names and "bar" in v_names, "should have foo and bar in name list: %s " % ",".join(v_names)   )
-     self.assertEqual(len(v_names), 2, "length of list of names of Volcano should be 2. actual: %s " % len(v_names) )
-
-
-  def test_checkMismatchedLayerTriplesFail(self):
-        """This test should store a couple of triples for a fictional 'neogeo' extension layer, and fail to find it when looking in another layer."""
-        log.info("test_checkMismatchedLayerTriplesFail bypassed as 'Unit' now redundant")
-
-        return 
-      
-        u_Volcano = Unit.GetUnit("Volcano", createp=True)
-        p_name = Unit.GetUnit("name", createp=True)
-        Triple.AddTripleText(u_Volcano, p_name, "foo", "neogeo")#   , "neogeo") # last arg is 'layer' aka extension
-        Triple.AddTripleText(u_Volcano, p_name, "bar", "neogeo")#   , "neogeo") # can we add two triples w/ same property?
-        try:
-            v_names = GetTargets( p_name, u_Volcano, layers='core' )
-            log.info("Looking for: Volcano's 'name' property values, 'foo' and 'bar'. counted: %s" % len(v_names) )
-            for vn in v_names:
-               log.debug("Found a Volcano 'name' value: %s " % vn)
-        except Exception as e:
-            log.info("Failed volcano lookup. %s " % e)
-
-        self.assertFalse ( "foo" in v_names and "bar" in v_names, "Layer mismatch - should NOT have foo and bar in name list: %s " % ",".join(v_names)   )
-        self.assertEqual(len(v_names), 0, "layer mismatch - length of list of names of Volcano should be 0. actual: %s " % len(v_names) )
-
 
 class SchemaBasicAPITestCase(unittest.TestCase):
 
-  def setUp(self):
-     load_schema_definitions()
-     self.schemasInitialized = schemasInitialized
-
-  def test_schemasInitialized(self):
-     self.assertEqual(self.schemasInitialized,True, "Schemas should be initialized during setup.")
-  
-  def test_extensionsLoaded(self):
-     global extensionsLoaded, extensionLoadErrors
-
-     if not extensionsLoaded: #Will error if called more than once
-         read_extensions([ 'admin', 'auto', 'bib' ])
-         
-     if len(extensionLoadErrors) > 0:
-         log.info("Extension load errors:\n%s" % extensionLoadErrors)
-
-     self.assertEqual(len(extensionLoadErrors),0, "Extension schemas reporting errors.")
-     
   def test_gotThing(self):
 
-     thing = VTerm.getTerm("Thing")
+     thing = SdoTermSource.getTerm("Thing")
      if thing is None:
        gotThing = False
      else:
@@ -168,94 +100,9 @@ class SchemaBasicAPITestCase(unittest.TestCase):
 
      self.assertEqual( gotThing, True, "Thing node should be accessible via GetUnit('Thing').")
 
-  def test_hostInfo(self):
-#      Note This test will fail if setInTestHarness(True) has not been called!!!!!
-
-      thing = Unit.GetUnit("Thing")
-      u = ShowUnit()
-      u.setupHostinfo(thing,"localhost")
-      self.assertEqual( getHostExt(), "", "host_ext should be empty for host localhost.")
-      self.assertEqual( getBaseHost(), "localhost", "baseHost should be 'schema.org' for host schema.org.")
-      self.assertEqual( getHostPort(), "80", "HostPort should be '80' for host localhost.")
-      self.assertEqual( makeUrl("tst", full=True), "http://tst.localhost", "URL should be 'http://tst.localhost' for host localhost.")
-      
-      u.setupHostinfo(thing,"bib.localhost")
-      self.assertEqual( getHostExt(), "bib", "host_ext should be 'bib' for host bib.localhost.")
-      self.assertEqual( getBaseHost(), "localhost", "baseHost should be 'localhost' for host bib.localhost.")
-      self.assertEqual( getHostPort(), "80", "HostPort should be '80' for host localhost.")
-      self.assertEqual( makeUrl("tst",full=True), "http://tst.localhost", "URL should be 'http://tst.localhost' for host bib.localhost.")
-
-      u.setupHostinfo(thing,"bib.localhost:8080")
-      self.assertEqual( getHostExt(), "bib", "host_ext should be 'bib' for host bib.localhost:8080.")
-      self.assertEqual( getBaseHost(), "localhost", "baseHost should be 'localhost' for host bib.localhost:8080.")
-      self.assertEqual( getHostPort(), "8080", "HostPort should be '8080' for host bib.localhost:8080.")
-      self.assertEqual( makeUrl("tst",full=True), "http://tst.localhost:8080", "URL should be 'http://tst.localhost:8080' for host bib.localhost:8080.")
-
-      u.setupHostinfo(thing,"fred.localhost:8080")
-      self.assertEqual( getHostExt(), "", "host_ext should be empty for host fred.localhost:8080.")
-      self.assertEqual( getBaseHost(), "localhost", "baseHost should be 'localhost' for host fred.localhost:8080.")
-      self.assertEqual( getHostPort(), "8080", "HostPort should be '8080' for host fred.localhost:8080.")
-      self.assertEqual( makeUrl("tst",full=True), "http://tst.localhost:8080", "URL should be 'http://tst.localhost:8080' for host fred.localhost:8080.")
-
-      u.setupHostinfo(thing,"schema.org")
-      self.assertEqual( getHostExt(), "", "host_ext should be empty for host schema.org.")
-      self.assertEqual( getBaseHost(), "schema.org", "baseHost should be 'schema.org' for host schema.org.")
-      self.assertEqual( getHostPort(), "80", "HostPort should be '80' for host schema.org.")
-      self.assertEqual( makeUrl("tst",full=True), "http://tst.schema.org", "URL should be 'http://tst.schema.org' for host schema.org.")
-      
-      u.setupHostinfo(thing,"bib.schema.org")
-      self.assertEqual( getHostExt(), "bib", "host_ext should be 'bib' for host bib.schema.org.")
-      self.assertEqual( getBaseHost(), "schema.org", "baseHost should be 'bib.schema.org' for host schema.org.")
-      self.assertEqual( getHostPort(), "80", "HostPort should be '80' for host bib.schema.org.")
-      self.assertEqual( makeUrl("tst",full=True), "http://tst.schema.org", "URL should be 'http://tst.schema.org' for host bib.schema.org.")
-
-      u.setupHostinfo(thing,"fred.schema.org:8080")
-      self.assertEqual( getHostExt(), "", "host_ext should be empty for host fred.schema.org:8080.")
-      self.assertEqual( getBaseHost(), "schema.org", "baseHost should be 'schema.org' for host fred.schema.org:8080.")
-      self.assertEqual( getHostPort(), "8080", "HostPort should be '8080' for host fred.schema.org:8080.")
-      self.assertEqual( makeUrl("tst",full=True), "http://tst.schema.org:8080", "URL should be 'http://tst.schema.org:8080' for host fred.schema.org:8080.")
-
-      u.setupHostinfo(thing,"webschemas.org")
-      self.assertEqual( getHostExt(), "", "host_ext should be empty for host webschemas.org.")
-      self.assertEqual( getBaseHost(), "webschemas.org", "baseHost should be 'webschemas.org' for host webschemas.org.")
-      self.assertEqual( getHostPort(), "80", "HostPort should be '80' for host webschemas.org.")
-      self.assertEqual( makeUrl("tst",full=True), "http://tst.webschemas.org", "URL should be 'http://tst.webschemas.org' for host webschemas.org.")
-      
-      u.setupHostinfo(thing,"bib.webschemas.org")
-      self.assertEqual( getHostExt(), "bib", "host_ext should be 'bib' for host bib.webschemas.org.")
-      self.assertEqual( getBaseHost(), "webschemas.org", "baseHost should be 'webschemas.org' for host bib.webschemas.org.")
-      self.assertEqual( getHostPort(), "80", "HostPort should be '80' for host bib.webschemas.org.")
-      self.assertEqual( makeUrl("tst",full=True), "http://tst.webschemas.org", "URL should be 'http://tst.webschemas.org' for host bib.webschemas.org.")
-
-      u.setupHostinfo(thing,"fred.webschemas.org:8080")
-      self.assertEqual( getHostExt(), "", "host_ext should be empty for host fred.webschemas.org:8080.")
-      self.assertEqual( getBaseHost(), "webschemas.org", "baseHost should be 'webschemas.org' for host fred.webschemas.org:8080.")
-      self.assertEqual( getHostPort(), "8080", "HostPort should be '8080' for host fred.webschemas.org:8080.")
-      self.assertEqual( makeUrl("tst",full=True), "http://tst.webschemas.org:8080", "URL should be 'http://tst.webschemas.org:8080' for host fred.webschemas.org:8080.")
-      
-      u.setupHostinfo(thing,"sdo-ganymede.appspot.com")
-      self.assertEqual( getHostExt(), "", "host_ext should be empty for host sdo-ganymede.appspot.com.")
-      self.assertEqual( getBaseHost(), "sdo-ganymede.appspot.com", "baseHost should be 'sdo-ganymede.appspot.com' for host sdo-ganymede.appspot.com.")
-      self.assertEqual( getHostPort(), "80", "HostPort should be '80' for host sdo-ganymede.appspot.com.")
-      self.assertEqual( makeUrl("tst",full=True), "http://tst.sdo-ganymede.appspot.com", "URL should be 'http://tst.sdo-ganymede.appspot.com' for host sdo-ganymede.appspot.com.")
-      
-      u.setupHostinfo(thing,"bib.sdo-ganymede.appspot.com")
-      self.assertEqual( getHostExt(), "bib", "host_ext should be 'bib' for host bib.sdo-ganymede.appspot.com.")
-      self.assertEqual( getBaseHost(), "sdo-ganymede.appspot.com", "baseHost should be 'bib.sdo-ganymede.appspot.com' for host sdo-ganymede.appspot.com.")
-      self.assertEqual( getHostPort(), "80", "HostPort should be '80' for host bib.sdo-ganymede.appspot.com.")
-      self.assertEqual( makeUrl("tst",full=True), "http://tst.sdo-ganymede.appspot.com", "URL should be 'http://tst.sdo-ganymede.appspot.com' for host bib.sdo-ganymede.appspot.com.")
-
-      #As sdo-ganymede.appspot.com is not in the WORKINGHOSTS list, the unenabled 'fred' extension can not be identified as a false extention & therefore not redirected out of path
-      u.setupHostinfo(thing,"fred.sdo-ganymede.appspot.com")
-      self.assertEqual( getHostExt(), "", "host_ext should be empty for host fred.sdo-ganymede.appspot.com.")
-      self.assertEqual( getBaseHost(), "fred.sdo-ganymede.appspot.com", "baseHost should be 'fred.sdo-ganymede.appspot.com' for host fred.sdo-ganymede.appspot.com.")
-      self.assertEqual( getHostPort(), "80", "HostPort should be '80' for host fred.sdo-ganymede.appspot.com.")
-      self.assertEqual( makeUrl("tst",full=True), "http://tst.fred.sdo-ganymede.appspot.com", "URL should be 'http://tst.fred.sdo-ganymede.appspot.com' for host fred.sdo-ganymede.appspot.com.")
-      
-
   def test_gotFooBarThing(self):
 
-     foobar = VTerm.getTerm("FooBar")
+     foobar = SdoTermSource.getTerm("FooBar")
      if foobar is None:
        gotFooBar = False
      else:
@@ -263,43 +110,27 @@ class SchemaBasicAPITestCase(unittest.TestCase):
 
      self.assertEqual( gotFooBar, False, "Thing node should NOT be accessible via GetUnit('FooBar').")
 
-  def test_NewsArticleIsClass(self):
+  def test_NewsArticleIsType(self):
    # node.isClass
-   tNewsArticle = VTerm.getTerm("NewsArticle")
-   self.assertTrue(tNewsArticle.isClass(), "NewsArticle is a class.")
-
-  def test_FooBarIsNotClass(self):
-    tFooBar = VTerm.getTerm("FooBar")
-    try:
-      tFooBarIsClass = tFooBar.isClass()
-      self.assertFalse(tFooBarIsClass, "FooBar is not a class (should be None)")
-      log.info("FooBar:" + str(tFooBar) )
-    except:
-      log.debug("Failed to get FooBar, as expected. So can't ask it if it isClass().")
+   tNewsArticle = SdoTermSource.getTerm("NewsArticle")
+   self.assertTrue(tNewsArticle.termType == SdoTerm.TYPE, "NewsArticle is a class.")
 
   def test_QuantityisClass(self):
-    tQuantity = VTerm.getTerm("Quantity")
-    self.assertTrue(tQuantity.isClass(), "Quantity is a class.")
+    tQuantity = SdoTermSource.getTerm("Quantity")
+    self.assertTrue(tQuantity.termType == SdoTerm.TYPE, "Quantity is a class.")
     # Note that Quantity is a text type.
 
   def test_ItemAvailabilityIsEnumeration(self):
-    eItemAvailability = VTerm.getTerm("ItemAvailability")
-    self.assertTrue(eItemAvailability.isEnumeration(), "ItemAvailability is an Enumeration.")
-
-  def test_FooBarIsNotEnumeration(self):
-    eFooBar = VTerm.getTerm("FooBar")
-    try:
-      self.assertFalse(eFooBar.isEnumeration(), "FooBar is not an Enumeration.")
-    except:
-      log.debug("GetUnit('FooBar') should fail.")
+    eItemAvailability = SdoTermSource.getTerm("ItemAvailability")
+    self.assertTrue(eItemAvailability.termType == SdoTerm.ENUMERATION, "ItemAvailability is an Enumeration.")
 
   def test_EnumerationIsEnumeration(self):
-    eEnumeration = VTerm.getTerm("Enumeration")
-    self.assertTrue(eEnumeration.isEnumeration(), "Enumeration is an Enumeration type.")
+    eEnumeration = SdoTermSource.getTerm("Enumeration")
+    self.assertTrue(eEnumeration.termType == SdoTerm.ENUMERATION, "Enumeration is an Enumeration type.")
 
   def test_ArticleSupertypeNewsArticle(self):
-    tNewsArticle = VTerm.getTerm("NewsArticle")
-    tArticle = VTerm.getTerm("Article")
+    tNewsArticle = SdoTermSource.getTerm("NewsArticle")
+    tArticle = SdoTermSource.getTerm("Article")
     self.assertTrue(tNewsArticle.subClassOf(tArticle), "NewsArticle is a sub-type of Article")
 
   def test_NewsArticleSupertypeArticle(self):

@@ -1,5 +1,5 @@
-#!/usr/bin/python
-# -*- coding: utf-8 -*-
+#!/usr/bin/env python3
+# -*- coding: UTF-8 -*-
 # Note: if this stops working in OSX, consider "sudo pip uninstall protobuf"
 # to remove a 2nd clashing google/ python lib. See
 # https://github.com/coto/gae-boilerplate/issues/306
@@ -51,6 +51,7 @@
 import argparse
 import optparse
 import sys
+import subprocess
 import unittest
 #import os
 from os import path, getenv, putenv, getcwd, environ
@@ -58,62 +59,30 @@ from os.path import expanduser
 
 
 
-def main(sdk_path, test_path, args):
-
-    # If the sdk path points to a google cloud sdk installation
-    # then we should alter it to point to the GAE platform location.
-    if os.path.exists(os.path.join(sdk_path, 'platform/google_appengine')):
-        sys.path.insert(0, os.path.join(sdk_path, 'platform/google_appengine'))
-    else:
-        sys.path.insert(0, sdk_path)
-
-    sys.path.insert(0, '/usr/local/google_appengine') # default
-
     # Ensure that the google.appengine.* packages are available
     # in tests as well as all bundled third-party packages.
 def main(test_path, args):
-    sdk_path = getenv('APP_ENGINE',
-                      expanduser("~") + '/google-cloud-sdk/platform/google_appengine/')
-    sys.path.insert(0, sdk_path) # add AppEngine SDK to path
-    import dev_appserver
-    dev_appserver.fix_sys_path()
-    
-    # Loading appengine_config from the current project ensures that any
-    # changes to configuration there are available to all tests (e.g.
-    # sys.path modifications, namespaces, etc.)
-    try:
-        import appengine_config
-        (appengine_config)
-    except ImportError:
-        #print "Note: unable to import appengine_config."
-        print "..."
-
-    # Discover and run tests.
-    #suite = unittest.loader.TestLoader().discover(test_path)
-    #unittest.TextTestRunner(verbosity=2).run(suite)
-    
-    import subprocess
 
     httpexamplescheck = "grep -l 'http://schema.org' data/*examples.txt data/ext/*/*examples.txt"
-    print "Checking examples files for use of 'http://schema.org'"
+    print ("Checking examples files for use of 'http://schema.org'")
     out=""
     try:
         out = subprocess.check_output(httpexamplescheck,shell=True)
     except:
         pass
     if len(out):
-        print "Examples file(s) found containing 'http://schema.org':\n%s" % out
-        print "Replace with 'https://schema.org and rerun"
+        print ("Examples file(s) found containing 'http://schema.org':\n%s" % out)
+        print ("Replace with 'https://schema.org and rerun")
         sys.exit(1)
-    print "No use of 'http://schema.org' discovered in examples\n\n"
+    print ("No use of 'http://schema.org' discovered in examples\n\n")
 
     contextCheck = "./scripts/buildarchivecontext.py -o -|cut -d'\"' -f2|sort|uniq -d"
-    print "Checking jsonldcontext for duplicates"
+    print ("Checking jsonldcontext for duplicates")
     dups = subprocess.check_output(contextCheck,shell=True)
     if len(dups):
-        print "Duplicate entries in jsonldcontext: %s" % dups
+        print ("Duplicate entries in jsonldcontext: %s" % dups)
         sys.exit(1)
-    print "No duplicates in jsonldcontext\n\n"
+    print ("No duplicates in jsonldcontext\n\n")
     
     if vars(args)["skipbasics"]:
         suite = unittest.loader.TestLoader().discover(test_path, pattern="*graphs*.py")

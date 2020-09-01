@@ -131,60 +131,84 @@ def protocols():
         altprotocol="http"
     return protocol,altprotocol
 
-def exports(page):
-    import rdflib
-    from rdflib.serializer import Serializer
-    import rdflib_jsonld
-    rdflib.plugin.register("json-ld", Serializer, "rdflib_jsonld.serializer", "JsonLDSerializer")
-
-    protocol, altprotocol = protocols()
-
-    all = rdflib.Graph()
-    current = rdflib.Graph()
-    all += SdoTermSource.sourceGraph()
-    deloddtriples = """DELETE {?s ?p ?o}
-        WHERE {
-            ?s ?p ?o.
-            FILTER (! (strstarts(str(?s), "http://schema.org") || strstarts(str(?s), "http://schema.org") )).
-        }"""
-    all.update(deloddtriples)
-    current += all
-    delattic="""PREFIX schema: <%s://schema.org/>
-    DELETE {?s ?p ?o}
-    WHERE{
-        ?s ?p ?o;
-            schema:isPartOf <%s://attic.schema.org>.
-    }""" % (protocol,protocol)
-    current.update(delattic)
+import rdflib
+from rdflib.serializer import Serializer
+import rdflib_jsonld
+rdflib.plugin.register("json-ld", Serializer, "rdflib_jsonld.serializer", "JsonLDSerializer")
+allGraph = None
+currentGraph = None
+def exportrdf(exportType):
+    global allGraph, currentGraph
+    
+    if not allGraph:
+        allGraph = rdflib.Graph()
+        currentGraph = rdflib.Graph()
+        allGraph += SdoTermSource.sourceGraph()
+        deloddtriples = """DELETE {?s ?p ?o}
+            WHERE {
+                ?s ?p ?o.
+                FILTER (! (strstarts(str(?s), "http://schema.org") || strstarts(str(?s), "http://schema.org") )).
+            }"""
+        allGraph.update(deloddtriples)
+        currentGraph += allGraph
+    
+        protocol, altprotocol = protocols()
+    
+        delattic="""PREFIX schema: <%s://schema.org/>
+        DELETE {?s ?p ?o}
+        WHERE{
+            ?s ?p ?o;
+                schema:isPartOf <%s://attic.schema.org>.
+        }""" % (protocol,protocol)
+        currentGraph.update(delattic)
  
-    exts = {"xml":".xml","rdf":".rdf","nquads":".nq","nt": ".nt","json-ld": ".jsonld", "turtle":".ttl", "csv":".csv"}
     formats =  ["json-ld", "turtle", "nt", "nquads", "rdf"]
-    for format in formats:
-        for ver in ["current","all"]:
-            if ver == "all":
-                g = all
-            else:
-                g = current
-            if format == "nquads":
-                gr = rdflib.Dataset()
-                qg = gr.graph(URIRef("%s://schema.org/%s" % (protocol,getVersion())))
-                qg += g
-                g = gr
-            fn = fileName("data/releases/%s/schemaorg-%s-%s%s" % (getVersion(),ver,protocol,exts[format]))
-            afn = fileName("data/releases/%s/schemaorg-%s-%s%s" % (getVersion(),ver,altprotocol,exts[format]))
-            fmt = format
-            if format == "rdf":
-                fmt = "pretty-xml"
-            f = open(fn,"w")
-            af = open(afn,"w")
-            kwargs = {'sort_keys': True}
-            out = g.serialize(format=fmt,auto_compact=True,**kwargs).decode()
-            f.write(out)
-            print(fn)
-            af.write(prtocolswap(out,protocol=protocol,altprotocol=altprotocol))
-            print(afn)
-            f.close()
-            af.close()
+    extype = exportType[len("RDFExport."):]
+    if exportType == "RDFExports":
+        for format in sorted(formats):
+            _exportrdf(format,allGraph,currentGraph)
+    elif extype in formats:
+        _exportrdf(extype,allGraph,currentGraph)
+    else:
+        raise Exception("Unknown export format: %s" % exportType)
+        
+
+completed = []        
+def _exportrdf(format,all,current):
+    global completed
+    exts = {"xml":".xml","rdf":".rdf","nquads":".nq","nt": ".nt","json-ld": ".jsonld", "turtle":".ttl"}
+    protocol, altprotocol = protocols()
+    
+    if format in completed:
+        return
+    else:
+        completed.append(format)
+        
+    for ver in ["current","all"]:
+        if ver == "all":
+            g = all
+        else:
+            g = current
+        if format == "nquads":
+            gr = rdflib.Dataset()
+            qg = gr.graph(URIRef("%s://schema.org/%s" % (protocol,getVersion())))
+            qg += g
+            g = gr
+        fn = fileName("data/releases/%s/schemaorg-%s-%s%s" % (getVersion(),ver,protocol,exts[format]))
+        afn = fileName("data/releases/%s/schemaorg-%s-%s%s" % (getVersion(),ver,altprotocol,exts[format]))
+        fmt = format
+        if format == "rdf":
+            fmt = "pretty-xml"
+        f = open(fn,"w")
+        af = open(afn,"w")
+        kwargs = {'sort_keys': True}
+        out = g.serialize(format=fmt,auto_compact=True,**kwargs).decode()
+        f.write(out)
+        print(fn)
+        af.write(prtocolswap(out,protocol=protocol,altprotocol=altprotocol))
+        print(afn)
+        f.close()
+        af.close()
 
 def array2str(ar):
     if not ar or not len(ar):
@@ -292,7 +316,12 @@ FILELIST = { "Context": (jsonldcontext,["jsonldcontext.jsonld","jsonldcontext.js
             "Tree": (jsonldtree,["tree.jsonld"]),
             "Owl": (owl,["schemaorg.owl"]),
             "Sitemap": (sitemap,["sitemap.xml"]),
-            "Exports": (exports,[""]),
+            "RDFExports": (exportrdf,[""]),
+            "RDFExport.turtle": (exportrdf,[""]),
+            "RDFExport.rdf": (exportrdf,[""]),
+            "RDFExport.nt": (exportrdf,[""]),
+            "RDFExport.nquads": (exportrdf,[""]),
+            "RDFExport.json-ld": (exportrdf,[""]),
             "CSVExports": (exportcsv,[""])
          }
 

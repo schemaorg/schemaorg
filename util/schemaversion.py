@@ -3,8 +3,6 @@
 import sys
 import os
 import json
-for path in [os.getcwd()]:
-  sys.path.insert( 1, path ) #Pickup libs from local  directories
 ###################################################
 #VERSION INFO LOAD
 ###################################################
@@ -28,4 +26,7 @@ def getVersionDate(ver):
 
 def getCurrentVersionDate():
     return getVersionDate(getVersion())
+    
+if __name__ == '__main__':
+    print(getVersion())
 

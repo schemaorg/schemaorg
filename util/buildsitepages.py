@@ -28,12 +28,11 @@ parser.add_argument("-c","--clearfirst",default=False, action='store_true', help
 parser.add_argument("-d","--docspages",default= [],action='append',nargs='*',  help="create docs page(repeatable) - ALL = all pages")
 parser.add_argument("-f","--files",default= [],action='append',nargs='*',  help="create files(repeatable) - ALL = all files")
 parser.add_argument("-o","--output", help="output site directory (default: ./site | ./testsite)")
-parser.add_argument("-p","--pagesfor",default= [],action='append',nargs='*',  help="create page for term (repeatable) - ALL = all terms")
-parser.add_argument("-t","--testsite", default=False, action='store_true', help="create test site format")
+parser.add_argument("-t","--terms",default= [],action='append',nargs='*',  help="create page for term (repeatable) - ALL = all terms")
 args = parser.parse_args()
 
 TERMS = []
-for ter in args.pagesfor:
+for ter in args.terms:
     TERMS.extend(ter)
 PAGES = []
 for pgs in args.docspages:
@@ -42,12 +41,8 @@ FILES = []
 for fls in args.files:
     FILES.extend(fls)
 
-TESTSITE=args.testsite
-
 if args.output:
     OUTPUTDIR = args.output
-elif TESTSITE:
-    OUTPUTDIR = "testsite"
 else:
     OUTPUTDIR = "site"
 DOCSOUTPUTDIR = OUTPUTDIR + "/docs"
@@ -61,28 +56,12 @@ def clear():
             for d in dirs:
                 shutil.rmtree(os.path.join(root, d))
 
-"""if TESTSITE:
-    DOCSDOCSDIR = "."
-    TERMDOCSDIR = "docs/"
-    DOCSHREFSUFFIX=".html" 
-    DOCSHREFPREFIX="../"
-    TERMHREFSUFFIX=".html" 
-    TERMHREFPREFIX=""
-"""
-if TESTSITE:
-    DOCSDOCSDIR = "/docs"
-    TERMDOCSDIR = "/docs"
-    DOCSHREFSUFFIX=".html" 
-    DOCSHREFPREFIX="../"
-    TERMHREFSUFFIX=".html" 
-    TERMHREFPREFIX=""
-else:
-    DOCSDOCSDIR = "/docs"
-    TERMDOCSDIR = "/docs"
-    DOCSHREFSUFFIX="" 
-    DOCSHREFPREFIX="/"
-    TERMHREFSUFFIX="" 
-    TERMHREFPREFIX="/"
+DOCSDOCSDIR = "/docs"
+TERMDOCSDIR = "/docs"
+DOCSHREFSUFFIX="" 
+DOCSHREFPREFIX="/"
+TERMHREFSUFFIX="" 
+TERMHREFPREFIX="/"
     
 ###################################################
 #INITIALISE Directory
@@ -99,16 +78,8 @@ def initdir():
 #MARKDOWN INITIALISE
 ###################################################
 Markdown.setWikilinkCssClass("localLink")
-if TESTSITE:
-    Markdown.setWikilinkPrePath("./")
-        #Local test site uses .html filename in href
-    Markdown.setWikilinkPostPath(".html")
-    HREFSUFFIX=".html" 
-else:
-    Markdown.setWikilinkPrePath("/")
-        #Production site uses no suffix in link - mapping to file done in server config
-    Markdown.setWikilinkPostPath("")
-    HREFSUFFIX="" 
+Markdown.setWikilinkPrePath("/")
+Markdown.setWikilinkPostPath("")
 
 ###################################################
 #TERMS SOURCE LOAD

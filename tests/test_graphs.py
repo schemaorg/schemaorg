@@ -1,4 +1,9 @@
-# -*- coding: utf-8 -*-
+#!/usr/bin/env python3
+# -*- coding: UTF-8 -*-
+import sys
+import os
+for path in [os.getcwd(),"Util","SchemaPages","SchemaExamples"]:
+  sys.path.insert( 1, path ) #Pickup libs from local  directories
 
 import unittest
 import os
@@ -8,28 +13,6 @@ import logging # https://docs.python.org/2/library/logging.html#logging-levels
 import glob
 import sys
 
-sys.path.append( os.getcwd() )
-sys.path.insert( 1, 'lib' ) #Pickup libs, rdflib etc., from shipped lib directory
-sys.path.insert( 1, 'sdopythonapp' ) #Pickup sdopythonapp functionality
-sys.path.insert( 1, 'sdopythonapp/lib' ) #Pickup sdopythonapp libs, rdflib etc., from shipped lib directory
-sys.path.insert( 1, 'sdopythonapp/site' ) #Pickup sdopythonapp from shipped site
-
-#sdk_path = getenv('APP_ENGINE',
-#                  expanduser("~") + '/google-cloud-sdk/platform/google_appengine/')
-#sys.path.insert(0, sdk_path)
-
-from testharness import *
-#Setup testharness state BEFORE importing sdo libraries
-setInTestHarness(True)
-
-from api import *
-from parsers import *
-
-os.environ["WARMUPSTATE"] = "off"
-from sdoapp import *
-
-schema_path = './data/schema.rdfa'
-examples_path = './data/examples.txt'
 warnings = []
 
 andstr = "\n AND\n  "
@@ -38,7 +21,10 @@ TYPECOUNT_LOWERBOUND = 500
 
 logging.basicConfig(level=logging.INFO)
 log = logging.getLogger(__name__)
-setInTestHarness(True)
+
+from sdotermsource import SdoTermSource 
+VOCABURI = SdoTermSource.vocabUri()
+TRIPLESFILESGLOB = ["data/*.ttl","data/ext/*/*.ttl"]
 
 # Tests to probe the health of both schemas and code using graph libraries in rdflib
 # Note that known failings can be annotated with @unittest.expectedFailure or @skip("reason...")
@@ -46,17 +32,19 @@ class SDOGraphSetupTestCase(unittest.TestCase):
 
   @classmethod
   def loadGraphs(self):
-      from rdflib import Graph
-      import rdflib
-      self.rdflib_data = Graph()
-      store = getMasterStore()
-      graphs = list(store.graphs())
-      log.info("Loading test graph from MasterStore")
-      for g in graphs:
-          id = str(g.identifier)
-          if not id.startswith("http://"):#skip some internal graphs
-              continue
-          self.rdflib_data += g
+      self.rdflib_data = SdoTermSource.sourceGraph()
+      
+      if not self.rdflib_data:
+          tripfiles = []
+          for g in TRIPLESFILESGLOB:
+              tripfiles.extend(glob.glob(g))
+          if not len(tripfiles):
+              print("No triples file(s) to load")
+          else:
+              SdoTermSource.loadSourceGraph(tripfiles)
+              print ("loaded %s triples - %s terms" % (len(SdoTermSource.sourceGraph()),len(SdoTermSource.getAllTerms())) )
+              self.rdflib_data = SdoTermSource.sourceGraph()
+      
 
   @classmethod
   def setUpClass(self):
@@ -495,7 +483,7 @@ class SDOGraphSetupTestCase(unittest.TestCase):
   @unittest.expectedFailure
   def test_EnumerationWithoutEnums(self):
     nri1= ('''select ?term where { 
-        ?term rdfs:subClassOf/rdfs:subClassOf* <http://schema.org/Enumeration> .
+        ?term rdfs:subClassOf* <http://schema.org/Enumeration> .
         FILTER NOT EXISTS { ?enum a ?term. }
         FILTER NOT EXISTS { ?term <http://schema.org/isPartOf> <http://attic.schema.org> .}
     } 

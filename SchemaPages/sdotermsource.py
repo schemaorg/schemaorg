@@ -580,6 +580,27 @@ class SdoTermSource():
                     sup = SdoTermSource._getTerm(p)
                     self._getParentPaths(sup,tmpStacks[x])
                     x += 1
+
+    @staticmethod
+    def getParentPathTo(start_term,end_term=None):
+        #Output paths from start_term to only if end_term in path
+        start_term = SdoTermSource.getTerm(start_term)
+        if not end_term:
+            end_term = SdoTermSource.getTerm("Thing")
+        else:
+            end_term = SdoTermSource.getTerm(end_term)
+    
+        parentsList = start_term.getParentPaths()
+        outList = []
+        for l in parentsList:
+            if end_term in l:
+                path = []
+                for t in l:
+                    path.append(t)
+                    if t == end_term:
+                        break
+                outList.append(path)
+        return outList
             
 
     @staticmethod

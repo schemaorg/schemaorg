@@ -241,7 +241,7 @@ class OwlBuild():
         }
         """
         enums = list(graph.query(q))
-        log.info("Count %s" % len(enums))
+        #log.info("Enum Count %s" % len(enums))
         for row in enums:
             self.outputNamedIndividuals(row.enum,graph,parent=row.parent)
         
