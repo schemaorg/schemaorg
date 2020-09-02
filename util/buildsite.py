@@ -82,10 +82,21 @@ TERMHREFPREFIX="/"
 def initdir():
     print("Building site in '%s' directory" % OUTPUTDIR)
     clear()
-    print("Copying docs static files")
+    print("\nCopying docs static files")
     cmd = "cp -r docs %s" % OUTPUTDIR
     os.system(cmd)
     print("Done")
+    gdir = OUTPUTDIR + "/gcloud"
+    print("\nPreparing GCloud files")
+    if not os.path.exists(gdir):
+        os.makedirs(gdir)
+    cmd = "cp gcloud/*.yaml %s" % gdir
+    os.system(cmd)
+    print("Files copied")
+    cmd = 'sed "s/{{ver}}/%s/g" %s/handlers-template.yaml > %s/handlers.yaml' % (getVersion(),gdir,gdir)
+    print("Created handlers.yaml for version: %s" % getVersion())
+    os.system(cmd)
+    print("Done\n")
     
 ###################################################
 #MARKDOWN INITIALISE

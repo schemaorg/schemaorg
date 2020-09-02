@@ -13,17 +13,19 @@ then
 	echo "Not in the schemaorg directory! Aborting"
 	exit 1
 fi
-if [ ! -d "./staticbuild" ]
+if [ ! -d "./site" ]
 then
-    echo "No staticbuild directory! Aborting"
+    echo "No 'site' directory! Aborting"
     exit 1
 fi
 
-cd staticbuild
+cd site
+echo Preparing .yaml files
+cp gcloud/*.yaml .
+echo Done
 
 function usage {
     echo "usage: $(basename $0) -e -m [-p project] [-v version] [-y yaml file]"
-	echo "-e bypasses exercise of site step"
 	echo "-m bypasses migrate traffic to new version step"
 }
 
@@ -100,11 +102,11 @@ done
 echo "Using version ID '$VERSION'"
 while [ -z "$YAML" ]
 do
-    read -r -p "Yaml file [app.yaml]: " response
+    read -r -p "Yaml file [other.yaml]: " response
     YAML="$response"
     if [ -z "$YAML" ]
     then
-        YAML="app.yaml"
+        YAML="other.yaml"
     fi
     if [ ! -f "$YAML" ]
     then
@@ -165,14 +167,14 @@ do
     fi
 done
 
-
 echo gcloud app deploy --quiet --no-promote --project "$PROJECT" --version="$VERSION" "$YAML"
 echo
 gcloud app deploy --quiet --no-promote --project "$PROJECT" --version="$VERSION" "$YAML"
 echo
 
 echo "Version '$VERSION' of project '$PROJECT' deployed "
-
+echo clearing .yaml files
+rm -f *.yaml
 
 if [ "$MIG" = "Y" ]
 then

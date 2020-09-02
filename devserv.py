@@ -74,10 +74,11 @@ def serve_terms(path):
 def serve_downloads(ver,path):
     if ver == "latest":
         ver = getVersion()
-    path = "data/releases/%s/%s" % (ver,path) 
+    path = "releases/%s/%s" % (ver,path) 
     print("Serving file: " + path)
     return app.send_static_file(path)
 
 # start the server with the 'run()' method
 if __name__ == '__main__':
+    print("Local dev server for Schema.org version: %s" % getVersion())
     app.run(debug=True)

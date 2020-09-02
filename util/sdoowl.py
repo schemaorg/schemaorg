@@ -21,7 +21,7 @@ from xml.etree import ElementTree as ET
 from xml.dom import minidom
 from xml.etree.ElementTree import Element, SubElement, Comment, tostring
 
-from buildsitepages import *
+from buildsite import *
 from sdotermsource import SdoTermSource 
 from sdoterm import *
 from localmarkdown import Markdown

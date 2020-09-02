@@ -1,3 +1,4 @@
+{% from 'macros.j2' import term_sdotermlink as sdotermlink with context %}
 <div id="infoblock">
 	<!-- Label /  termType  / canonical URI -->
     <h1>{{ term.label }}</h1>
@@ -36,6 +37,12 @@
 	
 	<!-- Description of term -->
     <div class="description">{{term.comment|safe}}</div>
+    {% if term.superseded %}
+        <br/><em>This term has been superseded.</em>
+    {% endif %}
+    {% if TERMTYPE == "Enumeration Member" %}
+       <br/> A member value for enumeration type: {{sdotermlink(term.enumerationParent)}}
+    {% endif %}
     {% for sup in term.supers %}
         {% if sup.termType == "Reference" %}
             {% if loop.first %}<br/><strong> Subclass of:</strong><ul>{%else %}<br/>{% endif %}

@@ -6,7 +6,7 @@ import io
 for path in [os.getcwd(),"Util","SchemaPages","SchemaExamples"]:
   sys.path.insert( 1, path ) #Pickup libs from local  directories
 
-from buildsitepages import *
+from buildsite import *
 from sdotermsource import SdoTermSource
 from sdoterm import *
 from localmarkdown import Markdown
@@ -194,8 +194,8 @@ def _exportrdf(format,all,current):
             qg = gr.graph(URIRef("%s://schema.org/%s" % (protocol,getVersion())))
             qg += g
             g = gr
-        fn = fileName("data/releases/%s/schemaorg-%s-%s%s" % (getVersion(),ver,protocol,exts[format]))
-        afn = fileName("data/releases/%s/schemaorg-%s-%s%s" % (getVersion(),ver,altprotocol,exts[format]))
+        fn = fileName("releases/%s/schemaorg-%s-%s%s" % (getVersion(),ver,protocol,exts[format]))
+        afn = fileName("releases/%s/schemaorg-%s-%s%s" % (getVersion(),ver,altprotocol,exts[format]))
         fmt = format
         if format == "rdf":
             fmt = "pretty-xml"
@@ -290,8 +290,8 @@ def exportcsv(page):
 
 def writecsvout(data,fields,ver,protocol,altprotocol):
     import csv
-    fn = fileName("data/releases/%s/schemaorg-%s-%s-properties.csv" % (getVersion(),ver,protocol))
-    afn = fileName("data/releases/%s/schemaorg-%s-%s-properties.csv" % (getVersion(),ver,altprotocol))
+    fn = fileName("releases/%s/schemaorg-%s-%s-properties.csv" % (getVersion(),ver,protocol))
+    afn = fileName("releases/%s/schemaorg-%s-%s-properties.csv" % (getVersion(),ver,altprotocol))
     csvout = io.StringIO()
     csvfile = open(fn,'w')
     acsvfile = open(afn,'w')
@@ -312,10 +312,10 @@ def writecsvout(data,fields,ver,protocol,altprotocol):
 
 
 
-FILELIST = { "Context": (jsonldcontext,["jsonldcontext.jsonld","jsonldcontext.json","jsonldcontext.json.txt"]),
-            "Tree": (jsonldtree,["tree.jsonld"]),
-            "Owl": (owl,["schemaorg.owl"]),
-            "Sitemap": (sitemap,["sitemap.xml"]),
+FILELIST = { "Context": (jsonldcontext,["docs/jsonldcontext.jsonld","docs/jsonldcontext.json","docs/jsonldcontext.json.txt"]),
+            "Tree": (jsonldtree,["docs/tree.jsonld"]),
+            "Owl": (owl,["docs/schemaorg.owl"]),
+            "Sitemap": (sitemap,["docs/sitemap.xml"]),
             "RDFExports": (exportrdf,[""]),
             "RDFExport.turtle": (exportrdf,[""]),
             "RDFExport.rdf": (exportrdf,[""]),

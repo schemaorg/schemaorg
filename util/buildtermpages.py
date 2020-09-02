@@ -5,7 +5,7 @@ import os
 for path in [os.getcwd(),"Util","SchemaPages","SchemaExamples"]:
   sys.path.insert( 1, path ) #Pickup libs from local  directories
 
-from buildsitepages import *
+from buildsite import *
 from sdotermsource import SdoTermSource
 from sdoterm import *
 from schemaexamples import SchemaExamples
