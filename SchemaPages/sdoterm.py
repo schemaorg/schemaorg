@@ -31,6 +31,7 @@ class SdoTerm():
         self.acknowledgements = []
         self.superPaths = []
         self.comment = ""
+        self.comments = []
         self.equivalents = []
         self.examples = []
         self.pending = False
@@ -40,6 +41,7 @@ class SdoTerm():
         self.supers = []
         self.supersededBy = ""
         self.supersedes = ""
+        self.superseded = False
         self.termStack = []
 
     def __str__(self):

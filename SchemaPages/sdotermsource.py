@@ -19,6 +19,8 @@ from localmarkdown import Markdown
 
 VOCABURI="http://schema.org/"
 CORE    = "core"
+DEFTRIPLESFILESGLOB = ["data/*.ttl","data/ext/*/*.ttl"]
+LOADEDDEFAULT=False
 TERMS={}
 EXPANDEDTERMS={}
 TERMSLOCK = threading.Lock()
@@ -129,6 +131,7 @@ class SdoTermSource():
         self.termdesc.category = self.category
         self.termdesc.acknowledgements = self.getAcknowledgements()
         self.termdesc.comment = self.getComment()
+        self.termdesc.comments = self.getComments()
         self.termdesc.equivalents = self.getEquivalents()
         self.termdesc.pending = self.inLayers("pending")
         self.termdesc.retired = self.inLayers("attic")
@@ -137,6 +140,7 @@ class SdoTermSource():
         self.termdesc.supers = self.getSupers()
         self.termdesc.supersededBy = self.getSupersededBy()
         self.termdesc.supersedes = self.getSupersedes()
+        self.termdesc.superseded = self.superseded()
         self.termdesc.termStack = self.getTermStack()
         self.termdesc.superPaths = self.getParentPaths() #MUST be called after supers has been added to self.termdesc
         
@@ -247,7 +251,7 @@ class SdoTermSource():
                 self.supersededBy = ""
         return self.supersededBy
     def superseded(self):
-        return self.getSupersededBy() != None
+        return len(self.getSupersededBy()) > 0
     def getSupersedes(self):
         if not self.supersedes:
             self.supersedes = []
@@ -397,15 +401,22 @@ class SdoTermSource():
     def inLayers(self,layers):
         return self.layer in layers
 
-    def subClassOf(self,parent):
-        if self == parent:
+    @staticmethod
+    def subClassOf(child,parent):
+        if isinstance(child, str):
+            child = SdoTermSource.getTerm(child)
+        if isinstance(parent, str):
+            parent = SdoTermSource.getTerm(parent)
+
+        if child == parent:
             return True
-        parents = self.getSupers()
-        if parent in parents:
+
+        parents = child.supers
+        if parent.id in parents:
             return True
         else:
             for p in parents:
-                if p.subClassOf(parent):
+                if SdoTermSource.subClassOf(p,parent):
                     return True
         return False
 
@@ -586,19 +597,12 @@ class SdoTermSource():
         #Output paths from start_term to only if end_term in path
         start_term = SdoTermSource.getTerm(start_term)
         if not end_term:
-            end_term = SdoTermSource.getTerm("Thing")
-        else:
-            end_term = SdoTermSource.getTerm(end_term)
-    
-        parentsList = start_term.getParentPaths()
+            end_term = "Thing"
+     
+        superpaths = start_term.superPaths
         outList = []
-        for l in parentsList:
-            if end_term in l:
-                path = []
-                for t in l:
-                    path.append(t)
-                    if t == end_term:
-                        break
+        for path in superpaths:
+            if end_term in path:
                 outList.append(path)
         return outList
             
@@ -855,9 +859,34 @@ class SdoTermSource():
         EXPANDEDTERMS={}
 
     @staticmethod
-    def loadSourceGraph(files):
-        if isinstance(files, str):
+    def loadSourceGraph(files=None):
+        import glob
+        global DEFTRIPLESFILESGLOB
+
+        if not files or files == "default":
+            if SdoTermSource.SOURCEGRAPH:
+                if not SdoTermSource.LOADEDDEFAULT:
+                    raise Exception("Sourcegraph already loaded - canot overwrite with defaults")
+                print("Default files already loaded")
+                return
+        
+            else:
+                SdoTermSource.LOADEDDEFAULT = True
+                print("SdoTermSource.loadSourceGraph() loading from default files found in globs: %s" %  DEFTRIPLESFILESGLOB)
+                files = []
+                for g in DEFTRIPLESFILESGLOB:
+                    files.extend(glob.glob(g))
+        elif isinstance(files, str):
+            SdoTermSource.LOADEDDEFAULT = False
+            print("SdoTermSource.loadSourceGraph() loading from file: %s" % files)
             files = [files]
+        else:
+            SdoTermSource.LOADEDDEFAULT = False
+            print("SdoTermSource.loadSourceGraph() loading from %d files" % len(files))
+
+        if not len(files):
+            raise Exception("No triples file(s) to load")
+
         SdoTermSource.setSourceGraph(rdflib.Graph())
         for f in files:
             ex = os.path.splitext(f)[1]
@@ -876,6 +905,8 @@ class SdoTermSource():
 
     @staticmethod
     def sourceGraph():
+        if SdoTermSource.SOURCEGRAPH == None:
+            SdoTermSource.loadSourceGraph()
         return SdoTermSource.SOURCEGRAPH
     
     @staticmethod
@@ -889,13 +920,14 @@ class SdoTermSource():
 
     @staticmethod
     def query(q):
-       if SdoTermSource.SOURCEGRAPH == None:
-           raise Exception("SOURCEGRAPH not set")
-       graph = SdoTermSource.SOURCEGRAPH
-       #print("Query: %s" % q)
-       with RDFLIBLOCK:
-           ret = list(graph.query(q))
-       return ret
+        if SdoTermSource.SOURCEGRAPH == None:
+            SdoTermSource.loadSourceGraph()
+
+        graph = SdoTermSource.SOURCEGRAPH
+        #print("Query: %s" % q)
+        with RDFLIBLOCK:
+            ret = list(graph.query(q))
+        return ret
 
     @staticmethod
     def term2str(t):

@@ -24,7 +24,6 @@ log = logging.getLogger(__name__)
 
 from sdotermsource import SdoTermSource 
 VOCABURI = SdoTermSource.vocabUri()
-TRIPLESFILESGLOB = ["data/*.ttl","data/ext/*/*.ttl"]
 
 # Tests to probe the health of both schemas and code using graph libraries in rdflib
 # Note that known failings can be annotated with @unittest.expectedFailure or @skip("reason...")
@@ -32,18 +31,8 @@ class SDOGraphSetupTestCase(unittest.TestCase):
 
   @classmethod
   def loadGraphs(self):
+      SdoTermSource.loadSourceGraph("default")
       self.rdflib_data = SdoTermSource.sourceGraph()
-      
-      if not self.rdflib_data:
-          tripfiles = []
-          for g in TRIPLESFILESGLOB:
-              tripfiles.extend(glob.glob(g))
-          if not len(tripfiles):
-              print("No triples file(s) to load")
-          else:
-              SdoTermSource.loadSourceGraph(tripfiles)
-              print ("loaded %s triples - %s terms" % (len(SdoTermSource.sourceGraph()),len(SdoTermSource.getAllTerms())) )
-              self.rdflib_data = SdoTermSource.sourceGraph()
       
 
   @classmethod
@@ -100,14 +89,16 @@ class SDOGraphSetupTestCase(unittest.TestCase):
            ?prop <http://schema.org/domainIncludes> ?c2 .
            ?c1 rdfs:subClassOf ?c2 .
            FILTER (?c1 != ?c2) .
-           FILTER NOT EXISTS { ?term <http://schema.org/isPartOf> <http://attic.schema.org> .}
+           FILTER NOT EXISTS { ?prop <http://schema.org/isPartOf> <http://attic.schema.org> .}
+           FILTER NOT EXISTS { ?c1 <http://schema.org/isPartOf> <http://attic.schema.org> .}
+           FILTER NOT EXISTS { ?c2 <http://schema.org/isPartOf> <http://attic.schema.org> .}
            }
            ORDER BY ?prop ''')
     ndi1_results = self.rdflib_data.query(ndi1)
     if (len(ndi1_results) > 0):
         for row in ndi1_results:
             warn = "WARNING property %s defining domain, %s, [which is subclassOf] %s unnecessarily" % (row["prop"],row["c1"],row["c2"])
-            warnings.append(warn)
+            #warnings.append(warn)
             log.info(warn + "\n")
     self.assertEqual(len(ndi1_results), 0,
                      "No subtype need redeclare a domainIncludes of its parents. Found: %s " % len(ndi1_results ) )
@@ -125,14 +116,16 @@ class SDOGraphSetupTestCase(unittest.TestCase):
          ?c1 rdfs:subClassOf ?c2 .
          FILTER (?c1 != ?c2) .
          FILTER (?c1 != <http://schema.org/URL>) .
-        FILTER NOT EXISTS { ?term <http://schema.org/isPartOf> <http://attic.schema.org> .}
+         FILTER NOT EXISTS { ?prop <http://schema.org/isPartOf> <http://attic.schema.org> .}
+         FILTER NOT EXISTS { ?c1 <http://schema.org/isPartOf> <http://attic.schema.org> .}
+         FILTER NOT EXISTS { ?c2 <http://schema.org/isPartOf> <http://attic.schema.org> .}
              }
              ORDER BY ?prop ''')
     nri1_results = self.rdflib_data.query(nri1)
     if (len(nri1_results)>0):
         for row in nri1_results:
             warn = "WARNING property %s defining range, %s, [which is subclassOf] %s unnecessarily" % (row["prop"],row["c1"],row["c2"])
-            warnings.append(warn)
+            #warnings.append(warn)
             log.info(warn + "\n")
     self.assertEqual(len(nri1_results), 0, "No subtype need redeclare a rangeIncludes of its parents. Found: %s" % len(nri1_results) )
 
@@ -483,7 +476,7 @@ class SDOGraphSetupTestCase(unittest.TestCase):
   @unittest.expectedFailure
   def test_EnumerationWithoutEnums(self):
     nri1= ('''select ?term where { 
-        ?term rdfs:subClassOf* <http://schema.org/Enumeration> .
+        ?term a rdfs:subClassOf+ <http://schema.org/Enumeration> .
         FILTER NOT EXISTS { ?enum a ?term. }
         FILTER NOT EXISTS { ?term <http://schema.org/isPartOf> <http://attic.schema.org> .}
     } 

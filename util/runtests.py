@@ -51,6 +51,7 @@
 import argparse
 import optparse
 import sys
+import os
 import subprocess
 import unittest
 #import os
@@ -78,13 +79,18 @@ def main(test_path, args=None):
         sys.exit(1)
     print ("No use of 'http://schema.org' discovered in examples\n\n")
 
-    contextCheck = "cat %s/docs/jsonldcontext.jsonld |cut -d'\"' -f2|sort|uniq -d" % SITEDIR
-    print ("Checking jsonldcontext for duplicates")
-    dups = subprocess.check_output(contextCheck,shell=True)
-    if len(dups):
-        print ("Duplicate entries in jsonldcontext: %s" % dups)
-        sys.exit(1)
-    print ("No duplicates in jsonldcontext\n\n")
+    if os.path.isfile("%s/docs/jsonldcontext.jsonld" % SITEDIR):
+        contextCheck = "cat %s/docs/jsonldcontext.jsonld |cut -d'\"' -f2|sort|uniq -d" % SITEDIR
+        print ("Checking jsonldcontext for duplicates")
+        dups = subprocess.check_output(contextCheck,shell=True)
+        if len(dups):
+            print ("Duplicate entries in jsonldcontext: %s" % dups)
+            if STANDALONE:
+                sys.exit(1)
+            return 1
+        print ("No duplicates in jsonldcontext\n\n")
+    else:
+        print("Bypassing jsonldcontext duplicates test\n")
     
     if args and vars(args)["skipbasics"]:
         suite = unittest.loader.TestLoader().discover(test_path, pattern="*graphs*.py")

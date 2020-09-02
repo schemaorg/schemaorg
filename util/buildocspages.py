@@ -242,8 +242,11 @@ PAGELIST = {"Home": (homePage,["home.html"]),
          }
 
 def buildDocs(pages):
-    if "ALL" in pages:
-        pages = sorted(PAGELIST.keys())
+    all = ["ALL","All","all"]
+    for a in all:
+        if a in pages:
+            pages = sorted(PAGELIST.keys())
+            break
 
 
     for p in pages:

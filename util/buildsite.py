@@ -20,14 +20,13 @@ from schemaversion import *
 
 SITENAME="SchemaPages"
 TEMPLATESDIR = "templates"
-TRIPLESFILESGLOB = ["data/*.ttl","data/ext/*/*.ttl"]
-EXAMPLESFILESGLOB = ["data/*examples.txt","data/ext/*/*examples.txt"]
 
 parser = argparse.ArgumentParser()
 parser.add_argument("-c","--clearfirst",default=False, action='store_true', help="clear output directory before creating contents")
 parser.add_argument("-d","--docspages",default= [],action='append',nargs='*',  help="create docs page(repeatable) - ALL = all pages")
 parser.add_argument("-f","--files",default= [],action='append',nargs='*',  help="create files(repeatable) - ALL = all files")
 parser.add_argument("-o","--output", help="output site directory (default: ./site | ./testsite)")
+parser.add_argument("-r","--runtests",default=False, action='store_true', help="run test scripts before creating contents")
 parser.add_argument("-t","--terms",default= [],action='append',nargs='*',  help="create page for term (repeatable) - ALL = all terms")
 args = parser.parse_args()
 
@@ -55,6 +54,20 @@ def clear():
                 os.unlink(os.path.join(root, f))
             for d in dirs:
                 shutil.rmtree(os.path.join(root, d))
+
+###################################################
+#RUN TESTS
+###################################################
+def runtests():
+    import runtests
+    print("Running test scripts befor proceeding...\n")
+    if args.runtests:
+        errorcount = runtests.main('./tests/')
+        if errorcount:
+            print("Errors returned: %d" % errorcount)
+            sys.exit(errorcount)
+        else:
+            print("Tests succesful!\n")
 
 DOCSDOCSDIR = "/docs"
 TERMDOCSDIR = "/docs"
@@ -84,31 +97,25 @@ Markdown.setWikilinkPostPath("")
 ###################################################
 #TERMS SOURCE LOAD
 ###################################################
+LOADEDTERMS = False
 def loadTerms():
-    print("Loading triples files")
-    tripfiles = []
-    for g in TRIPLESFILESGLOB:
-        tripfiles.extend(glob.glob(g))
-    if not len(tripfiles):
-        print("No triples file(s) to load")
-    else:
-        SdoTermSource.loadSourceGraph(tripfiles)
+    global LOADEDTERMS
+    if not LOADEDTERMS:
+        LOADEDTERMS = True
+        print("Loading triples files")
+        SdoTermSource.loadSourceGraph("default")
         print ("loaded %s triples - %s terms" % (len(SdoTermSource.sourceGraph()),len(SdoTermSource.getAllTerms())) )
 
 
 ###################################################
 #EXAMPLES SOURCE LOAD
 ###################################################
+LOADEDEXAMPLES = False
 def loadExamples():
-    print("Loading examples files")
-    exfiles = []
-    for g in EXAMPLESFILESGLOB:
-        exfiles.extend(glob.glob(g))
-    if not len(exfiles):
-        print("No examples file(s) to load")
-    else:
-        SchemaExamples.loadExamplesFiles(exfiles)
-        print("Loaded %d examples from  %d examples files" % (SchemaExamples.count(),len(exfiles)))
+    global LOADEDEXAMPLES
+    if not LOADEDEXAMPLES:
+        SchemaExamples.loadExamplesFiles("default")
+        print("Loaded %d examples " % (SchemaExamples.count()))
 
 ###################################################
 #JINJA INITIALISATION
@@ -193,10 +200,12 @@ def checkFilePath(path):
 #BUILD INDIVIDUAL TERM PAGES
 ###################################################
 def processTerms():
-    global TERMS
     import buildtermpages
-    if "ALL" in TERMS:
-        TERMS = SdoTermSource.getAllTerms()
+    global TERMS
+    if len(TERMS):
+        print("Building term definition pages\n")
+        loadTerms()
+        loadExamples()
     buildtermpages.buildTerms(TERMS)
 
 ###################################################
@@ -205,7 +214,10 @@ def processTerms():
 def processDocs():
     global PAGES
     import buildocspages
-    buildocspages.buildDocs(PAGES)
+    if len(PAGES):
+        print("Building dynamic documentation pages\n")
+        loadTerms()
+        buildocspages.buildDocs(PAGES)
 
 ###################################################
 #BUILD FILES
@@ -213,13 +225,15 @@ def processDocs():
 def processFiles():
     global FILES
     import buildfiles
-    buildfiles.buildFiles(FILES)
+    if len(FILES):
+        print("Building supprting files\n")
+        loadTerms()
+        buildfiles.buildFiles(FILES)
 
 if __name__ == '__main__':
-    initdir()
     print("Version: %s  Released: %s" % (getVersion(),getCurrentVersionDate()))
-    loadTerms()
-    loadExamples()
+    runtests()
+    initdir()
     processTerms()
     processDocs()
     processFiles()

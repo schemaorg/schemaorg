@@ -326,8 +326,11 @@ FILELIST = { "Context": (jsonldcontext,["jsonldcontext.jsonld","jsonldcontext.js
          }
 
 def buildFiles(files):
-    if "ALL" in files:
-        files = sorted(FILELIST.keys())
+    all = ["ALL","All","all"]
+    for a in all:
+        if a in files:
+            files = sorted(FILELIST.keys())
+            break
 
 
     for p in files:

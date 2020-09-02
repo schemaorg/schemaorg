@@ -15,6 +15,7 @@ import re
 import threading
 
 IDPREFIX = "eg-"
+DEFTEXAMPLESFILESGLOB = ["data/*examples.txt","data/ext/*/*examples.txt"]
 
 class Example ():
     ExamplesCount = 0
@@ -135,6 +136,7 @@ class Example ():
 
 class SchemaExamples():
     
+    EXAMPLESLOADED=False
     EXAMPLESMAP = {}
     EXAMPLES = {}    
     exlock = threading.RLock()
@@ -142,8 +144,28 @@ class SchemaExamples():
     
     @staticmethod
     def loadExamplesFiles(exfiles):
-        if isinstance(exfiles, str):
+        import glob
+        global DEFTEXAMPLESFILESGLOB
+
+        if SchemaExamples.EXAMPLESLOADED:
+            print("Examples files already loaded")
+            return
+            
+        if not exfiles or exfiles == "default":
+            print("SchemaExamples.loadExamplesFiles() loading from default files found in globs: %s" %  DEFTEXAMPLESFILESGLOB)
+            exfiles = []
+            for g in DEFTEXAMPLESFILESGLOB:
+                exfiles.extend(glob.glob(g))
+        elif isinstance(exfiles, str):
+            print("SchemaExamples.loadExamplesFiles() loading from file: %s" % exfiles)
             exfiles = [exfiles]
+        else:
+            print("SchemaExamples.loadExamplesFiles() loading from %d" % len(exfiles))
+        
+        if not len(exfiles):
+            raise Exception("No examples file(s) to load")
+
+
         parser = ExampleFileParser()
         for f in exfiles:
             for example in parser.parse(f):
@@ -160,10 +182,16 @@ class SchemaExamples():
                     
                         if not keyvalue in SchemaExamples.EXAMPLESMAP.get(term):
                             SchemaExamples.EXAMPLESMAP.get(term).append(keyvalue)
+        SchemaExamples.EXAMPLESLOADED = True
                 
-            
+    @staticmethod
+    def loaded():
+        if not SchemaExamples.EXAMPLESLOADED: 
+            SchemaExamples.loadExamplesFiles("default") 
+
     @staticmethod
     def examplesForTerm(term):
+        SchemaExamples.loaded()
         examples = []
         examps = SchemaExamples.EXAMPLESMAP.get(term)
         if examps:
@@ -175,6 +203,7 @@ class SchemaExamples():
 
     @staticmethod
     def allExamples(sort=False):
+        SchemaExamples.loaded()
         ret = SchemaExamples.EXAMPLES.values()
         if sort:
             return sorted(ret, key=lambda x: (x.exmeta['file'],x.exmeta['filepos']))
@@ -183,6 +212,7 @@ class SchemaExamples():
             
     @staticmethod
     def count():
+        SchemaExamples.loaded()
         return len(SchemaExamples.EXAMPLES)
 
 

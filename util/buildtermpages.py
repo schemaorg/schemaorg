@@ -13,13 +13,11 @@ from schemaexamples import SchemaExamples
 #Calculate filename for term page
 def termFileName(termid):
     pth = [OUTPUTDIR]
-    if not TESTSITE: #Local testsite puts term files all in single directory
-                      #Production site puts them in several subdirectories
-        if re.match('^[a-z].*',termid):
-            pth.append("/terms/properties/")
-        elif re.match('^[0-9A-Z].*',termid):
-            pth.append("/terms/types/")
-        pth.append(termid[0])
+    if re.match('^[a-z].*',termid):
+        pth.append("/terms/properties/")
+    elif re.match('^[0-9A-Z].*',termid):
+        pth.append("/terms/types/")
+    pth.append(termid[0])
     path = "".join(pth)
     
     checkFilePath(path)    
@@ -30,8 +28,6 @@ def termFileName(termid):
     elements.append('.html')
     return "".join(elements)
     
-terms = SdoTermSource.getAllTerms()
-
 #Prep of rendering values for term pages
 def termtemplateRender(term,examples):
     #Basic varibles configuring UI
@@ -48,11 +44,12 @@ def termtemplateRender(term,examples):
 
 
 def buildTerms(terms):
-    if 'ALL' in terms:
-        terms = SdoTermSource.getAllTerms(supressSourceLinks=True)
-
-    print("Processing %s terms" % len(terms))
- 
+    all = ["ALL","All","all"]
+    for a in all:
+        if a in terms:
+            terms = SdoTermSource.getAllTerms(supressSourceLinks=True)
+            break
+    print("\nBuilding term pages...\n")
     import time,datetime
     start = datetime.datetime.now()
     lastCount = 0
