@@ -32,9 +32,11 @@
             aria-level="{{loop.depth}}"
             aria-setsize="{{loop.length}}"
             aria-posinset="{{loop.index}}"
-            {% if loop.depth == 1 %}aria-expanded="true"{% else %}aria-expanded="false"{% endif %} >
-            <span>{% if node.termType == "Enumerationvalue" %}:: {% endif %}
-                {{ sdotermlink(node,props='target="termwindow"')|safe }}</span>
+            {% if node.subs %}{% if loop.depth == 1 %}aria-expanded="true"{% else %}aria-expanded="false"{% endif %}{% endif %} >
+            {% if node.subs %}<span>{% endif %}
+              {% if node.termType == "Enumerationvalue" %}:: {% endif %}
+              {{ sdotermlink(node,props='target="termwindow"')|safe }}
+            {% if node.subs %}</span>{% endif %}
             {% if node.repeat %} <a href="#{{node.id}}"> + </a>{% endif %}
             {% if node.subs %}
                 <ul style="list-style: none;" role="group">

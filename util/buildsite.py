@@ -60,8 +60,8 @@ def clear():
 ###################################################
 def runtests():
     import runtests
-    print("Running test scripts befor proceeding...\n")
     if args.runtests:
+        print("Running test scripts befor proceeding...\n")
         errorcount = runtests.main('./tests/')
         if errorcount:
             print("Errors returned: %d" % errorcount)

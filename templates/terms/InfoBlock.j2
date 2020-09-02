@@ -13,8 +13,8 @@
 	<!-- Breadcrumb display of term inheritance -->
     <div class="superPaths">
     {% for superPath in term.superPaths %}
-        {% for super in superPath %} {% if not loop.first %}{% if not loop.last %} -> {% endif %}{% endif %}
-					{% if loop.index > 1 %}{% if loop.last %}{% if TERMTYPE == "Enumeration Member" %} :: {% else %} -> {% endif %}{% endif %}{% endif %}
+        {% for super in superPath %} {% if not loop.first %}{% if not loop.last %} > {% endif %}{% endif %}
+					{% if loop.index > 1 %}{% if loop.last %}{% if term.termType == "Enumerationvalue" %} :: {% else %} > {% endif %}{% endif %}{% endif %}
 					{{ sdotermlink(super)|safe }}{% endfor %}
         <br/>
     {% endfor %}
@@ -40,7 +40,7 @@
     {% if term.superseded %}
         <br/><em>This term has been superseded.</em>
     {% endif %}
-    {% if TERMTYPE == "Enumeration Member" %}
+    {% if term.termType == "Enumerationvalue" %}
        <br/> A member value for enumeration type: {{sdotermlink(term.enumerationParent)}}
     {% endif %}
     {% for sup in term.supers %}

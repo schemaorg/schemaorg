@@ -5,7 +5,7 @@
     {% if term.termType == "Type" %}{% set TERMTYPE = "Type" %}
     {% elif term.termType == "Property" %}{% set TERMTYPE = "Property" %}
     {% elif term.termType == "Datatype" %}{% set TERMTYPE = "Data Type" %}
-    {% elif term.termType == "Enumeration" %}{% set TERMTYPE = "Enumeration" %}
+    {% elif term.termType == "Enumeration" %}{% set TERMTYPE = "Enumeration Type" %}
     {% elif term.termType == "Enumerationvalue" %}{% set TERMTYPE = "Enumeration Member" %}
     {% endif %}
     {% include 'terms/Head.j2' with context %}
