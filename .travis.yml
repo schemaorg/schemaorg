@@ -10,14 +10,10 @@ jobs:
     - stage: python
       name: "Python tests"
       language: python
-      python: "2.7"
+      python: "3.7"
       before_script:
-        - wget $SDK_URL -nv -O google_appengine.zip
-        - unzip -q google_appengine.zip
-        - rm google_appengine.zip
-        - export PYTHONPATH=$PYTHONPATH:$TRAVIS_BUILD_DIR/google_appengine/
-        - scripts/buildreleasefiles.sh -y -e -l "nquads nt" LATEST
-      script: python scripts/run_tests.py
+        - pip install -r requirements.txt
+      script: util/buildsite.py -r -f RDFExport.nquads
 
     - stage: ruby
       name: "Ruby Linter"
@@ -29,9 +25,5 @@ jobs:
         - 'gem update bundler --conservative'
         - bundle install --gemfile=scripts/Gemfile
       before_script:
-        - wget $SDK_URL -nv -O google_appengine.zip
-        - unzip -q google_appengine.zip
-        - rm google_appengine.zip
-        - export PYTHONPATH=$PYTHONPATH:$TRAVIS_BUILD_DIR/google_appengine/
-        - scripts/buildreleasefiles.sh -y -e -o -s -t -l "nquads" LATEST
+        - cp -r site/releases/`util/schemaversion.py` site/releases/LATEST
       script: (cd scripts; bundle exec rake)
