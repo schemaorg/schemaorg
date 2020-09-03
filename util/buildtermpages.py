@@ -53,6 +53,8 @@ def buildTerms(terms):
     import time,datetime
     start = datetime.datetime.now()
     lastCount = 0
+    if len(terms):
+        print("\nBuilding term pages...\n")
     for t in terms:
         tic = datetime.datetime.now() #diagnostics
         term = SdoTermSource.getTerm(t,expanded=True)

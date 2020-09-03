@@ -312,9 +312,11 @@ def writecsvout(data,fields,ver,protocol,altprotocol):
 
 
 
-FILELIST = { "Context": (jsonldcontext,["docs/jsonldcontext.jsonld","docs/jsonldcontext.json","docs/jsonldcontext.json.txt"]),
+FILELIST = { "Context": (jsonldcontext,["docs/jsonldcontext.jsonld",
+                "docs/jsonldcontext.json","docs/jsonldcontext.json.txt",
+                "releases/%s/schemaorgcontext.jsonld" % getVersion()]),
             "Tree": (jsonldtree,["docs/tree.jsonld"]),
-            "Owl": (owl,["docs/schemaorg.owl"]),
+            "Owl": (owl,["docs/schemaorg.owl","releases/%s/schemaorg.owl" % getVersion()]),
             "Sitemap": (sitemap,["docs/sitemap.xml"]),
             "RDFExports": (exportrdf,[""]),
             "RDFExport.turtle": (exportrdf,[""]),
