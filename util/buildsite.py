@@ -22,6 +22,7 @@ SITENAME="SchemaPages"
 TEMPLATESDIR = "templates"
 
 parser = argparse.ArgumentParser()
+parser.add_argument("-a","--autobuild",default=False, action='store_true', help="clear output directory and build all components - overrides all other settings")
 parser.add_argument("-c","--clearfirst",default=False, action='store_true', help="clear output directory before creating contents")
 parser.add_argument("-d","--docspages",default= [],action='append',nargs='*',  help="create docs page(repeatable) - ALL = all pages")
 parser.add_argument("-f","--files",default= [],action='append',nargs='*',  help="create files(repeatable) - ALL = all files")
@@ -46,8 +47,13 @@ else:
     OUTPUTDIR = "site"
 DOCSOUTPUTDIR = OUTPUTDIR + "/docs"
 
+if args.autobuild:
+    TERMS = ["ALL"]
+    PAGES = ["ALL"]
+    FILES = ["ALL"]
+
 def clear():
-    if args.clearfirst:
+    if args.clearfirst or args.autobuild:
         print("Clearing %s directory" % OUTPUTDIR)
         for root, dirs, files in os.walk(OUTPUTDIR):
             for f in files:
@@ -60,7 +66,7 @@ def clear():
 ###################################################
 def runtests():
     import runtests
-    if args.runtests:
+    if args.runtests or args.autobuild:
         print("Running test scripts befor proceeding...\n")
         errorcount = runtests.main('./tests/')
         if errorcount:
