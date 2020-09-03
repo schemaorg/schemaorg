@@ -10,9 +10,9 @@ from sdotermsource import SdoTermSource
 from sdoterm import *
 
 def fileName(fn):
-    dir = OUTPUTDIR 
-    checkFilePath(dir)
-    return dir + "/" + fn
+    name = OUTPUTDIR + "/" +fn
+    checkFilePath(os.path.dirname(name))
+    return name
 
 
 def docsTemplateRender(template,extra_vars=None):
