@@ -10,7 +10,7 @@ from sdotermsource import SdoTermSource
 from sdoterm import *
 
 def fileName(fn):
-    dir = OUTPUTDIR + "/docs" 
+    dir = OUTPUTDIR 
     checkFilePath(dir)
     return dir + "/" + fn
 
@@ -30,15 +30,6 @@ def schemasPage(page):
         'termcounts': SdoTermSource.termCounts()
     }
     return docsTemplateRender("docs/Schemas.j2",extra_vars)
-
-CACHECONTEXT = None
-def jsonldcontext(page):
-    global CACHECONTEXT
-    from sdojsonldcontext import createcontext
-    if not CACHECONTEXT:
-        CACHECONTEXT = createcontext()
-    return CACHECONTEXT
-    
 
 def homePage(page):
     global STRCLASSVAL
@@ -231,14 +222,13 @@ def fullReleasePage(page):
 
     
 
-PAGELIST = {"Home": (homePage,["home.html"]),
-             "PendingHome": (homePage,["pending.home.html"]),
-             "AtticHome": (homePage,["attic.home.html"]),
-             "Schemas": (schemasPage,["schemas.html"]),
-             "Full": (fullPage,["full.html"]),
-             "FullRelease": (fullReleasePage,["fullrelease.html"]),
-             "Context": (jsonldcontext,["jsonldcontext.jsonld","jsonldcontext.json","jsonldcontext.json.txt"]),
-             "Tree": (jsonldtree,["tree.jsonld"])
+PAGELIST = {"Home": (homePage,["docs/home.html"]),
+             "PendingHome": (homePage,["docs/pending.home.html"]),
+             "AtticHome": (homePage,["docs/attic.home.html"]),
+             "Schemas": (schemasPage,["docs/schemas.html"]),
+             "Full": (fullPage,["docs/full.html"]),
+             "FullRelease": (fullReleasePage,["docs/fullrelease.html","releases/%s/schema-all.html" % getVersion()]),
+             "Tree": (jsonldtree,["docs/tree.jsonld"])
          }
 
 def buildDocs(pages):
