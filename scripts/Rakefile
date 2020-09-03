@@ -6,7 +6,7 @@ begin
 rescue LoadError
 end
 
-task :default => [:examples, :vocab, :context, :spec]
+task :default => [:clean,:examples, :vocab, :context, :spec]
 
 desc "Clean generated files"
 task :clean do
