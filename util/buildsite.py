@@ -67,7 +67,7 @@ def clear():
 def runtests():
     import runtests
     if args.runtests or args.autobuild:
-        print("Running test scripts befor proceeding...\n")
+        print("Running test scripts before proceeding...\n")
         errorcount = runtests.main('./tests/')
         if errorcount:
             print("Errors returned: %d" % errorcount)
@@ -249,8 +249,8 @@ def processFiles():
 
 if __name__ == '__main__':
     print("Version: %s  Released: %s" % (getVersion(),getCurrentVersionDate()))
-    runtests()
     initdir()
+    runtests()
     processTerms()
     processDocs()
     processFiles()
