@@ -16,8 +16,6 @@ jobs:
 
     - stage: ruby
       name: "Ruby Linter"
-      language: python
-      python: "3.7"
       language: ruby
       rvm: 2.6
       env: SOFT_LINT=true
@@ -29,5 +27,6 @@ jobs:
         - source ~/virtualenv/python3.7/bin/activate
         - pip install -r requirements.txt
         - util/buildsite.py -f Context RDFExport.nquads 
+        - deactivate
         - cp -r site/releases/`util/schemaversion.py` site/releases/LATEST
       script: (cd scripts; bundle exec rake)
