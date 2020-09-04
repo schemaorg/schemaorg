@@ -16,7 +16,7 @@
     {% include 'PageHeader.j2' with context %}
   <div id="mainContent">
 
-<h1>Schema.org version 9.0</h1>
+<h1>Schema.org Version {{version}}</h1>
 
 <dl>
 
@@ -27,16 +27,12 @@
  <dd><a href="http://schema.org/version/{{version}}/">http://schema.org/version/{{version}}/</a></dd>
 
  <dt>Published:</dt>
- <dd>{versiondate}</dd>
+ <dd>{{date}}</dd>
 
  <dt>Alternate formats: </dt>
   <dd>
-     
-
-     
      This release, full core and extension definition files in N-Triples, Quads, JSON-LD, and Turtle formats, are also available for <a href="/docs/developers.html#defs">download</a>.
-     
-</dd>
+  </dd>
 
 <p>
 <b>Overview:</b>

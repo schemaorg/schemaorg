@@ -185,10 +185,6 @@ def _jsonldtree(tid,term=None):
                 subs.append(_jsonldtree(sub))
             term['children'] = subs
     return term
-        
-        
-    
-    
     
 
 def fullPage(page):
@@ -212,8 +208,8 @@ def fullReleasePage(page):
     extra_vars = {
         'home_page': "False",
         'title': "Full Release Summary",
-        'version': "VX.XX",
-        'date': "2020-10.01",
+        'version': getVersion(),
+        'date': getCurrentVersionDate(),
         'listings': listings,
         'types': types,
         'properties': SdoTermSource.getAllProperties(expanded=True)

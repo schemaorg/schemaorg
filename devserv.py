@@ -77,10 +77,14 @@ def serve_terms(path):
   
     return app.send_static_file(path)
 
+@app.route('/version/<ver>')
+@app.route('/version/<ver>/')
 @app.route('/version/<ver>/<path>')
-def serve_downloads(ver,path):
+def serve_downloads(ver,path=""):
     if ver == "latest":
         ver = getVersion()
+    if not len(path):
+        path="schema-all.html"
     path = "releases/%s/%s" % (ver,path) 
     print("Serving file: " + path)
     return app.send_static_file(path)
