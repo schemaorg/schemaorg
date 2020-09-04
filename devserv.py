@@ -2,12 +2,19 @@
 # -*- coding: UTF-8 -*-
 import sys
 import os
+import argparse
 for path in [os.getcwd(),"Util"]:
   sys.path.insert( 1, path ) #Pickup libs from local  directories
 
 from flask import Flask, render_template,after_this_request
 import re
 from schemaversion import getVersion
+
+
+parser = argparse.ArgumentParser()
+parser.add_argument("--host", default="localhost", help="Host (default: localhost)")
+parser.add_argument("--port", default=8080, help="Port (default: 8080")
+args = parser.parse_args()
 
 
 # create the application object
@@ -81,4 +88,4 @@ def serve_downloads(ver,path):
 # start the server with the 'run()' method
 if __name__ == '__main__':
     print("Local dev server for Schema.org version: %s" % getVersion())
-    app.run(debug=True)
+    app.run(host=args.host, port=args.port,debug=True)
