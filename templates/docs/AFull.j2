@@ -35,7 +35,7 @@
             {% if node.subs %}{% if loop.depth == 1 %}aria-expanded="true"{% else %}aria-expanded="false"{% endif %}{% endif %} >
             {% if node.subs %}<span>{% endif %}
               {% if node.termType == "Enumerationvalue" %}:: {% endif %}
-              {{ sdotermlink(node,props='target="termwindow"')|safe }}
+              {{ sdotermlink(node)|safe }}
             {% if node.subs %}</span>{% endif %}
             {% if node.repeat %} <a href="#{{node.id}}"> + </a>{% endif %}
             {% if node.subs %}
