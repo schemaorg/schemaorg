@@ -35,11 +35,8 @@ YAML=""
 CONF=""
 EXE="Y"
 MIG="Y"
-while getopts 'p:v:y:em' OPTION; do
+while getopts 'p:v:y:m' OPTION; do
   case "$OPTION" in
-    e)
-      EXE="N"
-    ;;
     m)
         MIG="N"
     ;;
