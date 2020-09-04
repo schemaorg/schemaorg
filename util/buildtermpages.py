@@ -49,7 +49,6 @@ def buildTerms(terms):
         if a in terms:
             terms = SdoTermSource.getAllTerms(supressSourceLinks=True)
             break
-    print("\nBuilding term pages...\n")
     import time,datetime
     start = datetime.datetime.now()
     lastCount = 0
