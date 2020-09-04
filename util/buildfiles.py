@@ -307,10 +307,8 @@ def writecsvout(data,fields,ver,protocol,altprotocol):
     acsvfile.close()
     csvout.close()
 
-
-
-
-
+def examples(page):
+    return SchemaExamples.allExamplesSerialised()
 
 FILELIST = { "Context": (jsonldcontext,["docs/jsonldcontext.jsonld",
                 "docs/jsonldcontext.json","docs/jsonldcontext.json.txt",
@@ -324,7 +322,8 @@ FILELIST = { "Context": (jsonldcontext,["docs/jsonldcontext.jsonld",
             "RDFExport.nt": (exportrdf,[""]),
             "RDFExport.nquads": (exportrdf,[""]),
             "RDFExport.json-ld": (exportrdf,[""]),
-            "CSVExports": (exportcsv,[""])
+            "CSVExports": (exportcsv,[""]),
+            "Examples": (examples,["releases/%s/all_examples.txt" % getVersion()])
          }
 
 def buildFiles(files):

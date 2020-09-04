@@ -13,20 +13,8 @@ log = logging.getLogger(__name__)
 from schemaexamples import SchemaExamples, Example
 
 
-exfiles = []
-import glob
-globpatterns = ["data/*examples.txt","data/ext/*/*examples.txt" ]
-
-files = []
-for g in globpatterns:
-    files.extend(glob.glob(g))
-    
-log.info("Loading %d files" % len(files))
-for f in files:
-    #log.info("Loading: %s" % f)
-    SchemaExamples.loadExamplesFile(f)
-
-log.info("Loaded %s examples" % SchemaExamples.count())
+SchemaExamples.loadExamplesFiles("default")
+print("Loaded %d examples " % (SchemaExamples.count()))
 
 log.info("Processing")
 
@@ -63,5 +51,6 @@ for ex in examples:
         f = open(fn,"w")
     f.write(ex.serialize())
     f.write("\n")
-f.close()
+if f:
+    f.close()
 #print(ex.serialize())

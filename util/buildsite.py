@@ -245,6 +245,7 @@ def processFiles():
     if len(FILES):
         print("Building supprting files\n")
         loadTerms()
+        loadExamples()
         buildfiles.buildFiles(FILES)
 
 if __name__ == '__main__':

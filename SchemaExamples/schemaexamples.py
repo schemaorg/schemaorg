@@ -9,6 +9,7 @@ log = logging.getLogger(__name__)
 
 import os
 import os.path
+import io
 import urllib
 import glob
 import re
@@ -209,6 +210,15 @@ class SchemaExamples():
             return sorted(ret, key=lambda x: (x.exmeta['file'],x.exmeta['filepos']))
         return ret
             
+    @staticmethod
+    def allExamplesSerialised(sort=False):
+        SchemaExamples.loaded()
+        examples = SchemaExamples.allExamples(sort=sort)
+        f = io.StringIO()
+        for ex in examples:
+            f.write(ex.serialize())
+            f.write("\n")
+        return f.getvalue()            
             
     @staticmethod
     def count():
