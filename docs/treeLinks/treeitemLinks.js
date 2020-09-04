@@ -9,6 +9,18 @@
 */
 
 /*
+*  Modified version
+*  Modified by Richard Wallis -  September 4th 2020
+*  As part of the Schema.org project: https://github.com/schemaorg/schemaorg
+*
+*  Added cleartreeval() function - called from TreeitemLink.prototype.handleFocus 
+*  to clear 'focus' and 'hover' values from other treeitem nodes when setting focus.
+*  Needed to fix issue (mostly in Safari) when a node is a link.  Returning [back] from link
+*  resulted in focus/hover class values not being cleared from linking node.
+*/
+  
+
+/*
 *   @constructor
 *
 *   @desc
@@ -244,10 +256,13 @@ TreeitemLink.prototype.handleClick = function (event) {
 
 TreeitemLink.prototype.handleFocus = function (event) {
   var node = this.domNode;
+  var preserve = this.domNode;
   if (this.isExpandable) {
     node = node.firstElementChild;
   }
   node.classList.add('focus');
+  cleartreeval("focus",preserve);
+  cleartreeval("hover",preserve);
 };
 
 TreeitemLink.prototype.handleBlur = function (event) {
@@ -265,3 +280,14 @@ TreeitemLink.prototype.handleMouseOver = function (event) {
 TreeitemLink.prototype.handleMouseOut = function (event) {
   event.currentTarget.classList.remove('hover');
 };
+
+function cleartreeval(val,notnode){
+  treeitems = document.querySelectorAll('[role="treeitem"]');
+  for (var i = 0; i < treeitems.length; i++) {
+    node = treeitems[i];
+    if (node != notnode) {
+      node.classList.remove(val);
+    }
+  }
+ 
+}
