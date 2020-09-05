@@ -4,14 +4,18 @@
     {% else %}{% set CLASS = "core" %}
     {% endif %}
     {% if term.id %}{% set name = term.id %}{% else %}{% set name = term %}{% endif %}
-    <a href="{{TERMHREFPREFIX}}{{name}}{{TERMHREFSUFFIX}}" {{props}} class="{{CLASS}}" title="{{name}}">{{name}}</a>
+    <a href="{{TERMHREFPREFIX}}{{name}}{{TERMHREFSUFFIX}}" {{props|safe}} class="{{CLASS}}" title="{{name}}">{{name}}</a>
 {%- endmacro %}
 
-{% macro docs_sdotermlink(term,props="") -%}
+{% macro docs_sdotermlink(term,text="",arialabelpre="",props="") -%}
     {% if term.pending %}{% set CLASS = "ext ext-pending" %}
     {% elif term.retired %}{% set CLASS = "ext ext-attic" %}
     {% else %}{% set CLASS = "core" %}
     {% endif %}
     {% if term.id %}{% set name = term.id %}{% else %}{% set name = term %}{% endif %}
-    <a href="{{DOCSHREFPREFIX}}{{name}}{{DOCSHREFSUFFIX}}" {{props}} class="{{CLASS}}" title="{{name}}">{{name}}</a>
+    {% if text|length %}{% set label = text %}{% else %}{% set label = name %}{% endif %}
+    
+    <a href="{{TERMHREFPREFIX}}{{name}}{{TERMHREFSUFFIX}}" {{props|safe}} 
+            {% if arialabelpre|length %}aria-label="{{arialabelpre}}{{term.id}}"{% endif %} 
+            class="{{CLASS}}" title="{{name}}">{{label|safe}}</a>
 {%- endmacro %}

@@ -186,17 +186,20 @@ def _jsonldtree(tid,term=None):
             term['children'] = subs
     return term
     
-
+listings = None
 def fullPage(page):
-    listings = []
-    listings.append(listingNode("Thing",title="Types:"))
-    listings.append(listingNode("DataType",title="DataTypes:"))
+    global listings
+    if not listings:
+        listings = []
+        listings.append(listingNode("Thing",title="Types:"))
+        listings.append(listingNode("DataType",title="DataTypes:"))
     extra_vars = {
         'home_page': "False",
         'title': SITENAME,
         'listings': listings
     }
-    return docsTemplateRender("docs/AFull.j2",extra_vars)
+
+    return docsTemplateRender("docs/%s.j2" % page,extra_vars)
 
 def fullReleasePage(page):
     listings = []
@@ -223,6 +226,8 @@ PAGELIST = {"Home": (homePage,["docs/home.html"]),
              "AtticHome": (homePage,["docs/attic.home.html"]),
              "Schemas": (schemasPage,["docs/schemas.html"]),
              "Full": (fullPage,["docs/full.html"]),
+             "AFull": (fullPage,["docs/full1.html"]),
+             "AFull2": (fullPage,["docs/full2.html"]),
              "FullRelease": (fullReleasePage,["docs/fullrelease.html","releases/%s/schema-all.html" % getVersion()]),
              "Tree": (jsonldtree,["docs/tree.jsonld"])
          }
