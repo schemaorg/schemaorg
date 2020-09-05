@@ -53,4 +53,3 @@ for ex in examples:
     f.write("\n")
 if f:
     f.close()
-#print(ex.serialize())
