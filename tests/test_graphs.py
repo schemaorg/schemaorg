@@ -495,7 +495,7 @@ class SDOGraphSetupTestCase(unittest.TestCase):
   @unittest.expectedFailure
   def test_EnumerationWithoutEnums(self):
     nri1= ('''select ?term where { 
-        ?term rdfs:subClassOf/rdfs:subClassOf* <http://schema.org/Enumeration> .
+        ?term rdfs:subClassOf* <http://schema.org/Enumeration> .
         FILTER NOT EXISTS { ?enum a ?term. }
         FILTER NOT EXISTS { ?term <http://schema.org/isPartOf> <http://attic.schema.org> .}
     } 

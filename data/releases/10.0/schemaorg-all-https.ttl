@@ -1613,13 +1613,13 @@ schema:Duration a rdfs:Class ;
     rdfs:comment "Quantity: Duration (use <a href=\"http://en.wikipedia.org/wiki/ISO_8601\">ISO 8601 duration format</a>)." ;
     rdfs:subClassOf schema:Quantity .
 
-schema:EUEnergyEfficiencyCategory a rdfs:Class ;
-    rdfs:label "EUEnergyEfficiencyCategory" ;
+schema:EUEnergyEfficiencyEnumeration a rdfs:Class ;
+    rdfs:label "EUEnergyEfficiencyEnumeration" ;
     schema:category "issue-2670" ;
     schema:isPartOf <https://pending.schema.org> ;
     schema:source <https://github.com/schemaorg/schemaorg/issues/2670> ;
     rdfs:comment "Enumerates the EU energy efficiency classes A-G as well as A+, A++, and A+++ as defined in EU directive 2017/1369" ;
-    rdfs:subClassOf schema:EnergyEfficiencyCategory .
+    rdfs:subClassOf schema:EnergyEfficiencyEnumeration .
 
 schema:EatAction a rdfs:Class ;
     rdfs:label "EatAction" ;
@@ -1743,21 +1743,21 @@ schema:EnergyConsumptionDetails a rdfs:Class ;
     schema:source <https://github.com/schemaorg/schemaorg/issues/2670> ;
     rdfs:comment "EnergyConsumptionDetails represents information related to the energy efficiency of a product that consumes energy. The information that can be provided is based on international regulations such as for example <a href=\"https://eur-lex.europa.eu/eli/reg/2017/1369/oj\">EU directive 2017/1369</a> for energy labeling and the <a href=\"https://www.ftc.gov/enforcement/rules/rulemaking-regulatory-reform-proceedings/energy-water-use-labeling-consumer\">Energy labeling rule</a> under the Energy Policy and Conservation Act (EPCA) in the US" .
 
-schema:EnergyEfficiencyCategory a rdfs:Class ;
-    rdfs:label "EnergyEfficiencyCategory" ;
+schema:EnergyEfficiencyEnumeration a rdfs:Class ;
+    rdfs:label "EnergyEfficiencyEnumeration" ;
     schema:category "issue-2670" ;
     schema:isPartOf <https://pending.schema.org> ;
     schema:source <https://github.com/schemaorg/schemaorg/issues/2670> ;
     rdfs:comment "Enumerates energy efficiency levels (also known as \"classes\" or \"ratings\") and certifications that are part of several international energy efficiency standards." ;
     rdfs:subClassOf schema:Enumeration .
 
-schema:EnergyStarEnergyEfficiencyCategory a rdfs:Class ;
-    rdfs:label "EnergyStarEnergyEfficiencyCategory" ;
+schema:EnergyStarEnergyEfficiencyEnumeration a rdfs:Class ;
+    rdfs:label "EnergyStarEnergyEfficiencyEnumeration" ;
     schema:category "issue-2670" ;
     schema:isPartOf <https://pending.schema.org> ;
     schema:source <https://github.com/schemaorg/schemaorg/issues/2670> ;
     rdfs:comment "Used to indicate whether a product is EnergyStar certified" ;
-    rdfs:subClassOf schema:EnergyEfficiencyCategory .
+    rdfs:subClassOf schema:EnergyEfficiencyEnumeration .
 
 schema:EngineSpecification a rdfs:Class ;
     rdfs:label "EngineSpecification" ;
@@ -4713,7 +4713,8 @@ schema:SiteNavigationElement a rdfs:Class ;
 schema:SkiResort a rdfs:Class ;
     rdfs:label "SkiResort" ;
     rdfs:comment "A ski resort." ;
-    rdfs:subClassOf schema:SportsActivityLocation .
+    rdfs:subClassOf schema:Resort,
+        schema:SportsActivityLocation .
 
 schema:SocialEvent a rdfs:Class ;
     rdfs:label "SocialEvent" ;
@@ -5846,70 +5847,70 @@ schema:EPRelease a schema:MusicAlbumReleaseType ;
     schema:source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#MBZ> ;
     rdfs:comment "EPRelease." .
 
-schema:EUEnergyEfficiencyCategoryA a schema:EUEnergyEfficiencyCategory ;
+schema:EUEnergyEfficiencyCategoryA a schema:EUEnergyEfficiencyEnumeration ;
     rdfs:label "EUEnergyEfficiencyCategoryA" ;
     schema:category "issue-2670" ;
     schema:isPartOf <https://pending.schema.org> ;
     schema:source <https://github.com/schemaorg/schemaorg/issues/2670> ;
     rdfs:comment "Represents EU Energy Efficiency Class A as defined in EU energy labeling regulations" .
 
-schema:EUEnergyEfficiencyCategoryA1Plus a schema:EUEnergyEfficiencyCategory ;
+schema:EUEnergyEfficiencyCategoryA1Plus a schema:EUEnergyEfficiencyEnumeration ;
     rdfs:label "EUEnergyEfficiencyCategoryA1Plus" ;
     schema:category "issue-2670" ;
     schema:isPartOf <https://pending.schema.org> ;
     schema:source <https://github.com/schemaorg/schemaorg/issues/2670> ;
     rdfs:comment "Represents EU Energy Efficiency Class A+ as defined in EU energy labeling regulations" .
 
-schema:EUEnergyEfficiencyCategoryA2Plus a schema:EUEnergyEfficiencyCategory ;
+schema:EUEnergyEfficiencyCategoryA2Plus a schema:EUEnergyEfficiencyEnumeration ;
     rdfs:label "EUEnergyEfficiencyCategoryA2Plus" ;
     schema:category "issue-2670" ;
     schema:isPartOf <https://pending.schema.org> ;
     schema:source <https://github.com/schemaorg/schemaorg/issues/2670> ;
     rdfs:comment "Represents EU Energy Efficiency Class A++ as defined in EU energy labeling regulations" .
 
-schema:EUEnergyEfficiencyCategoryA3Plus a schema:EUEnergyEfficiencyCategory ;
+schema:EUEnergyEfficiencyCategoryA3Plus a schema:EUEnergyEfficiencyEnumeration ;
     rdfs:label "EUEnergyEfficiencyCategoryA3Plus" ;
     schema:category "issue-2670" ;
     schema:isPartOf <https://pending.schema.org> ;
     schema:source <https://github.com/schemaorg/schemaorg/issues/2670> ;
     rdfs:comment "Represents EU Energy Efficiency Class A+++ as defined in EU energy labeling regulations" .
 
-schema:EUEnergyEfficiencyCategoryB a schema:EUEnergyEfficiencyCategory ;
+schema:EUEnergyEfficiencyCategoryB a schema:EUEnergyEfficiencyEnumeration ;
     rdfs:label "EUEnergyEfficiencyCategoryB" ;
     schema:category "issue-2670" ;
     schema:isPartOf <https://pending.schema.org> ;
     schema:source <https://github.com/schemaorg/schemaorg/issues/2670> ;
     rdfs:comment "Represents EU Energy Efficiency Class B as defined in EU energy labeling regulations" .
 
-schema:EUEnergyEfficiencyCategoryC a schema:EUEnergyEfficiencyCategory ;
+schema:EUEnergyEfficiencyCategoryC a schema:EUEnergyEfficiencyEnumeration ;
     rdfs:label "EUEnergyEfficiencyCategoryC" ;
     schema:category "issue-2670" ;
     schema:isPartOf <https://pending.schema.org> ;
     schema:source <https://github.com/schemaorg/schemaorg/issues/2670> ;
     rdfs:comment "Represents EU Energy Efficiency Class C as defined in EU energy labeling regulations" .
 
-schema:EUEnergyEfficiencyCategoryD a schema:EUEnergyEfficiencyCategory ;
+schema:EUEnergyEfficiencyCategoryD a schema:EUEnergyEfficiencyEnumeration ;
     rdfs:label "EUEnergyEfficiencyCategoryD" ;
     schema:category "issue-2670" ;
     schema:isPartOf <https://pending.schema.org> ;
     schema:source <https://github.com/schemaorg/schemaorg/issues/2670> ;
     rdfs:comment "Represents EU Energy Efficiency Class D as defined in EU energy labeling regulations" .
 
-schema:EUEnergyEfficiencyCategoryE a schema:EUEnergyEfficiencyCategory ;
+schema:EUEnergyEfficiencyCategoryE a schema:EUEnergyEfficiencyEnumeration ;
     rdfs:label "EUEnergyEfficiencyCategoryE" ;
     schema:category "issue-2670" ;
     schema:isPartOf <https://pending.schema.org> ;
     schema:source <https://github.com/schemaorg/schemaorg/issues/2670> ;
     rdfs:comment "Represents EU Energy Efficiency Class E as defined in EU energy labeling regulations" .
 
-schema:EUEnergyEfficiencyCategoryF a schema:EUEnergyEfficiencyCategory ;
+schema:EUEnergyEfficiencyCategoryF a schema:EUEnergyEfficiencyEnumeration ;
     rdfs:label "EUEnergyEfficiencyCategoryF" ;
     schema:category "issue-2670" ;
     schema:isPartOf <https://pending.schema.org> ;
     schema:source <https://github.com/schemaorg/schemaorg/issues/2670> ;
     rdfs:comment "Represents EU Energy Efficiency Class F as defined in EU energy labeling regulations" .
 
-schema:EUEnergyEfficiencyCategoryG a schema:EUEnergyEfficiencyCategory ;
+schema:EUEnergyEfficiencyCategoryG a schema:EUEnergyEfficiencyEnumeration ;
     rdfs:label "EUEnergyEfficiencyCategoryG" ;
     schema:category "issue-2670" ;
     schema:isPartOf <https://pending.schema.org> ;
@@ -5932,7 +5933,7 @@ schema:Endocrine a schema:MedicalSpecialty ;
     schema:isPartOf <https://health-lifesci.schema.org> ;
     rdfs:comment "A specific branch of medical science that pertains to diagnosis and treatment of disorders of endocrine glands and their secretions." .
 
-schema:EnergyStarCertified a schema:EnergyStarEnergyEfficiencyCategory ;
+schema:EnergyStarCertified a schema:EnergyStarEnergyEfficiencyEnumeration ;
     rdfs:label "EnergyStarCertified" ;
     schema:category "issue-2670" ;
     schema:isPartOf <https://pending.schema.org> ;
@@ -10668,7 +10669,7 @@ schema:energyEfficiencyScaleMax a rdf:Property ;
     rdfs:label "energyEfficiencyScaleMax" ;
     schema:category "issue-2670" ;
     schema:domainIncludes schema:EnergyConsumptionDetails ;
-    schema:rangeIncludes schema:EUEnergyEfficiencyCategory ;
+    schema:rangeIncludes schema:EUEnergyEfficiencyEnumeration ;
     schema:source <https://github.com/schemaorg/schemaorg/issues/2670> ;
     rdfs:comment "Specifies the most energy efficient class on the regulated EU energy consumption scale for the product category a product belongs to. For example, energy consumption for televisions placed on the market after January 1, 2020 is scaled from D to A+++." .
 
@@ -10676,7 +10677,7 @@ schema:energyEfficiencyScaleMin a rdf:Property ;
     rdfs:label "energyEfficiencyScaleMin" ;
     schema:category "issue-2670" ;
     schema:domainIncludes schema:EnergyConsumptionDetails ;
-    schema:rangeIncludes schema:EUEnergyEfficiencyCategory ;
+    schema:rangeIncludes schema:EUEnergyEfficiencyEnumeration ;
     schema:source <https://github.com/schemaorg/schemaorg/issues/2670> ;
     rdfs:comment "Specifies the least energy efficient class on the regulated EU energy consumption scale for the product category a product belongs to. For example, energy consumption for televisions placed on the market after January 1, 2020 is scaled from D to A+++." .
 
@@ -11610,18 +11611,18 @@ schema:hasDriveThroughService a rdf:Property ;
     rdfs:comment "Indicates whether some facility (e.g. <a class=\"localLink\" href=\"https://schema.org/FoodEstablishment\">FoodEstablishment</a>, <a class=\"localLink\" href=\"https://schema.org/CovidTestingFacility\">CovidTestingFacility</a>) offers a service that can be used by driving through in a car. In the case of <a class=\"localLink\" href=\"https://schema.org/CovidTestingFacility\">CovidTestingFacility</a> such facilities could potentially help with social distancing from other potentially-infected users." .
 
 schema:hasEnergyConsumptionDetails a rdf:Property ;
+    rdfs:label "hasEnergyConsumptionDetails" ;
     schema:category "issue-2670" ;
     schema:domainIncludes schema:Product ;
     schema:rangeIncludes schema:EnergyConsumptionDetails ;
-    schema:rdfs:label "hasEnergyConsumptionDetails" ;
     schema:source <https://github.com/schemaorg/schemaorg/issues/2670> ;
     rdfs:comment "Defines the energy efficiency Category (also known as \"class\" or \"rating\") for a product according to an international energy efficiency standard" .
 
 schema:hasEnergyEfficiencyCategory a rdf:Property ;
+    rdfs:label "hasEnergyEfficiencyCategory" ;
     schema:category "issue-2670" ;
     schema:domainIncludes schema:EnergyConsumptionDetails ;
-    schema:rangeIncludes schema:EnergyEfficiencyCategory ;
-    schema:rdfs:label "hasEnergyEfficiencyCategory" ;
+    schema:rangeIncludes schema:EnergyEfficiencyEnumeration ;
     schema:source <https://github.com/schemaorg/schemaorg/issues/2670> ;
     rdfs:comment "Defines the energy efficiency Category (which could be either a rating out of range of values or a yes/no certification) for a product according to an international energy efficiency standard" .
 
@@ -12517,7 +12518,9 @@ schema:jobTitle a rdf:Property ;
 schema:keywords a rdf:Property ;
     rdfs:label "keywords" ;
     schema:domainIncludes schema:CreativeWork ;
-    schema:rangeIncludes schema:Text ;
+    schema:rangeIncludes schema:DefinedTerm,
+        schema:Text,
+        schema:URL ;
     rdfs:comment "Keywords or tags used to describe this content. Multiple entries in a keywords list are typically delimited by commas." .
 
 schema:knownVehicleDamages a rdf:Property ;
@@ -12595,6 +12598,17 @@ schema:latitude a rdf:Property ;
     schema:rangeIncludes schema:Number,
         schema:Text ;
     rdfs:comment "The latitude of a location. For example <code>37.42242</code> (<a href=\"https://en.wikipedia.org/wiki/World_Geodetic_System\">WGS 84</a>)." .
+
+schema:layoutImage a rdf:Property ;
+    rdfs:label "layoutImage" ;
+    schema:category "issue-2690" ;
+    schema:domainIncludes schema:FloorPlan ;
+    schema:isPartOf <https://pending.schema.org> ;
+    schema:rangeIncludes schema:ImageObject,
+        schema:URL ;
+    schema:source <https://github.com/schemaorg/schemaorg/issues/2690> ;
+    rdfs:comment "A schematic image showing the floorplan layout." ;
+    rdfs:subPropertyOf schema:image .
 
 schema:learningResourceType a rdf:Property ;
     rdfs:label "learningResourceType" ;
@@ -18592,13 +18606,6 @@ schema:hasMap a rdf:Property ;
         schema:URL ;
     rdfs:comment "A URL to a map of the place." .
 
-schema:image a rdf:Property ;
-    rdfs:label "image" ;
-    schema:domainIncludes schema:Thing ;
-    schema:rangeIncludes schema:ImageObject,
-        schema:URL ;
-    rdfs:comment "An image of the item. This can be a <a class=\"localLink\" href=\"https://schema.org/URL\">URL</a> or a fully described <a class=\"localLink\" href=\"https://schema.org/ImageObject\">ImageObject</a>." .
-
 schema:material a rdf:Property ;
     rdfs:label "material" ;
     schema:domainIncludes schema:CreativeWork,
@@ -18697,6 +18704,13 @@ schema:areaServed a rdf:Property ;
         schema:Place,
         schema:Text ;
     rdfs:comment "The geographic area where a service or offered item is provided." .
+
+schema:image a rdf:Property ;
+    rdfs:label "image" ;
+    schema:domainIncludes schema:Thing ;
+    schema:rangeIncludes schema:ImageObject,
+        schema:URL ;
+    rdfs:comment "An image of the item. This can be a <a class=\"localLink\" href=\"https://schema.org/URL\">URL</a> or a fully described <a class=\"localLink\" href=\"https://schema.org/ImageObject\">ImageObject</a>." .
 
 schema:includedInDataCatalog a rdf:Property ;
     rdfs:label "includedInDataCatalog" ;
