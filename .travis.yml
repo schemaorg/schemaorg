@@ -29,5 +29,6 @@ jobs:
         - util/buildsite.py -f Context RDFExport.nquads 
         - deactivate
         - mkdir site/releases/LATEST
-        - (cd site/releases/`util/schemaversion.py`; cp -r * ../LATEST)
+        - ls -l site/releases
+        - (cd site/releases/`util/schemaversion.py`;pwd;ls -l ..; cp -r * ../LATEST)
       script: (cd scripts; bundle exec rake)
