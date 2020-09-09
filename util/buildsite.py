@@ -22,7 +22,7 @@ from schemaexamples import SchemaExamples
 from localmarkdown import Markdown
 from schemaversion import *
 
-SITENAME="SchemaPages"
+SITENAME="Schema.org"
 TEMPLATESDIR = "templates"
 
 parser = argparse.ArgumentParser()
