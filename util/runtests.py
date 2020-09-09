@@ -1,5 +1,10 @@
 #!/usr/bin/env python3
 # -*- coding: UTF-8 -*-
+import sys
+if not (sys.version_info.major == 3 and sys.version_info.minor > 5):
+    print("Python version %s.%s not supported version 3.6 or above required - exiting" % (sys.version_info.major,sys.version_info.minor))
+    sys.exit(1)
+
 # Note: if this stops working in OSX, consider "sudo pip uninstall protobuf"
 # to remove a 2nd clashing google/ python lib. See
 # https://github.com/coto/gae-boilerplate/issues/306
@@ -50,7 +55,7 @@
 
 import argparse
 import optparse
-import sys
+
 import os
 import subprocess
 import unittest

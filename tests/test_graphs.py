@@ -1,6 +1,10 @@
 #!/usr/bin/env python3
 # -*- coding: UTF-8 -*-
 import sys
+if not (sys.version_info.major == 3 and sys.version_info.minor > 5):
+    print("Python version %s.%s not supported version 3.6 or above required - exiting" % (sys.version_info.major,sys.version_info.minor))
+    sys.exit(1)
+
 import os
 for path in [os.getcwd(),"Util","SchemaPages","SchemaExamples"]:
   sys.path.insert( 1, path ) #Pickup libs from local  directories
