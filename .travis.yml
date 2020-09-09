@@ -28,5 +28,6 @@ jobs:
         - pip install -r requirements.txt
         - util/buildsite.py -f Context RDFExport.nquads 
         - deactivate
-        - export SDOVER=`util/schemaversion.py`;(cd site/releases ;mkdir LATEST; cp -r $SDOVER/* LATEST)
+        - mkdir site/releases/LATEST
+        - (cd site/releases/`util/schemaversion.py`; cp -r * ../LATEST)
       script: (cd scripts; bundle exec rake)
