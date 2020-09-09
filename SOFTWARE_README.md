@@ -10,7 +10,7 @@ it. At this time we do not solicit active collaboration on the codebase itself f
 Software 
 ========
 
-*_Note:_ from Schema version V11.0 onwards te software architecture changed significantly. Please check below for details.*
+*__Note:__ from Schema version V11.0 onwards te software architecture changed significantly. Please check below for details.*
 
 The site codebase is a simple Python (3.6 or above) application. It is used to create a static image of the Schema.org website to be served locally for testing, or uploading to Google's GCloud for web access
 
