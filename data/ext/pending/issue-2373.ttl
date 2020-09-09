@@ -159,3 +159,16 @@
     :source <https://github.com/schemaorg/schemaorg/issues/2373> ;
     rdfs:comment "The year an [[Accommodation]] was constructed. This corresponds to the [YearBuilt field in RESO](https://ddwiki.reso.org/display/DDW17/YearBuilt+Field). " .
 
+
+
+    # included here but filed as a different issue as it was a followup:
+    #
+    :layoutImage a rdf:Property ;
+        rdfs:label "layoutImage" ;
+        :category "issue-2690" ;
+        :domainIncludes :FloorPlan ;
+        :isPartOf <http://pending.schema.org> ;
+        :rangeIncludes :ImageObject, :URL ;
+        :source <https://github.com/schemaorg/schemaorg/issues/2690> ;
+        rdfs:comment "A schematic image showing the floorplan layout." ;
+        rdfs:subPropertyOf :image .
