@@ -27,8 +27,8 @@ jobs:
         - source ~/virtualenv/python3.7/bin/activate
         - pip install -r requirements.txt
         - util/buildsite.py -f Context RDFExport.nquads 
-        - deactivate
         - mkdir site/releases/LATEST
-        - ls -l site/releases
-        - (cd site/releases/`util/schemaversion.py`;pwd;ls -l ..; cp -r * ../LATEST)
+        - (cd site/releases/`util/schemaversion.py`; cp -r * ../LATEST)
+        - deactivate
+       
       script: (cd scripts; bundle exec rake)
