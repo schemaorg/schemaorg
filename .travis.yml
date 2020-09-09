@@ -28,5 +28,5 @@ jobs:
         - pip install -r requirements.txt
         - util/buildsite.py -f Context RDFExport.nquads 
         - deactivate
-        - cp -r site/releases/`util/schemaversion.py` site/releases/LATEST
+        - (cd site/releases ;mkdir LATEST; cp -r `util/schemaversion.py`/* LATEST)
       script: (cd scripts; bundle exec rake)
