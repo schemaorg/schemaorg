@@ -42,7 +42,7 @@ var TreeLinks = function (node) {
   }
 
   this.domNode = node;
-
+  
   this.treeitems = [];
   this.firstChars = [];
 
@@ -107,13 +107,12 @@ TreeLinks.prototype.setFocusToItem = function (treeitem) {
 TreeLinks.prototype.setFocusToNextItem = function (currentItem) {
 
   var nextItem = false;
-
-  for (var i = (this.treeitems.length - 1); i >= 0; i--) {
+   for (var i = (this.treeitems.length - 1); i >= 0; i--) {
     var ti = this.treeitems[i];
     if (ti === currentItem) {
       break;
     }
-    if (ti.isVisible) {
+    if(ti.isVisible) {
       nextItem = ti;
     }
   }
@@ -256,3 +255,4 @@ TreeLinks.prototype.getIndexFirstChars = function (startIndex, char) {
   }
   return -1;
 };
+

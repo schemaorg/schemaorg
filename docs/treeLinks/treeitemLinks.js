@@ -39,6 +39,7 @@ var TreeitemLink = function (node, treeObj, group) {
   }
 
   node.tabIndex = -1;
+  node.treeNode = this;
   this.tree = treeObj;
   this.groupTreeitem = group;
   this.domNode = node;
@@ -290,4 +291,20 @@ function cleartreeval(val,notnode){
     }
   }
  
+}
+
+function opentargetnodeparents(id){
+  var target = id.getAttribute('href');
+  target = target.substring(1);
+  targetNode = document.getElementById(target);
+ 
+  var parent = targetNode.parentNode;
+
+  while (parent){
+    treeNode = parent.treeNode;
+    if (treeNode){
+      treeNode.tree.expandTreeitem(treeNode)
+    }
+    parent = parent.parentNode;
+  }
 }

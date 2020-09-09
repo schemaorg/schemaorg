@@ -25,6 +25,7 @@
         <li><a href="/docs/full.html">Non-collapsible Tree</a></li>
         <li><a href="/docs/full1.html">Collapsible Tree</a></li>
         <li><a href="/docs/full2.html">Collapsible Tree - with link symbols</a></li>
+        <li><a href="/docs/full3.html">Collapsible Tree - using details/summary</a></li>
       </ul>
       <div style="color: red;"><strong>Collapsible Tree - with link symbols</strong></div>
       </div>
@@ -38,6 +39,7 @@
       {% if not node.retired %}
         {% if node.subs %}
           <li role="treeitem"
+            id="C.{{node.id}}"
             aria-level="{{loop.depth}}"
             aria-setsize="{{loop.length}}"
             aria-posinset="{{loop.index}}"
@@ -45,7 +47,10 @@
           ><span class="treebranch">
             {{node.id}}
             </span>
-            <small>{{ sdotermlink(node,arialabelpre="Link to ",text=" &#x1f517;")|safe }}</small>
+            <div style="display: inline;">
+              {% if node.repeat %} <a href="#{{node.id}}" title="Additional reference to {{node.id}} in hierarchy">+</a> {% endif %}
+              <small>{{ sdotermlink(node,arialabelpre="Link to ",text=" &#x1f517;",props='role="link"')|safe }}</small>
+            </div>
             <ul style="list-style: none;" role="group">
                 {{ loop(node.subs) }}
             </ul>
@@ -53,11 +58,17 @@
           </li>
         {% else %}
           <li  role="none"
+            id="C.{{node.id}}"
             aria-level="{{loop.depth}}"
             aria-setsize="{{loop.length}}"
             aria-posinset="{{loop.index}}"
           > {% if node.termType == "Enumerationvalue" %}::{% endif %}
-            {{node.id}}<small>{{ sdotermlink(node,arialabelpre="Link to ",text=" &#x1f517;")|safe }}</small>
+            {{node.id}}
+            <div style="display: inline;">
+              {% if node.repeat %} 
+                <a href="#C.{{node.id}}" role="link" onclick="opentargetnodeparents(this)" title="Main reference to {{node.id}} in hierarchy">+</a> {% endif %}
+              <small>{{ sdotermlink(node,arialabelpre="Link to ",text=" &#x1f517;",props='role="link"')|safe }}</small>
+            </div>
           </li>
         {% endif %}
 

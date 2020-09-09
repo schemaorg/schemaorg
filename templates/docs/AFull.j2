@@ -25,6 +25,7 @@
         <li><a href="/docs/full.html">Non-collapsible Tree</a></li>
         <li><a href="/docs/full1.html">Collapsible Tree</a></li>
         <li><a href="/docs/full2.html">Collapsible Tree - with link symbols</a></li>
+        <li><a href="/docs/full3.html">Collapsible Tree - using details/summary</a></li>
       </ul>
       <div style="color: red;"><strong>Collapsible Tree</strong></div>
       </div>
@@ -57,7 +58,8 @@
             aria-setsize="{{loop.length}}"
             aria-posinset="{{loop.index}}"
           > {% if node.termType == "Enumerationvalue" %}::{% endif %}
-            {{ sdotermlink(node)|safe }}
+            {{ sdotermlink(node)|safe }}{% if node.repeat %} 
+                <a href="#C.{{node.id}}" role="link" onclick="opentargetnodeparents(this)" title="Main reference to {{node.id}} in hierarchy">+</a> {% endif %}
           </li>
         {% endif %}
 
