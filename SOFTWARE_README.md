@@ -23,7 +23,7 @@ Note: The associated configuration scripts are designed to run in a Linux or sim
 
 To work on the vocabulary and run locally firstly clone the repository on a local system:
 
-    `git clone https://github.com/schemaorg/schemaorg.git`
+    git clone https://github.com/schemaorg/schemaorg.git
     
 
 Note: The python application only runs under **_Python 3.6 or above_** which should be preinstalled on the local system.
@@ -34,7 +34,8 @@ It depends on a small number of python libraries. To install these run the follo
 All commands and scripts should be run from in the root `schemaorg` directory.
 
 Once a local version of the repository has been installed initially run the following command:
-    `./util/buildsite.py -a`
+    
+    ./util/buildsite.py -a
 
 This will create a local working copy of the schema.org website in the local `site` directory. Dependant on the configuration of your system, this will take between 10-20 minutes. Note, this full build is needed only when significant changes have been made, or prior to shipping a new version.  See below for how to build individual files and pages.
 
@@ -67,7 +68,8 @@ See also wiki: https://github.com/schemaorg/schemaorg/wiki/Contributing
 The build scripts use a single configuration file `versions.json` to control the version of schema.org release that is built.  To change that version the `schemaversion` value should be set to the new version and a matching entry should be added to the `releaseLog` section.  If a version is not yet ready for release, the convention is to substitute `XX` in the date section.  eg. `"11.2": "2020-XX-XX",`.
 
 If the version number or date has been changed, a full build of the site is required, to reflect that change:
-    `./util/buildsite.py -a`
+    
+    ./util/buildsite.py -a
 
 Vocabulary Definition and Examples Files
 ========================================
