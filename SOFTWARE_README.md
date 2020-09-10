@@ -28,7 +28,7 @@ To work on the vocabulary and run locally firstly clone the repository on a loca
 
 **_Note:_** The python application only runs under **_Python 3.6 or above_** which should be preinstalled on the local system.
 
-It is recommended that a Python virtual environment is created on your system to avoid conflicts with other python activities on your system. For further information on how to create virtual environments see: https://docs.python.org/3.7/library/venv.html
+It is recommended that a Python virtual environment is created to avoid conflicts with other python activities on your system. For further information on how to create virtual environments see: https://docs.python.org/3.7/library/venv.html
 
 
 The python environment for schemaorg depends on a small number of python libraries. To install these run the following command in the root `schemaorg` directory:
