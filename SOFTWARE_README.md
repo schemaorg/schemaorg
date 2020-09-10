@@ -19,7 +19,9 @@ This repository only contains the vocabulary definition, and examples files, sup
 Working with a local version of Schema.org
 ==========================================
 
-Note: The python application only runs under **_Python 3.6 or above_** which should be preinstalled on the local system.  It depends on a small number of python libraries. To install these run the following command in the root `schemaorg` directory:
+Note: The python application only runs under **_Python 3.6 or above_** which should be preinstalled on the local system.
+It depends on a small number of python libraries. To install these run the following command in the root `schemaorg` directory:
+
     `pip install -r requirements.txt`
 
 Note: The associated configuration scripts are designed to run in a Linux or similar environment, including MAC-OS. 
