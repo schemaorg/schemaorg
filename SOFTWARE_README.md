@@ -39,7 +39,16 @@ Once a local version of the repository has been installed initially run the foll
 
 This will create a local working copy of the schema.org website in the local `site` directory. Dependant on the configuration of your system, this will take between 10-20 minutes. Note, this full build is needed only when significant changes have been made, or prior to shipping a new version.  See below for how to build individual files and pages.
 
-To locally run the application run `./devserv.py`  This will serve the site from the `localhost:8080` address. Use options `--host` and `--port` to change this.
+Running Locally
+===============
+
+To locally run the application run:
+
+`./devserv.py`  
+
+This will serve the site from the `localhost:8080` address. Use options `--host` and `--port` to change this.
+
+Open a browser, on the same system, to `localhost:8080` to see the locally served site.
 
 Deploying to GCloud
 ===================
