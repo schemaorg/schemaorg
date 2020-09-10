@@ -230,7 +230,7 @@ PAGELIST = {"Home": (homePage,["docs/home.html"]),
              "AtticHome": (homePage,["docs/attic.home.html"]),
              "Schemas": (schemasPage,["docs/schemas.html"]),
              "Full": (fullPage,["docs/full.html"]),
-             "AFull3": (fullPage,["docs/full.beta.html"]),
+             "FullBeta": (fullPage,["docs/full.beta.html","docs/full4.html"]),
              "FullRelease": (fullReleasePage,["docs/fullrelease.html","releases/%s/schema-all.html" % getVersion()]),
              "Tree": (jsonldtree,["docs/tree.jsonld"])
          }
