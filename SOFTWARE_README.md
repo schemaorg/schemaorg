@@ -19,18 +19,17 @@ This repository only contains the vocabulary definition, and examples files, sup
 Working with a local version of Schema.org
 ==========================================
 
-Note: The python application only runs under **_Python 3.6 or above_** which should be preinstalled on the local system.
-It depends on a small number of python libraries. To install these run the following command in the root `schemaorg` directory:
-
-    `pip install -r requirements.txt`
-
 Note: The associated configuration scripts are designed to run in a Linux or similar environment, including MAC-OS. 
 
 To work on the vocabulary and run locally firstly clone the repository on a local system:
 
     `git clone https://github.com/schemaorg/schemaorg.git`
     
-**Note:** The default branch name for the schemaorg repository was changed from *master* to *main* (as of 23rd July 2020).  See [MASTER_BRANCH_RENAME.md](MASTER_BRANCH_RENAME.md) for details.
+
+Note: The python application only runs under **_Python 3.6 or above_** which should be preinstalled on the local system.
+It depends on a small number of python libraries. To install these run the following command in the root `schemaorg` directory:
+
+    pip install -r requirements.txt
 
 All commands and scripts should be run from in the root `schemaorg` directory.
 
