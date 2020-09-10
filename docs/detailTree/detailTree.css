@@ -1,0 +1,74 @@
+        details.dttDetails{
+            display: inline-block;
+        }
+        details.dttDetails > summary{
+            cursor:pointer;
+            border: none;
+            list-style: none;
+            width: 1em;
+            padding-left: 5px;
+        }
+        details.dttDetails > summary::-webkit-details-marker{
+            display: none;
+        }
+        details.dttDetails > summary:before{
+            content: "+";
+        }
+        details.dttDetails[open] > summary:before{
+            content: "-";
+        }
+
+
+        .dttBranch {
+            display: block;
+        }
+
+        .dttBranch .dttLabel {
+            display: inline-block;
+            vertical-align: top;
+            cursor: pointer;
+        }
+        .dttBranch .dttLabel::before {
+            content: "";
+        }
+        
+        .dttBranch[dttState='treeopen'] > .dttLabel::before {
+            content: url(dtt-down-arrow.png);
+            position: relative;
+        }
+        .dttBranch[dttState='treeclosed'] > .dttLabel::before {
+            content: url(dtt-right-arrow.png);
+            position: relative;
+        }
+        .dttLeaf > a::before,
+        .dttLeaf > span::before{
+            content: url(dtt-bullet.png);
+            position: relative;
+            pading-right: 5px;
+        }
+
+        .ddtTree a{
+            border-bottom: 0px !important;
+        }
+
+        ul.dttTree {
+            list-style-type: none;
+            padding: 5px;
+        }
+        ul.dttSubTree {
+            display: block;
+            padding: 0;
+            list-style-type: none;
+        }
+        .ddtCloseAll,
+        .ddtOpenAll{
+          background-color: grey;
+          color: white;
+          cursor: pointer;
+          padding: 3px;
+        }
+        .dttTreeContainer{
+            display: block;
+            overflow-x: auto;
+            white-space: nowrap;
+        }

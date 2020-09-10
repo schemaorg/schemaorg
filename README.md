@@ -53,9 +53,9 @@ See more on ["How we work"](https://schema.org/docs/howwework.html)
 Software
 ========
 
-For most collaborators, all you need to know about the software is how to run it. Essentially you will need to have the Python version of Google App Engine SDK running on the platform of your choice. You can then make test builds of schema.org running on your own machine accessible as http://localhost:8080/ or else post them on appspot.com for collaboration. See the [Appengine documentation](https://cloud.google.com/appengine/docs) for details.
+For most collaborators, all you need to know about the software is how to run it. Essentially you will need to have Python version 3.6 or above. You can then make test builds of schema.org running on your own machine accessible as http://localhost:8080/ or else post them on appspot.com for collaboration. See the [Appengine documentation](https://cloud.google.com/appengine/docs) for details of the relevant gcloud commands.
 
-More information about the software is also available in [SOFTWARE_README.md](SOFTWARE_README.md) and [STATICBUILD_README.md](./staticbuild/STATICBUILD_README.md)
+More information about the software is also available in [SOFTWARE_README.md](SOFTWARE_README.md).
 
 See also notes in the wiki: https://github.com/schemaorg/schemaorg/wiki/Contributing
 

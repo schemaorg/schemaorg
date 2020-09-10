@@ -1,0 +1,75 @@
+<head>
+    <title>{{ title }} - {{ sitename }} {{ TERMTYPE }}</title>
+    <meta charset="utf-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Schema.org {{TERMTYPE}}: {{term.label}} - {{term.comment}}" />
+    <link rel="shortcut icon" type="image/png" href="{{docsdir}}/favicon.ico"/>
+    <link rel="stylesheet" type="text/css" href="{{docsdir}}/schemaorg.css" />
+    <link rel="stylesheet" type="text/css" href="{{docsdir}}/prettify.css" />
+    <script src="{{docsdir}}/prettify.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    
+<!-- ##### Generated insert [CSEScript-start] see scripts/genhtmlinserts.sh ##### --> 
+<!-- Enable CSE Search -->
+<script>
+(function() {
+var cx = '013516846811604855281:nj5laplixaa'; // Insert your own Custom Search engine ID here
+var gcse = document.createElement('script'); gcse.type = 'text/javascript'; gcse.async = true;
+gcse.src = 'https://cse.google.com/cse.js?cx=' + cx;
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(gcse, s);
+})();
+</script>
+<!-- ##### Generated insert [CSEScript-end] see scripts/genhtmlinserts.sh ##### --> 
+    
+<script>
+      $(document).ready(function(){
+        prettyPrint();
+        setTimeout(function(){
+
+  $(".atn:contains(itemscope), .atn:contains(itemtype), .atn:contains(itemprop), .atn:contains(itemid), .atn:contains(time), .atn:contains(datetime), .atn:contains(datetime), .tag:contains(time) ").addClass('new');
+  $('.new + .pun + .atv').addClass('curl');
+
+        }, 500);
+        setTimeout(function(){
+
+  $(".atn:contains(property), .atn:contains(typeof) ").addClass('new');
+  $('.new + .pun + .atv').addClass('curl');
+
+        }, 500);
+        setTimeout(function() {
+          $('.ds-selector-tabs .selectors a').click(function() {
+            var $this = $(this);
+            var $p = $this.parents('.ds-selector-tabs');
+            $('.selected', $p).removeClass('selected');
+            $this.addClass('selected');
+            $('pre.' + $this.data('selects'), $p).addClass('selected');
+          });
+        }, 0);
+      });
+</script>
+
+<style>
+
+  .pln    { color: #444;    } /* plain text                 */
+  .tag    { color: #515484; } /* div, span, a, etc          */
+  .atn,
+  .atv    { color: #314B17; } /* href, datetime             */
+  .new    { color: #660003; } /* itemscope, itemtype, etc,. */
+  .curl   { color: #080;    } /* new url                    */
+
+  table.definition-table {
+    border-spacing: 3px;
+    border-collapse: separate;
+  }
+  
+  #morecheck {
+	  outline: none;
+  }
+  
+#morecheck:checked + div { display: none; }
+  
+<link rel="canonical" href="https://schema.org/{{term.id}}" />
+
+</style>
+    
+</head>
