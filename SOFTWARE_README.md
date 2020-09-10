@@ -37,16 +37,16 @@ The python environment for schemaorg depends on a small number of python librari
 
 All commands and scripts should be run from in the root `schemaorg` directory.
 
-Once a local version of the repository has been installed initially run the following command:
+Once a local version of the repository has been cloned, in to an appropriate python environment, initially run the following command:
     
     ./util/buildsite.py -a
 
-This will create a local working copy of the schema.org website in the local `site` directory. Dependant on the configuration of your system, this will take between 10-20 minutes. Note, this full build is needed only when significant changes have been made, or prior to shipping a new version.  See below for how to build individual files and pages.
+This will create a local working copy of the schema.org website in the local `site` directory. Dependant on the configuration of your system, this will take between 10-20 minutes. Note, this full build is only needed initialy, or when significant changes have been made and prior to shipping a new version.  See below for how to build individual files and pages.
 
 Running Locally
 ===============
 
-To locally run the application run:
+To locally serve as a website, run:
 
 `./devserv.py`  
 
@@ -57,9 +57,15 @@ Open a browser, on the same system, to `localhost:8080` to see the locally serve
 Deploying to GCloud
 ===================
 
-Run the command `./gcloud/deploy2gcloud.sh` to deploy a version of the site to an appengine instance.  You will need to supply a valid appengine project name and a version ID (This does not need to be the same as the Schema Version).  Accept the default `other.yaml` yaml file name.
+Run the command:
 
-There are specific deployment scripts for webscemas.org & schema.org.
+    ./gcloud/deploy2gcloud.sh
+    
+This will deploy the local version of the site to an appengine instance.  You will need to supply a valid appengine project name and a version ID (This does not need to be the same as the Schema Version).  Accept the default `other.yaml` yaml file name.
+
+Note: There are specific deployment scripts for webscemas.org & schema.org.
+
+For more information about GCloud appengine see: https://cloud.google.com/appengine
 
 Internals
 =========
@@ -92,6 +98,6 @@ During development, it is possible to select individual term pages, dynamic docs
 * `./util/buildsite.py -f RDFExport.turtle` Would rebuild the Turtle format vocabulary definition files.
 * `./util/buildsite.py -d PendingHome` Would rebuld the home page for the pending section (`docs/pending.home.html`).
 
-Changes to created pages are immediately reflected in the output of the local `./devserv.py` server.
+Changes to created pages are immediately reflected in the output of the local `./devserv.py` server, without the need for a restart. You may need to do a full refresh of a page to see changes, because of browser caching.
 
 _Note:_ Remember to run the `buildsite.py` with the `-a` option prior to a deployment or release.
