@@ -26,8 +26,12 @@ To work on the vocabulary and run locally firstly clone the repository on a loca
     git clone https://github.com/schemaorg/schemaorg.git
     
 
-Note: The python application only runs under **_Python 3.6 or above_** which should be preinstalled on the local system.
-It depends on a small number of python libraries. To install these run the following command in the root `schemaorg` directory:
+**_Note:_** The python application only runs under **_Python 3.6 or above_** which should be preinstalled on the local system.
+
+It is recommended that a Python virtual environment is created on your system to avoid conflicts with other python activities on your system. For further information on how to create virtual environments see: https://docs.python.org/3.7/library/venv.html
+
+
+The python environment for schemaorg depends on a small number of python libraries. To install these run the following command in the root `schemaorg` directory:
 
     pip install -r requirements.txt
 
@@ -82,6 +86,7 @@ Building Individual Files and Term Pages
 ========================================
 
 During development, it is possible to select individual term pages, dynamic docs pages, or output files (vocabulary definition RDF files, sitemap, jsonldcontext, etc.) for rebuilding.  For details see the output of the command `./util/buildsite.py -h`.  Examples include:
+
 * `./util/buildsite.py -t Book sameAs`  Would rebuild the Book and sameAs term pages.
 * `./util/buildsite.py -f Owl` Would rebuild the file `docs/schemaorg.owl` file.
 * `./util/buildsite.py -f RDFExport.turtle` Would rebuild the Turtle format vocabulary definition files.
@@ -89,4 +94,4 @@ During development, it is possible to select individual term pages, dynamic docs
 
 Changes to created pages are immediately reflected in the output of the local `./devserv.py` server.
 
-_Note:_ Remember to run the buildsite.py with the `-a` option prior to a deployment or release.
+_Note:_ Remember to run the `buildsite.py` with the `-a` option prior to a deployment or release.
