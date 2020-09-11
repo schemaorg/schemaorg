@@ -10,6 +10,16 @@ import shutil
 for path in [os.getcwd(),"SchemaPages","SchemaExamples"]:
   sys.path.insert( 1, path ) #Pickup libs from local  directories
   
+if os.path.basename(os.getcwd()) != "schemaorg":
+    print("\nScript should be run from within the 'schemaorg' directory! - Exiting\n")
+    sys.exit(1)
+
+for dir in ["util","docs","gcloud","data"]:
+    if not os.path.isdir(dir):
+        print("\nRequired directory '%s' not found - Exiting\n" % dir)
+        sys.exit(1)
+
+
 import glob
 import re
 import argparse
@@ -59,11 +69,12 @@ if args.autobuild:
 def clear():
     if args.clearfirst or args.autobuild:
         print("Clearing %s directory" % OUTPUTDIR)
-        for root, dirs, files in os.walk(OUTPUTDIR):
-            for f in files:
-                os.unlink(os.path.join(root, f))
-            for d in dirs:
-                shutil.rmtree(os.path.join(root, d))
+        if os.path.isdir(OUTPUTDIR):
+            for root, dirs, files in os.walk(OUTPUTDIR):
+                for f in files:
+                    os.unlink(os.path.join(root, f))
+                for d in dirs:
+                    shutil.rmtree(os.path.join(root, d))
 
 ###################################################
 #RUN TESTS
@@ -89,20 +100,28 @@ TERMHREFPREFIX="/"
 ###################################################
 #INITIALISE Directory
 ###################################################
+def createMissingDir(dir):
+    if not os.path.exists(dir):
+        os.makedirs(dir)
+
 def initdir():
     print("Building site in '%s' directory" % OUTPUTDIR)
+    createMissingDir(OUTPUTDIR)
     clear()
+    createMissingDir(OUTPUTDIR + "/docs")
+    gdir = OUTPUTDIR + "/gcloud"
+    createMissingDir(gdir)
+
     print("\nCopying docs static files")
     cmd = "cp -r docs %s" % OUTPUTDIR
     os.system(cmd)
     print("Done")
-    gdir = OUTPUTDIR + "/gcloud"
+
     print("\nPreparing GCloud files")
-    if not os.path.exists(gdir):
-        os.makedirs(gdir)
     cmd = "cp gcloud/*.yaml %s" % gdir
     os.system(cmd)
     print("Files copied")
+
     cmd = 'sed "s/{{ver}}/%s/g" %s/handlers-template.yaml > %s/handlers.yaml' % (getVersion(),gdir,gdir)
     print("Created handlers.yaml for version: %s" % getVersion())
     os.system(cmd)

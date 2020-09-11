@@ -26,23 +26,27 @@ To work on the vocabulary and run locally firstly clone the repository on a loca
     git clone https://github.com/schemaorg/schemaorg.git
     
 
-Note: The python application only runs under **_Python 3.6 or above_** which should be preinstalled on the local system.
-It depends on a small number of python libraries. To install these run the following command in the root `schemaorg` directory:
+**_Note:_** The python application only runs under **_Python 3.6 or above_** which should be preinstalled on the local system.
+
+It is recommended that a Python virtual environment is created to avoid conflicts with other python activities on your system. For further information on how to create virtual environments see: https://docs.python.org/3.7/library/venv.html
+
+
+The python environment for schemaorg depends on a small number of python libraries. To install these run the following command in the root `schemaorg` directory:
 
     pip install -r requirements.txt
 
 All commands and scripts should be run from in the root `schemaorg` directory.
 
-Once a local version of the repository has been installed initially run the following command:
+Once a local version of the repository has been cloned, in to an appropriate python environment, initially run the following command:
     
     ./util/buildsite.py -a
 
-This will create a local working copy of the schema.org website in the local `site` directory. Dependant on the configuration of your system, this will take between 10-20 minutes. Note, this full build is needed only when significant changes have been made, or prior to shipping a new version.  See below for how to build individual files and pages.
+This will create a local working copy of the schema.org website in the local `site` directory. Dependant on the configuration of your system, this will take between 10-20 minutes. Note, this full build is only needed initialy, or when significant changes have been made and prior to shipping a new version.  See below for how to build individual files and pages.
 
 Running Locally
 ===============
 
-To locally run the application run:
+To locally serve as a website, run:
 
 `./devserv.py`  
 
@@ -53,9 +57,15 @@ Open a browser, on the same system, to `localhost:8080` to see the locally serve
 Deploying to GCloud
 ===================
 
-Run the command `./gcloud/deploy2gcloud.sh` to deploy a version of the site to an appengine instance.  You will need to supply a valid appengine project name and a version ID (This does not need to be the same as the Schema Version).  Accept the default `other.yaml` yaml file name.
+Run the command:
 
-There are specific deployment scripts for webscemas.org & schema.org.
+    ./gcloud/deploy2gcloud.sh
+    
+This will deploy the local version of the site to an appengine instance.  You will need to supply a valid appengine project name and a version ID (This does not need to be the same as the Schema Version).  Accept the default `other.yaml` yaml file name.
+
+Note: There are specific deployment scripts for webscemas.org & schema.org.
+
+For more information about GCloud appengine see: https://cloud.google.com/appengine
 
 Internals
 =========
@@ -82,11 +92,12 @@ Building Individual Files and Term Pages
 ========================================
 
 During development, it is possible to select individual term pages, dynamic docs pages, or output files (vocabulary definition RDF files, sitemap, jsonldcontext, etc.) for rebuilding.  For details see the output of the command `./util/buildsite.py -h`.  Examples include:
+
 * `./util/buildsite.py -t Book sameAs`  Would rebuild the Book and sameAs term pages.
 * `./util/buildsite.py -f Owl` Would rebuild the file `docs/schemaorg.owl` file.
 * `./util/buildsite.py -f RDFExport.turtle` Would rebuild the Turtle format vocabulary definition files.
 * `./util/buildsite.py -d PendingHome` Would rebuld the home page for the pending section (`docs/pending.home.html`).
 
-Changes to created pages are immediately reflected in the output of the local `./devserv.py` server.
+Changes to created pages are immediately reflected in the output of the local `./devserv.py` server, without the need for a restart. You may need to do a full refresh of a page to see changes, because of browser caching.
 
-_Note:_ Remember to run the buildsite.py with the `-a` option prior to a deployment or release.
+_Note:_ Remember to run the `buildsite.py` with the `-a` option prior to a deployment or release.
