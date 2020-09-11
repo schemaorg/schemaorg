@@ -245,14 +245,15 @@ def buildDocs(pages):
 
     for p in pages:
         print("%s:"%p)
-        func, filenames = PAGELIST.get(p,None)
-        if func:
-            content = func(p)
-            for filename in filenames:
-                fn = fileName(filename)
-                f = open(fn,"w")
-                f.write(content)
-                f.close()
-                print("Created %s" % fn)
+        if p in PAGELIST.keys():
+            func, filenames = PAGELIST.get(p,None)
+            if func:
+                content = func(p)
+                for filename in filenames:
+                    fn = fileName(filename)
+                    f = open(fn,"w")
+                    f.write(content)
+                    f.close()
+                    print("Created %s" % fn)
         else:
             print("Unknown page name: %s" % p)

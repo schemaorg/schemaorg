@@ -61,6 +61,9 @@ def buildTerms(terms):
     for t in terms:
         tic = datetime.datetime.now() #diagnostics
         term = SdoTermSource.getTerm(t,expanded=True)
+        if not term:
+            print("No such term: %s\n" % t)
+            continue
 
         if term.termType == SdoTerm.REFERENCE: #Don't create pages for reference types
             continue

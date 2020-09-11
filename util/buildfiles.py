@@ -340,15 +340,16 @@ def buildFiles(files):
 
     for p in files:
         print("%s:"%p)
-        func, filenames = FILELIST.get(p,None)
-        if func:
-            content = func(p)
-            if content:
-                for filename in filenames:
-                    fn = fileName(filename)
-                    f = open(fn,"w")
-                    f.write(content)
-                    f.close()
-                    print("Created %s" % fn)
+        if p in FILELIST.keys():
+            func, filenames = FILELIST.get(p,None)
+            if func:
+                content = func(p)
+                if content:
+                    for filename in filenames:
+                        fn = fileName(filename)
+                        f = open(fn,"w")
+                        f.write(content)
+                        f.close()
+                        print("Created %s" % fn)
         else:
             print("Unknown files name: %s" % p)
