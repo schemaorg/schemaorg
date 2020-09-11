@@ -15,7 +15,6 @@
                 var child = children[j];
                 if(child.classList){
                   child.classList.add("dttFocusItem");
-                  //child.tabIndex = 0;
                   child.addEventListener("keydown",dttLabelKey);
                 }
               }
@@ -37,7 +36,6 @@
           if(details.classList.contains("dttDetails")){
             sum.addEventListener("keydown",dttSummaryKey);
             sum.classList.add("dttFocusItem");
-            //sum.tabIndex = 0;
           }
         }
 
@@ -386,10 +384,6 @@
         currentNode = null;
       }  
       node.focus();
-      //node.tabIndex = 0;
-      //if(currentNode){
-        //currentNode.tabIndex = 0;
-      //}
     }
     
 
