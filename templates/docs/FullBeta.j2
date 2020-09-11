@@ -56,13 +56,7 @@
             class="dttLeaf">
             {% if node.termType == "Enumerationvalue" %}::{% endif %}
             {{ sdotermlink(node)|safe }}
-            <!--
-            {% if node.repeat %} 
-                <span 
-                title="{{node.id}} referenced elsewhere in hierarchy - check details">></span> 
-              {% endif %}
-            -->
-          </li>
+         </li>
         {% endif %}
 
      {% endif %}
