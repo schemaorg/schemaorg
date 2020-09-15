@@ -67,6 +67,20 @@ Note: There are specific deployment scripts for webscemas.org & schema.org.
 
 For more information about GCloud appengine see: https://cloud.google.com/appengine
 
+Docker
+------
+
+If you are using [Docker](https://www.docker.com/) you can alternatively run:
+
+    docker build -t schemaorg .
+    docker run -v `pwd`:/schemaorg --net=host -it schemaorg
+
+then access <http://localhost:8080/>
+
+Note that because the sdopythonapp currently binds to `localhost` inside the
+container, the above needs `--net=host` and will probably only work on Linux.
+
+
 Internals
 =========
 
