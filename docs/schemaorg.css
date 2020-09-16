@@ -94,6 +94,10 @@ text-align: left;
 overflow: auto;
 }
 
+small {
+   font-size: x-small;
+}
+
 /* -- header/title -- */
 #pageHeader
 {
@@ -217,6 +221,14 @@ float: right;
 border-left: thin dotted #000;
 }
 
+#versioninfo {
+    font-size: x-small;
+    text-align: left;
+    display: inline-block;
+    float: left;
+    color: #cccccc;
+}
+
 
 /* -- faq -- */
 .faq p, .faq pre, .faq ul, .faq table, .faq
@@ -334,12 +346,15 @@ float: right;
 padding: 10px 0;
 }
 #sitename {
-    max-width: 500px;
-    min-width: auto;
-	display: inline-block;
-    text-shadow: 0 2px 0 #510000;
-    padding: 0;
-    top: 25px; left: -40px;
+  max-width: 500px;
+  min-width: auto;
+  display: inline-block;
+  color: #fff;
+  margin: 0;
+  padding-top: 25px;
+  font: bold 24px Helvetica, Arial, sans-serif;
+  letter-spacing: -1px;
+  text-shadow: 0 2px 0 #510000;
 }
 #selectionbar ul {
   margin: 0 auto;
@@ -448,15 +463,32 @@ a.clickableAnchor:hover {
    border-bottom: 0px !important;
    text-decoration: none;
 }
+/* Core links */
+a.core:link {
+   color: #660000 !important;
+   border-bottom: 0px !important;
+   text-decoration: none;
+}
+a.core:visited {
+    color: #660000 !important;
+    border-bottom: 0px !important;
+    text-decoration: none;
+}
+a.core:hover {
+   color: #fff !important;
+   background-color: #660000 !important;
+   border-bottom: 0px !important;
+   text-decoration: none;
+}
 /* Extension links */
 a.ext:link {
    color: #0000aa !important;
-   border-bottom: dotted 1px #0000aa !important;
+   border-bottom-color:#0000aa !important;
    text-decoration: none;
 }
 a.ext:visited {
    color: #0000cc !important;
-   border-bottom: dotted 1px #0000cc !important;
+   border-bottom-color:#0000cc !important;
    text-decoration: none;
 }
 a.ext:hover {
