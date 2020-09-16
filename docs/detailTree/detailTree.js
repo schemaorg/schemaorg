@@ -1,4 +1,23 @@
-    window.addEventListener('load', function () {
+/*
+*   This content is licensed according to the MIT Software License at
+*   
+*
+*   File:   detailTree.js
+*
+*   Desc:   Tree widget which has expand/collapse capabilities that can have
+*           either a link (A href) or text (span) as any node on the tree.
+*
+*           It utilises <detail> & <summary> html elements and in navigable
+*           using screen reader tools.
+*/
+
+/**
+ * detailTree 
+ * @function onload
+ * @desc  after page has loaded initialise all tree elements
+ */
+
+window.addEventListener('load', function () {
 
         var branches = document.getElementsByClassName("dttBranch");
             for (var i = 0; i < branches.length; i++) {
@@ -50,7 +69,15 @@
         }    
     });
 
-    function dttOpenClose(event){
+/**
+ * detailTree 
+ * @function dttOpenClose
+ * @desc  handle event from open-all or close-all element.
+ *        Class (ddtOpenAll/ddtCloseAll) on element decides action taken
+ *        'treeid' on element must hod id of tree to be effected
+ */
+
+ function dttOpenClose(event){
       node = event.currentTarget;
       open = false;
       classes = node.classList;
@@ -70,7 +97,12 @@
       }
     }
 
-    function openClose(node, open){
+/**
+ * detailTree 
+ * @function openClose
+ * @desc  recursive internal function called from 
+ */
+function openClose(node, open){
         if (node.classList && node.classList.contains("dttDetails")){
             node.open = open
         }
@@ -80,7 +112,12 @@
         }
     }
 
-    function dttBranchToggle(event){
+ /**
+ * detailTree 
+ * @function dttBranchToggle
+ * @desc  toggle open/closed state of a branch 
+ */
+  function dttBranchToggle(event){
         node = event.currentTarget;
         var kids = node.childNodes;
         for(var i=0;i < kids.length;i++){
@@ -89,10 +126,8 @@
             if(classes && classes.contains("dttDetails")){
                 if (kid.open){
                     kid.open = false;
-                    //kid.setAttribute("aria.expanded","false");
                 }else{
                     kid.open = true;
-                    //kid.setAttribute("aria.expanded","true")
                 }
                 break;
             }
@@ -113,7 +148,12 @@
       DOWN: 40
   });
 
-    function dttLabelKey(event){
+/**
+ * detailTree 
+ * @function dttLabelKey
+ * @desc  Handle key events from a branch label 
+ */
+  function dttLabelKey(event){
       var key = event.keyCode;
       var node = event.currentTarget;
       var currentlimb = currentLimb(node);
@@ -154,6 +194,12 @@
       }
     }
 
+/**
+ * detailTree 
+ * @function dttSummaryKey
+ * @desc  Handle key events from a branch summary element 
+ */
+
     function dttSummaryKey(event){
         var key = event.keyCode;
         var node = event.currentTarget;
@@ -184,7 +230,12 @@
     }
   
 
-  function currentLimb(node){
+/**
+ * detailTree 
+ * @function currentLimb
+ * @desc  Calculate the current limb on tree of a node
+ */
+function currentLimb(node){
     var limb = null;
     var parent = node;
     while(parent){
@@ -201,6 +252,11 @@
     return limb;
   }
 
+  /**
+ * detailTree 
+ * @function parentBranch
+ * @desc  Calculate the parentBranch on tree of a node
+ */
   function parentBranch(node){
     var current = currentLimb(node);
     parenttree = currentTree(current.parentNode)
@@ -211,6 +267,11 @@
     return currentLimb(current.parentNode);
   }
   
+  /**
+ * detailTree 
+ * @function currentTree
+ * @desc  Identify tree instance of a node
+ */
   function currentTree(node){
       var Tree = null;
       var parent = node;
@@ -225,7 +286,13 @@
       return Tree;
     }
 
-    function limbSubTree(limb){
+ /**
+ * detailTree 
+ * @function limbSubTree
+ * @desc  Identify the subtree, if any, on a branch
+ */
+ 
+  function limbSubTree(limb){
       var classList = limb.classList;
       if(classList && classList.contains("dttBranch")){
         var children = limb.childNodes;
@@ -247,23 +314,13 @@
       }
     }
 
-    function classInChildren(classname,node){
-      var children = node.childNodes;
-      for(var i =0;i <children.length;i++){
-        var child = children[i];
-        var classList = child.classList;
-        if(classList && classList.contains(classname)){  
-          return child;
-        }
-        ret = classInChildren(classname,child);
-        if(ret){
-          return ret;
-        }
-      }
-      return null;
-    }
+ /**
+ * detailTree 
+ * @function parentTree
+ * @desc  Identify the parent tree of a [sub]tree
+ */
 
-    function parentTree(tree){
+ function parentTree(tree){
       ret = null;
       var classList = tree.classList;
       if(classList && classList.contains("dttSubTree")){
@@ -272,7 +329,12 @@
       return ret;
     }
 
-    function treeBranches(tree){
+/**
+ * detailTree 
+ * @function treeBranches
+ * @desc  Identify the branches of a [sub]tree
+ */
+function treeBranches(tree){
       var branches = [];
       for(var i = 0;i < tree.childNodes.length;i++){
         var ti = tree.childNodes[i]
@@ -283,12 +345,22 @@
       return branches ;
     }
 
-    function currentBranches(node){
+  /**
+ * detailTree 
+ * @function currentBranches
+ * @desc  Identify the branches of the current tree containing node
+ */
+  function currentBranches(node){
       var tree = currentTree(node);
       return treeBranches(tree);
     }
 
-    function branchPosition(branches,branch){
+  /**
+ * detailTree 
+ * @function branchPosition
+ * @desc  Identify position of a branch in a  branch set
+ */
+function branchPosition(branches,branch){
       var pos = -1;
       for(var i =0;i< branches.length;i++){
         if(branches[i] === branch){
@@ -299,13 +371,23 @@
       return pos;
     }
 
-    function currenBranchPosition(node){
+  /**
+ * detailTree 
+ * @function currenBranchPosition
+ * @desc  Identify position of current branch in current branch set
+ */
+function currenBranchPosition(node){
       var currentBranch = currentLimb(node);
       var branches = currentBranches(node);
       return branchPosition(branches,currentBranch);
     }
 
-    function focusOnBranchSummary(branch,currentNode){
+ /**
+ * detailTree 
+ * @function focusOnBranchSummary
+ * @desc  Move focus to summary element of a branch
+ */
+function focusOnBranchSummary(branch,currentNode){
       if(currentNode === undefined){
         currentNode = null;
       }
@@ -333,7 +415,12 @@
       }
     }
 
-    function focusOnBranchLabel(branch,currentNode){
+ /**
+ * detailTree 
+ * @function focusOnBranchLabel
+ * @desc  Move focus to label/leaf element of a branch
+ */
+function focusOnBranchLabel(branch,currentNode){
       if(currentNode === undefined){
         currentNode = null;
       }
@@ -373,22 +460,35 @@
       }
     }
 
-    function focusOnTree(tree,currentNode){
+/**
+ * detailTree 
+ * @function focusOnTree
+ * @desc  Move focus to first branch of a [sub]tree
+ */
+function focusOnTree(tree,currentNode){
       var branches = treeBranches(tree);
       var firstBranch = branches[0];
       focusOnBranchLabel(firstBranch,currentNode)
     }
 
-    function moveFocus(node,currentNode){
+/**
+ * detailTree 
+ * @function moveFocus
+ * @desc  Move focus to node
+ */
+function moveFocus(node,currentNode){
       if(currentNode === undefined){
         currentNode = null;
       }  
       node.focus();
     }
     
-
-
-    function dttToggleCheck(event){
+/**
+ * detailTree 
+ * @function dttToggleCheck
+ * @desc  Toggle open/closed state of branch attribute 
+ */
+function dttToggleCheck(event){
         node = event.currentTarget;
         var state = "treeclosed";
         if(node.open){
@@ -405,21 +505,4 @@
         if(parentBranch){
             parentBranch.setAttribute("dttState",state)
         }
-    }
-
-    function dttOpenParents(id){
-      var target = id.getAttribute('href');
-      target = target.substring(1);
-      targetNode = document.getElementById(target);
-    
-      var parent = targetNode.parentNode;
-      while (parent){
-        if (parent.classList && parent.classList.contains("dttTree")){
-          break;
-        }
-        if (parent.classList && parent.classList.contains("dttDetails")){
-          parent.open = true;
-        }
-        parent = parent.parentNode;
-      }
     }
