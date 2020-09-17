@@ -42,6 +42,18 @@ class Example ():
                 self.keyvalue = Example.formatId(idnum)
         Example.ExamplesCount += 1
 
+    def __str__(self):
+        buf = []
+        buf.append("Example: \nTerms: ")
+        if not len(self.terms):
+            buf.append("No Terms!")
+        else:
+            buf.append("%s" % self.terms)
+        buf.append("\nKeyvalue: %s" % self.keyvalue)
+        buf.append("\nOrigLen: %s MicroLen: %s RdfaLen: %s JsonLen: %s" % (len(self.original_html),len(self.microdata),len(self.rdfa),len(self.jsonld)))
+        buf.append("\nexmeta: %s" % self.exmeta)
+        return ''.join(buf)
+    
     def getKey(self):
         return self.keyvalue
     def setKey(self,key):
@@ -176,8 +188,7 @@ class SchemaExamples():
                     if not SchemaExamples.EXAMPLES.get(keyvalue,None):
                         SchemaExamples.EXAMPLES[keyvalue] = example
 
-                    for term in example.terms:
-                
+                    for term in example.terms:            
                         if(not SchemaExamples.EXAMPLESMAP.get(term, None)):
                             SchemaExamples.EXAMPLESMAP[term] = []
                     
@@ -353,6 +364,7 @@ class ExampleFileParser():
         self.filepos += 1
         if not boilerplate:
             examples.append(Example(self.terms, self.preMarkupStr, self.microdataStr, self.rdfaStr, self.jsonStr, self.exmeta)) # should flush last one
+        self.initFields()
         return examples
 
 
