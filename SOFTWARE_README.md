@@ -41,7 +41,7 @@ Once a local version of the repository has been cloned, in to an appropriate pyt
     
     ./util/buildsite.py -a
 
-This will create a local working copy of the schema.org website in the local `site` directory. Dependant on the configuration of your system, this will take between 10-20 minutes. Note, this full build is only needed initialy, or when significant changes have been made and prior to shipping a new version.  See below for how to build individual files and pages.
+This will create a local working copy of the schema.org website in the local `site` directory. Dependant on the configuration of your system, this will take between 10-20 minutes. Note, this full build is only needed initially, or when significant changes have been made and prior to shipping a new version.  See below for how to build individual files and pages.
 
 Running Locally
 ===============
