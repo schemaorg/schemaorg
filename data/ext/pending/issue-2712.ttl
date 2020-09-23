@@ -9,7 +9,7 @@
 :priceType 
 	:domainIncludes :CompoundPriceSpecification ;
 	:rangeIncludes :PriceTypeEnumeration ;
-    rdfs:comment "Defines the type of a price associated with an offered product. Offers can have multiple price types, for example a list price, a (temporary) sale price and a manufacturer suggested retail price. If multiple prices are specified the [[priceType]] property can be used to identify the type of each such specified price. If only a single price is present then this property is optional and by default [[ListPrice]] value is assumed." .
+	rdfs:comment "Defines the type of a price associated with an offered product. Offers can have multiple price types, for example a list price, a (temporary) sale price and a manufacturer suggested retail price. If multiple prices are specified the [[priceType]] property can be used to identify the type of each such specified price. If only a single price is present then this property is optional and by default [[ListPrice]] value is assumed." .
 	
 :PriceTypeEnumeration a rdfs:Class ;
 	rdfs:label "PriceTypeEnumeration" ;
@@ -54,7 +54,7 @@
 	:source <https://github.com/schemaorg/schemaorg/issues/2712> ;
 	rdfs:comment "Represents the invoice price of an offered product." .
 	
-:MinimumAdvertisedPrice :PriceTypeEnumeration ;
+:MinimumAdvertisedPrice a :PriceTypeEnumeration ;
 	rdfs:label "MinimumAdvertisedPrice" ;
 	:category "issue-2712" ;
 	:isPartOf <http://pending.schema.org> ;
