@@ -4,25 +4,8 @@
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 
-:LegalForceStatus a rdfs:Class ;
-    rdfs:label "LegalForceStatus" ;
-    :category "issue-1156" ;
-    :isPartOf <http://pending.schema.org> ;
-    :source <http://publications.europa.eu/mdr/eli/index.html>,
-        <https://github.com/schemaorg/schemaorg/issues/1156> ;
-    rdfs:comment "A list of possible statuses for the legal force of a legislation." ;
-    rdfs:subClassOf :StatusEnumeration ;
-    skos:exactMatch <http://data.europa.eu/eli/ontology#InForce> .
 
-:LegalValueLevel a rdfs:Class ;
-    rdfs:label "LegalValueLevel" ;
-    :category "issue-1156" ;
-    :isPartOf <http://pending.schema.org> ;
-    :source <http://publications.europa.eu/mdr/eli/index.html>,
-        <https://github.com/schemaorg/schemaorg/issues/1156> ;
-    rdfs:comment "A list of possible levels for the legal validity of a legislation." ;
-    rdfs:subClassOf :Enumeration ;
-    skos:closeMatch <http://data.europa.eu/eli/ontology#LegalValue> .
+## Classes ##
 
 :Legislation a rdfs:Class ;
     rdfs:label "Legislation" ;
@@ -46,69 +29,28 @@
         :MediaObject ;
     skos:closeMatch <http://data.europa.eu/eli/ontology#Format> .
 
-:AuthoritativeLegalValue a :LegalValueLevel ;
-    rdfs:label "AuthoritativeLegalValue" ;
+:LegalForceStatus a rdfs:Class ;
+    rdfs:label "LegalForceStatus" ;
     :category "issue-1156" ;
     :isPartOf <http://pending.schema.org> ;
     :source <http://publications.europa.eu/mdr/eli/index.html>,
         <https://github.com/schemaorg/schemaorg/issues/1156> ;
-    rdfs:comment "Indicates that the publisher gives some special status to the publication of the document. (\"The Queens Printer\" version of a UK Act of Parliament, or the PDF version of a Directive published by the EU Office of Publications). Something \"Authoritative\" is considered to be also [[OfficialLegalValue]]\"." ;
-    skos:exactMatch <http://data.europa.eu/eli/ontology#LegalValue-authoritative> .
+    rdfs:comment "A list of possible statuses for the legal force of a legislation." ;
+    rdfs:subClassOf :StatusEnumeration ;
+    skos:exactMatch <http://data.europa.eu/eli/ontology#InForce> .
 
-:DefinitiveLegalValue a :LegalValueLevel ;
-    rdfs:label "DefinitiveLegalValue" ;
+:LegalValueLevel a rdfs:Class ;
+    rdfs:label "LegalValueLevel" ;
     :category "issue-1156" ;
     :isPartOf <http://pending.schema.org> ;
     :source <http://publications.europa.eu/mdr/eli/index.html>,
         <https://github.com/schemaorg/schemaorg/issues/1156> ;
-    rdfs:comment """Indicates a document for which the text is conclusively what the law says and is legally binding. (e.g. The digitally signed version of an Official Journal.)
-  Something "Definitive" is considered to be also [[AuthoritativeLegalValue]].""" ;
-    skos:exactMatch <http://data.europa.eu/eli/ontology#LegalValue-definitive> .
+    rdfs:comment "A list of possible levels for the legal validity of a legislation." ;
+    rdfs:subClassOf :Enumeration ;
+    skos:closeMatch <http://data.europa.eu/eli/ontology#LegalValue> .
 
-:InForce a :LegalForceStatus ;
-    rdfs:label "InForce" ;
-    :category "issue-1156" ;
-    :isPartOf <http://pending.schema.org> ;
-    :source <http://publications.europa.eu/mdr/eli/index.html>,
-        <https://github.com/schemaorg/schemaorg/issues/1156> ;
-    rdfs:comment "Indicates that a legislation is in force." ;
-    skos:exactMatch <http://data.europa.eu/eli/ontology#InForce-inForce> .
 
-:NotInForce a :LegalForceStatus ;
-    rdfs:label "NotInForce" ;
-    :category "issue-1156" ;
-    :isPartOf <http://pending.schema.org> ;
-    :source <http://publications.europa.eu/mdr/eli/index.html>,
-        <https://github.com/schemaorg/schemaorg/issues/1156> ;
-    rdfs:comment "Indicates that a legislation is currently not in force." ;
-    skos:exactMatch <http://data.europa.eu/eli/ontology#InForce-notInForce> .
-
-:OfficialLegalValue a :LegalValueLevel ;
-    rdfs:label "OfficialLegalValue" ;
-    :category "issue-1156" ;
-    :isPartOf <http://pending.schema.org> ;
-    :source <http://publications.europa.eu/mdr/eli/index.html>,
-        <https://github.com/schemaorg/schemaorg/issues/1156> ;
-    rdfs:comment "All the documents published by an official publisher should have at least the legal value level \"OfficialLegalValue\". This indicates that the document was published by an organisation with the public task of making it available (e.g. a consolidated version of a EU directive published by the EU Office of Publications)." ;
-    skos:exactMatch <http://data.europa.eu/eli/ontology#LegalValue-official> .
-
-:PartiallyInForce a :LegalForceStatus ;
-    rdfs:label "PartiallyInForce" ;
-    :category "issue-1156" ;
-    :isPartOf <http://pending.schema.org> ;
-    :source <http://publications.europa.eu/mdr/eli/index.html>,
-        <https://github.com/schemaorg/schemaorg/issues/1156> ;
-    rdfs:comment "Indicates that parts of the legislation are in force, and parts are not." ;
-    skos:exactMatch <http://data.europa.eu/eli/ontology#InForce-partiallyInForce> .
-
-:UnofficialLegalValue a :LegalValueLevel ;
-    rdfs:label "UnofficialLegalValue" ;
-    :category "issue-1156" ;
-    :isPartOf <http://pending.schema.org> ;
-    :source <http://publications.europa.eu/mdr/eli/index.html>,
-        <https://github.com/schemaorg/schemaorg/issues/1156> ;
-    rdfs:comment "Indicates that a document has no particular or special standing (e.g. a republication of a law by a private publisher)." ;
-    skos:exactMatch <http://data.europa.eu/eli/ontology#LegalValue-unofficial> .
+## Properties ##
 
 :legislationChanges a rdf:Property ;
     rdfs:label "legislationChanges" ;
@@ -275,6 +217,83 @@
     rdfs:comment "Indicates that this legislation (or part of a legislation) somehow transfers another legislation in a different legislative context. This is an informative link, and it has no legal value. For legally-binding links of transposition, use the <a href=\"/legislationTransposes\">legislationTransposes</a> property. For example an informative consolidated law of a European Union's member state \"applies\" the consolidated version of the European Directive implemented in it." ;
     owl:equivalentProperty <http://data.europa.eu/eli/ontology#implements> ;
     skos:exactMatch <http://data.europa.eu/eli/ontology#implements> .
+
+
+## Instances ##
+
+### LegalValueLevel
+
+
+:AuthoritativeLegalValue a :LegalValueLevel ;
+    rdfs:label "AuthoritativeLegalValue" ;
+    :category "issue-1156" ;
+    :isPartOf <http://pending.schema.org> ;
+    :source <http://publications.europa.eu/mdr/eli/index.html>,
+        <https://github.com/schemaorg/schemaorg/issues/1156> ;
+    rdfs:comment "Indicates that the publisher gives some special status to the publication of the document. (\"The Queens Printer\" version of a UK Act of Parliament, or the PDF version of a Directive published by the EU Office of Publications). Something \"Authoritative\" is considered to be also [[OfficialLegalValue]]\"." ;
+    skos:exactMatch <http://data.europa.eu/eli/ontology#LegalValue-authoritative> .
+
+:DefinitiveLegalValue a :LegalValueLevel ;
+    rdfs:label "DefinitiveLegalValue" ;
+    :category "issue-1156" ;
+    :isPartOf <http://pending.schema.org> ;
+    :source <http://publications.europa.eu/mdr/eli/index.html>,
+        <https://github.com/schemaorg/schemaorg/issues/1156> ;
+    rdfs:comment """Indicates a document for which the text is conclusively what the law says and is legally binding. (e.g. The digitally signed version of an Official Journal.)
+  Something "Definitive" is considered to be also [[AuthoritativeLegalValue]].""" ;
+    skos:exactMatch <http://data.europa.eu/eli/ontology#LegalValue-definitive> .
+
+:OfficialLegalValue a :LegalValueLevel ;
+    rdfs:label "OfficialLegalValue" ;
+    :category "issue-1156" ;
+    :isPartOf <http://pending.schema.org> ;
+    :source <http://publications.europa.eu/mdr/eli/index.html>,
+        <https://github.com/schemaorg/schemaorg/issues/1156> ;
+    rdfs:comment "All the documents published by an official publisher should have at least the legal value level \"OfficialLegalValue\". This indicates that the document was published by an organisation with the public task of making it available (e.g. a consolidated version of a EU directive published by the EU Office of Publications)." ;
+    skos:exactMatch <http://data.europa.eu/eli/ontology#LegalValue-official> .
+
+:UnofficialLegalValue a :LegalValueLevel ;
+    rdfs:label "UnofficialLegalValue" ;
+    :category "issue-1156" ;
+    :isPartOf <http://pending.schema.org> ;
+    :source <http://publications.europa.eu/mdr/eli/index.html>,
+        <https://github.com/schemaorg/schemaorg/issues/1156> ;
+    rdfs:comment "Indicates that a document has no particular or special standing (e.g. a republication of a law by a private publisher)." ;
+    skos:exactMatch <http://data.europa.eu/eli/ontology#LegalValue-unofficial> .
+
+
+### LegalForceStatus
+
+:InForce a :LegalForceStatus ;
+    rdfs:label "InForce" ;
+    :category "issue-1156" ;
+    :isPartOf <http://pending.schema.org> ;
+    :source <http://publications.europa.eu/mdr/eli/index.html>,
+        <https://github.com/schemaorg/schemaorg/issues/1156> ;
+    rdfs:comment "Indicates that a legislation is in force." ;
+    skos:exactMatch <http://data.europa.eu/eli/ontology#InForce-inForce> .
+
+:NotInForce a :LegalForceStatus ;
+    rdfs:label "NotInForce" ;
+    :category "issue-1156" ;
+    :isPartOf <http://pending.schema.org> ;
+    :source <http://publications.europa.eu/mdr/eli/index.html>,
+        <https://github.com/schemaorg/schemaorg/issues/1156> ;
+    rdfs:comment "Indicates that a legislation is currently not in force." ;
+    skos:exactMatch <http://data.europa.eu/eli/ontology#InForce-notInForce> .
+
+:PartiallyInForce a :LegalForceStatus ;
+    rdfs:label "PartiallyInForce" ;
+    :category "issue-1156" ;
+    :isPartOf <http://pending.schema.org> ;
+    :source <http://publications.europa.eu/mdr/eli/index.html>,
+        <https://github.com/schemaorg/schemaorg/issues/1156> ;
+    rdfs:comment "Indicates that parts of the legislation are in force, and parts are not." ;
+    skos:exactMatch <http://data.europa.eu/eli/ontology#InForce-partiallyInForce> .
+
+
+## Organization ##
+
 
 <http://publications.europa.eu/mdr/eli/index.html> a :Organization ;
     rdfs:label "ELI" ;
