@@ -1,0 +1,68 @@
+TYPES: #eg-0347 Dentist
+
+PRE-MARKUP:
+
+Dental clinic example with rating and reviews (JSON-LD only).
+
+MICRODATA:
+
+TODO
+
+RDFA:
+
+TODO
+
+JSON:
+
+<script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Dentist",
+        "name": "City Smiles",
+        "description": "Dental care service",
+        "slogan": "Let your teeth shine",
+        "openingHours": "Mo-Sa 9:00-12:00",
+        "telephone": "+12025550198",
+        "email": "city.smiles.dental@example.com",
+        "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Detroit",
+            "addressRegion": "MI",
+            "postalCode": "48226",
+            "streetAddress": "1001  Eagle Drive"
+        },
+        "paymentAccepted": "Cash, Credit Card",
+        "priceRange": "$$",
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": 4.5,
+            "reviewCount": 22
+        },
+        "image": "https://homepages.cae.wisc.edu/~ece533/images/lena.png",
+        "review": [
+            {
+                "@type": "Review",
+                "author": "Liam",
+                "datePublished": "2020-06-26",
+                "description": "Great prices, excellent service",
+                "name": "Great dental clinic",
+                "reviewRating": {
+                    "@type": "Rating",
+                    "ratingValue": 5
+                }
+            },
+            {
+                "@type": "Review",
+                "author": "David",
+                "datePublished": "2020-05-16",
+                "description": "I am totally satisfied with the quality of service, but the waiting time should be reduced",
+                "name": "Waiting time",
+                "reviewRating": {
+                    "@type": "Rating",
+                    "ratingValue": 4
+                }
+            }
+        ]
+    }
+</script>
+

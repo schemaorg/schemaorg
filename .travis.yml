@@ -1,7 +1,6 @@
 env:
   global:
     - NOKOGIRI_USE_SYSTEM_LIBRARIES=true
-    - SDK_URL=https://storage.googleapis.com/appengine-sdks/featured/google_appengine_1.9.49.zip
 sudo: false
 cache: bundler
 
@@ -10,14 +9,10 @@ jobs:
     - stage: python
       name: "Python tests"
       language: python
-      python: "2.7"
+      python: "3.7"
       before_script:
-        - wget $SDK_URL -nv -O google_appengine.zip
-        - unzip -q google_appengine.zip
-        - rm google_appengine.zip
-        - export PYTHONPATH=$PYTHONPATH:$TRAVIS_BUILD_DIR/google_appengine/
-        - scripts/buildreleasefiles.sh -y -e -l "nquads nt" LATEST
-      script: python scripts/run_tests.py
+        - pip install -r requirements.txt
+      script: util/buildsite.py -r
 
     - stage: ruby
       name: "Ruby Linter"
@@ -29,9 +24,11 @@ jobs:
         - 'gem update bundler --conservative'
         - bundle install --gemfile=scripts/Gemfile
       before_script:
-        - wget $SDK_URL -nv -O google_appengine.zip
-        - unzip -q google_appengine.zip
-        - rm google_appengine.zip
-        - export PYTHONPATH=$PYTHONPATH:$TRAVIS_BUILD_DIR/google_appengine/
-        - scripts/buildreleasefiles.sh -y -e -l "nquads nt" LATEST
+        - source ~/virtualenv/python3.7/bin/activate
+        - pip install -r requirements.txt
+        - util/buildsite.py -f Context RDFExport.nquads 
+        - mkdir site/releases/LATEST
+        - (cd site/releases/`util/schemaversion.py`; cp -r * ../LATEST)
+        - deactivate
+       
       script: (cd scripts; bundle exec rake)

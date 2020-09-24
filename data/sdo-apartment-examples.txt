@@ -1,0 +1,53 @@
+TYPES: #eg-0327 Apartment, Accommodation, occupancy, floorSize
+
+PRE-MARKUP:
+
+Apartment example with min and max occupancy limits and floor size of 81 square meters(JSON-LD only).
+
+MICRODATA:
+
+TODO
+
+RDFA:
+
+TODO
+
+JSON:
+
+<script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Apartment",
+        "name": "227  Lynn Street - Medium apartment",
+        "description": "Great downtown accommodation for family or group of friends.",
+        "numberOfRooms": 3,
+        "occupancy": {
+            "@type": "QuantitativeValue",
+            "minValue": 1,
+            "maxValue": 4
+        },
+        "floorLevel": 5,
+        "floorSize": {
+            "@type": "QuantitativeValue",
+            "value": 81,
+            "unitCode": "MTK"
+        },
+        "numberOfBathroomsTotal": 2,
+        "numberOfBedrooms": 2,
+        "petsAllowed": true,
+        "tourBookingPage": "http://example.com",
+        "yearBuilt": 2005,
+        "telephone": "+1-617-312-9783",
+        "address": {
+            "@type": "PostalAddress",
+            "addressCountry": "US",
+            "addressLocality": "West Roxbury",
+            "addressRegion": "MA",
+            "postalCode": "02132",
+            "streetAddress": "227  Lynn Street"
+        },
+        "latitude": 42.2742,
+        "longitude": -71.1430
+    }
+</script>
+

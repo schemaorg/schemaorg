@@ -1,4 +1,4 @@
-TYPES: #screening-1 ScreeningEvent, Movie, MovieTheater
+TYPES: #eg-0419 ScreeningEvent, Movie, MovieTheater
 
 PRE-MARKUP:
 
@@ -20,15 +20,15 @@ PRE-MARKUP:
 
 MICRODATA:
 
-<div itemscope itemtype="http://schema.org/ScreeningEvent">
+<div itemscope itemtype="https://schema.org/ScreeningEvent">
   <h1 itemprop="name">Jaws 3-D"</h1>
   <div itemprop="description">Jaws 3-D shown in 3D.</div>
-  <p>Location: <span itemprop="location" itemscope itemtype="http://schema.org/MovieTheater">
+  <p>Location: <span itemprop="location" itemscope itemtype="https://schema.org/MovieTheater">
     <span itemprop="name">ACME Cinemas 10</span>
     <span itemprop="screenCount">10</span>
     </span>
   </p>
-  <div itemprop="workPresented" itemscope itemtype="http://schema.org/Movie">
+  <div itemprop="workPresented" itemscope itemtype="https://schema.org/Movie">
     <span itemprop="name">Jaws 3-D</span>
     <link itemprop="sameAs" href="www.imdb.com/title/tt0085750/"/>
   </div>
@@ -38,17 +38,17 @@ MICRODATA:
 
 RDFA:
 
-<div vocab="http://schema.org/" typeof="http://schema.org/ScreeningEvent">
+<div vocab="https://schema.org/" typeof="https://schema.org/ScreeningEvent">
     <h1 property="name">
         Jaws 3-D"
     </h1>
     <div property="description">
         Jaws 3-D shown in 3D.
     </div>Location:
-    <div property="location" typeof="http://schema.org/MovieTheater">
+    <div property="location" typeof="https://schema.org/MovieTheater">
         <span property="name">ACME Cinemas 10</span> <span property="screenCount">10</span>
     </div>
-    <div property="workPresented" typeof="http://schema.org/Movie">
+    <div property="workPresented" typeof="https://schema.org/Movie">
         <span property="name">Jaws 3-D</span>
         <link property="sameAs" href="www.imdb.com/title/tt0085750/">
     </div>
@@ -60,12 +60,11 @@ RDFA:
     </p>
 </div>
 
-
 JSON:
 
 <script type="application/ld+json">
 {
-  "@context": "http://schema.org",
+  "@context": "https://schema.org",
   "@type": "ScreeningEvent",
   "name": "Jaws 3-D",
   "description": "Jaws 3-D shown in 3D.",
@@ -84,8 +83,7 @@ JSON:
 }
 </script>
 
-
-TYPES: #screening-2 Movie, countryOfOrigin
+TYPES: #eg-0420 Movie, countryOfOrigin
 
 PRE-MARKUP:
 
@@ -93,19 +91,19 @@ Ghostbusters was produced by Black Rhino in the United States.
 
 MICRODATA:
 
-<div itemscope itemtype="http://schema.org/Movie">
+<div itemscope itemtype="https://schema.org/Movie">
   <h1 itemprop="name">Ghostbusters</h1>
-  <div itemprop="productionCompany" itemscope itemtype="http://schema.org/Organization">
+  <div itemprop="productionCompany" itemscope itemtype="https://schema.org/Organization">
     Produced by: <span itemprop="name">Black Rhino</span><p>
   </div>
-  <div itemprop="countryOfOrigin" itemscope itemtype="http://schema.org/Country">
+  <div itemprop="countryOfOrigin" itemscope itemtype="https://schema.org/Country">
     Country: <span itemprop="name" content="USA">United States</span><p>
   </div>
 </div>
 
 RDFA:
 
-<div vocab="http://schema.org/" typeof="Movie">
+<div vocab="https://schema.org/" typeof="Movie">
   <h1 property="name">Ghostbusters</h1>
   <div property="productionCompany" typeof="Organization">
     Produced by: <span property="name">Black Rhino</span><p>
@@ -119,7 +117,7 @@ JSON:
 
 <script type="application/ld+json">
 {
-  "@context": "http://schema.org/",
+  "@context": "https://schema.org/",
   "@type": "Movie",
   "name": "Ghostbusters",
   "productionCompany": {
@@ -132,11 +130,4 @@ JSON:
   }
 }
 </script>
-
-TYPES: FakeEntryNeeded, FixMeSomeDay
-PRE-MARKUP:
-MICRODATA:
-RDFA:
-JSON:
-
 

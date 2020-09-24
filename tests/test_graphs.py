@@ -1,4 +1,13 @@
-# -*- coding: utf-8 -*-
+#!/usr/bin/env python3
+# -*- coding: UTF-8 -*-
+import sys
+if not (sys.version_info.major == 3 and sys.version_info.minor > 5):
+    print("Python version %s.%s not supported version 3.6 or above required - exiting" % (sys.version_info.major,sys.version_info.minor))
+    sys.exit(1)
+
+import os
+for path in [os.getcwd(),"Util","SchemaPages","SchemaExamples"]:
+  sys.path.insert( 1, path ) #Pickup libs from local  directories
 
 import unittest
 import os
@@ -8,28 +17,6 @@ import logging # https://docs.python.org/2/library/logging.html#logging-levels
 import glob
 import sys
 
-sys.path.append( os.getcwd() )
-sys.path.insert( 1, 'lib' ) #Pickup libs, rdflib etc., from shipped lib directory
-sys.path.insert( 1, 'sdopythonapp' ) #Pickup sdopythonapp functionality
-sys.path.insert( 1, 'sdopythonapp/lib' ) #Pickup sdopythonapp libs, rdflib etc., from shipped lib directory
-sys.path.insert( 1, 'sdopythonapp/site' ) #Pickup sdopythonapp from shipped site
-
-#sdk_path = getenv('APP_ENGINE',
-#                  expanduser("~") + '/google-cloud-sdk/platform/google_appengine/')
-#sys.path.insert(0, sdk_path)
-
-from testharness import *
-#Setup testharness state BEFORE importing sdo libraries
-setInTestHarness(True)
-
-from api import *
-from parsers import *
-
-os.environ["WARMUPSTATE"] = "off"
-from sdoapp import *
-
-schema_path = './data/schema.rdfa'
-examples_path = './data/examples.txt'
 warnings = []
 
 andstr = "\n AND\n  "
@@ -38,7 +25,9 @@ TYPECOUNT_LOWERBOUND = 500
 
 logging.basicConfig(level=logging.INFO)
 log = logging.getLogger(__name__)
-setInTestHarness(True)
+
+from sdotermsource import SdoTermSource 
+VOCABURI = SdoTermSource.vocabUri()
 
 # Tests to probe the health of both schemas and code using graph libraries in rdflib
 # Note that known failings can be annotated with @unittest.expectedFailure or @skip("reason...")
@@ -46,17 +35,9 @@ class SDOGraphSetupTestCase(unittest.TestCase):
 
   @classmethod
   def loadGraphs(self):
-      from rdflib import Graph
-      import rdflib
-      self.rdflib_data = Graph()
-      store = getMasterStore()
-      graphs = list(store.graphs())
-      log.info("Loading test graph from MasterStore")
-      for g in graphs:
-          id = str(g.identifier)
-          if not id.startswith("http://"):#skip some internal graphs
-              continue
-          self.rdflib_data += g
+      SdoTermSource.loadSourceGraph("default")
+      self.rdflib_data = SdoTermSource.sourceGraph()
+      
 
   @classmethod
   def setUpClass(self):
@@ -112,14 +93,16 @@ class SDOGraphSetupTestCase(unittest.TestCase):
            ?prop <http://schema.org/domainIncludes> ?c2 .
            ?c1 rdfs:subClassOf ?c2 .
            FILTER (?c1 != ?c2) .
-           FILTER NOT EXISTS { ?term <http://schema.org/isPartOf> <http://attic.schema.org> .}
+           FILTER NOT EXISTS { ?prop <http://schema.org/isPartOf> <http://attic.schema.org> .}
+           FILTER NOT EXISTS { ?c1 <http://schema.org/isPartOf> <http://attic.schema.org> .}
+           FILTER NOT EXISTS { ?c2 <http://schema.org/isPartOf> <http://attic.schema.org> .}
            }
            ORDER BY ?prop ''')
     ndi1_results = self.rdflib_data.query(ndi1)
     if (len(ndi1_results) > 0):
         for row in ndi1_results:
             warn = "WARNING property %s defining domain, %s, [which is subclassOf] %s unnecessarily" % (row["prop"],row["c1"],row["c2"])
-            warnings.append(warn)
+            #warnings.append(warn)
             log.info(warn + "\n")
     self.assertEqual(len(ndi1_results), 0,
                      "No subtype need redeclare a domainIncludes of its parents. Found: %s " % len(ndi1_results ) )
@@ -137,14 +120,16 @@ class SDOGraphSetupTestCase(unittest.TestCase):
          ?c1 rdfs:subClassOf ?c2 .
          FILTER (?c1 != ?c2) .
          FILTER (?c1 != <http://schema.org/URL>) .
-        FILTER NOT EXISTS { ?term <http://schema.org/isPartOf> <http://attic.schema.org> .}
+         FILTER NOT EXISTS { ?prop <http://schema.org/isPartOf> <http://attic.schema.org> .}
+         FILTER NOT EXISTS { ?c1 <http://schema.org/isPartOf> <http://attic.schema.org> .}
+         FILTER NOT EXISTS { ?c2 <http://schema.org/isPartOf> <http://attic.schema.org> .}
              }
              ORDER BY ?prop ''')
     nri1_results = self.rdflib_data.query(nri1)
     if (len(nri1_results)>0):
         for row in nri1_results:
             warn = "WARNING property %s defining range, %s, [which is subclassOf] %s unnecessarily" % (row["prop"],row["c1"],row["c2"])
-            warnings.append(warn)
+            #warnings.append(warn)
             log.info(warn + "\n")
     self.assertEqual(len(nri1_results), 0, "No subtype need redeclare a rangeIncludes of its parents. Found: %s" % len(nri1_results) )
 
@@ -245,6 +230,32 @@ class SDOGraphSetupTestCase(unittest.TestCase):
         for row in nri1_results:
             log.info("Term '%s' has nonexistent supertype: '%s'" % (row["term"],row["super"]))
     self.assertEqual(len(nri1_results), 0, "Types with nonexistent SuperTypes. Found: %s" % len(nri1_results))
+    
+    def test_propswitoutdomain(self):
+        nri1= (''' select ?term where {
+            ?term a rdf:Property.
+            FILTER NOT EXISTS { ?term <http://schema.org/domainIncludes> ?o .}
+        }
+         ''')
+        nri1_results = self.rdflib_data.query(nri1)
+        if len(nri1_results):
+            log.info("Property without domain errors!!!\n")
+            for row in nri1_results:
+                log.info("Term '%s' has no domainIncludes value(s)" % (row["term"]))
+        self.assertEqual(len(nri1_results), 0, "Property without domain extensions  Found: %s" % len(nri1_results))
+
+    def test_propswitoutrange(self):
+        nri1= (''' select ?term where {
+            ?term a rdf:Property.
+            FILTER NOT EXISTS { ?term <http://schema.org/rangeIncludes> ?o .}
+        }
+         ''')
+        nri1_results = self.rdflib_data.query(nri1)
+        if len(nri1_results):
+            log.info("Property without domain errors!!!\n")
+            for row in nri1_results:
+                log.info("Term '%s' has no rangeIncludes value(s)" % (row["term"]))
+        self.assertEqual(len(nri1_results), 0, "Property without range extensions  Found: %s" % len(nri1_results))
 
   def test_superPropertiesExist(self):
     nri1= ('''select ?term ?super where { 
@@ -469,7 +480,7 @@ class SDOGraphSetupTestCase(unittest.TestCase):
   @unittest.expectedFailure
   def test_EnumerationWithoutEnums(self):
     nri1= ('''select ?term where { 
-        ?term rdfs:subClassOf/rdfs:subClassOf* <http://schema.org/Enumeration> .
+        ?term a rdfs:subClassOf+ <http://schema.org/Enumeration> .
         FILTER NOT EXISTS { ?enum a ?term. }
         FILTER NOT EXISTS { ?term <http://schema.org/isPartOf> <http://attic.schema.org> .}
     } 

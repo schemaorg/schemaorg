@@ -1,0 +1,54 @@
+TYPES: #eg-0392 OfferShippingDetails, deliveryTime, ShippingDeliveryTime, shippingRate
+
+PRE-MARKUP:
+
+Offer shipping details example with nested delivery time(JSON-LD only).
+
+MICRODATA:
+
+TODO
+
+RDFA:
+
+TODO
+
+JSON:
+
+<script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "OfferShippingDetails",
+        "deliveryTime": {
+            "@type": "ShippingDeliveryTime",
+            "businessDays": {
+                "@type": "OpeningHoursSpecification",
+                "dayOfWeek": [
+                    "https://schema.org/Monday",
+                    "https://schema.org/Tuesday",
+                    "https://schema.org/Wednesday",
+                    "https://schema.org/Thursday",
+                    "https://schema.org/Friday"
+                ]
+            },
+            "cutoffTime": "12:00:15Z",
+            "handlingTime": {
+                "@type": "QuantitativeValue",
+                "minValue": 1,
+                "maxValue": 2,
+                "unitCode": "d"
+            },
+            "transitTime": {
+                "@type": "QuantitativeValue",
+                "minValue": 1,
+                "maxValue": 10,
+                "unitCode": "d"
+            }
+        },
+        "shippingRate": {
+            "@type": "MonetaryAmount",
+            "value": 4.95,
+            "currency": "USD"
+        }
+    }
+</script>
+

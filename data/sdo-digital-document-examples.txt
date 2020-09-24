@@ -1,4 +1,5 @@
-TYPES: #digitaldocument-1 DigitalDocument,ReadPermission,WritePermission
+TYPES: #eg-0348 DigitalDocument, ReadPermission, WritePermission, DigitalDocumentPermission
+
 PRE-MARKUP:
 
 A digital document everyone can read, but only one person can edit.
@@ -6,7 +7,7 @@ A digital document everyone can read, but only one person can edit.
 MICRODATA:
 
 TODO.
- 
+
 RDFA:
 
 TODO.
@@ -20,16 +21,16 @@ JSON:
   "author": "Alice",
   "hasDigitalDocumentPermission": [
     {
-      "@type": "DigitalDocumentPermissionType",
-      "permissionType": "http://schema.org/WritePermission",
+      "@type": "DigitalDocumentPermission",
+      "permissionType": "https://schema.org/WritePermission",
       "grantee": {
         "@type": "Person",
         "email": "alice@example.com"
       }
     },
     {
-      "@type": "DigitalDocumentPermissionType",
-      "permissionType": "http://schema.org/ReadPermission",
+      "@type": "DigitalDocumentPermission",
+      "permissionType": "https://schema.org/ReadPermission",
       "grantee": {
         "@type": "Audience",
         "audienceType": "public"
@@ -38,3 +39,4 @@ JSON:
   ]
 }
 </script>
+

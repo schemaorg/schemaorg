@@ -1,1 +1,36 @@
+@prefix : <http://schema.org/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 
+:Course a rdfs:Class ;
+    rdfs:subClassOf :LearningResource.
+
+:LearningResource a rdfs:Class ;
+    rdfs:label "LearningResource" ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1401> ;
+    :category "issue-1401" ;
+    :isPartOf <http://pending.schema.org> ;
+
+    rdfs:subClassOf :CreativeWork ;
+
+    rdfs:comment """The LearningResource type can be used to indicate [[CreativeWork]]s (whether physical or digital) that have a particular and explicit orientation towards learning, education, skill acquisition, and other educational purposes.
+
+[[LearningResource]] is expected to be used as an addition to a primary type such as [[Book]], [[Video]], [[Product]] etc.
+
+[[EducationEvent]] serves a similar purpose for event-like things (e.g. a [[Trip]]). A [[LearningResource]] may be created as a result of an [[EducationEvent]], for example by recording one.""" .
+
+
+:educationalLevel a rdf:Property ;
+    :domainIncludes :LearningResource .
+
+:teaches a rdf:Property ;
+       :domainIncludes :LearningResource .
+
+:assesses a rdf:Property ;
+    :domainIncludes :LearningResource .
+
+:educationalAlignment a rdf:Property ;
+    :domainIncludes :LearningResource .
+
+:educationalUse a rdf:Property ;
+    :domainIncludes :LearningResource .

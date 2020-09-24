@@ -1,0 +1,32 @@
+TYPES: #eg-0303 Schedule, LiteraryEvent
+
+PRE-MARKUP:
+
+A reading series occuring the first and third Wednesdays of the month.
+
+MICRODATA:
+
+<!-- JSONLD only example -->
+
+RDFA:
+
+<!-- JSONLD only example -->
+
+JSON:
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "LiteraryEvent",
+    "name": "Local Bookseller Author Night",
+    "description": "Join us the first and third Wednesdays of each month for readings by local authors.",
+    "eventSchedule": {
+      "@type": "Schedule",
+      "byDay": "https://schema.org/Wednesday",
+      "byMonthWeek": [1, 3],
+      "startTime": "20:00",
+      "endTime": "22:00"
+    }
+}
+</script>
+

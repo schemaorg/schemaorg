@@ -136,6 +136,149 @@ ul {
 
 
 
+
+
+
+
+<tr>
+<td class="release"><a href="/version/10.0/">10.0</a><br/>2020-09-07</td>
+<td>
+<span id="v10.0"></span>
+<p>
+Version 10.0 See <a href="https://github.com/schemaorg/schemaorg/issues/2648">planning pages</a>. This release consists primarily of additions to the <a href="https://pending.schema.org/">Pending</a> section of schema.org,
+alongside some bugfixes and improvements to core terms.</p>
+</td>
+<td>
+<h2>Vocabulary</h2>
+
+<h3>Changes in Core section:</h3>
+<ul>
+
+<li id="g737"><a href="https://github.com/schemaorg/schemaorg/issues/737">Issue #737</a>: improve support for controlled taxonomies (e.g. SKOS) by supporting URLs into taxonomies for the <a href="/keywords">keywords</a> field: added <a href="/URL">URL</a> and <a href="/DefinedTerm">DefinedTerm</a> as expected values.</li>
+
+<li id="g2647"><a href="https://github.com/schemaorg/schemaorg/issues/2647">Issue #2647</a>: <a href="/SkiResort">SkiResort</a> should be a subclass of <a href="/Resort">Resort</a> (in addition to the existing <a href="/SportsActivityLocation">SportsActivityLocation</a> supertype).</li>
+
+<li id="g2664"><a href="https://github.com/schemaorg/schemaorg/issues/2664">Issue #2664</a>: a <a href="/parentItem">parentItem</a> of a <a href="/Comment">Comment</a> should be a <a href="/Comment">Comment</a>, not a <a href="/Question">Question</a>.</li>
+
+<li id="g2662"><a href="https://github.com/schemaorg/schemaorg/issues/2662">Issue #2662</a>: the supertype of <a href="/Question">Question</a> should be <a href="/Comment">Comment</a>, by analogy with <a href="/Answer">Answer</a>.</li>
+
+
+<li id="g881"><a href="https://github.com/schemaorg/schemaorg/issues/881">Issue #881</a>:
+Changed <a href="/description">description</a> to <a href="/reviewBody">reviewBody</a> in a <a href="/Review">Review</a> <a href="/Review#eg-0010">example</a>.</li>
+
+<!--
+<li id="g2604"><a href="https://github.com/schemaorg/schemaorg/issues/2604">Issue #2604</a>: Improvements around enumerations. Some code improvements to present subtyped Enumerations more usefully, and addition of a <a href="/StatusEnumeration">StatusEnumeration</a> type to group numerous enumerations from various kinds of status-related situations.</li>
+-->
+</ul>
+
+
+<h3>Changes in <a href="http://pending.schema.org/">Pending</a> section:</h3>
+<ul>
+
+<li id="g1401"><a href="https://github.com/schemaorg/schemaorg/issues/2663">Issue #2663</a>: add a property <a href="/eduQuestionType">eduQuestionType</a> for questions that act as practice problems.</li>
+
+<li id="g2678"><a href="https://github.com/schemaorg/schemaorg/issues/2678">Issue #2678</a>:
+Indicated that <a href="/learningResourceType">learningResourceType</a> is expected on <a href="/LearningResource">LearningResource</a>.</li>
+
+<li id="g2483"><a href="https://github.com/schemaorg/schemaorg/issues/2483">Issue #2483</a>:
+Add <a href="/hasCourse">hasCourse</a> property to <a href="/EducationalOccupationalProgram">EducationalOccupationalProgram</a> to specify which courses are components of a program.</li>
+
+<li id="g2690"><a href="https://github.com/schemaorg/schemaorg/issues/2690">Issue #2690</a>: add a <a href="/layoutImage">layoutImage</a> property to <a href="/FloorPlan">FloorPlan</a> to clearly indicate an image that depicts the floorplan.</li>
+
+<li id="g2670"><a href="https://github.com/schemaorg/schemaorg/issues/2670">Issue #2670</a>:
+add vocabulary to express the energy efficiency of products. Adds a <a href="/hasEnergyConsumptionDetails">hasEnergyConsumptionDetails</a> property for use on <a href="/Product">Product</a>
+to indicate an <a href="/EnergyConsumptionDetails">EnergyConsumptionDetails</a> item which in turn has a
+<a href="/hasEnergyEfficiencyCategory">hasEnergyEfficiencyCategory</a> property whose values are drawn from
+enumerations. An enumeration class <a href="/EnergyEfficiencyEnumeration">EnergyEfficiencyEnumeration</a> with two initial subtypes, for <a href="/EUEnergyEfficiencyEnumeration">EUEnergyEfficiencyEnumeration</a> and <a href="/EnergyStarEnergyEfficiencyEnumeration">EnergyStarEnergyEfficiencyEnumeration</a>. The elements in the EU scheme are ordered, allowing <a href="/energyEfficiencyScaleMax">energyEfficiencyScaleMax</a> and <a href="/energyEfficiencyScaleMin">energyEfficiencyScaleMin</a> properties to specify the portion of the scale applicable to the relevant product category.</li>
+
+
+<!--
+<li id="g1401"><a href="https://github.com/schemaorg/schemaorg/issues/1401">Issue #1401</a>: Add a type <a href="/LearningResource">LearningResource</a>
+  to indicate <a href="/CreativeWork">CreativeWork</a>s that have a particular and explicit orientation towards learning, education, skill acquisition and other educational purposes.</li>
+-->
+
+</ul>
+
+
+<h3>Site Improvements</h3>
+
+<ul>
+<li id="g2669"><a href="https://github.com/schemaorg/schemaorg/issues/2663">Issue #2663</a>: Updated all examples to use https://schema.org instead of http://schema.org.</li>
+<li id="gstyle"><a href="/docs/styleguide.html">Style Guide</a>: Added a style guide for schema authoring to the site, giving conventions for term naming and capitalization.</li>
+</ul>
+
+
+
+
+
+</td>
+</tr>
+
+
+
+
+
+
+
+<tr>
+<td class="release"><a href="/version/9.0/">9.0</a><br/>2020-07-21</td>
+<td>
+<span id="v9.0"></span>
+<p>
+Version 9.0 See <a href="https://github.com/schemaorg/schemaorg/issues/2634">planning pages</a>. This release consists primarily of additions to the <a href="https://pending.schema.org/">Pending</a> section of schema.org,
+alongside minimal edits to core terms to integrate the new vocabulary into the larger system.</p>
+</td>
+<td>
+<h2>Vocabulary</h2>
+
+<h3>Changes in Core section:</h3>
+<ul>
+<li id="g2604"><a href="https://github.com/schemaorg/schemaorg/issues/2604">Issue #2604</a>: Improvements around enumerations. Some code improvements to present subtyped Enumerations more usefully, and addition of a <a href="/StatusEnumeration">StatusEnumeration</a> type to group numerous enumerations from various kinds of status-related situations.</li>
+<li id="g2512"><a href="https://github.com/schemaorg/schemaorg/issues/2512">Issue #2512</a>: Fixed definition of <a href="/LockerDelivery">LockerDelivery</a> and <a href="/ParcelService">ParcelService</a> to correctly define them as enumeration members of <a href="/DeliveryMethod">DeliveryMethod</a>.</li>
+
+<li id="g2268"><a href="https://github.com/schemaorg/schemaorg/issues/2268">Issue #2268</a>: Defined expected type of several properties in <a href="/ExercisePlan">ExercisePlan</a> to be <a href="/QuantitativeValue">QuantitativeValue</a> instead of the incorrect value of  <a href="/QualitativeValue">QualitativeValue</a>.</li>
+</ul>
+
+<h3>Changes in <a href="http://health-lifesci.schema.org/">health-lifesci</a> section:</h3>
+<ul>
+<li id="g2268"><a href="https://github.com/schemaorg/schemaorg/issues/2268">Issue #2268</a>: Defined expected type of several properties in <a href="/ExercisePlan">ExercisePlan</a> to be <a href="/QuantitativeValue">QuantitativeValue</a> instead of the incorrect value of  <a href="/QualitativeValue">QualitativeValue</a>.</li>
+</ul>
+
+<h3>Changes in <a href="http://pending.schema.org/">Pending</a> section:</h3>
+<ul>
+
+<li id="g1401"><a href="https://github.com/schemaorg/schemaorg/issues/1401">Issue #1401</a>: Add a type <a href="/LearningResource">LearningResource</a>
+  to indicate <a href="/CreativeWork">CreativeWork</a>s that have a particular and explicit orientation towards learning, education, skill acquisition and other educational purposes.</li>
+<li id="g2611"><a href="https://github.com/schemaorg/schemaorg/issues/2611">Issue #2611</a>: Add a <a href="/Quiz">Quiz</a> type, as a kind of <a href="/LearningResource">LearningResource</a>, defined as a "test of knowledge, skills and abilities."</li>
+
+<li id="g2587"><a href="https://github.com/schemaorg/schemaorg/issues/2587">Issue #2587</a>: Add two properties <a href="/size">size</a> and <a href="/pattern">pattern</a> for type <a href="/Product">Product</a> to support common product variant dimensions.</li>
+
+<li id="g1797"><a href="https://github.com/schemaorg/schemaorg/issues/1797">Issue #1797</a>: Add a <a href="/ProductGroup">ProductGroup</a> type to allow modeling of a group of products ("variants") that vary along explicitly defined dimensions. Add properties <a href="/variesBy">variesBy</a> and <a href="/hasVariant">hasVariant</a> for type <a href="/ProductGroup">ProductGroup</a> to explicitly define the variant-identifying properties and the list of variants belonging to the group. Adds existing property <a href="/isVariantOf">isVariantOf</a> to type <a href="/Product">Product</a> to indicate the <a href="/ProductGroup">ProductGroup</a> it is a variant of. Adds property <a href="/productGroupID"><span class="s7">productGroupID</span></a> as explicit identifier for type <a href="/ProductGroup">ProductGroup</a>. Also adds inverse property <a href="/inProductGroupWithID">inProductGroupWithID</a> for type <a href="/Product">Product</a> to identify the product group it is a variant of.</li>
+
+<li id="g2605"><a href="https://github.com/schemaorg/schemaorg/issues/2605">Issue #2605</a>: Clarify the definition of <a href="/Collection">Collection</a> to make clear that it covers a broad range of kind of "Collection". Add a <a href="/ProductCollection">ProductCollection</a> type to allow modeling of a collection of products that are commonly bundled together. Extend the existing property <a href="/includesObject">includesObject</a> for use with the type <a href="/ProductCollection">ProductCollection</a> to indicate the (type and number of) products that are member of the collection.</li>
+
+<li id="g2620"><a href="https://github.com/schemaorg/schemaorg/pull/2620">Issue #2620</a>: Added several new examples.</li>
+
+<li id="g2599"><a href="https://github.com/schemaorg/schemaorg/issues/2599">Issue #2599</a>: Add <a href="/byMonthWeek">byMonthWeek</a> to <a href="/Schedule">Schedule</a> type.</li>
+
+<li id="g1755"><a href="https://github.com/schemaorg/schemaorg/issues/1755">Issue #1755</a>: Add <a href="/BoatReservation">BoatReservation</a>, <a href="/BoatTrip">BoatTrip</a> (and <a href="/arrivalBoatTerminal">arrivalBoatTerminal</a>, <a href="/departureBoatTerminal">departureBoatTerminal</a> properties), <a href="/BoatTerminal">BoatTerminal</a> types.</li>
+
+</ul>
+<h3>Site Improvements</h3>
+<ul>
+
+<li id="g2304"><a href="https://github.com/schemaorg/schemaorg/issues/2304">Issue #2304</a>:
+  (implemented in <a href="https://github.com/schemaorg/schemaorg/pull/2654">PR #2654</a>):Rationalisation of dump files.  Machine readable vocabulary definition files, available from the <a href="https://schema.org/docs/developers.html#defs">Developers area</a>, have been rationalised to include definitions from the core plus all sections of the vocabulary.  Now download file names have been used to reflect this change.  Also introduced two versions of each file, one containing http URIs the other https URIs.</li>
+</ul>
+
+</td>
+</tr>
+
+
+
+
+
+
 <tr>
 <td class="release"><a href="/version/8.0/">8.0</a><br/>2020-05-01</td>
 <td>

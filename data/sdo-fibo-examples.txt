@@ -1,4 +1,4 @@
-TYPES: #fiboex-1 CreditCard, MonetaryAmount, UnitPriceSpecification
+TYPES: #eg-0350 CreditCard, MonetaryAmount, UnitPriceSpecification
 
 PRE-MARKUP:
 
@@ -11,25 +11,25 @@ Annual Percentage Rate (APR) Currently, a variable 18.99% APR on purchases. (The
 
 MICRODATA:
 
-<div itemscope itemtype="http://schema.org/CreditCard">
+<div itemscope itemtype="https://schema.org/CreditCard">
     <span itemprop="name">Wells Fargo Secured Visa® Credit Card</span>
     <span itemprop="requiredCollateral">Requires a minimum $300 security deposit.</span>
-    <span itemprop="amount" itemscope itemtype="http://schema.org/MonetaryAmount">When you apply, you provide a minimum security deposit of at least 
+    <span itemprop="amount" itemscope itemtype="https://schema.org/MonetaryAmount">When you apply, you provide a minimum security deposit of at least
       <span itemprop="currency" content="USD">$</span>
       <span itemprop="minValue">300</span>, or up to $
       <span itemprop="maxValue" content="10000">10,000</span>.
     </span>
-    <span itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+    <span itemprop="offers" itemscope itemtype="https://schema.org/Offer">
       <meta itemprop="offeredBy" content="Wells Fargo"/>
-      <span itemprop="priceSpecification" itemscope itemtype="http://schema.org/UnitPriceSpecification">Annual fee 
+      <span itemprop="priceSpecification" itemscope itemtype="https://schema.org/UnitPriceSpecification">Annual fee
         <span itemprop="priceCurrency" content="USD">$</span>
         <span itemprop="price">25</span>
-        <span itemprop="referenceQuantity" itemscope itemtype="http://schema.org/QuantitativeValue">
+        <span itemprop="referenceQuantity" itemscope itemtype="https://schema.org/QuantitativeValue">
             <meta itemprop="value" content="1"/><meta itemprop="unitCode" content="ANN"/>
         </span>
       </span>
     </span>
-    <span>Annual Percentage Rate (APR) Currently, a variable 
+    <span>Annual Percentage Rate (APR) Currently, a variable
       <span itemprop="annualPercentageRate">18.99</span>% APR on purchases. (These APRs do not apply to cash advances.)
     </span>
     <a itemprop="feesAndCommissionsSpecification" href="https://www.wellsfargo.com/credit-cards/secured/terms/">Full terms and conditions</a>
@@ -37,17 +37,17 @@ MICRODATA:
 
 RDFA:
 
-<div vocab="http://schema.org/" typeof="CreditCard">
+<div vocab="https://schema.org/" typeof="CreditCard">
     <span property="name">Wells Fargo Secured Visa® Credit Card</span>
     <span property="requiredCollateral">Requires a minimum $300 security deposit.</span>
-    <span property="amount" typeof="MonetaryAmount">When you apply, you provide a minimum security deposit of at least 
+    <span property="amount" typeof="MonetaryAmount">When you apply, you provide a minimum security deposit of at least
       <span property="currency" content="USD">$</span>
       <span property="minValue">300</span>, or up to $
       <span property="maxValue" content="10000">10,000</span>.
     </span>
     <span property="offers" typeof="Offer">
       <meta property="offeredBy" content="Wells Fargo"/>
-      <span property="priceSpecification" typeof="UnitPriceSpecification">Annual fee 
+      <span property="priceSpecification" typeof="UnitPriceSpecification">Annual fee
         <span property="priceCurrency" content="USD">$</span>
         <span property="price">25</span>
         <span property="referenceQuantity" typeof="QuantitativeValue">
@@ -56,7 +56,7 @@ RDFA:
         </span>
       </span>
     </span>
-    <span>Annual Percentage Rate (APR) Currently, a variable 
+    <span>Annual Percentage Rate (APR) Currently, a variable
       <span property="annualPercentageRate">18.99</span>% APR on purchases. (These APRs do not apply to cash advances.)
     </span>
     <a property="feesAndCommissionsSpecification" href="https://www.wellsfargo.com/credit-cards/secured/terms/">Full terms and conditions</a>
@@ -66,7 +66,7 @@ JSON:
 
 <script type="application/ld+json">
 {
-  "@context": "http://schema.org",
+  "@context": "https://schema.org",
   "@type": "CreditCard",
   "name": "Wells Fargo Secured Visa® Credit Card",
   "requiredCollateral": "Requires a minimum $300 security deposit.",
@@ -81,7 +81,7 @@ JSON:
       "offeredBy": {
         "@type": "BankOrCreditUnion",
         "name":"Wells Fargo"
-      },    
+      },
       "priceSpecification": {
         "@type": "UnitPriceSpecification",
         "price": "25",
@@ -98,10 +98,7 @@ JSON:
 }
 </script>
 
-
-
-
-TYPES: #fiboex-2 LoanOrCredit, MonetaryAmount
+TYPES: #eg-0351 LoanOrCredit, MonetaryAmount
 
 PRE-MARKUP:
 
@@ -118,29 +115,28 @@ Competitive Annual Percentage Rate (APR)
 The lifetime limit for this loan combined with all other education-related debt is $180,000 for law and business, and $120,000 for other fields of study.
 </div>
 
-
 MICRODATA:
 
 <!-- Wells Fargo GraduateSM Student Loan -->
 
-<div itemscope itemtype="http://schema.org/LoanOrCredit">
+<div itemscope itemtype="https://schema.org/LoanOrCredit">
   <span itemprop="name">Wells Fargo GraduateSM Student Loan</span>
   You'll have up to
-  <div itemprop="loanTerm" itemscope itemtype="http://schema.org/QuantitativeValue">
+  <div itemprop="loanTerm" itemscope itemtype="https://schema.org/QuantitativeValue">
     <span itemprop="value" content="15">15</span>
     <span itemprop="unitCode" content="ANN">years</span>
   </div>
   to repay the loan.
 
   Competitive Annual Percentage Rate (APR)
-  <div itemprop="annualPercentageRate" itemscope itemtype="http://schema.org/QuantitativeValue">
+  <div itemprop="annualPercentageRate" itemscope itemtype="https://schema.org/QuantitativeValue">
     <span itemprop="name">Variable interest rates</span>
     range from
     <span itemprop="minValue" content="3.22">3.22%</span> APR (with discount) to
     <span itemprop="maxValue" content="8.74">8.74%</span> APR (without discount).
   </div>
 
-  <div itemprop="annualPercentageRate" itemscope itemtype="http://schema.org/QuantitativeValue">
+  <div itemprop="annualPercentageRate" itemscope itemtype="https://schema.org/QuantitativeValue">
     <span itemprop="name">Fixed interest rates</span>
     range from
     <span itemprop="minValue" content="6.36">6.36%</span> APR (with discount) to
@@ -148,25 +144,24 @@ MICRODATA:
   </div>
 
   The lifetime limit for this loan combined with all other education-related debt is
-  <div itemprop="amount" itemscope itemtype="http://schema.org/MonetaryAmount">
+  <div itemprop="amount" itemscope itemtype="https://schema.org/MonetaryAmount">
     <span itemprop="currency" content="USD">$</span>
     <span itemprop="value" content="180000">180,000</span>
     <span itemprop="name">for law and business</span>,
   </div>
   and
-  <div itemprop="amount" itemscope itemtype="http://schema.org/MonetaryAmount">
+  <div itemprop="amount" itemscope itemtype="https://schema.org/MonetaryAmount">
     <span itemprop="currency" content="USD">$</span>
     <span itemprop="value" content="120000">120,000</span>
     <span itemprop="name">for other fields of study</span>.
   </div>
 </div>
 
-
 RDFA:
 
 <!-- Wells Fargo GraduateSM Student Loan -->
 
-<div vocab="http://schema.org/" typeof="LoanOrCredit">
+<div vocab="https://schema.org/" typeof="LoanOrCredit">
   <span property="name">Wells Fargo GraduateSM Student Loan</span>
 
   You'll have up to
@@ -205,14 +200,12 @@ RDFA:
   </div>
 </div>
 
-
-
 JSON:
 
 <!-- Wells Fargo GraduateSM Student Loan -->
 <script type="application/ld+json">
 {
-"@context":"http://schema.org",
+"@context":"https://schema.org",
 "@type":"LoanOrCredit",
 "name":"Wells Fargo GraduateSM Student Loan",
 "loanTerm":{
@@ -251,7 +244,7 @@ JSON:
 }
 </script>
 
-TYPES: #fiboex-3 BankAccount
+TYPES: #eg-0352 BankAccount
 
 PRE-MARKUP:
 
@@ -282,8 +275,7 @@ PRE-MARKUP:
         </li>
     </ul>
     <a href="http://personal.rbs.co.uk/content/dam/rbs_co_uk/currentaccounts/downloads/Reward/Personal%20and%20Private%20Current%20Account%20Fees%20and%20Interest%20Rates.pdf">Account Terms</a>
-<div> 
-
+<div>
 
 MICRODATA:
 
@@ -291,10 +283,10 @@ MICRODATA:
     <h1>RBS current accounts</h1>
     <h2>Most popular accounts</h2>
     <ul>
-        <li itemscope itemtype="http://schema.org/BankAccount"><b><span itemprop="name">Select Account</span></b><br/>
-            <span itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+        <li itemscope itemtype="https://schema.org/BankAccount"><b><span itemprop="name">Select Account</span></b><br/>
+            <span itemprop="offers" itemscope itemtype="https://schema.org/Offer">
                 <link itemprop="eligibleCustomerType" href="http://purl.org/goodrelations/v1#Enduser"/>
-                <span itemprop="offeredBy" itemscope itemtype="http://schema.org/BankOrCreditUnion">
+                <span itemprop="offeredBy" itemscope itemtype="https://schema.org/BankOrCreditUnion">
                     <meta itemprop="name" content="RBS"/>
                     <link itemprop="url" href="http://rbs.co.uk"/>
                 </span>
@@ -303,49 +295,49 @@ MICRODATA:
             </span>
             <link itemprop="feesAndCommissionsSpecification" href="http://personal.rbs.co.uk/content/dam/rbs_co_uk/currentaccounts/downloads/Reward/Personal%20and%20Private%20Current%20Account%20Fees%20and%20Interest%20Rates.pdf"/>
         </li>
-        <li itemscope itemtype="http://schema.org/BankAccount"><b><span itemprop="name">Select Silver Account</span></b><br/>
-            <span itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+        <li itemscope itemtype="https://schema.org/BankAccount"><b><span itemprop="name">Select Silver Account</span></b><br/>
+            <span itemprop="offers" itemscope itemtype="https://schema.org/Offer">
                 <link itemprop="eligibleCustomerType" href="http://purl.org/goodrelations/v1#Enduser"/>
-                <span itemprop="priceSpecification" itemscope itemtype="http://schema.org/PriceSpecification">
+                <span itemprop="priceSpecification" itemscope itemtype="https://schema.org/PriceSpecification">
                     <meta itemprop="priceCurrency" content="GBP"/>
                     - £<span itemprop="price">10</span> per month<br/>
-                    <span itemprop="eligibleQuantity" itemscope itemtype="http://schema.org/QuantitativeValue">
+                    <span itemprop="eligibleQuantity" itemscope itemtype="https://schema.org/QuantitativeValue">
                         <meta itemprop="value" content="1"/><meta itemprop="unitCode" content="ANN"/>
                     </span>
                 </span>
             -   <span itemprop="description">You need to be aged 18 or over, and UK resident to apply</span>
-                <span itemprop="offeredBy" itemscope itemtype="http://schema.org/BankOrCreditUnion">
+                <span itemprop="offeredBy" itemscope itemtype="https://schema.org/BankOrCreditUnion">
                     <meta itemprop="name" content="RBS"/>
                     <link itemprop="url" href="http://rbs.co.uk"/>
                 </span>
             </span>
             <link itemprop="feesAndCommissionsSpecification" href="http://personal.rbs.co.uk/content/dam/rbs_co_uk/currentaccounts/downloads/Reward/Personal%20and%20Private%20Current%20Account%20Fees%20and%20Interest%20Rates.pdf"/>
         </li>
-        <li itemscope itemtype="http://schema.org/BankAccount"><b><span itemprop="name">Select Platinum Account</span></b><br/>
-            <span itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+        <li itemscope itemtype="https://schema.org/BankAccount"><b><span itemprop="name">Select Platinum Account</span></b><br/>
+            <span itemprop="offers" itemscope itemtype="https://schema.org/Offer">
                 <link itemprop="eligibleCustomerType" href="http://purl.org/goodrelations/v1#Enduser"/>
-                <span itemprop="priceSpecification" itemscope itemtype="http://schema.org/PriceSpecification">
+                <span itemprop="priceSpecification" itemscope itemtype="https://schema.org/PriceSpecification">
                     <meta itemprop="priceCurrency" content="GBP"/>
                     - £<span itemprop="price">16</span> per month<br/>
-                    <span itemprop="eligibleQuantity" itemscope itemtype="http://schema.org/QuantitativeValue">
+                    <span itemprop="eligibleQuantity" itemscope itemtype="https://schema.org/QuantitativeValue">
                         <meta itemprop="value" content="1"/><meta itemprop="unitCode" content="ANN"/>
                     </span>
                 </span>
             -   <span itemprop="description">You need to be aged 18 or over, and UK resident to apply</span>
-                <span itemprop="offeredBy" itemscope itemtype="http://schema.org/BankOrCreditUnion">
+                <span itemprop="offeredBy" itemscope itemtype="https://schema.org/BankOrCreditUnion">
                     <meta itemprop="name" content="RBS"/>
                     <link itemprop="url" href="http://rbs.co.uk"/>
                 </span>
             </span>
             <link itemprop="feesAndCommissionsSpecification" href="http://personal.rbs.co.uk/content/dam/rbs_co_uk/currentaccounts/downloads/Reward/Personal%20and%20Private%20Current%20Account%20Fees%20and%20Interest%20Rates.pdf"/>
         </li>
-        <li itemscope itemtype="http://schema.org/BankAccount"><b><span itemprop="name">Black Account</span></b><br/>
-            <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+        <li itemscope itemtype="https://schema.org/BankAccount"><b><span itemprop="name">Black Account</span></b><br/>
+            <div itemprop="offers" itemscope itemtype="https://schema.org/Offer">
                 <link itemprop="eligibleCustomerType" href="http://purl.org/goodrelations/v1#Enduser">
-                <span itemprop="priceSpecification" itemscope itemtype="http://schema.org/PriceSpecification">
+                <span itemprop="priceSpecification" itemscope itemtype="https://schema.org/PriceSpecification">
                     <meta itemprop="priceCurrency" content="GBP"/>
                     - £<span itemprop="price">24</span> per month<br/>
-                    <span itemprop="eligibleQuantity" itemscope itemtype="http://schema.org/QuantitativeValue">
+                    <span itemprop="eligibleQuantity" itemscope itemtype="https://schema.org/QuantitativeValue">
                         <meta itemprop="value" content="1"/><meta itemprop="unitCode" content="ANN"/>
                     </span>
                 </span>
@@ -355,7 +347,7 @@ MICRODATA:
                     <li>a RBS mortgage of at lease £300,000</li>
                     <li>£100,000 in RBS savings and investments</li>
                 </ul></div>
-                <span itemprop="offeredBy" itemscope itemtype="http://schema.org/BankOrCreditUnion">
+                <span itemprop="offeredBy" itemscope itemtype="https://schema.org/BankOrCreditUnion">
                     <meta itemprop="name" content="RBS"/>
                     <link itemprop="url" href="http://rbs.co.uk"/>
                 </span>
@@ -364,18 +356,16 @@ MICRODATA:
         </li>
     </ul>
     <a href="http://personal.rbs.co.uk/content/dam/rbs_co_uk/currentaccounts/downloads/Reward/Personal%20and%20Private%20Current%20Account%20Fees%20and%20Interest%20Rates.pdf">Account Terms</a>
-</div> 
-
-
+</div>
 
 RDFA:
 
-<div vocab="http://schema.org/">
+<div vocab="https://schema.org/">
     <h1>RBS current accounts</h1>
     <h2>Most popular accounts</h2>
     <ul>
         <li typeof="BankAccount"><b><span property="name">Select Account</span></b><br/>
-            <span property="offers" typeof="Offer"> 
+            <span property="offers" typeof="Offer">
                 <link property="eligibleCustomerType" href="http://purl.org/goodrelations/v1#Enduser"/>
             -   <span property="description">No monthly account fee<br/>- You need to be aged 18 or over, and UK resident to apply</span>
                 <meta property="price" content="0"/>
@@ -423,7 +413,7 @@ RDFA:
             <link property="feesAndCommissionsSpecification" href="http://personal.rbs.co.uk/content/dam/rbs_co_uk/currentaccounts/downloads/Reward/Personal%20and%20Private%20Current%20Account%20Fees%20and%20Interest%20Rates.pdf"/>
         </li>
         <li typeof="BankAccount"><b><span property="name">Black Account</span></b><br/>
-            <div property="offers" typeof="http://schema.org/Offer">
+            <div property="offers" typeof="https://schema.org/Offer">
                 <link property="eligibleCustomerType" href="http://purl.org/goodrelations/v1#Enduser"/>
                 <div property="priceSpecification" typeof="PriceSpecification">
                     <meta property="priceCurrency" content="GBP"/>
@@ -450,12 +440,11 @@ RDFA:
     <a href="http://personal.rbs.co.uk/content/dam/rbs_co_uk/currentaccounts/downloads/Reward/Personal%20and%20Private%20Current%20Account%20Fees%20and%20Interest%20Rates.pdf">Account Terms</a>
 </div>
 
-
 JSON:
 
 <script type="application/ld+json">
 {
-    "@context": "http://schema.org/",
+    "@context": "https://schema.org/",
     "@graph": [
     {
         "@type": "BankAccount",
@@ -549,18 +538,18 @@ JSON:
             }
         },
         "feesAndCommissionsSpecification": "http://personal.rbs.co.uk/content/dam/rbs_co_uk/currentaccounts/downloads/Reward/Personal%20and%20Private%20Current%20Account%20Fees%20and%20Interest%20Rates.pdf"
-        
+
     }
-    ]   
+    ]
 }</script>
 
-TYPES: #fiboex-4 DepositAccount, MonetaryAmount
+TYPES: #eg-0353 DepositAccount, MonetaryAmount
 
 PRE-MARKUP:
 
 <body>
     <h1>Easy access accounts Comparison - Ordered by interest rate (AER)</h1>
-    
+
     <div>
         <table>
         <tr>
@@ -591,37 +580,36 @@ PRE-MARKUP:
     </div>
 </body>
 
-
 MICRODATA:
 
-<body itemscope itemtype="http://schema.org/WebPage">
+<body itemscope itemtype="https://schema.org/WebPage">
     <h1 itemprop="name">Easy access accounts Comparison - Ordered by interest rate (AER)</h1>
-    
-    <div itemprop="mainEntity" itemscope itemtype="http://schema.org/ItemList">
+
+    <div itemprop="mainEntity" itemscope itemtype="https://schema.org/ItemList">
         <meta itemprop="name" content="Easy access accounts Comparison List"/>
         <table>
         <tr>
             <th>Bank</th><th>Account</th><th>Interest Rate</th><th>Min/Max Opening Amount</th><th>Access</th>
         </tr>
-        <tr itemprop="itemListElement" itemscope itemtype="http://schema.org/DepositAccount">
+        <tr itemprop="itemListElement" itemscope itemtype="https://schema.org/DepositAccount">
             <td><a itemprop="provider" href="https://www.rcibank.co.uk">RCI Bank</a></td>
             <td itemprop="name">Freedom Savings Account</td>
-            <td itemprop="interestRate" itemscope itemtype="http://schema.org/QuantitativeValue"><span itemprop="value">1.65</span>% <span itemprop="valueReference">Variable</span></td>
-            <td itemprop="amount" itemscope itemtype="http://schema.org/MonetaryAmount"><meta itemprop="currency" content="GBP"/>&#163;<span itemprop="minValue" content="100">100</span> to &#163;<span itemprop="maxValue" content="1000000">1,000,000</span></td>
+            <td itemprop="interestRate" itemscope itemtype="https://schema.org/QuantitativeValue"><span itemprop="value">1.65</span>% <span itemprop="valueReference">Variable</span></td>
+            <td itemprop="amount" itemscope itemtype="https://schema.org/MonetaryAmount"><meta itemprop="currency" content="GBP"/>&#163;<span itemprop="minValue" content="100">100</span> to &#163;<span itemprop="maxValue" content="1000000">1,000,000</span></td>
             <td><span itemprop="availableChannel">Internet</span>, <span itemprop="availableChannel">Post</span>, <span itemprop="availableChannel">Telephone</span></td>
         </tr>
-        <tr itemprop="itemListElement" itemscope itemtype="http://schema.org/DepositAccount">
+        <tr itemprop="itemListElement" itemscope itemtype="https://schema.org/DepositAccount">
             <td><a itemprop="provider" href="https://sbiukonlinesavings.com/">State Bank of India</a></td>
             <td itemprop="name">Online Instant Access Savings Issue 4</td>
-            <td itemprop="interestRate" itemscope itemtype="http://schema.org/QuantitativeValue"><span itemprop="value">1.25</span>% <span itemprop="valueReference">Variable</span></td>
-            <td itemprop="amount" itemscope itemtype="http://schema.org/MonetaryAmount"><meta itemprop="currency" content="GBP"/>&#163;<span itemprop="minValue" content="500">500</span> to &#163;<span itemprop="maxValue" content="1000000">1,000,000</span></td>
+            <td itemprop="interestRate" itemscope itemtype="https://schema.org/QuantitativeValue"><span itemprop="value">1.25</span>% <span itemprop="valueReference">Variable</span></td>
+            <td itemprop="amount" itemscope itemtype="https://schema.org/MonetaryAmount"><meta itemprop="currency" content="GBP"/>&#163;<span itemprop="minValue" content="500">500</span> to &#163;<span itemprop="maxValue" content="1000000">1,000,000</span></td>
             <td><span itemprop="availableChannel">Internet</span>, <span itemprop="availableChannel">In Branch</span></td>
         </tr>
-        <tr itemprop="itemListElement" itemscope itemtype="http://schema.org/DepositAccount">
+        <tr itemprop="itemListElement" itemscope itemtype="https://schema.org/DepositAccount">
             <td><a itemprop="provider" href="http://www.aldermore.co.uk/">Aldermore</a></td>
             <td itemprop="name">Easy Access Issue 9</td>
-            <td itemprop="interestRate" itemscope itemtype="http://schema.org/QuantitativeValue"><span itemprop="value">1.25</span>% <span itemprop="valueReference">Variable</span></td>
-            <td itemprop="amount" itemscope itemtype="http://schema.org/MonetaryAmount"><meta itemprop="currency" content="GBP"/>&#163;<span itemprop="minValue" content="1000">1,000</span> to &#163;<span itemprop="maxValue" content="1000000">1,000,000</span></td>
+            <td itemprop="interestRate" itemscope itemtype="https://schema.org/QuantitativeValue"><span itemprop="value">1.25</span>% <span itemprop="valueReference">Variable</span></td>
+            <td itemprop="amount" itemscope itemtype="https://schema.org/MonetaryAmount"><meta itemprop="currency" content="GBP"/>&#163;<span itemprop="minValue" content="1000">1,000</span> to &#163;<span itemprop="maxValue" content="1000000">1,000,000</span></td>
             <td><span itemprop="availableChannel">Internet</span>, <span itemprop="availableChannel">Post</span>, <span itemprop="availableChannel">Telephone</span></td>
         </tr>
     </table>
@@ -630,9 +618,9 @@ MICRODATA:
 
 RDFA:
 
-<body vocab="http://schema.org/" typeof="WebPage">
+<body vocab="https://schema.org/" typeof="WebPage">
     <h1 property="name">Easy access accounts Comparison - Ordered by interest rate (AER)</h1>
-    
+
     <div property="mainEntity" typeof="ItemList">
         <meta property="name" content="Easy access accounts Comparison List"/>
         <table>
@@ -668,7 +656,7 @@ JSON:
 
 <script type="application/ld+json">
 {
-    "@context": "http://schema.org",
+    "@context": "https://schema.org",
     "@type": "WebPage",
     "name": "Easy access accounts Comparison - Ordered by interest rate (AER)",
     "mainEntity": {
@@ -740,7 +728,7 @@ JSON:
 }
 </script>
 
-TYPES: #fiboex-5 PaymentCard
+TYPES: #eg-0354 PaymentCard
 
 PRE-MARKUP:
 
@@ -750,9 +738,9 @@ Customers with an eligible Wells Fargo Checking account can make everyday purcha
 
 MICRODATA:
 
-<div itemscope itemtype="http://schema.org/PaymentCard">
-  <b><span itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-    <span itemprop="offeredBy" itemscope itemtype="http://schema.org/BankOrCreditUnion">
+<div itemscope itemtype="https://schema.org/PaymentCard">
+  <b><span itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+    <span itemprop="offeredBy" itemscope itemtype="https://schema.org/BankOrCreditUnion">
       <span itemprop="name">Wells Fargo</span>
     </span>
     <link itemprop="businessFunction" content="http://purl.org/goodrelations/v1#ProvideService" />
@@ -767,9 +755,9 @@ MICRODATA:
 
 RDFA:
 
-<div vocab="http://schema.org" typeof="PaymentCard">
+<div vocab="https://schema.org" typeof="PaymentCard">
   <b><span property="offers" typeof="Offer">
-    <span property="offeredBy" typeof="http://schema.org/BankOrCreditUnion">
+    <span property="offeredBy" typeof="https://schema.org/BankOrCreditUnion">
       <span property="name">Wells Fargo</span>
     </span>
     <link property="businessFunction" content="http://purl.org/goodrelations/v1#ProvideService" />
@@ -786,7 +774,7 @@ JSON:
 
 <script type="application/ld+json">
 {
-  "@context": "http://schema.org",
+  "@context": "https://schema.org",
   "@type": "PaymentCard",
   "name": "Platinum Debit Card",
   "category": "Debit Card",
@@ -803,7 +791,7 @@ JSON:
 }
 </script>
 
-TYPES: #fiboex-6 PaymentService
+TYPES: #eg-0355 PaymentService
 
 PRE-MARKUP:
 
@@ -837,52 +825,52 @@ PRE-MARKUP:
 
 MICRODATA:
 
-<body itemscope itemtype="http://schema.org/WebPage">
+<body itemscope itemtype="https://schema.org/WebPage">
   <h1 itemprop="name">Payment Fees</h1>
   <h2>Selling is $0.15 - $0.50 per sale.</h2>
   <div>
-    <div itemprop="mainEntity" itemscope itemtype="http://schema.org/ItemList">
+    <div itemprop="mainEntity" itemscope itemtype="https://schema.org/ItemList">
       <meta itemprop="name" content="Payment List"/>
       <table>
-        <tr itemprop="itemListElement" itemscope itemtype="http://schema.org/PaymentService">
+        <tr itemprop="itemListElement" itemscope itemtype="https://schema.org/PaymentService">
           <th itemprop="name">Sales within the US</th>
-          <td itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-            <span itemprop="priceSpecification" itemscope itemtype="http://schema.org/PriceSpecification">
-              <span itemprop="priceCurrency" content="USD">$</span><span itemprop="price">0.30</span> 
-              <span itemprop="eligibleQuantity" itemscope itemtype="http://schema.org/QuantitativeValue">
+          <td itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+            <span itemprop="priceSpecification" itemscope itemtype="https://schema.org/PriceSpecification">
+              <span itemprop="priceCurrency" content="USD">$</span><span itemprop="price">0.30</span>
+              <span itemprop="eligibleQuantity" itemscope itemtype="https://schema.org/QuantitativeValue">
                     <span itemprop="unitText">per transaction</span>
               </span>
             </span>
           </td>
         </tr>
-        <tr itemprop="itemListElement" itemscope itemtype="http://schema.org/PaymentService">
+        <tr itemprop="itemListElement" itemscope itemtype="https://schema.org/PaymentService">
           <th itemprop="name">Discounted rate for eligible nonprofits</th>
-          <td itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-            <span itemprop="priceSpecification" itemscope itemtype="http://schema.org/PriceSpecification">
+          <td itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+            <span itemprop="priceSpecification" itemscope itemtype="https://schema.org/PriceSpecification">
               <span itemprop="priceCurrency" content="USD">$</span><span itemprop="price">0.25</span>
-              <span itemprop="eligibleQuantity" itemscope itemtype="http://schema.org/QuantitativeValue">
+              <span itemprop="eligibleQuantity" itemscope itemtype="https://schema.org/QuantitativeValue">
                     <span itemprop="unitText">per transaction</span>
               </span>
             </span>
           </td>
         </tr>
-        <tr itemprop="itemListElement" itemscope itemtype="http://schema.org/PaymentService">
+        <tr itemprop="itemListElement" itemscope itemtype="https://schema.org/PaymentService">
           <th itemprop="name">International sales</th>
-          <td itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-            <span itemprop="priceSpecification" itemscope itemtype="http://schema.org/PriceSpecification">
+          <td itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+            <span itemprop="priceSpecification" itemscope itemtype="https://schema.org/PriceSpecification">
               <span itemprop="priceCurrency" content="USD">$</span><span itemprop="price">0.50</span>
-              <span itemprop="eligibleQuantity" itemscope itemtype="http://schema.org/QuantitativeValue">
+              <span itemprop="eligibleQuantity" itemscope itemtype="https://schema.org/QuantitativeValue">
                     <span itemprop="unitText">per transaction</span>
               </span>
             </span>
           </td>
         </tr>
-        <tr itemprop="itemListElement" itemscope itemtype="http://schema.org/PaymentService">
+        <tr itemprop="itemListElement" itemscope itemtype="https://schema.org/PaymentService">
           <th itemprop="name">Card reader</th>
-          <td itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-            <span itemprop="priceSpecification" itemscope itemtype="http://schema.org/PriceSpecification">
+          <td itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+            <span itemprop="priceSpecification" itemscope itemtype="https://schema.org/PriceSpecification">
               <span itemprop="priceCurrency" content="USD">$</span><span itemprop="price">0.15</span>
-              <span itemprop="eligibleQuantity" itemscope itemtype="http://schema.org/QuantitativeValue">
+              <span itemprop="eligibleQuantity" itemscope itemtype="https://schema.org/QuantitativeValue">
                     <span itemprop="unitText">per transaction</span>
               </span>
             </span>
@@ -895,7 +883,7 @@ MICRODATA:
 
 RDFA:
 
-<body vocab="http://schema.org/" typeof="WebPage">
+<body vocab="https://schema.org/" typeof="WebPage">
   <h1 property="name">Payment Fees</h1>
   <h2>Selling is $0.15 - $0.50 per sale.</h2>
   <div>
@@ -952,7 +940,7 @@ JSON:
 
 <script type="application/ld+json">
   {
-    "@context": "http://schema.org",
+    "@context": "https://schema.org",
     "@type": "WebPage",
     "name": "Payment Fees",
     "mainEntity": {
@@ -1027,7 +1015,7 @@ JSON:
   }
 </script>
 
-TYPES: #fiboex-7 FinancialProduct
+TYPES: #eg-0356 FinancialProduct
 
 PRE-MARKUP:
 
@@ -1050,17 +1038,17 @@ MICRODATA:
 
 <body>
     <h1>Life Insurance</h1>
-    <div itemscope itemtype="http://schema.org/FinancialProduct">
+    <div itemscope itemtype="https://schema.org/FinancialProduct">
       <h3 itemprop="name">Term Life Insurance</h3>
       <p itemprop="description">For most people, the primary reason to purchase life insurance is to help provide for dependents in the case of your death and the resulting loss of income. To determine a coverage amount, estimate what your family members would need after you’re gone to meet immediate, ongoing, and future financial obligations including funeral, rent or mortgage, other every day bills, college, and retirement.</p>
-      <div itemprop="amount" itemscope itemtype="http://schema.org/MonetaryAmount">Coverage amounts <span itemprop="currency" content="USD">$</span><span itemprop="minValue" content="100000">100,000</span> - $<span itemprop="maxValue" content="1000000">1,000,000</span></div>
-      <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">Available through <a itemprop="offeredBy" href="http://www.icinsure.com/acce/">Life Insurance Central</a></div>
+      <div itemprop="amount" itemscope itemtype="https://schema.org/MonetaryAmount">Coverage amounts <span itemprop="currency" content="USD">$</span><span itemprop="minValue" content="100000">100,000</span> - $<span itemprop="maxValue" content="1000000">1,000,000</span></div>
+      <div itemprop="offers" itemscope itemtype="https://schema.org/Offer">Available through <a itemprop="offeredBy" href="http://www.icinsure.com/acce/">Life Insurance Central</a></div>
     </div>
 </body>
 
 RDFA:
 
-<body vocab="http://schema.org/">
+<body vocab="https://schema.org/">
     <h1>Life Insurance</h1>
     <div typeof="FinancialProduct">
       <h3 property="name">Term Life Insurance</h3>
@@ -1074,7 +1062,7 @@ JSON:
 
 <script type="application/ld+json">
 {
-  "@context": "http://schema.org",
+  "@context": "https://schema.org",
   "@type": "FinancialProduct",
   "name": "Term Life Insurance",
   "description": "For most people, the primary reason to purchase life insurance is to help provide for dependents in the case of your death and the resulting loss of income. To determine a coverage amount, estimate what your family members would need after you’re gone to meet immediate, ongoing, and future financial obligations including funeral, rent or mortgage, other every day bills, college, and retirement.",
@@ -1091,8 +1079,7 @@ JSON:
 }
 </script>
 
-
-TYPES: #fiboex-8 InvestmentOrDeposit
+TYPES: #eg-0357 InvestmentOrDeposit
 
 PRE-MARKUP:
 
@@ -1108,21 +1095,21 @@ PRE-MARKUP:
 MICRODATA:
 
 <body>
-  <div itemscope itemtype="http://schema.org/InvestmentOrDeposit">
+  <div itemscope itemtype="https://schema.org/InvestmentOrDeposit">
     <h1 itemprop="name">Guaranteed Interest Fund</h1>
     <p itemprop="description">This type of secure investment grows your money at a guaranteed rate of interest for a fixed period. It is ideal for investors looking for capital security.</p>
-    <div itemprop="amount" itemscope itemtype="http://schema.org/MonetaryAmount">Amount to be invested <span itemprop="currency" content="USD">$</span><span itemprop="minValue" content="25000">25,000</span> to $<span itemprop="maxValue" content="99000">99,999</span></div>
+    <div itemprop="amount" itemscope itemtype="https://schema.org/MonetaryAmount">Amount to be invested <span itemprop="currency" content="USD">$</span><span itemprop="minValue" content="25000">25,000</span> to $<span itemprop="maxValue" content="99000">99,999</span></div>
     <div>Guaranteed interest rate <span itemprop="interestRate" content="1.25">1.25%</span></div>
   </div>
 </body>
 
 RDFA:
 
-<body vocab="http://schema.org/">
-  <div typeof="http://schema.org/InvestmentOrDeposit">
+<body vocab="https://schema.org/">
+  <div typeof="https://schema.org/InvestmentOrDeposit">
     <h1 property="name">Guaranteed Interest Fund</h1>
     <p property="description">This type of secure investment grows your money at a guaranteed rate of interest for a fixed period. It is ideal for investors looking for capital security.</p>
-    <div property="amount" typeof="http://schema.org/MonetaryAmount">Amount to be invested <span property="currency" content="USD">$</span><span property="minValue" content="25000">25,000</span> to $<span property="maxValue" content="99000">99,999</span></div>
+    <div property="amount" typeof="https://schema.org/MonetaryAmount">Amount to be invested <span property="currency" content="USD">$</span><span property="minValue" content="25000">25,000</span> to $<span property="maxValue" content="99000">99,999</span></div>
     <div>Guaranteed interest rate <span property="interestRate" content="1.25">1.25%</span></div>
   </div>
 </body>
@@ -1131,7 +1118,7 @@ JSON:
 
 <script type="application/ld+json">
 {
-  "@context": "http://schema.org",
+  "@context": "https://schema.org",
   "@type": "InvestmentOrDeposit",
   "name": "Guaranteed Interest Fund",
   "description": "This type of secure investment grows your money at a guaranteed rate of interest for a fixed period. It is ideal for investors looking for capital security.",
@@ -1144,8 +1131,4 @@ JSON:
   "interestRate": "1.25"
 }
 </script>
-
-
-
-
 

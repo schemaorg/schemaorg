@@ -1,0 +1,23 @@
+<head>
+    <title>{{ title }} - {{ sitename }} {{ SUBNAME }}</title>
+    <meta charset="utf-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Schema.org is a set of extensible schemas that enables webmasters to embed
+    structured data on their web pages for use by search engines and other applications." />
+    <link rel="shortcut icon" type="image/png" href="{{docsdir}}/favicon.ico"/>
+    <link rel="stylesheet" type="text/css" href="{{docsdir}}/schemaorg.css" />
+    <link rel="stylesheet" type="text/css" href="{{docsdir}}/prettify.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    
+<!-- ##### Generated insert [CSEScript-start] see scripts/genhtmlinserts.sh ##### --> 
+<!-- Enable CSE Search -->
+<script>
+(function() {
+var cx = '013516846811604855281:nj5laplixaa'; // Insert your own Custom Search engine ID here
+var gcse = document.createElement('script'); gcse.type = 'text/javascript'; gcse.async = true;
+gcse.src = 'https://cse.google.com/cse.js?cx=' + cx;
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(gcse, s);
+})();
+</script>
+<!-- ##### Generated insert [CSEScript-end] see scripts/genhtmlinserts.sh ##### --> 
+</head>

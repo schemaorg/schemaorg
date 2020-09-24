@@ -1,5 +1,4 @@
 @prefix : <http://schema.org/> .
-@prefix ns1: <http://www.w3.org/ns/rdfa#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
@@ -98,13 +97,13 @@
     rdfs:label "DrugClass" ;
     :isPartOf <http://health-lifesci.schema.org> ;
     rdfs:comment "A class of medical drugs, e.g., statins. Classes can represent general pharmacological class, common mechanisms of action, common physiological effects, etc." ;
-    rdfs:subClassOf :MedicalEnumeration .
+    rdfs:subClassOf :MedicalEntity .
 
 :DrugCost a rdfs:Class ;
     rdfs:label "DrugCost" ;
     :isPartOf <http://health-lifesci.schema.org> ;
     rdfs:comment "The cost per unit of a medical drug. Note that this type is not meant to represent the price in an offer of a drug for sale; see the Offer type for that. This type will typically be used to tag wholesale or average retail cost of a drug, or maximum reimbursable cost. Costs of medical drugs vary widely depending on how and where they are paid for, so while this type captures some of the variables, costs should be used with caution by consumers of this schema's markup." ;
-    rdfs:subClassOf :MedicalEnumeration .
+    rdfs:subClassOf :MedicalEntity .
 
 :DrugCostCategory a rdfs:Class ;
     rdfs:label "DrugCostCategory" ;
@@ -187,10 +186,15 @@
 :MedicalAudience a rdfs:Class ;
     rdfs:label "MedicalAudience" ;
     :isPartOf <http://health-lifesci.schema.org> ;
-    rdfs:comment "Target audiences for medical web pages. Enumerated type." ;
+    rdfs:comment "Target audiences for medical web pages." ;
     rdfs:subClassOf :Audience,
-        :MedicalEnumeration,
         :PeopleAudience .
+
+:MedicalAudienceType a rdfs:Class ;
+    rdfs:label "MedicalAudienceType" ;
+    :isPartOf <http://health-lifesci.schema.org> ;
+    rdfs:comment "Target audiences types for medical web pages. Enumerated type." ;
+    rdfs:subClassOf :MedicalEnumeration .
 
 :MedicalBusiness a rdfs:Class ;
     rdfs:label "MedicalBusiness" ;
@@ -424,8 +428,7 @@
     :isPartOf <http://health-lifesci.schema.org> ;
     :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_WikiDoc> ;
     rdfs:comment "Design models for medical trials. Enumerated type." ;
-    rdfs:subClassOf :Enumeration,
-        :MedicalEnumeration .
+    rdfs:subClassOf :MedicalEnumeration .
 
 :MedicalWebPage a rdfs:Class ;
     rdfs:label "MedicalWebPage" ;
@@ -491,8 +494,8 @@
     rdfs:label "PhysicalExam" ;
     :isPartOf <http://health-lifesci.schema.org> ;
     rdfs:comment "A type of physical examination of a patient performed by a physician. " ;
-    rdfs:subClassOf :MedicalEnumeration,
-        :MedicalProcedure .
+    rdfs:subClassOf :MedicalProcedure,
+         :MedicalEnumeration .
 
 :PhysicalTherapy a rdfs:Class ;
     rdfs:label "PhysicalTherapy" ;
@@ -590,8 +593,6 @@
     rdfs:comment "Vital signs are measures of various physiological functions in order to assess the most basic body functions." ;
     rdfs:subClassOf :MedicalSign .
 
-<file:///Users/wallisr/Development/Schema/ttl/schemaorg/data/ext/health-lifesci/med-health-core.rdfa> ns1:usesVocabulary <http://schema.org> .
-
 :Abdomen a :PhysicalExam ;
     rdfs:label "Abdomen" ;
     :isPartOf <http://health-lifesci.schema.org> ;
@@ -647,7 +648,7 @@
     :isPartOf <http://health-lifesci.schema.org> ;
     rdfs:comment "A system of medicine focused on the relationship between the body's structure, mainly the spine, and its functioning." .
 
-:Clinician a :MedicalAudience ;
+:Clinician a :MedicalAudienceType ;
     rdfs:label "Clinician" ;
     :isPartOf <http://health-lifesci.schema.org> ;
     rdfs:comment "Medical clinicians, including practicing physicians and other medical professionals involved in clinical practice." .
@@ -848,7 +849,7 @@
     :isPartOf <http://health-lifesci.schema.org> ;
     rdfs:comment "Magnetic resonance imaging." .
 
-:MedicalResearcher a :MedicalAudience ;
+:MedicalResearcher a :MedicalAudienceType ;
     rdfs:label "MedicalResearcher" ;
     :isPartOf <http://health-lifesci.schema.org> ;
     rdfs:comment "Medical researchers." .
@@ -1816,6 +1817,14 @@
     :isPartOf <http://health-lifesci.schema.org> ;
     :rangeIncludes :MedicalSpecialty ;
     rdfs:comment "A medical specialty of the provider." .
+
+:medicalAudience a rdf:Property ;
+    rdfs:label "medicalAudience" ;
+    :domainIncludes :MedicalWebPage;
+    :isPartOf <http://health-lifesci.schema.org> ;
+    :rangeIncludes :MedicalAudience,
+      :MedicalAudienceType ;
+    rdfs:comment "Medical audience for page." .
 
 :medicineSystem a rdf:Property ;
     rdfs:label "medicineSystem" ;
