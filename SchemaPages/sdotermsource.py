@@ -3,13 +3,17 @@
 
 from __future__ import with_statement
 
+import sys
+if not (sys.version_info.major == 3 and sys.version_info.minor > 5):
+    print("Python version %s.%s not supported version 3.6 or above required - exiting" % (sys.version_info.major,sys.version_info.minor))
+    sys.exit(1)
+
 import logging
 logging.basicConfig(level=logging.INFO) 
 log = logging.getLogger(__name__)
 
 import threading
 import os
-import sys
 import re
 import rdflib
 from rdflib import URIRef
@@ -18,6 +22,7 @@ from sdoterm import *
 from localmarkdown import Markdown
 
 VOCABURI="http://schema.org/"
+
 CORE    = "core"
 DEFTRIPLESFILESGLOB = ["data/*.ttl","data/ext/*/*.ttl"]
 LOADEDDEFAULT=False

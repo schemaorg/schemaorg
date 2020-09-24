@@ -2,16 +2,12 @@
 # -*- coding: UTF-8 -*-
 
 import logging
-logging.basicConfig(level=logging.INFO) # dev_appserver.py --log_level debug .
+logging.basicConfig(level=logging.INFO) 
 log = logging.getLogger(__name__)
-
-#from testharness import *
 
 import rdflib
 from rdflib import URIRef
 import io
-
-VOCABURI="https://schema.org/"
 
 class SdoTerm():
     TYPE = "Type"

@@ -1,10 +1,19 @@
-#!/usr/bin/env python2.7
+#!/usr/bin/env python3
+# -*- coding: UTF-8 -*-
+
+
 import sys
+if not (sys.version_info.major == 3 and sys.version_info.minor > 5):
+    print("Python version %s.%s not supported version 3.6 or above required - exiting" % (sys.version_info.major,sys.version_info.minor))
+    sys.exit(1)
+
+# To be executed in the SchemaPages/example-code/{example} directory
 import os
-sys.path.append( os.getcwd() )
-sys.path.insert( 1, 'markdown' ) #Pickup libs, rdflib etc., from shipped lib directory
+for path in [os.getcwd(),"..","../..","../../.."]: #Adds in current, example-code, and SchemaPages directory into path
+  sys.path.insert( 1, path ) #Pickup libs from local  directories
 
 import rdflib
+
 from sdotermsource import *
 from sdoterm import *
 from localmarkdown import Markdown
@@ -12,14 +21,18 @@ from localmarkdown import Markdown
 Markdown.setWikilinkCssClass("localLink")
 Markdown.setWikilinkPrePath("/")
 
+if VOCABURI.startswith("https://"):
+    triplesfile = "../data/schemaorg-all-https.nt"
+else:
+    triplesfile = "../data/schemaorg-all-http.nt"
 
-triplesfile = "data/schemaorg-all-https.nt"
+
 termgraph = rdflib.Graph()
 termgraph.parse(triplesfile, format="nt")
 
 print ("loaded %s triples" % len(termgraph))
 
-SdoTermSource.setQueryGraph(termgraph)
+SdoTermSource.setSourceGraph(termgraph)
 print ("Types Count: %s" % len(SdoTermSource.getAllTypes(expanded=False)))
 print ("Properties Count: %s" % len(SdoTermSource.getAllProperties(expanded=False)))
 
@@ -76,8 +89,9 @@ def showTerm(term,ind=""):
     else:
         print("%stermStack: %s " % (ind,term.termStack))
 
-term = SdoTermSource.getTerm("Permit",expanded=True)
-showTerm(term)
+for termname in ["acceptedAnswer","Book"]:
+    term = SdoTermSource.getTerm(termname,expanded=True)
+    showTerm(term)
     
 
 

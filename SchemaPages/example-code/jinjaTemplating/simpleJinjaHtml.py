@@ -2,9 +2,14 @@
 # -*- coding: UTF-8 -*-
 
 import sys
+if not (sys.version_info.major == 3 and sys.version_info.minor > 5):
+    print("Python version %s.%s not supported version 3.6 or above required - exiting" % (sys.version_info.major,sys.version_info.minor))
+    sys.exit(1)
+
+# To be executed in the SchemaPages/example-code/{example} directory
 import os
-sys.path.append( os.getcwd() )
-sys.path.insert( 1, 'markdown' ) #Pickup libs, rdflib etc., from shipped lib directory
+for path in [os.getcwd(),"..","../..","../../.."]: #Adds in current, example-code, and SchemaPages directory into path
+  sys.path.insert( 1, path ) #Pickup libs from local  directories
 
 import rdflib
 from sdotermsource import *
@@ -16,15 +21,19 @@ Markdown.setWikilinkCssClass("localLink")
 Markdown.setWikilinkPrePath("/")
 
 
-triplesfile = "data/schemaorg-all-https.nt"
+if VOCABURI.startswith("https://"):
+    triplesfile = "../data/schemaorg-all-https.nt"
+else:
+    triplesfile = "../data/schemaorg-all-http.nt"
+
 termgraph = rdflib.Graph()
 termgraph.parse(triplesfile, format="nt")
 
 print ("loaded %s triples" % len(termgraph))
 
-SdoTermSource.setQueryGraph(termgraph)
-#print ("Types Count: %s" % len(SdoTermSource.getAllTypes(expanded=False)))
-#print ("Properties Count: %s" % len(SdoTermSource.getAllProperties(expanded=False)))
+SdoTermSource.setSourceGraph(termgraph)
+print ("Types Count: %s" % len(SdoTermSource.getAllTypes(expanded=False)))
+print ("Properties Count: %s" % len(SdoTermSource.getAllProperties(expanded=False)))
 
 ###################################################
 #JINJA INITIALISATION
@@ -86,15 +95,10 @@ def templateRender(term):
 #JINJA INITIALISATION - End
 ###################################################
     
-terms = SdoTermSource.getAllTerms()
+#terms = SdoTermSource.getAllTerms()
+
+terms = ["DataType","about","Action","CreativeWork","MonetaryAmount","PronounceableText","Thing","Text","LinkRole","EBook","BookFormatType"]
 print("Processing %s terms" % len(terms))
-
-#term = SdoTermSource.getTerm("Permit",expanded=True)
-#pageout = templateRender(term)
-
-#print(pageout)
-
-terms = ["Text","DataType","PronounceableText","Thing","about","CreativeWork","MonetaryAmount","LinkRole","EBook","BookFormatType"]
 
 
 import time,datetime
@@ -105,7 +109,7 @@ for t in terms:
 
     term = SdoTermSource.getTerm(t,expanded=True)
     pageout = templateRender(term)
-    filename = "    /" + term.id +".html"
+    filename = "html/" + term.id +".html"
     f = open(filename,"w")
     f.write(pageout)
     f.close()
