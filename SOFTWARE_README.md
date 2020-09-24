@@ -41,7 +41,10 @@ Once a local version of the repository has been cloned, in to an appropriate pyt
     
     ./util/buildsite.py -a
 
-This will create a local working copy of the schema.org website in the local `site` directory. Dependant on the configuration of your system, this will take between 10-20 minutes. Note, this full build is only needed initialy, or when significant changes have been made and prior to shipping a new version.  See below for how to build individual files and pages.
+This will create a local working copy of the schema.org website in the local `site` directory. Dependant on the configuration of your system, this will take between 10-20 minutes. Note, this full build is only needed initially, or when significant changes have been made and prior to deploying a new version.  See below for details on how to build individual files and pages.
+
+**buildsite.py**
+The `buildsite.py` script creates and manages a local image of the Schema.org website as a set of static html pages and download files in the `site` directory. This it constructs from local working copies of the files in the repository. The contents of the `site` directory are **not** committed and stored in the repository.  The `site` directory image has two main purposes: 1) It provides a local work-in-progress representation of the website for local testing and debug (see below) and; 2) It provides an image of the website that is used for deployment to GCloud for wider access and the production Schema.org site.
 
 Running Locally
 ===============
@@ -88,16 +91,25 @@ Definitions of the vocabulary terms are held in `.ttl` files stored either in th
 
 Files containing the examples used on the term pages are held in files of the pattern `*examples.txt` stored either in the `./data` or `./data/ext/*` directories. 
 
-Building Individual Files and Term Pages
-========================================
+Building Individual Files Documents and Term Pages
+==================================================
 
-During development, it is possible to select individual term pages, dynamic docs pages, or output files (vocabulary definition RDF files, sitemap, jsonldcontext, etc.) for rebuilding.  For details see the output of the command `./util/buildsite.py -h`.  Examples include:
+During development, it is possible to select individual term pages, dynamic docs pages, static docs pages, or output files (vocabulary definition RDF files, sitemap, jsonldcontext, etc.) for rebuilding in the local `site` directory.  
+For details see the output of the command `./util/buildsite.py -h`.  Examples include:
 
-* `./util/buildsite.py -t Book sameAs`  Would rebuild the Book and sameAs term pages.
+* `./util/buildsite.py -t Book sameAs`  Would rebuild the *Book* and *sameAs* term pages.
+* `./util/buildsite.py -t All`  Would rebuild all term pages.
 * `./util/buildsite.py -f Owl` Would rebuild the file `docs/schemaorg.owl` file.
 * `./util/buildsite.py -f RDFExport.turtle` Would rebuild the Turtle format vocabulary definition files.
-* `./util/buildsite.py -d PendingHome` Would rebuld the home page for the pending section (`docs/pending.home.html`).
+* `./util/buildsite.py -f All` Would rebuild all output and definition files.
+* `./util/buildsite.py -s` Would copy any static docs pages, css files etc. into the `site`.
+* `./util/buildsite.py -d PendingHome` Would rebuild the home page for the pending section (`docs/pending.home.html`).
+* `./util/buildsite.py -d All` Would rebuild all dynamically created docs files.
 
 Changes to created pages are immediately reflected in the output of the local `./devserv.py` server, without the need for a restart. You may need to do a full refresh of a page to see changes, because of browser caching.
 
-_Note:_ Remember to run the `buildsite.py` with the `-a` option prior to a deployment or release.
+Whenever any changes or additions are made to .ttl files, examples files, documents or other files in the docs directory, these will need to be reflected into the `site` directory using `buildsite.py`. 
+
+In a local development process, defining new types, properties, or changing wording for instance, it would only be necessary to build/rebuild the relevant term pages to see the effects via the website locally served by`./devserv.py`.
+
+_Note:_ **Remember** to run the `buildsite.py` with the `-a` option prior to a deployment or release, to reflect all potential changes, including those pulled from the repository, in the local system into the `site` website image.

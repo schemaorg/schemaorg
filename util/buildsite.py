@@ -42,6 +42,7 @@ parser.add_argument("-d","--docspages",default= [],action='append',nargs='*',  h
 parser.add_argument("-f","--files",default= [],action='append',nargs='*',  help="create files(repeatable) - ALL = all files")
 parser.add_argument("-o","--output", help="output site directory (default: ./site)")
 parser.add_argument("-r","--runtests",default=False, action='store_true', help="run test scripts before creating contents")
+parser.add_argument("-s","--static",default=False, action='store_true',  help="Refresh static docs in site image")
 parser.add_argument("-t","--terms",default= [],action='append',nargs='*',  help="create page for term (repeatable) - ALL = all terms")
 args = parser.parse_args()
 
@@ -266,7 +267,7 @@ def processFiles():
     global FILES
     import buildfiles
     if len(FILES):
-        print("Building supprting files\n")
+        print("Building supporting files\n")
         loadTerms()
         loadExamples()
         buildfiles.buildFiles(FILES)
