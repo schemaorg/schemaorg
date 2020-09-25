@@ -7,9 +7,15 @@ if not (sys.version_info.major == 3 and sys.version_info.minor > 5):
     print("Python version %s.%s not supported version 3.6 or above required - exiting" % (sys.version_info.major,sys.version_info.minor))
     sys.exit(1)
 
+<<<<<<< HEAD:SchemaTerms/example-code/simpleTermList/simpleExpandedTermList.py
 # To be executed in the SchemaTerms/example-code/{example} directory
 import os
 for path in [os.getcwd(),"..","../..","../../.."]: #Adds in current, example-code, and SchemaTerms directory into path
+=======
+# To be executed in the SchemaPages/example-code/{example} directory
+import os
+for path in [os.getcwd(),"..","../..","../../.."]: #Adds in current, example-code, and SchemaPages directory into path
+>>>>>>> e372e19b0a50c359cf22fd45031e3436dfb8b58a:SchemaPages/example-code/simpleTermList/simpleExpandedTermList.py
   sys.path.insert( 1, path ) #Pickup libs from local  directories
 
 import rdflib
