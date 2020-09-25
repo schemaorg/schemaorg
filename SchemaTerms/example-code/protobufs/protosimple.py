@@ -40,8 +40,8 @@ for t in terms:
     buf = sdotermToProtobuf(term)
     msg = protobufToMsg(buf)
     txt = protobufToText(buf)
-    mfilename = "protomsgs/" + t +".msg"
-    tfilename = "protomsgs/" + t +".txt"
+    mfilename = "out-protomsgs/" + t +".msg"
+    tfilename = "out-protomsgs/" + t +".txt"
     f = open(mfilename,"wb")
     f.write(msg)
     f.close()

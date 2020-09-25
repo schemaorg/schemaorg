@@ -61,8 +61,7 @@ for ftype in exts:
     ext = exts[ftype]
     fname = "%s%s" % (args.output,ext)
     print("%s: Writing to: %s" % (sys.argv[0],fname))
-    #kwargs = {'sort_keys': True}
-    kwargs = {}
+    kwargs = {'sort_keys': True}
     f = open(fname, "w")
     format = ftype
     if format == "rdf":

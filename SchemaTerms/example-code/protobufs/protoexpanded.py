@@ -34,15 +34,14 @@ import time,datetime
 
 start = datetime.datetime.now() #debug
 for t in terms:
-    print(">>>> %s"% t)
     tic = datetime.datetime.now() #debug
     
     term = SdoTermSource.getTerm(t,expanded=True)
     buf = sdotermToProtobuf(term)
     msg = protobufToMsg(buf)
     txt = protobufToText(buf)
-    mfilename = "protomsgs/" + t +".msg"
-    tfilename = "protomsgs/" + t +".txt"
+    mfilename = "out-protomsgs/" + t +".msg"
+    tfilename = "out-protomsgs/" + t +".txt"
     f = open(mfilename,"wb")
     f.write(msg)
     f.close()
