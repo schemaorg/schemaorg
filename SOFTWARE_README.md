@@ -44,6 +44,7 @@ Once a local version of the repository has been cloned, in to an appropriate pyt
 This will create a local working copy of the schema.org website in the local `site` directory. Dependant on the configuration of your system, this will take between 10-20 minutes. Note, this full build is only needed initially, or when significant changes have been made and prior to deploying a new version.  See below for details on how to build individual files and pages.
 
 **buildsite.py**
+
 The `buildsite.py` script creates and manages a local image of the Schema.org website as a set of static html pages and download files in the `site` directory. This it constructs from local working copies of the files in the repository. The contents of the `site` directory are **not** committed and stored in the repository.  The `site` directory image has two main purposes: 1) It provides a local work-in-progress representation of the website for local testing and debug (see below) and; 2) It provides an image of the website that is used for deployment to GCloud for wider access and the production Schema.org site.
 
 Running Locally
@@ -112,4 +113,4 @@ Whenever any changes or additions are made to .ttl files, examples files, docume
 
 In a local development process, defining new types, properties, or changing wording for instance, it would only be necessary to build/rebuild the relevant term pages to see the effects via the website locally served by`./devserv.py`.
 
-_Note:_ **Remember** to run the `buildsite.py` with the `-a` option prior to a deployment or release, to reflect all potential changes, including those pulled from the repository, in the local system into the `site` website image.
+_Note:_ **Remember** to run the `buildsite.py` with the `-a` option prior to a deployment or release, to reflect all potential changes (including those pulled from the repository) in the local system into the `site` website image.

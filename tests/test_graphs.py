@@ -6,7 +6,7 @@ if not (sys.version_info.major == 3 and sys.version_info.minor > 5):
     sys.exit(1)
 
 import os
-for path in [os.getcwd(),"Util","SchemaPages","SchemaExamples"]:
+for path in [os.getcwd(),"Util","SchemaTerms","SchemaExamples"]:
   sys.path.insert( 1, path ) #Pickup libs from local  directories
 
 import unittest

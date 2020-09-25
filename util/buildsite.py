@@ -7,7 +7,7 @@ if not (sys.version_info.major == 3 and sys.version_info.minor > 5):
 
 import os
 import shutil
-for path in [os.getcwd(),"SchemaPages","SchemaExamples"]:
+for path in [os.getcwd(),"SchemaTerms","SchemaExamples"]:
   sys.path.insert( 1, path ) #Pickup libs from local  directories
   
 if os.path.basename(os.getcwd()) != "schemaorg":

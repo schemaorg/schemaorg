@@ -5,7 +5,7 @@ if not (sys.version_info.major == 3 and sys.version_info.minor > 5):
 import os
 import unittest
 import logging # https://docs.python.org/2/library/logging.html#logging-levels
-for path in [os.getcwd(),"Util","SchemaPages","SchemaExamples"]:
+for path in [os.getcwd(),"Util","SchemaTerms","SchemaExamples"]:
   sys.path.insert( 1, path ) #Pickup libs from local  directories
 
 from sdotermsource import SdoTermSource 
