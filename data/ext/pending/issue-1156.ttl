@@ -60,7 +60,7 @@
     :rangeIncludes :Legislation ;
     :source <http://publications.europa.eu/mdr/eli/index.html>,
         <https://github.com/schemaorg/schemaorg/issues/1156> ;
-    rdfs:comment "Another legislation that this legislation changes. This encompasses the notions of amendment, replacement, correction, repeal, or other types of change. This may be a direct change (textual or non-textual amendment) or a consequential or indirect change. The property is to be used to express the existence of a change relationship between two acts rather than the existence of a consolidated version of the text that shows the result of the change. For consolidation relationships, use the <a href=\"/legislationConsolidates\">legislationConsolidates</a> property." ;
+    rdfs:comment "Another legislation that this legislation changes. This encompasses the notions of amendment, replacement, correction, repeal, or other types of change. You should generally use more specific properties (see e.g. <a href=\"/legislationAmends\">legislationAmends</a>). This may be a direct change (textual or non-textual amendment) or a consequential or indirect change. The property is to be used to express the existence of a change relationship between two acts rather than the existence of a consolidated version of the text that shows the result of the change. For consolidation relationships, use the <a href=\"/legislationConsolidates\">legislationConsolidates</a> property." ;
     owl:equivalentProperty <http://data.europa.eu/eli/ontology#changes> ;
     skos:exactMatch <http://data.europa.eu/eli/ontology#changes> .
 
@@ -106,8 +106,7 @@
     :category "issue-1156" ;
     :domainIncludes :Legislation ;
     :isPartOf <http://pending.schema.org> ;
-    :rangeIncludes :Text,
-        :URL ;
+    :rangeIncludes :Text, :URL ;
     :source <http://publications.europa.eu/mdr/eli/index.html>,
         <https://github.com/schemaorg/schemaorg/issues/1156> ;
     rdfs:comment "An identifier for the legislation. This can be either a string-based identifier, like the CELEX at EU level or the NOR in France, or a web-based, URL/URI identifier, like an ELI (European Legislation Identifier) or an URN-Lex." ;
@@ -119,8 +118,7 @@
     :category "issue-1156" ;
     :domainIncludes :Legislation ;
     :isPartOf <http://pending.schema.org> ;
-    :rangeIncludes :AdministrativeArea,
-        :Text ;
+    :rangeIncludes :AdministrativeArea, :Text ;
     :source <http://publications.europa.eu/mdr/eli/index.html>,
         <https://github.com/schemaorg/schemaorg/issues/1156> ;
     rdfs:comment "The jurisdiction from which the legislation originates." ;
@@ -157,8 +155,7 @@
     :category "issue-1156" ;
     :domainIncludes :Legislation ;
     :isPartOf <http://pending.schema.org> ;
-    :rangeIncludes :Organization,
-        :Person ;
+    :rangeIncludes :Organization, :Person ;
     :source <http://publications.europa.eu/mdr/eli/index.html>,
         <https://github.com/schemaorg/schemaorg/issues/1156> ;
     rdfs:comment "The person or organization that originally passed or made the law : typically parliament (for primary legislation) or government (for secondary legislation). This indicates the \"legal author\" of the law, as opposed to its physical author." ;
@@ -171,8 +168,7 @@
     :category "issue-1156" ;
     :domainIncludes :Legislation ;
     :isPartOf <http://pending.schema.org> ;
-    :rangeIncludes :Organization,
-        :Person ;
+    :rangeIncludes :Organization, :Person ;
     :source <http://publications.europa.eu/mdr/eli/index.html>,
         <https://github.com/schemaorg/schemaorg/issues/1156> ;
     rdfs:comment "An individual or organization that has some kind of responsibility for the legislation. Typically the ministry who is/was in charge of elaborating the legislation, or the adressee for potential questions about the legislation once it is published." ;
@@ -197,8 +193,7 @@
     :category "issue-1156" ;
     :domainIncludes :Legislation ;
     :isPartOf <http://pending.schema.org> ;
-    :rangeIncludes :CategoryCode,
-        :Text ;
+    :rangeIncludes :CategoryCode, :Text ;
     :source <http://publications.europa.eu/mdr/eli/index.html>,
         <https://github.com/schemaorg/schemaorg/issues/1156> ;
     rdfs:comment "The type of the legislation. Examples of values are \"law\", \"act\", \"directive\", \"decree\", \"regulation\", \"statutory instrument\", \"loi organique\", \"règlement grand-ducal\", etc., depending on the country." ;
@@ -217,6 +212,98 @@
     rdfs:comment "Indicates that this legislation (or part of a legislation) somehow transfers another legislation in a different legislative context. This is an informative link, and it has no legal value. For legally-binding links of transposition, use the <a href=\"/legislationTransposes\">legislationTransposes</a> property. For example an informative consolidated law of a European Union's member state \"applies\" the consolidated version of the European Directive implemented in it." ;
     owl:equivalentProperty <http://data.europa.eu/eli/ontology#implements> ;
     skos:exactMatch <http://data.europa.eu/eli/ontology#implements> .
+
+### Updates from issue 2698
+
+:legislationCountersignedBy a rdf:Property ;
+    rdfs:label "legislationCountersignedBy" ;
+    :category "issue-2698" ;
+    :domainIncludes :Legislation ;
+    :isPartOf <http://pending.schema.org> ;
+    :rangeIncludes :Organization, :Person ;
+    :source <http://publications.europa.eu/mdr/eli/index.html>,
+        <https://github.com/schemaorg/schemaorg/issues/2698> ;
+    rdfs:comment "The person or organization that countersigned the legislation. Depending on the legal context, a countersignature can indicate that the signed authority undertakes to assume responsibility for texts emanating from a person who is inviolable and irresponsible, (for example a King, Grand Duc or President), or that the authority is in charge of the implementation of the text." ;
+    owl:equivalentProperty <http://data.europa.eu/eli/ontology#countersigned_by> ;
+    skos:exactMatch <http://data.europa.eu/eli/ontology#countersigned_by> .
+
+:legislationDateOfApplicability a rdf:Property ;
+    rdfs:label "legislationDateOfApplicability" ;
+    :category "issue-2698" ;
+    :domainIncludes :Legislation ;
+    :isPartOf <http://pending.schema.org> ;
+    :rangeIncludes :Date ;
+    :source <http://publications.europa.eu/mdr/eli/index.html>,
+        <https://github.com/schemaorg/schemaorg/issues/2698> ;
+    rdfs:comment "The date at which the Legislation becomes applicable. This can sometimes be distinct from the date of entry into force : a text may come in force today, and state it will become applicable in 3 months." ;
+    owl:equivalentProperty <http://data.europa.eu/eli/ontology#date_applicability> ;
+    skos:exactMatch <http://data.europa.eu/eli/ontology#date_applicability> .
+
+:legislationAmends a rdf:Property ;
+    rdfs:label "legislationAmends" ;
+    :category "issue-2698" ;
+    :domainIncludes :Legislation ;
+    :isPartOf <http://pending.schema.org> ;
+    :rangeIncludes :Legislation ;
+    rdfs:subPropertyOf :legislationChanges ;
+    :source <http://publications.europa.eu/mdr/eli/index.html>,
+        <https://github.com/schemaorg/schemaorg/issues/2698> ;
+    rdfs:comment "Another legislation that this legislation amends, introducing legal changes." ;
+    owl:equivalentProperty <http://data.europa.eu/eli/ontology#amends> ;
+    skos:exactMatch <http://data.europa.eu/eli/ontology#amends> .
+
+:legislationRepeals a rdf:Property ;
+    rdfs:label "legislationRepeals" ;
+    :category "issue-2698" ;
+    :domainIncludes :Legislation ;
+    :isPartOf <http://pending.schema.org> ;
+    :rangeIncludes :Legislation ;
+    rdfs:subPropertyOf :legislationChanges ;
+    :source <http://publications.europa.eu/mdr/eli/index.html>,
+        <https://github.com/schemaorg/schemaorg/issues/2698> ;
+    rdfs:comment "Another legislation that this legislation repeals (cancels, abrogates)." ;
+    owl:equivalentProperty <http://data.europa.eu/eli/ontology#repeals> ;
+    skos:exactMatch <http://data.europa.eu/eli/ontology#repeals> .
+
+:legislationCommences a rdf:Property ;
+    rdfs:label "legislationCommences" ;
+    :category "issue-2698" ;
+    :domainIncludes :Legislation ;
+    :isPartOf <http://pending.schema.org> ;
+    :rangeIncludes :Legislation ;
+    rdfs:subPropertyOf :legislationChanges ;
+    :source <http://publications.europa.eu/mdr/eli/index.html>,
+        <https://github.com/schemaorg/schemaorg/issues/2698> ;
+    rdfs:comment "Another legislation that this one sets into force." ;
+    owl:equivalentProperty <http://data.europa.eu/eli/ontology#commences> ;
+    skos:exactMatch <http://data.europa.eu/eli/ontology#commences> .
+
+:legislationCorrects a rdf:Property ;
+    rdfs:label "legislationCorrects" ;
+    :category "issue-2698" ;
+    :domainIncludes :Legislation ;
+    :isPartOf <http://pending.schema.org> ;
+    :rangeIncludes :Legislation ;
+    # this is not a subproperty of legislationChanges as it does not modify the legal content of the legislation
+    # rdfs:subPropertyOf :legislationChanges ;
+    :source <http://publications.europa.eu/mdr/eli/index.html>,
+        <https://github.com/schemaorg/schemaorg/issues/2698> ;
+    rdfs:comment "Another legislation in which this one introduces textual changes, like correction of spelling mistakes, with no legal impact (for modifications that have legal impact, use <a href=\"/legislationAmends\">legislationAmends</a>)." ;
+    owl:equivalentProperty <http://data.europa.eu/eli/ontology#corrects> ;
+    skos:exactMatch <http://data.europa.eu/eli/ontology#corrects> .
+
+:legislationEnsuresExecutionOf a rdf:Property ;
+    rdfs:label "legislationEnsuresExecutionOf" ;
+    :category "issue-2698" ;
+    :domainIncludes :Legislation ;
+    :isPartOf <http://pending.schema.org> ;
+    :rangeIncludes :Legislation ;
+    rdfs:subPropertyOf :legislationApplies ;
+    :source <http://publications.europa.eu/mdr/eli/index.html>,
+        <https://github.com/schemaorg/schemaorg/issues/2698> ;
+    rdfs:comment "Indicates that this Legislation ensures the implementation of another Legislation, for example by modifying national legislations so that they do not contradict to an EU regulation or decision. This implies a legal meaning. Transpositions of EU Directive should be captured with <a href=\"/legislationTransposes\">legislationTransposes</a>." ;
+    owl:equivalentProperty <http://data.europa.eu/eli/ontology#ensures_implementation_of> ;
+    skos:exactMatch <http://data.europa.eu/eli/ontology#ensures_implementation_of> .
 
 
 ## Instances ##
