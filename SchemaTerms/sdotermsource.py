@@ -760,7 +760,68 @@ class SdoTermSource():
             self.layer = None
             self.cat = None
             self.tt = ""
+
+    @staticmethod
+    def getTermAsRdfString(termId,format):
+        term = SdoTermSource.getTerm(termId)
+        if not term or term.termType == SdoTerm.REFERENCE:
+            return ""
+        g = rdflib.Graph()
+        from rdflib import URIRef, BNode, Literal
+        from rdflib import Namespace
+        from rdflib.namespace import RDF, RDFS
+        from rdflib.serializer import Serializer
+        import rdflib_jsonld
+        rdflib.plugin.register("json-ld", Serializer, "rdflib_jsonld.serializer", "JsonLDSerializer")
+
+        schema = Namespace(VOCABURI)
+        g.bind("schema",VOCABURI)
         
+    
+        types = []
+        props = []
+        stack = [term]
+        stack.extend(SdoTermSource.termsFromIds(term.termStack))
+        for t in stack:
+            if t.termType == SdoTerm.PROPERTY:
+                props.append(t)
+            else:
+                types.append(t)
+                if t.termType == SdoTerm.ENUMERATIONVALUE:
+                    types.append(SdoTermSource.termFromId(t.enumerationParent))
+                elif t == stack[0]:
+                    props.extend(SdoTermSource.termsFromIds(t.allproperties))
+        for t in types:
+            sub = URIRef(t.uri)
+            if t.termType == SdoTerm.ENUMERATIONVALUE:
+                g.add((sub,RDF.type,schema[t.enumerationParent]))
+            else:
+                g.add((sub,RDF.type,RDFS.Class))
+                for s in t.supers:
+                    g.add((sub,RDFS.subClassOf,schema[s]))
+            g.add((sub,RDFS.label,Literal(t.label)))
+            g.add((sub,RDFS.comment,Literal(t.comment)))
+ 
+        for p in props:
+            sub = URIRef(p.uri)
+            g.add((sub,RDF.type,RDF.Property))
+            g.add((sub,RDFS.label,Literal(p.label)))
+            g.add((sub,RDFS.comment,Literal(p.comment)))
+            for s in p.supers:
+                g.add((sub,RDFS.subPropertyOf,schema[s]))
+
+            for d in p.domainIncludes:
+               g.add((sub,schema.domainIncludes,schema[d]))
+            for r in p.rangeIncludes:
+               g.add((sub,schema.rangeIncludes,schema[r]))
+             
+        kwargs = {'sort_keys': True}
+        if format == "rdf":
+            format = "pretty-xml"
+        ret = g.serialize(format=format,auto_compact=True,**kwargs).decode()
+        return ret
+
+
         
     @staticmethod
     def getAllTypes(layer=None,expanded=False):
@@ -1050,7 +1111,7 @@ class SdoTermSource():
         if not termId:
             return None
         #log.info("GET: %s" % termId)
-        termId = str(termId)
+        termId = str(termId).strip()
         fullId = toFullId(termId)
         #log.info("_GETTERM termId %s full %s" % (termId,fullId))
         term = TERMS.get(fullId,None)
@@ -1097,7 +1158,6 @@ class SdoTermSource():
             if not exterm:
                 exterm = SdoTermSource.expandTerm(term)
                 EXPANDEDTERMS[fullId] = exterm
-                term.allproperties = []
             term = exterm
                 
         return term
