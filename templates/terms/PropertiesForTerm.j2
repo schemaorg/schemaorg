@@ -2,12 +2,10 @@
 
 {% for prop in propertiesFor.properties %}
     {% if loop.first %}
-        <tr class="supertype"><th class="supertype-name" colspan="3">Properties from {{ sdotermlink(propertiesFor)|safe }}</a></th></tr>
-<!--        <tr class="supertype"><th class="supertype-name" colspan="3">Properties from {{ sdotermlink(propertiesFor.id)|safe }}</a></th></tr>-->
+        <tr class="supertype"><th class="supertype-name" colspan="3">Properties from {{ sdotermlink(propertiesFor)|safe }}</th></tr>
     {% endif %}
 	
     <tr><th class="prop-nam"><code>{{ sdotermlink(prop)|safe }}</code></th>
-<!--    <tr><th class="prop-nam"><code>{{ sdotermlink(prop.id)|safe }}</code></th>-->
         <td class="prop-ect">{% for ect in prop.rangeIncludes %}{% if not loop.first %}&nbsp; or <br/>{% endif %}
             {{ sdotermlink(ect)|safe }}{% endfor %}</td>
         <td class="prop-desc">{{ prop.comment | safe}}
