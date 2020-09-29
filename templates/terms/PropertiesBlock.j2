@@ -2,10 +2,6 @@
 
 <!-- Identify if this term or one of its supertypes has any associated properties -->
 
-<!-- {{term.id|debug}}
-{% set dtext = term.properties|length %}
-{{dtext|debug}}-->
-
 {{ set_local_var(local_vars,"propstodisplay", False)}}
 {% if term.properties|length > 0 %}{{set_local_var(local_vars,"propstodisplay", True)}}{% endif %}
 {% for t in term.termStack %}
