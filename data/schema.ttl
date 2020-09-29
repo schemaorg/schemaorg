@@ -8869,8 +8869,9 @@ we define a supporting type, [[SpeakableSpecification]]  which is defined to be 
 :target a rdf:Property ;
     rdfs:label "target" ;
     :domainIncludes :Action ;
-    :rangeIncludes :EntryPoint ;
-    rdfs:comment "Indicates a target EntryPoint for an Action." .
+    :rangeIncludes :EntryPoint,
+        :URL ;
+    rdfs:comment "Indicates a target EntryPoint, or url, for an Action." .
 
 :targetDescription a rdf:Property ;
     rdfs:label "targetDescription" ;
