@@ -69,10 +69,9 @@
     </div> <!-- mainContent -->
 	{% include 'PageFooter.j2' with context %}
     {% if jsonldPayload %}
-    <script type="application/ld+json">
+    	<script type="application/ld+json">
     {{jsonldPayload|safe}}
-    
-    </script>
+	</script>
     {% endif %}
 
 </body>
