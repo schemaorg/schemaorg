@@ -164,12 +164,25 @@ def loadExamples():
 jenv = jinja2.Environment(loader=jinja2.FileSystemLoader(TEMPLATESDIR),
         extensions=['jinja2.ext.autoescape'], autoescape=True, cache_size=0)
     
+def jinjaDebug(text):
+    print("Jinja: %s" % text)
+    return ''
+
+jenv.filters['debug']=jinjaDebug
+
+local_vars = {}
+def set_local_var(local_vars, name, value):
+  local_vars[name] = value
+  return ''
+jenv.globals['set_local_var'] = set_local_var
+
 
 ### Template rendering 
 
 def templateRender(template,extra_vars=None):
     #Basic varibles configuring UI
     tvars = {
+        'local_vars': local_vars,
         'version': getVersion(),
         'versiondate': getCurrentVersionDate(),
         'sitename': SITENAME,

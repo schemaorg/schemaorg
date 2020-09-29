@@ -2,12 +2,17 @@
 
 <!-- Identify if this term or one of its supertypes has any associated properties -->
 
-{% if term.properties|length > 0 %}{% set propstodisplay = True %}{% endif %}
+<!-- {{term.id|debug}}
+{% set dtext = term.properties|length %}
+{{dtext|debug}}-->
+
+{{ set_local_var(local_vars,"propstodisplay", False)}}
+{% if term.properties|length > 0 %}{{set_local_var(local_vars,"propstodisplay", True)}}{% endif %}
 {% for t in term.termStack %}
-	  {% if t.properties|length > 0 %}{% set propstodisplay = True %}{% endif %}
+	  {% if t.properties|length > 0 %}{{set_local_var(local_vars,"propstodisplay", True)}}{% endif %}
 {% endfor %}
 
-{% if propstodisplay %}
+{% if local_vars.propstodisplay %}
 	<table class="definition-table">
 	    <thead>
 	      <tr><th>Property</th><th>Expected Type</th><th>Description</th></tr>
