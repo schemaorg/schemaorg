@@ -30,13 +30,21 @@
             <table class="definition-table">
                 <thead><tr><th>Values expected to be one of these types</th></tr></thead>
                 <tr><td><code>
-                {% for type in term.rangeIncludes %}{{ sdotermlink(type)|safe }}{% if not loop.last %}<br/>{% endif %}{% endfor %}
+                {% for type in term.rangeIncludes %}
+                    {% if not type.retired and not type.superseded %}
+                        {{ sdotermlink(type)|safe }}{% if not loop.last %}<br/>{% endif %}
+                    {% endif %}
+                {% endfor %}
                 </td></code></tr>
             </table>
             <table class="definition-table">
                 <thead><tr><th>Used on these types</th></tr></thead>
                 <tr><td><code>
-                {% for type in term.domainIncludes %}{{ sdotermlink(type)|safe }}{% if not loop.last %}<br/>{% endif %}{% endfor %}
+                {% for type in term.domainIncludes %}
+                    {% if not type.retired and not type.superseded %}
+                        {{ sdotermlink(type)|safe }}{% if not loop.last %}<br/>{% endif %}
+                    {% endif %}
+                {% endfor %}
                 </td></code></tr>
             </table>
         {% endif %}

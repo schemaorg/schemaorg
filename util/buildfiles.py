@@ -146,18 +146,31 @@ def exportrdf(exportType):
     
     if not allGraph:
         allGraph = rdflib.Graph()
+        allGraph.bind("schema",VOCABURI)
         currentGraph = rdflib.Graph()
+        currentGraph.bind("schema",VOCABURI)
+        
         allGraph += SdoTermSource.sourceGraph()
+
+        protocol, altprotocol = protocols()
+
         deloddtriples = """DELETE {?s ?p ?o}
             WHERE {
                 ?s ?p ?o.
-                FILTER (! (strstarts(str(?s), "http://schema.org") || strstarts(str(?s), "http://schema.org") )).
-            }"""
+                FILTER (! strstarts(str(?s), "%s://schema.org") ).
+            }""" % (protocol)
         allGraph.update(deloddtriples)
         currentGraph += allGraph
     
-        protocol, altprotocol = protocols()
     
+        desuperseded="""PREFIX schema: <%s://schema.org/>
+        DELETE {?s ?p ?o}
+        WHERE{
+            ?s ?p ?o;
+                schema:supersededBy ?sup.
+        }""" % (protocol)
+        currentGraph.update(desuperseded)
+ 
         delattic="""PREFIX schema: <%s://schema.org/>
         DELETE {?s ?p ?o}
         WHERE{
