@@ -149,7 +149,7 @@ def exportrdf(exportType):
         allGraph.bind("schema",VOCABURI)
         currentGraph = rdflib.Graph()
         currentGraph.bind("schema",VOCABURI)
-        
+
         allGraph += SdoTermSource.sourceGraph()
 
         protocol, altprotocol = protocols()
@@ -300,19 +300,19 @@ def exportcsv(page):
             if not term.retired:
                 typedata.append(row)
     
-    writecsvout(propdata,propFields,"current",protocol,altprotocol)
-    writecsvout(propdataAll,propFields,"all",protocol,altprotocol)
-    writecsvout(typedata,typeFields,"current",protocol,altprotocol)
-    writecsvout(typedataAll,typeFields,"all",protocol,altprotocol)
+    writecsvout("properties",propdata,propFields,"current",protocol,altprotocol)
+    writecsvout("properties",propdataAll,propFields,"all",protocol,altprotocol)
+    writecsvout("types",typedata,typeFields,"current",protocol,altprotocol)
+    writecsvout("types",typedataAll,typeFields,"all",protocol,altprotocol)
 
-def writecsvout(data,fields,ver,protocol,altprotocol):
+def writecsvout(ftype,data,fields,ver,protocol,altprotocol):
     import csv
-    fn = fileName("releases/%s/schemaorg-%s-%s-properties.csv" % (getVersion(),ver,protocol))
-    afn = fileName("releases/%s/schemaorg-%s-%s-properties.csv" % (getVersion(),ver,altprotocol))
+    fn = fileName("releases/%s/schemaorg-%s-%s-%s.csv" % (getVersion(),ver,protocol,ftype))
+    afn = fileName("releases/%s/schemaorg-%s-%s-%s.csv" % (getVersion(),ver,altprotocol,ftype))
     csvout = io.StringIO()
     csvfile = open(fn,'w')
     acsvfile = open(afn,'w')
-    writer = csv.DictWriter(csvout, fieldnames=fields)
+    writer = csv.DictWriter(csvout, fieldnames=fields, quoting=csv.QUOTE_ALL,lineterminator='\n')
     writer.writeheader()
     for row in data:
         writer.writerow(row)
