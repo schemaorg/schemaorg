@@ -169,7 +169,9 @@ def exportrdf(exportType):
             ?s ?p ?o;
                 schema:supersededBy ?sup.
         }""" % (protocol)
-        currentGraph.update(desuperseded)
+        #Currenty superseded terms are not suppressed from 'current' file dumps
+        #Whereas they are suppressed from the UI
+        #currentGraph.update(desuperseded)
  
         delattic="""PREFIX schema: <%s://schema.org/>
         DELETE {?s ?p ?o}
