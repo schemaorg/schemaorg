@@ -12,9 +12,9 @@
 
 {% for ack in term.acknowledgements %}
     {% if loop.first %}
-	<h4  id="acks">Acknowledgement</h4>
+	<h4  id="acks">Acknowledgements</h4>
     {% endif %}
-	<p>{{acks |safe}}</p>
+	<p>{{ack |safe}}</p>
     {% if loop.last %}<br/>{% endif %}
 {% endfor %}
 
@@ -22,7 +22,7 @@
     {% if loop.first %}
 	<h4  id="acks">Source</h4>
     {% endif %}
-	<p><a href="{{href_prefix}}{{source}}">{{source}}</a></p>
+	<p><a href="{{href_prefix}}{{source}}">{{source|safe}}</a></p>
     {% if loop.last %}<br/>{% endif %}
 {% endfor %}
 
