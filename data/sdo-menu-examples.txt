@@ -1,11 +1,10 @@
-TYPES: Menu, MenuSection, hasMenuItem, hasMenuSection, NutritionInformation, MenuItem
+TYPES: #eg-0385 Menu, MenuSection, hasMenuItem, hasMenuSection, NutritionInformation, MenuItem
 
 PRE-MARKUP:
 
 A simple menu example with a single menu section for tacos and a taco menu item.
 Note that additional menus are possible for specific languages using the
 inLanguage property.
-
 
 MICRODATA:
 
@@ -19,7 +18,7 @@ JSON:
 
 <script type="application/ld+json">
 {
-   "@context":"http://schema.org",
+   "@context":"https://schema.org",
    "@type":"Restaurant",
    "url":"http://www.somerestaurant.com",
    "name":"Some Restaurant",
@@ -58,7 +57,7 @@ JSON:
                "fiberContent":"2 grams",
                "proteinContent":"4 grams"
             },
-            "suitableForDiet":"http://schema.org/GlutenFreeDiet"
+            "suitableForDiet":"https://schema.org/GlutenFreeDiet"
          }
       },
       "inLanguage":"English"
@@ -66,14 +65,11 @@ JSON:
 }
 </script>
 
-
-
-TYPES: Menu, MenuSection, hasMenuItem, hasMenuSection, NutritionInformation, MenuItem
+TYPES: #eg-0386 Menu, MenuSection, hasMenuItem, hasMenuSection, NutritionInformation, MenuItem
 
 PRE-MARKUP:
 
 An example of a menu with nested MenuSections.
-
 
 MICRODATA:
 
@@ -87,7 +83,7 @@ JSON:
 
 <script type="application/ld+json">
 {
-   "@context":"http://schema.org",
+   "@context":"https://schema.org",
    "@type":"Restaurant",
    "url":"http://www.thisisarestaurant.com",
    "name":"The Restaurant",
@@ -131,7 +127,7 @@ JSON:
                         "price":"7.49",
                         "priceCurrency":"USD"
                      },
-                     "suitableForDiet":"http://schema.org/GlutenFreeDiet"
+                     "suitableForDiet":"https://schema.org/GlutenFreeDiet"
                   }
                },
                {
@@ -161,3 +157,4 @@ JSON:
    }
 }
 </script>
+

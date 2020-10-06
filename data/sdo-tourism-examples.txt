@@ -1,4 +1,4 @@
-TYPES: #tourism-1 TouristAttraction, isAccessibleForFree
+TYPES: #eg-0431 TouristAttraction, isAccessibleForFree
 
 PRE-MARKUP:
 
@@ -9,10 +9,9 @@ PRE-MARKUP:
 </div>
 <div>Ticket: access for free.</div>
 
-
 MICRODATA:
 
-<div itemscope itemtype="http://schema.org/TouristAttraction">
+<div itemscope itemtype="https://schema.org/TouristAttraction">
 	<h1><span itemprop="name">Hyde Park</span></h1>
 	<div>
 		<span itemprop="description">It's one of nine royal parks of London.</span>
@@ -27,7 +26,7 @@ MICRODATA:
 
 RDFA:
 
-<div vocab="http://schema.org/" typeof="TouristAttraction">
+<div vocab="https://schema.org/" typeof="TouristAttraction">
 	<h1><span property="name">Hyde Park</span></h1>
 	<div>
 		<span property="description">It's one of nine royal parks of London.</span>
@@ -44,7 +43,7 @@ JSON:
 
 <script type="application/ld+json">
 {
-	"@context": "http://schema.org",
+	"@context": "https://schema.org",
 	"@type": "TouristAttraction",
 	"name": "Hyde Park",
 	"description": "It's one of nine royal parks of London.",
@@ -53,7 +52,7 @@ JSON:
 }
 </script>
 
-TYPES: #tourism-2 AmusementPark, TouristAttraction, isAccessibleForFree, currenciesAccepted, openingHours, paymentAccepted
+TYPES: #eg-0432 AmusementPark, TouristAttraction, isAccessibleForFree, currenciesAccepted, openingHours, paymentAccepted
 
 PRE-MARKUP:
 
@@ -69,7 +68,7 @@ PRE-MARKUP:
 
 MICRODATA:
 
-<div itemscope itemtype="http://schema.org/AmusementPark http://schema.org/TouristAttraction">
+<div itemscope itemtype="https://schema.org/AmusementPark https://schema.org/TouristAttraction">
 	<h1><span itemprop="name">Disneyland Paris</span></h1>
 	<div>
 		<span itemprop="description">It's an amusement park in Marne-la-Vallée, near Paris, in France and is the most visited theme park in all of France and Europe.</span>
@@ -95,7 +94,7 @@ MICRODATA:
 
 RDFA:
 
-<div vocab="http://schema.org/" typeof="TouristAttraction AmusementPark">
+<div vocab="https://schema.org/" typeof="TouristAttraction AmusementPark">
 	<h1><span property="name">Disneyland Paris</span></h1>
 	<div>
 		<span property="description">It's an amusement park in Marne-la-Vallée, near Paris, in France and is the most visited theme park in all of France and Europe.</span>
@@ -123,7 +122,7 @@ JSON:
 
 <script type="application/ld+json">
 {
-	"@context": "http://schema.org",
+	"@context": "https://schema.org",
 	"@type": ["TouristAttraction", "AmusementPark"],
 	"name": "Disneyland Paris",
 	"description": "It's an amusement park in Marne-la-Vallée, near Paris, in France and is the most visited theme park in all of France and Europe.",
@@ -135,7 +134,7 @@ JSON:
 }
 </script>
 
-TYPES: #tourism-3 TouristAttraction, availableLanguage
+TYPES: #eg-0433 TouristAttraction, availableLanguage
 
 PRE-MARKUP:
 
@@ -145,19 +144,19 @@ PRE-MARKUP:
 
 MICRODATA:
 
-<div itemscope itemtype="http://schema.org/TouristAttraction">
+<div itemscope itemtype="https://schema.org/TouristAttraction">
 	<h1><span itemprop="name">Neuschwanstein Castle</span></h1>
 	<div>It is a nineteenth-century Romanesque Revival palace in
-		<div itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
+		<div itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
 			<span itemprop="addressLocality">Schwangau</span>, in
 			<span itemprop="addressCountry">Germany</span>.
 		</div>
 	</div>
 	<div>Guided tours in
-		<div itemprop="availableLanguage" itemscope itemtype="http://schema.org/Language">
+		<div itemprop="availableLanguage" itemscope itemtype="https://schema.org/Language">
 			<span itemprop="name">German</span>
 		</div> and
-		<div itemprop="availableLanguage" itemscope itemtype="http://schema.org/Language">
+		<div itemprop="availableLanguage" itemscope itemtype="https://schema.org/Language">
 			<span itemprop="name">English</span>.
 		</div>
 	</div>
@@ -165,7 +164,7 @@ MICRODATA:
 
 RDFA:
 
-<div vocab="http://schema.org" typeof="TouristAttraction">
+<div vocab="https://schema.org" typeof="TouristAttraction">
 	<h1><span property="name">Neuschwanstein Castle</span></h1>
 	<div>It is a nineteenth-century Romanesque Revival palace in
 		<div property="address" typeof="PostalAddress">
@@ -187,7 +186,7 @@ JSON:
 
 <script type="application/ld+json">
 {
-	"@context": "http://schema.org",
+	"@context": "https://schema.org",
 	"@type": "TouristAttraction",
 	"name": "Neuschwanstein Castle",
 	"address": {
@@ -208,7 +207,7 @@ JSON:
 }
 </script>
 
-TYPES: #tourism-4 TouristAttraction, touristType, Museum
+TYPES: #eg-0434 TouristAttraction, touristType, Museum
 
 PRE-MARKUP:
 
@@ -218,17 +217,17 @@ PRE-MARKUP:
 
 MICRODATA:
 
-<div itemscope itemtype="http://schema.org/TouristAttraction">
-    <link itemprop="additionalType" href="http://schema.org/Museum">
+<div itemscope itemtype="https://schema.org/TouristAttraction">
+    <link itemprop="additionalType" href="https://schema.org/Museum">
     <h1>
         <span itemprop="name">Please Touch Museum</span>
     </h1>
     <div>
         It is a
-        <div itemprop="touristType" itemscope itemtype="http://schema.org/Audience">
+        <div itemprop="touristType" itemscope itemtype="https://schema.org/Audience">
             <span itemprop="audienceType">children</span>
         </div>'s museum located in
-        <div itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
+        <div itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
             <div itemprop="addressLocality">
                 Philadelphia
             </div>,
@@ -244,7 +243,7 @@ MICRODATA:
 
 RDFA:
 
-<div vocab="http://schema.org/" typeof="TouristAttraction Museum">
+<div vocab="https://schema.org/" typeof="TouristAttraction Museum">
     <h1>
         <span property="name">Please Touch Museum</span>
     </h1>
@@ -271,7 +270,7 @@ JSON:
 
 <script type="application/ld+json">
 {
-	"@context": "http://schema.org",
+	"@context": "https://schema.org",
 	"@type": ["TouristAttraction","Museum"],
 	"name": "Please Touch Museum",
 	"address": {
@@ -287,7 +286,7 @@ JSON:
 }
 </script>
 
-TYPES: #tourism-5 TouristAttraction, publicAccess
+TYPES: #eg-0435 TouristAttraction, publicAccess
 
 PRE-MARKUP:
 
@@ -297,7 +296,7 @@ PRE-MARKUP:
 
 MICRODATA:
 
-<div itemscope itemtype="http://schema.org/TouristAttraction">
+<div itemscope itemtype="https://schema.org/TouristAttraction">
 	<h1><span itemprop="name">Leaning Tower of Pisa</span></h1>
 	<div>
 		<span itemprop="description">It is a twelfth-thirteenth century Romanesque tower started building by Bonanno Pisano.</span>
@@ -309,7 +308,7 @@ MICRODATA:
 
 RDFA:
 
-<div vocab="http://schema.org/" typeof="TouristAttraction">
+<div vocab="https://schema.org/" typeof="TouristAttraction">
 	<h1><span property="name">Leaning Tower of Pisa</span></h1>
 	<div>
 		<span property="description">It is a twelfth-thirteenth century Romanesque tower started building by Bonanno Pisano.</span>
@@ -323,7 +322,7 @@ JSON:
 
 <script type="application/ld+json">
 {
-	"@context": "http://schema.org",
+	"@context": "https://schema.org",
 	"@type": "TouristAttraction",
 	"name": "Leaning Tower of Pisa",
 	"publicAccess": true,
@@ -331,7 +330,7 @@ JSON:
 }
 </script>
 
-TYPES: #tourism-6 TouristAttraction, event, Event
+TYPES: #eg-0436 TouristAttraction, event, Event
 
 PRE-MARKUP:
 
@@ -344,12 +343,12 @@ End date: Genuary 22 2017
 
 MICRODATA:
 
-<div itemscope itemtype="http://schema.org/TouristAttraction">
+<div itemscope itemtype="https://schema.org/TouristAttraction">
 	<h1><span itemprop="name">Musée Marmottan Monet</span></h1>
 	<div>
 		<span itemprop="description">It's a museum of Impressionism and french ninenteeth art.</span>
 	</div>
-	<div itemprop="event" itemscope itemtype="http://schema.org/Event">It is hosting the
+	<div itemprop="event" itemscope itemtype="https://schema.org/Event">It is hosting the
 		<span itemprop="about">Hodler</span>'s
 		<span itemprop="about">Monet</span>'s
 		<span itemprop="about">Munch</span>'s exibit:
@@ -361,7 +360,7 @@ MICRODATA:
 
 RDFA:
 
-<div vocab="http://schema.org/" typeof="TouristAttraction">
+<div vocab="https://schema.org/" typeof="TouristAttraction">
 	<h1><span property="name">Musée Marmottan Monet</span></h1>
 	<div>
 		<span property="description">It's a museum of Impressionism and french ninenteeth art.</span>
@@ -380,7 +379,7 @@ JSON:
 
 <script type="application/ld+json">
 {
-	"@context": "http://schema.org",
+	"@context": "https://schema.org",
 	"@type": "TouristAttraction",
 	"name": "Musée Marmottan Monet",
 	"description": "It's a museum of Impressionism and french ninenteeth art.",
@@ -394,7 +393,7 @@ JSON:
 }
 </script>
 
-TYPES: #tourism-7 TouristAttraction, isAccessibleForFree
+TYPES: #eg-0437 TouristAttraction, isAccessibleForFree
 
 PRE-MARKUP:
 
@@ -413,8 +412,8 @@ Same As: http://www.wikidata.org/entity/Q1143768
 MICRODATA:
 
 <div>
-  <div itemtype="http://schema.org/TouristAttraction" itemscope>
-    <link itemprop="additionalType" href="http://schema.org/Event" />
+  <div itemtype="https://schema.org/TouristAttraction" itemscope>
+    <link itemprop="additionalType" href="https://schema.org/Event" />
     <meta itemprop="name" content="Las Fallas 2017" />
     <meta itemprop="name" content="The Falles 2017" />
     <meta itemprop="alternateName" content="Les Falles 2017" />
@@ -423,7 +422,7 @@ MICRODATA:
     <meta itemprop="description" content="The Falles is a traditional celebration held in commemoration of Saint Joseph in the city of Valencia, Spain. The term Falles refers to both the celebration and the monuments burnt during the celebration. Added to UNESCO's intangible cultural heritage of humanity list on 30 November 2016." />
     <meta itemprop="startDate" content="2017-03-15T09:00" />
     <meta itemprop="endDate" content="2017-03-19T23:59" />
-    <div itemprop="location" itemtype="http://schema.org/PostalAddress" itemscope>
+    <div itemprop="location" itemtype="https://schema.org/PostalAddress" itemscope>
       <meta itemprop="addressLocality" content="Valencia" />
       <meta itemprop="addressRegion" content="Valencia" />
       <meta itemprop="addressCountry" content="ES" />
@@ -438,7 +437,7 @@ MICRODATA:
 
 RDFA:
 
-<div vocab="http://schema.org/" typeof="TouristAttraction Event">
+<div vocab="https://schema.org/" typeof="TouristAttraction Event">
     <div property="name" xml:lang="es" content="Las Fallas 2017" lang="es"></div>
     <div property="name" xml:lang="en" content="The Falles 2017" lang="en"></div>
     <div property="alternateName" content="Les Falles 2017"></div>
@@ -463,7 +462,7 @@ JSON:
 
 <script type="application/ld+json">
 {
-  "@context": "http://schema.org",
+  "@context": "https://schema.org",
   "@type": [
     "Event",
     "TouristAttraction"
@@ -512,7 +511,7 @@ JSON:
 }
 </script>
 
-TYPES: #tourism-8 TouristAttraction, touristType, isAccessibleForFree, Cemetery
+TYPES: #eg-0438 TouristAttraction, touristType, isAccessibleForFree, Cemetery
 
 PRE-MARKUP:
 
@@ -529,24 +528,24 @@ Same As: https://www.wikidata.org/wiki/Q2544355
 MICRODATA:
 
 <div>
-  <div itemtype="http://schema.org/TouristAttraction" itemscope>
-    <link itemprop="additionalType" href="http://schema.org/Cemetery" />
+  <div itemtype="https://schema.org/TouristAttraction" itemscope>
+    <link itemprop="additionalType" href="https://schema.org/Cemetery" />
     <meta itemprop="name" content="Villers–Bretonneux Australian National Memorial" />
     <meta itemprop="description" content="The Australian National Memorial, Villers–Bretonneux is the main memorial to Australian military personnel killed on the Western Front during World War I." />
-    <div itemprop="touristType" itemtype="http://schema.org/Audience" itemscope>
+    <div itemprop="touristType" itemtype="https://schema.org/Audience" itemscope>
       <meta itemprop="audienceType" content="Memorial Tourism" />
-      <div itemprop="geographicArea" itemtype="http://schema.org/AdministrativeArea" itemscope>
+      <div itemprop="geographicArea" itemtype="https://schema.org/AdministrativeArea" itemscope>
         <meta itemprop="name" content="New Zealand" />
       </div>
-      <div itemprop="geographicArea" itemtype="http://schema.org/AdministrativeArea" itemscope>
+      <div itemprop="geographicArea" itemtype="https://schema.org/AdministrativeArea" itemscope>
         <meta itemprop="name" content="Australia" />
       </div>
     </div>
-    <div itemprop="address" itemtype="http://schema.org/PostalAddress" itemscope>
+    <div itemprop="address" itemtype="https://schema.org/PostalAddress" itemscope>
       <meta itemprop="addressLocality" content="Fouilloy" />
       <meta itemprop="addressCountry" content="FR" />
     </div>
-    <div itemprop="geo" itemtype="http://schema.org/GeoCoordinates" itemscope>
+    <div itemprop="geo" itemtype="https://schema.org/GeoCoordinates" itemscope>
       <meta itemprop="latitude" content="49.8852515" />
       <meta itemprop="longitude" content="2.5106436" />
     </div>
@@ -559,7 +558,7 @@ MICRODATA:
 
 RDFA:
 
-<div vocab="http://schema.org/" typeof="Cemetery TouristAttraction">
+<div vocab="https://schema.org/" typeof="Cemetery TouristAttraction">
     <div property="name" content="Villers–Bretonneux Australian National Memorial"></div>
     <div property="description" content="The Australian National Memorial, Villers–Bretonneux is the main memorial to Australian military personnel killed on the Western Front during World War I."></div>
     <div property="touristType" typeof="Audience">
@@ -591,7 +590,7 @@ JSON:
 
 <script type="application/ld+json">
 {
- "@context": "http://schema.org/",
+ "@context": "https://schema.org/",
  "@type": [
   "Cemetery",
   "TouristAttraction"
@@ -626,7 +625,7 @@ JSON:
 }
 </script>
 
-TYPES: #tourism-9 TouristAttraction, touristType, Winery
+TYPES: #eg-0439 TouristAttraction, touristType, Winery
 
 PRE-MARKUP:
 
@@ -645,11 +644,11 @@ Image: https://commons.wikimedia.org/wiki/File%3AFoto_Bodega_Rogers2.jpg
 MICRODATA:
 
 <div>
-  <div itemtype="http://schema.org/TouristAttraction" itemscope>
-    <link itemprop="additionalType" href="http://schema.org/Winery" />
+  <div itemtype="https://schema.org/TouristAttraction" itemscope>
+    <link itemprop="additionalType" href="https://schema.org/Winery" />
     <meta itemprop="name" content="Bodegas Protos" />
     <meta itemprop="description" content="Protos means “first” in Greek, and since 1927 this centenary winery has embarked on the mission to be number one. This attitude has driven their search for constant improvement. The new facilities designed by prestigious architect and winner of the Priztker Award, Sir Richard Rogers, once again took the winery to the forefront of wine tourism. A tour around Protos includes a detailed visit to both the underground cellar dug into the hillside of Peñafiel Castle and to the winery designed by celebrated architect Sir Richard Rogers. After completing the itinerary, visitors can taste 2 excellent Protos wines and will receive a gift. The visit lasts 1.5 hours (including the sampling)." />
-    <div itemprop="address" itemtype="http://schema.org/PostalAddress" itemscope>
+    <div itemprop="address" itemtype="https://schema.org/PostalAddress" itemscope>
       <meta itemprop="addressLocality" content="Peñafiel" />
       <meta itemprop="streetAddress" content="C/ Bodegas Protos, 24-28" />
       <meta itemprop="postalCode" content="47300" />
@@ -673,7 +672,7 @@ MICRODATA:
 RDFA:
 
 <div>
-    <div vocab="http://schema.org/" typeof="Winery TouristAttraction">
+    <div vocab="https://schema.org/" typeof="Winery TouristAttraction">
         <div property="name" content="Bodegas Protos"></div>
         <div property="description" content="Protos means “first” in Greek, and since 1927 this centenary winery has embarked on the mission to be number one. This attitude has driven their search for constant improvement. The new facilities designed by prestigious architect and winner of the Priztker Award, Sir Richard Rogers, once again took the winery to the forefront of wine tourism. A tour around Protos includes a detailed visit to both the underground cellar dug into the hillside of Peñafiel Castle and to the winery designed by celebrated architect Sir Richard Rogers. After completing the itinerary, visitors can taste 2 excellent Protos wines and will receive a gift. The visit lasts 1.5 hours (including the sampling)."></div>
         <div property="address" typeof="PostalAddress">
@@ -701,7 +700,7 @@ JSON:
 
 <script type="application/ld+json">
 {
-  "@context": "http://schema.org",
+  "@context": "https://schema.org",
   "@type": [
     "Winery",
     "TouristAttraction"],
@@ -733,3 +732,4 @@ JSON:
   "image": "https://commons.wikimedia.org/wiki/File%3AFoto_Bodega_Rogers2.jpg"
 }
 </script>
+

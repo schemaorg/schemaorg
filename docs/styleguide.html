@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Schema.org style guide</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Schema.org is a set of extensible schemas that enables webmasters to embed
+    structured data on their web pages for use by search engines and other applications." />
+    <link rel="stylesheet" type="text/css" href="schemaorg.css" />
+    <link href="prettify.css" type="text/css" rel="stylesheet" />
+    <script type="text/javascript" src="prettify.js">
+    </script>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
+<!-- ##### Generated insert [CSEScript-start] see scripts/genhtmlinserts.sh ##### -->
+<!-- Enable CSE Search -->
+<script>
+(function() {
+var cx = '013516846811604855281:nj5laplixaa'; // Insert your own Custom Search engine ID here
+var gcse = document.createElement('script'); gcse.type = 'text/javascript'; gcse.async = true;
+gcse.src = 'https://cse.google.com/cse.js?cx=' + cx;
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(gcse, s);
+})();
+</script>
+<!-- ##### Generated insert [CSEScript-end] see scripts/genhtmlinserts.sh ##### -->
+
+<script type="text/javascript">
+      $(document).ready(function(){
+        prettyPrint();
+        setTimeout(function(){
+
+    $('.atn').each(function(i) {
+      if (($(this).text() == 'itemscope') || ($(this).text() == 'itemtype') || ($(this).text() == 'itemprop') || ($(this).text() == 'itemid') || ($(this).text() == 'time') || ($(this).text() == 'datetime') || ($(this).text() == 'vocab') || ($(this).text() == 'property') || ($(this).text() == 'typeOf') || ($(this).text() == 'rel'))
+        $(this).addClass('custom');
+    });
+
+        }, 500);
+      });
+</script>
+
+<style>
+
+  .tag    { color: #000; }    /* div, span, etc   */
+  .atn    { color: #000; }    /* href, datetime,  */
+  .custom { color: #660003; } /* itemscope, itemtype, etc,. */
+
+</style>
+
+</head>
+<body>
+<!-- ##### Generated insert [DOCSHDR-start] see scripts/genhtmlinserts.sh ##### -->
+        <div id="container">
+            <div id="intro">
+                <div id="pageHeader">
+                    <div class="wrapper">
+                        <div id="sitename">
+                            <h1>
+                                <a href="../">schema.org</a>
+                            </h1>
+                        </div>
+                        <div id="cse-search-form" style="width: 400px;">
+                            <div class="gcse-searchbox-only" data-resultsurl="search_results.html"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="selectionbar">
+            <div class="wrapper">
+                <ul>
+                    <li>
+                        <a href="documents.html" >Documentation</a>
+                    </li>
+                    <li>
+                        <a href="schemas.html" >Schemas</a>
+                    </li>
+                    <li>
+                        <a href="../"  >Home</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+<!-- ##### Generated insert [DOCSHDR-end] see scripts/genhtmlinserts.sh ##### -->
+  <div id="mainContent">
+
+<h1>Style Guide</h1>
+
+<h2>Overview</h2>
+
+<p>
+This document serves as a guide for using schema.org data, and for designing new or amended schemas.
+It contains information on principles of schema design, writing and naming conventions, as well as
+usability conventions for consuming schema. It does not currently address modeling design patterns. For
+further materials shared by Schema.org community members, see the <a href="https://github.com/schemaorg/schemaorg/wiki">wiki</a>
+area of the project's <a href="/https://github.com/schemaorg/schemaorg/">github repository</a>.
+</p>
+
+<h2>Schema.org terms</h2>
+
+
+<p>There are three kinds of schema.org term in the schema.org <a href="datamodel.html">data model</a>: types, properties and enumerated values. All schema.org data is represented in a graph structure in which entities are related to each other by named properties.</p>
+
+<h2>Type</h2>
+<ul>
+<li>TitleCase for case format (all words capitalized, all one string).
+    <ul>
+  <li>E.g. <a href="/FoodEstablishment">FoodEstablishment</a>.</li>
+  </ul>
+</li>
+
+<li>Types have associated properties.
+    <ul>
+  <li>E.g.<a href="https://schema.org/FoodEstablishment"> FoodEstablishment</a> has the property <a href="https://schema.org/servesCuisine">servesCuisine</a>.</li>
+  <li>There is a technical terminology, "<em>domain</em>" and "<em>range</em>" which is used during design discussions and in machine-readable files, but which is not intended for widespread use. For example, we say the <em>domain</em> of "alumni" includes EducationalOrganization, and its <em>range</em> includes "Person".
+  </li>
+  </ul>
+</li>
+<li>Types also take their associated properties from their parent types, i.e. their supertypes.<ul>
+
+<li>E.g. FoodEstablishment has the property <a href="https://schema.org/openingHours">openingHours</a> from its parent type(s), <a href="https://schema.org/LocalBusiness">LocalBusiness</a>, and has the property <a href="https://schema.org/address">address</a> from its parent's parent, <a href="https://schema.org/Organization">Organization</a>.</li>
+</ul>
+</li>
+</ul>
+
+<h2>Property</h2>
+<ul>
+<li>Property names must use lowerCamelCase for format (first word lowercase, subsequent words capitalized, all one string).
+
+  <ul>
+<li>E.g. <a href="https://schema.org/servesCuisine">servesCuisine</a>.</li>
+</ul>
+</li>
+<li>Properties must have expected types.
+    <ul>
+  <li>E.g. the property <a href="https://schema.org/servesCuisine">servesCuisine</a> has the expected type <a href="https://schema.org/FoodEstablishment">FoodEstablishment</a>.</li>
+  </ul>
+</li>
+
+<li>Properties may have more than one expected type.
+    <ul>
+  <li>E.g. the property <a href="http://schema.org/acceptsReservations">acceptsReservations</a> has the expected type <a href="http://schema.com/Boolean">Boolean</a> or <a href="http://schema.org/Text">Text</a> or <a href="http://schema.org/URL">URL</a>.</li>
+  </ul>
+</li>
+
+<li>Properties may be used on more than one type.
+      <ul>
+    <li>E.g. the property <a href="https://schema.org/starRating">starRating</a> can be used on <a href="https://schema.org/FoodEstablishment">FoodEstablishment</a> OR <a href="https://schema.org/LocalBusiness">LocalBusiness</a>.</li>
+    </ul>
+ </li>
+<li>Properties must not take properties.</li>
+</ul>
+
+<h2>Enumerations</h2>
+
+<ul>
+<li>TODO: describe enumeration data model</li>
+<li>TODO: add example </li>
+</ul>
+
+<h2>Naming conventions</h2>
+<ul>
+<li>Do not give the same name to a type and a property.
+<ul>
+<li>Note that schema.org has some legacy cases where this was done in the past. This practice should be avoided.</li>
+<li>E.g. Avoid creating both <a href="http://schema.org/ContactPoint">ContactPoint</a> and <a href="http://schema.org/contactPoint">contactPoint</a>.</li>
+</ul>
+</li>
+<li><em>Term names should use Singular naming only</em>, even if the semantics call for a plural.
+
+  <ul>
+<li>E.g. <a href="http://schema.org/parent">parent</a> and not parents, even though for each type, there will always be multiple values for the property <a href="http://schema.org/parent">parent</a>.</li>
+</ul>
+</li>
+
+<li><em>Prepositions </em>should come after the type or property name.
+  <ul>
+<li>E.g. <a href="http://schema.org/reservationfor">reservationFor</a>.</li>
+</ul>
+</li>
+
+<li><em>Abbreviations</em>: When creating new types, spell out abbreviations, unless the result is painfully verbose.
+
+  <ul>
+
+<li>Due to legacy entries, sometimes certain words may be abbreviated, or not, in schema.org. Due to lack of consistency, should search for both when looking for a schema term.</li>
+<li>E.g. <a href="http://schema.org/numTracks">numTracks</a> exists in schema.org as a legacy property. If we were creating this property now, it would be <em>numberOfTracks</em> (or better yet, name it <em>trackCount</em> to be semantically aligned with other counting properties).</li>
+</ul>
+</li>
+
+<li><em>Spelling</em>: US spellings must be used. <ul>
+<li>E.g. <a href="http://schema.org/color">color</a> and not colour.</li>
+</ul>
+</li>
+</ul>
+
+<h2>Additional notes</h2>
+
+<p><em>Some additional notes on schema.org definitions.</em></p>
+
+<ul>
+<li>Schema.org types have a specific semantic meaning above what the word itself <em>could</em> mean; consuming applications can't just use a type because the name fits.<ul>
+<li>E.g. <a href="http://schema.org/Physician">Physician</a> as a type means a physician office, not a person who is a physician.</li>
+<li>Avoid using the word "type" unless refering to the technical notion of a type or class.</li>
+<li>Existing schema.org types and properties should be reused whenever the semantics needed already exist. The project will often adjust definitions (wording or type/property associations) to facilitate this; see the <a href="releases.html">releases</a> page for examples.</li>
+<li>Schema.org uses open world philosophy: the omission of a claim should not be taken to imply negation: if a property isn't mentioned, this doesn't mean that it is false. Rather, it means that we don't know whether it's true or false.</li>
+<li>E.g. restaurant, <a href="http://schema.org/petsAllowed">petsAllowed</a> is a boolean property (T/F) of <a href="http://schema.org/LodgingBusiness">LodgingBusiness</a>, but if <a href="http://schema.org/petsAllowed">petsAllowed</a> is not set, then it is unknown whether pets are allowed.</li>
+</ul>
+</li>
+</ul>
+
+</div>
+
+<div id="footer"><p>
+  <a href="../docs/terms.html">Terms and conditions</a></p>
+</div>
+
+</body>
+</html>
