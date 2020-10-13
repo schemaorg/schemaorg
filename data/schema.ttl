@@ -2534,6 +2534,11 @@ The place is __open__ if the [[opens]] property is specified, and __closed__ oth
     rdfs:comment "A recipe. For dietary restrictions covered by the recipe, a few common restrictions are enumerated via [[suitableForDiet]]. The [[keywords]] property can also be used to add more detail." ;
     rdfs:subClassOf :HowTo .
 
+:RecipeIngredientGroup a rdfs:Class ;
+    rdfs:label "RecipeIngredientGroup" ;
+    rdfs:comment "A group if ingredients of a [[Recipe]] for a certain part. For example, cream and dough of a cake can be different such groups." ;
+    rdfs:subClassOf :ListItem .
+
 :RecyclingCenter a rdfs:Class ;
     rdfs:label "RecyclingCenter" ;
     rdfs:comment "A recycling center." ;
@@ -10016,8 +10021,10 @@ Unregistered or niche encoding and file formats can be indicated instead via the
 
 :recipeIngredient a rdf:Property ;
     rdfs:label "recipeIngredient" ;
-    :domainIncludes :Recipe ;
-    :rangeIncludes :Text ;
+    :domainIncludes :Recipe,
+        :RecipeIngredientGroup ;
+    :rangeIncludes :Text,
+        :TypeAndQuantityNode ;
     rdfs:comment "A single ingredient used in the recipe, e.g. sugar, flour or garlic." ;
     rdfs:subPropertyOf :supply .
 
