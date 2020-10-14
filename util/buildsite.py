@@ -153,6 +153,7 @@ def loadTerms():
 ###################################################
 LOADEDEXAMPLES = False
 def loadExamples():
+
     global LOADEDEXAMPLES
     if not LOADEDEXAMPLES:
         SchemaExamples.loadExamplesFiles("default")
@@ -288,6 +289,11 @@ def processFiles():
 if __name__ == '__main__':
     print("Version: %s  Released: %s" % (getVersion(),getCurrentVersionDate()))
     initdir()
+    if args.autobuild:
+        print("Checking Examples for assigned identifiers")
+        cmd ="./SchemaExamples/utils/assign-example-ids.py"
+        os.system(cmd)
+
     runtests()
     processTerms()
     processDocs()
