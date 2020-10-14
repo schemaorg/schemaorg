@@ -33,7 +33,11 @@ filename = ""
 f = None
 
 examples = SchemaExamples.allExamples(sort=True)
-log.info("Writing %s changed examples into %s files" % (changedCount,len(changedFiles)))
+if changedCount == 0:
+    log.info("No new identifiers assigned")
+    sys.exit(0)
+
+log.info("Writing %s updated examples into %s files" % (changedCount,len(changedFiles)))
 
 #OUTFILESUFFIX = ".new"
 OUTFILESUFFIX = "" #Overwrite sourcefiles
@@ -53,3 +57,4 @@ for ex in examples:
     f.write("\n")
 if f:
     f.close()
+sys.exit(0)
