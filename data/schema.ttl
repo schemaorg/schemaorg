@@ -10028,6 +10028,13 @@ Unregistered or niche encoding and file formats can be indicated instead via the
     rdfs:comment "A single ingredient used in the recipe, e.g. sugar, flour or garlic." ;
     rdfs:subPropertyOf :supply .
 
+:recipeIngredientGroup a rdf:Property ;
+    rdfs:label "recipeIngredientGroup" ;
+    :domainIncludes :Recipe ;
+    :rangeIncludes :RecipeIngredientGroup ;
+    rdfs:comment "A group of ingredients for a recipe. This allows structuring the ingredients." ;
+    rdfs:subPropertyOf :supply .
+
 :recordedAs a rdf:Property ;
     rdfs:label "recordedAs" ;
     :domainIncludes :MusicComposition ;
