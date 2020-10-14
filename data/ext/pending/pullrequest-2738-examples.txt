@@ -1,0 +1,170 @@
+TYPES: #eg-0458 Recipe, recipeIngredient, RecipeIngredientGroup
+
+PRE-MARKUP:
+
+Italian Pizza
+By Christian Wolf, Oct 14, 2020
+
+A very delicious pizza
+
+Ingredients for the Dough:
+- 200 g of flour
+- 1 pack of leaven
+- 1 eating spoon of olive oil
+...
+
+Ingredients for the topping:
+- 1 can of smashed tomatoes
+- 50 g of cooked jam
+...
+
+Instructions:
+ Prepare a pre-douggh using the leaven and some warm water. Mix the remaining ingredients
+ for the dough with the prepared leaven. ...
+
+MICRODATA:
+
+<div itemscope itemtype="https://schema.org/Recipe">
+  <span itemprop="name">Italian Pizza</span>
+  By <span itemprop="author">Christian Wolf</span>,
+  <meta itemprop="datePublished" content="2020-10-14">Oct 10, 2020
+
+  <span itemprop="description">A very delicious pizza</span>
+
+  <ul>
+  <li itemprop="recipeIngredient" itemscope itemtype="https://schema.org/RecipeIngredientGroup">
+    Ingredients for the <span itemprop="name">dough</span>
+    <ul>
+    <li itemprop="recipeIngredient">200 g of flour</li>
+    <li itemprop="recipeIngredient">1 pack of leaven</li>
+    <li itemprop="recipeIngredient">1 eating spoon of olive oil</li>
+    ...
+    </ul>
+  </li>
+  <li itemprop="recipeIngredient" itemscope itemtype="https://schema.org/RecipeIngredientGroup">
+    Ingredients for the <span itemprop="name">topping</span>
+    <ul>
+    <li itemprop="recipeIngredient" itemscope itemtype="https://schema.org/TypeAndQuantityNode">
+      <span itemprop="amountOfThisGood">1</span>
+      <span itemprop="unitText">can</span> of 
+      <span itemprop="typeOfGood" itemscope itemtype="https://schema.org/Product">
+        <span itemprop="name">tomatoes</span> (<span itemprop="description">smashed</span>)
+      </span>
+    </li>
+    <li itemprop="recipeIngredient" itemscope itemtype="https://schema.org/TypeAndQuantityNode">
+      <span itemprop="amountOfThisGood">50</span>
+      <span itemprop="unitText">g</span> of 
+      <span itemprop="typeOfGood" itemscope itemtype="https://schema.org/Product">
+        <span itemprop="name">jam</span> (<span itemprop="description">cooked</span>)
+      </span>
+    </li>
+    ...
+    </ul>
+  </li>
+  </ul>
+
+  Instructions:
+  <span itemprop="recipeInstructions">
+  Prepare a pre-douggh using the leaven and some warm water. Mix the remaining ingredients
+  for the dough with the prepared leaven. ...
+  </span>
+</div>
+
+RDFA:
+
+<div vocab="https://schema.org/" typeof="Recipe">
+  <span property="name">Italian Pizza</span>
+  By <span property="author">Christian Wolf</span>,
+  <meta property="datePublished" content="2020-10-14">Oct 10, 2020
+
+  <span property="description">A very delicious pizza</span>
+
+  <ul>
+  <li property="recipeIngredient" typeof="RecipeIngredientGroup">
+    Ingredients for the <span property="name">dough</span>
+    <ul>
+    <li property="recipeIngredient">200 g of flour</li>
+    <li property="recipeIngredient">1 pack of leaven</li>
+    <li property="recipeIngredient">1 eating spoon of olive oil</li>
+    ...
+    </ul>
+  </li>
+  <li property="recipeIngredient" typeof="RecipeIngredientGroup">
+    Ingredients for the <span property="name">topping</span>
+    <ul>
+    <li property="recipeIngredient" typeof="TypeAndQuantityNode">
+      <span property="amountOfThisGood">1</span>
+      <span property="unitText">can</span> of 
+      <span property="typeOfGood" typeof="Product">
+        <span property="name">tomatoes</span> (<span property="description">smashed</span>)
+      </span>
+    </li>
+    <li property="recipeIngredient" typeof="TypeAndQuantityNode">
+      <span property="amountOfThisGood">50</span>
+      <span property="unitText">g</span> of 
+      <span property="typeOfGood" typeof="Product">
+        <span property="name">jam</span> (<span property="description">cooked</span>)
+      </span>
+    </li>
+    ...
+    </ul>
+  </li>
+  </ul>
+
+  Instructions:
+  <span property="recipeInstructions">
+  Prepare a pre-douggh using the leaven and some warm water. Mix the remaining ingredients
+  for the dough with the prepared leaven. ...
+  </span>
+</div>
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Recipe",
+  "author": "Christian Wolf",
+  "datePublished": "2020-10-14",
+  "description": "A very delicious pizza",
+  "recipeIngredient": [
+    {
+      "@type": "RecipeIngredientGroup",
+      "name": "dough",
+      "recipeIngredient": [
+        "200 g of flour",
+        "1 pack of leaven",
+        "1 eating spoon of olive oil"
+      ]
+    },
+    {
+      "@type": "RecipeIngredientGroup",
+      "name": "topping",
+      "recipeIngredient": [
+        {
+          "@type": "TypeAndQuantityNode",
+          "amountOfThisGood": "1",
+          "unitText": "can",
+          "typeOfGood": {
+            "@type": "Product",
+            "name": "tomatoes",
+            "description": "smashed"
+          }
+        },
+        {
+          "@type": "TypeAndQuantityNode",
+          "amountOfThisGood": "50",
+          "unitText": "g",
+          "typeOfGood": {
+            "@type": "Product",
+            "name": "jam",
+            "description": "cooked"
+          }
+        }
+      ]
+    }
+  ],
+  "name": "Italian Pizza",
+  "recipeInstructions": "Prepare a pre-douggh using the leaven and some warm water. Mix the remaining ingredients for the dough with the prepared leaven. ...",
+}
+</script>
