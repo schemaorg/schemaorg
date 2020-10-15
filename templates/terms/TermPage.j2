@@ -68,7 +68,10 @@
     	    	{% include 'terms/Subs.j2' with context %}
         {% endif %}
 			
-		<!-- list source references and acknowledgements -->
+		<!-- list supersedes and superseded references -->
+		{% include 'terms/Supersedeblock.j2' with context %}
+
+        <!-- list source references and acknowledgements -->
 		{% include 'terms/Ackblock.j2' with context %}
 
 		<!-- list examples  -->
@@ -77,9 +80,9 @@
     </div> <!-- mainContent -->
 	{% include 'PageFooter.j2' with context %}
     {% if jsonldPayload %}
-    	<script type="application/ld+json">
-    {{jsonldPayload|safe}}
-	</script>
+<script type="application/ld+json">
+{{jsonldPayload|safe}}
+</script>
     {% endif %}
 
 </body>

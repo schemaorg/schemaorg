@@ -7,7 +7,7 @@ if not (sys.version_info.major == 3 and sys.version_info.minor > 5):
 
 import os
 import argparse
-for path in [os.getcwd(),"Util"]:
+for path in [os.getcwd(),"util"]:
   sys.path.insert( 1, path ) #Pickup libs from local  directories
 
 from flask import Flask, render_template,after_this_request

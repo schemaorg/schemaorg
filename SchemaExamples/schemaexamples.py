@@ -301,7 +301,7 @@ class ExampleFileParser():
         if ident not in self.idcache:
             self.idcache.append(ident)
         else:
-            raise Exception("Example %s in file %s has duplicate ident: '%s'" % (self.filepos,self.file,ident))
+            raise Exception("Example %s in file %s has duplicate identifier: '%s'" % (self.filepos,self.file,ident))
         self.exmeta["id"] = ident
         return ''
 
