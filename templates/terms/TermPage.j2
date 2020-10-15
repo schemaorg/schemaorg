@@ -68,7 +68,10 @@
     	    	{% include 'terms/Subs.j2' with context %}
         {% endif %}
 			
-		<!-- list source references and acknowledgements -->
+		<!-- list supersedes and superseded references -->
+		{% include 'terms/Supersedeblock.j2' with context %}
+
+        <!-- list source references and acknowledgements -->
 		{% include 'terms/Ackblock.j2' with context %}
 
 		<!-- list examples  -->
