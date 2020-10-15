@@ -1,0 +1,30 @@
+@prefix : <http://schema.org/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+:SolveMathAction a rdfs:Class ;
+    rdfs:label "SolveMathAction" ;
+    :category "issue-2740" ;
+    :isPartOf <http://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2740> ;
+    rdfs:comment "The action that takes in a math expression and directs users to a page potentially capable of solving/simplifying that expression." ;
+    rdfs:subClassOf :Action .
+    
+:MathSolver a rdfs:Class ;
+    rdfs:label "MathSolver" ;
+    :category "issue-2740" ;
+    :isPartOf <http://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2740> ;
+    rdfs:comment "A math solver which is capable of solving a subset of mathematical problems." ;
+    rdfs:subClassOf :LearningResource .
+    
+:mathExpression a rdf:Property ;
+    rdfs:label "mathExpression" ;
+    :category "issue-2740" ;
+    :domainIncludes :GovernmentService,
+        :Legislation ;
+    :isPartOf <http://pending.schema.org> ;
+    :rangeIncludes :SolveMathAction,
+        :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2740> ;
+    rdfs:comment "The query string that can be injected into the target property of the SolveMathAction." .
