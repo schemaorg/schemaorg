@@ -211,7 +211,7 @@ class SchemaExamples():
                 ex = SchemaExamples.EXAMPLES.get(e)
                 if ex:
                     examples.append(ex)
-        return examples
+        return sorted(examples,key=lambda x: x.keyvalue)
 
     @staticmethod
     def allExamples(sort=False):
