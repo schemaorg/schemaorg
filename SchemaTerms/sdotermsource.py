@@ -905,7 +905,9 @@ class SdoTermSource():
             terms = SdoTermSource.termsFromResults(res,termId=None)
         else:
             for row in res:
-                terms.append(uri2id(str(row.term)))
+                term = uri2id(str(row.term))
+                if not term in terms:
+                    terms.append(term)
         
         #log.info("count %s TERMS %s" % (len(terms),len(TERMS)))
         return terms
