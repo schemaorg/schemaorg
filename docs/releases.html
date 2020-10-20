@@ -137,7 +137,56 @@ ul {
 
 
 
-
+<tr>
+  <td class="release"><a href="/version/11.0/">11.0</a><br/>2020-11-05</td>
+  <td>
+  <span id="v11.0"></span>
+  <p>
+  Version 11.0 See <a href="https://github.com/schemaorg/schemaorg/issues/2648">planning pages</a>. This release consists primarily of additions to the <a href="https://pending.schema.org/">Pending</a> section of schema.org,
+  alongside some bugfixes and improvements to core terms.</p>
+  </td>
+  <td>
+  <h2>Vocabulary</h2>
+  
+  <h3>Changes in Core section:</h3>
+  <ul>
+    <li id="2733"><a href="https://github.com/schemaorg/schemaorg/issues/2733">Issue #2733</a>: Fixed typo in description of <a href="/ReceiveAction">ReceiveAction</a>.</li>
+    <li id="2746"><a href="https://github.com/schemaorg/schemaorg/issues/2746">Issue #2746</a>: Fixed invalid JSON-LD in example #eg-0449 on <a href="/VideoGame">VideoGame</a>.</li>
+    <!--
+  <li id="g2604"><a href="https://github.com/schemaorg/schemaorg/issues/2604">Issue #2604</a>: Improvements around enumerations. Some code improvements to present subtyped Enumerations more usefully, and addition of a <a href="/StatusEnumeration">StatusEnumeration</a> type to group numerous enumerations from various kinds of status-related situations.</li>
+  -->
+  </ul>
+  
+  
+  <h3>Changes in <a href="http://pending.schema.org/">Pending</a> section:</h3>
+  <ul>
+    <li id="g2737"><a href="https://github.com/schemaorg/schemaorg/pull/2737">PR #2737</a>: Removed subproperty relationship between <a href="/hasCategoryCode">hasCategoryCode</a> and <a href="/hasPart">hasPart</a>.</li>
+    <li id="g2482"><a href="https://github.com/schemaorg/schemaorg/issues/2482">issue #2482</a> implemented in <a href="https://github.com/schemaorg/schemaorg/pull/2737">PR #2736</a>: Added examples for  <a href="/sameAs">sameAs</a>, <a href="/titleEIDR">titleEIDR</a>, and <a href="/editEIDR">editEIDR</a> properties.</li>
+    <li id="g2722"><a href="https://github.com/schemaorg/schemaorg/issues/2722">issue #2722</a> implemented in <a href="https://github.com/schemaorg/schemaorg/pull/2732">PR #2732</a>: Added <a href="/SeekToAction">SeekToAction</a> type to be used as a value for the <a href="/potentialAction">potentialAction</a> property on a <a href="/VideoObject">VideoObject</a> type.</li>
+    <li id="g2646"><a href="https://github.com/schemaorg/schemaorg/issues/2646">issue #2646</a> implemented in <a href="https://github.com/schemaorg/schemaorg/pull/2719">PR #2719</a>: Added new <a href="/AmpStory">AmpStory</a> type - "A creative work with a visual storytelling format intended to be viewed online, particularly on mobile devices."</li>
+    <li id="g2712"><a href="https://github.com/schemaorg/schemaorg/issues/2712">issue #2712</a> implemented in <a href="https://github.com/schemaorg/schemaorg/pull/2716">PR #2716</a>: Added new <a href="/PriceTypeEnumeration">PriceTypeEnumeration</a> Enumeration type with values InvoicePrice, ListPrice, MSRP, MinimumAdvertisedPrice, SRP, SalePrice. Added to range of <a href="/priceType">priceType</a> property."</li>
+    <!--
+  <li id="g1401"><a href="https://github.com/schemaorg/schemaorg/issues/1401">Issue #1401</a>: Add a type <a href="/LearningResource">LearningResource</a>
+    to indicate <a href="/CreativeWork">CreativeWork</a>s that have a particular and explicit orientation towards learning, education, skill acquisition and other educational purposes.</li>
+  -->
+  
+  </ul>
+  
+  
+  <h3>Site Improvements</h3>
+  
+  <ul>
+    <li id="g2706"><a href="https://github.com/schemaorg/schemaorg/pull/2706">PR #2706</a>: Improvements to underlying site build architecture including separation of vocabulary definition and display logic; move to Python 3; and simplified local build and test processes.  Onsite improvements include an accessibility friendly collapsible version of the full <a href=“/docs/full.html”>Type hierarchy page</a>.</li>
+    <li id="g2726"><a href="https://github.com/schemaorg/schemaorg/pull/2726">PR #2726</a>: Removed previous RDFa term description from within html of term definition pages, replace with equivalent JSON-LD script element.</li>
+  </ul>
+  
+  
+  
+  
+  
+  </td>
+  </tr>
+  
 
 
 <tr>
