@@ -13,13 +13,14 @@
 :competencyRequired a rdf:Property ;
     rdfs:label "competencyRequired" ;
     :category "issue-1779" ;
-    :domainIncludes :EducationalOccupationalCredential ;
+    :domainIncludes :EducationalOccupationalCredential,
+        :LearningResource ;
     :isPartOf <http://pending.schema.org> ;
     :rangeIncludes :DefinedTerm,
         :Text,
         :URL ;
     :source <https://github.com/schemaorg/schemaorg/issues/1779> ;
-    rdfs:comment "Knowledge, skill, ability or personal attribute that must be demonstrated by a person or other entity." .
+    rdfs:comment "Knowledge, skill, ability or personal attribute that must be demonstrated by a person or other entity in order to do something such as earn an Educational Occupational Credential or understand a LearningResource." .
 
 :credentialCategory a rdf:Property ;
     rdfs:label "credentialCategory" ;
@@ -77,4 +78,3 @@
     :category "issue-1779" ;
     :domainIncludes :EducationalOccupationalCredential ;
     :source <https://github.com/schemaorg/schemaorg/issues/1779> .
-
