@@ -1,0 +1,83 @@
+  .pln    { color: #444;    } /* plain text                 */
+  .tag    { color: #515484; } /* div, span, a, etc          */
+  .atn,
+  .atv    { color: #314B17; } /* href, datetime             */
+  .new    { color: #660003; } /* itemscope, itemtype, etc,. */
+  .curl   { color: #080;    } /* new url                    */
+
+  table.definition-table {
+    border-spacing: 3px;
+    border-collapse: separate;
+  }
+  
+  #morecheck {
+	  outline: none;
+  }
+  
+#morecheck:checked + div { display: none; }
+
+
+.clip {
+	margin-left: 5px;
+}
+
+#clipbutton {
+    color: #202020 !important;
+    border: 1px solid #ccc;
+    border-bottom: 1px solid #fff !important;
+}
+
+.datapanel {
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-top: 0;
+    font-size: 1.1em;
+}
+
+.selectors code {
+    padding-top: 0; !important
+    padding-bottom: 0; !important
+}
+
+
+/* Tooltip container */
+.tooltip {
+  position: relative;
+  display: inline-block;
+  top: 5px;
+}
+
+/* Tooltip text */
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 100px;
+  top: 100%;
+  left: 50%;
+  margin-left: -50px; /* Use half of the width (120/2 = 60), to center the tooltip */
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+ 
+  /* Position the tooltip text - see examples below! */
+  position: absolute;
+  z-index: 1;
+}
+
+.tooltip .tooltiptext::after {
+  content: " ";
+  position: absolute;
+  bottom: 100%;  /* At the top of the tooltip */
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent black transparent;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip .tooltiptext.show {
+  visibility: visible;
+}
+
