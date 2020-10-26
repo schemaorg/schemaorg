@@ -10,15 +10,24 @@
     <a data-selects='microdata' class=''>Microdata</a>
     <a data-selects='rdfa' class=''>RDFa</a>
     <a data-selects='jsonld' class=''>JSON-LD</a>
+    <a data-selects='structure' class='extabs'>Structured View</a>
+			<div class="tooltip">	
+				<button id="clipbutton" class="clip" data-clipboard-target=".ds-tab.selected.clipsource" title="Copy to clipbard">
+				    <img src="{{docsdir}}/clipboard/clippy.svg" width="13" alt="Copy to clipboard">
+				</button>
+				<span class="tooltiptext">Copied</span>
+			</div>
   </div>
 
-<pre class="prettyprint lang-html linenums original_html selected">{{ ex.getHtml() }}</pre>
+<pre class="ds-tab prettyprint lang-html linenums clipsource original_html selected">{{ ex.getHtml() }}</pre>
 
-<pre class="prettyprint lang-html linenums microdata ">{{ ex.getMicrodata() }}</pre>
+<pre class="ds-tab prettyprint lang-html linenums clipsource microdata ">{{ ex.getMicrodata() }}</pre>
 
-<pre class="prettyprint lang-html linenums rdfa ">{{ ex.getRdfa() }}</pre>
+<pre class="ds-tab prettyprint lang-html linenums clipsource rdfa ">{{ ex.getRdfa() }}</pre>
 
-<pre class="prettyprint lang-html linenums jsonld ">{{ ex.getJsonld() }}</pre>
+<pre class="ds-tab prettyprint lang-html linenums clipsource jsonld ">{{ ex.getJsonld() }}</pre>
 
+<div class="ds-tab structureout structure clipsource extabs" data-ex="{{ex.getKey()}}" style="margin-left: 5px;"> </div>
+<div class="payload {{ex.getKey()}}" style="display: none;">{{ ex.getJsonldRaw() }}</div>
 </div>
 {% endfor %}
