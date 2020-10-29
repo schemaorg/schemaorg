@@ -38,8 +38,10 @@ The python environment for schemaorg depends on a small number of python librari
 All commands and scripts should be run from in the root `schemaorg` directory.
 
 **Module Not Found Errors**  
-If when running local scripts you recieve an error of this form:  
+If when running local scripts you recieve an error of this form: 
+
     ModuleNotFoundError: No module named 'moule_name'  
+    
 There are two common causes. Either your Python environmet is not correctly set to 3.6 or above, or it does not contain all the required modules.  To confirm you have the correct modules loaded, run the `pip install -r requirements.txt` again.
 
 **Initial Build**  
