@@ -12,12 +12,14 @@ for path in [os.getcwd(),"util"]:
 
 from flask import Flask, render_template,after_this_request
 import re
+from colorama import Fore, Back, Style
 from schemaversion import getVersion
 
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--host", default="localhost", help="Host (default: localhost)")
 parser.add_argument("--port", default=8080, help="Port (default: 8080")
+parser.add_argument("--production", default=False, action='store_true', help="Production settings")
 args = parser.parse_args()
 
 
@@ -53,16 +55,22 @@ def serve_robots():
     print("Serving file: " + path)
     return app.send_static_file(path)
 
-@app.route('/devnote.css')
+@app.route('/docs/devnote.css')
 def serve_devnote():
-    path = 'docs/sitemap.xml_no_serve'
+    if args.production:
+        path = 'docs/devnotehide.css'
+    else:
+        path = 'docs/devnoteshow.css'
     print("Serving file: " + path)
     return app.send_static_file(path)
 
 @app.route('/sitemap.xml')
+@app.route('/docs/sitemap.xml')
 def serve_sitemap():
-    return app.send_static_file('docs/sitemap.xml_no_serve')
-    path = 'docs/favicon.ico'
+    if args.production:
+        path = 'docs/sitemap.xml'
+    else:
+        path = 'docs/sitemap.xml_no_serve'
     print("Serving file: " + path)
     return app.send_static_file(path)
 
@@ -96,4 +104,9 @@ def serve_downloads(ver,path=""):
 # start the server with the 'run()' method
 if __name__ == '__main__':
     print("Local dev server for Schema.org version: %s" % getVersion())
+    if args.production:
+        print(Fore.RED + "Runing with Production settings" + Style.RESET_ALL)
+    else:
+        print(Fore.GREEN + "Running with Development settings" + Style.RESET_ALL)
+
     app.run(host=args.host, port=args.port,debug=True)
