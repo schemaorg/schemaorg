@@ -53,16 +53,16 @@ def serve_robots():
     print("Serving file: " + path)
     return app.send_static_file(path)
 
-@app.route('/devnote.css')
+@app.route('/docs/devnote.css')
 def serve_devnote():
-    path = 'docs/sitemap.xml_no_serve'
+    path = 'docs/devnoteshow.css'
     print("Serving file: " + path)
     return app.send_static_file(path)
 
 @app.route('/sitemap.xml')
 def serve_sitemap():
     return app.send_static_file('docs/sitemap.xml_no_serve')
-    path = 'docs/favicon.ico'
+    path = 'docs/sitemap.xml_no_serve'
     print("Serving file: " + path)
     return app.send_static_file(path)
 
