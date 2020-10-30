@@ -37,11 +37,19 @@ The python environment for schemaorg depends on a small number of python librari
 
 All commands and scripts should be run from in the root `schemaorg` directory.
 
+**Module Not Found Errors**  
+If when running local scripts you receive an error of this form: 
+
+    ModuleNotFoundError: No module named 'moule_name'  
+
+There are two common causes. Either your Python environment is not correctly set to 3.6 or above, or it does not contain all the required modules which may be because new dependancies have been addded.  To confirm you have the correct modules loaded, run the `pip install -r requirements.txt` again.
+
+**Initial Build**  
 Once a local version of the repository has been cloned, in to an appropriate python environment, initially run the following command:
     
     ./util/buildsite.py -a
 
-This will create a local working copy of the schema.org website in the local `site` directory. Dependant on the configuration of your system, this will take between 10-20 minutes. Note, this full build is only needed initially, or when significant changes have been made and prior to deploying a new version.  See below for details on how to build individual files and pages.
+This will create a local working copy of the schema.org website in the local `site` directory. Dependent on the configuration of your system, this will take between 10-20 minutes. Note, this full build is only needed initially, or when significant changes have been made and prior to deploying a new version.  See below for details on how to build individual files and pages.
 
 **buildsite.py**
 
