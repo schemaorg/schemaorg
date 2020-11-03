@@ -11,7 +11,7 @@
 	:domainIncludes :UnitPriceSpecification;
 	:rangeIncludes :PriceComponentTypeEnumeration ;
 	:source <https://github.com/schemaorg/schemaorg/issues/2689> ;
-	rdfs:comment "Identifies a price component (for example, a line item on an invoice), part of the total price for an offer." .	
+	rdfs:comment "Identifies a price component (for example, a line item on an invoice), part of the total price for an offer." .
 
 :PriceComponentTypeEnumeration a rdfs:Class ;
 	rdfs:label "PriceComponentTypeEnumeration" ;
@@ -27,42 +27,42 @@
 	:isPartOf <http://pending.schema.org> ;
 	:source <https://github.com/schemaorg/schemaorg/issues/2689> ;
 	rdfs:comment "Represents the installment pricing component of the total price for an offered product" .
-	
+
 :Subscription a :PriceComponentTypeEnumeration ;
 	rdfs:label "Subscription" ;
 	:category "issue-2689" ;
 	:isPartOf <http://pending.schema.org> ;
 	:source <https://github.com/schemaorg/schemaorg/issues/2689> ;
 	rdfs:comment "Represents the subscription pricing component of the total price for an offered product" .
-	
+
 :Downpayment a :PriceComponentTypeEnumeration ;
 	rdfs:label "Downpayment" ;
 	:category "issue-2689" ;
 	:isPartOf <http://pending.schema.org> ;
 	:source <https://github.com/schemaorg/schemaorg/issues/2689> ;
 	rdfs:comment "Represents the downpayment (up-front payment) price component of the total price for an offered product that has additional installment payments" .
-	
+
 :ActivationFee a :PriceComponentTypeEnumeration ;
 	rdfs:label "ActivationFee" ;
 	:category "issue-2689" ;
 	:isPartOf <http://pending.schema.org> ;
 	:source <https://github.com/schemaorg/schemaorg/issues/2689> ;
-	rdfs:comment "Represents the activation fee part of the total price for an offered product, for example a cellphone contract" .			
-	
+	rdfs:comment "Represents the activation fee part of the total price for an offered product, for example a cellphone contract" .
+
 :CleaningFee a :PriceComponentTypeEnumeration ;
 	rdfs:label "CleaningFee" ;
 	:category "issue-2689" ;
 	:isPartOf <http://pending.schema.org> ;
 	:source <https://github.com/schemaorg/schemaorg/issues/2689> ;
-	rdfs:comment "Represents the cleaning fee part of the total price for an offered product, for example a vacation rental" .			
-	
+	rdfs:comment "Represents the cleaning fee part of the total price for an offered product, for example a vacation rental" .
+
 :DistanceFee a :PriceComponentTypeEnumeration ;
 	rdfs:label "DistanceFee" ;
 	:category "issue-2689" ;
 	:isPartOf <http://pending.schema.org> ;
 	:source <https://github.com/schemaorg/schemaorg/issues/2689> ;
-	rdfs:comment "Represents the distance fee (e.g., price per km or mile) part of the total price for an offered product, for example a car rental" .			
-	
+	rdfs:comment "Represents the distance fee (e.g., price per km or mile) part of the total price for an offered product, for example a car rental" .
+
 # support price changes after a certain period of time, for example for subscriptions
 :billingStart a rdf:Property ;
 	rdfs:label "billingStart" ;
@@ -78,8 +78,7 @@
 	:category "issue-2689" ;
 	:isPartOf <http://pending.schema.org> ;
 	:domainIncludes :UnitPriceSpecification ;
-	:rangeIncludes :Number, 
+	:rangeIncludes :Number,
 		:Duration ;
 	:source <https://github.com/schemaorg/schemaorg/issues/2689> ;
-	:rdfs:comment "Specifies for how long this price (or price component) will be billed. Can be used, for example, to model the contractual duration of a subscription or payment plan. Type can be either a Duration or a Number (in which case the unit of measurement, for example month, is specified by the unitCode property)" .
-
+	rdfs:comment "Specifies for how long this price (or price component) will be billed. Can be used, for example, to model the contractual duration of a subscription or payment plan. Type can be either a Duration or a Number (in which case the unit of measurement, for example month, is specified by the unitCode property)" .
