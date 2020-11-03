@@ -78,7 +78,6 @@
 	:category "issue-2689" ;
 	:isPartOf <http://pending.schema.org> ;
 	:domainIncludes :UnitPriceSpecification ;
-	:rangeIncludes :Number,
-		:Duration ;
+	:rangeIncludes :Number, :QuantitativeValue,	:Duration ;
 	:source <https://github.com/schemaorg/schemaorg/issues/2689> ;
 	rdfs:comment "Specifies for how long this price (or price component) will be billed. Can be used, for example, to model the contractual duration of a subscription or payment plan. Type can be either a Duration or a Number (in which case the unit of measurement, for example month, is specified by the unitCode property)" .
