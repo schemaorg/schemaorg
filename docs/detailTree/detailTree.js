@@ -19,11 +19,15 @@
 
 window.addEventListener('load', function () {
 
-        var branches = document.getElementsByClassName("dttBranch");
-            for (var i = 0; i < branches.length; i++) {
-                branches[i].addEventListener("click",dttBranchToggle);
-            }    
-        var focusTargets = [];
+      var icons = document.getElementsByClassName("rowicon");
+      for (var i = 0; i < icons.length; i++) {
+          icons[i].addEventListener("click",dttBranchToggle);
+      }    
+      var icons = document.getElementsByClassName("plusminus");
+      for (var i = 0; i < icons.length; i++) {
+          icons[i].addEventListener("click",dttBranchToggle);
+      }    
+    var focusTargets = [];
         focusTargets[0] = document.getElementsByClassName("dttLabel");
         focusTargets[1] = document.getElementsByClassName("dttLeaf");
         for(var t = 0; t < focusTargets.length;t++){
@@ -119,7 +123,8 @@ function openClose(node, open){
  */
   function dttBranchToggle(event){
         node = event.currentTarget;
-        var kids = node.childNodes;
+        var bran = currentLimb(node)
+        var kids = bran.childNodes;
         for(var i=0;i < kids.length;i++){
             kid = kids[i];
             classes = kid.classList;

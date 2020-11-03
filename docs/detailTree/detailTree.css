@@ -11,11 +11,33 @@
         details.dttDetails > summary::-webkit-details-marker{
             display: none;
         }
-        details.dttDetails > summary:before{
-            content: "+";
+
+        .dttBranch .rowicon,
+        .dttBranch .plusminus{
+            vertical-align: top;
+            padding-top: 2px;
+            content: "";
         }
-        details.dttDetails[open] > summary:before{
+        
+        .dttBranch[dttState='treeopen'] > .rowicon::before {
+            content: url(dtt-down-arrow.png);
+            cursor: pointer;
+        }
+        .dttBranch[dttState='treeclosed'] > .rowicon::before {
+            content: url(dtt-right-arrow.png);
+            cursor: pointer;
+        }
+        .dttLeaf > .rowicon::before{
+            content: url(dtt-bullet.png);
+            padding-right: 5px;
+        }
+       .dttBranch[dttState='treeclosed'] > .plusminus::after{
+            content: "+";
+            cursor: pointer;
+        }
+        .dttBranch[dttState='treeopen'] > .plusminus::after{
             content: "-";
+            cursor: pointer;
         }
 
 
@@ -25,28 +47,11 @@
 
         .dttBranch .dttLabel {
             display: inline-block;
-            vertical-align: top;
-            cursor: pointer;
-        }
-        .dttBranch .dttLabel::before {
-            content: "";
+            vertical-align: top; 
         }
         
-        .dttBranch[dttState='treeopen'] > .dttLabel::before {
-            content: url(dtt-down-arrow.png);
-            position: relative;
-        }
-        .dttBranch[dttState='treeclosed'] > .dttLabel::before {
-            content: url(dtt-right-arrow.png);
-            position: relative;
-        }
-        .dttLeaf > a::before,
-        .dttLeaf > span::before{
-            content: url(dtt-bullet.png);
-            position: relative;
-            padding-right: 5px;
-        }
-
+        
+        
         .dttLabel>a:link,
         .dttLeaf>a:link{
             border-bottom: 0px !important;
@@ -59,6 +64,7 @@
         ul.dttSubTree {
             display: block;
             padding: 0;
+            padding-top: 1rem;
             list-style-type: none;
         }
         .ddtCloseAll,
