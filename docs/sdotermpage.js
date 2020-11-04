@@ -5,14 +5,22 @@
   $(".atn:contains(itemscope), .atn:contains(itemtype), .atn:contains(itemprop), .atn:contains(itemid), .atn:contains(time), .atn:contains(datetime), .atn:contains(datetime), .tag:contains(time) ").addClass('new');
   $('.new + .pun + .atv').addClass('curl');
   window.structured = [];
-  $('.ds-tab.structureout').on('loadstructuredview', async function(){
+  $('.ds-tab.structure').on('loadstructuredview', async function(){
     var $this = $(this);
     $key = $this.data('ex');
     if(window.structured.indexOf($key) == -1) {
         window.structured.push($key);
+
         $jdata = $('.payload.' + $key).html();
+ 
         const html1 = await prettyMarkupHtml($jdata);
-        $this.html( html1);
+
+        $('.structureout.' + $key).html( html1);
+
+        var val = await prettyMarkupText($jdata);
+        $('.structuretext.' + $key).html(val);
+        
+
     }
 });
   }, 500);
@@ -34,7 +42,11 @@
         }, 0);
         clip = new ClipboardJS('.clip');
         clip.on('success', function(e) {
-            var tip = $('.tooltip .tooltiptext');
+            $but = e.trigger.className;
+            $targ = $but.split(" ").pop();
+            var targsel = '.tooltiptext.' + $targ;
+
+            var tip = $(targsel);
             tip.text('Copied!');
             tip.addClass('show');
             e.clearSelection();
