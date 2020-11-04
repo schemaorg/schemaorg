@@ -36,12 +36,18 @@
         {% if node.subs %}
           <li 
             class="dttBranch" 
-            dttState="treeclosed" 
+            {% if loop.depth == 1 %}
+              dttState="treeopen"
+            {% else %}
+              dttState="treeclosed"
+            {% endif %} 
             id="C.{{node.id}}">
+            <span class="rowicon"></span>
             <div class="dttLabel">
               {{ sdotermlink(node)|safe }}
-            </div>
-            <details class="dttDetails" {% if loop.depth == 1 %} open {% else %} {% endif %}>
+           </div>
+           <span class="plusminus"> </span>
+             <details class="dttDetails" {% if loop.depth == 1 %} open {% else %} {% endif %}>
               <summary aria-label="{{node.id}}"></summary>
               <ul class="dttSubTree" >
                 {{ loop(node.subs) }}
@@ -51,6 +57,7 @@
         {% else %}
           <li 
             class="dttLeaf">
+            <span class="rowicon"></span>
             {% if node.termType == "Enumerationvalue" %}::{% endif %}
             {{ sdotermlink(node)|safe }}
          </li>
