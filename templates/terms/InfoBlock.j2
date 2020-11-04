@@ -1,15 +1,15 @@
 {% from 'macros.j2' import term_sdotermlink as sdotermlink with context %}
 <div id="infoblock">
 	<!-- Label /  termType  / canonical URI -->
-    <h1>{{ term.label }}</h1>
-    <em>A Schema.org {{ TERMTYPE }}</em>
-    <br/>
-	
-	<!-- Pending/retired -->
-    {% if term.pending %}This term is proposed for full integration into Schema.org, <a title="these terms are pending wider review. Feedback is welcomed!" href="docs/pending.home.html">pending</a> implementation feedback and adoption from applications and websites.<br/>{% endif %}
-    {% if term.retired %}<strong>Note:</strong> This term has been <strong><a title="these terms have been retired from the vocabulary" href="docs/attic.home.html">retired</a></strong> from the vocabulary.</span><br/>{% endif %}
-    <br/>
-	
+    <div id="infohead">
+        <h1>{{ term.label }}</h1>
+        <em>A Schema.org {{ TERMTYPE }}</em>
+        <br/>
+        <!-- Pending/retired -->
+        {% if term.superseded %}<br/><em><strong>Note:</strong> This term has been superseded.</em>{% endif %}
+        {% if term.pending %}<br/>This term is proposed for full integration into Schema.org, <a title="this term is pending wider review. Feedback is welcomed!" href="docs/pending.home.html">pending</a> implementation feedback and adoption from applications and websites.{% endif %}
+        {% if term.retired %}<br/><strong>Note:</strong> This term has been <strong><a title="this term has been retired from the vocabulary" href="docs/attic.home.html">retired</a></strong> from the vocabulary.</span>{% endif %}
+    </div>
 	<!-- Breadcrumb display of term inheritance -->
     <div class="superPaths">
     {% for superPath in term.superPaths %}
@@ -37,10 +37,7 @@
 	
 	<!-- Description of term -->
     <div class="description">{{term.comment|safe}}</div>
-    {% if term.superseded %}
-        <br/><em>This term has been superseded.</em>
-    {% endif %}
-    {% if term.termType == "Enumerationvalue" %}
+        {% if term.termType == "Enumerationvalue" %}
        <br/> A member value for enumeration type: {{sdotermlink(term.enumerationParent)}}
     {% endif %}
     {% for sup in term.supers %}
