@@ -23,27 +23,27 @@
 
 <div class="ds-tab {{ex.getKey()}} original_html selected">
   <div class="ds-tab-note" >Example notes or example HTML without markup.</div>
-  <pre class="prettyprint lang-html linenums clipsource ">{{ ex.getHtml() }}</pre>
+  <pre class="ds-tab-content prettyprint lang-html linenums clipsource ">{{ ex.getHtml() }}</pre>
 </div>
 
 <div class="ds-tab {{ex.getKey()}} microdata">
   <div class="ds-tab-note" >Example encoded as <a class="ds-tab-note" href="https://en.wikipedia.org/wiki/Microdata_(HTML)">Microdata</a> embedded in HTML.</div>
-  <pre class="prettyprint lang-html linenums clipsource ">{{ ex.getMicrodata() }}</pre>
+  <pre class="ds-tab-content prettyprint lang-html linenums clipsource ">{{ ex.getMicrodata() }}</pre>
 </div>
 
 <div class="ds-tab {{ex.getKey()}} rdfa">
   <div class="ds-tab-note" >Example encoded as <a class="ds-tab-note" href="https://en.wikipedia.org/wiki/RDFa">RDFa</a> embedded in HTML.</div>
-  <pre class="prettyprint lang-html linenums clipsource ">{{ ex.getRdfa() }}</pre>
+  <pre class="ds-tab-content prettyprint lang-html linenums clipsource ">{{ ex.getRdfa() }}</pre>
 </div>
 
 <div class="ds-tab {{ex.getKey()}} jsonld ">
   <div class="ds-tab-note" >Example encoded as <a class="ds-tab-note" href="https://en.wikipedia.org/wiki/JSON-LD">JSON-LD</a> in a HTML script tag.</div>
-  <pre class="prettyprint lang-html linenums clipsource ">{{ ex.getJsonld() }}</pre>
+  <pre class="ds-tab-content prettyprint lang-html linenums clipsource ">{{ ex.getJsonld() }}</pre>
 </div>
 
 <div class="ds-tab {{ex.getKey()}} structure extabs" data-ex="{{ex.getKey()}}">
   <div class="ds-tab-note" >Structured representation of the JSON-LD example.</div>
-  <div class="structureout extabs {{ex.getKey()}}" style="margin-left: 5px;"> </div>
+  <div class="ds-tab-content structureout extabs {{ex.getKey()}}" style="margin-left: 5px;"> </div>
   <div class="structuretext clipsource extabs {{ex.getKey()}}"></div>
 </div>
 
