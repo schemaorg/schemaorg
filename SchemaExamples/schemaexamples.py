@@ -17,6 +17,7 @@ import threading
 
 IDPREFIX = "eg-"
 DEFTEXAMPLESFILESGLOB = ["data/*examples.txt","data/ext/*/*examples.txt"]
+ldscript_match = re.compile('[\s\S]*<\s*script\s+type="application\/ld\+json"\s*>(.*)<\s*\/script\s*>[\s\S]*',re.S)
 
 class Example ():
     ExamplesCount = 0
@@ -80,7 +81,18 @@ class Example ():
         self.rdfa = content
         
     def getJsonld(self):
-        return self.jsonld
+        return self.jsonld 
+    
+    def getJsonldRaw(self):
+        jsondata = self.getJsonld()
+        jsondata = jsondata.strip()
+        if len(jsondata):
+            jsonmatch = ldscript_match.match(jsondata)
+            if jsonmatch:
+                #extract json from within script tag
+                jsondata = jsonmatch.group(1).strip()
+        return jsondata
+
     def setJsonld(self,content):
         self.jsonld = content
 
