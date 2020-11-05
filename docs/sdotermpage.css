@@ -1,0 +1,169 @@
+  .pln    { color: #444;    } /* plain text                 */
+  .tag    { color: #515484; } /* div, span, a, etc          */
+  .atn,
+  .atv    { color: #314B17; } /* href, datetime             */
+  .new    { color: #660003; } /* itemscope, itemtype, etc,. */
+  .curl   { color: #080;    } /* new url                    */
+
+  table.definition-table {
+    border-spacing: 3px;
+    border-collapse: separate;
+  }
+  
+  #morecheck {
+	  outline: none;
+  }
+  
+#morecheck:checked + div { display: none; }
+
+
+
+.clipbutton {
+    color: #202020 !important;
+    border: 0;
+    padding : 2px;
+}
+
+.example-head {
+    display: block;
+    padding-bottom: 5px;
+}
+
+/* example tab selection */
+.ds-selector-tabs {
+    padding-bottom: 2em;
+  }
+  .ds-selector-tabs .selectors {
+    padding: 0;
+    display: contents;
+    width: auto;
+    overflow-x: auto;
+    border-bottom: 1px solid #ccc;
+    height: 28px;
+  }
+  .ds-selector-tabs .selectors a {
+    display: inline-block;
+    min-width: 30px;
+    text-align: center;
+    font-size: 11px;
+    font-weight: bold;
+    height: 27px;
+    padding: 0 8px;
+    line-height: 27px;
+    transition: all,0.218s;
+    border-top-right-radius: 2px;
+    border-top-left-radius: 2px;
+    color: #666;
+    border: 1px solid transparent;
+  }
+  .ds-selector-tabs .selectors a:first-child {
+    margin-left: 2px;
+  }
+  .ds-selector-tabs .selectors a.selected {
+    color: #202020 !important;
+    border: 1px solid #ccc;
+    border-bottom: 1px solid #fff !important;
+  }
+  #mainContent .ds-selector-tabs .selectors a:hover {
+    background-color: transparent;
+    color: #202020;
+    cursor: pointer;
+  }
+  .ds-selector-tabs .ds-tab {
+    display: none;
+  }
+  .ds-selector-tabs .ds-tab.selected {
+    display: block;
+  }
+  
+
+.selectors code {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+.ds-tab pre.prettyprint{
+    margin-top: 1px;
+}
+
+div.ds-tab-note{
+    display: block;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-style: italic;
+}
+a.ds-tab-note{
+    color: #3A4956;
+    text-decoration: none;
+    border-bottom: dotted 1px #3A4956;
+}
+a:visited.ds-tab-note{
+    color: #3A4956;
+    text-decoration: none;
+    border-bottom: dotted 1px #3A4956;
+}
+a:link.ds-tab-note{
+    color: #3A4956;
+    text-decoration: none;
+    border-bottom: dotted 1px #3A4956;
+}
+a:hover.ds-tab-note{
+    color: #3A4956;
+    text-decoration: none;
+    border-bottom: dotted 1px #3A4956;
+}
+
+.structureout {
+  margin-left: 5px;
+}
+
+/*Effectively hide but can't use 'display: none;' as clip will not work if hidden*/
+.structuretext {  
+  white-space: pre-wrap;
+  opacity: .01;
+  height:0;
+  position:absolute;
+  z-index: -1;
+}
+
+/* Tooltip container */
+.tooltip {
+  position: relative;
+  display: inline-block;
+  top: 4px;
+}
+
+/* Tooltip text */
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 100px;
+  top: 100%;
+  left: 50%;
+  margin-left: -50px; /* Use half of the width (120/2 = 60), to center the tooltip */
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+ 
+  /* Position the tooltip text - see examples below! */
+  position: absolute;
+  z-index: 1;
+}
+
+.tooltip .tooltiptext::after {
+  content: " ";
+  position: absolute;
+  bottom: 100%;  /* At the top of the tooltip */
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent black transparent;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip .tooltiptext.show {
+  visibility: visible;
+}
+
