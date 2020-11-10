@@ -23,7 +23,6 @@ JSON:
   "url": "https://developers.google.com/knowledge-graph/",
   "documentation": "https://developers.google.com/knowledge-graph/reference/rest/v1",
   "termsOfService": "https://developers.google.com/knowledge-graph/terms",
-  "endpointUrl": "https://kgsearch.googleapis.com/",
   "provider": {
     "@type": "Organization",
     "name": "Google Inc."
@@ -32,7 +31,7 @@ JSON:
 </script>
 
 
-TYPES: #eg-0458 WebAPI, documentation, termsOfService, endpointUrl, apiTransport, conformsTo
+TYPES: #eg-0458 WebAPI, documentation, termsOfService, apiTransport, conformsTo
 
 PRE-MARKUP:
 
@@ -83,20 +82,6 @@ JSON:
     ],
   },
   "version": "1.0.0",
-  "endpointUrl": [
-    {
-      "@type": "EntryPoint",
-      "name": "Production (uses live data)",
-      "url": "https://kgsearch.googleapis.com/",
-      "contentType": "application/json"
-    },
-    {
-      "@type": "EntryPoint",
-      "name": "Sandbox (uses test data)",
-      "url": "https://sandbox.kgsearch.googleapis.com/",
-      "contentType": "application/json"
-    }
-  ],
   "apiTransport": [
     "HTTP",
     "HTTPS"

@@ -45,16 +45,6 @@ Machine-readable formats include OpenAPI (Swagger) description, an OGC GetCapabi
     :source <https://github.com/schemaorg/schemaorg/issues/1423> ;
     rdfs:comment "Human-readable terms of service documentation." .
 
-:endpointUrl a rdf:Property ;
-    rdfs:label "endpointUrl" ;
-    :category "issue-1423" ;
-    :domainIncludes :WebAPI ;
-    :isPartOf <http://pending.schema.org> ;
-    :rangeIncludes :EntryPoint,
-        :URL ;
-    :source <https://github.com/schemaorg/schemaorg/issues/1423> ;
-    rdfs:comment "The root location or primary endpoint of the API." .
-
 :conformsTo a rdf:Property ;
     rdfs:label "conformsTo" ;
     :category "issue-1423" ;
@@ -63,7 +53,7 @@ Machine-readable formats include OpenAPI (Swagger) description, an OGC GetCapabi
     :isPartOf <http://pending.schema.org> ;
     :rangeIncludes :URL ;
     :source <https://github.com/schemaorg/schemaorg/issues/1423> ;
-    rdfs:comment """The URL reference of an established standard to which the [[Thing]] described conforms. Broadly equivalent to Dublin Core's "[conformsTo](https://www.dublincore.org/specifications/dublin-core/dcmi-terms/#http://purl.org/dc/terms/conformsTo]" property.
+    rdfs:comment """The URL reference of an established standard to which the [[Thing]] described conforms.
       """ .
 
 :accessService a rdf:Property ;
