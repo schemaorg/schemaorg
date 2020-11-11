@@ -13,20 +13,8 @@ log = logging.getLogger(__name__)
 from schemaexamples import SchemaExamples, Example
 
 
-exfiles = []
-import glob
-globpatterns = ["data/*examples.txt","data/ext/*/*examples.txt" ]
-
-files = []
-for g in globpatterns:
-    files.extend(glob.glob(g))
-    
-log.info("Loading %d files" % len(files))
-for f in files:
-    #log.info("Loading: %s" % f)
-    SchemaExamples.loadExamplesFile(f)
-
-log.info("Loaded %s examples" % SchemaExamples.count())
+SchemaExamples.loadExamplesFiles("default")
+print("Loaded %d examples " % (SchemaExamples.count()))
 
 log.info("Processing")
 
@@ -45,7 +33,11 @@ filename = ""
 f = None
 
 examples = SchemaExamples.allExamples(sort=True)
-log.info("Writing %s changed examples into %s files" % (changedCount,len(changedFiles)))
+if changedCount == 0:
+    log.info("No new identifiers assigned")
+    sys.exit(0)
+
+log.info("Writing %s updated examples into %s files" % (changedCount,len(changedFiles)))
 
 #OUTFILESUFFIX = ".new"
 OUTFILESUFFIX = "" #Overwrite sourcefiles
@@ -63,5 +55,6 @@ for ex in examples:
         f = open(fn,"w")
     f.write(ex.serialize())
     f.write("\n")
-f.close()
-#print(ex.serialize())
+if f:
+    f.close()
+sys.exit(0)

@@ -1,0 +1,16 @@
+{% for ack in term.acknowledgements %}
+    {% if loop.first %}
+	<h4  id="acks">Acknowledgements</h4>
+    {% endif %}
+	<p>{{ack |safe}}</p>
+    {% if loop.last %}<br/>{% endif %}
+{% endfor %}
+
+{% for source in term.sources %}
+    {% if loop.first %}
+	<h4  id="acks">Source</h4>
+    {% endif %}
+	<p><a href="{{href_prefix}}{{source}}">{{source|safe}}</a></p>
+    {% if loop.last %}<br/>{% endif %}
+{% endfor %}
+

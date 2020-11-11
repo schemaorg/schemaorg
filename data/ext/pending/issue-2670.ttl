@@ -1,0 +1,154 @@
+@prefix : <http://schema.org/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+
+# TODO: EnergyEfficiencyEnumeration s/r:
+
+# EUEnergyEfficiencyCategory -> EUEnergyEfficiencyEnumeration
+# EnergyStarEnergyEfficiencyCategory -> EnergyStarEnergyEfficiencyEnumeration
+# EnergyEfficiencyCategory -> EnergyEfficiencyEnumeration
+
+:EnergyConsumptionDetails a rdfs:Class ;
+  rdfs:label "EnergyConsumptionDetails" ;
+  :category "issue-2670" ;
+  :isPartOf <http://pending.schema.org> ;
+  rdfs:subClassOf :Intangible ;
+  :source <https://github.com/schemaorg/schemaorg/issues/2670> ;
+  rdfs:comment "EnergyConsumptionDetails represents information related to the energy efficiency of a product that consumes energy. The information that can be provided is based on international regulations such as for example [EU directive 2017/1369](https://eur-lex.europa.eu/eli/reg/2017/1369/oj) for energy labeling and the [Energy labeling rule](https://www.ftc.gov/enforcement/rules/rulemaking-regulatory-reform-proceedings/energy-water-use-labeling-consumer) under the Energy Policy and Conservation Act (EPCA) in the US" .
+
+:hasEnergyConsumptionDetails a rdf:Property ;
+  rdfs:label "hasEnergyConsumptionDetails" ;
+  :category "issue-2670" ;
+  :isPartOf <http://pending.schema.org> ;
+  :domainIncludes :Product ;
+  :rangeIncludes :EnergyConsumptionDetails ;
+  :source <https://github.com/schemaorg/schemaorg/issues/2670> ;
+  rdfs:comment """Defines the energy efficiency Category (also known as "class" or "rating") for a product according to an international energy efficiency standard""" .
+
+:hasEnergyEfficiencyCategory a rdf:Property ;
+  rdfs:label "hasEnergyEfficiencyCategory" ;
+  :category "issue-2670" ;
+  :isPartOf <http://pending.schema.org> ;
+  :domainIncludes :EnergyConsumptionDetails ;
+  :rangeIncludes :EnergyEfficiencyEnumeration ;
+  :source <https://github.com/schemaorg/schemaorg/issues/2670> ;
+  rdfs:comment "Defines the energy efficiency Category (which could be either a rating out of range of values or a yes/no certification) for a product according to an international energy efficiency standard" .
+
+:EnergyEfficiencyEnumeration a rdfs:Class ;
+  rdfs:label "EnergyEfficiencyEnumeration" ;
+  rdfs:subClassOf :Enumeration ;
+  :category "issue-2670" ;
+  :isPartOf <http://pending.schema.org> ;
+  :source <https://github.com/schemaorg/schemaorg/issues/2670> ;
+  rdfs:comment """Enumerates energy efficiency levels (also known as "classes" or "ratings") and certifications that are part of several international energy efficiency standards.""" .
+
+:energyEfficiencyScaleMin a rdf:Property ;
+  rdfs:label "energyEfficiencyScaleMin" ;
+  :category "issue-2670" ;
+  :isPartOf <http://pending.schema.org> ;
+  :domainIncludes :EnergyConsumptionDetails ;
+  :rangeIncludes :EUEnergyEfficiencyEnumeration ;
+  :source <https://github.com/schemaorg/schemaorg/issues/2670> ;
+  rdfs:comment "Specifies the least energy efficient class on the regulated EU energy consumption scale for the product category a product belongs to. For example, energy consumption for televisions placed on the market after January 1, 2020 is scaled from D to A+++." .
+
+:energyEfficiencyScaleMax a rdf:Property ;
+  rdfs:label "energyEfficiencyScaleMax" ;
+  :category "issue-2670" ;
+  :isPartOf <http://pending.schema.org> ;
+  :domainIncludes :EnergyConsumptionDetails ;
+  :rangeIncludes :EUEnergyEfficiencyEnumeration ;
+  :source <https://github.com/schemaorg/schemaorg/issues/2670> ;
+  rdfs:comment "Specifies the most energy efficient class on the regulated EU energy consumption scale for the product category a product belongs to. For example, energy consumption for televisions placed on the market after January 1, 2020 is scaled from D to A+++." .
+
+:EnergyStarEnergyEfficiencyEnumeration a rdfs:Class ;
+  rdfs:label "EnergyStarEnergyEfficiencyEnumeration" ;
+  rdfs:subClassOf :EnergyEfficiencyEnumeration ;
+  :category "issue-2670" ;
+  :isPartOf <http://pending.schema.org> ;
+  :source <https://github.com/schemaorg/schemaorg/issues/2670> ;
+  rdfs:comment "Used to indicate whether a product is EnergyStar certified" .
+
+:EnergyStarCertified a :EnergyStarEnergyEfficiencyEnumeration ;
+  rdfs:label "EnergyStarCertified" ;
+  :category "issue-2670" ;
+  :isPartOf <http://pending.schema.org> ;
+  :source <https://github.com/schemaorg/schemaorg/issues/2670> ;
+  rdfs:comment "Represents EnergyStar certification" .
+
+:EUEnergyEfficiencyEnumeration a rdfs:Class ;
+  rdfs:label "EUEnergyEfficiencyEnumeration" ;
+  :category "issue-2670" ;
+  :isPartOf <http://pending.schema.org> ;
+  :source <https://github.com/schemaorg/schemaorg/issues/2670> ;
+  rdfs:comment "Enumerates the EU energy efficiency classes A-G as well as A+, A++, and A+++ as defined in EU directive 2017/1369" ;
+  rdfs:subClassOf :EnergyEfficiencyEnumeration .
+
+:EUEnergyEfficiencyCategoryG a :EUEnergyEfficiencyEnumeration;
+  rdfs:label "EUEnergyEfficiencyCategoryG" ;
+  :category "issue-2670" ;
+  :isPartOf <http://pending.schema.org> ;
+  :source <https://github.com/schemaorg/schemaorg/issues/2670> ;
+  rdfs:comment "Represents EU Energy Efficiency Class G as defined in EU energy labeling regulations" .
+
+:EUEnergyEfficiencyCategoryF a :EUEnergyEfficiencyEnumeration;
+  rdfs:label "EUEnergyEfficiencyCategoryF" ;
+  :category "issue-2670" ;
+  :isPartOf <http://pending.schema.org> ;
+  :source <https://github.com/schemaorg/schemaorg/issues/2670> ;
+  rdfs:comment "Represents EU Energy Efficiency Class F as defined in EU energy labeling regulations" .
+
+:EUEnergyEfficiencyCategoryE a :EUEnergyEfficiencyEnumeration;
+  rdfs:label "EUEnergyEfficiencyCategoryE" ;
+  :category "issue-2670" ;
+  :isPartOf <http://pending.schema.org> ;
+  :source <https://github.com/schemaorg/schemaorg/issues/2670> ;
+  rdfs:comment "Represents EU Energy Efficiency Class E as defined in EU energy labeling regulations" .
+
+:EUEnergyEfficiencyCategoryD a :EUEnergyEfficiencyEnumeration;
+  rdfs:label "EUEnergyEfficiencyCategoryD" ;
+  :category "issue-2670" ;
+  :isPartOf <http://pending.schema.org> ;
+  :source <https://github.com/schemaorg/schemaorg/issues/2670> ;
+  rdfs:comment "Represents EU Energy Efficiency Class D as defined in EU energy labeling regulations" .
+
+:EUEnergyEfficiencyCategoryC a :EUEnergyEfficiencyEnumeration;
+  rdfs:label "EUEnergyEfficiencyCategoryC" ;
+  :category "issue-2670" ;
+  :isPartOf <http://pending.schema.org> ;
+  :source <https://github.com/schemaorg/schemaorg/issues/2670> ;
+  rdfs:comment "Represents EU Energy Efficiency Class C as defined in EU energy labeling regulations" .
+  :EUEnergyEfficiencyCategoryB a :EUEnergyEfficiencyEnumeration;
+  rdfs:label "EUEnergyEfficiencyCategoryB" ;
+  :category "issue-2670" ;
+  :isPartOf <http://pending.schema.org> ;
+  :source <https://github.com/schemaorg/schemaorg/issues/2670> ;
+  rdfs:comment "Represents EU Energy Efficiency Class B as defined in EU energy labeling regulations" .
+
+:EUEnergyEfficiencyCategoryA a :EUEnergyEfficiencyEnumeration;
+  rdfs:label "EUEnergyEfficiencyCategoryA" ;
+  :category "issue-2670" ;
+  :isPartOf <http://pending.schema.org> ;
+  :source <https://github.com/schemaorg/schemaorg/issues/2670> ;
+  rdfs:comment "Represents EU Energy Efficiency Class A as defined in EU energy labeling regulations" .
+
+:EUEnergyEfficiencyCategoryA1Plus a :EUEnergyEfficiencyEnumeration;
+  rdfs:label "EUEnergyEfficiencyCategoryA1Plus" ;
+  :category "issue-2670" ;
+  :isPartOf <http://pending.schema.org> ;
+  :source <https://github.com/schemaorg/schemaorg/issues/2670> ;
+  rdfs:comment "Represents EU Energy Efficiency Class A+ as defined in EU energy labeling regulations" .
+
+:EUEnergyEfficiencyCategoryA2Plus a :EUEnergyEfficiencyEnumeration;
+  rdfs:label "EUEnergyEfficiencyCategoryA2Plus" ;
+  :category "issue-2670" ;
+  :isPartOf <http://pending.schema.org> ;
+  :source <https://github.com/schemaorg/schemaorg/issues/2670> ;
+  rdfs:comment "Represents EU Energy Efficiency Class A++ as defined in EU energy labeling regulations" .
+
+:EUEnergyEfficiencyCategoryA3Plus a :EUEnergyEfficiencyEnumeration;
+  rdfs:label "EUEnergyEfficiencyCategoryA3Plus" ;
+  :category "issue-2670" ;
+  :isPartOf <http://pending.schema.org> ;
+  :source <https://github.com/schemaorg/schemaorg/issues/2670> ;
+  rdfs:comment "Represents EU Energy Efficiency Class A+++ as defined in EU energy labeling regulations" .

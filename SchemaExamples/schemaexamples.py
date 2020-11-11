@@ -9,12 +9,15 @@ log = logging.getLogger(__name__)
 
 import os
 import os.path
+import io
 import urllib
 import glob
 import re
 import threading
 
 IDPREFIX = "eg-"
+DEFTEXAMPLESFILESGLOB = ["data/*examples.txt","data/ext/*/*examples.txt"]
+ldscript_match = re.compile('[\s\S]*<\s*script\s+type="application\/ld\+json"\s*>(.*)<\s*\/script\s*>[\s\S]*',re.S)
 
 class Example ():
     ExamplesCount = 0
@@ -40,6 +43,18 @@ class Example ():
                 self.keyvalue = Example.formatId(idnum)
         Example.ExamplesCount += 1
 
+    def __str__(self):
+        buf = []
+        buf.append("Example: \nTerms: ")
+        if not len(self.terms):
+            buf.append("No Terms!")
+        else:
+            buf.append("%s" % self.terms)
+        buf.append("\nKeyvalue: %s" % self.keyvalue)
+        buf.append("\nOrigLen: %s MicroLen: %s RdfaLen: %s JsonLen: %s" % (len(self.original_html),len(self.microdata),len(self.rdfa),len(self.jsonld)))
+        buf.append("\nexmeta: %s" % self.exmeta)
+        return ''.join(buf)
+    
     def getKey(self):
         return self.keyvalue
     def setKey(self,key):
@@ -66,7 +81,18 @@ class Example ():
         self.rdfa = content
         
     def getJsonld(self):
-        return self.jsonld
+        return self.jsonld 
+    
+    def getJsonldRaw(self):
+        jsondata = self.getJsonld()
+        jsondata = jsondata.strip()
+        if len(jsondata):
+            jsonmatch = ldscript_match.match(jsondata)
+            if jsonmatch:
+                #extract json from within script tag
+                jsondata = jsonmatch.group(1).strip()
+        return jsondata
+
     def setJsonld(self,content):
         self.jsonld = content
 
@@ -135,18 +161,36 @@ class Example ():
 
 class SchemaExamples():
     
+    EXAMPLESLOADED=False
     EXAMPLESMAP = {}
     EXAMPLES = {}    
     exlock = threading.RLock()
     
     
     @staticmethod
-    def loadExamplesFile(exfile):
-        return SchemaExamples.loadExamplesFiles([exfile])
-    
-
-    @staticmethod
     def loadExamplesFiles(exfiles):
+        import glob
+        global DEFTEXAMPLESFILESGLOB
+
+        if SchemaExamples.EXAMPLESLOADED:
+            print("Examples files already loaded")
+            return
+            
+        if not exfiles or exfiles == "default":
+            print("SchemaExamples.loadExamplesFiles() loading from default files found in globs: %s" %  DEFTEXAMPLESFILESGLOB)
+            exfiles = []
+            for g in DEFTEXAMPLESFILESGLOB:
+                exfiles.extend(glob.glob(g))
+        elif isinstance(exfiles, str):
+            print("SchemaExamples.loadExamplesFiles() loading from file: %s" % exfiles)
+            exfiles = [exfiles]
+        else:
+            print("SchemaExamples.loadExamplesFiles() loading from %d" % len(exfiles))
+        
+        if not len(exfiles):
+            raise Exception("No examples file(s) to load")
+
+
         parser = ExampleFileParser()
         for f in exfiles:
             for example in parser.parse(f):
@@ -156,17 +200,22 @@ class SchemaExamples():
                     if not SchemaExamples.EXAMPLES.get(keyvalue,None):
                         SchemaExamples.EXAMPLES[keyvalue] = example
 
-                    for term in example.terms:
-                
+                    for term in example.terms:            
                         if(not SchemaExamples.EXAMPLESMAP.get(term, None)):
                             SchemaExamples.EXAMPLESMAP[term] = []
                     
                         if not keyvalue in SchemaExamples.EXAMPLESMAP.get(term):
                             SchemaExamples.EXAMPLESMAP.get(term).append(keyvalue)
+        SchemaExamples.EXAMPLESLOADED = True
                 
-            
+    @staticmethod
+    def loaded():
+        if not SchemaExamples.EXAMPLESLOADED: 
+            SchemaExamples.loadExamplesFiles("default") 
+
     @staticmethod
     def examplesForTerm(term):
+        SchemaExamples.loaded()
         examples = []
         examps = SchemaExamples.EXAMPLESMAP.get(term)
         if examps:
@@ -174,18 +223,29 @@ class SchemaExamples():
                 ex = SchemaExamples.EXAMPLES.get(e)
                 if ex:
                     examples.append(ex)
-        return examples
+        return sorted(examples,key=lambda x: x.keyvalue)
 
     @staticmethod
     def allExamples(sort=False):
+        SchemaExamples.loaded()
         ret = SchemaExamples.EXAMPLES.values()
         if sort:
             return sorted(ret, key=lambda x: (x.exmeta['file'],x.exmeta['filepos']))
         return ret
             
+    @staticmethod
+    def allExamplesSerialised(sort=False):
+        SchemaExamples.loaded()
+        examples = SchemaExamples.allExamples(sort=sort)
+        f = io.StringIO()
+        for ex in examples:
+            f.write(ex.serialize())
+            f.write("\n")
+        return f.getvalue()            
             
     @staticmethod
     def count():
+        SchemaExamples.loaded()
         return len(SchemaExamples.EXAMPLES)
 
 
@@ -253,7 +313,7 @@ class ExampleFileParser():
         if ident not in self.idcache:
             self.idcache.append(ident)
         else:
-            raise Exception("Example %s in file %s has duplicate ident: '%s'" % (self.filepos,self.file,ident))
+            raise Exception("Example %s in file %s has duplicate identifier: '%s'" % (self.filepos,self.file,ident))
         self.exmeta["id"] = ident
         return ''
 
@@ -316,6 +376,7 @@ class ExampleFileParser():
         self.filepos += 1
         if not boilerplate:
             examples.append(Example(self.terms, self.preMarkupStr, self.microdataStr, self.rdfaStr, self.jsonStr, self.exmeta)) # should flush last one
+        self.initFields()
         return examples
 
 
