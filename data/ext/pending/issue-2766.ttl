@@ -1,0 +1,47 @@
+@prefix : <http://schema.org/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+:HyperToc a rdfs:Class ;
+    rdfs:label "HyperToc" ;
+    :category "issue-2766" ;
+    :isPartOf <http://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2766> ;
+    rdfs:comment "A HyperToc represents a hypertext table of contents for complex media objects, such as [[VideoObject]], [[AudioObject]]. Items in the table of contents are indicated using the [[tocEntry]] property, and typed [[HyperTocEntry]]." ;
+    rdfs:subClassOf :CreativeWork .
+
+:HyperTocEntry a rdfs:Class ;
+    rdfs:label "HyperTocEntry" ;
+    :category "issue-2766" ;
+    :isPartOf <http://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2766> ;
+    rdfs:comment "A HyperToEntry is an item within a [[HyperToc]], which represents a hypertext table of contents for complex media objects, such as [[VideoObject]], [[AudioObject]]. The media object itself is indicated using [[associatedMedia]]. Each section of interest within that content can be described with a [[HyperTocEntry]], with associated [[startOffset]] and [[endOffset]]." ;
+    rdfs:subClassOf :CreativeWork .
+
+:tocEntry a rdf:Property ;
+    rdfs:label "tocEntry" ;
+    :category "issue-2766" ;
+    :domainIncludes :HyperToc;
+    :rangeIncludes :HyperTocEntry;
+    :isPartOf <http://pending.schema.org> ;
+    rdfs:subPropertyOf :hasPart;
+    :source <https://github.com/schemaorg/schemaorg/issues/2766> ;
+    rdfs:comment "Indicates a [[HyperTocEntry]] in a [[HyperToc]]." .
+
+:utterances a rdf:Property ;
+    rdfs:label "utterances" ;
+    :category "issue-2766" ;
+    :domainIncludes :HyperTocEntry;
+    :rangeIncludes :HyperTocText;
+    :isPartOf <http://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2766> ;
+    rdfs:comment "Text of an utterances (spoken words, lyrics etc.) that occurs at a certain section of a media object, represented as a [[HyperTocEntry]]." .
+
+# Annotations that amend existing core properties:
+#
+
+:startOffset :rangeIncludes :HyperTocEntry .
+
+:endOffset :rangeIncludes :HyperTocEntry .
+
+:associatedMedia :domainIncludes :HyperToc .
