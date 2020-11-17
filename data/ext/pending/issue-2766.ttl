@@ -7,7 +7,9 @@
     :category "issue-2766" ;
     :isPartOf <http://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/2766> ;
-    rdfs:comment "A HyperToc represents a hypertext table of contents for complex media objects, such as [[VideoObject]], [[AudioObject]]. Items in the table of contents are indicated using the [[tocEntry]] property, and typed [[HyperTocEntry]]." ;
+    rdfs:comment "A HyperToc represents a hypertext table of contents for complex media objects, such as [[VideoObject]], [[AudioObject]]. Items in the table of contents are indicated using the [[tocEntry]] property, and typed [[HyperTocEntry]].
+For cases where the same larger work (e.g. an [[Ebook]]) is split into multiple files, [[associatedMedia]] can be used on individual [[HyperTocEntry]] items.
+    " ;
     rdfs:subClassOf :CreativeWork .
 
 :HyperTocEntry a rdfs:Class ;
@@ -15,7 +17,7 @@
     :category "issue-2766" ;
     :isPartOf <http://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/2766> ;
-    rdfs:comment "A HyperToEntry is an item within a [[HyperToc]], which represents a hypertext table of contents for complex media objects, such as [[VideoObject]], [[AudioObject]]. The media object itself is indicated using [[associatedMedia]]. Each section of interest within that content can be described with a [[HyperTocEntry]], with associated [[startOffset]] and [[endOffset]]." ;
+    rdfs:comment "A HyperToEntry is an item within a [[HyperToc]], which represents a hypertext table of contents for complex media objects, such as [[VideoObject]], [[AudioObject]]. The media object itself is indicated using [[associatedMedia]]. Each section of interest within that content can be described with a [[HyperTocEntry]], with associated [[startOffset]] and [[endOffset]]. When several entries are all from the same file, [[associatedMedia]] is used on the overarching [[HyperTocEntry]]; if the content has been split into multiple files, they can be referenced using [[associatedMedia]] on each [[HyperTocEntry]]." ;
     rdfs:subClassOf :CreativeWork .
 
 :tocEntry a rdf:Property ;
@@ -44,4 +46,4 @@
 
 :endOffset :rangeIncludes :HyperTocEntry .
 
-:associatedMedia :domainIncludes :HyperToc .
+:associatedMedia :domainIncludes :HyperToc, :HyperTocEntry .
