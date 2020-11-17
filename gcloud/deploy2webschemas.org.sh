@@ -2,7 +2,7 @@
 set -e
 set -u
 
-#Deployment for the schema.org site
+#Deployment for the webschemas.org site
 
 function usage {
     echo "usage: $(basename $0) -e -m"

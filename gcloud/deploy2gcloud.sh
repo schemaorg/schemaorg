@@ -65,6 +65,16 @@ do
     echo
     read -r -p "Project: " response
     P="$response"
+    case "$P" in
+        "webschemas-g")
+            echo "WARNING deployment to project 'webschemas-g' only via 'deploy2webschemas.org.sh' script"
+            P=""
+            ;;
+        "schemaorgae")
+            echo "WARNING deployment to project 'webschemas-g' only via 'deploy2schema.org.sh' script"
+            P=""
+            ;;
+    esac
     if [ ! -z "$P" ]
     then
         echo "Checking project: $P"
