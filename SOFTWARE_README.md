@@ -124,3 +124,8 @@ Whenever any changes or additions are made to .ttl files, examples files, docume
 In a local development process, defining new types, properties, or changing wording for instance, it would only be necessary to build/rebuild the relevant term pages to see the effects via the website locally served by`./devserv.py`.
 
 _Note:_ **Remember** to run the `buildsite.py` with the `-a` option prior to a deployment or release, to reflect all potential changes (including those pulled from the repository) in the local system into the `site` website image.
+
+Releasing New Production Releases of the Site
+=============================================
+
+Once a new candidate release of the site is established and checked/merged into the `main` github branch, there are some steps that need to be taken to prepare that release for deployment, initially to the https://webschemas.org preview site, then to the http://schema.org site.  These steps are detailed in the [RELEASING.TXT](RELEASING.TXT) file.
