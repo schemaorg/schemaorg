@@ -21,6 +21,8 @@ Working with a local version of Schema.org
 
 Note: The associated configuration scripts are designed to run in a Linux or similar environment, including MAC-OS. 
 
+**_Note:_** Build notes from an example (Ubuntu) environment are available here: [AWS_Build_Notes_Ubuntu_AWS](AWS_Build_Notes_Ubuntu_AWS)
+
 To work on the vocabulary and run locally firstly clone the repository on a local system:
 
     git clone https://github.com/schemaorg/schemaorg.git
