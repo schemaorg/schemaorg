@@ -37,6 +37,17 @@
     :source <https://github.com/schemaorg/schemaorg/issues/2766> ;
     rdfs:comment "Text of an utterances (spoken words, lyrics etc.) that occurs at a certain section of a media object, represented as a [[HyperTocEntry]]." .
 
+
+:tocContinuation a rdf:Property ;
+    rdfs:label "tocContinuation" ;
+    :category "issue-2766" ;
+    :domainIncludes :HyperTocEntry;
+    :rangeIncludes :HyperTocEntry;
+    :isPartOf <http://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2766> ;
+    rdfs:comment "A [[HyperTocEntry]] can have a [[tocContinuation]] indicated, which is another [[HyperTocEntry]] that would be the default next item to play or render." .
+
+
 # Annotations that amend existing core properties:
 #
 
