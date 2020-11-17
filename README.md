@@ -55,9 +55,9 @@ Software
 
 For most collaborators, all you need to know about the software is how to run it. 
 
-The objective of the software is to create a static copy of the Schema.org site, including potential local changes, to inspect and run behind a simple web server on a local system for testing.  In the same way that a production release is deployed to a cloud server, your local version could then be deployed to a virtual machine in gCloud to enable collaboration with others.
+The objective of the software is to create a static copy of the Schema.org site, including potential local changes, to inspect and run behind a simple web server on a local system for testing.  In the same way that a production release is deployed to a cloud server, your local version could then be deployed to a virtual machine using gcloud to enable collaboration with others.
 
-Full instructions are available in [SOFTWARE_README.md](SOFTWARE_README.md) explaining how to create the initial local copy to work with, then evolve with any changes test out.
+Full instructions are available in [SOFTWARE_README.md](SOFTWARE_README.md) explaining how to create the initial local copy to work with, then evolve to test out any changes.
 
 Essentially you will need to have a Linux-like (inc  Mac) environment loaded with Python version 3.6 or above. You can then make test builds of schema.org running on your own machine accessible as http://localhost:8080/ or else post them on appspot.com for collaboration. See the [Appengine documentation](https://cloud.google.com/appengine/docs) for details of the relevant gcloud commands.
 
