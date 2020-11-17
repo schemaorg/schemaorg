@@ -26,7 +26,7 @@ Build Notes for Ubuntu - on an AWS EC2 Instance
 * Create or identify previously created Google Cloud Platform User
   * Download cloud SDK from: https://cloud.google.com/sdk/docs/install#deb
   * No need for additional components
-  * run cloud init - identify cloud account and default project
+  * run gcloud init - identify cloud account and default project
 * gcloud/deploy2gcloud.sh 
 
 
