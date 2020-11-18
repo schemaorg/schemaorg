@@ -140,6 +140,7 @@ Once a new candidate release of the site is established and checked/merged into 
 
   * New Ubuntu AMI 
   * Add port 8080 inbound rule for EC2 Instance
+  * Access via ssh terminal session
 
 **General Ubuntu Steps**
 
