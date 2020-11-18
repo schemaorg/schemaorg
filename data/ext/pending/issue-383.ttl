@@ -72,13 +72,31 @@ Use properties from [[Organization]], [[subOrganization]]/[[parentOrganization]]
     rdfs:label "fundedItem" ;
     :category "issue-1688",
         "issue-383" ;
+    :inverseOf :funding ;    
     :domainIncludes :Grant ;
     :isPartOf <http://pending.schema.org> ;
-    :rangeIncludes :Thing ;
+    :rangeIncludes :CreativeWork, :Event, :MonetaryGrant, :Organization, :Person ;
     :source <https://github.com/schemaorg/schemaorg/issues/1950>,
         <https://github.com/schemaorg/schemaorg/issues/383>,
         <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP> ;
-    rdfs:comment "Indicates an item funded or sponsored through a [[Grant]]." .
+    rdfs:comment """Indicates an item funded or sponsored through a [[Grant]]. 
+    
+The range of items is not exclusive, as other types of things may have been funded, e.g. equipment described as [[IndividualProduct]]""" .
+
+:funding a rdf:Property ;
+    rdfs:label "funding" ;
+    :category "issue-383" ;
+    :inverseOf :fundedItem ;    
+    :domainIncludes :CreativeWork, :Event, :MonetaryGrant, :Organization, :Person ;
+    :isPartOf <http://pending.schema.org> ;
+    :rangeIncludes :Grant ;
+    :source <https://github.com/schemaorg/schemaorg/issues/383>,
+        <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP> ;
+    rdfs:comment """A [[Grant]] that directly or indirectly provide funding/sponsoring. 
+
+This property can be combined with [[funder]] to directly indicate the [[FundingScheme]] or [[FundingAgency]] that provided the grant.
+    
+The list of types for using this property is not exclusive, as other types of things may have been funded, e.g. equipment described as a [[IndividualProduct]].""" .
 
 :funder a rdf:Property ;
     :domainIncludes :MonetaryGrant .
