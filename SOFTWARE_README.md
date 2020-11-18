@@ -145,7 +145,7 @@ From Google Cloud Platform Console - https://console.cloud.google.com/
  * Create and associate a port 8080 ingress firewall rule associated with VM instance
    * Hint: Duplicate the settings for the 'default-allow-http' rule except for the port number setting
  * Connect to running instance using SSH
-    * or 3rd party ssh client using private key file provided by AWS
+    * or 3rd party ssh client using private key file provided by Google
 
 **Amazon AWS Specific Steps**
 
