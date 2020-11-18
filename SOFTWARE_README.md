@@ -135,7 +135,7 @@ Once a new candidate release of the site is established and checked/merged into 
 # Build Notes
 
 ## Build Notes for Ubuntu/Debian - using Google/Amazon Cloud-based Virtual Machines
-Notes for building the schemaorg development environment on Ubuntu / Debian based systems, with specific focus on utilising cloud-based virtual machines provided by the Google Cloud Platform and Amazon Web Services. However the Common Steps below may be of assistance to those wishing to build the environment on other locally hosted systems.
+Notes for building the schemaorg development environment on Ubuntu / Debian based systems, with specific focus on utilising cloud-based virtual machines provided by the Google Cloud Platform and Amazon Web Services. The Common Steps below may also be of assistance to those wishing to build the environment on other locally hosted systems.
 
 **Google Compute Engine VM Specific Steps**
 
