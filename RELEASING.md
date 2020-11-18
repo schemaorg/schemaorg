@@ -1,3 +1,6 @@
+RELEASING NOTES
+===============
+
 See [SOFTWARE_README.md](SOFTWARE_README.md) for commandline scripts. This
 document covers the larger release process.
 
