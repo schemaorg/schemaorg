@@ -170,10 +170,11 @@ Command line commands:
  * `pip3 install -r requirements.txt`
  * `./util/buildsite.py -a`
  
- To Run local version of Schema.org site: 
+ To serve local version of Schema.org site for web access: 
  * `./devserv.py --port 8080 --host 0.0.0.0`
 
-Should be accessible via: 
+Site should be accessible via: 
+
   http://{`public ip of Google/AWS instance`}:8080/
 
 
