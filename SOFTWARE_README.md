@@ -21,7 +21,7 @@ Working with a local version of Schema.org
 
 Note: The associated configuration scripts are designed to run in a Linux or similar environment, including MAC-OS. 
 
-**_Note:_** Build notes from an example (Ubuntu) environment are available here: [AWS_Build_Notes_Ubuntu_AWS](AWS_Build_Notes_Ubuntu_AWS.md)
+**_Note:_** [Build notes](#build-notes) for example environment(s) are available at the end of this document
 
 To work on the vocabulary and run locally firstly clone the repository on a local system:
 
@@ -131,3 +131,37 @@ Releasing New Production Releases of the Site
 =============================================
 
 Once a new candidate release of the site is established and checked/merged into the `main` github branch, there are some steps that need to be taken to prepare that release for deployment, initially to the https://webschemas.org preview site, then to the http://schema.org site.  These steps are detailed in the [RELEASING.TXT](RELEASING.TXT) file.
+
+# Build Notes
+
+### Build Notes for Ubuntu - on an AWS EC2 Instance
+
+**AWS Specific Steps**
+
+  * New Ubuntu AMI 
+  * Add port 8080 inbound rule for EC2 Instance
+
+**General Ubuntu Steps**
+
+ * sudo apt-get update
+ * sudo apt-get upgrade
+ * sudo apt-get install git
+ * sudo apt-get install python3-pip
+ * git clone https://github.com/schemaorg/schemaorg.git
+ * cd schemaorg
+ * pip3 install -r requirements.txt
+ * ./util/buildsite.py -a
+ * Run locally: 
+   * ./devserv.py --port 8080 --host 0.0.0.0
+   * Should be visible via: 
+     *  http://{public ip of AWS instance}:8080/
+
+**To enable deployment to a gcloud appengine instance**
+
+* Create or identify previously created Google Cloud Platform User
+  * Download cloud SDK from: https://cloud.google.com/sdk/docs/install#deb
+  * No need for additional components
+  * run gcloud init - identify cloud account and default project (default can be overriden at deployment time)
+* gcloud/deploy2gcloud.sh 
+
+
