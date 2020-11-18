@@ -177,7 +177,7 @@ Should be accessible via:
 
 **To enable deployment to a gcloud appengine instance**
 
-This allows wider sharing of a development version of the site
+This allows wider sharing of a development version of the site replicating the way a production release is deployed to the preview server at https://webschemas.org and to http://schema.org.
 * Create or identify previously created Google Cloud Platform User
   * Download cloud SDK from: https://cloud.google.com/sdk/docs/install#deb
   * No need for additional components
