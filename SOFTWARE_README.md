@@ -134,7 +134,7 @@ Once a new candidate release of the site is established and checked/merged into 
 
 # Build Notes
 
-### Build Notes for Ubuntu/Debian - using Google/Amazon Cloud-based Virtual Machines
+## Build Notes for Ubuntu/Debian - using Google/Amazon Cloud-based Virtual Machines
 
 **Google Compute Engine VM Specific Steps**
 
