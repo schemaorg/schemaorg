@@ -137,6 +137,7 @@ Once a new candidate release of the site is established and checked/merged into 
 ### Build Notes for Ubuntu/Debian - on Google/Amazon Cloud based Virtual Machines
 
 **Google Compute Engine VM Specific Steps**
+
 From Google Cloud Platform Console - https://console.cloud.google.com/
  * Create a project
  * In Compute Engine section - create a VM instance - https://console.cloud.google.com/compute/instances
@@ -147,6 +148,7 @@ From Google Cloud Platform Console - https://console.cloud.google.com/
     * or 3rd party ssh client using private key file provided by AWS
 
 **AWS Specific Steps**
+
 From Amazon AWS Management Console - https://console.aws.amazon.com
   * Select EC2 Service
   * Select Launch Instance
@@ -157,6 +159,7 @@ From Amazon AWS Management Console - https://console.aws.amazon.com
     * or 3rd party ssh client using private key file provided by AWS
 
 **Common Ubuntu/Debian Steps**
+
 Command line commands:
  * `sudo apt-get update`
  * `sudo apt-get upgrade`
@@ -172,6 +175,7 @@ Should be accessible via:
   http://{`public ip of Google/AWS instance`}:8080/
 
 **To enable deployment to a gcloud appengine instance**
+
 This allows wider sharing of a development version of the site
 * Create or identify previously created Google Cloud Platform User
   * Download cloud SDK from: https://cloud.google.com/sdk/docs/install#deb
