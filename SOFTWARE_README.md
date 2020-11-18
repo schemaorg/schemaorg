@@ -148,7 +148,7 @@ From Google Cloud Platform Console - https://console.cloud.google.com/
  * Connect to running instance using SSH
     * or 3rd party ssh client using private key file provided by Google
 
-**Amazon AWS Specific Steps**
+**Amazon AWS EC2 Specific Steps**
 
 From Amazon AWS Management Console - https://console.aws.amazon.com
   * Select EC2 Service
