@@ -147,7 +147,7 @@ From Google Cloud Platform Console - https://console.cloud.google.com/
  * Connect to running instance using SSH
     * or 3rd party ssh client using private key file provided by AWS
 
-**AWS Specific Steps**
+**Amazon AWS Specific Steps**
 
 From Amazon AWS Management Console - https://console.aws.amazon.com
   * Select EC2 Service
@@ -173,6 +173,7 @@ Command line commands:
  * `./devserv.py --port 8080 --host 0.0.0.0`
 Should be accessible via: 
   http://{`public ip of Google/AWS instance`}:8080/
+
 
 **To enable deployment to a gcloud appengine instance**
 
