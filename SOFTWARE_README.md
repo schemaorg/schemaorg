@@ -134,35 +134,49 @@ Once a new candidate release of the site is established and checked/merged into 
 
 # Build Notes
 
-### Build Notes for Ubuntu - on an AWS EC2 Instance
+### Build Notes for Ubuntu/Debian - on Google/Amazon Cloud based Virtual Machines
+
+**Google Compute Engine VM Specific Steps**
+From Google Cloud Platform Console - https://console.cloud.google.com/
+ * Create a project
+ * In Compute Engine section - create a VM instance - https://console.cloud.google.com/compute/instances
+   * Select a Debian GNU/Linux Boot disk
+ * Create and associate a port 8080 ingress firewall rule associated with VM instance
+   * Hint: Duplicate the settings for the 'default-allow-http' rule except for the port number setting
+ * Connect to running instance using SSH
+    * or 3rd party ssh client using private key file provided by AWS
 
 **AWS Specific Steps**
+From Amazon AWS Management Console - https://console.aws.amazon.com
+  * Select EC2 Service
+  * Select Launch Instance
+  * Choose an Ubuntu Machine Image, configure details and launch
+  * In security details for the running instance - Security Group:
+    * Add inbound rule for port: 8080 source: 0.0.0.0/0
+  * Connect to running instance using EC2 Instance Connect
+    * or 3rd party ssh client using private key file provided by AWS
 
-  * New Ubuntu AMI 
-  * Add port 8080 inbound rule for EC2 Instance
-  * Access via ssh terminal session
-
-**General Ubuntu Steps**
-
- * sudo apt-get update
- * sudo apt-get upgrade
- * sudo apt-get install git
- * sudo apt-get install python3-pip
- * git clone https://github.com/schemaorg/schemaorg.git
- * cd schemaorg
- * pip3 install -r requirements.txt
- * ./util/buildsite.py -a
- * Run locally: 
-   * ./devserv.py --port 8080 --host 0.0.0.0
-   * Should be visible via: 
-     *  http://{public ip of AWS instance}:8080/
+**Common Ubuntu/Debian Steps**
+Command line commands:
+ * `sudo apt-get update`
+ * `sudo apt-get upgrade`
+ * `sudo apt-get install git`
+ * `sudo apt-get install python3-pip`
+ * `git clone https://github.com/schemaorg/schemaorg.git`
+ * `cd schemaorg`
+ * `pip3 install -r requirements.txt`
+ * `./util/buildsite.py -a`
+ To Run local version of Schema.org site: 
+ * `./devserv.py --port 8080 --host 0.0.0.0`
+Should be accessible via: 
+  http://{`public ip of Google/AWS instance`}:8080/
 
 **To enable deployment to a gcloud appengine instance**
-
+This allows wider sharing of a development version of the site
 * Create or identify previously created Google Cloud Platform User
   * Download cloud SDK from: https://cloud.google.com/sdk/docs/install#deb
   * No need for additional components
-  * run gcloud init - identify cloud account and default project (default can be overridden at deployment time)
-* gcloud/deploy2gcloud.sh 
+  * run `gcloud init` command - to identify cloud account and default project (default can be overridden at deployment time)
+* `gcloud/deploy2gcloud.sh` 
 
 
