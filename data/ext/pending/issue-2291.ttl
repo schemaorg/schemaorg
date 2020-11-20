@@ -1,10 +1,11 @@
 @prefix : <http://schema.org/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 :Observation a rdfs:Class ;
     rdfs:label "Observation" ;
-    :category "issue-2291" ;
     :isPartOf <http://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/2291> ;
     rdfs:comment """Instances of the class [[Observation]] are used to specify observations about an entity (which may or may not be an instance of a [[StatisticalPopulation]]), at a particular time. The principal properties of an [[Observation]] are [[observedNode]], [[measuredProperty]], [[measuredValue]] (or [[median]], etc.) and [[observationDate]] ([[measuredProperty]] properties can, but need not always, be W3C RDF Data Cube "measure properties", as in the [lifeExpectancy example](https://www.w3.org/TR/vocab-data-cube/#dsd-example)).
@@ -14,7 +15,6 @@ See also [[StatisticalPopulation]], and the [data and datasets](/docs/data-and-d
 
 :StatisticalPopulation a rdfs:Class ;
     rdfs:label "StatisticalPopulation" ;
-    :category "issue-2291" ;
     :isPartOf <http://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/2291> ;
     rdfs:comment """A StatisticalPopulation is a set of instances of a certain given type that satisfy some set of constraints. The property [[populationType]] is used to specify the type. Any property that can be used on instances of that type can appear on the statistical population. For example, a [[StatisticalPopulation]] representing all [[Person]]s with a [[homeLocation]] of East Podunk California, would be described by applying the appropriate [[homeLocation]] and [[populationType]] properties to a [[StatisticalPopulation]] item that stands for that set of people.
@@ -25,7 +25,6 @@ population, and does not imply that the population consists of people. For examp
 
 :constrainingProperty a rdf:Property ;
     rdfs:label "constrainingProperty" ;
-    :category "issue-2291" ;
     :domainIncludes :StatisticalPopulation ;
     :isPartOf <http://pending.schema.org> ;
     :rangeIncludes :Integer ;
@@ -35,7 +34,6 @@ population, and does not imply that the population consists of people. For examp
 
 :marginOfError a rdf:Property ;
     rdfs:label "marginOfError" ;
-    :category "issue-2291" ;
     :domainIncludes :Observation ;
     :isPartOf <http://pending.schema.org> ;
     :rangeIncludes :DateTime ;
@@ -44,7 +42,6 @@ population, and does not imply that the population consists of people. For examp
 
 :measuredProperty a rdf:Property ;
     rdfs:label "measuredProperty" ;
-    :category "issue-2291" ;
     :domainIncludes :Observation ;
     :isPartOf <http://pending.schema.org> ;
     :rangeIncludes :Property ;
@@ -53,7 +50,6 @@ population, and does not imply that the population consists of people. For examp
 
 :measuredValue a rdf:Property ;
     rdfs:label "measuredValue" ;
-    :category "issue-2291" ;
     :domainIncludes :Observation ;
     :isPartOf <http://pending.schema.org> ;
     :rangeIncludes :DataType ;
@@ -62,7 +58,6 @@ population, and does not imply that the population consists of people. For examp
 
 :numConstraints a rdf:Property ;
     rdfs:label "numConstraints" ;
-    :category "issue-2291" ;
     :domainIncludes :StatisticalPopulation ;
     :isPartOf <http://pending.schema.org> ;
     :rangeIncludes :Integer ;
@@ -71,7 +66,6 @@ population, and does not imply that the population consists of people. For examp
 
 :observationDate a rdf:Property ;
     rdfs:label "observationDate" ;
-    :category "issue-2291" ;
     :domainIncludes :Observation ;
     :isPartOf <http://pending.schema.org> ;
     :rangeIncludes :DateTime ;
@@ -80,7 +74,6 @@ population, and does not imply that the population consists of people. For examp
 
 :observedNode a rdf:Property ;
     rdfs:label "observedNode" ;
-    :category "issue-2291" ;
     :domainIncludes :Observation ;
     :isPartOf <http://pending.schema.org> ;
     :rangeIncludes :StatisticalPopulation ;
@@ -89,7 +82,6 @@ population, and does not imply that the population consists of people. For examp
 
 :populationType a rdf:Property ;
     rdfs:label "populationType" ;
-    :category "issue-2291" ;
     :domainIncludes :StatisticalPopulation ;
     :isPartOf <http://pending.schema.org> ;
     :rangeIncludes :Class ;

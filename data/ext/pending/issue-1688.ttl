@@ -1,10 +1,11 @@
 @prefix : <http://schema.org/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 :backstory a rdf:Property ;
     rdfs:label "backstory" ;
-    :category "issue-1688" ;
     :domainIncludes :Article ;
     :isPartOf <http://pending.schema.org> ;
     :rangeIncludes :CreativeWork,
@@ -15,7 +16,6 @@
 
 :knowsAbout a rdf:Property ;
     rdfs:label "knowsAbout" ;
-    :category "issue-1688" ;
     :domainIncludes :Organization,
         :Person ;
     :isPartOf <http://pending.schema.org> ;
@@ -28,7 +28,6 @@
 
 :knowsLanguage a rdf:Property ;
     rdfs:label "knowsLanguage" ;
-    :category "issue-1688" ;
     :domainIncludes :Organization,
         :Person ;
     :isPartOf <http://pending.schema.org> ;
@@ -40,7 +39,6 @@
 
 :noBylinesPolicy a rdf:Property ;
     rdfs:label "noBylinesPolicy" ;
-    :category "issue-1688" ;
     :domainIncludes :NewsMediaOrganization ;
     :isPartOf <http://pending.schema.org> ;
     :rangeIncludes :CreativeWork,

@@ -1,10 +1,11 @@
 @prefix : <http://schema.org/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 :MediaManipulationRatingEnumeration a rdfs:Class ;
     rdfs:label "MediaManipulationRatingEnumeration" ;
-    :category "issue-2450" ;
     :isPartOf <http://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/2450> ;
     rdfs:comment "(editorial work in progress, this definition is incomplete and unreviewed) MediaManipulationRatingEnumeration classifies a number of ways in which a media item (video, image, audio) can be manipulated, taking into account the context within which they are published or presented." ;
@@ -12,7 +13,6 @@
 
 :MediaReview a rdfs:Class ;
     rdfs:label "MediaReview" ;
-    :category "issue-2450" ;
     :isPartOf <http://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/2450> ;
     rdfs:comment """(editorial work in progress, this definition is incomplete and unreviewed)
@@ -22,21 +22,18 @@
 
 :AuthenticContent a :MediaManipulationRatingEnumeration ;
     rdfs:label "AuthenticContent" ;
-    :category "issue-2450" ;
     :isPartOf <http://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/2450> ;
     rdfs:comment "AuthenticMediaObject: An unaltered image that is presented in an accurate way." .
 
 :MissingContext a :MediaManipulationRatingEnumeration ;
     rdfs:label "MissingContext" ;
-    :category "issue-2450" ;
     :isPartOf <http://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/2450> ;
     rdfs:comment "MissingContext: ..." .
 
 :mediaAuthenticityCategory a rdf:Property ;
     rdfs:label "mediaAuthenticityCategory" ;
-    :category "issue-2450" ;
     :domainIncludes :MediaReview ;
     :isPartOf <http://pending.schema.org> ;
     :rangeIncludes :MediaManipulationRatingEnumeration ;

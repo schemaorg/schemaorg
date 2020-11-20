@@ -1,10 +1,11 @@
 @prefix : <http://schema.org/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 :ArchiveComponent a rdfs:Class ;
     rdfs:label "ArchiveComponent"@en ;
-    :category "issue-1758"@en ;
     :isPartOf <http://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/1758> ;
     rdfs:comment "An intangible type to be applied to any archive content, carrying with it a set of properties required to describe archival items and collections."@en ;
@@ -12,7 +13,6 @@
 
 :ArchiveOrganization a rdfs:Class ;
     rdfs:label "ArchiveOrganization"@en ;
-    :category "issue-1758"@en ;
     :isPartOf <http://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/1758> ;
     rdfs:comment "An organization with archival holdings. An organization which keeps and preserves archival material and typically makes it accessible to the public."@en ;
@@ -20,7 +20,6 @@
 
 :itemLocation a rdf:Property ;
     rdfs:label "itemLocation"@en ;
-    :category "issue-1758"@en ;
     :domainIncludes :ArchiveComponent ;
     :isPartOf <http://pending.schema.org> ;
     :rangeIncludes :Place,
@@ -32,7 +31,6 @@
 
 :archiveHeld a rdf:Property ;
     rdfs:label "archiveHeld"@en ;
-    :category "issue-1758"@en ;
     :domainIncludes :ArchiveOrganization ;
     :inverseOf :holdingArchive ;
     :isPartOf <http://pending.schema.org> ;
@@ -42,7 +40,6 @@
 
 :holdingArchive a rdf:Property ;
     rdfs:label "holdingArchive"@en ;
-    :category "issue-1758"@en ;
     :domainIncludes :ArchiveComponent ;
     :inverseOf :archiveHeld ;
     :isPartOf <http://pending.schema.org> ;

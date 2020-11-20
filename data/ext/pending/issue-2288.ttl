@@ -1,10 +1,11 @@
 @prefix : <http://schema.org/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 :ProductReturnEnumeration a rdfs:Class ;
     rdfs:label "ProductReturnEnumeration" ;
-    :category "issue-2288" ;
     :isPartOf <http://attic.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/2288> ;
     :supersededBy :MerchantReturnEnumeration ;
@@ -13,7 +14,6 @@
 
 :ProductReturnPolicy a rdfs:Class ;
     rdfs:label "ProductReturnPolicy" ;
-    :category "issue-2288" ;
     :isPartOf <http://attic.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/2288> ;
     :supersededBy :MerchantReturnPolicy ;
@@ -22,7 +22,6 @@
 
 :ProductReturnFiniteReturnWindow a :ProductReturnEnumeration ;
     rdfs:label "ProductReturnFiniteReturnWindow" ;
-    :category "issue-2288" ;
     :isPartOf <http://attic.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/2288> ;
     :supersededBy :MerchantReturnFiniteReturnWindow ;
@@ -30,7 +29,6 @@
 
 :ProductReturnNotPermitted a :ProductReturnEnumeration ;
     rdfs:label "ProductReturnNotPermitted" ;
-    :category "issue-2288" ;
     :isPartOf <http://attic.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/2288> ;
     :supersededBy :MerchantReturnNotPermitted ;
@@ -38,7 +36,6 @@
 
 :ProductReturnUnlimitedWindow a :ProductReturnEnumeration ;
     rdfs:label "ProductReturnUnlimitedWindow" ;
-    :category "issue-2288" ;
     :isPartOf <http://attic.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/2288> ;
     :supersededBy :MerchantReturnUnlimitedWindow ;
@@ -46,7 +43,6 @@
 
 :ProductReturnUnspecified a :ProductReturnEnumeration ;
     rdfs:label "ProductReturnUnspecified" ;
-    :category "issue-2288" ;
     :isPartOf <http://attic.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/2288> ;
     :supersededBy :MerchantReturnUnspecified ;
@@ -54,7 +50,6 @@
 
 :hasProductReturnPolicy a rdf:Property ;
     rdfs:label "hasProductReturnPolicy" ;
-    :category "issue-2288" ;
     :domainIncludes :Organization,
         :Product ;
     :isPartOf <http://attic.schema.org> ;
@@ -65,7 +60,6 @@
 
 :productReturnDays a rdf:Property ;
     rdfs:label "productReturnDays" ;
-    :category "issue-2288" ;
     :domainIncludes :ProductReturnPolicy ;
     :isPartOf <http://attic.schema.org> ;
     :rangeIncludes :Integer ;
@@ -75,7 +69,6 @@
 
 :productReturnLink a rdf:Property ;
     rdfs:label "productReturnLink" ;
-    :category "issue-2288" ;
     :domainIncludes :ProductReturnPolicy ;
     :isPartOf <http://attic.schema.org> ;
     :rangeIncludes :URL ;

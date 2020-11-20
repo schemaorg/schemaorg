@@ -3,10 +3,11 @@
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 :LegalForceStatus a rdfs:Class ;
     rdfs:label "LegalForceStatus" ;
-    :category "issue-1156" ;
     :isPartOf <http://pending.schema.org> ;
     :source <http://publications.europa.eu/mdr/eli/index.html>,
         <https://github.com/schemaorg/schemaorg/issues/1156> ;
@@ -16,7 +17,6 @@
 
 :LegalValueLevel a rdfs:Class ;
     rdfs:label "LegalValueLevel" ;
-    :category "issue-1156" ;
     :isPartOf <http://pending.schema.org> ;
     :source <http://publications.europa.eu/mdr/eli/index.html>,
         <https://github.com/schemaorg/schemaorg/issues/1156> ;
@@ -26,7 +26,6 @@
 
 :Legislation a rdfs:Class ;
     rdfs:label "Legislation" ;
-    :category "issue-1156" ;
     :isPartOf <http://pending.schema.org> ;
     :source <http://publications.europa.eu/mdr/eli/index.html>,
         <https://github.com/schemaorg/schemaorg/issues/1156> ;
@@ -37,7 +36,6 @@
 
 :LegislationObject a rdfs:Class ;
     rdfs:label "LegislationObject" ;
-    :category "issue-1156" ;
     :isPartOf <http://pending.schema.org> ;
     :source <http://publications.europa.eu/mdr/eli/index.html>,
         <https://github.com/schemaorg/schemaorg/issues/1156> ;
@@ -48,7 +46,6 @@
 
 :AuthoritativeLegalValue a :LegalValueLevel ;
     rdfs:label "AuthoritativeLegalValue" ;
-    :category "issue-1156" ;
     :isPartOf <http://pending.schema.org> ;
     :source <http://publications.europa.eu/mdr/eli/index.html>,
         <https://github.com/schemaorg/schemaorg/issues/1156> ;
@@ -57,7 +54,6 @@
 
 :DefinitiveLegalValue a :LegalValueLevel ;
     rdfs:label "DefinitiveLegalValue" ;
-    :category "issue-1156" ;
     :isPartOf <http://pending.schema.org> ;
     :source <http://publications.europa.eu/mdr/eli/index.html>,
         <https://github.com/schemaorg/schemaorg/issues/1156> ;
@@ -67,7 +63,6 @@
 
 :InForce a :LegalForceStatus ;
     rdfs:label "InForce" ;
-    :category "issue-1156" ;
     :isPartOf <http://pending.schema.org> ;
     :source <http://publications.europa.eu/mdr/eli/index.html>,
         <https://github.com/schemaorg/schemaorg/issues/1156> ;
@@ -76,7 +71,6 @@
 
 :NotInForce a :LegalForceStatus ;
     rdfs:label "NotInForce" ;
-    :category "issue-1156" ;
     :isPartOf <http://pending.schema.org> ;
     :source <http://publications.europa.eu/mdr/eli/index.html>,
         <https://github.com/schemaorg/schemaorg/issues/1156> ;
@@ -85,7 +79,6 @@
 
 :OfficialLegalValue a :LegalValueLevel ;
     rdfs:label "OfficialLegalValue" ;
-    :category "issue-1156" ;
     :isPartOf <http://pending.schema.org> ;
     :source <http://publications.europa.eu/mdr/eli/index.html>,
         <https://github.com/schemaorg/schemaorg/issues/1156> ;
@@ -94,7 +87,6 @@
 
 :PartiallyInForce a :LegalForceStatus ;
     rdfs:label "PartiallyInForce" ;
-    :category "issue-1156" ;
     :isPartOf <http://pending.schema.org> ;
     :source <http://publications.europa.eu/mdr/eli/index.html>,
         <https://github.com/schemaorg/schemaorg/issues/1156> ;
@@ -103,7 +95,6 @@
 
 :UnofficialLegalValue a :LegalValueLevel ;
     rdfs:label "UnofficialLegalValue" ;
-    :category "issue-1156" ;
     :isPartOf <http://pending.schema.org> ;
     :source <http://publications.europa.eu/mdr/eli/index.html>,
         <https://github.com/schemaorg/schemaorg/issues/1156> ;
@@ -112,7 +103,6 @@
 
 :legislationChanges a rdf:Property ;
     rdfs:label "legislationChanges" ;
-    :category "issue-1156" ;
     :domainIncludes :Legislation ;
     :isPartOf <http://pending.schema.org> ;
     :rangeIncludes :Legislation ;
@@ -124,7 +114,6 @@
 
 :legislationConsolidates a rdf:Property ;
     rdfs:label "legislationConsolidates" ;
-    :category "issue-1156" ;
     :domainIncludes :Legislation ;
     :isPartOf <http://pending.schema.org> ;
     :rangeIncludes :Legislation ;
@@ -136,7 +125,6 @@
 
 :legislationDate a rdf:Property ;
     rdfs:label "legislationDate" ;
-    :category "issue-1156" ;
     :domainIncludes :Legislation ;
     :isPartOf <http://pending.schema.org> ;
     :rangeIncludes :Date ;
@@ -149,7 +137,6 @@
 
 :legislationDateVersion a rdf:Property ;
     rdfs:label "legislationDateVersion" ;
-    :category "issue-1156" ;
     :domainIncludes :Legislation ;
     :isPartOf <http://pending.schema.org> ;
     :rangeIncludes :Date ;
@@ -161,7 +148,6 @@
 
 :legislationIdentifier a rdf:Property ;
     rdfs:label "legislationIdentifier" ;
-    :category "issue-1156" ;
     :domainIncludes :Legislation ;
     :isPartOf <http://pending.schema.org> ;
     :rangeIncludes :Text,
@@ -174,7 +160,6 @@
 
 :legislationJurisdiction a rdf:Property ;
     rdfs:label "legislationJurisdiction" ;
-    :category "issue-1156" ;
     :domainIncludes :Legislation ;
     :isPartOf <http://pending.schema.org> ;
     :rangeIncludes :AdministrativeArea,
@@ -188,7 +173,6 @@
 
 :legislationLegalForce a rdf:Property ;
     rdfs:label "legislationLegalForce" ;
-    :category "issue-1156" ;
     :domainIncludes :Legislation ;
     :isPartOf <http://pending.schema.org> ;
     :rangeIncludes :LegalForceStatus ;
@@ -200,7 +184,6 @@
 
 :legislationLegalValue a rdf:Property ;
     rdfs:label "legislationLegalValue" ;
-    :category "issue-1156" ;
     :domainIncludes :LegislationObject ;
     :isPartOf <http://pending.schema.org> ;
     :rangeIncludes :LegalValueLevel ;
@@ -212,7 +195,6 @@
 
 :legislationPassedBy a rdf:Property ;
     rdfs:label "legislationPassedBy" ;
-    :category "issue-1156" ;
     :domainIncludes :Legislation ;
     :isPartOf <http://pending.schema.org> ;
     :rangeIncludes :Organization,
@@ -226,7 +208,6 @@
 
 :legislationResponsible a rdf:Property ;
     rdfs:label "legislationResponsible" ;
-    :category "issue-1156" ;
     :domainIncludes :Legislation ;
     :isPartOf <http://pending.schema.org> ;
     :rangeIncludes :Organization,
@@ -239,7 +220,6 @@
 
 :legislationTransposes a rdf:Property ;
     rdfs:label "legislationTransposes" ;
-    :category "issue-1156" ;
     :domainIncludes :Legislation ;
     :isPartOf <http://pending.schema.org> ;
     :rangeIncludes :Legislation ;
@@ -252,7 +232,6 @@
 
 :legislationType a rdf:Property ;
     rdfs:label "legislationType" ;
-    :category "issue-1156" ;
     :domainIncludes :Legislation ;
     :isPartOf <http://pending.schema.org> ;
     :rangeIncludes :CategoryCode,
@@ -266,7 +245,6 @@
 
 :legislationApplies a rdf:Property ;
     rdfs:label "legislationApplies" ;
-    :category "issue-1156" ;
     :domainIncludes :Legislation ;
     :isPartOf <http://pending.schema.org> ;
     :rangeIncludes :Legislation ;
@@ -280,3 +258,4 @@
     rdfs:label "ELI" ;
     :isPartOf <http://pending.schema.org> ;
     rdfs:comment "This entry is derived from the [ELI ontology](http://publications.europa.eu/mdr/eli/index.html) (European Legislation Identifier). ELI is an initiative of some national legislation publishers endorsed by EU countries and Institutions, to identify, describe and link legislation on the web, and is led by the [ELI taskforce](http://eur-lex.europa.eu/eli-register/about.html)." .
+

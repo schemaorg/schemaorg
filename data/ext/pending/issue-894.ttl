@@ -1,10 +1,11 @@
 @prefix : <http://schema.org/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 :CategoryCode a rdfs:Class ;
     rdfs:label "CategoryCode" ;
-    :category "issue-894" ;
     :isPartOf <http://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/894> ;
     rdfs:comment "A Category Code." ;
@@ -12,7 +13,6 @@
 
 :CategoryCodeSet a rdfs:Class ;
     rdfs:label "CategoryCodeSet" ;
-    :category "issue-894" ;
     :isPartOf <http://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/894> ;
     rdfs:comment "A set of Category Code values." ;
@@ -20,7 +20,6 @@
 
 :DefinedTerm a rdfs:Class ;
     rdfs:label "DefinedTerm" ;
-    :category "issue-894" ;
     :isPartOf <http://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/894> ;
     rdfs:comment "A word, name, acronym, phrase, etc. with a formal definition. Often used in the context of category or subject classification, glossaries or dictionaries, product or creative work types, etc. Use the name property for the term being defined, use termCode if the term has an alpha-numeric code allocated, use description to provide the definition of the term." ;
@@ -28,7 +27,6 @@
 
 :DefinedTermSet a rdfs:Class ;
     rdfs:label "DefinedTermSet" ;
-    :category "issue-894" ;
     :isPartOf <http://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/894> ;
     rdfs:comment "A set of defined terms for example a set of categories or a classification scheme, a glossary, dictionary or enumeration." ;
@@ -36,7 +34,6 @@
 
 :codeValue a rdf:Property ;
     rdfs:label "codeValue" ;
-    :category "issue-894" ;
     :domainIncludes :CategoryCode ;
     :isPartOf <http://pending.schema.org> ;
     :rangeIncludes :Text ;
@@ -46,7 +43,6 @@
 
 :hasCategoryCode a rdf:Property ;
     rdfs:label "hasCategoryCode" ;
-    :category "issue-894" ;
     :domainIncludes :CategoryCodeSet ;
     :isPartOf <http://pending.schema.org> ;
     :rangeIncludes :CategoryCode ;
@@ -56,7 +52,6 @@
 
 :inCodeSet a rdf:Property ;
     rdfs:label "inCodeSet" ;
-    :category "issue-894" ;
     :domainIncludes :CategoryCode ;
     :isPartOf <http://pending.schema.org> ;
     :rangeIncludes :CategoryCodeSet,
@@ -67,7 +62,6 @@
 
 :hasDefinedTerm a rdf:Property ;
     rdfs:label "hasDefinedTerm" ;
-    :category "issue-894" ;
     :domainIncludes :DefinedTermSet ;
     :isPartOf <http://pending.schema.org> ;
     :rangeIncludes :DefinedTerm ;
@@ -76,7 +70,6 @@
 
 :inDefinedTermSet a rdf:Property ;
     rdfs:label "inDefinedTermSet" ;
-    :category "issue-894" ;
     :domainIncludes :DefinedTerm ;
     :isPartOf <http://pending.schema.org> ;
     :rangeIncludes :DefinedTermSet,
@@ -87,7 +80,6 @@
 
 :termCode a rdf:Property ;
     rdfs:label "termCode" ;
-    :category "issue-894" ;
     :domainIncludes :DefinedTerm ;
     :isPartOf <http://pending.schema.org> ;
     :rangeIncludes :Text ;

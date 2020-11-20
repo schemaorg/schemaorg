@@ -1,10 +1,11 @@
 @prefix : <http://schema.org/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 :AdvertiserContentArticle a rdfs:Class ;
     rdfs:label "AdvertiserContentArticle" ;
-    :category "issue-1525" ;
     :isPartOf <http://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/1525>,
         <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP> ;
@@ -13,7 +14,6 @@
 
 :AnalysisNewsArticle a rdfs:Class ;
     rdfs:label "AnalysisNewsArticle" ;
-    :category "issue-1525" ;
     :isPartOf <http://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/1525>,
         <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP> ;
@@ -22,7 +22,6 @@
 
 :AskPublicNewsArticle a rdfs:Class ;
     rdfs:label "AskPublicNewsArticle" ;
-    :category "issue-1525" ;
     :isPartOf <http://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/1525>,
         <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP> ;
@@ -31,7 +30,6 @@
 
 :BackgroundNewsArticle a rdfs:Class ;
     rdfs:label "BackgroundNewsArticle" ;
-    :category "issue-1525" ;
     :isPartOf <http://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/1525>,
         <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP> ;
@@ -40,7 +38,6 @@
 
 :NewsMediaOrganization a rdfs:Class ;
     rdfs:label "NewsMediaOrganization" ;
-    :category "issue-1525" ;
     :isPartOf <http://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/1525>,
         <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP> ;
@@ -49,7 +46,6 @@
 
 :OpinionNewsArticle a rdfs:Class ;
     rdfs:label "OpinionNewsArticle" ;
-    :category "issue-1525" ;
     :isPartOf <http://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/1525>,
         <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP> ;
@@ -58,7 +54,6 @@
 
 :ReportageNewsArticle a rdfs:Class ;
     rdfs:label "ReportageNewsArticle" ;
-    :category "issue-1525" ;
     :isPartOf <http://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/1525>,
         <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP> ;
@@ -75,7 +70,6 @@ A [[ReportageNewsArticle]] which goes deeper into analysis can also be marked wi
 
 :ReviewNewsArticle a rdfs:Class ;
     rdfs:label "ReviewNewsArticle" ;
-    :category "issue-1525" ;
     :isPartOf <http://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/1525>,
         <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP> ;
@@ -85,7 +79,6 @@ A [[ReportageNewsArticle]] which goes deeper into analysis can also be marked wi
 
 :SatiricalArticle a rdfs:Class ;
     rdfs:label "SatiricalArticle" ;
-    :category "issue-1525" ;
     :isPartOf <http://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/1525>,
         <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP> ;
@@ -94,7 +87,6 @@ A [[ReportageNewsArticle]] which goes deeper into analysis can also be marked wi
 
 :actionableFeedbackPolicy a rdf:Property ;
     rdfs:label "actionableFeedbackPolicy" ;
-    :category "issue-1525" ;
     :domainIncludes :NewsMediaOrganization,
         :Organization ;
     :isPartOf <http://pending.schema.org> ;
@@ -107,7 +99,6 @@ A [[ReportageNewsArticle]] which goes deeper into analysis can also be marked wi
 
 :correctionsPolicy a rdf:Property ;
     rdfs:label "correctionsPolicy" ;
-    :category "issue-1525" ;
     :domainIncludes :NewsMediaOrganization,
         :Organization ;
     :isPartOf <http://pending.schema.org> ;
@@ -120,7 +111,6 @@ A [[ReportageNewsArticle]] which goes deeper into analysis can also be marked wi
 
 :diversityPolicy a rdf:Property ;
     rdfs:label "diversityPolicy" ;
-    :category "issue-1525" ;
     :domainIncludes :NewsMediaOrganization,
         :Organization ;
     :isPartOf <http://pending.schema.org> ;
@@ -132,7 +122,6 @@ A [[ReportageNewsArticle]] which goes deeper into analysis can also be marked wi
 
 :diversityStaffingReport a rdf:Property ;
     rdfs:label "diversityStaffingReport" ;
-    :category "issue-1525" ;
     :domainIncludes :NewsMediaOrganization,
         :Organization ;
     :isPartOf <http://pending.schema.org> ;
@@ -145,7 +134,6 @@ A [[ReportageNewsArticle]] which goes deeper into analysis can also be marked wi
 
 :ethicsPolicy a rdf:Property ;
     rdfs:label "ethicsPolicy" ;
-    :category "issue-1525" ;
     :domainIncludes :NewsMediaOrganization,
         :Organization ;
     :isPartOf <http://pending.schema.org> ;
@@ -156,7 +144,6 @@ A [[ReportageNewsArticle]] which goes deeper into analysis can also be marked wi
 
 :masthead a rdf:Property ;
     rdfs:label "masthead" ;
-    :category "issue-1525" ;
     :domainIncludes :NewsMediaOrganization ;
     :isPartOf <http://pending.schema.org> ;
     :rangeIncludes :CreativeWork,
@@ -168,7 +155,6 @@ A [[ReportageNewsArticle]] which goes deeper into analysis can also be marked wi
 
 :missionCoveragePrioritiesPolicy a rdf:Property ;
     rdfs:label "missionCoveragePrioritiesPolicy" ;
-    :category "issue-1525" ;
     :domainIncludes :NewsMediaOrganization ;
     :isPartOf <http://pending.schema.org> ;
     :rangeIncludes :CreativeWork,
@@ -180,7 +166,6 @@ A [[ReportageNewsArticle]] which goes deeper into analysis can also be marked wi
 
 :ownershipFundingInfo a rdf:Property ;
     rdfs:label "ownershipFundingInfo" ;
-    :category "issue-1525" ;
     :domainIncludes :NewsMediaOrganization,
         :Organization ;
     :isPartOf <http://pending.schema.org> ;
@@ -195,7 +180,6 @@ A [[ReportageNewsArticle]] which goes deeper into analysis can also be marked wi
 
 :unnamedSourcesPolicy a rdf:Property ;
     rdfs:label "unnamedSourcesPolicy" ;
-    :category "issue-1525" ;
     :domainIncludes :NewsMediaOrganization,
         :Organization ;
     :isPartOf <http://pending.schema.org> ;
@@ -208,7 +192,6 @@ A [[ReportageNewsArticle]] which goes deeper into analysis can also be marked wi
 
 :verificationFactCheckingPolicy a rdf:Property ;
     rdfs:label "verificationFactCheckingPolicy" ;
-    :category "issue-1525" ;
     :domainIncludes :NewsMediaOrganization ;
     :isPartOf <http://pending.schema.org> ;
     :rangeIncludes :CreativeWork,

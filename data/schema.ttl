@@ -3,10 +3,11 @@
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 :AMRadioChannel a rdfs:Class ;
     rdfs:label "AMRadioChannel" ;
-    :category "issue-1004" ;
     :source <https://github.com/schemaorg/schemaorg/issues/1004> ;
     rdfs:comment "A radio channel that uses AM." ;
     rdfs:subClassOf :RadioChannel .
@@ -55,7 +56,6 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 
 :ActionAccessSpecification a rdfs:Class ;
     rdfs:label "ActionAccessSpecification" ;
-    :category "issue-1741" ;
     :source <https://github.com/schemaorg/schemaorg/issues/1741> ;
     rdfs:comment "A set of requirements that a must be fulfilled in order to perform an Action." ;
     rdfs:subClassOf :Intangible .
@@ -310,7 +310,6 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 
 :BedType a rdfs:Class ;
     rdfs:label "BedType" ;
-    :category "issue-1262" ;
     :source <https://github.com/schemaorg/schemaorg/issues/1262>,
         <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology> ;
     rdfs:comment "A type of bed. This is used for indicating the bed or beds available in an accommodation." ;
@@ -420,7 +419,6 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 
 :BroadcastFrequencySpecification a rdfs:Class ;
     rdfs:label "BroadcastFrequencySpecification" ;
-    :category "issue-1004" ;
     :source <https://github.com/schemaorg/schemaorg/issues/1004> ;
     rdfs:comment "The frequency in MHz and the modulation used for a particular BroadcastService." ;
     rdfs:subClassOf :Intangible .
@@ -603,7 +601,6 @@ See also the dedicated [document on the use of schema.org for marking up hotels 
 
 :ClaimReview a rdfs:Class ;
     rdfs:label "ClaimReview" ;
-    :category "issue-1061" ;
     :source <https://github.com/schemaorg/schemaorg/issues/1061> ;
     rdfs:comment "A fact-checking review of claims made (or reported) in some creative work (referenced via itemReviewed)." ;
     rdfs:subClassOf :Review .
@@ -976,7 +973,6 @@ Originally, URLs from [GoodRelations](http://purl.org/goodrelations/v1) were use
 
 :Distillery a rdfs:Class ;
     rdfs:label "Distillery" ;
-    :category "issue-743" ;
     :source <https://github.com/schemaorg/schemaorg/issues/743> ;
     rdfs:comment "A distillery." ;
     rdfs:subClassOf :FoodEstablishment .
@@ -1076,7 +1072,6 @@ Originally, URLs from [GoodRelations](http://purl.org/goodrelations/v1) were use
 
 :EmployerAggregateRating a rdfs:Class ;
     rdfs:label "EmployerAggregateRating" ;
-    :category "issue-1689" ;
     :source <https://github.com/schemaorg/schemaorg/issues/1689> ;
     rdfs:comment "An aggregate rating of an Organization related to its role as an employer." ;
     rdfs:subClassOf :AggregateRating .
@@ -1093,7 +1088,6 @@ Originally, URLs from [GoodRelations](http://purl.org/goodrelations/v1) were use
 
 :EndorsementRating a rdfs:Class ;
     rdfs:label "EndorsementRating" ;
-    :category "issue-1293" ;
     :source <https://github.com/schemaorg/schemaorg/issues/1293> ;
     rdfs:comment """An EndorsementRating is a rating that expresses some level of endorsement, for example inclusion in a "critic's pick" blog, a
 "Like" or "+1" on a social network. It can be considered the [[result]] of an [[EndorseAction]] in which the [[object]] of the action is rated positively by
@@ -1174,14 +1168,12 @@ endorsement rating is particularly useful in the absence of numeric scales as it
 
 :FAQPage a rdfs:Class ;
     rdfs:label "FAQPage" ;
-    :category "issue-1723" ;
     :source <https://github.com/schemaorg/schemaorg/issues/1723> ;
     rdfs:comment "A [[FAQPage]] is a [[WebPage]] presenting one or more \"[Frequently asked questions](https://en.wikipedia.org/wiki/FAQ)\" (see also [[QAPage]])." ;
     rdfs:subClassOf :WebPage .
 
 :FMRadioChannel a rdfs:Class ;
     rdfs:label "FMRadioChannel" ;
-    :category "issue-1004" ;
     :source <https://github.com/schemaorg/schemaorg/issues/1004> ;
     rdfs:comment "A radio channel that uses FM." ;
     rdfs:subClassOf :RadioChannel .
@@ -1735,10 +1727,6 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     rdfs:comment "Specifies a location feature by providing a structured value representing a feature of an accommodation as a property-value pair of varying degrees of formality." ;
     rdfs:subClassOf :PropertyValue .
 
-:LockerDelivery a :DeliveryMethod ;
-    rdfs:label "LockerDelivery" ;
-    rdfs:comment "A DeliveryMethod in which an item is made available via locker." .
-
 :Locksmith a rdfs:Class ;
     rdfs:label "Locksmith" ;
     rdfs:comment "A locksmith." ;
@@ -1791,7 +1779,6 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 
 :MediaSubscription a rdfs:Class ;
     rdfs:label "MediaSubscription" ;
-    :category "issue-1741" ;
     :source <https://github.com/schemaorg/schemaorg/issues/1741> ;
     rdfs:comment "A subscription which allows a user to access media including audio, video, books, etc." ;
     rdfs:subClassOf :Intangible .
@@ -1858,7 +1845,6 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 
 :MonetaryAmountDistribution a rdfs:Class ;
     rdfs:label "MonetaryAmountDistribution" ;
-    :category "issue-1698" ;
     :source <https://github.com/schemaorg/schemaorg/issues/1698> ;
     rdfs:comment "A statistical distribution of monetary amounts." ;
     rdfs:subClassOf :QuantitativeValueDistribution .
@@ -2049,7 +2035,6 @@ A more detailed overview of [schema.org News markup](/docs/news.html) is also av
 
 :Occupation a rdfs:Class ;
     rdfs:label "Occupation" ;
-    :category "issue-1698" ;
     :source <https://github.com/schemaorg/schemaorg/issues/1698> ;
     rdfs:comment "A profession, may involve prolonged training and/or a formal qualification." ;
     rdfs:subClassOf :Intangible .
@@ -2153,12 +2138,6 @@ The place is __open__ if the [[opens]] property is specified, and __closed__ oth
     rdfs:label "ParcelDelivery" ;
     rdfs:comment "The delivery of a parcel either via the postal service or a commercial service." ;
     rdfs:subClassOf :Intangible .
-
-:ParcelService a :DeliveryMethod ;
-    rdfs:label "ParcelService" ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsClass> ;
-    rdfs:comment """A private parcel service as the delivery mode available for a certain offer.\\n\\nCommonly used values:\\n\\n* http://purl.org/goodrelations/v1#DHL\\n* http://purl.org/goodrelations/v1#FederalExpress\\n* http://purl.org/goodrelations/v1#UPS
-      """ .
 
 :ParentAudience a rdfs:Class ;
     rdfs:label "ParentAudience" ;
@@ -2338,7 +2317,6 @@ The place is __open__ if the [[opens]] property is specified, and __closed__ oth
 
 :PreOrderAction a rdfs:Class ;
     rdfs:label "PreOrderAction" ;
-    :category "issue-1125" ;
     :source <https://github.com/schemaorg/schemaorg/issues/1125> ;
     rdfs:comment "An agent orders a (not yet released) object/product/service to be delivered/sent." ;
     rdfs:subClassOf :TradeAction .
@@ -2448,7 +2426,6 @@ The place is __open__ if the [[opens]] property is specified, and __closed__ oth
 
 :QuantitativeValueDistribution a rdfs:Class ;
     rdfs:label "QuantitativeValueDistribution" ;
-    :category "issue-1698" ;
     :source <https://github.com/schemaorg/schemaorg/issues/1698> ;
     rdfs:comment "A statistical distribution of values." ;
     rdfs:subClassOf :StructuredValue .
@@ -2797,7 +2774,8 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 :SkiResort a rdfs:Class ;
     rdfs:label "SkiResort" ;
     rdfs:comment "A ski resort." ;
-    rdfs:subClassOf :SportsActivityLocation, :Resort .
+    rdfs:subClassOf :Resort,
+        :SportsActivityLocation .
 
 :SocialEvent a rdfs:Class ;
     rdfs:label "SocialEvent" ;
@@ -2827,7 +2805,6 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 
 :SpeakableSpecification a rdfs:Class ;
     rdfs:label "SpeakableSpecification" ;
-    :category "issue-1389" ;
     :source <https://github.com/schemaorg/schemaorg/issues/1389> ;
     rdfs:comment "A SpeakableSpecification indicates (typically via [[xpath]] or [[cssSelector]]) sections of a document that are highlighted as particularly [[speakable]]. Instances of this type are expected to be used primarily as values of the [[speakable]] property." ;
     rdfs:subClassOf :Intangible .
@@ -2882,6 +2859,12 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     rdfs:label "State" ;
     rdfs:comment "A state or province of a country." ;
     rdfs:subClassOf :AdministrativeArea .
+
+:StatusEnumeration a rdfs:Class ;
+    rdfs:label "StatusEnumeration" ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2604> ;
+    rdfs:comment "Lists or enumerations dealing with status types." ;
+    rdfs:subClassOf :Enumeration .
 
 :SteeringPositionValue a rdfs:Class ;
     rdfs:label "SteeringPositionValue" ;
@@ -3359,7 +3342,6 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 
 :WorkersUnion a rdfs:Class ;
     rdfs:label "WorkersUnion" ;
-    :category "issue-243" ;
     :source <https://github.com/schemaorg/schemaorg/issues/243> ;
     rdfs:comment "A Workers Union (also known as a Labor Union, Labour Union, or Trade Union) is an organization that promotes the interests of its worker members by collectively bargaining with management, organizing, and political lobbying." ;
     rdfs:subClassOf :Organization .
@@ -3584,6 +3566,10 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#MBZ> ;
     rdfs:comment "LiveAlbum." .
 
+:LockerDelivery a :DeliveryMethod ;
+    rdfs:label "LockerDelivery" ;
+    rdfs:comment "A DeliveryMethod in which an item is made available via locker." .
+
 :LowCalorieDiet a :RestrictedDiet ;
     rdfs:label "LowCalorieDiet" ;
     rdfs:comment "A diet focused on reduced calorie intake." .
@@ -3685,6 +3671,12 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 :Paperback a :BookFormatType ;
     rdfs:label "Paperback" ;
     rdfs:comment "Book format: Paperback." .
+
+:ParcelService a :DeliveryMethod ;
+    rdfs:label "ParcelService" ;
+    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsClass> ;
+    rdfs:comment """A private parcel service as the delivery mode available for a certain offer.\\n\\nCommonly used values:\\n\\n* http://purl.org/goodrelations/v1#DHL\\n* http://purl.org/goodrelations/v1#FederalExpress\\n* http://purl.org/goodrelations/v1#UPS
+      """ .
 
 :ParkingMap a :MapCategoryType ;
     rdfs:label "ParkingMap" ;
@@ -3914,7 +3906,6 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 
 :accessMode a rdf:Property ;
     rdfs:label "accessMode" ;
-    :category "issue-1110" ;
     :domainIncludes :CreativeWork ;
     :rangeIncludes :Text ;
     :source <https://github.com/schemaorg/schemaorg/issues/1100> ;
@@ -3923,7 +3914,6 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 
 :accessModeSufficient a rdf:Property ;
     rdfs:label "accessModeSufficient" ;
-    :category "issue-1110" ;
     :domainIncludes :CreativeWork ;
     :rangeIncludes :ItemList ;
     :source <https://github.com/schemaorg/schemaorg/issues/1100> ;
@@ -3956,7 +3946,6 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 
 :accessibilitySummary a rdf:Property ;
     rdfs:label "accessibilitySummary" ;
-    :category "issue-1110" ;
     :domainIncludes :CreativeWork ;
     :rangeIncludes :Text ;
     :source <https://github.com/schemaorg/schemaorg/issues/1100> ;
@@ -3984,7 +3973,6 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 
 :actionAccessibilityRequirement a rdf:Property ;
     rdfs:label "actionAccessibilityRequirement" ;
-    :category "issue-1741" ;
     :domainIncludes :ConsumeAction ;
     :rangeIncludes :ActionAccessSpecification ;
     :source <https://github.com/schemaorg/schemaorg/issues/1741> ;
@@ -4183,7 +4171,6 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 
 :amount a rdf:Property ;
     rdfs:label "amount" ;
-    :category "issue-1698" ;
     :domainIncludes :DatedMoneySpecification,
         :InvestmentOrDeposit,
         :LoanOrCredit ;
@@ -4391,7 +4378,6 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 
 :authenticator a rdf:Property ;
     rdfs:label "authenticator" ;
-    :category "issue-1741" ;
     :domainIncludes :MediaSubscription ;
     :rangeIncludes :Organization ;
     :source <https://github.com/schemaorg/schemaorg/issues/1741> ;
@@ -4414,7 +4400,6 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 
 :availabilityEnds a rdf:Property ;
     rdfs:label "availabilityEnds" ;
-    :category "issue-1741" ;
     :domainIncludes :ActionAccessSpecification,
         :Demand,
         :Offer ;
@@ -4426,7 +4411,6 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 
 :availabilityStarts a rdf:Property ;
     rdfs:label "availabilityStarts" ;
-    :category "issue-1741" ;
     :domainIncludes :ActionAccessSpecification,
         :Demand,
         :Offer ;
@@ -4693,7 +4677,6 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 
 :broadcastFrequency a rdf:Property ;
     rdfs:label "broadcastFrequency" ;
-    :category "issue-1004" ;
     :domainIncludes :BroadcastChannel,
         :BroadcastService ;
     :rangeIncludes :BroadcastFrequencySpecification,
@@ -4703,7 +4686,6 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 
 :broadcastFrequencyValue a rdf:Property ;
     rdfs:label "broadcastFrequencyValue" ;
-    :category "issue-1004" ;
     :domainIncludes :BroadcastFrequencySpecification ;
     :rangeIncludes :Number,
         :QuantitativeValue ;
@@ -4840,7 +4822,6 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 
 :category a rdf:Property ;
     rdfs:label "category" ;
-    :category "issue-1741" ;
     :domainIncludes :ActionAccessSpecification,
         :Invoice,
         :Offer,
@@ -4941,7 +4922,6 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 
 :claimReviewed a rdf:Property ;
     rdfs:label "claimReviewed" ;
-    :category "issue-1061" ;
     :domainIncludes :ClaimReview ;
     :rangeIncludes :Text ;
     :source <https://github.com/schemaorg/schemaorg/issues/1061> ;
@@ -5203,7 +5183,6 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 
 :cssSelector a rdf:Property ;
     rdfs:label "cssSelector" ;
-    :category "issue-1389" ;
     :domainIncludes :SpeakableSpecification,
         :WebPageElement ;
     :rangeIncludes :CssSelectorType ;
@@ -5592,7 +5571,6 @@ Dateline summaries are oriented more towards human readers than towards automate
 
 :educationRequirements a rdf:Property ;
     rdfs:label "educationRequirements" ;
-    :category "issue-1698" ;
     :domainIncludes :JobPosting,
         :Occupation ;
     :rangeIncludes :Text ;
@@ -5657,7 +5635,6 @@ This property should not be used where the nature of the alignment can be descri
 
 :eligibleRegion a rdf:Property ;
     rdfs:label "eligibleRegion" ;
-    :category "issue-1741" ;
     :domainIncludes :ActionAccessSpecification,
         :DeliveryChargeSpecification,
         :Demand,
@@ -5800,7 +5777,6 @@ This property should not be used where the nature of the alignment can be descri
 
 :estimatedSalary a rdf:Property ;
     rdfs:label "estimatedSalary" ;
-    :category "issue-1698" ;
     :domainIncludes :JobPosting,
         :Occupation ;
     :rangeIncludes :MonetaryAmount,
@@ -5846,7 +5822,6 @@ This property should not be used where the nature of the alignment can be descri
 
 :expectsAcceptanceOf a rdf:Property ;
     rdfs:label "expectsAcceptanceOf" ;
-    :category "issue-1741" ;
     :domainIncludes :ActionAccessSpecification,
         :ConsumeAction,
         :MediaSubscription ;
@@ -5856,7 +5831,6 @@ This property should not be used where the nature of the alignment can be descri
 
 :experienceRequirements a rdf:Property ;
     rdfs:label "experienceRequirements" ;
-    :category "issue-1698" ;
     :domainIncludes :JobPosting,
         :Occupation ;
     :rangeIncludes :Text ;
@@ -6235,7 +6209,6 @@ Typical unit code(s): MTK for square meter, FTK for square foot, or YDK for squa
 
 :hasOccupation a rdf:Property ;
     rdfs:label "hasOccupation" ;
-    :category "issue-1698" ;
     :domainIncludes :Person ;
     :rangeIncludes :Occupation ;
     :source <https://github.com/schemaorg/schemaorg/issues/1698> ;
@@ -6541,8 +6514,6 @@ Typical unit code(s): MTK for square meter, FTK for square foot, or YDK for squa
     # The textual definition for isVariantOf has been minimally updated to accomodate ProductGroup; this could be
     # :isVariantOf a rdf:Property ; :domainIncludes :Product ; :rangeIncludes :ProductGroup .
 
-
-
 :isbn a rdf:Property ;
     rdfs:label "isbn" ;
     :domainIncludes :Book ;
@@ -6666,7 +6637,9 @@ Typical unit code(s): MTK for square meter, FTK for square foot, or YDK for squa
 :keywords a rdf:Property ;
     rdfs:label "keywords" ;
     :domainIncludes :CreativeWork ;
-    :rangeIncludes :Text, :DefinedTerm, :URL ;
+    :rangeIncludes :DefinedTerm,
+        :Text,
+        :URL ;
     rdfs:comment "Keywords or tags used to describe this content. Multiple entries in a keywords list are typically delimited by commas." .
 
 :knownVehicleDamages a rdf:Property ;
@@ -6911,7 +6884,6 @@ Typical unit code(s): MTK for square meter, FTK for square foot, or YDK for squa
 
 :median a rdf:Property ;
     rdfs:label "median" ;
-    :category "issue-1698" ;
     :domainIncludes :QuantitativeValueDistribution ;
     :rangeIncludes :Number ;
     :source <https://github.com/schemaorg/schemaorg/issues/1698> ;
@@ -6956,7 +6928,6 @@ Typical unit code(s): MTK for square meter, FTK for square foot, or YDK for squa
 
 :menuAddOn a rdf:Property ;
     rdfs:label "menuAddOn" ;
-    :category "issue-1541" ;
     :domainIncludes :MenuItem ;
     :rangeIncludes :MenuItem,
         :MenuSection ;
@@ -7281,7 +7252,6 @@ Typical unit code(s): C62 for person""" .
 
 :occupationLocation a rdf:Property ;
     rdfs:label "occupationLocation" ;
-    :category "issue-1698" ;
     :domainIncludes :Occupation ;
     :rangeIncludes :AdministrativeArea ;
     :source <https://github.com/schemaorg/schemaorg/issues/1698> ;
@@ -7289,7 +7259,6 @@ Typical unit code(s): C62 for person""" .
 
 :occupationalCategory a rdf:Property ;
     rdfs:label "occupationalCategory" ;
-    :category "issue-1698" ;
     :domainIncludes :JobPosting,
         :Occupation ;
     :rangeIncludes :Text ;
@@ -7583,7 +7552,6 @@ Note: for historical reasons, any textual label and formal code provided as a li
 
 :percentile10 a rdf:Property ;
     rdfs:label "percentile10" ;
-    :category "issue-1698" ;
     :domainIncludes :QuantitativeValueDistribution ;
     :rangeIncludes :Number ;
     :source <https://github.com/schemaorg/schemaorg/issues/1698> ;
@@ -7591,7 +7559,6 @@ Note: for historical reasons, any textual label and formal code provided as a li
 
 :percentile25 a rdf:Property ;
     rdfs:label "percentile25" ;
-    :category "issue-1698" ;
     :domainIncludes :QuantitativeValueDistribution ;
     :rangeIncludes :Number ;
     :source <https://github.com/schemaorg/schemaorg/issues/1698> ;
@@ -7599,7 +7566,6 @@ Note: for historical reasons, any textual label and formal code provided as a li
 
 :percentile75 a rdf:Property ;
     rdfs:label "percentile75" ;
-    :category "issue-1698" ;
     :domainIncludes :QuantitativeValueDistribution ;
     :rangeIncludes :Number ;
     :source <https://github.com/schemaorg/schemaorg/issues/1698> ;
@@ -7607,7 +7573,6 @@ Note: for historical reasons, any textual label and formal code provided as a li
 
 :percentile90 a rdf:Property ;
     rdfs:label "percentile90" ;
-    :category "issue-1698" ;
     :domainIncludes :QuantitativeValueDistribution ;
     :rangeIncludes :Number ;
     :source <https://github.com/schemaorg/schemaorg/issues/1698> ;
@@ -8003,7 +7968,6 @@ While such policies are most typically expressed in natural language, sometimes 
 
 :qualifications a rdf:Property ;
     rdfs:label "qualifications" ;
-    :category "issue-1698" ;
     :domainIncludes :JobPosting,
         :Occupation ;
     :rangeIncludes :Text ;
@@ -8154,7 +8118,6 @@ While such policies are most typically expressed in natural language, sometimes 
 
 :relevantOccupation a rdf:Property ;
     rdfs:label "relevantOccupation" ;
-    :category "issue-1698" ;
     :domainIncludes :JobPosting ;
     :rangeIncludes :Occupation ;
     :source <https://github.com/schemaorg/schemaorg/issues/1698> ;
@@ -8242,7 +8205,6 @@ While such policies are most typically expressed in natural language, sometimes 
 
 :requiresSubscription a rdf:Property ;
     rdfs:label "requiresSubscription" ;
-    :category "issue-1741" ;
     :domainIncludes :ActionAccessSpecification,
         :MediaObject ;
     :rangeIncludes :Boolean,
@@ -8276,7 +8238,6 @@ While such policies are most typically expressed in natural language, sometimes 
 
 :responsibilities a rdf:Property ;
     rdfs:label "responsibilities" ;
-    :category "issue-1698" ;
     :domainIncludes :JobPosting,
         :Occupation ;
     :rangeIncludes :Text ;
@@ -8300,7 +8261,6 @@ While such policies are most typically expressed in natural language, sometimes 
 
 :reviewAspect a rdf:Property ;
     rdfs:label "reviewAspect" ;
-    :category "issue-1689" ;
     :domainIncludes :Rating,
         :Review ;
     :rangeIncludes :Text ;
@@ -8568,8 +8528,6 @@ While such policies are most typically expressed in natural language, sometimes 
 
 :skills a rdf:Property ;
     rdfs:label "skills" ;
-    :category "issue-1698",
-        "issue-2322" ;
     :domainIncludes :JobPosting,
         :Occupation ;
     :rangeIncludes :DefinedTerm,
@@ -8654,7 +8612,6 @@ While such policies are most typically expressed in natural language, sometimes 
 
 :speakable a rdf:Property ;
     rdfs:label "speakable" ;
-    :category "issue-1389" ;
     :domainIncludes :Article,
         :WebPage ;
     :rangeIncludes :SpeakableSpecification,
@@ -9518,7 +9475,6 @@ we define a supporting type, [[SpeakableSpecification]]  which is defined to be 
 
 :xpath a rdf:Property ;
     rdfs:label "xpath" ;
-    :category "issue-1389" ;
     :domainIncludes :SpeakableSpecification,
         :WebPageElement ;
     :rangeIncludes :XPathType ;
@@ -9731,7 +9687,6 @@ we define a supporting type, [[SpeakableSpecification]]  which is defined to be 
 
 :duration a rdf:Property ;
     rdfs:label "duration" ;
-    :category "issue-1698" ;
     :domainIncludes :Event,
         :MediaObject,
         :Movie,
@@ -9832,7 +9787,6 @@ Unregistered or niche encoding and file formats can be indicated instead via the
 
 :hasBroadcastChannel a rdf:Property ;
     rdfs:label "hasBroadcastChannel" ;
-    :category "issue-1004" ;
     :domainIncludes :BroadcastService ;
     :inverseOf :providesBroadcastService ;
     :rangeIncludes :BroadcastChannel ;
@@ -9871,7 +9825,9 @@ Unregistered or niche encoding and file formats can be indicated instead via the
 
 :isAccessibleForFree a rdf:Property ;
     rdfs:label "isAccessibleForFree" ;
-    :domainIncludes :CreativeWork, :Event, :Place;
+    :domainIncludes :CreativeWork,
+        :Event,
+        :Place ;
     :rangeIncludes :Boolean ;
     rdfs:comment "A flag to signal that the item, event, or place is accessible for free." .
 
@@ -10160,7 +10116,6 @@ Unregistered or niche encoding and file formats can be indicated instead via the
 
 :subjectOf a rdf:Property ;
     rdfs:label "subjectOf" ;
-    :category "issue-1670" ;
     :domainIncludes :Thing ;
     :inverseOf :about ;
     :rangeIncludes :CreativeWork,
@@ -10243,7 +10198,6 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
 
 :about a rdf:Property ;
     rdfs:label "about" ;
-    :category "issue-1670" ;
     :domainIncludes :CommunicateAction,
         :CreativeWork,
         :Event ;
@@ -10362,6 +10316,10 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
     rdfs:comment """A work featured in some event, e.g. exhibited in an ExhibitionEvent.
        Specific subproperties are available for workPerformed (e.g. a play), or a workPresented (a Movie at a ScreeningEvent).""" .
 
+<http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#IIT-CNR.it> a :Organization ;
+    rdfs:label "IITCNRit" ;
+    rdfs:comment "This element is based on work by the Web Applications for the Future Internet Lab, Institute of Informatics and Telematics, Pisa, Italy." .
+
 <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_LRMIClass> a :Organization ;
     rdfs:label "LRMIClass" ;
     rdfs:comment "This class is based on the work of the LRMI project, see lrmi.net for details." .
@@ -10418,9 +10376,9 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
     rdfs:comment "A sub property of participant. The participant who is at the receiving end of the action." ;
     rdfs:subPropertyOf :participant .
 
-<http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#IIT-CNR.it> a :Organization ;
-    rdfs:label "IITCNRit" ;
-    rdfs:comment "This element is based on work by the Web Applications for the Future Internet Lab, Institute of Informatics and Telematics, Pisa, Italy." .
+<http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Tourism> a :Organization ;
+    rdfs:label "Tourism" ;
+    rdfs:comment "This element is based on the work of the [Tourism Structured Web Data Community Group](https://www.w3.org/community/tourismdata)." .
 
 <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_ActionCollabClass> a :Organization ;
     rdfs:label "ActionCollabClass" ;
@@ -10437,10 +10395,6 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
     :rangeIncludes :CreativeWork ;
     :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_bibex> ;
     rdfs:comment "Indicates an item or CreativeWork that is part of this item, or CreativeWork (in some sense)." .
-
-<http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Tourism> a :Organization ;
-    rdfs:label "Tourism" ;
-    rdfs:comment "This element is based on the work of the [Tourism Structured Web Data Community Group](https://www.w3.org/community/tourismdata)." .
 
 <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms> a :Organization ;
     rdfs:label "GoodRelationsTerms" ;
@@ -10532,12 +10486,3 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
     ([www.musicbrainz.org](http://www.musicbrainz.org)), and is partially inspired by the MusicBrainz and
     [Music Ontology](http://musicontology.com/docs/getting-started.html) schemas.""" .
 
-
-# Added here as it affects many core enums; otherwise it would be in pending
-
-:StatusEnumeration a rdfs:Class ;
-    rdfs:label "StatusEnumeration" ;
-    :category "issue-2604" ;
-    :source <https://github.com/schemaorg/schemaorg/issues/2604> ;
-    rdfs:comment "Lists or enumerations dealing with status types." ;
-    rdfs:subClassOf :Enumeration .

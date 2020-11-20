@@ -1,13 +1,14 @@
 @prefix : <http://schema.org/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 :byMonthWeek a rdf:Property ;
     rdfs:label "byMonthWeek" ;
-    :category "issue-2599" ;
     :domainIncludes :Schedule ;
     :isPartOf <http://pending.schema.org> ;
     :rangeIncludes :Integer ;
     :source <https://github.com/schemaorg/schemaorg/issues/2599> ;
     rdfs:comment "Defines the week(s) of the month on which a recurring Event takes place. Specified as an Integer between 1-5. For clarity, byMonthWeek is best used in conjunction with byDay to indicate concepts like the first and third Mondays of a month." .
-    
+
