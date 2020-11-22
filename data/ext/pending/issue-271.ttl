@@ -1,10 +1,11 @@
 @prefix : <http://schema.org/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 :Quotation a rdfs:Class ;
     rdfs:label "Quotation" ;
-    :category "issue-271" ;
     :isPartOf <http://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/271> ;
     rdfs:comment "A quotation. Often but not necessarily from some written work, attributable to a real world author and - if associated with a fictional character - to any fictional Person. Use [[isBasedOn]] to link to source/origin. The [[recordedIn]] property can be used to reference a Quotation from an [[Event]]." ;
@@ -12,7 +13,6 @@
 
 :spokenByCharacter a rdf:Property ;
     rdfs:label "spokenByCharacter" ;
-    :category "issue-271" ;
     :domainIncludes :Quotation ;
     :isPartOf <http://pending.schema.org> ;
     :rangeIncludes :Organization,

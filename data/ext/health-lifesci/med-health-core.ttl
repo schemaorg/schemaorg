@@ -2,6 +2,8 @@
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 :AnatomicalStructure a rdfs:Class ;
     rdfs:label "AnatomicalStructure" ;
@@ -494,8 +496,8 @@
     rdfs:label "PhysicalExam" ;
     :isPartOf <http://health-lifesci.schema.org> ;
     rdfs:comment "A type of physical examination of a patient performed by a physician. " ;
-    rdfs:subClassOf :MedicalProcedure,
-         :MedicalEnumeration .
+    rdfs:subClassOf :MedicalEnumeration,
+        :MedicalProcedure .
 
 :PhysicalTherapy a rdfs:Class ;
     rdfs:label "PhysicalTherapy" ;
@@ -1808,6 +1810,14 @@
     :rangeIncludes :Text ;
     rdfs:comment "The specific biochemical interaction through which this drug or supplement produces its pharmacological effect." .
 
+:medicalAudience a rdf:Property ;
+    rdfs:label "medicalAudience" ;
+    :domainIncludes :MedicalWebPage ;
+    :isPartOf <http://health-lifesci.schema.org> ;
+    :rangeIncludes :MedicalAudience,
+        :MedicalAudienceType ;
+    rdfs:comment "Medical audience for page." .
+
 :medicalSpecialty a rdf:Property ;
     rdfs:label "medicalSpecialty" ;
     :domainIncludes :Hospital,
@@ -1817,14 +1827,6 @@
     :isPartOf <http://health-lifesci.schema.org> ;
     :rangeIncludes :MedicalSpecialty ;
     rdfs:comment "A medical specialty of the provider." .
-
-:medicalAudience a rdf:Property ;
-    rdfs:label "medicalAudience" ;
-    :domainIncludes :MedicalWebPage;
-    :isPartOf <http://health-lifesci.schema.org> ;
-    :rangeIncludes :MedicalAudience,
-      :MedicalAudienceType ;
-    rdfs:comment "Medical audience for page." .
 
 :medicineSystem a rdf:Property ;
     rdfs:label "medicineSystem" ;

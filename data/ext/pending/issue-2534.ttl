@@ -1,10 +1,11 @@
 @prefix : <http://schema.org/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 :GovernmentBenefitsType a rdfs:Class ;
     rdfs:label "GovernmentBenefitsType" ;
-    :category "issue-2534" ;
     :isPartOf <http://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/2534> ;
     rdfs:comment "GovernmentBenefitsType enumerates several kinds of government benefits to support the COVID-19 situation. Note that this structure may not capture all benefits offered." ;
@@ -12,63 +13,54 @@
 
 :BasicIncome a :GovernmentBenefitsType ;
     rdfs:label "BasicIncome" ;
-    :category "issue-2534" ;
     :isPartOf <http://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/2534> ;
     rdfs:comment "BasicIncome: this is a benefit for basic income." .
 
 :BusinessSupport a :GovernmentBenefitsType ;
     rdfs:label "BusinessSupport" ;
-    :category "issue-2534" ;
     :isPartOf <http://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/2534> ;
     rdfs:comment "BusinessSupport: this is a benefit for supporting businesses." .
 
 :DisabilitySupport a :GovernmentBenefitsType ;
     rdfs:label "DisabilitySupport" ;
-    :category "issue-2534" ;
     :isPartOf <http://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/2534> ;
     rdfs:comment "DisabilitySupport: this is a benefit for disability support." .
 
 :HealthCare a :GovernmentBenefitsType ;
     rdfs:label "HealthCare" ;
-    :category "issue-2534" ;
     :isPartOf <http://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/2534> ;
     rdfs:comment "HealthCare: this is a benefit for health care." .
 
 :OneTimePayments a :GovernmentBenefitsType ;
     rdfs:label "OneTimePayments" ;
-    :category "issue-2534" ;
     :isPartOf <http://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/2534> ;
     rdfs:comment "OneTimePayments: this is a benefit for one-time payments for individuals." .
 
 :PaidLeave a :GovernmentBenefitsType ;
     rdfs:label "PaidLeave" ;
-    :category "issue-2534" ;
     :isPartOf <http://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/2534> ;
     rdfs:comment "PaidLeave: this is a benefit for paid leave." .
 
 :ParentalSupport a :GovernmentBenefitsType ;
     rdfs:label "ParentalSupport" ;
-    :category "issue-2534" ;
     :isPartOf <http://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/2534> ;
     rdfs:comment "ParentalSupport: this is a benefit for parental support." .
 
 :UnemploymentSupport a :GovernmentBenefitsType ;
     rdfs:label "UnemploymentSupport" ;
-    :category "issue-2534" ;
     :isPartOf <http://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/2534> ;
     rdfs:comment "UnemploymentSupport: this is a benefit for unemployment support." .
 
 :governmentBenefitsInfo a rdf:Property ;
     rdfs:label "governmentBenefitsInfo" ;
-    :category "issue-2534" ;
     :domainIncludes :SpecialAnnouncement ;
     :isPartOf <http://pending.schema.org> ;
     :rangeIncludes :GovernmentService ;
@@ -83,7 +75,6 @@
 
 :jurisdiction a rdf:Property ;
     rdfs:label "jurisdiction" ;
-    :category "issue-2534" ;
     :domainIncludes :GovernmentService,
         :Legislation ;
     :isPartOf <http://pending.schema.org> ;

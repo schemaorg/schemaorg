@@ -1,10 +1,11 @@
 @prefix : <http://schema.org/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 :Schedule a rdfs:Class ;
     rdfs:label "Schedule" ;
-    :category "issue-1457" ;
     :isPartOf <http://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/1457> ;
     rdfs:comment """A schedule defines a repeating time period used to describe a regularly occurring [[Event]]. At a minimum a schedule will specify [[repeatFrequency]] which describes the interval between occurences of the event. Additional information can be provided to specify the schedule more precisely.
@@ -14,7 +15,6 @@
 
 :byDay a rdf:Property ;
     rdfs:label "byDay" ;
-    :category "issue-1457" ;
     :domainIncludes :Schedule ;
     :isPartOf <http://pending.schema.org> ;
     :rangeIncludes :DayOfWeek,
@@ -24,7 +24,6 @@
 
 :byMonth a rdf:Property ;
     rdfs:label "byMonth" ;
-    :category "issue-1457" ;
     :domainIncludes :Schedule ;
     :isPartOf <http://pending.schema.org> ;
     :rangeIncludes :Integer ;
@@ -33,7 +32,6 @@
 
 :byMonthDay a rdf:Property ;
     rdfs:label "byMonthDay" ;
-    :category "issue-1457" ;
     :domainIncludes :Schedule ;
     :isPartOf <http://pending.schema.org> ;
     :rangeIncludes :Integer ;
@@ -41,13 +39,11 @@
     rdfs:comment "Defines the day(s) of the month on which a recurring [[Event]] takes place. Specified as an [[Integer]] between 1-31." .
 
 :duration a rdf:Property ;
-    :category "issue-1457" ;
     :domainIncludes :Schedule ;
     :source <https://github.com/schemaorg/schemaorg/issues/1457> .
 
 :eventSchedule a rdf:Property ;
     rdfs:label "eventSchedule" ;
-    :category "issue-1457" ;
     :domainIncludes :Event ;
     :isPartOf <http://pending.schema.org> ;
     :rangeIncludes :Schedule ;
@@ -61,7 +57,6 @@
 
 :exceptDate a rdf:Property ;
     rdfs:label "exceptDate" ;
-    :category "issue-1457" ;
     :domainIncludes :Schedule ;
     :isPartOf <http://pending.schema.org> ;
     :rangeIncludes :Date,
@@ -74,7 +69,6 @@
 
 :repeatCount a rdf:Property ;
     rdfs:label "repeatCount" ;
-    :category "issue-1457" ;
     :domainIncludes :Schedule ;
     :isPartOf <http://pending.schema.org> ;
     :rangeIncludes :Integer ;
@@ -83,7 +77,6 @@
 
 :repeatFrequency a rdf:Property ;
     rdfs:label "repeatFrequency" ;
-    :category "issue-1457" ;
     :domainIncludes :Schedule ;
     :isPartOf <http://pending.schema.org> ;
     :rangeIncludes :Duration,
@@ -95,7 +88,6 @@
 
 :scheduleTimezone a rdf:Property ;
     rdfs:label "scheduleTimezone" ;
-    :category "issue-1457" ;
     :domainIncludes :Schedule ;
     :isPartOf <http://pending.schema.org> ;
     :rangeIncludes :Text ;

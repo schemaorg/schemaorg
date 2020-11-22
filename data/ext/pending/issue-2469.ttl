@@ -1,10 +1,11 @@
 @prefix : <http://schema.org/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 :editEIDR a rdf:Property ;
     rdfs:label "editEIDR" ;
-    :category "issue-2469" ;
     :domainIncludes :CreativeWork ;
     :isPartOf <http://pending.schema.org> ;
     :rangeIncludes :Text,
@@ -20,7 +21,6 @@ Since schema.org types like [[Movie]] and [[TVEpisode]] can be used for both wor
 
 :titleEIDR a rdf:Property ;
     rdfs:label "titleEIDR" ;
-    :category "issue-2469" ;
     :domainIncludes :Movie,
         :TVEpisode ;
     :isPartOf <http://pending.schema.org> ;

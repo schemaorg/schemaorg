@@ -48,8 +48,8 @@ class SdoTermSource():
     SOURCEGRAPH=None
     MARKDOWNPROCESS=True
     
-    def __init__(self,uri,ttype=None,label='',layer=None,cat=None):
-        #log.info('%s %s "%s" %s %s' % (uri,ttype,label, layer, cat))
+    def __init__(self,uri,ttype=None,label='',layer=None):
+        #log.info('%s %s "%s" %s %s' % (uri,ttype,label, layer))
         uri = str(uri)
         self.uri = uri
         self.id = uri2id(uri)
@@ -57,9 +57,6 @@ class SdoTermSource():
         self.layer = CORE
         if  layer:
             self.layer = layer
-        self.category = cat
-        if not cat:
-              self.category = ""
         self.termdesc = None
         
         self.parent = None
@@ -133,7 +130,6 @@ class SdoTermSource():
         elif self.ttype == SdoTerm.REFERENCE:
             self.termdesc = SdoReference(self.id,self.uri,self.label)
 
-        self.termdesc.category = self.category
         self.termdesc.acknowledgements = self.getAcknowledgements()
         self.termdesc.comment = self.getComment()
         self.termdesc.comments = self.getComments()
@@ -292,8 +288,6 @@ class SdoTermSource():
         if not self.aks:
             self.getSourcesAndAcks()
         return self.aks
-    def getCategory(self):
-        return self.category
     def getLayer(self):
         return self.layer
     def getInverseOf(self):
@@ -722,7 +716,6 @@ class SdoTermSource():
             tmp.sups.append(row.sup)
             tmp.tt = row.type
             tmp.lab = row.label
-            tmp.cat = row.cat
             tmp.layer = layerFromUri(row.layer)
             
         term = SdoTermSource.createTerm(tmp)
@@ -747,7 +740,7 @@ class SdoTermSource():
             
         term = TERMS.get(tmp.id,None) 
         if not term:  #Already created this term ?     
-            t =  SdoTermSource(tmp.id,ttype=tmp.tt,label=tmp.lab,layer=tmp.layer,cat=tmp.cat)
+            t =  SdoTermSource(tmp.id,ttype=tmp.tt,label=tmp.lab,layer=tmp.layer)
             term = t.termdesc
         return term
 
@@ -758,7 +751,6 @@ class SdoTermSource():
             self.sups = []
             self.lab = None
             self.layer = None
-            self.cat = None
             self.tt = ""
 
     @staticmethod
@@ -872,7 +864,7 @@ class SdoTermSource():
             supress = "FILTER NOT EXISTS { ?s dc:source ?term. }"
             
             
-        query = """SELECT DISTINCT ?term ?type ?label ?layer ?sup ?cat WHERE {
+        query = """SELECT DISTINCT ?term ?type ?label ?layer ?sup WHERE {
              ?term a ?type;
                 %s
                 %s
@@ -886,9 +878,6 @@ class SdoTermSource():
             }
             OPTIONAL {
                 ?term rdfs:subPropertyOf ?sup.
-            }
-            OPTIONAL {
-                ?term schema:category ?cat.
             }
             %s
             %s
@@ -1126,7 +1115,7 @@ class SdoTermSource():
             term = None
 
         query = """ 
-        SELECT ?term ?type ?label ?layer ?sup ?cat WHERE {
+        SELECT ?term ?type ?label ?layer ?sup WHERE {
              %s a ?type;
                 rdfs:label ?label.
             OPTIONAL {
@@ -1138,11 +1127,8 @@ class SdoTermSource():
             OPTIONAL {
                 %s rdfs:subPropertyOf ?sup.
             }
-            OPTIONAL {
-                %s schema:category ?cat.
-            }
         
-        }""" % (uriWrap(fullId),uriWrap(fullId),uriWrap(fullId),uriWrap(fullId),uriWrap(fullId))
+        }""" % (uriWrap(fullId),uriWrap(fullId),uriWrap(fullId),uriWrap(fullId))
         
         #log.info("QUERY %s" % query)
         if not term:

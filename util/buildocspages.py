@@ -55,13 +55,21 @@ def homePage(page):
     termcount=0
     if filt:
         terms = SdoTermSource.getAllTerms(layer=filt,expanded=True)
-        terms.sort(key = lambda u: (u.category, u.id))
+        for t in terms:
+            t.cat = ""
+            if filt == "pending":
+                for s in t.sources:
+                    if "schemaorg/issue" in s:
+                        t.cat = "issue-" + os.path.basename(s)
+                        break           
+        terms.sort(key = lambda u: (u.cat,u.id))
+
         first = True
         cat = None
         for t in terms:
-            if first or t.category != cat:
+            if first or t.cat != cat:
                 first = False
-                cat = t.category 
+                cat = t.cat
                 ttypes = {}
                 sectionterms[cat] = ttypes
                 ttypes[SdoTerm.TYPE] = []
@@ -74,6 +82,8 @@ def homePage(page):
             ttypes[t.termType].append(t)
             termcount += 1
     
+    sectionterms = dict(sorted(sectionterms.items()))
+
     extra_vars = {
         'home_page': "True",
         'title': SITENAME,
