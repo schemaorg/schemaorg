@@ -1,70 +1,71 @@
 @prefix : <http://schema.org/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 :TouristDestination a rdfs:Class ;
     rdfs:label "TouristDestination" ;
-    :category "issue-1810" ;
     :isPartOf <http://pending.schema.org> ;
     :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#IIT-CNR.it>,
-        <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Tourism> ;
+        <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Tourism>,
+        <https://github.com/schemaorg/schemaorg/issues/1810> ;
     rdfs:comment """A tourist destination. In principle any [[Place]] can be a [[TouristDestination]] from a [[City]], [[Region]] or [[Country]] to an [[AmusementPark]] or [[Hotel]]. This Type can be used on its own to describe a general [[TouristDestination]], or be used as an [[additionalType]] to add tourist relevant properties to any other [[Place]].  A [[TouristDestination]] is defined as a [[Place]] that contains, or is colocated with, one or more [[TouristAttraction]]s, often linked by a similar theme or interest to a particular [[touristType]]. The [UNWTO](http://www2.unwto.org/) defines Destination (main destination of a tourism trip) as the place visited that is central to the decision to take the trip.
   (See examples below).""" ;
     rdfs:subClassOf :Place .
 
 :TouristTrip a rdfs:Class ;
     rdfs:label "TouristTrip" ;
-    :category "issue-1810" ;
     :isPartOf <http://pending.schema.org> ;
     :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#IIT-CNR.it>,
-        <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Tourism> ;
+        <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Tourism>,
+        <https://github.com/schemaorg/schemaorg/issues/1810> ;
     rdfs:comment """A tourist trip. A created itinerary of visits to one or more places of interest ([[TouristAttraction]]/[[TouristDestination]]) often linked by a similar theme, geographic area, or interest to a particular [[touristType]]. The [UNWTO](http://www2.unwto.org/) defines tourism trip as the Trip taken by visitors.
   (See examples below).""" ;
     rdfs:subClassOf :Trip .
 
 :includesAttraction a rdf:Property ;
     rdfs:label "includesAttraction" ;
-    :category "issue-1810" ;
     :domainIncludes :TouristDestination ;
     :isPartOf <http://pending.schema.org> ;
     :rangeIncludes :TouristAttraction ;
     :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#IIT-CNR.it>,
-        <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Tourism> ;
+        <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Tourism>,
+        <https://github.com/schemaorg/schemaorg/issues/1810> ;
     rdfs:comment "Attraction located at destination." .
 
 :itinerary a rdf:Property ;
     rdfs:label "itinerary" ;
-    :category "issue-1810" ;
     :domainIncludes :Trip ;
     :isPartOf <http://pending.schema.org> ;
     :rangeIncludes :ItemList,
         :Place ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Tourism> ;
+    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Tourism>,
+        <https://github.com/schemaorg/schemaorg/issues/1810> ;
     rdfs:comment "Destination(s) ( [[Place]] ) that make up a trip. For a trip where destination order is important use [[ItemList]] to specify that order (see examples)." .
 
 :touristType a rdf:Property ;
     rdfs:label "touristType" ;
-    :category "issue-1810" ;
     :domainIncludes :TouristDestination,
         :TouristTrip .
 
 :partOfTrip a rdf:Property ;
     rdfs:label "partOfTrip" ;
-    :category "issue-1810" ;
     :domainIncludes :Trip ;
     :inverseOf :subTrip ;
     :isPartOf <http://pending.schema.org> ;
     :rangeIncludes :Trip ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Tourism> ;
+    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Tourism>,
+        <https://github.com/schemaorg/schemaorg/issues/1810> ;
     rdfs:comment "Identifies that this [[Trip]] is a subTrip of another Trip.  For example Day 1, Day 2, etc. of a multi-day trip." .
 
 :subTrip a rdf:Property ;
     rdfs:label "subTrip" ;
-    :category "issue-1810" ;
     :domainIncludes :Trip ;
     :inverseOf :partOfTrip ;
     :isPartOf <http://pending.schema.org> ;
     :rangeIncludes :Trip ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Tourism> ;
+    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Tourism>,
+        <https://github.com/schemaorg/schemaorg/issues/1810> ;
     rdfs:comment "Identifies a [[Trip]] that is a subTrip of this Trip.  For example Day 1, Day 2, etc. of a multi-day trip." .
 

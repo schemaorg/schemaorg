@@ -1,10 +1,11 @@
 @prefix : <http://schema.org/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 :HealthInsurancePlan a rdfs:Class ;
     rdfs:label "HealthInsurancePlan" ;
-    :category "issue-1062" ;
     :isPartOf <http://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/1062> ;
     rdfs:comment "A US-style health insurance plan, including PPOs, EPOs, and HMOs. " ;
@@ -12,7 +13,6 @@
 
 :HealthPlanCostSharingSpecification a rdfs:Class ;
     rdfs:label "HealthPlanCostSharingSpecification" ;
-    :category "issue-1062" ;
     :isPartOf <http://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/1062> ;
     rdfs:comment "A description of costs to the patient under a given network or formulary." ;
@@ -20,7 +20,6 @@
 
 :HealthPlanFormulary a rdfs:Class ;
     rdfs:label "HealthPlanFormulary" ;
-    :category "issue-1062" ;
     :isPartOf <http://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/1062> ;
     rdfs:comment "For a given health insurance plan, the specification for costs and coverage of prescription drugs. " ;
@@ -28,7 +27,6 @@
 
 :HealthPlanNetwork a rdfs:Class ;
     rdfs:label "HealthPlanNetwork" ;
-    :category "issue-1062" ;
     :isPartOf <http://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/1062> ;
     rdfs:comment "A US-style health insurance plan network. " ;
@@ -36,7 +34,6 @@
 
 :benefitsSummaryUrl a rdf:Property ;
     rdfs:label "benefitsSummaryUrl" ;
-    :category "issue-1062" ;
     :domainIncludes :HealthInsurancePlan ;
     :isPartOf <http://pending.schema.org> ;
     :rangeIncludes :URL ;
@@ -49,7 +46,6 @@
 
 :healthPlanCoinsuranceOption a rdf:Property ;
     rdfs:label "healthPlanCoinsuranceOption" ;
-    :category "issue-1062" ;
     :domainIncludes :HealthPlanCostSharingSpecification ;
     :isPartOf <http://pending.schema.org> ;
     :rangeIncludes :Text ;
@@ -58,7 +54,6 @@
 
 :healthPlanCoinsuranceRate a rdf:Property ;
     rdfs:label "healthPlanCoinsuranceRate" ;
-    :category "issue-1062" ;
     :domainIncludes :HealthPlanCostSharingSpecification ;
     :isPartOf <http://pending.schema.org> ;
     :rangeIncludes :Number ;
@@ -67,7 +62,6 @@
 
 :healthPlanCopay a rdf:Property ;
     rdfs:label "healthPlanCopay" ;
-    :category "issue-1062" ;
     :domainIncludes :HealthPlanCostSharingSpecification ;
     :isPartOf <http://pending.schema.org> ;
     :rangeIncludes :PriceSpecification ;
@@ -76,7 +70,6 @@
 
 :healthPlanCopayOption a rdf:Property ;
     rdfs:label "healthPlanCopayOption" ;
-    :category "issue-1062" ;
     :domainIncludes :HealthPlanCostSharingSpecification ;
     :isPartOf <http://pending.schema.org> ;
     :rangeIncludes :Text ;
@@ -85,7 +78,6 @@
 
 :healthPlanCostSharing a rdf:Property ;
     rdfs:label "healthPlanCostSharing" ;
-    :category "issue-1062" ;
     :domainIncludes :HealthPlanFormulary,
         :HealthPlanNetwork ;
     :isPartOf <http://pending.schema.org> ;
@@ -95,7 +87,6 @@
 
 :healthPlanDrugOption a rdf:Property ;
     rdfs:label "healthPlanDrugOption" ;
-    :category "issue-1062" ;
     :domainIncludes :HealthInsurancePlan ;
     :isPartOf <http://pending.schema.org> ;
     :rangeIncludes :Text ;
@@ -104,7 +95,6 @@
 
 :healthPlanDrugTier a rdf:Property ;
     rdfs:label "healthPlanDrugTier" ;
-    :category "issue-1062" ;
     :domainIncludes :HealthInsurancePlan,
         :HealthPlanFormulary ;
     :isPartOf <http://pending.schema.org> ;
@@ -114,7 +104,6 @@
 
 :healthPlanId a rdf:Property ;
     rdfs:label "healthPlanId" ;
-    :category "issue-1062" ;
     :domainIncludes :HealthInsurancePlan ;
     :isPartOf <http://pending.schema.org> ;
     :rangeIncludes :Text ;
@@ -123,7 +112,6 @@
 
 :healthPlanMarketingUrl a rdf:Property ;
     rdfs:label "healthPlanMarketingUrl" ;
-    :category "issue-1062" ;
     :domainIncludes :HealthInsurancePlan ;
     :isPartOf <http://pending.schema.org> ;
     :rangeIncludes :URL ;
@@ -132,7 +120,6 @@
 
 :healthPlanNetworkId a rdf:Property ;
     rdfs:label "healthPlanNetworkId" ;
-    :category "issue-1062" ;
     :domainIncludes :HealthPlanNetwork,
         :MedicalOrganization ;
     :isPartOf <http://pending.schema.org> ;
@@ -142,7 +129,6 @@
 
 :healthPlanNetworkTier a rdf:Property ;
     rdfs:label "healthPlanNetworkTier" ;
-    :category "issue-1062" ;
     :domainIncludes :HealthPlanNetwork ;
     :isPartOf <http://pending.schema.org> ;
     :rangeIncludes :Text ;
@@ -151,7 +137,6 @@
 
 :healthPlanPharmacyCategory a rdf:Property ;
     rdfs:label "healthPlanPharmacyCategory" ;
-    :category "issue-1062" ;
     :domainIncludes :HealthPlanCostSharingSpecification ;
     :isPartOf <http://pending.schema.org> ;
     :rangeIncludes :Text ;
@@ -160,7 +145,6 @@
 
 :includedInHealthInsurancePlan a rdf:Property ;
     rdfs:label "includedInHealthInsurancePlan" ;
-    :category "issue-1062" ;
     :domainIncludes :Drug ;
     :isPartOf <http://pending.schema.org> ;
     :rangeIncludes :HealthInsurancePlan ;
@@ -169,7 +153,6 @@
 
 :includesHealthPlanFormulary a rdf:Property ;
     rdfs:label "includesHealthPlanFormulary" ;
-    :category "issue-1062" ;
     :domainIncludes :HealthInsurancePlan ;
     :isPartOf <http://pending.schema.org> ;
     :rangeIncludes :HealthPlanFormulary ;
@@ -178,7 +161,6 @@
 
 :includesHealthPlanNetwork a rdf:Property ;
     rdfs:label "includesHealthPlanNetwork" ;
-    :category "issue-1062" ;
     :domainIncludes :HealthInsurancePlan ;
     :isPartOf <http://pending.schema.org> ;
     :rangeIncludes :HealthPlanNetwork ;
@@ -187,7 +169,6 @@
 
 :isAcceptingNewPatients a rdf:Property ;
     rdfs:label "isAcceptingNewPatients" ;
-    :category "issue-1062" ;
     :domainIncludes :MedicalOrganization ;
     :isPartOf <http://pending.schema.org> ;
     :rangeIncludes :Boolean ;
@@ -196,7 +177,6 @@
 
 :offersPrescriptionByMail a rdf:Property ;
     rdfs:label "offersPrescriptionByMail" ;
-    :category "issue-1062" ;
     :domainIncludes :HealthPlanFormulary ;
     :isPartOf <http://pending.schema.org> ;
     :rangeIncludes :Boolean ;
@@ -205,7 +185,6 @@
 
 :rxcui a rdf:Property ;
     rdfs:label "rxcui" ;
-    :category "issue-1062" ;
     :domainIncludes :Drug ;
     :isPartOf <http://pending.schema.org> ;
     :rangeIncludes :Text ;
@@ -214,7 +193,6 @@
 
 :usesHealthPlanIdStandard a rdf:Property ;
     rdfs:label "usesHealthPlanIdStandard" ;
-    :category "issue-1062" ;
     :domainIncludes :HealthInsurancePlan ;
     :isPartOf <http://pending.schema.org> ;
     :rangeIncludes :Text,

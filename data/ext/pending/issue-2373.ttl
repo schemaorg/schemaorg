@@ -1,10 +1,11 @@
 @prefix : <http://schema.org/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 :FloorPlan a rdfs:Class ;
     rdfs:label "FloorPlan" ;
-    :category "issue-2373" ;
     :isPartOf <http://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/2373> ;
     rdfs:comment "A FloorPlan is an explicit representation of a collection of similar accommodations, allowing the provision of common information (room counts, sizes, layout diagrams) and offers for rental or sale. In typical use, some [[ApartmentComplex]] has an [[accommodationFloorPlan]] which is a [[FloorPlan]].  A FloorPlan is always in the context of a particular place, either a larger [[ApartmentComplex]] or a single [[Apartment]]. The visual/spatial aspects of a floor plan (i.e. room layout, [see wikipedia](https://en.wikipedia.org/wiki/Floor_plan)) can be indicated using [[image]]. " ;
@@ -12,7 +13,6 @@
 
 :accommodationCategory a rdf:Property ;
     rdfs:label "accommodationCategory" ;
-    :category "issue-2373" ;
     :domainIncludes :Accommodation ;
     :isPartOf <http://pending.schema.org> ;
     :rangeIncludes :Text ;
@@ -22,7 +22,6 @@
 
 :accommodationFloorPlan a rdf:Property ;
     rdfs:label "accommodationFloorPlan" ;
-    :category "issue-2373" ;
     :domainIncludes :Accommodation,
         :Residence ;
     :isPartOf <http://pending.schema.org> ;
@@ -38,7 +37,6 @@
 
 :floorLevel a rdf:Property ;
     rdfs:label "floorLevel" ;
-    :category "issue-2373" ;
     :domainIncludes :Accommodation ;
     :isPartOf <http://pending.schema.org> ;
     :rangeIncludes :Text ;
@@ -51,16 +49,24 @@
 
 :isPlanForApartment a rdf:Property ;
     rdfs:label "isPlanForApartment" ;
-    :category "issue-2373" ;
     :domainIncludes :FloorPlan ;
     :isPartOf <http://pending.schema.org> ;
     :rangeIncludes :Accommodation ;
     :source <https://github.com/schemaorg/schemaorg/issues/2373> ;
     rdfs:comment "Indicates some accommodation that this floor plan describes." .
 
+:layoutImage a rdf:Property ;
+    rdfs:label "layoutImage" ;
+    :domainIncludes :FloorPlan ;
+    :isPartOf <http://pending.schema.org> ;
+    :rangeIncludes :ImageObject,
+        :URL ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2690> ;
+    rdfs:comment "A schematic image showing the floorplan layout." ;
+    rdfs:subPropertyOf :image .
+
 :leaseLength a rdf:Property ;
     rdfs:label "leaseLength" ;
-    :category "issue-2373" ;
     :domainIncludes :Accommodation,
         :Offer,
         :RealEstateListing ;
@@ -72,7 +78,6 @@
 
 :numberOfAccommodationUnits a rdf:Property ;
     rdfs:label "numberOfAccommodationUnits" ;
-    :category "issue-2373" ;
     :domainIncludes :ApartmentComplex,
         :FloorPlan ;
     :isPartOf <http://pending.schema.org> ;
@@ -82,7 +87,6 @@
 
 :numberOfAvailableAccommodationUnits a rdf:Property ;
     rdfs:label "numberOfAvailableAccommodationUnits" ;
-    :category "issue-2373" ;
     :domainIncludes :ApartmentComplex,
         :FloorPlan ;
     :isPartOf <http://pending.schema.org> ;
@@ -92,7 +96,6 @@
 
 :numberOfBathroomsTotal a rdf:Property ;
     rdfs:label "numberOfBathroomsTotal" ;
-    :category "issue-2373" ;
     :domainIncludes :Accommodation,
         :FloorPlan ;
     :isPartOf <http://pending.schema.org> ;
@@ -102,7 +105,6 @@
 
 :numberOfBedrooms a rdf:Property ;
     rdfs:label "numberOfBedrooms" ;
-    :category "issue-2373" ;
     :domainIncludes :Accommodation,
         :ApartmentComplex,
         :FloorPlan ;
@@ -114,7 +116,6 @@
 
 :numberOfFullBathrooms a rdf:Property ;
     rdfs:label "numberOfFullBathrooms" ;
-    :category "issue-2373" ;
     :domainIncludes :Accommodation,
         :FloorPlan ;
     :isPartOf <http://pending.schema.org> ;
@@ -124,7 +125,6 @@
 
 :numberOfPartialBathrooms a rdf:Property ;
     rdfs:label "numberOfPartialBathrooms" ;
-    :category "issue-2373" ;
     :domainIncludes :Accommodation,
         :FloorPlan ;
     :isPartOf <http://pending.schema.org> ;
@@ -141,7 +141,6 @@
 
 :tourBookingPage a rdf:Property ;
     rdfs:label "tourBookingPage" ;
-    :category "issue-2373" ;
     :domainIncludes :Accommodation,
         :ApartmentComplex,
         :Place ;
@@ -152,23 +151,9 @@
 
 :yearBuilt a rdf:Property ;
     rdfs:label "yearBuilt" ;
-    :category "issue-2373" ;
     :domainIncludes :Accommodation ;
     :isPartOf <http://pending.schema.org> ;
     :rangeIncludes :Number ;
     :source <https://github.com/schemaorg/schemaorg/issues/2373> ;
     rdfs:comment "The year an [[Accommodation]] was constructed. This corresponds to the [YearBuilt field in RESO](https://ddwiki.reso.org/display/DDW17/YearBuilt+Field). " .
 
-
-
-    # included here but filed as a different issue as it was a followup:
-    #
-    :layoutImage a rdf:Property ;
-        rdfs:label "layoutImage" ;
-        :category "issue-2690" ;
-        :domainIncludes :FloorPlan ;
-        :isPartOf <http://pending.schema.org> ;
-        :rangeIncludes :ImageObject, :URL ;
-        :source <https://github.com/schemaorg/schemaorg/issues/2690> ;
-        rdfs:comment "A schematic image showing the floorplan layout." ;
-        rdfs:subPropertyOf :image .

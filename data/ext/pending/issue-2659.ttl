@@ -1,42 +1,22 @@
 @prefix : <http://schema.org/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-
-#:EnergyConsumptionDetails a rdfs:Class ;
-#  rdfs:label "EnergyConsumptionDetails" ;
-#  :category "issue-2670" ;
-#  :isPartOf <http://pending.schema.org> ;
-#  rdfs:subClassOf :Intangible ;
-#  :source <https://github.com/schemaorg/schemaorg/issues/2670> ;
-#  rdfs:comment "EnergyConsumptionDetails represents information related to the energy efficiency of a product that consumes energy. The information that can be provided is based on international regulations such as for example [EU directive 2017/1369](https://eur-lex.europa.eu/eli/reg/2017/1369/oj) for energy labeling and the [Energy labeling rule](https://www.ftc.gov/enforcement/rules/rulemaking-regulatory-reform-proceedings/energy-water-use-labeling-consumer) under the Energy Policy and Conservation Act (EPCA) in the US" .
-
-#:hasEnergyConsumptionDetails a rdf:Property ;
-#  rdfs:label "hasEnergyConsumptionDetails" ;
-#  :category "issue-2670" ;
-#  :isPartOf <http://pending.schema.org> ;
-#  :domainIncludes :Product ;
-#  :rangeIncludes :EnergyConsumptionDetails ;
-#  :source <https://github.com/schemaorg/schemaorg/issues/2670> ;
-#  rdfs:comment """Defines the energy efficiency Category (also known as "class" or "rating") for a product according to an international energy efficiency standard""" .
-
-# https://github.com/schemaorg/schemaorg/issues/2659
-
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 :copyrightNotice a rdf:Property ;
-  rdfs:label "copyrightNotice" ;
-  :category "issue-2659" ;
-  :isPartOf <http://pending.schema.org> ;
-  :domainIncludes :CreativeWork ;
-  :rangeIncludes :Text ;
-  :source <https://github.com/schemaorg/schemaorg/issues/2659> ;
-  rdfs:comment """Text of a notice appropriate for describing the copyright aspects of this Creative Work, ideally indicating the owner of the copyright for the Work.""" .
-
-
-  :creditText a rdf:Property ;
-    rdfs:label "creditText" ;
-    :category "issue-2659" ;
-    :isPartOf <http://pending.schema.org> ;
+    rdfs:label "copyrightNotice" ;
     :domainIncludes :CreativeWork ;
+    :isPartOf <http://pending.schema.org> ;
     :rangeIncludes :Text ;
     :source <https://github.com/schemaorg/schemaorg/issues/2659> ;
-    rdfs:comment """Text that can be used to credit person(s) and/or organization(s) associated with a published Creative Work.""" .
+    rdfs:comment "Text of a notice appropriate for describing the copyright aspects of this Creative Work, ideally indicating the owner of the copyright for the Work." .
+
+:creditText a rdf:Property ;
+    rdfs:label "creditText" ;
+    :domainIncludes :CreativeWork ;
+    :isPartOf <http://pending.schema.org> ;
+    :rangeIncludes :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2659> ;
+    rdfs:comment "Text that can be used to credit person(s) and/or organization(s) associated with a published Creative Work." .
+

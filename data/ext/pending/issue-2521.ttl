@@ -1,10 +1,11 @@
 @prefix : <http://schema.org/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 :CDCPMDRecord a rdfs:Class ;
     rdfs:label "CDCPMDRecord" ;
-    :category "issue-2521" ;
     :isPartOf <http://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/2521> ;
     rdfs:comment """A CDCPMDRecord is a data structure representing a record in a CDC tabular data format
@@ -15,7 +16,6 @@
 
 :cvdCollectionDate a rdf:Property ;
     rdfs:label "cvdCollectionDate" ;
-    :category "issue-2521" ;
     :domainIncludes :CDCPMDRecord ;
     :isPartOf <http://pending.schema.org> ;
     :rangeIncludes :DateTime,
@@ -25,7 +25,6 @@
 
 :cvdFacilityCounty a rdf:Property ;
     rdfs:label "cvdFacilityCounty" ;
-    :category "issue-2521" ;
     :domainIncludes :CDCPMDRecord ;
     :isPartOf <http://pending.schema.org> ;
     :rangeIncludes :Text ;
@@ -34,7 +33,6 @@
 
 :cvdFacilityId a rdf:Property ;
     rdfs:label "cvdFacilityId" ;
-    :category "issue-2521" ;
     :domainIncludes :CDCPMDRecord ;
     :isPartOf <http://pending.schema.org> ;
     :rangeIncludes :Text ;
@@ -43,7 +41,6 @@
 
 :cvdNumBeds a rdf:Property ;
     rdfs:label "cvdNumBeds" ;
-    :category "issue-2521" ;
     :domainIncludes :CDCPMDRecord ;
     :isPartOf <http://pending.schema.org> ;
     :rangeIncludes :Number ;
@@ -52,7 +49,6 @@
 
 :cvdNumBedsOcc a rdf:Property ;
     rdfs:label "cvdNumBedsOcc" ;
-    :category "issue-2521" ;
     :domainIncludes :CDCPMDRecord ;
     :isPartOf <http://pending.schema.org> ;
     :rangeIncludes :Number ;
@@ -61,7 +57,6 @@
 
 :cvdNumC19Died a rdf:Property ;
     rdfs:label "cvdNumC19Died" ;
-    :category "issue-2521" ;
     :domainIncludes :CDCPMDRecord ;
     :isPartOf <http://pending.schema.org> ;
     :rangeIncludes :Number ;
@@ -70,7 +65,6 @@
 
 :cvdNumC19HOPats a rdf:Property ;
     rdfs:label "cvdNumC19HOPats" ;
-    :category "issue-2521" ;
     :domainIncludes :CDCPMDRecord ;
     :isPartOf <http://pending.schema.org> ;
     :rangeIncludes :Number ;
@@ -79,7 +73,6 @@
 
 :cvdNumC19HospPats a rdf:Property ;
     rdfs:label "cvdNumC19HospPats" ;
-    :category "issue-2521" ;
     :domainIncludes :CDCPMDRecord ;
     :isPartOf <http://pending.schema.org> ;
     :rangeIncludes :Number ;
@@ -88,7 +81,6 @@
 
 :cvdNumC19MechVentPats a rdf:Property ;
     rdfs:label "cvdNumC19MechVentPats" ;
-    :category "issue-2521" ;
     :domainIncludes :CDCPMDRecord ;
     :isPartOf <http://pending.schema.org> ;
     :rangeIncludes :Number ;
@@ -97,7 +89,6 @@
 
 :cvdNumC19OFMechVentPats a rdf:Property ;
     rdfs:label "cvdNumC19OFMechVentPats" ;
-    :category "issue-2521" ;
     :domainIncludes :CDCPMDRecord ;
     :isPartOf <http://pending.schema.org> ;
     :rangeIncludes :Number ;
@@ -106,7 +97,6 @@
 
 :cvdNumC19OverflowPats a rdf:Property ;
     rdfs:label "cvdNumC19OverflowPats" ;
-    :category "issue-2521" ;
     :domainIncludes :CDCPMDRecord ;
     :isPartOf <http://pending.schema.org> ;
     :rangeIncludes :Number ;
@@ -115,7 +105,6 @@
 
 :cvdNumICUBeds a rdf:Property ;
     rdfs:label "cvdNumICUBeds" ;
-    :category "issue-2521" ;
     :domainIncludes :CDCPMDRecord ;
     :isPartOf <http://pending.schema.org> ;
     :rangeIncludes :Number ;
@@ -124,7 +113,6 @@
 
 :cvdNumICUBedsOcc a rdf:Property ;
     rdfs:label "cvdNumICUBedsOcc" ;
-    :category "issue-2521" ;
     :domainIncludes :CDCPMDRecord ;
     :isPartOf <http://pending.schema.org> ;
     :rangeIncludes :Number ;
@@ -133,7 +121,6 @@
 
 :cvdNumTotBeds a rdf:Property ;
     rdfs:label "cvdNumTotBeds" ;
-    :category "issue-2521" ;
     :domainIncludes :CDCPMDRecord ;
     :isPartOf <http://pending.schema.org> ;
     :rangeIncludes :Number ;
@@ -142,7 +129,6 @@
 
 :cvdNumVent a rdf:Property ;
     rdfs:label "cvdNumVent" ;
-    :category "issue-2521" ;
     :domainIncludes :CDCPMDRecord ;
     :isPartOf <http://pending.schema.org> ;
     :rangeIncludes :Number ;
@@ -151,7 +137,6 @@
 
 :cvdNumVentUse a rdf:Property ;
     rdfs:label "cvdNumVentUse" ;
-    :category "issue-2521" ;
     :domainIncludes :CDCPMDRecord ;
     :isPartOf <http://pending.schema.org> ;
     :rangeIncludes :Number ;
@@ -159,13 +144,11 @@
     rdfs:comment "numventuse - MECHANICAL VENTILATORS IN USE: Total number of ventilators in use." .
 
 :datePosted a rdf:Property ;
-    :category "issue-2521" ;
     :domainIncludes :CDCPMDRecord ;
     :source <https://github.com/schemaorg/schemaorg/issues/2521> .
 
 :healthcareReportingData a rdf:Property ;
     rdfs:label "healthcareReportingData" ;
-    :category "issue-2521" ;
     :domainIncludes :Hospital ;
     :isPartOf <http://pending.schema.org> ;
     :rangeIncludes :CDCPMDRecord,

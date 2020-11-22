@@ -1,10 +1,11 @@
 @prefix : <http://schema.org/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 :BrokerageAccount a rdfs:Class ;
     rdfs:label "BrokerageAccount" ;
-    :category "issue-1253" ;
     :isPartOf <http://pending.schema.org> ;
     :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO>,
         <https://github.com/schemaorg/schemaorg/issues/1253> ;
@@ -13,7 +14,6 @@
 
 :ExchangeRateSpecification a rdfs:Class ;
     rdfs:label "ExchangeRateSpecification" ;
-    :category "issue-1253" ;
     :isPartOf <http://pending.schema.org> ;
     :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO>,
         <https://github.com/schemaorg/schemaorg/issues/1253> ;
@@ -22,7 +22,6 @@
 
 :InvestmentFund a rdfs:Class ;
     rdfs:label "InvestmentFund" ;
-    :category "issue-1253" ;
     :isPartOf <http://pending.schema.org> ;
     :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO>,
         <https://github.com/schemaorg/schemaorg/issues/1253> ;
@@ -31,7 +30,6 @@
 
 :MoneyTransfer a rdfs:Class ;
     rdfs:label "MoneyTransfer" ;
-    :category "issue-1253" ;
     :isPartOf <http://pending.schema.org> ;
     :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO>,
         <https://github.com/schemaorg/schemaorg/issues/1253> ;
@@ -40,7 +38,6 @@
 
 :MortgageLoan a rdfs:Class ;
     rdfs:label "MortgageLoan" ;
-    :category "issue-1253" ;
     :isPartOf <http://pending.schema.org> ;
     :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO>,
         <https://github.com/schemaorg/schemaorg/issues/1253> ;
@@ -49,7 +46,6 @@
 
 :RepaymentSpecification a rdfs:Class ;
     rdfs:label "RepaymentSpecification" ;
-    :category "issue-1253" ;
     :isPartOf <http://pending.schema.org> ;
     :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO>,
         <https://github.com/schemaorg/schemaorg/issues/1253> ;
@@ -58,7 +54,6 @@
 
 :accountMinimumInflow a rdf:Property ;
     rdfs:label "accountMinimumInflow" ;
-    :category "issue-1253" ;
     :domainIncludes :BankAccount ;
     :isPartOf <http://pending.schema.org> ;
     :rangeIncludes :MonetaryAmount ;
@@ -68,7 +63,6 @@
 
 :accountOverdraftLimit a rdf:Property ;
     rdfs:label "accountOverdraftLimit" ;
-    :category "issue-1253" ;
     :domainIncludes :BankAccount ;
     :isPartOf <http://pending.schema.org> ;
     :rangeIncludes :MonetaryAmount ;
@@ -77,13 +71,11 @@
     rdfs:comment "An overdraft is an extension of credit from a lending institution when an account reaches zero. An overdraft allows the individual to continue withdrawing money even if the account has no funds in it. Basically the bank allows people to borrow a set amount of money." .
 
 :amount a rdf:Property ;
-    :category "issue-1253" ;
     :domainIncludes :MoneyTransfer ;
     :source <https://github.com/schemaorg/schemaorg/issues/1253> .
 
 :bankAccountType a rdf:Property ;
     rdfs:label "bankAccountType" ;
-    :category "issue-1253" ;
     :domainIncludes :BankAccount ;
     :isPartOf <http://pending.schema.org> ;
     :rangeIncludes :Text,
@@ -94,7 +86,6 @@
 
 :beneficiaryBank a rdf:Property ;
     rdfs:label "beneficiaryBank" ;
-    :category "issue-1253" ;
     :domainIncludes :MoneyTransfer ;
     :isPartOf <http://pending.schema.org> ;
     :rangeIncludes :BankOrCreditUnion,
@@ -105,7 +96,6 @@
 
 :cashBack a rdf:Property ;
     rdfs:label "cashBack" ;
-    :category "issue-1253" ;
     :domainIncludes :PaymentCard ;
     :isPartOf <http://pending.schema.org> ;
     :rangeIncludes :Boolean,
@@ -116,7 +106,6 @@
 
 :contactlessPayment a rdf:Property ;
     rdfs:label "contactlessPayment" ;
-    :category "issue-1253" ;
     :domainIncludes :PaymentCard ;
     :isPartOf <http://pending.schema.org> ;
     :rangeIncludes :Boolean ;
@@ -125,14 +114,12 @@
     rdfs:comment "A secure method for consumers to purchase products or services via debit, credit or smartcards by using RFID or NFC technology." .
 
 :currency a rdf:Property ;
-    :category "issue-1253" ;
     :domainIncludes :ExchangeRateSpecification,
         :LoanOrCredit ;
     :source <https://github.com/schemaorg/schemaorg/issues/1253> .
 
 :currentExchangeRate a rdf:Property ;
     rdfs:label "currentExchangeRate" ;
-    :category "issue-1253" ;
     :domainIncludes :ExchangeRateSpecification ;
     :isPartOf <http://pending.schema.org> ;
     :rangeIncludes :UnitPriceSpecification ;
@@ -142,7 +129,6 @@
 
 :domiciledMortgage a rdf:Property ;
     rdfs:label "domiciledMortgage" ;
-    :category "issue-1253" ;
     :domainIncludes :MortgageLoan ;
     :isPartOf <http://pending.schema.org> ;
     :rangeIncludes :Boolean ;
@@ -152,7 +138,6 @@
 
 :downPayment a rdf:Property ;
     rdfs:label "downPayment" ;
-    :category "issue-1253" ;
     :domainIncludes :RepaymentSpecification ;
     :isPartOf <http://pending.schema.org> ;
     :rangeIncludes :MonetaryAmount,
@@ -163,7 +148,6 @@
 
 :earlyPrepaymentPenalty a rdf:Property ;
     rdfs:label "earlyPrepaymentPenalty" ;
-    :category "issue-1253" ;
     :domainIncludes :RepaymentSpecification ;
     :isPartOf <http://pending.schema.org> ;
     :rangeIncludes :MonetaryAmount ;
@@ -173,7 +157,6 @@
 
 :exchangeRateSpread a rdf:Property ;
     rdfs:label "exchangeRateSpread" ;
-    :category "issue-1253" ;
     :domainIncludes :ExchangeRateSpecification ;
     :isPartOf <http://pending.schema.org> ;
     :rangeIncludes :MonetaryAmount,
@@ -184,7 +167,6 @@
 
 :floorLimit a rdf:Property ;
     rdfs:label "floorLimit" ;
-    :category "issue-1253" ;
     :domainIncludes :PaymentCard ;
     :isPartOf <http://pending.schema.org> ;
     :rangeIncludes :MonetaryAmount ;
@@ -194,7 +176,6 @@
 
 :gracePeriod a rdf:Property ;
     rdfs:label "gracePeriod" ;
-    :category "issue-1253" ;
     :domainIncludes :LoanOrCredit ;
     :isPartOf <http://pending.schema.org> ;
     :rangeIncludes :Duration ;
@@ -204,7 +185,6 @@
 
 :loanMortgageMandateAmount a rdf:Property ;
     rdfs:label "loanMortgageMandateAmount" ;
-    :category "issue-1253" ;
     :domainIncludes :MortgageLoan ;
     :isPartOf <http://pending.schema.org> ;
     :rangeIncludes :MonetaryAmount ;
@@ -214,7 +194,6 @@
 
 :loanPaymentAmount a rdf:Property ;
     rdfs:label "loanPaymentAmount" ;
-    :category "issue-1253" ;
     :domainIncludes :RepaymentSpecification ;
     :isPartOf <http://pending.schema.org> ;
     :rangeIncludes :MonetaryAmount ;
@@ -224,7 +203,6 @@
 
 :loanPaymentFrequency a rdf:Property ;
     rdfs:label "loanPaymentFrequency" ;
-    :category "issue-1253" ;
     :domainIncludes :RepaymentSpecification ;
     :isPartOf <http://pending.schema.org> ;
     :rangeIncludes :Number ;
@@ -234,7 +212,6 @@
 
 :loanRepaymentForm a rdf:Property ;
     rdfs:label "loanRepaymentForm" ;
-    :category "issue-1253" ;
     :domainIncludes :LoanOrCredit ;
     :isPartOf <http://pending.schema.org> ;
     :rangeIncludes :RepaymentSpecification ;
@@ -244,7 +221,6 @@
 
 :loanType a rdf:Property ;
     rdfs:label "loanType" ;
-    :category "issue-1253" ;
     :domainIncludes :LoanOrCredit ;
     :isPartOf <http://pending.schema.org> ;
     :rangeIncludes :Text,
@@ -255,7 +231,6 @@
 
 :monthlyMinimumRepaymentAmount a rdf:Property ;
     rdfs:label "monthlyMinimumRepaymentAmount" ;
-    :category "issue-1253" ;
     :domainIncludes :PaymentCard ;
     :isPartOf <http://pending.schema.org> ;
     :rangeIncludes :MonetaryAmount,
@@ -266,7 +241,6 @@
 
 :numberOfLoanPayments a rdf:Property ;
     rdfs:label "numberOfLoanPayments" ;
-    :category "issue-1253" ;
     :domainIncludes :RepaymentSpecification ;
     :isPartOf <http://pending.schema.org> ;
     :rangeIncludes :Number ;
@@ -276,7 +250,6 @@
 
 :recourseLoan a rdf:Property ;
     rdfs:label "recourseLoan" ;
-    :category "issue-1253" ;
     :domainIncludes :LoanOrCredit ;
     :isPartOf <http://pending.schema.org> ;
     :rangeIncludes :Boolean ;
@@ -286,7 +259,6 @@
 
 :renegotiableLoan a rdf:Property ;
     rdfs:label "renegotiableLoan" ;
-    :category "issue-1253" ;
     :domainIncludes :LoanOrCredit ;
     :isPartOf <http://pending.schema.org> ;
     :rangeIncludes :Boolean ;

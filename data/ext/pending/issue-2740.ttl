@@ -1,28 +1,29 @@
 @prefix : <http://schema.org/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-
-:SolveMathAction a rdfs:Class ;
-    rdfs:label "SolveMathAction" ;
-    :category "issue-2740" ;
-    :isPartOf <http://pending.schema.org> ;
-    :source <https://github.com/schemaorg/schemaorg/issues/2740> ;
-    rdfs:comment "The action that takes in a math expression and directs users to a page potentially capable of solving/simplifying that expression." ;
-    rdfs:subClassOf :Action .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 :MathSolver a rdfs:Class ;
     rdfs:label "MathSolver" ;
-    :category "issue-2740" ;
     :isPartOf <http://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/2740> ;
     rdfs:comment "A math solver which is capable of solving a subset of mathematical problems." ;
     rdfs:subClassOf :CreativeWork .
 
+:SolveMathAction a rdfs:Class ;
+    rdfs:label "SolveMathAction" ;
+    :isPartOf <http://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2740> ;
+    rdfs:comment "The action that takes in a math expression and directs users to a page potentially capable of solving/simplifying that expression." ;
+    rdfs:subClassOf :Action .
+
 :mathExpression a rdf:Property ;
     rdfs:label "mathExpression" ;
-    :category "issue-2740" ;
     :domainIncludes :MathSolver ;
     :isPartOf <http://pending.schema.org> ;
-    :rangeIncludes :SolveMathAction, :Text ;
+    :rangeIncludes :SolveMathAction,
+        :Text ;
     :source <https://github.com/schemaorg/schemaorg/issues/2740> ;
     rdfs:comment "A mathematical expression (e.g. 'x^2-3x=0') that may be solved for a specific variable, simplified, or transformed. This can take many formats, e.g. LaTeX, Ascii-Math, or math as you would write with a keyboard." .
+

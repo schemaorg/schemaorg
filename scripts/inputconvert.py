@@ -28,7 +28,6 @@ from rdflib.plugins.sparql import prepareQuery, processUpdate
 from rdflib.compare import graph_diff
 from rdflib.namespace import RDFS, RDF
 
-import pyRdfa
 
 rdflib.plugin.register("jsonld", Parser, "rdflib_jsonld.parser", "JsonLDParser")
 rdflib.plugin.register("rdfa", Parser, "pyRdfa.rdflibparsers", "RDFaParser")
@@ -51,19 +50,17 @@ format = args.format
 combine = args.combinefile
 
 SPARQL1 = """
-PREFIX dc: <http://purl.org/dc/terms/> 
 PREFIX schema: <http://schema.org/> 
 
-DELETE { ?s dc:source ?o }
-INSERT { ?s schema:source ?o }
+DELETE { ?s schema:category ?o }
 WHERE {
-    ?s dc:source ?o .
+    ?s schema:category ?o .
 }
 """
 
 def out(filename):
     graph.update(SPARQL1)
-    graph.bind('',URIRef('http://schema.org/'),override=True, replace=True)
+    graph.bind('',URIRef('http://schema.org/'),override=True)
     if args.outputdir:
         outfile = "%s/%s" % (args.outputdir,filename)
     else:
