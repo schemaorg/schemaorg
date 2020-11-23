@@ -24,7 +24,7 @@
         
         {% if term.termType == "Property" %}
             {% if term.inverse %}
-            <p>Inverse-property: {{ sdotermlink(term.inverse)|safe }}</a></p>
+            <p>Inverse-property: {{ sdotermlink(term.inverse)|safe }}</p>
             {% endif %}
             
             <table class="definition-table">
@@ -35,7 +35,7 @@
                         {{ sdotermlink(type)|safe }}{% if not loop.last %}<br/>{% endif %}
                     {% endif %}
                 {% endfor %}
-                </td></code></tr>
+                </code></td></tr>
             </table>
             <table class="definition-table">
                 <thead><tr><th>Used on these types</th></tr></thead>
@@ -45,7 +45,7 @@
                         {{ sdotermlink(type)|safe }}{% if not loop.last %}<br/>{% endif %}
                     {% endif %}
                 {% endfor %}
-                </td></code></tr>
+                </code></td></tr>
             </table>
         {% endif %}
         	
