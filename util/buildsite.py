@@ -111,6 +111,8 @@ def initdir():
     createMissingDir(OUTPUTDIR)
     clear()
     createMissingDir(OUTPUTDIR + "/docs")
+    createMissingDir(OUTPUTDIR + "/releases/%s" % getVersion())
+
     gdir = OUTPUTDIR + "/gcloud"
     createMissingDir(gdir)
 
@@ -293,6 +295,9 @@ if __name__ == '__main__':
     if args.examplesnum:
         print("Checking Examples for assigned identifiers")
         cmd ="./SchemaExamples/utils/assign-example-ids.py"
+        os.system(cmd)
+        print("Building consolidated Examples file")
+        cmd ="./SchemaExamples/utils/consolidate.py -o ./site/releases/%s/schemaorg-examples.txt" % getVersion()
         os.system(cmd)
 
     runtests()
