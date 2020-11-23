@@ -1,10 +1,17 @@
 {% from 'macros.j2' import docs_sdotermlink as sdotermlink with context %}
 <!DOCTYPE html>
 <html lang="en">
-<!-- Generated from Home.j2 -->
-    <link rel="stylesheet" type="text/css" href="detailTree/detailTree.css" />
-    <script src="detailTree/detailTree.js"></script>
+<!-- Generated from Full.j2 -->
+    {% macro head_insert() -%}
+      <link rel="stylesheet" type="text/css" href="detailTree/detailTree.css" />
+      <script src="detailTree/detailTree.js"></script>
+    {%- endmacro %}
+    {% set head_insert_available = true %}
+
+
     {% include 'docs/DocsHead.j2' with context %}
+
+
 <body>
     {% include 'PageHeader.j2' with context %}
     <div id="mainContent">

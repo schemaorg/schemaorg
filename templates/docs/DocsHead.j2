@@ -11,5 +11,8 @@
     <link rel="stylesheet" type="text/css" href="{{docsdir}}/devnote.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="{{docsdir}}/schemaorg.js"></script>
+    {% if head_insert_available %}
+        {{ head_insert() }}
+    {% endif %}
     
 </head>
