@@ -1105,6 +1105,10 @@ class SdoTermSource():
 
         if not termId:
             return None
+        if re.search('[^0-9a-zA-Z-_]',termId):
+            log.error("Invalid term name: '%s'" % termId)
+            return None
+            
         #log.info("GET: %s" % termId)
         termId = str(termId).strip()
         fullId = toFullId(termId)
