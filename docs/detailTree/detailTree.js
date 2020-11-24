@@ -508,6 +508,6 @@ function dttToggleCheck(event){
             }
         }
         if(parentBranch){
-            parentBranch.setAttribute("dttState",state)
+            parentBranch.setAttribute("data-dttState",state)
         }
     }
