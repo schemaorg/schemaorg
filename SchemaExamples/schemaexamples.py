@@ -10,7 +10,6 @@ log = logging.getLogger(__name__)
 import os
 import os.path
 import io
-import urllib
 import glob
 import re
 import threading
@@ -319,6 +318,7 @@ class ExampleFileParser():
 
     def parse (self, filen):
         import codecs
+        import requests
         self.file = filen
         self.filepos = 0
         examples = []
@@ -328,7 +328,8 @@ class ExampleFileParser():
             self.file = self.file[7:]
         
         if "://" in self.file:
-            content = urllib.urlopen(self.file).read().decode("utf8")
+            r = requests.get(self.file)
+            content = r.text
         else:
             fd = codecs.open(self.file, 'r', encoding="utf8")
             content = fd.read()
