@@ -41,7 +41,7 @@ def termtemplateRender(term,examples):
         'home_page': "False",
         'docsdir': TERMDOCSDIR,
         'term': term,
-        'jsonldPayload': SdoTermSource.getTermAsRdfString(term.id,"json-ld"),
+        'jsonldPayload': SdoTermSource.getTermAsRdfString(term.id,"json-ld", full=True),
         'examples': examples
     }
     

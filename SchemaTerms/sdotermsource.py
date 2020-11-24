@@ -754,7 +754,17 @@ class SdoTermSource():
             self.tt = ""
 
     @staticmethod
-    def getTermAsRdfString(termId,format):
+    def triples4Term(termId):
+        from rdflib import URIRef, BNode, Literal
+        term = SdoTermSource.getTerm(termId)
+        g = SdoTermSource.SOURCEGRAPH
+        triples = g.triples((URIRef(term.uri), None, None)) 
+        return triples
+
+
+
+    @staticmethod
+    def getTermAsRdfString(termId,format,full=False):
         term = SdoTermSource.getTerm(termId)
         if not term or term.termType == SdoTerm.REFERENCE:
             return ""
@@ -768,44 +778,36 @@ class SdoTermSource():
 
         schema = Namespace(VOCABURI)
         g.bind("schema",VOCABURI)
-        
-    
-        types = []
-        props = []
-        stack = [term]
-        stack.extend(SdoTermSource.termsFromIds(term.termStack))
-        for t in stack:
-            if t.termType == SdoTerm.PROPERTY:
-                props.append(t)
-            else:
-                types.append(t)
-                if t.termType == SdoTerm.ENUMERATIONVALUE:
-                    types.append(SdoTermSource.termFromId(t.enumerationParent))
-                elif t == stack[0]:
-                    props.extend(SdoTermSource.termsFromIds(t.allproperties))
-        for t in types:
-            sub = URIRef(t.uri)
-            if t.termType == SdoTerm.ENUMERATIONVALUE:
-                g.add((sub,RDF.type,schema[t.enumerationParent]))
-            else:
-                g.add((sub,RDF.type,RDFS.Class))
-                for s in t.supers:
-                    g.add((sub,RDFS.subClassOf,schema[s]))
-            g.add((sub,RDFS.label,Literal(t.label)))
-            g.add((sub,RDFS.comment,Literal(t.comment)))
- 
-        for p in props:
-            sub = URIRef(p.uri)
-            g.add((sub,RDF.type,RDF.Property))
-            g.add((sub,RDFS.label,Literal(p.label)))
-            g.add((sub,RDFS.comment,Literal(p.comment)))
-            for s in p.supers:
-                g.add((sub,RDFS.subPropertyOf,schema[s]))
 
-            for d in p.domainIncludes:
-               g.add((sub,schema.domainIncludes,schema[d]))
-            for r in p.rangeIncludes:
-               g.add((sub,schema.rangeIncludes,schema[r]))
+        if not full: #Only the term definition
+            triples = SdoTermSource.triples4Term(term)
+            for trip in triples:
+                g.add(trip)
+        else:        #full - Include all related terms
+            types = []
+            props = []
+            stack = [term]
+
+            stack.extend(SdoTermSource.termsFromIds(term.termStack))
+            for t in stack:
+                if t.termType == SdoTerm.PROPERTY:
+                    props.append(t)
+                else:
+                    types.append(t)
+                    if t.termType == SdoTerm.ENUMERATIONVALUE:
+                        types.append(SdoTermSource.termFromId(t.enumerationParent))
+                    elif t == stack[0]:
+                        props.extend(SdoTermSource.termsFromIds(t.allproperties))
+        
+            for t in types:
+                triples =  SdoTermSource.triples4Term(t.id)
+                for trip in triples:
+                    g.add(trip)
+
+            for p in props:
+                triples =  SdoTermSource.triples4Term(p.id)
+                for trip in triples:
+                    g.add(trip)
              
         kwargs = {'sort_keys': True}
         if format == "rdf":
