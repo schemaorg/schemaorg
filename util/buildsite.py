@@ -296,10 +296,6 @@ if __name__ == '__main__':
         print("Checking Examples for assigned identifiers")
         cmd ="./SchemaExamples/utils/assign-example-ids.py"
         os.system(cmd)
-        print("Building consolidated Examples file")
-        cmd ="./SchemaExamples/utils/consolidate.py -o ./site/releases/%s/schemaorg-examples.txt" % getVersion()
-        os.system(cmd)
-
     runtests()
     processTerms()
     processDocs()

@@ -342,7 +342,7 @@ FILELIST = { "Context": (jsonldcontext,["docs/jsonldcontext.jsonld",
             "RDFExport.nquads": (exportrdf,[""]),
             "RDFExport.json-ld": (exportrdf,[""]),
             "CSVExports": (exportcsv,[""]),
-            "Examples": (examples,["releases/%s/all_examples.txt" % getVersion()])
+            "Examples": (examples,["releases/%s/schemaorg-all-examples.txt" % getVersion()])
          }
 
 def buildFiles(files):
