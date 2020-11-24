@@ -19,11 +19,11 @@
             content: "";
         }
         
-        .dttBranch[dttState='treeopen'] > .rowicon::before {
+        .dttBranch[data-dttState='treeopen'] > .rowicon::before {
             content: url(dtt-down-arrow.png);
             cursor: pointer;
         }
-        .dttBranch[dttState='treeclosed'] > .rowicon::before {
+        .dttBranch[data-dttState='treeclosed'] > .rowicon::before {
             content: url(dtt-right-arrow.png);
             cursor: pointer;
         }
@@ -31,11 +31,11 @@
             content: url(dtt-bullet.png);
             padding-right: 5px;
         }
-       .dttBranch[dttState='treeclosed'] > .plusminus::after{
+       .dttBranch[data-dttState='treeclosed'] > .plusminus::after{
             content: "+";
             cursor: pointer;
         }
-        .dttBranch[dttState='treeopen'] > .plusminus::after{
+        .dttBranch[data-dttState='treeopen'] > .plusminus::after{
             content: "-";
             cursor: pointer;
         }

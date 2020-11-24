@@ -31,8 +31,8 @@
       <div class="dttTreeContainer">
         <div>
             {% if node.title %}<h4 id="Listing{{loop.index}}">{{node.title}}</h4>{% endif %}
-            <span class="ddtCloseAll" role="button" treeid="tree{{loop.index}}">Close hierarchy</span> / 
-            <span class="ddtOpenAll" role="button" treeid="tree{{loop.index}}">Open hierarchy</span>
+            <span class="ddtCloseAll" role="button" data-treeid="tree{{loop.index}}">Close hierarchy</span> / 
+            <span class="ddtOpenAll" role="button" data-treeid="tree{{loop.index}}">Open hierarchy</span>
             <br/>
         </div>
 
@@ -44,9 +44,9 @@
           <li 
             class="dttBranch" 
             {% if loop.depth == 1 %}
-              dttState="treeopen"
+              data-dttState="treeopen"
             {% else %}
-              dttState="treeclosed"
+              data-dttState="treeclosed"
             {% endif %} 
             id="C.{{node.id}}">
             <span class="rowicon"></span>

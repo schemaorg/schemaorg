@@ -92,7 +92,7 @@ window.addEventListener('load', function () {
         open = false;
       }
 
-      target = node.getAttribute("treeid");
+      target = node.getAttribute("data-treeid");
       if(target){
         tree = document.getElementById(target);
         if(tree){
