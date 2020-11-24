@@ -167,9 +167,13 @@ class SchemaExamples():
     
     
     @staticmethod
-    def loadExamplesFiles(exfiles):
+    def loadExamplesFiles(exfiles,init=False):
         import glob
         global DEFTEXAMPLESFILESGLOB
+        if init:
+            EXAMPLESLOADED=False
+            EXAMPLESMAP = {}
+            EXAMPLES = {}  
 
         if SchemaExamples.EXAMPLESLOADED:
             print("Examples files already loaded")
