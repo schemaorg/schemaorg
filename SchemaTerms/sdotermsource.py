@@ -1106,7 +1106,7 @@ class SdoTermSource():
         if not termId:
             return None
 
-        if not '://' in termId and re.search('[^0-9a-zA-Z-_]',termId):
+        if re.search('[^0-9a-zA-Z-_://]',termId):
             log.error("Invalid term name: '%s'" % termId)
             return None
 
