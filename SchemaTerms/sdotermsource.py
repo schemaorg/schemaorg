@@ -918,9 +918,11 @@ class SdoTermSource():
         EXPANDEDTERMS={}
 
     @staticmethod
-    def loadSourceGraph(files=None):
+    def loadSourceGraph(files=None, init=False):
         import glob
         global DEFTRIPLESFILESGLOB
+        if init:
+            SdoTermSource.SOURCEGRAPH = None
 
         if not files or files == "default":
             if SdoTermSource.SOURCEGRAPH:
