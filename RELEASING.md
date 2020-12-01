@@ -1,3 +1,12 @@
+Contents
+========
+- [RELEASING NOTES](#releasing-notes)
+- [PRE-RELEASE STEPS](#pre-release-steps)
+- [POST-RELEASE STEPS](#post-release-steps)
+- [GENERAL PRE-Release conditions](#general-pre-release-conditions)
+- [DEPLOY TO SCHEMA.ORG SITE](#deploy-to-schemaorg-site)
+
+
 RELEASING NOTES
 ===============
 
@@ -117,4 +126,4 @@ DEPLOY TO SCHEMA.ORG SITE
 =========================
 Use command `./gcloud/deploy2schema.org.sh`
 
-Note: Supplying the `-m` option to the `deploy2schema.org.sh` command will dissable the step in the deploy process that migrates web traffic to the newly deployed version.  This step can be undertaken manually later via the google cloud appengine console.
+**Note**: Supplying the `-m` option to the `deploy2schema.org.sh` command will dissable the step in the deploy process that migrates web traffic to the newly deployed version.  This step can be undertaken manually later via the google cloud appengine console.
