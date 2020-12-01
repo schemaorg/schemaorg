@@ -116,3 +116,5 @@ e.g. see http://webschemas.org/docs/qa.html
 DEPLOY TO SCHEMA.ORG SITE
 =========================
 Use command `./gcloud/deploy2schema.org.sh`
+
+Note: Supplying the `-m` option to the `deploy2schema.org.sh` command will dissable the step in the deploy process that migrates web traffic to the newly deployed version.  This step can be undertaken manually later via the google cloud appengine console.
