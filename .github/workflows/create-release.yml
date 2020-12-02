@@ -1,20 +1,29 @@
-name: create-release
-
 on:
   push:
+    # Sequence of patterns matched against refs/tags
     tags:
-      - "x*"
+      - 'x*' # Push events to matching v*, i.e. v1.0, v20.15.10
+
+name: Create Release
 
 jobs:
-  create-release:
-   name: "Create Release"
-   runs-on: "ubuntu-latest"
-
-   steps:
-      # ...
-  
-      - uses: actions/checkout@v2
-      with:
-        repo_token: "${{ secrets.GITHUB_TOKEN }}"
-        run: echo TAG - ${GITHUB_REF/refs\/tags\//}
-        run: hub release create -pd ${GITHUB_REF/refs\/tags\//}
+  build:
+    name: Create Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          body: |
+            Changes in this Release
+            - First Change
+            - Second Change
+          draft: false
+          prerelease: false
