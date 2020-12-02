@@ -3,11 +3,14 @@ name: create-release
 on:
   push:
     tags:
-      - "v*"
+      - "x*"
 
 jobs:
   create-release:
       steps:
   
       - uses: actions/checkout@v2
-        run: hub release create ${GITHUB_REF/refs\/tags\//}
+      with:
+        repo_token: "${{ secrets.GITHUB_TOKEN }}"
+        run: echo TAG - ${GITHUB_REF/refs\/tags\//}
+        run: hub release create -pd ${GITHUB_REF/refs\/tags\//}
