@@ -1,0 +1,13 @@
+name: create-release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  create-release:
+      steps:
+  
+      - uses: actions/checkout@v2
+        run: hub release create ${GITHUB_REF/refs\/tags\//}
