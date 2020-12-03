@@ -14,10 +14,10 @@ RELEASING NOTES
 See [SOFTWARE_README.md](SOFTWARE_README.md) for commandline scripts. This
 document covers the larger release process.
 
-<span style="color: red">Note:</span> These instructions assume the user has sufficient permissions for both github functions and Google Cloud Appengine deployments.
+**Note**:  These instructions assume the user has sufficient permissions for both github functions and Google Cloud Appengine deployments.
 
 
-0-a) Technical pre-conditions for release.
+**Technical pre-conditions for release**
 
 Overview
 
