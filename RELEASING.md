@@ -14,6 +14,8 @@ RELEASING NOTES
 See [SOFTWARE_README.md](SOFTWARE_README.md) for commandline scripts. This
 document covers the larger release process.
 
+<span style="color: red">Note:</span> These instructions assume the user has sufficient permissions for both github functions and Google Cloud Appengine deployments.
+
 
 0-a) Technical pre-conditions for release.
 
@@ -65,7 +67,8 @@ e.g.
 
 PRE-RELEASE STEPS
 =================
-**In a checked out version of the _main_ branch: **
+
+In a checked out version of the _main_ branch:
 
 * Successfully run the `./util/buildsite.py -release` command.  This will:
   * assign missing example ids
