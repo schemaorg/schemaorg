@@ -26,6 +26,22 @@ def getVersionDate(ver):
 
 def getCurrentVersionDate():
     return getVersionDate(getVersion())
+
+def setVersion(ver,date):
+    global versiondata
+    if not versiondata:
+        loadVersions()
+
+    versiondata['schemaversion'] = ver
+    versiondata['releaseLog'][ver] = date
+    vers = versiondata['releaseLog']
+    vers = dict(sorted(vers.items(), key=lambda x: float(x[0]), reverse=True))
+    versiondata['releaseLog'] = vers
+    with open('versions.json', "w") as json_file:
+        json_file.write(json.dumps(versiondata,indent=4))
+
+
+
     
 if __name__ == '__main__':
     print(getVersion())
