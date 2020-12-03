@@ -102,7 +102,7 @@ def insertcopy(doc, docdata=None):
         targetfile = DESTDIR + '/' + os.path.basename(doc)
         with open(targetfile,"w") as outfile:
             outfile.write(docdata)
-        print("adding inserts to: " + targetfile)    
+        #print("adding inserts to: " + targetfile)    
 
 
 

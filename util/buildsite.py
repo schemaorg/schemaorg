@@ -6,6 +6,7 @@ if not (sys.version_info.major == 3 and sys.version_info.minor > 5):
     sys.exit(1)
 
 import os
+import time
 import shutil
 for path in [os.getcwd(),"SchemaTerms","SchemaExamples"]:
   sys.path.insert( 1, path ) #Pickup libs from local  directories
@@ -45,6 +46,7 @@ parser.add_argument("-o","--output", help="output site directory (default: ./sit
 parser.add_argument("-r","--runtests",default=False, action='store_true', help="run test scripts before creating contents")
 parser.add_argument("-s","--static",default=False, action='store_true',  help="Refresh static docs in site image")
 parser.add_argument("-t","--terms",default= [],action='append',nargs='*',  help="create page for term (repeatable) - ALL = all terms")
+parser.add_argument("--release",default=False, action='store_true',  help="create page for term (repeatable) - ALL = all terms")
 args = parser.parse_args()
 
 TERMS = []
@@ -63,7 +65,7 @@ else:
     OUTPUTDIR = "site"
 DOCSOUTPUTDIR = OUTPUTDIR + "/docs"
 
-if args.autobuild:
+if args.autobuild or args.release:
     TERMS = ["ALL"]
     PAGES = ["ALL"]
     FILES = ["ALL"]
@@ -130,6 +132,50 @@ def initdir():
     print("Created handlers.yaml for version: %s" % getVersion())
     os.system(cmd)
     print("Done\n")
+
+from shutil import *
+def mycopytree(src, dst, symlinks=False, ignore=None):
+    #copes with already existing directories
+    names = os.listdir(src)
+    if ignore is not None:
+        ignored_names = ignore(src, names)
+    else:
+        ignored_names = set()
+
+    if not os.path.isdir(dst): 
+        os.makedirs(dst)
+    errors = []
+    for name in names:
+        if name in ignored_names:
+            continue
+        srcname = os.path.join(src, name)
+        dstname = os.path.join(dst, name)
+        try:
+            if symlinks and os.path.islink(srcname):
+                linkto = os.readlink(srcname)
+                os.symlink(linkto, dstname)
+            elif os.path.isdir(srcname):
+                mycopytree(srcname, dstname, symlinks, ignore)
+            else:
+                # Will raise a SpecialFileError for unsupported file types
+                copy2(srcname, dstname)
+        # catch the Error from the recursive copytree so that we can
+        # continue with other files
+        except Error as err:
+            errors.extend(err.args[0])
+        except EnvironmentError as why:
+            errors.append((srcname, dstname, str(why)))
+    try:
+        copystat(src, dst)
+    except OSError as why:
+        if WindowsError is not None and isinstance(why, WindowsError):
+            # Copying file access times may fail on Windows
+            pass
+        else:
+            errors.extend((src, dst, str(why)))
+    if errors:
+        raise Error (errors)
+
     
 ###################################################
 #MARKDOWN INITIALISE
@@ -288,16 +334,39 @@ def processFiles():
         loadTerms()
         loadExamples()
         buildfiles.buildFiles(FILES)
+###################################################
+#COPY CREATED RELEASE FILES into Data area
+###################################################
+def copyReleaseFiles():
+    print("Copying release files for version %s to data/releases" % getVersion() )
+    SRCDIR = './site/releases/%s' % getVersion()
+    DESTDIR = './data/releases/%s' % getVersion()
+    mycopytree(SRCDIR,DESTDIR)
+    cmd= "git add %s" % DESTDIR
+    os.system(cmd)
+
 
 if __name__ == '__main__':
     print("Version: %s  Released: %s" % (getVersion(),getCurrentVersionDate()))
-    initdir()
-    if args.examplesnum:
+    copyReleaseFiles()
+    sys.exit()
+    if args.release:
+        args.autobuild = True
+        print("BUILDING RELEASE VERSION")
+        time.sleep(2)
+        print()
+    if args.examplesnum or args.release:
         print("Checking Examples for assigned identifiers")
+        time.sleep(2)
+        print()
         cmd ="./SchemaExamples/utils/assign-example-ids.py"
         os.system(cmd)
+        print()
+    initdir()
     runtests()
     processTerms()
     processDocs()
     processFiles()
+    if args.release:
+        copyReleaseFiles()
 
