@@ -348,8 +348,6 @@ def copyReleaseFiles():
 
 if __name__ == '__main__':
     print("Version: %s  Released: %s" % (getVersion(),getCurrentVersionDate()))
-    copyReleaseFiles()
-    sys.exit()
     if args.release:
         args.autobuild = True
         print("BUILDING RELEASE VERSION")
