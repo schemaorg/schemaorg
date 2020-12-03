@@ -643,6 +643,7 @@ class SdoTermSource():
                 
             termdesc.termStack = SdoTermSource.termsFromIds(termdesc.termStack)
             termdesc.supers = SdoTermSource.termsFromIds(termdesc.supers)
+            termdesc.subs = SdoTermSource.termsFromIds(termdesc.subs)
             termdesc.equivalents = SdoTermSource.termsFromIds(termdesc.equivalents)
         
             if termdesc.termType == SdoTerm.TYPE or termdesc.termType == SdoTerm.DATATYPE or termdesc.termType == SdoTerm.ENUMERATION:

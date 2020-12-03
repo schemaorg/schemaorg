@@ -4,7 +4,9 @@
     {% if loop.first %}
      <br/><b><a  id="subtypes" title="Link: #subtypes" href="#subtypes" class="clickableAnchor" >{{SUBLABEL}}</a></b><ul>
     {% endif %}
-	<li>{{ sdotermlink(sub)|safe }}</li>
+    {% if not sub.retired and not sub.superseded %}
+        <li>{{ sdotermlink(sub)|safe }}</li>
+    {% endif %}
     {% if loop.last %}
      </ul>
     {% endif %}
