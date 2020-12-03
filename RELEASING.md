@@ -2,6 +2,7 @@ Contents
 ========
 - [RELEASING NOTES](#releasing-notes)
 - [PRE-RELEASE STEPS](#pre-release-steps)
+- [DEPLOY RELEASE](#deploy-release)
 - [POST-RELEASE STEPS](#post-release-steps)
 - [GENERAL PRE-Release conditions](#general-pre-release-conditions)
 - [DEPLOY TO SCHEMA.ORG SITE](#deploy-to-schemaorg-site)
@@ -64,15 +65,24 @@ e.g.
 
 PRE-RELEASE STEPS
 =================
-* Run the `./util/buildsite.py -e` command to assign missing example ids
-    (Any updated examples will need committing)
+**In a checked out version of the _main_ branch: **
 
-* The `./util/buildsite.py -a` command should be run successfully following changes prior to release. 
-   (The -a option runs local tests)
+* Successfully run the `./util/buildsite.py -release` command.  This will:
+  * assign missing example ids
+  * complete a full build of the site, proceeded by tests.
+  * copy working copies of release files into data/releases directory
 
-* The ./site/releases/{version} directory has been copied to ./data/releases directory.
+* The resultant version [to be released] should be committed and pushed to github and CI tests completed successfully.
 
-* The version [to be released] has been committed and pushed to github and CI tests completed successfully.
+DEPLOY RELEASE
+==============
+
+Use command `./gcloud/deploy2schema.org.sh`
+
+**Note**: Supplying the `-m` option to the `deploy2schema.org.sh` command will disable the step in the deploy process that migrates web traffic to the newly deployed version.  This step can be undertaken manually later via the google cloud appengine console.
+
+**Warning**: Because of Google cloud caching processes it may take several minutes before new versions of _all_ released files are supplied in response to a browser request.  As this includes javascript and css files, initial unusual behavior may be experienced.  It is recommended that a full reload of pages, at least 10 minutes after deployment and migration, is performed before analysing a new release.
+
 
 POST-RELEASE STEPS
 ==================
@@ -122,8 +132,3 @@ representative pages of each type appear to be in a healthy state.
 
 e.g. see http://webschemas.org/docs/qa.html
 
-DEPLOY TO SCHEMA.ORG SITE
-=========================
-Use command `./gcloud/deploy2schema.org.sh`
-
-**Note**: Supplying the `-m` option to the `deploy2schema.org.sh` command will dissable the step in the deploy process that migrates web traffic to the newly deployed version.  This step can be undertaken manually later via the google cloud appengine console.
