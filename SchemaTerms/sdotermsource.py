@@ -136,6 +136,7 @@ class SdoTermSource():
         self.termdesc.equivalents = self.getEquivalents()
         self.termdesc.pending = self.inLayers("pending")
         self.termdesc.retired = self.inLayers("attic")
+        self.termdesc.extLayer = self.getExtLayer()
         self.termdesc.sources = self.getSources()
         self.termdesc.subs = self.getSubs()
         self.termdesc.supers = self.getSupers()
@@ -399,6 +400,13 @@ class SdoTermSource():
         return self.equivalents
     def inLayers(self,layers):
         return self.layer in layers
+    
+    def getExtLayer(self):
+        ret = ""
+        lay = self.layer
+        if len(lay) and lay != CORE:
+            ret = lay
+        return ret
 
     @staticmethod
     def subClassOf(child,parent):

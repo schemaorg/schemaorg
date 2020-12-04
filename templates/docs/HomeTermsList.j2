@@ -1,0 +1,11 @@
+<!-- HomeTermsList.j2 -->
+{% for c in sectionterms %}
+    {% set cat = sectionterms[c] %}
+    {% if loop.first %}<h3>{{termcount}} Terms defined in the '{{SECTIONNAME}}' section.</h3>{% endif %}
+    {% for term in cat["Type"] %}{%if loop.first %}<br/>{{c}} Types ({{cat["Type"]|length}})<br/>{% else %}, {% endif %}{{ sdotermlink(term)|safe }}{% if loop.last %}<br/>{% endif %}{% endfor %}
+    {% for term in cat["Property"] %}{%if loop.first %}<br/>{{c}} Properties ({{cat["Property"]|length}})<br/>{% else %}, {% endif %}{{ sdotermlink(term)|safe}}{% if loop.last %}<br/>{% endif %}{% endfor %}
+    {% for term in cat["Enumeration"] %}{%if loop.first %}<br/>{{c}} Enumerations ({{cat["Enumeration"]|length}})<br/>{% else %}, {% endif %}{{ sdotermlink(term)|safe}}{% if loop.last %}<br/>{% endif %}{% endfor %}
+    {% for term in cat["Enumerationvalue"] %}{%if loop.first %}<br/>{{c}} Enumeration Members ({{cat["Enumerationvalue"]|length}})<br/>{% else %}, {% endif %}{{ sdotermlink(term)|safe}}{% if loop.last %}<br/>{% endif %}{% endfor %}
+    {% for term in cat["Datatype"] %}{%if loop.first %}<br/>{{c}} Datatypes ({{cat["Datatype"]|length}})<br/>{% else %}, {% endif %}{{ sdotermlink(term)|safe}}{% if loop.last %}<br/>{% endif %}{% endfor %}
+{% endfor %}    
+<!-- HomeTermsList.j2 end-->

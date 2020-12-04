@@ -51,6 +51,26 @@ def homePage(page):
         template = "docs/AtticHome.j2"
         filt="attic"
         overrideclassval = 'class="ext ext-attic"'
+    elif page == "AutoHome":
+        title += " - Auto Section"
+        template = "docs/AutoHome.j2"
+        filt="auto"
+        overrideclassval = 'class="ext"'
+    elif page == "BibHome":
+        title += " - Bib Section"
+        template = "docs/BibHome.j2"
+        filt="bib"
+        overrideclassval = 'class="ext"'
+    elif page == "Health-lifesciHome":
+        title += " - Health-lifesci Section"
+        template = "docs/Health-lifesciHome.j2"
+        filt="health-lifesci"
+        overrideclassval = 'class="ext"'
+    elif page == "MetaHome":
+        title += " - Meta"
+        template = "docs/MetaHome.j2"
+        filt="meta"
+        overrideclassval = 'class="ext"'
     sectionterms={}
     termcount=0
     if filt:
@@ -238,6 +258,10 @@ def fullReleasePage(page):
 PAGELIST = {"Home": (homePage,["docs/home.html"]),
              "PendingHome": (homePage,["docs/pending.home.html"]),
              "AtticHome": (homePage,["docs/attic.home.html"]),
+             "AutoHome": (homePage,["docs/auto.home.html"]),
+             "BibHome": (homePage,["docs/bib.home.html"]),
+             "Health-lifesciHome": (homePage,["docs/health-lifesci.home.html"]),
+             "MetaHome": (homePage,["docs/meta.home.html"]),
              "Schemas": (schemasPage,["docs/schemas.html"]),
              "Full": (fullPage,["docs/full.html"]),
              "FullOrig": (fullPage,["docs/full.orig.html"]),
