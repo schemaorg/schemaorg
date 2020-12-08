@@ -32,6 +32,7 @@ class SdoTerm():
         self.examples = []
         self.pending = False
         self.retired = False
+        self.extLayer = ""
         self.sources = []
         self.subs = []
         self.supers = []

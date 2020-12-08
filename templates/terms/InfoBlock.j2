@@ -5,10 +5,12 @@
         <h1>{{ term.label }}</h1>
         <em>A Schema.org {{ TERMTYPE }}</em>
         <br/>
-        <!-- Pending/retired -->
+        <!-- Pending/retired/term in section -->
         {% if term.superseded %}<br/><em><strong>Note:</strong> This term has been <a href="#supersededby">superseded</a>.</em>{% endif %}
-        {% if term.pending %}<br/><em>This term is proposed for full integration into Schema.org, <a title="this term is pending wider review. Feedback is welcomed!" href="docs/pending.home.html">pending</a> implementation feedback and adoption from applications and websites.</em>{% endif %}
-        {% if term.retired %}<br/><strong>Note:</strong> This term has been <strong><a title="this term has been retired from the vocabulary" href="docs/attic.home.html">retired</a></strong> from the vocabulary.</span>{% endif %}
+        {% if term.pending %}<br/><em>This term is proposed for full integration into Schema.org, <a title="this term is pending wider review. Feedback is welcomed!" href="docs/pending.home.html">pending</a> implementation feedback and adoption from applications and websites.</em>
+        {% elif term.retired %}<br/><strong>Note:</strong> This term has been <strong><a title="this term has been retired from the vocabulary" href="docs/attic.home.html">retired</a></strong> from the vocabulary.</span>
+        {% elif term.extLayer %}<em>Defined in the <a href="/docs/{{term.extLayer}}.home.html">{{term.extLayer}}</a> section.</em>
+        {% endif %}
     </div>
 	<!-- Breadcrumb display of term inheritance -->
     <div class="superPaths">
