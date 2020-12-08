@@ -119,7 +119,7 @@ def initdir():
     createMissingDir(gdir)
 
     print("\nCopying docs static files")
-    cmd = "./util/copystaticdocs+insert.py"
+    cmd = "./util/copystaticdocs+plusinsert.py"
     os.system(cmd)
     print("Done")
 
