@@ -60,3 +60,5 @@ for link in broken_links:
     print ("\t" + link)
 
 print("\nLinks Checked: %d  Broken: %d  Error: %d " %(len(searched_links), len(broken_links), len(error_links)))
+
+sys.exit(len(error_links) + len(broken_links))
