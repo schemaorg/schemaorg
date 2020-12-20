@@ -1,0 +1,38 @@
+TYPES: BioChemEntity
+
+PRE-MARKUP:
+
+<div>
+    <span>APP<span> 
+    can refer to either a gene or a protein known to be associated to 
+    <span>Alzheimer disease</span>. Whenever possible, this should actually 
+    be marked up as either a Protein or a Gene. Here we use BioChemEntity
+    to show how the property works in a generic way.
+</div>
+
+MICRODATA:
+
+<div>Not available</div>
+
+RDFA:
+
+<div>Not available</div>
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BioChemEntity",
+  "name": "APP",
+  "associatedDisease": {
+      "@type": "MedicalCondition",
+      "name": "Alzheimer disease",
+      "code": {
+          "@type": "MedicalCode",
+          "codeValue": "104300",
+          "codingSystem": "OMIM",
+          "url": "http://www.omim.org/entry/104300"
+      }
+  }
+}
