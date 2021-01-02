@@ -950,7 +950,7 @@ class SdoTermSource():
         if not files or files == "default":
             if SdoTermSource.SOURCEGRAPH:
                 if not SdoTermSource.LOADEDDEFAULT:
-                    raise Exception("Sourcegraph already loaded - canot overwrite with defaults")
+                    raise Exception("Sourcegraph already loaded - cannot overwrite with defaults")
                 print("Default files already loaded")
                 return
         
