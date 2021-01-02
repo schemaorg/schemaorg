@@ -21,7 +21,13 @@ import io
 from sdoterm import *
 from localmarkdown import Markdown
 
-VOCABURI="http://schema.org/"
+DEFVOCABURI="http://schema.org/"
+VOCABURI=None
+DATATYPEURI = None
+ENUMERATIONURI = None
+THINGURI = None
+#Above initialised with this: SdoTermSource.setVocabUri(DEFVOCABURI)
+
 
 CORE    = "core"
 DEFTRIPLESFILESGLOB = ["data/*.ttl","data/ext/*/*.ttl"]
@@ -31,9 +37,6 @@ EXPANDEDTERMS={}
 TERMSLOCK = threading.Lock()
 RDFLIBLOCK = threading.Lock()
 
-DATATYPEURI = URIRef(VOCABURI+"DataType")
-ENUMERATIONURI = URIRef(VOCABURI+"Enumeration")
-THINGURI = URIRef(VOCABURI+"Thing")
 
 class SdoTermSource():
     
@@ -50,6 +53,7 @@ class SdoTermSource():
     
     def __init__(self,uri,ttype=None,label='',layer=None):
         #log.info('%s %s "%s" %s %s' % (uri,ttype,label, layer))
+        global DATATYPEURI, ENUMERATIONURI
         uri = str(uri)
         self.uri = uri
         self.id = uri2id(uri)
@@ -193,6 +197,7 @@ class SdoTermSource():
         return False
 
     def isEnumeration(self):
+        global ENUMERATIONURI
         if self.enum == None:
             query = """ 
             ASK  {
@@ -368,6 +373,7 @@ class SdoTermSource():
         return self.domains
 
     def getTargetOf(self,plusparents=False,stopontarget=False):
+        global ENUMERATIONURI, THINGURI
         if not self.targetOf:
             self.targetOf = []
             subs = self.loadSubjects("schema:rangeIncludes")
@@ -739,6 +745,7 @@ class SdoTermSource():
         
     @staticmethod
     def createTerm(tmp):
+        global DATATYPEURI, ENUMERATIONURI
         if not tmp or not tmp.id:
             return None
         
@@ -774,6 +781,7 @@ class SdoTermSource():
 
     @staticmethod
     def getTermAsRdfString(termId,format,full=False):
+        global VOCABURI
         term = SdoTermSource.getTerm(termId)
         if not term or term.termType == SdoTerm.REFERENCE:
             return ""
@@ -845,6 +853,7 @@ class SdoTermSource():
         
     @staticmethod
     def getAllTerms(ttype=None,layer=None,supressSourceLinks=False,expanded=False):
+        global DATATYPEURI, ENUMERATIONURI
         typsel = ""
         extra = ""
         if ttype == SdoTerm.TYPE:
@@ -914,6 +923,7 @@ class SdoTermSource():
         
     @staticmethod
     def setSourceGraph(g):
+        global VOCABURI
         SdoTermSource.SOURCEGRAPH = g
         g.bind("schema",VOCABURI)
         g.bind("owl","http://www.w3.org/2002/07/owl#")
@@ -927,11 +937,15 @@ class SdoTermSource():
         EXPANDEDTERMS={}
 
     @staticmethod
-    def loadSourceGraph(files=None, init=False):
+    def loadSourceGraph(files=None, init=False, vocaburi=None):
         import glob
-        global DEFTRIPLESFILESGLOB
+        global VOCABURI, DEFTRIPLESFILESGLOB
         if init:
             SdoTermSource.SOURCEGRAPH = None
+        if not VOCABURI and not vocaburi:
+            SdoTermSource.setVocabUri(DEFVOCABURI)
+        elif vocaburi:
+            SdoTermSource.setVocabUri(vocaburi)
 
         if not files or files == "default":
             if SdoTermSource.SOURCEGRAPH:
@@ -980,11 +994,24 @@ class SdoTermSource():
         return SdoTermSource.SOURCEGRAPH
     
     @staticmethod
+    def setVocabUri(u):
+        global VOCABURI, DATATYPEURI, ENUMERATIONURI, THINGURI
+
+        if not u:
+            u = DEFVOCABURI
+        VOCABURI = u
+        DATATYPEURI = URIRef(VOCABURI+"DataType")
+        ENUMERATIONURI = URIRef(VOCABURI+"Enumeration")
+        THINGURI = URIRef(VOCABURI+"Thing")
+        #print(">>>>>> %s" % VOCABURI)
+
+    @staticmethod
     def getNamespaces():
         list(SdoTermSource.SOURCEGRAPH.namespaces())
         
     @staticmethod
     def vocabUri():
+        global VOCABURI
         return VOCABURI
     
 
@@ -1021,6 +1048,7 @@ class SdoTermSource():
         
     @staticmethod
     def termCounts():
+        global VOCABURI
         if not SdoTermSource.TERMCOUNTS:
             count = """SELECT (COUNT(?s) as ?count) WHERE {
                 ?s a ?type .
@@ -1165,7 +1193,7 @@ class SdoTermSource():
         return term
 
 def toFullId(termId):
-
+    global VOCABURI
     if not	':' in termId: #Includes full path or namespaces
     	fullId = VOCABURI + termId
     elif termId.startswith("http"):
@@ -1184,6 +1212,7 @@ def uriWrap(id):
         
 LAYERPATTERN = None
 def layerFromUri(uri):
+    global VOCABURI
     global LAYERPATTERN
     if uri:
         if not LAYERPATTERN:
@@ -1200,6 +1229,7 @@ def layerFromUri(uri):
     return None
 
 def uriFromLayer(layer=None):
+    global VOCABURI
     voc = VOCABURI
     if voc.endswith("/") or voc.endswith('#'):
         voc = voc[:len(voc) - 1]
@@ -1218,6 +1248,7 @@ def getProtoAndRoot(uri):
          
 
 def uri2id(uri):
+    global VOCABURI
     if uri.startswith(VOCABURI):
         return uri[len(VOCABURI):]
     return uri
@@ -1252,3 +1283,4 @@ def prefixedIdFromUri(uri):
             base = base.split("#")[1]
         return "%s:%s" % (prefix,base)
     return uri
+
