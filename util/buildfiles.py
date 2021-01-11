@@ -128,6 +128,7 @@ def prtocolswap(content,protocol,altprotocol):
     return ret
    
 def protocols():
+    global VOCABURI
     protocol="http"
     altprotocol="https"
     if VOCABURI.startswith("https"):
