@@ -1,0 +1,22 @@
+handlers:
+- url: /robots.txt
+  static_files: docs/robots-blockall.txt
+  upload: docs/robots-blockall.txt
+  mime_type: text/plain
+  secure: always
+  redirect_http_response_code: 301
+
+- url: /docs/devnote.css
+  static_files: docs/devnotehide.css
+  upload: docs/devnotehide.css
+  mime_type: text/css
+  secure: always
+  redirect_http_response_code: 301
+
+- url: /docs/sitemap.xml
+  static_files: docs/sitemap.xml_no_serve
+  upload: docs/sitemap.xml_no_serve
+  mime_type: text/xml
+  secure: always
+  redirect_http_response_code: 301
+

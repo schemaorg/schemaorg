@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Markup for News - schema.org</title>
+
+ <!-- Static Doc Insert Head -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Schema.org is a set of extensible schemas that enables webmasters to embed
+    structured data on their web pages for use by search engines and other applications." />
+    <link rel="shortcut icon" type="image/png" href="/docs/favicon.ico"/>
+    <link rel="stylesheet" type="text/css" href="/docs/schemaorg.css" />
+    <link rel="stylesheet" type="text/css" href="/docs/devnote.css" />
+    <link rel="stylesheet" type="text/css" href="/docs/prettify.css" />
+    <link rel="stylesheet" type="text/css" href="/docs/devnote.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="/docs/schemaorg.js"></script>
+    
+<!-- Static Doc Insert Head end -->
+
+
+ 
+</head>
+<body>
+
+<!-- Static Doc Insert PageHead -->
+
+<div id="container">
+  <div id="headerwrap">
+    <div id="pagehead1" class="mobnav">
+      <div class="header-block" id="pagehead-left">
+        <div id="sitename2">
+          <a href="/">Schema.org</a>
+        </div>
+        <div id="navicon2">
+          <a href="javascript:void(0);" class="icon" onclick="navFunction()"><img height="40" alt="menu" src="/docs/menu-bar-icon-white.png"></a>
+        </div>
+      </div>
+      <div  class="header-block header-block-right mobnav" id="pagehead-mid">
+        <div id="selectionbar2">
+          <ul>
+            <li>
+              <a href="/docs/documents.html">Documentation</a>
+            </li>
+            <li>
+              <a href="/docs/schemas.html">Schemas</a>
+            </li>
+            <li>
+              <a href="/docs/about.html">About</a>
+            </li>
+          <!--
+             <li>
+              <a href="/">Home</a>
+            </li>
+          -->
+          </ul>
+        </div> <!-- selectionbar -->
+      </div>
+      <div  class="header-block header-block-right mobnav" id="pagehead-right">
+        <div id="cse-search-form2">
+            <div class="gcse-searchbox-only" data-resultsUrl="/docs/search_results.html"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="devnote"><b>Note</b>: you are viewing the development
+    version of <a href="https://schema.org">Schema.org</a>.
+    See <a href="/docs/howwework.html">How we work</a> for more details.
+  </div>
+</div>
+  
+ 
+  <div id="mainContent" class="faq">
+
+<h2>("Slash-based") Extension Mechanism (2011-2015)</h2>
+
+
+
+<p><b>Status Note:</b>
+  <p>This page is archived. See also <a href="old_extension_2015.html">2014-2018 documentation</a>.
+  Our <a href="/docs/extension.html">approach</a> was refined again in April 2019.</p>
+
+
+<br/>This page introduces our original 2011-2014 approach to extensibility. In addition to this technique and our <a href="extension.html">new mechanisms</a>,
+other general extensibility mechanisms available for publishers include the use of RDFa and JSON-LD (as
+they are designed to work with multiple schemas), the <a href="/Role">Role</a> type and
+<a href="/additionalType">additionalType</a> property can now also be used for different extension scenarios.
+</p>
+<p>It is also perfectly fine (and often useful) to combine schema.org with other "Web schemas" such as those listed in the <a href="http://lov.okfn.org/dataset/lov/">LOV</a> catalogue.</p>
+
+<p>Finally, we invite collaboration via <a href="https://github.com/schemaorg/schemaorg">GitHub</a> and <a href="http://www.w3.org/community/schemaorg">W3C</a>
+on improving schema.org's own schemas to make them more useful. See the <a href="/docs/releases.html">release history page</a> to learn more about
+previous extensions that have been integrated.
+</p>
+
+<hr />
+
+<h3>Original Text follows:</h3>
+
+<p>Many applications, including search, can make use of structured data only when it’s expressed using vocabularies that they understand. However, the variety and richness of structured data covering everything on the web is much too rich for a single organization (like <a href="http://schema.org/" target="new">schema.org</a>) to completely cover.</p>
+
+<p>
+Therefore, schema.org has created an extension mechanism that lets webmasters and developers extend our existing schemas. When you extend our schemas and use these extensions to mark up your data, search applications can at least partially understand your markup and use the data appropriately.
+</p>
+<p>
+(Of course, you can always create new schemas that are not at all tied to those on schema.org, and you should do this if the content of your domain is not covered by any of the schema.org types. If the schema gains adoption and proves useful to search applications, search engines may start using this data.)
+</p>
+<p>
+Extensions that gain significant adoption on the web may be moved into the core schema.org vocabulary, so that search engines can provide more functionality based on better understanding of the structured data.
+</p>
+
+<h2>Note on naming conventions</h2>
+
+  Schema.org uses the following naming convention. We request that you follow this naming convention
+for your extensions as well.
+<ul>
+  <li>Types and Enumerations start with a capital letter and are <a href=http://en.wikipedia.org/wiki/CamelCase>CamelCase</a>.
+  <li>Properties start with a lower case letter and are also camelCase.</li>
+</ul>
+
+<h2>How to extend schema.org vocabulary</h2>
+
+<p>
+schema.org uses the '/' character to create extensions that are specializations of existing schema.org vocabulary.
+</p>
+
+<h3>Extending an existing property</h3>
+<p>Extend a property with a / character, followed by the name of the extension, like this:
+</p>
+
+<pre>
+musicGroupMember/leadVocalist
+musicGroupMember/leadGuitar1
+musicGroupMember/leadGuitar2
+</pre>
+
+
+<h3>Extending an existing class</h3>
+<p>Extend a class name with the character '/' followed by the name of the extension, like this:
+</p>
+<pre>
+Person/Engineer
+</pre>
+<p>
+To introduce a new class that is a specialization of an existing specialized class, continue in the same way, like this:
+</p>
+<pre>Person/Engineer/ElectricalEngineer
+</pre>
+
+
+<h3>Extending an enum item</h3>
+<p>Extend an existing enumeration name with the character '/' followed by the name of the extension. For example, to extend the existing item <code>EBook</code> with the more specialized <code>KindleBook</code>:
+</p>
+<pre>
+EBook/KindleBook
+</pre>
+<p>
+You can introduce new properties for any class defined on <a href="http://schema.org" targt="new">schema.org</a>, even if the property is not a specialization of an existing property. We encourage webmasters to do this, rather than defining a new class independently, so that at least some of the information about the entity being described can be understood by search engines.
+</p>
+<p>
+Of course, you can always create new schemas that are not at all tied to those on schema.org, and you should do this if the content of your domain is not covered by any of the schema.org types. As soon as your schemas gain sufficient adoption, search engines will start using their data.
+</p>
+
+
+  </div>
+
+ <!-- Static Doc Insert Footer -->
+    <div id="footer"><p>
+      <div id="versioninfo">
+          V12.0<br/>
+          2021-XX-XX
+      </div>
+      <a href="/docs/terms.html">Terms and conditions</a>
+    </div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-52672119-1', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+ <!-- Static Doc Insert Footer end -->
+ 
+
+</body>
+</html>

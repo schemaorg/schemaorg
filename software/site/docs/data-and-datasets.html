@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Data and Datasets - schema.org</title>
+
+    <!-- Static Doc Insert Head -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Schema.org is a set of extensible schemas that enables webmasters to embed
+    structured data on their web pages for use by search engines and other applications." />
+    <link rel="shortcut icon" type="image/png" href="/docs/favicon.ico"/>
+    <link rel="stylesheet" type="text/css" href="/docs/schemaorg.css" />
+    <link rel="stylesheet" type="text/css" href="/docs/devnote.css" />
+    <link rel="stylesheet" type="text/css" href="/docs/prettify.css" />
+    <link rel="stylesheet" type="text/css" href="/docs/devnote.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="/docs/schemaorg.js"></script>
+    
+<!-- Static Doc Insert Head end -->
+
+
+
+</head>
+<body>
+
+  <!-- Static Doc Insert PageHead -->
+
+<div id="container">
+  <div id="headerwrap">
+    <div id="pagehead1" class="mobnav">
+      <div class="header-block" id="pagehead-left">
+        <div id="sitename2">
+          <a href="/">Schema.org</a>
+        </div>
+        <div id="navicon2">
+          <a href="javascript:void(0);" class="icon" onclick="navFunction()"><img height="40" alt="menu" src="/docs/menu-bar-icon-white.png"></a>
+        </div>
+      </div>
+      <div  class="header-block header-block-right mobnav" id="pagehead-mid">
+        <div id="selectionbar2">
+          <ul>
+            <li>
+              <a href="/docs/documents.html">Documentation</a>
+            </li>
+            <li>
+              <a href="/docs/schemas.html">Schemas</a>
+            </li>
+            <li>
+              <a href="/docs/about.html">About</a>
+            </li>
+          <!--
+             <li>
+              <a href="/">Home</a>
+            </li>
+          -->
+          </ul>
+        </div> <!-- selectionbar -->
+      </div>
+      <div  class="header-block header-block-right mobnav" id="pagehead-right">
+        <div id="cse-search-form2">
+            <div class="gcse-searchbox-only" data-resultsUrl="/docs/search_results.html"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="devnote"><b>Note</b>: you are viewing the development
+    version of <a href="https://schema.org">Schema.org</a>.
+    See <a href="/docs/howwework.html">How we work</a> for more details.
+  </div>
+</div>
+  
+ 
+
+<div id="mainContent">
+
+
+
+<h1>Data and Datasets overview</h1>
+
+<p>This note provides some background on various notions of "data" and "dataset" related to Schema.org.</p>
+
+<p>Schema.org as a project, and as a collection of terms, is entirely devoted to data. In other words, it <em>always</em> provides, characterises, describes, or encodes some form of data. Schema.org defines particular types
+such as <a href="/Event">Event</a>, <a href="/NewsArticle">NewsArticle</a>, <a href="/Review">Review</a>, <a href="/Person">Person</a>, as well as properties that characterize and interlink instances of these types. For example, the <a href="/alumni">alumni</a> property links <a href="/Person">people</a> with <a href="/EducationalOrganization">educational organizations</a>. The <a href="/alumni">alumni</a> property exists to provide information about people being alumni of organizations; <a href="/Volcano">Volcano</a> exists to provide information about volcanoes, and so on. However, there can sometimees be confusion when the thing we are providing information about, is itself thought of as (typically a bundle of) data.
+</p>
+
+<p>Schema.org itself also contains some dedicated vocabulary that can be used in applications which publish,
+discover or integrate different kinds of data. Just as schema.org defines vocabulary to help describe people, volcanos and
+public toilets, it can also be used to describe data. This capability is in addition to schema.org's general nature as a
+collection of structured data schemas, and complements numerous other data-related formats and standards.
+</p>
+
+<p>In particular, schema.org defines vocabulary for providing Dataset metadata, alongside (proposed) vocabulary for describing aggregate statistics:</p>
+<ul>
+  <li>
+    When describing collections of packaged data, for example as published in scientific, scholarly or governmental
+    "open data" repositories, the <a href="/Dataset">Dataset</a> type can be used, alongside <a href="/DataCatalog">DataCatalog</a> to indicate the overall collection, and <a href="/DataDownload">DataDownload</a> for specific representations of a dataset.
+   These "datasets", unlike typical use of Schema.org, can be in arbitrary formats. For example, they may include data that is  stored in collections of spreadsheet files, or as digital images, or in dedicated scientific, geospatial and engineering file formats. Such diversity reflects the complexity of real-world data, but the use of diverse and often incompatible
+   formats also makes it hard to integrate the information that they encode, e.g. for use in unified "knowledge graphs" such as <a href="https://wikidata.org">Wikidata</a> and <a href="https://DataCommons.org">DataCommons.org</a>.
+   Schema.org's <a href="/Dataset">Dataset</a> vocabulary was originally based on <a href="https://en.wikipedia.org/wiki/Data_Catalog_Vocabulary">DCAT</a>, which in turn used <a href="https://www.w3.org/TR/vocab-dcat/#basic-example">used</a> <a href="http://dublincore.org/">Dublin Core</a> and <a href="http://xmlns.com/foaf/spec/">FOAF</a> terms.
+  </li>
+  <li>
+    When aggregating and integrating statistical observations that describe collections ("populations") of
+    individual entities, the <a href="/StatisticalPopulation">StatisticalPopulation</a> and <a href="/Observation">Observation</a> types can be used. See <a href="https://github.com/schemaorg/schemaorg/issues/2291 ">proposal</a> and <a href="https://docs.google.com/document/d/139jXakeQk4ChwCkGjqq5wJfCPMDnwIV94oCH-JzJrhM/edit">overview document</a> for details, and <a href="http://datacommons.org">DataCommons.org</a> for an application of this approach to large scale knowledge graphs. This approach emphasises the use of schema.org vocabulary to integrate information from multiple independent statistical datasets, by using schema.org and related vocabulary to explain the content of the statistical data.
+  </li>
+</ul>
+
+<p>
+To take a specific example, the Volcano type in schema.org is useful for volcano data, but in a different way from a <a href="/Dataset">Dataset</a> type being used to describe a collection of data about volcanos (e.g. in CSV or XML format). Similarly, the Population / Observation types can be used to represent aggregate statistics of "populations" of volcanos.
+While http://schema.org/Volcano can be used to directly provide information about specific volcanos; the http://schema.org/Dataset and http://schema.org/Observation types emphasise the data level of abstraction more directly.
+</p>
+<p>
+  Other related work includes W3C's <a href="https://www.w3.org/TR/tabular-data-primer/">CSVW</a>
+  and <a href="https://www.w3.org/TR/vocab-data-cube/">RDF Data Cube</a> specifications, as well as
+  the <a href="https://google.github.io/dspl/dspl2-spec.html">DSPL 2.0</a> specification. DSPL 2.0 combines Schema.org
+  for per-dataset metadata with the use of CSV files to represent code lists, enumerations and statistical observations.
+  DSPL2 provides an explicit high-fidelity representation of datasets in their own terms, rather than mapping everything into
+  Schema.org.</p>
+<p>These technologies all in turn depend on lower-level standards, such as for JSON-LD, RDFa, Microdata, XML, Unicode etc.,
+  and share a broadly <a href="https://en.wikipedia.org/wiki/Resource_Description_Framework">RDF-like</a> approach to
+  representing information. There are also related standards from W3C and elsewhere dedicated to lifting factual data out of
+  various kinds of dataset, into RDF statements that use vocabularies such as Schema.org. For examples, see <a href="https://www.w3.org/TR/r2rml/">R2RML</a>, which addresses this for SQL; <a href="https://en.wikipedia.org/wiki/GRDDL">GRDDL</a> for XML via XSLT; the
+  <a href="https://www.w3.org/TR/csv2rdf/">CSVW to RDF mappings</a> for static tabular data, and JSON-LD's context mechanism for
+  certain forms of JSON data.
+</p>
+
+</div>
+
+
+<div id="footer"><p>
+  <a href="../docs/terms.html">Terms and conditions</a></p>
+</div>
+
+</body> <!-- Static Doc Insert Footer -->
+    <div id="footer"><p>
+      <div id="versioninfo">
+          V12.0<br/>
+          2021-XX-XX
+      </div>
+      <a href="/docs/terms.html">Terms and conditions</a>
+    </div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-52672119-1', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+ <!-- Static Doc Insert Footer end -->
+ 
+
+</html>
