@@ -11,8 +11,8 @@ jobs:
       language: python
       python: "3.7"
       before_script:
-        - pip install -r requirements.txt
-      script: util/buildsite.py -r
+        - pip install -r software/requirements.txt
+      script: software/util/buildsite.py -r
 
     - stage: ruby
       name: "Ruby Linter"
@@ -22,13 +22,13 @@ jobs:
       before_install:
         - 'gem update --system --conservative || (gem i "rubygems-update:~>2.7" --no-document && update_rubygems)'
         - 'gem update bundler --conservative'
-        - bundle install --gemfile=scripts/Gemfile
+        - bundle install --gemfile=software/scripts/Gemfile
       before_script:
         - source ~/virtualenv/python3.7/bin/activate
-        - pip install -r requirements.txt
-        - util/buildsite.py -f Context RDFExport.nquads 
-        - mkdir site/releases/LATEST
-        - (cd site/releases/`util/schemaversion.py`; cp -r * ../LATEST)
+        - pip install -r software/requirements.txt
+        - software/util/buildsite.py -f Context RDFExport.nquads 
+        - mkdir software/site/releases/LATEST
+        - (cd software/site/releases/`software/util/schemaversion.py`; cp -r * ../LATEST)
         - deactivate
        
-      script: (cd scripts; bundle exec rake)
+      script: (cd software/scripts; bundle exec rake)
