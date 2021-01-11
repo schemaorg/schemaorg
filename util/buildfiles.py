@@ -128,9 +128,10 @@ def prtocolswap(content,protocol,altprotocol):
     return ret
    
 def protocols():
+    vocaburi = SdoTermSource.vocabUri()
     protocol="http"
     altprotocol="https"
-    if VOCABURI.startswith("https"):
+    if vocaburi.startswith("https"):
         protocol="https"
         altprotocol="http"
     return protocol,altprotocol

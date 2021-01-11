@@ -994,7 +994,7 @@ class SdoTermSource():
         return SdoTermSource.SOURCEGRAPH
     
     @staticmethod
-    def setVocabUri(u):
+    def setVocabUri(u=None):
         global VOCABURI, DATATYPEURI, ENUMERATIONURI, THINGURI
 
         if not u:
@@ -1004,16 +1004,18 @@ class SdoTermSource():
         ENUMERATIONURI = URIRef(VOCABURI+"Enumeration")
         THINGURI = URIRef(VOCABURI+"Thing")
         #print(">>>>>> %s" % VOCABURI)
-
-    @staticmethod
-    def getNamespaces():
-        list(SdoTermSource.SOURCEGRAPH.namespaces())
         
     @staticmethod
     def vocabUri():
         global VOCABURI
+        if not VOCABURI:
+           SdoTermSource.setVocabUri()
         return VOCABURI
-    
+
+    @staticmethod
+    def getNamespaces():
+        list(SdoTermSource.SOURCEGRAPH.namespaces())
+   
 
     @staticmethod
     def query(q):
