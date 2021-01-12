@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Markup for News - schema.org</title>
+
+ <!-- Static Doc Insert Head -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Schema.org is a set of extensible schemas that enables webmasters to embed
+    structured data on their web pages for use by search engines and other applications." />
+    <link rel="shortcut icon" type="image/png" href="/docs/favicon.ico"/>
+    <link rel="stylesheet" type="text/css" href="/docs/schemaorg.css" />
+    <link rel="stylesheet" type="text/css" href="/docs/devnote.css" />
+    <link rel="stylesheet" type="text/css" href="/docs/prettify.css" />
+    <link rel="stylesheet" type="text/css" href="/docs/devnote.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="/docs/schemaorg.js"></script>
+    
+<!-- Static Doc Insert Head end -->
+
+
+ 
+</head>
+<body>
+
+<!-- Static Doc Insert PageHead -->
+
+<div id="container">
+  <div id="headerwrap">
+    <div id="pagehead1" class="mobnav">
+      <div class="header-block" id="pagehead-left">
+        <div id="sitename2">
+          <a href="/">Schema.org</a>
+        </div>
+        <div id="navicon2">
+          <a href="javascript:void(0);" class="icon" onclick="navFunction()"><img height="40" alt="menu" src="/docs/menu-bar-icon-white.png"></a>
+        </div>
+      </div>
+      <div  class="header-block header-block-right mobnav" id="pagehead-mid">
+        <div id="selectionbar2">
+          <ul>
+            <li>
+              <a href="/docs/documents.html">Documentation</a>
+            </li>
+            <li>
+              <a href="/docs/schemas.html">Schemas</a>
+            </li>
+            <li>
+              <a href="/docs/about.html">About</a>
+            </li>
+          <!--
+             <li>
+              <a href="/">Home</a>
+            </li>
+          -->
+          </ul>
+        </div> <!-- selectionbar -->
+      </div>
+      <div  class="header-block header-block-right mobnav" id="pagehead-right">
+        <div id="cse-search-form2">
+            <div class="gcse-searchbox-only" data-resultsUrl="/docs/search_results.html"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="devnote"><b>Note</b>: you are viewing the development
+    version of <a href="https://schema.org">Schema.org</a>.
+    See <a href="/docs/howwework.html">How we work</a> for more details.
+  </div>
+</div>
+  
+ 
+
+<div id="mainContent">
+
+<h1>Markup for News</h1>
+
+<p>This page provides background information on the use of schema.org for marking up News content and related matters.</p>
+
+<p>See also: <a href="#acks">acknowledgements</a></p>
+
+<h3>Status</h3>
+<p>The purpose for creating this supporting documentation was to address the need for an overview of the various terms across
+schema.org, including proposed new terms that are "pending" wider review and implementation feedback.</p>
+
+<h3>Describing News content with Schema.org</h3>
+
+<p>As of early 2017, the central term within schema.org for News content is <a href="/NewsArticle">NewsArticle</a>. This document provides more context on that definition and introduces some additional terms that can help clarify different kinds of News and News-related content. It also indicates some other areas of schema.org terminology that are related in various ways to News.</p>
+
+<p>Note: some of the terms listed here are under-development i.e. have a 'pending' status within schema.org. Specifically, <a href="/NewsMediaOrganization">NewsMediaOrganization</a>, <a href="/ReportageNewsArticle">ReportageNewsArticle</a>, <a href="/AnalysisNewsArticle">AnalysisNewsArticle</a>, <a href="/OpinionNewsArticle">OpinionNewsArticle</a>, <a href="/ReviewNewsArticle">ReviewNewsArticle</a>, <a href="/BackgroundNewsArticle">BackgroundNewsArticle</a>, <a href="/AdvertiserContentArticle">AdvertiserContentArticle</a>, <a href="/SatiricalArticle">SatiricalArticle</a>, as well as the proposed subproperties of <a href="/publishingPrinciples">publishingPrinciples</a>.
+</p>
+
+<p>What <em>is</em> a "NewsArticle"?</p>
+
+<p>Schema.org defines NewsArticle as "<em>A NewsArticle is an article whose content reports news, or provides background context and supporting materials for understanding the news.</em>"</p>
+
+<p>An Article can be considered a <a href="/NewsArticle">NewsArticle</a> even if contains inaccuracies, mixes opinion with factual claims, or diverges in other ways from ideal journalistic best practice. <a href="/ReportageNewsArticle">ReportageNewsArticle</a> represents a more restricted sense of "news" corresponding to journalistic best practices. NewsArticles can include various kinds of best practice declaration that explicitly indicate the standards, policies and transparency mechanisms that a news source has adopted, see <a href="/publishingPrinciples">publishingPrinciples</a> and its subproperties.</p>
+
+<p>
+Related Vocabulary: scholarly and scientific coverage of, and background to, the news can also be described using <a href="/ScholarlyArticle">ScholarlyArticle</a> or <a href="/Book">Book</a>. Educational materials that also support background understanding of the news can be described using schema.org's education-oriented markup, see <a href="/AlignmentObject">AlignmentObject</a>, <a href="/learningResourceType">learningResourceType</a>, <a href="/typicalAgeRange">typicalAgeRange</a>, <a href="/typicalAgeRange">typicalAgeRange</a>, <a href="/educationalRole">educationalRole</a> and nearby. Other forms of learning  are supported by <a href="/Course">Course</a> and <a href="/CourseInstance">CourseInstance</a> markup, alongside the full range of <a href="/CreativeWork">CreativeWorks</a> e.g. <a href="/VideoObject">VideoObject</a>, <a href="/BlogPosting">BlogPosting</a> etc. The <a href="/BackgroundNewsArticle">BackgroundNewsArticle</a> type emphasises background knowledge in a news-oriented setting, e.g. an in-depth article on topics such as Climate Change or the European Union.
+</p>
+
+<p>
+Schema.org provides <a href="/ClaimReview">ClaimReview</a> to identify fact-checking summaries, e.g. of a NewsArticle or of specific claims.
+It also supports Non-textual content via TV and Radio markup; e.g. <a href="/TVEpisode">TVEpisode</a>, <a href="/TVSeries">TVSeries</a>,
+as well as through <a href="/MediaObject">MediaObject</a>. News-publishing organizations also often publish <a href="/Review">Review</a>s, most typically <a href="/CriticReview">CriticReview</a>s; these are always considered <a href="/CreativeWork">CreativeWorks</a> and can often also be described as <a href="/Article">Article</a>s or <a href="/NewsArticle">NewsArticle</a>s (i.e. markup can include multiple types). The <a href="/ReviewNewsArticle">ReviewNewsArticle</a> type directly represents the common case of news articles that are also critic reviews.
+</p>
+
+<p>
+Real-time coverage of breaking news can be described using <a href="/LiveBlogPosting">LiveBlogPosting</a>, or for a <a href="/BroadcastEvent">BroadcastEvent</a>, use of the <a href="/isLiveBroadcast">isLiveBroadcast</a> property. The <a href="/contentReferenceTime">contentReferenceTime</a> property has also been proposed (see issue <a href="https://github.com/schemaorg/schemaorg/issues/1050">#1050</a>) as a way to track the specific point in time within an Event that an Article describes, e.g. for sports coverage or breaking news.</p>
+
+<p>
+The general case of indicating different kinds of news content for TV/Radio and media is not yet fully addressed. An interim solution is to use <a href="/NewsArticle">NewsArticle</a> subtypes as additional types alongside types such as <a href="/RadioClip">RadioClip</a> that represent news items, on the basis that they have textual content even when that content is not explicitly manifested in the text of an article/document.
+</p>
+
+<p>
+Finally, while a few dedicated types are included within schema.org to describe specific kinds of news and news-related articles, note that the <a href="/genre">genre</a> property can also be combined with the much longer list of <a href="http://cv.iptc.org/newscodes/genre/">IPTC news codes</a> URLs. This pattern can also be used with other kinds of <a href="/CreativeWork">CreativeWork</a>, including those around TV/Radio, broadcast and media formats mentioned above.
+</p>
+
+<p>
+In addition to describing the output of the news creation process, Schema.org also has some facilities (both established and proposed/pending) for talking about the news creation process. These are expressed as properties. The most basic is the <a href="/publishingPrinciples">publishingPrinciples</a> property, which was created through Schema.org's <a href="http://blog.schema.org/2011/09/extended-schemaorg-news-support.html">early collaboration</a> with
+IPTC rNews initiative. In addition there are several proposed/pending "best practice"-oriented properties: <a href="/actionableFeedbackPolicy">actionableFeedbackPolicy</a>,
+<a href="/correctionsPolicy">correctionsPolicy</a>,
+<a href="/diversityPolicy">diversityPolicy</a>,
+<a href="/ethicsPolicy">ethicsPolicy</a>,
+<a href="/masthead">masthead</a>,
+<a href="/missionCoveragePrioritiesPolicy">missionCoveragePrioritiesPolicy</a>,
+<a href="/verificationFactCheckingPolicy">verificationFactCheckingPolicy</a>,
+ (apart from ethicsPolicy and diversityPolicy, these are all sub-properties of <a href="/publishingPrinciples">publishingPrinciples</a>).
+</p>
+
+<h2 id="acks">Acknowledgments</h2>
+<p>
+Schema.org's original vocabulary for News was created in collaboration with the <a href="http://iptc.org/standards/rnews/">IPTC rNews initiative</a>. Many of the proposed and pending improvements described here are based on the work of <a href="http://thetrustproject.org/">The Trust Project</a>. Specifically the clarifications and new types around NewsArticle were inspired by and largely based on the
+<a href="https://docs.google.com/document/d/1pLUM-JvGDl5NMUNMi2Hl74MnsoBGw_B3cYIAQ8NyO_M/edit">"type of work" indicators</a> identified there, while the addition of publishing principles sub-properties was motivated by the Trust Project's analysis of "best practices" indicators.
+</p>
+</div>
+
+ <!-- Static Doc Insert Footer -->
+    <div id="footer"><p>
+      <div id="versioninfo">
+          V12.0<br/>
+          2021-XX-XX
+      </div>
+      <a href="/docs/terms.html">Terms and conditions</a>
+    </div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-52672119-1', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+ <!-- Static Doc Insert Footer end -->
+ 
+
+</body>
+</html>

@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Markup for News - schema.org</title>
+
+ <!-- Static Doc Insert Head -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Schema.org is a set of extensible schemas that enables webmasters to embed
+    structured data on their web pages for use by search engines and other applications." />
+    <link rel="shortcut icon" type="image/png" href="/docs/favicon.ico"/>
+    <link rel="stylesheet" type="text/css" href="/docs/schemaorg.css" />
+    <link rel="stylesheet" type="text/css" href="/docs/devnote.css" />
+    <link rel="stylesheet" type="text/css" href="/docs/prettify.css" />
+    <link rel="stylesheet" type="text/css" href="/docs/devnote.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="/docs/schemaorg.js"></script>
+    
+<!-- Static Doc Insert Head end -->
+
+
+ 
+</head>
+<body>
+
+<!-- Static Doc Insert PageHead -->
+
+<div id="container">
+  <div id="headerwrap">
+    <div id="pagehead1" class="mobnav">
+      <div class="header-block" id="pagehead-left">
+        <div id="sitename2">
+          <a href="/">Schema.org</a>
+        </div>
+        <div id="navicon2">
+          <a href="javascript:void(0);" class="icon" onclick="navFunction()"><img height="40" alt="menu" src="/docs/menu-bar-icon-white.png"></a>
+        </div>
+      </div>
+      <div  class="header-block header-block-right mobnav" id="pagehead-mid">
+        <div id="selectionbar2">
+          <ul>
+            <li>
+              <a href="/docs/documents.html">Documentation</a>
+            </li>
+            <li>
+              <a href="/docs/schemas.html">Schemas</a>
+            </li>
+            <li>
+              <a href="/docs/about.html">About</a>
+            </li>
+          <!--
+             <li>
+              <a href="/">Home</a>
+            </li>
+          -->
+          </ul>
+        </div> <!-- selectionbar -->
+      </div>
+      <div  class="header-block header-block-right mobnav" id="pagehead-right">
+        <div id="cse-search-form2">
+            <div class="gcse-searchbox-only" data-resultsUrl="/docs/search_results.html"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="devnote"><b>Note</b>: you are viewing the development
+    version of <a href="https://schema.org">Schema.org</a>.
+    See <a href="/docs/howwework.html">How we work</a> for more details.
+  </div>
+</div>
+  
+ 
+  <div id="mainContent" class="faq">
+
+<h2>Schema.org Extensions (2014-2018)</h2>
+
+<p><b>Status Note:</b>
+<p>This page is archived. See also <a href="old_extension.html">2011-2014 documentation</a>.
+Our <a href="/docs/extension.html">approach</a> was refined again in April 2019.</p>
+
+
+
+<p>We have two kinds of named extension to schema.org: 'hosted' and 'external'.  This is in addition to the ongoing practice of extending
+  schema.org via the changes and improvements included in every <a href="/docs/releases.html">release</a>.
+
+<p>Hosted extensions are managed and reviewed as part of the schema.org project itself.
+External extensions are managed and reviewed by other groups. See the <a href="/docs/schemas.html">schemas page</a> for a listing.</p>
+
+
+<hr />
+
+<h3>Motivation</h3>
+    <p>
+    Schema.org provides a core, basic vocabulary for describing the kind of
+    entities the most common web applications need. There is often a
+    need for more specialized and/or deeper vocabularies, that build
+    upon the core. The extension mechanisms facilitate the creation of
+    such additional vocabularies.
+   </p>
+
+    <p>
+    With most extensions, we expect that some small frequently used
+    set of terms will be in core schema.org, with a long tail of more
+    specialized terms in the extension.
+    </p>
+
+<h3>Types of Extensions</h3>
+
+    <p>
+There are two kinds of extensions: reviewed/hosted extensions and external extensions. Both kinds of extensions typically add subclasses and properties to the core. Properties may be added to existing and/or new classes. More generally, they are an overlay on top of the core, and so they may add domains/ranges, superclasses, etc. as well. Extensions have to be consistent with the core schema.org. Every item in the core (i.e., http://schema.org/) is also in every extension. Extensions might overlap with each other in concepts (e.g., two extensions defining terms for financial institutions, one calling it FinancialBank and other calling it FinancialInstitution), but we should not have the same term being reused to mean something completely different (e.g., we should not have two extensions, one using Bank to mean river bank and the other using Bank to mean financial institution).
+</p>
+
+
+<h3>Reviewed/hosted Extensions</h3>
+
+    <p>
+Each reviewed extension (say, e1), gets its own chunk of schema.org namespace: e1.schema.org in the schema.org website. The items in that extension are created and maintained by the creators of that extension.  Reviewed extensions are very different from proposals. A proposal, if accepted, with modifications could either go into the core or become a reviewed extension.
+
+</p>
+
+<p>
+
+A reviewed extension is something that has been looked at and discussed by the community, albeit not as much as something in the core. We also expect a reviewed extension to have strong community support, preferably in the form of a few deployments.
+
+</p>
+
+<h3>External Extensions</h3>
+<p>Sometimes there might be a need for a third party (such as an app
+developer) to create extensions specific to their application. For
+example, Pinterest might want to extend the schema.org concept of
+‘Sharing’ with ‘Pinning’. In such a case, they can create
+schema.pinterest.com and put up their extensions, specifying how it
+links with core schema.org. We will refer to these as external
+extensions.
+</p><p>
+There are also cases where a third party might want to host a
+broadly applicable extension themselves. In such cases, the extension
+may go through the kind of feedback process that reviewed extensions
+go through, but can be hosted on the third party's site.
+</p>
+
+
+<h3>How it works for webmasters</h3>
+<p>
+ All of Schema.org core and all of the reviewed extensions are available from the schema.org website. Each extension is linked to from each of the touch points it has with the core. So, if an extension (say, having to do with Legal stuff) creates <em>LegalPerson</em> which is a subclass of <em>Person</em>, the Person will link to LegalPerson.</p>
+
+<p>Reviewed extensions are identified in the website with an appropriate URL prefix.  For example <em>bib.schema.org</em> for bibliographic terms, <em>auto.schema.org</em> for automotive terms.  These URL prefixes are only applicable to the documentation of terms within an extention.  The Schema.org vocabulary and its reviewed extensions are defined in a flat namespace.  ie. All terms, in the core vocabulary and extensions, within the vocabulary have a <em>http://schema.org</em> based cannonical URI.  For example the <a href="http://auto.schema.org/MotorizedBicycle">MotorizedBicycle</a> type defined in the <a href="http://auto.schema.org">auto.schema.org</a> extension and documented on the <em>http://auto.schema.org/MotorizedBicycle</em> page, has a cannonical URI of <em>http://schema.org/MotorizedBicycle</em>.  The cannonical URI is the value that is used when applying Schema.org markup.</p>
+   <pre>&lt;div itemscope itemtype="http://schema.org/MotorizedBicycle"&gt;</pre>
+
+
+<h3>What does someone creating an extension need to do</h3>
+<p>
+  Extension creators to not have to worry about running a website for their extension. Once the extension is approved, they simply upload a file defining their extension and associated examples into an agreed directory for that extension on github. Changes are made through the same mechanism.</p>
+<p>More information about proposing and implementng extensions can be found in <a href="/docs/howwework.html">How We Work</a>.</p>
+
+<br/>
+<b>Historical Note:</b>
+<br/>This page introduces the new extension mechanism adopted in May
+    2015. Documentation on the previous 'slash-based' extension mechanism
+    <a href="old_extension.html">has been archived</a>.
+
+</div>
+
+ <!-- Static Doc Insert Footer -->
+    <div id="footer"><p>
+      <div id="versioninfo">
+          V12.0<br/>
+          2021-XX-XX
+      </div>
+      <a href="/docs/terms.html">Terms and conditions</a>
+    </div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-52672119-1', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+ <!-- Static Doc Insert Footer end -->
+ 
+
+
+</body>
+</html>
