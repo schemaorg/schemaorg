@@ -28,7 +28,7 @@ require 'spec_helper'
 describe "Examples" do
   before(:all) {RDF::Reasoner.apply(:rdfs, :owl, :schema)}
 }
-  Dir.glob(File.expand_path("../../data/{.,ext/*}/*examples.txt", __FILE__)).each do |file|
+  Dir.glob(File.expand_path("../../../data/{.,ext/*}/*examples.txt", __FILE__)).each do |file|
     spec.write("\n  # Examples from #{file.split('/').last}\n")
     lineno = 1
     s = StringScanner.new(File.read(file))
