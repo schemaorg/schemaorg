@@ -1,4 +1,0 @@
-- danbri edit to try using http://schema.org/docs/tree.jsonld instead of http://wafi.iit.cnr.it/webvis/tmp/schema.org.json
-- see http://bl.ocks.org/danbri/1c121ea8bd2189cf411c
-- based on http://bl.ocks.org/fabiovalse/63fba792a7922d03243a
-- this version uses schema.org draft site, sdo-phobos and includes extensions
