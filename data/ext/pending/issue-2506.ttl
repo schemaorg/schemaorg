@@ -1,4 +1,4 @@
-@prefix : <http://schema.org/> .
+@prefix : <https://schema.org/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
@@ -6,7 +6,7 @@
 
 :DefinedRegion a rdfs:Class ;
     rdfs:label "DefinedRegion" ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/2506> ;
     rdfs:comment """A DefinedRegion is a geographic area defined by potentially arbitrary (rather than political, administrative or natural geographical) criteria. Properties are provided for defining a region by reference to sets of postal codes.
 
@@ -26,14 +26,14 @@ Region = state, canton, prefecture, autonomous community...
 
 :DeliveryTimeSettings a rdfs:Class ;
     rdfs:label "DeliveryTimeSettings" ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/2506> ;
     rdfs:comment "A DeliveryTimeSettings represents re-usable pieces of shipping information, relating to timing. It is designed for publication on an URL that may be referenced via the [[shippingSettingsLink]] property of a [[OfferShippingDetails]]. Several occurrences can be published, distinguished (and identified/referenced) by their different values for [[transitTimeLabel]]." ;
     rdfs:subClassOf :StructuredValue .
 
 :OfferShippingDetails a rdfs:Class ;
     rdfs:label "OfferShippingDetails" ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/2506> ;
     rdfs:comment """OfferShippingDetails represents information about shipping destinations.
 
@@ -52,21 +52,21 @@ or Fast and expensive: $15 in 1-2 days
 
 :PostalCodeRangeSpecification a rdfs:Class ;
     rdfs:label "PostalCodeRangeSpecification" ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/2506> ;
     rdfs:comment "Indicates a range of postalcodes, usually defined as the set of valid codes between [[postalCodeBegin]] and [[postalCodeEnd]], inclusively." ;
     rdfs:subClassOf :StructuredValue .
 
 :ShippingDeliveryTime a rdfs:Class ;
     rdfs:label "ShippingDeliveryTime" ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/2506> ;
     rdfs:comment "ShippingDeliveryTime provides various pieces of information about delivery times for shipping." ;
     rdfs:subClassOf :StructuredValue .
 
 :ShippingRateSettings a rdfs:Class ;
     rdfs:label "ShippingRateSettings" ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/2506> ;
     rdfs:comment "A ShippingRateSettings represents re-usable pieces of shipping information. It is designed for publication on an URL that may be referenced via the [[shippingSettingsLink]] property of an [[OfferShippingDetails]]. Several occurrences can be published, distinguished and matched (i.e. identified/referenced) by their different values for [[shippingLabel]]." ;
     rdfs:subClassOf :StructuredValue .
@@ -82,7 +82,7 @@ or Fast and expensive: $15 in 1-2 days
 :businessDays a rdf:Property ;
     rdfs:label "businessDays" ;
     :domainIncludes :ShippingDeliveryTime ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :OpeningHoursSpecification ;
     :source <https://github.com/schemaorg/schemaorg/issues/2506> ;
     rdfs:comment "Days of the week when the merchant typically operates, indicated via opening hours markup." .
@@ -90,7 +90,7 @@ or Fast and expensive: $15 in 1-2 days
 :cutoffTime a rdf:Property ;
     rdfs:label "cutoffTime" ;
     :domainIncludes :ShippingDeliveryTime ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :Time ;
     :source <https://github.com/schemaorg/schemaorg/issues/2506> ;
     rdfs:comment "Order cutoff time allows merchants to describe the time after which they will no longer process orders received on that day. For orders processed after cutoff time, one day gets added to the delivery time estimate. This property is expected to be most typically used via the [[ShippingRateSettings]] publication pattern. The time is indicated using the ISO-8601 Time format, e.g. \"23:30:00-05:00\" would represent 6:30 pm Eastern Standard Time (EST) which is 5 hours behind Coordinated Universal Time (UTC)." .
@@ -99,7 +99,7 @@ or Fast and expensive: $15 in 1-2 days
     rdfs:label "deliveryTime" ;
     :domainIncludes :DeliveryTimeSettings,
         :OfferShippingDetails ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :ShippingDeliveryTime ;
     :source <https://github.com/schemaorg/schemaorg/issues/2506> ;
     rdfs:comment "The total delay between the receipt of the order and the goods reaching the final customer." .
@@ -108,7 +108,7 @@ or Fast and expensive: $15 in 1-2 days
     rdfs:label "doesNotShip" ;
     :domainIncludes :OfferShippingDetails,
         :ShippingRateSettings ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :Boolean ;
     :source <https://github.com/schemaorg/schemaorg/issues/2506> ;
     rdfs:comment "Indicates when shipping to a particular [[shippingDestination]] is not available." .
@@ -116,7 +116,7 @@ or Fast and expensive: $15 in 1-2 days
 :freeShippingThreshold a rdf:Property ;
     rdfs:label "freeShippingThreshold" ;
     :domainIncludes :ShippingRateSettings ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :DeliveryChargeSpecification,
         :MonetaryAmount ;
     :source <https://github.com/schemaorg/schemaorg/issues/2506> ;
@@ -125,7 +125,7 @@ or Fast and expensive: $15 in 1-2 days
 :handlingTime a rdf:Property ;
     rdfs:label "handlingTime" ;
     :domainIncludes :ShippingDeliveryTime ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :QuantitativeValue ;
     :source <https://github.com/schemaorg/schemaorg/issues/2506> ;
     rdfs:comment "The typical delay between the receipt of the order and the goods either leaving the warehouse or being prepared for pickup, in case the delivery method is on site pickup. Typical properties: minValue, maxValue, unitCode (d for DAY).  This is by common convention assumed to mean business days (if a unitCode is used, coded as \"d\"), i.e. only counting days when the business normally operates." .
@@ -134,7 +134,7 @@ or Fast and expensive: $15 in 1-2 days
     rdfs:label "isUnlabelledFallback" ;
     :domainIncludes :DeliveryTimeSettings,
         :ShippingRateSettings ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :Boolean ;
     :source <https://github.com/schemaorg/schemaorg/issues/2506> ;
     rdfs:comment "This can be marked 'true' to indicate that some published [[DeliveryTimeSettings]] or [[ShippingRateSettings]] are intended to apply to all [[OfferShippingDetails]] published by the same merchant, when referenced by a [[shippingSettingsLink]] in those settings. It is not meaningful to use a 'true' value for this property alongside a transitTimeLabel (for [[DeliveryTimeSettings]]) or shippingLabel (for [[ShippingRateSettings]]), since this property is for use with unlabelled settings." .
@@ -146,7 +146,7 @@ or Fast and expensive: $15 in 1-2 days
 :postalCodeBegin a rdf:Property ;
     rdfs:label "postalCodeBegin" ;
     :domainIncludes :PostalCodeRangeSpecification ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :Text ;
     :source <https://github.com/schemaorg/schemaorg/issues/2506> ;
     rdfs:comment "First postal code in a range (included)." .
@@ -154,7 +154,7 @@ or Fast and expensive: $15 in 1-2 days
 :postalCodeEnd a rdf:Property ;
     rdfs:label "postalCodeEnd" ;
     :domainIncludes :PostalCodeRangeSpecification ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :Text ;
     :source <https://github.com/schemaorg/schemaorg/issues/2506> ;
     rdfs:comment "Last postal code in the range (included). Needs to be after [[postalCodeBegin]]." .
@@ -162,7 +162,7 @@ or Fast and expensive: $15 in 1-2 days
 :postalCodePrefix a rdf:Property ;
     rdfs:label "postalCodePrefix" ;
     :domainIncludes :DefinedRegion ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :Text ;
     :source <https://github.com/schemaorg/schemaorg/issues/2506> ;
     rdfs:comment "A defined range of postal codes indicated by a common textual prefix. Used for non-numeric systems such as UK." .
@@ -170,7 +170,7 @@ or Fast and expensive: $15 in 1-2 days
 :postalCodeRange a rdf:Property ;
     rdfs:label "postalCodeRange" ;
     :domainIncludes :DefinedRegion ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :PostalCodeRangeSpecification ;
     :source <https://github.com/schemaorg/schemaorg/issues/2506> ;
     rdfs:comment "A defined range of postal codes." .
@@ -180,7 +180,7 @@ or Fast and expensive: $15 in 1-2 days
     :domainIncludes :DeliveryTimeSettings,
         :OfferShippingDetails,
         :ShippingRateSettings ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :DefinedRegion ;
     :source <https://github.com/schemaorg/schemaorg/issues/2506> ;
     rdfs:comment "indicates (possibly multiple) shipping destinations. These can be defined in several ways e.g. postalCode ranges." .
@@ -188,7 +188,7 @@ or Fast and expensive: $15 in 1-2 days
 :shippingDetails a rdf:Property ;
     rdfs:label "shippingDetails" ;
     :domainIncludes :Offer ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :OfferShippingDetails ;
     :source <https://github.com/schemaorg/schemaorg/issues/2506> ;
     rdfs:comment "Indicates information about the shipping policies and options associated with an [[Offer]]." .
@@ -197,7 +197,7 @@ or Fast and expensive: $15 in 1-2 days
     rdfs:label "shippingLabel" ;
     :domainIncludes :OfferShippingDetails,
         :ShippingRateSettings ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :Text ;
     :source <https://github.com/schemaorg/schemaorg/issues/2506> ;
     rdfs:comment "Label to match an [[OfferShippingDetails]] with a [[ShippingRateSettings]] (within the context of a [[shippingSettingsLink]] cross-reference)." .
@@ -206,7 +206,7 @@ or Fast and expensive: $15 in 1-2 days
     rdfs:label "shippingRate" ;
     :domainIncludes :OfferShippingDetails,
         :ShippingRateSettings ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :MonetaryAmount ;
     :source <https://github.com/schemaorg/schemaorg/issues/2506> ;
     rdfs:comment "The shipping rate is the cost of shipping to the specified destination. Typically, the maxValue and currency values (of the [[MonetaryAmount]]) are most appropriate." .
@@ -214,7 +214,7 @@ or Fast and expensive: $15 in 1-2 days
 :shippingSettingsLink a rdf:Property ;
     rdfs:label "shippingSettingsLink" ;
     :domainIncludes :OfferShippingDetails ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :URL ;
     :source <https://github.com/schemaorg/schemaorg/issues/2506> ;
     rdfs:comment "Link to a page containing [[ShippingRateSettings]] and [[DeliveryTimeSettings]] details." .
@@ -222,7 +222,7 @@ or Fast and expensive: $15 in 1-2 days
 :transitTime a rdf:Property ;
     rdfs:label "transitTime" ;
     :domainIncludes :ShippingDeliveryTime ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :QuantitativeValue ;
     :source <https://github.com/schemaorg/schemaorg/issues/2506> ;
     rdfs:comment "The typical delay the order has been sent for delivery and the goods reach the final customer. Typical properties: minValue, maxValue, unitCode (d for DAY)." .
@@ -231,7 +231,7 @@ or Fast and expensive: $15 in 1-2 days
     rdfs:label "transitTimeLabel" ;
     :domainIncludes :DeliveryTimeSettings,
         :OfferShippingDetails ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :Text ;
     :source <https://github.com/schemaorg/schemaorg/issues/2506> ;
     rdfs:comment "Label to match an [[OfferShippingDetails]] with a [[DeliveryTimeSettings]] (within the context of a [[shippingSettingsLink]] cross-reference)." .

@@ -1,4 +1,4 @@
-@prefix : <http://schema.org/> .
+@prefix : <https://schema.org/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
@@ -6,14 +6,14 @@
 
 :MediaManipulationRatingEnumeration a rdfs:Class ;
     rdfs:label "MediaManipulationRatingEnumeration" ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/2450> ;
     rdfs:comment "(editorial work in progress, this definition is incomplete and unreviewed) MediaManipulationRatingEnumeration classifies a number of ways in which a media item (video, image, audio) can be manipulated, taking into account the context within which they are published or presented." ;
     rdfs:subClassOf :Enumeration .
 
 :MediaReview a rdfs:Class ;
     rdfs:label "MediaReview" ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/2450> ;
     rdfs:comment """(editorial work in progress, this definition is incomplete and unreviewed)
     A [[MediaReview]] is a more specialized form of Review dedicated to the evaluation of media content online, typically in the context of fact-checking and misinformation.
@@ -22,20 +22,20 @@
 
 :AuthenticContent a :MediaManipulationRatingEnumeration ;
     rdfs:label "AuthenticContent" ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/2450> ;
     rdfs:comment "AuthenticMediaObject: An unaltered image that is presented in an accurate way." .
 
 :MissingContext a :MediaManipulationRatingEnumeration ;
     rdfs:label "MissingContext" ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/2450> ;
     rdfs:comment "MissingContext: ..." .
 
 :mediaAuthenticityCategory a rdf:Property ;
     rdfs:label "mediaAuthenticityCategory" ;
     :domainIncludes :MediaReview ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :MediaManipulationRatingEnumeration ;
     :source <https://github.com/schemaorg/schemaorg/issues/2450> ;
     rdfs:comment "Indicates a MediaManipulationRatingEnumeration classification of a media object (in the context of how it was published or shared)." .

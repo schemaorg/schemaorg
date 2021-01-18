@@ -1,4 +1,4 @@
-@prefix : <http://schema.org/> .
+@prefix : <https://schema.org/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
@@ -6,7 +6,7 @@
 
 :FundingAgency a rdfs:Class ;
     rdfs:label "FundingAgency" ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :source <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FundInfoCollab>,
         <https://github.com/schemaorg/schemaorg/issues/383> ;
     rdfs:comment """A FundingAgency is an organization that implements one or more [[FundingScheme]]s and manages
@@ -19,7 +19,7 @@ Examples of funding agencies include ERC, REA, NIH, Bill and Melinda Gates Found
 
 :FundingScheme a rdfs:Class ;
     rdfs:label "FundingScheme" ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :source <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FundInfoCollab>,
         <https://github.com/schemaorg/schemaorg/issues/383> ;
     rdfs:comment """A FundingScheme combines organizational, project and policy aspects of grant-based funding
@@ -29,7 +29,7 @@ Examples of funding agencies include ERC, REA, NIH, Bill and Melinda Gates Found
 
 :Grant a rdfs:Class ;
     rdfs:label "Grant" ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :source <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FundInfoCollab>,
         <https://github.com/schemaorg/schemaorg/issues/383> ;
     rdfs:comment """A grant, typically financial or otherwise quantifiable, of resources. Typically a [[funder]] sponsors some [[MonetaryAmount]] to an [[Organization]] or [[Person]],
@@ -43,7 +43,7 @@ The amount of a [[Grant]] is represented using [[amount]] as a [[MonetaryAmount]
 
 :MonetaryGrant a rdfs:Class ;
     rdfs:label "MonetaryGrant" ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :source <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FundInfoCollab>,
         <https://github.com/schemaorg/schemaorg/issues/383> ;
     rdfs:comment "A monetary grant." ;
@@ -51,7 +51,7 @@ The amount of a [[Grant]] is represented using [[amount]] as a [[MonetaryAmount]
 
 :Project a rdfs:Class ;
     rdfs:label "Project" ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :source <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FundInfoCollab>,
         <https://github.com/schemaorg/schemaorg/issues/383> ;
     rdfs:comment """An enterprise (potentially individual but typically collaborative), planned to achieve a particular aim.
@@ -61,7 +61,7 @@ Use properties from [[Organization]], [[subOrganization]]/[[parentOrganization]]
 
 :ResearchProject a rdfs:Class ;
     rdfs:label "ResearchProject" ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :source <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FundInfoCollab>,
         <https://github.com/schemaorg/schemaorg/issues/383> ;
     rdfs:comment "A Research project." ;
@@ -73,7 +73,7 @@ Use properties from [[Organization]], [[subOrganization]]/[[parentOrganization]]
 :fundedItem a rdf:Property ;
     rdfs:label "fundedItem" ;
     :domainIncludes :Grant ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :Thing ;
     :source <https://github.com/schemaorg/schemaorg/issues/1950>,
         <https://github.com/schemaorg/schemaorg/issues/383>,

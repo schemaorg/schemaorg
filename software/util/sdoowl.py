@@ -101,7 +101,7 @@ class OwlBuild():
         self.dom.append(Comment("\n\t/////////////////////\n\t/ Class Definitions\n\t/////////////////////\n\t"))
         
         for (s,p,o) in graph.triples((None,RDF.type,RDFS.Class)):
-            if s.startswith("http://schema.org"):
+            if s.startswith("https://schema.org"):
                 types.update({s:graph.identifier})
 
         for t in sorted(types.keys()):
@@ -109,7 +109,7 @@ class OwlBuild():
             
         self.dom.append(Comment("\n\t/////////////////////\n\t/ Property Definitions\n\t/////////////////////\n\t"))
         for (s,p,o) in graph.triples((None,RDF.type,RDF.Property)):
-            if s.startswith("http://schema.org"):
+            if s.startswith("https://schema.org"):
                 props.update({s:graph.identifier})
 
         for p in sorted(props.keys()):
@@ -228,7 +228,7 @@ class OwlBuild():
             
     def addDefined(self,uri,ext=None):
         if not ext:
-            ext = "http://schema.org"
+            ext = "https://schema.org"
         ext = ext.replace("http://", "https://")
         defn = Element("rdfs:isDefinedBy")
         path = "%s/%s" % (ext,os.path.basename(uri))
@@ -238,7 +238,7 @@ class OwlBuild():
                 
 
     def outputEnums(self,graph):
-        q = """ prefix schema: <http://schema.org/>
+        q = """ prefix schema: <https://schema.org/>
         select Distinct ?enum ?parent where{
     		?parent rdfs:subClassOf schema:Enumeration.
             ?enum rdfs:subClassOf ?parent.

@@ -1,4 +1,4 @@
-@prefix : <http://schema.org/> .
+@prefix : <https://schema.org/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
@@ -6,89 +6,89 @@
 
 :MerchantReturnEnumeration a rdfs:Class ;
     rdfs:label "MerchantReturnEnumeration" ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/2288> ;
     rdfs:comment "MerchantReturnEnumeration enumerates several kinds of product return policy. Note that this structure may not capture all aspects of the policy." ;
     rdfs:subClassOf :Enumeration .
 
 :MerchantReturnPolicy a rdfs:Class ;
     rdfs:label "MerchantReturnPolicy" ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/2288> ;
     rdfs:comment "A MerchantReturnPolicy provides information about product return policies associated with an [[Organization]] or [[Product]]." ;
     rdfs:subClassOf :Intangible .
 
 :RefundTypeEnumeration a rdfs:Class ;
     rdfs:label "RefundTypeEnumeration" ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/2288> ;
     rdfs:comment "RefundTypeEnumeration enumerates several kinds of product return refund types." ;
     rdfs:subClassOf :Enumeration .
 
 :ReturnFeesEnumeration a rdfs:Class ;
     rdfs:label "ReturnFeesEnumeration" ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/2288> ;
     rdfs:comment "ReturnFeesEnumeration expresses policies for return fees." ;
     rdfs:subClassOf :Enumeration .
 
 :ExchangeRefund a :RefundTypeEnumeration ;
     rdfs:label "ExchangeRefund" ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/2288> ;
     rdfs:comment "A ExchangeRefund ..." .
 
 :FullRefund a :RefundTypeEnumeration ;
     rdfs:label "FullRefund" ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/2288> ;
     rdfs:comment "A FullRefund ..." .
 
 :MerchantReturnFiniteReturnWindow a :MerchantReturnEnumeration ;
     rdfs:label "MerchantReturnFiniteReturnWindow" ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/2288> ;
     rdfs:comment "MerchantReturnFiniteReturnWindow: there is a finite window for product returns." .
 
 :MerchantReturnNotPermitted a :MerchantReturnEnumeration ;
     rdfs:label "MerchantReturnNotPermitted" ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/2288> ;
     rdfs:comment "MerchantReturnNotPermitted: product returns are not permitted." .
 
 :MerchantReturnUnlimitedWindow a :MerchantReturnEnumeration ;
     rdfs:label "MerchantReturnUnlimitedWindow" ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/2288> ;
     rdfs:comment "MerchantReturnUnlimitedWindow: there is an unlimited window for product returns." .
 
 :MerchantReturnUnspecified a :MerchantReturnEnumeration ;
     rdfs:label "MerchantReturnUnspecified" ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/2288> ;
     rdfs:comment "MerchantReturnUnspecified: a product return policy is not specified here." .
 
 :OriginalShippingFees a :ReturnFeesEnumeration ;
     rdfs:label "OriginalShippingFees" ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/2288> ;
     rdfs:comment "OriginalShippingFees ..." .
 
 :RestockingFees a :ReturnFeesEnumeration ;
     rdfs:label "RestockingFees" ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/2288> ;
     rdfs:comment "RestockingFees ..." .
 
 :ReturnShippingFees a :ReturnFeesEnumeration ;
     rdfs:label "ReturnShippingFees" ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/2288> ;
     rdfs:comment "ReturnShippingFees ..." .
 
 :StoreCreditRefund a :RefundTypeEnumeration ;
     rdfs:label "StoreCreditRefund" ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/2288> ;
     rdfs:comment "A StoreCreditRefund ..." .
 
@@ -96,7 +96,7 @@
     rdfs:label "hasMerchantReturnPolicy" ;
     :domainIncludes :Organization,
         :Product ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :MerchantReturnPolicy ;
     :source <https://github.com/schemaorg/schemaorg/issues/2288> ;
     rdfs:comment "Indicates a MerchantReturnPolicy that may be applicable." .
@@ -104,7 +104,7 @@
 :inStoreReturnsOffered a rdf:Property ;
     rdfs:label "inStoreReturnsOffered" ;
     :domainIncludes :MerchantReturnPolicy ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :Boolean ;
     :source <https://github.com/schemaorg/schemaorg/issues/2288> ;
     rdfs:comment "Are in-store returns offered?" .
@@ -112,7 +112,7 @@
 :merchantReturnDays a rdf:Property ;
     rdfs:label "merchantReturnDays" ;
     :domainIncludes :MerchantReturnPolicy ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :Integer ;
     :source <https://github.com/schemaorg/schemaorg/issues/2288> ;
     rdfs:comment "The merchantReturnDays property indicates the number of days (from purchase) within which relevant merchant return policy is applicable." .
@@ -120,7 +120,7 @@
 :merchantReturnLink a rdf:Property ;
     rdfs:label "merchantReturnLink" ;
     :domainIncludes :MerchantReturnPolicy ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :URL ;
     :source <https://github.com/schemaorg/schemaorg/issues/2288> ;
     rdfs:comment "Indicates a Web page or service by URL, for product return." .
@@ -128,7 +128,7 @@
 :refundType a rdf:Property ;
     rdfs:label "refundType" ;
     :domainIncludes :MerchantReturnPolicy ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :RefundTypeEnumeration ;
     :source <https://github.com/schemaorg/schemaorg/issues/2288> ;
     rdfs:comment "A refundType, from an enumerated list." .
@@ -136,7 +136,7 @@
 :returnFees a rdf:Property ;
     rdfs:label "returnFees" ;
     :domainIncludes :MerchantReturnPolicy ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :ReturnFeesEnumeration ;
     :source <https://github.com/schemaorg/schemaorg/issues/2288> ;
     rdfs:comment "Indicates (via enumerated options) the return fees policy for a MerchantReturnPolicy" .
@@ -144,7 +144,7 @@
 :returnPolicyCategory a rdf:Property ;
     rdfs:label "returnPolicyCategory" ;
     :domainIncludes :MerchantReturnPolicy ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :MerchantReturnEnumeration ;
     :source <https://github.com/schemaorg/schemaorg/issues/2288> ;
     rdfs:comment "A returnPolicyCategory expresses at most one of several enumerated kinds of return." .

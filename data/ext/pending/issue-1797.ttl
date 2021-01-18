@@ -1,4 +1,4 @@
-@prefix : <http://schema.org/> .
+@prefix : <https://schema.org/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
@@ -6,7 +6,7 @@
 
 :ProductGroup a rdfs:Class ;
     rdfs:label "ProductGroup" ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/2597> ;
     rdfs:comment """A ProductGroup represents a group of [[Product]]s that vary only in certain well-described ways, such as by [[size]], [[color]], [[material]] etc.
 
@@ -16,7 +16,7 @@ While a ProductGroup itself is not directly offered for sale, the various varyin
 :inProductGroupWithID a rdf:Property ;
     rdfs:label "inProductGroupWithID" ;
     :domainIncludes :Product ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :Text ;
     :source <https://github.com/schemaorg/schemaorg/issues/1797> ;
     rdfs:comment "Indicates the [[productGroupID]] for a [[ProductGroup]] that this product [[isVariantOf]]. " .
@@ -25,7 +25,7 @@ While a ProductGroup itself is not directly offered for sale, the various varyin
     rdfs:label "pattern" ;
     :domainIncludes :CreativeWork,
         :Product ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :DefinedTerm,
         :Text ;
     :source <https://github.com/schemaorg/schemaorg/issues/1797> ;
@@ -34,7 +34,7 @@ While a ProductGroup itself is not directly offered for sale, the various varyin
 :productGroupID a rdf:Property ;
     rdfs:label "productGroupID" ;
     :domainIncludes :ProductGroup ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :Text ;
     :source <https://github.com/schemaorg/schemaorg/issues/1797> ;
     rdfs:comment "Indicates a textual identifier for a ProductGroup." .
@@ -43,7 +43,7 @@ While a ProductGroup itself is not directly offered for sale, the various varyin
     rdfs:label "size" ;
     :domainIncludes :CreativeWork,
         :Product ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :DefinedTerm,
         :QuantitativeValue,
         :Text ;
@@ -53,7 +53,7 @@ While a ProductGroup itself is not directly offered for sale, the various varyin
 :variesBy a rdf:Property ;
     rdfs:label "variesBy" ;
     :domainIncludes :ProductGroup ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :DefinedTerm,
         :Text ;
     :source <https://github.com/schemaorg/schemaorg/issues/1797> ;
@@ -63,7 +63,7 @@ While a ProductGroup itself is not directly offered for sale, the various varyin
     rdfs:label "hasVariant" ;
     :domainIncludes :ProductGroup ;
     :inverseOf :isVariantOf ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :Product ;
     :source <https://github.com/schemaorg/schemaorg/issues/1797> ;
     rdfs:comment "Indicates a [[Product]] that is a member of this [[ProductGroup]] (or [[ProductModel]])." .
