@@ -90,12 +90,12 @@ file "spec/schema.rb" => :do_build do
   rel = Dir.glob(File.expand_path("../../site/releases/LATEST", __FILE__)).last
   puts "Generate spec/schema.rb"
   cmd = "bundle exec rdf"
-  cmd += " serialize --uri http://schema.org/ --output-format vocabulary"
+  cmd += " serialize --uri https://schema.org/ --output-format vocabulary"
   cmd += " --module-name RDF::Vocab"
   cmd += " --class-name SCHEMA"
   cmd += " --strict"
   cmd += " -o spec/schema.rb_t"
-  cmd += " #{rel}/schemaorg-current-http.nq"
+  cmd += " #{rel}/schemaorg-current-https.nq"
   puts "  #{cmd}"
   begin
     %x{#{cmd} && mv spec/schema.rb_t spec/schema.rb}
@@ -115,7 +115,7 @@ file "spec/schema_context.rb" => :do_build do
     # FIXME: you would think this would be someplace in the data directory
     # schema_base + '/releases/' + schema_version + '/schema.jsonld'
     c = JSON::LD::Context.parse(File.expand_path("../../site/releases/LATEST/schemaorgcontext.jsonld", __FILE__))
-    c.context_base = 'http://schema.org/'
+    c.context_base = 'https://schema.org/'
     f.write c.to_rb
   end
 end
