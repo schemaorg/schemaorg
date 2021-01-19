@@ -38,13 +38,13 @@ When defining an instance of an <a href="../Accommodation">Accommodation</a>, th
 The markup for MTE's is very simple:
 <ul>
 	<li> Microdata:
-		<pre class="prettyprint lang-html linenums">&lt;div itemscope itemtype="http://schema.org/HotelRoom http://schema.org/Product"&gt;</pre>
+		<pre class="prettyprint lang-html linenums">&lt;div itemscope itemtype="https://schema.org/HotelRoom https://schema.org/Product"&gt;</pre>
 	</li>
 	<li> RDFa:
-		<pre class="prettyprint lang-html linenums">&lt;div vocab="http://schema.org/" typeof="HotelRoom Product"&gt;</pre>
+		<pre class="prettyprint lang-html linenums">&lt;div vocab="https://schema.org/" typeof="HotelRoom Product"&gt;</pre>
 	</li>
 	<li> JSON-LD:
-		<pre class="prettyprint lang-html linenums">"@context": "http://schema.org/",
+		<pre class="prettyprint lang-html linenums">"@context": "https://schema.org/",
 "@type": ["HotelRoom","Product"],</pre>
 	</li>
 </ul>
@@ -54,7 +54,7 @@ The markup for MTE's is very simple:
 <p>In the case of rental accommodations, it is important to attach the <a href= "../businessFunction">businessFunction</a> property with the value <a href="http://purl.org/goodrelations/v1#LeaseOut">LeaseOut</a> to the <a href="../Offer">offer</a>, unless you want to sell the property. This allows reusing and extending the same types for dwellings for real estate offers in schema.org.</p>
 <h3>Basic Model</h3>
 <p>The diagram shown below illustrates the basic pattern for describing hotel room offers and offers for other forms of accommodations.</p>
-<p>All accommodation Types are subclasses of <a href="../Place">http://schema.org/Place</a>. To use them as the subject of an offer, you should use the MTE technique of assigining your instances to be both an Accomodation subclass and a Product.  All types of lodging businesses are subclasses of <a href="../LocalBusiness">http://schema.org/LocalBusiness</a> which itself is a subclass of <a href="../Place">http://schema.org/Place</a> and <a href="../Organization">http://schema.org/Organization</a>.</p>
+<p>All accommodation Types are subclasses of <a href="../Place">https://schema.org/Place</a>. To use them as the subject of an offer, you should use the MTE technique of assigining your instances to be both an Accomodation subclass and a Product.  All types of lodging businesses are subclasses of <a href="../LocalBusiness">https://schema.org/LocalBusiness</a> which itself is a subclass of <a href="../Place">https://schema.org/Place</a> and <a href="../Organization">https://schema.org/Organization</a>.</p>
 
 <p>The relationship between an accommodation and the local business it belongs to is represented via the <a href="../containedInPlace">containedInPlace</a> (from hotel room to hotel) or <a href="../containsPlace">containsPlace</a> (from hotel to hotel room) properties. The relationship between the offer and the room included in the offer can be represented via either the <a href="../offers">offers</a> property (from the room product to the offer) or via <a href="../itemOffered">itemsOffered</a> (from the offer to the room).</p>
 <p>The relationship between the lodging business and its offers for rooms is represented via the <a href="../makesOffer">makesOffer</a> property (from the hotel to the offer) or via the <a href="../offeredBy">offeredBy</a> property (from the offer to the hotel).</p>
@@ -97,12 +97,12 @@ The markup for MTE's is very simple:
 <h2 id="minimal">Minimal Example</h2>
 <p>In the most basic form, we can just model the hotel with basic information like photos and star rating and a price range, but without individual room rates and availability information:</p>
 <pre class="prettyprint lang-html linenums">
-&lt;div itemscope itemtype=&quot;http://schema.org/Hotel&quot;&gt;
+&lt;div itemscope itemtype=&quot;https://schema.org/Hotel&quot;&gt;
   &lt;h1&gt;&lt;span itemprop=&quot;name&quot;&gt;ACME Hotel Innsbruck&lt;/span&gt;&lt;/h1&gt;
   &lt;span itemprop=&quot;description&quot;&gt;A beautifully located business hotel right in the
 heart of the alps. Watch the sun rise over the scenic Inn valley while
 enjoying your morning coffee.&lt;/span&gt;
-  &lt;div itemprop=&quot;address&quot; itemscope itemtype=&quot;http://schema.org/PostalAddress&quot;&gt;
+  &lt;div itemprop=&quot;address&quot; itemscope itemtype=&quot;https://schema.org/PostalAddress&quot;&gt;
     &lt;span itemprop=&quot;streetAddress&quot;&gt;Technikerstrasse 21&lt;/span&gt;
     &lt;span itemprop=&quot;postalCode&quot;&gt;6020&lt;/span&gt;
     &lt;span itemprop=&quot;addressLocality&quot;&gt;Innsbruck&lt;/span&gt;
@@ -111,13 +111,13 @@ enjoying your morning coffee.&lt;/span&gt;
   &lt;/div&gt;
   Phone: &lt;span itemprop=&quot;telephone&quot;&gt;+43 512 8000-0&lt;/span&gt;
   &lt;img itemprop=&quot;photo&quot; src=&quot;../media/hotel_front.png&quot; alt=&quot;Front view of the hotel&quot; /&gt;
-  Star rating: &lt;span itemprop=&quot;starRating&quot; itemscope itemtype=&quot;http://schema.org/Rating&quot;&gt;
+  Star rating: &lt;span itemprop=&quot;starRating&quot; itemscope itemtype=&quot;https://schema.org/Rating&quot;&gt;
     &lt;meta itemprop=&quot;ratingValue&quot; content=&quot;4&quot;&gt;****
   &lt;/span&gt;
   Room rates: &lt;span itemprop=&quot;priceRange&quot;&gt;$100 - $240&lt;/span&gt;
 &lt;/div&gt;</pre>
 
-<p>See the page for <a href="../Hotel">http://schema.org/Hotel</a> for a complete list of additional properties for describing the hotel. Popular properties are also explained in more detail below.</p>
+<p>See the page for <a href="../Hotel">https://schema.org/Hotel</a> for a complete list of additional properties for describing the hotel. Popular properties are also explained in more detail below.</p>
 
 <p><strong>Note:</strong> In the following, we focus on hotel-related examples, but the basic patterns for other types of lodging businesses are the same. Simply use the more specific types (e.g. <a href="../Campground">Campground</a> or <a href="/MeetingRoom">MeetingRoom</a>).</p>
 
@@ -125,26 +125,26 @@ enjoying your morning coffee.&lt;/span&gt;
 <p>If your Web site provides more detailed information about your hotel, you can use many additional properties for marking them up with schema.org. Below, we highlight a few prominent properties.</p>
     <h3>Geo Position</h3>
         <pre class="prettyprint lang-html linenums">
-&lt;div itemscope itemtype=&quot;http://schema.org/Hotel&quot;&gt;
+&lt;div itemscope itemtype=&quot;https://schema.org/Hotel&quot;&gt;
   &lt;h1&gt;&lt;span itemprop=&quot;name&quot;&gt;ACME Hotel Innsbruck&lt;/span&gt;&lt;/h1&gt;
   &lt;span itemprop=&quot;description&quot;&gt;A beautifully located business hotel right in the
 heart of the alps. Watch the sun rise over the scenic Inn valley while
 enjoying your morning coffee.&lt;/span&gt;
-  &lt;div itemprop=&quot;address&quot; itemscope itemtype=&quot;http://schema.org/PostalAddress&quot;&gt;
+  &lt;div itemprop=&quot;address&quot; itemscope itemtype=&quot;https://schema.org/PostalAddress&quot;&gt;
     &lt;span itemprop=&quot;streetAddress&quot;&gt;Technikerstrasse 21&lt;/span&gt;
     &lt;span itemprop=&quot;postalCode&quot;&gt;6020&lt;/span&gt;
     &lt;span itemprop=&quot;addressLocality&quot;&gt;Innsbruck&lt;/span&gt;
     &lt;span itemprop=&quot;addressRegion&quot;&gt;Tyrol&lt;/span&gt;,
     &lt;span itemprop=&quot;addressCountry&quot;&gt;Austria&lt;/span&gt;
   &lt;/div&gt;
-  &lt;div itemprop=&quot;geo&quot; itemscope itemtype=&quot;http://schema.org/GeoCoordinates&quot;&gt;
+  &lt;div itemprop=&quot;geo&quot; itemscope itemtype=&quot;https://schema.org/GeoCoordinates&quot;&gt;
     &lt;meta itemprop=&quot;latitude&quot; content=&quot;47.2649990&quot; /&gt;
     &lt;meta itemprop=&quot;longitude&quot; content=&quot;11.3428720&quot; /&gt;
   &lt;/div&gt;
 &lt;/div&gt;</pre>
     <h3>Telephone and Fax</h3>
     <pre class="prettyprint lang-html linenums">
-&lt;div itemscope itemtype=&quot;http://schema.org/Hotel&quot;&gt;
+&lt;div itemscope itemtype=&quot;https://schema.org/Hotel&quot;&gt;
   &lt;h1&gt;&lt;span itemprop=&quot;name&quot;&gt;ACME Hotel Innsbruck&lt;/span&gt;&lt;/h1&gt;
   &lt;span itemprop=&quot;description&quot;&gt;A beautifully located business hotel right in the
 heart of the alps. Watch the sun rise over the scenic Inn valley while
@@ -158,12 +158,12 @@ enjoying your morning coffee.&lt;/span&gt;
         <p>You can simply mark-up the star rating as a numerical value.</p>
         <p><strong>Example:</strong> 4-star hotel</p>
         <pre class="prettyprint lang-html linenums">
-&lt;div itemscope itemtype=&quot;http://schema.org/Hotel&quot;&gt;
+&lt;div itemscope itemtype=&quot;https://schema.org/Hotel&quot;&gt;
   &lt;h1&gt;&lt;span itemprop=&quot;name&quot;&gt;ACME Hotel Innsbruck&lt;/span&gt;&lt;/h1&gt;
   &lt;span itemprop=&quot;description&quot;&gt;A beautifully located business hotel right in the
 heart of the alps. Watch the sun rise over the scenic Inn valley while
 enjoying your morning coffee.&lt;/span&gt;
-  Star rating: &lt;span itemprop=&quot;starRating&quot; itemscope itemtype=&quot;http://schema.org/Rating&quot;&gt;
+  Star rating: &lt;span itemprop=&quot;starRating&quot; itemscope itemtype=&quot;https://schema.org/Rating&quot;&gt;
     &lt;meta itemprop=&quot;ratingValue&quot; content=&quot;4&quot;&gt;****
   &lt;/span&gt;
   Room rates: &lt;span itemprop=&quot;priceRange&quot;&gt;$100 - $240&lt;/span&gt;
@@ -172,13 +172,13 @@ enjoying your morning coffee.&lt;/span&gt;
     <p>If available, it makes sense to specify the origin of the star rating, e.g. the name of the awarding institution. In this case, use a <a href="../Rating">rating</a> and its <a href="../author">author</a> property for indicating the party making the rating assessment (e.g. HOTREC, DEHOGA, WHR, or Hotelstars).
     <p><strong>Example:</strong> 4-star hotel rated by the DEHOGA</p>
         <pre class="prettyprint lang-html linenums">
-&lt;div itemscope itemtype=&quot;http://schema.org/Hotel&quot;&gt;
+&lt;div itemscope itemtype=&quot;https://schema.org/Hotel&quot;&gt;
   &lt;h1&gt;&lt;span itemprop=&quot;name&quot;&gt;ACME Hotel Innsbruck&lt;/span&gt;&lt;/h1&gt;
   &lt;span itemprop=&quot;description&quot;&gt;A beautifully located business hotel right in the
 heart of the alps. Watch the sun rise over the scenic Inn valley while
 enjoying your morning coffee.&lt;/span&gt;
-  Star rating: &lt;span itemprop=&quot;starRating&quot; itemscope itemtype=&quot;http://schema.org/Rating&quot;&gt;
-    &lt;span itemprop=&quot;author&quot; itemscope itemtype=&quot;http://schema.org/Organization&quot;&gt;
+  Star rating: &lt;span itemprop=&quot;starRating&quot; itemscope itemtype=&quot;https://schema.org/Rating&quot;&gt;
+    &lt;span itemprop=&quot;author&quot; itemscope itemtype=&quot;https://schema.org/Organization&quot;&gt;
     &lt;span itemprop=&quot;name&quot;&gt;DEHOGA&lt;/span&gt;
     &lt;/span&gt;
     &lt;meta itemprop=&quot;ratingValue&quot; content=&quot;4&quot;&gt;****
@@ -187,7 +187,7 @@ enjoying your morning coffee.&lt;/span&gt;
 &lt;/div&gt;</pre>
     <h3>Photos and Logo</h3>
     <pre class="prettyprint lang-html linenums">
-&lt;div itemscope itemtype=&quot;http://schema.org/Hotel&quot;&gt;
+&lt;div itemscope itemtype=&quot;https://schema.org/Hotel&quot;&gt;
   &lt;h1&gt;&lt;span itemprop=&quot;name&quot;&gt;ACME Hotel Innsbruck&lt;/span&gt;&lt;/h1&gt;
   &lt;img itemprop=&quot;logo&quot; src=&quot;../media/logo.png&quot; alt=&quot;hotel logo&quot; /&gt;
   &lt;span itemprop=&quot;description&quot;&gt;A beautifully located business hotel right in the
@@ -197,7 +197,7 @@ enjoying your morning coffee.&lt;/span&gt;
 &lt;/div&gt;</pre>
     <h3>Map</h3>
     <pre class="prettyprint lang-html linenums">
-&lt;div itemscope itemtype=&quot;http://schema.org/Hotel&quot;&gt;
+&lt;div itemscope itemtype=&quot;https://schema.org/Hotel&quot;&gt;
   &lt;h1&gt;&lt;span itemprop=&quot;name&quot;&gt;ACME Hotel Innsbruck&lt;/span&gt;&lt;/h1&gt;
   &lt;span itemprop=&quot;description&quot;&gt;A beautifully located business hotel right in the
 heart of the alps. Watch the sun rise over the scenic Inn valley while
@@ -208,7 +208,7 @@ enjoying your morning coffee.&lt;/span&gt;
     <h3>Opening Hours (Reception)</h3>
     <p>You can use the <a href="../openingHours">openingHours</a> or <a href="../openingHoursSpecification">openingHoursSpecification</a> properties to indicate the opening hours of the reception of the hotel.</p>
     <pre class="prettyprint lang-html linenums">
-&lt;div itemscope itemtype=&quot;http://schema.org/Hotel&quot;&gt;
+&lt;div itemscope itemtype=&quot;https://schema.org/Hotel&quot;&gt;
   &lt;h1&gt;&lt;span itemprop=&quot;name&quot;&gt;ACME Hotel Innsbruck&lt;/span&gt;&lt;/h1&gt;
   &lt;span itemprop=&quot;description&quot;&gt;A beautifully located business hotel right in the
 heart of the alps. Watch the sun rise over the scenic Inn valley while
@@ -224,7 +224,7 @@ enjoying your morning coffee.&lt;/span&gt;
     <h3>Number of Rooms</h3>
     <p><strong>Example:</strong> A hotel with 60 bedrooms</p>
     <pre class="prettyprint lang-html linenums">
-&lt;div itemscope itemtype=&quot;http://schema.org/Hotel&quot;&gt;
+&lt;div itemscope itemtype=&quot;https://schema.org/Hotel&quot;&gt;
   &lt;h1&gt;&lt;span itemprop=&quot;name&quot;&gt;ACME Hotel Innsbruck&lt;/span&gt;&lt;/h1&gt;
   &lt;span itemprop=&quot;description&quot;&gt;A beautifully located business hotel right in the
 heart of the alps. Watch the sun rise over the scenic Inn valley while
@@ -233,16 +233,16 @@ enjoying your morning coffee.&lt;/span&gt;
 &lt;/div&gt;</pre>
     <p><strong>Example:</strong> A hotel with 45 double rooms and 15 single rooms</p>
     <pre class="prettyprint lang-html linenums">
-&lt;div itemscope itemtype=&quot;http://schema.org/Hotel&quot;&gt;
+&lt;div itemscope itemtype=&quot;https://schema.org/Hotel&quot;&gt;
   &lt;h1&gt;&lt;span itemprop=&quot;name&quot;&gt;ACME Hotel Innsbruck&lt;/span&gt;&lt;/h1&gt;
   &lt;span itemprop=&quot;description&quot;&gt;A beautifully located business hotel right in the
 heart of the alps. Watch the sun rise over the scenic Inn valley while
 enjoying your morning coffee.&lt;/span&gt;
-  &lt;span itemprop=&quot;numberOfRooms&quot; itemscope itemtype=&quot;http://schema.org/QuantitativeValue&quot;&gt;
+  &lt;span itemprop=&quot;numberOfRooms&quot; itemscope itemtype=&quot;https://schema.org/QuantitativeValue&quot;&gt;
      &lt;span itemprop=&quot;value&quot;&gt;45&lt;/span&gt;
      &lt;span itemprop=&quot;unitText&quot;&gt;double rooms&lt;/span&gt;
   &lt;/span&gt;
-  &lt;span itemprop=&quot;numberOfRooms&quot; itemscope itemtype=&quot;http://schema.org/QuantitativeValue&quot;&gt;
+  &lt;span itemprop=&quot;numberOfRooms&quot; itemscope itemtype=&quot;https://schema.org/QuantitativeValue&quot;&gt;
      &lt;span itemprop=&quot;value&quot;&gt;15&lt;/span&gt;
      &lt;span itemprop=&quot;unitText&quot;&gt;single rooms&lt;/span&gt;
   &lt;/span&gt;
@@ -250,14 +250,14 @@ enjoying your morning coffee.&lt;/span&gt;
     <h3>Renovation and Date of Establishment</h3>
     <p>For the date of establishment, use <a href="../foundingDate">foundingDate</a>. For information about renovation activities, use <a href="../additionalProperty">additionalProperty</a> and put the year into its <a href="../value">value</a> property and details into its description.
     <pre class="prettyprint lang-html linenums">
-&lt;div itemscope itemtype=&quot;http://schema.org/Hotel&quot;&gt;
+&lt;div itemscope itemtype=&quot;https://schema.org/Hotel&quot;&gt;
   &lt;h1&gt;&lt;span itemprop=&quot;name&quot;&gt;ACME Hotel Innsbruck&lt;/span&gt;&lt;/h1&gt;
   &lt;span itemprop=&quot;description&quot;&gt;A beautifully located business hotel right in the
 heart of the alps. Watch the sun rise over the scenic Inn valley while
 enjoying your morning coffee.&lt;/span&gt;
   Founded: &lt;span itemprop=&quot;foundingDate&quot;&gt;1985&lt;/span&gt;
   Last Renovation: &lt;span itemprop=&quot;additionalProperty&quot;
-  itemscope itemtype=&quot;http://schema.org/PropertyValue&quot;&gt;
+  itemscope itemtype=&quot;https://schema.org/PropertyValue&quot;&gt;
     &lt;meta itemprop=&quot;name&quot; content=&quot;renovation&quot;&gt;
     &lt;span itemprop=&quot;value&quot;&gt;2001&lt;/span&gt;
     &lt;span itemprop=&quot;description&quot;&gt;The three-month project involved a complete update
@@ -268,42 +268,42 @@ enjoying your morning coffee.&lt;/span&gt;
     <h3>Membership in Organizations</h3>
     <p>Use <a href="../memberOf">memberOf</a> to link to noteworthy organizations.</p>
     <pre class="prettyprint lang-html linenums">
-&lt;div itemscope itemtype=&quot;http://schema.org/Hotel&quot;&gt;
+&lt;div itemscope itemtype=&quot;https://schema.org/Hotel&quot;&gt;
   &lt;h1&gt;&lt;span itemprop=&quot;name&quot;&gt;ACME Hotel Innsbruck&lt;/span&gt;&lt;/h1&gt;
   &lt;span itemprop=&quot;description&quot;&gt;A beautifully located business hotel right in the
 heart of the alps. Watch the sun rise over the scenic Inn valley while
 enjoying your morning coffee.&lt;/span&gt;
-  Member of the &lt;span itemprop=&quot;memberOf&quot; itemscope itemtype=&quot;http://schema.org/Organization&quot;&gt;
+  Member of the &lt;span itemprop=&quot;memberOf&quot; itemscope itemtype=&quot;https://schema.org/Organization&quot;&gt;
     &lt;span itemprop=&quot;name&quot;&gt;Austrian Tourist Partner Association&lt;/span&gt;.
   &lt;/span&gt;
 &lt;/div&gt;</pre>
     <h3>Hotels Chains</h3>
     <p>Use <a href="../parentOrganization">parentOrganization</a> to link a chain hotel to the operating company.</p>
         <pre class="prettyprint lang-html linenums">
-&lt;div itemscope itemtype=&quot;http://schema.org/Hotel&quot;&gt;
+&lt;div itemscope itemtype=&quot;https://schema.org/Hotel&quot;&gt;
   &lt;h1&gt;&lt;span itemprop=&quot;name&quot;&gt;ACME Hotel Innsbruck&lt;/span&gt;&lt;/h1&gt;
   &lt;span itemprop=&quot;description&quot;&gt;A beautifully located business hotel right in the
 heart of the alps. Watch the sun rise over the scenic Inn valley while
 enjoying your morning coffee.&lt;/span&gt;
-  An &lt;span itemprop=&quot;parentOrganization&quot; itemscope itemtype=&quot;http://schema.org/Organization&quot;&gt;
+  An &lt;span itemprop=&quot;parentOrganization&quot; itemscope itemtype=&quot;https://schema.org/Organization&quot;&gt;
     &lt;span itemprop=&quot;name&quot;&gt;ACME Hotel&lt;/span&gt;.
   &lt;/span&gt;
 &lt;/div&gt;</pre>
     <h3>Hotel Features and Services</h3>
     <h4>Sauna and Gym</h4>
     <pre class="prettyprint lang-html linenums">
-&lt;div itemscope itemtype=&quot;http://schema.org/Hotel&quot;&gt;
+&lt;div itemscope itemtype=&quot;https://schema.org/Hotel&quot;&gt;
   &lt;h1&gt;&lt;span itemprop=&quot;name&quot;&gt;ACME Hotel Innsbruck&lt;/span&gt;&lt;/h1&gt;
   &lt;span itemprop=&quot;description&quot;&gt;A beautifully located business hotel right in the
 heart of the alps. Watch the sun rise over the scenic Inn valley while
 enjoying your morning coffee.&lt;/span&gt;
   Hotel Features:
   &lt;ul&gt;
-  &lt;li itemprop=&quot;amenityFeature&quot; itemscope itemtype=&quot;http://schema.org/LocationFeatureSpecification&quot;&gt;
+  &lt;li itemprop=&quot;amenityFeature&quot; itemscope itemtype=&quot;https://schema.org/LocationFeatureSpecification&quot;&gt;
     &lt;span itemprop=&quot;name&quot;&gt;Sauna&lt;/span&gt;
     &lt;meta itemprop=&quot;value&quot; content=&quot;True&quot;&gt;
   &lt;/li&gt;
-  &lt;li itemprop=&quot;amenityFeature&quot; itemscope itemtype=&quot;http://schema.org/LocationFeatureSpecification&quot;&gt;
+  &lt;li itemprop=&quot;amenityFeature&quot; itemscope itemtype=&quot;https://schema.org/LocationFeatureSpecification&quot;&gt;
     &lt;span itemprop=&quot;name&quot;&gt;Gym&lt;/span&gt;
     &lt;meta itemprop=&quot;value&quot; content=&quot;True&quot;&gt;
   &lt;/li&gt;
@@ -311,17 +311,17 @@ enjoying your morning coffee.&lt;/span&gt;
 &lt;/div&gt;</pre>
     <h4>Sauna with Opening Hours</h4>
     <pre class="prettyprint lang-html linenums">
-&lt;div itemscope itemtype=&quot;http://schema.org/Hotel&quot;&gt;
+&lt;div itemscope itemtype=&quot;https://schema.org/Hotel&quot;&gt;
   &lt;h1&gt;&lt;span itemprop=&quot;name&quot;&gt;ACME Hotel Innsbruck&lt;/span&gt;&lt;/h1&gt;
   &lt;span itemprop=&quot;description&quot;&gt;A beautifully located business hotel right in the
 heart of the alps. Watch the sun rise over the scenic Inn valley while
 enjoying your morning coffee.&lt;/span&gt;
   Hotel Features:
   &lt;ul&gt;
-  &lt;li itemprop=&quot;amenityFeature&quot; itemscope itemtype=&quot;http://schema.org/LocationFeatureSpecification&quot;&gt;
+  &lt;li itemprop=&quot;amenityFeature&quot; itemscope itemtype=&quot;https://schema.org/LocationFeatureSpecification&quot;&gt;
     &lt;span itemprop=&quot;name&quot;&gt;Sauna&lt;/span&gt;
     &lt;meta itemprop=&quot;value&quot; content=&quot;True&quot;&gt;
-    &lt;div itemprop=&quot;hoursAvailable&quot; itemtype=&quot;http://schema.org/OpeningHoursSpecification&quot;&gt;
+    &lt;div itemprop=&quot;hoursAvailable&quot; itemtype=&quot;https://schema.org/OpeningHoursSpecification&quot;&gt;
       &lt;link itemprop=&quot;dayOfWeek&quot; href=&quot;http://purl.org/goodrelations/v1#Thursday&quot; /&gt;(Open Thursdays
       &lt;time itemprop=&quot;opens&quot; content=&quot;16:00:00&quot;&gt; 4:00 PM&lt;/time&gt; -
       &lt;time itemprop=&quot;closes&quot; content=&quot;21:00:00&quot;&gt; 9:00 PM&lt;/time&gt;)
@@ -331,7 +331,7 @@ enjoying your morning coffee.&lt;/span&gt;
 &lt;/div&gt;</pre>
     <h3>Check-in and Check-out Times</h3>
         <pre class="prettyprint lang-html linenums">
-&lt;div itemscope itemtype=&quot;http://schema.org/Hotel&quot;&gt;
+&lt;div itemscope itemtype=&quot;https://schema.org/Hotel&quot;&gt;
   &lt;h1&gt;&lt;span itemprop=&quot;name&quot;&gt;ACME Hotel Innsbruck&lt;/span&gt;&lt;/h1&gt;
   &lt;img itemprop=&quot;logo&quot; src=&quot;../media/logo.png&quot; alt=&quot;hotel logo&quot; /&gt;
   &lt;span itemprop=&quot;description&quot;&gt;A beautifully located business hotel right in the
@@ -342,17 +342,17 @@ enjoying your morning coffee.&lt;/span&gt;
 &lt;/div&gt;</pre>
     <h3>Languages</h3>
     <pre class="prettyprint lang-html linenums">
-&lt;div itemscope itemtype=&quot;http://schema.org/Hotel&quot;&gt;
+&lt;div itemscope itemtype=&quot;https://schema.org/Hotel&quot;&gt;
   &lt;h1&gt;&lt;span itemprop=&quot;name&quot;&gt;ACME Hotel Innsbruck&lt;/span&gt;&lt;/h1&gt;
   &lt;span itemprop=&quot;description&quot;&gt;A beautifully located business hotel right in the
 heart of the alps. Watch the sun rise over the scenic Inn valley while
 enjoying your morning coffee.&lt;/span&gt;
   We speak:
   &lt;ul&gt;
-    &lt;li itemprop=&quot;availableLanguage&quot; itemscope itemtype=&quot;http://schema.org/Language&quot;&gt;
+    &lt;li itemprop=&quot;availableLanguage&quot; itemscope itemtype=&quot;https://schema.org/Language&quot;&gt;
       &lt;span itemprop=&quot;name&quot;&gt;English&lt;/span&gt;
     &lt;/li&gt;
-    &lt;li itemprop=&quot;availableLanguage&quot; itemscope itemtype=&quot;http://schema.org/Language&quot;&gt;
+    &lt;li itemprop=&quot;availableLanguage&quot; itemscope itemtype=&quot;https://schema.org/Language&quot;&gt;
       &lt;span itemprop=&quot;name&quot;&gt;German&lt;/span&gt;
     &lt;/li&gt;
   &lt;/ul&gt;
@@ -360,17 +360,17 @@ enjoying your morning coffee.&lt;/span&gt;
 <h2 id="room_info">Information about Rooms</h2>
 <p>Some hotels just indicate basic information about the number and type of available room categories. In the simplest form, one can use the <a href="../numberOfRooms">numberOfRooms</a> property with the type of room in the <a href="../unitText">unitText</a> property of a <a href="/QuantitativeValue">QuantitativeValue</a>, like so:</p>
 <pre class="prettyprint lang-html linenums">
-&lt;div itemscope itemtype=&quot;http://schema.org/Hotel&quot;&gt;
+&lt;div itemscope itemtype=&quot;https://schema.org/Hotel&quot;&gt;
   &lt;h1&gt;&lt;span itemprop=&quot;name&quot;&gt;ACME Hotel Innsbruck&lt;/span&gt;&lt;/h1&gt;
   &lt;img itemprop=&quot;logo&quot; src=&quot;../media/logo.png&quot; alt=&quot;hotel logo&quot; /&gt;
   &lt;span itemprop=&quot;description&quot;&gt;A beautifully located business hotel right in the
 heart of the alps. Watch the sun rise over the scenic Inn valley while
 enjoying your morning coffee.&lt;/span&gt;
-  &lt;span itemprop=&quot;numberOfRooms&quot; itemscope itemtype=&quot;http://schema.org/QuantitativeValue&quot;&gt;
+  &lt;span itemprop=&quot;numberOfRooms&quot; itemscope itemtype=&quot;https://schema.org/QuantitativeValue&quot;&gt;
      &lt;span itemprop=&quot;value&quot;&gt;45&lt;/span&gt;
      &lt;span itemprop=&quot;unitText&quot;&gt;double rooms&lt;/span&gt;
   &lt;/span&gt;
-  &lt;span itemprop=&quot;numberOfRooms&quot; itemscope itemtype=&quot;http://schema.org/QuantitativeValue&quot;&gt;
+  &lt;span itemprop=&quot;numberOfRooms&quot; itemscope itemtype=&quot;https://schema.org/QuantitativeValue&quot;&gt;
      &lt;span itemprop=&quot;value&quot;&gt;15&lt;/span&gt;
      &lt;span itemprop=&quot;unitText&quot;&gt;single rooms&lt;/span&gt;
   &lt;/span&gt;
@@ -381,19 +381,19 @@ enjoying your morning coffee.&lt;/span&gt;
 <h3>Basic Pattern: Description and Picture</h3>
 <p>You can link the hotel to its rooms (or suites or guest appartments) via the <a href="../containsPlace">containsPlace</a> property or a room to the hotel it belongs to via the inverse <a href="../containedInPlace">containedInPlace</a>.
 <pre class="prettyprint lang-html linenums">
-&lt;div itemscope itemtype=&quot;http://schema.org/Hotel&quot;&gt;
+&lt;div itemscope itemtype=&quot;https://schema.org/Hotel&quot;&gt;
   &lt;h1&gt;&lt;span itemprop=&quot;name&quot;&gt;ACME Hotel Innsbruck&lt;/span&gt;&lt;/h1&gt;
   &lt;span itemprop=&quot;description&quot;&gt;A beautifully located business hotel right in the
 heart of the alps. Watch the sun rise over the scenic Inn valley while
 enjoying your morning coffee.&lt;/span&gt;
   Room types:
   &lt;ul&gt;
-    &lt;li itemprop=&quot;containsPlace&quot; itemscope itemtype=&quot;http://schema.org/HotelRoom&quot;&gt;
+    &lt;li itemprop=&quot;containsPlace&quot; itemscope itemtype=&quot;https://schema.org/HotelRoom&quot;&gt;
       &lt;span itemprop=&quot;name&quot;&gt;Double Room&lt;/span&gt;
       &lt;span itemprop=&quot;description&quot;&gt;Our double rooms are spacious and comfortable.&lt;/span&gt;
       &lt;img href=&quot;../images/double_room.png&quot; /&gt;
     &lt;/li&gt;
-    &lt;li itemprop=&quot;containsPlace&quot; itemscope itemtype=&quot;http://schema.org/HotelRoom&quot;&gt;
+    &lt;li itemprop=&quot;containsPlace&quot; itemscope itemtype=&quot;https://schema.org/HotelRoom&quot;&gt;
       &lt;span itemprop=&quot;name&quot;&gt;Single Room&lt;/span&gt;
       &lt;span itemprop=&quot;description&quot;&gt;Our single rooms are cosy and comfortable.&lt;/span&gt;
       &lt;img href=&quot;../images/single_room.png&quot; /&gt;
@@ -403,18 +403,18 @@ enjoying your morning coffee.&lt;/span&gt;
 <h3>Beds and Occupancy</h3>
 <p>You can add more details to the <a href="../HotelRoom">hotel room</a> entities, like the type and number of beds and the occupancy. The occupancy can be a single value (using <a href="../value">value</a>) or a range (using <a href="../minValue">minValue</a> and <a href="../minValue">minValue</a>).<p>
 <pre class="prettyprint lang-html linenums">
-&lt;div itemscope itemtype=&quot;http://schema.org/Hotel&quot;&gt;
+&lt;div itemscope itemtype=&quot;https://schema.org/Hotel&quot;&gt;
   &lt;h1&gt;&lt;span itemprop=&quot;name&quot;&gt;ACME Hotel Innsbruck&lt;/span&gt;&lt;/h1&gt;
   &lt;span itemprop=&quot;description&quot;&gt;A beautifully located business hotel right in the
 heart of the alps. Watch the sun rise over the scenic Inn valley while
 enjoying your morning coffee.&lt;/span&gt;
   Room types:
   &lt;ul&gt;
-    &lt;li itemprop=&quot;containsPlace&quot; itemscope itemtype=&quot;http://schema.org/HotelRoom&quot;&gt;
+    &lt;li itemprop=&quot;containsPlace&quot; itemscope itemtype=&quot;https://schema.org/HotelRoom&quot;&gt;
       &lt;span itemprop=&quot;name&quot;&gt;Double Room&lt;/span&gt;
       &lt;span itemprop=&quot;description&quot;&gt;Our double rooms are spacious and comfortable.&lt;/span&gt;
       Bed type: &lt;span itemprop=&quot;bed&quot;&gt;Olympic Queen bed&lt;/span&gt;
-      Occupancy: &lt;span itemprop=&quot;occupancy&quot; itemscope itemtype=&quot;http://schema.org/QuantitativeValue&quot;&gt;
+      Occupancy: &lt;span itemprop=&quot;occupancy&quot; itemscope itemtype=&quot;https://schema.org/QuantitativeValue&quot;&gt;
       Up to &lt;span itemprop=&quot;maxValue&quot;&gt;2&lt;/span&gt;
       &lt;meta itemprop=&quot;unitCode&quot; content=&quot;IE&quot;&gt;people
       &lt;/span&gt;
@@ -428,16 +428,16 @@ enjoying your morning coffee.&lt;/span&gt;
 <h4>Room Features</h4>
 <p><strong>Example:</strong> The rooms have a mini-bar and wifi. Charges may or may not apply for those.</p>
 <pre class="prettyprint lang-html linenums">
-&lt;div itemscope itemtype=&quot;http://schema.org/HotelRoom&quot;&gt;
+&lt;div itemscope itemtype=&quot;https://schema.org/HotelRoom&quot;&gt;
  &lt;span itemprop=&quot;name&quot;&gt;Double Room&lt;/span&gt;
  &lt;span itemprop=&quot;description&quot;&gt;Our double rooms are spacious and comfortable.&lt;/span&gt;
   Room Features:
  &lt;ul&gt;
-   &lt;li itemprop=&quot;amenityFeature&quot; itemscope itemtype=&quot;http://schema.org/LocationFeatureSpecification&quot;&gt;
+   &lt;li itemprop=&quot;amenityFeature&quot; itemscope itemtype=&quot;https://schema.org/LocationFeatureSpecification&quot;&gt;
      &lt;span itemprop=&quot;name&quot;&gt;Mini-bar&lt;/span&gt;
      &lt;meta itemprop=&quot;value&quot; content=&quot;True&quot;&gt;
    &lt;/li&gt;
-   &lt;li itemprop=&quot;amenityFeature&quot; itemscope itemtype=&quot;http://schema.org/LocationFeatureSpecification&quot;&gt;
+   &lt;li itemprop=&quot;amenityFeature&quot; itemscope itemtype=&quot;https://schema.org/LocationFeatureSpecification&quot;&gt;
      &lt;span itemprop=&quot;name&quot;&gt;Wifi&lt;/span&gt;
      &lt;meta itemprop=&quot;value&quot; content=&quot;True&quot;&gt;
    &lt;/li&gt;
@@ -446,16 +446,16 @@ enjoying your morning coffee.&lt;/span&gt;
 
 <p><strong>Note:</strong> For modeling the fees of optional room features, you can link the <a href="../Offer">offer</a> for the room to an offer for the feature or service via the <a href="../addOn">addOn</a> property.</p>
 <h2 id="pricing">Offers and Pricing</h2>
-    <p>A key principle in schema.org is that things do not have prices, but that offers to grant you some rights on the things do have instead. Thus, all commercial aspects of a hotel offer belong to the <a href="../Offer">offer</a> type in schema.org. In the following, we show the use of relevant schema.org elements. Note the use of MTEs, asignining the accomodation instance to also be a <a href="../Product">http://schema.org/Product</a>.</p>
+    <p>A key principle in schema.org is that things do not have prices, but that offers to grant you some rights on the things do have instead. Thus, all commercial aspects of a hotel offer belong to the <a href="../Offer">offer</a> type in schema.org. In the following, we show the use of relevant schema.org elements. Note the use of MTEs, asignining the accomodation instance to also be a <a href="../Product">https://schema.org/Product</a>.</p>
     <h3>Basic Pattern</h3>
     <p><strong>Example:</strong> Single room for $ 99 per night</p>
     <pre class="prettyprint lang-html linenums">
-&lt;div itemscope itemtype=&quot;http://schema.org/HotelRoom http://schema.org/Product&quot;&gt;
+&lt;div itemscope itemtype=&quot;https://schema.org/HotelRoom https://schema.org/Product&quot;&gt;
   &lt;span itemprop=&quot;name&quot;&gt;Single Room&lt;/span&gt;
   &lt;span itemprop=&quot;description&quot;&gt;Our single rooms are cosy and comfortable.&lt;/span&gt;
-  Rate: &lt;span itemprop=&quot;offers&quot; itemscope itemtype=&quot;http://schema.org/Offer&quot;&gt;
+  Rate: &lt;span itemprop=&quot;offers&quot; itemscope itemtype=&quot;https://schema.org/Offer&quot;&gt;
     &lt;link itemprop=&quot;businessFunction&quot; href=&quot;http://purl.org/goodrelations/v1#LeaseOut&quot; /&gt;
-    &lt;span itemprop=&quot;priceSpecification&quot; itemscope itemtype=&quot;http://schema.org/UnitPriceSpecification&quot;&gt;
+    &lt;span itemprop=&quot;priceSpecification&quot; itemscope itemtype=&quot;https://schema.org/UnitPriceSpecification&quot;&gt;
       &lt;meta itemprop=&quot;price&quot; content=&quot;99.00&quot;&gt;$99.00
       &lt;meta itemprop=&quot;priceCurrency&quot; content=&quot;USD&quot;&gt;
       &lt;meta itemprop=&quot;unitCode&quot; content=&quot;DAY&quot;&gt;per night
@@ -466,16 +466,16 @@ enjoying your morning coffee.&lt;/span&gt;
     <p>You can indicate room prices per room or per person by choosing the appropriate unit code. &quot;IE&quot; is the UN/CEFACT Common Code for persons and &quot;DAY&quot; the code for days / nights. For price information per person you should indicate the occupancy as a single value.</p>
     <p><strong>Example:</strong> Double room for $ 49 per night per person based on double occupancy</p>
     <pre class="prettyprint lang-html linenums">
-&lt;div itemscope itemtype=&quot;http://schema.org/HotelRoom http://schema.org/Product&quot;&gt;
+&lt;div itemscope itemtype=&quot;https://schema.org/HotelRoom https://schema.org/Product&quot;&gt;
   &lt;span itemprop=&quot;name&quot;&gt;Double Room&lt;/span&gt;
   &lt;span itemprop=&quot;description&quot;&gt;Our double rooms are spacious and comfortable.&lt;/span&gt;
-  Occupancy: &lt;span itemprop=&quot;occupancy&quot; itemscope itemtype=&quot;http://schema.org/QuantitativeValue&quot;&gt;
+  Occupancy: &lt;span itemprop=&quot;occupancy&quot; itemscope itemtype=&quot;https://schema.org/QuantitativeValue&quot;&gt;
       &lt;span itemprop=&quot;value&quot;&gt;2&lt;/span&gt;
       &lt;meta itemprop=&quot;unitCode&quot; content=&quot;IE&quot;&gt;people
   &lt;/span&gt;
-  Rate: &lt;span itemprop=&quot;offers&quot; itemscope itemtype=&quot;http://schema.org/Offer&quot;&gt;
+  Rate: &lt;span itemprop=&quot;offers&quot; itemscope itemtype=&quot;https://schema.org/Offer&quot;&gt;
     &lt;link itemprop=&quot;businessFunction&quot; href=&quot;http://purl.org/goodrelations/v1#LeaseOut&quot; /&gt;
-    &lt;span itemprop=&quot;priceSpecification&quot; itemscope itemtype=&quot;http://schema.org/UnitPriceSpecification&quot;&gt;
+    &lt;span itemprop=&quot;priceSpecification&quot; itemscope itemtype=&quot;https://schema.org/UnitPriceSpecification&quot;&gt;
       &lt;meta itemprop=&quot;price&quot; content=&quot;49.00&quot;&gt;$49.00
       &lt;meta itemprop=&quot;priceCurrency&quot; content=&quot;USD&quot;&gt;
       &lt;!-- IE is the UN/CEFACT Code for person --&gt;
@@ -487,12 +487,12 @@ enjoying your morning coffee.&lt;/span&gt;
     <p>You can use the <a href="../minPrice">minPrice</a> and <a href="../maxPrice">maxPrice</a> properties to indicate price ranges for rooms.</p>
     <p><strong>Example:</strong> Single rooms cost between $ 99 and $ 179 per night.</p>
     <pre class="prettyprint lang-html linenums">
-&lt;div itemscope itemtype=&quot;http://schema.org/HotelRoom http://schema.org/Product&quot;&gt;
+&lt;div itemscope itemtype=&quot;https://schema.org/HotelRoom https://schema.org/Product&quot;&gt;
   &lt;span itemprop=&quot;name&quot;&gt;Single Room&lt;/span&gt;
   &lt;span itemprop=&quot;description&quot;&gt;Our single rooms are cosy and comfortable.&lt;/span&gt;
-  Rate: &lt;span itemprop=&quot;offers&quot; itemscope itemtype=&quot;http://schema.org/Offer&quot;&gt;
+  Rate: &lt;span itemprop=&quot;offers&quot; itemscope itemtype=&quot;https://schema.org/Offer&quot;&gt;
     &lt;link itemprop=&quot;businessFunction&quot; href=&quot;http://purl.org/goodrelations/v1#LeaseOut&quot; /&gt;
-    &lt;span itemprop=&quot;priceSpecification&quot; itemscope itemtype=&quot;http://schema.org/UnitPriceSpecification&quot;&gt;
+    &lt;span itemprop=&quot;priceSpecification&quot; itemscope itemtype=&quot;https://schema.org/UnitPriceSpecification&quot;&gt;
       &lt;meta itemprop=&quot;minPrice&quot; content=&quot;99.00&quot;&gt;$99.00 -
       &lt;meta itemprop=&quot;maxPrice&quot; content=&quot;179.00&quot;&gt;179.00
       &lt;meta itemprop=&quot;priceCurrency&quot; content=&quot;USD&quot;&gt;
@@ -505,12 +505,12 @@ enjoying your morning coffee.&lt;/span&gt;
     <h4>Booking Period</h4>
     <p><strong>Example:</strong> A rate is valid only when the booking is made between October 1 and December 31, 2015.</p>
     <pre class="prettyprint lang-html linenums">
-&lt;div itemscope itemtype=&quot;http://schema.org/HotelRoom http://schema.org/Product&quot;&gt;
+&lt;div itemscope itemtype=&quot;https://schema.org/HotelRoom https://schema.org/Product&quot;&gt;
   &lt;span itemprop=&quot;name&quot;&gt;Single Room&lt;/span&gt;
   &lt;span itemprop=&quot;description&quot;&gt;Our single rooms are cosy and comfortable.&lt;/span&gt;
-  Rate: &lt;span itemprop=&quot;offers&quot; itemscope itemtype=&quot;http://schema.org/Offer&quot;&gt;
+  Rate: &lt;span itemprop=&quot;offers&quot; itemscope itemtype=&quot;https://schema.org/Offer&quot;&gt;
     &lt;link itemprop=&quot;businessFunction&quot; href=&quot;http://purl.org/goodrelations/v1#LeaseOut&quot; /&gt;
-    &lt;span itemprop=&quot;priceSpecification&quot; itemscope itemtype=&quot;http://schema.org/UnitPriceSpecification&quot;&gt;
+    &lt;span itemprop=&quot;priceSpecification&quot; itemscope itemtype=&quot;https://schema.org/UnitPriceSpecification&quot;&gt;
       Price valid if booked between: &lt;meta itemprop=&quot;validFrom&quot; content=&quot;2015-10-01&quot;&gt;October 1 -
       &lt;meta itemprop=&quot;validThrough&quot; content=&quot;2015-12-31&quot;&gt;December 31, 2015
       &lt;meta itemprop=&quot;price&quot; content=&quot;99.00&quot;&gt;$99.00
@@ -522,17 +522,17 @@ enjoying your morning coffee.&lt;/span&gt;
     <h4>Advance Booking Requirement</h4>
     <p><strong>Example:</strong> A room must be booked seven days in advance.</p>
     <pre class="prettyprint lang-html linenums">
-&lt;div itemscope itemtype=&quot;http://schema.org/HotelRoom http://schema.org/Product&quot;&gt;
+&lt;div itemscope itemtype=&quot;https://schema.org/HotelRoom https://schema.org/Product&quot;&gt;
   &lt;span itemprop=&quot;name&quot;&gt;Single Room&lt;/span&gt;
   &lt;span itemprop=&quot;description&quot;&gt;Our single rooms are cosy and comfortable.&lt;/span&gt;
-  Rate: &lt;span itemprop=&quot;offers&quot; itemscope itemtype=&quot;http://schema.org/Offer&quot;&gt;
+  Rate: &lt;span itemprop=&quot;offers&quot; itemscope itemtype=&quot;https://schema.org/Offer&quot;&gt;
     &lt;link itemprop=&quot;businessFunction&quot; href=&quot;http://purl.org/goodrelations/v1#LeaseOut&quot; /&gt;
     Must be booked at least &lt;span itemprop=&quot;advanceBookingRequirement&quot;
-    itemscope itemtype=&quot;http://schema.org/QuantitativeValue&quot;&gt;
+    itemscope itemtype=&quot;https://schema.org/QuantitativeValue&quot;&gt;
       &lt;span itemprop=&quot;minValue&quot;&gt;7&lt;/span&gt;
       &lt;meta itemprop=&quot;unitCode&quot; content=&quot;DAY&quot;&gt; days before the stay
     &lt;/span&gt;
-    &lt;span itemprop=&quot;priceSpecification&quot; itemscope itemtype=&quot;http://schema.org/UnitPriceSpecification&quot;&gt;
+    &lt;span itemprop=&quot;priceSpecification&quot; itemscope itemtype=&quot;https://schema.org/UnitPriceSpecification&quot;&gt;
       &lt;meta itemprop=&quot;price&quot; content=&quot;99.00&quot;&gt;$99.00
       &lt;meta itemprop=&quot;priceCurrency&quot; content=&quot;USD&quot;&gt;
       &lt;meta itemprop=&quot;unitCode&quot; content=&quot;DAY&quot;&gt;per night
@@ -542,14 +542,14 @@ enjoying your morning coffee.&lt;/span&gt;
     <h4>Eligible Dates</h4>
     <p><strong>Example:</strong> A rate is valid only for stays between January 15-31, 2016.</p>
     <pre class="prettyprint lang-html linenums">
-&lt;div itemscope itemtype=&quot;http://schema.org/HotelRoom http://schema.org/Product&quot;&gt;
+&lt;div itemscope itemtype=&quot;https://schema.org/HotelRoom https://schema.org/Product&quot;&gt;
   &lt;span itemprop=&quot;name&quot;&gt;Single Room&lt;/span&gt;
   &lt;span itemprop=&quot;description&quot;&gt;Our single rooms are cosy and comfortable.&lt;/span&gt;
-  Rate: &lt;span itemprop=&quot;offers&quot; itemscope itemtype=&quot;http://schema.org/Offer&quot;&gt;
+  Rate: &lt;span itemprop=&quot;offers&quot; itemscope itemtype=&quot;https://schema.org/Offer&quot;&gt;
     &lt;link itemprop=&quot;businessFunction&quot; href=&quot;http://purl.org/goodrelations/v1#LeaseOut&quot; /&gt;
     For stays between: &lt;meta itemprop=&quot;availabilityStarts&quot; content=&quot;2016-01-15&quot;&gt;January 15 -
     &lt;meta itemprop=&quot;availabilityEnds&quot; content=&quot;2016-01-31&quot;&gt;31, 2016
-    &lt;span itemprop=&quot;priceSpecification&quot; itemscope itemtype=&quot;http://schema.org/UnitPriceSpecification&quot;&gt;
+    &lt;span itemprop=&quot;priceSpecification&quot; itemscope itemtype=&quot;https://schema.org/UnitPriceSpecification&quot;&gt;
       &lt;meta itemprop=&quot;price&quot; content=&quot;99.00&quot;&gt;$99.00
       &lt;meta itemprop=&quot;priceCurrency&quot; content=&quot;USD&quot;&gt;
       &lt;meta itemprop=&quot;unitCode&quot; content=&quot;DAY&quot;&gt;per night
@@ -559,25 +559,25 @@ enjoying your morning coffee.&lt;/span&gt;
     <h4>Seasonal Pricing</h4>
     <p><strong>Example:</strong> Different prices for summer and winter</p>
     <pre class="prettyprint lang-html linenums">
-&lt;div itemscope itemtype=&quot;http://schema.org/HotelRoom http://schema.org/Product&quot;&gt;
+&lt;div itemscope itemtype=&quot;https://schema.org/HotelRoom https://schema.org/Product&quot;&gt;
   &lt;span itemprop=&quot;name&quot;&gt;Single Room&lt;/span&gt;
   &lt;span itemprop=&quot;description&quot;&gt;Our single rooms are cosy and comfortable.&lt;/span&gt;
   Rate:
-  &lt;span itemprop=&quot;offers&quot; itemscope itemtype=&quot;http://schema.org/Offer&quot;&gt;
+  &lt;span itemprop=&quot;offers&quot; itemscope itemtype=&quot;https://schema.org/Offer&quot;&gt;
     &lt;link itemprop=&quot;businessFunction&quot; href=&quot;http://purl.org/goodrelations/v1#LeaseOut&quot; /&gt;
     Summer &lt;meta itemprop=&quot;availabilityStarts&quot; content=&quot;2016-06-01&quot;&gt; (June 1 -
     &lt;meta itemprop=&quot;availabilityEnds&quot; content=&quot;2016-10-31&quot;&gt;October 31)
-    &lt;span itemprop=&quot;priceSpecification&quot; itemscope itemtype=&quot;http://schema.org/UnitPriceSpecification&quot;&gt;
+    &lt;span itemprop=&quot;priceSpecification&quot; itemscope itemtype=&quot;https://schema.org/UnitPriceSpecification&quot;&gt;
       &lt;meta itemprop=&quot;price&quot; content=&quot;69.00&quot;&gt;$69.00
       &lt;meta itemprop=&quot;priceCurrency&quot; content=&quot;USD&quot;&gt;
       &lt;meta itemprop=&quot;unitCode&quot; content=&quot;DAY&quot;&gt;per night
     &lt;/span&gt;
   &lt;/span&gt;
-  &lt;span itemprop=&quot;offers&quot; itemscope itemtype=&quot;http://schema.org/Offer&quot;&gt;
+  &lt;span itemprop=&quot;offers&quot; itemscope itemtype=&quot;https://schema.org/Offer&quot;&gt;
     &lt;link itemprop=&quot;businessFunction&quot; href=&quot;http://purl.org/goodrelations/v1#LeaseOut&quot; /&gt;
     Winter &lt;meta itemprop=&quot;availabilityStarts&quot; content=&quot;2016-11-01&quot;&gt; (November 1 -
     &lt;meta itemprop=&quot;availabilityEnds&quot; content=&quot;2017-05-31&quot;&gt;May 31)
-    &lt;span itemprop=&quot;priceSpecification&quot; itemscope itemtype=&quot;http://schema.org/UnitPriceSpecification&quot;&gt;
+    &lt;span itemprop=&quot;priceSpecification&quot; itemscope itemtype=&quot;https://schema.org/UnitPriceSpecification&quot;&gt;
       &lt;meta itemprop=&quot;price&quot; content=&quot;99.00&quot;&gt;$99.00
       &lt;meta itemprop=&quot;priceCurrency&quot; content=&quot;USD&quot;&gt;
       &lt;meta itemprop=&quot;unitCode&quot; content=&quot;DAY&quot;&gt;per night
@@ -588,19 +588,19 @@ enjoying your morning coffee.&lt;/span&gt;
     <p>For some types of accommodations, the price has multiple components, e.g. a weekly fee and a flat cleaning and service fee for a vacation home. The <a href="../CompoundPriceSpecification">CompoundPriceSpecification</a> type serves this purpose.</p>
     <p><strong>Example:</strong> 400 USD per week plus a cleaning fee of 100 USD per stay</p>
     <pre class="prettyprint lang-html linenums">
-&lt;div itemscope itemtype=&quot;http://schema.org/Apartment http://schema.org/Product&quot;&gt;
+&lt;div itemscope itemtype=&quot;https://schema.org/Apartment https://schema.org/Product&quot;&gt;
   &lt;span itemprop=&quot;name&quot;&gt;Seaside Apartment&lt;/span&gt;
   &lt;span itemprop=&quot;description&quot;&gt;Our seaside apartments are perfect for small families with children.&lt;/span&gt;
-  Rate: &lt;span itemprop=&quot;offers&quot; itemscope itemtype=&quot;http://schema.org/Offer&quot;&gt;
+  Rate: &lt;span itemprop=&quot;offers&quot; itemscope itemtype=&quot;https://schema.org/Offer&quot;&gt;
     &lt;link itemprop=&quot;businessFunction&quot; href=&quot;http://purl.org/goodrelations/v1#LeaseOut&quot; /&gt;
-    &lt;span itemprop=&quot;priceSpecification&quot; itemscope itemtype=&quot;http://schema.org/CompoundPriceSpecification&quot;&gt;
-      &lt;span itemprop=&quot;priceComponent&quot; itemscope itemtype=&quot;http://schema.org/UnitPriceSpecification&quot;&gt;
+    &lt;span itemprop=&quot;priceSpecification&quot; itemscope itemtype=&quot;https://schema.org/CompoundPriceSpecification&quot;&gt;
+      &lt;span itemprop=&quot;priceComponent&quot; itemscope itemtype=&quot;https://schema.org/UnitPriceSpecification&quot;&gt;
         &lt;meta itemprop=&quot;price&quot; content=&quot;400.00&quot;&gt;$400.00
         &lt;meta itemprop=&quot;priceCurrency&quot; content=&quot;USD&quot;&gt;
         &lt;!-- WEE is the UN/CEFACT Code for week --&gt;
         &lt;meta itemprop=&quot;unitCode&quot; content=&quot;WEE&quot;&gt; per week
       &lt;/span&gt;plus a
-      &lt;span itemprop=&quot;priceComponent&quot; itemscope itemtype=&quot;http://schema.org/UnitPriceSpecification&quot;&gt;
+      &lt;span itemprop=&quot;priceComponent&quot; itemscope itemtype=&quot;https://schema.org/UnitPriceSpecification&quot;&gt;
         &lt;span itemprop=&quot;name&quot;&gt;cleaning fee&lt;/span&gt; of
         &lt;meta itemprop=&quot;price&quot; content=&quot;100.00&quot;&gt;$100.00
         &lt;meta itemprop=&quot;priceCurrency&quot; content=&quot;USD&quot;&gt;
@@ -614,22 +614,22 @@ enjoying your morning coffee.&lt;/span&gt;
     <p>The occupancy for a given room rate can be indicated via <a href="../occupancy">occupancy</a> (total occupancy). For details (e.g. number of adults vs. number of children), you can use the <a href="../name">name</a> property of the <a href="../QuantitativeValue">value</a>.</p>
     <p><strong>Example:</strong> USD 249 per night for a suite with up to two adults and two children</p>
     <pre class="prettyprint lang-html linenums">
-&lt;div itemscope itemtype=&quot;http://schema.org/Suite http://schema.org/Product&quot;&gt;
+&lt;div itemscope itemtype=&quot;https://schema.org/Suite https://schema.org/Product&quot;&gt;
   &lt;span itemprop=&quot;name&quot;&gt;Deluxe Suite&lt;/span&gt;
   &lt;span itemprop=&quot;description&quot;&gt;Our deluxe suites are ideal for longer stays or families.&lt;/span&gt;
-  Occupancy: &lt;span itemprop=&quot;occupancy&quot; itemscope itemtype=&quot;http://schema.org/QuantitativeValue&quot;&gt;
+  Occupancy: &lt;span itemprop=&quot;occupancy&quot; itemscope itemtype=&quot;https://schema.org/QuantitativeValue&quot;&gt;
       Up to &lt;span itemprop=&quot;maxValue&quot;&gt;2&lt;/span&gt;
       &lt;meta itemprop=&quot;unitCode&quot; content=&quot;IE&quot;&gt;
       &lt;span itemprop=&quot;name&quot;&gt;adults&lt;/span&gt;
   &lt;/span&gt; and
-  &lt;span itemprop=&quot;occupancy&quot; itemscope itemtype=&quot;http://schema.org/QuantitativeValue&quot;&gt;
+  &lt;span itemprop=&quot;occupancy&quot; itemscope itemtype=&quot;https://schema.org/QuantitativeValue&quot;&gt;
     &lt;span itemprop=&quot;maxValue&quot;&gt;2&lt;/span&gt;
     &lt;meta itemprop=&quot;unitCode&quot; content=&quot;IE&quot;&gt;
     &lt;span itemprop=&quot;name&quot;&gt;children&lt;/span&gt;
   &lt;/span&gt;
-  Rate: &lt;span itemprop=&quot;offers&quot; itemscope itemtype=&quot;http://schema.org/Offer&quot;&gt;
+  Rate: &lt;span itemprop=&quot;offers&quot; itemscope itemtype=&quot;https://schema.org/Offer&quot;&gt;
     &lt;link itemprop=&quot;businessFunction&quot; href=&quot;http://purl.org/goodrelations/v1#LeaseOut&quot; /&gt;
-    &lt;span itemprop=&quot;priceSpecification&quot; itemscope itemtype=&quot;http://schema.org/UnitPriceSpecification&quot;&gt;
+    &lt;span itemprop=&quot;priceSpecification&quot; itemscope itemtype=&quot;https://schema.org/UnitPriceSpecification&quot;&gt;
       &lt;meta itemprop=&quot;price&quot; content=&quot;249.00&quot;&gt;$249.00
       &lt;meta itemprop=&quot;priceCurrency&quot; content=&quot;USD&quot;&gt;
       &lt;!-- DAY is the UN/CEFACT Code for day/night --&gt;
@@ -640,18 +640,18 @@ enjoying your morning coffee.&lt;/span&gt;
     <h3>Minimum Duration of Stay</h3>
     <p><strong>Example:</strong> The room rate is valid only for stays of at least three nights.</p>
     <pre class="prettyprint lang-html linenums">
-&lt;div itemscope itemtype=&quot;http://schema.org/HotelRoom http://schema.org/Product &quot;&gt;
+&lt;div itemscope itemtype=&quot;https://schema.org/HotelRoom https://schema.org/Product &quot;&gt;
   &lt;span itemprop=&quot;name&quot;&gt;Single Room&lt;/span&gt;
   &lt;span itemprop=&quot;description&quot;&gt;Our single rooms are cosy and comfortable.&lt;/span&gt;
-  Rate: &lt;span itemprop=&quot;offers&quot; itemscope itemtype=&quot;http://schema.org/Offer&quot;&gt;
+  Rate: &lt;span itemprop=&quot;offers&quot; itemscope itemtype=&quot;https://schema.org/Offer&quot;&gt;
     &lt;link itemprop=&quot;businessFunction&quot; href=&quot;http://purl.org/goodrelations/v1#LeaseOut&quot; /&gt;
-    &lt;span itemprop=&quot;priceSpecification&quot; itemscope itemtype=&quot;http://schema.org/UnitPriceSpecification&quot;&gt;
+    &lt;span itemprop=&quot;priceSpecification&quot; itemscope itemtype=&quot;https://schema.org/UnitPriceSpecification&quot;&gt;
       &lt;meta itemprop=&quot;price&quot; content=&quot;99.00&quot;&gt;$99.00
       &lt;meta itemprop=&quot;priceCurrency&quot; content=&quot;USD&quot;&gt;
       &lt;!-- DAY is the UN/CEFACT Code for day/night --&gt;
       &lt;meta itemprop=&quot;unitCode&quot; content=&quot;DAY&quot;&gt; per night
     &lt;/span&gt; for stays of at least
-    &lt;span itemprop=&quot;eligibleDuration&quot; itemscope itemtype=&quot;http://schema.org/QuantitativeValue&quot;&gt;
+    &lt;span itemprop=&quot;eligibleDuration&quot; itemscope itemtype=&quot;https://schema.org/QuantitativeValue&quot;&gt;
       &lt;span itemprop=&quot;minValue&quot;&gt;3&lt;/span&gt;
       &lt;meta itemprop=&quot;unitCode&quot; content=&quot;DAY&quot;&gt; nights
     &lt;/span&gt;
@@ -665,22 +665,22 @@ enjoying your morning coffee.&lt;/span&gt;
 <p>Information about meals can be attached to  the <a href="../Offer">offer</a> by creating a product bundle with multiple <a href="../TypeAndQuantityNode">TypeAndQuantityNode</a> elements and <a href="../FoodService">FoodService</a>.</p>
 <p><strong>Example:</strong> Room with breakfast included</p>
 <pre class="prettyprint lang-html linenums">
-&lt;div itemscope itemtype=&quot;http://schema.org/Offer&quot;&gt;
+&lt;div itemscope itemtype=&quot;https://schema.org/Offer&quot;&gt;
   &lt;link itemprop=&quot;businessFunction&quot; href=&quot;http://purl.org/goodrelations/v1#LeaseOut&quot; /&gt;
   &lt;span itemprop=&quot;name&quot;&gt;Single room with breakfast&lt;/span&gt;
-  &lt;span itemprop=&quot;priceSpecification&quot; itemscope itemtype=&quot;http://schema.org/UnitPriceSpecification&quot;&gt;
+  &lt;span itemprop=&quot;priceSpecification&quot; itemscope itemtype=&quot;https://schema.org/UnitPriceSpecification&quot;&gt;
     &lt;meta itemprop=&quot;price&quot; content=&quot;99.00&quot;&gt;$99.00
     &lt;meta itemprop=&quot;priceCurrency&quot; content=&quot;USD&quot;&gt;
     &lt;meta itemprop=&quot;unitCode&quot; content=&quot;DAY&quot;&gt;per night
   &lt;/span&gt;
   &lt;span itemprop=&quot;includesObject&quot; itemscope itemtype=&quot;TypeAndQuantityNode&quot;&gt;
-    &lt;span itemprop=&quot;typeOfGood&quot; itemscope itemtype=&quot;http://schema.org/HotelRoom&quot;&gt;
+    &lt;span itemprop=&quot;typeOfGood&quot; itemscope itemtype=&quot;https://schema.org/HotelRoom&quot;&gt;
       &lt;span itemprop=&quot;name&quot;&gt;Single Room&lt;/span&gt;
       &lt;span itemprop=&quot;description&quot;&gt;Our single rooms are cosy and comfortable.&lt;/span&gt;
     &lt;/span&gt;
   &lt;/span&gt;
   &lt;span itemprop=&quot;includesObject&quot; itemscope itemtype=&quot;TypeAndQuantityNode&quot;&gt;
-    &lt;span itemprop=&quot;typeOfGood&quot; itemscope itemtype=&quot;http://schema.org/FoodService&quot;&gt;
+    &lt;span itemprop=&quot;typeOfGood&quot; itemscope itemtype=&quot;https://schema.org/FoodService&quot;&gt;
       &lt;span itemprop=&quot;name&quot;&gt;Breakfast&lt;/span&gt;
       &lt;span itemprop=&quot;description&quot;&gt;Our famous healthy starter breakfast is included.&lt;/span&gt;
     &lt;/span&gt;
