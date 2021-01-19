@@ -1,4 +1,4 @@
-@prefix : <http://schema.org/> .
+@prefix : <https://schema.org/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
@@ -6,7 +6,7 @@
 
 :BoatReservation a rdfs:Class ;
     rdfs:label "BoatReservation" ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/1755> ;
     rdfs:comment """A reservation for boat travel.
 
@@ -15,14 +15,14 @@ Note: This type is for information about actual reservations, e.g. in confirmati
 
 :BoatTerminal a rdfs:Class ;
     rdfs:label "BoatTerminal" ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/1755> ;
     rdfs:comment "A terminal for boats, ships, and other water vessels." ;
     rdfs:subClassOf :CivicStructure .
 
 :BoatTrip a rdfs:Class ;
     rdfs:label "BoatTrip" ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/1755> ;
     rdfs:comment "A trip on a commercial ferry line." ;
     rdfs:subClassOf :Trip .
@@ -30,7 +30,7 @@ Note: This type is for information about actual reservations, e.g. in confirmati
 :arrivalBoatTerminal a rdf:Property ;
     rdfs:label "arrivalBoatTerminal" ;
     :domainIncludes :BoatTrip ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :BoatTerminal ;
     :source <https://github.com/schemaorg/schemaorg/issues/1755> ;
     rdfs:comment "The terminal or port from which the boat arrives." .
@@ -38,7 +38,7 @@ Note: This type is for information about actual reservations, e.g. in confirmati
 :departureBoatTerminal a rdf:Property ;
     rdfs:label "departureBoatTerminal" ;
     :domainIncludes :BoatTrip ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :BoatTerminal ;
     :source <https://github.com/schemaorg/schemaorg/issues/1755> ;
     rdfs:comment "The terminal or port from which the boat departs." .

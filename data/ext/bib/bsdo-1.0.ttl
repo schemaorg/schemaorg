@@ -1,4 +1,4 @@
-@prefix : <http://schema.org/> .
+@prefix : <https://schema.org/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
@@ -6,40 +6,40 @@
 
 :Atlas a rdfs:Class ;
     rdfs:label "Atlas" ;
-    :isPartOf <http://bib.schema.org> ;
+    :isPartOf <https://bib.schema.org> ;
     :source <http://www.productontology.org/id/Atlas> ;
     rdfs:comment "A collection or bound volume of maps, charts, plates or tables, physical or in media form illustrating any subject." ;
     rdfs:subClassOf :CreativeWork .
 
 :Audiobook a rdfs:Class ;
     rdfs:label "Audiobook" ;
-    :isPartOf <http://bib.schema.org> ;
+    :isPartOf <https://bib.schema.org> ;
     rdfs:comment "An audiobook." ;
     rdfs:subClassOf :AudioObject,
         :Book .
 
 :Chapter a rdfs:Class ;
     rdfs:label "Chapter" ;
-    :isPartOf <http://bib.schema.org> ;
+    :isPartOf <https://bib.schema.org> ;
     rdfs:comment "One of the sections into which a book is divided. A chapter usually has a section number or a name." ;
     rdfs:subClassOf :CreativeWork .
 
 :Collection a rdfs:Class ;
     rdfs:label "Collection" ;
-    :isPartOf <http://bib.schema.org> ;
+    :isPartOf <https://bib.schema.org> ;
     rdfs:comment "A collection of items e.g. creative works or products." ;
     rdfs:subClassOf :CreativeWork .
 
 :ComicCoverArt a rdfs:Class ;
     rdfs:label "ComicCoverArt" ;
-    :isPartOf <http://bib.schema.org> ;
+    :isPartOf <https://bib.schema.org> ;
     rdfs:comment "The artwork on the cover of a comic." ;
     rdfs:subClassOf :ComicStory,
         :CoverArt .
 
 :ComicIssue a rdfs:Class ;
     rdfs:label "ComicIssue" ;
-    :isPartOf <http://bib.schema.org> ;
+    :isPartOf <https://bib.schema.org> ;
     rdfs:comment """Individual comic issues are serially published as
     	part of a larger series. For the sake of consistency, even one-shot issues
     	belong to a series comprised of a single issue. All comic issues can be
@@ -50,7 +50,7 @@
 
 :ComicSeries a rdfs:Class ;
     rdfs:label "ComicSeries" ;
-    :isPartOf <http://bib.schema.org> ;
+    :isPartOf <https://bib.schema.org> ;
     rdfs:comment """A sequential publication of comic stories under a
     	unifying title, for example "The Amazing Spider-Man" or "Groo the
     	Wanderer".""" ;
@@ -58,7 +58,7 @@
 
 :ComicStory a rdfs:Class ;
     rdfs:label "ComicStory" ;
-    :isPartOf <http://bib.schema.org> ;
+    :isPartOf <https://bib.schema.org> ;
     rdfs:comment """The term "story" is any indivisible, re-printable
     	unit of a comic, including the interior stories, covers, and backmatter. Most
     	comics have at least two stories: a cover (ComicCoverArt) and an interior story.""" ;
@@ -66,20 +66,20 @@
 
 :CoverArt a rdfs:Class ;
     rdfs:label "CoverArt" ;
-    :isPartOf <http://bib.schema.org> ;
+    :isPartOf <https://bib.schema.org> ;
     rdfs:comment "The artwork on the outer surface of a CreativeWork." ;
     rdfs:subClassOf :VisualArtwork .
 
 :Newspaper a rdfs:Class ;
     rdfs:label "Newspaper" ;
-    :isPartOf <http://bib.schema.org> ;
+    :isPartOf <https://bib.schema.org> ;
     :source <http://www.productontology.org/id/Newspaper> ;
     rdfs:comment "A publication containing information about varied topics that are pertinent to general information, a geographic area, or a specific subject matter (i.e. business, culture, education). Often published daily." ;
     rdfs:subClassOf :Periodical .
 
 :Thesis a rdfs:Class ;
     rdfs:label "Thesis" ;
-    :isPartOf <http://bib.schema.org> ;
+    :isPartOf <https://bib.schema.org> ;
     :source <http://www.productontology.org/id/Thesis> ;
     rdfs:comment "A thesis or dissertation document submitted in support of candidature for an academic degree or professional qualification." ;
     rdfs:subClassOf :CreativeWork .
@@ -88,13 +88,13 @@
 
 :GraphicNovel a :BookFormatType ;
     rdfs:label "GraphicNovel" ;
-    :isPartOf <http://bib.schema.org> ;
+    :isPartOf <https://bib.schema.org> ;
     rdfs:comment "Book format: GraphicNovel. May represent a bound collection of ComicIssue instances." .
 
 :abridged a rdf:Property ;
     rdfs:label "abridged" ;
     :domainIncludes :Book ;
-    :isPartOf <http://bib.schema.org> ;
+    :isPartOf <https://bib.schema.org> ;
     :rangeIncludes :Boolean ;
     rdfs:comment "Indicates whether the book is an abridged edition." .
 
@@ -103,7 +103,7 @@
     :domainIncludes :ComicIssue,
         :ComicStory,
         :VisualArtwork ;
-    :isPartOf <http://bib.schema.org> ;
+    :isPartOf <https://bib.schema.org> ;
     :rangeIncludes :Person ;
     rdfs:comment """The primary artist for a work
     	in a medium other than pencils or digital line art--for example, if the
@@ -114,7 +114,7 @@
     :domainIncludes :ComicIssue,
         :ComicStory,
         :VisualArtwork ;
-    :isPartOf <http://bib.schema.org> ;
+    :isPartOf <https://bib.schema.org> ;
     :rangeIncludes :Person ;
     rdfs:comment "The individual who adds color to inked drawings." .
 
@@ -124,7 +124,7 @@
 :inSupportOf a rdf:Property ;
     rdfs:label "inSupportOf" ;
     :domainIncludes :Thesis ;
-    :isPartOf <http://bib.schema.org> ;
+    :isPartOf <https://bib.schema.org> ;
     :rangeIncludes :Text ;
     rdfs:comment "Qualification, candidature, degree, application that Thesis supports." .
 
@@ -133,7 +133,7 @@
     :domainIncludes :ComicIssue,
         :ComicStory,
         :VisualArtwork ;
-    :isPartOf <http://bib.schema.org> ;
+    :isPartOf <https://bib.schema.org> ;
     :rangeIncludes :Person ;
     rdfs:comment "The individual who traces over the pencil drawings in ink after pencils are complete." .
 
@@ -142,7 +142,7 @@
     :domainIncludes :ComicIssue,
         :ComicStory,
         :VisualArtwork ;
-    :isPartOf <http://bib.schema.org> ;
+    :isPartOf <https://bib.schema.org> ;
     :rangeIncludes :Person ;
     rdfs:comment "The individual who adds lettering, including speech balloons and sound effects, to artwork." .
 
@@ -160,14 +160,14 @@
     :domainIncludes :ComicIssue,
         :ComicStory,
         :VisualArtwork ;
-    :isPartOf <http://bib.schema.org> ;
+    :isPartOf <https://bib.schema.org> ;
     :rangeIncludes :Person ;
     rdfs:comment "The individual who draws the primary narrative artwork." .
 
 :publishedBy a rdf:Property ;
     rdfs:label "publishedBy" ;
     :domainIncludes :PublicationEvent ;
-    :isPartOf <http://bib.schema.org> ;
+    :isPartOf <https://bib.schema.org> ;
     :rangeIncludes :Organization,
         :Person ;
     rdfs:comment "An agent associated with the publication event." .
@@ -175,14 +175,14 @@
 :publisherImprint a rdf:Property ;
     rdfs:label "publisherImprint" ;
     :domainIncludes :CreativeWork ;
-    :isPartOf <http://bib.schema.org> ;
+    :isPartOf <https://bib.schema.org> ;
     :rangeIncludes :Organization ;
     rdfs:comment "The publishing division which published the comic." .
 
 :readBy a rdf:Property ;
     rdfs:label "readBy" ;
     :domainIncludes :Audiobook ;
-    :isPartOf <http://bib.schema.org> ;
+    :isPartOf <https://bib.schema.org> ;
     :rangeIncludes :Person ;
     rdfs:comment "A person who reads (performs) the audiobook." ;
     rdfs:subPropertyOf :actor .
@@ -190,7 +190,7 @@
 :variantCover a rdf:Property ;
     rdfs:label "variantCover" ;
     :domainIncludes :ComicIssue ;
-    :isPartOf <http://bib.schema.org> ;
+    :isPartOf <https://bib.schema.org> ;
     :rangeIncludes :Text ;
     rdfs:comment """A description of the variant cover
     	for the issue, if the issue is a variant printing. For example, "Bryan Hitch
@@ -200,7 +200,7 @@
     rdfs:label "translationOfWork" ;
     :domainIncludes :CreativeWork ;
     :inverseOf :workTranslation ;
-    :isPartOf <http://bib.schema.org> ;
+    :isPartOf <https://bib.schema.org> ;
     :rangeIncludes :CreativeWork ;
     rdfs:comment "The work that this work has been translated from. e.g. 物种起源 is a translationOf “On the Origin of Species”" .
 
@@ -208,7 +208,7 @@
     rdfs:label "workTranslation" ;
     :domainIncludes :CreativeWork ;
     :inverseOf :translationOfWork ;
-    :isPartOf <http://bib.schema.org> ;
+    :isPartOf <https://bib.schema.org> ;
     :rangeIncludes :CreativeWork ;
     rdfs:comment "A work that is a translation of the content of this work. e.g. 西遊記 has an English workTranslation “Journey to the West”,a German workTranslation “Monkeys Pilgerfahrt” and a Vietnamese  translation Tây du ký bình khảo." .
 

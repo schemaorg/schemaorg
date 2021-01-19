@@ -21,7 +21,7 @@ import io
 from sdoterm import *
 from localmarkdown import Markdown
 
-DEFVOCABURI="http://schema.org/"
+DEFVOCABURI="https://schema.org/"
 VOCABURI=None
 DATATYPEURI = None
 ENUMERATIONURI = None

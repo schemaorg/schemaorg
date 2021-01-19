@@ -1,4 +1,4 @@
-@prefix : <http://schema.org/> .
+@prefix : <https://schema.org/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
@@ -6,7 +6,7 @@
 
 :Schedule a rdfs:Class ;
     rdfs:label "Schedule" ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/1457> ;
     rdfs:comment """A schedule defines a repeating time period used to describe a regularly occurring [[Event]]. At a minimum a schedule will specify [[repeatFrequency]] which describes the interval between occurences of the event. Additional information can be provided to specify the schedule more precisely.
       This includes identifying the day(s) of the week or month when the recurring event will take place, in addition to its start and end time. Schedules may also
@@ -16,7 +16,7 @@
 :byDay a rdf:Property ;
     rdfs:label "byDay" ;
     :domainIncludes :Schedule ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :DayOfWeek,
         :Text ;
     :source <https://github.com/schemaorg/schemaorg/issues/1457> ;
@@ -25,7 +25,7 @@
 :byMonth a rdf:Property ;
     rdfs:label "byMonth" ;
     :domainIncludes :Schedule ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :Integer ;
     :source <https://github.com/schemaorg/schemaorg/issues/1457> ;
     rdfs:comment "Defines the month(s) of the year on which a recurring [[Event]] takes place. Specified as an [[Integer]] between 1-12. January is 1." .
@@ -33,7 +33,7 @@
 :byMonthDay a rdf:Property ;
     rdfs:label "byMonthDay" ;
     :domainIncludes :Schedule ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :Integer ;
     :source <https://github.com/schemaorg/schemaorg/issues/1457> ;
     rdfs:comment "Defines the day(s) of the month on which a recurring [[Event]] takes place. Specified as an [[Integer]] between 1-31." .
@@ -45,7 +45,7 @@
 :eventSchedule a rdf:Property ;
     rdfs:label "eventSchedule" ;
     :domainIncludes :Event ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :Schedule ;
     :source <https://github.com/schemaorg/schemaorg/issues/1457> ;
     rdfs:comment """Associates an [[Event]] with a [[Schedule]]. There are circumstances where it is preferable to share a schedule for a series of
@@ -58,7 +58,7 @@
 :exceptDate a rdf:Property ;
     rdfs:label "exceptDate" ;
     :domainIncludes :Schedule ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :Date,
         :DateTime ;
     :source <https://github.com/schemaorg/schemaorg/issues/1457> ;
@@ -70,7 +70,7 @@
 :repeatCount a rdf:Property ;
     rdfs:label "repeatCount" ;
     :domainIncludes :Schedule ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :Integer ;
     :source <https://github.com/schemaorg/schemaorg/issues/1457> ;
     rdfs:comment "Defines the number of times a recurring [[Event]] will take place" .
@@ -78,7 +78,7 @@
 :repeatFrequency a rdf:Property ;
     rdfs:label "repeatFrequency" ;
     :domainIncludes :Schedule ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :Duration,
         :Text ;
     :source <https://github.com/schemaorg/schemaorg/issues/1457> ;
@@ -89,7 +89,7 @@
 :scheduleTimezone a rdf:Property ;
     rdfs:label "scheduleTimezone" ;
     :domainIncludes :Schedule ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :Text ;
     :source <https://github.com/schemaorg/schemaorg/issues/1457> ;
     rdfs:comment "Indicates the timezone for which the time(s) indicated in the [[Schedule]] are given. The value provided should be among those listed in the IANA Time Zone Database." .

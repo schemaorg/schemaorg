@@ -1,4 +1,4 @@
-@prefix : <http://schema.org/> .
+@prefix : <https://schema.org/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
@@ -6,7 +6,7 @@
 
 :TouristDestination a rdfs:Class ;
     rdfs:label "TouristDestination" ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#IIT-CNR.it>,
         <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Tourism>,
         <https://github.com/schemaorg/schemaorg/issues/1810> ;
@@ -16,7 +16,7 @@
 
 :TouristTrip a rdfs:Class ;
     rdfs:label "TouristTrip" ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#IIT-CNR.it>,
         <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Tourism>,
         <https://github.com/schemaorg/schemaorg/issues/1810> ;
@@ -27,7 +27,7 @@
 :includesAttraction a rdf:Property ;
     rdfs:label "includesAttraction" ;
     :domainIncludes :TouristDestination ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :TouristAttraction ;
     :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#IIT-CNR.it>,
         <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Tourism>,
@@ -37,7 +37,7 @@
 :itinerary a rdf:Property ;
     rdfs:label "itinerary" ;
     :domainIncludes :Trip ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :ItemList,
         :Place ;
     :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Tourism>,
@@ -53,7 +53,7 @@
     rdfs:label "partOfTrip" ;
     :domainIncludes :Trip ;
     :inverseOf :subTrip ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :Trip ;
     :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Tourism>,
         <https://github.com/schemaorg/schemaorg/issues/1810> ;
@@ -63,7 +63,7 @@
     rdfs:label "subTrip" ;
     :domainIncludes :Trip ;
     :inverseOf :partOfTrip ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :Trip ;
     :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Tourism>,
         <https://github.com/schemaorg/schemaorg/issues/1810> ;

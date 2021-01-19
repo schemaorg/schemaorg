@@ -351,7 +351,7 @@ class BasicJSONLDTests(unittest.TestCase):
 
     def test_jsonld_basic_jsonld_context_available(self):
       if self.ctx:
-        self.assertEqual( self.ctx["@context"]["@vocab"], "http://schema.org/", "Context file should declare schema.org url.")
+        self.assertEqual( self.ctx["@context"]["@vocab"], "https://schema.org/", "Context file should declare schema.org url.")
 
     def test_issuedBy_jsonld(self):
       if self.ctx:

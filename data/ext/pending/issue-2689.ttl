@@ -1,4 +1,4 @@
-@prefix : <http://schema.org/> .
+@prefix : <https://schema.org/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
@@ -6,51 +6,51 @@
 
 :PriceComponentTypeEnumeration a rdfs:Class ;
     rdfs:label "PriceComponentTypeEnumeration" ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/2689> ;
     rdfs:comment "Enumerates different price components that together make up the total price for an offered product." ;
     rdfs:subClassOf :Enumeration .
 
 :ActivationFee a :PriceComponentTypeEnumeration ;
     rdfs:label "ActivationFee" ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/2689> ;
     rdfs:comment "Represents the activation fee part of the total price for an offered product, for example a cellphone contract" .
 
 :CleaningFee a :PriceComponentTypeEnumeration ;
     rdfs:label "CleaningFee" ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/2689> ;
     rdfs:comment "Represents the cleaning fee part of the total price for an offered product, for example a vacation rental" .
 
 :DistanceFee a :PriceComponentTypeEnumeration ;
     rdfs:label "DistanceFee" ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/2689> ;
     rdfs:comment "Represents the distance fee (e.g., price per km or mile) part of the total price for an offered product, for example a car rental" .
 
 :Downpayment a :PriceComponentTypeEnumeration ;
     rdfs:label "Downpayment" ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/2689> ;
     rdfs:comment "Represents the downpayment (up-front payment) price component of the total price for an offered product that has additional installment payments" .
 
 :Installment a :PriceComponentTypeEnumeration ;
     rdfs:label "Installment" ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/2689> ;
     rdfs:comment "Represents the installment pricing component of the total price for an offered product" .
 
 :Subscription a :PriceComponentTypeEnumeration ;
     rdfs:label "Subscription" ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/2689> ;
     rdfs:comment "Represents the subscription pricing component of the total price for an offered product" .
 
 :billingDuration a rdf:Property ;
     rdfs:label "billingDuration" ;
     :domainIncludes :UnitPriceSpecification ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :Duration,
         :Number,
         :QuantitativeValue ;
@@ -60,7 +60,7 @@
 :billingStart a rdf:Property ;
     rdfs:label "billingStart" ;
     :domainIncludes :UnitPriceSpecification ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :Number ;
     :source <https://github.com/schemaorg/schemaorg/issues/2689> ;
     rdfs:comment "Specifies after how much time this price (or price component) becomes valid and billing starts. Can be used, for example, to model a price increase after the first year of a subscription. The unit of measurement is specified by the unitCode property" .
@@ -68,7 +68,7 @@
 :priceComponentType a rdf:Property ;
     rdfs:label "priceComponentType" ;
     :domainIncludes :UnitPriceSpecification ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :PriceComponentTypeEnumeration ;
     :source <https://github.com/schemaorg/schemaorg/issues/2689> ;
     rdfs:comment "Identifies a price component (for example, a line item on an invoice), part of the total price for an offer." .

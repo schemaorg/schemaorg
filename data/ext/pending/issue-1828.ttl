@@ -1,4 +1,4 @@
-@prefix : <http://schema.org/> .
+@prefix : <https://schema.org/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
@@ -6,7 +6,7 @@
 
 :Claim a rdfs:Class ;
     rdfs:label "Claim" ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/1828> ;
     rdfs:comment """A [[Claim]] in Schema.org represents a specific, factually-oriented claim that could be the [[itemReviewed]] in a [[ClaimReview]]. The content of a claim can be summarized with the [[text]] property. Variations on well known claims can have their common identity indicated via [[sameAs]] links, and summarized with a [[name]]. Ideally, a [[Claim]] description includes enough contextual information to minimize the risk of ambiguity or inclarity. In practice, many claims are better understood in the context in which they appear or the interpretations provided by claim reviews.
 
@@ -19,7 +19,7 @@
 :appearance a rdf:Property ;
     rdfs:label "appearance" ;
     :domainIncludes :Claim ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :CreativeWork ;
     :source <https://github.com/schemaorg/schemaorg/issues/1828> ;
     rdfs:comment "Indicates an occurence of a [[Claim]] in some [[CreativeWork]]." ;
@@ -28,7 +28,7 @@
 :firstAppearance a rdf:Property ;
     rdfs:label "firstAppearance" ;
     :domainIncludes :Claim ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :CreativeWork ;
     :source <https://github.com/schemaorg/schemaorg/issues/1828> ;
     rdfs:comment "Indicates the first known occurence of a [[Claim]] in some [[CreativeWork]]." ;

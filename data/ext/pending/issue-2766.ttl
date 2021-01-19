@@ -1,4 +1,4 @@
-@prefix : <http://schema.org/> .
+@prefix : <https://schema.org/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
@@ -6,14 +6,14 @@
 
 :HyperToc a rdfs:Class ;
     rdfs:label "HyperToc" ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/2766> ;
     rdfs:comment "A HyperToc represents a hypertext table of contents for complex media objects, such as [[VideoObject]], [[AudioObject]]. Items in the table of contents are indicated using the [[tocEntry]] property, and typed [[HyperTocEntry]]. For cases where the same larger work is split into multiple files, [[associatedMedia]] can be used on individual [[HyperTocEntry]] items." ;
     rdfs:subClassOf :CreativeWork .
 
 :HyperTocEntry a rdfs:Class ;
     rdfs:label "HyperTocEntry" ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/2766> ;
     rdfs:comment "A HyperToEntry is an item within a [[HyperToc]], which represents a hypertext table of contents for complex media objects, such as [[VideoObject]], [[AudioObject]]. The media object itself is indicated using [[associatedMedia]]. Each section of interest within that content can be described with a [[HyperTocEntry]], with associated [[startOffset]] and [[endOffset]]. When several entries are all from the same file, [[associatedMedia]] is used on the overarching [[HyperTocEntry]]; if the content has been split into multiple files, they can be referenced using [[associatedMedia]] on each [[HyperTocEntry]]." ;
     rdfs:subClassOf :CreativeWork .
@@ -28,7 +28,7 @@
 :tocContinuation a rdf:Property ;
     rdfs:label "tocContinuation" ;
     :domainIncludes :HyperTocEntry ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :HyperTocEntry ;
     :source <https://github.com/schemaorg/schemaorg/issues/2766> ;
     rdfs:comment "A [[HyperTocEntry]] can have a [[tocContinuation]] indicated, which is another [[HyperTocEntry]] that would be the default next item to play or render." .
@@ -36,7 +36,7 @@
 :tocEntry a rdf:Property ;
     rdfs:label "tocEntry" ;
     :domainIncludes :HyperToc ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :HyperTocEntry ;
     :source <https://github.com/schemaorg/schemaorg/issues/2766> ;
     rdfs:comment "Indicates a [[HyperTocEntry]] in a [[HyperToc]]." ;
@@ -45,7 +45,7 @@
 :utterances a rdf:Property ;
     rdfs:label "utterances" ;
     :domainIncludes :HyperTocEntry ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :Text ;
     :source <https://github.com/schemaorg/schemaorg/issues/2766> ;
     rdfs:comment "Text of an utterances (spoken words, lyrics etc.) that occurs at a certain section of a media object, represented as a [[HyperTocEntry]]." .

@@ -58,25 +58,25 @@ class SDOGraphSetupTestCase(unittest.TestCase):
   # "A list of dicts (solution mappings) is returned"
 
   def test_found_sixplus_inverseOf(self):
-    inverseOf_results = self.rdflib_data.query("select ?x ?y where { ?x <http://schema.org/inverseOf> ?y }")
+    inverseOf_results = self.rdflib_data.query("select ?x ?y where { ?x <https://schema.org/inverseOf> ?y }")
     log.info("inverseOf result count: %s" % len(inverseOf_results ) )
     self.assertTrue(len(inverseOf_results) >= 6,
                     "Six or more inverseOf expected. Found: %s " % len(inverseOf_results ) )
 
   def test_even_number_inverseOf(self):
 
-    inverseOf_results = self.rdflib_data.query("select ?x ?y where { ?x <http://schema.org/inverseOf> ?y }")
+    inverseOf_results = self.rdflib_data.query("select ?x ?y where { ?x <https://schema.org/inverseOf> ?y }")
     self.assertTrue(len(inverseOf_results ) % 2 == 0,
                     "Even number of inverseOf triples expected. Found: %s " % len(inverseOf_results ) )
 
   def test_non_equal_inverseOf(self):
-    results = self.rdflib_data.query("select ?x ?y where { ?x <http://schema.org/inverseOf> ?y }")
+    results = self.rdflib_data.query("select ?x ?y where { ?x <https://schema.org/inverseOf> ?y }")
     for result in results :
       self.assertTrue(result[0] != result[1],
                       "%s should not be equal to %s" % (result[0], result[1]) )
 
   def test_non_equal_supercededBy(self):
-    results = self.rdflib_data.query("select ?x ?y where { ?x <http://schema.org/supercededBy> ?y }")
+    results = self.rdflib_data.query("select ?x ?y where { ?x <https://schema.org/supercededBy> ?y }")
     for result in results :
       self.assertTrue(result[0] != result[1],
                       "%s should not be equal to %s" % (result[0], result[1]) )
@@ -89,13 +89,13 @@ class SDOGraphSetupTestCase(unittest.TestCase):
     # rdfs:subClassOf+ should work but seems not to.
     ndi1 = ('''SELECT ?prop ?c1 ?c2 
            WHERE { 
-           ?prop <http://schema.org/domainIncludes> ?c1 .
-           ?prop <http://schema.org/domainIncludes> ?c2 .
+           ?prop <https://schema.org/domainIncludes> ?c1 .
+           ?prop <https://schema.org/domainIncludes> ?c2 .
            ?c1 rdfs:subClassOf ?c2 .
            FILTER (?c1 != ?c2) .
-           FILTER NOT EXISTS { ?prop <http://schema.org/isPartOf> <http://attic.schema.org> .}
-           FILTER NOT EXISTS { ?c1 <http://schema.org/isPartOf> <http://attic.schema.org> .}
-           FILTER NOT EXISTS { ?c2 <http://schema.org/isPartOf> <http://attic.schema.org> .}
+           FILTER NOT EXISTS { ?prop <https://schema.org/isPartOf> <http://attic.schema.org> .}
+           FILTER NOT EXISTS { ?c1 <https://schema.org/isPartOf> <http://attic.schema.org> .}
+           FILTER NOT EXISTS { ?c2 <https://schema.org/isPartOf> <http://attic.schema.org> .}
            }
            ORDER BY ?prop ''')
     ndi1_results = self.rdflib_data.query(ndi1)
@@ -115,14 +115,14 @@ class SDOGraphSetupTestCase(unittest.TestCase):
     # TODO: could we use property paths here to be more thorough?
     nri1= ('''SELECT ?prop ?c1 ?c2 
          WHERE { 
-         ?prop <http://schema.org/rangeIncludes> ?c1 .
-         ?prop <http://schema.org/rangeIncludes> ?c2 .
+         ?prop <https://schema.org/rangeIncludes> ?c1 .
+         ?prop <https://schema.org/rangeIncludes> ?c2 .
          ?c1 rdfs:subClassOf ?c2 .
          FILTER (?c1 != ?c2) .
-         FILTER (?c1 != <http://schema.org/URL>) .
-         FILTER NOT EXISTS { ?prop <http://schema.org/isPartOf> <http://attic.schema.org> .}
-         FILTER NOT EXISTS { ?c1 <http://schema.org/isPartOf> <http://attic.schema.org> .}
-         FILTER NOT EXISTS { ?c2 <http://schema.org/isPartOf> <http://attic.schema.org> .}
+         FILTER (?c1 != <https://schema.org/URL>) .
+         FILTER NOT EXISTS { ?prop <https://schema.org/isPartOf> <http://attic.schema.org> .}
+         FILTER NOT EXISTS { ?c1 <https://schema.org/isPartOf> <http://attic.schema.org> .}
+         FILTER NOT EXISTS { ?c2 <https://schema.org/isPartOf> <http://attic.schema.org> .}
              }
              ORDER BY ?prop ''')
     nri1_results = self.rdflib_data.query(nri1)
@@ -134,20 +134,20 @@ class SDOGraphSetupTestCase(unittest.TestCase):
     self.assertEqual(len(nri1_results), 0, "No subtype need redeclare a rangeIncludes of its parents. Found: %s" % len(nri1_results) )
 
 #  def test_supersededByAreLabelled(self):
-#    supersededByAreLabelled_results = self.rdflib_data.query("select ?x ?y ?z where { ?x <http://schema.org/supersededBy> ?y . ?y <http://schema.org/name> ?z }")
+#    supersededByAreLabelled_results = self.rdflib_data.query("select ?x ?y ?z where { ?x <https://schema.org/supersededBy> ?y . ?y <https://schema.org/name> ?z }")
 #    self.assertEqual(len(inverseOf_results ) % 2 == 0, True, "Even number of inverseOf triples expected. Found: %s " % len(inverseOf_results ) )
 
 
   def test_validRangeIncludes(self):
     nri1= ('''SELECT ?prop ?c1
      WHERE {
-         ?prop <http://schema.org/rangeIncludes> ?c1 .
+         ?prop <https://schema.org/rangeIncludes> ?c1 .
          OPTIONAL{
             ?c1 rdf:type ?c2 .
             ?c1 rdf:type rdfs:Class .
          }.
          FILTER (!BOUND(?c2))
-        FILTER NOT EXISTS { ?prop <http://schema.org/isPartOf> <http://attic.schema.org> .}
+        FILTER NOT EXISTS { ?prop <https://schema.org/isPartOf> <http://attic.schema.org> .}
                  }
                  ORDER BY ?prop ''')
     nri1_results = self.rdflib_data.query(nri1)
@@ -158,13 +158,13 @@ class SDOGraphSetupTestCase(unittest.TestCase):
   def test_validDomainIncludes(self):
     nri1= ('''SELECT ?prop ?c1
      WHERE {
-         ?prop <http://schema.org/domainIncludes> ?c1 .
+         ?prop <https://schema.org/domainIncludes> ?c1 .
          OPTIONAL{
             ?c1 rdf:type ?c2 .
             ?c1 rdf:type rdfs:Class .
          }.
          FILTER (!BOUND(?c2))
-        FILTER NOT EXISTS { ?prop <http://schema.org/isPartOf> <http://attic.schema.org> .}
+        FILTER NOT EXISTS { ?prop <https://schema.org/isPartOf> <http://attic.schema.org> .}
                  }
                  ORDER BY ?prop ''')
     nri1_results = self.rdflib_data.query(nri1)
@@ -199,7 +199,7 @@ class SDOGraphSetupTestCase(unittest.TestCase):
     nri1= ('''select ?term ?label where { 
        ?term rdfs:label ?label.
        BIND(STR(?term) AS ?strVal)
-       FILTER(STRLEN(?strVal) >= 18 && SUBSTR(?strVal, 1, 18) = "http://schema.org/")
+       FILTER(STRLEN(?strVal) >= 18 && SUBSTR(?strVal, 1, 18) = "https://schema.org/")
        FILTER(SUBSTR(?strVal, 19) != STR(?label))
     }
     ORDER BY ?term  ''')
@@ -217,11 +217,11 @@ class SDOGraphSetupTestCase(unittest.TestCase):
        FILTER NOT EXISTS { ?super rdf:type rdfs:Class }
        
        BIND(STR(?term) AS ?strVal)
-       FILTER(STRLEN(?strVal) >= 18 && SUBSTR(?strVal, 1, 18) = "http://schema.org/")
+       FILTER(STRLEN(?strVal) >= 18 && SUBSTR(?strVal, 1, 18) = "https://schema.org/")
        
        BIND(STR(?super) AS ?superStrVal)
-       FILTER(STRLEN(?superStrVal) >= 18 && SUBSTR(?superStrVal, 1, 18) = "http://schema.org/")
-        FILTER NOT EXISTS { ?term <http://schema.org/isPartOf> <http://attic.schema.org> .}
+       FILTER(STRLEN(?superStrVal) >= 18 && SUBSTR(?superStrVal, 1, 18) = "https://schema.org/")
+        FILTER NOT EXISTS { ?term <https://schema.org/isPartOf> <http://attic.schema.org> .}
     }
     ORDER BY ?term  ''')
     nri1_results = self.rdflib_data.query(nri1)
@@ -234,7 +234,7 @@ class SDOGraphSetupTestCase(unittest.TestCase):
     def test_propswitoutdomain(self):
         nri1= (''' select ?term where {
             ?term a rdf:Property.
-            FILTER NOT EXISTS { ?term <http://schema.org/domainIncludes> ?o .}
+            FILTER NOT EXISTS { ?term <https://schema.org/domainIncludes> ?o .}
         }
          ''')
         nri1_results = self.rdflib_data.query(nri1)
@@ -247,7 +247,7 @@ class SDOGraphSetupTestCase(unittest.TestCase):
     def test_propswitoutrange(self):
         nri1= (''' select ?term where {
             ?term a rdf:Property.
-            FILTER NOT EXISTS { ?term <http://schema.org/rangeIncludes> ?o .}
+            FILTER NOT EXISTS { ?term <https://schema.org/rangeIncludes> ?o .}
         }
          ''')
         nri1_results = self.rdflib_data.query(nri1)
@@ -264,11 +264,11 @@ class SDOGraphSetupTestCase(unittest.TestCase):
        FILTER NOT EXISTS { ?super rdf:type rdf:Property }
        
        BIND(STR(?term) AS ?strVal)
-       FILTER(STRLEN(?strVal) >= 18 && SUBSTR(?strVal, 1, 18) = "http://schema.org/")
+       FILTER(STRLEN(?strVal) >= 18 && SUBSTR(?strVal, 1, 18) = "https://schema.org/")
 
        BIND(STR(?super) AS ?superStrVal)
-       FILTER(STRLEN(?superStrVal) >= 18 && SUBSTR(?superStrVal, 1, 18) = "http://schema.org/")
-        FILTER NOT EXISTS { ?term <http://schema.org/isPartOf> <http://attic.schema.org> .}
+       FILTER(STRLEN(?superStrVal) >= 18 && SUBSTR(?superStrVal, 1, 18) = "https://schema.org/")
+        FILTER NOT EXISTS { ?term <https://schema.org/isPartOf> <http://attic.schema.org> .}
     }
     ORDER BY ?term  ''')
     nri1_results = self.rdflib_data.query(nri1)
@@ -281,13 +281,13 @@ class SDOGraphSetupTestCase(unittest.TestCase):
   def test_selfReferencingInverse(self):
     nri1= ('''select ?term ?inverse where { 
        ?term rdf:type rdf:Property.
-       ?term <http://schema.org/inverseOf> ?inverse.
+       ?term <https://schema.org/inverseOf> ?inverse.
        
        BIND(STR(?term) AS ?strVal)
-       FILTER(STRLEN(?strVal) >= 18 && SUBSTR(?strVal, 1, 18) = "http://schema.org/")
+       FILTER(STRLEN(?strVal) >= 18 && SUBSTR(?strVal, 1, 18) = "https://schema.org/")
        
        FILTER(str(?term) = str(?inverse))
-        FILTER NOT EXISTS { ?term <http://schema.org/isPartOf> <http://attic.schema.org> .}
+        FILTER NOT EXISTS { ?term <https://schema.org/isPartOf> <http://attic.schema.org> .}
 
     }
     ORDER BY ?term  ''')
@@ -301,14 +301,14 @@ class SDOGraphSetupTestCase(unittest.TestCase):
   def test_sameInverseAndSupercededByTarget(self):
     nri1= ('''select ?term ?inverse ?super where { 
        ?term rdf:type rdf:Property.
-       ?term <http://schema.org/inverseOf> ?inverse.
-       ?term <http://schema.org/supercededBy> ?super.
+       ?term <https://schema.org/inverseOf> ?inverse.
+       ?term <https://schema.org/supercededBy> ?super.
        
        BIND(STR(?term) AS ?strVal)
-       FILTER(STRLEN(?strVal) >= 18 && SUBSTR(?strVal, 1, 18) = "http://schema.org/")
+       FILTER(STRLEN(?strVal) >= 18 && SUBSTR(?strVal, 1, 18) = "https://schema.org/")
        
        FILTER(str(?inverse) = str(?super))
-        FILTER NOT EXISTS { ?term <http://schema.org/isPartOf> <http://attic.schema.org> .}
+        FILTER NOT EXISTS { ?term <https://schema.org/isPartOf> <http://attic.schema.org> .}
 
     }
     ORDER BY ?term  ''')
@@ -325,7 +325,7 @@ class SDOGraphSetupTestCase(unittest.TestCase):
        ?term rdfs:comment ?com.
        
        BIND(STR(?term) AS ?strVal)
-       FILTER(STRLEN(?strVal) >= 18 && SUBSTR(?strVal, 1, 18) = "http://schema.org/")
+       FILTER(STRLEN(?strVal) >= 18 && SUBSTR(?strVal, 1, 18) = "https://schema.org/")
 
        FILTER regex(str(?com), '[^.]$')
     }
@@ -343,7 +343,7 @@ class SDOGraphSetupTestCase(unittest.TestCase):
        ?term rdfs:label ?label.
        
        BIND(STR(?term) AS ?strVal)
-       FILTER(STRLEN(?strVal) >= 18 && SUBSTR(?strVal, 1, 18) = "http://schema.org/")
+       FILTER(STRLEN(?strVal) >= 18 && SUBSTR(?strVal, 1, 18) = "https://schema.org/")
 
        FILTER (!regex(str(?label), '^[0-9]*[A-Z].*'))
     }
@@ -361,7 +361,7 @@ class SDOGraphSetupTestCase(unittest.TestCase):
        ?term rdfs:label ?label.
        
        BIND(STR(?term) AS ?strVal)
-       FILTER(STRLEN(?strVal) >= 18 && SUBSTR(?strVal, 1, 18) = "http://schema.org/")
+       FILTER(STRLEN(?strVal) >= 18 && SUBSTR(?strVal, 1, 18) = "https://schema.org/")
 
        FILTER (!regex(str(?label), '^[0-9]*[a-z].*'))
     }
@@ -382,8 +382,8 @@ class SDOGraphSetupTestCase(unittest.TestCase):
        {
            ?term rdfs:subPropertyOf ?super.
        }
-       ?super <http://schema.org/isPartOf> <http://attic.schema.org> .
-       FILTER NOT EXISTS { ?term <http://schema.org/isPartOf> <http://attic.schema.org> .}
+       ?super <https://schema.org/isPartOf> <http://attic.schema.org> .
+       FILTER NOT EXISTS { ?term <https://schema.org/isPartOf> <http://attic.schema.org> .}
     }
     ORDER BY ?term  ''')
     nri1_results = self.rdflib_data.query(nri1)
@@ -396,26 +396,26 @@ class SDOGraphSetupTestCase(unittest.TestCase):
   def test_referenceTermInAttic(self):
     nri1= ('''select ?term ?rel ?ref where { 
        {
-           ?term <http://schema.org/domainIncludes> ?ref.
+           ?term <https://schema.org/domainIncludes> ?ref.
            ?term ?rel ?ref.
        }
        UNION
        {
-           ?term <http://schema.org/rangeIncludes> ?ref.
+           ?term <https://schema.org/rangeIncludes> ?ref.
            ?term ?rel ?ref.
        }
        UNION
        {
-           ?term <http://schema.org/inverseOf> ?ref.
+           ?term <https://schema.org/inverseOf> ?ref.
            ?term ?rel ?ref.
        }
        UNION
        {
-           ?term <http://schema.org/supercededBy> ?ref.
+           ?term <https://schema.org/supercededBy> ?ref.
            ?term ?rel ?ref.
        }
-       ?ref <http://schema.org/isPartOf> <http://attic.schema.org> .
-       FILTER NOT EXISTS { ?term <http://schema.org/isPartOf> <http://attic.schema.org> .}
+       ?ref <https://schema.org/isPartOf> <http://attic.schema.org> .
+       FILTER NOT EXISTS { ?term <https://schema.org/isPartOf> <http://attic.schema.org> .}
     }
     ORDER BY ?term  ''')
     nri1_results = self.rdflib_data.query(nri1)
@@ -427,7 +427,7 @@ class SDOGraphSetupTestCase(unittest.TestCase):
 
   def test_termIn2PlusExtensions(self):
     nri1= ('''select ?term (count(?part) as ?count) where { 
-        ?term <http://schema.org/isPartOf> ?part.
+        ?term <https://schema.org/isPartOf> ?part.
     }
     GROUP BY ?term
     HAVING (count(?part) > 1)
@@ -443,7 +443,7 @@ class SDOGraphSetupTestCase(unittest.TestCase):
   def test_termNothttps(self):
     nri1= ('''select distinct ?term where {
       ?term ?p ?o.
-      FILTER strstarts(str(?term),"https://schema.org")
+      FILTER strstarts(str(?term),"http://schema.org")
     }
     ORDER BY ?term
      ''')
@@ -456,7 +456,7 @@ class SDOGraphSetupTestCase(unittest.TestCase):
 
   def test_targetNothttps(self):
     nri1= ('''prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-    prefix schema: <http://schema.org/>
+    prefix schema: <https://schema.org/>
     select ?term ?target where {
   
       ?term schema:domainIncludes | 
@@ -465,7 +465,7 @@ class SDOGraphSetupTestCase(unittest.TestCase):
             rdfs:subPropertyOf |
             schema:supercededBy |
             schema:inverseOf ?target.
-      filter strstarts(str(?target),"https://schema.org")
+      filter strstarts(str(?target),"http://schema.org")
     }
     ORDER BY ?term
      ''')
@@ -480,9 +480,9 @@ class SDOGraphSetupTestCase(unittest.TestCase):
   @unittest.expectedFailure
   def test_EnumerationWithoutEnums(self):
     nri1= ('''select ?term where { 
-        ?term a rdfs:subClassOf+ <http://schema.org/Enumeration> .
+        ?term a rdfs:subClassOf+ <https://schema.org/Enumeration> .
         FILTER NOT EXISTS { ?enum a ?term. }
-        FILTER NOT EXISTS { ?term <http://schema.org/isPartOf> <http://attic.schema.org> .}
+        FILTER NOT EXISTS { ?term <https://schema.org/isPartOf> <http://attic.schema.org> .}
     } 
     ORDER BY ?term  ''')
     nri1_results = self.rdflib_data.query(nri1)

@@ -1,4 +1,4 @@
-@prefix : <http://schema.org/> .
+@prefix : <https://schema.org/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
@@ -6,14 +6,14 @@
 
 :EducationalOccupationalProgram a rdfs:Class ;
     rdfs:label "EducationalOccupationalProgram" ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/2289> ;
     rdfs:comment "A program offered by an institution which determines the learning progress to achieve an outcome, usually a credential like a degree or certificate. This would define a discrete set of opportunities (e.g., job, courses) that together constitute a program with a clear start, end, set of requirements, and transition to a new occupational opportunity (e.g., a job), or sometimes a higher educational opportunity (e.g., an advanced degree)." ;
     rdfs:subClassOf :Intangible .
 
 :WorkBasedProgram a rdfs:Class ;
     rdfs:label "WorkBasedProgram" ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/2289> ;
     rdfs:comment "A program with both an educational and employment component. Typically based at a workplace and structured around work-based learning, with the aim of instilling competencies related to an occupation. WorkBasedProgram is used to distinguish programs such as apprenticeships from school, college or other classroom based educational programs." ;
     rdfs:subClassOf :EducationalOccupationalProgram .
@@ -32,7 +32,7 @@
     rdfs:label "hasCredential" ;
     :domainIncludes :Organization,
         :Person ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :EducationalOccupationalCredential ;
     :source <https://github.com/schemaorg/schemaorg/issues/2289> ;
     rdfs:comment "A credential awarded to the Person or Organization." .
@@ -48,7 +48,7 @@
     rdfs:label "occupationalCredentialAwarded" ;
     :domainIncludes :Course,
         :EducationalOccupationalProgram ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :EducationalOccupationalCredential,
         :Text,
         :URL ;
@@ -64,7 +64,7 @@
 :programPrerequisites a rdf:Property ;
     rdfs:label "programPrerequisites" ;
     :domainIncludes :EducationalOccupationalProgram ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :AlignmentObject,
         :Course,
         :EducationalOccupationalCredential,
@@ -82,7 +82,7 @@
 :salaryUponCompletion a rdf:Property ;
     rdfs:label "salaryUponCompletion" ;
     :domainIncludes :EducationalOccupationalProgram ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :MonetaryAmountDistribution ;
     :source <https://github.com/schemaorg/schemaorg/issues/2289> ;
     rdfs:comment "The expected salary upon completing the training." .
@@ -90,7 +90,7 @@
 :timeToComplete a rdf:Property ;
     rdfs:label "timeToComplete" ;
     :domainIncludes :EducationalOccupationalProgram ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :Duration ;
     :source <https://github.com/schemaorg/schemaorg/issues/2289> ;
     rdfs:comment "The expected length of time to complete the program if attending full-time." .
@@ -98,7 +98,7 @@
 :trainingSalary a rdf:Property ;
     rdfs:label "trainingSalary" ;
     :domainIncludes :WorkBasedProgram ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :MonetaryAmountDistribution ;
     :source <https://github.com/schemaorg/schemaorg/issues/2289> ;
     rdfs:comment "The estimated salary earned while in the program." .
