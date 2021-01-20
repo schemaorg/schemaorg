@@ -6,7 +6,7 @@ if not (sys.version_info.major == 3 and sys.version_info.minor > 5):
     sys.exit(1)
 
 import os
-for path in [os.getcwd(),"Util","SchemaTerms","SchemaExamples"]:
+for path in [os.getcwd(),"software/Util","software/SchemaTerms","software/SchemaExamples"]:
   sys.path.insert( 1, path ) #Pickup libs from local  directories
 
 import unittest
@@ -319,7 +319,7 @@ class SDOGraphSetupTestCase(unittest.TestCase):
             log.info("Term '%s' defined ase inverseOf AND supercededBy %s" % (row["term"], row["inverse"]))
     self.assertEqual(len(nri1_results), 0, "Types with inverseOf supercededBy shared target Found: %s" % len(nri1_results))
 
-  @unittest.expectedFailure 
+  #@unittest.expectedFailure 
   def test_commentEndWithPeriod(self):
     nri1= ('''select ?term ?com where { 
        ?term rdfs:comment ?com.
@@ -449,10 +449,10 @@ class SDOGraphSetupTestCase(unittest.TestCase):
      ''')
     nri1_results = self.rdflib_data.query(nri1)
     if len(nri1_results):
-        log.info("Term defined as https errors!!!\n")
+        log.info("Term defined as http errors!!!\n")
         for row in nri1_results:
-            log.info("Term '%s' is defined as https " % (row["term"]))
-    self.assertEqual(len(nri1_results), 0, "Term defined as https  Found: %s" % len(nri1_results))
+            log.info("Term '%s' is defined as http " % (row["term"]))
+    self.assertEqual(len(nri1_results), 0, "Term defined as http  Found: %s" % len(nri1_results))
 
   def test_targetNothttps(self):
     nri1= ('''prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
@@ -475,6 +475,40 @@ class SDOGraphSetupTestCase(unittest.TestCase):
         for row in nri1_results:
             log.info("Term '%s' references term %s  as https " % (row["term"],row["target"]))
     self.assertEqual(len(nri1_results), 0, "Term defined as https  Found: %s" % len(nri1_results))
+
+  def test_isPartOf(self):
+    nri1= ('''prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+    prefix schema: <https://schema.org/>
+    select ?term  ?partof where {
+      ?term schema:isPartOf ?partof .
+      MINUS{
+        ?term schema:isPartOf <https://attic.schema.org> 
+      }
+      MINUS{
+        ?term schema:isPartOf <https://auto.schema.org> 
+      }
+      MINUS{
+        ?term schema:isPartOf <https://bib.schema.org> 
+      }
+      MINUS{
+        ?term schema:isPartOf <https://health-lifesci.schema.org> 
+      }
+      MINUS{
+        ?term schema:isPartOf <https://meta.schema.org> 
+      }
+      MINUS{
+        ?term schema:isPartOf <https://pending.schema.org> 
+      }
+    }
+    ORDER BY ?term
+      ''')
+    nri1_results = self.rdflib_data.query(nri1)
+    if len(nri1_results):
+        log.info("Invalid isPartOf value errors!!!\n")
+        for row in nri1_results:
+            log.info("Term '%s' has invalid isPartOf value '%s'" % (row["term"],row["partof"]))
+    self.assertEqual(len(nri1_results), 0, "Invalid isPartOf value errors  Found: %s" % len(nri1_results))
+
 
 
   @unittest.expectedFailure
