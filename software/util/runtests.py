@@ -63,7 +63,7 @@ import unittest
 from os import path, getenv, putenv, getcwd, environ
 from os.path import expanduser
 
-SITEDIR="site"
+SITEDIR="software/site"
 STANDALONE=False
 
 
@@ -116,7 +116,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Configurable testing of schema.org.')
     parser.add_argument('--skipbasics', action='store_true', help='Skip basic tests.')
     args = parser.parse_args()
-    main('./tests/', args)
+    main('./software/tests/', args)
 
 # alternative, try
 # PYTHONPATH=/usr/local/google_appengine ./scripts/run_tests.py
