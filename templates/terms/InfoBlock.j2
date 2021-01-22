@@ -44,7 +44,7 @@
     {% endif %}
     {% for sup in term.supers %}
         {% if sup.termType == "Reference" %}
-            {% if loop.first %}<br/><strong> Subclass of:</strong><ul>{%else %}<br/>{% endif %}
+            {% if loop.first %}<br/><strong>{% if TERMTYPE == "Property" %}Subproperty{% else %}Subclass{% endif%} of:</strong><ul>{%else %}<br/>{% endif %}
                 <li>{{ sup.label }}</li>
             {% if loop.last %}</ul><br/>{% endif %}
         {% endif %}
