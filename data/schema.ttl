@@ -8787,20 +8787,21 @@ we define a supporting type, [[SpeakableSpecification]]  which is defined to be 
 :suggestedGender a rdf:Property ;
     rdfs:label "suggestedGender" ;
     :domainIncludes :PeopleAudience ;
-    :rangeIncludes :Text ;
-    rdfs:comment "The gender of the person or audience." .
+    :rangeIncludes :Text,
+        :GenderType ;
+    rdfs:comment "The suggested gender of the intended person or audience, for example \"male\", \"female\", or \"unisex\"." .
 
 :suggestedMaxAge a rdf:Property ;
     rdfs:label "suggestedMaxAge" ;
     :domainIncludes :PeopleAudience ;
     :rangeIncludes :Number ;
-    rdfs:comment "Maximal age recommended for viewing content." .
+    rdfs:comment "Maximum recommended age in years for the audience or user." .
 
 :suggestedMinAge a rdf:Property ;
     rdfs:label "suggestedMinAge" ;
     :domainIncludes :PeopleAudience ;
     :rangeIncludes :Number ;
-    rdfs:comment "Minimal age recommended for viewing content." .
+    rdfs:comment "Minimum recommended age in years for the audience or user." .
 
 :suitableForDiet a rdf:Property ;
     rdfs:label "suitableForDiet" ;
@@ -9250,7 +9251,7 @@ we define a supporting type, [[SpeakableSpecification]]  which is defined to be 
         :QualitativeValue,
         :QuantitativeValue,
         :StructuredValue ;
-    rdfs:comment "A pointer to a secondary value that provides additional information on the original value, e.g. a reference temperature." .
+    rdfs:comment "A secondary value that provides additional information on the original value, e.g. a reference temperature or a type of measurement." .
 
 :valueRequired a rdf:Property ;
     rdfs:label "valueRequired" ;
