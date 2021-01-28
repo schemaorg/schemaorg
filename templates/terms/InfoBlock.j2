@@ -15,8 +15,17 @@
 	<!-- Breadcrumb display of term inheritance -->
     <div class="superPaths">
     {% for superPath in term.superPaths %}
-        {% for super in superPath %} {% if not loop.first %}{% if not loop.last %} > {% endif %}{% endif %}
-					{% if loop.index > 1 %}{% if loop.last %}{% if term.termType == "Enumerationvalue" %} :: {% else %} > {% endif %}{% endif %}{% endif %}
+        {% for super in superPath %} 
+            {% if term.termType == "Property" %}
+                {% if not loop.first %}
+                    {% if loop.index == 2 %} > {% elif loop.index == 3 %} :: {% else %} : {% endif %}
+                {% endif %}
+            {% else %}
+                {% if not loop.first %}
+                        {% if not loop.last %} > {% endif %}
+                    {% endif %}
+				{% if loop.index > 1 %}{% if loop.last %}{% if term.termType == "Enumerationvalue" %} :: {% else %} > {% endif %}{% endif %}{% endif %}
+            {% endif %}
 					{{ sdotermlink(super)|safe }}{% endfor %}
         <br/>
     {% endfor %}
