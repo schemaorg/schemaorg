@@ -37,8 +37,15 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r software/requirements.txt
 
-      # Run local tests
-      - name: Local Tests
+      # Local tests prepare
+      - name: Local Tests prepare
         run: |
-          software/util/buildsite.py -f Context
-          software/util/buildsite.py -r 
+          software/util/buildsite.py -f RDFExport.nquads Context
+          mkdir software/site/releases/LATEST
+          (cd software/site/releases/`software/util/schemaversion.py`; cp -r * ../LATEST)
+
+
+      
+      #Run local tests
+      - name: Run local tests
+        run: software/util/buildsite.py -r 
