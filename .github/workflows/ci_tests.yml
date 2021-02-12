@@ -38,5 +38,7 @@ jobs:
           pip install -r software/requirements.txt
 
       # Run local tests
-      - name: Build site
-        run: software/util/buildsite.py -r
+      - name: Local Tests
+        run: |
+          software/util/buildsite.py -f Context
+          software/util/buildsite.py -r 
