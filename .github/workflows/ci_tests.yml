@@ -25,8 +25,12 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
+      # Setup python environment and loads dependencies
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+      - name: Install dependencies
         run: |
-          echo Add other actions to build,
-          python -V
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
