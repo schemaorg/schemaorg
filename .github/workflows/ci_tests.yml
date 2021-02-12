@@ -45,16 +45,16 @@ jobs:
           (cd software/site/releases/`software/util/schemaversion.py`; cp -r * ../LATEST)
         
       - name: Set up Ruby
-            uses: ruby/setup-ruby@v1
-            with:
-              ruby-version: 2.6
-          - name: Install dependencies
-            run: |
-            gem update --system --conservative || (gem i "rubygems-update:~>2.7" --no-document && update_rubygems)
-            gem update bundler --conservative 
-            bundle install --gemfile=software/scripts/Gemfile
-          - name: Run tests
-            run: (cd software/scripts; bundle exec rake)
+        uses: ruby/setup-ruby@v1
+        with:
+           ruby-version: 2.6
+      - name: Install dependencies
+        run: |
+          gem update --system --conservative || (gem i "rubygems-update:~>2.7" --no-document && update_rubygems)
+          gem update bundler --conservative 
+          bundle install --gemfile=software/scripts/Gemfile
+      - name: Run tests
+        run: (cd software/scripts; bundle exec rake)
       
       #Run local tests
       - name: Run local tests
