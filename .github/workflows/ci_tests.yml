@@ -6,9 +6,11 @@ name: CI
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
-    branches: [ actions_ci ]
+    branches: 
+      - "*"
   pull_request:
-    branches: [ actions_ci ]
+    branches: 
+      - "*"
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -62,7 +64,7 @@ jobs:
           bundle install --gemfile=software/scripts/Gemfile
 
       # Run Ruby tests
-      - name: Run tests
+      - name: Run Ruby tests
         run: (cd software/scripts; bundle exec rake)
         env:
           SOFT_LINT: true
