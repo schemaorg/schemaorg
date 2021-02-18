@@ -3,7 +3,7 @@
 
 import sys
 import os
-for path in [os.getcwd(),"SchemaExamples"]:
+for path in [os.getcwd(),"./SchemaExamples","./software/SchemaExamples"]:
   sys.path.insert( 1, path ) #Pickup libs from shipped lib directory
 
 import logging
