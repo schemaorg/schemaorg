@@ -199,8 +199,8 @@ class SDOGraphSetupTestCase(unittest.TestCase):
     nri1= ('''select ?term ?label where { 
        ?term rdfs:label ?label.
        BIND(STR(?term) AS ?strVal)
-       FILTER(STRLEN(?strVal) >= 18 && SUBSTR(?strVal, 1, 18) = "https://schema.org/")
-       FILTER(SUBSTR(?strVal, 19) != STR(?label))
+       FILTER(STRLEN(?strVal) >= 19 && SUBSTR(?strVal, 1, 19) = "https://schema.org/")
+       FILTER(SUBSTR(?strVal, 20) != STR(?label))
     }
     ORDER BY ?term  ''')
     nri1_results = self.rdflib_data.query(nri1)
