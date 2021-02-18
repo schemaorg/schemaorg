@@ -8,7 +8,7 @@ import logging # https://docs.python.org/2/library/logging.html#logging-levels
 for path in [os.getcwd(),"software/util","software/SchemaTerms","software/SchemaExamples"]:
   sys.path.insert( 1, path ) #Pickup libs from local  directories
 
-from sdotermsource import SdoTermSource 
+from sdotermsource import SdoTermSource
 from sdoterm import *
 from schemaexamples import SchemaExamples
 
@@ -30,7 +30,7 @@ log = logging.getLogger(__name__)
 
 SdoTermSource.loadSourceGraph("default")
 print ("loaded %s triples - %s terms" % (len(SdoTermSource.sourceGraph()),len(SdoTermSource.getAllTerms())) )
-  
+
 print("Loading examples files")
 SchemaExamples.loadExamplesFiles("default")
 print("Loaded %d examples" % SchemaExamples.count())
@@ -312,14 +312,14 @@ class SimpleCommentCountTests(unittest.TestCase):
             FILTER (strStarts(str(?term),"%s"))
       }
       ORDER BY ?term""" % VOCABURI
-  
+
     ndi1_results = SdoTermSource.query(query)
     if (len(ndi1_results) > 0):
         for row in ndi1_results:
             log.info("WARNING term %s has no rdfs:comment value" % (row["term"]))
     self.assertEqual(len(ndi1_results), 0,
                     "Found: %s term(s) without comment value" % len(ndi1_results ) )
-  
+
   def test_multiCommentCount(self):
     query = """
     SELECT  ?term ?comment WHERE {
@@ -349,6 +349,7 @@ class BasicJSONLDTests(unittest.TestCase):
       except:
         print("jsonldcontext.json file not loaded - bypassing tests")
 
+    @skip("Need to think about this.")
     def test_jsonld_basic_jsonld_context_available(self):
       if self.ctx:
         self.assertEqual( self.ctx["@context"]["@vocab"], "https://schema.org/", "Context file should declare schema.org url.")
