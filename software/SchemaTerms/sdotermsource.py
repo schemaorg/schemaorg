@@ -456,7 +456,7 @@ class SdoTermSource():
         ret = ''.join(buf)
         if not len(ret):
             ret = ""
-        self.comment = ret
+        self.comment = ret.strip()
         
         
     def loadValue(self,valType):

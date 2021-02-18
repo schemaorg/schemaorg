@@ -327,15 +327,15 @@ class SDOGraphSetupTestCase(unittest.TestCase):
        BIND(STR(?term) AS ?strVal)
        FILTER(STRLEN(?strVal) >= 19 && SUBSTR(?strVal, 1, 19) = "https://schema.org/")
 
-       FILTER regex(str(?com), '[^.]$')
+       FILTER (!(regex(str(?com), '\\\\.\\\\s*$') || regex(str(?com), 'n\\\\* .*')))
     }
     ORDER BY ?term  ''')
     nri1_results = self.rdflib_data.query(nri1)
     if len(nri1_results):
-        log.info("Coment without ending '.' errors!!!\n")
+        log.info("Comment without ending '.' errors!!!\n")
         for row in nri1_results:
             log.info("Term '%s' has a comment without an ending '.'" % (row["term"]))
-    self.assertEqual(len(nri1_results), 0, "Coment without ending '.' Found: %s" % len(nri1_results))
+    self.assertEqual(len(nri1_results), 0, "Comment without ending '.' Found: %s" % len(nri1_results))
 
   def test_typeLabelCase(self):
     nri1= ('''select ?term ?label where { 
