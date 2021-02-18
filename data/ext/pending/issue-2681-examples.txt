@@ -1,0 +1,32 @@
+TYPES: CreativeWork, educationRequirements, OccupationalExperienceRequirements, experienceInPlaceOfEducation, credentialCategory, JobPosting
+
+PRE-MARKUP:
+
+Example of Job markup for experience standing in place of formal qualifications.
+
+MICRODATA:
+
+N/A
+
+RDFA:
+
+N/A
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org/",
+  "@type": "JobPosting",
+  "title": "Software Engineer",
+  "educationRequirements": {
+    "@type": "EducationalOccupationalCredential",
+    "credentialCategory": "bachelor degree"
+  },
+  "experienceRequirements": {
+    "@type": "OccupationalExperienceRequirements",
+    "monthsOfExperience": "60"
+  },
+  "experienceInPlaceOfEducation": true
+}
+</script>

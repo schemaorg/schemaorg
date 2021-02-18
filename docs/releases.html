@@ -1,4 +1,4 @@
-\"\"<!DOCTYPE html>
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -75,6 +75,64 @@ Current Published Release: <a href="https://schema.org/version/latest">https://s
 </tr>
 
 
+
+<tr>
+<td class="release"><a href="http://htmlpreview.github.io/?https://github.com/schemaorg/schemaorg/blob/main/data/releases/12.0/schema-all.html">12.0</a><br/>2023-03-08</td>
+<td>
+<span id="v12.0"></span>
+<p>
+Version 12.0 See <a href="https://github.com/schemaorg/schemaorg/issues/2813">planning pages</a>. This release consists primarily of additions to the <a href="/docs/pending.home.html/">Pending</a> section of schema.org,
+alongside some bugfixes and improvements to core terms.</p>
+</td>
+<td>
+<h2>Vocabulary</h2>
+
+<h3>Changes in Core section:</h3>
+<ul>
+  <li id="g1417"><a href="https://github.com/schemaorg/schemaorg/issues/1417">Issue #1417</a>: Fixed typo in <a href="/isLiveBroadcast">isLiveBroadcast</a>.</li>
+  <li id="g2786"><a href="https://github.com/schemaorg/schemaorg/issues/2786">Issue #2786</a>: Updated JSON-LD example in <a href="/mainEntityOfPage">mainEntityOfPage</a>.</li>
+  <li id="g2803"><a href="https://github.com/schemaorg/schemaorg/issues/2803">Issue #2803</a>: Add <a href="/ineligibleRegion">ineligibleRegion</a> to <a href="/MediaObject">MediaObject</a> type.</li>
+  <li id="g2821"><a href="https://github.com/schemaorg/schemaorg/issues/2803">Issue #2821</a>: Add <a href="/Episode">Episode</a> as an expected value for <a href="/duration">duration</a> type.</li>
+  <li id="g2840"><a href="https://github.com/schemaorg/schemaorg/issues/2840">Issue #2840</a>: Clarified definition of <a href="/schemaVersion">schemaVersion</a>.</li>
+  <li>See also Pending for cases where new terms required minor adjustments to core vocabulary.</li>
+</ul>
+
+<h3>Changes in <a href="http://pending.schema.org/">Pending</a> section:</h3>
+<ul>
+  <li id="g2810"><a href="https://github.com/schemaorg/schemaorg/issues/2810">issue #2810</a>: Fixed bug: <a href="/marginOfError">marginOfError</a> should have values of type <a href="/QuantitativeValue">QuantitativeValue</a>.</li>
+  <li id="g2811"><a href="https://github.com/schemaorg/schemaorg/issues/2811">issue #2811</a>: Additions to support structured sizes and measurements. Implemented in <a href="https://github.com/schemaorg/schemaorg/pull/2819">#2819</a>.
+Adds <a href="/SizeSystemEnumeration">SizeSystemEnumeration</a>, <a href="/WearableSizeSystemEnumeration">WearableSizeSystemEnumeration</a>,
+<a href="/SizeGroupEnumeration">SizeGroupEnumeration</a>, <a href="/WearableSizeGroupEnumeration">WearableSizeGroupEnumeration</a>,
+<a href="/MeasurementTypeEnumeration">MeasurementTypeEnumeration</a>, <a href="/WearableMeasurementTypeEnumeration">WearableMeasurementTypeEnumeration</a>,
+<a href="/BodyMeasurementTypeEnumeration">BodyMeasurementTypeEnumeration</a>, <a href="/SizeSpecification">SizeSpecification</a>
+ and several initial enumerated values for these. Also add <a href="/sizeGroup">sizeGroup</a>, <a href="/sizeSystem">sizeSystem</a>, <a href="/hasMeasurement">hasMeasurement</a>,
+ <a href="/suggestedMeasurement">suggestedMeasurement</a>, <a href="/suggestedAge">suggestedAge</a>. Updated <a href="/size">size</a> to include the new <a href="/SizeSpecification">SizeSpecification</a> property as a potential value.
+Additional expected values for <a href="/valueReference">valueReference</a>: <a href="/MeasurementTypeEnumeration">MeasurementTypeEnumeration</a>, <a href="/Text">Text</a> and <a href="/DefinedTerm">DefinedTerm</a>.</li>
+
+<li id="g2651"><a href="https://github.com/schemaorg/schemaorg/issues/2651">issue #2651</a>: Add <a href="/BackOrder">BackOrder</a> as an enumeration member of <a href="/ItemAvailability">ItemAvailability</a>.</li>
+
+<li id="g2799"><a href="https://github.com/schemaorg/schemaorg/issues/2799">issue #2799</a>: Additional enumerated aspects for
+<a href="/HealthAspectEnumeration">HealthAspectEnumeration</a>, and clarified <a href="/HowOrWhereHealthAspect">HowOrWhereHealthAspect</a> for the case of vaccines.
+<a href="/https://github.com/schemaorg/schemaorg/commit/ff387edb05611b3653ca45b294be3a15db49d68f">Additions</a>:  <a href="/GettingAccessHealthAspect">GettingAccessHealthAspect</a>, <a href="/AllergiesHealthAspect">AllergiesHealthAspect</a>, <a href="/SafetyHealthAspect">SafetyHealthAspect</a>, <a href="/EffectivenessHealthAspect">EffectivenessHealthAspect</a>, <a href="/PregnancyHealthAspect">PregnancyHealthAspect</a>, <a href="/IngredientsHealthAspect">IngredientsHealthAspect</a>, <a href="/HowItWorksHealthAspect">HowItWorksHealthAspect</a>.</li>
+
+<li id="g2681"><a href="https://github.com/schemaorg/schemaorg/issues/2681">issue #2681</a>: Added vocabulary around
+<a href="/JobPosting">JobPosting</a> and <a href="/Occupation">Occupation</a> so that we can explicitly indicate when degree-level qualification is not required.
+Added a boolean <a href="/experienceInPlaceOfEducation">experienceInPlaceOfEducation</a> property for <a href="/JobPosting">JobPosting</a>. Also added a
+new <a href="/OccupationalExperienceRequirements">OccupationalExperienceRequirements</a> type as an additional possible value for the existing
+<a href="/experienceRequirements">experienceRequirements</a> property. Added a number-valued property <a href="/monthsOfExperience">monthsOfExperience</a> for use on <a href="/OccupationalExperienceRequirements">OccupationalExperienceRequirements</a>.
+</li>
+
+</ul>
+
+<h3>Site Improvements</h3>
+
+<ul>
+<!--   <li id="g2706"><a href="https://github.com/schemaorg/schemaorg/pull/2706">PR #2706</a>: Improvements to underlying site build architecture including separation of vocabulary definition and display logic; move to Python 3; and simplified local build and test processes.  Full <a href="/docs/full.html">Type hierarchy page</a> is now more usable and accessible (collapsible navigation). Copy example to clipboard button added to Examples on term definition pages.</li>
+-->
+</ul>
+
+</td>
+</tr>
 
 
 <tr>

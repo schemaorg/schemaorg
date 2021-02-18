@@ -70,7 +70,7 @@ PRE-RELEASE STEPS
 
 In a checked out version of the _main_ branch:
 
-* Successfully run the `./util/buildsite.py -release` command.  This will:
+* Successfully run the `.software/util/buildsite.py --release` command.  This will:
   * assign missing example ids
   * complete a full build of the site, proceeded by tests.
   * copy working copies of release files into data/releases directory
@@ -80,7 +80,7 @@ In a checked out version of the _main_ branch:
 DEPLOY RELEASE
 ==============
 
-Use command `./gcloud/deploy2schema.org.sh`
+Use command `./software/gcloud/deploy2schema.org.sh`
 
 **Note**: Supplying the `-m` option to the `deploy2schema.org.sh` command will disable the step in the deploy process that migrates web traffic to the newly deployed version.  This step can be undertaken manually later via the google cloud appengine console.
 
@@ -108,7 +108,7 @@ configured as the current default github branch for /schemaorg/ project).
 It is best to test against a fresh checkout to avoid depending on uncommitted
 files. 
 
-To run tests: `./util/runtests.py`
+To run tests: `./software/util/runtests.py`
 
  Example transcript:
 
@@ -118,7 +118,7 @@ To run tests: `./util/runtests.py`
 
   ....
   $ cd schemaorg/
-  $ ./util/runtests.py
+  $ ./software/util/runtests.py
   [...]
 
   Ran 70 tests in 21.168s
@@ -128,7 +128,7 @@ To run tests: `./util/runtests.py`
 1-d) Latest candidate release branch is pushed to the generic unstable upstream site
 (i.e. webschemas.org).
 
-Use command `./gcloud/deploy2webschemas.org.sh`
+Use command `./software/gcloud/deploy2webschemas.org.sh`
 
 1-e) The manual QA page /docs/qa.html has been reviewed to ensure
 representative pages of each type appear to be in a healthy state.
