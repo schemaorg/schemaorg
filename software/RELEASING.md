@@ -108,7 +108,7 @@ configured as the current default github branch for /schemaorg/ project).
 It is best to test against a fresh checkout to avoid depending on uncommitted
 files. 
 
-To run tests: `./util/runtests.py`
+To run tests: `./software/util/runtests.py`
 
  Example transcript:
 
@@ -118,7 +118,7 @@ To run tests: `./util/runtests.py`
 
   ....
   $ cd schemaorg/
-  $ ./util/runtests.py
+  $ ./software/util/runtests.py
   [...]
 
   Ran 70 tests in 21.168s
