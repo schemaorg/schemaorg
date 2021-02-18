@@ -8365,7 +8365,9 @@ While such policies are most typically expressed in natural language, sometimes 
     :domainIncludes :CreativeWork ;
     :rangeIncludes :Text,
         :URL ;
-    rdfs:comment "Indicates (by URL or string) a particular version of a schema used in some CreativeWork. For example, a document could declare a schemaVersion such as ```10.0``` or using an URL such as ```http://dublincore.org/specifications/dublin-core/dces/1999-07-02/``` if precise indication of schema version was required by some application. " .
+    rdfs:comment "Indicates (by URL or string) a particular version of a schema used in some CreativeWork. This property was created primarily to
+    indicate the use of a specific schema.org release, e.g. ```10.0``` as a simple string, or more explicitly via URL, ```https://schema.org/docs/releases.html#v10.0```.
+ There may be situations in which other schemas might usefully be referenced this way, e.g. ```http://dublincore.org/specifications/dublin-core/dces/1999-07-02/``` but this has not been carefully explored in the community." .
 
 :screenCount a rdf:Property ;
     rdfs:label "screenCount" ;
