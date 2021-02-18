@@ -349,10 +349,10 @@ class BasicJSONLDTests(unittest.TestCase):
       except:
         print("jsonldcontext.json file not loaded - bypassing tests")
 
-    @skip("Need to think about this.")
-    def test_jsonld_basic_jsonld_context_available(self):
-      if self.ctx:
-        self.assertEqual( self.ctx["@context"]["@vocab"], "https://schema.org/", "Context file should declare schema.org url.")
+#    @skip("Need to think about this.")
+#    def test_jsonld_basic_jsonld_context_available(self):
+#      if self.ctx:
+#        self.assertEqual( self.ctx["@context"]["@vocab"], "https://schema.org/", "Context file should declare schema.org url.")
 
     def test_issuedBy_jsonld(self):
       if self.ctx:

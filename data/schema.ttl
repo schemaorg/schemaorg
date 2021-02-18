@@ -6386,6 +6386,7 @@ Typical unit code(s): MTK for square meter, FTK for square foot, or YDK for squa
     rdfs:label "ineligibleRegion" ;
     :domainIncludes :DeliveryChargeSpecification,
         :Demand,
+	:MediaObject,
         :Offer ;
     :rangeIncludes :GeoShape,
         :Place,
@@ -9698,7 +9699,8 @@ we define a supporting type, [[SpeakableSpecification]]  which is defined to be 
         :Movie,
         :MusicRecording,
         :MusicRelease,
-        :QuantitativeValueDistribution ;
+        :QuantitativeValueDistribution,
+	:Episode ;
     :rangeIncludes :Duration ;
     :source <https://github.com/schemaorg/schemaorg/issues/1698> ;
     rdfs:comment "The duration of the item (movie, audio recording, event, etc.) in [ISO 8601 date format](http://en.wikipedia.org/wiki/ISO_8601)." .
