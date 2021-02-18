@@ -80,7 +80,7 @@ In a checked out version of the _main_ branch:
 DEPLOY RELEASE
 ==============
 
-Use command `./gcloud/deploy2schema.org.sh`
+Use command `./software/gcloud/deploy2schema.org.sh`
 
 **Note**: Supplying the `-m` option to the `deploy2schema.org.sh` command will disable the step in the deploy process that migrates web traffic to the newly deployed version.  This step can be undertaken manually later via the google cloud appengine console.
 
@@ -128,7 +128,7 @@ To run tests: `./software/util/runtests.py`
 1-d) Latest candidate release branch is pushed to the generic unstable upstream site
 (i.e. webschemas.org).
 
-Use command `./gcloud/deploy2webschemas.org.sh`
+Use command `./software/gcloud/deploy2webschemas.org.sh`
 
 1-e) The manual QA page /docs/qa.html has been reviewed to ensure
 representative pages of each type appear to be in a healthy state.
