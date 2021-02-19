@@ -6,6 +6,7 @@ require 'rspec'
 require 'linkeddata'
 require 'rdf/vocab'
 load    'schema.rb'
+load    'schemas.rb'
 require 'json/ld/preloaded'
 load    'schema_context.rb'
 

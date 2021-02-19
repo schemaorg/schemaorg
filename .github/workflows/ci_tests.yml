@@ -54,14 +54,11 @@ jobs:
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-           ruby-version: 2.6
+           ruby-version: 3.0
 
       #Install Ruby dependencies
       - name: Install Ruby dependencies
-        run: |
-          gem update --system --conservative || (gem i "rubygems-update:~>2.7" --no-document && update_rubygems)
-          gem update bundler --conservative 
-          bundle install --gemfile=software/scripts/Gemfile
+        run: bundle install --gemfile=software/scripts/Gemfile --jobs 4 --retry 3
 
       # Run Ruby tests
       - name: Run Ruby tests

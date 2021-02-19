@@ -6,12 +6,13 @@ begin
 rescue LoadError
 end
 
-task :default => [:clean,:examples, :vocab, :context, :spec]
+task :default => %i(clean examples vocab context spec)
 
 desc "Clean generated files"
 task :clean do
   %x{rm -rf #{File.expand_path("../spec/data", __FILE__)}}
   %x{rm -f #{File.expand_path("../spec/schema.rb", __FILE__)}}
+  %x{rm -f #{File.expand_path("../spec/schemas.rb", __FILE__)}}
   %x{rm -f #{File.expand_path("../spec/schema_context.rb", __FILE__)}}
   %x{rm -f #{File.expand_path("../spec/examples_spec.rb", __FILE__)}}
 end
@@ -83,7 +84,7 @@ describe "Examples" do
 end
 
 desc "Create custom pre-compiled vocabulary"
-task vocab: "spec/schema.rb"
+task vocab: %w(spec/schema.rb spec/schemas.rb)
 
 file "spec/schema.rb" => :do_build do
   #rel = Dir.glob(File.expand_path("../../data/releases/*", __FILE__)).last
@@ -94,6 +95,7 @@ file "spec/schema.rb" => :do_build do
   cmd += " --module-name RDF::Vocab"
   cmd += " --class-name SCHEMA"
   cmd += " --strict"
+  cmd += " --noDoc"
   cmd += " -o spec/schema.rb_t"
   cmd += " #{rel}/schemaorg-current-http.nq"
   puts "  #{cmd}"
@@ -103,6 +105,28 @@ file "spec/schema.rb" => :do_build do
     puts "Failed to load schema: #{$!.message}"
   ensure
     %x{rm -f spec/schema.rb_t}
+  end
+end
+
+file "spec/schemas.rb" => :do_build do
+  #rel = Dir.glob(File.expand_path("../../data/releases/*", __FILE__)).last
+  rel = Dir.glob(File.expand_path("../../site/releases/LATEST", __FILE__)).last
+  puts "Generate spec/schemas.rb"
+  cmd = "bundle exec rdf"
+  cmd += " serialize --uri https://schema.org/ --output-format vocabulary"
+  cmd += " --module-name RDF::Vocab"
+  cmd += " --class-name SCHEMAS"
+  cmd += " --strict"
+  cmd += " --noDoc"
+  cmd += " -o spec/schemas.rb_t"
+  cmd += " #{rel}/schemaorg-current-https.nq"
+  puts "  #{cmd}"
+  begin
+    %x{#{cmd} && mv spec/schemas.rb_t spec/schemas.rb}
+  rescue
+    puts "Failed to load schemas: #{$!.message}"
+  ensure
+    %x{rm -f spec/schemas.rb_t}
   end
 end
 
