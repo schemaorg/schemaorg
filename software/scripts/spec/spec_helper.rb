@@ -3,11 +3,13 @@ $:.unshift File.dirname(__FILE__)
 require "bundler/setup"
 require 'rubygems'
 require 'rspec'
-require 'linkeddata'
-require 'rdf/vocab'
+require 'json/ld/preloaded'
+require 'rdf/rdfa'
+require 'rdf/microdata'
+require 'rdf/reasoner'
+
 load    'schema.rb'
 load    'schemas.rb'
-require 'json/ld/preloaded'
 load    'schema_context.rb'
 
 ::RSpec.configure do |c|
