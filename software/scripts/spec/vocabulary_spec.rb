@@ -1,5 +1,6 @@
 $:.unshift File.expand_path("..", __FILE__)
 require 'spec_helper'
+require 'rdf/turtle'
 
 describe "Vocabulary" do
   before(:all) {RDF::Reasoner.apply(:rdfs, :owl, :schema)}
