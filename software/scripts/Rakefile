@@ -22,6 +22,18 @@ desc "Create schema example index"
 task :examples  do
   %x{rm -rf #{File.expand_path("../spec/data", __FILE__)}}
   %x{mkdir #{File.expand_path("../spec/data", __FILE__)}}
+
+  # Those examples expected to fail are noted using a "name-format" pattern.
+  # If an example matches one of this it is marked as expecting to _not_ lint cleanly.
+  pending = {}
+  File.readlines(File.expand_path("../../../data/pending-failures.txt", __FILE__)).each do |test|
+    next if test.match?(/^\s*#/)
+    name, format = test.split
+    next unless name && format
+    format = format[1..-2] if format.start_with?('(') && format.end_with?(')')
+    (pending[name] ||= {})[format.downcase.to_sym] = true
+  end
+
   number = 0
   spec = File.open(File.expand_path("../spec/examples_spec.rb", __FILE__), "w")
   spec.write %{$:.unshift File.expand_path("..", __FILE__)
@@ -31,6 +43,7 @@ describe "Examples" do
   before(:all) {RDF::Reasoner.apply(:rdfs, :owl, :schema)}
 }
   Dir.glob(File.expand_path("../../../data/{.,ext/*}/*examples.txt", __FILE__)).each do |file|
+    next if file.include?('issue-template')
     spec.write("\n  # Examples from #{file.split('/').last}\n")
     lineno = 1
     s = StringScanner.new(File.read(file))
@@ -63,7 +76,8 @@ describe "Examples" do
         path = File.expand_path("../spec/data/#{name}-#{format}.html", __FILE__)
         next if body.sub(/\s*/m, '').empty?
         File.open(path, "w") {|f| f.write(body)}
-        spec.write(%{  specify("#{file.split('/').last}[#{lineno}] - #{name} (#{format})") {expect("#{path}").to lint_cleanly}\n})
+        pend = pending.dig(name, format) ? "pending 'fix'; " : ''
+        spec.write(%{  specify("#{file.split('/').last}[#{lineno}] - #{name} (#{format})") {#{pend}expect("#{path}").to lint_cleanly}\n})
       end
       lineno += body_lines
 
