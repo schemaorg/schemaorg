@@ -44,7 +44,7 @@ describe "Examples" do
 }
   Dir.glob(File.expand_path("../../../data/{.,ext/*}/*examples.txt", __FILE__)).each do |file|
     next if file.include?('issue-template')
-    spec.write("\n  # Examples from #{file.split('/').last}\n")
+    spec.write("\n  # Examples from data/#{file.split('/data/').last}\n")
     lineno = 1
     s = StringScanner.new(File.read(file))
     types = body = format = nil
@@ -76,8 +76,8 @@ describe "Examples" do
         path = File.expand_path("../spec/data/#{name}-#{format}.html", __FILE__)
         next if body.sub(/\s*/m, '').empty?
         File.open(path, "w") {|f| f.write(body)}
-        pend = pending.dig(name, format) ? "pending 'fix'; " : ''
-        spec.write(%{  specify("#{file.split('/').last}[#{lineno}] - #{name} (#{format})") {#{pend}expect("#{path}").to lint_cleanly}\n})
+        exp = pending.dig(name, format) ? "not_to" : "to"
+        spec.write(%{  specify("#{file.split('/').last}[#{lineno}] - #{name} (#{format})") {expect("#{path}").#{exp} lint_cleanly}\n})
       end
       lineno += body_lines
 

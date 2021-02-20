@@ -62,6 +62,10 @@ RSpec::Matchers.define :lint_cleanly do
     str.rewind
     str.read
   end
+
+  failure_message_when_negated do
+    "Expected Failure but none found.\nSource: #{File.read(@actual)}"
+  end
 end
 
 RSpec::Matchers.define :have_errors do |errors|
