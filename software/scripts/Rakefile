@@ -42,7 +42,7 @@ require 'spec_helper'
 describe "Examples" do
   before(:all) {RDF::Reasoner.apply(:rdfs, :owl, :schema)}
 }
-  Dir.glob(File.expand_path("../../../data/{.,ext/*}/*examples.txt", __FILE__)).each do |file|
+  Dir.glob(File.expand_path("../../site/releases/LATEST/schemaorg-all-examples.txt", __FILE__)).each do |file|
     next if file.include?('issue-template')
     spec.write("\n  # Examples from data/#{file.split('/data/').last}\n")
     lineno = 1

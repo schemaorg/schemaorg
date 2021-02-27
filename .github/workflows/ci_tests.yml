@@ -42,7 +42,7 @@ jobs:
       # Local tests prepare
       - name: Local Tests prepare
         run: |
-          software/util/buildsite.py -f RDFExport.nquads Context
+          software/util/buildsite.py -f RDFExport.nquads Context Examples
           mkdir software/site/releases/LATEST
           (cd software/site/releases/`software/util/schemaversion.py`; cp -r * ../LATEST)
       
