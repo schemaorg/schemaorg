@@ -70,15 +70,14 @@ describe "Examples" do
         path = File.expand_path("../spec/data/#{name}-#{format}.html", __FILE__)
         next if body.sub(/\s*/m, '').empty?
         File.open(path, "w") {|f| f.write(body)}
-        exp = pending.dig(name, format) ? "not_to" : "to"
-        spec.write(%{  specify("#{file.split('/').last}[#{lineno}] - #{name} (#{format})") {expect("#{path}").#{exp} lint_cleanly}\n})
+        pend = pending.dig(name, format) ? "pending 'fix'; " : ''
+        spec.write(%{  specify("#{file.split('/').last}[#{lineno}] - #{name} (#{format})") {#{pend}expect("#{path}").to lint_cleanly}\n})
       end
       lineno += body_lines
 
       case s.matched
       when "TYPES:"
         types = s.scan_until(/$/).strip
-        require 'byebug'; byebug unless types.to_s.start_with?('#')
         format = :types
       when "PRE-MARKUP:"  then format = :pre
       when "MICRODATA:"   then format = :microdata
