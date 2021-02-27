@@ -28,13 +28,13 @@ task :examples  do
   pending = {}
   File.readlines(File.expand_path("../../../data/pending-failures.txt", __FILE__)).each do |test|
     next if test.match?(/^\s*#/)
+    test.sub!(/^rspec .* - /, '')  # Remove leading respec output
     name, format = test.split
     next unless name && format
     format = format[1..-2] if format.start_with?('(') && format.end_with?(')')
     (pending[name] ||= {})[format.downcase.to_sym] = true
   end
 
-  number = 0
   spec = File.open(File.expand_path("../spec/examples_spec.rb", __FILE__), "w")
   spec.write %{$:.unshift File.expand_path("..", __FILE__)
 require 'spec_helper'
@@ -50,7 +50,6 @@ describe "Examples" do
     types = body = format = nil
 
     while !s.eos?
-      #require 'byebug'; byebug
       # Scan each format until TYPES is found again, or EOF
       body = s.scan_until(/^(TYPES|PRE-MARKUP|MICRODATA|RDFA|JSON|JSONLD):/)
       body_lines = body.to_s.count("\n")
@@ -63,15 +62,10 @@ describe "Examples" do
       body = body[0..-(s.matched.to_s.length+1)].gsub("\r", '').strip + "\n"
       case format
       when :microdata, :rdfa, :jsonld
-        unless types.include?("FakeEntryNeeded")
-          name = nil
-          if types.to_s.start_with?('#')
-            # In some cases, a more specific name is used.
-            name, types = types.split(/\s+/, 2)
-            name = name[1..-1]  # Remove initial '#'
-          end
-          name ||= "#{types.split(/,\s*/).join('-')}-#{number}"
-        end
+        raise "TYPES does not start with example frag: #{types}" unless types.to_s.start_with?('#')
+        name, _ = types.split(/\s+/, 2)
+        name = name[1..-1]  # Remove initial '#'
+
         # Write example out for reading later
         path = File.expand_path("../spec/data/#{name}-#{format}.html", __FILE__)
         next if body.sub(/\s*/m, '').empty?
@@ -84,13 +78,15 @@ describe "Examples" do
       case s.matched
       when "TYPES:"
         types = s.scan_until(/$/).strip
-        number += 1 unless types.include?("FakeEntryNeeded")
+        require 'byebug'; byebug unless types.to_s.start_with?('#')
         format = :types
       when "PRE-MARKUP:"  then format = :pre
       when "MICRODATA:"   then format = :microdata
       when "RDFA:"        then format = :rdfa
       when "JSON:"        then format = :jsonld
       when "JSONLD:"      then format = :jsonld
+      else
+        format = nil
       end
     end
 
