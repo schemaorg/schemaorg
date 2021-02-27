@@ -147,11 +147,9 @@ file "spec/schema_context.rb" => :do_build do
   puts "Generate spec/schema_context.rb"
   require 'json/ld'
   File.open("spec/schema_context.rb", "w") do |f|
-    # FIXME: you would think this would be someplace in the data directory
-    # schema_base + '/releases/' + schema_version + '/schema.jsonld'
     c = JSON::LD::Context.parse(File.expand_path("../../site/releases/LATEST/schemaorgcontext.jsonld", __FILE__))
-    c.context_base = 'http://schema.org/'
-    f.write c.to_rb
+    c.context_base = 'https://schema.org/'
+    f.write c.to_rb('https://schema.org' 'http:/schema.org', 'http://schema.org/')
   end
 end
 
