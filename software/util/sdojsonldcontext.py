@@ -19,12 +19,15 @@ from sdoterm import *
 def createcontext():
     """Generates a basic JSON-LD context file for schema.org."""
 
+    SCHEMAURI = "http://schema.org/"
+
     jsonldcontext = []
     jsonldcontext.append("{\n  \"@context\": {\n")
     jsonldcontext.append("        \"type\": \"@type\",\n")
     jsonldcontext.append("        \"id\": \"@id\",\n")
     jsonldcontext.append("        \"HTML\": { \"@id\": \"rdf:HTML\" },\n")
-    jsonldcontext.append("        \"@vocab\": \"%s\",\n" % SdoTermSource.vocabUri())
+    #jsonldcontext.append("        \"@vocab\": \"%s\",\n" % SdoTermSource.vocabUri())
+    jsonldcontext.append("        \"@vocab\": \"%s\",\n" % SCHEMAURI)
     ns = SdoTermSource.sourceGraph().namespaces()
     done = []
     for n in ns:
@@ -33,6 +36,9 @@ def createcontext():
             pref = str(pref)
             if not pref in done:
                 done.append(pref)
+                if pref == "schema":
+                    pth = SCHEMAURI #Overide vocab setting to maintain http compatability
+
                 jsonldcontext.append("        \"%s\": \"%s\",\n" % (pref,pth))
 
     datatypepre = "schema:"    
