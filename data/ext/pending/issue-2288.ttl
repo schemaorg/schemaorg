@@ -1,11 +1,12 @@
-@prefix : <http://schema.org/> .
+@prefix : <https://schema.org/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 :ProductReturnEnumeration a rdfs:Class ;
     rdfs:label "ProductReturnEnumeration" ;
-    :category "issue-2288" ;
-    :isPartOf <http://attic.schema.org> ;
+    :isPartOf <https://attic.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/2288> ;
     :supersededBy :MerchantReturnEnumeration ;
     rdfs:comment "ProductReturnEnumeration enumerates several kinds of product return policy. Note that this structure may not capture all aspects of the policy." ;
@@ -13,8 +14,7 @@
 
 :ProductReturnPolicy a rdfs:Class ;
     rdfs:label "ProductReturnPolicy" ;
-    :category "issue-2288" ;
-    :isPartOf <http://attic.schema.org> ;
+    :isPartOf <https://attic.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/2288> ;
     :supersededBy :MerchantReturnPolicy ;
     rdfs:comment "A ProductReturnPolicy provides information about product return policies associated with an [[Organization]] or [[Product]]." ;
@@ -22,42 +22,37 @@
 
 :ProductReturnFiniteReturnWindow a :ProductReturnEnumeration ;
     rdfs:label "ProductReturnFiniteReturnWindow" ;
-    :category "issue-2288" ;
-    :isPartOf <http://attic.schema.org> ;
+    :isPartOf <https://attic.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/2288> ;
     :supersededBy :MerchantReturnFiniteReturnWindow ;
     rdfs:comment "ProductReturnFiniteReturnWindow: there is a finite window for product returns." .
 
 :ProductReturnNotPermitted a :ProductReturnEnumeration ;
     rdfs:label "ProductReturnNotPermitted" ;
-    :category "issue-2288" ;
-    :isPartOf <http://attic.schema.org> ;
+    :isPartOf <https://attic.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/2288> ;
     :supersededBy :MerchantReturnNotPermitted ;
     rdfs:comment "ProductReturnNotPermitted: product returns are not permitted." .
 
 :ProductReturnUnlimitedWindow a :ProductReturnEnumeration ;
     rdfs:label "ProductReturnUnlimitedWindow" ;
-    :category "issue-2288" ;
-    :isPartOf <http://attic.schema.org> ;
+    :isPartOf <https://attic.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/2288> ;
     :supersededBy :MerchantReturnUnlimitedWindow ;
     rdfs:comment "ProductReturnUnlimitedWindow: there is an unlimited window for product returns." .
 
 :ProductReturnUnspecified a :ProductReturnEnumeration ;
     rdfs:label "ProductReturnUnspecified" ;
-    :category "issue-2288" ;
-    :isPartOf <http://attic.schema.org> ;
+    :isPartOf <https://attic.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/2288> ;
     :supersededBy :MerchantReturnUnspecified ;
     rdfs:comment "ProductReturnUnspecified: a product return policy is not specified here." .
 
 :hasProductReturnPolicy a rdf:Property ;
     rdfs:label "hasProductReturnPolicy" ;
-    :category "issue-2288" ;
     :domainIncludes :Organization,
         :Product ;
-    :isPartOf <http://attic.schema.org> ;
+    :isPartOf <https://attic.schema.org> ;
     :rangeIncludes :ProductReturnPolicy ;
     :source <https://github.com/schemaorg/schemaorg/issues/2288> ;
     :supersededBy :hasMerchantReturnPolicy ;
@@ -65,9 +60,8 @@
 
 :productReturnDays a rdf:Property ;
     rdfs:label "productReturnDays" ;
-    :category "issue-2288" ;
     :domainIncludes :ProductReturnPolicy ;
-    :isPartOf <http://attic.schema.org> ;
+    :isPartOf <https://attic.schema.org> ;
     :rangeIncludes :Integer ;
     :source <https://github.com/schemaorg/schemaorg/issues/2288> ;
     :supersededBy :merchantReturnDays ;
@@ -75,9 +69,8 @@
 
 :productReturnLink a rdf:Property ;
     rdfs:label "productReturnLink" ;
-    :category "issue-2288" ;
     :domainIncludes :ProductReturnPolicy ;
-    :isPartOf <http://attic.schema.org> ;
+    :isPartOf <https://attic.schema.org> ;
     :rangeIncludes :URL ;
     :source <https://github.com/schemaorg/schemaorg/issues/2288> ;
     :supersededBy :merchantReturnLink ;

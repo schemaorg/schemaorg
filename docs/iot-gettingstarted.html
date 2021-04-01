@@ -2,41 +2,13 @@
 <html>
 <head>
 <title>IoT and Schema.org: Getting Started</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta charset="UTF-8">
-<script type="text/javascript" src="https://www.corp.google.com/style/prettify.js"></script>
-<style>
 
-body {
+<!-- #### Static Doc Insert Head goes here -->
 
-  margin: 2em;
-  margin-left: 5em;
-  margin-right: 25em;
-}
-
-table {
-  border-collapse:collapse;
-  border:1px solid #ccc;
-}
-tbody, tr, td {
-  border:inherit;
-  border-collapse:inherit;
-}
-td {
-  padding:5px;
-}
-.style0 {
-  border:1px solid #000000
-}
-
-.code {
-    font-family: monospace;
-    white-space: pre;
-}
-
-</style>
 </head>
-<body onload="prettyPrint();">
+<body>
+
+  <!-- #### Static Doc Insert PageHead goes here -->
 
 <h2>IoT and Schema.org: Getting Started</h2>
 <p><b>STATUS</b>: Work in progress document targetting schema.org v3.2 release.</p>
@@ -72,9 +44,9 @@ td {
 <li>User data portability<ul>
 <li>E.g. sensor-based data from consumer devices such as smart scales. Schema.org has existing vocabulary ("Dataset" and nearby) for describing the general characteristics of datasets, and ongoing collaboration (e.g. health-lifesci.schema.org) for fine-grained schema detail in specific domains. These should help improve discovery and use of data regardless of the specific hardware or branded product that generated the data. For example, personal healthcare applications should not need to care which weighing scales a user has. Using vendor-independent schemas (such as schema.org's) can help decouple these concerns.</ul></li>
 <li>Beacons and the description of the physical environment<ul>
-<li>Initiatives such as physical-web.org are increasingly being used to attach unique identifiers, often Web URIs, to real world objects such as local businesses, bus stops, museum artifacts etc. Schema.org already contains a lot of relevant and widely used vocabulary, e.g. for describing a local business, its opening hours etc., as well as restaurants, menus, food preferences. Similarly, for various aspects of travel notions such as <a href="http://schema.org/BusStop">http://schema.org/BusStop</a> <a href="http://schema.org/BusStop">are available</a>. For example, PhysicalWeb beacons are already being <a href="http://marketingland.com/london-buses-test-first-consumer-experience-physical-web-170529">deployed</a> on London bus stops. Schema.org is already discussing extensions for documenting the physical accessibility of such places, e.g. wheelchair ramps or availability of braille menus. Many of these applications areas might be encountered in a "smart cities" context.</ul></li>
+<li>Initiatives such as physical-web.org are increasingly being used to attach unique identifiers, often Web URIs, to real world objects such as local businesses, bus stops, museum artifacts etc. Schema.org already contains a lot of relevant and widely used vocabulary, e.g. for describing a local business, its opening hours etc., as well as restaurants, menus, food preferences. Similarly, for various aspects of travel notions such as <a href="https://schema.org/BusStop">https://schema.org/BusStop</a> <a href="https://schema.org/BusStop">are available</a>. For example, PhysicalWeb beacons are already being <a href="http://marketingland.com/london-buses-test-first-consumer-experience-physical-web-170529">deployed</a> on London bus stops. Schema.org is already discussing extensions for documenting the physical accessibility of such places, e.g. wheelchair ramps or availability of braille menus. Many of these applications areas might be encountered in a "smart cities" context.</ul></li>
 <li>"Smart Assistants"<ul>
-<li>The recent industry trend towards voice-activated smart/intelligent personalized "assistants" such as Microsoft Cortana, Apple's Siri, Amazon Alexa, Google Now / Google Home etc. is a development that bridges Web search scenarios with various IoT and transaction-oriented situations, moving beyond information access towards systems that mediate change e.g. various kinds of remote control. For example both Google Now and Cortana already use schema.org data extracted from email to provide assistance and user interfaces around activities such as travel e.g. flights (see: <a href="https://developers.google.com/gmail/markup/">gmail docs</a>, <a href="https://msdn.microsoft.com/en-us/library/dn632191.aspx">cortana docs</a>). Such considerations already <a href="http://blog.schema.org/2014/04/announcing-schemaorg-actions.html">motivated the design</a> of schema.org's <a href="http://schema.org/docs/actions.html">"Action" mechanism</a> and provides a foundation for handling various transaction-oriented situations within schema.org. Schema.org already has substantial terminology in this area and could naturally be extended for in-the-home actions for devices such as lighting and indoor environmental control. The combination of information from the physical world, using IoT, and the virtual world, such as email, can help the development of more capable Smart Assistants.  </ul></li>
+<li>The recent industry trend towards voice-activated smart/intelligent personalized "assistants" such as Microsoft Cortana, Apple's Siri, Amazon Alexa, Google Now / Google Home etc. is a development that bridges Web search scenarios with various IoT and transaction-oriented situations, moving beyond information access towards systems that mediate change e.g. various kinds of remote control. For example both Google Now and Cortana already use schema.org data extracted from email to provide assistance and user interfaces around activities such as travel e.g. flights (see: <a href="https://developers.google.com/gmail/markup/">gmail docs</a>, <a href="https://msdn.microsoft.com/en-us/library/dn632191.aspx">cortana docs</a>). Such considerations already <a href="http://blog.schema.org/2014/04/announcing-schemaorg-actions.html">motivated the design</a> of schema.org's <a href="https://schema.org/docs/actions.html">"Action" mechanism</a> and provides a foundation for handling various transaction-oriented situations within schema.org. Schema.org already has substantial terminology in this area and could naturally be extended for in-the-home actions for devices such as lighting and indoor environmental control. The combination of information from the physical world, using IoT, and the virtual world, such as email, can help the development of more capable Smart Assistants.  </ul></li>
 <li>On-device content. <ul>
 <li>Schema.org has extensive existing vocabulary that covers broadcast and archived television, radio and music content. These schemas have been developed in collaboration with BBC, European Broadcasting Union (EBU), MusicBrainz and others. Many smart home devices will contain content such as personal or purchased media, or metadata relating to files, events, streams and cloud services (e.g. streaming music providers). Schema.org's descriptive vocabulary covers much of this already.</ul></li>
 <li>Sensors and the description of the physical environment.<ul>
@@ -93,14 +65,14 @@ td {
 <p>It should also be noted that there is also considerable interest around IoT happening in an <i>Internet</i> rather than <i>Web</i> standards setting. Any schema.org initiative in this area will need to take care to engage with efforts around both W3C and IETF. For example see the <a href="https://www.iab.org/activities/workshops/iotsi/">IoT Semantic Interoperability Workshop 2016</a> and the <a href="https://www.iab.org/activities/workshops/iotsu/">Internet of Things Software Update Workshop (IoTSU)</a>. An ideal outcome would be for all schema.org's schemas to be usable (directly or via mappings) by a variety of platforms and standards in the IoT/WoT ecosystem.</p>
 
 <h4>Governance and related Considerations</h4>
-<p>At the time of writing, there is not yet any precedent for schema.org schemas being cited normatively by W3C "Recommendation-track" Working Groups, although there is no in-principle reason why this shouldn't happen so long as W3C's <a href="https://www.w3.org/2013/09/normative-references">Normative References</a> considerations are addressed to the satisfaction of the W3C Director. Schema.org has recently introduced more explicit <a href="http://schema.org/docs/howwework.html">documentation</a> of its workflow as part of discussions about whether it meets governmental needs (e.g. <a href="https://governmenttechnology.blog.gov.uk/2016/05/18/making-job-adverts-more-open/">job adverts</a>).</p>
+<p>At the time of writing, there is not yet any precedent for schema.org schemas being cited normatively by W3C "Recommendation-track" Working Groups, although there is no in-principle reason why this shouldn't happen so long as W3C's <a href="https://www.w3.org/2013/09/normative-references">Normative References</a> considerations are addressed to the satisfaction of the W3C Director. Schema.org has recently introduced more explicit <a href="https://schema.org/docs/howwework.html">documentation</a> of its workflow as part of discussions about whether it meets governmental needs (e.g. <a href="https://governmenttechnology.blog.gov.uk/2016/05/18/making-job-adverts-more-open/">job adverts</a>).</p>
 
 <h4>Practical Considerations - "How it might work"</h4>
-<p>Schema.org is run as an independent project, but given the overlap in technologies, expert communities and close ties to the evolution of supporting technology like JSON-LD, RDFa, HTML5, it has primarily been developed on W3C-hosted public discussion lists. Since 2015 this has been based on W3C's Community Group mechanism, see <a href="https://www.w3.org/community/">https://www.w3.org/community/</a> but it is important to understand that Schema.org is an independent initiative and that it is not governed by the official W3C Process. The schema.org "<a href="http://schema.org/docs/howwework.html">How we work</a>" provides more details, but for this document's purposes it is important also to understand that there are several layers to schema.org.</p>
-<p>The most basic piece of schema.org is the core <a href="http://schema.org/docs/datamodel.html">datamodel</a>. Roughly this corresponds to W3C RDF, in that it uses a graph datamodel and relies on a dictionary of type and property definitions. Secondly, there is the core of schema.org: a collection of such definitions. Currently 500+ types, 800+ properties, and 100+ property values. Beyond the core, the project overlays several so-called "hosted" extensions, such as "auto", "bib", "health-lifesci". These add further terms, or refined definitions, on top of the core. And beyond these, in the wider Web, there are other domain-specific or dataset-specific "external extensions", the most notable of which is GS1's work at <a href="http://gs1.org/voc/">http://gs1.org/voc/</a>.</p>
+<p>Schema.org is run as an independent project, but given the overlap in technologies, expert communities and close ties to the evolution of supporting technology like JSON-LD, RDFa, HTML5, it has primarily been developed on W3C-hosted public discussion lists. Since 2015 this has been based on W3C's Community Group mechanism, see <a href="https://www.w3.org/community/">https://www.w3.org/community/</a> but it is important to understand that Schema.org is an independent initiative and that it is not governed by the official W3C Process. The schema.org "<a href="https://schema.org/docs/howwework.html">How we work</a>" provides more details, but for this document's purposes it is important also to understand that there are several layers to schema.org.</p>
+<p>The most basic piece of schema.org is the core <a href="https://schema.org/docs/datamodel.html">datamodel</a>. Roughly this corresponds to W3C RDF, in that it uses a graph datamodel and relies on a dictionary of type and property definitions. Secondly, there is the core of schema.org: a collection of such definitions. Currently 500+ types, 800+ properties, and 100+ property values. Beyond the core, the project overlays several so-called "hosted" extensions, such as "auto", "bib", "health-lifesci". These add further terms, or refined definitions, on top of the core. And beyond these, in the wider Web, there are other domain-specific or dataset-specific "external extensions", the most notable of which is GS1's work at <a href="http://gs1.org/voc/">http://gs1.org/voc/</a>.</p>
 <p>This combination of mechanisms provides several integration points for IoT-inspired vocabulary. Firstly, other non-schema.org vocabularies can be directly used alongside schema.org, thanks to the extensibility of the underlying formats (JSON-LD, RDFa, Microdata etc.). Secondly, there is scope for the core schema.org vocabularies to be evolved to address IoT scenarios more deeply, e.g. tweaks to definitions, clarifications or addition of modest amounts of new vocabulary. Thirdly, hosted (e.g. at iot.schema.org) schema extensions could go into more detail, and fourthly, <a href="http://gs1.org/voc/">GS1-like external schemas</a> can also be integrated. These options are not mutually exclusive, and it is likely that "IoT + Schema.org" efforts will explore improvements and deployment using a combination of these options.</p>
-<p>To elaborate on the distinction between schema.org's hosted versus external extensions, an excerpt from <a href="http://schema.org/docs/schemas.html#ext">the schema.org site:</a></p>
-<blockquote><span style="color:#3a4956">As schema.org has grown, we have developed mechanisms for <a href="http://schema.org/docs/extension.html">community extension</a> as a way of adding more detailed descriptive vocabulary that builds on the schema.org core.</span><br>
+<p>To elaborate on the distinction between schema.org's hosted versus external extensions, an excerpt from <a href="https://schema.org/docs/schemas.html#ext">the schema.org site:</a></p>
+<blockquote><span style="color:#3a4956">As schema.org has grown, we have developed mechanisms for <a href="https://schema.org/docs/extension.html">community extension</a> as a way of adding more detailed descriptive vocabulary that builds on the schema.org core.</span><br>
 <span style="color:#3a4956"><b>Hosted</b> extensions are managed and published as part of the schema.org project, with their design often led by one of more dedicated community groups.</span><br>
 <span style="color:#3a4956"><b>External</b> extensions live elsewhere in the Web, typically managed by other organizations with their own processes and collaboration mechanisms. Please consult external documentation for full details of their vocabulary, versioning system and release history.</span></blockquote>
 <p>Advantages of this combination of approaches (core + hosted + external …) include:</p>
@@ -117,7 +89,7 @@ td {
 <ul>
 <li>Phase 1: identify public mailing lists for topical discussion. This could be a combination of (1.) the existing W3C Community Group for "Web of Things"  (<a href="https://www.w3.org/community/wot/">link</a>) (if its chair i.e. Dave Raggett agreed) and (2.) a dedicated high level list for information sharing hosted directly at schema.org or elsewhere (update: Dan Brickley has created <a href="mailto:sdo-iot-sync@googlegroups.com">sdo-iot-sync@googlegroups.com</a> to serve this purpose - <a href="https://groups.google.com/forum/#!forum/sdo-iot-sync">link</a>). <br>
 This combination would simultaneously avoid fragmenting further the existing fora at W3C, while also providing a non-W3C public channel for more IETF-oriented participants who have expressed wariness regarding a 100% W3C-hosted approach. During this phase, we would encourage collection of existing works including literature reviews, mappings, collaborative prototyping and use-case driven sketching of possible designs, but we would not anticipate substantive additions to schema.org's core or creation of hosted extensions. An entry point for all these materials and discussions should be created at iot.schema.org.</li>
-<li>Phase 2: exploration of existing or newly proposed schemas as extensions to schema.org, using the "External Extension" mechanism, along the lines of GS1's existing work at <a href="http://gs1.org/voc/">http://gs1.org/voc/</a> - this phase would encompass conversion/mapping/transformation from original data formats into something compatible with schema.org's <a href="http://schema.org/docs/datamodel.html">datamodel</a> and a <a href="https://www.w3.org/TR/2014/REC-rdf11-concepts-20140225/#section-generalized-rdf">liberal interpretation</a> of W3C RDF.</li>
+<li>Phase 2: exploration of existing or newly proposed schemas as extensions to schema.org, using the "External Extension" mechanism, along the lines of GS1's existing work at <a href="http://gs1.org/voc/">http://gs1.org/voc/</a> - this phase would encompass conversion/mapping/transformation from original data formats into something compatible with schema.org's <a href="https://schema.org/docs/datamodel.html">datamodel</a> and a <a href="https://www.w3.org/TR/2014/REC-rdf11-concepts-20140225/#section-generalized-rdf">liberal interpretation</a> of W3C RDF.</li>
 <li>Phase 3: based on phase 2 modeling and prototyping explorations and dialogue with relevant standards efforts such as W3C WoT, we could expect more substantive additions to schema.org core and/or population of term definitions at iot.schema.org.</li>
 </ul>
 <p>A rough timeline would be that phase 1 commences immediately (summer 2016), phase 2 later in  2016, and phase 3 primarily during 2017. All of this should not be an obstacle to making simple, small and pragmatic IoT-inspired improvements across schema.org at any time, wherever there is general community consensus. </p>
@@ -230,7 +202,7 @@ The above files are collections of types and properties that are split out to in
   "@context": {
     "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
     "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
-    "sch": "http://schema.org/",
+    "sch": "https://schema.org/",
     "st": "http://thingschema.org/smartthings/",
     "stc": "http://thingschema.org/smartthings/capabilities/",
     "type": { "@id":"rdf:type", "@type": "@id"},
@@ -1047,7 +1019,7 @@ ex:vav_1 a brick:VAV;<br>
 </tbody>
 </table>
 
-
+<!-- #### Static Doc Insert Footer here -->
 
 </body>
 </html>

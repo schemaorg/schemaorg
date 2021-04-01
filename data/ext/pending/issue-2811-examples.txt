@@ -1,0 +1,97 @@
+TYPES: #eg-464 SizeSpecification, MeasurementTypeEnumeration, WearableMeasurementTypeEnumeration, BodyMeasurementTypeEnumeration, SizeSystemEnumeration, SizeGroupEnumeration
+
+PRE-MARKUP:
+Complete example for a men's jacket with comprehensive size specification:
+- Size system: US
+- Size group: Men's Big & Tall
+- Size code: 3XL
+- Jacket measurements: chest: 52 inches, and length 42 inches.
+- Suggested age group: 13 years and up
+- Suggested body measurements: chest: 51-54 inches; height: 6-6.3 feet
+
+MICRODATA:
+
+<!-- JSONLD only example -->
+
+RDFA: 
+
+<!-- JSONLD only example -->
+
+JSON:
+
+<script type="application/ld+json">
+
+{
+  "@context": "https://schema.org/",
+  "@type": "Product",
+  "sku": "44E01-M11000",
+  "inProductGroupWithID": "44E01",
+  "gtin14": "98766051104218",
+  "image": "https://www.example.com/jacket_large_green.jpg",
+  "name": "Large green jacket",
+  "description": "Large wool green jacket for the winter months",
+  "brand": {
+    "@type": "Thing",
+    "name": "A fashion brand"
+  },
+  "color": "green",
+  "size": {
+    "@type": "SizeSpecification",
+    "sizeSystem": "https://schema.org/WearableSizeSystemUS",
+    "sizeGroup": [
+      "https://schema.org/WearableSizeGroupMens",
+      "https://schema.org/WearableSizeGroupBig",
+      "https://schema.org/WearableSizeGroupTall"
+    ],
+    "name": "3XL",
+    "hasMeasurement": [
+      {
+        "@type": "QuantitativeValue",
+        "valueReference": "https://schema.org/WearableMeasurementChest",
+        "unitCode": "INH",
+        "value": 52
+      },
+      {
+        "@type": "QuantitativeValue",
+        "valueReference": "https://schema.org/WearableMeasurementLength",
+        "unitCode": "INH",
+        "value": 42
+      }
+    ],
+    "suggestedGender": "male",
+    "suggestedAge": {
+      "@type": "QuantitativeValue",
+      "name": "adult",
+      "unitCode": "ANN",
+      "minValue": 13
+    },
+    "suggestedMeasurement": [
+      {
+        "@type": "QuantitativeValue",
+        "valueReference": "https://schema.org/BodyMeasurementChest",
+        "unitCode": "INH",
+        "minValue": 51,
+        "maxValue": 54
+      },
+      {
+        "@type": "QuantitativeValue",
+        "valueReference": "https://schema.org/BodyMeasurementHeight",
+        "unitCode": "FOT",
+        "minValue": 6,
+        "maxValue": 6.3
+      }
+    ]
+  },
+  "offers": {
+    "@type": "Offer",
+    "url": "https://www.example.com/jacket?s=l&c=g",
+    "priceCurrency": "USD",
+    "price": 239.99,
+    "itemCondition": "https://schema.org/NewCondition",
+    "availability": "https://schema.org/InStock"
+  }
+}
+
+</script>
+
+

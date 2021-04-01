@@ -1,31 +1,31 @@
-@prefix : <http://schema.org/> .
+@prefix : <https://schema.org/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 :EducationalOccupationalCredential a rdfs:Class ;
     rdfs:label "EducationalOccupationalCredential" ;
-    :category "issue-1779" ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/1779> ;
     rdfs:comment "An educational or occupational credential. A diploma, academic degree, certification, qualification, badge, etc., that may be awarded to a person or other entity that meets the requirements defined by the credentialer." ;
     rdfs:subClassOf :CreativeWork .
 
 :competencyRequired a rdf:Property ;
     rdfs:label "competencyRequired" ;
-    :category "issue-1779" ;
-    :domainIncludes :EducationalOccupationalCredential ;
-    :isPartOf <http://pending.schema.org> ;
+    :domainIncludes :EducationalOccupationalCredential,
+        :LearningResource ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :DefinedTerm,
         :Text,
         :URL ;
     :source <https://github.com/schemaorg/schemaorg/issues/1779> ;
-    rdfs:comment "Knowledge, skill, ability or personal attribute that must be demonstrated by a person or other entity." .
+    rdfs:comment "Knowledge, skill, ability or personal attribute that must be demonstrated by a person or other entity in order to do something such as earn an Educational Occupational Credential or understand a LearningResource." .
 
 :credentialCategory a rdf:Property ;
     rdfs:label "credentialCategory" ;
-    :category "issue-1779" ;
     :domainIncludes :EducationalOccupationalCredential ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :DefinedTerm,
         :Text,
         :URL ;
@@ -33,18 +33,16 @@
     rdfs:comment "The category or type of credential being described, for example \"degree”, “certificate”, “badge”, or more specific term." .
 
 :educationRequirements a rdf:Property ;
-    :category "issue-1779" ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :EducationalOccupationalCredential ;
     :source <https://github.com/schemaorg/schemaorg/issues/1779> .
 
 :educationalLevel a rdf:Property ;
     rdfs:label "educationalLevel" ;
-    :category "issue-1779" ;
     :domainIncludes :CreativeWork,
         :EducationEvent,
         :EducationalOccupationalCredential ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :DefinedTerm,
         :Text,
         :URL ;
@@ -52,29 +50,25 @@
     rdfs:comment "The level in terms of progression through an educational or training context. Examples of educational levels include 'beginner', 'intermediate' or 'advanced', and formal sets of level indicators." .
 
 :qualifications a rdf:Property ;
-    :category "issue-1779" ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :EducationalOccupationalCredential ;
     :source <https://github.com/schemaorg/schemaorg/issues/1779> .
 
 :recognizedBy a rdf:Property ;
     rdfs:label "recognizedBy" ;
-    :category "issue-1779" ;
     :domainIncludes :EducationalOccupationalCredential ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :Organization ;
     :source <https://github.com/schemaorg/schemaorg/issues/1779> ;
     rdfs:comment "An organization that acknowledges the validity, value or utility of a credential. Note: recognition may include a process of quality assurance or accreditation." .
 
 :validFor a rdf:Property ;
     rdfs:label "validFor" ;
-    :category "issue-1779" ;
     :domainIncludes :EducationalOccupationalCredential ;
     :source <https://github.com/schemaorg/schemaorg/issues/1779> .
 
 :validIn a rdf:Property ;
     rdfs:label "validIn" ;
-    :category "issue-1779" ;
     :domainIncludes :EducationalOccupationalCredential ;
     :source <https://github.com/schemaorg/schemaorg/issues/1779> .
 

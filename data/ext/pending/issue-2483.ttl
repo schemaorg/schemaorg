@@ -1,12 +1,14 @@
-@prefix : <http://schema.org/> .
+@prefix : <https://schema.org/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 :hasCourse a rdf:Property ;
-    :category "issue-2483" ;
     rdfs:label "hasCourse" ;
-    rdfs:comment "A course or class that is one of the learning opportunities that constitute an educational / occupational program. No information is implied about whether the course is mandatory or optional; no guarantee is implied about whether the course will be available to everyone on the program." ;
     :domainIncludes :EducationalOccupationalProgram ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :Course ;
-    :isPartOf <http://pending.schema.org> ;
-    :source <https://github.com/schemaorg/schemaorg/issues/2483> .
+    :source <https://github.com/schemaorg/schemaorg/issues/2483> ;
+    rdfs:comment "A course or class that is one of the learning opportunities that constitute an educational / occupational program. No information is implied about whether the course is mandatory or optional; no guarantee is implied about whether the course will be available to everyone on the program." .
+

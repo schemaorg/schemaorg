@@ -30,7 +30,7 @@ Or you can jump directly to a commonly used type:
   <li>{{ sdotermlink("Place")|safe }}, {{ sdotermlink("LocalBusiness")|safe }}, {{ sdotermlink("Restaurant")|safe }} ...</li>
   <li>{{ sdotermlink("Product")|safe }}, {{ sdotermlink("Offer")|safe }}, {{ sdotermlink("AggregateOffer")|safe }}</li>
   <li>{{ sdotermlink("Review")|safe }}, {{ sdotermlink("AggregateRating")|safe }}</li>
-  <li>{{ sdotermlink("Action")|safe }}></li>
+  <li>{{ sdotermlink("Action")|safe }}</li>
 </ul>
 
 <br/>See also the <a href="releases.html">releases</a> page for recent updates and project history.<br/>
@@ -43,7 +43,6 @@ We also have a small set of <a href="../DataType">primitive data types</a> for n
 <ul>
   <li><a href="developers.html">Schema.org for Developers</a>
 </ul>
-<br />
 
 
  <h2 id="ext">Extensions</h2>
@@ -58,21 +57,23 @@ We also have a small set of <a href="../DataType">primitive data types</a> for n
  <h3 id="hosted">Hosted Sections</h3>
 
 <p>
-For example, via the <a href="http://auto.schema.org/">auto</a> section there is a property for <a href="{{staticPath}}/emissionsCO2">emissionsCO2</a>,
-and via the <a href="http://bib.schema.org/">bib</a> section we have a property <a href="{{staticPath}}/publisherImprint">publisherImprint</a>.
+For example, via the <a href="/docs/auto.home.html">auto</a> section there is a property for <a href="/emissionsCO2">emissionsCO2</a>,
+and via the <a href="/docs/bib.home.html">bib</a> section we have a property <a href="/publisherImprint">publisherImprint</a>.
 However, from the perspective of a publisher, these are simply schema.org properties. </p>
 
-<p>We have a few of these areas:</p>
+<p>We have a few of these sections:</p>
 <ul>
-{% for ext in extensions %}
-	<li>{{ ext | safe }}</li>
-{% endfor %}
+  <li><a href="/docs/auto.home.html">auto</a></li>
+  <li><a href="/docs/bib.home.html">bib</a></li>
+  <li><a href="/docs/health-lifesci.home.html">health-lifesci</a></li>
+  <li><a href="/docs/meta.home.html">meta</a></li>
+  <li><a href="/docs/pending.home.html">pending</a></li>
 </ul>
 
 
 <p><b>Note</b>: the 'pending' and 'meta' hosted sections are part of schema.org's schema development process.</p>
 <p id="ext_pending">
-  We use the 'pending' section as a staging area for new schema.org terms that are under discussion and review.
+  We use the '<a href="/docs/pending.home.html">pending</a>' section as a staging area for new schema.org terms that are under discussion and review.
   Implementors and publishers are cautioned that terms in the <a href="/docs/pending.home.html">pending</a> section
   may lack consensus and that terminology and definitions could still change significantly after community and <a href="/docs/about.html#cgsg">steering group</a> review.
   Consumers of schema.org data who encourage use of such terms are <em>strongly encouraged</em>
@@ -80,10 +81,10 @@ However, from the perspective of a publisher, these are simply schema.org proper
 </p>
 
 <p id="ext_meta">
-The 'meta' section is primarily for vocabulary used internally within schema.org to support technical definitions and
+The '<a href="/docs/meta.home.html">meta</a>' section is primarily for vocabulary used internally within schema.org to support technical definitions and
 schema.org site functionality. These terms are not intended for general usage in the public Web.
 </p>
-<p id="attic"><strong>Attic</strong> ({{attic | safe}}) is a special area where terms are archived when deprecated from the core and other sections, or removed from <a href="pending.home.html">pending</a> as not accepted into the full vocabulary. References to terms in the attic area are not normally displayed unless accessed via the term identifier or via the {{attic | safe}} home page. Implementors and data publishers are cautioned not to use terms in the attic area.
+<p id="attic"><strong><a href="/docs/attic.home.html">Attic</a></strong> is a special area where terms are archived when deprecated from the core and other sections, or removed from <a href="pending.home.html">pending</a> as not accepted into the full vocabulary. References to terms in the attic area are not normally displayed unless accessed via the term identifier or via the {{attic | safe}} home page. Implementors and data publishers are cautioned not to use terms in the attic area.
 </p>
 
 <p>

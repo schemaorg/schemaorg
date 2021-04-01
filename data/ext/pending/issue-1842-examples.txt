@@ -1,0 +1,117 @@
+TYPES: #eg-0170 Event, eventAttendanceMode, VirtualLocation
+
+PRE-MARKUP:
+
+Example of a mixed online and offline event.
+
+MICRODATA:
+
+
+RDFA:
+
+
+JSON:
+
+<script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Event",
+      "name": "The Adventures of Kira and Morrison",
+      "startDate": "2025-07-21T19:00-05:00",
+      "endDate": "2025-07-21T23:00-05:00",
+      "eventAttendanceMode": "https://schema.org/MixedEventAttendanceMode",
+      "eventStatus": "https://schema.org/EventScheduled",
+      "location": [{
+        "@type": "VirtualLocation",
+        "url": "https://operaonline.stream5.com/"
+      },
+      {
+        "@type": "Place",
+        "name": "Snickerpark Stadium",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "100 West Snickerpark Dr",
+          "addressLocality": "Snickertown",
+          "postalCode": "19019",
+          "addressRegion": "PA",
+          "addressCountry": "US"
+        }
+      }],
+      "image": [
+        "https://example.com/photos/1x1/photo.jpg",
+        "https://example.com/photos/4x3/photo.jpg",
+        "https://example.com/photos/16x9/photo.jpg"
+       ],
+      "description": "The Adventures of Kira and Morrison is coming to Snickertown in a can’t miss performance.",
+      "offers": {
+        "@type": "Offer",
+        "url": "https://www.example.com/event_offer/12345_201803180430",
+        "price": "30",
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/InStock",
+        "validFrom": "2024-05-21T12:00"
+      },
+      "performer": {
+        "@type": "PerformingGroup",
+        "name": "Kira and Morrison"
+      },
+      "organizer": {
+        "@type": "Organization",
+        "name": "Kira and Morrison Music",
+        "url": "https://kiraandmorrisonmusic.com"
+      }
+    }
+    </script>
+
+TYPES: #eg-0014 Event, eventAttendanceMode, VirtualLocation
+
+PRE-MARKUP:
+
+Example of an online event.
+
+MICRODATA:
+
+
+RDFA:
+
+
+JSON:
+
+<script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ChildrensEvent",
+      "name": "Story Time Reading",
+      "startDate": "2020-07-24T16:00Z",
+      "endDate": "2020-07-24T16:30Z",
+      "eventAttendanceMode": "https://schema.org/OnlineEventAttendanceMode",
+      "eventStatus": "https://schema.org/EventScheduled",
+      "location": {
+        "@type": "VirtualLocation",
+        "url": "https://stream.storytimereadings.com/"
+      },
+      
+      "image": "https://storytimereadings.com/photos/childrensphoto.jpg",
+      "description": "Story Time readings for children of all ages - July 2020 edition",
+      "offers": {
+        "@type": "Offer",
+        "url": "https://torytimereadings.com/event_offer/2020-07-24-free",
+        "price": "0",
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/InStock",
+        "validFrom": "2020-07-01T12:00"
+      },
+      "performer": {
+        "@type": "Person",
+        "name": "Darren R Story",
+        "alternateName": "The Virtual Story Master"
+      },
+      "organizer": {
+        "@type": "Organization",
+        "name": "Story Time Virtual Events",
+        "url": "https://torytimereadings.com.com"
+      }
+    }
+    </script>
+
+

@@ -1,11 +1,12 @@
-@prefix : <http://schema.org/> .
+@prefix : <https://schema.org/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 :BrokerageAccount a rdfs:Class ;
     rdfs:label "BrokerageAccount" ;
-    :category "issue-1253" ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO>,
         <https://github.com/schemaorg/schemaorg/issues/1253> ;
     rdfs:comment "An account that allows an investor to deposit funds and place investment orders with a licensed broker or brokerage firm." ;
@@ -13,8 +14,7 @@
 
 :ExchangeRateSpecification a rdfs:Class ;
     rdfs:label "ExchangeRateSpecification" ;
-    :category "issue-1253" ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO>,
         <https://github.com/schemaorg/schemaorg/issues/1253> ;
     rdfs:comment "A structured value representing exchange rate." ;
@@ -22,8 +22,7 @@
 
 :InvestmentFund a rdfs:Class ;
     rdfs:label "InvestmentFund" ;
-    :category "issue-1253" ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO>,
         <https://github.com/schemaorg/schemaorg/issues/1253> ;
     rdfs:comment "A company or fund that gathers capital from a number of investors to create a pool of money that is then re-invested into stocks, bonds and other assets." ;
@@ -31,8 +30,7 @@
 
 :MoneyTransfer a rdfs:Class ;
     rdfs:label "MoneyTransfer" ;
-    :category "issue-1253" ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO>,
         <https://github.com/schemaorg/schemaorg/issues/1253> ;
     rdfs:comment "The act of transferring money from one place to another place. This may occur electronically or physically." ;
@@ -40,17 +38,15 @@
 
 :MortgageLoan a rdfs:Class ;
     rdfs:label "MortgageLoan" ;
-    :category "issue-1253" ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO>,
         <https://github.com/schemaorg/schemaorg/issues/1253> ;
-    rdfs:comment "A loan in which property or real estate is used as collateral. (A loan securitized against some real estate.)" ;
+    rdfs:comment "A loan in which property or real estate is used as collateral. (A loan securitized against some real estate)." ;
     rdfs:subClassOf :LoanOrCredit .
 
 :RepaymentSpecification a rdfs:Class ;
     rdfs:label "RepaymentSpecification" ;
-    :category "issue-1253" ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO>,
         <https://github.com/schemaorg/schemaorg/issues/1253> ;
     rdfs:comment "A structured value representing repayment." ;
@@ -58,9 +54,8 @@
 
 :accountMinimumInflow a rdf:Property ;
     rdfs:label "accountMinimumInflow" ;
-    :category "issue-1253" ;
     :domainIncludes :BankAccount ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :MonetaryAmount ;
     :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO>,
         <https://github.com/schemaorg/schemaorg/issues/1253> ;
@@ -68,24 +63,21 @@
 
 :accountOverdraftLimit a rdf:Property ;
     rdfs:label "accountOverdraftLimit" ;
-    :category "issue-1253" ;
     :domainIncludes :BankAccount ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :MonetaryAmount ;
     :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO>,
         <https://github.com/schemaorg/schemaorg/issues/1253> ;
     rdfs:comment "An overdraft is an extension of credit from a lending institution when an account reaches zero. An overdraft allows the individual to continue withdrawing money even if the account has no funds in it. Basically the bank allows people to borrow a set amount of money." .
 
 :amount a rdf:Property ;
-    :category "issue-1253" ;
     :domainIncludes :MoneyTransfer ;
     :source <https://github.com/schemaorg/schemaorg/issues/1253> .
 
 :bankAccountType a rdf:Property ;
     rdfs:label "bankAccountType" ;
-    :category "issue-1253" ;
     :domainIncludes :BankAccount ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :Text,
         :URL ;
     :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO>,
@@ -94,20 +86,18 @@
 
 :beneficiaryBank a rdf:Property ;
     rdfs:label "beneficiaryBank" ;
-    :category "issue-1253" ;
     :domainIncludes :MoneyTransfer ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :BankOrCreditUnion,
         :Text ;
     :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO>,
         <https://github.com/schemaorg/schemaorg/issues/1253> ;
-    rdfs:comment "A bank or bank’s branch, financial institution or international financial institution operating the beneficiary’s bank account or releasing funds for the beneficiary" .
+    rdfs:comment "A bank or bank’s branch, financial institution or international financial institution operating the beneficiary’s bank account or releasing funds for the beneficiary." .
 
 :cashBack a rdf:Property ;
     rdfs:label "cashBack" ;
-    :category "issue-1253" ;
     :domainIncludes :PaymentCard ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :Boolean,
         :Number ;
     :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO>,
@@ -116,25 +106,22 @@
 
 :contactlessPayment a rdf:Property ;
     rdfs:label "contactlessPayment" ;
-    :category "issue-1253" ;
     :domainIncludes :PaymentCard ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :Boolean ;
     :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO>,
         <https://github.com/schemaorg/schemaorg/issues/1253> ;
     rdfs:comment "A secure method for consumers to purchase products or services via debit, credit or smartcards by using RFID or NFC technology." .
 
 :currency a rdf:Property ;
-    :category "issue-1253" ;
     :domainIncludes :ExchangeRateSpecification,
         :LoanOrCredit ;
     :source <https://github.com/schemaorg/schemaorg/issues/1253> .
 
 :currentExchangeRate a rdf:Property ;
     rdfs:label "currentExchangeRate" ;
-    :category "issue-1253" ;
     :domainIncludes :ExchangeRateSpecification ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :UnitPriceSpecification ;
     :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO>,
         <https://github.com/schemaorg/schemaorg/issues/1253> ;
@@ -142,9 +129,8 @@
 
 :domiciledMortgage a rdf:Property ;
     rdfs:label "domiciledMortgage" ;
-    :category "issue-1253" ;
     :domainIncludes :MortgageLoan ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :Boolean ;
     :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO>,
         <https://github.com/schemaorg/schemaorg/issues/1253> ;
@@ -152,9 +138,8 @@
 
 :downPayment a rdf:Property ;
     rdfs:label "downPayment" ;
-    :category "issue-1253" ;
     :domainIncludes :RepaymentSpecification ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :MonetaryAmount,
         :Number ;
     :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO>,
@@ -163,9 +148,8 @@
 
 :earlyPrepaymentPenalty a rdf:Property ;
     rdfs:label "earlyPrepaymentPenalty" ;
-    :category "issue-1253" ;
     :domainIncludes :RepaymentSpecification ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :MonetaryAmount ;
     :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO>,
         <https://github.com/schemaorg/schemaorg/issues/1253> ;
@@ -173,9 +157,8 @@
 
 :exchangeRateSpread a rdf:Property ;
     rdfs:label "exchangeRateSpread" ;
-    :category "issue-1253" ;
     :domainIncludes :ExchangeRateSpecification ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :MonetaryAmount,
         :Number ;
     :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO>,
@@ -184,9 +167,8 @@
 
 :floorLimit a rdf:Property ;
     rdfs:label "floorLimit" ;
-    :category "issue-1253" ;
     :domainIncludes :PaymentCard ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :MonetaryAmount ;
     :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO>,
         <https://github.com/schemaorg/schemaorg/issues/1253> ;
@@ -194,9 +176,8 @@
 
 :gracePeriod a rdf:Property ;
     rdfs:label "gracePeriod" ;
-    :category "issue-1253" ;
     :domainIncludes :LoanOrCredit ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :Duration ;
     :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO>,
         <https://github.com/schemaorg/schemaorg/issues/1253> ;
@@ -204,9 +185,8 @@
 
 :loanMortgageMandateAmount a rdf:Property ;
     rdfs:label "loanMortgageMandateAmount" ;
-    :category "issue-1253" ;
     :domainIncludes :MortgageLoan ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :MonetaryAmount ;
     :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO>,
         <https://github.com/schemaorg/schemaorg/issues/1253> ;
@@ -214,9 +194,8 @@
 
 :loanPaymentAmount a rdf:Property ;
     rdfs:label "loanPaymentAmount" ;
-    :category "issue-1253" ;
     :domainIncludes :RepaymentSpecification ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :MonetaryAmount ;
     :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO>,
         <https://github.com/schemaorg/schemaorg/issues/1253> ;
@@ -224,9 +203,8 @@
 
 :loanPaymentFrequency a rdf:Property ;
     rdfs:label "loanPaymentFrequency" ;
-    :category "issue-1253" ;
     :domainIncludes :RepaymentSpecification ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :Number ;
     :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO>,
         <https://github.com/schemaorg/schemaorg/issues/1253> ;
@@ -234,9 +212,8 @@
 
 :loanRepaymentForm a rdf:Property ;
     rdfs:label "loanRepaymentForm" ;
-    :category "issue-1253" ;
     :domainIncludes :LoanOrCredit ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :RepaymentSpecification ;
     :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO>,
         <https://github.com/schemaorg/schemaorg/issues/1253> ;
@@ -244,9 +221,8 @@
 
 :loanType a rdf:Property ;
     rdfs:label "loanType" ;
-    :category "issue-1253" ;
     :domainIncludes :LoanOrCredit ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :Text,
         :URL ;
     :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO>,
@@ -255,9 +231,8 @@
 
 :monthlyMinimumRepaymentAmount a rdf:Property ;
     rdfs:label "monthlyMinimumRepaymentAmount" ;
-    :category "issue-1253" ;
     :domainIncludes :PaymentCard ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :MonetaryAmount,
         :Number ;
     :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO>,
@@ -266,9 +241,8 @@
 
 :numberOfLoanPayments a rdf:Property ;
     rdfs:label "numberOfLoanPayments" ;
-    :category "issue-1253" ;
     :domainIncludes :RepaymentSpecification ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :Number ;
     :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO>,
         <https://github.com/schemaorg/schemaorg/issues/1253> ;
@@ -276,9 +250,8 @@
 
 :recourseLoan a rdf:Property ;
     rdfs:label "recourseLoan" ;
-    :category "issue-1253" ;
     :domainIncludes :LoanOrCredit ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :Boolean ;
     :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO>,
         <https://github.com/schemaorg/schemaorg/issues/1253> ;
@@ -286,9 +259,8 @@
 
 :renegotiableLoan a rdf:Property ;
     rdfs:label "renegotiableLoan" ;
-    :category "issue-1253" ;
     :domainIncludes :LoanOrCredit ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :Boolean ;
     :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO>,
         <https://github.com/schemaorg/schemaorg/issues/1253> ;

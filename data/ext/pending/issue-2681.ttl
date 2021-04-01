@@ -1,0 +1,29 @@
+@prefix : <https://schema.org/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+:experienceInPlaceOfEducation a rdf:Property ;
+    rdfs:label "experienceInPlaceOfEducation" ;
+    :domainIncludes :JobPosting ;
+    :isPartOf <https://pending.schema.org> ;
+    :rangeIncludes :Boolean ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2681> ;
+    rdfs:comment "Indicates whether a [[JobPosting]] will accept experience (as indicated by [[OccupationalExperienceRequirements]]) in place of its formal educational qualifications (as indicated by [[educationRequirements]]). If true, indicates that satisfying one of these requirements is sufficient.".
+
+:OccupationalExperienceRequirements a rdfs:Class ;
+    rdfs:label "OccupationalExperienceRequirements" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2681> ;
+    rdfs:comment "Indicates employment-related experience requirements, e.g. [[monthsOfExperience]]." ;
+    rdfs:subClassOf :Intangible .
+
+:monthsOfExperience a rdf:Property ;
+    rdfs:label "monthsOfExperience" ;
+    :domainIncludes :OccupationalExperienceRequirements ;
+    :isPartOf <https://pending.schema.org> ;
+    :rangeIncludes :Number ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2681> ;
+    rdfs:comment "Indicates the minimal number of months of experience required for a position.".
+
+# Tweak to a property from core:
+:experienceRequirements :rangeIncludes :OccupationalExperienceRequirements .

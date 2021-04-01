@@ -1,0 +1,136 @@
+TYPES: #eg-0458 sameAs
+
+PRE-MARKUP:
+
+<!-- Utilising Wikidata as a source of URIs for entities in a sameAs relationship -->
+
+MICRODATA:
+
+<!-- JSONLD only example -->
+
+RDFA:
+
+<!-- JSONLD only example -->
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Movie",
+  "name": "The Hitchhiker's Guide to the Galaxy",
+  "disambiguatingDescription": "2005 British-American comic science fiction film directed by Garth Jennings",
+  "sameAs": "https://www.wikidata.org/wiki/Q836821",
+  "titleEIDR": "10.5240/B752-5B47-DBBE-E5D4-5A3F-N",
+  "isBasedOn":
+  {
+    "@type": "Book",
+    "name": "The Hitchhiker's Guide to the Galaxy",
+    "isbn": "0-330-25864-8",
+    "sameAs": "https://www.wikidata.org/wiki/Q3107329",
+    "author":
+    {
+      "@type": "Person",
+      "name": "Douglas Adams",
+      "sameAs": "https://www.wikidata.org/wiki/Q42"
+    }
+  }
+}
+</script>
+
+TYPES: #eg-0459 editEIDR, titleEIDR
+
+PRE-MARKUP:
+
+<!-- Using editEIDR and titleEIDR identifiers for generic titles and specific
+expressions of a film or TV work -->
+
+MICRODATA:
+
+<!-- JSONLD only example -->
+
+RDFA:
+
+<!-- JSONLD only example -->
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Movie",
+  "name": "The Hitchhiker's Guide to the Galaxy",
+  "disambiguatingDescription": "2005 British-American comic science fiction film directed by Garth Jennings",
+  "sameAs": "https://www.wikidata.org/wiki/Q836821",
+  "titleEIDR": "10.5240/B752-5B47-DBBE-E5D4-5A3F-N",
+  "workExample": [
+   {
+    "@type": "Movie",
+    "editEIDR": "10.5240/0196-4177-FF62-A346-D0F6-Z",
+    "disambiguatingDescription": "VUDU version"
+   },
+   {
+    "@type": "Movie",
+    "editEIDR": "10.5240/043D-15C4-838D-80F4-E96A-G",
+    "disambiguatingDescription": "Censored for India"
+   },
+   {
+    "@type": "Movie",
+    "editEIDR": "10.5240/7BAD-7B81-396E-27EF-360F-N",
+    "disambiguatingDescription": "Theatrical"
+   },
+   {
+    "@type": "Movie",
+    "editEIDR": "0.5240/1DC4-B3E4-ECEB-7197-BF18-B",
+    "disambiguatingDescription": "Broadcast"
+   }
+  ],
+  "isBasedOn":
+  {
+    "@type": "Book",
+    "name": "The Hitchhiker's Guide to the Galaxy",
+    "isbn": "0-330-25864-8",
+    "sameAs": "https://www.wikidata.org/wiki/Q3107329",
+    "author":
+    {
+      "@type": "Person",
+      "name": "Douglas Adams",
+      "sameAs": "https://www.wikidata.org/wiki/Q42"
+    }
+  }
+}
+</script>
+
+TYPES: #eg-0460 editEIDR, titleEIDR, Movie
+
+PRE-MARKUP:
+
+<!-- Using editEIDR and titleEIDR identifiers for a specific edition of a movie
+or TV work.  An exampleOfWork described elsewhere -->
+
+MICRODATA:
+
+<!-- JSONLD only example -->
+
+RDFA:
+
+<!-- JSONLD only example -->
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@type": "Movie",
+  "name": "The Hitchhiker's Guide to the Galaxy",
+  "titleEIDR": "10.5240/B752-5B47-DBBE-E5D4-5A3F-N",
+  "editEIDR": "10.5240/0196-4177-FF62-A346-D0F6-Z",
+  "disambiguatingDescription": "VUDU version",
+  "exampleOfWork":
+    {
+       "@type": "Movie",
+         "sameAs": "https://www.wikidata.org/wiki/Q836821"
+    }
+  }
+}
+</script>
+

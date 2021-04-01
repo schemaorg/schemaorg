@@ -1,20 +1,20 @@
-@prefix : <http://schema.org/> .
+@prefix : <https://schema.org/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 :WebAPI a rdfs:Class ;
     rdfs:label "WebAPI" ;
-    :category "issue-1423" ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/1423> ;
     rdfs:comment "An application programming interface accessible over Web/Internet technologies." ;
     rdfs:subClassOf :Service .
 
 :documentation a rdf:Property ;
     rdfs:label "documentation" ;
-    :category "issue-1423" ;
     :domainIncludes :WebAPI ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :CreativeWork,
         :URL ;
     :source <https://github.com/schemaorg/schemaorg/issues/1423> ;
@@ -22,9 +22,8 @@
 
 :termsOfService a rdf:Property ;
     rdfs:label "termsOfService" ;
-    :category "issue-1423" ;
     :domainIncludes :Service ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :Text,
         :URL ;
     :source <https://github.com/schemaorg/schemaorg/issues/1423> ;

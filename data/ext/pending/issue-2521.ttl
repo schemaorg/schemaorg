@@ -1,11 +1,12 @@
-@prefix : <http://schema.org/> .
+@prefix : <https://schema.org/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 :CDCPMDRecord a rdfs:Class ;
     rdfs:label "CDCPMDRecord" ;
-    :category "issue-2521" ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/2521> ;
     rdfs:comment """A CDCPMDRecord is a data structure representing a record in a CDC tabular data format
       used for hospital data reporting. See [documentation](/docs/cdc-covid.html) for details, and the linked CDC materials for authoritative
@@ -15,9 +16,8 @@
 
 :cvdCollectionDate a rdf:Property ;
     rdfs:label "cvdCollectionDate" ;
-    :category "issue-2521" ;
     :domainIncludes :CDCPMDRecord ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :DateTime,
         :Text ;
     :source <https://github.com/schemaorg/schemaorg/issues/2521> ;
@@ -25,149 +25,132 @@
 
 :cvdFacilityCounty a rdf:Property ;
     rdfs:label "cvdFacilityCounty" ;
-    :category "issue-2521" ;
     :domainIncludes :CDCPMDRecord ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :Text ;
     :source <https://github.com/schemaorg/schemaorg/issues/2521> ;
     rdfs:comment "Name of the County of the NHSN facility that this data record applies to. Use [[cvdFacilityId]] to identify the facility. To provide other details, [[healthcareReportingData]] can be used on a [[Hospital]] entry." .
 
 :cvdFacilityId a rdf:Property ;
     rdfs:label "cvdFacilityId" ;
-    :category "issue-2521" ;
     :domainIncludes :CDCPMDRecord ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :Text ;
     :source <https://github.com/schemaorg/schemaorg/issues/2521> ;
     rdfs:comment "Identifier of the NHSN facility that this data record applies to. Use [[cvdFacilityCounty]] to indicate the county. To provide other details, [[healthcareReportingData]] can be used on a [[Hospital]] entry." .
 
 :cvdNumBeds a rdf:Property ;
     rdfs:label "cvdNumBeds" ;
-    :category "issue-2521" ;
     :domainIncludes :CDCPMDRecord ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :Number ;
     :source <https://github.com/schemaorg/schemaorg/issues/2521> ;
     rdfs:comment "numbeds - HOSPITAL INPATIENT BEDS: Inpatient beds, including all staffed, licensed, and overflow (surge) beds used for inpatients." .
 
 :cvdNumBedsOcc a rdf:Property ;
     rdfs:label "cvdNumBedsOcc" ;
-    :category "issue-2521" ;
     :domainIncludes :CDCPMDRecord ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :Number ;
     :source <https://github.com/schemaorg/schemaorg/issues/2521> ;
     rdfs:comment "numbedsocc - HOSPITAL INPATIENT BED OCCUPANCY: Total number of staffed inpatient beds that are occupied." .
 
 :cvdNumC19Died a rdf:Property ;
     rdfs:label "cvdNumC19Died" ;
-    :category "issue-2521" ;
     :domainIncludes :CDCPMDRecord ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :Number ;
     :source <https://github.com/schemaorg/schemaorg/issues/2521> ;
     rdfs:comment "numc19died - DEATHS: Patients with suspected or confirmed COVID-19 who died in the hospital, ED, or any overflow location." .
 
 :cvdNumC19HOPats a rdf:Property ;
     rdfs:label "cvdNumC19HOPats" ;
-    :category "issue-2521" ;
     :domainIncludes :CDCPMDRecord ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :Number ;
     :source <https://github.com/schemaorg/schemaorg/issues/2521> ;
     rdfs:comment "numc19hopats - HOSPITAL ONSET: Patients hospitalized in an NHSN inpatient care location with onset of suspected or confirmed COVID-19 14 or more days after hospitalization." .
 
 :cvdNumC19HospPats a rdf:Property ;
     rdfs:label "cvdNumC19HospPats" ;
-    :category "issue-2521" ;
     :domainIncludes :CDCPMDRecord ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :Number ;
     :source <https://github.com/schemaorg/schemaorg/issues/2521> ;
     rdfs:comment "numc19hosppats - HOSPITALIZED: Patients currently hospitalized in an inpatient care location who have suspected or confirmed COVID-19." .
 
 :cvdNumC19MechVentPats a rdf:Property ;
     rdfs:label "cvdNumC19MechVentPats" ;
-    :category "issue-2521" ;
     :domainIncludes :CDCPMDRecord ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :Number ;
     :source <https://github.com/schemaorg/schemaorg/issues/2521> ;
     rdfs:comment "numc19mechventpats - HOSPITALIZED and VENTILATED: Patients hospitalized in an NHSN inpatient care location who have suspected or confirmed COVID-19 and are on a mechanical ventilator." .
 
 :cvdNumC19OFMechVentPats a rdf:Property ;
     rdfs:label "cvdNumC19OFMechVentPats" ;
-    :category "issue-2521" ;
     :domainIncludes :CDCPMDRecord ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :Number ;
     :source <https://github.com/schemaorg/schemaorg/issues/2521> ;
     rdfs:comment "numc19ofmechventpats - ED/OVERFLOW and VENTILATED: Patients with suspected or confirmed COVID-19 who are in the ED or any overflow location awaiting an inpatient bed and on a mechanical ventilator." .
 
 :cvdNumC19OverflowPats a rdf:Property ;
     rdfs:label "cvdNumC19OverflowPats" ;
-    :category "issue-2521" ;
     :domainIncludes :CDCPMDRecord ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :Number ;
     :source <https://github.com/schemaorg/schemaorg/issues/2521> ;
     rdfs:comment "numc19overflowpats - ED/OVERFLOW: Patients with suspected or confirmed COVID-19 who are in the ED or any overflow location awaiting an inpatient bed." .
 
 :cvdNumICUBeds a rdf:Property ;
     rdfs:label "cvdNumICUBeds" ;
-    :category "issue-2521" ;
     :domainIncludes :CDCPMDRecord ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :Number ;
     :source <https://github.com/schemaorg/schemaorg/issues/2521> ;
     rdfs:comment "numicubeds - ICU BEDS: Total number of staffed inpatient intensive care unit (ICU) beds." .
 
 :cvdNumICUBedsOcc a rdf:Property ;
     rdfs:label "cvdNumICUBedsOcc" ;
-    :category "issue-2521" ;
     :domainIncludes :CDCPMDRecord ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :Number ;
     :source <https://github.com/schemaorg/schemaorg/issues/2521> ;
     rdfs:comment "numicubedsocc - ICU BED OCCUPANCY: Total number of staffed inpatient ICU beds that are occupied." .
 
 :cvdNumTotBeds a rdf:Property ;
     rdfs:label "cvdNumTotBeds" ;
-    :category "issue-2521" ;
     :domainIncludes :CDCPMDRecord ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :Number ;
     :source <https://github.com/schemaorg/schemaorg/issues/2521> ;
     rdfs:comment "numtotbeds - ALL HOSPITAL BEDS: Total number of all Inpatient and outpatient beds, including all staffed,ICU, licensed, and overflow (surge) beds used for inpatients or outpatients." .
 
 :cvdNumVent a rdf:Property ;
     rdfs:label "cvdNumVent" ;
-    :category "issue-2521" ;
     :domainIncludes :CDCPMDRecord ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :Number ;
     :source <https://github.com/schemaorg/schemaorg/issues/2521> ;
     rdfs:comment "numvent - MECHANICAL VENTILATORS: Total number of ventilators available." .
 
 :cvdNumVentUse a rdf:Property ;
     rdfs:label "cvdNumVentUse" ;
-    :category "issue-2521" ;
     :domainIncludes :CDCPMDRecord ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :Number ;
     :source <https://github.com/schemaorg/schemaorg/issues/2521> ;
     rdfs:comment "numventuse - MECHANICAL VENTILATORS IN USE: Total number of ventilators in use." .
 
 :datePosted a rdf:Property ;
-    :category "issue-2521" ;
     :domainIncludes :CDCPMDRecord ;
     :source <https://github.com/schemaorg/schemaorg/issues/2521> .
 
 :healthcareReportingData a rdf:Property ;
     rdfs:label "healthcareReportingData" ;
-    :category "issue-2521" ;
     :domainIncludes :Hospital ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :CDCPMDRecord,
         :Dataset ;
     :source <https://github.com/schemaorg/schemaorg/issues/2521> ;

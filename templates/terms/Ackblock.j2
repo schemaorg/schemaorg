@@ -1,20 +1,8 @@
-{% if term.supersedes|length > 0 %}
-	<table class="definition-table"><thead><tr><th><a href="{{href_prefix}}supersedes.html">supersedes</a></th></tr></thead>
-	<tr><td><code>{% for ss in term.supersedes %}{% if not loop.first %} <br/>{% endif %}
-            {{ sdotermlink(ss)|safe }}{% endfor %}</code></td></tr>
-     </table>
-{% endif %}
-{% if term.supersededBy|length > 0 %}
-	<table class="definition-table"><thead><tr><th><a href="{{href_prefix}}supersededBy.html">supersededBy</a></th></tr></thead>
-	<tr><td><code>{{ sdotermlink(term.supersededBy)|safe }}</code></td></tr>
-     </table>
-{% endif %}
-
 {% for ack in term.acknowledgements %}
     {% if loop.first %}
-	<h4  id="acks">Acknowledgement</h4>
+	<h4  id="acks">Acknowledgements</h4>
     {% endif %}
-	<p>{{acks |safe}}</p>
+	<p>{{ack |safe}}</p>
     {% if loop.last %}<br/>{% endif %}
 {% endfor %}
 
@@ -22,7 +10,7 @@
     {% if loop.first %}
 	<h4  id="acks">Source</h4>
     {% endif %}
-	<p><a href="{{href_prefix}}{{source}}">{{source}}</a></p>
+	<p><a href="{{href_prefix}}{{source}}">{{source|safe}}</a></p>
     {% if loop.last %}<br/>{% endif %}
 {% endfor %}
 

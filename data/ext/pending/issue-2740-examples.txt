@@ -1,0 +1,36 @@
+TYPES: #eg-0463 SolveMathAction, MathSolver
+
+PRE-MARKUP:
+
+Direct users to a leaf page when solving math problems. The leaf page may contain a step by step walkthrough of the problem and a solution.
+
+MICRODATA:
+
+<!-- JSONLD only example -->
+
+RDFA:
+
+<!-- JSONLD only example -->
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "MathSolver",
+  "url": "https://www.mathdomain.com/",
+  "potentialAction": [{
+     "@type": "SolveMathAction",
+     "target": "https://mathdomain.com/solve?q={math_expression_string}",
+     "mathExpression-input": "required name=math_expression_string",
+     "eduQuestionType": "Polynomial Equations"
+   },
+   {
+     "@type": "SolveMathAction",
+     "target": "https://mathdomain.com/graph?q={math_expression_string}",
+     "mathExpression-input": "required name=math_expression_string",
+     "eduQuestionType": "Graphing",
+   }]
+}
+
+</script>

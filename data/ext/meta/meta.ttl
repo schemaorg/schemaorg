@@ -1,43 +1,45 @@
-@prefix : <http://schema.org/> .
+@prefix : <https://schema.org/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 :Class a rdfs:Class ;
     rdfs:label "Class" ;
-    :isPartOf <http://meta.schema.org> ;
+    :isPartOf <https://meta.schema.org> ;
     rdfs:comment "A class, also often called a 'Type'; equivalent to rdfs:Class." ;
     rdfs:subClassOf :Intangible ;
     owl:equivalentClass rdfs:Class .
 
 :Property a rdfs:Class ;
     rdfs:label "Property" ;
-    :isPartOf <http://meta.schema.org> ;
+    :isPartOf <https://meta.schema.org> ;
     rdfs:comment "A property, used to indicate attributes and relationships of some Thing; equivalent to rdf:Property." ;
     rdfs:subClassOf :Intangible ;
     owl:equivalentClass rdf:Property .
 
-<http://meta.schema.org/> rdfs:label "meta" ;
+<https://meta.schema.org/> rdfs:label "meta" ;
     rdfs:comment "A test comment." .
 
 :domainIncludes a rdf:Property ;
     rdfs:label "domainIncludes" ;
     :domainIncludes :Property ;
-    :isPartOf <http://meta.schema.org> ;
+    :isPartOf <https://meta.schema.org> ;
     :rangeIncludes :Class ;
     rdfs:comment "Relates a property to a class that is (one of) the type(s) the property is expected to be used on." .
 
 :inverseOf a rdf:Property ;
     rdfs:label "inverseOf" ;
     :domainIncludes :Property ;
-    :isPartOf <http://meta.schema.org> ;
+    :isPartOf <https://meta.schema.org> ;
     :rangeIncludes :Property ;
     rdfs:comment "Relates a property to a property that is its inverse. Inverse properties relate the same pairs of items to each other, but in reversed direction. For example, the 'alumni' and 'alumniOf' properties are inverseOf each other. Some properties don't have explicit inverses; in these situations RDFa and JSON-LD syntax for reverse properties can be used." .
 
 :rangeIncludes a rdf:Property ;
     rdfs:label "rangeIncludes" ;
     :domainIncludes :Property ;
-    :isPartOf <http://meta.schema.org> ;
+    :isPartOf <https://meta.schema.org> ;
     :rangeIncludes :Class ;
     rdfs:comment "Relates a property to a class that constitutes (one of) the expected type(s) for values of the property." .
 
@@ -46,7 +48,7 @@
     :domainIncludes :Class,
         :Enumeration,
         :Property ;
-    :isPartOf <http://meta.schema.org> ;
+    :isPartOf <https://meta.schema.org> ;
     :rangeIncludes :Class,
         :Enumeration,
         :Property ;

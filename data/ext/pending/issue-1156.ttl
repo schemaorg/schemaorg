@@ -1,13 +1,14 @@
-@prefix : <http://schema.org/> .
+@prefix : <https://schema.org/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 :LegalForceStatus a rdfs:Class ;
     rdfs:label "LegalForceStatus" ;
-    :category "issue-1156" ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :source <http://publications.europa.eu/mdr/eli/index.html>,
         <https://github.com/schemaorg/schemaorg/issues/1156> ;
     rdfs:comment "A list of possible statuses for the legal force of a legislation." ;
@@ -16,8 +17,7 @@
 
 :LegalValueLevel a rdfs:Class ;
     rdfs:label "LegalValueLevel" ;
-    :category "issue-1156" ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :source <http://publications.europa.eu/mdr/eli/index.html>,
         <https://github.com/schemaorg/schemaorg/issues/1156> ;
     rdfs:comment "A list of possible levels for the legal validity of a legislation." ;
@@ -26,8 +26,7 @@
 
 :Legislation a rdfs:Class ;
     rdfs:label "Legislation" ;
-    :category "issue-1156" ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :source <http://publications.europa.eu/mdr/eli/index.html>,
         <https://github.com/schemaorg/schemaorg/issues/1156> ;
     rdfs:comment "A legal document such as an act, decree, bill, etc. (enforceable or not) or a component of a legal act (like an article)." ;
@@ -37,8 +36,7 @@
 
 :LegislationObject a rdfs:Class ;
     rdfs:label "LegislationObject" ;
-    :category "issue-1156" ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :source <http://publications.europa.eu/mdr/eli/index.html>,
         <https://github.com/schemaorg/schemaorg/issues/1156> ;
     rdfs:comment "A specific object or file containing a Legislation. Note that the same Legislation can be published in multiple files. For example, a digitally signed PDF, a plain PDF and an HTML version." ;
@@ -48,8 +46,7 @@
 
 :AuthoritativeLegalValue a :LegalValueLevel ;
     rdfs:label "AuthoritativeLegalValue" ;
-    :category "issue-1156" ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :source <http://publications.europa.eu/mdr/eli/index.html>,
         <https://github.com/schemaorg/schemaorg/issues/1156> ;
     rdfs:comment "Indicates that the publisher gives some special status to the publication of the document. (\"The Queens Printer\" version of a UK Act of Parliament, or the PDF version of a Directive published by the EU Office of Publications). Something \"Authoritative\" is considered to be also [[OfficialLegalValue]]\"." ;
@@ -57,8 +54,7 @@
 
 :DefinitiveLegalValue a :LegalValueLevel ;
     rdfs:label "DefinitiveLegalValue" ;
-    :category "issue-1156" ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :source <http://publications.europa.eu/mdr/eli/index.html>,
         <https://github.com/schemaorg/schemaorg/issues/1156> ;
     rdfs:comment """Indicates a document for which the text is conclusively what the law says and is legally binding. (e.g. The digitally signed version of an Official Journal.)
@@ -67,8 +63,7 @@
 
 :InForce a :LegalForceStatus ;
     rdfs:label "InForce" ;
-    :category "issue-1156" ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :source <http://publications.europa.eu/mdr/eli/index.html>,
         <https://github.com/schemaorg/schemaorg/issues/1156> ;
     rdfs:comment "Indicates that a legislation is in force." ;
@@ -76,8 +71,7 @@
 
 :NotInForce a :LegalForceStatus ;
     rdfs:label "NotInForce" ;
-    :category "issue-1156" ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :source <http://publications.europa.eu/mdr/eli/index.html>,
         <https://github.com/schemaorg/schemaorg/issues/1156> ;
     rdfs:comment "Indicates that a legislation is currently not in force." ;
@@ -85,8 +79,7 @@
 
 :OfficialLegalValue a :LegalValueLevel ;
     rdfs:label "OfficialLegalValue" ;
-    :category "issue-1156" ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :source <http://publications.europa.eu/mdr/eli/index.html>,
         <https://github.com/schemaorg/schemaorg/issues/1156> ;
     rdfs:comment "All the documents published by an official publisher should have at least the legal value level \"OfficialLegalValue\". This indicates that the document was published by an organisation with the public task of making it available (e.g. a consolidated version of a EU directive published by the EU Office of Publications)." ;
@@ -94,8 +87,7 @@
 
 :PartiallyInForce a :LegalForceStatus ;
     rdfs:label "PartiallyInForce" ;
-    :category "issue-1156" ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :source <http://publications.europa.eu/mdr/eli/index.html>,
         <https://github.com/schemaorg/schemaorg/issues/1156> ;
     rdfs:comment "Indicates that parts of the legislation are in force, and parts are not." ;
@@ -103,8 +95,7 @@
 
 :UnofficialLegalValue a :LegalValueLevel ;
     rdfs:label "UnofficialLegalValue" ;
-    :category "issue-1156" ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :source <http://publications.europa.eu/mdr/eli/index.html>,
         <https://github.com/schemaorg/schemaorg/issues/1156> ;
     rdfs:comment "Indicates that a document has no particular or special standing (e.g. a republication of a law by a private publisher)." ;
@@ -112,9 +103,8 @@
 
 :legislationChanges a rdf:Property ;
     rdfs:label "legislationChanges" ;
-    :category "issue-1156" ;
     :domainIncludes :Legislation ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :Legislation ;
     :source <http://publications.europa.eu/mdr/eli/index.html>,
         <https://github.com/schemaorg/schemaorg/issues/1156> ;
@@ -124,9 +114,8 @@
 
 :legislationConsolidates a rdf:Property ;
     rdfs:label "legislationConsolidates" ;
-    :category "issue-1156" ;
     :domainIncludes :Legislation ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :Legislation ;
     :source <http://publications.europa.eu/mdr/eli/index.html>,
         <https://github.com/schemaorg/schemaorg/issues/1156> ;
@@ -136,9 +125,8 @@
 
 :legislationDate a rdf:Property ;
     rdfs:label "legislationDate" ;
-    :category "issue-1156" ;
     :domainIncludes :Legislation ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :Date ;
     :source <http://publications.europa.eu/mdr/eli/index.html>,
         <https://github.com/schemaorg/schemaorg/issues/1156> ;
@@ -149,9 +137,8 @@
 
 :legislationDateVersion a rdf:Property ;
     rdfs:label "legislationDateVersion" ;
-    :category "issue-1156" ;
     :domainIncludes :Legislation ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :Date ;
     :source <http://publications.europa.eu/mdr/eli/index.html>,
         <https://github.com/schemaorg/schemaorg/issues/1156> ;
@@ -161,9 +148,8 @@
 
 :legislationIdentifier a rdf:Property ;
     rdfs:label "legislationIdentifier" ;
-    :category "issue-1156" ;
     :domainIncludes :Legislation ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :Text,
         :URL ;
     :source <http://publications.europa.eu/mdr/eli/index.html>,
@@ -174,9 +160,8 @@
 
 :legislationJurisdiction a rdf:Property ;
     rdfs:label "legislationJurisdiction" ;
-    :category "issue-1156" ;
     :domainIncludes :Legislation ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :AdministrativeArea,
         :Text ;
     :source <http://publications.europa.eu/mdr/eli/index.html>,
@@ -188,9 +173,8 @@
 
 :legislationLegalForce a rdf:Property ;
     rdfs:label "legislationLegalForce" ;
-    :category "issue-1156" ;
     :domainIncludes :Legislation ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :LegalForceStatus ;
     :source <http://publications.europa.eu/mdr/eli/index.html>,
         <https://github.com/schemaorg/schemaorg/issues/1156> ;
@@ -200,9 +184,8 @@
 
 :legislationLegalValue a rdf:Property ;
     rdfs:label "legislationLegalValue" ;
-    :category "issue-1156" ;
     :domainIncludes :LegislationObject ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :LegalValueLevel ;
     :source <http://publications.europa.eu/mdr/eli/index.html>,
         <https://github.com/schemaorg/schemaorg/issues/1156> ;
@@ -212,9 +195,8 @@
 
 :legislationPassedBy a rdf:Property ;
     rdfs:label "legislationPassedBy" ;
-    :category "issue-1156" ;
     :domainIncludes :Legislation ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :Organization,
         :Person ;
     :source <http://publications.europa.eu/mdr/eli/index.html>,
@@ -226,9 +208,8 @@
 
 :legislationResponsible a rdf:Property ;
     rdfs:label "legislationResponsible" ;
-    :category "issue-1156" ;
     :domainIncludes :Legislation ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :Organization,
         :Person ;
     :source <http://publications.europa.eu/mdr/eli/index.html>,
@@ -239,9 +220,8 @@
 
 :legislationTransposes a rdf:Property ;
     rdfs:label "legislationTransposes" ;
-    :category "issue-1156" ;
     :domainIncludes :Legislation ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :Legislation ;
     :source <http://publications.europa.eu/mdr/eli/index.html>,
         <https://github.com/schemaorg/schemaorg/issues/1156> ;
@@ -252,9 +232,8 @@
 
 :legislationType a rdf:Property ;
     rdfs:label "legislationType" ;
-    :category "issue-1156" ;
     :domainIncludes :Legislation ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :CategoryCode,
         :Text ;
     :source <http://publications.europa.eu/mdr/eli/index.html>,
@@ -266,9 +245,8 @@
 
 :legislationApplies a rdf:Property ;
     rdfs:label "legislationApplies" ;
-    :category "issue-1156" ;
     :domainIncludes :Legislation ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :Legislation ;
     :source <http://publications.europa.eu/mdr/eli/index.html>,
         <https://github.com/schemaorg/schemaorg/issues/1156> ;
@@ -278,5 +256,6 @@
 
 <http://publications.europa.eu/mdr/eli/index.html> a :Organization ;
     rdfs:label "ELI" ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     rdfs:comment "This entry is derived from the [ELI ontology](http://publications.europa.eu/mdr/eli/index.html) (European Legislation Identifier). ELI is an initiative of some national legislation publishers endorsed by EU countries and Institutions, to identify, describe and link legislation on the web, and is led by the [ELI taskforce](http://eur-lex.europa.eu/eli-register/about.html)." .
+
