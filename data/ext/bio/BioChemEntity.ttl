@@ -1,0 +1,133 @@
+@prefix schema: <http://schema.org/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix dc: <http://purl.org/dc/terms/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+schema:BioChemEntity
+  a rdfs:Class ;
+  schema:isPartOf <http://bio.schema.org> ;
+  rdfs:label "BioChemEntity" ;
+  rdfs:comment "Any biological, chemical, or biochemical thing. For example: a protein; a gene; a chemical; a synthetic chemical." ;
+  rdfs:subClassOf schema:Thing ;
+  dc:source <http://bioschemas.org> .
+
+schema:associatedDisease
+  a rdf:Property ;
+  schema:isPartOf <http://bio.schema.org> ;
+  rdfs:label "associatedDisease" ;
+  rdfs:comment "Disease associated to this BioChemEntity. Such disease can be a MedicalCondition or a URL. If you want to add an evidence supporting the association, please use PropertyValue." ;
+  schema:domainIncludes schema:BioChemEntity ;
+  schema:rangeIncludes schema:MedicalCondition, schema:PropertyValue, schema:URL ;
+  dc:source <http://www.bioschemas.org/BioChemEntity> .
+
+schema:bioChemInteraction
+  a rdf:Property ;
+  schema:isPartOf <http://bio.schema.org> ;
+  rdfs:label "bioChemInteraction" ;
+  rdfs:comment "A BioChemEntity that is known to interact with this item." ;
+  schema:domainIncludes schema:BioChemEntity ;
+  schema:rangeIncludes schema:BioChemEntity ;
+  dc:source <http://www.bioschemas.org> .
+
+schema:bioChemSimilarity
+  a rdf:Property ;
+  schema:isPartOf <http://bio.schema.org> ;
+  rdfs:label "bioChemSimilarity" ;
+  rdfs:comment "A similar BioChemEntity, e.g., obtained by fingerprint similarity algorithms." ;
+  schema:domainIncludes schema:BioChemEntity ;
+  schema:rangeIncludes schema:BioChemEntity ;
+  dc:source <http://www.bioschemas.org> .
+
+schema:hasBioChemEntityPart
+  a rdf:Property ;
+  schema:isPartOf <http://bio.schema.org> ;
+  rdfs:label "hasBioChemEntityPart" ;
+  rdfs:comment "Indicates a BioChemEntity that (in some sense) has this BioChemEntity as a part. " ;
+  schema:domainIncludes schema:BioChemEntity ;
+  schema:rangeIncludes schema:BioChemEntity ;
+  schema:inverseOf schema:isPartOfBioChemEntity ;
+  dc:source <http://www.bioschemas.org> .
+
+schema:hasRepresentation
+  a rdf:Property ;
+  schema:isPartOf <http://bio.schema.org> ;
+  rdfs:label "hasRepresentation" ;
+  rdfs:comment "A common representation such as a protein sequence or chemical structure for this entity. For images use schema.org/image." ;
+  schema:domainIncludes schema:BioChemEntity ;
+  schema:rangeIncludes schema:PropertyValue, schema:Text, schema:URL ;
+  dc:source <http://www.bioschemas.org> .
+
+schema:isEncodedByBioChemEntity
+  a rdf:Property ;
+  schema:isPartOf <http://bio.schema.org> ;
+  rdfs:label "isEncodedByBioChemEntity" ;
+  rdfs:comment "Another BioChemEntity encoding by this one." ;
+  schema:domainIncludes schema:BioChemEntity ;
+  schema:rangeIncludes schema:Gene ;
+  schema:inverseOf schema:encodesBioChemEntity ;
+  dc:source <http://www.bioschemas.org/Gene> .
+
+schema:encodesBioChemEntity
+  a rdf:Property ;
+  schema:isPartOf <http://bio.schema.org> ;
+  rdfs:label "encodesBioChemEntity" ;
+  rdfs:comment "Another BioChemEntity encoded by this one. " ;
+  schema:domainIncludes schema:Gene ;
+  schema:rangeIncludes schema:BioChemEntity ;
+  schema:inverseOf schema:isEncodedByBioChemEntity ;
+  dc:source <http://www.bioschemas.org/Gene> .
+
+schema:isPartOfBioChemEntity
+  a rdf:Property ;
+  schema:isPartOf <http://bio.schema.org> ;
+  rdfs:label "isPartOfBioChemEntity" ;
+  rdfs:comment "Indicates a BioChemEntity that is (in some sense) a part of this BioChemEntity. " ;
+  schema:domainIncludes schema:BioChemEntity ;
+  schema:rangeIncludes schema:BioChemEntity ;
+  schema:inverseOf schema:hasBioChemEntityPart ;
+  dc:source <http://www.bioschemas.org> .
+
+schema:taxonomicRange
+  a rdf:Property ;
+  schema:isPartOf <http://bio.schema.org> ;
+  rdfs:label "taxonomicRange" ;
+  rdfs:comment "The taxonomic grouping of the organism that expresses, encodes, or in someway related to the BioChemEntity." ;
+  schema:domainIncludes schema:BioChemEntity ;
+  schema:rangeIncludes schema:Taxon, schema:Text, schema:URL, schema:DefinedTerm ;
+  dc:source <http://www.bioschemas.org> .
+
+schema:biologicalRole
+  a rdf:Property ;
+  schema:isPartOf <http://bio.schema.org> ;
+  rdfs:label "biologicalRole" ;
+  rdfs:comment "A role played by the BioChemEntity within a biological context." ;
+  schema:domainIncludes schema:BioChemEntity ;
+  schema:rangeIncludes schema:DefinedTerm ;
+  dc:source <http://www.bioschemas.org> .
+
+schema:hasMolecularFunction
+  a rdf:Property ;
+  schema:isPartOf <http://bio.schema.org> ;
+  rdfs:label "hasMolecularFunction" ;
+  rdfs:comment "Molecular function performed by this BioChemEntity; please use PropertyValue if you want to include any evidence." ;
+  schema:domainIncludes schema:BioChemEntity ;
+  schema:rangeIncludes schema:DefinedTerm, schema:PropertyValue, schema:URL ;
+  dc:source <http://www.bioschemas.org/BioChemEntity> .
+
+schema:isInvolvedInBiologicalProcess
+  a rdf:Property ;
+  schema:isPartOf <http://bio.schema.org> ;
+  rdfs:label "isInvolvedInBiologicalProcess" ;
+  rdfs:comment "Biological process this BioChemEntity is involved in; please use PropertyValue if you want to include any evidence." ;
+  schema:domainIncludes schema:BioChemEntity ;
+  schema:rangeIncludes schema:DefinedTerm, schema:PropertyValue, schema:URL ;
+  dc:source <http://www.bioschemas.org/BioChemEntity> .
+
+schema:isLocatedInSubcellularLocation
+  a rdf:Property ;
+  schema:isPartOf <http://bio.schema.org> ;
+  rdfs:label "isLocatedInSubcellularLocation" ;
+  rdfs:comment "Subcellular location where this BioChemEntity is located; please use PropertyValue if you want to include any evidence." ;
+  schema:domainIncludes schema:BioChemEntity ;
+  schema:rangeIncludes schema:DefinedTerm, schema:PropertyValue, schema:URL ;
+  dc:source <http://www.bioschemas.org/BioChemEntity> .
