@@ -1599,11 +1599,6 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     rdfs:comment "A statement of the money due for goods or services; a bill." ;
     rdfs:subClassOf :Intangible .
 
-:IssuerScope a rdfs:Class ;
-    rdfs:label "IssuerScope" ;
-    rdfs:comment "A scope of document issuance authority that an entity (Organization or Person) has. This includes the type of documents the entity may issue as well as any particular way that authority is exercised." ;
-    rdfs:subClassOf :Intangible .
-
 :ItemAvailability a rdfs:Class ;
     rdfs:label "ItemAvailability" ;
     rdfs:comment "A list of possible product availability options." ;
@@ -5339,12 +5334,6 @@ Dateline summaries are oriented more towards human readers than towards automate
         :Thing ;
     rdfs:comment "The default value of the input.  For properties that expect a literal, the default is a literal value, for properties that expect an object, it's an ID reference to one of the current values." .
 
-:delegationDepth a rdf:Property ;
-    rdfs:label "delegationDepth" ;
-    :domainIncludes :IssuerScope ;
-    :rangeIncludes :Number ;
-    :rdfs:comment "A number of delegation hops for a capability. The value must be a non-negative number. A value of 0 means no delegation, 1 means the capability can be delegated directly, 2 means the entity that gets the delegated capability may itself delegate it directly, and so on." .
-
 :deliveryAddress a rdf:Property ;
     rdfs:label "deliveryAddress" ;
     :domainIncludes :ParcelDelivery ;
@@ -6208,14 +6197,6 @@ Typical unit code(s): MTK for square meter, FTK for square foot, or YDK for squa
     :rangeIncludes :DigitalDocumentPermission ;
     rdfs:comment "A permission related to the access to this document (e.g. permission to read or write an electronic document). For a public document, specify a grantee with an Audience with audienceType equal to \"public\"." .
 
-:hasIssuingAuthority a rdf:Property ;
-    rdfs:label "hasIssuingAuthority" ;
-    :domainIncludes :Person,
-        :Organization ;
-    :rangeIncludes :IssuerScope ;
-    :source <https://github.com/schemaorg/schemaorg/issues/2854> ;
-    rdfs:comment "The authority of an Organization or a Person to issue certain kinds of documents, such as certificates or permits. Such authority may be legal, moral, de facto, self-assigned, etc. depending on the context." .
-
 :hasMenuItem a rdf:Property ;
     rdfs:label "hasMenuItem" ;
     :domainIncludes :Menu,
@@ -6527,12 +6508,6 @@ Typical unit code(s): MTK for square meter, FTK for square foot, or YDK for squa
     :rangeIncludes :Product,
         :Service ;
     rdfs:comment "A pointer to another, functionally similar product (or multiple products)." .
-
-:issuerFor a rdf:Property ;
-    rdfs:label "issuerFor" ;
-    :domainIncludes :IssuerScope ;
-    :rangeIncludes :Thing ;
-    :rdfs:comment "Indicates the kind of attestation (e.g. certificate, permit, etc.) an entity is a recognized issuer for. Examples include a property in a Verifiable Credential, the URL describing a type of local permit in a town, a technical certification code, or even a plain-text description of what the entity may issue." .
 
 :isVariantOf a rdf:Property ;
     rdfs:label "isVariantOf" ;
