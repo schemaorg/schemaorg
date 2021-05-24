@@ -4748,7 +4748,8 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 :buyer a rdf:Property ;
     rdfs:label "buyer" ;
     :domainIncludes :SellAction ;
-    :rangeIncludes :Person ;
+    :rangeIncludes :Organization,
+        :Person ;
     rdfs:comment "A sub property of participant. The participant/person/organization that bought the object." ;
     rdfs:subPropertyOf :participant .
 
