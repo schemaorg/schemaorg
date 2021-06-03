@@ -1,1 +1,16 @@
-blah
+:actor a rdf:Property ;
+    rdfs:label "actor" ;
+    :domainIncludes :Clip,
+        :CreativeWorkSeason,
+        :Episode,
+        :Event,
+        :PodcastSeries,
+        :Movie,
+        :MovieSeries,
+        :RadioSeries,
+        :TVSeries,
+        :VideoGame,
+        :VideoGameSeries,
+        :VideoObject ;
+    :rangeIncludes :Person ;
+    rdfs:comment "An actor, e.g. in tv, radio, movie, video games etc., or in an event. Actors can be associated with individual items or with a series, episode, clip." .
