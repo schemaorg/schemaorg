@@ -70,11 +70,11 @@ Formats and standards
 
 All schemas and examples are in data/ in utf-8 encoded files.
 
-The main schemas file is data/schema.rdfa (utf-8)
+The main schemas file is data/schema.ttl (utf-8)
 
-While developing schemas, using data/sdo-somethinghere-schema.rdfa can be useful.
+While developing schemas, using data/sdo-somethinghere-schema.ttl can be useful.
 
-The format is based on W3C RDFS in HTML/RDFa format, see https://schema.org/docs/datamodel.html
+The format is based on W3C RDFS in RDF/Turtle format.
 
 The examples are stored in data/examples.txt (utf-8) and other *.txt files.
 
