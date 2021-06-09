@@ -214,10 +214,14 @@ For an [[AudioObject]] to be 'satire or parody content': Audio that was created 
     :source <https://github.com/schemaorg/schemaorg/issues/2450> ;
     rdfs:comment "Represents textual captioning from a [[MediaObject]], e.g. text of a 'meme'." .
 
-
-# TODO
-# * Define some relationship from the MediaReview or the associated claim, to one or more appearances of the media item. Drafted using "appearance" here for now.
-
+:mediaItemAppearance a rdf:Property ;
+    rdfs:label "mediaItemAppearance" ;
+    :domainIncludes :MediaReviewItem ;
+    :isPartOf <https://pending.schema.org> ;
+    rdfs:subPropertyOf :caption ;
+    :rangeIncludes :MediaObject ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2450> ;
+    rdfs:comment "In the context of a [[MediaReview]], indicates specific media item(s) that are grouped using a [[MediaReviewItem]]." .
 
 
 # To consider: create a common supertype of the snapshot types.
