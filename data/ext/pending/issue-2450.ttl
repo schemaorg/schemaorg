@@ -4,7 +4,7 @@
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-
+# Issue 2450 + also based on https://github.com/schemaorg/schemaorg/issues/2844
 
 :MediaManipulationRatingEnumeration a rdfs:Class ;
 rdfs:label "MediaManipulationRatingEnumeration" ;
@@ -144,3 +144,113 @@ For an [[ImageObject]] with embedded text to be 'satire or parody content': An i
 
 For an [[AudioObject]] to be 'satire or parody content': Audio that was created as political or humorous commentary and is presented in that context. (Reshares of satire/parody content that do not include relevant context are more likely to fall under the “missing context” rating.)
 """ .
+
+
+
+
+
+:originalMediaContextDescription a rdf:Property ;
+    rdfs:label "originalMediaContextDescription" ;
+    :domainIncludes :MediaReview ;
+    rdfs:subPropertyOf :description ;
+    :isPartOf <https://pending.schema.org> ;
+    :rangeIncludes :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2450> ;
+    rdfs:comment "Describes, in a [[MediaReview]] when dealing with [[DecontextualizedContent]], background information that can contribute to better interpretation of the [[MediaObject]]." .
+
+:sha256 a rdf:Property ;
+    rdfs:label "sha256" ;
+    :domainIncludes :MediaObject ;
+    rdfs:subPropertyOf :description ;
+    :isPartOf <https://pending.schema.org> ;
+    :rangeIncludes :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2450> ;
+    rdfs:comment "The [SHA-2](https://en.wikipedia.org/wiki/SHA-2) SHA256 hash of the content of the item. For example, a zero-length input has value 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855'" .
+
+:interpretedAsClaim a rdf:Property ;
+    rdfs:label "interpretedAsClaim" ;
+    :domainIncludes :MediaObject, :CreativeWork;
+    rdfs:subPropertyOf :description ;
+    :isPartOf <https://pending.schema.org> ;
+    :rangeIncludes :Claim ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2450> ;
+    rdfs:comment """Used to indicate a specific claim contained, implied, translated or refined from the content of a [[MediaObject]] or other [[CreativeWork]]. The interpreting party can be indicated using [[claimInterpreter]].""" .
+
+:claimInterpreter a rdf:Property ;
+    rdfs:label "claimInterpreter" ;
+    :domainIncludes :Claim ;
+    :isPartOf <https://pending.schema.org> ;
+    :rangeIncludes :Person, :Organization ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2450> ;
+    rdfs:comment """For a [[Claim]] interpreted from [[MediaObject]] content
+    sed to indicate a claim contained, implied or refined from the content of a [[MediaObject]].""" .
+
+:archivedAt a rdf:Property ;
+    rdfs:label "archivedAt" ;
+    :domainIncludes :CreativeWork ;
+    :isPartOf <https://pending.schema.org> ;
+    :rangeIncludes :URL, :WebPage ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2450> ;
+    rdfs:comment """Indicates a page or other link involved in archival of a [[CreativeWork]]. In the case of [[MediaReview]], the items in a [[MediaReviewItem]] may often become inaccessible, but be archived by archival, journalistic, activist, or law enforcement organizations. In such cases, the referenced page may not directly publish the content.""".
+
+:originalMediaLink a rdf:Property ;
+    rdfs:label "originalMediaLink" ;
+    :domainIncludes :MediaReview ;
+    :isPartOf <https://pending.schema.org> ;
+    :rangeIncludes :URL, :MediaObject, :WebPage ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2450> ;
+    rdfs:comment """Link to the page containing an original version of the content, or directly to an online copy of the original [[MediaObject]] content, e.g. video file.""".
+
+
+
+
+
+:embeddedTextCaption a rdf:Property ;
+    rdfs:label "embeddedTextCaption" ;
+    :domainIncludes :MediaObject ;
+    :isPartOf <https://pending.schema.org> ;
+    rdfs:subPropertyOf :caption ;
+    :rangeIncludes :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2450> ;
+    rdfs:comment "Represents textual captioning from a [[MediaObject]], e.g. text of a 'meme'." .
+
+
+# TODO
+# * Define some relationship from the MediaReview or the associated claim, to one or more appearances of the media item. Drafted using "appearance" here for now.
+
+
+
+# To consider: create a common supertype of the snapshot types.
+
+:ImageObjectSnapshot a rdfs:Class ;
+    rdfs:label "ImageObjectSnapshot" ;
+    :isPartOf <https://pending.schema.org> ;
+    rdfs:subClassOf :ImageObject ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2450> ;
+    rdfs:comment """A specific and exact (byte-for-byte) version of an [[ImageObject]]. Two byte-for-byte identical files, for the purposes of this type, considered identical. If they have different embedded metadata (e.g. XMP, EXIF) the files will differ. Different external facts about the files, e.g. creator or dateCreated that aren't represented in their actual content, do not affect this notion of identity."""
+    .
+
+:AudioObjectSnapshot a rdfs:Class ;
+    rdfs:label "AudioObjectSnapshot" ;
+    :isPartOf <https://pending.schema.org> ;
+    rdfs:subClassOf :AudioObject ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2450> ;
+    rdfs:comment """A specific and exact (byte-for-byte) version of an [[AudioObject]]. Two byte-for-byte identical files, for the purposes of this type, considered identical. If they have different embedded metadata the files will differ. Different external facts about the files, e.g. creator or dateCreated that aren't represented in their actual content, do not affect this notion of identity."""
+    .
+
+:VideoObjectSnapshot a rdfs:Class ;
+    rdfs:label "VideoObjectSnapshot" ;
+    :isPartOf <https://pending.schema.org> ;
+    rdfs:subClassOf :VideoObject ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2450> ;
+    rdfs:comment """A specific and exact (byte-for-byte) version of a [[VideoObject]]. Two byte-for-byte identical files, for the purposes of this type, considered identical. If they have different embedded metadata the files will differ. Different external facts about the files, e.g. creator or dateCreated that aren't represented in their actual content, do not affect this notion of identity."""
+    .
+
+# We could be clearer about authorship, vs. model this as an Intangible.
+:MediaReviewItem a rdfs:Class ;
+    rdfs:label "MediaReviewItem" ;
+    :isPartOf <https://pending.schema.org> ;
+    rdfs:subClassOf :CreativeWork ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2450> ;
+    rdfs:comment """Represents an item or group of closely related items treated as a unit for the sake of evaluation in a [[MediaReview]]. Authorship etc. apply to the items rather than to the curation/grouping or reviewing party."""
+    .
