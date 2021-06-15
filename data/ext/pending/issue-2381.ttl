@@ -248,7 +248,15 @@
     :rangeIncludes :MonetaryAmount ;
     :source <https://github.com/schemaorg/schemaorg/issues/2880> ;
     rdfs:comment "Amount of shipping costs for defect product returns. Applicable when property [[itemDefectReturnFees]] equals [[ReturnShippingFees]]." .
-	
+
+:returnShippingFeesAmount a rdf:Property ;
+    rdfs:label "returnShippingFeesAmount" ;
+    :domainIncludes :MerchantReturnPolicy ;
+    :isPartOf <https://pending.schema.org> ;
+    :rangeIncludes :MonetaryAmount ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2880> ;
+    rdfs:comment "Amount of shipping costs for product returns (for any reason). Applicable when property [[returnFees]] equals [[ReturnShippingFees]]." .
+
 :customerRemorseReturnFees a rdf:Property ;
     rdfs:label "customerRemorseReturnFees" ;
     :domainIncludes :MerchantReturnPolicy ;
@@ -289,6 +297,14 @@
     :rangeIncludes :ReturnLabelSourceEnumeration ;
     :source <https://github.com/schemaorg/schemaorg/issues/2880> ;
     rdfs:comment "The method (from an enumeration) by which the customer obtains a return shipping label for a product returned due to customer remorse." .
+
+:returnLabelSource a rdf:Property ;
+    rdfs:label "returnLabelSource" ;
+    :domainIncludes :MerchantReturnPolicy ;
+    :isPartOf <https://pending.schema.org> ;
+    :rangeIncludes :ReturnLabelSourceEnumeration ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2880> ;
+    rdfs:comment "The method (from an enumeration) by which the customer obtains a return shipping label for a product returned for any reason." .
 
 :MerchantReturnPolicySeasonalOverride a rdfs:Class ;
     rdfs:label "MerchantReturnPolicySeasonalOverride" ;
