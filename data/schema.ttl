@@ -4031,6 +4031,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     rdfs:label "additionalProperty" ;
     :domainIncludes :Place,
         :Product,
+        :MerchantReturnPolicy,
         :QualitativeValue,
         :QuantitativeValue ;
     :rangeIncludes :PropertyValue ;
@@ -5710,7 +5711,8 @@ This property should not be used where the nature of the alignment can be descri
         :CreativeWorkSeries,
         :DatedMoneySpecification,
         :Event,
-        :Role ;
+        :Role,
+        :MerchantReturnPolicySeasonalOverride ;
     :rangeIncludes :Date,
         :DateTime ;
     rdfs:comment "The end date and time of the item (in [ISO 8601 date format](http://en.wikipedia.org/wiki/ISO_8601))." .
@@ -6600,9 +6602,10 @@ Typical unit code(s): MTK for square meter, FTK for square foot, or YDK for squa
     rdfs:label "itemCondition" ;
     :domainIncludes :Demand,
         :Offer,
-        :Product ;
+        :Product,
+        :MerchantReturnPolicy ;
     :rangeIncludes :OfferItemCondition ;
-    rdfs:comment "A predefined value from OfferItemCondition or a textual description of the condition of the product or service, or the products or services included in the offer." .
+    rdfs:comment "A predefined value from OfferItemCondition specifying the condition of the product or service, or the products or services included in the offer. Also used for product return policies to specify the condition of products accepted for returns." .
 
 :itemListElement a rdf:Property ;
     rdfs:label "itemListElement" ;
@@ -8710,7 +8713,8 @@ we define a supporting type, [[SpeakableSpecification]]  which is defined to be 
         :CreativeWorkSeries,
         :DatedMoneySpecification,
         :Event,
-        :Role ;
+        :Role,
+        :MerchantReturnPolicySeasonalOverride ;
     :rangeIncludes :Date,
         :DateTime ;
     rdfs:comment "The start date and time of the item (in [ISO 8601 date format](http://en.wikipedia.org/wiki/ISO_8601))." .
