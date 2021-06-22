@@ -6,9 +6,6 @@
 * Status of this document: Discussion proposal only. Experimental implementation welcomed, please do not assume stability.
 
 
-todo
- * add "pages mentioned in" / "main page for me (on this site)"
-
 ## Abstract
 
 This is a draft of a simple "Schema.org Feeds" specification, introducing conventions for site-level rather than inline page-level publication of machine-readable structured data. Future revisions may explore other publication mechanisms, such as per-page files referenced via links.
@@ -68,6 +65,7 @@ Two (as yet tentative) schema.org properties can be used with WebSite to point t
 
   This specification does not itself impose any specific structure on Feeds beyond introducing/standardizing the notion of Schema.org in stand-alone files rather than embedded in HTML.
 
+Regardless of whether .well-known or schema markup is used to discover these URLs, we introduce the terminology of "general feed-data URL" and "table of contents feed-data URL" to describe the two flavours of DataFeed.
 
 ## Advanced Topics (potential future )
 
@@ -78,9 +76,18 @@ These topics could be explored in future revisions of this document.
 Building on the notion of Schema.org Feeds, we can introduce the notion of Schema.org Feeds that validate to a specific "vertical" data structure, specified using W3C SHACL or ShEx. For example,
 a "conformsTo" property might indicate machine-readable validation rules defining the expected content of the feed.
 
+### Associating Structured Data with Site urls
+
+In the general case, a Schema.org Feed, or any other feed, might not have an obvious structural link to the URLs that make up the rest of the site.
+
+However, in practice, Schema.org data is typically deployed across the pages of a site. It is useful to retain these associations, while reducing the redundancy.
+
+The recommendated
+
 ### Other topics
 
  * Dataset diffs using https://schema.org/DataFeedItem can avoid need to re-transfer huge feeds repeatedly, but comes with subtle cornercases.
  * Pagination - idea of schema json-ld data being served (per page or in larger chunks) from a different URL instead of embedded via script tag.
  * per-page schema.org in separate files rather than pages.
  * mechanisms to associate feeds or their parts with pages (beyond the /url property).
+ * add "pages mentioned in" / "main page for me (on this site)" as a best practice convention for sites to tie feeds to
