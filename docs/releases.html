@@ -61,9 +61,10 @@ ul {
 
 <p>This page lists schema.org releases, most recent first. New developments are <a href="https://github.com/schemaorg/schemaorg">discussed on Github</a>; editorial works-in-progress
   are publicly staged on the <a href="http://webschemas.org/">webschemas.org</a> drafting site for review and collaboration. See <a href="howwework.html">how we work</a> for more background.</p>
-<br/>
-Current Published Release: <a href="https://schema.org/version/latest">https://schema.org/version/latest</a>
-<br/>
+
+<p>
+A summary view of the current published release is available from: <a href="https://schema.org/version/latest">https://schema.org/version/latest</a>
+</p>
 
 <div class="scroll-div">
 <span id="v.next"></span>
@@ -77,16 +78,12 @@ Current Published Release: <a href="https://schema.org/version/latest">https://s
 
 
 <tr>
-
-
-
+<td class="release"><a href="http://htmlpreview.github.io/?https://github.com/schemaorg/schemaorg/blob/main/data/releases/13.0/schema-all.html">13.0</a><br/>2021-07-xx</td>
   <td>
   <span id="v13.0"></span>
   <p>
-  Version 13.0 -
-  see <a href="https://github.com/schemaorg/schemaorg/issues/2884">planning pages</a>.
-
-  </p>
+  Version 13.0 - see <a href="https://github.com/schemaorg/schemaorg/issues/2884">planning pages</a>. This release includes improvements proposed via the <a href="/docs/pending.home.html/">Pending</a> section, in particular a number of terms proposed by the <a href="https://bioschemas.org/">Bioschemas</a> project, alongside other additions around e-commerce returns policy markup, job postings, and MediaReview markup.
+</p>
   </td>
   <td>
   <h2>Vocabulary</h2>
@@ -160,21 +157,55 @@ A type <a href="/Protein">Protein</a> with additional property
   and <a href="/itemCondition">itemCondition</a> to <a href="/MerchantReturnPolicy">MerchantReturnPolicy</a>
   and <a href="/hasMerchantReturnPolicy">hasMerchantReturnPolicy</a> to <a href="/Offer">Offer</a></li>
 
+  <li id="g2907"><a href="https://github.com/schemaorg/schemaorg/issues/2907">Issue #2907</a>: Added <a href="/directApply">directApply</a> property to indicate on a <a href="/JobPosting">JobPosting</a> whether
+  direct applications are supported.</li>
+
+<li id="g2844b"><a href="https://github.com/schemaorg/schemaorg/issues/2844">Issue #2844</a>: Additional detail for <a href="/MediaReview">MediaReview</a> description.
+
+
+To cross-reference (via link or embedded description) between <a href="/ClaimReview">ClaimReview</a>
+and <a href="/MediaReview">MediaReview</a>, two new properties:
+<a href="/associatedClaimReview">associatedClaimReview</a>,
+<a href="/associatedMediaReview">associatedMediaReview</a>. These are defined as specializations of a
+common superproperty: <a href="/associatedReview">associatedReview</a>.
+
+To describe exact, specific, "frozen" snapshots of a potentially changing
+<a href="/MediaObject">MediaObject</a>, three new types:
+  <a href="/ImageObjectSnapshot">ImageObjectSnapshot</a>,
+  <a href="/AudioObjectSnapshot">AudioObjectSnapshot</a>,
+  <a href="/VideoObjectSnapshot">VideoObjectSnapshot</a>. A new property,
+  <a href="/sha256">sha256</a>, can be used to identify the specific file by a
+  <a href="https://en.wikipedia.org/wiki/Cryptographic_hash_function">hash</a> of its contents.
+  To group together multiple elements for reference by <a href="/itemReviewed">itemReviewed</a>, a new
+  type:  <a href="/MediaReviewItem">MediaReviewItem</a>. Its property,
+  <a href="/mediaItemAppearance">mediaItemAppearance</a>, can use the "snapshot" types to bundle
+  several different appearances of the same basic media item.
+  For the case of an image with embedded text, a new property:  <a href="/embeddedTextCaption">embeddedTextCaption</a> (a subproperty of   <a href="/caption">caption</a>). To characterize the original context of a potentially decontextualized media item, a property   <a href="/originalMediaContextDescription">originalMediaContextDescription</a>, alongside
+  <a href="/originalMediaLink">originalMediaLink</a>,
+  <a href="/embeddedTextCaption">embeddedTextCaption</a>,
+  <a href="/interpretedAsClaim">interpretedAsClaim</a>,
+  <a href="/claimInterpreter">claimInterpreter</a>, and
+  <a href="/archivedAt">archivedAt</a> to provide additional supporting information useful for fact checking and
+  misinformation-related workflows.
+</li>
 
 </ul>
 
+
   <h3>Site Improvements</h3>
 
-</td>
-<td>
-  <h3>Site Improvements</h3>
+<ul>
+  <li id="g2790"><a href="https://github.com/schemaorg/schemaorg/issues/2790">Issue #2790</a>: Schema Markup Validator: <a href="https://validator.schema.org/">validator.schema.org</a> is available for review. See <a href="/docs/validator.html">documentation</a> for details.</li>
+
+  <li id="g2891"><a href="https://github.com/schemaorg/schemaorg/issues/2891">Issue #2891</a>: Published draft <a href="/docs/feeds.html">Schema.org Feeds</a> specification for implementor discussion and feedback.</li>
+</ul>
 
 </td>
+</tr>
 
 
 
-
-
+<tr>
 <td class="release"><a href="http://htmlpreview.github.io/?https://github.com/schemaorg/schemaorg/blob/main/data/releases/12.0/schema-all.html">12.0</a><br/>2021-03-08</td>
 <td>
 <span id="v12.0"></span>
