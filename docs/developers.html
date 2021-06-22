@@ -15,19 +15,37 @@
 <h2>Schema.org for Developers</h2>
 
 <p>
-This is a placeholder page for developer-oriented information about schema.org. In particular it gives access to machine-readable representations of our schemas.
+This page provides basic developer-oriented information about Schema.org. In particular it gives access to machine-readable representations of our schemas.
 </p>
 
 
 <h2 id="conneg">Machine Readable Term Definitions</h2>
 
-<p>Machine-readable definitions of individual terms are available as JSON-LD, embedded into the term page html. </p>
+<p>
+  There are various ways to access machine-readable definitions of Schema.org terms.</p>
+
+<ul>
+  <li>The underlying source files are all available in our
+    <a href="http://github.com/schemaorg/schemaorg/">Github repository</a>. Editorial work is conducted in Turtle format, and defined using an approach
+    <a href="datamodel.html">based on</a> <a href="https://en.wikipedia.org/wiki/RDF_Schema">RDF Schema</a>.
+  </li>
+  <li>Period releases are published on the Schema.org site, after staging on webschemas.org. The corresponding data files are linked below, and are also available <a href="https://github.com/schemaorg/schemaorg/tree/main/data/releases">at Github</a>.</li>
+  <li>Machine-readable definitions of individual terms are also available as JSON-LD, embedded into the term page HTML. Note that in many cases, it is more useful to consider schema.org as a whole.</li>
+  <li>As noted in the <a href="https://schema.org/docs/faq.html#19">FAQ</a>,
+    the Schema.org URI is sometimes written with 'http', and sometimes with 'https'. Consuming applications are encouraged to accept both representations, and we now generate downloads in both "flavours" as a convenience. In editorial work "on disk" we use the 'https' form. However
+    other sites and applications are likely to be using 'http', especially in
+    RDF representations. Although we encourage a move towards 'https', note in
+    particular that the JSON-LD context file for Schema.org uses 'http', and we are unlikely to change this without a long warning period due to the impact it would have on deployed installations. Feedback on this is welcome, e.g.
+    in this <a href="https://github.com/schemaorg/schemaorg/issues/2886">github issue</a>.
+  </li>
+  <li>The JSON-LD context is available from https://schema.org/docs/jsonldcontext.json. Schema.org is typically deployed in JSON-LD 1.0, but the location of our context file is exposed via JSON-LD 1.1 conventions, as an HTTP link header (the commandline tool 'curl' can be useful, e.g. used with  -I -i arguments). We serve the same context description regardless of whether
+    the context is retrieved with http or https.</li>
+</ul>
+
 
 <h2 id="defs">Vocabulary Definition Files</h2>
 
-<p>To assist developers, files containing the definition of the current version of the Schema.org vocabulary is available for download in common RDF formats.</p>
-
-<p>Older release versions can be found (under <code>data/releases/</code>) in <a href="https://github.com/schemaorg/schemaorg">GitHub</a>.
+<p>To assist developers, files containing the definition of the current version of the Schema.org vocabulary is available for download in common RDF formats. In addition to the links below, older release versions can be found (under <code>data/releases/</code>) in <a href="https://github.com/schemaorg/schemaorg">GitHub</a>.
 
 <p>Select the file and format required and click Download.  The CSV format downloads are split across two files: <em>Types</em> includes definitions of Types and Enumeration Values, including lists of associated properties; <em>Properties</em> contains property definitions.<br/>
 <br/>
@@ -52,7 +70,7 @@ File <em>schemaorg-current-https</em> contains the definition of all terms in, a
 			</select>
 	</td>
 	<td style="width: 30%;">
-		Format: <br/> 
+		Format: <br/>
         <select id="fileext" onchange="updatetext()">
 				<option value=".jsonld">JSON-LD</option>
 				<option value=".ttl">Turtle</option>
@@ -79,7 +97,7 @@ File <em>schemaorg-current-https</em> contains the definition of all terms in, a
 	</td></tr>
 
 	</table>
-    <h2  id="experiments">Experimental/Unsupported</h2>
+    <h2  id="experiments">Experimental</h2>
 
    <p>The following representations are <em>experimental</em> and may change or be removed in future releases.</p>
 
@@ -131,7 +149,7 @@ function updatetext(){
 	else{
 		document.getElementById("csvsel").style.display = 'none';
 	}
-	
+
 	port = window.location.port
 	if(port == "" || port == 0){
 		port = "";
@@ -139,7 +157,7 @@ function updatetext(){
 	else{
 		port = ":" + port;
 	}
-	
+
 	host = window.location.protocol + "//" + window.location.hostname + port;
 	filepath = host + getschemafilename();
 
