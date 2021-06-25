@@ -5127,7 +5127,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
         :TVSeason,
         :TVSeries ;
     :rangeIncludes :Country ;
-    rdfs:comment """The country of origin of something, including products as well as creative  works such as movie and TV content. 
+    rdfs:comment """The country of origin of something, including products as well as creative  works such as movie and TV content.
 
 In the case of TV and movie, this would be the country of the principle offices of the production company or individual responsible for the movie. For other kinds of [[CreativeWork]] it is difficult to provide fully general guidance, and properties such as [[contentLocation]] and [[locationCreated]] may be more applicable.
 
@@ -5721,7 +5721,7 @@ This property should not be used where the nature of the alignment can be descri
     rdfs:label "endTime" ;
     :domainIncludes :Action,
         :FoodEstablishmentReservation,
-        :MediaObject ;
+        :MediaObject, :InteractionCounter  ;
     :rangeIncludes :DateTime,
         :Time ;
     rdfs:comment "The endTime of something. For a reserved event or service (e.g. FoodEstablishmentReservation), the time that it is expected to end. For actions that span a period of time, when the action was performed. e.g. John wrote a book from January to *December*. For media, including audio and video, it's the time offset of the end of a clip within a larger file.\\n\\nNote that Event uses startDate/endDate instead of startTime/endTime, even when describing dates with times. This situation may be clarified in future revisions." .
@@ -8723,7 +8723,7 @@ we define a supporting type, [[SpeakableSpecification]]  which is defined to be 
     rdfs:label "startTime" ;
     :domainIncludes :Action,
         :FoodEstablishmentReservation,
-        :MediaObject ;
+        :MediaObject, :InteractionCounter ;
     :rangeIncludes :DateTime,
         :Time ;
     rdfs:comment "The startTime of something. For a reserved event or service (e.g. FoodEstablishmentReservation), the time that it is expected to start. For actions that span a period of time, when the action was performed. e.g. John wrote a book from *January* to December. For media, including audio and video, it's the time offset of the start of a clip within a larger file.\\n\\nNote that Event uses startDate/endDate instead of startTime/endTime, even when describing dates with times. This situation may be clarified in future revisions." .
