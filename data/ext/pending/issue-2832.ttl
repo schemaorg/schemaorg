@@ -1,0 +1,22 @@
+@prefix : <https://schema.org/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+
+:positiveNotes a rdf:Property ;
+    rdfs:label "positiveNotes" ;
+    :domainIncludes :Review ;
+    :isPartOf <https://pending.schema.org> ;
+    :rangeIncludes :ListItem, :ItemList, :Text, :WebContent ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2832> ;
+    rdfs:comment """Indicates, in the context of a [[Review]] (e.g. framed as 'pro' vs 'con' considerations), positive considerations - either as unstructured text, or a list.""" .
+
+:negativeNotes a rdf:Property ;
+    rdfs:label "negativeNotes" ;
+    :domainIncludes :Review ;
+    :isPartOf <https://pending.schema.org> ;
+    :rangeIncludes :ListItem, :ItemList, :Text, :WebContent ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2832> ;
+    rdfs:comment """Indicates, in the context of a [[Review]] (e.g. framed as 'pro' vs 'con' considerations), negative considerations - either as unstructured text, or a list.""" .
