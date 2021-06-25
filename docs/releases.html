@@ -61,9 +61,10 @@ ul {
 
 <p>This page lists schema.org releases, most recent first. New developments are <a href="https://github.com/schemaorg/schemaorg">discussed on Github</a>; editorial works-in-progress
   are publicly staged on the <a href="http://webschemas.org/">webschemas.org</a> drafting site for review and collaboration. See <a href="howwework.html">how we work</a> for more background.</p>
-<br/>
-Current Published Release: <a href="https://schema.org/version/latest">https://schema.org/version/latest</a>
-<br/>
+
+<p>
+A summary view of the current published release is available from: <a href="https://schema.org/version/latest">https://schema.org/version/latest</a>
+</p>
 
 <div class="scroll-div">
 <span id="v.next"></span>
@@ -72,6 +73,134 @@ Current Published Release: <a href="https://schema.org/version/latest">https://s
     <th>Release</th>
     <th>Overview</th>
     <th>Description</th>
+</tr>
+
+
+
+<tr>
+<td class="release"><a href="http://htmlpreview.github.io/?https://github.com/schemaorg/schemaorg/blob/main/data/releases/13.0/schema-all.html">13.0</a><br/>2021-07-xx</td>
+  <td>
+  <span id="v13.0"></span>
+  <p>
+  Version 13.0 - see <a href="https://github.com/schemaorg/schemaorg/issues/2884">planning pages</a>. This release includes improvements proposed via the <a href="/docs/pending.home.html/">Pending</a> section, in particular a number of terms proposed by the <a href="https://bioschemas.org/">Bioschemas</a> project, alongside other additions around e-commerce returns policy markup, job postings, and MediaReview markup.
+</p>
+  </td>
+  <td>
+  <h2>Vocabulary</h2>
+
+  <h3>Changes in Core section:</h3>
+
+  <h3>Changes in <a href="https://pending.schema.org/">Pending</a> section:</h3>
+
+<ul>
+
+<li id="g2862"><a href="https://github.com/schemaorg/schemaorg/issues/2862">issue #2862</a>: Additions proposed by the the <a href="https://bioschemas.org/">Bioschemas</a> community.
+
+
+Adds several types for basic life science concepts. A type <a href="/Taxon">Taxon</a>, with properties:
+<a href="/childTaxon">childTaxon</a>
+<a href="/parentTaxon">parentTaxon</a>
+<a href="/taxonRank">taxonRank</a>
+<a href="/hasDefinedTerm">hasDefinedTerm</a>.
+
+A  general type <a href="/BioChemEntity">BioChemEntity</a>:
+
+<a href="/associatedDisease">associatedDisease</a>,
+<a href="/bioChemInteraction">bioChemInteraction</a>,
+<a href="/bioChemSimilarity">bioChemSimilarity</a>,
+<a href="/hasBioChemEntityPart">hasBioChemEntityPart</a>,
+<a href="/hasRepresentation">hasRepresentation</a>,
+<a href="/isEncodedByBioChemEntity">isEncodedByBioChemEntity</a>,
+<a href="/encodesBioChemEntity">encodesBioChemEntity</a>,
+<a href="/isPartOfBioChemEntity">isPartOfBioChemEntity</a>,
+<a href="/taxonomicRange">taxonomicRange</a>,
+<a href="/biologicalRole">biologicalRole</a>,
+<a href="/hasMolecularFunction">hasMolecularFunction</a>,
+<a href="/isInvolvedInBiologicalProcess">isInvolvedInBiologicalProcess</a>,
+<a href="/isLocatedInSubcellularLocation">isLocatedInSubcellularLocation</a>.
+The following types are subtypes of this convenience type.
+A type <a href="/MolecularEntity">MolecularEntity</a>, with properties
+<a href="/inChI">inChI</a>,
+<a href="/inChIKey">inChIKey</a>,
+<a href="/iupacName">iupacName</a>,
+<a href="/molecularFormula">molecularFormula</a>,
+<a href="/molecularWeight">molecularWeight</a>,
+<a href="/monoisotopicMolecularWeight">monoisotopicMolecularWeight</a>,
+<a href="/smiles">smiles</a>.
+A type <a href="/ChemicalSubstance">ChemicalSubstance</a> with properties
+<a href="/chemicalComposition">chemicalComposition</a>,
+<a href="/chemicalRole">chemicalRole</a>,
+<a href="/potentialUse">potentialUse</a>.
+A type <a href="/Gene">Gene</a> with additional properties
+<a href="/expressedIn">expressedIn</a>, <a href="/hasStatus">hasStatus</a>,
+<a href="/hasBioPolymerSequence">hasBioPolymerSequence</a>.
+A type <a href="/Protein">Protein</a> with additional property
+<a href="/hasBioPolymerSequence">hasBioPolymerSequence</a>.
+</li>
+
+
+<li id="g2880"><a href="[https://github.com/schemaorg/schemaorg/issues/2880](https://github.com/schemaorg/schemaorg/issues/2880)">issue #2880</a>: Additions to merchant return policies. Implemented in <a href="[https://github.com/schemaorg/schemaorg/pull/2381](https://github.com/schemaorg/schemaorg/pull/2381)">#2381</a>. Adds <a href="/ReturnLabelSourceEnumeration">ReturnLabelSourceEnumeration</a>, <a href="/ReturnMethodEnumeration">ReturnMethodEnumeration</a> and several enumerated values for these. Also adds several new enumerated values to existing <a href="/ReturnFeesEnumeration">ReturnFeesEnumeration</a>.
+  Adds properties <a href="/returnMethod">returnMethod</a>,
+  <a href="/itemDefectReturnFees">itemDefectReturnFees</a>,
+  <a href="/customerRemorseReturnFees">customerRemorseReturnFees</a>,
+  <a href="/returnShippingFeesAmount">returnShippingFeesAmount</a>,
+  <a href="/itemDefectReturnShippingFeesAmount">itemDefectReturnShippingFeesAmount</a>,
+  <a href="/customerRemorseReturnShippingFeesAmount">customerRemorseReturnShippingFeesAmount</a>,
+  <a href="/returnLabelSource">returnLabelSource</a>,
+  <a href="/itemDefectReturnLabelSource">itemDefectReturnLabelSource</a>,
+  <a href="/customerRemorseReturnLabelSource">customerRemorseReturnLabelSource</a>,
+  <a href="/restockingFee">restockingFee</a>,
+  <a href="/returnPolicyCountry">returnPolicyCountry</a>. A
+  dds new type <a href="/MerchantReturnPolicySeasonalOverride">MerchantReturnPolicySeasonalOverride</a>
+  and new property <a href="/returnPolicySeasonalOverride">returnPolicySeasonalOverride</a>.
+  Adds existing <a href="/additionalProperty">additionalProperty</a>
+  and <a href="/itemCondition">itemCondition</a> to <a href="/MerchantReturnPolicy">MerchantReturnPolicy</a>
+  and <a href="/hasMerchantReturnPolicy">hasMerchantReturnPolicy</a> to <a href="/Offer">Offer</a></li>
+
+  <li id="g2907"><a href="https://github.com/schemaorg/schemaorg/issues/2907">Issue #2907</a>: Added <a href="/directApply">directApply</a> property to indicate on a <a href="/JobPosting">JobPosting</a> whether
+  direct applications are supported.</li>
+
+<li id="g2844b"><a href="https://github.com/schemaorg/schemaorg/issues/2844">Issue #2844</a>: Additional detail for <a href="/MediaReview">MediaReview</a> description.
+
+
+To cross-reference (via link or embedded description) between <a href="/ClaimReview">ClaimReview</a>
+and <a href="/MediaReview">MediaReview</a>, two new properties:
+<a href="/associatedClaimReview">associatedClaimReview</a>,
+<a href="/associatedMediaReview">associatedMediaReview</a>. These are defined as specializations of a
+common superproperty: <a href="/associatedReview">associatedReview</a>.
+
+To describe exact, specific, "frozen" snapshots of a potentially changing
+<a href="/MediaObject">MediaObject</a>, three new types:
+  <a href="/ImageObjectSnapshot">ImageObjectSnapshot</a>,
+  <a href="/AudioObjectSnapshot">AudioObjectSnapshot</a>,
+  <a href="/VideoObjectSnapshot">VideoObjectSnapshot</a>. A new property,
+  <a href="/sha256">sha256</a>, can be used to identify the specific file by a
+  <a href="https://en.wikipedia.org/wiki/Cryptographic_hash_function">hash</a> of its contents.
+  To group together multiple elements for reference by <a href="/itemReviewed">itemReviewed</a>, a new
+  type:  <a href="/MediaReviewItem">MediaReviewItem</a>. Its property,
+  <a href="/mediaItemAppearance">mediaItemAppearance</a>, can use the "snapshot" types to bundle
+  several different appearances of the same basic media item.
+  For the case of an image with embedded text, a new property:  <a href="/embeddedTextCaption">embeddedTextCaption</a> (a subproperty of   <a href="/caption">caption</a>). To characterize the original context of a potentially decontextualized media item, a property   <a href="/originalMediaContextDescription">originalMediaContextDescription</a>, alongside
+  <a href="/originalMediaLink">originalMediaLink</a>,
+  <a href="/embeddedTextCaption">embeddedTextCaption</a>,
+  <a href="/interpretedAsClaim">interpretedAsClaim</a>,
+  <a href="/claimInterpreter">claimInterpreter</a>, and
+  <a href="/archivedAt">archivedAt</a> to provide additional supporting information useful for fact checking and
+  misinformation-related workflows.
+</li>
+
+</ul>
+
+
+  <h3>Site Improvements</h3>
+
+<ul>
+  <li id="g2790"><a href="https://github.com/schemaorg/schemaorg/issues/2790">Issue #2790</a>: Schema Markup Validator: <a href="https://validator.schema.org/">validator.schema.org</a> is available for review. See <a href="/docs/validator.html">documentation</a> for details.</li>
+
+  <li id="g2891"><a href="https://github.com/schemaorg/schemaorg/issues/2891">Issue #2891</a>: Published draft <a href="/docs/feeds.html">Schema.org Feeds</a> specification for implementor discussion and feedback.</li>
+</ul>
+
+</td>
 </tr>
 
 
@@ -99,7 +228,7 @@ Version 12.0 - see <a href="https://github.com/schemaorg/schemaorg/issues/2813">
   <li>See also Pending for cases where new terms required minor adjustments to core vocabulary.</li>
 </ul>
 
-<h3>Changes in <a href="http://pending.schema.org/">Pending</a> section:</h3>
+<h3>Changes in <a href="https://pending.schema.org/">Pending</a> section:</h3>
 <ul>
   <li id="g2844"><a href="https://github.com/schemaorg/schemaorg/issues/2844">issue #2844</a>: Updates to <a href="/MediaReview">MediaReview</a> reflecting community work towards clarifying a list of codes for <a href="/MediaManipulationRatingEnumeration">MediaManipulationRatingEnumeration</a>.</li>
   <li id="g2810"><a href="https://github.com/schemaorg/schemaorg/issues/2810">issue #2810</a>: Fixed bug: <a href="/marginOfError">marginOfError</a> should have values of type <a href="/QuantitativeValue">QuantitativeValue</a>.</li>
@@ -153,10 +282,10 @@ new <a href="/OccupationalExperienceRequirements">OccupationalExperienceRequirem
     <h3>Site Improvements</h3>
 
   <ul>
-    <li>Fix invalid link to home page on <a href="/docs/attic.home.html"></a>Attic home page</a>.</li>
-    <li>Reinstated home pages for <a href="https://schema.org/docs/auto.home.html">auto</a>, 
-      <a href="https://schema.org/docs/bib.home.html">bib</a>, 
-       <a href="https://schema.org/docs/health-lifesci.home.html">health-lifesci</a> and 
+    <li>Fix invalid link to home page on <a href="/docs/attic.home.html">Attic home page</a>.</li>
+    <li>Reinstated home pages for <a href="https://schema.org/docs/auto.home.html">auto</a>,
+      <a href="https://schema.org/docs/bib.home.html">bib</a>,
+       <a href="https://schema.org/docs/health-lifesci.home.html">health-lifesci</a> and
        <a href="https://schema.org/docs/meta.home.html">meta</a> sections.</li>
     <li>Fix invalid links to section home pages on <a href="/docs/schemas.html">Schemas</a> page.</li>
     <li>Update wording on pages for terms that are superseded, pending or retired.</li>
@@ -187,7 +316,7 @@ new <a href="/OccupationalExperienceRequirements">OccupationalExperienceRequirem
   -->
   </ul>
 
-  <h3>Changes in <a href="http://pending.schema.org/">Pending</a> section:</h3>
+  <h3>Changes in <a href="https://pending.schema.org/">Pending</a> section:</h3>
   <ul>
     <li id="g1842b"><a href="https://github.com/schemaorg/schemaorg/issues/1842">issue #1842</a> implemented in <a href="https://github.com/schemaorg/schemaorg/pull/2744">PR #2744</a>: Added examples for  online and mixed online &amp; offline events.  Attached to <a href="/Event">Event</a>, <a href="/eventAttendanceMode">eventAttendanceMode</a>, and <a href="/VirtualLocation">VirtualLocation</a> descriptions.</li>
     <li id="g2737"><a href="https://github.com/schemaorg/schemaorg/pull/2737">PR #2737</a>: Removed subproperty relationship between <a href="/hasCategoryCode">hasCategoryCode</a> and <a href="/hasPart">hasPart</a>.</li>
@@ -257,7 +386,7 @@ Changed <a href="/description">description</a> to <a href="/reviewBody">reviewBo
 </ul>
 
 
-<h3>Changes in <a href="http://pending.schema.org/">Pending</a> section:</h3>
+<h3>Changes in <a href="https://pending.schema.org/">Pending</a> section:</h3>
 <ul>
 
 <li id="g1401"><a href="https://github.com/schemaorg/schemaorg/issues/2663">Issue #2663</a>: add a property <a href="/eduQuestionType">eduQuestionType</a> for questions that act as practice problems.</li>
@@ -329,7 +458,7 @@ alongside minimal edits to core terms to integrate the new vocabulary into the l
 <li id="g2268"><a href="https://github.com/schemaorg/schemaorg/issues/2268">Issue #2268</a>: Defined expected type of several properties in <a href="/ExercisePlan">ExercisePlan</a> to be <a href="/QuantitativeValue">QuantitativeValue</a> instead of the incorrect value of  <a href="/QualitativeValue">QualitativeValue</a>.</li>
 </ul>
 
-<h3>Changes in <a href="http://pending.schema.org/">Pending</a> section:</h3>
+<h3>Changes in <a href="https://pending.schema.org/">Pending</a> section:</h3>
 <ul>
 
 <li id="g1401"><a href="https://github.com/schemaorg/schemaorg/issues/1401">Issue #1401</a>: Add a type <a href="/LearningResource">LearningResource</a>
@@ -380,7 +509,7 @@ Version 8.0 See <a href="https://github.com/schemaorg/schemaorg/issues/2528">pla
 <li>N/A</li>
 </ul>
 
-<h3>Changes in <a href="http://pending.schema.org/">Pending</a> section:</h3>
+<h3>Changes in <a href="https://pending.schema.org/">Pending</a> section:</h3>
 <ul>
   <li id="g2543"><a href="https://github.com/schemaorg/schemaorg/issues/2543">Issue #2543</a>: Add a <a href="/nonprofitStatus">nonprofitStatus</a> property to indicate non-profit organizations, alongside an initial enumeration of non-profit organization types, <a href="/NonprofitType">NonprofitType</a>.</li>
   <li id="g2506"><a href="https://github.com/schemaorg/schemaorg/issues/2506">Issue #2506</a>: Add vocabulary to help online vendors publish information about their shipping-related policies, associatted with an <a href="/Offer">Offer</a> using the <a href="/shippingDetails">shippingDetails</a> property. Adds <a href="/OfferShippingDetails">OfferShippingDetails</a> and supporting properties (including <a href="/deliveryTime">deliveryTime</a>, <a href="/doesNotShip">doesNotShip</a>, <a href="/shippingDestination">shippingDestination</a>, <a href="/shippingLabel">shippingLabel</a>, <a href="/shippingRate">shippingRate</a>, <a href="/shippingSettingsLink">shippingSettingsLink</a>, <a href="/transitTimeLabel">transitTimeLabel</a>). Also added supporting types <a href="/ShippingDeliveryTime">ShippingDeliveryTime</a>, <a href="/DefinedRegion">DefinedRegion</a>, <a href="/PostalCodeRangeSpecification">PostalCodeRangeSpecification</a>, <a href="/OfferShippingDetails">OfferShippingDetails</a>, <a href="/ShippingRateSettings">ShippingRateSettings</a>.
@@ -413,7 +542,7 @@ improvements relating to the COVID-19 response effort.
   <li id="g2540"><a href="https://github.com/schemaorg/schemaorg/issues/2540">Issue #2540</a>: <a href="/EducationalOrganization">EducationalOrganization</a> has an additional supertype of <a href="/CivicStructure">CivicStructure</a>, clarifying that it can be used with <a href="/announcementLocation">announcementLocation</a>.</li>
 </ul>
 
-<h3>Changes in <a href="http://pending.schema.org/">Pending</a> section:</h3>
+<h3>Changes in <a href="https://pending.schema.org/">Pending</a> section:</h3>
 <ul>
 
   <li id="g2534"><a href="https://github.com/schemaorg/schemaorg/issues/2534">Issue #2534</a>: Improved vocabulary for describing government benefits
@@ -446,7 +575,7 @@ improvements relating to the COVID-19 response effort.
 </td>
 <td>
 <h2>Vocabulary</h2>
-<h3>Changes in <a href="http://pending.schema.org/">Pending</a> section:</h3>
+<h3>Changes in <a href="https://pending.schema.org/">Pending</a> section:</h3>
 <ul>
   <li id="g2521"><a href="https://github.com/schemaorg/schemaorg/issues/2521">Issue #2521</a>: Adds a <a href="/docs/cdc-covid.html">document</a> and schema definitions capturing a 1:1 representation of a CDC CSV format for hospital reporting.</li>
   <li id="g2519"><a href="https://github.com/schemaorg/schemaorg/issues/2519">Issue #2519</a>: Clarifies that <a href="/webFeed">webFeed</a> can be expected on the <a href="/SpecialAnnouncement">SpecialAnnouncement</a> type.</li>
@@ -469,7 +598,7 @@ improvements relating to the COVID-19 response effort.
 <h2>Vocabulary</h2>
 
 
-<h3>Changes in <a href="http://pending.schema.org/">Pending</a> section:</h3>
+<h3>Changes in <a href="https://pending.schema.org/">Pending</a> section:</h3>
 <ul>
   <li id="g2514"><a href="https://github.com/schemaorg/schemaorg/issues/2514">Issue #2514</a>: Added an <a href="/announcementLocation">announcementLocation</a> property, clarifying how a <a href="/SpecialAnnouncement">SpecialAnnouncement</a>
   can reference both regions and specific places.
@@ -496,7 +625,7 @@ improvements relating to the COVID-19 response effort.
   <li>N/A</li>
 </ul>
 
-<h3>Changes in <a href="http://pending.schema.org/">Pending</a> section:</h3>
+<h3>Changes in <a href="https://pending.schema.org/">Pending</a> section:</h3>
 <ul>
   <li id="g2500"><a href="https://github.com/schemaorg/schemaorg/issues/2500">Issue #2500</a>: Added a <a href="/SchoolDistrict">SchoolDistrict</a> type.</li>
   <li id="g2497"><a href="https://github.com/schemaorg/schemaorg/pull/2497">Issue #2497</a>: Added <a href="/datePosted">datePosted</a> to <a href="/SpecialAnnouncement">SpecialAnnouncement</a> type.</li>
@@ -528,7 +657,7 @@ Version 7.0. See <a href="https://github.com/schemaorg/schemaorg/issues/2453">pl
  <li id="g1842"><a href="https://github.com/schemaorg/schemaorg/issues/1842">Issue #1842</a>: Introduced a <a href="/VirtualLocation">VirtualLocation</a> type, to support description of <a href="/Event">Event</a>s whose <a href="/location">location</a> is online.
 Added <a href="/eventAttendanceMode">eventAttendanceMode</a> to clarify the current attendance mode of an event (online, offline or a mix). Also added a new enumeration value for <a href="/eventStatus">eventStatus</a> for <a href="/Event">Event</a>: <a href="/EventMovedOnline">EventMovedOnline</a>.</li>
 </ul>
-<h3>Changes in <a href="http://pending.schema.org/">Pending</a> section:</h3>
+<h3>Changes in <a href="https://pending.schema.org/">Pending</a> section:</h3>
 <ul>
   <li id="g2490"><a href="https://github.com/schemaorg/schemaorg/issues/2490">Issue #2490</a>: Added (fast track) a <a href="/SpecialAnnouncement">SpecialAnnouncement</a> type with several properties and supporting documentation, as a contribution to the
     global response to the COVID-19 Coronavirus pandemic. We expect to iterate on this design after implementator and publisher feedback.</li>
@@ -590,7 +719,7 @@ Version 6.0. See <a href="https://github.com/schemaorg/schemaorg/issues/2376">pl
  <li id="g1951"><a href="https://github.com/schemaorg/schemaorg/issues/1951">Issue #1951</a>: Added <a href="/SportsEvent">SportsEvent</a> to the domain for <a href="/sport">sport</a>.</li>
 </ul>
 
-<h3>Changes in <a href="http://pending.schema.org/">Pending</a> section:</h3>
+<h3>Changes in <a href="https://pending.schema.org/">Pending</a> section:</h3>
 <ul>
  <li id="g2372"><a href="https://github.com/schemaorg/schemaorg/issues/2372">Issue #2372</a>: Noted that other kinds of thing have <a href="/callSign">callSign</a> beyond radio broadcasts, in particular vehicles/boats and non-radio broadcasts. Added <a href="/Vehicle">Vehicle</a>, <a href="/Person">Person</a> and <a href="/BroadcastService">BroadcastService</a> (the latter also covers the initial type, <a href="/RadioBroadcastService">RadioBroadcastService</a>) to <a href="/callSign">callSign</a> accordingly.
  </li>
@@ -649,7 +778,7 @@ Version 5.0. See <a href="https://github.com/schemaorg/schemaorg/issues/2370">pl
 <ul>
 </ul>
 
-<h3>Changes in <a href="http://pending.schema.org/">Pending</a> section:</h3>
+<h3>Changes in <a href="https://pending.schema.org/">Pending</a> section:</h3>
 <ul>
   <li id="g2372"><a href="https://github.com/schemaorg/schemaorg/issues/2372">Issue #2372</a>: Extended and redescribed <a href="/callSign">callSign</a> property to cover other common situations where it is applicable.</li>
   <li id="g2348"><a href="https://github.com/schemaorg/schemaorg/issues/2358">Issue #2358</a>: Introduced a type <a href="/WebContent">WebContent</a> to allow descriptions to abstract away from the differences between url-addressable content in form of <a href="/WebSite">WebSite</a>, <a href="/WebPage">WebPage</a> or <a href="/WebPageElement">WebPageElement</a>.</li>
@@ -695,7 +824,7 @@ Version 4.0. See <a href="https://github.com/schemaorg/schemaorg/issues/2363">pl
 <ul>
 </ul>
 
-<h3>Changes in <a href="http://pending.schema.org/">Pending</a> section:</h3>
+<h3>Changes in <a href="https://pending.schema.org/">Pending</a> section:</h3>
 <ul>
 <li id="g2348"><a href="https://github.com/schemaorg/schemaorg/issues/2348">Issue #2348</a>: Added draft types for <a href="/RealEstateListing">RealEstateListing</a>, <a href="/OfferForPurchase">OfferForPurchase</a> and <a href="/OfferForLease">OfferForLease</a>.</li>
 <li id="g2289"><a href="https://github.com/schemaorg/schemaorg/issues/2289">Issue #2289</a>:
@@ -776,7 +905,7 @@ Adding example for <a href="/JobPosting">JobPosting</a>.
 </ul>
 
 
-<h3>Changes in <a href="http://pending.schema.org/">Pending</a> section:</h3>
+<h3>Changes in <a href="https://pending.schema.org/">Pending</a> section:</h3>
 
 <ul>
 
@@ -851,7 +980,7 @@ Fixed inconsistencies in expected types for <a href="/Date">Date</a> and <a href
 </ul>
 
 
-<h3>Changes in <a href="http://pending.schema.org/">Pending</a> section:</h3>
+<h3>Changes in <a href="https://pending.schema.org/">Pending</a> section:</h3>
 
 <ul>
 
@@ -1072,7 +1201,7 @@ Added <a href="/Clip">Clip</a> to expected values of <a href="/video">video</a>,
 
 </ul>
 
-<h3>Changes in <a href="http://pending.schema.org/">Pending</a> section:</h3>
+<h3>Changes in <a href="https://pending.schema.org/">Pending</a> section:</h3>
 <ul>
 <li id="g1909"><a href="https://github.com/schemaorg/schemaorg/issues/1909">Issue #1909</a>:
   Added a <a href="/courseWorkload">courseWorkload</a> property for use with <a href="/CourseInstance">CourseInstance</a> type.
@@ -1264,7 +1393,7 @@ Removed superseded status from and generalised descriptions for <a href="/spatia
 
 </ul>
 
-<h3>Changes in <a href="http://pending.schema.org/">Pending</a> section:</h3>
+<h3>Changes in <a href="https://pending.schema.org/">Pending</a> section:</h3>
 <ul>
 <li id="g1365"><a href="https://github.com/schemaorg/schemaorg/issues/1365">Issue #1365</a>: In temporalCoverage, added proposed ISO 8601 notation for open-ended date ranges, e.g. <code>1972-01/..</code></li>
 <li id="g383"><a href="https://github.com/schemaorg/schemaorg/issues/383">Issue #383</a>:
@@ -1384,7 +1513,7 @@ the <a href="/about">about</a> property, <a href="/subjectOf">subjectOf</a>.
 <li id="g2020"><a href="https://github.com/schemaorg/schemaorg/issues/2020">Issue #2020</a>: Extend the byArtist property to also expect the Person type.</li>
 </ul>
 
-<h3>Changes in <a href="http://pending.schema.org/">Pending</a> section</h3>
+<h3>Changes in <a href="https://pending.schema.org/">Pending</a> section</h3>
 
 <ul>
 <li id="g1670"><a href="https://github.com/schemaorg/schemaorg/issues/1670">Issue #1670</a>: Add a <a href="/subjectOf">subjectOf</a> to <a href="/Thing">Thing</a> as an inverse property of <a href="/about">about</a>.
@@ -1476,7 +1605,7 @@ Add a new property <a href="/touristType">touristType</a> to <a href="/TouristAt
 </li>
 </ul>
 
-<h3>Additions to <a href="http://pending.schema.org/">Pending</a> section</h3>
+<h3>Additions to <a href="https://pending.schema.org/">Pending</a> section</h3>
 
 <ul>
 <li id="g1457"><a href="https://github.com/schemaorg/schemaorg/issues/1457">Issue #1457</a>: Add a <a href="/Schedule">Schedule</a> type, with supporting properties:
@@ -1571,7 +1700,7 @@ with the other new menu properties, and to avoid a property and type having esse
 </li>
 </ul>
 
-<h3>Additions to <a href="http://pending.schema.org/">Pending</a> section</h3>
+<h3>Additions to <a href="https://pending.schema.org/">Pending</a> section</h3>
 
 <ul>
 <li id="g1541"><a href="https://github.com/schemaorg/schemaorg/issues/1541">Issue #1541</a>: Add a <a href="/menuAddOn">menuAddOn</a> property (originally proposed with other <a href="#g1288">menu-related terms</a>).</li>
@@ -1797,7 +1926,7 @@ This release introduces three new <a href="/docs/extension.html">extensions</a>.
 <p>The initial releases of <a href="http://bib.schema.org/">bib.schema.org</a> and <a href="http://auto.schema.org">auto.schema.org</a> have also been finalized.
 </p>
 <p>In addition to numerous vocabulary-related improvements, we have added a new "<a href="/docs/howwework.html">How we work</a>" document providing an overview of the project's approach to schema development, collaboration, versioning and change review.
-In particular it documents the use of the new <a href="http://pending.schema.org/">pending</a> extension, which gives earlier access to proposed new schema designs,
+In particular it documents the use of the new <a href="https://pending.schema.org/">Pending</a> extension, which gives earlier access to proposed new schema designs,
 as well the parallel <a href="http://webschemas.org/">webschemas.org</a> site which shows the latest work-in-progress version of the entire schema.org site.
 </p>
 </td>
