@@ -211,14 +211,16 @@ schema:potentialUse
     schema:rangeIncludes schema:BioChemEntity, schema:DefinedTerm, schema:AnatomicalSystem, schema:AnatomicalStructure ;
     dc:source <http://www.bioschemas.org/Gene> .
 
-  schema:hasStatus
-    a rdf:Property ;
-    schema:isPartOf <https://pending.schema.org> ;
-    rdfs:label "hasStatus" ;
-    rdfs:comment "One of pseudogene, dead, killed, live, predicted, suppressed." ;
-    schema:domainIncludes schema:Gene ;
-    schema:rangeIncludes schema:Text ;
-    dc:source <http://www.bioschemas.org/Gene> .
+#  schema:hasStatus
+#    a rdf:Property ;
+#    schema:isPartOf <https://pending.schema.org> ;
+#    rdfs:label "hasStatus" ;
+#    rdfs:comment "One of pseudogene, dead, killed, live, predicted, suppressed." ;
+#    schema:domainIncludes schema:Gene ;
+#    schema:rangeIncludes schema:Text ;
+#    dc:source <http://www.bioschemas.org/Gene> .
+# proposal retracted after discussion, https://github.com/schemaorg/schemaorg/pull/2863#issuecomment-869821095
+# /cc @AlasdairGray
 
   schema:hasBioPolymerSequence
     a rdf:Property ;
@@ -379,4 +381,3 @@ schema:taxonRank
 schema:hasDefinedTerm
   a rdf:Property ;
   schema:domainIncludes schema:Taxon .
-
