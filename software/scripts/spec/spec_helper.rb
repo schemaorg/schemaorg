@@ -3,10 +3,13 @@ $:.unshift File.dirname(__FILE__)
 require "bundler/setup"
 require 'rubygems'
 require 'rspec'
-require 'linkeddata'
-require 'rdf/vocab'
-load    'schema.rb'
 require 'json/ld/preloaded'
+require 'rdf/rdfa'
+require 'rdf/microdata'
+require 'rdf/reasoner'
+
+load    'schema.rb'
+load    'schemas.rb'
 load    'schema_context.rb'
 
 ::RSpec.configure do |c|
@@ -58,6 +61,10 @@ RSpec::Matchers.define :lint_cleanly do
     end
     str.rewind
     str.read
+  end
+
+  failure_message_when_negated do
+    "Expected Failure but none found.\nSource: #{File.read(@actual)}"
   end
 end
 

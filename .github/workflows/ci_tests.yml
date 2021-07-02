@@ -42,7 +42,7 @@ jobs:
       # Local tests prepare
       - name: Local Tests prepare
         run: |
-          software/util/buildsite.py -f RDFExport.nquads Context
+          software/util/buildsite.py -f RDFExport.nquads Context Examples
           mkdir software/site/releases/LATEST
           (cd software/site/releases/`software/util/schemaversion.py`; cp -r * ../LATEST)
       
@@ -54,17 +54,12 @@ jobs:
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-           ruby-version: 2.6
+           ruby-version: 3.0
 
       #Install Ruby dependencies
       - name: Install Ruby dependencies
-        run: |
-          gem update --system --conservative || (gem i "rubygems-update:~>2.7" --no-document && update_rubygems)
-          gem update bundler --conservative 
-          bundle install --gemfile=software/scripts/Gemfile
+        run: bundle install --gemfile=software/scripts/Gemfile --jobs 4 --retry 3
 
       # Run Ruby tests
       - name: Run Ruby tests
         run: (cd software/scripts; bundle exec rake)
-        env:
-          SOFT_LINT: true
