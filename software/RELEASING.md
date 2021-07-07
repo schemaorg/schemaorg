@@ -70,7 +70,7 @@ PRE-RELEASE STEPS
 
 In a checked out version of the _main_ branch:
 
-* Successfully run the `/.software/util/buildsite.py --release` command.  This will:
+* Successfully run the `./software/util/buildsite.py --release` command.  This will:
   * assign missing example ids
   * complete a full build of the site, proceeded by tests.
   * copy working copies of release files into data/releases directory
