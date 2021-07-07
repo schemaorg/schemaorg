@@ -327,7 +327,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 
 :Blog a rdfs:Class ;
     rdfs:label "Blog" ;
-    rdfs:comment "A blog." ;
+    rdfs:comment "A [blog](https://en.wikipedia.org/wiki/Blog), sometimes known as a "weblog". Note that the individual posts ([[BlogPosting]]s) in a [[Blog]] are often colloqually referred to by the same term." ;
     rdfs:subClassOf :CreativeWork .
 
 :BlogPosting a rdfs:Class ;
@@ -1706,7 +1706,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 
 :LiveBlogPosting a rdfs:Class ;
     rdfs:label "LiveBlogPosting" ;
-    rdfs:comment "A blog post intended to provide a rolling textual coverage of an ongoing event through continuous updates." ;
+    rdfs:comment "A [[LiveBlogPosting]] is a [[BlogPosting]] intended to provide a rolling textual coverage of an ongoing event through continuous updates." ;
     rdfs:subClassOf :BlogPosting .
 
 :LoanOrCredit a rdfs:Class ;
@@ -4576,7 +4576,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     :domainIncludes :Blog ;
     :rangeIncludes :BlogPosting ;
     :supersededBy :blogPost ;
-    rdfs:comment "The postings that are part of this blog." .
+    rdfs:comment """Indicates a post that is part of a [[Blog]]. Note that historically, what we term a "Blog" was once known as a "weblog", and that what we term a "BlogPosting" is now often colloquially referred to as a "blog".""" .
 
 :boardingGroup a rdf:Property ;
     rdfs:label "boardingGroup" ;
