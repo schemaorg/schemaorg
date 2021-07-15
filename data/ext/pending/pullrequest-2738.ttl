@@ -1,0 +1,18 @@
+@prefix : <http://schema.org/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+:RecipeIngredientGroup a rdfs:Class ;
+    rdfs:label "RecipeIngredientGroup" ;
+    :category "pullrequest-2738" ;
+    :isPartOf <http://pending.schema.org> ;
+    rdfs:comment "A group if ingredients of a [[Recipe]] for a certain part. For example, cream and dough of a cake can be different such groups." ;
+    rdfs:subClassOf :ListItem .
+
+:recipeIngredient a rdf:Property ;
+    rdfs:label "recipeIngredient" ;
+    :domainIncludes :RecipeIngredientGroup ;
+    :rangeIncludes :RecipeIngredientGroup,
+		:TypeAndQuantityNode ;
+    rdfs:comment "A single ingredient used in the recipe, e.g. sugar, flour or garlic or a group of ingredients used in the recipe." ;
+    rdfs:subPropertyOf :supply .
