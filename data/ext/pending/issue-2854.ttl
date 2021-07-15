@@ -1,0 +1,37 @@
+@prefix : <https://schema.org/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:IssuerScope a rdfs:Class ;
+    rdfs:label "IssuerScope" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2854> ;
+    rdfs:comment "A scope of document issuance authority that an entity (Organization or Person) has. This includes the type of documents the entity may issue as well as any particularway that authority is exercised." ;
+    rdfs:subClassOf :Intangible .
+
+:delegationDepth a rdf:Property ;
+    rdfs:label "delegationDepth" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2854> ;
+    :domainIncludes :IssuerScope ;
+    :rangeIncludes :Number ;
+    :rdfs:comment "A number of delegation hops for a capability. The value must be a non-negative number. A value of 0 means no delegation, 1 means the capability can be delegated directly, 2 means the entity that gets the delegated capability may itself delegate it directly, and so on." .
+
+:hasIssuingAuthority a rdf:Property ;
+    rdfs:label "hasIssuingAuthority" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2854> ;
+    :domainIncludes :Person,
+        :Organization ;
+    :rangeIncludes :IssuerScope ;
+    rdfs:comment "The authority of an Organization or a Person to issue certain kinds of documents, such as certificates or permits. Such authority may be legal, moral, de facto, self-assigned, etc. depending on the context." .
+
+:issuerFor a rdf:Property ;
+    rdfs:label "issuerFor" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2854> ;
+    :domainIncludes :IssuerScope ;
+    :rangeIncludes :Thing ;
+    :rdfs:comment "Indicates the kind of attestation (e.g. certificate, permit, etc.) an entity is a recognized issuer for. Examples include a property in a Verifiable Credential, the URL describing a type of local permit in a town, a technical certification code, or even a plain-text description of what the entity may issue." .
