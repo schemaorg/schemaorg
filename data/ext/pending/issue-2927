@@ -1,0 +1,21 @@
+@prefix schema: <https://schema.org/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix dc: <http://purl.org/dc/terms/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+#
+# Adding provider as a property to Action
+#
+
+:provider a rdf:Property ;
+  rdfs:label "provider" ;
+  :domainIncludes :Action,
+    :CreativeWork,
+    :Invoice,
+    :ParcelDelivery,
+    :Reservation,
+    :Service,
+    :Trip ;
+  :rangeIncludes :Organization,
+    :Person ;
+  rdfs:comment "The service provider, service operator, or service performer; the goods producer. Another party (a seller) may offer those services or goods on behalf of the provider. A provider may also serve as the seller." .
