@@ -72,19 +72,19 @@ if __name__ == '__main__':
     core_props = set(propertiesInGraph(sdo_corev22_g))
     core_enumvals = set(enumeratedValuesInGraph(sdo_corev22_g))
 
-    print "Comparing ext/health-lifesci and v2.2 core.\n\n"
+    print("Comparing ext/health-lifesci and v2.2 core.\n\n")
 #    print "Type terms that are in 2.2 core and 2.3 ext/health-lifesci: %s \n\n" % core_types.intersection(new_health_types)
 #    print "Type terms in the ext/health-lifesci but not 2.2 core: %s \n\n" % new_health_types.difference(core_types)
-    print "\n\n"
+    print("\n\n")
 
-    print "Property terms that are in 2.2 core and 2.3 ext/health-lifesci: %s \n\n" % core_props.intersection(new_health_props)
-    print "Property terms in the ext/health-lifesci but not 2.2 core: %s \n\n" % new_health_props.difference(core_props)
-    print "Property terms in 2.2 core but not in ext/health-lifesci: %s \n\n" %  core_props.difference( new_health_props) 
-    print "\n\n"
+    print("Property terms that are in 2.2 core and 2.3 ext/health-lifesci: %s \n\n" % core_props.intersection(new_health_props))
+    print("Property terms in the ext/health-lifesci but not 2.2 core: %s \n\n" % new_health_props.difference(core_props))
+    print("Property terms in 2.2 core but not in ext/health-lifesci: %s \n\n" %  core_props.difference( new_health_props)) 
+    print("\n\n")
 
 #    print "Enumuerated Value terms that are in 2.2 core and 2.3 ext/health-lifesci: %s \n\n" % core_enumvals.intersection(new_health_enumvals)
 #    print "Enumerated Value in the ext/health-lifesci but not 2.2 core: %s \n\n" % new_health_enumvals.difference(new_health_enumvals)
-    print "\n\n"
+    print("\n\n")
 
 
     #print sdo_corev22_g.serialize(format="nt", encoding="utf-8")
