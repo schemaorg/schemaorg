@@ -29,9 +29,7 @@ from rdflib.compare import graph_diff
 from rdflib.namespace import RDFS, RDF
 
 
-rdflib.plugin.register("jsonld", Parser, "rdflib_jsonld.parser", "JsonLDParser")
 rdflib.plugin.register("rdfa", Parser, "pyRdfa.rdflibparsers", "RDFaParser")
-rdflib.plugin.register("jsonld", Serializer, "rdflib_jsonld.serializer", "JsonLDSerializer")
 
 OUTTYPES = {'jsonld': 'jsonld','xml':'xml','nq':'nquads','rdf':'xml','ttl':'turtle'}
 

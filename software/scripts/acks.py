@@ -17,4 +17,4 @@ with open(sys.argv[1], 'r') as file:
 
 #            string = string + '<a href="%s">%s</a>, ' % (line, line)
 
-print "<div>\n%s</div>\n\n" % string
+print("<div>\n%s</div>\n\n" % string)

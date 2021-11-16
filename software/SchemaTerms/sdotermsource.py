@@ -790,9 +790,7 @@ class SdoTermSource():
         from rdflib import Namespace
         from rdflib.namespace import RDF, RDFS
         from rdflib.serializer import Serializer
-        import rdflib_jsonld
-        rdflib.plugin.register("json-ld", Serializer, "rdflib_jsonld.serializer", "JsonLDSerializer")
-
+        
         schema = Namespace(VOCABURI)
         g.bind("schema",VOCABURI)
 
@@ -829,7 +827,7 @@ class SdoTermSource():
         kwargs = {'sort_keys': True}
         if format == "rdf":
             format = "pretty-xml"
-        ret = g.serialize(format=format,auto_compact=True,**kwargs).decode()
+        ret = g.serialize(format=format,auto_compact=True,**kwargs)
         return ret
 
 

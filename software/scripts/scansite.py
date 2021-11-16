@@ -25,9 +25,9 @@ fn = 'data/releases/%s/schemaorg-current.jsonld' % v # Per-release JSON-LD dumps
 found = []
 checked = 0
 
-print "\nScanning file: %s" % fn
-print "Searching for: %s" % SEARCH_TERM
-print "Searching target: %s\n" % host
+print("\nScanning file: %s" % fn)
+print("Searching for: %s" % SEARCH_TERM)
+print("Searching target: %s\n" % host)
 
 with open(fn) as data_file:
   data = json.load(data_file)
@@ -53,7 +53,7 @@ def checkurl(url):
         result = urllib2.urlopen(str(url))
         thepage = result.read()
     except Exception as e:
-        print "EXCEPT: %s" % str(e)
+        print("EXCEPT: %s" % str(e))
     else:
         count = thepage.count(SEARCH_TERM)
         if count:
@@ -97,13 +97,13 @@ for e in extensions:
     #print e
     checkurl(e) 
 
-print "\nChecked %s pages" % checked
+print("\nChecked %s pages" % checked)
 if len(found):
-    print "Found '%s' in %s pages" % (SEARCH_TERM,len(found))
+    print("Found '%s' in %s pages" % (SEARCH_TERM,len(found)))
     for f in found:
-        print f
+        print(f)
 else:
-    print "Found 0 instances of %s" % SEARCH_TERM
+    print("Found 0 instances of %s" % SEARCH_TERM())
 
 
 

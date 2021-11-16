@@ -70,7 +70,7 @@ def buildTerms(terms):
             continue
         examples = SchemaExamples.examplesForTerm(term.id)
         pageout = termtemplateRender(term,examples)
-        f = open(termFileName(term.id),"w")
+        f = open(termFileName(term.id),"w", encoding='utf8')
         f.write(pageout)
         f.close()
 

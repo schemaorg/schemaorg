@@ -26,15 +26,15 @@ def getPagedAPI(u):
                 body = i["body"]
                 hits = myre.findall(body)
                 for h in hits:
-                    print "http://schema.org/"+h
-                    print i["url"]
+                    print("http://schema.org/"+h)
+                    print(i["url"])
                     if "title" in i:
-                        print i["title"]
-                        print "\n"
+                        print(i["title"])
+                        print("\n")
             print
         return None   
     else:
-            print "# Issue API error."
+            print("# Issue API error.")
             return("500") 
 
 # Auth - to avoid rate limits, create an OAuth application and put details in GH_AUTH env var.
@@ -43,7 +43,7 @@ def getPagedAPI(u):
 gh_auth = os.environ['GH_AUTH']
 for i in range(10):
   u = "https://api.github.com/repos/schemaorg/schemaorg/issues?milestone=*;page=%i;%s" % ( i, gh_auth ) 
-  print "# Fetching page %i " % i
+  print("# Fetching page %i " % i)
   x = getPagedAPI(u) # bogus return codes
   if x != None:
       break

@@ -285,7 +285,7 @@ def buildDocs(pages):
                 content = func(p)
                 for filename in filenames:
                     fn = fileName(filename)
-                    f = open(fn,"w")
+                    f = open(fn,"w", encoding='utf8')
                     f.write(content)
                     f.close()
                     print("Created %s" % fn)
