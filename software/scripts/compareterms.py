@@ -46,7 +46,6 @@ dev_appserver.fix_sys_path()
 import sdoapp
 logging.basicConfig(level=logging.INFO)
 log = logging.getLogger(__name__)
-rdflib.plugin.register("json-ld", Serializer, "rdflib_jsonld.serializer", "JsonLDSerializer")
 
 parser = argparse.ArgumentParser()
 parser.add_argument("-e","--exclude", default= [[]],action='append',nargs='*', help="Exclude graph(s) [core|extensions|bib|auto|meta|{etc} (Repeatable)")
@@ -173,28 +172,28 @@ if __name__ == '__main__':
     curTypes = set(termsInGraph(currentGraph))
     prevTypes = set(termsInGraph(previousGraph))
 
-    print "Current terms count %s" % len(curTypes)
-    print "Previous terms Count %s" % len(prevTypes)
+    print( "Current terms count %s" % len(curTypes))
+    print("Previous terms Count %s" % len(prevTypes))
     
     
     new = curTypes.difference(prevTypes)
     dropped = prevTypes.difference(curTypes)
     common = curTypes.intersection(prevTypes)
     
-    print "==========   Terms  ================"
-    print "Dropped terms %s" % len(dropped)
+    print("==========   Terms  ================")
+    print("Dropped terms %s" % len(dropped))
     if showNames:
         for i in sorted(dropped):
-            print "   Dropped term %s" % i
-    print "New terms %s" % len(new)
+            print("   Dropped term %s" % i)
+    print("New terms %s" % len(new))
     if showNames:
         for i in sorted(new):
-            print "   New term %s" % i
+            print("   New term %s" % i)
     
     buff = StringIO.StringIO()
-    print "Changed terms %s" % compareCommonTerms(common,buff)
+    print("Changed terms %s" % compareCommonTerms(common,buff))
     if showNames:
-        print buff.getvalue()
+        print(buff.getvalue())
     
 
     

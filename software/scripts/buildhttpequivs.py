@@ -67,5 +67,5 @@ for ftype in exts:
     format = ftype
     if format == "rdf":
         format = "pretty-xml"
-    out = outGraph.serialize(format=format,auto_compact=True,**kwargs).decode()
-    file.write(out)
+    out = outGraph.serialize(format=format,auto_compact=True,**kwargs)
+    file.write(out, encoding='utf8')

@@ -62,6 +62,6 @@ if (input_file != None):
                 term = vocab_term(term)
                 addCount(term, count)
         for term in sorted(counts.keys(), key= lambda term: counts[term], reverse=True):
-            print bucket(term, counts[term])
+            print(bucket(term, counts[term]))
     else:
-        print "Cannot open file " + input_file
+        print("Cannot open file " + input_file)
