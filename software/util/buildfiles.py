@@ -138,8 +138,6 @@ def protocols():
 
 import rdflib
 from rdflib.serializer import Serializer
-import rdflib_jsonld
-rdflib.plugin.register("json-ld", Serializer, "rdflib_jsonld.serializer", "JsonLDSerializer")
 allGraph = None
 currentGraph = None
 def exportrdf(exportType):
@@ -219,10 +217,10 @@ def _exportrdf(format,all,current):
         fmt = format
         if format == "rdf":
             fmt = "pretty-xml"
-        f = open(fn,"w")
-        af = open(afn,"w")
+        f = open(fn,"w", encoding='utf8')
+        af = open(afn,"w", encoding='utf8')
         kwargs = {'sort_keys': True}
-        out = g.serialize(format=fmt,auto_compact=True,**kwargs).decode()
+        out = g.serialize(format=fmt,auto_compact=True,**kwargs)
         f.write(out)
         print(fn)
         af.write(prtocolswap(out,protocol=protocol,altprotocol=altprotocol))
@@ -313,8 +311,8 @@ def writecsvout(ftype,data,fields,ver,protocol,altprotocol):
     fn = fileName("releases/%s/schemaorg-%s-%s-%s.csv" % (getVersion(),ver,protocol,ftype))
     afn = fileName("releases/%s/schemaorg-%s-%s-%s.csv" % (getVersion(),ver,altprotocol,ftype))
     csvout = io.StringIO()
-    csvfile = open(fn,'w')
-    acsvfile = open(afn,'w')
+    csvfile = open(fn,'w', encoding='utf8')
+    acsvfile = open(afn,'w', encoding='utf8')
     writer = csv.DictWriter(csvout, fieldnames=fields, quoting=csv.QUOTE_ALL,lineterminator='\n')
     writer.writeheader()
     for row in data:
@@ -363,7 +361,7 @@ def buildFiles(files):
                 if content:
                     for filename in filenames:
                         fn = fileName(filename)
-                        f = open(fn,"w")
+                        f = open(fn,"w", encoding='utf8')
                         f.write(content)
                         f.close()
                         print("Created %s" % fn)

@@ -32,9 +32,6 @@ import re
 import rdflib
 from rdflib.serializer import Serializer
 from rdflib.parser import Parser
-import rdflib_jsonld
-rdflib.plugin.register("json-ld", Serializer, "rdflib_jsonld.serializer", "JsonLDSerializer")
-rdflib.plugin.register("json-ld", Parser, "rdflib_jsonld.parser", "JsonLDParser")
 
 from pyRdfa import pyRdfa
 RDFaProcessor = pyRdfa("")
