@@ -1050,21 +1050,21 @@ class SdoTermSource():
     def termCounts():
         global VOCABURI
         if not SdoTermSource.TERMCOUNTS:
-            count = """SELECT (COUNT(?s) as ?count) WHERE {
+            count = """SELECT (COUNT(DISTINCT ?s) as ?count) WHERE {
                 ?s a ?type .
                 FILTER (strStarts(str(?s),"%s"))
             } """ % VOCABURI
             res = SdoTermSource.query(count)
             allterms = int(res[0][0])
 
-            count = """SELECT (COUNT(?s) as ?count) WHERE {
+            count = """SELECT (COUNT(DISTINCT ?s) as ?count) WHERE {
                 ?s a rdfs:Class .
                 FILTER (strStarts(str(?s),"%s"))
             } """ % VOCABURI
             res = SdoTermSource.query(count)
             classes = int(res[0][0])
             
-            count = """SELECT (COUNT(?s) as ?count) WHERE {
+            count = """SELECT (COUNT(DISTINCT ?s) as ?count) WHERE {
                 ?s a rdf:Property .
                 FILTER (strStarts(str(?s),"%s"))
             } """ % VOCABURI
@@ -1108,10 +1108,13 @@ class SdoTermSource():
             res = SdoTermSource.query(count)
             datatypeclasses = int(res[0][0])
             
+            
             types = classes
-            types -= 2 #Eumeration & DataType
+            types -= 1 #DataType not counted
             types -= enums
             types -= datatypeclasses
+            datatypes -= 1 #Datatype not counted
+
 
             SdoTermSource.TERMCOUNTS = {}
             SdoTermSource.TERMCOUNTS[SdoTerm.TYPE] = types
@@ -1119,7 +1122,7 @@ class SdoTermSource():
             SdoTermSource.TERMCOUNTS[SdoTerm.DATATYPE] = datatypes
             SdoTermSource.TERMCOUNTS[SdoTerm.ENUMERATION] = enums
             SdoTermSource.TERMCOUNTS[SdoTerm.ENUMERATIONVALUE] = enumvals
-            SdoTermSource.TERMCOUNTS["All"] = allterms
+            SdoTermSource.TERMCOUNTS["All"] = types + properties + datatypes + enums + enumvals
         return SdoTermSource.TERMCOUNTS
             
 
