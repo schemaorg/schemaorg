@@ -325,6 +325,20 @@ def writecsvout(ftype,data,fields,ver,protocol,altprotocol):
     acsvfile.close()
     csvout.close()
 
+def jsoncounts(page):
+    counts = SdoTermSource.termCounts()
+    counts['schemaorgversion'] = getVersion()
+    return json.dumps(counts)
+
+def jsonpcounts(page):
+    content = """
+    COUNTS = '%s';
+
+    insertschemacounts ( COUNTS );
+    """ % jsoncounts(page)
+    return content
+
+
 def examples(page):
     return SchemaExamples.allExamplesSerialised()
 
@@ -332,6 +346,8 @@ FILELIST = { "Context": (jsonldcontext,["docs/jsonldcontext.jsonld",
                 "docs/jsonldcontext.json","docs/jsonldcontext.json.txt",
                 "releases/%s/schemaorgcontext.jsonld" % getVersion()]),
             "Tree": (jsonldtree,["docs/tree.jsonld"]),
+            "jsoncounts": (jsoncounts,["docs/jsoncounts.json"]),
+            "jsonpcounts": (jsonpcounts,["docs/jsonpcounts.js"]),
             "Owl": (owl,["docs/schemaorg.owl","releases/%s/schemaorg.owl" % getVersion()]),
             "Sitemap": (sitemap,["docs/sitemap.xml"]),
             "RDFExports": (exportrdf,[""]),
