@@ -26,7 +26,7 @@ log.info("Consolidating..")
 filename = args.output
 
 log.info("Writing %s examples to file %s" % (SchemaExamples.count(),filename))
-f = open(filename,"w")
+f = open(filename,"w", encoding='utf8')
 f.write(SchemaExamples.allExamplesSerialised())
 if f:
     f.close()
