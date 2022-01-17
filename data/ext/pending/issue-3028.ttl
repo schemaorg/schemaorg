@@ -1,0 +1,22 @@
+@prefix : <https://schema.org/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:OnlineBusiness a rdfs:Class ;
+    rdfs:label "OnlineBusiness" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3028> ; 
+    rdfs:comment "A particular online business part of an organization. Examples include an eCommerce site, an online travel booking site, an online learning site, an online logistics and shipping provider, an online (virtual) doctor, etc." ;
+    rdfs:subClassOf :Organization .
+
+
+:OnlineStore a rdfs:Class ;
+    rdfs:label "OnlineStore" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3028> ;
+    rdfs:comment "An eCommerce site." ;
+    rdfs:subClassOf :OnlineBusiness .
+
+
