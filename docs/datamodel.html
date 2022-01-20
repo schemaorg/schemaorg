@@ -3,84 +3,15 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>Data Model - schema.org</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Schema.org is a set of extensible schemas that enables webmasters to embed
-    structured data on their web pages for use by search engines and other applications." />
-    <link rel="stylesheet" type="text/css" href="schemaorg.css" />
-    <link href="prettify.css" type="text/css" rel="stylesheet" />
-    <script type="text/javascript" src="prettify.js">
-    </script>
-    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
-<!-- ##### Generated insert [CSEScript-start] see scripts/genhtmlinserts.sh ##### -->
-<!-- Enable CSE Search -->
-<script>
-(function() {
-var cx = '013516846811604855281:nj5laplixaa'; // Insert your own Custom Search engine ID here
-var gcse = document.createElement('script'); gcse.type = 'text/javascript'; gcse.async = true;
-gcse.src = 'https://cse.google.com/cse.js?cx=' + cx;
-var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(gcse, s);
-})();
-</script>
-<!-- ##### Generated insert [CSEScript-end] see scripts/genhtmlinserts.sh ##### -->
 
-<script type="text/javascript">
-      $(document).ready(function(){
-        prettyPrint();
-        setTimeout(function(){
-
-    $('.atn').each(function(i) {
-      if (($(this).text() == 'itemscope') || ($(this).text() == 'itemtype') || ($(this).text() == 'itemprop') || ($(this).text() == 'itemid') || ($(this).text() == 'time') || ($(this).text() == 'datetime') || ($(this).text() == 'vocab') || ($(this).text() == 'property') || ($(this).text() == 'typeOf') || ($(this).text() == 'rel'))
-        $(this).addClass('custom');
-    });
-
-        }, 500);
-      });
-</script>
-
-<style>
-
-  .tag    { color: #000; }    /* div, span, etc   */
-  .atn    { color: #000; }    /* href, datetime,  */
-  .custom { color: #660003; } /* itemscope, itemtype, etc,. */
-
-</style>
+<!-- #### Static Doc Insert Head goes here -->
 
 </head>
 <body>
-<!-- ##### Generated insert [DOCSHDR-start] see scripts/genhtmlinserts.sh ##### -->
-        <div id="container">
-            <div id="intro">
-                <div id="pageHeader">
-                    <div class="wrapper">
-                        <div id="sitename">
-                            <h1>
-                                <a href="../">schema.org</a>
-                            </h1>
-                        </div>
-                        <div id="cse-search-form" style="width: 400px;">
-                            <div class="gcse-searchbox-only" data-resultsurl="search_results.html"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div id="selectionbar">
-            <div class="wrapper">
-                <ul>
-                    <li>
-                        <a href="documents.html" >Documentation</a>
-                    </li>
-                    <li>
-                        <a href="schemas.html" >Schemas</a>
-                    </li>
-                    <li>
-                        <a href="../"  >Home</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-<!-- ##### Generated insert [DOCSHDR-end] see scripts/genhtmlinserts.sh ##### -->
-  <div id="mainContent">
+
+  <!-- #### Static Doc Insert PageHead goes here -->
+
+<div id="mainContent">
 
 <h1>Data Model</h1>
 
@@ -118,18 +49,7 @@ and a few properties like <a href="http://meta.schema.org/domainIncludes">domain
 to allow for reflection, i.e., for the schema to be represented in terms of itself.
 </p>
 
-<p>The canonical machine representation of schema.org is in RDFa:</p>
-
-<ul>
-<li><a href="schema_org_rdfa.html">schema_org_rdfa.html</a></li>
-</ul>
-
-<p>
-Now-obsolete snapshots of <a href='https://web.archive.org/web/20150414142113/http://schema.org/docs/full_md.html'>Microdata</a> and <a href='schemaorg.owl'>OWL</a> experimental
-data dumps were previously published. See also <a href="http://topbraid.org/schema/">TopBraid's version</a>.
-</p>
-
-<p>See the "<a href="/docs/developers.html">developers</a>" page for more information on machine-readable views of schema.org.</p>
+<p>The canonical machine representation of schema.org is in RDF/Turtle. See the "<a href="/docs/developers.html">developers</a>" page for more information on machine-readable views of schema.org.</p>
 
 <p>
 The type hierarchy presented on this site is not intended to be a 'global ontology' of the world.
@@ -158,7 +78,7 @@ we will accept this markup and do the best they can.
 <p>
 Although it might be helpful for search applications if structured data markup always followed schema.org very
 strictly, in practice this is unrealistic. Our schemas also continue to evolve in response to
-feedback, discussion and new applications of the data. Where possible we <a href="http://schema.org/docs/howwework.html">amend</a> existing definitions incrementally
+feedback, discussion and new applications of the data. Where possible we <a href="https://schema.org/docs/howwework.html">amend</a> existing definitions incrementally
 rather than introducing lots of new properties for similar use cases. We have consequently based schema.org on a
 very flexible datamodel, and take a pragmatic view of conformance.
 </p>
@@ -220,7 +140,7 @@ to the Microdata version. The following sample demonstrates the use of RDFa Lite
 mark up a <a href="/Product">Product</a> type example:
 
 <pre  class="prettyprint lang-html linenums">
-&lt;div vocab="http://schema.org/" typeof="Product"&gt;
+&lt;div vocab="https://schema.org/" typeof="Product"&gt;
   &lt;img property="image" src="dell-30in-lcd.jpg" /&gt;
   &lt;span property="name"&gt;Dell UltraSharp 30" LCD Monitor&lt;/span&gt;
 
@@ -260,7 +180,7 @@ More specifically:
 </ol>
 <p>
 In addition, the attribute value
-pair <code>vocab="http://schema.org/"</code> is added to the body or
+pair <code>vocab="https://schema.org/"</code> is added to the body or
 some other enclosing tag.
 </p>
 
@@ -321,10 +241,7 @@ conventional short name for most identifier schemes (which should be used in low
 
 </div>
 
-
-<div id="footer"><p>
-  <a href="../docs/terms.html">Terms and conditions</a></p>
-</div>
+<!-- #### Static Doc Insert Footer here -->
 
 </body>
 </html>

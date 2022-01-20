@@ -1,4 +1,4 @@
-TYPES: #invoice-1 Invoice,BankOrCreditUnion,Person,PriceSpecification
+TYPES: #eg-0374 Invoice, BankOrCreditUnion, Person, PriceSpecification
 
 PRE-MARKUP:
 
@@ -17,33 +17,32 @@ payment due
 
 MICRODATA:
 
-<div itemscope itemtype="http://schema.org/Invoice">
+<div itemscope itemtype="https://schema.org/Invoice">
   <h1 itemprop="description">January 2015 Visa</h1>
   <a itemprop="url" href="http://acmebank.com/invoice.pdf">Invoice PDF</a>
-  <div itemprop="broker" itemscope itemtype="http://schema.org/BankOrCreditUnion">
+  <div itemprop="broker" itemscope itemtype="https://schema.org/BankOrCreditUnion">
     <b itemprop="name">ACME Bank</b>
   </div>
   <span itemprop="accountId">xxxx-xxxx-xxxx-1234</span>
-  <div itemprop="customer" itemscope itemtype="http://schema.org/Person">
+  <div itemprop="customer" itemscope itemtype="https://schema.org/Person">
     <b itemprop="name">Jane Doe</b>
   </div>
   <time itemprop="paymentDueDate">2015-01-30</time>
-  <div itemprop="minimumPaymentDue" itemscope itemtype="http://schema.org/PriceSpecification">
+  <div itemprop="minimumPaymentDue" itemscope itemtype="https://schema.org/PriceSpecification">
     <span itemprop="price">15.00</span>
     <span itemprop="priceCurrency">USD</span>
   </div>
-  <div itemprop="totalPaymentDue" itemscope itemtype="http://schema.org/PriceSpecification">
+  <div itemprop="totalPaymentDue" itemscope itemtype="https://schema.org/PriceSpecification">
     <span itemprop="price">200.00</span>
     <span itemprop="priceCurrency">USD</span>
   </div>
   <meta itemprop="billingPeriod" content="P30D" />starts:2014-12-21 30 days
-  <link itemprop="paymentStatus" href="http://schema.org/PaymentDue" />
+  <link itemprop="paymentStatus" href="https://schema.org/PaymentDue" />
 </div>
 
- 
 RDFA:
 
-<div vocab="http://schema.org/" typeof="Invoice">
+<div vocab="https://schema.org/" typeof="Invoice">
   <h1 property="description">January 2015 Visa</h1>
   <a property="url" href="http://acmebank.com/invoice.pdf">Invoice PDF</a>
   <div property="broker" typeof="BankOrCreditUnion">
@@ -66,12 +65,11 @@ RDFA:
   <link property="paymentStatus" href="PaymentDue" />
 </div>
 
-
 JSON:
 
 <script type="application/ld+json">
 {
-    "@context": "http://schema.org/",
+    "@context": "https://schema.org/",
     "@type": "Invoice",
     "description": "January 2015 Visa bill.",
     "url": "http://acmebank.com/invoice.pdf",
@@ -96,11 +94,11 @@ JSON:
       "priceCurrency": "USD"
     },
     "billingPeriod": "P30D",
-    "paymentStatus": "http://schema.org/PaymentDue"
+    "paymentStatus": "https://schema.org/PaymentDue"
 }
 </script>
 
-TYPES: Invoice,Order,LocalBusiness,Person,PriceSpecification,Service
+TYPES: #eg-0375 Invoice, Order, LocalBusiness, Person, PriceSpecification, Service
 
 PRE-MARKUP:
 
@@ -118,48 +116,47 @@ order: installation labor
 
 MICRODATA:
 
-<div itemscope itemtype="http://schema.org/Invoice">
+<div itemscope itemtype="https://schema.org/Invoice">
   <h1 itemprop="description">New furnace and installation</h1>
-  <div itemprop="broker" itemscope itemtype="http://schema.org/LocalBusiness">
+  <div itemprop="broker" itemscope itemtype="https://schema.org/LocalBusiness">
     <b itemprop="name">ACME Home Heating</b>
   </div>
-  <div itemprop="customer" itemscope itemtype="http://schema.org/Person">
+  <div itemprop="customer" itemscope itemtype="https://schema.org/Person">
     <b itemprop="name">Jane Doe</b>
   </div>
   <time itemprop="paymentDueDate">2015-01-30</time>
-  <div itemprop="minimumPaymentDue" itemscope itemtype="http://schema.org/PriceSpecification">
+  <div itemprop="minimumPaymentDue" itemscope itemtype="https://schema.org/PriceSpecification">
     <span itemprop="price">0.00</span>
     <span itemprop="priceCurrency">USD</span>
   </div>
-  <div itemprop="totalPaymentDue" itemscope itemtype="http://schema.org/PriceSpecification">
+  <div itemprop="totalPaymentDue" itemscope itemtype="https://schema.org/PriceSpecification">
     <span itemprop="price">0.00</span>
     <span itemprop="priceCurrency">USD</span>
   </div>
-  <link itemprop="paymentStatus" href="http://schema.org/PaymentComplete" />
-  <div itemprop="referencesOrder" itemscope itemtype="http://schema.org/Order">
+  <link itemprop="paymentStatus" href="https://schema.org/PaymentComplete" />
+  <div itemprop="referencesOrder" itemscope itemtype="https://schema.org/Order">
     <span itemprop="description">furnace</span>
     <time itemprop="orderDate">2014-12-01</time>
     <span itemprop="orderNumber">123ABC</span>
-    <div itemprop="orderedItem" itemscope itemtype="http://schema.org/Product">
+    <div itemprop="orderedItem" itemscope itemtype="https://schema.org/Product">
       <span itemprop="name">ACME Furnace 3000</span>
       <meta itemprop="productID" content="ABC123" />
     </div>
   </div>
-  <div itemprop="referencesOrder" itemscope itemtype="http://schema.org/Order">
+  <div itemprop="referencesOrder" itemscope itemtype="https://schema.org/Order">
     <span itemprop="description">furnace installation</span>
     <time itemprop="orderDate">2014-12-02</time>
-    <div itemprop="orderedItem" itemscope itemtype="http://schema.org/Service">
+    <div itemprop="orderedItem" itemscope itemtype="https://schema.org/Service">
       <span itemprop="description">furnace installation</span>
     </div>
   </div>
 </div>
 
- 
 RDFA:
 
-<div vocab="http://schema.org/" typeof="Invoice">
+<div vocab="https://schema.org/" typeof="Invoice">
   <h1 property="description">New furnace and installation</h1>
-  <div property="broker" typeof="/LocalBusiness">
+  <div property="broker" typeof="LocalBusiness">
     <b property="name">ACME Home Heating</b>
   </div>
   <div property="customer" typeof="Person">
@@ -193,12 +190,11 @@ RDFA:
   </div>
 </div>
 
-
 JSON:
 
 <script type="application/ld+json">
 {
-    "@context": "http://schema.org/",
+    "@context": "https://schema.org/",
     "@type": "Invoice",
     "broker": {
       "@type": "LocalBusiness",
@@ -220,7 +216,7 @@ JSON:
       "price": 0.00,
       "priceCurrency": "USD"
     },
-    "paymentStatus": "http://schema.org/PaymentComplete",
+    "paymentStatus": "https://schema.org/PaymentComplete",
     "referencesOrder": [
       {
         "@type": "Order",
@@ -248,7 +244,7 @@ JSON:
 }
 </script>
 
-TYPES: Order,OrderItem,Organization,Person
+TYPES: #eg-0376 Order, OrderItem, Organization, Person
 
 PRE-MARKUP:
 
@@ -262,42 +258,41 @@ Order:
 
 MICRODATA:
 
-<div itemscope itemtype="http://schema.org/Order">
-  <div itemprop="seller" itemscope itemtype="http://schema.org/Organization">
+<div itemscope itemtype="https://schema.org/Order">
+  <div itemprop="seller" itemscope itemtype="https://schema.org/Organization">
     <b itemprop="name">ACME Supplies</b>
   </div>
-  <div itemprop="customer" itemscope itemtype="http://schema.org/Person">
+  <div itemprop="customer" itemscope itemtype="https://schema.org/Person">
     <b itemprop="name">Jane Doe</b>
   </div>
-  <div itemprop="orderedItem" itemscope itemtype="http://schema.org/OrderItem">
+  <div itemprop="orderedItem" itemscope itemtype="https://schema.org/OrderItem">
     Item number: <span itemprop="orderItemNumber">abc123</span>
     <span itemprop="orderQuantity">1</span>
-    <div itemprop="orderedItem" itemscope itemtype="http://schema.org/Product">
+    <div itemprop="orderedItem" itemscope itemtype="https://schema.org/Product">
       <span itemprop="name">Widget</span>
     </div>
-    <link itemprop="orderItemStatus" href="http://schema.org/OrderDelivered" />Delivered
-    <div itemprop="orderDelivery" itemscope itemtype="http://schema.org/ParcelDelivery">
-      <time="expectedArrivalFrom">2015-03-10</time>
+    <link itemprop="orderItemStatus" href="https://schema.org/OrderDelivered" />Delivered
+    <div itemprop="orderDelivery" itemscope itemtype="https://schema.org/ParcelDelivery">
+      <time itemprop="expectedArrivalFrom">2015-03-10</time>
     </div>
   </div>
-  <div itemprop="orderedItem" itemscope itemtype="http://schema.org/OrderItem">
+  <div itemprop="orderedItem" itemscope itemtype="https://schema.org/OrderItem">
     Item number: <span itemprop="orderItemNumber">def456</span>
     <span itemprop="orderQuantity">4</span>
-    <div itemprop="orderedItem" itemscope itemtype="http://schema.org/Product">
+    <div itemprop="orderedItem" itemscope itemtype="https://schema.org/Product">
       <span itemprop="name">Widget accessories</span>
     </div>
-    <link itemprop="orderItemStatus" href="http://schema.org/OrderInTransit" />Shipped
-    <div itemprop="orderDelivery" itemscope itemtype="http://schema.org/ParcelDelivery">
+    <link itemprop="orderItemStatus" href="https://schema.org/OrderInTransit" />Shipped
+    <div itemprop="orderDelivery" itemscope itemtype="https://schema.org/ParcelDelivery">
       <time itemprop="expectedArrivalFrom">2015-03-15</time>
       <time itemprop="expectedArrivalUntil">2015-03-18</time>
     </div>
   </div>
 </div>
 
- 
 RDFA:
 
-<div vocab="http://schema.org/" typeof="Order">
+<div vocab="https://schema.org/" typeof="Order">
   <div property="seller" typeof="Organization">
     <b property="name">ACME Supplies</b>
   </div>
@@ -310,7 +305,7 @@ RDFA:
     <div property="orderedItem" typeof="Product">
       <span property="name">Widget</span>
     </div>
-    <link property="orderItemStatus" href="http://schema.org/OrderDelivered" />Delivered
+    <link property="orderItemStatus" href="https://schema.org/OrderDelivered" />Delivered
     <div property="orderDelivery" typeof="ParcelDelivery">
       <time property="expectedArrivalFrom">2015-03-10</time>
     </div>
@@ -321,7 +316,7 @@ RDFA:
     <div property="orderedItem" typeof="Product">
       <span property="name">Widget accessories</span>
     </div>
-    <link property="orderItemStatus" href="http://schema.org/OrderInTransit" />Shipped
+    <link property="orderItemStatus" href="https://schema.org/OrderInTransit" />Shipped
     <div property="orderDelivery" typeof="ParcelDelivery">
       <time property="expectedArrivalFrom">2015-03-15</time>
       <time property="expectedArrivalUntil">2015-03-18</time>
@@ -329,12 +324,11 @@ RDFA:
   </div>
 </div>
 
-
 JSON:
 
 <script type="application/ld+json">
 {
-  "@context": "http://schema.org/",
+  "@context": "https://schema.org/",
   "@type": "Order",
   "seller": {
     "@type": "Organization",
@@ -353,7 +347,7 @@ JSON:
         "@type": "Product",
         "name": "Widget"
       },
-      "orderItemStatus": "http://schema.org/OrderDelivered",
+      "orderItemStatus": "https://schema.org/OrderDelivered",
       "orderDelivery": {
         "@type": "ParcelDelivery",
         "expectedArrivalFrom": "2015-03-10"
@@ -367,7 +361,7 @@ JSON:
         "@type": "Product",
         "name": "Widget accessories"
       },
-      "orderItemStatus": "http://schema.org/OrderInTransit",
+      "orderItemStatus": "https://schema.org/OrderInTransit",
       "orderDelivery": {
         "@type": "ParcelDelivery",
         "expectedArrivalFrom": "2015-03-15",
@@ -378,6 +372,3 @@ JSON:
 }
 </script>
 
-
-
-    

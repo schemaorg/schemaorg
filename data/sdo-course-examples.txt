@@ -1,8 +1,8 @@
-TYPES: #Course1 Course, CourseInstance, hasCourseInstance, courseMode
+TYPES: #eg-0332 Course, CourseInstance, hasCourseInstance, courseMode
 
 PRE-MARKUP:
 
-<body vocab="http://schema.org/">
+<body vocab="https://schema.org/">
 <!-- A MOOC / free online course. As a simple one-off course -->
 <!-- Based on https://www.coursera.org/course/datascitoolbox -->
 
@@ -13,19 +13,19 @@ PRE-MARKUP:
        data scientist's toolbox...</p>
   <div>
     <h2>Session dates</h2>
-    <span>February 15</span> - 
-    <span>March 21</span>                
+    <span>February 15</span> -
+    <span>March 21</span>
   </div>
 </main>
 </body>
 
 MICRODATA:
-No Microdata
 
+No Microdata
 
 RDFA:
 
-<body vocab="http://schema.org/">
+<body vocab="https://schema.org/">
 <!-- A MOOC / free online course. As a simple one-off course -->
 <!-- Based on https://www.coursera.org/course/datascitoolbox -->
 
@@ -39,8 +39,8 @@ RDFA:
     <meta property="courseMode" content="MOOC" />
     <meta property="courseMode" content="online" />
     <h2>Session dates</h2>
-    <span property="startDate" content="2019-02-15" datatype="schema:date">February 15</span> - 
-    <span property="endDate" content="2019-03-21" datatype="schema:date">March 21</span>                
+    <span property="startDate" content="2019-02-15">February 15</span> -
+    <span property="endDate" content="2019-03-21">March 21</span>
   </div>
 </main>
 </body>
@@ -49,8 +49,8 @@ JSON:
 
 <script type="application/ld+json">
 {
-  "@context": "http://schema.org/",
-  "@type": "schema:Course",
+  "@context": "https://schema.org/",
+  "@type": "Course",
   "description": "In this course you will get an introduction to the main tools and ideas in the data scientist's toolbox...",
   "hasCourseInstance": {
     "@type": "CourseInstance",
@@ -61,18 +61,17 @@ JSON:
 }
 </script>
 
-TYPES: #Course2 Course, CourseInstance, hasCourseInstance, courseMode
-
+TYPES: #eg-0333 Course, CourseInstance, hasCourseInstance, courseMode
 
 PRE-MARKUP:
 
-<body vocab="http://schema.org/" typeof="Course">
+<body vocab="https://schema.org/" typeof="Course">
 <!-- A college course offered at several locations -->
 <!-- based on http://www.fife.ac.uk/student/courses/course/HCACC -->
-  <h1>Course Details</h1>           
+  <h1>Course Details</h1>
   <h2>HNC Accounting</h2>
-    <p>This course is designed for those wishing to take up 
-       a career in Accounting and Financial Administration within a range of 
+    <p>This course is designed for those wishing to take up
+       a career in Accounting and Financial Administration within a range of
        organisations....</p>
   <h2>This course is currently offered on the date(s) and venue(s) listed below.</h2>
     <table >
@@ -102,23 +101,22 @@ PRE-MARKUP:
           <td>St Brycedale Campus Kirkcaldy</td>
         </tr>
       </tbody>
-    </table>  
+    </table>
 </body>
 
 MICRODATA:
+
 No Microdata
-
-
 
 RDFA:
 
-<body vocab="http://schema.org/" typeof="Course">
+<body vocab="https://schema.org/" typeof="Course">
 <!-- A college course offered at several locations -->
 <!-- based on http://www.fife.ac.uk/student/courses/course/HCACC -->
-  <h1>Course Details</h1>           
+  <h1>Course Details</h1>
   <h2 property="name">HNC Accounting</h2>
-    <p property="description">This course is designed for those wishing to take up 
-       a career in Accounting and Financial Administration within a range of 
+    <p property="description">This course is designed for those wishing to take up
+       a career in Accounting and Financial Administration within a range of
        organisations....</p>
   <h2>This course is currently offered on the date(s) and venue(s) listed below.</h2>
     <table >
@@ -149,14 +147,14 @@ RDFA:
           <td  property="location">St Brycedale Campus Kirkcaldy</td>
         </tr>
       </tbody>
-    </table>  
+    </table>
 </body>
 
 JSON:
 
 <script type="application/ld+json">
 {
-  "@context": "http://schema.org/",
+  "@context": "https://schema.org/",
   "@id": "./",
   "@type": "Course",
   "name": "HNC Accounting",
@@ -186,7 +184,7 @@ JSON:
 }
 </script>
 
-TYPES: #Course3 Course, CourseInstance, hasCourseInstance, courseMode
+TYPES: #eg-0334 Course, CourseInstance, hasCourseInstance, courseMode
 
 PRE-MARKUP:
 
@@ -195,30 +193,29 @@ PRE-MARKUP:
 <!--Based on http://www.train4publishing.co.uk/courses/distance-learning/basic-proofreading -->
 <div>
   <h1>Basic Proofreading</h1>
-  <p>The distance learning training course that takes you 
+  <p>The distance learning training course that takes you
         from complete beginner to PQB qualified proofreader in one step.</p>
   <div>
     Online, cost: £395
   </div>
   <div>
     Posted, cost:£440
-  </div>	
+  </div>
 </div>
 </body>
 
 MICRODATA:
+
 No Microdata
-
-
 
 RDFA:
 
-<body vocab="http://schema.org/">
+<body vocab="https://schema.org/">
 <!--A self-paced distance learning course (no events)-->
 <!--Based on http://www.train4publishing.co.uk/courses/distance-learning/basic-proofreading -->
 <div typeof="Course">
   <h1 property="name">Basic Proofreading</h1>
-  <p property="description">The distance learning training course that takes you 
+  <p property="description">The distance learning training course that takes you
         from complete beginner to PQB qualified proofreader in one step.</p>
   <div rel="hasCourseInstance" typeof="CourseInstance">
     <meta property="courseMode" content="distance learning" />
@@ -235,7 +232,7 @@ RDFA:
       cost:<meta property="priceCurrency" content="GBP" />
            £<span property="price">440</span>
     </div>
-  </div>	
+  </div>
 </div>
 </body>
 
@@ -243,7 +240,7 @@ JSON:
 
 <script type="application/ld+json">
 {
-  "@context": "http://schema.org/",
+  "@context": "https://schema.org/",
   "@type": "Course",
   "name": "Basic Proofreading",
   "description": "The distance learning training course that takes you \r\n        from complete beginner to PQB qualified proofreader in one step.",
@@ -276,7 +273,7 @@ JSON:
 }
 </script>
 
-TYPES: #Course4 educationalCredentialAwarded
+TYPES: #eg-0335 educationalCredentialAwarded
 
 PRE-MARKUP:
 
@@ -288,13 +285,12 @@ PRE-MARKUP:
 </body>
 
 MICRODATA:
+
 No Microdata
-
-
 
 RDFA:
 
-<body vocab="http://schema.org/" typeof="Course">
+<body vocab="https://schema.org/" typeof="Course">
 <!-- A college course leading to an HNC in Accounting -->
 <!-- based on http://www.fife.ac.uk/student/courses/course/HCACC -->
   <h1>Course Details</h1>
@@ -306,14 +302,14 @@ JSON:
 
 <script type="application/ld+json">
 {
-  "@context": "http://schema.org/",
-  "@type": "schema:Course",
+  "@context": "https://schema.org/",
+  "@type": "Course",
   "educationalCredentialAwarded": "Higher National Certificate in Accounting",
   "name": "HNC Accounting"
 }
 </script>
 
-TYPES: #Course5 educationalCredentialAwarded
+TYPES: #eg-0336 educationalCredentialAwarded
 
 PRE-MARKUP:
 
@@ -324,27 +320,26 @@ PRE-MARKUP:
     <h1>Basic Proofreading</h1>
     <h2>What is Included?</h2>
     <h3>Certificate</h3>
-    <p>A completion certificate from PQB showing whether you have achieved a 
+    <p>A completion certificate from PQB showing whether you have achieved a
       pass, merit or distinction in your work.</p>
   </div>
 </body>
 
 MICRODATA:
+
 No Microdata
-
-
 
 RDFA:
 
 <!-- Certificate for a distance learning course -->
 <!--Based on http://www.train4publishing.co.uk/courses/distance-learning/basic-proofreading -->
-<body vocab="http://schema.org/">
+<body vocab="https://schema.org/">
   <div typeof="Course">
     <h1 property="name">Basic Proofreading</h1>
     <h2>What is Included?</h2>
     <h3>Certificate</h3>
-    <p>A <span property= "educationalCredentialAwarded">completion certificate from 
-      PQB</span> showing whether you have achieved a pass, merit or distinction in your 
+    <p>A <span property= "educationalCredentialAwarded">completion certificate from
+      PQB</span> showing whether you have achieved a pass, merit or distinction in your
       work.</p>
   </div>
 </body>
@@ -353,14 +348,14 @@ JSON:
 
 <script type="application/ld+json">
 {
-  "@context": "http://schema.org/",
+  "@context": "https://schema.org/",
   "@type": "Course",
   "educationalCredentialAwarded": "completion certificate from \r\n      PQB",
   "name": "Basic Proofreading"
 }
 </script>
 
-TYPES: #Course6 instructor, provider
+TYPES: #eg-0337 instructor, provider
 
 PRE-MARKUP:
 
@@ -382,20 +377,18 @@ PRE-MARKUP:
         <div>Associate Professor, Biostatistics</div>
         <div>Bloomberg School of Public Health </div>
       </a>
-    </div>            
+    </div>
   </div>
 </main>
 </body>
 
-
 MICRODATA:
+
 No Microdata
-
-
 
 RDFA:
 
-<body vocab="http://schema.org/">
+<body vocab="https://schema.org/">
 <!-- A MOOC created by an Institution, offered through a MOOC platform, with named instructor -->
 <!-- Based on https://www.coursera.org/course/datascitoolbox -->
 
@@ -419,7 +412,7 @@ RDFA:
         <div property="jobTitle" >Associate Professor, Biostatistics</div>
         <div  property="worksFor" >Bloomberg School of Public Health </div>
       </a>
-    </div>            
+    </div>
   </div>
 </main>
 </body>
@@ -428,36 +421,36 @@ JSON:
 
 <script type="application/ld+json">
 {
-  "@context": "http://schema.org/",
-  "@type": "schema:Course",
-  "schema:hasCourseInstance": {
-    "@type": "schema:CourseInstance",
-    "schema:courseMode": [
+  "@context": "https://schema.org/",
+  "@type": "Course",
+  "hasCourseInstance": {
+    "@type": "CourseInstance",
+    "courseMode": [
       "MOOC",
       "online"
     ],
-    "schema:instructor": {
-      "@type": "schema:Person",
-      "schema:jobTitle": "Associate Professor, Biostatistics",
-      "schema:name": "Jeff Leek, PhD",
-      "schema:url": {"@id": "http://example.org/instructor/~315"},
-      "schema:worksFor": "Bloomberg School of Public Health "
+    "instructor": {
+      "@type": "Person",
+      "jobTitle": "Associate Professor, Biostatistics",
+      "name": "Jeff Leek, PhD",
+      "url": {"@id": "http://example.org/instructor/~315"},
+      "worksFor": "Bloomberg School of Public Health "
     },
-    "schema:offers": {
-      "@type": "schema:Offer",
-      "schema:offeredBy": "Coursera",
-      "schema:price": "0"
+    "offers": {
+      "@type": "Offer",
+      "offeredBy": "Coursera",
+      "price": "0"
     }
   },
-  "schema:name": "The Data Scientist's Toolbox",
-  "schema:provider": {
-    "@type": "schema:EducationalOrganization",
-    "schema:name": "Johns Hopkins University"
+  "name": "The Data Scientist's Toolbox",
+  "provider": {
+    "@type": "EducationalOrganization",
+    "name": "Johns Hopkins University"
   }
 }
 </script>
 
-TYPES: #Course7 Course, courseCode, provider
+TYPES: #eg-0338 Course, courseCode, provider
 
 PRE-MARKUP:
 
@@ -468,7 +461,7 @@ PRE-MARKUP:
         <h2>Physics</h2>
         <div>
             <a href="/provider/324/university-of-bristol">
-                <span>University of Bristol</span> 
+                <span>University of Bristol</span>
             </a>
         </div>
         <div>
@@ -478,20 +471,19 @@ PRE-MARKUP:
 </body>
 
 MICRODATA:
+
 No Microdata
-
-
 
 RDFA:
 
-<body vocab="http://schema.org/">
+<body vocab="https://schema.org/">
 <!--A Bachellor's programme provided by a University, referencing the course code-->
 <!--based on http://search.ucas.com/course/summary/463149/physics -->
     <div typeof="Course">
         <h2 property="name">Physics</h2>
         <div property="provider" typeOf="CollegeOrUniversity">
             <a property="url" href="/provider/324/university-of-bristol">
-                <span property="name">University of Bristol</span> 
+                <span property="name">University of Bristol</span>
             </a>
         </div>
         <div>
@@ -504,36 +496,15 @@ JSON:
 
 <script type="application/ld+json">
 {
-  "@context": "http://schema.org/",
-  "@type": "schema:Course",
-  "schema:courseCode": "F300",
-  "schema:name": "Physics",
-  "schema:provider": {
-    "@type": "schema:CollegeOrUniversity",
-    "schema:name": "University of Bristol",
-    "schema:url": {"@id": "/provider/324/university-of-bristol"}
+  "@context": "https://schema.org/",
+  "@type": "Course",
+  "courseCode": "F300",
+  "name": "Physics",
+  "provider": {
+    "@type": "CollegeOrUniversity",
+    "name": "University of Bristol",
+    "url": {"@id": "/provider/324/university-of-bristol"}
   }
 }
 </script>
-
-
-
-TYPES: comma-separated-list-here replace  with content.
-
-PRE-MARKUP:
-No Pre-markup
-
-
-
-MICRODATA:
-No Microdata
-
-
-
-RDFA:
-No RDFa
-
-
-JSON:
-No JSON-LD
 

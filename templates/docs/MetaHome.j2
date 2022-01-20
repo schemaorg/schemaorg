@@ -1,0 +1,26 @@
+{% from 'macros.j2' import docs_sdotermlink as sdotermlink with context %}
+<!DOCTYPE html>
+<html lang="en">
+<!-- Generated from Home.j2 -->
+    {% include 'docs/DocsHead.j2' with context %}
+<body>
+    {% include 'PageHeader.j2' with context %}
+    <div id="mainContent">
+<h3>Schema.org Section: meta</h3>
+<p>Schema.org is a set of extensible schemas that enables webmasters to embed structured data on their web pages for use by search engines and other applications.
+For more details, see the <a href="/">homepage</a>.
+
+</p>
+
+<p>
+The meta section contains terms primarily designed to support the implementation of the Schema.org vocabulary itself. 
+It includes terms such as {{ sdotermlink('Class')|safe }}, {{ sdotermlink('Property')|safe }}, {{ sdotermlink('domainIncludes')|safe }} and {{ sdotermlink('supersededBy')|safe }}. 
+They are not currently advocated for widespread use across the web.
+</p>
+
+{% set SECTIONNAME = "meta" %}
+{% include 'docs/HomeTermsList.j2' with context %}
+    </div> <!-- mainContent -->
+	{% include 'PageFooter.j2' with context %}
+</body>
+</html>

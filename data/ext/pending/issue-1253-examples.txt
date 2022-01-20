@@ -1,6 +1,7 @@
-TYPES: BrokerageAccount
+TYPES: #eg-0232 BrokerageAccount
 
 PRE-MARKUP:
+
 <div>
   <h1>ExampleBank® 1st Brokerage Account</h1>
   <p>Our popular brokerage account lets you invest in everything from stocks and bonds to mutual funds, ETFs, and more. Take advantage of all our research and tools, expert insight, and investment guidance to support your investing decisions.</p>
@@ -9,21 +10,19 @@ PRE-MARKUP:
   <p>No fees to open or maintain an account. Other account fees, fund expenses, and brokerage commissions may apply. Commissions: $8.95 per online equity trade; commission-free ExampleBank® ETF online trades in your ExampleBank® account</p>
 </div>
 
-
 MICRODATA:
 
-<div itemscope itemtype="http://schema.org/BrokerageAccount">
+<div itemscope itemtype="https://schema.org/BrokerageAccount">
   <h1 itemprop="name">ExampleBank® 1st Brokerage Account</h1>
   <p itemprop="description">Our popular brokerage account lets you invest in everything from stocks and bonds to mutual funds, ETFs, and more. Take advantage of all our research and tools, expert insight, and investment guidance to support your investing decisions.</p>
-  <p itemprop="availableChannel" itemscope itemtype="http://schema.org/ServiceChannel">Ability to manage your money and deposits from anywhere using <a itemprop="serviceMobileApp" href="http://http://www.examplebank.com/public/investing/pricing_services/mobile/android">ExampleBank® Mobile</a></p>
-  <p itemprop="amount" itemscope itemtype="http://schema.org/MonetaryAmount"><span itemprop="currency" content="USD">$</span><span itemprop="minAmount" content="1000">1,000</span> minimum investment to open an account</p>
+  <p itemprop="availableChannel" itemscope itemtype="https://schema.org/ServiceChannel">Ability to manage your money and deposits from anywhere using <a itemprop="serviceMobileApp" href="http://http://www.examplebank.com/public/investing/pricing_services/mobile/android">ExampleBank® Mobile</a></p>
+  <p itemprop="amount" itemscope itemtype="https://schema.org/MonetaryAmount"><span itemprop="currency" content="USD">$</span><span itemprop="minAmount" content="1000">1,000</span> minimum investment to open an account</p>
   <p itemprop="feesAndCommissionsSpecification">No fees to open or maintain an account. Other account fees, fund expenses, and brokerage commissions may apply. Commissions: $8.95 per online equity trade; commission-free ExampleBank® ETF online trades in your ExampleBank® account</p>
 </div>
 
-
 RDFA:
 
-<div vocab="http://schema.org/" typeof="BrokerageAccount">
+<div vocab="https://schema.org/" typeof="BrokerageAccount">
   <h1 property="name">ExampleBank® 1st Brokerage Account</h1>
   <p property="description">Our popular brokerage account lets you invest in everything from stocks and bonds to mutual funds, ETFs, and more. Take advantage of all our research and tools, expert insight, and investment guidance to support your investing decisions.</p>
   <p property="availableChannel" typeof="ServiceChannel">Ability to manage your money and deposits from anywhere using <a property="serviceMobileApp" href="http://http://www.examplebank.com/public/investing/pricing_services/mobile/android">ExampleBank® Mobile</a></p>
@@ -31,12 +30,11 @@ RDFA:
   <p property="feesAndCommissionsSpecification">No fees to open or maintain an account. Other account fees, fund expenses, and brokerage commissions may apply. Commissions: $8.95 per online equity trade; commission-free ExampleBank® ETF online trades in your ExampleBank® account</p>
 </div>
 
-
 JSON:
 
 <script type="application/ld+json">
   {
-    "@context": "http://schema.org",
+    "@context": "https://schema.org",
     "@type": "BrokerageAccount",
     "name": "ExampleBank® 1st Brokerage Account",
     "description": "Our popular brokerage account lets you invest in everything from stocks and bonds to mutual funds, ETFs, and more. Take advantage of all our research and tools, expert insight, and investment guidance to support your investing decisions.",
@@ -53,8 +51,7 @@ JSON:
   }
 </script>
 
-
-TYPES: InvestmentFund
+TYPES: #eg-0233 InvestmentFund
 
 PRE-MARKUP:
 
@@ -70,21 +67,21 @@ PRE-MARKUP:
 MICRODATA:
 
 <body>
-  <div itemscope itemtype="http://schema.org/InvestmentFund">
+  <div itemscope itemtype="https://schema.org/InvestmentFund">
     <h1 itemprop="name">Guaranteed Interest Fund</h1>
     <p itemprop="description">This type of secure investment grows your money at a guaranteed rate of interest for a fixed period. It is ideal for investors looking for capital security.</p>
-    <div itemprop="amount" itemscope itemtype="http://schema.org/MonetaryAmount">Amount to be invested <span itemprop="currency" content="USD">$</span><span itemprop="minAmount" content="25000">25,000</span> to $<span itemprop="maxAmount" content="99000">99,999</span></div>
+    <div itemprop="amount" itemscope itemtype="https://schema.org/MonetaryAmount">Amount to be invested <span itemprop="currency" content="USD">$</span><span itemprop="minAmount" content="25000">25,000</span> to $<span itemprop="maxAmount" content="99000">99,999</span></div>
     <div>Guaranteed interest rate <span itemprop="interestRate" content="1.25">1.25%</span></div>
   </div>
 </body>
 
 RDFA:
 
-<body vocab="http://schema.org/">
-  <div typeof="http://schema.org/InvestmentFund">
+<body vocab="https://schema.org/">
+  <div typeof="https://schema.org/InvestmentFund">
     <h1 property="name">Guaranteed Interest Fund</h1>
     <p property="description">This type of secure investment grows your money at a guaranteed rate of interest for a fixed period. It is ideal for investors looking for capital security.</p>
-    <div property="amount" typeof="http://schema.org/MonetaryAmount">Amount to be invested <span property="currency" content="USD">$</span><span property="minAmount" content="25000">25,000</span> to $<span property="maxAmount" content="99000">99,999</span></div>
+    <div property="amount" typeof="https://schema.org/MonetaryAmount">Amount to be invested <span property="currency" content="USD">$</span><span property="minAmount" content="25000">25,000</span> to $<span property="maxAmount" content="99000">99,999</span></div>
     <div>Guaranteed interest rate <span property="interestRate" content="1.25">1.25%</span></div>
   </div>
 </body>
@@ -93,7 +90,7 @@ JSON:
 
 <script type="application/ld+json">
 {
-  "@context": "http://schema.org",
+  "@context": "https://schema.org",
   "@type": "InvestmentFund",
   "name": "Guaranteed Interest Fund",
   "description": "This type of secure investment grows your money at a guaranteed rate of interest for a fixed period. It is ideal for investors looking for capital security.",
@@ -107,8 +104,7 @@ JSON:
 }
 </script>
 
-
-TYPES: MortgageLoan, RepaymentSpecification
+TYPES: #eg-0234 MortgageLoan, RepaymentSpecification
 
 PRE-MARKUP:
 
@@ -136,24 +132,22 @@ PRE-MARKUP:
   </tr>
 </table>
 
-
-
 MICRODATA:
 
-<div itemscope itemtype="http://schema.org/MortgageLoan" itemref="amount intRate apr">
+<div itemscope itemtype="https://schema.org/MortgageLoan" itemref="amount intRate apr">
   <h1 itemprop="name">Agency 30 Year Fixed</h1>
-  <div itemprop="loanTerm" itemscope itemtype="http://schema.org/QuantitativeValue">
+  <div itemprop="loanTerm" itemscope itemtype="https://schema.org/QuantitativeValue">
     <meta itemprop="value" content="30">
     <meta itemprop="unitCode" content="ANN">
   </div>
   <p itemprop="description">Experience easier budgeting with predictable monthly payments. Relax knowing you’ll never have to worry about rising interest rates for the life of your loan.</p>
-  <div itemprop="loanRepaymentForm" itemscope itemtype="http://schema.org/RepaymentSpecification" itemref="estPay payNum">
+  <div itemprop="loanRepaymentForm" itemscope itemtype="https://schema.org/RepaymentSpecification" itemref="estPay payNum">
     <meta itemprop="downPayment" content="20">
     <meta itemprop="loanPaymentFrequency" content="Monthly">
   </div>
 </div>
 <table>
-  <caption id="amount" itemprop="amount" itemscope itemtype="http://schema.org/MonetaryAmount">Rates are based on a loan amount of <span itemprop="currency" content="USD">$</span><span itemprop="amount" content="200000">200,000</span> and 20% down payment.</caption>
+  <caption id="amount" itemprop="amount" itemscope itemtype="https://schema.org/MonetaryAmount">Rates are based on a loan amount of <span itemprop="currency" content="USD">$</span><span itemprop="amount" content="200000">200,000</span> and 20% down payment.</caption>
   <tr>
     <td>Interest rate</td>
     <td><span id="intRate" itemprop="interestRate">3.625</span>%</td>
@@ -164,7 +158,7 @@ MICRODATA:
   </tr>
   <tr>
     <td>Estimated payment</td>
-    <td id="estPay" itemprop="loanPaymentAmount" itemscope itemtype="http://schema.org/MonetaryAmount"><span itemprop="currency" content="USD">$</span><span itemprop="amount">912.11</span></td>
+    <td id="estPay" itemprop="loanPaymentAmount" itemscope itemtype="https://schema.org/MonetaryAmount"><span itemprop="currency" content="USD">$</span><span itemprop="amount">912.11</span></td>
   </tr>
   <tr>
     <td>Months</td>
@@ -172,10 +166,9 @@ MICRODATA:
   </tr>
 </table>
 
-
 RDFA:
 
-<div vocab="http://schema.org/" typeof="MortgageLoan">
+<div vocab="https://schema.org/" typeof="MortgageLoan">
   <h1 property="name">Agency 30 Year Fixed</h1>
   <div property="loanTerm" typeof="QuantitativeValue">
     <meta property="value" content="30"/>
@@ -211,7 +204,7 @@ JSON:
 
 <script type="application/ld+json">
 {
-  "@context": "http://schema.org",
+  "@context": "https://schema.org",
   "@type": "MortgageLoan",
   "name": "Agency 30 Year Fixed",
   "description": "Experience easier budgeting with predictable monthly payments. Relax knowing you’ll never have to worry about rising interest rates for the life of your loan.",
@@ -241,8 +234,7 @@ JSON:
 }
 </script>
 
-
-TYPES: ExchangeRateSpecification
+TYPES: #eg-0235 ExchangeRateSpecification
 
 PRE-MARKUP:
 
@@ -250,48 +242,47 @@ PRE-MARKUP:
 <h1>Middle exchange rates of foreign currencies – table A</h1> <h2>Table No. 047/A/NBP/2016 of 2016-03-0</h2> <div> <table>
   <tr>
     <th>Currency</th>
-    <th>Code</th> 
+    <th>Code</th>
     <th>Mid-rate </th>
   </tr>
   <tr>
     <td>Euro</td>
-    <td>1 EUR</td> 
+    <td>1 EUR</td>
     <td>4.3215</td>
   </tr>
   <tr>
     <td>Brazilian Real</td>
-    <td>1 BRL</td> 
+    <td>1 BRL</td>
     <td>1.0490</td>
   </tr>
 </table>
 </div>
 </body>
 
-
 MICRODATA:
 
-<body itemscope itemtype="http://schema.org/WebPage">
+<body itemscope itemtype="https://schema.org/WebPage">
 <h1 itemprop="name">Middle exchange rates of foreign currencies – table A</h1>
-<div itemprop="mainEntity" itemscope itemtype="http://schema.org/ItemList">
+<div itemprop="mainEntity" itemscope itemtype="https://schema.org/ItemList">
 <table>
   <caption itemprop="name">Table No. 047/A/NBP/2016 of 2016-03-09</caption>
   <tr>
     <th>Currency</th>
-    <th>Code</th> 
+    <th>Code</th>
     <th>Mid-rate </th>
   </tr>
-  <tr itemprop="itemListElement" itemscope itemtype="http://schema.org/ExchangeRateSpecification">
+  <tr itemprop="itemListElement" itemscope itemtype="https://schema.org/ExchangeRateSpecification">
     <td itemprop="currency" content="EUR">Euro</td>
-    <td>1 EUR</td> 
-    <td itemprop="currentExchangeRate" itemscope itemtype="http://schema.org/UnitPriceSpecification">
+    <td>1 EUR</td>
+    <td itemprop="currentExchangeRate" itemscope itemtype="https://schema.org/UnitPriceSpecification">
       <span itemprop="price">4.3215</span>
       <meta itemprop="priceCurrency" content="PLN"/>
     </td>
   </tr>
-  <tr itemprop="itemListElement" itemscope itemtype="http://schema.org/ExchangeRateSpecification">
+  <tr itemprop="itemListElement" itemscope itemtype="https://schema.org/ExchangeRateSpecification">
     <td itemprop="currency" content="BRL">Brazilian Real</td>
-    <td>1 BRL</td> 
-    <td  itemprop="currentExchangeRate" itemscope itemtype="http://schema.org/UnitPriceSpecification">
+    <td>1 BRL</td>
+    <td  itemprop="currentExchangeRate" itemscope itemtype="https://schema.org/UnitPriceSpecification">
       <span itemprop="price">1.0490</span>
       <meta itemprop="priceCurrency" content="PLN"/>
     </td>
@@ -300,22 +291,21 @@ MICRODATA:
 </div>
 </body>
 
-
 RDFA:
 
-<body vocab="http://schema.org/" typeof="WebPage">
+<body vocab="https://schema.org/" typeof="WebPage">
 <h1 property="name">Middle exchange rates of foreign currencies – table A</h1>
 <div property="mainEntity" typeof="ItemList">
 <table>
   <caption property="name">Table No. 047/A/NBP/2016 of 2016-03-09</caption>
   <tr>
     <th>Currency</th>
-    <th>Code</th> 
+    <th>Code</th>
     <th>Mid-rate </th>
   </tr>
   <tr property="itemListElement" typeof="ExchangeRateSpecification">
     <td property="currency" content="EUR">Euro</td>
-    <td>1 EUR</td> 
+    <td>1 EUR</td>
     <td property="currentExchangeRate" typeof="UnitPriceSpecification">
       <span property="price">4.3215</span>
       <meta property="priceCurrency" content="PLN"/>
@@ -323,7 +313,7 @@ RDFA:
   </tr>
   <tr property="itemListElement" typeof="ExchangeRateSpecification">
     <td property="currency" content="BRL">Brazilian Real</td>
-    <td>1 BRL</td> 
+    <td>1 BRL</td>
     <td  property="currentExchangeRate" typeof="UnitPriceSpecification">
       <span property="price">1.0490</span>
       <meta property="priceCurrency" content="PLN"/>
@@ -337,7 +327,7 @@ JSON:
 
 <script type="application/ld+json">
   {
-    "@context": "http://schema.org",
+    "@context": "https://schema.org",
     "@type": "WebPage",
     "name": "Middle exchange rates of foreign currencies – table A",
     "mainEntity": {
@@ -365,50 +355,4 @@ JSON:
       ]
     }
   }
-</script>
-
-
-
-TYPES: BankTransfer
-
-PRE-MARKUP:
-
-<div>
-  <h1>If you want to donate</h1>
-  Send 30$ via bank transfer to the European ExampleBank, London
-  Put "Donate wikimedia.org" in the transfer title.
-</div>
-
-MICRODATA:
-
-<div itemscope itemtype="http://schema.org/BankTransfer">
-  <h1>If you want to donate</h1>
-  Send <span itemprop="amount" itemscope itemtype="http://schema.org/MonetaryAmount"><span itemprop="amount">30</span><span itemprop="currency" content="USD">$</span></span> 
-  via bank transfer to the <span itemprop="beneficiaryBank">European ExampleBank, London</span>
-  Put "<i itemprop="name">Donate wikimedia.org</i>" in the transfer title.
-</div>
-
-RDFA:
-
-<div vocab="http://schema.org" typeof="BankTransfer">
-  <h1>If you want to donate</h1>
-  Send <span property="amount" typeof="MonetaryAmount"><span property="amount">30</span><span property="currency" content="USD">$</span></span> 
-  via bank transfer to the <span property="beneficiaryBank">European ExampleBank, London</span>
-  Put "<i property="name">Donate wikimedia.org</i>" in the transfer title.
-</div>
-
-JSON:
-
-<script type="application/ld+json">
-{
-  "@context": "http://schema.org/",
-  "@type": "BankTransfer",
-  "name": "Donate wikimedia.org",
-  "amount": {
-    "@type": "MonetaryAmount",
-    "amount": "30",
-    "currency": "USD"
-  },
-  "beneficiaryBank": "European ExampleBank, London"
-}
 </script>

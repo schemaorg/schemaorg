@@ -1,0 +1,82 @@
+@prefix : <https://schema.org/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:AdultOrientedEnumeration a rdfs:Class ;
+    rdfs:label "AdultOrientedEnumeration" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2989> ;
+    rdfs:comment "Enumeration of considerations that make a product relevant or potentially restricted for adults only." ;
+    rdfs:subClassOf :Enumeration .
+
+:AlcoholConsideration a :AdultOrientedEnumeration ;
+    rdfs:label "AlcoholConsideration" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2989> ;
+    rdfs:comment "Item contains alcohol or promotes alcohol consumption." .
+
+:ViolenceConsideration a :AdultOrientedEnumeration ;
+    rdfs:label "ViolenceConsideration" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2989> ;
+    rdfs:comment "Item shows or promotes violence." .
+
+:HealthcareConsideration a :AdultOrientedEnumeration ;
+    rdfs:label "HealthcareConsideration" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2989> ;
+    rdfs:comment "Item is a pharmaceutical (e.g., a prescription or OTC drug) or a restricted medical device." .
+
+:NarcoticConsideration a :AdultOrientedEnumeration ;
+    rdfs:label "NarcoticConsideration" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2989> ;
+    rdfs:comment "Item is a narcotic as defined by the [1961 UN convention](https://www.incb.org/incb/en/narcotic-drugs/Yellowlist/yellow-list.html), for example marijuna or heroin." .
+
+:TobaccoNicotineConsideration a :AdultOrientedEnumeration ;
+    rdfs:label "TobaccoNicotineConsideration" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2989> ;
+    rdfs:comment "Item contains tobacco and/or nicotine, for example cigars, cigarettes, chewing tobacco, e-cigarettes, or hookahs." .
+
+:SexualContentConsideration a :AdultOrientedEnumeration ;
+    rdfs:label "SexualContentConsideration" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2989> ;
+    rdfs:comment "The item contains sexually oriented content such as nudity, suggestive or explicit material, or related online services, or is intended to enhance sexual activity. Examples: Erotic videos or magazine, sexual enhancement devices, sex toys." .
+
+:WeaponConsideration a :AdultOrientedEnumeration ;
+    rdfs:label "WeaponConsideration" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2989> ;
+    rdfs:comment "The item is intended to induce bodily harm, for example guns, mace, combat knives, brass knuckles, nail or other bombs, and spears." .
+
+:DangerousGoodConsideration a :AdultOrientedEnumeration ;
+    rdfs:label "DangerousGoodConsideration" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2989> ;
+    rdfs:comment "The item is dangerous and requires careful handling and/or special training of the user. See also the [UN Model Classification](https://unece.org/DAM/trans/danger/publi/unrec/rev17/English/02EREv17_Part2.pdf) defining the 9 classes of dangerous goods such as explosives, gases, flammables, and more." .
+	
+:ReducedRelevanceForChildrenConsideration a :AdultOrientedEnumeration ;
+    rdfs:label "ReducedRelevanceForChildrenConsideration" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2989> ;
+    rdfs:comment "A general code for cases where relevance to children is reduced, e.g. adult education, mortgages, retirement-related products, etc." .
+
+:UnclassifiedAdultConsideration a :AdultOrientedEnumeration ;
+    rdfs:label "UnclassifiedAdultConsideration" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2989> ;
+    rdfs:comment "The item is suitable only for adults, without indicating why. Due to widespread use of \"adult\" as a euphemism for \"sexual\", many such items are likely suited also for the SexualContentConsideration code." .
+	
+:hasAdultConsideration a rdf:Property ;
+    rdfs:label "hasAdultConsideration" ;
+    :domainIncludes :Product,
+	   :Offer ;
+    :isPartOf <https://pending.schema.org> ;
+    :rangeIncludes :AdultOrientedEnumeration ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2989> ;
+    rdfs:comment "Used to tag an item to be intended or suitable for consumption or use by adults only." .
+

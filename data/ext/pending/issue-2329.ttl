@@ -1,12 +1,13 @@
-@prefix : <http://schema.org/> .
+@prefix : <https://schema.org/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 :totalJobOpenings a rdf:Property ;
     rdfs:label "totalJobOpenings" ;
-    :category "issue-2329" ;
     :domainIncludes :JobPosting ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :Integer ;
     :source <https://github.com/schemaorg/schemaorg/issues/2329> ;
     rdfs:comment "The number of positions open for this job posting. Use a positive integer. Do not use if the number of positions is unclear or not known." .

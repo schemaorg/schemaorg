@@ -1,4 +1,4 @@
-TYPES: PodcastSeries
+TYPES: #eg-0306 PodcastSeries
 
 PRE-MARKUP:
 
@@ -20,10 +20,9 @@ PRE-MARKUP:
   <h5>Hosted By<spam>Myke Hurley</span></h5>
 </div>
 
-
 MICRODATA:
 
-<div itemscope itemtype="http://schema.org/PodcastSeries" class="show__description">
+<div itemscope itemtype="https://schema.org/PodcastSeries" class="show__description">
   <img itemprop="image" src="https://.../inquisitive_artwork.png">
   <h2>
     <a itemprop="url" href="http://www.relay.fm/inquisitive">
@@ -50,12 +49,11 @@ RDFA:
 
 TODO
 
-
 JSON:
 
 <script type="application/ld+json">
 {
-   "@context": "http://schema.org/",
+   "@context": "https://schema.org/",
    "@type": "PodcastSeries",
    "image": "https://www.relay.fm/inquisitive_artwork.png",
    "url": "http://www.relay.fm/inquisitive",
@@ -66,11 +64,10 @@ JSON:
      "@type": "Person",
      "name": "Myke Hurley"
    }
- }
 }
 </script>
 
-TYPES: PodcastEpisode
+TYPES: #eg-0307 PodcastEpisode
 
 PRE-MARKUP:
 
@@ -95,20 +92,20 @@ PRE-MARKUP:
 
 MICRODATA:
 
-<div itemscope itemtype="http://schema.org/PodcastEpisode"  class="episode__entry">
+<div itemscope itemtype="https://schema.org/PodcastEpisode"  class="episode__entry">
   <h2>
     <a itemprop="url" href="http://www.relay.fm/inquisitive/27">
       <span itemprop="name">#27: Behind the App #1: History</span>
     </a>
   </h2>
-  <small itemprop="datePublished" datetime="2015-02-18">February 18th, 2015</small>
-  <small itemprop="timeRequired" datetime="PT37M">37 minutes</small>
+  <small><time itemprop="datePublished" datetime="2015-02-18">February 18th, 2015</time></small>
+  <small><time itemprop="timeRequired" datetime="PT37M">37 minutes</time></small>
   <p itemprop="description">
     In the first episode of “Behind the App”, a special series of
     Inquisitive, we take a look at the beginnings of iOS app development,
     by focusing on the introduction of the iPhone and the App Store.
   </p>
-  <p itemprop="associatedMedia" itemscope itemtype="http://schema.org/MediaObject">
+  <p itemprop="associatedMedia" itemscope itemtype="https://schema.org/MediaObject">
     Download:
     <a itemprop="contentUrl" href="http://.../Inquisitive_027.mp3">
       MP3 (<span itemprop="contentSize">25.75 MB</span>)
@@ -120,12 +117,11 @@ RDFA:
 
 TODO
 
-
 JSON:
 
 <script type="application/ld+json">
 {
-   "@context": "http://schema.org/",
+   "@context": "https://schema.org/",
    "@type": "PodcastEpisode",
    "url": "http://www.relay.fm/inquisitive/27",
    "name": "#27: Behind the App #1: History",
@@ -141,11 +137,10 @@ JSON:
      "name": "Inquisitive",
      "url": "http://www.relay.fm/inquisitive"
    }
- }
 }
 </script>
 
-TYPES: PodcastSeason
+TYPES: #eg-0308 PodcastSeason
 
 PRE-MARKUP:
 
@@ -162,7 +157,7 @@ PRE-MARKUP:
 
 MICRODATA:
 
-<div itemscope itemtype="http://schema.org/PodcastSeason" class="season__entry">
+<div itemscope itemtype="https://schema.org/PodcastSeason" class="season__entry">
   <h2>
     <a itemprop="url" href="https://serialpodcast.org/season-one">
       <span itemprop="name">Serial: Season 1</span>
@@ -178,22 +173,21 @@ RDFA:
 
 TODO
 
-
 JSON:
 
 <script type="application/ld+json">
 {
-   "@context": "http://schema.org/",
+   "@context": "https://schema.org/",
    "@type": "PodcastSeason",
    "url": "https://serialpodcast.org/season-one",
    "name": "Serial: Season 1",
    "seasonNumber": 1,
-   "numberOfEpisodes": 12,      
+   "numberOfEpisodes": 12,
    "partOfSeries": {
      "@type": "PodcastSeries",
      "name": "Serial",
      "url": "http://serialpodcast.org/"
    }
- }
 }
 </script>
+

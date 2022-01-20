@@ -1,0 +1,29 @@
+@prefix : <https://schema.org/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:MathSolver a rdfs:Class ;
+    rdfs:label "MathSolver" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2740> ;
+    rdfs:comment "A math solver which is capable of solving a subset of mathematical problems." ;
+    rdfs:subClassOf :CreativeWork .
+
+:SolveMathAction a rdfs:Class ;
+    rdfs:label "SolveMathAction" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2740> ;
+    rdfs:comment "The action that takes in a math expression and directs users to a page potentially capable of solving/simplifying that expression." ;
+    rdfs:subClassOf :Action .
+
+:mathExpression a rdf:Property ;
+    rdfs:label "mathExpression" ;
+    :domainIncludes :MathSolver ;
+    :isPartOf <https://pending.schema.org> ;
+    :rangeIncludes :SolveMathAction,
+        :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2740> ;
+    rdfs:comment "A mathematical expression (e.g. 'x^2-3x=0') that may be solved for a specific variable, simplified, or transformed. This can take many formats, e.g. LaTeX, Ascii-Math, or math as you would write with a keyboard." .
+

@@ -1,4 +1,4 @@
-TYPES: Event, Schedule, eventSchedule
+TYPES: #eg-0240 Event, Schedule, eventSchedule
 
 PRE-MARKUP:
 
@@ -16,7 +16,7 @@ JSON:
 
 <script type="application/ld+json">
 {
-  "@context": "http://schema.org/",
+  "@context": "https://schema.org/",
   "@type": "Event",
   "url": "http://www.example.org/events/1",
   "name": "Tai chi Class",
@@ -27,15 +27,15 @@ JSON:
      "startDate": "2017-01-01",
      "endDate": "2017-12-31",
      "repeatFrequency": "P1W",
-     "byDay": "http://schema.org/Wednesday",
-     "startTime": "19:00",
-     "endTime": "20:00",
+     "byDay": "https://schema.org/Wednesday",
+     "startTime": "19:00:00",
+     "endTime": "20:00:00",
      "scheduleTimezone": "Europe/London"
   }
 }
 </script>
 
-TYPES: Event, Schedule, eventSchedule
+TYPES: #eg-0241 Event, Schedule, eventSchedule
 
 PRE-MARKUP:
 
@@ -53,21 +53,21 @@ JSON:
 
 <script type="application/ld+json">
 {
-  "@context": "http://schema.org/",
+  "@context": "https://schema.org/",
   "@type": "Event",
   "name": "Example Meetup",
   "eventSchedule": {
      "@type": "Schedule",
      "repeatFrequency": "P1M",
      "byMonthDay": [1,15],
-     "startTime": "09:00",
-     "endTime": "10:00",
+     "startTime": "09:00:00",
+     "endTime": "10:00:00",
      "scheduleTimezone": "America/Glace_Bay"
   }
 }
 </script>
 
-TYPES: Event, Schedule, eventSchedule
+TYPES: #eg-0242 Event, Schedule, eventSchedule
 
 PRE-MARKUP:
 
@@ -85,7 +85,7 @@ JSON:
 
 <script type="application/ld+json">
     {
-      "@context": "http://schema.org",
+      "@context": "https://schema.org",
       "@type": "Event",
       "name": "Count Example",
       "eventSchedule":
@@ -94,14 +94,14 @@ JSON:
           "startDate": "2016-12-24",
           "repeatFrequency": "P1D",
           "repeatCount": 10,
-          "startTime": "09:00",
-          "endTime": "10:00",
+          "startTime": "09:00:00",
+          "endTime": "10:00:00",
           "scheduleTimezone": "Europe/London"
         }
     }
 </script>
 
-TYPES: Event, Schedule, eventSchedule
+TYPES: #eg-0243 Event, Schedule, eventSchedule
 
 PRE-MARKUP:
 
@@ -119,7 +119,7 @@ JSON:
 
 <script type="application/ld+json">
 {
-  "@context": "http://schema.org",
+  "@context": "https://schema.org",
   "@type": "Event",
   "name": "Example",
   "eventSchedule": [
@@ -127,39 +127,39 @@ JSON:
       "@type": "Schedule",
       "repeatFrequency": "P1D",
       "byDay": [
-        "http://schema.org/Monday",
-        "http://schema.org/Tuesday",
-        "http://schema.org/Wednesday",
-        "http://schema.org/Thursday",
-        "http://schema.org/Friday"
+        "https://schema.org/Monday",
+        "https://schema.org/Tuesday",
+        "https://schema.org/Wednesday",
+        "https://schema.org/Thursday",
+        "https://schema.org/Friday"
       ],
-      "startTime": "09:00",
-      "endTime": "10:00",
+      "startTime": "09:00:00",
+      "endTime": "10:00:00",
       "scheduleTimezone": "America/Glace_Bay"
     },
     {
       "@type": "Schedule",
       "repeatFrequency": "P1D",
       "byDay": [
-        "http://schema.org/Monday",
-        "http://schema.org/Tuesday",
-        "http://schema.org/Wednesday",
-        "http://schema.org/Thursday",
-        "http://schema.org/Friday"
+        "https://schema.org/Monday",
+        "https://schema.org/Tuesday",
+        "https://schema.org/Wednesday",
+        "https://schema.org/Thursday",
+        "https://schema.org/Friday"
       ],
-      "startTime": "14:00",
-      "endTime": "15:00",
+      "startTime": "14:00:00",
+      "endTime": "15:00:00",
       "scheduleTimezone": "America/Glace_Bay"
     }
   ]
 }
 </script>
 
-TYPES: Event, Schedule, eventSchedule
+TYPES: #eg-0244 Event, Schedule, eventSchedule
 
 PRE-MARKUP:
 
-An Event runs on the second Monday of every month, from 6pm-7:30pm. Because this kind of recurrence goes beyond that expressible using <a href="http://schema.org/DayOfWeek">http://schema.org/DayOfWeek</a>, it is specified instead using iCal's <a href="https://icalendar.org/iCalendar-RFC-5545/3-8-5-3-recurrence-rule.html">syntax for byDay recurrence rules</a>.
+An Event runs on the second Monday of every month, from 6pm-7:30pm. Because this kind of recurrence goes beyond that expressible using <a href="https://schema.org/DayOfWeek">https://schema.org/DayOfWeek</a>, it is specified instead using iCal's <a href="https://icalendar.org/iCalendar-RFC-5545/3-8-5-3-recurrence-rule.html">syntax for byDay recurrence rules</a>.
 
 MICRODATA:
 
@@ -173,7 +173,7 @@ JSON:
 
 <script type="application/ld+json">
 {
-  "@context": "http://schema.org",
+  "@context": "https://schema.org",
   "@type": "Event",
   "name": "Example",
   "eventSchedule": [
@@ -181,10 +181,11 @@ JSON:
       "@type": "Schedule",
       "repeatFrequency": "P1M",
       "byDay": "2MO",
-      "startTime": "18:00",
-      "endTime": "19:30",
+      "startTime": "18:00:00",
+      "endTime": "19:30:00",
       "scheduleTimezone": "Asia/Shanghai"
     }
   ]
 }
 </script>
+

@@ -1,4 +1,4 @@
-TYPES: #defterm-1 DefinedTerm, termCode,
+TYPES: #eg-0314 DefinedTerm, termCode
 
 PRE-MARKUP:
 
@@ -7,10 +7,9 @@ PRE-MARKUP:
    Code: <b>Man</b>
 </div>
 
-
 MICRODATA:
 
-<div itemscope itemtype="http://schema.org/DefinedTerm">
+<div itemscope itemtype="https://schema.org/DefinedTerm">
    <h1>Library of Congress Resource Type: <b><span itemprop="name">Manuscript</span></b></h1>
    Code: <b><span itemprop="termCode">Man</span></b>
    <link itemprop="inDefinedTermSet" href="http://id.loc.gov/vocabulary/resourceTypes"/>
@@ -18,7 +17,7 @@ MICRODATA:
 
 RDFA:
 
-<div vocab="http://schema.org/" typeof="DefinedTerm">
+<div vocab="https://schema.org/" typeof="DefinedTerm">
    <h1>Library of Congress Resource Type: <b><span property="name">Manuscript</span></b></h1>
    Code: <b><span property="termCode">Man</span></b>
    <link property="inDefinedTermSet" href="http://id.loc.gov/vocabulary/resourceTypes"/>
@@ -27,13 +26,13 @@ RDFA:
 JSON:
 
 {
- "@context": "http://schema.org/",
+ "@context": "https://schema.org/",
  "@type": "DefinedTerm",
  "termCode": "Man",
  "inDefinedTermSet": "http://id.loc.gov/vocabulary/resourceTypes"
 }
 
-TYPES: #defterm-3 DefinedTerm, DefinedTermSet, inDefinedTermSet
+TYPES: #eg-0315 DefinedTerm, DefinedTermSet, inDefinedTermSet
 
 PRE-MARKUP:
 
@@ -45,44 +44,45 @@ PRE-MARKUP:
 		<h2>Dictionary term</h2>
 		Name: calendar year<br/>
 		Description: The period from January 1st to December 31st, inclusive, of any year.<br/>
-		In Dictionary: Ballentine&apos;s Law Dictionary	
+		In Dictionary: Ballentine&apos;s Law Dictionary
 	</div>
 	<div>
 		<h2>Dictionary term</h2>
 		Name: schema<br/>
-		Description: A representation of a plan or theory in the form of an outline or model.<br/>	
-		In Dictionary: Ballentine&apos;s Law Dictionary	
+		Description: A representation of a plan or theory in the form of an outline or model.<br/>
+		In Dictionary: Ballentine&apos;s Law Dictionary
 	</div>
 </div>
 
 MICRODATA:
 
-
 <div>
-	<div itemscope itemtype="http://schema.org/DefinedTermSet">
-	<meta itemprop="additionalType" content="http://schema.org/Book">
+	<div itemscope itemtype="https://schema.org/DefinedTermSet">
+	<link itemprop="additionalType" href="https://schema.org/Book">
 	 <h1><a itemprop="url" href="http://openjurist.org/dictionary/Ballentine"><span itemprop="name">Ballentine&apos;s Law Dictionary</span></a></h1>
 	</div>
-	<div itemscope itemtype="http://schema.org/DefinedTerm">
+	<div itemscope itemtype="https://schema.org/DefinedTerm">
 		<h2>Dictionary term</h2>
 		<link itemprop="url" href="http://openjurist.org/dictionary/Ballentine/term/calendar-year"/>
 		Name: <span itemprop="name">calendar year</span><br/>
 		Description: <span itemprop="description">The period from January 1st to December 31st, inclusive, of any year.</span><br/>
-		In Dictionary: Ballentine&apos;s Law Dictionary	
-		<link itemprop="inDefinedTermSet" href="http://openjurist.org/dictionary/Ballentine">	
+		In Dictionary: Ballentine&apos;s Law Dictionary
+		<link itemprop="inDefinedTermSet" href="http://openjurist.org/dictionary/Ballentine">
 	</div>
-	<div itemscope itemtype="http://schema.org/DefinedTerm">
+	<div itemscope itemtype="https://schema.org/DefinedTerm">
 		<h2>Dictionary term</h2>
 		<link itemprop="url" href="http://openjurist.org/dictionary/Ballentine/term/schema"/>
 		Name: <span itemprop="name">schema</span><br/>
-		Description: <span itemprop="description">A representation of a plan or theory in the form of an outline or model.</span><br/>	
+		Description: <span itemprop="description">A representation of a plan or theory in the form of an outline or model.</span><br/>
 		In Dictionary: Ballentine&apos;s Law Dictionary
-		<link itemprop="inDefinedTermSet" href="http://openjurist.org/dictionary/Ballentine">	
+		<link itemprop="inDefinedTermSet" href="http://openjurist.org/dictionary/Ballentine">
 	</div>
 </div>
+
+
 RDFA:
 
-<div  vocab="http://schema.org/">
+<div  vocab="https://schema.org/">
 	<div typeof="DefinedTermSet Book">
 	 <h1><a property="url" href="http://openjurist.org/dictionary/Ballentine"><span property="name">Ballentine&apos;s Law Dictionary</span></a></h1>
 	</div>
@@ -91,16 +91,16 @@ RDFA:
 		<link property="url" href="http://openjurist.org/dictionary/Ballentine/term/calendar-year"/>
 		Name: <span property="name">calendar year</span><br/>
 		Description: <span property="description">The period from January 1st to December 31st, inclusive, of any year.</span><br/>
-		In Dictionary: Ballentine&apos;s Law Dictionary	
-		<link property="inDefinedTermSet" href="http://openjurist.org/dictionary/Ballentine">	
+		In Dictionary: Ballentine&apos;s Law Dictionary
+		<link property="inDefinedTermSet" href="http://openjurist.org/dictionary/Ballentine">
 	</div>
 	<div typeof="DefinedTerm">
 		<h2>Dictionary term</h2>
 		<link propery="url" href="http://openjurist.org/dictionary/Ballentine/term/schema"/>
 		Name: <span property="name">schema</span><br/>
-		Description: <span property="description">A representation of a plan or theory in the form of an outline or model.</span><br/>	
+		Description: <span property="description">A representation of a plan or theory in the form of an outline or model.</span><br/>
 		In Dictionary: Ballentine&apos;s Law Dictionary
-		<link property="inDefinedTermSet" href="http://openjurist.org/dictionary/Ballentine">	
+		<link property="inDefinedTermSet" href="http://openjurist.org/dictionary/Ballentine">
 	</div>
 </div>
 
@@ -108,7 +108,7 @@ JSON:
 
 [
 	{
-		"@context": "http://schema.org/"
+		"@context": "https://schema.org/"
 	},
 	{
 		"@type": ["DefinedTermSet","Book"],
@@ -131,7 +131,7 @@ JSON:
 	}
 ]
 
-TYPES: #defterm-4 DefinedTerm, inDefinedTermSet, termCode
+TYPES: #eg-0316 DefinedTerm, inDefinedTermSet, termCode
 
 PRE-MARKUP:
 
@@ -143,7 +143,7 @@ PRE-MARKUP:
 
 MICRODATA:
 
-<div itemscope itemtype="http://schema.org/DefinedTerm">
+<div itemscope itemtype="https://schema.org/DefinedTerm">
 	<h1>Occupation Term defined by <a itemprop="inDefinedTermSet" href="http://onetonline.org">O*Net Online</a></h1>
 	<h2><span itemprop="termCode">51-6042.00</span> - <span itemprop="name">Shoe Machine Operators and Tenders</span></h2>
 	<span itemprop="description">Operate or tend a variety of machines to join, decorate, reinforce, or finish shoes and shoe parts.</span>
@@ -151,7 +151,7 @@ MICRODATA:
 
 RDFA:
 
-<div vocab="http://schema.org/" typeof="DefinedTerm">
+<div vocab="https://schema.org/" typeof="DefinedTerm">
 	<h1>Occupation Term defined by <a property="inDefinedTermSet" href="http://onetonline.org">O*Net Online</a></h1>
 	<h2><span property="termCode">51-6042.00</span> - <span property="name">Shoe Machine Operators and Tenders</span></h2>
 	<span property="description">Operate or tend a variety of machines to join, decorate, reinforce, or finish shoes and shoe parts.</span>
@@ -160,7 +160,7 @@ RDFA:
 JSON:
 
 {
- "@context": "http://schema.org/",
+ "@context": "https://schema.org/",
  "@type": "DefinedTerm",
  "name": "Shoe Machine Operators and Tenders",
  "termCode": "51-6042.00",
@@ -168,7 +168,7 @@ JSON:
  "inDefinedTermSet": "http://onetonline.org"
 }
 
-TYPES: #catcode-2 CategoryCode, CategoryCodeSet, hasCategoryCode, inCodeSet
+TYPES: #eg-0317 CategoryCode, CategoryCodeSet, hasCategoryCode, inCodeSet
 
 PRE-MARKUP:
 
@@ -181,10 +181,10 @@ PRE-MARKUP:
 
 MICRODATA:
 
-<div itemscope itemtype="http://schema.org/CategoryCodeSet" id="C1">
+<div itemscope itemtype="https://schema.org/CategoryCodeSet" id="C1">
 	 <h1>Defined Values in <span itemprop="name">The Mammal Classification List</span></h1>
 	 <ul>
-		<li itemprop="hasCategoryCode" itemscope itemtype="http://schema.org/CategoryCode">
+		<li itemprop="hasCategoryCode" itemscope itemtype="https://schema.org/CategoryCode">
 			<span itemprop="name">Carnivore</span> - <span itemprop="description">A mammal that feeds on other animals</span>
 			<link itemprop="inCodeSet" href="#C1"/>
 		</li>
@@ -193,7 +193,7 @@ MICRODATA:
 
 RDFA:
 
-<div vocab="http://schema.org/" typeof="CategoryCodeSet" id="C1">
+<div vocab="https://schema.org/" typeof="CategoryCodeSet" id="C1">
 	 <h1>Defined Values in <span property="name">The Mammal Classification List</span></h1>
 	 <ul>
 		<li property="hasCategoryCode" typeof="CategoryCode">
@@ -206,7 +206,7 @@ RDFA:
 JSON:
 
 {
- "@context": "http://schema.org/",
+ "@context": "https://schema.org/",
  "@type": "CategoryCodeSet",
  "@id": "_C1",
  "name": "The Mammal Classification List",
@@ -218,8 +218,7 @@ JSON:
 	}
 }
 
-
-TYPES: #catcode-5 CategoryCode, CategoryCodeSet, inCodeSet, codeValue, hasCategoryCode
+TYPES: #eg-0318 CategoryCode, CategoryCodeSet, inCodeSet, codeValue, hasCategoryCode
 
 PRE-MARKUP:
 
@@ -242,7 +241,7 @@ PRE-MARKUP:
 
 MICRODATA:
 
-<div itemscope itemtype="http://schema.org/CategoryCodeSet" itemid="http://id.loc.gov/vocabulary/iso639-2">
+<div itemscope itemtype="https://schema.org/CategoryCodeSet" itemid="http://id.loc.gov/vocabulary/iso639-2">
 	<h1 itemprop="name">ISO 639-2: Codes for the Representation of Names of Languages</h1>
 	<h2>Listing of codes:</h2>
 	<ul>
@@ -251,7 +250,7 @@ MICRODATA:
 		<li>...</li>
 	</ul>
 </div>
-<div itemscope itemtype="http://schema.org/CategoryCode" itemid="http://id.loc.gov/vocabulary/iso639-2/cze">
+<div itemscope itemtype="https://schema.org/CategoryCode" itemid="http://id.loc.gov/vocabulary/iso639-2/cze">
 	<meta itemprop="codeValue" content="cze">
 	<h2>Czech; tchèque; Tschechisch</h2>
 	<link itemprop="inCodeSet" href="http://id.loc.gov/vocabulary/iso639-2">
@@ -261,10 +260,9 @@ MICRODATA:
 	<span itemprop="name" xml:lang="de" content="Tschechisch">German: Tschechisch</span><br/>
 </div>
 
-	
 RDFA:
 
-<div vocab="http://schema.org/" typeof="CategoryCodeSet" resource="http://id.loc.gov/vocabulary/iso639-2">
+<div vocab="https://schema.org/" typeof="CategoryCodeSet" resource="http://id.loc.gov/vocabulary/iso639-2">
 	<h1 property="name">ISO 639-2: Codes for the Representation of Names of Languages</h1>
 	<h2>Listing of codes:</h2>
 	<ul>
@@ -273,7 +271,7 @@ RDFA:
 		<li>...</li>
 	</ul>
 </div>
-<div vocab="http://schema.org/" typeof="CategoryCode" resource=="http://id.loc.gov/vocabulary/iso639-2/cze">
+<div vocab="https://schema.org/" typeof="CategoryCode" resource="http://id.loc.gov/vocabulary/iso639-2/cze">
 	<meta property="codeValue" content="cze">
 	<h2>Czech; tchèque; Tschechisch</h2>
 	<link property="inCodeSet" href="http://id.loc.gov/vocabulary/iso639-2">
@@ -287,7 +285,7 @@ JSON:
 
 [
 	{
-		"@context": "http://schema.org/"
+		"@context": "https://schema.org/"
 	},
 	{
 		"@type": "CategoryCodeSet",
@@ -304,11 +302,6 @@ JSON:
 			"fr": "tchèque",
 			"de": "Tschechisch"
 		},
-		"inCodeSet": "http://id.loc.gov/vocabulary/iso639-2"		
+		"inCodeSet": "http://id.loc.gov/vocabulary/iso639-2"
 	}
-		
-
-
-
-
 

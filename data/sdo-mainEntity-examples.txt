@@ -1,4 +1,4 @@
-TYPES: #mainEntity-1 mainEntity
+TYPES: #eg-0382 mainEntity
 
 PRE-MARKUP:
 
@@ -11,8 +11,8 @@ PRE-MARKUP:
 
 MICRODATA:
 
-<div itemid="http://cathscafe.example.com/" itemscope itemtype="http://schema.org/WebPage">
-    <div itemprop="mainEntity" itemscope itemtype="http://schema.org/Restaurant" itemid="#thecafe">
+<div itemid="http://cathscafe.example.com/" itemscope itemtype="https://schema.org/WebPage">
+    <div itemprop="mainEntity" itemscope itemtype="https://schema.org/Restaurant" itemid="#thecafe">
       <h1 itemprop="name">Cath's Cafe</h1>
       <p>Open: <span itemprop="openingHours" content="Mo,Tu,We,Th,Fr,Sa,Su 11:00-20:00">Daily from 11:00am till 8pm</span></p>
       <p>Phone: <span itemprop="telephone" content="+155501003344">555-0100-3344</span></p>
@@ -28,7 +28,7 @@ JSON:
 
 <script type="application/ld+json">
 {
-    "@context": "http://schema.org",
+    "@context": "https://schema.org",
     "@type": "WebPage",
     "@id": "http://cathscafe.example.com/",
     "mainEntity": {
@@ -41,8 +41,7 @@ JSON:
 }
 </script>
 
-
-TYPES: #mainEntity-2 mainEntityOfPage
+TYPES: #eg-0383 mainEntityOfPage
 
 PRE-MARKUP:
 
@@ -55,7 +54,7 @@ PRE-MARKUP:
 
 MICRODATA:
 
-<div itemscope itemtype="http://schema.org/Restaurant" itemid="#thecafe">
+<div itemscope itemtype="https://schema.org/Restaurant" itemid="#thecafe">
     <a itemprop="mainEntityOfPage" href="http://cathscafe.example.com/"><h1 itemprop="name">Cath's Cafe</h1></a>
     <p>Open: <span itemprop="openingHours" content="Mo,Tu,We,Th,Fr,Sa,Su 11:00-20:00">Daily from 11:00am till 8pm</span></p>
     <p>Phone: <span itemprop="telephone" content="+155501003344">555-0100-3344</span></p>
@@ -64,7 +63,7 @@ MICRODATA:
 
 RDFA:
 
-<div vocab="http://schema.org/" typeof="Restaurant" resource="#thecafe">
+<div vocab="https://schema.org/" typeof="Restaurant" resource="#thecafe">
     <a property="mainEntityOfPage" href="http://cathscafe.example.com/"><h1 property="name">Cath's Cafe</h1></a>
     <p>Open: <span property="openingHours" content="Mo,Tu,We,Th,Fr,Sa,Su 11:00-20:00">Daily from 11:00am till 8pm</span></p>
     <p>Phone: <span property="telephone" content="+155501003344">555-0100-3344</span></p>
@@ -75,15 +74,13 @@ JSON:
 
 <script type="application/ld+json">
 {
-    "@context": "http://schema.org",
+    "@context": "https://schema.org",
       "@type": "Restaurant",
-      "mainEntityOfPage": {
-         "@type": "WebPage",
-         "@id": "http://cathscafe.example.com/"
-      },
+      "mainEntityOfPage": "http://cathscafe.example.com/",
       "name": "Cath's Cafe",
       "openingHours": "Mo,Tu,We,Th,Fr,Sa,Su 11:00-20:00",
       "telephone": "+155501003344",
       "hasMenu": "/menu"
 }
 </script>
+

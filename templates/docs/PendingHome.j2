@@ -1,0 +1,25 @@
+{% from 'macros.j2' import docs_sdotermlink as sdotermlink with context %}
+<!DOCTYPE html>
+<html lang="en">
+<!-- Generated from Home.j2 -->
+    {% include 'docs/DocsHead.j2' with context %}
+<body>
+    {% include 'PageHeader.j2' with context %}
+    <div id="mainContent">
+    <h3>Schema.org Section: pending</h3>
+    <p>Schema.org is a set of extensible schemas that enables webmasters to embed structured data on their web pages for use by search engines and other applications.
+    For more details, see the <a href="/">homepage</a>.
+
+    </p>
+
+    <p>
+      The Pending Section is a staging area for work-in-progress terms which have yet to be accepted into the core vocabulary. <em>Pending</em> terms are subject to change and should be used with caution.<br/><br/>
+
+    Implementors and publishers are cautioned that terms in the pending extension may lack consensus and that terminology and definitions could still change significantly after community and steering group review. Consumers of schema.org data who encourage use of such terms are strongly encouraged to update implementations and documentation to track any evolving changes, and to share early implementation feedback with the wider community.
+    </p>
+{% set SECTIONNAME = "pending" %}
+{% include 'docs/HomeTermsList.j2' with context %}
+    </div> <!-- mainContent -->
+	{% include 'PageFooter.j2' with context %}
+</body>
+</html>

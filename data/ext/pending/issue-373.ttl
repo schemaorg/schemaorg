@@ -1,37 +1,35 @@
-@prefix : <http://schema.org/> .
+@prefix : <https://schema.org/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 :PodcastEpisode a rdfs:Class ;
     rdfs:label "PodcastEpisode" ;
-    :category "issue-373" ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/373> ;
     rdfs:comment "A single episode of a podcast series." ;
     rdfs:subClassOf :Episode .
 
 :PodcastSeason a rdfs:Class ;
     rdfs:label "PodcastSeason" ;
-    :category "issue-373" ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/373> ;
     rdfs:comment "A single season of a podcast. Many podcasts do not break down into separate seasons. In that case, PodcastSeries should be used." ;
     rdfs:subClassOf :CreativeWorkSeason .
 
 :PodcastSeries a rdfs:Class ;
     rdfs:label "PodcastSeries" ;
-    :category "issue-373" ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/373> ;
     rdfs:comment "A podcast is an episodic series of digital audio or video files which a user can download and listen to." ;
     rdfs:subClassOf :CreativeWorkSeries .
 
 :webFeed a rdf:Property ;
     rdfs:label "webFeed" ;
-    :category "issue-373" ;
     :domainIncludes :PodcastSeries,
         :SpecialAnnouncement ;
-    :isPartOf <http://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :DataFeed,
         :URL ;
     :source <https://github.com/schemaorg/schemaorg/issues/373> ;

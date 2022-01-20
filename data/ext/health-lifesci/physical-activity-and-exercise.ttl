@@ -1,68 +1,68 @@
-@prefix : <http://schema.org/> .
+@prefix : <https://schema.org/> .
 @prefix ns1: <http://www.w3.org/ns/rdfa#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 :ExercisePlan a rdfs:Class ;
     rdfs:label "ExercisePlan" ;
-    :isPartOf <http://health-lifesci.schema.org> ;
+    :isPartOf <https://health-lifesci.schema.org> ;
     rdfs:comment "Fitness-related activity designed for a specific health-related purpose, including defined exercise routines as well as activity prescribed by a clinician." ;
     rdfs:subClassOf :CreativeWork,
         :PhysicalActivity .
 
 :PhysicalActivity a rdfs:Class ;
     rdfs:label "PhysicalActivity" ;
-    :isPartOf <http://health-lifesci.schema.org> ;
+    :isPartOf <https://health-lifesci.schema.org> ;
     rdfs:comment "Any bodily activity that enhances or maintains physical fitness and overall health and wellness. Includes activity that is part of daily living and routine, structured exercise, and exercise prescribed as part of a medical treatment or recovery plan." ;
     rdfs:subClassOf :LifestyleModification .
 
 :PhysicalActivityCategory a rdfs:Class ;
     rdfs:label "PhysicalActivityCategory" ;
-    :isPartOf <http://health-lifesci.schema.org> ;
+    :isPartOf <https://health-lifesci.schema.org> ;
     rdfs:comment "Categories of physical activity, organized by physiologic classification." ;
     rdfs:subClassOf :Enumeration .
 
-<file:///Users/wallisr/Development/Schema/ttl/schemaorg/data/ext/health-lifesci/physical-activity-and-exercise.rdfa> ns1:usesVocabulary <http://schema.org> .
-
 :AerobicActivity a :PhysicalActivityCategory ;
     rdfs:label "AerobicActivity" ;
-    :isPartOf <http://health-lifesci.schema.org> ;
+    :isPartOf <https://health-lifesci.schema.org> ;
     rdfs:comment "Physical activity of relatively low intensity that depends primarily on the aerobic energy-generating process; during activity, the aerobic metabolism uses oxygen to adequately meet energy demands during exercise." .
 
 :AnaerobicActivity a :PhysicalActivityCategory ;
     rdfs:label "AnaerobicActivity" ;
-    :isPartOf <http://health-lifesci.schema.org> ;
+    :isPartOf <https://health-lifesci.schema.org> ;
     rdfs:comment "Physical activity that is of high-intensity which utilizes the anaerobic metabolism of the body." .
 
 :Balance a :PhysicalActivityCategory ;
     rdfs:label "Balance" ;
-    :isPartOf <http://health-lifesci.schema.org> ;
+    :isPartOf <https://health-lifesci.schema.org> ;
     rdfs:comment "Physical activity that is engaged to help maintain posture and balance." .
 
 :Flexibility a :PhysicalActivityCategory ;
     rdfs:label "Flexibility" ;
-    :isPartOf <http://health-lifesci.schema.org> ;
+    :isPartOf <https://health-lifesci.schema.org> ;
     rdfs:comment "Physical activity that is engaged in to improve joint and muscle flexibility." .
 
 :LeisureTimeActivity a :PhysicalActivityCategory ;
     rdfs:label "LeisureTimeActivity" ;
-    :isPartOf <http://health-lifesci.schema.org> ;
+    :isPartOf <https://health-lifesci.schema.org> ;
     rdfs:comment "Any physical activity engaged in for recreational purposes. Examples may include ballroom dancing, roller skating, canoeing, fishing, etc." .
 
 :OccupationalActivity a :PhysicalActivityCategory ;
     rdfs:label "OccupationalActivity" ;
-    :isPartOf <http://health-lifesci.schema.org> ;
+    :isPartOf <https://health-lifesci.schema.org> ;
     rdfs:comment "Any physical activity engaged in for job-related purposes. Examples may include waiting tables, maid service, carrying a mailbag, picking fruits or vegetables, construction work, etc." .
 
 :StrengthTraining a :PhysicalActivityCategory ;
     rdfs:label "StrengthTraining" ;
-    :isPartOf <http://health-lifesci.schema.org> ;
+    :isPartOf <https://health-lifesci.schema.org> ;
     rdfs:comment "Physical activity that is engaged in to improve muscle and bone strength. Also referred to as resistance training." .
 
 :activityDuration a rdf:Property ;
     rdfs:label "activityDuration" ;
     :domainIncludes :ExercisePlan ;
-    :isPartOf <http://health-lifesci.schema.org> ;
+    :isPartOf <https://health-lifesci.schema.org> ;
     :rangeIncludes :Duration,
         :QuantitativeValue ;
     rdfs:comment "Length of time to engage in the activity." .
@@ -70,7 +70,7 @@
 :activityFrequency a rdf:Property ;
     rdfs:label "activityFrequency" ;
     :domainIncludes :ExercisePlan ;
-    :isPartOf <http://health-lifesci.schema.org> ;
+    :isPartOf <https://health-lifesci.schema.org> ;
     :rangeIncludes :QuantitativeValue,
         :Text ;
     rdfs:comment "How often one should engage in the activity." .
@@ -78,7 +78,7 @@
 :additionalVariable a rdf:Property ;
     rdfs:label "additionalVariable" ;
     :domainIncludes :ExercisePlan ;
-    :isPartOf <http://health-lifesci.schema.org> ;
+    :isPartOf <https://health-lifesci.schema.org> ;
     :rangeIncludes :Text ;
     rdfs:comment "Any additional component of the exercise prescription that may need to be articulated to the patient. This may include the order of exercises, the number of repetitions of movement, quantitative distance, progressions over time, etc." .
 
@@ -89,7 +89,7 @@
 :exercisePlan a rdf:Property ;
     rdfs:label "exercisePlan" ;
     :domainIncludes :ExerciseAction ;
-    :isPartOf <http://health-lifesci.schema.org> ;
+    :isPartOf <https://health-lifesci.schema.org> ;
     :rangeIncludes :ExercisePlan ;
     rdfs:comment "A sub property of instrument. The exercise plan used on this action." ;
     rdfs:subPropertyOf :instrument .
@@ -98,14 +98,14 @@
     rdfs:label "exerciseType" ;
     :domainIncludes :ExerciseAction,
         :ExercisePlan ;
-    :isPartOf <http://health-lifesci.schema.org> ;
+    :isPartOf <https://health-lifesci.schema.org> ;
     :rangeIncludes :Text ;
     rdfs:comment "Type(s) of exercise or activity, such as strength training, flexibility training, aerobics, cardiac rehabilitation, etc." .
 
 :intensity a rdf:Property ;
     rdfs:label "intensity" ;
     :domainIncludes :ExercisePlan ;
-    :isPartOf <http://health-lifesci.schema.org> ;
+    :isPartOf <https://health-lifesci.schema.org> ;
     :rangeIncludes :QuantitativeValue,
         :Text ;
     rdfs:comment "Quantitative measure gauging the degree of force involved in the exercise, for example, heartbeats per minute. May include the velocity of the movement." .
@@ -113,15 +113,15 @@
 :repetitions a rdf:Property ;
     rdfs:label "repetitions" ;
     :domainIncludes :ExercisePlan ;
-    :isPartOf <http://health-lifesci.schema.org> ;
+    :isPartOf <https://health-lifesci.schema.org> ;
     :rangeIncludes :Number,
-        :QualitativeValue ;
+        :QuantitativeValue ;
     rdfs:comment "Number of times one should repeat the activity." .
 
 :restPeriods a rdf:Property ;
     rdfs:label "restPeriods" ;
     :domainIncludes :ExercisePlan ;
-    :isPartOf <http://health-lifesci.schema.org> ;
+    :isPartOf <https://health-lifesci.schema.org> ;
     :rangeIncludes :QuantitativeValue,
         :Text ;
     rdfs:comment "How often one should break from the activity." .
@@ -129,7 +129,7 @@
 :workload a rdf:Property ;
     rdfs:label "workload" ;
     :domainIncludes :ExercisePlan ;
-    :isPartOf <http://health-lifesci.schema.org> ;
+    :isPartOf <https://health-lifesci.schema.org> ;
     :rangeIncludes :Energy,
         :QuantitativeValue ;
     rdfs:comment "Quantitative measure of the physiologic output of the exercise; also referred to as energy expenditure." .

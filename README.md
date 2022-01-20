@@ -1,6 +1,6 @@
 Welcome to Schema.org
 =====================
-
+   
 
 This is the Schema.org project repository. It contains all the schemas, examples and software used to publish schema.org. For the site itself, please see [Schema.org](https://schema.org/) instead.
 
@@ -9,7 +9,7 @@ Note: Much of the supporting software is imported from a sub module: 'sdopythona
 Issues and proposals are managed here by participants of the [W3C Schema.org Community Group](https://www.w3.org/community/schemaorg/). If you are interested to participate please
 join the group at the [W3C](https://www.w3.org/community/schemaorg/), introduce yourself and find or file issues here that engage your interest. If you are new to Git and GitHub, there's a useful [introduction to Github](https://www.w3.org/2006/tools/wiki/Github) in the W3C Wiki.
 
-There is also a [Travis-CI integration](https://travis-ci.org/schemaorg/schemaorg) to check incoming pull requests.
+There are also continuous integration tests to check incoming pull requests.
 
 [Issue #1](https://github.com/schemaorg/schemaorg/issues/1) in Github is an entry point for release planning. It
 should provide an overview of upcoming work, in terms of broad themes, specific issues and release milestones.
@@ -53,9 +53,15 @@ See more on ["How we work"](https://schema.org/docs/howwework.html)
 Software
 ========
 
-For most collaborators, all you need to know about the software is how to run it. Essentially you will need to have the Python version of Google App Engine SDK running on the platform of your choice. You can then make test builds of schema.org running on your own machine accessible as http://localhost:8080/ or else post them on appspot.com for collaboration. See the [Appengine documentation](https://cloud.google.com/appengine/docs) for details.
+For most collaborators, all you need to know about the software is how to run it. 
 
-More information about the software is also available in [SOFTWARE_README.md](SOFTWARE_README.md) and [STATICBUILD_README.md](./staticbuild/STATICBUILD_README.md)
+The objective of the software is to create a static copy of the Schema.org site, including potential local changes, to inspect and run behind a simple web server on a local system for testing.  In the same way that a production release is deployed to a cloud server, your local version could then be deployed to a virtual machine using gcloud to enable collaboration with others.
+
+Full instructions are available in [SOFTWARE_README.md](software/SOFTWARE_README.md) explaining how to create the initial local copy to work with, then evolve to test out any changes.
+
+Essentially you will need to have a Linux-like (inc  Mac) environment loaded with Python version 3.6 or above. You can then make test builds of schema.org running on your own machine accessible as http://localhost:8080/ or else post them on appspot.com for collaboration. See the [Appengine documentation](https://cloud.google.com/appengine/docs) for details of the relevant gcloud commands.
+
+More detailed information about the software and is use is available in [SOFTWARE_README.md](software/SOFTWARE_README.md).
 
 See also notes in the wiki: https://github.com/schemaorg/schemaorg/wiki/Contributing
 
@@ -64,11 +70,11 @@ Formats and standards
 
 All schemas and examples are in data/ in utf-8 encoded files.
 
-The main schemas file is data/schema.rdfa (utf-8)
+The main schemas file is data/schema.ttl (utf-8)
 
-While developing schemas, using data/sdo-somethinghere-schema.rdfa can be useful.
+While developing schemas, using data/sdo-somethinghere-schema.ttl can be useful.
 
-The format is based on W3C RDFS in HTML/RDFa format, see https://schema.org/docs/datamodel.html
+The format is based on W3C RDFS in RDF/Turtle format.
 
 The examples are stored in data/examples.txt (utf-8) and other *.txt files.
 
@@ -91,6 +97,8 @@ e.g. successor to https://schema.org/docs/releases.html#v1.91 was code-named sdo
 and eventually became https://schema.org/docs/releases.html#v1.92
 
 You can therefore see candidate draft release notes in the Git repository at docs/releases.html
+
+**Note:** The default branch name for the schemaorg repository was changed from *master* to *main* (as of 23rd July 2020).  See [MASTER_BRANCH_RENAME.md](MASTER_BRANCH_RENAME.md) for details.
 
 
 Notes

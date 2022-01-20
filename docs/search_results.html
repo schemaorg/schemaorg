@@ -4,31 +4,25 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<meta name="robots" content="noindex">
     <title>Search Results - schema.org</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Schema.org is a set of extensible schemas that enables webmasters to embed
-    structured data on their web pages for use by search engines and other applications." />
-    <link rel="stylesheet" type="text/css" href="schemaorg.css" />
-<script>
-(function() {
-  var cx = '013516846811604855281:nj5laplixaa'; // Insert your own Custom Search engine ID here
-  var gcse = document.createElement('script'); gcse.type = 'text/javascript'; gcse.async = true;
-  gcse.src = 'https://cse.google.com/cse.js?cx=' + cx;
-  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(gcse, s);
-})();
-</script>
+
+<!-- #### Static Doc Insert Head goes here -->
+
 </head>
 <body>
-    <div id="container">
-        <div id="intro">
-            <div id="pageHeader">
-              <div class="wrapper">
-				<div id="sitename">
-				<h1>
-					<a href="/">schema.org</a>
-				</h1>
-				</div>
 
-<div id="cse-search-form" style="width: 400px;"><div class="gcse-searchbox"></div></div>
+<!-- #### Static Doc Insert PageHead goes here -->
+
+<!-- Hides search prompt in main header -->
+
+<!-- change the default search prompt - for this [search results] page only -->
+<script>
+      var targets = document.getElementsByClassName("gcse-searchbox-only");
+      var target = targets[0];
+      target.classList.remove("gcse-searchbox-only");
+      target.classList.add("gcse-searchbox");
+      target.removeAttribute('data-resultsUrl');
+</script>
+
 <style type="text/css">
   input.gsc-input {
     border-color: #660000;
@@ -193,33 +187,12 @@
   }
 </style>
 
-              </div>
-            </div>
-        </div>
-    </div>
-
-            <div id="selectionbar">
-               <div class="wrapper">
-                <ul>
-                    <li >
-                      <a href="../docs/documents.html">Documentation</a></li>
-                    <li >
-                      <a href="../docs/schemas.html">Schemas</a></li>
-                    <li >
-                      <a href="../.">Home</a></li>
-                </ul>
-                </div>
-
-            </div>
-
   <div id="mainContent">
     <div class="gcse-searchresults"></div>
   </div>
 
 
-<div id="footer"><p>
-  <a href="../docs/terms.html">Terms and conditions</a></p>
-</div>
+<!-- #### Static Doc Insert Footer here -->
 
 </body>
 </html>
