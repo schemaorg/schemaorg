@@ -1,31 +1,48 @@
 
-# Schema.org Feeds Specification
+# Schema.org Feeds Specification 1.0a
 
-* Authors: Dan Brickley <danbri@google.com>, Ramanathan V. Guha<guha@google.com>
+* Editors: Dan Brickley <danbri@google.com>, Ramanathan V. Guha <guha@google.com>
 * Discussion: Welcomed on [Github](https://github.com/schemaorg/schemaorg/issues/2891) or on [public-schemaorg@w3.org](https://lists.w3.org/Archives/Public/public-schemaorg/).
-* Status of this document: Discussion proposal only. Experimental implementation welcomed, please do not assume stability.
+* Status of this document: Defines the basic approach. Experimental implementation welcomed, please do not assume stability of all aspects.
 
 
 ## Abstract
 
-This is a draft of a simple "Schema.org Feeds" specification, introducing conventions for site-level rather than inline page-level publication of machine-readable structured data. Future revisions may explore other publication mechanisms, such as per-page files referenced via links.
+This is a draft of a simple "Schema.org Feeds" specification, introducing conventions for site-level 
+rather than inline page-level publication of machine-readable structured data. Future revisions 
+may explore other publication mechanisms, such as per-page files referenced via links.
 
 ## Overview
 
-This specification introduces the idea of Schema.org feeds, and introduces some conventions for their discovery. The purpose is to make Schema.org structured data easier to publish, and easier to work with for data-consuming applications.
+This specification introduces the idea of Schema.org feeds, and introduces some conventions for their 
+discovery. The purpose is to make Schema.org structured data easier to publish, and easier to work 
+with for data-consuming applications.
 
 
 
 ## Purpose of this Specification
 
-Schema.org has been very successful for publishing per-page structured data. Originally targeting the HTML5 Microdata format, it is now also widely published in JSON-LD 1.0, as well as RDFa 1.1 formats. This success was largely based on the practice of publishing data within ordinary web pages, and on the practice of building richer user-facing applications using this structured data. The purpose of this specification is to define shared conventions for site-level publication and discovery of schema.org-based data, beyond the "page by page" model, in the expectation that doing so will help publishers and consumers of structured data communicate using Schema.org more effectively.
+Schema.org has been very successful for publishing per-page structured data. Originally targeting the 
+HTML5 Microdata format, it is now also widely published in JSON-LD 1.0, as well as RDFa 1.1 formats. 
+This success was largely based on the practice of publishing data within ordinary web pages, and on 
+the practice of building richer user-facing applications using this structured data. The purpose of 
+this specification is to define shared conventions for site-level publication and discovery of 
+schema.org-based data, beyond the "page by page" model, in the expectation that doing so will help 
+publishers and consumers of structured data communicate using Schema.org more effectively.
 
 
 ## Background
 
-Schema.org itself is essentially a machine-readable dictionary, and as such, does not tell its users what they should say, or where they should say it. In practice, it has built on a tradition of embedded page-by-page content publishing, providing a machine-readable "site summary" within human-oriented pages across millions of sites. Such pages often repeat information redundantly. The same real-world entity may be mentioned thousands or millions of times on one site, often with the same factual information repeated in each page.
+Schema.org itself is essentially a machine-readable dictionary, and as such, does not tell its users 
+what they should say, or where they should say it. In practice, it has built on a tradition of 
+embedded page-by-page content publishing, providing a machine-readable "site summary" within 
+human-oriented pages across millions of sites. Such pages often repeat information redundantly. The 
+same real-world entity may be mentioned thousands or millions of times on one site, often with the 
+same factual information repeated in each page.
 
-Schema.org schemas are concerned more with summarizing the real-world things and relationships that pages describe, than with describing the hypertext structure of web sites themselves. This has resulted in publishers asking reasonable questions such as:
+Schema.org schemas are concerned more with summarizing the real-world things and relationships that 
+pages describe, than with describing the hypertext structure of web sites themselves. This has 
+resulted in publishers asking reasonable questions such as:
 
  * "Should the contact information go in every page, or just our ContactPage? Our opening hours? logo?"
  * "On an e-commerce site, can information that applies to many product offers (e.g. shipping and returns policy details) all reference a common page?"
@@ -37,13 +54,25 @@ The motivation behind this specification is to explore an alternative model of s
 
 # Schema.org Feeds - "Feeds that use Schema.org"
 
-"Feed" in the sense used here, is a general term applicable to data published in the web, generally oriented towards machine-processing rather than humans, and with some suggestion of regular updates. Feeds can provide an alternative way for sites to re-distribute some or all of the data that they can also include via per-page embedding. Feeds also allow sites to add detail to machine readable structured data without adding to the page weight performance challenges of human-facing pages.
+"Feed" in the sense used here, is a general term applicable to data published in the web, generally 
+oriented towards machine-processing rather than humans, and with some suggestion of regular updates. 
+Feeds can provide an alternative way for sites to re-distribute some or all of the data that they can 
+also include via per-page embedding. Feeds also allow sites to add detail to machine readable structured 
+data without adding to the page weight performance challenges of human-facing pages.
 
-Schema.org can both be used to discover Web feeds, and to provide meaningful structure in such feeds. This specification is concerned primarily with feeds of Schema.org data, e.g. that carry roughly the same content that a site might be embedding in its HTML pages, rather than formats such as RSS/Atom, Sitemaps XML etc., which are complementary technologies. In the sense used here, a "Schema.org feed" is a document that uses schema.org vocabulary. This might be in JSON-LD, or other formats.
+Schema.org can both be used to discover Web feeds, and to provide meaningful structure in such feeds. 
+This specification is concerned primarily with feeds of Schema.org data, e.g. that carry roughly the 
+same content that a site might be embedding in its HTML pages, rather than formats such as RSS/Atom, 
+Sitemaps XML etc., which are complementary technologies. In the sense used here, a "Schema.org feed" is 
+a document that uses schema.org vocabulary. This might be in JSON-LD, or other formats.
 
 ## Discovery
 
-The main innovation in this document is to define two mechanisms for Schema.org Feed discovery. These are unlikely to be the only mechanisms through which schema.org feeds are found and shared, but provide a baseline for content intended for a general audience. The schema.org [DataFeed](https://schema.org/DataFeed) type provides an extensible foundation for using Schema.org to describe the location and format of data feeds, regardless of whether the actual feeds use Schema.org.
+The main innovation in this document is to define two mechanisms for Schema.org Feed discovery. These are 
+unlikely to be the only mechanisms through which schema.org feeds are found and shared, but provide a 
+baseline for content intended for a general audience. The schema.org 
+[DataFeed](https://schema.org/DataFeed) type provides an extensible foundation for using Schema.org to 
+describe the location and format of data feeds, regardless of whether the actual feeds use Schema.org.
 
 * Well Known URLs (using IETF [RFC 8615](https://datatracker.ietf.org/doc/html/rfc8615) URL conventions):
  * Two (as yet unregistered) Well Known URLs can be used for site-wide discovery of feed URLs, at the domain name level:
@@ -67,7 +96,7 @@ Two (as yet tentative) schema.org properties can be used with WebSite to point t
 
 Regardless of whether .well-known or schema markup is used to discover these URLs, we introduce the terminology of "general feed-data URL" and "table of contents feed-data URL" to describe the two flavours of DataFeed.
 
-## Advanced Topics (potential future )
+## Advanced Topics (potential future enhancements)
 
 These topics could be explored in future revisions of this document.
 
@@ -82,7 +111,6 @@ In the general case, a Schema.org Feed, or any other feed, might not have an obv
 
 However, in practice, Schema.org data is typically deployed across the pages of a site. It is useful to retain these associations, while reducing the redundancy.
 
-The recommendated
 
 ### Other topics
 
