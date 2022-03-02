@@ -8,10 +8,8 @@ if not (sys.version_info.major == 3 and sys.version_info.minor > 5):
 import os
 import glob
 import re
-from shutil import *
-from schemaversion import *
 
-for path in [os.getcwd(),"software/SchemaTerms","software/SchemaExamples"]:
+for path in [os.getcwd(),"software/SchemaTerms","software/SchemaExamples","software/util"]:
   sys.path.insert( 1, path ) #Pickup libs from local  directories
   
 if os.path.basename(os.getcwd()) != "schemaorg":
@@ -22,6 +20,11 @@ for dir in ["software/util","docs","software/site","templates/static-doc-inserts
     if not os.path.isdir(dir):
         print("\nRequired directory '%s' not found - Exiting\n" % dir)
         sys.exit(1)
+
+from shutil import *
+from schemaversion import *
+import convertmd2htmldocs
+
 
 ins = glob.glob('./templates/static-doc-inserts/*.html')
 INSERTS = {}
@@ -111,4 +114,7 @@ def insertcopy(doc, docdata=None):
 
 if __name__ == '__main__':
     copydocs()
+    print("Converting .md docs to html")
+    convertmd2htmldocs.mddocs(DESTDIR,DESTDIR)
+    print("Adding header/footer templates")
     htmlinserts()
