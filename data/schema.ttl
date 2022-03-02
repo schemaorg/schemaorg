@@ -3209,6 +3209,12 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     rdfs:subClassOf :Game,
         :SoftwareApplication .
 
+:gameEdition a rdf:Property ;
+    rdfs:label "gameEdition" ;
+    :domainIncludes :VideoGame ;
+    :rangeIncludes :Text ;
+    rdfs:comment "The edition of a video game." .
+
 :VideoGameClip a rdfs:Class ;
     rdfs:label "VideoGameClip" ;
     rdfs:comment "A short segment/part of a video game." ;
