@@ -6649,11 +6649,11 @@ Typical unit code(s): MTK for square meter, FTK for square foot, or YDK for squa
 
 :keywords a rdf:Property ;
     rdfs:label "keywords" ;
-    :domainIncludes :CreativeWork ;
+    :domainIncludes :CreativeWork, :Organization, :Event, :Product, :Place ;
     :rangeIncludes :DefinedTerm,
         :Text,
         :URL ;
-    rdfs:comment "Keywords or tags used to describe this content. Multiple entries in a keywords list are typically delimited by commas." .
+    rdfs:comment "Keywords or tags used to describe some item. Multiple textual entries in a keywords list are typically delimited by commas, or by repeating the property." .
 
 :knownVehicleDamages a rdf:Property ;
     rdfs:label "knownVehicleDamages" ;
