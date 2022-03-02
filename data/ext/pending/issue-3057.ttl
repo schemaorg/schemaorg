@@ -1,0 +1,43 @@
+@prefix : <https://schema.org/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:DigitalPlatformEnumeration a rdfs:Class ;
+    rdfs:label "DigitalPlatformEnumeration" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3057> ;
+    rdfs:comment "Enumerates some common technology platforms, for use with properties such as [[actionPlatform]]. It is not supposed to be comprehensive - when a suitable code is not enumerated here, textual or URL values can be used instead. These codes are at a fairly high level and do not deal with versioning and other nuance. Additional codes can be suggested [in github](https://github.com/schemaorg/schemaorg/issues/3057). " ;
+    rdfs:subClassOf :Enumeration .
+
+:DesktopWebPlatform a :DigitalPlatformEnumeration ;
+    rdfs:label "DesktopWebPlatform" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> ;
+    rdfs:comment "Represents the broad notion of 'desktop' browsers as a Web Platform." .
+
+:MobileWebPlatform a :DigitalPlatformEnumeration ;
+    rdfs:label "MobileWebPlatform" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> ;
+    rdfs:comment "Represents the broad notion of 'mobile' browsers as a Web Platform." .
+
+:GenericWebPlatform a :DigitalPlatformEnumeration ;
+    rdfs:label "GenericWebPlatform" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> ;
+    rdfs:comment "Represents the generic notion of the Web Platform. More specific codes include [[MobileWebPlatform]] and [[DesktopWebPlatform]], as an incomplete list. " .
+    
+:AndroidPlatform a :DigitalPlatformEnumeration ;
+    rdfs:label "AndroidPlatform" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> ;
+    rdfs:comment "Represents the broad notion of Android-based operating systems." .
+
+:DigitalPlatformEnumeration a :DigitalPlatformEnumeration ;
+    rdfs:label "IOSPlatform" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2811> ;
+    rdfs:comment "Represents the broad notion of iOS-based operating systems." .
+
