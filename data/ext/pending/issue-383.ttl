@@ -72,13 +72,25 @@ Use properties from [[Organization]], [[subOrganization]]/[[parentOrganization]]
 
 :fundedItem a rdf:Property ;
     rdfs:label "fundedItem" ;
+    :inverseOf :funding ;
     :domainIncludes :Grant ;
+    :rangeIncludes :CreativeWork, Event, Organization, Person, Product, MedicalEntity, BioChemEntity ;
     :isPartOf <https://pending.schema.org> ;
-    :rangeIncludes :Thing ;
     :source <https://github.com/schemaorg/schemaorg/issues/1950>,
         <https://github.com/schemaorg/schemaorg/issues/383>,
         <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP> ;
-    rdfs:comment "Indicates an item funded or sponsored through a [[Grant]]." .
+    rdfs:comment "Indicates something directly or indirectly funded or sponsored through a [[Grant]]. See also [[ownershipFundingInfo]]." .
+
+
+:funding a rdf:Property ;
+    rdfs:label "funding" ;
+        :inverseOf :fundedItem ;
+    :domainIncludes :CreativeWork, Event, Organization, Person, Product, MedicalEntity, BioChemEntity ;
+    :rangeIncludes :Grant ;
+    :isPartOf <http://pending.schema.org> ;
+        :source <https://github.com/schemaorg/schemaorg/issues/383>,
+        <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP> ;
+    rdfs:comment "A [[Grant]] that directly or indirectly provide funding or sponsorship for this item. See also [[ownershipFundingInfo]]." .
 
 :funder a rdf:Property ;
     :domainIncludes :MonetaryGrant .
