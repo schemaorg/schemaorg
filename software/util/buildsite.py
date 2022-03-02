@@ -354,7 +354,7 @@ if __name__ == '__main__':
         print("BUILDING RELEASE VERSION")
         time.sleep(2)
         print()
-    if args.examplesnum or args.release:
+    if args.examplesnum or args.release or args.autobuild:
         print("Checking Examples for assigned identifiers")
         time.sleep(2)
         print()
