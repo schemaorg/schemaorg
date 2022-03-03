@@ -11,3 +11,33 @@
     :source <https://github.com/schemaorg/schemaorg/issues/3058> ;
     rdfs:comment "The act of playing a video game." ;
     rdfs:subClassOf :ConsumeAction .
+
+:gameAvailabilityType a rdf:Property ;
+    rdfs:label "gameAvailabilityType" ;
+    :domainIncludes :PlayGameAction ;
+    :rangeIncludes :Text, :GameAvailabilityEnumeration ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3058>;
+    rdfs:comment "Indicates the availability type of the game content associated with this action, such as whether it is a full version or a demo." .
+
+
+:GameAvailabilityEnumeration a rdfs:Class ;
+    rdfs:label "GameAvailabilityEnumeration" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3058> ;
+    rdfs:comment "For a [[VideoGame]], such as used with a [[PlayGameAction]], an enumeration of the kind of game availability offered. " ;
+    rdfs:subClassOf :Enumeration .
+
+:FullGameAvailability a :GameAvailabilityEnumeration ;
+    rdfs:label "FullGameAvailability" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3058> ;
+    rdfs:comment "Indicates full game availability." .
+
+
+:DemoGameAvailability a :GameAvailabilityEnumeration ;
+    rdfs:label "DemoGameAvailability" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3058> ;
+    rdfs:comment "Indicates demo game availability, i.e. a somehow limited demonstration of the full game." .
+
