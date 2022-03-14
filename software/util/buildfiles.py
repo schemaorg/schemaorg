@@ -7,7 +7,7 @@ if not (sys.version_info.major == 3 and sys.version_info.minor > 5):
 
 import os
 import io
-for path in [os.getcwd(),"software/Util","software/SchemaTerms","software/SchemaExamples"]:
+for path in [os.getcwd(),"software/Util","software/SchemaTerms","software/SchemaExamples","software/scripts"]:
   sys.path.insert( 1, path ) #Pickup libs from local  directories
 
 from buildsite import *
@@ -83,6 +83,10 @@ def _jsonldtree(tid,term=None):
                 subs.append(_jsonldtree(sub))
             term['children'] = subs
     return term
+
+def httpequivs(page):
+    from buildhttpequivs import buildequivs
+    return buildequivs("turtle")
 
 def owl(page):
     from sdoowl import OwlBuild
@@ -349,6 +353,7 @@ FILELIST = { "Context": (jsonldcontext,["docs/jsonldcontext.jsonld",
             "jsoncounts": (jsoncounts,["docs/jsoncounts.json"]),
             "jsonpcounts": (jsonpcounts,["docs/jsonpcounts.js"]),
             "Owl": (owl,["docs/schemaorg.owl","releases/%s/schemaorg.owl" % getVersion()]),
+            "Httpequivs": (httpequivs,["releases/%s/httpequivs.ttl" % getVersion()]),
             "Sitemap": (sitemap,["docs/sitemap.xml"]),
             "RDFExports": (exportrdf,[""]),
             "RDFExport.turtle": (exportrdf,[""]),
