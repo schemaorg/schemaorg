@@ -19,6 +19,13 @@ then
     exit 1
 fi
 
+if ! command -v gcloud &> /dev/null
+then
+    echo "gcloud command not found."
+    echo "See https://cloud.google.com/sdk/docs/install-sdk for instructions."
+    exit 1
+fi
+
 cd software/site
 echo Preparing .yaml files
 cp gcloud/*.yaml .
@@ -26,7 +33,7 @@ echo Done
 
 function usage {
     echo "usage: $(basename $0) -e -m [-p project] [-v version] [-y yaml file]"
-	echo "-m bypasses migrate traffic to new version step"
+    echo "-m bypasses migrate traffic to new version step"
 }
 
 PROJECT=""
