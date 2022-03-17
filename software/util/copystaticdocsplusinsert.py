@@ -30,7 +30,7 @@ INSERTS = {}
 for f_path in glob.glob('./templates/static-doc-inserts/*.html'):
     fn = os.path.basename(f_path).lower()
     fn = os.path.splitext(fn)[0]
-    with open(f) as ind:
+    with open(f_path) as ind:
         indata = ind.read()
     fn = fn[4:] #drop sdi- from file name
     indata = indata.replace('{{version}}',getVersion())
@@ -47,7 +47,7 @@ def mycopytree(src, dst, symlinks=False, ignore=None):
         src (str): source path
         dst (str): destination path
         symlinks (bool): should symbolic links be followed.
-        ignore: function that takes the set of filenames and returns those to be ignored.
+        ignore (callable): function that takes the set of filenames and returns those to be ignored.
 
     """
     #copes with already existing directories
