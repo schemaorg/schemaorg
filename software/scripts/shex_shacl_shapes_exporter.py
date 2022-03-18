@@ -1,4 +1,8 @@
+#!/usr/bin/env python3
+# -*- coding: UTF-8 -*-
+
 import json
+import rdflib
 from rdflib import Graph
 from rdflib import BNode, URIRef
 from rdflib import Namespace
@@ -180,9 +184,10 @@ if __name__ == '__main__':
     term_defs_path = input('.nt terms definitions path: ')
     term_defs = open(term_defs_path).read()
     g = Graph().parse(data=term_defs, format='nt')
+    g.bind('schema', SCHEMA)
     shexj = ShExJParser().to_shex(g)
-    open('res.shexj', 'w').write(shexj)
-    shacl = ShaclParser().to_shacl(g).decode('utf-8')
-    open('res.shacl', 'w').write(shacl)
-    subclasses_tree = ShaclParser().get_subclasses(g).decode('utf-8')
-    open('subclasses.shacl', 'w').write(subclasses_tree)
+    open('res.shexj', 'w',encoding='utf8').write(shexj)
+    shacl = ShaclParser().to_shacl(g)
+    open('res.shacl', 'w',encoding='utf8').write(shacl)
+    subclasses_tree = ShaclParser().get_subclasses(g)
+    open('subclasses.shacl', 'w',encoding='utf8').write(subclasses_tree)
