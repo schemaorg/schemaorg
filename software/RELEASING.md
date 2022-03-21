@@ -94,7 +94,7 @@ POST-RELEASE STEPS
 
 `git tag [tagname] [commmit code]` 
 
-`git tag v14.0-release 9d691a8` Note capitalisation
+eg. `git tag v14.0-release 9d691a8` Note capitalisation
 
 Then push
 `git push origin [tag name]`
