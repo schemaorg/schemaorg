@@ -7,7 +7,7 @@ import unittest
 import tempfile
 
 for path in [os.getcwd(),"software/util","software/SchemaTerms","software/SchemaExamples"]:
-  sys.path.insert( 1, path ) #Pickup libs from local directories
+  sys.path.insert(1, path) #Pickup libs from local directories
 
 import schemaexamples
 
@@ -28,13 +28,14 @@ JSON:
 """
 
 class TestExampleFileParser(unittest.TestCase):
-  """Test the example file parser logic"""
+  """Test the example file parser logic."""
 
   def setUp(self):
     self.parser = schemaexamples.ExampleFileParser()
     self.temp_file = tempfile.NamedTemporaryFile()
 
   def test_empty(self):
+    """Test parsing of an empty file."""
     with self.assertLogs() as cm:
       result = self.parser.parse(self.temp_file.name)
     self.assertTrue(cm.output)
@@ -46,13 +47,15 @@ class TestExampleFileParser(unittest.TestCase):
     self.assertFalse(result[0].getRdfa())
     self.assertFalse(result[0].getJsonld())
 
-  def test_thing(self):
+  def test_single_thing(self):
+    """Test parsing of an example with a single thing."""
     self.temp_file.write(THING_EXAMPLE.encode('utf8'))
     self.temp_file.seek(0)
     result = self.parser.parse(self.temp_file.name)
     self.assertEqual(len(result), 1)
     self.assertTrue(result[0].hasValidId())
     self.assertEqual(result[0].getIdNum(), 999)
+    self.assertEqual(result[0].getMeta('file'), self.temp_file.name)
     self.assertCountEqual(result[0].terms, ['Thing'])
     self.assertEqual(
         result[0].getHtml().strip(), '<p>This is a thing</p>', result[0].serialize())
@@ -64,6 +67,25 @@ class TestExampleFileParser(unittest.TestCase):
         result[0].getJsonld().strip(),
         '{"@context": "https://schema.org/", "@type": "Thing", }',
         result[0].serialize())
+
+
+  def test_parse_two_one_serialized(self):
+    # Write one exampel
+    self.temp_file.write(THING_EXAMPLE.encode('utf8'))
+    self.temp_file.write('\n'.encode('utf8'))
+    # Create a test example object.
+    example = schemaexamples.Example(
+          terms=['Offer'], original_html='<b>Offer</b>', microdata='', rdfa='', jsonld='',
+          exmeta={'id': 'eg-777', 'file': '/bogus', 'filepos': -1})
+    self.assertTrue(example.hasValidId())
+    # Serialize it into second position.
+    self.temp_file.write(example.serialize().encode('utf8'))
+    self.temp_file.seek(0)
+    # Try reading both.
+    result = self.parser.parse(self.temp_file.name)
+    self.assertEqual(len(result), 2)
+    self.assertEqual(result[0].getIdNum(), 999)
+    self.assertEqual(result[1].getIdNum(), 777)
 
 
 if __name__ == '__main__':
