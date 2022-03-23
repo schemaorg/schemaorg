@@ -20,6 +20,7 @@ MICRODATA:
 <p itemscope itemtype="https://schema.org/Thing">This is a thing</p>
 
 RDFA:
+<p vocab="https://schema.org/" typeof="Thing">This is a thing</p>
 
 JSON:
 
@@ -34,8 +35,8 @@ class TestExampleFileParser(unittest.TestCase):
     self.parser = schemaexamples.ExampleFileParser()
     self.temp_file = tempfile.NamedTemporaryFile()
 
-  def test_empty(self):
-    """Test parsing of an empty file."""
+  def test_empty_example(self):
+    """Test parsing of an empty Example file."""
     with self.assertLogs() as cm:
       result = self.parser.parse(self.temp_file.name)
     self.assertTrue(cm.output)
@@ -47,8 +48,8 @@ class TestExampleFileParser(unittest.TestCase):
     self.assertFalse(result[0].getRdfa())
     self.assertFalse(result[0].getJsonld())
 
-  def test_single_thing(self):
-    """Test parsing of an example with a single thing."""
+  def test_single_example(self):
+    """Test parsing of an Example file containing a single entry."""
     self.temp_file.write(THING_EXAMPLE.encode('utf8'))
     self.temp_file.seek(0)
     result = self.parser.parse(self.temp_file.name)
@@ -64,12 +65,17 @@ class TestExampleFileParser(unittest.TestCase):
         '<p itemscope itemtype="https://schema.org/Thing">This is a thing</p>',
         result[0].serialize())
     self.assertEqual(
+        result[0].getRdfa().strip(),
+        '<p vocab="https://schema.org/" typeof="Thing">This is a thing</p>',
+        result[0].serialize())
+    self.assertEqual(
         result[0].getJsonld().strip(),
         '{"@context": "https://schema.org/", "@type": "Thing", }',
         result[0].serialize())
 
 
-  def test_parse_two_one_serialized(self):
+  def test_two_examples(self):
+    """Test parsing of an Example file containing two entries, one of them synthetized."""
     # Write one exampel
     self.temp_file.write(THING_EXAMPLE.encode('utf8'))
     self.temp_file.write('\n'.encode('utf8'))
@@ -85,7 +91,9 @@ class TestExampleFileParser(unittest.TestCase):
     result = self.parser.parse(self.temp_file.name)
     self.assertEqual(len(result), 2)
     self.assertEqual(result[0].getIdNum(), 999)
+    self.assertCountEqual(result[0].terms, ['Thing'])
     self.assertEqual(result[1].getIdNum(), 777)
+    self.assertCountEqual(result[1].terms, ['Offer'])
 
 
 if __name__ == '__main__':
