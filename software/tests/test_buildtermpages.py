@@ -41,12 +41,19 @@ class TestTermFileName(unittest.TestCase):
 
 
 class TestBuildTermPages(unittest.TestCase):
+  """Test the term page rendering logic."""
 
-  def testTemplateRender(self):
+  def testTemplateRenderNoExample(self):
+    term = sdoterm.SdoTerm(termType=sdoterm.SdoTerm.TYPE, Id=42, uri="http://example.com/whatchicallit", label="whatchicallit")
+    output = buildtermpages.termtemplateRender(term=term, examples=[], json='')
+    self.assertRegex(output, ".*whatchicallit.*")
+    self.assertRegex(output, ".*http://example\.com/whatchicallit.*")
+
+  def testTemplateRenderOneExample(self):
     """Test rendering of one term page."""
     examples = [
       schemaexamples.Example(
-          terms=["Thingamabob"], original_html="<b>Thingamabob</b>", microdata="", rdfa="", jsonld="",
+          terms=["Thingamabob"], original_html="Awesome & Thingamabob", microdata="", rdfa="", jsonld="",
           exmeta={"file": __file__, "filepos": 0 })
     ]
     json = "[42]"
@@ -54,3 +61,7 @@ class TestBuildTermPages(unittest.TestCase):
     output = buildtermpages.termtemplateRender(term=term, examples=examples, json=json)
     self.assertRegex(output, ".*Thingamabob.*")
     self.assertRegex(output, ".*http://example\.com/thingamabob.*")
+    self.assertRegex(output, ".Awesome &amp; Thingamabob.*")
+
+
+
