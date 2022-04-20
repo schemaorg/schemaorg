@@ -231,25 +231,28 @@ jenv.globals['set_local_var'] = set_local_var
 
 ### Template rendering
 
-def templateRender(template,extra_vars=None):
-    #Basic varibles configuring UI
-    tvars = {
-        'local_vars': local_vars,
-        'version': getVersion(),
-        'versiondate': getCurrentVersionDate(),
-        'sitename': SITENAME,
-        'TERMHREFPREFIX': TERMHREFPREFIX,
-        'TERMHREFSUFFIX': TERMHREFSUFFIX,
-        'DOCSHREFPREFIX': DOCSHREFPREFIX,
-        'DOCSHREFSUFFIX': DOCSHREFSUFFIX,
-        'home_page': "False"
-    }
-    if extra_vars:
-        tvars.update(extra_vars)
+def templateRender(template_path, extra_vars=None, template_instance=None):
+  """Render a page template.
 
-    template = jenv.get_template(template)
-    return template.render(tvars)
+  Returns: the generated page.
+  """
+  #Basic varibles configuring UI
+  tvars = {
+      'local_vars': local_vars,
+      'version': getVersion(),
+      'versiondate': getCurrentVersionDate(),
+      'sitename': SITENAME,
+      'TERMHREFPREFIX': TERMHREFPREFIX,
+      'TERMHREFSUFFIX': TERMHREFSUFFIX,
+      'DOCSHREFPREFIX': DOCSHREFPREFIX,
+      'DOCSHREFSUFFIX': DOCSHREFSUFFIX,
+      'home_page': "False"
+  }
+  if extra_vars:
+      tvars.update(extra_vars)
 
+  template = template_instance or jenv.get_template(template_path)
+  return template.render(tvars)
 
 ###################################################
 #JINJA INITIALISATION - End
