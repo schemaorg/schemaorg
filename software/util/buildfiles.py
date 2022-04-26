@@ -10,6 +10,7 @@ import io
 for path in [os.getcwd(),"software/Util","software/SchemaTerms","software/SchemaExamples","software/scripts"]:
   sys.path.insert( 1, path ) #Pickup libs from local  directories
 
+import textutils
 from buildsite import *
 from sdotermsource import SdoTermSource, VOCABURI
 from sdoterm import *
@@ -22,8 +23,6 @@ Markdown.setWikilinkCssClass("localLink")
 Markdown.setWikilinkPrePath("https://schema.org/")
     #Production site uses no suffix in link - mapping to file done in server config
 Markdown.setWikilinkPostPath("")
- 
-
 
 def fileName(fn):
     ret =  OUTPUTDIR + '/' + fn
@@ -37,13 +36,13 @@ def jsonldcontext(page):
     if not CACHECONTEXT:
         CACHECONTEXT = createcontext()
     return CACHECONTEXT
-    
-        
+
+
 import json
 def jsonldtree(page):
     global VISITLIST
     VISITLIST=[]
-    
+
     term = {}
     context = {}
     context['rdfs'] = "http://www.w3.org/2000/01/rdf-schema#"
@@ -70,7 +69,8 @@ def _jsonldtree(tid,term=None):
             term['rdfs:subClassOf'] = sups[0]
         else:
             term['rdfs:subClassOf'] = sups
-    term['description'] = ShortenOnSentence(StripHtmlTags(termdesc.comment))
+    term['description'] = textutils.ShortenOnSentence(
+        textutils.StripHtmlTags(termdesc.comment))
     if termdesc.pending:
         term['pending'] = True
     if termdesc.retired:
@@ -130,7 +130,7 @@ def prtocolswap(content,protocol,altprotocol):
     for ext in ["attic","auto","bib","health-lifesci","meta","pending"]:
         ret = ret.replace("%s://%s.schema.org" % (protocol,ext),"%s://%s.schema.org" % (altprotocol,ext))
     return ret
-   
+
 def protocols():
     vocaburi = SdoTermSource.vocabUri()
     protocol="http"
@@ -146,7 +146,7 @@ allGraph = None
 currentGraph = None
 def exportrdf(exportType):
     global allGraph, currentGraph
-    
+
     if not allGraph:
         allGraph = rdflib.Graph()
         allGraph.bind("schema",VOCABURI)
@@ -164,8 +164,8 @@ def exportrdf(exportType):
             }""" % (protocol)
         allGraph.update(deloddtriples)
         currentGraph += allGraph
-    
-    
+
+
         desuperseded="""PREFIX schema: <%s://schema.org/>
         DELETE {?s ?p ?o}
         WHERE{
@@ -175,7 +175,7 @@ def exportrdf(exportType):
         #Currenty superseded terms are not suppressed from 'current' file dumps
         #Whereas they are suppressed from the UI
         #currentGraph.update(desuperseded)
- 
+
         delattic="""PREFIX schema: <%s://schema.org/>
         DELETE {?s ?p ?o}
         WHERE{
@@ -183,7 +183,7 @@ def exportrdf(exportType):
                 schema:isPartOf <%s://attic.schema.org>.
         }""" % (protocol,protocol)
         currentGraph.update(delattic)
- 
+
     formats =  ["json-ld", "turtle", "nt", "nquads", "rdf"]
     extype = exportType[len("RDFExport."):]
     if exportType == "RDFExports":
@@ -193,19 +193,19 @@ def exportrdf(exportType):
         _exportrdf(extype,allGraph,currentGraph)
     else:
         raise Exception("Unknown export format: %s" % exportType)
-        
 
-completed = []        
+
+completed = []
 def _exportrdf(format,all,current):
     global completed
     exts = {"xml":".xml","rdf":".rdf","nquads":".nq","nt": ".nt","json-ld": ".jsonld", "turtle":".ttl"}
     protocol, altprotocol = protocols()
-    
+
     if format in completed:
         return
     else:
         completed.append(format)
-        
+
     for ver in ["current","all"]:
         if ver == "all":
             g = all
@@ -276,7 +276,7 @@ def exportcsv(page):
         if term.termType == SdoTerm.REFERENCE or term.id.startswith("http://") or term.id.startswith("https://"):
             continue
         row = {}
-        row["id"] = term.uri 
+        row["id"] = term.uri
         row["label"] = term.label
         row["comment"] = term.comment
         row["supersedes"] = uriwrap(term.supersedes)
@@ -304,7 +304,7 @@ def exportcsv(page):
             typedataAll.append(row)
             if not term.retired:
                 typedata.append(row)
-    
+
     writecsvout("properties",propdata,propFields,"current",protocol,altprotocol)
     writecsvout("properties",propdataAll,propFields,"all",protocol,altprotocol)
     writecsvout("types",typedata,typeFields,"current",protocol,altprotocol)

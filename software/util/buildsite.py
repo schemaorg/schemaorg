@@ -27,6 +27,7 @@ import argparse
 import rdflib
 import jinja2
 
+import textutils
 from sdotermsource import SdoTermSource
 from sdoterm import *
 from schemaexamples import SchemaExamples
@@ -253,44 +254,9 @@ def templateRender(template_path, extra_vars=None, template_instance=None):
   template = template_instance or jenv.get_template(template_path)
   return template.render(tvars)
 
-
 ###################################################
 #JINJA INITIALISATION - End
 ###################################################
-###################################################
-#Comment Handling
-###################################################
-
-def StripHtmlTags(source):
-    if source and len(source) > 0:
-        return re.sub('<[^<]+?>', '', source)
-    return ""
-
-def ShortenOnSentence(source,lengthHint=250):
-    if source and len(source) > lengthHint:
-        source = source.strip()
-        sentEnd = re.compile('[.!?]')
-        sentList = sentEnd.split(source)
-        com=""
-        count = 0
-        while count < len(sentList):
-            if(count > 0 ):
-                if len(com) < len(source):
-                    com += source[len(com)]
-            com += sentList[count]
-            count += 1
-            if count == len(sentList):
-                if len(com) < len(source):
-                    com += source[len(source) - 1]
-            if len(com) > lengthHint:
-                if len(com) < len(source):
-                    com += source[len(com)]
-                break
-
-        if len(source) > len(com) + 1:
-            com += ".."
-        source = com
-    return source
 
 #Check / create file paths
 CHECKEDPATHS =[]
