@@ -1,6 +1,5 @@
 Welcome to Schema.org
 =====================
-   
 
 This is the Schema.org project repository. It contains all the schemas, examples and software used to publish schema.org. For the site itself, please see [Schema.org](https://schema.org/) instead.
 
