@@ -88,18 +88,7 @@ The data/releases/ hierarchy is reserved for release snapshots (see https://sche
 The ext/*/ hierarchy is reserved for extensions (see https://schema.org/docs/extension.html).
 
 
-Github Branch naming
-====================
-
-https://schema.org/docs/releases.html lists releases by working codename and release name.
-
-e.g. successor to https://schema.org/docs/releases.html#v1.91 was code-named sdo-venkman,
-and eventually became https://schema.org/docs/releases.html#v1.92
-
-You can therefore see candidate draft release notes in the Git repository at docs/releases.html
-
-**Note:** The default branch name for the schemaorg repository was changed from *master* to *main* (as of 23rd July 2020).  See [MASTER_BRANCH_RENAME.md](MASTER_BRANCH_RENAME.md) for details.
-
+We no longer use github branches for work-in-progress. The main/ branch is our latest candidate. It is not guaranteed to be in a conceptually consistent state, but should stabilize prior to circulation of a release candidate for review.
 
 Notes
 =====
