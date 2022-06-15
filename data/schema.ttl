@@ -57,7 +57,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 :ActionAccessSpecification a rdfs:Class ;
     rdfs:label "ActionAccessSpecification" ;
     :source <https://github.com/schemaorg/schemaorg/issues/1741> ;
-    rdfs:comment "A set of requirements that a must be fulfilled in order to perform an Action." ;
+    rdfs:comment "A set of requirements that must be fulfilled in order to perform an Action." ;
     rdfs:subClassOf :Intangible .
 
 :ActionStatusType a rdfs:Class ;
@@ -142,7 +142,7 @@ Should not be used where the nature of the alignment can be described using a si
 :Apartment a rdfs:Class ;
     rdfs:label "Apartment" ;
     :source <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology> ;
-    rdfs:comment "An apartment (in American English) or flat (in British English) is a self-contained housing unit (a type of residential real estate) that occupies only part of a building (Source: Wikipedia, the free encyclopedia, see <a href=\"http://en.wikipedia.org/wiki/Apartment\">http://en.wikipedia.org/wiki/Apartment</a>)." ;
+    rdfs:comment "An apartment (in American English) or flat (in British English) is a self-contained housing unit (a type of residential real estate) that occupies only part of a building (source: Wikipedia, the free encyclopedia, see <a href=\"http://en.wikipedia.org/wiki/Apartment\">http://en.wikipedia.org/wiki/Apartment</a>)." ;
     rdfs:subClassOf :Accommodation .
 
 :ApartmentComplex a rdfs:Class ;
@@ -327,7 +327,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 
 :Blog a rdfs:Class ;
     rdfs:label "Blog" ;
-    rdfs:comment """A [blog](https://en.wikipedia.org/wiki/Blog), sometimes known as a "weblog". Note that the individual posts ([[BlogPosting]]s) in a [[Blog]] are often colloqually referred to by the same term.""" ;
+    rdfs:comment """A [blog](https://en.wikipedia.org/wiki/Blog), sometimes known as a "weblog". Note that the individual posts ([[BlogPosting]]s) in a [[Blog]] are often colloquially referred to by the same term.""" ;
     rdfs:subClassOf :CreativeWork .
 
 :BlogPosting a rdfs:Class ;
@@ -393,7 +393,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 
 :BreadcrumbList a rdfs:Class ;
     rdfs:label "BreadcrumbList" ;
-    rdfs:comment """A BreadcrumbList is an ItemList consisting of a chain of linked Web pages, typically described using at least their URL and their name, and typically ending with the current page.\\n\\nThe [[position]] property is used to reconstruct the order of the items in a BreadcrumbList The convention is that a breadcrumb list has an [[itemListOrder]] of [[ItemListOrderAscending]] (lower values listed first), and that the first items in this list correspond to the "top" or beginning of the breadcrumb trail, e.g. with a site or section homepage. The specific values of 'position' are not assigned meaning for a BreadcrumbList, but they should be integers, e.g. beginning with '1' for the first item in the list.
+    rdfs:comment """A BreadcrumbList is an ItemList consisting of a chain of linked Web pages, typically described using at least their URL and their name, and typically ending with the current page.\\n\\nThe [[position]] property is used to reconstruct the order of the items in a BreadcrumbList. The convention is that a breadcrumb list has an [[itemListOrder]] of [[ItemListOrderAscending]] (lower values listed first), and that the first items in this list correspond to the "top" or beginning of the breadcrumb trail, e.g. with a site or section homepage. The specific values of 'position' are not assigned meaning for a BreadcrumbList, but they should be integers, e.g. beginning with '1' for the first item in the list.
       """ ;
     rdfs:subClassOf :ItemList .
 
@@ -496,7 +496,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     rdfs:label "Campground" ;
     :source <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology> ;
     rdfs:comment """A camping site, campsite, or [[Campground]] is a place used for overnight stay in the outdoors, typically containing individual [[CampingPitch]] locations. \\n\\n
-In British English a campsite is an area, usually divided into a number of pitches, where people can camp overnight using tents or camper vans or caravans; this British English use of the word is synonymous with the American English expression campground. In American English the term campsite generally means an area where an individual, family, group, or military unit can pitch a tent or park a camper; a campground may contain many campsites (Source: Wikipedia see [https://en.wikipedia.org/wiki/Campsite](https://en.wikipedia.org/wiki/Campsite)).\\n\\n
+In British English a campsite is an area, usually divided into a number of pitches, where people can camp overnight using tents or camper vans or caravans; this British English use of the word is synonymous with the American English expression campground. In American English the term campsite generally means an area where an individual, family, group, or military unit can pitch a tent or park a camper; a campground may contain many campsites (source: Wikipedia, see [https://en.wikipedia.org/wiki/Campsite](https://en.wikipedia.org/wiki/Campsite)).\\n\\n
 
 See also the dedicated [document on the use of schema.org for marking up hotels and other forms of accommodations](/docs/hotels.html).
 """ ;
@@ -508,7 +508,7 @@ See also the dedicated [document on the use of schema.org for marking up hotels 
     :source <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology> ;
     rdfs:comment """A [[CampingPitch]] is an individual place for overnight stay in the outdoors, typically being part of a larger camping site, or [[Campground]].\\n\\n
 In British English a campsite, or campground, is an area, usually divided into a number of pitches, where people can camp overnight using tents or camper vans or caravans; this British English use of the word is synonymous with the American English expression campground. In American English the term campsite generally means an area where an individual, family, group, or military unit can pitch a tent or park a camper; a campground may contain many campsites.
-(Source: Wikipedia see [https://en.wikipedia.org/wiki/Campsite](https://en.wikipedia.org/wiki/Campsite)).\\n\\n
+(Source: Wikipedia, see [https://en.wikipedia.org/wiki/Campsite](https://en.wikipedia.org/wiki/Campsite).)\\n\\n
 See also the dedicated [document on the use of schema.org for marking up hotels and other forms of accommodations](/docs/hotels.html).
 """ ;
     rdfs:subClassOf :Accommodation .
@@ -551,12 +551,12 @@ See also the dedicated [document on the use of schema.org for marking up hotels 
 
 :CheckInAction a rdfs:Class ;
     rdfs:label "CheckInAction" ;
-    rdfs:comment "The act of an agent communicating (service provider, social media, etc) their arrival by registering/confirming for a previously reserved service (e.g. flight check in) or at a place (e.g. hotel), possibly resulting in a result (boarding pass, etc).\\n\\nRelated actions:\\n\\n* [[CheckOutAction]]: The antonym of CheckInAction.\\n* [[ArriveAction]]: Unlike ArriveAction, CheckInAction implies that the agent is informing/confirming the start of a previously reserved service.\\n* [[ConfirmAction]]: Unlike ConfirmAction, CheckInAction implies that the agent is informing/confirming the *start* of a previously reserved service rather than its validity/existence." ;
+    rdfs:comment "The act of an agent communicating (service provider, social media, etc) their arrival by registering/confirming for a previously reserved service (e.g. flight check-in) or at a place (e.g. hotel), possibly resulting in a result (boarding pass, etc).\\n\\nRelated actions:\\n\\n* [[CheckOutAction]]: The antonym of CheckInAction.\\n* [[ArriveAction]]: Unlike ArriveAction, CheckInAction implies that the agent is informing/confirming the start of a previously reserved service.\\n* [[ConfirmAction]]: Unlike ConfirmAction, CheckInAction implies that the agent is informing/confirming the *start* of a previously reserved service rather than its validity/existence." ;
     rdfs:subClassOf :CommunicateAction .
 
 :CheckOutAction a rdfs:Class ;
     rdfs:label "CheckOutAction" ;
-    rdfs:comment "The act of an agent communicating (service provider, social media, etc) their departure of a previously reserved service (e.g. flight check in) or place (e.g. hotel).\\n\\nRelated actions:\\n\\n* [[CheckInAction]]: The antonym of CheckOutAction.\\n* [[DepartAction]]: Unlike DepartAction, CheckOutAction implies that the agent is informing/confirming the end of a previously reserved service.\\n* [[CancelAction]]: Unlike CancelAction, CheckOutAction implies that the agent is informing/confirming the end of a previously reserved service." ;
+    rdfs:comment "The act of an agent communicating (service provider, social media, etc) their departure of a previously reserved service (e.g. flight check-in) or place (e.g. hotel).\\n\\nRelated actions:\\n\\n* [[CheckInAction]]: The antonym of CheckOutAction.\\n* [[DepartAction]]: Unlike DepartAction, CheckOutAction implies that the agent is informing/confirming the end of a previously reserved service.\\n* [[CancelAction]]: Unlike CancelAction, CheckOutAction implies that the agent is informing/confirming the end of a previously reserved service." ;
     rdfs:subClassOf :CommunicateAction .
 
 :CheckoutPage a rdfs:Class ;
@@ -735,7 +735,7 @@ See also the dedicated [document on the use of schema.org for marking up hotels 
 
 :Course a rdfs:Class ;
     rdfs:label "Course" ;
-    rdfs:comment "A description of an educational course which may be offered as distinct instances at which take place at different times or take place at different locations, or be offered through different media or modes of study. An educational course is a sequence of one or more educational events and/or creative works which aims to build knowledge, competence or ability of learners." ;
+    rdfs:comment "A description of an educational course which may be offered as distinct instances which take place at different times or take place at different locations, or be offered through different media or modes of study. An educational course is a sequence of one or more educational events and/or creative works which aims to build knowledge, competence or ability of learners." ;
     rdfs:subClassOf :CreativeWork .
 
 :CourseInstance a rdfs:Class ;
@@ -761,12 +761,12 @@ See also the dedicated [document on the use of schema.org for marking up hotels 
 
 :CreativeWorkSeason a rdfs:Class ;
     rdfs:label "CreativeWorkSeason" ;
-    rdfs:comment "A media season e.g. tv, radio, video game etc." ;
+    rdfs:comment "A media season, e.g. TV, radio, video game etc." ;
     rdfs:subClassOf :CreativeWork .
 
 :CreativeWorkSeries a rdfs:Class ;
     rdfs:label "CreativeWorkSeries" ;
-    rdfs:comment """A CreativeWorkSeries in schema.org is a group of related items, typically but not necessarily of the same kind. CreativeWorkSeries are usually organized into some order, often chronological. Unlike [[ItemList]] which is a general purpose data structure for lists of things, the emphasis with CreativeWorkSeries is on published materials (written e.g. books and periodicals, or media such as tv, radio and games).\\n\\nSpecific subtypes are available for describing [[TVSeries]], [[RadioSeries]], [[MovieSeries]], [[BookSeries]], [[Periodical]] and [[VideoGameSeries]]. In each case, the [[hasPart]] / [[isPartOf]] properties can be used to relate the CreativeWorkSeries to its parts. The general CreativeWorkSeries type serves largely just to organize these more specific and practical subtypes.\\n\\nIt is common for properties applicable to an item from the series to be usefully applied to the containing group. Schema.org attempts to anticipate some of these cases, but publishers should be free to apply properties of the series parts to the series as a whole wherever they seem appropriate.
+    rdfs:comment """A CreativeWorkSeries in schema.org is a group of related items, typically but not necessarily of the same kind. CreativeWorkSeries are usually organized into some order, often chronological. Unlike [[ItemList]] which is a general purpose data structure for lists of things, the emphasis with CreativeWorkSeries is on published materials (written e.g. books and periodicals, or media such as TV, radio and games).\\n\\nSpecific subtypes are available for describing [[TVSeries]], [[RadioSeries]], [[MovieSeries]], [[BookSeries]], [[Periodical]] and [[VideoGameSeries]]. In each case, the [[hasPart]] / [[isPartOf]] properties can be used to relate the CreativeWorkSeries to its parts. The general CreativeWorkSeries type serves largely just to organize these more specific and practical subtypes.\\n\\nIt is common for properties applicable to an item from the series to be usefully applied to the containing group. Schema.org attempts to anticipate some of these cases, but publishers should be free to apply properties of the series parts to the series as a whole wherever they seem appropriate.
 	  """ ;
     rdfs:subClassOf :CreativeWork,
         :Series .
@@ -852,7 +852,7 @@ See also the dedicated [document on the use of schema.org for marking up hotels 
 :DatedMoneySpecification a rdfs:Class ;
     rdfs:label "DatedMoneySpecification" ;
     :supersededBy :MonetaryAmount ;
-    rdfs:comment "A DatedMoneySpecification represents monetary values with optional start and end dates. For example, this could represent an employee's salary over a specific period of time. __Note:__ This type has been superseded by [[MonetaryAmount]] use of that type is recommended" ;
+    rdfs:comment "A DatedMoneySpecification represents monetary values with optional start and end dates. For example, this could represent an employee's salary over a specific period of time. __Note:__ This type has been superseded by [[MonetaryAmount]], use of that type is recommended." ;
     rdfs:subClassOf :StructuredValue .
 
 :DayOfWeek a rdfs:Class ;
@@ -916,7 +916,7 @@ Originally, URLs from [GoodRelations](http://purl.org/goodrelations/v1) were use
 
 :DepartAction a rdfs:Class ;
     rdfs:label "DepartAction" ;
-    rdfs:comment "The act of  departing from a place. An agent departs from an fromLocation for a destination, optionally with participants." ;
+    rdfs:comment "The act of  departing from a place. An agent departs from a fromLocation for a destination, optionally with participants." ;
     rdfs:subClassOf :MoveAction .
 
 :DepartmentStore a rdfs:Class ;
@@ -1083,7 +1083,7 @@ Originally, URLs from [GoodRelations](http://purl.org/goodrelations/v1) were use
 
 :EndorseAction a rdfs:Class ;
     rdfs:label "EndorseAction" ;
-    rdfs:comment "An agent approves/certifies/likes/supports/sanction an object." ;
+    rdfs:comment "An agent approves/certifies/likes/supports/sanctions an object." ;
     rdfs:subClassOf :ReactAction .
 
 :EndorsementRating a rdfs:Class ;
@@ -1372,7 +1372,7 @@ endorsement rating is particularly useful in the absence of numeric scales as it
 
 :HVACBusiness a rdfs:Class ;
     rdfs:label "HVACBusiness" ;
-    rdfs:comment "A business that provide Heating, Ventilation and Air Conditioning services." ;
+    rdfs:comment "A business that provides Heating, Ventilation and Air Conditioning services." ;
     rdfs:subClassOf :HomeAndConstructionBusiness .
 
 :HairSalon a rdfs:Class ;
@@ -1439,7 +1439,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 :Hotel a rdfs:Class ;
     rdfs:label "Hotel" ;
     :source <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology> ;
-    rdfs:comment """A hotel is an establishment that provides lodging paid on a short-term basis (Source: Wikipedia, the free encyclopedia, see http://en.wikipedia.org/wiki/Hotel).
+    rdfs:comment """A hotel is an establishment that provides lodging paid on a short-term basis (source: Wikipedia, the free encyclopedia, see http://en.wikipedia.org/wiki/Hotel).
 <br /><br />
 See also the <a href="/docs/hotels.html">dedicated document on the use of schema.org for marking up hotels and other forms of accommodations</a>.
 """ ;
@@ -1457,7 +1457,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 :House a rdfs:Class ;
     rdfs:label "House" ;
     :source <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology> ;
-    rdfs:comment "A house is a building or structure that has the ability to be occupied for habitation by humans or other creatures (Source: Wikipedia, the free encyclopedia, see <a href=\"http://en.wikipedia.org/wiki/House\">http://en.wikipedia.org/wiki/House</a>)." ;
+    rdfs:comment "A house is a building or structure that has the ability to be occupied for habitation by humans or other creatures (source: Wikipedia, the free encyclopedia, see <a href=\"http://en.wikipedia.org/wiki/House\">http://en.wikipedia.org/wiki/House</a>)." ;
     rdfs:subClassOf :Accommodation .
 
 :HousePainter a rdfs:Class ;
@@ -1478,7 +1478,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 
 :HowToItem a rdfs:Class ;
     rdfs:label "HowToItem" ;
-    rdfs:comment "An item used as either a tool or supply when performing the instructions for how to to achieve a result." ;
+    rdfs:comment "An item used as either a tool or supply when performing the instructions for how to achieve a result." ;
     rdfs:subClassOf :ListItem .
 
 :HowToSection a rdfs:Class ;
@@ -1769,12 +1769,12 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 
 :MediaGallery a rdfs:Class ;
     rdfs:label "MediaGallery" ;
-    rdfs:comment "Web page type: Media gallery page. A mixed-media page that can contains media such as images, videos, and other multimedia." ;
+    rdfs:comment "Web page type: Media gallery page. A mixed-media page that can contain media such as images, videos, and other multimedia." ;
     rdfs:subClassOf :CollectionPage .
 
 :MediaObject a rdfs:Class ;
     rdfs:label "MediaObject" ;
-    rdfs:comment "A media object, such as an image, video, or audio object embedded in a web page or a downloadable dataset i.e. DataDownload. Note that a creative work may have many media objects associated with it on the same web page. For example, a page about a single song (MusicRecording) may have a music video (VideoObject), and a high and low bandwidth audio stream (2 AudioObject's)." ;
+    rdfs:comment "A media object, such as an image, video, or audio object embedded in a web page or a downloadable dataset, i.e. DataDownload. Note that a creative work may have many media objects associated with it on the same web page. For example, a page about a single song (MusicRecording) may have a music video (VideoObject), and a high and low bandwidth audio stream (2 [[AudioObject]]s)." ;
     rdfs:subClassOf :CreativeWork .
 
 :MediaSubscription a rdfs:Class ;
@@ -1791,7 +1791,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 :MeetingRoom a rdfs:Class ;
     rdfs:label "MeetingRoom" ;
     :source <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology> ;
-    rdfs:comment """A meeting room, conference room, or conference hall is a room provided for singular events such as business conferences and meetings (Source: Wikipedia, the free encyclopedia, see <a href="http://en.wikipedia.org/wiki/Conference_hall">http://en.wikipedia.org/wiki/Conference_hall</a>).
+    rdfs:comment """A meeting room, conference room, or conference hall is a room provided for singular events such as business conferences and meetings (source: Wikipedia, the free encyclopedia, see <a href="http://en.wikipedia.org/wiki/Conference_hall">http://en.wikipedia.org/wiki/Conference_hall</a>).
 <br /><br />
 See also the <a href="/docs/hotels.html">dedicated document on the use of schema.org for marking up hotels and other forms of accommodations</a>.
 """ ;
@@ -1926,7 +1926,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 :MusicAlbumProductionType a rdfs:Class ;
     rdfs:label "MusicAlbumProductionType" ;
     :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#MBZ> ;
-    rdfs:comment "Classification of the album by it's type of content: soundtrack, live album, studio album, etc." ;
+    rdfs:comment "Classification of the album by its type of content: soundtrack, live album, studio album, etc." ;
     rdfs:subClassOf :Enumeration .
 
 :MusicAlbumReleaseType a rdfs:Class ;
@@ -1970,7 +1970,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 :MusicReleaseFormatType a rdfs:Class ;
     rdfs:label "MusicReleaseFormatType" ;
     :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#MBZ> ;
-    rdfs:comment "Format of this release (the type of recording media used, ie. compact disc, digital media, LP, etc.)." ;
+    rdfs:comment "Format of this release (the type of recording media used, i.e. compact disc, digital media, LP, etc.)." ;
     rdfs:subClassOf :Enumeration .
 
 :MusicStore a rdfs:Class ;
@@ -2026,7 +2026,7 @@ A more detailed overview of [schema.org News markup](/docs/news.html) is also av
 :Number a :DataType,
         rdfs:Class ;
     rdfs:label "Number" ;
-    rdfs:comment "Data type: Number.\\n\\nUsage guidelines:\\n\\n* Use values from 0123456789 (Unicode 'DIGIT ZERO' (U+0030) to 'DIGIT NINE' (U+0039)) rather than superficially similiar Unicode symbols.\\n* Use '.' (Unicode 'FULL STOP' (U+002E)) rather than ',' to indicate a decimal point. Avoid using these symbols as a readability separator." .
+    rdfs:comment "Data type: Number.\\n\\nUsage guidelines:\\n\\n* Use values from 0123456789 (Unicode 'DIGIT ZERO' (U+0030) to 'DIGIT NINE' (U+0039)) rather than superficially similar Unicode symbols.\\n* Use '.' (Unicode 'FULL STOP' (U+002E)) rather than ',' to indicate a decimal point. Avoid using these symbols as a readability separator." .
 
 :NutritionInformation a rdfs:Class ;
     rdfs:label "NutritionInformation" ;
@@ -2067,7 +2067,7 @@ A more detailed overview of [schema.org News markup](/docs/news.html) is also av
 
 :OnDemandEvent a rdfs:Class ;
     rdfs:label "OnDemandEvent" ;
-    rdfs:comment "A publication event e.g. catch-up TV or radio podcast, during which a program is available on-demand." ;
+    rdfs:comment "A publication event, e.g. catch-up TV or radio podcast, during which a program is available on-demand." ;
     rdfs:subClassOf :PublicationEvent .
 
 :OpeningHoursSpecification a rdfs:Class ;
@@ -2223,7 +2223,7 @@ The place is __open__ if the [[opens]] property is specified, and __closed__ oth
 :Periodical a rdfs:Class ;
     rdfs:label "Periodical" ;
     :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_bibex> ;
-    rdfs:comment "A publication in any medium issued in successive parts bearing numerical or chronological designations and intended, such as a magazine, scholarly journal, or newspaper to continue indefinitely.\\n\\nSee also [blog post](http://blog.schema.org/2014/09/schemaorg-support-for-bibliographic_2.html)." ;
+    rdfs:comment "A publication in any medium issued in successive parts bearing numerical or chronological designations and intended to continue indefinitely, such as a magazine, scholarly journal, or newspaper.\\n\\nSee also [blog post](http://blog.schema.org/2014/09/schemaorg-support-for-bibliographic_2.html)." ;
     rdfs:subClassOf :CreativeWorkSeries ;
     owl:equivalentClass <http://purl.org/ontology/bibo/Periodical> .
 
@@ -2281,7 +2281,7 @@ The place is __open__ if the [[opens]] property is specified, and __closed__ oth
 
 :PlayAction a rdfs:Class ;
     rdfs:label "PlayAction" ;
-    rdfs:comment "The act of playing/exercising/training/performing for enjoyment, leisure, recreation, Competition or exercise.\\n\\nRelated actions:\\n\\n* [[ListenAction]]: Unlike ListenAction (which is under ConsumeAction), PlayAction refers to performing for an audience or at an event, rather than consuming music.\\n* [[WatchAction]]: Unlike WatchAction (which is under ConsumeAction), PlayAction refers to showing/displaying for an audience or at an event, rather than consuming visual content." ;
+    rdfs:comment "The act of playing/exercising/training/performing for enjoyment, leisure, recreation, competition or exercise.\\n\\nRelated actions:\\n\\n* [[ListenAction]]: Unlike ListenAction (which is under ConsumeAction), PlayAction refers to performing for an audience or at an event, rather than consuming music.\\n* [[WatchAction]]: Unlike WatchAction (which is under ConsumeAction), PlayAction refers to showing/displaying for an audience or at an event, rather than consuming visual content." ;
     rdfs:subClassOf :Action .
 
 :Playground a rdfs:Class ;
@@ -2391,7 +2391,7 @@ The place is __open__ if the [[opens]] property is specified, and __closed__ oth
 
 :PublicationEvent a rdfs:Class ;
     rdfs:label "PublicationEvent" ;
-    rdfs:comment "A PublicationEvent corresponds indifferently to the event of publication for a CreativeWork of any type e.g. a broadcast event, an on-demand event, a book/journal publication via a variety of delivery media." ;
+    rdfs:comment "A PublicationEvent corresponds indifferently to the event of publication for a CreativeWork of any type, e.g. a broadcast event, an on-demand event, a book/journal publication via a variety of delivery media." ;
     rdfs:subClassOf :Event .
 
 :PublicationIssue a rdfs:Class ;
@@ -2432,7 +2432,7 @@ The place is __open__ if the [[opens]] property is specified, and __closed__ oth
 
 :Quantity a rdfs:Class ;
     rdfs:label "Quantity" ;
-    rdfs:comment "Quantities such as distance, time, mass, weight, etc. Particular instances of say Mass are entities like '3 Kg' or '4 milligrams'." ;
+    rdfs:comment "Quantities such as distance, time, mass, weight, etc. Particular instances of say Mass are entities like '3 kg' or '4 milligrams'." ;
     rdfs:subClassOf :Intangible .
 
 :Question a rdfs:Class ;
@@ -2503,7 +2503,7 @@ The place is __open__ if the [[opens]] property is specified, and __closed__ oth
 
 :ReceiveAction a rdfs:Class ;
     rdfs:label "ReceiveAction" ;
-    rdfs:comment "The act of physically/electronically taking delivery of an object that has been transferred from an origin to a destination. Reciprocal of SendAction.\\n\\nRelated actions:\\n\\n* [[SendAction]]: The reciprocal of ReceiveAction.\\n* [[TakeAction]]: Unlike TakeAction, ReceiveAction does not imply that the ownership has been transfered (e.g. I can receive a package, but it does not mean the package is now mine)." ;
+    rdfs:comment "The act of physically/electronically taking delivery of an object that has been transferred from an origin to a destination. Reciprocal of SendAction.\\n\\nRelated actions:\\n\\n* [[SendAction]]: The reciprocal of ReceiveAction.\\n* [[TakeAction]]: Unlike TakeAction, ReceiveAction does not imply that the ownership has been transferred (e.g. I can receive a package, but it does not mean the package is now mine)." ;
     rdfs:subClassOf :TransferAction .
 
 :Recipe a rdfs:Class ;
@@ -2543,7 +2543,7 @@ The place is __open__ if the [[opens]] property is specified, and __closed__ oth
 
 :ReplyAction a rdfs:Class ;
     rdfs:label "ReplyAction" ;
-    rdfs:comment "The act of responding to a question/message asked/sent by the object. Related to [[AskAction]]\\n\\nRelated actions:\\n\\n* [[AskAction]]: Appears generally as an origin of a ReplyAction." ;
+    rdfs:comment "The act of responding to a question/message asked/sent by the object. Related to [[AskAction]].\\n\\nRelated actions:\\n\\n* [[AskAction]]: Appears generally as an origin of a ReplyAction." ;
     rdfs:subClassOf :CommunicateAction .
 
 :Report a rdfs:Class ;
@@ -2589,7 +2589,7 @@ The place is __open__ if the [[opens]] property is specified, and __closed__ oth
 :Resort a rdfs:Class ;
     rdfs:label "Resort" ;
     :source <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology> ;
-    rdfs:comment """A resort is a place used for relaxation or recreation, attracting visitors for holidays or vacations. Resorts are places, towns or sometimes commercial establishment operated by a single company (Source: Wikipedia, the free encyclopedia, see <a href="http://en.wikipedia.org/wiki/Resort">http://en.wikipedia.org/wiki/Resort</a>).
+    rdfs:comment """A resort is a place used for relaxation or recreation, attracting visitors for holidays or vacations. Resorts are places, towns or sometimes commercial establishments operated by a single company (source: Wikipedia, the free encyclopedia, see <a href="http://en.wikipedia.org/wiki/Resort">http://en.wikipedia.org/wiki/Resort</a>).
 <br /><br />
 See also the <a href="/docs/hotels.html">dedicated document on the use of schema.org for marking up hotels and other forms of accommodations</a>.
     """ ;
@@ -2643,7 +2643,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 :Room a rdfs:Class ;
     rdfs:label "Room" ;
     :source <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology> ;
-    rdfs:comment """A room is a distinguishable space within a structure, usually separated from other spaces by interior walls. (Source: Wikipedia, the free encyclopedia, see <a href="http://en.wikipedia.org/wiki/Room">http://en.wikipedia.org/wiki/Room</a>).
+    rdfs:comment """A room is a distinguishable space within a structure, usually separated from other spaces by interior walls (source: Wikipedia, the free encyclopedia, see <a href="http://en.wikipedia.org/wiki/Room">http://en.wikipedia.org/wiki/Room</a>).
 <br /><br />
 See also the <a href="/docs/hotels.html">dedicated document on the use of schema.org for marking up hotels and other forms of accommodations</a>.
 """ ;
@@ -2707,7 +2707,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 :Season a rdfs:Class ;
     rdfs:label "Season" ;
     :supersededBy :CreativeWorkSeason ;
-    rdfs:comment "A media season e.g. tv, radio, video game etc." ;
+    rdfs:comment "A media season, e.g. TV, radio, video game etc." ;
     rdfs:subClassOf :CreativeWork .
 
 :Seat a rdfs:Class ;
@@ -2727,7 +2727,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 
 :SendAction a rdfs:Class ;
     rdfs:label "SendAction" ;
-    rdfs:comment "The act of physically/electronically dispatching an object for transfer from an origin to a destination.Related actions:\\n\\n* [[ReceiveAction]]: The reciprocal of SendAction.\\n* [[GiveAction]]: Unlike GiveAction, SendAction does not imply the transfer of ownership (e.g. I can send you my laptop, but I'm not necessarily giving it to you)." ;
+    rdfs:comment "The act of physically/electronically dispatching an object for transfer from an origin to a destination. Related actions:\\n\\n* [[ReceiveAction]]: The reciprocal of SendAction.\\n* [[GiveAction]]: Unlike GiveAction, SendAction does not imply the transfer of ownership (e.g. I can send you my laptop, but I'm not necessarily giving it to you)." ;
     rdfs:subClassOf :TransferAction .
 
 :Series a rdfs:Class ;
@@ -2894,7 +2894,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 :Suite a rdfs:Class ;
     rdfs:label "Suite" ;
     :source <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology> ;
-    rdfs:comment """A suite in a hotel or other public accommodation, denotes a class of luxury accommodations, the key feature of which is multiple rooms (Source: Wikipedia, the free encyclopedia, see <a href="http://en.wikipedia.org/wiki/Suite_(hotel)">http://en.wikipedia.org/wiki/Suite_(hotel)</a>).
+    rdfs:comment """A suite in a hotel or other public accommodation, denotes a class of luxury accommodations, the key feature of which is multiple rooms (source: Wikipedia, the free encyclopedia, see <a href="http://en.wikipedia.org/wiki/Suite_(hotel)">http://en.wikipedia.org/wiki/Suite_(hotel)</a>).
 <br /><br />
 See also the <a href="/docs/hotels.html">dedicated document on the use of schema.org for marking up hotels and other forms of accommodations</a>.
 """ ;
@@ -2939,7 +2939,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 
 :TakeAction a rdfs:Class ;
     rdfs:label "TakeAction" ;
-    rdfs:comment "The act of gaining ownership of an object from an origin. Reciprocal of GiveAction.\\n\\nRelated actions:\\n\\n* [[GiveAction]]: The reciprocal of TakeAction.\\n* [[ReceiveAction]]: Unlike ReceiveAction, TakeAction implies that ownership has been transfered." ;
+    rdfs:comment "The act of gaining ownership of an object from an origin. Reciprocal of GiveAction.\\n\\nRelated actions:\\n\\n* [[GiveAction]]: The reciprocal of TakeAction.\\n* [[ReceiveAction]]: Unlike ReceiveAction, TakeAction implies that ownership has been transferred." ;
     rdfs:subClassOf :TransferAction .
 
 :TattooParlor a rdfs:Class ;
@@ -3086,7 +3086,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 
 :TravelAction a rdfs:Class ;
     rdfs:label "TravelAction" ;
-    rdfs:comment "The act of traveling from an fromLocation to a destination by a specified mode of transport, optionally with participants." ;
+    rdfs:comment "The act of traveling from a fromLocation to a destination by a specified mode of transport, optionally with participants." ;
     rdfs:subClassOf :MoveAction .
 
 :TravelAgency a rdfs:Class ;
@@ -3113,7 +3113,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 
 :UnRegisterAction a rdfs:Class ;
     rdfs:label "UnRegisterAction" ;
-    rdfs:comment "The act of un-registering from a service.\\n\\nRelated actions:\\n\\n* [[RegisterAction]]: antonym of UnRegisterAction.\\n* [[LeaveAction]]: Unlike LeaveAction, UnRegisterAction implies that you are unregistering from a service you werer previously registered, rather than leaving a team/group of people." ;
+    rdfs:comment "The act of un-registering from a service.\\n\\nRelated actions:\\n\\n* [[RegisterAction]]: antonym of UnRegisterAction.\\n* [[LeaveAction]]: Unlike LeaveAction, UnRegisterAction implies that you are unregistering from a service you were previously registered, rather than leaving a team/group of people." ;
     rdfs:subClassOf :InteractAction .
 
 :UnitPriceSpecification a rdfs:Class ;
@@ -3249,7 +3249,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 
 :Volcano a rdfs:Class ;
     rdfs:label "Volcano" ;
-    rdfs:comment "A volcano, like Fuji san." ;
+    rdfs:comment "A volcano, like Fujisan." ;
     rdfs:subClassOf :Landform .
 
 :VoteAction a rdfs:Class ;
@@ -3291,7 +3291,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 :WarrantyScope a rdfs:Class ;
     rdfs:label "WarrantyScope" ;
     :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsClass> ;
-    rdfs:comment """A range of of services that will be provided to a customer free of charge in case of a defect or malfunction of a product.\\n\\nCommonly used values:\\n\\n* http://purl.org/goodrelations/v1#Labor-BringIn\\n* http://purl.org/goodrelations/v1#PartsAndLabor-BringIn\\n* http://purl.org/goodrelations/v1#PartsAndLabor-PickUp
+    rdfs:comment """A range of services that will be provided to a customer free of charge in case of a defect or malfunction of a product.\\n\\nCommonly used values:\\n\\n* http://purl.org/goodrelations/v1#Labor-BringIn\\n* http://purl.org/goodrelations/v1#PartsAndLabor-BringIn\\n* http://purl.org/goodrelations/v1#PartsAndLabor-PickUp
       """ ;
     rdfs:subClassOf :Enumeration .
 
@@ -3363,7 +3363,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 
 :ActiveActionStatus a :ActionStatusType ;
     rdfs:label "ActiveActionStatus" ;
-    rdfs:comment "An in-progress action (e.g, while watching the movie, or driving to a location)." .
+    rdfs:comment "An in-progress action (e.g., while watching the movie, or driving to a location)." .
 
 :AlbumRelease a :MusicAlbumReleaseType ;
     rdfs:label "AlbumRelease" ;
@@ -3475,7 +3475,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 
 :EventRescheduled a :EventStatusType ;
     rdfs:label "EventRescheduled" ;
-    rdfs:comment "The event has been rescheduled. The event's previousStartDate should be set to the old date and the startDate should be set to the event's new date. (If the event has been rescheduled multiple times, the previousStartDate property may be repeated)." .
+    rdfs:comment "The event has been rescheduled. The event's previousStartDate should be set to the old date and the startDate should be set to the event's new date. (If the event has been rescheduled multiple times, the previousStartDate property may be repeated.)" .
 
 :EventScheduled a :EventStatusType ;
     rdfs:label "EventScheduled" ;
@@ -3983,7 +3983,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     :domainIncludes :ConsumeAction ;
     :rangeIncludes :ActionAccessSpecification ;
     :source <https://github.com/schemaorg/schemaorg/issues/1741> ;
-    rdfs:comment "A set of requirements that a must be fulfilled in order to perform an Action. If more than one value is specied, fulfilling one set of requirements will allow the Action to be performed." .
+    rdfs:comment "A set of requirements that must be fulfilled in order to perform an Action. If more than one value is specified, fulfilling one set of requirements will allow the Action to be performed." .
 
 :actionPlatform a rdf:Property ;
     rdfs:label "actionPlatform" ;
@@ -4011,7 +4011,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
         :VideoObject ;
     :rangeIncludes :Person ;
     :supersededBy :actor ;
-    rdfs:comment "An actor, e.g. in tv, radio, movie, video games etc. Actors can be associated with individual items or with a series, episode, clip." .
+    rdfs:comment "An actor, e.g. in TV, radio, movie, video games etc. Actors can be associated with individual items or with a series, episode, clip." .
 
 :addOn a rdf:Property ;
     rdfs:label "addOn" ;
@@ -4039,7 +4039,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
         :QualitativeValue,
         :QuantitativeValue ;
     :rangeIncludes :PropertyValue ;
-    rdfs:comment """A property-value pair representing an additional characteristics of the entitity, e.g. a product feature or another characteristic for which there is no matching property in schema.org.\\n\\nNote: Publishers should be aware that applications designed to use specific schema.org properties (e.g. https://schema.org/width, https://schema.org/color, https://schema.org/gtin13, ...) will typically expect such data to be provided using those properties, rather than using the generic property/value mechanism.
+    rdfs:comment """A property-value pair representing an additional characteristic of the entity, e.g. a product feature or another characteristic for which there is no matching property in schema.org.\\n\\nNote: Publishers should be aware that applications designed to use specific schema.org properties (e.g. https://schema.org/width, https://schema.org/color, https://schema.org/gtin13, ...) will typically expect such data to be provided using those properties, rather than using the generic property/value mechanism.
 """ .
 
 :additionalType a rdf:Property ;
@@ -4079,7 +4079,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     rdfs:label "addressRegion" ;
     :domainIncludes :PostalAddress ;
     :rangeIncludes :Text ;
-    rdfs:comment "The region in which the locality is, and which is in the country. For example, California or another appropriate first-level [Administrative division](https://en.wikipedia.org/wiki/List_of_administrative_divisions_by_country) " .
+    rdfs:comment "The region in which the locality is, and which is in the country. For example, California or another appropriate first-level [Administrative division](https://en.wikipedia.org/wiki/List_of_administrative_divisions_by_country)." .
 
 :advanceBookingRequirement a rdf:Property ;
     rdfs:label "advanceBookingRequirement" ;
@@ -4107,7 +4107,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     :domainIncludes :Action ;
     :rangeIncludes :Organization,
         :Person ;
-    rdfs:comment "The direct performer or driver of the action (animate or inanimate). e.g. *John* wrote a book." .
+    rdfs:comment "The direct performer or driver of the action (animate or inanimate). E.g. *John* wrote a book." .
 
 :aggregateRating a rdf:Property ;
     rdfs:label "aggregateRating" ;
@@ -4134,7 +4134,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     :domainIncludes :MusicAlbum ;
     :rangeIncludes :MusicAlbumProductionType ;
     :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#MBZ> ;
-    rdfs:comment "Classification of the album by it's type of content: soundtrack, live album, studio album, etc." .
+    rdfs:comment "Classification of the album by its type of content: soundtrack, live album, studio album, etc." .
 
 :albumReleaseType a rdf:Property ;
     rdfs:label "albumReleaseType" ;
@@ -4310,7 +4310,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     :domainIncludes :VisualArtwork ;
     :rangeIncludes :Text,
         :URL ;
-    rdfs:comment "The material used. (e.g. Oil, Watercolour, Acrylic, Linoprint, Marble, Cyanotype, Digital, Lithograph, DryPoint, Intaglio, Pastel, Woodcut, Pencil, Mixed Media, etc.)" ;
+    rdfs:comment "The material used. (E.g. Oil, Watercolour, Acrylic, Linoprint, Marble, Cyanotype, Digital, Lithograph, DryPoint, Intaglio, Pastel, Woodcut, Pencil, Mixed Media, etc.)" ;
     rdfs:subPropertyOf :material .
 
 :artform a rdf:Property ;
@@ -4337,13 +4337,13 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     :domainIncludes :APIReference ;
     :rangeIncludes :Text ;
     :supersededBy :executableLibraryName ;
-    rdfs:comment "Library file name e.g., mscorlib.dll, system.web.dll." .
+    rdfs:comment "Library file name, e.g., mscorlib.dll, system.web.dll." .
 
 :assemblyVersion a rdf:Property ;
     rdfs:label "assemblyVersion" ;
     :domainIncludes :APIReference ;
     :rangeIncludes :Text ;
-    rdfs:comment "Associated product/technology version. e.g., .NET Framework 4.5." .
+    rdfs:comment "Associated product/technology version. E.g., .NET Framework 4.5." .
 
 :associatedArticle a rdf:Property ;
     rdfs:label "associatedArticle" ;
@@ -4463,7 +4463,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
         :TouristAttraction ;
     :rangeIncludes :Language,
         :Text ;
-    rdfs:comment "A language someone may use with or at the item, service or place. Please use one of the language codes from the [IETF BCP 47 standard](http://tools.ietf.org/html/bcp47). See also [[inLanguage]]" .
+    rdfs:comment "A language someone may use with or at the item, service or place. Please use one of the language codes from the [IETF BCP 47 standard](http://tools.ietf.org/html/bcp47). See also [[inLanguage]]." .
 
 :availableThrough a rdf:Property ;
     rdfs:label "availableThrough" ;
@@ -4646,7 +4646,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     :domainIncludes :LocalBusiness ;
     :rangeIncludes :Organization ;
     :supersededBy :parentOrganization ;
-    rdfs:comment "The larger organization that this local business is a branch of, if any. Not to be confused with (anatomical)[[branch]]." .
+    rdfs:comment "The larger organization that this local business is a branch of, if any. Not to be confused with (anatomical) [[branch]]." .
 
 :brand a rdf:Property ;
     rdfs:label "brand" ;
@@ -4690,7 +4690,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     :rangeIncludes :BroadcastFrequencySpecification,
         :Text ;
     :source <https://github.com/schemaorg/schemaorg/issues/1004> ;
-    rdfs:comment "The frequency used for over-the-air broadcasts. Numeric values or simple ranges e.g. 87-99. In addition a shortcut idiom is supported for frequences of AM and FM radio channels, e.g. \"87 FM\"." .
+    rdfs:comment "The frequency used for over-the-air broadcasts. Numeric values or simple ranges, e.g. 87-99. In addition a shortcut idiom is supported for frequences of AM and FM radio channels, e.g. \"87 FM\"." .
 
 :broadcastFrequencyValue a rdf:Property ;
     rdfs:label "broadcastFrequencyValue" ;
@@ -4716,7 +4716,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     rdfs:label "broadcastTimezone" ;
     :domainIncludes :BroadcastService ;
     :rangeIncludes :Text ;
-    rdfs:comment "The timezone in [ISO 8601 format](http://en.wikipedia.org/wiki/ISO_8601) for which the service bases its broadcasts" .
+    rdfs:comment "The timezone in [ISO 8601 format](http://en.wikipedia.org/wiki/ISO_8601) for which the service bases its broadcasts." .
 
 :broadcaster a rdf:Property ;
     rdfs:label "broadcaster" ;
@@ -4960,7 +4960,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     rdfs:label "codeRepository" ;
     :domainIncludes :SoftwareSourceCode ;
     :rangeIncludes :URL ;
-    rdfs:comment "Link to the repository where the un-compiled, human readable code and related code is located (SVN, github, CodePlex)." .
+    rdfs:comment "Link to the repository where the un-compiled, human readable code and related code is located (SVN, GitHub, CodePlex)." .
 
 :colleagues a rdf:Property ;
     rdfs:label "colleagues" ;
@@ -5058,13 +5058,13 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     :domainIncludes :CreativeWork ;
     :rangeIncludes :Rating,
         :Text ;
-    rdfs:comment "Official rating of a piece of content&#x2014;for example,'MPAA PG-13'." .
+    rdfs:comment "Official rating of a piece of content&#x2014;for example, 'MPAA PG-13'." .
 
 :contentSize a rdf:Property ;
     rdfs:label "contentSize" ;
     :domainIncludes :MediaObject ;
     :rangeIncludes :Text ;
-    rdfs:comment "File size in (mega/kilo) bytes." .
+    rdfs:comment "File size in (mega/kilo)bytes." .
 
 :contentType a rdf:Property ;
     rdfs:label "contentType" ;
@@ -5156,7 +5156,7 @@ In the case of products, the country of origin of the product. The exact interpr
     :domainIncludes :CourseInstance ;
     :rangeIncludes :Text,
         :URL ;
-    rdfs:comment "The medium or means of delivery of the course instance or the mode of study, either as a text label (e.g. \"online\", \"onsite\" or \"blended\"; \"synchronous\" or \"asynchronous\"; \"full-time\" or \"part-time\") or as a URL reference to a term from a controlled vocabulary (e.g. https://ceds.ed.gov/element/001311#Asynchronous )." .
+    rdfs:comment "The medium or means of delivery of the course instance or the mode of study, either as a text label (e.g. \"online\", \"onsite\" or \"blended\"; \"synchronous\" or \"asynchronous\"; \"full-time\" or \"part-time\") or as a URL reference to a term from a controlled vocabulary (e.g. https://ceds.ed.gov/element/001311#Asynchronous)." .
 
 :coursePrerequisites a rdf:Property ;
     rdfs:label "coursePrerequisites" ;
@@ -5206,7 +5206,7 @@ In the case of products, the country of origin of the product. The exact interpr
     rdfs:label "currenciesAccepted" ;
     :domainIncludes :LocalBusiness ;
     :rangeIncludes :Text ;
-    rdfs:comment "The currency accepted.\\n\\nUse standard formats: [ISO 4217 currency format](http://en.wikipedia.org/wiki/ISO_4217) e.g. \"USD\"; [Ticker symbol](https://en.wikipedia.org/wiki/List_of_cryptocurrencies) for cryptocurrencies e.g. \"BTC\"; well known names for [Local Exchange Tradings Systems](https://en.wikipedia.org/wiki/Local_exchange_trading_system) (LETS) and other currency types e.g. \"Ithaca HOUR\"." .
+    rdfs:comment "The currency accepted.\\n\\nUse standard formats: [ISO 4217 currency format](http://en.wikipedia.org/wiki/ISO_4217), e.g. \"USD\"; [Ticker symbol](https://en.wikipedia.org/wiki/List_of_cryptocurrencies) for cryptocurrencies, e.g. \"BTC\"; well known names for [Local Exchange Trading Systems](https://en.wikipedia.org/wiki/Local_exchange_trading_system) (LETS) and other currency types, e.g. \"Ithaca HOUR\"." .
 
 :currency a rdf:Property ;
     rdfs:label "currency" ;
@@ -5214,7 +5214,7 @@ In the case of products, the country of origin of the product. The exact interpr
         :MonetaryAmount,
         :MonetaryAmountDistribution ;
     :rangeIncludes :Text ;
-    rdfs:comment "The currency in which the monetary amount is expressed.\\n\\nUse standard formats: [ISO 4217 currency format](http://en.wikipedia.org/wiki/ISO_4217) e.g. \"USD\"; [Ticker symbol](https://en.wikipedia.org/wiki/List_of_cryptocurrencies) for cryptocurrencies e.g. \"BTC\"; well known names for [Local Exchange Tradings Systems](https://en.wikipedia.org/wiki/Local_exchange_trading_system) (LETS) and other currency types e.g. \"Ithaca HOUR\"." .
+    rdfs:comment "The currency in which the monetary amount is expressed.\\n\\nUse standard formats: [ISO 4217 currency format](http://en.wikipedia.org/wiki/ISO_4217), e.g. \"USD\"; [Ticker symbol](https://en.wikipedia.org/wiki/List_of_cryptocurrencies) for cryptocurrencies, e.g. \"BTC\"; well known names for [Local Exchange Trading Systems](https://en.wikipedia.org/wiki/Local_exchange_trading_system) (LETS) and other currency types, e.g. \"Ithaca HOUR\"." .
 
 :customer a rdf:Property ;
     rdfs:label "customer" ;
@@ -5230,7 +5230,7 @@ In the case of products, the country of origin of the product. The exact interpr
     :rangeIncludes :DataFeedItem,
         :Text,
         :Thing ;
-    rdfs:comment "An item within in a data feed. Data feeds may have many elements." .
+    rdfs:comment "An item within a data feed. Data feeds may have many elements." .
 
 :datasetTimeInterval a rdf:Property ;
     rdfs:label "datasetTimeInterval" ;
@@ -5314,7 +5314,7 @@ In the case of products, the country of origin of the product. The exact interpr
     :rangeIncludes :Text ;
     rdfs:comment """A [dateline](https://en.wikipedia.org/wiki/Dateline) is a brief piece of text included in news articles that describes where and when the story was written or filed though the date is often omitted. Sometimes only a placename is provided.
 
-Structured representations of dateline-related information can also be expressed more explicitly using [[locationCreated]] (which represents where a work was created e.g. where a news report was written).  For location depicted or described in the content, use [[contentLocation]].
+Structured representations of dateline-related information can also be expressed more explicitly using [[locationCreated]] (which represents where a work was created, e.g. where a news report was written).  For location depicted or described in the content, use [[contentLocation]].
 
 Dateline summaries are oriented more towards human readers than towards automated processing, and can vary substantially. Some examples: "BEIRUT, Lebanon, June 2.", "Paris, France", "December 19, 2017 11:43AM Reporting from Washington", "Beijing/Moscow", "QUEZON CITY, Philippines".
       """ .
@@ -5457,7 +5457,7 @@ Dateline summaries are oriented more towards human readers than towards automate
         :VideoObject ;
     :rangeIncludes :Person ;
     :supersededBy :director ;
-    rdfs:comment "A director of e.g. tv, radio, movie, video games etc. content. Directors can be associated with individual items or with a series, episode, clip." .
+    rdfs:comment "A director of e.g. TV, radio, movie, video games etc. content. Directors can be associated with individual items or with a series, episode, clip." .
 
 :disambiguatingDescription a rdf:Property ;
     rdfs:label "disambiguatingDescription" ;
@@ -5483,7 +5483,7 @@ Dateline summaries are oriented more towards human readers than towards automate
     rdfs:label "discountCurrency" ;
     :domainIncludes :Order ;
     :rangeIncludes :Text ;
-    rdfs:comment "The currency of the discount.\\n\\nUse standard formats: [ISO 4217 currency format](http://en.wikipedia.org/wiki/ISO_4217) e.g. \"USD\"; [Ticker symbol](https://en.wikipedia.org/wiki/List_of_cryptocurrencies) for cryptocurrencies e.g. \"BTC\"; well known names for [Local Exchange Tradings Systems](https://en.wikipedia.org/wiki/Local_exchange_trading_system) (LETS) and other currency types e.g. \"Ithaca HOUR\"." .
+    rdfs:comment "The currency of the discount.\\n\\nUse standard formats: [ISO 4217 currency format](http://en.wikipedia.org/wiki/ISO_4217), e.g. \"USD\"; [Ticker symbol](https://en.wikipedia.org/wiki/List_of_cryptocurrencies) for cryptocurrencies, e.g. \"BTC\"; well known names for [Local Exchange Trading Systems](https://en.wikipedia.org/wiki/Local_exchange_trading_system) (LETS) and other currency types, e.g. \"Ithaca HOUR\"." .
 
 :discusses a rdf:Property ;
     rdfs:label "discusses" ;
@@ -5623,7 +5623,7 @@ This property should not be used where the nature of the alignment can be descri
         :GeoShape ;
     :rangeIncludes :Number,
         :Text ;
-    rdfs:comment "The elevation of a location ([WGS 84](https://en.wikipedia.org/wiki/World_Geodetic_System)). Values may be of the form 'NUMBER UNIT_OF_MEASUREMENT' (e.g., '1,000 m', '3,200 ft') while numbers alone should be assumed to be a value in meters." .
+    rdfs:comment "The elevation of a location ([WGS 84](https://en.wikipedia.org/wiki/World_Geodetic_System)). Values may be of the form 'NUMBER UNIT\_OF\_MEASUREMENT' (e.g., '1,000 m', '3,200 ft') while numbers alone should be assumed to be a value in meters." .
 
 :eligibleCustomerType a rdf:Property ;
     rdfs:label "eligibleCustomerType" ;
@@ -5728,7 +5728,7 @@ This property should not be used where the nature of the alignment can be descri
         :MediaObject, :InteractionCounter  ;
     :rangeIncludes :DateTime,
         :Time ;
-    rdfs:comment "The endTime of something. For a reserved event or service (e.g. FoodEstablishmentReservation), the time that it is expected to end. For actions that span a period of time, when the action was performed. e.g. John wrote a book from January to *December*. For media, including audio and video, it's the time offset of the end of a clip within a larger file.\\n\\nNote that Event uses startDate/endDate instead of startTime/endTime, even when describing dates with times. This situation may be clarified in future revisions." .
+    rdfs:comment "The endTime of something. For a reserved event or service (e.g. FoodEstablishmentReservation), the time that it is expected to end. For actions that span a period of time, when the action was performed. E.g. John wrote a book from January to *December*. For media, including audio and video, it's the time offset of the end of a clip within a larger file.\\n\\nNote that Event uses startDate/endDate instead of startTime/endTime, even when describing dates with times. This situation may be clarified in future revisions." .
 
 :endorsee a rdf:Property ;
     rdfs:label "endorsee" ;
@@ -5907,7 +5907,7 @@ This property should not be used where the nature of the alignment can be descri
     :rangeIncludes :Text,
         :URL ;
     :supersededBy :encodingFormat ;
-    rdfs:comment "Media type, typically MIME format (see [IANA site](http://www.iana.org/assignments/media-types/media-types.xhtml)) of the content e.g. application/zip of a SoftwareApplication binary. In cases where a CreativeWork has several media type representations, 'encoding' can be used to indicate each MediaObject alongside particular fileFormat information. Unregistered or niche file formats can be indicated instead via the most appropriate URL, e.g. defining Web page or a Wikipedia entry." .
+    rdfs:comment "Media type, typically MIME format (see [IANA site](http://www.iana.org/assignments/media-types/media-types.xhtml)) of the content, e.g. application/zip of a SoftwareApplication binary. In cases where a CreativeWork has several media type representations, 'encoding' can be used to indicate each MediaObject alongside particular fileFormat information. Unregistered or niche file formats can be indicated instead via the most appropriate URL, e.g. defining Web page or a Wikipedia entry." .
 
 :fileSize a rdf:Property ;
     rdfs:label "fileSize" ;
@@ -6101,7 +6101,7 @@ Typical unit code(s): MTK for square meter, FTK for square foot, or YDK for squa
     rdfs:label "geoMidpoint" ;
     :domainIncludes :GeoCircle ;
     :rangeIncludes :GeoCoordinates ;
-    rdfs:comment "Indicates the GeoCoordinates at the centre of a GeoShape e.g. GeoCircle." .
+    rdfs:comment "Indicates the GeoCoordinates at the centre of a GeoShape, e.g. GeoCircle." .
 
 :geoRadius a rdf:Property ;
     rdfs:label "geoRadius" ;
@@ -6265,7 +6265,7 @@ Typical unit code(s): MTK for square meter, FTK for square foot, or YDK for squa
     :domainIncludes :AggregateOffer ;
     :rangeIncludes :Number,
         :Text ;
-    rdfs:comment "The highest price of all offers available.\\n\\nUsage guidelines:\\n\\n* Use values from 0123456789 (Unicode 'DIGIT ZERO' (U+0030) to 'DIGIT NINE' (U+0039)) rather than superficially similiar Unicode symbols.\\n* Use '.' (Unicode 'FULL STOP' (U+002E)) rather than ',' to indicate a decimal point. Avoid using these symbols as a readability separator." .
+    rdfs:comment "The highest price of all offers available.\\n\\nUsage guidelines:\\n\\n* Use values from 0123456789 (Unicode 'DIGIT ZERO' (U+0030) to 'DIGIT NINE' (U+0039)) rather than superficially similar Unicode symbols.\\n* Use '.' (Unicode 'FULL STOP' (U+002E)) rather than ',' to indicate a decimal point. Avoid using these symbols as a readability separator." .
 
 :hiringOrganization a rdf:Property ;
     rdfs:label "hiringOrganization" ;
@@ -6299,7 +6299,7 @@ Typical unit code(s): MTK for square meter, FTK for square foot, or YDK for squa
     rdfs:label "honorificSuffix" ;
     :domainIncludes :Person ;
     :rangeIncludes :Text ;
-    rdfs:comment "An honorific suffix following a Person's name such as M.D. /PhD/MSCSW." .
+    rdfs:comment "An honorific suffix following a Person's name such as M.D./PhD/MSCSW." .
 
 :hostingOrganization a rdf:Property ;
     rdfs:label "hostingOrganization" ;
@@ -6498,7 +6498,7 @@ Typical unit code(s): MTK for square meter, FTK for square foot, or YDK for squa
     rdfs:label "isGift" ;
     :domainIncludes :Order ;
     :rangeIncludes :Boolean ;
-    rdfs:comment "Was the offer accepted as a gift for someone other than the buyer." .
+    rdfs:comment "Indicates whether the offer was accepted as a gift for someone other than the buyer." .
 
 :isLiveBroadcast a rdf:Property ;
     rdfs:label "isLiveBroadcast" ;
@@ -6588,7 +6588,7 @@ Typical unit code(s): MTK for square meter, FTK for square foot, or YDK for squa
     rdfs:label "issuedThrough" ;
     :domainIncludes :Permit ;
     :rangeIncludes :Service ;
-    rdfs:comment "The service through with the permit was granted." .
+    rdfs:comment "The service through which the permit was granted." .
 
 :iswcCode a rdf:Property ;
     rdfs:label "iswcCode" ;
@@ -6602,7 +6602,7 @@ Typical unit code(s): MTK for square meter, FTK for square foot, or YDK for squa
     :domainIncludes :DataFeedItem,
         :ListItem ;
     :rangeIncludes :Thing ;
-    rdfs:comment "An entity represented by an entry in a list or data feed (e.g. an 'artist' in a list of 'artists')’." .
+    rdfs:comment "An entity represented by an entry in a list or data feed (e.g. an 'artist' in a list of 'artists')." .
 
 :itemCondition a rdf:Property ;
     rdfs:label "itemCondition" ;
@@ -6826,7 +6826,7 @@ Typical unit code(s): MTK for square meter, FTK for square foot, or YDK for squa
     :domainIncludes :AggregateOffer ;
     :rangeIncludes :Number,
         :Text ;
-    rdfs:comment "The lowest price of all offers available.\\n\\nUsage guidelines:\\n\\n* Use values from 0123456789 (Unicode 'DIGIT ZERO' (U+0030) to 'DIGIT NINE' (U+0039)) rather than superficially similiar Unicode symbols.\\n* Use '.' (Unicode 'FULL STOP' (U+002E)) rather than ',' to indicate a decimal point. Avoid using these symbols as a readability separator." .
+    rdfs:comment "The lowest price of all offers available.\\n\\nUsage guidelines:\\n\\n* Use values from 0123456789 (Unicode 'DIGIT ZERO' (U+0030) to 'DIGIT NINE' (U+0039)) rather than superficially similar Unicode symbols.\\n* Use '.' (Unicode 'FULL STOP' (U+002E)) rather than ',' to indicate a decimal point. Avoid using these symbols as a readability separator." .
 
 :lyricist a rdf:Property ;
     rdfs:label "lyricist" ;
@@ -7065,7 +7065,7 @@ Typical unit code(s): MTK for square meter, FTK for square foot, or YDK for squa
     :domainIncludes :MusicRelease ;
     :rangeIncludes :MusicReleaseFormatType ;
     :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#MBZ> ;
-    rdfs:comment "Format of this release (the type of recording media used, ie. compact disc, digital media, LP, etc.)." .
+    rdfs:comment "Format of this release (the type of recording media used, i.e. compact disc, digital media, LP, etc.)." .
 
 :musicalKey a rdf:Property ;
     rdfs:label "musicalKey" ;
@@ -7178,7 +7178,7 @@ Typical unit code(s): MTK for square meter, FTK for square foot, or YDK for squa
     :domainIncludes :BusinessAudience,
         :Organization ;
     :rangeIncludes :QuantitativeValue ;
-    rdfs:comment "The number of employees in an organization e.g. business." .
+    rdfs:comment "The number of employees in an organization, e.g. business." .
 
 :numberOfEpisodes a rdf:Property ;
     rdfs:label "numberOfEpisodes" ;
@@ -7315,7 +7315,7 @@ Note: for historical reasons, any textual label and formal code provided as a li
     rdfs:label "operatingSystem" ;
     :domainIncludes :SoftwareApplication ;
     :rangeIncludes :Text ;
-    rdfs:comment "Operating systems supported (Windows 7, OSX 10.6, Android 1.6)." .
+    rdfs:comment "Operating systems supported (Windows 7, OS X 10.6, Android 1.6)." .
 
 :opponent a rdf:Property ;
     rdfs:label "opponent" ;
@@ -7666,7 +7666,7 @@ Note: for historical reasons, any textual label and formal code provided as a li
     :domainIncludes :RentalCarReservation,
         :TaxiReservation ;
     :rangeIncludes :DateTime ;
-    rdfs:comment "When a taxi will pickup a passenger or a rental car can be picked up." .
+    rdfs:comment "When a taxi will pick up a passenger or a rental car can be picked up." .
 
 :playMode a rdf:Property ;
     rdfs:label "playMode" ;
@@ -7730,7 +7730,7 @@ Note: for historical reasons, any textual label and formal code provided as a li
     rdfs:label "previousItem" ;
     :domainIncludes :ListItem ;
     :rangeIncludes :ListItem ;
-    rdfs:comment "A link to the ListItem that preceeds the current one." .
+    rdfs:comment "A link to the ListItem that precedes the current one." .
 
 :previousStartDate a rdf:Property ;
     rdfs:label "previousStartDate" ;
@@ -7745,7 +7745,7 @@ Note: for historical reasons, any textual label and formal code provided as a li
         :TradeAction ;
     :rangeIncludes :Number,
         :Text ;
-    rdfs:comment """The offer price of a product, or of a price component when attached to PriceSpecification and its subtypes.\\n\\nUsage guidelines:\\n\\n* Use the [[priceCurrency]] property (with standard formats: [ISO 4217 currency format](http://en.wikipedia.org/wiki/ISO_4217) e.g. "USD"; [Ticker symbol](https://en.wikipedia.org/wiki/List_of_cryptocurrencies) for cryptocurrencies e.g. "BTC"; well known names for [Local Exchange Tradings Systems](https://en.wikipedia.org/wiki/Local_exchange_trading_system) (LETS) and other currency types e.g. "Ithaca HOUR") instead of including [ambiguous symbols](http://en.wikipedia.org/wiki/Dollar_sign#Currencies_that_use_the_dollar_or_peso_sign) such as '$' in the value.\\n* Use '.' (Unicode 'FULL STOP' (U+002E)) rather than ',' to indicate a decimal point. Avoid using these symbols as a readability separator.\\n* Note that both [RDFa](http://www.w3.org/TR/xhtml-rdfa-primer/#using-the-content-attribute) and Microdata syntax allow the use of a "content=" attribute for publishing simple machine-readable values alongside more human-friendly formatting.\\n* Use values from 0123456789 (Unicode 'DIGIT ZERO' (U+0030) to 'DIGIT NINE' (U+0039)) rather than superficially similiar Unicode symbols.
+    rdfs:comment """The offer price of a product, or of a price component when attached to PriceSpecification and its subtypes.\\n\\nUsage guidelines:\\n\\n* Use the [[priceCurrency]] property (with standard formats: [ISO 4217 currency format](http://en.wikipedia.org/wiki/ISO_4217), e.g. "USD"; [Ticker symbol](https://en.wikipedia.org/wiki/List_of_cryptocurrencies) for cryptocurrencies, e.g. "BTC"; well known names for [Local Exchange Trading Systems](https://en.wikipedia.org/wiki/Local_exchange_trading_system) (LETS) and other currency types, e.g. "Ithaca HOUR") instead of including [ambiguous symbols](http://en.wikipedia.org/wiki/Dollar_sign#Currencies_that_use_the_dollar_or_peso_sign) such as '$' in the value.\\n* Use '.' (Unicode 'FULL STOP' (U+002E)) rather than ',' to indicate a decimal point. Avoid using these symbols as a readability separator.\\n* Note that both [RDFa](http://www.w3.org/TR/xhtml-rdfa-primer/#using-the-content-attribute) and Microdata syntax allow the use of a "content=" attribute for publishing simple machine-readable values alongside more human-friendly formatting.\\n* Use values from 0123456789 (Unicode 'DIGIT ZERO' (U+0030) to 'DIGIT NINE' (U+0039)) rather than superficially similar Unicode symbols.
       """ .
 
 :priceComponent a rdf:Property ;
@@ -7763,7 +7763,7 @@ Note: for historical reasons, any textual label and formal code provided as a li
         :Ticket,
         :TradeAction ;
     :rangeIncludes :Text ;
-    rdfs:comment "The currency of the price, or a price component when attached to [[PriceSpecification]] and its subtypes.\\n\\nUse standard formats: [ISO 4217 currency format](http://en.wikipedia.org/wiki/ISO_4217) e.g. \"USD\"; [Ticker symbol](https://en.wikipedia.org/wiki/List_of_cryptocurrencies) for cryptocurrencies e.g. \"BTC\"; well known names for [Local Exchange Tradings Systems](https://en.wikipedia.org/wiki/Local_exchange_trading_system) (LETS) and other currency types e.g. \"Ithaca HOUR\"." .
+    rdfs:comment "The currency of the price, or a price component when attached to [[PriceSpecification]] and its subtypes.\\n\\nUse standard formats: [ISO 4217 currency format](http://en.wikipedia.org/wiki/ISO_4217), e.g. \"USD\"; [Ticker symbol](https://en.wikipedia.org/wiki/List_of_cryptocurrencies) for cryptocurrencies, e.g. \"BTC\"; well known names for [Local Exchange Trading Systems](https://en.wikipedia.org/wiki/Local_exchange_trading_system) (LETS) and other currency types, e.g. \"Ithaca HOUR\"." .
 
 :priceRange a rdf:Property ;
     rdfs:label "priceRange" ;
@@ -7838,7 +7838,7 @@ Note: for historical reasons, any textual label and formal code provided as a li
     :domainIncludes :CreativeWork ;
     :rangeIncludes :Organization,
         :Person ;
-    rdfs:comment "The person or organization who produced the work (e.g. music album, movie, tv/radio series etc.)." .
+    rdfs:comment "The person or organization who produced the work (e.g. music album, movie, TV/radio series etc.)." .
 
 :produces a rdf:Property ;
     rdfs:label "produces" ;
@@ -7872,7 +7872,7 @@ Note: for historical reasons, any textual label and formal code provided as a li
         :TVSeries,
         :VideoGameSeries ;
     :rangeIncludes :Organization ;
-    rdfs:comment "The production company or studio responsible for the item e.g. series, video game, episode etc." .
+    rdfs:comment "The production company or studio responsible for the item, e.g. series, video game, episode etc." .
 
 :productionDate a rdf:Property ;
     rdfs:label "productionDate" ;
@@ -7919,7 +7919,7 @@ Note: for historical reasons, any textual label and formal code provided as a li
     :rangeIncludes :Text,
         :URL ;
     rdfs:comment """A commonly used identifier for the characteristic represented by the property, e.g. a manufacturer or a standard code for a property. propertyID can be
-(1) a prefixed string, mainly meant to be used with standards for product properties; (2) a site-specific, non-prefixed string (e.g. the primary key of the property or the vendor-specific id of the property), or (3)
+(1) a prefixed string, mainly meant to be used with standards for product properties; (2) a site-specific, non-prefixed string (e.g. the primary key of the property or the vendor-specific ID of the property), or (3)
 a URL indicating the type of the property, either pointing to an external vocabulary, or a Web resource that describes the property (e.g. a glossary entry).
 Standards bodies should promote a standard prefix for the identifiers of properties from their standards.""" .
 
@@ -7973,7 +7973,7 @@ Standards bodies should promote a standard prefix for the identifiers of propert
         :Person ;
     :rangeIncludes :CreativeWork,
         :URL ;
-    rdfs:comment """The publishingPrinciples property indicates (typically via [[URL]]) a document describing the editorial principles of an [[Organization]] (or individual e.g. a [[Person]] writing a blog) that relate to their activities as a publisher, e.g. ethics or diversity policies. When applied to a [[CreativeWork]] (e.g. [[NewsArticle]]) the principles are those of the party primarily responsible for the creation of the [[CreativeWork]].
+    rdfs:comment """The publishingPrinciples property indicates (typically via [[URL]]) a document describing the editorial principles of an [[Organization]] (or individual, e.g. a [[Person]] writing a blog) that relate to their activities as a publisher, e.g. ethics or diversity policies. When applied to a [[CreativeWork]] (e.g. [[NewsArticle]]) the principles are those of the party primarily responsible for the creation of the [[CreativeWork]].
 
 While such policies are most typically expressed in natural language, sometimes related information (e.g. indicating a [[funder]]) can be expressed using schema.org terminology.
 """ .
@@ -7984,7 +7984,7 @@ While such policies are most typically expressed in natural language, sometimes 
         :Vehicle ;
     :rangeIncludes :Date ;
     :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group> ;
-    rdfs:comment "The date the item e.g. vehicle was purchased by the current owner." .
+    rdfs:comment "The date the item, e.g. vehicle, was purchased by the current owner." .
 
 :qualifications a rdf:Property ;
     rdfs:label "qualifications" ;
@@ -8026,7 +8026,7 @@ While such policies are most typically expressed in natural language, sometimes 
     :domainIncludes :Rating ;
     :rangeIncludes :Number,
         :Text ;
-    rdfs:comment "The rating for the content.\\n\\nUsage guidelines:\\n\\n* Use values from 0123456789 (Unicode 'DIGIT ZERO' (U+0030) to 'DIGIT NINE' (U+0039)) rather than superficially similiar Unicode symbols.\\n* Use '.' (Unicode 'FULL STOP' (U+002E)) rather than ',' to indicate a decimal point. Avoid using these symbols as a readability separator." .
+    rdfs:comment "The rating for the content.\\n\\nUsage guidelines:\\n\\n* Use values from 0123456789 (Unicode 'DIGIT ZERO' (U+0030) to 'DIGIT NINE' (U+0039)) rather than superficially similar Unicode symbols.\\n* Use '.' (Unicode 'FULL STOP' (U+002E)) rather than ',' to indicate a decimal point. Avoid using these symbols as a readability separator." .
 
 :readonlyValue a rdf:Property ;
     rdfs:label "readonlyValue" ;
@@ -8221,7 +8221,7 @@ While such policies are most typically expressed in natural language, sometimes 
     :rangeIncludes :Text,
         :URL ;
     :supersededBy :softwareRequirements ;
-    rdfs:comment "Component dependency requirements for application. This includes runtime environments and shared libraries that are not included in the application distribution package, but required to run the application (Examples: DirectX, Java or .NET runtime)." .
+    rdfs:comment "Component dependency requirements for application. This includes runtime environments and shared libraries that are not included in the application distribution package, but required to run the application (examples: DirectX, Java or .NET runtime)." .
 
 :requiresSubscription a rdf:Property ;
     rdfs:label "requiresSubscription" ;
@@ -8236,7 +8236,7 @@ While such policies are most typically expressed in natural language, sometimes 
     rdfs:label "reservationFor" ;
     :domainIncludes :Reservation ;
     :rangeIncludes :Thing ;
-    rdfs:comment "The thing -- flight, event, restaurant,etc. being reserved." .
+    rdfs:comment "The thing -- flight, event, restaurant, etc. being reserved." .
 
 :reservationId a rdf:Property ;
     rdfs:label "reservationId" ;
@@ -8334,14 +8334,14 @@ While such policies are most typically expressed in natural language, sometimes 
     :domainIncludes :SoftwareSourceCode ;
     :rangeIncludes :Text ;
     :supersededBy :runtimePlatform ;
-    rdfs:comment "Runtime platform or script interpreter dependencies (Example - Java v1, Python2.3, .Net Framework 3.0)." .
+    rdfs:comment "Runtime platform or script interpreter dependencies (example: Java v1, Python 2.3, .NET Framework 3.0)." .
 
 :salaryCurrency a rdf:Property ;
     rdfs:label "salaryCurrency" ;
     :domainIncludes :EmployeeRole,
         :JobPosting ;
     :rangeIncludes :Text ;
-    rdfs:comment "The currency (coded using [ISO 4217](http://en.wikipedia.org/wiki/ISO_4217) ) used for the main salary information in this job posting or for this employee." .
+    rdfs:comment "The currency (coded using [ISO 4217](http://en.wikipedia.org/wiki/ISO_4217)) used for the main salary information in this job posting or for this employee." .
 
 :sameAs a rdf:Property ;
     rdfs:label "sameAs" ;
@@ -8643,7 +8643,7 @@ The *speakable* property can be repeated an arbitrary number of times, with thre
 
 1.) *id-value* URL references - uses *id-value* of an element in the page being annotated. The simplest use of *speakable* has (potentially relative) URL values, referencing identified sections of the document concerned.
 
-2.) CSS Selectors - addresses content in the annotated page, eg. via class attribute. Use the [[cssSelector]] property.
+2.) CSS Selectors - addresses content in the annotated page, e.g. via class attribute. Use the [[cssSelector]] property.
 
 3.)  XPaths - addresses content via XPaths (assuming an XML view of the content). Use the [[xpath]] property.
 
@@ -8732,7 +8732,7 @@ we define a supporting type, [[SpeakableSpecification]]  which is defined to be 
         :MediaObject, :InteractionCounter ;
     :rangeIncludes :DateTime,
         :Time ;
-    rdfs:comment "The startTime of something. For a reserved event or service (e.g. FoodEstablishmentReservation), the time that it is expected to start. For actions that span a period of time, when the action was performed. e.g. John wrote a book from *January* to December. For media, including audio and video, it's the time offset of the start of a clip within a larger file.\\n\\nNote that Event uses startDate/endDate instead of startTime/endTime, even when describing dates with times. This situation may be clarified in future revisions." .
+    rdfs:comment "The startTime of something. For a reserved event or service (e.g. FoodEstablishmentReservation), the time that it is expected to start. For actions that span a period of time, when the action was performed. E.g. John wrote a book from *January* to December. For media, including audio and video, it's the time offset of the start of a clip within a larger file.\\n\\nNote that Event uses startDate/endDate instead of startTime/endTime, even when describing dates with times. This situation may be clarified in future revisions." .
 
 :steeringPosition a rdf:Property ;
     rdfs:label "steeringPosition" ;
@@ -8929,7 +8929,7 @@ we define a supporting type, [[SpeakableSpecification]]  which is defined to be 
     rdfs:label "tickerSymbol" ;
     :domainIncludes :Corporation ;
     :rangeIncludes :Text ;
-    rdfs:comment "The exchange traded instrument associated with a Corporation object. The tickerSymbol is expressed as an exchange and an instrument name separated by a space character. For the exchange component of the tickerSymbol attribute, we recommend using the controlled vocabulary of Market Identifier Codes (MIC) specified in ISO15022." .
+    rdfs:comment "The exchange traded instrument associated with a Corporation object. The tickerSymbol is expressed as an exchange and an instrument name separated by a space character. For the exchange component of the tickerSymbol attribute, we recommend using the controlled vocabulary of Market Identifier Codes (MIC) specified in ISO 15022." .
 
 :ticketNumber a rdf:Property ;
     rdfs:label "ticketNumber" ;
@@ -9005,7 +9005,7 @@ we define a supporting type, [[SpeakableSpecification]]  which is defined to be 
     :rangeIncludes :Number,
         :PriceSpecification,
         :Text ;
-    rdfs:comment "The total price for the reservation or ticket, including applicable taxes, shipping, etc.\\n\\nUsage guidelines:\\n\\n* Use values from 0123456789 (Unicode 'DIGIT ZERO' (U+0030) to 'DIGIT NINE' (U+0039)) rather than superficially similiar Unicode symbols.\\n* Use '.' (Unicode 'FULL STOP' (U+002E)) rather than ',' to indicate a decimal point. Avoid using these symbols as a readability separator." .
+    rdfs:comment "The total price for the reservation or ticket, including applicable taxes, shipping, etc.\\n\\nUsage guidelines:\\n\\n* Use values from 0123456789 (Unicode 'DIGIT ZERO' (U+0030) to 'DIGIT NINE' (U+0039)) rather than superficially similar Unicode symbols.\\n* Use '.' (Unicode 'FULL STOP' (U+002E)) rather than ',' to indicate a decimal point. Avoid using these symbols as a readability separator." .
 
 :totalTime a rdf:Property ;
     rdfs:label "totalTime" ;
@@ -9021,7 +9021,7 @@ we define a supporting type, [[SpeakableSpecification]]  which is defined to be 
         :Text ;
     :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#IIT-CNR.it>,
         <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Tourism> ;
-    rdfs:comment "Attraction suitable for type(s) of tourist. eg. Children, visitors from a particular country, etc. " .
+    rdfs:comment "Attraction suitable for type(s) of tourist. E.g. children, visitors from a particular country, etc. " .
 
 :trackingNumber a rdf:Property ;
     rdfs:label "trackingNumber" ;
@@ -9054,7 +9054,7 @@ we define a supporting type, [[SpeakableSpecification]]  which is defined to be 
         :VideoGame,
         :VideoGameSeries ;
     :rangeIncludes :VideoObject ;
-    rdfs:comment "The trailer of a movie or tv/radio series, season, episode, etc." .
+    rdfs:comment "The trailer of a movie or TV/radio series, season, episode, etc." .
 
 :trainName a rdf:Property ;
     rdfs:label "trainName" ;
@@ -9229,7 +9229,7 @@ we define a supporting type, [[SpeakableSpecification]]  which is defined to be 
         :Number,
         :StructuredValue,
         :Text ;
-    rdfs:comment "The value of the quantitative value or property value node.\\n\\n* For [[QuantitativeValue]] and [[MonetaryAmount]], the recommended type for values is 'Number'.\\n* For [[PropertyValue]], it can be 'Text;', 'Number', 'Boolean', or 'StructuredValue'.\\n* Use values from 0123456789 (Unicode 'DIGIT ZERO' (U+0030) to 'DIGIT NINE' (U+0039)) rather than superficially similiar Unicode symbols.\\n* Use '.' (Unicode 'FULL STOP' (U+002E)) rather than ',' to indicate a decimal point. Avoid using these symbols as a readability separator." .
+    rdfs:comment "The value of the quantitative value or property value node.\\n\\n* For [[QuantitativeValue]] and [[MonetaryAmount]], the recommended type for values is 'Number'.\\n* For [[PropertyValue]], it can be 'Text', 'Number', 'Boolean', or 'StructuredValue'.\\n* Use values from 0123456789 (Unicode 'DIGIT ZERO' (U+0030) to 'DIGIT NINE' (U+0039)) rather than superficially similar Unicode symbols.\\n* Use '.' (Unicode 'FULL STOP' (U+002E)) rather than ',' to indicate a decimal point. Avoid using these symbols as a readability separator." .
 
 :valueAddedTaxIncluded a rdf:Property ;
     rdfs:label "valueAddedTaxIncluded" ;
@@ -9548,7 +9548,7 @@ we define a supporting type, [[SpeakableSpecification]]  which is defined to be 
         :VideoGameSeries,
         :VideoObject ;
     :rangeIncludes :Person ;
-    rdfs:comment "An actor, e.g. in tv, radio, movie, video games etc., or in an event. Actors can be associated with individual items or with a series, episode, clip." .
+    rdfs:comment "An actor, e.g. in TV, radio, movie, video games etc., or in an event. Actors can be associated with individual items or with a series, episode, clip." .
 
 :album a rdf:Property ;
     rdfs:label "album" ;
@@ -9706,7 +9706,7 @@ we define a supporting type, [[SpeakableSpecification]]  which is defined to be 
         :VideoGameSeries,
         :VideoObject ;
     :rangeIncludes :Person ;
-    rdfs:comment "A director of e.g. tv, radio, movie, video gaming etc. content, or of an event. Directors can be associated with individual items or with a series, episode, clip." .
+    rdfs:comment "A director of e.g. TV, radio, movie, video gaming etc. content, or of an event. Directors can be associated with individual items or with a series, episode, clip." .
 
 :duration a rdf:Property ;
     rdfs:label "duration" ;
@@ -9740,7 +9740,7 @@ we define a supporting type, [[SpeakableSpecification]]  which is defined to be 
         :MediaObject ;
     :rangeIncludes :Text,
         :URL ;
-    rdfs:comment """Media type typically expressed using a MIME format (see [IANA site](http://www.iana.org/assignments/media-types/media-types.xhtml) and [MDN reference](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types)) e.g. application/zip for a SoftwareApplication binary, audio/mpeg for .mp3 etc.).
+    rdfs:comment """Media type typically expressed using a MIME format (see [IANA site](http://www.iana.org/assignments/media-types/media-types.xhtml) and [MDN reference](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types)), e.g. application/zip for a SoftwareApplication binary, audio/mpeg for .mp3 etc.
 
 In cases where a [[CreativeWork]] has several media type representations, [[encoding]] can be used to indicate each [[MediaObject]] alongside particular [[encodingFormat]] information.
 
@@ -9753,7 +9753,7 @@ Unregistered or niche encoding and file formats can be indicated instead via the
         :TVSeries,
         :VideoGameSeries ;
     :rangeIncludes :Episode ;
-    rdfs:comment "An episode of a tv, radio or game media within a series or season." ;
+    rdfs:comment "An episode of a TV, radio or game media within a series or season." ;
     rdfs:subPropertyOf :hasPart .
 
 :event a rdf:Property ;
@@ -9780,7 +9780,7 @@ Unregistered or niche encoding and file formats can be indicated instead via the
     rdfs:label "executableLibraryName" ;
     :domainIncludes :APIReference ;
     :rangeIncludes :Text ;
-    rdfs:comment "Library file name e.g., mscorlib.dll, system.web.dll." .
+    rdfs:comment "Library file name, e.g., mscorlib.dll, system.web.dll." .
 
 :exerciseCourse a rdf:Property ;
     rdfs:label "exerciseCourse" ;
@@ -10063,7 +10063,7 @@ Unregistered or niche encoding and file formats can be indicated instead via the
     rdfs:label "runtimePlatform" ;
     :domainIncludes :SoftwareSourceCode ;
     :rangeIncludes :Text ;
-    rdfs:comment "Runtime platform or script interpreter dependencies (Example - Java v1, Python2.3, .Net Framework 3.0)." .
+    rdfs:comment "Runtime platform or script interpreter dependencies (example: Java v1, Python 2.3, .NET Framework 3.0)." .
 
 :season a rdf:Property ;
     rdfs:label "season" ;
@@ -10119,7 +10119,7 @@ Unregistered or niche encoding and file formats can be indicated instead via the
     :domainIncludes :SoftwareApplication ;
     :rangeIncludes :Text,
         :URL ;
-    rdfs:comment "Component dependency requirements for application. This includes runtime environments and shared libraries that are not included in the application distribution package, but required to run the application (Examples: DirectX, Java or .NET runtime)." .
+    rdfs:comment "Component dependency requirements for application. This includes runtime environments and shared libraries that are not included in the application distribution package, but required to run the application (examples: DirectX, Java or .NET runtime)." .
 
 :sponsor a rdf:Property ;
     rdfs:label "sponsor" ;
@@ -10129,7 +10129,7 @@ Unregistered or niche encoding and file formats can be indicated instead via the
         :Person ;
     :rangeIncludes :Organization,
         :Person ;
-    rdfs:comment "A person or organization that supports a thing through a pledge, promise, or financial contribution. e.g. a sponsor of a Medical Study or a corporate sponsor of an event." .
+    rdfs:comment "A person or organization that supports a thing through a pledge, promise, or financial contribution. E.g. a sponsor of a Medical Study or a corporate sponsor of an event." .
 
 :subOrganization a rdf:Property ;
     rdfs:label "subOrganization" ;
@@ -10175,7 +10175,7 @@ Unregistered or niche encoding and file formats can be indicated instead via the
         :Text,
         :URL ;
     rdfs:comment """The temporalCoverage of a CreativeWork indicates the period that the content applies to, i.e. that it describes, either as a DateTime or as a textual string indicating a time period in [ISO 8601 time interval format](https://en.wikipedia.org/wiki/ISO_8601#Time_intervals). In
-      the case of a Dataset it will typically indicate the relevant time period in a precise notation (e.g. for a 2011 census dataset, the year 2011 would be written "2011/2012"). Other forms of content e.g. ScholarlyArticle, Book, TVSeries or TVEpisode may indicate their temporalCoverage in broader terms - textually or via well-known URL.
+      the case of a Dataset it will typically indicate the relevant time period in a precise notation (e.g. for a 2011 census dataset, the year 2011 would be written "2011/2012"). Other forms of content, e.g. ScholarlyArticle, Book, TVSeries or TVEpisode, may indicate their temporalCoverage in broader terms - textually or via well-known URL.
       Written works such as books may sometimes have precise temporal coverage too, e.g. a work set in 1939 - 1945 can be indicated in ISO 8601 interval format format via "1939/1945".
 
 Open-ended date ranges can be written with ".." in place of the end date. For example, "2015-11/.." indicates a range beginning in November 2015 and with no specified final date. This is tentative and might be updated in future when ISO 8601 is officially updated.""" ;
@@ -10203,7 +10203,7 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
     :inverseOf :exampleOfWork ;
     :rangeIncludes :CreativeWork ;
     :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_bibex> ;
-    rdfs:comment "Example/instance/realization/derivation of the concept of this creative work. eg. The paperback edition, first edition, or eBook." .
+    rdfs:comment "Example/instance/realization/derivation of the concept of this creative work. E.g. the paperback edition, first edition, or e-book." .
 
 :yield a rdf:Property ;
     rdfs:label "yield" ;
@@ -10294,7 +10294,7 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
     rdfs:label "result" ;
     :domainIncludes :Action ;
     :rangeIncludes :Thing ;
-    rdfs:comment "The result produced in the action. e.g. John wrote *a book*." .
+    rdfs:comment "The result produced in the action. E.g. John wrote *a book*." .
 
 :seller a rdf:Property ;
     rdfs:label "seller" ;
@@ -10444,13 +10444,13 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
     rdfs:label "instrument" ;
     :domainIncludes :Action ;
     :rangeIncludes :Thing ;
-    rdfs:comment "The object that helped the agent perform the action. e.g. John wrote a book with *a pen*." .
+    rdfs:comment "The object that helped the agent perform the action. E.g. John wrote a book with *a pen*." .
 
 :object a rdf:Property ;
     rdfs:label "object" ;
     :domainIncludes :Action ;
     :rangeIncludes :Thing ;
-    rdfs:comment "The object upon which the action is carried out, whose state is kept intact or changed. Also known as the semantic roles patient, affected or undergoer (which change their state) or theme (which doesn't). e.g. John read *a book*." .
+    rdfs:comment "The object upon which the action is carried out, whose state is kept intact or changed. Also known as the semantic roles patient, affected or undergoer (which change their state) or theme (which doesn't). E.g. John read *a book*." .
 
 <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_rNews> a :Organization ;
     rdfs:label "rNews" ;
@@ -10475,7 +10475,7 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
     :domainIncludes :Action ;
     :rangeIncludes :Organization,
         :Person ;
-    rdfs:comment "Other co-agents that participated in the action indirectly. e.g. John wrote a book with *Steve*." .
+    rdfs:comment "Other co-agents that participated in the action indirectly. E.g. John wrote a book with *Steve*." .
 
 <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO> a :Organization ;
     rdfs:label "FIBO" ;
