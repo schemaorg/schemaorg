@@ -1,0 +1,40 @@
+TYPES: Offer, checkoutPageURLTemplate
+
+PRE-MARKUP:
+
+An example of an offer with a checkoutPageURLTemplate.
+
+MICRODATA:
+
+TODO
+
+RDFA:
+
+TODO
+
+JSON:
+
+<script type="application/ld+json">
+{
+   "@context":"https://schema.org",
+   "@type":"Product",
+   "sku":"12345",
+   "image":"https://example.com/fnobarizer.jpg",
+   "name":"Advanced Fnobarizer",
+   "brand":{
+      "@type":"Brand",
+      "name":"Nucleatronics Inc."
+   },
+   "offers":{
+      "@type":"Offer",
+      "checkoutPageURLTemplate":"https://www.example.com/checkout?items={VARIANT_ID_1}:{Quantity-1},{VARIANT_ID_2}:{Quantity-2}&discount={DISCOUNT_CODE}&store_id={pickup_store_id}"
+   },
+   "priceSpecification":{
+      "@type":"PriceSpecification",
+      "price":"99.99",
+      "priceCurrency":"USD"
+   },
+   "acceptedPaymentMethod":"http://purl.org/goodrelations/v1#GoogleCheckout"
+}
+</script>
+

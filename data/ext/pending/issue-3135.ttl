@@ -1,0 +1,13 @@
+@prefix : <https://schema.org/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+
+:checkoutPageURLTemplate a rdf:Property ;
+    rdfs:label "checkoutPageURLTemplate" ;
+    :domainIncludes :Offer ;
+    :isPartOf <https://pending.schema.org> ;
+    :rangeIncludes :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3135> ;
+    rdfs:comment "An URL template (RFC 6570) for a checkout page for an offer. This approach allows merchants to specify an URL for online checkout of the offered product, by interpolating parameters such as the logged in user ID, product ID, quantity etc. Parameter naming and standardization are not specified here." .
+
