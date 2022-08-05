@@ -6097,7 +6097,7 @@ JSON:
     "@type": "ExercisePlan",
     "name": "John's weight loss plan"
   },
-  "startTime": "2020:01:01"
+  "startTime": "2020-01-01T09:00:00"
 }
 </script>
 
@@ -6117,7 +6117,7 @@ This example is JSON only.
 
 JSON:
 
-<!--  John accepted a plan to exercise to help with his obesity-->.
+<!--  John accepted a plan to exercise-->.
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -6126,13 +6126,13 @@ JSON:
     "@type": "Person",
     "name": "John"
   },
+  "participant": {
+    "@type": "Person",
+    "name": "John's trainer"
+  },
   "object": {
     "@type": "ExercisePlan",
     "name": "John's weight loss plan"
-  },
-  "purpose": {
-    "@type": "MedicalCondition",
-    "name": "Obesity"
   }
 }
 </script>
@@ -6169,10 +6169,6 @@ JSON:
   "participant": {
     "@type": "Person",
     "name": "Steve"
-  },
-  "purpose": {
-    "@type": "MedicalCondition",
-    "name": "Obesity"
   }
 }
 </script>
@@ -6206,13 +6202,9 @@ JSON:
     "@type": "Diet",
     "name": "Steve's weight loss plan"
   },
-  "recipient": {
+  "participant": {
     "@type": "Person",
     "name": "Steve"
-  },
-  "purpose": {
-    "@type": "MedicalCondition",
-    "name": "Obesity"
   }
 }
 </script>
@@ -6233,7 +6225,7 @@ This example is JSON only.
 
 JSON:
 
-<!--  John rejected a plan to exercise that helps him with his obesity.-->
+<!--  John rejected a plan to exercise.-->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -6245,10 +6237,6 @@ JSON:
   "object": {
     "@type": "ExercisePlan",
     "name": "John's weight loss plan"
-  },
-  "purpose": {
-    "@type": "MedicalCondition",
-    "name": "Obesity"
   }
 }
 </script>
