@@ -192,6 +192,15 @@ or Fast and expensive: $15 in 1-2 days.""" ;
     :source <https://github.com/schemaorg/schemaorg/issues/2506> ;
     rdfs:comment "Indicates information about the shipping policies and options associated with an [[Offer]]." .
 
+:shippingOrigin a rdf:Property ;
+    rdfs:label "shippingOrigin" ;
+    :domainIncludes :OfferShippingDetails ;
+    :isPartOf <https://pending.schema.org> ;
+    :rangeIncludes :DefinedRegion ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3122> ;
+    rdfs:comment "Indicates the origin of a shipment, i.e. where it should be coming from." .
+
+
 :shippingLabel a rdf:Property ;
     rdfs:label "shippingLabel" ;
     :domainIncludes :OfferShippingDetails,
