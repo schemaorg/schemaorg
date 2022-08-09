@@ -811,7 +811,7 @@ See also the dedicated [document on the use of schema.org for marking up hotels 
 :DataDownload a rdfs:Class ;
     rdfs:label "DataDownload" ;
     :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_DatasetClass> ;
-    rdfs:comment "A dataset in downloadable form." ;
+    rdfs:comment "All or part of a [[Dataset]] in downloadable form. " ;
     rdfs:subClassOf :MediaObject ;
     owl:equivalentClass <http://www.w3.org/ns/dcat#Distribution> .
 
@@ -5514,7 +5514,7 @@ Dateline summaries are oriented more towards human readers than towards automate
     rdfs:label "distribution" ;
     :domainIncludes :Dataset ;
     :rangeIncludes :DataDownload ;
-    rdfs:comment "A downloadable form of this dataset, at a specific location, in a specific format. This property can be repeated if different variations are available." .
+    rdfs:comment "A downloadable form of this dataset, at a specific location, in a specific format. This property can be repeated if different variations are available. There is no expectation that different downloadable distributions must contain exactly equivalent information (see also [DCAT](https://www.w3.org/TR/vocab-dcat-3/#Class:Distribution) on this point). Different distributions might include or exclude different subsets of the entire dataset, for example." .
 
 :doorTime a rdf:Property ;
     rdfs:label "doorTime" ;
