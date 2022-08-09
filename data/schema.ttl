@@ -5432,7 +5432,7 @@ Dateline summaries are oriented more towards human readers than towards automate
 :depth a rdf:Property ;
     rdfs:label "depth" ;
     :domainIncludes :Product,
-        :VisualArtwork ;
+        :VisualArtwork, :OfferShippingDetails ;
     :rangeIncludes :Distance,
         :QuantitativeValue ;
     rdfs:comment "The depth of the item." .
@@ -6255,7 +6255,7 @@ Typical unit code(s): MTK for square meter, FTK for square foot, or YDK for squa
     :domainIncludes :MediaObject,
         :Person,
         :Product,
-        :VisualArtwork ;
+        :VisualArtwork, :OfferShippingDetails ;
     :rangeIncludes :Distance,
         :QuantitativeValue ;
     rdfs:comment "The height of the item." .
@@ -9428,7 +9428,7 @@ we define a supporting type, [[SpeakableSpecification]]  which is defined to be 
 :weight a rdf:Property ;
     rdfs:label "weight" ;
     :domainIncludes :Person,
-        :Product ;
+        :Product, :OfferShippingDetails ;
     :rangeIncludes :QuantitativeValue ;
     rdfs:comment "The weight of the product or person." .
 
@@ -9436,7 +9436,7 @@ we define a supporting type, [[SpeakableSpecification]]  which is defined to be 
     rdfs:label "width" ;
     :domainIncludes :MediaObject,
         :Product,
-        :VisualArtwork ;
+        :VisualArtwork, :OfferShippingDetails ;
     :rangeIncludes :Distance,
         :QuantitativeValue ;
     rdfs:comment "The width of the item." .
