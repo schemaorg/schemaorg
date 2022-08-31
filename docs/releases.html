@@ -81,7 +81,7 @@ A summary view of the current published release is available from: <a href="http
     <td>
     <span id="v15.0"></span>
     <p>
-    Version 15.0 - This release ... </p>
+    Version 15.0 - This release includes miscellaneous fixes as well as various eCommerce additions via the <a href="/docs/pending.home.html/">Pending</a> section. </p>
     </td>
     <td>
     <h2>Vocabulary</h2>
@@ -96,8 +96,12 @@ A summary view of the current published release is available from: <a href="http
     <h3>Changes in <a href="https://pending.schema.org/">Pending</a> section:</h3>
   
   <ul>
- 
-    <li id="g3135"><a href="https://github.com/schemaorg/schemaorg/issues/3135">Issue #3135</a>: Added a <a href="/checkoutPageURLTemplate">checkoutPageURLTemplate</a> property to carry template-ized information about checkout page URLs.</li>   
+	 	  
+    <li id="g3135"><a href="https://github.com/schemaorg/schemaorg/issues/3135">Issue #3135</a>: Added a <a href="/checkoutPageURLTemplate">checkoutPageURLTemplate</a> property to carry template-ized information about checkout page URLs.</li> 
+  <li id="g3120"><a href="https://github.com/schemaorg/schemaorg/issues/3120">Issue #3120</a>: Added existing properties <a href="/height">height</a>, <a href="/width">width</a>, <a href="/depth">depth</a>, and <a href="/weight">weight</a> for use on <a href="/OfferShippingDetails">OfferShippingDetails</a> to specify the shipping dimensions of a product.</li>
+  <li id="g3122"><a href="https://github.com/schemaorg/schemaorg/issues/3122">Issue #3122</a>: Added a new <a href="/shippingOrigin">shippingOrigin</a> property with expected values of type <a href="/DefinedRegion">DefinedRegion</a> for use on <a href="/OfferShippingDetails">OfferShippingDetails</a>.</li>
+  <li id="g3123"><a href="https://github.com/schemaorg/schemaorg/issues/3123">Issue #3123</a>: Added new property <a href="/asin">asin</a> as a sub property of <a href="/identifier">identifier</a> with expected values of type <a href="/Text">Text</a> or <a href="/URL">URL</a> to represent Amazon Standard Identifications Numbers. The <a href="/asin">asin</a> property is primarily intended for use on type <a href="/Product">Product</a> but can also be used on <a href="/Offer">Offer</a> and <a href="/Demand">Demand</a>.</li>
+  <li id="g3148"><a href="https://github.com/schemaorg/schemaorg/issues/3148">Issue #3148</a>: Added existing properties <a href="/positiveNotes">positiveNotes</a> and <a href="/negativeNotes">negativeNotes</a> for use on <a href="/Product">Product</a> to allow the specification of (positive and negative) highlights for products sold online.</li>   
   </ul>
   <h3>Site Improvements</h3>
   <ul>
@@ -105,7 +109,6 @@ A summary view of the current published release is available from: <a href="http
   </ul>
   </td>
   </tr>
-
 
 <tr>
   <td class="release"><a href="http://htmlpreview.github.io/?https://github.com/schemaorg/schemaorg/blob/main/data/releases/14.0/schema-all.html">14.0</a><br/>2022-03-17</td>
