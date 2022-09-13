@@ -6271,8 +6271,9 @@ Typical unit code(s): MTK for square meter, FTK for square foot, or YDK for squa
 :hiringOrganization a rdf:Property ;
     rdfs:label "hiringOrganization" ;
     :domainIncludes :JobPosting ;
-    :rangeIncludes :Organization ;
-    rdfs:comment "Organization offering the job position." .
+    :rangeIncludes :Organization,
+         :Person;
+    rdfs:comment "Organization or Person offering the job position." .
 
 :homeLocation a rdf:Property ;
     rdfs:label "homeLocation" ;
