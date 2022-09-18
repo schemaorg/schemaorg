@@ -1,8 +1,8 @@
 <!-- Examples block for term: {{term.id}}-->
 
-<div id="examplespannel" style="width:auto; overflow-x: auto;">
+<div id="examplespannel" class="jumptarget" title="Examples">
 {% for ex in examples %}
-{% if loop.first %}<b><a  id="examples" title="Link: #examples" href="#examples" class="clickableAnchor"  >Examples</a></b><br/><br/>{% endif %}
+{% if loop.first %}<b><a  id="examples" title="Link: #examples" href="#examples" class="clickableAnchor"  >Examples</a></b><br/>{% endif %}
 
 <div class="example-head">
         <a  id="{{ex.getKey()}}" title="Link: #{{ex.getKey()}}" href="#{{ex.getKey()}}" class="clickableAnchor" >Example {{loop.index}}</a>			<div class="tooltip">	

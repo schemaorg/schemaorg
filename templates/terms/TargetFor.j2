@@ -1,6 +1,6 @@
 {% for prop in term.expectedTypeFor %}
   {% if loop.first %}
-	<br/><div id="incoming">Instances of {{ sdotermlink(term.id)|safe}} {{INSERT}} may appear as a value for the following properties</div>
+	<br/><div id="incoming" class="jumptarget" title="Value for">Instances of {{ sdotermlink(term.id)|safe}} {{INSERT}} may appear as a value for the following properties</div>
 	<table class="definition-table">
     <thead><tr><th>Property</th><th>On Types</th><th>Description</th></tr></thead>
   {% endif %}

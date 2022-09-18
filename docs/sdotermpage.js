@@ -25,6 +25,22 @@
 });
   }, 500);
   setTimeout(function(){
+    const targets = Array.from(document.getElementsByClassName("jumptarget"));
+    const selectors = document.getElementById("jumpselections");
+    for (let i = 0; i < targets.length; i++) {
+      let target = targets[i];
+      targetId = target.getAttribute('id');
+      targetTitle = target.getAttribute('title');
+      const el = document.createElement('a');
+      el.textContent = targetTitle;
+      el.setAttribute('title',targetTitle);
+      el.setAttribute('href',"#"+targetId);
+      el.className  = "jumpselector";
+      selectors.appendChild(el);
+    }
+    
+  }, 500);
+  setTimeout(function(){
 
   $(".atn:contains(property), .atn:contains(typeof) ").addClass('new');
   $('.new + .pun + .atv').addClass('curl');

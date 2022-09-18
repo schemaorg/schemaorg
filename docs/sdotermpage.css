@@ -17,6 +17,71 @@
 #morecheck:checked + div { display: none; }
 
 
+#jumpmenu {
+  position: fixed;
+  display: block;
+  width: auto;
+  height: auto;
+  padding: 3px;
+  border-radius: 7px;
+  border: 1px solid;
+  text-align: center;
+  box-shadow: 2px 2px lightgrey;
+  background-color: white;
+  z-index: 100;
+}
+
+
+@media only screen and (min-width: 1200px){
+  #jumpmenu {
+    margin-left: -10em;  
+  }
+}
+@media only screen and (max-width: 1200px){
+  #jumpmenu {
+    right: 10px;
+    top: auto;
+  }
+}
+
+#jumphead {
+  text-align: center;
+  padding: 5px;
+}
+
+#jumpselections{
+  border-top: 1px solid;
+  text-align: center;
+}
+
+.jumpselector {
+  display: block;
+  padding: 2px 2px 0 0;
+}
+
+.ackblock {
+  display: block;
+  padding: 5px;
+  border-radius: 7px;
+  border: 1px solid;
+  margin-bottom: 10px;
+  box-shadow: 2px 2px lightgrey;
+}
+
+.ack {
+  display: block;
+  margin: 5px;
+  padding: 5px;
+}
+.ack-first{
+  padding-top: 0;
+  padding-bottom: 5px;
+}
+
+.ack-rest{
+  border-top: solid 1px;
+  padding: 10px 5px 5px 5px;
+}
 
 .clipbutton {
     color: #202020 !important;
@@ -24,6 +89,11 @@
     padding : 2px;
 }
 
+#examplespannel{
+  width:auto;
+  overflow-x: auto;
+  margin-top: 10px;
+}
 .example-head {
     display: block;
     padding-bottom: 5px;
