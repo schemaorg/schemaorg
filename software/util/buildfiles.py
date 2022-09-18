@@ -342,6 +342,11 @@ def jsonpcounts(page):
     """ % jsoncounts(page)
     return content
 
+def exportshex_shacl(page):
+    reldir="./software/site/releases/%s" % getVersion()
+    cmd="./software/scripts/shex_shacl_shapes_exporter.py"
+    props=" -s %s/schemaorg-all-http.nt -f nt -o %s -p schemaorg-" % (reldir,reldir)
+    os.system(cmd+props)
 
 def examples(page):
     return SchemaExamples.allExamplesSerialised()
@@ -361,6 +366,7 @@ FILELIST = { "Context": (jsonldcontext,["docs/jsonldcontext.jsonld",
             "RDFExport.nt": (exportrdf,[""]),
             "RDFExport.nquads": (exportrdf,[""]),
             "RDFExport.json-ld": (exportrdf,[""]),
+            "Shex_Shacl": (exportshex_shacl,[""]),
             "CSVExports": (exportcsv,[""]),
             "Examples": (examples,["releases/%s/schemaorg-all-examples.txt" % getVersion()])
          }
