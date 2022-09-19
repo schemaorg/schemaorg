@@ -281,8 +281,10 @@ def exportcsv(page):
         row["comment"] = term.comment
         row["supersedes"] = uriwrap(term.supersedes)
         row["supersededBy"] = uriwrap(term.supersededBy)
-        #row["isPartOf"] = term.isPartOf
-        row["isPartOf"] = ""
+        ext = term.extLayer
+        if len(ext):
+            ext ="%s://%s.schema.org" % (protocol,ext)
+        row["isPartOf"] = ext
         if term.termType == SdoTerm.PROPERTY:
             row["subPropertyOf"] = uriwrap(term.supers)
             row["equivalentProperty"] = array2str(term.equivalents)
