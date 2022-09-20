@@ -281,8 +281,10 @@ def exportcsv(page):
         row["comment"] = term.comment
         row["supersedes"] = uriwrap(term.supersedes)
         row["supersededBy"] = uriwrap(term.supersededBy)
-        #row["isPartOf"] = term.isPartOf
-        row["isPartOf"] = ""
+        ext = term.extLayer
+        if len(ext):
+            ext ="%s://%s.schema.org" % (protocol,ext)
+        row["isPartOf"] = ext
         if term.termType == SdoTerm.PROPERTY:
             row["subPropertyOf"] = uriwrap(term.supers)
             row["equivalentProperty"] = array2str(term.equivalents)
@@ -342,6 +344,11 @@ def jsonpcounts(page):
     """ % jsoncounts(page)
     return content
 
+def exportshex_shacl(page):
+    reldir="./software/site/releases/%s" % getVersion()
+    cmd="./software/scripts/shex_shacl_shapes_exporter.py"
+    props=" -s %s/schemaorg-all-http.nt -f nt -o %s -p schemaorg-" % (reldir,reldir)
+    os.system(cmd+props)
 
 def examples(page):
     return SchemaExamples.allExamplesSerialised()
@@ -361,6 +368,7 @@ FILELIST = { "Context": (jsonldcontext,["docs/jsonldcontext.jsonld",
             "RDFExport.nt": (exportrdf,[""]),
             "RDFExport.nquads": (exportrdf,[""]),
             "RDFExport.json-ld": (exportrdf,[""]),
+            "Shex_Shacl": (exportshex_shacl,[""]),
             "CSVExports": (exportcsv,[""]),
             "Examples": (examples,["releases/%s/schemaorg-all-examples.txt" % getVersion()])
          }
