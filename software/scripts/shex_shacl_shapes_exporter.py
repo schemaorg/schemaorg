@@ -197,12 +197,12 @@ if __name__ == '__main__':
     g = Graph().parse(data=term_defs, format=args.format)
     g.bind('schema', SCHEMA)
     shexj = ShExJParser().to_shex(g)
-    fn='%s/%sres.shexj' % (args.outputdir,args.outputfileprefix)
+    fn='%s/%sshapes.shexj' % (args.outputdir,args.outputfileprefix)
     open(fn, 'w',encoding='utf8').write(shexj)
     print("Created %s" % fn)
 
     shacl = ShaclParser().to_shacl(g)
-    fn = '%s/%sres.shacl' % (args.outputdir,args.outputfileprefix)
+    fn = '%s/%sshapes.shacl' % (args.outputdir,args.outputfileprefix)
     open(fn, 'w',encoding='utf8').write(shacl)
     print("Created %s" % fn)
 
