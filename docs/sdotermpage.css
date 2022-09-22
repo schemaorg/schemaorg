@@ -27,26 +27,8 @@
   border: 1px solid;
   text-align: center;
   box-shadow: 2px 2px lightgrey;
-  background-color: white;
+  background-color: #eeeeee;
   z-index: 100;
-}
-
-
-@media only screen and (min-width: 1200px){
-  #jumpmenu {
-    margin-left: -10em;  
-  }
-}
-@media only screen and (max-width: 1200px){
-  #jumpmenu {
-    right: 10px;
-    top: auto;
-  }
-}
-
-#jumphead {
-  text-align: center;
-  padding: 5px;
 }
 
 #jumpselections{
@@ -54,10 +36,58 @@
   text-align: center;
 }
 
+.jumpopenarrow {
+  display: none;
+  font-size: smaller;
+}
+.jumpclosedarrow {
+  display: none;
+  font-size: smaller;
+}
+
 .jumpselector {
   display: block;
   padding: 2px 2px 0 0;
 }
+
+@media only screen and (min-width: 1200px){
+  #jumpmenu {
+    margin-left: -11em;  
+    margin-top: 5px;
+  }
+}
+@media only screen and (max-width: 1200px){
+  #jumpmenu {
+    right: 10px;
+    top: auto;
+  }
+
+  #jumpmenu.jumpclosed {
+    opacity: 60%;
+  }
+  #jumpmenu.jumpopen {
+    opacity: 85%;
+  }
+  #jumpmenu:hover {
+    opacity: 85%;
+  }
+
+  #jumphead {
+    text-align: center;
+    padding: 5px;
+  }
+
+  #jumpmenu.jumpclosed .jumpclosedarrow {
+    display: inline;
+  }
+  #jumpmenu.jumpopen .jumpopenarrow {
+    display: none;
+  }
+  #jumpmenu.jumpclosed #jumpselections {
+    display: none;
+  }
+}
+
 
 .ackblock {
   display: block;
@@ -238,3 +268,12 @@ a:hover.ds-tab-note{
   visibility: visible;
 }
 
+@media only screen and (max-width: 750px){
+  .definition-table thead {
+    display: none;
+  }
+  .definition-table td.prop-desc{
+    border-bottom: 1px solid lightgray;
+    width:  -webkit-fill-available;
+  }
+}
