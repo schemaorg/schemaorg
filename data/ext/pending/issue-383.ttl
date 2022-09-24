@@ -7,8 +7,8 @@
 :FundingAgency a rdfs:Class ;
     rdfs:label "FundingAgency" ;
     :isPartOf <https://pending.schema.org> ;
-    :contributor <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FundInfoCollab>;
-    :source <https://github.com/schemaorg/schemaorg/issues/383> ;
+    :source <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FundInfoCollab>,
+        <https://github.com/schemaorg/schemaorg/issues/383> ;
     rdfs:comment """A FundingAgency is an organization that implements one or more [[FundingScheme]]s and manages
     the granting process (via [[Grant]]s, typically [[MonetaryGrant]]s).
     A funding agency is not always required for grant funding, e.g. philanthropic giving, corporate sponsorship etc.
@@ -20,8 +20,8 @@ Examples of funding agencies include ERC, REA, NIH, Bill and Melinda Gates Found
 :FundingScheme a rdfs:Class ;
     rdfs:label "FundingScheme" ;
     :isPartOf <https://pending.schema.org> ;
-    :contributor <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FundInfoCollab>;
-    :source <https://github.com/schemaorg/schemaorg/issues/383> ;
+    :source <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FundInfoCollab>,
+         <https://github.com/schemaorg/schemaorg/issues/383> ;
     rdfs:comment """A FundingScheme combines organizational, project and policy aspects of grant-based funding
     that sets guidelines, principles and mechanisms to support other kinds of projects and activities.
     Funding is typically organized via [[Grant]] funding. Examples of funding schemes: Swiss Priority Programmes (SPPs); EU Framework 7 (FP7); Horizon 2020; the NIH-R01 Grant Program; Wellcome institutional strategic support fund. For large scale public sector funding, the management and administration of grant awards is often handled by other, dedicated, organizations - [[FundingAgency]]s such as ERC, REA, ...""" ;
@@ -30,8 +30,8 @@ Examples of funding agencies include ERC, REA, NIH, Bill and Melinda Gates Found
 :Grant a rdfs:Class ;
     rdfs:label "Grant" ;
     :isPartOf <https://pending.schema.org> ;
-    :contributor <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FundInfoCollab>;
-    :source <https://github.com/schemaorg/schemaorg/issues/383> ;
+    :source <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FundInfoCollab>,
+         <https://github.com/schemaorg/schemaorg/issues/383> ;
     rdfs:comment """A grant, typically financial or otherwise quantifiable, of resources. Typically a [[funder]] sponsors some [[MonetaryAmount]] to an [[Organization]] or [[Person]],
     sometimes not necessarily via a dedicated or long-lived [[Project]], resulting in one or more outputs, or [[fundedItem]]s. For financial sponsorship, indicate the [[funder]] of a [[MonetaryGrant]]. For non-financial support, indicate [[sponsor]] of [[Grant]]s of resources (e.g. office space).
 
@@ -44,16 +44,16 @@ The amount of a [[Grant]] is represented using [[amount]] as a [[MonetaryAmount]
 :MonetaryGrant a rdfs:Class ;
     rdfs:label "MonetaryGrant" ;
     :isPartOf <https://pending.schema.org> ;
-    :contributor <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FundInfoCollab>;
-    :source <https://github.com/schemaorg/schemaorg/issues/383> ;
+    :source <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FundInfoCollab>,
+        <https://github.com/schemaorg/schemaorg/issues/383> ;
     rdfs:comment "A monetary grant." ;
     rdfs:subClassOf :Grant .
 
 :Project a rdfs:Class ;
     rdfs:label "Project" ;
     :isPartOf <https://pending.schema.org> ;
-    :contributor <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FundInfoCollab>;
-    :source <https://github.com/schemaorg/schemaorg/issues/383> ;
+    :source <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FundInfoCollab>,
+        <https://github.com/schemaorg/schemaorg/issues/383> ;
 
     rdfs:comment """An enterprise (potentially individual but typically collaborative), planned to achieve a particular aim.
 Use properties from [[Organization]], [[subOrganization]]/[[parentOrganization]] to indicate project sub-structures. 
@@ -63,8 +63,8 @@ Use properties from [[Organization]], [[subOrganization]]/[[parentOrganization]]
 :ResearchProject a rdfs:Class ;
     rdfs:label "ResearchProject" ;
     :isPartOf <https://pending.schema.org> ;
-    :contributor <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FundInfoCollab>;
-    :source <https://github.com/schemaorg/schemaorg/issues/383> ;
+    :source <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FundInfoCollab>,
+    <https://github.com/schemaorg/schemaorg/issues/383> ;
     rdfs:comment "A Research project." ;
     rdfs:subClassOf :Project .
 

@@ -37,7 +37,6 @@ EXPANDEDTERMS={}
 TERMSLOCK = threading.Lock()
 RDFLIBLOCK = threading.Lock()
 
-
 class SdoTermSource():
     
     TYPE = "Class"
@@ -86,10 +85,6 @@ class SdoTermSource():
         self.aks = None
         self.examples = None
         self.enum = None
-        
-        
-
-
         
         if ttype == rdflib.RDFS.Class:
             self.ttype = SdoTerm.TYPE
@@ -278,12 +273,8 @@ class SdoTermSource():
             self.aks = []
             objs = self.loadObjects("schema:contributor") #To accept later ttl versions.
             for obj in objs:
-                obj = str(obj)
-                term = SdoTermSource._getTerm(obj,createReference=True)
-
-                if term and term.comment and len(term.comment):
-                    self.aks.append(term.comment)
-
+                cont = contributor.getContributor(str(obj))
+                self.aks.append(cont)
         return self.aks
     def getLayer(self):
         return self.layer
@@ -1185,6 +1176,97 @@ class SdoTermSource():
             term = exterm
                 
         return term
+
+CONTRIBUTORS = {}
+from urllib.parse import urlparse
+
+class contributor():
+    def __init__(self,ref,desc=None):
+        self.ref = ref
+        self.code = getProtoAndRoot(ref)[1]
+        self.title= None
+        self.img=None
+        self.url=None
+        self.desc=self.parseDesc(desc)
+        if SdoTermSource.MARKDOWNPROCESS:
+            self.desc = Markdown.parse(self.desc)
+        
+        CONTRIBUTORS[self.ref]=self
+    def __str__(self):
+
+        return "<contributor ref: %s code: %s img: '%s' title: '%s' url: '%s'>" % (self.ref,self.code,self.img,self.title,self.url)
+
+    def parseDesc(self,desc):
+        state = 0
+        rows = []
+        description = ""
+        for line in desc.splitlines():
+            if line.startswith("---"):
+                state += 1
+            elif state == 1:
+                match = self.matchval('url',line)
+                if match:
+                    self.url = match
+                    continue
+                match = self.matchval('code',line)
+                if match:
+                    self.code = match
+                    continue
+                match = self.matchval('title',line)
+                if match:
+                    self.title = match
+                    continue
+                match = self.matchval('img',line)
+                if match:
+                    self.img = match
+                    continue
+            elif (state == 2):
+                rows.append(line)
+        if len(rows):
+            description = ''.join(rows)
+        return description
+
+    def matchval(self,val,line):
+        ret = None
+        matchstr = "(?i)%s:" % val
+        o = re.search(matchstr,val)
+        if o:
+            ret = val[len(matchstr):]
+            ret = ret.trim
+        return ret
+
+    @staticmethod
+    def getContributor(ref):
+        cont = CONTRIBUTORS.get(ref,None)
+        if not cont:
+            cont = contributor.createContributor(ref)
+        return cont
+
+    @staticmethod
+    def createContributor(ref):
+        u = urlparse(ref)
+        code = u.fragment
+        if not len(code):
+            code='europa'
+
+        cont = None
+        file="data/contributors/%s.md" % code
+        try:
+            with open(file,'r') as f:
+                desc = f.read()
+            cont = contributor(ref,desc=desc)
+        except Exception as e:
+            print("Error loading contributor source %s: %s" % (file,e))
+
+            #raise Exception("Error loading contributor source %s: %s" % (file,e))
+
+        return cont
+
+        
+
+
+
+
 
 def toFullId(termId):
     global VOCABURI
