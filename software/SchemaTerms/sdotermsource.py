@@ -266,33 +266,24 @@ class SdoTermSource():
             for sub in subs:
                 self.supersedes.append(uri2id(str(sub)))
         return self.supersedes
-    def getSourcesAndAcks(self):
-        if not self.srcaks:
-            self.srcaks = []
-            objs = self.loadObjects("dc:source")
-            objs += self.loadObjects("dct:source") #TODO Findout why dc:source in rdf files cets turned into dct:source when loaded.
-            objs += self.loadObjects("schema:source") #To accept later ttl versions.
+    def getSources(self):
+        if not self.sources:
+            objs = self.loadObjects("schema:source") #To accept later ttl versions.
             self.sources = []
+            for obj in objs:
+                    self.sources.append(obj)
+        return self.sources
+    def getAcknowledgements(self):
+        if not self.aks:
             self.aks = []
+            objs = self.loadObjects("schema:contributor") #To accept later ttl versions.
             for obj in objs:
                 obj = str(obj)
                 term = SdoTermSource._getTerm(obj,createReference=True)
 
-            #An aknowledgement is a 'source' with a comment
-            #A source is a source without a comment
                 if term and term.comment and len(term.comment):
                     self.aks.append(term.comment)
-                else:
-                    self.sources.append(obj)
-                self.srcaks.append(obj)                
-        return self.srcaks
-    def getSources(self):
-        if not self.sources:
-            self.getSourcesAndAcks()
-        return self.sources
-    def getAcknowledgements(self):
-        if not self.aks:
-            self.getSourcesAndAcks()
+
         return self.aks
     def getLayer(self):
         return self.layer
