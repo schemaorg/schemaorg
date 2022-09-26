@@ -34,6 +34,8 @@ DEFTRIPLESFILESGLOB = ["data/*.ttl","data/ext/*/*.ttl"]
 LOADEDDEFAULT=False
 TERMS={}
 EXPANDEDTERMS={}
+CONTRIBUTORS = {}
+
 TERMSLOCK = threading.Lock()
 RDFLIBLOCK = threading.Lock()
 
@@ -1177,8 +1179,6 @@ class SdoTermSource():
                 
         return term
 
-CONTRIBUTORS = {}
-from urllib.parse import urlparse
 
 class contributor():
     def __init__(self,ref,desc=None):
@@ -1237,6 +1237,7 @@ class contributor():
 
     @staticmethod
     def getContributor(ref):
+        contributor.loadContributors()
         cont = CONTRIBUTORS.get(ref,None)
         if not cont:
             cont = contributor.createContributor(ref)
@@ -1244,8 +1245,7 @@ class contributor():
 
     @staticmethod
     def createContributor(ref):
-        u = urlparse(ref)
-        code = u.fragment
+        code = os.path.basename(ref)
         cont = None
         file="data/contributors/%s.md" % code
         try:
@@ -1258,6 +1258,22 @@ class contributor():
             #raise Exception("Error loading contributor source %s: %s" % (file,e))
 
         return cont
+
+    @staticmethod
+    def loadContributors():
+        if not len(CONTRIBUTORS):
+            query = """ 
+            SELECT distinct ?val WHERE {
+                    [] schema:contributor ?val.
+            }""" 
+            res = SdoTermSource.query(query)
+            log.info("Loading %d contributors" % len(res))
+
+            for row in res:
+                cont = row.val
+                contributor.createContributor(cont)
+
+         
 
         
 
