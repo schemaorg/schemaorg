@@ -194,10 +194,11 @@ def loadTerms():
     global LOADEDTERMS
     if not LOADEDTERMS:
         LOADEDTERMS = True
-        print("Loading triples files")
-        SdoTermSource.loadSourceGraph("default")
-        print ("loaded %s triples - %s terms" % (len(SdoTermSource.sourceGraph()),len(SdoTermSource.getAllTerms())) )
-        contributor.loadContributors()
+        if not SdoTermSource.SOURCEGRAPH:
+            print("Loading triples files")
+            SdoTermSource.loadSourceGraph("default")
+            print ("loaded %s triples - %s terms" % (len(SdoTermSource.sourceGraph()),len(SdoTermSource.getAllTerms())) )
+            contributor.loadContributors()
 
 
 ###################################################
