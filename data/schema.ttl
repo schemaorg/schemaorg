@@ -2001,7 +2001,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 :NewsArticle a rdfs:Class ;
     rdfs:label "NewsArticle" ;
     :contributor <https://schema.org/docs/contributors/rNews>,
-        <https://schema.org/docs/contributors/TP-draws> ;
+        <https://schema.org/docs/contributors/TP> ;
     rdfs:comment """A NewsArticle is an article whose content reports news, or provides background context and supporting materials for understanding the news.
 
 A more detailed overview of [schema.org News markup](/docs/news.html) is also available.
@@ -9515,10 +9515,6 @@ we define a supporting type, [[SpeakableSpecification]]  which is defined to be 
     :rangeIncludes :QuantitativeValue ;
     rdfs:comment "The age of the business." .
 
-<https://schema.org/docs/contributors/WikiDoc> a :Organization ;
-    rdfs:label "WikiDoc" ;
-    rdfs:comment "This class contains information contributed by [http://wikidoc.org](http://wikidoc.org)." .
-
 :actionApplication a rdf:Property ;
     rdfs:label "actionApplication" ;
     :domainIncludes :EntryPoint ;
@@ -10212,14 +10208,6 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
         :Text ;
     rdfs:comment "The quantity that results by performing instructions. For example, a paper airplane, 10 personalized candles." .
 
-<https://schema.org/docs/contributors/GLEIF> a :Organization ;
-    rdfs:label "GLEIF" ;
-    rdfs:comment "The implementation and use of Legal Entity Identifier (LEI) is supported by Global Legal Entity Identifier Foundation [https://www.gleif.org](https://www.gleif.org)." .
-
-<https://schema.org/docs/contributors/TP-draws> a :Organization ;
-    rdfs:label "The Trust Project" ;
-    rdfs:comment "This term and associated definitions draws upon the work of [The Trust Project](http://thetrustproject.org/)." .
-
 :about a rdf:Property ;
     rdfs:label "about" ;
     :domainIncludes :CommunicateAction,
@@ -10340,18 +10328,6 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
     rdfs:comment """A work featured in some event, e.g. exhibited in an ExhibitionEvent.
        Specific subproperties are available for workPerformed (e.g. a play), or a workPresented (a Movie at a ScreeningEvent).""" .
 
-<https://schema.org/docs/contributors/IIT-CNR.it> a :Organization ;
-    rdfs:label "IITCNRit" ;
-    rdfs:comment "This element is based on work by the Web Applications for the Future Internet Lab, Institute of Informatics and Telematics, Pisa, Italy." .
-
-<https://schema.org/docs/contributors/LRMIClass> a :Organization ;
-    rdfs:label "LRMIClass" ;
-    rdfs:comment "This class is based on the work of the LRMI project, see lrmi.net for details." .
-
-<https://schema.org/docs/contributors/QAStackExchange> a :Organization ;
-    rdfs:label "Stack Exchange" ;
-    rdfs:comment "The Question/Answer types were [based on](https://www.w3.org/wiki/WebSchemas/QASchemaResearch) the Stack Overflow API." .
-
 :areaServed a rdf:Property ;
     rdfs:label "areaServed" ;
     :domainIncludes :ContactPoint,
@@ -10400,18 +10376,6 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
     rdfs:comment "A sub property of participant. The participant who is at the receiving end of the action." ;
     rdfs:subPropertyOf :participant .
 
-<https://schema.org/docs/contributors/Tourism> a :Organization ;
-    rdfs:label "Tourism" ;
-    rdfs:comment "This element is based on the work of the [Tourism Structured Web Data Community Group](https://www.w3.org/community/tourismdata)." .
-
-<https://schema.org/docs/contributors/ActionCollabClass> a :Organization ;
-    rdfs:label "ActionCollabClass" ;
-    rdfs:comment "The schema.org Actions mechanism benefited from extensive discussions across the Web standards community around W3C, in particular from the [Hydra project](http://purl.org/hydra/)'s community group." .
-
-<https://schema.org/docs/contributors/DatasetClass> a :Organization ;
-    rdfs:label "DatasetClass" ;
-    rdfs:comment "This class is based upon W3C DCAT work, and benefits from collaboration around the DCAT, ADMS and VoID vocabularies. See http://www.w3.org/wiki/WebSchemas/Datasets for full details and mappings." .
-
 :hasPart a rdf:Property ;
     rdfs:label "hasPart" ;
     :domainIncludes :CreativeWork ;
@@ -10419,10 +10383,6 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
     :rangeIncludes :CreativeWork ;
     :contributor <https://schema.org/docs/contributors/bibex> ;
     rdfs:comment "Indicates an item or CreativeWork that is part of this item, or CreativeWork (in some sense)." .
-
-<https://schema.org/docs/contributors/GoodRelationsTerms> a :Organization ;
-    rdfs:label "GoodRelationsTerms" ;
-    rdfs:comment "This term [uses](http://blog.schema.org/2012/11/good-relations-and-schemaorg.html) terminology from the GoodRelations Vocabulary for E-Commerce, created by Martin Hepp. GoodRelations is a data model for sharing e-commerce data on the Web. More information about GoodRelations can be found at [http://purl.org/goodrelations/](http://purl.org/goodrelations/)." .
 
 :isPartOf a rdf:Property ;
     rdfs:label "isPartOf" ;
@@ -10452,10 +10412,6 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
     :rangeIncludes :Thing ;
     rdfs:comment "The object upon which the action is carried out, whose state is kept intact or changed. Also known as the semantic roles patient, affected or undergoer (which change their state) or theme (which doesn't). e.g. John read *a book*." .
 
-<https://schema.org/docs/contributors/rNews> a :Organization ;
-    rdfs:label "rNews" ;
-    rdfs:comment "This class contains derivatives of IPTC rNews properties. rNews is a data model of publishing metadata with serializations currently available for RDFa as well as HTML5 Microdata. More information about the IPTC and rNews can be found at [rnews.org](http://rnews.org)." .
-
 :location a rdf:Property ;
     rdfs:label "location" ;
     :domainIncludes :Action,
@@ -10466,20 +10422,12 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
         :Text ;
     rdfs:comment "The location of, for example, where an event is happening, where an organization is located, or where an action takes place." .
 
-<https://schema.org/docs/contributors/bibex> a :Organization ;
-    rdfs:label "BibExTerm" ;
-    rdfs:comment "The W3C [Schema Bib Extend](http://www.w3.org/community/schemabibex/) (BibEx) group led the work to improve schema.org for bibliographic information, including terms for periodicals, articles and multi-volume works. The design was inspired in places (e.g. [[pageStart]], [[pageEnd]], [[pagination]]) by the [Bibliographic Ontology](http://bibliontology.com/), 'bibo'." .
-
 :participant a rdf:Property ;
     rdfs:label "participant" ;
     :domainIncludes :Action ;
     :rangeIncludes :Organization,
         :Person ;
     rdfs:comment "Other co-agents that participated in the action indirectly. e.g. John wrote a book with *Steve*." .
-
-<https://schema.org/docs/contributors/FIBO> a :Organization ;
-    rdfs:label "FIBO" ;
-    rdfs:comment "This element is based on the work of the Financial Industry Business Ontology project (see [http://www.fibo.org/schema](http://www.fibo.org/schema) for details), in support of the W3C Financial Industry Business Ontology Community Group ([http://www.fibo.org/community](http://www.fibo.org/community)). Many class and property definitions are inspired by or based on [http://www.fibo.org](http://www.fibo.org)." .
 
 :identifier a rdf:Property ;
     rdfs:label "identifier" ;
@@ -10491,21 +10439,3 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
         """ ;
     owl:equivalentProperty dc:identifier .
 
-<https://schema.org/docs/contributors/GoodRelationsClass> a :Organization ;
-    rdfs:label "GoodRelationsClass" ;
-    rdfs:comment "This class is derived from the GoodRelations Vocabulary for E-Commerce, created by Martin Hepp. GoodRelations is a data model for sharing e-commerce data on the Web that can be expressed in a variety of syntaxes, including RDFa and HTML5 Microdata. More information about GoodRelations can be found at [http://purl.org/goodrelations/](http://purl.org/goodrelations/)." .
-
-<https://schema.org/docs/contributors/STI_Accommodation_Ontology> a :Organization ;
-    rdfs:label "STI Accommodation Ontology" ;
-    rdfs:comment """This element is based on the STI Accommodation Ontology, see <a href="http://ontologies.sti-innsbruck.at/acco/ns.html">http://ontologies.sti-innsbruck.at/acco/ns.html</a> for details.
-    Many class and property definitions are inspired by or based on abstracts from Wikipedia, the free encyclopedia.""" .
-
-<https://schema.org/docs/contributors/Automotive_Ontology_Working_Group> a :Organization ;
-    rdfs:label "AutomotiveOntologyWGClass" ;
-    rdfs:comment "This element is based on the work of the Automotive Ontology Working Group, see [www.automotive-ontology.org](http://www.automotive-ontology.org) for details. Many class and property definitions are inspired by or based on abstracts from Wikipedia, the free encyclopedia." .
-
-<https://schema.org/docs/contributors/MBZ> a :Organization ;
-    rdfs:label "MBZ" ;
-    rdfs:comment """This vocabulary was improved through collaboration with the MusicBrainz project
-    ([www.musicbrainz.org](http://www.musicbrainz.org)), and is partially inspired by the MusicBrainz and
-    [Music Ontology](http://musicontology.com/docs/getting-started.html) schemas.""" .
