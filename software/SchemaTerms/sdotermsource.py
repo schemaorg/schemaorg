@@ -1246,9 +1246,6 @@ class contributor():
     def createContributor(ref):
         u = urlparse(ref)
         code = u.fragment
-        if not len(code):
-            code='europa'
-
         cont = None
         file="data/contributors/%s.md" % code
         try:
