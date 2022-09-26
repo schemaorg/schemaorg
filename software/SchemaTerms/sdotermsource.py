@@ -1267,19 +1267,11 @@ class contributor():
                     [] schema:contributor ?val.
             }""" 
             res = SdoTermSource.query(query)
-            log.info("Loading %d contributors" % len(res))
+            print("Loading %d contributors" % len(res))
 
             for row in res:
                 cont = row.val
                 contributor.createContributor(cont)
-
-         
-
-        
-
-
-
-
 
 def toFullId(termId):
     global VOCABURI

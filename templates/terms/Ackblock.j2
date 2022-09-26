@@ -1,14 +1,19 @@
-{% for ack in term.acknowledgements %}
-    {% if loop.first %}
-	<h4  id="acks">Acknowledgements</h4>
-    {% endif %}
-	<p>{{ack.desc |safe}}</p>
-    {% if loop.last %}<br/>{% endif %}
-{% endfor %}
+{% if term.acknowledgements %}
+    <div id="acks" class="ackblock jumptarget" title="Acknowledgements">
+    <h4 >Acknowledgements</h4>
+    {% for ack in term.acknowledgements %}
+        {% if loop.first %}
+            <div class="ack ack-first">{{ack.desc |safe}}</div>
+        {% else %}
+            <div class="ack ack-rest">{{ack.desc |safe}}</div>
+        {% endif %}
+    {% endfor %}
+    </div>
+{% endif %}
 
 {% for source in term.sources %}
     {% if loop.first %}
-	<h4  id="acks">Source</h4>
+	<h4  id="source" class="jumptarget" title="Source">Source</h4>
     {% endif %}
 	<p><a href="{{href_prefix}}{{source}}">{{source|safe}}</a></p>
     {% if loop.last %}<br/>{% endif %}
