@@ -1001,10 +1001,7 @@ class SdoTermSource():
 
     @staticmethod
     def query(q):
-        if SdoTermSource.SOURCEGRAPH == None:
-            SdoTermSource.loadSourceGraph()
-
-        graph = SdoTermSource.SOURCEGRAPH
+        graph = SdoTermSource.sourceGraph()
         #print("Query: %s" % q)
         with RDFLIBLOCK:
             ret = list(graph.query(q))
@@ -1183,11 +1180,7 @@ class SdoTermSource():
 class contributor():
     def __init__(self,ref,desc=None):
         self.ref = ref
-        self.code = getProtoAndRoot(ref)[1]
-        self.title= None
-        self.img=None
-        self.url=None
-        self.desc=self.parseDesc(desc)
+        self.parseDesc(desc)
         if SdoTermSource.MARKDOWNPROCESS:
             self.desc = Markdown.parse(self.desc)
         
@@ -1224,15 +1217,15 @@ class contributor():
                 rows.append(line)
         if len(rows):
             description = ''.join(rows)
-        return description
+        self.desc = description
 
     def matchval(self,val,line):
         ret = None
         matchstr = "(?i)%s:" % val
-        o = re.search(matchstr,val)
+        o = re.search(matchstr,line)
         if o:
-            ret = val[len(matchstr):]
-            ret = ret.trim
+            ret = line[len(val)+1:]
+            ret = ret.strip()
         return ret
 
     @staticmethod
@@ -1273,6 +1266,10 @@ class contributor():
                 cont = row.val
                 contributor.createContributor(cont)
 
+    @staticmethod
+    def contributors():
+        return list(CONTRIBUTORS.values())
+ 
 def toFullId(termId):
     global VOCABURI
     if not	':' in termId: #Includes full path or namespaces
