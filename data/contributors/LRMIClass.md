@@ -1,6 +1,6 @@
 ---
 code: LRMIClass
-img:
+img: https://www.dublincore.org/specifications/lrmi/images/LRMI_400w.png
 title: LRMI project
 url: http://lrmi.net
 ---
