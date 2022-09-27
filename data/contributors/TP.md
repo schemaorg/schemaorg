@@ -1,7 +1,7 @@
 ---
 code: TP
 img:
-title: https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP
-url:
+title: The Trust Project
+url: http://thetrustproject.org/
 ---
 This term and its definition is based upon the work of [The Trust Project](http://thetrustproject.org/).

@@ -10,7 +10,7 @@ for path in [os.getcwd(),"software/Util","software/SchemaTerms","software/Schema
   sys.path.insert( 1, path ) #Pickup libs from local  directories
 
 from buildsite import *
-from sdotermsource import SdoTermSource
+from sdotermsource import SdoTermSource, contributor
 from sdoterm import *
 
 def fileName(fn):
@@ -83,26 +83,7 @@ def homePage(page):
                         t.cat = "issue-" + os.path.basename(s)
                         break
         terms.sort(key = lambda u: (u.cat,u.id))
-
-        first = True
-        cat = None
-        for t in terms:
-            if first or t.cat != cat:
-                first = False
-                cat = t.cat
-                ttypes = {}
-                sectionterms[cat] = ttypes
-                ttypes[SdoTerm.TYPE] = []
-                ttypes[SdoTerm.PROPERTY] = []
-                ttypes[SdoTerm.DATATYPE] = []
-                ttypes[SdoTerm.ENUMERATION] = []
-                ttypes[SdoTerm.ENUMERATIONVALUE] = []
-            if t.termType == SdoTerm.REFERENCE:
-                continue
-            ttypes[t.termType].append(t)
-            termcount += 1
-
-    sectionterms = dict(sorted(sectionterms.items()))
+        sectionterms, termcount = buildTermCatList(terms,checkCat=True)
 
     extra_vars = {
         'home_page': "True",
@@ -114,6 +95,35 @@ def homePage(page):
     ret =  docsTemplateRender(template,extra_vars)
     STRCLASSVAL = None
     return ret
+
+def buildTermCatList(terms,checkCat=False):
+    first = True
+    cat = None
+    termcat = {}
+    termcount = 0
+    for t in terms:
+        if checkCat:
+            tcat = t.cat
+        else:
+            tcat = ""
+        if first or tcat != cat:
+            first = False
+            cat = tcat
+            ttypes = {}
+            termcat[cat] = ttypes
+            ttypes[SdoTerm.TYPE] = []
+            ttypes[SdoTerm.PROPERTY] = []
+            ttypes[SdoTerm.DATATYPE] = []
+            ttypes[SdoTerm.ENUMERATION] = []
+            ttypes[SdoTerm.ENUMERATIONVALUE] = []
+        if t.termType == SdoTerm.REFERENCE:
+            continue
+        ttypes[t.termType].append(t)
+        termcount += 1
+
+    termcat = dict(sorted(termcat.items()))
+    return termcat, termcount
+
 
 VISITLIST=[]
 class listingNode():
@@ -224,7 +234,36 @@ def fullReleasePage(page):
     }
     return docsTemplateRender("docs/FullRelease.j2",extra_vars)
 
+def contributors(page):
+    conts = contributor.contributors()
+    #for c in conts:
+    #    print(c)
+    conts = sorted(conts, key=lambda t: t.title)
 
+    for cont in conts:
+        createContributor(cont)
+
+    extra_vars = {
+        'contributors': conts
+    }
+    return docsTemplateRender("docs/Contributors.j2",extra_vars)
+
+def createContributor(cont):
+    terms, termcount = buildTermCatList(cont.getTerms())
+
+    extra_vars = {
+        'cont': cont,
+        'terms': terms,
+        'termcount': termcount
+    }
+
+    content = docsTemplateRender("docs/Contributor.j2",extra_vars)
+    filename = "docs/contributors/" + cont.code + ".html"
+    fn = fileName(filename)
+    f = open(fn,"w", encoding='utf8')
+    f.write(content)
+    f.close()
+    print("Created %s" % fn)
 
 PAGELIST = {"Home": (homePage,["docs/home.html"]),
              "PendingHome": (homePage,["docs/pending.home.html"]),
@@ -237,6 +276,7 @@ PAGELIST = {"Home": (homePage,["docs/home.html"]),
              "Full": (fullPage,["docs/full.html"]),
              "FullOrig": (fullPage,["docs/full.orig.html"]),
              "FullRelease": (fullReleasePage,["docs/fullrelease.html","releases/%s/schema-all.html" % getVersion()]),
+             "Contributors": (contributors,["docs/contributors.html"]),
              "Tree": (jsonldtree,["docs/tree.jsonld"])
          }
 

@@ -1,7 +1,7 @@
 ---
 code: LRMIClass
 img:
-title: http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#LRMIClass
-url:
+title: LRMI project
+url: http://lrmi.net
 ---
-This class is based on the work of the LRMI project, see lrmi.net for details.
+This class is based on the work of the LRMI project, see [lrmi.net](http://lrmi.net) for details.

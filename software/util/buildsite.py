@@ -115,6 +115,7 @@ def initdir():
     createMissingDir(OUTPUTDIR)
     clear()
     createMissingDir(OUTPUTDIR + "/docs")
+    createMissingDir(OUTPUTDIR + "/docs/contributors")
     createMissingDir(OUTPUTDIR + "/releases/%s" % getVersion())
 
     gdir = OUTPUTDIR + "/gcloud"

@@ -902,7 +902,31 @@ class SdoTermSource():
         
         #log.info("count %s TERMS %s" % (len(terms),len(TERMS)))
         return terms
-        
+
+    @staticmethod
+    def getAcknowledgedTerms(ack):
+        query = """SELECT DISTINCT ?term ?type ?label ?layer ?sup WHERE {
+             ?term a ?type;
+                schema:contributor <%s>;
+                rdfs:label ?label.
+                OPTIONAL {
+                    ?term schema:isPartOf ?layer.
+                }
+                OPTIONAL {
+                    ?term rdfs:subClassOf ?sup.
+                }
+                OPTIONAL {
+                    ?term rdfs:subPropertyOf ?sup.
+                }
+            }
+            ORDER BY ?term
+            """ % ack
+        res = SdoTermSource.query(query)
+        terms = SdoTermSource.termsFromResults(res,termId=None)
+        return terms
+
+            
+    
     @staticmethod
     def setSourceGraph(g):
         global VOCABURI
@@ -1179,7 +1203,9 @@ class SdoTermSource():
 
 class contributor():
     def __init__(self,ref,desc=None):
+        global CONTRIBUTORS
         self.ref = ref
+        self.terms = None
         self.parseDesc(desc)
         if SdoTermSource.MARKDOWNPROCESS:
             self.desc = Markdown.parse(self.desc)
@@ -1228,6 +1254,12 @@ class contributor():
             ret = ret.strip()
         return ret
 
+    def getTerms(self):
+        if not self.terms:
+            self.terms = SdoTermSource.getAcknowledgedTerms(self.ref)
+        return self.terms
+
+
     @staticmethod
     def getContributor(ref):
         contributor.loadContributors()
@@ -1254,6 +1286,7 @@ class contributor():
 
     @staticmethod
     def loadContributors():
+        global CONTRIBUTORS
         if not len(CONTRIBUTORS):
             query = """ 
             SELECT distinct ?val WHERE {

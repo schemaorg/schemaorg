@@ -1,7 +1,7 @@
 ---
 code: WikiDoc
 img:
-title: http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#WikiDoc
-url:
+title: WikiDoc
+url: http://wikidoc.org
 ---
 This class contains information contributed by [http://wikidoc.org](http://wikidoc.org).

@@ -1,0 +1,28 @@
+{% from 'macros.j2' import docs_sdotermlink as sdotermlink with context %}
+<!DOCTYPE html>
+<html lang="en">
+<!-- Generated from Home.j2 -->
+    {% include 'docs/DocsHead.j2' with context %}
+<body>
+    {% include 'PageHeader.j2' with context %}
+    <div id="mainContent">
+      <h1>Contributors to the Schema.org Vocabulary</h1>
+      <p>
+      The definition of many terms within the vocabulary have been developed, proposed, and inspired by individuals, groups, 
+      organisations, or other vocabularies.  These contributors to the development, evolution and enhancement of Schema.org 
+      are acknowledged on the relevant individual term definition pages.
+      </p>
+      <p>  
+      Listed below are the contributors acknowledged in that way:
+      </p>
+      <ul>
+        {% for cont in contributors %}
+            <li> <a class="contributor_list_item" href="/docs/contributors/{{cont.code}}.html">{{cont.title}}</a></li>
+        {% endfor %}
+
+      </ul>
+
+    </div> <!-- mainContent -->
+	{% include 'PageFooter.j2' with context %}
+</body>
+</html>
