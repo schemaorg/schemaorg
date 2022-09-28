@@ -34,7 +34,6 @@ DEFTRIPLESFILESGLOB = ["data/*.ttl","data/ext/*/*.ttl"]
 LOADEDDEFAULT=False
 TERMS={}
 EXPANDEDTERMS={}
-CONTRIBUTORS = {}
 
 TERMSLOCK = threading.Lock()
 RDFLIBLOCK = threading.Lock()
@@ -277,6 +276,7 @@ class SdoTermSource():
             for obj in objs:
                 cont = contributor.getContributor(str(obj))
                 self.aks.append(cont)
+            self.aks = sorted(self.aks, key=lambda t: t.title)
         return self.aks
     def getLayer(self):
         return self.layer
@@ -1202,17 +1202,18 @@ class SdoTermSource():
 
 
 class contributor():
+    CONTRIBUTORS = {}
     def __init__(self,ref,desc=None):
-        global CONTRIBUTORS
         self.ref = ref
         self.terms = None
+        self.img = self.code = self.title = self.url = None
         self.parseDesc(desc)
         if SdoTermSource.MARKDOWNPROCESS:
             self.desc = Markdown.parse(self.desc)
         
-        CONTRIBUTORS[self.ref]=self
-    def __str__(self):
+        contributor.CONTRIBUTORS[self.ref]=self
 
+    def __str__(self):
         return "<contributor ref: %s code: %s img: '%s' title: '%s' url: '%s'>" % (self.ref,self.code,self.img,self.title,self.url)
 
     def parseDesc(self,desc):
@@ -1263,7 +1264,7 @@ class contributor():
     @staticmethod
     def getContributor(ref):
         contributor.loadContributors()
-        cont = CONTRIBUTORS.get(ref,None)
+        cont = contributor.CONTRIBUTORS.get(ref,None)
         if not cont:
             cont = contributor.createContributor(ref)
         return cont
@@ -1286,8 +1287,7 @@ class contributor():
 
     @staticmethod
     def loadContributors():
-        global CONTRIBUTORS
-        if not len(CONTRIBUTORS):
+        if not len(contributor.CONTRIBUTORS):
             query = """ 
             SELECT distinct ?val WHERE {
                     [] schema:contributor ?val.
@@ -1297,16 +1297,18 @@ class contributor():
 
             for row in res:
                 cont = row.val
-                contributor.createContributor(cont)
+                contributor.createContributor(str(cont))
 
     @staticmethod
     def contributors():
-        return list(CONTRIBUTORS.values())
+        contributor.loadContributors()
+        return list(contributor.CONTRIBUTORS.values())
  
 def toFullId(termId):
     global VOCABURI
     if not	':' in termId: #Includes full path or namespaces
     	fullId = VOCABURI + termId
+
     elif termId.startswith("http"):
     	fullId = termId
     else:

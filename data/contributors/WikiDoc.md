@@ -1,6 +1,6 @@
 ---
 code: WikiDoc
-img:
+img: https://www.wikidoc.org/images/6/6e/An1.jpg
 title: WikiDoc
 url: http://wikidoc.org
 ---

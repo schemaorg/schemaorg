@@ -1,6 +1,6 @@
 ---
 code: MBZ
-img:
+img: https://staticbrainz.org/MB/header-logo-1f7dc2a.svg
 title: MusicBrainz Project
 url: http://www.musicbrainz.org
 ---

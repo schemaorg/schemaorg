@@ -1,6 +1,6 @@
 ---
 code: STI_Accommodation_Ontology
-img:
+img: 
 title: STI Accommodation Ontology
 url: http://ontologies.sti-innsbruck.at/acco/ns.html
 ---

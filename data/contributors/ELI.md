@@ -1,6 +1,6 @@
 ---
 code: ELI
-img:
+img: https://op.europa.eu/documents/6793978/6793980/6724995/b631b122-c2bc-22c1-bf18-eb7451b2542a?t=1584637138416
 title: ELI ontology
 url: http://publications.europa.eu/mdr/eli/index.html
 ---

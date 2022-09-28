@@ -6,19 +6,21 @@
 <body>
     {% include 'PageHeader.j2' with context %}
     <div id="mainContent">
-        <div>
+        <div class="contributor_breadcrumb">
         <a href="/docs/contributors.html">Contributors</a> &gt; <a href="{{cont.code}}.html">{{cont.code}}</a>
         </div>
-      <h1>{{cont.title}}</h1>
-      {% if cont.url %}<a class="contributor_url" href="{{cont.url}}">{{cont.url}}</a>{% endif %}
-      {% if cont.img %}<img src={{cont.img}} height="50px">
-      <p class="contributor_intro">
-      <span style="font-weight: bold;">{{cont.title}}</span> has contributed to the development, evolution and enhancement of {{termcount}} term(s) in the Schema.org vocabulary.
-      That contribution is acknowledged on the relevant term definition pages in the following way:
+        <div class="contributor_title">
+            <h1>{{cont.title}}</h1>
+            {% if cont.url %}<a class="contributor_url" href="{{cont.url}}">{{cont.url}}</a>{% endif %}
+        </div>
+        <div class="contributor_img">{% if cont.img %}<img src={{cont.img}} height="50px">{% endif %}</div>
+        <p class="contributor_intro">
+        <span style="font-weight: bold;">{{cont.title}}</span> has contributed to the development, evolution and enhancement of {{termcount}} term(s) in the Schema.org vocabulary.
+        That contribution is acknowledged on the relevant term definition pages in the following way:
 
-      <p class="contributor_desc">
-      {{cont.desc|safe}}
-      </p>
+        <p class="contributor_desc">
+        {{cont.desc|safe}}
+        </p>
 
  {% for c in terms %}
     {% set cat = terms[c] %}

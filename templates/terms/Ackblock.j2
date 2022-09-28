@@ -7,8 +7,23 @@
         {% else %}
             <div class="ack ack-rest">
         {% endif %}
-            {{ack.desc |safe}}
-            <span style="margin: 8px;"><a href="/docs/contributors/{{ack.code}}.html">More…</a></span>
+                <div class="ack-desc">
+                <div class="ack-head">
+                <a href="/docs/contributors/{{ack.code}}.html">
+                    <div class="ack-title">
+                       {{ack.title}}
+                    </div>
+                    <div class="ack-img">
+                        {% if ack.img %}<img src={{ack.img}}>{% endif %}
+                    </div>
+                </a>
+                </div>
+
+
+
+                    {{ack.desc |safe}}
+                    <span style="margin: 8px;"><a href="/docs/contributors/{{ack.code}}.html">More…</a></span>
+                </div>
             </div>
     {% endfor %}
     </div>
