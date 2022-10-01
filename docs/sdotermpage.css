@@ -5,14 +5,105 @@
   .new    { color: #660003; } /* itemscope, itemtype, etc,. */
   .curl   { color: #080;    } /* new url                    */
 
-  table.definition-table {
-    border-spacing: 3px;
-    border-collapse: separate;
+table.definition-table {
+  width: 100%;
+  border-spacing: 3px;
+  border-collapse: separate;
+  margin: 1em 0 0 0;
+  border: 1px solid #98A0A6;
+  border-radius: 7px;
+}
+.definition-table thead th
+{
+  border-radius: 4px 4px 0 0;
+}
+
+.definition-table th
+{
+text-align: left;
+background: #C7CBCE;
+padding-left: 5px;
+}
+
+.definition-table td
+{
+padding: 0 5px 2px 5px;
+margin: 0;
+vertical-align: top;
+}
+.definition-table td p
+{
+padding: 0 0 .6em 0;
+margin: 0;
+}
+.definition-table td ul
+{
+padding-top: 0;
+margin-top: 0;
+}
+.definition-table tr.alt
+{
+background: #E9EAEB;
+}
+
+.supertype-name {
+  text-align: center;
+  width: -moz-available;          /* WebKit-based browsers will ignore this. */
+  width: -webkit-fill-available;  /* Mozilla-based browsers will ignore this. */
+  width: fill-available;
+  background-color: #dde0e2;
+}
+
+.props-hdr {
+  background-color: #eeeeee;
+  color: slategray;
+}
+table.definition-table .props-hdr-nam {
+  text-align: center;
+  width:25%;
+}
+table.definition-table .props-hdr-ect {
+  text-align: center;
+}
+table.definition-table .props-hdr-desc {
+  text-align: center;
+}
+
+@media all and (max-width: 750px) {
+  table.definition-table th, table.definition-table td {
+    display: inline-block;
   }
-  
-  #morecheck {
-	  outline: none;
+  table.definition-table br {
+    display: none;
   }
+  table.definition-table .props-hdr-nam {
+    text-align: center;
+    width:30%;
+  }
+  table.definition-table .props-hdr-ect {
+    width:65%;
+    text-align: left;
+  }
+  table.definition-table .props-hdr-desc {
+    display: none;
+  }
+  .prop-row-rest {
+    border-top: 1px solid lightgrey;
+    display:inline-block;
+    padding-top: 4px;
+  }
+  table.definition-table .prop-nam {
+    min-width: 30%;
+  }
+  table.definition-table .prop-ect {
+    max-width: 65%;
+    padding-left: 10px;
+  }
+}
+
+#morecheck {
+  outline: none;
+}
   
 #morecheck:checked + div { display: none; }
 
@@ -27,22 +118,11 @@
   border: 1px solid;
   text-align: center;
   box-shadow: 2px 2px lightgrey;
-  background-color: white;
+  background-color: #eeeeee;
   z-index: 100;
 }
 
 
-@media only screen and (min-width: 1200px){
-  #jumpmenu {
-    margin-left: -10em;  
-  }
-}
-@media only screen and (max-width: 1200px){
-  #jumpmenu {
-    right: 10px;
-    top: auto;
-  }
-}
 
 #jumphead {
   text-align: center;
@@ -58,6 +138,45 @@
   display: block;
   padding: 2px 2px 0 0;
 }
+
+@media only screen and (min-width: 1275px){
+  #jumpmenu {
+    margin-left: 980px;  
+    margin-top: 5px;
+  }
+}
+@media only screen and (max-width: 1275px){
+  #jumpmenu {
+    right: 10px;
+    top: auto;
+  }
+
+  #jumpmenu.jumpclosed {
+    opacity: 60%;
+  }
+  #jumpmenu.jumpopen {
+    opacity: 85%;
+  }
+  #jumpmenu:hover {
+    opacity: 85%;
+  }
+
+  #jumphead {
+    text-align: center;
+    padding: 5px;
+  }
+
+  #jumpmenu.jumpclosed .jumpclosedarrow {
+    display: inline;
+  }
+  #jumpmenu.jumpopen .jumpopenarrow {
+    display: none;
+  }
+  #jumpmenu.jumpclosed #jumpselections {
+    display: none;
+  }
+}
+
 
 .ackblock {
   display: block;

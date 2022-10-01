@@ -2,9 +2,19 @@
   {% if loop.first %}
 	<br/><div id="incoming" class="jumptarget" title="Value for">Instances of {{ sdotermlink(term.id)|safe}} {{INSERT}} may appear as a value for the following properties</div>
 	<table class="definition-table">
-    <thead><tr><th>Property</th><th>On Types</th><th>Description</th></tr></thead>
+          <tr class="props-hdr">
+            <td class="props-hdr-nam">Property</td>
+            <td class="props-hdr-ect">On Types</td>
+            <td class="props-hdr-desc">Description</td></tr>
+
   {% endif %}
-  <tr><th class="prop-nam">{{ sdotermlink(prop.id)|safe}}</th>
+    {% if loop.first %}
+        <tr class="prop-row-first">
+    {% else %}
+        <tr class="prop-row-rest">
+    {% endif %}
+
+      <th class="prop-nam">{{ sdotermlink(prop.id)|safe}}</th>
       <td class="prop-ect">{% for ect in prop.domainIncludes %}{% if not loop.first %}&nbsp; or <br/>{% endif %}{{ sdotermlink(ect)|safe}}{% endfor %}</td>
       <td class="prop-desc">{{ prop.comment | safe}}
   </tr> 

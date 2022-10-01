@@ -10,9 +10,6 @@
 
 {% if local_vars.propstodisplay %}
 	<table class="definition-table jumptarget" id="properties-section" title="Properties">
-	    <thead>
-	      <tr><th>Property</th><th>Expected Type</th><th>Description</th></tr>
-	  </thead>
 	  {% set propertiesFor = term %}{% include 'terms/PropertiesForTerm.j2' with context %}
 
 	  {% for t in term.termStack %}

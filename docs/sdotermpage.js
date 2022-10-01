@@ -41,6 +41,19 @@
     
   }, 500);
   setTimeout(function(){
+    $('#jumphead').click(function() {
+      console.log("Head Clicked\n");
+      if($('#jumpmenu').hasClass('jumpclosed')){
+        console.log('closed\n');
+        jumpmenuopen();
+      } else {
+        console.log('open\n');
+        jumpmenuclose();
+      }
+    });
+    $('.jumpselector').click(jumpmenuclose);
+  }, 500);
+  setTimeout(function(){
 
   $(".atn:contains(property), .atn:contains(typeof) ").addClass('new');
   $('.new + .pun + .atv').addClass('curl');
@@ -81,4 +94,13 @@
         });
 
     });
+
+    function jumpmenuopen(){
+      $('#jumpmenu').removeClass('jumpclosed');
+      $('#jumpmenu').addClass('jumpopen');
+    }
+    function jumpmenuclose(){
+      $('#jumpmenu').removeClass('jumpopen');
+      $('#jumpmenu').addClass('jumpclosed');
+    }
 
