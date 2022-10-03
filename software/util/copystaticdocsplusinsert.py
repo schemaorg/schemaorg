@@ -137,4 +137,5 @@ if __name__ == '__main__':
     print("\tConverting .md docs to html")
     convertmd2htmldocs.mddocs(DESTDIR, DESTDIR)
     htmlinserts()
+    print("Done")
     os.sys.exit(0)
