@@ -134,20 +134,25 @@ PRE-MARKUP:
 
 MICRODATA:
 
-<div itemscope itemtype="https://schema.org/MortgageLoan" itemref="amount intRate apr">
+<div itemscope itemtype="https://schema.org/MortgageLoan">
   <h1 itemprop="name">Agency 30 Year Fixed</h1>
   <div itemprop="loanTerm" itemscope itemtype="https://schema.org/QuantitativeValue">
-    <meta itemprop="value" content="30">
-    <meta itemprop="unitCode" content="ANN">
+    <meta itemprop="value" content="30"/>
+    <meta itemprop="unitCode" content="ANN"/>
   </div>
   <p itemprop="description">Experience easier budgeting with predictable monthly payments. Relax knowing you’ll never have to worry about rising interest rates for the life of your loan.</p>
   <div itemprop="loanRepaymentForm" itemscope itemtype="https://schema.org/RepaymentSpecification" itemref="estPay payNum">
-    <meta itemprop="downPayment" content="20">
-    <meta itemprop="loanPaymentFrequency" content="Monthly">
+    <meta itemprop="downPayment" content="20"/>
+    <meta itemprop="loanPaymentFrequency" content="1"/>
+      <span>Estimated payment</span>
+    <div id="estPay" itemprop="loanPaymentAmount" itemscope itemtype="https://schema.org/MonetaryAmount">
+    <span itemprop="currency" content="USD">$</span><span itemprop="value">912.11</span></div>
+    <span>Months</span>
+    <div id="payNum" itemprop="numberOfLoanPayments">360</div>
   </div>
-</div>
+  
 <table>
-  <caption id="amount" itemprop="amount" itemscope itemtype="https://schema.org/MonetaryAmount">Rates are based on a loan amount of <span itemprop="currency" content="USD">$</span><span itemprop="value" content="200000">200,000</span> and 20% down payment.</caption>
+	<caption id="amount" itemprop="amount" itemscope itemtype="https://schema.org/MonetaryAmount">Rates are based on a loan amount of <span itemprop="currency" content="USD">$</span><span itemprop="value" content="200000">200,000</span> and 20% down payment.</caption>
   <tr>
     <td>Interest rate</td>
     <td><span id="intRate" itemprop="interestRate">3.625</span>%</td>
@@ -156,15 +161,10 @@ MICRODATA:
     <td>APR</td>
     <td><span id="apr" itemprop="annualPercentageRate">3.8047</span>%</td>
   </tr>
-  <tr>
-    <td>Estimated payment</td>
-    <td id="estPay" itemprop="loanPaymentAmount" itemscope itemtype="https://schema.org/MonetaryAmount"><span itemprop="currency" content="USD">$</span><span itemprop="value">912.11</span></td>
-  </tr>
-  <tr>
-    <td>Months</td>
-    <td id="payNum" itemprop="numberOfLoanPayments">360</td>
-  </tr>
 </table>
+
+
+</div>
 
 RDFA:
 
@@ -177,8 +177,14 @@ RDFA:
   <p property="description">Experience easier budgeting with predictable monthly payments. Relax knowing you’ll never have to worry about rising interest rates for the life of your loan.</p>
   <div property="loanRepaymentForm" typeof="RepaymentSpecification" itemref="estPay payNum">
     <meta property="downPayment" content="20"/>
-    <meta property="loanPaymentFrequency" content="Monthly"/>
+    <meta property="loanPaymentFrequency" content="1"/>
+      <span>Estimated payment</span>
+    <div id="estPay" property="loanPaymentAmount" typeof="MonetaryAmount">
+    <span property="currency" content="USD">$</span><span property="value">912.11</span></div>
+    <span>Months</span>
+    <div id="payNum" property="numberOfLoanPayments">360</div>
   </div>
+  
 <table>
 	<caption id="amount" property="amount" typeof="MonetaryAmount">Rates are based on a loan amount of <span property="currency" content="USD">$</span><span property="value" content="200000">200,000</span> and 20% down payment.</caption>
   <tr>
@@ -189,15 +195,9 @@ RDFA:
     <td>APR</td>
     <td><span id="apr" property="annualPercentageRate">3.8047</span>%</td>
   </tr>
-  <tr>
-    <td>Estimated payment</td>
-    <td id="estPay" property="loanPaymentAmount" typeof="MonetaryAmount"><span property="currency" content="USD">$</span><span property="value">912.11</span></td>
-  </tr>
-  <tr>
-    <td>Months</td>
-    <td id="payNum" property="numberOfLoanPayments">360</td>
-  </tr>
 </table>
+
+
 </div>
 
 JSON:
