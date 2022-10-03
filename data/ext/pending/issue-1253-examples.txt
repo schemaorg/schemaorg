@@ -147,7 +147,7 @@ MICRODATA:
   </div>
 </div>
 <table>
-  <caption id="amount" itemprop="amount" itemscope itemtype="https://schema.org/MonetaryAmount">Rates are based on a loan amount of <span itemprop="currency" content="USD">$</span><span itemprop="amount" content="200000">200,000</span> and 20% down payment.</caption>
+  <caption id="amount" itemprop="amount" itemscope itemtype="https://schema.org/MonetaryAmount">Rates are based on a loan amount of <span itemprop="currency" content="USD">$</span><span itemprop="value" content="200000">200,000</span> and 20% down payment.</caption>
   <tr>
     <td>Interest rate</td>
     <td><span id="intRate" itemprop="interestRate">3.625</span>%</td>
@@ -158,7 +158,7 @@ MICRODATA:
   </tr>
   <tr>
     <td>Estimated payment</td>
-    <td id="estPay" itemprop="loanPaymentAmount" itemscope itemtype="https://schema.org/MonetaryAmount"><span itemprop="currency" content="USD">$</span><span itemprop="amount">912.11</span></td>
+    <td id="estPay" itemprop="loanPaymentAmount" itemscope itemtype="https://schema.org/MonetaryAmount"><span itemprop="currency" content="USD">$</span><span itemprop="value">912.11</span></td>
   </tr>
   <tr>
     <td>Months</td>
@@ -180,7 +180,7 @@ RDFA:
     <meta property="loanPaymentFrequency" content="Monthly"/>
   </div>
 <table>
-	<caption id="amount" property="amount" typeof="MonetaryAmount">Rates are based on a loan amount of <span property="currency" content="USD">$</span><span property="amount" content="200000">200,000</span> and 20% down payment.</caption>
+	<caption id="amount" property="amount" typeof="MonetaryAmount">Rates are based on a loan amount of <span property="currency" content="USD">$</span><span property="value" content="200000">200,000</span> and 20% down payment.</caption>
   <tr>
     <td>Interest rate</td>
     <td><span id="intRate" property="interestRate">3.625</span>%</td>
@@ -191,7 +191,7 @@ RDFA:
   </tr>
   <tr>
     <td>Estimated payment</td>
-    <td id="estPay" property="loanPaymentAmount" typeof="MonetaryAmount"><span property="currency" content="USD">$</span><span property="amount">912.11</span></td>
+    <td id="estPay" property="loanPaymentAmount" typeof="MonetaryAmount"><span property="currency" content="USD">$</span><span property="value">912.11</span></td>
   </tr>
   <tr>
     <td>Months</td>
@@ -210,7 +210,7 @@ JSON:
   "description": "Experience easier budgeting with predictable monthly payments. Relax knowing you’ll never have to worry about rising interest rates for the life of your loan.",
   "amount": {
     "@type": "MonetaryAmount",
-    "amount": "200000",
+    "value": "200000",
     "currency": "USD"
   },
   "loanTerm": {
@@ -224,12 +224,12 @@ JSON:
     "@type": "RepaymentSpecification",
     "loanPaymentAmount": {
       "@type": "MonetaryAmount",
-      "amount": "909.3",
+      "value": "909.3",
       "currency": "USD"
     },
     "downPayment": "20",
     "numberOfLoanPayments": "360",
-    "loanPaymentFrequency": "Monthly"
+    "loanPaymentFrequency": "1"
   }
 }
 </script>
