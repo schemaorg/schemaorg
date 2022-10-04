@@ -1,5 +1,6 @@
 <!-- Examples block for term: {{term.id}}-->
 
+{% if examples|length > 0 %}
 <div id="examplespannel" class="jumptarget" title="Examples">
 {% for ex in examples %}
 {% if loop.first %}<b><a  id="examples" title="Link: #examples" href="#examples" class="clickableAnchor"  >Examples</a></b><br/>{% endif %}
@@ -52,3 +53,4 @@
 </div>
 {% endfor %}
 </div>
+{% endif %}
