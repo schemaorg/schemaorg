@@ -2,7 +2,7 @@
 
 {% for prop in propertiesFor.properties %}
     {% if loop.first %}
-        <tr class="supertype"><td class="supertype-name" colspan="3">Properties from {{ sdotermlink(propertiesFor)|safe }}</td></tr>
+        <tr class="supertype"><td class="supertype-name {% if tabletop %}tabletop{% endif %}" colspan="3">Properties from {{ sdotermlink(propertiesFor)|safe }}</td></tr>
         <tr class="props-hdr">
             <td class="props-hdr-nam">Property</td>
             <td class="props-hdr-ect">Expected Type</td>
