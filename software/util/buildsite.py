@@ -10,7 +10,7 @@ import time
 import shutil
 for path in [os.getcwd(),"./software","./software/SchemaTerms","./software/SchemaExamples"]:
   sys.path.insert( 1, path ) #Pickup libs from local  directories
-  
+
 if os.path.basename(os.getcwd()) != "schemaorg":
     print("\nScript should be run from within the 'schemaorg' directory! - Exiting\n")
     sys.exit(1)
@@ -25,8 +25,9 @@ import glob
 import re
 import argparse
 import rdflib
-import jinja2 
+import jinja2
 
+import textutils
 from sdotermsource import SdoTermSource
 from sdoterm import *
 from schemaexamples import SchemaExamples
@@ -97,11 +98,11 @@ def runtests():
 
 DOCSDOCSDIR = "/docs"
 TERMDOCSDIR = "/docs"
-DOCSHREFSUFFIX="" 
+DOCSHREFSUFFIX=""
 DOCSHREFPREFIX="/"
-TERMHREFSUFFIX="" 
+TERMHREFSUFFIX=""
 TERMHREFPREFIX="/"
-    
+
 ###################################################
 #INITIALISE Directory
 ###################################################
@@ -143,7 +144,7 @@ def mycopytree(src, dst, symlinks=False, ignore=None):
     else:
         ignored_names = set()
 
-    if not os.path.isdir(dst): 
+    if not os.path.isdir(dst):
         os.makedirs(dst)
     errors = []
     for name in names:
@@ -177,7 +178,7 @@ def mycopytree(src, dst, symlinks=False, ignore=None):
     if errors:
         raise Error (errors)
 
-    
+
 ###################################################
 #MARKDOWN INITIALISE
 ###################################################
@@ -214,7 +215,7 @@ def loadExamples():
 ###################################################
 jenv = jinja2.Environment(loader=jinja2.FileSystemLoader(TEMPLATESDIR),
         extensions=['jinja2.ext.autoescape'], autoescape=True, cache_size=0)
-    
+
 def jinjaDebug(text):
     print("Jinja: %s" % text)
     return ''
@@ -228,65 +229,34 @@ def set_local_var(local_vars, name, value):
 jenv.globals['set_local_var'] = set_local_var
 
 
-### Template rendering 
+### Template rendering
 
-def templateRender(template,extra_vars=None):
-    #Basic varibles configuring UI
-    tvars = {
-        'local_vars': local_vars,
-        'version': getVersion(),
-        'versiondate': getCurrentVersionDate(),
-        'sitename': SITENAME,
-        'TERMHREFPREFIX': TERMHREFPREFIX,
-        'TERMHREFSUFFIX': TERMHREFSUFFIX,
-        'DOCSHREFPREFIX': DOCSHREFPREFIX,
-        'DOCSHREFSUFFIX': DOCSHREFSUFFIX,
-        'home_page': "False"
-    }
-    if extra_vars:
-        tvars.update(extra_vars)
-    
-    template = jenv.get_template(template)
-    return template.render(tvars)
+def templateRender(template_path, extra_vars=None, template_instance=None):
+  """Render a page template.
 
+  Returns: the generated page.
+  """
+  #Basic varibles configuring UI
+  tvars = {
+      'local_vars': local_vars,
+      'version': getVersion(),
+      'versiondate': getCurrentVersionDate(),
+      'sitename': SITENAME,
+      'TERMHREFPREFIX': TERMHREFPREFIX,
+      'TERMHREFSUFFIX': TERMHREFSUFFIX,
+      'DOCSHREFPREFIX': DOCSHREFPREFIX,
+      'DOCSHREFSUFFIX': DOCSHREFSUFFIX,
+      'home_page': "False"
+  }
+  if extra_vars:
+      tvars.update(extra_vars)
+
+  template = template_instance or jenv.get_template(template_path)
+  return template.render(tvars)
 
 ###################################################
 #JINJA INITIALISATION - End
 ###################################################
-###################################################
-#Comment Handling
-###################################################
-
-def StripHtmlTags(source):
-    if source and len(source) > 0:
-        return re.sub('<[^<]+?>', '', source)
-    return ""
-
-def ShortenOnSentence(source,lengthHint=250):
-    if source and len(source) > lengthHint:
-        source = source.strip()
-        sentEnd = re.compile('[.!?]')
-        sentList = sentEnd.split(source)
-        com=""
-        count = 0
-        while count < len(sentList):
-            if(count > 0 ):
-                if len(com) < len(source):
-                    com += source[len(com)]
-            com += sentList[count]
-            count += 1
-            if count == len(sentList):
-                if len(com) < len(source):
-                    com += source[len(source) - 1]
-            if len(com) > lengthHint:
-                if len(com) < len(source):
-                    com += source[len(com)]
-                break
-                
-        if len(source) > len(com) + 1:
-            com += ".."
-        source = com
-    return source
 
 #Check / create file paths
 CHECKEDPATHS =[]

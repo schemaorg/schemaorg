@@ -811,7 +811,7 @@ See also the dedicated [document on the use of schema.org for marking up hotels 
 :DataDownload a rdfs:Class ;
     rdfs:label "DataDownload" ;
     :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_DatasetClass> ;
-    rdfs:comment "A dataset in downloadable form." ;
+    rdfs:comment "All or part of a [[Dataset]] in downloadable form. " ;
     rdfs:subClassOf :MediaObject ;
     owl:equivalentClass <http://www.w3.org/ns/dcat#Distribution> .
 
@@ -2518,7 +2518,7 @@ The place is __open__ if the [[opens]] property is specified, and __closed__ oth
 
 :RegisterAction a rdfs:Class ;
     rdfs:label "RegisterAction" ;
-    rdfs:comment "The act of registering to be a user of a service, product or web page.\\n\\nRelated actions:\\n\\n* [[JoinAction]]: Unlike JoinAction, RegisterAction implies you are registering to be a user of a service, *not* a group/team of people.\\n* [FollowAction]]: Unlike FollowAction, RegisterAction doesn't imply that the agent is expecting to poll for updates from the object.\\n* [[SubscribeAction]]: Unlike SubscribeAction, RegisterAction doesn't imply that the agent is expecting updates from the object." ;
+    rdfs:comment "The act of registering to be a user of a service, product or web page.\\n\\nRelated actions:\\n\\n* [[JoinAction]]: Unlike JoinAction, RegisterAction implies you are registering to be a user of a service, *not* a group/team of people.\\n* [[FollowAction]]: Unlike FollowAction, RegisterAction doesn't imply that the agent is expecting to poll for updates from the object.\\n* [[SubscribeAction]]: Unlike SubscribeAction, RegisterAction doesn't imply that the agent is expecting updates from the object." ;
     rdfs:subClassOf :InteractAction .
 
 :RejectAction a rdfs:Class ;
@@ -3989,7 +3989,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     rdfs:label "actionPlatform" ;
     :domainIncludes :EntryPoint ;
     :rangeIncludes :Text,
-        :URL ;
+        :URL, :DigitalPlatformEnumeration ;
     rdfs:comment "The high level platform(s) where the Action can be performed for the given URL. To specify a specific application or operating system instance, use actionApplication." .
 
 :actionStatus a rdf:Property ;
@@ -4023,6 +4023,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     rdfs:label "additionalName" ;
     :domainIncludes :Person ;
     :rangeIncludes :Text ;
+    rdfs:subPropertyOf :alternateName ;
     rdfs:comment "An additional name for a Person, can be used for a middle name." .
 
 :additionalNumberOfGuests a rdf:Property ;
@@ -5432,7 +5433,7 @@ Dateline summaries are oriented more towards human readers than towards automate
 :depth a rdf:Property ;
     rdfs:label "depth" ;
     :domainIncludes :Product,
-        :VisualArtwork ;
+        :VisualArtwork, :OfferShippingDetails ;
     :rangeIncludes :Distance,
         :QuantitativeValue ;
     rdfs:comment "The depth of the item." .
@@ -5514,7 +5515,7 @@ Dateline summaries are oriented more towards human readers than towards automate
     rdfs:label "distribution" ;
     :domainIncludes :Dataset ;
     :rangeIncludes :DataDownload ;
-    rdfs:comment "A downloadable form of this dataset, at a specific location, in a specific format." .
+    rdfs:comment "A downloadable form of this dataset, at a specific location, in a specific format. This property can be repeated if different variations are available. There is no expectation that different downloadable distributions must contain exactly equivalent information (see also [DCAT](https://www.w3.org/TR/vocab-dcat-3/#Class:Distribution) on this point). Different distributions might include or exclude different subsets of the entire dataset, for example." .
 
 :doorTime a rdf:Property ;
     rdfs:label "doorTime" ;
@@ -6255,7 +6256,7 @@ Typical unit code(s): MTK for square meter, FTK for square foot, or YDK for squa
     :domainIncludes :MediaObject,
         :Person,
         :Product,
-        :VisualArtwork ;
+        :VisualArtwork, :OfferShippingDetails ;
     :rangeIncludes :Distance,
         :QuantitativeValue ;
     rdfs:comment "The height of the item." .
@@ -8848,8 +8849,9 @@ we define a supporting type, [[SpeakableSpecification]]  which is defined to be 
 :target a rdf:Property ;
     rdfs:label "target" ;
     :domainIncludes :Action ;
-    :rangeIncludes :EntryPoint ;
-    rdfs:comment "Indicates a target EntryPoint for an Action." .
+    :rangeIncludes :EntryPoint,
+        :URL ;
+    rdfs:comment "Indicates a target EntryPoint, or url, for an Action." .
 
 :targetDescription a rdf:Property ;
     rdfs:label "targetDescription" ;
@@ -9428,7 +9430,7 @@ we define a supporting type, [[SpeakableSpecification]]  which is defined to be 
 :weight a rdf:Property ;
     rdfs:label "weight" ;
     :domainIncludes :Person,
-        :Product ;
+        :Product, :OfferShippingDetails ;
     :rangeIncludes :QuantitativeValue ;
     rdfs:comment "The weight of the product or person." .
 
@@ -9436,7 +9438,7 @@ we define a supporting type, [[SpeakableSpecification]]  which is defined to be 
     rdfs:label "width" ;
     :domainIncludes :MediaObject,
         :Product,
-        :VisualArtwork ;
+        :VisualArtwork, :OfferShippingDetails ;
     :rangeIncludes :Distance,
         :QuantitativeValue ;
     rdfs:comment "The width of the item." .

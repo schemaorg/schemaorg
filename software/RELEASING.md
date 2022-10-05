@@ -90,8 +90,18 @@ Use command `./software/gcloud/deploy2schema.org.sh`
 POST-RELEASE STEPS
 ==================
 
-* Tag gitub version VXX.X-release
-* Set up versions.json file for next version - use 2020-XX-XX wildcard date until actual release date confirmed.
+* Tag gitub version vXX.X-release
+
+`git tag [tagname] [commmit code]` 
+
+eg. `git tag v14.0-release 9d691a8` Note capitalisation
+
+Then push
+`git push origin [tag name]`
+
+After push, release should be auto created and be visible on the repo home page (takes a few minutes)
+
+* Set up versions.json file for next version - use 2022-XX-XX wildcard date until actual release date confirmed.
 
 GENERAL PRE-Release conditions
 ==============================

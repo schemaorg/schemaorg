@@ -3,6 +3,7 @@ if not (sys.version_info.major == 3 and sys.version_info.minor > 5):
     print("Python version %s.%s not supported version 3.6 or above required - exiting" % (sys.version_info.major,sys.version_info.minor))
     sys.exit(1)
 import os
+import json
 import unittest
 import logging # https://docs.python.org/2/library/logging.html#logging-levels
 for path in [os.getcwd(),"software/util","software/SchemaTerms","software/SchemaExamples"]:
@@ -341,7 +342,6 @@ class SimpleCommentCountTests(unittest.TestCase):
 class BasicJSONLDTests(unittest.TestCase):
 
     def setUp(self):
-      import json
       self.ctx = None
       try:
         with open('site/docs/jsonldcontext.json') as json_file:
@@ -369,6 +369,23 @@ class BasicJSONLDTests(unittest.TestCase):
 
 #      self.assertTrue( HasMultipleBaseTypes( Unit.GetUnit("LocalBusiness") ) , "LocalBusiness is subClassOf Place + Organization." )
 
+
+class JsonExampleTests(unittest.TestCase):
+
+  def testAllExamples(self):
+    for example in SchemaExamples.allExamples():
+      with self.subTest(key=example.getKey(), file=example.getMeta("file")):
+        if not example.hasJsonld():
+          continue
+        json_source = example.getJsonldRaw()
+        if 'microdata only' in json_source:
+          continue
+        if 'No JSON-LD' in json_source:
+          continue
+        try:
+          parsed = json.loads(json_source)
+        except Exception as exception:
+          self.fail("Could not parse JSON '%s' error: %s file: %s" % (json_source, exception, example.getMeta("file")))
 
 # TODO: Unwritten tests
 #

@@ -33,7 +33,7 @@
 <p>In schema.org, an offer for a hotel room is using the same patterns as an offer for any other type of product or service, e.g. a TV set or a welding service. However, a hotel room is not a subclass of <a href= "../Product">Product</a> or <a href= "../Service">Service</a>.  To enable an offer to be described, use is made of the Multi-Typed Entity (MTE) feature of Schema.org.
 </p>
 <p>
-When defining an instance of an <a href="../Accommodation">Accommodation</a>, that is offered by a <a href="../LodgingBusiness">LodgingBusiness</a>, it is described as being both the appropriate Type for the accomodation <em>and</em> a <a href= "../Product">Product</a>.  Thus for example a <a href="../Hotel">Hotel</a> will make an <a href="../Offer">Offer</a>, or offers, for a <a href="../HotelRoom">HotelRoom</a>, that is also identified as a <a href= "../Product">Product</a>. Prices and terms and conditions are thus not properties of the hotel or hotel room, but of the offer for a certain room or room category.</p>
+When defining an instance of an <a href="../Accommodation">Accommodation</a>, that is offered by a <a href="../LodgingBusiness">LodgingBusiness</a>, it is described as being both the appropriate Type for the accommodation <em>and</em> a <a href= "../Product">Product</a>.  Thus for example a <a href="../Hotel">Hotel</a> will make an <a href="../Offer">Offer</a>, or offers, for a <a href="../HotelRoom">HotelRoom</a>, that is also identified as a <a href= "../Product">Product</a>. Prices and terms and conditions are thus not properties of the hotel or hotel room, but of the offer for a certain room or room category.</p>
 
 The markup for MTE's is very simple:
 <ul>
@@ -54,7 +54,7 @@ The markup for MTE's is very simple:
 <p>In the case of rental accommodations, it is important to attach the <a href= "../businessFunction">businessFunction</a> property with the value <a href="http://purl.org/goodrelations/v1#LeaseOut">LeaseOut</a> to the <a href="../Offer">offer</a>, unless you want to sell the property. This allows reusing and extending the same types for dwellings for real estate offers in schema.org.</p>
 <h3>Basic Model</h3>
 <p>The diagram shown below illustrates the basic pattern for describing hotel room offers and offers for other forms of accommodations.</p>
-<p>All accommodation Types are subclasses of <a href="../Place">https://schema.org/Place</a>. To use them as the subject of an offer, you should use the MTE technique of assigining your instances to be both an Accomodation subclass and a Product.  All types of lodging businesses are subclasses of <a href="../LocalBusiness">https://schema.org/LocalBusiness</a> which itself is a subclass of <a href="../Place">https://schema.org/Place</a> and <a href="../Organization">https://schema.org/Organization</a>.</p>
+<p>All accommodation Types are subclasses of <a href="../Place">https://schema.org/Place</a>. To use them as the subject of an offer, you should use the MTE technique of assigining your instances to be both an Accommodation subclass and a Product.  All types of lodging businesses are subclasses of <a href="../LocalBusiness">https://schema.org/LocalBusiness</a> which itself is a subclass of <a href="../Place">https://schema.org/Place</a> and <a href="../Organization">https://schema.org/Organization</a>.</p>
 
 <p>The relationship between an accommodation and the local business it belongs to is represented via the <a href="../containedInPlace">containedInPlace</a> (from hotel room to hotel) or <a href="../containsPlace">containsPlace</a> (from hotel to hotel room) properties. The relationship between the offer and the room included in the offer can be represented via either the <a href="../offers">offers</a> property (from the room product to the offer) or via <a href="../itemOffered">itemsOffered</a> (from the offer to the room).</p>
 <p>The relationship between the lodging business and its offers for rooms is represented via the <a href="../makesOffer">makesOffer</a> property (from the hotel to the offer) or via the <a href="../offeredBy">offeredBy</a> property (from the offer to the hotel).</p>
@@ -379,7 +379,7 @@ enjoying your morning coffee.&lt;/span&gt;
 
 <p>In many cases, however, hotel Web sites contain additional information like images and textual descriptions about room categories (like &quot;Hollywood Twin Room&quot;) or even individual rooms (in particular in the case of small, family-owned hotels). Schema.org provides support for describing rooms and linking them to the hotel. This is also needed if you want to describe actual room offers (see below).</p>
 <h3>Basic Pattern: Description and Picture</h3>
-<p>You can link the hotel to its rooms (or suites or guest appartments) via the <a href="../containsPlace">containsPlace</a> property or a room to the hotel it belongs to via the inverse <a href="../containedInPlace">containedInPlace</a>.
+<p>You can link the hotel to its rooms (or suites or guest apartments) via the <a href="../containsPlace">containsPlace</a> property or a room to the hotel it belongs to via the inverse <a href="../containedInPlace">containedInPlace</a>.
 <pre class="prettyprint lang-html linenums">
 &lt;div itemscope itemtype=&quot;https://schema.org/Hotel&quot;&gt;
   &lt;h1&gt;&lt;span itemprop=&quot;name&quot;&gt;ACME Hotel Innsbruck&lt;/span&gt;&lt;/h1&gt;
@@ -446,7 +446,7 @@ enjoying your morning coffee.&lt;/span&gt;
 
 <p><strong>Note:</strong> For modeling the fees of optional room features, you can link the <a href="../Offer">offer</a> for the room to an offer for the feature or service via the <a href="../addOn">addOn</a> property.</p>
 <h2 id="pricing">Offers and Pricing</h2>
-    <p>A key principle in schema.org is that things do not have prices, but that offers to grant you some rights on the things do have instead. Thus, all commercial aspects of a hotel offer belong to the <a href="../Offer">offer</a> type in schema.org. In the following, we show the use of relevant schema.org elements. Note the use of MTEs, asignining the accomodation instance to also be a <a href="../Product">https://schema.org/Product</a>.</p>
+    <p>A key principle in schema.org is that things do not have prices, but that offers to grant you some rights on the things do have instead. Thus, all commercial aspects of a hotel offer belong to the <a href="../Offer">offer</a> type in schema.org. In the following, we show the use of relevant schema.org elements. Note the use of MTEs, asignining the accommodation instance to also be a <a href="../Product">https://schema.org/Product</a>.</p>
     <h3>Basic Pattern</h3>
     <p><strong>Example:</strong> Single room for $ 99 per night</p>
     <pre class="prettyprint lang-html linenums">
@@ -690,7 +690,7 @@ enjoying your morning coffee.&lt;/span&gt;
 <h2 id="acks">Acknowledgments</h2>
 
 <p>Many thanks to <a href="http://www.heppnetz.de/">Martin Hepp</a> for contributing the initial version of this document, and leading the
-design of schema.org's hotel/accomodation vocabulary.</p>
+design of schema.org's hotel/accommodation vocabulary.</p>
 
 <p>The elements for describing hotels in schema.org are based on the STI Accommodation Ontology, see <a href="http://ontologies.sti-innsbruck.at/acco/ns.html">http://ontologies.sti-innsbruck.at/acco/ns.html</a> for details.
  Many class and property definitions are inspired by or based on abstracts from Wikipedia, the free encyclopedia.</p>

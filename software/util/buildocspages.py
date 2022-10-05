@@ -81,7 +81,7 @@ def homePage(page):
                 for s in t.sources:
                     if "schemaorg/issue" in s:
                         t.cat = "issue-" + os.path.basename(s)
-                        break           
+                        break
         terms.sort(key = lambda u: (u.cat,u.id))
 
         first = True
@@ -101,7 +101,7 @@ def homePage(page):
                 continue
             ttypes[t.termType].append(t)
             termcount += 1
-    
+
     sectionterms = dict(sorted(sectionterms.items()))
 
     extra_vars = {
@@ -117,7 +117,7 @@ def homePage(page):
 
 VISITLIST=[]
 class listingNode():
-    
+
     def __init__(self,term,depth=0,title="",parent=None):
         global VISITLIST
         termdesc = SdoTermSource.getTerm(term)
@@ -139,47 +139,17 @@ class listingNode():
                     self.subs.append(listingNode(enum,depth=depth+1,parent=self))
             for sub in sorted(termdesc.subs):
                 self.subs.append(listingNode(sub,depth=depth+1,parent=self))
-                
+
         else: #Visited this node before so don't parse children
             self.repeat = True
         #log.info("%s %s %s"%("  "*depth,term,len(self.subs)))
-        
-def StripHtmlTags(source):
-    if source and len(source) > 0:
-        return re.sub('<[^<]+?>', '', source)
-    return ""
 
-def ShortenOnSentence(source,lengthHint=250):
-    if source and len(source) > lengthHint:
-        source = source.strip()
-        sentEnd = re.compile('[.!?]')
-        sentList = sentEnd.split(source)
-        com=""
-        count = 0
-        while count < len(sentList):
-            if(count > 0 ):
-                if len(com) < len(source):
-                    com += source[len(com)]
-            com += sentList[count]
-            count += 1
-            if count == len(sentList):
-                if len(com) < len(source):
-                    com += source[len(source) - 1]
-            if len(com) > lengthHint:
-                if len(com) < len(source):
-                    com += source[len(com)]
-                break
-                
-        if len(source) > len(com) + 1:
-            com += ".."
-        source = com
-    return source
 
 import json
 def jsonldtree(page):
     global VISITLIST
     VISITLIST=[]
-    
+
     term = {}
     context = {}
     context['rdfs'] = "http://www.w3.org/2000/01/rdf-schema#"
@@ -206,7 +176,8 @@ def _jsonldtree(tid,term=None):
             term['rdfs:subClassOf'] = sups[0]
         else:
             term['rdfs:subClassOf'] = sups
-    term['description'] = ShortenOnSentence(StripHtmlTags(termdesc.comment))
+    term['description'] = textutils.ShortenOnSentence(
+        textutils.StripHtmlTags(termdesc.comment))
     if termdesc.pending:
         term['pending'] = True
     if termdesc.retired:
@@ -219,7 +190,7 @@ def _jsonldtree(tid,term=None):
                 subs.append(_jsonldtree(sub))
             term['children'] = subs
     return term
-    
+
 listings = None
 def fullPage(page):
     global listings
@@ -253,7 +224,7 @@ def fullReleasePage(page):
     }
     return docsTemplateRender("docs/FullRelease.j2",extra_vars)
 
-    
+
 
 PAGELIST = {"Home": (homePage,["docs/home.html"]),
              "PendingHome": (homePage,["docs/pending.home.html"]),
