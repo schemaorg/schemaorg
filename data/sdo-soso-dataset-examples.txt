@@ -1,4 +1,4 @@
-TYPES: Service, ResearchProject, Dataset
+TYPES: Dataset
 
 PRE-MARKUP:
 A example of a scientific research dataset, located in a data repository (JSON_LD only).
@@ -15,7 +15,7 @@ JSON:
 
 See https://github.com/ESIPFed/science-on-schema.org/blob/master/guides/Dataset.md for a complete guide.
 
-<script type="applicaton/ld+json">
+<script type="application/ld+json">
 {
   "@context": {
     "@vocab": "https://schema.org/"
@@ -133,9 +133,11 @@ See https://github.com/ESIPFed/science-on-schema.org/blob/master/guides/Dataset.
   },
   "isBasedOn": {
     "@id": "https://doi.org/10.xxxx/Dataset-1"
-  },
+  }
 }
 </script>
+
+TYPES: Service, ResearchProject
 
 PRE-MARKUP:
 
@@ -266,53 +268,53 @@ See https://github.com/ESIPFed/science-on-schema.org/blob/master/guides/DataRepo
           "url": "https://doi.org/10.13039/100000001"
         }
       }
-    },
-    "availableChannel": [
-      {
-        "@type": "ServiceChannel",
-        "serviceUrl": "https://www.sample-data-repository.org/search",
-        "providesService": {
-          "@type": "Service",
-          "name": "SDRO Website Search",
-          "description": "Search for webpages, datasets, authors, funding awards, instrumentation and measurements",
-          "potentialAction": {
-            "@type": "SearchAction",
-            "target": "https://www.sample-data-repository.org/search?keywords={query_string}",
-            "query-input": {
-              "@type": "PropertyValueSpecification",
-              "valueRequired": true,
-              "valueName": "query_string"
-            }
+    }
+  },
+  "availableChannel": [
+    {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.sample-data-repository.org/search",
+      "providesService": {
+        "@type": "Service",
+        "name": "SDRO Website Search",
+        "description": "Search for webpages, datasets, authors, funding awards, instrumentation and measurements",
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": "https://www.sample-data-repository.org/search?keywords={query_string}",
+          "query-input": {
+            "@type": "PropertyValueSpecification",
+            "valueRequired": true,
+            "valueName": "query_string"
           }
         }
       }
-    ],
-    "hasOfferCatalog": {
-      "@type": "OfferCatalog",
-      "name": "Sample Data Repository Resource Catalog",
-      "itemListElement": [
-        {
-          "@type": "DataCatalog",
-          "@id": "https://www.sample-data-repository.org/collection/biological-data",
-          "name": "Biological Data",
-          "audience": {
-            "@type": "Audience",
-            "audienceType": "public",
-            "name": "General Public"
-          }
-        },
-        {
-          "@type": "DataCatalog",
-          "@id": "https://www.sample-data-repository.org/collection/geological-data",
-          "name": "Geological Data",
-          "audience": {
-            "@type": "Audience",
-            "audienceType": "public",
-            "name": "General Public"
-          }
-        }
-      ]
     }
+  ],
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Sample Data Repository Resource Catalog",
+    "itemListElement": [
+      {
+        "@type": "DataCatalog",
+        "@id": "https://www.sample-data-repository.org/collection/biological-data",
+        "name": "Biological Data",
+        "audience": {
+          "@type": "Audience",
+          "audienceType": "public",
+          "name": "General Public"
+        }
+      },
+      {
+        "@type": "DataCatalog",
+        "@id": "https://www.sample-data-repository.org/collection/geological-data",
+        "name": "Geological Data",
+        "audience": {
+          "@type": "Audience",
+          "audienceType": "public",
+          "name": "General Public"
+        }
+      }
+    ]
   }
 }
 </script>
