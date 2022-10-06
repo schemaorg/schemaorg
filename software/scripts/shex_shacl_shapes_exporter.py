@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: UTF-8 -*-
 
+import argparse
 import json
 import rdflib
 from rdflib import Graph
@@ -181,13 +182,32 @@ class ShaclParser:
 
 
 if __name__ == '__main__':
-    term_defs_path = input('.nt terms definitions path: ')
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-s","--sourcefile", help="rdf format source file")
+    parser.add_argument("-f","--format", default="nt", help="source file format (default: .nt)")
+    parser.add_argument("-o","--outputdir", help="output directory (default: ./)")
+    parser.add_argument("-p","--outputfileprefix", default="", help="output files prefix")
+    args = parser.parse_args()
+
+    if args.sourcefile:
+        term_defs_path = args.sourcefile
+    else:
+        term_defs_path = input('.nt terms definitions path: ')
     term_defs = open(term_defs_path).read()
-    g = Graph().parse(data=term_defs, format='nt')
+    g = Graph().parse(data=term_defs, format=args.format)
     g.bind('schema', SCHEMA)
     shexj = ShExJParser().to_shex(g)
-    open('res.shexj', 'w',encoding='utf8').write(shexj)
+    fn='%s/%sshapes.shexj' % (args.outputdir,args.outputfileprefix)
+    open(fn, 'w',encoding='utf8').write(shexj)
+    print("Created %s" % fn)
+
     shacl = ShaclParser().to_shacl(g)
-    open('res.shacl', 'w',encoding='utf8').write(shacl)
+    fn = '%s/%sshapes.shacl' % (args.outputdir,args.outputfileprefix)
+    open(fn, 'w',encoding='utf8').write(shacl)
+    print("Created %s" % fn)
+
     subclasses_tree = ShaclParser().get_subclasses(g)
-    open('subclasses.shacl', 'w',encoding='utf8').write(subclasses_tree)
+    fn='%s/%ssubclasses.shacl' % (args.outputdir,args.outputfileprefix)
+    open(fn, 'w',encoding='utf8').write(subclasses_tree)
+    print("Created %s" % fn)
+

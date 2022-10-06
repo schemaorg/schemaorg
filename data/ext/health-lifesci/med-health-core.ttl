@@ -80,7 +80,7 @@
     rdfs:label "DietarySupplement" ;
     :isPartOf <https://health-lifesci.schema.org> ;
     rdfs:comment "A product taken by mouth that contains a dietary ingredient intended to supplement the diet. Dietary ingredients may include vitamins, minerals, herbs or other botanicals, amino acids, and substances such as enzymes, organ tissues, glandulars and metabolites." ;
-    rdfs:subClassOf :Substance .
+    rdfs:subClassOf :Substance, :Product .
 
 :DoseSchedule a rdfs:Class ;
     rdfs:label "DoseSchedule" ;
@@ -92,7 +92,7 @@
     rdfs:label "Drug" ;
     :isPartOf <https://health-lifesci.schema.org> ;
     rdfs:comment "A chemical or biologic substance, used as a medical therapy, that has a physiological effect on an organism. Here the term drug is used interchangeably with the term medicine although clinical knowledge makes a clear difference between them." ;
-    rdfs:subClassOf :Substance ;
+    rdfs:subClassOf :Substance, :Product ;
     owl:equivalentClass <http://purl.bioontology.org/ontology/SNOMEDCT/410942007> .
 
 :DrugClass a rdfs:Class ;
@@ -1785,10 +1785,6 @@
         :MedicalEnumeration,
         :Text ;
     rdfs:comment "The drug or supplement's legal status, including any controlled substance schedules that apply." .
-
-:manufacturer a rdf:Property ;
-    :domainIncludes :DietarySupplement,
-        :Drug .
 
 :maximumIntake a rdf:Property ;
     rdfs:label "maximumIntake" ;

@@ -811,7 +811,7 @@ See also the dedicated [document on the use of schema.org for marking up hotels 
 :DataDownload a rdfs:Class ;
     rdfs:label "DataDownload" ;
     :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_DatasetClass> ;
-    rdfs:comment "A dataset in downloadable form." ;
+    rdfs:comment "All or part of a [[Dataset]] in downloadable form. " ;
     rdfs:subClassOf :MediaObject ;
     owl:equivalentClass <http://www.w3.org/ns/dcat#Distribution> .
 
@@ -4023,6 +4023,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     rdfs:label "additionalName" ;
     :domainIncludes :Person ;
     :rangeIncludes :Text ;
+    rdfs:subPropertyOf :alternateName ;
     rdfs:comment "An additional name for a Person, can be used for a middle name." .
 
 :additionalNumberOfGuests a rdf:Property ;
@@ -5432,7 +5433,7 @@ Dateline summaries are oriented more towards human readers than towards automate
 :depth a rdf:Property ;
     rdfs:label "depth" ;
     :domainIncludes :Product,
-        :VisualArtwork ;
+        :VisualArtwork, :OfferShippingDetails ;
     :rangeIncludes :Distance,
         :QuantitativeValue ;
     rdfs:comment "The depth of the item." .
@@ -5514,7 +5515,7 @@ Dateline summaries are oriented more towards human readers than towards automate
     rdfs:label "distribution" ;
     :domainIncludes :Dataset ;
     :rangeIncludes :DataDownload ;
-    rdfs:comment "A downloadable form of this dataset, at a specific location, in a specific format." .
+    rdfs:comment "A downloadable form of this dataset, at a specific location, in a specific format. This property can be repeated if different variations are available. There is no expectation that different downloadable distributions must contain exactly equivalent information (see also [DCAT](https://www.w3.org/TR/vocab-dcat-3/#Class:Distribution) on this point). Different distributions might include or exclude different subsets of the entire dataset, for example." .
 
 :doorTime a rdf:Property ;
     rdfs:label "doorTime" ;
@@ -5855,7 +5856,8 @@ This property should not be used where the nature of the alignment can be descri
 :expires a rdf:Property ;
     rdfs:label "expires" ;
     :domainIncludes :CreativeWork ;
-    :rangeIncludes :Date ;
+    :rangeIncludes :Date,
+         :DateTime;
     rdfs:comment "Date the content expires and is no longer useful or available. For example a [[VideoObject]] or [[NewsArticle]] whose availability or relevance is time-limited, or a [[ClaimReview]] fact check whose publisher wants to indicate that it may no longer be relevant (or helpful to highlight) after some date." .
 
 :familyName a rdf:Property ;
@@ -6255,7 +6257,7 @@ Typical unit code(s): MTK for square meter, FTK for square foot, or YDK for squa
     :domainIncludes :MediaObject,
         :Person,
         :Product,
-        :VisualArtwork ;
+        :VisualArtwork, :OfferShippingDetails ;
     :rangeIncludes :Distance,
         :QuantitativeValue ;
     rdfs:comment "The height of the item." .
@@ -6270,8 +6272,9 @@ Typical unit code(s): MTK for square meter, FTK for square foot, or YDK for squa
 :hiringOrganization a rdf:Property ;
     rdfs:label "hiringOrganization" ;
     :domainIncludes :JobPosting ;
-    :rangeIncludes :Organization ;
-    rdfs:comment "Organization offering the job position." .
+    :rangeIncludes :Organization,
+         :Person;
+    rdfs:comment "Organization or Person offering the job position." .
 
 :homeLocation a rdf:Property ;
     rdfs:label "homeLocation" ;
@@ -8848,8 +8851,9 @@ we define a supporting type, [[SpeakableSpecification]]  which is defined to be 
 :target a rdf:Property ;
     rdfs:label "target" ;
     :domainIncludes :Action ;
-    :rangeIncludes :EntryPoint ;
-    rdfs:comment "Indicates a target EntryPoint for an Action." .
+    :rangeIncludes :EntryPoint,
+        :URL ;
+    rdfs:comment "Indicates a target EntryPoint, or url, for an Action." .
 
 :targetDescription a rdf:Property ;
     rdfs:label "targetDescription" ;
@@ -9428,7 +9432,7 @@ we define a supporting type, [[SpeakableSpecification]]  which is defined to be 
 :weight a rdf:Property ;
     rdfs:label "weight" ;
     :domainIncludes :Person,
-        :Product ;
+        :Product, :OfferShippingDetails ;
     :rangeIncludes :QuantitativeValue ;
     rdfs:comment "The weight of the product or person." .
 
@@ -9436,7 +9440,7 @@ we define a supporting type, [[SpeakableSpecification]]  which is defined to be 
     rdfs:label "width" ;
     :domainIncludes :MediaObject,
         :Product,
-        :VisualArtwork ;
+        :VisualArtwork, :OfferShippingDetails ;
     :rangeIncludes :Distance,
         :QuantitativeValue ;
     rdfs:comment "The width of the item." .
