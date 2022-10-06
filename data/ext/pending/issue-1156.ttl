@@ -49,7 +49,7 @@
     :isPartOf <https://pending.schema.org> ;
     :source <http://publications.europa.eu/mdr/eli/index.html>,
         <https://github.com/schemaorg/schemaorg/issues/1156> ;
-    rdfs:comment "Indicates that the publisher gives some special status to the publication of the document. (\"The Queens Printer\" version of a UK Act of Parliament, or the PDF version of a Directive published by the EU Office of Publications). Something \"Authoritative\" is considered to be also [[OfficialLegalValue]]\"." ;
+    rdfs:comment "Indicates that the publisher gives some special status to the publication of the document. (\"The Queens Printer\" version of a UK Act of Parliament, or the PDF version of a Directive published by the EU Office of Publications.) Something \"Authoritative\" is considered to be also [[OfficialLegalValue]]." ;
     skos:exactMatch <http://data.europa.eu/eli/ontology#LegalValue-authoritative> .
 
 :DefinitiveLegalValue a :LegalValueLevel ;
@@ -57,7 +57,7 @@
     :isPartOf <https://pending.schema.org> ;
     :source <http://publications.europa.eu/mdr/eli/index.html>,
         <https://github.com/schemaorg/schemaorg/issues/1156> ;
-    rdfs:comment """Indicates a document for which the text is conclusively what the law says and is legally binding. (e.g. The digitally signed version of an Official Journal.)
+    rdfs:comment """Indicates a document for which the text is conclusively what the law says and is legally binding. (E.g. the digitally signed version of an Official Journal.)
   Something "Definitive" is considered to be also [[AuthoritativeLegalValue]].""" ;
     skos:exactMatch <http://data.europa.eu/eli/ontology#LegalValue-definitive> .
 
@@ -82,7 +82,7 @@
     :isPartOf <https://pending.schema.org> ;
     :source <http://publications.europa.eu/mdr/eli/index.html>,
         <https://github.com/schemaorg/schemaorg/issues/1156> ;
-    rdfs:comment "All the documents published by an official publisher should have at least the legal value level \"OfficialLegalValue\". This indicates that the document was published by an organisation with the public task of making it available (e.g. a consolidated version of a EU directive published by the EU Office of Publications)." ;
+    rdfs:comment "All the documents published by an official publisher should have at least the legal value level \"OfficialLegalValue\". This indicates that the document was published by an organisation with the public task of making it available (e.g. a consolidated version of an EU directive published by the EU Office of Publications)." ;
     skos:exactMatch <http://data.europa.eu/eli/ontology#LegalValue-official> .
 
 :PartiallyInForce a :LegalForceStatus ;
@@ -142,7 +142,7 @@
     :rangeIncludes :Date ;
     :source <http://publications.europa.eu/mdr/eli/index.html>,
         <https://github.com/schemaorg/schemaorg/issues/1156> ;
-    rdfs:comment "The point-in-time at which the provided description of the legislation is valid (e.g. : when looking at the law on the 2016-04-07 (= dateVersion), I get the consolidation of 2015-04-12 of the \"National Insurance Contributions Act 2015\")" ;
+    rdfs:comment "The point-in-time at which the provided description of the legislation is valid (e.g.: when looking at the law on the 2016-04-07 (= dateVersion), I get the consolidation of 2015-04-12 of the \"National Insurance Contributions Act 2015\")" ;
     owl:equivalentProperty <http://data.europa.eu/eli/ontology#version_date> ;
     skos:exactMatch <http://data.europa.eu/eli/ontology#version_date> .
 
@@ -201,7 +201,7 @@
         :Person ;
     :source <http://publications.europa.eu/mdr/eli/index.html>,
         <https://github.com/schemaorg/schemaorg/issues/1156> ;
-    rdfs:comment "The person or organization that originally passed or made the law : typically parliament (for primary legislation) or government (for secondary legislation). This indicates the \"legal author\" of the law, as opposed to its physical author." ;
+    rdfs:comment "The person or organization that originally passed or made the law: typically parliament (for primary legislation) or government (for secondary legislation). This indicates the \"legal author\" of the law, as opposed to its physical author." ;
     rdfs:subPropertyOf :creator ;
     owl:equivalentProperty <http://data.europa.eu/eli/ontology#passed_by> ;
     skos:exactMatch <http://data.europa.eu/eli/ontology#passed_by> .

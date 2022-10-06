@@ -95,7 +95,7 @@ schema:taxonomicRange
   a rdf:Property ;
   schema:isPartOf <https://pending.schema.org> ;
   rdfs:label "taxonomicRange" ;
-  rdfs:comment "The taxonomic grouping of the organism that expresses, encodes, or in someway related to the BioChemEntity." ;
+  rdfs:comment "The taxonomic grouping of the organism that expresses, encodes, or in some way related to the BioChemEntity." ;
   schema:domainIncludes schema:BioChemEntity ;
   schema:rangeIncludes schema:Taxon, schema:Text, schema:URL, schema:DefinedTerm ;
   dc:source <http://www.bioschemas.org> .
@@ -226,7 +226,7 @@ schema:potentialUse
     a rdf:Property ;
     schema:isPartOf <https://pending.schema.org> ;
     rdfs:label "hasBioPolymerSequence" ;
-    rdfs:comment "A symbolic representation of a BioChemEnity. For example, a nucleotide sequence of a Gene or an amino acid sequence of a Protein." ;
+    rdfs:comment "A symbolic representation of a BioChemEntity. For example, a nucleotide sequence of a Gene or an amino acid sequence of a Protein." ;
     rdfs:subPropertyOf schema:hasRepresentation ;
     schema:domainIncludes schema:Gene, schema:Protein ;
     schema:rangeIncludes schema:Text ;
@@ -304,7 +304,7 @@ schema:monoisotopicMolecularWeight
   a rdf:Property ;
   schema:isPartOf <https://pending.schema.org> ;
   rdfs:label "monoisotopicMolecularWeight" ;
-  rdfs:comment "The monoisotopic mass is the sum of the masses of the atoms in a molecule using the unbound, ground-state, rest mass of the principal (most abundant) isotope for each element instead of the isotopic average mass. Please include the units the form '&lt;Number&gt; &lt;unit&gt;', for example '770.230488 g/mol' or as '&lt;QuantitativeValue&gt;." ;
+  rdfs:comment "The monoisotopic mass is the sum of the masses of the atoms in a molecule using the unbound, ground-state, rest mass of the principal (most abundant) isotope for each element instead of the isotopic average mass. Please include the units in the form '&lt;Number&gt; &lt;unit&gt;', for example '770.230488 g/mol' or as '&lt;QuantitativeValue&gt;." ;
   schema:domainIncludes schema:MolecularEntity ;
   schema:rangeIncludes schema:Text, schema:QuantitativeValue ;
   dc:source <http://www.bioschemas.org/MolecularEntity> .
@@ -373,7 +373,7 @@ schema:taxonRank
   a rdf:Property ;
   schema:isPartOf <https://pending.schema.org> ;
   rdfs:label "taxonRank" ;
-  rdfs:comment "The taxonomic rank of this taxon given preferably as a URI from a controlled vocabulary – (typically the ranks from TDWG TaxonRank ontology or equivalent Wikidata URIs)." ;
+  rdfs:comment "The taxonomic rank of this taxon given preferably as a URI from a controlled vocabulary – typically the ranks from TDWG TaxonRank ontology or equivalent Wikidata URIs." ;
   schema:domainIncludes schema:Taxon ;
   schema:rangeIncludes schema:PropertyValue, schema:Text, schema:URL ;
   dc:source <http://www.bioschemas.org/Taxon> .
