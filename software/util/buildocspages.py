@@ -244,7 +244,8 @@ def contributors(page):
         createContributor(cont)
 
     extra_vars = {
-        'contributors': conts
+        'contributors': conts,
+        'title': 'Contributors'
     }
     return docsTemplateRender("docs/Contributors.j2",extra_vars)
 
@@ -253,6 +254,7 @@ def createContributor(cont):
 
     extra_vars = {
         'cont': cont,
+        'title': cont.title,
         'terms': terms,
         'termcount': termcount
     }
