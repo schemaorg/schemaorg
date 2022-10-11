@@ -113,7 +113,8 @@ class ShExJParser:
         :param source: source rdflib graph
         :return: string representation of ShExJ constraints
         """
-        shapes: set[URIRef] = set(source.subjects(RDF['type'], RDFS['Class']))
+        shapes: list[URIRef] = list(source.subjects(RDF['type'], RDFS['Class']))
+        shapes.sort(key=lambda u: str(u))
         top_level_datatypes: Generator[Node, None, None] = g.subjects(RDF.type, SCHEMA.DataType)
         all_datatypes: set[URIRef] = {URIRef(SCHEMA.DataType)}
         all_datatypes.update(self.chase_subclasses(source, top_level_datatypes))
@@ -121,7 +122,7 @@ class ShExJParser:
         shex = {'type': 'Schema', 'shapes': []}
         for shape in shapes:
             shex['shapes'].append(self.parse_shape(source, shape, shape in all_datatypes))
-        return json.dumps(shex)
+        return '{ "type": "Schema", "shapes": [\n' + ',\n'.join(map(lambda decl: json.dumps(decl), shex['shapes'])) + "\n]}\n"
 
     def chase_subclasses(self, source: Graph, terms: Generator[Node, None, None]) -> set[URIRef]:
         ret: set[URIRef] = set()
