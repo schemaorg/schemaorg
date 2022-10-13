@@ -6,20 +6,20 @@
 <body>
     {% include 'PageHeader.j2' with context %}
     <div id="mainContent">
-        <div class="contributor_breadcrumb">
-        <a href="/docs/contributors.html">Contributors</a> &gt; <a href="{{cont.code}}.html">{{cont.code}}</a>
+        <div class="collab_breadcrumb">
+        <a href="/docs/collaborators.html">Collaborators</a> &gt; <a href="{{coll.code}}.html">{{coll.title}}</a>
         </div>
-        <div class="contributor_title">
-            <h1>{{cont.title}}</h1>
-            {% if cont.url %}<a class="contributor_url" href="{{cont.url}}">{{cont.url}}</a>{% endif %}
+        <div class="collab_title">
+            <h1>{{coll.title}}</h1>
+            {% if coll.url %}<a class="collab_url" href="{{coll.url}}">{{coll.url}}</a>{% endif %}
         </div>
-        <div class="contributor_img">{% if cont.img %}<img src={{cont.img}}>{% endif %}</div>
-        <p class="contributor_intro">
-        <span style="font-weight: bold;">{{cont.title}}</span> has contributed to the development, evolution and enhancement of {{termcount}} term(s) in the Schema.org vocabulary.
-        That contribution is acknowledged on the relevant term definition pages in the following way:
+        <div class="collab_img">{% if coll.img %}<img src={{coll.img}}>{% endif %}</div>
+        <p class="collab_intro">
+        <span style="font-weight: bold;">{{coll.title}}</span> has contributed to the development, evolution and enhancement of {{termcount}} term(s) in the Schema.org vocabulary.
+        That collribution is acknowledged on the relevant term definition pages in the following way:
 
-        <p class="contributor_desc">
-        {{cont.desc|safe}}
+        <p class="collab_desc">
+        {{coll.desc|safe}}
         </p>
 
  {% for c in terms %}

@@ -234,33 +234,34 @@ def fullReleasePage(page):
     }
     return docsTemplateRender("docs/FullRelease.j2",extra_vars)
 
-def contributors(page):
-    conts = contributor.contributors()
-    #for c in conts:
-    #    print(c)
-    conts = sorted(conts, key=lambda t: t.title)
+def collabs(page):
+    colls = contributor.contributors()
 
-    for cont in conts:
-        createContributor(cont)
+    #TODO Handle collaborators that are not contributors
+
+    colls = sorted(colls, key=lambda t: t.title)
+
+    for coll in colls:
+        createCollab(coll)
 
     extra_vars = {
-        'contributors': conts,
-        'title': 'Contributors'
+        'collaborators': colls,
+        'title': 'Collaborators'
     }
-    return docsTemplateRender("docs/Contributors.j2",extra_vars)
+    return docsTemplateRender("docs/Collabs.j2",extra_vars)
 
-def createContributor(cont):
-    terms, termcount = buildTermCatList(cont.getTerms())
+def createCollab(coll):
+    terms, termcount = buildTermCatList(coll.getTerms())
 
     extra_vars = {
-        'cont': cont,
-        'title': cont.title,
+        'coll': coll,
+        'title': coll.title,
         'terms': terms,
         'termcount': termcount
     }
 
-    content = docsTemplateRender("docs/Contributor.j2",extra_vars)
-    filename = "docs/contributors/" + cont.code + ".html"
+    content = docsTemplateRender("docs/Collab.j2",extra_vars)
+    filename = "docs/collab/" + coll.code + ".html"
     fn = fileName(filename)
     f = open(fn,"w", encoding='utf8')
     f.write(content)
@@ -278,7 +279,7 @@ PAGELIST = {"Home": (homePage,["docs/home.html"]),
              "Full": (fullPage,["docs/full.html"]),
              "FullOrig": (fullPage,["docs/full.orig.html"]),
              "FullRelease": (fullReleasePage,["docs/fullrelease.html","releases/%s/schema-all.html" % getVersion()]),
-             "Contributors": (contributors,["docs/contributors.html"]),
+             "Collabs": (collabs,["docs/collaborators.html"]),
              "Tree": (jsonldtree,["docs/tree.jsonld"])
          }
 

@@ -1273,7 +1273,7 @@ class contributor():
     def createContributor(ref):
         code = os.path.basename(ref)
         cont = None
-        file="data/contributors/%s.md" % code
+        file="data/collab/%s.md" % code
         try:
             with open(file,'r') as f:
                 desc = f.read()
