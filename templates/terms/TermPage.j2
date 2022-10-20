@@ -12,7 +12,6 @@
 <body>
     {% include 'PageHeader.j2' with context %}
     <div id="mainContent">
-    <!-- HELLO -->
 	    {% include 'terms/JumpMenu.j2' with context %}
 	    {% include 'terms/InfoBlock.j2' with context %}
     	
@@ -27,28 +26,29 @@
         {% if term.termType == "Property" %}
             {% if term.inverse %}
             <p>Inverse-property: {{ sdotermlink(term.inverse)|safe }}</p>
+            <br/>
             {% endif %}
             
-            <table class="definition-table jumptarget" id="values" title="Values">
-                <thead><tr><th>Values expected to be one of these types</th></tr></thead>
-                <tr><td><code>
+            <div class="jumptarget" id="values" title="Values">
+                <h4>Values expected to be one of these types</h4>
+                <code><ul>
                 {% for type in term.rangeIncludes %}
                     {% if not type.retired and not type.superseded %}
-                        {{ sdotermlink(type)|safe }}{% if not loop.last %}<br/>{% endif %}
+                        <li>{{ sdotermlink(type)|safe }}</li>
                     {% endif %}
                 {% endfor %}
-                </code></td></tr>
-            </table>
-            <table class="definition- jumptarget" id="types" title="Used on">
-                <thead><tr><th>Used on these types</th></tr></thead>
-                <tr><td><code>
+                </code></ul>
+            </div>
+            <div class="jumptarget" id="types" title="Used on">
+                <h4>Used on these types</h4>
+                <code><ul>
                 {% for type in term.domainIncludes %}
                     {% if not type.retired and not type.superseded %}
-                        {{ sdotermlink(type)|safe }}{% if not loop.last %}<br/>{% endif %}
+                        <li>{{ sdotermlink(type)|safe }}</li>
                     {% endif %}
                 {% endfor %}
-                </code></td></tr>
-            </table>
+                </code></ul>
+            </div>
         {% endif %}
         	
 		{% if term.termType == "Enumeration" %}

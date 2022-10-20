@@ -3,7 +3,7 @@
 {% if examples|length > 0 %}
 <div id="examplespannel" class="jumptarget" title="Examples">
 {% for ex in examples %}
-{% if loop.first %}<b><a  id="examples" title="Link: #examples" href="#examples" class="clickableAnchor"  >Examples</a></b><br/>{% endif %}
+{% if loop.first %}<h4><a  id="examples" title="Link: #examples" href="#examples" class="clickableAnchor"  >Examples</a></h4>{% endif %}
 
 <div class="example-head">
         <a  id="{{ex.getKey()}}" title="Link: #{{ex.getKey()}}" href="#{{ex.getKey()}}" class="clickableAnchor" >Example {{loop.index}}</a>			<div class="tooltip">	

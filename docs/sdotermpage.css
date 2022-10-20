@@ -5,46 +5,51 @@
   .new    { color: #660003; } /* itemscope, itemtype, etc,. */
   .curl   { color: #080;    } /* new url                    */
 
-table.definition-table {
+.definition-table {
   width: 100%;
-  border-spacing: 3px;
-  border-collapse: separate;
+  display: block;
   margin: 1em 0 0 0;
+  padding: 2px;
   border: 1px solid #98A0A6;
+  box-shadow: 2px 2px lightgrey;
   border-radius: 7px;
 }
-.definition-table thead th
-{
-  background: #C7CBCE;
-  border-radius: 4px 4px 0 0;
+
+.definition-table .table {
+  display: table;
+  border-collapse: collapse;
+  background-color: white;
+  width: 100%;
+}
+.definition-table .table-body {
+  display: table-row-group;
 }
 
-.definition-table th
-{
-text-align: left;
-background: #C7CBCE;
-padding-left: 5px;
+.definition-table .table>.table-row:nth-last-of-type(odd){
+  background-color: ivory;
 }
 
-.definition-table td
-{
-padding: 0 5px 2px 5px;
-margin: 0;
-vertical-align: top;
+.definition-table .table-row {
+  display: table-row;
 }
-.definition-table td p
-{
-padding: 0 0 .6em 0;
-margin: 0;
+.definition-table .table-cell {
+  display: table-cell;
 }
-.definition-table td ul
-{
-padding-top: 0;
-margin-top: 0;
+.definition-table .cell-inner {
+  display: block;
+  padding: 4px 3px 6px 3px;
 }
-.definition-table tr.alt
-{
-background: #E9EAEB;
+.definition-table .prop-ect {
+  text-align: center;
+}
+.prop-row-first > .prop-nam, .prop-row-rest > .prop-nam{
+  border-bottom: 1px solid lightgrey;
+}
+.prop-row-first > .prop-ect, .prop-row-rest > .prop-ect{
+  border-bottom: 1px solid lightgrey;
+}
+.prop-row-first > .prop-desc, .prop-row-rest > .prop-desc{
+  border-bottom: 1px solid lightgrey;
 }
 
 .supertype-name {
@@ -52,7 +57,7 @@ background: #E9EAEB;
   width: -moz-available;          /* WebKit-based browsers will ignore this. */
   width: -webkit-fill-available;  /* Mozilla-based browsers will ignore this. */
   width: fill-available;
-  background-color: #dde0e2;
+  background-color: #C7CBCE;
 }
 
 .tabletop {
@@ -65,56 +70,75 @@ background: #E9EAEB;
   border-radius: 0 4px 0 0;
 }
 
-.props-hdr {
-  background-color: #eeeeee;
-  color: slategray;
+.definition-table .table>.table-row.props-hdr {
   width: 100%;
+  background-color: #eeeeee;!important
 }
-table.definition-table .props-hdr-nam {
-  text-align: center;
-  width:25%;
+.definition-table .props-hdr-nam {
+  background-color: transparent;
+  color: slategray;
 }
-table.definition-table .props-hdr-ect {
+.definition-table .props-hdr-ect {
+  background-color: transparent;
+  color: slategray;
+  border-left: 2px solid white;
   text-align: center;
 }
-table.definition-table .props-hdr-desc {
-  text-align: center;
+.definition-table .props-hdr-desc {
+  background-color: transparent;
+  color: slategray;
+  border-left: 2px solid white;
 }
 
 @media all and (max-width: 750px) {
-  table.definition-table th, table.definition-table td {
-    display: inline-block;
+  .definition-table .table {
+    display: block;
   }
-  table.definition-table br {
-    display: none;
-  }
-  table.definition-table .props-hdr-nam {
-    text-align: center;
-    width:30%;
-  }
-  table.definition-table .props-hdr-ect {
+  
+  .definition-table .props-hdr-ect {
     width:30%;
     text-align: left;
   }
-  table.definition-table .props-hdr-desc {
+  .prop-row-first > .prop-nam,.prop-row-first > .prop-ect, 
+  .prop-row-rest > .prop-nam,.prop-row-rest > .prop-ect {
+      border-bottom: 0;
+  }
+  .prop-row-rest > .prop-desc, .prop-row-first > .prop-desc {
+    border-bottom: 1px solid lightgrey;
+  }
+
+  .definition-table .table-row {
+    display:block
+  }
+  
+  .definition-table .prop-nam,.definition-table .props-hdr-nam {
+    display:inline-block;
+    min-width: 49%;
+    margin-left: 2px;
+  }
+  .definition-table .prop-ect,.definition-table .props-hdr-ect {
+    display: inline-block;
+    width: 46%;
+    padding-left: 10px;
+    text-align: left;
+  }
+  .definition-table .props-hdr-desc {
     display: none;
   }
-  .prop-row-first {
+
+  .definition-table .prop-ect br {
+    display: none;
+  }
+  .definition-table .prop-desc {
+    display: inline-block;
     width: 100%;
   }
-  .prop-row-rest {
-    border-top: 1px solid lightgrey;
-    display:inline-block;
-    padding-top: 4px;
-    width: 100%;
+
+  .incoming-hdr {
+    margin-top: 2em;
+    text-align: center;
   }
-  table.definition-table .prop-nam {
-    min-width: 30%;
-  }
-  table.definition-table .prop-ect {
-    max-width: 65%;
-    padding-left: 10px;
-  }
+  
 }
 
 #morecheck {
@@ -123,19 +147,26 @@ table.definition-table .props-hdr-desc {
   
 #morecheck:checked + div { display: none; }
 
-
+#jump {
+  display: block;
+  position:fixed;
+  width: 100%;
+  max-width: 960px;
+  z-index: 100;
+}
 #jumpmenu {
-  position: fixed;
+  position: relative;
   display: block;
   width: auto;
   height: auto;
+  margin-right: 5px;
   padding: 3px;
   border-radius: 7px;
   border: 1px solid;
   text-align: center;
   box-shadow: 2px 2px lightgrey;
   background-color: #eeeeee;
-  z-index: 100;
+  float: right;
 }
 
 
@@ -156,7 +187,7 @@ table.definition-table .props-hdr-desc {
   padding: 2px 2px 1px 0;
 }
 
-@media only screen and (min-width: 1275px){
+/*@media only screen and (min-width: 1275px){
   #jumpmenu {
     margin-left: 980px;  
     margin-top: 5px;
@@ -165,7 +196,8 @@ table.definition-table .props-hdr-desc {
     display: none;
   }
 }
-@media only screen and (max-width: 1275px){
+*/
+/*@media only screen and (max-width: 1275px){*/
   #jumpmenu {
     right: 10px;
     top: auto;
@@ -195,7 +227,7 @@ table.definition-table .props-hdr-desc {
   #jumpmenu.jumpclosed #jumpselections {
     display: none;
   }
-}
+/*}*/
 
 
 .ackblock {
@@ -272,6 +304,7 @@ table.definition-table .props-hdr-desc {
     color: #202020 !important;
     border: 1px solid #ccc;
     border-bottom: 1px solid #fff !important;
+    box-shadow: 1px 0 lightgray
   }
   #mainContent .ds-selector-tabs .selectors a:hover {
     background-color: transparent;
@@ -293,7 +326,9 @@ table.definition-table .props-hdr-desc {
 
 .ds-tab pre.ds-tab-content{
   display: block;
-  margin-top: 1px;
+  border-radius: 7px;
+  box-shadow: 2px 2px lightgrey;
+  margin-top: 2px;
 }
 
 div.ds-tab-note{

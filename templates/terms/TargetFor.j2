@@ -1,25 +1,29 @@
 {% for prop in term.expectedTypeFor %}
   {% if loop.first %}
-	<br/><div id="incoming" class="jumptarget" title="Value for">Instances of {{ sdotermlink(term.id)|safe}} {{INSERT}} may appear as a value for the following properties</div>
-	<table class="definition-table">
-          <tr class="props-hdr">
-            <td class="props-hdr-nam tabletop-left">Property</td>
-            <td class="props-hdr-ect table-top-center">On Types</td>
-            <td class="props-hdr-desc tabletop-right">Description</td></tr>
+	<br/><div id="incoming" class="jumptarget incoming-hdr" title="Value for"><h4>Value for</h4>Instances of {{ sdotermlink(term.id)|safe}} {{INSERT}} may appear as a value for the following properties</div>
+	<div class="definition-table">
+    <div class="table">
+        <div class="table-row props-hdr tabletop">
+            <div class="table-cell props-hdr-nam tabletop-left"><div class="cell-inner">Property</div></div>
+            <div class="table-cell props-hdr-ect table-top-center"><div class="cell-inner">On Types</div></div>
+            <div class="table-cell props-hdr-desc tabletop-right"><div class="cell-inner">Description</div></div>
+        </div>
+        <div class="table-row prop-row-first">
 
-  {% endif %}
-    {% if loop.first %}
-        <tr class="prop-row-first">
+    {% elif loop.last %}
+        <div class="table-row prop-row-last">
     {% else %}
-        <tr class="prop-row-rest">
+        <div class="table-row prop-row-rest">
     {% endif %}
 
-      <th class="prop-nam">{{ sdotermlink(prop.id)|safe}}</th>
-      <td class="prop-ect">{% for ect in prop.domainIncludes %}{% if not loop.first %}&nbsp; or <br/>{% endif %}{{ sdotermlink(ect)|safe}}{% endfor %}</td>
-      <td class="prop-desc">{{ prop.comment | safe}}
-  </tr> 
+          <div class="table-cell prop-nam"><div class="cell-inner">{{ sdotermlink(prop.id)|safe}}</div></div>
+          <div class="table-cell prop-ect"><div class="cell-inner">{% for ect in prop.domainIncludes %}{% if not loop.first %}&nbsp; or <br/>{% endif %}{{ sdotermlink(ect)|safe}}{% endfor %}</div></div>
+          <div class="table-cell prop-desc"><div class="cell-inner">{{ prop.comment | safe}}</div></div>
+        </div> 
   
   {% if loop.last %}
-	 </table>
+	  </div>
+   </div>
   {% endif %}
+
 {% endfor %}

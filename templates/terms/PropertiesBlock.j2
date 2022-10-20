@@ -9,7 +9,8 @@
 {% endfor %}
 
 {% if local_vars.propstodisplay %}
-	<table class="definition-table jumptarget" id="properties-section" title="Properties">
+	<div class="definition-table jumptarget" id="properties-section" title="Properties">
+<!--		<div class="table-body"> -->
 		{% set tabletop = True %} 
 		{% set propertiesFor = term %}{% include 'terms/PropertiesForTerm.j2' with context %}
 		{% set tabletop = False %}
@@ -17,6 +18,6 @@
 		{% for t in term.termStack %}
 			{% set propertiesFor = t %}{% include 'terms/PropertiesForTerm.j2' with context %}
 		{% endfor %}
-
-	 </table>
+	<!--	</div> -->
+	 </div>
 {% endif %}
