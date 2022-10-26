@@ -97,10 +97,10 @@
   rdfs:label "taxonomicRange" ;
   :domainIncludes :BioChemEntity ;
   :rangeIncludes :Taxon, :Text, :URL, :DefinedTerm ;
-  :source <http://www.bioschemas.org> .
+  :source <http://www.bioschemas.org> ;
   rdfs:comment "The taxonomic grouping of the organism that expresses, encodes, or in some way related to the BioChemEntity." ;
-  schema:domainIncludes schema:BioChemEntity ;
-  schema:rangeIncludes schema:Taxon, schema:Text, schema:URL, schema:DefinedTerm ;
+  :domainIncludes :BioChemEntity ;
+  :rangeIncludes :Taxon, :Text, :URL, :DefinedTerm .
 
 :biologicalRole
   a rdf:Property ;
@@ -231,11 +231,11 @@
     rdfs:subPropertyOf :hasRepresentation ;
     :domainIncludes :Gene, :Protein ;
     :rangeIncludes :Text ;
-    :source <http://www.bioschemas.org/Gene> .
+    :source <http://www.bioschemas.org/Gene> ;
     rdfs:comment "A symbolic representation of a BioChemEntity. For example, a nucleotide sequence of a Gene or an amino acid sequence of a Protein." ;
-    rdfs:subPropertyOf schema:hasRepresentation ;
-    schema:domainIncludes schema:Gene, schema:Protein ;
-    schema:rangeIncludes schema:Text ;
+    rdfs:subPropertyOf :hasRepresentation ;
+    :domainIncludes :Gene, :Protein ;
+    :rangeIncludes :Text .
 
   :alternativeOf
     a rdf:Property ;
@@ -311,8 +311,8 @@
   rdfs:label "monoisotopicMolecularWeight" ;
   :domainIncludes :MolecularEntity ;
   :rangeIncludes :Text, :QuantitativeValue ;
-  :source <http://www.bioschemas.org/MolecularEntity> .
-  rdfs:comment "The monoisotopic mass is the sum of the masses of the atoms in a molecule using the unbound, ground-state, rest mass of the principal (most abundant) isotope for each element instead of the isotopic average mass. Please include the units in the form '&lt;Number&gt; &lt;unit&gt;', for example '770.230488 g/mol' or as '&lt;QuantitativeValue&gt;." ;
+  :source <http://www.bioschemas.org/MolecularEntity> ;
+  rdfs:comment "The monoisotopic mass is the sum of the masses of the atoms in a molecule using the unbound, ground-state, rest mass of the principal (most abundant) isotope for each element instead of the isotopic average mass. Please include the units in the form '&lt;Number&gt; &lt;unit&gt;', for example '770.230488 g/mol' or as '&lt;QuantitativeValue&gt;." .
 
 :smiles
   a rdf:Property ;
@@ -380,8 +380,8 @@
   rdfs:label "taxonRank" ;
   :domainIncludes :Taxon ;
   :rangeIncludes :PropertyValue, :Text, :URL ;
-  :source <http://www.bioschemas.org/Taxon> .
-  rdfs:comment "The taxonomic rank of this taxon given preferably as a URI from a controlled vocabulary – typically the ranks from TDWG TaxonRank ontology or equivalent Wikidata URIs." ;
+  :source <http://www.bioschemas.org/Taxon> ;
+  rdfs:comment "The taxonomic rank of this taxon given preferably as a URI from a controlled vocabulary – typically the ranks from TDWG TaxonRank ontology or equivalent Wikidata URIs." .
 
 :hasDefinedTerm
   a rdf:Property ;
