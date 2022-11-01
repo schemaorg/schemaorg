@@ -29,7 +29,7 @@
 
 :Accommodation a rdfs:Class ;
     rdfs:label "Accommodation" ;
-    :source <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology> ;
+    :contributor <https://schema.org/docs/collab/STI_Accommodation_Ontology> ;
     rdfs:comment """An accommodation is a place that can accommodate human beings, e.g. a hotel room, a camping pitch, or a meeting room. Many accommodations are for overnight stays, but this is not a mandatory requirement.
 For more specific types of accommodations not defined in schema.org, one can use additionalType with external vocabularies.
 <br /><br />
@@ -50,7 +50,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 
 :Action a rdfs:Class ;
     rdfs:label "Action" ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_ActionCollabClass> ;
+    :contributor <https://schema.org/docs/collab/ActionCollabClass> ;
     rdfs:comment "An action performed by a direct agent and indirect participants upon a direct object. Optionally happens at a location with the help of an inanimate instrument. The execution of the action may produce a result. Specific action sub-type documentation specifies the exact expectation of each argument/role.\\n\\nSee also [blog post](http://blog.schema.org/2014/04/announcing-schemaorg-actions.html) and [Actions overview document](https://schema.org/docs/actions.html)." ;
     rdfs:subClassOf :Thing .
 
@@ -112,7 +112,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 
 :AlignmentObject a rdfs:Class ;
     rdfs:label "AlignmentObject" ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_LRMIClass> ;
+    :contributor <https://schema.org/docs/collab/LRMIClass> ;
     rdfs:comment """An intangible item that describes an alignment between a learning resource and a node in an educational framework.
 
 Should not be used where the nature of the alignment can be described using a simple property, for example to express that a resource [[teaches]] or [[assesses]] a competency.""" ;
@@ -135,13 +135,13 @@ Should not be used where the nature of the alignment can be described using a si
 
 :Answer a rdfs:Class ;
     rdfs:label "Answer" ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_QAStackExchange> ;
+    :contributor <https://schema.org/docs/collab/QAStackExchange> ;
     rdfs:comment "An answer offered to a question; perhaps correct, perhaps opinionated or wrong." ;
     rdfs:subClassOf :Comment .
 
 :Apartment a rdfs:Class ;
     rdfs:label "Apartment" ;
-    :source <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology> ;
+    :contributor <https://schema.org/docs/collab/STI_Accommodation_Ontology> ;
     rdfs:comment "An apartment (in American English) or flat (in British English) is a self-contained housing unit (a type of residential real estate) that occupies only part of a building (source: Wikipedia, the free encyclopedia, see <a href=\"http://en.wikipedia.org/wiki/Apartment\">http://en.wikipedia.org/wiki/Apartment</a>)." ;
     rdfs:subClassOf :Accommodation .
 
@@ -177,7 +177,7 @@ Should not be used where the nature of the alignment can be described using a si
 
 :Article a rdfs:Class ;
     rdfs:label "Article" ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_rNews> ;
+    :contributor <https://schema.org/docs/collab/rNews> ;
     rdfs:comment "An article, such as a news article or piece of investigative report. Newspapers and magazines have articles of many different types and this is intended to cover them all.\\n\\nSee also [blog post](http://blog.schema.org/2014/09/schemaorg-support-for-bibliographic_2.html)." ;
     rdfs:subClassOf :CreativeWork .
 
@@ -208,7 +208,7 @@ Should not be used where the nature of the alignment can be described using a si
 
 :AudioObject a rdfs:Class ;
     rdfs:label "AudioObject" ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_rNews> ;
+    :contributor <https://schema.org/docs/collab/rNews> ;
     rdfs:comment "An audio file." ;
     rdfs:subClassOf :MediaObject .
 
@@ -265,7 +265,7 @@ Should not be used where the nature of the alignment can be described using a si
 
 :BankAccount a rdfs:Class ;
     rdfs:label "BankAccount" ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO> ;
+    :contributor <https://schema.org/docs/collab/FIBO> ;
     rdfs:comment "A product or service offered by a bank whereby one may deposit, withdraw or transfer money and in some cases be paid interest." ;
     rdfs:subClassOf :FinancialProduct .
 
@@ -304,14 +304,14 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 
 :BedDetails a rdfs:Class ;
     rdfs:label "BedDetails" ;
-    :source <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology> ;
+    :contributor <https://schema.org/docs/collab/STI_Accommodation_Ontology> ;
     rdfs:comment "An entity holding detailed information about the available bed types, e.g. the quantity of twin beds for a hotel room. For the single case of just one bed of a certain type, you can use bed directly with a text. See also [[BedType]] (under development)." ;
     rdfs:subClassOf :Intangible .
 
 :BedType a rdfs:Class ;
     rdfs:label "BedType" ;
-    :source <https://github.com/schemaorg/schemaorg/issues/1262>,
-        <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/1262>;
+    :contributor <https://schema.org/docs/collab/STI_Accommodation_Ontology> ;
     rdfs:comment "A type of bed. This is used for indicating the bed or beds available in an accommodation." ;
     rdfs:subClassOf :QualitativeValue .
 
@@ -387,7 +387,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 
 :Brand a rdfs:Class ;
     rdfs:label "Brand" ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsClass> ;
+    :contributor <https://schema.org/docs/collab/GoodRelationsClass> ;
     rdfs:comment "A brand is a name used by an organization or business person for labeling a product, product group, or similar." ;
     rdfs:subClassOf :Intangible .
 
@@ -460,7 +460,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 
 :BusinessEntityType a rdfs:Class ;
     rdfs:label "BusinessEntityType" ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsClass> ;
+    :contributor <https://schema.org/docs/collab/GoodRelationsClass> ;
     rdfs:comment """A business entity type is a conceptual entity representing the legal form, the size, the main line of business, the position in the value chain, or any combination thereof, of an organization or business person.\\n\\nCommonly used values:\\n\\n* http://purl.org/goodrelations/v1#Business\\n* http://purl.org/goodrelations/v1#Enduser\\n* http://purl.org/goodrelations/v1#PublicInstitution\\n* http://purl.org/goodrelations/v1#Reseller
 	  """ ;
     rdfs:subClassOf :Enumeration .
@@ -472,7 +472,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 
 :BusinessFunction a rdfs:Class ;
     rdfs:label "BusinessFunction" ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsClass> ;
+    :contributor <https://schema.org/docs/collab/GoodRelationsClass> ;
     rdfs:comment """The business function specifies the type of activity or access (i.e., the bundle of rights) offered by the organization or business person through the offer. Typical are sell, rental or lease, maintenance or repair, manufacture / produce, recycle / dispose, engineering / construction, or installation. Proprietary specifications of access rights are also instances of this class.\\n\\nCommonly used values:\\n\\n* http://purl.org/goodrelations/v1#ConstructionInstallation\\n* http://purl.org/goodrelations/v1#Dispose\\n* http://purl.org/goodrelations/v1#LeaseOut\\n* http://purl.org/goodrelations/v1#Maintain\\n* http://purl.org/goodrelations/v1#ProvideService\\n* http://purl.org/goodrelations/v1#Repair\\n* http://purl.org/goodrelations/v1#Sell\\n* http://purl.org/goodrelations/v1#Buy
         """ ;
     rdfs:subClassOf :Enumeration .
@@ -494,7 +494,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 
 :Campground a rdfs:Class ;
     rdfs:label "Campground" ;
-    :source <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology> ;
+    :contributor <https://schema.org/docs/collab/STI_Accommodation_Ontology> ;
     rdfs:comment """A camping site, campsite, or [[Campground]] is a place used for overnight stay in the outdoors, typically containing individual [[CampingPitch]] locations. \\n\\n
 In British English a campsite is an area, usually divided into a number of pitches, where people can camp overnight using tents or camper vans or caravans; this British English use of the word is synonymous with the American English expression campground. In American English the term campsite generally means an area where an individual, family, group, or military unit can pitch a tent or park a camper; a campground may contain many campsites (source: Wikipedia, see [https://en.wikipedia.org/wiki/Campsite](https://en.wikipedia.org/wiki/Campsite)).\\n\\n
 
@@ -505,7 +505,7 @@ See also the dedicated [document on the use of schema.org for marking up hotels 
 
 :CampingPitch a rdfs:Class ;
     rdfs:label "CampingPitch" ;
-    :source <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology> ;
+    :contributor <https://schema.org/docs/collab/STI_Accommodation_Ontology> ;
     rdfs:comment """A [[CampingPitch]] is an individual place for overnight stay in the outdoors, typically being part of a larger camping site, or [[Campground]].\\n\\n
 In British English a campsite, or campground, is an area, usually divided into a number of pitches, where people can camp overnight using tents or camper vans or caravans; this British English use of the word is synonymous with the American English expression campground. In American English the term campsite generally means an area where an individual, family, group, or military unit can pitch a tent or park a camper; a campground may contain many campsites.
 (Source: Wikipedia, see [https://en.wikipedia.org/wiki/Campsite](https://en.wikipedia.org/wiki/Campsite).)\\n\\n
@@ -525,7 +525,7 @@ See also the dedicated [document on the use of schema.org for marking up hotels 
 
 :Car a rdfs:Class ;
     rdfs:label "Car" ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group> ;
+    :contributor <https://schema.org/docs/collab/Automotive_Ontology_Working_Group> ;
     rdfs:comment "A car is a wheeled, self-powered motor vehicle used for transportation." ;
     rdfs:subClassOf :Vehicle .
 
@@ -658,7 +658,7 @@ See also the dedicated [document on the use of schema.org for marking up hotels 
 
 :CompoundPriceSpecification a rdfs:Class ;
     rdfs:label "CompoundPriceSpecification" ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsClass> ;
+    :contributor <https://schema.org/docs/collab/GoodRelationsClass> ;
     rdfs:comment "A compound price specification is one that bundles multiple prices that all apply in combination for different dimensions of consumption. Use the name property of the attached unit price specification for indicating the dimension of a price component (e.g. \"electricity\" or \"final cleaning\")." ;
     rdfs:subClassOf :PriceSpecification .
 
@@ -724,7 +724,7 @@ See also the dedicated [document on the use of schema.org for marking up hotels 
 
 :Corporation a rdfs:Class ;
     rdfs:label "Corporation" ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_rNews> ;
+    :contributor <https://schema.org/docs/collab/rNews> ;
     rdfs:comment "Organization: A business corporation." ;
     rdfs:subClassOf :Organization .
 
@@ -755,7 +755,7 @@ See also the dedicated [document on the use of schema.org for marking up hotels 
 
 :CreativeWork a rdfs:Class ;
     rdfs:label "CreativeWork" ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_rNews> ;
+    :contributor <https://schema.org/docs/collab/rNews> ;
     rdfs:comment "The most generic kind of creative work, including books, movies, photographs, software programs, etc." ;
     rdfs:subClassOf :Thing .
 
@@ -773,8 +773,8 @@ See also the dedicated [document on the use of schema.org for marking up hotels 
 
 :CreditCard a rdfs:Class ;
     rdfs:label "CreditCard" ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO>,
-        <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsClass> ;
+    :contributor <https://schema.org/docs/collab/FIBO>,
+        <https://schema.org/docs/collab/GoodRelationsClass> ;
     rdfs:comment """A card payment method of a particular brand or name.  Used to mark up a particular payment method and/or the financial product/service that supplies the card account.\\n\\nCommonly used values:\\n\\n* http://purl.org/goodrelations/v1#AmericanExpress\\n* http://purl.org/goodrelations/v1#DinersClub\\n* http://purl.org/goodrelations/v1#Discover\\n* http://purl.org/goodrelations/v1#JCB\\n* http://purl.org/goodrelations/v1#MasterCard\\n* http://purl.org/goodrelations/v1#VISA
        """ ;
     rdfs:subClassOf :LoanOrCredit,
@@ -787,7 +787,7 @@ See also the dedicated [document on the use of schema.org for marking up hotels 
 
 :CurrencyConversionService a rdfs:Class ;
     rdfs:label "CurrencyConversionService" ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO> ;
+    :contributor <https://schema.org/docs/collab/FIBO> ;
     rdfs:comment "A service to convert funds from one currency to another currency." ;
     rdfs:subClassOf :FinancialProduct .
 
@@ -803,14 +803,14 @@ See also the dedicated [document on the use of schema.org for marking up hotels 
 
 :DataCatalog a rdfs:Class ;
     rdfs:label "DataCatalog" ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_DatasetClass> ;
+    :contributor <https://schema.org/docs/collab/DatasetClass> ;
     rdfs:comment "A collection of datasets." ;
     rdfs:subClassOf :CreativeWork ;
     owl:equivalentClass <http://www.w3.org/ns/dcat#Catalog> .
 
 :DataDownload a rdfs:Class ;
     rdfs:label "DataDownload" ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_DatasetClass> ;
+    :contributor <https://schema.org/docs/collab/DatasetClass> ;
     rdfs:comment "All or part of a [[Dataset]] in downloadable form. " ;
     rdfs:subClassOf :MediaObject ;
     owl:equivalentClass <http://www.w3.org/ns/dcat#Distribution> .
@@ -832,7 +832,7 @@ See also the dedicated [document on the use of schema.org for marking up hotels 
 
 :Dataset a rdfs:Class ;
     rdfs:label "Dataset" ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_DatasetClass> ;
+    :contributor <https://schema.org/docs/collab/DatasetClass> ;
     rdfs:comment "A body of structured information describing some topic(s) of interest." ;
     rdfs:subClassOf :CreativeWork ;
     owl:equivalentClass <http://purl.org/dc/dcmitype/Dataset>,
@@ -857,7 +857,7 @@ See also the dedicated [document on the use of schema.org for marking up hotels 
 
 :DayOfWeek a rdfs:Class ;
     rdfs:label "DayOfWeek" ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsClass> ;
+    :contributor <https://schema.org/docs/collab/GoodRelationsClass> ;
     rdfs:comment """The day of the week, e.g. used to specify to which day the opening hours of an OpeningHoursSpecification refer.
 
 Originally, URLs from [GoodRelations](http://purl.org/goodrelations/v1) were used (for [[Monday]], [[Tuesday]], [[Wednesday]], [[Thursday]], [[Friday]], [[Saturday]], [[Sunday]] plus a special entry for [[PublicHolidays]]); these have now been integrated directly into schema.org.
@@ -886,7 +886,7 @@ Originally, URLs from [GoodRelations](http://purl.org/goodrelations/v1) were use
 
 :DeliveryChargeSpecification a rdfs:Class ;
     rdfs:label "DeliveryChargeSpecification" ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsClass> ;
+    :contributor <https://schema.org/docs/collab/GoodRelationsClass> ;
     rdfs:comment "The price for the delivery of an offer using a particular delivery method." ;
     rdfs:subClassOf :PriceSpecification .
 
@@ -897,14 +897,14 @@ Originally, URLs from [GoodRelations](http://purl.org/goodrelations/v1) were use
 
 :DeliveryMethod a rdfs:Class ;
     rdfs:label "DeliveryMethod" ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsClass> ;
+    :contributor <https://schema.org/docs/collab/GoodRelationsClass> ;
     rdfs:comment """A delivery method is a standardized procedure for transferring the product or service to the destination of fulfillment chosen by the customer. Delivery methods are characterized by the means of transportation used, and by the organization or group that is the contracting party for the sending organization or person.\\n\\nCommonly used values:\\n\\n* http://purl.org/goodrelations/v1#DeliveryModeDirectDownload\\n* http://purl.org/goodrelations/v1#DeliveryModeFreight\\n* http://purl.org/goodrelations/v1#DeliveryModeMail\\n* http://purl.org/goodrelations/v1#DeliveryModeOwnFleet\\n* http://purl.org/goodrelations/v1#DeliveryModePickUp\\n* http://purl.org/goodrelations/v1#DHL\\n* http://purl.org/goodrelations/v1#FederalExpress\\n* http://purl.org/goodrelations/v1#UPS
         """ ;
     rdfs:subClassOf :Enumeration .
 
 :Demand a rdfs:Class ;
     rdfs:label "Demand" ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsClass> ;
+    :contributor <https://schema.org/docs/collab/GoodRelationsClass> ;
     rdfs:comment "A demand entity represents the public, not necessarily binding, not necessarily exclusive, announcement by an organization or person to seek a certain type of goods or services. For describing demand using this type, the very same properties used for Offer apply." ;
     rdfs:subClassOf :Intangible .
 
@@ -926,7 +926,7 @@ Originally, URLs from [GoodRelations](http://purl.org/goodrelations/v1) were use
 
 :DepositAccount a rdfs:Class ;
     rdfs:label "DepositAccount" ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO> ;
+    :contributor <https://schema.org/docs/collab/FIBO> ;
     rdfs:comment "A type of Bank Account with a main purpose of depositing funds to gain interest or other benefits." ;
     rdfs:subClassOf :BankAccount,
         :InvestmentOrDeposit .
@@ -999,7 +999,7 @@ Originally, URLs from [GoodRelations](http://purl.org/goodrelations/v1) were use
 
 :DriveWheelConfigurationValue a rdfs:Class ;
     rdfs:label "DriveWheelConfigurationValue" ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group> ;
+    :contributor <https://schema.org/docs/collab/Automotive_Ontology_Working_Group> ;
     rdfs:comment "A value indicating which roadwheels will receive torque." ;
     rdfs:subClassOf :QualitativeValue .
 
@@ -1025,7 +1025,7 @@ Originally, URLs from [GoodRelations](http://purl.org/goodrelations/v1) were use
 
 :EducationalAudience a rdfs:Class ;
     rdfs:label "EducationalAudience" ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_LRMIClass> ;
+    :contributor <https://schema.org/docs/collab/LRMIClass> ;
     rdfs:comment "An EducationalAudience." ;
     rdfs:subClassOf :Audience .
 
@@ -1105,7 +1105,7 @@ endorsement rating is particularly useful in the absence of numeric scales as it
 
 :EngineSpecification a rdfs:Class ;
     rdfs:label "EngineSpecification" ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group> ;
+    :contributor <https://schema.org/docs/collab/Automotive_Ontology_Working_Group> ;
     rdfs:comment "Information about the engine of the vehicle. A vehicle can have multiple engines represented by multiple engine specification entities." ;
     rdfs:subClassOf :StructuredValue .
 
@@ -1116,7 +1116,7 @@ endorsement rating is particularly useful in the absence of numeric scales as it
 
 :EntryPoint a rdfs:Class ;
     rdfs:label "EntryPoint" ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_ActionCollabClass> ;
+    :contributor <https://schema.org/docs/collab/ActionCollabClass> ;
     rdfs:comment "An entry point, within some Web-based protocol." ;
     rdfs:subClassOf :Intangible .
 
@@ -1195,7 +1195,7 @@ endorsement rating is particularly useful in the absence of numeric scales as it
 
 :FinancialProduct a rdfs:Class ;
     rdfs:label "FinancialProduct" ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO> ;
+    :contributor <https://schema.org/docs/collab/FIBO> ;
     rdfs:comment "A product provided to consumers and businesses by financial institutions such as banks, insurance companies, brokerage firms, consumer finance companies, and investment companies which comprise the financial services industry." ;
     rdfs:subClassOf :Service .
 
@@ -1257,7 +1257,7 @@ endorsement rating is particularly useful in the absence of numeric scales as it
 
 :FoodService a rdfs:Class ;
     rdfs:label "FoodService" ;
-    :source <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology> ;
+    :contributor <https://schema.org/docs/collab/STI_Accommodation_Ontology> ;
     rdfs:comment "A food service, like breakfast, lunch, or dinner." ;
     rdfs:subClassOf :Service .
 
@@ -1326,7 +1326,7 @@ endorsement rating is particularly useful in the absence of numeric scales as it
 
 :GeoShape a rdfs:Class ;
     rdfs:label "GeoShape" ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_rNews> ;
+    :contributor <https://schema.org/docs/collab/rNews> ;
     rdfs:comment "The geographic shape of a place. A GeoShape can be described using several properties whose values are based on latitude/longitude pairs. Either whitespace or commas can be used to separate latitude and longitude; whitespace should be used when writing a list of several such points." ;
     rdfs:subClassOf :StructuredValue .
 
@@ -1438,7 +1438,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 
 :Hotel a rdfs:Class ;
     rdfs:label "Hotel" ;
-    :source <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology> ;
+    :contributor <https://schema.org/docs/collab/STI_Accommodation_Ontology> ;
     rdfs:comment """A hotel is an establishment that provides lodging paid on a short-term basis (source: Wikipedia, the free encyclopedia, see http://en.wikipedia.org/wiki/Hotel).
 <br /><br />
 See also the <a href="/docs/hotels.html">dedicated document on the use of schema.org for marking up hotels and other forms of accommodations</a>.
@@ -1447,7 +1447,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 
 :HotelRoom a rdfs:Class ;
     rdfs:label "HotelRoom" ;
-    :source <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology> ;
+    :contributor <https://schema.org/docs/collab/STI_Accommodation_Ontology> ;
     rdfs:comment """A hotel room is a single room in a hotel.
 <br /><br />
 See also the <a href="/docs/hotels.html">dedicated document on the use of schema.org for marking up hotels and other forms of accommodations</a>.
@@ -1456,7 +1456,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 
 :House a rdfs:Class ;
     rdfs:label "House" ;
-    :source <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology> ;
+    :contributor <https://schema.org/docs/collab/STI_Accommodation_Ontology> ;
     rdfs:comment "A house is a building or structure that has the ability to be occupied for habitation by humans or other creatures (source: Wikipedia, the free encyclopedia, see <a href=\"http://en.wikipedia.org/wiki/House\">http://en.wikipedia.org/wiki/House</a>)." ;
     rdfs:subClassOf :Accommodation .
 
@@ -1534,7 +1534,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 
 :IndividualProduct a rdfs:Class ;
     rdfs:label "IndividualProduct" ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsClass> ;
+    :contributor <https://schema.org/docs/collab/GoodRelationsClass> ;
     rdfs:comment "A single, identifiable product instance (e.g. a laptop with a particular serial number)." ;
     rdfs:subClassOf :Product .
 
@@ -1585,7 +1585,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 
 :InvestmentOrDeposit a rdfs:Class ;
     rdfs:label "InvestmentOrDeposit" ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO> ;
+    :contributor <https://schema.org/docs/collab/FIBO> ;
     rdfs:comment "A type of financial product that typically requires the client to transfer funds to a financial service in return for potential beneficial financial return." ;
     rdfs:subClassOf :FinancialProduct .
 
@@ -1711,7 +1711,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 
 :LoanOrCredit a rdfs:Class ;
     rdfs:label "LoanOrCredit" ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO> ;
+    :contributor <https://schema.org/docs/collab/FIBO> ;
     rdfs:comment "A financial product for the loaning of an amount of money, or line of credit, under agreed terms and charges." ;
     rdfs:subClassOf :FinancialProduct .
 
@@ -1723,7 +1723,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 
 :LocationFeatureSpecification a rdfs:Class ;
     rdfs:label "LocationFeatureSpecification" ;
-    :source <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology> ;
+    :contributor <https://schema.org/docs/collab/STI_Accommodation_Ontology> ;
     rdfs:comment "Specifies a location feature by providing a structured value representing a feature of an accommodation as a property-value pair of varying degrees of formality." ;
     rdfs:subClassOf :PropertyValue .
 
@@ -1790,7 +1790,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 
 :MeetingRoom a rdfs:Class ;
     rdfs:label "MeetingRoom" ;
-    :source <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology> ;
+    :contributor <https://schema.org/docs/collab/STI_Accommodation_Ontology> ;
     rdfs:comment """A meeting room, conference room, or conference hall is a room provided for singular events such as business conferences and meetings (source: Wikipedia, the free encyclopedia, see <a href="http://en.wikipedia.org/wiki/Conference_hall">http://en.wikipedia.org/wiki/Conference_hall</a>).
 <br /><br />
 See also the <a href="/docs/hotels.html">dedicated document on the use of schema.org for marking up hotels and other forms of accommodations</a>.
@@ -1839,7 +1839,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 
 :MonetaryAmount a rdfs:Class ;
     rdfs:label "MonetaryAmount" ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO> ;
+    :contributor <https://schema.org/docs/collab/FIBO> ;
     rdfs:comment "A monetary value or range. This type can be used to describe an amount of money such as $50 USD, or a range as in describing a bank account being suitable for a balance between £1,000 and £1,000,000 GBP, or the value of a salary, etc. It is recommended to use [[PriceSpecification]] Types to describe the price of an Offer, Invoice, etc." ;
     rdfs:subClassOf :StructuredValue .
 
@@ -1925,19 +1925,19 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 
 :MusicAlbumProductionType a rdfs:Class ;
     rdfs:label "MusicAlbumProductionType" ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#MBZ> ;
+    :contributor <https://schema.org/docs/collab/MBZ> ;
     rdfs:comment "Classification of the album by its type of content: soundtrack, live album, studio album, etc." ;
     rdfs:subClassOf :Enumeration .
 
 :MusicAlbumReleaseType a rdfs:Class ;
     rdfs:label "MusicAlbumReleaseType" ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#MBZ> ;
+    :contributor <https://schema.org/docs/collab/MBZ> ;
     rdfs:comment "The kind of release which this album is: single, EP or album." ;
     rdfs:subClassOf :Enumeration .
 
 :MusicComposition a rdfs:Class ;
     rdfs:label "MusicComposition" ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#MBZ> ;
+    :contributor <https://schema.org/docs/collab/MBZ> ;
     rdfs:comment "A musical composition." ;
     rdfs:subClassOf :CreativeWork .
 
@@ -1963,13 +1963,13 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 
 :MusicRelease a rdfs:Class ;
     rdfs:label "MusicRelease" ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#MBZ> ;
+    :contributor <https://schema.org/docs/collab/MBZ> ;
     rdfs:comment "A MusicRelease is a specific release of a music album." ;
     rdfs:subClassOf :MusicPlaylist .
 
 :MusicReleaseFormatType a rdfs:Class ;
     rdfs:label "MusicReleaseFormatType" ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#MBZ> ;
+    :contributor <https://schema.org/docs/collab/MBZ> ;
     rdfs:comment "Format of this release (the type of recording media used, i.e. compact disc, digital media, LP, etc.)." ;
     rdfs:subClassOf :Enumeration .
 
@@ -2000,8 +2000,8 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 
 :NewsArticle a rdfs:Class ;
     rdfs:label "NewsArticle" ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_rNews>,
-        <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP-draws> ;
+    :contributor <https://schema.org/docs/collab/rNews>,
+        <https://schema.org/docs/collab/TP> ;
     rdfs:comment """A NewsArticle is an article whose content reports news, or provides background context and supporting materials for understanding the news.
 
 A more detailed overview of [schema.org News markup](/docs/news.html) is also available.
@@ -2046,7 +2046,7 @@ A more detailed overview of [schema.org News markup](/docs/news.html) is also av
 
 :Offer a rdfs:Class ;
     rdfs:label "Offer" ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms> ;
+    :contributor <https://schema.org/docs/collab/GoodRelationsTerms> ;
     rdfs:comment "An offer to transfer some rights to an item or to provide a service — for example, an offer to sell tickets to an event, to rent the DVD of a movie, to stream a TV show over the internet, to repair a motorcycle, or to loan a book.\\n\\nNote: As the [[businessFunction]] property, which identifies the form of offer (e.g. sell, lease, repair, dispose), defaults to http://purl.org/goodrelations/v1#Sell; an Offer without a defined businessFunction value can be assumed to be an offer to sell.\\n\\nFor [GTIN](http://www.gs1.org/barcodes/technical/idkeys/gtin)-related fields, see [Check Digit calculator](http://www.gs1.org/barcodes/support/check_digit_calculator) and [validation guide](http://www.gs1us.org/resources/standards/gtin-validation-guide) from [GS1](http://www.gs1.org/)." ;
     rdfs:subClassOf :Intangible .
 
@@ -2072,7 +2072,7 @@ A more detailed overview of [schema.org News markup](/docs/news.html) is also av
 
 :OpeningHoursSpecification a rdfs:Class ;
     rdfs:label "OpeningHoursSpecification" ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsClass> ;
+    :contributor <https://schema.org/docs/collab/GoodRelationsClass> ;
     rdfs:comment """A structured value providing information about the opening hours of a place or a certain service inside a place.\\n\\n
 The place is __open__ if the [[opens]] property is specified, and __closed__ otherwise.\\n\\nIf the value for the [[closes]] property is less than the value for the [[opens]] property then the hour range is assumed to span over the next day.
       """ ;
@@ -2120,7 +2120,7 @@ The place is __open__ if the [[opens]] property is specified, and __closed__ oth
 
 :OwnershipInfo a rdfs:Class ;
     rdfs:label "OwnershipInfo" ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsClass> ;
+    :contributor <https://schema.org/docs/collab/GoodRelationsClass> ;
     rdfs:comment "A structured value providing information about when a certain organization or person owned a certain product." ;
     rdfs:subClassOf :StructuredValue .
 
@@ -2166,27 +2166,27 @@ The place is __open__ if the [[opens]] property is specified, and __closed__ oth
 
 :PaymentCard a rdfs:Class ;
     rdfs:label "PaymentCard" ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO> ;
+    :contributor <https://schema.org/docs/collab/FIBO> ;
     rdfs:comment "A payment method using a credit, debit, store or other card to associate the payment with an account." ;
     rdfs:subClassOf :FinancialProduct,
         :PaymentMethod .
 
 :PaymentChargeSpecification a rdfs:Class ;
     rdfs:label "PaymentChargeSpecification" ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsClass> ;
+    :contributor <https://schema.org/docs/collab/GoodRelationsClass> ;
     rdfs:comment "The costs of settling the payment using a particular payment method." ;
     rdfs:subClassOf :PriceSpecification .
 
 :PaymentMethod a rdfs:Class ;
     rdfs:label "PaymentMethod" ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsClass> ;
+    :contributor <https://schema.org/docs/collab/GoodRelationsClass> ;
     rdfs:comment """A payment method is a standardized procedure for transferring the monetary amount for a purchase. Payment methods are characterized by the legal and technical structures used, and by the organization or group carrying out the transaction.\\n\\nCommonly used values:\\n\\n* http://purl.org/goodrelations/v1#ByBankTransferInAdvance\\n* http://purl.org/goodrelations/v1#ByInvoice\\n* http://purl.org/goodrelations/v1#Cash\\n* http://purl.org/goodrelations/v1#CheckInAdvance\\n* http://purl.org/goodrelations/v1#COD\\n* http://purl.org/goodrelations/v1#DirectDebit\\n* http://purl.org/goodrelations/v1#GoogleCheckout\\n* http://purl.org/goodrelations/v1#PayPal\\n* http://purl.org/goodrelations/v1#PaySwarm
         """ ;
     rdfs:subClassOf :Enumeration .
 
 :PaymentService a rdfs:Class ;
     rdfs:label "PaymentService" ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO> ;
+    :contributor <https://schema.org/docs/collab/FIBO> ;
     rdfs:comment "A Service to transfer funds from a person or organization to a beneficiary person or organization." ;
     rdfs:subClassOf :FinancialProduct .
 
@@ -2222,7 +2222,7 @@ The place is __open__ if the [[opens]] property is specified, and __closed__ oth
 
 :Periodical a rdfs:Class ;
     rdfs:label "Periodical" ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_bibex> ;
+    :contributor <https://schema.org/docs/collab/bibex> ;
     rdfs:comment "A publication in any medium issued in successive parts bearing numerical or chronological designations and intended to continue indefinitely, such as a magazine, scholarly journal, or newspaper.\\n\\nSee also [blog post](http://blog.schema.org/2014/09/schemaorg-support-for-bibliographic_2.html)." ;
     rdfs:subClassOf :CreativeWorkSeries ;
     owl:equivalentClass <http://purl.org/ontology/bibo/Periodical> .
@@ -2234,7 +2234,7 @@ The place is __open__ if the [[opens]] property is specified, and __closed__ oth
 
 :Person a rdfs:Class ;
     rdfs:label "Person" ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_rNews> ;
+    :contributor <https://schema.org/docs/collab/rNews> ;
     rdfs:comment "A person (alive, dead, undead, or fictional)." ;
     rdfs:subClassOf :Thing ;
     owl:equivalentClass <http://xmlns.com/foaf/0.1/Person> .
@@ -2338,19 +2338,19 @@ The place is __open__ if the [[opens]] property is specified, and __closed__ oth
 
 :PriceSpecification a rdfs:Class ;
     rdfs:label "PriceSpecification" ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsClass> ;
+    :contributor <https://schema.org/docs/collab/GoodRelationsClass> ;
     rdfs:comment "A structured value representing a price or price range. Typically, only the subclasses of this type are used for markup. It is recommended to use [[MonetaryAmount]] to describe independent amounts of money such as a salary, credit card limits, etc." ;
     rdfs:subClassOf :StructuredValue .
 
 :Product a rdfs:Class ;
     rdfs:label "Product" ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms> ;
+    :contributor <https://schema.org/docs/collab/GoodRelationsTerms> ;
     rdfs:comment "Any offered product or service. For example: a pair of shoes; a concert ticket; the rental of a car; a haircut; or an episode of a TV show streamed online." ;
     rdfs:subClassOf :Thing .
 
 :ProductModel a rdfs:Class ;
     rdfs:label "ProductModel" ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsClass> ;
+    :contributor <https://schema.org/docs/collab/GoodRelationsClass> ;
     rdfs:comment "A datasheet or vendor specification of a product (in the sense of a prototypical description)." ;
     rdfs:subClassOf :Product .
 
@@ -2373,14 +2373,14 @@ The place is __open__ if the [[opens]] property is specified, and __closed__ oth
 
 :PropertyValue a rdfs:Class ;
     rdfs:label "PropertyValue" ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsClass> ;
+    :contributor <https://schema.org/docs/collab/GoodRelationsClass> ;
     rdfs:comment """A property-value pair, e.g. representing a feature of a product or place. Use the 'name' property for the name of the property. If there is an additional human-readable version of the value, put that into the 'description' property.\\n\\n Always use specific schema.org properties when a) they exist and b) you can populate them. Using PropertyValue as a substitute will typically not trigger the same effect as using the original, specific property.
     """ ;
     rdfs:subClassOf :StructuredValue .
 
 :PropertyValueSpecification a rdfs:Class ;
     rdfs:label "PropertyValueSpecification" ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_ActionCollabClass> ;
+    :contributor <https://schema.org/docs/collab/ActionCollabClass> ;
     rdfs:comment "A Property value specification." ;
     rdfs:subClassOf :Intangible .
 
@@ -2396,14 +2396,14 @@ The place is __open__ if the [[opens]] property is specified, and __closed__ oth
 
 :PublicationIssue a rdfs:Class ;
     rdfs:label "PublicationIssue" ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_bibex> ;
+    :contributor <https://schema.org/docs/collab/bibex> ;
     rdfs:comment "A part of a successively published publication such as a periodical or publication volume, often numbered, usually containing a grouping of works such as articles.\\n\\nSee also [blog post](http://blog.schema.org/2014/09/schemaorg-support-for-bibliographic_2.html)." ;
     rdfs:subClassOf :CreativeWork ;
     owl:equivalentClass <http://purl.org/ontology/bibo/Issue> .
 
 :PublicationVolume a rdfs:Class ;
     rdfs:label "PublicationVolume" ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_bibex> ;
+    :contributor <https://schema.org/docs/collab/bibex> ;
     rdfs:comment "A part of a successively published publication such as a periodical or multi-volume work, often numbered. It may represent a time span, such as a year.\\n\\nSee also [blog post](http://blog.schema.org/2014/09/schemaorg-support-for-bibliographic_2.html)." ;
     rdfs:subClassOf :CreativeWork .
 
@@ -2414,13 +2414,13 @@ The place is __open__ if the [[opens]] property is specified, and __closed__ oth
 
 :QualitativeValue a rdfs:Class ;
     rdfs:label "QualitativeValue" ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsClass> ;
+    :contributor <https://schema.org/docs/collab/GoodRelationsClass> ;
     rdfs:comment "A predefined value for a product characteristic, e.g. the power cord plug type 'US' or the garment sizes 'S', 'M', 'L', and 'XL'." ;
     rdfs:subClassOf :Enumeration .
 
 :QuantitativeValue a rdfs:Class ;
     rdfs:label "QuantitativeValue" ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsClass> ;
+    :contributor <https://schema.org/docs/collab/GoodRelationsClass> ;
     rdfs:comment " A point value or interval for product characteristics and other purposes." ;
     rdfs:subClassOf :StructuredValue .
 
@@ -2437,7 +2437,7 @@ The place is __open__ if the [[opens]] property is specified, and __closed__ oth
 
 :Question a rdfs:Class ;
     rdfs:label "Question" ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_QAStackExchange> ;
+    :contributor <https://schema.org/docs/collab/QAStackExchange> ;
     rdfs:comment "A specific question - e.g. from a user seeking answers online, or collected in a Frequently Asked Questions (FAQ) document." ;
     rdfs:subClassOf :Comment .
 
@@ -2588,7 +2588,7 @@ The place is __open__ if the [[opens]] property is specified, and __closed__ oth
 
 :Resort a rdfs:Class ;
     rdfs:label "Resort" ;
-    :source <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology> ;
+    :contributor <https://schema.org/docs/collab/STI_Accommodation_Ontology> ;
     rdfs:comment """A resort is a place used for relaxation or recreation, attracting visitors for holidays or vacations. Resorts are places, towns or sometimes commercial establishments operated by a single company (source: Wikipedia, the free encyclopedia, see <a href="http://en.wikipedia.org/wiki/Resort">http://en.wikipedia.org/wiki/Resort</a>).
 <br /><br />
 See also the <a href="/docs/hotels.html">dedicated document on the use of schema.org for marking up hotels and other forms of accommodations</a>.
@@ -2642,7 +2642,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 
 :Room a rdfs:Class ;
     rdfs:label "Room" ;
-    :source <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology> ;
+    :contributor <https://schema.org/docs/collab/STI_Accommodation_Ontology> ;
     rdfs:comment """A room is a distinguishable space within a structure, usually separated from other spaces by interior walls (source: Wikipedia, the free encyclopedia, see <a href="http://en.wikipedia.org/wiki/Room">http://en.wikipedia.org/wiki/Room</a>).
 <br /><br />
 See also the <a href="/docs/hotels.html">dedicated document on the use of schema.org for marking up hotels and other forms of accommodations</a>.
@@ -2798,7 +2798,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 
 :SomeProducts a rdfs:Class ;
     rdfs:label "SomeProducts" ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsClass> ;
+    :contributor <https://schema.org/docs/collab/GoodRelationsClass> ;
     rdfs:comment "A placeholder for multiple similar products of the same kind." ;
     rdfs:subClassOf :Product .
 
@@ -2867,7 +2867,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 
 :SteeringPositionValue a rdfs:Class ;
     rdfs:label "SteeringPositionValue" ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group> ;
+    :contributor <https://schema.org/docs/collab/Automotive_Ontology_Working_Group> ;
     rdfs:comment "A value indicating a steering position." ;
     rdfs:subClassOf :QualitativeValue .
 
@@ -2893,7 +2893,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 
 :Suite a rdfs:Class ;
     rdfs:label "Suite" ;
-    :source <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology> ;
+    :contributor <https://schema.org/docs/collab/STI_Accommodation_Ontology> ;
     rdfs:comment """A suite in a hotel or other public accommodation, denotes a class of luxury accommodations, the key feature of which is multiple rooms (source: Wikipedia, the free encyclopedia, see <a href="http://en.wikipedia.org/wiki/Suite_(hotel)">http://en.wikipedia.org/wiki/Suite_(hotel)</a>).
 <br /><br />
 See also the <a href="/docs/hotels.html">dedicated document on the use of schema.org for marking up hotels and other forms of accommodations</a>.
@@ -3039,8 +3039,8 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 
 :TouristAttraction a rdfs:Class ;
     rdfs:label "TouristAttraction" ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#IIT-CNR.it>,
-        <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Tourism> ;
+    :contributor <https://schema.org/docs/collab/IIT-CNR.it>,
+        <https://schema.org/docs/collab/Tourism> ;
     rdfs:comment "A tourist attraction.  In principle any Thing can be a [[TouristAttraction]], from a [[Mountain]] and [[LandmarksOrHistoricalBuildings]] to a [[LocalBusiness]].  This Type can be used on its own to describe a general [[TouristAttraction]], or be used as an [[additionalType]] to add tourist attraction properties to any other type.  (See examples below)" ;
     rdfs:subClassOf :Place .
 
@@ -3096,13 +3096,13 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 
 :Trip a rdfs:Class ;
     rdfs:label "Trip" ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Tourism> ;
+    :contributor <https://schema.org/docs/collab/Tourism> ;
     rdfs:comment "A trip or journey. An itinerary of visits to one or more places." ;
     rdfs:subClassOf :Intangible .
 
 :TypeAndQuantityNode a rdfs:Class ;
     rdfs:label "TypeAndQuantityNode" ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsClass> ;
+    :contributor <https://schema.org/docs/collab/GoodRelationsClass> ;
     rdfs:comment "A structured value indicating the quantity, unit of measurement, and business function of goods included in a bundle offer." ;
     rdfs:subClassOf :StructuredValue .
 
@@ -3118,7 +3118,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 
 :UnitPriceSpecification a rdfs:Class ;
     rdfs:label "UnitPriceSpecification" ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsClass> ;
+    :contributor <https://schema.org/docs/collab/GoodRelationsClass> ;
     rdfs:comment "The price asked for a given offer by the respective organization or person." ;
     rdfs:subClassOf :PriceSpecification .
 
@@ -3146,7 +3146,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 
 :UserComments a rdfs:Class ;
     rdfs:label "UserComments" ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_rNews> ;
+    :contributor <https://schema.org/docs/collab/rNews> ;
     :supersededBy :InteractionCounter ;
     rdfs:comment "UserInteraction and its subtypes is an old way of talking about users interacting with pages. It is generally better to use [[Action]]-based vocabulary, alongside types such as [[Comment]]." ;
     rdfs:subClassOf :UserInteraction .
@@ -3227,7 +3227,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 
 :VideoObject a rdfs:Class ;
     rdfs:label "VideoObject" ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_rNews> ;
+    :contributor <https://schema.org/docs/collab/rNews> ;
     rdfs:comment "A video file." ;
     rdfs:subClassOf :MediaObject .
 
@@ -3243,7 +3243,6 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 
 :VisualArtwork a rdfs:Class ;
     rdfs:label "VisualArtwork" ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_VisualArtworkClass> ;
     rdfs:comment "A work of art that is primarily visual in character." ;
     rdfs:subClassOf :CreativeWork .
 
@@ -3284,13 +3283,13 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 
 :WarrantyPromise a rdfs:Class ;
     rdfs:label "WarrantyPromise" ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsClass> ;
+    :contributor <https://schema.org/docs/collab/GoodRelationsClass> ;
     rdfs:comment "A structured value representing the duration and scope of services that will be provided to a customer free of charge in case of a defect or malfunction of a product." ;
     rdfs:subClassOf :StructuredValue .
 
 :WarrantyScope a rdfs:Class ;
     rdfs:label "WarrantyScope" ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsClass> ;
+    :contributor <https://schema.org/docs/collab/GoodRelationsClass> ;
     rdfs:comment """A range of services that will be provided to a customer free of charge in case of a defect or malfunction of a product.\\n\\nCommonly used values:\\n\\n* http://purl.org/goodrelations/v1#Labor-BringIn\\n* http://purl.org/goodrelations/v1#PartsAndLabor-BringIn\\n* http://purl.org/goodrelations/v1#PartsAndLabor-PickUp
       """ ;
     rdfs:subClassOf :Enumeration .
@@ -3367,12 +3366,12 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 
 :AlbumRelease a :MusicAlbumReleaseType ;
     rdfs:label "AlbumRelease" ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#MBZ> ;
+    :contributor <https://schema.org/docs/collab/MBZ> ;
     rdfs:comment "AlbumRelease." .
 
 :AllWheelDriveConfiguration a :DriveWheelConfigurationValue ;
     rdfs:label "AllWheelDriveConfiguration" ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group> ;
+    :contributor <https://schema.org/docs/collab/Automotive_Ontology_Working_Group> ;
     rdfs:comment "All-wheel Drive is a transmission layout where the engine drives all four wheels." .
 
 :AudiobookFormat a :BookFormatType ;
@@ -3385,17 +3384,17 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 
 :BroadcastRelease a :MusicAlbumReleaseType ;
     rdfs:label "BroadcastRelease" ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#MBZ> ;
+    :contributor <https://schema.org/docs/collab/MBZ> ;
     rdfs:comment "BroadcastRelease." .
 
 :CDFormat a :MusicReleaseFormatType ;
     rdfs:label "CDFormat" ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#MBZ> ;
+    :contributor <https://schema.org/docs/collab/MBZ> ;
     rdfs:comment "CDFormat." .
 
 :CassetteFormat a :MusicReleaseFormatType ;
     rdfs:label "CassetteFormat" ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#MBZ> ;
+    :contributor <https://schema.org/docs/collab/MBZ> ;
     rdfs:comment "CassetteFormat." .
 
 :CoOp a :GamePlayMode ;
@@ -3408,7 +3407,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 
 :CompilationAlbum a :MusicAlbumProductionType ;
     rdfs:label "CompilationAlbum" ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#MBZ> ;
+    :contributor <https://schema.org/docs/collab/MBZ> ;
     rdfs:comment "CompilationAlbum." .
 
 :CompletedActionStatus a :ActionStatusType ;
@@ -3417,12 +3416,12 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 
 :DJMixAlbum a :MusicAlbumProductionType ;
     rdfs:label "DJMixAlbum" ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#MBZ> ;
+    :contributor <https://schema.org/docs/collab/MBZ> ;
     rdfs:comment "DJMixAlbum." .
 
 :DVDFormat a :MusicReleaseFormatType ;
     rdfs:label "DVDFormat" ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#MBZ> ;
+    :contributor <https://schema.org/docs/collab/MBZ> ;
     rdfs:comment "DVDFormat." .
 
 :DamagedCondition a :OfferItemCondition ;
@@ -3431,7 +3430,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 
 :DemoAlbum a :MusicAlbumProductionType ;
     rdfs:label "DemoAlbum" ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#MBZ> ;
+    :contributor <https://schema.org/docs/collab/MBZ> ;
     rdfs:comment "DemoAlbum." .
 
 :DiabeticDiet a :RestrictedDiet ;
@@ -3440,12 +3439,12 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 
 :DigitalAudioTapeFormat a :MusicReleaseFormatType ;
     rdfs:label "DigitalAudioTapeFormat" ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#MBZ> ;
+    :contributor <https://schema.org/docs/collab/MBZ> ;
     rdfs:comment "DigitalAudioTapeFormat." .
 
 :DigitalFormat a :MusicReleaseFormatType ;
     rdfs:label "DigitalFormat" ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#MBZ> ;
+    :contributor <https://schema.org/docs/collab/MBZ> ;
     rdfs:comment "DigitalFormat." .
 
 :Discontinued a :ItemAvailability ;
@@ -3458,7 +3457,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 
 :EPRelease a :MusicAlbumReleaseType ;
     rdfs:label "EPRelease" ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#MBZ> ;
+    :contributor <https://schema.org/docs/collab/MBZ> ;
     rdfs:comment "EPRelease." .
 
 :EventCancelled a :EventStatusType ;
@@ -3495,7 +3494,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 
 :FourWheelDriveConfiguration a :DriveWheelConfigurationValue ;
     rdfs:label "FourWheelDriveConfiguration" ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group> ;
+    :contributor <https://schema.org/docs/collab/Automotive_Ontology_Working_Group> ;
     rdfs:comment "Four-wheel drive is a transmission layout where the engine primarily drives two wheels with a part-time four-wheel drive capability." .
 
 :Friday a :DayOfWeek ;
@@ -3505,7 +3504,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 
 :FrontWheelDriveConfiguration a :DriveWheelConfigurationValue ;
     rdfs:label "FrontWheelDriveConfiguration" ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group> ;
+    :contributor <https://schema.org/docs/collab/Automotive_Ontology_Working_Group> ;
     rdfs:comment "Front-wheel drive is a transmission layout where the engine drives the front wheels." .
 
 :GlutenFreeDiet a :RestrictedDiet ;
@@ -3558,12 +3557,12 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 
 :LaserDiscFormat a :MusicReleaseFormatType ;
     rdfs:label "LaserDiscFormat" ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#MBZ> ;
+    :contributor <https://schema.org/docs/collab/MBZ> ;
     rdfs:comment "LaserDiscFormat." .
 
 :LeftHandDriving a :SteeringPositionValue ;
     rdfs:label "LeftHandDriving" ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group> ;
+    :contributor <https://schema.org/docs/collab/Automotive_Ontology_Working_Group> ;
     rdfs:comment "The steering position is on the left side of the vehicle (viewed from the main direction of driving)." .
 
 :LimitedAvailability a :ItemAvailability ;
@@ -3572,7 +3571,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 
 :LiveAlbum a :MusicAlbumProductionType ;
     rdfs:label "LiveAlbum" ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#MBZ> ;
+    :contributor <https://schema.org/docs/collab/MBZ> ;
     rdfs:comment "LiveAlbum." .
 
 :LockerDelivery a :DeliveryMethod ;
@@ -3601,7 +3600,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 
 :MixtapeAlbum a :MusicAlbumProductionType ;
     rdfs:label "MixtapeAlbum" ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#MBZ> ;
+    :contributor <https://schema.org/docs/collab/MBZ> ;
     rdfs:comment "MixtapeAlbum." .
 
 :Monday a :DayOfWeek ;
@@ -3683,7 +3682,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 
 :ParcelService a :DeliveryMethod ;
     rdfs:label "ParcelService" ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsClass> ;
+    :contributor <https://schema.org/docs/collab/GoodRelationsClass> ;
     rdfs:comment """A private parcel service as the delivery mode available for a certain offer.\\n\\nCommonly used values:\\n\\n* http://purl.org/goodrelations/v1#DHL\\n* http://purl.org/goodrelations/v1#FederalExpress\\n* http://purl.org/goodrelations/v1#UPS
       """ .
 
@@ -3725,7 +3724,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 
 :PublicHolidays a :DayOfWeek ;
     rdfs:label "PublicHolidays" ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsClass> ;
+    :contributor <https://schema.org/docs/collab/GoodRelationsClass> ;
     rdfs:comment "This stands for any day that is a public holiday; it is a placeholder for all official public holidays in some particular location. While not technically a \"day of the week\", it can be used with [[OpeningHoursSpecification]]. In the context of an opening hours specification it can be used to indicate opening hours on public holidays, overriding general opening hours for the day of the week on which a public holiday occurs." .
 
 :ReadPermission a :DigitalDocumentPermissionType ;
@@ -3734,7 +3733,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 
 :RearWheelDriveConfiguration a :DriveWheelConfigurationValue ;
     rdfs:label "RearWheelDriveConfiguration" ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group> ;
+    :contributor <https://schema.org/docs/collab/Automotive_Ontology_Working_Group> ;
     rdfs:comment "Real-wheel drive is a transmission layout where the engine drives the rear wheels." .
 
 :RefurbishedCondition a :OfferItemCondition ;
@@ -3743,7 +3742,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 
 :RemixAlbum a :MusicAlbumProductionType ;
     rdfs:label "RemixAlbum" ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#MBZ> ;
+    :contributor <https://schema.org/docs/collab/MBZ> ;
     rdfs:comment "RemixAlbum." .
 
 :ReservationCancelled a :ReservationStatusType ;
@@ -3764,7 +3763,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 
 :RightHandDriving a :SteeringPositionValue ;
     rdfs:label "RightHandDriving" ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group> ;
+    :contributor <https://schema.org/docs/collab/Automotive_Ontology_Working_Group> ;
     rdfs:comment "The steering position is on the right side of the vehicle (viewed from the main direction of driving)." .
 
 :RsvpResponseMaybe a :RsvpResponseType ;
@@ -3794,7 +3793,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 
 :SingleRelease a :MusicAlbumReleaseType ;
     rdfs:label "SingleRelease" ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#MBZ> ;
+    :contributor <https://schema.org/docs/collab/MBZ> ;
     rdfs:comment "SingleRelease." .
 
 :SoldOut a :ItemAvailability ;
@@ -3803,17 +3802,17 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 
 :SoundtrackAlbum a :MusicAlbumProductionType ;
     rdfs:label "SoundtrackAlbum" ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#MBZ> ;
+    :contributor <https://schema.org/docs/collab/MBZ> ;
     rdfs:comment "SoundtrackAlbum." .
 
 :SpokenWordAlbum a :MusicAlbumProductionType ;
     rdfs:label "SpokenWordAlbum" ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#MBZ> ;
+    :contributor <https://schema.org/docs/collab/MBZ> ;
     rdfs:comment "SpokenWordAlbum." .
 
 :StudioAlbum a :MusicAlbumProductionType ;
     rdfs:label "StudioAlbum" ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#MBZ> ;
+    :contributor <https://schema.org/docs/collab/MBZ> ;
     rdfs:comment "StudioAlbum." .
 
 :Sunday a :DayOfWeek ;
@@ -3861,7 +3860,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 
 :VinylFormat a :MusicReleaseFormatType ;
     rdfs:label "VinylFormat" ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#MBZ> ;
+    :contributor <https://schema.org/docs/collab/MBZ> ;
     rdfs:comment "VinylFormat." .
 
 :Wednesday a :DayOfWeek ;
@@ -4134,14 +4133,14 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     rdfs:label "albumProductionType" ;
     :domainIncludes :MusicAlbum ;
     :rangeIncludes :MusicAlbumProductionType ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#MBZ> ;
+    :contributor <https://schema.org/docs/collab/MBZ> ;
     rdfs:comment "Classification of the album by its type of content: soundtrack, live album, studio album, etc." .
 
 :albumReleaseType a rdf:Property ;
     rdfs:label "albumReleaseType" ;
     :domainIncludes :MusicAlbum ;
     :rangeIncludes :MusicAlbumReleaseType ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#MBZ> ;
+    :contributor <https://schema.org/docs/collab/MBZ> ;
     rdfs:comment "The kind of release which this album is: single, EP or album." .
 
 :albums a rdf:Property ;
@@ -4175,7 +4174,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
         :LodgingBusiness,
         :Place ;
     :rangeIncludes :LocationFeatureSpecification ;
-    :source <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology> ;
+    :contributor <https://schema.org/docs/collab/STI_Accommodation_Ontology> ;
     rdfs:comment "An amenity feature (e.g. a characteristic or service) of the Accommodation. This generic property does not make a statement about whether the feature is included in an offer for the main accommodation or available at extra costs." .
 
 :amount a rdf:Property ;
@@ -4199,7 +4198,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     :domainIncludes :FinancialProduct ;
     :rangeIncludes :Number,
         :QuantitativeValue ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO> ;
+    :contributor <https://schema.org/docs/collab/FIBO> ;
     rdfs:comment "The annual rate that is charged for borrowing (or made by investing), expressed as a single percentage number that represents the actual yearly cost of funds over the term of a loan. This includes any fees or additional costs associated with the transaction." .
 
 :answerCount a rdf:Property ;
@@ -4515,7 +4514,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     :rangeIncludes :BedDetails,
         :BedType,
         :Text ;
-    :source <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology> ;
+    :contributor <https://schema.org/docs/collab/STI_Accommodation_Ontology> ;
     rdfs:comment """The type of bed or beds included in the accommodation. For the single case of just one bed of a certain type, you use bed directly with a text.
       If you want to indicate the quantity of a certain kind of bed, use an instance of BedDetails. For more detailed information, use the amenityFeature property.""" .
 
@@ -4799,7 +4798,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     rdfs:label "cargoVolume" ;
     :domainIncludes :Vehicle ;
     :rangeIncludes :QuantitativeValue ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group> ;
+    :contributor <https://schema.org/docs/collab/Automotive_Ontology_Working_Group> ;
     rdfs:comment "The available volume for cargo or luggage. For automobiles, this is usually the trunk volume.\\n\\nTypical unit code(s): LTR for liters, FTQ for cubic foot/feet\\n\\nNote: You can use [[minValue]] and [[maxValue]] to indicate ranges." .
 
 :carrier a rdf:Property ;
@@ -4827,7 +4826,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     rdfs:label "catalogNumber" ;
     :domainIncludes :MusicRelease ;
     :rangeIncludes :Text ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#MBZ> ;
+    :contributor <https://schema.org/docs/collab/MBZ> ;
     rdfs:comment "The catalog number for the release." .
 
 :category a rdf:Property ;
@@ -5016,7 +5015,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
         :MusicComposition ;
     :rangeIncludes :Organization,
         :Person ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#MBZ> ;
+    :contributor <https://schema.org/docs/collab/MBZ> ;
     rdfs:comment "The person or organization who wrote a composition, or who is the composer of a work performed at some event." .
 
 :confirmationNumber a rdf:Property ;
@@ -5192,7 +5191,7 @@ In the case of products, the country of origin of the product. The exact interpr
     :domainIncludes :MusicRelease ;
     :rangeIncludes :Organization,
         :Person ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#MBZ> ;
+    :contributor <https://schema.org/docs/collab/MBZ> ;
     rdfs:comment "The group the release is credited to if different than the byArtist. For example, Red and Blue is credited to \"Stefani Germanotta Band\", but by Lady Gaga." .
 
 :cssSelector a rdf:Property ;
@@ -5306,7 +5305,7 @@ In the case of products, the country of origin of the product. The exact interpr
     rdfs:label "dateVehicleFirstRegistered" ;
     :domainIncludes :Vehicle ;
     :rangeIncludes :Date ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group> ;
+    :contributor <https://schema.org/docs/collab/Automotive_Ontology_Working_Group> ;
     rdfs:comment "The date of the first registration of the vehicle with the respective public authorities." .
 
 :dateline a rdf:Property ;
@@ -5541,7 +5540,7 @@ Dateline summaries are oriented more towards human readers than towards automate
     :domainIncludes :Vehicle ;
     :rangeIncludes :DriveWheelConfigurationValue,
         :Text ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group> ;
+    :contributor <https://schema.org/docs/collab/Automotive_Ontology_Working_Group> ;
     rdfs:comment "The drive wheel configuration, i.e. which roadwheels will receive torque from the vehicle's engine via the drivetrain." .
 
 :dropoffLocation a rdf:Property ;
@@ -5894,7 +5893,7 @@ This property should not be used where the nature of the alignment can be descri
         :FinancialService ;
     :rangeIncludes :Text,
         :URL ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO> ;
+    :contributor <https://schema.org/docs/collab/FIBO> ;
     rdfs:comment "Description of fees, commissions, and other terms applied either to a class of financial product, or by a financial service organization." .
 
 :fiberContent a rdf:Property ;
@@ -5921,7 +5920,7 @@ This property should not be used where the nature of the alignment can be descri
     rdfs:label "firstPerformance" ;
     :domainIncludes :MusicComposition ;
     :rangeIncludes :Event ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#MBZ> ;
+    :contributor <https://schema.org/docs/collab/MBZ> ;
     rdfs:comment "The date and place the work was first performed." .
 
 :flightDistance a rdf:Property ;
@@ -5942,7 +5941,7 @@ This property should not be used where the nature of the alignment can be descri
     rdfs:label "floorSize" ;
     :domainIncludes :Accommodation ;
     :rangeIncludes :QuantitativeValue ;
-    :source <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology> ;
+    :contributor <https://schema.org/docs/collab/STI_Accommodation_Ontology> ;
     rdfs:comment """The size of the accommodation, e.g. in square meter or squarefoot.
 Typical unit code(s): MTK for square meter, FTK for square foot, or YDK for square yard """ .
 
@@ -6014,14 +6013,14 @@ Typical unit code(s): MTK for square meter, FTK for square foot, or YDK for squa
     rdfs:label "fuelConsumption" ;
     :domainIncludes :Vehicle ;
     :rangeIncludes :QuantitativeValue ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group> ;
+    :contributor <https://schema.org/docs/collab/Automotive_Ontology_Working_Group> ;
     rdfs:comment "The amount of fuel consumed for traveling a particular distance or temporal duration with the given vehicle (e.g. liters per 100 km).\\n\\n* Note 1: There are unfortunately no standard unit codes for liters per 100 km.  Use [[unitText]] to indicate the unit of measurement, e.g. L/100 km.\\n* Note 2: There are two ways of indicating the fuel consumption, [[fuelConsumption]] (e.g. 8 liters per 100 km) and [[fuelEfficiency]] (e.g. 30 miles per gallon). They are reciprocal.\\n* Note 3: Often, the absolute value is useful only when related to driving speed (\"at 80 km/h\") or usage pattern (\"city traffic\"). You can use [[valueReference]] to link the value for the fuel consumption to another value." .
 
 :fuelEfficiency a rdf:Property ;
     rdfs:label "fuelEfficiency" ;
     :domainIncludes :Vehicle ;
     :rangeIncludes :QuantitativeValue ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group> ;
+    :contributor <https://schema.org/docs/collab/Automotive_Ontology_Working_Group> ;
     rdfs:comment "The distance traveled per unit of fuel used; most commonly miles per gallon (mpg) or kilometers per liter (km/L).\\n\\n* Note 1: There are unfortunately no standard unit codes for miles per gallon or kilometers per liter. Use [[unitText]] to indicate the unit of measurement, e.g. mpg or km/L.\\n* Note 2: There are two ways of indicating the fuel consumption, [[fuelConsumption]] (e.g. 8 liters per 100 km) and [[fuelEfficiency]] (e.g. 30 miles per gallon). They are reciprocal.\\n* Note 3: Often, the absolute value is useful only when related to driving speed (\"at 80 km/h\") or usage pattern (\"city traffic\"). You can use [[valueReference]] to link the value for the fuel economy to another value." .
 
 :fuelType a rdf:Property ;
@@ -6031,7 +6030,7 @@ Typical unit code(s): MTK for square meter, FTK for square foot, or YDK for squa
     :rangeIncludes :QualitativeValue,
         :Text,
         :URL ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group> ;
+    :contributor <https://schema.org/docs/collab/Automotive_Ontology_Working_Group> ;
     rdfs:comment "The type of fuel suitable for the engine or engines of the vehicle. If the vehicle has only one engine, this property can be attached directly to the vehicle." .
 
 :funder a rdf:Property ;
@@ -6372,7 +6371,7 @@ Typical unit code(s): MTK for square meter, FTK for square foot, or YDK for squa
     rdfs:label "includedComposition" ;
     :domainIncludes :MusicComposition ;
     :rangeIncludes :MusicComposition ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#MBZ> ;
+    :contributor <https://schema.org/docs/collab/MBZ> ;
     rdfs:comment "Smaller compositions included in this work (e.g. a movement in a symphony)." .
 
 :includedDataCatalog a rdf:Property ;
@@ -6457,7 +6456,7 @@ Typical unit code(s): MTK for square meter, FTK for square foot, or YDK for squa
     :domainIncludes :FinancialProduct ;
     :rangeIncludes :Number,
         :QuantitativeValue ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO> ;
+    :contributor <https://schema.org/docs/collab/FIBO> ;
     rdfs:comment "The interest rate, charged or paid, applicable to the financial product. Note: This is different from the calculated annualPercentageRate." .
 
 :inventoryLevel a rdf:Property ;
@@ -6555,7 +6554,7 @@ Typical unit code(s): MTK for square meter, FTK for square foot, or YDK for squa
     rdfs:label "isrcCode" ;
     :domainIncludes :MusicRecording ;
     :rangeIncludes :Text ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#MBZ> ;
+    :contributor <https://schema.org/docs/collab/MBZ> ;
     rdfs:comment "The International Standard Recording Code for the recording." .
 
 :issn a rdf:Property ;
@@ -6565,7 +6564,7 @@ Typical unit code(s): MTK for square meter, FTK for square foot, or YDK for squa
         :Dataset,
         :WebSite ;
     :rangeIncludes :Text ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_bibex> ;
+    :contributor <https://schema.org/docs/collab/bibex> ;
     rdfs:comment "The International Standard Serial Number (ISSN) that identifies this serial publication. You can repeat this property to identify different formats of, or the linking ISSN (ISSN-L) for, this serial publication." ;
     rdfs:subPropertyOf :identifier ;
     owl:equivalentProperty <http://purl.org/ontology/bibo/issn> .
@@ -6575,7 +6574,7 @@ Typical unit code(s): MTK for square meter, FTK for square foot, or YDK for squa
     :domainIncludes :PublicationIssue ;
     :rangeIncludes :Integer,
         :Text ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_bibex> ;
+    :contributor <https://schema.org/docs/collab/bibex> ;
     rdfs:comment "Identifies the issue of publication; for example, \"iii\" or \"2\"." ;
     rdfs:subPropertyOf :position ;
     owl:equivalentProperty <http://purl.org/ontology/bibo/issue> .
@@ -6597,7 +6596,7 @@ Typical unit code(s): MTK for square meter, FTK for square foot, or YDK for squa
     rdfs:label "iswcCode" ;
     :domainIncludes :MusicComposition ;
     :rangeIncludes :Text ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#MBZ> ;
+    :contributor <https://schema.org/docs/collab/MBZ> ;
     rdfs:comment "The International Standard Musical Work Code for the composition." .
 
 :item a rdf:Property ;
@@ -6668,7 +6667,7 @@ Typical unit code(s): MTK for square meter, FTK for square foot, or YDK for squa
     rdfs:label "knownVehicleDamages" ;
     :domainIncludes :Vehicle ;
     :rangeIncludes :Text ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group> ;
+    :contributor <https://schema.org/docs/collab/Automotive_Ontology_Working_Group> ;
     rdfs:comment "A textual description of known damages, both repaired and unrepaired." .
 
 :knows a rdf:Property ;
@@ -6726,8 +6725,8 @@ Typical unit code(s): MTK for square meter, FTK for square foot, or YDK for squa
     rdfs:label "leiCode" ;
     :domainIncludes :Organization ;
     :rangeIncludes :Text ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO>,
-        <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#GLEIF> ;
+    :contributor <https://schema.org/docs/collab/FIBO>,
+        <https://schema.org/docs/collab/GLEIF> ;
     rdfs:comment "An organization identifier that uniquely identifies a legal entity as defined in ISO 17442." ;
     rdfs:subPropertyOf :identifier .
 
@@ -6774,7 +6773,7 @@ Typical unit code(s): MTK for square meter, FTK for square foot, or YDK for squa
     rdfs:label "loanTerm" ;
     :domainIncludes :LoanOrCredit ;
     :rangeIncludes :QuantitativeValue ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO> ;
+    :contributor <https://schema.org/docs/collab/FIBO> ;
     rdfs:comment "The duration of the loan or credit agreement." ;
     rdfs:subPropertyOf :duration .
 
@@ -6835,14 +6834,14 @@ Typical unit code(s): MTK for square meter, FTK for square foot, or YDK for squa
     rdfs:label "lyricist" ;
     :domainIncludes :MusicComposition ;
     :rangeIncludes :Person ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#MBZ> ;
+    :contributor <https://schema.org/docs/collab/MBZ> ;
     rdfs:comment "The person who wrote the words." .
 
 :lyrics a rdf:Property ;
     rdfs:label "lyrics" ;
     :domainIncludes :MusicComposition ;
     :rangeIncludes :CreativeWork ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#MBZ> ;
+    :contributor <https://schema.org/docs/collab/MBZ> ;
     rdfs:comment "The words in the song." .
 
 :mainContentOfPage a rdf:Property ;
@@ -6975,7 +6974,7 @@ Typical unit code(s): MTK for square meter, FTK for square foot, or YDK for squa
     rdfs:label "mileageFromOdometer" ;
     :domainIncludes :Vehicle ;
     :rangeIncludes :QuantitativeValue ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group> ;
+    :contributor <https://schema.org/docs/collab/Automotive_Ontology_Working_Group> ;
     rdfs:comment "The total distance travelled by the particular vehicle since its initial production, as read from its odometer.\\n\\nTypical unit code(s): KMT for kilometers, SMI for statute miles" .
 
 :minPrice a rdf:Property ;
@@ -7031,7 +7030,7 @@ Typical unit code(s): MTK for square meter, FTK for square foot, or YDK for squa
     rdfs:label "musicArrangement" ;
     :domainIncludes :MusicComposition ;
     :rangeIncludes :MusicComposition ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#MBZ> ;
+    :contributor <https://schema.org/docs/collab/MBZ> ;
     rdfs:comment "An arrangement derived from the composition." .
 
 :musicBy a rdf:Property ;
@@ -7053,7 +7052,7 @@ Typical unit code(s): MTK for square meter, FTK for square foot, or YDK for squa
     rdfs:label "musicCompositionForm" ;
     :domainIncludes :MusicComposition ;
     :rangeIncludes :Text ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#MBZ> ;
+    :contributor <https://schema.org/docs/collab/MBZ> ;
     rdfs:comment "The type of composition (e.g. overture, sonata, symphony, etc.)." .
 
 :musicGroupMember a rdf:Property ;
@@ -7067,14 +7066,14 @@ Typical unit code(s): MTK for square meter, FTK for square foot, or YDK for squa
     rdfs:label "musicReleaseFormat" ;
     :domainIncludes :MusicRelease ;
     :rangeIncludes :MusicReleaseFormatType ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#MBZ> ;
+    :contributor <https://schema.org/docs/collab/MBZ> ;
     rdfs:comment "Format of this release (the type of recording media used, i.e. compact disc, digital media, LP, etc.)." .
 
 :musicalKey a rdf:Property ;
     rdfs:label "musicalKey" ;
     :domainIncludes :MusicComposition ;
     :rangeIncludes :Text ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#MBZ> ;
+    :contributor <https://schema.org/docs/collab/MBZ> ;
     rdfs:comment "The key, mode, or scale this composition uses." .
 
 :naics a rdf:Property ;
@@ -7150,7 +7149,7 @@ Typical unit code(s): MTK for square meter, FTK for square foot, or YDK for squa
     :domainIncludes :Vehicle ;
     :rangeIncludes :Number,
         :Text ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group> ;
+    :contributor <https://schema.org/docs/collab/Automotive_Ontology_Working_Group> ;
     rdfs:comment "The number or type of airbags in the vehicle." .
 
 :numberOfAxles a rdf:Property ;
@@ -7158,14 +7157,14 @@ Typical unit code(s): MTK for square meter, FTK for square foot, or YDK for squa
     :domainIncludes :Vehicle ;
     :rangeIncludes :Number,
         :QuantitativeValue ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group> ;
+    :contributor <https://schema.org/docs/collab/Automotive_Ontology_Working_Group> ;
     rdfs:comment "The number of axles.\\n\\nTypical unit code(s): C62" .
 
 :numberOfBeds a rdf:Property ;
     rdfs:label "numberOfBeds" ;
     :domainIncludes :BedDetails ;
     :rangeIncludes :Number ;
-    :source <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology> ;
+    :contributor <https://schema.org/docs/collab/STI_Accommodation_Ontology> ;
     rdfs:comment "The quantity of the given bed type available in the HotelRoom, Suite, House, or Apartment." .
 
 :numberOfDoors a rdf:Property ;
@@ -7173,7 +7172,7 @@ Typical unit code(s): MTK for square meter, FTK for square foot, or YDK for squa
     :domainIncludes :Vehicle ;
     :rangeIncludes :Number,
         :QuantitativeValue ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group> ;
+    :contributor <https://schema.org/docs/collab/Automotive_Ontology_Working_Group> ;
     rdfs:comment "The number of doors.\\n\\nTypical unit code(s): C62" .
 
 :numberOfEmployees a rdf:Property ;
@@ -7197,7 +7196,7 @@ Typical unit code(s): MTK for square meter, FTK for square foot, or YDK for squa
     :domainIncludes :Vehicle ;
     :rangeIncludes :Number,
         :QuantitativeValue ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group> ;
+    :contributor <https://schema.org/docs/collab/Automotive_Ontology_Working_Group> ;
     rdfs:comment "The total number of forward gears available for the transmission system of the vehicle.\\n\\nTypical unit code(s): C62" .
 
 :numberOfItems a rdf:Property ;
@@ -7224,7 +7223,7 @@ Typical unit code(s): MTK for square meter, FTK for square foot, or YDK for squa
     :domainIncludes :Vehicle ;
     :rangeIncludes :Number,
         :QuantitativeValue ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group> ;
+    :contributor <https://schema.org/docs/collab/Automotive_Ontology_Working_Group> ;
     rdfs:comment "The number of owners of the vehicle, including the current one.\\n\\nTypical unit code(s): C62" .
 
 :numberOfRooms a rdf:Property ;
@@ -7237,7 +7236,7 @@ Typical unit code(s): MTK for square meter, FTK for square foot, or YDK for squa
         :Suite ;
     :rangeIncludes :Number,
         :QuantitativeValue ;
-    :source <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology> ;
+    :contributor <https://schema.org/docs/collab/STI_Accommodation_Ontology> ;
     rdfs:comment """The number of rooms (excluding bathrooms and closets) of the accommodation or lodging business.
 Typical unit code(s): ROM for room or C62 for no unit. The type of room can be put in the unitText property of the QuantitativeValue.""" .
 
@@ -7269,7 +7268,7 @@ Typical unit code(s): ROM for room or C62 for no unit. The type of room can be p
         :SingleFamilyResidence,
         :Suite ;
     :rangeIncludes :QuantitativeValue ;
-    :source <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology> ;
+    :contributor <https://schema.org/docs/collab/STI_Accommodation_Ontology> ;
     rdfs:comment """The allowed total occupancy for the accommodation in persons (including infants etc). For individual accommodations, this is not necessarily the legal maximum but defines the permitted usage as per the contractual agreement (e.g. a double room used by a single person).
 Typical unit code(s): C62 for person""" .
 
@@ -7430,7 +7429,7 @@ Note: for historical reasons, any textual label and formal code provided as a li
         :PublicationVolume ;
     :rangeIncludes :Integer,
         :Text ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_bibex> ;
+    :contributor <https://schema.org/docs/collab/bibex> ;
     rdfs:comment "The page on which the work ends; for example \"138\" or \"xvi\"." ;
     owl:equivalentProperty <http://purl.org/ontology/bibo/pageEnd> .
 
@@ -7441,7 +7440,7 @@ Note: for historical reasons, any textual label and formal code provided as a li
         :PublicationVolume ;
     :rangeIncludes :Integer,
         :Text ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_bibex> ;
+    :contributor <https://schema.org/docs/collab/bibex> ;
     rdfs:comment "The page on which the work starts; for example \"135\" or \"xiii\"." ;
     owl:equivalentProperty <http://purl.org/ontology/bibo/pageStart> .
 
@@ -7451,7 +7450,7 @@ Note: for historical reasons, any textual label and formal code provided as a li
         :PublicationIssue,
         :PublicationVolume ;
     :rangeIncludes :Text ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_bibex> ;
+    :contributor <https://schema.org/docs/collab/bibex> ;
     rdfs:comment "Any description of pages that is not separated into pageStart and pageEnd; for example, \"1-6, 9, 55\" or \"10-12, 46-49\"." ;
     owl:equivalentProperty <http://purl.org/ontology/bibo/pages> .
 
@@ -7637,7 +7636,7 @@ Note: for historical reasons, any textual label and formal code provided as a li
     rdfs:label "permittedUsage" ;
     :domainIncludes :Accommodation ;
     :rangeIncludes :Text ;
-    :source <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology> ;
+    :contributor <https://schema.org/docs/collab/STI_Accommodation_Ontology> ;
     rdfs:comment "Indications regarding the permitted usage of the accommodation." .
 
 :petsAllowed a rdf:Property ;
@@ -7646,7 +7645,7 @@ Note: for historical reasons, any textual label and formal code provided as a li
         :LodgingBusiness ;
     :rangeIncludes :Boolean,
         :Text ;
-    :source <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology> ;
+    :contributor <https://schema.org/docs/collab/STI_Accommodation_Ontology> ;
     rdfs:comment "Indicates whether pets are allowed to enter the accommodation or lodging business. More detailed information can be put in a text value." .
 
 :photos a rdf:Property ;
@@ -7755,7 +7754,7 @@ Note: for historical reasons, any textual label and formal code provided as a li
     rdfs:label "priceComponent" ;
     :domainIncludes :CompoundPriceSpecification ;
     :rangeIncludes :UnitPriceSpecification ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms> ;
+    :contributor <https://schema.org/docs/collab/GoodRelationsTerms> ;
     rdfs:comment "This property links to all [[UnitPriceSpecification]] nodes that apply in parallel for the [[CompoundPriceSpecification]] node." .
 
 :priceCurrency a rdf:Property ;
@@ -7882,7 +7881,7 @@ Note: for historical reasons, any textual label and formal code provided as a li
     :domainIncludes :Product,
         :Vehicle ;
     :rangeIncludes :Date ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group> ;
+    :contributor <https://schema.org/docs/collab/Automotive_Ontology_Working_Group> ;
     rdfs:comment "The date of production of the item, e.g. vehicle." .
 
 :proficiencyLevel a rdf:Property ;
@@ -7986,7 +7985,7 @@ While such policies are most typically expressed in natural language, sometimes 
     :domainIncludes :Product,
         :Vehicle ;
     :rangeIncludes :Date ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group> ;
+    :contributor <https://schema.org/docs/collab/Automotive_Ontology_Working_Group> ;
     rdfs:comment "The date the item, e.g. vehicle, was purchased by the current owner." .
 
 :qualifications a rdf:Property ;
@@ -8084,7 +8083,7 @@ While such policies are most typically expressed in natural language, sometimes 
     rdfs:label "recordLabel" ;
     :domainIncludes :MusicRelease ;
     :rangeIncludes :Organization ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#MBZ> ;
+    :contributor <https://schema.org/docs/collab/MBZ> ;
     rdfs:comment "The label that issued the release." ;
     owl:equivalentProperty <http://purl.org/ontology/mo/label> .
 
@@ -8092,8 +8091,7 @@ While such policies are most typically expressed in natural language, sometimes 
     rdfs:label "referenceQuantity" ;
     :domainIncludes :UnitPriceSpecification ;
     :rangeIncludes :QuantitativeValue ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsProperties>,
-        <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms> ;
+    :contributor <https://schema.org/docs/collab/GoodRelationsTerms> ;
     rdfs:comment "The reference quantity for which a certain price applies, e.g. 1 EUR per 4 kWh of electricity. This property is a replacement for unitOfMeasurement for the advanced cases where the price does not relate to a standard unit." .
 
 :referencesOrder a rdf:Property ;
@@ -8189,7 +8187,7 @@ While such policies are most typically expressed in natural language, sometimes 
     :domainIncludes :LoanOrCredit ;
     :rangeIncludes :Text,
         :Thing ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO> ;
+    :contributor <https://schema.org/docs/collab/FIBO> ;
     rdfs:comment "Assets required to secure loan or credit repayments. It may take form of third party pledge, goods, financial instruments (cash, securities, etc.)" .
 
 :requiredGender a rdf:Property ;
@@ -8582,7 +8580,7 @@ While such policies are most typically expressed in natural language, sometimes 
     rdfs:label "smokingAllowed" ;
     :domainIncludes :Place ;
     :rangeIncludes :Boolean ;
-    :source <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology> ;
+    :contributor <https://schema.org/docs/collab/STI_Accommodation_Ontology> ;
     rdfs:comment "Indicates whether it is allowed to smoke in the place, e.g. in the restaurant, hotel or hotel room." .
 
 :sodiumContent a rdf:Property ;
@@ -8713,7 +8711,7 @@ we define a supporting type, [[SpeakableSpecification]]  which is defined to be 
     :domainIncludes :FoodEstablishment,
         :LodgingBusiness ;
     :rangeIncludes :Rating ;
-    :source <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology> ;
+    :contributor <https://schema.org/docs/collab/STI_Accommodation_Ontology> ;
     rdfs:comment "An official rating for a lodging business or food establishment, e.g. from national associations or standards bodies. Use the author property to indicate the rating organization, e.g. as an Organization with name such as (e.g. HOTREC, DEHOGA, WHR, or Hotelstars)." .
 
 :startDate a rdf:Property ;
@@ -8741,7 +8739,7 @@ we define a supporting type, [[SpeakableSpecification]]  which is defined to be 
     rdfs:label "steeringPosition" ;
     :domainIncludes :Vehicle ;
     :rangeIncludes :SteeringPositionValue ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group> ;
+    :contributor <https://schema.org/docs/collab/Automotive_Ontology_Working_Group> ;
     rdfs:comment "The position of the steering wheel or similar device (mostly for cars)." .
 
 :stepValue a rdf:Property ;
@@ -9023,8 +9021,8 @@ we define a supporting type, [[SpeakableSpecification]]  which is defined to be 
     :domainIncludes :TouristAttraction ;
     :rangeIncludes :Audience,
         :Text ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#IIT-CNR.it>,
-        <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Tourism> ;
+    :contributor <https://schema.org/docs/collab/IIT-CNR.it>,
+        <https://schema.org/docs/collab/Tourism> ;
     rdfs:comment "Attraction suitable for type(s) of tourist. E.g. children, visitors from a particular country, etc. " .
 
 :trackingNumber a rdf:Property ;
@@ -9098,7 +9096,7 @@ we define a supporting type, [[SpeakableSpecification]]  which is defined to be 
     :domainIncludes :BedDetails ;
     :rangeIncludes :BedType,
         :Text ;
-    :source <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology> ;
+    :contributor <https://schema.org/docs/collab/STI_Accommodation_Ontology> ;
     rdfs:comment "The type of bed to which the BedDetail refers, i.e. the type of bed available in the quantity indicated by quantity." .
 
 :typeOfGood a rdf:Property ;
@@ -9294,21 +9292,21 @@ we define a supporting type, [[SpeakableSpecification]]  which is defined to be 
     rdfs:label "vehicleConfiguration" ;
     :domainIncludes :Vehicle ;
     :rangeIncludes :Text ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group> ;
+    :contributor <https://schema.org/docs/collab/Automotive_Ontology_Working_Group> ;
     rdfs:comment "A short text indicating the configuration of the vehicle, e.g. '5dr hatchback ST 2.5 MT 225 hp' or 'limited edition'." .
 
 :vehicleEngine a rdf:Property ;
     rdfs:label "vehicleEngine" ;
     :domainIncludes :Vehicle ;
     :rangeIncludes :EngineSpecification ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group> ;
+    :contributor <https://schema.org/docs/collab/Automotive_Ontology_Working_Group> ;
     rdfs:comment "Information about the engine or engines of the vehicle." .
 
 :vehicleIdentificationNumber a rdf:Property ;
     rdfs:label "vehicleIdentificationNumber" ;
     :domainIncludes :Vehicle ;
     :rangeIncludes :Text ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group> ;
+    :contributor <https://schema.org/docs/collab/Automotive_Ontology_Working_Group> ;
     rdfs:comment "The Vehicle Identification Number (VIN) is a unique serial number used by the automotive industry to identify individual motor vehicles." ;
     rdfs:subPropertyOf :serialNumber .
 
@@ -9316,21 +9314,21 @@ we define a supporting type, [[SpeakableSpecification]]  which is defined to be 
     rdfs:label "vehicleInteriorColor" ;
     :domainIncludes :Vehicle ;
     :rangeIncludes :Text ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group> ;
+    :contributor <https://schema.org/docs/collab/Automotive_Ontology_Working_Group> ;
     rdfs:comment "The color or color combination of the interior of the vehicle." .
 
 :vehicleInteriorType a rdf:Property ;
     rdfs:label "vehicleInteriorType" ;
     :domainIncludes :Vehicle ;
     :rangeIncludes :Text ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group> ;
+    :contributor <https://schema.org/docs/collab/Automotive_Ontology_Working_Group> ;
     rdfs:comment "The type or material of the interior of the vehicle (e.g. synthetic fabric, leather, wood, etc.). While most interior types are characterized by the material used, an interior type can also be based on vehicle usage or target audience." .
 
 :vehicleModelDate a rdf:Property ;
     rdfs:label "vehicleModelDate" ;
     :domainIncludes :Vehicle ;
     :rangeIncludes :Date ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group> ;
+    :contributor <https://schema.org/docs/collab/Automotive_Ontology_Working_Group> ;
     rdfs:comment "The release date of a vehicle model (often used to differentiate versions of the same make and model)." .
 
 :vehicleSeatingCapacity a rdf:Property ;
@@ -9338,7 +9336,7 @@ we define a supporting type, [[SpeakableSpecification]]  which is defined to be 
     :domainIncludes :Vehicle ;
     :rangeIncludes :Number,
         :QuantitativeValue ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group> ;
+    :contributor <https://schema.org/docs/collab/Automotive_Ontology_Working_Group> ;
     rdfs:comment "The number of passengers that can be seated in the vehicle, both in terms of the physical space available, and in terms of limitations set by law.\\n\\nTypical unit code(s): C62 for persons." .
 
 :vehicleSpecialUsage a rdf:Property ;
@@ -9353,7 +9351,7 @@ we define a supporting type, [[SpeakableSpecification]]  which is defined to be 
     :rangeIncludes :QualitativeValue,
         :Text,
         :URL ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group> ;
+    :contributor <https://schema.org/docs/collab/Automotive_Ontology_Working_Group> ;
     rdfs:comment "The type of component used for transmitting the power from a rotating power source to the wheels or other relevant component(s) (\"gearbox\" for cars)." .
 
 :vendor a rdf:Property ;
@@ -9404,7 +9402,7 @@ we define a supporting type, [[SpeakableSpecification]]  which is defined to be 
     :domainIncludes :PublicationVolume ;
     :rangeIncludes :Integer,
         :Text ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_bibex> ;
+    :contributor <https://schema.org/docs/collab/bibex> ;
     rdfs:comment "Identifies the volume of publication or multi-part work; for example, \"iii\" or \"2\"." ;
     rdfs:subPropertyOf :position ;
     owl:equivalentProperty <http://purl.org/ontology/bibo/volume> .
@@ -9518,10 +9516,6 @@ we define a supporting type, [[SpeakableSpecification]]  which is defined to be 
     :domainIncludes :BusinessAudience ;
     :rangeIncludes :QuantitativeValue ;
     rdfs:comment "The age of the business." .
-
-<http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_WikiDoc> a :Organization ;
-    rdfs:label "WikiDoc" ;
-    rdfs:comment "This class contains information contributed by [http://wikidoc.org](http://wikidoc.org)." .
 
 :actionApplication a rdf:Property ;
     rdfs:label "actionApplication" ;
@@ -9777,7 +9771,7 @@ Unregistered or niche encoding and file formats can be indicated instead via the
     :domainIncludes :CreativeWork ;
     :inverseOf :workExample ;
     :rangeIncludes :CreativeWork ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_bibex> ;
+    :contributor <https://schema.org/docs/collab/bibex> ;
     rdfs:comment "A creative work that this work is an example/instance/realization/derivation of." .
 
 :executableLibraryName a rdf:Property ;
@@ -10010,7 +10004,7 @@ Unregistered or niche encoding and file formats can be indicated instead via the
     :domainIncludes :MusicComposition ;
     :inverseOf :recordingOf ;
     :rangeIncludes :MusicRecording ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#MBZ> ;
+    :contributor <https://schema.org/docs/collab/MBZ> ;
     rdfs:comment "An audio recording of the work." .
 
 :recordedAt a rdf:Property ;
@@ -10032,7 +10026,7 @@ Unregistered or niche encoding and file formats can be indicated instead via the
     :domainIncludes :MusicRecording ;
     :inverseOf :recordedAs ;
     :rangeIncludes :MusicComposition ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#MBZ> ;
+    :contributor <https://schema.org/docs/collab/MBZ> ;
     rdfs:comment "The composition this track is a recording of." .
 
 :releaseOf a rdf:Property ;
@@ -10040,7 +10034,7 @@ Unregistered or niche encoding and file formats can be indicated instead via the
     :domainIncludes :MusicRelease ;
     :inverseOf :albumRelease ;
     :rangeIncludes :MusicAlbum ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#MBZ> ;
+    :contributor <https://schema.org/docs/collab/MBZ> ;
     rdfs:comment "The album this is a release of." .
 
 :review a rdf:Property ;
@@ -10191,7 +10185,7 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
         :MusicPlaylist ;
     :rangeIncludes :ItemList,
         :MusicRecording ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#MBZ> ;
+    :contributor <https://schema.org/docs/collab/MBZ> ;
     rdfs:comment "A music recording (track)&#x2014;usually a single song. If an ItemList is given, the list should contain items of type MusicRecording." .
 
 :warranty a rdf:Property ;
@@ -10206,7 +10200,7 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
     :domainIncludes :CreativeWork ;
     :inverseOf :exampleOfWork ;
     :rangeIncludes :CreativeWork ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_bibex> ;
+    :contributor <https://schema.org/docs/collab/bibex> ;
     rdfs:comment "Example/instance/realization/derivation of the concept of this creative work. E.g. the paperback edition, first edition, or e-book." .
 
 :yield a rdf:Property ;
@@ -10215,14 +10209,6 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
     :rangeIncludes :QuantitativeValue,
         :Text ;
     rdfs:comment "The quantity that results by performing instructions. For example, a paper airplane, 10 personalized candles." .
-
-<http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#GLEIF> a :Organization ;
-    rdfs:label "GLEIF" ;
-    rdfs:comment "The implementation and use of Legal Entity Identifier (LEI) is supported by Global Legal Entity Identifier Foundation [https://www.gleif.org](https://www.gleif.org)." .
-
-<https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#TP-draws> a :Organization ;
-    rdfs:label "The Trust Project" ;
-    rdfs:comment "This term and associated definitions draws upon the work of [The Trust Project](http://thetrustproject.org/)." .
 
 :about a rdf:Property ;
     rdfs:label "about" ;
@@ -10344,18 +10330,6 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
     rdfs:comment """A work featured in some event, e.g. exhibited in an ExhibitionEvent.
        Specific subproperties are available for workPerformed (e.g. a play), or a workPresented (a Movie at a ScreeningEvent).""" .
 
-<http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#IIT-CNR.it> a :Organization ;
-    rdfs:label "IITCNRit" ;
-    rdfs:comment "This element is based on work by the Web Applications for the Future Internet Lab, Institute of Informatics and Telematics, Pisa, Italy." .
-
-<http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_LRMIClass> a :Organization ;
-    rdfs:label "LRMIClass" ;
-    rdfs:comment "This class is based on the work of the LRMI project, see lrmi.net for details." .
-
-<http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_QAStackExchange> a :Organization ;
-    rdfs:label "Stack Exchange" ;
-    rdfs:comment "The Question/Answer types were [based on](https://www.w3.org/wiki/WebSchemas/QASchemaResearch) the Stack Overflow API." .
-
 :areaServed a rdf:Property ;
     rdfs:label "areaServed" ;
     :domainIncludes :ContactPoint,
@@ -10404,29 +10378,13 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
     rdfs:comment "A sub property of participant. The participant who is at the receiving end of the action." ;
     rdfs:subPropertyOf :participant .
 
-<http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Tourism> a :Organization ;
-    rdfs:label "Tourism" ;
-    rdfs:comment "This element is based on the work of the [Tourism Structured Web Data Community Group](https://www.w3.org/community/tourismdata)." .
-
-<http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_ActionCollabClass> a :Organization ;
-    rdfs:label "ActionCollabClass" ;
-    rdfs:comment "The schema.org Actions mechanism benefited from extensive discussions across the Web standards community around W3C, in particular from the [Hydra project](http://purl.org/hydra/)'s community group." .
-
-<http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_DatasetClass> a :Organization ;
-    rdfs:label "DatasetClass" ;
-    rdfs:comment "This class is based upon W3C DCAT work, and benefits from collaboration around the DCAT, ADMS and VoID vocabularies. See http://www.w3.org/wiki/WebSchemas/Datasets for full details and mappings." .
-
 :hasPart a rdf:Property ;
     rdfs:label "hasPart" ;
     :domainIncludes :CreativeWork ;
     :inverseOf :isPartOf ;
     :rangeIncludes :CreativeWork ;
-    :source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_bibex> ;
+    :contributor <https://schema.org/docs/collab/bibex> ;
     rdfs:comment "Indicates an item or CreativeWork that is part of this item, or CreativeWork (in some sense)." .
-
-<http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms> a :Organization ;
-    rdfs:label "GoodRelationsTerms" ;
-    rdfs:comment "This term [uses](http://blog.schema.org/2012/11/good-relations-and-schemaorg.html) terminology from the GoodRelations Vocabulary for E-Commerce, created by Martin Hepp. GoodRelations is a data model for sharing e-commerce data on the Web. More information about GoodRelations can be found at [http://purl.org/goodrelations/](http://purl.org/goodrelations/)." .
 
 :isPartOf a rdf:Property ;
     rdfs:label "isPartOf" ;
@@ -10456,10 +10414,6 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
     :rangeIncludes :Thing ;
     rdfs:comment "The object upon which the action is carried out, whose state is kept intact or changed. Also known as the semantic roles patient, affected or undergoer (which change their state) or theme (which doesn't). E.g. John read *a book*." .
 
-<http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_rNews> a :Organization ;
-    rdfs:label "rNews" ;
-    rdfs:comment "This class contains derivatives of IPTC rNews properties. rNews is a data model of publishing metadata with serializations currently available for RDFa as well as HTML5 Microdata. More information about the IPTC and rNews can be found at [rnews.org](http://rnews.org)." .
-
 :location a rdf:Property ;
     rdfs:label "location" ;
     :domainIncludes :Action,
@@ -10470,20 +10424,12 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
         :Text ;
     rdfs:comment "The location of, for example, where an event is happening, where an organization is located, or where an action takes place." .
 
-<http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_bibex> a :Organization ;
-    rdfs:label "BibExTerm" ;
-    rdfs:comment "The W3C [Schema Bib Extend](http://www.w3.org/community/schemabibex/) (BibEx) group led the work to improve schema.org for bibliographic information, including terms for periodicals, articles and multi-volume works. The design was inspired in places (e.g. [[pageStart]], [[pageEnd]], [[pagination]]) by the [Bibliographic Ontology](http://bibliontology.com/), 'bibo'." .
-
 :participant a rdf:Property ;
     rdfs:label "participant" ;
     :domainIncludes :Action ;
     :rangeIncludes :Organization,
         :Person ;
     rdfs:comment "Other co-agents that participated in the action indirectly. E.g. John wrote a book with *Steve*." .
-
-<http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO> a :Organization ;
-    rdfs:label "FIBO" ;
-    rdfs:comment "This element is based on the work of the Financial Industry Business Ontology project (see [http://www.fibo.org/schema](http://www.fibo.org/schema) for details), in support of the W3C Financial Industry Business Ontology Community Group ([http://www.fibo.org/community](http://www.fibo.org/community)). Many class and property definitions are inspired by or based on [http://www.fibo.org](http://www.fibo.org)." .
 
 :identifier a rdf:Property ;
     rdfs:label "identifier" ;
@@ -10495,21 +10441,3 @@ Open-ended date ranges can be written with ".." in place of the end date. For ex
         """ ;
     owl:equivalentProperty dc:identifier .
 
-<http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsClass> a :Organization ;
-    rdfs:label "GoodRelationsClass" ;
-    rdfs:comment "This class is derived from the GoodRelations Vocabulary for E-Commerce, created by Martin Hepp. GoodRelations is a data model for sharing e-commerce data on the Web that can be expressed in a variety of syntaxes, including RDFa and HTML5 Microdata. More information about GoodRelations can be found at [http://purl.org/goodrelations/](http://purl.org/goodrelations/)." .
-
-<https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology> a :Organization ;
-    rdfs:label "STI Accommodation Ontology" ;
-    rdfs:comment """This element is based on the STI Accommodation Ontology, see <a href="http://ontologies.sti-innsbruck.at/acco/ns.html">http://ontologies.sti-innsbruck.at/acco/ns.html</a> for details.
-    Many class and property definitions are inspired by or based on abstracts from Wikipedia, the free encyclopedia.""" .
-
-<http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group> a :Organization ;
-    rdfs:label "AutomotiveOntologyWGClass" ;
-    rdfs:comment "This element is based on the work of the Automotive Ontology Working Group, see [www.automotive-ontology.org](http://www.automotive-ontology.org) for details. Many class and property definitions are inspired by or based on abstracts from Wikipedia, the free encyclopedia." .
-
-<http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#MBZ> a :Organization ;
-    rdfs:label "MBZ" ;
-    rdfs:comment """This vocabulary was improved through collaboration with the MusicBrainz project
-    ([www.musicbrainz.org](http://www.musicbrainz.org)), and is partially inspired by the MusicBrainz and
-    [Music Ontology](http://musicontology.com/docs/getting-started.html) schemas.""" .
