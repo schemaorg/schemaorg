@@ -286,7 +286,7 @@ PAGELIST = {"Home": (homePage,["docs/home.html"]),
              "Full": (fullPage,["docs/full.html"]),
              "FullOrig": (fullPage,["docs/full.orig.html"]),
              "FullRelease": (fullReleasePage,["docs/fullrelease.html","releases/%s/schema-all.html" % getVersion()]),
-             "Collabs": (collabs,["docs/collaborators.html"]),
+             #"Collabs": (collabs,["docs/collaborators.html"]),
              "Tree": (jsonldtree,["docs/tree.jsonld"])
          }
 
