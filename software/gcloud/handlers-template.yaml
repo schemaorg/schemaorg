@@ -58,6 +58,18 @@ handlers:
   redirect_http_response_code: 301
   
 
+- url: /docs/collab/(.*)$
+  mime_type: text/html
+  static_files: docs/collab/\1.html
+  upload: docs/collab/(.*).html
+  http_headers: 
+    Access-Control-Allow-Credentials: 'true'
+    Access-Control-Allow-Headers: Accept
+    Access-Control-Allow-Origin: "*"
+    Access-control-allow-methods: GET
+  secure: always
+  redirect_http_response_code: 301
+
 - url: /docs
   static_dir: docs
   http_headers: 
@@ -365,7 +377,8 @@ handlers:
     Access-control-allow-methods: GET
   secure: always
   redirect_http_response_code: 301
-  
+
+
 ######
 ### Term pages
    
@@ -391,6 +404,7 @@ handlers:
     Access-control-allow-methods: GET
   secure: always
   redirect_http_response_code: 301
+  
   
     
 

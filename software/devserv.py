@@ -74,6 +74,17 @@ def serve_sitemap():
     print("Serving file: " + path)
     return app.send_static_file(path)
 
+@app.route('/docs/collab/<path>')
+def serve_colls(path):
+    if not path.endswith(".html"):
+        path = "docs/collab/" +path+".html"
+    else:
+        path = "docs/collab/" +path
+
+    print("Serving file: " + path)
+  
+    return app.send_static_file(path)
+       
 @app.route('/<path>')
 def serve_terms(path):
     if not path.endswith(".html"):

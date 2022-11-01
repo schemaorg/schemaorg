@@ -9,7 +9,7 @@
         {% endif %}
                 <div class="ack-desc">
                 <div class="ack-head">
-                <a href="/docs/collab/{{ack.code}}.html">
+                <a href="{{ack.docurl}}">
                     <div class="ack-title">
                        {{ack.title}}
                     </div>
@@ -21,8 +21,8 @@
 
 
 
-                    {{ack.desc |safe}}
-                    <span style="margin: 8px;"><a href="/docs/collab/{{ack.code}}.html">More…</a></span>
+                    {{ack.acknowledgement |safe}}
+                    <span style="margin: 8px;"><a href="{{ack.docurl}}">More…</a></span>
                 </div>
             </div>
     {% endfor %}

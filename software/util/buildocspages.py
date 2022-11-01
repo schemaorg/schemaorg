@@ -235,7 +235,7 @@ def fullReleasePage(page):
     return docsTemplateRender("docs/FullRelease.j2",extra_vars)
 
 def collabs(page):
-    colls = collaborator.contributors()
+    colls = collaborator.collaborators()
 
     #TODO Handle collaborators that are not contributors
 
@@ -267,7 +267,7 @@ def createCollab(coll):
     }
 
     content = docsTemplateRender("docs/Collab.j2",extra_vars)
-    filename = "docs/collab/" + coll.code + ".html"
+    filename = "docs/collab/" + coll.ref + ".html"
     fn = fileName(filename)
     f = open(fn,"w", encoding='utf8')
     f.write(content)

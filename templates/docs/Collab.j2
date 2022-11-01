@@ -7,20 +7,31 @@
     {% include 'PageHeader.j2' with context %}
     <div id="mainContent">
         <div class="collab_breadcrumb">
-        <a href="/docs/collaborators.html">Collaborators</a> &gt; <a href="{{coll.code}}.html">{{coll.title}}</a>
+        <a href="/docs/collaborators.html">Collaborators</a> &gt; <a href="{{coll.docurl}}">{{coll.title}}</a>
         </div>
         <div class="collab_title">
             <h1>{{coll.title}}</h1>
             {% if coll.url %}<a class="collab_url" href="{{coll.url}}">{{coll.url}}</a>{% endif %}
         </div>
         <div class="collab_img">{% if coll.img %}<img src={{coll.img}}>{% endif %}</div>
-        <p class="collab_intro">
+        <div class="collab_intro">
+        {% if coll.description|length > 0 %}
+            <p>
+            {{coll.description|safe}}
+            </p>
+        {% else %}
+            <p>
+                <span style="font-weight: bold;">{{coll.title}}</span> is has collaboratedwith the Schema.org project
+            </p>
+        {% endif %}
+            
         {% if contributor %}
-            <span style="font-weight: bold;">{{coll.title}}</span> has contributed to the development, evolution and enhancement of {{termcount}} term(s) in the Schema.org vocabulary.
-            That contribution is acknowledged on the relevant term definition pages in the following way:
-
+            <p>
+                <span style="font-weight: bold;">{{coll.title}}</span> has contributed to the development, evolution and enhancement of {{termcount}} term(s) in the Schema.org vocabulary.
+                That contribution is acknowledged on the relevant term definition pages in the following way:
+            </p>
             <p class="collab_desc">
-            {{coll.desc|safe}}
+            {{coll.acknowledgement|safe}}
             </p>
         {% endif %}
 

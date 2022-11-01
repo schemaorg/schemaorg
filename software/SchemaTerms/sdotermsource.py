@@ -1207,34 +1207,35 @@ class collaborator():
     CONTRIBUTORS = {}
     def __init__(self,ref,desc=None):
         self.ref = ref
-        self.uri = "https://schema.org/docs/collab/" + ref
+        self.urirel = "/docs/collab/" + ref
+        self.uri = "https://schema.org" + self.urirel
+        self.docurl = self.urirel
         self.terms = None
         self.contributor = False
         self.img = self.code = self.title = self.url = None
+        self.description = ""
+        self.acknowlegement = ""
         self.parseDesc(desc)
-        if SdoTermSource.MARKDOWNPROCESS:
-            self.desc = Markdown.parse(self.desc)
-            
+
         collaborator.COLLABORATORS[self.ref]=self
 
     def __str__(self):
-        return "<collaborator ref: %s contributor: %s code: %s img: '%s' title: '%s' url: '%s'>" % (self.ref,self.contributor,self.code,self.img,self.title,self.url)
+        return "<collaborator ref: %s uri: %s contributor: %s img: '%s' title: '%s' url: '%s'>" % (self.ref,self.uri,self.contributor,self.img,self.title,self.url)
 
     def parseDesc(self,desc):
         state = 0
-        rows = []
-        description = ""
+        dt = []
+        at = []
+        target = None
         for line in desc.splitlines():
             if line.startswith("---"):
                 state += 1
-            elif state == 1:
+            if state == 1:
+                if line.startswith("---"):
+                    continue
                 match = self.matchval('url',line)
                 if match:
                     self.url = match
-                    continue
-                match = self.matchval('code',line)
-                if match:
-                    self.code = match
                     continue
                 match = self.matchval('title',line)
                 if match:
@@ -1244,11 +1245,23 @@ class collaborator():
                 if match:
                     self.img = match
                     continue
-            elif (state == 2):
-                rows.append(line)
-        if len(rows):
-            description = ''.join(rows)
-        self.desc = description
+            elif (state > 1):
+                if self.matchsep('--- DescriptionText.md',line):
+                    target = 'd'
+                    continue
+                if self.matchsep('--- AcknowledgementText.md',line):
+                    target = 'a'
+                    continue
+                if target:
+                    if target == 'a':
+                        at.append(line)
+                    elif target == 'd':
+                        dt.append(line)
+        self.description = ''.join(dt)
+        self.acknowledgement = ''.join(at)
+        self.description = Markdown.parse(self.description)
+        self.acknowledgement = Markdown.parse(self.acknowledgement)
+
 
     def matchval(self,val,line):
         ret = None
@@ -1258,6 +1271,11 @@ class collaborator():
             ret = line[len(val)+1:]
             ret = ret.strip()
         return ret
+
+    def matchsep(self,val,line):
+        line = re.sub(' ', '', line).lower()
+        val = re.sub(' ', '', val).lower()
+        return line.startswith(val)
     
     def isContributor(self):
         return self.contributor
@@ -1336,6 +1354,10 @@ class collaborator():
                 collaborator.createContributor(os.path.basename(str(cont)))
             print("Loaded %s contributors" % len(collaborator.CONTRIBUTORS))
 
+    @staticmethod
+    def collaborators():
+        collaborator.loadCollaborators()
+        return list(collaborator.COLLABORATORS.values())
     @staticmethod
     def contributors():
         collaborator.loadContributors()
