@@ -78,8 +78,6 @@ def serve_sitemap():
 def serve_colls(path):
     if not path.endswith(".html"):
         path = "docs/collab/" +path+".html"
-    else:
-        path = "docs/collab/" +path
 
     print("Serving file: " + path)
   

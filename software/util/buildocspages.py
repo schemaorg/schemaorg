@@ -10,7 +10,8 @@ for path in [os.getcwd(),"software/Util","software/SchemaTerms","software/Schema
   sys.path.insert( 1, path ) #Pickup libs from local  directories
 
 from buildsite import *
-from sdotermsource import SdoTermSource, collaborator
+from sdotermsource import SdoTermSource
+from sdocollaborators import collaborator
 from sdoterm import *
 
 def fileName(fn):

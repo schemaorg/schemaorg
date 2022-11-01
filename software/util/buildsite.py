@@ -28,7 +28,8 @@ import rdflib
 import jinja2
 
 import textutils
-from sdotermsource import SdoTermSource, collaborator
+from sdotermsource import SdoTermSource
+from sdocollaborators import collaborator
 from sdoterm import *
 from schemaexamples import SchemaExamples
 from localmarkdown import Markdown
