@@ -2,6 +2,7 @@
 # -*- coding: UTF-8 -*-
 
 from __future__ import with_statement
+from glob import glob
 
 import sys
 if not (sys.version_info.major == 3 and sys.version_info.minor > 5):
@@ -274,7 +275,7 @@ class SdoTermSource():
             self.aks = []
             objs = self.loadObjects("schema:contributor") #To accept later ttl versions.
             for obj in objs:
-                cont = contributor.getContributor(str(obj))
+                cont = collaborator.getContributor(str(obj))
                 self.aks.append(cont)
             self.aks = sorted(self.aks, key=lambda t: t.title)
         return self.aks
@@ -1201,20 +1202,23 @@ class SdoTermSource():
         return term
 
 
-class contributor():
+class collaborator():
+    COLLABORATORS = {}
     CONTRIBUTORS = {}
     def __init__(self,ref,desc=None):
         self.ref = ref
+        self.uri = "https://schema.org/docs/collab/" + ref
         self.terms = None
+        self.contributor = False
         self.img = self.code = self.title = self.url = None
         self.parseDesc(desc)
         if SdoTermSource.MARKDOWNPROCESS:
             self.desc = Markdown.parse(self.desc)
-        
-        contributor.CONTRIBUTORS[self.ref]=self
+            
+        collaborator.COLLABORATORS[self.ref]=self
 
     def __str__(self):
-        return "<contributor ref: %s code: %s img: '%s' title: '%s' url: '%s'>" % (self.ref,self.code,self.img,self.title,self.url)
+        return "<collaborator ref: %s contributor: %s code: %s img: '%s' title: '%s' url: '%s'>" % (self.ref,self.contributor,self.code,self.img,self.title,self.url)
 
     def parseDesc(self,desc):
         state = 0
@@ -1254,55 +1258,88 @@ class contributor():
             ret = line[len(val)+1:]
             ret = ret.strip()
         return ret
+    
+    def isContributor(self):
+        return self.contributor
 
     def getTerms(self):
+        if not self.contributor:
+            return []
         if not self.terms:
-            self.terms = SdoTermSource.getAcknowledgedTerms(self.ref)
+            self.terms = SdoTermSource.getAcknowledgedTerms(self.uri)
         return self.terms
 
 
     @staticmethod
+    def getCollaborator(ref):
+        collaborator.loadCollaborators()
+        coll = collaborator.COLLABORATORS.get(ref,None)
+        if not coll:
+            print("No such collaborator: %s" % ref)
+        return coll
+
+    @staticmethod
     def getContributor(ref):
-        contributor.loadContributors()
-        cont = contributor.CONTRIBUTORS.get(ref,None)
+        ref = os.path.basename(ref)
+        collaborator.loadContributors()
+        cont = collaborator.CONTRIBUTORS.get(ref,None)
         if not cont:
-            cont = contributor.createContributor(ref)
+            print("No such contributor: %s" % ref)
         return cont
 
     @staticmethod
-    def createContributor(ref):
-        code = os.path.basename(ref)
-        cont = None
-        file="data/collab/%s.md" % code
+    def createCollaborator(file):
+        code = os.path.basename(file)
+        ref = os.path.splitext(code)[0]
+        coll = None
         try:
             with open(file,'r') as f:
                 desc = f.read()
-            cont = contributor(ref,desc=desc)
+            coll = collaborator(ref,desc=desc)
         except Exception as e:
-            print("Error loading contributor source %s: %s" % (file,e))
+            print("Error loading colaborator source %s: %s" % (file,e))
 
-            #raise Exception("Error loading contributor source %s: %s" % (file,e))
+            #raise Exception("Error loading colaborator source %s: %s" % (file,e))
 
-        return cont
+        return coll
+
+    @staticmethod
+    def loadCollaborators():
+        import glob
+        if not len(collaborator.COLLABORATORS):
+            for file in glob.glob("data/collab/*.md"):
+                collaborator.createCollaborator(file)
+            print("Loaded %s collaborators" % len(collaborator.COLLABORATORS))
+
+    @staticmethod
+    def createContributor(ref,):
+        code = os.path.basename(ref)
+        coll = collaborator.getCollaborator(ref)
+        if coll:
+            coll.contributor = True
+            collaborator.CONTRIBUTORS[ref]=coll
+
+
 
     @staticmethod
     def loadContributors():
-        if not len(contributor.CONTRIBUTORS):
+        if not len(collaborator.CONTRIBUTORS):
+            collaborator.loadCollaborators()
             query = """ 
             SELECT distinct ?val WHERE {
                     [] schema:contributor ?val.
             }""" 
             res = SdoTermSource.query(query)
-            print("Loading %d contributors" % len(res))
 
             for row in res:
                 cont = row.val
-                contributor.createContributor(str(cont))
+                collaborator.createContributor(os.path.basename(str(cont)))
+            print("Loaded %s contributors" % len(collaborator.CONTRIBUTORS))
 
     @staticmethod
     def contributors():
-        contributor.loadContributors()
-        return list(contributor.CONTRIBUTORS.values())
+        collaborator.loadContributors()
+        return list(collaborator.CONTRIBUTORS.values())
  
 def toFullId(termId):
     global VOCABURI

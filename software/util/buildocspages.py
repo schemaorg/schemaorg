@@ -10,7 +10,7 @@ for path in [os.getcwd(),"software/Util","software/SchemaTerms","software/Schema
   sys.path.insert( 1, path ) #Pickup libs from local  directories
 
 from buildsite import *
-from sdotermsource import SdoTermSource, contributor
+from sdotermsource import SdoTermSource, collaborator
 from sdoterm import *
 
 def fileName(fn):
@@ -235,7 +235,7 @@ def fullReleasePage(page):
     return docsTemplateRender("docs/FullRelease.j2",extra_vars)
 
 def collabs(page):
-    colls = contributor.contributors()
+    colls = collaborator.contributors()
 
     #TODO Handle collaborators that are not contributors
 
@@ -251,11 +251,17 @@ def collabs(page):
     return docsTemplateRender("docs/Collabs.j2",extra_vars)
 
 def createCollab(coll):
-    terms, termcount = buildTermCatList(coll.getTerms())
+    terms = []
+    termcount = 0
+    contributor = coll.contributor
+
+    if contributor:
+        terms, termcount = buildTermCatList(coll.getTerms())
 
     extra_vars = {
         'coll': coll,
         'title': coll.title,
+        'contributor': contributor,
         'terms': terms,
         'termcount': termcount
     }

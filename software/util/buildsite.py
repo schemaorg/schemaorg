@@ -28,7 +28,7 @@ import rdflib
 import jinja2
 
 import textutils
-from sdotermsource import SdoTermSource, contributor
+from sdotermsource import SdoTermSource, collaborator
 from sdoterm import *
 from schemaexamples import SchemaExamples
 from localmarkdown import Markdown
@@ -199,7 +199,7 @@ def loadTerms():
             print("Loading triples files")
             SdoTermSource.loadSourceGraph("default")
             print ("loaded %s triples - %s terms" % (len(SdoTermSource.sourceGraph()),len(SdoTermSource.getAllTerms())) )
-            contributor.loadContributors()
+            collaborator.loadContributors()
 
 
 ###################################################

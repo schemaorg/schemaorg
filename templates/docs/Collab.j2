@@ -15,12 +15,14 @@
         </div>
         <div class="collab_img">{% if coll.img %}<img src={{coll.img}}>{% endif %}</div>
         <p class="collab_intro">
-        <span style="font-weight: bold;">{{coll.title}}</span> has contributed to the development, evolution and enhancement of {{termcount}} term(s) in the Schema.org vocabulary.
-        That collribution is acknowledged on the relevant term definition pages in the following way:
+        {% if contributor %}
+            <span style="font-weight: bold;">{{coll.title}}</span> has contributed to the development, evolution and enhancement of {{termcount}} term(s) in the Schema.org vocabulary.
+            That contribution is acknowledged on the relevant term definition pages in the following way:
 
-        <p class="collab_desc">
-        {{coll.desc|safe}}
-        </p>
+            <p class="collab_desc">
+            {{coll.desc|safe}}
+            </p>
+        {% endif %}
 
  {% for c in terms %}
     {% set cat = terms[c] %}
