@@ -6085,18 +6085,19 @@ JSON:
 {
   "@context": "https://schema.org",
   "@type": "AllocateAction",
-  "agent": {
+  "participant": {
     "@type": "Person",
     "name": "John"
   },
-  "object": {
-    "@type": "Duration",
-    "name": "5 hours"
+  "agent": {
+    "@type": "Person",
+    "name": "John's trainer"
   },
-  "purpose": {
+  "object": {
     "@type": "ExercisePlan",
     "name": "John's weight loss plan"
-  }
+  },
+  "startTime": "2020-01-01T09:00:00"
 }
 </script>
 
@@ -6116,7 +6117,7 @@ This example is JSON only.
 
 JSON:
 
-<!--  John accepted a plan to exercise to help with his obesity-->.
+<!--  John accepted a plan to exercise-->.
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -6125,13 +6126,13 @@ JSON:
     "@type": "Person",
     "name": "John"
   },
+  "participant": {
+    "@type": "Person",
+    "name": "John's trainer"
+  },
   "object": {
     "@type": "ExercisePlan",
     "name": "John's weight loss plan"
-  },
-  "purpose": {
-    "@type": "MedicalCondition",
-    "name": "Obesity"
   }
 }
 </script>
@@ -6168,10 +6169,6 @@ JSON:
   "participant": {
     "@type": "Person",
     "name": "Steve"
-  },
-  "purpose": {
-    "@type": "MedicalCondition",
-    "name": "Obesity"
   }
 }
 </script>
@@ -6205,13 +6202,9 @@ JSON:
     "@type": "Diet",
     "name": "Steve's weight loss plan"
   },
-  "recipient": {
+  "participant": {
     "@type": "Person",
     "name": "Steve"
-  },
-  "purpose": {
-    "@type": "MedicalCondition",
-    "name": "Obesity"
   }
 }
 </script>
@@ -6232,7 +6225,7 @@ This example is JSON only.
 
 JSON:
 
-<!--  John rejected a plan to exercise that helps him with his obesity.-->
+<!--  John rejected a plan to exercise.-->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -6244,10 +6237,6 @@ JSON:
   "object": {
     "@type": "ExercisePlan",
     "name": "John's weight loss plan"
-  },
-  "purpose": {
-    "@type": "MedicalCondition",
-    "name": "Obesity"
   }
 }
 </script>
@@ -6458,7 +6447,7 @@ JSON:
     "@type": "Reservation",
     "name": "Table at Bar Tartine"
   },
-  "scheduledTime": "May"
+  "scheduledTime": "2020-05-29T19:30:00"
 }
 </script>
 
@@ -6491,7 +6480,7 @@ JSON:
     "@type": "Event",
     "name": "SXSW"
   },
-  "scheduledTime": "May"
+  "scheduledTime": "2023-03-06"
 }
 </script>
 
@@ -6863,9 +6852,9 @@ JSON:
   },
   "price": "1500",
   "priceCurrency": "USD",
-  "purpose": {
-    "@type": "Flight",
-    "name": "AA123"
+  "recipient": {
+    "@type": "Organization",
+    "name": "An Airline"
   }
 }
 </script>
@@ -11022,9 +11011,9 @@ RDFA:
     <div property="itemListElement" typeof="Product">
         <img property="image" alt="Photo of product" src="http://img01.multivarki.ru.ru/c9/f1/a5fe6642-18d0-47ad-b038-6fca20f1c923.jpeg"> <a property="url" href="http://multivarki.ru/brand_502/"><span property="name">BRAND 502</span></a>
         <div property="offers" typeof="Offer">
-            <meta property="schema:priceCurrency" content="RUB">руб
-            <meta property="schema:price" content="4399.00">4 399,00
-            <link property="schema:itemCondition" href="https://schema.org/NewCondition">
+            <meta property="priceCurrency" content="RUB">руб
+            <meta property="price" content="4399.00">4 399,00
+            <link property="itemCondition" href="https://schema.org/NewCondition">
         </div>...
     </div>
     <div property="itemListElement" typeof="Product">
