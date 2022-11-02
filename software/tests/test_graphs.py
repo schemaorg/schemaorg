@@ -35,7 +35,8 @@ class SDOGraphSetupTestCase(unittest.TestCase):
 
   @classmethod
   def loadGraphs(self):
-      SdoTermSource.loadSourceGraph("default")
+      if not SdoTermSource.SOURCEGRAPH:
+        SdoTermSource.loadSourceGraph("default")
       self.rdflib_data = SdoTermSource.sourceGraph()
       
 

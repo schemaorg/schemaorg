@@ -29,6 +29,7 @@ import jinja2
 
 import textutils
 from sdotermsource import SdoTermSource
+from sdocollaborators import collaborator
 from sdoterm import *
 from schemaexamples import SchemaExamples
 from localmarkdown import Markdown
@@ -115,6 +116,7 @@ def initdir():
     createMissingDir(OUTPUTDIR)
     clear()
     createMissingDir(OUTPUTDIR + "/docs")
+    createMissingDir(OUTPUTDIR + "/docs/contributors")
     createMissingDir(OUTPUTDIR + "/releases/%s" % getVersion())
 
     gdir = OUTPUTDIR + "/gcloud"
@@ -194,9 +196,11 @@ def loadTerms():
     global LOADEDTERMS
     if not LOADEDTERMS:
         LOADEDTERMS = True
-        print("Loading triples files")
-        SdoTermSource.loadSourceGraph("default")
-        print ("loaded %s triples - %s terms" % (len(SdoTermSource.sourceGraph()),len(SdoTermSource.getAllTerms())) )
+        if not SdoTermSource.SOURCEGRAPH:
+            print("Loading triples files")
+            SdoTermSource.loadSourceGraph("default")
+            print ("loaded %s triples - %s terms" % (len(SdoTermSource.sourceGraph()),len(SdoTermSource.getAllTerms())) )
+            collaborator.loadContributors()
 
 
 ###################################################

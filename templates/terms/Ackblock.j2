@@ -3,10 +3,25 @@
     <h4 >Acknowledgements</h4>
     {% for ack in term.acknowledgements %}
         {% if loop.first %}
-            <div class="ack ack-first">{{ack |safe}}</div>
+            <div class="ack ack-first">
         {% else %}
-            <div class="ack ack-rest">{{ack |safe}}</div>
+            <div class="ack ack-rest">
         {% endif %}
+                <div class="ack-desc">
+                <div class="ack-head">
+                <!--<a href="{{ack.docurl}}">-->
+                    <div class="ack-title">
+                       {{ack.title}}
+                    </div>
+                    <!--<div class="ack-img">
+                        {% if ack.img %}<img src={{ack.img}}>{% endif %}
+                    </div>-->
+                <!--</a>-->
+                </div>
+                    {{ack.acknowledgement |safe}}
+                    <!--<span style="margin: 8px;"><a href="{{ack.docurl}}">More…</a></span>-->
+                </div>
+            </div>
     {% endfor %}
     </div>
 {% endif %}

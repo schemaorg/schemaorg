@@ -1,0 +1,51 @@
+{% from 'macros.j2' import docs_sdotermlink as sdotermlink with context %}
+<!DOCTYPE html>
+<html lang="en">
+<!-- Generated from Home.j2 -->
+    {% include 'docs/DocsHead.j2' with context %}
+<body>
+    {% include 'PageHeader.j2' with context %}
+    <div id="mainContent">
+        <div class="collab_breadcrumb">
+        <a href="/docs/collaborators.html">Collaborators</a> &gt; <a href="{{coll.docurl}}">{{coll.title}}</a>
+        </div>
+        <div class="collab_title">
+            <h1>{{coll.title}}</h1>
+            {% if coll.url %}<a class="collab_url" href="{{coll.url}}">{{coll.url}}</a>{% endif %}
+        </div>
+        <div class="collab_img">{% if coll.img %}<img src={{coll.img}}>{% endif %}</div>
+        <div class="collab_intro">
+        {% if coll.description|length > 0 %}
+            <p>
+            {{coll.description|safe}}
+            </p>
+        {% else %}
+            <p>
+                <span style="font-weight: bold;">{{coll.title}}</span> is has collaborated with the Schema.org project
+            </p>
+        {% endif %}
+            
+        {% if contributor %}
+            <p>
+                <span style="font-weight: bold;">{{coll.title}}</span> has contributed to the development, evolution and enhancement of {{termcount}} term(s) in the Schema.org vocabulary.
+                That contribution is acknowledged on the relevant term definition pages in the following way:
+            </p>
+            <p class="collab_desc">
+            {{coll.acknowledgement|safe}}
+            </p>
+        {% endif %}
+
+ {% for c in terms %}
+    {% set cat = terms[c] %}
+    {% if loop.first %}<h3>Contributed to {{termcount}} term(s).</h3>{% endif %}
+    {% for term in cat["Type"] %}{%if loop.first %}<br/>{{c}} Types ({{cat["Type"]|length}})<br/>{% else %}, {% endif %}{{ sdotermlink(term)|safe }}{% if loop.last %}<br/>{% endif %}{% endfor %}
+    {% for term in cat["Property"] %}{%if loop.first %}<br/>{{c}} Properties ({{cat["Property"]|length}})<br/>{% else %}, {% endif %}{{ sdotermlink(term)|safe}}{% if loop.last %}<br/>{% endif %}{% endfor %}
+    {% for term in cat["Enumeration"] %}{%if loop.first %}<br/>{{c}} Enumerations ({{cat["Enumeration"]|length}})<br/>{% else %}, {% endif %}{{ sdotermlink(term)|safe}}{% if loop.last %}<br/>{% endif %}{% endfor %}
+    {% for term in cat["Enumerationvalue"] %}{%if loop.first %}<br/>{{c}} Enumeration Members ({{cat["Enumerationvalue"]|length}})<br/>{% else %}, {% endif %}{{ sdotermlink(term)|safe}}{% if loop.last %}<br/>{% endif %}{% endfor %}
+    {% for term in cat["Datatype"] %}{%if loop.first %}<br/>{{c}} Datatypes ({{cat["Datatype"]|length}})<br/>{% else %}, {% endif %}{{ sdotermlink(term)|safe}}{% if loop.last %}<br/>{% endif %}{% endfor %}
+{% endfor %}  
+
+    </div> <!-- mainContent -->
+	{% include 'PageFooter.j2' with context %}
+</body>
+</html>
