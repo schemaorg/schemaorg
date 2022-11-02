@@ -25,6 +25,6 @@ It can...
 
 # Limitations
 
- * The tool is focussed on Schema.org. In the case of JSON-LD, this means that it will not fetch or interpret  other @context URLs.
+ * The tool is focused on Schema.org. In the case of JSON-LD, this means that it will not fetch or interpret  other @context URLs.
 
 
