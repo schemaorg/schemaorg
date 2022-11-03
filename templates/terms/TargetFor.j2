@@ -8,8 +8,11 @@
             <div class="table-cell props-hdr-ect table-top-center"><div class="cell-inner">On Types</div></div>
             <div class="table-cell props-hdr-desc tabletop-right"><div class="cell-inner">Description</div></div>
         </div>
-        <div class="table-row prop-row-first">
-
+        {% if not loop.last %}
+            <div class="table-row prop-row-first">
+        {% else %}
+            <div class="table-row prop-row-last">
+        {% endif %}
     {% elif loop.last %}
         <div class="table-row prop-row-last">
     {% else %}
