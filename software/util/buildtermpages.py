@@ -53,10 +53,13 @@ def termtemplateRender(term, examples, json):
   Returns:
     string with the generate web-page.
   """
+
+  print(">>> %s " % hasOpt("goto"))
   extra_vars = {
       'title': term.label,
       'menu_sel': "Schemas",
       'home_page': "False",
+      'BUILDOPTS': BUILDOPTS,
       'docsdir': TERMDOCSDIR,
       'term': term,
       'jsonldPayload': json,
