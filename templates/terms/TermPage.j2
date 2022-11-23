@@ -9,10 +9,17 @@
     {% elif term.termType == "Enumerationvalue" %}{% set TERMTYPE = "Enumeration Member" %}
     {% endif %}
     {% include 'terms/Head.j2' with context %}
+
+    {% if "goto" in BUILDOPTS %}
+        <script src="{{docsdir}}/jumpmenu.js"></script>
+        <link rel="stylesheet" type="text/css" href="{{docsdir}}/jumpmenu.css" />
+    {% endif %}
 <body>
     {% include 'PageHeader.j2' with context %}
     <div id="mainContent">
-	    {% include 'terms/JumpMenu.j2' with context %}
+        {% if "goto" in BUILDOPTS %}
+            {% include 'terms/JumpMenu.j2' with context %}
+        {% endif %}
 	    {% include 'terms/InfoBlock.j2' with context %}
     	
 		{% if term.termType == "Type" or term.termType == "Datatype" or term.termType == "Enumeration" %}
