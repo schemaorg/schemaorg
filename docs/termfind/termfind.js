@@ -12,9 +12,9 @@ function loadSuggestions(){
     }
 }
 function suggest(value){
-    console.log(value);
+    //console.log(value);
     loadSuggestions();
-    console.log(termlist.length);
+    //console.log(termlist.length);
     if(value.length > 2){
         var matches = termslookup(value);
         displayMatches(matches,value);
@@ -107,6 +107,6 @@ function termslookup(lookupvalue){
     }
     // Put them at the beginning
     ret = pre.concat(ret);
-    console.log(ret);
+    //console.log(ret);
     return ret;
 }
