@@ -14,6 +14,10 @@
         <script src="{{docsdir}}/jumpmenu.js"></script>
         <link rel="stylesheet" type="text/css" href="{{docsdir}}/jumpmenu.css" />
     {% endif %}
+    {% if "newtables" in BUILDOPTS %}
+        <link rel="stylesheet" type="text/css" href="{{docsdir}}/sdotermpage-new.css" />
+    {% endif %}
+
 <body>
     {% include 'PageHeader.j2' with context %}
     <div id="mainContent">
@@ -24,10 +28,18 @@
     	
 		{% if term.termType == "Type" or term.termType == "Datatype" or term.termType == "Enumeration" %}
             <!-- Show properties (if any) associated with term and its supertypes -->
-    	    {% include 'terms/PropertiesBlock.j2' with context %} 
-		
+            {% if "newtables" in BUILDOPTS %}
+                {% include 'terms/PropertiesBlock-new.j2' with context %} 
+            {% else %}
+                {% include 'terms/PropertiesBlock.j2' with context %} 
+            {% endif %}
+
     		<!-- List properties that have this term as an Expected type -->
-    	    {% include 'terms/TargetFor.j2' with context %}
+         {% if "newtables" in BUILDOPTS %}
+                {% include 'terms/TargetFor-new.j2' with context %}
+            {% else %}
+                {% include 'terms/TargetFor.j2' with context %}
+            {% endif %}
         {% endif %}
         
         {% if term.termType == "Property" %}

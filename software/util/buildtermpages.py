@@ -54,7 +54,6 @@ def termtemplateRender(term, examples, json):
     string with the generate web-page.
   """
 
-  print(">>> %s " % hasOpt("goto"))
   extra_vars = {
       'title': term.label,
       'menu_sel': "Schemas",

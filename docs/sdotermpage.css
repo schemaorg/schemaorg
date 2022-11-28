@@ -5,145 +5,14 @@
   .new    { color: #660003; } /* itemscope, itemtype, etc,. */
   .curl   { color: #080;    } /* new url                    */
 
-.definition-table {
-  width: 100%;
-  display: block;
-  margin: 1em 0 0 0;
-  padding: 2px;
-  border: 1px solid #98A0A6;
-  box-shadow: 2px 2px lightgrey;
-  border-radius: 7px;
-}
-
-.definition-table .table {
-  display: table;
-  border-collapse: collapse;
-  background-color: white;
-  width: 100%;
-}
-.definition-table .table-body {
-  display: table-row-group;
-}
-
-.definition-table .table>.table-row:nth-last-of-type(odd){
-  background-color: ivory;
-}
-
-.definition-table .table-row {
-  display: table-row;
-}
-.definition-table .table-cell {
-  display: table-cell;
-}
-.definition-table .cell-inner {
-  display: block;
-  padding: 4px 3px 6px 3px;
-}
-.definition-table .prop-ect {
-  text-align: center;
-}
-.prop-row-first > .prop-nam, .prop-row-rest > .prop-nam{
-  border-bottom: 1px solid lightgrey;
-}
-.prop-row-first > .prop-ect, .prop-row-rest > .prop-ect{
-  border-bottom: 1px solid lightgrey;
-}
-.prop-row-first > .prop-desc, .prop-row-rest > .prop-desc{
-  border-bottom: 1px solid lightgrey;
-}
-
-.supertype-name {
-  text-align: center;
-  width: -moz-available;          /* WebKit-based browsers will ignore this. */
-  width: -webkit-fill-available;  /* Mozilla-based browsers will ignore this. */
-  width: fill-available;
-  background-color: #C7CBCE;
-}
-
-.tabletop {
-  border-radius: 4px 4px 0 0;
-}
-.tabletop-left {
-  border-radius: 4px 0 0 0;
-}
-.tabletop-right {
-  border-radius: 0 4px 0 0;
-}
-
-.definition-table .table>.table-row.props-hdr {
-  width: 100%;
-  background-color: #eeeeee;!important
-}
-.definition-table .props-hdr-nam {
-  background-color: transparent;
-  color: slategray;
-}
-.definition-table .props-hdr-ect {
-  background-color: transparent;
-  color: slategray;
-  border-left: 2px solid white;
-  text-align: center;
-}
-.definition-table .props-hdr-desc {
-  background-color: transparent;
-  color: slategray;
-  border-left: 2px solid white;
-}
-
-@media all and (max-width: 750px) {
-  .definition-table .table {
-    display: block;
+  table.definition-table {
+    border-spacing: 3px;
+    border-collapse: separate;
   }
   
-  .definition-table .props-hdr-ect {
-    width:30%;
-    text-align: left;
+  #morecheck {
+	  outline: none;
   }
-  .prop-row-first > .prop-nam,.prop-row-first > .prop-ect, 
-  .prop-row-rest > .prop-nam,.prop-row-rest > .prop-ect {
-      border-bottom: 0;
-  }
-  .prop-row-rest > .prop-desc, .prop-row-first > .prop-desc {
-    border-bottom: 1px solid lightgrey;
-  }
-
-  .definition-table .table-row {
-    display:block
-  }
-  
-  .definition-table .prop-nam,.definition-table .props-hdr-nam {
-    display:inline-block;
-    min-width: 49%;
-    margin-left: 2px;
-  }
-  .definition-table .prop-ect,.definition-table .props-hdr-ect {
-    display: inline-block;
-    width: 46%;
-    padding-left: 10px;
-    text-align: left;
-  }
-  .definition-table .props-hdr-desc {
-    display: none;
-  }
-
-  .definition-table .prop-ect br {
-    display: none;
-  }
-  .definition-table .prop-desc {
-    display: inline-block;
-    width: 100%;
-  }
-
-  .incoming-hdr {
-    margin-top: 2em;
-    text-align: center;
-  }
-  
-}
-
-#morecheck {
-  outline: none;
-}
   
 #morecheck:checked + div { display: none; }
 
@@ -190,41 +59,12 @@
   height: 15px;
 }
 
-.ackblock {
-  display: block;
-  padding: 5px;
-  border-radius: 7px;
-  border: 1px solid;
-  margin-bottom: 10px;
-  box-shadow: 2px 2px lightgrey;
-}
-
-.ack {
-  display: block;
-  margin: 5px;
-  padding: 5px;
-}
-.ack-first{
-  padding-top: 0;
-  padding-bottom: 5px;
-}
-
-.ack-rest{
-  border-top: solid 1px;
-  padding: 10px 5px 5px 5px;
-}
-
 .clipbutton {
     color: #202020 !important;
     border: 0;
     padding : 2px;
 }
 
-#examplespannel{
-  width:auto;
-  overflow-x: auto;
-  margin-top: 10px;
-}
 .example-head {
     display: block;
     padding-bottom: 5px;
@@ -264,7 +104,6 @@
     color: #202020 !important;
     border: 1px solid #ccc;
     border-bottom: 1px solid #fff !important;
-    box-shadow: 1px 0 lightgray
   }
   #mainContent .ds-selector-tabs .selectors a:hover {
     background-color: transparent;
@@ -286,9 +125,7 @@
 
 .ds-tab pre.ds-tab-content{
   display: block;
-  border-radius: 7px;
-  box-shadow: 2px 2px lightgrey;
-  margin-top: 2px;
+  margin-top: 1px;
 }
 
 div.ds-tab-note{

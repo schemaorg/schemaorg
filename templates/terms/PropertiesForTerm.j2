@@ -2,35 +2,18 @@
 
 {% for prop in propertiesFor.properties %}
     {% if loop.first %}
-        <div class="supertype"><div class="supertype-name {% if tabletop %}tabletop{% endif %}">Properties from {{ sdotermlink(propertiesFor)|safe }}</div></div>
-        <div class="table">
-        <div class="table-row props-hdr">
-            <div class="table-cell props-hdr-nam"><div class="cell-inner">Property</div></div>
-            <div class="table-cell props-hdr-ect"><div class="cell-inner">Expected&nbsp;Type</div></div>
-            <div class="table-cell props-hdr-desc"><div class="cell-inner">Description</div></div>
-        </div>
+        <tr class="supertype"><th class="supertype-name" colspan="3">Properties from {{ sdotermlink(propertiesFor)|safe }}</th></tr>
     {% endif %}
 	{% if not prop.retired and not prop.superseded %}
-        {% if loop.first %}
-            <div class="table-row prop-row-first">
-        {% elif loop.last %}
-            <div class="table-row prop-row-last">
-        {% else %}
-            <div class="table-row prop-row-rest">
-        {% endif %}
-            <div class="table-cell prop-nam"><div class="cell-inner"><code>{{ sdotermlink(prop)|safe }}</code></div></div>
-            <div class="table-cell prop-ect"><div class="cell-inner">{% for ect in prop.rangeIncludes %}{% if not loop.first %}&nbsp; or <br/>{% endif %}
-                {{ sdotermlink(ect)|safe }}{% endfor %}</div></div>
-            <div class="table-cell prop-desc"><div class="cell-inner">{{ prop.comment | safe}}
+        <tr><th class="prop-nam"><code>{{ sdotermlink(prop)|safe }}</code></th>
+            <td class="prop-ect">{% for ect in prop.rangeIncludes %}{% if not loop.first %}&nbsp; or <br/>{% endif %}
+                {{ sdotermlink(ect)|safe }}{% endfor %}</td>
+            <td class="prop-desc">{{ prop.comment | safe}}
                 {% for ss in prop.supersedes %}{% if loop.first %} Supersedes {% else %}, {% endif %}
                 {{ sdotermlink(ss)|safe }}{% if loop.last%}.{% endif %}{% endfor %}
                 {% if prop.supersededBy %} SupersededBy {{sdotermlink(prop.supersededBy)| safe}}. {%endif %}
                 {% if prop.inverse %}<br/>Inverse property: {{ sdotermlink(prop.inverse)|safe }}{% endif %}
-            </div></div>
-        </div>
+            </td>
+        </tr>
     {% endif %}
-    {% if loop.last %}
-        </div>
-    {% endif %}
-
 {% endfor %}
