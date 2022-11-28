@@ -6,13 +6,14 @@ if not (sys.version_info.major == 3 and sys.version_info.minor > 5):
     sys.exit(1)
 
 import os
-for path in [os.getcwd(),"software/Util","software/SchemaTerms","software/SchemaExamples"]:
+for path in [os.getcwd(),"software/Util","software/scripts","software/SchemaTerms","software/SchemaExamples"]:
   sys.path.insert( 1, path ) #Pickup libs from local  directories
 
 from buildsite import *
 from sdotermsource import SdoTermSource
 from sdocollaborators import collaborator
 from sdoterm import *
+from buildtermlist import buildlist
 
 def fileName(fn):
     name = OUTPUTDIR + "/" +fn
@@ -22,6 +23,7 @@ def fileName(fn):
 
 def docsTemplateRender(template,extra_vars=None):
     tvars = {
+        'BUILDOPTS': BUILDOPTS,
         'docsdir': DOCSDOCSDIR
     }
     if extra_vars:
@@ -275,6 +277,12 @@ def createCollab(coll):
     f.close()
     print("Created %s" % fn)
 
+def termfind(file):
+    if hasOpt("termfinder"):
+        print("Building term list")
+        return buildlist(True)
+    return ""
+
 PAGELIST = {"Home": (homePage,["docs/home.html"]),
              "PendingHome": (homePage,["docs/pending.home.html"]),
              "AtticHome": (homePage,["docs/attic.home.html"]),
@@ -287,6 +295,7 @@ PAGELIST = {"Home": (homePage,["docs/home.html"]),
              "FullOrig": (fullPage,["docs/full.orig.html"]),
              "FullRelease": (fullReleasePage,["docs/fullrelease.html","releases/%s/schema-all.html" % getVersion()]),
              #"Collabs": (collabs,["docs/collaborators.html"]),
+             "TermFind": (termfind,["docs/termfind/termlist.txt"]),
              "Tree": (jsonldtree,["docs/tree.jsonld"])
          }
 

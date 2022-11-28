@@ -48,8 +48,13 @@ parser.add_argument("-o","--output", help="output site directory (default: ./sof
 parser.add_argument("-r","--runtests",default=False, action='store_true', help="run test scripts before creating contents")
 parser.add_argument("-s","--static",default=False, action='store_true',  help="Refresh static docs in site image")
 parser.add_argument("-t","--terms",default= [],action='append',nargs='*',  help="create page for term (repeatable) - ALL = all terms")
+parser.add_argument("-b","--buildoption",default= [],action='append',nargs='*',  help="build option(repeatable) - flags to be passed to build code")
 parser.add_argument("--release",default=False, action='store_true',  help="create page for term (repeatable) - ALL = all terms")
 args = parser.parse_args()
+
+BUILDOPTS = []
+for op in args.buildoption:
+    BUILDOPTS.extend(op)
 
 TERMS = []
 for ter in args.terms:
@@ -71,6 +76,11 @@ if args.autobuild or args.release:
     TERMS = ["ALL"]
     PAGES = ["ALL"]
     FILES = ["ALL"]
+
+def hasOpt(opt):
+    if opt in BUILDOPTS:
+        return True
+    return False
 
 def clear():
     if args.clearfirst or args.autobuild:

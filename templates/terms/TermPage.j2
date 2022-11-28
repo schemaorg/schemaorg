@@ -9,44 +9,65 @@
     {% elif term.termType == "Enumerationvalue" %}{% set TERMTYPE = "Enumeration Member" %}
     {% endif %}
     {% include 'terms/Head.j2' with context %}
+
+    {% if "goto" in BUILDOPTS %}
+        <script src="{{docsdir}}/jumpmenu.js"></script>
+        <link rel="stylesheet" type="text/css" href="{{docsdir}}/jumpmenu.css" />
+    {% endif %}
+    {% if "newtables" in BUILDOPTS %}
+        <link rel="stylesheet" type="text/css" href="{{docsdir}}/sdotermpage-new.css" />
+    {% endif %}
+
 <body>
     {% include 'PageHeader.j2' with context %}
     <div id="mainContent">
+        {% if "goto" in BUILDOPTS %}
+            {% include 'terms/JumpMenu.j2' with context %}
+        {% endif %}
 	    {% include 'terms/InfoBlock.j2' with context %}
-		
+    	
 		{% if term.termType == "Type" or term.termType == "Datatype" or term.termType == "Enumeration" %}
             <!-- Show properties (if any) associated with term and its supertypes -->
-    	    {% include 'terms/PropertiesBlock.j2' with context %} 
-		
+            {% if "newtables" in BUILDOPTS %}
+                {% include 'terms/PropertiesBlock-new.j2' with context %} 
+            {% else %}
+                {% include 'terms/PropertiesBlock.j2' with context %} 
+            {% endif %}
+
     		<!-- List properties that have this term as an Expected type -->
-    	    {% include 'terms/TargetFor.j2' with context %}
+         {% if "newtables" in BUILDOPTS %}
+                {% include 'terms/TargetFor-new.j2' with context %}
+            {% else %}
+                {% include 'terms/TargetFor.j2' with context %}
+            {% endif %}
         {% endif %}
         
         {% if term.termType == "Property" %}
             {% if term.inverse %}
             <p>Inverse-property: {{ sdotermlink(term.inverse)|safe }}</p>
+            <br/>
             {% endif %}
             
-            <table class="definition-table">
-                <thead><tr><th>Values expected to be one of these types</th></tr></thead>
-                <tr><td><code>
+            <div class="jumptarget" id="values" title="Values">
+                <h4>Values expected to be one of these types</h4>
+                <code><ul>
                 {% for type in term.rangeIncludes %}
                     {% if not type.retired and not type.superseded %}
-                        {{ sdotermlink(type)|safe }}{% if not loop.last %}<br/>{% endif %}
+                        <li>{{ sdotermlink(type)|safe }}</li>
                     {% endif %}
                 {% endfor %}
-                </code></td></tr>
-            </table>
-            <table class="definition-table">
-                <thead><tr><th>Used on these types</th></tr></thead>
-                <tr><td><code>
+                </code></ul>
+            </div>
+            <div class="jumptarget" id="types" title="Used on">
+                <h4>Used on these types</h4>
+                <code><ul>
                 {% for type in term.domainIncludes %}
                     {% if not type.retired and not type.superseded %}
-                        {{ sdotermlink(type)|safe }}{% if not loop.last %}<br/>{% endif %}
+                        <li>{{ sdotermlink(type)|safe }}</li>
                     {% endif %}
                 {% endfor %}
-                </code></td></tr>
-            </table>
+                </code></ul>
+            </div>
         {% endif %}
         	
 		{% if term.termType == "Enumeration" %}
@@ -60,9 +81,13 @@
         <!-- List subtypes/subproperties -->
         {% if term.termType != "Enumerationvalue" %}
             {% if term.termType == "Type" %}{% set SUBLABEL = "More specific Types" %}
+                                            {% set SUBTITLE = "Subtypes" %}
             {% elif term.termType == "Datatype" %}{% set SUBLABEL = "More specific Data Types" %}
+                                                {% set SUBTITLE = "Subtypes" %}
             {% elif term.termType == "Enumeration" %}{% set SUBLABEL = "Enumeration Subtypes" %}
+                                                    {% set SUBTITLE = "Subtypes" %}
             {% elif term.termType == "Property" %}{% set SUBLABEL = "Sub-properties" %}
+                                                    {% set SUBTITLE = "Sub-properties" %}
             {% endif %}
     	    {% set SUBLIST = term.subs %}
     	    	{% include 'terms/Subs.j2' with context %}
