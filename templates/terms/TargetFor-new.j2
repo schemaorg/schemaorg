@@ -9,14 +9,14 @@
             <div class="table-cell props-hdr-desc tabletop-right"><div class="cell-inner">Description</div></div>
         </div>
         {% if not loop.last %}
-            <div class="table-row prop-row-first">
+            <div class="table-row prop-row-first {{ loop.cycle('oddrow', 'evenrow') }}">
         {% else %}
-            <div class="table-row prop-row-last">
+            <div class="table-row prop-row-last {{ loop.cycle('oddrow', 'evenrow') }}">
         {% endif %}
     {% elif loop.last %}
-        <div class="table-row prop-row-last">
+        <div class="table-row prop-row-last {{ loop.cycle('oddrow', 'evenrow') }}">
     {% else %}
-        <div class="table-row prop-row-rest">
+        <div class="table-row prop-row-rest {{ loop.cycle('oddrow', 'evenrow') }}">
     {% endif %}
 
           <div class="table-cell prop-nam"><div class="cell-inner">{{ sdotermlink(prop.id)|safe}}</div></div>
