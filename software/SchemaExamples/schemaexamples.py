@@ -100,12 +100,25 @@ class Example ():
 
     def hasHtml(self):
         return len(self.original_html.strip()) > 0
+        
     def hasMicrodata(self):
-        return len(self.microdata.strip()) > 0
+        content = self.microdata.strip()
+        if len(content) > 0:
+            if "itemtype" in content and "itemprop" in content:
+                return True
+        return False 
     def hasRdfa(self):
-        return len(self.rdfa.strip()) > 0
+        content = self.rdfa.strip()
+        if len(content) > 0:
+            if "typeof" in content and "property" in content:
+                return True
+        return False 
     def hasJsonld(self):
-        return len(self.jsonld.strip()) > 0
+        content = self.jsonld.strip()
+        if len(content) > 0:
+            if "@type" in content:
+                return True
+        return False 
 
     def setMeta(self,name,val):
         self.exmeta[name] = val
