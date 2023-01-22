@@ -8,10 +8,10 @@ if not (sys.version_info.major == 3 and sys.version_info.minor > 5):
 
 import os
 import io
+import argparse
 for path in [os.getcwd(),"software/Util","software/SchemaTerms","software/SchemaExamples"]:
   sys.path.insert( 1, path ) #Pickup libs from local  directories
 
-from buildsite import *
 from sdotermsource import SdoTermSource, VOCABURI
 from sdoterm import SdoTerm
 from schemaexamples import SchemaExamples
