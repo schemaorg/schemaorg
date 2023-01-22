@@ -215,6 +215,7 @@ class SchemaExamples():
             for example in parser.parse(f):
                 #log.info("Ex: %s %s" % (example.keyvalue,example.terms))
                 keyvalue = example.keyvalue
+                example.setMeta("source",f)
                 with SchemaExamples.exlock:
                     if not SchemaExamples.EXAMPLES.get(keyvalue,None):
                         SchemaExamples.EXAMPLES[keyvalue] = example
