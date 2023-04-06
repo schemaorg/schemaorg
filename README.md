@@ -7,14 +7,14 @@ This is the Schema.org project repository. It contains all the schemas, examples
 Note: Much of the supporting software is imported from a sub module: 'sdopythonapp'
 
 Issues and proposals are managed here by participants of the [W3C Schema.org Community Group](https://www.w3.org/community/schemaorg/). If you are interested to participate please
-join the group at the [W3C](https://www.w3.org/community/schemaorg/), introduce yourself and find or file issues here that engage your interest. If you are new to Git and GitHub, there's a useful [introduction to Github](https://www.w3.org/2006/tools/wiki/Github) in the W3C Wiki.
+join the group at the [W3C](https://www.w3.org/community/schemaorg/), introduce yourself and find or file issues here that engage your interest. If you are new to Git and GitHub, there's a useful [introduction to GitHub](https://www.w3.org/2006/tools/wiki/Github) in the W3C Wiki.
 
 There are also continuous integration tests to check incoming pull requests.
 
-[Issue #1](https://github.com/schemaorg/schemaorg/issues/1) in Github is an entry point for release planning. It
+[Issue #1](https://github.com/schemaorg/schemaorg/issues/1) in GitHub is an entry point for release planning. It
 should provide an overview of upcoming work, in terms of broad themes, specific issues and release milestones.
 
-[Issue #1](https://github.com/schemaorg/schemaorg/issues/1) will link to per-release entry points, or else navigate issues via label or milestone within Github.
+[Issue #1](https://github.com/schemaorg/schemaorg/issues/1) will link to per-release entry points, or else navigate issues via label or milestone within GitHub.
 Every change to the site comes via discussions here. Substantive changes are recorded in our [release notes](https://schema.org/docs/releases.html).
 A preview of the [draft new release notes](http://webschemas.org/docs/releases.html) can be found as part of the test site for our next release.
 Every month or so, after final review by the Schema.org Steering Group and wider community, we make a formal release.
@@ -42,7 +42,7 @@ When we add terms, often into the "Pending" area, we strongly encourage feedback
  * Suggestions for improvements are always welcome here - please search for older discussions (including closed issues) before opening a new issue.
  * We particularly value improvements to existing definitions, examples and text, to clarify how schema.org vocabulary is used in practice.
  * Please don't be surprised or offended if you raise an issue proposing new schemas and it is marked by the project team as "[noted](https://github.com/schemaorg/schemaorg/issues?q=is%3Aissue+label%3A%22Closed+and+Noted+%28and+possibly+Queued%29%22+is%3Aclosed)" then closed. We have 100s of issues discussing possible improvements, and to keep things manageable we adopt the convention of noting then closing issues that are not likely to be immediately explored.
- * While many Schema.org improvements have been proposed via Github's "[Pull request](https://help.github.com/articles/about-pull-requests/)" mechanism (see also our list of [PRs](https://github.com/schemaorg/schemaorg/pulls)), please do not undertake any substantial development work without agreeing it with the project team here first.
+ * While many Schema.org improvements have been proposed via GitHub's "[Pull request](https://help.github.com/articles/about-pull-requests/)" mechanism (see also our list of [PRs](https://github.com/schemaorg/schemaorg/pulls)), please do not undertake any substantial development work without agreeing it with the project team here first.
  * All Pull Requests should reference specific issues that they're fixes or solutions for. This lets the schema.org community discuss problems and topics without it being tied too closely to a specific (and easily outdated) proposed fix.
  * Please note that some changes are much easier to make than others: the wording/phrasing in definitions is relatively easy to amend, whereas the exact spelling of a type or property ('Person', 'startDate' etc.) is much more disruptive to change.
  * There are many other projects developing schemas and ontologies for the Web, e.g. [Wikidata](http://wikidata.org/) or the vocabulary projects in the [Linked Data](http://lov.okfn.org/) community. Many of these projects go into more expressive detail than is possible for a project like Schema.org. To keep Schema.org manageable, we have a strong bias towards designs that are grounded in large scale usage on the Web, in particular [usage](https://github.com/schemaorg/schemaorg/issues/652) by data-consuming applications since these in turn motivate data publishers. Other schema initiatives have different priorities and make different tradeoffs.
