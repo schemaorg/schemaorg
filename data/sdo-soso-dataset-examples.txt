@@ -1,0 +1,320 @@
+TYPES: Dataset
+
+PRE-MARKUP:
+A example of a scientific research dataset, located in a data repository (JSON_LD only).
+
+MICRODATA:
+
+TODO
+
+RDFA:
+
+TODO
+
+JSON:
+
+See https://github.com/ESIPFed/science-on-schema.org/blob/master/guides/Dataset.md for a complete guide.
+
+<script type="application/ld+json">
+{
+  "@context": {
+    "@vocab": "https://schema.org/"
+  },
+  "@type": "Dataset",
+  "name": "Removal of organic carbon by natural bacterioplankton communities as a function of pCO2 from laboratory experiments between 2012 and 2016",
+  "description": "This dataset includes results of laboratory experiments which measured dissolved organic carbon (DOC) usage by natural bacteria in seawater at different pCO2 levels. Included in this dataset are; bacterial abundance, total organic carbon (TOC), what DOC was added to the experiment, target pCO2 level. ",
+  "url": "https://www.sample-data-repository.org/dataset/472032",
+  "sameAs": "https://search.dataone.org/#view/https://www.sample-data-repository.org/dataset/472032",
+  "version": "2013-11-21",
+  "isAccessibleForFree": true,
+  "keywords": [
+    "ocean acidification",
+    "Dissolved Organic Carbon",
+    "bacterioplankton respiration",
+    "pCO2",
+    "carbon dioxide",
+    "oceans"
+  ],
+  "license": [
+    "http://spdx.org/licenses/CC0-1.0",
+    "https://creativecommons.org/publicdomain/zero/1.0"
+  ],
+  "identifier": {
+    "@id": "https://doi.org/10.5066/F7VX0DMQ",
+    "@type": "PropertyValue",
+    "propertyID": "https://registry.identifiers.org/registry/doi",
+    "value": "doi:10.5066/F7VX0DMQ",
+    "url": "https://doi.org/10.5066/F7VX0DMQ"
+  },
+  "citation": "J.Smith 'How I created an awesome dataset’, Journal of Data Science, 1966",
+  "variableMeasured": [
+    {
+      "@type": "PropertyValue",
+      "name": "latitude",
+      "propertyID": "http://www.geoscienceontology.org/geo-lower/quantity#latitude",
+      "url": "https://www.sample-data-repository.org/dataset-parameter/665787",
+      "description": "Latitude where water samples were collected; north is positive.",
+      "unitText": "decimal degrees",
+      "minValue": "45.0",
+      "maxValue": "15.0"
+    }
+  ],
+  "includedInDataCatalog": {
+    "@id": "https://www.sample-data-repository.org/collection/biological-data",
+    "@type": "DataCatalog"
+  },
+  "subjectOf": {
+    "@type": "DataDownload",
+    "name": "eml-metadata.xml",
+    "description": "EML metadata describing the dataset",
+    "encodingFormat": [
+      "application/xml",
+      "https://eml.ecoinformatics.org/eml-2.2.0"
+    ],
+    "dateModified": "2019-06-12T14:44:15Z"
+  },
+  "distribution": {
+    "@type": "DataDownload",
+    "contentUrl": "https://www.sample-data-repository.org/dataset/472032.tsv",
+    "encodingFormat": "text/tab-separated-values"
+  },
+  "temporalCoverage": "2012-09-20/2016-01-22",
+  "spatialCoverage": {
+    "@type": "Place",
+    "geo": {
+      "@type": "GeoShape",
+      "line": "39.3280 120.1633 40.445 123.7878"
+    }
+  },
+  "creator": [
+    {
+      "@id": "https://www.sample-data-repository.org/person-role/472036",
+      "@type": "Role",
+      "roleName": "Principal Investigator",
+      "creator": {
+        "@id": "https://www.sample-data-repository.org/person/51317",
+        "@type": "Person",
+        "name": "Dr Uta Passow",
+        "givenName": "Uta",
+        "familyName": "Passow",
+        "url": "https://www.sample-data-repository.org/person/51317"
+      }
+    },
+    {
+      "@id": "https://www.sample-data-repository.org/person-role/472038",
+      "@type": "Role",
+      "roleName": "Co-Principal Investigator",
+      "url": "https://www.sample-data-repository.org/person-role/472038",
+      "creator": {
+        "@id": "https://www.sample-data-repository.org/person/50663",
+        "@type": "Person",
+        "identifier": {
+          "@id": "https://orcid.org/0000-0003-3432-2297",
+          "@type": "PropertyValue",
+          "propertyID": "https://registry.identifiers.org/registry/orcid",
+          "url": "https://orcid.org/0000-0003-3432-2297",
+          "value": "orcid:0000-0003-3432-2297"
+        },
+        "name": "Dr Mark Brzezinski",
+        "url": "https://www.sample-data-repository.org/person/50663"
+      }
+    }
+  ],
+  "provider": {
+    "@id": "https://www.sample-data-repository.org",
+    "@type": "Organization",
+    "legalName": "Sample Data Repository Office",
+    "name": "SDRO",
+    "sameAs": "http://www.re3data.org/repository/r3dxxxxxxxxx",
+    "url": "https://www.sample-data-repository.org"
+  },
+  "publisher": {
+    "@id": "https://www.sample-data-repository.org"
+  },
+  "isBasedOn": {
+    "@id": "https://doi.org/10.xxxx/Dataset-1"
+  }
+}
+</script>
+
+TYPES: Service, ResearchProject
+
+PRE-MARKUP:
+
+An example of an online repository that hosts scientific research data (JSON-LD only).
+
+MICRODATA:
+
+TODO
+
+RDFA:
+
+TODO
+
+JSON:
+
+See https://github.com/ESIPFed/science-on-schema.org/blob/master/guides/DataRepository.md for a complete guide.
+
+<script type="application/ld+json">
+{
+  "@context": {
+    "@vocab": "https://schema.org/"
+  },
+  "@type": [
+    "Service",
+    "ResearchProject"
+  ],
+  "legalName": "Sample Data Repository Office",
+  "name": "SDRO",
+  "url": "https://www.sample-data-repository.org",
+  "description": "The Sample Data Repository Service provides access to data from an imaginary domain accessible from this website.",
+  "sameAs": [
+    "http://www.re3data.org/repository/r3d1000000xx",
+    "https://twitter.com/SDRO",
+    "https://www.linkedin.com/company/123456789/"
+  ],
+  "category": [
+    "Biological Oceanography",
+    "Chemical Oceanography"
+  ],
+  "provider": [
+    {
+      "@type": "ResearchProject",
+      "name": "SDRO Technical Office",
+      "description": "We provide all the infrastructure for the SDRO"
+    },
+    {
+      "@type": "ResearchProject",
+      "name": "SDRO Science Support Office",
+      "description": "We provide all the science support functionality for the SDRO"
+    }
+  ],
+  "logo": {
+    "@type": "ImageObject",
+    "url": "https://www.sample-data-repository.org/images/logo.jpg"
+  },
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "name": "Support",
+    "email": "info@bco-dmo.org",
+    "url": "https://www.sample-data-repository.org/about-us",
+    "contactType": "customer support"
+  },
+  "foundingDate": "2006-09-01",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "123 Main St.",
+    "addressLocality": "Anytown",
+    "addressRegion": "ST",
+    "postalCode": "12345",
+    "addressCountry": "USA"
+  },
+  "parentOrganization": {
+    "@type": "Organization",
+    "@id": "http://www.someinstitute.edu",
+    "legalName": "Some Institute",
+    "name": "SI",
+    "url": "http://www.someinstitute.edu",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "234 Main St.",
+      "addressLocality": "Anytown",
+      "addressRegion": "ST",
+      "postalCode": "12345",
+      "addressCountry": "USA"
+    }
+  },
+  "identifier": {
+    "@type": "PropertyValue",
+    "name": "Re3data DOI: 10.17616/R37P4C",
+    "propertyID": "https://registry.identifiers.org/registry/doi",
+    "value": "doi:10.17616/R37P4C",
+    "url": "https://doi.org/10.17616/R37P4C"
+  },
+  "funder": {
+    "@type": "Organization",
+    "@id": "https://doi.org/10.13039/100000141",
+    "legalName": "Division of Ocean Sciences",
+    "alternateName": "OCE",
+    "url": "https://www.nsf.gov/div/index.jsp?div=OCE",
+    "identifier": {
+      "@type": "PropertyValue",
+      "propertyID": "https://registry.identifiers.org/registry/doi",
+      "value": "doi:10.13039/100000141",
+      "url": "https://doi.org/10.13039/100000141"
+    },
+    "parentOrganization": {
+      "@type": "Organization",
+      "@id": "http://doi.org/10.13039/100000085",
+      "legalName": "Directorate for Geosciences",
+      "alternateName": "NSF-GEO",
+      "url": "http://www.nsf.gov",
+      "identifier": {
+        "@type": "PropertyValue",
+        "propertyID": "https://registry.identifiers.org/registry/doi",
+        "value": "doi:10.13039/100000085",
+        "url": "https://doi.org/10.13039/100000085"
+      },
+      "parentOrganization": {
+        "@type": "Organization",
+        "@id": "http://dx.doi.org/10.13039/100000001",
+        "legalName": "National Science Foundation",
+        "alternateName": "NSF",
+        "url": "http://www.nsf.gov",
+        "identifier": {
+          "@type": "PropertyValue",
+          "propertyID": "https://registry.identifiers.org/registry/doi",
+          "value": "doi:10.13039/100000001",
+          "url": "https://doi.org/10.13039/100000001"
+        }
+      }
+    }
+  },
+  "availableChannel": [
+    {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.sample-data-repository.org/search",
+      "providesService": {
+        "@type": "Service",
+        "name": "SDRO Website Search",
+        "description": "Search for webpages, datasets, authors, funding awards, instrumentation and measurements",
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": "https://www.sample-data-repository.org/search?keywords={query_string}",
+          "query-input": {
+            "@type": "PropertyValueSpecification",
+            "valueRequired": true,
+            "valueName": "query_string"
+          }
+        }
+      }
+    }
+  ],
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Sample Data Repository Resource Catalog",
+    "itemListElement": [
+      {
+        "@type": "DataCatalog",
+        "@id": "https://www.sample-data-repository.org/collection/biological-data",
+        "name": "Biological Data",
+        "audience": {
+          "@type": "Audience",
+          "audienceType": "public",
+          "name": "General Public"
+        }
+      },
+      {
+        "@type": "DataCatalog",
+        "@id": "https://www.sample-data-repository.org/collection/geological-data",
+        "name": "Geological Data",
+        "audience": {
+          "@type": "Audience",
+          "audienceType": "public",
+          "name": "General Public"
+        }
+      }
+    ]
+  }
+}
+</script>
