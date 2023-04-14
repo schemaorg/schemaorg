@@ -22,7 +22,7 @@ Since schema.org types like [[Movie]] and [[TVEpisode]] can be used for both wor
 :titleEIDR a rdf:Property ;
     rdfs:label "titleEIDR" ;
     :domainIncludes :Movie,
-        :TVEpisode ;
+        :TVEpisode, :TVSeason, :TVSeries ;
     :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :Text,
         :URL ;
@@ -31,7 +31,7 @@ Since schema.org types like [[Movie]] and [[TVEpisode]] can be used for both wor
 
 For example, the motion picture known as "Ghostbusters" has a titleEIDR of  "10.5240/7EC7-228A-510A-053E-CBB8-J". This title (or work) may have several variants, which EIDR calls "edits". See [[editEIDR]].
 
-Since schema.org types like [[Movie]] and [[TVEpisode]] can be used for both works and their multiple expressions, it is possible to use [[titleEIDR]] alone (for a general description), or alongside [[editEIDR]] for a more edit-specific description.
+Since schema.org types like [[Movie]], [[TVEpisode]], [[TVSeason]], and [[TVSeries]] can be used for both works and their multiple expressions, it is possible to use [[titleEIDR]] alone (for a general description), or alongside [[editEIDR]] for a more edit-specific description.
 """ ;
     rdfs:subPropertyOf :identifier .
 
