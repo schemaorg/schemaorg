@@ -227,8 +227,7 @@ def loadExamples():
 ###################################################
 #JINJA INITIALISATION
 ###################################################
-jenv = jinja2.Environment(loader=jinja2.FileSystemLoader(TEMPLATESDIR),
-        extensions=['jinja2.ext.autoescape'], autoescape=True, cache_size=0)
+jenv = jinja2.Environment(loader=jinja2.FileSystemLoader(TEMPLATESDIR), autoescape=True, cache_size=0)
 
 def jinjaDebug(text):
     print("Jinja: %s" % text)
