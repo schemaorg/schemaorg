@@ -8,11 +8,13 @@
     rdfs:label "Observation" ;
     :isPartOf <https://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/2291> ;
-    rdfs:comment """Instances of the class [[Observation]] are used to specify observations about an entity at a particular time. The principal properties of an [[Observation]] are [[observedNode]], [[measuredProperty]], [[statType]], [[value] and [[observationDate]]  and [[measuredProperty]]. Quantitative observations can be about a [[StatisticalVariable]], which is an abstract specification about which we can make observations that are grounded at a particular location and time. Observations can also a subset of simple RDF-like statements (its observedNode, a StatisticalVariable, defining the measuredPoperty; its observationAbout property indicating the entity the statement is about, and [[value]] )
+    rdfs:comment """Instances of the class [[Observation]] are used to specify observations about an entity at a particular time. The principal properties of an [[Observation]] are [[observationAbout]], [[measuredProperty]], [[statType]], [[value] and [[observationDate]]  and [[measuredProperty]]. Some but not all Observations represent a [[QuantitativeValue]]. Quantitative observations can be about a [[StatisticalVariable]], which is an abstract specification about which we can make observations that are grounded at a particular location and time. 
+    
+    Observations can also encode a subset of simple RDF-like statements (its observationAbout, a StatisticalVariable, defining the measuredPoperty; its observationAbout property indicating the entity the statement is about, and [[value]] )
 
-In the context of a quantitative knowledge graph, typical properties could include [[measuredProperty]], [[observedNode]], [[observationDate]], [[value]], [[unitCode]], [[unitText]], [[measurementTechnique]].
+In the context of a quantitative knowledge graph, typical properties could include [[measuredProperty]], [[observationAbout]], [[observationDate]], [[value]], [[unitCode]], [[unitText]], [[measurementTechnique]].
     """ ;
-    rdfs:subClassOf :Intangible .
+    rdfs:subClassOf :Intangible, :QuantitativeValue .
 
 :StatisticalVariable a rdfs:Class ;
     rdfs:label "StatisticalVariable" ;
@@ -34,7 +36,7 @@ In the context of a quantitative knowledge graph, typical properties could inclu
 #   https://webschemas.org/variableMeasured -> https://datacommons.org/browser/variableMeasured #  was a string or property/value pair on Dataset.
 #   https://datacommons.org/browser/measuredValue -> https://schema.org/value
 #   https://datacommons.org/browser/constraintProperty -> https://schema.org/constraintProperty
-#   https://datacommons.org/browser/observationAbout -> https://schema.org/about  #   vs location or about in schema.org; observedNode?? clarify.
+#   https://datacommons.org/browser/observationAbout -> https://schema.org/about  #   vs location or about in schema.org; observationAbout?? clarify.
 #   https://datacommons.org/browser/medianValue -> https://schema.org/median
 #   https://datacommons.org/browser/measurementMethod -> https://schema.org/measurementTechnique
 #   https://datacommons.org/browser/statType -> https://webschemas.org/statType 
@@ -111,12 +113,11 @@ population, and does not imply that the population consists of people. For examp
 
 :measuredProperty a rdf:Property ;
     rdfs:label "measuredProperty" ;
-    :domainIncludes :Observation ;
+    :domainIncludes :Observation, :StatisticalVariable ;
     :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :Property ;
-    rdfs:subPropertyOf :variableMeasured ;
     :source <https://github.com/schemaorg/schemaorg/issues/2291> ;
-    rdfs:comment "The measuredProperty of an [[Observation]], either a schema.org property, a property from other RDF-compatible systems, e.g. W3C RDF Data Cube, or schema.org extensions such as [GS1's](https://www.gs1.org/voc/?show=properties)." .
+    rdfs:comment "The measuredProperty of an [[Observation]], typically via its [[StatisticalVariable]]. There are various kinds of applicable [[Property]]: a schema.org property, a property from other RDF-compatible systems, e.g. W3C RDF Data Cube, Data Commons, Wikidata, or schema.org extensions such as [GS1's](https://www.gs1.org/voc/?show=properties)." .
 
 :numConstraints a rdf:Property ;
     rdfs:label "numConstraints" ;
@@ -134,13 +135,13 @@ population, and does not imply that the population consists of people. For examp
     :source <https://github.com/schemaorg/schemaorg/issues/2291> ;
     rdfs:comment "The observationDate of an [[Observation]]." .
 
-:observedNode a rdf:Property ;
-    rdfs:label "observedNode" ;
+:observationAbout a rdf:Property ;
+    rdfs:label "observationAbout" ;
     :domainIncludes :Observation ;
     :isPartOf <https://pending.schema.org> ;
-    :rangeIncludes :StatisticalPopulation ;
+    :rangeIncludes :Thing, :Place ;
     :source <https://github.com/schemaorg/schemaorg/issues/2291> ;
-    rdfs:comment "The [[observedNode]] of an [[Observation]], often a [[StatisticalPopulation]]." .
+    rdfs:comment "The [[observationAbout]] property identifies an entity, often a [[Place]], associated with an [[Observation]]." .
 
 :populationType a rdf:Property ;
     rdfs:label "populationType" ;
