@@ -19,7 +19,7 @@ In the context of a quantitative knowledge graph, typical properties could inclu
     :isPartOf <https://pending.schema.org> ;
     :source <https://github.com/schemaorg/schemaorg/issues/3298> ;
     rdfs:comment """[[StatisticalVariable]] represents any type of statistical metric that can be measured at a place and time. The usage pattern for [[StatisticalVariable]] is typically expressed using [[Observation]] with an explicit [[populationType]], which is a type, typically drawn from Schema.org. Each [[StatisticalVariable]] is marked as a [[ConstraintNode]], meaning that some properties (those listed using [[constraintProperty]]) serve in this setting solely to define the statistical variable rather than literally describe a specific person, place or thing. For example, a [[StatisticalVariable]] Median_Height_Person_Female representing the median height of women, could be written as follows: the population type is [[Person]]; the measuredProperty [[height]]; the [[statType]] [[median]]; the [[gender]] [[Female]]. It is important to note that there are many kinds of scientific quantitative observation which are not fully, perfectly or unambiguously described following this pattern, or with solely Schema.org terminology. The approach taken here is designed to allow partial, incremental or minimal description of [[StatisticalVariable]]s, and the use of detailed sets of entity and property IDs from external repositories. The [[measurementTechnique]], [[unitCode]] and [[unitText]] properties can also be used to clarify the specific nature and notation of an observed measurement. """ ;
-    rdfs:subClassOf :Intangible, :ConstraintNode .
+    rdfs:subClassOf :ConstraintNode .
 
 :statType a rdf:Property ;
     rdfs:label "statType" ;
@@ -27,16 +27,37 @@ In the context of a quantitative knowledge graph, typical properties could inclu
     :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :Property, :Text, :URL ;
     :source <https://github.com/schemaorg/schemaorg/issues/3298> ;
-    rdfs:comment """Indicates the kind of statistic represented by a [[StatisticalVariable]], e.g. mean, count etc. The value of statType is a property, either from within Schema.org or from other compatible (e.g. RDF) systems such as DataCommons.org or Wikidata.org. """ .
+    rdfs:comment """Indicates the kind of statistic represented by a [[StatisticalVariable]], e.g. mean, count etc. The value of statType is a property, either from within Schema.org (e.g. [[median]]) or from other compatible (e.g. RDF) systems such as DataCommons.org or Wikidata.org. """ .
 
 
 #   DataCommons.org mappings
 #   https://webschemas.org/variableMeasured -> https://datacommons.org/browser/variableMeasured #  was a string or property/value pair on Dataset.
 #   https://datacommons.org/browser/measuredValue -> https://schema.org/value
 #   https://datacommons.org/browser/constraintProperty -> https://schema.org/constraintProperty
-#   https://datacommons.org/browser/observationAbout -> https://schema.org/about  #   vs location or about in schema.org
+#   https://datacommons.org/browser/observationAbout -> https://schema.org/about  #   vs location or about in schema.org; observedNode?? clarify.
 #   https://datacommons.org/browser/medianValue -> https://schema.org/median
 #   https://datacommons.org/browser/measurementMethod -> https://schema.org/measurementTechnique
+#   https://datacommons.org/browser/statType -> https://webschemas.org/statType 
+#   https://datacommons.org/browser/populationType -> https://webschemas.org/populationType
+#   https://datacommons.org/browser/Observation -> https://schema.org/Observation
+
+# an example datacommons statvar: https://datacommons.org/browser/dc/5s1ytn01dxpn4
+
+# TODO:
+# - /count (default/typical statType on an SV)
+# - membership/grouping and specialization hierarchies to organize SVs. Look at SKOS extensions used in similar efforts.
+# - add typical values to stattype including value
+# - deprecate StatisticalPopulation ?
+# - Vladimir's feedback in https://github.com/schemaorg/schemaorg/issues/2291#issuecomment-719536982 - check bugs.
+# - Simon's feedback, https://github.com/schemaorg/schemaorg/issues/2564#issuecomment-627732566 esp rel between variableMeasured and measuredProperty.
+#   - suggestion that an Observation is an Action, the action of observing, rather than its outcome.
+# - didn't need ot send to mailing list as we had feedback from key groups in GH
+#    - https://datacommons.org/browser/observationAbout --- vs /about? it seems to be awkwardly described ("typically a place")
+
+# Open Issues:
+# - subtype of Action?
+# - median and similar - statType values need to create/document
+# - observedNode
 
 # * old text from DatCom, use for hecks the delete: principal properties are:
 #
@@ -58,7 +79,7 @@ In the context of a quantitative knowledge graph, typical properties could inclu
     :source <https://github.com/schemaorg/schemaorg/issues/2291> ;
     rdfs:comment """A StatisticalPopulation is a set of instances of a certain given type that satisfy some set of constraints. The property [[populationType]] is used to specify the type. Any property that can be used on instances of that type can appear on the statistical population. For example, a [[StatisticalPopulation]] representing all [[Person]]s with a [[homeLocation]] of East Podunk California would be described by applying the appropriate [[homeLocation]] and [[populationType]] properties to a [[StatisticalPopulation]] item that stands for that set of people.
 The properties [[numConstraints]] and [[constrainingProperty]] are used to specify which of the populations properties are used to specify the population. Note that the sense of "population" used here is the general sense of a statistical
-population, and does not imply that the population consists of people. For example, a [[populationType]] of [[Event]] or [[NewsArticle]] could be used. See also [[Observation]], and the [data and datasets](/docs/data-and-datasets.html) overview for more details.
+population, and does not imply that the population consists of people. For example, a [[populationType]] of [[Event]] or [[NewsArticle]] could be used. See also [[Observation]], where a [[populationType]] such as [[Person]] or [[Event]] can be indicated directly.
   """ ;
     rdfs:subClassOf :Intangible .
 
@@ -127,7 +148,7 @@ population, and does not imply that the population consists of people. For examp
     :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :Class ;
     :source <https://github.com/schemaorg/schemaorg/issues/2291> ;
-    rdfs:comment "Indicates the populationType common to all members of a [[StatisticalPopulation]] or [[StatisticalVariable]]." .
+    rdfs:comment "Indicates the populationType common to all members of a [[StatisticalPopulation]] or all cases within the scope of a [[StatisticalVariable]]." .
 
 # Enumeration
 # Initially one, to establish a pattern for pulling in modest sized codelists from external KGs (datacommons or wikidata for example)

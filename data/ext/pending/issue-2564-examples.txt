@@ -1,0 +1,29 @@
+TYPES: #eg-0480 Observation, StatisticalVariable
+
+PRE-MARKUP:
+
+As an example, the statement "According to the US Census ACS 5 Year Estimates,
+the median age of women in San Antonio, Texas in 2014 was 34.4 years." can be
+represented in JSON-LD.
+
+MICRODATA:
+
+<!-- JSON-LD example only -->
+
+RDFA:
+
+<!-- JSON-LD example only -->
+
+JSON:
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org/",
+  "@id": "Observation_Median_Age_Person_Female_SanAntonio_TX_2014",
+  "@type": "Observation",
+  "name": "Median age of women in San Antonio, Texas in 2014",
+  "variableMeasured": { "@id": "https://datacommons.org/Median_Age_Person_Female" },
+  "about": { "@id": "https://datacommons.org/geoId/48675000" }
+}
+</script>
+
