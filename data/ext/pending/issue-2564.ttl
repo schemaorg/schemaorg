@@ -17,7 +17,7 @@ In the context of a quantitative knowledge graph, typical properties could inclu
 :StatisticalVariable a rdfs:Class ;
     rdfs:label "StatisticalVariable" ;
     :isPartOf <https://pending.schema.org> ;
-    :source <https://github.com/schemaorg/schemaorg/issues/3298> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2564> ;
     rdfs:comment """[[StatisticalVariable]] represents any type of statistical metric that can be measured at a place and time. The usage pattern for [[StatisticalVariable]] is typically expressed using [[Observation]] with an explicit [[populationType]], which is a type, typically drawn from Schema.org. Each [[StatisticalVariable]] is marked as a [[ConstraintNode]], meaning that some properties (those listed using [[constraintProperty]]) serve in this setting solely to define the statistical variable rather than literally describe a specific person, place or thing. For example, a [[StatisticalVariable]] Median_Height_Person_Female representing the median height of women, could be written as follows: the population type is [[Person]]; the measuredProperty [[height]]; the [[statType]] [[median]]; the [[gender]] [[Female]]. It is important to note that there are many kinds of scientific quantitative observation which are not fully, perfectly or unambiguously described following this pattern, or with solely Schema.org terminology. The approach taken here is designed to allow partial, incremental or minimal description of [[StatisticalVariable]]s, and the use of detailed sets of entity and property IDs from external repositories. The [[measurementTechnique]], [[unitCode]] and [[unitText]] properties can also be used to clarify the specific nature and notation of an observed measurement. """ ;
     rdfs:subClassOf :ConstraintNode .
 
@@ -26,7 +26,7 @@ In the context of a quantitative knowledge graph, typical properties could inclu
     :domainIncludes :StatisticalVariable ;
     :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :Property, :Text, :URL ;
-    :source <https://github.com/schemaorg/schemaorg/issues/3298> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2564> ;
     rdfs:comment """Indicates the kind of statistic represented by a [[StatisticalVariable]], e.g. mean, count etc. The value of statType is a property, either from within Schema.org (e.g. [[median]]) or from other compatible (e.g. RDF) systems such as DataCommons.org or Wikidata.org. """ .
 
 
@@ -56,13 +56,13 @@ In the context of a quantitative knowledge graph, typical properties could inclu
 
 # Open Issues:
 # - subtype of Action?
-# - median and similar - statType values need to create/document
-# - observedNode
+# - median and similar - statType values need to create/document. We have [[median]] but not mean, for example.
+# - observedNode / clarify vs observationAbout. Former for use with StatisticalPopulation.
 
 # * old text from DatCom, use for hecks the delete: principal properties are:
 #
 #-   `variableMeasured`: an instance of `StatisticalVariable` being measured
-#-   `observationAbout`: the DC entity the observation is about
+#-   `observationAbout`: the entity the observation is about
 #-   `value`: numeric/string value of the observation
 #-   `observationDate`: the date of (or last day of) the observation
 #-   `observationPeriod` (optional): the length of time the observation took place
@@ -87,10 +87,10 @@ population, and does not imply that the population consists of people. For examp
 :ConstraintNode a rdfs:Class ;
     rdfs:label "ConstraintNode" ;
     :isPartOf <https://pending.schema.org> ;
-    :source <https://github.com/schemaorg/schemaorg/issues/3298> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2564> ;
     rdfs:comment """The ConstraintNode type is provided to support usecases in which a node in a structured data graph is described with properties which appear to describe a single entity, but are being used in a situation where they serve a more abstract purpose. A [[ConstraintNode]] can be described using [[constrainingProperty]] and [[numConstraints]]. These constraint properties can serve a 
     variety of purposes, and their values may sometimes be understood to indicate sets of possible values rather than single, exact and specific values.""" ;
-    rdfs:subClassOf :Intangible .
+    rdfs:subClassOf :Intangible . # there are a couple of areas around product templates (including groups), possibly Actions, where this might be applied too.
 
 
 :constrainingProperty a rdf:Property ;
@@ -107,7 +107,7 @@ population, and does not imply that the population consists of people. For examp
     :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :QuantitativeValue ;
     :source <https://github.com/schemaorg/schemaorg/issues/2291> ;
-    rdfs:comment "A marginOfError for an [[Observation]]." .
+    rdfs:comment "A [[marginOfError]] for an [[Observation]]." .
 
 :measuredProperty a rdf:Property ;
     rdfs:label "measuredProperty" ;
@@ -140,7 +140,7 @@ population, and does not imply that the population consists of people. For examp
     :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :StatisticalPopulation ;
     :source <https://github.com/schemaorg/schemaorg/issues/2291> ;
-    rdfs:comment "The observedNode of an [[Observation]], often a [[StatisticalPopulation]]." .
+    rdfs:comment "The [[observedNode]] of an [[Observation]], often a [[StatisticalPopulation]]." .
 
 :populationType a rdf:Property ;
     rdfs:label "populationType" ;
@@ -157,12 +157,12 @@ population, and does not imply that the population consists of people. For examp
 :MeasurementMethodEnumeration a rdfs:Class ;
     rdfs:label "MeasurementMethodEnumeration" ;
     :isPartOf <https://pending.schema.org> ;
-    :source <https://github.com/schemaorg/schemaorg/issues/3298> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2564> ;
     rdfs:comment "Enumeration(s) for use with [[measurementTechnique]]." ;
     rdfs:subClassOf :Enumeration .
 
 :ExampleMeasurementMethodEnumeration a :MeasurementMethodEnumeration ;
     rdfs:label "ExampleMeasurementMethodEnumeration" ;
     :isPartOf <https://pending.schema.org> ;
-    :source <https://github.com/schemaorg/schemaorg/issues/3298> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2564> ;
     rdfs:comment "An example MeasurementMethodEnumeration to remove when real ones are added." .

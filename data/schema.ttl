@@ -302,6 +302,12 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 """ ;
     rdfs:subClassOf :LodgingBusiness .
 
+
+:VacationRental a rdfs:Class ;
+    rdfs:label "VacationRental" ;
+    rdfs:comment """A kind of lodging business that focuses on renting single properties for limited time.""" ;
+    rdfs:subClassOf :LodgingBusiness .
+
 :BedDetails a rdfs:Class ;
     rdfs:label "BedDetails" ;
     :contributor <https://schema.org/docs/collab/STI_Accommodation_Ontology> ;
@@ -4511,7 +4517,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 :bed a rdf:Property ;
     rdfs:label "bed" ;
     :domainIncludes :HotelRoom,
-        :Suite ;
+        :Suite, :Accommodation;
     :rangeIncludes :BedDetails,
         :BedType,
         :Text ;
@@ -7267,7 +7273,7 @@ Typical unit code(s): ROM for room or C62 for no unit. The type of room can be p
     :domainIncludes :Apartment,
         :HotelRoom,
         :SingleFamilyResidence,
-        :Suite ;
+        :Suite, :Accommodation ;
     :rangeIncludes :QuantitativeValue ;
     :contributor <https://schema.org/docs/collab/STI_Accommodation_Ontology> ;
     rdfs:comment """The allowed total occupancy for the accommodation in persons (including infants etc). For individual accommodations, this is not necessarily the legal maximum but defines the permitted usage as per the contractual agreement (e.g. a double room used by a single person).
