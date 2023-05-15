@@ -31,7 +31,7 @@
     rdfs:label "Accommodation" ;
     :contributor <https://schema.org/docs/collab/STI_Accommodation_Ontology> ;
     rdfs:comment """An accommodation is a place that can accommodate human beings, e.g. a hotel room, a camping pitch, or a meeting room. Many accommodations are for overnight stays, but this is not a mandatory requirement.
-For more specific types of accommodations not defined in schema.org, one can use additionalType with external vocabularies.
+For more specific types of accommodations not defined in schema.org, one can use [[additionalType]] with external vocabularies.
 <br /><br />
 See also the <a href="/docs/hotels.html">dedicated document on the use of schema.org for marking up hotels and other forms of accommodations</a>.
 """ ;
@@ -4045,9 +4045,10 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 :additionalType a rdf:Property ;
     rdfs:label "additionalType" ;
     :domainIncludes :Thing ;
-    :rangeIncludes :URL ;
-    rdfs:comment "An additional type for the item, typically used for adding more specific types from external vocabularies in microdata syntax. This is a relationship between something and a class that the thing is in. In RDFa syntax, it is better to use the native RDFa syntax - the 'typeof' attribute - for multiple types. Schema.org tools may have only weaker understanding of extra types, in particular those defined externally." ;
-    rdfs:subPropertyOf rdf:type .
+    :rangeIncludes :URL, :Text ;
+    rdfs:comment """An additional type for the item, typically used for adding more specific types from external vocabularies in microdata syntax. This is a relationship between something and a class that the thing is in. Typically the value is a URI-identified RDF class, and in this case corresponds to the 
+    use of rdf:type in RDF. Text values can be used sparingly, for cases where useful information can be added without their being an appropriate schema to reference. In the case of text values, the class label should follow the schema.org <a href="https://schema.org/docs/styleguide.html">style guide</a>""" ;
+    rdfs:subPropertyOf rdf:type . # see datamodel.html for "strings where we prefer things".
 
 :address a rdf:Property ;
     rdfs:label "address" ;
