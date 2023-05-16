@@ -1,0 +1,49 @@
+@prefix : <https://schema.org/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:syllabusSections a rdf:Property ;
+    rdfs:label "syllabusSections" ;
+    :domainIncludes :Course ;
+    :isPartOf <https://pending.schema.org> ;
+    :rangeIncludes :Syllabus ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3281> ;
+    rdfs:comment """Indicates (typically several) Syllabus entities that lay out what each section of the overall course will cover.""" .
+
+
+:courseLength a rdf:Property ;
+    rdfs:label "courseLength" ;
+    :domainIncludes :CourseInstance ;
+    :isPartOf <https://pending.schema.org> ;
+    :rangeIncludes :Schedule ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3281> ;
+    rdfs:comment """Represents the length and pace of a course.""" .
+
+# todo: skills
+
+
+
+:totalHistoricalEnrollment a rdf:Property ;
+    rdfs:label "totalHistoricalEnrollment" ;
+    :domainIncludes :Course ;
+    :isPartOf <https://pending.schema.org> ;
+    :rangeIncludes :Integer ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3281> ;
+    rdfs:comment """The total number of students that have enrolled in the history of the course.""" .
+
+
+:financialAidEligible  :domainIncludes :Course .
+
+# todo: availableLanguage, re Subtitles, closed captions, or other languages the course is offered in. 
+# existing property extended:
+:availableLanguage  :domainIncludes :Course .
+
+
+:Syllabus a rdfs:Class ;
+    rdfs:label "Syllabus" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3281> ;
+    rdfs:comment "A syllabus that describes the material covered in a course, often with several such sections per [[Course]] so that a distinct [[timeRequired]] can be provided for that section of the [[Course]].";
+    rdfs:subClassOf :LearningResource .
