@@ -53,10 +53,24 @@ def termtemplateRender(term, examples, json):
   Returns:
     string with the generate web-page.
   """
+  
+  for ex in examples:
+    exselect = ["","","",""]
+    if ex.hasHtml():
+      exselect[0] = "selected"
+    elif ex.hasMicrodata():
+      exselect[1] = "selected"
+    elif ex.hasRdfa():
+      exselect[2] = "selected"
+    elif ex.hasJsonld():
+      exselect[3] = "selected"
+    ex.exselect = exselect
+
   extra_vars = {
       'title': term.label,
       'menu_sel': "Schemas",
       'home_page': "False",
+      'BUILDOPTS': BUILDOPTS,
       'docsdir': TERMDOCSDIR,
       'term': term,
       'jsonldPayload': json,

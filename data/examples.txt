@@ -697,7 +697,8 @@ MICRODATA:
   </div>
 
   <div itemprop="offers" itemscope itemtype="https://schema.org/AggregateOffer">
-    Priced from: <span itemprop="lowPrice">$35</span>
+  <meta itemprop="priceCurrency" content="USD" />
+    Priced from: <span itemprop="lowPrice" content="35">$35</span>
     <span itemprop="offerCount">1938</span> tickets left
   </div>
 </div>
@@ -725,7 +726,8 @@ RDFA:
   </div>
 
   <div property="offers" typeof="AggregateOffer">
-    Priced from: <span property="lowPrice">$35</span>
+    <meta property="priceCurrency" content="USD" />
+    Priced from: <span property="lowPrice" content="35">$35</span>
     <span property="offerCount">1938</span> tickets left
   </div>
 </div>
@@ -748,7 +750,8 @@ JSON:
   },
   "offers": {
     "@type": "AggregateOffer",
-    "lowPrice": "$35",
+    "priceCurrency": "USD",
+    "lowPrice": "35",
     "offerCount": "1938"
   },
   "startDate": "2016-04-21T20:00",
@@ -977,8 +980,9 @@ MICRODATA:
   </div>
 
   <div itemprop="offers" itemscope itemtype="https://schema.org/AggregateOffer">
-    <span itemprop="lowPrice">$1250</span>
-    to <span itemprop="highPrice">$1495</span>
+    <meta itemprop="priceCurrency" content="USD" />
+    <span itemprop="lowPrice" content="1250">$1250</span>
+    to <span itemprop="highPrice" content="1495">$1495</span>
     from <span itemprop="offerCount">8</span> sellers
 
     Sellers:
@@ -1004,8 +1008,9 @@ RDFA:
         <span property="ratingCount">24</span> user ratings
     </div>
     <div property="offers" typeof="AggregateOffer">
-        <span property="lowPrice">$1250</span> to
-        <span property="highPrice">$1495</span> from
+        <meta property="priceCurrency" content="USD" />
+        <span property="lowPrice" content="1250">$1250</span> to
+        <span property="highPrice" content="1495">$1495</span> from
         <span property="offerCount">8</span> sellers Sellers:
         <div property="offers" typeof="Offer">
             <a property="url" href="save-a-lot-monitors.com/dell-30.html">Save A Lot Monitors - $1250</a>
@@ -1033,8 +1038,9 @@ JSON:
   "name": "Dell UltraSharp 30\" LCD Monitor",
   "offers": {
     "@type": "AggregateOffer",
-    "highPrice": "$1495",
-    "lowPrice": "$1250",
+    "priceCurrency": "USD",
+    "highPrice": "1495",
+    "lowPrice": "1250",
     "offerCount": "8",
     "offers": [
       {
@@ -6085,18 +6091,19 @@ JSON:
 {
   "@context": "https://schema.org",
   "@type": "AllocateAction",
-  "agent": {
+  "participant": {
     "@type": "Person",
     "name": "John"
   },
-  "object": {
-    "@type": "Duration",
-    "name": "5 hours"
+  "agent": {
+    "@type": "Person",
+    "name": "John's trainer"
   },
-  "purpose": {
+  "object": {
     "@type": "ExercisePlan",
     "name": "John's weight loss plan"
-  }
+  },
+  "startTime": "2020-01-01T09:00:00"
 }
 </script>
 
@@ -6116,7 +6123,7 @@ This example is JSON only.
 
 JSON:
 
-<!--  John accepted a plan to exercise to help with his obesity-->.
+<!--  John accepted a plan to exercise-->.
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -6125,13 +6132,13 @@ JSON:
     "@type": "Person",
     "name": "John"
   },
+  "participant": {
+    "@type": "Person",
+    "name": "John's trainer"
+  },
   "object": {
     "@type": "ExercisePlan",
     "name": "John's weight loss plan"
-  },
-  "purpose": {
-    "@type": "MedicalCondition",
-    "name": "Obesity"
   }
 }
 </script>
@@ -6168,10 +6175,6 @@ JSON:
   "participant": {
     "@type": "Person",
     "name": "Steve"
-  },
-  "purpose": {
-    "@type": "MedicalCondition",
-    "name": "Obesity"
   }
 }
 </script>
@@ -6205,13 +6208,9 @@ JSON:
     "@type": "Diet",
     "name": "Steve's weight loss plan"
   },
-  "recipient": {
+  "participant": {
     "@type": "Person",
     "name": "Steve"
-  },
-  "purpose": {
-    "@type": "MedicalCondition",
-    "name": "Obesity"
   }
 }
 </script>
@@ -6232,7 +6231,7 @@ This example is JSON only.
 
 JSON:
 
-<!--  John rejected a plan to exercise that helps him with his obesity.-->
+<!--  John rejected a plan to exercise.-->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -6244,10 +6243,6 @@ JSON:
   "object": {
     "@type": "ExercisePlan",
     "name": "John's weight loss plan"
-  },
-  "purpose": {
-    "@type": "MedicalCondition",
-    "name": "Obesity"
   }
 }
 </script>
@@ -6458,7 +6453,7 @@ JSON:
     "@type": "Reservation",
     "name": "Table at Bar Tartine"
   },
-  "scheduledTime": "May"
+  "scheduledTime": "2020-05-29T19:30:00"
 }
 </script>
 
@@ -6491,7 +6486,7 @@ JSON:
     "@type": "Event",
     "name": "SXSW"
   },
-  "scheduledTime": "May"
+  "scheduledTime": "2023-03-06"
 }
 </script>
 
@@ -6863,9 +6858,9 @@ JSON:
   },
   "price": "1500",
   "priceCurrency": "USD",
-  "purpose": {
-    "@type": "Flight",
-    "name": "AA123"
+  "recipient": {
+    "@type": "Organization",
+    "name": "An Airline"
   }
 }
 </script>
@@ -8439,7 +8434,8 @@ JSON:
   "offers" : {
     "@type" : "Offer",
     "availability" : "https://schema.org/LimitedAvailability",
-    "price" : "$13.00",
+    "priceCurrency": "USD",
+    "price" : "13.00",
     "url" : "http://www.ticketfly.com/purchase/309433" },
   "typicalAgeRange" : "18+"
 }
@@ -10668,14 +10664,16 @@ JSON:
     "offers" : [ {
         "@type" : "Offer",
         "name" : "General Admission",
-        "price" : "$63.25",
+        "priceCurrency": "USD",
+        "price" : "63.25",
         "availability" : "SoldOut",
         "url" : "http://www.ticketmaster.com/event/17004C29"
     },{
         "@type" : "Offer",
         "name" : "VIP Experience",
         "url" : "http://www.example.com/Abcde12345",
-        "price" : "$299.00",
+        "priceCurrency": "USD",
+        "price" : "299.00",
         "validFrom" : "2014-02-05T10:00",
         "validThrough" : "2014-03-19T23:59"
     } ],
@@ -10804,7 +10802,7 @@ JSON:
 }
 </script>
 
-TYPES: #eg-0205 Role, PerformanceRole
+TYPES: #eg-0205 Role, PerformanceRole, actor
 
 PRE-MARKUP:
 
@@ -11007,7 +11005,8 @@ MICRODATA:
     <div itemprop="itemListElement" itemscope itemtype="https://schema.org/Product">
         <img alt="Photo of product" itemprop="image" src="http://img01.multivarki.ru.ru/c9/f1/a5fe6642-18d0-47ad-b038-6fca20f1c923.jpeg"> <a itemprop="url" href="http://multivarki.ru/brand_502/"><span itemprop="name">BRAND 502</span></a>
         <div itemprop="offers" itemscope itemtype="https://schema.org/Offer">
-            <span itemprop="price">4399 р.</span>
+            <meta property="priceCurrency" content="RUB">
+            <span itemprop="price" content="4399.00">4399 р.</span>
         </div>...
     </div>
     <div itemprop="itemListElement" itemtype="https://schema.org/Product">
@@ -11022,9 +11021,9 @@ RDFA:
     <div property="itemListElement" typeof="Product">
         <img property="image" alt="Photo of product" src="http://img01.multivarki.ru.ru/c9/f1/a5fe6642-18d0-47ad-b038-6fca20f1c923.jpeg"> <a property="url" href="http://multivarki.ru/brand_502/"><span property="name">BRAND 502</span></a>
         <div property="offers" typeof="Offer">
-            <meta property="schema:priceCurrency" content="RUB">руб
-            <meta property="schema:price" content="4399.00">4 399,00
-            <link property="schema:itemCondition" href="https://schema.org/NewCondition">
+            <meta property="priceCurrency" content="RUB">руб
+            <meta property="price" content="4399.00">4 399,00
+            <link property="itemCondition" href="https://schema.org/NewCondition">
         </div>...
     </div>
     <div property="itemListElement" typeof="Product">
@@ -11048,7 +11047,8 @@ JSON:
             "name": "Brand 502",
             "offers": {
                 "@type": "Offer",
-                "price": "4399 p."
+                "priceCurrency": "RUB",
+                "price": "4399.00"
             }
         },
         {

@@ -100,9 +100,12 @@ def copydocs():
 
 def htmlinserts():
     """Perform susbstitions on all HTML files in DESTDIR."""
+    print("\tAdding header/footer templates to all html files")
     docs = glob.glob(os.path.join(DESTDIR, '*.html'))
     for doc in docs:
         insertcopy(doc)
+        print(".", end='')
+    print("\n\tAdded")
 
 def insertcopy(doc, docdata=None):
     """Apply all substitutions defined in INSERTS to a file.
@@ -131,7 +134,8 @@ def insertcopy(doc, docdata=None):
 
 if __name__ == '__main__':
     copydocs()
-    print("Converting .md docs to html")
+    print("\tConverting .md docs to html")
     convertmd2htmldocs.mddocs(DESTDIR, DESTDIR)
-    print("Adding header/footer templates")
     htmlinserts()
+    print("Done")
+    os.sys.exit(0)

@@ -75,4 +75,4 @@ if __name__ == '__main__':
     fname = "%s%s" % (args.output,ext)
     print("%s: Writing to: %s" % (buildequivs,fname))
     file = open(fname, "w",encoding='utf8')
-
+    file.write(out)

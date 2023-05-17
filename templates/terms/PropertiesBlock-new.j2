@@ -1,0 +1,23 @@
+<!-- Properties block for term: {{term.id}}-->
+
+<!-- Identify if this term or one of its supertypes has any associated properties -->
+
+{{ set_local_var(local_vars,"propstodisplay", False)}}
+{% if term.properties|length > 0 %}{{set_local_var(local_vars,"propstodisplay", True)}}{% endif %}
+{% for t in term.termStack %}
+	  {% if t.properties|length > 0 %}{{set_local_var(local_vars,"propstodisplay", True)}}{% endif %}
+{% endfor %}
+
+{% if local_vars.propstodisplay %}
+	<div class="definition-table jumptarget" id="properties-section" title="Properties">
+<!--		<div class="table-body"> -->
+		{% set tabletop = True %} 
+		{% set propertiesFor = term %}{% include 'terms/PropertiesForTerm-new.j2' with context %}
+		{% set tabletop = False %}
+
+		{% for t in term.termStack %}
+			{% set propertiesFor = t %}{% include 'terms/PropertiesForTerm-new.j2' with context %}
+		{% endfor %}
+	<!--	</div> -->
+	 </div>
+{% endif %}
