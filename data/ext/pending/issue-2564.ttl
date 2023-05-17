@@ -48,6 +48,15 @@ In the context of a quantitative knowledge graph, typical properties could inclu
     :source <https://github.com/schemaorg/schemaorg/issues/2564> ;
     rdfs:comment """Identifies the denominator variable when an observation represents a ratio or percentage.""" .
 
+:observationPeriod a rdf:Property ;
+    rdfs:label "observationPeriod" ;
+    :domainIncludes :Observation ;
+    :isPartOf <https://pending.schema.org> ;
+    :rangeIncludes :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2564> ;
+    rdfs:comment """The length of time an Observation took place over. The format follows `P[0-9]*[Y|M|D|h|m|s]`. For example, P1Y is Period 1 Year, P3M is Period 3 Months, P3h is Period 3 hours.""" .
+
+
 
 
 
