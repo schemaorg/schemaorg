@@ -1780,7 +1780,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 
 :MediaObject a rdfs:Class ;
     rdfs:label "MediaObject" ;
-    rdfs:comment "A media object, such as an image, video, or audio object embedded in a web page or a downloadable dataset, i.e. DataDownload. Note that a creative work may have many media objects associated with it on the same web page. For example, a page about a single song (MusicRecording) may have a music video (VideoObject), and a high and low bandwidth audio stream (2 [[AudioObject]]s)." ;
+    rdfs:comment "A media object, such as an image, video, audio, or text object embedded in a web page or a downloadable dataset i.e. DataDownload. Note that a creative work may have many media objects associated with it on the same web page. For example, a page about a single song (MusicRecording) may have a music video (VideoObject), and a high and low bandwidth audio stream (2 AudioObject's)." ;
     rdfs:subClassOf :CreativeWork .
 
 :MediaSubscription a rdfs:Class ;
@@ -3003,6 +3003,12 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     rdfs:label "TextDigitalDocument" ;
     rdfs:comment "A file composed primarily of text." ;
     rdfs:subClassOf :DigitalDocument .
+
+:TextObject a rdfs:Class ;
+    rdfs:label "TextObject" ;
+    rdfs:comment "A text file. The text can be unformatted or contain markup, html, etc." ;
+    rdfs:subClassOf :MediaObject ;
+    owl:equivalentClass <http://purl.org/dc/dcmitype/Text> .
 
 :TheaterEvent a rdfs:Class ;
     rdfs:label "TheaterEvent" ;
@@ -9693,7 +9699,8 @@ we define a supporting type, [[SpeakableSpecification]]  which is defined to be 
 :description a rdf:Property ;
     rdfs:label "description" ;
     :domainIncludes :Thing ;
-    :rangeIncludes :Text ;
+    :rangeIncludes :Text,
+        :TextObject ;
     rdfs:comment "A description of the item." ;
     owl:equivalentProperty dc:description .
 
