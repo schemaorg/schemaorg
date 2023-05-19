@@ -7409,12 +7409,6 @@ Note: for historical reasons, any textual label and formal code provided as a li
         :Person ;
     rdfs:comment "An organizer of an Event." .
 
-:origin a rdf:Property ;
-    rdfs:label "origin" ;
-    :domainIncludes :Trip ;
-    :rangeIncludes :Place ;
-    rdfs:comment "The location of origin of the trip, prior to any destination(s)." .
-
 :originAddress a rdf:Property ;
     rdfs:label "originAddress" ;
     :domainIncludes :ParcelDelivery ;
@@ -9109,6 +9103,12 @@ we define a supporting type, [[SpeakableSpecification]]  which is defined to be 
     :rangeIncludes :Organization,
         :Person ;
     rdfs:comment "Organization or person who adapts a creative work to different languages, regional differences and technical requirements of a target market, or that translates during some event." .
+
+:tripOrigin a rdf:Property ;
+    rdfs:label "tripOrigin" ;
+    :domainIncludes :Trip ;
+    :rangeIncludes :Place ;
+    rdfs:comment "The location of origin of the trip, prior to any destination(s)." .
 
 :typeOfBed a rdf:Property ;
     rdfs:label "typeOfBed" ;
