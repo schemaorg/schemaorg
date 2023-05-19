@@ -14,7 +14,7 @@
         :Dataset,
         :PropertyValue ;
     :isPartOf <https://pending.schema.org> ;
-    :rangeIncludes :Text, :URL, :MeasurementMethodEnum ;
+    :rangeIncludes :Text, :DefinedTerm, :URL, :MeasurementMethodEnum ;
     :source <https://github.com/schemaorg/schemaorg/issues/1425> ;
     rdfs:comment """A technique, method or technology used in an [[Observation]], [[StatisticalVariable]] or [[Dataset]] (or [[DataDownload]], [[DataCatalog]]), corresponding to the method used for measuring the corresponding variable(s) (for datasets, described using [[variableMeasured]]; for [[Observation]], a [[StatisticalVariable]]). Often but not necessarily each [[variableMeasured]] will have an explicit representation as (or mapping to) an property such as those defined in Schema.org, or other RDF vocabularies and "knowledge graphs". In that case the subproperty of [[variableMeasured]] called [[measuredProperty]] is applicable.
     
@@ -36,7 +36,7 @@ If there are several [[variableMeasured]] properties recorded for some given dat
         :Dataset,
         :PropertyValue ;
     :isPartOf <https://pending.schema.org> ;
-    :rangeIncludes :Text, :URL, :MeasurementMethodEnum ;
+    :rangeIncludes :Text, :DefinedTerm, :URL, :MeasurementMethodEnum ;
     rdfs:subPropertyOf :measurementTechnique ;
     :source <https://github.com/schemaorg/schemaorg/issues/1425> ;
     rdfs:comment """A subproperty of [[measurementTechnique]] that can be used for specifying specific methods, in particular via [[MeasurementMethodEnum]].""" .
