@@ -1,0 +1,23 @@
+@prefix : <https://schema.org/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:ndc a rdf:Property ;
+    rdfs:label "ndc" ;
+    :domainIncludes :Drug ;
+    :isPartOf <https://pending.schema.org> ;
+    :rangeIncludes :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3327> ;
+    rdfs:comment "National Drug Code (NDC) is used by the [US Food and Drug Administration](https://www.fda.gov) to identify drugs." ;
+    rdfs:subPropertyOf :identifier .
+
+:pzn a rdf:Property ;
+    rdfs:label "pzn" ;
+    :domainIncludes :Drug ;
+    :isPartOf <https://pending.schema.org> ;
+    :rangeIncludes :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3327> ;
+    rdfs:comment "Pharmazentralnummer. Official identifier for drugs in Germany." ;
+    rdfs:subPropertyOf :identifier .
