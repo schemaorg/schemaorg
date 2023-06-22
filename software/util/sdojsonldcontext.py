@@ -38,7 +38,8 @@ def createcontext():
                 done.append(pref)
                 if pref == "schema":
                     pth = SCHEMAURI #Overide vocab setting to maintain http compatability
-
+                if pref == "geo":
+                    continue
                 jsonldcontext.append("        \"%s\": \"%s\",\n" % (pref,pth))
 
     datatypepre = "schema:"    
