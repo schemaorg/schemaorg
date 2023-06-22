@@ -278,7 +278,7 @@ def createCollab(coll):
     print("Created %s" % fn)
 
 def termfind(file):
-    if hasOpt("termfinder"):
+    if not hasOpt("notermfinder"):
         print("Building term list")
         return buildlist(True)
     return ""
