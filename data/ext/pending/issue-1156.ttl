@@ -9,8 +9,8 @@
 :LegalForceStatus a rdfs:Class ;
     rdfs:label "LegalForceStatus" ;
     :isPartOf <https://pending.schema.org> ;
-    :source <http://publications.europa.eu/mdr/eli/index.html>,
-        <https://github.com/schemaorg/schemaorg/issues/1156> ;
+    :contributor <https://schema.org/docs/collab/ELI>;
+    :source <https://github.com/schemaorg/schemaorg/issues/1156> ;
     rdfs:comment "A list of possible statuses for the legal force of a legislation." ;
     rdfs:subClassOf :StatusEnumeration ;
     skos:exactMatch <http://data.europa.eu/eli/ontology#InForce> .
@@ -18,8 +18,8 @@
 :LegalValueLevel a rdfs:Class ;
     rdfs:label "LegalValueLevel" ;
     :isPartOf <https://pending.schema.org> ;
-    :source <http://publications.europa.eu/mdr/eli/index.html>,
-        <https://github.com/schemaorg/schemaorg/issues/1156> ;
+    :contributor <https://schema.org/docs/collab/ELI>;
+    :source <https://github.com/schemaorg/schemaorg/issues/1156> ;
     rdfs:comment "A list of possible levels for the legal validity of a legislation." ;
     rdfs:subClassOf :Enumeration ;
     skos:closeMatch <http://data.europa.eu/eli/ontology#LegalValue> .
@@ -27,18 +27,18 @@
 :Legislation a rdfs:Class ;
     rdfs:label "Legislation" ;
     :isPartOf <https://pending.schema.org> ;
-    :source <http://publications.europa.eu/mdr/eli/index.html>,
-        <https://github.com/schemaorg/schemaorg/issues/1156> ;
+    :contributor <https://schema.org/docs/collab/ELI>;
+    :source <https://github.com/schemaorg/schemaorg/issues/1156> ;
     rdfs:comment "A legal document such as an act, decree, bill, etc. (enforceable or not) or a component of a legal act (like an article)." ;
     rdfs:subClassOf :CreativeWork ;
     skos:closeMatch <http://data.europa.eu/eli/ontology#LegalExpression>,
-        <http://data.europa.eu/eli/ontology#LegalResource> .
+        <http://data.europa.eu/eli/ontology#LegalRecontributor> .
 
 :LegislationObject a rdfs:Class ;
     rdfs:label "LegislationObject" ;
     :isPartOf <https://pending.schema.org> ;
-    :source <http://publications.europa.eu/mdr/eli/index.html>,
-        <https://github.com/schemaorg/schemaorg/issues/1156> ;
+    :contributor <https://schema.org/docs/collab/ELI>;
+    :source <https://github.com/schemaorg/schemaorg/issues/1156> ;
     rdfs:comment "A specific object or file containing a Legislation. Note that the same Legislation can be published in multiple files. For example, a digitally signed PDF, a plain PDF and an HTML version." ;
     rdfs:subClassOf :Legislation,
         :MediaObject ;
@@ -47,57 +47,57 @@
 :AuthoritativeLegalValue a :LegalValueLevel ;
     rdfs:label "AuthoritativeLegalValue" ;
     :isPartOf <https://pending.schema.org> ;
-    :source <http://publications.europa.eu/mdr/eli/index.html>,
-        <https://github.com/schemaorg/schemaorg/issues/1156> ;
-    rdfs:comment "Indicates that the publisher gives some special status to the publication of the document. (\"The Queens Printer\" version of a UK Act of Parliament, or the PDF version of a Directive published by the EU Office of Publications). Something \"Authoritative\" is considered to be also [[OfficialLegalValue]]\"." ;
+    :contributor <https://schema.org/docs/collab/ELI>;
+    :source <https://github.com/schemaorg/schemaorg/issues/1156> ;
+    rdfs:comment "Indicates that the publisher gives some special status to the publication of the document. (\"The Queens Printer\" version of a UK Act of Parliament, or the PDF version of a Directive published by the EU Office of Publications.) Something \"Authoritative\" is considered to be also [[OfficialLegalValue]]." ;
     skos:exactMatch <http://data.europa.eu/eli/ontology#LegalValue-authoritative> .
 
 :DefinitiveLegalValue a :LegalValueLevel ;
     rdfs:label "DefinitiveLegalValue" ;
     :isPartOf <https://pending.schema.org> ;
-    :source <http://publications.europa.eu/mdr/eli/index.html>,
-        <https://github.com/schemaorg/schemaorg/issues/1156> ;
-    rdfs:comment """Indicates a document for which the text is conclusively what the law says and is legally binding. (e.g. The digitally signed version of an Official Journal.)
+    :contributor <https://schema.org/docs/collab/ELI>;
+    :source <https://github.com/schemaorg/schemaorg/issues/1156> ;
+    rdfs:comment """Indicates a document for which the text is conclusively what the law says and is legally binding. (E.g. the digitally signed version of an Official Journal.)
   Something "Definitive" is considered to be also [[AuthoritativeLegalValue]].""" ;
     skos:exactMatch <http://data.europa.eu/eli/ontology#LegalValue-definitive> .
 
 :InForce a :LegalForceStatus ;
     rdfs:label "InForce" ;
     :isPartOf <https://pending.schema.org> ;
-    :source <http://publications.europa.eu/mdr/eli/index.html>,
-        <https://github.com/schemaorg/schemaorg/issues/1156> ;
+    :contributor <https://schema.org/docs/collab/ELI>;
+    :source <https://github.com/schemaorg/schemaorg/issues/1156> ;
     rdfs:comment "Indicates that a legislation is in force." ;
     skos:exactMatch <http://data.europa.eu/eli/ontology#InForce-inForce> .
 
 :NotInForce a :LegalForceStatus ;
     rdfs:label "NotInForce" ;
     :isPartOf <https://pending.schema.org> ;
-    :source <http://publications.europa.eu/mdr/eli/index.html>,
-        <https://github.com/schemaorg/schemaorg/issues/1156> ;
+    :contributor <https://schema.org/docs/collab/ELI>;
+    :source <https://github.com/schemaorg/schemaorg/issues/1156> ;
     rdfs:comment "Indicates that a legislation is currently not in force." ;
     skos:exactMatch <http://data.europa.eu/eli/ontology#InForce-notInForce> .
 
 :OfficialLegalValue a :LegalValueLevel ;
     rdfs:label "OfficialLegalValue" ;
     :isPartOf <https://pending.schema.org> ;
-    :source <http://publications.europa.eu/mdr/eli/index.html>,
-        <https://github.com/schemaorg/schemaorg/issues/1156> ;
-    rdfs:comment "All the documents published by an official publisher should have at least the legal value level \"OfficialLegalValue\". This indicates that the document was published by an organisation with the public task of making it available (e.g. a consolidated version of a EU directive published by the EU Office of Publications)." ;
+    :contributor <https://schema.org/docs/collab/ELI>;
+    :source <https://github.com/schemaorg/schemaorg/issues/1156> ;
+    rdfs:comment "All the documents published by an official publisher should have at least the legal value level \"OfficialLegalValue\". This indicates that the document was published by an organisation with the public task of making it available (e.g. a consolidated version of an EU directive published by the EU Office of Publications)." ;
     skos:exactMatch <http://data.europa.eu/eli/ontology#LegalValue-official> .
 
 :PartiallyInForce a :LegalForceStatus ;
     rdfs:label "PartiallyInForce" ;
     :isPartOf <https://pending.schema.org> ;
-    :source <http://publications.europa.eu/mdr/eli/index.html>,
-        <https://github.com/schemaorg/schemaorg/issues/1156> ;
+    :contributor <https://schema.org/docs/collab/ELI>;
+    :source <https://github.com/schemaorg/schemaorg/issues/1156> ;
     rdfs:comment "Indicates that parts of the legislation are in force, and parts are not." ;
     skos:exactMatch <http://data.europa.eu/eli/ontology#InForce-partiallyInForce> .
 
 :UnofficialLegalValue a :LegalValueLevel ;
     rdfs:label "UnofficialLegalValue" ;
     :isPartOf <https://pending.schema.org> ;
-    :source <http://publications.europa.eu/mdr/eli/index.html>,
-        <https://github.com/schemaorg/schemaorg/issues/1156> ;
+    :contributor <https://schema.org/docs/collab/ELI>;
+    :source <https://github.com/schemaorg/schemaorg/issues/1156> ;
     rdfs:comment "Indicates that a document has no particular or special standing (e.g. a republication of a law by a private publisher)." ;
     skos:exactMatch <http://data.europa.eu/eli/ontology#LegalValue-unofficial> .
 
@@ -106,8 +106,8 @@
     :domainIncludes :Legislation ;
     :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :Legislation ;
-    :source <http://publications.europa.eu/mdr/eli/index.html>,
-        <https://github.com/schemaorg/schemaorg/issues/1156> ;
+    :contributor <https://schema.org/docs/collab/ELI>;
+    :source <https://github.com/schemaorg/schemaorg/issues/1156> ;
     rdfs:comment "Another legislation that this legislation changes. This encompasses the notions of amendment, replacement, correction, repeal, or other types of change. This may be a direct change (textual or non-textual amendment) or a consequential or indirect change. The property is to be used to express the existence of a change relationship between two acts rather than the existence of a consolidated version of the text that shows the result of the change. For consolidation relationships, use the <a href=\"/legislationConsolidates\">legislationConsolidates</a> property." ;
     owl:equivalentProperty <http://data.europa.eu/eli/ontology#changes> ;
     skos:exactMatch <http://data.europa.eu/eli/ontology#changes> .
@@ -117,8 +117,8 @@
     :domainIncludes :Legislation ;
     :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :Legislation ;
-    :source <http://publications.europa.eu/mdr/eli/index.html>,
-        <https://github.com/schemaorg/schemaorg/issues/1156> ;
+    :contributor <https://schema.org/docs/collab/ELI>;
+    :source <https://github.com/schemaorg/schemaorg/issues/1156> ;
     rdfs:comment "Indicates another legislation taken into account in this consolidated legislation (which is usually the product of an editorial process that revises the legislation). This property should be used multiple times to refer to both the original version or the previous consolidated version, and to the legislations making the change." ;
     owl:equivalentProperty <http://data.europa.eu/eli/ontology#consolidates> ;
     skos:exactMatch <http://data.europa.eu/eli/ontology#consolidates> .
@@ -128,8 +128,8 @@
     :domainIncludes :Legislation ;
     :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :Date ;
-    :source <http://publications.europa.eu/mdr/eli/index.html>,
-        <https://github.com/schemaorg/schemaorg/issues/1156> ;
+    :contributor <https://schema.org/docs/collab/ELI>;
+    :source <https://github.com/schemaorg/schemaorg/issues/1156> ;
     rdfs:comment "The date of adoption or signature of the legislation. This is the date at which the text is officially aknowledged to be a legislation, even though it might not even be published or in force." ;
     rdfs:subPropertyOf :dateCreated ;
     owl:equivalentProperty <http://data.europa.eu/eli/ontology#date_document> ;
@@ -140,9 +140,9 @@
     :domainIncludes :Legislation ;
     :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :Date ;
-    :source <http://publications.europa.eu/mdr/eli/index.html>,
-        <https://github.com/schemaorg/schemaorg/issues/1156> ;
-    rdfs:comment "The point-in-time at which the provided description of the legislation is valid (e.g. : when looking at the law on the 2016-04-07 (= dateVersion), I get the consolidation of 2015-04-12 of the \"National Insurance Contributions Act 2015\")" ;
+    :contributor <https://schema.org/docs/collab/ELI>;
+    :source <https://github.com/schemaorg/schemaorg/issues/1156> ;
+    rdfs:comment "The point-in-time at which the provided description of the legislation is valid (e.g.: when looking at the law on the 2016-04-07 (= dateVersion), I get the consolidation of 2015-04-12 of the \"National Insurance Contributions Act 2015\")" ;
     owl:equivalentProperty <http://data.europa.eu/eli/ontology#version_date> ;
     skos:exactMatch <http://data.europa.eu/eli/ontology#version_date> .
 
@@ -152,8 +152,8 @@
     :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :Text,
         :URL ;
-    :source <http://publications.europa.eu/mdr/eli/index.html>,
-        <https://github.com/schemaorg/schemaorg/issues/1156> ;
+    :contributor <https://schema.org/docs/collab/ELI>;
+    :source <https://github.com/schemaorg/schemaorg/issues/1156> ;
     rdfs:comment "An identifier for the legislation. This can be either a string-based identifier, like the CELEX at EU level or the NOR in France, or a web-based, URL/URI identifier, like an ELI (European Legislation Identifier) or an URN-Lex." ;
     rdfs:subPropertyOf :identifier ;
     skos:closeMatch <http://data.europa.eu/eli/ontology#id_local> .
@@ -164,8 +164,8 @@
     :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :AdministrativeArea,
         :Text ;
-    :source <http://publications.europa.eu/mdr/eli/index.html>,
-        <https://github.com/schemaorg/schemaorg/issues/1156> ;
+    :contributor <https://schema.org/docs/collab/ELI>;
+    :source <https://github.com/schemaorg/schemaorg/issues/1156> ;
     rdfs:comment "The jurisdiction from which the legislation originates." ;
     rdfs:subPropertyOf :spatialCoverage ;
     owl:equivalentProperty <http://data.europa.eu/eli/ontology#jurisdiction> ;
@@ -176,8 +176,8 @@
     :domainIncludes :Legislation ;
     :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :LegalForceStatus ;
-    :source <http://publications.europa.eu/mdr/eli/index.html>,
-        <https://github.com/schemaorg/schemaorg/issues/1156> ;
+    :contributor <https://schema.org/docs/collab/ELI>;
+    :source <https://github.com/schemaorg/schemaorg/issues/1156> ;
     rdfs:comment "Whether the legislation is currently in force, not in force, or partially in force." ;
     owl:equivalentProperty <http://data.europa.eu/eli/ontology#in_force> ;
     skos:exactMatch <http://data.europa.eu/eli/ontology#in_force> .
@@ -187,8 +187,8 @@
     :domainIncludes :LegislationObject ;
     :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :LegalValueLevel ;
-    :source <http://publications.europa.eu/mdr/eli/index.html>,
-        <https://github.com/schemaorg/schemaorg/issues/1156> ;
+    :contributor <https://schema.org/docs/collab/ELI>;
+    :source <https://github.com/schemaorg/schemaorg/issues/1156> ;
     rdfs:comment "The legal value of this legislation file. The same legislation can be written in multiple files with different legal values. Typically a digitally signed PDF have a \"stronger\" legal value than the HTML file of the same act." ;
     owl:equivalentProperty <http://data.europa.eu/eli/ontology#legal_value> ;
     skos:exactMatch <http://data.europa.eu/eli/ontology#legal_value> .
@@ -199,9 +199,9 @@
     :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :Organization,
         :Person ;
-    :source <http://publications.europa.eu/mdr/eli/index.html>,
-        <https://github.com/schemaorg/schemaorg/issues/1156> ;
-    rdfs:comment "The person or organization that originally passed or made the law : typically parliament (for primary legislation) or government (for secondary legislation). This indicates the \"legal author\" of the law, as opposed to its physical author." ;
+    :contributor <https://schema.org/docs/collab/ELI>;
+    :source <https://github.com/schemaorg/schemaorg/issues/1156> ;
+    rdfs:comment "The person or organization that originally passed or made the law: typically parliament (for primary legislation) or government (for secondary legislation). This indicates the \"legal author\" of the law, as opposed to its physical author." ;
     rdfs:subPropertyOf :creator ;
     owl:equivalentProperty <http://data.europa.eu/eli/ontology#passed_by> ;
     skos:exactMatch <http://data.europa.eu/eli/ontology#passed_by> .
@@ -212,8 +212,8 @@
     :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :Organization,
         :Person ;
-    :source <http://publications.europa.eu/mdr/eli/index.html>,
-        <https://github.com/schemaorg/schemaorg/issues/1156> ;
+    :contributor <https://schema.org/docs/collab/ELI>;
+    :source <https://github.com/schemaorg/schemaorg/issues/1156> ;
     rdfs:comment "An individual or organization that has some kind of responsibility for the legislation. Typically the ministry who is/was in charge of elaborating the legislation, or the adressee for potential questions about the legislation once it is published." ;
     owl:equivalentProperty <http://data.europa.eu/eli/ontology#responsibility_of> ;
     skos:exactMatch <http://data.europa.eu/eli/ontology#responsibility_of> .
@@ -223,8 +223,8 @@
     :domainIncludes :Legislation ;
     :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :Legislation ;
-    :source <http://publications.europa.eu/mdr/eli/index.html>,
-        <https://github.com/schemaorg/schemaorg/issues/1156> ;
+    :contributor <https://schema.org/docs/collab/ELI>;
+    :source <https://github.com/schemaorg/schemaorg/issues/1156> ;
     rdfs:comment "Indicates that this legislation (or part of legislation) fulfills the objectives set by another legislation, by passing appropriate implementation measures. Typically, some legislations of European Union's member states or regions transpose European Directives. This indicates a legally binding link between the 2 legislations." ;
     rdfs:subPropertyOf :legislationApplies ;
     owl:equivalentProperty <http://data.europa.eu/eli/ontology#transposes> ;
@@ -236,8 +236,8 @@
     :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :CategoryCode,
         :Text ;
-    :source <http://publications.europa.eu/mdr/eli/index.html>,
-        <https://github.com/schemaorg/schemaorg/issues/1156> ;
+    :contributor <https://schema.org/docs/collab/ELI>;
+    :source <https://github.com/schemaorg/schemaorg/issues/1156> ;
     rdfs:comment "The type of the legislation. Examples of values are \"law\", \"act\", \"directive\", \"decree\", \"regulation\", \"statutory instrument\", \"loi organique\", \"règlement grand-ducal\", etc., depending on the country." ;
     rdfs:subPropertyOf :genre ;
     owl:equivalentProperty <http://data.europa.eu/eli/ontology#type_document> ;
@@ -248,14 +248,9 @@
     :domainIncludes :Legislation ;
     :isPartOf <https://pending.schema.org> ;
     :rangeIncludes :Legislation ;
-    :source <http://publications.europa.eu/mdr/eli/index.html>,
-        <https://github.com/schemaorg/schemaorg/issues/1156> ;
+    :contributor <https://schema.org/docs/collab/ELI>;
+    :source <https://github.com/schemaorg/schemaorg/issues/1156> ;
     rdfs:comment "Indicates that this legislation (or part of a legislation) somehow transfers another legislation in a different legislative context. This is an informative link, and it has no legal value. For legally-binding links of transposition, use the <a href=\"/legislationTransposes\">legislationTransposes</a> property. For example an informative consolidated law of a European Union's member state \"applies\" the consolidated version of the European Directive implemented in it." ;
     owl:equivalentProperty <http://data.europa.eu/eli/ontology#implements> ;
     skos:exactMatch <http://data.europa.eu/eli/ontology#implements> .
-
-<http://publications.europa.eu/mdr/eli/index.html> a :Organization ;
-    rdfs:label "ELI" ;
-    :isPartOf <https://pending.schema.org> ;
-    rdfs:comment "This entry is derived from the [ELI ontology](http://publications.europa.eu/mdr/eli/index.html) (European Legislation Identifier). ELI is an initiative of some national legislation publishers endorsed by EU countries and Institutions, to identify, describe and link legislation on the web, and is led by the [ELI taskforce](http://eur-lex.europa.eu/eli-register/about.html)." .
 

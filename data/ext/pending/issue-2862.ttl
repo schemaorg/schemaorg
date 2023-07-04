@@ -1,4 +1,4 @@
-@prefix schema: <https://schema.org/> .
+@prefix : <https://schema.org/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix dc: <http://purl.org/dc/terms/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
@@ -7,173 +7,175 @@
 #Definitions from original ext/bio/BioChemEntity.ttl
 #
 
-schema:BioChemEntity
+:BioChemEntity
   a rdfs:Class ;
-  schema:isPartOf <https://pending.schema.org> ;
+  :isPartOf <https://pending.schema.org> ;
   rdfs:label "BioChemEntity" ;
   rdfs:comment "Any biological, chemical, or biochemical thing. For example: a protein; a gene; a chemical; a synthetic chemical." ;
-  rdfs:subClassOf schema:Thing ;
-  dc:source <http://bioschemas.org> .
+  rdfs:subClassOf :Thing ;
+  :source <http://bioschemas.org> .
 
-schema:associatedDisease
+:associatedDisease
   a rdf:Property ;
-  schema:isPartOf <https://pending.schema.org> ;
+  :isPartOf <https://pending.schema.org> ;
   rdfs:label "associatedDisease" ;
   rdfs:comment "Disease associated to this BioChemEntity. Such disease can be a MedicalCondition or a URL. If you want to add an evidence supporting the association, please use PropertyValue." ;
-  schema:domainIncludes schema:BioChemEntity ;
-  schema:rangeIncludes schema:MedicalCondition, schema:PropertyValue, schema:URL ;
-  dc:source <http://www.bioschemas.org/BioChemEntity> .
+  :domainIncludes :BioChemEntity ;
+  :rangeIncludes :MedicalCondition, :PropertyValue, :URL ;
+  :source <http://www.bioschemas.org/BioChemEntity> .
 
-schema:bioChemInteraction
+:bioChemInteraction
   a rdf:Property ;
-  schema:isPartOf <https://pending.schema.org> ;
+  :isPartOf <https://pending.schema.org> ;
   rdfs:label "bioChemInteraction" ;
   rdfs:comment "A BioChemEntity that is known to interact with this item." ;
-  schema:domainIncludes schema:BioChemEntity ;
-  schema:rangeIncludes schema:BioChemEntity ;
-  dc:source <http://www.bioschemas.org> .
+  :domainIncludes :BioChemEntity ;
+  :rangeIncludes :BioChemEntity ;
+  :source <http://www.bioschemas.org> .
 
-schema:bioChemSimilarity
+:bioChemSimilarity
   a rdf:Property ;
-  schema:isPartOf <https://pending.schema.org> ;
+  :isPartOf <https://pending.schema.org> ;
   rdfs:label "bioChemSimilarity" ;
   rdfs:comment "A similar BioChemEntity, e.g., obtained by fingerprint similarity algorithms." ;
-  schema:domainIncludes schema:BioChemEntity ;
-  schema:rangeIncludes schema:BioChemEntity ;
-  dc:source <http://www.bioschemas.org> .
+  :domainIncludes :BioChemEntity ;
+  :rangeIncludes :BioChemEntity ;
+  :source <http://www.bioschemas.org> .
 
-schema:hasBioChemEntityPart
+:hasBioChemEntityPart
   a rdf:Property ;
-  schema:isPartOf <https://pending.schema.org> ;
+  :isPartOf <https://pending.schema.org> ;
   rdfs:label "hasBioChemEntityPart" ;
   rdfs:comment "Indicates a BioChemEntity that (in some sense) has this BioChemEntity as a part. " ;
-  schema:domainIncludes schema:BioChemEntity ;
-  schema:rangeIncludes schema:BioChemEntity ;
-  schema:inverseOf schema:isPartOfBioChemEntity ;
-  dc:source <http://www.bioschemas.org> .
+  :domainIncludes :BioChemEntity ;
+  :rangeIncludes :BioChemEntity ;
+  :inverseOf :isPartOfBioChemEntity ;
+  :source <http://www.bioschemas.org> .
 
-schema:hasRepresentation
+:hasRepresentation
   a rdf:Property ;
-  schema:isPartOf <https://pending.schema.org> ;
+  :isPartOf <https://pending.schema.org> ;
   rdfs:label "hasRepresentation" ;
   rdfs:comment "A common representation such as a protein sequence or chemical structure for this entity. For images use schema.org/image." ;
-  schema:domainIncludes schema:BioChemEntity ;
-  schema:rangeIncludes schema:PropertyValue, schema:Text, schema:URL ;
-  dc:source <http://www.bioschemas.org> .
+  :domainIncludes :BioChemEntity ;
+  :rangeIncludes :PropertyValue, :Text, :URL ;
+  :source <http://www.bioschemas.org> .
 
-schema:isEncodedByBioChemEntity
+:isEncodedByBioChemEntity
   a rdf:Property ;
-  schema:isPartOf <https://pending.schema.org> ;
+  :isPartOf <https://pending.schema.org> ;
   rdfs:label "isEncodedByBioChemEntity" ;
   rdfs:comment "Another BioChemEntity encoding by this one." ;
-  schema:domainIncludes schema:BioChemEntity ;
-  schema:rangeIncludes schema:Gene ;
-  schema:inverseOf schema:encodesBioChemEntity ;
-  dc:source <http://www.bioschemas.org/Gene> .
+  :domainIncludes :BioChemEntity ;
+  :rangeIncludes :Gene ;
+  :inverseOf :encodesBioChemEntity ;
+  :source <http://www.bioschemas.org/Gene> .
 
-schema:encodesBioChemEntity
+:encodesBioChemEntity
   a rdf:Property ;
-  schema:isPartOf <https://pending.schema.org> ;
+  :isPartOf <https://pending.schema.org> ;
   rdfs:label "encodesBioChemEntity" ;
   rdfs:comment "Another BioChemEntity encoded by this one. " ;
-  schema:domainIncludes schema:Gene ;
-  schema:rangeIncludes schema:BioChemEntity ;
-  schema:inverseOf schema:isEncodedByBioChemEntity ;
-  dc:source <http://www.bioschemas.org/Gene> .
+  :domainIncludes :Gene ;
+  :rangeIncludes :BioChemEntity ;
+  :inverseOf :isEncodedByBioChemEntity ;
+  :source <http://www.bioschemas.org/Gene> .
 
-schema:isPartOfBioChemEntity
+:isPartOfBioChemEntity
   a rdf:Property ;
-  schema:isPartOf <https://pending.schema.org> ;
+  :isPartOf <https://pending.schema.org> ;
   rdfs:label "isPartOfBioChemEntity" ;
   rdfs:comment "Indicates a BioChemEntity that is (in some sense) a part of this BioChemEntity. " ;
-  schema:domainIncludes schema:BioChemEntity ;
-  schema:rangeIncludes schema:BioChemEntity ;
-  schema:inverseOf schema:hasBioChemEntityPart ;
-  dc:source <http://www.bioschemas.org> .
+  :domainIncludes :BioChemEntity ;
+  :rangeIncludes :BioChemEntity ;
+  :inverseOf :hasBioChemEntityPart ;
+  :source <http://www.bioschemas.org> .
 
-schema:taxonomicRange
+:taxonomicRange
   a rdf:Property ;
-  schema:isPartOf <https://pending.schema.org> ;
+  :isPartOf <https://pending.schema.org> ;
   rdfs:label "taxonomicRange" ;
-  rdfs:comment "The taxonomic grouping of the organism that expresses, encodes, or in someway related to the BioChemEntity." ;
-  schema:domainIncludes schema:BioChemEntity ;
-  schema:rangeIncludes schema:Taxon, schema:Text, schema:URL, schema:DefinedTerm ;
-  dc:source <http://www.bioschemas.org> .
+  :domainIncludes :BioChemEntity ;
+  :rangeIncludes :Taxon, :Text, :URL, :DefinedTerm ;
+  :source <http://www.bioschemas.org> ;
+  rdfs:comment "The taxonomic grouping of the organism that expresses, encodes, or in some way related to the BioChemEntity." ;
+  :domainIncludes :BioChemEntity ;
+  :rangeIncludes :Taxon, :Text, :URL, :DefinedTerm .
 
-schema:biologicalRole
+:biologicalRole
   a rdf:Property ;
-  schema:isPartOf <https://pending.schema.org> ;
+  :isPartOf <https://pending.schema.org> ;
   rdfs:label "biologicalRole" ;
   rdfs:comment "A role played by the BioChemEntity within a biological context." ;
-  schema:domainIncludes schema:BioChemEntity ;
-  schema:rangeIncludes schema:DefinedTerm ;
-  dc:source <http://www.bioschemas.org> .
+  :domainIncludes :BioChemEntity ;
+  :rangeIncludes :DefinedTerm ;
+  :source <http://www.bioschemas.org> .
 
-schema:hasMolecularFunction
+:hasMolecularFunction
   a rdf:Property ;
-  schema:isPartOf <https://pending.schema.org> ;
+  :isPartOf <https://pending.schema.org> ;
   rdfs:label "hasMolecularFunction" ;
   rdfs:comment "Molecular function performed by this BioChemEntity; please use PropertyValue if you want to include any evidence." ;
-  schema:domainIncludes schema:BioChemEntity ;
-  schema:rangeIncludes schema:DefinedTerm, schema:PropertyValue, schema:URL ;
-  dc:source <http://www.bioschemas.org/BioChemEntity> .
+  :domainIncludes :BioChemEntity ;
+  :rangeIncludes :DefinedTerm, :PropertyValue, :URL ;
+  :source <http://www.bioschemas.org/BioChemEntity> .
 
-schema:isInvolvedInBiologicalProcess
+:isInvolvedInBiologicalProcess
   a rdf:Property ;
-  schema:isPartOf <https://pending.schema.org> ;
+  :isPartOf <https://pending.schema.org> ;
   rdfs:label "isInvolvedInBiologicalProcess" ;
   rdfs:comment "Biological process this BioChemEntity is involved in; please use PropertyValue if you want to include any evidence." ;
-  schema:domainIncludes schema:BioChemEntity ;
-  schema:rangeIncludes schema:DefinedTerm, schema:PropertyValue, schema:URL ;
-  dc:source <http://www.bioschemas.org/BioChemEntity> .
+  :domainIncludes :BioChemEntity ;
+  :rangeIncludes :DefinedTerm, :PropertyValue, :URL ;
+  :source <http://www.bioschemas.org/BioChemEntity> .
 
-schema:isLocatedInSubcellularLocation
+:isLocatedInSubcellularLocation
   a rdf:Property ;
-  schema:isPartOf <https://pending.schema.org> ;
+  :isPartOf <https://pending.schema.org> ;
   rdfs:label "isLocatedInSubcellularLocation" ;
   rdfs:comment "Subcellular location where this BioChemEntity is located; please use PropertyValue if you want to include any evidence." ;
-  schema:domainIncludes schema:BioChemEntity ;
-  schema:rangeIncludes schema:DefinedTerm, schema:PropertyValue, schema:URL ;
-  dc:source <http://www.bioschemas.org/BioChemEntity> .
+  :domainIncludes :BioChemEntity ;
+  :rangeIncludes :DefinedTerm, :PropertyValue, :URL ;
+  :source <http://www.bioschemas.org/BioChemEntity> .
 
 #
 #Definitions from original ext/bio/ChemicalSubstance.ttl
 #
 
-schema:ChemicalSubstance
+:ChemicalSubstance
   a rdfs:Class ;
-  schema:isPartOf <https://pending.schema.org> ;
+  :isPartOf <https://pending.schema.org> ;
   rdfs:label "ChemicalSubstance" ;
   rdfs:comment "A chemical substance is 'a portion of matter of constant composition, composed of molecular entities of the same type or of different types' (source: [ChEBI:59999](https://www.ebi.ac.uk/chebi/searchId.do?chebiId=59999))." ;
-  rdfs:subClassOf schema:BioChemEntity ;
-  dc:source <http://bioschemas.org>, <https://www.ebi.ac.uk/chebi/searchId.do?chebiId=59999> .
+  rdfs:subClassOf :BioChemEntity ;
+  :source <http://bioschemas.org>, <https://www.ebi.ac.uk/chebi/searchId.do?chebiId=59999> .
 
-schema:chemicalComposition
+:chemicalComposition
   a rdf:Property ;
-  schema:isPartOf <https://pending.schema.org> ;
+  :isPartOf <https://pending.schema.org> ;
   rdfs:label "chemicalComposition" ;
   rdfs:comment "The chemical composition describes the identity and relative ratio of the chemical elements that make up the substance." ;
-  schema:domainIncludes schema:ChemicalSubstance ;
-  schema:rangeIncludes schema:Text ;
-  dc:source <http://www.bioschemas.org/ChemicalSubstance> .
+  :domainIncludes :ChemicalSubstance ;
+  :rangeIncludes :Text ;
+  :source <http://www.bioschemas.org/ChemicalSubstance> .
 
-schema:chemicalRole
+:chemicalRole
   a rdf:Property ;
-  schema:isPartOf <https://pending.schema.org> ;
+  :isPartOf <https://pending.schema.org> ;
   rdfs:label "chemicalRole" ;
   rdfs:comment "A role played by the BioChemEntity within a chemical context." ;
-  schema:domainIncludes schema:ChemicalSubstance, schema:MolecularEntity ;
-  schema:rangeIncludes schema:DefinedTerm ;
-  dc:source <http://www.bioschemas.org/ChemicalSubstance> .
+  :domainIncludes :ChemicalSubstance, :MolecularEntity ;
+  :rangeIncludes :DefinedTerm ;
+  :source <http://www.bioschemas.org/ChemicalSubstance> .
 
-schema:potentialUse
+:potentialUse
   a rdf:Property ;
-  schema:isPartOf <https://pending.schema.org> ;
+  :isPartOf <https://pending.schema.org> ;
   rdfs:label "potentialUse" ;
   rdfs:comment "Intended use of the BioChemEntity by humans." ;
-  schema:domainIncludes schema:ChemicalSubstance, schema:MolecularEntity ;
-  schema:rangeIncludes schema:DefinedTerm ;
-  dc:source <http://www.bioschemas.org/ChemicalSubstance> .
+  :domainIncludes :ChemicalSubstance, :MolecularEntity ;
+  :rangeIncludes :DefinedTerm ;
+  :source <http://www.bioschemas.org/ChemicalSubstance> .
 
 #
 #Definitions from original ext/bio/Gene.ttl
@@ -194,130 +196,133 @@ schema:potentialUse
   # - https://github.com/BioSchemas/specifications/issues/321
 
 
-  schema:Gene
+  :Gene
     a rdfs:Class ;
-    schema:isPartOf <https://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     rdfs:label "Gene" ;
     rdfs:comment "A discrete unit of inheritance which affects one or more biological traits (Source: [https://en.wikipedia.org/wiki/Gene](https://en.wikipedia.org/wiki/Gene)). Examples include FOXP2 (Forkhead box protein P2), SCARNA21 (small Cajal body-specific RNA 21), A- (agouti genotype)." ;
-    rdfs:subClassOf schema:BioChemEntity ;
-    dc:source <http://bioschemas.org> .
+    rdfs:subClassOf :BioChemEntity ;
+    :source <http://bioschemas.org> .
 
-  schema:expressedIn
+  :expressedIn
     a rdf:Property ;
-    schema:isPartOf <https://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     rdfs:label "expressedIn" ;
     rdfs:comment "Tissue, organ, biological sample, etc in which activity of this gene has been observed experimentally. For example brain, digestive system." ;
-    schema:domainIncludes schema:Gene ;
-    schema:rangeIncludes schema:BioChemEntity, schema:DefinedTerm, schema:AnatomicalSystem, schema:AnatomicalStructure ;
-    dc:source <http://www.bioschemas.org/Gene> .
+    :domainIncludes :Gene ;
+    :rangeIncludes :BioChemEntity, :DefinedTerm, :AnatomicalSystem, :AnatomicalStructure ;
+    :source <http://www.bioschemas.org/Gene> .
 
-#  schema:hasStatus
+#  :hasStatus
 #    a rdf:Property ;
-#    schema:isPartOf <https://pending.schema.org> ;
+#    :isPartOf <https://pending.schema.org> ;
 #    rdfs:label "hasStatus" ;
 #    rdfs:comment "One of pseudogene, dead, killed, live, predicted, suppressed." ;
-#    schema:domainIncludes schema:Gene ;
-#    schema:rangeIncludes schema:Text ;
-#    dc:source <http://www.bioschemas.org/Gene> .
+#    :domainIncludes :Gene ;
+#    :rangeIncludes :Text ;
+#    :source <http://www.bioschemas.org/Gene> .
 # proposal retracted after discussion, https://github.com/schemaorg/schemaorg/pull/2863#issuecomment-869821095
 # /cc @AlasdairGray
 
-  schema:hasBioPolymerSequence
+  :hasBioPolymerSequence
     a rdf:Property ;
-    schema:isPartOf <https://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     rdfs:label "hasBioPolymerSequence" ;
-    rdfs:comment "A symbolic representation of a BioChemEnity. For example, a nucleotide sequence of a Gene or an amino acid sequence of a Protein." ;
-    rdfs:subPropertyOf schema:hasRepresentation ;
-    schema:domainIncludes schema:Gene, schema:Protein ;
-    schema:rangeIncludes schema:Text ;
-    dc:source <http://www.bioschemas.org/Gene> .
+    rdfs:subPropertyOf :hasRepresentation ;
+    :domainIncludes :Gene, :Protein ;
+    :rangeIncludes :Text ;
+    :source <http://www.bioschemas.org/Gene> ;
+    rdfs:comment "A symbolic representation of a BioChemEntity. For example, a nucleotide sequence of a Gene or an amino acid sequence of a Protein." ;
+    rdfs:subPropertyOf :hasRepresentation ;
+    :domainIncludes :Gene, :Protein ;
+    :rangeIncludes :Text .
 
-  schema:alternativeOf
+  :alternativeOf
     a rdf:Property ;
-    schema:isPartOf <https://pending.schema.org> ;
+    :isPartOf <https://pending.schema.org> ;
     rdfs:label "alternativeOf" ;
     rdfs:comment "Another gene which is a variation of this one." ;
-    schema:domainIncludes schema:Gene ;
-    schema:rangeIncludes schema:Gene ;
-    dc:source <http://www.bioschemas.org/Gene> .
+    :domainIncludes :Gene ;
+    :rangeIncludes :Gene ;
+    :source <http://www.bioschemas.org/Gene> .
 
 #
 #Definitions from original ext/bio/MolecularEntity.ttl
 #
 
-schema:MolecularEntity
+:MolecularEntity
   a rdfs:Class ;
-  schema:isPartOf <https://pending.schema.org> ;
+  :isPartOf <https://pending.schema.org> ;
   rdfs:label "MolecularEntity" ;
   rdfs:comment "Any constitutionally or isotopically distinct atom, molecule, ion, ion pair, radical, radical ion, complex, conformer etc., identifiable as a separately distinguishable entity." ;
-  rdfs:subClassOf schema:BioChemEntity ;
-  dc:source <http://bioschemas.org> .
+  rdfs:subClassOf :BioChemEntity ;
+  :source <http://bioschemas.org> .
 
-schema:inChI
+:inChI
   a rdf:Property ;
-  schema:isPartOf <https://pending.schema.org> ;
+  :isPartOf <https://pending.schema.org> ;
   rdfs:label "inChI" ;
   rdfs:comment "Non-proprietary identifier for molecular entity that can be used in printed and electronic data sources thus enabling easier linking of diverse data compilations." ;
-  rdfs:subPropertyOf schema:hasRepresentation ;
-  schema:domainIncludes schema:MolecularEntity ;
-  schema:rangeIncludes schema:Text ;
-  dc:source <http://www.bioschemas.org/MolecularEntity> .
+  rdfs:subPropertyOf :hasRepresentation ;
+  :domainIncludes :MolecularEntity ;
+  :rangeIncludes :Text ;
+  :source <http://www.bioschemas.org/MolecularEntity> .
 
-schema:inChIKey
+:inChIKey
   a rdf:Property ;
-  schema:isPartOf <https://pending.schema.org> ;
+  :isPartOf <https://pending.schema.org> ;
   rdfs:label "inChIKey" ;
   rdfs:comment "InChIKey is a hashed version of the full InChI (using the SHA-256 algorithm)." ;
-  rdfs:subPropertyOf schema:hasRepresentation ;
-  schema:domainIncludes schema:MolecularEntity ;
-  schema:rangeIncludes schema:Text ;
-  dc:source <http://www.bioschemas.org/MolecularEntity> .
+  rdfs:subPropertyOf :hasRepresentation ;
+  :domainIncludes :MolecularEntity ;
+  :rangeIncludes :Text ;
+  :source <http://www.bioschemas.org/MolecularEntity> .
 
-schema:iupacName
+:iupacName
   a rdf:Property ;
-  schema:isPartOf <https://pending.schema.org> ;
+  :isPartOf <https://pending.schema.org> ;
   rdfs:label "iupacName" ;
   rdfs:comment "Systematic method of naming chemical compounds as recommended by the International Union of Pure and Applied Chemistry (IUPAC)." ;
-  schema:domainIncludes schema:MolecularEntity ;
-  schema:rangeIncludes schema:Text ;
-  dc:source <http://www.bioschemas.org/MolecularEntity> .
+  :domainIncludes :MolecularEntity ;
+  :rangeIncludes :Text ;
+  :source <http://www.bioschemas.org/MolecularEntity> .
 
-schema:molecularFormula
+:molecularFormula
   a rdf:Property ;
-  schema:isPartOf <https://pending.schema.org> ;
+  :isPartOf <https://pending.schema.org> ;
   rdfs:label "molecularFormula" ;
   rdfs:comment "The empirical formula is the simplest whole number ratio of all the atoms in a molecule." ;
-  schema:domainIncludes schema:MolecularEntity ;
-  schema:rangeIncludes schema:Text ;
-  dc:source <http://www.bioschemas.org/MolecularEntity> .
+  :domainIncludes :MolecularEntity ;
+  :rangeIncludes :Text ;
+  :source <http://www.bioschemas.org/MolecularEntity> .
 
-schema:molecularWeight
+:molecularWeight
   a rdf:Property ;
-  schema:isPartOf <https://pending.schema.org> ;
+  :isPartOf <https://pending.schema.org> ;
   rdfs:label "molecularWeight" ;
   rdfs:comment "This is the molecular weight of the entity being described, not of the parent. Units should be included in the form '&lt;Number&gt; &lt;unit&gt;', for example '12 amu' or as '&lt;QuantitativeValue&gt;." ;
-  schema:domainIncludes schema:MolecularEntity ;
-  schema:rangeIncludes schema:Text, schema:QuantitativeValue ;
-  dc:source <http://www.bioschemas.org/MolecularEntity> .
+  :domainIncludes :MolecularEntity ;
+  :rangeIncludes :Text, :QuantitativeValue ;
+  :source <http://www.bioschemas.org/MolecularEntity> .
 
-schema:monoisotopicMolecularWeight
+:monoisotopicMolecularWeight
   a rdf:Property ;
-  schema:isPartOf <https://pending.schema.org> ;
+  :isPartOf <https://pending.schema.org> ;
   rdfs:label "monoisotopicMolecularWeight" ;
-  rdfs:comment "The monoisotopic mass is the sum of the masses of the atoms in a molecule using the unbound, ground-state, rest mass of the principal (most abundant) isotope for each element instead of the isotopic average mass. Please include the units the form '&lt;Number&gt; &lt;unit&gt;', for example '770.230488 g/mol' or as '&lt;QuantitativeValue&gt;." ;
-  schema:domainIncludes schema:MolecularEntity ;
-  schema:rangeIncludes schema:Text, schema:QuantitativeValue ;
-  dc:source <http://www.bioschemas.org/MolecularEntity> .
+  :domainIncludes :MolecularEntity ;
+  :rangeIncludes :Text, :QuantitativeValue ;
+  :source <http://www.bioschemas.org/MolecularEntity> ;
+  rdfs:comment "The monoisotopic mass is the sum of the masses of the atoms in a molecule using the unbound, ground-state, rest mass of the principal (most abundant) isotope for each element instead of the isotopic average mass. Please include the units in the form '&lt;Number&gt; &lt;unit&gt;', for example '770.230488 g/mol' or as '&lt;QuantitativeValue&gt;." .
 
-schema:smiles
+:smiles
   a rdf:Property ;
-  schema:isPartOf <https://pending.schema.org> ;
+  :isPartOf <https://pending.schema.org> ;
   rdfs:label "smiles" ;
   rdfs:comment "A specification in form of a line notation for describing the structure of chemical species using short ASCII strings.  Double bond stereochemistry \\ indicators may need to be escaped in the string in formats where the backslash is an escape character." ;
-  rdfs:subPropertyOf schema:hasRepresentation ;
-  schema:domainIncludes schema:MolecularEntity ;
-  schema:rangeIncludes schema:Text ;
-  dc:source <http://www.bioschemas.org/MolecularEntity> .
+  rdfs:subPropertyOf :hasRepresentation ;
+  :domainIncludes :MolecularEntity ;
+  :rangeIncludes :Text ;
+  :source <http://www.bioschemas.org/MolecularEntity> .
 
 #
 #Definitions from original ext/bio/Protein.ttl
@@ -329,55 +334,55 @@ schema:smiles
 # Issues:
 # - https://github.com/BioSchemas/specifications/issues/321
 
-schema:Protein
+:Protein
   a rdfs:Class ;
-  schema:isPartOf <https://pending.schema.org> ;
+  :isPartOf <https://pending.schema.org> ;
   rdfs:label "Protein" ;
-  rdfs:comment "Protein is here used in its widest possible definition, as classes of amino acid based molecules. Amyloid-beta Protein in human (UniProt P05067), eukaryota (e.g. an OrthoDB group) or even a single molecule that one can point to are all of type schema:Protein. A protein can thus be a subclass of another protein, e.g. schema:Protein as a UniProt record can have multiple isoforms inside it which would also be schema:Protein. They can be imagined, synthetic, hypothetical or naturally occurring." ;
-  rdfs:subClassOf schema:BioChemEntity ;
-  dc:source <http://bioschemas.org> .
+  rdfs:comment "Protein is here used in its widest possible definition, as classes of amino acid based molecules. Amyloid-beta Protein in human (UniProt P05067), eukaryota (e.g. an OrthoDB group) or even a single molecule that one can point to are all of type :Protein. A protein can thus be a subclass of another protein, e.g. :Protein as a UniProt record can have multiple isoforms inside it which would also be :Protein. They can be imagined, synthetic, hypothetical or naturally occurring." ;
+  rdfs:subClassOf :BioChemEntity ;
+  :source <http://bioschemas.org> .
 
 #
 #Definitions from original ext/bio/Taxon.ttl
 #
 
-schema:Taxon
+:Taxon
   a rdfs:Class ;
-  schema:isPartOf <https://pending.schema.org> ;
+  :isPartOf <https://pending.schema.org> ;
   rdfs:label "Taxon" ;
   rdfs:comment "A set of organisms asserted to represent a natural cohesive biological unit." ;
-  rdfs:subClassOf schema:Thing ;
-  dc:source <http://bioschemas.org> .
+  rdfs:subClassOf :Thing ;
+  :source <http://bioschemas.org> .
 
-schema:childTaxon
+:childTaxon
   a rdf:Property ;
-  schema:isPartOf <https://pending.schema.org> ;
+  :isPartOf <https://pending.schema.org> ;
   rdfs:label "childTaxon" ;
   rdfs:comment "Closest child taxa of the taxon in question." ;
-  schema:domainIncludes schema:Taxon ;
-  schema:rangeIncludes schema:Taxon, schema:Text, schema:URL ;
-  schema:inverseOf schema:parentTaxon ;
-  dc:source <http://www.bioschemas.org/Taxon> .
+  :domainIncludes :Taxon ;
+  :rangeIncludes :Taxon, :Text, :URL ;
+  :inverseOf :parentTaxon ;
+  :source <http://www.bioschemas.org/Taxon> .
 
-schema:parentTaxon
+:parentTaxon
   a rdf:Property ;
-  schema:isPartOf <https://pending.schema.org> ;
+  :isPartOf <https://pending.schema.org> ;
   rdfs:label "parentTaxon" ;
   rdfs:comment "Closest parent taxon of the taxon in question." ;
-  schema:domainIncludes schema:Taxon ;
-  schema:rangeIncludes schema:Taxon, schema:Text, schema:URL ;
-  schema:inverseOf schema:childTaxon ;
-  dc:source <http://www.bioschemas.org/Taxon> .
+  :domainIncludes :Taxon ;
+  :rangeIncludes :Taxon, :Text, :URL ;
+  :inverseOf :childTaxon ;
+  :source <http://www.bioschemas.org/Taxon> .
 
-schema:taxonRank
+:taxonRank
   a rdf:Property ;
-  schema:isPartOf <https://pending.schema.org> ;
+  :isPartOf <https://pending.schema.org> ;
   rdfs:label "taxonRank" ;
-  rdfs:comment "The taxonomic rank of this taxon given preferably as a URI from a controlled vocabulary – (typically the ranks from TDWG TaxonRank ontology or equivalent Wikidata URIs)." ;
-  schema:domainIncludes schema:Taxon ;
-  schema:rangeIncludes schema:PropertyValue, schema:Text, schema:URL ;
-  dc:source <http://www.bioschemas.org/Taxon> .
+  :domainIncludes :Taxon ;
+  :rangeIncludes :PropertyValue, :Text, :URL ;
+  :source <http://www.bioschemas.org/Taxon> ;
+  rdfs:comment "The taxonomic rank of this taxon given preferably as a URI from a controlled vocabulary – typically the ranks from TDWG TaxonRank ontology or equivalent Wikidata URIs." .
 
-schema:hasDefinedTerm
+:hasDefinedTerm
   a rdf:Property ;
-  schema:domainIncludes schema:Taxon .
+  :domainIncludes :Taxon .

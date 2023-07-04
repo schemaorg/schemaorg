@@ -12,7 +12,7 @@ Software
 
 *__Note:__ from Schema version V11.0 onwards the software architecture changed significantly. Please check below for details.*
 
-The site codebase is a simple Python (3.6 or above) application. It is used to create a static image of the Schema.org website to be served locally for testing, or uploading to Google's GCloud for web access.
+The site codebase is a simple Python (3.10 or above) application. It is used to create a static image of the Schema.org website to be served locally for testing, or uploading to Google's GCloud for web access.
 
 This repository only contains the vocabulary definition, and examples files, supporting documentation, and Schema.org specific tests and build scripts.
 
@@ -28,7 +28,7 @@ To work on the vocabulary and run locally firstly clone the repository on a loca
     git clone https://github.com/schemaorg/schemaorg.git
     
 
-**_Note:_** The python application only runs under **_Python 3.6 or above_** which should be preinstalled on the local system.
+**_Note:_** The python application only runs under **_Python 3.10 or above_** which should be preinstalled on the local system.
 
 It is recommended that a Python virtual environment is created to avoid conflicts with other python activities on your system. For further information on how to create virtual environments see: https://docs.python.org/3.7/library/venv.html
 
@@ -37,14 +37,15 @@ The python environment for schemaorg depends on a small number of python librari
 
     pip install -r software/requirements.txt
 
+
 All commands and scripts should be run from in the root `schemaorg` directory.
 
 **Module Not Found Errors**  
 If when running local scripts you receive an error of this form: 
 
-    ModuleNotFoundError: No module named 'moule_name'  
+    ModuleNotFoundError: No module named 'module_name'  
 
-There are two common causes. Either your Python environment is not correctly set to 3.6 or above, or it does not contain all the required modules which may be because new dependancies have been addded.  To confirm you have the correct modules loaded, run again the cmmand: 
+There are two common causes. Either your Python environment is not correctly set to 3.10 or above, or it does not contain all the required modules which may be because new dependencies have been added or changed.  To confirm you have the correct modules loaded, run again the cmmand: 
 
    pip install -r software/requirements.txt
 

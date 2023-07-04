@@ -1,0 +1,377 @@
+.pln    { color: #444;    } /* plain text                 */
+.tag    { color: #515484; } /* div, span, a, etc          */
+.atn,
+.atv    { color: #314B17; } /* href, datetime             */
+.new    { color: #660003; } /* itemscope, itemtype, etc,. */
+.curl   { color: #080;    } /* new url                    */
+
+.definition-table {
+width: 100%;
+display: block;
+margin: 1em 0 0 0;
+padding: 2px;
+border: 1px solid #98A0A6;
+box-shadow: 2px 2px lightgrey;
+border-radius: 7px;
+}
+
+.definition-table .table {
+display: table;
+border-collapse: collapse;
+background-color: white;
+width: 100%;
+}
+.definition-table .table-body {
+display: table-row-group;
+}
+
+.definition-table .table>.table-row.evenrow{
+background-color: #d1c0c0;
+}
+
+.definition-table .table-row {
+display: table-row;
+}
+.definition-table .table-cell {
+display: table-cell;
+}
+.definition-table .cell-inner {
+display: block;
+padding: 4px 3px 6px 3px;
+}
+.definition-table .prop-ect {
+text-align: center;
+}
+.prop-row-first > .prop-nam, .prop-row-rest > .prop-nam{
+border-bottom: 1px solid lightgrey;
+}
+.prop-row-first > .prop-ect, .prop-row-rest > .prop-ect{
+border-bottom: 1px solid lightgrey;
+}
+.prop-row-first > .prop-desc, .prop-row-rest > .prop-desc{
+border-bottom: 1px solid lightgrey;
+}
+
+.supertype-name {
+text-align: center;
+width: -moz-available;          /* WebKit-based browsers will ignore this. */
+width: -webkit-fill-available;  /* Mozilla-based browsers will ignore this. */
+width: fill-available;
+background-color: #C7CBCE;
+}
+
+.tabletop {
+border-radius: 4px 4px 0 0;
+}
+.tablerest{
+    margin-top: 2px;
+}
+.tabletop-left {
+border-radius: 4px 0 0 0;
+}
+.tabletop-right {
+border-radius: 0 4px 0 0;
+}
+
+.definition-table .table>.table-row.props-hdr {
+width: 100%;
+background-color: #eeeeee;!important
+}
+.definition-table .props-hdr-nam {
+background-color: transparent;
+color: slategray;
+}
+.definition-table .props-hdr-ect {
+background-color: transparent;
+color: slategray;
+border-left: 2px solid white;
+text-align: center;
+}
+.definition-table .props-hdr-desc {
+background-color: transparent;
+color: slategray;
+border-left: 2px solid white;
+}
+
+@media all and (max-width: 750px) {
+.definition-table .table {
+  display: block;
+}
+
+.definition-table .props-hdr-ect {
+  width:30%;
+  text-align: left;
+}
+.prop-row-first > .prop-nam,.prop-row-first > .prop-ect, 
+.prop-row-rest > .prop-nam,.prop-row-rest > .prop-ect {
+    border-bottom: 0;
+}
+.prop-row-rest > .prop-desc, .prop-row-first > .prop-desc {
+  border-bottom: 1px solid lightgrey;
+}
+
+.definition-table .table-row {
+  display:block
+}
+
+.definition-table .prop-nam,.definition-table .props-hdr-nam {
+  display:inline-block;
+  min-width: 49%;
+  margin-left: 2px;
+}
+.definition-table .prop-ect,.definition-table .props-hdr-ect {
+  display: inline-block;
+  width: 46%;
+  padding-left: 10px;
+  text-align: left;
+}
+.definition-table .props-hdr-desc {
+  display: none;
+}
+
+.definition-table .prop-ect br {
+  display: none;
+}
+.definition-table .prop-desc {
+  display: inline-block;
+  width: 100%;
+}
+
+.incoming-hdr {
+  margin-top: 2em;
+  text-align: center;
+}
+
+}
+
+#morecheck {
+outline: none;
+}
+
+#morecheck:checked + div { display: none; }
+
+.ackblock {
+display: block;
+padding: 5px;
+border-radius: 7px;
+/*border: 1px solid;*/
+margin-bottom: 10px;
+/*box-shadow: 2px 2px lightgrey;*/
+}
+
+.ack {
+display: block;
+margin: 5px;
+padding: 5px;
+}
+.ack-first{
+padding-top: 0;
+padding-bottom: 5px;
+}
+
+.ack-rest{
+border-top: solid 1px;
+padding: 10px 5px 5px 5px;
+}
+
+.ack-head {
+padding-bottom: 5px;
+}
+
+.ack-title {
+display:inline-block;
+font-weight: bold;
+margin-right: 2px;
+}
+
+.ack-img {
+display: inline-block;
+margin-left: 2px;
+}
+
+.ack-img img {
+height: 15px;
+}
+
+.ackblock {
+display: block;
+padding: 5px;
+border-radius: 7px;
+border: 1px solid;
+margin-bottom: 10px;
+box-shadow: 2px 2px lightgrey;
+}
+
+.ack {
+display: block;
+margin: 5px;
+padding: 5px;
+}
+.ack-first{
+padding-top: 0;
+padding-bottom: 5px;
+}
+
+.ack-rest{
+border-top: solid 1px;
+padding: 10px 5px 5px 5px;
+}
+
+.clipbutton {
+  color: #202020 !important;
+  border: 0;
+  padding : 2px;
+}
+
+#examplespannel{
+width:auto;
+overflow-x: auto;
+margin-top: 10px;
+}
+.example-head {
+  display: block;
+  padding-bottom: 5px;
+}
+
+/* example tab selection */
+.ds-selector-tabs {
+  padding-bottom: 2em;
+}
+.ds-selector-tabs .selectors {
+  padding: 0;
+  display: contents;
+  width: auto;
+  overflow-x: auto;
+  border-bottom: 1px solid #ccc;
+  height: 28px;
+}
+.ds-selector-tabs .selectors a {
+  display: inline-block;
+  min-width: 30px;
+  text-align: center;
+  font-size: 11px;
+  font-weight: bold;
+  height: 27px;
+  padding: 0 8px;
+  line-height: 27px;
+  transition: all,0.218s;
+  border-top-right-radius: 2px;
+  border-top-left-radius: 2px;
+  color: #666;
+  border: 1px solid transparent;
+}
+.ds-selector-tabs .selectors a:first-child {
+  margin-left: 2px;
+}
+.ds-selector-tabs .selectors a.selected {
+  color: #202020 !important;
+  border: 1px solid #ccc;
+  border-bottom: 1px solid #fff !important;
+  box-shadow: 1px 0 lightgray
+}
+#mainContent .ds-selector-tabs .selectors a:hover {
+  background-color: transparent;
+  color: #202020;
+  cursor: pointer;
+}
+.ds-selector-tabs .ds-tab {
+  display: none;
+}
+.ds-selector-tabs .ds-tab.selected {
+  display: block;
+}
+
+
+.selectors code {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+.ds-tab pre.ds-tab-content{
+display: block;
+border-radius: 7px;
+box-shadow: 2px 2px lightgrey;
+margin-top: 2px;
+}
+
+div.ds-tab-note{
+  display: block;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  font-style: italic;
+}
+a.ds-tab-note{
+  color: #3A4956;
+  text-decoration: none;
+  border-bottom: dotted 1px #3A4956;
+}
+a:visited.ds-tab-note{
+  color: #3A4956;
+  text-decoration: none;
+  border-bottom: dotted 1px #3A4956;
+}
+a:link.ds-tab-note{
+  color: #3A4956;
+  text-decoration: none;
+  border-bottom: dotted 1px #3A4956;
+}
+a:hover.ds-tab-note{
+  color: #3A4956;
+  text-decoration: none;
+  border-bottom: dotted 1px #3A4956;
+}
+
+.structureout {
+margin-left: 5px;
+}
+
+/*Effectively hide but can't use 'display: none;' as clip will not work if hidden*/
+.structuretext {  
+white-space: pre-wrap;
+opacity: .01;
+height:0;
+position:absolute;
+z-index: -1;
+}
+
+/* Tooltip container */
+.tooltip {
+position: relative;
+display: inline-block;
+top: 4px;
+}
+
+/* Tooltip text */
+.tooltip .tooltiptext {
+visibility: hidden;
+width: 100px;
+top: 100%;
+left: 50%;
+margin-left: -50px; /* Use half of the width (120/2 = 60), to center the tooltip */
+background-color: black;
+color: #fff;
+text-align: center;
+padding: 5px 0;
+border-radius: 6px;
+
+/* Position the tooltip text - see examples below! */
+position: absolute;
+z-index: 1;
+}
+
+.tooltip .tooltiptext::after {
+content: " ";
+position: absolute;
+bottom: 100%;  /* At the top of the tooltip */
+left: 50%;
+margin-left: -5px;
+border-width: 5px;
+border-style: solid;
+border-color: transparent transparent black transparent;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip .tooltiptext.show {
+visibility: visible;
+}
+

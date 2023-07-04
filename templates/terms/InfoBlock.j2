@@ -1,5 +1,5 @@
 {% from 'macros.j2' import term_sdotermlink as sdotermlink with context %}
-<div id="infoblock">
+<div id="infoblock" class="jumptarget" title="Details">
 	<!-- Label /  termType  / canonical URI -->
     <div id="infohead">
         <h1>{{ term.label }}</h1>
@@ -7,7 +7,7 @@
         <br/>
         <!-- Pending/retired/term in section -->
         {% if term.superseded %}<br/><em><strong>Note:</strong> This term has been <a href="#supersededby">superseded</a>.</em>{% endif %}
-        {% if term.pending %}<br/><em>This term is proposed for full integration into Schema.org, <a title="this term is pending wider review. Feedback is welcomed!" href="docs/pending.home.html">pending</a> implementation feedback and adoption from applications and websites.</em>
+        {% if term.pending %}<br/><em>This term is in the "new" area - implementation feedback and adoption from applications and websites can help improve our definitions.</em>
         {% elif term.retired %}<br/><strong>Note:</strong> This term has been <strong><a title="this term has been retired from the vocabulary" href="docs/attic.home.html">retired</a></strong> from the vocabulary.</span>
         {% elif term.extLayer %}<em>Defined in the <a href="/docs/{{term.extLayer}}.home.html">{{term.extLayer}}</a> section.</em>
         {% endif %}
@@ -32,7 +32,7 @@
     </div>
     <!-- More Block -->
     <div>
-            <div id='infobox' style='text-align: right;' role="checkbox" aria-checked="false">
+            <div id='infobox' style='text-align: right; padding-right: 5px;' role="checkbox" aria-checked="false">
                 <label for="morecheck"><b><span style="cursor: pointer;">[more...]</span></b></label>
             </div>
             <input type='checkbox' checked="checked" style='display: none' id=morecheck><div id='infomsg' style='background-color: #EEEEEE; text-align: left; padding: 0.5em;'>

@@ -1,5 +1,12 @@
 #!/usr/bin/python3
 
+
+# Convert markdown to html
+# example usage:
+# python3 ./convert.py -i feeds
+# Also need to run buildsite.py -a utility to include headers/footers.
+
+
 import sys
 import argparse
 sys.path.append("../software/scripts/")
@@ -28,9 +35,14 @@ begin = """<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>Schema.org: Documentation</title></head><body onload="updatetext()">"""
+<title>Schema.org: Documentation: Schema.org Feeds 1.0</title>
 
+<!-- #### Static Doc Insert Head goes here -->
+</head><body onload="updatetext()">
+ <div id="mainContent" class="faq">
+<!-- #### Static Doc Insert PageHead goes here -->"""
 
+end = """<!-- #### Static Doc Insert Footer goes here -->\n </div>\n</html>"""
 
 
 with open(fn+'.md', 'r') as f:
@@ -41,6 +53,7 @@ with open(fn + '.html', 'w') as f:
 
     f.write(begin)
     f.write(md_html)
+    f.write(end)
 
 
 #<!-- #### Static Doc Insert Head goes here -->

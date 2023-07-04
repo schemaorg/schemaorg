@@ -1,0 +1,22 @@
+@prefix : <https://schema.org/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+
+
+:asin a rdf:Property ;
+    rdfs:label "asin" ;
+    :domainIncludes :Demand,
+        :Offer,
+        :Product ;
+    :isPartOf <https://pending.schema.org> ;
+    :rangeIncludes :Text, :URL ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2288> ;
+    rdfs:comment """An Amazon Standard Identification Number (ASIN) is a 10-character alphanumeric unique identifier assigned by Amazon.com and its partners for product identification within the Amazon organization (summary from [Wikipedia](https://en.wikipedia.org/wiki/Amazon_Standard_Identification_Number)'s article).
+
+Note also that this is a definition for how to include ASINs in Schema.org data, and not a definition of ASINs in general - see documentation from Amazon for authoritative details.
+ASINs are most commonly encoded as text strings, but the [asin] property supports URL/URI as potential values too.""" ;
+    rdfs:subPropertyOf :identifier .
+

@@ -2,6 +2,7 @@
 # -*- coding: UTF-8 -*-
 
 from __future__ import with_statement
+from glob import glob
 
 import sys
 if not (sys.version_info.major == 3 and sys.version_info.minor > 5):
@@ -34,9 +35,9 @@ DEFTRIPLESFILESGLOB = ["data/*.ttl","data/ext/*/*.ttl"]
 LOADEDDEFAULT=False
 TERMS={}
 EXPANDEDTERMS={}
+
 TERMSLOCK = threading.Lock()
 RDFLIBLOCK = threading.Lock()
-
 
 class SdoTermSource():
     
@@ -86,10 +87,6 @@ class SdoTermSource():
         self.aks = None
         self.examples = None
         self.enum = None
-        
-        
-
-
         
         if ttype == rdflib.RDFS.Class:
             self.ttype = SdoTerm.TYPE
@@ -266,33 +263,22 @@ class SdoTermSource():
             for sub in subs:
                 self.supersedes.append(uri2id(str(sub)))
         return self.supersedes
-    def getSourcesAndAcks(self):
-        if not self.srcaks:
-            self.srcaks = []
-            objs = self.loadObjects("dc:source")
-            objs += self.loadObjects("dct:source") #TODO Findout why dc:source in rdf files cets turned into dct:source when loaded.
-            objs += self.loadObjects("schema:source") #To accept later ttl versions.
-            self.sources = []
-            self.aks = []
-            for obj in objs:
-                obj = str(obj)
-                term = SdoTermSource._getTerm(obj,createReference=True)
-
-            #An aknowledgement is a 'source' with a comment
-            #A source is a source without a comment
-                if term and term.comment and len(term.comment):
-                    self.aks.append(term.comment)
-                else:
-                    self.sources.append(obj)
-                self.srcaks.append(obj)                
-        return self.srcaks
     def getSources(self):
         if not self.sources:
-            self.getSourcesAndAcks()
+            objs = self.loadObjects("schema:source") #To accept later ttl versions.
+            self.sources = []
+            for obj in objs:
+                    self.sources.append(obj)
         return self.sources
     def getAcknowledgements(self):
+        from sdocollaborators import collaborator
         if not self.aks:
-            self.getSourcesAndAcks()
+            self.aks = []
+            objs = self.loadObjects("schema:contributor") #To accept later ttl versions.
+            for obj in objs:
+                cont = collaborator.getContributor(str(obj))
+                self.aks.append(cont)
+            self.aks = sorted(self.aks, key=lambda t: t.title)
         return self.aks
     def getLayer(self):
         return self.layer
@@ -918,7 +904,31 @@ class SdoTermSource():
         
         #log.info("count %s TERMS %s" % (len(terms),len(TERMS)))
         return terms
-        
+
+    @staticmethod
+    def getAcknowledgedTerms(ack):
+        query = """SELECT DISTINCT ?term ?type ?label ?layer ?sup WHERE {
+             ?term a ?type;
+                schema:contributor <%s>;
+                rdfs:label ?label.
+                OPTIONAL {
+                    ?term schema:isPartOf ?layer.
+                }
+                OPTIONAL {
+                    ?term rdfs:subClassOf ?sup.
+                }
+                OPTIONAL {
+                    ?term rdfs:subPropertyOf ?sup.
+                }
+            }
+            ORDER BY ?term
+            """ % ack
+        res = SdoTermSource.query(query)
+        terms = SdoTermSource.termsFromResults(res,termId=None)
+        return terms
+
+            
+    
     @staticmethod
     def setSourceGraph(g):
         global VOCABURI
@@ -1017,10 +1027,7 @@ class SdoTermSource():
 
     @staticmethod
     def query(q):
-        if SdoTermSource.SOURCEGRAPH == None:
-            SdoTermSource.loadSourceGraph()
-
-        graph = SdoTermSource.SOURCEGRAPH
+        graph = SdoTermSource.sourceGraph()
         #print("Query: %s" % q)
         with RDFLIBLOCK:
             ret = list(graph.query(q))
@@ -1050,21 +1057,21 @@ class SdoTermSource():
     def termCounts():
         global VOCABURI
         if not SdoTermSource.TERMCOUNTS:
-            count = """SELECT (COUNT(?s) as ?count) WHERE {
+            count = """SELECT (COUNT(DISTINCT ?s) as ?count) WHERE {
                 ?s a ?type .
                 FILTER (strStarts(str(?s),"%s"))
             } """ % VOCABURI
             res = SdoTermSource.query(count)
             allterms = int(res[0][0])
 
-            count = """SELECT (COUNT(?s) as ?count) WHERE {
+            count = """SELECT (COUNT(DISTINCT ?s) as ?count) WHERE {
                 ?s a rdfs:Class .
                 FILTER (strStarts(str(?s),"%s"))
             } """ % VOCABURI
             res = SdoTermSource.query(count)
             classes = int(res[0][0])
             
-            count = """SELECT (COUNT(?s) as ?count) WHERE {
+            count = """SELECT (COUNT(DISTINCT ?s) as ?count) WHERE {
                 ?s a rdf:Property .
                 FILTER (strStarts(str(?s),"%s"))
             } """ % VOCABURI
@@ -1108,10 +1115,13 @@ class SdoTermSource():
             res = SdoTermSource.query(count)
             datatypeclasses = int(res[0][0])
             
+            
             types = classes
-            types -= 2 #Eumeration & DataType
+            types -= 1 #DataType not counted
             types -= enums
             types -= datatypeclasses
+            datatypes -= 1 #Datatype not counted
+
 
             SdoTermSource.TERMCOUNTS = {}
             SdoTermSource.TERMCOUNTS[SdoTerm.TYPE] = types
@@ -1119,7 +1129,7 @@ class SdoTermSource():
             SdoTermSource.TERMCOUNTS[SdoTerm.DATATYPE] = datatypes
             SdoTermSource.TERMCOUNTS[SdoTerm.ENUMERATION] = enums
             SdoTermSource.TERMCOUNTS[SdoTerm.ENUMERATIONVALUE] = enumvals
-            SdoTermSource.TERMCOUNTS["All"] = allterms
+            SdoTermSource.TERMCOUNTS["All"] = types + properties + datatypes + enums + enumvals
         return SdoTermSource.TERMCOUNTS
             
 
@@ -1192,10 +1202,13 @@ class SdoTermSource():
                 
         return term
 
+
+ 
 def toFullId(termId):
     global VOCABURI
     if not	':' in termId: #Includes full path or namespaces
     	fullId = VOCABURI + termId
+
     elif termId.startswith("http"):
     	fullId = termId
     else:

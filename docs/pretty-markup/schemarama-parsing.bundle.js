@@ -2452,7 +2452,7 @@ function alloc(size, fill, encoding) {
   if (fill !== undefined) {
     // Only pay attention to encoding if it's a string. This
     // prevents accidentally sending in a number that would
-    // be interpretted as a start offset.
+    // be interpreted as a start offset.
     return typeof encoding === 'string' ? createBuffer(size).fill(fill, encoding) : createBuffer(size).fill(fill);
   }
 
@@ -2760,7 +2760,7 @@ function slowToString(encoding, start, end) {
 
   if (end <= 0) {
     return '';
-  } // Force coersion to uint32. This will also coerce falsey/NaN values to 0.
+  } // Force coercion to uint32. This will also coerce falsey/NaN values to 0.
 
 
   end >>>= 0;
@@ -5118,7 +5118,7 @@ function removeSubsets(nodes) {
     /*
      * Remove the node if it is not unique.
      * We are going through the array from the end, so we only
-     * have to check nodes that preceed the node under consideration in the array.
+     * have to check nodes that precede the node under consideration in the array.
      */
 
     if (idx > 0 && nodes.lastIndexOf(node, idx - 1) >= 0) {
@@ -10729,7 +10729,7 @@ api.compact = /*#__PURE__*/function () {
                         _addValue(nestResult, itemActiveProperty, expandedValue, {
                           propertyIsArray: true
                         });
-                      } // recusively process array values
+                      } // recursively process array values
 
 
                       _iterator3 = _createForOfIteratorHelper(expandedValue);
@@ -11265,7 +11265,7 @@ api.compactIri = function (_ref3) {
 
     if (_isObject(value) && '@preserve' in value) {
       value = value['@preserve'][0];
-    } // prefer most specific container including @graph, prefering @set
+    } // prefer most specific container including @graph, preferring @set
     // variations
 
 
@@ -12386,7 +12386,7 @@ api.process = /*#__PURE__*/function () {
               if (!ctx.hasOwnProperty(key)) {
                 ctx[key] = importCtx[key];
               }
-            } // Note: this could potenially conflict if the import
+            } // Note: this could potentially conflict if the import
             // were used in the same active context as a referenced
             // context and an import. In this case, we
             // could override the cached result, but seems unlikely.
@@ -18036,7 +18036,7 @@ var wrapper = function wrapper(jsonld) {
    *            unmappable values (or to throw an error when they are detected);
    *            if this function returns `undefined` then the default behavior
    *            will be used.
-   *          [framing] true if compaction is occuring during a framing operation.
+   *          [framing] true if compaction is occurring during a framing operation.
    *          [compactionMap(info)] a function that can be used to custom map
    *            unmappable values (or to throw an error when they are detected);
    *            if this function returns `undefined` then the default behavior
@@ -19493,7 +19493,7 @@ var wrapper = function wrapper(jsonld) {
 
   jsonld.util = util; // backwards compatibility
 
-  Object.assign(jsonld, util); // reexpose API as jsonld.promises for backwards compatability
+  Object.assign(jsonld, util); // reexpose API as jsonld.promises for backwards compatibility
 
   jsonld.promises = jsonld; // backwards compatibility
 
@@ -21964,7 +21964,7 @@ var MicrodataRdfParser = /*#__PURE__*/function (_stream_1$Transform) {
         if (this.emittingReferencesItemScopeIdGenerator) {
           subject = this.emittingReferencesItemScopeIdGenerator();
         } else {
-          subject = 'itemid' in attributes && this.util.createSubject(attributes.itemid) || this.util.dataFactory.blankNode(); // Store the genererated id in all collecting item reference buffers
+          subject = 'itemid' in attributes && this.util.createSubject(attributes.itemid) || this.util.dataFactory.blankNode(); // Store the generated id in all collecting item reference buffers
 
           for (var _i2 = 0, _Object$values2 = Object.values(this.pendingItemRefsRangeCollecting); _i2 < _Object$values2.length; _i2++) {
             var _buffer = _Object$values2[_i2];
@@ -28584,7 +28584,7 @@ util.ByteStringBuffer.prototype.clear = function () {
   return this;
 };
 /**
- * Shortens this buffer by triming bytes off of the end of this buffer.
+ * Shortens this buffer by trimming bytes off of the end of this buffer.
  *
  * @param count the number of bytes to trim off.
  *
@@ -29296,7 +29296,7 @@ util.DataBuffer.prototype.clear = function () {
   return this;
 };
 /**
- * Shortens this buffer by triming bytes off of the end of this buffer.
+ * Shortens this buffer by trimming bytes off of the end of this buffer.
  *
  * @param count the number of bytes to trim off.
  *
@@ -30630,7 +30630,7 @@ util.format = function (format) {
         }
 
         break;
-      // FIXME: do proper formating for numbers, etc
+      // FIXME: do proper formatting for numbers, etc
       //case 'f':
       //case 'd':
 
@@ -31070,7 +31070,7 @@ function defaultClearTimeout() {
 
 function runTimeout(fun) {
   if (cachedSetTimeout === setTimeout) {
-    //normal enviroments in sane situations
+    //normal environments in sane situations
     return setTimeout(fun, 0);
   } // if setTimeout wasn't available but was latter defined
 
@@ -31081,14 +31081,14 @@ function runTimeout(fun) {
   }
 
   try {
-    // when when somebody has screwed with setTimeout but no I.E. maddness
+    // when when somebody has screwed with setTimeout but no I.E. madness
     return cachedSetTimeout(fun, 0);
   } catch (e) {
     try {
       // When we are in I.E. but the script has been evaled so I.E. doesn't trust the global object when called normally
       return cachedSetTimeout.call(null, fun, 0);
     } catch (e) {
-      // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error
+      // same as above but when it's a version of I.E. that must have the global object for 'this', hopefully our context correct otherwise it will throw a global error
       return cachedSetTimeout.call(this, fun, 0);
     }
   }
@@ -31096,7 +31096,7 @@ function runTimeout(fun) {
 
 function runClearTimeout(marker) {
   if (cachedClearTimeout === clearTimeout) {
-    //normal enviroments in sane situations
+    //normal environments in sane situations
     return clearTimeout(marker);
   } // if clearTimeout wasn't available but was latter defined
 
@@ -31107,14 +31107,14 @@ function runClearTimeout(marker) {
   }
 
   try {
-    // when when somebody has screwed with setTimeout but no I.E. maddness
+    // when when somebody has screwed with setTimeout but no I.E. madness
     return cachedClearTimeout(marker);
   } catch (e) {
     try {
       // When we are in I.E. but the script has been evaled so I.E. doesn't  trust the global object when called normally
       return cachedClearTimeout.call(null, marker);
     } catch (e) {
-      // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error.
+      // same as above but when it's a version of I.E. that must have the global object for 'this', hopefully our context correct otherwise it will throw a global error.
       // Some versions of I.E. have different rules for clearTimeout vs setTimeout
       return cachedClearTimeout.call(this, marker);
     }
@@ -31186,7 +31186,7 @@ process.nextTick = function (fun) {
   if (queue.length === 1 && !draining) {
     runTimeout(drainQueue);
   }
-}; // v8 likes predictible objects
+}; // v8 likes predictable objects
 
 
 function Item(fun, array) {
@@ -31483,7 +31483,7 @@ module.exports = /*#__PURE__*/function () {
       return identifier;
     }
     /**
-     * Returns true if the given old identifer has already been assigned a new
+     * Returns true if the given old identifier has already been assigned a new
      * identifier.
      *
      * @param old the old identifier to check.

@@ -87,7 +87,7 @@ class OwlBuild():
         x = SubElement(self.ont,"rdfs:label")
         x.text = "Schema.org Vocabulary"
         x = SubElement(self.ont,"dcterms:modified")
-        x.set("rdf:datatype", "http://www.w3.org/2001/XMLSchema#dat")
+        x.set("rdf:datatype", "http://www.w3.org/2001/XMLSchema#date")
         x.text = getVersionDate(getVersion())
         self.dom.append(Comment("\n\t/////////////////////\n\t/ Definitions\n\t/////////////////////\n\n\t"))
 
