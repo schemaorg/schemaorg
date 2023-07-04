@@ -17,7 +17,7 @@ The vocabulary currently consists of {{termcounts["Type"]}} Types, {{termcounts[
   <li><a href="../Thing">One page per type</a></li>
   <li><a href="full.html">Full list of types, shown on one page</a></li>
 </ul>
-{% if "termfinder" in BUILDOPTS %}
+{% if not "notermfinder" in BUILDOPTS %}
   <script src="{{docsdir}}/termfind/termfind.js"></script>
   <link rel="stylesheet" type="text/css" href="{{docsdir}}/termfind/termfind.css" />
 
