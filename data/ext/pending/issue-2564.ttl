@@ -1,0 +1,180 @@
+@prefix : <https://schema.org/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:Observation a rdfs:Class ;
+    rdfs:label "Observation" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2291> ;
+    rdfs:comment """Instances of the class [[Observation]] are used to specify observations about an entity at a particular time. The principal properties of an [[Observation]] are [[observationAbout]], [[measuredProperty]], [[statType]], [[value] and [[observationDate]]  and [[measuredProperty]]. Some but not all Observations represent a [[QuantitativeValue]]. Quantitative observations can be about a [[StatisticalVariable]], which is an abstract specification about which we can make observations that are grounded at a particular location and time. 
+    
+Observations can also encode a subset of simple RDF-like statements (its observationAbout, a StatisticalVariable, defining the measuredPoperty; its observationAbout property indicating the entity the statement is about, and [[value]] )
+
+In the context of a quantitative knowledge graph, typical properties could include [[measuredProperty]], [[observationAbout]], [[observationDate]], [[value]], [[unitCode]], [[unitText]], [[measurementMethod]].
+    """ ;
+    rdfs:subClassOf :Intangible, :QuantitativeValue .
+
+:StatisticalVariable a rdfs:Class ;
+    rdfs:label "StatisticalVariable" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2564> ;
+    rdfs:comment """[[StatisticalVariable]] represents any type of statistical metric that can be measured at a place and time. The usage pattern for [[StatisticalVariable]] is typically expressed using [[Observation]] with an explicit [[populationType]], which is a type, typically drawn from Schema.org. Each [[StatisticalVariable]] is marked as a [[ConstraintNode]], meaning that some properties (those listed using [[constraintProperty]]) serve in this setting solely to define the statistical variable rather than literally describe a specific person, place or thing. For example, a [[StatisticalVariable]] Median_Height_Person_Female representing the median height of women, could be written as follows: the population type is [[Person]]; the measuredProperty [[height]]; the [[statType]] [[median]]; the [[gender]] [[Female]]. It is important to note that there are many kinds of scientific quantitative observation which are not fully, perfectly or unambiguously described following this pattern, or with solely Schema.org terminology. The approach taken here is designed to allow partial, incremental or minimal description of [[StatisticalVariable]]s, and the use of detailed sets of entity and property IDs from external repositories. The [[measurementMethod]], [[unitCode]] and [[unitText]] properties can also be used to clarify the specific nature and notation of an observed measurement. """ ;
+    rdfs:subClassOf :ConstraintNode .
+
+:statType a rdf:Property ;
+    rdfs:label "statType" ;
+    :domainIncludes :StatisticalVariable ;
+    :isPartOf <https://pending.schema.org> ;
+    :rangeIncludes :Property, :Text, :URL ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2564> ;
+    rdfs:comment """Indicates the kind of statistic represented by a [[StatisticalVariable]], e.g. mean, count etc. The value of statType is a property, either from within Schema.org (e.g. [[count]], [[median]], [[marginOfError]], [[maxValue]], [[minValue]]) or from other compatible (e.g. RDF) systems such as DataCommons.org or Wikidata.org. """ .
+
+:measurementQualifier a rdf:Property ;
+    rdfs:label "measurementQualifier" ;
+    :domainIncludes :StatisticalVariable, :Observation ;
+    :isPartOf <https://pending.schema.org> ;
+    :rangeIncludes :Enumeration ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2564> ;
+    rdfs:comment """Provides additional qualification to an observation. For example, a GDP observation measures the Nominal value.""" .
+
+
+:measurementDenominator a rdf:Property ;
+    rdfs:label "measurementDenominator" ;
+    :domainIncludes :StatisticalVariable, :Observation ;
+    :isPartOf <https://pending.schema.org> ;
+    :rangeIncludes :StatisticalVariable ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2564> ;
+    rdfs:comment """Identifies the denominator variable when an observation represents a ratio or percentage.""" .
+
+:observationPeriod a rdf:Property ;
+    rdfs:label "observationPeriod" ;
+    :domainIncludes :Observation ;
+    :isPartOf <https://pending.schema.org> ;
+    :rangeIncludes :Text ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2564> ;
+    rdfs:comment """The length of time an Observation took place over. The format follows `P[0-9]*[Y|M|D|h|m|s]`. For example, P1Y is Period 1 Year, P3M is Period 3 Months, P3h is Period 3 hours.""" .
+
+
+
+
+
+# TODO:
+# - membership/grouping and specialization hierarchies to organize SVs. Look at SKOS extensions used in similar efforts.
+# - Vladimir's feedback in https://github.com/schemaorg/schemaorg/issues/2291#issuecomment-719536982 - check bugs.
+# - Simon's feedback, https://github.com/schemaorg/schemaorg/issues/2564#issuecomment-627732566 esp rel between variableMeasured and measuredProperty.
+#   - suggestion that an Observation is an Action, the action of observing, rather than its outcome.
+# - didn't need ot send to mailing list as we had feedback from key groups in GH
+#    - https://datacommons.org/browser/observationAbout --- vs /about? it seems to be awkwardly described ("typically a place")
+
+# Open Issues:
+# - subtype of Action?
+# - median and similar - statType values need to create/document. We have [[median]] but not mean, for example.
+# - observedNode / clarify vs observationAbout. Former for use with StatisticalPopulation.
+
+# * old text from DatCom, use for hecks the delete: principal properties are:
+#
+#-   `variableMeasured`: an instance of `StatisticalVariable` being measured
+#-   `observationAbout`: the entity the observation is about
+#-   `value`: numeric/string value of the observation
+#-   `observationDate`: the date of (or last day of) the observation
+#-   `observationPeriod` (optional): the length of time the observation took place
+#-   `unit` (optional): an instance of [UnitOfMeasure](https://datacommons.org/browser/UnitOfMeasure)
+#-   `measurementMethod` (optional): an Enumeration instance that describes the methodology
+#    used in the measurement (here, the [ACS 5-year
+#    estimates](https://www.census.gov/programs-surveys/acs/guidance/estimates.html)).
+
+
+
+:StatisticalPopulation a rdfs:Class ;
+    rdfs:label "StatisticalPopulation" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2291> ;
+    rdfs:comment """A StatisticalPopulation is a set of instances of a certain given type that satisfy some set of constraints. The property [[populationType]] is used to specify the type. Any property that can be used on instances of that type can appear on the statistical population. For example, a [[StatisticalPopulation]] representing all [[Person]]s with a [[homeLocation]] of East Podunk California would be described by applying the appropriate [[homeLocation]] and [[populationType]] properties to a [[StatisticalPopulation]] item that stands for that set of people.
+The properties [[numConstraints]] and [[constraintProperty]] are used to specify which of the populations properties are used to specify the population. Note that the sense of "population" used here is the general sense of a statistical
+population, and does not imply that the population consists of people. For example, a [[populationType]] of [[Event]] or [[NewsArticle]] could be used. See also [[Observation]], where a [[populationType]] such as [[Person]] or [[Event]] can be indicated directly. In most cases it may be better to use [[StatisticalVariable]] instead of [[StatisticalPopulation]].""" ;
+    rdfs:subClassOf :Intangible .
+
+
+:ConstraintNode a rdfs:Class ;
+    rdfs:label "ConstraintNode" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2564> ;
+    rdfs:comment """The ConstraintNode type is provided to support usecases in which a node in a structured data graph is described with properties which appear to describe a single entity, but are being used in a situation where they serve a more abstract purpose. A [[ConstraintNode]] can be described using [[constraintProperty]] and [[numConstraints]]. These constraint properties can serve a 
+    variety of purposes, and their values may sometimes be understood to indicate sets of possible values rather than single, exact and specific values.""" ;
+    rdfs:subClassOf :Intangible . # there are a couple of areas around product templates (including groups), possibly Actions, where this might be applied too.
+
+
+:constraintProperty a rdf:Property ;
+    rdfs:label "constraintProperty" ;
+    :domainIncludes :ConstraintNode ;
+    :isPartOf <https://pending.schema.org> ;
+    :rangeIncludes :Property, :URL ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2291> ;
+    rdfs:comment """Indicates a property used as a constraint. For example, in the definition of a [[StatisticalVariable]]. The value is a property, either from within Schema.org or from other compatible (e.g. RDF) systems such as DataCommons.org or Wikidata.org. """ .
+
+:marginOfError a rdf:Property ;
+    rdfs:label "marginOfError" ;
+    :domainIncludes :Observation ;
+    :isPartOf <https://pending.schema.org> ;
+    :rangeIncludes :QuantitativeValue ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2291> ;
+    rdfs:comment "A [[marginOfError]] for an [[Observation]]." .
+
+:measuredProperty a rdf:Property ;
+    rdfs:label "measuredProperty" ;
+    :domainIncludes :Observation, :StatisticalVariable ;
+    :isPartOf <https://pending.schema.org> ;
+    :rangeIncludes :Property ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2291> ;
+    rdfs:comment "The measuredProperty of an [[Observation]], typically via its [[StatisticalVariable]]. There are various kinds of applicable [[Property]]: a schema.org property, a property from other RDF-compatible systems, e.g. W3C RDF Data Cube, Data Commons, Wikidata, or schema.org extensions such as [GS1's](https://www.gs1.org/voc/?show=properties)." .
+
+:numConstraints a rdf:Property ;
+    rdfs:label "numConstraints" ;
+    :domainIncludes :ConstraintNode ;
+    :isPartOf <https://pending.schema.org> ;
+    :rangeIncludes :Integer ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2291> ;
+    rdfs:comment "Indicates the number of constraints property values defined for a particular [[ConstraintNode]] such as [[StatisticalVariable]]. This helps applications understand if they have access to a sufficiently complete description of a [[StatisticalVariable]] or other construct that is defined using properties on template-style nodes." .
+
+:observationDate a rdf:Property ;
+    rdfs:label "observationDate" ;
+    :domainIncludes :Observation ;
+    :isPartOf <https://pending.schema.org> ;
+    :rangeIncludes :DateTime ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2291> ;
+    rdfs:comment "The observationDate of an [[Observation]]." .
+
+:observationAbout a rdf:Property ;
+    rdfs:label "observationAbout" ;
+    :domainIncludes :Observation ;
+    :isPartOf <https://pending.schema.org> ;
+    :rangeIncludes :Thing, :Place ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2291> ;
+    rdfs:comment "The [[observationAbout]] property identifies an entity, often a [[Place]], associated with an [[Observation]]." .
+
+:populationType a rdf:Property ;
+    rdfs:label "populationType" ;
+    :domainIncludes :StatisticalPopulation, :StatisticalVariable ;
+    :isPartOf <https://pending.schema.org> ;
+    :rangeIncludes :Class ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2291> ;
+    rdfs:comment "Indicates the populationType common to all members of a [[StatisticalPopulation]] or all cases within the scope of a [[StatisticalVariable]]." .
+
+# Enumeration
+# Initially one, to establish a pattern for pulling in modest sized codelists from external KGs (datacommons or wikidata for example)
+
+
+:MeasurementMethodEnum a rdfs:Class ;
+    rdfs:label "MeasurementMethodEnum" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2564> ;
+    rdfs:comment "Enumeration(s) for use with [[measurementMethod]]." ;
+    rdfs:subClassOf :Enumeration .
+
+:ExampleMeasurementMethodEnum a :MeasurementMethodEnum ;
+    rdfs:label "ExampleMeasurementMethodEnum" ;
+    :isPartOf <https://pending.schema.org> ;
+    :source <https://github.com/schemaorg/schemaorg/issues/2564> ;
+    rdfs:comment "An example [[MeasurementMethodEnum]] (to remove when real enums are added)." .

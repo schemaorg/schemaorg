@@ -333,6 +333,7 @@ class SimpleCommentCountTests(unittest.TestCase):
     ORDER BY ?term""" % VOCABURI
     ndi1_results = SdoTermSource.query(query)
     if (len(ndi1_results) > 0):
+          log.info("Query was: %s" % query)
           for row in ndi1_results:
               log.info("WARNING term %s has  rdfs:comment value %s" % (row["term"],row["comment"]))
     self.assertEqual(len(ndi1_results), 0,

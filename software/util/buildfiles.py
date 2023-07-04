@@ -253,7 +253,10 @@ def uriwrap(ids):
     ret = []
     for i in ids:
         if i and len(i):
-            ret.append(VOCABURI + i)
+            if(i.startswith("http:") or i.startswith("https:")):#external reference
+                ret.append(i)
+            else:
+                ret.append(VOCABURI + i)
         else:
             ret.append("")
     if single:

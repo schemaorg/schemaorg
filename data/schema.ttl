@@ -31,7 +31,7 @@
     rdfs:label "Accommodation" ;
     :contributor <https://schema.org/docs/collab/STI_Accommodation_Ontology> ;
     rdfs:comment """An accommodation is a place that can accommodate human beings, e.g. a hotel room, a camping pitch, or a meeting room. Many accommodations are for overnight stays, but this is not a mandatory requirement.
-For more specific types of accommodations not defined in schema.org, one can use additionalType with external vocabularies.
+For more specific types of accommodations not defined in schema.org, one can use [[additionalType]] with external vocabularies.
 <br /><br />
 See also the <a href="/docs/hotels.html">dedicated document on the use of schema.org for marking up hotels and other forms of accommodations</a>.
 """ ;
@@ -300,6 +300,12 @@ Should not be used where the nature of the alignment can be described using a si
 <br /><br />
 See also the <a href="/docs/hotels.html">dedicated document on the use of schema.org for marking up hotels and other forms of accommodations</a>.
 """ ;
+    rdfs:subClassOf :LodgingBusiness .
+
+
+:VacationRental a rdfs:Class ;
+    rdfs:label "VacationRental" ;
+    rdfs:comment """A kind of lodging business that focuses on renting single properties for limited time.""" ;
     rdfs:subClassOf :LodgingBusiness .
 
 :BedDetails a rdfs:Class ;
@@ -980,7 +986,7 @@ Originally, URLs from [GoodRelations](http://purl.org/goodrelations/v1) were use
 :DonateAction a rdfs:Class ;
     rdfs:label "DonateAction" ;
     rdfs:comment "The act of providing goods, services, or money without compensation, often for philanthropic reasons." ;
-    rdfs:subClassOf :TradeAction .
+    rdfs:subClassOf :TransferAction .
 
 :DownloadAction a rdfs:Class ;
     rdfs:label "DownloadAction" ;
@@ -1774,7 +1780,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 
 :MediaObject a rdfs:Class ;
     rdfs:label "MediaObject" ;
-    rdfs:comment "A media object, such as an image, video, or audio object embedded in a web page or a downloadable dataset, i.e. DataDownload. Note that a creative work may have many media objects associated with it on the same web page. For example, a page about a single song (MusicRecording) may have a music video (VideoObject), and a high and low bandwidth audio stream (2 [[AudioObject]]s)." ;
+    rdfs:comment "A media object, such as an image, video, audio, or text object embedded in a web page or a downloadable dataset i.e. DataDownload. Note that a creative work may have many media objects associated with it on the same web page. For example, a page about a single song (MusicRecording) may have a music video (VideoObject), and a high and low bandwidth audio stream (2 AudioObject's)." ;
     rdfs:subClassOf :CreativeWork .
 
 :MediaSubscription a rdfs:Class ;
@@ -1991,6 +1997,12 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 :NGO a rdfs:Class ;
     rdfs:label "NGO" ;
     rdfs:comment "Organization: Non-governmental Organization." ;
+    rdfs:subClassOf :Organization .
+
+:PoliticalParty a rdfs:Class ;
+    rdfs:label "PoliticalParty" ;
+    rdfs:comment "Organization: Political Party." ;
+    :source <https://github.com/schemaorg/schemaorg/issues/3282> ;
     rdfs:subClassOf :Organization .
 
 :NailSalon a rdfs:Class ;
@@ -2997,6 +3009,12 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
     rdfs:label "TextDigitalDocument" ;
     rdfs:comment "A file composed primarily of text." ;
     rdfs:subClassOf :DigitalDocument .
+
+:TextObject a rdfs:Class ;
+    rdfs:label "TextObject" ;
+    rdfs:comment "A text file. The text can be unformatted or contain markup, html, etc." ;
+    rdfs:subClassOf :MediaObject ;
+    owl:equivalentClass <http://purl.org/dc/dcmitype/Text> .
 
 :TheaterEvent a rdfs:Class ;
     rdfs:label "TheaterEvent" ;
@@ -4045,9 +4063,10 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 :additionalType a rdf:Property ;
     rdfs:label "additionalType" ;
     :domainIncludes :Thing ;
-    :rangeIncludes :URL ;
-    rdfs:comment "An additional type for the item, typically used for adding more specific types from external vocabularies in microdata syntax. This is a relationship between something and a class that the thing is in. In RDFa syntax, it is better to use the native RDFa syntax - the 'typeof' attribute - for multiple types. Schema.org tools may have only weaker understanding of extra types, in particular those defined externally." ;
-    rdfs:subPropertyOf rdf:type .
+    :rangeIncludes :URL, :Text ;
+    rdfs:comment """An additional type for the item, typically used for adding more specific types from external vocabularies in microdata syntax. This is a relationship between something and a class that the thing is in. Typically the value is a URI-identified RDF class, and in this case corresponds to the 
+    use of rdf:type in RDF. Text values can be used sparingly, for cases where useful information can be added without their being an appropriate schema to reference. In the case of text values, the class label should follow the schema.org <a href="https://schema.org/docs/styleguide.html">style guide</a>""" ;
+    rdfs:subPropertyOf rdf:type . # see datamodel.html for "strings where we prefer things".
 
 :address a rdf:Property ;
     rdfs:label "address" ;
@@ -4510,7 +4529,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
 :bed a rdf:Property ;
     rdfs:label "bed" ;
     :domainIncludes :HotelRoom,
-        :Suite ;
+        :Suite, :Accommodation;
     :rangeIncludes :BedDetails,
         :BedType,
         :Text ;
@@ -7266,7 +7285,7 @@ Typical unit code(s): ROM for room or C62 for no unit. The type of room can be p
     :domainIncludes :Apartment,
         :HotelRoom,
         :SingleFamilyResidence,
-        :Suite ;
+        :Suite, :Accommodation ;
     :rangeIncludes :QuantitativeValue ;
     :contributor <https://schema.org/docs/collab/STI_Accommodation_Ontology> ;
     rdfs:comment """The allowed total occupancy for the accommodation in persons (including infants etc). For individual accommodations, this is not necessarily the legal maximum but defines the permitted usage as per the contractual agreement (e.g. a double room used by a single person).
@@ -8917,8 +8936,7 @@ we define a supporting type, [[SpeakableSpecification]]  which is defined to be 
 
 :thumbnail a rdf:Property ;
     rdfs:label "thumbnail" ;
-    :domainIncludes :ImageObject,
-        :VideoObject ;
+    :domainIncludes :CreativeWork ;
     :rangeIncludes :ImageObject ;
     rdfs:comment "Thumbnail image for an image or video." .
 
@@ -8957,7 +8975,7 @@ we define a supporting type, [[SpeakableSpecification]]  which is defined to be 
     rdfs:label "timeRequired" ;
     :domainIncludes :CreativeWork ;
     :rangeIncludes :Duration ;
-    rdfs:comment "Approximate or typical time it takes to work with or through this learning resource for the typical intended target audience, e.g. 'PT30M', 'PT1H25M'." .
+    rdfs:comment "Approximate or typical time it usually takes to work with or through the content of this work for the typical or target audience." .
 
 :title a rdf:Property ;
     rdfs:label "title" ;
@@ -9091,6 +9109,12 @@ we define a supporting type, [[SpeakableSpecification]]  which is defined to be 
     :rangeIncludes :Organization,
         :Person ;
     rdfs:comment "Organization or person who adapts a creative work to different languages, regional differences and technical requirements of a target market, or that translates during some event." .
+
+:tripOrigin a rdf:Property ;
+    rdfs:label "tripOrigin" ;
+    :domainIncludes :Trip ;
+    :rangeIncludes :Place ;
+    rdfs:comment "The location of origin of the trip, prior to any destination(s)." .
 
 :typeOfBed a rdf:Property ;
     rdfs:label "typeOfBed" ;
@@ -9232,7 +9256,7 @@ we define a supporting type, [[SpeakableSpecification]]  which is defined to be 
         :Number,
         :StructuredValue,
         :Text ;
-    rdfs:comment "The value of the quantitative value or property value node.\\n\\n* For [[QuantitativeValue]] and [[MonetaryAmount]], the recommended type for values is 'Number'.\\n* For [[PropertyValue]], it can be 'Text', 'Number', 'Boolean', or 'StructuredValue'.\\n* Use values from 0123456789 (Unicode 'DIGIT ZERO' (U+0030) to 'DIGIT NINE' (U+0039)) rather than superficially similar Unicode symbols.\\n* Use '.' (Unicode 'FULL STOP' (U+002E)) rather than ',' to indicate a decimal point. Avoid using these symbols as a readability separator." .
+    rdfs:comment "The value of a [[QuantitativeValue]] (including [[Observation]]) or property value node.\\n\\n* For [[QuantitativeValue]] and [[MonetaryAmount]], the recommended type for values is 'Number'.\\n* For [[PropertyValue]], it can be 'Text', 'Number', 'Boolean', or 'StructuredValue'.\\n* Use values from 0123456789 (Unicode 'DIGIT ZERO' (U+0030) to 'DIGIT NINE' (U+0039)) rather than superficially similar Unicode symbols.\\n* Use '.' (Unicode 'FULL STOP' (U+002E)) rather than ',' to indicate a decimal point. Avoid using these symbols as a readability separator." .
 
 :valueAddedTaxIncluded a rdf:Property ;
     rdfs:label "valueAddedTaxIncluded" ;
@@ -9687,7 +9711,8 @@ we define a supporting type, [[SpeakableSpecification]]  which is defined to be 
 :description a rdf:Property ;
     rdfs:label "description" ;
     :domainIncludes :Thing ;
-    :rangeIncludes :Text ;
+    :rangeIncludes :Text,
+        :TextObject ;
     rdfs:comment "A description of the item." ;
     owl:equivalentProperty dc:description .
 

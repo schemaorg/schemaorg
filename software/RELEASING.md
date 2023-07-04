@@ -67,6 +67,8 @@ e.g.
 
 PRE-RELEASE STEPS
 =================
+Before building a release, confirm your Python environment is using the correct versions of Python libraries using the following command:
+`pip install -r software/requirements.txt`
 
 In a checked out version of the _main_ branch:
 
